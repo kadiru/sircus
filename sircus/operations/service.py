@@ -10,6 +10,7 @@ import subprocess
 import sys
 import threading
 import uuid
+from sircus.operations.bucket_facing import random_center, tilt_bounds, DEFAULT_TILT_BOUNDS
 
 ROOT = Path(__file__).resolve().parents[2]
 MISSING = [
@@ -101,7 +102,7 @@ class GuidedOperations:
             return []
         if self._busy():
             return ['stop']
-        actions = ['set_board', 'set_bucket', 'select_checkpoint', 'select_profile', 'reset']
+        actions = ['set_board', 'randomize_board', 'set_bucket', 'select_checkpoint', 'select_profile', 'reset']
         if self._state['board_confirmed'] and self._state['bucket_confirmed']:
             actions.append('scan_bucket')
         if self._state['bucket_observation'] is not None:
@@ -119,9 +120,20 @@ class GuidedOperations:
                 'hardware_enabled': False, 'native_paths_checked': False,
                 'profile': self.profile, 'profile_id': self.profile_id, 'profile_metadata': self.profile_metadata,
                 'checkpoint_available': bool(self._checkpoint),
+                'random_board_bounds_mm': self._random_board_bounds(),
+                'facing_tilt_bounds_deg': DEFAULT_TILT_BOUNDS,
+                'planning_modes': ['fixed_board','learned_board','facing_search','facing_learned'],
                 'missing_calibrations': MISSING, 'checkpoint_id': self._checkpoint.get('checkpoint_id'),
                 'checkpoint_validation': 'verified by numerical worker before learned planning',
                 'scope': 'Numerical rehearsal only; arm poses are endpoint checks and scan is synthetic scene ground truth'})
+
+    def _random_board_bounds(self):
+        distribution=self.profile_metadata.get('distribution',{}).get('board_center_mm')
+        if distribution:
+            return {'min':[b[0] for b in distribution],'max':[b[1] for b in distribution]}
+        center=self._default_scene['board']['center_mm']
+        return {'min':[center[0]-15,center[1]-15,max(50,center[2]-10)],
+                'max':[center[0]+15,center[1]+15,min(900,center[2]+10)]}
 
     def _setup_phase(self):
         return ('position_board' if not self._state['board_confirmed'] else
@@ -203,8 +215,9 @@ class GuidedOperations:
             raise ValueError('Action JSON object required')
         name = payload['action']
         expected = {'set_board': {'action','center_mm','rpy_deg'}, 'set_bucket': {'action','center_xy_mm'},
-            'scan_bucket': {'action'}, 'plan': {'action','mode','seed','budget'},
-            'confirm_loaded': {'action'}, 'grip_drop': {'action'}, 'stop': {'action'},
+            'scan_bucket': {'action'}, 'plan': {'action','mode','seed','budget','tilt_bounds_deg'},
+            'randomize_board': {'action','bounds_mm','seed'},
+            'confirm_loaded': {'action','expected_mode'}, 'grip_drop': {'action','expected_mode'}, 'stop': {'action'},
             'reset': {'action'}, 'select_checkpoint': {'action','checkpoint'},
             'select_profile': {'action','profile'}}
         if name not in expected or set(payload)-expected[name]:
@@ -225,6 +238,9 @@ class GuidedOperations:
                 raise ValueError('A numerical operation is pending; stop it before changing the setup')
             if name not in self._available():
                 raise ValueError('Complete the preceding setup step before '+name)
+            if name in ('confirm_loaded','grip_drop') and 'expected_mode' in payload:
+                if self._state['plan'] is None or payload['expected_mode']!=self._state['plan']['mode']:
+                    raise ValueError('Plan mode changed; plan and acknowledge loading in the intended mode again')
             if name == 'select_profile':
                 self._load_profile(payload.get('profile'))
                 self._state.update(scene=copy.deepcopy(self._default_scene), board_confirmed=False, bucket_confirmed=False)
@@ -240,6 +256,14 @@ class GuidedOperations:
                 self._state['scene']['board'].update(center_mm=center, rpy_deg=angles)
                 self._state['board_confirmed'] = True
                 self._invalidate(); self._event('board_target_set', source='operator_simulation_input')
+            elif name == 'randomize_board':
+                bounds=payload.get('bounds_mm');seed=payload.get('seed')
+                center=random_center(bounds,seed)
+                self._state['scene']['board']['center_mm']=center
+                self._state['board_confirmed']=True
+                self._invalidate();self._event('board_randomized',seed=seed,bounds_mm=copy.deepcopy(bounds),
+                    center_mm=center,source='seeded_uniform_operator_box',
+                    endpoint_validation='pending synthetic scan; randomization alone does not prove reachability')
             elif name == 'set_bucket':
                 position = vector(payload.get('center_xy_mm'), 2, 'Bucket position', 2000)
                 self._state['scene']['bin']['center_xy_mm'] = position
@@ -266,9 +290,12 @@ class GuidedOperations:
                 self._start('scanning', {'op':'scan','scene':copy.deepcopy(self._state['scene'])}, scanned)
             elif name == 'plan':
                 mode = payload.get('mode', 'fixed_board'); seed = payload.get('seed', 42); budget = payload.get('budget', 8)
-                if mode not in ('fixed_board','learned_board') or type(seed) is not int or not 0 <= seed < 2**32 or type(budget) is not int or not 1 <= budget <= 32:
-                    raise ValueError('Use fixed_board/learned_board, uint32 seed and budget 1..32')
-                if mode == 'learned_board' and not self._checkpoint:
+                if mode not in ('fixed_board','learned_board','facing_search','facing_learned') or type(seed) is not int or not 0 <= seed < 2**32 or type(budget) is not int or not 1 <= budget <= 32:
+                    raise ValueError('Use a supported planning mode, uint32 seed and budget 1..32')
+                bounds=tilt_bounds(payload.get('tilt_bounds_deg'))
+                if 'tilt_bounds_deg' in payload and mode not in ('facing_search','facing_learned'):
+                    raise ValueError('Tilt bounds apply only to bucket-facing modes')
+                if mode in ('learned_board','facing_learned') and not self._checkpoint:
                     raise ValueError('Train or select a matching checkpoint for this scene profile first')
                 observation = self._state['bucket_observation']
                 if observation['scene_fingerprint'] != digest(self._state['scene']):
@@ -279,7 +306,8 @@ class GuidedOperations:
                     self._state.update(plan=result, phase='ready_to_load')
                     self._event('plan_ready', mode=mode, source='numerical_evaluation', predicted_outcome=result['result']['outcome'])
                 self._start('planning', {'op':'plan','scene':copy.deepcopy(self._state['scene']),
-                    'checkpoint':copy.deepcopy(self._checkpoint),'mode':mode,'seed':seed,'budget':budget}, planned)
+                    'checkpoint':copy.deepcopy(self._checkpoint),'mode':mode,'seed':seed,'budget':budget,
+                    **({'tilt_bounds_deg':bounds} if mode in ('facing_search','facing_learned') else {})}, planned)
             elif name == 'confirm_loaded':
                 self._state.update(loaded=True, phase='ready_to_drop')
                 self._event('ball_loaded_acknowledged', source='operator_simulation_acknowledgement', grasp_verified=False)
@@ -289,6 +317,8 @@ class GuidedOperations:
                     raise ValueError('Plan is stale; scan and plan again')
                 self._state.update(trial_id=str(uuid.uuid4()), result=None, loaded=False)
                 self._event('grip_requested', execution='simulated; no tool actuation')
+                self._event('board_orientation_requested',target_rpy_deg=plan['selected_scene']['board']['rpy_deg'],
+                            execution='synthetic endpoint choreography; no arm moved',native_path_checked=False)
                 self._event('drop_position_requested', release_coordinates=plan['release_coordinates'], native_path_checked=False)
                 self._state['trial_counter'] += 1
                 trial_seed = (plan['seed']+104729*self._state['trial_counter']) % 2**32
@@ -298,13 +328,18 @@ class GuidedOperations:
                     result.update(planning_mode=plan['mode'], checkpoint_id=plan.get('checkpoint_id'),
                                   planning_inference=plan.get('inference'), trial_counter=self._state['trial_counter'])
                     self._state.update(result=result, phase='complete')
+                    for segment in result.get('choreography',{}).get('segments',[]):
+                        self._event('choreography_stage',stage=segment['stage'],start_s=segment['start_s'],end_s=segment['end_s'],
+                                    time_basis='synthetic_choreography_elapsed_s',physical_timing_verified=False)
                     self._event('release_simulated', release_coordinates=result['release_coordinates'],
                                 board_pose_source=result['board_pose']['source'])
                     self._event('trial_completed', outcome=result['result']['outcome'],
                                 success=result['result']['success'], source='versioned_synthetic_scoring')
                     self._save()
                 self._start('running', {'op':'execute','scene':copy.deepcopy(plan['selected_scene']),
-                    'release_action':copy.deepcopy(plan['release_action']),'seed':trial_seed}, completed)
+                    'release_action':copy.deepcopy(plan['release_action']),'seed':trial_seed,
+                    **({'choreography':True,'initial_scene':copy.deepcopy(self._state['scene'])}
+                       if plan['mode'] in ('facing_search','facing_learned') else {})}, completed)
             return self.status()
 
     def close(self):
