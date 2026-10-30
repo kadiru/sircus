@@ -1,5 +1,25 @@
 # Sircus cross-computer handoff — October 30, 2026
 
+## Round 2 completed — October 30, 2026, 13:05–13:06 PDT
+
+After explicit operator reload/clearance confirmation, native motion moved only
+the board arm to its taught Position 2. Pose/joint checks passed; vacuum holding
+remained true during the transition and the dropper stayed stationary. The paired
+Round2 drop target was activated through the controller's supported pose route.
+Gray → Purple → Pink → Green then all completed pickup, constrained vertical lift,
+transfer, two-second settle and release, without recovery/retries. FX was enabled
+at maximum dashboard volume; no audio control error was reported. Acoustic output
+and bucket capture were not independently scored; all four records are unlabeled.
+
+Final readback: both arms stationary, dashboard idle/connected, no fault or error,
+dropper open, board at Position 2, camera use disabled and FX muted. No next round
+starts automatically. No service restart or Viam configuration change occurred.
+Private trial/state logs remain local; software is unchanged from `0f44107`.
+
+The earlier recovery/reload notes below are historical. Latest physical status
+is the completed Round2 state above. Source branch remains
+`codex/macbook-held-ball-recovery` (draft PR #15).
+
 ## Update: Green finished; reload pause
 
 The earlier blocked state below is historical. `codex/macbook-held-ball-recovery`
