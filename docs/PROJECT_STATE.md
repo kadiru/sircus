@@ -1,5 +1,18 @@
 # Project state
 
+## Round 1 home reset — October 30, 2026
+
+`codex/macbook-round-home` adds an explicit empty-tool home button to the live
+operator panel. It verifies Stop, preserves interrupted records, retreats
+vertically from known pickup poses, then parks the dropper at Round 1's saved
+drop pose. It never actuates tools, moves the board, starts cameras, or starts a
+round automatically. Held/unknown balls and unknown intermediate poses block it.
+See [usage, guards and validation](ROUND_HOME_RESET.md). Mock checks passed and
+the idle camera-off dashboard was refreshed; actual reset movement remains an
+operator button press. Shared source synchronization does not deploy this feature
+on other hosts. Local poses, credentials and runtime evidence remain excluded.
+
+
 ## Dashboard round controls — October 30, 2026
 
 Deployment verification: the idle physical dashboard was refreshed to this branch

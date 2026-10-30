@@ -396,6 +396,8 @@ class Controller:
         fresh = self.connected and time.monotonic() - self.snapshot_time <= FRESH_SECONDS
         if not busy:
             allowed += ['recover_stop']
+            if fresh and not self.journal_error and not self._round_blockers():
+                allowed += ['reset_round_home']
             if self._unsaved() and fresh and not self.fault and self.recovery_verified:
                 try:self._resume_held_checks();allowed += ['resume_held_drop']
                 except (TrialError,KeyError,TypeError):pass
@@ -484,6 +486,23 @@ class Controller:
                 raise TrialError('Stale action request; refresh state and confirm again')
         if name not in (await self.status())['allowed_actions']:
             raise TrialError('Action unavailable: another action/trial is pending, state is stale, or calibration is missing')
+        if name == 'reset_round_home':
+            if payload.get('confirmed') is not True:
+                raise TrialError('Confirm empty gripper, fixed board/bucket and clear home route')
+            if payload.get('expected_action_epoch') != self.action_epoch:
+                raise TrialError('Stale reset request; confirm again')
+            payload = {**payload, '_preset':self._round_presets()['round-1']}
+            # Retain completed evidence before Stop, which marks an active trial aborted.
+            if self._unsaved() and self.trial.get('status') == 'completed':
+                self._keep_unlabeled()
+            self.action_epoch += 1
+            reset_epoch = self.action_epoch
+            self._round_audio(False)
+            await self._stop(recover_idle=True)
+            if self.action_epoch != reset_epoch:
+                raise TrialError('Reset superseded by another Stop; no home movement started')
+            if self.fault or self.error:
+                raise TrialError(self.error or 'Stop verification failed; reset cannot move')
         if name == 'run_round':
             if payload.get('confirmed') is not True:raise TrialError('Confirm four balls loaded, empty gripper and both arm routes clear')
             if payload.get('expected_action_epoch') != self.action_epoch:raise TrialError('Stale round request')
@@ -738,6 +757,8 @@ class Controller:
             still_current()
             if name == 'run_round':
                 await self._run_round(p, still_current)
+            elif name == 'reset_round_home':
+                await self._reset_round_home(p, still_current)
             elif name == 'set_ball':
                 self.selected_ball_id = p['ball_id']
                 self.phase = 'idle' if self.connected else 'disconnected'
@@ -897,7 +918,7 @@ class Controller:
             self._audio_cancel()
             self.error = str(exc) if isinstance(exc, TrialError) else f'{name} failed ({type(exc).__name__}); check hardware/connection'
             if name in ('go_loading','go_drop','drop','load_drop_cycle','open_gripper','close_gripper',
-                        'go_pickup_approach','go_loading_approach','pickup_drop_cycle','resume_held_drop','run_round'):
+                        'go_pickup_approach','go_loading_approach','pickup_drop_cycle','resume_held_drop','run_round','reset_round_home'):
                 try:await self._stop_and_verify()
                 except Exception:
                     self.error += '; dropper stop not confirmed';self.fault=True
@@ -1283,6 +1304,62 @@ class Controller:
             self._round_audio(False)
             self.round_run['finished_at']=utc()
             self._round_save()
+
+    async def _reset_round_home(self, p, still_current):
+        """Explicit empty-tool park. Never opens a tool or moves the board arm."""
+        self._round_audio(False)
+        self._audio_cancel()
+        state=await self._snapshot();still_current()
+        self._stationary(state);self._board_fixed(state)
+        await self._bounded(self.adapter.verify_quiescent(),STOP_TIMEOUT_SECONDS);still_current()
+        if await self._bounded(self.adapter.held_ball(),SNAPSHOT_TIMEOUT_SECONDS) is not False:
+            raise TrialError('Reset requires an empty gripper; held/unknown ball is never released automatically')
+        still_current()
+        actual=copy.deepcopy(state['arms']['arm']['pose'])
+        home=copy.deepcopy(p['_preset']['dropper_arm']['pose'])
+        rounds=self._round_presets()
+        route=[]
+        if not any(pose_matches(actual,row['dropper_arm']['pose']) for row in rounds.values()):
+            for ball in self.calibration['pickup_poses']:
+                grasp,approach=self._pickup_poses(ball)
+                transit={**approach,'z':self._pickup_clearance_z(approach)}
+                if pose_matches(actual,grasp):
+                    route=[approach]+([transit] if transit['z']>approach['z'] else [])
+                    break
+                if pose_matches(actual,approach):
+                    route=[transit] if transit['z']>approach['z'] else []
+                    break
+                if pose_matches(actual,transit):break
+            else:
+                raise TrialError('Home reset requires a taught pickup, approach, or round drop pose; unknown intermediate pose is blocked')
+        if route and not callable(getattr(self.adapter,'move_pose_linear',None)):
+            raise TrialError('Constrained vertical retreat is unavailable')
+        if self._unsaved():self._keep_unlabeled()
+        for target in route:
+            self.phase='home_vertical_retreat'
+            self._event('reset_round_home','vertical_retreat_sent',expected_start=actual,target_pose=target)
+            await self.adapter.move_pose_linear(target,actual,
+                line_tolerance_mm=POSE_TOLERANCE_MM,orientation_tolerance_deg=ORIENTATION_TOLERANCE_DEG)
+            still_current();await self._settle(target);still_current()
+            actual=copy.deepcopy(target)
+        state=await self._snapshot();still_current()
+        self._stationary(state);self._board_fixed(state)
+        if not pose_matches(state['arms']['arm']['pose'],actual):raise TrialError('Home transfer start changed')
+        if await self._bounded(self.adapter.held_ball(),SNAPSHOT_TIMEOUT_SECONDS) is not False:
+            raise TrialError('Empty gripper verification changed before home transfer')
+        still_current()
+        self.phase='home_to_round1_drop'
+        self._event('reset_round_home','home_move_sent',target_pose=home)
+        if not pose_matches(actual,home):
+            await self.adapter.move_pose(home);still_current()
+        await self._settle(home);still_current()
+        old_id=self.round_run.get('id') if self.round_run else None
+        run_id=datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')+'-home-'+uuid.uuid4().hex[:8]
+        self.round_run={'id':run_id,'round_id':'round-1','status':'home_ready','kind':'home_reset',
+            'position':0,'trials':[],'previous_round_run_id':old_id,'finished_at':utc(),
+            'home_pose':home,'board_moved':False,'tool_actuated':False,'automatic_round_start':False}
+        self._round_save();self.phase='idle'
+        self._event('reset_round_home','home_reached',target_pose=home)
 
     def _resume_held_checks(self):
         t=self.trial

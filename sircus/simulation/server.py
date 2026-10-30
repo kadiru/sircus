@@ -179,7 +179,7 @@ class PhysicalBridge:
         else:
             # Stop owns bounded planner/readback/cancellation/recording cleanup
             # (up to 33s). Do not cancel its recovery before those bounds expire.
-            timeout = 40 if payload.get('action') in ('stop','recover_stop') else 30
+            timeout = 40 if payload.get('action') in ('stop','recover_stop','reset_round_home') else 30
             call = self.controller.action(payload)
         future = asyncio.run_coroutine_threadsafe(call, self.loop)
         try:

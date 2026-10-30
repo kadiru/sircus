@@ -9,7 +9,7 @@ const poseDirty=new Set();
 let poseCommit=null;
 const poseKeys=['x','y','z','o_x','o_y','o_z','theta'];
 const poseSuffixes=['X','Y','Z','OX','OY','OZ','Theta'];
-const poseMotionActions=['load_drop_cycle','go_loading','go_loading_approach','go_drop','drop','go_pickup_approach','pickup_drop_cycle','resume_held_drop','run_round'];
+const poseMotionActions=['load_drop_cycle','go_loading','go_loading_approach','go_drop','drop','go_pickup_approach','pickup_drop_cycle','resume_held_drop','run_round','reset_round_home'];
 let status = null;
 let pending = 0;
 let pendingAction = null;
@@ -101,10 +101,12 @@ function updateControls() {
   $('physicalHeight').disabled = pending > 0 || !!status?.busy || !!(status?.trial && !status.trial.saved);
   for(const button of controls.filter(b=>b.dataset.physicalAction==='run_round'))button.disabled ||= !$('physicalRoundConfirm')?.checked;
   if($('physicalRoundConfirm'))$('physicalRoundConfirm').disabled=!allowed('run_round')||pending>0||poseDirty.size>0;
+  if($('physicalHomeReset'))$('physicalHomeReset').disabled ||= !$('physicalHomeConfirm')?.checked;
+  if($('physicalHomeConfirm'))$('physicalHomeConfirm').disabled=!allowed('reset_round_home')||pending>0||poseDirty.size>0;
   if($('physicalRoundSounds'))$('physicalRoundSounds').disabled=!!status?.busy||pending>0;
   if($('physicalRoundStatus')){
     const run=status?.round_run;
-    $('physicalRoundStatus').textContent=run?`${run.round_id}: ${run.status} · ${run.trials?.length||0}/4 completed · ${run.ball_id||'board transition'} · ${status?.phase||''}. ${run.status==='awaiting_reload'?'Reload all four balls, confirm clear paths, then press Round 2.':run.status==='interrupted'?'Stopped. Inspect the held-ball state; use recovery below. Do not repeat completed pickups.':''}`:(status?.round_blockers?.join('; ')||'Saved round presets ready. Confirm loading before starting.');
+    $('physicalRoundStatus').textContent=run?.status==='home_ready'?'At Round 1 drop home. Reload all four marks, confirm clear paths, then press Round 1. The board moves on round start.':run?`${run.round_id}: ${run.status} · ${run.trials?.length||0}/4 completed · ${run.ball_id||'board transition'} · ${status?.phase||''}. ${run.status==='awaiting_reload'?'Reload all four balls, confirm clear paths, then press Round 2.':run.status==='interrupted'?'Stopped. Inspect the held-ball state; use recovery below. Do not repeat completed pickups.':''}`:(status?.round_blockers?.join('; ')||'Saved round presets ready. Confirm loading before starting.');
   }
   if($('physicalReadbackDiagnostics'))$('physicalReadbackDiagnostics').textContent=pretty(status?.readback_diagnostics||{});
   $('physicalCycleStatus').textContent=cycleReadiness();
@@ -116,8 +118,9 @@ function updateControls() {
 function render(value) {
   if(!value||typeof value!=='object'||!value.allowed_actions)throw new Error('Invalid controller status');
   if($('physicalRoundConfirm')&&(value.busy||value.fault||!value.connected||value.action_epoch!==lastActionEpoch))$('physicalRoundConfirm').checked=false;
+  if($('physicalHomeConfirm')&&(value.busy||!value.connected||value.action_epoch!==lastActionEpoch))$('physicalHomeConfirm').checked=false;
   const newSession=value.action_token&&lastActionToken&&value.action_token!==lastActionToken;
-  if(newSession){lastActionEpoch=-1;$('physicalCycleConfirm').checked=false;}
+  if(newSession){lastActionEpoch=-1;$('physicalCycleConfirm').checked=false;if($('physicalHomeConfirm'))$('physicalHomeConfirm').checked=false;if($('physicalRoundConfirm'))$('physicalRoundConfirm').checked=false;}
   if(Number.isSafeInteger(value.action_epoch)&&value.action_epoch<lastActionEpoch)return false;
   if(Number.isSafeInteger(value.action_epoch))lastActionEpoch=value.action_epoch;
   status = value;lastKnownBusy=!!value.busy;
@@ -207,6 +210,7 @@ async function refreshStatus() {
     if(epoch!==commandEpoch||destroyed)return;
     status = null;$('physicalCycleConfirm').checked=false;
     if($('physicalRoundConfirm'))$('physicalRoundConfirm').checked=false;
+    if($('physicalHomeConfirm'))$('physicalHomeConfirm').checked=false;
     updateControls();
     $('physicalMode').textContent = 'STATUS UNAVAILABLE';
     $('physicalCameraTime').textContent='Status unavailable · last image may be stale';
@@ -249,6 +253,7 @@ async function command(action,extra={}) {
       if(!['round-1','round-2'].includes(body.round_id))throw Error('Choose Round 1 or Round 2.');
       $('physicalRoundConfirm').checked=false;
     }
+    if(action==='reset_round_home'){if(!$('physicalHomeConfirm')?.checked)throw Error('Confirm empty gripper, fixed setup and clear home route.');body.confirmed=true;$('physicalHomeConfirm').checked=false;}
     if(action==='recover_stop')body.confirmed=true;
     if(action==='resume_held_drop'){if(!$('physicalHeldConfirm')?.checked)throw Error('Confirm held ball and clear transfer route.');body.confirmed=true;body.trial_id=status.trial.id;$('physicalHeldConfirm').checked=false;}
     if (action === 'load_drop_cycle') { if(!$('physicalCycleConfirm').checked)throw new Error('Confirm the fixed setup before starting a cycle.'); body.fixed_setup_confirmed = $('physicalCycleConfirm').checked; body.practice_mode = $('physicalPractice').checked; }
@@ -275,7 +280,7 @@ async function command(action,extra={}) {
   try {
     const value = await request('/api/physical/action', {
       method:'POST', headers:{'Content-Type':'application/json', ...(lastActionToken ? {'X-Sircus-Token':lastActionToken} : {})}, body:JSON.stringify(body)
-    },['stop','recover_stop'].includes(action)?(requestTimeouts.stop??45000):requestTimeouts.action);
+    },['stop','recover_stop','reset_round_home'].includes(action)?(requestTimeouts.stop??45000):requestTimeouts.action);
     if(value.error||value.accepted===false)throw new Error(value.error||'Command was not accepted');
     if(epoch!==commandEpoch||destroyed)return false;
     const returned=value.status||value;
@@ -322,6 +327,7 @@ panel.querySelectorAll('input[name="physicalOutcome"]').forEach(input => input.a
 $('physicalCalibrationConfirm').addEventListener('change', updateControls);
 $('physicalCycleConfirm').addEventListener('change',()=>{if($('physicalCycleConfirm').checked&&!commandUncertain)commandError='';updateControls();if(status&&!commandError)render(status);});
 $('physicalRoundConfirm')?.addEventListener('change',updateControls);
+$('physicalHomeConfirm')?.addEventListener('change',updateControls);
 $('physicalPoseConfirm')?.addEventListener('change',updateControls);
 for(const prefix of ['Loading','Drop'])for(const suffix of poseSuffixes)$('physical'+prefix+suffix)?.addEventListener('input',()=>{poseDirty.add(prefix);$('physicalCycleConfirm').checked=false;updateControls();});
 $('physicalDiscardPoses')?.addEventListener('click',()=>{if(pending||status?.busy)return;poseDirty.clear();$('physicalPoseConfirm').checked=false;$('physicalCycleConfirm').checked=false;if(status)render(status);});

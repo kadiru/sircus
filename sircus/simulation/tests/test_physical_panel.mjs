@@ -73,3 +73,22 @@ test('round motion rejects unsaved pose edits and status loss clears reload conf
  assert.equal(await h.instance.command('run_round',{round_id:'round-1'}),false);
  fail=true;await h.instance.refreshStatus();assert.equal(h.node('physicalRoundConfirm').checked,false);assert.equal(h.posts().length,0);h.instance.destroy();
 });
+
+test('home reset requires its own empty-tool confirmation and a fresh epoch',async()=>{
+ let state=base({allowed_actions:['reset_round_home','stop']});
+ const h=fixture((_url,options)=>{if(options?.body)state={...state,action_epoch:2,busy:true,allowed_actions:['stop']};return Promise.resolve(reply(state));});
+ await h.start();assert.equal(await h.instance.command('reset_round_home'),false);
+ h.node('physicalHomeConfirm').checked=true;
+ assert.equal(await h.instance.command('reset_round_home'),true);
+ assert.deepEqual(h.posts(),[{action:'reset_round_home',confirmed:true,expected_action_epoch:1}]);
+ assert.equal(h.node('physicalHomeConfirm').checked,false);
+ state=base({action_epoch:2,allowed_actions:['run_round','reset_round_home','stop'],round_run:{status:'home_ready',round_id:'round-1'}});
+ await h.instance.refreshStatus();assert.match(h.node('physicalRoundStatus').textContent,/At Round 1 drop home/);
+ assert.equal(h.posts().length,1);h.instance.destroy();
+});
+test('home reset is locked by unsaved edits and stale status clears its confirmation',async()=>{
+ let fail=false;const h=fixture(()=>fail?Promise.reject(Error('offline')):Promise.resolve(reply(base({allowed_actions:['reset_round_home','stop']}))));
+ await h.start();h.node('physicalHomeConfirm').checked=true;h.node('physicalDropX').value='650';h.node('physicalDropX').listeners.input();
+ assert.equal(await h.instance.command('reset_round_home'),false);
+ fail=true;await h.instance.refreshStatus();assert.equal(h.node('physicalHomeConfirm').checked,false);assert.equal(h.posts().length,0);h.instance.destroy();
+});
