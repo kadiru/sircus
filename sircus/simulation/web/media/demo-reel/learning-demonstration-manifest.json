@@ -1,0 +1,378 @@
+{
+  "schema": "sircus-learning-demonstration-video-v1",
+  "bundle_sha256": "aa48d3dc9fc91547331a548a5677655be75bf35f979dfe3b99b599c023a45eb8",
+  "renderer_sha256": "ddf7f0fa48d7fd5bb1eb2107b5960d1eef74f7909c5657c336cd8ddeb0f263dc",
+  "data_origin": "synthetic",
+  "physically_verified": false,
+  "native_paths_checked": false,
+  "frames": 1317,
+  "fps": 20,
+  "width": 1280,
+  "height": 720,
+  "duration_seconds": 65.85,
+  "codec": "H.264",
+  "audio": {
+    "kind": "synthetic soundtrack from original bundled effects; not microphone, BLE or physical contact data",
+    "events": [
+      {
+        "t": 15.35,
+        "asset": "drum_roll.wav",
+        "gain": 0.3,
+        "source": "illustrated carry and two-second settle",
+        "trial_id": "learning-shared-test-0000-12690d8264d5-n8"
+      },
+      {
+        "t": 16.35,
+        "asset": "drum_roll.wav",
+        "gain": 0.3,
+        "source": "illustrated carry and two-second settle",
+        "trial_id": "learning-shared-test-0000-12690d8264d5-n8"
+      },
+      {
+        "t": 17.35,
+        "asset": "drum_roll.wav",
+        "gain": 0.3,
+        "source": "illustrated carry and two-second settle",
+        "trial_id": "learning-shared-test-0000-12690d8264d5-n8"
+      },
+      {
+        "t": 18.542250000000003,
+        "asset": "cartoon_boing.wav",
+        "gain": 0.38,
+        "source": "saved simulated contact; soundtrack cue spacing at least80ms",
+        "contact_index": 0,
+        "contact_object": "board",
+        "trial_id": "learning-shared-test-0000-12690d8264d5-n8"
+      },
+      {
+        "t": 18.713250000000002,
+        "asset": "cartoon_plop.wav",
+        "gain": 0.38,
+        "source": "saved simulated contact; soundtrack cue spacing at least80ms",
+        "contact_index": 2,
+        "contact_object": "bucket-outer-wall",
+        "trial_id": "learning-shared-test-0000-12690d8264d5-n8"
+      },
+      {
+        "t": 22.35,
+        "asset": "miss.wav",
+        "gain": 0.42,
+        "source": "known saved simulation outcome, not physical sensing",
+        "trial_id": "learning-shared-test-0000-12690d8264d5-n8"
+      },
+      {
+        "t": 25.200000000000003,
+        "asset": "drum_roll.wav",
+        "gain": 0.3,
+        "source": "illustrated carry and two-second settle",
+        "trial_id": "learning-shared-test-0000-12690d8264d5-n24"
+      },
+      {
+        "t": 26.200000000000003,
+        "asset": "drum_roll.wav",
+        "gain": 0.3,
+        "source": "illustrated carry and two-second settle",
+        "trial_id": "learning-shared-test-0000-12690d8264d5-n24"
+      },
+      {
+        "t": 27.200000000000003,
+        "asset": "drum_roll.wav",
+        "gain": 0.3,
+        "source": "illustrated carry and two-second settle",
+        "trial_id": "learning-shared-test-0000-12690d8264d5-n24"
+      },
+      {
+        "t": 28.416750000000004,
+        "asset": "cartoon_boing.wav",
+        "gain": 0.38,
+        "source": "saved simulated contact; soundtrack cue spacing at least80ms",
+        "contact_index": 0,
+        "contact_object": "board",
+        "trial_id": "learning-shared-test-0000-12690d8264d5-n24"
+      },
+      {
+        "t": 28.5955,
+        "asset": "cartoon_plop.wav",
+        "gain": 0.38,
+        "source": "saved simulated contact; soundtrack cue spacing at least80ms",
+        "contact_index": 1,
+        "contact_object": "bucket-outer-wall",
+        "trial_id": "learning-shared-test-0000-12690d8264d5-n24"
+      },
+      {
+        "t": 32.2,
+        "asset": "miss.wav",
+        "gain": 0.42,
+        "source": "known saved simulation outcome, not physical sensing",
+        "trial_id": "learning-shared-test-0000-12690d8264d5-n24"
+      },
+      {
+        "t": 35.050000000000004,
+        "asset": "drum_roll.wav",
+        "gain": 0.3,
+        "source": "illustrated carry and two-second settle",
+        "trial_id": "learning-shared-test-0000-12690d8264d5-n64"
+      },
+      {
+        "t": 36.050000000000004,
+        "asset": "drum_roll.wav",
+        "gain": 0.3,
+        "source": "illustrated carry and two-second settle",
+        "trial_id": "learning-shared-test-0000-12690d8264d5-n64"
+      },
+      {
+        "t": 37.050000000000004,
+        "asset": "drum_roll.wav",
+        "gain": 0.3,
+        "source": "illustrated carry and two-second settle",
+        "trial_id": "learning-shared-test-0000-12690d8264d5-n64"
+      },
+      {
+        "t": 38.279500000000006,
+        "asset": "cartoon_boing.wav",
+        "gain": 0.38,
+        "source": "saved simulated contact; soundtrack cue spacing at least80ms",
+        "contact_index": 0,
+        "contact_object": "board",
+        "trial_id": "learning-shared-test-0000-12690d8264d5-n64"
+      },
+      {
+        "t": 38.453,
+        "asset": "cartoon_plop.wav",
+        "gain": 0.38,
+        "source": "saved simulated contact; soundtrack cue spacing at least80ms",
+        "contact_index": 1,
+        "contact_object": "bucket-outer-wall",
+        "trial_id": "learning-shared-test-0000-12690d8264d5-n64"
+      },
+      {
+        "t": 38.56425,
+        "asset": "cartoon_plop.wav",
+        "gain": 0.38,
+        "source": "saved simulated contact; soundtrack cue spacing at least80ms",
+        "contact_index": 2,
+        "contact_object": "table",
+        "trial_id": "learning-shared-test-0000-12690d8264d5-n64"
+      },
+      {
+        "t": 42.050000000000004,
+        "asset": "miss.wav",
+        "gain": 0.42,
+        "source": "known saved simulation outcome, not physical sensing",
+        "trial_id": "learning-shared-test-0000-12690d8264d5-n64"
+      },
+      {
+        "t": 44.9,
+        "asset": "drum_roll.wav",
+        "gain": 0.3,
+        "source": "illustrated carry and two-second settle",
+        "trial_id": "learning-shared-test-0000-12690d8264d5-n128"
+      },
+      {
+        "t": 45.9,
+        "asset": "drum_roll.wav",
+        "gain": 0.3,
+        "source": "illustrated carry and two-second settle",
+        "trial_id": "learning-shared-test-0000-12690d8264d5-n128"
+      },
+      {
+        "t": 46.9,
+        "asset": "drum_roll.wav",
+        "gain": 0.3,
+        "source": "illustrated carry and two-second settle",
+        "trial_id": "learning-shared-test-0000-12690d8264d5-n128"
+      },
+      {
+        "t": 48.12775,
+        "asset": "cartoon_boing.wav",
+        "gain": 0.38,
+        "source": "saved simulated contact; soundtrack cue spacing at least80ms",
+        "contact_index": 0,
+        "contact_object": "board",
+        "trial_id": "learning-shared-test-0000-12690d8264d5-n128"
+      },
+      {
+        "t": 48.311,
+        "asset": "cartoon_plop.wav",
+        "gain": 0.38,
+        "source": "saved simulated contact; soundtrack cue spacing at least80ms",
+        "contact_index": 1,
+        "contact_object": "bucket-outer-wall",
+        "trial_id": "learning-shared-test-0000-12690d8264d5-n128"
+      },
+      {
+        "t": 48.40775,
+        "asset": "cartoon_plop.wav",
+        "gain": 0.38,
+        "source": "saved simulated contact; soundtrack cue spacing at least80ms",
+        "contact_index": 2,
+        "contact_object": "table",
+        "trial_id": "learning-shared-test-0000-12690d8264d5-n128"
+      },
+      {
+        "t": 51.9,
+        "asset": "miss.wav",
+        "gain": 0.42,
+        "source": "known saved simulation outcome, not physical sensing",
+        "trial_id": "learning-shared-test-0000-12690d8264d5-n128"
+      },
+      {
+        "t": 54.75,
+        "asset": "drum_roll.wav",
+        "gain": 0.3,
+        "source": "illustrated carry and two-second settle",
+        "trial_id": "learning-shared-test-0001-03c838b94d11"
+      },
+      {
+        "t": 55.75,
+        "asset": "drum_roll.wav",
+        "gain": 0.3,
+        "source": "illustrated carry and two-second settle",
+        "trial_id": "learning-shared-test-0001-03c838b94d11"
+      },
+      {
+        "t": 56.75,
+        "asset": "drum_roll.wav",
+        "gain": 0.3,
+        "source": "illustrated carry and two-second settle",
+        "trial_id": "learning-shared-test-0001-03c838b94d11"
+      },
+      {
+        "t": 57.962,
+        "asset": "cartoon_boing.wav",
+        "gain": 0.38,
+        "source": "saved simulated contact; soundtrack cue spacing at least80ms",
+        "contact_index": 0,
+        "contact_object": "board",
+        "trial_id": "learning-shared-test-0001-03c838b94d11"
+      },
+      {
+        "t": 58.16525,
+        "asset": "cartoon_plop.wav",
+        "gain": 0.38,
+        "source": "saved simulated contact; soundtrack cue spacing at least80ms",
+        "contact_index": 1,
+        "contact_object": "bucket-rim",
+        "trial_id": "learning-shared-test-0001-03c838b94d11"
+      },
+      {
+        "t": 58.40075,
+        "asset": "cartoon_plop.wav",
+        "gain": 0.38,
+        "source": "saved simulated contact; soundtrack cue spacing at least80ms",
+        "contact_index": 2,
+        "contact_object": "bucket-inner-wall",
+        "trial_id": "learning-shared-test-0001-03c838b94d11"
+      },
+      {
+        "t": 59.34925,
+        "asset": "capture.wav",
+        "gain": 0.42,
+        "source": "known saved simulation outcome, not physical sensing",
+        "trial_id": "learning-shared-test-0001-03c838b94d11"
+      }
+    ],
+    "assets": {
+      "capture.wav": "665f526c9821ed13d116e0ef99873ce691b74b9d2315073fdd19d9719e732706",
+      "cartoon_boing.wav": "159b81875cd202b8b46a78cb0539c65ac594f9a9cba043a26e2d3340c87decb2",
+      "cartoon_plop.wav": "f2f52408a4a3c710eab2e9a0d8f4998b6bcd9a76c754da9661f11fc36e28877d",
+      "drum_roll.wav": "eb1fd9e6fb5d7c1e20c092b673cbe7bf4752457c122708fce86ae9174d1e7782",
+      "miss.wav": "41a445483ffda1f4f432142db64fe2ea4d7a17720b40f180dae0eef56c36ded7"
+    },
+    "peak_pcm16": 7218
+  },
+  "chapters": [
+    {
+      "start_s": 0.0,
+      "kind": "intro"
+    },
+    {
+      "start_s": 6.0,
+      "kind": "chart"
+    },
+    {
+      "start_s": 14.0,
+      "kind": "paired_checkpoint",
+      "id": "learning-shared-test-0000-12690d8264d5-n8",
+      "checkpoint_id": "f28e28aac923747686f9d08afe8782c9d671210a080b26b79a0919031cd5bab1",
+      "train_scenes": 8,
+      "outcome": "no_entry"
+    },
+    {
+      "start_s": 23.85,
+      "kind": "paired_checkpoint",
+      "id": "learning-shared-test-0000-12690d8264d5-n24",
+      "checkpoint_id": "d875df54bc20f4983d288899b1665faee1fc5772c5e5b4c0847c794726d3b4ae",
+      "train_scenes": 24,
+      "outcome": "no_entry"
+    },
+    {
+      "start_s": 33.7,
+      "kind": "paired_checkpoint",
+      "id": "learning-shared-test-0000-12690d8264d5-n64",
+      "checkpoint_id": "c6184dee27c79fb19e60f51cbe06c6330aba0b6d10d000136c7ac37e2fb2ad10",
+      "train_scenes": 64,
+      "outcome": "no_entry"
+    },
+    {
+      "start_s": 43.55,
+      "kind": "paired_checkpoint",
+      "id": "learning-shared-test-0000-12690d8264d5-n128",
+      "checkpoint_id": "7b9a76dddceca22490933f55edcdd82ebc596b2d6539f0d445b3be0f23c1d2e6",
+      "train_scenes": 128,
+      "outcome": "no_entry"
+    },
+    {
+      "start_s": 53.4,
+      "kind": "separate_success",
+      "id": "learning-shared-test-0001-03c838b94d11",
+      "checkpoint_id": "7b9a76dddceca22490933f55edcdd82ebc596b2d6539f0d445b3be0f23c1d2e6",
+      "train_scenes": 128,
+      "outcome": "captured"
+    },
+    {
+      "start_s": 60.85,
+      "kind": "outro"
+    }
+  ],
+  "selection": "All N8/24/64/128 clips on the predeclared first test layout; separately labeled saved success example",
+  "positioning": "Smooth joint interpolation rendered through the existing FK model; illustration only",
+  "trajectory": "Original saved ball frames selected by timestamp; no new optimizer, model fit or ball interpolation",
+  "policy": "Scene-conditioned roll/pitch/U/V/gap targets; not a learned joint policy",
+  "files": {
+    "learning-demonstration.mp4": "a5b0bef7212c586966ab8a80a1d0df236f63740c566af6a57ba379215b21a08e",
+    "learning-demonstration-poster.jpg": "08a45ca1845aef1a3d2b94287404fc9e826e0457b3d40bb9a8dd610cb42c576e"
+  },
+  "verification": {
+    "ffmpeg_full_decode_exit_code": 0,
+    "metadata": {
+      "ffmpeg_version": "7.1 built with Apple clang version 13.1.6 (clang-1316.0.21.2.5)",
+      "codec": "h264",
+      "pix_fmt": "yuv420p(progressive)",
+      "audio_codec": "aac",
+      "fps": 20.0,
+      "source_size": [
+        1280,
+        720
+      ],
+      "size": [
+        1280,
+        720
+      ],
+      "rotate": 0,
+      "duration": 65.85
+    },
+    "decoded_sample_times_s": [
+      0,
+      8,
+      14.9,
+      15.85,
+      18.9,
+      22.7,
+      35.2,
+      58.1,
+      63
+    ],
+    "visual_evidence": "Nine decoded MP4 samples inspected; local QA sheet is not source evidence"
+  }
+}
