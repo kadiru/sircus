@@ -21,7 +21,7 @@ Mac's default audio output. The browser is the controller, not the audio engine.
 Run only one instance. Ctrl-C stops the local audio service.
 
 1. Load **Ghost Booth**, **Cartoon Circus**, **Minimal**, or a saved mix.
-2. Select an event in the left column. Assign any of the fifteen sounds, a pool
+2. Select an event in the left column. Assign any of the sixteen sounds, a pool
    that cycles/randomizes, or none. Set event volume and pitch. Fixed uses the
    first selected sound; deselect/reselect to change the selection order.
 3. **Apply changes** updates live assignments. **Save mix** writes a named local
@@ -89,7 +89,9 @@ Consolidation checks on October 29–30, 2026 cover event/profile behavior, pers
 invalid-input rejection, cancellation, domain isolation, generated sample levels,
 HTTP policy and a nonblocking fake-network client. Native Swift compilation and
 silent CoreAudio readiness passed. Browser editing/saving was tested with FX off.
-The original Logic files were preserved. The newly combined native kit has **not
-been auditioned by the user**, and live acoustic quality, wireless latency/loss,
+The original Logic files were preserved. The user found the earlier rising whoosh
+too noisy; its new tonal hum replacement and the added energy sweep await listening
+review. See [the synthesis recipe and Logic options](booth/logic/SOUND_DESIGN.md).
+Wireless latency/loss,
 BLE interruption and MacBook-to-Mac-Mini delivery remain unverified. No new
 physical robot or simulation run was performed.

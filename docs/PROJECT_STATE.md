@@ -13,7 +13,7 @@ Current detailed physical/perception STATUS files include historical PIDs and ti
 ## Mac Mini audio — October 30, 2026
 
 Ghost Booth is the unified local event-sound/rehearsal interface under
-`sircus/audio/booth/`, with eight configurable event slots and fifteen original
+`sircus/audio/booth/`, with eight configurable event slots and sixteen original
 sounds. See [audio status](../sircus/audio/STATUS.md). It runs independently with
 FX off and no robot dependency. The main audio branch/draft PR carries this code;
 no physical dashboard hook, Viam configuration or robot deployment is included.

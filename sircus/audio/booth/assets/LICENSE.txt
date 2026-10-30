@@ -1,5 +1,5 @@
 Original synthesized Sircus sounds created for this project. No third-party recordings, purchased plugins, cloud generation, or sound libraries. You may use, modify and redistribute these generated assets.
 
-Nine haunted sounds: src/generate_pack.py.
+Eight haunted sounds and two original tonal sci-fi gestures: src/generate_pack.py.
 Six cartoon sounds: src/render_scores.py, rendered from the original sircus/audio/score.py MIDI gestures with a simple oscillator and smoothed amplitude envelope.
 Regenerate in that order to rebuild the combined catalog and audition files.

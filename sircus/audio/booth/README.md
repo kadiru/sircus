@@ -6,7 +6,7 @@ User workflow: [audio README](../README.md). Shared event fields and provenance:
 
 `launch.sh` builds `src/Native.swift` when needed, then starts `src/bridge.py`.
 Python 3.12 uses only its standard library. Swift uses Apple AVAudioEngine and
-CoreMIDI. Native mode loads fifteen original mono PCM16 48 kHz WAVs into memory.
+CoreMIDI. Native mode loads sixteen original mono PCM16 48 kHz WAVs into memory.
 Seven voices play one-shots; one is reserved for a carry/flight loop. Each voice
 has bounded varispeed. Sources peak at approximately −14 dBFS and the master has
 an additional 0.5 gain factor. A three-second missing-parent-heartbeat watchdog
@@ -85,8 +85,9 @@ python3.12 src/generate_pack.py
 python3.12 src/render_scores.py
 ```
 
-The second command combines the nine haunted sounds with the six rendered MIDI
-scores and rebuilds `audition.wav`/`.mid`. See `assets/LICENSE.txt` for provenance.
+The second command combines the eight haunted sounds and two tonal sci-fi gestures
+with the six rendered MIDI scores and rebuilds `audition.wav`/`.mid`.
+See `assets/LICENSE.txt` for provenance.
 The optional uncommissioned Logic Sampler route is described in `logic/SETUP.md`;
 full event loops/pitch are native-only. `--mock-backend` logs commands without
 CoreMIDI/audio and is for explicit API tests, not physical validation.
