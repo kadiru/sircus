@@ -31,6 +31,11 @@ class HardwareLauncherTests(unittest.TestCase):
             result = launcher.main(['--profile','/fake/profile.json',*args])
         return result, output.getvalue()
 
+    def test_camera_disable_is_explicit_launch_argument(self):
+        code,_=self.run_cli('--launch','--disable-cameras')
+        self.assertEqual(code,0)
+        self.assertIn('--disable-physical-cameras',self.execute.call_args.args[1])
+
     def test_default_checks_without_execution_or_loading_secrets(self):
         code, output = self.run_cli()
         self.assertEqual(code, 0); self.execute.assert_not_called(); self.audio.assert_not_called()

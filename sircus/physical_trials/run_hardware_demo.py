@@ -17,6 +17,7 @@ def main(argv=None):
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument('--check', action='store_true', help='Inspect local files only (default)')
     mode.add_argument('--launch', action='store_true', help='Start the physical dashboard; operator deployment only')
+    parser.add_argument('--disable-cameras', action='store_true', help='Disable dashboard physical camera requests and recording')
     args = parser.parse_args(argv)
     if not args.launch:
         report = inspect_profile(args.profile)
@@ -42,7 +43,8 @@ def main(argv=None):
             print('Optional audio is not prepared; starting with FX unavailable.', file=sys.stderr)
     except SetupError:
         print('Optional audio configuration changed; starting with FX unavailable.', file=sys.stderr)
-    command = launch_argv(profile, ROOT)
+    command = list(launch_argv(profile, ROOT))
+    if args.disable_cameras:command.append("--disable-physical-cameras")
     print('Starting the sfhack10 dashboard on loopback. This does not command motion or tools. FX starts off.', flush=True)
     try:
         os.execvpe(command[0], command, env)

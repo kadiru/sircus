@@ -1,5 +1,83 @@
 # Sircus cross-computer handoff — October 30, 2026
 
+## Full two-round demo completed — October 30, 2026, 13:15–13:19 PDT
+
+The operator explicitly confirmed loading/clearance before Round1 and again after
+its reload pause. Native board moves reached Position1 and revised Position2;
+suction holding was verified and the dropper stayed stationary during transitions.
+Round1 completed all four balls. Round2 completed Gray/Purple/Pink, then lost robot
+readback on Green's approach. Stop verified; no open/close/release command had been
+sent for that attempt. A fresh read-only check found an empty dropper, both arms
+stationary, vacuum holding and no active operations. The aborted attempt was kept
+unlabeled; a single Green-only retry completed. Eight pickup/drop cycles completed
+across the two rounds, plus the separately retained interrupted approach attempt.
+
+Sounds were enabled during runs, cameras disabled, and outcomes remain unlabeled
+(no inferred capture rate). Final state: both arms stationary, board at revised
+Position2, dropper open, dashboard idle without fault/error, FX muted. No next run
+is queued. This is physical routine evidence, not a claim of fault-free networking
+or autonomous perception. No source/runtime restart or cloud-config change occurred.
+
+## Revised Round 2 completed — October 30, 2026, 13:12–13:13 PDT
+
+Following explicit reload/clearance authorization, all four pickup/drop cycles
+completed using the revised Round2 pair (revision2): Gray, Purple, Pink, Green.
+The board already matched its revised preset and was not commanded to move.
+The run used the saved revised drop target, constrained pickup/lift, two-second
+release settling, enabled FX and disabled cameras. No retries or recovery were
+needed. All four local records are completed/unlabeled; capture outcomes and
+acoustic success are not inferred from command completion. Audio controls
+reported no error. Final readback: both arms stationary, controller idle without
+fault/error, dropper open, FX muted, and no repeat queued. No code, service or
+Viam configuration change occurred. Calibration and raw evidence remain local.
+
+## Round 2 preset revised — October 30, 2026, 13:11 PDT
+
+The operator supplied a new paired dropper/board pose and manually positioned
+both arms. Screenshots matched fresh stationary world-frame readback. Read-only
+`teach_drop` saved the revised drop target and board reference; the private Round2
+preset is revision2. Previous Round2 pair was archived; Round1, loading and all
+four pickup points were preserved. No actuator/camera command or service restart
+was issued. This revised pair has not completed an automated round or validated
+transition; the successful Round2 result below belongs to revision1. Coordinates
+and joint calibration remain host-local. Next run requires a separate operator
+request and fresh readiness checks.
+
+## Round 2 completed — October 30, 2026, 13:05–13:06 PDT
+
+After explicit operator reload/clearance confirmation, native motion moved only
+the board arm to its taught Position 2. Pose/joint checks passed; vacuum holding
+remained true during the transition and the dropper stayed stationary. The paired
+Round2 drop target was activated through the controller's supported pose route.
+Gray → Purple → Pink → Green then all completed pickup, constrained vertical lift,
+transfer, two-second settle and release, without recovery/retries. FX was enabled
+at maximum dashboard volume; no audio control error was reported. Acoustic output
+and bucket capture were not independently scored; all four records are unlabeled.
+
+Final readback: both arms stationary, dashboard idle/connected, no fault or error,
+dropper open, board at Position 2, camera use disabled and FX muted. No next round
+starts automatically. No service restart or Viam configuration change occurred.
+Private trial/state logs remain local; software is unchanged from `0f44107`.
+
+The earlier recovery/reload notes below are historical. Latest physical status
+is the completed Round2 state above. Source branch remains
+`codex/macbook-held-ball-recovery` (draft PR #15).
+
+## Update: Green finished; reload pause
+
+The earlier blocked state below is historical. `codex/macbook-held-ball-recovery`
+(implementation `0f44107`) adds explicit verified quiescent recovery, held-ball
+continuation and a dashboard-wide camera-disable flag. Recovery and Green's
+remaining transfer/release completed physically, keeping the original trial and
+without repeating pickup/close. Round 1 is complete; Round 2 remains paused for
+operator reload. Both arms reported stationary, fault cleared, FX muted.
+Camera use is disabled in the physical dashboard; Viam camera/frame configuration
+and other clients are unchanged. No board or suction command was issued.
+The active physical dashboard now uses the held-ball-recovery checkout. The
+previous integration branch and stopped-state sections below are dated evidence,
+not instructions to retry Green. Other computers should fetch the new branch for
+current implementation. Headless work remains separate from deployment.
+
 Read this first, then `AGENTS.md`, `CONTRIBUTING.md`, and `docs/PROJECT_STATE.md`.
 This is a dated handoff, not a live robot status feed. Recheck actual runtime and
 operator readiness before any separately authorized hardware work.
