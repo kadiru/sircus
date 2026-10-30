@@ -1,0 +1,130 @@
+{
+  "checkpoint_file_sha256": "58790204d610add5ad5e4fd19edbcd2e5e375dce7af17b5850025ae3bcce2ced",
+  "checkpoint_id": "be3cc423190aecef7a2c9b4d456e3b74902ab529f339a616605f5a6d6fb41c4f",
+  "checkpoint_unchanged_after_test": true,
+  "data_origin": "synthetic",
+  "elapsed_seconds": 116.10483575000035,
+  "limits": [
+    "narrow synthetic layout distribution; fixed provisional dynamics",
+    "ridge imitation learns teacher actions, not guaranteed successful labels",
+    "held-out oracle searches each scene and is reported separately; it is not policy inference",
+    "endpoint IK only; native v2 replay adapter missing; no physical validation"
+  ],
+  "manifest_sha256": "2a10426873acf5bc83e058eebd2fa2607d6fd95616215378c1802f8fc06c9020",
+  "native_paths_checked": false,
+  "oracle_budget_per_scene": 4,
+  "physically_verified": false,
+  "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+  "preview_seed": 2765472149,
+  "regularization": 0.01,
+  "schema": "sircus-randomized-layout-study-v1",
+  "scoring_version": "sircus-board-bounce-capture-1s-v1",
+  "split_manifest_unchanged_after_test": true,
+  "status": "complete",
+  "teacher_budget": 12,
+  "teacher_captures": 24,
+  "teacher_failed_scenes": 0,
+  "teacher_labels": 24,
+  "test": {
+    "fixed_baseline": {
+      "capture_classes": {
+        "clean": 3,
+        "rim_assisted": 3
+      },
+      "captures": 6,
+      "endpoint_feasible": 8,
+      "episodes": 8,
+      "invalid_actions": 0,
+      "mean_shaping_valid": 1.480685119862879,
+      "model_limits": 0,
+      "native_paths_checked": false,
+      "opening_radial_error_mm": {
+        "max": 170.79507720567798,
+        "mean": 70.31488013712102,
+        "median": 46.109858140619764,
+        "observations": 8
+      },
+      "outcomes": {
+        "captured": 6,
+        "no_entry": 2
+      },
+      "physically_verified": false,
+      "success_fraction": 0.75
+    },
+    "frozen_policy": {
+      "capture_classes": {
+        "clean": 5,
+        "rim_assisted": 3
+      },
+      "captures": 8,
+      "endpoint_feasible": 8,
+      "episodes": 8,
+      "invalid_actions": 0,
+      "mean_shaping_valid": 2.0275135892689464,
+      "model_limits": 0,
+      "native_paths_checked": false,
+      "opening_radial_error_mm": {
+        "max": 35.77029742685916,
+        "mean": 23.486410731053624,
+        "median": 24.343634460470128,
+        "observations": 8
+      },
+      "outcomes": {
+        "captured": 8
+      },
+      "physically_verified": false,
+      "success_fraction": 1.0
+    },
+    "held_out_search_oracle": {
+      "capture_classes": {
+        "clean": 3,
+        "rim_assisted": 5
+      },
+      "captures": 8,
+      "endpoint_feasible": 8,
+      "episodes": 8,
+      "invalid_actions": 0,
+      "mean_shaping_valid": 2.025372065607359,
+      "model_limits": 0,
+      "native_paths_checked": false,
+      "opening_radial_error_mm": {
+        "max": 41.347176201908766,
+        "mean": 25.627934392641095,
+        "median": 29.170323535748835,
+        "observations": 8
+      },
+      "outcomes": {
+        "captured": 8
+      },
+      "physically_verified": false,
+      "success_fraction": 1.0
+    }
+  },
+  "test_scenes": 8,
+  "train_scenes": 24,
+  "validation": {
+    "capture_classes": {
+      "clean": 4,
+      "rim_assisted": 2
+    },
+    "captures": 6,
+    "endpoint_feasible": 6,
+    "episodes": 6,
+    "invalid_actions": 0,
+    "mean_shaping_valid": 2.0248697114307146,
+    "model_limits": 0,
+    "native_paths_checked": false,
+    "opening_radial_error_mm": {
+      "max": 45.92571664660031,
+      "mean": 26.130288569284957,
+      "median": 20.840841560696994,
+      "observations": 6
+    },
+    "outcomes": {
+      "captured": 6
+    },
+    "physically_verified": false,
+    "success_fraction": 1.0
+  },
+  "validation_scenes": 6
+}
