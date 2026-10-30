@@ -38,3 +38,14 @@ describe evidence, command ordering, cancellation, tests and private-LAN setup.
 This is source integration only: no deployment, service restart, hardware call
 or cross-computer validation. Audio PR #1 remains draft; learning PR #3 remains
 separate. New scoring is opt-in and v2 native replay remains blocked.
+
+## Reviewed learning merge and audio corrections — October 30, 2026
+
+PR #3 was merged into main at `a376ad67968f6445d39a51c2a29325a204bb582a`.
+The audio integration branch retains both the numerical study preview and
+audio controls after resolving the shared server, test script and style changes.
+Published study artifacts, scoring versions and native replay guards are unchanged.
+Audio PRs #1 and #4 remain drafts; this is source integration, not deployment.
+No existing services were restarted, no audio was auditioned, and no Viam or
+physical robot connection was used. Real listening, ODD/BLE and authenticated
+cross-computer commissioning remain separate follow-ups.

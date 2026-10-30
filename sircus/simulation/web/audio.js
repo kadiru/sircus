@@ -77,7 +77,7 @@ export class AudioPanel {
     // OFF remains available during pending requests and transport loss. It only
     // affects audio; nothing in this panel can disable or wait on robot Stop.
     e.audioFX.disabled = !s.configured || !this.token;
-    e.audioFXLabel.textContent = s.enabled === true ? 'on' : requested ? 'pending' : 'off';
+    e.audioFXLabel.textContent = s.enabled === true ? 'on' : requested ? (pending ? 'pending' : 'unavailable') : 'off';
     e.audioVolume.disabled = !s.configured || !this.token || pending;
     if (this.document.activeElement !== e.audioVolume && Number.isFinite(s.volume) && s.volume >= 0 && s.volume <= 1) {
       e.audioVolume.value = String(s.volume);

@@ -147,6 +147,28 @@ class AudioObserverTests(unittest.TestCase):
         with self.assertRaises(ValueError): observer.control({**off, 'enabled': True})
         with self.assertRaises(ValueError): observer.control({'action': 'fx', 'enabled': True})
 
+    def test_remote_status_reconciles_intent_and_preserves_mute_warning(self):
+        observer = self.make(); self.enable(observer)
+        revision = observer._revision
+        observer._accept_status({'revision': revision, 'status': {
+            'enabled': False, 'requested_enabled': False, 'pending': False,
+            'mute_confirmed': True, 'connection': 'connected', 'error': 'audio_disabled_remotely'}})
+        status = observer.snapshot()
+        self.assertFalse(status['enabled']); self.assertFalse(status['requested_enabled'])
+        self.assertFalse(status['pending']); self.assertIn('disabled on the Mini', status['error'])
+        observer.emit(event('after-remote-off'))
+        self.assertEqual(len(observer._queue), 0)
+        observer._accept_status({'revision': revision, 'status': {
+            'enabled': False, 'requested_enabled': False, 'pending': False,
+            'mute_confirmed': False, 'connection': 'connected', 'error': 'remote_mute_unconfirmed'}})
+        status = observer.snapshot()
+        self.assertFalse(status['requested_enabled']); self.assertFalse(status['mute_confirmed'])
+        self.assertIn('unconfirmed', status['error'])
+        # A status sampled before a fresh operator enable must not erase that intent.
+        self.control(observer, {'action': 'fx', 'enabled': True})
+        observer._accept_status({'revision': revision, 'status': {'requested_enabled': False}})
+        self.assertTrue(observer.snapshot()['requested_enabled'])
+
     def test_ordering_history_is_bounded_and_never_silently_evicted(self):
         observer = self.make()
         for i in range(128):

@@ -1,8 +1,9 @@
 # Dashboard → Ghost Booth integration
 
 This task branch adds optional physical-trial audio to the Mac dashboard using
-the client from draft PR #1. It includes main's reviewed scoring merge
-`6f00ac3faa4e34d508b005891e62d9911ead81cf`. It does not deploy the dashboard,
+the client from draft PR #1. It includes main's reviewed scoring merge and the
+scene-conditioned study merged by PR #3 at
+`a376ad67968f6445d39a51c2a29325a204bb582a`. It does not deploy the dashboard,
 restart Ghost Booth, commission private-LAN transport, or command a robot.
 
 The dashboard shows an initially off FX toggle, volume and audio status. With no
@@ -68,9 +69,23 @@ verification, and audio mute is not a robot emergency stop.
 This checkpoint attaches only physical-controller cues. Simulation playback is
 not attached. The saved-trace converter still describes legacy 0.2-second
 results; it must not relabel PR #2's one-second v2 results. V2 native replay is
-still blocked, historical results remain unchanged, and the learning draft is
-separate. Explicit synchronization is needed before combining both dashboard
-branches; pulling source does not update a running process.
+still blocked and historical results remain unchanged. PR #3's numerical study
+preview and this audio panel now coexist in the same source tree; both route
+sets, styles and test suites are retained. Pulling source does not update a
+running process, and the study does not publish audio events.
+
+## Remote status reconciliation
+
+An idle status observation of Mini FX-off clears dashboard opt-in and pending
+cues. Mini FX-on while dashboard intent is off does not opt in automatically;
+it withdraws any earlier mute confirmation and displays a warning. Requested
+state is carried through the Node worker, Python observer and browser. A stale
+poll cannot overwrite a newer or in-flight control. Settled failed requests show
+**unavailable**, not indefinite **pending**. Unknown outcomes remain silent.
+
+The service/client ordering protocol also guards against a delayed enable
+undoing OFF/Panic; see the Mini handoff for control sequences and mute epochs.
+This does not make an HTTP acknowledgement an acoustic mute measurement.
 
 ## Verification and commissioning boundary
 

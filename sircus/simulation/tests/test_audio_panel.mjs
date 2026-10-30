@@ -147,6 +147,25 @@ ambiguous.panel.accept({...ready,enabled:false,requested_enabled:false,mute_conf
 assert.equal(ambiguous.nodes.audioMuteWarning.hidden,true);
 ambiguous.panel.destroy();
 
+// Mini-local OFF/restart is a settled OFF, not permanently checked/pending.
+let miniStatus={...ready,enabled:true,requested_enabled:true};const miniCalls=[];
+const mini=fixture(async(path,options)=>{miniCalls.push([path,options.method]);return response(miniStatus);});
+await mini.panel.poll();assert.equal(mini.nodes.audioFX.checked,true);
+miniStatus={...ready,mute_confirmed:true,error:'FX was disabled on the Mini; enable it here to resume cues'};
+await mini.panel.poll();
+assert.equal(mini.nodes.audioFX.checked,false);assert.equal(mini.nodes.audioFXLabel.textContent,'off');
+assert.equal(mini.nodes.audioMuteWarning.hidden,true);
+// Worker reports Mini ON separately as uncertainty, without adopting its remote intent.
+miniStatus={...ready,mute_confirmed:false,error:'Remote audio may be on; mute is unconfirmed'};
+await mini.panel.poll();
+assert.equal(mini.nodes.audioFX.checked,false);assert.equal(mini.nodes.audioFXLabel.textContent,'off');
+assert.equal(mini.nodes.audioMuteWarning.hidden,false);
+assert.ok(miniCalls.every(([path,method])=>path==='/api/audio/status'&&method==='GET'));
+// A settled failure is unavailable; only genuinely pending work is labelled pending.
+mini.panel.accept({...ready,requested_enabled:true,pending:false,error:'Optional audio unavailable'});
+assert.equal(mini.nodes.audioFXLabel.textContent,'unavailable');
+mini.panel.destroy();
+
 // WebKit timer methods require the Window receiver. Default adapters must not
 // invoke an unbound native method with AudioPanel as its `this` value.
 const originalSetTimeout = globalThis.setTimeout, originalClearTimeout = globalThis.clearTimeout;

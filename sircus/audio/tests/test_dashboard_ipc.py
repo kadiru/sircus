@@ -14,7 +14,7 @@ class DashboardIPCTests(unittest.TestCase):
     @unittest.skipUnless(shutil.which('node'), 'Node required for dashboard worker IPC')
     def test_real_worker_preserves_evidence_and_cancels_against_fake_service(self):
         calls, heard, retired, seen = [], [], set(), set()
-        state = {'fx_enabled': False}
+        state = {'fx_enabled': False, 'control_epoch': 'TEST_ONLY_EPOCH'}
 
         class Handler(BaseHTTPRequestHandler):
             def log_message(self, *_):
@@ -91,9 +91,22 @@ class DashboardIPCTests(unittest.TestCase):
             wait_for(lambda: 'trial-1' in retired)
             observer.emit({**event, 'event_id': 'late'})
             self.assertFalse(any(row.get('event', {}).get('event_id') == 'late' for row in observer._queue))
+            # Mini-local OFF (or a restarted service) must clear pending dashboard
+            # intent all the way through the real Node worker and Python observer.
+            state['fx_enabled'] = False
+            wait_for(lambda: not observer.snapshot()['requested_enabled'])
+            self.assertFalse(observer.snapshot()['enabled'])
+            self.assertFalse(observer.snapshot()['pending'])
             observer.control({'action': 'fx', 'enabled': False, 'client_id': 'ipc', 'sequence': 2})
             wait_for(lambda: observer.snapshot()['mute_confirmed'] is True)
             self.assertFalse(state['fx_enabled'])
+            control_count = sum(path == '/api/fx' for path, _ in calls)
+            state['fx_enabled'] = True  # Ghost Booth operator enabled locally.
+            wait_for(lambda: observer.snapshot()['mute_confirmed'] is False)
+            self.assertFalse(observer.snapshot()['requested_enabled'])
+            self.assertFalse(observer.snapshot()['enabled'])
+            self.assertIn('unconfirmed', observer.snapshot()['error'])
+            self.assertEqual(sum(path == '/api/fx' for path, _ in calls), control_count)
             public = json.dumps(observer.snapshot())
             self.assertNotIn('TEST_ONLY_IPC', public)
             self.assertNotIn('127.0.0.1', public)
