@@ -44,6 +44,19 @@
       <p class="footnote">Two simulated 850 arms share the Viam scene. Board dimensions are measured; mass, suction offset and support dynamics remain provisional. Training searches release U/V/height at one board pose; physics results are simulated.</p>
     </section>
     <aside class="controls">
+      <section id="studyPanel" class="study-panel">
+        <span class="eyebrow">FROZEN POLICY · NUMERICAL PREVIEW</span>
+        <h2>Try an unseen layout</h2>
+        <p class="helper">Load a scene-conditioned checkpoint and one scene or episode JSON. One prediction chooses roll, pitch, U/V and height; no search is run at inference.</p>
+        <label>Checkpoint JSON<input id="studyCheckpoint" type="file" accept=".json,application/json"></label>
+        <label>Scene / episode JSON<input id="studyScene" type="file" accept=".json,application/json"></label>
+        <label>Numerical noise seed<input id="studySeed" type="number" min="0" max="4294967295" step="1" value="42"></label>
+        <button id="studyPreview" class="primary" disabled>Predict & preview</button>
+        <div class="secondary-row"><button id="studyReplay" disabled>Replay prediction</button><button id="studyExit">Return to Viam scene</button></div>
+        <p id="studyStatus" role="status" aria-live="polite">No checkpoint loaded. This panel never sends arm commands.</p>
+        <pre id="studyAction">No prediction loaded.</pre>
+        <p class="helper">Synthetic one-second capture scoring. Native v2 replay remains blocked; endpoint IK is not collision-path validation. Arm meshes are hidden during numerical playback.</p>
+      </section>
       <div class="panel-heading"><span class="eyebrow">MAKE YOUR SCENE</span><span class="assumption">EDITABLE ASSUMPTIONS</span></div>
       <section class="control-section"><div class="section-title"><h2>Board on arm 14</h2><span>Pose in world</span></div>
         <div class="field-grid three"><label>X <em>mm</em><input id="boardX" type="number" step="10"></label><label>Y <em>mm</em><input id="boardY" type="number" step="10"></label><label>Z <em>mm</em><input id="boardZ" type="number" step="10"></label></div>

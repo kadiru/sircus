@@ -9,6 +9,7 @@ import json
 import mimetypes
 import os
 import secrets
+import subprocess
 import sys
 import threading
 from concurrent.futures import TimeoutError as FutureTimeout
@@ -40,6 +41,41 @@ def optional_audio_observer():
         return AudioObserver()
     except Exception:
         return None
+
+STUDY_LOCK = threading.Lock()
+STUDY_MAX_BYTES = 1_000_000
+
+
+def study_preview(payload):
+    """A separate numerical process avoids legacy/two-arm module-name collisions.
+
+    No robot client, config save, policy migration or runtime fallback is used.
+    The only executable/path is repository-owned; callers supply JSON values.
+    """
+    if not isinstance(payload, dict) or set(payload) != {'checkpoint', 'scene', 'seed'}:
+        raise ValueError('Supply checkpoint, scene and seed JSON values only')
+    if not isinstance(payload['checkpoint'], dict) or not isinstance(payload['scene'], dict):
+        raise ValueError('Checkpoint and scene must be JSON objects')
+    seed = payload['seed']
+    if type(seed) is not int or not 0 <= seed < 2**32:
+        raise ValueError('Seed must be an integer from 0 to 2^32-1')
+    raw = json.dumps(payload, allow_nan=False)
+    worker = ROOT.parent / 'two-arm' / 'study_preview.py'
+    try:
+        completed = subprocess.run([sys.executable, str(worker)], input=raw,
+            capture_output=True, text=True, timeout=35, check=False,
+            env={**os.environ, 'PYTHONDONTWRITEBYTECODE': '1'})
+    except subprocess.TimeoutExpired:
+        raise ValueError('Numerical preview timed out; no runtime action was sent') from None
+    if len(completed.stdout) > 5_000_000:
+        raise ValueError('Numerical preview response exceeded its limit')
+    try:
+        value = json.loads(completed.stdout)
+    except (ValueError, TypeError):
+        raise ValueError('Numerical preview unavailable; no runtime action was sent') from None
+    if completed.returncode or value.get('error'):
+        raise ValueError(str(value.get('error', 'Numerical preview rejected'))[:500])
+    return value
 
 
 class PhysicalBridge:
@@ -237,6 +273,7 @@ class Handler(BaseHTTPRequestHandler):
         return self.send(requested.read_bytes(), content_type=mimetypes.guess_type(str(requested))[0] or 'application/octet-stream')
 
     def do_POST(self):
+        path = urlsplit(self.path).path
         origin = self.headers.get('Origin')
         if origin and origin != 'http://' + self.headers.get('Host', ''):
             return self.send({'error': 'same-origin requests required'}, 403)
@@ -246,7 +283,7 @@ class Handler(BaseHTTPRequestHandler):
             length = int(self.headers.get('Content-Length', '0'))
         except ValueError:
             return self.send({'error': 'invalid request size'}, 413)
-        if length <= 0 or length > 200000:
+        if length <= 0 or length > (STUDY_MAX_BYTES if path == '/api/study/preview' else 200000):
             return self.send({'error': 'invalid request size'}, 413)
         if urlsplit(self.path).path.startswith('/api/audio/'):
             if not self.physical_host_ok() or AUDIO is None:
@@ -263,6 +300,24 @@ class Handler(BaseHTTPRequestHandler):
                 return self.send({'error': 'Invalid or unavailable audio control'}, 400)
             except Exception:
                 return self.send({'error': 'Optional audio control unavailable'}, 503)
+
+        if path.startswith('/api/study/'):
+            if not self.physical_host_ok():
+                return self.send({'error': 'loopback host required'}, 403)
+            if path != '/api/study/preview':
+                return self.send({'error': 'unknown study endpoint'}, 404)
+            if not STUDY_LOCK.acquire(blocking=False):
+                return self.send({'error': 'A numerical study preview is already running'}, 409)
+            try:
+                payload = json.loads(self.rfile.read(length),
+                    parse_constant=lambda _: (_ for _ in ()).throw(ValueError('Finite JSON values required')))
+                return self.send(study_preview(payload))
+            except (ValueError, KeyError, TypeError) as exc:
+                return self.send({'error': str(exc)[:500]}, 400)
+            except Exception:
+                return self.send({'error': 'Numerical preview unavailable; no runtime action was sent'}, 503)
+            finally:
+                STUDY_LOCK.release()
         if urlsplit(self.path).path.startswith('/api/physical/'):
             if not self.physical_host_ok() or PHYSICAL is None:
                 return self.send({'error':'physical backend unavailable'},403)
