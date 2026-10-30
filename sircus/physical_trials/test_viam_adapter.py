@@ -169,7 +169,7 @@ class AdapterTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(log.count("stop:arm"), 2)
         self.assertEqual(log.count("cancel:only-panel-move"), 1)
         self.assertEqual(len(log), 3)
-        self.assertFalse(hasattr(adapter, "vacuum"))
+        self.assertFalse(result["gripper_or_vacuum_commanded"])
 
     async def test_repeated_stop_preserves_unverified_planner_cancellation(self):
         adapter, log = self.adapter()
@@ -392,3 +392,40 @@ class AdapterTests(unittest.IsolatedAsyncioTestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+class BoardRoundAdapterTests(unittest.IsolatedAsyncioTestCase):
+    adapter=AdapterTests.adapter
+
+    async def test_owned_board_stop_cancels_only_its_planner_and_never_tools(self):
+        adapter,log=self.adapter()
+        started=asyncio.Event()
+        async def operations():
+            other=Struct();other.update({'component_name':'arm-board','extra':{'other_client':True}})
+            rows=[Operation(id='external',method='/MotionService/Move',arguments=other)]
+            if adapter.robot.token:
+                args=Struct();args.update({'component_name':'arm-board','extra':{'sircus_operator_operation':adapter.robot.token}})
+                rows.append(Operation(id='owned-board',method='/MotionService/Move',arguments=args))
+            return rows
+        async def move(**kw):
+            self.assertEqual(kw['component_name'],'arm-board')
+            adapter.robot.token=kw['extra']['sircus_operator_operation'];started.set()
+            await asyncio.Event().wait()
+        async def holding():return True
+        adapter.motion.move=move;adapter.robot.get_operations=operations;adapter.vacuum_holding=holding
+        task=asyncio.create_task(adapter.move_board_pose(dict(x=600.,y=0.,z=250.,o_x=0.,o_y=0.,o_z=1.,theta=0.)))
+        await asyncio.wait_for(started.wait(),2)
+        result=await adapter.stop();await asyncio.gather(task,return_exceptions=True)
+        self.assertTrue(result['planner_cancellation_verified'])
+        self.assertEqual(result['stopped_components'],['arm','arm-board'])
+        self.assertIn('cancel:owned-board',log);self.assertNotIn('cancel:external',log)
+        self.assertEqual(log.count('stop:arm-board'),2)
+        self.assertFalse(result['gripper_or_vacuum_commanded'])
+
+    async def test_readback_diagnostics_identify_failing_method_without_exception_details(self):
+        adapter,_=self.adapter()
+        async def failed(**kw):raise RuntimeError('private transport details')
+        adapter.arms['arm-board'].get_joint_positions=failed
+        with self.assertRaises(RuntimeError):await adapter.snapshot()
+        self.assertEqual(adapter.last_readback_failure['resource'],'arm-board')
+        self.assertEqual(adapter.last_readback_failure['method'],'joints')
+        self.assertNotIn('private',json.dumps(adapter.last_readback_failure))

@@ -53,3 +53,23 @@ test('held continuation requires confirmation and original trial ID',async()=>{
  assert.equal(h.posts()[0].trial_id,'original-held');assert.equal(h.posts()[0].confirmed,true);
  assert.equal(h.node('physicalHeldConfirm').checked,false);h.instance.destroy();
 });
+
+test('round controls require explicit reload confirmation and do not auto-start round two',async()=>{
+ let state=base({allowed_actions:['run_round','stop'],round_blockers:[]});
+ const h=fixture((_url,options)=>{if(options?.body)state={...state,action_epoch:2,busy:true,allowed_actions:['stop']};return Promise.resolve(reply(state));});
+ await h.start();assert.equal(await h.instance.command('run_round',{round_id:'round-1'}),false);
+ h.node('physicalRoundConfirm').checked=true;h.node('physicalRoundSounds').checked=true;
+ assert.equal(await h.instance.command('run_round',{round_id:'round-1'}),true);
+ assert.deepEqual(h.posts()[0],{action:'run_round',round_id:'round-1',confirmed:true,sounds:true,expected_action_epoch:1});
+ assert.equal(h.node('physicalRoundConfirm').checked,false);
+ state=base({action_epoch:2,allowed_actions:['run_round','stop'],round_run:{round_id:'round-1',status:'awaiting_reload',trials:[{},{},{},{}]}});
+ await h.instance.refreshStatus();assert.match(h.node('physicalRoundStatus').textContent,/Reload all four/);
+ assert.equal(h.posts().length,1);assert.equal(await h.instance.command('run_round',{round_id:'round-2'}),false);
+ h.instance.destroy();
+});
+test('round motion rejects unsaved pose edits and status loss clears reload confirmation',async()=>{
+ let fail=false;const h=fixture(()=>fail?Promise.reject(Error('lost')):Promise.resolve(reply(base({allowed_actions:['run_round','stop']}))));
+ await h.start();h.node('physicalRoundConfirm').checked=true;h.node('physicalDropX').value='650';h.node('physicalDropX').listeners.input();
+ assert.equal(await h.instance.command('run_round',{round_id:'round-1'}),false);
+ fail=true;await h.instance.refreshStatus();assert.equal(h.node('physicalRoundConfirm').checked,false);assert.equal(h.posts().length,0);h.instance.destroy();
+});
