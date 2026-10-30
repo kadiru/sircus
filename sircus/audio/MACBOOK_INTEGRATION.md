@@ -1,79 +1,60 @@
-# MacBook handoff: offline first, explicit observer later
+# MacBook handoff — shared Sircus audio
 
-This milestone changes no controller, physical panel, simulation viewer, physics,
-scene, calibration or Viam configuration. Fetching code does not deploy anything.
-No cloud machine identity, secrets or private Logic project should be transferred.
+Ghost Booth now lives in **this repository's `sircus/audio/booth/`**. The Mac Mini
+owns audio development/playback; the MacBook dashboard and Ubuntu simulation
+remain independent. Pulling code does not deploy a dashboard or start a robot.
 
-## Exact offline adoption steps
+## Review without hardware
 
-1. In a separate clean MacBook clone, fetch and inspect this branch. If the active
-   checkout has unrelated edits, leave it alone and use a worktree:
+In a clean checkout/worktree, fetch `codex/mac-mini-oddball-sfx` and run:
 
-   ```sh
-   git fetch origin
-   git worktree add --detach ../sircus-audio-review origin/codex/mac-mini-oddball-sfx
-   cd ../sircus-audio-review
-   git config core.hooksPath .githooks
-   python3.12 -m unittest discover -s sircus/audio/tests -p 'test_*.py' -v
-   python3.12 -m sircus.audio demo
-   ```
+```sh
+python3.12 -m unittest discover -s sircus/audio/tests -p 'test_*.py' -q
+python3.12 -m unittest discover -s sircus/audio/booth/tests -p 'test_*.py' -q
+python3.12 -m sircus.audio booth
+```
 
-2. Open `.runtime/sfx-preview.html` manually. Review capture/miss/unknown scenarios;
-   verify Stop and mute. No robot or dashboard needs to run. For Logic, build the
-   helper and create the separate cue track using [README.md](README.md). Browser
-   review requires no Python package installation; full-repository tests do.
+On a Mac with Command Line Tools, open http://127.0.0.1:8766/. FX starts off.
+Pick a profile, edit/save sound choices, then explicitly enable FX to review.
+The audio engine runs on the Mac hosting the service, not on the browser device.
+No private Logic project or credentials need copying.
 
-3. Use **copies of already saved records**, kept in `.runtime/`. A simulation
-   viewer export has its physics result under `result`; a raw physics result is
-   also accepted. Assign one stable trial ID for that saved result:
+Saved record conversion remains pure/read-only. Keep records and generated traces
+in ignored `.runtime/`:
 
-   ```sh
-   python3.12 -m sircus.audio convert .runtime/sim-export.json \
-     --source simulation --trial-id review-sim-001 --output .runtime/sim-events.jsonl
-   python3.12 -m sircus.audio replay .runtime/sim-events.jsonl
-   ```
+```sh
+python3.12 -m sircus.audio convert .runtime/sim-export.json \
+  --source simulation --trial-id review-sim-001 --output .runtime/sim-events.jsonl
+python3.12 -m sircus.audio convert .runtime/saved-hardware-trial.json \
+  --source operator --output .runtime/label-events.jsonl
+```
 
-   A physical saved trial with an existing operator label uses its own ID:
+After explicitly enabling FX, choose the JSONL file in Ghost Booth's replay
+control. Known simulated outcomes are predictions; confirmed saved operator
+labels retain their provenance; unsure/unlabelled records end silently. Conversion
+does not add contacts omitted by the model or invent pickup/flight timings.
+The built-in whole-sequence demonstration is separately labelled synthetic.
 
-   ```sh
-   python3.12 -m sircus.audio convert .runtime/saved-trial.json \
-     --source operator --output .runtime/label-events.jsonl
-   python3.12 -m sircus.audio replay .runtime/label-events.jsonl
-   ```
+## Future live attachment (not installed)
 
-   This only reads records. It does not save/change labels, contact the dashboard
-   or move hardware. An unlabeled hardware record produces a silent unknown
-   outcome. Do not pass a mock/dry-run record as hardware evidence.
+Use the optional server-side client and private-LAN instructions in
+[booth/integration/HANDOFF.md](booth/integration/HANDOFF.md). Localhost is the
+default; cross-computer transport has not been enabled or tested. Producers
+should enqueue immutable `sircus.audio.v1` events without awaiting audio. Never
+wait for sound before moving/stopping a robot. Use stable trial/event IDs, keep
+simulation and physical evidence distinct, and explicitly cancel on stop,
+replacement, navigation, pause, speed change or scrub.
 
-4. When the operator wants sound, append `--play --midi-helper .runtime/sircus-midi`
-   to a replay command. This auditions the saved record locally; it does not
-   synchronize with a running physical/simulation trial. Ctrl-C stops this audio
-   process. Leave the existing MacBook dashboard and simulation processes alone.
-
-## Future live integration seam (not installed by this change)
-
-An optional dedicated audio observer must own the sink, worker, mute control and
-playback generation. Keep startup, record conversion, filesystem/network work and
-cleanup out of robot callbacks. Producers should deliver bounded immutable events
-through a best-effort queue to this observer; dropping audio is acceptable. Never
-await audio acknowledgment before arm movement or emergency stop.
-
-| Existing component | Explicit attachment point for a later reviewed change |
+| Producer | Reviewed attachment point for later work |
 |---|---|
-| `two-arm/physics.py` | Convert a completed result using `simulation_events`; retain simulation elapsed clock and predicted provenance. Do not edit the model or fabricate omitted bounces. |
-| `two-arm/viam_module.py` | Observe the replay/trial lifecycle separately. Arm motion or gripper-open records are not contacts. A failed native replay's nested prediction is not evidence of completed execution. |
-| `simulation/web/app.js` | Add an operator audio-enable control only in a later UI change. Start one audio generation per replay; cancel it on stop, pause, scrub, navigation, speed change or replacement. Existing browser and CLI clocks are not synchronized. |
-| `physical_trials/controller.py` | A completed `save_trial` annotation can feed `operator_outcome`; `unsure`/unlabeled stays unknown. `keep_unlabeled` must not trigger miss. No new capture detector is assumed. |
-| `simulation/web/physical.js` | A later operator opt-in can request audio observation, but must never gate physical Stop or any control request on audio. Cancel by trial ID to avoid stopping another generation. |
-| ODD CoreMIDI listener | Not implemented here. Isolate a verified physical port, filter positive ch1/note0, supply host arrival clock and stable per-observation IDs to `odd_tap`. Keep object/outcome unknown. |
+| `two-arm/physics.py` | `simulation_events` converts a completed saved result with its simulation clock; no fabricated bounces. |
+| `two-arm/viam_module.py` | Observe lifecycle separately. Gripper-open/motion commands do not prove impact, successful pickup or capture. Failed native execution's nested prediction is not physical evidence. |
+| `simulation/web/app.js` | Later opt-in audio/replay controls; the current browser and Mac Mini clocks are not synchronized. |
+| `physical_trials/controller.py` | Saved hardware `operator_outcome`; unsure/unlabelled must stay unknown. |
+| `simulation/web/physical.js` | Later operator audio proxy; audio failures must never block physical controls. |
+| ODD CoreMIDI | Ghost Booth already selects one physical input and filters configured impact notes. This does not identify contact objects or capture/miss. |
 
-If Logic remains on the Mac Mini while the dashboard runs on the MacBook, use
-offline exported JSONL for this milestone. A live cross-host link would need its
-own explicit transport, permissions, source authentication, clock mapping,
-bounded queues and stop semantics. No OSC/MIDI network port or cloud identity is
-silently reused here.
-
-Before claiming physical integration: verify port identity after reconnect, test
-lost notes and cancellation at low level, measure BLE/host/audio timing and missed
-impacts, validate board/contact detection separately, and establish capture/miss
-evidence. These remain experiments, not guarantees from a successful replay.
+No robot/controller/viewer hooks, cloud identity reuse, Viam configuration change,
+physical sensing validation or dashboard deployment is included in this change.
+The six-cue procedural Logic route remains available in [LEGACY_MIDI.md](LEGACY_MIDI.md)
+for advanced diagnostics; use Ghost Booth for the unified event sound library.

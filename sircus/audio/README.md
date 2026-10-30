@@ -1,171 +1,95 @@
-# Sircus sound-effects adapter — milestone 1
+# Sircus audio — Ghost Booth
 
-Optional, isolated audio driven by explicit evidence. No robot SDK, controller hook,
-network listener, dashboard deployment or live event bus is introduced here.
-Python imports make no sound. Playback is an operator action.
+**Ghost Booth is the main sound-design and rehearsal interface for Sircus.**
+It is an independently runnable subsystem of this repository, owned by the Mac
+Mini audio work. It requires no robot, dashboard, Logic project or cloud account.
+The earlier ODD drum/synth Logic sessions remain private musical experiments.
 
-The first observed board contact plays **boing**; subsequent contact records select
-**squeak/plop/spring** deterministically by event ID. Known simulated outcomes play
-celebration or three descending **wongs**, always labeled predictions. Physical
-outcome cues require explicit confirmation with provenance. Unknown/unlabeled
-outcomes have no terminal sound. An ODD tap has unknown contact object, so it plays
-a generic bounce, never claims a board impact or capture.
+## Start on the Mac
 
-## Try the local preview (no Logic or dependencies)
-
-From the repository root, using Python 3.12:
+Python 3.12 and Apple Command Line Tools are required. No Python audio packages,
+purchased plugins or sound libraries are needed.
 
 ```sh
-python3.12 -m sircus.audio demo
+python3.12 -m sircus.audio booth
+# Equivalent: sircus/audio/booth/launch.sh
 ```
 
-Open `.runtime/sfx-preview.html` in a browser and click a cue or synthetic scenario.
-It is a self-contained file: no server, network calls, samples, autoplay or robot
-connection. Stop cancels scheduled tones; mute discards playback. The level slider
-controls the browser preview. It uses the same MIDI score plan with a simple
-triangle oscillator, so its timbre differs from Logic's patch.
+Open **http://127.0.0.1:8766/**. It starts with **FX off**, no selected MIDI input,
+and the last saved custom mix (or Ghost Booth defaults). Sound comes from this
+Mac's default audio output. The browser is the controller, not the audio engine.
+Run only one instance. Ctrl-C stops the local audio service.
 
-The command also writes `captured.jsonl`, `missed.jsonl`, and `unknown.jsonl` in
-`.runtime/`. These are **hand-authored synthetic demonstrations**, not measured
-trials or output from the physics engine. Regenerating the demo overwrites these
-generated files only. A dry run shows the exact MIDI plan without opening a port:
+1. Load **Ghost Booth**, **Cartoon Circus**, **Minimal**, or a saved mix.
+2. Select an event in the left column. Assign any of the fifteen sounds, a pool
+   that cycles/randomizes, or none. Set event volume and pitch. Fixed uses the
+   first selected sound; deselect/reselect to change the selection order.
+3. **Apply changes** updates live assignments. **Save mix** writes a named local
+   profile; saving also applies it. Built-ins cannot be overwritten. Applying or
+   loading without saving does not change which custom mix restores on restart.
+4. When ready to listen, enable FX and use **Preview event**, a sound tile, or
+   **Play synthetic sequence**. Preview applies pending edits first. The synthetic
+   sequence is hand-authored audio rehearsal, not a physics or hardware result.
+5. For a real ball, choose its unique MIDI input, explicitly enable FX again, and
+   tap it. Free play uses **Bounce / impact** for each tap. In trial mode, use
+   **Release / arm live trial** before tapping. After a replay, click **Return to
+   live ball**. Input selection/reconnection forces FX off.
+
+| Event slot | Trigger / interpretation |
+|---|---|
+| Picked up | Explicit pickup action/observation |
+| Carried by arm | Carry start; loop stops on carry stop, release, impact or cancellation |
+| Released / dropped | Explicit release; arms the configured live impact window |
+| Travelling through air | Flight start; loop stops on flight stop, impact, outcome or cancellation |
+| First impact after release | First armed tap is a sound heuristic; a trace's first explicit board contact also selects this slot |
+| Bounce / impact | Later trial impacts; all free-play taps |
+| Captured | Known simulated result or explicitly confirmed physical outcome |
+| Missed | Known simulated result or explicitly confirmed physical outcome |
+
+Any catalog sound can be assigned to any slot. Only carry/flight allow looping,
+with an adjustable hard limit of 0.2–20 seconds. Event pitch is ±12 semitones;
+native varispeed also changes sample duration. Random selection can avoid
+immediate repeats. Volume zero or an empty sound pool is silent.
+
+**Stop playback** cancels scheduled playback/loops and retires the current event
+trial; free-play ball taps may still play afterward. **Mute all audio** disables
+FX, silences voices and clears queued playback. These are audio controls only.
+No robot control, Viam connection or automatic capture detector is installed.
+ODD MIDI currently provides impact gestures; pickup/flight/outcomes need explicit
+operators, saved traces, or a separately validated event producer.
+
+## Shared implementation
+
+- `contract.py` and `sources.py`: versioned evidence/clock-aware events; pure
+  converters for saved simulation results and operator labels.
+- `booth/`: local HTTP controller, selected CoreMIDI input, eight native playback
+  voices, original WAV catalog, event profiles and the browser interface.
+- [Event contract](EVENT_CONTRACT.md), [ODD evidence](ODD_TRANSPORT.md),
+  [MacBook handoff](MACBOOK_INTEGRATION.md), [HTTP/profile API](booth/README.md).
+- [Legacy procedural MIDI/Logic adapter](LEGACY_MIDI.md): retained for offline
+  diagnostics and the private muted Logic review project. Its six-cue HTML export
+  is not the primary design interface and does not read Ghost Booth profiles.
+
+Saved profiles, recordings, compiler caches and tokens stay in ignored
+`booth/runtime/`. Generated redistributable catalog assets are checked in;
+recorded performance audio and Logic projects are not. No audio/network service
+starts merely by importing the package or pulling the branch.
+
+## Checks and remaining review
 
 ```sh
-python3.12 -m sircus.audio replay .runtime/captured.jsonl
-```
-
-## Play through Logic on a Mac
-
-Requirements: Python 3.12, installed Apple Command Line Tools/CoreMIDI, Logic Pro
-with its stock **Scripter** MIDI effect and **Retro Synth** instrument. No external
-plugins, sound packs, samples, Python MIDI packages, ODD phone app or Viam credentials
-are needed for replay. Browser preview also works without Logic.
-
-```sh
-mkdir -p .runtime
-xcrun swiftc -module-cache-path .runtime/swift-cache sircus/audio/coremidi.swift -o .runtime/sircus-midi
-.runtime/sircus-midi --check
-```
-
-`--check` creates then disposes a virtual source; it sends no MIDI. Run one helper
-at a time. The source has a stable CoreMIDI ID, and collisions fail closed.
-
-1. Create a separate, empty software-instrument project. Keep Stereo Out muted
-   while configuring; start at −18 dB with a limiter. Leave Play stopped.
-2. Put **Scripter → Retro Synth** on one track. Paste `logic-sfx.js` into Scripter's
-   editor and click **Run Script**. Confirm **Input channel = 16**, **Output = 1**,
-   **Mute and release = Off**. Logic can retain parameter values from a previously
-   loaded script; do not assume the new defaults replaced them.
-3. Use Retro Synth's **Dynamic Soft Pad** as a starting timbre. In Controls view,
-   set **Pitch Bend Range = 1 Oct** (±12 semitones), Amp Env Attack about **8 ms**,
-   Amp Env Release **80 ms**, and Glide/Autobend **Off**. Keep resonance low and
-   distortion/ChromaGlow bypassed. These are initial review settings, not an
-   acoustically approved final patch.
-4. Start the operator command below. During its 30-second silent setup interval,
-   select **MIDI Input = Sircus SFX** on this track, with input monitoring **I on**
-   and record enable **R off**. Other instrument tracks should not monitor this
-   port. Never choose All or either ODD input for the cue receiver.
-5. Unmute Stereo Out when ready to listen. Logic's transport stays stopped;
-   the CLI schedules notes. **Ctrl-C in the CLI** cancels replay. Logic's Stop
-   button alone does not stop the external CLI's clock.
-
-```sh
-python3.12 -m sircus.audio replay .runtime/captured.jsonl \
-  --play --midi-helper .runtime/sircus-midi --setup-seconds 30
-# Repeat explicitly with missed.jsonl or unknown.jsonl.
-```
-
-The port disappears when the process exits. Recheck its selection on reconnect;
-Logic's port restoration across host versions has not been validated. For more
-setup time use `--setup-seconds 120`. Ctrl-C also cancels the setup interval.
-
-The receiver reuses the Mac Mini's tested logging-free note ownership and Reset
-approach. It releases on retrigger/parameter change, filters input channels and
-unrelated CCs, caps velocity at 90, passes bounded pitch bend, and releases missing
-note-offs after 2.5 seconds via ProcessMIDI. It has no Trace calls and no delayed
-Scripter note queues. The adapter owns timing and sends release/panic messages.
-The stock synth's short release may still ring briefly after cancellation.
-
-## Configuration and API
-
-Copy `mapping.example.json` into `.runtime/mapping.json`, edit it, then pass
-`--config .runtime/mapping.json` to `demo` or `replay`. Supported cue names are
-`boing`, `squeak`, `plop`, `spring`, `celebration`, `wong`. Gain is 0–1; mute is a
-boolean. Default MIDI channel is 16; match the Scripter input if you change it.
-`max_events` bounds per-trial deduplication; `max_pending_messages` bounds the
-combined event/message queue. Overflow drops sound, never delays robot work.
-
-```python
-from sircus.audio import AudioAdapter
-
-# Construct a sink/adapter in a separate audio observer, outside robot callbacks.
-# sink.send([status, data1, data2]) is the only required output interface.
-audio = AudioAdapter(sink)
-audio.start_trial(trial_id, mode="physical")  # explicit operator opt-in
-audio.submit(event)                         # best-effort bool, no output I/O here
-audio.set_gain(0.4)
-audio.set_muted(True)                       # clears pending cues; no unmute backlog
-audio.cancel(trial_id)                      # call on trial/replay stop or navigation
-# On observer shutdown, away from the control path:
-audio.close()
-```
-
-One active trial/domain per adapter. Simulated input is rejected in physical mode
-and vice versa. Deduplication keys are `(source, event_id)` for the whole active
-trial; IDs are not evicted to make room. `start_trial` is an intentional new replay
-generation and permits replaying the same trace again. Polling must not call it on
-every refresh. An outcome ends cue acceptance for that trial; later impacts are
-silent. IDs are immutable observations; corrected labels need new IDs and an
-explicit new audition if the previous outcome already played.
-
-`submit` takes an optional **host-relative** `delay_s`; live events default to now.
-It never subtracts producer timestamps across clocks. The output worker performs
-all sink calls outside the state lock. Failure increments `errors/last_error`,
-drops audio and does not retry ambiguous sends. A hung sink cannot hold the
-submission/cancellation lock; cleanup waits at most 100 ms for the worker.
-Initialize/dispose sinks in the audio process, never in the robot control path.
-The supplied MIDI sink writes to a nonblocking local pipe. This is best-effort
-Python scheduling, not a hard-real-time guarantee or a robot safety interlock.
-
-Each new cue releases and preempts the previous monophonic gesture, preventing
-older pitch bends from corrupting a later bounce. Stop clears pending generations
-and asks the worker to send CC120/123 and bend center. An already-in-flight send
-may finish before panic. If MIDI/Logic itself is unavailable, immediate silence
-cannot be guaranteed; the receiver watchdog and short envelope limit lost offs.
-
-## Evidence and boundaries
-
-See [EVENT_CONTRACT.md](EVENT_CONTRACT.md) for fields and clock semantics,
-[ODD_TRANSPORT.md](ODD_TRANSPORT.md) for measured versus unknown ODD behavior, and
-[MACBOOK_INTEGRATION.md](MACBOOK_INTEGRATION.md) for the exact offline handoff and
-future explicit observer attachment points.
-
-Validated on the Mac Mini, October 29, 2026:
-
-- Python adapter tests and fake-output deterministic traces; complete repository
-  mock/numerical suite. Tests do not command physical hardware.
-- Node mocked Scripter checks and generated-preview checks with fake Web Audio.
-- Native helper compiled with the installed Swift toolchain; `--check` created
-  the CoreMIDI source, and the silent source appeared as **Sircus SFX** in Logic.
-- Logic Pro 12.3 build 6674 on macOS 26.5.2 evaluated the new receiver successfully.
-  Input 16/output 1, isolated port, I on/R off, octave bend, 8.10 ms attack and
-  80 ms release were verified in a private review copy. Stereo Out stayed muted
-  at −18 dB. The copy was saved and Logic was closed.
-- **No new audio was auditioned, no physical ODD trace was captured, and no
-  end-to-end cue timing/acoustic quality was measured in this milestone.** The
-  generated preview could not be opened automatically because the browser tool
-  disallowed local file URLs; its script was tested with fake Web Audio instead.
-  Last night's audible two-ball success is historical evidence, not a test of
-  this new cue adapter. Original Logic project/script checksums were unchanged.
-
-The review `.logicx` is host-local and excluded from Git. Rebuild with the source
-instructions above on another Mac. Older Logic Pro X versions are unverified.
-
-```sh
-python3.12 -m unittest discover -s sircus/audio/tests -p 'test_*.py' -v
+python3.12 -m unittest discover -s sircus/audio/tests -p 'test_*.py' -q
+python3.12 -m unittest discover -s sircus/audio/booth/tests -p 'test_*.py' -q
+node sircus/audio/booth/tests/test_client.mjs
 node sircus/audio/tests/logic-sfx.test.cjs
-python3.12 -m sircus.audio demo
-node sircus/audio/tests/preview.test.cjs .runtime/sfx-preview.html
-# Full suite requires the repository's pinned simulation dependencies:
 SIRCUS_PYTHON="$PWD/.venv/bin/python" scripts/test.sh
 ```
+
+Consolidation checks on October 29–30, 2026 cover event/profile behavior, persistence,
+invalid-input rejection, cancellation, domain isolation, generated sample levels,
+HTTP policy and a nonblocking fake-network client. Native Swift compilation and
+silent CoreAudio readiness passed. Browser editing/saving was tested with FX off.
+The original Logic files were preserved. The newly combined native kit has **not
+been auditioned by the user**, and live acoustic quality, wireless latency/loss,
+BLE interruption and MacBook-to-Mac-Mini delivery remain unverified. No new
+physical robot or simulation run was performed.

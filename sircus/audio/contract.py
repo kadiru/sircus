@@ -45,7 +45,8 @@ class AudioEvent:
             identifier(getattr(self, key), key)
         if self.source not in {"simulation", "sensor", "operator"}:
             raise ValueError("invalid source")
-        if self.event_type not in {"impact", "outcome", "stop"}:
+        if self.event_type not in {"impact", "outcome", "stop", "pickup", "carry_start", "carry_stop",
+                                   "release", "flight_start", "flight_stop"}:
             raise ValueError("invalid event_type")
         identifier(self.contact_object, "contact_object")
         if self.time_basis not in {"simulation_elapsed_s", "host_monotonic_s", "unix_s"}:
@@ -56,7 +57,7 @@ class AudioEvent:
         if self.source != "simulation" and self.time_basis == "simulation_elapsed_s":
             raise ValueError("physical observations cannot use a simulation clock")
         allowed = {"simulation": {"model_prediction"}, "sensor": {"midi_gesture", "sensor_detection"},
-                   "operator": {"operator_label"}}
+                   "operator": {"operator_label", "operator_action"}}
         if self.evidence not in allowed[self.source]:
             raise ValueError("source/evidence mismatch")
         if self.outcome not in {"unknown", "captured", "missed"}:
@@ -65,6 +66,8 @@ class AudioEvent:
             raise ValueError("confirmed must be boolean")
         if self.source == "simulation" and self.confirmed:
             raise ValueError("a prediction is not a confirmed physical observation")
+        if self.evidence == "operator_action" and (self.confirmed or self.outcome != "unknown"):
+            raise ValueError("an action request is not a confirmed physical outcome")
         if self.evidence == "midi_gesture" and (self.confirmed or self.contact_object != "unknown"
                                                  or self.outcome != "unknown"):
             raise ValueError("ODD MIDI alone cannot identify contact or confirm an outcome")

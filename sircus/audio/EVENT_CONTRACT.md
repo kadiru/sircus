@@ -1,6 +1,6 @@
 # Proposed/implemented audio boundary: sircus.audio.v1
 
-This is a new local contract, not an existing Viam command or network API.
+This is a new local contract, not a Viam command. Ghost Booth accepts it at `/api/event` and `/api/replay-events`.
 `AudioEvent` in `contract.py` is the strict validator; `to_dict`/`from_dict` provide
 JSON round trips. Unknown/missing fields and unsupported versions are rejected.
 The optional data fields below may be omitted and default to null/unknown/false.
@@ -10,7 +10,7 @@ The optional data fields below may be omitted and default to null/unknown/false.
 | `schema` | `sircus.audio.v1` (default); incompatible changes require another version |
 | `event_id`, `trial_id` | Nonempty, at most 256 characters; producer-assigned immutable observation ID and stable trial ID |
 | `source` | `simulation`, `sensor`, `operator` |
-| `event_type` | `impact`, `outcome`, `stop` |
+| `event_type` | `pickup`, `carry_start`, `carry_stop`, `release`, `flight_start`, `flight_stop`, `impact`, `outcome`, `stop` |
 | `contact_object` | Explicit object name such as `board`, or `unknown`; never infer board/bucket from ODD note number |
 | `timestamp` | Finite, nonnegative seconds in `time_basis` |
 | `time_basis` | `simulation_elapsed_s`, `host_monotonic_s`, `unix_s` |
@@ -20,12 +20,12 @@ The optional data fields below may be omitted and default to null/unknown/false.
 | `outcome` | `captured`, `missed`, `unknown`; only outcome events may carry a known outcome |
 | `confirmed` | Default false; physical known outcomes sound only when true; predictions may not set this true |
 | `confidence` | Optional numeric 0–1; null means unavailable, not zero; never substitute a made-up probability |
-| `evidence` | `model_prediction` for simulation; `midi_gesture` or future `sensor_detection` for sensor; `operator_label` for operator |
+| `evidence` | `model_prediction` for simulation; `midi_gesture` or future `sensor_detection` for sensor; `operator_label` or `operator_action` for operator |
 | `provenance` | Required concise explanation of producer and limitations; no credentials or host secrets |
 
 Simulation must use its elapsed clock; physical observations cannot use it. A
-`midi_gesture` must have unknown object/outcome and `confirmed=false`. No automatic
-capture detector exists. A future `sensor_detection` producer must supply its own
+`midi_gesture` must have unknown object/outcome and `confirmed=false`. `operator_action` is an explicit request, not confirmed physical evidence; it
+cannot set a known outcome or `confirmed=true`. No automatic capture detector exists. A future `sensor_detection` producer must supply its own
 documented validation and confidence policy before confirming an outcome.
 
 Example of a **synthetic predicted** first board contact:
@@ -57,7 +57,7 @@ information. Existing operator labels are assertions, not calibrated probabiliti
 `odd_tap(...)` converts an already-filtered positive ch1/note0 gesture into an
 unknown-object impact. IDs must come from a host/session observation counter,
 not velocity or timestamp alone: two legitimate hits may share those values.
-This milestone does not install a BLE listener or infer physical identity.
+Ghost Booth selects a CoreMIDI input and maps its positive configured impact notes. Port names alone do not identify physical balls.
 
 Offline JSONL replay allows one trial and one clock domain. It sorts by source
 time, removes exact duplicate IDs, and rejects an ID reused for different data.
@@ -66,3 +66,10 @@ No cross-host time synchronization is implied. Live `submit(event, delay_s=0)`
 plays on arrival; callers must provide a separately established clock conversion
 if they need scheduled future events. Playback speed/pause changes require cancel
 and an explicit fresh replay plan; no browser/Viam clock is auto-followed.
+
+Ghost Booth adds pickup/carry/release/flight types to this pre-merge v1 contract.
+Those timings must come from explicit actions or a documented producer; the saved
+physics converter does not invent them. The legacy procedural MIDI adapter ignores
+those extra lifecycle cues; the configurable native booth handles all eight slots.
+The booth previews profiles independently of trial evidence, and its synthetic
+whole-sequence example is labelled hand-authored rather than a physics result.
