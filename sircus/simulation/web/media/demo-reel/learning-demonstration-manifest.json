@@ -1,6 +1,6 @@
 {
   "schema": "sircus-learning-demonstration-video-v1",
-  "bundle_sha256": "aa48d3dc9fc91547331a548a5677655be75bf35f979dfe3b99b599c023a45eb8",
+  "bundle_sha256": "2cf601ac21fcceeb181497ed29ae7ee05ed600171e6ad35f62a995d8779a4f45",
   "renderer_sha256": "ddf7f0fa48d7fd5bb1eb2107b5960d1eef74f7909c5657c336cd8ddeb0f263dc",
   "data_origin": "synthetic",
   "physically_verified": false,
@@ -373,6 +373,7 @@
       58.1,
       63
     ],
-    "visual_evidence": "Nine decoded MP4 samples inspected; local QA sheet is not source evidence"
+    "visual_evidence": "Nine decoded MP4 samples inspected; local QA sheet is not source evidence",
+    "rerender_identical_media": true
   }
 }

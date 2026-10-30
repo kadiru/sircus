@@ -31,6 +31,8 @@ BALLS = (
 FIXED_SEEDS = (2026103001, 2026103002, 2026103003, 2026103004)
 SIZES = (8, 24, 64, 128)
 TRAIN_SEED = 20261030
+# BLAS/CPU rounding only: one billionth of a millimetre or degree; no relative tolerance.
+ACTION_NUMERICAL_ATOL = 1e-9
 
 
 def canonical(value):
@@ -112,18 +114,49 @@ def make_clip(clip_id, label, row, initial_scene, ball, role, provenance, **extr
     return clip
 
 
+def validate_predicted_action(predicted, saved):
+    """Validate floating inference across CPUs while replaying original evidence.
+
+    This tolerance never changes a checkpoint, recorded action, or saved result.
+    Key/schema changes and nonfinite values are rejected independently.
+    """
+    keys = set(front_study.ACTION_NAMES)
+    if set(predicted) != keys or set(saved) != keys:
+        raise ValueError('Frozen prediction action keys differ from the saved action contract')
+    for key in front_study.ACTION_NAMES:
+        actual, expected = predicted[key], saved[key]
+        if (type(actual) not in (int, float) or type(expected) not in (int, float)
+                or not math.isfinite(actual) or not math.isfinite(expected)):
+            raise ValueError(f'Frozen prediction action.{key}: finite numeric values required')
+        delta = abs(actual - expected)
+        if delta > ACTION_NUMERICAL_ATOL:
+            raise ValueError(f'Frozen prediction action.{key}: computed={actual!r}, '
+                             f'saved={expected!r}, absolute_difference={delta:.17g}, '
+                             f'allowed={ACTION_NUMERICAL_ATOL:g} (mm or degrees; rtol=0)')
+
+
 def published_clip(saved, episode, checkpoint, ball, *, paired=False):
     proposal = front_study.predict(checkpoint, episode['scene'])
-    if proposal['checkpoint_id'] != saved['checkpoint_id'] or proposal['action'] != saved['action']:
-        raise ValueError('Published replay differs from guarded frozen prediction')
+    if proposal['checkpoint_id'] != saved['checkpoint_id']:
+        raise ValueError('Published replay checkpoint_id differs from guarded frozen prediction')
+    validate_predicted_action(proposal['action'], saved['action'])
     if saved['result']['seed'] != episode['rollout_seed']:
         raise ValueError('Published held-out rollout seed mismatch')
-    row = {**proposal, 'result': copy.deepcopy(saved['result'])}
+    # Recomputed inference is validation only. Never pair a slightly different
+    # action/board orientation with the original trajectory. Preserve both exactly.
+    selected = copy.deepcopy(saved['scene'])
+    action = copy.deepcopy(saved['action'])
+    release = {key: action[key] for key in ('u_mm', 'v_mm', 'gap_mm')}
+    row = {**proposal, 'selected_scene': selected, 'action': action,
+           'release_action': release, 'release_coordinates': release_coordinates(selected, release),
+           'result': copy.deepcopy(saved['result'])}
     n = saved.get('train_scenes', 128)
     return make_clip('learning-' + saved['id'], saved['label'], row,
                      episode['scene'], ball, 'frozen_policy',
                      {'source': artifact(BASE / 'report.json'), 'source_replay_id': saved['id'],
                       'source_result_sha256': digest(saved['result']),
+                      'prediction_validation': {'absolute_tolerance_mm_or_degrees': ACTION_NUMERICAL_ATOL,
+                                                'relative_tolerance': 0., 'saved_action_preserved': True},
                       'inference': 'Guarded frozen prediction; no fitting, search or action selection during replay',
                       'selection': ('Prespecified first held-out layout, same release seed at every N; all misses retained'
                                     if paired else 'Separately labeled pre-existing held-out capture example; selected for successful illustration, not evidence of improvement')},

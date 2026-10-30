@@ -2,6 +2,7 @@
 import copy
 import hashlib
 import json
+import math
 from pathlib import Path
 import sys
 import tempfile
@@ -12,6 +13,51 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 from sircus.studies import build_showcase as demo
 from sircus.operations.numerical_worker import evaluate
+
+
+# Recomputed floats can differ by CPU/BLAS rounding. Counts, seeds, outcomes,
+# source hashes and saved evidence remain exact. No geometric or task-scale slack.
+COMPUTED_FLOAT_ATOL = 1e-9
+
+
+def assert_numerical_structure(actual, expected, path='$'):
+    if type(actual) is not type(expected):
+        raise AssertionError(f'{path}: type {type(actual).__name__} != {type(expected).__name__}')
+    if isinstance(expected, dict):
+        if actual.keys() != expected.keys():
+            raise AssertionError(f'{path}: object keys differ')
+        for key in sorted(expected):
+            assert_numerical_structure(actual[key], expected[key], f'{path}.{key}')
+    elif isinstance(expected, list):
+        if len(actual) != len(expected):
+            raise AssertionError(f'{path}: length {len(actual)} != {len(expected)}')
+        for index, (a, b) in enumerate(zip(actual, expected)):
+            assert_numerical_structure(a, b, f'{path}[{index}]')
+    elif isinstance(expected, float):
+        delta = abs(actual - expected)
+        if not math.isfinite(actual) or not math.isfinite(expected) or delta > COMPUTED_FLOAT_ATOL:
+            raise AssertionError(f'{path}: actual={actual!r}, expected={expected!r}, '
+                                 f'absolute_difference={delta:.17g}, allowed={COMPUTED_FLOAT_ATOL:g}, rtol=0')
+    elif actual != expected:
+        raise AssertionError(f'{path}: actual={actual!r} != expected={expected!r}')
+
+
+def comparable_computed_bundle(bundle):
+    """Validate local content hashes, then compare numeric content across CPUs.
+
+    Hashes of recomputed clips naturally change with their last floating bit.
+    Published file/source/evidence hashes are not removed or approximated.
+    """
+    value = copy.deepcopy(bundle)
+    clips = value['fixed']['clips'] + value['learning']['same_layout_clips'] + [value['learning']['success_example']]
+    declared = {row['id']: row['sha256'] for row in value['manifest']['clips']}
+    for clip in clips:
+        actual_hash = clip.pop('artifact_sha256')
+        if demo.digest(clip) != actual_hash or declared[clip['id']] != actual_hash:
+            raise AssertionError(f'Invalid computed clip content hash: {clip["id"]}')
+    for row in value['manifest']['clips']:
+        del row['sha256']
+    return value
 
 
 class ShowcaseTests(unittest.TestCase):
@@ -34,7 +80,7 @@ class ShowcaseTests(unittest.TestCase):
             self.assertEqual(clip['release_action'], fixed['preset']['release_action'])
             self.assertEqual(clip['scene'], fixed['clips'][0]['scene'])
             fresh = evaluate(clip['scene'], clip['release_action'], clip['seed'])['result']
-            self.assertEqual(clip['result'], fresh)
+            assert_numerical_structure(fresh, clip['result'], f'fixed.{clip["id"]}.result')
             self.assertEqual(clip['role'], 'fixed_preset')
             self.assertEqual(clip['split'], 'demonstration')
             self.assertFalse(clip['multiball_physics'])
@@ -133,10 +179,39 @@ class ShowcaseTests(unittest.TestCase):
         self.assertEqual(sha, hashlib.sha256((self.folder / name).read_bytes()).hexdigest())
         demo.verify_baseline()
 
-    def test_rebuild_identical_without_training_search_or_changing_baselines(self):
+    def test_cpu_rounding_is_validation_only_and_meaningful_action_change_rejected(self):
+        report = json.loads((demo.BASE / 'report.json').read_text())
+        saved = next(r for r in report['replays'] if r.get('train_scenes') == 8)
+        episode = json.loads((demo.BASE / 'manifest.json').read_text())['shared']['test'][0]
+        checkpoint = json.loads((demo.BASE / 'checkpoints/seed-20261030-checkpoint-n8.json').read_text())
+        real_predict = demo.front_study.predict
+        baseline = demo.published_clip(saved, episode, checkpoint, demo.BALLS[0], paired=True)
+        def drifting_prediction(*args, **kwargs):
+            predicted = real_predict(*args, **kwargs)
+            predicted['action']['gap_mm'] += 5e-10
+            # This changed proposal must not leak into the saved replay scene.
+            predicted['selected_scene']['board']['rpy_deg'][0] += 5e-10
+            return predicted
+        with patch.object(demo.front_study, 'predict', side_effect=drifting_prediction):
+            self.assertEqual(demo.published_clip(saved, episode, checkpoint, demo.BALLS[0], paired=True), baseline)
+        changed = copy.deepcopy(saved['action']);changed['gap_mm'] += 1e-5
+        with self.assertRaisesRegex(ValueError, r'action.gap_mm.*absolute_difference=.*allowed=1e-09'):
+            demo.validate_predicted_action(changed, saved['action'])
+        assert_numerical_structure({'point': [1. + 5e-10], 'seed': 42}, {'point': [1.], 'seed': 42})
+        with self.assertRaisesRegex(AssertionError, r'\$.point\[0\].*absolute_difference'):
+            assert_numerical_structure({'point': [1. + 1e-5]}, {'point': [1.]})
+        with self.assertRaisesRegex(AssertionError, r'\$.seed'):
+            assert_numerical_structure({'seed': 43}, {'seed': 42})
+
+    def test_rebuild_numerically_reproduces_without_training_search_or_changing_baselines(self):
         with patch.object(demo.front_study, 'search_episode', side_effect=AssertionError('No teacher search')), \
              patch.object(demo.front_study, 'fit_model', side_effect=AssertionError('No model fit')):
-            self.assertEqual(demo.build_bundle(), self.bundle)
+            rebuilt = demo.build_bundle()
+            for actual, expected in zip(rebuilt['learning']['same_layout_clips'] + [rebuilt['learning']['success_example']],
+                                        self.bundle['learning']['same_layout_clips'] + [self.bundle['learning']['success_example']]):
+                for field in ('action', 'release_action', 'scene', 'result', 'checkpoint_id', 'seed'):
+                    self.assertEqual(actual[field], expected[field], f'{actual["id"]}.{field}: saved evidence must remain exact')
+            assert_numerical_structure(comparable_computed_bundle(rebuilt), comparable_computed_bundle(self.bundle))
         with tempfile.TemporaryDirectory() as folder:
             with self.assertRaisesRegex(ValueError, 'never overwritten'):
                 demo.write_bundle(folder)

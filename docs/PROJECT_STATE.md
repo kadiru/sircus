@@ -15,10 +15,13 @@
   Population mean59.0%→69.4%; default checkpoint33/48. No per-scene optimization
   during inference. Displayed arm positioning is illustrated endpoint movement;
   numerical ball traces do not establish valid native paths or physical transfer.
+- Replay reconstruction permits only absolute1e-9 numerical rounding in frozen
+  inference checks, then retains the original recorded action, noisy scene and
+  trajectory exactly. Cross-CPU checks keep hashes/IDs/seeds/outcomes exact.
 - Added an independent downloadable film and source-linked checksum manifests.
   Existing studies, geometry, scoring definitions, policies and original film
   remain unchanged. See [demo instructions](DEMO_REEL.md).
-- Full regression passed382 Python and103 Node tests plus standalone Logic guards.
+- Full regression passed383 Python and103 Node tests plus standalone Logic guards.
   Browser verification completed the fixed routine, initialized local audio at
   zero volume and exercised Stop. Real sound listening/ODD commissioning and real
   robot validation remain separate; no physical or cloud configuration was changed.
