@@ -1,5 +1,32 @@
 # Project state
 
+## Guided operator and training workspace — October 30, 2026
+
+- `codex/macbook-guided-training` adds `/operations.html` on an explicitly opted-in,
+  local-only offline server. Start with `./start-operator-sim.sh` on unused port18766.
+  This source change does not restart or deploy any existing runtime.
+- Guided rehearsal: board pose → bucket placement → synthetic scan → fixed-board
+  search or frozen learned-angle preview → operator loading acknowledgment → grip/drop
+  and fresh numerical trajectory. The board plane comes from simulated arm14 joints
+  and the provisional mount. Bucket evidence is synthetic; no real detector is claimed.
+- Training runs actual ridge regression through the existing seeded/disjoint study,
+  saves a frozen checkpoint and evaluates held-out layouts, with fixed-action and
+  per-scene search comparisons separate. Jobs are bounded and cancellable; successful
+  artifacts can be downloaded or selected in the guided workspace.
+- Validation:150 Python and26 Node tests passed, including existing physical-controller
+  mocks and scoring/contact/fingerprint tests. Browser verification completed scan,
+  frozen prediction, load, fresh captured trial, real4/1/2 training and checkpoint
+  selection. The tiny training smoke gave2/2 for all three methods; it shows no
+  advantage over the baseline or physical readiness. Generated trial/training data
+  stays ignored and does not replace published baselines.
+- Read [operator boundaries](OPERATOR_WORKSPACE.md), [training contract](TRAINING_WORKSPACE.md)
+  and [device synchronization](DEVICE_SYNC.md). Physical integration still needs a real
+  bucket detector, verified camera/world and board-mount transforms, taught scan/load
+  poses, release calibration, collision-aware paths and a matching native v2 adapter.
+- Main remains separate from this task branch. Audio PR1 and PR4 remain drafts;
+  this workspace does not merge them. Existing services, cloud configuration and
+  hardware are untouched.
+
 ## Integration and learning checkpoint — October 30, 2026
 
 - PR #2 was reviewed and merged at `6f00ac3faa4e34d508b005891e62d9911ead81cf`; see [review evidence](PR2_INTEGRATION_REVIEW.md). Scoring requires a board bounce, whole-ball entry and one continuous second inside, including rim-assisted captures. Earlier result definitions are preserved.
