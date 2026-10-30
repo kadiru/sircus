@@ -9,7 +9,7 @@ const poseDirty=new Set();
 let poseCommit=null;
 const poseKeys=['x','y','z','o_x','o_y','o_z','theta'];
 const poseSuffixes=['X','Y','Z','OX','OY','OZ','Theta'];
-const poseMotionActions=['load_drop_cycle','go_loading','go_loading_approach','go_drop','drop','go_pickup_approach','pickup_drop_cycle'];
+const poseMotionActions=['load_drop_cycle','go_loading','go_loading_approach','go_drop','drop','go_pickup_approach','pickup_drop_cycle','resume_held_drop'];
 let status = null;
 let pending = 0;
 let pendingAction = null;
@@ -33,7 +33,7 @@ function showMessage(text, error = false) {
 }
 
 function allowed(action) {
-  if (action !== 'stop' && commandUncertain) return false;
+  if (!['stop','recover_stop'].includes(action) && commandUncertain) return false;
   if (action === 'stop' && !status) return stopWasAvailable;
   const values = status?.allowed_actions || [];
   return Array.isArray(values) ? values.includes(action) : values[action] === true;
@@ -146,6 +146,7 @@ function render(value) {
   if (value.fault || value.error || !value.connected) $('physicalCycleConfirm').checked = false;
   const signature=JSON.stringify([calibration.loading_pose,calibration.drop_pose,calibration.board_joints,calibration.board_pose,calibration.setup_revision]);
   if(setupSignature!==null&&signature!==setupSignature)$('physicalCycleConfirm').checked=false;setupSignature=signature;
+  if(value.capabilities?.cameras_enabled===false){$('physicalCamera').hidden=true;$('physicalCameraPlaceholder').hidden=false;$('physicalCameraPlaceholder').textContent='Cameras disabled by operator.';}
   $('physicalRecording').textContent = value.trial?.recording_mode === 'operator_log_only' ? 'Camera off · robot-state log only' : recording.active ? (recording.ready ? 'Recording · ready' : 'Recording · preparing') : recording.ready ? 'Ready' : 'Not ready';
   const height = trial.height_mm ?? trial.requested_height_mm ?? value.requested_height_mm;
   $('physicalRequestedHeight').textContent = present(height) ? `${height} mm` : trial.behavior === 'fixed_pose_cycle' ? 'Taught pose · height unmeasured' : '—';
@@ -205,7 +206,7 @@ async function refreshStatus() {
 }
 
 async function refreshCamera() {
-  if (destroyed || !selected || cameraPending || !status?.connected) return;
+  if (destroyed || !selected || cameraPending || !status?.connected || status?.capabilities?.cameras_enabled===false) return;
   cameraPending = true;
   try {
     const blob = await request('/api/physical/camera',{cache:'no-store'},requestTimeouts.camera,async response=>{
@@ -232,6 +233,8 @@ async function command(action,extra={}) {
   if (destroyed || !allowed(action) || (action !== 'stop' && pending > 0) || (action==='stop'&&pendingAction==='stop') || (poseDirty.size>0&&poseMotionActions.includes(action))) return false;
   let body = {action,...extra,...(action!=='stop'&&Number.isSafeInteger(status?.action_epoch)?{expected_action_epoch:status.action_epoch}:{})};
   try {
+    if(action==='recover_stop')body.confirmed=true;
+    if(action==='resume_held_drop'){if(!$('physicalHeldConfirm')?.checked)throw Error('Confirm held ball and clear transfer route.');body.confirmed=true;body.trial_id=status.trial.id;$('physicalHeldConfirm').checked=false;}
     if (action === 'load_drop_cycle') { if(!$('physicalCycleConfirm').checked)throw new Error('Confirm the fixed setup before starting a cycle.'); body.fixed_setup_confirmed = $('physicalCycleConfirm').checked; body.practice_mode = $('physicalPractice').checked; }
     if (action === 'keep_unlabeled') body.trial_id = currentTrialId;
     if (action === 'go_drop') body.height_mm = finiteInput('physicalHeight');
@@ -256,12 +259,12 @@ async function command(action,extra={}) {
   try {
     const value = await request('/api/physical/action', {
       method:'POST', headers:{'Content-Type':'application/json', ...(lastActionToken ? {'X-Sircus-Token':lastActionToken} : {})}, body:JSON.stringify(body)
-    },action==='stop'?(requestTimeouts.stop??45000):requestTimeouts.action);
+    },['stop','recover_stop'].includes(action)?(requestTimeouts.stop??45000):requestTimeouts.action);
     if(value.error||value.accepted===false)throw new Error(value.error||'Command was not accepted');
     if(epoch!==commandEpoch||destroyed)return false;
     const returned=value.status||value;
     if(!returned.allowed_actions){const error=new Error('Controller response did not confirm its state');error.transportUncertain=true;throw error;}
-    if(action==='stop'&&returned.connected===true&&returned.busy===false&&!returned.fault&&!returned.error)commandUncertain=false;
+    if(['stop','recover_stop'].includes(action)&&returned.connected===true&&returned.busy===false&&!returned.fault&&!returned.error)commandUncertain=false;
     if(action==='configure_poses'){poseCommit={loading_pose:body.loading_pose,drop_pose:body.drop_pose};$('physicalPoseConfirm').checked=false;}
     if(action==='teach_loading')poseDirty.delete('Loading');
     if(action==='teach_drop')poseDirty.delete('Drop');

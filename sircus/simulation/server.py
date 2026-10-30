@@ -100,12 +100,12 @@ def study_preview(payload):
 
 class PhysicalBridge:
     """Own event loop and credentials, separate from the simulation bridge."""
-    def __init__(self, mode, credentials, root):
+    def __init__(self, mode, credentials, root, cameras_enabled=True):
         sys.path.insert(0, str(ROOT.parent))
         from physical_trials.controller import Controller
         if mode == 'hardware':
             from physical_trials.viam_adapter import ViamAdapter
-            adapter = ViamAdapter(credentials)
+            adapter = ViamAdapter(credentials, {"cameras_enabled": cameras_enabled})
         else:
             from physical_trials.mock_adapter import MockAdapter
             adapter = MockAdapter()
@@ -179,7 +179,7 @@ class PhysicalBridge:
         else:
             # Stop owns bounded planner/readback/cancellation/recording cleanup
             # (up to 33s). Do not cancel its recovery before those bounds expire.
-            timeout = 40 if payload.get('action') == 'stop' else 30
+            timeout = 40 if payload.get('action') in ('stop','recover_stop') else 30
             call = self.controller.action(payload)
         future = asyncio.run_coroutine_threadsafe(call, self.loop)
         try:
@@ -662,6 +662,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--port', type=int, default=8765)
     parser.add_argument('--offline', action='store_true', help='Use standalone physics instead of the Viam simulation bridge; sfhack10 remains separately controlled by --physical-mode')
+    parser.add_argument('--disable-physical-cameras', action='store_true', help='Disable all physical camera lookup, preview and recording in this dashboard')
     parser.add_argument('--physical-mode', choices=('disabled','dry_run','hardware'), default='disabled')
     parser.add_argument('--physical-credentials', type=Path, default=ROOT.parent/'perception/.private/sfhack10.json')
     parser.add_argument('--physical-data-root', type=Path, default=None)
@@ -706,7 +707,7 @@ def main():
             cleanup.append(BRIDGE)
         if args.physical_mode != 'disabled':
             data_root = args.physical_data_root or ROOT.parent/'physical_trials/data'/args.physical_mode
-            PHYSICAL = PhysicalBridge(args.physical_mode,args.physical_credentials,data_root)
+            PHYSICAL = PhysicalBridge(args.physical_mode,args.physical_credentials,data_root,cameras_enabled=not args.disable_physical_cameras)
             cleanup.append(PHYSICAL)
         if args.operations or (args.show and args.physical_mode in ('disabled', 'dry_run')):
             from sircus.operations.service import GuidedOperations

@@ -100,6 +100,7 @@ class Controller:
         self.generation = 0
         self.stopping = False
         self.fault = False
+        self.recovery_verified = False
         self.audit = []
         self.gripper_closed = False
         self.gripper_command_state = 'unknown'
@@ -213,6 +214,7 @@ class Controller:
             except asyncio.CancelledError:
                 raise
             except Exception as exc:
+                self.recovery_verified=False
                 self.connected = False
                 self.snapshot_time = 0
                 self._invalidate_gripper()
@@ -390,6 +392,10 @@ class Controller:
         allowed = ['stop']
         fresh = self.connected and time.monotonic() - self.snapshot_time <= FRESH_SECONDS
         if not busy:
+            allowed += ['recover_stop']
+            if self._unsaved() and fresh and not self.fault and self.recovery_verified:
+                try:self._resume_held_checks();allowed += ['resume_held_drop']
+                except (TrialError,KeyError,TypeError):pass
             if not self._unsaved():allowed += ['set_ball']
             if self._unsaved():
                 if self.phase == 'ready' and not self._drop_blockers():
@@ -436,7 +442,7 @@ class Controller:
             'phase': self.phase, 'busy': busy, 'allowed_actions': allowed, 'robot': self.robot,
             'calibration': self.calibration, 'calibration_missing': self.calibration_missing(),
             'recording': self.recording, 'trial': self.trial, 'error': self.error,
-            'fault': self.fault,
+            'fault': self.fault, 'recovery_verified':self.recovery_verified,
             'fixed_cycle_missing': self.fixed_cycle_missing(),
             'pickup_station_missing':self.pickup_station_missing(),
             'pickup_station_blockers':self.pickup_station_blockers(),
@@ -455,6 +461,13 @@ class Controller:
         if not isinstance(payload,dict):raise TrialError('Action JSON object required')
         if self._closed:raise TrialError('Controller is closed')
         name = payload.get('action')
+        if name == 'recover_stop':
+            if self.task and not self.task.done():raise TrialError('Wait for the pending action to end before recovery')
+            if payload.get('confirmed') is not True:raise TrialError('Confirm stationary setup before recovery')
+            if payload.get('expected_action_epoch') != self.action_epoch:raise TrialError('Stale recovery request')
+            self.action_epoch += 1
+            await self._stop(recover_idle=True)
+            return {'accepted': True, **await self.status()}
         if name == 'stop':
             self.action_epoch += 1
             await self._stop()
@@ -465,6 +478,10 @@ class Controller:
                 raise TrialError('Stale action request; refresh state and confirm again')
         if name not in (await self.status())['allowed_actions']:
             raise TrialError('Action unavailable: another action/trial is pending, state is stale, or calibration is missing')
+        if name == 'resume_held_drop':
+            if payload.get('trial_id') != self.trial['id'] or payload.get('confirmed') is not True:
+                raise TrialError('Confirm the original held-ball trial and clear transfer route')
+            self._resume_held_checks()
         if 'recording_mode' in payload:
             mode = payload['recording_mode']
             if name != 'pickup_drop_cycle' or mode not in ('camera_required', 'operator_log_only'):
@@ -520,9 +537,9 @@ class Controller:
         try:self._persist()
         except Exception:self.journal_error='Trial journal write failed; partial record retained where possible'
 
-    async def _stop_and_verify(self):
+    async def _stop_and_verify(self, recover_idle=False):
         self._invalidate_gripper()
-        result=await self._bounded(self.adapter.stop(),STOP_TIMEOUT_SECONDS)
+        result=await self._bounded(self.adapter.stop(recover_idle=True) if recover_idle else self.adapter.stop(),STOP_TIMEOUT_SECONDS)
         if isinstance(result,dict) and result.get('planner_cancellation_verified') is False:
             raise TrialError('Pending planner cancellation was not verified')
         state=await self._snapshot()
@@ -553,6 +570,7 @@ class Controller:
         kinds = {('close_gripper', 'command_sent'): 'pickup',
                  ('load_drop_cycle', 'move_drop_sent'): 'carry_start',
                  ('pickup_drop_cycle', 'move_drop_sent'): 'carry_start',
+                 ('resume_held_drop', 'held_ball_verified'): 'pickup',
                  ('drop', 'pre_release'): 'carry_stop',
                  ('go_drop', 'requested'): 'carry_start',
                  ('drop', 'command_sent'): 'release'}
@@ -778,6 +796,8 @@ class Controller:
                 self.phase = 'idle'
             elif name == 'load_drop_cycle':
                 await self._fixed_cycle(still_current, practice=p.get('practice_mode') is True)
+            elif name == 'resume_held_drop':
+                await self._resume_held_drop(still_current)
             elif name == 'pickup_drop_cycle':
                 await self._pickup_cycle(still_current, p['ball_id'], practice=p.get('practice_mode') is True, recording_mode=p.get('recording_mode', 'camera_required'))
             elif name in ('go_pickup_approach','go_loading_approach'):
@@ -861,7 +881,7 @@ class Controller:
             self._audio_cancel()
             self.error = str(exc) if isinstance(exc, TrialError) else f'{name} failed ({type(exc).__name__}); check hardware/connection'
             if name in ('go_loading','go_drop','drop','load_drop_cycle','open_gripper','close_gripper',
-                        'go_pickup_approach','go_loading_approach','pickup_drop_cycle'):
+                        'go_pickup_approach','go_loading_approach','pickup_drop_cycle','resume_held_drop'):
                 try:await self._stop_and_verify()
                 except Exception:
                     self.error += '; dropper stop not confirmed';self.fault=True
@@ -1114,9 +1134,63 @@ class Controller:
         await self._pickup_linear_move(approach,grasp,still_current,'vertical_lift')
         await self._transfer_fixed_drop(config,still_current,'pickup_drop_cycle',practice)
 
-    async def _stop(self):
+    def _resume_held_checks(self):
+        t=self.trial
+        if self.fault or not self.recovery_verified:raise TrialError('Explicit verified recovery required')
+        if not t or t.get('saved') or t.get('status') not in ('aborted','interrupted'):
+            raise TrialError('An interrupted unsaved trial is required')
+        if t.get('behavior')!='pickup_station_cycle' or t.get('recording_mode')!='operator_log_only' or t.get('practice_mode') is not True:
+            raise TrialError('Recovery supports camera-off taped pickup practice only')
+        if hashlib.sha256(json.dumps(self.calibration,sort_keys=True).encode()).hexdigest()!=t.get('calibration_sha256'):
+            raise TrialError('Calibration changed since the held-ball trial')
+        events=t.get('events',[])
+        if any(e.get('command')=='drop' and e.get('event')=='command_sent' for e in events):
+            raise TrialError('Release already attempted; no automatic repeat')
+        if not any(e.get('command')=='close_gripper' and e.get('event')=='command_returned' and e.get('grabbed') is True for e in events):
+            raise TrialError('Original grip acknowledgment missing')
+        if not callable(getattr(self.adapter,'held_ball',None)) or not callable(getattr(self.adapter,'verify_quiescent',None)):
+            raise TrialError('Live holding and recovery inspection unavailable')
+
+    async def _resume_held_drop(self,still_current):
+        self._resume_held_checks()
+        self.recovery_verified=False  # one attempt per explicit recovery
+        evidence=await self._bounded(self.adapter.verify_quiescent(),STOP_TIMEOUT_SECONDS)
+        still_current()
+        state=await self._snapshot();still_current()
+        self._stationary(state);self._board_fixed(state)
+        approach=self.trial['pickup_approach_pose']
+        transit={**approach,'z':self._pickup_clearance_z(approach)}
+        actual=state['arms']['arm']['pose']
+        if not (pose_matches(actual,approach) or pose_matches(actual,transit)):
+            raise TrialError('Held-ball recovery must begin at the original pickup approach or clearance pose')
+        held=await self._bounded(self.adapter.held_ball(),SNAPSHOT_TIMEOUT_SECONDS);still_current()
+        if held is not True:raise TrialError('Holding sensor does not confirm the ball')
+        self.gripper_closed=True;self.gripper_command_state='held_sensor_verified'
+        self.selected_ball_id=self.trial['ball_id']
+        self.trial.setdefault('recovery_attempts',[]).append({'at':utc(),'from_status':self.trial['status'],
+            'state':state,'held_sensor':True,'quiescence':evidence,'pickup_repeated':False})
+        self.trial['status']='positioning'
+        self._event('resume_held_drop','held_ball_verified')
+        # If already at the higher transit, retain the original approach in evidence
+        # and transfer directly without replaying any pickup segment.
+        if not pose_matches(actual,transit) and transit['z']>approach['z']:
+            self.phase='pickup_clearance_lifting'
+            await self._pickup_linear_move(transit,approach,still_current,'clearance_lift')
+        state=await self._snapshot();still_current()
+        self._stationary(state);self._board_fixed(state)
+        if not pose_matches(state['arms']['arm']['pose'],transit):raise TrialError('Transfer clearance pose changed')
+        if not await self._bounded(self.adapter.held_ball(),SNAPSHOT_TIMEOUT_SECONDS):raise TrialError('Held-ball confirmation lost')
+        still_current()
+        self.phase='cycle_to_drop';self._event('pickup_drop_cycle','move_drop_sent')
+        await self.adapter.move_pose(self.trial['target_pose']);still_current()
+        self._event('pickup_drop_cycle','move_drop_returned')
+        self.trial['status']='ready';self.phase='cycle_release_checks'
+        await self._release_current(still_current);still_current()
+        self._keep_unlabeled()
+
+    async def _stop(self, recover_idle=False):
         if self.stopping:return
-        self.stopping=True;self.fault=True;self._invalidate_gripper();self.generation+=1
+        self.stopping=True;self.fault=True;self.recovery_verified=False;self._invalidate_gripper();self.generation+=1
         verified=False;quiescent=False
         active=self.task
         if active and not active.done():active.cancel()
@@ -1124,8 +1198,9 @@ class Controller:
         self._audio_cancel()  # Enqueue only; no audio readiness or acknowledgment.
         self._best_effort_event('stop','requested')
         try:
-            await self._stop_and_verify()
-            self._best_effort_event('stop','dropper_stop_returned')
+            evidence=await self._stop_and_verify(recover_idle=recover_idle)
+            self.recovery_verified=recover_idle and isinstance(evidence,dict) and bool(evidence.get('recovery_evidence'))
+            self._best_effort_event('stop','dropper_stop_returned',recovery_evidence=evidence)
             verified=True;self.error=None
         except asyncio.CancelledError:
             self.error='Stop request interrupted; recovery not confirmed'
