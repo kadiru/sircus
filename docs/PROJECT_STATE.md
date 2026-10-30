@@ -1,5 +1,25 @@
 # Project state
 
+## Dashboard round controls — October 30, 2026
+
+Task branch `codex/macbook-round-operator-ui` adds explicit Round 1 / reload /
+Round 2 controls to the existing show desk. The backend serializes board transition
+and four taped pickups, preserves 100 mm approach/lift and release guards, retains
+unique trial/round records, mutes optional audio between rounds, and never retries
+an interrupted ball automatically. Camera-off operation stays explicit.
+
+Green's recurring interruptions are robot-readback failures at different stages;
+several Green runs succeeded. The exact transport/position/timing cause remains
+unconfirmed. Per-RPC diagnostics are added; the brittle extra chat-side cached-
+status abort path is replaced by backend sequencing, without weakening guards.
+
+See [operator instructions and validation boundary](ROUND_OPERATOR_UI.md).
+Mocks:156 physical tests,42 UI tests,11 startup checks passed. Physical execution
+of this new coordinator remains untested until the operator starts it. Local
+poses, credentials and runtime records remain excluded. No arm/tool command is
+part of this UI deployment task; Ghost Booth and other runtimes stay independent.
+
+
 ## Full two-round demo completed — October 30, 2026, 13:15–13:19 PDT
 
 The operator explicitly confirmed loading/clearance before Round1 and again after
