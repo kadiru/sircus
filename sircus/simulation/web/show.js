@@ -92,7 +92,7 @@ export class ShowPanel{
     this.$('pickupPose').textContent=validPose(grasp)?'Saved arm 10 flange pose in world\n'+JSON.stringify(grasp,null,2):'Pickup pose not taught for this color.';
     this.$('pickupApproachPose').textContent=validPose(approach)?'Approach flange pose in world · +100 mm Z\n'+JSON.stringify(approach,null,2):'Approach pose unavailable until pickup is taught.';
     const locked=Boolean(busy)||!s?.connected||Boolean(s?.fault||s?.error)||!ball||this.physical?.hasUnsavedPoseEdits;
-    this.$('pickupSetupConfirm').disabled=locked;this.$('pickupFixedConfirm').disabled=locked;this.$('pickupPractice').disabled=Boolean(busy);if(this.$('pickupNoCamera'))this.$('pickupNoCamera').disabled=Boolean(busy)||!this.$('pickupPractice').checked;
+    this.$('pickupSetupConfirm').disabled=locked;this.$('pickupFixedConfirm').disabled=locked;this.$('pickupPractice').disabled=Boolean(busy);if(this.$('pickupNoCamera')){if(s?.capabilities?.cameras_enabled===false)this.$('pickupNoCamera').checked=true;this.$('pickupNoCamera').disabled=Boolean(busy)||!this.$('pickupPractice').checked||s?.capabilities?.cameras_enabled===false;}
     for(const [id,action]of [['pickupTeach','teach_pickup'],['pickupApproach','go_pickup_approach'],['pickupCycle','pickup_drop_cycle'],['pickupLoadingApproach','go_loading_approach']])this.$(id).disabled=!this.pickupAllowed(action);
     const blockers=s?.pickup_station_blockers||s?.pickup_station_missing||[];
     let message='Choose a color, teach its pickup pose, then verify pad and route clearance.';

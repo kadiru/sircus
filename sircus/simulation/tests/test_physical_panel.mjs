@@ -39,3 +39,17 @@ test('unsaved target drafts also block fixed-pickup motion without blocking Stop
  for(const action of ['go_loading_approach','go_pickup_approach','pickup_drop_cycle'])assert.equal(await h.instance.command(action,{ball_id:'ball-pink',pickup_setup_confirmed:true,fixed_setup_confirmed:true}),false);
  assert.equal(h.posts().length,0);assert.equal(await h.instance.command('stop'),true);assert.deepEqual(h.posts().map(row=>row.action),['stop']);h.instance.destroy();
 });
+
+test('disabled cameras produce no preview request',async()=>{
+ const h=fixture(()=>Promise.resolve(reply(base({capabilities:{cameras_enabled:false}}))));
+ await h.start();await turn();assert.equal(h.calls.filter(([url])=>url.endsWith('/camera')).length,0);
+ assert.match(h.node('physicalCameraPlaceholder').textContent,/disabled by operator/);h.instance.destroy();
+});
+test('held continuation requires confirmation and original trial ID',async()=>{
+ const state=base({allowed_actions:['resume_held_drop','stop'],trial:{id:'original-held',status:'aborted',saved:false}});
+ const h=fixture(()=>Promise.resolve(reply(state)));await h.start();
+ assert.equal(await h.instance.command('resume_held_drop'),false);assert.equal(h.posts().length,0);
+ h.node('physicalHeldConfirm').checked=true;assert.equal(await h.instance.command('resume_held_drop'),true);
+ assert.equal(h.posts()[0].trial_id,'original-held');assert.equal(h.posts()[0].confirmed,true);
+ assert.equal(h.node('physicalHeldConfirm').checked,false);h.instance.destroy();
+});

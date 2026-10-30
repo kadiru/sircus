@@ -110,6 +110,71 @@ class PickupStationTests(unittest.IsolatedAsyncioTestCase):
         self.assertNotIn('close_gripper',self.commands())
         self.assertEqual(self.controller.trial['status'],'aborted')
 
+    async def prepare_held_recovery(self):
+        await self.teach()
+        original=self.adapter.move_pose_linear
+        async def interrupted(target,start,**kw):
+            result=await original(target,start,**kw)
+            if target['z']>start['z']:raise RuntimeError('transport lost after lift')
+            return result
+        self.adapter.move_pose_linear=interrupted
+        await self.launch(practice_mode=True,recording_mode='operator_log_only');await self.drain()
+        self.assertEqual(self.controller.trial['status'],'aborted')
+        self.adapter.move_pose_linear=original
+        self.adapter.calls=[]
+        async def quiet():return {'method':'mock_two_quiescent_samples','samples':[]}
+        async def held():return True
+        async def stop(*,recover_idle=False):
+            self.adapter.calls.append(('stop_dropper',))
+            return {'planner_cancellation_verified':True,'recovery_evidence':await quiet() if recover_idle else None}
+        self.adapter.verify_quiescent=quiet;self.adapter.held_ball=held;self.adapter.stop=stop
+        self.controller.fault=True
+        await self.controller.action({'action':'recover_stop','confirmed':True,'expected_action_epoch':self.controller.action_epoch})
+        self.assertFalse(self.controller.fault);self.assertTrue(self.controller.recovery_verified)
+        self.adapter.calls=[]
+
+    async def resume(self):
+        return await self.controller.action({'action':'resume_held_drop','trial_id':self.controller.trial['id'],'confirmed':True})
+
+    async def test_recovery_finishes_same_trial_without_repeat_pickup_or_close(self):
+        await self.prepare_held_recovery();trial_id=self.controller.trial['id']
+        await self.resume();await self.drain()
+        self.assertEqual(self.controller.trial['id'],trial_id)
+        self.assertEqual(self.controller.trial['status'],'completed')
+        self.assertEqual(self.commands(),['move_pose','open_gripper'])
+        self.assertTrue(self.controller.trial['saved'])
+        self.assertFalse(self.controller.trial['recovery_attempts'][0]['pickup_repeated'])
+        with self.assertRaises(TrialError):await self.resume()
+
+    async def test_recovery_rejects_lost_ball_and_wrong_start(self):
+        await self.prepare_held_recovery()
+        async def empty():return False
+        self.adapter.held_ball=empty
+        await self.resume();await self.drain()
+        self.assertNotIn('move_pose',self.commands());self.assertNotIn('open_gripper',self.commands())
+        self.assertIn('Holding sensor',self.controller.error)
+
+    async def test_recovery_rejects_changed_calibration_or_prior_release(self):
+        await self.prepare_held_recovery()
+        self.controller.calibration['drop_pose']['x']+=10
+        with self.assertRaises(TrialError):await self.resume()
+        self.controller.calibration['drop_pose']['x']-=10
+        self.controller.trial['events'].append({'command':'drop','event':'command_sent'})
+        with self.assertRaises(TrialError):await self.resume()
+        self.assertEqual(self.commands(),[])
+
+    async def test_recovery_rejects_unrecognized_low_or_transit_pose(self):
+        await self.prepare_held_recovery();self.adapter.arm_pose['x']+=20
+        await self.resume();await self.drain()
+        self.assertNotIn('move_pose',self.commands());self.assertNotIn('open_gripper',self.commands())
+
+    async def test_stop_during_resumed_transfer_never_releases(self):
+        await self.prepare_held_recovery();self.adapter.move_gate=asyncio.Event();self.adapter.move_started.clear()
+        await self.resume();await asyncio.wait_for(self.adapter.move_started.wait(),2)
+        await self.command('stop')
+        self.assertNotIn('open_gripper',self.commands())
+        self.assertEqual(self.controller.trial['status'],'aborted')
+
     async def test_teaching_is_read_only_and_preserves_handload_drop_and_board(self):
         await self.command('teach_loading')
         self.adapter.arm_pose.update(x=600.,z=600.)

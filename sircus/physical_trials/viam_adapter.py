@@ -130,6 +130,7 @@ class ViamAdapter:
     def __init__(self, credentials_path, config=None):
         self.credentials_path = Path(credentials_path)
         self.config = dict(config or {})
+        self.cameras_enabled = self.config.get('cameras_enabled', True) is not False
         self.transport = self.config.get("transport", "auto")
         if self.transport not in ("auto", "direct"):
             raise ValueError("Physical transport must be auto or direct")
@@ -230,32 +231,33 @@ class ViamAdapter:
             robot = await self._rpc(RobotClient.at_address(ADDRESS, options), 20)
             resources = {(x.type, x.subtype, x.name) for x in robot.resource_names}
             required = {("component", "arm", "arm"), ("component", "arm", "arm-board"),
-                        ("component", "gripper", "gripper"), ("component", "camera", "cam"),
+                        ("component", "gripper", "gripper"),
                         ("service", "motion", "builtin")}
+            if self.cameras_enabled:required.add(("component", "camera", "cam"))
             if not required.issubset(resources):
                 await self._rpc(robot.close())
                 raise RuntimeError("sfhack10 is missing an expected arm, camera, gripper, or motion resource")
             self.robot = robot
             self.arms = {name: Arm.from_robot(robot, name) for name in ("arm", "arm-board")}
-            self.camera = Camera.from_robot(robot, "cam")
+            self.camera = Camera.from_robot(robot, "cam") if self.cameras_enabled else None
             self.gripper = Gripper.from_robot(robot, "gripper")
             self.motion = MotionClient.from_robot(robot, "builtin")
             capture_name = self.config.get("capture_control_name")
             data_manager_names = sorted(n for t, s, n in resources if t == "service" and s == "data_manager")
-            if capture_name and ("component", "sensor", capture_name) in resources and data_manager_names:
+            if self.cameras_enabled and capture_name and ("component", "sensor", capture_name) in resources and data_manager_names:
                 self.capture_control = Sensor.from_robot(robot, capture_name)
             self.capabilities = {
                 "connected": True, "machine": "sfhack10", "machine_id": MACHINE_ID, "part_id": PART_ID,
                 "transport": "SDK default; WebRTC enabled" if self.transport == "auto" else "direct TLS only",
                 "pose_frame": "world", "pose_component": "arm", "pose_source": "builtin Motion.GetPose",
-                "camera": "cam", "arms": ["arm", "arm-board"], "commanded_arm": "arm",
+                "camera": "cam" if self.cameras_enabled else None, "cameras_enabled":self.cameras_enabled, "arms": ["arm", "arm-board"], "commanded_arm": "arm",
                 "commanded_gripper": "gripper", "board_commands": False,
                 "resources": [{"type": t, "subtype": s, "name": n} for t, s, n in sorted(resources)],
                 "data_manager_names": data_manager_names,
                 "capture_control_name": capture_name if self.capture_control else None,
                 "native_capture_available": bool(self.capture_control),
                 "native_capture_verified": False,
-                "local_recording": True,
+                "local_recording": self.cameras_enabled,
                 "linear_motion": {"request_api": "Motion.Move Constraints.LinearConstraint",
                                   "server_acceptance_verified": False, "physical_path_verified": False},
                 "cloud_upload": "Viam DataClient on Save; availability not assumed until upload succeeds",
@@ -285,6 +287,7 @@ class ViamAdapter:
                 "camera": "cam", "synchronization": "Separate RPCs; not hardware-synchronized"}
 
     async def _images(self):
+        if not self.cameras_enabled:raise RuntimeError("Cameras disabled by operator")
         await self.connect()
         async with self._camera_lock:
             requested = utc()
@@ -299,6 +302,7 @@ class ViamAdapter:
                           "response_metadata": proto(metadata)}
 
     async def camera_frame(self):
+        if not self.cameras_enabled:raise RuntimeError("Cameras disabled by operator")
         if self._last_rgb is not None and self._last_frame_mono is not None and time.monotonic() - self._last_frame_mono < 2:
             return self._last_rgb[0], self._last_rgb[1], dict(self._last_rgb_meta or {})
         images, meta = await self._images()
@@ -412,7 +416,35 @@ class ViamAdapter:
                 self._move_monitor.cancel()
             self._move_task = None
 
-    async def stop(self):
+    async def held_ball(self):
+        await self.connect()
+        report = await self._rpc(self.gripper.is_holding_something(timeout=self.rpc_timeout))
+        return report.is_holding_something is True
+
+    async def verify_quiescent(self):
+        """Explicit recovery evidence; never substitutes for an unknown pending RPC."""
+        samples=[]
+        for index in range(2):
+            if any(not t.done() for t in self._actuation_tasks):
+                raise RuntimeError('Owned actuator request still pending')
+            operations=await self._rpc(self.robot.get_operations())
+            # Recovery requires exclusive quiescence, including external motion.
+            if any('/Move' in op.method or '/GoTo' in op.method for op in operations):
+                raise RuntimeError('Server motion operation remains active')
+            state=await self.snapshot()
+            if any(a['is_moving'] for a in state['arms'].values()):
+                raise RuntimeError('Arm reports moving during recovery')
+            if samples:
+                for name in ('arm','arm-board'):
+                    if max(abs(a-b) for a,b in zip(state['arms'][name]['joints'],samples[-1]['arms'][name]['joints'])) > .1:
+                        raise RuntimeError('Arm joints changed during recovery')
+            samples.append(state)
+            if index==0:await asyncio.sleep(.25)
+        if any(not t.done() for t in self._actuation_tasks):
+            raise RuntimeError('Late actuator request remains pending')
+        return {'method':'two_quiescent_server_and_arm_samples','samples':samples}
+
+    async def stop(self, *, recover_idle=False):
         self._actuation_epoch += 1
         await self.connect()
         async with self._stop_lock:
@@ -458,6 +490,15 @@ class ViamAdapter:
                 if was_active:errors.append(self._safe_error(exc))
             pending_actuation=sum(not task.done() for task in self._actuation_tasks)
             verified = not errors and not remaining and not pending_actuation and (not was_active or bool(cancelled))
+            recovery_evidence=None
+            if recover_idle and not errors and not remaining and not pending_actuation:
+                try:
+                    recovery_evidence=await self.verify_quiescent()
+                    verified=True
+                except Exception as exc:
+                    errors.append(self._safe_error(exc));verified=False
+            elif recover_idle:
+                verified=False
             # Do not erase an unverified planner operation: another Stop must
             # not turn missing cancellation evidence into a false success.
             if verified:
@@ -469,9 +510,11 @@ class ViamAdapter:
             return {"command": "arm.stop", "completed_at": utc(), "cancelled_operations": cancelled,
                     "operation_discovery_ok": discovered, "cancel_errors": errors, "remaining_owned_operations":remaining,
                     "planner_cancellation_verified": verified,"pending_owned_actuator_requests":pending_actuation,
+                    "recovery_evidence":recovery_evidence,
                     "gripper_or_vacuum_commanded": False}
 
     async def start_recording(self, trial_id, trial_dir, metadata=None):
+        if not self.cameras_enabled:raise RuntimeError("Cameras disabled; choose explicit camera-off practice")
         await self.connect()
         if self._record_task and not self._record_task.done():
             raise RuntimeError("A trial recording is already active")

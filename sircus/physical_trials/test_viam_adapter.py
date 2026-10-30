@@ -187,6 +187,46 @@ class AdapterTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(adapter._move_token, "undiscovered-panel-move")
         self.assertEqual(log, ["stop:arm"] * 4)
 
+    async def test_explicit_idle_recovery_resolves_disappeared_move_without_fake_cancel(self):
+        adapter,log=self.adapter();adapter._move_active=True;adapter._move_token='vanished'
+        async def no_operations():return []
+        adapter.robot.get_operations=no_operations
+        result=await adapter.stop(recover_idle=True)
+        self.assertTrue(result['planner_cancellation_verified'])
+        self.assertEqual(result['cancelled_operations'],[])
+        self.assertEqual(len(result['recovery_evidence']['samples']),2)
+        self.assertFalse(adapter._move_active)
+        self.assertEqual(log,['stop:arm','stop:arm'])
+
+    async def test_explicit_recovery_rejects_external_motion_and_failed_listing(self):
+        adapter,log=self.adapter()
+        result=await adapter.stop(recover_idle=True)
+        self.assertFalse(result['planner_cancellation_verified'])
+        async def unavailable():raise RuntimeError('transport unavailable')
+        adapter.robot.get_operations=unavailable
+        result=await adapter.stop(recover_idle=True)
+        self.assertFalse(result['planner_cancellation_verified'])
+
+    async def test_recovery_rejects_movement_and_late_actuation(self):
+        adapter,_=self.adapter()
+        async def empty():return []
+        adapter.robot.get_operations=empty
+        async def moving(**kw):return True
+        adapter.arms['arm'].is_moving=moving
+        with self.assertRaises(RuntimeError):await adapter.verify_quiescent()
+        adapter.arms['arm'].is_moving=Arm('arm',[]).is_moving
+        task=asyncio.create_task(asyncio.sleep(10));adapter._actuation_tasks.add(task)
+        try:
+            with self.assertRaises(RuntimeError):await adapter.verify_quiescent()
+        finally:task.cancel();await asyncio.gather(task,return_exceptions=True)
+
+    async def test_camera_disabled_blocks_preview_and_capture_before_any_rpc(self):
+        adapter,_=self.adapter();adapter.cameras_enabled=False
+        async def unexpected(*args,**kw):raise AssertionError('Camera RPC must never run')
+        adapter.camera.get_images=unexpected
+        for operation in (adapter.camera_frame(),adapter._images(),adapter.start_recording('x','/not-created')):
+            with self.assertRaisesRegex(RuntimeError,'[Cc]ameras disabled'):await operation
+
     def vertical_poses(self):
         start = dict(x=100., y=0., z=200., o_x=0., o_y=0., o_z=-1., theta=0.)
         return start, dict(start, z=100.)

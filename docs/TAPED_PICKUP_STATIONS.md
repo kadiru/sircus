@@ -60,3 +60,30 @@ and an unknown outcome. It is not a visual capture dataset.
 Fresh two-arm readback, fixed board joints, taught poses, constrained vertical pickup,
 held-ball acknowledgment, two-second release settling, cancellation and Stop checks
 remain mandatory. Audio remains nonblocking. Each button press runs one ball only.
+
+## Interrupted held-ball recovery
+
+`recover_stop` is an explicit operator action (`confirmed:true` plus the current
+`expected_action_epoch`). It sends dropper Stop without opening either tool, and
+requires two successful server-operation/both-arm stationary samples, stable
+joints, no pending owned actuator requests, and successful Stop RPCs. It can resolve
+a vanished Move operation without inventing a cancellation acknowledgment.
+Ordinary Stop remains conservative; failed or ambiguous evidence stays faulted.
+
+`resume_held_drop` requires the original unsaved aborted/interrupted camera-off
+practice trial, `trial_id`, `confirmed:true`, unchanged calibration, original grip
+acknowledgment, no prior release attempt, explicit verified recovery, and a fresh
+held-ball sensor reading. It accepts only the original pickup approach or higher
+station-clearance pose. It does not descend, open or close at pickup: it completes
+any needed vertical clearance lift, transfers to the saved drop pose, settles,
+and opens once. Stop still cancels continuation. The original trial ID/events and
+recovery evidence are preserved. A completed or release-attempted trial cannot
+be resumed again. Sensor identity is not visual ball-color verification.
+
+Launch the physical dashboard with `--disable-cameras` on
+`start-hardware-demo.sh` to disable camera lookup, capture-control attachment,
+preview and recording calls in this process. Existing browser camera requests are
+rejected before camera RPC. This does not power down USB devices or remove Viam
+camera/frame configuration; other clients must independently stop their streams.
+The launcher retains default camera behavior when this flag is omitted. In the
+camera-disabled show UI, taped pickup uses the explicit camera-off practice option.
