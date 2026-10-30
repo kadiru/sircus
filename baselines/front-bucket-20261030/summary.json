@@ -1,0 +1,73 @@
+{
+  "cohort_composition": {
+    "release_noise": {
+      "layouts_beyond_280mm": 2,
+      "mean_forward_distance_mm": 207.05614881564034,
+      "unique_layouts": 24
+    },
+    "shared_test": {
+      "layouts_beyond_280mm": 16,
+      "mean_forward_distance_mm": 241.19507748742845,
+      "unique_layouts": 48
+    }
+  },
+  "default_checkpoint_id": "7b9a76dddceca22490933f55edcdd82ebc596b2d6539f0d445b3be0f23c1d2e6",
+  "default_seed": 20261030,
+  "default_selection": "prespecified maximum N and first training seed, never best test",
+  "default_train_scenes": 128,
+  "elapsed_seconds": 1988.0062609579982,
+  "fixed_baseline": {
+    "captures": 25,
+    "ci95": [
+      0.3832923230334281,
+      0.6552868382304838
+    ],
+    "ci95_method": "Wilson interval over independent sampled layouts",
+    "endpoint_infeasible": 2,
+    "episodes": 48,
+    "native_paths_checked": false,
+    "outcomes": {
+      "captured": 25,
+      "invalid_action": 2,
+      "no_entry": 21
+    },
+    "physically_verified": false,
+    "success_fraction": 0.5208333333333334
+  },
+  "limited_search_oracle": {
+    "captures": 37,
+    "ci95": [
+      0.6346073590999655,
+      0.8669217373308877
+    ],
+    "ci95_method": "Wilson interval over independent sampled layouts",
+    "endpoint_infeasible": 0,
+    "episodes": 48,
+    "native_paths_checked": false,
+    "outcomes": {
+      "captured": 37,
+      "no_entry": 11
+    },
+    "physically_verified": false,
+    "success_fraction": 0.7708333333333334
+  },
+  "manifest_sha256": "ad9f4825c0e76b4e574e06fb26c5de408f86fb85d291ec6df99dcb06b980ba7e",
+  "protocol_counts": {
+    "diagnostic_fixed_attempts": 120,
+    "diagnostic_search_proposals": 1920,
+    "fixed_baseline_attempts": 48,
+    "forced_contact_attempts": 1296,
+    "frozen_challenge_attempts": 2376,
+    "frozen_test_attempts": 576,
+    "scope": "Protocol attempts excluding separately rendered gallery replays and regression inspections; repeated layouts are not additional independent samples",
+    "search_oracle_proposals": 768,
+    "teacher_proposals": 6144,
+    "unique_challenge_layouts": 384,
+    "unique_core_layouts": 832,
+    "unique_shared_validation_test_layouts": 64,
+    "unique_training_layouts": 384,
+    "validation_attempts": 576
+  },
+  "test_layouts": 48,
+  "validation_layouts": 16
+}

@@ -1,0 +1,11 @@
+{
+  "gain": 0.55,
+  "muted": false,
+  "channel": 16,
+  "first_board": "boing",
+  "bounces": ["squeak", "plop", "spring"],
+  "captured": "celebration",
+  "missed": "wong",
+  "max_events": 4096,
+  "max_pending_messages": 16384
+}

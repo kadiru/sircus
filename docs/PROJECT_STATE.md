@@ -1,5 +1,114 @@
 # Project state
 
+## Three-mode show integration — October 30, 2026
+
+- Draft integration branch `codex/macbook-three-mode-show` combines the guided
+  workspace and audio draft source without merging main or those draft PRs.
+  `/show.html` exposes Simulator, Deterministic and Trained views. Default launch
+  `./start-show.sh` uses mock arms/camera/recording on loopback18769; hardware mode
+  is explicit and has no numerical workflow routes. See [show runbook](SHOW_RUNBOOK.md).
+- Deterministic pose editing records operator-configured Viam TCP targets without
+  motion or a calibration claim. The fixed routine uses two seconds to load and
+  two seconds settled before release, with optional unlabeled practice records.
+  Stop and conflicting-action guards retain the existing physical-controller logic.
+- Pink/Purple/Green/Gray are explicit operator labels with unassigned MIDI bindings.
+  A verified input routes measured generic impacts only; no manual contact buttons,
+  object inference or automatic capture/miss labels. Older released balls retain
+  their own trial/window while a different ball loads. FX starts off; lifecycle
+  hooks enqueue without audio I/O, and cancellation cannot stop another ball's cue.
+- An original bounded drum-roll loop spans carry and the two-second settle, ending
+  immediately before release. Replay startup/mute races found by Ubuntu CI were corrected with an audio-only
+  readiness epoch and nonblocking cancellation ownership. Four-input native MIDI parsing and scoped voice
+  cancellation compile and pass isolated tests without opening devices. Real BLE,
+  listening, private-LAN delivery and optional Logic commissioning are outstanding.
+- Validation:333 Python unittest checks,71 Node tests and the standalone Logic
+  guard assertions passed. Coverage includes unreachable/delayed audio, duplicate
+  events, cancellation/lock contention, four identities, repeated synthetic replay,
+  pose configuration, fixed-cycle mocks, UI routes, scoring and immutable baselines.
+  A new mock-only preview was launched/refreshed; existing18766 operator service,
+  physical services, cloud machine config and hardware were not changed.
+- Current synthetic learning evidence remains33/48 frozen inference versus25/48
+  fixed action and37/48 separately labeled bounded search. No learning result,
+  fingerprint or compatibility guard was rewritten by show/audio integration.
+- The existing presentation was reduced to eight spacious circus/Halloween slides,
+  retaining real photos and adding current UI, measured study results and explicit
+  uncommissioned perception/audio boundaries. Physical trained deployment is still
+  blocked by calibration, detector and native-path requirements.
+
+## Corrected front-bucket study and commissioning stubs — October 30, 2026
+
+- Active draft PR5 / `codex/macbook-guided-training` keeps main and audio drafts separate.
+  The operator workspace defaults to front-negative-y-v1: origin at dropper arm10,
+  +X toward arm14, +Z up; bucket and operator face the board from negative Y.
+  Screenshot TCP values remain historical evidence, not calibrated ball-center poses.
+- Historical positive-Y assets/checkpoints and rectangular/bucket baselines are
+  preserved. The corrected profile has separate fingerprint guards and immutable
+  training/test evidence. Profile changes invalidate stale scans and plans.
+- Initial corrected24/6/8 study: frozen3/8, fixed2/8, limited4-proposal search2/8;
+  the frozen95% interval is13.7–69.4%. The small sample is inconclusive. See
+  [the current study record](FRONT_BUCKET_STUDY.md) for the larger prespecified
+  three-seed N8/24/64/128 curves, held-out challenge results and limitations.
+- `/study-results.html` displays completed synthetic reports, uncertainty, actual
+  ball trajectories, and video export. `/operations.html` provides guided rehearsal,
+  profile-specific training and a read-only physical-readiness checklist. Numerical
+  arm endpoints remain separate from native collision-path and dynamics validation.
+- [Viam deployment stubs](VIAM_DEPLOYMENT.md) add typed scan/kinematics/planning/
+  recording/motion interfaces, a blocked coordinator and unknown-result vision
+  service. Actual localhost Viam1.14.3 RPC tests passed with no hardware components.
+  A private unattached cloud fragment was saved with zero deployments; physical
+  machine configuration and robot commands were not changed.
+- Physical implementation still requires a real bucket detector, reference-based
+  camera/world and board-mount calibration, single-controller ownership, taught
+  scan/load poses, measured grasp offset/release limits, recording validation and
+  collision-checked paths. Native v2 replay compatibility guards remain in place.
+
+### Final overnight checkpoint
+
+- Larger study: three training seeds, nested N8/24/64/128; 16 validation and 48
+  shared disjoint test layouts. Mean captures:59.0%,67.4%,67.4%,69.4%. Prespecified
+  default N128/seed20261030:33/48 (95%54.7–80.1%), fixed25/48, bounded search37/48.
+  At ±200mm lateral offsets default frozen inference scored0/24; separate diagnostic
+  search found18/24 and12/24. No diagnostic result was used to refit/select the model.
+- Final suite:193 Python and53 Node tests passed, including physical-controller
+  mocks, versioned scoring/contact, source/asset guards, all576 saved predictions,
+  numerical replay, UI races and deployment-stub tests. Independent reconstruction
+  matched all12 train-only model fits within1.89e-15.
+- Only the dedicated offline operator process on port18766 was refreshed after
+  confirming it was idle and preserving its status. It serves the published front
+  checkpoint/report with physical controls disabled. It is manually launched via
+  `./start-operator-sim.sh`; this is not physical deployment or a Viam cloud runtime.
+  Temporary QA and native-stub servers are stopped when verification completes.
+- The video is a rendered record of actual saved numerical trajectories and results,
+  not a physical trial or validated native arm path. Browser video export remains
+  capability-dependent; a standalone renderer is supplied for repeatable output.
+
+## Historical guided-workspace checkpoint — October 30, 2026
+
+- `codex/macbook-guided-training` adds `/operations.html` on an explicitly opted-in,
+  local-only offline server. Start with `./start-operator-sim.sh` on unused port18766.
+  This source change does not restart or deploy any existing runtime.
+- Guided rehearsal: board pose → bucket placement → synthetic scan → fixed-board
+  search or frozen learned-angle preview → operator loading acknowledgment → grip/drop
+  and fresh numerical trajectory. The board plane comes from simulated arm14 joints
+  and the provisional mount. Bucket evidence is synthetic; no real detector is claimed.
+- Training runs actual ridge regression through the existing seeded/disjoint study,
+  saves a frozen checkpoint and evaluates held-out layouts, with fixed-action and
+  per-scene search comparisons separate. Jobs are bounded and cancellable; successful
+  artifacts can be downloaded or selected in the guided workspace.
+- Validation:150 Python and26 Node tests passed, including existing physical-controller
+  mocks and scoring/contact/fingerprint tests. Browser verification completed scan,
+  frozen prediction, load, fresh captured trial, real4/1/2 training and checkpoint
+  selection. The tiny training smoke gave2/2 for all three methods; it shows no
+  advantage over the baseline or physical readiness. Generated trial/training data
+  stays ignored and does not replace published baselines.
+- Read [operator boundaries](OPERATOR_WORKSPACE.md), [training contract](TRAINING_WORKSPACE.md)
+  and [device synchronization](DEVICE_SYNC.md). Physical integration still needs a real
+  bucket detector, verified camera/world and board-mount transforms, taught scan/load
+  poses, release calibration, collision-aware paths and a matching native v2 adapter.
+- Main remains separate from this task branch. Audio PR1 and PR4 remain drafts;
+  this workspace does not merge them. Existing services, cloud configuration and
+  hardware are untouched.
+
 ## Integration and learning checkpoint — October 30, 2026
 
 - PR #2 was reviewed and merged at `6f00ac3faa4e34d508b005891e62d9911ead81cf`; see [review evidence](PR2_INTEGRATION_REVIEW.md). Scoring requires a board bounce, whole-ball entry and one continuous second inside, including rim-assisted captures. Earlier result definitions are preserved.
@@ -19,3 +128,33 @@
 - Native cloud simulation runtime previously on the Mac is no longer assumed running. Do not reuse its cloud identity without coordinating ownership. Local8083 needs no credentials.
 
 Current detailed physical/perception STATUS files include historical PIDs and timestamps. Verify live state before acting. Read docs/UBUNTU_SETUP.md for repository startup; old transfer/local absolute paths are historical.
+
+## Mac Mini audio — October 30, 2026
+
+Ghost Booth is the unified local event-sound/rehearsal interface under
+`sircus/audio/booth/`, with eight configurable event slots and sixteen original
+sounds. See [audio status](../sircus/audio/STATUS.md). It runs independently with
+FX off and no robot dependency. The main audio branch/draft PR carries this code;
+no physical dashboard hook, Viam configuration or robot deployment is included.
+
+## MacBook audio integration checkpoint — October 30, 2026
+
+The separate `codex/macbook-dashboard-audio` task branch includes reviewed main
+`6f00ac3faa4e34d508b005891e62d9911ead81cf` and the draft audio client. It adds
+initially-off FX, volume, sanitized connection/mute status and nonblocking
+physical-controller observers. [Integration details](DASHBOARD_AUDIO_INTEGRATION.md)
+describe evidence, command ordering, cancellation, tests and private-LAN setup.
+This is source integration only: no deployment, service restart, hardware call
+or cross-computer validation. Audio PR #1 remains draft; learning PR #3 remains
+separate. New scoring is opt-in and v2 native replay remains blocked.
+
+## Reviewed learning merge and audio corrections — October 30, 2026
+
+PR #3 was merged into main at `a376ad67968f6445d39a51c2a29325a204bb582a`.
+The audio integration branch retains both the numerical study preview and
+audio controls after resolving the shared server, test script and style changes.
+Published study artifacts, scoring versions and native replay guards are unchanged.
+Audio PRs #1 and #4 remain drafts; this is source integration, not deployment.
+No existing services were restarted, no audio was auditioned, and no Viam or
+physical robot connection was used. Real listening, ODD/BLE and authenticated
+cross-computer commissioning remain separate follow-ups.

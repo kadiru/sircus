@@ -1,0 +1,107 @@
+{
+  "checkpoint_selection": "prespecified maximum N for every original training seed",
+  "contacts_uv_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      -65.0,
+      0.0
+    ],
+    [
+      65.0,
+      0.0
+    ],
+    [
+      0.0,
+      -95.0
+    ],
+    [
+      0.0,
+      95.0
+    ],
+    [
+      -65.0,
+      -95.0
+    ],
+    [
+      -65.0,
+      95.0
+    ],
+    [
+      65.0,
+      -95.0
+    ],
+    [
+      65.0,
+      95.0
+    ]
+  ],
+  "core_report_sha256": "1e0f94d1e59508ea3896afb7990bb23bdacd07a2b2f38fc71c43d70a9f386aec",
+  "data_origin": "synthetic",
+  "interpretation": "Controlled release-location intervention; not frozen policy inference. Changing U/V changes impact location, launch trajectory, endpoint reachability, and compliant response, so effects cannot be attributed solely to suspension.",
+  "layout_source": "frozen shared test manifest",
+  "method": "forced_contact_intervention",
+  "release_noise": {
+    "gap_mm": 3.0,
+    "xy_mm": 2.0
+  },
+  "scene_ids": [
+    "shared-test-0000-12690d8264d5",
+    "shared-test-0001-03c838b94d11",
+    "shared-test-0002-2a2efa3c79ac",
+    "shared-test-0003-93ced55ea705",
+    "shared-test-0004-0ab01d89fc39",
+    "shared-test-0005-08b4df6fd1a5",
+    "shared-test-0006-302d64d692da",
+    "shared-test-0007-9dfbcb6baa05",
+    "shared-test-0008-10ba855a4c74",
+    "shared-test-0009-68f70580d322",
+    "shared-test-0010-4f6375423d85",
+    "shared-test-0011-07c23075128b",
+    "shared-test-0012-03c8e2009327",
+    "shared-test-0013-8f1cf0234bff",
+    "shared-test-0014-d7e4662a1432",
+    "shared-test-0015-6d3b7c6bc784",
+    "shared-test-0016-aa656481a964",
+    "shared-test-0017-6044da1affaf",
+    "shared-test-0018-6b5d2b1fbfe4",
+    "shared-test-0019-9d9b18839f13",
+    "shared-test-0020-e074377f5b2c",
+    "shared-test-0021-5be45de74d0c",
+    "shared-test-0022-f7225801c6a4",
+    "shared-test-0023-a2832cf3cf69",
+    "shared-test-0024-d331cc10103c",
+    "shared-test-0025-55fb0f7716b0",
+    "shared-test-0026-f544c1297523",
+    "shared-test-0027-10e1c287a6fe",
+    "shared-test-0028-6ffe108bc86d",
+    "shared-test-0029-6fff79cf7903",
+    "shared-test-0030-2eb9b5ee8d80",
+    "shared-test-0031-e5f64e60a7d5",
+    "shared-test-0032-f93c95f03e0e",
+    "shared-test-0033-9cbc08cef761",
+    "shared-test-0034-846e71e172d6",
+    "shared-test-0035-552e5beae5ec",
+    "shared-test-0036-9461f1ff1f82",
+    "shared-test-0037-ca6d99bb79b4",
+    "shared-test-0038-0867efab363d",
+    "shared-test-0039-29bd6cd24e20",
+    "shared-test-0040-af5f6ce225a3",
+    "shared-test-0041-484a69e9e7cb",
+    "shared-test-0042-735cd6036c6e",
+    "shared-test-0043-8d42b5e0e0f1",
+    "shared-test-0044-007ba0751851",
+    "shared-test-0045-6f9e4bf250ff",
+    "shared-test-0046-73a2c1c9a5b6",
+    "shared-test-0047-b3cc06e45b6b"
+  ],
+  "schema": "sircus-contact-intervention-v1",
+  "source_sha256": "23bc2cb84df9c7529b0a3c154b344b58ca12175cd527cb5fc9ed4e2ccb667d82",
+  "unchanged_predicted_fields": [
+    "roll_deg",
+    "pitch_deg",
+    "gap_mm"
+  ]
+}

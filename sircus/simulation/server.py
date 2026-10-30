@@ -9,13 +9,14 @@ import json
 import mimetypes
 import os
 import secrets
+import signal
 import subprocess
 import sys
 import threading
 from concurrent.futures import TimeoutError as FutureTimeout
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, parse_qs
 from uuid import UUID
 
 from physics import default_config, validate_config, simulate
@@ -31,8 +32,27 @@ STATE = {'phase': 'idle'}
 OFFLINE = False
 BRIDGE = None
 PHYSICAL = None
+AUDIO = None
+SHOW_ENABLED = False
+SHOW_AUDIO = None
+SHOW_TOKEN = secrets.token_urlsafe(32)
+SHOW_LOCK = threading.RLock()
+
+
+def optional_audio_observer():
+    """Optional audio initialization cannot prevent dashboard/robot startup."""
+    try:
+        from sircus.audio.dashboard import AudioObserver
+        return AudioObserver()
+    except Exception:
+        return None
+
 STUDY_LOCK = threading.Lock()
 STUDY_MAX_BYTES = 1_000_000
+OPERATIONS = None
+TRAINING_JOBS = None
+STUDY_RESULTS_PATH = ROOT.parent.parent/'baselines/front-bucket-20261030/report.json'
+WORKFLOW_TOKEN = secrets.token_urlsafe(32)
 
 
 def study_preview(payload):
@@ -83,7 +103,7 @@ class PhysicalBridge:
         self.thread.start()
         self.token = secrets.token_urlsafe(32)
         self.mode = mode
-        self.controller = Controller(adapter, root, mode=mode)
+        self.controller = Controller(adapter, root, mode=mode, audio=AUDIO)
         self.startup = asyncio.run_coroutine_threadsafe(self.controller.start(), self.loop)
 
     def call(self, kind, payload=None):
@@ -217,6 +237,19 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         path = urlsplit(self.path).path
+        if path.startswith('/api/show/'):
+            return self.show_get(path)
+        if path.startswith(('/api/operations/', '/api/training/')) or path in ('/api/study/results', '/api/deployment/status'):
+            return self.workflow_get(path)
+        if path.startswith('/api/audio/'):
+            if not self.physical_host_ok():
+                return self.send({'error': 'loopback host required'}, 403)
+            if path != '/api/audio/status':
+                return self.send({'error': 'unknown audio endpoint'}, 404)
+            if AUDIO is None:
+                return self.send({'configured': False, 'enabled': False, 'connection': 'not_configured',
+                                  'pending': False, 'error': 'Audio observer unavailable'}, 503)
+            return self.send(AUDIO.snapshot())
         if path.startswith('/api/physical/'):
             if not self.physical_host_ok():
                 return self.send({'error':'loopback host required'}, 403)
@@ -263,8 +296,28 @@ class Handler(BaseHTTPRequestHandler):
             length = int(self.headers.get('Content-Length', '0'))
         except ValueError:
             return self.send({'error': 'invalid request size'}, 413)
-        if length <= 0 or length > (STUDY_MAX_BYTES if path == '/api/study/preview' else 200000):
+        if length <= 0 or length > (STUDY_MAX_BYTES if path == '/api/study/preview' or path.startswith('/api/operations/') else 200000):
             return self.send({'error': 'invalid request size'}, 413)
+        if path.startswith('/api/show/'):
+            return self.show_post(path, length)
+        if path.startswith(('/api/operations/', '/api/training/')):
+            return self.workflow_post(path, length)
+        if urlsplit(self.path).path.startswith('/api/audio/'):
+            if not self.physical_host_ok() or AUDIO is None:
+                return self.send({'error': 'audio backend unavailable'}, 403)
+            if length > 4096:
+                return self.send({'error': 'invalid audio request size'}, 413)
+            if not secrets.compare_digest(self.headers.get('X-Sircus-Audio-Token', ''), AUDIO.token):
+                return self.send({'error': 'audio action token required'}, 403)
+            if urlsplit(self.path).path != '/api/audio/control':
+                return self.send({'error': 'unknown audio endpoint'}, 404)
+            try:
+                return self.send(AUDIO.control(json.loads(self.rfile.read(length))), 202)
+            except (ValueError, TypeError):
+                return self.send({'error': 'Invalid or unavailable audio control'}, 400)
+            except Exception:
+                return self.send({'error': 'Optional audio control unavailable'}, 503)
+
         if path.startswith('/api/study/'):
             if not self.physical_host_ok():
                 return self.send({'error': 'loopback host required'}, 403)
@@ -347,27 +400,207 @@ class Handler(BaseHTTPRequestHandler):
             STATE.update(phase='idle')
             LOCK.release()
 
+    def workflow_ready(self):
+        return OFFLINE and OPERATIONS is not None and (PHYSICAL is None or (SHOW_ENABLED and getattr(PHYSICAL, 'mode', None) == 'dry_run')) and TRAINING_JOBS is not None
+
+    def workflow_get(self, path):
+        if not self.physical_host_ok():
+            return self.send({'error': 'loopback host required'}, 403)
+        if not self.workflow_ready():
+            return self.send({'error': 'Start the separate operator simulation with ./start-operator-sim.sh',
+                              'hardware_enabled': False}, 503)
+        try:
+            if path == '/api/study/results':
+                return self.send(load_study_results(STUDY_RESULTS_PATH))
+            if path == '/api/deployment/status':
+                from sircus.deployment.controller import DeploymentController
+                return self.send(DeploymentController('blocked').status())
+            if path == '/api/operations/status':
+                return self.send({**OPERATIONS.status(), 'action_token': WORKFLOW_TOKEN})
+            if path == '/api/training/status':
+                return self.send({**TRAINING_JOBS.status(), 'action_token': WORKFLOW_TOKEN})
+            if path == '/api/training/artifact':
+                params = parse_qs(urlsplit(self.path).query, keep_blank_values=True)
+                if set(params) != {'run_id', 'name'} or any(len(v) != 1 for v in params.values()):
+                    raise ValueError('Supply one run_id and artifact name')
+                return self.send(TRAINING_JOBS.artifact(params['run_id'][0], params['name'][0]))
+            return self.send({'error': 'unknown workflow endpoint'}, 404)
+        except (ValueError, KeyError, TypeError, FileNotFoundError) as exc:
+            return self.send({'error': str(exc)[:300]}, 400)
+        except Exception:
+            return self.send({'error': 'Simulation workspace unavailable'}, 503)
+
+    def workflow_post(self, path, length):
+        if not self.physical_host_ok():
+            return self.send({'error': 'loopback host required'}, 403)
+        if not self.workflow_ready():
+            return self.send({'error': 'Operator simulation is disabled; no hardware fallback'}, 503)
+        if not secrets.compare_digest(self.headers.get('X-Sircus-Workflow-Token', ''), WORKFLOW_TOKEN):
+            return self.send({'error': 'workflow action token required'}, 403)
+        if path not in ('/api/operations/action', '/api/training/start', '/api/training/cancel'):
+            return self.send({'error': 'unknown workflow endpoint'}, 404)
+        try:
+            value = json.loads(self.rfile.read(length), parse_constant=lambda _: (_ for _ in ()).throw(ValueError('Finite JSON required')))
+            if not isinstance(value, dict):
+                raise ValueError('JSON object required')
+            if path == '/api/operations/action':
+                with SHOW_LOCK:
+                    if SHOW_AUDIO is not None:
+                        try: SHOW_AUDIO.cancel_replay()
+                        except Exception: pass  # Optional audio cannot block numerical cancellation/actions.
+                    result = OPERATIONS.action(value)
+            elif path == '/api/training/start':
+                result = TRAINING_JOBS.start(value)
+            else:
+                if value:
+                    raise ValueError('Cancellation requires an empty object')
+                result = TRAINING_JOBS.cancel()
+            return self.send({**result, 'action_token': WORKFLOW_TOKEN}, 202)
+        except (ValueError, KeyError, TypeError) as exc:
+            return self.send({'error': str(exc)[:300]}, 400)
+        except RuntimeError as exc:
+            return self.send({'error': str(exc)[:300]}, 409)
+        except Exception:
+            return self.send({'error': 'Simulation action failed; no hardware fallback'}, 503)
+
+    def show_status(self):
+        mode = getattr(PHYSICAL, 'mode', 'disabled') if PHYSICAL is not None else 'disabled'
+        numerical = self.workflow_ready()
+        return {'schema': 'sircus.show.v1', 'action_token': SHOW_TOKEN,
+            'modes': {
+                'deterministic': {'available': mode in ('dry_run','hardware'), 'mode': mode,
+                    'requires_bucket_detection': False},
+                'simulator': {'available': numerical, 'url': '/operations.html?embed=simulator',
+                    'hardware_enabled': False},
+                'trained': {'available': numerical, 'url': '/operations.html?embed=trained',
+                    'hardware_enabled': False, 'deployment': 'blocked pending calibration and native paths'}},
+            'audio_show': SHOW_AUDIO.status() if SHOW_AUDIO is not None else None,
+            'audio_error': None if SHOW_AUDIO is not None else 'Optional show audio unavailable',
+            'scope': 'Deterministic poses do not require vision; trained physical execution remains uncommissioned'}
+
+    def show_get(self, path):
+        if not self.physical_host_ok(): return self.send({'error':'loopback host required'},403)
+        if not SHOW_ENABLED: return self.send({'error':'Start the separate show workspace with ./start-show.sh'},503)
+        if path != '/api/show/status': return self.send({'error':'unknown show endpoint'},404)
+        try: return self.send(self.show_status())
+        except Exception: return self.send({'error':'Optional show status unavailable'},503)
+
+    def show_post(self, path, length):
+        if not self.physical_host_ok(): return self.send({'error':'loopback host required'},403)
+        if not SHOW_ENABLED: return self.send({'error':'Show workspace unavailable'},503)
+        if not secrets.compare_digest(self.headers.get('X-Sircus-Show-Token',''),SHOW_TOKEN):
+            return self.send({'error':'show action token required'},403)
+        if path != '/api/show/action': return self.send({'error':'unknown show endpoint'},404)
+        if length > 24000: return self.send({'error':'show request too large'},413)
+        try:
+            payload=json.loads(self.rfile.read(length),parse_constant=lambda _: (_ for _ in ()).throw(ValueError('Finite JSON required')))
+            if not isinstance(payload,dict): raise ValueError('JSON object required')
+            action=payload.get('action')
+            fields={'configure_audio':{'action','config'}, 'replay_simulation':{'action','trial_id','ball_id'},
+                    'stop_audio_replay':{'action'}}
+            if action not in fields or set(payload)!=fields[action]: raise ValueError('Unsupported show action or fields')
+            if SHOW_AUDIO is None: raise RuntimeError('Optional show audio unavailable')
+            with SHOW_LOCK:
+                if action=='configure_audio':
+                    if PHYSICAL is not None and PHYSICAL.call('status').get('busy'):
+                        raise ValueError('Configure ball bindings between robot cycles')
+                    SHOW_AUDIO.configure(payload['config'])
+                elif action=='stop_audio_replay': SHOW_AUDIO.cancel_replay()
+                else:
+                    if not self.workflow_ready(): raise ValueError('Numerical audio replay is unavailable with a hardware backend')
+                    state=OPERATIONS.status()
+                    if state.get('busy') or state.get('phase')!='complete' or state.get('trial_id')!=payload['trial_id']:
+                        raise ValueError('Replay requires the current completed simulation trial')
+                    result=state.get('result',{}).get('result')
+                    if not isinstance(result,dict) or state.get('hardware_enabled') is not False:
+                        raise ValueError('Verified synthetic result unavailable')
+                    # Audio is optional. No commands go to either robot or numerical worker.
+                    SHOW_AUDIO.start_replay(result,payload['trial_id'],payload['ball_id'])
+            return self.send(self.show_status(),202)
+        except (ValueError,TypeError,KeyError) as exc: return self.send({'error':str(exc)[:300]},400)
+        except Exception: return self.send({'error':'Optional show action unavailable'},503)
+
     def physical_host_ok(self):
         port = self.server.server_address[1]
         return self.headers.get('Host','') in (f'127.0.0.1:{port}',f'localhost:{port}')
 
 
+def load_study_results(path):
+    """Read only a completed, explicit synthetic report; never accept browser paths."""
+    path = Path(path)
+    if path.is_symlink() or not path.is_file():
+        raise FileNotFoundError('Completed front-bucket study results are not available yet')
+    if path.stat().st_size > 32_000_000:
+        raise ValueError('Study report exceeds the download limit')
+    value = json.loads(path.read_text(), parse_constant=lambda _: (_ for _ in ()).throw(ValueError('Finite study JSON required')))
+    if (not isinstance(value, dict) or value.get('schema') != 'sircus-learning-challenge-report-v1'
+            or value.get('physically_verified') is not False or value.get('data_origin') != 'synthetic'
+            or value.get('status') != 'complete' or value.get('profile_id') != 'front-negative-y-v1'
+            or value.get('native_paths_checked') is not False):
+        raise ValueError('Unsupported or non-synthetic study report')
+    return value
+
+
 def main():
-    global OFFLINE, BRIDGE, PHYSICAL
+    global OFFLINE, BRIDGE, PHYSICAL, AUDIO, SHOW_ENABLED, SHOW_AUDIO, OPERATIONS, TRAINING_JOBS, STUDY_RESULTS_PATH
     parser = argparse.ArgumentParser()
     parser.add_argument('--port', type=int, default=8765)
     parser.add_argument('--offline', action='store_true', help='Explicitly use standalone physics; no Viam commands')
     parser.add_argument('--physical-mode', choices=('disabled','dry_run','hardware'), default='disabled')
     parser.add_argument('--physical-credentials', type=Path, default=ROOT.parent/'perception/.private/sfhack10.json')
     parser.add_argument('--physical-data-root', type=Path, default=None)
+    parser.add_argument('--show', action='store_true', help='Three-mode show UI; offline only; numerical workflow requires a disabled or mock physical adapter')
+    parser.add_argument('--operations', action='store_true', help='Enable guided simulation and local training; requires offline and physical disabled')
+    parser.add_argument('--workflow-profile', choices=('front','historical'), default='front')
+    parser.add_argument('--workflow-checkpoint', type=Path, default=None)
+    parser.add_argument('--study-results', type=Path, default=STUDY_RESULTS_PATH)
+    parser.add_argument('--show-data-root', type=Path, default=ROOT.parent.parent/'.runtime'/'show')
+    parser.add_argument('--workflow-data-root', type=Path, default=ROOT.parent.parent/'.runtime'/'operator-lab')
     args = parser.parse_args()
+    if args.operations and (not args.offline or args.physical_mode != 'disabled'):
+        parser.error('--operations requires --offline --physical-mode disabled')
+    # Audio remains optional and separate from Viam credentials/control loops.
+    sys.path.insert(0, str(ROOT.parent.parent))
+    AUDIO = optional_audio_observer()
+    if args.show and not args.offline:
+        parser.error('--show requires --offline; cloud simulation is a separate runtime')
+    SHOW_ENABLED = args.show
     OFFLINE = args.offline
+    if args.show and AUDIO is not None:
+        try:
+            from sircus.audio.show import ShowAudio
+            SHOW_AUDIO = ShowAudio(AUDIO, config_path=args.show_data_root/'show-audio.json')
+        except Exception:
+            SHOW_AUDIO = None  # Optional audio cannot prevent robot controls starting.
     if not OFFLINE: BRIDGE = ViamBridge()
     if args.physical_mode != 'disabled':
         data_root = args.physical_data_root or ROOT.parent/'physical_trials/data'/args.physical_mode
         PHYSICAL = PhysicalBridge(args.physical_mode,args.physical_credentials,data_root)
+    if args.operations or (args.show and args.physical_mode in ('disabled', 'dry_run')):
+        sys.path.insert(0, str(ROOT.parent.parent))
+        from sircus.operations.service import GuidedOperations
+        from sircus.operations.training import TrainingJobs
+        OPERATIONS = GuidedOperations(data_root=args.workflow_data_root/'trials',
+                                      profile=args.workflow_profile, checkpoint_path=args.workflow_checkpoint)
+        TRAINING_JOBS = TrainingJobs(data_root=args.workflow_data_root/'training', profile=args.workflow_profile)
+        STUDY_RESULTS_PATH = args.study_results
     print(f'Sircus dashboard: http://127.0.0.1:{args.port} ({"OFFLINE simulation" if OFFLINE else "Viam two-arm simulation bridge"})', flush=True)
-    ThreadingHTTPServer(('127.0.0.1', args.port), Handler).serve_forever()
+    httpd = ThreadingHTTPServer(('127.0.0.1', args.port), Handler)
+    try:
+        if args.operations or (args.show and args.physical_mode != 'hardware'):
+            # SIGTERM normally bypasses Python finally. Rehearsal/training owns
+            # numerical children, so route its shutdown through the cleanup below.
+            # Legacy and physical server signal behavior is deliberately unchanged.
+            def terminate_operations(_signum, _frame):
+                raise SystemExit(0)
+            signal.signal(signal.SIGTERM, terminate_operations)
+        httpd.serve_forever()
+    finally:
+        httpd.server_close()
+        if OPERATIONS is not None: OPERATIONS.close()
+        if TRAINING_JOBS is not None: TRAINING_JOBS.close()
+        if SHOW_AUDIO is not None: SHOW_AUDIO.close()
+        if AUDIO is not None: AUDIO.close()
 
 
 if __name__ == '__main__':

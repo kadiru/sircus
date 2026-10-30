@@ -1,0 +1,105 @@
+{
+  "checkpoint_file_sha256": "6fc92e729ad5411487b0fdb5ade7b1c293c1ce1ab2c67928e3a8efd4e970a120",
+  "checkpoint_id": "8ca17aa286758350c0074bbb770f1225b239539f348743b82689b872b5d51716",
+  "checkpoint_unchanged_after_test": true,
+  "data_origin": "synthetic",
+  "elapsed_seconds": 69.94580795900038,
+  "limits": [
+    "Synthetic reduced-order dynamics and provisional geometry/contact parameters",
+    "Narrow front-bucket training distribution; challenges explicitly label extrapolation",
+    "Endpoint IK is not native trajectory or collision-path validation",
+    "Limited-budget oracle is search, not learned inference or an optimality bound",
+    "No physical, camera, gripper or board-suction validation",
+    "Training seeds share held-out layouts; uncertainty and seed variability are reported separately"
+  ],
+  "manifest_sha256": "0892a9a3d8a442800d3643aea3d0727b68f82f39b2b545faadb3e5b53e641519",
+  "model_degree": 2,
+  "native_paths_checked": false,
+  "oracle_budget_per_scene": 4,
+  "physically_verified": false,
+  "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+  "preview_seed": 2383629040,
+  "profile_id": "front-negative-y-v1",
+  "regularization": 100.0,
+  "schema": "sircus-front-learning-study-v1",
+  "scoring_version": "sircus-board-bounce-capture-1s-v1",
+  "split_manifest_unchanged_after_test": true,
+  "status": "complete",
+  "teacher_budget": 12,
+  "teacher_captures": 21,
+  "teacher_failed_scenes": 0,
+  "teacher_labels": 24,
+  "test": {
+    "fixed_baseline": {
+      "captures": 2,
+      "ci95": [
+        0.071479212752109,
+        0.5907245696898311
+      ],
+      "ci95_method": "Wilson interval over independent sampled layouts",
+      "endpoint_infeasible": 0,
+      "episodes": 8,
+      "native_paths_checked": false,
+      "outcomes": {
+        "captured": 2,
+        "no_entry": 6
+      },
+      "physically_verified": false,
+      "success_fraction": 0.25
+    },
+    "frozen_policy": {
+      "captures": 3,
+      "ci95": [
+        0.13684428582359742,
+        0.6942576053973727
+      ],
+      "ci95_method": "Wilson interval over independent sampled layouts",
+      "endpoint_infeasible": 0,
+      "episodes": 8,
+      "native_paths_checked": false,
+      "outcomes": {
+        "captured": 3,
+        "no_entry": 5
+      },
+      "physically_verified": false,
+      "success_fraction": 0.375
+    },
+    "held_out_search_oracle": {
+      "captures": 2,
+      "ci95": [
+        0.071479212752109,
+        0.5907245696898311
+      ],
+      "ci95_method": "Wilson interval over independent sampled layouts",
+      "endpoint_infeasible": 0,
+      "episodes": 8,
+      "native_paths_checked": false,
+      "outcomes": {
+        "captured": 2,
+        "no_entry": 6
+      },
+      "physically_verified": false,
+      "success_fraction": 0.25
+    }
+  },
+  "test_scenes": 8,
+  "train_scenes": 24,
+  "validation": {
+    "captures": 3,
+    "ci95": [
+      0.1876163064826506,
+      0.8123836935173494
+    ],
+    "ci95_method": "Wilson interval over independent sampled layouts",
+    "endpoint_infeasible": 0,
+    "episodes": 6,
+    "native_paths_checked": false,
+    "outcomes": {
+      "captured": 3,
+      "no_entry": 3
+    },
+    "physically_verified": false,
+    "success_fraction": 0.5
+  },
+  "validation_scenes": 6
+}

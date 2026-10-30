@@ -1,0 +1,843 @@
+[
+  {
+    "candidates": [
+      {
+        "degree": 1,
+        "regularization": 0.1,
+        "summary": {
+          "captures": 11,
+          "ci95": [
+            0.44404355834740666,
+            0.8583535614521796
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 0,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 11,
+            "no_entry": 5
+          },
+          "physically_verified": false,
+          "success_fraction": 0.6875
+        }
+      },
+      {
+        "degree": 2,
+        "regularization": 1.0,
+        "summary": {
+          "captures": 6,
+          "ci95": [
+            0.18481232558863633,
+            0.6135895945449727
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 3,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 6,
+            "invalid_action": 3,
+            "no_entry": 7
+          },
+          "physically_verified": false,
+          "success_fraction": 0.375
+        }
+      },
+      {
+        "degree": 2,
+        "regularization": 100.0,
+        "summary": {
+          "captures": 5,
+          "ci95": [
+            0.14164643854782039,
+            0.5559564416525933
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 0,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 5,
+            "no_entry": 11
+          },
+          "physically_verified": false,
+          "success_fraction": 0.3125
+        }
+      }
+    ],
+    "seed": 20261030,
+    "train_scenes": 8
+  },
+  {
+    "candidates": [
+      {
+        "degree": 1,
+        "regularization": 0.1,
+        "summary": {
+          "captures": 7,
+          "ci95": [
+            0.23098652405492354,
+            0.6682144360118811
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 0,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 7,
+            "no_entry": 9
+          },
+          "physically_verified": false,
+          "success_fraction": 0.4375
+        }
+      },
+      {
+        "degree": 2,
+        "regularization": 1.0,
+        "summary": {
+          "captures": 6,
+          "ci95": [
+            0.18481232558863633,
+            0.6135895945449727
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 5,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 6,
+            "invalid_action": 5,
+            "no_entry": 5
+          },
+          "physically_verified": false,
+          "success_fraction": 0.375
+        }
+      },
+      {
+        "degree": 2,
+        "regularization": 100.0,
+        "summary": {
+          "captures": 6,
+          "ci95": [
+            0.18481232558863633,
+            0.6135895945449727
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 0,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 6,
+            "no_entry": 10
+          },
+          "physically_verified": false,
+          "success_fraction": 0.375
+        }
+      }
+    ],
+    "seed": 20261030,
+    "train_scenes": 24
+  },
+  {
+    "candidates": [
+      {
+        "degree": 1,
+        "regularization": 0.1,
+        "summary": {
+          "captures": 7,
+          "ci95": [
+            0.23098652405492354,
+            0.6682144360118811
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 1,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 7,
+            "invalid_action": 1,
+            "no_entry": 8
+          },
+          "physically_verified": false,
+          "success_fraction": 0.4375
+        }
+      },
+      {
+        "degree": 2,
+        "regularization": 1.0,
+        "summary": {
+          "captures": 9,
+          "ci95": [
+            0.331785563988119,
+            0.7690134759450765
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 0,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 9,
+            "no_entry": 7
+          },
+          "physically_verified": false,
+          "success_fraction": 0.5625
+        }
+      },
+      {
+        "degree": 2,
+        "regularization": 100.0,
+        "summary": {
+          "captures": 6,
+          "ci95": [
+            0.18481232558863633,
+            0.6135895945449727
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 0,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 6,
+            "no_entry": 10
+          },
+          "physically_verified": false,
+          "success_fraction": 0.375
+        }
+      }
+    ],
+    "seed": 20261030,
+    "train_scenes": 64
+  },
+  {
+    "candidates": [
+      {
+        "degree": 1,
+        "regularization": 0.1,
+        "summary": {
+          "captures": 7,
+          "ci95": [
+            0.23098652405492354,
+            0.6682144360118811
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 1,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 7,
+            "invalid_action": 1,
+            "no_entry": 8
+          },
+          "physically_verified": false,
+          "success_fraction": 0.4375
+        }
+      },
+      {
+        "degree": 2,
+        "regularization": 1.0,
+        "summary": {
+          "captures": 8,
+          "ci95": [
+            0.27999563610326017,
+            0.7200043638967398
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 0,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 8,
+            "no_entry": 8
+          },
+          "physically_verified": false,
+          "success_fraction": 0.5
+        }
+      },
+      {
+        "degree": 2,
+        "regularization": 100.0,
+        "summary": {
+          "captures": 6,
+          "ci95": [
+            0.18481232558863633,
+            0.6135895945449727
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 0,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 6,
+            "no_entry": 10
+          },
+          "physically_verified": false,
+          "success_fraction": 0.375
+        }
+      }
+    ],
+    "seed": 20261030,
+    "train_scenes": 128
+  },
+  {
+    "candidates": [
+      {
+        "degree": 1,
+        "regularization": 0.1,
+        "summary": {
+          "captures": 6,
+          "ci95": [
+            0.18481232558863633,
+            0.6135895945449727
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 5,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 6,
+            "invalid_action": 5,
+            "no_entry": 5
+          },
+          "physically_verified": false,
+          "success_fraction": 0.375
+        }
+      },
+      {
+        "degree": 2,
+        "regularization": 1.0,
+        "summary": {
+          "captures": 4,
+          "ci95": [
+            0.10182067491213048,
+            0.49498316535508774
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 5,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 4,
+            "invalid_action": 5,
+            "no_entry": 7
+          },
+          "physically_verified": false,
+          "success_fraction": 0.25
+        }
+      },
+      {
+        "degree": 2,
+        "regularization": 100.0,
+        "summary": {
+          "captures": 5,
+          "ci95": [
+            0.14164643854782039,
+            0.5559564416525933
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 0,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 5,
+            "no_entry": 11
+          },
+          "physically_verified": false,
+          "success_fraction": 0.3125
+        }
+      }
+    ],
+    "seed": 20261031,
+    "train_scenes": 8
+  },
+  {
+    "candidates": [
+      {
+        "degree": 1,
+        "regularization": 0.1,
+        "summary": {
+          "captures": 7,
+          "ci95": [
+            0.23098652405492354,
+            0.6682144360118811
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 2,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 7,
+            "invalid_action": 2,
+            "no_entry": 7
+          },
+          "physically_verified": false,
+          "success_fraction": 0.4375
+        }
+      },
+      {
+        "degree": 2,
+        "regularization": 1.0,
+        "summary": {
+          "captures": 6,
+          "ci95": [
+            0.18481232558863633,
+            0.6135895945449727
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 4,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 6,
+            "invalid_action": 4,
+            "no_entry": 6
+          },
+          "physically_verified": false,
+          "success_fraction": 0.375
+        }
+      },
+      {
+        "degree": 2,
+        "regularization": 100.0,
+        "summary": {
+          "captures": 5,
+          "ci95": [
+            0.14164643854782039,
+            0.5559564416525933
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 0,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 5,
+            "no_entry": 11
+          },
+          "physically_verified": false,
+          "success_fraction": 0.3125
+        }
+      }
+    ],
+    "seed": 20261031,
+    "train_scenes": 24
+  },
+  {
+    "candidates": [
+      {
+        "degree": 1,
+        "regularization": 0.1,
+        "summary": {
+          "captures": 7,
+          "ci95": [
+            0.23098652405492354,
+            0.6682144360118811
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 2,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 7,
+            "invalid_action": 2,
+            "no_entry": 7
+          },
+          "physically_verified": false,
+          "success_fraction": 0.4375
+        }
+      },
+      {
+        "degree": 2,
+        "regularization": 1.0,
+        "summary": {
+          "captures": 9,
+          "ci95": [
+            0.331785563988119,
+            0.7690134759450765
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 0,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 9,
+            "no_entry": 7
+          },
+          "physically_verified": false,
+          "success_fraction": 0.5625
+        }
+      },
+      {
+        "degree": 2,
+        "regularization": 100.0,
+        "summary": {
+          "captures": 7,
+          "ci95": [
+            0.23098652405492354,
+            0.6682144360118811
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 0,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 7,
+            "no_entry": 9
+          },
+          "physically_verified": false,
+          "success_fraction": 0.4375
+        }
+      }
+    ],
+    "seed": 20261031,
+    "train_scenes": 64
+  },
+  {
+    "candidates": [
+      {
+        "degree": 1,
+        "regularization": 0.1,
+        "summary": {
+          "captures": 7,
+          "ci95": [
+            0.23098652405492354,
+            0.6682144360118811
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 0,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 7,
+            "no_entry": 9
+          },
+          "physically_verified": false,
+          "success_fraction": 0.4375
+        }
+      },
+      {
+        "degree": 2,
+        "regularization": 1.0,
+        "summary": {
+          "captures": 9,
+          "ci95": [
+            0.331785563988119,
+            0.7690134759450765
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 0,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 9,
+            "no_entry": 7
+          },
+          "physically_verified": false,
+          "success_fraction": 0.5625
+        }
+      },
+      {
+        "degree": 2,
+        "regularization": 100.0,
+        "summary": {
+          "captures": 7,
+          "ci95": [
+            0.23098652405492354,
+            0.6682144360118811
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 0,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 7,
+            "no_entry": 9
+          },
+          "physically_verified": false,
+          "success_fraction": 0.4375
+        }
+      }
+    ],
+    "seed": 20261031,
+    "train_scenes": 128
+  },
+  {
+    "candidates": [
+      {
+        "degree": 1,
+        "regularization": 0.1,
+        "summary": {
+          "captures": 8,
+          "ci95": [
+            0.27999563610326017,
+            0.7200043638967398
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 2,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 8,
+            "invalid_action": 2,
+            "no_entry": 6
+          },
+          "physically_verified": false,
+          "success_fraction": 0.5
+        }
+      },
+      {
+        "degree": 2,
+        "regularization": 1.0,
+        "summary": {
+          "captures": 8,
+          "ci95": [
+            0.27999563610326017,
+            0.7200043638967398
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 2,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 8,
+            "invalid_action": 2,
+            "no_entry": 6
+          },
+          "physically_verified": false,
+          "success_fraction": 0.5
+        }
+      },
+      {
+        "degree": 2,
+        "regularization": 100.0,
+        "summary": {
+          "captures": 8,
+          "ci95": [
+            0.27999563610326017,
+            0.7200043638967398
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 0,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 8,
+            "no_entry": 8
+          },
+          "physically_verified": false,
+          "success_fraction": 0.5
+        }
+      }
+    ],
+    "seed": 20261032,
+    "train_scenes": 8
+  },
+  {
+    "candidates": [
+      {
+        "degree": 1,
+        "regularization": 0.1,
+        "summary": {
+          "captures": 8,
+          "ci95": [
+            0.27999563610326017,
+            0.7200043638967398
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 0,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 8,
+            "no_entry": 8
+          },
+          "physically_verified": false,
+          "success_fraction": 0.5
+        }
+      },
+      {
+        "degree": 2,
+        "regularization": 1.0,
+        "summary": {
+          "captures": 7,
+          "ci95": [
+            0.23098652405492354,
+            0.6682144360118811
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 3,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 7,
+            "invalid_action": 3,
+            "no_entry": 6
+          },
+          "physically_verified": false,
+          "success_fraction": 0.4375
+        }
+      },
+      {
+        "degree": 2,
+        "regularization": 100.0,
+        "summary": {
+          "captures": 4,
+          "ci95": [
+            0.10182067491213048,
+            0.49498316535508774
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 0,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 4,
+            "no_entry": 12
+          },
+          "physically_verified": false,
+          "success_fraction": 0.25
+        }
+      }
+    ],
+    "seed": 20261032,
+    "train_scenes": 24
+  },
+  {
+    "candidates": [
+      {
+        "degree": 1,
+        "regularization": 0.1,
+        "summary": {
+          "captures": 7,
+          "ci95": [
+            0.23098652405492354,
+            0.6682144360118811
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 0,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 7,
+            "no_entry": 9
+          },
+          "physically_verified": false,
+          "success_fraction": 0.4375
+        }
+      },
+      {
+        "degree": 2,
+        "regularization": 1.0,
+        "summary": {
+          "captures": 9,
+          "ci95": [
+            0.331785563988119,
+            0.7690134759450765
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 2,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 9,
+            "invalid_action": 2,
+            "no_entry": 5
+          },
+          "physically_verified": false,
+          "success_fraction": 0.5625
+        }
+      },
+      {
+        "degree": 2,
+        "regularization": 100.0,
+        "summary": {
+          "captures": 7,
+          "ci95": [
+            0.23098652405492354,
+            0.6682144360118811
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 0,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 7,
+            "no_entry": 9
+          },
+          "physically_verified": false,
+          "success_fraction": 0.4375
+        }
+      }
+    ],
+    "seed": 20261032,
+    "train_scenes": 64
+  },
+  {
+    "candidates": [
+      {
+        "degree": 1,
+        "regularization": 0.1,
+        "summary": {
+          "captures": 7,
+          "ci95": [
+            0.23098652405492354,
+            0.6682144360118811
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 0,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 7,
+            "no_entry": 9
+          },
+          "physically_verified": false,
+          "success_fraction": 0.4375
+        }
+      },
+      {
+        "degree": 2,
+        "regularization": 1.0,
+        "summary": {
+          "captures": 10,
+          "ci95": [
+            0.38641040545502714,
+            0.8151876744113636
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 0,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 10,
+            "no_entry": 6
+          },
+          "physically_verified": false,
+          "success_fraction": 0.625
+        }
+      },
+      {
+        "degree": 2,
+        "regularization": 100.0,
+        "summary": {
+          "captures": 7,
+          "ci95": [
+            0.23098652405492354,
+            0.6682144360118811
+          ],
+          "ci95_method": "Wilson interval over independent sampled layouts",
+          "endpoint_infeasible": 0,
+          "episodes": 16,
+          "native_paths_checked": false,
+          "outcomes": {
+            "captured": 7,
+            "no_entry": 9
+          },
+          "physically_verified": false,
+          "success_fraction": 0.4375
+        }
+      }
+    ],
+    "seed": 20261032,
+    "train_scenes": 128
+  }
+]
