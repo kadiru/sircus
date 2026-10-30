@@ -58,3 +58,33 @@ No robot/controller/viewer hooks, cloud identity reuse, Viam configuration chang
 physical sensing validation or dashboard deployment is included in this change.
 The six-cue procedural Logic route remains available in [LEGACY_MIDI.md](LEGACY_MIDI.md)
 for advanced diagnostics; use Ghost Booth for the unified event sound library.
+
+## Integration ownership and outstanding review
+
+MacBook Codex owns dashboard/controller integration. The Mac Mini audio PR stays
+draft until its listening and integration reviews are satisfied. These checks are
+still outstanding as of October 30, 2026; they are not implied by passing mock
+tests or by an HTTP acknowledgment:
+
+- Listen to Energy hum, Energy sweep and the saved mix; review pitch changes,
+  bounded loops, clipping and FX-off/panic during active voices and tails in the
+  current native build. Earlier native mute measurements predate varispeed.
+- Observe the selected physical ODD Ball's actual tap note/channel/velocity,
+  verify audible single/rapid impacts, then test BLE loss and reconnection with
+  FX remaining off. Port enumeration or CC traffic is not a bounce test.
+- Commission the optional Logic kit and exclusive MIDI route separately,
+  including raw-input bypass/feedback rejection and actual tail muting. The
+  private Retro Synth project is not a verified sixteen-sound Sampler kit.
+- In a separately authorized LAN session, provision the audio-only token outside
+  Git, verify authenticated status/controls and event delivery from the MacBook,
+  and test loss, late/duplicate events, cancellation and local mute. Show audio
+  pending/error state without gating robot execution; do not claim synchronized
+  clocks or guaranteed delivery.
+- Review lifecycle producers and provenance before attaching them. Keep unknown
+  outcomes silent and require explicit physical outcome evidence. Audio panic is
+  not a robot emergency stop.
+
+Integration may review or fetch the draft branch without deploying it. Keep
+profiles, recordings, Logic projects and generated runtime files host-local;
+catalog assets and source are available through Git. Pulling this PR does not
+restore a private saved mix or commission an audio route.
