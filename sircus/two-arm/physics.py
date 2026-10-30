@@ -368,8 +368,54 @@ def _cross(a, b):
     return (a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0])
 
 
-def simulate(config, action, seed=0, frames=True):
-    """One stationary release; no network, SDK, arm actuation or hidden targets.
+class BucketContactError(ValueError):
+    pass
+
+
+def resolve_bucket_contacts(position, velocity, config):
+    """Rigid sphere/bucket solver. Mutates SI vectors; returns contact telemetry.
+
+    Resolve every active surface, including the concave inner-wall/floor corner.
+    One nearest-surface projection alone can leave a second surface overlapping.
+    This explicit mode is separate from legacy penalty contacts; launch remains zero.
+    """
+    radius = config['ball']['diameter_mm']/2
+    mass = config['ball']['mass_kg']
+    friction_coefficient = config['ball']['friction']
+    restitution = config.get('capture_physics',{}).get('bucket_restitution',.35)
+    hits=[]
+    for _ in range(4):
+        contact=bucket_contact([v*1000 for v in position],radius,config)
+        if contact is None: return hits
+        name,(penetration,normal,point)=contact
+        incoming=list(velocity)
+        vn=sum(velocity[i]*normal[i] for i in range(3))
+        pre_position=[v*1000 for v in position]
+        for i in range(3): position[i]+=(penetration+1e-8)*normal[i]/1000
+        if vn<0:
+            tangent=[velocity[i]-vn*normal[i] for i in range(3)]
+            speed=math.sqrt(sum(v*v for v in tangent))
+            fraction=min(1.,friction_coefficient*(1+restitution)*abs(vn)/speed) if speed else 0.
+            for i in range(3): velocity[i]-=(1+restitution)*vn*normal[i]+fraction*tangent[i]
+        hits.append({'object':name,'ball_xyz_mm':pre_position,'surface_point_mm':list(point),
+                     'normal':list(normal),'projection_mm':penetration,'incoming_normal_m_s':vn,
+                     'outgoing_normal_m_s':sum(velocity[i]*normal[i] for i in range(3)),
+                     'incoming_velocity_m_s':incoming,'outgoing_velocity_m_s':list(velocity),
+                     'kinetic_before_j':.5*mass*sum(v*v for v in incoming),
+                     'kinetic_after_j':.5*mass*sum(v*v for v in velocity)})
+    residual=bucket_contact([v*1000 for v in position],radius,config)
+    if residual is not None and residual[1][0]>1e-6:
+        raise BucketContactError('Bucket contact solver left unresolved overlap')
+    return hits
+
+
+def simulate(config, action, seed=0, frames=True, *, capture_mode=None,
+             episode_kind='complete_shot', release_override=None, initial_velocity_m_s=None):
+    """One release; no network, SDK, arm actuation or hidden targets.
+
+    capture_mode selects the explicitly versioned 1 s evaluator and rigid bucket
+    solver. None preserves historical dynamics and the following legacy rule.
+    Incoming-state overrides are allowed only in labeled contact fixtures.
 
     'retained' requires a slow ball wholly inside the bin for 0.2 s near its
     floor. First floor contact alone is explicitly a different outcome.
@@ -378,6 +424,21 @@ def simulate(config, action, seed=0, frames=True):
     instead of silently clipping it into a physically implausible trajectory.
     """
     c = validate_config(config)
+    tracker = None
+    if capture_mode is not None:
+        from capture_scoring import CaptureTracker, SCORING_VERSION
+        if capture_mode != SCORING_VERSION:
+            raise ValueError('Unsupported capture scoring version')
+        if not is_bucket(c):
+            raise ValueError('Versioned capture requires the upright tapered bucket')
+        if any(k in c['bin'] for k in ('rpy_deg', 'rotation', 'orientation')):
+            raise ValueError('Bucket orientation fields are not supported by this version')
+        tracker = CaptureTracker(c, episode_kind=episode_kind,
+                                 entry_deadline_s=c.get('capture_physics',{}).get('entry_deadline_s',4.))
+        _number(c.get('capture_physics',{}).get('bucket_restitution',.35), 'bucket restitution', 0, 1)
+    if (release_override is not None or initial_velocity_m_s is not None) and (
+            tracker is None or episode_kind != 'contact_fixture'):
+        raise ValueError('Incoming-state overrides require a labeled contact_fixture')
     _number(seed, "seed", 0, 2**32-1)
     if int(seed) != seed:
         raise ValueError("seed must be an integer")
@@ -387,8 +448,11 @@ def simulate(config, action, seed=0, frames=True):
     release = [nominal_release[0]+rng.uniform(-s["noise_xy_mm"],s["noise_xy_mm"]),
                nominal_release[1]+rng.uniform(-s["noise_xy_mm"],s["noise_xy_mm"]),
                nominal_release[2]+rng.uniform(-s["noise_gap_mm"],s["noise_gap_mm"])]
+    if release_override is not None:
+        release = list(_vector(release_override, 3, 'fixture release mm', -10000, 10000))
     position = [v/1000 for v in release]
-    velocity = [0.0,0.0,0.0]
+    velocity = ([0.0,0.0,0.0] if initial_velocity_m_s is None else
+                list(_vector(initial_velocity_m_s, 3, 'fixture initial velocity m/s', -20, 20)))
     radius, mass = b["diameter_mm"]/2000, b["mass_kg"]
     mb, dt = p["mass_kg"], s["dt_s"]
     r0 = rotation(p["rpy_deg"])
@@ -419,10 +483,16 @@ def simulate(config, action, seed=0, frames=True):
     board_touching, floor_recorded, retained = False, False, False
     settled_for, max_q, max_tilt, max_pen, peak_force = 0.0,0.0,0.0,0.0,0.0
     initial_energy = mass*9.81*position[2]
+    if initial_velocity_m_s is not None:
+        initial_energy += .5*mass*sum(v*v for v in velocity)
     max_energy = initial_energy
     next_frame = 0.0
     model_limit = None
     rotation_now, center = r0, center0
+    observed_contact = None
+    outgoing_valid = False
+    max_bucket_projection = 0.
+    termination = 'horizon'
 
     def record(t):
         trace.append({"t": round(t,6), "ball_xyz_mm": [round(v*1000,5) for v in position],
@@ -499,9 +569,12 @@ def simulate(config, action, seed=0, frames=True):
                 if impact is None:
                     impact = [board_contact[2][0]*1000,board_contact[2][1]*1000]
                     incoming = [v*1000 for v in velocity]
+                    observed_contact = [v*1000 for v in position]
             board_touching = True
         elif board_touching:
-            if outgoing is None: outgoing = [v*1000 for v in velocity]
+            if outgoing is None:
+                outgoing = [v*1000 for v in velocity]
+                outgoing_valid = sum(velocity[i]*normal0[i] for i in range(3)) > 0
             board_touching = False
         for name, solid_center, solid_half in solids:
             relative = tuple(position[i]-solid_center[i] for i in range(3))
@@ -520,7 +593,7 @@ def simulate(config, action, seed=0, frames=True):
                     floor_recorded = True
             elif not contacts or contacts[-1]["object"] != name:
                 contacts.append({"t":round(t,6),"object":name,"ball_xyz_mm":[v*1000 for v in position]})
-        if tapered:
+        if tapered and tracker is None:
             contact = bucket_contact([v * 1000 for v in position], radius * 1000, c)
             if contact:
                 name, raw = contact
@@ -548,11 +621,27 @@ def simulate(config, action, seed=0, frames=True):
         low = abs(position[2]*1000-(box["floor_top_mm"]+radius*1000)) < 3
         slow = sum(v*v for v in velocity) < .06**2
         settled_for = settled_for+dt if inside and low and slow and first_floor else 0.0
-        if settled_for >= .2:
+        if tracker:
+            if max(abs(alpha),abs(beta)) > math.radians(20) or abs(q) > .08:
+                model_limit = 'small-deflection support model exceeded 20 degrees or 80 mm'
+                if frames: record(t)
+                break
+            tracker.update(t, [v*1000 for v in position], board_bounce=outgoing_valid,
+                           board_contact_xyz=observed_contact)
+            if tracker.done(t):
+                termination = 'retention_complete' if tracker.current_retention(t) >= 1.-1e-9 else 'entry_window_closed'
+                if frames: record(t)
+                break
+            if t >= s['duration_s']:
+                # Do not integrate an unscored step beyond a shortened horizon.
+                if frames: record(t)
+                break
+        if tracker is None and settled_for >= .2:
             retained = True
             if frames: record(t)
             break
         if position[2] < -1.0 or abs(position[0]) > 4 or abs(position[1]) > 4:
+            termination = 'escaped'
             if frames: record(t)
             break
         max_q = max(max_q,abs(q))
@@ -574,7 +663,26 @@ def simulate(config, action, seed=0, frames=True):
         for i in range(3):
             velocity[i] += force[i]/mass*dt
             position[i] += velocity[i]*dt
+        if tracker:
+            try:
+                hits = resolve_bucket_contacts(position, velocity, c)
+            except BucketContactError as exc:
+                model_limit = str(exc)
+                t += dt
+                break
+            for hit in hits:
+                tracker.note_contact(hit['object'], t+dt)
+                max_bucket_projection = max(max_bucket_projection, hit['projection_mm'])
+                if not contacts or contacts[-1]['object'] != hit['object']:
+                    contacts.append({'t':round(t+dt,6), **hit})
+                if hit['object'] == 'bucket-floor': first_floor = True
+            if max_bucket_projection > 2.:
+                model_limit = 'bucket contact correction exceeds 2 mm'
+                t += dt
+                break
         if not all(math.isfinite(v) for v in (*position,*velocity,q,qdot,alpha,beta,adot,bdot)):
+            if tracker:
+                raise BucketContactError('dynamics diverged; reduce timestep and review parameters')
             raise ValueError("dynamics diverged; reduce timestep and review parameters")
 
     if frames and (not trace or trace[-1]["t"] < t-1e-7): record(t)
@@ -582,7 +690,7 @@ def simulate(config, action, seed=0, frames=True):
     landing = landing or final[:2]
     error = math.dist(landing,box["center_xy_mm"])
     outcome = "model_limit" if model_limit else "retained" if retained else "board_miss" if impact is None else "floor_contact_not_retained" if first_floor else "miss"
-    return {
+    result = {
         "model": c.get("model","sircus_compliant_board_v1"), "calibrated": False,
         "physically_verified": False, "action": dict(action), "seed": int(seed),
         "release_xyz_mm": release, "nominal_release_xyz_mm": nominal_release,
@@ -603,3 +711,17 @@ def simulate(config, action, seed=0, frames=True):
                                if tapered else "ball wholly inside bin, near floor, speed <60 mm/s for 0.2 s"),
         "container_shape": box.get("shape", "rectangular"),
     }
+
+    if tracker:
+        result.pop('retained')  # Never expose the legacy flag as 1 s evidence.
+        result.pop('reward')
+        result.update(tracker.result(t, termination='model_limit' if model_limit else termination,
+                                     model_limit=model_limit))
+        result['max_bucket_projection_mm'] = max_bucket_projection
+        result['actual_h_m'] = ((release[2]-observed_contact[2])/1000 if observed_contact else None)
+        result['initial_velocity_m_s'] = list(initial_velocity_m_s) if initial_velocity_m_s is not None else [0.,0.,0.]
+        # Continuous shaping is separate from the capture label. Selection must
+        # rank success first, never threshold this reward or legacy retained.
+        clearance = result['opening_clearance_mm']
+        result['shaping_reward'] = (2. if result['whole_ball_entry'] else 0.) + (clearance if clearance is not None else -1000.)/1000
+    return result
