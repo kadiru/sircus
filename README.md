@@ -10,6 +10,7 @@ Two UFACTORY850 arms learn to bounce a ball from a suction-mounted board into a 
 - **Orientation/height experiment:** `sircus/simulation/.venv/bin/python sircus/two-arm/train_orientation_height.py --budget 32 --tests 10 --output experiments/run-001`. No server or hardware required. The search holds release XY, board center/yaw and bucket fixed; it optimizes roll, pitch and gap with endpoint IK checks. V2 uses [one-second capture scoring](docs/SCORING_CONTRACT.md). Native replay rejects these policies until a matching runtime adapter is integrated; endpoint IK alone does not validate a motion path.
 - **Mac / physical sfhack10:** [operator panel instructions](sircus/physical_trials/README.md). Physical control is explicit and separate; cloning/pulling never starts hardware or reloads a running dashboard.
 - **Mac Mini / audio:** [Ghost Booth event sound library and rehearsal desk](sircus/audio/README.md). Playback is operator-triggered; there is no live robot event bus or automatic capture detector.
+- **MacBook audio integration:** [optional dashboard observer and commissioning boundary](docs/DASHBOARD_AUDIO_INTEGRATION.md). FX starts off; robot motion never waits for audio. Source-only integration is not deployed and requires explicit private-LAN setup for the Mini.
 - **All contributors and agents:** [CONTRIBUTING.md](CONTRIBUTING.md), [AGENTS.md](AGENTS.md), and [current project summary](docs/PROJECT_STATE.md).
 
 ## Implementation audit and next experiment

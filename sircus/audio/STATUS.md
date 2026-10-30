@@ -84,3 +84,34 @@ MacBook Codex remains the integration owner. The PR must stay draft for the
 listening, real ODD/BLE, current native/Logic route and cross-computer checks
 listed in MACBOOK_INTEGRATION.md. No dashboard/controller observer, Viam change,
 physical deployment or robot command is part of this synchronization.
+
+## MacBook observer checkpoint — October 30, 2026
+
+The separate `codex/macbook-dashboard-audio` branch now contains optional FX,
+volume and connection/mute status controls plus physical-trial lifecycle
+observers. Main's reviewed PR #2 merge `6f00ac3faa4e34d508b005891e62d9911ead81cf`
+was merged into this task branch without replacing existing work. The Mini's
+published `df16dbe609adf3242af9300bc88725b85adfd455` audio branch is preserved;
+PR #1 remains draft. See [integration guide](../../docs/DASHBOARD_AUDIO_INTEGRATION.md).
+
+Fresh verification: 192 Python tests passed, including 42 physical-controller
+mock tests, 7 audio HTTP contract tests and a Python→Node→disposable fake HTTP
+round trip using the supplied client. Three Node suites and Scripter assertions
+passed; scoring/contact/orientation guards passed. Independent review checked
+that no audio readiness/acknowledgment gates motion or Stop, and that IDs,
+operator-action provenance and unknown outcomes are preserved.
+
+Browser QA against an isolated offline dashboard and silent fake endpoint
+verified initial OFF, connected status, enable, volume and mute; the final fake
+state was FX off at 30% volume. It found a WebKit timer receiver bug, now fixed
+and regression-tested. No sound played. The temporary dashboard, worker and fake
+endpoint were stopped. This is not deployment, listening, real-Mini reachability,
+ODD/BLE, Logic, acoustic mute or hardware acceptance.
+
+Fixes include ordered per-browser control intents, preservation of pending mute
+across Stop/volume, late-event retirement, bounded queues and conservative mute
+uncertainty after ambiguous transport. Credentials stay backend-only, with an
+empty template in source. Actual private-LAN listener and credential provisioning
+remain a coordinated follow-up. Simulation audio is not attached; the legacy
+trace converter has not been promoted to the new one-second scorer. The learning
+draft remains separate and v2 native replay stays blocked.

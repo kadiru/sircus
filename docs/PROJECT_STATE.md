@@ -17,3 +17,14 @@ Ghost Booth is the unified local event-sound/rehearsal interface under
 sounds. See [audio status](../sircus/audio/STATUS.md). It runs independently with
 FX off and no robot dependency. The main audio branch/draft PR carries this code;
 no physical dashboard hook, Viam configuration or robot deployment is included.
+
+## MacBook audio integration checkpoint — October 30, 2026
+
+The separate `codex/macbook-dashboard-audio` task branch includes reviewed main
+`6f00ac3faa4e34d508b005891e62d9911ead81cf` and the draft audio client. It adds
+initially-off FX, volume, sanitized connection/mute status and nonblocking
+physical-controller observers. [Integration details](DASHBOARD_AUDIO_INTEGRATION.md)
+describe evidence, command ordering, cancellation, tests and private-LAN setup.
+This is source integration only: no deployment, service restart, hardware call
+or cross-computer validation. Audio PR #1 remains draft; learning PR #3 remains
+separate. New scoring is opt-in and v2 native replay remains blocked.
