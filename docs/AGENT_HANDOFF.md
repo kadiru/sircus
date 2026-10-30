@@ -1,5 +1,17 @@
 # Sircus cross-computer handoff — October 30, 2026
 
+## Round 2 preset revised — October 30, 2026, 13:11 PDT
+
+The operator supplied a new paired dropper/board pose and manually positioned
+both arms. Screenshots matched fresh stationary world-frame readback. Read-only
+`teach_drop` saved the revised drop target and board reference; the private Round2
+preset is revision2. Previous Round2 pair was archived; Round1, loading and all
+four pickup points were preserved. No actuator/camera command or service restart
+was issued. This revised pair has not completed an automated round or validated
+transition; the successful Round2 result below belongs to revision1. Coordinates
+and joint calibration remain host-local. Next run requires a separate operator
+request and fresh readiness checks.
+
 ## Round 2 completed — October 30, 2026, 13:05–13:06 PDT
 
 After explicit operator reload/clearance confirmation, native motion moved only
