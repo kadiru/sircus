@@ -52,6 +52,17 @@ node_modules/
 *.heic
 *.pcd
 *.npy
+# Private Logic sessions and audio/MIDI recordings stay on the operator host.
+*.logicx
+*.logicx/
+*.wav
+*.aif
+*.aiff
+*.mid
+# Original generated Ghost Booth kit is redistributable source material.
+!/sircus/audio/booth/assets/*.wav
+!/sircus/audio/booth/assets/*.mid
+/sircus/audio/booth/runtime/
 
 # Generated presentation builds and device screenshots
 /sircus/.build/

@@ -19,3 +19,11 @@
 - Native cloud simulation runtime previously on the Mac is no longer assumed running. Do not reuse its cloud identity without coordinating ownership. Local8083 needs no credentials.
 
 Current detailed physical/perception STATUS files include historical PIDs and timestamps. Verify live state before acting. Read docs/UBUNTU_SETUP.md for repository startup; old transfer/local absolute paths are historical.
+
+## Mac Mini audio — October 30, 2026
+
+Ghost Booth is the unified local event-sound/rehearsal interface under
+`sircus/audio/booth/`, with eight configurable event slots and sixteen original
+sounds. See [audio status](../sircus/audio/STATUS.md). It runs independently with
+FX off and no robot dependency. The main audio branch/draft PR carries this code;
+no physical dashboard hook, Viam configuration or robot deployment is included.

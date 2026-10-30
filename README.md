@@ -10,6 +10,7 @@ Two UFACTORY850 arms learn to bounce a ball from a suction-mounted board into a 
 - **Orientation/height experiment:** `sircus/simulation/.venv/bin/python sircus/two-arm/train_orientation_height.py --budget 32 --tests 10 --output experiments/run-001`. No server or hardware required. The search holds release XY, board center/yaw and bucket fixed; it optimizes roll, pitch and gap with endpoint IK checks. V2 uses [one-second capture scoring](docs/SCORING_CONTRACT.md). Native replay rejects these policies until a matching runtime adapter is integrated; endpoint IK alone does not validate a motion path.
 - **Scene-conditioned learning:** [study contract and commands](docs/SCENE_CONDITIONED_STUDY.md), [frozen checkpoint and synthetic results](baselines/scene-conditioned-20261030/README.md). A trained ridge model predicts roll/pitch/U/V/gap on disjoint layouts without search at inference. The opt-in dashboard panel previews numerical trajectories only; native v2 replay remains blocked.
 - **Mac / physical sfhack10:** [operator panel instructions](sircus/physical_trials/README.md). Physical control is explicit and separate; cloning/pulling never starts hardware or reloads a running dashboard.
+- **Mac Mini / audio:** [Ghost Booth event sound library and rehearsal desk](sircus/audio/README.md). Playback is operator-triggered; there is no live robot event bus or automatic capture detector.
 - **All contributors and agents:** [CONTRIBUTING.md](CONTRIBUTING.md), [AGENTS.md](AGENTS.md), and [current project summary](docs/PROJECT_STATE.md).
 
 ## Implementation audit and next experiment
@@ -23,6 +24,7 @@ Read the [Mac system audit, UI/API contracts, and learning integration plan](doc
 | `sircus/two-arm/` | Shared measured/provisional scene, two-arm physics, kinematics, Viam module, trainers and fake-only guard |
 | `sircus/simulation/` | Browser dashboard, Python bridge, pinned dependencies, shared viewer assets |
 | `sircus/physical_trials/` | Mac operator panel backend and mock tests; credentials/calibration/records remain local |
+| `sircus/audio/` | Ghost Booth, native audio/ODD MIDI, event sound profiles, shared event contract and record converters |
 | `sircus/perception/` | Stationary RGB-D capture/inspection; calibration is incomplete |
 | `baselines/` | Small dated synthetic reference results; not current hardware evidence |
 | `docs/` | Setup, architecture, collaboration, credential templates and limits |

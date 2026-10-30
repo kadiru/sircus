@@ -1,0 +1,146 @@
+[
+  {
+    "name": "boing",
+    "note": 36,
+    "channel": 16,
+    "file": "boing.wav",
+    "seconds": 0.95,
+    "peak_dbfs": -13.979400086720375
+  },
+  {
+    "name": "bone_low",
+    "note": 37,
+    "channel": 16,
+    "file": "bone_low.wav",
+    "seconds": 0.19,
+    "peak_dbfs": -13.979400086720375
+  },
+  {
+    "name": "bone_high",
+    "note": 38,
+    "channel": 16,
+    "file": "bone_high.wav",
+    "seconds": 0.14,
+    "peak_dbfs": -13.979400086720375
+  },
+  {
+    "name": "eerie_bell",
+    "note": 39,
+    "channel": 16,
+    "file": "eerie_bell.wav",
+    "seconds": 0.75,
+    "peak_dbfs": -13.979400086720375
+  },
+  {
+    "name": "pinball",
+    "note": 40,
+    "channel": 16,
+    "file": "pinball.wav",
+    "seconds": 0.42,
+    "peak_dbfs": -13.979400086720375
+  },
+  {
+    "name": "transport",
+    "note": 41,
+    "channel": 16,
+    "file": "transport.wav",
+    "seconds": 4.0,
+    "peak_dbfs": -15.917600346881503,
+    "title": "Energy hum",
+    "family": "Sci-fi"
+  },
+  {
+    "name": "release",
+    "note": 42,
+    "channel": 16,
+    "file": "release.wav",
+    "seconds": 0.65,
+    "peak_dbfs": -13.979400086720375
+  },
+  {
+    "name": "capture",
+    "note": 43,
+    "channel": 16,
+    "file": "capture.wav",
+    "seconds": 1.18,
+    "peak_dbfs": -13.979400086720375
+  },
+  {
+    "name": "miss",
+    "note": 44,
+    "channel": 16,
+    "file": "miss.wav",
+    "seconds": 0.9,
+    "peak_dbfs": -13.979400086720375
+  },
+  {
+    "name": "energy_sweep",
+    "note": 45,
+    "channel": 16,
+    "file": "energy_sweep.wav",
+    "seconds": 0.9,
+    "peak_dbfs": -15.917600346881503,
+    "title": "Energy sweep",
+    "family": "Sci-fi"
+  },
+  {
+    "name": "cartoon_boing",
+    "title": "Cartoon boing",
+    "note": 48,
+    "channel": 16,
+    "file": "cartoon_boing.wav",
+    "seconds": 0.74,
+    "peak_dbfs": -13.979400086720375,
+    "family": "Cartoon"
+  },
+  {
+    "name": "cartoon_squeak",
+    "title": "Rubber squeak",
+    "note": 49,
+    "channel": 16,
+    "file": "cartoon_squeak.wav",
+    "seconds": 0.32,
+    "peak_dbfs": -13.979400086720375,
+    "family": "Cartoon"
+  },
+  {
+    "name": "cartoon_plop",
+    "title": "Soft plop",
+    "note": 50,
+    "channel": 16,
+    "file": "cartoon_plop.wav",
+    "seconds": 0.28,
+    "peak_dbfs": -13.979400086720375,
+    "family": "Cartoon"
+  },
+  {
+    "name": "cartoon_spring",
+    "title": "Tiny spring",
+    "note": 51,
+    "channel": 16,
+    "file": "cartoon_spring.wav",
+    "seconds": 0.51,
+    "peak_dbfs": -13.979400086720375,
+    "family": "Cartoon"
+  },
+  {
+    "name": "cartoon_celebration",
+    "title": "Major-key celebration",
+    "note": 52,
+    "channel": 16,
+    "file": "cartoon_celebration.wav",
+    "seconds": 1.05,
+    "peak_dbfs": -13.979400086720375,
+    "family": "Cartoon"
+  },
+  {
+    "name": "cartoon_wong",
+    "title": "Three comic wongs",
+    "note": 53,
+    "channel": 16,
+    "file": "cartoon_wong.wav",
+    "seconds": 1.2,
+    "peak_dbfs": -13.979400086720375,
+    "family": "Cartoon"
+  }
+]
