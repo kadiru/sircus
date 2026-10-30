@@ -40,7 +40,8 @@ def vector(value, length, label, bound):
 
 class GuidedOperations:
     """All effects are local records and child numerical processes, never robots."""
-    def __init__(self, root=None, data_root=None, *, worker_timeout=120, runner=None):
+    def __init__(self, root=None, data_root=None, *, worker_timeout=120, runner=None,
+                 profile="historical", checkpoint_path=None):
         self.root = Path(root or ROOT).resolve()
         self.data_root = Path(data_root or self.root/'.runtime/guided-trials')
         self.worker_timeout = worker_timeout
@@ -50,18 +51,44 @@ class GuidedOperations:
         self._cancel = threading.Event()
         self._generation = 0
         self._closed = False
-        self._default_scene = json.loads((self.root/'baselines/scene-conditioned-20261030/preview-scene.json').read_text())['scene']
-        self._default_checkpoint = json.loads((self.root/'baselines/scene-conditioned-20261030/checkpoint.json').read_text())
-        self._checkpoint = copy.deepcopy(self._default_checkpoint)
+        self._load_profile(profile, checkpoint_path)
         self._state = {'scene': copy.deepcopy(self._default_scene), 'revision': 0, 'phase': 'position_board',
             'board_confirmed': False, 'bucket_confirmed': False, 'board_pose': None,
             'bucket_observation': None, 'plan': None, 'result': None, 'trial_id': None,
             'loaded': False, 'events': [], 'error': None, 'trial_counter': 0, 'arm10_loading_boxes': []}
 
+    def _load_profile(self, profile, checkpoint_path=None):
+        if profile not in ('front', 'historical'):
+            raise ValueError('Choose front or historical scene profile')
+        # A rejected profile must not relabel an existing scene, scan or plan.
+        if profile == 'front':
+            from sircus.studies.profiles import front_scene, profile_metadata
+            scene = front_scene()
+            metadata = profile_metadata()
+            profile_id = metadata['profile_id']
+            schema = 'sircus-front-scene-ridge-v1'
+            default_path = self.root/'baselines/front-bucket-20261030/checkpoint.json'
+        else:
+            scene = json.loads((self.root/'baselines/scene-conditioned-20261030/preview-scene.json').read_text())['scene']
+            profile_id = 'historical-positive-y-v1'
+            metadata = {'profile_id': profile_id,
+                'description': 'Historical positive-Y study; preserved separately from corrected front-side geometry'}
+            schema = 'sircus-scene-conditioned-ridge-v1'
+            default_path = self.root/'baselines/scene-conditioned-20261030/checkpoint.json'
+        path = Path(checkpoint_path) if checkpoint_path is not None else default_path
+        checkpoint = json.loads(path.read_text()) if path.is_file() else {}
+        if not isinstance(checkpoint, dict) or (checkpoint and checkpoint.get('schema') != schema):
+            raise ValueError('Default checkpoint does not match the selected scene profile')
+        self.profile, self.profile_id = profile, profile_id
+        self._default_scene, self.profile_metadata = scene, metadata
+        self.checkpoint_schema = schema
+        self._default_checkpoint = checkpoint
+        self._checkpoint = copy.deepcopy(checkpoint)
+
     def _event(self, kind, **fields):
         row = {'event_id': str(uuid.uuid4()), 'trial_id': self._state['trial_id'], 'kind': kind,
             'timestamp_utc': now(), 'scene_revision': self._state['revision'],
-            'scene_fingerprint': digest(self._state['scene']), 'data_origin': 'synthetic',
+            'scene_fingerprint': digest(self._state['scene']), 'profile_id': self.profile_id, 'data_origin': 'synthetic',
             'physically_verified': False, **fields}
         self._state['events'].append(row)
         self._state['events'] = self._state['events'][-100:]
@@ -74,7 +101,7 @@ class GuidedOperations:
             return []
         if self._busy():
             return ['stop']
-        actions = ['set_board', 'set_bucket', 'select_checkpoint', 'reset']
+        actions = ['set_board', 'set_bucket', 'select_checkpoint', 'select_profile', 'reset']
         if self._state['board_confirmed'] and self._state['bucket_confirmed']:
             actions.append('scan_bucket')
         if self._state['bucket_observation'] is not None:
@@ -90,6 +117,8 @@ class GuidedOperations:
             return copy.deepcopy({**self._state, 'busy': self._busy(), 'available_actions': self._available(),
                 'scene_fingerprint': digest(self._state['scene']), 'mode': 'simulation_only',
                 'hardware_enabled': False, 'native_paths_checked': False,
+                'profile': self.profile, 'profile_id': self.profile_id, 'profile_metadata': self.profile_metadata,
+                'checkpoint_available': bool(self._checkpoint),
                 'missing_calibrations': MISSING, 'checkpoint_id': self._checkpoint.get('checkpoint_id'),
                 'checkpoint_validation': 'verified by numerical worker before learned planning',
                 'scope': 'Numerical rehearsal only; arm poses are endpoint checks and scan is synthetic scene ground truth'})
@@ -176,7 +205,8 @@ class GuidedOperations:
         expected = {'set_board': {'action','center_mm','rpy_deg'}, 'set_bucket': {'action','center_xy_mm'},
             'scan_bucket': {'action'}, 'plan': {'action','mode','seed','budget'},
             'confirm_loaded': {'action'}, 'grip_drop': {'action'}, 'stop': {'action'},
-            'reset': {'action'}, 'select_checkpoint': {'action','checkpoint'}}
+            'reset': {'action'}, 'select_checkpoint': {'action','checkpoint'},
+            'select_profile': {'action','profile'}}
         if name not in expected or set(payload)-expected[name]:
             raise ValueError('Unsupported action or fields; hardware execution is unavailable')
         with self.lock:
@@ -195,7 +225,11 @@ class GuidedOperations:
                 raise ValueError('A numerical operation is pending; stop it before changing the setup')
             if name not in self._available():
                 raise ValueError('Complete the preceding setup step before '+name)
-            if name == 'reset':
+            if name == 'select_profile':
+                self._load_profile(payload.get('profile'))
+                self._state.update(scene=copy.deepcopy(self._default_scene), board_confirmed=False, bucket_confirmed=False)
+                self._invalidate(); self._event('profile_selected', profile=self.profile)
+            elif name == 'reset':
                 self._state.update(scene=copy.deepcopy(self._default_scene), board_confirmed=False, bucket_confirmed=False)
                 self._invalidate(); self._event('reset')
             elif name == 'set_board':
@@ -213,8 +247,8 @@ class GuidedOperations:
                 self._invalidate(); self._event('bucket_position_set', source='operator_simulation_input')
             elif name == 'select_checkpoint':
                 value = payload.get('checkpoint')
-                if not isinstance(value, dict) or value.get('schema') != 'sircus-scene-conditioned-ridge-v1':
-                    raise ValueError('Scene-conditioned checkpoint required')
+                if not isinstance(value, dict) or value.get('schema') != self.checkpoint_schema:
+                    raise ValueError('Checkpoint must match the selected '+self.profile+' profile')
                 if len(json.dumps(value, allow_nan=False).encode()) > 800_000:
                     raise ValueError('Checkpoint too large')
                 self._checkpoint = copy.deepcopy(value)
@@ -234,6 +268,8 @@ class GuidedOperations:
                 mode = payload.get('mode', 'fixed_board'); seed = payload.get('seed', 42); budget = payload.get('budget', 8)
                 if mode not in ('fixed_board','learned_board') or type(seed) is not int or not 0 <= seed < 2**32 or type(budget) is not int or not 1 <= budget <= 32:
                     raise ValueError('Use fixed_board/learned_board, uint32 seed and budget 1..32')
+                if mode == 'learned_board' and not self._checkpoint:
+                    raise ValueError('Train or select a matching checkpoint for this scene profile first')
                 observation = self._state['bucket_observation']
                 if observation['scene_fingerprint'] != digest(self._state['scene']):
                     raise ValueError('Bucket scan is stale; scan the current layout again')

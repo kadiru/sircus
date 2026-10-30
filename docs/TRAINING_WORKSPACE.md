@@ -1,10 +1,18 @@
 # Simulator training workspace
 
-The operator dashboard's training workspace runs the existing numerical
-`train_scene_study.py` as an isolated, bounded local child process. It uses no
+The operator dashboard's training workspace runs a profile-specific trainer as an
+isolated, bounded local child process: `sircus/studies/run_front_study.py` for the
+default corrected front profile, or historical `train_scene_study.py` when launched
+with `--workflow-profile historical`. It uses no
 Viam connection, cloud identity, camera, audio service or physical controller.
-The training code, physics contracts and published reference checkpoint are
-unchanged. Starting training does not deploy its result.
+The historical trainer, physics contracts and reference checkpoint remain unchanged.
+The corrected trainer has its own profile/source guards. Starting training does not
+deploy its result.
+
+The bounded UI controls run individual studies. The larger prespecified N8/24/64/128
+learning curve with three seeds and shared held-out layouts is a headless command,
+documented in [the front study](FRONT_BUCKET_STUDY.md). `/study-results.html` displays
+that completed report and its challenges without starting another worker.
 
 ## Experiment
 
@@ -99,7 +107,7 @@ robot will capture the ball. Camera-to-robot calibration, board-mount calibratio
 real bounce measurements, matching native replay and collision-aware path checks
 remain required before physical deployment.
 
-## Implementation smoke — October 30, 2026
+## Historical positive-Y implementation smoke — October 30, 2026
 
 The manager completed a real 4/1/2 run with seed 20261030, teacher budget 4 and
 oracle budget 2 in 8.74 seconds on the development Mac. All four training layouts
@@ -116,3 +124,15 @@ test evaluation. The manager independently verified the checkpoint download hash
 Thirteen manager regressions passed, including cancellation during finalization and
 bounded application shutdown and failed local storage. Generated attempts and logs remain local, separate
 from the committed historical study.
+
+## Corrected front-profile UI verification — October 30, 2026
+
+A real4/1/2 front-profile job launched through the browser completed in10.20s:
+frozen2/2, fixed1/2, limited2-proposal search1/2. This remains a pipeline smoke,
+not learning-curve evidence. The UI successfully selected its checksummed checkpoint.
+A first attempt exposed a relative-output-root mismatch after the child changed
+working directory; the manager now resolves the configured root before spawning,
+with a focused regression. Failed-attempt evidence remains local and unpromoted.
+The successful run ID was258a584dee154060ab306d12355c56e5; its checkpoint ID is
+20c4f2a2bc9dbb63c093abba709ee46b018ed140342837c24869da3f8b90ca22.
+The long study and default N128 checkpoint remain separate from this UI smoke.

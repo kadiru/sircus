@@ -7,8 +7,11 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1] / 'two-arm'
 sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT.parents[1]))
 import numpy as np
 import scene_study as study
+from sircus.studies import front_study
+from sircus.studies.profiles import PROFILE_ID
 from shot_rollout import prepare_scene, release_coordinates, rollout, selection_key
 from two_arm_kinematics import (board_target, board_mount_rotation, forward_world,
                                 inverse_world, feasibility, DOWN)
@@ -37,7 +40,7 @@ def board_pose(scene):
 
 
 def loading_boxes(scene):
-    # This numerical target is the existing provisional pickup, not a taught hardware pose.
+    # Numerical ball-at-TCP proxy only; screenshot loading TCP is not a measured grasp offset.
     pose = inverse_world(scene, 10, scene['pickup_mm'], DOWN)
     if not pose['arm_reachable']:
         return []
@@ -46,6 +49,9 @@ def loading_boxes(scene):
 
 def evaluate(scene, action, seed, frames=True):
     selected = prepare_scene(scene)
+    if scene.get('measurement_status', {}).get('coordinate_profile') == PROFILE_ID:
+        selected['simulation'].update(noise_xy_mm=front_study.DEFAULT_NOISE['xy_mm'],
+                                      noise_gap_mm=front_study.DEFAULT_NOISE['gap_mm'])
     coords = release_coordinates(selected, action)
     check = feasibility(selected, action)
     if not check['arm_reachable'] or not check['board_arm_reachable']:
@@ -89,25 +95,30 @@ def handle(payload):
     seed, mode = payload['seed'], payload['mode']
     if mode == 'learned_board':
         # Prediction is frozen matrix inference; evaluation does not alter weights/actions.
-        row = study.preview(payload['checkpoint'], payload['scene'], seed=seed)
+        checkpoint = payload['checkpoint']
+        engine = front_study if checkpoint.get('schema') == front_study.CHECKPOINT_SCHEMA else study
+        row = engine.preview(checkpoint, payload['scene'], seed=seed)
         if not row['result'].get('executed') or row['result']['outcome'] in ('invalid_action', 'invalid_contact', 'model_limit'):
             raise ValueError('Frozen prediction has no valid numerical plan: '+row['result']['outcome'])
         row['mode'] = 'learned_board'
         return annotate(row)
     if mode != 'fixed_board':
         raise ValueError('Unknown planning mode')
+    front = scene.get('measurement_status', {}).get('coordinate_profile') == PROFILE_ID
+    fixed_action = front_study.FIXED_ACTION if front else study.FIXED_ACTION
+    max_gap = front_study.ACTION_BOUNDS[-1][1] if front else 380
     rng = random.Random(seed)
     budget = payload['budget']
     best = None
     candidates = []
     for index in range(budget):
         if index == 0:
-            action = {k: study.FIXED_ACTION[k] for k in ('u_mm', 'v_mm', 'gap_mm')}
+            action = {k: fixed_action[k] for k in ('u_mm', 'v_mm', 'gap_mm')}
         elif best is None or index < max(2, budget//2):
-            action = {'u_mm': rng.uniform(-70, 70), 'v_mm': rng.uniform(-100, 100), 'gap_mm': rng.uniform(60, 380)}
+            action = {'u_mm': rng.uniform(-70, 70), 'v_mm': rng.uniform(-100, 100), 'gap_mm': rng.uniform(60, max_gap)}
         else:
             action = {key: max(low, min(high, best['release_action'][key]+rng.gauss(0, (high-low)*.12)))
-                      for key, low, high in [('u_mm', -70, 70), ('v_mm', -100, 100), ('gap_mm', 60, 380)]}
+                      for key, low, high in [('u_mm', -70, 70), ('v_mm', -100, 100), ('gap_mm', 60, max_gap)]}
         try:
             row = evaluate(scene, action, seed, frames=False)
             result = row['result']

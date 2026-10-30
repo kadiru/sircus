@@ -1,0 +1,296 @@
+[
+  {
+    "captures": 24,
+    "ci95": [
+      0.8620237953250198,
+      1.0
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "distance_mm": 220.0,
+    "endpoint_infeasible": 0,
+    "episodes": 24,
+    "kind": "distance",
+    "label": "Diagnostic search \u00b7 distance 220 mm",
+    "lateral_offset_mm": null,
+    "layouts": 24,
+    "method": "held_out_search_oracle",
+    "native_paths_checked": false,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "captured": 24
+    },
+    "physically_verified": false,
+    "provenance": "Post-study diagnostic controls on existing challenge layouts; no refit, no checkpoint selection; finite search failure does not prove impossibility",
+    "role": "post_study_search_diagnostic",
+    "search_budget_per_layout": 16,
+    "seed": 20261030,
+    "success_fraction": 1.0,
+    "units": "mm",
+    "value": 220.0
+  },
+  {
+    "captures": 24,
+    "ci95": [
+      0.8620237953250198,
+      1.0
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "distance_mm": 220.0,
+    "endpoint_infeasible": 0,
+    "episodes": 24,
+    "kind": "distance",
+    "label": "Diagnostic fixed \u00b7 distance 220 mm",
+    "lateral_offset_mm": null,
+    "layouts": 24,
+    "method": "fixed_baseline",
+    "native_paths_checked": false,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "captured": 24
+    },
+    "physically_verified": false,
+    "provenance": "Post-study diagnostic controls on existing challenge layouts; no refit, no checkpoint selection; finite search failure does not prove impossibility",
+    "role": "post_study_fixed_diagnostic",
+    "search_budget_per_layout": 0,
+    "seed": 20261030,
+    "success_fraction": 1.0,
+    "units": "mm",
+    "value": 220.0
+  },
+  {
+    "captures": 2,
+    "ci95": [
+      0.0,
+      0.25848802193210685
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "distance_mm": 340.0,
+    "endpoint_infeasible": 0,
+    "episodes": 24,
+    "kind": "distance",
+    "label": "Diagnostic search \u00b7 distance 340 mm",
+    "lateral_offset_mm": null,
+    "layouts": 24,
+    "method": "held_out_search_oracle",
+    "native_paths_checked": false,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "captured": 2,
+      "no_entry": 22
+    },
+    "physically_verified": false,
+    "provenance": "Post-study diagnostic controls on existing challenge layouts; no refit, no checkpoint selection; finite search failure does not prove impossibility",
+    "role": "post_study_search_diagnostic",
+    "search_budget_per_layout": 16,
+    "seed": 20261030,
+    "success_fraction": 0.08333333333333333,
+    "units": "mm",
+    "value": 340.0
+  },
+  {
+    "captures": 0,
+    "ci95": [
+      0.0,
+      0.13797620467498017
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "distance_mm": 340.0,
+    "endpoint_infeasible": 0,
+    "episodes": 24,
+    "kind": "distance",
+    "label": "Diagnostic fixed \u00b7 distance 340 mm",
+    "lateral_offset_mm": null,
+    "layouts": 24,
+    "method": "fixed_baseline",
+    "native_paths_checked": false,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "no_entry": 24
+    },
+    "physically_verified": false,
+    "provenance": "Post-study diagnostic controls on existing challenge layouts; no refit, no checkpoint selection; finite search failure does not prove impossibility",
+    "role": "post_study_fixed_diagnostic",
+    "search_budget_per_layout": 0,
+    "seed": 20261030,
+    "success_fraction": 0.0,
+    "units": "mm",
+    "value": 340.0
+  },
+  {
+    "captures": 0,
+    "ci95": [
+      0.0,
+      0.13797620467498017
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "distance_mm": 450.0,
+    "endpoint_infeasible": 0,
+    "episodes": 24,
+    "kind": "distance",
+    "label": "Diagnostic search \u00b7 distance 450 mm",
+    "lateral_offset_mm": null,
+    "layouts": 24,
+    "method": "held_out_search_oracle",
+    "native_paths_checked": false,
+    "out_of_distribution_layouts": 24,
+    "outcomes": {
+      "no_entry": 24
+    },
+    "physically_verified": false,
+    "provenance": "Post-study diagnostic controls on existing challenge layouts; no refit, no checkpoint selection; finite search failure does not prove impossibility",
+    "role": "post_study_search_diagnostic",
+    "search_budget_per_layout": 16,
+    "seed": 20261030,
+    "success_fraction": 0.0,
+    "units": "mm",
+    "value": 450.0
+  },
+  {
+    "captures": 0,
+    "ci95": [
+      0.0,
+      0.13797620467498017
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "distance_mm": 450.0,
+    "endpoint_infeasible": 0,
+    "episodes": 24,
+    "kind": "distance",
+    "label": "Diagnostic fixed \u00b7 distance 450 mm",
+    "lateral_offset_mm": null,
+    "layouts": 24,
+    "method": "fixed_baseline",
+    "native_paths_checked": false,
+    "out_of_distribution_layouts": 24,
+    "outcomes": {
+      "no_entry": 24
+    },
+    "physically_verified": false,
+    "provenance": "Post-study diagnostic controls on existing challenge layouts; no refit, no checkpoint selection; finite search failure does not prove impossibility",
+    "role": "post_study_fixed_diagnostic",
+    "search_budget_per_layout": 0,
+    "seed": 20261030,
+    "success_fraction": 0.0,
+    "units": "mm",
+    "value": 450.0
+  },
+  {
+    "captures": 18,
+    "ci95": [
+      0.55100555994846,
+      0.9166666666666666
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "distance_mm": 250.0,
+    "endpoint_infeasible": 0,
+    "episodes": 24,
+    "kind": "offset",
+    "label": "Diagnostic search \u00b7 offset -200 mm",
+    "lateral_offset_mm": -200.0,
+    "layouts": 24,
+    "method": "held_out_search_oracle",
+    "native_paths_checked": false,
+    "out_of_distribution_layouts": 24,
+    "outcomes": {
+      "captured": 18,
+      "no_entry": 6
+    },
+    "physically_verified": false,
+    "provenance": "Post-study diagnostic controls on existing challenge layouts; no refit, no checkpoint selection; finite search failure does not prove impossibility",
+    "role": "post_study_search_diagnostic",
+    "search_budget_per_layout": 16,
+    "seed": 20261030,
+    "success_fraction": 0.75,
+    "units": "mm",
+    "value": -200.0
+  },
+  {
+    "captures": 0,
+    "ci95": [
+      0.0,
+      0.13797620467498017
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "distance_mm": 250.0,
+    "endpoint_infeasible": 0,
+    "episodes": 24,
+    "kind": "offset",
+    "label": "Diagnostic fixed \u00b7 offset -200 mm",
+    "lateral_offset_mm": -200.0,
+    "layouts": 24,
+    "method": "fixed_baseline",
+    "native_paths_checked": false,
+    "out_of_distribution_layouts": 24,
+    "outcomes": {
+      "no_entry": 24
+    },
+    "physically_verified": false,
+    "provenance": "Post-study diagnostic controls on existing challenge layouts; no refit, no checkpoint selection; finite search failure does not prove impossibility",
+    "role": "post_study_fixed_diagnostic",
+    "search_budget_per_layout": 0,
+    "seed": 20261030,
+    "success_fraction": 0.0,
+    "units": "mm",
+    "value": -200.0
+  },
+  {
+    "captures": 12,
+    "ci95": [
+      0.2916666666666667,
+      0.7083333333333334
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "distance_mm": 250.0,
+    "endpoint_infeasible": 0,
+    "episodes": 24,
+    "kind": "offset",
+    "label": "Diagnostic search \u00b7 offset 200 mm",
+    "lateral_offset_mm": 200.0,
+    "layouts": 24,
+    "method": "held_out_search_oracle",
+    "native_paths_checked": false,
+    "out_of_distribution_layouts": 24,
+    "outcomes": {
+      "captured": 12,
+      "no_board_bounce": 1,
+      "no_entry": 11
+    },
+    "physically_verified": false,
+    "provenance": "Post-study diagnostic controls on existing challenge layouts; no refit, no checkpoint selection; finite search failure does not prove impossibility",
+    "role": "post_study_search_diagnostic",
+    "search_budget_per_layout": 16,
+    "seed": 20261030,
+    "success_fraction": 0.5,
+    "units": "mm",
+    "value": 200.0
+  },
+  {
+    "captures": 0,
+    "ci95": [
+      0.0,
+      0.13797620467498017
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "distance_mm": 250.0,
+    "endpoint_infeasible": 0,
+    "episodes": 24,
+    "kind": "offset",
+    "label": "Diagnostic fixed \u00b7 offset 200 mm",
+    "lateral_offset_mm": 200.0,
+    "layouts": 24,
+    "method": "fixed_baseline",
+    "native_paths_checked": false,
+    "out_of_distribution_layouts": 24,
+    "outcomes": {
+      "no_entry": 24
+    },
+    "physically_verified": false,
+    "provenance": "Post-study diagnostic controls on existing challenge layouts; no refit, no checkpoint selection; finite search failure does not prove impossibility",
+    "role": "post_study_fixed_diagnostic",
+    "search_budget_per_layout": 0,
+    "seed": 20261030,
+    "success_fraction": 0.0,
+    "units": "mm",
+    "value": 200.0
+  }
+]

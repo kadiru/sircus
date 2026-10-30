@@ -61,8 +61,14 @@ class TrainingJobs:
     gets a random fresh directory. Local artifacts are immutable after completion.
     """
     def __init__(self, data_root=None, *, _popen=subprocess.Popen,
-                 _max_seconds=MAX_SECONDS, _clock=time.monotonic):
-        self.root = Path(data_root) if data_root is not None else ROOT / '.runtime' / 'training'
+                 _max_seconds=MAX_SECONDS, _clock=time.monotonic, profile='historical'):
+        if profile not in ('front', 'historical'):
+            raise ValueError('Choose front or historical training profile')
+        self.profile = profile
+        self.trainer = ROOT/'sircus/studies/run_front_study.py' if profile == 'front' else TRAINER
+        # Child cwd is the trainer directory; explicit relative output roots must
+        # be anchored before spawning or artifacts land in a different directory.
+        self.root = (Path(data_root) if data_root is not None else ROOT / '.runtime' / 'training').resolve()
         self._popen, self._max_seconds, self._clock = _popen, _max_seconds, _clock
         self._lock = threading.RLock()
         self._process = None
@@ -74,10 +80,12 @@ class TrainingJobs:
     def status(self):
         with self._lock:
             state = copy.deepcopy(self._state)
+        state['profile'] = self.profile
+        state['profile_id'] = 'front-negative-y-v1' if self.profile == 'front' else 'historical-positive-y-v1'
         state['limits'] = dict(max_rollouts=MAX_ROLLOUTS, max_seconds=self._max_seconds,
                                data_origin='synthetic', hardware_enabled=False,
                                native_paths_checked=False,
-                               distribution='existing narrow upright-bucket scene study',
+                               distribution='front-negative-y core layouts' if self.profile == 'front' else 'historical positive-y narrow layouts',
                                action_names=['roll_deg', 'pitch_deg', 'u_mm', 'v_mm', 'gap_mm'],
                                height_semantics='gap is world-Z ball clearance above nominal contact, not TCP Z',
                                training='ridge regression from training-only teacher search',
@@ -192,14 +200,14 @@ class TrainingJobs:
         phase, error, summary, artifacts = 'failed', 'Numerical trainer failed; inspect local evidence', None, []
         start = self._clock()
         try:
-            command = [sys.executable, str(TRAINER), '--output', str(self.root / run_id)]
+            command = [sys.executable, str(self.trainer), '--output', str(self.root / run_id)]
             for key, value in config.items():
                 command += ['--' + key.replace('_', '-'), str(value)]
             # No inherited Viam/audio secrets, cloud identity, or shell expansion.
             environment = {'PATH': os.environ.get('PATH', '/usr/bin:/bin'),
                            'PYTHONDONTWRITEBYTECODE': '1', 'PYTHONUNBUFFERED': '1',
                            'OPENBLAS_NUM_THREADS': '1', 'OMP_NUM_THREADS': '1'}
-            process = self._popen(command, cwd=str(TRAINER.parent), env=environment,
+            process = self._popen(command, cwd=str(self.trainer.parent), env=environment,
                                   stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
                                   stderr=subprocess.PIPE, text=True, encoding='utf8', errors='replace',
                                   start_new_session=True, bufsize=1)

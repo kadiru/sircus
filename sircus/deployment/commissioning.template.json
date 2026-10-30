@@ -1,0 +1,21 @@
+{
+  "schema": "sircus.commissioning.v1",
+  "status": "uncommissioned",
+  "hardware_enabled": false,
+  "machine": "sfhack10",
+  "resources": {"dropper": "arm", "board_arm": "arm-board", "camera": "cam", "gripper": "gripper", "board_vacuum": "vacuum-board", "motion": "builtin", "capture_control": "capture-control"},
+  "credentials": {"source": "backend owner-only file or module dependency injection; never browser/Git", "required_types": ["machine address", "API key ID", "API key secret"]},
+  "camera": {"reported_serial": "112322070710", "reported_mount": "arm10 tool bracket", "intrinsics": null, "depth_mm_per_count": null, "depth_scale_verified": false, "color_depth_alignment_verified": false, "camera_to_tool_transform": null, "calibration_reference": null, "calibration_verified": false},
+  "board": {"measured_dimensions_mm": [200, 300, 5], "orientation_note": "Landscape; existing proxy has 90-degree yaw", "physical_proxy_parent": "vacuum-board", "physical_proxy_offset_mm": [0, 0, 122], "physical_proxy_offset_status": "provisional", "simulation_mount_offset_mm": 100, "simulation_mount_offset_status": "provisional; differs from physical proxy", "arm14_tool_to_impact_surface_transform": null, "verified_mount_calibration_id": null},
+  "bucket": {"inner_top_diameter_mm": 177, "outer_top_diameter_mm": 200, "inner_bottom_diameter_mm": 150, "outer_bottom_diameter_mm": 158, "reported_height_mm": 175, "height_meaning": "Unconfirmed: overall height versus interior depth", "placement": "provisional; must observe", "geometry": "open-top straight-sided taper approximation"},
+  "arm_base_separation_mm": {"value": 1337.31, "source": "manually supplied 52.65 inches", "full_transform_verified": false},
+  "scan_pose": null,
+  "loading_pose": null,
+  "release_limits": null,
+  "held_ball_offset": null,
+  "historical_pose_evidence_only": {"frame": "arm component TCP display; world registration unverified", "loading_xyz_mm": [150, -600, 200], "drop_xyz_mm": [600, -150, 600], "orientation_vector_and_theta_deg": [-0.01, -0.01, -1, -85.26], "source": "Operator screenshots 2026-10-29", "validated": false},
+  "single_controller_owner_verified": false,
+  "other_runtime_to_audit": "sfhack14 may still reference the same physical board arm",
+  "recording": {"camera_and_joint_capture_verified": false, "capture_control_verified": false, "sequences_verified": false},
+  "commissioning_evidence": []
+}
