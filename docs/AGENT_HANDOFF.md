@@ -1,5 +1,20 @@
 # Sircus cross-computer handoff — October 30, 2026
 
+## Update: Green finished; reload pause
+
+The earlier blocked state below is historical. `codex/macbook-held-ball-recovery`
+(implementation `0f44107`) adds explicit verified quiescent recovery, held-ball
+continuation and a dashboard-wide camera-disable flag. Recovery and Green's
+remaining transfer/release completed physically, keeping the original trial and
+without repeating pickup/close. Round 1 is complete; Round 2 remains paused for
+operator reload. Both arms reported stationary, fault cleared, FX muted.
+Camera use is disabled in the physical dashboard; Viam camera/frame configuration
+and other clients are unchanged. No board or suction command was issued.
+The active physical dashboard now uses the held-ball-recovery checkout. The
+previous integration branch and stopped-state sections below are dated evidence,
+not instructions to retry Green. Other computers should fetch the new branch for
+current implementation. Headless work remains separate from deployment.
+
 Read this first, then `AGENTS.md`, `CONTRIBUTING.md`, and `docs/PROJECT_STATE.md`.
 This is a dated handoff, not a live robot status feed. Recheck actual runtime and
 operator readiness before any separately authorized hardware work.

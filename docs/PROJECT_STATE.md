@@ -1,5 +1,24 @@
 # Project state
 
+## Held Green recovery completed — October 30, 2026
+
+Latest branch: `codex/macbook-held-ball-recovery`, implementation `0f44107`.
+The explicit quiescent-recovery path passed Stop RPCs, two server-operation/arm
+samples and pending-request checks. The original held-Green trial then resumed
+from its pickup approach: no repeated pickup, no close command, one saved-pose
+transfer, two-second settle and one release. The original trial ID and recovery
+evidence were retained and saved unlabeled. Round 1 is complete; bucket outcome
+remains unknown. Both arms reported stationary afterward, fault cleared, FX muted.
+Round 2 has not started and awaits operator reload/readiness.
+
+The dashboard was explicitly relaunched with `--disable-cameras`: no camera
+lookup, preview, recording or capture-control attachment from this process.
+Viam camera/frame resources were not removed or powered down, and unrelated
+clients/services were not reconfigured. Board arm and suction were not commanded.
+Validation: 146 physical/controller tests, 11 startup tests, 40 UI tests, and
+repository checks passed. Runtime evidence/calibration remain local, not in Git.
+
+
 ## Latest handoff — October 30, 2026
 
 Read [the cross-computer handoff](AGENT_HANDOFF.md) before acting on historical
