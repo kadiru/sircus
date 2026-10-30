@@ -7,7 +7,8 @@ from train_orientation_height import verify_policy,write
 async def run(args):
     policy=json.loads(args.policy.read_text())
     base=json.loads((args.policy.parent/'scene.json').read_text())
-    scene,action=verify_policy(policy,base)
+    # Fail before connecting: this runtime's run route still scores legacy 0.2 s.
+    scene,action=verify_policy(policy,base,for_native=True)
     robot,controller=await connect()
     try:
         state=await controller.do_command({'status':True})
