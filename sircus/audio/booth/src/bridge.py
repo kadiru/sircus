@@ -10,6 +10,7 @@ from sircus.audio.replay import schedule as event_schedule
 ROOT=Path(__file__).resolve().parents[1]
 MAP=json.loads((ROOT/'assets/map.json').read_text())
 SOUNDS={m['name']:m for m in MAP}
+MAX_BOOST_DB=9.5424250944  # 20*log10(3): at most three times sample amplitude.
 
 def finite(v,lo,hi):
     if isinstance(v,bool) or not isinstance(v,(int,float)) or not math.isfinite(v) or not lo<=v<=hi:raise ValueError(f'number must be {lo}..{hi}')
@@ -53,6 +54,8 @@ class Controller:
         self.enabled=False;self.volume=finite(self.config['volume'],0,1);self.mode=self.config['mode'];self.route=self.config['route']
         self.mapping=dict(self.config['mapping']);self.inputs=[];self.selected=None;self.connected=False
         self.ready=False;self.last_midi=0;self.midi_status=[];self.meter=0;self.current_peak=0;self.block_ns=0;self.last_meter=0;self.last_error=None;self.transport=False
+        # Applied gain is native-confirmed; HTTP acceptance alone is not an ACK.
+        self.boost_db=0.;self.boost_requested_db=0.;self.boost_pending=False;self.peak_limiter_ready=False
         self.trial=None;self.armed_until=0;self.impact_count=0;self.variant=0;self.sequence=0;self.monitor=collections.deque(maxlen=600)
         self.seen=collections.OrderedDict();self.released=collections.OrderedDict();self.duplicate_last={};self.record_file=None;self.record_start=0
         self.replay_generation=0;self.logic_confirmed=False
@@ -82,6 +85,7 @@ class Controller:
     def status(self):
         with self.lock:
             return {'show_audio':self.show_readiness(),'control_epoch':self.control_epoch,'fx_enabled':self.enabled,'volume':self.volume,'mode':self.mode,'route':self.route,'audio_ready':self.ready,
+                'boost_db':self.boost_db,'boost_requested_db':self.boost_requested_db,'boost_pending':self.boost_pending,'peak_limiter_ready':self.peak_limiter_ready,
                 'audio_meter_peak':self.meter,'audio_current_peak':self.current_peak,'audio_block_time_ns':self.block_ns,'meter_age_s':None if not self.last_meter else round(self.clock()-self.last_meter,2),
                 'last_midi_age_s':None if not self.last_midi else round(self.clock()-self.last_midi,2),'midi_status':self.midi_status,'inputs':self.inputs,'selected_input':self.selected,'connected':self.connected,
                 'transport':self.transport,'trial_id':self.trial,'armed':self.clock()<self.armed_until,'impact_count':self.impact_count,
@@ -316,10 +320,27 @@ class Controller:
                     'midi_gesture',intensity=velocity/127,ball_id=ball_id)
                 return self.audio_ball_event(event)
             return self.impact(velocity,source)
+    def native_boost(self,m):
+        """Consume engine evidence without claiming an unprotected positive gain."""
+        if m.get('type')=='ready':self.peak_limiter_ready=m.get('peak_limiter_ready') is True
+        elif 'peak_limiter_ready' in m:self.peak_limiter_ready=m['peak_limiter_ready'] is True
+        if 'boost_db' in m:
+            try:reported=float(finite(m['boost_db'],0,MAX_BOOST_DB))
+            except (ValueError,TypeError):
+                self.boost_pending=False;self.last_error='Invalid native boost status';return
+            self.boost_db=reported
+            if m.get('type')=='ready':self.boost_requested_db=reported;self.boost_pending=False
+            elif math.isclose(reported,self.boost_requested_db,rel_tol=0,abs_tol=1e-6):self.boost_pending=False
+        if not self.peak_limiter_ready and (self.boost_db>0 or self.boost_requested_db>0):
+            self.boost_db=0.;self.boost_requested_db=0.;self.boost_pending=False
+            self.last_error='Native peak limiter unavailable; boost not verified'
+            if self.enabled:self.disable('boost_limiter_unavailable')
+
     def native(self,m):
         with self.lock:
             kind=m.get('type')
             if kind=='midi':self.midi(m);return
+            if kind in ('ready','meter','boost'):self.native_boost(m)
             if kind=='ready':self.ready=m['audio_ready'];self.midi_status=m['midi_status']
             elif kind=='inputs':self.inputs=m['inputs']
             elif kind=='meter':
@@ -337,7 +358,10 @@ class Controller:
                 self.control_epoch=uuid.uuid4().hex
                 self.last_error=m.get('message');self.enabled=False;self.transport=False;self.loop_kind=None;self.armed_until=0
                 self.replay_generation+=1
-                if kind=='native_exit':self.ready=False;self.connected=False;self.connected_inputs=[];self.selected_inputs=None
+                self.boost_pending=False;self.boost_requested_db=self.boost_db
+                if kind=='native_exit':
+                    self.ready=False;self.connected=False;self.connected_inputs=[];self.selected_inputs=None
+                    self.peak_limiter_ready=False;self.boost_db=0.;self.boost_requested_db=0.
                 else:
                     try:self.send(cmd='panic')
                     except Exception:pass
@@ -388,6 +412,20 @@ class Controller:
             if kind in ('fx','panic'):return self.fx_control(kind,d)
             elif kind=='volume':
                 self.volume=finite(d.get('volume'),0,1);self.send(cmd='volume',value=self.volume)
+            elif kind=='boost':
+                if set(d)!={'boost_db'}:raise ValueError('boost_db is the only boost setting')
+                value=float(finite(d.get('boost_db'),0,MAX_BOOST_DB))
+                if self.route!='native':raise ValueError('Loudness boost is available only on the native audio route')
+                if self.backend is None:raise ValueError('Native audio backend unavailable')
+                if not self.ready or not self.peak_limiter_ready:
+                    raise ValueError('Native audio and peak limiter must be ready before changing boost')
+                previous=(self.boost_requested_db,self.boost_pending)
+                self.boost_requested_db=value;self.boost_pending=True
+                try:self.send(cmd='boost',value=value)
+                except Exception:
+                    self.boost_requested_db,self.boost_pending=previous
+                    raise RuntimeError('Native boost command unavailable') from None
+                self.log('boost_requested',boost_db=value)
             elif kind=='mode':
                 if d.get('mode') not in ['free','trial']:raise ValueError('mode must be free or trial')
                 self.stop_playback();self.mode=d['mode'];self.impact_count=0
@@ -510,7 +548,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
             except ValueError:return self.reply({'error':'invalid cursor'},400)
             with self.server.c.lock:return self.reply({'events':[r for r in self.server.c.monitor if r['seq']>after],'seq':self.server.c.sequence})
         if path.path=='/api/sounds':return self.reply(MAP)
-        files={'/':('web/index.html','text/html'),'/app.js':('web/app.js','text/javascript'),'/fx-controls.mjs':('integration/fx-controls.mjs','text/javascript'),'/style.css':('web/style.css','text/css')}
+        files={'/':('web/index.html','text/html'),'/app.js':('web/app.js','text/javascript'),'/fx-controls.mjs':('integration/fx-controls.mjs','text/javascript'),'/boost-controls.mjs':('web/boost-controls.mjs','text/javascript'),'/style.css':('web/style.css','text/css')}
         for m in MAP:files['/assets/'+m['file']]=('assets/'+m['file'],'audio/wav')
         if path.path not in files:return self.reply({'error':'not found'},404)
         f,mime=files[path.path];b=(ROOT/f).read_bytes();self.send_response(200);self.send_header('Content-Type',mime);self.send_header('Content-Length',str(len(b)));self.send_header('X-Content-Type-Options','nosniff');self.send_header('Content-Security-Policy',"default-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self'; frame-ancestors 'none'");self.end_headers();self.wfile.write(b)
