@@ -46,4 +46,4 @@ python -m unittest discover -s sircus/physical_trials -p 'test_*.py'
 node --test sircus/simulation/tests/test_show_panel.mjs sircus/simulation/tests/test_physical_panel.mjs
 ```
 
-Coverage includes independent teaching, failed grip, stale/mismatched start, missing recording, moved board, constraint rejection, Stop during descent and a late canceled response. Mock results establish control behavior only; server acceptance and physical paths remain unverified until a supervised pickup is performed.
+Coverage includes independent teaching, failed grip, stale/mismatched start, missing recording, moved board, constraint rejection, Stop during descent and a late canceled response. Mock results establish control behavior only. One operator-authorized four-station physical run subsequently completed on October 30; native planning accepted the constrained segments and all four releases were recorded. This is not continuous clearance measurement or verified bucket capture. See the physical STATUS record.
