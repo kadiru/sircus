@@ -13,6 +13,12 @@ class RoundHomeTests(unittest.IsolatedAsyncioTestCase):
             await stop()
             return {'planner_cancellation_verified':True,'recovery_evidence':{'mock':True}}
         self.adapter.stop=recovery_stop
+        from viam_adapter import linear_move_parameters
+        linear=self.adapter.move_pose_linear
+        async def strict_linear(target,start,**kwargs):
+            linear_move_parameters(target,start,**kwargs)
+            return await linear(target,start,**kwargs)
+        self.adapter.move_pose_linear=strict_linear
     asyncTearDown=rounds.RoundOperatorTests.asyncTearDown
     teach=rounds.RoundOperatorTests.teach
     command=rounds.RoundOperatorTests.command
@@ -72,4 +78,24 @@ class RoundHomeTests(unittest.IsolatedAsyncioTestCase):
         self.controller.trial={'id':'completed-trial','status':'completed','saved':False,'events':[]}
         await self.reset();await self.drain()
         self.assertEqual(self.controller.trial['status'],'completed');self.assertTrue(self.controller.trial['saved'])
+        self.assert_tools_untouched()
+
+    async def test_noisy_low_readback_retreat_keeps_measured_xy_and_orientation(self):
+        grasp,approach=self.controller._pickup_poses('ball-green')
+        actual={**grasp,'x':grasp['x']+.3,'y':grasp['y']-.04,'theta':grasp['theta']+.05}
+        self.adapter.arm_pose=copy.deepcopy(actual)
+        await self.reset();await self.drain()
+        self.assertEqual(self.controller.round_run['status'],'home_ready',self.controller.error)
+        move=next(c for c in self.adapter.calls if c[0]=='move_pose_linear')
+        self.assertEqual(move[1],{**actual,'z':approach['z']})
+        self.assert_tools_untouched()
+
+    async def test_already_above_clearance_skips_tiny_downward_correction(self):
+        grasp,approach=self.controller._pickup_poses('ball-green')
+        self.controller.calibration['pickup_poses']['ball-pink']['z']+=.37
+        self.adapter.arm_pose={**approach,'x':approach['x']+.3,'y':approach['y']-.04,
+                               'theta':approach['theta']+.05,'z':approach['z']+.402}
+        await self.reset();await self.drain()
+        self.assertEqual(self.controller.round_run['status'],'home_ready',self.controller.error)
+        self.assertFalse(any(c[0]=='move_pose_linear' for c in self.adapter.calls))
         self.assert_tools_untouched()

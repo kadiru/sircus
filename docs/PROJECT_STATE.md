@@ -1,5 +1,14 @@
 # Project state
 
+## Four-ball selector clarification — October 30, 2026
+
+The show now defaults to an explicit all-four round view. Green as the last
+single-ball identity no longer highlights in that view; selecting all four sends
+no robot command and never bypasses readiness/confirmation. A reported reset
+failure was traced to an invalid tiny vertical correction with mismatched
+measured/taught XY. Reset now keeps measured XY/orientation and only raises Z,
+while retaining strict endpoint validation. Updated mocks cover both cases.
+
 ## Round 1 home reset — October 30, 2026
 
 `codex/macbook-round-home` adds an explicit empty-tool home button to the live

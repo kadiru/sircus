@@ -87,7 +87,7 @@ function pickupState(extra={}){return {connected:true,busy:false,phase:'idle',se
 function pickupHarness(){const h=harness();h.panel.accept(status('hardware'));h.panel.physicalStatus(pickupState());return h;}
 
 test('taped pickup is a separate opt-in mode and teaching never starts a routine',async()=>{
- const h=pickupHarness();assert.equal(h.panel.manualLoadMode,'hand');assert.equal(h.nodes.handLoadCycle.hidden,false);assert.equal(h.nodes.pickupStationPanel.hidden,true);assert.deepEqual(h.commands,[]);
+ const h=pickupHarness();assert.equal(h.panel.manualLoadMode,'round');assert.equal(h.nodes.handLoadCycle.hidden,true);assert.equal(h.nodes.pickupStationPanel.hidden,true);assert.deepEqual(h.commands,[]);
  assert.equal(h.panel.selectLoadMode('pickup'),true);assert.equal(h.nodes.handLoadCycle.hidden,true);assert.equal(h.nodes.handLoadControls.hidden,true);assert.equal(h.nodes.pickupStationPanel.hidden,false);assert.equal(h.nodes.pickupCycle.disabled,true);assert.match(h.nodes.pickupPose.textContent,/"z": 120/);assert.match(h.nodes.pickupApproachPose.textContent,/"z": 220/);assert.deepEqual(h.commands,[]);
  assert.equal(await h.panel.pickupCommand('teach_pickup'),true);assert.deepEqual(h.commands,[['teach_pickup',{ball_id:'ball-pink'}]]);
  assert.equal(h.panel.selectLoadMode('hand'),true);assert.equal(h.nodes.handLoadCycle.hidden,false);assert.equal(h.commands.length,1);
@@ -143,3 +143,21 @@ test('an immediate successful Stop with a new action epoch invalidates both pick
  assert.equal(h.commands[0][1].recording_mode,'operator_log_only');
  const html=await readFile(new URL('../web/show.html',import.meta.url),'utf8');assert.match(html,/id="pickupNoCamera" type="checkbox">No-camera/);
  });
+
+test('all-four demo selection replaces the last Green highlight without any robot command',async()=>{
+ const h=harness();h.panel.physicalStatus(pickupState({selected_ball_id:'ball-green'}));h.panel.accept(status('hardware'));
+ assert.equal(h.panel.manualLoadMode,'round');
+ assert.equal(h.nodes.allFourBalls.getAttribute('aria-pressed'),'true');
+ assert.ok(h.nodes.ballChoices.children.every(node=>node.getAttribute('aria-pressed')==='false'));
+ assert.match(h.nodes.selectedBallStatus.textContent,/All four: Gray/);
+ await h.panel.selectBall('ball-green');assert.equal(h.panel.manualLoadMode,'pickup');
+ assert.deepEqual(h.commands,[['set_ball',{ball_id:'ball-green'}]]);
+ h.physical.allowed=()=>false;h.nodes.physicalRoundConfirm.checked=true;
+ h.nodes.allFourBalls.listeners.click();
+ assert.equal(h.panel.manualLoadMode,'round');assert.equal(h.nodes.physicalRoundConfirm.checked,false);
+ assert.equal(h.nodes.pickupStationPanel.hidden,true);assert.equal(h.nodes.handLoadCycle.hidden,true);
+ assert.equal(h.commands.length,1);assert.equal(h.requests.length,0);
+ h.panel.physicalStatus(pickupState({selected_ball_id:'ball-green'}));
+ assert.ok(h.nodes.ballChoices.children.every(node=>node.getAttribute('aria-pressed')==='false'));
+ h.physical.busy=true;assert.equal(h.panel.selectLoadMode('pickup'),false);
+});

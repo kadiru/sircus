@@ -1332,6 +1332,10 @@ class Controller:
                 if pose_matches(actual,transit):break
             else:
                 raise TrialError('Home reset requires a taught pickup, approach, or round drop pose; unknown intermediate pose is blocked')
+        # Recognition uses pose tolerances; retreat uses the measured XY and
+        # orientation exactly. Never correct a small readback offset by slanting
+        # or lowering beside the pickup row.
+        route=[{**actual,'z':target['z']} for target in route if target['z']>actual['z']+1e-6]
         if route and not callable(getattr(self.adapter,'move_pose_linear',None)):
             raise TrialError('Constrained vertical retreat is unavailable')
         if self._unsaved():self._keep_unlabeled()

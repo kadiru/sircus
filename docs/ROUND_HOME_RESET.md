@@ -32,3 +32,26 @@ button was verified served and available despite the retained interrupted-trial
 fault; reset itself performs verified recovery before motion. No home movement
 or tool actuation was issued during implementation/deployment. Physical reset
 execution remains operator initiated and not claimed validated by these mocks.
+
+## Four-ball selection and readback offsets
+
+The show opens with **All four balls · full demo** selected. This is a UI view,
+not a robot command: no identity, confirmation or motion is sent by selecting it.
+The last Green identity in backend history does not narrow the round. Single
+colors select individual pickup controls; the all-four shortcut returns to round
+controls, clears the round confirmation, and removes single-color highlighting.
+
+Home retreat preserves measured XY/orientation after matching a known pose within
+existing tolerances. It only raises Z; an already-reached clearance height skips
+sub-millimeter correction. This fixes a real reset rejection caused by sending
+slightly different measured/taught XY as an exactly vertical request. The strict
+linear adapter validation is unchanged. Regression mocks include noisy readback,
+including an approach already above clearance. No physical reset execution is
+claimed by these tests.
+
+Validation for this correction: 164 physical/controller mock tests and 118 UI
+tests passed. The idle dashboard was refreshed with cameras disabled. Read-only
+verification showed both arms stationary, no controller fault, four audio inputs
+connected, FX off and previous 100% volume restored. Ghost Booth was not restarted.
+The new all-four selection was verified in the live browser; no physical motion,
+tool actuation or round start was sent by the agent.
