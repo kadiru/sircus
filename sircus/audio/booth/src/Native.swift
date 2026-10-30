@@ -1,6 +1,39 @@
 import Foundation
 import AVFoundation
 import CoreMIDI
+import AudioToolbox
+
+// BEGIN NATIVE PEAK LIMITER (offline renderable without MIDI or audio devices)
+let sircusMaximumBoostDB = 9.5424250944 // 20 * log10(3): at most 3x amplitude before limiting.
+func setPeakLimiterBoost(_ limiter:AVAudioUnitEffect,_ db:Double) throws {
+    guard db.isFinite && db>=0 && db<=sircusMaximumBoostDB else {
+        throw NSError(domain:"SircusPeakLimiter",code:1,userInfo:[NSLocalizedDescriptionKey:"Boost must be finite and 0..9.5424250944 dB"])
+    }
+    // Apple AudioUnitParameters.h: AUPeakLimiter PreGain is global parameter 2,
+    // measured in dB. Apply gain to the summed master, never independently per voice.
+    let status=AudioUnitSetParameter(limiter.audioUnit,AudioUnitParameterID(kLimiterParam_PreGain),kAudioUnitScope_Global,0,Float(db),0)
+    guard status==noErr else {throw NSError(domain:NSOSStatusErrorDomain,code:Int(status))}
+}
+func makePeakLimiter() throws -> AVAudioUnitEffect {
+    let description=AudioComponentDescription(componentType:kAudioUnitType_Effect,
+        componentSubType:kAudioUnitSubType_PeakLimiter,componentManufacturer:kAudioUnitManufacturer_Apple,
+        componentFlags:0,componentFlagsMask:0)
+    let limiter=AVAudioUnitEffect(audioComponentDescription:description)
+    try setPeakLimiterBoost(limiter,0)
+    return limiter
+}
+func muteNativeOutput(_ master:AVAudioMixerNode,_ output:AVAudioMixerNode,_ limiter:AVAudioUnitEffect?) {
+    master.outputVolume=0
+    output.outputVolume=0 // Mute after limiting, including any look-ahead tail.
+    limiter?.reset()
+}
+func applyNativeOutputGain(_ master:AVAudioMixerNode,_ output:AVAudioMixerNode,
+                           _ enabled:Bool,_ route:String,_ limiterReady:Bool,_ volume:Float) {
+    let active=enabled && route=="native" && limiterReady
+    master.outputVolume=active ? volume*0.5 : 0 // Preserve the original volume curve.
+    output.outputVolume=active ? 1 : 0
+}
+// END NATIVE PEAK LIMITER
 
 // JSON-lines bridge. All mutation serialized on the main queue. No robot APIs.
 let root = URL(fileURLWithPath: CommandLine.arguments[1])
@@ -11,6 +44,9 @@ func emit(_ object: [String:Any]) {
 }
 let engine = AVAudioEngine()
 let master = AVAudioMixerNode()
+var peakLimiter: AVAudioUnitEffect?
+var peakLimiterReady = false
+var boostDB = 0.0
 var players = [AVAudioPlayerNode]()
 var speeds = [AVAudioUnitVarispeed]()
 var notes = [String:Int]()
@@ -65,14 +101,32 @@ func send(_ bytes:[UInt8]) {
 }
 func silence() {
     generation+=1
-    master.outputVolume=0
+    muteNativeOutput(master,engine.mainMixerNode,peakLimiter)
     for p in players {p.stop();p.reset()}
     // Only this isolated output channel/port. Never sends back to the ODD Ball.
     send([0xbf,64,0]);send([0xbf,11,0]);send([0xbf,120,0]);send([0xbf,123,0])
     loopGeneration+=1;loopNote=nil;loopLogicID=nil;voiceOwners=SircusVoiceOwners()
     for n in notes.values {send([0x8f,UInt8(n),0])}
 }
-func gain() {master.outputVolume = enabled && route=="native" ? volume*0.5 : 0}
+func gain() {
+    applyNativeOutputGain(master,engine.mainMixerNode,enabled,route,peakLimiterReady,volume)
+}
+func setBoost(_ value:Double) {
+    guard route=="native",audioReady,engine.isRunning,peakLimiterReady,let limiter=peakLimiter else {
+        emit(["type":"error","message":"Native peak-limited boost is unavailable on this route"]);return
+    }
+    guard value.isFinite && value>=0 && value<=sircusMaximumBoostDB else {
+        emit(["type":"error","message":"Boost must be finite and 0..9.5424250944 dB"]);return
+    }
+    do {
+        try setPeakLimiterBoost(limiter,value);boostDB=value
+        emit(["type":"boost","boost_db":boostDB,"peak_limiter_ready":true])
+    } catch {
+        enabled=false;peakLimiterReady=false;audioReady=false;silence()
+        emit(["type":"error","message":"Native peak limiter unavailable: \(error)"])
+        emit(["type":"boost","boost_db":boostDB,"peak_limiter_ready":false])
+    }
+}
 // BEGIN PURE VOICE OWNERSHIP (tested without audio devices)
 struct SircusVoiceOwners {
     var native = [Int:String]()
@@ -222,7 +276,9 @@ do {
     let rows=try JSONSerialization.jsonObject(with:Data(contentsOf:root.appendingPathComponent("assets/map.json"))) as! [[String:Any]]
     engine.attach(master)
     let format=AVAudioFormat(standardFormatWithSampleRate:48000,channels:1)!
-    engine.connect(master,to:engine.mainMixerNode,format:format)
+    let limiter=try makePeakLimiter();peakLimiter=limiter;engine.attach(limiter)
+    engine.connect(master,to:limiter,format:format)
+    engine.connect(limiter,to:engine.mainMixerNode,format:format)
     for _ in 0..<8 {
         let p=AVAudioPlayerNode();let speed=AVAudioUnitVarispeed()
         engine.attach(p);engine.attach(speed);engine.connect(p,to:speed,format:format)
@@ -242,16 +298,16 @@ do {
         let ts=DispatchTime.now().uptimeNanoseconds
         DispatchQueue.main.async {peak=max(peak,v);currentPeak=v;blockTime=ts}
     }
-    try engine.start();audioReady=true
+    try engine.start();audioReady=true;peakLimiterReady=true
 } catch {emit(["type":"error","message":"Native audio unavailable: \(error)"])}
 silence()
-emit(["type":"ready","audio_ready":audioReady,"midi_status":[cstatus,pstatus,sstatus],"output":"Sircus FX","output_channel":16])
+emit(["type":"ready","audio_ready":audioReady,"midi_status":[cstatus,pstatus,sstatus],"output":"Sircus FX","output_channel":16,"boost_db":boostDB,"peak_limiter_ready":peakLimiterReady])
 let timer=DispatchSource.makeTimerSource(queue:.main)
 timer.schedule(deadline:.now(),repeating:1)
 timer.setEventHandler {
     reconcile()
     if enabled && DispatchTime.now().uptimeNanoseconds-heartbeat > 3_000_000_000 {enabled=false;silence();emit(["type":"watchdog","message":"Audio parent heartbeat lost; muted" ])}
-    emit(["type":"meter","peak":peak,"current_peak":currentPeak,"block_time_ns":blockTime,"audio_ready":audioReady && engine.isRunning,"enabled":enabled,"route":route]);peak=0
+    emit(["type":"meter","peak":peak,"current_peak":currentPeak,"block_time_ns":blockTime,"audio_ready":audioReady && engine.isRunning,"enabled":enabled,"route":route,"boost_db":boostDB,"peak_limiter_ready":peakLimiterReady && engine.isRunning]);peak=0
 }
 timer.resume()
 DispatchQueue.global().async {
@@ -263,6 +319,9 @@ DispatchQueue.global().async {
             case "enable":
                 enabled=obj["value"] as? Bool ?? false
                 if !enabled {silence()} else {gain();if route=="logic" {send([0xbf,11,UInt8(volume*127)])}}
+            case "boost":
+                if let value=obj["value"] as? NSNumber,CFGetTypeID(value) != CFBooleanGetTypeID() {setBoost(value.doubleValue)}
+                else {emit(["type":"error","message":"Boost requires a finite numeric dB value"])}
             case "volume":volume=Float((obj["value"] as? Double) ?? 0.35);gain();if enabled && route=="logic" {send([0xbf,11,UInt8(max(0,min(127,volume*127)))])}
             case "route":enabled=false;silence();route=obj["value"] as? String ?? "native";gain()
             case "play":play(obj["sound"] as? String ?? "",obj["velocity"] as? Int ?? 85,

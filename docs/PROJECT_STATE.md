@@ -1,5 +1,24 @@
 # Project state
 
+## Native audio loudness — October 30, 2026
+
+- `codex/macbook-audio-loudness` builds on four-ball commissioning `81d927b`.
+  Ghost Booth adds an explicit native-only 3× signal boost with a peak limiter
+  after the combined voices. FX and boost default off; Logic routing, raw MIDI,
+  per-ball identity and robot behavior are unchanged.
+- Backend/UI distinguish a requested gain from native acknowledgment and require
+  engine/limiter readiness. Offline renders verify gain, summed-voice limiting,
+  mute/tail clearing and retained gain; mock tests cover controls and failures.
+- The preceding manual-drop test reached the bucket according to the operator,
+  but venue loudness was insufficient at the existing maximum. This observation
+  is not an automatically scored capture-rate result. See
+  [loudness instructions](AUDIO_LOUDNESS.md) and the dated audio STATUS evidence.
+- 440 Python and 107 Node tests passed, plus Scripter and orientation assertions.
+  Only Ghost Booth was restarted; saved four-ball mappings were restored and
+  the 3× control was verified in the browser. The operator confirmed boosted
+  hand-drop sounds were loud enough and clear. Robot/physical-dashboard,
+  simulation and Viam configuration were untouched.
+
 ## MacBook four-ball audio commissioning — October 30, 2026
 
 - `codex/macbook-ball-commissioning` builds on hardware-demo `ef27aca`.

@@ -230,3 +230,36 @@ Viam configuration, physical-dashboard deployment, or simulator restart occurred
 Robot-cycle timing, surface classification, capture/miss sensing and private-LAN
 operation remain unverified. The service's full physical-commissioning flag is
 not promoted by this audio-only test.
+
+## Native peak-limited loudness — October 30, 2026
+
+Manual hand drops produced the four expected measured MIDI sound routes at
+maximum master and Mac speaker volume. The operator reported balls reaching the
+bucket but insufficient loudness. This aggregate report is kept separate from
+automatic scoring; no per-ball capture counts or contact classifications were
+inferred from MIDI.
+
+The native path now offers an explicit 0–9.5424250944 dB boost (up to 3× signal
+amplitude), with Apple's peak limiter after the summed voices. The original
+master-volume curve remains. Logic routing is unchanged. Boost starts off,
+requires a ready engine and limiter, and reports requested versus acknowledged
+native gain. No boost request enables FX or arms a trial. Global mute clears
+the limiter tail and preserves the selected gain for later explicit playback.
+
+Silent macOS offline renders verify 3× gain for quiet tones and the original
+boing at representative/full velocity, bounded eight-voice and transient peaks,
+mute/re-enable silence, retained gain across reset, and rejection of invalid
+gain. Mock backend/UI checks cover missing readiness, pending acknowledgments,
+failures, unsupported routes and unchanged FX/master controls. See
+[loudness instructions](../../docs/AUDIO_LOUDNESS.md).
+
+Full regression passed 440 Python tests and 107 Node tests, plus the Scripter and
+fixed-scene orientation assertions. Only Ghost Booth was restarted to deploy this
+audio change, initially muted; the saved four-ball bindings and sound assignments
+were reapplied. Native readiness, limiter readiness and the +9.54 dB applied
+acknowledgment were verified before the manual listening window. The operator
+confirmed the boosted hand-drop sounds were loud enough and clear. This is
+listening acceptance, not measured sound-pressure level or robot validation.
+The UI now reports the configured four-ball connection counts and bounded impact
+windows instead of displaying an unselected single MIDI input. No physical
+dashboard, Viam configuration, simulator process, arm or tool was changed.
