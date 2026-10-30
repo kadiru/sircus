@@ -52,6 +52,13 @@ node_modules/
 *.heic
 *.pcd
 *.npy
+# Private Logic sessions and audio/MIDI recordings stay on the operator host.
+*.logicx
+*.logicx/
+*.wav
+*.aif
+*.aiff
+*.mid
 
 # Generated presentation builds and device screenshots
 /sircus/.build/
