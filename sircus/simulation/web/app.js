@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from './vendor/OrbitControls.js';
+import { StudyPanel } from './study-panel.mjs';
 
 const $ = id => document.getElementById(id);
 const clone = value => JSON.parse(JSON.stringify(value));
@@ -12,6 +13,9 @@ let renderer, scene, camera, controls, board, ball, targetPoint, support, static
 let viamConnected=false, offline=false, nativeState=null, polling=null, pollingStatus=false, sceneDirty=false;
 let displayedTrainingId=null;
 let localOnly=false;
+let studyMode=false, studyEnvelope=null, studyPanel=null;
+let standardViewCopy=null;
+let preStudyAction=null;
 const armMeshes = new Map();
 const fields = {
   boardX:['board','center_mm',0],boardY:['board','center_mm',1],boardZ:['board','center_mm',2],
@@ -38,14 +42,23 @@ async function request(url, body) {
 }
 function setBusy(value, label='') {
   busy=value;
-  for (const el of document.querySelectorAll('.controls input,.controls textarea,.controls button,.preset')) el.disabled=value;
+  for (const el of document.querySelectorAll('.controls input,.controls textarea,.controls button,.preset')) if(!el.closest('#studyPanel'))el.disabled=value;
   $('replayButton').disabled=value || !result;
   $('downloadRun').disabled=value || !result;
   $('stopButton').disabled=!physicsFrames.length;
-  $('cancelButton').disabled=!value || offline;
+  $('cancelButton').disabled=!value || offline || studyMode || studyPanel?.pending;
   $('suctionOffset').disabled=value || offline;
   for(const id of ['dropButton','learnButton','applyJson'])$(id).disabled=value || !config || (!offline&&!viamConnected);
   if (label) {message(label);phase(label,true);}
+  lockStudyControls();
+}
+function lockStudyControls(){
+  if(studyMode){
+    for(const el of document.querySelectorAll('.controls input,.controls textarea,.controls button,.preset')){
+      if(!el.closest('#studyPanel')&&!['replayButton','downloadRun','stopButton','reconnectButton'].includes(el.id))el.disabled=true;
+    }
+  }
+  studyPanel?.render();
 }
 function syncInputs() {
   for (const [id,path] of Object.entries(fields)) $(id).value=path.reduce((v,k)=>v?.[k],config) ?? '';
@@ -154,7 +167,7 @@ function renderArm(boxes, role='10') {
   if(role==='10')currentArm=boxes;
 }
 function renderNative(data){
-  if(!data)return;nativeState=data;
+  if(!data||studyMode)return;nativeState=data;
   const arms=data.arms||data.native?.arms;
   if(arms)for(const role of ['10','14']){if(arms[role]?.boxes)renderArm(arms[role].boxes,role);}
   if(data.board_pose&&!playing){const p=data.board_pose;if(p.center_mm)setPosition(board,p.center_mm);if(p.rpy_deg||p.rotation)setRotation(board,p.rpy_deg||config.board.rpy_deg,p.rotation);}
@@ -164,6 +177,7 @@ function renderNative(data){
     $('dataStatus').textContent=[trials!==undefined?`This session: ${trials} trial${Number(trials)===1?'':'s'}`:'Trial logging active',localOnly?'Local records only · cloud sync disabled':(queued!==undefined?`${queued} files queued for cloud sync`:(collection.sync_configured?'Viam cloud sync configured':'Cloud sync not configured'))].join(' · ');}
 }
 function updateConnection(value){
+  if(studyMode)return;
   localOnly=value.label?.startsWith('LOCAL FAKE-ONLY')===true;
   offline=value.backend==='offline';viamConnected=value.connected===true&&!offline;
   $('connectionLabel').textContent=offline?'OFFLINE SIMULATION':(viamConnected?(value.label||'VIAM · SIMULATION'):'VIAM DISCONNECTED');
@@ -202,6 +216,7 @@ async function waitForTask(first,label){
   return data;
 }
 async function applyScene(next){
+  if(studyMode)throw new Error('Return to the Viam scene before changing its configuration.');
   const started=await request('/api/config',{config:next});
   const finished=offline?started:await waitForTask(started,'Positioning board arm');
   const applied=finished.config||started.config||next;
@@ -212,6 +227,13 @@ function clearTrail(){if(trail){scene.remove(trail);trail.geometry.dispose();tra
 function prepareTrail(frames){clearTrail();const positions=new Float32Array(frames.length*3);frames.forEach((f,i)=>{positions[i*3]=mm(f.ball_xyz_mm[0]);positions[i*3+1]=mm(f.ball_xyz_mm[1]);positions[i*3+2]=mm(f.ball_xyz_mm[2]);});trailGeometry=new THREE.BufferGeometry();trailGeometry.setAttribute('position',new THREE.BufferAttribute(positions,3));trailGeometry.setDrawRange(0,0);trail=new THREE.Line(trailGeometry,new THREE.LineBasicMaterial({color:0xffbe84,transparent:true,opacity:.65}));scene.add(trail);}
 function placePhysics(frame){if(!frame)return;setPosition(ball,frame.ball_xyz_mm);if(frame.board_center_mm)setPosition(board,frame.board_center_mm);setRotation(board,frame.board_rpy_deg||config.board.rpy_deg,frame.board_rotation);}
 function showMetrics(data) {
+  if(data.scoring_version==='sircus-board-bounce-capture-1s-v1'){
+    $('outcome').textContent=data.success===true?'Predicted capture · 1 s':String(data.outcome||'unknown').replaceAll('_',' ');
+    $('outcome').style.color=data.success===true?'var(--teal)':'var(--ink)';
+    $('outcomeDetail').textContent=`Numerical ${data.capture_class||'shot'} · continuous containment ${Number(data.current_containment_s||0).toFixed(3)} s · native paths unchecked`;
+    $('contact').textContent=Array.isArray(data.impact_uv_mm)?data.impact_uv_mm.map(v=>Number(v).toFixed(1)).join(' / '):'—';
+    return;
+  }
   const retained=data.retained===true;
   $('outcome').textContent=retained?'Captured in model':(data.outcome||'Drop complete').replaceAll('_',' ');
   $('outcome').style.color=retained?'var(--teal)':'var(--ink)';
@@ -228,21 +250,46 @@ function play(data, replay=false) {
   if(armSequence.length){const first=armSequence[0];renderArm(first.boxes);if(first.ball_xyz_mm)setPosition(ball,first.ball_xyz_mm);}else if(physicsFrames.length)placePhysics(physicsFrames[0]);
   $('replayButton').disabled=false;$('downloadRun').disabled=false;$('stopButton').disabled=false;$('stopButton').textContent='Pause replay';
   $('outcome').textContent='Drop in progress';$('outcomeDetail').textContent='Watching the simulated trajectory.';$('contact').textContent='—';
-  phase(armSequence.length?'Recorded arm motion':'Recorded physics replay',true);
+  phase(studyMode?'Numerical policy replay':armSequence.length?'Recorded arm motion':'Recorded physics replay',true);
+}
+function showStudyPreview(value){
+  if(!studyMode&&!preStudyAction){try{preStudyAction=action();}catch{preStudyAction=null;}}
+  studyMode=true;studyEnvelope=clone(value);sceneDirty=true;
+  clearEvidence();config=clone(value.selected_scene);syncInputs();applyAction(value.release_action);
+  buildEnvironment();armGroup.visible=false;
+  setStudyPresentation(true);
+  $('connectionLabel').textContent='NUMERICAL POLICY PREVIEW';$('viamLink').hidden=true;
+  $('connectionBadge').classList.add('offline');$('connectionBadge').classList.remove('disconnected');
+  $('dataStatus').textContent='Synthetic local rollout only. No Viam command or cloud trial was created.';
+  $('learning').textContent='Frozen inference';$('learningDetail').textContent=String(value.checkpoint_id).slice(0,16);
+  play({...value.result,action:value.release_action},false);
+  message('Numerical prediction and trajectory only. Endpoint IK does not establish collision-free native motion.');
+  lockStudyControls();
+}
+function setStudyPresentation(enabled){
+  const hint=document.querySelector('.stage-hint'),scope=document.querySelector('#simulationPanel .footnote');
+  document.querySelector('.stage-top').style.visibility=enabled?'hidden':'';
+  if(!standardViewCopy)standardViewCopy={hint:hint.innerHTML,scope:scope.textContent,aria:$('scene').getAttribute('aria-label')};
+  if(enabled){
+    hint.textContent='Drag to orbit · Numerical trajectory · Native arm paths unchecked';
+    scope.textContent='Frozen scene-conditioned prediction chooses board roll/pitch, U/V and release gap. This synthetic rollout uses versioned whole-ball, one-second capture scoring. Board mass, support dynamics and bucket height interpretation remain provisional; no native path or physical validation is claimed.';
+    $('scene').setAttribute('aria-label','Numerical policy trajectory of a ball bouncing from the board toward a tapered bucket. No native arm paths are displayed.');
+  }else{hint.innerHTML=standardViewCopy.hint;scope.textContent=standardViewCopy.scope;$('scene').setAttribute('aria-label',standardViewCopy.aria);}
 }
 function animate(now) {
   requestAnimationFrame(animate);
-  const delta=Math.min((now-lastTime)/1000,.1);lastTime=now;
+  // A queued RAF timestamp can predate play()'s performance.now() reset.
+  const delta=Math.max(0,Math.min((now-lastTime)/1000,.1));lastTime=now;
   if(playing){
     elapsed+=delta*Number($('speed').value);
-    if(elapsed<armDuration){
+    if(armSequence.length&&elapsed<armDuration){
       let index=0;while(index+1<armSequence.length && armSequence[index+1].t<=elapsed)index++;
       if(index!==armIndex){armIndex=index;const frame=armSequence[index];renderArm(frame.boxes);if(frame.ball_xyz_mm)setPosition(ball,frame.ball_xyz_mm);phase((frame.phase||'Arm movement').replaceAll('_',' '),true);}
     }else if(physicsFrames.length){
       if(armSequence.length&&armIndex!==armSequence.length-1){armIndex=armSequence.length-1;renderArm(armSequence[armIndex].boxes);}
       const time=elapsed-armDuration;let index=0;while(index+1<physicsFrames.length&&physicsFrames[index+1].t<=time)index++;
       if(index!==physicsIndex){physicsIndex=index;placePhysics(physicsFrames[index]);trailGeometry?.setDrawRange(0,index+1);phase(time<.25?'Release & fall':'Bounce & settle',true);}
-      if(time>physicsFrames[physicsFrames.length-1].t){playing=false;showMetrics(result);phase('Trial complete');message('Trial complete. Replay it or change the setup.');$('stopButton').textContent='Resume replay';$('stopButton').disabled=true;}
+      if(time>physicsFrames[physicsFrames.length-1].t){playing=false;showMetrics(result);phase(studyMode?'Numerical preview complete':'Trial complete');message(studyMode?'Numerical replay complete. Native v2 replay remains blocked; no arm motion was sent.':'Trial complete. Replay it or change the setup.');$('stopButton').textContent='Resume replay';$('stopButton').disabled=true;}
     }else{playing=false;showMetrics(result);phase('No trajectory returned');}
   }
   controls.update();renderer.render(scene,camera);
@@ -258,7 +305,7 @@ function createScene(){
   ball=new THREE.Mesh(new THREE.SphereGeometry(.0375,32,24),new THREE.MeshStandardMaterial({color:colors.ball,roughness:.45,metalness:.05}));ball.castShadow=true;scene.add(ball);
   const resize=()=>{const {width,height}=$('stage').getBoundingClientRect();renderer.setSize(width,height,false);camera.aspect=width/height;camera.updateProjectionMatrix();};new ResizeObserver(resize).observe($('stage'));resize();lastTime=performance.now();requestAnimationFrame(animate);
 }
-function dirtyScene(){if(busy)return;try{sceneDirty=true;config=readConfig();$('configJson').value=JSON.stringify(config,null,2);buildEnvironment();result=null;$('replayButton').disabled=true;$('downloadRun').disabled=true;$('outcome').textContent='Scene changed';$('outcomeDetail').textContent='Run a new drop for this configuration.';$('contact').textContent='—';$('learning').textContent='Not started';$('learningDetail').textContent='Release position + height';$('historyPanel').hidden=true;phase('Ready');message('Preview changed. Run or Learn will position simulated arm 14 in Viam.');}catch(error){message(error.message,true);}}
+function dirtyScene(){if(busy||studyMode)return;try{sceneDirty=true;config=readConfig();$('configJson').value=JSON.stringify(config,null,2);buildEnvironment();result=null;$('replayButton').disabled=true;$('downloadRun').disabled=true;$('outcome').textContent='Scene changed';$('outcomeDetail').textContent='Run a new drop for this configuration.';$('contact').textContent='—';$('learning').textContent='Not started';$('learningDetail').textContent='Release position + height';$('historyPanel').hidden=true;phase('Ready');message('Preview changed. Run or Learn will position simulated arm 14 in Viam.');}catch(error){message(error.message,true);}}
 function historyChart(history){
   const rows=Array.isArray(history)?history:[];if(!rows.length)return;$('historyPanel').hidden=false;
   const values=rows.map(row=>Number(row.reward ?? row.score ?? row.result?.reward ?? 0));let low=Math.min(...values),high=Math.max(...values);if(high===low)high=low+1;
@@ -280,7 +327,7 @@ function showTraining(data,replay=true){
   message(`Policy saved${data.session_id?' · '+data.session_id:''}. Run drop to validate its native Viam motion.`);
 }
 async function runDrop(){
-  if(busy||(!offline&&!viamConnected))return;
+  if(busy||studyMode||(!offline&&!viamConnected))return;
   try{const next=readConfig(),runAction=action();setBusy(true,offline?'Calculating contact dynamics…':'Positioning arm 14 through Viam…');result=null;playing=false;
     if(!offline)await applyScene(next);else{config=next;buildEnvironment();}
     message(offline?'Calculating contact dynamics…':'Arm 10 is executing the simulated pick and drop in Viam…');
@@ -293,7 +340,7 @@ async function runDrop(){
   }catch(error){message(error.message,true);phase('Trial did not complete');}finally{setBusy(false);}
 }
 async function train(){
-  if(busy||(!offline&&!viamConnected))return;
+  if(busy||studyMode||(!offline&&!viamConnected))return;
   try{const next=readConfig();setBusy(true,'Positioning the board before training…');result=null;playing=false;
     if(!offline)await applyScene(next);else{config=next;buildEnvironment();}
     $('outcome').textContent='Search in progress';$('outcomeDetail').textContent='Viam module evaluates simulated release proposals.';$('contact').textContent='—';$('learning').textContent='Starting…';$('learningDetail').textContent='One fixed board pose';
@@ -305,8 +352,14 @@ async function train(){
   }catch(error){message(error.message,true);$('learning').textContent='Search stopped';$('learningDetail').textContent='See status below controls';phase('Training did not complete');}finally{setBusy(false);}
 }
 async function connect(){
+  if(busy)return;
+  // Clear numerical evidence before changing its provenance mode, including
+  // when reconnect fails. A cached numerical result must never export as Viam.
+  if(studyMode)clearEvidence();
+  studyMode=false;studyEnvelope=null;armGroup.visible=true;
+  setStudyPresentation(false);
   setBusy(true,'Connecting to the Viam simulation…');
-  try{const received=await request('/api/config');if(!received.connection)throw new Error('The dashboard backend is being upgraded. Reconnect after its Viam bridge restarts.');clearEvidence();config=received.config||received;initialConfig=clone(config);sceneDirty=false;syncInputs();buildEnvironment();renderNative(received);applyAction(received.default_action||received.best_action);updateTargetPoint();
+  try{const received=await request('/api/config');if(!received.connection)throw new Error('The dashboard backend is being upgraded. Reconnect after its Viam bridge restarts.');clearEvidence();config=received.config||received;initialConfig=clone(config);sceneDirty=false;syncInputs();buildEnvironment();renderNative(received);applyAction(received.default_action||received.best_action||preStudyAction);preStudyAction=null;updateTargetPoint();
     if(offline){const arm=await request('/api/arm-model');renderArm(arm.boxes);if(arm.ball_xyz_mm)setPosition(ball,arm.ball_xyz_mm);}
     phase(activeTask(received)?received.status:'Ready');message(offline?'Explicit offline mode: no Viam commands or cloud collection.':(localOnly?'Connected to local fake-only simulator. Cloud sync disabled.':'Connected to sircus-sim. Both arms are simulated.'));
     if(!received.data_collection&&!offline)$('dataStatus').textContent='Trial collection runs in the Viam module. Cloud upload status is not yet reported.';
@@ -319,23 +372,28 @@ async function connect(){
 }
 async function init(){
   createScene();
+  studyPanel=new StudyPanel({document,onPreview:showStudyPreview,onExit:connect,
+    isBusy:()=>busy||pollingStatus,
+    onPending:value=>setBusy(value),
+    onInvalidate:()=>{if(studyMode){clearEvidence();message('Choose Predict & preview to load a new numerical result.');lockStudyControls();}}});
   for(const id of Object.keys(fields))$(id).addEventListener('change',dirtyScene);
   for(const id of ['dropU','dropV','dropGap'])$(id).addEventListener('change',()=>{updateTargetPoint();message('Release action updated.');});
   $('dropButton').addEventListener('click',runDrop);$('learnButton').addEventListener('click',train);$('replayButton').addEventListener('click',()=>result&&play(result,true));
-  $('stopButton').addEventListener('click',()=>{playing=!playing;$('stopButton').textContent=playing?'Pause replay':'Resume replay';phase(playing?'Recorded replay':'Replay paused',playing);});
-  $('cancelButton').addEventListener('click',async()=>{try{await request('/api/stop',{});message('Stop requested from Viam.');}catch(error){message(error.message,true);}});
+  $('stopButton').addEventListener('click',()=>{playing=!playing;$('stopButton').textContent=playing?'Pause replay':'Resume replay';phase(playing?(studyMode?'Numerical replay':'Recorded replay'):'Replay paused',playing);});
+  $('cancelButton').addEventListener('click',async()=>{if(studyMode||studyPanel?.pending)return;try{await request('/api/stop',{});message('Stop requested from Viam.');}catch(error){message(error.message,true);}});
   $('reconnectButton').addEventListener('click',connect);
   $('resetView').addEventListener('click',resetView);$('topView').addEventListener('click',()=>{camera.position.set(.7,0,2.8);controls.target.set(.7,0,0);controls.update();});
   document.querySelectorAll('.preset').forEach(button=>button.addEventListener('click',()=>{if(!config)return;const kind=button.dataset.preset;if(kind==='baseline'){config.board.center_mm=clone(initialConfig.board.center_mm);config.board.rpy_deg=clone(initialConfig.board.rpy_deg);}if(kind==='turn')config.board.rpy_deg[2]+=15;if(kind==='raise')config.board.center_mm[2]+=50;syncInputs();dirtyScene();}));
   document.querySelectorAll('.contact-preset').forEach(button=>button.addEventListener('click',()=>{$('dropU').value=button.dataset.u;$('dropV').value=button.dataset.v;updateTargetPoint();}));
-  $('applyJson').addEventListener('click',async()=>{if(busy)return;try{const next=JSON.parse($('configJson').value);if(!next.board?.center_mm||!next.board?.rpy_deg||!next.bin?.center_xy_mm||!next.table?.size_mm||!next.ball?.diameter_mm)throw new Error('Configuration is missing required scene fields.');setBusy(true,'Applying scene through Viam…');await applyScene(next);result=null;message(offline?'Offline configuration saved.':'Scene saved and board positioned in Viam.');phase('Ready');}catch(error){message(error.message,true);phase('Scene rejected');}finally{setBusy(false);}});
-  $('downloadRun').addEventListener('click',()=>{if(!result)return;const blob=new Blob([JSON.stringify({source:offline?'offline':'viam',machine_id:offline?null:'5db5a9df-2e56-4711-9d39-b42cc86e4d79',config:resultConfig,action:resultAction,result},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob),anchor=document.createElement('a');anchor.href=url;anchor.download='sircus-simulation-drop.json';anchor.click();URL.revokeObjectURL(url);});
+  $('applyJson').addEventListener('click',async()=>{if(busy||studyMode)return;try{const next=JSON.parse($('configJson').value);if(!next.board?.center_mm||!next.board?.rpy_deg||!next.bin?.center_xy_mm||!next.table?.size_mm||!next.ball?.diameter_mm)throw new Error('Configuration is missing required scene fields.');setBusy(true,'Applying scene through Viam…');await applyScene(next);result=null;message(offline?'Offline configuration saved.':'Scene saved and board positioned in Viam.');phase('Ready');}catch(error){message(error.message,true);phase('Scene rejected');}finally{setBusy(false);}});
+  $('downloadRun').addEventListener('click',()=>{if(!result)return;const record=studyMode?{...studyEnvelope,source:'scene-conditioned-numerical',machine_id:null}: {source:offline?'offline':'viam',machine_id:offline?null:'5db5a9df-2e56-4711-9d39-b42cc86e4d79',config:resultConfig,action:resultAction,result};const blob=new Blob([JSON.stringify(record,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob),anchor=document.createElement('a');anchor.href=url;anchor.download=studyMode?'sircus-numerical-policy-preview.json':'sircus-simulation-drop.json';anchor.click();URL.revokeObjectURL(url);});
   await connect();
   polling=setInterval(async()=>{
-    if(offline||busy||playing||sceneDirty||!config||pollingStatus)return;
+    if(studyMode||offline||busy||playing||sceneDirty||!config||pollingStatus)return;
     pollingStatus=true;
     try{
       const state=await request('/api/status');
+      if(studyMode)return;
       if(state.config&&sceneSignature(state.config)!==sceneSignature(config)){
         clearEvidence();config=clone(state.config);initialConfig=clone(config);syncInputs();buildEnvironment();
         phase('Scene updated');message('Scene changed in Viam. Earlier results remain archived with their original geometry.');
@@ -359,8 +417,8 @@ async function init(){
         catch(error){message(error.message,true);phase('Viam task stopped');}
         finally{setBusy(false);}
       }
-    }catch(error){updateConnection({backend:'viam',connected:false});phase('Viam disconnected');}
-    finally{pollingStatus=false;}
+    }catch(error){if(!studyMode){updateConnection({backend:'viam',connected:false});phase('Viam disconnected');}}
+    finally{pollingStatus=false;studyPanel?.render();}
   },2500);
 }
 init();

@@ -13,6 +13,9 @@ jobs:
           python-version: '3.12'
           cache: pip
           cache-dependency-path: sircus/simulation/requirements-viam.txt
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
       - run: python -m pip install -r sircus/simulation/requirements-viam.txt
       - run: python scripts/check-repository.py --tracked
       - run: scripts/test.sh
