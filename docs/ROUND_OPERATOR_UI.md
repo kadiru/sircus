@@ -89,3 +89,11 @@ missing vacuum acknowledgment, unavailable audio and restart without resume.
 The two-round browser rehearsal uses only in-memory mock arms. Hardware execution
 of the new coordinator remains an operator commissioning step; prior physical
 runs used the earlier host-local scripts and are not relabeled as this UI's tests.
+
+Deployment verification: the idle physical dashboard was refreshed to this branch
+on port8765 with cameras disabled. Read-only checks showed both arms stationary,
+no fault, both round presets available, and FX off with the prior100% volume
+restored. Ghost Booth was not restarted. The browser mock completed4/4 in each
+round with an explicit reload pause; no physical motion or tool command was sent.
+The live UI currently reports3/4 ball inputs connected; wake/reconnect all four
+before an audible demonstration. This does not gate robot motion.
