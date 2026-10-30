@@ -1,3 +1,13 @@
+## October 30, 2026 — isolated numerical demonstration
+
+The new `/demo.html` replays four fixed-preset shots and actual saved learning
+checkpoints, with optional local synthetic-contact sounds and a downloadable
+learning film. Use repository-root `start-demo.sh` for an independent loopback
+preview, physical mode disabled. It does not use the historical cloud runtime
+mentioned below. See [demo runbook](../../docs/DEMO_REEL.md) and
+[current project state](../../docs/PROJECT_STATE.md). Existing server processes
+were not restarted. Historical results below keep their original scope.
+
 > Superseded on October 29, 2026: the active dashboard now connects to the two-arm cloud-bound `sircus-sim` runtime on port8082. Robot10 drops; robot14 holds the measured200×300×5mm board. See [current two-arm setup](../two-arm/README.md). The notes below describe the preserved earlier single-arm baseline; use `--offline` to run the old local dashboard engine.
 
 The shared dashboard gained a separate Mac-only physical operator panel on October 29, 2026. Its hardware client/calibration/data are independent of simulation. See [physical panel status](../physical_trials/STATUS.md); physical movement remains operator-controlled and calibration-gated. The native simulation runtime was not restarted.
