@@ -1,5 +1,18 @@
 # Project state
 
+## Latest handoff — October 30, 2026
+
+Read [the cross-computer handoff](AGENT_HANDOFF.md) before acting on historical
+sections below. Latest integration branch: `codex/macbook-no-camera-demo`; main
+does not yet include the draft demo stack. Camera-off Round1 completed Gray,
+Purple and Pink, then stopped during Green's lift following lost robot readback.
+The operator and a read-only sensor check confirm Green remains held. Both arms
+were stationary and no operations active at 19:49:58 UTC, but the controller's
+planner-stop verification fault remains. Round2 has not started; FX is muted.
+No automatic retry, gripper release or runtime reset is authorized by this status
+record. See the handoff for tested code, branch/PR map and independent agent tasks.
+
+
 ## Authorized four-station physical run — October 30, 2026, 19:06–19:07 UTC
 
 After operator clearance confirmation, the four approved host-local pickup poses
