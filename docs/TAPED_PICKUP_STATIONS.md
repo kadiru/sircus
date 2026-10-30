@@ -47,3 +47,16 @@ node --test sircus/simulation/tests/test_show_panel.mjs sircus/simulation/tests/
 ```
 
 Coverage includes independent teaching, failed grip, stale/mismatched start, missing recording, moved board, constraint rejection, Stop during descent and a late canceled response. Mock results establish control behavior only. One operator-authorized four-station physical run subsequently completed on October 30; native planning accepted the constrained segments and all four releases were recorded. This is not continuous clearance measurement or verified bucket capture. See the physical STATUS record.
+
+## Explicit camera-off demo
+
+Taped pickup offers an unchecked **No-camera demo · robot-state log only** option.
+It requires unlabeled practice mode. The API accepts `recording_mode: operator_log_only`
+only on `pickup_drop_cycle` with `practice_mode: true`; omission keeps camera recording
+mandatory. This mode never starts camera recording or claims recording readiness.
+Trial records retain the mode, command timestamps, discrete pickup/release robot states,
+and an unknown outcome. It is not a visual capture dataset.
+
+Fresh two-arm readback, fixed board joints, taught poses, constrained vertical pickup,
+held-ball acknowledgment, two-second release settling, cancellation and Stop checks
+remain mandatory. Audio remains nonblocking. Each button press runs one ball only.

@@ -146,7 +146,7 @@ function render(value) {
   if (value.fault || value.error || !value.connected) $('physicalCycleConfirm').checked = false;
   const signature=JSON.stringify([calibration.loading_pose,calibration.drop_pose,calibration.board_joints,calibration.board_pose,calibration.setup_revision]);
   if(setupSignature!==null&&signature!==setupSignature)$('physicalCycleConfirm').checked=false;setupSignature=signature;
-  $('physicalRecording').textContent = recording.active ? (recording.ready ? 'Recording · ready' : 'Recording · preparing') : recording.ready ? 'Ready' : 'Not ready';
+  $('physicalRecording').textContent = value.trial?.recording_mode === 'operator_log_only' ? 'Camera off · robot-state log only' : recording.active ? (recording.ready ? 'Recording · ready' : 'Recording · preparing') : recording.ready ? 'Ready' : 'Not ready';
   const height = trial.height_mm ?? trial.requested_height_mm ?? value.requested_height_mm;
   $('physicalRequestedHeight').textContent = present(height) ? `${height} mm` : trial.behavior === 'fixed_pose_cycle' ? 'Taught pose · height unmeasured' : '—';
   $('physicalState').textContent = pretty(robot);
