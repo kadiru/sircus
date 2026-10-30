@@ -15,7 +15,7 @@ const audio=new SircusAudio({baseURL:'http://example.invalid',token:'TEST_ONLY',
     if(seen.has(key))return {ok:true,json:async()=>({accepted:false,reason:'duplicate_or_capacity'})};
     seen.add(key);heard.push(data);
   }
-  return {ok:true,json:async()=>url.endsWith('/status')?{connected:false,audio_ready:true,fx_enabled:true}:{accepted:true}};
+  return {ok:true,json:async()=>url.endsWith('/status')?{connected:false,audio_ready:true,fx_enabled:true,control_epoch:'TEST_ONLY_EPOCH'}:{accepted:true}};
 }});
 const worker=new DashboardAudio({audio,publish:s=>statuses.push(s),now:()=>1000});
 worker.handle({op:'emit',event:event(),queued_unix_ms:1000,revision:0});assert.equal(calls.length,0);
@@ -95,4 +95,48 @@ const timeoutWorker=new DashboardAudio({audio:timeoutAudio});
 const started=performance.now();timeoutWorker.handle({op:'fx',enabled:true,revision:1});
 assert.ok(performance.now()-started<50);await wait(timeoutWorker);assert.equal(timeoutWorker.enabled,false);
 assert.equal(timeoutWorker.connection,'error');
+// Mini-local controls/restart reconcile the full published intent, not only enabled.
+const remoteCalls=[], remoteStates=[];let miniEnabled=false;
+const remoteAudio={onError:()=>{},cancel(){remoteCalls.push('cancel');},async setVolume(){},
+  async setFX(value){remoteCalls.push(['fx',value]);miniEnabled=value;},async stop(){},emit(){remoteCalls.push('cue');},
+  async status(){return {fx_enabled:miniEnabled};}};
+const remoteWorker=new DashboardAudio({audio:remoteAudio,publish:value=>remoteStates.push(value)});
+remoteWorker.handle({op:'fx',enabled:true,revision:1});await wait(remoteWorker);
+miniEnabled=false; // Ghost Booth local OFF or a fresh FX-off service after restart.
+await remoteWorker.poll();
+assert.equal(remoteStates.at(-1).status.requested_enabled,false);
+assert.equal(remoteStates.at(-1).status.enabled,false);
+assert.equal(remoteStates.at(-1).status.pending,false);
+assert.equal(remoteWorker.error,'audio_disabled_remotely');
+remoteWorker.handle({op:'emit',event:event('after-mini-off'),queued_unix_ms:Date.now(),revision:1});
+assert.equal(remoteCalls.includes('cue'),false);
+assert.deepEqual(remoteCalls.filter(row=>Array.isArray(row)),[['fx',true]],'status must not auto-command FX');
+miniEnabled=true; // Another Mini client turns FX on after our previous mute observation.
+await remoteWorker.poll();
+assert.equal(remoteStates.at(-1).status.requested_enabled,false);
+assert.equal(remoteStates.at(-1).status.enabled,false);
+assert.equal(remoteStates.at(-1).status.mute_confirmed,false);
+assert.equal(remoteStates.at(-1).status.error,'remote_mute_unconfirmed');
+remoteWorker.handle({op:'fx',enabled:false,revision:2});await wait(remoteWorker);
+assert.equal(remoteWorker.muteConfirmed,true);
+miniEnabled=true;await remoteWorker.poll();
+assert.equal(remoteWorker.muteConfirmed,false,'remote ON invalidates an acknowledged OFF');
+
+// An idle status read can overlap a control; it cannot overwrite its new revision.
+let finishOldPoll;
+remoteAudio.status=()=>new Promise(resolve=>{finishOldPoll=resolve;});
+const stalePoll=remoteWorker.poll();
+remoteWorker.handle({op:'fx',enabled:true,revision:3});await wait(remoteWorker);
+finishOldPoll({fx_enabled:false});await stalePoll;
+assert.equal(remoteWorker.enabled,true);assert.equal(remoteWorker.requested,true);
+
+// A poll started during enable can carry the same revision yet sample pre-enable OFF.
+let finishDuringPoll, finishVolume;
+const pendingAudio={onError:()=>{},cancel(){},setVolume(){return new Promise(resolve=>{finishVolume=resolve;});},
+  async setFX(){},async status(){return await new Promise(resolve=>{finishDuringPoll=resolve;});}};
+const pendingWorker=new DashboardAudio({audio:pendingAudio});
+pendingWorker.handle({op:'fx',enabled:true,revision:1});
+const duringPoll=pendingWorker.poll();finishVolume();await wait(pendingWorker);
+finishDuringPoll({fx_enabled:false});await duringPoll;
+assert.equal(pendingWorker.enabled,true);assert.equal(pendingWorker.requested,true);
 console.log('Dashboard worker mocks passed: opt-in, provenance, duplicate/late events, unavailable/delayed audio, independent control revisions, cancellation and priority mute');

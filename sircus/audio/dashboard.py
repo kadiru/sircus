@@ -193,7 +193,7 @@ class AudioObserver:
             status = message.get('status', {})
             if not isinstance(status, dict):
                 return
-            for key in ('enabled', 'pending', 'mute_confirmed'):
+            for key in ('enabled', 'requested_enabled', 'pending', 'mute_confirmed'):
                 value = status.get(key)
                 if type(value) is bool or (key == 'mute_confirmed' and value is None):
                     self._state[key] = value
@@ -202,7 +202,17 @@ class AudioObserver:
             if status.get('connection') in ('connected', 'error', 'connecting'):
                 self._state['connection'] = status['connection']
             # Never pass arbitrary exception strings, URLs, tokens, or service error payloads.
-            self._state['error'] = 'Optional audio unavailable; remote mute may be unconfirmed' if status.get('error') else None
+            errors = {
+                'audio_disabled_remotely': 'FX was disabled on the Mini; enable it here to resume cues',
+                'remote_mute_unconfirmed': 'Remote audio may be on; mute is unconfirmed',
+            }
+            code = status.get('error')
+            if not code:
+                self._state['error'] = None
+            elif isinstance(code, str) and code in errors:
+                self._state['error'] = errors[code]
+            else:
+                self._state['error'] = 'Optional audio unavailable; remote mute may be unconfirmed'
 
     def _read(self, process):
         try:

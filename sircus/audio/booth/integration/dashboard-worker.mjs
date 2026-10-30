@@ -12,18 +12,30 @@ export class DashboardAudio {
     this.latestFX=-1;this.latestVolume=-1;this.activeControl=null;
     this.audio.onError=()=>{this.error='audio_event_failed';this.send();};
   }
-  send(){this.publish({revision:this.revision,status:{enabled:this.enabled,pending:this.pending>0,
+  send(){this.publish({revision:this.revision,status:{enabled:this.enabled,requested_enabled:this.requested,pending:this.pending>0,
     connection:this.connection,error:(!this.requested&&this.muteConfirmed===false&&!this.pending)?
       'remote_mute_unconfirmed':this.error,mute_confirmed:this.muteConfirmed}});}
   async poll(){
     const revision=this.revision;
+    const controlWasPending=this.controlling||this.pending>0;
     try{
       const status=await this.audio.status();
       // connected in Ghost Booth means MIDI, not HTTP. Successful HTTP is reachability.
       if(revision===this.revision){
         this.connection='connected';
-        if(this.enabled && status.fx_enabled===false){
-          this.enabled=false;this.requested=false;this.error='audio_disabled_remotely';
+        // A response sampled before an ON/OFF acknowledgment must not undo it.
+        // Only reconcile an idle observation; controls own their pending intent.
+        if(!controlWasPending&&!this.controlling&&this.pending===0){
+          if(this.requested && status.fx_enabled===false){
+            this.enabled=false;this.requested=false;
+            this.muteConfirmed=!this.ambiguousEnable;
+            this.error='audio_disabled_remotely';
+            this.audio.cancel(); // Retire queued cues; never automatically re-enable.
+          }else if(!this.requested && status.fx_enabled===true){
+            // Another Mini client can enable playback after our earlier OFF.
+            // Keep local opt-in off while withdrawing the obsolete mute claim.
+            this.enabled=false;this.muteConfirmed=false;this.error='remote_mute_unconfirmed';
+          }
         }
       }
     }catch{if(revision===this.revision){this.connection='error';this.error='audio_unavailable';}}
