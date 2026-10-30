@@ -51,7 +51,7 @@ are provided in the show desk. Unknown outcomes stay silent.
 
 A completed ball retains its trial identity while a different ball loads, so its
 later measured impacts can sound independently. The configured post-release
-window defaults to 12 seconds (1–30 configurable). Impacts outside it are ignored.
+window defaults to 30 seconds (1–30 configurable). Impacts outside it are ignored.
 Reusing the same ball replaces its previous association. Cancellation retires the
 trial, and changing mappings mutes audio and clears old associations. Four native
 MIDI inputs have independent stream parsers; duplicate and stale events are

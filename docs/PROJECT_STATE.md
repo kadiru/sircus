@@ -17,10 +17,11 @@
   their own trial/window while a different ball loads. FX starts off; lifecycle
   hooks enqueue without audio I/O, and cancellation cannot stop another ball's cue.
 - An original bounded drum-roll loop spans carry and the two-second settle, ending
-  immediately before release. Four-input native MIDI parsing and scoped voice
+  immediately before release. Replay startup/mute races found by Ubuntu CI were corrected with an audio-only
+  readiness epoch and nonblocking cancellation ownership. Four-input native MIDI parsing and scoped voice
   cancellation compile and pass isolated tests without opening devices. Real BLE,
   listening, private-LAN delivery and optional Logic commissioning are outstanding.
-- Validation:329 Python unittest checks,71 Node tests and the standalone Logic
+- Validation:333 Python unittest checks,71 Node tests and the standalone Logic
   guard assertions passed. Coverage includes unreachable/delayed audio, duplicate
   events, cancellation/lock contention, four identities, repeated synthetic replay,
   pose configuration, fixed-cycle mocks, UI routes, scoring and immutable baselines.

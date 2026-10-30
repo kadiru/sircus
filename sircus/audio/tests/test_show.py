@@ -26,6 +26,7 @@ class ShowTests(unittest.TestCase):
     def test_four_defaults_unbound_and_duplicate_mapping_rejected(self):
         cfg=default_config();self.assertEqual([b['label'] for b in cfg['balls']],['Pink','Purple','Green','Gray'])
         self.assertTrue(all(b['midi_binding'] is None for b in cfg['balls']))
+        self.assertEqual(cfg['impact_window_s'],30.)
         cfg['balls'][0]['midi_binding']=cfg['balls'][1]['midi_binding']={'input_id':12,'channel':1,'note':0}
         with self.assertRaises(ValueError):validate_config(cfg)
 
@@ -39,7 +40,8 @@ class ShowTests(unittest.TestCase):
                            'Mapped endpoint; impact object unknown','midi_gesture',ball_id='ball-pink')
         routed=r.route(unknown);self.assertEqual(routed.contact_object,'unknown')
         self.assertEqual(routed.sound_id,cfg['balls'][0]['sounds']['unknown'])
-        now[0]=23.;self.assertIsNone(r.midi_identity(12,1,0))
+        now[0]=30.;self.assertEqual(r.midi_identity(12,1,0),('pink-1','ball-pink'))
+        now[0]=41.;self.assertIsNone(r.midi_identity(12,1,0))
 
     def test_retired_identity_cannot_be_revived_or_relabelled(self):
         r=BallRouter();r.route(event());r.cancel('pink-1')
@@ -93,6 +95,7 @@ class ShowTests(unittest.TestCase):
         emitted=[x['event'] for x in observer._queue if x['op']=='emit']
         self.assertTrue(emitted);self.assertTrue(all(x['source_trial_id']=='same-source' for x in emitted))
         observer.control({'action':'fx','enabled':False,'client_id':'test','sequence':1})
+        show._thread.join(1)
         self.assertIsNone(show.status()['replay_trial_id']);self.assertFalse(observer.snapshot()['enabled'])
         show.close();observer.close()
 
@@ -103,8 +106,113 @@ class ShowTests(unittest.TestCase):
             show.start_replay(result(),'source','ball-green')
             if failure=='remote':observer._accept_status({'revision':observer._revision,'status':{'enabled':False,'requested_enabled':False}})
             else:observer._error()
+            # Robot hooks cancel immediately; worker-owned retirement is eventual.
+            show._thread.join(1)
+            self.assertFalse(show._thread.is_alive())
             self.assertIsNone(show.status()['replay_trial_id'])
             observer.close()
+    def test_start_readiness_snapshot_is_invalidated_by_mute_even_after_reenable(self):
+        for failure in ('transport','local_off','remote_off','close'):
+            with self.subTest(failure=failure):
+                observer=AudioObserver(environ={'SIRCUS_AUDIO_URL':'http://127.0.0.1:8766'},start_worker=False)
+                show=ShowAudio(observer);observer._state.update(enabled=True,requested_enabled=True,show_audio_capable=True)
+                sampled=threading.Event();resume=threading.Event();returned=[]
+                original=observer.playback_readiness
+                def paused_readiness():
+                    value=original();sampled.set()
+                    if not resume.wait(1):raise AssertionError('Creation barrier not released')
+                    return value
+                observer.playback_readiness=paused_readiness
+                starter=threading.Thread(target=lambda:returned.append(show.start_replay(result(),'source','ball-pink')))
+                starter.start()
+                try:
+                    self.assertTrue(sampled.wait(1))
+                    if failure=='transport':observer._error()
+                    elif failure=='local_off':observer.control({'action':'fx','enabled':False,'client_id':'race','sequence':1})
+                    elif failure=='remote_off':observer._accept_status({'revision':observer._revision,'status':{'enabled':False,'requested_enabled':False}})
+                    else:observer.close()
+                    # Even an acknowledged later re-enable cannot revive a start
+                    # authorized by the readiness snapshot before the intervening mute.
+                    if failure!='close':
+                        with observer._condition:
+                            observer._state.update(enabled=True,requested_enabled=True,show_audio_capable=True,connection='connected')
+                    resume.set();starter.join(1);self.assertFalse(starter.is_alive())
+                    self.assertEqual(len(returned),1)
+                    self.assertIsNone(returned[0]['replay_trial_id'])
+                    self.assertFalse(returned[0]['replay_running'])
+                    self.assertIsNone(show._thread)
+                    self.assertFalse(any(x['op']=='emit' for x in observer._queue))
+                finally:resume.set();starter.join(1);observer.close()
+
+    def test_contended_cancel_blocks_due_cue_and_finishes_owned_retirement(self):
+        observer=AudioObserver(environ={'SIRCUS_AUDIO_URL':'http://127.0.0.1:8766'},start_worker=False)
+        show=ShowAudio(observer);observer._state.update(enabled=True,requested_enabled=True,show_audio_capable=True)
+        attempted=threading.Event()
+        class ObservedLock:
+            def __init__(self):self.lock=threading.RLock()
+            def acquire(self,*args,**kwargs):return self.lock.acquire(*args,**kwargs)
+            def release(self):self.lock.release()
+            def __enter__(self):
+                if threading.current_thread().name=='sircus-show-audio':attempted.set()
+                self.lock.acquire();return self
+            def __exit__(self,*args):self.lock.release()
+        show.lock=ObservedLock()
+        try:
+            with show.lock:
+                status=show.start_replay(result(),'source','ball-pink');owned=show._thread
+                self.assertTrue(attempted.wait(1),'Due cue worker must attempt held lock')
+                finished=threading.Event()
+                def cancel():observer._error();finished.set()
+                canceller=threading.Thread(target=cancel);canceller.start()
+                self.assertTrue(finished.wait(.2),'Optional cancellation must not wait for show lock')
+                canceller.join(1)
+                self.assertTrue(show._cancel.is_set())
+                self.assertFalse(show.status()['replay_running'])
+                self.assertFalse(any(x['op']=='emit' for x in observer._queue))
+            owned.join(1);self.assertFalse(owned.is_alive())
+            self.assertIsNone(show.status()['replay_trial_id'])
+            self.assertIn(status['replay_trial_id'],observer._retired)
+            self.assertNotIn(status['replay_trial_id'],show.router.trials)
+            self.assertFalse(any(x['op']=='emit' for x in observer._queue))
+        finally:observer.close()
+
+    def test_completed_schedule_owner_handles_contended_cancel(self):
+        observer=AudioObserver(environ={'SIRCUS_AUDIO_URL':'http://127.0.0.1:8766'},start_worker=False)
+        # Jump the scheduling clock forward so every synthetic cue is immediately
+        # due; no audio/network worker exists and no wall-clock 3s sleep is needed.
+        ticks=iter([0.,100.]);show=ShowAudio(observer,clock=lambda:next(ticks,100.))
+        observer._state.update(enabled=True,requested_enabled=True,show_audio_capable=True)
+        try:
+            initial=show.start_replay(result(),'completed-source','ball-gray');owned=show._thread
+            deadline=time.monotonic()+1
+            while show.status()['replay_running'] and time.monotonic()<deadline:time.sleep(.005)
+            self.assertFalse(show.status()['replay_running'])
+            self.assertTrue(owned.is_alive(),'Finished schedule retains its cancellation owner')
+            with show.lock:
+                done=threading.Event()
+                def cancel():show.cancel_replay(blocking=False);done.set()
+                canceller=threading.Thread(target=cancel);canceller.start()
+                self.assertTrue(done.wait(.2));canceller.join(1)
+                self.assertFalse(show.status()['replay_running'])
+            owned.join(1);self.assertFalse(owned.is_alive())
+            self.assertIsNone(show.status()['replay_trial_id'])
+            self.assertIn(initial['replay_trial_id'],observer._retired)
+        finally:observer.close()
+
+    def test_prior_worker_finally_cannot_cancel_replacement(self):
+        observer=AudioObserver(environ={'SIRCUS_AUDIO_URL':'http://127.0.0.1:8766'},start_worker=False)
+        show=ShowAudio(observer);observer._state.update(enabled=True,requested_enabled=True,show_audio_capable=True)
+        try:
+            with show.lock:
+                old=show.start_replay(result(),'old-source','ball-pink');old_thread=show._thread
+                new=show.start_replay(result(),'new-source','ball-purple')
+            old_thread.join(1);self.assertFalse(old_thread.is_alive())
+            self.assertEqual(show.status()['replay_trial_id'],new['replay_trial_id'])
+            self.assertIn(old['replay_trial_id'],observer._retired)
+            self.assertNotIn(new['replay_trial_id'],observer._retired)
+            self.assertFalse(show._cancel.is_set())
+        finally:observer.close()
+
     def test_robot_observer_hooks_never_wait_for_show_configuration_lock(self):
         observer=AudioObserver(environ={'SIRCUS_AUDIO_URL':'http://127.0.0.1:8766'},start_worker=False)
         show=ShowAudio(observer);observer._state.update(enabled=True,requested_enabled=True,show_audio_capable=True)

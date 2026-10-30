@@ -26,7 +26,7 @@ def default_config():
           ('boing','bone_high','cartoon_spring','bone_high'),
           ('cartoon_spring','eerie_bell','pinball','cartoon_squeak'),
           ('cartoon_squeak','cartoon_plop','cartoon_boing','pinball'))
-    return {'schema':SCHEMA,'impact_window_s':12.,'balls':[{'ball_id':bid,'label':bid[5:].title(),
+    return {'schema':SCHEMA,'impact_window_s':30.,'balls':[{'ball_id':bid,'label':bid[5:].title(),
         'color':color,'midi_binding':None,'sounds':dict(zip(CONTACTS,(*sounds,'drum_roll')))}
         for bid,color,sounds in zip(BALL_IDS,colors,cues)]}
 
@@ -127,7 +127,7 @@ class ShowAudio:
     def __init__(self,observer,*,config_path=None,clock=time.monotonic):
         self.observer=observer;self.clock=clock;self.lock=threading.RLock();self.config_lock=threading.Lock();self.config_path=Path(config_path) if config_path else None
         config=json.loads(self.config_path.read_text()) if self.config_path and self.config_path.is_file() else default_config()
-        self.router=BallRouter(config,clock=clock);self._generation=0;self._cancel=threading.Event();self._replay_trial=None;self._thread=None
+        self.router=BallRouter(config,clock=clock);self._generation=0;self._cancel=threading.Event();self._replay_trial=None;self._thread=None;self._schedule_pending=False
         self._last_error=None
         observer.show=self
         if hasattr(observer,'configure_show_remote'):observer.configure_show_remote(self.router.config)
@@ -135,7 +135,7 @@ class ShowAudio:
     def status(self):
         with self.lock:
             return {'schema':SCHEMA,'config':copy.deepcopy(self.router.config),'catalog':list(CATALOG),
-                    'replay_running':bool(self._thread and self._thread.is_alive()),'replay_trial_id':self._replay_trial,
+                    'replay_running':bool(self._schedule_pending and self._thread and self._thread.is_alive() and not self._cancel.is_set()),'replay_trial_id':self._replay_trial,
                     'error':self._last_error,'capabilities':{'physical_color_detection':False,'contact_detection':False,
                     'native_midi_inputs':'explicit multi-endpoint bindings supported in source; physical BLE commissioning outstanding',
                     'multiball_event_routing':True,'bindings_default':'unbound; operator must verify endpoint identity',
@@ -176,14 +176,19 @@ class ShowAudio:
     def emit_event(self,event):
         self.observer.emit(event.to_dict() if isinstance(event,AudioEvent) else event)
 
+    def _finish_cancel_locked(self,cancel,trial):
+        # A prior playback's finally must never clear or stop its replacement.
+        if self._cancel is not cancel or self._replay_trial!=trial:return
+        self._generation+=1;self._replay_trial=None;self._schedule_pending=False
+        if trial:self.observer.stop(trial)
+
     def cancel_replay(self,*,blocking=True):
-        # Transport/error paths may be called from optional robot hooks.
-        self._cancel.set()
+        # Transport/error paths may be called from optional robot hooks. Setting
+        # the event is enough to stop scheduling; its owner completes retirement.
+        cancel=self._cancel;cancel.set()
         if not self.lock.acquire(blocking=blocking):return None
         try:
-            self._generation+=1
-            trial=self._replay_trial;self._replay_trial=None
-            if trial:self.observer.stop(trial)
+            if self._cancel is cancel:self._finish_cancel_locked(cancel,self._replay_trial)
         finally:self.lock.release()
         return self.status() if blocking else None
 
@@ -195,15 +200,21 @@ class ShowAudio:
         contacts=versioned_simulation_events(result,trial_id)
         if len(contacts)>4096 or any(e.timestamp>60 for e in contacts):raise ValueError('Replay exceeds bounded audio schedule')
         self.cancel_replay()
-        state=self.observer.snapshot()
-        if not state.get('enabled') or not state.get('show_audio_capable'):
+        readiness=self.observer.playback_readiness()
+        if not readiness['ready']:
             self._last_error='Audio replay not scheduled: enable a compatible audio service first'
             return self.status()
         self._last_error=None
         source_trial_id=trial_id
         playback_trial_id='show-playback-'+uuid.uuid4().hex
         with self.lock:
-            self._generation+=1;generation=self._generation;self._cancel=threading.Event();cancel=self._cancel;self._replay_trial=playback_trial_id
+            # Mute/error must either invalidate this permit or observe this newly
+            # assigned Event. A stale readiness snapshot can never revive cues.
+            with self.observer.playback_creation(readiness['epoch']) as ready:
+                if not ready:
+                    self._last_error='Audio replay not scheduled: readiness changed during creation'
+                    return self.status()
+                self._generation+=1;generation=self._generation;self._cancel=threading.Event();cancel=self._cancel;self._replay_trial=playback_trial_id;self._schedule_pending=True
             self.router.begin(playback_trial_id,ball_id,'simulation')
             release_at=carry_seconds+settle_seconds
             def lifecycle(kind,t,clock):
@@ -219,10 +230,20 @@ class ShowAudio:
                     for delay,event in schedule:
                         if cancel.wait(max(0.,start+delay-self.clock())):return
                         with self.lock:
-                            if generation!=self._generation:return
+                            if generation!=self._generation or cancel.is_set():return
                             self.emit_event(event)
+                    with self.lock:
+                        if self._cancel is cancel:self._schedule_pending=False
+                    # Keep one cancellation owner for completed playback tails.
+                    # No cues are pending here and status reports replay idle.
+                    cancel.wait()
                 except Exception:
-                    with self.lock:self._last_error='Optional audio replay failed'
+                    cancel.set()
+                    with self.lock:
+                        if self._cancel is cancel:self._last_error='Optional audio replay failed'
+                finally:
+                    with self.lock:
+                        if cancel.is_set():self._finish_cancel_locked(cancel,playback_trial_id)
             self._thread=threading.Thread(target=run,daemon=True,name='sircus-show-audio');self._thread.start()
         return self.status()
 
