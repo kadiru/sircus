@@ -1,5 +1,16 @@
 # Sircus cross-computer handoff — October 30, 2026
 
+## Published handoff and presentation refresh — October 30, 2026
+
+See [Ubuntu next-task handoff](UBUNTU_NEXT_TASK_HANDOFF.md) for the exact source
+baseline, sync commands, current manual UI, fault boundary and independent next
+work. All 16 previously existing Mac worktrees were clean and equal to their
+fetched upstream. Latest UI remains on draft PR #16, not main. The existing
+Google Slides deck now includes the round operator panel and commissioned sounds;
+[presentation status](PRESENTATION_STATUS.md) records the outline and evidence
+boundaries. This documentation/presentation task sends no hardware commands and
+restarts no services.
+
 ## Dashboard round controls — October 30, 2026
 
 Deployment verification: the idle physical dashboard was refreshed to this branch
