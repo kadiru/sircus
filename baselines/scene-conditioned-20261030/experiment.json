@@ -1,0 +1,25 @@
+{
+  "alphas": [
+    0.01,
+    1.0,
+    100.0
+  ],
+  "data_origin": "synthetic",
+  "evaluation": "frozen single matrix prediction; no optimization or adaptation in inference",
+  "fixed_baseline": {
+    "gap_mm": 161.715,
+    "pitch_deg": 30.0,
+    "roll_deg": 0.0,
+    "u_mm": -16.408,
+    "v_mm": -44.821
+  },
+  "fixed_baseline_provenance": "predeclared historical nominal action; unchanged across every layout",
+  "held_out_oracle_budget": 4,
+  "manifest_sha256": "2a10426873acf5bc83e058eebd2fa2607d6fd95616215378c1802f8fc06c9020",
+  "physically_verified": false,
+  "schema": "sircus-randomized-layout-study-v1",
+  "seed": 20261030,
+  "selection": "lexicographic versioned capture success, then continuous shaping",
+  "teacher_budget": 12,
+  "training": "supervised action regression from training-scene search; failures retained"
+}
