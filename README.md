@@ -14,9 +14,9 @@ Two UFACTORY850 arms learn to bounce a ball from a suction-mounted board into a 
 - **MacBook audio integration:** [optional dashboard observer and commissioning boundary](docs/DASHBOARD_AUDIO_INTEGRATION.md). FX starts off; robot motion never waits for audio. Source-only integration is not deployed and requires explicit private-LAN setup for the Mini.
 - **All contributors and agents:** [CONTRIBUTING.md](CONTRIBUTING.md), [AGENTS.md](AGENTS.md), and [current project summary](docs/PROJECT_STATE.md).
 
-## Three-mode show desk
+## Four-mode show desk
 
-Run `./start-show.sh` and open `http://127.0.0.1:18769/show.html` for the Simulator, Deterministic and Trained views. The default is mock-only. The [show runbook](docs/SHOW_RUNBOOK.md) covers editable TCP poses, the one-button two-second routine, four measured-impact ball identities, optional drums/FX and the remaining physical commissioning steps. Hardware deployment is explicit and separate from source synchronization.
+Run `./start-show.sh` and open `http://127.0.0.1:18769/show.html` for Manual operation, Trained operation, Simulation and Mock simulation. The default is mock-only. The [show runbook](docs/SHOW_RUNBOOK.md) covers editable TCP poses, the one-button two-second routine, four measured-impact ball identities, optional drums/FX and the remaining physical commissioning steps. [Bucket-facing rehearsal](docs/BUCKET_FACING_WORKFLOW.md) adds entered/seeded boxed board positions, geometric heading, tilt/release planning and the load-then-Go sequence. Hardware deployment is explicit and separate from source synchronization.
 
 ## Guided operator and training workspace
 

@@ -1,5 +1,34 @@
 # Project state
 
+## Four-mode bucket-facing workflow — October 30, 2026
+
+- `codex/macbook-four-mode-workflow` builds on the draft three-mode show checkpoint
+  `70e4edd`; main and earlier drafts remain separate. The four visible choices are
+  Manual operation, Trained operation, Simulation and Mock simulation. Manual
+  operation retains the existing saved TCP load/drop editor and controller.
+- Mock and Trained share board-center entry/seeded XYZ-box placement, supplied
+  bucket position, shot preparation, loading acknowledgment and Go. Horizontal
+  board-normal heading points toward the bucket; tilt is measured from horizontal
+  (0°) to vertical (90°), with configurable bounds strictly between them.
+- Mock uses explicit bounded search. Trained runs one guarded frozen prediction
+  plus a separately recorded geometric heading constraint, without search fallback.
+  Raw prediction, transformed release, both endpoint checks and synthetic evidence
+  remain visible. The previous33/48 benchmark does not apply to this new variant.
+- Go illustrates grip, board orientation, carrying,2s settling, release and the
+  returned numerical ball trajectory. Viewer focus and an overlay Stop make the
+  sequence observable; interpolated arm endpoints are not validated native paths.
+  Loading, dirty-scene, mode mismatch, cancellation and stale-result guards remain.
+- [Small diagnostic](../baselines/facing-rehearsal-20261030/README.md): three
+  prespecified layouts, five fresh noisy releases each. Search15/15; constrained
+  frozen prediction10/15, retaining all five misses in the right/farther layout.
+  No test-based refitting or action reselection; no physical validation claimed.
+- Validation:340 Python tests,81 Node tests and standalone Logic guards passed.
+  Browser QA completed a nominal mock capture, boxed randomization, a constrained
+  learned capture and viewer Stop/cross-mode guards. An isolated credential-free
+  mock preview uses loopback18770; existing18769/18766 services were not restarted.
+  No physical commands, real audio playback or Viam cloud changes were performed.
+  See [workflow details](BUCKET_FACING_WORKFLOW.md) and [show runbook](SHOW_RUNBOOK.md).
+
 ## Three-mode show integration — October 30, 2026
 
 - Draft integration branch `codex/macbook-three-mode-show` combines the guided

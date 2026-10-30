@@ -1,11 +1,12 @@
 import {mountPhysicalPanel} from './physical.js';
 import {AudioPanel} from './audio.js';
-const MODES=['simulator','deterministic','trained'];
+const MODES=['deterministic','trained','simulator','mock'];
+const NUMERICAL_MODES=['simulator','trained','mock'];
 const SOUNDS=['unknown','carry'];
 const BALL_IDS=['ball-pink','ball-purple','ball-green','ball-gray'];
 const copy=value=>JSON.parse(JSON.stringify(value));
 export function workspaceURL(value,mode){
-  if(!['simulator','trained'].includes(mode))throw Error('Unknown numerical mode');
+  if(!NUMERICAL_MODES.includes(mode))throw Error('Unknown numerical mode');
   const url=new URL(value||'/operations.html','http://127.0.0.1');
   if(!['http:','https:'].includes(url.protocol)||!['127.0.0.1','localhost'].includes(url.hostname)||url.pathname!=='/operations.html'||url.username||url.password)throw Error('Only the local numerical workspace can be embedded.');
   url.search='?embed='+mode;url.hash='';
@@ -20,7 +21,7 @@ export function bindingValue(values){
 function el(document,tag,text,className){const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(className)node.className=className;return node;}
 export class ShowPanel{
   constructor({document,fetchImpl=(...args)=>globalThis.fetch(...args),physical=null,getAudioState=()=>null}){
-    this.document=document;this.fetch=fetchImpl;this.physical=physical;this.getAudioState=getAudioState;this.numericalTrial=null;this.state=null;this.mode='simulator';this.selectedBall=null;this.token=null;this.pending=false;this.epoch=0;this.polling=false;this.dirty=false;this.editors=new Map();this.editorKey=null;this.$=id=>document.getElementById(id);
+    this.document=document;this.fetch=fetchImpl;this.physical=physical;this.getAudioState=getAudioState;this.numericalTrial=null;this.state=null;this.mode='simulator';this.selectedBall=null;this.token=null;this.pending=false;this.epoch=0;this.polling=false;this.workspaceActivity=new Map();this.dirty=false;this.editors=new Map();this.editorKey=null;this.$=id=>document.getElementById(id);
     for(const mode of MODES)this.$('mode'+mode[0].toUpperCase()+mode.slice(1)).addEventListener('click',()=>this.selectMode(mode));
     this.$('editBallBindings').addEventListener('click',()=>{const hidden=!this.$('ballSettings').hidden;this.$('ballSettings').hidden=hidden;this.$('editBallBindings').setAttribute('aria-expanded',String(!hidden));});
     this.$('saveBallSettings').addEventListener('click',()=>void this.saveConfig());
@@ -34,14 +35,16 @@ export class ShowPanel{
     this.render();
   }
   async refresh(){if(this.polling)return;this.polling=true;const epoch=this.epoch;try{const value=await this.request('/api/show/status');if(epoch===this.epoch){this.accept(value);if(this.available('simulator')&&this.state.modes.deterministic?.mode!=='hardware'){try{const trial=await this.request('/api/operations/status');if(epoch===this.epoch&&trial.mode==='simulation_only'&&trial.hardware_enabled===false){this.numericalTrial=trial;this.render();}}catch{this.numericalTrial=null;this.render();}}if(!this.pending)this.message('Choose a mode. Every routine starts with an operator action. Physical bounce sounds use measured generic impacts.');}}catch(error){if(epoch===this.epoch)this.message(error.message,true);}finally{this.polling=false;}}
-  selectMode(mode){if(!MODES.includes(mode))return false;if(this.mode!==mode&&(this.physical?.busy||this.physicalState?.busy)){this.message('Finish or stop the active routine before changing acts. Stop remains available in Deterministic.',true);return false;}this.mode=mode;if(mode!=='deterministic'&&!this.selectedBall)this.selectedBall=this.state?.audio_show?.config?.balls[0]?.ball_id||null;this.physical?.selectView(mode==='deterministic');this.render();return true;}
+  workspaceStatus(event,origin){if(event.origin!==origin||event.data?.type!=='sircus-workspace-activity'||typeof event.data.busy!=='boolean')return false;const mode=NUMERICAL_MODES.find(name=>name===this.mode&&this.$(name+'Frame')?.getAttribute('src')&&this.$(name+'Frame')?.contentWindow===event.source);if(!mode||event.source==null)return false;this.workspaceActivity.set(mode,event.data.busy);this.render();return true;}
+  numericalBusy(){return this.state?.numerical_busy===true||this.numericalTrial?.busy===true||[...this.workspaceActivity.values()].some(Boolean);}
+  selectMode(mode){if(!MODES.includes(mode))return false;if(this.mode!==mode&&(this.physical?.busy||this.physicalState?.busy||this.numericalBusy())){this.message('Finish or stop the active routine before changing acts. Stop remains available in the current workspace.',true);return false;}this.mode=mode;if(mode!=='deterministic'&&!this.selectedBall)this.selectedBall=this.state?.audio_show?.config?.balls[0]?.ball_id||null;this.physical?.selectView(mode==='deterministic');this.render();return true;}
   available(mode){return this.state?.modes?.[mode]?.available===true;}
   render(){
     const modeData=this.state?.modes||{},physicalMode=modeData.deterministic?.mode||this.state?.physical_mode||'disabled';
     this.$('showRuntime').textContent=physicalMode==='hardware'?'PHYSICAL BACKEND ENABLED':physicalMode==='dry_run'?'DRY RUN · NO ROBOTS':'NO PHYSICAL BACKEND';this.$('showRuntime').classList.toggle('hardware',physicalMode==='hardware');this.$('deterministicBadge').textContent=physicalMode==='hardware'?'HARDWARE':physicalMode==='dry_run'?'DRY RUN':'UNAVAILABLE';
-    for(const mode of MODES){const node=this.$('mode'+mode[0].toUpperCase()+mode.slice(1));node.classList.toggle('selected',this.mode===mode);node.setAttribute('aria-pressed',String(this.mode===mode));}
-    this.$('showSimulatorPane').hidden=this.mode!=='simulator';this.$('showTrainedPane').hidden=this.mode!=='trained';this.$('physicalPanel').hidden=this.mode!=='deterministic';
-    for(const mode of ['simulator','trained']){const available=this.available(mode)&&physicalMode!=='hardware';this.$(mode+'Unavailable').hidden=available;const frame=this.$(mode+'Frame');frame.hidden=!available;if(available&&this.mode===mode&&!frame.getAttribute('src')){try{frame.setAttribute('src',workspaceURL(modeData[mode]?.url||'/operations.html',mode));}catch(error){this.message(error.message,true);}}if(!available&&frame.getAttribute('src'))frame.removeAttribute('src');}
+    for(const mode of MODES){const node=this.$('mode'+mode[0].toUpperCase()+mode.slice(1));node.classList.toggle('selected',this.mode===mode);node.setAttribute('aria-pressed',String(this.mode===mode));node.disabled=this.mode!==mode&&(this.physical?.busy||this.physicalState?.busy||this.numericalBusy());}
+    this.$('showSimulatorPane').hidden=this.mode!=='simulator';this.$('showTrainedPane').hidden=this.mode!=='trained';this.$('showMockPane').hidden=this.mode!=='mock';this.$('physicalPanel').hidden=this.mode!=='deterministic';
+    for(const mode of NUMERICAL_MODES){const available=this.available(mode)&&physicalMode!=='hardware';this.$(mode+'Unavailable').hidden=available;const frame=this.$(mode+'Frame');frame.hidden=!available;if(available&&this.mode===mode&&!frame.getAttribute('src')){try{frame.setAttribute('src',workspaceURL(modeData[mode]?.url||'/operations.html',mode));}catch(error){this.message(error.message,true);}}if((!available||this.mode!==mode)&&frame.getAttribute('src')){frame.removeAttribute('src');this.workspaceActivity.delete(mode);}}
     const replayRunning=this.state?.audio_show?.replay_running===true,trialReady=this.numericalTrial?.phase==='complete'&&!!this.numericalTrial.trial_id;
     const audio=this.getAudioState(),audioEnabled=audio?.enabled===true,audioCompatible=audio?.show_audio_capable===true,replayError=this.state?.audio_show?.error;
     this.$('simulationAudioBar').hidden=this.mode==='deterministic'||physicalMode==='hardware';this.$('replaySimulationAudio').disabled=!this.token||!trialReady||!audioEnabled||!audioCompatible||replayRunning||this.pending;this.$('stopSimulationAudio').disabled=!this.token||(!replayRunning&&!this.pending);
@@ -65,5 +68,5 @@ export class ShowPanel{
   async saveConfig(){try{const config=copy(this.state.audio_show.config);config.balls=config.balls.map(row=>{const f=this.editors.get(row.ball_id),label=f.label.value.trim(),color=f.color.value;if(!label||label.length>40||!/^#[0-9a-f]{6}$/i.test(color))throw Error('Each ball needs a short name and a valid color label.');const sounds={...row.sounds,...Object.fromEntries(SOUNDS.map(key=>[key,f[key].value]))};if(Object.values(sounds).some(value=>!this.state.audio_show.catalog.includes(value)))throw Error('Choose each sound from the available catalog.');return {...row,label,color,midi_binding:bindingValue([f.input_id.value,f.channel.value,f.note.value]),sounds};});const ok=await this.action({action:'configure_audio',config});if(ok){this.dirty=false;this.editorKey=null;await this.refresh();}return ok;}catch(error){this.message(error.message,true);return false;}}
 }
 if(typeof document!=='undefined'&&document.documentElement.hasAttribute('data-show-shell')){
-  let show,audio;const physical=mountPhysicalPanel({document,manageTabs:false,onStatus:value=>show?.physicalStatus(value)});show=new ShowPanel({document,physical,getAudioState:()=>audio?.state});audio=new AudioPanel({document}).start();void show.refresh();const timer=setInterval(()=>void show.refresh(),2500);window.addEventListener('pagehide',()=>{clearInterval(timer);physical.destroy();audio.destroy();},{once:true});
+  let show,audio;const physical=mountPhysicalPanel({document,manageTabs:false,onStatus:value=>show?.physicalStatus(value)});show=new ShowPanel({document,physical,getAudioState:()=>audio?.state});const activity=event=>show.workspaceStatus(event,window.location.origin);window.addEventListener('message',activity);audio=new AudioPanel({document}).start();void show.refresh();const timer=setInterval(()=>void show.refresh(),2500);window.addEventListener('pagehide',()=>{clearInterval(timer);window.removeEventListener('message',activity);physical.destroy();audio.destroy();},{once:true});
 }
