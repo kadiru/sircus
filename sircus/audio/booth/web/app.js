@@ -1,6 +1,6 @@
 'use strict';
 const $=id=>document.getElementById(id);
-const titles={boing:'Haunted BOING',bone_low:'Low bone clack',bone_high:'High bone clack',eerie_bell:'Eerie bell',pinball:'Ghost pinball',transport:'Rising whoosh',release:'Falling whistle',capture:'Spooky victory',miss:'Oops, a ghost'};
+const titles={boing:'Haunted BOING',bone_low:'Low bone clack',bone_high:'High bone clack',eerie_bell:'Eerie bell',pinball:'Ghost pinball',transport:'Energy hum',release:'Falling whistle',capture:'Spooky victory',miss:'Oops, a ghost'};
 let state=null,sounds=[],events=[],assignments=null,selected='impact',snapshot='',applied='',cursor=0,lines=[],mappingDirty=false,polling=false;
 const clone=x=>JSON.parse(JSON.stringify(x));
 const title=name=>sounds.find(s=>s.name===name)?.title||titles[name]||name;
@@ -45,7 +45,7 @@ function paintStatus(){
 }
 async function refresh(){
   if(polling)return;polling=true;
-  try{state=await request('status');events=state.events;if(!assignments)setProfile(state.profile);paintStatus();const m=await request('monitor?after='+cursor);cursor=m.seq;for(const e of m.events)lines.push(JSON.stringify(e));lines=lines.slice(-100);$('monitor').textContent=lines.join('\n');$('monitor').scrollTop=$('monitor').scrollHeight;}
+  try{state=await request('status');if($('error').textContent.startsWith('Bridge disconnected:'))$('error').textContent='';events=state.events;if(!assignments)setProfile(state.profile);paintStatus();const m=await request('monitor?after='+cursor);cursor=m.seq;for(const e of m.events)lines.push(JSON.stringify(e));lines=lines.slice(-100);$('monitor').textContent=lines.join('\n');$('monitor').scrollTop=$('monitor').scrollHeight;}
   catch(error){$('badge').textContent='DISCONNECTED';$('fx').checked=false;for(const b of document.querySelectorAll('[data-play]'))b.disabled=true;fail('Bridge disconnected: '+error.message);}
   finally{polling=false;}
 }
@@ -71,4 +71,4 @@ for(const id of ['note','channel','dedup'])bind(id,()=>{mappingDirty=true;},'inp
 bind('apply-mapping',async()=>{await act('mapping',{impact_note:Number($('note').value),channel:Number($('channel').value),exact_duplicate_ms:Number($('dedup').value)});mappingDirty=false;});
 bind('record',()=>act('record',{enabled:true}));bind('endrecord',()=>act('record',{enabled:false}));
 bind('replay',async()=>{const file=$('replay').files[0];if(!file)return;if(file.size>1000000)throw new Error('Trace must be under 1 MB');const text=await file.text();const rows=text.trim().startsWith('[')?JSON.parse(text):text.trim().split('\n').filter(Boolean).map(JSON.parse);await applyProfile();await act(rows[0]?.schema?'replay-events':'replay',{events:rows});$('replay').value='';},'change');
-(async()=>{sounds=await request('sounds');for(const sound of sounds){const b=document.createElement('button');b.className='pad'+(sound.family==='Cartoon'?' cartoon':'');b.dataset.play='';b.disabled=true;const strong=document.createElement('b'),small=document.createElement('small');strong.textContent=title(sound.name);small.textContent=(sound.family||'Haunted')+' · '+sound.seconds.toFixed(2)+' s';b.append(strong,small);b.onclick=()=>act('event',{type:'test',sound:sound.name,velocity:85}).catch(fail);$('pads').append(b);}$('audition').textContent='▶ Audition all · '+Math.ceil(sounds.reduce((n,s)=>n+s.seconds+.15,0))+' seconds';await refresh();setInterval(refresh,700);})().catch(fail);
+(async()=>{sounds=await request('sounds');$('catalog-summary').textContent=sounds.length+' original sounds, available for every event. Click a tile to hear it on its own.';for(const sound of sounds){const b=document.createElement('button');b.className='pad'+(sound.family==='Cartoon'?' cartoon':'');b.dataset.play='';b.disabled=true;const strong=document.createElement('b'),small=document.createElement('small');strong.textContent=title(sound.name);small.textContent=(sound.family||'Haunted')+' · '+sound.seconds.toFixed(2)+' s';b.append(strong,small);b.onclick=()=>act('event',{type:'test',sound:sound.name,velocity:85}).catch(fail);$('pads').append(b);}$('audition').textContent='▶ Audition all · '+Math.ceil(sounds.reduce((n,s)=>n+s.seconds+.15,0))+' seconds';await refresh();setInterval(refresh,700);})().catch(fail);

@@ -1,7 +1,7 @@
 // Optional Scripter before a manually commissioned Sampler. Select ONLY Sircus FX.
 // No Trace calls, raw CC routing or robot actions. Native audio is the main route.
 var enabled=false;
-var notes=[36,37,38,39,40,41,42,43,44,48,49,50,51,52,53];
+var notes=[36,37,38,39,40,41,42,43,44,45,48,49,50,51,52,53];
 function mapped(n){return notes.indexOf(n)!==-1;}
 function cc(number,value){var e=new ControlChange();e.channel=16;e.number=number;e.value=value;e.send();}
 function kill(){enabled=false;cc(11,0);cc(64,0);for(var i=0;i<notes.length;i++){var e=new NoteOff();e.channel=16;e.pitch=notes[i];e.send();}cc(120,0);cc(123,0);}

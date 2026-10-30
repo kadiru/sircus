@@ -2,13 +2,13 @@
 
 Ghost Booth's primary route is its native Mac sampler. It needs no Logic project.
 This optional Sampler route is **not commissioned or acoustically verified** for
-the consolidated fifteen-sound kit. Pitch shifts and event loops require native
+the consolidated sixteen-sound kit. Pitch shifts and event loops require native
 playback; the bridge rejects those features when the optional Logic route is selected.
 The separate musical ODD duo project remains unrelated and unchanged.
 
 To commission manually, create a separate empty software-instrument project in a
 private, ignored directory. Keep Stereo Out muted while configuring, starting at
-−18 dB. Use one full Sampler instrument with the fifteen WAVs in `../assets/map.json`;
+−18 dB. Use one full Sampler instrument with the sixteen WAVs in `../assets/map.json`;
 exclude `audition.wav`. Each zone's root/low/high key is its numeric MIDI note in
 that map, full velocity range. Turn loops and 1Shot off; use a short amplitude
 release. Use no downstream reverb/delay/tail effects while checking mute behavior.

@@ -45,7 +45,9 @@
     "channel": 16,
     "file": "transport.wav",
     "seconds": 4.0,
-    "peak_dbfs": -15.917600346881503
+    "peak_dbfs": -15.917600346881503,
+    "title": "Energy hum",
+    "family": "Sci-fi"
   },
   {
     "name": "release",
@@ -70,6 +72,16 @@
     "file": "miss.wav",
     "seconds": 0.9,
     "peak_dbfs": -13.979400086720375
+  },
+  {
+    "name": "energy_sweep",
+    "note": 45,
+    "channel": 16,
+    "file": "energy_sweep.wav",
+    "seconds": 0.9,
+    "peak_dbfs": -15.917600346881503,
+    "title": "Energy sweep",
+    "family": "Sci-fi"
   },
   {
     "name": "cartoon_boing",
