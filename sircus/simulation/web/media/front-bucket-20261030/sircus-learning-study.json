@@ -1,0 +1,143 @@
+{
+  "schema": "sircus-offline-evidence-video-v1",
+  "report_sha256": "b93807ee97c7d02186326c86a45dbb0887c161822db40983c9aceec063280978",
+  "duration_seconds": 78.0,
+  "frames": 1170,
+  "fps": 15,
+  "width": 1280,
+  "height": 720,
+  "clips": [
+    {
+      "id": "shared-test-0000-12690d8264d5-n8",
+      "checkpoint_id": "f28e28aac923747686f9d08afe8782c9d671210a080b26b79a0919031cd5bab1",
+      "outcome": "no_entry",
+      "scope": {
+        "in_distribution": true,
+        "out_of_distribution_fields": []
+      },
+      "train_scenes": 8,
+      "role": "frozen_policy"
+    },
+    {
+      "id": "shared-test-0000-12690d8264d5-n24",
+      "checkpoint_id": "d875df54bc20f4983d288899b1665faee1fc5772c5e5b4c0847c794726d3b4ae",
+      "outcome": "no_entry",
+      "scope": {
+        "in_distribution": true,
+        "out_of_distribution_fields": []
+      },
+      "train_scenes": 24,
+      "role": "frozen_policy"
+    },
+    {
+      "id": "shared-test-0000-12690d8264d5-n64",
+      "checkpoint_id": "c6184dee27c79fb19e60f51cbe06c6330aba0b6d10d000136c7ac37e2fb2ad10",
+      "outcome": "no_entry",
+      "scope": {
+        "in_distribution": true,
+        "out_of_distribution_fields": []
+      },
+      "train_scenes": 64,
+      "role": "frozen_policy"
+    },
+    {
+      "id": "shared-test-0000-12690d8264d5-n128",
+      "checkpoint_id": "7b9a76dddceca22490933f55edcdd82ebc596b2d6539f0d445b3be0f23c1d2e6",
+      "outcome": "no_entry",
+      "scope": {
+        "in_distribution": true,
+        "out_of_distribution_fields": []
+      },
+      "train_scenes": 128,
+      "role": "frozen_policy"
+    },
+    {
+      "id": "shared-test-0001-03c838b94d11",
+      "checkpoint_id": "7b9a76dddceca22490933f55edcdd82ebc596b2d6539f0d445b3be0f23c1d2e6",
+      "outcome": "captured",
+      "scope": {
+        "in_distribution": true,
+        "out_of_distribution_fields": []
+      },
+      "train_scenes": null,
+      "role": "frozen_policy"
+    },
+    {
+      "id": "challenge-distance-60-000",
+      "checkpoint_id": "7b9a76dddceca22490933f55edcdd82ebc596b2d6539f0d445b3be0f23c1d2e6",
+      "outcome": "no_entry",
+      "scope": {
+        "in_distribution": false,
+        "out_of_distribution_fields": [
+          "bucket_dy_mm"
+        ]
+      },
+      "train_scenes": null,
+      "role": "frozen_policy"
+    },
+    {
+      "id": "challenge-distance-450-000",
+      "checkpoint_id": "7b9a76dddceca22490933f55edcdd82ebc596b2d6539f0d445b3be0f23c1d2e6",
+      "outcome": "no_entry",
+      "scope": {
+        "in_distribution": false,
+        "out_of_distribution_fields": [
+          "bucket_dy_mm"
+        ]
+      },
+      "train_scenes": null,
+      "role": "frozen_policy"
+    },
+    {
+      "id": "shared-test-0000-12690d8264d5-contact-0-0",
+      "checkpoint_id": "7b9a76dddceca22490933f55edcdd82ebc596b2d6539f0d445b3be0f23c1d2e6",
+      "outcome": "no_entry",
+      "scope": {
+        "in_distribution": true,
+        "out_of_distribution_fields": []
+      },
+      "train_scenes": null,
+      "role": "forced_contact_intervention"
+    },
+    {
+      "id": "shared-test-0000-12690d8264d5-contact-65-0",
+      "checkpoint_id": "7b9a76dddceca22490933f55edcdd82ebc596b2d6539f0d445b3be0f23c1d2e6",
+      "outcome": "invalid_action",
+      "scope": {
+        "in_distribution": true,
+        "out_of_distribution_fields": []
+      },
+      "train_scenes": null,
+      "role": "forced_contact_intervention"
+    },
+    {
+      "id": "shared-test-0000-12690d8264d5-contact-65-95",
+      "checkpoint_id": "7b9a76dddceca22490933f55edcdd82ebc596b2d6539f0d445b3be0f23c1d2e6",
+      "outcome": "no_entry",
+      "scope": {
+        "in_distribution": true,
+        "out_of_distribution_fields": []
+      },
+      "train_scenes": null,
+      "role": "forced_contact_intervention"
+    }
+  ],
+  "source": "saved numerical frames; frame selection by recorded timestamp; no interpolated robot motion",
+  "native_paths_checked": false,
+  "physically_verified": false,
+  "verification": {
+    "ffmpeg_full_decode_exit_code": 0,
+    "encoded_duration_seconds": 78.0,
+    "encoded_resolution": [
+      1280,
+      720
+    ],
+    "encoded_fps": 15,
+    "codec": "H.264",
+    "visual_checks": [
+      "poster",
+      "pre-encode paired N8 sample",
+      "encoded frame at38seconds"
+    ]
+  }
+}

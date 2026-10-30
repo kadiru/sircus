@@ -1,0 +1,418 @@
+[
+  {
+    "captures": 28,
+    "checkpoint_id": "f28e28aac923747686f9d08afe8782c9d671210a080b26b79a0919031cd5bab1",
+    "ci95": [
+      0.4428133228397628,
+      0.7115033222158844
+    ],
+    "ci95_method": "Wilson interval over independent sampled layouts",
+    "endpoint_infeasible": 2,
+    "episodes": 48,
+    "method": "frozen_policy",
+    "model_degree": 1,
+    "native_paths_checked": false,
+    "outcomes": {
+      "captured": 28,
+      "invalid_action": 2,
+      "no_board_bounce": 2,
+      "no_entry": 16
+    },
+    "paired_vs_fixed": {
+      "ci95": [
+        -0.041666666666666664,
+        0.16666666666666666
+      ],
+      "mean_difference": 0.0625,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "regularization": 0.1,
+    "seed": 20261030,
+    "success_fraction": 0.5833333333333334,
+    "teacher_captures": 6,
+    "teacher_failed_scenes": 0,
+    "teacher_labels": 8,
+    "train_scenes": 8
+  },
+  {
+    "captures": 31,
+    "checkpoint_id": "d875df54bc20f4983d288899b1665faee1fc5772c5e5b4c0847c794726d3b4ae",
+    "ci95": [
+      0.504390570103431,
+      0.7656635587439515
+    ],
+    "ci95_method": "Wilson interval over independent sampled layouts",
+    "endpoint_infeasible": 0,
+    "episodes": 48,
+    "method": "frozen_policy",
+    "model_degree": 1,
+    "native_paths_checked": false,
+    "outcomes": {
+      "captured": 31,
+      "no_entry": 17
+    },
+    "paired_vs_fixed": {
+      "ci95": [
+        0.020833333333333332,
+        0.22916666666666666
+      ],
+      "mean_difference": 0.125,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "regularization": 0.1,
+    "seed": 20261030,
+    "success_fraction": 0.6458333333333334,
+    "teacher_captures": 20,
+    "teacher_failed_scenes": 0,
+    "teacher_labels": 24,
+    "train_scenes": 24
+  },
+  {
+    "captures": 32,
+    "checkpoint_id": "c6184dee27c79fb19e60f51cbe06c6330aba0b6d10d000136c7ac37e2fb2ad10",
+    "ci95": [
+      0.5254010970594798,
+      0.7832321930518142
+    ],
+    "ci95_method": "Wilson interval over independent sampled layouts",
+    "endpoint_infeasible": 3,
+    "episodes": 48,
+    "method": "frozen_policy",
+    "model_degree": 2,
+    "native_paths_checked": false,
+    "outcomes": {
+      "captured": 32,
+      "invalid_action": 3,
+      "no_entry": 13
+    },
+    "paired_vs_fixed": {
+      "ci95": [
+        0.0625,
+        0.25
+      ],
+      "mean_difference": 0.14583333333333334,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "regularization": 1.0,
+    "seed": 20261030,
+    "success_fraction": 0.6666666666666666,
+    "teacher_captures": 50,
+    "teacher_failed_scenes": 0,
+    "teacher_labels": 64,
+    "train_scenes": 64
+  },
+  {
+    "captures": 33,
+    "checkpoint_id": "7b9a76dddceca22490933f55edcdd82ebc596b2d6539f0d445b3be0f23c1d2e6",
+    "ci95": [
+      0.5466692858410841,
+      0.8005431655341219
+    ],
+    "ci95_method": "Wilson interval over independent sampled layouts",
+    "endpoint_infeasible": 0,
+    "episodes": 48,
+    "method": "frozen_policy",
+    "model_degree": 2,
+    "native_paths_checked": false,
+    "outcomes": {
+      "captured": 33,
+      "no_entry": 15
+    },
+    "paired_vs_fixed": {
+      "ci95": [
+        0.0625,
+        0.2916666666666667
+      ],
+      "mean_difference": 0.16666666666666666,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "regularization": 1.0,
+    "seed": 20261030,
+    "success_fraction": 0.6875,
+    "teacher_captures": 102,
+    "teacher_failed_scenes": 0,
+    "teacher_labels": 128,
+    "train_scenes": 128
+  },
+  {
+    "captures": 28,
+    "checkpoint_id": "b741cf739b915f6da1fcb8e1ccbfcdb4fb325e11df2d71377324dd56c739e68f",
+    "ci95": [
+      0.4428133228397628,
+      0.7115033222158844
+    ],
+    "ci95_method": "Wilson interval over independent sampled layouts",
+    "endpoint_infeasible": 7,
+    "episodes": 48,
+    "method": "frozen_policy",
+    "model_degree": 1,
+    "native_paths_checked": false,
+    "outcomes": {
+      "captured": 28,
+      "invalid_action": 7,
+      "no_entry": 13
+    },
+    "paired_vs_fixed": {
+      "ci95": [
+        -0.0625,
+        0.1875
+      ],
+      "mean_difference": 0.0625,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "regularization": 0.1,
+    "seed": 20261031,
+    "success_fraction": 0.5833333333333334,
+    "teacher_captures": 8,
+    "teacher_failed_scenes": 0,
+    "teacher_labels": 8,
+    "train_scenes": 8
+  },
+  {
+    "captures": 32,
+    "checkpoint_id": "05dbffc0c3b57c76acbe5e43839505c278e537ca687db0d3b8bd4b793bbd4f06",
+    "ci95": [
+      0.5254010970594798,
+      0.7832321930518142
+    ],
+    "ci95_method": "Wilson interval over independent sampled layouts",
+    "endpoint_infeasible": 4,
+    "episodes": 48,
+    "method": "frozen_policy",
+    "model_degree": 1,
+    "native_paths_checked": false,
+    "outcomes": {
+      "captured": 32,
+      "invalid_action": 4,
+      "no_entry": 12
+    },
+    "paired_vs_fixed": {
+      "ci95": [
+        0.0625,
+        0.25
+      ],
+      "mean_difference": 0.14583333333333334,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "regularization": 0.1,
+    "seed": 20261031,
+    "success_fraction": 0.6666666666666666,
+    "teacher_captures": 21,
+    "teacher_failed_scenes": 0,
+    "teacher_labels": 24,
+    "train_scenes": 24
+  },
+  {
+    "captures": 34,
+    "checkpoint_id": "d9c7435356cfd884e073f078508348277a29c03b5507ca8bf2447e6dd03cde52",
+    "ci95": [
+      0.5682074019042831,
+      0.8175842107348348
+    ],
+    "ci95_method": "Wilson interval over independent sampled layouts",
+    "endpoint_infeasible": 1,
+    "episodes": 48,
+    "method": "frozen_policy",
+    "model_degree": 2,
+    "native_paths_checked": false,
+    "outcomes": {
+      "captured": 34,
+      "invalid_action": 1,
+      "no_entry": 13
+    },
+    "paired_vs_fixed": {
+      "ci95": [
+        0.08333333333333333,
+        0.2916666666666667
+      ],
+      "mean_difference": 0.1875,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "regularization": 1.0,
+    "seed": 20261031,
+    "success_fraction": 0.7083333333333334,
+    "teacher_captures": 52,
+    "teacher_failed_scenes": 0,
+    "teacher_labels": 64,
+    "train_scenes": 64
+  },
+  {
+    "captures": 34,
+    "checkpoint_id": "fdc1a78465cc2f0fbb70cd296e4a5222e643d6ea3bf42fc02f89b5c04ef6c71e",
+    "ci95": [
+      0.5682074019042831,
+      0.8175842107348348
+    ],
+    "ci95_method": "Wilson interval over independent sampled layouts",
+    "endpoint_infeasible": 0,
+    "episodes": 48,
+    "method": "frozen_policy",
+    "model_degree": 2,
+    "native_paths_checked": false,
+    "outcomes": {
+      "captured": 34,
+      "no_entry": 14
+    },
+    "paired_vs_fixed": {
+      "ci95": [
+        0.08333333333333333,
+        0.3125
+      ],
+      "mean_difference": 0.1875,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "regularization": 1.0,
+    "seed": 20261031,
+    "success_fraction": 0.7083333333333334,
+    "teacher_captures": 98,
+    "teacher_failed_scenes": 0,
+    "teacher_labels": 128,
+    "train_scenes": 128
+  },
+  {
+    "captures": 29,
+    "checkpoint_id": "0a25ec755d13e7b489bb9cb152052b43691811f1452c7c655b512203ecfdbd69",
+    "ci95": [
+      0.4631040849254725,
+      0.7297917213940862
+    ],
+    "ci95_method": "Wilson interval over independent sampled layouts",
+    "endpoint_infeasible": 0,
+    "episodes": 48,
+    "method": "frozen_policy",
+    "model_degree": 2,
+    "native_paths_checked": false,
+    "outcomes": {
+      "captured": 29,
+      "no_entry": 19
+    },
+    "paired_vs_fixed": {
+      "ci95": [
+        0.020833333333333332,
+        0.16666666666666666
+      ],
+      "mean_difference": 0.08333333333333333,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "regularization": 100.0,
+    "seed": 20261032,
+    "success_fraction": 0.6041666666666666,
+    "teacher_captures": 6,
+    "teacher_failed_scenes": 0,
+    "teacher_labels": 8,
+    "train_scenes": 8
+  },
+  {
+    "captures": 34,
+    "checkpoint_id": "096a3abb3aa3d0755e30afefcd6370521b6105e6f7ff9d04e7be168f4e192837",
+    "ci95": [
+      0.5682074019042831,
+      0.8175842107348348
+    ],
+    "ci95_method": "Wilson interval over independent sampled layouts",
+    "endpoint_infeasible": 0,
+    "episodes": 48,
+    "method": "frozen_policy",
+    "model_degree": 1,
+    "native_paths_checked": false,
+    "outcomes": {
+      "captured": 34,
+      "no_entry": 14
+    },
+    "paired_vs_fixed": {
+      "ci95": [
+        0.08333333333333333,
+        0.2916666666666667
+      ],
+      "mean_difference": 0.1875,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "regularization": 0.1,
+    "seed": 20261032,
+    "success_fraction": 0.7083333333333334,
+    "teacher_captures": 18,
+    "teacher_failed_scenes": 0,
+    "teacher_labels": 24,
+    "train_scenes": 24
+  },
+  {
+    "captures": 31,
+    "checkpoint_id": "d4210ffd2e8113670ea332c162f1819b9c63e132e9000ef75bb3bcc52d1aabc6",
+    "ci95": [
+      0.504390570103431,
+      0.7656635587439515
+    ],
+    "ci95_method": "Wilson interval over independent sampled layouts",
+    "endpoint_infeasible": 2,
+    "episodes": 48,
+    "method": "frozen_policy",
+    "model_degree": 2,
+    "native_paths_checked": false,
+    "outcomes": {
+      "captured": 31,
+      "invalid_action": 2,
+      "no_entry": 15
+    },
+    "paired_vs_fixed": {
+      "ci95": [
+        0.020833333333333332,
+        0.25
+      ],
+      "mean_difference": 0.125,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "regularization": 1.0,
+    "seed": 20261032,
+    "success_fraction": 0.6458333333333334,
+    "teacher_captures": 51,
+    "teacher_failed_scenes": 1,
+    "teacher_labels": 63,
+    "train_scenes": 64
+  },
+  {
+    "captures": 33,
+    "checkpoint_id": "58727134978348567acf748ea2b991b5d2a38a119d942ec5e75b888753f6967b",
+    "ci95": [
+      0.5466692858410841,
+      0.8005431655341219
+    ],
+    "ci95_method": "Wilson interval over independent sampled layouts",
+    "endpoint_infeasible": 1,
+    "episodes": 48,
+    "method": "frozen_policy",
+    "model_degree": 2,
+    "native_paths_checked": false,
+    "outcomes": {
+      "captured": 33,
+      "invalid_action": 1,
+      "no_entry": 14
+    },
+    "paired_vs_fixed": {
+      "ci95": [
+        0.0625,
+        0.2708333333333333
+      ],
+      "mean_difference": 0.16666666666666666,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "regularization": 1.0,
+    "seed": 20261032,
+    "success_fraction": 0.6875,
+    "teacher_captures": 91,
+    "teacher_failed_scenes": 3,
+    "teacher_labels": 125,
+    "train_scenes": 128
+  }
+]

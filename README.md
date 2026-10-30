@@ -12,6 +12,10 @@ Two UFACTORY850 arms learn to bounce a ball from a suction-mounted board into a 
 - **Mac / physical sfhack10:** [operator panel instructions](sircus/physical_trials/README.md). Physical control is explicit and separate; cloning/pulling never starts hardware or reloads a running dashboard.
 - **All contributors and agents:** [CONTRIBUTING.md](CONTRIBUTING.md), [AGENTS.md](AGENTS.md), and [current project summary](docs/PROJECT_STATE.md).
 
+## Guided operator and training workspace
+
+[Operator workspace](docs/OPERATOR_WORKSPACE.md) adds a separate offline workflow for board placement, bucket scan rehearsal, loading, numerical grip/drop and real local model-training jobs. Launch `./start-operator-sim.sh` and open `http://127.0.0.1:18766/operations.html`. The default view places the bucket on the operator’s negative-Y side. Open `/study-results.html` for the [learning curve and challenge report](docs/FRONT_BUCKET_STUDY.md), saved numerical replays and video export. [Viam commissioning stubs](docs/VIAM_DEPLOYMENT.md) are blocked until physical integration is validated. Hardware execution remains disabled. [Device sync instructions](docs/DEVICE_SYNC.md) preserve existing runtimes and draft branches.
+
 ## Implementation audit and next experiment
 
 Read the [Mac system audit, UI/API contracts, and learning integration plan](docs/audits/2026-10-29/README.md) before new development. These distinguish implemented capabilities from historical observations and proposed work; raw local evidence and credentials are excluded.
@@ -23,6 +27,8 @@ Read the [Mac system audit, UI/API contracts, and learning integration plan](doc
 | `sircus/two-arm/` | Shared measured/provisional scene, two-arm physics, kinematics, Viam module, trainers and fake-only guard |
 | `sircus/simulation/` | Browser dashboard, Python bridge, pinned dependencies, shared viewer assets |
 | `sircus/physical_trials/` | Mac operator panel backend and mock tests; credentials/calibration/records remain local |
+| `sircus/studies/` | Corrected front-bucket learning curves, held-out challenges and frozen model contracts |
+| `sircus/deployment/` | Blocked Viam coordinator, unknown-result vision service and typed commissioning adapters |
 | `sircus/perception/` | Stationary RGB-D capture/inspection; calibration is incomplete |
 | `baselines/` | Small dated synthetic reference results; not current hardware evidence |
 | `docs/` | Setup, architecture, collaboration, credential templates and limits |

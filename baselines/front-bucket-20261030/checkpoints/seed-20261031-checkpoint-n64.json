@@ -1,0 +1,1189 @@
+{
+  "base_scene": {
+    "ball": {
+      "contact_damping_s_m": 0.12,
+      "contact_stiffness_n_m": 18000.0,
+      "diameter_mm": 75.0,
+      "friction": 0.2,
+      "mass_kg": 0.2
+    },
+    "bin": {
+      "assumptions": {
+        "bottom_thickness_mm": "8mm provisional and unmeasured",
+        "derived_outer_height_mm": 183.0,
+        "diameter_measurements": "user physical measurements",
+        "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+      },
+      "bottom_thickness_mm": 8.0,
+      "center_xy_mm": [
+        600.0,
+        -400.0
+      ],
+      "contact_damping_s_m": 0.6,
+      "floor_top_mm": 27.0,
+      "height_interpretation": "unresolved",
+      "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+      "inner_bottom_diameter_mm": 150.0,
+      "inner_top_diameter_mm": 177.0,
+      "interior_depth_mm": 175.0,
+      "outer_bottom_diameter_mm": 158.0,
+      "outer_top_diameter_mm": 200.0,
+      "placement_status": "provisional",
+      "reported_height_mm": 175.0,
+      "shape": "tapered_bucket",
+      "taper_model": "straight_sided"
+    },
+    "board": {
+      "center_mm": [
+        600.0,
+        -150.0,
+        350.0
+      ],
+      "mass_kg": 0.4,
+      "normal_damping_ns_m": 18.0,
+      "normal_stiffness_n_m": 12000.0,
+      "rpy_deg": [
+        0.0,
+        -30.0,
+        90.0
+      ],
+      "size_mm": [
+        200.0,
+        300.0,
+        5.0
+      ],
+      "support_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tilt_damping_nms_rad": [
+        0.15,
+        0.15
+      ],
+      "tilt_stiffness_nm_rad": [
+        30.0,
+        30.0
+      ]
+    },
+    "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+    "measurement_status": {
+      "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+      "board_mass": "provisional 0.4kg",
+      "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+      "board_orientation": "Provisional negative-Y-facing normal: Rz(90) Ry(-30) Rx(0)",
+      "board_placement": "Provisional nominal center near dropper release XY [600,-150]",
+      "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+      "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+      "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+      "bucket_placement": "User clarified negative-Y/operator side; exact placement remains provisional",
+      "coordinate_axes": "Dropper base origin; +X toward board-arm base; +Z up; operator toward -Y",
+      "coordinate_profile": "front-negative-y-v1",
+      "dropping_pose": "Screenshot TCP [600,-150,600] mm; not a measured ball center or calibrated board gap",
+      "loading_pose": "Screenshot TCP [150,-600,200] mm; numerical ball-at-TCP proxy uncalibrated",
+      "suction_attachment": "provisional centered",
+      "suction_offset": "provisional100mm",
+      "support_stiffness_damping": "uncalibrated",
+      "table_placement": "Provisional expanded tabletop supporting front-side bucket layouts; unmeasured"
+    },
+    "model": "sircus_compliant_board_tapered_bucket_v2",
+    "pickup_mm": [
+      150.0,
+      -600.0,
+      200.0
+    ],
+    "robot14": {
+      "base_translation_mm": [
+        1337.31,
+        0.0,
+        0.0
+      ],
+      "base_yaw_deg": 180.0,
+      "board_mount_yaw_deg": 90.0,
+      "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+      "suction_offset_mm": 100.0,
+      "tool_dimensions_status": "provisional"
+    },
+    "roles": {
+      "board_robot_id": 14.0,
+      "drop_robot_id": 10.0
+    },
+    "scene_id": "sircus-front-negative-y-provisional-v1",
+    "simulation": {
+      "dt_s": 0.0005,
+      "duration_s": 3.0,
+      "frame_dt_s": 0.02,
+      "noise_gap_mm": 0.0,
+      "noise_xy_mm": 0.0
+    },
+    "table": {
+      "center_mm": [
+        668.655,
+        -300.0,
+        -5.0
+      ],
+      "contact_damping_s_m": 0.3,
+      "size_mm": [
+        1537.31,
+        1000.0,
+        40.0
+      ]
+    },
+    "units": "mm, degrees, kg, seconds"
+  },
+  "checkpoint_id": "d9c7435356cfd884e073f078508348277a29c03b5507ca8bf2447e6dd03cde52",
+  "contract": {
+    "action_bounds": [
+      [
+        -35.0,
+        35.0
+      ],
+      [
+        -55.0,
+        -8.0
+      ],
+      [
+        -70.0,
+        70.0
+      ],
+      [
+        -100.0,
+        100.0
+      ],
+      [
+        60.0,
+        280.0
+      ]
+    ],
+    "action_names": [
+      "roll_deg",
+      "pitch_deg",
+      "u_mm",
+      "v_mm",
+      "gap_mm"
+    ],
+    "actual_packages": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1"
+    },
+    "asset_sha256": "ce6eb1b75c4ee320bfeaa5cce1922a70c549a83904c5c1b76ef355d6d645b9d1",
+    "coordinates": {
+      "angle_units": "degrees",
+      "ball_to_tool": {
+        "rotation_matrix": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        "status": "provisional ball center at simulated gripper TCP; uncalibrated",
+        "translation_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+      "frame": "world; Z upward",
+      "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+      "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+      "height_units": "m",
+      "mass_units": "kg",
+      "position_units": "mm",
+      "tcp_world_rotation_matrix": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      ],
+      "time_units": "s",
+      "uv_definition": "board-local top-face U/V in mm; not world XY"
+    },
+    "dependency_pins": [
+      "viam-sdk==0.85.1",
+      "numpy==2.5.4",
+      "scipy==1.18.1"
+    ],
+    "distribution": {
+      "board_center_mm": [
+        [
+          570.0,
+          630.0
+        ],
+        [
+          -180.0,
+          -120.0
+        ],
+        [
+          330.0,
+          375.0
+        ]
+      ],
+      "bucket_absolute_y_mm": [
+        -600.0,
+        -150.0
+      ],
+      "bucket_relative_xy_mm": [
+        [
+          -120.0,
+          120.0
+        ],
+        [
+          -360.0,
+          -140.0
+        ]
+      ],
+      "scope": "front-bucket core; challenges extend beyond this trained layout distribution"
+    },
+    "observation_names": [
+      "board_x_mm",
+      "board_y_mm",
+      "board_z_mm",
+      "bucket_dx_mm",
+      "bucket_dy_mm"
+    ],
+    "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+    "profile": {
+      "coordinate_frame": {
+        "operator_y_approx_mm": -900.0,
+        "origin": "dropper arm base",
+        "positive_x": "toward arm14 base",
+        "positive_z": "up",
+        "user_bucket_y_interval_mm": [
+          -600.0,
+          -150.0
+        ]
+      },
+      "distribution": {
+        "board_center_mm": [
+          [
+            570.0,
+            630.0
+          ],
+          [
+            -180.0,
+            -120.0
+          ],
+          [
+            330.0,
+            375.0
+          ]
+        ],
+        "bucket_absolute_y_mm": [
+          -600.0,
+          -150.0
+        ],
+        "bucket_relative_xy_mm": [
+          [
+            -120.0,
+            120.0
+          ],
+          [
+            -360.0,
+            -140.0
+          ]
+        ],
+        "scope": "front-bucket core; challenges extend beyond this trained layout distribution"
+      },
+      "geometry_status": "provisional placements, orientations, tool and contact parameters",
+      "hardware_enabled": false,
+      "historical_profile_id": "historical-positive-y-v1",
+      "measured": {
+        "arm_spacing_mm": 1337.31,
+        "board_size_mm": [
+          200.0,
+          300.0,
+          5.0
+        ],
+        "bucket_inner_top_bottom_diameter_mm": [
+          177.0,
+          150.0
+        ],
+        "bucket_outer_top_bottom_diameter_mm": [
+          200.0,
+          158.0
+        ],
+        "bucket_reported_height_mm": 175.0
+      },
+      "native_paths_checked": false,
+      "profile_id": "front-negative-y-v1",
+      "screenshot_status": "user-reported TCP targets, not ball-center or calibrated task poses",
+      "screenshot_tcp_targets_mm": {
+        "dropping": [
+          600.0,
+          -150.0,
+          600.0
+        ],
+        "loading": [
+          150.0,
+          -600.0,
+          200.0
+        ]
+      },
+      "unresolved": [
+        "175 mm overall height versus interior depth",
+        "base spacing reference/full rigid transform",
+        "tool-to-board mount",
+        "ball center relative to gripper TCP",
+        "contact and compliance dynamics"
+      ]
+    },
+    "profile_id": "front-negative-y-v1",
+    "release_noise": {
+      "gap_mm": 3.0,
+      "xy_mm": 2.0
+    },
+    "schema": "sircus-front-learning-study-v1",
+    "scoring_version": "sircus-board-bounce-capture-1s-v1",
+    "settings": {
+      "bucket_projection_limit_mm": 2.0,
+      "bucket_restitution": 0.35,
+      "containment_roundoff_mm": 1e-06,
+      "dt_s": 0.00025,
+      "duration_s": 5.00025,
+      "entry_deadline_s": 4.0,
+      "launch_velocity_m_s": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "retention_s": 1.0
+    },
+    "source_sha256": {
+      "../simulation/requirements-viam.txt": "e2b071762ac3c62af5ec244f6003b7203fc363db052bcc1bd0902807e8b3c1ec",
+      "bucket_geometry.py": "2d0bf7ab34d89873e3666b5fd92dbee2a2321aa732108d177c67eb09a62ed53e",
+      "capture_scoring.py": "81229ea5959c247f61189e74d942a5e0ff1b40ec0dd9433b079dc5f1593e29a4",
+      "kinematics.py": "a176c952068cd6fa578ebf328287ea17d09856a807ac2e6ed76c18f5e8cdd05a",
+      "models/gripper-proxy.json": "903ed7cc84b28bd5f798180a8fd113c52d5eaa913a7627463a3d3598302dfb40",
+      "models/suction-proxy.json": "5caec3bfa639bd3733c4a83c89ee8b4dd60b527d8ff1a6e5a49c74bf84cd07a9",
+      "models/xarm850_kinematics.json": "78e0fdc383cf6e1e5b0f9d44fdf1205e4c08a37eb5c0c2182c9f74291c51d3c0",
+      "physics.py": "3a806df6a74038da7cb770b32403dfe0041b2788aa6116d59c61381b913fdd0f",
+      "shot_rollout.py": "88a5adb2838d00e1a97af221c06ba9e26e2224bc7172e4418840f51aedb05cb2",
+      "sircus/studies/front_study.py": "0f474f5afcca0b040aa4db1490f9057faebe57856c4041458aabd9df0666a43f",
+      "sircus/studies/profiles.py": "19922ac78c19b043de1b67f87a40c6e414d85e48f77638005d0ce3cdc53d265f",
+      "sircus/studies/run_front_study.py": "6cb4f81264c297482fb469c199a11df9e1184d23dea1ea968b5330d4e35df1fa",
+      "train_orientation_height.py": "f0757c4302420bbf0ea6a95d057055cffbfd4ac219f0c8154d330fcd237cc080",
+      "two_arm_kinematics.py": "7db3aaf7b3ef0f761724c29a7e4afe0905716522d6297e0c4cabb32273ba66d9"
+    }
+  },
+  "data_origin": "synthetic",
+  "inference": "frozen polynomial ridge matrix prediction; no per-scene optimizer",
+  "model": {
+    "alpha": 1.0,
+    "degree": 2,
+    "kind": "polynomial_ridge",
+    "mean": [
+      599.4513093384928,
+      -150.16977664352444,
+      351.9682602168993,
+      -19.27929950462834,
+      -237.60898574373667
+    ],
+    "scale": [
+      17.283599880564644,
+      16.844988301356643,
+      12.277380780669523,
+      69.03835808632263,
+      63.62136051153195
+    ],
+    "weights": [
+      [
+        -0.053937279433328524,
+        0.11625846401636182,
+        0.061339593953568375,
+        0.012373975728308019,
+        0.3564421978832631
+      ],
+      [
+        0.010193333845411675,
+        0.07098044270637413,
+        -0.005951749619794184,
+        0.024129389545746668,
+        -0.021705598404524858
+      ],
+      [
+        -0.0020055827569671687,
+        0.015047016351128114,
+        -0.05039303080404508,
+        0.028534744967535657,
+        0.05118830057384507
+      ],
+      [
+        0.0011371790280548149,
+        0.006041906468148674,
+        -0.042085882739102735,
+        0.013690973868295977,
+        -0.02790116006335135
+      ],
+      [
+        0.2178486246679553,
+        -0.02083092723543857,
+        0.0036938747056017318,
+        0.01370583596520667,
+        -0.09002827214082146
+      ],
+      [
+        -0.005277448575055307,
+        -0.0038251809367586573,
+        0.051411716501799716,
+        0.016553891315485163,
+        -0.3305020466070244
+      ],
+      [
+        0.0031395619495623033,
+        0.023659283605444684,
+        0.021089573082978933,
+        -0.0051093212080154295,
+        -0.008225309753907416
+      ],
+      [
+        0.02608013288065391,
+        0.048258169921723604,
+        0.01699313535460316,
+        0.003541107862673476,
+        0.05851416357525877
+      ],
+      [
+        0.017639597151410523,
+        0.011445610979513353,
+        -0.006868298845497773,
+        -0.002935736556053818,
+        0.016879351799827358
+      ],
+      [
+        -0.03654600748627993,
+        0.0006341480482604427,
+        -0.008739258600329777,
+        0.0017462791670358295,
+        -0.015945095632038112
+      ],
+      [
+        -0.01340472343890178,
+        0.05971702181571038,
+        0.04645795405878102,
+        -0.03139348560823023,
+        0.0770788524010592
+      ],
+      [
+        0.009385199973265482,
+        0.06644265306678902,
+        0.04471547433199273,
+        -0.005974327620689177,
+        0.011155677063140308
+      ],
+      [
+        0.003068668646184623,
+        0.04780951170518745,
+        0.060884746403965045,
+        -0.004464208438864792,
+        0.009082747757320394
+      ],
+      [
+        0.018752373383864453,
+        0.011478543419457112,
+        -0.0026520320487363955,
+        0.04651026606358084,
+        0.030018752193674506
+      ],
+      [
+        -0.011241628246833604,
+        0.035492230595430795,
+        0.027112164984426024,
+        0.0032130988197147125,
+        -0.036247303177430516
+      ],
+      [
+        -0.009509903789048013,
+        -0.016913426482760504,
+        -0.0860604002074202,
+        -0.0020170999339685835,
+        -0.07058437024451569
+      ],
+      [
+        -0.013411189367287055,
+        -0.03518474610969108,
+        -0.07550528272152994,
+        -0.0066994399257351645,
+        -0.048529303222599136
+      ],
+      [
+        -0.007813354276856506,
+        -0.049372246538437366,
+        0.05513616025046312,
+        -0.019479142188750482,
+        0.006888810284765584
+      ],
+      [
+        0.013411464824753437,
+        0.04648981180116553,
+        -0.05698144315898292,
+        0.0050924379848226245,
+        0.04257176911324685
+      ],
+      [
+        0.08337927712795047,
+        -0.03965691088143123,
+        -0.018670306707910603,
+        6.909664808842092e-05,
+        0.0189750326271369
+      ],
+      [
+        -0.007415193895446825,
+        -0.12525935158855045,
+        -0.011494442784489536,
+        0.003552552489101323,
+        -0.10528152696953647
+      ]
+    ]
+  },
+  "native_paths_checked": false,
+  "physically_verified": false,
+  "profile_id": "front-negative-y-v1",
+  "schema": "sircus-front-scene-ridge-v1",
+  "split_layouts": {
+    "test": [
+      {
+        "layout_sha256": "12690d8264d52dfbca458b713fd7f550cc6323fbcc4187e8d3dfce6dfcab540d",
+        "scene_id": "shared-test-0000-12690d8264d5"
+      },
+      {
+        "layout_sha256": "03c838b94d11e0523287264bc483d2c87ed70e36bb62e9097bd335fccc3cff75",
+        "scene_id": "shared-test-0001-03c838b94d11"
+      },
+      {
+        "layout_sha256": "2a2efa3c79acb7e219e1cf3efa624c072c52dbb90d1bbb9d38faa38886401224",
+        "scene_id": "shared-test-0002-2a2efa3c79ac"
+      },
+      {
+        "layout_sha256": "93ced55ea705c35239eae98656d633a5ce2eb41cb2852dbc65dc136ea1ec9b24",
+        "scene_id": "shared-test-0003-93ced55ea705"
+      },
+      {
+        "layout_sha256": "0ab01d89fc39c7654e1183b4e246f55c4bc805d9f059e10159c9f061529e4850",
+        "scene_id": "shared-test-0004-0ab01d89fc39"
+      },
+      {
+        "layout_sha256": "08b4df6fd1a54216be17a46f8c500647f44f7db018099e6b9b518f02cf441460",
+        "scene_id": "shared-test-0005-08b4df6fd1a5"
+      },
+      {
+        "layout_sha256": "302d64d692da86120ecd051a787110f24f9545f5977914a6d832bd68b01e74d8",
+        "scene_id": "shared-test-0006-302d64d692da"
+      },
+      {
+        "layout_sha256": "9dfbcb6baa05cf9623edb2590f483923fadfcfcbbc2e439aba47142804c1ef6c",
+        "scene_id": "shared-test-0007-9dfbcb6baa05"
+      },
+      {
+        "layout_sha256": "10ba855a4c748a04d1008d834443661655a8d03cf41bc8be2f71257356bd37ad",
+        "scene_id": "shared-test-0008-10ba855a4c74"
+      },
+      {
+        "layout_sha256": "68f70580d322ce7e7c85639af8aef6cee754525eabf204994a8ca8a73f2fb2f0",
+        "scene_id": "shared-test-0009-68f70580d322"
+      },
+      {
+        "layout_sha256": "4f6375423d85c5a7fbc0992630cd08262915703c22c5395173719b9c054f94c2",
+        "scene_id": "shared-test-0010-4f6375423d85"
+      },
+      {
+        "layout_sha256": "07c23075128b76aada7662b8c0f125f5431a6784c95daedcda0c74885809ae10",
+        "scene_id": "shared-test-0011-07c23075128b"
+      },
+      {
+        "layout_sha256": "03c8e200932761a6e3e9eed4e65dc0a8f05df925b1532f1b702a93e08f028716",
+        "scene_id": "shared-test-0012-03c8e2009327"
+      },
+      {
+        "layout_sha256": "8f1cf0234bff504a337f694c5329aea41b04d355986fb730a1bb13f5df3d52eb",
+        "scene_id": "shared-test-0013-8f1cf0234bff"
+      },
+      {
+        "layout_sha256": "d7e4662a14323a835f4a8f5b5d6196e3c65265e25d173bc735a975904352fe05",
+        "scene_id": "shared-test-0014-d7e4662a1432"
+      },
+      {
+        "layout_sha256": "6d3b7c6bc784551adfd27e6b7957e963624128379f15a40412536dce8ab6585d",
+        "scene_id": "shared-test-0015-6d3b7c6bc784"
+      },
+      {
+        "layout_sha256": "aa656481a964f78da978050adee0fe3d4e92f3c5887b99f262bc3c144a26666e",
+        "scene_id": "shared-test-0016-aa656481a964"
+      },
+      {
+        "layout_sha256": "6044da1affaf8c0cad7c1470d01f0ebf2f09e76379063c5cac163a0dad96edac",
+        "scene_id": "shared-test-0017-6044da1affaf"
+      },
+      {
+        "layout_sha256": "6b5d2b1fbfe475ab8c760e571875d621d85c60d15fc84760f7c52087f4602a9d",
+        "scene_id": "shared-test-0018-6b5d2b1fbfe4"
+      },
+      {
+        "layout_sha256": "9d9b18839f130a18e97db265c2730ce23ea1b8bab18f81c0fad6527f5ca1ffce",
+        "scene_id": "shared-test-0019-9d9b18839f13"
+      },
+      {
+        "layout_sha256": "e074377f5b2cb8faa76bd974aa72f43c5975ba249d5a3d2114bce8a9941fd80e",
+        "scene_id": "shared-test-0020-e074377f5b2c"
+      },
+      {
+        "layout_sha256": "5be45de74d0c1c5b6e7507317286735c8c5d5ccef949bc008613039def9630e6",
+        "scene_id": "shared-test-0021-5be45de74d0c"
+      },
+      {
+        "layout_sha256": "f7225801c6a4decabdcafcda07215f3b8bea750340eb819d55084cd14513967f",
+        "scene_id": "shared-test-0022-f7225801c6a4"
+      },
+      {
+        "layout_sha256": "a2832cf3cf69459bd49d73f3ef785b1428dd993092151cbdc0076335f910452b",
+        "scene_id": "shared-test-0023-a2832cf3cf69"
+      },
+      {
+        "layout_sha256": "d331cc10103c006e1cad9e9ea161538d5c616f019af5e259ac58e37483d011ad",
+        "scene_id": "shared-test-0024-d331cc10103c"
+      },
+      {
+        "layout_sha256": "55fb0f7716b08bf0a991f3fb47a80a081298eeb8442038de9c0948b31a740420",
+        "scene_id": "shared-test-0025-55fb0f7716b0"
+      },
+      {
+        "layout_sha256": "f544c1297523d81d3bfedea0417200e39020fcd320659a7533d48eab266d2a21",
+        "scene_id": "shared-test-0026-f544c1297523"
+      },
+      {
+        "layout_sha256": "10e1c287a6fe9e397a83ba5a7acfed8d41728438efd293c695c1834d326c20f3",
+        "scene_id": "shared-test-0027-10e1c287a6fe"
+      },
+      {
+        "layout_sha256": "6ffe108bc86d3895abaeece7b3116d5db735b059b54c4be715970553ba680501",
+        "scene_id": "shared-test-0028-6ffe108bc86d"
+      },
+      {
+        "layout_sha256": "6fff79cf7903744581826415b88767cf33de50ece8b1cb8ba5fe954d1f1cb25c",
+        "scene_id": "shared-test-0029-6fff79cf7903"
+      },
+      {
+        "layout_sha256": "2eb9b5ee8d8004ef0488f42d8e85995691cbe23a8a807b7c061377c925f73227",
+        "scene_id": "shared-test-0030-2eb9b5ee8d80"
+      },
+      {
+        "layout_sha256": "e5f64e60a7d54d546c922bc259d0a67f1c659654ac7f16f2b48cf84668faf40f",
+        "scene_id": "shared-test-0031-e5f64e60a7d5"
+      },
+      {
+        "layout_sha256": "f93c95f03e0e18e5d39ebd2b488b11e475df42741f29353b6f10e8d16e6e9b95",
+        "scene_id": "shared-test-0032-f93c95f03e0e"
+      },
+      {
+        "layout_sha256": "9cbc08cef7610d4ea54fa0c0310f95884ed125b282870edf400f05f568837c10",
+        "scene_id": "shared-test-0033-9cbc08cef761"
+      },
+      {
+        "layout_sha256": "846e71e172d6bd2f93218950e43febb18449b2b5c293020da57671a70b571711",
+        "scene_id": "shared-test-0034-846e71e172d6"
+      },
+      {
+        "layout_sha256": "552e5beae5ec0fcd5d9ff263d8f5543045fd7b7fea4d776addb76019972fb44b",
+        "scene_id": "shared-test-0035-552e5beae5ec"
+      },
+      {
+        "layout_sha256": "9461f1ff1f8222855ab188ab3bad22805c0dda0ccd7c9576a22a8d66640ec2af",
+        "scene_id": "shared-test-0036-9461f1ff1f82"
+      },
+      {
+        "layout_sha256": "ca6d99bb79b4399b5d6ffed8491718c11dfa62bc2fbd6d4f78fc7f317a58debf",
+        "scene_id": "shared-test-0037-ca6d99bb79b4"
+      },
+      {
+        "layout_sha256": "0867efab363d8df35e0b36fd06042f0704229e9aa553309d1486d586a66eef7d",
+        "scene_id": "shared-test-0038-0867efab363d"
+      },
+      {
+        "layout_sha256": "29bd6cd24e20c117908012a9a20a4de2bbf6a9416c08b72ad931eb243123de2a",
+        "scene_id": "shared-test-0039-29bd6cd24e20"
+      },
+      {
+        "layout_sha256": "af5f6ce225a360b92c9a06b80d7429863074ae2d21e76e0b70e26659c59307ff",
+        "scene_id": "shared-test-0040-af5f6ce225a3"
+      },
+      {
+        "layout_sha256": "484a69e9e7cb6b3001943c9970faded788f0f8058530a2e669fb0316c3a59b72",
+        "scene_id": "shared-test-0041-484a69e9e7cb"
+      },
+      {
+        "layout_sha256": "735cd6036c6ed7eed855208e3cfec50a9cb7ca721035017035815cb10f5f273a",
+        "scene_id": "shared-test-0042-735cd6036c6e"
+      },
+      {
+        "layout_sha256": "8d42b5e0e0f1836a970aa3ed21dfb711d7ac2e6be0d97bc38f28f210637b7e24",
+        "scene_id": "shared-test-0043-8d42b5e0e0f1"
+      },
+      {
+        "layout_sha256": "007ba07518515c0d4ac848c88d7b8da71ecbbe039887ecf31afd3827479e5716",
+        "scene_id": "shared-test-0044-007ba0751851"
+      },
+      {
+        "layout_sha256": "6f9e4bf250ff449691858dc2d581c8f5a8ec6756a9364bd98353fd0eb5cc64dc",
+        "scene_id": "shared-test-0045-6f9e4bf250ff"
+      },
+      {
+        "layout_sha256": "73a2c1c9a5b6cc3038c7db86902712a0cdcc57e0c2384dbc4975ba499a10c068",
+        "scene_id": "shared-test-0046-73a2c1c9a5b6"
+      },
+      {
+        "layout_sha256": "b3cc06e45b6be35f6b047392d3bd5ae7f812b255614b20a2bee5f080e8db7be5",
+        "scene_id": "shared-test-0047-b3cc06e45b6b"
+      }
+    ],
+    "train": [
+      {
+        "layout_sha256": "8f52efcc12c273597ada79e1f525a50c81e5401798c7eef5dbcff3dfba38e796",
+        "scene_id": "train-0000-8f52efcc12c2"
+      },
+      {
+        "layout_sha256": "28cc6be389c85844e2b46d77aa54915fce888c9e9f5c08dc92459383119310de",
+        "scene_id": "train-0001-28cc6be389c8"
+      },
+      {
+        "layout_sha256": "875cbd347b93ea56ea04cae253d34d2b4bf45cc17a69f5a98ac95fc2229868ec",
+        "scene_id": "train-0002-875cbd347b93"
+      },
+      {
+        "layout_sha256": "6bc42340b4f2329510cdad95e56fffe19f5a11e3d1c479e7ee320e47fe78079f",
+        "scene_id": "train-0003-6bc42340b4f2"
+      },
+      {
+        "layout_sha256": "7638af535dd8b2ef3f29b46c2c506a220313f4afbb987ba8efebc5857bf9e3ea",
+        "scene_id": "train-0004-7638af535dd8"
+      },
+      {
+        "layout_sha256": "d9618eadc487b9ec7a53a0780f7f29f7a1d25cff0ca4e9b9ec4d088191d59f03",
+        "scene_id": "train-0005-d9618eadc487"
+      },
+      {
+        "layout_sha256": "d186f7cdcebed5c2678442bf01e48b3c2c985f509cdff4fbb6214df53afb3b67",
+        "scene_id": "train-0006-d186f7cdcebe"
+      },
+      {
+        "layout_sha256": "49e224d22f6efa4c94ea96e6a203814c7144631aab03ba06931b7ebf942d2ec7",
+        "scene_id": "train-0007-49e224d22f6e"
+      },
+      {
+        "layout_sha256": "07c3f71c1016eaeadf7809197cb73ca15729ec1f416bed67e1b2bdd867503b7b",
+        "scene_id": "train-0008-07c3f71c1016"
+      },
+      {
+        "layout_sha256": "4b49381b1d54c53a6a2881c7f80e7d0cb34966f64e13abd2348cb4da2c0ff340",
+        "scene_id": "train-0009-4b49381b1d54"
+      },
+      {
+        "layout_sha256": "8136d62c74112083164c55a9000fe93753a230d27fc938de82f2d0fc46245cff",
+        "scene_id": "train-0010-8136d62c7411"
+      },
+      {
+        "layout_sha256": "632901128bdb96831bcb7ca40b04f38367573a4316b3163fd55ce9cd5eacaad4",
+        "scene_id": "train-0011-632901128bdb"
+      },
+      {
+        "layout_sha256": "b2e29541a3b54ea9eddb7d5698c1695220dff75dd507e9e40591fc84e277e498",
+        "scene_id": "train-0012-b2e29541a3b5"
+      },
+      {
+        "layout_sha256": "bba8eb1f04d82e505d7428eab9233f885e5639bdc130be1497462dcee35e9d17",
+        "scene_id": "train-0013-bba8eb1f04d8"
+      },
+      {
+        "layout_sha256": "560e5ca54ac317bfa3d2a36f9ab8c5e95d184f964db34a2b5fd2d0188213b5c0",
+        "scene_id": "train-0014-560e5ca54ac3"
+      },
+      {
+        "layout_sha256": "6134c27b532035bad9dc96431bc6db8a291c0eebf5613f5a8028aa0f5af7e94d",
+        "scene_id": "train-0015-6134c27b5320"
+      },
+      {
+        "layout_sha256": "2d9f78a91927c57387c02f8a1f6e6eb4a959a66e942cf05e04214e7b69255b49",
+        "scene_id": "train-0016-2d9f78a91927"
+      },
+      {
+        "layout_sha256": "7df4cb93b6130daf12bda63f9ee9e4536c8fa3a852abad87b6cb81bc7c5c045d",
+        "scene_id": "train-0017-7df4cb93b613"
+      },
+      {
+        "layout_sha256": "a5b86ddcbc108377d72177c68b0374e4873fbad535480d101c9a6f851fa9e839",
+        "scene_id": "train-0018-a5b86ddcbc10"
+      },
+      {
+        "layout_sha256": "8f134c6805948eb95ad395a538efe58841360106db1e250e37fd5c195e9cc6e1",
+        "scene_id": "train-0019-8f134c680594"
+      },
+      {
+        "layout_sha256": "f19e6665877ef60b90b3c9fbd0c3cc801913527fae2e092b1dd8980031094603",
+        "scene_id": "train-0020-f19e6665877e"
+      },
+      {
+        "layout_sha256": "299665962e8535d16aeff7a820f453728b53c6fe743e1f5c417ff12f7f397a83",
+        "scene_id": "train-0021-299665962e85"
+      },
+      {
+        "layout_sha256": "c96ecf04d96815e69bf75f8819492642240968e172829ad9e2fc699502c33ce4",
+        "scene_id": "train-0022-c96ecf04d968"
+      },
+      {
+        "layout_sha256": "566ff2f08dae7237793cc1c3c2ed148208633dcfedc11c0baa62184d82bf511b",
+        "scene_id": "train-0023-566ff2f08dae"
+      },
+      {
+        "layout_sha256": "0f5bc0091db4f1f88ca060cef5a8490a8b38830c760d3fb69e6ea8cfbc89e181",
+        "scene_id": "train-0024-0f5bc0091db4"
+      },
+      {
+        "layout_sha256": "076eff8888251eb43b63e93b276f2da89fb7a73cf1e28f8681c57195755907e5",
+        "scene_id": "train-0025-076eff888825"
+      },
+      {
+        "layout_sha256": "7ea506059feede453defb0bc36c3fb6928b64a3879b9df1f8c990699e59974fe",
+        "scene_id": "train-0026-7ea506059fee"
+      },
+      {
+        "layout_sha256": "13b2cc237faec83000f5d56ff88c8c05bd601bc5d2222c5739c85d5e4691073a",
+        "scene_id": "train-0027-13b2cc237fae"
+      },
+      {
+        "layout_sha256": "565df8daf281c76bcdf5765a88f705ef9ad0c167df6efa43128168ad01186e05",
+        "scene_id": "train-0028-565df8daf281"
+      },
+      {
+        "layout_sha256": "3124e7f29a48063476fd30b9699b0f553951b9621f03a6d6e246caa3a58efeb7",
+        "scene_id": "train-0029-3124e7f29a48"
+      },
+      {
+        "layout_sha256": "a6315dfa85fc9b1ad0a97ed1744620f72657b9c8a6e5263cf1ae1af60641b5d5",
+        "scene_id": "train-0030-a6315dfa85fc"
+      },
+      {
+        "layout_sha256": "43f94d2a1db7d0770f3b383d0912ee709cf1496aaa10d6bc5f444407a17f7ca0",
+        "scene_id": "train-0031-43f94d2a1db7"
+      },
+      {
+        "layout_sha256": "98903a63d1e750a414fedc0968892b32112ce05369838664f85ae46a25a7a7c2",
+        "scene_id": "train-0032-98903a63d1e7"
+      },
+      {
+        "layout_sha256": "7a12c6f2e1271521a9b7b144908ff1b533ef92a02cd08637d9711bd19fd9b1ff",
+        "scene_id": "train-0033-7a12c6f2e127"
+      },
+      {
+        "layout_sha256": "ff994c808f741afdfbe0d4c19a31d3db7a8e36cd6a7dacc14d48bb4fe6cbf0c7",
+        "scene_id": "train-0034-ff994c808f74"
+      },
+      {
+        "layout_sha256": "64f46028b96f719294f54f1731eaadfc774002c193ff2e66f8d0b9ac171be57a",
+        "scene_id": "train-0035-64f46028b96f"
+      },
+      {
+        "layout_sha256": "7baf6b0f33a89844a840bff65d3533fba9853681b1d138698074f1c69232b648",
+        "scene_id": "train-0036-7baf6b0f33a8"
+      },
+      {
+        "layout_sha256": "2a09e08efc6013add9d23d6965664828dffb3bff4e51bf2da2c332598b182162",
+        "scene_id": "train-0037-2a09e08efc60"
+      },
+      {
+        "layout_sha256": "5ae35c4d34410f4368e565c3830ae4ae6a2490a1fd0fcefd8a39b96354c10a93",
+        "scene_id": "train-0038-5ae35c4d3441"
+      },
+      {
+        "layout_sha256": "9146a0665993b1de2c77c49ee96565092595e2eef2fdd41c0993dfdd8849dd8d",
+        "scene_id": "train-0039-9146a0665993"
+      },
+      {
+        "layout_sha256": "3877db63525e487104d0edbd789a8d49d473f2f7a474e49377165bd7a72f3ef2",
+        "scene_id": "train-0040-3877db63525e"
+      },
+      {
+        "layout_sha256": "d21a10bf6fba9b99c6b4ff03ad6ac3650204cb535722d5090119a3c8d618fbe4",
+        "scene_id": "train-0041-d21a10bf6fba"
+      },
+      {
+        "layout_sha256": "3df358dba32c8dd113dbb0c8391667070581b2cab14d86e80272764ef045a8c4",
+        "scene_id": "train-0042-3df358dba32c"
+      },
+      {
+        "layout_sha256": "85259a1f41e929b95943254efac25e4c359ad22704606b0097479a8bb5a20112",
+        "scene_id": "train-0043-85259a1f41e9"
+      },
+      {
+        "layout_sha256": "12c2f9bee42553d54d3f116e2d603043ee6d3416544e44381b9d3f59d5c00e0e",
+        "scene_id": "train-0044-12c2f9bee425"
+      },
+      {
+        "layout_sha256": "d84c8effcf96447ef0e06d060d48e0f1251fe1b2fe30b002c3275ec19403de17",
+        "scene_id": "train-0045-d84c8effcf96"
+      },
+      {
+        "layout_sha256": "5050c08c11f55cac7e0ab72014f734c750e51c5aa186a7443c605fc9e0821cda",
+        "scene_id": "train-0046-5050c08c11f5"
+      },
+      {
+        "layout_sha256": "c3353bacab079d0ff66cf5a4cbefe750be9312685746d370bffe372ea5408ff4",
+        "scene_id": "train-0047-c3353bacab07"
+      },
+      {
+        "layout_sha256": "d399416102bd1f2c288cb8d657721bb5886edd0cd9ae703253ec7edd3ee4a972",
+        "scene_id": "train-0048-d399416102bd"
+      },
+      {
+        "layout_sha256": "3472bdc09fa794ab29cedcb7a2fcf90125070781d63a091e98d49d2480dba9c6",
+        "scene_id": "train-0049-3472bdc09fa7"
+      },
+      {
+        "layout_sha256": "91a61bc7155d6c8e333e8fb1535cb0ca51c2c77977bf1e35e53fc1af8d888f8b",
+        "scene_id": "train-0050-91a61bc7155d"
+      },
+      {
+        "layout_sha256": "f5aa3948b1650263c0dc205c18abdd2baaaa40c4fdad3bb823fc9a28b4893a9e",
+        "scene_id": "train-0051-f5aa3948b165"
+      },
+      {
+        "layout_sha256": "20e773e42ac1145a1419d2052812c730cdc0ac63b8005c4f323f0cd65901db89",
+        "scene_id": "train-0052-20e773e42ac1"
+      },
+      {
+        "layout_sha256": "e8a7bd41ecbcbf015402b151751ef4ead47c18d0e19ad532e8dc6311b0156174",
+        "scene_id": "train-0053-e8a7bd41ecbc"
+      },
+      {
+        "layout_sha256": "2b111d8fc29502cc1f806e385738825c973f78fab5ae949a857a27c0b5533e23",
+        "scene_id": "train-0054-2b111d8fc295"
+      },
+      {
+        "layout_sha256": "bfbcdd29d7513b4c24f26537a948333d9121d03b44d7446e5f1241cb8a7d0968",
+        "scene_id": "train-0055-bfbcdd29d751"
+      },
+      {
+        "layout_sha256": "351f0aa55fd4f9625c0318bd502c69b4abc758f583444a57a8b7c32ec84b5ef3",
+        "scene_id": "train-0056-351f0aa55fd4"
+      },
+      {
+        "layout_sha256": "ffbdd01a1e68240dcb537e71b0112dfd06f27b50a6700048155def9c71a35e58",
+        "scene_id": "train-0057-ffbdd01a1e68"
+      },
+      {
+        "layout_sha256": "1c8a79751a4265477e916fe13992f9a46bf8abfa273be5e543bfc793a4c41a1e",
+        "scene_id": "train-0058-1c8a79751a42"
+      },
+      {
+        "layout_sha256": "2f3a7f87a0ce7dd0fa87c2b0491b2e428a849783c7571079a0347a25d98eb4ef",
+        "scene_id": "train-0059-2f3a7f87a0ce"
+      },
+      {
+        "layout_sha256": "398685eb154c39b7c161024ed2d32be607e400b3cff4d6ca41d19961259f055b",
+        "scene_id": "train-0060-398685eb154c"
+      },
+      {
+        "layout_sha256": "19db8757de4c61483cb27482b3d1f997015d2b408485690506b6d5e0e4bd5ab9",
+        "scene_id": "train-0061-19db8757de4c"
+      },
+      {
+        "layout_sha256": "d1612d05ee3f24c495126961ad232f93baf494d84c6eec4b331a5b273690fe85",
+        "scene_id": "train-0062-d1612d05ee3f"
+      },
+      {
+        "layout_sha256": "aa0766f95908ef5dc0f69f79800cf0512a9de6298843eae32e67043220786d7e",
+        "scene_id": "train-0063-aa0766f95908"
+      }
+    ],
+    "validation": [
+      {
+        "layout_sha256": "fa8886f6702bbbc93b898fed8bc8acff934a2c94e24a8bdd5cff32bb6959fe2a",
+        "scene_id": "shared-validation-0000-fa8886f6702b"
+      },
+      {
+        "layout_sha256": "06099fd844364065ae9c6266a96288bfc992ae5f336bde255386b9c018b126c0",
+        "scene_id": "shared-validation-0001-06099fd84436"
+      },
+      {
+        "layout_sha256": "f5b1c7f7ea7a6761d9ec576762486148d3a69997006a4c99402eb7bee8df2423",
+        "scene_id": "shared-validation-0002-f5b1c7f7ea7a"
+      },
+      {
+        "layout_sha256": "a0d93cf5411cc50fd315a24fd75076062dd4c87254ed648d6f4d25de06a27868",
+        "scene_id": "shared-validation-0003-a0d93cf5411c"
+      },
+      {
+        "layout_sha256": "3dcc6a08558ef775364ac9998ab67ba2ff5fff02c1934d5f18947f52eecb3fd1",
+        "scene_id": "shared-validation-0004-3dcc6a08558e"
+      },
+      {
+        "layout_sha256": "5403fd1f3461548521403f8bfe44f200e920867a0d854867cf5025a4c7743c40",
+        "scene_id": "shared-validation-0005-5403fd1f3461"
+      },
+      {
+        "layout_sha256": "a049f98aab93d3e7a6adaaa2f88d52fa5c9d99fb639a136f48120bf42e7a1af7",
+        "scene_id": "shared-validation-0006-a049f98aab93"
+      },
+      {
+        "layout_sha256": "7aebae60df3927e04c8df824e011a2c31ed2dd19afd898e7bfe67a6371dbce86",
+        "scene_id": "shared-validation-0007-7aebae60df39"
+      },
+      {
+        "layout_sha256": "376428ae1498f939977af4ee0c81ad3f2fa47e378b6fe9b895619fe942003052",
+        "scene_id": "shared-validation-0008-376428ae1498"
+      },
+      {
+        "layout_sha256": "ab04d41ffd34e297b4694ee6ef13ac77e7850d4a4c05450992d78fba2f6b98fe",
+        "scene_id": "shared-validation-0009-ab04d41ffd34"
+      },
+      {
+        "layout_sha256": "811c9c21859e6b7e5381a50e42c6de0756abe1bc5b9eea99065795e6479ac9ee",
+        "scene_id": "shared-validation-0010-811c9c21859e"
+      },
+      {
+        "layout_sha256": "06dda9162227eeb302168753b448b023536f5247f050e941fb2ba17b251b78fd",
+        "scene_id": "shared-validation-0011-06dda9162227"
+      },
+      {
+        "layout_sha256": "0046e3f44059f6e218779e39c09ada663c2c3a0b03adc40f7b3bf270ee406abf",
+        "scene_id": "shared-validation-0012-0046e3f44059"
+      },
+      {
+        "layout_sha256": "a674c08f14184f51857b23373e69d4ecdb77e5b77694b08a61728780fec5a6a9",
+        "scene_id": "shared-validation-0013-a674c08f1418"
+      },
+      {
+        "layout_sha256": "62e154c6eb85d6c09b4c7c8a5e770feb67b2ebe2a2f86eb6add6e73076aa00ed",
+        "scene_id": "shared-validation-0014-62e154c6eb85"
+      },
+      {
+        "layout_sha256": "05021ab788e7446be207d6b237c7c17520ad3b71bdb8a145a32c62792d1cf326",
+        "scene_id": "shared-validation-0015-05021ab788e7"
+      }
+    ]
+  },
+  "split_manifest_sha256": "1ca098f9c2c2d84f2dd21fd0b09dbc1737efbbb6d353528d333bd3030db88bc9",
+  "training_scene_ids": [
+    "train-0000-8f52efcc12c2",
+    "train-0001-28cc6be389c8",
+    "train-0002-875cbd347b93",
+    "train-0003-6bc42340b4f2",
+    "train-0004-7638af535dd8",
+    "train-0005-d9618eadc487",
+    "train-0006-d186f7cdcebe",
+    "train-0007-49e224d22f6e",
+    "train-0008-07c3f71c1016",
+    "train-0009-4b49381b1d54",
+    "train-0010-8136d62c7411",
+    "train-0011-632901128bdb",
+    "train-0012-b2e29541a3b5",
+    "train-0013-bba8eb1f04d8",
+    "train-0014-560e5ca54ac3",
+    "train-0015-6134c27b5320",
+    "train-0016-2d9f78a91927",
+    "train-0017-7df4cb93b613",
+    "train-0018-a5b86ddcbc10",
+    "train-0019-8f134c680594",
+    "train-0020-f19e6665877e",
+    "train-0021-299665962e85",
+    "train-0022-c96ecf04d968",
+    "train-0023-566ff2f08dae",
+    "train-0024-0f5bc0091db4",
+    "train-0025-076eff888825",
+    "train-0026-7ea506059fee",
+    "train-0027-13b2cc237fae",
+    "train-0028-565df8daf281",
+    "train-0029-3124e7f29a48",
+    "train-0030-a6315dfa85fc",
+    "train-0031-43f94d2a1db7",
+    "train-0032-98903a63d1e7",
+    "train-0033-7a12c6f2e127",
+    "train-0034-ff994c808f74",
+    "train-0035-64f46028b96f",
+    "train-0036-7baf6b0f33a8",
+    "train-0037-2a09e08efc60",
+    "train-0038-5ae35c4d3441",
+    "train-0039-9146a0665993",
+    "train-0040-3877db63525e",
+    "train-0041-d21a10bf6fba",
+    "train-0042-3df358dba32c",
+    "train-0043-85259a1f41e9",
+    "train-0044-12c2f9bee425",
+    "train-0045-d84c8effcf96",
+    "train-0046-5050c08c11f5",
+    "train-0047-c3353bacab07",
+    "train-0048-d399416102bd",
+    "train-0049-3472bdc09fa7",
+    "train-0050-91a61bc7155d",
+    "train-0051-f5aa3948b165",
+    "train-0052-20e773e42ac1",
+    "train-0053-e8a7bd41ecbc",
+    "train-0054-2b111d8fc295",
+    "train-0055-bfbcdd29d751",
+    "train-0056-351f0aa55fd4",
+    "train-0057-ffbdd01a1e68",
+    "train-0058-1c8a79751a42",
+    "train-0059-2f3a7f87a0ce",
+    "train-0060-398685eb154c",
+    "train-0061-19db8757de4c",
+    "train-0062-d1612d05ee3f",
+    "train-0063-aa0766f95908"
+  ],
+  "validation_selection": {
+    "candidates": [
+      {
+        "degree": 1,
+        "regularization": 0.1
+      },
+      {
+        "degree": 2,
+        "regularization": 1.0
+      },
+      {
+        "degree": 2,
+        "regularization": 100.0
+      }
+    ],
+    "degree": 2,
+    "regularization": 1.0,
+    "selection": "capture count then total shaping on validation only",
+    "test_used_for_selection": false,
+    "validation_summary": {
+      "captures": 9,
+      "ci95": [
+        0.331785563988119,
+        0.7690134759450765
+      ],
+      "ci95_method": "Wilson interval over independent sampled layouts",
+      "endpoint_infeasible": 0,
+      "episodes": 16,
+      "native_paths_checked": false,
+      "outcomes": {
+        "captured": 9,
+        "no_entry": 7
+      },
+      "physically_verified": false,
+      "success_fraction": 0.5625
+    }
+  }
+}

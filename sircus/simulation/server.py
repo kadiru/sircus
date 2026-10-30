@@ -9,13 +9,14 @@ import json
 import mimetypes
 import os
 import secrets
+import signal
 import subprocess
 import sys
 import threading
 from concurrent.futures import TimeoutError as FutureTimeout
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, parse_qs
 from uuid import UUID
 
 from physics import default_config, validate_config, simulate
@@ -33,6 +34,10 @@ BRIDGE = None
 PHYSICAL = None
 STUDY_LOCK = threading.Lock()
 STUDY_MAX_BYTES = 1_000_000
+OPERATIONS = None
+TRAINING_JOBS = None
+STUDY_RESULTS_PATH = ROOT.parent.parent/'baselines/front-bucket-20261030/report.json'
+WORKFLOW_TOKEN = secrets.token_urlsafe(32)
 
 
 def study_preview(payload):
@@ -217,6 +222,8 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         path = urlsplit(self.path).path
+        if path.startswith(('/api/operations/', '/api/training/')) or path in ('/api/study/results', '/api/deployment/status'):
+            return self.workflow_get(path)
         if path.startswith('/api/physical/'):
             if not self.physical_host_ok():
                 return self.send({'error':'loopback host required'}, 403)
@@ -263,8 +270,10 @@ class Handler(BaseHTTPRequestHandler):
             length = int(self.headers.get('Content-Length', '0'))
         except ValueError:
             return self.send({'error': 'invalid request size'}, 413)
-        if length <= 0 or length > (STUDY_MAX_BYTES if path == '/api/study/preview' else 200000):
+        if length <= 0 or length > (STUDY_MAX_BYTES if path == '/api/study/preview' or path.startswith('/api/operations/') else 200000):
             return self.send({'error': 'invalid request size'}, 413)
+        if path.startswith(('/api/operations/', '/api/training/')):
+            return self.workflow_post(path, length)
         if path.startswith('/api/study/'):
             if not self.physical_host_ok():
                 return self.send({'error': 'loopback host required'}, 403)
@@ -347,27 +356,130 @@ class Handler(BaseHTTPRequestHandler):
             STATE.update(phase='idle')
             LOCK.release()
 
+    def workflow_ready(self):
+        return OFFLINE and PHYSICAL is None and OPERATIONS is not None and TRAINING_JOBS is not None
+
+    def workflow_get(self, path):
+        if not self.physical_host_ok():
+            return self.send({'error': 'loopback host required'}, 403)
+        if not self.workflow_ready():
+            return self.send({'error': 'Start the separate operator simulation with ./start-operator-sim.sh',
+                              'hardware_enabled': False}, 503)
+        try:
+            if path == '/api/study/results':
+                return self.send(load_study_results(STUDY_RESULTS_PATH))
+            if path == '/api/deployment/status':
+                from sircus.deployment.controller import DeploymentController
+                return self.send(DeploymentController('blocked').status())
+            if path == '/api/operations/status':
+                return self.send({**OPERATIONS.status(), 'action_token': WORKFLOW_TOKEN})
+            if path == '/api/training/status':
+                return self.send({**TRAINING_JOBS.status(), 'action_token': WORKFLOW_TOKEN})
+            if path == '/api/training/artifact':
+                params = parse_qs(urlsplit(self.path).query, keep_blank_values=True)
+                if set(params) != {'run_id', 'name'} or any(len(v) != 1 for v in params.values()):
+                    raise ValueError('Supply one run_id and artifact name')
+                return self.send(TRAINING_JOBS.artifact(params['run_id'][0], params['name'][0]))
+            return self.send({'error': 'unknown workflow endpoint'}, 404)
+        except (ValueError, KeyError, TypeError, FileNotFoundError) as exc:
+            return self.send({'error': str(exc)[:300]}, 400)
+        except Exception:
+            return self.send({'error': 'Simulation workspace unavailable'}, 503)
+
+    def workflow_post(self, path, length):
+        if not self.physical_host_ok():
+            return self.send({'error': 'loopback host required'}, 403)
+        if not self.workflow_ready():
+            return self.send({'error': 'Operator simulation is disabled; no hardware fallback'}, 503)
+        if not secrets.compare_digest(self.headers.get('X-Sircus-Workflow-Token', ''), WORKFLOW_TOKEN):
+            return self.send({'error': 'workflow action token required'}, 403)
+        if path not in ('/api/operations/action', '/api/training/start', '/api/training/cancel'):
+            return self.send({'error': 'unknown workflow endpoint'}, 404)
+        try:
+            value = json.loads(self.rfile.read(length), parse_constant=lambda _: (_ for _ in ()).throw(ValueError('Finite JSON required')))
+            if not isinstance(value, dict):
+                raise ValueError('JSON object required')
+            if path == '/api/operations/action':
+                result = OPERATIONS.action(value)
+            elif path == '/api/training/start':
+                result = TRAINING_JOBS.start(value)
+            else:
+                if value:
+                    raise ValueError('Cancellation requires an empty object')
+                result = TRAINING_JOBS.cancel()
+            return self.send({**result, 'action_token': WORKFLOW_TOKEN}, 202)
+        except (ValueError, KeyError, TypeError) as exc:
+            return self.send({'error': str(exc)[:300]}, 400)
+        except RuntimeError as exc:
+            return self.send({'error': str(exc)[:300]}, 409)
+        except Exception:
+            return self.send({'error': 'Simulation action failed; no hardware fallback'}, 503)
+
     def physical_host_ok(self):
         port = self.server.server_address[1]
         return self.headers.get('Host','') in (f'127.0.0.1:{port}',f'localhost:{port}')
 
 
+def load_study_results(path):
+    """Read only a completed, explicit synthetic report; never accept browser paths."""
+    path = Path(path)
+    if path.is_symlink() or not path.is_file():
+        raise FileNotFoundError('Completed front-bucket study results are not available yet')
+    if path.stat().st_size > 32_000_000:
+        raise ValueError('Study report exceeds the download limit')
+    value = json.loads(path.read_text(), parse_constant=lambda _: (_ for _ in ()).throw(ValueError('Finite study JSON required')))
+    if (not isinstance(value, dict) or value.get('schema') != 'sircus-learning-challenge-report-v1'
+            or value.get('physically_verified') is not False or value.get('data_origin') != 'synthetic'
+            or value.get('status') != 'complete' or value.get('profile_id') != 'front-negative-y-v1'
+            or value.get('native_paths_checked') is not False):
+        raise ValueError('Unsupported or non-synthetic study report')
+    return value
+
+
 def main():
-    global OFFLINE, BRIDGE, PHYSICAL
+    global OFFLINE, BRIDGE, PHYSICAL, OPERATIONS, TRAINING_JOBS, STUDY_RESULTS_PATH
     parser = argparse.ArgumentParser()
     parser.add_argument('--port', type=int, default=8765)
     parser.add_argument('--offline', action='store_true', help='Explicitly use standalone physics; no Viam commands')
     parser.add_argument('--physical-mode', choices=('disabled','dry_run','hardware'), default='disabled')
     parser.add_argument('--physical-credentials', type=Path, default=ROOT.parent/'perception/.private/sfhack10.json')
     parser.add_argument('--physical-data-root', type=Path, default=None)
+    parser.add_argument('--operations', action='store_true', help='Enable guided simulation and local training; requires offline and physical disabled')
+    parser.add_argument('--workflow-profile', choices=('front','historical'), default='front')
+    parser.add_argument('--workflow-checkpoint', type=Path, default=None)
+    parser.add_argument('--study-results', type=Path, default=STUDY_RESULTS_PATH)
+    parser.add_argument('--workflow-data-root', type=Path, default=ROOT.parent.parent/'.runtime'/'operator-lab')
     args = parser.parse_args()
+    if args.operations and (not args.offline or args.physical_mode != 'disabled'):
+        parser.error('--operations requires --offline --physical-mode disabled')
     OFFLINE = args.offline
     if not OFFLINE: BRIDGE = ViamBridge()
     if args.physical_mode != 'disabled':
         data_root = args.physical_data_root or ROOT.parent/'physical_trials/data'/args.physical_mode
         PHYSICAL = PhysicalBridge(args.physical_mode,args.physical_credentials,data_root)
+    if args.operations:
+        sys.path.insert(0, str(ROOT.parent.parent))
+        from sircus.operations.service import GuidedOperations
+        from sircus.operations.training import TrainingJobs
+        OPERATIONS = GuidedOperations(data_root=args.workflow_data_root/'trials',
+                                      profile=args.workflow_profile, checkpoint_path=args.workflow_checkpoint)
+        TRAINING_JOBS = TrainingJobs(data_root=args.workflow_data_root/'training', profile=args.workflow_profile)
+        STUDY_RESULTS_PATH = args.study_results
     print(f'Sircus dashboard: http://127.0.0.1:{args.port} ({"OFFLINE simulation" if OFFLINE else "Viam two-arm simulation bridge"})', flush=True)
-    ThreadingHTTPServer(('127.0.0.1', args.port), Handler).serve_forever()
+    httpd = ThreadingHTTPServer(('127.0.0.1', args.port), Handler)
+    try:
+        if args.operations:
+            # SIGTERM normally bypasses Python finally. Rehearsal/training owns
+            # numerical children, so route its shutdown through the cleanup below.
+            # Legacy and physical server signal behavior is deliberately unchanged.
+            def terminate_operations(_signum, _frame):
+                raise SystemExit(0)
+            signal.signal(signal.SIGTERM, terminate_operations)
+        httpd.serve_forever()
+    finally:
+        httpd.server_close()
+        if OPERATIONS is not None: OPERATIONS.close()
+        if TRAINING_JOBS is not None: TRAINING_JOBS.close()
 
 
 if __name__ == '__main__':

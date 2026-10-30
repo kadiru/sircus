@@ -1,0 +1,789 @@
+{
+  "base_scene": {
+    "ball": {
+      "contact_damping_s_m": 0.12,
+      "contact_stiffness_n_m": 18000.0,
+      "diameter_mm": 75.0,
+      "friction": 0.2,
+      "mass_kg": 0.2
+    },
+    "bin": {
+      "assumptions": {
+        "bottom_thickness_mm": "8mm provisional and unmeasured",
+        "derived_outer_height_mm": 183.0,
+        "diameter_measurements": "user physical measurements",
+        "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+      },
+      "bottom_thickness_mm": 8.0,
+      "center_xy_mm": [
+        600.0,
+        -400.0
+      ],
+      "contact_damping_s_m": 0.6,
+      "floor_top_mm": 27.0,
+      "height_interpretation": "unresolved",
+      "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+      "inner_bottom_diameter_mm": 150.0,
+      "inner_top_diameter_mm": 177.0,
+      "interior_depth_mm": 175.0,
+      "outer_bottom_diameter_mm": 158.0,
+      "outer_top_diameter_mm": 200.0,
+      "placement_status": "provisional",
+      "reported_height_mm": 175.0,
+      "shape": "tapered_bucket",
+      "taper_model": "straight_sided"
+    },
+    "board": {
+      "center_mm": [
+        600.0,
+        -150.0,
+        350.0
+      ],
+      "mass_kg": 0.4,
+      "normal_damping_ns_m": 18.0,
+      "normal_stiffness_n_m": 12000.0,
+      "rpy_deg": [
+        0.0,
+        -30.0,
+        90.0
+      ],
+      "size_mm": [
+        200.0,
+        300.0,
+        5.0
+      ],
+      "support_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tilt_damping_nms_rad": [
+        0.15,
+        0.15
+      ],
+      "tilt_stiffness_nm_rad": [
+        30.0,
+        30.0
+      ]
+    },
+    "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+    "measurement_status": {
+      "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+      "board_mass": "provisional 0.4kg",
+      "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+      "board_orientation": "Provisional negative-Y-facing normal: Rz(90) Ry(-30) Rx(0)",
+      "board_placement": "Provisional nominal center near dropper release XY [600,-150]",
+      "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+      "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+      "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+      "bucket_placement": "User clarified negative-Y/operator side; exact placement remains provisional",
+      "coordinate_axes": "Dropper base origin; +X toward board-arm base; +Z up; operator toward -Y",
+      "coordinate_profile": "front-negative-y-v1",
+      "dropping_pose": "Screenshot TCP [600,-150,600] mm; not a measured ball center or calibrated board gap",
+      "loading_pose": "Screenshot TCP [150,-600,200] mm; numerical ball-at-TCP proxy uncalibrated",
+      "suction_attachment": "provisional centered",
+      "suction_offset": "provisional100mm",
+      "support_stiffness_damping": "uncalibrated",
+      "table_placement": "Provisional expanded tabletop supporting front-side bucket layouts; unmeasured"
+    },
+    "model": "sircus_compliant_board_tapered_bucket_v2",
+    "pickup_mm": [
+      150.0,
+      -600.0,
+      200.0
+    ],
+    "robot14": {
+      "base_translation_mm": [
+        1337.31,
+        0.0,
+        0.0
+      ],
+      "base_yaw_deg": 180.0,
+      "board_mount_yaw_deg": 90.0,
+      "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+      "suction_offset_mm": 100.0,
+      "tool_dimensions_status": "provisional"
+    },
+    "roles": {
+      "board_robot_id": 14.0,
+      "drop_robot_id": 10.0
+    },
+    "scene_id": "sircus-front-negative-y-provisional-v1",
+    "simulation": {
+      "dt_s": 0.0005,
+      "duration_s": 3.0,
+      "frame_dt_s": 0.02,
+      "noise_gap_mm": 0.0,
+      "noise_xy_mm": 0.0
+    },
+    "table": {
+      "center_mm": [
+        668.655,
+        -300.0,
+        -5.0
+      ],
+      "contact_damping_s_m": 0.3,
+      "size_mm": [
+        1537.31,
+        1000.0,
+        40.0
+      ]
+    },
+    "units": "mm, degrees, kg, seconds"
+  },
+  "checkpoint_id": "8ca17aa286758350c0074bbb770f1225b239539f348743b82689b872b5d51716",
+  "contract": {
+    "action_bounds": [
+      [
+        -35.0,
+        35.0
+      ],
+      [
+        -55.0,
+        -8.0
+      ],
+      [
+        -70.0,
+        70.0
+      ],
+      [
+        -100.0,
+        100.0
+      ],
+      [
+        60.0,
+        280.0
+      ]
+    ],
+    "action_names": [
+      "roll_deg",
+      "pitch_deg",
+      "u_mm",
+      "v_mm",
+      "gap_mm"
+    ],
+    "actual_packages": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1"
+    },
+    "asset_sha256": "ce6eb1b75c4ee320bfeaa5cce1922a70c549a83904c5c1b76ef355d6d645b9d1",
+    "coordinates": {
+      "angle_units": "degrees",
+      "ball_to_tool": {
+        "rotation_matrix": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        "status": "provisional ball center at simulated gripper TCP; uncalibrated",
+        "translation_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+      "frame": "world; Z upward",
+      "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+      "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+      "height_units": "m",
+      "mass_units": "kg",
+      "position_units": "mm",
+      "tcp_world_rotation_matrix": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      ],
+      "time_units": "s",
+      "uv_definition": "board-local top-face U/V in mm; not world XY"
+    },
+    "dependency_pins": [
+      "viam-sdk==0.85.1",
+      "numpy==2.5.4",
+      "scipy==1.18.1"
+    ],
+    "distribution": {
+      "board_center_mm": [
+        [
+          570.0,
+          630.0
+        ],
+        [
+          -180.0,
+          -120.0
+        ],
+        [
+          330.0,
+          375.0
+        ]
+      ],
+      "bucket_absolute_y_mm": [
+        -600.0,
+        -150.0
+      ],
+      "bucket_relative_xy_mm": [
+        [
+          -120.0,
+          120.0
+        ],
+        [
+          -360.0,
+          -140.0
+        ]
+      ],
+      "scope": "front-bucket core; challenges extend beyond this trained layout distribution"
+    },
+    "observation_names": [
+      "board_x_mm",
+      "board_y_mm",
+      "board_z_mm",
+      "bucket_dx_mm",
+      "bucket_dy_mm"
+    ],
+    "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+    "profile": {
+      "coordinate_frame": {
+        "operator_y_approx_mm": -900.0,
+        "origin": "dropper arm base",
+        "positive_x": "toward arm14 base",
+        "positive_z": "up",
+        "user_bucket_y_interval_mm": [
+          -600.0,
+          -150.0
+        ]
+      },
+      "distribution": {
+        "board_center_mm": [
+          [
+            570.0,
+            630.0
+          ],
+          [
+            -180.0,
+            -120.0
+          ],
+          [
+            330.0,
+            375.0
+          ]
+        ],
+        "bucket_absolute_y_mm": [
+          -600.0,
+          -150.0
+        ],
+        "bucket_relative_xy_mm": [
+          [
+            -120.0,
+            120.0
+          ],
+          [
+            -360.0,
+            -140.0
+          ]
+        ],
+        "scope": "front-bucket core; challenges extend beyond this trained layout distribution"
+      },
+      "geometry_status": "provisional placements, orientations, tool and contact parameters",
+      "hardware_enabled": false,
+      "historical_profile_id": "historical-positive-y-v1",
+      "measured": {
+        "arm_spacing_mm": 1337.31,
+        "board_size_mm": [
+          200.0,
+          300.0,
+          5.0
+        ],
+        "bucket_inner_top_bottom_diameter_mm": [
+          177.0,
+          150.0
+        ],
+        "bucket_outer_top_bottom_diameter_mm": [
+          200.0,
+          158.0
+        ],
+        "bucket_reported_height_mm": 175.0
+      },
+      "native_paths_checked": false,
+      "profile_id": "front-negative-y-v1",
+      "screenshot_status": "user-reported TCP targets, not ball-center or calibrated task poses",
+      "screenshot_tcp_targets_mm": {
+        "dropping": [
+          600.0,
+          -150.0,
+          600.0
+        ],
+        "loading": [
+          150.0,
+          -600.0,
+          200.0
+        ]
+      },
+      "unresolved": [
+        "175 mm overall height versus interior depth",
+        "base spacing reference/full rigid transform",
+        "tool-to-board mount",
+        "ball center relative to gripper TCP",
+        "contact and compliance dynamics"
+      ]
+    },
+    "profile_id": "front-negative-y-v1",
+    "release_noise": {
+      "gap_mm": 3.0,
+      "xy_mm": 2.0
+    },
+    "schema": "sircus-front-learning-study-v1",
+    "scoring_version": "sircus-board-bounce-capture-1s-v1",
+    "settings": {
+      "bucket_projection_limit_mm": 2.0,
+      "bucket_restitution": 0.35,
+      "containment_roundoff_mm": 1e-06,
+      "dt_s": 0.00025,
+      "duration_s": 5.00025,
+      "entry_deadline_s": 4.0,
+      "launch_velocity_m_s": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "retention_s": 1.0
+    },
+    "source_sha256": {
+      "../simulation/requirements-viam.txt": "e2b071762ac3c62af5ec244f6003b7203fc363db052bcc1bd0902807e8b3c1ec",
+      "bucket_geometry.py": "2d0bf7ab34d89873e3666b5fd92dbee2a2321aa732108d177c67eb09a62ed53e",
+      "capture_scoring.py": "81229ea5959c247f61189e74d942a5e0ff1b40ec0dd9433b079dc5f1593e29a4",
+      "kinematics.py": "a176c952068cd6fa578ebf328287ea17d09856a807ac2e6ed76c18f5e8cdd05a",
+      "models/gripper-proxy.json": "903ed7cc84b28bd5f798180a8fd113c52d5eaa913a7627463a3d3598302dfb40",
+      "models/suction-proxy.json": "5caec3bfa639bd3733c4a83c89ee8b4dd60b527d8ff1a6e5a49c74bf84cd07a9",
+      "models/xarm850_kinematics.json": "78e0fdc383cf6e1e5b0f9d44fdf1205e4c08a37eb5c0c2182c9f74291c51d3c0",
+      "physics.py": "3a806df6a74038da7cb770b32403dfe0041b2788aa6116d59c61381b913fdd0f",
+      "shot_rollout.py": "88a5adb2838d00e1a97af221c06ba9e26e2224bc7172e4418840f51aedb05cb2",
+      "sircus/studies/front_study.py": "0f474f5afcca0b040aa4db1490f9057faebe57856c4041458aabd9df0666a43f",
+      "sircus/studies/profiles.py": "19922ac78c19b043de1b67f87a40c6e414d85e48f77638005d0ce3cdc53d265f",
+      "sircus/studies/run_front_study.py": "6cb4f81264c297482fb469c199a11df9e1184d23dea1ea968b5330d4e35df1fa",
+      "train_orientation_height.py": "f0757c4302420bbf0ea6a95d057055cffbfd4ac219f0c8154d330fcd237cc080",
+      "two_arm_kinematics.py": "7db3aaf7b3ef0f761724c29a7e4afe0905716522d6297e0c4cabb32273ba66d9"
+    }
+  },
+  "data_origin": "synthetic",
+  "inference": "frozen polynomial ridge matrix prediction; no per-scene optimizer",
+  "model": {
+    "alpha": 100.0,
+    "degree": 2,
+    "kind": "polynomial_ridge",
+    "mean": [
+      605.6092256926366,
+      -151.36785551305562,
+      350.3795586200081,
+      43.48489852799212,
+      -235.80410737146084
+    ],
+    "scale": [
+      15.237109712967326,
+      16.5300296939024,
+      13.509856682909732,
+      68.01616846484217,
+      58.906499865772844
+    ],
+    "weights": [
+      [
+        0.1558964654015545,
+        0.15037332887233293,
+        -0.03313301784933868,
+        -0.010131758230968253,
+        0.21251820737867422
+      ],
+      [
+        -0.01120328220934907,
+        0.0034958587843011858,
+        -0.003955908912635701,
+        -0.0006967702203156456,
+        0.0017650156491580099
+      ],
+      [
+        -0.005441178635562744,
+        -0.005316362162223702,
+        -0.008837745482535922,
+        -0.0013934721216360422,
+        0.012024438443783087
+      ],
+      [
+        -0.0027796630382624183,
+        -0.011232555762598854,
+        0.0007709957843813285,
+        0.0061439491252798396,
+        -0.012270577723578731
+      ],
+      [
+        0.03536478711062682,
+        0.010759250511793017,
+        0.002006103996933378,
+        0.0020854693288852436,
+        0.0161117063490809
+      ],
+      [
+        0.003160600162196012,
+        0.010846767978898664,
+        0.011305039525448892,
+        0.004006012232960491,
+        -0.04781380939943578
+      ],
+      [
+        0.003970713608698987,
+        -0.0036414715024970755,
+        -0.011137443822642156,
+        -0.005440354061279931,
+        0.008698596814544534
+      ],
+      [
+        0.0030450256206151047,
+        0.0019241287691798613,
+        -0.00035001561663108985,
+        -0.00021586741194968577,
+        -0.0038710331840910734
+      ],
+      [
+        -0.011955525617607196,
+        0.01834320444456903,
+        0.0007364945966719356,
+        -0.007232410217638748,
+        -0.014886983619186014
+      ],
+      [
+        0.004608767378476339,
+        0.014168892533654989,
+        0.0015560979374545153,
+        0.00024231630066735556,
+        -0.0003365880772104552
+      ],
+      [
+        1.5096600009797105e-05,
+        0.0043812454494921525,
+        0.0041266020990283,
+        -6.488016736991474e-05,
+        -0.0024066520733912475
+      ],
+      [
+        -0.002939266910481111,
+        0.005208329647198499,
+        0.0008273861593868293,
+        -0.00024333598076151027,
+        -0.014074690775464513
+      ],
+      [
+        -0.0057030905104118144,
+        0.027813720114781094,
+        -6.072000082678445e-05,
+        0.004919626641905703,
+        0.007022945896359057
+      ],
+      [
+        0.005573314322646201,
+        0.021385082963580312,
+        0.004362284928660856,
+        0.0036138264472229606,
+        -0.01066195862331758
+      ],
+      [
+        0.003414745448730619,
+        0.005551511179651122,
+        0.007753019706873702,
+        0.0011191617263005616,
+        0.005349828806920491
+      ],
+      [
+        0.012740139405389588,
+        -0.02440412880335116,
+        -0.0007508383528529305,
+        0.005501842938331303,
+        -0.005129302999397084
+      ],
+      [
+        0.0069680856160246885,
+        0.014297865736644126,
+        -0.0022128473618741257,
+        0.0005190451459654059,
+        -0.006493854104005678
+      ],
+      [
+        -0.0053705084544373345,
+        -0.0050250081253422445,
+        -0.0005547272758737429,
+        -0.006279816868529936,
+        0.015153152040556785
+      ],
+      [
+        -0.0325183266844232,
+        -0.006637231467554853,
+        -0.002903286782131586,
+        -0.0018132526310831243,
+        0.017614115018216275
+      ],
+      [
+        0.004852673339255796,
+        0.003375484157732415,
+        -0.002945828328881647,
+        -0.002935398424532548,
+        0.008236571444961914
+      ],
+      [
+        -0.006454386067568099,
+        -0.0208040371204847,
+        -0.0039775390846143125,
+        -0.0028220446565570432,
+        -0.00676483137343621
+      ]
+    ]
+  },
+  "native_paths_checked": false,
+  "physically_verified": false,
+  "profile_id": "front-negative-y-v1",
+  "schema": "sircus-front-scene-ridge-v1",
+  "split_layouts": {
+    "test": [
+      {
+        "layout_sha256": "4db3b1e11544778c48e0bce43c7bc2aa922de818293d2ecc78c0e7e584a1ea65",
+        "scene_id": "test-0000-4db3b1e11544"
+      },
+      {
+        "layout_sha256": "761c8a39f5b00b5f2094d4d4831c13b0a5940959989b636b5553df393c2214b7",
+        "scene_id": "test-0001-761c8a39f5b0"
+      },
+      {
+        "layout_sha256": "daf4a8f5f1f1edc6a77cffb1ccf84e9933822897624e15781a190cc4247b113d",
+        "scene_id": "test-0002-daf4a8f5f1f1"
+      },
+      {
+        "layout_sha256": "f65db91f8505837d72857f881cc4ecd4d716e621e9716d71be47428dc55420d0",
+        "scene_id": "test-0003-f65db91f8505"
+      },
+      {
+        "layout_sha256": "3e3d58f13492c9d67c634811d0303426a687294abc05bc66c554e591eaeb4cde",
+        "scene_id": "test-0004-3e3d58f13492"
+      },
+      {
+        "layout_sha256": "4e582adce094f6b1b25a37635c20643802a2698dcfc45d3b45b769a96bdc1a07",
+        "scene_id": "test-0005-4e582adce094"
+      },
+      {
+        "layout_sha256": "44623d892fad48862a22acda543ccdc5b6997d845770c8d3587784ada58dab88",
+        "scene_id": "test-0006-44623d892fad"
+      },
+      {
+        "layout_sha256": "c3a67d54500b0575e8292dceeef1c05f7090ced168223993b218f34c15e5a955",
+        "scene_id": "test-0007-c3a67d54500b"
+      }
+    ],
+    "train": [
+      {
+        "layout_sha256": "b7619ed65c6249a0acf8bc8e36310025bc09c03a7d681249399a5f75928aff18",
+        "scene_id": "train-0000-b7619ed65c62"
+      },
+      {
+        "layout_sha256": "e268d9904365b409d0e3ab131e88c5a80065324172dabb487d7cebfb40220768",
+        "scene_id": "train-0001-e268d9904365"
+      },
+      {
+        "layout_sha256": "33ccdaeb4c41a6613a4408d4951367ea50f3f61db4ee7093228ea2eb5d023533",
+        "scene_id": "train-0002-33ccdaeb4c41"
+      },
+      {
+        "layout_sha256": "e4d0063247fd2a7edd3df8efbc30e4f0841f4acd917643600f411a69d15cee9b",
+        "scene_id": "train-0003-e4d0063247fd"
+      },
+      {
+        "layout_sha256": "4c5d3fac4a2f12cdda876e6e4644407955695e2adbf7cc3722e85ee6e6910f1f",
+        "scene_id": "train-0004-4c5d3fac4a2f"
+      },
+      {
+        "layout_sha256": "3fbd9d50cb15c33ff75406412cecd6fa0292129c2a72ee2ef23410d16650eefc",
+        "scene_id": "train-0005-3fbd9d50cb15"
+      },
+      {
+        "layout_sha256": "9909e8344b3a14cb9a98d3c03abd36d2533e83755c1c741d3a91af5efa277fac",
+        "scene_id": "train-0006-9909e8344b3a"
+      },
+      {
+        "layout_sha256": "88b478e8459f412756518c7d86d8387e42354057bd986791c1eb7a37a747e0bf",
+        "scene_id": "train-0007-88b478e8459f"
+      },
+      {
+        "layout_sha256": "cf7ee450b1b9cbfee490177cfd6d19bb0ec2094372e3fe8e5c126a867a38841b",
+        "scene_id": "train-0008-cf7ee450b1b9"
+      },
+      {
+        "layout_sha256": "af8be1a9b9abed05aac77e2fbc54f7269e8bbf95564beb411e64ad51c45bdb5b",
+        "scene_id": "train-0009-af8be1a9b9ab"
+      },
+      {
+        "layout_sha256": "2051731479f515d199694aae6940e4d03bb1b923df3f1b4fd51a0e0ef97342d8",
+        "scene_id": "train-0010-2051731479f5"
+      },
+      {
+        "layout_sha256": "3649bac66a50d2e9a26fc5a4bbd6f077467f1a8962150b9f67e41dc72f0b1173",
+        "scene_id": "train-0011-3649bac66a50"
+      },
+      {
+        "layout_sha256": "5d20ca4b22f2beffec8a41fa8390694144a371563c960dab961e2f6e2d9a6805",
+        "scene_id": "train-0012-5d20ca4b22f2"
+      },
+      {
+        "layout_sha256": "2739d0baa4118976dac4dedeb43327a877f62f6f43674ae4ed7c0f9d47836af6",
+        "scene_id": "train-0013-2739d0baa411"
+      },
+      {
+        "layout_sha256": "b441010e04ab11da16c86da78c135fbadd0bbd597bb7b4b4382796437d7a7873",
+        "scene_id": "train-0014-b441010e04ab"
+      },
+      {
+        "layout_sha256": "26792fc3f91f0f778c2666974cdd6ad7a3e78f1789fad326c6c8bc037f1c9e77",
+        "scene_id": "train-0015-26792fc3f91f"
+      },
+      {
+        "layout_sha256": "e2dc760357a63921c70a2bd0dfde72a8a5a135400dae4f4469f280859053029d",
+        "scene_id": "train-0016-e2dc760357a6"
+      },
+      {
+        "layout_sha256": "1edb544d60cdc7182907ddbea48b9a31562c0c732d0555badc3bb9b72c5e4532",
+        "scene_id": "train-0017-1edb544d60cd"
+      },
+      {
+        "layout_sha256": "24cef252faafb97d220c9c639302d3a9c6898c856d2ed1d2bf2ddc44b06fe6dc",
+        "scene_id": "train-0018-24cef252faaf"
+      },
+      {
+        "layout_sha256": "5a8b216ccf0ce98cd2e779b8076248c23789fbc4e5ce9a45683994d644c563e8",
+        "scene_id": "train-0019-5a8b216ccf0c"
+      },
+      {
+        "layout_sha256": "4bed006e0b3f9499e73b43c15ddcba81ac7cff1ca92c3f581e4e65a6bc8a0191",
+        "scene_id": "train-0020-4bed006e0b3f"
+      },
+      {
+        "layout_sha256": "883d1872504f40af1bc0866db39213d3e82999a8c7777ac05f43a2b4ec4052ae",
+        "scene_id": "train-0021-883d1872504f"
+      },
+      {
+        "layout_sha256": "333a3b9532f489dd2968bc6e81cc4eb7b2e201dc1efdffeb03be235b24d68afa",
+        "scene_id": "train-0022-333a3b9532f4"
+      },
+      {
+        "layout_sha256": "79a2b96ee628602ae348c55059d27d68d9c9e0a46737c31e1e03af3de0b3afc9",
+        "scene_id": "train-0023-79a2b96ee628"
+      }
+    ],
+    "validation": [
+      {
+        "layout_sha256": "80ee2c5ba981b875c388019b666b962f50e74fce45b0b8fe2c37c36d3fc5d59b",
+        "scene_id": "validation-0000-80ee2c5ba981"
+      },
+      {
+        "layout_sha256": "85db4792ec435bbc844c8b450b7d0cb3318444e892d3c0a92a90537aae794228",
+        "scene_id": "validation-0001-85db4792ec43"
+      },
+      {
+        "layout_sha256": "2fc98555875a773ac2bbe7df94d75faaab5997cdc9243970ae89990a51e00c3f",
+        "scene_id": "validation-0002-2fc98555875a"
+      },
+      {
+        "layout_sha256": "d765e2b589bcefc0dc2d6db6111448a57847256ee9cfb5c03b93a560e75e981a",
+        "scene_id": "validation-0003-d765e2b589bc"
+      },
+      {
+        "layout_sha256": "6b8984f47272223b64ddee20908622b1ea8811e79b0ab8a482ac357474316e26",
+        "scene_id": "validation-0004-6b8984f47272"
+      },
+      {
+        "layout_sha256": "a5cf2734424f478b178d671c7515d01a23a02521c5627ca223653841fdc22463",
+        "scene_id": "validation-0005-a5cf2734424f"
+      }
+    ]
+  },
+  "split_manifest_sha256": "0892a9a3d8a442800d3643aea3d0727b68f82f39b2b545faadb3e5b53e641519",
+  "training_scene_ids": [
+    "train-0000-b7619ed65c62",
+    "train-0001-e268d9904365",
+    "train-0002-33ccdaeb4c41",
+    "train-0003-e4d0063247fd",
+    "train-0004-4c5d3fac4a2f",
+    "train-0005-3fbd9d50cb15",
+    "train-0006-9909e8344b3a",
+    "train-0007-88b478e8459f",
+    "train-0008-cf7ee450b1b9",
+    "train-0009-af8be1a9b9ab",
+    "train-0010-2051731479f5",
+    "train-0011-3649bac66a50",
+    "train-0012-5d20ca4b22f2",
+    "train-0013-2739d0baa411",
+    "train-0014-b441010e04ab",
+    "train-0015-26792fc3f91f",
+    "train-0016-e2dc760357a6",
+    "train-0017-1edb544d60cd",
+    "train-0018-24cef252faaf",
+    "train-0019-5a8b216ccf0c",
+    "train-0020-4bed006e0b3f",
+    "train-0021-883d1872504f",
+    "train-0022-333a3b9532f4",
+    "train-0023-79a2b96ee628"
+  ],
+  "validation_selection": {
+    "candidates": [
+      {
+        "degree": 1,
+        "regularization": 0.1
+      },
+      {
+        "degree": 2,
+        "regularization": 1.0
+      },
+      {
+        "degree": 2,
+        "regularization": 100.0
+      }
+    ],
+    "degree": 2,
+    "regularization": 100.0,
+    "selection": "capture count then total shaping on validation only",
+    "test_used_for_selection": false,
+    "validation_summary": {
+      "captures": 3,
+      "ci95": [
+        0.1876163064826506,
+        0.8123836935173494
+      ],
+      "ci95_method": "Wilson interval over independent sampled layouts",
+      "endpoint_infeasible": 0,
+      "episodes": 6,
+      "native_paths_checked": false,
+      "outcomes": {
+        "captured": 3,
+        "no_entry": 3
+      },
+      "physically_verified": false,
+      "success_fraction": 0.5
+    }
+  }
+}
