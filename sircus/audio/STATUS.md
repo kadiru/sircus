@@ -58,3 +58,29 @@ selected ball's tap mapping and audible output at a comfortable level. Only afte
 that should a separately reviewed dashboard observer publish real lifecycle events.
 See README.md, EVENT_CONTRACT.md and MACBOOK_INTEGRATION.md. Preserve the earlier
 ODD duo and all existing robot/simulation/physical-trial work.
+
+## Publication checkpoint — October 30, 2026
+
+Fetched origin and inspected the clean checkout and existing draft PR #1. The
+active branch remains `codex/mac-mini-oddball-sfx`, previously published at
+`a1bfe3537536ec65f959ef0e7add7ab10761220c`. Fetched main is
+`26ca998f3e93b3dbfa795e5db354d4c07985d703`, already an ancestor of the audio branch;
+there are no newer main changes to merge and no unrelated uncommitted source to
+stash or move. Ignored local profiles/runtime and archived personal projects are
+preserved. The latest shareable audio implementation was already pushed; this
+checkpoint records the standing synchronization policy and integration review.
+
+Fresh, silent checks: all 144 Python unittests and the orientation/height
+synthetic contract smoke passed using the repository Python 3.12 environment.
+The nonblocking client, Scripter mocks, generated preview with fake Web Audio,
+and JavaScript syntax checks passed. Native Swift compiled into a temporary
+directory without executing it or replacing the runtime binary. The tracked
+file/credential scan passed for all 187 files. The preview test requires a generated HTML
+fixture; an initial invocation omitted it, then the documented fixture-based
+check passed. No audio service was started/restarted, no playback was enabled,
+and no hardware, BLE, Logic or cross-host acceptance test was performed.
+
+MacBook Codex remains the integration owner. The PR must stay draft for the
+listening, real ODD/BLE, current native/Logic route and cross-computer checks
+listed in MACBOOK_INTEGRATION.md. No dashboard/controller observer, Viam change,
+physical deployment or robot command is part of this synchronization.
