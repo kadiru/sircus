@@ -134,3 +134,12 @@ test('an immediate successful Stop with a new action epoch invalidates both pick
  h.panel.physicalStatus(pickupState({action_epoch:11,action_token:'same-session',busy:false,phase:'idle',fault:false,error:null}));
  assert.equal(h.nodes.pickupSetupConfirm.checked,false);assert.equal(h.nodes.pickupFixedConfirm.checked,false);assert.equal(h.nodes.pickupCycle.disabled,true);assert.equal(h.commands.length,0);
 });
+
+ test('camera-off pickup is explicitly selected and requires unlabeled practice',async()=>{
+ const h=pickupHarness();h.panel.selectLoadMode('pickup');assert.equal(h.nodes.pickupNoCamera.checked,false);
+ h.nodes.pickupSetupConfirm.checked=true;h.nodes.pickupFixedConfirm.checked=true;h.nodes.pickupNoCamera.checked=true;
+ assert.equal(await h.panel.pickupCommand('pickup_drop_cycle'),false);
+ h.nodes.pickupPractice.checked=true;assert.equal(await h.panel.pickupCommand('pickup_drop_cycle'),true);
+ assert.equal(h.commands[0][1].recording_mode,'operator_log_only');
+ const html=await readFile(new URL('../web/show.html',import.meta.url),'utf8');assert.match(html,/id="pickupNoCamera" type="checkbox">No-camera/);
+ });
