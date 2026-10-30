@@ -6,3 +6,5 @@
 .profile-label{display:block;margin-top:18px}.profile-note{font-size:9px;line-height:1.6;color:var(--soft);margin:6px 0 12px}
 
 .deployment-blockers{white-space:pre-line;line-height:1.8;font-size:11px}.deployment>p:first-of-type{font-weight:650;color:#b25b40}
+
+.embedded-workspace .topbar,.embedded-workspace footer{display:none}.embedded-workspace .layout{padding:26px;gap:26px}.embedded-workspace .tabs{padding:0 26px}.embedded-workspace .intro{display:none}.embedded-workspace .stage{height:460px}.embedded-workspace .controls{padding-left:25px}@media(max-width:760px){.embedded-workspace .layout{padding:18px}.embedded-workspace .controls{padding-left:0}.embedded-workspace .stage{height:360px}}

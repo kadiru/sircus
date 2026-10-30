@@ -1,0 +1,7 @@
+# ODD MIDI evidence
+
+Manufacturer [MIDI page](https://oddballism.com/pages/midi) and its linked [reference v1.3.0](https://docs.google.com/document/d/14L2wokwEkl3OIqeRpiXxA0IOLzT7xJSZx7kKNLflzVw/edit) were read for this build. The reference documents channel 1: tap/bounce note 1, shake note 2, twist note 3; velocity indicates strength. It describes off-before-retrigger and an automatic off after two seconds. Documented CCs are movement 0, spin 1, free fall 2 and orientation 3/4/5. These are processed MIDI gestures, not exposed raw IMU samples.
+
+The separate existing `odd-balls-music` project's evidence records a real user's tap as note **0**, channel **1**, and version differences in orientation CC assignments. This subsystem defaults to that prior local note-0 observation, with a prominent configurable mapping. **It is not a fresh observation of this selected ball.** Monitor the actual notes, channels, velocities and CCs before enabling real impacts. No shake/twist/CC mapping is assumed here. No firmware was flashed or security settings changed.
+
+CoreMIDI inspection enumerates unique input IDs; duplicate display names do not identify physical balls. A present/online endpoint and subscription alone do not prove the BLE radio or ball is awake. The output is a separate virtual source, `Sircus FX`, channel 16. Raw input data is never echoed. Connection changes mute; reenabling is explicit.

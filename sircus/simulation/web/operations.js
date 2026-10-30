@@ -135,7 +135,8 @@ export async function createViewer(document,options={}){
 }
 function downloadJSON(name,value){const url=URL.createObjectURL(new Blob([JSON.stringify(value,null,2)+'\n'],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 if(typeof window!=='undefined'&&typeof document!=='undefined'&&document.getElementById('operationsScene')){
+  const embedded=new URLSearchParams(window.location.search).get('embed');if(['simulator','trained'].includes(embedded))document.body.classList.add('embedded-workspace');
   let viewer;const panel=new OperationsPanel({document,onScene:s=>viewer?.draw(s),onReplay:(value,state)=>viewer?.replay(value,state),onPause:()=>viewer?.pause(),download:downloadJSON});
   createViewer(document).then(value=>{viewer=value;if(panel.state)viewer.draw(panel.state);}).catch(()=>{document.getElementById('viewerError').hidden=false;});
-  void panel.refresh();void panel.refreshDeployment();const timer=setInterval(()=>void panel.refresh(),1200);window.addEventListener('pagehide',()=>clearInterval(timer),{once:true});
+  void panel.refresh().then(()=>{if(embedded==='trained'){document.getElementById('planMode').value='learned_board';panel.strategyChanged=panel.state?.plan?.mode!=='learned_board';panel.renderStrategy();panel.render();}});void panel.refreshDeployment();const timer=setInterval(()=>void panel.refresh(),1200);window.addEventListener('pagehide',()=>clearInterval(timer),{once:true});
 }

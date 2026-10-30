@@ -69,8 +69,14 @@ class TrialError(ValueError):
 
 
 class Controller:
-    def __init__(self, adapter, root, mode='dry_run'):
+    def __init__(self, adapter, root, mode='dry_run', audio=None):
         self.adapter, self.root, self.mode = adapter, Path(root), mode
+        # Optional observer only. Its bounded enqueue methods never await a
+        # network response, and no audio state participates in robot guards.
+        self.audio = audio
+        self.audio_clock_id = 'sircus-dashboard-' + uuid.uuid4().hex
+        self.audio_observer_errors = 0
+        self.selected_ball_id = None
         self.root.mkdir(parents=True, exist_ok=True)
         self.config_path = self.root / 'calibration.json'
         self.calibration = json.loads(self.config_path.read_text()) if self.config_path.exists() else {}
@@ -122,6 +128,7 @@ class Controller:
 
     async def close(self):
         # Application shutdown is not a physical command. Operators must Stop first.
+        self._audio_cancel()
         for task in (self.poll_task, self.task):
             if task and not task.done():
                 task.cancel()
@@ -253,13 +260,14 @@ class Controller:
         allowed = ['stop']
         fresh = self.connected and time.monotonic() - self.snapshot_time <= FRESH_SECONDS
         if not busy:
+            if not self._unsaved():allowed += ['set_ball']
             if self._unsaved():
                 if self.phase == 'ready' and not self._drop_blockers():
                     allowed += ['drop']
                 if self.phase == 'awaiting_outcome':
                     allowed += ['save_trial', 'keep_unlabeled']
             elif fresh and not self.fault:
-                allowed += ['teach_loading', 'teach_drop', 'configure']
+                allowed += ['teach_loading', 'teach_drop', 'configure', 'configure_poses']
                 if not any(a['is_moving'] for a in self.robot['arms'].values()):
                     allowed += ['open_gripper', 'close_gripper']
                     if not self.fixed_cycle_missing():
@@ -284,7 +292,7 @@ class Controller:
             'fixed_cycle_missing': self.fixed_cycle_missing(),
             'loading_seconds_remaining': max(0, math.ceil(self.loading_deadline - time.monotonic())) if self.loading_deadline else None,
             'blockers': self._drop_blockers() if self.phase == 'ready' else [],
-            'capabilities': self.capabilities, 'gripper_closed_commanded': self.gripper_closed,
+            'capabilities': self.capabilities, 'selected_ball_id':self.selected_ball_id, 'gripper_closed_commanded': self.gripper_closed,
             'gripper_command_state': self.gripper_command_state,
             'gripper_state_provenance': 'Last acknowledged panel command; not jaw-position sensing or external-controller tracking'})
 
@@ -298,6 +306,16 @@ class Controller:
             return {'accepted': True, **await self.status()}
         if name not in (await self.status())['allowed_actions']:
             raise TrialError('Action unavailable: another action/trial is pending, state is stale, or calibration is missing')
+        if name == 'set_ball':
+            from sircus.audio.show import BALL_IDS
+            if payload.get('ball_id') not in BALL_IDS:raise TrialError('Choose one of the four configured ball slots')
+        if name == 'configure_poses':
+            if payload.get('confirmed') is not True:raise TrialError('Confirm these operator-configured TCP targets and the fixed clear route')
+            for field in ('loading_pose','drop_pose'):
+                pose=payload.get(field)
+                if not isinstance(pose,dict) or set(pose)!={'x','y','z','o_x','o_y','o_z','theta'}:raise TrialError('Complete Viam TCP pose fields required')
+                if any(abs(number(pose[k],field+'.'+k))>2000 for k in ('x','y','z')) or pose['z']<0:raise TrialError('TCP target outside configuration bounds')
+                if not pose_matches(pose,pose):raise TrialError('Invalid TCP orientation')
         if name == 'go_drop':
             self._height(payload.get('height_mm'))
         if name == 'load_drop_cycle' and payload.get('fixed_setup_confirmed') is not True:
@@ -322,7 +340,7 @@ class Controller:
             write_json(self.root / 'trials' / self.trial['id'] / 'trial.json', self.trial)
 
     def _event(self, command, event, **extra):
-        entry = {'command': command, 'event': event, 'timestamp': utc(),
+        entry = {'event_id': uuid.uuid4().hex, 'command': command, 'event': event, 'timestamp': utc(),
                  'monotonic': time.monotonic(), 'trial_id':self.trial['id'] if self._unsaved() else None, **extra}
         self.audit.append(entry)
         self.audit = self.audit[-100:]
@@ -331,6 +349,61 @@ class Controller:
         if self._unsaved():
             self.trial['events'].append(entry)
             self._persist()
+        self._audio_lifecycle(entry)
+
+    def _audio_lifecycle(self, entry):
+        """Observe explicit operator-requested stages, not inferred contacts.
+
+        Use the persisted audit ID/time verbatim. A release cue means the open
+        command was sent, not that separation, impact or capture was observed.
+        Dry-run actions are deliberately silent rather than labelled physical.
+        """
+        if self.audio is None or self.mode != 'hardware' or not entry.get('trial_id'):
+            return
+        kinds = {('close_gripper', 'command_sent'): 'pickup',
+                 ('load_drop_cycle', 'move_drop_sent'): 'carry_start',
+                 ('drop', 'pre_release'): 'carry_stop',
+                 ('go_drop', 'requested'): 'carry_start',
+                 ('drop', 'command_sent'): 'release'}
+        kind = kinds.get((entry['command'], entry['event']))
+        if kind is None:
+            return
+        try:
+            from sircus.audio.contract import AudioEvent
+            cue = AudioEvent(event_id=entry['event_id'], trial_id=entry['trial_id'],
+                source='operator', event_type=kind, contact_object='unknown',
+                timestamp=datetime.fromisoformat(entry['timestamp']).timestamp(),
+                time_basis='unix_s', clock_id=self.audio_clock_id,
+                evidence='operator_action', ball_id=self.trial.get('ball_id'),
+                provenance=f"Operator-requested controller stage {entry['command']}/{entry['event']}; command timing only, not pickup, ball separation, impact or outcome detection")
+            self.audio.emit(cue.to_dict())
+        except Exception:
+            self.audio_observer_errors += 1
+
+    def _audio_outcome(self):
+        if self.audio is None or self.mode != 'hardware':
+            return
+        try:
+            from sircus.audio.sources import operator_outcome
+            from dataclasses import replace
+            cue = replace(operator_outcome(self.trial),ball_id=self.trial.get('ball_id'))
+            if cue.confirmed and cue.outcome in ('captured', 'missed'):
+                self.audio.emit(cue.to_dict())
+        except Exception:
+            self.audio_observer_errors += 1
+
+    def _audio_cancel(self, replacement=False):
+        if (replacement and self.trial is not None and self.trial.get('status') == 'completed'
+                and self.trial.get('ball_id') and self.selected_ball_id
+                and self.trial['ball_id'] != self.selected_ball_id):
+            # A completed released ball can still bounce while the next ball loads.
+            # Its explicit identity/window is retained; aborted/replaced shots are cancelled.
+            return
+        if self.audio is not None and self.trial is not None:
+            try:
+                self.audio.stop(self.trial['id'])
+            except Exception:
+                self.audio_observer_errors += 1
 
     async def _settle(self, target=None, board_guard=True, stable_seconds=None):
         stable_seconds = SETTLE_SECONDS if stable_seconds is None else stable_seconds
@@ -409,6 +482,7 @@ class Controller:
         self.trial['measured_release_state_before'] = measured
         self.trial['status'] = 'releasing'
         still_current()
+        self._event('drop', 'pre_release')
         self._event('drop', 'command_sent')
         await self._command_gripper(True, still_current)
         self._event('drop', 'command_returned')
@@ -430,7 +504,19 @@ class Controller:
                 raise asyncio.CancelledError()
         try:
             still_current()
-            if name in ('teach_loading', 'teach_drop'):
+            if name == 'set_ball':
+                self.selected_ball_id = p['ball_id']
+                self.phase = 'idle' if self.connected else 'disconnected'
+            elif name == 'configure_poses':
+                state = await self._snapshot()
+                self._stationary(state);still_current()
+                c=copy.deepcopy(self.calibration)
+                c.update(loading_pose=copy.deepcopy(p['loading_pose']),drop_pose=copy.deepcopy(p['drop_pose']),
+                         board_joints=copy.deepcopy(state['arms']['arm-board']['joints']),confirmed=False,
+                         pose_source='operator_configured_tcp_targets',configured_at=utc(),
+                         pose_validation='Operator assertion of fixed clear route; not measured calibration or native path validation')
+                self.calibration=c;write_json(self.config_path,c);self.phase='idle'
+            elif name in ('teach_loading', 'teach_drop'):
                 state = await self._settle(board_guard=False)
                 still_current()
                 pose = copy.deepcopy(state['arms']['arm']['pose'])
@@ -485,8 +571,9 @@ class Controller:
                 target = copy.deepcopy(self.calibration['drop_pose'])
                 target['z'] = self.calibration['reference_z_mm'] + height
                 trial_id = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ') + '-' + uuid.uuid4().hex[:8]
+                self._audio_cancel(replacement=True)  # Keep only a different completed ball within its sound window.
                 self.trial = {'schema':'sircus-physical-trial-v1', 'id':trial_id, 'machine':'sfhack10',
-                    'mode':self.mode, 'status':'positioning', 'created_at':utc(), 'saved':False,
+                    'mode':self.mode, 'status':'positioning', 'created_at':utc(), 'saved':False, 'ball_id':self.selected_ball_id,
                     'requested_height_mm':height, 'height_mm':height, 'target_pose':target,
                     'calibration':copy.deepcopy(self.calibration), 'calibration_sha256':hashlib.sha256(
                         json.dumps(self.calibration,sort_keys=True).encode()).hexdigest(), 'events':[],
@@ -516,6 +603,7 @@ class Controller:
                     notes=str(p.get('notes','')), annotated_at=utc(), saved=True, saved_at=utc(),
                     cloud={'state':'pending'})
                 self._persist()
+                self._audio_outcome()  # Saved human label; cloud/audio readiness never gates it.
                 try:
                     self.trial['cloud'] = await self.adapter.save_trial(self.root/'trials'/self.trial['id'],self.trial)
                 except Exception as exc:
@@ -526,10 +614,12 @@ class Controller:
                 raise asyncio.CancelledError()
             self._event(name, 'action_completed')
         except asyncio.CancelledError:
+            self._audio_cancel()
             raise
         except Exception as exc:
             if generation != self.generation:
                 return
+            self._audio_cancel()
             self.error = str(exc) if isinstance(exc, TrialError) else f'{name} failed ({type(exc).__name__}); check hardware/connection'
             if name in ('go_loading','go_drop','drop','load_drop_cycle'):
                 try:
@@ -567,9 +657,10 @@ class Controller:
         still_current()
         config = copy.deepcopy(self.calibration)
         trial_id = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ') + '-' + uuid.uuid4().hex[:8]
+        self._audio_cancel(replacement=True)
         self.trial = {'schema': 'sircus-physical-trial-v1', 'id': trial_id,
             'machine': 'sfhack10', 'mode': self.mode, 'behavior': 'fixed_pose_cycle',
-            'status': 'positioning', 'created_at': utc(), 'saved': False,
+            'status': 'positioning', 'created_at': utc(), 'saved': False, 'ball_id':self.selected_ball_id,
             'requested_height_mm': None, 'height_mm': None,
             'height_status': 'unknown; exact taught flange pose, no height adjustment',
             'target_pose': config['drop_pose'], 'loading_pose': config['loading_pose'],
@@ -626,6 +717,7 @@ class Controller:
         self._event('load_drop_cycle', 'move_drop_sent')
         await self.adapter.move_pose(config['drop_pose'])
         still_current()
+        self._event('load_drop_cycle', 'move_drop_returned')
         self.trial['status'] = 'ready'
         self.phase = 'cycle_release_checks'
         await self._release_current(still_current)
@@ -643,6 +735,7 @@ class Controller:
         if active and not active.done():
             active.cancel()
         self.phase = 'stopping'
+        self._audio_cancel()  # Enqueue only; robot Stop below never awaits audio.
         self._event('stop', 'requested')
         try:
             # Independent of the busy action. Never stop_all(), gripper.open() or vacuum commands.
