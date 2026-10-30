@@ -93,11 +93,14 @@ Run `scripts/test.sh` using the pinned Python 3.12 environment and Node 22+.
 Tests use in-memory adapters, mocked audio, and isolated test processes. No
 native audio backend, physical ODD/BLE, Logic, Viam service or robot is required.
 
-The checkpoint passed 192 Python tests, three Node suites, Scripter assertions
-and the orientation contract checks. A disposable loopback fake verifies the
+The corrected combined checkpoint passed 220 Python tests, all audio/study Node
+suites, Scripter assertions and the orientation contract checks. A disposable loopback fake verifies the
 real Python→Node→provided-client transport, event evidence, duplicates, retirement
 and mute. Browser QA verified default OFF, status, enable, volume and OFF with
-that fake; its final state was muted. No actual service or robot was contacted.
+that fake; its final state was muted. The later status corrections also passed
+worker, Python, browser-state and real IPC regressions for Mini OFF/ON changes.
+The saved study checkpoint reproduced numerically without changing source
+fingerprints or replay guards. No actual service or robot was contacted.
 
 Before cross-computer testing, coordinate the Mini's actual private interface,
 audio-only token provisioning, listener ownership, and a deliberate FX-off

@@ -1,9 +1,11 @@
 /** Optional server-side audio observer. Never await a cue on a robot control path. */
 import {randomUUID} from 'node:crypto';
+import {FXControls} from './fx-controls.mjs';
 export class SircusAudio {
   constructor({baseURL,token,fetchImpl=fetch,onError=()=>{},maxQueue=32,timeoutMs=350}) {
     this.baseURL=baseURL.replace(/\/$/,'');this.token=token;this.fetch=fetchImpl;this.onError=onError;
     this.maxQueue=maxQueue;this.timeoutMs=timeoutMs;this.queue=[];this.running=false;this.active=new Set();this.generation=0;
+    this.controls=new FXControls({request:(path,body)=>this.request(path,body),clientId:randomUUID()});
   }
   report(error){try{this.onError(error);}catch{/* Audio diagnostics must not break the producer. */}}
   async request(path,body){
@@ -14,9 +16,10 @@ export class SircusAudio {
       const result=await response.json();if(result.accepted===false)throw new Error('Audio cue rejected: '+result.reason);return result;
     } finally {clearTimeout(timer);this.active.delete(controller);}
   }
-  cancel(){this.generation++;this.queue=[];for(const request of this.active)request.abort();}
+  cancel(){this.controls.invalidate();this.generation++;this.queue=[];for(const request of this.active)request.abort();}
   // Operator/UI controls may await their own response; cue producers never do.
-  setFX(enabled){if(!enabled)this.cancel();return this.request('fx',{enabled});}
+  setFX(enabled){if(!enabled)this.cancel();return this.controls.setFX(enabled);}
+  panic(){this.cancel();return this.controls.panic();}
   stop(trialId){this.cancel();return this.request('stop',trialId?{trial_id:trialId}:{});}
   setVolume(volume){return this.request('volume',{volume});}
   status(){return this.request('status');}

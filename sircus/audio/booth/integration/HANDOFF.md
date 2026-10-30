@@ -63,3 +63,28 @@ Keep one active domain; replay blocks live input until Return to live ball.
 Status polling and pending/error indicators are audio UI concerns. No audio
 request, readiness check or callback should gate arm motion, release or robot
 emergency stop. Add any actual dashboard observer in a separately reviewed change.
+
+
+## Ordered FX controls (source checkpoint)
+
+The panel and provided `SircusAudio` client share `fx-controls.mjs`. Each panel/client
+session has a fresh identity; its FX/Panic intents carry increasing `control_sequence`.
+ON first reads `control_epoch` from status and includes it with the command; any
+mute, input reconnect, native failure or service replacement invalidates earlier
+epochs. This read is audio-control-only: event producers still call `emit` and
+return immediately. OFF/Panic never wait for that read. No failed or stale ON is
+automatically retried.
+
+The service checks intent order and epoch atomically. Duplicate/stale commands
+are rejected with authoritative status, and a reused sequence with changed
+content is invalid. Histories are bounded to 128 clients without eviction; at
+capacity enables fail closed while OFF/Panic still mute. Older clients may send
+unsequenced OFF/Panic, but must upgrade before enabling; direct unsequenced ON
+is rejected. This deliberate compatibility restriction prevents old controls
+from bypassing mute ordering. Restarting to clear history is a separately
+authorized operation, never part of source synchronization.
+
+Use a fresh explicit ON after inspecting status following a mute or failure.
+A server acknowledgment still does not establish acoustic silence or replace
+local mute. Private-LAN, listening, ODD/BLE and optional Logic acceptance remain
+outstanding; no running service was updated by this source fix.

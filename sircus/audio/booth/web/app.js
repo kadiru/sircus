@@ -1,4 +1,7 @@
 'use strict';
+import {FXControls} from '/fx-controls.mjs';
+const fxControls=new FXControls({request:(path,body)=>act(path,body),clientId:crypto.randomUUID()});
+let fxPending=0;
 const $=id=>document.getElementById(id);
 const titles={boing:'Haunted BOING',bone_low:'Low bone clack',bone_high:'High bone clack',eerie_bell:'Eerie bell',pinball:'Ghost pinball',transport:'Energy hum',release:'Falling whistle',capture:'Spooky victory',miss:'Oops, a ghost'};
 let state=null,sounds=[],events=[],assignments=null,selected='impact',snapshot='',applied='',cursor=0,lines=[],mappingDirty=false,polling=false;
@@ -33,7 +36,8 @@ async function applyProfile(){
   if(JSON.stringify(assignments)!==applied){await act('profile',{action:'apply',assignments});applied=JSON.stringify(assignments);noteDirty();}
 }
 function paintStatus(){
-  $('fx').checked=state.fx_enabled;$('badge').textContent=state.fx_enabled?'FX LIVE':'FX OFF';$('badge').className=state.fx_enabled?'live':'';
+  if(!fxPending)$('fx').checked=state.fx_enabled;
+  $('badge').textContent=fxPending?'FX CHANGE PENDING':state.fx_enabled?'FX LIVE':'FX OFF';$('badge').className=state.fx_enabled?'live':'';
   if(document.activeElement!==$('volume'))$('volume').value=Math.round(state.volume*100);$('volval').textContent=Math.round(state.volume*100)+'%';$('mode').value=state.mode;$('meter').style.width=Math.min(100,state.audio_meter_peak*100)+'%';
   const key=JSON.stringify(state.inputs);if($('input').dataset.key!==key){$('input').replaceChildren(new Option('No MIDI input · use previews',''));for(const p of state.inputs){const option=new Option(p.name+(p.online?'':' · offline')+' · ID '+p.id,p.id);option.disabled=!p.online;$('input').append(option);}$('input').dataset.key=key;}$('input').value=state.selected_input??'';
   $('connection').textContent=(state.audio_ready?'Mac audio ready':'Audio unavailable')+' · '+(state.connected?'Selected ball connected':'No ball selected / connected')+(state.last_midi_age_s===null?'':' · Last MIDI '+state.last_midi_age_s+'s ago')+(state.recording?' · Recording MIDI':'');
@@ -44,12 +48,19 @@ function paintStatus(){
   if(state.last_error)fail(state.last_error);
 }
 async function refresh(){
-  if(polling)return;polling=true;
-  try{state=await request('status');if($('error').textContent.startsWith('Bridge disconnected:'))$('error').textContent='';events=state.events;if(!assignments)setProfile(state.profile);paintStatus();const m=await request('monitor?after='+cursor);cursor=m.seq;for(const e of m.events)lines.push(JSON.stringify(e));lines=lines.slice(-100);$('monitor').textContent=lines.join('\n');$('monitor').scrollTop=$('monitor').scrollHeight;}
+  if(polling||fxPending)return;polling=true;
+  const sequence=fxControls.sequence;
+  try{const current=await request('status');if(sequence!==fxControls.sequence)return;state=current;if($('error').textContent.startsWith('Bridge disconnected:'))$('error').textContent='';events=state.events;if(!assignments)setProfile(state.profile);paintStatus();const m=await request('monitor?after='+cursor);cursor=m.seq;for(const e of m.events)lines.push(JSON.stringify(e));lines=lines.slice(-100);$('monitor').textContent=lines.join('\n');$('monitor').scrollTop=$('monitor').scrollHeight;}
   catch(error){$('badge').textContent='DISCONNECTED';$('fx').checked=false;for(const b of document.querySelectorAll('[data-play]'))b.disabled=true;fail('Bridge disconnected: '+error.message);}
   finally{polling=false;}
 }
-bind('fx',async()=>{await act('fx',{enabled:$('fx').checked});await refresh();},'change');bind('panic',async()=>{await act('panic',{});await refresh();});bind('stop',()=>act('stop',{}));
+async function changeFX(panic=false){
+  const enabled=$('fx').checked;fxPending++;$('badge').textContent='FX CHANGE PENDING';
+  if(panic)$('fx').checked=false;
+  try{if(panic)await fxControls.panic();else await fxControls.setFX(enabled);}
+  finally{fxPending--;await refresh();}
+}
+bind('fx',()=>changeFX(),'change');bind('panic',()=>changeFX(true));bind('stop',()=>act('stop',{}));
 bind('volume',()=>{$('volval').textContent=$('volume').value+'%';},'input');bind('volume',()=>act('volume',{volume:Number($('volume').value)/100}),'change');
 bind('input',async()=>{await act('input',{id:$('input').value===''?null:Number($('input').value)});await refresh();},'change');bind('mode',()=>act('mode',{mode:$('mode').value}),'change');
 bind('load',async()=>setProfile(await act('profile',{action:'load',name:$('profile').value})));
