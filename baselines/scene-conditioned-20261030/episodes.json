@@ -1,0 +1,5525 @@
+{
+  "contract": {
+    "action_bounds": [
+      [
+        -20.0,
+        20.0
+      ],
+      [
+        10.0,
+        50.0
+      ],
+      [
+        -70.0,
+        70.0
+      ],
+      [
+        -100.0,
+        100.0
+      ],
+      [
+        60.0,
+        380.0
+      ]
+    ],
+    "action_names": [
+      "roll_deg",
+      "pitch_deg",
+      "u_mm",
+      "v_mm",
+      "gap_mm"
+    ],
+    "action_semantics": "Rz(fixed yaw) Ry(pitch) Rx(roll); board-local U/V; gap is world-Z clearance above nominal sphere/top-face contact plane",
+    "action_units": [
+      "degrees",
+      "degrees",
+      "mm",
+      "mm",
+      "mm"
+    ],
+    "actual_packages": {
+      "numpy": "2.5.4",
+      "scipy": "1.18.1"
+    },
+    "asset_sha256": "b840cc6443e9d6dcd56542aa0225b6e4f6bc26b9276827d837b213a692c17406",
+    "checkpoint_schema": "sircus-scene-conditioned-ridge-v1",
+    "coordinates": {
+      "angle_units": "degrees",
+      "ball_to_tool": {
+        "rotation_matrix": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        "status": "provisional ball center at simulated gripper TCP; uncalibrated",
+        "translation_mm": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+      "frame": "world; Z upward",
+      "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+      "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+      "height_units": "m",
+      "mass_units": "kg",
+      "position_units": "mm",
+      "tcp_world_rotation_matrix": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      ],
+      "time_units": "s",
+      "uv_definition": "board-local top-face U/V in mm; not world XY"
+    },
+    "dependency_pins": [
+      "viam-sdk==0.85.1",
+      "numpy==2.5.4",
+      "scipy==1.18.1"
+    ],
+    "distribution": {
+      "board_center_mm": [
+        [
+          570.0,
+          625.0
+        ],
+        [
+          -25.0,
+          25.0
+        ],
+        [
+          330.0,
+          375.0
+        ]
+      ],
+      "bucket_relative_xy_mm": [
+        [
+          40.0,
+          110.0
+        ],
+        [
+          200.0,
+          275.0
+        ]
+      ],
+      "fixed_fields": "all assets/contact parameters, bucket floor/geometry, board yaw, arm bases and tools",
+      "schema": "sircus-upright-layout-distribution-v1",
+      "scope": "narrow synthetic upright-bucket layouts; no physical or out-of-distribution claim",
+      "variable_fields": [
+        "board.center_mm",
+        "bin.center_xy_mm"
+      ]
+    },
+    "domain_randomization": "layout and release noise only; contact parameters are fixed provisional assumptions",
+    "height_semantics": "release_coordinates separately records finite-board first-contact h_m; gap need not equal h_m near edges",
+    "observation_names": [
+      "board_x_mm",
+      "board_y_mm",
+      "board_z_mm",
+      "bucket_dx_mm",
+      "bucket_dy_mm"
+    ],
+    "observation_units": [
+      "mm",
+      "mm",
+      "mm",
+      "mm",
+      "mm"
+    ],
+    "physics_settings": {
+      "bucket_projection_limit_mm": 2.0,
+      "bucket_restitution": 0.35,
+      "containment_roundoff_mm": 1e-06,
+      "dt_s": 0.00025,
+      "duration_s": 5.00025,
+      "entry_deadline_s": 4.0,
+      "launch_velocity_m_s": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "retention_s": 1.0
+    },
+    "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+    "release_noise": {
+      "release_gap_mm": 3.0,
+      "release_xy_mm": 2.0
+    },
+    "schema": "sircus-randomized-layout-study-v1",
+    "scoring_version": "sircus-board-bounce-capture-1s-v1",
+    "source_sha256": {
+      "../simulation/requirements-viam.txt": "e2b071762ac3c62af5ec244f6003b7203fc363db052bcc1bd0902807e8b3c1ec",
+      "bucket_geometry.py": "2d0bf7ab34d89873e3666b5fd92dbee2a2321aa732108d177c67eb09a62ed53e",
+      "capture_scoring.py": "81229ea5959c247f61189e74d942a5e0ff1b40ec0dd9433b079dc5f1593e29a4",
+      "kinematics.py": "a176c952068cd6fa578ebf328287ea17d09856a807ac2e6ed76c18f5e8cdd05a",
+      "models/gripper-proxy.json": "903ed7cc84b28bd5f798180a8fd113c52d5eaa913a7627463a3d3598302dfb40",
+      "models/suction-proxy.json": "5caec3bfa639bd3733c4a83c89ee8b4dd60b527d8ff1a6e5a49c74bf84cd07a9",
+      "models/xarm850_kinematics.json": "78e0fdc383cf6e1e5b0f9d44fdf1205e4c08a37eb5c0c2182c9f74291c51d3c0",
+      "physics.py": "3a806df6a74038da7cb770b32403dfe0041b2788aa6116d59c61381b913fdd0f",
+      "scene_study.py": "62ca41bd651b84a2023ed6b1d6826b71c2f2f299bda5ebf086890af46a72b603",
+      "shot_rollout.py": "88a5adb2838d00e1a97af221c06ba9e26e2224bc7172e4418840f51aedb05cb2",
+      "train_orientation_height.py": "f0757c4302420bbf0ea6a95d057055cffbfd4ac219f0c8154d330fcd237cc080",
+      "train_scene_study.py": "35dd6bb2d7dd2847322c47b591ace91d8f3de79e815cda3fa814668b195dbf4d",
+      "two_arm_kinematics.py": "7db3aaf7b3ef0f761724c29a7e4afe0905716522d6297e0c4cabb32273ba66d9"
+    }
+  },
+  "data_origin": "synthetic",
+  "layout_feasibility": "layouts are geometric-valid; each proposed action gets independent endpoint IK",
+  "manifest_sha256": "2a10426873acf5bc83e058eebd2fa2607d6fd95616215378c1802f8fc06c9020",
+  "physically_verified": false,
+  "schema": "sircus-randomized-layout-study-v1",
+  "seed": 20261030,
+  "splits": {
+    "test": [
+      {
+        "action_rng_seed": 1877563761,
+        "layout_rng_seed": 4003851492,
+        "layout_sha256": "f682a1d08c716905279e3b6db04ac8ec045e6b201f5b65631c1de2161b380432",
+        "observation": [
+          589.353904914982,
+          -22.602909937133745,
+          367.50656083698556,
+          105.99179993946791,
+          211.86982382258046
+        ],
+        "rollout_seed": 2765472149,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              695.3457048544499,
+              189.2669138854467
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              589.353904914982,
+              -22.602909937133745,
+              367.50656083698556
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "test-0000-f682a1d08c71",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "test-0000-f682a1d08c71",
+        "split": "test"
+      },
+      {
+        "action_rng_seed": 1234609835,
+        "layout_rng_seed": 4003851492,
+        "layout_sha256": "13f7feaedc9f13c012e17583e2b8c0781542af2767a2ff004752b1f460218eb2",
+        "observation": [
+          611.2082025309102,
+          1.9254645155219308,
+          333.878015533227,
+          53.362420253792266,
+          209.3570505248634
+        ],
+        "rollout_seed": 2364213886,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              664.5706227847024,
+              211.28251504038533
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              611.2082025309102,
+              1.9254645155219308,
+              333.878015533227
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "test-0001-13f7feaedc9f",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "test-0001-13f7feaedc9f",
+        "split": "test"
+      },
+      {
+        "action_rng_seed": 1117460029,
+        "layout_rng_seed": 4003851492,
+        "layout_sha256": "e682bb541ea37e331d4e7ab1b29411beb659553044f518ff8c6932c670f58956",
+        "observation": [
+          612.1907821496161,
+          15.468227113445948,
+          330.8862249576448,
+          91.9980421717512,
+          273.04378509743924
+        ],
+        "rollout_seed": 3852157528,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              704.1888243213673,
+              288.5120122108852
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              612.1907821496161,
+              15.468227113445948,
+              330.8862249576448
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "test-0002-e682bb541ea3",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "test-0002-e682bb541ea3",
+        "split": "test"
+      },
+      {
+        "action_rng_seed": 2898486486,
+        "layout_rng_seed": 4003851492,
+        "layout_sha256": "49bfe5002112e7f3255bae6b4fbee2f3622de52dfc6bb515aa601d1f7b950016",
+        "observation": [
+          599.6870256755461,
+          0.5164289094254215,
+          372.1575023622036,
+          106.06210658076157,
+          240.9457134090807
+        ],
+        "rollout_seed": 3128178926,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              705.7491322563077,
+              241.46214231850612
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              599.6870256755461,
+              0.5164289094254215,
+              372.1575023622036
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "test-0003-49bfe5002112",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "test-0003-49bfe5002112",
+        "split": "test"
+      },
+      {
+        "action_rng_seed": 2894216406,
+        "layout_rng_seed": 4003851492,
+        "layout_sha256": "aacb9a730a10b41c81f8b06adeaf8744ed85ac91b2b75de4154a5c9decd145bf",
+        "observation": [
+          613.4257560264414,
+          -20.61880475099626,
+          351.9435680877244,
+          84.79988751295787,
+          265.0565809023841
+        ],
+        "rollout_seed": 3999354368,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              698.2256435393992,
+              244.43777615138782
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              613.4257560264414,
+              -20.61880475099626,
+              351.9435680877244
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "test-0004-aacb9a730a10",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "test-0004-aacb9a730a10",
+        "split": "test"
+      },
+      {
+        "action_rng_seed": 202075896,
+        "layout_rng_seed": 4003851492,
+        "layout_sha256": "d2102856773c6cbfd9a4289b43154fb3f4fb14f1bc245289a4d2fdc03294ded9",
+        "observation": [
+          597.1756683164417,
+          -6.8675030624461115,
+          367.75771804195745,
+          91.1935728362829,
+          274.38278523200904
+        ],
+        "rollout_seed": 3339640004,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              688.3692411527246,
+              267.5152821695629
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              597.1756683164417,
+              -6.8675030624461115,
+              367.75771804195745
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "test-0005-d2102856773c",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "test-0005-d2102856773c",
+        "split": "test"
+      },
+      {
+        "action_rng_seed": 1235990154,
+        "layout_rng_seed": 4003851492,
+        "layout_sha256": "f554168aa3c8022537b6609c3bab5d4c7f093bf9aaa939cdf2659e6b76e2acdc",
+        "observation": [
+          616.7179347185752,
+          -24.03761012336339,
+          343.9838723460277,
+          94.88529750998066,
+          203.45485805353823
+        ],
+        "rollout_seed": 1396765843,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              711.6032322285558,
+              179.41724793017485
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              616.7179347185752,
+              -24.03761012336339,
+              343.9838723460277
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "test-0006-f554168aa3c8",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "test-0006-f554168aa3c8",
+        "split": "test"
+      },
+      {
+        "action_rng_seed": 1531545218,
+        "layout_rng_seed": 4003851492,
+        "layout_sha256": "5997e856aae9c95cb5d2577f2600d95f363231ac6c491caea353f01cd09cab91",
+        "observation": [
+          607.3260942744342,
+          -16.323370319161086,
+          336.7591895636815,
+          74.90188854357291,
+          216.52755130442284
+        ],
+        "rollout_seed": 717453313,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              682.2279828180071,
+              200.20418098526176
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              607.3260942744342,
+              -16.323370319161086,
+              336.7591895636815
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "test-0007-5997e856aae9",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "test-0007-5997e856aae9",
+        "split": "test"
+      }
+    ],
+    "train": [
+      {
+        "action_rng_seed": 2199577495,
+        "layout_rng_seed": 745013495,
+        "layout_sha256": "7b4137e8d63b12f86960871bfbecbc83262874a7d036568e7bba864ae131f6f1",
+        "observation": [
+          590.1994809537314,
+          -19.292452531527537,
+          352.58225716214594,
+          99.19286941736095,
+          240.3156534792966
+        ],
+        "rollout_seed": 508751031,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              689.3923503710923,
+              221.02320094776906
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              590.1994809537314,
+              -19.292452531527537,
+              352.58225716214594
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "train-0000-7b4137e8d63b",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "train-0000-7b4137e8d63b",
+        "split": "train"
+      },
+      {
+        "action_rng_seed": 895502368,
+        "layout_rng_seed": 745013495,
+        "layout_sha256": "88ef9e8a054eaabd96ac685869191fc33f2c4d96e1f2bd15ebd403fb30261413",
+        "observation": [
+          577.5884741125303,
+          -19.203442022774546,
+          366.0107916240985,
+          104.57720113143569,
+          245.82814181644713
+        ],
+        "rollout_seed": 1765441001,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              682.165675243966,
+              226.6246997936726
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              577.5884741125303,
+              -19.203442022774546,
+              366.0107916240985
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "train-0001-88ef9e8a054e",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "train-0001-88ef9e8a054e",
+        "split": "train"
+      },
+      {
+        "action_rng_seed": 3412068843,
+        "layout_rng_seed": 745013495,
+        "layout_sha256": "1c17d5ba3a443d885139db8c8adcca1e278bd3f9e5d823fdf9258ca9a1c13740",
+        "observation": [
+          602.2469470297425,
+          -11.229796905913203,
+          341.4028094873214,
+          51.89516547710991,
+          216.02725834692663
+        ],
+        "rollout_seed": 2071918910,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              654.1421125068524,
+              204.79746144101344
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              602.2469470297425,
+              -11.229796905913203,
+              341.4028094873214
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "train-0002-1c17d5ba3a44",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "train-0002-1c17d5ba3a44",
+        "split": "train"
+      },
+      {
+        "action_rng_seed": 1225997507,
+        "layout_rng_seed": 745013495,
+        "layout_sha256": "014557214e20f91ae476826e870cef4b40079f23faaba6256e3e31fd210c9921",
+        "observation": [
+          608.7678259674344,
+          1.9061846350255252,
+          374.7495810076331,
+          78.3892868657706,
+          264.8079117674112
+        ],
+        "rollout_seed": 826909939,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              687.157112833205,
+              266.7140964024367
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              608.7678259674344,
+              1.9061846350255252,
+              374.7495810076331
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "train-0003-014557214e20",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "train-0003-014557214e20",
+        "split": "train"
+      },
+      {
+        "action_rng_seed": 2140505560,
+        "layout_rng_seed": 745013495,
+        "layout_sha256": "1f14ac50d684beb482033c347d79ae0d3aac5bfc7c797f8c41211fe18fb6e234",
+        "observation": [
+          582.5701402665009,
+          -19.789595883247067,
+          347.91642682834237,
+          108.68240251052498,
+          208.76312420215677
+        ],
+        "rollout_seed": 1321616632,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              691.2525427770258,
+              188.9735283189097
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              582.5701402665009,
+              -19.789595883247067,
+              347.91642682834237
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "train-0004-1f14ac50d684",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "train-0004-1f14ac50d684",
+        "split": "train"
+      },
+      {
+        "action_rng_seed": 2128824240,
+        "layout_rng_seed": 745013495,
+        "layout_sha256": "973ca814aa90f053a7528ee28f938793ecb8e7979ac5aa87739083a7a5784137",
+        "observation": [
+          597.7581456770645,
+          -21.540301780877723,
+          364.3729122729003,
+          94.13920582870719,
+          246.1437101853146
+        ],
+        "rollout_seed": 3478283939,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              691.8973515057717,
+              224.6034084044369
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              597.7581456770645,
+              -21.540301780877723,
+              364.3729122729003
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "train-0005-973ca814aa90",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "train-0005-973ca814aa90",
+        "split": "train"
+      },
+      {
+        "action_rng_seed": 3904169867,
+        "layout_rng_seed": 745013495,
+        "layout_sha256": "249e40ceb484291575872aa3a9154d7dd04afc79b6303b5dbb5f7155a72e0f04",
+        "observation": [
+          606.0779430392349,
+          -7.457413634422544,
+          341.00982840832546,
+          55.4998284650419,
+          265.6025431685021
+        ],
+        "rollout_seed": 3353413888,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              661.5777715042768,
+              258.14512953407956
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              606.0779430392349,
+              -7.457413634422544,
+              341.00982840832546
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "train-0006-249e40ceb484",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "train-0006-249e40ceb484",
+        "split": "train"
+      },
+      {
+        "action_rng_seed": 950494004,
+        "layout_rng_seed": 745013495,
+        "layout_sha256": "ce74d6bdf8810305b45c30fa144f06add70a14197d2422e7042de5e220e07162",
+        "observation": [
+          572.9558376527642,
+          7.101067462277399,
+          334.59456674305744,
+          108.96995689325024,
+          260.71919903668794
+        ],
+        "rollout_seed": 3759928162,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              681.9257945460145,
+              267.82026649896534
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              572.9558376527642,
+              7.101067462277399,
+              334.59456674305744
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "train-0007-ce74d6bdf881",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "train-0007-ce74d6bdf881",
+        "split": "train"
+      },
+      {
+        "action_rng_seed": 3974924333,
+        "layout_rng_seed": 745013495,
+        "layout_sha256": "7a1a8a203f98c902d9c73feba1a79d37f8a0a9d7ea0325bf1990712c2afe8eba",
+        "observation": [
+          617.9967079508904,
+          2.369372420388956,
+          349.3118827803691,
+          77.17987224443925,
+          224.64066998884852
+        ],
+        "rollout_seed": 1176399496,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              695.1765801953296,
+              227.01004240923749
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              617.9967079508904,
+              2.369372420388956,
+              349.3118827803691
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "train-0008-7a1a8a203f98",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "train-0008-7a1a8a203f98",
+        "split": "train"
+      },
+      {
+        "action_rng_seed": 1748300548,
+        "layout_rng_seed": 745013495,
+        "layout_sha256": "4be6623de5390fed70b18e9008b537492ea83fa0bfb334d6394fdb82f1cbd50a",
+        "observation": [
+          600.2673683702043,
+          -14.90938226855501,
+          346.9780949718271,
+          89.8089789113559,
+          216.0008992430522
+        ],
+        "rollout_seed": 2543061745,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              690.0763472815602,
+              201.09151697449718
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              600.2673683702043,
+              -14.90938226855501,
+              346.9780949718271
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "train-0009-4be6623de539",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "train-0009-4be6623de539",
+        "split": "train"
+      },
+      {
+        "action_rng_seed": 1402298306,
+        "layout_rng_seed": 745013495,
+        "layout_sha256": "d64f326fb233e70544551be9c182b1ca9ac390296666aed61d4d10143f685b8b",
+        "observation": [
+          580.022743043523,
+          -24.58941346810975,
+          340.2851622551674,
+          65.6180948319186,
+          271.0676604886754
+        ],
+        "rollout_seed": 2120822180,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              645.6408378754415,
+              246.47824702056568
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              580.022743043523,
+              -24.58941346810975,
+              340.2851622551674
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "train-0010-d64f326fb233",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "train-0010-d64f326fb233",
+        "split": "train"
+      },
+      {
+        "action_rng_seed": 4289641041,
+        "layout_rng_seed": 745013495,
+        "layout_sha256": "94e8f01c79d66af012eb8828cbb62e65290c1b732f4712949d949ba47cd36195",
+        "observation": [
+          621.9517062162682,
+          14.746098636668776,
+          362.04770907135253,
+          103.32230967923181,
+          248.45620610668192
+        ],
+        "rollout_seed": 2759328384,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              725.2740158955,
+              263.2023047433507
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              621.9517062162682,
+              14.746098636668776,
+              362.04770907135253
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "train-0011-94e8f01c79d6",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "train-0011-94e8f01c79d6",
+        "split": "train"
+      },
+      {
+        "action_rng_seed": 2167331929,
+        "layout_rng_seed": 745013495,
+        "layout_sha256": "e36a1141d5d937ea64b234035b4d7ae74a3cd7942b09429fb1e5346a9bc0bce6",
+        "observation": [
+          601.4547009376004,
+          -1.5605835363786689,
+          336.8584370780422,
+          72.41848947876838,
+          222.69546764604692
+        ],
+        "rollout_seed": 849598150,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              673.8731904163687,
+              221.13488410966826
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              601.4547009376004,
+              -1.5605835363786689,
+              336.8584370780422
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "train-0012-e36a1141d5d9",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "train-0012-e36a1141d5d9",
+        "split": "train"
+      },
+      {
+        "action_rng_seed": 2872879105,
+        "layout_rng_seed": 745013495,
+        "layout_sha256": "c55ca0594fff2951503f1ac10884e11443af6045785610b0fc2092741e3c7461",
+        "observation": [
+          611.4314976066906,
+          13.829044132667072,
+          368.6316625338926,
+          89.92196381842427,
+          232.72272054731377
+        ],
+        "rollout_seed": 690824566,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              701.3534614251149,
+              246.55176467998083
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              611.4314976066906,
+              13.829044132667072,
+              368.6316625338926
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "train-0013-c55ca0594fff",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "train-0013-c55ca0594fff",
+        "split": "train"
+      },
+      {
+        "action_rng_seed": 1771346636,
+        "layout_rng_seed": 745013495,
+        "layout_sha256": "b28d0bdccc61a2d0d67874118909e00760c0efc9e3971d7b0552cdaac9145dcb",
+        "observation": [
+          571.4438799884387,
+          -10.29403519461276,
+          364.62008649030236,
+          87.76495345026058,
+          213.51797088105553
+        ],
+        "rollout_seed": 3927792825,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              659.2088334386992,
+              203.22393568644276
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              571.4438799884387,
+              -10.29403519461276,
+              364.62008649030236
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "train-0014-b28d0bdccc61",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "train-0014-b28d0bdccc61",
+        "split": "train"
+      },
+      {
+        "action_rng_seed": 3963714995,
+        "layout_rng_seed": 745013495,
+        "layout_sha256": "173c8fedff846dffd6c99a68e0e07474a197d7d1d40ffaa08a8f1202645baca1",
+        "observation": [
+          584.0963992231834,
+          16.899622325432453,
+          361.0356516506206,
+          42.61842646154946,
+          222.13729178950655
+        ],
+        "rollout_seed": 3133249234,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              626.7148256847329,
+              239.036914114939
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              584.0963992231834,
+              16.899622325432453,
+              361.0356516506206
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "train-0015-173c8fedff84",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "train-0015-173c8fedff84",
+        "split": "train"
+      },
+      {
+        "action_rng_seed": 2059451383,
+        "layout_rng_seed": 745013495,
+        "layout_sha256": "c5a5884ef2b009472d170c7542ac1c4d5f9671ff4f45c62529dd4ae5ad77be4f",
+        "observation": [
+          601.468532899922,
+          5.4589172229807374,
+          339.4326452438258,
+          50.64433634445072,
+          200.423604033206
+        ],
+        "rollout_seed": 2667591146,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              652.1128692443727,
+              205.88252125618675
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              601.468532899922,
+              5.4589172229807374,
+              339.4326452438258
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "train-0016-c5a5884ef2b0",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "train-0016-c5a5884ef2b0",
+        "split": "train"
+      },
+      {
+        "action_rng_seed": 125759621,
+        "layout_rng_seed": 745013495,
+        "layout_sha256": "d64a5e755c2918bad79601e893cae3167b585635577e6e997a6879fa3be7c3db",
+        "observation": [
+          605.249880525317,
+          17.196395503184945,
+          332.4173274633683,
+          41.1446090915116,
+          218.73474466615073
+        ],
+        "rollout_seed": 3759154924,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              646.3944896168287,
+              235.93114016933566
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              605.249880525317,
+              17.196395503184945,
+              332.4173274633683
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "train-0017-d64a5e755c29",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "train-0017-d64a5e755c29",
+        "split": "train"
+      },
+      {
+        "action_rng_seed": 3361113044,
+        "layout_rng_seed": 745013495,
+        "layout_sha256": "57e485ba902cbb7aca43ab99078f97e2951dc2f13ef14d77f16048c5f4c43165",
+        "observation": [
+          580.4705228536102,
+          -20.938031072960506,
+          342.9091738058177,
+          48.33551506732192,
+          270.9070997487984
+        ],
+        "rollout_seed": 2877080997,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              628.8060379209321,
+              249.96906867583786
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              580.4705228536102,
+              -20.938031072960506,
+              342.9091738058177
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "train-0018-57e485ba902c",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "train-0018-57e485ba902c",
+        "split": "train"
+      },
+      {
+        "action_rng_seed": 3384932508,
+        "layout_rng_seed": 745013495,
+        "layout_sha256": "692e56c9eb047440d17f0ecbb7c4dffebbe77669e4066659fc96df801ca18e6b",
+        "observation": [
+          571.3097545097621,
+          11.415406835578992,
+          365.79478420792077,
+          49.71057242151426,
+          212.3768783223798
+        ],
+        "rollout_seed": 2167176729,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              621.0203269312764,
+              223.79228515795882
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              571.3097545097621,
+              11.415406835578992,
+              365.79478420792077
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "train-0019-692e56c9eb04",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "train-0019-692e56c9eb04",
+        "split": "train"
+      },
+      {
+        "action_rng_seed": 358752078,
+        "layout_rng_seed": 745013495,
+        "layout_sha256": "13af513c1ec49f91236f36be7f2187ce762d44ba2b34100ef7072fd3e33c2a6e",
+        "observation": [
+          618.8109413038036,
+          -21.582624021051334,
+          340.719375910118,
+          45.07321258411923,
+          241.780751456153
+        ],
+        "rollout_seed": 2585890816,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              663.8841538879228,
+              220.19812743510167
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              618.8109413038036,
+              -21.582624021051334,
+              340.719375910118
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "train-0020-13af513c1ec4",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "train-0020-13af513c1ec4",
+        "split": "train"
+      },
+      {
+        "action_rng_seed": 1467211724,
+        "layout_rng_seed": 745013495,
+        "layout_sha256": "77a28e93491070589abeed0993106eb021c558674614753151b752ebab09084a",
+        "observation": [
+          588.8355260709997,
+          7.564512201913956,
+          342.5088617464019,
+          65.20537240701015,
+          258.61692468008886
+        ],
+        "rollout_seed": 2866681733,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              654.0408984780098,
+              266.1814368820028
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              588.8355260709997,
+              7.564512201913956,
+              342.5088617464019
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "train-0021-77a28e934910",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "train-0021-77a28e934910",
+        "split": "train"
+      },
+      {
+        "action_rng_seed": 1039129691,
+        "layout_rng_seed": 745013495,
+        "layout_sha256": "354ded0ce795b831e9b0f9720a32df6b09c6ba9680c648bcec52c89ddac577f8",
+        "observation": [
+          594.6363126417627,
+          3.025461649765777,
+          336.4174061656601,
+          65.79081254020605,
+          203.55547433145662
+        ],
+        "rollout_seed": 267623765,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              660.4271251819688,
+              206.5809359812224
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              594.6363126417627,
+              3.025461649765777,
+              336.4174061656601
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "train-0022-354ded0ce795",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "train-0022-354ded0ce795",
+        "split": "train"
+      },
+      {
+        "action_rng_seed": 2354481138,
+        "layout_rng_seed": 745013495,
+        "layout_sha256": "c8fbcbbdae77e0f4b3a9b596ad95224cdbe09b2208dff63fe9945ade3fc0409a",
+        "observation": [
+          618.0940957900274,
+          14.228549589922629,
+          342.80759014770484,
+          51.229827840281246,
+          255.12208740391333
+        ],
+        "rollout_seed": 3372174936,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              669.3239236303086,
+              269.35063699383596
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              618.0940957900274,
+              14.228549589922629,
+              342.80759014770484
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "train-0023-c8fbcbbdae77",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "train-0023-c8fbcbbdae77",
+        "split": "train"
+      }
+    ],
+    "validation": [
+      {
+        "action_rng_seed": 3967966870,
+        "layout_rng_seed": 2218361324,
+        "layout_sha256": "58f80b1ec84b4b24e4544e10c50d71c41fe5faca4dce151bcb88867a8e7f66f7",
+        "observation": [
+          613.305646146405,
+          -13.89297984730679,
+          359.9490872210185,
+          64.03069626804131,
+          257.8194566085297
+        ],
+        "rollout_seed": 303186066,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              677.3363424144463,
+              243.92647676122294
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              613.305646146405,
+              -13.89297984730679,
+              359.9490872210185
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "validation-0000-58f80b1ec84b",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "validation-0000-58f80b1ec84b",
+        "split": "validation"
+      },
+      {
+        "action_rng_seed": 1482229758,
+        "layout_rng_seed": 2218361324,
+        "layout_sha256": "789d25c595fe5c7099fa066093eff85a574a7ffcb7a78789ec5940781488816d",
+        "observation": [
+          610.4248982350672,
+          1.6848151708870844,
+          358.3711006404026,
+          89.48645188711146,
+          228.27039039661273
+        ],
+        "rollout_seed": 3010800812,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              699.9113501221786,
+              229.9552055674998
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              610.4248982350672,
+              1.6848151708870844,
+              358.3711006404026
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "validation-0001-789d25c595fe",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "validation-0001-789d25c595fe",
+        "split": "validation"
+      },
+      {
+        "action_rng_seed": 1324857335,
+        "layout_rng_seed": 2218361324,
+        "layout_sha256": "bb34721ac8b5bbce1e2ab9ab37b9126bb7ab504246c4e0461d67de0349443663",
+        "observation": [
+          592.8014978362819,
+          -9.484195782213806,
+          374.03242587415184,
+          91.62780789398676,
+          244.22017771245208
+        ],
+        "rollout_seed": 1361340358,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              684.4293057302687,
+              234.73598193023827
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              592.8014978362819,
+              -9.484195782213806,
+              374.03242587415184
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "validation-0002-bb34721ac8b5",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "validation-0002-bb34721ac8b5",
+        "split": "validation"
+      },
+      {
+        "action_rng_seed": 1376824621,
+        "layout_rng_seed": 2218361324,
+        "layout_sha256": "4c84018c54c8a630efb55136f7c055ae454654d0ee004a0adf78427f572bc064",
+        "observation": [
+          575.5210391111444,
+          -2.0066239561262478,
+          333.2048970063317,
+          54.47990449822714,
+          225.65799825436653
+        ],
+        "rollout_seed": 3323834335,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              630.0009436093716,
+              223.65137429824028
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              575.5210391111444,
+              -2.0066239561262478,
+              333.2048970063317
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "validation-0003-4c84018c54c8",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "validation-0003-4c84018c54c8",
+        "split": "validation"
+      },
+      {
+        "action_rng_seed": 4113695509,
+        "layout_rng_seed": 2218361324,
+        "layout_sha256": "c01dac436d046a7f37e09b2d6b0860b1b01b21449ae1f53eff9a202d8a26a934",
+        "observation": [
+          603.3412349969143,
+          0.3212232822751169,
+          342.83264437564793,
+          80.5392147645,
+          274.26619314599657
+        ],
+        "rollout_seed": 2336141078,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              683.8804497614143,
+              274.5874164282717
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              603.3412349969143,
+              0.3212232822751169,
+              342.83264437564793
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "validation-0004-c01dac436d04",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "validation-0004-c01dac436d04",
+        "split": "validation"
+      },
+      {
+        "action_rng_seed": 2216982447,
+        "layout_rng_seed": 2218361324,
+        "layout_sha256": "c5ad5ed8e4ce4ebc2222fb15495122b22a394b6577e53a4443c25e091a3a382d",
+        "observation": [
+          600.993346363638,
+          21.795031073343715,
+          361.0796230530211,
+          94.89984538243948,
+          246.81011891329044
+        ],
+        "rollout_seed": 2626492088,
+        "scene": {
+          "ball": {
+            "contact_damping_s_m": 0.12,
+            "contact_stiffness_n_m": 18000.0,
+            "diameter_mm": 75.0,
+            "friction": 0.2,
+            "mass_kg": 0.2
+          },
+          "bin": {
+            "assumptions": {
+              "bottom_thickness_mm": "8mm provisional and unmeasured",
+              "derived_outer_height_mm": 183.0,
+              "diameter_measurements": "user physical measurements",
+              "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed"
+            },
+            "bottom_thickness_mm": 8.0,
+            "center_xy_mm": [
+              695.8931917460775,
+              268.60514998663416
+            ],
+            "contact_damping_s_m": 0.6,
+            "floor_top_mm": 27.0,
+            "height_interpretation": "unresolved",
+            "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification",
+            "inner_bottom_diameter_mm": 150.0,
+            "inner_top_diameter_mm": 177.0,
+            "interior_depth_mm": 175.0,
+            "outer_bottom_diameter_mm": 158.0,
+            "outer_top_diameter_mm": 200.0,
+            "placement_status": "provisional",
+            "reported_height_mm": 175.0,
+            "shape": "tapered_bucket",
+            "taper_model": "straight_sided"
+          },
+          "board": {
+            "center_mm": [
+              600.993346363638,
+              21.795031073343715,
+              361.0796230530211
+            ],
+            "mass_kg": 0.4,
+            "normal_damping_ns_m": 18.0,
+            "normal_stiffness_n_m": 12000.0,
+            "rpy_deg": [
+              0.0,
+              30.0,
+              90.0
+            ],
+            "size_mm": [
+              200.0,
+              300.0,
+              5.0
+            ],
+            "support_offset_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "tilt_damping_nms_rad": [
+              0.15,
+              0.15
+            ],
+            "tilt_stiffness_nm_rad": [
+              30.0,
+              30.0
+            ]
+          },
+          "calibration": "Board size measured 200x300x5mm; ball, mass, mount and contact dynamics remain provisional",
+          "measurement_status": {
+            "arm_base_spacing": "User measured52.65in; base-to-base reference assumed",
+            "board_mass": "provisional 0.4kg",
+            "board_mount_orientation": "User correction:90deg rotation relative to suctiontool; landscape. BoardbodyU=200,V=300; +90deg chosen.",
+            "board_size": "user measured 20 x 30 x 0.5 cm; U=200mm,V=300mm",
+            "bucket_dimensions": "Measured inner top177/bottom150mm; outer top200/bottom158mm; straighttaper approximation",
+            "bucket_height": "Reported175mm; overallheight versusinteriordepth unresolved. Simulatedinteriordepth175andbottomthickness8areassumptions.",
+            "bucket_placement": "provisional",
+            "suction_attachment": "provisional centered",
+            "suction_offset": "provisional100mm",
+            "support_stiffness_damping": "uncalibrated"
+          },
+          "model": "sircus_compliant_board_tapered_bucket_v2",
+          "pickup_mm": [
+            350.0,
+            -220.0,
+            52.5
+          ],
+          "robot14": {
+            "base_translation_mm": [
+              1337.31,
+              0.0,
+              0.0
+            ],
+            "base_yaw_deg": 180.0,
+            "board_mount_yaw_deg": 90.0,
+            "source": "User measured arm spacing52.65in =1337.31mm; interpreted base-to-base along existingX axis. Existing180deg yaw andY/Z retained.",
+            "suction_offset_mm": 100.0,
+            "tool_dimensions_status": "provisional"
+          },
+          "roles": {
+            "board_robot_id": 14.0,
+            "drop_robot_id": 10.0
+          },
+          "scene_id": "validation-0005-c5ad5ed8e4ce",
+          "simulation": {
+            "dt_s": 0.0005,
+            "duration_s": 3.0,
+            "frame_dt_s": 0.02,
+            "noise_gap_mm": 0.0,
+            "noise_xy_mm": 0.0
+          },
+          "table": {
+            "center_mm": [
+              550.0,
+              0.0,
+              -5.0
+            ],
+            "contact_damping_s_m": 0.3,
+            "size_mm": [
+              850.0,
+              800.0,
+              40.0
+            ]
+          },
+          "units": "mm, degrees, kg, seconds"
+        },
+        "scene_id": "validation-0005-c5ad5ed8e4ce",
+        "split": "validation"
+      }
+    ]
+  }
+}
