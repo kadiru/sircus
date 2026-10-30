@@ -1,0 +1,6 @@
+#!/bin/sh
+set -eu
+SIRCUS_TWO_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+cd "$SIRCUS_TWO_ROOT"
+export SIRCUS_LOCAL_TEST=1
+exec "$SIRCUS_TWO_ROOT/../simulation/.venv/bin/python" "$SIRCUS_TWO_ROOT/viam_module.py" "$@"

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sircus · Learning lab</title>
+  <link rel="stylesheet" href="/style.css">
+  <script type="importmap">{"imports":{"three":"/vendor/three.module.js"}}</script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">s</span><span>SIRCUS<small>SIMPLE CIRCUS</small></span></div>
+    <div class="page-name">Learning lab <span class="divider">/</span> Two arms · one learned bounce</div>
+    <span class="mode" id="connectionBadge"><i></i> <span id="connectionLabel">CONNECTING TO VIAM</span></span>
+  </header>
+  <nav class="workspace-tabs" aria-label="Sircus environment">
+    <button id="showSimulation" class="selected" aria-pressed="true" aria-controls="simulationPanel">Simulation <small>sircus-sim</small></button>
+    <button id="showPhysical" aria-pressed="false" aria-controls="physicalPanel">Physical trials <small>sfhack10 · MacBook</small></button>
+    <span>Separate configurations and trial records</span>
+  </nav>
+  <main id="simulationPanel">
+    <section class="stage-column">
+      <div class="intro"><div><span class="eyebrow">EXPERIMENT 01</span><h1>Teach a better bounce.</h1></div><p>Change the board.<br>Let the drop adapt.</p></div>
+      <div class="stage" id="stage">
+        <canvas id="scene" aria-label="Interactive 3D view of two simulated UFACTORY 850 arms, suction-mounted board, ball, table, and target container"></canvas>
+        <div class="stage-top"><span class="stage-chip">10 <b>Pick & drop</b></span><span class="stage-chip muted">14 <b>Position & hold</b></span></div>
+        <div class="stage-state"><span id="phaseDot"></span><span id="phase">Loading scene…</span></div>
+        <div class="stage-tools"><button id="resetView" title="Reset camera view" aria-label="Reset camera view">↺ View</button><button id="topView" title="Look down at the scene">Top</button><label>Speed <select id="speed"><option value="0.5">½×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label></div>
+        <div class="stage-hint">Drag to orbit <span>·</span> Scroll to zoom <span>·</span> Viam arm readbacks · recorded physics replay</div>
+        <div class="stage-legend"><span><i class="legend-ball"></i>Ball</span><span><i class="legend-board"></i>Compliant board</span><span><i class="legend-bin"></i>Target</span></div>
+      </div>
+      <div class="metrics">
+        <div><span class="metric-label">LAST DROP</span><strong id="outcome">Ready to try</strong><small id="outcomeDetail">Run a drop or start a short search.</small></div>
+        <div><span class="metric-label">BOARD CONTACT</span><strong id="contact">—</strong><small>Local U / V in mm</small></div>
+        <div><span class="metric-label">LEARNING</span><strong id="learning">Not started</strong><small id="learningDetail">Release position + height</small></div>
+      </div>
+      <div id="historyPanel" class="history-panel" hidden><div><span class="eyebrow">SEARCH HISTORY</span><p>Each dot is a simulated proposal.</p></div><svg id="historyChart" viewBox="0 0 600 70" aria-label="Reward by training trial" role="img"></svg></div>
+      <p class="footnote">Two simulated 850 arms share the Viam scene. Board dimensions are measured; mass, suction offset and support dynamics remain provisional. Training searches release U/V/height at one board pose; physics results are simulated.</p>
+    </section>
+    <aside class="controls">
+      <div class="panel-heading"><span class="eyebrow">MAKE YOUR SCENE</span><span class="assumption">EDITABLE ASSUMPTIONS</span></div>
+      <section class="control-section"><div class="section-title"><h2>Board on arm 14</h2><span>Pose in world</span></div>
+        <div class="field-grid three"><label>X <em>mm</em><input id="boardX" type="number" step="10"></label><label>Y <em>mm</em><input id="boardY" type="number" step="10"></label><label>Z <em>mm</em><input id="boardZ" type="number" step="10"></label></div>
+        <div class="field-grid three"><label>Roll <em>°</em><input id="boardRoll" type="number" step="5"></label><label>Pitch <em>°</em><input id="boardPitch" type="number" step="5"></label><label>Yaw <em>°</em><input id="boardYaw" type="number" step="5"></label></div>
+        <div class="preset-row"><button class="preset" data-preset="baseline">Baseline</button><button class="preset" data-preset="turn">Turn 15°</button><button class="preset" data-preset="raise">Raise 50 mm</button></div>
+      </section>
+      <section class="control-section"><div class="section-title"><h2 id="containerTitle">Target container</h2><span>World position</span></div><div class="field-grid two"><label>X <em>mm</em><input id="binX" type="number" step="10"></label><label>Y <em>mm</em><input id="binY" type="number" step="10"></label></div><div class="container-spec" id="containerSpec" hidden><p id="containerDiameters"></p><p id="containerHeight"></p><p id="containerAssumptions"></p></div></section>
+      <section class="control-section"><div class="section-title"><h2>Drop action</h2><span>Board-local position</span></div><div class="field-grid three"><label>U <em>mm</em><input id="dropU" type="number" value="0" step="10"></label><label>V <em>mm</em><input id="dropV" type="number" value="0" step="10"></label><label>Gap <em>mm</em><input id="dropGap" type="number" value="80" min="20" max="1000" step="10"></label></div><p class="helper">U / V choose a point on the board. Gap is the vertical clearance above contact.</p><div class="preset-row"><button class="contact-preset" data-u="0" data-v="0">Center</button><button class="contact-preset" data-u="85" data-v="0">Near edge</button></div></section>
+      <div class="connection-detail"><a id="viamLink" href="https://app.viam.com/machine/5db5a9df-2e56-4711-9d39-b42cc86e4d79/3d-scene" target="_blank" rel="noopener">Open live Viam scene ↗</a><span id="dataStatus">Checking simulation connection…</span><button id="reconnectButton">Reconnect to Viam</button></div>
+      <div class="action-area"><button class="primary" id="dropButton" disabled><span>Run drop</span><span>↗</span></button><div class="secondary-row"><button id="learnButton" disabled>Learn release <span>24 trials</span></button><button id="replayButton" disabled>Replay</button></div><div class="secondary-row compact"><label>Seed <input id="seed" type="number" value="42" min="0" step="1"></label><button id="stopButton" disabled>Pause replay</button><button id="cancelButton" disabled>Stop Viam task</button></div><div id="message" role="status" aria-live="polite">Connecting to the isolated sircus-sim machine. All movement is simulated.</div></div>
+      <details id="advanced"><summary>Measurements & support dynamics <span>+</span></summary><p class="helper">Replace provisional values with measurements. Applying the configuration positions simulated arm 14 in Viam; unreachable poses are rejected.</p><div class="field-grid three measurements"><label>Length <em>mm</em><input id="boardLength" type="number" min="1" step="1"></label><label>Width <em>mm</em><input id="boardWidth" type="number" min="1" step="1"></label><label>Thickness <em>mm</em><input id="boardThickness" type="number" min="1" step="1"></label><label>Mass <em>kg</em><input id="boardMass" type="number" min="0.01" step="0.01"></label><label>Suction offset <em>mm</em><input id="suctionOffset" type="number" min="1" step="1"></label></div><p class="helper">Suction attachment relative to board center (board-local coordinates):</p><div class="field-grid three measurements"><label>X <em>mm</em><input id="mountX" type="number" step="1"></label><label>Y <em>mm</em><input id="mountY" type="number" step="1"></label><label>Z <em>mm</em><input id="mountZ" type="number" step="1"></label></div><textarea id="configJson" spellcheck="false" aria-label="Simulation configuration JSON"></textarea><button id="applyJson" disabled>Apply configuration</button><button id="downloadRun" disabled>Download last result</button></details>
+      <div class="ball-spec"><span class="ball-swatch"></span><div><b>ODD Ball</b><span>75 mm · 200 g</span></div><span id="boardSpec">Board dimensions pending</span></div>
+    </aside>
+  </main>
+  <main id="physicalPanel" class="physical-panel" hidden>
+    <section class="physical-observation">
+      <div class="intro"><div><span class="eyebrow">PHYSICAL TRIALS · SFHACK10</span><h1>One height. One attempt.</h1></div><span id="physicalMode" class="physical-badge">Connecting…</span></div>
+      <p class="physical-scope">Arm 10 picks and releases. Arm 14 holds the board. Board, bucket, release XY and gripper orientation stay fixed.</p>
+      <div class="physical-camera"><img id="physicalCamera" alt="Latest sfhack10 RealSense camera frame" hidden><div id="physicalCameraPlaceholder">Select Physical trials to load the camera.</div><div class="physical-camera-label">RealSense · arm 10 <span id="physicalCameraTime">No frame yet</span></div></div>
+      <div class="physical-status-grid">
+        <div><span class="metric-label">TRIAL ID</span><strong id="physicalTrialId">No active trial</strong></div>
+        <div><span class="metric-label">DROPPER</span><strong id="physicalArmState">Unknown</strong></div>
+        <div><span class="metric-label">RECORDING</span><strong id="physicalRecording">Not ready</strong></div>
+        <div><span class="metric-label">REQUESTED HEIGHT</span><strong id="physicalRequestedHeight">—</strong></div>
+      </div>
+      <div id="physicalMessage" class="physical-message" role="status" aria-live="polite">Waiting for the physical-trial service.</div>
+      <section class="physical-state-panel"><div class="section-title"><h2>Live robot state</h2><span id="physicalStateTime">No readback</span></div><pre id="physicalState">No robot state received.</pre></section>
+      <details class="physical-details"><summary>Trial record and measured release <span>+</span></summary><pre id="physicalTrialDetails">No active trial.</pre></details>
+      <details class="physical-details"><summary>Recording and integration details <span>+</span></summary><pre id="physicalRecordingDetails">No capture status received.</pre><p class="helper">Camera and arm RPCs have separate timestamps; they are not hardware-synchronized. A camera preview alone does not establish that trial recording is ready.</p></details>
+    </section>
+    <aside class="physical-controls">
+      <div class="physical-control-heading"><span class="eyebrow">OPERATOR CONTROLS</span><button id="physicalStop" class="physical-stop" data-physical-action="stop" disabled>Stop arm 10</button></div>
+      <p class="physical-stop-help">Stop cancels this panel’s pending actions and stops dropper motion. It does not open a gripper or release suction.</p>
+      <section class="physical-block"><h2>One-button taught-pose cycle</h2><p class="physical-help">Go to loading → open → wait 2 seconds → close → go to taught drop pose → settle 2 seconds → release. One button press per cycle. Practice saves locally without labeling.</p><p class="physical-help">Keep fingers outside the jaws; closing is automatic after the countdown. Press Stop to cancel.</p><label class="physical-confirm"><input id="physicalPractice" type="checkbox" checked>Practice: keep each completed trial unlabeled and enable the next cycle.</label><label class="physical-confirm"><input id="physicalCycleConfirm" type="checkbox">Board and bucket are fixed, the route is clear, and I am ready for the two-second automatic close.</label><button id="physicalCycle" class="primary" data-physical-action="load_drop_cycle" disabled>Load → Drop · 2 sec to load</button><div id="physicalCycleStatus" class="physical-readiness" role="status" aria-live="polite">Teach both poses first.</div><p class="physical-help">Uses the exact taught poses. Ball-to-board height is unmeasured; no height adjustment.</p></section>
+      <section class="physical-block"><h2>1 · Load the ball</h2><div class="physical-button-row"><button data-physical-action="open_gripper" disabled>Open gripper</button><button data-physical-action="close_gripper" disabled>Close gripper</button></div><button class="physical-wide" data-physical-action="go_loading" disabled>Go to loading position</button></section>
+      <section class="physical-block"><h2>2 · Set release height</h2><label for="physicalHeight">Height above calibrated reference <em>mm</em></label><input id="physicalHeight" type="number" step="1" inputmode="decimal" placeholder="Awaiting calibrated limits"><p id="physicalHeightLimits" class="physical-help">Height limits have not been calibrated.</p><button class="physical-wide" data-physical-action="go_drop" disabled>Go to drop position</button><div id="physicalReadiness" class="physical-readiness">Drop is locked until pose, settling and recording checks pass.</div><button id="physicalDrop" class="primary" data-physical-action="drop" disabled>Drop</button></section>
+      <section class="physical-block"><h2>3 · Label the completed trial</h2><fieldset class="physical-outcomes" id="physicalOutcomes" disabled><legend class="sr-only">Trial outcome</legend><label><input type="radio" name="physicalOutcome" value="captured">Captured</label><label><input type="radio" name="physicalOutcome" value="missed">Missed</label><label><input type="radio" name="physicalOutcome" value="unsure">Unsure</label></fieldset><div class="physical-outcome-detail"><label for="physicalMissDirection">Miss direction <span>optional · observer view</span></label><select id="physicalMissDirection" disabled><option value="">Not specified</option><option value="left">Left</option><option value="right">Right</option><option value="near">Near / short</option><option value="far">Far / long</option><option value="other">Other (describe below)</option></select><label for="physicalNotes">Notes <span>optional</span></label><textarea id="physicalNotes" rows="3" maxlength="4000" placeholder="Bounce, contact point, unusual behavior…" disabled></textarea></div><button class="physical-wide" data-physical-action="keep_unlabeled" disabled>Keep unlabeled · enable next cycle</button><button class="physical-wide" id="physicalSave" data-physical-action="save_trial" disabled>Save trial</button><p class="physical-help">The outcome is saved with this completed trial’s ID, recording and measured release pose.</p></section>
+      <details class="physical-calibration" open><summary>Calibrated poses and height limits <span>+</span></summary><div id="physicalCalibrationMissing" class="physical-calibration-missing">Calibration status unknown.</div><p class="physical-help">Manually place arm 10 with your established controls, then teach its current pose. Teaching only reads the robot; it does not move it.</p><div class="physical-button-row"><button data-physical-action="teach_loading" disabled>Teach loading pose</button><button data-physical-action="teach_drop" disabled>Teach fixed drop location</button></div><p class="physical-help">Height = arm-flange world Z − reference Z. The calibrated reference must include the offset from the flange to the held ball; it is not automatically the board surface height.</p><div class="field-grid three"><label>Reference Z <em>mm</em><input id="physicalReferenceZ" type="number" step="0.1" placeholder="Unknown"></label><label>Min height <em>mm</em><input id="physicalMinHeight" type="number" step="1" placeholder="Unknown"></label><label>Max height <em>mm</em><input id="physicalMaxHeight" type="number" step="1" placeholder="Unknown"></label></div><label class="physical-setup-label" for="physicalSetupRevision">Setup revision / fixed-layout reference</label><input id="physicalSetupRevision" type="text" maxlength="120" placeholder="e.g. board and bucket tape marks v1"><label class="physical-confirm"><input id="physicalCalibrationConfirm" type="checkbox">I verified the reference, height limits, fixed board and bucket placement, release XY and orientation.</label><button class="physical-wide" id="physicalSaveCalibration" data-physical-action="configure" disabled>Save calibration</button><pre id="physicalCalibrationDetails">No saved poses.</pre></details>
+      <a class="physical-viam-link" href="https://app.viam.com/machine/3103375b-9bab-4222-825d-b3fb9b2897fa/control" target="_blank" rel="noopener">Open sfhack10 in Viam ↗</a>
+    </aside>
+  </main>
+  <script type="module" src="/app.js"></script>
+  <script type="module" src="/physical.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "network": {"bind_address": "127.0.0.1:8080"},
+  "components": [
+    {
+      "name": "arm-10", "api": "rdk:component:arm", "model": "rdk:builtin:fake",
+      "attributes": {"model-path": "__ROOT__/models/xarm850_kinematics.json"},
+      "frame": {"parent": "world"}
+    },
+    {
+      "name": "gripper-10", "api": "rdk:component:gripper", "model": "rdk:builtin:fake",
+      "attributes": {"model-path": "__ROOT__/models/gripper-proxy.json"},
+      "frame": {"parent": "arm-10", "translation": {"x": 0, "y": 0, "z": 100}}
+    },
+    {
+      "name": "sircus", "api": "rdk:component:generic", "model": "local:sircus:controller",
+      "attributes": {}
+    }
+  ],
+  "services": [
+    {"name": "sircus-scene", "api": "rdk:service:world_state_store", "model": "local:sircus:scene", "attributes": {}}
+  ],
+  "modules": [
+    {"name": "sircus-simulation", "type": "local", "executable_path": "__ROOT__/run-viam.sh"}
+  ]
+}

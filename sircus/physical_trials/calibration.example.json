@@ -1,0 +1,12 @@
+{
+  "confirmed": false,
+  "frame": "world",
+  "loading_pose": null,
+  "drop_pose": null,
+  "board_joints": null,
+  "reference_z_mm": null,
+  "min_height_mm": null,
+  "max_height_mm": null,
+  "setup_revision": "",
+  "height_definition": "Commanded arm-flange world Z = calibrated reference Z + requested height; include held-ball offset in reference."
+}

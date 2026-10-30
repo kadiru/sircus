@@ -1,0 +1,58 @@
+# Credentials and host-local runtime state
+.private/
+.local/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*credentials.json
+!credentials.example.json
+*connection.json
+!viam-connection.example.json
+.venv/
+venv/
+.runtime/
+__pycache__/
+*.py[cod]
+*.log
+.DS_Store
+node_modules/
+# Captures, queues, generated policies, logs and host paths
+**/data/
+**/evidence/
+**/runs/
+**/experiments/
+**/.staging/
+**/sync-outbox/
+**/viam-config.cloud.json
+**/viam-config.test.json
+**/viam-config.local.json
+# Original imports and frozen transfers stay outside source control
+/imports/
+/handoff/
+/sircus/assets/
+/sircus/hardware-observed/
+/sircus/measurements/
+/sircus/output/
+/sircus/presentation-dashboard-update/
+/sircus/presentation-real-photos/
+/sircus/deliverable.json
+/sircus/yesterday-replay/
+/sircus/viam-cloud/
+/sircus/two-arm/history/
+/sircus/two-arm/HANDOFF_TO_UBUNTU.md
+/sircus/perception/fiducial-audit/
+/sircus/perception/security-inspection.json
+/sircus/perception/PERCEPTION_MANIFEST.json
+# Archives and raw captures are shared separately, not committed
+*.tar.gz
+*.zip
+*.HEIC
+*.heic
+*.pcd
+*.npy
+
+# Generated presentation builds and device screenshots
+/sircus/.build/
+/sircus/perception/pointcloud-ui-verification.png

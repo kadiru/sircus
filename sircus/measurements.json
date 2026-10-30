@@ -1,0 +1,49 @@
+{
+  "board": {
+    "size_mm": [
+      200,
+      300,
+      5
+    ],
+    "source": "User measurement: 20 cm by 30 cm by 0.5 cm",
+    "received_local_date": "2026-10-29",
+    "axis_assignment": "BoardbodyU=200mm,V=300mm; rotated90degrelativecup; yaw sign conventionchosen+90deg",
+    "mass_kg": null,
+    "suction_attachment_offset_mm": null,
+    "flange_to_board_mm": null,
+    "mount_yaw_deg": 90,
+    "mount_orientation_source": "User: portrait was wrong; board is landscape, rotated90deg on suctiontool"
+  },
+  "arm_base_spacing": {
+    "distance_in": 52.65,
+    "distance_mm": 1337.31,
+    "translation_mm": [
+      1337.31,
+      0,
+      0
+    ],
+    "board_base_yaw_deg": 180,
+    "reference": "Interpreted as base-to-base spacing along existingX axis",
+    "source": "User measurement",
+    "previous_x_mm": 1370,
+    "change_x_mm": -32.690000000000055
+  },
+  "bucket": {
+    "inside_opening_diameter_mm": 177,
+    "outside_top_diameter_mm": 200,
+    "inside_bottom_diameter_mm": 150,
+    "outside_bottom_diameter_mm": 158,
+    "reported_height_mm": 175,
+    "reported_height_meaning": "unconfirmed: overallheight orinteriordepth",
+    "interior_depth_mm": null,
+    "overall_height_mm": null,
+    "placement_status": "provisional",
+    "shape": "open_top_straight_sided_taper",
+    "source": "User physicalmeasurements",
+    "simulation_assumptions": {
+      "interior_depth_mm": 175,
+      "bottom_thickness_mm": 8,
+      "derived_outer_height_mm": 183
+    }
+  }
+}

@@ -1,0 +1,4 @@
+# Optional offline fiducial inspection; install in a perception-only environment.
+# Do not install in or alter the frozen simulation environment.
+opencv-contrib-python-headless==4.12.0.88
+numpy==2.2.6

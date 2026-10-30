@@ -1,0 +1,103 @@
+{
+  "schema": "sircus.physical-board-asset.v1",
+  "asset_id": "sircus-board-provisional",
+  "target_machine": "sfhack10",
+  "role": "Nominal board held by arm 14; geometry representation awaiting measured mount and perception alignment",
+  "units": {
+    "length": "mm",
+    "angle": "degrees"
+  },
+  "dimensions": {
+    "size_mm": [
+      200,
+      300,
+      5
+    ],
+    "axes": "Board local X/U is 200 mm, local Y/V is 300 mm, local Z is thickness. Do not also swap X/Y when applying mount yaw.",
+    "status": "user_measured",
+    "source": "sircus/measurements.json:board; user: 20 cm by 30 cm by 0.5 cm"
+  },
+  "mount": {
+    "parent_frame": "vacuum-board",
+    "translation_mm": [
+      0,
+      0,
+      122
+    ],
+    "yaw_deg": 90,
+    "pose_status": "provisional_proxy_derived_not_calibrated",
+    "translation_source": "Configured vacuum-board geometry proxy: tube center Z=117, full thickness=5; front=119.5; board center=119.5+5/2=122. Centered X/Y is an unmeasured assumption.",
+    "orientation_source": "User specifies 90 degree landscape rotation. +90 degree sign follows the existing simulation convention; no physical axis calibration was inferred from photos.",
+    "proxy_evidence": "sircus/perception/data/20261030T001623700791Z/configured_frames.json",
+    "measured_flange_to_board_center_mm": null,
+    "measured_suction_attachment_offset_mm": null,
+    "calibrated": false
+  },
+  "surface": {
+    "board_frame_impact_center_mm": [
+      0,
+      0,
+      2.5
+    ],
+    "board_frame_normal": [
+      0,
+      0,
+      1
+    ],
+    "vacuum_board_frame_nominal_impact_center_mm": [
+      0,
+      0,
+      124.5
+    ],
+    "normal_status": "nominal outward local +Z convention; not perception observed",
+    "compliance": "This geometric box does not model board/suction spring or damping response."
+  },
+  "viam_component": {
+    "name": "sircus-board-provisional",
+    "api": "rdk:component:generic",
+    "model": "rdk:builtin:fake",
+    "attributes": {},
+    "frame": {
+      "parent": "vacuum-board",
+      "translation": {
+        "x": 0,
+        "y": 0,
+        "z": 122
+      },
+      "orientation": {
+        "type": "ov_degrees",
+        "value": {
+          "x": 0,
+          "y": 0,
+          "z": 1,
+          "th": 90
+        }
+      },
+      "geometry": {
+        "type": "box",
+        "x": 200,
+        "y": 300,
+        "z": 5
+      }
+    }
+  },
+  "planning": {
+    "geometry_source": "component.frame.geometry",
+    "included_by_frame_system_motion_planner_when_installed": true,
+    "display_only": false,
+    "certified_clearance_model": false,
+    "notes": "An attached primitive is visible and follows its parent kinematically. Its unmeasured pose is not a calibrated collision envelope. No collision exemptions or motion commands are included."
+  },
+  "perception": {
+    "observed_pose": null,
+    "observed_surface_normal": null,
+    "world_pose_calibrated": false,
+    "future_observed_asset_id": "sircus-board-observed",
+    "notes": "Keep future camera-observed geometry separate from this nominal kinematic asset, including timestamp, source camera, calibration identity and uncertainty."
+  },
+  "sources": [
+    "https://docs.viam.com/motion-planning/obstacles/configure-workspace-obstacles/",
+    "https://docs.viam.com/visualization/visuals-and-collisions/",
+    "https://docs.viam.com/reference/apis/services/world-state-store/"
+  ]
+}

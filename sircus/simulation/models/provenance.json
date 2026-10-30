@@ -1,0 +1,17 @@
+{
+  "repository": "https://github.com/viam-modules/viam-ufactory-xarm",
+  "commit": "84e216609a1350b416b4b5ca5818cdc0e64f1d22",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "file": "xarm850_kinematics.json",
+      "source": "https://raw.githubusercontent.com/viam-modules/viam-ufactory-xarm/84e216609a1350b416b4b5ca5818cdc0e64f1d22/arm/xarm850_kinematics.json",
+      "sha256": "78e0fdc383cf6e1e5b0f9d44fdf1205e4c08a37eb5c0c2182c9f74291c51d3c0"
+    },
+    {
+      "file": "LICENSE.ufactory",
+      "source": "https://raw.githubusercontent.com/viam-modules/viam-ufactory-xarm/84e216609a1350b416b4b5ca5818cdc0e64f1d22/LICENSE",
+      "sha256": "698b224d7eda767137c7412b4665e5d8c1695c85ed5ab5f19014e76c1f6f5016"
+    }
+  ]
+}

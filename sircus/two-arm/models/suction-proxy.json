@@ -1,0 +1,1 @@
+{"name":"provisional-AS1200-envelope","links":[{"id":"suction-body-provisional","parent":"world","translation":{"x":0,"y":0,"z":0},"geometry":{"type":"box","x":80,"y":80,"z":80,"translation":{"x":0,"y":0,"z":-45}}}],"joints":[]}

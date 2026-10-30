@@ -1,0 +1,30 @@
+{
+  "repository": "https://github.com/viam-modules/viam-camera-realsense",
+  "version": "0.22.6",
+  "commit": "8caec2f4b60887e71b7c12d0d27fad0bff5740da",
+  "purpose": "Read-only primary-source encoding inspection; never executed",
+  "files": [
+    {
+      "path": "LICENSE",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "path": "device_impl.hpp",
+      "sha256": "09f3ac7a49a292131d59e32789e7f46474ede8da3166440c3dd5269c9087f3f6"
+    },
+    {
+      "path": "encoding.cpp",
+      "sha256": "337f9de0aca79b8085625145fd5beb7ba17f01bddde09c9b62800f9a8928b9bf"
+    },
+    {
+      "path": "realsense.hpp",
+      "sha256": "2240b2413522fa2e6be290d3923d99e65c3bacbdf42e1711bd06392465debed7"
+    }
+  ],
+  "observations": [
+    "encoding.cpp copies raw depth uint16 values without applying a device scale.",
+    "encoding.cpp writes RealSense point XYZ directly into binary PCD without a factor1000.",
+    "realsense.hpp aligns depth to color for GetImages when configured and publishes color-frame camera intrinsics when color is configured.",
+    "GetProperties identity extrinsics describe the internal camera frame convention; they are not robot hand-eye calibration."
+  ]
+}

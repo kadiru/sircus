@@ -1,0 +1,83 @@
+{
+  "units": "mm, degrees, kg, seconds",
+  "model": "sircus_compliant_board_v1",
+  "calibration": "provisional; board, support and contact parameters unmeasured",
+  "roles": {
+    "drop_robot_id": 10,
+    "board_robot_id": 14
+  },
+  "ball": {
+    "diameter_mm": 75.0,
+    "mass_kg": 0.2,
+    "contact_stiffness_n_m": 18000.0,
+    "contact_damping_s_m": 0.12,
+    "friction": 0.2
+  },
+  "board": {
+    "center_mm": [
+      350.0,
+      -30.0,
+      190.0
+    ],
+    "size_mm": [
+      280.0,
+      260.0,
+      12.0
+    ],
+    "rpy_deg": [
+      -30.0,
+      0.0,
+      0.0
+    ],
+    "mass_kg": 0.4,
+    "support_offset_mm": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "normal_stiffness_n_m": 12000.0,
+    "normal_damping_ns_m": 18.0,
+    "tilt_stiffness_nm_rad": [
+      30.0,
+      30.0
+    ],
+    "tilt_damping_nms_rad": [
+      0.15,
+      0.15
+    ]
+  },
+  "table": {
+    "center_mm": [
+      425.0,
+      0.0,
+      -5.0
+    ],
+    "size_mm": [
+      500.0,
+      700.0,
+      40.0
+    ],
+    "contact_damping_s_m": 0.3
+  },
+  "bin": {
+    "center_xy_mm": [
+      350.0,
+      220.0
+    ],
+    "inner_size_mm": [
+      220.0,
+      220.0
+    ],
+    "floor_top_mm": 27.0,
+    "wall_height_mm": 100.0,
+    "wall_thickness_mm": 8.0,
+    "contact_damping_s_m": 0.6
+  },
+  "simulation": {
+    "dt_s": 0.0005,
+    "duration_s": 3.0,
+    "frame_dt_s": 0.02,
+    "noise_xy_mm": 0.0,
+    "noise_gap_mm": 0.0
+  }
+}

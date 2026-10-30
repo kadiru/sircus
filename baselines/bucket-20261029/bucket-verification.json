@@ -1,0 +1,202 @@
+{
+  "verified_at": "2026-10-29T23:39:42.671065+00:00",
+  "schema": "sircus-bucket-verification-v1",
+  "scene_id": "sircus-two-arm-tapered-bucket-landscape-v1",
+  "config_fingerprint": "bb6bc13e1d38ac1bba4d12b11f3c249396e06acd4540097bfcbb3455706c30eb",
+  "source_hashes": {
+    "physics.py": "aa812b322bd88dcc7cc59264caf3f7a56eeddbe42216b062dee5d494a32d0f07",
+    "bucket_geometry.py": "2d0bf7ab34d89873e3666b5fd92dbee2a2321aa732108d177c67eb09a62ed53e",
+    "training_loop.py": "56575b7fae7e3f398be388c0bda1c63f7ba9e42a157edcf014a4aad651859d46",
+    "kinematics.py": "a176c952068cd6fa578ebf328287ea17d09856a807ac2e6ed76c18f5e8cdd05a",
+    "two_arm_kinematics.py": "7db3aaf7b3ef0f761724c29a7e4afe0905716522d6297e0c4cabb32273ba66d9",
+    "models/xarm850_kinematics.json": "78e0fdc383cf6e1e5b0f9d44fdf1205e4c08a37eb5c0c2182c9f74291c51d3c0"
+  },
+  "geometry": {
+    "shape": "tapered_bucket",
+    "center_xy_mm": [
+      680.0,
+      245.0
+    ],
+    "floor_top_mm": 27.0,
+    "inner_top_diameter_mm": 177,
+    "outer_top_diameter_mm": 200,
+    "inner_bottom_diameter_mm": 150,
+    "outer_bottom_diameter_mm": 158,
+    "reported_height_mm": 175,
+    "height_interpretation": "unresolved",
+    "interior_depth_mm": 175,
+    "bottom_thickness_mm": 8,
+    "contact_damping_s_m": 0.6,
+    "taper_model": "straight_sided",
+    "placement_status": "provisional",
+    "assumptions": {
+      "interior_depth_mm": "175mm used for simulation only; reported height interpretation remains unconfirmed",
+      "bottom_thickness_mm": "8mm provisional and unmeasured",
+      "derived_outer_height_mm": 183,
+      "diameter_measurements": "user physical measurements"
+    },
+    "height_uncertainty": "Reported175mm maymeanoverallheight orinteriordepth; awaitingclarification"
+  },
+  "board_mount": {
+    "board_size_mm": [
+      200.0,
+      300.0,
+      5.0
+    ],
+    "board_rpy_deg": [
+      -0.0,
+      30.0,
+      90.0
+    ],
+    "board_mount_yaw_deg": 90,
+    "actual_native_board_pose": {
+      "rpy_deg": [
+        0.0002765014640721021,
+        30.00028912972148,
+        90.00015101129551
+      ],
+      "center_mm": [
+        600.0001992055359,
+        0.0005220228548279415,
+        350.00027773012806
+      ],
+      "rotation": [
+        [
+          -2.2825282813048986e-06,
+          -0.9999999999912412,
+          3.5080272594580737e-06
+        ],
+        [
+          0.8660228806376008,
+          -2.226927569441584e-07,
+          0.500004370193002
+        ],
+        [
+          -0.5000043701878419,
+          4.179305988009223e-06,
+          0.8660228806305241
+        ]
+      ]
+    },
+    "scope": "90-degree in-plane board rotation preserving prior board normal and suction TCP orientation"
+  },
+  "training": {
+    "session_id": "20261029T232904069256Z-2a7bbd1f",
+    "proposals": 24,
+    "best_action": {
+      "gap_mm": 161.71522403330013,
+      "u_mm": -16.408239803904316,
+      "v_mm": -44.820748616753974
+    },
+    "test": {
+      "retained_count": 10,
+      "trials": 10,
+      "test_spec": {
+        "release_gap_mm": 3,
+        "release_xy_mm": 2,
+        "seed": 127,
+        "trials": 10
+      }
+    },
+    "policy_saved_before_test": true,
+    "evidence": "data/bucket-training-live.json"
+  },
+  "native_replay": {
+    "session_id": "20261029T233247252271Z-67818bd3",
+    "planned_motion_readbacks": 8,
+    "all_motion_ok": true,
+    "retained": true,
+    "native_replay_verified": true,
+    "success_definition": "ball wholly inside inner bucket frustum (0.5mm numerical contact tolerance), near floor, speed <60mm/s for0.2s",
+    "evidence": "data/bucket-native-live.json"
+  },
+  "session_source_audit": [
+    {
+      "session_id": "20261029T232904069256Z-2a7bbd1f",
+      "config_fingerprint_matches": true,
+      "source_hashes_match": true,
+      "archive_file_count": 37
+    },
+    {
+      "session_id": "20261029T233247252271Z-67818bd3",
+      "config_fingerprint_matches": true,
+      "source_hashes_match": true,
+      "archive_file_count": 3
+    }
+  ],
+  "policy_cache": {
+    "matching_current_scene_restored": true,
+    "restored_session": "20261029T232904069256Z-2a7bbd1f",
+    "scene_changes_rejected": [
+      {
+        "changed_field": "bin.inner_top_diameter_mm",
+        "change_mm": 1,
+        "rejected": true,
+        "altered_fingerprint": "84f1a28401bba1fc8fa31fc192c588dff9397250d31553e3a9d2cd0a3649349b"
+      },
+      {
+        "changed_field": "bin.outer_top_diameter_mm",
+        "change_mm": 1,
+        "rejected": true,
+        "altered_fingerprint": "e095603c5dc1e0c0f22e2023035b84153c8cd5a5efc12c590571f5269352bd72"
+      },
+      {
+        "changed_field": "bin.interior_depth_mm",
+        "change_mm": 1,
+        "rejected": true,
+        "altered_fingerprint": "a71b7bac1f6a3da2a9575c47a31e29ebc67f445a3e4e80dab2d242b62dadfd5a"
+      },
+      {
+        "changed_field": "robot14.board_mount_yaw_deg",
+        "changed_value": 0,
+        "rejected": true,
+        "altered_fingerprint": "adc90cb026f17e39e05c39b985e604ee920d8e9913bfaf806e5ff7b65a6fcb02"
+      }
+    ],
+    "mutation_scope": "In-memory copies only; no scene/runtime changes"
+  },
+  "historical_archive_audit": {
+    "manifest": "history/rectangular-20261029/archive-before-bucket-sha256.json",
+    "checked_files": 75,
+    "mismatches": [],
+    "all_unchanged": true,
+    "original_scene_snapshot": "history/rectangular-20261029/scene.json"
+  },
+  "world_state_store": {
+    "evidence": "data/bucket-wss-verification.json",
+    "bucket_wall_segments": 24,
+    "objects": 28,
+    "stale_rectangular_transforms": [],
+    "read_only": true
+  },
+  "cloud_upload_verified": true,
+  "cloud_upload": {
+    "evidence": "data/bucket-cloud-upload-verification.json",
+    "visible_text": "data/bucket-viam-files-visible.txt",
+    "screenshot": "data/bucket-viam-files.png",
+    "verified_file_count": 40,
+    "missing": [],
+    "method": "Viam DATA Files UI, machine sircus-sim"
+  },
+  "dashboard": {
+    "screenshot": "data/bucket-dashboard.png",
+    "verification": "data/bucket-dashboard-verified.txt",
+    "verified_by": "parent agent UI inspection"
+  },
+  "tests": {
+    "bucket_physics": 13,
+    "legacy_physics": 15,
+    "native_bucket_geometry_and_mount": 5,
+    "training_and_data": 9,
+    "cloud_guard": 4
+  },
+  "physically_verified": false,
+  "limitations": [
+    "175mm remains reported height with unresolved overall-height versus interior-depth meaning. Simulation assumes interior depth175mm and unmeasured floor thickness8mm (derived outer height183mm).",
+    "Bucket placement remains provisional. Board mass, support compliance, tool offsets and ball properties require calibration.",
+    "Analytic ball contact/capture uses inner frustum; Viam robot clearance uses24 conservative rotated wall boxes and an outer floor bounding box. Faceted proxies can overestimate collision volume; top remains open.",
+    "24-proposal optimizer and10 fresh noisy tests concern one board pose and small release perturbations only; not a generalized policy or physical success rate.",
+    "Proposal checks are kinematic endpoints. Only selected release received native collision-planned motion/readback verification.",
+    "Contact model omits ball spin, board bending and full coupled arm dynamics. No physical robot actuation was performed in this verification."
+  ]
+}
