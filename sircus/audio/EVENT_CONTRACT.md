@@ -96,7 +96,7 @@ channel and note tuple for each slot. All bindings start null. A positive measur
 NoteOn may produce `sensor / midi_gesture / impact / unknown` only, with that
 ball's configurable generic bounce sound. It never proves a board/bucket/collision
 contact or an outcome. Missing bindings stay silent. Released trials for different
-balls coexist for a configured 1–30 second impact window (default 12 seconds);
+balls coexist for a configured 1–30 second impact window (default 30 seconds);
 starting the same ball again replaces its association. Cancellation retires that
 trial permanently within the process. Source timestamps are checked within each
 clock domain; they are never compared across MacBook and Mini clocks. Identical

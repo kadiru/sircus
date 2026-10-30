@@ -47,7 +47,7 @@ class MultiBallTests(unittest.TestCase):
         self.assertFalse(self.event('release','t','ball-pink',2.)['accepted'])
         self.assertFalse(self.event('carry_start','t','ball-pink',1.)['accepted'])
         self.c.stop('t');self.assertFalse(self.c.midi({'input':100,'status':144,'data':[0,90]})['accepted'])
-        self.event('release','fresh','ball-pink',3.);self.now+=13
+        self.event('release','fresh','ball-pink',3.);self.now+=31
         self.assertFalse(self.c.midi({'input':100,'status':144,'data':[0,90]})['accepted'])
     def test_cancel_prior_ball_does_not_stop_current_transport(self):
         self.event('release','old','ball-pink')
@@ -64,7 +64,7 @@ class MultiBallTests(unittest.TestCase):
         self.assertEqual(self.c.transport_trial,'current')
     def test_repeated_release_does_not_extend_midi_window(self):
         self.event('release','t','ball-pink',1.)
-        self.now+=11
+        self.now+=29
         self.assertFalse(self.event('release','t','ball-pink',2.)['accepted'])
         self.now+=2
         self.assertIsNone(self.c.show_router.midi_identity(100,1,0))

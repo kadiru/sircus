@@ -4,6 +4,7 @@ Only this backend process receives the audio URL/token. Robot callbacks enqueue
 immutable evidence without waiting for Node, a socket, or an audio acknowledgment.
 """
 from collections import deque
+from contextlib import contextmanager
 import ipaddress
 import json
 import math
@@ -31,6 +32,7 @@ class AudioObserver:
         self._retired = set()
         self._clients = {}  # Do not evict ordering history and replay an old browser request.
         self._revision = 0
+        self._playback_epoch = 0
         self._closed = False
         self._process = None
         self._factory = process_factory
@@ -60,8 +62,25 @@ class AudioObserver:
         with self._condition:
             return {**self._state, 'action_token': self.token}
 
+    def playback_readiness(self):
+        """Snapshot an audio-only creation permit, never a robot readiness gate."""
+        with self._condition:
+            return {'epoch':self._playback_epoch,'ready':self._playback_ready()}
+
+    def _playback_ready(self):
+        return (not self._closed and self._state['enabled'] and self._state['show_audio_capable']
+                and self._state['connection']!='error')
+
+    @contextmanager
+    def playback_creation(self,expected_epoch):
+        # ShowAudio holds its lifecycle lock first. The body only assigns the new
+        # Event/identity; no IO or callback may run under this short condition.
+        with self._condition:
+            yield self._playback_epoch==expected_epoch and self._playback_ready()
+
     def _error(self, text='Optional audio unavailable'):
         with self._condition:
+            self._playback_epoch += 1
             self._state.update(connection='error', error=text, pending=False, enabled=False)
             if not self._state['requested_enabled']:
                 self._state['mute_confirmed'] = False
@@ -126,14 +145,17 @@ class AudioObserver:
     def configure_show_remote(self, config):
         """Audio-only configuration changes mute first; never called by motion guards."""
         with self._condition:
+            self._playback_epoch += 1
             self._state.update(enabled=False, requested_enabled=False, show_audio_capable=False)
             if self._state['configured']:
                 self._enqueue_control({'op':'fx','enabled':False})
                 self._enqueue_control({'op':'show_config','config':config})
+        if self.show is not None:self.show.cancel_replay(blocking=False)
 
     def _enqueue_control(self, command):
         # Called under the condition lock. Cancelling never waits behind stale cues.
         self._revision += 1
+        if command['op']=='fx' and not command['enabled']:self._playback_epoch += 1
         command['revision'] = self._revision
         command['queued_at'] = self._clock()
         if command['op'] in ('stop', 'fx'):
@@ -149,6 +171,7 @@ class AudioObserver:
             # Losing cancellation is worse than losing optional playback. Collapse
             # an overloaded control queue to an explicit global mute, never an enable.
             self._queue.clear()
+            self._playback_epoch += 1
             command = {'op': 'fx', 'enabled': False, 'revision': self._revision,
                        'queued_at': self._clock()}
             self._state.update(enabled=False, requested_enabled=False, mute_confirmed=False,
@@ -179,8 +202,6 @@ class AudioObserver:
             command = {'op': 'volume', 'volume': float(volume)}
         else:
             raise ValueError('Unsupported audio control')
-        if action == 'fx' and not payload['enabled'] and self.show is not None:
-            self.show.cancel_replay()
         with self._condition:
             if not self._state['configured'] or self._closed:
                 raise ValueError('Audio backend is not configured')
@@ -194,11 +215,13 @@ class AudioObserver:
             self._clients[client_id] = (sequence, dict(body))
             if action == 'fx':
                 enabled = payload['enabled']
+                self._playback_epoch += 1
                 self._state.update(requested_enabled=enabled, enabled=False,
                                    mute_confirmed=None if enabled else False)
             else:
                 self._state['volume'] = float(volume)
             self._enqueue_control(command)
+        if action=='fx' and self.show is not None:self.show.cancel_replay(blocking=False)
         return self.snapshot()
 
     def _take(self):
@@ -244,9 +267,10 @@ class AudioObserver:
                 self._state['error'] = errors[code]
             else:
                 self._state['error'] = 'Optional audio unavailable; remote mute may be unconfirmed'
-            cancel_replay = was_enabled and not self._state['enabled']
+            cancel_replay = (was_enabled and not self._state['enabled']) or self._state['connection']=='error'
+            if cancel_replay:self._playback_epoch += 1
         # Never acquire ShowAudio's lock under the queue condition (emit takes the reverse order).
-        if cancel_replay and self.show is not None:self.show.cancel_replay()
+        if cancel_replay and self.show is not None:self.show.cancel_replay(blocking=False)
 
     def _read(self, process):
         try:
@@ -284,12 +308,13 @@ class AudioObserver:
 
     def close(self):
         # Shutdown itself never sends/awaits robot commands or restarts a service.
-        if self.show is not None:self.show.close()
         with self._condition:
             self._closed = True
+            self._playback_epoch += 1
             self._queue.clear()
             self._state.update(enabled=False, requested_enabled=False)
             self._condition.notify_all()
+        if self.show is not None:self.show.close()
         if self._process is not None:
             try:
                 self._process.terminate()
