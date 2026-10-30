@@ -18,7 +18,7 @@ export class SircusAudio {
   }
   cancel(){this.controls.invalidate();this.generation++;this.queue=[];for(const request of this.active)request.abort();}
   // Operator/UI controls may await their own response; cue producers never do.
-  setFX(enabled){if(!enabled)this.cancel();return this.controls.setFX(enabled);}
+  setFX(enabled,options={}){if(!enabled)this.cancel();return this.controls.setFX(enabled,options);}
   panic(){this.cancel();return this.controls.panic();}
   stop(trialId){this.cancel();return this.request('stop',trialId?{trial_id:trialId}:{});}
   setVolume(volume){return this.request('volume',{volume});}

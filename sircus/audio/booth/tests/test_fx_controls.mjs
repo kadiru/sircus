@@ -59,3 +59,16 @@ const pending=cancelled.setFX(true);const rejection=assert.rejects(pending,/supe
 await tick();cancelled.cancel();releaseStatus({control_epoch:'epoch'});await rejection;
 assert.equal(cancelCalls.length,1);
 console.log('Ordered FX controls passed: delayed/reversed ON, OFF/panic priority, shared client metadata, legacy fail-closed and cancellation');
+
+// The dashboard binds an explicit enable to its last accepted show configuration.
+const showDigest='a'.repeat(64),showCalls=[];
+const showControl=new FXControls({clientId:'show',request:async(path,body)=>{
+  showCalls.push({path,body});
+  return path==='status'?{control_epoch:'current',audio_ready:true,route:'native',show_audio:{
+    readiness_schema:'sircus.show-readiness.v1',configured:true,selection_matches:true,config_digest:showDigest}}:{};
+}});
+await showControl.setFX(true,{showConfigDigest:showDigest});
+assert.equal(showCalls.at(-1).body.show_config_digest,showDigest);
+await assert.rejects(showControl.setFX(true,{showConfigDigest:'b'.repeat(64)}),/readiness changed/);
+assert.equal(showCalls.filter(row=>row.path==='fx').length,1,'mismatched mapping never sends enable');
+console.log('Show-aware enable binds config digest in both preflight and atomic server control');

@@ -39,7 +39,9 @@ class AudioObserver:
         self._env = env
         self._state = dict(configured=False, enabled=False, requested_enabled=False,
                            volume=.35, connection='not_configured', pending=False,
-                           error=None, mute_confirmed=None, show_audio_capable=False)
+                           error=None, mute_confirmed=None, show_audio_capable=False,
+                           engine_ready=None, mapping_matches=False, ball_inputs=[],
+                           bound_ball_count=0, connected_ball_count=0)
         raw = env.get('SIRCUS_AUDIO_URL', '')
         if raw:
             try:
@@ -60,7 +62,7 @@ class AudioObserver:
 
     def snapshot(self):
         with self._condition:
-            return {**self._state, 'action_token': self.token}
+            return {**self._state, 'ball_inputs':[dict(row) for row in self._state['ball_inputs']], 'action_token': self.token}
 
     def playback_readiness(self):
         """Snapshot an audio-only creation permit, never a robot readiness gate."""
@@ -81,7 +83,9 @@ class AudioObserver:
     def _error(self, text='Optional audio unavailable'):
         with self._condition:
             self._playback_epoch += 1
-            self._state.update(connection='error', error=text, pending=False, enabled=False)
+            self._state.update(connection='error', error=text, pending=False, enabled=False,
+                               engine_ready=None, mapping_matches=False, show_audio_capable=False,
+                               ball_inputs=[], bound_ball_count=0, connected_ball_count=0)
             if not self._state['requested_enabled']:
                 self._state['mute_confirmed'] = False
         if self.show is not None:self.show.cancel_replay(blocking=False)
@@ -146,7 +150,8 @@ class AudioObserver:
         """Audio-only configuration changes mute first; never called by motion guards."""
         with self._condition:
             self._playback_epoch += 1
-            self._state.update(enabled=False, requested_enabled=False, show_audio_capable=False)
+            self._state.update(enabled=False, requested_enabled=False, show_audio_capable=False,
+                               mapping_matches=False, ball_inputs=[], bound_ball_count=0, connected_ball_count=0)
             if self._state['configured']:
                 self._enqueue_control({'op':'fx','enabled':False})
                 self._enqueue_control({'op':'show_config','config':config})
@@ -247,17 +252,30 @@ class AudioObserver:
             if not isinstance(status, dict):
                 return
             was_enabled = self._state['enabled']
-            for key in ('enabled', 'requested_enabled', 'pending', 'mute_confirmed', 'show_audio_capable'):
+            for key in ('enabled', 'requested_enabled', 'pending', 'mute_confirmed', 'show_audio_capable', 'engine_ready', 'mapping_matches'):
                 value = status.get(key)
-                if type(value) is bool or (key == 'mute_confirmed' and value is None):
+                if type(value) is bool or (key in ('mute_confirmed','engine_ready') and value is None):
                     self._state[key] = value
+            if 'ball_inputs' in status:
+                rows=status['ball_inputs'];allowed={'ball-pink','ball-purple','ball-green','ball-gray'};clean=[]
+                if isinstance(rows,list) and len(rows)<=4:
+                    for row in rows:
+                        if not isinstance(row,dict) or row.get('ball_id') not in allowed or type(row.get('bound')) is not bool or type(row.get('connected')) is not bool:continue
+                        allowed.remove(row['ball_id'])
+                        clean.append({'ball_id':row['ball_id'],'bound':row['bound'],
+                                      'connected':bool(self._state['mapping_matches'] and row['bound'] and row['connected'])})
+                self._state['ball_inputs']=clean
+                self._state['bound_ball_count']=sum(row['bound'] for row in clean)
+                self._state['connected_ball_count']=sum(row['connected'] for row in clean)
             if not self._state['requested_enabled']:
                 self._state['enabled'] = False
             if status.get('connection') in ('connected', 'error', 'connecting'):
                 self._state['connection'] = status['connection']
             # Never pass arbitrary exception strings, URLs, tokens, or service error payloads.
             errors = {
-                'audio_disabled_remotely': 'FX was disabled on the Mini; enable it here to resume cues',
+                'audio_disabled_remotely': 'FX was disabled on the audio host; enable it here to resume cues',
+                'audio_mapping_unverified': 'Audio mappings changed or are unverified; reapply saved mappings before enabling FX',
+                'audio_engine_unavailable': 'Native audio engine is unavailable; inspect the audio host',
                 'remote_mute_unconfirmed': 'Remote audio may be on; mute is unconfirmed',
             }
             code = status.get('error')
