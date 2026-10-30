@@ -2,6 +2,14 @@
 
 ## Dashboard round controls — October 30, 2026
 
+Deployment verification: the idle physical dashboard was refreshed to this branch
+on port8765 with cameras disabled. Read-only checks showed both arms stationary,
+no fault, both round presets available, and FX off with the prior100% volume
+restored. Ghost Booth was not restarted. The browser mock completed4/4 in each
+round with an explicit reload pause; no physical motion or tool command was sent.
+The live UI currently reports3/4 ball inputs connected; wake/reconnect all four
+before an audible demonstration. This does not gate robot motion.
+
 Task branch `codex/macbook-round-operator-ui` adds explicit Round 1 / reload /
 Round 2 controls to the existing show desk. The backend serializes board transition
 and four taped pickups, preserves 100 mm approach/lift and release guards, retains
