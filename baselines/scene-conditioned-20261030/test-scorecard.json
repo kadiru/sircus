@@ -1,0 +1,3255 @@
+{
+  "checkpoint_id": "be3cc423190aecef7a2c9b4d456e3b74902ab529f339a616605f5a6d6fb41c4f",
+  "data_origin": "synthetic",
+  "methods": {
+    "fixed_baseline": [
+      {
+        "action": {
+          "gap_mm": 161.715,
+          "pitch_deg": 30.0,
+          "roll_deg": 0.0,
+          "u_mm": -16.408,
+          "v_mm": -44.821
+        },
+        "data_origin": "synthetic",
+        "endpoint_feasibility": {
+          "arm_reachable": true,
+          "board_arm_reachable": true,
+          "reason": "",
+          "scope": "kinematic target checks; native replay separately validates motion paths"
+        },
+        "layout_sha256": "f682a1d08c716905279e3b6db04ac8ec045e6b201f5b65631c1de2161b380432",
+        "native_paths_checked": false,
+        "physically_verified": false,
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "release_action": {
+          "gap_mm": 161.715,
+          "u_mm": -16.408,
+          "v_mm": -44.821
+        },
+        "release_coordinates": {
+          "commanded_release_ball_center_mm": [
+            634.174904914982,
+            -16.812654762428824,
+            572.0665769883631
+          ],
+          "coordinate_contract": {
+            "angle_units": "degrees",
+            "ball_to_tool": {
+              "rotation_matrix": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "status": "provisional ball center at simulated gripper TCP; uncalibrated",
+              "translation_mm": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+            "frame": "world; Z upward",
+            "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+            "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+            "height_units": "m",
+            "mass_units": "kg",
+            "position_units": "mm",
+            "tcp_world_rotation_matrix": [
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "time_units": "s",
+            "uv_definition": "board-local top-face U/V in mm; not world XY"
+          },
+          "gap_mm": 161.715,
+          "h_m": 0.16171499999999997,
+          "nominal_contact_ball_center_mm": [
+            634.174904914982,
+            -16.812654762428824,
+            410.3515769883631
+          ],
+          "u_mm": -16.408,
+          "v_mm": -44.821
+        },
+        "result": {
+          "board_bounce_t_s": 0.1895,
+          "bucket_retained_1s": true,
+          "capture_class": "rim_assisted",
+          "current_containment_s": 1.0,
+          "duration_s": 1.48675,
+          "full_exits": 0,
+          "max_continuous_containment_s": 1.0,
+          "model_limit": null,
+          "opening_crossings": [
+            {
+              "clearance_mm": 19.679284308270798,
+              "signed_miss_xy_mm": [
+                -30.3583376753096,
+                7.704450988487736
+              ],
+              "t": 0.45356063864028884,
+              "through_opening": true,
+              "xyz_mm": [
+                664.9873671791403,
+                196.97136487393445,
+                202.0
+              ]
+            }
+          ],
+          "outcome": "captured",
+          "signed_miss_xy_mm": [
+            -30.3583376753096,
+            7.704450988487736
+          ],
+          "success": true,
+          "termination_reason": "retention_complete",
+          "truncated": false,
+          "valid_board_bounce": true,
+          "whole_ball_entry": true
+        },
+        "role": "fixed_action_baseline",
+        "scene_id": "test-0000-f682a1d08c71",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "seed": 2765472149
+      },
+      {
+        "action": {
+          "gap_mm": 161.715,
+          "pitch_deg": 30.0,
+          "roll_deg": 0.0,
+          "u_mm": -16.408,
+          "v_mm": -44.821
+        },
+        "data_origin": "synthetic",
+        "endpoint_feasibility": {
+          "arm_reachable": true,
+          "board_arm_reachable": true,
+          "reason": "",
+          "scope": "kinematic target checks; native replay separately validates motion paths"
+        },
+        "layout_sha256": "13f7feaedc9f13c012e17583e2b8c0781542af2767a2ff004752b1f460218eb2",
+        "native_paths_checked": false,
+        "physically_verified": false,
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "release_action": {
+          "gap_mm": 161.715,
+          "u_mm": -16.408,
+          "v_mm": -44.821
+        },
+        "release_coordinates": {
+          "commanded_release_ball_center_mm": [
+            656.0292025309102,
+            7.715719690226852,
+            538.4380316846045
+          ],
+          "coordinate_contract": {
+            "angle_units": "degrees",
+            "ball_to_tool": {
+              "rotation_matrix": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "status": "provisional ball center at simulated gripper TCP; uncalibrated",
+              "translation_mm": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+            "frame": "world; Z upward",
+            "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+            "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+            "height_units": "m",
+            "mass_units": "kg",
+            "position_units": "mm",
+            "tcp_world_rotation_matrix": [
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "time_units": "s",
+            "uv_definition": "board-local top-face U/V in mm; not world XY"
+          },
+          "gap_mm": 161.715,
+          "h_m": 0.16171499999999997,
+          "nominal_contact_ball_center_mm": [
+            656.0292025309102,
+            7.715719690226852,
+            376.72303168460456
+          ],
+          "u_mm": -16.408,
+          "v_mm": -44.821
+        },
+        "result": {
+          "board_bounce_t_s": 0.191,
+          "bucket_retained_1s": true,
+          "capture_class": "clean",
+          "current_containment_s": 1.0,
+          "duration_s": 1.4325,
+          "full_exits": 0,
+          "max_continuous_containment_s": 1.0,
+          "model_limit": null,
+          "opening_crossings": [
+            {
+              "clearance_mm": 14.822864699612289,
+              "signed_miss_xy_mm": [
+                -2.4461139331804134,
+                -36.09434367277592
+              ],
+              "t": 0.4126666063703505,
+              "through_opening": true,
+              "xyz_mm": [
+                662.124508851522,
+                175.1881713676094,
+                202.0
+              ]
+            }
+          ],
+          "outcome": "captured",
+          "signed_miss_xy_mm": [
+            -2.4461139331804134,
+            -36.09434367277592
+          ],
+          "success": true,
+          "termination_reason": "retention_complete",
+          "truncated": false,
+          "valid_board_bounce": true,
+          "whole_ball_entry": true
+        },
+        "role": "fixed_action_baseline",
+        "scene_id": "test-0001-13f7feaedc9f",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "seed": 2364213886
+      },
+      {
+        "action": {
+          "gap_mm": 161.715,
+          "pitch_deg": 30.0,
+          "roll_deg": 0.0,
+          "u_mm": -16.408,
+          "v_mm": -44.821
+        },
+        "data_origin": "synthetic",
+        "endpoint_feasibility": {
+          "arm_reachable": true,
+          "board_arm_reachable": true,
+          "reason": "",
+          "scope": "kinematic target checks; native replay separately validates motion paths"
+        },
+        "layout_sha256": "e682bb541ea37e331d4e7ab1b29411beb659553044f518ff8c6932c670f58956",
+        "native_paths_checked": false,
+        "physically_verified": false,
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "release_action": {
+          "gap_mm": 161.715,
+          "u_mm": -16.408,
+          "v_mm": -44.821
+        },
+        "release_coordinates": {
+          "commanded_release_ball_center_mm": [
+            657.0117821496161,
+            21.25848228815087,
+            535.4462411090224
+          ],
+          "coordinate_contract": {
+            "angle_units": "degrees",
+            "ball_to_tool": {
+              "rotation_matrix": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "status": "provisional ball center at simulated gripper TCP; uncalibrated",
+              "translation_mm": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+            "frame": "world; Z upward",
+            "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+            "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+            "height_units": "m",
+            "mass_units": "kg",
+            "position_units": "mm",
+            "tcp_world_rotation_matrix": [
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "time_units": "s",
+            "uv_definition": "board-local top-face U/V in mm; not world XY"
+          },
+          "gap_mm": 161.715,
+          "h_m": 0.16171500000000003,
+          "nominal_contact_ball_center_mm": [
+            657.0117821496161,
+            21.25848228815087,
+            373.73124110902233
+          ],
+          "u_mm": -16.408,
+          "v_mm": -44.821
+        },
+        "result": {
+          "board_bounce_t_s": 0.19125,
+          "bucket_retained_1s": false,
+          "capture_class": null,
+          "current_containment_s": 0.0,
+          "duration_s": 4.0,
+          "full_exits": 0,
+          "max_continuous_containment_s": 0.0,
+          "model_limit": null,
+          "opening_crossings": [
+            {
+              "clearance_mm": -119.79507720567798,
+              "signed_miss_xy_mm": [
+                -57.78356617815166,
+                -160.72342043843105
+              ],
+              "t": 0.5417006570650313,
+              "through_opening": false,
+              "xyz_mm": [
+                646.4052581432156,
+                127.78859177245415,
+                202.0
+              ]
+            }
+          ],
+          "outcome": "no_entry",
+          "signed_miss_xy_mm": [
+            -57.78356617815166,
+            -160.72342043843105
+          ],
+          "success": false,
+          "termination_reason": "entry_window_closed",
+          "truncated": false,
+          "valid_board_bounce": true,
+          "whole_ball_entry": false
+        },
+        "role": "fixed_action_baseline",
+        "scene_id": "test-0002-e682bb541ea3",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "seed": 3852157528
+      },
+      {
+        "action": {
+          "gap_mm": 161.715,
+          "pitch_deg": 30.0,
+          "roll_deg": 0.0,
+          "u_mm": -16.408,
+          "v_mm": -44.821
+        },
+        "data_origin": "synthetic",
+        "endpoint_feasibility": {
+          "arm_reachable": true,
+          "board_arm_reachable": true,
+          "reason": "",
+          "scope": "kinematic target checks; native replay separately validates motion paths"
+        },
+        "layout_sha256": "49bfe5002112e7f3255bae6b4fbee2f3622de52dfc6bb515aa601d1f7b950016",
+        "native_paths_checked": false,
+        "physically_verified": false,
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "release_action": {
+          "gap_mm": 161.715,
+          "u_mm": -16.408,
+          "v_mm": -44.821
+        },
+        "release_coordinates": {
+          "commanded_release_ball_center_mm": [
+            644.5080256755462,
+            6.306684084130342,
+            576.7175185135811
+          ],
+          "coordinate_contract": {
+            "angle_units": "degrees",
+            "ball_to_tool": {
+              "rotation_matrix": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "status": "provisional ball center at simulated gripper TCP; uncalibrated",
+              "translation_mm": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+            "frame": "world; Z upward",
+            "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+            "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+            "height_units": "m",
+            "mass_units": "kg",
+            "position_units": "mm",
+            "tcp_world_rotation_matrix": [
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "time_units": "s",
+            "uv_definition": "board-local top-face U/V in mm; not world XY"
+          },
+          "gap_mm": 161.715,
+          "h_m": 0.16171499999999997,
+          "nominal_contact_ball_center_mm": [
+            644.5080256755462,
+            6.306684084130342,
+            415.00251851358115
+          ],
+          "u_mm": -16.408,
+          "v_mm": -44.821
+        },
+        "result": {
+          "board_bounce_t_s": 0.19025,
+          "bucket_retained_1s": true,
+          "capture_class": "rim_assisted",
+          "current_containment_s": 1.0,
+          "duration_s": 1.596,
+          "full_exits": 0,
+          "max_continuous_containment_s": 1.0,
+          "model_limit": null,
+          "opening_crossings": [
+            {
+              "clearance_mm": 2.010318547156075,
+              "signed_miss_xy_mm": [
+                -18.050446541901692,
+                45.54305949855663
+              ],
+              "t": 0.5528685147029255,
+              "through_opening": true,
+              "xyz_mm": [
+                687.698685714406,
+                287.00520181706275,
+                202.0
+              ]
+            }
+          ],
+          "outcome": "captured",
+          "signed_miss_xy_mm": [
+            -18.050446541901692,
+            45.54305949855663
+          ],
+          "success": true,
+          "termination_reason": "retention_complete",
+          "truncated": false,
+          "valid_board_bounce": true,
+          "whole_ball_entry": true
+        },
+        "role": "fixed_action_baseline",
+        "scene_id": "test-0003-49bfe5002112",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "seed": 3128178926
+      },
+      {
+        "action": {
+          "gap_mm": 161.715,
+          "pitch_deg": 30.0,
+          "roll_deg": 0.0,
+          "u_mm": -16.408,
+          "v_mm": -44.821
+        },
+        "data_origin": "synthetic",
+        "endpoint_feasibility": {
+          "arm_reachable": true,
+          "board_arm_reachable": true,
+          "reason": "",
+          "scope": "kinematic target checks; native replay separately validates motion paths"
+        },
+        "layout_sha256": "aacb9a730a10b41c81f8b06adeaf8744ed85ac91b2b75de4154a5c9decd145bf",
+        "native_paths_checked": false,
+        "physically_verified": false,
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "release_action": {
+          "gap_mm": 161.715,
+          "u_mm": -16.408,
+          "v_mm": -44.821
+        },
+        "release_coordinates": {
+          "commanded_release_ball_center_mm": [
+            658.2467560264414,
+            -14.82854957629134,
+            556.5035842391019
+          ],
+          "coordinate_contract": {
+            "angle_units": "degrees",
+            "ball_to_tool": {
+              "rotation_matrix": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "status": "provisional ball center at simulated gripper TCP; uncalibrated",
+              "translation_mm": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+            "frame": "world; Z upward",
+            "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+            "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+            "height_units": "m",
+            "mass_units": "kg",
+            "position_units": "mm",
+            "tcp_world_rotation_matrix": [
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "time_units": "s",
+            "uv_definition": "board-local top-face U/V in mm; not world XY"
+          },
+          "gap_mm": 161.715,
+          "h_m": 0.16171499999999997,
+          "nominal_contact_ball_center_mm": [
+            658.2467560264414,
+            -14.82854957629134,
+            394.7885842391019
+          ],
+          "u_mm": -16.408,
+          "v_mm": -44.821
+        },
+        "result": {
+          "board_bounce_t_s": 0.1915,
+          "bucket_retained_1s": true,
+          "capture_class": "rim_assisted",
+          "current_containment_s": 1.0,
+          "duration_s": 1.60175,
+          "full_exits": 0,
+          "max_continuous_containment_s": 1.0,
+          "model_limit": null,
+          "opening_crossings": [
+            {
+              "clearance_mm": 7.769965171604397,
+              "signed_miss_xy_mm": [
+                -35.0667322140381,
+                -25.281617889154944
+              ],
+              "t": 0.5698182591385229,
+              "through_opening": true,
+              "xyz_mm": [
+                663.1589113253611,
+                219.15615826223288,
+                202.0
+              ]
+            }
+          ],
+          "outcome": "captured",
+          "signed_miss_xy_mm": [
+            -35.0667322140381,
+            -25.281617889154944
+          ],
+          "success": true,
+          "termination_reason": "retention_complete",
+          "truncated": false,
+          "valid_board_bounce": true,
+          "whole_ball_entry": true
+        },
+        "role": "fixed_action_baseline",
+        "scene_id": "test-0004-aacb9a730a10",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "seed": 3999354368
+      },
+      {
+        "action": {
+          "gap_mm": 161.715,
+          "pitch_deg": 30.0,
+          "roll_deg": 0.0,
+          "u_mm": -16.408,
+          "v_mm": -44.821
+        },
+        "data_origin": "synthetic",
+        "endpoint_feasibility": {
+          "arm_reachable": true,
+          "board_arm_reachable": true,
+          "reason": "",
+          "scope": "kinematic target checks; native replay separately validates motion paths"
+        },
+        "layout_sha256": "d2102856773c6cbfd9a4289b43154fb3f4fb14f1bc245289a4d2fdc03294ded9",
+        "native_paths_checked": false,
+        "physically_verified": false,
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "release_action": {
+          "gap_mm": 161.715,
+          "u_mm": -16.408,
+          "v_mm": -44.821
+        },
+        "release_coordinates": {
+          "commanded_release_ball_center_mm": [
+            641.9966683164417,
+            -1.0772478877411906,
+            572.317734193335
+          ],
+          "coordinate_contract": {
+            "angle_units": "degrees",
+            "ball_to_tool": {
+              "rotation_matrix": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "status": "provisional ball center at simulated gripper TCP; uncalibrated",
+              "translation_mm": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+            "frame": "world; Z upward",
+            "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+            "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+            "height_units": "m",
+            "mass_units": "kg",
+            "position_units": "mm",
+            "tcp_world_rotation_matrix": [
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "time_units": "s",
+            "uv_definition": "board-local top-face U/V in mm; not world XY"
+          },
+          "gap_mm": 161.715,
+          "h_m": 0.16171500000000003,
+          "nominal_contact_ball_center_mm": [
+            641.9966683164417,
+            -1.0772478877411906,
+            410.602734193335
+          ],
+          "u_mm": -16.408,
+          "v_mm": -44.821
+        },
+        "result": {
+          "board_bounce_t_s": 0.19025,
+          "bucket_retained_1s": false,
+          "capture_class": null,
+          "current_containment_s": 0.0,
+          "duration_s": 4.0,
+          "full_exits": 0,
+          "max_continuous_containment_s": 0.0,
+          "model_limit": null,
+          "opening_crossings": [
+            {
+              "clearance_mm": -89.03458894068189,
+              "signed_miss_xy_mm": [
+                -51.29169832645891,
+                -130.30290780551783
+              ],
+              "t": 0.5882793373870693,
+              "through_opening": false,
+              "xyz_mm": [
+                637.0775428262657,
+                137.21237436404508,
+                202.0
+              ]
+            }
+          ],
+          "outcome": "no_entry",
+          "signed_miss_xy_mm": [
+            -51.29169832645891,
+            -130.30290780551783
+          ],
+          "success": false,
+          "termination_reason": "entry_window_closed",
+          "truncated": false,
+          "valid_board_bounce": true,
+          "whole_ball_entry": false
+        },
+        "role": "fixed_action_baseline",
+        "scene_id": "test-0005-d2102856773c",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "seed": 3339640004
+      },
+      {
+        "action": {
+          "gap_mm": 161.715,
+          "pitch_deg": 30.0,
+          "roll_deg": 0.0,
+          "u_mm": -16.408,
+          "v_mm": -44.821
+        },
+        "data_origin": "synthetic",
+        "endpoint_feasibility": {
+          "arm_reachable": true,
+          "board_arm_reachable": true,
+          "reason": "",
+          "scope": "kinematic target checks; native replay separately validates motion paths"
+        },
+        "layout_sha256": "f554168aa3c8022537b6609c3bab5d4c7f093bf9aaa939cdf2659e6b76e2acdc",
+        "native_paths_checked": false,
+        "physically_verified": false,
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "release_action": {
+          "gap_mm": 161.715,
+          "u_mm": -16.408,
+          "v_mm": -44.821
+        },
+        "release_coordinates": {
+          "commanded_release_ball_center_mm": [
+            661.5389347185752,
+            -18.24735494865847,
+            548.5438884974052
+          ],
+          "coordinate_contract": {
+            "angle_units": "degrees",
+            "ball_to_tool": {
+              "rotation_matrix": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "status": "provisional ball center at simulated gripper TCP; uncalibrated",
+              "translation_mm": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+            "frame": "world; Z upward",
+            "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+            "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+            "height_units": "m",
+            "mass_units": "kg",
+            "position_units": "mm",
+            "tcp_world_rotation_matrix": [
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "time_units": "s",
+            "uv_definition": "board-local top-face U/V in mm; not world XY"
+          },
+          "gap_mm": 161.715,
+          "h_m": 0.16171499999999997,
+          "nominal_contact_ball_center_mm": [
+            661.5389347185752,
+            -18.24735494865847,
+            386.8288884974052
+          ],
+          "u_mm": -16.408,
+          "v_mm": -44.821
+        },
+        "result": {
+          "board_bounce_t_s": 0.18975,
+          "bucket_retained_1s": true,
+          "capture_class": "clean",
+          "current_containment_s": 1.0,
+          "duration_s": 1.441,
+          "full_exits": 0,
+          "max_continuous_containment_s": 1.0,
+          "model_limit": null,
+          "opening_crossings": [
+            {
+              "clearance_mm": 1.5216651260492497,
+              "signed_miss_xy_mm": [
+                -44.93743683556829,
+                -20.705854064687145
+              ],
+              "t": 0.4214605550088296,
+              "through_opening": true,
+              "xyz_mm": [
+                666.6657953929875,
+                158.7113938654877,
+                202.0
+              ]
+            }
+          ],
+          "outcome": "captured",
+          "signed_miss_xy_mm": [
+            -44.93743683556829,
+            -20.705854064687145
+          ],
+          "success": true,
+          "termination_reason": "retention_complete",
+          "truncated": false,
+          "valid_board_bounce": true,
+          "whole_ball_entry": true
+        },
+        "role": "fixed_action_baseline",
+        "scene_id": "test-0006-f554168aa3c8",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "seed": 1396765843
+      },
+      {
+        "action": {
+          "gap_mm": 161.715,
+          "pitch_deg": 30.0,
+          "roll_deg": 0.0,
+          "u_mm": -16.408,
+          "v_mm": -44.821
+        },
+        "data_origin": "synthetic",
+        "endpoint_feasibility": {
+          "arm_reachable": true,
+          "board_arm_reachable": true,
+          "reason": "",
+          "scope": "kinematic target checks; native replay separately validates motion paths"
+        },
+        "layout_sha256": "5997e856aae9c95cb5d2577f2600d95f363231ac6c491caea353f01cd09cab91",
+        "native_paths_checked": false,
+        "physically_verified": false,
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "release_action": {
+          "gap_mm": 161.715,
+          "u_mm": -16.408,
+          "v_mm": -44.821
+        },
+        "release_coordinates": {
+          "commanded_release_ball_center_mm": [
+            652.1470942744343,
+            -10.533115144456165,
+            541.3192057150591
+          ],
+          "coordinate_contract": {
+            "angle_units": "degrees",
+            "ball_to_tool": {
+              "rotation_matrix": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "status": "provisional ball center at simulated gripper TCP; uncalibrated",
+              "translation_mm": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+            "frame": "world; Z upward",
+            "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+            "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+            "height_units": "m",
+            "mass_units": "kg",
+            "position_units": "mm",
+            "tcp_world_rotation_matrix": [
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "time_units": "s",
+            "uv_definition": "board-local top-face U/V in mm; not world XY"
+          },
+          "gap_mm": 161.715,
+          "h_m": 0.16171500000000003,
+          "nominal_contact_ball_center_mm": [
+            652.1470942744343,
+            -10.533115144456165,
+            379.60420571505904
+          ],
+          "u_mm": -16.408,
+          "v_mm": -44.821
+        },
+        "result": {
+          "board_bounce_t_s": 0.1915,
+          "bucket_retained_1s": true,
+          "capture_class": "clean",
+          "current_containment_s": 1.0,
+          "duration_s": 1.4372500000000001,
+          "full_exits": 0,
+          "max_continuous_containment_s": 1.0,
+          "model_limit": null,
+          "opening_crossings": [
+            {
+              "clearance_mm": 8.506527196698883,
+              "signed_miss_xy_mm": [
+                -24.659685542392708,
+                -34.60628757661243
+              ],
+              "t": 0.4170360032550766,
+              "through_opening": true,
+              "xyz_mm": [
+                657.5682972756144,
+                165.59789340864933,
+                202.0
+              ]
+            }
+          ],
+          "outcome": "captured",
+          "signed_miss_xy_mm": [
+            -24.659685542392708,
+            -34.60628757661243
+          ],
+          "success": true,
+          "termination_reason": "retention_complete",
+          "truncated": false,
+          "valid_board_bounce": true,
+          "whole_ball_entry": true
+        },
+        "role": "fixed_action_baseline",
+        "scene_id": "test-0007-5997e856aae9",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "seed": 717453313
+      }
+    ],
+    "frozen_policy": [
+      {
+        "action": {
+          "gap_mm": 151.57524834641583,
+          "pitch_deg": 34.10537560850781,
+          "roll_deg": 6.434502359999257,
+          "u_mm": -38.238505790331445,
+          "v_mm": -25.38393954999863
+        },
+        "data_origin": "synthetic",
+        "endpoint_feasibility": {
+          "arm_reachable": true,
+          "board_arm_reachable": true,
+          "reason": "",
+          "scope": "kinematic target checks; native replay separately validates motion paths"
+        },
+        "layout_sha256": "f682a1d08c716905279e3b6db04ac8ec045e6b201f5b65631c1de2161b380432",
+        "native_paths_checked": false,
+        "physically_verified": false,
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "release_action": {
+          "gap_mm": 151.57524834641583,
+          "u_mm": -38.238505790331445,
+          "v_mm": -25.38393954999863
+        },
+        "release_coordinates": {
+          "commanded_release_ball_center_mm": [
+            619.0606348043128,
+            -33.57238452749424,
+            571.0790065948866
+          ],
+          "coordinate_contract": {
+            "angle_units": "degrees",
+            "ball_to_tool": {
+              "rotation_matrix": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "status": "provisional ball center at simulated gripper TCP; uncalibrated",
+              "translation_mm": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+            "frame": "world; Z upward",
+            "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+            "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+            "height_units": "m",
+            "mass_units": "kg",
+            "position_units": "mm",
+            "tcp_world_rotation_matrix": [
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "time_units": "s",
+            "uv_definition": "board-local top-face U/V in mm; not world XY"
+          },
+          "gap_mm": 151.57524834641583,
+          "h_m": 0.15157524834641578,
+          "nominal_contact_ball_center_mm": [
+            619.0606348043128,
+            -33.57238452749424,
+            419.5037582484708
+          ],
+          "u_mm": -38.238505790331445,
+          "v_mm": -25.38393954999863
+        },
+        "result": {
+          "board_bounce_t_s": 0.18375,
+          "bucket_retained_1s": true,
+          "capture_class": "clean",
+          "current_containment_s": 1.0,
+          "duration_s": 1.44175,
+          "full_exits": 0,
+          "max_continuous_containment_s": 1.0,
+          "model_limit": null,
+          "opening_crossings": [
+            {
+              "clearance_mm": 19.651622026772113,
+              "signed_miss_xy_mm": [
+                -29.143106438068685,
+                -11.549898211315934
+              ],
+              "t": 0.4239603527157137,
+              "through_opening": true,
+              "xyz_mm": [
+                666.2025984163812,
+                177.71701567413078,
+                202.0
+              ]
+            }
+          ],
+          "outcome": "captured",
+          "signed_miss_xy_mm": [
+            -29.143106438068685,
+            -11.549898211315934
+          ],
+          "success": true,
+          "termination_reason": "retention_complete",
+          "truncated": false,
+          "valid_board_bounce": true,
+          "whole_ball_entry": true
+        },
+        "role": "frozen_ridge_prediction",
+        "scene_id": "test-0000-f682a1d08c71",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "seed": 2765472149
+      },
+      {
+        "action": {
+          "gap_mm": 158.9397982126033,
+          "pitch_deg": 32.27668412909398,
+          "roll_deg": 1.5896276381166317,
+          "u_mm": -8.250524144924633,
+          "v_mm": -41.309417908304184
+        },
+        "data_origin": "synthetic",
+        "endpoint_feasibility": {
+          "arm_reachable": true,
+          "board_arm_reachable": true,
+          "reason": "",
+          "scope": "kinematic target checks; native replay separately validates motion paths"
+        },
+        "layout_sha256": "13f7feaedc9f13c012e17583e2b8c0781542af2767a2ff004752b1f460218eb2",
+        "native_paths_checked": false,
+        "physically_verified": false,
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "release_action": {
+          "gap_mm": 158.9397982126033,
+          "u_mm": -8.250524144924633,
+          "v_mm": -41.309417908304184
+        },
+        "release_coordinates": {
+          "commanded_release_ball_center_mm": [
+            653.6113497281154,
+            15.689983324397389,
+            530.0609377598166
+          ],
+          "coordinate_contract": {
+            "angle_units": "degrees",
+            "ball_to_tool": {
+              "rotation_matrix": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "status": "provisional ball center at simulated gripper TCP; uncalibrated",
+              "translation_mm": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+            "frame": "world; Z upward",
+            "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+            "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+            "height_units": "m",
+            "mass_units": "kg",
+            "position_units": "mm",
+            "tcp_world_rotation_matrix": [
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "time_units": "s",
+            "uv_definition": "board-local top-face U/V in mm; not world XY"
+          },
+          "gap_mm": 158.9397982126033,
+          "h_m": 0.15893979821260332,
+          "nominal_contact_ball_center_mm": [
+            653.6113497281154,
+            15.689983324397389,
+            371.1211395472133
+          ],
+          "u_mm": -8.250524144924633,
+          "v_mm": -41.309417908304184
+        },
+        "result": {
+          "board_bounce_t_s": 0.1895,
+          "bucket_retained_1s": true,
+          "capture_class": "clean",
+          "current_containment_s": 1.0,
+          "duration_s": 1.418,
+          "full_exits": 0,
+          "max_continuous_containment_s": 1.0,
+          "model_limit": null,
+          "opening_crossings": [
+            {
+              "clearance_mm": 26.941865223431222,
+              "signed_miss_xy_mm": [
+                2.528645236003399,
+                -23.924878311038185
+              ],
+              "t": 0.39651129942862606,
+              "through_opening": true,
+              "xyz_mm": [
+                667.0992680207058,
+                187.35763672934715,
+                202.0
+              ]
+            }
+          ],
+          "outcome": "captured",
+          "signed_miss_xy_mm": [
+            2.528645236003399,
+            -23.924878311038185
+          ],
+          "success": true,
+          "termination_reason": "retention_complete",
+          "truncated": false,
+          "valid_board_bounce": true,
+          "whole_ball_entry": true
+        },
+        "role": "frozen_ridge_prediction",
+        "scene_id": "test-0001-13f7feaedc9f",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "seed": 2364213886
+      },
+      {
+        "action": {
+          "gap_mm": 204.43660801192232,
+          "pitch_deg": 26.627698654587228,
+          "roll_deg": 0.39013289489959746,
+          "u_mm": 18.39989821855967,
+          "v_mm": -47.91517037983959
+        },
+        "data_origin": "synthetic",
+        "endpoint_feasibility": {
+          "arm_reachable": true,
+          "board_arm_reachable": true,
+          "reason": "",
+          "scope": "kinematic target checks; native replay separately validates motion paths"
+        },
+        "layout_sha256": "e682bb541ea37e331d4e7ab1b29411beb659553044f518ff8c6932c670f58956",
+        "native_paths_checked": false,
+        "physically_verified": false,
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "release_action": {
+          "gap_mm": 204.43660801192232,
+          "u_mm": 18.39989821855967,
+          "v_mm": -47.91517037983959
+        },
+        "release_coordinates": {
+          "commanded_release_ball_center_mm": [
+            660.3772038036944,
+            49.697600158723475,
+            562.5411833252557
+          ],
+          "coordinate_contract": {
+            "angle_units": "degrees",
+            "ball_to_tool": {
+              "rotation_matrix": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "status": "provisional ball center at simulated gripper TCP; uncalibrated",
+              "translation_mm": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+            "frame": "world; Z upward",
+            "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+            "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+            "height_units": "m",
+            "mass_units": "kg",
+            "position_units": "mm",
+            "tcp_world_rotation_matrix": [
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "time_units": "s",
+            "uv_definition": "board-local top-face U/V in mm; not world XY"
+          },
+          "gap_mm": 204.43660801192232,
+          "h_m": 0.20443660801192232,
+          "nominal_contact_ball_center_mm": [
+            660.3772038036944,
+            49.697600158723475,
+            358.1045753133334
+          ],
+          "u_mm": 18.39989821855967,
+          "v_mm": -47.91517037983959
+        },
+        "result": {
+          "board_bounce_t_s": 0.21375,
+          "bucket_retained_1s": true,
+          "capture_class": "rim_assisted",
+          "current_containment_s": 1.0,
+          "duration_s": 1.57,
+          "full_exits": 0,
+          "max_continuous_containment_s": 1.0,
+          "model_limit": null,
+          "opening_crossings": [
+            {
+              "clearance_mm": 26.370865855628526,
+              "signed_miss_xy_mm": [
+                -10.314112306311358,
+                22.365449605009985
+              ],
+              "t": 0.5280411637670495,
+              "through_opening": true,
+              "xyz_mm": [
+                693.8747120150559,
+                310.8774618158952,
+                202.0
+              ]
+            }
+          ],
+          "outcome": "captured",
+          "signed_miss_xy_mm": [
+            -10.314112306311358,
+            22.365449605009985
+          ],
+          "success": true,
+          "termination_reason": "retention_complete",
+          "truncated": false,
+          "valid_board_bounce": true,
+          "whole_ball_entry": true
+        },
+        "role": "frozen_ridge_prediction",
+        "scene_id": "test-0002-e682bb541ea3",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "seed": 3852157528
+      },
+      {
+        "action": {
+          "gap_mm": 165.49700889945146,
+          "pitch_deg": 30.580417677146478,
+          "roll_deg": 3.8112863083209234,
+          "u_mm": -16.04858724130863,
+          "v_mm": -37.37763460610455
+        },
+        "data_origin": "synthetic",
+        "endpoint_feasibility": {
+          "arm_reachable": true,
+          "board_arm_reachable": true,
+          "reason": "",
+          "scope": "kinematic target checks; native replay separately validates motion paths"
+        },
+        "layout_sha256": "49bfe5002112e7f3255bae6b4fbee2f3622de52dfc6bb515aa601d1f7b950016",
+        "native_paths_checked": false,
+        "physically_verified": false,
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "release_action": {
+          "gap_mm": 165.49700889945146,
+          "u_mm": -16.04858724130863,
+          "v_mm": -37.37763460610455
+        },
+        "release_coordinates": {
+          "commanded_release_ball_center_mm": [
+            639.6408136550868,
+            5.740839784140968,
+            578.0407103683725
+          ],
+          "coordinate_contract": {
+            "angle_units": "degrees",
+            "ball_to_tool": {
+              "rotation_matrix": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "status": "provisional ball center at simulated gripper TCP; uncalibrated",
+              "translation_mm": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+            "frame": "world; Z upward",
+            "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+            "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+            "height_units": "m",
+            "mass_units": "kg",
+            "position_units": "mm",
+            "tcp_world_rotation_matrix": [
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "time_units": "s",
+            "uv_definition": "board-local top-face U/V in mm; not world XY"
+          },
+          "gap_mm": 165.49700889945146,
+          "h_m": 0.1654970088994515,
+          "nominal_contact_ball_center_mm": [
+            639.6408136550868,
+            5.740839784140968,
+            412.54370146892103
+          ],
+          "u_mm": -16.04858724130863,
+          "v_mm": -37.37763460610455
+        },
+        "result": {
+          "board_bounce_t_s": 0.1925,
+          "bucket_retained_1s": true,
+          "capture_class": "clean",
+          "current_containment_s": 1.0,
+          "duration_s": 1.47725,
+          "full_exits": 0,
+          "max_continuous_containment_s": 1.0,
+          "model_limit": null,
+          "opening_crossings": [
+            {
+              "clearance_mm": 15.229702573140841,
+              "signed_miss_xy_mm": [
+                -34.31043707224387,
+                -10.114745964064554
+              ],
+              "t": 0.45689091990612724,
+              "through_opening": true,
+              "xyz_mm": [
+                671.4386951840638,
+                231.34739635444157,
+                202.0
+              ]
+            }
+          ],
+          "outcome": "captured",
+          "signed_miss_xy_mm": [
+            -34.31043707224387,
+            -10.114745964064554
+          ],
+          "success": true,
+          "termination_reason": "retention_complete",
+          "truncated": false,
+          "valid_board_bounce": true,
+          "whole_ball_entry": true
+        },
+        "role": "frozen_ridge_prediction",
+        "scene_id": "test-0003-49bfe5002112",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "seed": 3128178926
+      },
+      {
+        "action": {
+          "gap_mm": 162.40050023203634,
+          "pitch_deg": 23.951700729880393,
+          "roll_deg": 6.515221373898715,
+          "u_mm": -16.19782842179429,
+          "v_mm": -14.107963898070608
+        },
+        "data_origin": "synthetic",
+        "endpoint_feasibility": {
+          "arm_reachable": true,
+          "board_arm_reachable": true,
+          "reason": "",
+          "scope": "kinematic target checks; native replay separately validates motion paths"
+        },
+        "layout_sha256": "aacb9a730a10b41c81f8b06adeaf8744ed85ac91b2b75de4154a5c9decd145bf",
+        "native_paths_checked": false,
+        "physically_verified": false,
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "release_action": {
+          "gap_mm": 162.40050023203634,
+          "u_mm": -16.19782842179429,
+          "v_mm": -14.107963898070608
+        },
+        "release_coordinates": {
+          "commanded_release_ball_center_mm": [
+            631.981293725728,
+            -19.93789053919688,
+            555.7763343386218
+          ],
+          "coordinate_contract": {
+            "angle_units": "degrees",
+            "ball_to_tool": {
+              "rotation_matrix": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "status": "provisional ball center at simulated gripper TCP; uncalibrated",
+              "translation_mm": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+            "frame": "world; Z upward",
+            "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+            "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+            "height_units": "m",
+            "mass_units": "kg",
+            "position_units": "mm",
+            "tcp_world_rotation_matrix": [
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "time_units": "s",
+            "uv_definition": "board-local top-face U/V in mm; not world XY"
+          },
+          "gap_mm": 162.40050023203634,
+          "h_m": 0.1624005002320364,
+          "nominal_contact_ball_center_mm": [
+            631.981293725728,
+            -19.93789053919688,
+            393.37583410658544
+          ],
+          "u_mm": -16.19782842179429,
+          "v_mm": -14.107963898070608
+        },
+        "result": {
+          "board_bounce_t_s": 0.19225,
+          "bucket_retained_1s": true,
+          "capture_class": "rim_assisted",
+          "current_containment_s": 0.9999999999999999,
+          "duration_s": 1.6095,
+          "full_exits": 0,
+          "max_continuous_containment_s": 0.9999999999999999,
+          "model_limit": null,
+          "opening_crossings": [
+            {
+              "clearance_mm": 36.42706335577065,
+              "signed_miss_xy_mm": [
+                8.759398371860016,
+                11.646605625665302
+              ],
+              "t": 0.5699951185385755,
+              "through_opening": true,
+              "xyz_mm": [
+                706.9850419112593,
+                256.0843817770531,
+                202.0
+              ]
+            }
+          ],
+          "outcome": "captured",
+          "signed_miss_xy_mm": [
+            8.759398371860016,
+            11.646605625665302
+          ],
+          "success": true,
+          "termination_reason": "retention_complete",
+          "truncated": false,
+          "valid_board_bounce": true,
+          "whole_ball_entry": true
+        },
+        "role": "frozen_ridge_prediction",
+        "scene_id": "test-0004-aacb9a730a10",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "seed": 3999354368
+      },
+      {
+        "action": {
+          "gap_mm": 168.89563885601487,
+          "pitch_deg": 26.011978720395618,
+          "roll_deg": 4.220767231940158,
+          "u_mm": -11.842644707785233,
+          "v_mm": -24.798276813860127
+        },
+        "data_origin": "synthetic",
+        "endpoint_feasibility": {
+          "arm_reachable": true,
+          "board_arm_reachable": true,
+          "reason": "",
+          "scope": "kinematic target checks; native replay separately validates motion paths"
+        },
+        "layout_sha256": "d2102856773c6cbfd9a4289b43154fb3f4fb14f1bc245289a4d2fdc03294ded9",
+        "native_paths_checked": false,
+        "physically_verified": false,
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "release_action": {
+          "gap_mm": 168.89563885601487,
+          "u_mm": -11.842644707785233,
+          "v_mm": -24.798276813860127
+        },
+        "release_coordinates": {
+          "commanded_release_ball_center_mm": [
+            624.8506759017007,
+            -0.8161653001085512,
+            576.0573926437387
+          ],
+          "coordinate_contract": {
+            "angle_units": "degrees",
+            "ball_to_tool": {
+              "rotation_matrix": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "status": "provisional ball center at simulated gripper TCP; uncalibrated",
+              "translation_mm": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+            "frame": "world; Z upward",
+            "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+            "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+            "height_units": "m",
+            "mass_units": "kg",
+            "position_units": "mm",
+            "tcp_world_rotation_matrix": [
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "time_units": "s",
+            "uv_definition": "board-local top-face U/V in mm; not world XY"
+          },
+          "gap_mm": 168.89563885601487,
+          "h_m": 0.16889563885601488,
+          "nominal_contact_ball_center_mm": [
+            624.8506759017007,
+            -0.8161653001085512,
+            407.1617537877238
+          ],
+          "u_mm": -11.842644707785233,
+          "v_mm": -24.798276813860127
+        },
+        "result": {
+          "board_bounce_t_s": 0.1945,
+          "bucket_retained_1s": true,
+          "capture_class": "rim_assisted",
+          "current_containment_s": 1.0,
+          "duration_s": 1.63575,
+          "full_exits": 0,
+          "max_continuous_containment_s": 1.0,
+          "model_limit": null,
+          "opening_crossings": [
+            {
+              "clearance_mm": 32.23752491946267,
+              "signed_miss_xy_mm": [
+                -4.483252729291394,
+                18.218971324229187
+              ],
+              "t": 0.6017490075121336,
+              "through_opening": true,
+              "xyz_mm": [
+                683.8859884234332,
+                285.7342534937921,
+                202.0
+              ]
+            }
+          ],
+          "outcome": "captured",
+          "signed_miss_xy_mm": [
+            -4.483252729291394,
+            18.218971324229187
+          ],
+          "success": true,
+          "termination_reason": "retention_complete",
+          "truncated": false,
+          "valid_board_bounce": true,
+          "whole_ball_entry": true
+        },
+        "role": "frozen_ridge_prediction",
+        "scene_id": "test-0005-d2102856773c",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "seed": 3339640004
+      },
+      {
+        "action": {
+          "gap_mm": 152.0284517731525,
+          "pitch_deg": 31.244440502530246,
+          "roll_deg": 7.173796962668291,
+          "u_mm": -30.053046375525064,
+          "v_mm": -23.721092063175035
+        },
+        "data_origin": "synthetic",
+        "endpoint_feasibility": {
+          "arm_reachable": true,
+          "board_arm_reachable": true,
+          "reason": "",
+          "scope": "kinematic target checks; native replay separately validates motion paths"
+        },
+        "layout_sha256": "f554168aa3c8022537b6609c3bab5d4c7f093bf9aaa939cdf2659e6b76e2acdc",
+        "native_paths_checked": false,
+        "physically_verified": false,
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "release_action": {
+          "gap_mm": 152.0284517731525,
+          "u_mm": -30.053046375525064,
+          "v_mm": -23.721092063175035
+        },
+        "release_coordinates": {
+          "commanded_release_ball_center_mm": [
+            645.2485159783643,
+            -30.683135744812894,
+            542.998691581587
+          ],
+          "coordinate_contract": {
+            "angle_units": "degrees",
+            "ball_to_tool": {
+              "rotation_matrix": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "status": "provisional ball center at simulated gripper TCP; uncalibrated",
+              "translation_mm": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+            "frame": "world; Z upward",
+            "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+            "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+            "height_units": "m",
+            "mass_units": "kg",
+            "position_units": "mm",
+            "tcp_world_rotation_matrix": [
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "time_units": "s",
+            "uv_definition": "board-local top-face U/V in mm; not world XY"
+          },
+          "gap_mm": 152.0284517731525,
+          "h_m": 0.15202845177315255,
+          "nominal_contact_ball_center_mm": [
+            645.2485159783643,
+            -30.683135744812894,
+            390.9702398084344
+          ],
+          "u_mm": -30.053046375525064,
+          "v_mm": -23.721092063175035
+        },
+        "result": {
+          "board_bounce_t_s": 0.1845,
+          "bucket_retained_1s": true,
+          "capture_class": "clean",
+          "current_containment_s": 1.0,
+          "duration_s": 1.4355,
+          "full_exits": 0,
+          "max_continuous_containment_s": 1.0,
+          "model_limit": null,
+          "opening_crossings": [
+            {
+              "clearance_mm": 19.161792326828586,
+              "signed_miss_xy_mm": [
+                -18.412851835016227,
+                -25.97380132251979
+              ],
+              "t": 0.41561411632462203,
+              "through_opening": true,
+              "xyz_mm": [
+                693.1903803935396,
+                153.44344660765506,
+                202.0
+              ]
+            }
+          ],
+          "outcome": "captured",
+          "signed_miss_xy_mm": [
+            -18.412851835016227,
+            -25.97380132251979
+          ],
+          "success": true,
+          "termination_reason": "retention_complete",
+          "truncated": false,
+          "valid_board_bounce": true,
+          "whole_ball_entry": true
+        },
+        "role": "frozen_ridge_prediction",
+        "scene_id": "test-0006-f554168aa3c8",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "seed": 1396765843
+      },
+      {
+        "action": {
+          "gap_mm": 159.95437184987088,
+          "pitch_deg": 31.221753192999103,
+          "roll_deg": 4.679175780310434,
+          "u_mm": -20.11723953678984,
+          "v_mm": -28.032646663856454
+        },
+        "data_origin": "synthetic",
+        "endpoint_feasibility": {
+          "arm_reachable": true,
+          "board_arm_reachable": true,
+          "reason": "",
+          "scope": "kinematic target checks; native replay separately validates motion paths"
+        },
+        "layout_sha256": "5997e856aae9c95cb5d2577f2600d95f363231ac6c491caea353f01cd09cab91",
+        "native_paths_checked": false,
+        "physically_verified": false,
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "release_action": {
+          "gap_mm": 159.95437184987088,
+          "u_mm": -20.11723953678984,
+          "v_mm": -28.032646663856454
+        },
+        "release_coordinates": {
+          "commanded_release_ball_center_mm": [
+            638.5283619431699,
+            -14.047381930797016,
+            539.2784644998487
+          ],
+          "coordinate_contract": {
+            "angle_units": "degrees",
+            "ball_to_tool": {
+              "rotation_matrix": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "status": "provisional ball center at simulated gripper TCP; uncalibrated",
+              "translation_mm": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+            "frame": "world; Z upward",
+            "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+            "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+            "height_units": "m",
+            "mass_units": "kg",
+            "position_units": "mm",
+            "tcp_world_rotation_matrix": [
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "time_units": "s",
+            "uv_definition": "board-local top-face U/V in mm; not world XY"
+          },
+          "gap_mm": 159.95437184987088,
+          "h_m": 0.15995437184987082,
+          "nominal_contact_ball_center_mm": [
+            638.5283619431699,
+            -14.047381930797016,
+            379.3240926499779
+          ],
+          "u_mm": -20.11723953678984,
+          "v_mm": -28.032646663856454
+        },
+        "result": {
+          "board_bounce_t_s": 0.19075,
+          "bucket_retained_1s": true,
+          "capture_class": "clean",
+          "current_containment_s": 1.0,
+          "duration_s": 1.4565000000000001,
+          "full_exits": 0,
+          "max_continuous_containment_s": 1.0,
+          "model_limit": null,
+          "opening_crossings": [
+            {
+              "clearance_mm": 44.08827787053638,
+              "signed_miss_xy_mm": [
+                -6.6764092322089255,
+                -1.788145005024063
+              ],
+              "t": 0.43386541983492727,
+              "through_opening": true,
+              "xyz_mm": [
+                675.5515735857982,
+                198.4160359802377,
+                202.0
+              ]
+            }
+          ],
+          "outcome": "captured",
+          "signed_miss_xy_mm": [
+            -6.6764092322089255,
+            -1.788145005024063
+          ],
+          "success": true,
+          "termination_reason": "retention_complete",
+          "truncated": false,
+          "valid_board_bounce": true,
+          "whole_ball_entry": true
+        },
+        "role": "frozen_ridge_prediction",
+        "scene_id": "test-0007-5997e856aae9",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "seed": 717453313
+      }
+    ],
+    "held_out_search_oracle": [
+      {
+        "action": {
+          "gap_mm": 161.715,
+          "pitch_deg": 30.0,
+          "roll_deg": 0.0,
+          "u_mm": -16.408,
+          "v_mm": -44.821
+        },
+        "data_origin": "synthetic",
+        "endpoint_feasibility": {
+          "arm_reachable": true,
+          "board_arm_reachable": true,
+          "reason": "",
+          "scope": "kinematic target checks; native replay separately validates motion paths"
+        },
+        "layout_sha256": "f682a1d08c716905279e3b6db04ac8ec045e6b201f5b65631c1de2161b380432",
+        "native_paths_checked": false,
+        "physically_verified": false,
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "release_action": {
+          "gap_mm": 161.715,
+          "u_mm": -16.408,
+          "v_mm": -44.821
+        },
+        "release_coordinates": {
+          "commanded_release_ball_center_mm": [
+            634.174904914982,
+            -16.812654762428824,
+            572.0665769883631
+          ],
+          "coordinate_contract": {
+            "angle_units": "degrees",
+            "ball_to_tool": {
+              "rotation_matrix": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "status": "provisional ball center at simulated gripper TCP; uncalibrated",
+              "translation_mm": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+            "frame": "world; Z upward",
+            "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+            "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+            "height_units": "m",
+            "mass_units": "kg",
+            "position_units": "mm",
+            "tcp_world_rotation_matrix": [
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "time_units": "s",
+            "uv_definition": "board-local top-face U/V in mm; not world XY"
+          },
+          "gap_mm": 161.715,
+          "h_m": 0.16171499999999997,
+          "nominal_contact_ball_center_mm": [
+            634.174904914982,
+            -16.812654762428824,
+            410.3515769883631
+          ],
+          "u_mm": -16.408,
+          "v_mm": -44.821
+        },
+        "result": {
+          "board_bounce_t_s": 0.1895,
+          "bucket_retained_1s": true,
+          "capture_class": "rim_assisted",
+          "current_containment_s": 1.0,
+          "duration_s": 1.48675,
+          "full_exits": 0,
+          "max_continuous_containment_s": 1.0,
+          "model_limit": null,
+          "opening_crossings": [
+            {
+              "clearance_mm": 19.679284308270798,
+              "signed_miss_xy_mm": [
+                -30.3583376753096,
+                7.704450988487736
+              ],
+              "t": 0.45356063864028884,
+              "through_opening": true,
+              "xyz_mm": [
+                664.9873671791403,
+                196.97136487393445,
+                202.0
+              ]
+            }
+          ],
+          "outcome": "captured",
+          "signed_miss_xy_mm": [
+            -30.3583376753096,
+            7.704450988487736
+          ],
+          "success": true,
+          "termination_reason": "retention_complete",
+          "truncated": false,
+          "valid_board_bounce": true,
+          "whole_ball_entry": true
+        },
+        "role": "held_out_oracle",
+        "scene_id": "test-0000-f682a1d08c71",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "seed": 2765472149
+      },
+      {
+        "action": {
+          "gap_mm": 189.3968005888175,
+          "pitch_deg": 26.409154879778235,
+          "roll_deg": 1.5546443931908387,
+          "u_mm": -20.0408226532744,
+          "v_mm": -25.16928413354346
+        },
+        "data_origin": "synthetic",
+        "endpoint_feasibility": {
+          "arm_reachable": true,
+          "board_arm_reachable": true,
+          "reason": "",
+          "scope": "kinematic target checks; native replay separately validates motion paths"
+        },
+        "layout_sha256": "13f7feaedc9f13c012e17583e2b8c0781542af2767a2ff004752b1f460218eb2",
+        "native_paths_checked": false,
+        "physically_verified": false,
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "release_action": {
+          "gap_mm": 189.3968005888175,
+          "u_mm": -20.0408226532744,
+          "v_mm": -25.16928413354346
+        },
+        "release_coordinates": {
+          "commanded_release_ball_center_mm": [
+            637.4534353310712,
+            1.4569535526613109,
+            567.3893906882587
+          ],
+          "coordinate_contract": {
+            "angle_units": "degrees",
+            "ball_to_tool": {
+              "rotation_matrix": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "status": "provisional ball center at simulated gripper TCP; uncalibrated",
+              "translation_mm": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+            "frame": "world; Z upward",
+            "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+            "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+            "height_units": "m",
+            "mass_units": "kg",
+            "position_units": "mm",
+            "tcp_world_rotation_matrix": [
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "time_units": "s",
+            "uv_definition": "board-local top-face U/V in mm; not world XY"
+          },
+          "gap_mm": 189.3968005888175,
+          "h_m": 0.18939680058881747,
+          "nominal_contact_ball_center_mm": [
+            637.4534353310712,
+            1.4569535526613109,
+            377.9925900994412
+          ],
+          "u_mm": -20.0408226532744,
+          "v_mm": -25.16928413354346
+        },
+        "result": {
+          "board_bounce_t_s": 0.20625000000000002,
+          "bucket_retained_1s": true,
+          "capture_class": "clean",
+          "current_containment_s": 1.0,
+          "duration_s": 1.506,
+          "full_exits": 0,
+          "max_continuous_containment_s": 1.0,
+          "model_limit": null,
+          "opening_crossings": [
+            {
+              "clearance_mm": 41.670801337282754,
+              "signed_miss_xy_mm": [
+                -9.310109954363952,
+                -0.5964900050281017
+              ],
+              "t": 0.4839860237798911,
+              "through_opening": true,
+              "xyz_mm": [
+                655.2605128303385,
+                210.68602503535723,
+                202.0
+              ]
+            }
+          ],
+          "outcome": "captured",
+          "signed_miss_xy_mm": [
+            -9.310109954363952,
+            -0.5964900050281017
+          ],
+          "success": true,
+          "termination_reason": "retention_complete",
+          "truncated": false,
+          "valid_board_bounce": true,
+          "whole_ball_entry": true
+        },
+        "role": "held_out_oracle",
+        "scene_id": "test-0001-13f7feaedc9f",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "seed": 2364213886
+      },
+      {
+        "action": {
+          "gap_mm": 181.3954741347094,
+          "pitch_deg": 38.34346144585691,
+          "roll_deg": -3.021113544399378,
+          "u_mm": -12.39421943110159,
+          "v_mm": -74.56710240979179
+        },
+        "data_origin": "synthetic",
+        "endpoint_feasibility": {
+          "arm_reachable": true,
+          "board_arm_reachable": true,
+          "reason": "",
+          "scope": "kinematic target checks; native replay separately validates motion paths"
+        },
+        "layout_sha256": "e682bb541ea37e331d4e7ab1b29411beb659553044f518ff8c6932c670f58956",
+        "native_paths_checked": false,
+        "physically_verified": false,
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "release_action": {
+          "gap_mm": 181.3954741347094,
+          "u_mm": -12.39421943110159,
+          "v_mm": -74.56710240979179
+        },
+        "release_coordinates": {
+          "commanded_release_ball_center_mm": [
+            684.5460918504332,
+            32.96590205936309,
+            554.3816986966835
+          ],
+          "coordinate_contract": {
+            "angle_units": "degrees",
+            "ball_to_tool": {
+              "rotation_matrix": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "status": "provisional ball center at simulated gripper TCP; uncalibrated",
+              "translation_mm": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+            "frame": "world; Z upward",
+            "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+            "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+            "height_units": "m",
+            "mass_units": "kg",
+            "position_units": "mm",
+            "tcp_world_rotation_matrix": [
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "time_units": "s",
+            "uv_definition": "board-local top-face U/V in mm; not world XY"
+          },
+          "gap_mm": 181.3954741347094,
+          "h_m": 0.18139547413470933,
+          "nominal_contact_ball_center_mm": [
+            684.5460918504332,
+            32.96590205936309,
+            372.9862245619742
+          ],
+          "u_mm": -12.39421943110159,
+          "v_mm": -74.56710240979179
+        },
+        "result": {
+          "board_bounce_t_s": 0.20125,
+          "bucket_retained_1s": true,
+          "capture_class": "rim_assisted",
+          "current_containment_s": 1.0,
+          "duration_s": 1.469,
+          "full_exits": 0,
+          "max_continuous_containment_s": 1.0,
+          "model_limit": null,
+          "opening_crossings": [
+            {
+              "clearance_mm": 30.52100438533912,
+              "signed_miss_xy_mm": [
+                -18.869037499324463,
+                7.959188729662515
+              ],
+              "t": 0.4288784259792057,
+              "through_opening": true,
+              "xyz_mm": [
+                685.3197868220428,
+                296.4712009405477,
+                202.0
+              ]
+            }
+          ],
+          "outcome": "captured",
+          "signed_miss_xy_mm": [
+            -18.869037499324463,
+            7.959188729662515
+          ],
+          "success": true,
+          "termination_reason": "retention_complete",
+          "truncated": false,
+          "valid_board_bounce": true,
+          "whole_ball_entry": true
+        },
+        "role": "held_out_oracle",
+        "scene_id": "test-0002-e682bb541ea3",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "seed": 3852157528
+      },
+      {
+        "action": {
+          "gap_mm": 177.32106940889963,
+          "pitch_deg": 29.221289263138083,
+          "roll_deg": -2.2412671288118964,
+          "u_mm": -13.612968125228726,
+          "v_mm": -52.242818917354974
+        },
+        "data_origin": "synthetic",
+        "endpoint_feasibility": {
+          "arm_reachable": true,
+          "board_arm_reachable": true,
+          "reason": "",
+          "scope": "kinematic target checks; native replay separately validates motion paths"
+        },
+        "layout_sha256": "49bfe5002112e7f3255bae6b4fbee2f3622de52dfc6bb515aa601d1f7b950016",
+        "native_paths_checked": false,
+        "physically_verified": false,
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "release_action": {
+          "gap_mm": 177.32106940889963,
+          "u_mm": -13.612968125228726,
+          "v_mm": -52.242818917354974
+        },
+        "release_coordinates": {
+          "commanded_release_ball_center_mm": [
+            650.3255786628297,
+            9.14565997942831,
+            592.7902139946973
+          ],
+          "coordinate_contract": {
+            "angle_units": "degrees",
+            "ball_to_tool": {
+              "rotation_matrix": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "status": "provisional ball center at simulated gripper TCP; uncalibrated",
+              "translation_mm": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+            "frame": "world; Z upward",
+            "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+            "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+            "height_units": "m",
+            "mass_units": "kg",
+            "position_units": "mm",
+            "tcp_world_rotation_matrix": [
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "time_units": "s",
+            "uv_definition": "board-local top-face U/V in mm; not world XY"
+          },
+          "gap_mm": 177.32106940889963,
+          "h_m": 0.1773210694088997,
+          "nominal_contact_ball_center_mm": [
+            650.3255786628297,
+            9.14565997942831,
+            415.4691445857976
+          ],
+          "u_mm": -13.612968125228726,
+          "v_mm": -52.242818917354974
+        },
+        "result": {
+          "board_bounce_t_s": 0.19875,
+          "bucket_retained_1s": true,
+          "capture_class": "rim_assisted",
+          "current_containment_s": 1.0,
+          "duration_s": 1.65625,
+          "full_exits": 0,
+          "max_continuous_containment_s": 1.0,
+          "model_limit": null,
+          "opening_crossings": [
+            {
+              "clearance_mm": 9.652823798091234,
+              "signed_miss_xy_mm": [
+                -39.810585499788885,
+                11.167195800006795
+              ],
+              "t": 0.6167575999355625,
+              "through_opening": true,
+              "xyz_mm": [
+                665.9385467565188,
+                252.62933811851292,
+                202.0
+              ]
+            }
+          ],
+          "outcome": "captured",
+          "signed_miss_xy_mm": [
+            -39.810585499788885,
+            11.167195800006795
+          ],
+          "success": true,
+          "termination_reason": "retention_complete",
+          "truncated": false,
+          "valid_board_bounce": true,
+          "whole_ball_entry": true
+        },
+        "role": "held_out_oracle",
+        "scene_id": "test-0003-49bfe5002112",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "seed": 3128178926
+      },
+      {
+        "action": {
+          "gap_mm": 127.53578688775723,
+          "pitch_deg": 35.58243029920029,
+          "roll_deg": -1.4588744472976325,
+          "u_mm": -14.050259296043839,
+          "v_mm": -82.91396526442814
+        },
+        "data_origin": "synthetic",
+        "endpoint_feasibility": {
+          "arm_reachable": true,
+          "board_arm_reachable": true,
+          "reason": "",
+          "scope": "kinematic target checks; native replay separately validates motion paths"
+        },
+        "layout_sha256": "aacb9a730a10b41c81f8b06adeaf8744ed85ac91b2b75de4154a5c9decd145bf",
+        "native_paths_checked": false,
+        "physically_verified": false,
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "release_action": {
+          "gap_mm": 127.53578688775723,
+          "u_mm": -14.050259296043839,
+          "v_mm": -82.91396526442814
+        },
+        "release_coordinates": {
+          "commanded_release_ball_center_mm": [
+            695.2944688291782,
+            -7.549888286564233,
+            521.8922387329621
+          ],
+          "coordinate_contract": {
+            "angle_units": "degrees",
+            "ball_to_tool": {
+              "rotation_matrix": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "status": "provisional ball center at simulated gripper TCP; uncalibrated",
+              "translation_mm": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+            "frame": "world; Z upward",
+            "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+            "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+            "height_units": "m",
+            "mass_units": "kg",
+            "position_units": "mm",
+            "tcp_world_rotation_matrix": [
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "time_units": "s",
+            "uv_definition": "board-local top-face U/V in mm; not world XY"
+          },
+          "gap_mm": 127.53578688775723,
+          "h_m": 0.12753578688775719,
+          "nominal_contact_ball_center_mm": [
+            695.2944688291782,
+            -7.549888286564233,
+            394.35645184520496
+          ],
+          "u_mm": -14.050259296043839,
+          "v_mm": -82.91396526442814
+        },
+        "result": {
+          "board_bounce_t_s": 0.1705,
+          "bucket_retained_1s": true,
+          "capture_class": "rim_assisted",
+          "current_containment_s": 1.0,
+          "duration_s": 1.512,
+          "full_exits": 0,
+          "max_continuous_containment_s": 1.0,
+          "model_limit": null,
+          "opening_crossings": [
+            {
+              "clearance_mm": 21.85915136875503,
+              "signed_miss_xy_mm": [
+                -1.6568007084306373,
+                29.093711869778247
+              ],
+              "t": 0.4642012812147879,
+              "through_opening": true,
+              "xyz_mm": [
+                696.5688428309686,
+                273.53148802116607,
+                202.0
+              ]
+            }
+          ],
+          "outcome": "captured",
+          "signed_miss_xy_mm": [
+            -1.6568007084306373,
+            29.093711869778247
+          ],
+          "success": true,
+          "termination_reason": "retention_complete",
+          "truncated": false,
+          "valid_board_bounce": true,
+          "whole_ball_entry": true
+        },
+        "role": "held_out_oracle",
+        "scene_id": "test-0004-aacb9a730a10",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "seed": 3999354368
+      },
+      {
+        "action": {
+          "gap_mm": 174.41419052790832,
+          "pitch_deg": 36.25081289154913,
+          "roll_deg": 5.552698159813293,
+          "u_mm": -17.07379413355058,
+          "v_mm": -73.24102093884296
+        },
+        "data_origin": "synthetic",
+        "endpoint_feasibility": {
+          "arm_reachable": true,
+          "board_arm_reachable": true,
+          "reason": "",
+          "scope": "kinematic target checks; native replay separately validates motion paths"
+        },
+        "layout_sha256": "d2102856773c6cbfd9a4289b43154fb3f4fb14f1bc245289a4d2fdc03294ded9",
+        "native_paths_checked": false,
+        "physically_verified": false,
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "release_action": {
+          "gap_mm": 174.41419052790832,
+          "u_mm": -17.07379413355058,
+          "v_mm": -73.24102093884296
+        },
+        "release_coordinates": {
+          "commanded_release_ball_center_mm": [
+            673.9434640993086,
+            -1.285201890887457,
+            578.6589615962334
+          ],
+          "coordinate_contract": {
+            "angle_units": "degrees",
+            "ball_to_tool": {
+              "rotation_matrix": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "status": "provisional ball center at simulated gripper TCP; uncalibrated",
+              "translation_mm": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+            "frame": "world; Z upward",
+            "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+            "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+            "height_units": "m",
+            "mass_units": "kg",
+            "position_units": "mm",
+            "tcp_world_rotation_matrix": [
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "time_units": "s",
+            "uv_definition": "board-local top-face U/V in mm; not world XY"
+          },
+          "gap_mm": 174.41419052790832,
+          "h_m": 0.17441419052790832,
+          "nominal_contact_ball_center_mm": [
+            673.9434640993086,
+            -1.285201890887457,
+            404.2447710683251
+          ],
+          "u_mm": -17.07379413355058,
+          "v_mm": -73.24102093884296
+        },
+        "result": {
+          "board_bounce_t_s": 0.1965,
+          "bucket_retained_1s": true,
+          "capture_class": "rim_assisted",
+          "current_containment_s": 1.0,
+          "duration_s": 1.518,
+          "full_exits": 0,
+          "max_continuous_containment_s": 1.0,
+          "model_limit": null,
+          "opening_crossings": [
+            {
+              "clearance_mm": 13.661971708647982,
+              "signed_miss_xy_mm": [
+                24.36982483947395,
+                28.288513463580273
+              ],
+              "t": 0.46944224158278436,
+              "through_opening": true,
+              "xyz_mm": [
+                712.7390659921986,
+                295.8037956331432,
+                202.0
+              ]
+            }
+          ],
+          "outcome": "captured",
+          "signed_miss_xy_mm": [
+            24.36982483947395,
+            28.288513463580273
+          ],
+          "success": true,
+          "termination_reason": "retention_complete",
+          "truncated": false,
+          "valid_board_bounce": true,
+          "whole_ball_entry": true
+        },
+        "role": "held_out_oracle",
+        "scene_id": "test-0005-d2102856773c",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "seed": 3339640004
+      },
+      {
+        "action": {
+          "gap_mm": 125.54721561484429,
+          "pitch_deg": 38.499110572885726,
+          "roll_deg": 3.709225850975967,
+          "u_mm": 8.727272122780924,
+          "v_mm": -65.05160286028587
+        },
+        "data_origin": "synthetic",
+        "endpoint_feasibility": {
+          "arm_reachable": true,
+          "board_arm_reachable": true,
+          "reason": "",
+          "scope": "kinematic target checks; native replay separately validates motion paths"
+        },
+        "layout_sha256": "f554168aa3c8022537b6609c3bab5d4c7f093bf9aaa939cdf2659e6b76e2acdc",
+        "native_paths_checked": false,
+        "physically_verified": false,
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "release_action": {
+          "gap_mm": 125.54721561484429,
+          "u_mm": 8.727272122780924,
+          "v_mm": -65.05160286028587
+        },
+        "release_coordinates": {
+          "commanded_release_ball_center_mm": [
+            684.220988138481,
+            5.020718872703281,
+            492.0439200426675
+          ],
+          "coordinate_contract": {
+            "angle_units": "degrees",
+            "ball_to_tool": {
+              "rotation_matrix": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "status": "provisional ball center at simulated gripper TCP; uncalibrated",
+              "translation_mm": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+            "frame": "world; Z upward",
+            "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+            "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+            "height_units": "m",
+            "mass_units": "kg",
+            "position_units": "mm",
+            "tcp_world_rotation_matrix": [
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "time_units": "s",
+            "uv_definition": "board-local top-face U/V in mm; not world XY"
+          },
+          "gap_mm": 125.54721561484429,
+          "h_m": 0.12554721561484428,
+          "nominal_contact_ball_center_mm": [
+            684.220988138481,
+            5.020718872703281,
+            366.4967044278232
+          ],
+          "u_mm": 8.727272122780924,
+          "v_mm": -65.05160286028587
+        },
+        "result": {
+          "board_bounce_t_s": 0.1675,
+          "bucket_retained_1s": true,
+          "capture_class": "clean",
+          "current_containment_s": 1.0,
+          "duration_s": 1.3765,
+          "full_exits": 0,
+          "max_continuous_containment_s": 1.0,
+          "model_limit": null,
+          "opening_crossings": [
+            {
+              "clearance_mm": 44.131286392737024,
+              "signed_miss_xy_mm": [
+                -4.773516362731698,
+                -4.938903537560975
+              ],
+              "t": 0.3557799039475286,
+              "through_opening": true,
+              "xyz_mm": [
+                706.8297158658241,
+                174.47834439261388,
+                202.0
+              ]
+            }
+          ],
+          "outcome": "captured",
+          "signed_miss_xy_mm": [
+            -4.773516362731698,
+            -4.938903537560975
+          ],
+          "success": true,
+          "termination_reason": "retention_complete",
+          "truncated": false,
+          "valid_board_bounce": true,
+          "whole_ball_entry": true
+        },
+        "role": "held_out_oracle",
+        "scene_id": "test-0006-f554168aa3c8",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "seed": 1396765843
+      },
+      {
+        "action": {
+          "gap_mm": 162.50709746176696,
+          "pitch_deg": 27.695864134481994,
+          "roll_deg": 1.9563210581565145,
+          "u_mm": -14.92642285409592,
+          "v_mm": -29.215349829026533
+        },
+        "data_origin": "synthetic",
+        "endpoint_feasibility": {
+          "arm_reachable": true,
+          "board_arm_reachable": true,
+          "reason": "",
+          "scope": "kinematic target checks; native replay separately validates motion paths"
+        },
+        "layout_sha256": "5997e856aae9c95cb5d2577f2600d95f363231ac6c491caea353f01cd09cab91",
+        "native_paths_checked": false,
+        "physically_verified": false,
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "release_action": {
+          "gap_mm": 162.50709746176696,
+          "u_mm": -14.92642285409592,
+          "v_mm": -29.215349829026533
+        },
+        "release_coordinates": {
+          "commanded_release_ball_center_mm": [
+            637.8899200887167,
+            -11.42288430518309,
+            540.717132050281
+          ],
+          "coordinate_contract": {
+            "angle_units": "degrees",
+            "ball_to_tool": {
+              "rotation_matrix": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "status": "provisional ball center at simulated gripper TCP; uncalibrated",
+              "translation_mm": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+            "frame": "world; Z upward",
+            "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+            "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+            "height_units": "m",
+            "mass_units": "kg",
+            "position_units": "mm",
+            "tcp_world_rotation_matrix": [
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "time_units": "s",
+            "uv_definition": "board-local top-face U/V in mm; not world XY"
+          },
+          "gap_mm": 162.50709746176696,
+          "h_m": 0.16250709746176692,
+          "nominal_contact_ball_center_mm": [
+            637.8899200887167,
+            -11.42288430518309,
+            378.210034588514
+          ],
+          "u_mm": -14.92642285409592,
+          "v_mm": -29.215349829026533
+        },
+        "result": {
+          "board_bounce_t_s": 0.192,
+          "bucket_retained_1s": true,
+          "capture_class": "clean",
+          "current_containment_s": 1.0,
+          "duration_s": 1.47675,
+          "full_exits": 0,
+          "max_continuous_containment_s": 1.0,
+          "model_limit": null,
+          "opening_crossings": [
+            {
+              "clearance_mm": 21.800201559747304,
+              "signed_miss_xy_mm": [
+                -25.9931355853098,
+                -13.303575887523067
+              ],
+              "t": 0.4548556137417394,
+              "through_opening": true,
+              "xyz_mm": [
+                656.2348472326973,
+                186.9006050977387,
+                202.0
+              ]
+            }
+          ],
+          "outcome": "captured",
+          "signed_miss_xy_mm": [
+            -25.9931355853098,
+            -13.303575887523067
+          ],
+          "success": true,
+          "termination_reason": "retention_complete",
+          "truncated": false,
+          "valid_board_bounce": true,
+          "whole_ball_entry": true
+        },
+        "role": "held_out_oracle",
+        "scene_id": "test-0007-5997e856aae9",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "seed": 717453313
+      }
+    ]
+  },
+  "native_paths_checked": false,
+  "physically_verified": false,
+  "schema": "sircus-study-compact-test-scorecard-v1"
+}
