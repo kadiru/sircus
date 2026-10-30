@@ -1,5 +1,39 @@
 # Project state
 
+## Three-mode show integration — October 30, 2026
+
+- Draft integration branch `codex/macbook-three-mode-show` combines the guided
+  workspace and audio draft source without merging main or those draft PRs.
+  `/show.html` exposes Simulator, Deterministic and Trained views. Default launch
+  `./start-show.sh` uses mock arms/camera/recording on loopback18769; hardware mode
+  is explicit and has no numerical workflow routes. See [show runbook](SHOW_RUNBOOK.md).
+- Deterministic pose editing records operator-configured Viam TCP targets without
+  motion or a calibration claim. The fixed routine uses two seconds to load and
+  two seconds settled before release, with optional unlabeled practice records.
+  Stop and conflicting-action guards retain the existing physical-controller logic.
+- Pink/Purple/Green/Gray are explicit operator labels with unassigned MIDI bindings.
+  A verified input routes measured generic impacts only; no manual contact buttons,
+  object inference or automatic capture/miss labels. Older released balls retain
+  their own trial/window while a different ball loads. FX starts off; lifecycle
+  hooks enqueue without audio I/O, and cancellation cannot stop another ball's cue.
+- An original bounded drum-roll loop spans carry and the two-second settle, ending
+  immediately before release. Four-input native MIDI parsing and scoped voice
+  cancellation compile and pass isolated tests without opening devices. Real BLE,
+  listening, private-LAN delivery and optional Logic commissioning are outstanding.
+- Validation:329 Python unittest checks,71 Node tests and the standalone Logic
+  guard assertions passed. Coverage includes unreachable/delayed audio, duplicate
+  events, cancellation/lock contention, four identities, repeated synthetic replay,
+  pose configuration, fixed-cycle mocks, UI routes, scoring and immutable baselines.
+  A new mock-only preview was launched/refreshed; existing18766 operator service,
+  physical services, cloud machine config and hardware were not changed.
+- Current synthetic learning evidence remains33/48 frozen inference versus25/48
+  fixed action and37/48 separately labeled bounded search. No learning result,
+  fingerprint or compatibility guard was rewritten by show/audio integration.
+- The existing presentation was reduced to eight spacious circus/Halloween slides,
+  retaining real photos and adding current UI, measured study results and explicit
+  uncommissioned perception/audio boundaries. Physical trained deployment is still
+  blocked by calibration, detector and native-path requirements.
+
 ## Corrected front-bucket study and commissioning stubs — October 30, 2026
 
 - Active draft PR5 / `codex/macbook-guided-training` keeps main and audio drafts separate.
@@ -93,3 +127,33 @@
 - Native cloud simulation runtime previously on the Mac is no longer assumed running. Do not reuse its cloud identity without coordinating ownership. Local8083 needs no credentials.
 
 Current detailed physical/perception STATUS files include historical PIDs and timestamps. Verify live state before acting. Read docs/UBUNTU_SETUP.md for repository startup; old transfer/local absolute paths are historical.
+
+## Mac Mini audio — October 30, 2026
+
+Ghost Booth is the unified local event-sound/rehearsal interface under
+`sircus/audio/booth/`, with eight configurable event slots and sixteen original
+sounds. See [audio status](../sircus/audio/STATUS.md). It runs independently with
+FX off and no robot dependency. The main audio branch/draft PR carries this code;
+no physical dashboard hook, Viam configuration or robot deployment is included.
+
+## MacBook audio integration checkpoint — October 30, 2026
+
+The separate `codex/macbook-dashboard-audio` task branch includes reviewed main
+`6f00ac3faa4e34d508b005891e62d9911ead81cf` and the draft audio client. It adds
+initially-off FX, volume, sanitized connection/mute status and nonblocking
+physical-controller observers. [Integration details](DASHBOARD_AUDIO_INTEGRATION.md)
+describe evidence, command ordering, cancellation, tests and private-LAN setup.
+This is source integration only: no deployment, service restart, hardware call
+or cross-computer validation. Audio PR #1 remains draft; learning PR #3 remains
+separate. New scoring is opt-in and v2 native replay remains blocked.
+
+## Reviewed learning merge and audio corrections — October 30, 2026
+
+PR #3 was merged into main at `a376ad67968f6445d39a51c2a29325a204bb582a`.
+The audio integration branch retains both the numerical study preview and
+audio controls after resolving the shared server, test script and style changes.
+Published study artifacts, scoring versions and native replay guards are unchanged.
+Audio PRs #1 and #4 remain drafts; this is source integration, not deployment.
+No existing services were restarted, no audio was auditioned, and no Viam or
+physical robot connection was used. Real listening, ODD/BLE and authenticated
+cross-computer commissioning remain separate follow-ups.
