@@ -284,4 +284,8 @@ DispatchQueue.global().async {
     }
     DispatchQueue.main.async {enabled=false;silence();engine.stop();exit(0)}
 }
-dispatchMain()
+// CoreMIDI topology updates must be serviced by the main run loop. On this Mac,
+// dispatchMain() kept timers/audio alive but cached the pre-pairing source list;
+// a read-only A/B probe received hot-plug notifications only with RunLoop.run.
+// DispatchQueue.main callbacks still execute on the same serialized thread.
+RunLoop.main.run()
