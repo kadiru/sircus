@@ -20,6 +20,10 @@ RECORDING_TIMEOUT_SECONDS = 12.0
 POSE_TOLERANCE_MM = 2.0
 ORIENTATION_TOLERANCE_DEG = 1.0
 BOARD_TOLERANCE_DEG = 0.5
+STOP_TIMEOUT_SECONDS = 15.0
+CANCEL_WAIT_SECONDS = 2.0
+FINALIZE_TIMEOUT_SECONDS = 6.0
+SNAPSHOT_TIMEOUT_SECONDS = 5.0
 
 
 def utc():
@@ -77,6 +81,10 @@ class Controller:
         self.audio_clock_id = 'sircus-dashboard-' + uuid.uuid4().hex
         self.audio_observer_errors = 0
         self.selected_ball_id = None
+        self.action_epoch = 0
+        self.journal_error = None
+        self._closed = False
+        self._pending_calls = set()
         self.root.mkdir(parents=True, exist_ok=True)
         self.config_path = self.root / 'calibration.json'
         self.calibration = json.loads(self.config_path.read_text()) if self.config_path.exists() else {}
@@ -103,12 +111,17 @@ class Controller:
         paths = sorted((self.root / 'trials').glob('*/trial.json'))
         pending = []
         for path in paths:
-            trial = json.loads(path.read_text())
-            if not trial.get('saved'):
-                trial.update(status='interrupted', interrupted_at=utc(),
-                             interruption='Dashboard restarted; no motion or recording resumed')
-                write_json(path, trial)
-                pending.append(trial)
+            try:
+                trial=json.loads(path.read_text())
+                if not isinstance(trial,dict) or trial.get('id')!=path.parent.name:
+                    raise ValueError('Invalid trial journal identity')
+                if not trial.get('saved'):
+                    trial.update(status='interrupted',interrupted_at=utc(),
+                                 interruption='Dashboard restarted; no motion or recording resumed')
+                    write_json(path,trial);pending.append(trial)
+            except (OSError,ValueError,TypeError):
+                self.journal_error='Unreadable trial journal retained; review local files before reuse'
+                self.fault=True;self.error='Journal recovery incomplete; verify Stop before further actions'
         if pending:
             self.trial = pending[-1]
             self.fault = True
@@ -126,19 +139,42 @@ class Controller:
             self.phase = 'disconnected'
         self.poll_task = asyncio.create_task(self._poll())
 
+    async def _bounded(self, awaitable, timeout):
+        """Return at the deadline even if an RPC suppresses task cancellation.
+
+        Late values are discarded. Pending tasks stay owned/observed, and no late
+        callback can write controller state or advance its generation.
+        """
+        task=asyncio.ensure_future(awaitable);self._pending_calls.add(task)
+        def finished(value):
+            self._pending_calls.discard(value)
+            if not value.cancelled():value.exception()
+        task.add_done_callback(finished)
+        try:
+            done,_=await asyncio.wait({task},timeout=timeout)
+        except asyncio.CancelledError:
+            task.cancel();raise
+        if not done:
+            task.cancel();raise asyncio.TimeoutError()
+        return task.result()
+
+    def _invalidate_gripper(self):
+        self.gripper_command_state='unknown';self.gripper_closed=False
+
     async def close(self):
-        # Application shutdown is not a physical command. Operators must Stop first.
-        self._audio_cancel()
-        for task in (self.poll_task, self.task):
-            if task and not task.done():
-                task.cancel()
-        await asyncio.gather(*(t for t in (self.poll_task, self.task) if t), return_exceptions=True)
-        await self.adapter.finish_recording()
-        await self.adapter.close()
+        # Shutdown cancels owned tasks/connections; it sends no actuator command.
+        self._closed=True;self.generation+=1;self.action_epoch+=1
+        self._invalidate_gripper();self._audio_cancel()
+        tasks={t for t in (self.poll_task,self.task,*self._pending_calls) if t and not t.done()}
+        for task in tasks:task.cancel()
+        if tasks:await asyncio.wait(tasks,timeout=CANCEL_WAIT_SECONDS)
+        for operation in (self.adapter.finish_recording,self.adapter.close):
+            try:await self._bounded(operation(),FINALIZE_TIMEOUT_SECONDS)
+            except Exception:self.journal_error='Shutdown cleanup incomplete; local partial files retained'
 
     async def _snapshot(self):
         try:
-            state = await asyncio.wait_for(self.adapter.snapshot(), 5)
+            state = await self._bounded(self.adapter.snapshot(), SNAPSHOT_TIMEOUT_SECONDS)
             for name in ('arm', 'arm-board'):
                 arm = state['arms'][name]
                 if not isinstance(arm['is_moving'], bool) or len(arm['joints']) != 6:
@@ -152,7 +188,7 @@ class Controller:
         except BaseException:
             self.snapshot_time = 0
             self.connected = False
-            self.gripper_command_state = 'unknown'
+            self._invalidate_gripper()
             raise
 
     async def _poll(self):
@@ -177,6 +213,7 @@ class Controller:
             except Exception as exc:
                 self.connected = False
                 self.snapshot_time = 0
+                self._invalidate_gripper()
                 self.error = f'Readback unavailable ({type(exc).__name__}); release disabled'
             await asyncio.sleep(0.5)
 
@@ -204,7 +241,8 @@ class Controller:
             except (KeyError, TypeError, ValueError):
                 missing.append('Teach ' + key.replace('_', ' '))
         joints = self.calibration.get('board_joints')
-        if not isinstance(joints, list) or len(joints) != 6:
+        if (not isinstance(joints, list) or len(joints) != 6 or
+                any(type(v) not in (int,float) or not math.isfinite(v) for v in joints)):
             missing.append('Teach board reference with drop pose')
         return missing
 
@@ -215,7 +253,9 @@ class Controller:
     def _board_fixed(self, state):
         ref = self.calibration.get('board_joints')
         actual = state['arms']['arm-board']['joints']
-        if ref is None or len(ref) != 6 or max(abs(a-b) for a, b in zip(ref, actual)) > BOARD_TOLERANCE_DEG:
+        if (not isinstance(ref,list) or len(ref)!=6 or
+                any(type(v) not in (int,float) or not math.isfinite(v) for v in ref) or
+                max(abs(a-b) for a,b in zip(ref,actual))>BOARD_TOLERANCE_DEG):
             raise TrialError('Board-holder pose changed; reteach and reconfirm the setup')
         if state['arms']['arm-board']['is_moving']:
             raise TrialError('Board-holder is moving')
@@ -230,6 +270,7 @@ class Controller:
 
     def _drop_blockers(self):
         blockers = []
+        if self.fault or self.stopping or self._closed:blockers.append('Verified Stop/recovery required before release')
         if not self.connected or time.monotonic() - self.snapshot_time > FRESH_SECONDS:
             blockers.append('Fresh robot readback required')
         if self.trial and self.trial.get('behavior') == 'fixed_pose_cycle':
@@ -249,10 +290,27 @@ class Controller:
                     blockers.append('Dropper is not at the intended release pose')
             except (TrialError, KeyError) as exc:
                 blockers.append(str(exc))
-        rec = self.recording
-        if (not rec.get('active') or not rec.get('ready') or rec.get('error') or
-                time.monotonic() - rec.get('last_frame_monotonic', 0) > FRESH_SECONDS):
+        if not self._recording_fresh(self.recording):
             blockers.append('Recording must be active with a fresh saved frame and robot state')
+        return blockers
+
+    def _recording_fresh(self,record):
+        stamp=record.get('last_frame_monotonic')
+        return (self.trial is not None and record.get('trial_id')==self.trial.get('id')
+            and record.get('active') is True and record.get('ready') is True and not record.get('error')
+            and type(stamp) in (int,float) and math.isfinite(stamp) and 0<=time.monotonic()-stamp<=FRESH_SECONDS)
+
+    def fixed_cycle_blockers(self):
+        blockers=self.fixed_cycle_missing()
+        if self._closed:blockers.append('Controller is closed')
+        if self.stopping or (self.task and not self.task.done()):blockers.append('An action or Stop is pending')
+        if self._unsaved():blockers.append('Keep or label the completed trial before another cycle')
+        if self.fault:blockers.append('Verified Stop/recovery required')
+        if not self.connected or time.monotonic()-self.snapshot_time>FRESH_SECONDS:
+            blockers.append('Fresh robot readback required')
+        elif self.robot:
+            try:self._stationary(self.robot);self._board_fixed(self.robot)
+            except TrialError as exc:blockers.append(str(exc))
         return blockers
 
     def status_snapshot(self):
@@ -284,7 +342,9 @@ class Controller:
                                 allowed += ['go_drop']
                         except TrialError:
                             pass
-        return copy.deepcopy({'mode': self.mode, 'machine': 'sfhack10', 'connected': fresh,
+        if self._closed:allowed=[]
+        return copy.deepcopy({'action_epoch':self.action_epoch,'journal_error':self.journal_error,
+            'fixed_cycle_blockers':self.fixed_cycle_blockers(),'mode': self.mode, 'machine': 'sfhack10', 'connected': fresh,
             'phase': self.phase, 'busy': busy, 'allowed_actions': allowed, 'robot': self.robot,
             'calibration': self.calibration, 'calibration_missing': self.calibration_missing(),
             'recording': self.recording, 'trial': self.trial, 'error': self.error,
@@ -300,10 +360,17 @@ class Controller:
         return self.status_snapshot()
 
     async def action(self, payload):
+        if not isinstance(payload,dict):raise TrialError('Action JSON object required')
+        if self._closed:raise TrialError('Controller is closed')
         name = payload.get('action')
         if name == 'stop':
+            self.action_epoch += 1
             await self._stop()
             return {'accepted': True, **await self.status()}
+        if 'expected_action_epoch' in payload:
+            expected=payload['expected_action_epoch']
+            if type(expected) is not int or expected!=self.action_epoch:
+                raise TrialError('Stale action request; refresh state and confirm again')
         if name not in (await self.status())['allowed_actions']:
             raise TrialError('Action unavailable: another action/trial is pending, state is stale, or calibration is missing')
         if name == 'set_ball':
@@ -330,6 +397,7 @@ class Controller:
         if not self.fault:
             self.error = None
         generation = self.generation
+        self.action_epoch += 1
         self._event(name, 'operator_requested')
         self.phase = name
         self.task = asyncio.create_task(self._run(name, copy.deepcopy(payload), generation))
@@ -338,6 +406,23 @@ class Controller:
     def _persist(self):
         if self.trial:
             write_json(self.root / 'trials' / self.trial['id'] / 'trial.json', self.trial)
+
+    def _best_effort_event(self,command,event,**extra):
+        try:self._event(command,event,**extra)
+        except Exception:self.journal_error='Trial journal write failed; Stop/cleanup still attempted'
+
+    def _best_effort_persist(self):
+        try:self._persist()
+        except Exception:self.journal_error='Trial journal write failed; partial record retained where possible'
+
+    async def _stop_and_verify(self):
+        self._invalidate_gripper()
+        result=await self._bounded(self.adapter.stop(),STOP_TIMEOUT_SECONDS)
+        if isinstance(result,dict) and result.get('planner_cancellation_verified') is False:
+            raise TrialError('Pending planner cancellation was not verified')
+        state=await self._snapshot()
+        if state['arms']['arm']['is_moving']:raise TrialError('Dropper still reports moving after Stop')
+        return result
 
     def _event(self, command, event, **extra):
         entry = {'event_id': uuid.uuid4().hex, 'command': command, 'event': event, 'timestamp': utc(),
@@ -438,7 +523,7 @@ class Controller:
             if self.recording.get('error'):
                 raise TrialError('Recording failed; release remains disabled')
             if self.recording.get('ready'):
-                if not self.recording.get('active') or time.monotonic() - self.recording.get('last_frame_monotonic', 0) > FRESH_SECONDS:
+                if not self._recording_fresh(self.recording):
                     raise TrialError('Recorded frame is stale; release remains disabled')
                 break
             await asyncio.sleep(0.2)
@@ -454,6 +539,7 @@ class Controller:
         self.gripper_closed = False
         result = await (self.adapter.open_gripper() if opening else self.adapter.close_gripper())
         still_current()
+        if opening and result is False:raise TrialError('Gripper did not acknowledge open')
         self.gripper_command_state = 'open' if opening else 'closed'
         if not opening:
             self.gripper_closed = result.get('grabbed') is True if isinstance(result, dict) else result is True
@@ -494,13 +580,14 @@ class Controller:
         await self.adapter.finish_recording()
         still_current()
         self.recording = await self.adapter.recording_status()
+        still_current()
         self.trial.update(status='completed', completed_at=utc())
         self._persist()
         self.phase = 'awaiting_outcome'
 
     async def _run(self, name, p, generation):
         def still_current():
-            if generation != self.generation or self.stopping:
+            if generation != self.generation or self.stopping or self._closed:
                 raise asyncio.CancelledError()
         try:
             still_current()
@@ -515,18 +602,20 @@ class Controller:
                          board_joints=copy.deepcopy(state['arms']['arm-board']['joints']),confirmed=False,
                          pose_source='operator_configured_tcp_targets',configured_at=utc(),
                          pose_validation='Operator assertion of fixed clear route; not measured calibration or native path validation')
-                self.calibration=c;write_json(self.config_path,c);self.phase='idle'
+                write_json(self.config_path,c);self.calibration=c;self.phase='idle'
             elif name in ('teach_loading', 'teach_drop'):
                 state = await self._settle(board_guard=False)
                 still_current()
                 pose = copy.deepcopy(state['arms']['arm']['pose'])
-                self.calibration['loading_pose' if name == 'teach_loading' else 'drop_pose'] = pose
+                c = copy.deepcopy(self.calibration)
+                c['loading_pose' if name == 'teach_loading' else 'drop_pose'] = pose
                 if name == 'teach_drop':
-                    self.calibration['board_joints'] = state['arms']['arm-board']['joints']
-                    self.calibration['board_pose'] = state['arms']['arm-board']['pose']
-                self.calibration.update(confirmed=False, taught_at=utc(), frame='world',
+                    c['board_joints'] = copy.deepcopy(state['arms']['arm-board']['joints'])
+                    c['board_pose'] = copy.deepcopy(state['arms']['arm-board']['pose'])
+                c.update(confirmed=False, taught_at=utc(), frame='world',
                                         pose_reference='arm flange as reported by motion.get_pose; not ball center')
-                write_json(self.config_path, self.calibration)
+                write_json(self.config_path, c)
+                self.calibration = c
                 self.phase = 'idle'
             elif name == 'configure':
                 c = copy.deepcopy(self.calibration)
@@ -544,8 +633,8 @@ class Controller:
                 c.update(confirmed=True, confirmed_at=utc(), setup_revision=str(p.get('setup_revision',''))[:200],
                          height_definition='arm flange world Z minus calibrated reference Z; reference must include held-ball offset')
                 still_current()
-                self.calibration = c
                 write_json(self.config_path, c)
+                self.calibration = c
                 self.phase = 'idle'
             elif name in ('open_gripper', 'close_gripper'):
                 self._stationary(await self._snapshot())
@@ -605,9 +694,12 @@ class Controller:
                 self._persist()
                 self._audio_outcome()  # Saved human label; cloud/audio readiness never gates it.
                 try:
-                    self.trial['cloud'] = await self.adapter.save_trial(self.root/'trials'/self.trial['id'],self.trial)
+                    cloud = await self.adapter.save_trial(self.root/'trials'/self.trial['id'],self.trial)
+                    still_current()
+                    self.trial['cloud'] = cloud
                 except Exception as exc:
                     self.trial['cloud'] = {'state':'pending','error_type':type(exc).__name__}
+                still_current()
                 self._persist()
                 self.phase = 'idle'
             if generation != self.generation:
@@ -621,25 +713,18 @@ class Controller:
                 return
             self._audio_cancel()
             self.error = str(exc) if isinstance(exc, TrialError) else f'{name} failed ({type(exc).__name__}); check hardware/connection'
-            if name in ('go_loading','go_drop','drop','load_drop_cycle'):
-                try:
-                    result = await self.adapter.stop()
-                    if isinstance(result, dict) and result.get('planner_cancellation_verified') is False:
-                        raise TrialError('Planner cancellation not verified')
+            if name in ('go_loading','go_drop','drop','load_drop_cycle','open_gripper','close_gripper'):
+                try:await self._stop_and_verify()
                 except Exception:
-                    self.error += '; dropper stop not confirmed'
-                    self.fault = True
+                    self.error += '; dropper stop not confirmed';self.fault=True
+            if generation!=self.generation:return
             if self._unsaved():
-                self.trial.update(status='aborted', error=self.error, completed_at=utc())
-                self._event(name, 'failed')
-                try:
-                    await self.adapter.finish_recording()
-                except Exception:
-                    self.error += '; recording finalization failed; partial files retained'
-                finally:
-                    self.phase = 'awaiting_outcome'
-            else:
-                self.phase = 'idle'
+                self.trial.update(status='aborted',error=self.error,completed_at=utc())
+                self._best_effort_event(name,'failed')
+                try:await self._bounded(self.adapter.finish_recording(),FINALIZE_TIMEOUT_SECONDS)
+                except Exception:self.error += '; recording finalization failed; partial files retained'
+                if generation==self.generation:self.phase='awaiting_outcome'
+            else:self.phase='idle'
 
     def _keep_unlabeled(self):
         if not self.trial or self.trial['status'] not in ('completed', 'aborted', 'interrupted'):
@@ -726,47 +811,42 @@ class Controller:
             self._keep_unlabeled()
 
     async def _stop(self):
-        if self.stopping:
-            return
-        self.stopping = True
-        self.gripper_command_state = 'unknown'
-        self.generation += 1
-        active = self.task
-        if active and not active.done():
-            active.cancel()
-        self.phase = 'stopping'
-        self._audio_cancel()  # Enqueue only; robot Stop below never awaits audio.
-        self._event('stop', 'requested')
+        if self.stopping:return
+        self.stopping=True;self.fault=True;self._invalidate_gripper();self.generation+=1
+        verified=False;quiescent=False
+        active=self.task
+        if active and not active.done():active.cancel()
+        self.phase='stopping';self.loading_deadline=None
+        self._audio_cancel()  # Enqueue only; no audio readiness or acknowledgment.
+        self._best_effort_event('stop','requested')
         try:
-            # Independent of the busy action. Never stop_all(), gripper.open() or vacuum commands.
-            result = await asyncio.wait_for(self.adapter.stop(), 15)
-            if isinstance(result, dict) and result.get('planner_cancellation_verified') is False:
-                raise TrialError('Pending Viam planner cancellation was not verified')
-            self._event('stop', 'dropper_stop_returned')
-            state = await self._snapshot()
-            if state['arms']['arm']['is_moving']:
-                raise TrialError('Dropper still reports moving after Stop')
-            self.fault = False
-            self.error = None
+            await self._stop_and_verify()
+            self._best_effort_event('stop','dropper_stop_returned')
+            verified=True;self.error=None
+        except asyncio.CancelledError:
+            self.error='Stop request interrupted; recovery not confirmed'
+            raise
         except Exception as exc:
-            self.fault = True
-            self.error = f'Stop not confirmed ({type(exc).__name__}); use physical emergency stop if needed'
+            self.error=f'Stop not confirmed ({type(exc).__name__}); use physical emergency stop if needed'
         finally:
-            if active:
-                try:
-                    await asyncio.wait_for(asyncio.gather(active, return_exceptions=True), 2)
-                except asyncio.TimeoutError:
-                    self.fault = True
-                    self.error = 'Pending action cancellation not confirmed; hardware Stop must be checked'
             try:
-                await asyncio.wait_for(self.adapter.finish_recording(), 6)
-                self.recording = await self.adapter.recording_status()
-            except Exception:
-                self.error = self.error or 'Recording finalization unconfirmed; local partial files retained'
-            if self._unsaved():
-                self.trial.update(status='aborted', completed_at=utc(), stop_error=self.error)
-                self._persist()
-                self.phase = 'awaiting_outcome'
-            else:
-                self.phase = 'idle'
-            self.stopping = False
+                quiescent=not active or active.done()
+                if not quiescent:
+                    done,_=await asyncio.wait({active},timeout=CANCEL_WAIT_SECONDS)
+                    quiescent=bool(done)
+                    if not quiescent:self.error='Pending action cancellation not confirmed; hardware Stop must be checked'
+                try:
+                    await self._bounded(self.adapter.finish_recording(),FINALIZE_TIMEOUT_SECONDS)
+                    self.recording=await self._bounded(self.adapter.recording_status(),SNAPSHOT_TIMEOUT_SECONDS)
+                except Exception:
+                    self.error=self.error or 'Recording finalization unconfirmed; local partial files retained'
+            except asyncio.CancelledError:
+                verified=False;self.error='Stop cleanup interrupted; recovery not confirmed'
+                raise
+            finally:
+                self.fault=not (verified and quiescent)
+                if self._unsaved():
+                    self.trial.update(status='aborted',completed_at=utc(),stop_error=self.error)
+                    self._best_effort_persist();self.phase='awaiting_outcome'
+                else:self.phase='idle'
+                self.stopping=False

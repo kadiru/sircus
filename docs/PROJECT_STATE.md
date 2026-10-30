@@ -1,5 +1,29 @@
 # Project state
 
+## Deterministic routine reliability — October 30, 2026
+
+- `codex/macbook-deterministic-reliability` builds on draft four-mode commit
+  `46fe121`. Manual operation still uses exact saved TCP poses, a two-second loading
+  countdown and two-second drop settling, with another operator press for every repeat.
+- Stop cannot be prevented by journal-write failure. Unresolved planner/actuator
+  requests and interrupted Stop keep recovery locked; stale action epochs cannot
+  restart a pre-Stop command. Readback loss invalidates all held-ball/open caches.
+- Recording must belong to the current trial and be fresh from request start,
+  including acquisition/write delay. Old canceled writes retain their original
+  trial directory. Unknown native-capture ownership is reported and requires
+  operator inspection. Failed calibration saves preserve the prior saved targets.
+- Browser requests have deadlines and no automatic command retry. Ambiguous
+  actions require verified Stop and renewed setup confirmation; old replies cannot
+  unlock controls. Pending pose edits survive delayed/failed saves.
+- All 368 Python tests, 92 Node tests and standalone Logic guards passed, including
+  73 physical-controller/adapter tests using mocks. Numerical baselines, policies,
+  geometry and scoring definitions are unchanged.
+- A separate credential-free preview uses loopback port 18771. The existing 18766/18769/
+  18770 services, physical services, Viam config and real audio service were not
+  changed. [Acceptance instructions](DETERMINISTIC_RELIABILITY.md) include a
+  no-SDK endurance runner and a future supervised physical test. Physical
+  reliability and bucket capture accuracy remain unverified by this checkpoint.
+
 ## Four-mode bucket-facing workflow — October 30, 2026
 
 - `codex/macbook-four-mode-workflow` builds on the draft three-mode show checkpoint

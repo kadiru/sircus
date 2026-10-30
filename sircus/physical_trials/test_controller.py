@@ -36,6 +36,7 @@ class FakeAdapter:
         self.recording_ready = True
         self.frame_age = 0.0
         self.recording_active = False
+        self.recording_trial_id = None
         self.move_gate = None
         self.move_started = asyncio.Event()
         self.release_gate = None
@@ -90,13 +91,14 @@ class FakeAdapter:
 
     async def start_recording(self, trial_id, trial_dir, metadata):
         self.calls.append(('start_recording', trial_id))
+        self.recording_trial_id = trial_id
         self.recording_active = True
         self.trial_dir = Path(trial_dir)
         self.trial_dir.mkdir(parents=True, exist_ok=True)
         return await self.recording_status()
 
     async def recording_status(self):
-        return {'active': self.recording_active,
+        return {'trial_id':self.recording_trial_id,'active': self.recording_active,
                 'ready': self.recording_active and self.recording_ready and not self.recording_error,
                 'frame_count': int(self.recording_active and self.recording_ready),
                 'last_frame_monotonic': time.monotonic() - self.frame_age,

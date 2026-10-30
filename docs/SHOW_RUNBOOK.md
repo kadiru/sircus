@@ -37,6 +37,12 @@ Practice mode saves each completed cycle locally without requiring a capture/mis
 label. It requires another button press for the next cycle. Stop cancels pending
 panel actions and stops arm10; it never opens either tool or releases board suction.
 
+Use the [deterministic acceptance runbook](DETERMINISTIC_RELIABILITY.md) to reproduce
+the mock endurance check and prepare a separately authorized physical test. Routine
+completion and observed bucket capture are different measures. An uncertain HTTP
+reply is never retried automatically; verify Stop and reconfirm the fixed setup
+before continuing. Old responses cannot unlock a newer action.
+
 The pose editor stores full Viam TCP coordinates in millimeters plus orientation
 vector and theta (not Euler angles). It requires a stationary snapshot and explicit
 operator confirmation, and does not itself move an arm. Editing targets does not

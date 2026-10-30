@@ -63,12 +63,16 @@ class ViamAdapter:
         self._connect_lock = asyncio.Lock()
         self._camera_lock = asyncio.Lock()
         self._stop_lock = asyncio.Lock()
+        self._actuation_epoch = 0
+        self._rpc_tasks = set()
+        self._actuation_tasks = set()
         self._move_task = None
         self._move_token = None
         self._move_active = False
         self._move_operations = set()
         self._move_monitor = None
         self._record_task = None
+        self._record_cleanup_lock = asyncio.Lock()
         self._record_stop = asyncio.Event()
         self._record = {"active": False, "ready": False, "frame_count": 0, "error": None}
         self._last_frame_mono = None
@@ -76,6 +80,7 @@ class ViamAdapter:
         self._last_rgb_meta = None
         self._trial_dir = None
         self._native_capture_owned = False
+        self._native_capture_start_unknown = False
         self.rpc_timeout = 5.0
 
     def _credentials(self):
@@ -97,13 +102,31 @@ class ViamAdapter:
                 message = message.replace(secret, "[REDACTED]")
         return f"{type(exc).__name__}: {message[:700]}"
 
-    async def _rpc(self, awaitable, timeout=None):
+    async def _rpc(self, awaitable, timeout=None, *, actuation=False):
+        # asyncio.wait_for waits for cancellation acknowledgement and can exceed
+        # its deadline. Late RPC results are owned/observed but never returned.
+        task=asyncio.ensure_future(awaitable);self._rpc_tasks.add(task)
+        if actuation:self._actuation_tasks.add(task)
+        def finished(value):
+            self._rpc_tasks.discard(value);self._actuation_tasks.discard(value)
+            if not value.cancelled():value.exception()
+        task.add_done_callback(finished)
         try:
-            return await asyncio.wait_for(awaitable, timeout=timeout or self.rpc_timeout + 1)
+            done,_=await asyncio.wait({task},timeout=self.rpc_timeout+1 if timeout is None else timeout)
+            if not done:task.cancel();raise asyncio.TimeoutError('RPC deadline expired')
+            return task.result()
         except asyncio.CancelledError:
-            raise
+            task.cancel();raise
         except Exception as exc:
             raise RuntimeError(self._safe_error(exc)) from None
+
+    def _actuation_current(self,epoch):
+        task=asyncio.current_task()
+        if epoch!=self._actuation_epoch or (task is not None and task.cancelling()):
+            raise asyncio.CancelledError()
+        if self._stop_lock.locked():raise RuntimeError('A Stop is pending; actuator request rejected')
+        if any(value is not task and not value.done() for value in self._actuation_tasks):
+            raise RuntimeError('An owned actuator request is still pending; verify Stop before another command')
 
     async def connect(self):
         async with self._connect_lock:
@@ -202,15 +225,23 @@ class ViamAdapter:
         return rgb["bytes"], rgb["mime_type"], meta
 
     async def open_gripper(self):
-        await self.connect()
-        await self._rpc(self.gripper.open(timeout=self.rpc_timeout))
-        return {"command": "gripper.open", "completed_at": utc()}
+        epoch=self._actuation_epoch
+        await self.connect();self._actuation_current(epoch)
+        async def command():
+            self._actuation_current(epoch)
+            return await self.gripper.open(timeout=self.rpc_timeout)
+        await self._rpc(command(),actuation=True)
+        return {"command":"gripper.open","completed_at":utc()}
 
     async def close_gripper(self):
-        await self.connect()
-        grabbed = await self._rpc(self.gripper.grab(timeout=self.rpc_timeout))
-        return {"command": "gripper.grab", "completed_at": utc(), "grabbed": bool(grabbed),
-                "note": "Driver report; not visual verification of a held ball"}
+        epoch=self._actuation_epoch
+        await self.connect();self._actuation_current(epoch)
+        async def command():
+            self._actuation_current(epoch)
+            return await self.gripper.grab(timeout=self.rpc_timeout)
+        grabbed=await self._rpc(command(),actuation=True)
+        return {"command":"gripper.grab","completed_at":utc(),"grabbed":grabbed is True,
+                "note":"Driver report; not visual verification of a held ball"}
 
     async def _discover_move_operations(self):
         if not self._move_token:
@@ -235,10 +266,12 @@ class ViamAdapter:
             await asyncio.sleep(0.1)
 
     async def move_pose(self, pose):
-        await self.connect()
+        epoch=self._actuation_epoch
+        await self.connect();self._actuation_current(epoch)
         if self._move_task and not self._move_task.done():
             raise RuntimeError("A physical move is already running")
-        if set(pose) != set(POSE_FIELDS) or any(not math.isfinite(float(pose[k])) for k in POSE_FIELDS):
+        if (not isinstance(pose,dict) or set(pose)!=set(POSE_FIELDS) or
+                any(type(pose[k]) not in (int,float) or not math.isfinite(pose[k]) for k in POSE_FIELDS)):
             raise ValueError("A finite full world-frame arm pose is required")
         from viam.proto.common import Pose, PoseInFrame
         self._move_token = uuid4().hex
@@ -247,13 +280,17 @@ class ViamAdapter:
         self._move_task = asyncio.current_task()
         self._move_monitor = asyncio.create_task(self._monitor_operations())
         try:
-            ok = await self._rpc(self.motion.move(
-                component_name="arm", destination=PoseInFrame(reference_frame="world", pose=Pose(**pose)),
-                extra={"sircus_operator_operation": self._move_token}, timeout=45), 47)
+            async def command():
+                self._actuation_current(epoch)
+                return await self.motion.move(
+                    component_name="arm",destination=PoseInFrame(reference_frame="world",pose=Pose(**pose)),
+                    extra={"sircus_operator_operation":self._move_token},timeout=45)
+            ok=await self._rpc(command(),47,actuation=True)
             if not ok:
                 raise RuntimeError("Viam motion service did not complete the planned move")
             self._move_active = False
             self._move_token = None
+            self._move_operations.clear()
             return {"command": "builtin.Move", "component": "arm", "completed_at": utc()}
         except asyncio.CancelledError:
             # The controller concurrently calls stop(). Retain token/operation
@@ -268,10 +305,14 @@ class ViamAdapter:
             self._move_task = None
 
     async def stop(self):
+        self._actuation_epoch += 1
         await self.connect()
         async with self._stop_lock:
             # Do not delay the immediate actuator stop behind operation-list RPCs.
             first_stop = asyncio.create_task(self._rpc(self.arms["arm"].stop(timeout=self.rpc_timeout)))
+            first_stop.add_done_callback(lambda task: None if task.cancelled() else task.exception())
+            for owned in list(self._actuation_tasks):
+                if not owned.done():owned.cancel()
             was_active = self._move_active
             discovered = False
             try:
@@ -292,11 +333,23 @@ class ViamAdapter:
             task = self._move_task
             if task and task is not asyncio.current_task() and not task.done():
                 task.cancel()
-            await first_stop
+            try:await first_stop
+            except Exception as exc:errors.append(self._safe_error(exc))
             # Reassert after cancelling the planner, which may have been sending
             # a segment concurrently with the first Stop call.
-            await self._rpc(self.arms["arm"].stop(timeout=self.rpc_timeout))
-            verified = not errors and (not was_active or bool(cancelled))
+            try:await self._rpc(self.arms["arm"].stop(timeout=self.rpc_timeout))
+            except Exception as exc:errors.append(self._safe_error(exc))
+            remaining=[]
+            try:
+                operations=await self._rpc(self.robot.get_operations())
+                for operation in operations:
+                    args=proto(operation.arguments);extra=args.get('extra',{})
+                    if operation.id in cancelled or (self._move_token and extra.get('sircus_operator_operation')==self._move_token):
+                        remaining.append(operation.id)
+            except Exception as exc:
+                if was_active:errors.append(self._safe_error(exc))
+            pending_actuation=sum(not task.done() for task in self._actuation_tasks)
+            verified = not errors and not remaining and not pending_actuation and (not was_active or bool(cancelled))
             # Do not erase an unverified planner operation: another Stop must
             # not turn missing cancellation evidence into a false success.
             if verified:
@@ -306,14 +359,18 @@ class ViamAdapter:
             if self._move_monitor:
                 self._move_monitor.cancel()
             return {"command": "arm.stop", "completed_at": utc(), "cancelled_operations": cancelled,
-                    "operation_discovery_ok": discovered, "cancel_errors": errors,
-                    "planner_cancellation_verified": verified,
+                    "operation_discovery_ok": discovered, "cancel_errors": errors, "remaining_owned_operations":remaining,
+                    "planner_cancellation_verified": verified,"pending_owned_actuator_requests":pending_actuation,
                     "gripper_or_vacuum_commanded": False}
 
     async def start_recording(self, trial_id, trial_dir, metadata=None):
         await self.connect()
         if self._record_task and not self._record_task.done():
             raise RuntimeError("A trial recording is already active")
+        if self._native_capture_owned:
+            raise RuntimeError("Previous native recording stop is not confirmed; finish it before another trial")
+        if self._native_capture_start_unknown:
+            raise RuntimeError("Previous native capture start is unconfirmed; operator inspection is required")
         if not re.fullmatch(r"[A-Za-z0-9_-]{1,100}", trial_id):
             raise ValueError("Invalid trial ID")
         self._trial_dir = Path(trial_dir)
@@ -324,44 +381,86 @@ class ViamAdapter:
         self._last_frame_mono = None
         self._record = {"active": True, "ready": False, "frame_count": 0, "error": None,
                         "trial_id": trial_id, "started_at": utc(), "backend": "local Mac RGB-D and state",
+                        "freshness_basis": "Age since the earliest local image/state request began, including collection and persistence delay; not sensor exposure time",
                         "native_capture": {"enabled": False, "verified": False},
                         "synchronization_limits": [
                             "Camera GetImages and each arm readback are separate RPCs.",
                             "Local request/response windows bracket samples; exposure/joint clocks are not synchronized.",
                             "Raw depth is saved in device counts; no metric scale or camera-to-world calibration asserted."]}
         self._native_capture_owned = False
-        if self.capture_control:
+        try:
+            if self.capture_control:
+                try:
+                    readings = await self._rpc(self.capture_control.get_readings(timeout=self.rpc_timeout))
+                    if readings.get("sequences") or any(float(x.get("capture_frequency_hz", 0)) > 0 for x in readings.get("overrides", [])):
+                        raise RuntimeError("capture-control is already recording; refusing to take over another recording")
+                    self._native_capture_start_unknown = True
+                    await self._rpc(self.capture_control.do_command(
+                        {"start_capture": True, "frequency_hz": 2, "tags": ["sircus-physical", "trial:" + trial_id]},
+                        timeout=self.rpc_timeout))
+                    self._native_capture_owned = True
+                    self._native_capture_start_unknown = False
+                    readings = await self._rpc(self.capture_control.get_readings(timeout=self.rpc_timeout))
+                    self._record["native_capture"] = {"enabled": True, "sensor_readings": dict(readings),
+                                                       "verified": False,
+                                                       "note": "Sensor acknowledged; data-manager files/cloud sequence not yet verified"}
+                except Exception as exc:
+                    self._record["native_capture"] = {"enabled": self._native_capture_owned, "verified": False,
+                                                       "error": self._safe_error(exc)}
+                    if self._native_capture_start_unknown:
+                        raise RuntimeError("Native capture start was not acknowledged; operator inspection is required") from None
+            await asyncio.to_thread(write_json, self._trial_dir / "recording.json", self._record)
+            self._record_task = asyncio.create_task(self._record_loop())
+        except BaseException as exc:
+            # Native capture may already be active even though no local worker
+            # exists yet. Preserve ownership on failed cleanup so Stop can retry.
+            self._record.update(active=False, ready=False, finished_at=utc())
+            self._record["error"] = self._safe_error(exc)
+            if self._native_capture_start_unknown:
+                self._record["native_capture"].update(
+                    state="start_unconfirmed", enabled=None, ownership="unknown",
+                    note="The start request may have reached the server; no ownership-safe stop is available. Operator inspection required.")
             try:
-                readings = await self._rpc(self.capture_control.get_readings(timeout=self.rpc_timeout))
-                if readings.get("sequences") or any(float(x.get("capture_frequency_hz", 0)) > 0 for x in readings.get("overrides", [])):
-                    raise RuntimeError("capture-control is already recording; refusing to take over another recording")
-                await self._rpc(self.capture_control.do_command(
-                    {"start_capture": True, "frequency_hz": 2, "tags": ["sircus-physical", "trial:" + trial_id]},
-                    timeout=self.rpc_timeout))
-                self._native_capture_owned = True
-                readings = await self._rpc(self.capture_control.get_readings(timeout=self.rpc_timeout))
-                self._record["native_capture"] = {"enabled": True, "sensor_readings": dict(readings),
-                                                   "verified": False,
-                                                   "note": "Sensor acknowledged; data-manager files/cloud sequence not yet verified"}
-            except Exception as exc:
-                self._record["native_capture"] = {"enabled": self._native_capture_owned, "verified": False,
-                                                   "error": self._safe_error(exc)}
-        await asyncio.to_thread(write_json, self._trial_dir / "recording.json", self._record)
-        self._record_task = asyncio.create_task(self._record_loop())
+                await self._stop_owned_native_capture()
+            except Exception:
+                pass
+            try:
+                await asyncio.to_thread(write_json, self._trial_dir / "recording.json", self._record)
+            except Exception:
+                pass
+            raise
         return await self.recording_status()
 
-    def _persist_observation(self, images, meta, state, index):
+    async def _stop_owned_native_capture(self):
+        async with self._record_cleanup_lock:
+            if self._native_capture_start_unknown:
+                raise RuntimeError("Native capture start is unconfirmed; operator inspection is required before ownership-safe cleanup")
+            if not self._native_capture_owned:
+                return
+            try:
+                await self._rpc(self.capture_control.do_command({"stop_capture": True}, timeout=self.rpc_timeout))
+            except Exception as exc:
+                self._record["native_capture"]["stop_error"] = self._safe_error(exc)
+                raise
+            self._native_capture_owned = False
+            self._record["native_capture"].pop("stop_error", None)
+            self._record["native_capture"]["stop_acknowledged"] = True
+
+    def _persist_observation(self, images, meta, state, index, trial_dir):
+        # Worker-thread I/O can finish after asyncio cancellation. Its original
+        # destination must not follow a subsequent trial's mutable adapter state.
+        trial_dir = Path(trial_dir)
         entries = []
         for image in images:
             name = re.sub(r"[^A-Za-z0-9_-]", "_", image["name"]) or "image"
             suffix = {"image/jpeg": ".jpg", "image/png": ".png", "image/vnd.viam.dep": ".dep.gz"}.get(image["mime_type"], ".bin")
             filename = f"frame_{index:04d}_{name}{suffix}"
             raw = image["bytes"]
-            (self._trial_dir / filename).write_bytes(gzip.compress(raw, mtime=0) if suffix.endswith(".gz") else raw)
+            (trial_dir / filename).write_bytes(gzip.compress(raw, mtime=0) if suffix.endswith(".gz") else raw)
             entries.append({"name": image["name"], "mime_type": image["mime_type"], "file": filename,
                             "width": image["width"], "height": image["height"], "sha256_raw": hashlib.sha256(raw).hexdigest()})
         record = {"index": index, "camera": meta, "images": entries, "state": state}
-        with (self._trial_dir / "observations.jsonl").open("a") as f:
+        with (trial_dir / "observations.jsonl").open("a") as f:
             f.write(json.dumps(record, allow_nan=False) + "\n")
             f.flush()
             os.fsync(f.fileno())
@@ -374,11 +473,17 @@ class ViamAdapter:
                 tick = time.monotonic()
                 try:
                     (images, meta), state = await asyncio.gather(self._images(), self.snapshot())
+                    meta = {**meta, "observation_request_started_monotonic": tick,
+                            "observation_rpc_completed_monotonic": time.monotonic(),
+                            "freshness_basis": "earliest local image/state request start; not sensor exposure time"}
                     rgb = next((x for x in images if x["mime_type"] in ("image/jpeg", "image/png")), None)
                     if rgb is None or len(state["arms"]) != 2:
                         raise RuntimeError("Recording requires a color frame and readbacks from both arms")
-                    await asyncio.to_thread(self._persist_observation, images, meta, state, self._record["frame_count"])
-                    self._last_frame_mono = time.monotonic()
+                    await asyncio.to_thread(self._persist_observation, images, meta, state, self._record["frame_count"], self._trial_dir)
+                    # Persistence establishes availability, not sample recency.
+                    # A delayed RPC or disk write must never make old evidence
+                    # newly fresh enough to authorize a release.
+                    self._last_frame_mono = tick
                     self._last_rgb = (rgb["bytes"], rgb["mime_type"])
                     self._last_rgb_meta = meta
                     self._record.update(frame_count=self._record["frame_count"] + 1,
@@ -395,12 +500,10 @@ class ViamAdapter:
                 self._record["error"] = "120-second recording limit reached; prepare a new trial"
         finally:
             self._record.update(active=False, ready=False, finished_at=utc())
-            if self._native_capture_owned:
-                try:
-                    await self._rpc(self.capture_control.do_command({"stop_capture": True}, timeout=self.rpc_timeout))
-                except Exception as exc:
-                    self._record["native_capture"]["stop_error"] = self._safe_error(exc)
-                self._native_capture_owned = False
+            try:
+                await self._stop_owned_native_capture()
+            except Exception:
+                pass  # Ownership/error retained; finish_recording can retry.
             await asyncio.to_thread(write_json, self._trial_dir / "recording.json", self._record)
 
     async def recording_status(self):
@@ -415,6 +518,7 @@ class ViamAdapter:
         self._record_stop.set()
         if self._record_task and not self._record_task.done():
             await self._record_task
+        await self._stop_owned_native_capture()
         return await self.recording_status()
 
     async def save_trial(self, trial_dir, metadata):
