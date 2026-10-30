@@ -1,6 +1,7 @@
 """Operator-run exports/previews. Default commands never produce sound."""
 import argparse
 import json
+import os
 from pathlib import Path
 import sys
 import time
@@ -16,7 +17,9 @@ from .sources import operator_outcome, simulation_events
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
-    demo = sub.add_parser("demo", help="write a silent-until-clicked browser preview and three JSONL traces")
+    booth = sub.add_parser("booth", help="open the main Ghost Booth audio service on macOS, starting with FX off")
+    booth.add_argument("--port", type=int, default=8766)
+    demo = sub.add_parser("demo", help="legacy offline MIDI-score diagnostic: HTML and three JSONL traces")
     demo.add_argument("--output", default=".runtime/sfx-preview.html")
     demo.add_argument("--config")
     convert = sub.add_parser("convert", help="convert a saved record, without SDK calls")
@@ -32,6 +35,9 @@ def main():
     replay.add_argument("--setup-seconds", type=float, default=10,
                         help="silent time to select the Sircus SFX input in Logic before playback")
     args = parser.parse_args()
+    if args.command == "booth":
+        launcher = Path(__file__).parent / "booth" / "launch.sh"
+        os.execv(str(launcher), [str(launcher), "--port", str(args.port)])
     if args.command == "convert":
         record = json.loads(Path(args.input).read_text())
         if args.source == "simulation":

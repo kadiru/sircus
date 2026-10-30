@@ -59,6 +59,10 @@ node_modules/
 *.aif
 *.aiff
 *.mid
+# Original generated Ghost Booth kit is redistributable source material.
+!/sircus/audio/booth/assets/*.wav
+!/sircus/audio/booth/assets/*.mid
+/sircus/audio/booth/runtime/
 
 # Generated presentation builds and device screenshots
 /sircus/.build/

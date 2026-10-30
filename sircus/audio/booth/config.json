@@ -1,0 +1,14 @@
+{
+  "mode": "free",
+  "volume": 0.35,
+  "route": "native",
+  "mapping": {
+    "impact_note": 0,
+    "channel": 1,
+    "min_velocity": 1,
+    "exact_duplicate_ms": 0,
+    "trial_window_s": 12,
+    "velocity_gamma": 0.8
+  },
+  "mapping_basis": "Prior local ODD project physically observed note 0/channel 1; manufacturer v1.3 documents note 1. Verify the connected ball in Monitor. CC is monitored, never forwarded."
+}

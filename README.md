@@ -9,7 +9,7 @@ Two UFACTORY850 arms learn to bounce a ball from a suction-mounted board into a 
 - **Ubuntu / Varun:** [setup, training and local dashboard](docs/UBUNTU_SETUP.md). Run `./setup-ubuntu.sh`, then `./start-local.sh`. In another terminal run `sircus/simulation/.venv/bin/python sircus/two-arm/local_dashboard.py`.
 - **Orientation/height experiment:** `sircus/simulation/.venv/bin/python sircus/two-arm/train_orientation_height.py --budget 32 --tests 10 --output experiments/run-001`. No server or hardware required. The search holds release XY, board center/yaw and bucket fixed; it optimizes roll, pitch and gap with endpoint IK checks. Replay selected paths separately through Viam.
 - **Mac / physical sfhack10:** [operator panel instructions](sircus/physical_trials/README.md). Physical control is explicit and separate; cloning/pulling never starts hardware or reloads a running dashboard.
-- **Sound-effects review:** [isolated audio adapter, synthetic preview and Logic setup](sircus/audio/README.md). Playback is operator-triggered; there is no live robot event bus or automatic capture detector.
+- **Mac Mini / audio:** [Ghost Booth event sound library and rehearsal desk](sircus/audio/README.md). Playback is operator-triggered; there is no live robot event bus or automatic capture detector.
 - **All contributors and agents:** [CONTRIBUTING.md](CONTRIBUTING.md), [AGENTS.md](AGENTS.md), and [current project summary](docs/PROJECT_STATE.md).
 
 ## Implementation audit and next experiment
@@ -23,7 +23,7 @@ Read the [Mac system audit, UI/API contracts, and learning integration plan](doc
 | `sircus/two-arm/` | Shared measured/provisional scene, two-arm physics, kinematics, Viam module, trainers and fake-only guard |
 | `sircus/simulation/` | Browser dashboard, Python bridge, pinned dependencies, shared viewer assets |
 | `sircus/physical_trials/` | Mac operator panel backend and mock tests; credentials/calibration/records remain local |
-| `sircus/audio/` | Versioned audio events, pure record converters, optional CoreMIDI/Logic output and synthetic preview |
+| `sircus/audio/` | Ghost Booth, native audio/ODD MIDI, event sound profiles, shared event contract and record converters |
 | `sircus/perception/` | Stationary RGB-D capture/inspection; calibration is incomplete |
 | `baselines/` | Small dated synthetic reference results; not current hardware evidence |
 | `docs/` | Setup, architecture, collaboration, credential templates and limits |
