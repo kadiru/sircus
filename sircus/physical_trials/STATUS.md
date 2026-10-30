@@ -1,3 +1,19 @@
+## Camera-off supervised round — October 30, 2026
+
+An explicit operator request enabled camera-off taped pickup practice, retaining
+robot-state/command evidence and unknown outcomes. Camera-required mode remains
+the default; 136 mock physical tests and 38 UI tests passed. The task branch is
+`codex/macbook-no-camera-demo`; only the idle physical dashboard was restarted.
+
+During Round 1, Gray, Purple and Pink each completed pickup and release with FX
+enabled. Green closed successfully and reached its approach height, but robot
+readback failed during the lift/settle stage. The orchestrator stopped and muted
+FX. Subsequent readback reported both arms stationary; planner-cancellation
+verification remained faulted, so no restart, automatic retry, release or Round 2
+was issued. The operator confirmed Green remains held. Board/suction were not
+commanded. No bucket capture or acoustic success is inferred from completion.
+Private trial records and runtime logs remain excluded from Git.
+
 ## Authorized four-station physical run — October 30, 2026, 19:06–19:07 UTC
 
 After operator clearance confirmation, the four approved host-local pickup poses
