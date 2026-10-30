@@ -28,7 +28,7 @@ export class ShowPanel{
     this.manualLoadMode='hand';this.pickupSignature=null;this.pickupPending=false;
     this.$('manualHandLoad')?.addEventListener('click',()=>this.selectLoadMode('hand'));
     this.$('manualTapedPickup')?.addEventListener('click',()=>this.selectLoadMode('pickup'));
-    for(const id of ['pickupSetupConfirm','pickupFixedConfirm'])this.$(id)?.addEventListener('change',()=>this.render());
+    for(const id of ['pickupSetupConfirm','pickupFixedConfirm','pickupPractice','pickupNoCamera'])this.$(id)?.addEventListener('change',()=>this.render());
     for(const [id,action]of [['pickupTeach','teach_pickup'],['pickupApproach','go_pickup_approach'],['pickupCycle','pickup_drop_cycle'],['pickupLoadingApproach','go_loading_approach']])this.$(id)?.addEventListener('click',()=>void this.pickupCommand(action));
     for(const mode of MODES)this.$('mode'+mode[0].toUpperCase()+mode.slice(1)).addEventListener('click',()=>this.selectMode(mode));
     this.$('editBallBindings').addEventListener('click',()=>{const hidden=!this.$('ballSettings').hidden;this.$('ballSettings').hidden=hidden;this.$('editBallBindings').setAttribute('aria-expanded',String(!hidden));});
@@ -80,7 +80,7 @@ export class ShowPanel{
     if(!this.$('pickupSetupConfirm')?.checked)return false;
     if(action==='go_loading_approach')return validPose(this.physicalState.loading_approach_pose);
     if(!validPose(this.physicalState.pickup_grasp_pose)||!validPose(this.physicalState.pickup_approach_pose)||this.physicalState.pickup_approach_offset_mm!==100)return false;
-    return action!=='pickup_drop_cycle'||this.$('pickupFixedConfirm')?.checked===true;
+    return action!=='pickup_drop_cycle'||(this.$('pickupFixedConfirm')?.checked===true&&(!this.$('pickupNoCamera')?.checked||this.$('pickupPractice')?.checked===true));
   }
   renderPickupStation(balls){
     const panel=this.$('pickupStationPanel');if(!panel)return;
@@ -92,13 +92,13 @@ export class ShowPanel{
     this.$('pickupPose').textContent=validPose(grasp)?'Saved arm 10 flange pose in world\n'+JSON.stringify(grasp,null,2):'Pickup pose not taught for this color.';
     this.$('pickupApproachPose').textContent=validPose(approach)?'Approach flange pose in world · +100 mm Z\n'+JSON.stringify(approach,null,2):'Approach pose unavailable until pickup is taught.';
     const locked=Boolean(busy)||!s?.connected||Boolean(s?.fault||s?.error)||!ball||this.physical?.hasUnsavedPoseEdits;
-    this.$('pickupSetupConfirm').disabled=locked;this.$('pickupFixedConfirm').disabled=locked;this.$('pickupPractice').disabled=Boolean(busy);
+    this.$('pickupSetupConfirm').disabled=locked;this.$('pickupFixedConfirm').disabled=locked;this.$('pickupPractice').disabled=Boolean(busy);if(this.$('pickupNoCamera'))this.$('pickupNoCamera').disabled=Boolean(busy)||!this.$('pickupPractice').checked;
     for(const [id,action]of [['pickupTeach','teach_pickup'],['pickupApproach','go_pickup_approach'],['pickupCycle','pickup_drop_cycle'],['pickupLoadingApproach','go_loading_approach']])this.$(id).disabled=!this.pickupAllowed(action);
     const blockers=s?.pickup_station_blockers||s?.pickup_station_missing||[];
     let message='Choose a color, teach its pickup pose, then verify pad and route clearance.';
     if(!s?.connected)message='Fresh robot state is required. No pickup command is sent automatically.';
     else if(s?.fault||s?.error)message='Pickup blocked: '+(s.error||'controller fault; verify Stop and robot state');
-    else if(busy){const steps={pickup_to_approach:'Moving to the pickup approach.',pickup_opening:'Opening above the pad.',pickup_descending:'Descending vertically to the taught pickup pose.',pickup_closing:'Closing and checking whether a ball is held.',pickup_lifting:'Lifting the held ball vertically by 100 mm.',pickup_clearance_lifting:'Raising vertically above the higher pickup stations before transfer.',cycle_to_drop:'Carrying to the unchanged saved drop pose.',cycle_release_checks:'Settling for 2 seconds and checking recording.',post_release_recording:'Release returned; finishing trial recording.',go_pickup_approach:'Moving above the selected pickup pad; gripper unchanged.',go_loading_approach:'Moving above the old loading target; gripper unchanged.',stopping:'Stopping arm 10 and waiting for stationary state.'};message=(steps[s?.phase]||'Request submitted; waiting for controller state.')+' Stop arm 10 remains available.';}
+    else if(busy){const steps={pickup_to_approach:'Moving to the pickup approach.',pickup_opening:'Opening above the pad.',pickup_descending:'Descending vertically to the taught pickup pose.',pickup_closing:'Closing and checking whether a ball is held.',pickup_lifting:'Lifting the held ball vertically by 100 mm.',pickup_clearance_lifting:'Raising vertically above the higher pickup stations before transfer.',cycle_to_drop:'Carrying to the unchanged saved drop pose.',cycle_release_checks:'Settling for 2 seconds and checking release readiness.',post_release_wait:'Release returned; waiting before ending the camera-off demo.',post_release_recording:'Release returned; finishing trial recording.',go_pickup_approach:'Moving above the selected pickup pad; gripper unchanged.',go_loading_approach:'Moving above the old loading target; gripper unchanged.',stopping:'Stopping arm 10 and waiting for stationary state.'};message=(steps[s?.phase]||'Request submitted; waiting for controller state.')+' Stop arm 10 remains available.';}
     else if(this.physical?.hasUnsavedPoseEdits)message='Save or discard unsaved loading/drop target edits before moving.';
     else if(blockers.length)message='Pickup blocked: '+blockers.join(' · ');
     else if(!validPose(grasp))message='Teach the selected ball’s pickup pose. Teaching reads only; it does not move the arm.';
@@ -110,7 +110,7 @@ export class ShowPanel{
     if(!this.pickupAllowed(action))return false;
     const payload=action==='go_loading_approach'?{}:{ball_id:this.selectedBall};
     if(action!=='teach_pickup')payload.pickup_setup_confirmed=this.$('pickupSetupConfirm').checked;
-    if(action==='pickup_drop_cycle'){payload.fixed_setup_confirmed=this.$('pickupFixedConfirm').checked;payload.practice_mode=this.$('pickupPractice').checked;}
+    if(action==='pickup_drop_cycle'){payload.fixed_setup_confirmed=this.$('pickupFixedConfirm').checked;payload.practice_mode=this.$('pickupPractice').checked;if(this.$('pickupNoCamera')?.checked)payload.recording_mode='operator_log_only';}
     this.pickupPending=true;this.resetPickupConfirmation();this.render();
     try{return await this.physical.command(action,payload);}
     catch(error){this.message(error.message||'Pickup request failed; check robot state. No retry was issued.',true);return false;}

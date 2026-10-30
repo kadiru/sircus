@@ -353,9 +353,15 @@ class Controller:
                     blockers.append('Dropper is not at the intended release pose')
             except (TrialError, KeyError) as exc:
                 blockers.append(str(exc))
-        if not self._recording_fresh(self.recording):
+        if self._camera_required() and not self._recording_fresh(self.recording):
             blockers.append('Recording must be active with a fresh saved frame and robot state')
         return blockers
+
+    def _camera_required(self):
+        # Only an explicitly requested, unlabeled taped-pickup demo can omit RGB-D.
+        return not (self.trial and self.trial.get('behavior') == 'pickup_station_cycle'
+                    and self.trial.get('practice_mode') is True
+                    and self.trial.get('recording_mode') == 'operator_log_only')
 
     def _recording_fresh(self,record):
         stamp=record.get('last_frame_monotonic')
@@ -459,6 +465,12 @@ class Controller:
                 raise TrialError('Stale action request; refresh state and confirm again')
         if name not in (await self.status())['allowed_actions']:
             raise TrialError('Action unavailable: another action/trial is pending, state is stale, or calibration is missing')
+        if 'recording_mode' in payload:
+            mode = payload['recording_mode']
+            if name != 'pickup_drop_cycle' or mode not in ('camera_required', 'operator_log_only'):
+                raise TrialError('Recording mode is only supported for a taped pickup cycle')
+            if mode == 'operator_log_only' and payload.get('practice_mode') is not True:
+                raise TrialError('Camera-off demo requires explicit unlabeled practice mode')
         if name == 'set_ball':
             from sircus.audio.show import BALL_IDS
             if payload.get('ball_id') not in BALL_IDS:raise TrialError('Choose one of the four configured ball slots')
@@ -608,6 +620,12 @@ class Controller:
         raise TrialError('Arm did not settle at the intended pose')
 
     async def _prepare_recording(self, still_current):
+        if not self._camera_required():
+            still_current()
+            self.trial['status'] = self.phase = 'ready'
+            self.trial['camera_recording'] = False
+            self._event('recording', 'disabled_by_operator', mode='operator_log_only')
+            return
         await self.adapter.start_recording(self.trial['id'], self.root/'trials'/self.trial['id'], self.trial)
         still_current()
         deadline = time.monotonic() + RECORDING_TIMEOUT_SECONDS
@@ -617,7 +635,7 @@ class Controller:
             if self.recording.get('error'):
                 raise TrialError('Recording failed; release remains disabled')
             if self.recording.get('ready'):
-                if not self._recording_fresh(self.recording):
+                if self._camera_required() and not self._recording_fresh(self.recording):
                     raise TrialError('Recorded frame is stale; release remains disabled')
                 break
             await asyncio.sleep(0.2)
@@ -668,10 +686,11 @@ class Controller:
         self._event('drop', 'command_returned')
         self.trial['measured_release_state_after'] = await self._snapshot()
         still_current()
-        self.phase = 'post_release_recording'
+        self.phase = 'post_release_recording' if self._camera_required() else 'post_release_wait'
         await asyncio.sleep(POST_RELEASE_SECONDS)
         still_current()
-        await self.adapter.finish_recording()
+        if self._camera_required():
+            await self.adapter.finish_recording()
         still_current()
         self.recording = await self.adapter.recording_status()
         still_current()
@@ -760,7 +779,7 @@ class Controller:
             elif name == 'load_drop_cycle':
                 await self._fixed_cycle(still_current, practice=p.get('practice_mode') is True)
             elif name == 'pickup_drop_cycle':
-                await self._pickup_cycle(still_current, p['ball_id'], practice=p.get('practice_mode') is True)
+                await self._pickup_cycle(still_current, p['ball_id'], practice=p.get('practice_mode') is True, recording_mode=p.get('recording_mode', 'camera_required'))
             elif name in ('go_pickup_approach','go_loading_approach'):
                 if name == 'go_pickup_approach':
                     grasp, target = self._pickup_poses(p['ball_id'])
@@ -934,13 +953,13 @@ class Controller:
                 await self._pickup_linear_move(transit,approach,still_current,'clearance_lift')
             self.recording=await self.adapter.recording_status()
             still_current()
-            if not self._recording_fresh(self.recording):
+            if self._camera_required() and not self._recording_fresh(self.recording):
                 raise TrialError('Fresh recording required before station transfer to drop')
         state = await self._snapshot()
         still_current()
         self._stationary(state)
         self._board_fixed(state)
-        if command=='pickup_drop_cycle' and not self._recording_fresh(self.recording):
+        if command=='pickup_drop_cycle' and self._camera_required() and not self._recording_fresh(self.recording):
             raise TrialError('Recording became stale before station transfer to drop')
         if not self.gripper_closed:
             raise TrialError('Held-ball acknowledgment is unavailable; transfer blocked')
@@ -1010,14 +1029,14 @@ class Controller:
     async def _pickup_linear_move(self,target,expected_start,still_current,stage):
         self.recording=await self.adapter.recording_status()
         still_current()
-        if not self._recording_fresh(self.recording):
+        if self._camera_required() and not self._recording_fresh(self.recording):
             raise TrialError('Fresh recording required before pickup descent or lift')
         state=await self._snapshot()
         still_current()
         self._stationary(state);self._board_fixed(state)
         if not pose_matches(state['arms']['arm']['pose'],expected_start):
             raise TrialError('Pickup vertical move no longer starts at the intended pose')
-        if not self._recording_fresh(self.recording):
+        if self._camera_required() and not self._recording_fresh(self.recording):
             raise TrialError('Recording became stale before pickup vertical motion')
         if stage in ('vertical_lift','clearance_lift') and not self.gripper_closed:
             raise TrialError('Held-ball acknowledgment is unavailable; pickup lift blocked')
@@ -1031,7 +1050,7 @@ class Controller:
         await self._settle(target)
         still_current()
 
-    async def _pickup_cycle(self,still_current,ball_id,practice=False):
+    async def _pickup_cycle(self,still_current,ball_id,practice=False,recording_mode='camera_required'):
         if self.pickup_station_missing():raise TrialError('; '.join(self.pickup_station_missing()))
         grasp,approach=self._pickup_poses(ball_id)
         config=copy.deepcopy(self.calibration)
@@ -1042,6 +1061,7 @@ class Controller:
         self.trial={'schema':'sircus-physical-trial-v1','id':trial_id,'machine':'sfhack10',
             'mode':self.mode,'behavior':'pickup_station_cycle','status':'positioning',
             'created_at':utc(),'saved':False,'ball_id':ball_id,
+            'recording_mode':recording_mode,'camera_recording':recording_mode=='camera_required',
             'requested_height_mm':None,'height_mm':None,
             'height_status':'unknown; exact taught flange drop pose, no height adjustment',
             'target_pose':config['drop_pose'],'pickup_pose':grasp,'pickup_approach_pose':approach,
@@ -1057,6 +1077,8 @@ class Controller:
                 'Gripper held-object acknowledgment is not visual ball-identity verification.',
                 'Release pose brackets gripper command, not observed ball separation.',
                 'Board constancy is joint readback; bucket placement is operator-confirmed.']}
+        if recording_mode == 'operator_log_only':
+            self.trial['synchronization_limits'][0] = 'Camera recording disabled by operator; discrete robot-state snapshots only, no visual outcome evidence.'
         self._persist()
         self.phase='pickup_to_approach'
         await self._move_to_pickup_approach(grasp,approach,still_current,'pickup_drop_cycle')
@@ -1073,14 +1095,15 @@ class Controller:
         await self._pickup_linear_move(grasp,approach,still_current,'vertical_descent')
         self.recording=await self.adapter.recording_status()
         still_current()
-        if not self._recording_fresh(self.recording):
+        if self._camera_required() and not self._recording_fresh(self.recording):
             raise TrialError('Fresh recording required before station grip')
         state=await self._snapshot()
         self._stationary(state);self._board_fixed(state);still_current()
         if not pose_matches(state['arms']['arm']['pose'],grasp):
             raise TrialError('Pickup grasp pose changed before closing')
-        if not self._recording_fresh(self.recording):
+        if self._camera_required() and not self._recording_fresh(self.recording):
             raise TrialError('Recording became stale before station grip')
+        self.trial['measured_pickup_state_before'] = state
         self.phase='pickup_closing'
         self._event('close_gripper','command_sent')
         await self._command_gripper(False,still_current)

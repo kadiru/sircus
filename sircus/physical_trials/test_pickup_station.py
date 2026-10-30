@@ -63,6 +63,53 @@ class PickupStationTests(unittest.IsolatedAsyncioTestCase):
     def commands(self):
         return [c[0] for c in self.adapter.calls if c[0]!='connect']
 
+    async def test_explicit_camera_off_demo_preserves_robot_evidence_and_unknown_outcome(self):
+        await self.teach();self.adapter.recording_error='camera unavailable';self.adapter.frame_age=99
+        await self.launch(practice_mode=True,recording_mode='operator_log_only');await self.drain()
+        self.assertEqual(self.controller.trial['status'],'completed')
+        self.assertTrue(self.controller.trial['saved'])
+        self.assertFalse(self.controller.trial['camera_recording'])
+        self.assertEqual(self.controller.trial['recording_mode'],'operator_log_only')
+        self.assertNotIn('start_recording',self.commands())
+        self.assertNotIn('finish_recording',self.commands())
+        self.assertEqual(self.controller.trial['measured_release_pose'],self.controller.calibration['drop_pose'])
+        self.assertIn('measured_pickup_state_before',self.controller.trial)
+        self.assertFalse(self.controller._recording_fresh(self.controller.recording))
+        self.assertIsNone(self.controller.trial['outcome'])
+
+    async def test_camera_off_requires_practice_and_cannot_be_used_by_other_actions(self):
+        await self.teach()
+        for args in ({'recording_mode':'operator_log_only'}, {'practice_mode':True,'recording_mode':'typo'}):
+            with self.assertRaises(TrialError):await self.launch(**args)
+        with self.assertRaises(TrialError):
+            await self.controller.action({'action':'open_gripper','recording_mode':'operator_log_only','practice_mode':True})
+        self.assertEqual(self.commands(),[])
+
+    async def test_camera_off_still_requires_grip_acknowledgment(self):
+        await self.teach();self.adapter.close_result=False
+        await self.launch(practice_mode=True,recording_mode='operator_log_only');await self.drain()
+        self.assertEqual(self.controller.trial['status'],'aborted')
+        self.assertEqual(self.commands().count('move_pose_linear'),1)
+        self.assertEqual(self.commands().count('open_gripper'),1)
+        self.assertIn('stop_dropper',self.commands())
+
+    async def test_camera_off_still_checks_board_and_stops_during_descent(self):
+        await self.teach();self.linear_gate=asyncio.Event()
+        await self.launch(practice_mode=True,recording_mode='operator_log_only')
+        await asyncio.wait_for(self.linear_started.wait(),2)
+        await self.command('stop')
+        self.assertNotIn('close_gripper',self.commands())
+        self.assertEqual(self.controller.trial['status'],'aborted')
+
+    async def test_camera_off_changed_board_blocks_grip(self):
+        await self.teach();original=self.adapter.move_pose_linear
+        async def shifted(*args,**kwargs):
+            result=await original(*args,**kwargs);self.adapter.board_joints[0]+=2;return result
+        self.adapter.move_pose_linear=shifted
+        await self.launch(practice_mode=True,recording_mode='operator_log_only');await self.drain()
+        self.assertNotIn('close_gripper',self.commands())
+        self.assertEqual(self.controller.trial['status'],'aborted')
+
     async def test_teaching_is_read_only_and_preserves_handload_drop_and_board(self):
         await self.command('teach_loading')
         self.adapter.arm_pose.update(x=600.,z=600.)
