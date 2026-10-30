@@ -4,9 +4,10 @@ export class FXControls {
     this.request=request;this.clientId=clientId;this.sequence=0;
   }
   invalidate(){this.sequence++;}
-  async setFX(enabled){
+  async setFX(enabled,{showConfigDigest}={}){
     if(typeof enabled!=='boolean')throw new Error('enabled must be boolean');
-    return this.control('fx',{enabled});
+    if(showConfigDigest!==undefined&&(typeof showConfigDigest!=='string'||!/^[a-f0-9]{64}$/.test(showConfigDigest)))throw new Error('Invalid show configuration digest');
+    return this.control('fx',{enabled,...(enabled&&showConfigDigest?{show_config_digest:showConfigDigest}:{})});
   }
   panic(){return this.control('panic',{});}
   async control(path,body){
@@ -18,6 +19,11 @@ export class FXControls {
       const status=await this.request('status');
       if(sequence!==this.sequence)throw new Error('Audio enable superseded by a newer control');
       if(typeof status.control_epoch!=='string'||!status.control_epoch)throw new Error('Audio service does not support ordered FX controls');
+      if(body.show_config_digest&&(status.show_audio?.readiness_schema!=='sircus.show-readiness.v1'||
+        status.show_audio.config_digest!==body.show_config_digest||status.show_audio.configured!==true||
+        status.show_audio.selection_matches!==true||status.audio_ready!==true||status.route!=='native')){
+        throw new Error('Show mapping or native audio readiness changed');
+      }
       metadata.control_epoch=status.control_epoch;
     }
     return this.request(path,{...body,...metadata});

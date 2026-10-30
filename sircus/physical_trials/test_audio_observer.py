@@ -176,10 +176,12 @@ class AudioObserverTests(unittest.IsolatedAsyncioTestCase):
         await self.teach();self.adapter.calls.clear()
         loading=copy.deepcopy(self.controller.calibration['loading_pose'])
         drop=copy.deepcopy(self.controller.calibration['drop_pose']);drop['z']=550.
+        self.controller.calibration.pop('frame', None)  # New-host pose configuration has no inherited frame.
         await self.command('configure_poses',loading_pose=loading,drop_pose=drop,confirmed=True)
         self.assertFalse(self.controller.calibration['confirmed'])
         self.assertEqual(self.controller.calibration['drop_pose']['z'],550.)
         self.assertEqual(self.controller.calibration['pose_source'],'operator_configured_tcp_targets')
+        self.assertEqual(self.controller.calibration['frame'],'world')
         self.assertFalse(any(c[0] in ('move_pose','open_gripper','close_gripper') for c in self.adapter.calls))
         with self.assertRaises(module.TrialError):
             await self.controller.action({'action':'configure_poses','loading_pose':loading,'drop_pose':drop})

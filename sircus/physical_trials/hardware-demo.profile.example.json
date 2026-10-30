@@ -1,0 +1,11 @@
+{
+  "schema": "sircus-hardware-demo-profile-v1",
+  "machine": "sfhack10",
+  "python": "/ABSOLUTE/HOST/PROJECT/sircus/simulation/.venv/bin/python",
+  "credentials_path": "/ABSOLUTE/HOST/PROJECT/sircus/perception/.private/sfhack10.json",
+  "data_root": "/ABSOLUTE/HOST/PROJECT/sircus/physical_trials/data/hardware",
+  "show_data_root": "/ABSOLUTE/HOST/PROJECT/.runtime/hardware-show",
+  "port": 8765,
+  "audio_mode": "disabled",
+  "audio_env_file": null
+}

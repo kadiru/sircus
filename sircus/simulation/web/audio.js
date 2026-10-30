@@ -83,15 +83,15 @@ export class AudioPanel {
       e.audioVolume.value = String(s.volume);
       e.audioVolumeValue.textContent = `${Math.round(s.volume * 100)}%`;
     }
-    const names = {checking: 'Checking audio…', connected: 'Audio connected',
-      ready: 'Audio connected', disconnected: 'Audio unavailable', error: 'Audio error',
-      connecting: 'Connecting audio…', unconfigured: 'Audio not configured',
+    const names = {checking: 'Checking audio…', connected: 'Audio service connected',
+      ready: 'Audio service connected', disconnected: 'Audio unavailable', error: 'Audio error',
+      connecting: 'Connecting audio…', unconfigured: 'Audio not configured', not_configured: 'Audio not configured',
       disabled: 'Audio not configured', unavailable: 'Audio unavailable'};
     e.audioConnection.textContent = s.configured === false && s.connection !== 'checking'
       ? 'Audio not configured' : names[s.connection] || 'Audio status unknown';
     e.audioMessage.textContent = s.error ? String(s.error)
       : pending ? 'Audio request pending. Robot controls remain available.'
-      : !s.configured ? 'Private connection setup is pending. FX stays off.'
+      : !s.configured ? 'Backend audio setup is pending. FX stays off.'
       : s.enabled ? 'FX enabled for physical trial cues. Unknown outcomes stay silent.'
       : 'FX off. Robot controls work independently.';
     e.audioPanel.classList.toggle('audio-error', Boolean(s.error) || this.muteUnconfirmed);

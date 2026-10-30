@@ -155,7 +155,7 @@ class AudioObserverTests(unittest.TestCase):
             'mute_confirmed': True, 'connection': 'connected', 'error': 'audio_disabled_remotely'}})
         status = observer.snapshot()
         self.assertFalse(status['enabled']); self.assertFalse(status['requested_enabled'])
-        self.assertFalse(status['pending']); self.assertIn('disabled on the Mini', status['error'])
+        self.assertFalse(status['pending']); self.assertIn('disabled on the audio host', status['error'])
         observer.emit(event('after-remote-off'))
         self.assertEqual(len(observer._queue), 0)
         observer._accept_status({'revision': revision, 'status': {
@@ -168,6 +168,26 @@ class AudioObserverTests(unittest.TestCase):
         self.control(observer, {'action': 'fx', 'enabled': True})
         observer._accept_status({'revision': revision, 'status': {'requested_enabled': False}})
         self.assertTrue(observer.snapshot()['requested_enabled'])
+
+    def test_readiness_is_bounded_and_sanitized(self):
+        observer=self.make()
+        observer._accept_status({'revision':0,'status':{'engine_ready':True,'mapping_matches':True,
+            'ball_inputs':[{'ball_id':'ball-pink','bound':True,'connected':True,'input_id':123,'token':'PRIVATE'},
+                           {'ball_id':'ball-purple','bound':True,'connected':False},
+                           {'ball_id':'ball-green','bound':False,'connected':True},
+                           {'ball_id':'ball-gray','bound':False,'connected':False}],
+            'bound_ball_count':999,'connected_ball_count':999,'config_digest':'PRIVATE','endpoint_name':'PRIVATE'}})
+        state=observer.snapshot()
+        self.assertTrue(state['engine_ready']);self.assertTrue(state['mapping_matches'])
+        self.assertEqual(state['bound_ball_count'],2);self.assertEqual(state['connected_ball_count'],1)
+        self.assertNotIn('PRIVATE',json.dumps(state));self.assertNotIn('input_id',json.dumps(state))
+        state['ball_inputs'][0]['connected']=False
+        self.assertTrue(observer.snapshot()['ball_inputs'][0]['connected'])
+        observer._accept_status({'revision':0,'status':{'mapping_matches':False,'engine_ready':None,
+                                'ball_inputs':[{'ball_id':'ball-pink','bound':True,'connected':True}]}})
+        self.assertEqual(observer.snapshot()['connected_ball_count'],0)
+        observer._error();state=observer.snapshot()
+        self.assertFalse(state['mapping_matches']);self.assertIsNone(state['engine_ready']);self.assertEqual(state['ball_inputs'],[])
 
     def test_ordering_history_is_bounded_and_never_silently_evicted(self):
         observer = self.make()

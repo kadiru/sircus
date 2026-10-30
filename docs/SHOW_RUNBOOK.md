@@ -1,5 +1,8 @@
 # Sircus show desk
 
+For the first physical show on one MacBook, use the [saved-pose hardware preparation and commissioning guide](HARDWARE_DEMO_READY.md). Its default launcher only checks files; physical deployment is explicit. Logic Pro is optional.
+
+
 `/show.html` is the four-mode entry point. It combines the existing operator,
 training and optional Ghost Booth clients; it does not create a second physical
 controller or silently deploy a cloud part.

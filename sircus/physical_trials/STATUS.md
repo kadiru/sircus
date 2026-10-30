@@ -1,5 +1,22 @@
 # Deterministic reliability checkpoint — October 30, 2026
 
+## Hardware demo preparation — October 30, 2026
+
+Saved fixed loading/drop targets and board reference joints are retained in the
+original ignored host data. `start-hardware-demo.sh --check --profile ...` only
+inspects files; `--launch` is a separate operator deployment. The reviewed server
+binds its port and takes a same-user sfhack10 lease before connecting. No hardware
+was connected or commanded for this checkpoint. Host credentials remain private.
+
+MacBook-native Ghost Booth is supported without Logic Pro. UI distinguishes robot,
+pose, engine and ball-input readiness and explicitly reapplies mappings after a
+sound-service restart. FX starts off and remains independent of robot commands.
+Four actual MIDI bindings, acoustic output, live camera/readback, route clearance
+and physical Stop remain commissioning checks. Variable-height calibration is
+still absent; only exact saved poses are prepared. See
+[hardware demo runbook](../../docs/HARDWARE_DEMO_READY.md).
+
+
 Simulation-only hardening is on `codex/macbook-deterministic-reliability`.
 73 controller/adapter tests pass with mocked I/O; the full repository suite passes
 368 Python tests and 92 Node tests plus standalone Logic guards. No physical arm,

@@ -141,19 +141,103 @@ finishDuringPoll({fx_enabled:false});await duringPoll;
 assert.equal(pendingWorker.enabled,true);assert.equal(pendingWorker.requested,true);
 console.log('Dashboard worker mocks passed: opt-in, provenance, duplicate/late events, unavailable/delayed audio, independent control revisions, cancellation and priority mute');
 
-// Four-ball config capability is explicit; failed config cannot enable an old MIDI mapping.
-const showCalls=[];let showFails=true;
-const showAudio={onError:()=>{},cancel(){},async setVolume(){},async setFX(value){showCalls.push(['fx',value]);},
-  async configureShow(config){showCalls.push(['config',config]);if(showFails)throw Error('unavailable');return {schema:'sircus.show-audio.v1',multiball_event_routing:true};},
-  async status(){return {fx_enabled:false,show_audio:{schema:'sircus.show-audio.v1',multiball_event_routing:true}};},emit(e){showCalls.push(['event',e]);}};
-const showWorker=new DashboardAudio({audio:showAudio});
+// Four-ball mappings require a fresh native/configuration/selection observation,
+// not protocol support or the earlier configure ACK alone.
+const digest='a'.repeat(64),changedDigest='b'.repeat(64);
+const balls=['pink','purple','green','gray'].map(color=>({ball_id:'ball-'+color,bound:true,connected:true}));
+const showState=()=>({audio_ready:true,route:'native',fx_enabled:false,show_audio:{
+  schema:'sircus.show-audio.v1',readiness_schema:'sircus.show-readiness.v1',multiball_event_routing:true,
+  configured:true,config_digest:digest,selection_matches:true,ball_inputs:balls.map(row=>({...row}))}});
+const showCalls=[], showStates=[];let showFails=true,remoteShow=showState();
+const showAudio={onError:()=>{},cancel(){},async setVolume(){},async setFX(value,options){showCalls.push(['fx',value,options]);remoteShow.fx_enabled=value;},
+  async configureShow(config){showCalls.push(['config',config]);if(showFails)throw Error('unavailable');return {...remoteShow.show_audio,config_digest:digest};},
+  async status(){return structuredClone(remoteShow);},emit(e){showCalls.push(['event',e]);}};
+const showWorker=new DashboardAudio({audio:showAudio,publish:value=>showStates.push(value)});
 showWorker.handle({op:'show_config',config:{test:true},revision:1});await wait(showWorker);
 await showWorker.poll();
 showWorker.handle({op:'fx',enabled:true,revision:2});await wait(showWorker);
 assert.equal(showWorker.enabled,false);assert.equal(showCalls.some(c=>c[0]==='fx'&&c[1]),false);
 showFails=false;showWorker.handle({op:'show_config',config:{test:true},revision:3});await wait(showWorker);
+assert.equal(showWorker.showReady,false,'configuration ACK is not proof of native input selection');
 showWorker.handle({op:'fx',enabled:true,revision:4});await wait(showWorker);
 assert.equal(showWorker.showReady,true);assert.equal(showWorker.enabled,true);
+assert.deepEqual(showCalls.at(-1),['fx',true,{showConfigDigest:digest}]);
 const colored={...event('four-ball'),ball_id:'ball-pink',sound_id:'bone_low',source_trial_id:'original'};
 showWorker.handle({op:'emit',event:colored,queued_unix_ms:Date.now(),revision:4});
 assert.deepEqual(showCalls.at(-1),['event',colored]);
+
+// Service restart clears actual bindings. Polling withdraws the obsolete green
+// readiness and never reapplies inputs, enables FX, or changes robot state.
+remoteShow=showState();Object.assign(remoteShow.show_audio,{configured:false,config_digest:null,selection_matches:false});
+await showWorker.poll();
+assert.equal(showWorker.mappingMatches,false);assert.equal(showWorker.enabled,false);assert.equal(showWorker.requested,false);
+assert.equal(showWorker.showReady,false);assert.equal(showStates.at(-1).status.connected_ball_count,0);
+const configs=showCalls.filter(c=>c[0]==='config').length;
+showWorker.handle({op:'fx',enabled:true,revision:5});await wait(showWorker);
+assert.equal(showWorker.enabled,false);assert.equal(showCalls.filter(c=>c[0]==='config').length,configs,'only explicit reapply configures inputs');
+
+// Explicit reapply + enable recovers. A partial connection is reported accurately
+// (two balls, not four); this is not acoustic verification or a robot motion gate.
+remoteShow=showState();remoteShow.show_audio.ball_inputs[2].connected=false;remoteShow.show_audio.ball_inputs[3].connected=false;
+showWorker.handle({op:'show_config',config:{test:true},revision:6});await wait(showWorker);
+showWorker.handle({op:'fx',enabled:true,revision:7});await wait(showWorker);
+assert.equal(showWorker.enabled,true);assert.equal(showStates.at(-1).status.bound_ball_count,4);
+assert.equal(showStates.at(-1).status.connected_ball_count,2);
+remoteShow.show_audio.config_digest=changedDigest;remoteShow.fx_enabled=true;
+await showWorker.poll();
+assert.equal(showWorker.mappingMatches,false);assert.equal(showWorker.enabled,false);assert.equal(showWorker.muteConfirmed,false);
+showWorker.handle({op:'emit',event:colored,queued_unix_ms:Date.now(),revision:7});
+assert.equal(showCalls.filter(c=>c[0]==='event').length,1,'another client mapping must not receive our ball event');
+
+// Native failure and a legacy server cannot claim readiness. The explicit reapply
+// has to be acknowledged by the new readiness protocol before enabling.
+remoteShow=showState();remoteShow.audio_ready=false;
+showWorker.handle({op:'show_config',config:{test:true},revision:8});await wait(showWorker);
+showWorker.handle({op:'fx',enabled:true,revision:9});await wait(showWorker);assert.equal(showWorker.enabled,false);
+remoteShow=showState();delete remoteShow.show_audio.readiness_schema;
+showWorker.handle({op:'show_config',config:{test:true},revision:10});await wait(showWorker);
+showWorker.handle({op:'fx',enabled:true,revision:11});await wait(showWorker);assert.equal(showWorker.enabled,false);
+
+// A pre-control poll cannot overwrite a newer successful mapping and enable.
+remoteShow=showState();
+let finishStaleMappingPoll;const realShowStatus=showAudio.status;
+showAudio.status=()=>new Promise(resolve=>{finishStaleMappingPoll=resolve;});
+const staleMappingPoll=showWorker.poll();showAudio.status=realShowStatus;
+showWorker.handle({op:'show_config',config:{test:true},revision:12});await wait(showWorker);
+showWorker.handle({op:'fx',enabled:true,revision:13});await wait(showWorker);
+const obsolete=showState();obsolete.show_audio.config_digest=changedDigest;
+finishStaleMappingPoll(obsolete);await staleMappingPoll;
+assert.equal(showWorker.mappingMatches,true);assert.equal(showWorker.enabled,true);
+
+// A poll begun during config control may carry the same revision but sample the
+// previous config. It cannot overwrite the control's accepted digest/readiness.
+let finishConfig,finishConfigPoll;
+const savedConfigure=showAudio.configureShow;
+showAudio.configureShow=()=>new Promise(resolve=>{finishConfig=resolve;});
+showWorker.handle({op:'show_config',config:{test:true},revision:14});
+showAudio.status=()=>new Promise(resolve=>{finishConfigPoll=resolve;});const pendingConfigPoll=showWorker.poll();
+finishConfig({...showState().show_audio});await wait(showWorker);
+finishConfigPoll(obsolete);await pendingConfigPoll;
+assert.equal(showWorker.expectedConfigDigest,digest);assert.equal(showWorker.showReady,false);
+showAudio.configureShow=savedConfigure;showAudio.status=realShowStatus;
+showWorker.handle({op:'fx',enabled:true,revision:15});await wait(showWorker);assert.equal(showWorker.enabled,true);
+
+// Connection loss revokes readiness immediately; no stale "connected inputs".
+showAudio.status=async()=>{throw Error('private host failure');};await showWorker.poll();
+assert.equal(showWorker.enabled,false);assert.equal(showWorker.mappingMatches,false);assert.equal(showWorker.engineReady,null);
+assert.deepEqual(showWorker.ballInputs,[]);
+console.log('Show readiness mocks passed: restart, config replacement, partial inputs, native failure, legacy protocol, explicit recovery, stale polls and loss of service');
+
+// A new mapping supersedes an older in-flight enable even if its status request
+// ignores abort. Configuration must never let that previous ON reach the service.
+let releaseOldShowStatus;const supersedeCalls=[];
+const supersedeAudio={onError:()=>{},cancel(){},async setVolume(){},
+  async setFX(value){supersedeCalls.push(value);},
+  async configureShow(){return {...showState().show_audio};},
+  status(){return new Promise(resolve=>{releaseOldShowStatus=resolve;});},emit(){}};
+const supersedeWorker=new DashboardAudio({audio:supersedeAudio});
+supersedeWorker.handle({op:'show_config',config:{test:true},revision:1});await wait(supersedeWorker);
+supersedeWorker.handle({op:'fx',enabled:true,revision:2});await tick();
+supersedeWorker.handle({op:'show_config',config:{test:true},revision:3});
+releaseOldShowStatus(showState());await wait(supersedeWorker);
+assert.deepEqual(supersedeCalls,[]);assert.equal(supersedeWorker.enabled,false);

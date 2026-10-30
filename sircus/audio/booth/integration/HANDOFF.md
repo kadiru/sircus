@@ -88,3 +88,30 @@ Use a fresh explicit ON after inspecting status following a mute or failure.
 A server acknowledgment still does not establish acoustic silence or replace
 local mute. Private-LAN, listening, ODD/BLE and optional Logic acceptance remain
 outstanding; no running service was updated by this source fix.
+
+
+## Verified mapping readiness protocol (source checkpoint)
+
+`GET /api/status` includes `show_audio.readiness_schema =
+"sircus.show-readiness.v1"`, `configured`, `config_digest`, `selection_matches`,
+four bounded `ball_inputs` rows (`ball_id`, `bound`, `connected`), and bound/
+connected counts. The digest is SHA-256 of the server's sorted compact JSON
+configuration. Clients store the digest from the successful explicit
+`POST /api/show-config` ACK; they do not derive it using another language's JSON
+number formatting. The ACK does not prove the asynchronous native input
+selection has completed. The schema deliberately keeps
+`physical_commissioning_verified: false`.
+
+A dashboard enable carries `show_config_digest` in addition to existing ordered
+control metadata. The service atomically rejects enable if config identity,
+native selected endpoint set, native route, or audio engine readiness changed.
+The provided client's `setFX(true, {showConfigDigest})` checks the same facts on
+its fresh status read. Plain local-panel enable and legacy mute behavior remain
+supported. Older Booth versions cannot pass the dashboard's new readiness guard;
+upgrade source deliberately, with no automatic service restart.
+
+Using the legacy single-input picker invalidates the four-ball show mapping and
+clears audio trial associations. Reapply saved show mappings explicitly to return
+to four-ball operation. A source change or HTTP ACK is not a listening/BLE test.
+For the first hardware demo the selected host is the MacBook Pro using native
+loopback audio; Mini LAN and optional Logic commissioning remain separate.

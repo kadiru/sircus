@@ -1,5 +1,32 @@
 # Project state
 
+## MacBook hardware-demo preparation — October 30, 2026
+
+- `codex/macbook-hardware-demo-ready` builds on demo-reel `d28ade95`.
+  The saved-pose routine now has an offline host-profile check and a separate
+  explicit deployment launcher. It reuses original calibration and journals;
+  credentials, host paths and generated runtime state remain ignored.
+- Hardware startup reserves its HTTP port and exclusive same-user sfhack10 lease
+  before creating SDK/audio clients. Bounded cleanup releases owned resources
+  without issuing arm/tool commands. Remote/legacy controllers remain an operator
+  ownership check. Source synchronization does not deploy anything.
+- Hardware show UI opens Manual mode, separates saved targets from live readiness,
+  and reports native audio engine plus bound/connected ball counts. An explicit
+  Reapply action recovers saved mappings after Booth restart, muting audio first.
+- Ghost Booth can run on this MacBook without Logic Pro or Mini connectivity.
+  Matching mapping/engine status is verified at FX enable; stale/restarted state
+  cannot claim readiness. Generic measured MIDI impacts retain ball/trial identity;
+  audio does not gate robot operations. Actual four-ball bindings remain unassigned.
+- Native Swift helper compiled without execution. Full regression passed420 Python
+  and106 Node checks plus standalone Logic guards; final launcher regression
+  passed17 focused tests after a profile-snapshot correction. Static browser QA
+  verified Manual mode and disconnected controls. No hardware or live audio was commissioned;
+  existing processes and all physical/cloud configurations remain unchanged.
+- [Operator startup and remaining checks](HARDWARE_DEMO_READY.md) distinguish
+  prepared source from live camera/state, clearance, recording, MIDI and listening
+  acceptance. Fixed targets do not require the still-missing variable-height limits.
+
+
 ## Simple demo and learning film — October 30, 2026
 
 - `codex/macbook-demo-reel` is stacked on deterministic reliability commit762133b.

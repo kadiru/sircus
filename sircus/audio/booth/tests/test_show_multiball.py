@@ -25,6 +25,52 @@ class MultiBallTests(unittest.TestCase):
         self.assertIn({'cmd':'inputs','values':[100,101,102,103]},self.native.commands)
         self.c.native({'type':'connection','connected':True,'connected_inputs':[100,101]})
         self.assertFalse(self.c.enabled)
+    def test_readiness_distinguishes_configuration_selection_and_connections(self):
+        pending=self.c.status()['show_audio']
+        self.assertEqual(pending['readiness_schema'],'sircus.show-readiness.v1')
+        self.assertTrue(pending['configured']);self.assertEqual(len(pending['config_digest']),64)
+        self.assertFalse(pending['selection_matches']);self.assertEqual(pending['bound_ball_count'],4)
+        self.assertEqual(pending['connected_ball_count'],0)
+        self.c.native({'type':'connection','connected':True,'selected_inputs':[100,101,102,103],'connected_inputs':[100,101]})
+        ready=self.c.status()['show_audio']
+        self.assertTrue(ready['selection_matches']);self.assertEqual(ready['connected_ball_count'],2)
+        self.assertFalse(ready['physical_commissioning_verified'])
+        self.assertEqual([r['connected'] for r in ready['ball_inputs']],[True,True,False,False])
+        self.c.native({'type':'connection','connected':True,'selected_inputs':[100],'connected_inputs':[100]})
+        self.assertFalse(self.c.status()['show_audio']['selection_matches'])
+        self.assertEqual(self.c.status()['show_audio']['connected_ball_count'],0)
+
+    def test_legacy_input_selection_revokes_show_mapping_and_trials(self):
+        self.event('release','old','ball-pink')
+        self.c.inputs=[{'id':100,'online':True}]
+        self.c.settings('input',{'id':100})
+        state=self.c.status()['show_audio']
+        self.assertFalse(state['configured']);self.assertIsNone(state['config_digest'])
+        self.assertFalse(self.c.enabled);self.assertFalse(self.c.show_router.trials)
+
+    def test_restart_or_mapping_change_cannot_reuse_old_config_identity(self):
+        previous=self.c.status()['show_audio']['config_digest']
+        restarted=Controller(FakeNative())
+        self.assertIsNone(restarted.status()['show_audio']['config_digest'])
+        self.config['balls'][0]['sounds']['unknown']='cartoon_boing'
+        self.c.configure_show(self.config)
+        self.assertNotEqual(self.c.status()['show_audio']['config_digest'],previous)
+        self.assertFalse(self.c.status()['show_audio']['selection_matches'])
+
+    def test_ordered_enable_checks_config_identity_atomically(self):
+        self.c.native({'type':'connection','connected':True,'selected_inputs':[100,101,102,103],'connected_inputs':[100]})
+        state=self.c.status()
+        command={'enabled':True,'control_client_id':'test-show','control_sequence':1,
+                 'control_epoch':state['control_epoch'],'show_config_digest':state['show_audio']['config_digest']}
+        self.c.fx_control('fx',command);self.assertTrue(self.c.enabled)
+        self.c.disable()
+        self.config['balls'][0]['sounds']['unknown']='cartoon_boing';self.c.configure_show(self.config)
+        self.c.native({'type':'connection','connected':True,'selected_inputs':[100,101,102,103],'connected_inputs':[100]})
+        # Even a client that refreshed the control epoch cannot enable a changed mapping.
+        command.update(control_sequence=2,control_epoch=self.c.control_epoch)
+        with self.assertRaisesRegex(ValueError,'readiness changed'):self.c.fx_control('fx',command)
+        self.assertFalse(self.c.enabled)
+
     def test_prior_pink_impact_keeps_identity_does_not_stop_purple_drums(self):
         self.event('release','pink-trial','ball-pink')
         self.event('carry_start','purple-trial','ball-purple',2.)
