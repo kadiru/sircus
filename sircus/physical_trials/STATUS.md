@@ -1,3 +1,16 @@
+## Revised Round 2 completed — October 30, 2026, 13:12–13:13 PDT
+
+Following explicit reload/clearance authorization, all four pickup/drop cycles
+completed using the revised Round2 pair (revision2): Gray, Purple, Pink, Green.
+The board already matched its revised preset and was not commanded to move.
+The run used the saved revised drop target, constrained pickup/lift, two-second
+release settling, enabled FX and disabled cameras. No retries or recovery were
+needed. All four local records are completed/unlabeled; capture outcomes and
+acoustic success are not inferred from command completion. Audio controls
+reported no error. Final readback: both arms stationary, controller idle without
+fault/error, dropper open, FX muted, and no repeat queued. No code, service or
+Viam configuration change occurred. Calibration and raw evidence remain local.
+
 ## Round 2 preset revised — October 30, 2026, 13:11 PDT
 
 The operator supplied a new paired dropper/board pose and manually positioned
