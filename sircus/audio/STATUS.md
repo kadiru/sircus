@@ -115,3 +115,42 @@ empty template in source. Actual private-LAN listener and credential provisionin
 remain a coordinated follow-up. Simulation audio is not attached; the legacy
 trace converter has not been promoted to the new one-second scorer. The learning
 draft remains separate and v2 native replay stays blocked.
+
+## Control-ordering correction — October 30, 2026
+
+After merging reviewed learning main `a376ad67968f6445d39a51c2a29325a204bb582a`
+into the audio branch, fixed a reproduced race in which delayed FX ON could undo
+a newer OFF/Panic. The local panel and provided client now share ordered intents;
+the service checks bounded client history and mute epochs atomically. Legacy
+unsequenced ON is intentionally rejected; OFF/Panic remain available, including
+at history capacity. Native failure/reconnect invalidates earlier enable epochs.
+Pending enable acquisition is cancelled by newer controls; no automatic enable
+retry exists. This changes audio control transport only, not robot behavior or
+trial evidence.
+
+Fresh silent checks: 48 booth Python tests (including seven ordering regressions),
+provided Node client tests, new shared FX-control tests, and frontend JavaScript
+syntax. Tests cover reversed ON/OFF and ON/Panic arrival, stale cross-client
+observations, duplicate/reused sequences, bounded capacity, native error/reconnect,
+service-instance epochs, old-service rejection, and pending-enable cancellation.
+No real service, audio playback, ODD/BLE, Logic, Viam or robot was used. PR #1
+remains draft pending the documented listening and integration acceptance work.
+
+
+## Combined dashboard correction — October 30, 2026
+
+PR #3 is now merged on main at `a376ad67968f6445d39a51c2a29325a204bb582a`.
+The integration branch retains both study and audio routes/styles/tests. A Mini
+FX-off observation clears dashboard opt-in and queued cues; external Mini FX-on
+withdraws a previous mute acknowledgement while local opt-in stays off. The
+requested state is propagated through worker, backend and UI. Stale/in-flight
+polls cannot undo newer controls, and settled failures no longer show pending.
+The new ordered Mini controls and supplied client are included in this branch.
+Audio PRs #1 and #4 remain drafts and neither runtime has been deployed.
+
+Final combined verification passed 220 Python tests, all audio/study Node suites,
+Scripter and orientation-contract assertions, including the unchanged published
+checkpoint's numerical reproduction and the real Python-to-Node-to-fake-HTTP
+remote-status regression. Independent reviews and repository scans passed.
+These are silent mock/numerical checks; listening, ODD/BLE and private-LAN
+commissioning are still outstanding. No existing service was restarted.

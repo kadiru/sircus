@@ -57,13 +57,14 @@ class Controller:
         self.replay_generation=0;self.logic_confirmed=False
         self.profiles=Profiles(SOUNDS,profile_path);self.loop_kind=None;self.domain=None;self.terminal=False;self.board_seen=False
         self.retired_trials=set();self.playback_source=None
+        self.control_epoch=uuid.uuid4().hex;self.control_clients={}
     def log(self,kind,**kw):
         self.sequence+=1;r={'seq':self.sequence,'time':time.time(),'kind':kind,**kw};self.monitor.append(r);return r
     def send(self,**kw):
         if self.backend:self.backend.send(**kw)
     def status(self):
         with self.lock:
-            return {'fx_enabled':self.enabled,'volume':self.volume,'mode':self.mode,'route':self.route,'audio_ready':self.ready,
+            return {'control_epoch':self.control_epoch,'fx_enabled':self.enabled,'volume':self.volume,'mode':self.mode,'route':self.route,'audio_ready':self.ready,
                 'audio_meter_peak':self.meter,'audio_current_peak':self.current_peak,'audio_block_time_ns':self.block_ns,'meter_age_s':None if not self.last_meter else round(self.clock()-self.last_meter,2),
                 'last_midi_age_s':None if not self.last_midi else round(self.clock()-self.last_midi,2),'midi_status':self.midi_status,'inputs':self.inputs,'selected_input':self.selected,'connected':self.connected,
                 'transport':self.transport,'trial_id':self.trial,'armed':self.clock()<self.armed_until,'impact_count':self.impact_count,
@@ -72,8 +73,10 @@ class Controller:
                 'profile':self.profiles.state(),'loop_event':self.loop_kind,'domain':self.domain,'playback_source':self.playback_source,
                 'events':[{'key':k,'title':v[0],'description':v[1]} for k,v in EVENTS.items()]}
     def disable(self,reason='fx_off'):
-        self.enabled=False;self.transport=False;self.loop_kind=None;self.armed_until=0;self.replay_generation+=1;self.playback_source=None
-        self.send(cmd='panic');self.log('mute',reason=reason)
+        with self.lock:
+            self.control_epoch=uuid.uuid4().hex
+            self.enabled=False;self.transport=False;self.loop_kind=None;self.armed_until=0;self.replay_generation+=1;self.playback_source=None
+            self.send(cmd='panic');self.log('mute',reason=reason)
     def enable(self,value):
         if not isinstance(value,bool):raise ValueError('enabled must be boolean')
         with self.lock:
@@ -253,6 +256,7 @@ class Controller:
             elif kind=='watchdog':self.disable('audio_watchdog')
             elif kind=='loop_stopped':self.transport=False;self.loop_kind=None
             elif kind in ('error','native_exit'):
+                self.control_epoch=uuid.uuid4().hex
                 self.last_error=m.get('message');self.enabled=False;self.transport=False;self.loop_kind=None;self.armed_until=0
                 self.replay_generation+=1
                 if kind=='native_exit':self.ready=False;self.connected=False
@@ -260,10 +264,44 @@ class Controller:
                     try:self.send(cmd='panic')
                     except Exception:pass
             self.log('native',message=m)
+    def fx_control(self,kind,d):
+        """Apply an explicit FX intent atomically; mute invalidates earlier enables."""
+        with self.lock:
+            enabled=d.get('enabled') if kind=='fx' else False
+            if kind=='fx' and type(enabled) is not bool:raise ValueError('enabled must be boolean')
+            client=d.get('control_client_id');sequence=d.get('control_sequence')
+            epoch=d.get('control_epoch')
+            if epoch is not None and (not isinstance(epoch,str) or len(epoch)>64):raise ValueError('invalid audio control epoch')
+            # Older clients may always mute, but cannot enable without ordering.
+            if client is None and sequence is None:
+                if enabled:raise ValueError('ordered FX enable requires client, sequence and current control_epoch')
+                self.disable('audio_panic' if kind=='panic' else 'fx_off')
+                return self.status()
+            if (not isinstance(client,str) or not 1<=len(client)<=64 or
+                not all(ch.isascii() and (ch.isalnum() or ch in '-_') for ch in client) or
+                type(sequence) is not int or not 1<=sequence<=2**53-1):
+                raise ValueError('invalid audio control client or sequence')
+            intent=(kind,enabled,epoch)
+            prior=self.control_clients.get(client)
+            if prior and sequence<=prior[0]:
+                if sequence==prior[0] and intent!=prior[1]:raise ValueError('control sequence reused with different intent')
+                return {**self.status(),'accepted':False,'reason':'superseded_control'}
+            if client not in self.control_clients and len(self.control_clients)>=128:
+                # Never evict history: an evicted ON could otherwise become fresh again.
+                self.disable('control_capacity')
+                if not enabled:return self.status()
+                raise ValueError('audio control session capacity reached; restart required')
+            self.control_clients[client]=(sequence,intent)
+            if enabled:
+                if not isinstance(epoch,str) or epoch!=self.control_epoch:
+                    raise ValueError('stale audio enable; inspect status and explicitly enable again')
+                self.enable(True)
+            else:self.disable('audio_panic' if kind=='panic' else 'fx_off')
+            return self.status()
+
     def settings(self,kind,d):
         with self.lock:
-            if kind=='fx':self.enable(d.get('enabled'))
-            elif kind=='panic':self.disable('audio_panic')
+            if kind in ('fx','panic'):return self.fx_control(kind,d)
             elif kind=='volume':
                 self.volume=finite(d.get('volume'),0,1);self.send(cmd='volume',value=self.volume)
             elif kind=='mode':
@@ -383,7 +421,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
             except ValueError:return self.reply({'error':'invalid cursor'},400)
             with self.server.c.lock:return self.reply({'events':[r for r in self.server.c.monitor if r['seq']>after],'seq':self.server.c.sequence})
         if path.path=='/api/sounds':return self.reply(MAP)
-        files={'/':('web/index.html','text/html'),'/app.js':('web/app.js','text/javascript'),'/style.css':('web/style.css','text/css')}
+        files={'/':('web/index.html','text/html'),'/app.js':('web/app.js','text/javascript'),'/fx-controls.mjs':('integration/fx-controls.mjs','text/javascript'),'/style.css':('web/style.css','text/css')}
         for m in MAP:files['/assets/'+m['file']]=('assets/'+m['file'],'audio/wav')
         if path.path not in files:return self.reply({'error':'not found'},404)
         f,mime=files[path.path];b=(ROOT/f).read_bytes();self.send_response(200);self.send_header('Content-Type',mime);self.send_header('Content-Length',str(len(b)));self.send_header('X-Content-Type-Options','nosniff');self.send_header('Content-Security-Policy',"default-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self'; frame-ancestors 'none'");self.end_headers();self.wfile.write(b)

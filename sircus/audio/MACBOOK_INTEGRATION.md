@@ -95,3 +95,14 @@ Integration may review or fetch the draft branch without deploying it. Keep
 profiles, recordings, Logic projects and generated runtime files host-local;
 catalog assets and source are available through Git. Pulling this PR does not
 restore a private saved mix or commission an audio route.
+
+
+### Ordered controls compatibility update
+
+The supplied client now uses shared per-client intent sequences and status mute
+epochs for FX/Panic. `setFX(true)` may await a status read on its audio-only
+control path; `emit` remains immediate and nonblocking. OFF/Panic never wait for
+status. Older services without `control_epoch` fail closed for enable, and newer
+services reject legacy unsequenced enables. Fake endpoints should expose a
+`control_epoch` string in status and enforce/control-record the sequence fields.
+See [the detailed protocol](booth/integration/HANDOFF.md#ordered-fx-controls-source-checkpoint).
