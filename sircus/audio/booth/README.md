@@ -91,3 +91,15 @@ See `assets/LICENSE.txt` for provenance.
 The optional uncommissioned Logic Sampler route is described in `logic/SETUP.md`;
 full event loops/pitch are native-only. `--mock-backend` logs commands without
 CoreMIDI/audio and is for explicit API tests, not physical validation.
+
+
+### FX control ordering
+
+Use the provided client or Ghost Booth panel for FX ON. The current API requires
+`control_client_id`, increasing `control_sequence`, and the current status
+`control_epoch` for enables. Any mute invalidates prior epochs; delayed ON cannot
+undo a newer OFF/Panic from the same client or an observed mute from another.
+OFF/Panic remain immediately available and legacy unsequenced mute is supported.
+Old unsequenced enables fail closed. See [the integration contract](integration/HANDOFF.md#ordered-fx-controls-source-checkpoint).
+The ordered controls regression can run silently with:
+`node sircus/audio/booth/tests/test_fx_controls.mjs`.

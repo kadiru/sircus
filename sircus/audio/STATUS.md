@@ -84,3 +84,24 @@ MacBook Codex remains the integration owner. The PR must stay draft for the
 listening, real ODD/BLE, current native/Logic route and cross-computer checks
 listed in MACBOOK_INTEGRATION.md. No dashboard/controller observer, Viam change,
 physical deployment or robot command is part of this synchronization.
+
+
+## Control-ordering correction — October 30, 2026
+
+After merging reviewed learning main `a376ad67968f6445d39a51c2a29325a204bb582a`
+into the audio branch, fixed a reproduced race in which delayed FX ON could undo
+a newer OFF/Panic. The local panel and provided client now share ordered intents;
+the service checks bounded client history and mute epochs atomically. Legacy
+unsequenced ON is intentionally rejected; OFF/Panic remain available, including
+at history capacity. Native failure/reconnect invalidates earlier enable epochs.
+Pending enable acquisition is cancelled by newer controls; no automatic enable
+retry exists. This changes audio control transport only, not robot behavior or
+trial evidence.
+
+Fresh silent checks: 48 booth Python tests (including seven ordering regressions),
+provided Node client tests, new shared FX-control tests, and frontend JavaScript
+syntax. Tests cover reversed ON/OFF and ON/Panic arrival, stale cross-client
+observations, duplicate/reused sequences, bounded capacity, native error/reconnect,
+service-instance epochs, old-service rejection, and pending-enable cancellation.
+No real service, audio playback, ODD/BLE, Logic, Viam or robot was used. PR #1
+remains draft pending the documented listening and integration acceptance work.
