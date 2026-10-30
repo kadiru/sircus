@@ -55,7 +55,9 @@ The paired animation shows the first predeclared held-out layout at each trainin
 size. **All four misses remain visible.** A separately labeled saved successful
 example follows. Population improvement is not a promise that each layout improves.
 No model is retrained or optimized during playback; the builder verifies each
-action against its saved checkpoint and original result. Historical rectangular
+action against its saved checkpoint (absolute1e-9 rounding tolerance, no relative
+tolerance), then uses the original saved action, scene noise and result verbatim.
+Compatibility/source hashes, identities, outcomes and seeds remain exact. Historical rectangular
 and earlier bucket results retain their original definitions and fingerprints.
 
 The model predicts board roll/pitch, impact U/V and release height. Displayed arm
