@@ -23,6 +23,7 @@ sound or physical event truth.
 | Endpoint | Body / purpose |
 |---|---|
 | `GET /api/status` | Native readiness/meter, selected input, FX, trial/domain, profile and eight event descriptions |
+| `POST /api/tap-test` | `action:start`, optional integer `duration_s` (default15, 1–120), current `show_config_digest` and ordered FX control metadata; `action:stop` mutes immediately |
 | `GET /api/sounds` | Catalog with sound IDs, note mapping and WAV metadata |
 | `POST /api/fx` | `{"enabled":true}`; false cancels/mutes |
 | `POST /api/panic` | `{}`; disable FX and mute all voices |
@@ -38,6 +39,20 @@ sound or physical event truth.
 | `POST /api/replay` | `{"events":[{"t":0,"status":144,"data":[0,90]}]}`; raw MIDI rehearsal, at most 10000 rows / 600 seconds |
 | `POST /api/mapping` | Subset of impact_note, channel, min_velocity, exact_duplicate_ms, trial_window_s, velocity_gamma |
 | `GET /api/monitor?after=123` | Bounded 600-row recent monitor; sequence cursor, not a complete evidence archive |
+
+`GET /api/status.tap_test` exposes active/test ID, remaining seconds, completion
+reason and four ball rows (binding/connection, accepted tap count/age, sound).
+Start requires native readiness, matching four-ball selection and at least one
+connected ball. It uses the same client ID/sequence/current-epoch guards as FX
+ON. Duplicate/stale starts cannot reset a timer. Stop can always use the legacy
+unordered mute route. Start during carry or a live release window is rejected.
+
+Tap evidence stays separate from robot trials: `tap_test_impact` monitor records
+contain versioned sensor/midi_gesture AudioEvents, fresh IDs, host-monotonic time,
+unknown contact/outcome, and a test-only trial ID. No router release is invented.
+Mock/replayed MIDI cannot count as a test response. Detection follows existing
+minimum velocity/exact-duplicate filtering. Counts are accepted gestures, not a
+claim about the number of physical collisions. The monitor remains bounded.
 
 Legacy explicit operator calls to `/api/event` accept `type`: pickup,
 transport_start/carry_start, transport_stop/carry_stop/arrive, release,

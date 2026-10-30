@@ -1,5 +1,28 @@
 # Audio status — October 30, 2026 (America/Los_Angeles)
 
+## MacBook pre-round tap tester — October 30, 2026
+
+Task branch `codex/macbook-ball-tap-test` adds a 15-second-default (1–120 s)
+audio-only four-ball test with per-ball MIDI counts, sound names, connection and
+last-tap age. Backend expiry survives tab closure; explicit mute, reconnects and
+replacement events cancel the test. No fake release or capture evidence is made.
+The normal four-ball release-window router remains unchanged outside a test.
+
+Verification: 95 Ghost Booth Python tests, 56 shared audio tests, and nine Node
+tests/suites passed. The sandbox initially blocked compiler/CoreAudio and fake
+localhost IPC checks; all passed when rerun with the required local permissions.
+Native DSP checks render offline, never through speakers. An isolated fake UI
+verified 15/30-second starts, three responding balls versus one no-tap ball,
+expiry and manual Stop. Live acoustic acceptance of this new tester is pending.
+Live deployment: only the previously idle Ghost Booth audio process on8766 was
+refreshed. The four private MIDI bindings and selected voices were preserved;
+readback shows4/4 connected, native audio ready,100% volume and3× peak-limited
+boost, no error, and FX off. The browser displays the new tester at
+`http://127.0.0.1:8766/#ball-tester`, ready for an explicit operator Start. No real
+tap test or automatic sound preview was triggered during development. Local
+runtime PID/path and before/after evidence stay in ignored commissioning records.
+No robot/dashboard restart, hardware motion or Viam change occurred.
+
 Ghost Booth is now the primary Sircus audio UI, in `sircus/audio/booth/` in this
 shared repository. The Mac Mini checkout moved from `odd-balls-music/sircus` to
 `viam-ball-hackathon/sircus`, retaining its branch, Git history and local runtime.
