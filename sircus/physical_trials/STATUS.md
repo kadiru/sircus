@@ -1,3 +1,21 @@
+## Full two-round demo completed — October 30, 2026, 13:15–13:19 PDT
+
+The operator explicitly confirmed loading/clearance before Round1 and again after
+its reload pause. Native board moves reached Position1 and revised Position2;
+suction holding was verified and the dropper stayed stationary during transitions.
+Round1 completed all four balls. Round2 completed Gray/Purple/Pink, then lost robot
+readback on Green's approach. Stop verified; no open/close/release command had been
+sent for that attempt. A fresh read-only check found an empty dropper, both arms
+stationary, vacuum holding and no active operations. The aborted attempt was kept
+unlabeled; a single Green-only retry completed. Eight pickup/drop cycles completed
+across the two rounds, plus the separately retained interrupted approach attempt.
+
+Sounds were enabled during runs, cameras disabled, and outcomes remain unlabeled
+(no inferred capture rate). Final state: both arms stationary, board at revised
+Position2, dropper open, dashboard idle without fault/error, FX muted. No next run
+is queued. This is physical routine evidence, not a claim of fault-free networking
+or autonomous perception. No source/runtime restart or cloud-config change occurred.
+
 ## Revised Round 2 completed — October 30, 2026, 13:12–13:13 PDT
 
 Following explicit reload/clearance authorization, all four pickup/drop cycles
