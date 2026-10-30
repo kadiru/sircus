@@ -1,5 +1,24 @@
 # Project state
 
+## Per-color taped pickup stations — October 30, 2026
+
+- `codex/macbook-fixed-pickup` builds on audio-loudness checkpoint `f8c0850`.
+  Manual operation adds independent read-only teaching for each color, with a
+  derived world-Z+100mm approach and the existing saved drop pose unchanged.
+- A separate pickup cycle plans to approach, records, opens, requests constrained
+  vertical descent, checks grip, lifts vertically, and uses the existing two-second
+  drop settling/release path. Constraint rejection has no unconstrained fallback.
+- Host calibration, station coordinates and observations remain excluded from
+  Git. Physical route and neighboring-ball clearance are not established by
+  mock tests. The operator is teaching Gray first; no new pickup pose or physical
+  pickup has yet been recorded at this checkpoint.
+- [Station workflow and limits](TAPED_PICKUP_STATIONS.md) distinguish requested
+  endpoint constraints, measured robot readback and operator-confirmed placement.
+- After explicit approval, only the idle physical dashboard was restarted with
+  these controls. Camera/both-arm readback was verified and Gray selected; no
+  robot/tool command or station teaching occurred. Final checks passed 131
+  physical-controller and 37 physical/show UI tests after the full regression.
+
 ## Native audio loudness — October 30, 2026
 
 - `codex/macbook-audio-loudness` builds on four-ball commissioning `81d927b`.

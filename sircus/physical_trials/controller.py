@@ -24,6 +24,8 @@ STOP_TIMEOUT_SECONDS = 15.0
 CANCEL_WAIT_SECONDS = 2.0
 FINALIZE_TIMEOUT_SECONDS = 6.0
 SNAPSHOT_TIMEOUT_SECONDS = 5.0
+PICKUP_APPROACH_OFFSET_MM = 100.0
+FIXED_CYCLE_BEHAVIORS = ('fixed_pose_cycle', 'pickup_station_cycle')
 
 
 def utc():
@@ -232,9 +234,9 @@ class Controller:
             missing.append('Operator confirmation of calibration and fixed board/bucket placement')
         return missing
 
-    def fixed_cycle_missing(self):
+    def fixed_cycle_missing(self, include_loading=True):
         missing = []
-        for key in ('loading_pose', 'drop_pose'):
+        for key in (('loading_pose', 'drop_pose') if include_loading else ('drop_pose',)):
             try:
                 if not pose_matches(self.calibration[key], self.calibration[key]):
                     raise TrialError('Invalid pose')
@@ -245,6 +247,63 @@ class Controller:
                 any(type(v) not in (int,float) or not math.isfinite(v) for v in joints)):
             missing.append('Teach board reference with drop pose')
         return missing
+
+    def _pickup_poses(self, ball_id=None):
+        ball_id = self.selected_ball_id if ball_id is None else ball_id
+        from sircus.audio.show import BALL_IDS
+        if ball_id not in BALL_IDS:
+            raise TrialError('Select a ball before teaching or using its pickup station')
+        poses = self.calibration.get('pickup_poses', {})
+        if not isinstance(poses, dict) or ball_id not in poses:
+            raise TrialError('Teach the selected ball pickup pose')
+        grasp = copy.deepcopy(poses[ball_id])
+        metadata = self.calibration.get('pickup_pose_provenance', {}).get(ball_id, {})
+        if metadata.get('frame') != 'world' or metadata.get('pose_component') != 'arm':
+            raise TrialError('Pickup pose requires an explicitly taught world-frame dropper reference')
+        return grasp, self._approach_pose(grasp)
+
+    def _approach_pose(self, grasp):
+        fields = {'x','y','z','o_x','o_y','o_z','theta'}
+        if not isinstance(grasp,dict) or set(grasp) != fields:
+            raise TrialError('Complete pickup TCP pose required')
+        if any(abs(number(grasp[k], k)) > 2000 for k in ('x','y','z')) or grasp['z'] < 0:
+            raise TrialError('Pickup TCP pose lies outside operator editor bounds')
+        if not pose_matches(grasp, grasp):
+            raise TrialError('Invalid pickup TCP orientation')
+        approach = copy.deepcopy(grasp)
+        approach['z'] += PICKUP_APPROACH_OFFSET_MM
+        if approach['z'] > 2000:
+            raise TrialError('Pickup approach exceeds operator editor bounds')
+        return approach
+
+    def pickup_station_missing(self):
+        missing = []
+        try:self._pickup_poses()
+        except (TrialError, TypeError, AttributeError) as exc:missing.append(str(exc))
+        # A station grasp is independent of the hand-loading pose, but shares
+        # the exact saved drop and board reference used by the original routine.
+        missing += self.fixed_cycle_missing(include_loading=False)
+        if self.calibration.get('frame') != 'world':missing.append('Explicit world-frame drop reference required')
+        if not callable(getattr(self.adapter, 'move_pose_linear', None)):
+            missing.append('Adapter lacks constrained vertical pickup motion')
+        return missing
+
+    def pickup_station_blockers(self):
+        return self.pickup_station_missing() + self._cycle_state_blockers()
+
+    def _pickup_clearance_z(self, target_approach):
+        """Conservative clearance before any unconstrained approach transfer.
+
+        Without measured station footprints, use the highest known approach Z
+        everywhere. A partial descent or another station is never guessed safe.
+        """
+        heights=[target_approach['z']]
+        poses=self.calibration.get('pickup_poses',{})
+        if not isinstance(poses,dict):raise TrialError('Pickup station configuration is invalid')
+        for ball_id in poses:
+            _,approach=self._pickup_poses(ball_id)
+            heights.append(approach['z'])
+        return max(heights)
 
     def _stationary(self, state):
         if any(state['arms'][n]['is_moving'] for n in ('arm', 'arm-board')):
@@ -273,9 +332,13 @@ class Controller:
         if self.fault or self.stopping or self._closed:blockers.append('Verified Stop/recovery required before release')
         if not self.connected or time.monotonic() - self.snapshot_time > FRESH_SECONDS:
             blockers.append('Fresh robot readback required')
-        if self.trial and self.trial.get('behavior') == 'fixed_pose_cycle':
-            if self.fixed_cycle_missing() or not self.trial.get('fixed_setup_confirmed'):
+        if self.trial and self.trial.get('behavior') in FIXED_CYCLE_BEHAVIORS:
+            missing = (self.pickup_station_missing() if self.trial['behavior'] == 'pickup_station_cycle'
+                       else self.fixed_cycle_missing())
+            if missing or not self.trial.get('fixed_setup_confirmed'):
                 blockers.append('Taught poses and fixed setup confirmation required')
+            if self.trial['behavior'] == 'pickup_station_cycle' and not self.trial.get('pickup_setup_confirmed'):
+                blockers.append('Pickup station clearance confirmation required')
         elif self.calibration_missing():
             blockers.append('Calibration incomplete')
         if not self.gripper_closed:
@@ -301,7 +364,10 @@ class Controller:
             and type(stamp) in (int,float) and math.isfinite(stamp) and 0<=time.monotonic()-stamp<=FRESH_SECONDS)
 
     def fixed_cycle_blockers(self):
-        blockers=self.fixed_cycle_missing()
+        return self.fixed_cycle_missing() + self._cycle_state_blockers()
+
+    def _cycle_state_blockers(self):
+        blockers=[]
         if self._closed:blockers.append('Controller is closed')
         if self.stopping or (self.task and not self.task.done()):blockers.append('An action or Stop is pending')
         if self._unsaved():blockers.append('Keep or label the completed trial before another cycle')
@@ -328,10 +394,19 @@ class Controller:
                 allowed += ['teach_loading', 'teach_drop', 'configure', 'configure_poses']
                 if not any(a['is_moving'] for a in self.robot['arms'].values()):
                     allowed += ['open_gripper', 'close_gripper']
+                    if self.selected_ball_id is not None:allowed += ['teach_pickup']
+                    if not self.pickup_station_missing():
+                        try:
+                            self._board_fixed(self.robot)
+                            allowed += ['go_pickup_approach','pickup_drop_cycle']
+                        except TrialError:pass
                     if not self.fixed_cycle_missing():
                         try:
                             self._board_fixed(self.robot)
                             allowed += ['load_drop_cycle']
+                            if self.calibration.get('frame') == 'world':
+                                self._approach_pose(self.calibration['loading_pose'])
+                                allowed += ['go_loading_approach']
                         except TrialError:
                             pass
                     if not self.calibration_missing():
@@ -343,6 +418,13 @@ class Controller:
                         except TrialError:
                             pass
         if self._closed:allowed=[]
+        grasp = approach = loading_approach = None
+        try:grasp,approach=self._pickup_poses()
+        except (TrialError,TypeError,AttributeError):pass
+        try:
+            if self.calibration.get('frame') == 'world':
+                loading_approach=self._approach_pose(self.calibration.get('loading_pose'))
+        except (TrialError,TypeError):pass
         return copy.deepcopy({'action_epoch':self.action_epoch,'journal_error':self.journal_error,
             'fixed_cycle_blockers':self.fixed_cycle_blockers(),'mode': self.mode, 'machine': 'sfhack10', 'connected': fresh,
             'phase': self.phase, 'busy': busy, 'allowed_actions': allowed, 'robot': self.robot,
@@ -350,6 +432,10 @@ class Controller:
             'recording': self.recording, 'trial': self.trial, 'error': self.error,
             'fault': self.fault,
             'fixed_cycle_missing': self.fixed_cycle_missing(),
+            'pickup_station_missing':self.pickup_station_missing(),
+            'pickup_station_blockers':self.pickup_station_blockers(),
+            'pickup_approach_offset_mm':PICKUP_APPROACH_OFFSET_MM,
+            'pickup_grasp_pose':grasp,'pickup_approach_pose':approach,'loading_approach_pose':loading_approach,
             'loading_seconds_remaining': max(0, math.ceil(self.loading_deadline - time.monotonic())) if self.loading_deadline else None,
             'blockers': self._drop_blockers() if self.phase == 'ready' else [],
             'capabilities': self.capabilities, 'selected_ball_id':self.selected_ball_id, 'gripper_closed_commanded': self.gripper_closed,
@@ -376,6 +462,11 @@ class Controller:
         if name == 'set_ball':
             from sircus.audio.show import BALL_IDS
             if payload.get('ball_id') not in BALL_IDS:raise TrialError('Choose one of the four configured ball slots')
+        if name in ('teach_pickup','go_pickup_approach','pickup_drop_cycle'):
+            if payload.get('ball_id') != self.selected_ball_id or self.selected_ball_id is None:
+                raise TrialError('Pickup ball identity changed; select the ball and confirm again')
+        if name in ('go_pickup_approach','go_loading_approach','pickup_drop_cycle') and payload.get('pickup_setup_confirmed') is not True:
+            raise TrialError('Confirm the pickup station and clear 100mm approach, vertical corridor, and neighboring balls')
         if name == 'configure_poses':
             if payload.get('confirmed') is not True:raise TrialError('Confirm these operator-configured TCP targets and the fixed clear route')
             for field in ('loading_pose','drop_pose'):
@@ -387,6 +478,8 @@ class Controller:
             self._height(payload.get('height_mm'))
         if name == 'load_drop_cycle' and payload.get('fixed_setup_confirmed') is not True:
             raise TrialError('Confirm fixed board/bucket, clear route and two-second automatic close')
+        if name == 'pickup_drop_cycle' and payload.get('fixed_setup_confirmed') is not True:
+            raise TrialError('Confirm the fixed board/bucket and clear transfer/drop route')
         if name in ('save_trial', 'keep_unlabeled'):
             if payload.get('trial_id') != self.trial['id']:
                 raise TrialError('Outcome trial ID does not match the completed trial')
@@ -447,6 +540,7 @@ class Controller:
             return
         kinds = {('close_gripper', 'command_sent'): 'pickup',
                  ('load_drop_cycle', 'move_drop_sent'): 'carry_start',
+                 ('pickup_drop_cycle', 'move_drop_sent'): 'carry_start',
                  ('drop', 'pre_release'): 'carry_stop',
                  ('go_drop', 'requested'): 'carry_start',
                  ('drop', 'command_sent'): 'release'}
@@ -546,7 +640,7 @@ class Controller:
         return result
 
     async def _release_current(self, still_current):
-        settled = await self._settle(self.trial['target_pose'], stable_seconds=DROP_SETTLE_SECONDS if self.trial.get('behavior') == 'fixed_pose_cycle' else None)
+        settled = await self._settle(self.trial['target_pose'], stable_seconds=DROP_SETTLE_SECONDS if self.trial.get('behavior') in FIXED_CYCLE_BEHAVIORS else None)
         still_current()
         self.trial['settled_pose'] = settled['arms']['arm']['pose']
         self.recording = await self.adapter.recording_status()
@@ -594,6 +688,28 @@ class Controller:
             if name == 'set_ball':
                 self.selected_ball_id = p['ball_id']
                 self.phase = 'idle' if self.connected else 'disconnected'
+            elif name == 'teach_pickup':
+                state = await self._settle(board_guard=False)
+                still_current()
+                arm=state['arms']['arm']
+                if arm.get('pose_frame') != 'world' or arm.get('pose_component') != 'arm':
+                    raise TrialError('Pickup teaching requires verified world-frame arm readback')
+                pose = copy.deepcopy(arm['pose'])
+                self._approach_pose(pose)
+                c = copy.deepcopy(self.calibration)
+                poses = c.setdefault('pickup_poses', {})
+                provenance = c.setdefault('pickup_pose_provenance', {})
+                if not isinstance(poses,dict) or not isinstance(provenance,dict):
+                    raise TrialError('Pickup station configuration is invalid')
+                poses[p['ball_id']] = pose
+                provenance[p['ball_id']] = {'frame':'world','pose_component':'arm','taught_at':utc(),
+                    'pose_reference':'arm flange as reported by motion.get_pose; not ball center',
+                    'approach_offset_mm':PICKUP_APPROACH_OFFSET_MM,
+                    'source':'stationary operator teaching; pickup corridor not physically verified'}
+                still_current()
+                write_json(self.config_path,c)
+                self.calibration=c
+                self.phase='idle'
             elif name == 'configure_poses':
                 state = await self._snapshot()
                 self._stationary(state);still_current()
@@ -643,6 +759,18 @@ class Controller:
                 self.phase = 'idle'
             elif name == 'load_drop_cycle':
                 await self._fixed_cycle(still_current, practice=p.get('practice_mode') is True)
+            elif name == 'pickup_drop_cycle':
+                await self._pickup_cycle(still_current, p['ball_id'], practice=p.get('practice_mode') is True)
+            elif name in ('go_pickup_approach','go_loading_approach'):
+                if name == 'go_pickup_approach':
+                    grasp, target = self._pickup_poses(p['ball_id'])
+                else:
+                    if self.calibration.get('frame') != 'world':
+                        raise TrialError('Loading approach requires an explicit world-frame pose')
+                    grasp=copy.deepcopy(self.calibration['loading_pose'])
+                    target = self._approach_pose(grasp)
+                await self._move_to_pickup_approach(grasp,target,still_current,name)
+                self.phase='idle'
             elif name == 'go_loading':
                 state = await self._snapshot()
                 self._stationary(state)
@@ -713,7 +841,8 @@ class Controller:
                 return
             self._audio_cancel()
             self.error = str(exc) if isinstance(exc, TrialError) else f'{name} failed ({type(exc).__name__}); check hardware/connection'
-            if name in ('go_loading','go_drop','drop','load_drop_cycle','open_gripper','close_gripper'):
+            if name in ('go_loading','go_drop','drop','load_drop_cycle','open_gripper','close_gripper',
+                        'go_pickup_approach','go_loading_approach','pickup_drop_cycle'):
                 try:await self._stop_and_verify()
                 except Exception:
                     self.error += '; dropper stop not confirmed';self.fault=True
@@ -793,22 +922,174 @@ class Controller:
                 raise TrialError('Gripper did not report a held ball; cycle aborted')
         finally:
             self.loading_deadline = None
+        await self._transfer_fixed_drop(config,still_current,'load_drop_cycle',practice)
+
+    async def _transfer_fixed_drop(self,config,still_current,command,practice):
+        """Shared saved drop, two-second settle, release and recording behavior."""
+        if command=='pickup_drop_cycle':
+            approach=copy.deepcopy(self.trial['pickup_approach_pose'])
+            transit={**approach,'z':self._pickup_clearance_z(approach)}
+            if transit['z']>approach['z']:
+                self.phase='pickup_clearance_lifting'
+                await self._pickup_linear_move(transit,approach,still_current,'clearance_lift')
+            self.recording=await self.adapter.recording_status()
+            still_current()
+            if not self._recording_fresh(self.recording):
+                raise TrialError('Fresh recording required before station transfer to drop')
         state = await self._snapshot()
         still_current()
         self._stationary(state)
         self._board_fixed(state)
+        if command=='pickup_drop_cycle' and not self._recording_fresh(self.recording):
+            raise TrialError('Recording became stale before station transfer to drop')
+        if not self.gripper_closed:
+            raise TrialError('Held-ball acknowledgment is unavailable; transfer blocked')
         self.phase = 'cycle_to_drop'
         self.trial['status'] = 'positioning'
-        self._event('load_drop_cycle', 'move_drop_sent')
+        self._event(command, 'move_drop_sent')
         await self.adapter.move_pose(config['drop_pose'])
         still_current()
-        self._event('load_drop_cycle', 'move_drop_returned')
+        self._event(command, 'move_drop_returned')
         self.trial['status'] = 'ready'
         self.phase = 'cycle_release_checks'
         await self._release_current(still_current)
         still_current()
         if practice:
             self._keep_unlabeled()
+
+    async def _move_to_pickup_approach(self,grasp,approach,still_current,command):
+        state=await self._snapshot()
+        still_current()
+        self._stationary(state);self._board_fixed(state)
+        actual=state['arms']['arm']['pose']
+        if pose_matches(actual,approach):
+            self._event(command,'approach_already_reached',target_pose=approach)
+        elif pose_matches(actual,grasp):
+            # Teaching and a failed grasp can leave the tool among neighboring
+            # balls. Retreat vertically before any generic transfer or opening.
+            if not callable(getattr(self.adapter,'move_pose_linear',None)):
+                raise TrialError('Constrained vertical retreat is unavailable')
+            self._event(command,'approach_vertical_retreat_sent',expected_start=grasp,target_pose=approach)
+            result=await self.adapter.move_pose_linear(approach,grasp,
+                line_tolerance_mm=POSE_TOLERANCE_MM,orientation_tolerance_deg=ORIENTATION_TOLERANCE_DEG)
+            still_current()
+            self._event(command,'approach_vertical_retreat_returned',
+                        requested_constraint_result=result if isinstance(result,dict) else None,
+                        physical_path_verified=False)
+        else:
+            clearance_z=self._pickup_clearance_z(approach)
+            if actual['z'] < clearance_z:
+                raise TrialError('Dropper is below pickup transfer clearance; manually retreat to a clear approach before changing station')
+            transit={**approach,'z':clearance_z}
+            staged=transit['z']>approach['z']
+            if staged and not callable(getattr(self.adapter,'move_pose_linear',None)):
+                raise TrialError('Constrained vertical station entry is unavailable')
+            if not pose_matches(actual,transit):
+                self._event(command,'move_approach_sent',target_pose=transit,approach_offset_mm=PICKUP_APPROACH_OFFSET_MM,
+                            endpoint_clearance_only=True,physical_path_verified=False)
+                await self.adapter.move_pose(transit)
+                still_current()
+            if staged:
+                await self._settle(transit)
+                still_current()
+                state=await self._snapshot()
+                still_current()
+                self._stationary(state);self._board_fixed(state)
+                if not pose_matches(state['arms']['arm']['pose'],transit):
+                    raise TrialError('Station transit pose changed before constrained entry')
+                self._event(command,'approach_vertical_entry_sent',expected_start=transit,target_pose=approach)
+                result=await self.adapter.move_pose_linear(approach,transit,
+                    line_tolerance_mm=POSE_TOLERANCE_MM,orientation_tolerance_deg=ORIENTATION_TOLERANCE_DEG)
+                still_current()
+                self._event(command,'approach_vertical_entry_returned',
+                            requested_constraint_result=result if isinstance(result,dict) else None,
+                            physical_path_verified=False)
+        await self._settle(approach)
+        still_current()
+
+    async def _pickup_linear_move(self,target,expected_start,still_current,stage):
+        self.recording=await self.adapter.recording_status()
+        still_current()
+        if not self._recording_fresh(self.recording):
+            raise TrialError('Fresh recording required before pickup descent or lift')
+        state=await self._snapshot()
+        still_current()
+        self._stationary(state);self._board_fixed(state)
+        if not pose_matches(state['arms']['arm']['pose'],expected_start):
+            raise TrialError('Pickup vertical move no longer starts at the intended pose')
+        if not self._recording_fresh(self.recording):
+            raise TrialError('Recording became stale before pickup vertical motion')
+        if stage in ('vertical_lift','clearance_lift') and not self.gripper_closed:
+            raise TrialError('Held-ball acknowledgment is unavailable; pickup lift blocked')
+        self._event('pickup_drop_cycle',stage+'_sent',expected_start=expected_start,target_pose=target)
+        result=await self.adapter.move_pose_linear(target,expected_start,
+            line_tolerance_mm=POSE_TOLERANCE_MM,orientation_tolerance_deg=ORIENTATION_TOLERANCE_DEG)
+        still_current()
+        self._event('pickup_drop_cycle',stage+'_returned',
+                    requested_constraint_result=result if isinstance(result,dict) else None,
+                    physical_path_verified=False)
+        await self._settle(target)
+        still_current()
+
+    async def _pickup_cycle(self,still_current,ball_id,practice=False):
+        if self.pickup_station_missing():raise TrialError('; '.join(self.pickup_station_missing()))
+        grasp,approach=self._pickup_poses(ball_id)
+        config=copy.deepcopy(self.calibration)
+        state=await self._snapshot()
+        self._stationary(state);self._board_fixed(state);still_current()
+        trial_id=datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')+'-'+uuid.uuid4().hex[:8]
+        self._audio_cancel(replacement=True)
+        self.trial={'schema':'sircus-physical-trial-v1','id':trial_id,'machine':'sfhack10',
+            'mode':self.mode,'behavior':'pickup_station_cycle','status':'positioning',
+            'created_at':utc(),'saved':False,'ball_id':ball_id,
+            'requested_height_mm':None,'height_mm':None,
+            'height_status':'unknown; exact taught flange drop pose, no height adjustment',
+            'target_pose':config['drop_pose'],'pickup_pose':grasp,'pickup_approach_pose':approach,
+            'pickup_approach_offset_mm':PICKUP_APPROACH_OFFSET_MM,
+            'pickup_setup_confirmed':True,'fixed_setup_confirmed':True,
+            'drop_settle_seconds':DROP_SETTLE_SECONDS,'post_release_seconds':POST_RELEASE_SECONDS,
+            'practice_mode':practice,'calibration':config,'calibration_sha256':hashlib.sha256(
+                json.dumps(config,sort_keys=True).encode()).hexdigest(),'events':[],
+            'synchronization_limits':[
+                'Independent camera/state RPCs; not hardware synchronized.',
+                'World-Z pickup corridor is constrained in the requested plan; physical path not independently measured.',
+                'Station identity and neighboring-ball clearance are operator-confirmed, not visually localized.',
+                'Gripper held-object acknowledgment is not visual ball-identity verification.',
+                'Release pose brackets gripper command, not observed ball separation.',
+                'Board constancy is joint readback; bucket placement is operator-confirmed.']}
+        self._persist()
+        self.phase='pickup_to_approach'
+        await self._move_to_pickup_approach(grasp,approach,still_current,'pickup_drop_cycle')
+        await self._prepare_recording(still_current)
+        still_current()
+        self.trial['status']='positioning'
+        self.phase='pickup_opening'
+        if self.gripper_command_state == 'open':
+            self._event('open_gripper','pickup_open_skipped',reason='Last panel command acknowledged open')
+        else:
+            self._event('open_gripper','pickup_open_sent')
+            await self._command_gripper(True,still_current)
+        self.phase='pickup_descending'
+        await self._pickup_linear_move(grasp,approach,still_current,'vertical_descent')
+        self.recording=await self.adapter.recording_status()
+        still_current()
+        if not self._recording_fresh(self.recording):
+            raise TrialError('Fresh recording required before station grip')
+        state=await self._snapshot()
+        self._stationary(state);self._board_fixed(state);still_current()
+        if not pose_matches(state['arms']['arm']['pose'],grasp):
+            raise TrialError('Pickup grasp pose changed before closing')
+        if not self._recording_fresh(self.recording):
+            raise TrialError('Recording became stale before station grip')
+        self.phase='pickup_closing'
+        self._event('close_gripper','command_sent')
+        await self._command_gripper(False,still_current)
+        self._event('close_gripper','command_returned',grabbed=self.gripper_closed)
+        if not self.gripper_closed:
+            raise TrialError('Gripper did not report a held ball; pickup lift and transfer blocked')
+        self.phase='pickup_lifting'
+        await self._pickup_linear_move(approach,grasp,still_current,'vertical_lift')
+        await self._transfer_fixed_drop(config,still_current,'pickup_drop_cycle',practice)
 
     async def _stop(self):
         if self.stopping:return

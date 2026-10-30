@@ -4,6 +4,9 @@ const MODES=['deterministic','trained','simulator','mock'];
 const NUMERICAL_MODES=['simulator','trained','mock'];
 const SOUNDS=['unknown','carry'];
 const BALL_IDS=['ball-pink','ball-purple','ball-green','ball-gray'];
+const PICKUP_ACTIONS=['teach_pickup','go_pickup_approach','pickup_drop_cycle','go_loading_approach'];
+const POSE_KEYS=['x','y','z','o_x','o_y','o_z','theta'];
+const validPose=pose=>Boolean(pose&&POSE_KEYS.every(key=>Number.isFinite(pose[key])));
 const copy=value=>JSON.parse(JSON.stringify(value));
 export function workspaceURL(value,mode){
   if(!NUMERICAL_MODES.includes(mode))throw Error('Unknown numerical mode');
@@ -22,6 +25,11 @@ function el(document,tag,text,className){const node=document.createElement(tag);
 export class ShowPanel{
   constructor({document,fetchImpl=(...args)=>globalThis.fetch(...args),physical=null,getAudioState=()=>null}){
     this.document=document;this.fetch=fetchImpl;this.physical=physical;this.getAudioState=getAudioState;this.numericalTrial=null;this.state=null;this.mode='simulator';this.hardwareViewSelected=false;this.selectedBall=null;this.token=null;this.pending=false;this.epoch=0;this.polling=false;this.workspaceActivity=new Map();this.dirty=false;this.editors=new Map();this.editorKey=null;this.$=id=>document.getElementById(id);
+    this.manualLoadMode='hand';this.pickupSignature=null;this.pickupPending=false;
+    this.$('manualHandLoad')?.addEventListener('click',()=>this.selectLoadMode('hand'));
+    this.$('manualTapedPickup')?.addEventListener('click',()=>this.selectLoadMode('pickup'));
+    for(const id of ['pickupSetupConfirm','pickupFixedConfirm'])this.$(id)?.addEventListener('change',()=>this.render());
+    for(const [id,action]of [['pickupTeach','teach_pickup'],['pickupApproach','go_pickup_approach'],['pickupCycle','pickup_drop_cycle'],['pickupLoadingApproach','go_loading_approach']])this.$(id)?.addEventListener('click',()=>void this.pickupCommand(action));
     for(const mode of MODES)this.$('mode'+mode[0].toUpperCase()+mode.slice(1)).addEventListener('click',()=>this.selectMode(mode));
     this.$('editBallBindings').addEventListener('click',()=>{const hidden=!this.$('ballSettings').hidden;this.$('ballSettings').hidden=hidden;this.$('editBallBindings').setAttribute('aria-expanded',String(!hidden));});
     this.$('saveBallSettings').addEventListener('click',()=>void this.saveConfig());
@@ -30,7 +38,7 @@ export class ShowPanel{
     this.render();
   }
   message(text,error=false){this.$('showMessage').textContent=text;this.$('showMessage').classList.toggle('error',error);}
-  physicalStatus(value){this.physicalState=value;if(this.mode==='deterministic'&&value&&Object.hasOwn(value,'selected_ball_id'))this.selectedBall=value.selected_ball_id;this.render();}
+  physicalStatus(value){this.physicalState=value;if(this.mode==='deterministic'&&value&&Object.hasOwn(value,'selected_ball_id'))this.selectedBall=value.selected_ball_id;const c=value?.calibration||{},signature=JSON.stringify([value?.selected_ball_id,c.pickup_poses?.[value?.selected_ball_id],c.loading_pose,c.drop_pose,c.board_joints,c.board_pose,c.setup_revision,value?.action_token,value?.action_epoch]);if((this.pickupSignature!==null&&signature!==this.pickupSignature)||!value?.connected||value?.fault||value?.error||value?.busy)this.resetPickupConfirmation();this.pickupSignature=signature;this.render();}
   async request(path,body){const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),5000);try{const response=await this.fetch(path,{cache:'no-store',signal:controller.signal,...(body?{method:'POST',headers:{'Content-Type':'application/json','X-Sircus-Show-Token':this.token||''},body:JSON.stringify(body)}:{})});const value=await response.json();if(!response.ok||value.error)throw Error(value.error||'Show desk request unavailable');return value;}finally{clearTimeout(timer);}}
   accept(value){if(!value||typeof value!=='object'||!value.modes)throw Error('Show desk is not enabled on this server.');this.state=value;this.token=value.action_token||this.token;if(value.modes.deterministic?.mode==='hardware'&&!this.hardwareViewSelected){this.hardwareViewSelected=true;this.mode='deterministic';this.selectedBall=this.physicalState?.selected_ball_id||null;this.physical?.selectView(true);}const config=value.audio_show?.config;if(config){if(config.schema!=='sircus.show-audio.v1'||!Array.isArray(config.balls)||config.balls.length!==4||new Set(config.balls.map(row=>row.ball_id)).size!==4||config.balls.some(row=>!BALL_IDS.includes(row.ball_id)))throw Error('Four-ball configuration is unavailable.');if(!this.selectedBall&&this.mode!=='deterministic')this.selectedBall=config.balls[0].ball_id;const key=JSON.stringify(config);if(key!==this.editorKey&&!this.dirty){this.buildEditors(config,value.audio_show.catalog||[]);this.editorKey=key;}}
     this.render();
@@ -56,6 +64,57 @@ export class ShowPanel{
     this.$('selectedBallStatus').textContent=this.mode==='deterministic'&&!this.physicalState?.selected_ball_id?'No physical ball identity selected. Choose a color to associate measured impacts.':'Operator selection · color is a label, not a camera detection.';
     this.$('ballChoices').replaceChildren(...balls.map(row=>{const button=el(this.document,'button');button.type='button';button.disabled=busy;button.classList.toggle('selected',row.ball_id===this.selectedBall);button.setAttribute('aria-pressed',String(row.ball_id===this.selectedBall));const sphere=el(this.document,'i',undefined,'ball-sphere');sphere.style.background=row.color;button.append(sphere,el(this.document,'span',row.label));button.addEventListener('click',()=>void this.selectBall(row.ball_id));return button;}));
     this.$('saveBallSettings').disabled=!this.token||!this.dirty||busy;this.$('bindingStatus').textContent=this.dirty?'Unsaved identity/sound edits.':this.state?.audio_show?.capabilities?.multi_input===false?'Saved. Multiple physical input endpoints still need commissioning.':'Bindings are operator-supplied. Unbound identities are not automatically recognized.';
+    this.renderPickupStation(balls);
+  }
+  resetPickupConfirmation(){for(const id of ['pickupSetupConfirm','pickupFixedConfirm'])if(this.$(id))this.$(id).checked=false;}
+  selectLoadMode(mode){
+    if(!['hand','pickup'].includes(mode)||this.pickupPending||this.pending||this.physical?.busy||this.physicalState?.busy)return false;
+    if(this.manualLoadMode!==mode){this.manualLoadMode=mode;this.resetPickupConfirmation();if(this.$('physicalCycleConfirm'))this.$('physicalCycleConfirm').checked=false;}
+    this.render();return true;
+  }
+  pickupAllowed(action){
+    if(!PICKUP_ACTIONS.includes(action)||this.mode!=='deterministic'||this.manualLoadMode!=='pickup'||this.pending||this.pickupPending||this.physical?.busy||this.physicalState?.busy||!this.physicalState?.connected||this.physicalState?.fault||this.physicalState?.error||!this.physical?.allowed(action))return false;
+    if(action!=='teach_pickup'&&this.physical?.hasUnsavedPoseEdits)return false;
+    if(!BALL_IDS.includes(this.selectedBall)||this.physicalState.selected_ball_id!==this.selectedBall)return false;
+    if(action==='teach_pickup')return true;
+    if(!this.$('pickupSetupConfirm')?.checked)return false;
+    if(action==='go_loading_approach')return validPose(this.physicalState.loading_approach_pose);
+    if(!validPose(this.physicalState.pickup_grasp_pose)||!validPose(this.physicalState.pickup_approach_pose)||this.physicalState.pickup_approach_offset_mm!==100)return false;
+    return action!=='pickup_drop_cycle'||this.$('pickupFixedConfirm')?.checked===true;
+  }
+  renderPickupStation(balls){
+    const panel=this.$('pickupStationPanel');if(!panel)return;
+    const busy=this.pending||this.pickupPending||this.physical?.busy||this.physicalState?.busy,pickup=this.manualLoadMode==='pickup';
+    panel.hidden=!pickup;this.$('handLoadCycle').hidden=pickup;this.$('handLoadControls').hidden=pickup;
+    for(const [id,selected]of [['manualHandLoad',!pickup],['manualTapedPickup',pickup]]){this.$(id).disabled=Boolean(busy);this.$(id).setAttribute('aria-pressed',String(selected));}
+    const s=this.physicalState,ball=balls.find(row=>row.ball_id===s?.selected_ball_id),grasp=s?.pickup_grasp_pose,approach=s?.pickup_approach_pose;
+    this.$('pickupSelectedBall').textContent=ball?`${ball.label} · operator-selected identity. Each color has its own taught pickup pose.`:'Choose a physical ball color first.';
+    this.$('pickupPose').textContent=validPose(grasp)?'Saved arm 10 flange pose in world\n'+JSON.stringify(grasp,null,2):'Pickup pose not taught for this color.';
+    this.$('pickupApproachPose').textContent=validPose(approach)?'Approach flange pose in world · +100 mm Z\n'+JSON.stringify(approach,null,2):'Approach pose unavailable until pickup is taught.';
+    const locked=Boolean(busy)||!s?.connected||Boolean(s?.fault||s?.error)||!ball||this.physical?.hasUnsavedPoseEdits;
+    this.$('pickupSetupConfirm').disabled=locked;this.$('pickupFixedConfirm').disabled=locked;this.$('pickupPractice').disabled=Boolean(busy);
+    for(const [id,action]of [['pickupTeach','teach_pickup'],['pickupApproach','go_pickup_approach'],['pickupCycle','pickup_drop_cycle'],['pickupLoadingApproach','go_loading_approach']])this.$(id).disabled=!this.pickupAllowed(action);
+    const blockers=s?.pickup_station_blockers||s?.pickup_station_missing||[];
+    let message='Choose a color, teach its pickup pose, then verify pad and route clearance.';
+    if(!s?.connected)message='Fresh robot state is required. No pickup command is sent automatically.';
+    else if(s?.fault||s?.error)message='Pickup blocked: '+(s.error||'controller fault; verify Stop and robot state');
+    else if(busy){const steps={pickup_to_approach:'Moving to the pickup approach.',pickup_opening:'Opening above the pad.',pickup_descending:'Descending vertically to the taught pickup pose.',pickup_closing:'Closing and checking whether a ball is held.',pickup_lifting:'Lifting the held ball vertically by 100 mm.',pickup_clearance_lifting:'Raising vertically above the higher pickup stations before transfer.',cycle_to_drop:'Carrying to the unchanged saved drop pose.',cycle_release_checks:'Settling for 2 seconds and checking recording.',post_release_recording:'Release returned; finishing trial recording.',go_pickup_approach:'Moving above the selected pickup pad; gripper unchanged.',go_loading_approach:'Moving above the old loading target; gripper unchanged.',stopping:'Stopping arm 10 and waiting for stationary state.'};message=(steps[s?.phase]||'Request submitted; waiting for controller state.')+' Stop arm 10 remains available.';}
+    else if(this.physical?.hasUnsavedPoseEdits)message='Save or discard unsaved loading/drop target edits before moving.';
+    else if(blockers.length)message='Pickup blocked: '+blockers.join(' · ');
+    else if(!validPose(grasp))message='Teach the selected ball’s pickup pose. Teaching reads only; it does not move the arm.';
+    else if(this.pickupAllowed('pickup_drop_cycle'))message='Ready for one pickup-and-drop routine. The saved drop pose is unchanged.';
+    else message='Confirm pad, neighboring-ball/jaw clearance, fixed board/bucket and route before this attempt.';
+    this.$('pickupStatus').textContent=message;this.$('pickupStatus').classList.toggle('ready',this.pickupAllowed('pickup_drop_cycle'));
+  }
+  async pickupCommand(action){
+    if(!this.pickupAllowed(action))return false;
+    const payload=action==='go_loading_approach'?{}:{ball_id:this.selectedBall};
+    if(action!=='teach_pickup')payload.pickup_setup_confirmed=this.$('pickupSetupConfirm').checked;
+    if(action==='pickup_drop_cycle'){payload.fixed_setup_confirmed=this.$('pickupFixedConfirm').checked;payload.practice_mode=this.$('pickupPractice').checked;}
+    this.pickupPending=true;this.resetPickupConfirmation();this.render();
+    try{return await this.physical.command(action,payload);}
+    catch(error){this.message(error.message||'Pickup request failed; check robot state. No retry was issued.',true);return false;}
+    finally{this.pickupPending=false;this.render();}
   }
   renderHardwarePreparation(physicalMode,balls,audio){
     const panel=this.$('hardwarePreparation');if(!panel)return;panel.hidden=physicalMode!=='hardware';
@@ -72,7 +131,7 @@ export class ShowPanel{
     if(!this.token||!this.state?.audio_show?.config||this.pending||this.dirty||this.physical?.busy||this.physicalState?.busy||this.getAudioState()?.configured!==true)return false;
     return this.action({action:'configure_audio',config:copy(this.state.audio_show.config)});
   }
-  async selectBall(ballId){if(this.pending||this.physical?.busy||this.physicalState?.busy)return false;if(!this.state?.audio_show?.config?.balls.some(row=>row.ball_id===ballId))return false;if(this.mode==='deterministic'){if(!this.physical?.allowed('set_ball')){this.message('Ball selection is locked until the deterministic backend is idle and ready.',true);return false;}const ok=await this.physical.command('set_ball',{ball_id:ballId});if(!ok)return false;}this.selectedBall=ballId;this.render();return true;}
+  async selectBall(ballId){if(this.pending||this.pickupPending||this.physical?.busy||this.physicalState?.busy)return false;if(!this.state?.audio_show?.config?.balls.some(row=>row.ball_id===ballId))return false;if(this.mode==='deterministic'){if(!this.physical?.allowed('set_ball')){this.message('Ball selection is locked until the deterministic backend is idle and ready.',true);return false;}this.resetPickupConfirmation();const ok=await this.physical.command('set_ball',{ball_id:ballId});if(!ok)return false;}this.selectedBall=ballId;this.render();return true;}
   async action(payload){if(!this.token||(this.pending&&payload.action!=='stop_audio_replay'))return false;const epoch=++this.epoch;this.pending=true;this.render();try{const value=await this.request('/api/show/action',payload);if(epoch!==this.epoch)return false;if(value.modes)this.accept(value);else if(value.status?.modes)this.accept(value.status);if(payload.action==='replay_simulation'&&this.state?.audio_show?.error)throw Error(this.state.audio_show.error);this.message(payload.action==='configure_audio'?'Ball identities and sound assignments saved.':payload.action==='stop_audio_replay'?'Audio replay stopped. Robot controls are unaffected.':'Synthetic audio replay requested; it does not move an arm or synchronize the viewer.');return true;}catch(error){if(epoch===this.epoch)this.message(error.message,true);return false;}finally{if(epoch===this.epoch){this.pending=false;this.render();}}}
   replayAudio(){if(this.mode==='deterministic'||!this.available('simulator')||this.state?.modes?.deterministic?.mode==='hardware'||this.numericalTrial?.mode!=='simulation_only'||this.numericalTrial?.hardware_enabled!==false||this.numericalTrial?.phase!=='complete'||this.getAudioState()?.enabled!==true||this.getAudioState()?.show_audio_capable!==true)return false;return this.action({action:'replay_simulation',trial_id:this.numericalTrial.trial_id,ball_id:this.selectedBall});}
   buildEditors(config,catalog){this.editors.clear();this.$('ballEditors').replaceChildren(...config.balls.map(row=>{

@@ -23,6 +23,87 @@ ADDRESS = "sfhack10-main.ty1cywh7tq.viam.cloud"
 MACHINE_ID = "3103375b-9bab-4222-825d-b3fb9b2897fa"
 PART_ID = "29154d15-3b8c-4097-a3c6-2bc9d04a6e12"
 POSE_FIELDS = ("x", "y", "z", "o_x", "o_y", "o_z", "theta")
+LINEAR_START_FRESH_SECONDS = 3.0
+
+
+def _linear_orientation_distance(a, b):
+    """Conservative Viam direction-plus-roll comparison, not axis-angle."""
+    axes = []
+    for pose in (a, b):
+        axis = [pose[k] for k in ('o_x', 'o_y', 'o_z')]
+        norm = math.hypot(*axis)
+        if not math.isfinite(norm) or norm < 1e-8:
+            raise ValueError('Linear move requires a valid orientation vector')
+        axes.append([v / norm for v in axis])
+    direction = math.degrees(math.acos(max(-1., min(1., sum(x*y for x, y in zip(*axes))))))
+    roll = abs((a['theta'] - b['theta'] + 180) % 360 - 180)
+    difference = direction + roll
+    if not math.isfinite(difference):
+        raise ValueError('Linear move requires a finite orientation difference')
+    return difference
+
+
+def linear_move_parameters(pose, expected_start, line_tolerance_mm=2.0, orientation_tolerance_deg=1.0):
+    """Pure validation shared with the mock; requested bounds are not clearance proof."""
+    for target in (pose, expected_start):
+        if (not isinstance(target, dict) or set(target) != set(POSE_FIELDS) or
+                any(type(target[k]) not in (int, float) or not math.isfinite(target[k]) for k in POSE_FIELDS)):
+            raise ValueError('Linear move requires complete finite world-frame arm poses')
+    for value in (line_tolerance_mm, orientation_tolerance_deg):
+        if type(value) not in (int, float) or not math.isfinite(value) or value <= 0:
+            raise ValueError('Linear motion bounds must be positive finite numbers')
+    # The station path must remain vertical with a fixed full orientation. The
+    # tolerances below only accommodate numeric representation, not a slant.
+    if (math.hypot(pose['x'] - expected_start['x'], pose['y'] - expected_start['y']) > 1e-6
+            or _linear_orientation_distance(pose, expected_start) > 1e-5
+            or abs(pose['z'] - expected_start['z']) < 1e-6):
+        raise ValueError('Linear pickup endpoints must differ only in world Z')
+    # Protobuf stores these as float32; reject values that overflow serialization.
+    if line_tolerance_mm > 3.4e38 or orientation_tolerance_deg > 180:
+        raise ValueError('Linear motion bounds exceed supported numeric limits')
+    return {'pose': dict(pose), 'expected_start': dict(expected_start),
+            'line_tolerance_mm': float(line_tolerance_mm),
+            'orientation_tolerance_deg': float(orientation_tolerance_deg)}
+
+
+def validate_linear_start(state, parameters, elapsed):
+    """Reject stale, moving or mismatched starts before creating an actuator RPC."""
+    if elapsed < 0 or elapsed > LINEAR_START_FRESH_SECONDS:
+        raise RuntimeError('Linear start readback exceeded its freshness bound')
+    try:
+        now = datetime.now(timezone.utc)
+        requested = datetime.fromisoformat(state['request_started_at'])
+        captured = datetime.fromisoformat(state['captured_at'])
+        if (requested.tzinfo is None or captured.tzinfo is None or captured < requested or
+                not 0 <= (now - requested).total_seconds() <= LINEAR_START_FRESH_SECONDS or
+                not 0 <= (now - captured).total_seconds() <= LINEAR_START_FRESH_SECONDS):
+            raise ValueError()
+        arms = state['arms']
+        if any(arms[name]['is_moving'] is not False for name in ('arm', 'arm-board')):
+            raise ValueError()
+        actual = arms['arm']
+        if actual.get('pose_frame') != 'world' or actual.get('pose_component') != 'arm':
+            raise ValueError()
+        measured = actual['pose']
+        if (not isinstance(measured, dict) or set(measured) != set(POSE_FIELDS) or any(type(v) not in (int, float) or
+                not math.isfinite(v) for v in measured.values())):
+            raise ValueError()
+        expected = parameters['expected_start']
+        if (math.dist([measured[k] for k in ('x', 'y', 'z')], [expected[k] for k in ('x', 'y', 'z')])
+                > min(2.0, parameters['line_tolerance_mm']) or
+                _linear_orientation_distance(measured, expected) > min(1.0, parameters['orientation_tolerance_deg'])):
+            raise ValueError()
+    except (KeyError, TypeError, ValueError, OverflowError):
+        raise RuntimeError('Linear move needs fresh stationary world-frame readback at the expected start') from None
+
+
+def linear_move_evidence(parameters):
+    return {'path_constraint': 'LinearConstraint',
+            'line_tolerance_mm': parameters['line_tolerance_mm'],
+            'orientation_tolerance_deg': parameters['orientation_tolerance_deg'],
+            'expected_start': parameters['expected_start'],
+            'physical_path_verified': False,
+            'constraint_provenance': 'Requested planner bounds; not measured tool or neighboring-ball clearance'}
 
 
 def utc():
@@ -175,6 +256,8 @@ class ViamAdapter:
                 "native_capture_available": bool(self.capture_control),
                 "native_capture_verified": False,
                 "local_recording": True,
+                "linear_motion": {"request_api": "Motion.Move Constraints.LinearConstraint",
+                                  "server_acceptance_verified": False, "physical_path_verified": False},
                 "cloud_upload": "Viam DataClient on Save; availability not assumed until upload succeeds",
                 "sequence": "CreateSequence after timestamped image/joint uploads; native capture-control optional",
             }
@@ -266,6 +349,13 @@ class ViamAdapter:
             await asyncio.sleep(0.1)
 
     async def move_pose(self, pose):
+        return await self._move_pose(pose)
+
+    async def move_pose_linear(self, pose, expected_start, line_tolerance_mm=2.0, orientation_tolerance_deg=1.0):
+        parameters = linear_move_parameters(pose, expected_start, line_tolerance_mm, orientation_tolerance_deg)
+        return await self._move_pose(parameters['pose'], linear=parameters)
+
+    async def _move_pose(self, pose, *, linear=None):
         epoch=self._actuation_epoch
         await self.connect();self._actuation_current(epoch)
         if self._move_task and not self._move_task.done():
@@ -274,24 +364,42 @@ class ViamAdapter:
                 any(type(pose[k]) not in (int,float) or not math.isfinite(pose[k]) for k in POSE_FIELDS)):
             raise ValueError("A finite full world-frame arm pose is required")
         from viam.proto.common import Pose, PoseInFrame
+        self._move_task = asyncio.current_task()
+        constraints = None
+        if linear is not None:
+            try:
+                started = time.monotonic()
+                state = await self.snapshot()
+                self._actuation_current(epoch)
+                validate_linear_start(state, linear, time.monotonic() - started)
+                from viam.proto.service.motion import Constraints, LinearConstraint
+                constraints = Constraints(linear_constraint=[LinearConstraint(
+                    line_tolerance_mm=linear['line_tolerance_mm'],
+                    orientation_tolerance_degs=linear['orientation_tolerance_deg'])])
+            except BaseException:
+                self._move_task = None
+                raise
         self._move_token = uuid4().hex
         self._move_active = True
         self._move_operations = set()
-        self._move_task = asyncio.current_task()
         self._move_monitor = asyncio.create_task(self._monitor_operations())
         try:
             async def command():
                 self._actuation_current(epoch)
+                options = {'constraints': constraints} if constraints is not None else {}
                 return await self.motion.move(
                     component_name="arm",destination=PoseInFrame(reference_frame="world",pose=Pose(**pose)),
-                    extra={"sircus_operator_operation":self._move_token},timeout=45)
+                    extra={"sircus_operator_operation":self._move_token},timeout=45, **options)
             ok=await self._rpc(command(),47,actuation=True)
             if not ok:
                 raise RuntimeError("Viam motion service did not complete the planned move")
             self._move_active = False
             self._move_token = None
             self._move_operations.clear()
-            return {"command": "builtin.Move", "component": "arm", "completed_at": utc()}
+            result = {"command": "builtin.Move", "component": "arm", "completed_at": utc()}
+            if linear is not None:
+                result.update(linear_move_evidence(linear), planner_reported_success=True)
+            return result
         except asyncio.CancelledError:
             # The controller concurrently calls stop(). Retain token/operation
             # evidence until that explicit stop cancels the remote operation.
