@@ -1,0 +1,18 @@
+{
+  "checked_at_utc": "2026-10-30T12:28:58.025483+00:00",
+  "checked_models": 12,
+  "data_origin": "synthetic",
+  "max_weight_absolute_difference": 1.887379141862766e-15,
+  "method": "Independent augmented least-squares reconstruction from exact train-only teacher labels, compared with saved normal-equation ridge fits",
+  "native_paths_checked": false,
+  "normalization_tolerance": 1e-12,
+  "physically_verified": false,
+  "raw_label_sha256": {
+    "seed-20261030/training-labels.json": "6d4b24ff1c3ad2a14cfcb44fb71bf4f23ce7e1354e4d6d6589f3588a33eb7b72",
+    "seed-20261031/training-labels.json": "7cb82f79cac708a0da09b8e9af218a1ac54514b0c46b5d0d658a4245b2d65b23",
+    "seed-20261032/training-labels.json": "158605def48b762fa73388001493bcf41665434c67407f31fad57972f5c0c299"
+  },
+  "status": "passed",
+  "training_id_lists": "exact match",
+  "weight_tolerance": 1e-10
+}

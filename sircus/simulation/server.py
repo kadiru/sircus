@@ -36,6 +36,7 @@ STUDY_LOCK = threading.Lock()
 STUDY_MAX_BYTES = 1_000_000
 OPERATIONS = None
 TRAINING_JOBS = None
+STUDY_RESULTS_PATH = ROOT.parent.parent/'baselines/front-bucket-20261030/report.json'
 WORKFLOW_TOKEN = secrets.token_urlsafe(32)
 
 
@@ -221,7 +222,7 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         path = urlsplit(self.path).path
-        if path.startswith(('/api/operations/', '/api/training/')):
+        if path.startswith(('/api/operations/', '/api/training/')) or path in ('/api/study/results', '/api/deployment/status'):
             return self.workflow_get(path)
         if path.startswith('/api/physical/'):
             if not self.physical_host_ok():
@@ -365,6 +366,11 @@ class Handler(BaseHTTPRequestHandler):
             return self.send({'error': 'Start the separate operator simulation with ./start-operator-sim.sh',
                               'hardware_enabled': False}, 503)
         try:
+            if path == '/api/study/results':
+                return self.send(load_study_results(STUDY_RESULTS_PATH))
+            if path == '/api/deployment/status':
+                from sircus.deployment.controller import DeploymentController
+                return self.send(DeploymentController('blocked').status())
             if path == '/api/operations/status':
                 return self.send({**OPERATIONS.status(), 'action_token': WORKFLOW_TOKEN})
             if path == '/api/training/status':
@@ -414,8 +420,24 @@ class Handler(BaseHTTPRequestHandler):
         return self.headers.get('Host','') in (f'127.0.0.1:{port}',f'localhost:{port}')
 
 
+def load_study_results(path):
+    """Read only a completed, explicit synthetic report; never accept browser paths."""
+    path = Path(path)
+    if path.is_symlink() or not path.is_file():
+        raise FileNotFoundError('Completed front-bucket study results are not available yet')
+    if path.stat().st_size > 32_000_000:
+        raise ValueError('Study report exceeds the download limit')
+    value = json.loads(path.read_text(), parse_constant=lambda _: (_ for _ in ()).throw(ValueError('Finite study JSON required')))
+    if (not isinstance(value, dict) or value.get('schema') != 'sircus-learning-challenge-report-v1'
+            or value.get('physically_verified') is not False or value.get('data_origin') != 'synthetic'
+            or value.get('status') != 'complete' or value.get('profile_id') != 'front-negative-y-v1'
+            or value.get('native_paths_checked') is not False):
+        raise ValueError('Unsupported or non-synthetic study report')
+    return value
+
+
 def main():
-    global OFFLINE, BRIDGE, PHYSICAL, OPERATIONS, TRAINING_JOBS
+    global OFFLINE, BRIDGE, PHYSICAL, OPERATIONS, TRAINING_JOBS, STUDY_RESULTS_PATH
     parser = argparse.ArgumentParser()
     parser.add_argument('--port', type=int, default=8765)
     parser.add_argument('--offline', action='store_true', help='Explicitly use standalone physics; no Viam commands')
@@ -423,6 +445,9 @@ def main():
     parser.add_argument('--physical-credentials', type=Path, default=ROOT.parent/'perception/.private/sfhack10.json')
     parser.add_argument('--physical-data-root', type=Path, default=None)
     parser.add_argument('--operations', action='store_true', help='Enable guided simulation and local training; requires offline and physical disabled')
+    parser.add_argument('--workflow-profile', choices=('front','historical'), default='front')
+    parser.add_argument('--workflow-checkpoint', type=Path, default=None)
+    parser.add_argument('--study-results', type=Path, default=STUDY_RESULTS_PATH)
     parser.add_argument('--workflow-data-root', type=Path, default=ROOT.parent.parent/'.runtime'/'operator-lab')
     args = parser.parse_args()
     if args.operations and (not args.offline or args.physical_mode != 'disabled'):
@@ -436,8 +461,10 @@ def main():
         sys.path.insert(0, str(ROOT.parent.parent))
         from sircus.operations.service import GuidedOperations
         from sircus.operations.training import TrainingJobs
-        OPERATIONS = GuidedOperations(data_root=args.workflow_data_root/'trials')
-        TRAINING_JOBS = TrainingJobs(data_root=args.workflow_data_root/'training')
+        OPERATIONS = GuidedOperations(data_root=args.workflow_data_root/'trials',
+                                      profile=args.workflow_profile, checkpoint_path=args.workflow_checkpoint)
+        TRAINING_JOBS = TrainingJobs(data_root=args.workflow_data_root/'training', profile=args.workflow_profile)
+        STUDY_RESULTS_PATH = args.study_results
     print(f'Sircus dashboard: http://127.0.0.1:{args.port} ({"OFFLINE simulation" if OFFLINE else "Viam two-arm simulation bridge"})', flush=True)
     httpd = ThreadingHTTPServer(('127.0.0.1', args.port), Handler)
     try:

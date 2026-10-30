@@ -83,6 +83,24 @@ class TrainingManagerTests(unittest.TestCase):
         self.assertEqual(manager.artifact(state['run_id'],'checkpoint.json')['checkpoint_id'],
                          'synthetic-test-checkpoint')
 
+    def test_relative_output_root_is_absolute_before_child_changes_cwd(self):
+        import os
+        relative = Path(os.path.relpath(self.root, Path.cwd()))
+        def factory(command, **kwargs):
+            output = Path(command[command.index('--output')+1])
+            self.assertTrue(output.is_absolute())
+            self.assertEqual(output.parent, self.root.resolve())
+            self.assertNotEqual(Path(kwargs['cwd']), output.parent)
+            complete_files(command)
+            return FakeProcess()
+        manager = TrainingJobs(relative, profile='front', _popen=factory)
+        self.addCleanup(manager.close)
+        manager.start({})
+        state = wait_done(manager)
+        self.assertEqual(state['phase'], 'complete')
+        self.assertEqual(manager.artifact(state['run_id'], 'checkpoint.json')['checkpoint_id'],
+                         'synthetic-test-checkpoint')
+
     def test_cancel_rejects_concurrent_start_and_preserves_partial_evidence(self):
         children=[]
         def factory(command, **kwargs):

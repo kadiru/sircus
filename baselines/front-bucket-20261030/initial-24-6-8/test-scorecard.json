@@ -1,0 +1,1040 @@
+{
+  "fixed_baseline": [
+    {
+      "action": {
+        "gap_mm": 220.0,
+        "pitch_deg": -30.0,
+        "roll_deg": 0.0,
+        "u_mm": 0.0,
+        "v_mm": 0.0
+      },
+      "checkpoint_id": null,
+      "data_origin": "synthetic",
+      "endpoint_ik": {
+        "arm10_reachable": true,
+        "arm14_reachable": true
+      },
+      "layout_sha256": "4db3b1e11544778c48e0bce43c7bc2aa922de818293d2ecc78c0e7e584a1ea65",
+      "native_paths_checked": false,
+      "physically_verified": false,
+      "result": {
+        "actual_h_m": 0.2186342437499988,
+        "board_bounce_t_s": 0.22025,
+        "bounce_outs": 0,
+        "bucket_retained_1s": false,
+        "capture_class": null,
+        "center_error_mm": 210.42472653461223,
+        "executed": true,
+        "full_exits": 0,
+        "h_m": 0.22,
+        "impact_uv_mm": [
+          1.539190078567506,
+          -0.5668523148001381
+        ],
+        "max_continuous_containment_s": 0.0,
+        "max_support_tilt_deg": 0.2168823148828427,
+        "outcome": "no_entry",
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "success": false
+      },
+      "role": "fixed_baseline",
+      "scene_id": "test-0000-4db3b1e11544",
+      "seed": 2383629040,
+      "split": "test"
+    },
+    {
+      "action": {
+        "gap_mm": 220.0,
+        "pitch_deg": -30.0,
+        "roll_deg": 0.0,
+        "u_mm": 0.0,
+        "v_mm": 0.0
+      },
+      "checkpoint_id": null,
+      "data_origin": "synthetic",
+      "endpoint_ik": {
+        "arm10_reachable": true,
+        "arm14_reachable": true
+      },
+      "layout_sha256": "761c8a39f5b00b5f2094d4d4831c13b0a5940959989b636b5553df393c2214b7",
+      "native_paths_checked": false,
+      "physically_verified": false,
+      "result": {
+        "actual_h_m": 0.2201903549999988,
+        "board_bounce_t_s": 0.221,
+        "bounce_outs": 0,
+        "bucket_retained_1s": true,
+        "capture_class": "rim_assisted",
+        "center_error_mm": 39.838875209570446,
+        "executed": true,
+        "full_exits": 0,
+        "h_m": 0.21999999999999995,
+        "impact_uv_mm": [
+          -0.7459149197999969,
+          1.7678212630751742
+        ],
+        "max_continuous_containment_s": 1.0,
+        "max_support_tilt_deg": 0.4181107873028365,
+        "outcome": "captured",
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "success": true
+      },
+      "role": "fixed_baseline",
+      "scene_id": "test-0001-761c8a39f5b0",
+      "seed": 4186319050,
+      "split": "test"
+    },
+    {
+      "action": {
+        "gap_mm": 220.0,
+        "pitch_deg": -30.0,
+        "roll_deg": 0.0,
+        "u_mm": 0.0,
+        "v_mm": 0.0
+      },
+      "checkpoint_id": null,
+      "data_origin": "synthetic",
+      "endpoint_ik": {
+        "arm10_reachable": true,
+        "arm14_reachable": true
+      },
+      "layout_sha256": "daf4a8f5f1f1edc6a77cffb1ccf84e9933822897624e15781a190cc4247b113d",
+      "native_paths_checked": false,
+      "physically_verified": false,
+      "result": {
+        "actual_h_m": 0.2212308281249987,
+        "board_bounce_t_s": 0.2215,
+        "bounce_outs": 0,
+        "bucket_retained_1s": false,
+        "capture_class": null,
+        "center_error_mm": 204.303993587041,
+        "executed": true,
+        "full_exits": 0,
+        "h_m": 0.22,
+        "impact_uv_mm": [
+          0.4034049356998193,
+          -0.5763392905490118
+        ],
+        "max_continuous_containment_s": 0.0,
+        "max_support_tilt_deg": 0.32783008230043714,
+        "outcome": "no_entry",
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "success": false
+      },
+      "role": "fixed_baseline",
+      "scene_id": "test-0002-daf4a8f5f1f1",
+      "seed": 956916589,
+      "split": "test"
+    },
+    {
+      "action": {
+        "gap_mm": 220.0,
+        "pitch_deg": -30.0,
+        "roll_deg": 0.0,
+        "u_mm": 0.0,
+        "v_mm": 0.0
+      },
+      "checkpoint_id": null,
+      "data_origin": "synthetic",
+      "endpoint_ik": {
+        "arm10_reachable": true,
+        "arm14_reachable": true
+      },
+      "layout_sha256": "f65db91f8505837d72857f881cc4ecd4d716e621e9716d71be47428dc55420d0",
+      "native_paths_checked": false,
+      "physically_verified": false,
+      "result": {
+        "actual_h_m": 0.2196710381249988,
+        "board_bounce_t_s": 0.22075,
+        "bounce_outs": 0,
+        "bucket_retained_1s": false,
+        "capture_class": null,
+        "center_error_mm": 161.97701789409786,
+        "executed": true,
+        "full_exits": 0,
+        "h_m": 0.21999999999999995,
+        "impact_uv_mm": [
+          0.5645759930026951,
+          1.203407397049604
+        ],
+        "max_continuous_containment_s": 0.0,
+        "max_support_tilt_deg": 0.3043936643299239,
+        "outcome": "no_entry",
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "success": false
+      },
+      "role": "fixed_baseline",
+      "scene_id": "test-0003-f65db91f8505",
+      "seed": 3248034503,
+      "split": "test"
+    },
+    {
+      "action": {
+        "gap_mm": 220.0,
+        "pitch_deg": -30.0,
+        "roll_deg": 0.0,
+        "u_mm": 0.0,
+        "v_mm": 0.0
+      },
+      "checkpoint_id": null,
+      "data_origin": "synthetic",
+      "endpoint_ik": {
+        "arm10_reachable": true,
+        "arm14_reachable": true
+      },
+      "layout_sha256": "3e3d58f13492c9d67c634811d0303426a687294abc05bc66c554e591eaeb4cde",
+      "native_paths_checked": false,
+      "physically_verified": false,
+      "result": {
+        "actual_h_m": 0.22331913187499874,
+        "board_bounce_t_s": 0.2225,
+        "bounce_outs": 0,
+        "bucket_retained_1s": false,
+        "capture_class": null,
+        "center_error_mm": 128.22899870604078,
+        "executed": true,
+        "full_exits": 0,
+        "h_m": 0.22000000000000006,
+        "impact_uv_mm": [
+          -0.7565718746211543,
+          1.8415188382590029
+        ],
+        "max_continuous_containment_s": 0.0,
+        "max_support_tilt_deg": 0.4104527240739423,
+        "outcome": "no_entry",
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "success": false
+      },
+      "role": "fixed_baseline",
+      "scene_id": "test-0004-3e3d58f13492",
+      "seed": 523466080,
+      "split": "test"
+    },
+    {
+      "action": {
+        "gap_mm": 220.0,
+        "pitch_deg": -30.0,
+        "roll_deg": 0.0,
+        "u_mm": 0.0,
+        "v_mm": 0.0
+      },
+      "checkpoint_id": null,
+      "data_origin": "synthetic",
+      "endpoint_ik": {
+        "arm10_reachable": true,
+        "arm14_reachable": true
+      },
+      "layout_sha256": "4e582adce094f6b1b25a37635c20643802a2698dcfc45d3b45b769a96bdc1a07",
+      "native_paths_checked": false,
+      "physically_verified": false,
+      "result": {
+        "actual_h_m": 0.21656801249999866,
+        "board_bounce_t_s": 0.21925,
+        "bounce_outs": 0,
+        "bucket_retained_1s": false,
+        "capture_class": null,
+        "center_error_mm": 268.76154463188743,
+        "executed": true,
+        "full_exits": 0,
+        "h_m": 0.22,
+        "impact_uv_mm": [
+          1.4086567358318793,
+          -1.0477082969599938
+        ],
+        "max_continuous_containment_s": 0.0,
+        "max_support_tilt_deg": 0.24112056511625268,
+        "outcome": "no_entry",
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "success": false
+      },
+      "role": "fixed_baseline",
+      "scene_id": "test-0005-4e582adce094",
+      "seed": 3159609440,
+      "split": "test"
+    },
+    {
+      "action": {
+        "gap_mm": 220.0,
+        "pitch_deg": -30.0,
+        "roll_deg": 0.0,
+        "u_mm": 0.0,
+        "v_mm": 0.0
+      },
+      "checkpoint_id": null,
+      "data_origin": "synthetic",
+      "endpoint_ik": {
+        "arm10_reachable": true,
+        "arm14_reachable": true
+      },
+      "layout_sha256": "44623d892fad48862a22acda543ccdc5b6997d845770c8d3587784ada58dab88",
+      "native_paths_checked": false,
+      "physically_verified": false,
+      "result": {
+        "actual_h_m": 0.22384274062499873,
+        "board_bounce_t_s": 0.22275,
+        "bounce_outs": 0,
+        "bucket_retained_1s": true,
+        "capture_class": "clean",
+        "center_error_mm": 39.63719796791737,
+        "executed": true,
+        "full_exits": 0,
+        "h_m": 0.21999999999999995,
+        "impact_uv_mm": [
+          -1.9299567158542335,
+          1.3223369113842796
+        ],
+        "max_continuous_containment_s": 1.0,
+        "max_support_tilt_deg": 0.5093935194748552,
+        "outcome": "captured",
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "success": true
+      },
+      "role": "fixed_baseline",
+      "scene_id": "test-0006-44623d892fad",
+      "seed": 4226502162,
+      "split": "test"
+    },
+    {
+      "action": {
+        "gap_mm": 220.0,
+        "pitch_deg": -30.0,
+        "roll_deg": 0.0,
+        "u_mm": 0.0,
+        "v_mm": 0.0
+      },
+      "checkpoint_id": null,
+      "data_origin": "synthetic",
+      "endpoint_ik": {
+        "arm10_reachable": true,
+        "arm14_reachable": true
+      },
+      "layout_sha256": "c3a67d54500b0575e8292dceeef1c05f7090ced168223993b218f34c15e5a955",
+      "native_paths_checked": false,
+      "physically_verified": false,
+      "result": {
+        "actual_h_m": 0.22227375374999883,
+        "board_bounce_t_s": 0.22225,
+        "bounce_outs": 0,
+        "bucket_retained_1s": false,
+        "capture_class": null,
+        "center_error_mm": 176.56942213085284,
+        "executed": true,
+        "full_exits": 0,
+        "h_m": 0.22,
+        "impact_uv_mm": [
+          -1.6863360456822463,
+          -0.4698480186302602
+        ],
+        "max_continuous_containment_s": 0.0,
+        "max_support_tilt_deg": 0.5049076499447206,
+        "outcome": "no_entry",
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "success": false
+      },
+      "role": "fixed_baseline",
+      "scene_id": "test-0007-c3a67d54500b",
+      "seed": 2436661051,
+      "split": "test"
+    }
+  ],
+  "frozen_policy": [
+    {
+      "action": {
+        "gap_mm": 195.23927098017654,
+        "pitch_deg": -27.653376474593806,
+        "roll_deg": 5.241583088256313,
+        "u_mm": -2.6444289443335975,
+        "v_mm": -1.5385943208708994
+      },
+      "checkpoint_id": "8ca17aa286758350c0074bbb770f1225b239539f348743b82689b872b5d51716",
+      "data_origin": "synthetic",
+      "endpoint_ik": {
+        "arm10_reachable": true,
+        "arm14_reachable": true
+      },
+      "layout_sha256": "4db3b1e11544778c48e0bce43c7bc2aa922de818293d2ecc78c0e7e584a1ea65",
+      "native_paths_checked": false,
+      "physically_verified": false,
+      "result": {
+        "actual_h_m": 0.19351144687499913,
+        "board_bounce_t_s": 0.20800000000000002,
+        "bounce_outs": 0,
+        "bucket_retained_1s": true,
+        "capture_class": "rim_assisted",
+        "center_error_mm": 39.59805717760113,
+        "executed": true,
+        "full_exits": 0,
+        "h_m": 0.19523927098017657,
+        "impact_uv_mm": [
+          -0.9205248066433345,
+          -2.1080617861143742
+        ],
+        "max_continuous_containment_s": 1.0,
+        "max_support_tilt_deg": 1.265010378607696,
+        "outcome": "captured",
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "success": true
+      },
+      "role": "frozen_policy",
+      "scene_id": "test-0000-4db3b1e11544",
+      "seed": 2383629040,
+      "split": "test"
+    },
+    {
+      "action": {
+        "gap_mm": 191.2747246320857,
+        "pitch_deg": -29.735845292632753,
+        "roll_deg": -1.510691175060245,
+        "u_mm": -2.9787528762912814,
+        "v_mm": -1.9024459616091605
+      },
+      "checkpoint_id": "8ca17aa286758350c0074bbb770f1225b239539f348743b82689b872b5d51716",
+      "data_origin": "synthetic",
+      "endpoint_ik": {
+        "arm10_reachable": true,
+        "arm14_reachable": true
+      },
+      "layout_sha256": "761c8a39f5b00b5f2094d4d4831c13b0a5940959989b636b5553df393c2214b7",
+      "native_paths_checked": false,
+      "physically_verified": false,
+      "result": {
+        "actual_h_m": 0.19156784062499913,
+        "board_bounce_t_s": 0.20675000000000002,
+        "bounce_outs": 0,
+        "bucket_retained_1s": true,
+        "capture_class": "rim_assisted",
+        "center_error_mm": 39.736851066576236,
+        "executed": true,
+        "full_exits": 0,
+        "h_m": 0.19127472463208567,
+        "impact_uv_mm": [
+          -3.7748512670642485,
+          -0.12834579497636153
+        ],
+        "max_continuous_containment_s": 1.0,
+        "max_support_tilt_deg": 0.6019706333780105,
+        "outcome": "captured",
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "success": true
+      },
+      "role": "frozen_policy",
+      "scene_id": "test-0001-761c8a39f5b0",
+      "seed": 4186319050,
+      "split": "test"
+    },
+    {
+      "action": {
+        "gap_mm": 198.28616494419032,
+        "pitch_deg": -31.046973500531273,
+        "roll_deg": 7.458827939208433,
+        "u_mm": -5.090913584246806,
+        "v_mm": 1.9754915726802835
+      },
+      "checkpoint_id": "8ca17aa286758350c0074bbb770f1225b239539f348743b82689b872b5d51716",
+      "data_origin": "synthetic",
+      "endpoint_ik": {
+        "arm10_reachable": true,
+        "arm14_reachable": true
+      },
+      "layout_sha256": "daf4a8f5f1f1edc6a77cffb1ccf84e9933822897624e15781a190cc4247b113d",
+      "native_paths_checked": false,
+      "physically_verified": false,
+      "result": {
+        "actual_h_m": 0.19989591749999902,
+        "board_bounce_t_s": 0.211,
+        "bounce_outs": 0,
+        "bucket_retained_1s": false,
+        "capture_class": null,
+        "center_error_mm": 202.31441480714992,
+        "executed": true,
+        "full_exits": 0,
+        "h_m": 0.19828616494419027,
+        "impact_uv_mm": [
+          -4.88523461272224,
+          1.3450755245111456
+        ],
+        "max_continuous_containment_s": 0.0,
+        "max_support_tilt_deg": 0.69735872725599,
+        "outcome": "no_entry",
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "success": false
+      },
+      "role": "frozen_policy",
+      "scene_id": "test-0002-daf4a8f5f1f1",
+      "seed": 956916589,
+      "split": "test"
+    },
+    {
+      "action": {
+        "gap_mm": 196.0349272251135,
+        "pitch_deg": -31.11995312104502,
+        "roll_deg": 4.840867832435002,
+        "u_mm": -4.74680615830475,
+        "v_mm": -0.46565013570689473
+      },
+      "checkpoint_id": "8ca17aa286758350c0074bbb770f1225b239539f348743b82689b872b5d51716",
+      "data_origin": "synthetic",
+      "endpoint_ik": {
+        "arm10_reachable": true,
+        "arm14_reachable": true
+      },
+      "layout_sha256": "f65db91f8505837d72857f881cc4ecd4d716e621e9716d71be47428dc55420d0",
+      "native_paths_checked": false,
+      "physically_verified": false,
+      "result": {
+        "actual_h_m": 0.19546486312499894,
+        "board_bounce_t_s": 0.20875,
+        "bounce_outs": 0,
+        "bucket_retained_1s": false,
+        "capture_class": null,
+        "center_error_mm": 139.20543158866087,
+        "executed": true,
+        "full_exits": 0,
+        "h_m": 0.19603492722511356,
+        "impact_uv_mm": [
+          -4.063418334028016,
+          0.7253915784711281
+        ],
+        "max_continuous_containment_s": 0.0,
+        "max_support_tilt_deg": 0.6367194966469779,
+        "outcome": "no_entry",
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "success": false
+      },
+      "role": "frozen_policy",
+      "scene_id": "test-0003-f65db91f8505",
+      "seed": 3248034503,
+      "split": "test"
+    },
+    {
+      "action": {
+        "gap_mm": 200.64172465715708,
+        "pitch_deg": -31.03935459131938,
+        "roll_deg": 2.954975775630686,
+        "u_mm": -6.854953466652979,
+        "v_mm": -3.4256063882705092
+      },
+      "checkpoint_id": "8ca17aa286758350c0074bbb770f1225b239539f348743b82689b872b5d51716",
+      "data_origin": "synthetic",
+      "endpoint_ik": {
+        "arm10_reachable": true,
+        "arm14_reachable": true
+      },
+      "layout_sha256": "3e3d58f13492c9d67c634811d0303426a687294abc05bc66c554e591eaeb4cde",
+      "native_paths_checked": false,
+      "physically_verified": false,
+      "result": {
+        "actual_h_m": 0.20337662812499893,
+        "board_bounce_t_s": 0.21275,
+        "bounce_outs": 0,
+        "bucket_retained_1s": false,
+        "capture_class": null,
+        "center_error_mm": 125.8633823139241,
+        "executed": true,
+        "full_exits": 0,
+        "h_m": 0.2006417246571571,
+        "impact_uv_mm": [
+          -7.318251533014298,
+          -1.583023911324915
+        ],
+        "max_continuous_containment_s": 0.0,
+        "max_support_tilt_deg": 0.9128989568586583,
+        "outcome": "no_entry",
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "success": false
+      },
+      "role": "frozen_policy",
+      "scene_id": "test-0004-3e3d58f13492",
+      "seed": 523466080,
+      "split": "test"
+    },
+    {
+      "action": {
+        "gap_mm": 200.05662440005332,
+        "pitch_deg": -31.70404298269398,
+        "roll_deg": -0.347595439412288,
+        "u_mm": -4.905697801683033,
+        "v_mm": -0.6900554111572461
+      },
+      "checkpoint_id": "8ca17aa286758350c0074bbb770f1225b239539f348743b82689b872b5d51716",
+      "data_origin": "synthetic",
+      "endpoint_ik": {
+        "arm10_reachable": true,
+        "arm14_reachable": true
+      },
+      "layout_sha256": "4e582adce094f6b1b25a37635c20643802a2698dcfc45d3b45b769a96bdc1a07",
+      "native_paths_checked": false,
+      "physically_verified": false,
+      "result": {
+        "actual_h_m": 0.19693636312499882,
+        "board_bounce_t_s": 0.2095,
+        "bounce_outs": 0,
+        "bucket_retained_1s": false,
+        "capture_class": null,
+        "center_error_mm": 271.57992444037615,
+        "executed": true,
+        "full_exits": 0,
+        "h_m": 0.20005662440005334,
+        "impact_uv_mm": [
+          -3.66443797794452,
+          -1.7352794108696288
+        ],
+        "max_continuous_containment_s": 0.0,
+        "max_support_tilt_deg": 0.6032055415020519,
+        "outcome": "no_entry",
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "success": false
+      },
+      "role": "frozen_policy",
+      "scene_id": "test-0005-4e582adce094",
+      "seed": 3159609440,
+      "split": "test"
+    },
+    {
+      "action": {
+        "gap_mm": 192.23596185699552,
+        "pitch_deg": -28.76613738074813,
+        "roll_deg": 5.161177769322563,
+        "u_mm": -3.2845957810773996,
+        "v_mm": -1.7933222900561532
+      },
+      "checkpoint_id": "8ca17aa286758350c0074bbb770f1225b239539f348743b82689b872b5d51716",
+      "data_origin": "synthetic",
+      "endpoint_ik": {
+        "arm10_reachable": true,
+        "arm14_reachable": true
+      },
+      "layout_sha256": "44623d892fad48862a22acda543ccdc5b6997d845770c8d3587784ada58dab88",
+      "native_paths_checked": false,
+      "physically_verified": false,
+      "result": {
+        "actual_h_m": 0.195464863124999,
+        "board_bounce_t_s": 0.20875,
+        "bounce_outs": 0,
+        "bucket_retained_1s": true,
+        "capture_class": "rim_assisted",
+        "center_error_mm": 12.45424141647722,
+        "executed": true,
+        "full_exits": 0,
+        "h_m": 0.19223596185699557,
+        "impact_uv_mm": [
+          -4.909820372317353,
+          -0.468782220150718
+        ],
+        "max_continuous_containment_s": 1.0,
+        "max_support_tilt_deg": 0.6999684676073218,
+        "outcome": "captured",
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "success": true
+      },
+      "role": "frozen_policy",
+      "scene_id": "test-0006-44623d892fad",
+      "seed": 4226502162,
+      "split": "test"
+    },
+    {
+      "action": {
+        "gap_mm": 193.78936792161372,
+        "pitch_deg": -28.165317630578528,
+        "roll_deg": 4.274190411217688,
+        "u_mm": -6.87373036021161,
+        "v_mm": -1.7627170369968042
+      },
+      "checkpoint_id": "8ca17aa286758350c0074bbb770f1225b239539f348743b82689b872b5d51716",
+      "data_origin": "synthetic",
+      "endpoint_ik": {
+        "arm10_reachable": true,
+        "arm14_reachable": true
+      },
+      "layout_sha256": "c3a67d54500b0575e8292dceeef1c05f7090ced168223993b218f34c15e5a955",
+      "native_paths_checked": false,
+      "physically_verified": false,
+      "result": {
+        "actual_h_m": 0.19644524999999902,
+        "board_bounce_t_s": 0.20925,
+        "bounce_outs": 0,
+        "bucket_retained_1s": false,
+        "capture_class": null,
+        "center_error_mm": 254.96323118942038,
+        "executed": true,
+        "full_exits": 0,
+        "h_m": 0.19378936792161375,
+        "impact_uv_mm": [
+          -8.738231729300084,
+          -2.2635105620092055
+        ],
+        "max_continuous_containment_s": 0.0,
+        "max_support_tilt_deg": 0.9797181694530683,
+        "outcome": "no_entry",
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "success": false
+      },
+      "role": "frozen_policy",
+      "scene_id": "test-0007-c3a67d54500b",
+      "seed": 2436661051,
+      "split": "test"
+    }
+  ],
+  "held_out_search_oracle": [
+    {
+      "action": {
+        "gap_mm": 220.0,
+        "pitch_deg": -30.0,
+        "roll_deg": 0.0,
+        "u_mm": 0.0,
+        "v_mm": 0.0
+      },
+      "checkpoint_id": null,
+      "data_origin": "synthetic",
+      "endpoint_ik": {
+        "arm10_reachable": true,
+        "arm14_reachable": true
+      },
+      "layout_sha256": "4db3b1e11544778c48e0bce43c7bc2aa922de818293d2ecc78c0e7e584a1ea65",
+      "native_paths_checked": false,
+      "physically_verified": false,
+      "result": {
+        "actual_h_m": 0.2186342437499988,
+        "board_bounce_t_s": 0.22025,
+        "bounce_outs": 0,
+        "bucket_retained_1s": false,
+        "capture_class": null,
+        "center_error_mm": 210.42472653461223,
+        "executed": true,
+        "full_exits": 0,
+        "h_m": 0.22,
+        "impact_uv_mm": [
+          1.539190078567506,
+          -0.5668523148001381
+        ],
+        "max_continuous_containment_s": 0.0,
+        "max_support_tilt_deg": 0.2168823148828427,
+        "outcome": "no_entry",
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "success": false
+      },
+      "role": "held_out_oracle",
+      "scene_id": "test-0000-4db3b1e11544",
+      "seed": 2383629040,
+      "split": "test"
+    },
+    {
+      "action": {
+        "gap_mm": 174.57060648978953,
+        "pitch_deg": -18.0,
+        "roll_deg": -7.262233558046162,
+        "u_mm": 0.0,
+        "v_mm": 0.0
+      },
+      "checkpoint_id": null,
+      "data_origin": "synthetic",
+      "endpoint_ik": {
+        "arm10_reachable": true,
+        "arm14_reachable": true
+      },
+      "layout_sha256": "761c8a39f5b00b5f2094d4d4831c13b0a5940959989b636b5553df393c2214b7",
+      "native_paths_checked": false,
+      "physically_verified": false,
+      "result": {
+        "actual_h_m": 0.1749797437499991,
+        "board_bounce_t_s": 0.198,
+        "bounce_outs": 0,
+        "bucket_retained_1s": true,
+        "capture_class": "clean",
+        "center_error_mm": 38.58359438967137,
+        "executed": true,
+        "full_exits": 0,
+        "h_m": 0.17457060648978956,
+        "impact_uv_mm": [
+          -0.7621253714602798,
+          1.8204196624567113
+        ],
+        "max_continuous_containment_s": 1.0,
+        "max_support_tilt_deg": 1.0717711953197517,
+        "outcome": "captured",
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "success": true
+      },
+      "role": "held_out_oracle",
+      "scene_id": "test-0001-761c8a39f5b0",
+      "seed": 4186319050,
+      "split": "test"
+    },
+    {
+      "action": {
+        "gap_mm": 220.0,
+        "pitch_deg": -30.0,
+        "roll_deg": 0.0,
+        "u_mm": 0.0,
+        "v_mm": 0.0
+      },
+      "checkpoint_id": null,
+      "data_origin": "synthetic",
+      "endpoint_ik": {
+        "arm10_reachable": true,
+        "arm14_reachable": true
+      },
+      "layout_sha256": "daf4a8f5f1f1edc6a77cffb1ccf84e9933822897624e15781a190cc4247b113d",
+      "native_paths_checked": false,
+      "physically_verified": false,
+      "result": {
+        "actual_h_m": 0.2212308281249987,
+        "board_bounce_t_s": 0.2215,
+        "bounce_outs": 0,
+        "bucket_retained_1s": false,
+        "capture_class": null,
+        "center_error_mm": 204.303993587041,
+        "executed": true,
+        "full_exits": 0,
+        "h_m": 0.22,
+        "impact_uv_mm": [
+          0.4034049356998193,
+          -0.5763392905490118
+        ],
+        "max_continuous_containment_s": 0.0,
+        "max_support_tilt_deg": 0.32783008230043714,
+        "outcome": "no_entry",
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "success": false
+      },
+      "role": "held_out_oracle",
+      "scene_id": "test-0002-daf4a8f5f1f1",
+      "seed": 956916589,
+      "split": "test"
+    },
+    {
+      "action": {
+        "gap_mm": 220.0,
+        "pitch_deg": -30.0,
+        "roll_deg": 0.0,
+        "u_mm": 0.0,
+        "v_mm": 0.0
+      },
+      "checkpoint_id": null,
+      "data_origin": "synthetic",
+      "endpoint_ik": {
+        "arm10_reachable": true,
+        "arm14_reachable": true
+      },
+      "layout_sha256": "f65db91f8505837d72857f881cc4ecd4d716e621e9716d71be47428dc55420d0",
+      "native_paths_checked": false,
+      "physically_verified": false,
+      "result": {
+        "actual_h_m": 0.2196710381249988,
+        "board_bounce_t_s": 0.22075,
+        "bounce_outs": 0,
+        "bucket_retained_1s": false,
+        "capture_class": null,
+        "center_error_mm": 161.97701789409786,
+        "executed": true,
+        "full_exits": 0,
+        "h_m": 0.21999999999999995,
+        "impact_uv_mm": [
+          0.5645759930026951,
+          1.203407397049604
+        ],
+        "max_continuous_containment_s": 0.0,
+        "max_support_tilt_deg": 0.3043936643299239,
+        "outcome": "no_entry",
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "success": false
+      },
+      "role": "held_out_oracle",
+      "scene_id": "test-0003-f65db91f8505",
+      "seed": 3248034503,
+      "split": "test"
+    },
+    {
+      "action": {
+        "gap_mm": 260.0,
+        "pitch_deg": -24.0,
+        "roll_deg": -0.09873525765238991,
+        "u_mm": 0.0,
+        "v_mm": 0.0
+      },
+      "checkpoint_id": null,
+      "data_origin": "synthetic",
+      "endpoint_ik": {
+        "arm10_reachable": true,
+        "arm14_reachable": true
+      },
+      "layout_sha256": "3e3d58f13492c9d67c634811d0303426a687294abc05bc66c554e591eaeb4cde",
+      "native_paths_checked": false,
+      "physically_verified": false,
+      "result": {
+        "actual_h_m": 0.2631538631249982,
+        "board_bounce_t_s": 0.24075,
+        "bounce_outs": 0,
+        "bucket_retained_1s": false,
+        "capture_class": null,
+        "center_error_mm": 168.01999148356265,
+        "executed": true,
+        "full_exits": 0,
+        "h_m": 0.25999999999999995,
+        "impact_uv_mm": [
+          -0.6385615315746551,
+          1.8421569813072292
+        ],
+        "max_continuous_containment_s": 0.0,
+        "max_support_tilt_deg": 1.3123491764174673,
+        "outcome": "no_entry",
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "success": false
+      },
+      "role": "held_out_oracle",
+      "scene_id": "test-0004-3e3d58f13492",
+      "seed": 523466080,
+      "split": "test"
+    },
+    {
+      "action": {
+        "gap_mm": 220.0,
+        "pitch_deg": -30.0,
+        "roll_deg": 0.0,
+        "u_mm": 0.0,
+        "v_mm": 0.0
+      },
+      "checkpoint_id": null,
+      "data_origin": "synthetic",
+      "endpoint_ik": {
+        "arm10_reachable": true,
+        "arm14_reachable": true
+      },
+      "layout_sha256": "4e582adce094f6b1b25a37635c20643802a2698dcfc45d3b45b769a96bdc1a07",
+      "native_paths_checked": false,
+      "physically_verified": false,
+      "result": {
+        "actual_h_m": 0.21656801249999866,
+        "board_bounce_t_s": 0.21925,
+        "bounce_outs": 0,
+        "bucket_retained_1s": false,
+        "capture_class": null,
+        "center_error_mm": 268.76154463188743,
+        "executed": true,
+        "full_exits": 0,
+        "h_m": 0.22,
+        "impact_uv_mm": [
+          1.4086567358318793,
+          -1.0477082969599938
+        ],
+        "max_continuous_containment_s": 0.0,
+        "max_support_tilt_deg": 0.24112056511625268,
+        "outcome": "no_entry",
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "success": false
+      },
+      "role": "held_out_oracle",
+      "scene_id": "test-0005-4e582adce094",
+      "seed": 3159609440,
+      "split": "test"
+    },
+    {
+      "action": {
+        "gap_mm": 197.8526717763715,
+        "pitch_deg": -24.0,
+        "roll_deg": 2.811485607782983,
+        "u_mm": 0.0,
+        "v_mm": 0.0
+      },
+      "checkpoint_id": null,
+      "data_origin": "synthetic",
+      "endpoint_ik": {
+        "arm10_reachable": true,
+        "arm14_reachable": true
+      },
+      "layout_sha256": "44623d892fad48862a22acda543ccdc5b6997d845770c8d3587784ada58dab88",
+      "native_paths_checked": false,
+      "physically_verified": false,
+      "result": {
+        "actual_h_m": 0.201383971874999,
+        "board_bounce_t_s": 0.21175,
+        "bounce_outs": 0,
+        "bucket_retained_1s": true,
+        "capture_class": "clean",
+        "center_error_mm": 37.94799113083541,
+        "executed": true,
+        "full_exits": 0,
+        "h_m": 0.19785267177637145,
+        "impact_uv_mm": [
+          -1.7495883462536697,
+          1.3046816272079265
+        ],
+        "max_continuous_containment_s": 1.0,
+        "max_support_tilt_deg": 1.4644870268894608,
+        "outcome": "captured",
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "success": true
+      },
+      "role": "held_out_oracle",
+      "scene_id": "test-0006-44623d892fad",
+      "seed": 4226502162,
+      "split": "test"
+    },
+    {
+      "action": {
+        "gap_mm": 220.0,
+        "pitch_deg": -30.0,
+        "roll_deg": 0.0,
+        "u_mm": 0.0,
+        "v_mm": 0.0
+      },
+      "checkpoint_id": null,
+      "data_origin": "synthetic",
+      "endpoint_ik": {
+        "arm10_reachable": true,
+        "arm14_reachable": true
+      },
+      "layout_sha256": "c3a67d54500b0575e8292dceeef1c05f7090ced168223993b218f34c15e5a955",
+      "native_paths_checked": false,
+      "physically_verified": false,
+      "result": {
+        "actual_h_m": 0.22227375374999883,
+        "board_bounce_t_s": 0.22225,
+        "bounce_outs": 0,
+        "bucket_retained_1s": false,
+        "capture_class": null,
+        "center_error_mm": 176.56942213085284,
+        "executed": true,
+        "full_exits": 0,
+        "h_m": 0.22,
+        "impact_uv_mm": [
+          -1.6863360456822463,
+          -0.4698480186302602
+        ],
+        "max_continuous_containment_s": 0.0,
+        "max_support_tilt_deg": 0.5049076499447206,
+        "outcome": "no_entry",
+        "physics_version": "sircus-compliant-board-bucket-impulse-v1",
+        "scoring_version": "sircus-board-bounce-capture-1s-v1",
+        "success": false
+      },
+      "role": "held_out_oracle",
+      "scene_id": "test-0007-c3a67d54500b",
+      "seed": 2436661051,
+      "split": "test"
+    }
+  ]
+}

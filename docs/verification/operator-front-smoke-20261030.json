@@ -1,0 +1,86 @@
+{
+  "schema": "sircus-operator-api-smoke-v1",
+  "data_origin": "synthetic",
+  "hardware_enabled": false,
+  "native_paths_checked": false,
+  "cases": [
+    {
+      "board_mm": [
+        600,
+        -150,
+        350
+      ],
+      "bucket_xy_mm": [
+        600,
+        -400
+      ],
+      "seed": 142,
+      "checkpoint_id": "7b9a76dddceca22490933f55edcdd82ebc596b2d6539f0d445b3be0f23c1d2e6",
+      "plan_error": null,
+      "action": {
+        "roll_deg": -0.24393095906889073,
+        "pitch_deg": -28.2391279821167,
+        "u_mm": -2.1854324259543034,
+        "v_mm": -2.97245776655312,
+        "gap_mm": 214.97760971362754
+      },
+      "predicted_outcome": "captured",
+      "trial_id": "07ddc602-ba11-4159-a6d6-bf9cffd913ae",
+      "phase": "complete",
+      "fresh_outcome": "captured"
+    },
+    {
+      "board_mm": [
+        610,
+        -160,
+        365
+      ],
+      "bucket_xy_mm": [
+        660,
+        -440
+      ],
+      "seed": 143,
+      "checkpoint_id": "7b9a76dddceca22490933f55edcdd82ebc596b2d6539f0d445b3be0f23c1d2e6",
+      "plan_error": null,
+      "action": {
+        "roll_deg": 4.9293886451931215,
+        "pitch_deg": -28.58929301876501,
+        "u_mm": -11.770782752384498,
+        "v_mm": 10.867481420248623,
+        "gap_mm": 217.04630791269554
+      },
+      "predicted_outcome": "no_entry",
+      "trial_id": "07576e43-cee1-4ba8-83a7-3b6ce86e7858",
+      "phase": "complete",
+      "fresh_outcome": "no_entry"
+    },
+    {
+      "board_mm": [
+        580,
+        -130,
+        340
+      ],
+      "bucket_xy_mm": [
+        500,
+        -310
+      ],
+      "seed": 144,
+      "checkpoint_id": "7b9a76dddceca22490933f55edcdd82ebc596b2d6539f0d445b3be0f23c1d2e6",
+      "plan_error": null,
+      "action": {
+        "roll_deg": -13.505008465544257,
+        "pitch_deg": -34.553555265781355,
+        "u_mm": 0.9429404696250003,
+        "v_mm": 5.503953310418879,
+        "gap_mm": 163.73277648734518
+      },
+      "predicted_outcome": "captured",
+      "trial_id": "909a7729-88e9-4b98-b710-52f5d0861587",
+      "phase": "complete",
+      "fresh_outcome": "captured"
+    }
+  ],
+  "outside_distribution_rejected": true,
+  "outside_distribution_error": "Outside front trained distribution: bucket_dy_mm",
+  "scope": "Three prespecified live offline API integration cases, not the held-out model benchmark. Fresh trial seeds differ from preview seeds."
+}

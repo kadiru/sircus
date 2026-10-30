@@ -1,0 +1,1151 @@
+[
+  {
+    "captures": 31,
+    "checkpoint_id": "7b9a76dddceca22490933f55edcdd82ebc596b2d6539f0d445b3be0f23c1d2e6",
+    "ci95": [
+      0.504390570103431,
+      0.7708333333333334
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "endpoint_infeasible": 2,
+    "episodes": 48,
+    "interpretation": "Controlled release-location intervention; not frozen policy inference. Changing U/V changes impact location, launch trajectory, endpoint reachability, and compliant response, so effects cannot be attributed solely to suspension.",
+    "kind": "contact_intervention",
+    "label": "Forced board contact U=0, V=0 mm",
+    "layouts": 48,
+    "mean_observed_impact_uv_mm": [
+      -0.08556309236763668,
+      0.15355050332776465
+    ],
+    "mean_peak_support_tilt_deg": 0.6586184966762157,
+    "method": "forced_contact_intervention",
+    "native_paths_checked": false,
+    "observed_impact_samples": 46,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "captured": 31,
+      "invalid_action": 2,
+      "no_entry": 15
+    },
+    "paired_vs_forced_center": {
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "mean_difference": 0.0,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "seed": 20261030,
+    "success_fraction": 0.6458333333333334,
+    "support_tilt_samples": 46,
+    "u_mm": 0.0,
+    "v_mm": 0.0
+  },
+  {
+    "captures": 0,
+    "checkpoint_id": "7b9a76dddceca22490933f55edcdd82ebc596b2d6539f0d445b3be0f23c1d2e6",
+    "ci95": [
+      0.0,
+      0.07410012966611748
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "endpoint_infeasible": 0,
+    "episodes": 48,
+    "interpretation": "Controlled release-location intervention; not frozen policy inference. Changing U/V changes impact location, launch trajectory, endpoint reachability, and compliant response, so effects cannot be attributed solely to suspension.",
+    "kind": "contact_intervention",
+    "label": "Forced board contact U=-65, V=0 mm",
+    "layouts": 48,
+    "mean_observed_impact_uv_mm": [
+      -65.11695414101051,
+      0.07788045788098989
+    ],
+    "mean_peak_support_tilt_deg": 3.8233770620254894,
+    "method": "forced_contact_intervention",
+    "native_paths_checked": false,
+    "observed_impact_samples": 48,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "no_board_bounce": 48
+    },
+    "paired_vs_forced_center": {
+      "ci95": [
+        -0.7916666666666666,
+        -0.5
+      ],
+      "mean_difference": -0.6458333333333334,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "seed": 20261030,
+    "success_fraction": 0.0,
+    "support_tilt_samples": 48,
+    "u_mm": -65.0,
+    "v_mm": 0.0
+  },
+  {
+    "captures": 31,
+    "checkpoint_id": "7b9a76dddceca22490933f55edcdd82ebc596b2d6539f0d445b3be0f23c1d2e6",
+    "ci95": [
+      0.5,
+      0.7708333333333334
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "endpoint_infeasible": 14,
+    "episodes": 48,
+    "interpretation": "Controlled release-location intervention; not frozen policy inference. Changing U/V changes impact location, launch trajectory, endpoint reachability, and compliant response, so effects cannot be attributed solely to suspension.",
+    "kind": "contact_intervention",
+    "label": "Forced board contact U=65, V=0 mm",
+    "layouts": 48,
+    "mean_observed_impact_uv_mm": [
+      65.06648886737794,
+      0.04659463201521913
+    ],
+    "mean_peak_support_tilt_deg": 3.5405330663754504,
+    "method": "forced_contact_intervention",
+    "native_paths_checked": false,
+    "observed_impact_samples": 34,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "captured": 31,
+      "invalid_action": 14,
+      "no_board_bounce": 3
+    },
+    "paired_vs_forced_center": {
+      "ci95": [
+        -0.125,
+        0.10416666666666667
+      ],
+      "mean_difference": 0.0,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "seed": 20261030,
+    "success_fraction": 0.6458333333333334,
+    "support_tilt_samples": 34,
+    "u_mm": 65.0,
+    "v_mm": 0.0
+  },
+  {
+    "captures": 0,
+    "checkpoint_id": "7b9a76dddceca22490933f55edcdd82ebc596b2d6539f0d445b3be0f23c1d2e6",
+    "ci95": [
+      0.0,
+      0.07410012966611748
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "endpoint_infeasible": 40,
+    "episodes": 48,
+    "interpretation": "Controlled release-location intervention; not frozen policy inference. Changing U/V changes impact location, launch trajectory, endpoint reachability, and compliant response, so effects cannot be attributed solely to suspension.",
+    "kind": "contact_intervention",
+    "label": "Forced board contact U=0, V=-95 mm",
+    "layouts": 48,
+    "mean_observed_impact_uv_mm": [
+      0.35286928369176485,
+      -95.01390529860191
+    ],
+    "mean_peak_support_tilt_deg": 3.2787808223091313,
+    "method": "forced_contact_intervention",
+    "native_paths_checked": false,
+    "observed_impact_samples": 8,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "invalid_action": 40,
+      "no_board_bounce": 1,
+      "no_entry": 7
+    },
+    "paired_vs_forced_center": {
+      "ci95": [
+        -0.7708333333333334,
+        -0.5208333333333334
+      ],
+      "mean_difference": -0.6458333333333334,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "seed": 20261030,
+    "success_fraction": 0.0,
+    "support_tilt_samples": 8,
+    "u_mm": 0.0,
+    "v_mm": -95.0
+  },
+  {
+    "captures": 0,
+    "checkpoint_id": "7b9a76dddceca22490933f55edcdd82ebc596b2d6539f0d445b3be0f23c1d2e6",
+    "ci95": [
+      0.0,
+      0.07410012966611748
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "endpoint_infeasible": 0,
+    "episodes": 48,
+    "interpretation": "Controlled release-location intervention; not frozen policy inference. Changing U/V changes impact location, launch trajectory, endpoint reachability, and compliant response, so effects cannot be attributed solely to suspension.",
+    "kind": "contact_intervention",
+    "label": "Forced board contact U=0, V=95 mm",
+    "layouts": 48,
+    "mean_observed_impact_uv_mm": [
+      -0.11695414101051409,
+      95.07788045788102
+    ],
+    "mean_peak_support_tilt_deg": 4.157916238546982,
+    "method": "forced_contact_intervention",
+    "native_paths_checked": false,
+    "observed_impact_samples": 48,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "no_entry": 48
+    },
+    "paired_vs_forced_center": {
+      "ci95": [
+        -0.7916666666666666,
+        -0.5208333333333334
+      ],
+      "mean_difference": -0.6458333333333334,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "seed": 20261030,
+    "success_fraction": 0.0,
+    "support_tilt_samples": 48,
+    "u_mm": 0.0,
+    "v_mm": 95.0
+  },
+  {
+    "captures": 0,
+    "checkpoint_id": "7b9a76dddceca22490933f55edcdd82ebc596b2d6539f0d445b3be0f23c1d2e6",
+    "ci95": [
+      0.0,
+      0.07410012966611748
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "endpoint_infeasible": 38,
+    "episodes": 48,
+    "interpretation": "Controlled release-location intervention; not frozen policy inference. Changing U/V changes impact location, launch trajectory, endpoint reachability, and compliant response, so effects cannot be attributed solely to suspension.",
+    "kind": "contact_intervention",
+    "label": "Forced board contact U=-65, V=-95 mm",
+    "layouts": 48,
+    "mean_observed_impact_uv_mm": [
+      -64.60409948986255,
+      -95.05563193345725
+    ],
+    "mean_peak_support_tilt_deg": 3.3100441304933357,
+    "method": "forced_contact_intervention",
+    "native_paths_checked": false,
+    "observed_impact_samples": 10,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "invalid_action": 38,
+      "no_board_bounce": 1,
+      "no_entry": 9
+    },
+    "paired_vs_forced_center": {
+      "ci95": [
+        -0.7708333333333334,
+        -0.5
+      ],
+      "mean_difference": -0.6458333333333334,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "seed": 20261030,
+    "success_fraction": 0.0,
+    "support_tilt_samples": 10,
+    "u_mm": -65.0,
+    "v_mm": -95.0
+  },
+  {
+    "captures": 0,
+    "checkpoint_id": "7b9a76dddceca22490933f55edcdd82ebc596b2d6539f0d445b3be0f23c1d2e6",
+    "ci95": [
+      0.0,
+      0.07410012966611748
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "endpoint_infeasible": 0,
+    "episodes": 48,
+    "interpretation": "Controlled release-location intervention; not frozen policy inference. Changing U/V changes impact location, launch trajectory, endpoint reachability, and compliant response, so effects cannot be attributed solely to suspension.",
+    "kind": "contact_intervention",
+    "label": "Forced board contact U=-65, V=95 mm",
+    "layouts": 48,
+    "mean_observed_impact_uv_mm": [
+      -65.11695414101051,
+      95.07788045788101
+    ],
+    "mean_peak_support_tilt_deg": 4.043949131332098,
+    "method": "forced_contact_intervention",
+    "native_paths_checked": false,
+    "observed_impact_samples": 48,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "no_board_bounce": 1,
+      "no_entry": 47
+    },
+    "paired_vs_forced_center": {
+      "ci95": [
+        -0.7708333333333334,
+        -0.5203124999999982
+      ],
+      "mean_difference": -0.6458333333333334,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "seed": 20261030,
+    "success_fraction": 0.0,
+    "support_tilt_samples": 48,
+    "u_mm": -65.0,
+    "v_mm": 95.0
+  },
+  {
+    "captures": 0,
+    "checkpoint_id": "7b9a76dddceca22490933f55edcdd82ebc596b2d6539f0d445b3be0f23c1d2e6",
+    "ci95": [
+      0.0,
+      0.07410012966611748
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "endpoint_infeasible": 43,
+    "episodes": 48,
+    "interpretation": "Controlled release-location intervention; not frozen policy inference. Changing U/V changes impact location, launch trajectory, endpoint reachability, and compliant response, so effects cannot be attributed solely to suspension.",
+    "kind": "contact_intervention",
+    "label": "Forced board contact U=65, V=-95 mm",
+    "layouts": 48,
+    "mean_observed_impact_uv_mm": [
+      65.91462105438704,
+      -94.79756305492424
+    ],
+    "mean_peak_support_tilt_deg": 3.431910092308563,
+    "method": "forced_contact_intervention",
+    "native_paths_checked": false,
+    "observed_impact_samples": 5,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "invalid_action": 43,
+      "no_entry": 5
+    },
+    "paired_vs_forced_center": {
+      "ci95": [
+        -0.7708333333333334,
+        -0.5
+      ],
+      "mean_difference": -0.6458333333333334,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "seed": 20261030,
+    "success_fraction": 0.0,
+    "support_tilt_samples": 5,
+    "u_mm": 65.0,
+    "v_mm": -95.0
+  },
+  {
+    "captures": 0,
+    "checkpoint_id": "7b9a76dddceca22490933f55edcdd82ebc596b2d6539f0d445b3be0f23c1d2e6",
+    "ci95": [
+      0.0,
+      0.07410012966611748
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "endpoint_infeasible": 11,
+    "episodes": 48,
+    "interpretation": "Controlled release-location intervention; not frozen policy inference. Changing U/V changes impact location, launch trajectory, endpoint reachability, and compliant response, so effects cannot be attributed solely to suspension.",
+    "kind": "contact_intervention",
+    "label": "Forced board contact U=65, V=95 mm",
+    "layouts": 48,
+    "mean_observed_impact_uv_mm": [
+      65.15921485844906,
+      95.1434891985953
+    ],
+    "mean_peak_support_tilt_deg": 4.202305403067546,
+    "method": "forced_contact_intervention",
+    "native_paths_checked": false,
+    "observed_impact_samples": 37,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "invalid_action": 11,
+      "no_board_bounce": 1,
+      "no_entry": 36
+    },
+    "paired_vs_forced_center": {
+      "ci95": [
+        -0.7708333333333334,
+        -0.5
+      ],
+      "mean_difference": -0.6458333333333334,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "seed": 20261030,
+    "success_fraction": 0.0,
+    "support_tilt_samples": 37,
+    "u_mm": 65.0,
+    "v_mm": 95.0
+  },
+  {
+    "captures": 32,
+    "checkpoint_id": "fdc1a78465cc2f0fbb70cd296e4a5222e643d6ea3bf42fc02f89b5c04ef6c71e",
+    "ci95": [
+      0.5208333333333334,
+      0.7916666666666666
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "endpoint_infeasible": 1,
+    "episodes": 48,
+    "interpretation": "Controlled release-location intervention; not frozen policy inference. Changing U/V changes impact location, launch trajectory, endpoint reachability, and compliant response, so effects cannot be attributed solely to suspension.",
+    "kind": "contact_intervention",
+    "label": "Forced board contact U=0, V=0 mm",
+    "layouts": 48,
+    "mean_observed_impact_uv_mm": [
+      -0.11667786391643746,
+      0.11223683701551293
+    ],
+    "mean_peak_support_tilt_deg": 0.7745708898084328,
+    "method": "forced_contact_intervention",
+    "native_paths_checked": false,
+    "observed_impact_samples": 47,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "captured": 32,
+      "invalid_action": 1,
+      "no_entry": 15
+    },
+    "paired_vs_forced_center": {
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "mean_difference": 0.0,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "seed": 20261031,
+    "success_fraction": 0.6666666666666666,
+    "support_tilt_samples": 47,
+    "u_mm": 0.0,
+    "v_mm": 0.0
+  },
+  {
+    "captures": 0,
+    "checkpoint_id": "fdc1a78465cc2f0fbb70cd296e4a5222e643d6ea3bf42fc02f89b5c04ef6c71e",
+    "ci95": [
+      0.0,
+      0.07410012966611748
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "endpoint_infeasible": 0,
+    "episodes": 48,
+    "interpretation": "Controlled release-location intervention; not frozen policy inference. Changing U/V changes impact location, launch trajectory, endpoint reachability, and compliant response, so effects cannot be attributed solely to suspension.",
+    "kind": "contact_intervention",
+    "label": "Forced board contact U=-65, V=0 mm",
+    "layouts": 48,
+    "mean_observed_impact_uv_mm": [
+      -65.10770251295169,
+      0.07922324484273069
+    ],
+    "mean_peak_support_tilt_deg": 3.861103457643369,
+    "method": "forced_contact_intervention",
+    "native_paths_checked": false,
+    "observed_impact_samples": 48,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "no_board_bounce": 45,
+      "no_entry": 3
+    },
+    "paired_vs_forced_center": {
+      "ci95": [
+        -0.7916666666666666,
+        -0.5416666666666666
+      ],
+      "mean_difference": -0.6666666666666666,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "seed": 20261031,
+    "success_fraction": 0.0,
+    "support_tilt_samples": 48,
+    "u_mm": -65.0,
+    "v_mm": 0.0
+  },
+  {
+    "captures": 31,
+    "checkpoint_id": "fdc1a78465cc2f0fbb70cd296e4a5222e643d6ea3bf42fc02f89b5c04ef6c71e",
+    "ci95": [
+      0.5,
+      0.7708333333333334
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "endpoint_infeasible": 9,
+    "episodes": 48,
+    "interpretation": "Controlled release-location intervention; not frozen policy inference. Changing U/V changes impact location, launch trajectory, endpoint reachability, and compliant response, so effects cannot be attributed solely to suspension.",
+    "kind": "contact_intervention",
+    "label": "Forced board contact U=65, V=0 mm",
+    "layouts": 48,
+    "mean_observed_impact_uv_mm": [
+      65.04369276702926,
+      0.0036965490698432427
+    ],
+    "mean_peak_support_tilt_deg": 3.640944045222914,
+    "method": "forced_contact_intervention",
+    "native_paths_checked": false,
+    "observed_impact_samples": 39,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "captured": 31,
+      "invalid_action": 9,
+      "no_board_bounce": 5,
+      "no_entry": 3
+    },
+    "paired_vs_forced_center": {
+      "ci95": [
+        -0.14583333333333334,
+        0.10416666666666667
+      ],
+      "mean_difference": -0.020833333333333332,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "seed": 20261031,
+    "success_fraction": 0.6458333333333334,
+    "support_tilt_samples": 39,
+    "u_mm": 65.0,
+    "v_mm": 0.0
+  },
+  {
+    "captures": 0,
+    "checkpoint_id": "fdc1a78465cc2f0fbb70cd296e4a5222e643d6ea3bf42fc02f89b5c04ef6c71e",
+    "ci95": [
+      0.0,
+      0.07410012966611748
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "endpoint_infeasible": 40,
+    "episodes": 48,
+    "interpretation": "Controlled release-location intervention; not frozen policy inference. Changing U/V changes impact location, launch trajectory, endpoint reachability, and compliant response, so effects cannot be attributed solely to suspension.",
+    "kind": "contact_intervention",
+    "label": "Forced board contact U=0, V=-95 mm",
+    "layouts": 48,
+    "mean_observed_impact_uv_mm": [
+      0.5572557192561394,
+      -94.903012156774
+    ],
+    "mean_peak_support_tilt_deg": 3.4499017880309935,
+    "method": "forced_contact_intervention",
+    "native_paths_checked": false,
+    "observed_impact_samples": 8,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "invalid_action": 40,
+      "no_board_bounce": 1,
+      "no_entry": 7
+    },
+    "paired_vs_forced_center": {
+      "ci95": [
+        -0.7916666666666666,
+        -0.5208333333333334
+      ],
+      "mean_difference": -0.6666666666666666,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "seed": 20261031,
+    "success_fraction": 0.0,
+    "support_tilt_samples": 8,
+    "u_mm": 0.0,
+    "v_mm": -95.0
+  },
+  {
+    "captures": 0,
+    "checkpoint_id": "fdc1a78465cc2f0fbb70cd296e4a5222e643d6ea3bf42fc02f89b5c04ef6c71e",
+    "ci95": [
+      0.0,
+      0.07410012966611748
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "endpoint_infeasible": 0,
+    "episodes": 48,
+    "interpretation": "Controlled release-location intervention; not frozen policy inference. Changing U/V changes impact location, launch trajectory, endpoint reachability, and compliant response, so effects cannot be attributed solely to suspension.",
+    "kind": "contact_intervention",
+    "label": "Forced board contact U=0, V=95 mm",
+    "layouts": 48,
+    "mean_observed_impact_uv_mm": [
+      -0.10770251295169712,
+      95.07922324484275
+    ],
+    "mean_peak_support_tilt_deg": 4.201112592823043,
+    "method": "forced_contact_intervention",
+    "native_paths_checked": false,
+    "observed_impact_samples": 48,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "no_board_bounce": 3,
+      "no_entry": 45
+    },
+    "paired_vs_forced_center": {
+      "ci95": [
+        -0.7916666666666666,
+        -0.5208333333333334
+      ],
+      "mean_difference": -0.6666666666666666,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "seed": 20261031,
+    "success_fraction": 0.0,
+    "support_tilt_samples": 48,
+    "u_mm": 0.0,
+    "v_mm": 95.0
+  },
+  {
+    "captures": 0,
+    "checkpoint_id": "fdc1a78465cc2f0fbb70cd296e4a5222e643d6ea3bf42fc02f89b5c04ef6c71e",
+    "ci95": [
+      0.0,
+      0.07410012966611748
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "endpoint_infeasible": 38,
+    "episodes": 48,
+    "interpretation": "Controlled release-location intervention; not frozen policy inference. Changing U/V changes impact location, launch trajectory, endpoint reachability, and compliant response, so effects cannot be attributed solely to suspension.",
+    "kind": "contact_intervention",
+    "label": "Forced board contact U=-65, V=-95 mm",
+    "layouts": 48,
+    "mean_observed_impact_uv_mm": [
+      -64.56880548183152,
+      -95.06778846262432
+    ],
+    "mean_peak_support_tilt_deg": 3.4019063872420183,
+    "method": "forced_contact_intervention",
+    "native_paths_checked": false,
+    "observed_impact_samples": 10,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "invalid_action": 38,
+      "no_board_bounce": 1,
+      "no_entry": 9
+    },
+    "paired_vs_forced_center": {
+      "ci95": [
+        -0.7916666666666666,
+        -0.5208333333333334
+      ],
+      "mean_difference": -0.6666666666666666,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "seed": 20261031,
+    "success_fraction": 0.0,
+    "support_tilt_samples": 10,
+    "u_mm": -65.0,
+    "v_mm": -95.0
+  },
+  {
+    "captures": 0,
+    "checkpoint_id": "fdc1a78465cc2f0fbb70cd296e4a5222e643d6ea3bf42fc02f89b5c04ef6c71e",
+    "ci95": [
+      0.0,
+      0.07410012966611748
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "endpoint_infeasible": 0,
+    "episodes": 48,
+    "interpretation": "Controlled release-location intervention; not frozen policy inference. Changing U/V changes impact location, launch trajectory, endpoint reachability, and compliant response, so effects cannot be attributed solely to suspension.",
+    "kind": "contact_intervention",
+    "label": "Forced board contact U=-65, V=95 mm",
+    "layouts": 48,
+    "mean_observed_impact_uv_mm": [
+      -65.10770251295169,
+      95.07922324484275
+    ],
+    "mean_peak_support_tilt_deg": 4.0999089692828745,
+    "method": "forced_contact_intervention",
+    "native_paths_checked": false,
+    "observed_impact_samples": 48,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "no_board_bounce": 4,
+      "no_entry": 44
+    },
+    "paired_vs_forced_center": {
+      "ci95": [
+        -0.7916666666666666,
+        -0.5416666666666666
+      ],
+      "mean_difference": -0.6666666666666666,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "seed": 20261031,
+    "success_fraction": 0.0,
+    "support_tilt_samples": 48,
+    "u_mm": -65.0,
+    "v_mm": 95.0
+  },
+  {
+    "captures": 0,
+    "checkpoint_id": "fdc1a78465cc2f0fbb70cd296e4a5222e643d6ea3bf42fc02f89b5c04ef6c71e",
+    "ci95": [
+      0.0,
+      0.07410012966611748
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "endpoint_infeasible": 42,
+    "episodes": 48,
+    "interpretation": "Controlled release-location intervention; not frozen policy inference. Changing U/V changes impact location, launch trajectory, endpoint reachability, and compliant response, so effects cannot be attributed solely to suspension.",
+    "kind": "contact_intervention",
+    "label": "Forced board contact U=65, V=-95 mm",
+    "layouts": 48,
+    "mean_observed_impact_uv_mm": [
+      65.71310076078358,
+      -94.70255901694101
+    ],
+    "mean_peak_support_tilt_deg": 3.5127735815602468,
+    "method": "forced_contact_intervention",
+    "native_paths_checked": false,
+    "observed_impact_samples": 6,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "invalid_action": 42,
+      "no_entry": 6
+    },
+    "paired_vs_forced_center": {
+      "ci95": [
+        -0.7916666666666666,
+        -0.5416666666666666
+      ],
+      "mean_difference": -0.6666666666666666,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "seed": 20261031,
+    "success_fraction": 0.0,
+    "support_tilt_samples": 6,
+    "u_mm": 65.0,
+    "v_mm": -95.0
+  },
+  {
+    "captures": 0,
+    "checkpoint_id": "fdc1a78465cc2f0fbb70cd296e4a5222e643d6ea3bf42fc02f89b5c04ef6c71e",
+    "ci95": [
+      0.0,
+      0.07410012966611748
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "endpoint_infeasible": 7,
+    "episodes": 48,
+    "interpretation": "Controlled release-location intervention; not frozen policy inference. Changing U/V changes impact location, launch trajectory, endpoint reachability, and compliant response, so effects cannot be attributed solely to suspension.",
+    "kind": "contact_intervention",
+    "label": "Forced board contact U=65, V=95 mm",
+    "layouts": 48,
+    "mean_observed_impact_uv_mm": [
+      65.06424247460828,
+      94.9926605150419
+    ],
+    "mean_peak_support_tilt_deg": 4.296774857987807,
+    "method": "forced_contact_intervention",
+    "native_paths_checked": false,
+    "observed_impact_samples": 41,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "invalid_action": 7,
+      "no_board_bounce": 4,
+      "no_entry": 37
+    },
+    "paired_vs_forced_center": {
+      "ci95": [
+        -0.7916666666666666,
+        -0.5208333333333334
+      ],
+      "mean_difference": -0.6666666666666666,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "seed": 20261031,
+    "success_fraction": 0.0,
+    "support_tilt_samples": 41,
+    "u_mm": 65.0,
+    "v_mm": 95.0
+  },
+  {
+    "captures": 33,
+    "checkpoint_id": "58727134978348567acf748ea2b991b5d2a38a119d942ec5e75b888753f6967b",
+    "ci95": [
+      0.5416666666666666,
+      0.8125
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "endpoint_infeasible": 1,
+    "episodes": 48,
+    "interpretation": "Controlled release-location intervention; not frozen policy inference. Changing U/V changes impact location, launch trajectory, endpoint reachability, and compliant response, so effects cannot be attributed solely to suspension.",
+    "kind": "contact_intervention",
+    "label": "Forced board contact U=0, V=0 mm",
+    "layouts": 48,
+    "mean_observed_impact_uv_mm": [
+      -0.13047852337960572,
+      0.10639081451622073
+    ],
+    "mean_peak_support_tilt_deg": 0.853436586667847,
+    "method": "forced_contact_intervention",
+    "native_paths_checked": false,
+    "observed_impact_samples": 47,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "captured": 33,
+      "invalid_action": 1,
+      "no_entry": 14
+    },
+    "paired_vs_forced_center": {
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "mean_difference": 0.0,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "seed": 20261032,
+    "success_fraction": 0.6875,
+    "support_tilt_samples": 47,
+    "u_mm": 0.0,
+    "v_mm": 0.0
+  },
+  {
+    "captures": 0,
+    "checkpoint_id": "58727134978348567acf748ea2b991b5d2a38a119d942ec5e75b888753f6967b",
+    "ci95": [
+      0.0,
+      0.07410012966611748
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "endpoint_infeasible": 1,
+    "episodes": 48,
+    "interpretation": "Controlled release-location intervention; not frozen policy inference. Changing U/V changes impact location, launch trajectory, endpoint reachability, and compliant response, so effects cannot be attributed solely to suspension.",
+    "kind": "contact_intervention",
+    "label": "Forced board contact U=-65, V=0 mm",
+    "layouts": 48,
+    "mean_observed_impact_uv_mm": [
+      -65.13047852337961,
+      0.1063908145162252
+    ],
+    "mean_peak_support_tilt_deg": 3.7898821645432643,
+    "method": "forced_contact_intervention",
+    "native_paths_checked": false,
+    "observed_impact_samples": 47,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "invalid_action": 1,
+      "no_board_bounce": 45,
+      "no_entry": 2
+    },
+    "paired_vs_forced_center": {
+      "ci95": [
+        -0.8125,
+        -0.5625
+      ],
+      "mean_difference": -0.6875,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "seed": 20261032,
+    "success_fraction": 0.0,
+    "support_tilt_samples": 47,
+    "u_mm": -65.0,
+    "v_mm": 0.0
+  },
+  {
+    "captures": 35,
+    "checkpoint_id": "58727134978348567acf748ea2b991b5d2a38a119d942ec5e75b888753f6967b",
+    "ci95": [
+      0.5900303501775939,
+      0.8541666666666666
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "endpoint_infeasible": 4,
+    "episodes": 48,
+    "interpretation": "Controlled release-location intervention; not frozen policy inference. Changing U/V changes impact location, launch trajectory, endpoint reachability, and compliant response, so effects cannot be attributed solely to suspension.",
+    "kind": "contact_intervention",
+    "label": "Forced board contact U=65, V=0 mm",
+    "layouts": 48,
+    "mean_observed_impact_uv_mm": [
+      64.89486802985401,
+      0.11905914092038876
+    ],
+    "mean_peak_support_tilt_deg": 3.625392583330283,
+    "method": "forced_contact_intervention",
+    "native_paths_checked": false,
+    "observed_impact_samples": 44,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "captured": 35,
+      "invalid_action": 4,
+      "no_board_bounce": 5,
+      "no_entry": 4
+    },
+    "paired_vs_forced_center": {
+      "ci95": [
+        -0.10416666666666667,
+        0.1875
+      ],
+      "mean_difference": 0.041666666666666664,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "seed": 20261032,
+    "success_fraction": 0.7291666666666666,
+    "support_tilt_samples": 44,
+    "u_mm": 65.0,
+    "v_mm": 0.0
+  },
+  {
+    "captures": 0,
+    "checkpoint_id": "58727134978348567acf748ea2b991b5d2a38a119d942ec5e75b888753f6967b",
+    "ci95": [
+      0.0,
+      0.07410012966611748
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "endpoint_infeasible": 38,
+    "episodes": 48,
+    "interpretation": "Controlled release-location intervention; not frozen policy inference. Changing U/V changes impact location, launch trajectory, endpoint reachability, and compliant response, so effects cannot be attributed solely to suspension.",
+    "kind": "contact_intervention",
+    "label": "Forced board contact U=0, V=-95 mm",
+    "layouts": 48,
+    "mean_observed_impact_uv_mm": [
+      0.2653983487501874,
+      -94.73175957563353
+    ],
+    "mean_peak_support_tilt_deg": 3.4496600324087945,
+    "method": "forced_contact_intervention",
+    "native_paths_checked": false,
+    "observed_impact_samples": 10,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "invalid_action": 38,
+      "no_entry": 10
+    },
+    "paired_vs_forced_center": {
+      "ci95": [
+        -0.8125,
+        -0.5416666666666666
+      ],
+      "mean_difference": -0.6875,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "seed": 20261032,
+    "success_fraction": 0.0,
+    "support_tilt_samples": 10,
+    "u_mm": 0.0,
+    "v_mm": -95.0
+  },
+  {
+    "captures": 0,
+    "checkpoint_id": "58727134978348567acf748ea2b991b5d2a38a119d942ec5e75b888753f6967b",
+    "ci95": [
+      0.0,
+      0.07410012966611748
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "endpoint_infeasible": 0,
+    "episodes": 48,
+    "interpretation": "Controlled release-location intervention; not frozen policy inference. Changing U/V changes impact location, launch trajectory, endpoint reachability, and compliant response, so effects cannot be attributed solely to suspension.",
+    "kind": "contact_intervention",
+    "label": "Forced board contact U=0, V=95 mm",
+    "layouts": 48,
+    "mean_observed_impact_uv_mm": [
+      -0.12478675896239756,
+      95.07407728011141
+    ],
+    "mean_peak_support_tilt_deg": 4.129524185287722,
+    "method": "forced_contact_intervention",
+    "native_paths_checked": false,
+    "observed_impact_samples": 48,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "no_board_bounce": 5,
+      "no_entry": 43
+    },
+    "paired_vs_forced_center": {
+      "ci95": [
+        -0.8125,
+        -0.5625
+      ],
+      "mean_difference": -0.6875,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "seed": 20261032,
+    "success_fraction": 0.0,
+    "support_tilt_samples": 48,
+    "u_mm": 0.0,
+    "v_mm": 95.0
+  },
+  {
+    "captures": 0,
+    "checkpoint_id": "58727134978348567acf748ea2b991b5d2a38a119d942ec5e75b888753f6967b",
+    "ci95": [
+      0.0,
+      0.07410012966611748
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "endpoint_infeasible": 36,
+    "episodes": 48,
+    "interpretation": "Controlled release-location intervention; not frozen policy inference. Changing U/V changes impact location, launch trajectory, endpoint reachability, and compliant response, so effects cannot be attributed solely to suspension.",
+    "kind": "contact_intervention",
+    "label": "Forced board contact U=-65, V=-95 mm",
+    "layouts": 48,
+    "mean_observed_impact_uv_mm": [
+      -64.96985014234431,
+      -95.0040323863131
+    ],
+    "mean_peak_support_tilt_deg": 3.3650440535996586,
+    "method": "forced_contact_intervention",
+    "native_paths_checked": false,
+    "observed_impact_samples": 12,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "invalid_action": 36,
+      "no_board_bounce": 1,
+      "no_entry": 11
+    },
+    "paired_vs_forced_center": {
+      "ci95": [
+        -0.8125,
+        -0.5625
+      ],
+      "mean_difference": -0.6875,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "seed": 20261032,
+    "success_fraction": 0.0,
+    "support_tilt_samples": 12,
+    "u_mm": -65.0,
+    "v_mm": -95.0
+  },
+  {
+    "captures": 0,
+    "checkpoint_id": "58727134978348567acf748ea2b991b5d2a38a119d942ec5e75b888753f6967b",
+    "ci95": [
+      0.0,
+      0.07410012966611748
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "endpoint_infeasible": 0,
+    "episodes": 48,
+    "interpretation": "Controlled release-location intervention; not frozen policy inference. Changing U/V changes impact location, launch trajectory, endpoint reachability, and compliant response, so effects cannot be attributed solely to suspension.",
+    "kind": "contact_intervention",
+    "label": "Forced board contact U=-65, V=95 mm",
+    "layouts": 48,
+    "mean_observed_impact_uv_mm": [
+      -65.1247867589624,
+      95.07407728011144
+    ],
+    "mean_peak_support_tilt_deg": 4.0259901648930105,
+    "method": "forced_contact_intervention",
+    "native_paths_checked": false,
+    "observed_impact_samples": 48,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "no_board_bounce": 5,
+      "no_entry": 43
+    },
+    "paired_vs_forced_center": {
+      "ci95": [
+        -0.8125,
+        -0.5625
+      ],
+      "mean_difference": -0.6875,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "seed": 20261032,
+    "success_fraction": 0.0,
+    "support_tilt_samples": 48,
+    "u_mm": -65.0,
+    "v_mm": 95.0
+  },
+  {
+    "captures": 0,
+    "checkpoint_id": "58727134978348567acf748ea2b991b5d2a38a119d942ec5e75b888753f6967b",
+    "ci95": [
+      0.0,
+      0.07410012966611748
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "endpoint_infeasible": 41,
+    "episodes": 48,
+    "interpretation": "Controlled release-location intervention; not frozen policy inference. Changing U/V changes impact location, launch trajectory, endpoint reachability, and compliant response, so effects cannot be attributed solely to suspension.",
+    "kind": "contact_intervention",
+    "label": "Forced board contact U=65, V=-95 mm",
+    "layouts": 48,
+    "mean_observed_impact_uv_mm": [
+      65.56790080913139,
+      -94.7677492940541
+    ],
+    "mean_peak_support_tilt_deg": 3.369491753964312,
+    "method": "forced_contact_intervention",
+    "native_paths_checked": false,
+    "observed_impact_samples": 7,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "invalid_action": 41,
+      "no_entry": 7
+    },
+    "paired_vs_forced_center": {
+      "ci95": [
+        -0.8125,
+        -0.5625
+      ],
+      "mean_difference": -0.6875,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "seed": 20261032,
+    "success_fraction": 0.0,
+    "support_tilt_samples": 7,
+    "u_mm": 65.0,
+    "v_mm": -95.0
+  },
+  {
+    "captures": 0,
+    "checkpoint_id": "58727134978348567acf748ea2b991b5d2a38a119d942ec5e75b888753f6967b",
+    "ci95": [
+      0.0,
+      0.07410012966611748
+    ],
+    "ci95_method": "layout bootstrap envelope with Wilson effective-layout bound; noise repeats stay clustered",
+    "endpoint_infeasible": 5,
+    "episodes": 48,
+    "interpretation": "Controlled release-location intervention; not frozen policy inference. Changing U/V changes impact location, launch trajectory, endpoint reachability, and compliant response, so effects cannot be attributed solely to suspension.",
+    "kind": "contact_intervention",
+    "label": "Forced board contact U=65, V=95 mm",
+    "layouts": 48,
+    "mean_observed_impact_uv_mm": [
+      64.9884201154426,
+      95.04951673187284
+    ],
+    "mean_peak_support_tilt_deg": 4.259872620726184,
+    "method": "forced_contact_intervention",
+    "native_paths_checked": false,
+    "observed_impact_samples": 43,
+    "out_of_distribution_layouts": 0,
+    "outcomes": {
+      "invalid_action": 5,
+      "no_board_bounce": 6,
+      "no_entry": 37
+    },
+    "paired_vs_forced_center": {
+      "ci95": [
+        -0.8125,
+        -0.5416666666666666
+      ],
+      "mean_difference": -0.6875,
+      "method": "paired layout bootstrap; same layouts and release seeds"
+    },
+    "physically_verified": false,
+    "seed": 20261032,
+    "success_fraction": 0.0,
+    "support_tilt_samples": 43,
+    "u_mm": 65.0,
+    "v_mm": 95.0
+  }
+]

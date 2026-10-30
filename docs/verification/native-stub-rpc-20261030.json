@@ -1,0 +1,89 @@
+{
+  "schema": "sircus-native-stub-observed-summary-v2",
+  "observed_at_utc": "2026-10-30T12:08:14.500258+00:00",
+  "server_version": "v1.14.3",
+  "target": "127.0.0.1:18768",
+  "physically_verified": false,
+  "scope": "isolated localhost RPC only; configuration checked and no component/remote resources allowed",
+  "resources": [
+    {
+      "namespace": "rdk",
+      "type": "service",
+      "subtype": "motion",
+      "name": "builtin"
+    },
+    {
+      "namespace": "rdk",
+      "type": "service",
+      "subtype": "generic",
+      "name": "sircus-operation-coordinator"
+    },
+    {
+      "namespace": "rdk",
+      "type": "service",
+      "subtype": "vision",
+      "name": "sircus-bucket-vision"
+    },
+    {
+      "namespace": "rdk",
+      "type": "service",
+      "subtype": "generic",
+      "name": "sircus-coordinator-rehearsal"
+    }
+  ],
+  "blocked_grip_drop_rejected": true,
+  "vision_properties": {
+    "defaultCamera": "cam"
+  },
+  "vision_status": {
+    "reason": "No physical detector or verified camera-world calibration is installed",
+    "status": "unknown",
+    "camera_read": false,
+    "camera": "cam",
+    "hardware_enabled": false,
+    "schema": "sircus.bucket-perception.v1",
+    "estimate_available": false,
+    "estimate": 0
+  },
+  "stages": [
+    {
+      "action": "confirm_board",
+      "phase": "place_bucket"
+    },
+    {
+      "action": "confirm_bucket_placed",
+      "phase": "ready_scan"
+    },
+    {
+      "action": "scan_bucket",
+      "phase": "review_bucket"
+    },
+    {
+      "action": "review_bucket",
+      "phase": "ready_loading"
+    },
+    {
+      "action": "go_loading",
+      "phase": "insert_ball"
+    },
+    {
+      "action": "confirm_loaded",
+      "phase": "ready_drop"
+    },
+    {
+      "action": "grip_drop",
+      "phase": "complete"
+    }
+  ],
+  "final_phase": "complete",
+  "trial_outcome": "unknown",
+  "hardware_enabled": false,
+  "probe_schema": "sircus-native-stub-validation-v2",
+  "probe_entrypoint": "python -m sircus.deployment.check_native",
+  "source_record_sha256": "f062de033e6460d9bdef528b9836d319ce45c8c7952112d595442b03a8f5ff07",
+  "source_record": "local .runtime/commissioning-native/verification-repro.json",
+  "limitations": [
+    "Isolated localhost module and synthetic workflow only; no physical resources, detector or calibration verified.",
+    "SDK null decoding returned estimate=0; explicit estimate_available=false and status=unknown govern interpretation."
+  ]
+}

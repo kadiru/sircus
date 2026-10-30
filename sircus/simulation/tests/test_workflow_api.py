@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import sys
 import types
+import tempfile
 import unittest
 from unittest.mock import Mock, patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -81,6 +82,44 @@ class WorkflowRoutes(unittest.TestCase):
         value,code=self.request('/api/operations/action',{'action':'plan'})
         self.assertEqual(code,503);self.assertNotIn('private details',json.dumps(value))
         self.assertEqual(self.native.mock_calls,[])
+
+class StudyResultsBoundary(unittest.TestCase):
+    setUp = WorkflowRoutes.setUp
+    request = WorkflowRoutes.request
+    def test_report_and_readiness_are_read_only_offline_resources(self):
+        report = {'schema':'sircus-learning-challenge-report-v1', 'data_origin':'synthetic',
+                  'physically_verified':False, 'learning_curve':[], 'status':'complete',
+                  'profile_id':'front-negative-y-v1', 'native_paths_checked':False}
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'report.json';path.write_text(json.dumps(report))
+            with patch.object(server,'STUDY_RESULTS_PATH',path):
+                self.assertEqual(self.request('/api/study/results'),(report,200))
+                self.assertEqual(self.request('/api/study/results',host='untrusted.test')[1],403)
+                state,code=self.request('/api/deployment/status')
+                self.assertEqual(code,200);self.assertEqual(state['mode'],'blocked')
+                self.assertFalse(state['hardware_enabled'])
+                with patch.object(server,'OFFLINE',False):
+                    self.assertEqual(self.request('/api/study/results')[1],503)
+                    self.assertEqual(self.request('/api/deployment/status')[1],503)
+                for changes in ({'physically_verified':True}, {'status':'running'},
+                                {'profile_id':'historical-positive-y-v1'}, {'native_paths_checked':True}):
+                    path.write_text(json.dumps({**report,**changes}))
+                    self.assertEqual(self.request('/api/study/results')[1],400)
+        self.operations.action.assert_not_called();self.training.start.assert_not_called()
+        self.assertEqual(self.native.mock_calls,[])
+
+    def test_report_rejects_missing_symlink_nonfinite_and_oversize(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'report.json'
+            for contents in ('{"value":NaN}', '{}'):
+                path.write_text(contents)
+                with self.assertRaises(ValueError):server.load_study_results(path)
+            link=Path(folder)/'link.json';link.symlink_to(path)
+            with self.assertRaises(FileNotFoundError):server.load_study_results(link)
+            with self.assertRaises(FileNotFoundError):server.load_study_results(Path(folder)/'missing')
+            with path.open('wb') as handle:handle.truncate(32_000_001)
+            with self.assertRaisesRegex(ValueError,'limit'):server.load_study_results(path)
+
 
 class WorkflowShutdown(unittest.TestCase):
     def test_sigterm_cleans_owned_workers_only_in_operations_mode(self):

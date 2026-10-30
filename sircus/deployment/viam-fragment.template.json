@@ -1,0 +1,23 @@
+{
+  "modules": [
+    {
+      "name": "sircus-deployment-stub",
+      "type": "local",
+      "executable_path": "/opt/sircus/sircus/deployment/run-module.sh"
+    }
+  ],
+  "services": [
+    {
+      "name": "sircus-operation-coordinator",
+      "api": "rdk:service:generic",
+      "model": "sircus:deployment:operation-coordinator",
+      "attributes": {"mode": "blocked", "hardware_enabled": false}
+    },
+    {
+      "name": "sircus-bucket-vision",
+      "api": "rdk:service:vision",
+      "model": "sircus:deployment:bucket-vision-stub",
+      "attributes": {}
+    }
+  ]
+}

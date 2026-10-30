@@ -1,6 +1,53 @@
 # Project state
 
-## Guided operator and training workspace — October 30, 2026
+## Corrected front-bucket study and commissioning stubs — October 30, 2026
+
+- Active draft PR5 / `codex/macbook-guided-training` keeps main and audio drafts separate.
+  The operator workspace defaults to front-negative-y-v1: origin at dropper arm10,
+  +X toward arm14, +Z up; bucket and operator face the board from negative Y.
+  Screenshot TCP values remain historical evidence, not calibrated ball-center poses.
+- Historical positive-Y assets/checkpoints and rectangular/bucket baselines are
+  preserved. The corrected profile has separate fingerprint guards and immutable
+  training/test evidence. Profile changes invalidate stale scans and plans.
+- Initial corrected24/6/8 study: frozen3/8, fixed2/8, limited4-proposal search2/8;
+  the frozen95% interval is13.7–69.4%. The small sample is inconclusive. See
+  [the current study record](FRONT_BUCKET_STUDY.md) for the larger prespecified
+  three-seed N8/24/64/128 curves, held-out challenge results and limitations.
+- `/study-results.html` displays completed synthetic reports, uncertainty, actual
+  ball trajectories, and video export. `/operations.html` provides guided rehearsal,
+  profile-specific training and a read-only physical-readiness checklist. Numerical
+  arm endpoints remain separate from native collision-path and dynamics validation.
+- [Viam deployment stubs](VIAM_DEPLOYMENT.md) add typed scan/kinematics/planning/
+  recording/motion interfaces, a blocked coordinator and unknown-result vision
+  service. Actual localhost Viam1.14.3 RPC tests passed with no hardware components.
+  A private unattached cloud fragment was saved with zero deployments; physical
+  machine configuration and robot commands were not changed.
+- Physical implementation still requires a real bucket detector, reference-based
+  camera/world and board-mount calibration, single-controller ownership, taught
+  scan/load poses, measured grasp offset/release limits, recording validation and
+  collision-checked paths. Native v2 replay compatibility guards remain in place.
+
+### Final overnight checkpoint
+
+- Larger study: three training seeds, nested N8/24/64/128; 16 validation and 48
+  shared disjoint test layouts. Mean captures:59.0%,67.4%,67.4%,69.4%. Prespecified
+  default N128/seed20261030:33/48 (95%54.7–80.1%), fixed25/48, bounded search37/48.
+  At ±200mm lateral offsets default frozen inference scored0/24; separate diagnostic
+  search found18/24 and12/24. No diagnostic result was used to refit/select the model.
+- Final suite:193 Python and53 Node tests passed, including physical-controller
+  mocks, versioned scoring/contact, source/asset guards, all576 saved predictions,
+  numerical replay, UI races and deployment-stub tests. Independent reconstruction
+  matched all12 train-only model fits within1.89e-15.
+- Only the dedicated offline operator process on port18766 was refreshed after
+  confirming it was idle and preserving its status. It serves the published front
+  checkpoint/report with physical controls disabled. It is manually launched via
+  `./start-operator-sim.sh`; this is not physical deployment or a Viam cloud runtime.
+  Temporary QA and native-stub servers are stopped when verification completes.
+- The video is a rendered record of actual saved numerical trajectories and results,
+  not a physical trial or validated native arm path. Browser video export remains
+  capability-dependent; a standalone renderer is supplied for repeatable output.
+
+## Historical guided-workspace checkpoint — October 30, 2026
 
 - `codex/macbook-guided-training` adds `/operations.html` on an explicitly opted-in,
   local-only offline server. Start with `./start-operator-sim.sh` on unused port18766.

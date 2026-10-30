@@ -1,0 +1,2 @@
+# Keep aligned with the repository's pinned environment.
+viam-sdk==0.85.1
