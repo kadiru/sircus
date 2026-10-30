@@ -78,3 +78,59 @@ test('explicit reapply of unchanged audio mappings is audio-only and blocked by 
  const h=harness();h.panel.getAudioState=()=>({configured:true});h.panel.accept(status('hardware'));assert.equal(h.nodes.reapplyAudioMappings.disabled,false);assert.equal(await h.panel.reapplyAudioMappings(),true);assert.equal(h.requests.length,1);assert.equal(h.requests[0][0],'/api/show/action');assert.equal(JSON.parse(h.requests[0][1].body).action,'configure_audio');assert.deepEqual(h.commands,[]);
  h.panel.dirty=true;assert.equal(await h.panel.reapplyAudioMappings(),false);h.panel.dirty=false;h.physical.busy=true;assert.equal(await h.panel.reapplyAudioMappings(),false);assert.equal(h.requests.length,1);
 });
+
+const pickupPose={x:150,y:-600,z:120,o_x:0,o_y:0,o_z:-1,theta:0};
+function pickupState(extra={}){return {connected:true,busy:false,phase:'idle',selected_ball_id:'ball-pink',
+ calibration:{pickup_poses:{'ball-pink':{...pickupPose}},drop_pose:{...pickupPose,x:600,z:600}},
+ pickup_grasp_pose:{...pickupPose},pickup_approach_pose:{...pickupPose,z:220},loading_approach_pose:{...pickupPose,z:300},
+ pickup_approach_offset_mm:100,pickup_station_missing:[],pickup_station_blockers:[],...extra};}
+function pickupHarness(){const h=harness();h.panel.accept(status('hardware'));h.panel.physicalStatus(pickupState());return h;}
+
+test('taped pickup is a separate opt-in mode and teaching never starts a routine',async()=>{
+ const h=pickupHarness();assert.equal(h.panel.manualLoadMode,'hand');assert.equal(h.nodes.handLoadCycle.hidden,false);assert.equal(h.nodes.pickupStationPanel.hidden,true);assert.deepEqual(h.commands,[]);
+ assert.equal(h.panel.selectLoadMode('pickup'),true);assert.equal(h.nodes.handLoadCycle.hidden,true);assert.equal(h.nodes.handLoadControls.hidden,true);assert.equal(h.nodes.pickupStationPanel.hidden,false);assert.equal(h.nodes.pickupCycle.disabled,true);assert.match(h.nodes.pickupPose.textContent,/"z": 120/);assert.match(h.nodes.pickupApproachPose.textContent,/"z": 220/);assert.deepEqual(h.commands,[]);
+ assert.equal(await h.panel.pickupCommand('teach_pickup'),true);assert.deepEqual(h.commands,[['teach_pickup',{ball_id:'ball-pink'}]]);
+ assert.equal(h.panel.selectLoadMode('hand'),true);assert.equal(h.nodes.handLoadCycle.hidden,false);assert.equal(h.commands.length,1);
+});
+
+test('pickup approach requires explicit pad clearance and never sends descend or tool commands',async()=>{
+ const h=pickupHarness();h.panel.selectLoadMode('pickup');assert.equal(await h.panel.pickupCommand('go_pickup_approach'),false);assert.deepEqual(h.commands,[]);
+ h.nodes.pickupSetupConfirm.checked=true;h.panel.render();assert.equal(h.nodes.pickupApproach.disabled,false);assert.equal(h.nodes.pickupCycle.disabled,true);
+ assert.equal(await h.panel.pickupCommand('go_pickup_approach'),true);assert.deepEqual(h.commands,[['go_pickup_approach',{ball_id:'ball-pink',pickup_setup_confirmed:true}]]);assert.equal(h.nodes.pickupSetupConfirm.checked,false);
+ h.nodes.pickupSetupConfirm.checked=true;assert.equal(await h.panel.pickupCommand('go_loading_approach'),true);assert.deepEqual(h.commands[1],['go_loading_approach',{pickup_setup_confirmed:true}]);
+});
+
+test('pickup cycle keeps selected identity, requires both confirmations and remains one press per attempt',async()=>{
+ const h=pickupHarness();h.panel.selectLoadMode('pickup');h.nodes.pickupSetupConfirm.checked=true;assert.equal(await h.panel.pickupCommand('pickup_drop_cycle'),false);
+ h.nodes.pickupFixedConfirm.checked=true;h.nodes.pickupPractice.checked=true;
+ const gate=deferred();h.physical.command=async(...args)=>{h.commands.push(args);return gate.promise;};
+ const first=h.panel.pickupCommand('pickup_drop_cycle');assert.equal(h.nodes.pickupCycle.disabled,true);assert.equal(h.nodes.pickupSetupConfirm.checked,false);assert.equal(h.nodes.pickupFixedConfirm.checked,false);assert.equal(h.panel.selectLoadMode('hand'),false);assert.equal(await h.panel.pickupCommand('pickup_drop_cycle'),false);
+ assert.deepEqual(h.commands,[['pickup_drop_cycle',{ball_id:'ball-pink',pickup_setup_confirmed:true,fixed_setup_confirmed:true,practice_mode:true}]]);
+ gate.resolve(true);assert.equal(await first,true);h.panel.physicalStatus(pickupState({trial:{id:'retained',saved:true,status:'completed'}}));assert.equal(h.nodes.pickupCycle.disabled,true);assert.equal(h.commands.length,1,'completed status cannot automatically repeat');
+});
+
+test('color, target, fault and readback changes invalidate pickup confirmations',()=>{
+ const h=pickupHarness();h.panel.selectLoadMode('pickup');
+ for(const changed of [pickupState({selected_ball_id:'ball-gray',pickup_grasp_pose:null,pickup_approach_pose:null}),pickupState({calibration:{drop_pose:{...pickupPose,z:650}}}),pickupState({connected:false}),pickupState({fault:true,error:'guard fault'}),pickupState({busy:true,phase:'pickup_descending'})]){
+   h.panel.physicalStatus(pickupState());h.nodes.pickupSetupConfirm.checked=true;h.nodes.pickupFixedConfirm.checked=true;h.panel.physicalStatus(changed);assert.equal(h.nodes.pickupSetupConfirm.checked,false);assert.equal(h.nodes.pickupFixedConfirm.checked,false);assert.equal(h.nodes.pickupCycle.disabled,true);
+ }
+ assert.deepEqual(h.commands,[]);
+});
+
+test('pickup motion stays locked for an untaught color, unexpected offset and unsaved target edits',async()=>{
+ const h=pickupHarness();h.panel.selectLoadMode('pickup');
+ for(const changed of [pickupState({pickup_grasp_pose:null,pickup_approach_pose:null}),pickupState({pickup_approach_offset_mm:50})]){
+  h.panel.physicalStatus(changed);h.nodes.pickupSetupConfirm.checked=true;h.nodes.pickupFixedConfirm.checked=true;assert.equal(await h.panel.pickupCommand('go_pickup_approach'),false);assert.equal(await h.panel.pickupCommand('pickup_drop_cycle'),false);
+ }
+ h.panel.physicalStatus(pickupState());h.physical.hasUnsavedPoseEdits=true;h.nodes.pickupSetupConfirm.checked=true;h.nodes.pickupFixedConfirm.checked=true;h.panel.render();assert.match(h.nodes.pickupStatus.textContent,/Save or discard/);
+ for(const action of ['go_loading_approach','go_pickup_approach','pickup_drop_cycle'])assert.equal(await h.panel.pickupCommand(action),false);
+ assert.deepEqual(h.commands,[]);
+});
+
+test('an immediate successful Stop with a new action epoch invalidates both pickup confirmations',()=>{
+ const h=pickupHarness();h.panel.selectLoadMode('pickup');h.panel.physicalStatus(pickupState({action_epoch:10,action_token:'same-session'}));
+ h.nodes.pickupSetupConfirm.checked=true;h.nodes.pickupFixedConfirm.checked=true;h.panel.render();assert.equal(h.nodes.pickupCycle.disabled,false);
+ // Stop can finish before the next status poll: no busy/error phase need be seen.
+ h.panel.physicalStatus(pickupState({action_epoch:11,action_token:'same-session',busy:false,phase:'idle',fault:false,error:null}));
+ assert.equal(h.nodes.pickupSetupConfirm.checked,false);assert.equal(h.nodes.pickupFixedConfirm.checked,false);assert.equal(h.nodes.pickupCycle.disabled,true);assert.equal(h.commands.length,0);
+});
