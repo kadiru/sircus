@@ -30,6 +30,16 @@ STATE = {'phase': 'idle'}
 OFFLINE = False
 BRIDGE = None
 PHYSICAL = None
+AUDIO = None
+
+
+def optional_audio_observer():
+    """Optional audio initialization cannot prevent dashboard/robot startup."""
+    try:
+        from sircus.audio.dashboard import AudioObserver
+        return AudioObserver()
+    except Exception:
+        return None
 
 
 class PhysicalBridge:
@@ -48,7 +58,7 @@ class PhysicalBridge:
         self.thread.start()
         self.token = secrets.token_urlsafe(32)
         self.mode = mode
-        self.controller = Controller(adapter, root, mode=mode)
+        self.controller = Controller(adapter, root, mode=mode, audio=AUDIO)
         self.startup = asyncio.run_coroutine_threadsafe(self.controller.start(), self.loop)
 
     def call(self, kind, payload=None):
@@ -182,6 +192,15 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         path = urlsplit(self.path).path
+        if path.startswith('/api/audio/'):
+            if not self.physical_host_ok():
+                return self.send({'error': 'loopback host required'}, 403)
+            if path != '/api/audio/status':
+                return self.send({'error': 'unknown audio endpoint'}, 404)
+            if AUDIO is None:
+                return self.send({'configured': False, 'enabled': False, 'connection': 'not_configured',
+                                  'pending': False, 'error': 'Audio observer unavailable'}, 503)
+            return self.send(AUDIO.snapshot())
         if path.startswith('/api/physical/'):
             if not self.physical_host_ok():
                 return self.send({'error':'loopback host required'}, 403)
@@ -229,6 +248,21 @@ class Handler(BaseHTTPRequestHandler):
             return self.send({'error': 'invalid request size'}, 413)
         if length <= 0 or length > 200000:
             return self.send({'error': 'invalid request size'}, 413)
+        if urlsplit(self.path).path.startswith('/api/audio/'):
+            if not self.physical_host_ok() or AUDIO is None:
+                return self.send({'error': 'audio backend unavailable'}, 403)
+            if length > 4096:
+                return self.send({'error': 'invalid audio request size'}, 413)
+            if not secrets.compare_digest(self.headers.get('X-Sircus-Audio-Token', ''), AUDIO.token):
+                return self.send({'error': 'audio action token required'}, 403)
+            if urlsplit(self.path).path != '/api/audio/control':
+                return self.send({'error': 'unknown audio endpoint'}, 404)
+            try:
+                return self.send(AUDIO.control(json.loads(self.rfile.read(length))), 202)
+            except (ValueError, TypeError):
+                return self.send({'error': 'Invalid or unavailable audio control'}, 400)
+            except Exception:
+                return self.send({'error': 'Optional audio control unavailable'}, 503)
         if urlsplit(self.path).path.startswith('/api/physical/'):
             if not self.physical_host_ok() or PHYSICAL is None:
                 return self.send({'error':'physical backend unavailable'},403)
@@ -300,7 +334,7 @@ class Handler(BaseHTTPRequestHandler):
 
 
 def main():
-    global OFFLINE, BRIDGE, PHYSICAL
+    global OFFLINE, BRIDGE, PHYSICAL, AUDIO
     parser = argparse.ArgumentParser()
     parser.add_argument('--port', type=int, default=8765)
     parser.add_argument('--offline', action='store_true', help='Explicitly use standalone physics; no Viam commands')
@@ -308,13 +342,20 @@ def main():
     parser.add_argument('--physical-credentials', type=Path, default=ROOT.parent/'perception/.private/sfhack10.json')
     parser.add_argument('--physical-data-root', type=Path, default=None)
     args = parser.parse_args()
+    # Audio remains optional and separate from Viam credentials/control loops.
+    sys.path.insert(0, str(ROOT.parent.parent))
+    AUDIO = optional_audio_observer()
     OFFLINE = args.offline
     if not OFFLINE: BRIDGE = ViamBridge()
     if args.physical_mode != 'disabled':
         data_root = args.physical_data_root or ROOT.parent/'physical_trials/data'/args.physical_mode
         PHYSICAL = PhysicalBridge(args.physical_mode,args.physical_credentials,data_root)
     print(f'Sircus dashboard: http://127.0.0.1:{args.port} ({"OFFLINE simulation" if OFFLINE else "Viam two-arm simulation bridge"})', flush=True)
-    ThreadingHTTPServer(('127.0.0.1', args.port), Handler).serve_forever()
+    try:
+        ThreadingHTTPServer(('127.0.0.1', args.port), Handler).serve_forever()
+    finally:
+        if AUDIO is not None:
+            AUDIO.close()
 
 
 if __name__ == '__main__':

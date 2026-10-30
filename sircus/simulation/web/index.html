@@ -17,6 +17,13 @@
     <button id="showPhysical" aria-pressed="false" aria-controls="physicalPanel">Physical trials <small>sfhack10 · MacBook</small></button>
     <span>Separate configurations and trial records</span>
   </nav>
+  <section id="audioPanel" class="audio-panel" aria-labelledby="audioHeading">
+    <div class="audio-title"><h2 id="audioHeading">Ghost Booth FX</h2><span>Mac mini audio · physical trial cues</span></div>
+    <label class="audio-toggle"><input id="audioFX" type="checkbox" role="switch" disabled><span>FX <b id="audioFXLabel">off</b></span></label>
+    <label class="audio-volume" for="audioVolume">Volume <output id="audioVolumeValue" for="audioVolume">35%</output><input id="audioVolume" type="range" min="0" max="1" step="0.05" value="0.35" disabled></label>
+    <div class="audio-feedback" role="status" aria-live="polite"><strong id="audioConnection">Checking audio…</strong><span id="audioMessage">FX starts off. Robot controls work independently.</span></div>
+    <p id="audioMuteWarning" class="audio-mute-warning" role="alert" hidden>Remote mute is unconfirmed. Use Mute all audio in Ghost Booth on the Mac mini.</p>
+  </section>
   <main id="simulationPanel">
     <section class="stage-column">
       <div class="intro"><div><span class="eyebrow">EXPERIMENT 01</span><h1>Teach a better bounce.</h1></div><p>Change the board.<br>Let the drop adapt.</p></div>
@@ -80,5 +87,6 @@
   </main>
   <script type="module" src="/app.js"></script>
   <script type="module" src="/physical.js"></script>
+  <script type="module" src="/audio.js"></script>
 </body>
 </html>
