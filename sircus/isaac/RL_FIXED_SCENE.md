@@ -33,7 +33,7 @@ policy inputs. Perception-driven observations are a later stage.
 
 ## Physics and scoring
 
-Task contract `sircus-isaac-fixed-shot-v4` fingerprints the scene, action bounds,
+Task contract `sircus-isaac-fixed-shot-v5` fingerprints the scene, action bounds,
 scoring and physics choices. The foundation's average restitution combine is
 replaced by **max combine** for the provisional ball restitution0.65. Board
 mounting is still rigid; these are uncalibrated contact assumptions, not measured
@@ -43,7 +43,8 @@ Board contact comes from an Isaac Lab filtered PhysX contact sensor on the ball,
 filtered to the attached impact board. A bounce requires contact followed by
 separation and positive normal rebound speed. A whole sphere must enter and
 remain inside the tapered bucket for one continuous second. Partial exits reset
-retention. Rim contact does not disqualify a capture. Exact signed distances to the64 collision wall planes determine side clearance; floor contact has a1mm tolerance.
+retention. Rim contact does not disqualify a capture. Exact signed distances to the64 collision wall planes determine side clearance; floor contact has a1mm tolerance. Side/top checks use an explicit1µm numerical
+tolerance for float32 resting-contact jitter; it is included in the fingerprint.
 The maximum rollout is4 seconds. Shaping rewards board rebound, proximity and
 retention; only the separate success flag represents a completed shot.
 
@@ -94,14 +95,14 @@ The first16-episode v1 pipeline smoke saved a changed policy, observed PhysX boa
 contacts/rebounds, and scored8/8 deterministic frozen trials. The midpoint
 heuristic also scored2/2: this smoke demonstrates working updates/replay, **not
 an RL advantage**. Its local run is `rl-20261031T024024Z`; it is preserved as a
-distinct earlier contract. The final v4 task uses exact polygon wall-plane containment, deterministic IK
+distinct earlier contract. The final v5 task uses exact polygon wall-plane containment, deterministic IK
 initialization and a weaker untrained actor initialization; it retains the
 midpoint heuristic as an explicit comparator. A board rebound must occur within
 50ms of board contact, preventing a later floor bounce from qualifying. Earlier
-v2/v3 diagnostic runs remain local and separate; their partial results are not
+v2/v3/v4 diagnostic runs remain local and separate; their partial results are not
 reported as final training evidence.
 
-Ten dependency-light geometry/scoring tests cover frame conversion, board
+Eleven dependency-light geometry/scoring tests cover frame conversion, board
 orientation, tapered geometry, rebound requirement, whole-ball containment,
 continuous retention reset, action bounds and fingerprint changes. The full
 existing mock/numerical suite is also run separately. Neither establishes

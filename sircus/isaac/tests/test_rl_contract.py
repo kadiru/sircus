@@ -73,6 +73,22 @@ class ScoreTests(unittest.TestCase):
             s.step([0.6633171439, -0.3803637326, 0.0455000028], 0, 0.01)
         self.assertTrue(s.success)
 
+    def test_float32_contact_jitter_is_not_a_partial_exit(self):
+        s = ShotScore(self.b, self.r)
+        self.bounce(s)
+        for i in range(100):
+            s.step(
+                [0.6633171439, -0.3803637326 + (2e-7 if i % 2 else 0), 0.0455000028],
+                0,
+                0.01,
+            )
+        self.assertTrue(s.success)
+        s = ShotScore(self.b, self.r)
+        self.bounce(s)
+        for _ in range(100):
+            s.step([0.6633171439, -0.3803637326 + 1e-4, 0.0455000028], 0, 0.01)
+        self.assertFalse(s.success)
+
 
 if __name__ == "__main__":
     unittest.main()
