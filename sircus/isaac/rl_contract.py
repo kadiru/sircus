@@ -6,7 +6,8 @@ import math
 
 import numpy as np
 
-VERSION = "sircus-isaac-fixed-shot-v4"
+VERSION = "sircus-isaac-fixed-shot-v5"
+GEOMETRY_EPS_M = 1e-6  # float32 resting-contact jitter, not capture slack
 # Tilt from horizontal, heading offset from bucket-facing, vertical ball clearance.
 LOW = np.array([12.0, -15.0, 0.06])
 HIGH = np.array([45.0, 15.0, 0.25])
@@ -28,6 +29,7 @@ def fingerprint(cfg):
                 "ball_restitution_combine": "max",
                 "retention_s": 1.0,
                 "floor_contact_tolerance_m": 0.001,
+                "geometry_epsilon_m": GEOMETRY_EPS_M,
             },
             sort_keys=True,
         ).encode()
@@ -71,9 +73,10 @@ class ShotScore:
             np.max(self.wall_normals @ (np.array([x, y]) - b["center_xy_m"]))
         )
         whole = (
-            z + r <= top
+            z + r <= top + GEOMETRY_EPS_M
             and z - r >= floor - 0.001
-            and (inner - projection) / math.sqrt(1 + slope * slope) >= r
+            and (inner - projection) / math.sqrt(1 + slope * slope)
+            >= r - GEOMETRY_EPS_M
         )
         self.contact_seen |= board_force > 0.01
         self.since_board_contact = (
