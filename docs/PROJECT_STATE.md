@@ -1,5 +1,13 @@
 # Project state
 
+## Randomized RGB-D validation — October 31, 2026
+
+- [Study contract, results and reproduction](../sircus/isaac/PERCEPTION_VALIDATION.md): frozen detector evaluated on 24 nearby board/bucket layouts × six paired lighting/noise conditions. All 144 observations completed; zero exclusions/timeouts. Ground truth and visibility labels remained evaluation-only.
+- Clean: table/board/bucket detected 24/24; all 18 visible balls localized within 10mm. Board detection fell to 0/24 under changed lighting or 2mm noise. At 8mm noise, table/board/bucket were all missing; only 1/18 visible balls localized within 10mm. Combined challenge had a 113mm ball outlier. This baseline is not ready for perception-driven control.
+- A renderer-lighting confound in an earlier diagnostic pass was corrected by reusing exact control captures for depth noise; all 72 paired RGB/calibration/truth checks passed in final contract v3. Earlier results were not relabeled.
+- Preview shows per-condition availability/error table and a run-matched chart. Raw data/checksums remain on Ubuntu outside Git. The finite 4090 study completed; CPU observation workers/preview remain. The 4070 stays stopped; no hardware/Viam changes.
+- 25 Isaac tests and full project regression suite passed. Next: robust board/plane detection on development scenes, followed by fresh held-out validation; no policy changes in this task.
+
 ## Isaac RGB-D perception — October 30, 2026
 
 - [Perception architecture, validation and launch instructions](../sircus/isaac/PERCEPTION.md): independent CPU geometry estimates for table, pink ball, board and bucket from rendered RGB-D plus synthetic camera calibration. No simulator object poses or instance masks enter the estimator. Truth is evaluated separately on exact frame IDs.

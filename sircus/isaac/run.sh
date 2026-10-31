@@ -9,6 +9,14 @@ idle() {
   docker exec -u 0 "$container" bash -lc 'if pgrep -f "^/workspace/venv/bin/python /workspace/source/sircus/isaac/launch_scene.py" >/dev/null; then echo "A Sircus scene is already running; stop it explicitly first."; exit 1; fi'
 }
 case "$action" in
+  validate-perception)
+    layouts=${2:-24}; seed=${3:-20261031}
+    [[ "$layouts" =~ ^[0-9]+$ && "$seed" =~ ^[0-9]+$ && "$layouts" -gt 0 ]] || exit 2
+    idle
+    bash "$(dirname "$0")/perception.sh" start
+    docker exec -d -u 0 -e OPENBLAS_NUM_THREADS=1 -e OMP_NUM_THREADS=1 "$container" bash -lc 'exec flock -n /workspace/scene.lock /workspace/source/sircus/isaac/python.sh /workspace/source/sircus/isaac/launch_scene.py --headless --enable_cameras --device cuda:0 --validation-layouts "$1" --validation-seed "$2" > /workspace/logs/perception-validation.log 2>&1' _ "$layouts" "$seed"
+    echo 'Validation starting. See output/validation.json and the read-only preview.' ;;
+
   train)
     episodes=${2:-256}; seed=${3:-42}
     [[ "$episodes" =~ ^[0-9]+$ && "$seed" =~ ^[0-9]+$ && "$episodes" -gt 0 ]] || { echo 'Use positive episode count and nonnegative seed'; exit 2; }
@@ -39,5 +47,5 @@ case "$action" in
     done
     docker exec -u 0 "$container" sh -c 'pkill -KILL -f "^/workspace/venv/bin/python /workspace/source/sircus/isaac/launch_scene.py" || test "$?" = 1'
     echo 'Only the Sircus scene was stopped; container and other workloads remain.' ;;
-  *) echo 'Usage: run.sh {build-assets|smoke|start|status|stop|train [episodes seed]|evaluate checkpoint [trials]}' >&2; exit 2 ;;
+  *) echo 'Usage: run.sh {validate-perception [layouts seed]|build-assets|smoke|start|status|stop|train [episodes seed]|evaluate checkpoint [trials]}' >&2; exit 2 ;;
 esac
