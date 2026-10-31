@@ -1,3 +1,10 @@
+# Current checkpoint
+
+See [RGB-D perception and completed RL status](PERCEPTION.md). The foundation
+snapshot below is historical: RL now exists, the4070 is stopped by user request,
+and the4090 is replaying a frozen policy with independent CPU perception.
+Recheck actual processes before any deployment.
+
 # Isaac foundation checkpoint — 2026-10-30 Pacific
 
 This is synthetic simulation evidence, not physical validation or a trained policy.

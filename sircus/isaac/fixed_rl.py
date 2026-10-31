@@ -13,6 +13,7 @@ from pathlib import Path
 
 import numpy as np
 import torch
+from perception_stream import publish_sensor, publish_truth
 from PIL import Image
 from prepare_assets import chain, fk, matrix
 from rl_contract import (
@@ -99,6 +100,8 @@ class FixedShot:
         depth = (
             self.camera.data.output["distance_to_image_plane"][0, :, :, 0].cpu().numpy()
         )
+        frame_id = publish_sensor(self.out, self.frames, rgb, depth, self.camera)
+        publish_truth(self.out, frame_id, self.cfg, self.arms, self.ball)
         valid = np.isfinite(depth) & (depth > 0) & (depth < self.cfg["camera"]["far_m"])
         Image.fromarray(rgb).save(self.out / "latest.tmp.jpg")
         (self.out / "latest.tmp.jpg").replace(self.out / "latest.jpg")
@@ -114,7 +117,7 @@ class FixedShot:
             {
                 "timestamp_utc": datetime.datetime.now(datetime.UTC).isoformat(),
                 "frame": self.frames,
-                "state": "rl_training",
+                "state": self.phase,
                 "gpu": torch.cuda.get_device_name(0),
                 "max_joint_target_error_rad": max(errs),
                 "camera": {"valid_depth_pixels": int(valid.sum())},

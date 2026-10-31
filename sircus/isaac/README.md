@@ -131,3 +131,8 @@ as TODO, so do not assume the older Viam model's Apache notice applies to them.
 
 No historical policy can be replayed into this physics contract without an explicit
 adapter and new validation. Existing results and scene fingerprints remain intact.
+
+## RGB-D perception
+
+See [PERCEPTION.md](PERCEPTION.md) for the independent sensor-only estimator,
+preview overlays, separate truth evaluator, tests and current limitations.
