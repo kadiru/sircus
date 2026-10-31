@@ -136,3 +136,9 @@ adapter and new validation. Existing results and scene fingerprints remain intac
 
 See [PERCEPTION.md](PERCEPTION.md) for the independent sensor-only estimator,
 preview overlays, separate truth evaluator, tests and current limitations.
+
+## Randomized perception study
+
+[Validation contract and reproduction](PERCEPTION_VALIDATION.md) describe the
+frozen detector, paired lighting/depth-noise sweep, separate evaluation truth and
+results panel. This is static perception validation, not policy training.

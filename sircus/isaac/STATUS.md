@@ -1,5 +1,9 @@
 # Current checkpoint
 
+The latest [randomized perception validation](PERCEPTION_VALIDATION.md) completed
+144 observations. The GPU study has exited; observation workers and the preview
+remain. The older runtime statements below are historical.
+
 See [RGB-D perception and completed RL status](PERCEPTION.md). The foundation
 snapshot below is historical: RL now exists, the4070 is stopped by user request,
 and the4090 is replaying a frozen policy with independent CPU perception.

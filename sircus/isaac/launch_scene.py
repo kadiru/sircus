@@ -21,6 +21,8 @@ parser.add_argument(
 parser.add_argument("--output", default="/workspace/output")
 parser.add_argument("--assets", default="/workspace/assets")
 parser.add_argument("--capture-once", action="store_true")
+parser.add_argument("--validation-layouts", type=int, default=0)
+parser.add_argument("--validation-seed", type=int, default=20261031)
 parser.add_argument("--rl-episodes", type=int, default=0)
 parser.add_argument("--rl-seed", type=int, default=42)
 parser.add_argument(
@@ -33,6 +35,8 @@ parser.add_argument(
 )
 AppLauncher.add_app_launcher_args(parser)
 args = parser.parse_args()
+if args.validation_layouts < 0 or (args.validation_layouts and args.rl_episodes):
+    parser.error("Use a positive validation count, separate from RL")
 # A failed launch must never leave an earlier successful result looking current.
 Path(args.output).mkdir(parents=True, exist_ok=True)
 (Path(args.output) / "result.json").write_text(
@@ -268,6 +272,11 @@ def main():
     # Pose buffers are zero-initialized; refresh after changing the camera prim.
     camera.reset()
     print("SIRCUS_SCENE_READY", flush=True)
+    if args.validation_layouts:
+        from validation_study import run
+
+        run(sim, arms, ball, camera, cfg, poses, args, atomic_json)
+        return 0
     if args.rl_episodes:
         from fixed_rl import train
 
@@ -502,6 +511,10 @@ except BaseException:
     import traceback
 
     traceback.print_exc()
+    if args.validation_layouts and (Path(args.output) / "validation.json").exists():
+        report = json.loads((Path(args.output) / "validation.json").read_text())
+        report.update(state="failed", error=traceback.format_exc())
+        atomic_json(Path(args.output) / "validation.json", report)
     (Path(args.output) / "result.json").write_text(
         json.dumps(
             {"passed": False, "state": "failed", "error": traceback.format_exc()}

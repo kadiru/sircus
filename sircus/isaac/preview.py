@@ -9,8 +9,28 @@ PAGE = r"""<!doctype html><html><meta charset="utf-8"><title>Sircus · Isaac Lab
 <h1>SIRCUS <span style="font-weight:400">/ Isaac Lab</span></h1><p>Two UF850 arms · rigid board mount · open tapered bucket · synthetic RGB-D</p>
 <main><section><img id="rgb" alt="Latest synthetic RGB camera view"><p id="fresh">Waiting for simulator…</p></section><section><b>Depth camera</b><img id="depth" alt="Axial depth preview"><pre id="status"></pre><b>Learning</b><pre id="training">Stationary foundation</pre></section></main>
 <p>Fixed-scene cooperative shot learning. Policy uses known simulation state; grasping, compliant mounting and perception-driven control remain future work. Bucket reported height: 175 mm; its interpretation is unconfirmed.</p>
+<section><h2>Randomized perception validation</h2><p id="validationStatus">No randomized study yet</p><p>Frozen detector · paired lighting/noise conditions across seeded layouts · ground truth used only for scoring. Static snapshots, not drop success.</p><img id="validationChart" alt="Completed-study detection availability chart" style="display:none"><div style="overflow:auto"><table id="validationTable" style="width:100%;text-align:left;border-spacing:10px"></table></div><p>Cells: detections / observations; mean error when detected. Table = plane distance; other objects = center distance. Missing detections stay in the availability denominator.</p><p id="visibility"></p><details><summary>Ranges, error percentiles and exclusions</summary><pre id="validationDetails"></pre></details><img id="validationImage" alt="Most recent validation observation with estimates" style="max-width:640px"></section>
 <section><h2>RGB-D perception</h2><p>Observed geometry from RGB + depth. Color/shape priors; synthetic camera calibration. No object ground truth is used by the estimator.</p><img id="perception" alt="RGB-D object estimates"><p id="perceptionFresh">Waiting for observations</p><pre id="objects"></pre><p>Capture outcome: unknown from perception. The RL scorer is separate and uses simulator truth.</p><details><summary>Simulator evaluation only</summary><pre id="evaluation"></pre></details></section>
 <script>
+async function validationUpdate(){
+ try {
+ const r=await(await fetch('/validation.json',{cache:'no-store'})).json();
+ const age=(Date.now()-Date.parse(r.timestamp_utc))/1000;
+ const chart=document.getElementById('validationChart');chart.style.display='none';if(r.state==='completed'){try{const m=await(await fetch('/validation-chart.json',{cache:'no-store'})).json();if(m.run===r.run){chart.onload=()=>{chart.style.display='block';};chart.onerror=()=>{chart.style.display='none';};chart.src='/validation-chart.png?t='+encodeURIComponent(r.run);}}catch(e){}}
+ document.getElementById('validationStatus').textContent=r.state+' · '+r.completed_observations+'/'+r.planned_observations+' observations · seed '+r.seed+(r.current?' · '+r.current:'')+((r.state==='running'&&age>30)?' · STALE PROGRESS':'');
+ const table=document.getElementById('validationTable');table.replaceChildren();
+ const header=document.createElement('tr');for(const t of ['Condition','Table','Board','Bucket','Ball','Visible ball within 10 mm']){const cell=document.createElement('th');cell.textContent=t;header.appendChild(cell);}table.appendChild(header);
+ for(const [name,g] of Object.entries(r.conditions||{})){
+ const row=document.createElement('tr');const label=document.createElement('td');label.textContent=name;row.appendChild(label);
+ for(const n of ['table','board','bucket','ball']){const o=g.objects[n];const cell=document.createElement('td');cell.textContent=o.estimated+'/'+o.total+' · '+(o.mean_mm===null?'—':o.mean_mm.toFixed(1)+' mm');row.appendChild(cell);}
+ const score=document.createElement('td');score.textContent=g.ball_localized_10mm+'/'+g.ball_visible;row.appendChild(score);table.appendChild(row);
+ }
+ document.getElementById('visibility').textContent='Visible-ball denominator: at least 20 clean-depth pixels agreeing with the true sphere surface within 5 mm. This evaluation-only geometric label never enters the detector. Excluded layouts: '+(r.excluded_layouts||[]).length;
+ document.getElementById('validationDetails').textContent=JSON.stringify(r,null,2);
+ document.getElementById('validationImage').src='/validation-example.jpg?t='+r.completed_observations;
+ }catch(e){document.getElementById('validationStatus').textContent='No randomized validation report available';}
+}
+setInterval(validationUpdate,1500);validationUpdate();
 async function perceptionUpdate(){
  try {
  const p=await(await fetch('/perception.json',{cache:'no-store'})).json();
@@ -45,6 +65,10 @@ def main():
                 "/perception.jpg",
                 "/perception.json",
                 "/perception-evaluation.json",
+                "/validation.json",
+                "/validation-example.jpg",
+                "/validation-chart.png",
+                "/validation-chart.json",
             ):
                 f = out / path[1:]
                 if not f.exists():
