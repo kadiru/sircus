@@ -1,10 +1,18 @@
 # Project state
 
+## Isaac RGB-D perception — October 30, 2026
+
+- [Perception architecture, validation and launch instructions](../sircus/isaac/PERCEPTION.md): independent CPU geometry estimates for table, pink ball, board and bucket from rendered RGB-D plus synthetic camera calibration. No simulator object poses or instance masks enter the estimator. Truth is evaluated separately on exact frame IDs.
+- Preview shows overlays, centers/normals, missing/stale states and a separate error panel. Color/shape priors are explicit; this is not generalized learned segmentation. Visual capture scoring and perception-driven control remain unimplemented.
+- The 256-episode RL run completed: initial 0/2, heuristic 2/2, learned frozen 8/8 fixed-scene captures. Original results/checkpoint preserved; perception is currently observed during frozen replay, not new training.
+- A 30-second window produced 179 matched frames: table/board/bucket available 179/179, ball 63/179. Conditional mean errors were 1.99mm table-plane,2.18mm board-center,3.33mm bucket-center and 4.48mm ball-center; worst ball error 21.91mm. Availability is not recall. No physical/generalization claim.
+- 20 Isaac unit tests and the full regression suite passed.4090 replay and independent CPU workers only;4070 remains stopped.
+
 ## Isaac fixed-scene RL task — October 30, 2026
 
 - [Fixed-scene task and launch contract](../sircus/isaac/RL_FIXED_SCENE.md): shared one-shot policy-gradient actor chooses board tilt/heading and drop height in articulated PhysX. Positions stay fixed; no per-scene optimizer labels or search at inference.
 - Actual ball-to-board contact forces and subsequent rebound gate success; whole-sphere containment uses the bucket's64 collision wall planes and one continuous second of retention. The new versioned physics/scoring contract does not relabel historical results.
-- A16-episode pipeline smoke changed the saved policy and passed8/8 frozen repeats, while the midpoint heuristic passed2/2. This is functionality evidence, not evidence that RL beats the heuristic. A separate256-episode study is being run from a weaker initial policy with its own baselines and frozen evaluation.
+- A16-episode pipeline smoke changed the saved policy and passed8/8 frozen repeats, while the midpoint heuristic passed2/2. This is functionality evidence, not evidence that RL beats the heuristic. That separate256-episode study has now completed; see the newer perception checkpoint above.
 - Scope remains endpoint-initialized shot learning with known scene state. Physical grasping, joint trajectories, compliance, camera-driven observations and random-position generalization are not trained. The4070 workload is now stopped by explicit user request; only4090 is used.
 
 ## Isaac foundation — October 30, 2026
@@ -12,7 +20,7 @@
 - A separate [Isaac Lab backend](../sircus/isaac/README.md) now runs on the Ubuntu desktop's dedicated RTX4090, reusing its read-only Isaac Sim5.1 binary with pinned Lab2.3.2. The existing RTX4070 workload was not restarted or reconfigured. See [verified status and limits](../sircus/isaac/STATUS.md).
 - Two imported articulated UF850s, a wrist-attached landscape board, open tapered bucket, ball, table and rendered RGB-D camera are implemented. This is a new PhysX contract; historical scene fingerprints, scoring definitions and results are unchanged.
 - The finite smoke test passed simulated arm command response, board attachment/orientation, bucket opening/floor contact and depth-to-world tabletop consistency. Synthetic RGB/depth/point clouds and joint/body state are saved locally. No hardware, Viam configuration or physical calibration is involved.
-- Next work: resettable cooperative RL task and contact/event scoring, validated grasp/release and collision constraints, compliant board mount and calibrated bounce parameters, then perception-derived policy observations. No RL checkpoint has been trained on this backend yet.
+- Next work: resettable cooperative RL task and contact/event scoring, validated grasp/release and collision constraints, compliant board mount and calibrated bounce parameters, then perception-derived policy observations. This historical foundation statement is superseded by the RL checkpoint above.
 
 ## Integration and learning checkpoint — October 30, 2026
 

@@ -9,7 +9,20 @@ PAGE = r"""<!doctype html><html><meta charset="utf-8"><title>Sircus · Isaac Lab
 <h1>SIRCUS <span style="font-weight:400">/ Isaac Lab</span></h1><p>Two UF850 arms · rigid board mount · open tapered bucket · synthetic RGB-D</p>
 <main><section><img id="rgb" alt="Latest synthetic RGB camera view"><p id="fresh">Waiting for simulator…</p></section><section><b>Depth camera</b><img id="depth" alt="Axial depth preview"><pre id="status"></pre><b>Learning</b><pre id="training">Stationary foundation</pre></section></main>
 <p>Fixed-scene cooperative shot learning. Policy uses known simulation state; grasping, compliant mounting and perception-driven control remain future work. Bucket reported height: 175 mm; its interpretation is unconfirmed.</p>
-<script>async function update(){try{const s=await(await fetch('/status.json',{cache:'no-store'})).json();const age=(Date.now()-Date.parse(s.timestamp_utc))/1000;document.getElementById('fresh').textContent=(age<5?'Live':'Stale')+' · frame '+s.frame+' · '+s.timestamp_utc;document.getElementById('rgb').src='/latest.jpg?t='+s.frame;document.getElementById('depth').src='/depth-preview.png?t='+s.frame;document.getElementById('status').textContent=s.gpu+'\n\n'+s.camera.valid_depth_pixels.toLocaleString()+' depth points\n640 × 480 · axial metres\n\n'+Object.entries(s.arms).map(([n,a])=>n+': '+a.joint_names.length+' joints').join('\n')+'\n\nJoint target error: '+s.max_joint_target_error_rad.toFixed(4)+' rad';;document.getElementById('training').textContent=s.training?JSON.stringify(s.training,null,2):'Stationary foundation';}catch(e){document.getElementById('fresh').textContent='Waiting for a valid simulator observation';}}setInterval(update,1000);update();</script></html>"""
+<section><h2>RGB-D perception</h2><p>Observed geometry from RGB + depth. Color/shape priors; synthetic camera calibration. No object ground truth is used by the estimator.</p><img id="perception" alt="RGB-D object estimates"><p id="perceptionFresh">Waiting for observations</p><pre id="objects"></pre><p>Capture outcome: unknown from perception. The RL scorer is separate and uses simulator truth.</p><details><summary>Simulator evaluation only</summary><pre id="evaluation"></pre></details></section>
+<script>
+async function perceptionUpdate(){
+ try {
+ const p=await(await fetch('/perception.json',{cache:'no-store'})).json();
+ const age=(Date.now()-Date.parse(p.timestamp_utc))/1000;
+ document.getElementById('perceptionFresh').textContent=(age<3?'Fresh':'STALE — not current')+' · '+age.toFixed(1)+' s old · '+p.processing_ms.toFixed(0)+' ms processing';
+ document.getElementById('perception').src='/perception.jpg?t='+encodeURIComponent(p.frame_id);
+ document.getElementById('objects').textContent=Object.entries(p.objects).map(([name,o])=>name.toUpperCase()+': '+o.status+(o.status==='estimated'?' | '+o.quality+' | center mm: '+o.center_m.map(v=>(v*1000).toFixed(1)).join(', ')+(o.normal?' | normal: '+o.normal.map(v=>v.toFixed(3)).join(', '):''):'')+'\n'+(o.caveat||o.reason||'')).join('\n\n');
+ } catch(e){document.getElementById('perceptionFresh').textContent='Perception unavailable';}
+ try {const e=await(await fetch('/perception-evaluation.json',{cache:'no-store'})).json();const age=(Date.now()-Date.parse(e.timestamp_utc))/1000;document.getElementById('evaluation').textContent=(age<3?'Fresh':'STALE')+' matched-frame evaluation · '+age.toFixed(1)+' s old\n'+JSON.stringify(e.errors,null,2);}catch(e){document.getElementById('evaluation').textContent='No matching frame evaluation available';}
+}
+setInterval(perceptionUpdate,1000);perceptionUpdate();
+async function update(){try{const s=await(await fetch('/status.json',{cache:'no-store'})).json();const age=(Date.now()-Date.parse(s.timestamp_utc))/1000;document.getElementById('fresh').textContent=(age<5?'Live':'Stale')+' · frame '+s.frame+' · '+s.timestamp_utc;document.getElementById('rgb').src='/latest.jpg?t='+s.frame;document.getElementById('depth').src='/depth-preview.png?t='+s.frame;document.getElementById('status').textContent=s.gpu+'\n\n'+s.camera.valid_depth_pixels.toLocaleString()+' depth points\n640 × 480 · axial metres\n\n'+Object.entries(s.arms).map(([n,a])=>n+': '+a.joint_names.length+' joints').join('\n')+'\n\nJoint target error: '+s.max_joint_target_error_rad.toFixed(4)+' rad';;document.getElementById('training').textContent=s.training?JSON.stringify(s.training,null,2):'Stationary foundation';}catch(e){document.getElementById('fresh').textContent='Waiting for a valid simulator observation';}}setInterval(update,1000);update();</script></html>"""
 
 
 def main():
@@ -25,7 +38,14 @@ def main():
             if path == "/":
                 payload = PAGE.encode()
                 mime = "text/html; charset=utf-8"
-            elif path in ("/latest.jpg", "/depth-preview.png", "/status.json"):
+            elif path in (
+                "/latest.jpg",
+                "/depth-preview.png",
+                "/status.json",
+                "/perception.jpg",
+                "/perception.json",
+                "/perception-evaluation.json",
+            ):
                 f = out / path[1:]
                 if not f.exists():
                     self.send_error(503)
