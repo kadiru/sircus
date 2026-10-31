@@ -9,9 +9,22 @@ PAGE = r"""<!doctype html><html><meta charset="utf-8"><title>Sircus · Isaac Lab
 <h1>SIRCUS <span style="font-weight:400">/ Isaac Lab</span></h1><p>Two UF850 arms · rigid board mount · open tapered bucket · synthetic RGB-D</p>
 <main><section><img id="rgb" alt="Latest synthetic RGB camera view"><p id="fresh">Waiting for simulator…</p></section><section><b>Depth camera</b><img id="depth" alt="Axial depth preview"><pre id="status"></pre><b>Learning</b><pre id="training">Stationary foundation</pre></section></main>
 <p>Fixed-scene cooperative shot learning. Policy uses known simulation state; grasping, compliant mounting and perception-driven control remain future work. Bucket reported height: 175 mm; its interpretation is unconfirmed.</p>
+<section><h2>Cooperative learning study</h2><p>Privileged geometry → shared PPO → board tilt, heading offset and release height. Endpoint-initialized shots; no grasp or travel learning. Validation selects checkpoints; test layouts remain held out.</p><div id="learningRuns">Waiting for study status…</div><p>Training success uses exploratory actions. Validation uses a frozen deterministic policy; repeated contact outcomes may differ. A completed run is not a physical deployment claim.</p></section>
 <section><h2>Randomized perception validation</h2><p id="validationStatus">No randomized study yet</p><p>Frozen detector · paired lighting/noise conditions across seeded layouts · ground truth used only for scoring. Static snapshots, not drop success.</p><img id="validationChart" alt="Completed-study detection availability chart" style="display:none"><div style="overflow:auto"><table id="validationTable" style="width:100%;text-align:left;border-spacing:10px"></table></div><p>Cells: detections / observations; mean error when detected. Table = plane distance; other objects = center distance. Missing detections stay in the availability denominator.</p><p id="visibility"></p><details><summary>Ranges, error percentiles and exclusions</summary><pre id="validationDetails"></pre></details><img id="validationImage" alt="Most recent validation observation with estimates" style="max-width:640px"></section>
 <section><h2>RGB-D perception</h2><p>Observed geometry from RGB + depth. Color/shape priors; synthetic camera calibration. No object ground truth is used by the estimator.</p><img id="perception" alt="RGB-D object estimates"><p id="perceptionFresh">Waiting for observations</p><pre id="objects"></pre><p>Capture outcome: unknown from perception. The RL scorer is separate and uses simulator truth.</p><details><summary>Simulator evaluation only</summary><pre id="evaluation"></pre></details></section>
 <script>
+async function learningUpdate(){
+ const root=document.getElementById('learningRuns');root.replaceChildren();
+ for(const [gpu,url] of [['RTX 4090','/learning-study.json'],['RTX 4070','/learning-study-4070.json']]){
+ const section=document.createElement('section');root.appendChild(section);
+ try{const r=await(await fetch(url,{cache:'no-store'})).json();const title=document.createElement('h3');title.textContent=gpu+' · '+r.phase;section.appendChild(title);
+ const age=(Date.now()-Date.parse(r.timestamp_utc))/1000;const p=document.createElement('p');p.textContent=r.episodes+'/'+r.budget+' throws · '+r.train_layouts+' training layouts · '+r.run+' · '+(r.scope||'historical diagnostic')+(age>(r.phase==='training'?120:900)&&!['completed','failed'].includes(r.phase)?' · STALE: check worker':'');section.appendChild(p);
+ const table=document.createElement('table');table.style.borderSpacing='12px';section.appendChild(table);
+ for(const values of [['Throws','Validation captures','Rate'],...(r.learning_curve||[]).map(c=>[c.episodes,c.captures+'/'+c.trials,(100*c.success_rate).toFixed(1)+'%'])]){const tr=document.createElement('tr');for(const value of values){const td=document.createElement('td');td.textContent=value;tr.appendChild(td);}table.appendChild(tr);}
+ if(r.summary){const pre=document.createElement('pre');pre.textContent=JSON.stringify(r.summary.evaluation,null,2);section.appendChild(pre);}
+ }catch(e){section.textContent=gpu+' · no current report';}}
+}
+setInterval(learningUpdate,5000);learningUpdate();
 async function validationUpdate(){
  try {
  const r=await(await fetch('/validation.json',{cache:'no-store'})).json();
@@ -49,6 +62,7 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--output", required=True)
     p.add_argument("--port", type=int, default=18860)
+    p.add_argument("--secondary-output", help="Read-only second GPU study output")
     a = p.parse_args()
     out = Path(a.output)
 
@@ -65,12 +79,16 @@ def main():
                 "/perception.jpg",
                 "/perception.json",
                 "/perception-evaluation.json",
+                "/learning-study.json",
+                "/learning-study-4070.json",
                 "/validation.json",
                 "/validation-example.jpg",
                 "/validation-chart.png",
                 "/validation-chart.json",
             ):
                 f = out / path[1:]
+                if path == "/learning-study-4070.json" and a.secondary_output:
+                    f = Path(a.secondary_output) / "learning-study.json"
                 if not f.exists():
                     self.send_error(503)
                     return

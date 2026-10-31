@@ -23,6 +23,10 @@ parser.add_argument("--assets", default="/workspace/assets")
 parser.add_argument("--capture-once", action="store_true")
 parser.add_argument("--validation-layouts", type=int, default=0)
 parser.add_argument("--validation-seed", type=int, default=20261031)
+parser.add_argument("--general-episodes", type=int, default=0)
+parser.add_argument("--train-layouts", type=int, default=1000)
+parser.add_argument("--study-smoke", action="store_true")
+parser.add_argument("--study-preview", action="store_true")
 parser.add_argument("--rl-episodes", type=int, default=0)
 parser.add_argument("--rl-seed", type=int, default=42)
 parser.add_argument(
@@ -35,6 +39,14 @@ parser.add_argument(
 )
 AppLauncher.add_app_launcher_args(parser)
 args = parser.parse_args()
+if args.general_episodes:
+    if (
+        args.rl_episodes
+        or args.validation_layouts
+        or not 1 <= args.train_layouts <= 1000
+    ):
+        parser.error("General learning must be separate; train layouts1..1000")
+    args.rl_episodes = args.general_episodes
 if args.validation_layouts < 0 or (args.validation_layouts and args.rl_episodes):
     parser.error("Use a positive validation count, separate from RL")
 # A failed launch must never leave an earlier successful result looking current.
@@ -204,6 +216,17 @@ def main():
         base,
         translation=(0, 0, b["assumed_bottom_thickness_m"] / 2),
     )
+    if args.general_episodes:
+        # Runtime USD transforms do not reliably move static PhysX colliders.
+        # A kinematic compound body moves all 64 walls and its floor together.
+        api = UsdPhysics.RigidBodyAPI.Apply(root.GetPrim())
+        api.CreateKinematicEnabledAttr(True)
+        PhysxSchema.PhysxRigidBodyAPI.Apply(root.GetPrim()).CreateDisableGravityAttr(
+            True
+        )
+        sim._sircus_bucket = RigidObject(
+            RigidObjectCfg(prim_path="/World/Bucket", spawn=None)
+        )
     ball_cfg = cfg["ball"]
     ball = RigidObject(
         RigidObjectCfg(
@@ -276,6 +299,11 @@ def main():
         from validation_study import run
 
         run(sim, arms, ball, camera, cfg, poses, args, atomic_json)
+        return 0
+    if args.general_episodes:
+        from generalized_rl import train_scene
+
+        train_scene(sim, arms, ball, camera, contact, cfg, poses, args, atomic_json)
         return 0
     if args.rl_episodes:
         from fixed_rl import train
