@@ -25,6 +25,10 @@ Two UFACTORY850 arms learn to bounce a ball from a suction-mounted board into a 
 
 Read the [Mac system audit, UI/API contracts, and learning integration plan](docs/audits/2026-10-29/README.md) before new development. These distinguish implemented capabilities from historical observations and proposed work; raw local evidence and credentials are excluded.
 
+## Close-up simulation video
+
+[Orthographic replay](sircus/isaac/OVERHEAD_REPLAY.md): four workcells and synchronized top/front close-ups at half and quarter speed. Includes reproduction commands and verification evidence; frozen settings, not a new learned policy.
+
 ## Source layout
 
 | Directory | Purpose |
