@@ -1,4 +1,24 @@
-# Current checkpoint — 2026-11-01 UTC
+# Current checkpoint — spatial grid running, 2026-11-01 UTC
+
+RTX4090 run `bucket-grid-20261101T193317Z` is a bounded nine-cell development
+search, not RL training. Snapshot: `~/sircus-isaac/studies/bucket-grid-v3`.
+Probe-only smoke `bucket-grid-20261101T193246Z` passed five contact probes and two
+route controls. Final per-cell results remain pending; `#bucket-grid` distinguishes
+partial counts, unknown cells and no setting found.
+
+New `sircus-board-route-v1` preserves historical capture/entry quality and adds
+no-external-contact capture plus a separate single-board-bounce metric. Table and
+floor become stationary kinematic supports only in this mode to allow measured
+filter attribution. Prior modes and historical results are unchanged.
+
+Read-only preview PID 2115074 serves port18860, forwarded to Mac18780. Its current
+source is the same snapshot. This is a point-in-time observation, not a PID to
+signal without checking. The 4070 process976650 and hardware/Viam/audio services
+were not changed. Source synchronization is not deployment.
+
+See [method](BUCKET_GRID.md) and [project state](../../docs/PROJECT_STATE.md).
+
+# Previous checkpoint — 2026-11-01 UTC
 
 The [bucket-distance catalogue](../../baselines/isaac-distance-catalogue-20261101/README.md)
 completed 2,081 attempts at six distances, including 50 fresh perturbations per
