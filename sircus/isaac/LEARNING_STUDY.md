@@ -1,5 +1,7 @@
 # Cooperative shot learning: privileged state first, cropped clouds second
 
+**Completed:** both runs finished. See [frozen results and next-stage decision](../../baselines/isaac-privileged-study-20261031/README.md). Quasi-perception training is deferred because privileged coverage is not yet reliable. The active-run notes below are historical.
+
 This is a new Isaac/PhysX study. Historical numerical models, fixed-scene RL,
 and perception validation retain their original definitions and results.
 
