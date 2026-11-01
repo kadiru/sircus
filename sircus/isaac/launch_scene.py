@@ -23,6 +23,7 @@ parser.add_argument("--assets", default="/workspace/assets")
 parser.add_argument("--capture-once", action="store_true")
 parser.add_argument("--validation-layouts", type=int, default=0)
 parser.add_argument("--validation-seed", type=int, default=20261031)
+parser.add_argument("--plane-sweep", action="store_true")
 parser.add_argument("--balanced-pilot", action="store_true")
 parser.add_argument("--pilot-smoke", action="store_true")
 parser.add_argument("--pilot-episodes", type=int, default=384)
@@ -46,6 +47,17 @@ parser.add_argument(
 )
 AppLauncher.add_app_launcher_args(parser)
 args = parser.parse_args()
+if args.plane_sweep:
+    if (
+        args.general_episodes
+        or args.rl_episodes
+        or args.validation_layouts
+        or args.distance_sweep
+        or args.balanced_pilot
+        or args.rl_checkpoint
+    ):
+        parser.error("Plane sweep must run separately from other experiments")
+    args.rl_episodes = 1
 if args.balanced_pilot:
     if (
         args.general_episodes
@@ -250,7 +262,12 @@ def main():
         base,
         translation=(0, 0, b["assumed_bottom_thickness_m"] / 2),
     )
-    if args.general_episodes or args.distance_sweep or args.balanced_pilot:
+    if (
+        args.general_episodes
+        or args.distance_sweep
+        or args.balanced_pilot
+        or args.plane_sweep
+    ):
         # Runtime USD transforms do not reliably move static PhysX colliders.
         # A kinematic compound body moves all 64 walls and its floor together.
         api = UsdPhysics.RigidBodyAPI.Apply(root.GetPrim())
@@ -333,6 +350,11 @@ def main():
         from validation_study import run
 
         run(sim, arms, ball, camera, cfg, poses, args, atomic_json)
+        return 0
+    if args.plane_sweep:
+        from plane_sweep import run
+
+        run(sim, arms, ball, camera, contact, cfg, poses, args, atomic_json)
         return 0
     if args.balanced_pilot:
         from balanced_pilot import run
