@@ -1,0 +1,266 @@
+{
+  "run": "plane-sweep-20261101T020705Z",
+  "phase": "completed",
+  "contract": {
+    "version": "sircus-fixed-plane-grid-v1",
+    "controller": "f73798ff6a113dda433b20609170ec5e2839def0f407d0958557465be0d9b3b8",
+    "scene": {
+      "scene_id": "sircus-isaac-foundation-v1",
+      "units": "metres, radians, kilograms, seconds",
+      "physics_contract": "sircus-isaac-physx-rigid-mount-v1",
+      "historical_scene": "sircus-two-arm-tapered-bucket-landscape-v1",
+      "arms": {
+        "model": "UFACTORY UF850",
+        "base_spacing_m": 1.33731,
+        "board_base_yaw_rad": 3.141592653589793,
+        "spacing_provenance": "User measured 52.65 inches; base-to-base interpretation assumed"
+      },
+      "board": {
+        "size_m": [
+          0.2,
+          0.3,
+          0.005
+        ],
+        "mass_kg": 0.4,
+        "tool_offset_m": 0.1,
+        "mount_yaw_rad": 1.5707963267948966,
+        "initial_center_m": [
+          0.67,
+          -0.1,
+          0.4
+        ],
+        "initial_tilt_deg": 25,
+        "size_status": "measured; landscape mount",
+        "mount_status": "provisional rigid fixed joint; compliance is NOT calibrated or modeled yet",
+        "mass_status": "provisional"
+      },
+      "bucket": {
+        "inner_top_diameter_m": 0.177,
+        "outer_top_diameter_m": 0.2,
+        "inner_bottom_diameter_m": 0.15,
+        "outer_bottom_diameter_m": 0.158,
+        "reported_height_m": 0.175,
+        "height_interpretation": "unresolved: overall height or interior depth",
+        "assumed_interior_depth_m": 0.175,
+        "assumed_bottom_thickness_m": 0.008,
+        "center_xy_m": [
+          0.67,
+          -0.42
+        ],
+        "placement_status": "provisional; operator/negative-Y side",
+        "taper": "straight-sided",
+        "segments": 64
+      },
+      "ball": {
+        "radius_m": 0.0375,
+        "mass_kg": 0.2,
+        "restitution": 0.65,
+        "friction": 0.2,
+        "status": "provisional; no physical calibration"
+      },
+      "dropper": {
+        "flange_target_m": [
+          0.67,
+          -0.1,
+          0.72
+        ],
+        "tool_status": "geometric two-finger proxy; not a calibrated gripper model"
+      },
+      "table": {
+        "size_m": [
+          1.8,
+          1.25,
+          0.05
+        ],
+        "center_m": [
+          0.67,
+          -0.25,
+          -0.025
+        ],
+        "status": "provisional enlarged support; tabletop Z=0"
+      },
+      "camera": {
+        "position_m": [
+          1.7,
+          -1.9,
+          1.65
+        ],
+        "look_at_m": [
+          0.65,
+          -0.15,
+          0.35
+        ],
+        "width": 640,
+        "height": 480,
+        "focal_length_mm": 20,
+        "horizontal_aperture_mm": 24,
+        "near_m": 0.05,
+        "far_m": 5.0,
+        "status": "synthetic ideal fixed RGB-D; not wrist-camera calibration"
+      },
+      "simulation": {
+        "physics_dt_s": 0.004166666666666667,
+        "render_every_steps": 8,
+        "seed": 42,
+        "contact_properties_status": "uncalibrated; separate from historical numerical models"
+      }
+    },
+    "distance_m": 0.4,
+    "board_xy_m": [
+      0.67,
+      -0.1
+    ],
+    "heights_m": [
+      0.3,
+      0.35,
+      0.4,
+      0.45,
+      0.5
+    ],
+    "gaps_m": [
+      0.08,
+      0.12,
+      0.16,
+      0.2,
+      0.24
+    ],
+    "tilts_deg": [
+      12.0,
+      17.0,
+      22.0,
+      27.0,
+      32.0,
+      37.0,
+      42.0
+    ],
+    "heading_offset_deg": 0,
+    "release": "ball center Z = board center H + ball radius + gap; fixed XY",
+    "plane": "Y=-0.10 m; normal toward bucket along -Y; board and release centers share X/Y",
+    "selection": "top three captures by reward, deterministic ID tie break; five fresh repeats each",
+    "scope": "development grid search, no RL training, no generalization test; endpoint initialization, not path validation",
+    "fingerprint": "74711fefe272ed3c00241a68233e50911a68edc14e0fe3649020f0d5440b9265",
+    "source_sha256": {
+      "generalized_rl.py": "dae2141cf26de76ad440d346affcd4af1ce55e826ac1c5d4096bcdf36d85298a",
+      "launch_scene.py": "b200f172e4f2eb14ed2c3d584170d571a77c701060c2ef36ee7f5fe48d7e995a",
+      "validation_contract.py": "94bd14c89cbe60db03b21550a39d2734d752d710a0499029a8a0eb229906e4ec",
+      "plane_contract.py": "663da66f046c2b5df60d710163e87340cff00c6df57f00594439cb1e3fe6ac47",
+      "perception_estimator.py": "ca5121590c047f89185f32069312281bb30c9919d6a7ebea5ff2b6f0383f6982",
+      "distance_sweep.py": "8523c777f4c924e3c092b5562df738acf8fe6b53e9a2bd381c0340f02ce17165",
+      "settled_shot.py": "488ed9f0df4dd91fb420b319071290d4f230677cb1f96b595d508ee03d60fa30",
+      "geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+      "learning_report.py": "269efb56233efd05770be393d1ce579754b48dfa86d384da6402ef916faa6403",
+      "perception_worker.py": "e493e1e4d8862aa018c0da9e76deed027c372adebba39bedb2469eb5c3102e9e",
+      "balanced_pilot.py": "9bc01127e7cbb1f7684b902016346a0ea96eab47945ad24a099a7c213f2074d2",
+      "ik_diagnostics.py": "b7bea24a4056d3bbd3ba82802c9b268010d7293436d3961bd002243e01b2bca7",
+      "pilot_report.py": "2647ab6bd755fb65573e17f9e0fb7af7a68ad9ee51ed763c61ee2f5c5785506d",
+      "fixed_rl.py": "e9702685c7ddb55039d51aff47751a147e678b9e9aafeec550804522b1f78fc8",
+      "prepare_assets.py": "d7517e4f1f350bd7f48e5c23e48fc4dc4c63882b6b18ce4502bc8c5fd1999d93",
+      "diagnostic_report.py": "da7416ccd1255b23d13d28d07978a5fb392bb79cbc1323eed0a85437675c9829",
+      "preview.py": "a99f55273e9c905dc22751bf3fc886640b93daecc3eeead30dd83aff514d6f20",
+      "dropper_diagnostics.py": "9609225633c2e0d91e80e70a6a1d23ee42da235b7e402819670b364fe7a73b09",
+      "robust_ik.py": "c3e5ce8673042c2fefbb784e825b34b30bb334a1ea3f9896cf0de0f975c71ee9",
+      "pilot_contract.py": "e36df5fed7725cb5ad2297cd060741abb43a407601719fd2dfc09051b4d15b8d",
+      "plane_sweep.py": "cc24ccf4d8bedfe98413567140f749a6e4836299bfe808d833da747821e7bedf",
+      "learning_contract.py": "d8f4fe50f120c25ffbb819c763e8c62799ace407fb90931ae2c5f69fbd4f9d59",
+      "perception_stream.py": "8c05034ce4be5326dd44efcf71db513229c9bae8ffe028dfe974a10d8f89dd7b",
+      "validation_study.py": "ab1cc694ab6ea8b1572a5da78c1f214b6c9155bbdfe359ba8a2eff80756a58bd",
+      "rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+      "validation_report.py": "bff18d6082d029e9a86e73bece54bc18d7ca1a85ab7351524f91faab94cabb67",
+      "inspect_capture.py": "35b793de30a38349a2ecb6db9463d792306eabaccc507c6cf6abbc4248d457b6",
+      "perception_evaluate.py": "9e54d7d19e499cf50fb3b242db98b08b77b9b3887bce8968038c9ff243c2854d",
+      "settling_contract.py": "d2586973fa21527f552de9c39569a88f31d4a9214c085d0756867869f572b9b1"
+    }
+  },
+  "timestamp_utc": "2026-11-01T02:12:56.256689+00:00",
+  "elapsed_s": 350.88020103401504,
+  "completed": 175,
+  "planned": 175,
+  "captures": 25,
+  "invalid": 35,
+  "scope": "development grid search, no RL training, no generalization test; endpoint initialization, not path validation",
+  "artifact_sha256": {
+    "contract.json": "881945c1499b1d31f554a30c1bcc70c2aa9fa2622c7c9784466d775110560065",
+    "depth-preview.png": "abb009acbcc368f65f6d0a5cd3c861395ec5d2158488b334d8e0a9e8f9eea4c5",
+    "grid.jsonl": "44dccef149d69c4da8b0a0511c5d2a5adab7c3bc82e6ac85142230fc525fda85",
+    "latest.jpg": "4188f45ac03689f0e57cf9bb9a63c8ccedfb1e153eb4e908050eb6f3590e3775",
+    "replay-0.json": "2e051a1a553abc882486685f574f9ddbd34e477eb9436f6e77e22dec5efbfce0",
+    "replay-1.json": "3275fd1a409222e7477b8a3221400ecd97ae0d9784aaf3ff75331941db27b311",
+    "replay-2.json": "1bbb14f20f310e95cdb5cf00457d667872947d8a5818ad0094d8c1b674b18738",
+    "selected.json": "a5c947eced3cb83ba9d961f4ebf6443418205034e42b365496fde678663fa8fb",
+    "setup.jpg": "da40e9e25f7adcdede637c29c2cb202632694571ebd209027bb8344e75252cac",
+    "status.json": "d909d2e21590ec8fb560adce6a978e0587ee054f96a0dbad1ff37460ca1222e9"
+  },
+  "pose_summary": {
+    "measured_grid_shots": 140,
+    "max_position_error_mm": 0.09314794462460782,
+    "max_normal_error_deg": 0.007855591600207958,
+    "max_joint_speed_rad_s": 1.2188817066771662e-08,
+    "max_position_drift_mm": 0.0,
+    "max_normal_drift_deg": 1.4787793334710982e-06
+  },
+  "rejection_reasons": {
+    "endpoint_ik:Arm10": 35
+  },
+  "by_height": [
+    {
+      "height_m": 0.3,
+      "trials": 35,
+      "captures": 2,
+      "rejected": 0
+    },
+    {
+      "height_m": 0.35,
+      "trials": 35,
+      "captures": 6,
+      "rejected": 0
+    },
+    {
+      "height_m": 0.4,
+      "trials": 35,
+      "captures": 10,
+      "rejected": 0
+    },
+    {
+      "height_m": 0.45,
+      "trials": 35,
+      "captures": 5,
+      "rejected": 14
+    },
+    {
+      "height_m": 0.5,
+      "trials": 35,
+      "captures": 2,
+      "rejected": 21
+    }
+  ],
+  "conclusion": "Fixed-distance feasibility confirmed in simulation: 25/175 grid combinations captured; 115 missed and 35 were rejected by dropper IK. All three selected combinations captured 5/5 fresh repeats and their separate rendered replay. Height/gap/tilt interact strongly; high release configurations hit an IK boundary. This is same-scene search and repeatability, not a trained policy or a proof of collision-safe travel. No cross-distance training has started.",
+  "selected_combinations": [
+    {
+      "id": "plane-109",
+      "height_m": 0.45,
+      "gap_m": 0.08,
+      "tilt_deg": 32.0,
+      "repeat_captures": 5,
+      "repeat_trials": 5,
+      "replay_capture": true
+    },
+    {
+      "id": "plane-044",
+      "height_m": 0.35,
+      "gap_m": 0.12,
+      "tilt_deg": 22.0,
+      "repeat_captures": 5,
+      "repeat_trials": 5,
+      "replay_capture": true
+    },
+    {
+      "id": "plane-101",
+      "height_m": 0.4,
+      "gap_m": 0.24,
+      "tilt_deg": 27.0,
+      "repeat_captures": 5,
+      "repeat_trials": 5,
+      "replay_capture": true
+    }
+  ]
+}
