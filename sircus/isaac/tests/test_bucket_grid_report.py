@@ -1,5 +1,7 @@
 import copy
+import hashlib
 import json
+import math
 import sys
 import unittest
 from pathlib import Path
@@ -7,7 +9,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from board_route import VERSION
 from bucket_grid_contract import candidates, cells, contract, refine, summary
-from bucket_grid_report import validate
+from bucket_grid_report import seeded_params, validate
 
 
 def completed_fixture():
@@ -139,3 +141,25 @@ class GridReportTests(unittest.TestCase):
         d["controls"][0]["single_bounce_success"] = True
         with self.assertRaises(AssertionError):
             validate(d)
+
+    def test_platform_ulp_does_not_erase_original_fingerprint_or_change_positions(self):
+        d = completed_fixture()
+        h = math.nextafter(d["contract"]["cells"][5]["heading_deg"], math.inf)
+        d["contract"]["cells"][5]["heading_deg"] = h
+        d["cells"][5]["heading_deg"] = h
+        payload = {k: v for k, v in d["contract"].items() if k != "fingerprint"}
+        d["contract"]["fingerprint"] = hashlib.sha256(
+            json.dumps(payload, sort_keys=True).encode()
+        ).hexdigest()
+        validate(d)
+        d["contract"]["cells"][5]["bucket_xy_m"][0] += 0.001
+        with self.assertRaises(AssertionError):
+            validate(d)
+
+    def test_seeded_float_roundoff_is_bounded_to_ulps_not_calibration_tolerance(self):
+        a = {"height_m": 0.35, "gap_m": 0.24, "tilt_deg": 24.0}
+        b = dict(a, height_m=math.nextafter(a["height_m"], math.inf))
+        seeded_params(a, b)
+        for shift in (1e-10, 0.001):
+            with self.assertRaises(AssertionError):
+                seeded_params(a, dict(a, height_m=a["height_m"] + shift))

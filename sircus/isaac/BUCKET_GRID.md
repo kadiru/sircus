@@ -6,6 +6,12 @@ spending a larger RL budget, and rejects captures that depend on the table or ar
 All measurements below are synthetic, with the existing provisional material,
 ball, tool-offset and bucket-height assumptions.
 
+The [completed baseline](../../baselines/isaac-bucket-grid-20261101/README.md)
+records 689 attempts in 21.5 minutes. Three near cells passed 30/30 fresh trials
+each; two middle cells scored 18/30 and 6/30, and four cells had no qualifying
+setting. The current serial average is 1.87 seconds/attempt (about 5.2 hours per
+10,000 at the same mix), including invalid attempts and setup overhead.
+
 ## Frozen experiment
 
 - Board/release center XY: (670, −100) mm.
@@ -136,6 +142,12 @@ training/evaluation costs. This estimate is not a measured vectorized RL budget.
 Camera rendering, IK, arm settling and GPU/CPU transfers currently cost much more
 than a small policy network update. Increasing GPU memory does not automatically
 parallelize this Python shot loop.
+
+The earlier Sircus generalized PPO runs used 4,096 throws and a batch of 64:
+**64 rollout/update batches**, each with four full-batch gradient epochs (256
+optimizer steps). That is not 4,096 PPO updates, and not comparable to 4,096
+locomotion transitions. See [the existing learner contract](LEARNING_STUDY.md).
+Today's grid study performs zero gradient updates and saves no new policy.
 
 ## Next actual learning experiment
 

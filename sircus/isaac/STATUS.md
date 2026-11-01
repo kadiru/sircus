@@ -1,22 +1,28 @@
-# Current checkpoint — spatial grid running, 2026-11-01 UTC
+# Current checkpoint — spatial grid completed, 2026-11-01 UTC
 
-RTX4090 run `bucket-grid-20261101T193317Z` is a bounded nine-cell development
-search, not RL training. Snapshot: `~/sircus-isaac/studies/bucket-grid-v3`.
-Probe-only smoke `bucket-grid-20261101T193246Z` passed five contact probes and two
-route controls. Final per-cell results remain pending; `#bucket-grid` distinguishes
-partial counts, unknown cells and no setting found.
+RTX4090 run `bucket-grid-20261101T193317Z` completed 689 parameter attempts in
+21.5 minutes. Three near cells passed 30/30 fresh perturbed shots each; two middle
+cells scored 18/30 and 6/30 board-only captures. Four cells had no qualifying
+setting in this finite search. This is development search, not new RL training.
+See [all settings, uncertainty and verified evidence](../../baselines/isaac-bucket-grid-20261101/README.md).
 
-New `sircus-board-route-v1` preserves historical capture/entry quality and adds
-no-external-contact capture plus a separate single-board-bounce metric. Table and
-floor become stationary kinematic supports only in this mode to allow measured
-filter attribution. Prior modes and historical results are unchanged.
+The additive `sircus-board-route-v1` preserves historical labels and separates
+board-only retained captures from exactly-one-board-bounce captures. Five contact
+probes, two controls, 689 raw/compact matches, three artifact hashes and 43 source
+snapshot hashes passed. Source snapshot: `~/sircus-isaac/studies/bucket-grid-v3`.
+Raw evidence remains under the run directory outside Git.
 
-Read-only preview PID 2115074 serves port18860, forwarded to Mac18780. Its current
-source is the same snapshot. This is a point-in-time observation, not a PID to
-signal without checking. The 4070 process976650 and hardware/Viam/audio services
-were not changed. Source synchronization is not deployment.
+The finite 4090 job exited naturally; no 4090 compute process remained at final
+verification. The 4070 compute process976650 remained untouched. Read-only preview
+PID2125076 serves port18860, forwarded to Mac18780, from
+`~/sircus-isaac/studies/grid-viewer-v1/preview.py`. Final `#bucket-grid` JSON/CSV
+match the verified exports. These are point-in-time observations, not PIDs to
+signal without checking. No hardware, Viam, audio or physical-dashboard changes.
+Source synchronization is not runtime deployment.
 
-See [method](BUCKET_GRID.md) and [project state](../../docs/PROJECT_STATE.md).
+Next: resolve far-shot feasibility and validate parallel shot execution before
+another long policy run. See [method and compute examples](BUCKET_GRID.md) and
+[project state](../../docs/PROJECT_STATE.md).
 
 # Previous checkpoint — 2026-11-01 UTC
 
