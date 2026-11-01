@@ -1,0 +1,22 @@
+{
+  "filmed_actions_checked": 96,
+  "old_logprobs_match": true,
+  "frozen_test_checkpoints": {
+    "initial": {
+      "weight_hash": "4c0239bcacdd4c018c7d50c1ad8171e817c59c600b2b23fc0cf61bb113cc0a40",
+      "test_actions": 32,
+      "updates": 0
+    },
+    "final": {
+      "weight_hash": "ea0d20b3a971bfe648195e408101f956da15643facfdc397930fb0a313c6f53f",
+      "test_actions": 32,
+      "updates": 16
+    },
+    "selected": {
+      "weight_hash": "9c03b6fec412b7413bd457dcdb26f4f5127c4c6838894561df6375c187ad830e",
+      "test_actions": 32,
+      "updates": 12
+    }
+  },
+  "numeric_tolerance": "CPU/CUDA float32 logprob rtol=atol=1e-5; action rtol1e-5/atol1e-6. Physics/pose acceptance unchanged."
+}

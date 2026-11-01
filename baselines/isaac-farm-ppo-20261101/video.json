@@ -1,0 +1,18 @@
+{
+  "run": "farm-ppo-20261101T212820Z-n32",
+  "frames": 903,
+  "fps": 30,
+  "duration_s": 30.1,
+  "resolution": [
+    2560,
+    1600
+  ],
+  "sha256": "a3f07e3b17c21c72322bbb90aefdd1f62a3ef0eba3fe344f1525c764f48abda4",
+  "recorded_iterations": [
+    1,
+    8,
+    16
+  ],
+  "playback_speed": 0.5,
+  "scope": "Actual on-policy PPO rollouts consumed by the recorded optimizer updates; not successful-shot replay."
+}

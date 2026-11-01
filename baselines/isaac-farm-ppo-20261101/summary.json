@@ -1,0 +1,1509 @@
+{
+  "run": "farm-ppo-20261101T212820Z-n32",
+  "phase": "completed",
+  "contract": {
+    "version": "sircus-parallel-shot-ppo-v1",
+    "scene": {
+      "scene_id": "sircus-isaac-foundation-v1",
+      "units": "metres, radians, kilograms, seconds",
+      "physics_contract": "sircus-isaac-physx-rigid-mount-v1",
+      "historical_scene": "sircus-two-arm-tapered-bucket-landscape-v1",
+      "arms": {
+        "model": "UFACTORY UF850",
+        "base_spacing_m": 1.33731,
+        "board_base_yaw_rad": 3.141592653589793,
+        "spacing_provenance": "User measured 52.65 inches; base-to-base interpretation assumed"
+      },
+      "board": {
+        "size_m": [
+          0.2,
+          0.3,
+          0.005
+        ],
+        "mass_kg": 0.4,
+        "tool_offset_m": 0.1,
+        "mount_yaw_rad": 1.5707963267948966,
+        "initial_center_m": [
+          0.67,
+          -0.1,
+          0.4
+        ],
+        "initial_tilt_deg": 25,
+        "size_status": "measured; landscape mount",
+        "mount_status": "provisional rigid fixed joint; compliance is NOT calibrated or modeled yet",
+        "mass_status": "provisional"
+      },
+      "bucket": {
+        "inner_top_diameter_m": 0.177,
+        "outer_top_diameter_m": 0.2,
+        "inner_bottom_diameter_m": 0.15,
+        "outer_bottom_diameter_m": 0.158,
+        "reported_height_m": 0.175,
+        "height_interpretation": "unresolved: overall height or interior depth",
+        "assumed_interior_depth_m": 0.175,
+        "assumed_bottom_thickness_m": 0.008,
+        "center_xy_m": [
+          0.67,
+          -0.42
+        ],
+        "placement_status": "provisional; operator/negative-Y side",
+        "taper": "straight-sided",
+        "segments": 64
+      },
+      "ball": {
+        "radius_m": 0.0375,
+        "mass_kg": 0.2,
+        "restitution": 0.65,
+        "friction": 0.2,
+        "status": "provisional; no physical calibration"
+      },
+      "dropper": {
+        "flange_target_m": [
+          0.67,
+          -0.1,
+          0.72
+        ],
+        "tool_status": "geometric two-finger proxy; not a calibrated gripper model"
+      },
+      "table": {
+        "size_m": [
+          1.8,
+          1.25,
+          0.05
+        ],
+        "center_m": [
+          0.67,
+          -0.25,
+          -0.025
+        ],
+        "status": "provisional enlarged support; tabletop Z=0"
+      },
+      "camera": {
+        "position_m": [
+          1.7,
+          -1.9,
+          1.65
+        ],
+        "look_at_m": [
+          0.65,
+          -0.15,
+          0.35
+        ],
+        "width": 640,
+        "height": 480,
+        "focal_length_mm": 20,
+        "horizontal_aperture_mm": 24,
+        "near_m": 0.05,
+        "far_m": 5.0,
+        "status": "synthetic ideal fixed RGB-D; not wrist-camera calibration"
+      },
+      "simulation": {
+        "physics_dt_s": 0.004166666666666667,
+        "render_every_steps": 8,
+        "seed": 42,
+        "contact_properties_status": "uncalibrated; separate from historical numerical models"
+      }
+    },
+    "seed": 20261103,
+    "num_envs": 32,
+    "updates": 16,
+    "batches_per_update": 4,
+    "training_throws": 2048,
+    "observation_dim": 5,
+    "action_names": [
+      "board_height_m",
+      "drop_gap_m",
+      "board_tilt_deg"
+    ],
+    "action_low": [
+      0.3,
+      0.08,
+      12.0
+    ],
+    "action_high": [
+      0.45,
+      0.25,
+      40.0
+    ],
+    "initial_action": [
+      0.35,
+      0.22,
+      24.0
+    ],
+    "fixed_baseline": [
+      0.35,
+      0.24,
+      24.0
+    ],
+    "lr": 0.0003,
+    "clip": 0.2,
+    "epochs": 4,
+    "entropy_coef": 0.001,
+    "value_coef": 0.5,
+    "grad_norm": 1.0,
+    "latent_logstd": -1.2,
+    "terminal": true,
+    "bootstrap": false,
+    "curriculum": false,
+    "split_seed_validation": 20261104,
+    "split_seed_test": 20261105,
+    "capture_rule": "Board bounce + whole-ball entry + one second continuously inside, with no detected external contact; rim-assisted captures count.",
+    "policy_inputs": "Privileged bucket/board geometry; no camera or point-cloud input.",
+    "scope": "PPO high-level shot selection with endpoint initialization; no pickup, gripper actuation or arm-transit learning.",
+    "fingerprint": "51a9799fda1b9b69e1096ce4f18ac51a46f88c214c3d71f3bd7a77599bd238d1",
+    "source_sha256": {
+      "overhead_replay.py": "bf0ca157aa5eb61ace0954d0bd25168f4b73220392c2300263ce450b0f4e97da",
+      "generalized_rl.py": "dae2141cf26de76ad440d346affcd4af1ce55e826ac1c5d4096bcdf36d85298a",
+      "launch_scene.py": "88f6cdada4b43274b53f7093a86031f74c63358f60cff2f6eb4f9796a26e5661",
+      "validation_contract.py": "94bd14c89cbe60db03b21550a39d2734d752d710a0499029a8a0eb229906e4ec",
+      "plane_contract.py": "663da66f046c2b5df60d710163e87340cff00c6df57f00594439cb1e3fe6ac47",
+      "farm_policy.py": "dc988c8b8e118d646c45ee5dd2d54f969a82b821fb74da2adca7b08fe3053e4e",
+      "catalogue_confirmation.py": "8262a0119e3a906fb28acb2b1c36e0da672ff59d5d5c5db12045feba26089098",
+      "distance_catalogue_report.py": "5fd8c8b0e6db1a72f935610af50dcdb63566f04a76b8bd5678c386bf452a4e33",
+      "distance_catalogue_contract.py": "5c424ce4da6cdc726e9e81e601f20402656474b6dfb0e9d6bfa0360b282bcbbd",
+      "perception_estimator.py": "ca5121590c047f89185f32069312281bb30c9919d6a7ebea5ff2b6f0383f6982",
+      "distance_sweep.py": "8523c777f4c924e3c092b5562df738acf8fe6b53e9a2bd381c0340f02ce17165",
+      "settled_shot.py": "488ed9f0df4dd91fb420b319071290d4f230677cb1f96b595d508ee03d60fa30",
+      "board_route.py": "6409889aed6b0fd6a288eb9494b954ec5c3233ec41fdcf146940fc23276fb2e9",
+      "geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+      "bucket_grid_report.py": "56c518ac7b7e5a9f9bebc53d6ca645653fc27fabbfaa9dfd3dac66ca99e89770",
+      "learning_report.py": "269efb56233efd05770be393d1ce579754b48dfa86d384da6402ef916faa6403",
+      "distance_catalogue.py": "1df7189d4dde6fb012ce0d3aa24ad4efbaddac0cffc5016cfba993f91b7e8509",
+      "perception_worker.py": "e493e1e4d8862aa018c0da9e76deed027c372adebba39bedb2469eb5c3102e9e",
+      "balanced_pilot.py": "9bc01127e7cbb1f7684b902016346a0ea96eab47945ad24a099a7c213f2074d2",
+      "bucket_grid_contract.py": "c1cedb93cafd7c26d5e238376155d3355599b025386085c0e1155c2cedddea57",
+      "ik_diagnostics.py": "b7bea24a4056d3bbd3ba82802c9b268010d7293436d3961bd002243e01b2bca7",
+      "pilot_report.py": "2647ab6bd755fb65573e17f9e0fb7af7a68ad9ee51ed763c61ee2f5c5785506d",
+      "parallel_world.py": "c7ac2fd04da80761041365cecc48a7c1ce5f39823bbce1eadda0a75ae1c37cdb",
+      "plane_report.py": "aee9bdd8f804e8d9503542f1175525906fbfd405d8e6174f6b10a0a97fec6ebc",
+      "fixed_rl.py": "a4b55300aef232ed36dde446cd31705a32e69767c232560b46a76ee751426a80",
+      "prepare_assets.py": "d7517e4f1f350bd7f48e5c23e48fc4dc4c63882b6b18ce4502bc8c5fd1999d93",
+      "diagnostic_report.py": "da7416ccd1255b23d13d28d07978a5fb392bb79cbc1323eed0a85437675c9829",
+      "preview.py": "e12dc450b077a55d35ab77042249cb589301052022ae6185ce8cca206fea01bf",
+      "dropper_diagnostics.py": "9609225633c2e0d91e80e70a6a1d23ee42da235b7e402819670b364fe7a73b09",
+      "catalogue_contract.py": "99e355a2e6682868d427b3be9d78678098d4f5fb62960af1a5d5e9419059e5df",
+      "farm_contract.py": "e1a0d46f48926105a58d885e7b1c8761f03b8745937d6232aa130f00043038b5",
+      "robust_ik.py": "c3e5ce8673042c2fefbb784e825b34b30bb334a1ea3f9896cf0de0f975c71ee9",
+      "pilot_contract.py": "e36df5fed7725cb5ad2297cd060741abb43a407601719fd2dfc09051b4d15b8d",
+      "plane_sweep.py": "cc24ccf4d8bedfe98413567140f749a6e4836299bfe808d833da747821e7bedf",
+      "bucket_grid.py": "63891f811d6a2765895c7f377f06fef6ade158470f1450eb7cb6ab626410462d",
+      "learning_contract.py": "d8f4fe50f120c25ffbb819c763e8c62799ace407fb90931ae2c5f69fbd4f9d59",
+      "perception_stream.py": "8c05034ce4be5326dd44efcf71db513229c9bae8ffe028dfe974a10d8f89dd7b",
+      "validation_study.py": "ab1cc694ab6ea8b1572a5da78c1f214b6c9155bbdfe359ba8a2eff80756a58bd",
+      "catalogue_report.py": "33f2621d764d78ad790879ebd2ab6e76e944994181177f5fcede12fdcb70e2e5",
+      "overhead_contract.py": "60f2b5cc2c5dc94f8c8daf07703e38bbc3db92259e6791af711697831a679557",
+      "entry_quality.py": "2f3d8b73c871a41afc3c8f333f5df1d54fa8751720855ffff517e729217db9d4",
+      "parallel_report.py": "0261a23d93ee50b57b755f3cb411ae33f009ef8ca7486718d814791df89f02cf",
+      "rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+      "validation_report.py": "bff18d6082d029e9a86e73bece54bc18d7ca1a85ab7351524f91faab94cabb67",
+      "distance_route_audit.py": "38e39fb78f1116ca4fddd386a0ee8cb3181a1c311300a1707297254d34a35a76",
+      "parallel_assets.py": "b4e07201f1ba3871595e02fbc1be1341f21f1d8d1f80f21c3a365cf26e24110a",
+      "parallel_video.py": "0324ac3963adad1d9ebabc4ff59031e6c008f72d1029c9bcb1cb072e1eb8d082",
+      "inspect_capture.py": "35b793de30a38349a2ecb6db9463d792306eabaccc507c6cf6abbc4248d457b6",
+      "farm_training.py": "ed0db8395ae575d0776b4ba333d7821b8fe0222b4da099b56a4012fa2bfb7faa",
+      "perception_evaluate.py": "9e54d7d19e499cf50fb3b242db98b08b77b9b3887bce8968038c9ff243c2854d",
+      "parallel_runtime.py": "d3f3fca45dec9de5b8e7288abc0696eab81da1024f0bf2049c0f9fd443480089",
+      "overhead_video.py": "1fd49bd2cb4fe736a35b8ee6ad78707887e45d460ee3117b534c3036172d32f5",
+      "parallel_contract.py": "13c1b13c9c0df0f322dc58cec377e254c39c71448d6c6a39069abb0d8e32fd0a",
+      "settling_contract.py": "d2586973fa21527f552de9c39569a88f31d4a9214c085d0756867869f572b9b1",
+      "shot_catalogue.py": "af9f57fed5ae8a01516195fc8178601a817995e78298e6b0529ce514f1bdd736"
+    },
+    "gpu": "NVIDIA GeForce RTX 4090"
+  },
+  "training_throws": 2048,
+  "budget": 2048,
+  "updates_completed": 16,
+  "learning_curve": [
+    {
+      "iteration": 1,
+      "throws": 128,
+      "attempts": 128,
+      "captures": 22,
+      "clean": 7,
+      "single_bounce": 22,
+      "invalid": 3,
+      "mean_reward": -0.13984660408110478,
+      "optimization": {
+        "before": "4c0239bcacdd4c018c7d50c1ad8171e817c59c600b2b23fc0cf61bb113cc0a40",
+        "after": "f1b7adfce22f2a5e0a16f1d18611c620af62fecc9b3d4e972f7c96fbda9a96b0",
+        "epochs": [
+          {
+            "loss": 0.4089917838573456,
+            "actor_loss": -1.4901161193847656e-08,
+            "critic_loss": 0.8192972540855408,
+            "latent_entropy": 0.6568154096603394,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.4923533201217651
+          },
+          {
+            "loss": 0.3949003219604492,
+            "actor_loss": -0.0026063621044158936,
+            "critic_loss": 0.7963252067565918,
+            "latent_entropy": 0.6559152603149414,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.429100751876831
+          },
+          {
+            "loss": 0.38174760341644287,
+            "actor_loss": -0.005276888608932495,
+            "critic_loss": 0.775359034538269,
+            "latent_entropy": 0.655014157295227,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.3778822422027588
+          },
+          {
+            "loss": 0.36952462792396545,
+            "actor_loss": -0.008027702569961548,
+            "critic_loss": 0.7564128637313843,
+            "latent_entropy": 0.6541119813919067,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.3324154615402222
+          }
+        ]
+      }
+    },
+    {
+      "iteration": 2,
+      "throws": 256,
+      "attempts": 128,
+      "captures": 26,
+      "clean": 8,
+      "single_bounce": 26,
+      "invalid": 1,
+      "mean_reward": -0.0658302169621886,
+      "optimization": {
+        "before": "f1b7adfce22f2a5e0a16f1d18611c620af62fecc9b3d4e972f7c96fbda9a96b0",
+        "after": "499a3b08e7fbb558fbd660f6e7687ecb04761cecab733d0631da11cc5336ad0b",
+        "epochs": [
+          {
+            "loss": 0.39571481943130493,
+            "actor_loss": 1.4901161193847656e-08,
+            "critic_loss": 0.7927359938621521,
+            "latent_entropy": 0.6532080173492432,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.6083544492721558
+          },
+          {
+            "loss": 0.3875422477722168,
+            "actor_loss": -0.002722635865211487,
+            "critic_loss": 0.781834602355957,
+            "latent_entropy": 0.6524214744567871,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.596208095550537
+          },
+          {
+            "loss": 0.37971633672714233,
+            "actor_loss": -0.006093546748161316,
+            "critic_loss": 0.7729231715202332,
+            "latent_entropy": 0.6517201662063599,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.5888923406600952
+          },
+          {
+            "loss": 0.3723088204860687,
+            "actor_loss": -0.009919524192810059,
+            "critic_loss": 0.7657588720321655,
+            "latent_entropy": 0.6510839462280273,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.586638331413269
+          }
+        ]
+      }
+    },
+    {
+      "iteration": 3,
+      "throws": 384,
+      "attempts": 128,
+      "captures": 28,
+      "clean": 5,
+      "single_bounce": 27,
+      "invalid": 1,
+      "mean_reward": -0.03547050061550308,
+      "optimization": {
+        "before": "499a3b08e7fbb558fbd660f6e7687ecb04761cecab733d0631da11cc5336ad0b",
+        "after": "dac10a2c74861e7423624652849612987597e911a0cd602a1afd49157acbacb6",
+        "epochs": [
+          {
+            "loss": 0.38449186086654663,
+            "actor_loss": -5.960464477539063e-08,
+            "critic_loss": 0.7702848315238953,
+            "latent_entropy": 0.6504976749420166,
+            "clip_fraction": 0.0,
+            "gradient_norm": 0.6872040033340454
+          },
+          {
+            "loss": 0.38405510783195496,
+            "actor_loss": 0.0007484853267669678,
+            "critic_loss": 0.7679132223129272,
+            "latent_entropy": 0.649988055229187,
+            "clip_fraction": 0.0,
+            "gradient_norm": 0.6669734120368958
+          },
+          {
+            "loss": 0.38361844420433044,
+            "actor_loss": 0.001027911901473999,
+            "critic_loss": 0.7664800882339478,
+            "latent_entropy": 0.649499773979187,
+            "clip_fraction": 0.0,
+            "gradient_norm": 0.656646728515625
+          },
+          {
+            "loss": 0.38316699862480164,
+            "actor_loss": 0.0009505152702331543,
+            "critic_loss": 0.7657310366630554,
+            "latent_entropy": 0.6490300893783569,
+            "clip_fraction": 0.0,
+            "gradient_norm": 0.6541554927825928
+          }
+        ]
+      }
+    },
+    {
+      "iteration": 4,
+      "throws": 512,
+      "attempts": 128,
+      "captures": 34,
+      "clean": 9,
+      "single_bounce": 34,
+      "invalid": 1,
+      "mean_reward": 0.0682001504202367,
+      "optimization": {
+        "before": "dac10a2c74861e7423624652849612987597e911a0cd602a1afd49157acbacb6",
+        "after": "4a94215562519cba1e1f8d6e4a4574bc57f7fcdd3aecae596276ada087451d70",
+        "epochs": [
+          {
+            "loss": 0.45771324634552,
+            "actor_loss": -5.960464477539063e-08,
+            "critic_loss": 0.9167237877845764,
+            "latent_entropy": 0.6485778093338013,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.5995404720306396
+          },
+          {
+            "loss": 0.4561825692653656,
+            "actor_loss": -0.002412647008895874,
+            "critic_loss": 0.9184867739677429,
+            "latent_entropy": 0.6481560468673706,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.6157792806625366
+          },
+          {
+            "loss": 0.4534643888473511,
+            "actor_loss": -0.005471646785736084,
+            "critic_loss": 0.9191675782203674,
+            "latent_entropy": 0.6477605104446411,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.6309186220169067
+          },
+          {
+            "loss": 0.4496465027332306,
+            "actor_loss": -0.009083092212677002,
+            "critic_loss": 0.918753981590271,
+            "latent_entropy": 0.647388219833374,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.6443638801574707
+          }
+        ]
+      }
+    },
+    {
+      "iteration": 5,
+      "throws": 640,
+      "attempts": 128,
+      "captures": 32,
+      "clean": 8,
+      "single_bounce": 32,
+      "invalid": 2,
+      "mean_reward": 0.030163297059225082,
+      "optimization": {
+        "before": "4a94215562519cba1e1f8d6e4a4574bc57f7fcdd3aecae596276ada087451d70",
+        "after": "7b74847d230df174c3fb00bde8d64a0a80028e739110dd6504dbe79762eda27b",
+        "epochs": [
+          {
+            "loss": 0.44543132185935974,
+            "actor_loss": -2.9802322387695312e-08,
+            "critic_loss": 0.8921567797660828,
+            "latent_entropy": 0.6470355987548828,
+            "clip_fraction": 0.0,
+            "gradient_norm": 0.9910719990730286
+          },
+          {
+            "loss": 0.4422857165336609,
+            "actor_loss": -0.001561582088470459,
+            "critic_loss": 0.8889880776405334,
+            "latent_entropy": 0.6467362642288208,
+            "clip_fraction": 0.0,
+            "gradient_norm": 0.9925751686096191
+          },
+          {
+            "loss": 0.4383905231952667,
+            "actor_loss": -0.0034143030643463135,
+            "critic_loss": 0.8849025964736938,
+            "latent_entropy": 0.6464800834655762,
+            "clip_fraction": 0.0,
+            "gradient_norm": 0.9910421371459961
+          },
+          {
+            "loss": 0.43392640352249146,
+            "actor_loss": -0.005524188280105591,
+            "critic_loss": 0.8801937103271484,
+            "latent_entropy": 0.6462595462799072,
+            "clip_fraction": 0.0,
+            "gradient_norm": 0.9873782992362976
+          }
+        ]
+      }
+    },
+    {
+      "iteration": 6,
+      "throws": 768,
+      "attempts": 128,
+      "captures": 25,
+      "clean": 8,
+      "single_bounce": 25,
+      "invalid": 3,
+      "mean_reward": -0.08958974269095402,
+      "optimization": {
+        "before": "7b74847d230df174c3fb00bde8d64a0a80028e739110dd6504dbe79762eda27b",
+        "after": "e25768ac5ccda56b4f95f35144e26185f891cc7b43ace52b3c49c0f54f56517f",
+        "epochs": [
+          {
+            "loss": 0.365138441324234,
+            "actor_loss": -0.0,
+            "critic_loss": 0.7315689921379089,
+            "latent_entropy": 0.6460678577423096,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.1505773067474365
+          },
+          {
+            "loss": 0.3609295189380646,
+            "actor_loss": -0.0031152069568634033,
+            "critic_loss": 0.7293810248374939,
+            "latent_entropy": 0.6457744836807251,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.130061149597168
+          },
+          {
+            "loss": 0.35655415058135986,
+            "actor_loss": -0.006425067782402039,
+            "critic_loss": 0.7272492051124573,
+            "latent_entropy": 0.64539635181427,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.107231855392456
+          },
+          {
+            "loss": 0.3521888554096222,
+            "actor_loss": -0.009728610515594482,
+            "critic_loss": 0.7251248359680176,
+            "latent_entropy": 0.6449459791183472,
+            "clip_fraction": 0.0234375,
+            "gradient_norm": 0.9954407811164856
+          }
+        ]
+      }
+    },
+    {
+      "iteration": 7,
+      "throws": 896,
+      "attempts": 128,
+      "captures": 29,
+      "clean": 7,
+      "single_bounce": 29,
+      "invalid": 0,
+      "mean_reward": -0.013384713185721715,
+      "optimization": {
+        "before": "e25768ac5ccda56b4f95f35144e26185f891cc7b43ace52b3c49c0f54f56517f",
+        "after": "a1165b87c3f5495b09dc1305b0d28e828ff87ecc0daa62707582e0b4fa947ff4",
+        "epochs": [
+          {
+            "loss": 0.3880690038204193,
+            "actor_loss": -0.0,
+            "critic_loss": 0.7774268984794617,
+            "latent_entropy": 0.6444374322891235,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.9849004745483398
+          },
+          {
+            "loss": 0.38258832693099976,
+            "actor_loss": -0.004392653703689575,
+            "critic_loss": 0.7752498388290405,
+            "latent_entropy": 0.6439411640167236,
+            "clip_fraction": 0.0,
+            "gradient_norm": 2.0076301097869873
+          },
+          {
+            "loss": 0.37640535831451416,
+            "actor_loss": -0.009558439254760742,
+            "critic_loss": 0.7732145190238953,
+            "latent_entropy": 0.6434563398361206,
+            "clip_fraction": 0.0,
+            "gradient_norm": 2.0303585529327393
+          },
+          {
+            "loss": 0.3698754906654358,
+            "actor_loss": -0.015135854482650757,
+            "critic_loss": 0.7713086605072021,
+            "latent_entropy": 0.6429799795150757,
+            "clip_fraction": 0.015625,
+            "gradient_norm": 1.996559977531433
+          }
+        ]
+      }
+    },
+    {
+      "iteration": 8,
+      "throws": 1024,
+      "attempts": 128,
+      "captures": 29,
+      "clean": 6,
+      "single_bounce": 29,
+      "invalid": 3,
+      "mean_reward": -0.025682730189021664,
+      "optimization": {
+        "before": "a1165b87c3f5495b09dc1305b0d28e828ff87ecc0daa62707582e0b4fa947ff4",
+        "after": "29569becd859ce9a15804259afd1f429b9c0f7ff0ceb4bb190af0716ebf12022",
+        "epochs": [
+          {
+            "loss": 0.3923560082912445,
+            "actor_loss": -2.9802322387695312e-08,
+            "critic_loss": 0.7859970927238464,
+            "latent_entropy": 0.6425141096115112,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.8537521362304688
+          },
+          {
+            "loss": 0.3850354254245758,
+            "actor_loss": -0.006728231906890869,
+            "critic_loss": 0.7848113775253296,
+            "latent_entropy": 0.6420323848724365,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.9121803045272827
+          },
+          {
+            "loss": 0.37706083059310913,
+            "actor_loss": -0.01414114236831665,
+            "critic_loss": 0.7836869955062866,
+            "latent_entropy": 0.6415395736694336,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.9775018692016602
+          },
+          {
+            "loss": 0.37174320220947266,
+            "actor_loss": -0.01892198622226715,
+            "critic_loss": 0.7826125025749207,
+            "latent_entropy": 0.6410391330718994,
+            "clip_fraction": 0.078125,
+            "gradient_norm": 0.8350765705108643
+          }
+        ]
+      }
+    },
+    {
+      "iteration": 9,
+      "throws": 1152,
+      "attempts": 128,
+      "captures": 35,
+      "clean": 9,
+      "single_bounce": 35,
+      "invalid": 2,
+      "mean_reward": 0.08029331815044727,
+      "optimization": {
+        "before": "29569becd859ce9a15804259afd1f429b9c0f7ff0ceb4bb190af0716ebf12022",
+        "after": "7616951973872d6efce928960d9489f6d56f8405c77198d3c6ad4a940a6ae7f7",
+        "epochs": [
+          {
+            "loss": 0.4463728368282318,
+            "actor_loss": -0.0,
+            "critic_loss": 0.8940265774726868,
+            "latent_entropy": 0.6404383182525635,
+            "clip_fraction": 0.0,
+            "gradient_norm": 2.2910563945770264
+          },
+          {
+            "loss": 0.4375641942024231,
+            "actor_loss": -0.007631123065948486,
+            "critic_loss": 0.8916704654693604,
+            "latent_entropy": 0.6399105787277222,
+            "clip_fraction": 0.0,
+            "gradient_norm": 2.3361735343933105
+          },
+          {
+            "loss": 0.42794761061668396,
+            "actor_loss": -0.016037434339523315,
+            "critic_loss": 0.8892489671707153,
+            "latent_entropy": 0.6394468545913696,
+            "clip_fraction": 0.0,
+            "gradient_norm": 2.380617380142212
+          },
+          {
+            "loss": 0.4189128875732422,
+            "actor_loss": -0.023848801851272583,
+            "critic_loss": 0.8868014812469482,
+            "latent_entropy": 0.6390392780303955,
+            "clip_fraction": 0.0546875,
+            "gradient_norm": 1.4251326322555542
+          }
+        ]
+      }
+    },
+    {
+      "iteration": 10,
+      "throws": 1280,
+      "attempts": 128,
+      "captures": 34,
+      "clean": 12,
+      "single_bounce": 34,
+      "invalid": 0,
+      "mean_reward": 0.0743485128815666,
+      "optimization": {
+        "before": "7616951973872d6efce928960d9489f6d56f8405c77198d3c6ad4a940a6ae7f7",
+        "after": "5287af3bc38f3e70a73d4bcb3a0737ae244ca0aef2f6424adc26ec87e44c6b60",
+        "epochs": [
+          {
+            "loss": 0.4306110739707947,
+            "actor_loss": -5.960464477539063e-08,
+            "critic_loss": 0.8624995946884155,
+            "latent_entropy": 0.6386709213256836,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.0751816034317017
+          },
+          {
+            "loss": 0.4256347119808197,
+            "actor_loss": -0.0037390291690826416,
+            "critic_loss": 0.8600240349769592,
+            "latent_entropy": 0.638280987739563,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.0827016830444336
+          },
+          {
+            "loss": 0.4210697114467621,
+            "actor_loss": -0.00703805685043335,
+            "critic_loss": 0.8574912548065186,
+            "latent_entropy": 0.6378660202026367,
+            "clip_fraction": 0.0234375,
+            "gradient_norm": 0.8088445663452148
+          },
+          {
+            "loss": 0.4196101129055023,
+            "actor_loss": -0.007224708795547485,
+            "critic_loss": 0.8549444675445557,
+            "latent_entropy": 0.6373976469039917,
+            "clip_fraction": 0.15625,
+            "gradient_norm": 1.0408220291137695
+          }
+        ]
+      }
+    },
+    {
+      "iteration": 11,
+      "throws": 1408,
+      "attempts": 128,
+      "captures": 28,
+      "clean": 10,
+      "single_bounce": 28,
+      "invalid": 2,
+      "mean_reward": -0.028966365735344023,
+      "optimization": {
+        "before": "5287af3bc38f3e70a73d4bcb3a0737ae244ca0aef2f6424adc26ec87e44c6b60",
+        "after": "65a8ac641bb023cd87a4110562097639dce1dad16a17ab477dd248ea45995905",
+        "epochs": [
+          {
+            "loss": 0.3786744773387909,
+            "actor_loss": 2.9802322387695312e-08,
+            "critic_loss": 0.7586227059364319,
+            "latent_entropy": 0.6368950605392456,
+            "clip_fraction": 0.0,
+            "gradient_norm": 3.045196056365967
+          },
+          {
+            "loss": 0.3697110116481781,
+            "actor_loss": -0.008737817406654358,
+            "critic_loss": 0.7581705451011658,
+            "latent_entropy": 0.6364375352859497,
+            "clip_fraction": 0.0,
+            "gradient_norm": 3.106144428253174
+          },
+          {
+            "loss": 0.3597324788570404,
+            "actor_loss": -0.018467918038368225,
+            "critic_loss": 0.7576727867126465,
+            "latent_entropy": 0.6360193490982056,
+            "clip_fraction": 0.0078125,
+            "gradient_norm": 3.1659340858459473
+          },
+          {
+            "loss": 0.35136932134628296,
+            "actor_loss": -0.026536375284194946,
+            "critic_loss": 0.7570826411247253,
+            "latent_entropy": 0.6356353759765625,
+            "clip_fraction": 0.0859375,
+            "gradient_norm": 2.6133360862731934
+          }
+        ]
+      }
+    },
+    {
+      "iteration": 12,
+      "throws": 1536,
+      "attempts": 128,
+      "captures": 34,
+      "clean": 10,
+      "single_bounce": 34,
+      "invalid": 3,
+      "mean_reward": 0.0608320736228581,
+      "optimization": {
+        "before": "65a8ac641bb023cd87a4110562097639dce1dad16a17ab477dd248ea45995905",
+        "after": "9c03b6fec412b7413bd457dcdb26f4f5127c4c6838894561df6375c187ad830e",
+        "epochs": [
+          {
+            "loss": 0.4325193166732788,
+            "actor_loss": -2.9802322387695312e-08,
+            "critic_loss": 0.8663092851638794,
+            "latent_entropy": 0.6352839469909668,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.5626431703567505
+          },
+          {
+            "loss": 0.4264144003391266,
+            "actor_loss": -0.005419731140136719,
+            "critic_loss": 0.8649381399154663,
+            "latent_entropy": 0.6349453926086426,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.4959970712661743
+          },
+          {
+            "loss": 0.4204956591129303,
+            "actor_loss": -0.010643750429153442,
+            "critic_loss": 0.8635480403900146,
+            "latent_entropy": 0.6346161365509033,
+            "clip_fraction": 0.046875,
+            "gradient_norm": 1.1919325590133667
+          },
+          {
+            "loss": 0.4179447889328003,
+            "actor_loss": -0.012469679117202759,
+            "critic_loss": 0.8620975613594055,
+            "latent_entropy": 0.6343032121658325,
+            "clip_fraction": 0.171875,
+            "gradient_norm": 0.854518711566925
+          }
+        ]
+      }
+    },
+    {
+      "iteration": 13,
+      "throws": 1664,
+      "attempts": 128,
+      "captures": 33,
+      "clean": 10,
+      "single_bounce": 33,
+      "invalid": 2,
+      "mean_reward": 0.05908741339041271,
+      "optimization": {
+        "before": "9c03b6fec412b7413bd457dcdb26f4f5127c4c6838894561df6375c187ad830e",
+        "after": "c5bd7dbf8bf6216d2775052d70e2ce7d0ae72c909f5521bc4035d7a63c250279",
+        "epochs": [
+          {
+            "loss": 0.41727226972579956,
+            "actor_loss": 2.9802322387695312e-08,
+            "critic_loss": 0.835812509059906,
+            "latent_entropy": 0.6340210437774658,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.6678624153137207
+          },
+          {
+            "loss": 0.41793912649154663,
+            "actor_loss": 0.0015028119087219238,
+            "critic_loss": 0.8341400027275085,
+            "latent_entropy": 0.6336733102798462,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.7580196857452393
+          },
+          {
+            "loss": 0.4178363084793091,
+            "actor_loss": 0.0022818446159362793,
+            "critic_loss": 0.8323754668235779,
+            "latent_entropy": 0.633271336555481,
+            "clip_fraction": 0.0078125,
+            "gradient_norm": 1.8313190937042236
+          },
+          {
+            "loss": 0.4168931543827057,
+            "actor_loss": 0.0022584497928619385,
+            "critic_loss": 0.8305350542068481,
+            "latent_entropy": 0.6328229904174805,
+            "clip_fraction": 0.0546875,
+            "gradient_norm": 1.8859363794326782
+          }
+        ]
+      }
+    },
+    {
+      "iteration": 14,
+      "throws": 1792,
+      "attempts": 128,
+      "captures": 36,
+      "clean": 7,
+      "single_bounce": 36,
+      "invalid": 1,
+      "mean_reward": 0.10026240178242357,
+      "optimization": {
+        "before": "c5bd7dbf8bf6216d2775052d70e2ce7d0ae72c909f5521bc4035d7a63c250279",
+        "after": "80b7e47f33d1647288650ff3d9d2cc2f23bdc51dd899fe174d10a39935b6a14f",
+        "epochs": [
+          {
+            "loss": 0.430787056684494,
+            "actor_loss": -2.9802322387695312e-08,
+            "critic_loss": 0.862838864326477,
+            "latent_entropy": 0.6323345899581909,
+            "clip_fraction": 0.0,
+            "gradient_norm": 3.0384793281555176
+          },
+          {
+            "loss": 0.42638659477233887,
+            "actor_loss": -0.003549039363861084,
+            "critic_loss": 0.8611350059509277,
+            "latent_entropy": 0.6318744421005249,
+            "clip_fraction": 0.0,
+            "gradient_norm": 3.0897276401519775
+          },
+          {
+            "loss": 0.4208175241947174,
+            "actor_loss": -0.008290618658065796,
+            "critic_loss": 0.8594791889190674,
+            "latent_entropy": 0.6314395666122437,
+            "clip_fraction": 0.0,
+            "gradient_norm": 3.1429662704467773
+          },
+          {
+            "loss": 0.4141780138015747,
+            "actor_loss": -0.01412498950958252,
+            "critic_loss": 0.8578680753707886,
+            "latent_entropy": 0.631027340888977,
+            "clip_fraction": 0.0,
+            "gradient_norm": 3.1982662677764893
+          }
+        ]
+      }
+    },
+    {
+      "iteration": 15,
+      "throws": 1920,
+      "attempts": 128,
+      "captures": 35,
+      "clean": 12,
+      "single_bounce": 35,
+      "invalid": 2,
+      "mean_reward": 0.08878732254214304,
+      "optimization": {
+        "before": "80b7e47f33d1647288650ff3d9d2cc2f23bdc51dd899fe174d10a39935b6a14f",
+        "after": "07f523e53c3792b5fe9bdb4f61434ffd48a7a72dbf0664610d84d408f9b9e1d5",
+        "epochs": [
+          {
+            "loss": 0.42802944779396057,
+            "actor_loss": -5.960464477539063e-08,
+            "critic_loss": 0.8573203086853027,
+            "latent_entropy": 0.630635142326355,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.8450653553009033
+          },
+          {
+            "loss": 0.42720547318458557,
+            "actor_loss": 4.708766937255859e-06,
+            "critic_loss": 0.8556621074676514,
+            "latent_entropy": 0.6302841901779175,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.8516055345535278
+          },
+          {
+            "loss": 0.42539605498313904,
+            "actor_loss": -0.0009602010250091553,
+            "critic_loss": 0.8539724349975586,
+            "latent_entropy": 0.6299703121185303,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.856248140335083
+          },
+          {
+            "loss": 0.42271876335144043,
+            "actor_loss": -0.0027793943881988525,
+            "critic_loss": 0.8522557020187378,
+            "latent_entropy": 0.6296896934509277,
+            "clip_fraction": 0.0078125,
+            "gradient_norm": 1.8593252897262573
+          }
+        ]
+      }
+    },
+    {
+      "iteration": 16,
+      "throws": 2048,
+      "attempts": 128,
+      "captures": 33,
+      "clean": 13,
+      "single_bounce": 33,
+      "invalid": 4,
+      "mean_reward": 0.043762096928446945,
+      "optimization": {
+        "before": "07f523e53c3792b5fe9bdb4f61434ffd48a7a72dbf0664610d84d408f9b9e1d5",
+        "after": "ea0d20b3a971bfe648195e408101f956da15643facfdc397930fb0a313c6f53f",
+        "epochs": [
+          {
+            "loss": 0.420433908700943,
+            "actor_loss": -0.0,
+            "critic_loss": 0.8421266674995422,
+            "latent_entropy": 0.6294384002685547,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.5781267881393433
+          },
+          {
+            "loss": 0.41851291060447693,
+            "actor_loss": -0.0009642541408538818,
+            "critic_loss": 0.8402125835418701,
+            "latent_entropy": 0.6291298866271973,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.5756657123565674
+          },
+          {
+            "loss": 0.415650874376297,
+            "actor_loss": -0.002788037061691284,
+            "critic_loss": 0.8381353616714478,
+            "latent_entropy": 0.6287674903869629,
+            "clip_fraction": 0.0,
+            "gradient_norm": 1.5566805601119995
+          },
+          {
+            "loss": 0.4119945764541626,
+            "actor_loss": -0.005335599184036255,
+            "critic_loss": 0.835917055606842,
+            "latent_entropy": 0.6283529996871948,
+            "clip_fraction": 0.0078125,
+            "gradient_norm": 1.523276448249817
+          }
+        ]
+      }
+    }
+  ],
+  "validation": [
+    {
+      "updates": 0,
+      "attempts": 32,
+      "captures": 8,
+      "clean": 4,
+      "single_bounce": 8,
+      "invalid": 0,
+      "mean_reward": 0.0453714900466427
+    },
+    {
+      "updates": 4,
+      "attempts": 32,
+      "captures": 8,
+      "clean": 4,
+      "single_bounce": 8,
+      "invalid": 0,
+      "mean_reward": 0.04453143673892379
+    },
+    {
+      "updates": 8,
+      "attempts": 32,
+      "captures": 8,
+      "clean": 4,
+      "single_bounce": 8,
+      "invalid": 0,
+      "mean_reward": 0.04481568301371095
+    },
+    {
+      "updates": 12,
+      "attempts": 32,
+      "captures": 14,
+      "clean": 4,
+      "single_bounce": 13,
+      "invalid": 0,
+      "mean_reward": 0.43977084004486966
+    },
+    {
+      "updates": 16,
+      "attempts": 32,
+      "captures": 12,
+      "clean": 3,
+      "single_bounce": 11,
+      "invalid": 0,
+      "mean_reward": 0.30762014427117185
+    }
+  ],
+  "evaluation": {
+    "initial": {
+      "attempts": 32,
+      "captures": 7,
+      "clean": 3,
+      "single_bounce": 7,
+      "invalid": 0,
+      "mean_reward": -0.024245549327370358
+    },
+    "final": {
+      "attempts": 32,
+      "captures": 7,
+      "clean": 1,
+      "single_bounce": 7,
+      "invalid": 0,
+      "mean_reward": -0.030787296320248375
+    },
+    "selected": {
+      "attempts": 32,
+      "captures": 6,
+      "clean": 1,
+      "single_bounce": 6,
+      "invalid": 0,
+      "mean_reward": -0.09692018228436133
+    },
+    "fixed": {
+      "attempts": 32,
+      "captures": 9,
+      "clean": 1,
+      "single_bounce": 9,
+      "invalid": 0,
+      "mean_reward": 0.10134329714755602
+    }
+  },
+  "clips": [
+    {
+      "path": "clips/iteration-001",
+      "iteration": 1,
+      "frames": 241,
+      "statistics": {
+        "attempts": 32,
+        "captures": 6,
+        "clean": 2,
+        "single_bounce": 6,
+        "invalid": 0,
+        "mean_reward": -0.09485602175673019
+      }
+    },
+    {
+      "path": "clips/iteration-008",
+      "iteration": 8,
+      "frames": 241,
+      "statistics": {
+        "attempts": 32,
+        "captures": 8,
+        "clean": 1,
+        "single_bounce": 8,
+        "invalid": 1,
+        "mean_reward": 0.01964270018449398
+      }
+    },
+    {
+      "path": "clips/iteration-016",
+      "iteration": 16,
+      "frames": 241,
+      "statistics": {
+        "attempts": 32,
+        "captures": 8,
+        "clean": 3,
+        "single_bounce": 8,
+        "invalid": 0,
+        "mean_reward": 0.04342672523377128
+      }
+    }
+  ],
+  "camera_specs": [
+    {
+      "name": "farm",
+      "cell": null,
+      "width": 1920,
+      "height": 1440,
+      "span_m": 36.5,
+      "eye": [
+        1.935625,
+        -22.571875,
+        44.15
+      ],
+      "look": [
+        1.935625,
+        -0.671875,
+        0.35
+      ],
+      "far": 109.5
+    },
+    {
+      "name": "near",
+      "cell": 0,
+      "width": 640,
+      "height": 400,
+      "span_m": 2.1,
+      "eye": [
+        14.17,
+        -11.3,
+        3.5
+      ],
+      "look": [
+        14.17,
+        -9.2,
+        0.35
+      ],
+      "far": 4.7858288392371895
+    },
+    {
+      "name": "middle",
+      "cell": 13,
+      "width": 640,
+      "height": 400,
+      "span_m": 2.1,
+      "eye": [
+        5.17,
+        2.2,
+        3.5
+      ],
+      "look": [
+        5.17,
+        4.3,
+        0.35
+      ],
+      "far": 4.785828839237189
+    },
+    {
+      "name": "far",
+      "cell": 31,
+      "width": 640,
+      "height": 400,
+      "span_m": 2.1,
+      "eye": [
+        -12.83,
+        -6.8,
+        3.5
+      ],
+      "look": [
+        -12.83,
+        -4.7,
+        0.35
+      ],
+      "far": 4.785828839237189
+    }
+  ],
+  "scope": "PPO high-level shot selection with endpoint initialization; no pickup, gripper actuation or arm-transit learning.",
+  "elapsed_s": 518.2438901789719,
+  "timestamp_utc": "2026-11-01T21:37:10.693328+00:00",
+  "max_bucket_drift_m": 6.108946552284312e-07,
+  "probes": [
+    {
+      "kind": "bucket",
+      "all_passed": true,
+      "per_cell_passed": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "kind": "rim",
+      "all_passed": true,
+      "per_cell_passed": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "kind": "table",
+      "all_passed": true,
+      "per_cell_passed": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "kind": "floor",
+      "all_passed": true,
+      "per_cell_passed": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "kind": "robot",
+      "all_passed": true,
+      "per_cell_passed": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "kind": "foreign_cell_collision_filter",
+      "all_passed": true,
+      "foreign_ball_final_z_m": -4.59243631362915
+    }
+  ],
+  "initial_weight_hash": "4c0239bcacdd4c018c7d50c1ad8171e817c59c600b2b23fc0cf61bb113cc0a40",
+  "final_weight_hash": "ea0d20b3a971bfe648195e408101f956da15643facfdc397930fb0a313c6f53f",
+  "actor_change_l1": 55.49910354614258,
+  "selected_update": 12,
+  "selected_sha256": "35db3a705fbb695cbea106ef2677f74a54356b61950bb8a7221d6f4721f18a62",
+  "final_sha256": "da4ada1a0c5637b15efd28a68e0a421e19018f535724450c3c82e67bc6b6d46d",
+  "episodes_sha256": "f7d42c3fd230c99d6277ad54f2e3ce430f4b2236e916fdc9e4c363054e955206",
+  "splits_sha256": "a2870598f51d8cb4bef722b48e7b68e7491345a277b50b26b15027bd60c9a1de",
+  "verification": {
+    "training_rows": 2048,
+    "policy_hash_chain": true,
+    "actor_updated": true,
+    "video_rows_are_training_data": true,
+    "disjoint_splits": true,
+    "frozen_selection": true,
+    "validation_weights": true,
+    "fixed_actions": true,
+    "artifacts": true,
+    "contact_probes": true
+  },
+  "evaluation_by_distance": {
+    "initial": {
+      "near": {
+        "attempts": 7,
+        "captures": 5,
+        "clean": 3,
+        "single_bounce": 5,
+        "invalid": 0,
+        "mean_reward": 1.0695438379454338
+      },
+      "middle": {
+        "attempts": 11,
+        "captures": 2,
+        "clean": 0,
+        "single_bounce": 2,
+        "invalid": 0,
+        "mean_reward": -0.11478767673580795
+      },
+      "far": {
+        "attempts": 14,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 0,
+        "mean_reward": -0.5
+      }
+    },
+    "final": {
+      "near": {
+        "attempts": 7,
+        "captures": 6,
+        "clean": 1,
+        "single_bounce": 6,
+        "invalid": 0,
+        "mean_reward": 1.3393115777537552
+      },
+      "middle": {
+        "attempts": 11,
+        "captures": 1,
+        "clean": 0,
+        "single_bounce": 1,
+        "invalid": 0,
+        "mean_reward": -0.305488593320385
+      },
+      "far": {
+        "attempts": 14,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 0,
+        "mean_reward": -0.5
+      }
+    },
+    "selected": {
+      "near": {
+        "attempts": 7,
+        "captures": 5,
+        "clean": 1,
+        "single_bounce": 5,
+        "invalid": 0,
+        "mean_reward": 1.0392871317269337
+      },
+      "middle": {
+        "attempts": 11,
+        "captures": 1,
+        "clean": 0,
+        "single_bounce": 1,
+        "invalid": 0,
+        "mean_reward": -0.30695052319891797
+      },
+      "far": {
+        "attempts": 14,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 0,
+        "mean_reward": -0.5
+      }
+    },
+    "fixed": {
+      "near": {
+        "attempts": 7,
+        "captures": 7,
+        "clean": 1,
+        "single_bounce": 7,
+        "invalid": 0,
+        "mean_reward": 1.643321710407445
+      },
+      "middle": {
+        "attempts": 11,
+        "captures": 2,
+        "clean": 0,
+        "single_bounce": 2,
+        "invalid": 0,
+        "mean_reward": -0.114569678557302
+      },
+      "far": {
+        "attempts": 14,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 0,
+        "mean_reward": -0.5
+      }
+    }
+  }
+}

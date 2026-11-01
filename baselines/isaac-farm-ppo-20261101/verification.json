@@ -1,0 +1,47 @@
+{
+  "checked_utc": "2026-11-01T21:39:27.056908+00:00",
+  "run": "farm-ppo-20261101T212820Z-n32",
+  "executed_source_files_checked": 55,
+  "source_hashes_match": true,
+  "decoded_frames": 903,
+  "full_video_decode_passed": true,
+  "video_sha256_matches": true,
+  "metadata": {
+    "programs": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 2560,
+        "height": 1600,
+        "r_frame_rate": "30/1",
+        "nb_read_frames": "903"
+      }
+    ],
+    "format": {
+      "duration": "30.100000"
+    }
+  },
+  "training_rows_verified": 2048,
+  "filmed_action_logprobs_verified": 96,
+  "frozen_neural_test_actions_verified": 96,
+  "local_isaac_tests": {
+    "run": 101,
+    "skipped": 1,
+    "passed": 100
+  },
+  "container_new_tests_passed": 5,
+  "scope": "Synthetic high-level shot policy; no pickup/transit/perception learning or physical validation.",
+  "visual_review": "Inspected the global farm frame, a native close-up, and the final composite poster: all 32 workcells and 64 arms visible; close-ups show ball/board/bucket interaction. No physics interpolation or generated visual content.",
+  "runtime_at_check": {
+    "farm_gpu_job_exited": true,
+    "gpu_4090_compute_processes": 0,
+    "existing_4070_job_still_running": true,
+    "existing_preview_still_running": true,
+    "physical_viam_audio_changed": false
+  },
+  "postprocessing_source_sha256": {
+    "farm_report.py": "6f7cf019e3d04b670ad7364aa3701488b413736ade0eac8289e80c65460bfb94",
+    "farm_checkpoint_audit.py": "24870cb9af4ac2bde8486165e6a819cb5c4469642b3694af4a411b10de7b5ab0",
+    "farm_video.py": "6a6c3d6d46bd6f5074d07663d545e4a973d48f6d9bdaa9960e7bd981a84e883a"
+  }
+}

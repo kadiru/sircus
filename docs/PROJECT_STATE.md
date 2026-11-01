@@ -1,5 +1,13 @@
 # Project state
 
+## Actual 32-table PPO training farm — November 1, 2026
+
+- [Method and video reproduction](../sircus/isaac/FARM_PPO.md); [completed pilot and checkpoint evidence](../baselines/isaac-farm-ppo-20261101/README.md). A shared neural actor/critic trained on 2,048 PhysX throws across 32 simultaneous tables / 64 UF850 arms. The movie records actual on-policy batches at iterations 1, 8 and 16, with a wide orthographic view and synchronized close-ups. It is separate from the prior search and frozen replay.
+- Validation selected update 12 (14/32 versus initial 8/32). Frozen test: selected 6/32, final 7/32, initial 7/32, fixed action 9/32. All 128 test endpoints passed IK/settling; all policies scored 0/14 on the far test subset. The policy is not promoted. This single-seed, small pilot demonstrates training/data/video integration, not a solved task or broad generalization.
+- Policy actions are board height, drop gap and tilt, with bucket-facing heading prescribed. Inputs are privileged geometry. Endpoint initialization is separate from pickup, arm paths, gripper control and perception. Historical physics/scoring results and provisional measurements are preserved.
+- All 2,048 training rows, filmed-row membership, weight-update chain, saved test actions, artifact/source hashes and contact probes were verified. The finite 4090 run completed; the 4070 workload and existing preview were unchanged. Raw frames/video remain outside Git; small checkpoints and compact evidence are published. No physical/Viam/audio changes.
+- Next: diagnose far-shot feasibility and flat external-contact rewards on development scenes before another long run, then use a fresh held-out test. Existing dashboard pages have not automatically switched to this study; progress has its own `farm-training.json` file.
+
 ## Close-up simulation replay — November 1, 2026
 
 - [Orthographic video and reproduction](../sircus/isaac/OVERHEAD_REPLAY.md) uses four selected cells from the existing parallel-world baseline. A fresh bounded 4090 replay passed contact/foreign-cell probes and endpoint settling; all four shots had one board bounce and clean capture with one-second retention. This is visualization of frozen settings, not a new training study.
