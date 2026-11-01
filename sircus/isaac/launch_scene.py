@@ -24,6 +24,7 @@ parser.add_argument("--capture-once", action="store_true")
 parser.add_argument("--validation-layouts", type=int, default=0)
 parser.add_argument("--validation-seed", type=int, default=20261031)
 parser.add_argument("--shot-catalogue", action="store_true")
+parser.add_argument("--distance-catalogue", action="store_true")
 parser.add_argument("--catalogue-probe-only", action="store_true")
 parser.add_argument(
     "--catalogue-confirm-source",
@@ -53,6 +54,16 @@ parser.add_argument(
 )
 AppLauncher.add_app_launcher_args(parser)
 args = parser.parse_args()
+if args.distance_catalogue:
+    if (
+        args.shot_catalogue
+        or args.catalogue_probe_only
+        or args.catalogue_confirm_source
+    ):
+        parser.error(
+            "Distance catalogue must run separately from single-distance catalogue"
+        )
+    args.shot_catalogue = True
 if (
     args.catalogue_probe_only or args.catalogue_confirm_source
 ) and not args.shot_catalogue:
@@ -378,7 +389,9 @@ def main():
         run(sim, arms, ball, camera, cfg, poses, args, atomic_json)
         return 0
     if args.shot_catalogue:
-        if args.catalogue_confirm_source:
+        if args.distance_catalogue:
+            from distance_catalogue import run
+        elif args.catalogue_confirm_source:
             from catalogue_confirmation import run
         else:
             from shot_catalogue import run

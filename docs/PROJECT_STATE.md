@@ -1,5 +1,11 @@
 # Project state
 
+## Bucket-distance catalogue in progress — November 1, 2026
+
+- New finite RTX4090 experiment covers 300, 400, 500, 550, 600 and 650 mm; the 400 mm control rechecks the prior strongest setting. Other distances receive broad H/gap/tilt search, local refinement, candidate screening and 50 fresh perturbed trials for the frozen winner.
+- Source snapshot `distance-catalogue-v1`; run `distance-catalogue-20261101T125810Z`. Study is running, not complete. The 400 mm control passed 50/50 clean fresh trials; other distances have no final conclusion yet.
+- New read-only `#distance-catalogue` panel separates searched, screened and confirmed outcomes. The other 4070 workload is untouched. No physical/Viam changes or new RL training. See [method](../sircus/isaac/DISTANCE_CATALOGUE.md).
+
 ## Completed dense fixed-plane catalogue — October 31, 2026
 
 - [Settings and evidence](../baselines/isaac-shot-catalogue-20261031/README.md):495 coarse +84 refined settings at400 mm bucket distance.39 clean captures,89 assisted/marginal captures,354 released misses,97 endpoint rejections. Six frozen settings each received20 nominal and20 perturbed repeats.
