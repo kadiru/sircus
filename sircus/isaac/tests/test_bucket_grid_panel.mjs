@@ -34,6 +34,7 @@ test('grid distinguishes board-only versus legacy captures and unknown cells',()
 test('no-setting and validated exports are explicit',()=>{
  const {nodes,context}=setup();context.report={...fixture,phase:'completed',verification:{},cells:[{...cells[0],phase:'no_route_setting_found'}]};
  vm.runInContext('bucketGridRender(report)',context);
+ assert.equal(nodes.bucketGridTable.children[0].children[1].children[2].textContent,'no setting found');
  assert.equal(nodes.bucketGridTable.children[0].children[1].children[5].textContent,'none found');
  assert.match(nodes.bucketGridDetail.textContent,/not proof of impossibility/);
  assert.equal(nodes.bucketGridDownload.style.display,'block');

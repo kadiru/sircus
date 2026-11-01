@@ -1,11 +1,12 @@
 # Project state
 
-## Spatial bucket grid — running November 1, 2026
+## Completed spatial bucket grid — November 1, 2026
 
-- [Frozen protocol and RL compute examples](../sircus/isaac/BUCKET_GRID.md): nine lateral/distance target cells, height/gap/tilt search, candidate screening and 30 fresh variations per selected setting. This is development search, not a new policy or held-out layout evaluation.
-- New additive `sircus-board-route-v1` rejects table/floor/robot/other contacts. Single-board-bounce success is a separate stricter metric. The old near control uses two board contact episodes; the far control measurably hits the table. Original scores remain unchanged.
-- Five attribution probes and two controls passed in smoke `bucket-grid-20261101T193246Z`. Full run `bucket-grid-20261101T193317Z` uses immutable `bucket-grid-v3` source on the 4090. Results are incomplete; do not quote provisional counts as final performance.
-- The read-only preview now includes `#bucket-grid`. Full mock/numerical regression, 81 Isaac tests and 27 JS tests passed. The 4070 workload, hardware, Viam and audio were untouched. Raw observations remain outside Git.
+- [Verified settings and evidence](../baselines/isaac-bucket-grid-20261101/README.md): nine XY targets, 689 attempts in 21.5 minutes on RTX4090. Three near targets (300–361 mm) each passed 30/30 fresh perturbations, all single-board-bounce captures. Center/right middle targets scored 18/30 and 6/30 board-only captures; the latter had no single-bounce captures. No qualifying setting was found for four other cells at 492–632 mm. Finite search failure is not impossibility.
+- H/gap varied ±2 mm and tilt ±0.5° after each selected setting was frozen. These are searched development cells, not held-out generalization or a new RL policy. New additive `sircus-board-route-v1` excludes detected table/floor/robot/other contacts while preserving historical scores. Exactly-one-board-bounce is a separate metric.
+- Five contact probes and two controls passed. The old 400 mm control uses two board contacts; the old 600 mm control measurably hits the table. All 689 raw/compact records, three evidence hashes and 43 source-snapshot hashes matched. Maximum released-trial settling errors: 0.848 mm and 0.104°. Geometry remains measured/provisional as documented.
+- Final data, per-cell settings, confidence intervals and CSV are live at `#bucket-grid`. The finite GPU job exited; 4070 workload, hardware, Viam and audio untouched. Raw observations remain outside Git. See [protocol and published RL compute examples](../sircus/isaac/BUCKET_GRID.md).
+- Next: investigate feasible far shots, then validate a vectorized shot environment before a larger scene-conditioned PPO study with disjoint spatial evaluation. Do not relabel this search as RL or promote an existing policy on this evidence.
 
 ## Completed bucket-distance catalogue — November 1, 2026
 

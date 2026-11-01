@@ -22,15 +22,51 @@ from plane_contract import compact
 from settling_contract import accepted
 
 
+def seeded_params(expected, actual):
+    # Fused arithmetic in NumPy's uniform generator can differ by one ULP across
+    # architectures. Seeds, nominal actions and raw/compact equality stay exact.
+    for key in ("height_m", "gap_m", "tilt_deg"):
+        a, b = expected[key], actual[key]
+        assert math.isfinite(a) and math.isfinite(b)
+        assert abs(a - b) <= 8 * max(math.ulp(a), math.ulp(b)), (
+            f"Seeded parameter differs: {key}"
+        )
+
+
 def validate(d):
     assert d["phase"] == "completed" and not d["contract"]["smoke"], (
         "Incomplete or smoke study"
     )
     cfg = d["contract"]["parent_quality"]["parent"]["scene"]
     expected = contract(cfg)
-    assert all(d["contract"][k] == v for k, v in expected.items()), (
-        "Study contract mismatch"
-    )
+    stored = {
+        k: v
+        for k, v in d["contract"].items()
+        if k not in ("fingerprint", "source_sha256", "contact_filters")
+    }
+    assert (
+        hashlib.sha256(json.dumps(stored, sort_keys=True).encode()).hexdigest()
+        == d["contract"]["fingerprint"]
+    ), "Stored fingerprint changed"
+    assert all(
+        d["contract"][k] == v
+        for k, v in expected.items()
+        if k not in ("fingerprint", "cells")
+    ), "Study contract mismatch"
+    assert len(d["contract"]["cells"]) == len(expected["cells"])
+    # libm atan2 differs by a few ULPs on macOS versus Linux. Preserve the original
+    # hash and exact positions/actions; tolerate only derived display diagnostics.
+    for saved, recomputed in zip(d["contract"]["cells"], expected["cells"]):
+        assert (
+            saved["id"] == recomputed["id"]
+            and saved["bucket_xy_m"] == recomputed["bucket_xy_m"]
+        )
+        assert math.isclose(
+            saved["distance_m"], recomputed["distance_m"], rel_tol=0, abs_tol=1e-12
+        )
+        assert math.isclose(
+            saved["heading_deg"], recomputed["heading_deg"], rel_tol=0, abs_tol=1e-10
+        )
     assert [p["kind"] for p in d["probes"]] == [
         "bucket",
         "rim",
@@ -52,7 +88,7 @@ def validate(d):
     )
     assert len(d["cells"]) == len(cells())
     all_rows = list(d["controls"])
-    for ci, (cell, e) in enumerate(zip(cells(), d["cells"])):
+    for ci, (cell, e) in enumerate(zip(d["contract"]["cells"], d["cells"])):
         assert all(e[k] == v for k, v in cell.items())
         coarse = candidates()
         refined = refine(e["rows"][: len(coarse)])
@@ -68,7 +104,7 @@ def validate(d):
             assert len(g["trials"]) == 10 and summary(g["trials"]) == g["summary"]
             for i, r in enumerate(g["trials"]):
                 sample = perturb(g["candidate"], ci, gi, i)
-                params(sample, r)
+                seeded_params(sample, r)
                 assert r["seed"] == sample["seed"]
             all_rows.extend(g["trials"])
         assert e["winner"] == choose(e["screened"])
@@ -76,7 +112,7 @@ def validate(d):
             assert e["phase"] == "completed" and len(e["confirmation"]) == 30
             for i, r in enumerate(e["confirmation"]):
                 sample = perturb(e["winner"], ci, 0, i, True)
-                params(sample, r)
+                seeded_params(sample, r)
                 assert r["seed"] == sample["seed"]
             assert summary(e["confirmation"]) == e["confirmation_summary"]
             all_rows.extend(e["confirmation"])
@@ -125,7 +161,20 @@ def validate(d):
                 and not r["external_contact_steps"]
             )
             assert accepted(r["settled"])
-    return summary(all_rows)
+    released = [r for r in all_rows if not r.get("invalid")]
+    return dict(
+        summary(all_rows),
+        released=len(released),
+        max_settled_position_error_mm=max(
+            (r["settled"]["position_error_mm"] for r in released), default=None
+        ),
+        max_settled_normal_error_deg=max(
+            (r["settled"]["normal_error_deg"] for r in released), default=None
+        ),
+        max_settled_joint_speed_rad_s=max(
+            (r["settled"]["joint_speed_rad_s"] for r in released), default=None
+        ),
+    )
 
 
 def records(d):

@@ -7,7 +7,7 @@ function bucketGridRender(r){
  const cells=r.contract.cells.map(c=>({...c,...r.cells.find(x=>x.id===c.id)}));
  studyTable(el('bucketGridTable'),['Bucket X / Y mm','Distance mm','Stage','Search board-only / attempts','Board H / gap mm / tilt °','Fresh board-only captures','Single-bounce / clean / assisted / invalid','Old-rule captures'],cells.map(c=>{
   const s=c.confirmation_summary,w=c.winner;
-  return [`${mm(c.bucket_xy_m[0])} / ${mm(c.bucket_xy_m[1])}`,mm(c.distance_m),c.phase||'pending',c.search_summary?`${c.search_summary.route_captures}/${c.search_summary.trials}`:'pending',w?`${mm(w.height_m)} / ${mm(w.gap_m)} / ${w.tilt_deg.toFixed(1)}`:'—',s?`${s.route_captures}/${s.trials} (${s.trials}/30 tested)`:c.phase==='no_route_setting_found'?'none found':'pending',s?`${s.single_bounce_captures} / ${s.clean} / ${s.assisted} / ${s.invalid}`:'—',s?`${s.historical_captures}/${s.trials}`:'—'];
+  return [`${mm(c.bucket_xy_m[0])} / ${mm(c.bucket_xy_m[1])}`,mm(c.distance_m),c.phase==='no_route_setting_found'?'no setting found':c.phase||'pending',c.search_summary?`${c.search_summary.route_captures}/${c.search_summary.trials}`:'pending',w?`${mm(w.height_m)} / ${mm(w.gap_m)} / ${w.tilt_deg.toFixed(1)}`:'—',s?`${s.route_captures}/${s.trials} (${s.trials}/30 tested)`:c.phase==='no_route_setting_found'?'none found':'pending',s?`${s.single_bounce_captures} / ${s.clean} / ${s.assisted} / ${s.invalid}`:'—',s?`${s.historical_captures}/${s.trials}`:'—'];
  }));
  const svg=el('bucketGridMap');svg.replaceChildren();
  const X=x=>60+(x-.35)*750,Y=y=>70+(-.1-y)*470;
