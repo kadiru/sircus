@@ -1,0 +1,1837 @@
+{
+  "schema": "sircus-ik-distance-diagnostic-v1",
+  "study": "distance-sweep-20261101T010024Z",
+  "timestamp_utc": "2026-11-01T01:05:43.081786+00:00",
+  "state": "completed",
+  "completed": 215,
+  "planned": 215,
+  "elapsed_s": 318.190709247021,
+  "ik_audit": {
+    "state": "completed",
+    "completed": 78,
+    "planned": 78,
+    "stage_counts": {
+      "unresolved": 8,
+      "iteration": 29,
+      "seed": 25
+    },
+    "historical_failures": 62,
+    "scope": "Retrospective old-test diagnosis plus successful controls; not a fresh heldout score. IK endpoints only; unresolved does not prove infeasible.",
+    "max_rescued_position_error_mm": 0.09936322985879589,
+    "max_rescued_normal_error_deg": 0.01616597613785438
+  },
+  "scope": "Fixed board center; bucket moves only along negative Y. Endpoints only; no collision-safe paths or physical validation.",
+  "selection": "Per-distance grid search by capture then reward; 3 fresh repeats. Diagnostic search, not generalization or policy inference.",
+  "conclusion": "54/62 historical board IK failures were recovered without relaxing tolerance. All five distances have successful grid-selected actions (3/3 fresh repeats each), but only 3/35 grid actions captured at 400 mm. The 250 mm release gap failed dropper IK at every tilt; an extended full-pose audit also remained unresolved. Frozen policies still miss feasible layouts and vary their actions very little. Fix solver robustness and verify distance-conditioned learning in a short, balanced study before another long run. Grid search is diagnostic, not learned inference; these repeats have no added noise.",
+  "dropper_ik_audit": {
+    "schema": "sircus-dropper-ik-audit-v1",
+    "cases": [
+      {
+        "gap_m": 0.06,
+        "target_flange_m": [
+          0.67,
+          -0.1,
+          0.5925
+        ],
+        "stage": "original",
+        "residual": 7.454367053500835e-10,
+        "solved": true,
+        "position_error_mm": 7.254000937571705e-07,
+        "rotation_error_deg": 3.9343863713492596e-08,
+        "joint_limit_margin_rad": 0.9308425572296284
+      },
+      {
+        "gap_m": 0.1,
+        "target_flange_m": [
+          0.67,
+          -0.1,
+          0.6325
+        ],
+        "stage": "original",
+        "residual": 6.310430803578782e-12,
+        "solved": true,
+        "position_error_mm": 5.261947069064956e-09,
+        "rotation_error_deg": 7.983158934272513e-10,
+        "joint_limit_margin_rad": 0.8390612179007915
+      },
+      {
+        "gap_m": 0.15,
+        "target_flange_m": [
+          0.67,
+          -0.1,
+          0.6825
+        ],
+        "stage": "original",
+        "residual": 1.0948263062970695e-13,
+        "solved": true,
+        "position_error_mm": 1.0863228161079237e-10,
+        "rotation_error_deg": 3.121216618605139e-12,
+        "joint_limit_margin_rad": 0.7120687590326813
+      },
+      {
+        "gap_m": 0.2,
+        "target_flange_m": [
+          0.67,
+          -0.1,
+          0.7324999999999999
+        ],
+        "stage": "original",
+        "residual": 3.6413896424476996e-14,
+        "solved": true,
+        "position_error_mm": 3.6176675179081156e-11,
+        "rotation_error_deg": 9.510416187984427e-13,
+        "joint_limit_margin_rad": 0.5573873053366434
+      },
+      {
+        "gap_m": 0.25,
+        "target_flange_m": [
+          0.67,
+          -0.1,
+          0.7825
+        ],
+        "stage": "unresolved",
+        "residual": 0.005188706437463863,
+        "solved": false,
+        "position_error_mm": 4.98462079826443,
+        "rotation_error_deg": 0.33023291176501934,
+        "joint_limit_margin_rad": 0.2934453233998533
+      }
+    ],
+    "tolerance": 0.0001,
+    "seed": 20261101,
+    "scope": "Full flange orientation; unresolved is not proof of geometric infeasibility. No motion or changed sweep results."
+  },
+  "distances": [
+    {
+      "distance_m": 0.2,
+      "grid_tested": 35,
+      "grid_captures": 10,
+      "grid_invalid": 7,
+      "grid_best_action": [
+        16.0,
+        0.0,
+        0.2
+      ],
+      "grid_cells": [
+        {
+          "tilt_deg": 12.0,
+          "gap_m": 0.06,
+          "success": false,
+          "invalid": null,
+          "reward": 1.8055236987451069
+        },
+        {
+          "tilt_deg": 12.0,
+          "gap_m": 0.1,
+          "success": true,
+          "invalid": null,
+          "reward": 14.72431152085213
+        },
+        {
+          "tilt_deg": 12.0,
+          "gap_m": 0.15,
+          "success": false,
+          "invalid": null,
+          "reward": 1.772283041944478
+        },
+        {
+          "tilt_deg": 12.0,
+          "gap_m": 0.2,
+          "success": true,
+          "invalid": null,
+          "reward": 14.82101592543141
+        },
+        {
+          "tilt_deg": 12.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        },
+        {
+          "tilt_deg": 16.0,
+          "gap_m": 0.06,
+          "success": true,
+          "invalid": null,
+          "reward": 14.455900585943228
+        },
+        {
+          "tilt_deg": 16.0,
+          "gap_m": 0.1,
+          "success": true,
+          "invalid": null,
+          "reward": 14.776701972955795
+        },
+        {
+          "tilt_deg": 16.0,
+          "gap_m": 0.15,
+          "success": false,
+          "invalid": null,
+          "reward": 1.5066667426981646
+        },
+        {
+          "tilt_deg": 16.0,
+          "gap_m": 0.2,
+          "success": true,
+          "invalid": null,
+          "reward": 14.971840841522386
+        },
+        {
+          "tilt_deg": 16.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        },
+        {
+          "tilt_deg": 20.0,
+          "gap_m": 0.06,
+          "success": false,
+          "invalid": null,
+          "reward": 1.8060748525760069
+        },
+        {
+          "tilt_deg": 20.0,
+          "gap_m": 0.1,
+          "success": false,
+          "invalid": null,
+          "reward": 1.7028995871046537
+        },
+        {
+          "tilt_deg": 20.0,
+          "gap_m": 0.15,
+          "success": false,
+          "invalid": null,
+          "reward": 1.3713397123370665
+        },
+        {
+          "tilt_deg": 20.0,
+          "gap_m": 0.2,
+          "success": false,
+          "invalid": null,
+          "reward": 1.8243358735797486
+        },
+        {
+          "tilt_deg": 20.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        },
+        {
+          "tilt_deg": 24.0,
+          "gap_m": 0.06,
+          "success": false,
+          "invalid": null,
+          "reward": 1.691407523013205
+        },
+        {
+          "tilt_deg": 24.0,
+          "gap_m": 0.1,
+          "success": false,
+          "invalid": null,
+          "reward": 1.8375186708169147
+        },
+        {
+          "tilt_deg": 24.0,
+          "gap_m": 0.15,
+          "success": true,
+          "invalid": null,
+          "reward": 14.756129463682564
+        },
+        {
+          "tilt_deg": 24.0,
+          "gap_m": 0.2,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6989981850258324
+        },
+        {
+          "tilt_deg": 24.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        },
+        {
+          "tilt_deg": 28.0,
+          "gap_m": 0.06,
+          "success": false,
+          "invalid": null,
+          "reward": 1.7229399758348336
+        },
+        {
+          "tilt_deg": 28.0,
+          "gap_m": 0.1,
+          "success": false,
+          "invalid": null,
+          "reward": 1.5873437886123125
+        },
+        {
+          "tilt_deg": 28.0,
+          "gap_m": 0.15,
+          "success": false,
+          "invalid": null,
+          "reward": 1.931663474148408
+        },
+        {
+          "tilt_deg": 28.0,
+          "gap_m": 0.2,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6431424490856623
+        },
+        {
+          "tilt_deg": 28.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        },
+        {
+          "tilt_deg": 36.0,
+          "gap_m": 0.06,
+          "success": false,
+          "invalid": null,
+          "reward": 1.9268411486341168
+        },
+        {
+          "tilt_deg": 36.0,
+          "gap_m": 0.1,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6929960116643477
+        },
+        {
+          "tilt_deg": 36.0,
+          "gap_m": 0.15,
+          "success": false,
+          "invalid": null,
+          "reward": 1.965549946266866
+        },
+        {
+          "tilt_deg": 36.0,
+          "gap_m": 0.2,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6513373302445884
+        },
+        {
+          "tilt_deg": 36.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        },
+        {
+          "tilt_deg": 45.0,
+          "gap_m": 0.06,
+          "success": true,
+          "invalid": null,
+          "reward": 14.428185937694895
+        },
+        {
+          "tilt_deg": 45.0,
+          "gap_m": 0.1,
+          "success": true,
+          "invalid": null,
+          "reward": 14.909803536950237
+        },
+        {
+          "tilt_deg": 45.0,
+          "gap_m": 0.15,
+          "success": true,
+          "invalid": null,
+          "reward": 14.921489706983024
+        },
+        {
+          "tilt_deg": 45.0,
+          "gap_m": 0.2,
+          "success": true,
+          "invalid": null,
+          "reward": 14.81474413715489
+        },
+        {
+          "tilt_deg": 45.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        }
+      ],
+      "policies": [
+        {
+          "label": "ppo_1000",
+          "solver": "original",
+          "success": true,
+          "action": [
+            21.299949824810028,
+            2.848368287086487,
+            0.15873718857765198
+          ],
+          "ik_stage": "original"
+        },
+        {
+          "label": "ppo_1000",
+          "solver": "extended",
+          "success": true,
+          "action": [
+            21.299949824810028,
+            2.848368287086487,
+            0.15873718857765198
+          ],
+          "ik_stage": "original"
+        },
+        {
+          "label": "ppo_100",
+          "solver": "original",
+          "success": false,
+          "action": [
+            16.652509331703186,
+            4.395480751991272,
+            0.13225803911685943
+          ],
+          "ik_stage": "original"
+        },
+        {
+          "label": "ppo_100",
+          "solver": "extended",
+          "success": false,
+          "action": [
+            16.652509331703186,
+            4.395480751991272,
+            0.13225803911685943
+          ],
+          "ik_stage": "original"
+        },
+        {
+          "label": "warm_fixed",
+          "solver": "extended",
+          "success": true,
+          "action": [
+            21.3590135,
+            -0.9408402,
+            0.16769218
+          ],
+          "ik_stage": "original"
+        }
+      ],
+      "selected_repeat_captures": 3,
+      "selected_repeat_trials": 3
+    },
+    {
+      "distance_m": 0.25,
+      "grid_tested": 35,
+      "grid_captures": 17,
+      "grid_invalid": 7,
+      "grid_best_action": [
+        36.0,
+        0.0,
+        0.15
+      ],
+      "grid_cells": [
+        {
+          "tilt_deg": 12.0,
+          "gap_m": 0.06,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6904773857293098
+        },
+        {
+          "tilt_deg": 12.0,
+          "gap_m": 0.1,
+          "success": true,
+          "invalid": null,
+          "reward": 14.698885370113095
+        },
+        {
+          "tilt_deg": 12.0,
+          "gap_m": 0.15,
+          "success": true,
+          "invalid": null,
+          "reward": 14.917183748400054
+        },
+        {
+          "tilt_deg": 12.0,
+          "gap_m": 0.2,
+          "success": false,
+          "invalid": null,
+          "reward": 2.9269555095546806
+        },
+        {
+          "tilt_deg": 12.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        },
+        {
+          "tilt_deg": 16.0,
+          "gap_m": 0.06,
+          "success": true,
+          "invalid": null,
+          "reward": 14.5179292340795
+        },
+        {
+          "tilt_deg": 16.0,
+          "gap_m": 0.1,
+          "success": true,
+          "invalid": null,
+          "reward": 14.783109373531456
+        },
+        {
+          "tilt_deg": 16.0,
+          "gap_m": 0.15,
+          "success": false,
+          "invalid": null,
+          "reward": 1.7169949490602132
+        },
+        {
+          "tilt_deg": 16.0,
+          "gap_m": 0.2,
+          "success": false,
+          "invalid": null,
+          "reward": 2.8755390065940083
+        },
+        {
+          "tilt_deg": 16.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        },
+        {
+          "tilt_deg": 20.0,
+          "gap_m": 0.06,
+          "success": false,
+          "invalid": null,
+          "reward": 1.818685095369776
+        },
+        {
+          "tilt_deg": 20.0,
+          "gap_m": 0.1,
+          "success": true,
+          "invalid": null,
+          "reward": 14.933739719858561
+        },
+        {
+          "tilt_deg": 20.0,
+          "gap_m": 0.15,
+          "success": false,
+          "invalid": null,
+          "reward": 1.5244470830248416
+        },
+        {
+          "tilt_deg": 20.0,
+          "gap_m": 0.2,
+          "success": true,
+          "invalid": null,
+          "reward": 14.66957702840719
+        },
+        {
+          "tilt_deg": 20.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        },
+        {
+          "tilt_deg": 24.0,
+          "gap_m": 0.06,
+          "success": false,
+          "invalid": null,
+          "reward": 1.8118501214767306
+        },
+        {
+          "tilt_deg": 24.0,
+          "gap_m": 0.1,
+          "success": true,
+          "invalid": null,
+          "reward": 14.780256583177792
+        },
+        {
+          "tilt_deg": 24.0,
+          "gap_m": 0.15,
+          "success": true,
+          "invalid": null,
+          "reward": 14.79106411355971
+        },
+        {
+          "tilt_deg": 24.0,
+          "gap_m": 0.2,
+          "success": true,
+          "invalid": null,
+          "reward": 14.758668617365498
+        },
+        {
+          "tilt_deg": 24.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        },
+        {
+          "tilt_deg": 28.0,
+          "gap_m": 0.06,
+          "success": true,
+          "invalid": null,
+          "reward": 14.458347226148616
+        },
+        {
+          "tilt_deg": 28.0,
+          "gap_m": 0.1,
+          "success": false,
+          "invalid": null,
+          "reward": 1.8209525507325752
+        },
+        {
+          "tilt_deg": 28.0,
+          "gap_m": 0.15,
+          "success": true,
+          "invalid": null,
+          "reward": 14.806960262974096
+        },
+        {
+          "tilt_deg": 28.0,
+          "gap_m": 0.2,
+          "success": false,
+          "invalid": null,
+          "reward": 1.907480133479651
+        },
+        {
+          "tilt_deg": 28.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        },
+        {
+          "tilt_deg": 36.0,
+          "gap_m": 0.06,
+          "success": false,
+          "invalid": null,
+          "reward": 1.898725414080359
+        },
+        {
+          "tilt_deg": 36.0,
+          "gap_m": 0.1,
+          "success": false,
+          "invalid": null,
+          "reward": 1.9489043587077064
+        },
+        {
+          "tilt_deg": 36.0,
+          "gap_m": 0.15,
+          "success": true,
+          "invalid": null,
+          "reward": 14.94973822421252
+        },
+        {
+          "tilt_deg": 36.0,
+          "gap_m": 0.2,
+          "success": true,
+          "invalid": null,
+          "reward": 14.469334008093131
+        },
+        {
+          "tilt_deg": 36.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        },
+        {
+          "tilt_deg": 45.0,
+          "gap_m": 0.06,
+          "success": true,
+          "invalid": null,
+          "reward": 14.609537133682814
+        },
+        {
+          "tilt_deg": 45.0,
+          "gap_m": 0.1,
+          "success": true,
+          "invalid": null,
+          "reward": 14.669203513019841
+        },
+        {
+          "tilt_deg": 45.0,
+          "gap_m": 0.15,
+          "success": true,
+          "invalid": null,
+          "reward": 14.908160257030367
+        },
+        {
+          "tilt_deg": 45.0,
+          "gap_m": 0.2,
+          "success": true,
+          "invalid": null,
+          "reward": 14.856566841493514
+        },
+        {
+          "tilt_deg": 45.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        }
+      ],
+      "policies": [
+        {
+          "label": "ppo_1000",
+          "solver": "original",
+          "success": true,
+          "action": [
+            21.263932943344116,
+            2.892061471939087,
+            0.15847800731658934
+          ],
+          "ik_stage": "original"
+        },
+        {
+          "label": "ppo_1000",
+          "solver": "extended",
+          "success": true,
+          "action": [
+            21.263932943344116,
+            2.892061471939087,
+            0.15847800731658934
+          ],
+          "ik_stage": "original"
+        },
+        {
+          "label": "ppo_100",
+          "solver": "original",
+          "success": false,
+          "action": [
+            16.487086594104767,
+            4.577584862709045,
+            0.13077331870794295
+          ],
+          "ik_stage": "original"
+        },
+        {
+          "label": "ppo_100",
+          "solver": "extended",
+          "success": false,
+          "action": [
+            16.487086594104767,
+            4.577584862709045,
+            0.13077331870794295
+          ],
+          "ik_stage": "original"
+        },
+        {
+          "label": "warm_fixed",
+          "solver": "extended",
+          "success": true,
+          "action": [
+            21.3590135,
+            -0.9408402,
+            0.16769218
+          ],
+          "ik_stage": "original"
+        }
+      ],
+      "selected_repeat_captures": 3,
+      "selected_repeat_trials": 3
+    },
+    {
+      "distance_m": 0.3,
+      "grid_tested": 35,
+      "grid_captures": 18,
+      "grid_invalid": 7,
+      "grid_best_action": [
+        36.0,
+        0.0,
+        0.15
+      ],
+      "grid_cells": [
+        {
+          "tilt_deg": 12.0,
+          "gap_m": 0.06,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6265734856124303
+        },
+        {
+          "tilt_deg": 12.0,
+          "gap_m": 0.1,
+          "success": false,
+          "invalid": null,
+          "reward": 1.7876469859852637
+        },
+        {
+          "tilt_deg": 12.0,
+          "gap_m": 0.15,
+          "success": true,
+          "invalid": null,
+          "reward": 14.830323913420038
+        },
+        {
+          "tilt_deg": 12.0,
+          "gap_m": 0.2,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6857175723072388
+        },
+        {
+          "tilt_deg": 12.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        },
+        {
+          "tilt_deg": 16.0,
+          "gap_m": 0.06,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6022202220721713
+        },
+        {
+          "tilt_deg": 16.0,
+          "gap_m": 0.1,
+          "success": true,
+          "invalid": null,
+          "reward": 14.894324557215041
+        },
+        {
+          "tilt_deg": 16.0,
+          "gap_m": 0.15,
+          "success": true,
+          "invalid": null,
+          "reward": 14.639079371855573
+        },
+        {
+          "tilt_deg": 16.0,
+          "gap_m": 0.2,
+          "success": true,
+          "invalid": null,
+          "reward": 14.740196904079955
+        },
+        {
+          "tilt_deg": 16.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        },
+        {
+          "tilt_deg": 20.0,
+          "gap_m": 0.06,
+          "success": false,
+          "invalid": null,
+          "reward": 1.690578435612688
+        },
+        {
+          "tilt_deg": 20.0,
+          "gap_m": 0.1,
+          "success": true,
+          "invalid": null,
+          "reward": 14.641651281732669
+        },
+        {
+          "tilt_deg": 20.0,
+          "gap_m": 0.15,
+          "success": false,
+          "invalid": null,
+          "reward": 1.7414565309895078
+        },
+        {
+          "tilt_deg": 20.0,
+          "gap_m": 0.2,
+          "success": false,
+          "invalid": null,
+          "reward": 2.9611925000309216
+        },
+        {
+          "tilt_deg": 20.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        },
+        {
+          "tilt_deg": 24.0,
+          "gap_m": 0.06,
+          "success": true,
+          "invalid": null,
+          "reward": 14.715130566621283
+        },
+        {
+          "tilt_deg": 24.0,
+          "gap_m": 0.1,
+          "success": true,
+          "invalid": null,
+          "reward": 14.858472011353296
+        },
+        {
+          "tilt_deg": 24.0,
+          "gap_m": 0.15,
+          "success": true,
+          "invalid": null,
+          "reward": 14.69954252196807
+        },
+        {
+          "tilt_deg": 24.0,
+          "gap_m": 0.2,
+          "success": true,
+          "invalid": null,
+          "reward": 14.811517576049415
+        },
+        {
+          "tilt_deg": 24.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        },
+        {
+          "tilt_deg": 28.0,
+          "gap_m": 0.06,
+          "success": true,
+          "invalid": null,
+          "reward": 14.646655471021393
+        },
+        {
+          "tilt_deg": 28.0,
+          "gap_m": 0.1,
+          "success": true,
+          "invalid": null,
+          "reward": 14.645886607537754
+        },
+        {
+          "tilt_deg": 28.0,
+          "gap_m": 0.15,
+          "success": true,
+          "invalid": null,
+          "reward": 14.88924917270998
+        },
+        {
+          "tilt_deg": 28.0,
+          "gap_m": 0.2,
+          "success": true,
+          "invalid": null,
+          "reward": 14.917114449015575
+        },
+        {
+          "tilt_deg": 28.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        },
+        {
+          "tilt_deg": 36.0,
+          "gap_m": 0.06,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6844542180134003
+        },
+        {
+          "tilt_deg": 36.0,
+          "gap_m": 0.1,
+          "success": true,
+          "invalid": null,
+          "reward": 14.556233301304259
+        },
+        {
+          "tilt_deg": 36.0,
+          "gap_m": 0.15,
+          "success": true,
+          "invalid": null,
+          "reward": 14.945213553415854
+        },
+        {
+          "tilt_deg": 36.0,
+          "gap_m": 0.2,
+          "success": true,
+          "invalid": null,
+          "reward": 14.860464895232246
+        },
+        {
+          "tilt_deg": 36.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        },
+        {
+          "tilt_deg": 45.0,
+          "gap_m": 0.06,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6108177792567018
+        },
+        {
+          "tilt_deg": 45.0,
+          "gap_m": 0.1,
+          "success": false,
+          "invalid": null,
+          "reward": 1.681381694560117
+        },
+        {
+          "tilt_deg": 45.0,
+          "gap_m": 0.15,
+          "success": true,
+          "invalid": null,
+          "reward": 14.67733303579599
+        },
+        {
+          "tilt_deg": 45.0,
+          "gap_m": 0.2,
+          "success": true,
+          "invalid": null,
+          "reward": 14.861309187823919
+        },
+        {
+          "tilt_deg": 45.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        }
+      ],
+      "policies": [
+        {
+          "label": "ppo_1000",
+          "solver": "original",
+          "success": true,
+          "action": [
+            21.22813045978546,
+            2.9327380657196045,
+            0.15822677612304686
+          ],
+          "ik_stage": "original"
+        },
+        {
+          "label": "ppo_1000",
+          "solver": "extended",
+          "success": true,
+          "action": [
+            21.22813045978546,
+            2.9327380657196045,
+            0.15822677612304686
+          ],
+          "ik_stage": "original"
+        },
+        {
+          "label": "ppo_100",
+          "solver": "original",
+          "success": true,
+          "action": [
+            16.33402320742607,
+            4.749090671539307,
+            0.12936945796012878
+          ],
+          "ik_stage": "original"
+        },
+        {
+          "label": "ppo_100",
+          "solver": "extended",
+          "success": true,
+          "action": [
+            16.33402320742607,
+            4.749090671539307,
+            0.12936945796012878
+          ],
+          "ik_stage": "original"
+        },
+        {
+          "label": "warm_fixed",
+          "solver": "extended",
+          "success": true,
+          "action": [
+            21.3590135,
+            -0.9408402,
+            0.16769218
+          ],
+          "ik_stage": "original"
+        }
+      ],
+      "selected_repeat_captures": 3,
+      "selected_repeat_trials": 3
+    },
+    {
+      "distance_m": 0.35,
+      "grid_tested": 35,
+      "grid_captures": 11,
+      "grid_invalid": 7,
+      "grid_best_action": [
+        36.0,
+        0.0,
+        0.2
+      ],
+      "grid_cells": [
+        {
+          "tilt_deg": 12.0,
+          "gap_m": 0.06,
+          "success": false,
+          "invalid": null,
+          "reward": 1.659359649487416
+        },
+        {
+          "tilt_deg": 12.0,
+          "gap_m": 0.1,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6054124074633034
+        },
+        {
+          "tilt_deg": 12.0,
+          "gap_m": 0.15,
+          "success": true,
+          "invalid": null,
+          "reward": 14.839219770298655
+        },
+        {
+          "tilt_deg": 12.0,
+          "gap_m": 0.2,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6553242461186413
+        },
+        {
+          "tilt_deg": 12.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        },
+        {
+          "tilt_deg": 16.0,
+          "gap_m": 0.06,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6625980440273325
+        },
+        {
+          "tilt_deg": 16.0,
+          "gap_m": 0.1,
+          "success": false,
+          "invalid": null,
+          "reward": 1.675063140756604
+        },
+        {
+          "tilt_deg": 16.0,
+          "gap_m": 0.15,
+          "success": true,
+          "invalid": null,
+          "reward": 14.868064416899811
+        },
+        {
+          "tilt_deg": 16.0,
+          "gap_m": 0.2,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6802748161752417
+        },
+        {
+          "tilt_deg": 16.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        },
+        {
+          "tilt_deg": 20.0,
+          "gap_m": 0.06,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6206065979479467
+        },
+        {
+          "tilt_deg": 20.0,
+          "gap_m": 0.1,
+          "success": true,
+          "invalid": null,
+          "reward": 14.725498931984593
+        },
+        {
+          "tilt_deg": 20.0,
+          "gap_m": 0.15,
+          "success": true,
+          "invalid": null,
+          "reward": 14.71080008889614
+        },
+        {
+          "tilt_deg": 20.0,
+          "gap_m": 0.2,
+          "success": true,
+          "invalid": null,
+          "reward": 14.635656145600247
+        },
+        {
+          "tilt_deg": 20.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        },
+        {
+          "tilt_deg": 24.0,
+          "gap_m": 0.06,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6615852117982082
+        },
+        {
+          "tilt_deg": 24.0,
+          "gap_m": 0.1,
+          "success": true,
+          "invalid": null,
+          "reward": 14.664464675376657
+        },
+        {
+          "tilt_deg": 24.0,
+          "gap_m": 0.15,
+          "success": false,
+          "invalid": null,
+          "reward": 1.765758677262868
+        },
+        {
+          "tilt_deg": 24.0,
+          "gap_m": 0.2,
+          "success": true,
+          "invalid": null,
+          "reward": 14.755863279737067
+        },
+        {
+          "tilt_deg": 24.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        },
+        {
+          "tilt_deg": 28.0,
+          "gap_m": 0.06,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6586226887778222
+        },
+        {
+          "tilt_deg": 28.0,
+          "gap_m": 0.1,
+          "success": true,
+          "invalid": null,
+          "reward": 14.70712887937049
+        },
+        {
+          "tilt_deg": 28.0,
+          "gap_m": 0.15,
+          "success": false,
+          "invalid": null,
+          "reward": 1.82632823363113
+        },
+        {
+          "tilt_deg": 28.0,
+          "gap_m": 0.2,
+          "success": true,
+          "invalid": null,
+          "reward": 14.893544901348562
+        },
+        {
+          "tilt_deg": 28.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        },
+        {
+          "tilt_deg": 36.0,
+          "gap_m": 0.06,
+          "success": false,
+          "invalid": null,
+          "reward": 1.661180173617077
+        },
+        {
+          "tilt_deg": 36.0,
+          "gap_m": 0.1,
+          "success": true,
+          "invalid": null,
+          "reward": 14.868151159781686
+        },
+        {
+          "tilt_deg": 36.0,
+          "gap_m": 0.15,
+          "success": false,
+          "invalid": null,
+          "reward": 1.784512376227522
+        },
+        {
+          "tilt_deg": 36.0,
+          "gap_m": 0.2,
+          "success": true,
+          "invalid": null,
+          "reward": 14.904798562967997
+        },
+        {
+          "tilt_deg": 36.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        },
+        {
+          "tilt_deg": 45.0,
+          "gap_m": 0.06,
+          "success": false,
+          "invalid": null,
+          "reward": 1.5768148974614014
+        },
+        {
+          "tilt_deg": 45.0,
+          "gap_m": 0.1,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6608826395684197
+        },
+        {
+          "tilt_deg": 45.0,
+          "gap_m": 0.15,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6707433023256504
+        },
+        {
+          "tilt_deg": 45.0,
+          "gap_m": 0.2,
+          "success": false,
+          "invalid": null,
+          "reward": 1.9769625951809382
+        },
+        {
+          "tilt_deg": 45.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        }
+      ],
+      "policies": [
+        {
+          "label": "ppo_1000",
+          "solver": "original",
+          "success": false,
+          "action": [
+            21.192623019218445,
+            2.970394492149353,
+            0.1579839140176773
+          ],
+          "ik_stage": "original"
+        },
+        {
+          "label": "ppo_1000",
+          "solver": "extended",
+          "success": false,
+          "action": [
+            21.192623019218445,
+            2.970394492149353,
+            0.1579839140176773
+          ],
+          "ik_stage": "original"
+        },
+        {
+          "label": "ppo_100",
+          "solver": "original",
+          "success": true,
+          "action": [
+            16.192684829235077,
+            4.910139441490173,
+            0.1280461397767067
+          ],
+          "ik_stage": "original"
+        },
+        {
+          "label": "ppo_100",
+          "solver": "extended",
+          "success": true,
+          "action": [
+            16.192684829235077,
+            4.910139441490173,
+            0.1280461397767067
+          ],
+          "ik_stage": "original"
+        },
+        {
+          "label": "warm_fixed",
+          "solver": "extended",
+          "success": false,
+          "action": [
+            21.3590135,
+            -0.9408402,
+            0.16769218
+          ],
+          "ik_stage": "original"
+        }
+      ],
+      "selected_repeat_captures": 3,
+      "selected_repeat_trials": 3
+    },
+    {
+      "distance_m": 0.4,
+      "grid_tested": 35,
+      "grid_captures": 3,
+      "grid_invalid": 7,
+      "grid_best_action": [
+        28.0,
+        0.0,
+        0.1
+      ],
+      "grid_cells": [
+        {
+          "tilt_deg": 12.0,
+          "gap_m": 0.06,
+          "success": false,
+          "invalid": null,
+          "reward": 1.615385044059917
+        },
+        {
+          "tilt_deg": 12.0,
+          "gap_m": 0.1,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6162477288862387
+        },
+        {
+          "tilt_deg": 12.0,
+          "gap_m": 0.15,
+          "success": false,
+          "invalid": null,
+          "reward": 1.68489860586571
+        },
+        {
+          "tilt_deg": 12.0,
+          "gap_m": 0.2,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6473097383546071
+        },
+        {
+          "tilt_deg": 12.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        },
+        {
+          "tilt_deg": 16.0,
+          "gap_m": 0.06,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6041907554631736
+        },
+        {
+          "tilt_deg": 16.0,
+          "gap_m": 0.1,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6490883886501364
+        },
+        {
+          "tilt_deg": 16.0,
+          "gap_m": 0.15,
+          "success": true,
+          "invalid": null,
+          "reward": 14.67781593267486
+        },
+        {
+          "tilt_deg": 16.0,
+          "gap_m": 0.2,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6640143143701787
+        },
+        {
+          "tilt_deg": 16.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        },
+        {
+          "tilt_deg": 20.0,
+          "gap_m": 0.06,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6500227896704924
+        },
+        {
+          "tilt_deg": 20.0,
+          "gap_m": 0.1,
+          "success": false,
+          "invalid": null,
+          "reward": 1.7381566638283839
+        },
+        {
+          "tilt_deg": 20.0,
+          "gap_m": 0.15,
+          "success": true,
+          "invalid": null,
+          "reward": 14.698035465316448
+        },
+        {
+          "tilt_deg": 20.0,
+          "gap_m": 0.2,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6424758987226755
+        },
+        {
+          "tilt_deg": 20.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        },
+        {
+          "tilt_deg": 24.0,
+          "gap_m": 0.06,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6555732646201413
+        },
+        {
+          "tilt_deg": 24.0,
+          "gap_m": 0.1,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6540993379071636
+        },
+        {
+          "tilt_deg": 24.0,
+          "gap_m": 0.15,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6300786602819954
+        },
+        {
+          "tilt_deg": 24.0,
+          "gap_m": 0.2,
+          "success": false,
+          "invalid": null,
+          "reward": 1.7731257196467485
+        },
+        {
+          "tilt_deg": 24.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        },
+        {
+          "tilt_deg": 28.0,
+          "gap_m": 0.06,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6605159365866622
+        },
+        {
+          "tilt_deg": 28.0,
+          "gap_m": 0.1,
+          "success": true,
+          "invalid": null,
+          "reward": 14.748593038918933
+        },
+        {
+          "tilt_deg": 28.0,
+          "gap_m": 0.15,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6079141611821344
+        },
+        {
+          "tilt_deg": 28.0,
+          "gap_m": 0.2,
+          "success": false,
+          "invalid": null,
+          "reward": 1.818265000996637
+        },
+        {
+          "tilt_deg": 28.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        },
+        {
+          "tilt_deg": 36.0,
+          "gap_m": 0.06,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6096987764623183
+        },
+        {
+          "tilt_deg": 36.0,
+          "gap_m": 0.1,
+          "success": false,
+          "invalid": null,
+          "reward": 1.784482244669353
+        },
+        {
+          "tilt_deg": 36.0,
+          "gap_m": 0.15,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6168330926796193
+        },
+        {
+          "tilt_deg": 36.0,
+          "gap_m": 0.2,
+          "success": false,
+          "invalid": null,
+          "reward": 1.8086474736013989
+        },
+        {
+          "tilt_deg": 36.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        },
+        {
+          "tilt_deg": 45.0,
+          "gap_m": 0.06,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6583106888256531
+        },
+        {
+          "tilt_deg": 45.0,
+          "gap_m": 0.1,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6273634516235194
+        },
+        {
+          "tilt_deg": 45.0,
+          "gap_m": 0.15,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6595795528128496
+        },
+        {
+          "tilt_deg": 45.0,
+          "gap_m": 0.2,
+          "success": false,
+          "invalid": null,
+          "reward": 1.6342813882354703
+        },
+        {
+          "tilt_deg": 45.0,
+          "gap_m": 0.25,
+          "success": false,
+          "invalid": "endpoint_ik",
+          "reward": -2.0
+        }
+      ],
+      "policies": [
+        {
+          "label": "ppo_1000",
+          "solver": "original",
+          "success": true,
+          "action": [
+            21.157494217157364,
+            3.0050432682037354,
+            0.15774976074695587
+          ],
+          "ik_stage": "original"
+        },
+        {
+          "label": "ppo_1000",
+          "solver": "extended",
+          "success": true,
+          "action": [
+            21.157494217157364,
+            3.0050432682037354,
+            0.15774976074695587
+          ],
+          "ik_stage": "original"
+        },
+        {
+          "label": "ppo_100",
+          "solver": "original",
+          "success": false,
+          "action": [
+            16.062399744987488,
+            5.06095826625824,
+            0.126802276968956
+          ],
+          "ik_stage": "original"
+        },
+        {
+          "label": "ppo_100",
+          "solver": "extended",
+          "success": false,
+          "action": [
+            16.062399744987488,
+            5.06095826625824,
+            0.126802276968956
+          ],
+          "ik_stage": "original"
+        },
+        {
+          "label": "warm_fixed",
+          "solver": "extended",
+          "success": false,
+          "action": [
+            21.3590135,
+            -0.9408402,
+            0.16769218
+          ],
+          "ik_stage": "original"
+        }
+      ],
+      "selected_repeat_captures": 3,
+      "selected_repeat_trials": 3
+    }
+  ],
+  "contract": {
+    "schema": "sircus-ik-distance-diagnostic-v1",
+    "study": "distance-sweep-20261101T010024Z",
+    "physics_contract": "facc14ba4ad8ca543f696452d0ab2e41a245d0b45e97b1ee1b88cc1e8fc7ae7e",
+    "source_sha256": {
+      "generalized_rl.py": "dae2141cf26de76ad440d346affcd4af1ce55e826ac1c5d4096bcdf36d85298a",
+      "launch_scene.py": "583658eed08845b46313d1e1c01947a9e11aca52d5dee867c1da5dfa786b3787",
+      "validation_contract.py": "94bd14c89cbe60db03b21550a39d2734d752d710a0499029a8a0eb229906e4ec",
+      "perception_estimator.py": "ca5121590c047f89185f32069312281bb30c9919d6a7ebea5ff2b6f0383f6982",
+      "distance_sweep.py": "8523c777f4c924e3c092b5562df738acf8fe6b53e9a2bd381c0340f02ce17165",
+      "geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+      "learning_report.py": "269efb56233efd05770be393d1ce579754b48dfa86d384da6402ef916faa6403",
+      "perception_worker.py": "e493e1e4d8862aa018c0da9e76deed027c372adebba39bedb2469eb5c3102e9e",
+      "ik_diagnostics.py": "b7bea24a4056d3bbd3ba82802c9b268010d7293436d3961bd002243e01b2bca7",
+      "fixed_rl.py": "6ed84bf304a37bc3e14bb63a90db6a990e08727a0e57f40ac2e808afb92d248a",
+      "prepare_assets.py": "d7517e4f1f350bd7f48e5c23e48fc4dc4c63882b6b18ce4502bc8c5fd1999d93",
+      "preview.py": "b2804b0f696a62428b4c49dedb859053e84c43f3a2abd2ea629ecd90e564b8a5",
+      "learning_contract.py": "d8f4fe50f120c25ffbb819c763e8c62799ace407fb90931ae2c5f69fbd4f9d59",
+      "perception_stream.py": "8c05034ce4be5326dd44efcf71db513229c9bae8ffe028dfe974a10d8f89dd7b",
+      "validation_study.py": "ab1cc694ab6ea8b1572a5da78c1f214b6c9155bbdfe359ba8a2eff80756a58bd",
+      "rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+      "validation_report.py": "bff18d6082d029e9a86e73bece54bc18d7ca1a85ab7351524f91faab94cabb67",
+      "inspect_capture.py": "35b793de30a38349a2ecb6db9463d792306eabaccc507c6cf6abbc4248d457b6",
+      "perception_evaluate.py": "9e54d7d19e499cf50fb3b242db98b08b77b9b3887bce8968038c9ff243c2854d"
+    },
+    "checkpoints": {
+      "ppo_1000": {
+        "sha256": "6f28f639c5ae05a07e26b73c15501338eec4c8edbdbecef881c9dcca8a2e949d",
+        "selected_episode": 4096
+      },
+      "ppo_100": {
+        "sha256": "1a11ee638baf9ce58fc54943925b47796da48081b1257c14ddeba743275e8676",
+        "selected_episode": 3072
+      }
+    },
+    "layouts": [
+      {
+        "id": "distance-diagnostic-0",
+        "board_center_m": [
+          0.67,
+          -0.1,
+          0.4
+        ],
+        "bucket_xy_m": [
+          0.67,
+          -0.30000000000000004
+        ],
+        "distance_m": 0.2,
+        "difficulty": "near"
+      },
+      {
+        "id": "distance-diagnostic-1",
+        "board_center_m": [
+          0.67,
+          -0.1,
+          0.4
+        ],
+        "bucket_xy_m": [
+          0.67,
+          -0.35
+        ],
+        "distance_m": 0.25,
+        "difficulty": "near"
+      },
+      {
+        "id": "distance-diagnostic-2",
+        "board_center_m": [
+          0.67,
+          -0.1,
+          0.4
+        ],
+        "bucket_xy_m": [
+          0.67,
+          -0.4
+        ],
+        "distance_m": 0.3,
+        "difficulty": "medium"
+      },
+      {
+        "id": "distance-diagnostic-3",
+        "board_center_m": [
+          0.67,
+          -0.1,
+          0.4
+        ],
+        "bucket_xy_m": [
+          0.67,
+          -0.44999999999999996
+        ],
+        "distance_m": 0.35,
+        "difficulty": "far"
+      },
+      {
+        "id": "distance-diagnostic-4",
+        "board_center_m": [
+          0.67,
+          -0.1,
+          0.4
+        ],
+        "bucket_xy_m": [
+          0.67,
+          -0.5
+        ],
+        "distance_m": 0.4,
+        "difficulty": "far"
+      }
+    ],
+    "grid": {
+      "tilt_deg": [
+        12.0,
+        16.0,
+        20.0,
+        24.0,
+        28.0,
+        36.0,
+        45.0
+      ],
+      "heading_deg": [
+        0.0
+      ],
+      "gap_m": [
+        0.06,
+        0.1,
+        0.15,
+        0.2,
+        0.25
+      ]
+    },
+    "selection": "Per-distance grid search by capture then reward; 3 fresh repeats. Diagnostic search, not generalization or policy inference.",
+    "scope": "Fixed board center; bucket moves only along negative Y. Endpoints only; no collision-safe paths or physical validation."
+  },
+  "artifact_sha256": {
+    "sweep/shots.jsonl": "bd17030f5fa91f77d8f6bb3a0eb92661c5be2b49ec4449815eec8144e25b55af",
+    "sweep/summary.json": "7098a32afbaae0ac9cec854514b48f40d3fb4bfb09ade80c5a685183babef35f",
+    "ik-audit.json": "8f19cf969642d6f5f5f0559818f82e0858283b899b114986a809a835638a27c3",
+    "provenance.json": "4932dfd03cde6978f32d09266466d6113f74f3c5f5f3ce1f56640101eb96374a",
+    "dropper-audit.json": "dd53541a6419ff2da7189f0399960a163853d1d11c9655f3f94ce131fae94f3f"
+  },
+  "final_board_z_below_target_mm": {
+    "min": 5.105221271514915,
+    "max": 13.184630870819113,
+    "note": "After-rollout body-frame readback, not pre-release measurement; cause unverified."
+  },
+  "grid_invalid_components": {
+    "Arm10": 35
+  }
+}
