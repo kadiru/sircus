@@ -94,7 +94,7 @@ def export(source, destination):
         "minimum_mouth_clearance_mm",
     ]
     with (destination / "searched-settings.csv").open("w", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=fields)
+        writer = csv.DictWriter(f, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         radius_mm = d["contract"]["parent"]["scene"]["ball"]["radius_m"] * 1000
         for r in d["rows"]:
