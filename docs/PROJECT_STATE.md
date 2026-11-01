@@ -1,5 +1,14 @@
 # Project state
 
+## Completed dense fixed-plane catalogue — October 31, 2026
+
+- [Settings and evidence](../baselines/isaac-shot-catalogue-20261031/README.md):495 coarse +84 refined settings at400 mm bucket distance.39 clean captures,89 assisted/marginal captures,354 released misses,97 endpoint rejections. Six frozen settings each received20 nominal and20 perturbed repeats.
+- Identical repeats all passed, but perturbation results varied from1/20 to20/20. Strongest: board-center H400 mm, gap130 mm, tilt21°, release ball-center Z567.5 mm (bottom530 mm; provisional flange662.5 mm). It then passed100/100 fresh independent perturbed trials, all clean. Total140/140 for this setting across nominal and narrow H/gap±2 mm, tilt±0.5° variations. No guarantee or physical calibration.
+- New additive quality2/1/0 distinguishes clean/assisted/missed shots while retaining board-bounce + whole-ball +1second capture. Invalids remain separate. Bucket contact filter passed floor/rim/outside probes. Clean entry does not require exactly one board contact.
+- `#shot-catalogue` shows exact heights, all six confirmation sets, a separately matched100-trial check, heatmaps and downloadable579-row CSV. Historical studies remain intact.919 total attempts,822 releases,97 rejections; source/artifact hashes verified.
+- Both finite4090 jobs completed;4070 untouched. No RL training, hardware, audio or cloud changes.67 Isaac tests,21 JS tests and full mock/numerical regression passed. Next: broader perturbation/contact validation around the strong setting, then a separately defined distance sweep.
+
+
 ## Completed fixed-plane feasibility sweep — October 31, 2026
 
 - [Results and limits](../baselines/isaac-plane-sweep-20261031/README.md): fixed 400 mm bucket distance, aligned release/board centers, 175 H/gap/tilt combinations on RTX 4090. 25 captured, 115 missed, 35 were rejected by dropper IK. All 140 released grid shots passed measured settling.

@@ -23,6 +23,12 @@ parser.add_argument("--assets", default="/workspace/assets")
 parser.add_argument("--capture-once", action="store_true")
 parser.add_argument("--validation-layouts", type=int, default=0)
 parser.add_argument("--validation-seed", type=int, default=20261031)
+parser.add_argument("--shot-catalogue", action="store_true")
+parser.add_argument("--catalogue-probe-only", action="store_true")
+parser.add_argument(
+    "--catalogue-confirm-source",
+    help="Completed catalogue for100 fresh confirmation trials",
+)
 parser.add_argument("--plane-sweep", action="store_true")
 parser.add_argument("--balanced-pilot", action="store_true")
 parser.add_argument("--pilot-smoke", action="store_true")
@@ -47,6 +53,24 @@ parser.add_argument(
 )
 AppLauncher.add_app_launcher_args(parser)
 args = parser.parse_args()
+if (
+    args.catalogue_probe_only or args.catalogue_confirm_source
+) and not args.shot_catalogue:
+    parser.error("Catalogue options require --shot-catalogue")
+if args.catalogue_probe_only and args.catalogue_confirm_source:
+    parser.error("Choose contact probes or independent confirmation, not both")
+if args.shot_catalogue:
+    if (
+        args.general_episodes
+        or args.rl_episodes
+        or args.validation_layouts
+        or args.distance_sweep
+        or args.balanced_pilot
+        or args.plane_sweep
+        or args.rl_checkpoint
+    ):
+        parser.error("Shot catalogue requires its own run")
+    args.rl_episodes = 1
 if args.plane_sweep:
     if (
         args.general_episodes
@@ -267,6 +291,7 @@ def main():
         or args.distance_sweep
         or args.balanced_pilot
         or args.plane_sweep
+        or args.shot_catalogue
     ):
         # Runtime USD transforms do not reliably move static PhysX colliders.
         # A kinematic compound body moves all 64 walls and its floor together.
@@ -329,7 +354,8 @@ def main():
             ContactSensorCfg(
                 prim_path="/World/Ball",
                 update_period=0.0,
-                filter_prim_paths_expr=["/World/Arm14/impact_board"],
+                filter_prim_paths_expr=["/World/Arm14/impact_board"]
+                + (["/World/Bucket"] if args.shot_catalogue else []),
             )
         )
     sim.reset()
@@ -350,6 +376,14 @@ def main():
         from validation_study import run
 
         run(sim, arms, ball, camera, cfg, poses, args, atomic_json)
+        return 0
+    if args.shot_catalogue:
+        if args.catalogue_confirm_source:
+            from catalogue_confirmation import run
+        else:
+            from shot_catalogue import run
+
+        run(sim, arms, ball, camera, contact, cfg, poses, args, atomic_json)
         return 0
     if args.plane_sweep:
         from plane_sweep import run

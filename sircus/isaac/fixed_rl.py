@@ -136,6 +136,18 @@ class FixedShot:
         """Optional versioned controller gate; legacy behavior remains unchanged."""
         return {}
 
+    def board_contact_force(self):
+        return float(torch.linalg.vector_norm(self.contact.data.force_matrix_w))
+
+    def start_flight_observation(self):
+        pass
+
+    def observe_flight(self, pos, score):
+        pass
+
+    def finish_flight_observation(self, score):
+        return {}
+
     def shot(self, action):
         self.episode += 1
         tilt, heading, gap = map(float, action)
@@ -200,18 +212,20 @@ class FixedShot:
         self.ball.write_root_state_to_sim(state)
         self.ball.reset()
         self.contact.reset()
+        self.start_flight_observation()
         score = ShotScore(c["bucket"], c["ball"]["radius_m"])
         trail = []
         peak = 0.0
         for step in range(960):
             self.tick(render=step % 24 == 0)
             pos = self.ball.data.root_pos_w[0].cpu().numpy()
-            force = float(torch.linalg.vector_norm(self.contact.data.force_matrix_w))
+            force = self.board_contact_force()
             normal_speed = float(
                 self.ball.data.root_lin_vel_w[0].cpu().numpy() @ scoring_normal
             )
             peak = max(peak, force)
             score.step(pos, force, self.dt, normal_speed)
+            self.observe_flight(pos, score)
             if step % 8 == 0:
                 trail.append(pos.tolist())
             if not np.isfinite(pos).all():
@@ -220,6 +234,7 @@ class FixedShot:
                 break
         result = {
             **score.result(),
+            **self.finish_flight_observation(score),
             **settled,
             "action": action.tolist(),
             "board_contact_peak_N": peak,
