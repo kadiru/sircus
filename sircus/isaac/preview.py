@@ -7,6 +7,8 @@ from pathlib import Path
 PAGE = r"""<!doctype html><html><meta charset="utf-8"><title>Sircus · Isaac Lab</title>
 <style>body{background:#10262b;color:#f9f3df;font:17px system-ui;margin:32px auto;max-width:1200px}h1{margin-bottom:4px}p{color:#b7d1d1}main{display:grid;grid-template-columns:2fr 1fr;gap:20px}img{width:100%;border-radius:12px}section{padding:20px;border:1px solid #376169;border-radius:15px}.studyPlots{display:grid;grid-template-columns:1fr 1fr;gap:24px}.studyPlots svg{width:100%}@media(max-width:800px){.studyPlots,main{grid-template-columns:1fr}}pre{white-space:pre-wrap;font-size:14px}b{color:#ffbb59}</style>
 <h1>SIRCUS <span style="font-weight:400">/ Isaac Lab</span></h1><p>Two UF850 arms · rigid board mount · open tapered bucket · synthetic RGB-D</p>
+<section id="ik-distance"><h2>IK audit &amp; controlled distance sweep</h2><p id="diagnosticStatus">Loading diagnostic results…</p><p id="ikAuditText"></p><svg id="ikAuditChart" viewBox="0 0 700 75" style="width:100%;max-width:900px" role="img" aria-label="Historical IK failure recovery"></svg><div id="distanceSweepTable" style="overflow:auto"></div><p>Frozen policy cells: original solver → extended solver, one shot each. Grid: 35 tilt/height candidates at each distance, heading fixed toward the bucket. Selected candidates get three fresh repeats. This is diagnostic search, not learned inference or a generalization score.</p><div id="sweepHeatmaps" class="studyPlots"></div><p id="diagnosticConclusion"></p><p>Board center fixed at (670, −100, 400) mm; bucket moves from 200 to 400 mm away along −Y. IK proves only an endpoint solution, not collision-safe travel. An unresolved solve does not prove the target physically unreachable.</p></section>
+
 <section id="study-results"><h2>Completed learning study</h2><p id="comparisonStatus">Loading frozen policy comparison…</p><div id="comparisonSummary" style="overflow:auto"></div><div class="studyPlots"><div><h3>Validation learning curve</h3><svg id="learningCurve" viewBox="0 0 600 270" role="img" aria-label="Validation capture rate by training throws"></svg><p>32 layouts repeated twice at each checkpoint. Checkpoint selection uses validation, not test results.</p></div><div><h3>Unseen test layouts by distance</h3><svg id="distanceChart" viewBox="0 0 600 270" role="img" aria-label="Test captures by bucket distance"></svg><p>Near: 200–267 mm · medium: 267–333 mm · far: 333–400 mm. Distance is horizontal board-center to bucket-center.</p></div></div><div id="distanceSummary" style="overflow:auto"></div><p id="studyDecision"></p><p id="studyLimit"></p><details><summary>Action ranges and failure analysis</summary><pre id="studyDiagnostics"></pre></details></section>
 
 <main><section><img id="rgb" alt="Latest synthetic RGB camera view"><p id="fresh">Waiting for simulator…</p></section><section><b>Depth camera</b><img id="depth" alt="Axial depth preview"><pre id="status"></pre><b>Learning</b><pre id="training">Stationary foundation</pre></section></main>
@@ -19,6 +21,25 @@ const studyColors=['#ffc35d','#56d3ca'];
 function studyTable(parent,headers,rows){parent.replaceChildren();const table=document.createElement('table');table.style.cssText='border-spacing:14px;text-align:left;width:100%';parent.appendChild(table);for(const [i,row] of [headers,...rows].entries()){const tr=document.createElement('tr');for(const value of row){const cell=document.createElement(i===0?'th':'td');cell.textContent=value;tr.appendChild(cell);}table.appendChild(tr);}}
 function studySvg(root,tag,attrs,text){const node=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const [k,v] of Object.entries(attrs))node.setAttribute(k,v);if(text!==undefined)node.textContent=text;root.appendChild(node);return node;}
 function studyAxes(root){root.replaceChildren();for(const rate of [0,.25,.5,.75,1]){const y=220-180*rate;studySvg(root,'line',{x1:50,x2:570,y1:y,y2:y,stroke:'#35545b'});studySvg(root,'text',{x:43,y:y+5,fill:'#c5d9db','text-anchor':'end','font-size':12},Math.round(rate*100)+'%');}}
+async function diagnosticUpdate(){
+ try{
+ const r=await(await fetch('/ik-distance.json',{cache:'no-store'})).json();
+ document.getElementById('diagnosticStatus').textContent=r.state+' · '+r.completed+'/'+r.planned+' PhysX shots · '+r.study+' · no policy updates'+(r.state==='running'&&(Date.now()-Date.parse(r.timestamp_utc))>120000?' · STALE PROGRESS':'');
+ const a=r.ik_audit,counts=a.stage_counts||{},n=a.historical_failures||0;
+ document.getElementById('ikAuditText').textContent='Historical board-arm failures: '+n+'. Recovered with more iterations: '+(counts.iteration||0)+'; recovered with different seeds: '+(counts.seed||0)+'; unresolved: '+(counts.unresolved||0)+'. Audit '+a.completed+'/'+a.planned+' cases including successful controls.';
+ const chart=document.getElementById('ikAuditChart');chart.replaceChildren();let x=0;
+ for(const [key,label,color] of [['iteration','More iterations','#ffc35d'],['seed','Different seed','#56d3ca'],['unresolved','Unresolved','#ed8176']]){const v=counts[key]||0,w=680*v/Math.max(n,1);studySvg(chart,'rect',{x,y:5,width:w,height:25,fill:color});studySvg(chart,'text',{x:x+w/2,y:23,fill:'#10262b','text-anchor':'middle','font-size':14},v);x+=w;}
+ for(const [i,text] of ['More iterations','Different seed','Unresolved'].entries())studySvg(chart,'text',{x:10+230*i,y:55,fill:['#ffc35d','#56d3ca','#ed8176'][i],'font-size':14},text);
+ const rows=r.distances.map(d=>{const policy=label=>[false,true].map(extended=>{const p=d.policies.find(p=>p.label===label&&p.solver===(extended?'extended':'original'));return !p?'pending':p.invalid?'IK fail':p.success?'capture':'miss';}).join(' → ');const best=d.grid_best_action;const warm=d.policies.find(p=>p.label==='warm_fixed');return [(d.distance_m*1000).toFixed(0)+' mm',policy('ppo_100'),policy('ppo_1000'),!warm?'pending':warm.invalid?'IK fail':warm.success?'capture':'miss',d.grid_captures+'/'+d.grid_tested+' ('+d.grid_invalid+' IK fail)',best?best[0]+'° / '+(best[2]*1000).toFixed(0)+' mm':'pending',d.repeats.filter(p=>p.success).length+'/'+d.repeats.length];});
+ studyTable(document.getElementById('distanceSweepTable'),['Distance','100-layout PPO','1,000-layout PPO','Fixed warm action','Grid captures','Grid-selected tilt / gap','Fresh repeats'],rows);
+ const maps=document.getElementById('sweepHeatmaps');maps.replaceChildren();
+ for(const d of r.distances){if(!d.grid_cells)continue;const box=document.createElement('div');maps.appendChild(box);const heading=document.createElement('h3');heading.textContent=(d.distance_m*1000)+' mm · action grid';box.appendChild(heading);const svg=studySvg(box,'svg',{viewBox:'0 0 400 285',role:'img','aria-label':'Tilt and height outcomes at '+d.distance_m+' metres'});const tilts=[12,16,20,24,28,36,45],gaps=[60,100,150,200,250];for(const [i,t]of tilts.entries()){studySvg(svg,'text',{x:40,y:40+30*i,fill:'#c5d9db','text-anchor':'end','font-size':13},t+'°');for(const [j,g]of gaps.entries()){const c=d.grid_cells.find(c=>c.tilt_deg===t&&Math.abs(c.gap_m*1000-g)<.01);studySvg(svg,'rect',{x:50+65*j,y:20+30*i,width:60,height:26,fill:!c?'#35545b':c.invalid?'#87939a':c.success?'#56d3ca':'#ed8176'});}}
+ for(const [j,g]of gaps.entries())studySvg(svg,'text',{x:80+65*j,y:250,fill:'#c5d9db','text-anchor':'middle','font-size':13},g+' mm');studySvg(svg,'text',{x:50,y:278,fill:'#c5d9db','font-size':12},'Green capture · coral miss · gray IK failure');}
+ document.getElementById('diagnosticConclusion').textContent=r.conclusion||'Diagnostic in progress; do not infer readiness from partial results.';
+ }catch(e){document.getElementById('diagnosticStatus').textContent='No current diagnostic report available';}
+}
+setInterval(diagnosticUpdate,5000);diagnosticUpdate();
+
 async function comparisonUpdate(){
  try{
  const r=await(await fetch('/learning-comparison.json',{cache:'no-store'})).json();
@@ -107,6 +128,7 @@ def main():
                 "/perception.jpg",
                 "/perception.json",
                 "/perception-evaluation.json",
+                "/ik-distance.json",
                 "/learning-comparison.json",
                 "/learning-study.json",
                 "/learning-study-4070.json",

@@ -142,3 +142,7 @@ preview overlays, separate truth evaluator, tests and current limitations.
 [Validation contract and reproduction](PERCEPTION_VALIDATION.md) describe the
 frozen detector, paired lighting/depth-noise sweep, separate evaluation truth and
 results panel. This is static perception validation, not policy training.
+
+## IK and distance diagnostic
+
+[Method and reproduction](IK_DISTANCE_AUDIT.md) and [completed results](../../baselines/isaac-ik-distance-20261031/README.md) cover the offline IK audit and bounded215-shot PhysX sweep. The read-only preview shows these at `#ik-distance`. This does not upgrade the training/physical controller or start another training run.

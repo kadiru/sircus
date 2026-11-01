@@ -1,5 +1,12 @@
 # Project state
 
+## Completed IK audit and distance sweep — October 31, 2026
+
+- [Results and limits](../baselines/isaac-ik-distance-20261031/README.md): 78 offline board IK cases; 54/62 historical failures recovered (29 larger budgets, 25 other seeds), eight unresolved. Strict tolerance preserved; 16 valid controls unchanged.
+- RTX4090 completed 215 controlled shots at five distances, 200–400 mm. Grid-selected actions captured 3/3 fresh repeats at every distance. At400 mm only3/35 grid candidates captured; each distance includes seven Arm10 IK failures at250 mm gap. Frozen policies miss feasible cases despite valid IK; their weak conditioning remains a separate limitation.
+- New read-only `#ik-distance` panel shows solver recovery, frozen-policy/fixed comparisons and tilt/height heatmaps. Original studies remain intact. Extended solver is diagnostic-only; no new training, quasi-perception, hardware or cloud changes.4070 stayed idle.
+- Next: versioned solver/settled-pose validation and dropper feasibility checks, then a short distance-balanced learning sanity run before another long study. See [method](../sircus/isaac/IK_DISTANCE_AUDIT.md). Full regression suite and42 Isaac tests pass; interface HTTP/DOM checked, browser visual inspection unavailable.
+
 ## Completed privileged study comparison — October 31, 2026
 
 - Both4,096-throw jobs completed; GPUs are idle. [Frozen results and diagnosis](../baselines/isaac-privileged-study-20261031/README.md):100-layout policy142/256 (55.5%);1000-layout policy119/256 (46.5%). Fixed baselines48–50%. Same test layouts/contracts verified; selected checkpoints hashed.
