@@ -1,0 +1,17 @@
+{
+  "counts": {
+    "strict": 62
+  },
+  "solved": 78,
+  "total": 78,
+  "source_sha256": "c3e5ce8673042c2fefbb784e825b34b30bb334a1ea3f9896cf0de0f975c71ee9",
+  "urdf_sha256": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340",
+  "solver_version": "sircus-endpoint-ik-v2",
+  "acceptance": 0.0001,
+  "historical_failures": 62,
+  "valid_controls": 16,
+  "max_position_error_mm": 0.0012886471654414181,
+  "max_normal_error_deg": 6.67910784977081e-05,
+  "raw_audit_sha256": "e35f8c1f7258ee8e72cbcd44b3d2745e658dc424b09f7563fdf843db1a1dc384",
+  "scope": "Offline regression of historical targets, not a held-out performance test or path validation."
+}

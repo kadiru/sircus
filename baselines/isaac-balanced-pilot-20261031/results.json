@@ -1,0 +1,495 @@
+{
+  "run": "balanced-pilot-20261101T012440Z",
+  "phase": "completed",
+  "timestamp_utc": "2026-11-01T01:42:31.152142+00:00",
+  "episodes": 384,
+  "budget": 384,
+  "elapsed_s": 1070.4265607639682,
+  "learning_curve": [
+    {
+      "episodes": 0,
+      "trials": 18,
+      "unique_layouts": 18,
+      "captures": 9,
+      "success_rate": 0.5,
+      "wilson95": [
+        0.2903070395897999,
+        0.7096929604102
+      ],
+      "valid_endpoints": 18,
+      "invalid_endpoints": 0,
+      "mean_reward": 8.24914530782005,
+      "by_distance": {
+        "near": {
+          "trials": 6,
+          "captures": 3
+        },
+        "medium": {
+          "trials": 6,
+          "captures": 4
+        },
+        "far": {
+          "trials": 6,
+          "captures": 2
+        }
+      }
+    },
+    {
+      "episodes": 192,
+      "trials": 18,
+      "unique_layouts": 18,
+      "captures": 10,
+      "success_rate": 0.5555555555555556,
+      "wilson95": [
+        0.3371606942825164,
+        0.7544076889861088
+      ],
+      "valid_endpoints": 18,
+      "invalid_endpoints": 0,
+      "mean_reward": 8.980035336967694,
+      "by_distance": {
+        "near": {
+          "trials": 6,
+          "captures": 2
+        },
+        "medium": {
+          "trials": 6,
+          "captures": 5
+        },
+        "far": {
+          "trials": 6,
+          "captures": 3
+        }
+      }
+    },
+    {
+      "episodes": 384,
+      "trials": 18,
+      "unique_layouts": 18,
+      "captures": 13,
+      "success_rate": 0.7222222222222222,
+      "wilson95": [
+        0.49126922453805477,
+        0.8750043085364452
+      ],
+      "valid_endpoints": 18,
+      "invalid_endpoints": 0,
+      "mean_reward": 11.133572449337489,
+      "by_distance": {
+        "near": {
+          "trials": 6,
+          "captures": 5
+        },
+        "medium": {
+          "trials": 6,
+          "captures": 6
+        },
+        "far": {
+          "trials": 6,
+          "captures": 2
+        }
+      }
+    }
+  ],
+  "evaluation": {
+    "pilot_selected": {
+      "trials": 36,
+      "unique_layouts": 36,
+      "captures": 21,
+      "success_rate": 0.5833333333333334,
+      "wilson95": [
+        0.4219996966427768,
+        0.7285966649491271
+      ],
+      "valid_endpoints": 36,
+      "invalid_endpoints": 0,
+      "mean_reward": 9.364351208333046,
+      "by_distance": {
+        "near": {
+          "trials": 12,
+          "captures": 7
+        },
+        "medium": {
+          "trials": 12,
+          "captures": 11
+        },
+        "far": {
+          "trials": 12,
+          "captures": 3
+        }
+      },
+      "action_min": [
+        15.159782588481903,
+        1.1892181634902954,
+        0.11439318984746932
+      ],
+      "action_max": [
+        15.890013992786407,
+        1.5788555145263672,
+        0.12231181383132934
+      ],
+      "settled_pose": {
+        "trials": 36,
+        "measured": 36,
+        "invalid": 0,
+        "initial_max_position_mm": 0.0861572565314878,
+        "initial_max_normal_deg": 0.008618214318583532,
+        "final_max_position_mm": 0.0861572565314878,
+        "final_max_normal_deg": 0.008618214318583532,
+        "final_max_joint_speed_rad_s": 1.5538484277044518e-08,
+        "max_corrections": 0,
+        "final_max_position_drift_mm": 0.0,
+        "final_max_normal_drift_deg": 1.7075472925031877e-06
+      },
+      "invalid_reasons": {}
+    },
+    "ppo_1000": {
+      "trials": 36,
+      "unique_layouts": 36,
+      "captures": 22,
+      "success_rate": 0.6111111111111112,
+      "wilson95": [
+        0.4486417029674347,
+        0.7521534458217705
+      ],
+      "valid_endpoints": 36,
+      "invalid_endpoints": 0,
+      "mean_reward": 9.68234297233159,
+      "by_distance": {
+        "near": {
+          "trials": 12,
+          "captures": 11
+        },
+        "medium": {
+          "trials": 12,
+          "captures": 10
+        },
+        "far": {
+          "trials": 12,
+          "captures": 1
+        }
+      },
+      "action_min": [
+        21.139934241771698,
+        2.724781036376953,
+        0.157311589717865
+      ],
+      "action_max": [
+        21.312388837337494,
+        3.169192671775818,
+        0.15911004900932313
+      ],
+      "settled_pose": {
+        "trials": 36,
+        "measured": 36,
+        "invalid": 0,
+        "initial_max_position_mm": 0.0390287319151787,
+        "initial_max_normal_deg": 0.0034209798056324776,
+        "final_max_position_mm": 0.0390287319151787,
+        "final_max_normal_deg": 0.0034209798056324776,
+        "final_max_joint_speed_rad_s": 1.547725503314723e-08,
+        "max_corrections": 0,
+        "final_max_position_drift_mm": 0.0,
+        "final_max_normal_drift_deg": 1.7075472925031877e-06
+      },
+      "invalid_reasons": {}
+    },
+    "ppo_100": {
+      "trials": 36,
+      "unique_layouts": 36,
+      "captures": 22,
+      "success_rate": 0.6111111111111112,
+      "wilson95": [
+        0.4486417029674347,
+        0.7521534458217705
+      ],
+      "valid_endpoints": 36,
+      "invalid_endpoints": 0,
+      "mean_reward": 9.709418293973426,
+      "by_distance": {
+        "near": {
+          "trials": 12,
+          "captures": 3
+        },
+        "medium": {
+          "trials": 12,
+          "captures": 10
+        },
+        "far": {
+          "trials": 12,
+          "captures": 9
+        }
+      },
+      "action_min": [
+        16.01432839035988,
+        4.3109214305877686,
+        0.12633258312940598
+      ],
+      "action_max": [
+        16.711197316646576,
+        5.139141082763672,
+        0.13277865529060362
+      ],
+      "settled_pose": {
+        "trials": 36,
+        "measured": 36,
+        "invalid": 0,
+        "initial_max_position_mm": 0.05612037406598075,
+        "initial_max_normal_deg": 0.008931669265808038,
+        "final_max_position_mm": 0.05612037406598075,
+        "final_max_normal_deg": 0.008931669265808038,
+        "final_max_joint_speed_rad_s": 1.7675329644362137e-08,
+        "max_corrections": 0,
+        "final_max_position_drift_mm": 0.0,
+        "final_max_normal_drift_deg": 1.7075472925031877e-06
+      },
+      "invalid_reasons": {}
+    },
+    "warm_fixed": {
+      "trials": 36,
+      "unique_layouts": 36,
+      "captures": 28,
+      "success_rate": 0.7777777777777778,
+      "wilson95": [
+        0.6191498017214091,
+        0.882838070251604
+      ],
+      "valid_endpoints": 36,
+      "invalid_endpoints": 0,
+      "mean_reward": 11.903965824636888,
+      "by_distance": {
+        "near": {
+          "trials": 12,
+          "captures": 12
+        },
+        "medium": {
+          "trials": 12,
+          "captures": 12
+        },
+        "far": {
+          "trials": 12,
+          "captures": 4
+        }
+      },
+      "action_min": [
+        21.3590135,
+        -0.9408402,
+        0.16769218
+      ],
+      "action_max": [
+        21.3590135,
+        -0.9408402,
+        0.16769218
+      ],
+      "settled_pose": {
+        "trials": 36,
+        "measured": 36,
+        "invalid": 0,
+        "initial_max_position_mm": 0.08278984821349379,
+        "initial_max_normal_deg": 0.01271808857633144,
+        "final_max_position_mm": 0.08278984821349379,
+        "final_max_normal_deg": 0.01271808857633144,
+        "final_max_joint_speed_rad_s": 1.699258334042497e-08,
+        "max_corrections": 0,
+        "final_max_position_drift_mm": 0.0,
+        "final_max_normal_drift_deg": 1.7075472925031877e-06
+      },
+      "invalid_reasons": {}
+    }
+  },
+  "pose_verification": {
+    "trials": 12,
+    "measured": 11,
+    "invalid": 1,
+    "initial_max_position_mm": 0.003645121648028296,
+    "initial_max_normal_deg": 0.0001330463171136403,
+    "final_max_position_mm": 0.003645121648028296,
+    "final_max_normal_deg": 0.0001330463171136403,
+    "final_max_joint_speed_rad_s": 1.5917928308795126e-08,
+    "max_corrections": 0,
+    "final_max_position_drift_mm": 0.0,
+    "final_max_normal_drift_deg": 1.2074182697257333e-06
+  },
+  "scope": "privileged-state simulation pilot; endpoint reset, no grasp/path learning or quasi-perception",
+  "contract_fingerprint": "f73798ff6a113dda433b20609170ec5e2839def0f407d0958557465be0d9b3b8",
+  "selected_episode": 384,
+  "actor_training_change_l1": 9.751766204833984,
+  "actor_selected_change_l1": 9.751766204833984,
+  "unique_training_layouts": 96,
+  "train_by_distance": {
+    "near": {
+      "trials": 128,
+      "captures": 71
+    },
+    "medium": {
+      "trials": 128,
+      "captures": 73
+    },
+    "far": {
+      "trials": 128,
+      "captures": 50
+    }
+  },
+  "selected_sha256": "e057483ad7e185ae741e0a90563e5098990aa8fc32f439de222ff3f7d598aa78",
+  "verified_train_balance": {
+    "near": 128,
+    "medium": 128,
+    "far": 128
+  },
+  "paired_comparison": {
+    "ppo_100": {
+      "pilot_only_captures": 7,
+      "reference_only_captures": 8,
+      "both_capture": 14,
+      "neither_capture": 7
+    },
+    "ppo_1000": {
+      "pilot_only_captures": 4,
+      "reference_only_captures": 5,
+      "both_capture": 17,
+      "neither_capture": 10
+    },
+    "warm_fixed": {
+      "pilot_only_captures": 2,
+      "reference_only_captures": 9,
+      "both_capture": 19,
+      "neither_capture": 6
+    }
+  },
+  "contract": {
+    "version": "sircus-balanced-settled-pilot-v1",
+    "legacy_reference_fingerprint": "facc14ba4ad8ca543f696452d0ab2e41a245d0b45e97b1ee1b88cc1e8fc7ae7e",
+    "ik_version": "sircus-endpoint-ik-v2",
+    "ik_acceptance": 0.0001,
+    "settling": {
+      "position_mm": 2,
+      "normal_deg": 0.5,
+      "joint_speed_rad_s": 0.005,
+      "max_corrections": 3,
+      "ticks_per_correction": 120,
+      "stability_window_ticks": 60,
+      "max_position_drift_mm": 0.1,
+      "max_normal_drift_deg": 0.05,
+      "gravity_compensation": "PhysX model feed-forward on both arms each step; gravity and original drive limits unchanged",
+      "no_release_if_unsettled": true
+    },
+    "development_gate": {
+      "trials": 12,
+      "min_valid_per_distance_bin": 3,
+      "require_all_ik_valid_poses_settled": true,
+      "retain_endpoint_rejections_in_report": true
+    },
+    "scoring_normal": "measured pre-release board normal; same contact/whole-ball/1s scorer",
+    "splits": {
+      "seeds": {
+        "train": 161101,
+        "validation": 171101,
+        "test": 181101,
+        "development": 191101
+      },
+      "train_per_bin": 32,
+      "validation_per_bin": 6,
+      "test_per_bin": 12
+    },
+    "training": {
+      "algorithm": "contextual PPO",
+      "episodes": 384,
+      "batch": 48,
+      "per_bin_per_batch": 16,
+      "validation_every": 192,
+      "seed": 43,
+      "warm_start": "selected 100-layout checkpoint",
+      "initial_logstd": -0.7,
+      "lr": 0.0007,
+      "epochs": 4,
+      "clip": 0.2,
+      "entropy": 0.001,
+      "reward_scale": 15,
+      "gamma": 1,
+      "value_coefficient": 0.5,
+      "gradient_clip": 1,
+      "logstd_bounds": [
+        -2.8,
+        -0.2
+      ]
+    },
+    "comparison": "all four policies on identical fresh test scenes and new solver/settle contract; no optimization at inference",
+    "selection": "validation captures then mean reward; initial checkpoint eligible",
+    "scope": "privileged-state simulation pilot; endpoint reset, no grasp/path learning or quasi-perception",
+    "fingerprint": "f73798ff6a113dda433b20609170ec5e2839def0f407d0958557465be0d9b3b8",
+    "source_sha256": {
+      "generalized_rl.py": "dae2141cf26de76ad440d346affcd4af1ce55e826ac1c5d4096bcdf36d85298a",
+      "launch_scene.py": "b7a379921d287826aabe4b73fe83dc0dabe1d5d34e4987d2ccc327737a9b7ba4",
+      "validation_contract.py": "94bd14c89cbe60db03b21550a39d2734d752d710a0499029a8a0eb229906e4ec",
+      "perception_estimator.py": "ca5121590c047f89185f32069312281bb30c9919d6a7ebea5ff2b6f0383f6982",
+      "distance_sweep.py": "8523c777f4c924e3c092b5562df738acf8fe6b53e9a2bd381c0340f02ce17165",
+      "settled_shot.py": "488ed9f0df4dd91fb420b319071290d4f230677cb1f96b595d508ee03d60fa30",
+      "geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+      "learning_report.py": "269efb56233efd05770be393d1ce579754b48dfa86d384da6402ef916faa6403",
+      "perception_worker.py": "e493e1e4d8862aa018c0da9e76deed027c372adebba39bedb2469eb5c3102e9e",
+      "balanced_pilot.py": "9bc01127e7cbb1f7684b902016346a0ea96eab47945ad24a099a7c213f2074d2",
+      "ik_diagnostics.py": "b7bea24a4056d3bbd3ba82802c9b268010d7293436d3961bd002243e01b2bca7",
+      "fixed_rl.py": "e9702685c7ddb55039d51aff47751a147e678b9e9aafeec550804522b1f78fc8",
+      "prepare_assets.py": "d7517e4f1f350bd7f48e5c23e48fc4dc4c63882b6b18ce4502bc8c5fd1999d93",
+      "diagnostic_report.py": "da7416ccd1255b23d13d28d07978a5fb392bb79cbc1323eed0a85437675c9829",
+      "preview.py": "d8c06810b608fdba86d70bba198fd64ec2a746622ff5ec39d8a8ea5daea73a1d",
+      "dropper_diagnostics.py": "9609225633c2e0d91e80e70a6a1d23ee42da235b7e402819670b364fe7a73b09",
+      "robust_ik.py": "c3e5ce8673042c2fefbb784e825b34b30bb334a1ea3f9896cf0de0f975c71ee9",
+      "pilot_contract.py": "e36df5fed7725cb5ad2297cd060741abb43a407601719fd2dfc09051b4d15b8d",
+      "learning_contract.py": "d8f4fe50f120c25ffbb819c763e8c62799ace407fb90931ae2c5f69fbd4f9d59",
+      "perception_stream.py": "8c05034ce4be5326dd44efcf71db513229c9bae8ffe028dfe974a10d8f89dd7b",
+      "validation_study.py": "ab1cc694ab6ea8b1572a5da78c1f214b6c9155bbdfe359ba8a2eff80756a58bd",
+      "rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+      "validation_report.py": "bff18d6082d029e9a86e73bece54bc18d7ca1a85ab7351524f91faab94cabb67",
+      "inspect_capture.py": "35b793de30a38349a2ecb6db9463d792306eabaccc507c6cf6abbc4248d457b6",
+      "perception_evaluate.py": "9e54d7d19e499cf50fb3b242db98b08b77b9b3887bce8968038c9ff243c2854d",
+      "settling_contract.py": "d2586973fa21527f552de9c39569a88f31d4a9214c085d0756867869f572b9b1"
+    },
+    "references": {
+      "ppo_1000": {
+        "sha256": "6f28f639c5ae05a07e26b73c15501338eec4c8edbdbecef881c9dcca8a2e949d",
+        "selected_episode": 4096
+      },
+      "ppo_100": {
+        "sha256": "1a11ee638baf9ce58fc54943925b47796da48081b1257c14ddeba743275e8676",
+        "selected_episode": 3072
+      }
+    },
+    "gpu": "NVIDIA GeForce RTX 4090"
+  },
+  "artifact_sha256": {
+    "contract.json": "18026da0ee58b0024a44843655e19fab882b216fe16cefc7426ad080aade43ea",
+    "episodes.jsonl": "60fc1b2306c02edd40952bd4e74bd0545a07cb7cf0f846184132911c0893326c",
+    "latest.pt": "b2571eb093f615c5ab40b989ee792b1493a161365a5c9ee2d29ce19c1bd8d956",
+    "pose-probes.json": "134435406d34e7673f41eaeedec22b9a39e15cd5ca25e0cbc5e88ab1efdd65e7",
+    "progress.json": "63ff329edaaf71c5e6fb20212eca011183155b1c367123bfb12aed43a76360ce",
+    "selected.pt": "e057483ad7e185ae741e0a90563e5098990aa8fc32f439de222ff3f7d598aa78",
+    "splits.json": "c3cf5dc3b846d95d092aae6082292e8a3acc43f0ac64f583a1d74e0077951d90",
+    "summary.json": "63ff329edaaf71c5e6fb20212eca011183155b1c367123bfb12aed43a76360ce",
+    "test-pilot_selected.json": "95e7f5714a1092050ec9856a1ea36e56e95c613bf2ed9a4da4b642919b4e8ab1",
+    "test-ppo_100.json": "0ba32e43e8f937914aea17b50ee8a20b373e5fd1b85277c814fa5dca8b87da72",
+    "test-ppo_1000.json": "da8a14aaa058c3629acfc11cd952b19060117373ae85fb9b19800826374576ee",
+    "test-warm_fixed.json": "ac097c3eb3728cb8b8533d1c81aa6876bd6586b94b9a0a9ce1b20a2ef945e1b0",
+    "validation-0.json": "658fb9551eb7f8758fa6dc18dd65e191b67a2f394a197655230754da17089ea7",
+    "validation-192.json": "20fe95afc41150cc422373e2aaa6bfe802e970e1b9365863c65d4cebc3b77eda",
+    "validation-384.json": "7760eb7798d74057f70f4b078fea417591a3c27f592a06e7e47a0266a326a706"
+  },
+  "solver_regression": {
+    "counts": {
+      "strict": 62
+    },
+    "solved": 78,
+    "total": 78,
+    "source_sha256": "c3e5ce8673042c2fefbb784e825b34b30bb334a1ea3f9896cf0de0f975c71ee9",
+    "urdf_sha256": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340",
+    "solver_version": "sircus-endpoint-ik-v2",
+    "acceptance": 0.0001,
+    "historical_failures": 62,
+    "valid_controls": 16,
+    "max_position_error_mm": 0.0012886471654414181,
+    "max_normal_error_deg": 6.67910784977081e-05,
+    "raw_audit_sha256": "e35f8c1f7258ee8e72cbcd44b3d2745e658dc424b09f7563fdf843db1a1dc384",
+    "scope": "Offline regression of historical targets, not a held-out performance test or path validation."
+  },
+  "conclusion": "IK regression: 78/78 passed, including all 62 historical failures. All 144 frozen comparison shots passed endpoint and settling gates. The short pilot scored 21/36 versus 22/36 for each existing policy and 28/36 for the fixed action. Do not promote the pilot or start a long run: its far-distance score fell to 3/12 from the starting policy\u2019s 9/12. Next: audit scene-feature sensitivity and action/reward conditioning on development scenes, then validate a targeted correction with a larger fresh validation set. One seed and 12 tests per distance do not establish statistical superiority."
+}
