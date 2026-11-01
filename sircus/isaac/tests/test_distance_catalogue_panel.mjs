@@ -26,9 +26,11 @@ test('partial fresh results retain denominators and pending distances',()=>{
  assert.equal(rows[2].children[6].textContent,'567.5');
  assert.match(nodes.distanceCatalogueDecision.textContent,/incomplete/);
  assert.equal(nodes.distanceCatalogueDownload.style.display,'none');
+ context.report={...fixture,phase:'completed'};vm.runInContext('distanceCatalogueRender(report)',context);
+ assert.equal(nodes.distanceCatalogueDownload.style.display,'none');
 });
 test('no capture found is distinguished from a zero-rate confirmed setting',()=>{
- const {nodes,context}=setup();context.report={...fixture,phase:'completed',distances:[...fixture.distances,{distance_m:.5,phase:'no_capture_found',rows:[],screened:[]}]};vm.runInContext('distanceCatalogueRender(report)',context);
+ const {nodes,context}=setup();context.report={...fixture,phase:'completed',verification:{},distances:[...fixture.distances,{distance_m:.5,phase:'no_capture_found',rows:[],screened:[]}]};vm.runInContext('distanceCatalogueRender(report)',context);
  const row=nodes.distanceCatalogueTable.children[0].children[3];assert.equal(row.children[7].textContent,'No captured setting found');
  assert.match(nodes.distanceCatalogueDecision.textContent,/not proof of impossibility/);assert.equal(nodes.distanceCatalogueDownload.style.display,'block');
 });
@@ -44,4 +46,14 @@ test('selected setup uses matching scene dimensions and switches without motion'
  text=nodes.distanceSetupDiagram.children.map(n=>n.textContent).join(' ');
  assert.match(text,/Ball-center Z 737.5 mm/);assert.match(text,/Board H 500.0 mm · tilt 30°/);
  assert.match(text,/distance: 600 mm/);assert.match(nodes.distanceSetupCaption.textContent,/not a trajectory/);
+});
+test('external rebound flags remain warnings rather than silently changing scores',()=>{
+ const {nodes,context}=setup();context.report={...fixture,route_audit:{distances:[{distance_m:.4,confirmed_captures:8,low_external_rebound_flags:3,missing_capture_paths:1}]}};
+ vm.runInContext('distanceCatalogueRender(report)',context);
+ assert.match(nodes.distanceRouteWarning.textContent,/400 mm: 3\/8 \(missing paths: 1\)/);
+ assert.match(nodes.distanceRouteWarning.textContent,/does not certify direct travel/);
+ assert.match(nodes.distanceRouteWarning.textContent,/Original scores are unchanged/);
+ context.report=fixture;vm.runInContext('distanceCatalogueRender(report)',context);
+ assert.match(nodes.distanceRouteWarning.textContent,/not yet available for this report/);
+ assert.equal(nodes.distanceCatalogueTable.children[0].children[2].children[7].textContent,'8/10 of 50');
 });

@@ -130,16 +130,22 @@ def validate(d):
     }
 
 
-def export(source, destination):
+def export(source, destination, trials=None):
     d = json.loads(source.read_text())
     d["verification"] = validate(d)
     d["source_summary_sha256"] = hashlib.sha256(source.read_bytes()).hexdigest()
+    if trials is not None:
+        from distance_route_audit import audit
+
+        d["route_audit"] = audit(d, trials)
     destination.mkdir(parents=True, exist_ok=True)
     # Compact aggregate trial parameters only; raw trajectories/joints remain outside Git.
     (destination / "results.json").write_text(
         json.dumps(d, separators=(",", ":")) + "\n"
     )
     fields = [
+        "run",
+        "scene_fingerprint",
         "distance_mm",
         "status",
         "board_height_mm",
@@ -154,12 +160,34 @@ def export(source, destination):
         "assisted",
         "misses",
         "invalid",
+        "external_rebound_warning_captures",
+        "missing_capture_paths",
+        "direct_path_validation",
     ]
     with (destination / "selected-settings.csv").open("w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         for e in sorted(d["distances"], key=lambda e: e["distance_m"]):
-            r = {"distance_mm": round(e["distance_m"] * 1000), "status": e["phase"]}
+            r = {
+                "run": d["run"],
+                "scene_fingerprint": d["contract"]["fingerprint"],
+                "distance_mm": round(e["distance_m"] * 1000),
+                "status": e["phase"],
+            }
+            r["direct_path_validation"] = "not performed"
+            route = next(
+                (
+                    x
+                    for x in d.get("route_audit", {}).get("distances", [])
+                    if x["distance_m"] == e["distance_m"]
+                ),
+                None,
+            )
+            if route is not None:
+                r["external_rebound_warning_captures"] = route[
+                    "low_external_rebound_flags"
+                ]
+                r["missing_capture_paths"] = route["missing_capture_paths"]
             c = e["winner"]
             if c:
                 bottom = (c["height_m"] + c["gap_m"]) * 1000
@@ -186,5 +214,6 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("source", type=Path)
     p.add_argument("destination", type=Path)
+    p.add_argument("--trials", type=Path)
     a = p.parse_args()
-    export(a.source, a.destination)
+    export(a.source, a.destination, a.trials)
