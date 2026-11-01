@@ -1,5 +1,12 @@
 # Project state
 
+## Spatial bucket grid — running November 1, 2026
+
+- [Frozen protocol and RL compute examples](../sircus/isaac/BUCKET_GRID.md): nine lateral/distance target cells, height/gap/tilt search, candidate screening and 30 fresh variations per selected setting. This is development search, not a new policy or held-out layout evaluation.
+- New additive `sircus-board-route-v1` rejects table/floor/robot/other contacts. Single-board-bounce success is a separate stricter metric. The old near control uses two board contact episodes; the far control measurably hits the table. Original scores remain unchanged.
+- Five attribution probes and two controls passed in smoke `bucket-grid-20261101T193246Z`. Full run `bucket-grid-20261101T193317Z` uses immutable `bucket-grid-v3` source on the 4090. Results are incomplete; do not quote provisional counts as final performance.
+- The read-only preview now includes `#bucket-grid`. Full mock/numerical regression, 81 Isaac tests and 27 JS tests passed. The 4070 workload, hardware, Viam and audio were untouched. Raw observations remain outside Git.
+
 ## Completed bucket-distance catalogue — November 1, 2026
 
 - [Exact settings and verified evidence](../baselines/isaac-distance-catalogue-20261101/README.md): 2,081 attempts on RTX 4090, including 300 fresh confirmation trials. Frozen settings captured 50/50, 50/50, 44/50, 41/50, 49/50 and 37/50 at 300, 400, 500, 550, 600 and 650 mm respectively. Independent variations: board height/gap ±2 mm, tilt ±0.5°. The 400 mm setting is a prior-result control, not a new broad search.
