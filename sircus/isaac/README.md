@@ -9,6 +9,14 @@ The separate opt-in [fixed-scene RL task](RL_FIXED_SCENE.md) now trains shot
 parameters on this scene. `run.sh start` remains the stationary foundation;
 `run.sh train` explicitly replaces it with a bounded training run.
 
+## Parallel workcells
+
+The separate [32-table world](PARALLEL_WORLD.md) uses64 articulated arms in one
+isolated GPU physics scene, with distinct fixed bucket coordinates and batched
+height/gap/tilt experiments. Its [first verified results](../../baselines/isaac-parallel-world-20261101/README.md)
+and video appear in `/parallel-world.html`. It does not switch the stationary
+foundation or existing PPO task automatically.
+
 ## Pinned baseline
 
 - Isaac Lab tag `v2.3.2`, commit `37ddf626871758333d6ed89cf64ad702aef127d0`.

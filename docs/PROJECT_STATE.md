@@ -1,5 +1,13 @@
 # Project state
 
+## Completed parallel world — November 1, 2026
+
+- [World, launch and limits](../sircus/isaac/PARALLEL_WORLD.md); [exact settings/evidence](../baselines/isaac-parallel-world-20261101/README.md). One RTX 4090 PhysX world contains 32 tables and 64 articulated UF850 arms. Each table has one board, one ball and one bucket; 32 distinct table-local bucket targets stay fixed throughout all height/gap/tilt trials. Distances span300–632 mm between cells, constant within each cell.
+- Completed 1, 090 attempts in 197.3 s after application launch: 64 controls, 896 search attempts, 130 fresh perturbations. Thirteen targets had qualifying searched settings; six passed 10/10 fresh repeats each. Confirmation totals107/130 captures (all 107 single-board-bounce; 67 clean), 17 dropper-IK rejects and 6 released misses. Farthest selected target440 mm; no setting found farther away in this finite search. This is not a new RL policy or held-out generalization evidence.
+- Bucket drift stayed below0.000469 mm. Five attribution probes passed in every cell, plus foreign-cell collision isolation. All 1, 090 raw/compact rows, three artifact hashes and 48 source hashes matched. One-/four-cell reference controls passed, but a borderline shot flipped in 32 cells; strict clone equivalence remains unproven. Older definitions/results are preserved.
+- Read-only `/parallel-world.html` shows the actual multi-arm world, cell details, valid/invalid results, verified CSV and a 4.03-second matched-camera video of simultaneous exploration. Full mock/headless regression and browser checks passed. The finite 4090 jobs exited; 4070 workload, physical hardware, Viam and audio were untouched.
+- Next: address far-shot feasibility and reachability-aware action bounds, then implement a batched policy adapter with disjoint spatial splits and frozen-checkpoint evaluation. The current environment initializes joint endpoints; pickup, arm paths and cloud-conditioned policy learning remain separate.
+
 ## Completed spatial bucket grid — November 1, 2026
 
 - [Verified settings and evidence](../baselines/isaac-bucket-grid-20261101/README.md): nine XY targets, 689 attempts in 21.5 minutes on RTX4090. Three near targets (300–361 mm) each passed 30/30 fresh perturbations, all single-board-bounce captures. Center/right middle targets scored 18/30 and 6/30 board-only captures; the latter had no single-bounce captures. No qualifying setting was found for four other cells at 492–632 mm. Finite search failure is not impossibility.
