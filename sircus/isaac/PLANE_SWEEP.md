@@ -66,3 +66,5 @@ release; the side view supplies the measured flight separately.
 Before a distance-conditioned policy, review the successful regions and invalid
 boundaries at this distance. Do not interpret the grid capture fraction as policy
 success or a guarantee for arbitrary tabletop bucket positions.
+
+Completed study: [fixed-plane results](../../baselines/isaac-plane-sweep-20261031/README.md).

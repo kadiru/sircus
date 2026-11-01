@@ -1,5 +1,12 @@
 # Project state
 
+## Completed fixed-plane feasibility sweep — October 31, 2026
+
+- [Results and limits](../baselines/isaac-plane-sweep-20261031/README.md): fixed 400 mm bucket distance, aligned release/board centers, 175 H/gap/tilt combinations on RTX 4090. 25 captured, 115 missed, 35 were rejected by dropper IK. All 140 released grid shots passed measured settling.
+- Three selected settings (H/G/tilt): 450/80 mm/32°, 350/120 mm/22°, 400/240 mm/27°. Each captured 5/5 fresh same-condition repeats and its separate rendered replay. This is development search and repeatability, not RL or generalization.
+- `#plane-sweep` shows the actual two-arm scene, selectable measured trajectory animations, per-height heatmaps and repeat results. Raw observations remain outside Git; aggregate evidence and hashes are committed. Prior baselines remain unchanged.
+- The finite job exited in about six minutes. 4070, hardware and Viam untouched; no training across distances started. Next is review of feasible regions before a separately defined distance-conditioned study. 58 Isaac tests, five diagnostic/pilot/plane DOM tests and full regression suite passed.
+
 ## Completed repaired-IK balanced pilot — October 31, 2026
 
 - [Results and decision](../baselines/isaac-balanced-pilot-20261031/README.md): all 62 historical IK failures recovered, 78/78 regression cases passed without relaxing acceptance. New opt-in controller uses gravity compensation and measured pose/velocity/drift gates before release.
