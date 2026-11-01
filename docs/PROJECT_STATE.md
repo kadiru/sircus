@@ -1,5 +1,12 @@
 # Project state
 
+## Completed privileged study comparison — October 31, 2026
+
+- Both4,096-throw jobs completed; GPUs are idle. [Frozen results and diagnosis](../baselines/isaac-privileged-study-20261031/README.md):100-layout policy142/256 (55.5%);1000-layout policy119/256 (46.5%). Fixed baselines48–50%. Same test layouts/contracts verified; selected checkpoints hashed.
+- The100-layout policy reached82.3% medium and66.7% far, but only21.1% near. All26/36 endpoint IK failures were on the board arm. Small action variation suggests weak conditioning; this does not prove that more scenes hurt learning (one seed/different GPUs).
+- Quasi-perception training remains deferred by post-study engineering judgment. Next: board IK diagnostics and distance-balanced privileged learning, then same-device/multiple-seed confirmation on a fresh final test set. No new training or hardware work started in this comparison.
+- Interface now opens with completed comparison tables, validation curves, distance bars, confidence intervals and failure/action details. Historical sensor frames remain marked stale.
+
 ## Privileged cooperative PPO study — October 31, 2026, 20:50 UTC
 
 - [Methodology and reproduction](../sircus/isaac/LEARNING_STUDY.md): centralized scene-conditioned PPO chooses board tilt, bucket-facing heading offset and release gap. Endpoint initialization remains separate from grasping and path learning.
