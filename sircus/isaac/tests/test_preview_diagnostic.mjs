@@ -33,3 +33,13 @@ test('unavailable diagnostic does not display a completed result',async()=>{
  const {ctx,nodes}=setup(null,true);await vm.runInContext('diagnosticUpdate()',ctx);
  assert.match(nodes.diagnosticStatus.textContent,/available|No|unavailable/i);
 });
+
+const pilotUpdate=source.slice(source.indexOf('async function pilotUpdate'),source.indexOf('setInterval(pilotUpdate'));
+test('pilot keeps incomplete evaluation separate and reports measured pose gates',async()=>{
+ const report={phase:'training',episodes:48,budget:384,run:'fixture',timestamp_utc:new Date().toISOString(),pose_verification:{measured:12,trials:12,invalid:0,initial_max_position_mm:.2,final_max_position_mm:.1,final_max_normal_deg:.01},learning_curve:[{episodes:0,captures:8,trials:18,invalid_endpoints:0}],evaluation:{}};
+ const {ctx,nodes}=setup(report);vm.runInContext(pilotUpdate,ctx);await vm.runInContext('pilotUpdate()',ctx);
+ assert.match(nodes.pilotStatus.textContent,/48\/384/);
+ assert.match(nodes.pilotDecision.textContent,/incomplete/);
+ assert.equal(nodes.pilotComparison.children[0].children.length,1);
+ assert.match(nodes.pilotPose.textContent,/12\/12/);
+});

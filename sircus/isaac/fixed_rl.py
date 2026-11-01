@@ -132,6 +132,10 @@ class FixedShot:
             },
         )
 
+    def before_release(self, target_board_world):
+        """Optional versioned controller gate; legacy behavior remains unchanged."""
+        return {}
+
     def shot(self, action):
         self.episode += 1
         tilt, heading, gap = map(float, action)
@@ -180,6 +184,15 @@ class FixedShot:
         self.contact.reset()
         for step in range(120):
             self.tick(render=step % 24 == 0)
+        settled = self.before_release(target14)
+        if settled.get("invalid"):
+            return {
+                "reward": -2.0,
+                "success": False,
+                "action": action.tolist(),
+                **settled,
+            }
+        scoring_normal = np.array(settled.get("release_normal_world", rot[:, 2]))
         # Set up release state in the open proxy fingers; grasping is a separate task.
         state = self.ball.data.default_root_state.clone()
         state[0, :3] = torch.tensor(release, device=self.sim.device)
@@ -195,7 +208,7 @@ class FixedShot:
             pos = self.ball.data.root_pos_w[0].cpu().numpy()
             force = float(torch.linalg.vector_norm(self.contact.data.force_matrix_w))
             normal_speed = float(
-                self.ball.data.root_lin_vel_w[0].cpu().numpy() @ rot[:, 2]
+                self.ball.data.root_lin_vel_w[0].cpu().numpy() @ scoring_normal
             )
             peak = max(peak, force)
             score.step(pos, force, self.dt, normal_speed)
@@ -207,6 +220,7 @@ class FixedShot:
                 break
         result = {
             **score.result(),
+            **settled,
             "action": action.tolist(),
             "board_contact_peak_N": peak,
             "release_center_world_m": release.tolist(),

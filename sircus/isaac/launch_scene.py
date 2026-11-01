@@ -23,6 +23,10 @@ parser.add_argument("--assets", default="/workspace/assets")
 parser.add_argument("--capture-once", action="store_true")
 parser.add_argument("--validation-layouts", type=int, default=0)
 parser.add_argument("--validation-seed", type=int, default=20261031)
+parser.add_argument("--balanced-pilot", action="store_true")
+parser.add_argument("--pilot-smoke", action="store_true")
+parser.add_argument("--pilot-episodes", type=int, default=384)
+parser.add_argument("--reference-policy", action="append", default=[])
 parser.add_argument("--distance-sweep", action="store_true")
 parser.add_argument("--sweep-policy", action="append", default=[])
 parser.add_argument("--ik-audit")
@@ -42,6 +46,22 @@ parser.add_argument(
 )
 AppLauncher.add_app_launcher_args(parser)
 args = parser.parse_args()
+if args.balanced_pilot:
+    if (
+        args.general_episodes
+        or args.rl_episodes
+        or args.validation_layouts
+        or args.distance_sweep
+        or len(args.reference_policy) != 2
+    ):
+        parser.error("Balanced pilot requires two references and no other run mode")
+    if (
+        args.pilot_episodes < 48
+        or args.pilot_episodes > 768
+        or args.pilot_episodes % 48
+    ):
+        parser.error("Pilot budget must be a multiple of48, within48–768")
+    args.rl_episodes = 1
 if args.distance_sweep:
     if (
         args.general_episodes
@@ -230,7 +250,7 @@ def main():
         base,
         translation=(0, 0, b["assumed_bottom_thickness_m"] / 2),
     )
-    if args.general_episodes or args.distance_sweep:
+    if args.general_episodes or args.distance_sweep or args.balanced_pilot:
         # Runtime USD transforms do not reliably move static PhysX colliders.
         # A kinematic compound body moves all 64 walls and its floor together.
         api = UsdPhysics.RigidBodyAPI.Apply(root.GetPrim())
@@ -313,6 +333,11 @@ def main():
         from validation_study import run
 
         run(sim, arms, ball, camera, cfg, poses, args, atomic_json)
+        return 0
+    if args.balanced_pilot:
+        from balanced_pilot import run
+
+        run(sim, arms, ball, camera, contact, cfg, poses, args, atomic_json)
         return 0
     if args.distance_sweep:
         from distance_sweep import run
@@ -552,12 +577,24 @@ def main():
     return 0
 
 
+run_started_wall = time.time()
 try:
     main()
 except BaseException:
     import traceback
 
     traceback.print_exc()
+    pilot_report_path = Path(args.output) / "balanced-pilot.json"
+    if (
+        args.balanced_pilot
+        and pilot_report_path.exists()
+        and pilot_report_path.stat().st_mtime >= run_started_wall
+    ):
+        report = json.loads(pilot_report_path.read_text())
+        if report.get("phase") != "blocked_pose_verification":
+            report["phase"] = "failed"
+        report["error"] = traceback.format_exc()
+        atomic_json(pilot_report_path, report)
     if args.validation_layouts and (Path(args.output) / "validation.json").exists():
         report = json.loads((Path(args.output) / "validation.json").read_text())
         report.update(state="failed", error=traceback.format_exc())
