@@ -32,3 +32,16 @@ test('no capture found is distinguished from a zero-rate confirmed setting',()=>
  const row=nodes.distanceCatalogueTable.children[0].children[3];assert.equal(row.children[7].textContent,'No captured setting found');
  assert.match(nodes.distanceCatalogueDecision.textContent,/not proof of impossibility/);assert.equal(nodes.distanceCatalogueDownload.style.display,'block');
 });
+test('selected setup uses matching scene dimensions and switches without motion',()=>{
+ const {nodes,context}=setup();
+ const scene=JSON.parse(fs.readFileSync(new URL('../scene.json',import.meta.url),'utf8'));
+ context.report={...fixture,contract:{...fixture.contract,parent_quality:{parent:{scene}}},distances:[...fixture.distances,{distance_m:.6,phase:'completed',rows:[],screened:[],winner:{height_m:.5,gap_m:.2,tilt_deg:30}}]};
+ vm.runInContext('distanceCatalogueRender(report)',context);
+ assert.equal(nodes.distanceSetupButtons.children.length,2);
+ let text=nodes.distanceSetupDiagram.children.map(n=>n.textContent).join(' ');
+ assert.match(text,/Ball-center Z 567.5 mm/);assert.match(text,/distance: 400 mm/);
+ nodes.distanceSetupButtons.children[1].onclick();
+ text=nodes.distanceSetupDiagram.children.map(n=>n.textContent).join(' ');
+ assert.match(text,/Ball-center Z 737.5 mm/);assert.match(text,/Board H 500.0 mm · tilt 30°/);
+ assert.match(text,/distance: 600 mm/);assert.match(nodes.distanceSetupCaption.textContent,/not a trajectory/);
+});

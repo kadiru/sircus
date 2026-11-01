@@ -73,6 +73,9 @@ free-space guard. Only the4090 is used. The4070 workload remains untouched.
 `distance-catalogue.json` updates atomically for read-only `#distance-catalogue`.
 The interface distinguishes searched captures, screening and frozen fresh results,
 plots clean/assisted confirmation rates, and provides a selected-settings CSV.
+A selectable side-view schematic shows each frozen winner’s board tilt, board
+height, ball-center/bottom release height, and bucket distance from matching scene
+geometry. It is explicitly not a camera view, measured trajectory or arm path.
 Incomplete rows remain marked pending. Historical study panels are unchanged.
 
 The run retains contract/source hashes, per-distance probes, refinements, selected
