@@ -4,6 +4,9 @@ A simulation-only development search extending the fixed 400 mm catalogue. It do
 not train an RL policy, move hardware, change Viam, or validate collision-safe arm
 travel. Prior results and scoring definitions remain unchanged.
 
+The completed [2026-11-01 catalogue](../../baselines/isaac-distance-catalogue-20261101/README.md)
+contains the selected numbers, fresh confirmation and intermediate-rebound warnings.
+
 ## Prespecified geometry and search
 
 Board and release centers remain at XY=(670, −100) mm. The bucket is moved along
@@ -83,3 +86,22 @@ candidates, frozen winners, unique trial IDs and raw results. Confirmation paths
 are saved for diagnostics; raw robot states/trajectories remain outside Git.
 `distance_catalogue_report.py` validates the full candidate/seed/selection schedule,
 aggregates, settling and capture conditions before exporting compact evidence.
+
+## Directness warning from saved trajectories
+
+The original scorer does not forbid intermediate tabletop or robot contacts.
+A captured ball is not automatically evidence of a direct board-to-bucket shot.
+This became visible during the550 mm confirmation: a successful trajectory
+rebounds low outside the bucket before entering it. Original scores are retained.
+
+`distance_route_audit.py` checks hash-matched confirmation paths for a sampled
+local Z minimum below ball-radius+30mm, with a fall/rise greater than0.1mm,
+while XY is beyond bucket outer-top-radius+ball-radius+10mm. It reports flags
+among captured trials, missing paths, thresholds and trial IDs. This30Hz
+trajectory proxy indicates a likely tabletop/other contact; it is not a table
+contact sensor, and absence of a flag does not certify direct travel.
+
+Export with `distance_catalogue_report.py SUMMARY DESTINATION --trials TRIALS_JSONL`
+to include these warnings in the report, interface and selected-settings CSV.
+A future direct-shot study should instrument table/arm contacts and introduce
+a separate versioned path criterion before training; do not relabel old results.

@@ -18,15 +18,16 @@ function distanceCatalogueRender(r) {
  document.getElementById('distanceCatalogueDecision').textContent=r.phase==='completed'?'Search and frozen confirmation complete. Judge each distance by its fresh 50-trial results, not its best searched shot. No captured setting found means no solution found within this search—not proof of impossibility.':'Study incomplete. Completed distance rows are usable evidence; pending distances have no conclusion yet.';
  const details=document.getElementById('distanceCatalogueCandidates');details.replaceChildren();
  for(const e of entries){if(!e.screened.length)continue;const wrap=document.createElement('div'),h=document.createElement('h3');h.textContent=Math.round(e.distance_m*1000)+' mm candidate screening';wrap.appendChild(h);studyTable(wrap,['Board H / gap mm / tilt °','5 unchanged: captures','20 varied: clean / assisted / miss / invalid'],e.screened.map(s=>[`${n(s.candidate.height_m*1000)} / ${n(s.candidate.gap_m*1000)} / ${n(s.candidate.tilt_deg)}`,s.nominal_summary?`${s.nominal_summary.captures}/${s.nominal_summary.trials}`:'pending',s.perturbed_summary?`${s.perturbed_summary.clean} / ${s.perturbed_summary.assisted} / ${s.perturbed_summary.misses} / ${s.perturbed_summary.invalid} (${s.perturbed_summary.trials}/20)`:'pending']));details.appendChild(wrap);}
+ if(r.route_audit){document.getElementById('distanceRouteWarning').textContent='Trajectory warning — captured trials with a low external rebound: '+r.route_audit.distances.filter(e=>e.confirmed_captures).sort((a,b)=>a.distance_m-b.distance_m).map(e=>`${Math.round(e.distance_m*1000)} mm: ${e.low_external_rebound_flags}/${e.confirmed_captures}${e.missing_capture_paths?` (missing paths: ${e.missing_capture_paths})`:""}`).join('; ')+'. Likely table/other contact; no table contact sensor was recorded. Absence of a flag does not certify direct travel. Original scores are unchanged.';}else{document.getElementById('distanceRouteWarning').textContent='Direct board-to-bucket travel is not certified: intermediate contacts are permitted, and the saved-path audit is not yet available for this report.';}
  distanceSetupRender(r);
- document.getElementById('distanceCatalogueDetails').textContent=JSON.stringify({contract:r.contract,probes:r.distances.map(e=>({distance_m:e.distance_m,probes:e.probes})),verification:r.verification,artifact_sha256:r.artifact_sha256},null,2);
- document.getElementById('distanceCatalogueDownload').style.display=r.phase==='completed'?'block':'none';
+ document.getElementById('distanceCatalogueDetails').textContent=JSON.stringify({contract:r.contract,probes:r.distances.map(e=>({distance_m:e.distance_m,probes:e.probes})),verification:r.verification,route_audit:r.route_audit,artifact_sha256:r.artifact_sha256},null,2);
+ document.getElementById('distanceCatalogueDownload').style.display=r.phase==='completed'&&r.verification?'block':'none';
 }
 async function distanceCatalogueUpdate(){try{const response=await fetch('/distance-catalogue.json',{cache:'no-store'});if(!response.ok)throw Error('unavailable');distanceCatalogueRender(await response.json());}catch(e){document.getElementById('distanceCatalogueStatus').textContent='No current distance catalogue report available';}}
 setInterval(distanceCatalogueUpdate,5000);distanceCatalogueUpdate();
 
 function distanceSetupRender(r) {
- const available=r.distances.filter(e=>e.winner);
+ const available=r.distances.filter(e=>e.winner).sort((a,b)=>a.distance_m-b.distance_m);
  const buttons=document.getElementById('distanceSetupButtons');buttons.replaceChildren();
  const svg=document.getElementById('distanceSetupDiagram');svg.replaceChildren();
  const caption=document.getElementById('distanceSetupCaption');
