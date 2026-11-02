@@ -14,6 +14,7 @@ parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--assets", type=Path, default=Path("/workspace/assets"))
 parser.add_argument("--source", type=Path, required=True)
 parser.add_argument("--output", type=Path, required=True)
+parser.add_argument("--palette", choices=("original", "gray"), default="original")
 AppLauncher.add_app_launcher_args(parser)
 args = parser.parse_args()
 if not args.enable_cameras:
@@ -62,6 +63,26 @@ FLOORS = [
 ]
 
 
+if args.palette == "gray":
+    TABLES = [
+        ("Cool gray", (0.23, 0.31, 0.34), False),
+        ("Silver gray", (0.40, 0.44, 0.47), False),
+        ("Cloud blue", (0.33, 0.45, 0.52), False),
+        ("Slate blue", (0.16, 0.25, 0.31), False),
+        ("Satin blue", (0.28, 0.42, 0.47), False),
+    ]
+    FLOORS = [
+        ("Medium gray", (0.22, 0.23, 0.24), (0.22, 0.23, 0.24), "Medium gray", False),
+        (
+            "Light gray square",
+            (0.38, 0.40, 0.42),
+            (0.21, 0.23, 0.25),
+            "Slate-gray surround",
+            True,
+        ),
+    ]
+
+
 class PreviewScene(InteractiveScene):
     def clone_environments(self, copy_from_source=False):
         positions = origins()
@@ -78,14 +99,18 @@ class PreviewScene(InteractiveScene):
         self._default_env_origins = torch.as_tensor(positions, device=self.device)
 
 
-def material(stage, name, color, texture=None):
+def material(stage, name, color, texture=None, roughness=0.88, specular=0.04):
     root = f"/World/LookMaterials/{name}"
     mat = UsdShade.Material.Define(stage, root)
     shader = UsdShade.Shader.Define(stage, root + "/Surface")
     shader.CreateIdAttr("UsdPreviewSurface")
-    shader.CreateInput("roughness", Sdf.ValueTypeNames.Float).Set(0.88)
+    shader.CreateInput("roughness", Sdf.ValueTypeNames.Float).Set(roughness)
     shader.CreateInput("diffuseColor", Sdf.ValueTypeNames.Color3f).Set(color)
     shader.CreateInput("metallic", Sdf.ValueTypeNames.Float).Set(0.0)
+    shader.CreateInput("useSpecularWorkflow", Sdf.ValueTypeNames.Int).Set(1)
+    shader.CreateInput("specularColor", Sdf.ValueTypeNames.Color3f).Set(
+        (specular, specular, specular)
+    )
     if texture is not None:
         uv = UsdShade.Shader.Define(stage, root + "/UV")
         uv.CreateIdAttr("UsdPrimvarReader_float2")
@@ -153,13 +178,34 @@ def main():
         angular_size_deg=2.0,
         rotation_xyz_deg=[-25, -35, 0],
     )
+    if args.palette == "gray":
+        lighting = dict(
+            dome_fill=900,
+            distant_intensity=360,
+            angular_size_deg=18.0,
+            rotation_xyz_deg=[-25, -35, 0],
+            fills=[
+                dict(
+                    name="LeftFill",
+                    intensity=180,
+                    angle=35.0,
+                    rotation_xyz_deg=[25, 30, 150],
+                ),
+                dict(
+                    name="RightFill",
+                    intensity=140,
+                    angle=40.0,
+                    rotation_xyz_deg=[-20, 25, -70],
+                ),
+            ],
+        )
     sim = sim_utils.SimulationContext(
         sim_utils.SimulationCfg(
             dt=cfg["simulation"]["physics_dt_s"],
             device=args.device,
             render=sim_utils.RenderCfg(
                 enable_shadows=True,
-                enable_ambient_occlusion=True,
+                enable_ambient_occlusion=args.palette != "gray",
                 enable_direct_lighting=True,
             ),
         )
@@ -178,6 +224,18 @@ def main():
     )
     q = Rotation.from_euler("xyz", lighting["rotation_xyz_deg"], degrees=True).as_quat()
     light.func("/World/LookKey", light, orientation=tuple(map(float, q[[3, 0, 1, 2]])))
+    for fill in lighting.get("fills", []):
+        light_cfg = sim_utils.DistantLightCfg(
+            intensity=fill["intensity"], angle=fill["angle"]
+        )
+        rot = Rotation.from_euler(
+            "xyz", fill["rotation_xyz_deg"], degrees=True
+        ).as_quat()
+        light_cfg.func(
+            "/World/" + fill["name"],
+            light_cfg,
+            orientation=tuple(map(float, rot[[3, 0, 1, 2]])),
+        )
     camera = Camera(
         CameraCfg(
             prim_path="/World/LookCamera",
@@ -255,7 +313,17 @@ def main():
         )
         if wood:
             grain_png(color, texture)
-        tables.append(material(stage, name.replace(" ", ""), color, texture))
+        satin = args.palette == "gray" and name == "Satin blue"
+        tables.append(
+            material(
+                stage,
+                name.replace(" ", ""),
+                color,
+                texture,
+                roughness=0.28 if satin else 0.72 if args.palette == "gray" else 0.88,
+                specular=0.10 if satin else 0.04,
+            )
+        )
     near = world[2]
     views = {
         "close": (near + [1.95, -3.7, 1.85], near + [0.67, -0.2, -0.13]),
@@ -263,6 +331,7 @@ def main():
     }
     manifest = dict(
         renderer="Isaac Sim 5.1.0 native RTX camera",
+        palette=args.palette,
         resolution=[1920, 1080],
         lighting=lighting,
         source_scene_fingerprint=source_spec["fingerprint"],
