@@ -2,6 +2,8 @@
 
 import hashlib
 import json
+import os
+import shutil
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
@@ -173,6 +175,63 @@ class ReplayShots:
         return rows
 
 
+def resume_prefix(env, previous):
+    """Restore a completed camera-cut prefix; preserve its original RGB and logs."""
+    chapters = json.loads((previous / "progress.json").read_text())["chapters"]
+    count = len(chapters)
+    if not 0 < count < len(SHOTS) or not all(
+        json.loads((previous / "probes.json").read_text())[i]["all_passed"]
+        for i in range(6)
+    ):
+        raise ValueError("Resume requires a verified, incomplete recording prefix")
+    manifest = {}
+    frame_hash = hashlib.sha256()
+    for i, c in enumerate(chapters):
+        plan = SHOTS[i]
+        if (c["shot"], c["focus"], c["source_batch"]) != (
+            plan.name,
+            env.spec["cells"][plan.focus]["id"] if plan.focus is not None else None,
+            plan.source_batch,
+        ):
+            raise ValueError("Resume prefix disagrees with the camera plan")
+        path = previous / f"clip-{i:02}.json"
+        data = path.read_bytes()
+        clip = json.loads(data)
+        if clip["chapter"] != c or len(clip["frames"]) != plan.frames:
+            raise ValueError("Incomplete resume clip")
+        (env.dest / path.name).write_bytes(data)
+        manifest[path.name] = hashlib.sha256(data).hexdigest()
+        for frame in clip["frames"]:
+            filename = f"{frame['frame']:05d}.jpg"
+            src, dest = previous / "frames" / filename, env.frames_path / filename
+            frame_hash.update(filename.encode() + src.read_bytes())
+            try:
+                os.link(src, dest)
+            except OSError:
+                shutil.copyfile(src, dest)
+    last = json.loads((previous / f"clip-{count-1:02}.json").read_text())
+    for name, arm in env.arms.items():
+        q = torch.tensor(
+            [r["final_joint_positions_rad"][name] for r in last["rollout"]],
+            device=env.sim.device,
+        )
+        arm.write_joint_state_to_sim(q, torch.zeros_like(q))
+        arm.set_joint_position_target(q)
+        arm.reset()
+    env.next_frame = chapters[-1]["start_frame"] + chapters[-1]["frames"]
+    for _ in range(120):
+        env.tick()
+    info = dict(
+        previous_run=previous.name,
+        completed_chapters=count,
+        clip_sha256=manifest,
+        frames_sha256=frame_hash.hexdigest(),
+        restored="Measured final joint positions, zero velocity at camera cut.",
+    )
+    atomic(env.dest / "resume.json", info)
+    return chapters, info
+
+
 def run_replay(env, source, spec):
     parent = json.loads((source / "result.json").read_text())
     if parent["fingerprint"] != spec["fingerprint"] or parent["articulations"] != 70:
@@ -185,8 +244,15 @@ def run_replay(env, source, spec):
         ],
         device=env.sim.device,
     )
-    chapters = []
+    chapters, resumed = (
+        resume_prefix(env, env.args.resume_filming)
+        if env.args.resume_filming
+        else ([], None)
+    )
+    skip = len(chapters)
     for i, shot in enumerate(SHOTS):
+        if i < skip:
+            continue
         encoding = (source / f"clip-{shot.source_batch:02}.json").read_bytes()
         old = json.loads(encoding)
         records = old["rollout"]
@@ -260,5 +326,10 @@ def run_replay(env, source, spec):
             chapters=chapters,
             gpu=torch.cuda.get_device_name(),
             mode="Previously sampled PPO actions replayed with articulated joint drives; no optimizer updates.",
+            resumed=resumed,
+            source_sha256={
+                p.name: hashlib.sha256(p.read_bytes()).hexdigest()
+                for p in sorted(Path(__file__).parent.glob("*.py"))
+            },
         ),
     )

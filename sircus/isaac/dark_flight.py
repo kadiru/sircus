@@ -27,8 +27,8 @@ SHOTS = (
     Shot("station-raised-board", 6, 1, 198, 4, 36),
     Shot("station-side-release", 0, 1, 198, 4, 36),
     Shot("front-column-three", 5, 2, 198, 4, 36),
-    Shot("front-column-five", 2, 4, 198, 4, 36),
-    Shot("overhead-ball", 3, 4, 144, 6, 36),
+    Shot("front-column-four", 2, 3, 198, 4, 36),
+    Shot("overhead-ball", 3, 3, 144, 6, 36),
     Shot("overhead-farm", 8, None, 168, 4),
 )
 
