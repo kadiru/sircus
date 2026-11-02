@@ -2,6 +2,7 @@
 
 ## Direct native Isaac application recording — November 1, 2026
 
+- Perspective follow-up: `--view perspective` adds an elevated diagonal pinhole view with side panels hidden; camera parameters are saved in the run metadata. A separate 58.634-second native recording was verified and archived, preserving the orthographic clip. Same bounded seed/contract, not a new independent policy study. See [perspective evidence](../baselines/isaac-native-viewport-20261101/perspective-verification.json).
 - [Native capture and reproduction](../sircus/isaac/NATIVE_VIEWPORT.md); [verification](../baselines/isaac-native-viewport-20261101/README.md). Direct X11 capture shows all 32 tables / 64 arms in the actual Isaac Sim 5.1 window, including menus and scene tree. No composited panels, generated replacement imagery or added trails. 58.1 seconds, 2400 × 1000, 30 fps.
 - A separate bounded demonstration completed 128 PhysX throws and two PPO updates (seed 20261104): 27 training captures, seven clean. These are not held-out test results or evidence of policy improvement. All contact/isolation probes, batch counts, update hashes, source hashes, full movie decode and sample-frame inspection passed.
 - Current training still covers a small tabletop grid with prescribed heading and fixed release/board XY. Actions are height/gap/tilt; endpoints are initialized, and pickup/transit are not learned. Arbitrary bucket positions are not covered. The existing selected policy's 6/32 test result (fixed baseline 9/32; far 0/14) remains unchanged.

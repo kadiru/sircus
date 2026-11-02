@@ -19,10 +19,15 @@ from isaaclab.app import AppLauncher
 p = argparse.ArgumentParser()
 p.add_argument("--assets", default="/workspace/assets")
 p.add_argument("--output", type=Path, required=True)
+p.add_argument(
+    "--view", choices=("orthographic", "perspective"), default="orthographic"
+)
 AppLauncher.add_app_launcher_args(p)
 a = p.parse_args()
 if a.headless or a.livestream > 0:
     p.error("This demonstration requires the native desktop window")
+if not a.enable_cameras:
+    p.error("This demonstration requires --enable_cameras")
 a.output.mkdir(parents=True, exist_ok=False)
 app = AppLauncher(a, window_width=2400, window_height=1340, width=2048, height=1152).app
 
@@ -93,6 +98,7 @@ def main():
         cfg, poses, a.assets, a.output / "bucket.usda", 32, robot_body_filters(a.assets)
     )
     scene = InteractiveScene(scfg)
+    perspective = a.view == "perspective"
     view = Camera(
         CameraCfg(
             prim_path="/World/FarmViewport",
@@ -101,21 +107,24 @@ def main():
             update_period=0,
             data_types=["rgb"],
             spawn=sim_utils.PinholeCameraCfg(
-                focal_length=20,
-                horizontal_aperture=400,
-                vertical_aperture=300,
+                focal_length=24 if perspective else 20,
+                horizontal_aperture=36 if perspective else 400,
+                vertical_aperture=20.25 if perspective else 300,
                 clipping_range=(0.05, 200),
             ),
         )
     )
     camera = UsdGeom.Camera.Get(sim.stage, "/World/FarmViewport")
-    camera.GetProjectionAttr().Set(UsdGeom.Tokens.orthographic)
+    camera.GetProjectionAttr().Set(
+        UsdGeom.Tokens.perspective if perspective else UsdGeom.Tokens.orthographic
+    )
     sim.reset()
     env = LiveShots(sim, scene, None, None, cfg, poses, a, task, filters, a.output)
     center = env.origins.mean(axis=0) + [0.67, -0.25, 0.35]
+    eye = center + ([18, -23, 20] if perspective else [0, -24, 48])
     view.set_world_poses_from_view(
-        torch.tensor([center + [0, -24, 48]], dtype=torch.float32, device=sim.device),
-        torch.tensor([center], dtype=torch.float32, device=sim.device),
+        torch.tensor(np.array([eye]), dtype=torch.float32, device=sim.device),
+        torch.tensor(np.array([center]), dtype=torch.float32, device=sim.device),
     )
     view.reset()
     viewport = omni.kit.viewport.utility.get_active_viewport()
@@ -130,11 +139,25 @@ def main():
         window = ui.Workspace.get_window(name)
         if window:
             window.visible = False
+    if perspective:
+        for name in ("Stage", "Layer", "Render Settings"):
+            window = ui.Workspace.get_window(name)
+            if window:
+                window.visible = False
+    camera_metadata = dict(
+        projection=a.view,
+        eye_world_m=eye.tolist(),
+        target_world_m=center.tolist(),
+        focal_length=float(camera.GetFocalLengthAttr().Get()),
+        horizontal_aperture=float(camera.GetHorizontalApertureAttr().Get()),
+        vertical_aperture=float(camera.GetVerticalApertureAttr().Get()),
+    )
     policy = Policy().to(sim.device)
     optimizer = torch.optim.Adam(policy.parameters(), lr=ppo["lr"])
     report = dict(
         scope="Native Isaac desktop recording of 32-cell live PPO; endpoint resets, no pickup/transit learning.",
         seed=20261104,
+        camera=camera_metadata,
         contract=ppo,
         workcells=32,
         arms=64,
@@ -150,7 +173,12 @@ def main():
     idle(sim, 2)
     atomic(
         a.output / "ready.json",
-        dict(phase="ready", camera=str(viewport.camera_path), workcells=32),
+        dict(
+            phase="ready",
+            camera=str(viewport.camera_path),
+            view=camera_metadata,
+            workcells=32,
+        ),
     )
     until = time.monotonic() + 300
     while not (a.output / "record").exists():

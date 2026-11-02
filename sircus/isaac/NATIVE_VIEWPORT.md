@@ -1,8 +1,14 @@
 # Direct native Isaac viewport recording
 
-This is a screen recording of the actual Isaac Sim 5.1 application window on the RTX 4090. One live PhysX world contains 32 tables and 64 articulated UF850 arms. Isaac menus, viewport controls and the scene tree remain visible. Frames come from X11 window capture; there are no composited panels, added trails, generated replacements, or frame interpolation. H.264 encoding may pad the right/bottom by at most one black pixel to obtain even dimensions.
+This is a screen recording of the actual Isaac Sim 5.1 application window on the RTX 4090. One live PhysX world contains 32 tables and 64 articulated UF850 arms. Isaac menus and viewport controls remain visible. The orthographic view also retains the scene tree; the perspective view hides the side panels to give the farm more screen space. Frames come from X11 window capture; there are no composited panels, added trails, generated replacements, or frame interpolation. H.264 encoding may pad the right/bottom by at most one black pixel to obtain even dimensions.
 
 The earlier `farm_video.py` movie used actual Isaac camera renders with presentation labels and synchronized insets. It was a composite, not a native application recording. The new recording is kept separate.
+
+## Camera views
+
+`--view perspective` selects a true pinhole camera looking diagonally across the farm from an elevated three-quarter angle. It uses focal length 24, horizontal/vertical apertures 36/20.25, and an eye offset of (18, −23, 20) m from the farm center. Camera metadata is stored in `ready.json` and `result.json`. The existing orthographic camera remains the default. Both options use the same task and endpoint initialization.
+
+To reproduce the perspective recording, add `--view perspective` to the launch below and choose a new output directory. `--enable_cameras` is required and now checked before startup. The [perspective verification](../../baselines/isaac-native-viewport-20261101/perspective-verification.json) is separate from the original orthographic capture.
 
 ## What runs on screen
 
