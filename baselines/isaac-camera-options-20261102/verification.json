@@ -1,0 +1,31 @@
+{
+  "version": "sircus-camera-options-verification-v1",
+  "run": "camera-options-20261102-v3",
+  "resolution": [
+    1920,
+    1080
+  ],
+  "native_stills": 10,
+  "same_scene_state": true,
+  "camera_readback": "passed",
+  "mac_transfer_sha256": "all ten matched",
+  "capture_source_sha256": "all four matched",
+  "visual_review": "All ten final native renders inspected; featured board, ball, bucket and background farm visible.",
+  "scene_permutation": "Whole source cases 1 and 6 exchange world origins; all 35 target assignments are preserved.",
+  "local_tests": {
+    "isaac": 141,
+    "skips": 1,
+    "skip": "Torch-dependent checkpoint audit on Mac",
+    "gallery": "Pillow image verification and generated layout; fixture Node navigation checks passed"
+  },
+  "manifest_sha256": "9243131ea97a982cbf0299ec7d2859f2061ee2006b9f5766e84ab4dc7ef19d06",
+  "gallery_sha256": {
+    "summary.jpg": "96fb4ef4ab783e73d335bf29aa484a431d568d12c8bb1bafe27d2c7aaf3fa102",
+    "group-01-05.jpg": "eda947123a4eea8bf9c4173f977c2c400bed47ac2390d35caf89bd80109ed3e4",
+    "group-06-10.jpg": "d74b3af57bbfc07fb7ee5dda98f0cf27ff488681659db113208690a8d37ed0f4",
+    "index.html": "eeb1d7d6cc05c716d185ab52bffd7236e70d6f7224fc1f3da54de29d175eb8b1"
+  },
+  "status": "Camera choice pending. No new training, rollout, video or physical validation in this preview task.",
+  "distinct_physics_steps": 1,
+  "physics_step": 241
+}

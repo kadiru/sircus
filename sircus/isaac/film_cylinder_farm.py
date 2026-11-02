@@ -31,10 +31,17 @@ p.add_argument(
 )
 p.add_argument("--appearance", choices=("dark", "silver"), default="dark")
 p.add_argument("--preview-only", action="store_true")
+p.add_argument(
+    "--camera-previews",
+    action="store_true",
+    help="Render ten fixed silver camera options",
+)
 AppLauncher.add_app_launcher_args(p)
 args = p.parse_args()
 if not args.enable_cameras:
     p.error("--enable_cameras is required")
+if args.camera_previews and (not args.dark_replay or args.appearance != "silver"):
+    p.error("--camera-previews requires --dark-replay and --appearance silver")
 if shutil.disk_usage(args.output.parent).free < 3 * 1024**3:
     p.error("Less than 3 GiB free for filming")
 args.output.mkdir(exist_ok=False)
@@ -292,9 +299,15 @@ def main():
             from dark_stage import configure_stage, stage_settings
         configure_stage(scfg, cfg)
         layout = dark_stage.origins
+        if args.camera_previews:
+            from camera_options import preview_origins
+            from camera_preview import configure_backdrop
+
+            layout = preview_origins
+            preview_backdrop = configure_backdrop()
 
         class CompactScene(RectangularScene):
-            grid_origins = staticmethod(dark_stage.origins)
+            grid_origins = staticmethod(layout)
 
         class CompactShots(ReplayShots, FilmShots):
             pass
@@ -325,7 +338,9 @@ def main():
         raise ValueError("Isaac workcell origins disagree with the 5 by 7 layout")
     if args.dark_replay:
         env.stage_metadata = stage_settings()
-        if args.preview_only:
+        if args.camera_previews:
+            env.stage_metadata["camera_backdrop"] = preview_backdrop
+        if args.preview_only or args.camera_previews:
             from recording_plans import recording_plan
 
             shots, view_pose = recording_plan(args.recording_plan)
@@ -356,6 +371,11 @@ def main():
                 )
             )
             env.tick()
+            if args.camera_previews:
+                from camera_preview import render_options
+
+                render_options(env, args.dark_replay)
+                return
             eye, aim = view_pose(shots[0], 0, env.spec["cells"], env.origins)
             camera.set_world_poses_from_view(
                 torch.tensor(eye[None], dtype=torch.float32, device=sim.device),
