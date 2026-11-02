@@ -1,0 +1,401 @@
+{
+  "version": "sircus-dark-farm-replay-v1",
+  "scope": "Native PhysX replay of previously sampled PPO actions",
+  "source_fingerprint": "98ebe47b48a01b9028747ab03bc913a033d90611e44f03b912e58f41c87ff79a",
+  "source_weights_sha256": "5a510b0c991c1233d3fc9c528d208c1b01fbb458959bc212eed76149d3fe675e",
+  "stage": {
+    "columns": 7,
+    "rows": 5,
+    "column_pitch_m": 2.5,
+    "row_pitch_m": 2.1,
+    "floor_surface_z_m": -0.775,
+    "floor_linear_rgb": [
+      0.003,
+      0.003,
+      0.003
+    ],
+    "seam_linear_rgb": [
+      0.019,
+      0.019,
+      0.019
+    ],
+    "seam_width_m": 0.009,
+    "floor_visual_span_m": 240.0,
+    "floor_collision": "Original filtered 4 m square per-cell colliders; invisible to the camera."
+  },
+  "workcells": 35,
+  "arms": 70,
+  "fps": 30,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "frames": 1800,
+  "resumed": {
+    "previous_run": "dark-farm-20261102-v2",
+    "completed_chapters": 7,
+    "clip_sha256": {
+      "clip-00.json": "92cdda586875cd20147f770ec501e8cc60c337ac0f40e6216715c4e06da0ea97",
+      "clip-01.json": "6c4d1d2ae5ebe3cd7289503ca254e9868d58ae5e82874c3ed7bdb42e74ea6a4d",
+      "clip-02.json": "69325119adfed8b9d19ce1ff4245cf4da77e44ca42f3e7b27e00a12b8ead508a",
+      "clip-03.json": "4040b046d8c3949dc8d832be9d6764356e783c214ce6b77b48439d592c81e4b4",
+      "clip-04.json": "98a5f2cc69b1bfb39ac117e52f4de34dfd485ae4aaf1e37b5e675a346c74eb42",
+      "clip-05.json": "5c7eab1a4cf48b9e7819332b88c45e46a81e5bccde9447396ce9541f08fa7a72",
+      "clip-06.json": "c44e275f96649b06b83842c17cd7e0f614894ecdfabfe1eaec1b51288dbb615c"
+    },
+    "frames_sha256": "0eae16ad3de54e36924ef626fd59ecd15de3df79576679cde45fe720841839fe",
+    "restored": "Measured final joint positions, zero velocity at camera cut."
+  },
+  "full_duration_s": 60.0,
+  "attempts": 350,
+  "releases": 162,
+  "captures": 28,
+  "focused_bounces": 7,
+  "focused_captures": 2,
+  "focused_floor_arrivals": 3,
+  "chapters": [
+    {
+      "shot": "farm-orbit",
+      "title": "Farm Orbit",
+      "start_frame": 0,
+      "frames": 180,
+      "move_frames": 0,
+      "stride": 4,
+      "source_batch": 9,
+      "focus": null,
+      "captured": null,
+      "board_bounce": null,
+      "literal_floor": null,
+      "action_only": false,
+      "station": false
+    },
+    {
+      "shot": "aisle",
+      "title": "Aisle",
+      "start_frame": 180,
+      "frames": 120,
+      "move_frames": 0,
+      "stride": 4,
+      "source_batch": 2,
+      "focus": null,
+      "captured": null,
+      "board_bounce": null,
+      "literal_floor": null,
+      "action_only": false,
+      "station": false
+    },
+    {
+      "shot": "station-short-gap",
+      "title": "Station Short Gap",
+      "start_frame": 300,
+      "frames": 198,
+      "move_frames": 36,
+      "stride": 4,
+      "source_batch": 4,
+      "focus": "r1c2",
+      "captured": false,
+      "board_bounce": true,
+      "literal_floor": false,
+      "action_only": true,
+      "station": true,
+      "visible_board_frame": 346,
+      "visible_bucket_entry_frame": null,
+      "visible_floor_frame": null,
+      "visible_bucket_contact_frame": 366,
+      "visible_table_contact_frame": 367,
+      "joint_excursion_deg": {
+        "Arm10": 31.89692878244619,
+        "Arm14": 27.965430915051826
+      }
+    },
+    {
+      "shot": "station-wide-bearing",
+      "title": "Station Wide Bearing",
+      "start_frame": 498,
+      "frames": 198,
+      "move_frames": 36,
+      "stride": 4,
+      "source_batch": 3,
+      "focus": "r1c2",
+      "captured": false,
+      "board_bounce": true,
+      "literal_floor": true,
+      "action_only": true,
+      "station": true,
+      "visible_board_frame": 547,
+      "visible_bucket_entry_frame": null,
+      "visible_floor_frame": 613,
+      "visible_bucket_contact_frame": 563,
+      "visible_table_contact_frame": 579,
+      "joint_excursion_deg": {
+        "Arm10": 44.63949362256206,
+        "Arm14": 33.977782625357364
+      }
+    },
+    {
+      "shot": "station-raised-board",
+      "title": "Station Raised Board",
+      "start_frame": 696,
+      "frames": 198,
+      "move_frames": 36,
+      "stride": 4,
+      "source_batch": 6,
+      "focus": "r1c2",
+      "captured": true,
+      "board_bounce": true,
+      "literal_floor": false,
+      "action_only": true,
+      "station": true,
+      "visible_board_frame": 746,
+      "visible_bucket_entry_frame": 767,
+      "visible_floor_frame": null,
+      "visible_bucket_contact_frame": 768,
+      "visible_table_contact_frame": null,
+      "joint_excursion_deg": {
+        "Arm10": 33.46185644235507,
+        "Arm14": 37.52849488520257
+      }
+    },
+    {
+      "shot": "station-side-release",
+      "title": "Station Side Release",
+      "start_frame": 894,
+      "frames": 198,
+      "move_frames": 36,
+      "stride": 4,
+      "source_batch": 0,
+      "focus": "r1c2",
+      "captured": false,
+      "board_bounce": true,
+      "literal_floor": true,
+      "action_only": true,
+      "station": true,
+      "visible_board_frame": 943,
+      "visible_bucket_entry_frame": null,
+      "visible_floor_frame": 1005,
+      "visible_bucket_contact_frame": 959,
+      "visible_table_contact_frame": 977,
+      "joint_excursion_deg": {
+        "Arm10": 21.636465936994178,
+        "Arm14": 29.567041973528116
+      }
+    },
+    {
+      "shot": "front-column-three",
+      "title": "Front Column Three",
+      "start_frame": 1092,
+      "frames": 198,
+      "move_frames": 36,
+      "stride": 4,
+      "source_batch": 5,
+      "focus": "r1c3",
+      "captured": true,
+      "board_bounce": true,
+      "literal_floor": false,
+      "action_only": true,
+      "station": false,
+      "visible_board_frame": 1142,
+      "visible_bucket_entry_frame": 1163,
+      "visible_floor_frame": null,
+      "visible_bucket_contact_frame": 1164,
+      "visible_table_contact_frame": null
+    },
+    {
+      "shot": "front-column-four",
+      "title": "Front Column Four",
+      "start_frame": 1290,
+      "frames": 198,
+      "move_frames": 36,
+      "stride": 4,
+      "source_batch": 2,
+      "focus": "r1c4",
+      "captured": false,
+      "board_bounce": true,
+      "literal_floor": false,
+      "action_only": true,
+      "station": false,
+      "visible_board_frame": 1336,
+      "visible_bucket_entry_frame": null,
+      "visible_floor_frame": null,
+      "visible_bucket_contact_frame": 1356,
+      "visible_table_contact_frame": 1357
+    },
+    {
+      "shot": "overhead-ball",
+      "title": "Overhead Ball",
+      "start_frame": 1488,
+      "frames": 144,
+      "move_frames": 36,
+      "stride": 6,
+      "source_batch": 3,
+      "focus": "r1c4",
+      "captured": false,
+      "board_bounce": true,
+      "literal_floor": true,
+      "action_only": true,
+      "station": false,
+      "visible_board_frame": 1533,
+      "visible_bucket_entry_frame": null,
+      "visible_floor_frame": 1568,
+      "visible_bucket_contact_frame": 1543,
+      "visible_table_contact_frame": null
+    },
+    {
+      "shot": "overhead-farm",
+      "title": "Overhead Farm",
+      "start_frame": 1632,
+      "frames": 168,
+      "move_frames": 0,
+      "stride": 4,
+      "source_batch": 8,
+      "focus": null,
+      "captured": null,
+      "board_bounce": null,
+      "literal_floor": null,
+      "action_only": false,
+      "station": false
+    }
+  ],
+  "full_movie": {
+    "file": "dark-farm.mp4",
+    "sha256": "199730e81a551de02ec9af8cae0718cc892a7af95c3003cba06ed0afc935d72e",
+    "source_start_frame": 0,
+    "frames": 1800,
+    "duration_s": 60.0
+  },
+  "action_movie": {
+    "file": "dark-drops.mp4",
+    "sha256": "fd40d751993b1539582cfef7df5a33979783c861c6eff2e68ce1f6ab0178728d",
+    "frames": 568,
+    "duration_s": 18.933333333333334,
+    "source_spans": [
+      {
+        "shot": "station-short-gap",
+        "first_source_frame": 318,
+        "end_source_frame_exclusive": 383,
+        "first_sampled_frame": 318,
+        "encoded_frames": 65
+      },
+      {
+        "shot": "station-wide-bearing",
+        "first_source_frame": 516,
+        "end_source_frame_exclusive": 629,
+        "first_sampled_frame": 516,
+        "encoded_frames": 113
+      },
+      {
+        "shot": "station-raised-board",
+        "first_source_frame": 714,
+        "end_source_frame_exclusive": 783,
+        "first_sampled_frame": 714,
+        "encoded_frames": 69
+      },
+      {
+        "shot": "station-side-release",
+        "first_source_frame": 912,
+        "end_source_frame_exclusive": 1021,
+        "first_sampled_frame": 912,
+        "encoded_frames": 109
+      },
+      {
+        "shot": "front-column-three",
+        "first_source_frame": 1110,
+        "end_source_frame_exclusive": 1179,
+        "first_sampled_frame": 1110,
+        "encoded_frames": 69
+      },
+      {
+        "shot": "front-column-four",
+        "first_source_frame": 1308,
+        "end_source_frame_exclusive": 1373,
+        "first_sampled_frame": 1308,
+        "encoded_frames": 65
+      },
+      {
+        "shot": "overhead-ball",
+        "first_source_frame": 1506,
+        "end_source_frame_exclusive": 1584,
+        "first_sampled_frame": 1506,
+        "encoded_frames": 78
+      }
+    ],
+    "source_frames": 568,
+    "playback_multiple": 1
+  },
+  "station_movie": {
+    "file": "station.mp4",
+    "sha256": "cb2e0118465de8b2ed1a852bd81dcaf8fc2a0c8610bf7a2ba6cf206d02f274df",
+    "frames": 356,
+    "duration_s": 11.866666666666667,
+    "source_spans": [
+      {
+        "shot": "station-short-gap",
+        "first_source_frame": 318,
+        "end_source_frame_exclusive": 383,
+        "first_sampled_frame": 318,
+        "encoded_frames": 65
+      },
+      {
+        "shot": "station-wide-bearing",
+        "first_source_frame": 516,
+        "end_source_frame_exclusive": 629,
+        "first_sampled_frame": 516,
+        "encoded_frames": 113
+      },
+      {
+        "shot": "station-raised-board",
+        "first_source_frame": 714,
+        "end_source_frame_exclusive": 783,
+        "first_sampled_frame": 714,
+        "encoded_frames": 69
+      },
+      {
+        "shot": "station-side-release",
+        "first_source_frame": 912,
+        "end_source_frame_exclusive": 1021,
+        "first_sampled_frame": 912,
+        "encoded_frames": 109
+      }
+    ],
+    "source_frames": 356,
+    "playback_multiple": 1
+  },
+  "station_10x_movie": {
+    "file": "station-10x.mp4",
+    "sha256": "128b6b8ade3dd2ff3c2c4d82c1b5278a45fafc3c93e854c3c72175028a31c0ac",
+    "frames": 36,
+    "duration_s": 1.2,
+    "source_spans": [
+      {
+        "shot": "station-short-gap",
+        "first_source_frame": 318,
+        "end_source_frame_exclusive": 383,
+        "first_sampled_frame": 318,
+        "encoded_frames": 7
+      },
+      {
+        "shot": "station-wide-bearing",
+        "first_source_frame": 516,
+        "end_source_frame_exclusive": 629,
+        "first_sampled_frame": 521,
+        "encoded_frames": 11
+      },
+      {
+        "shot": "station-raised-board",
+        "first_source_frame": 714,
+        "end_source_frame_exclusive": 783,
+        "first_sampled_frame": 716,
+        "encoded_frames": 7
+      },
+      {
+        "shot": "station-side-release",
+        "first_source_frame": 912,
+        "end_source_frame_exclusive": 1021,
+        "first_sampled_frame": 915,
+        "encoded_frames": 11
+      }
+    ],
+    "source_frames": 356,
+    "playback_multiple": 10
+  }
+}

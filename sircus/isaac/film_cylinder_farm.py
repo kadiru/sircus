@@ -20,6 +20,9 @@ p.add_argument(
     type=Path,
     help="Replay recorded training actions on the compact film stage",
 )
+p.add_argument(
+    "--resume-filming", type=Path, help="Resume a completed prefix at a camera cut"
+)
 AppLauncher.add_app_launcher_args(p)
 args = p.parse_args()
 if not args.enable_cameras:

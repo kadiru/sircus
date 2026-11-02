@@ -27,6 +27,8 @@ The exporter requires fresh rim, bucket, table, floor, robot and foreign-cell ch
 
 `dark-farm.mp4` is the 60-second camera tour. `dark-drops.mp4` removes most motion setup and stationary tails around the impacts. `station.mp4` and `station-10x.mp4` show the repeated front table using the same trimmed native frames, at normal and tenfold playback speed. `film.json` records file digests, source intervals and observed outcomes. `contact-sheet.jpg` shows the release, board contact and landing at each featured table.
 
+If a later camera setup fails, `--resume-filming PREVIOUS_RUN` restores the last completed shot's measured joint positions at a camera cut and continues in a new output directory. The resume record preserves and hashes the original completed RGB frames and shot records. The exporter verifies these against the previous output, including its contact checks. A failed or partially captured shot is excluded from the resumed prefix.
+
 ## Training and deployment framework
 
 Sircus currently runs Isaac Lab on Isaac Sim. This is the installed environment for the farm, PhysX contact checks and rendered depth. A separate mjlab port could reuse the task's definitions and compare the same shots using MuJoCo Warp. Its current sensor API includes RGB-D cameras and pinhole raycasting, which can supply segmented point clouds after back-projection. Asset conversion, contact parameter calibration, solver checks and paired held-out evaluation would precede any comparison of policy performance. [mjlab](https://github.com/mujocolab/mjlab), [sensor documentation](https://mujocolab.github.io/mjlab/v1.6.0/source/sensors/index.html)

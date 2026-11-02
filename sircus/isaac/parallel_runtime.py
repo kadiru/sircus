@@ -196,7 +196,7 @@ class ParallelShots:
                 atomic(self.dest / "failed-probes.json", results)
                 raise RuntimeError(f"{kind} contact attribution failed in some cells")
         if self.n > 1:
-            # Deliberately put env0's ball over env1's bucket. It must pass through
+            # Deliberately put env0's ball over another cell's bucket. It must pass through
             # foreign bucket/table/floor, rather than report an env0 bucket capture.
             xyz = self.origins + np.tile([0.1, -0.8, 0.04], (self.n, 1))
             other = getattr(self, "foreign_probe_index", 1)

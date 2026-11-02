@@ -1,4 +1,15 @@
-# Workspace feasibility completed — November 1, 2026 (local date)
+# Compact farm recording completed — November 2, 2026
+
+[Verified replay](../../baselines/isaac-dark-farm-20261102/README.md) and
+[capture instructions](DARK_FARM_FILM.md) describe the native 35-table film,
+dark stage, driven arm transitions and edited impact views. The replay produced
+162 released board rebounds and 28 captures from 350 attempted recorded actions.
+Seven close-ups include two captures and three measured floor arrivals. The
+60-second full tour and three shorter playback versions decoded and matched
+their checksums on the Mac. This is a replay of training actions with scripted
+transitions; full grasp/path learning and physical transfer remain open.
+
+## Workspace feasibility completed — November 1, 2026 (local date)
 
 [Verified results](../../baselines/isaac-feasibility-map-20261101/README.md) and
 [protocol](FEASIBILITY_MAP.md): run `feasibility-20261102T012536Z-n32` finished

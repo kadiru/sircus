@@ -1,6 +1,8 @@
 """A floor miss must be measured after the board bounce and filmed in the foreground."""
 
 import sys
+import hashlib
+import json
 import tempfile
 import unittest
 from pathlib import Path
@@ -16,12 +18,34 @@ from dark_export import (
     inside_frame,
     render_cut,
     highlight_span,
+    verify_resume,
 )
 from dark_stage import FLOOR_Z_M
 from export_cylinder_film import read
 
 
 class DarkExportTests(unittest.TestCase):
+    def test_resume_requires_unchanged_original_rgb_and_shot_records(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            previous, resumed = base / "previous", base / "resumed"
+            clip = json.dumps(dict(frames=[dict(frame=0)])).encode()
+            for folder in (previous, resumed):
+                (folder / "frames").mkdir(parents=True)
+                (folder / "frames" / "00000.jpg").write_bytes(b"native-rgb")
+                (folder / "clip-00.json").write_bytes(clip)
+                (folder / "probes.json").write_text(json.dumps([dict(all_passed=True)]))
+            info = dict(
+                previous_run=previous.name,
+                completed_chapters=1,
+                clip_sha256={"clip-00.json": hashlib.sha256(clip).hexdigest()},
+                frames_sha256=hashlib.sha256(b"00000.jpgnative-rgb").hexdigest(),
+            )
+            verify_resume(resumed, dict(resumed=info))
+            (resumed / "frames" / "00000.jpg").write_bytes(b"replacement-rgb")
+            with self.assertRaisesRegex(ValueError, "RGB changed"):
+                verify_resume(resumed, dict(resumed=info))
+
     def setUp(self):
         self.scene = read(ISAAC / "scene.json")
         self.radius = self.scene["ball"]["radius_m"]

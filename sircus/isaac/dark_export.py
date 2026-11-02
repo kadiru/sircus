@@ -139,8 +139,40 @@ def assess_focus(chapter, clip, row, bucket, radius, origin):
     )
 
 
+def verify_resume(run, result):
+    info = result.get("resumed")
+    if info is None:
+        return
+    name = info["previous_run"]
+    require(Path(name).name == name, "Invalid resume origin")
+    previous = run.parent / name
+    require(
+        all(p["all_passed"] for p in read(previous / "probes.json")),
+        "The original capture prefix failed contact checks",
+    )
+    sha = hashlib.sha256()
+    for i in range(info["completed_chapters"]):
+        filename = f"clip-{i:02}.json"
+        require(
+            digest(run / filename)
+            == digest(previous / filename)
+            == info["clip_sha256"][filename],
+            "The resumed prefix changed its original shot records",
+        )
+        for f in read(run / filename)["frames"]:
+            filename = f"{f['frame']:05d}.jpg"
+            raw = (run / "frames" / filename).read_bytes()
+            require(
+                raw == (previous / "frames" / filename).read_bytes(),
+                "Resumed RGB changed",
+            )
+            sha.update(filename.encode() + raw)
+    require(sha.hexdigest() == info["frames_sha256"], "Resumed RGB digest disagrees")
+
+
 def verify(run, source):
     result = read(run / "result.json")
+    verify_resume(run, result)
     parent, spec = read(source / "result.json"), read(source / "contract.json")
     require(result["version"] == "sircus-dark-farm-replay-v1", "Unknown replay")
     require(
@@ -324,6 +356,7 @@ def verify(run, source):
         fps=FPS,
         resolution=result["resolution"],
         frames=total,
+        resumed=result.get("resumed"),
         full_duration_s=total / FPS,
         attempts=attempts,
         releases=valid,
