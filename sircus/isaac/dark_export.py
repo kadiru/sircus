@@ -43,7 +43,7 @@ def inside_frame(frame, point):
     up = np.cross(right, forward)
     ray = np.asarray(point) - eye
     depth = float(ray @ forward)
-    return (
+    return bool(
         depth > 0.04
         and abs(ray @ right) * 23 < depth * 18
         and abs(ray @ up) * 23 < depth * 10.125
@@ -209,8 +209,15 @@ def verify(run, source):
         and result["source_weights_sha256"] == parent["final_hash"],
         "Wrong source run",
     )
+    appearance = result.get("appearance", "dark")
+    if appearance == "silver":
+        from silver_style import stage_settings as appearance_settings
+    elif appearance == "dark":
+        appearance_settings = stage_settings
+    else:
+        raise ValueError("Unknown appearance")
     require(
-        result["stage"] == json.loads(json.dumps(stage_settings()))
+        result["stage"] == json.loads(json.dumps(appearance_settings()))
         and np.array_equal(result["origins_m"], origins())
         and (result["workcells"], result["articulations"]) == (35, 70),
         "Wrong farm",
@@ -394,6 +401,7 @@ def verify(run, source):
         source_fingerprint=parent["fingerprint"],
         source_weights_sha256=parent["final_hash"],
         stage=result["stage"],
+        appearance=appearance,
         workcells=35,
         arms=70,
         fps=FPS,
@@ -434,14 +442,18 @@ def highlight_span(chapter):
     return begin, end
 
 
-def render_cut(frames_dir, output, chapters, resolution, step=1):
+def render_cut(frames_dir, output, chapters, resolution, step=1, trim=True):
     """Encode linked native frames; fast cuts keep every tenth frame across edits."""
     relative, spans = [], []
     count = source_count = 0
     with tempfile.TemporaryDirectory(dir=output.parent) as temp:
         target = Path(temp)
         for c in chapters:
-            begin, end = highlight_span(c)
+            begin, end = (
+                highlight_span(c)
+                if trim
+                else (c["start_frame"], c["start_frame"] + c["frames"])
+            )
             first_kept = begin + (-source_count % step)
             indices = range(first_kept, end, step)
             require(
@@ -471,6 +483,37 @@ def render_cut(frames_dir, output, chapters, resolution, step=1):
     return dict(
         movie, source_spans=spans, source_frames=source_count, playback_multiple=step
     )
+
+
+def verify_fast_events(chapters, spans):
+    """A 10x encode must retain a falling ball and its subsequent rebound."""
+    visible = 0
+    for chapter, span in zip(chapters, spans):
+        samples = range(
+            span["first_sampled_frame"], span["end_source_frame_exclusive"], 10
+        )
+        release = chapter["start_frame"] + chapter["move_frames"]
+        board = chapter["visible_board_frame"]
+        landing = (
+            chapter["visible_floor_frame"]
+            if not chapter["captured"]
+            else chapter["visible_bucket_entry_frame"]
+        )
+        if landing is None:
+            landing = max(
+                (
+                    chapter.get(k) or board
+                    for k in (
+                        "visible_bucket_contact_frame",
+                        "visible_table_contact_frame",
+                    )
+                )
+            )
+        falling = sum(release < f <= board for f in samples)
+        rebound = sum(board < f <= landing for f in samples)
+        visible += falling >= 2 and rebound >= 1
+    require(visible >= 10, "Fewer than ten drops remain visible in the 10x video")
+    return visible
 
 
 def contact_sheet(frames_dir, dest, chapters):
@@ -522,9 +565,19 @@ def encode_all(run, summary, dest):
     summary["station_movie"] = render_cut(
         frames, dest / "station.mp4", station, summary["resolution"]
     )
+    fixed = summary["recording_plan"] == "fixed-station-v1"
     summary["station_10x_movie"] = render_cut(
-        frames, dest / "station-10x.mp4", station, summary["resolution"], step=10
+        frames,
+        dest / "station-10x.mp4",
+        station,
+        summary["resolution"],
+        step=10,
+        trim=not fixed,
     )
+    if fixed:
+        fast = summary["station_10x_movie"]
+        fast["playback_reference"] = "Untrimmed fixed-camera station recording"
+        fast["visible_drop_events"] = verify_fast_events(station, fast["source_spans"])
     contact_sheet(frames, dest / "contact-sheet.jpg", actions)
     (dest / "film.json").write_text(json.dumps(summary, indent=2) + "\n")
     return summary

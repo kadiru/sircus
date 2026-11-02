@@ -29,6 +29,8 @@ p.add_argument(
     default="fixed-station-v1",
     help="Camera/release plan for --dark-replay",
 )
+p.add_argument("--appearance", choices=("dark", "silver"), default="dark")
+p.add_argument("--preview-only", action="store_true")
 AppLauncher.add_app_launcher_args(p)
 args = p.parse_args()
 if not args.enable_cameras:
@@ -260,6 +262,11 @@ def main():
             render_interval=8,
             device=args.device,
             physx=sim_utils.PhysxCfg(enable_ccd=False),
+            render=(
+                sim_utils.RenderCfg(enable_ambient_occlusion=False)
+                if args.appearance == "silver"
+                else sim_utils.RenderCfg()
+            ),
         )
     )
     bucket = dest / "bucket.usda"
@@ -279,7 +286,11 @@ def main():
         import dark_stage
         from dark_replay import ReplayShots, run_replay
 
-        dark_stage.configure_stage(scfg, cfg)
+        if args.appearance == "silver":
+            from silver_style import configure_stage, stage_settings
+        else:
+            from dark_stage import configure_stage, stage_settings
+        configure_stage(scfg, cfg)
         layout = dark_stage.origins
 
         class CompactScene(RectangularScene):
@@ -313,6 +324,57 @@ def main():
     if not np.array_equal(env.origins, layout()):
         raise ValueError("Isaac workcell origins disagree with the 5 by 7 layout")
     if args.dark_replay:
+        env.stage_metadata = stage_settings()
+        if args.preview_only:
+            from recording_plans import recording_plan
+
+            shots, view_pose = recording_plan(args.recording_plan)
+            source_clip = json.loads((args.dark_replay / "clip-06.json").read_text())[
+                "rollout"
+            ]
+            env.focus, env.frames = 1, []
+            for name, arm in env.arms.items():
+                q = torch.tensor(
+                    [r["final_joint_positions_rad"][name] for r in source_clip],
+                    device=sim.device,
+                )
+                arm.write_joint_state_to_sim(q, torch.zeros_like(q))
+                arm.set_joint_position_target(q)
+                arm.reset()
+            for _ in range(120):
+                env.tick()
+            env.set_balls(
+                np.array(
+                    [
+                        (
+                            r["release_ball_center_m"]
+                            if not r["invalid"]
+                            else [0.1, -0.8, 0.04]
+                        )
+                        for r in source_clip
+                    ]
+                )
+            )
+            env.tick()
+            eye, aim = view_pose(shots[0], 0, env.spec["cells"], env.origins)
+            camera.set_world_poses_from_view(
+                torch.tensor(eye[None], dtype=torch.float32, device=sim.device),
+                torch.tensor(aim[None], dtype=torch.float32, device=sim.device),
+            )
+            for _ in range(24):
+                sim.render()
+            env.write_rgb(eye, aim, 1)
+            shutil.copyfile(env.frames_path / "00000.jpg", dest / "preview.jpg")
+            atomic(
+                dest / "preview.json",
+                dict(
+                    appearance=args.appearance,
+                    stage=env.stage_metadata,
+                    eye_m=eye.tolist(),
+                    target_m=aim.tolist(),
+                ),
+            )
+            return
         env.foreign_probe_index = 7
     env.exposed_rim_probes()
     # Place the tabletop probe in the gap between four neighboring grid sites.

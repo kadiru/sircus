@@ -12,6 +12,7 @@ import torch
 from board_route import FORCE_THRESHOLD_N
 from recording_plans import recording_plan
 from dark_stage import stage_settings
+from dark_export import inside_frame
 from feasibility_runtime import FeasibilityShots
 from parallel_runtime import ParallelShots, atomic
 
@@ -103,10 +104,30 @@ class ReplayShots:
                 err = (
                     (arm.data.joint_pos[:, :6] - targets[name][:, :6]).abs().amax(dim=1)
                 )
-                ready &= err < 0.00065
+                ready &= err < (
+                    0.001
+                    if getattr(self.args, "recording_plan", None) == "fixed-station-v1"
+                    else 0.00065
+                )
             supported = ready[self.source_valid]
             foreground_ready = self.focus is None or bool(ready[self.focus])
-            if foreground_ready and int(supported.sum()) >= min(12, len(supported)):
+            if getattr(self.args, "recording_plan", None) == "fixed-station-v1":
+                eye, aim = self.view_pose(
+                    self.shot, 0, self.spec["cells"], self.origins
+                )
+                frame = dict(eye_m=eye, target_m=aim)
+                prospective = self.arms["Arm10"].data.body_pos_w[
+                    :, self.flange_idx
+                ].cpu().numpy() - [0, 0, 0.095]
+                visible_ready = ready.cpu().numpy() & self.source_valid.cpu().numpy()
+                visible_ready[self.focus] = False
+                background_ready = sum(
+                    ok and inside_frame(frame, point)
+                    for ok, point in zip(visible_ready, prospective)
+                )
+                if foreground_ready and background_ready >= 2:
+                    break
+            elif foreground_ready and int(supported.sum()) >= min(12, len(supported)):
                 break
         self.drive_ticks = step
         for name, arm in self.arms.items():
@@ -322,7 +343,8 @@ def run_replay(env, source, spec):
             recording_plan=plan_name,
             source_fingerprint=parent["fingerprint"],
             source_weights_sha256=parent["final_hash"],
-            stage=stage_settings(),
+            stage=getattr(env, "stage_metadata", stage_settings()),
+            appearance=getattr(env.args, "appearance", "dark"),
             origins_m=env.origins.tolist(),
             physics_dt_s=env.dt,
             workcells=env.n,

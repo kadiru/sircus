@@ -1,5 +1,11 @@
 # Project state
 
+## Silver-gray fixed-camera Isaac recording — November 2, 2026
+
+- [Completed recording and evidence](../baselines/isaac-silver-station-20261102/README.md): selected silver-gray tabletops, medium-gray floor, slightly brighter neutral fill and softer shadows. The camera stays fixed for twelve front-row releases with concurrent background drops. All twelve rebounded; three captured, six reached the floor and three missed after bucket/table contact.
+- The 57.33-second readable edit removes waits/tails. The 20.67-second fast file samples the full 206.4-second recorded source at 10×; all twelve events retain descent and rebound frames. Its release phase is approximately 2.5× physical speed because the source release phase plays at quarter speed. Native pixels, contacts, encoded frame/chapter counts, resume hashes and Mac transfer digests were checked.
+- This replays selected PPO actions with scripted joint transitions and initialized ball loading; it is not a new training or held-out evaluation result. Across all batches: 420 attempts, 197 accepted releases, 23 captures. Historical baselines, geometry/provisional heights and final release guards are preserved. Local regression passed, including 137 Isaac tests with one Torch-dependent skip. The finite 4090 job exited; 4070 and existing services were untouched. No physical/Viam/audio changes.
+
 ## Compact dark-floor Isaac recording — November 2, 2026
 
 - The [new film](../sircus/isaac/DARK_FARM_FILM.md) shows 35 tables and 70 arms at 2.50 × 2.10 m spacing, with a continuous black floor and 9 mm charcoal seams. Seven close-ups show seven measured board bounces, two qualified captures and three real floor arrivals. Four consecutive attempts at one front-row table use different configurations and include measured joint movement.
