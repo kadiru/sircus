@@ -1,0 +1,642 @@
+{
+  "version": "sircus-stable-ik-ten-target-study-v1",
+  "seed": 20261120,
+  "scene": {
+    "scene_id": "sircus-isaac-foundation-v1",
+    "units": "metres, radians, kilograms, seconds",
+    "physics_contract": "sircus-isaac-physx-rigid-mount-v1",
+    "historical_scene": "sircus-two-arm-tapered-bucket-landscape-v1",
+    "arms": {
+      "model": "UFACTORY UF850",
+      "base_spacing_m": 1.33731,
+      "board_base_yaw_rad": 3.141592653589793,
+      "spacing_provenance": "User measured 52.65 inches; base-to-base interpretation assumed"
+    },
+    "board": {
+      "size_m": [
+        0.2,
+        0.3,
+        0.005
+      ],
+      "mass_kg": 0.4,
+      "tool_offset_m": 0.1,
+      "mount_yaw_rad": 1.5707963267948966,
+      "initial_center_m": [
+        0.67,
+        -0.1,
+        0.4
+      ],
+      "initial_tilt_deg": 25,
+      "size_status": "measured; landscape mount",
+      "mount_status": "provisional rigid fixed joint; compliance is NOT calibrated or modeled yet",
+      "mass_status": "provisional"
+    },
+    "bucket": {
+      "inner_top_diameter_m": 0.177,
+      "outer_top_diameter_m": 0.2,
+      "inner_bottom_diameter_m": 0.15,
+      "outer_bottom_diameter_m": 0.158,
+      "reported_height_m": 0.175,
+      "height_interpretation": "unresolved: overall height or interior depth",
+      "assumed_interior_depth_m": 0.175,
+      "assumed_bottom_thickness_m": 0.008,
+      "center_xy_m": [
+        0.67,
+        -0.42
+      ],
+      "placement_status": "provisional; operator/negative-Y side",
+      "taper": "straight-sided",
+      "segments": 64
+    },
+    "ball": {
+      "radius_m": 0.0375,
+      "mass_kg": 0.2,
+      "restitution": 0.65,
+      "friction": 0.2,
+      "status": "provisional; no physical calibration"
+    },
+    "dropper": {
+      "flange_target_m": [
+        0.67,
+        -0.1,
+        0.72
+      ],
+      "tool_status": "geometric two-finger proxy; not a calibrated gripper model"
+    },
+    "table": {
+      "size_m": [
+        1.8,
+        1.25,
+        0.05
+      ],
+      "center_m": [
+        0.67,
+        -0.25,
+        -0.025
+      ],
+      "status": "provisional enlarged support; tabletop Z=0"
+    },
+    "camera": {
+      "position_m": [
+        1.7,
+        -1.9,
+        1.65
+      ],
+      "look_at_m": [
+        0.65,
+        -0.15,
+        0.35
+      ],
+      "width": 640,
+      "height": 480,
+      "focal_length_mm": 20,
+      "horizontal_aperture_mm": 24,
+      "near_m": 0.05,
+      "far_m": 5.0,
+      "status": "synthetic ideal fixed RGB-D; not wrist-camera calibration"
+    },
+    "simulation": {
+      "physics_dt_s": 0.004166666666666667,
+      "render_every_steps": 8,
+      "seed": 42,
+      "contact_properties_status": "uncalibrated; separate from historical numerical models"
+    }
+  },
+  "parent_checkpoint_sha256": "2d5b3a3f864c62337186617d5e33fed673813909c14a1d325a4f527c26118ddd",
+  "parent_contract_fingerprint": "bb3fd22b9cfb153be000914da6ab7d765afcd14525301101cad379517efb9fda",
+  "prior_study_report_sha256": "d9c58daa9377ba0916a1fd13f26ffb3a6fb85674876655779fe8e2ddcebc74b7",
+  "prior_study_contract_sha256": "6e851b6e66175c7c1179820c28b77892e9c36d1a4148833047cef6354622f487",
+  "prior_geometry_file": "geometry-expanded-development.npz",
+  "prior_geometry_sha256": "7dcdc547fa6dc5335f064bafa996a8f3102bd6f3d086555f30a2a8b45949d968",
+  "base_bank_file": "proposal-bank.json",
+  "base_bank_file_sha256": "fc95cc8ec310ff85b7962ca30feb4faf99aa07ef8b1e83aeaa9025b2e9db44cd",
+  "prior_expansion_bank_sha256": "fc95cc8ec310ff85b7962ca30feb4faf99aa07ef8b1e83aeaa9025b2e9db44cd",
+  "base_bank_sha256": "dcd708042db65f089276966f3652452e22f5f7179a6c687b38aee512fa5850e7",
+  "action_bounds": {
+    "low": [
+      0.3,
+      -0.5,
+      0.12,
+      8.0,
+      0.05
+    ],
+    "high": [
+      1.04,
+      0.35,
+      0.6,
+      60.0,
+      0.65
+    ],
+    "version": "sircus-expanded-shot-actions-v1"
+  },
+  "development_layouts": [
+    {
+      "id": "old-test-08",
+      "original_test_index": 8,
+      "bucket_xy_m": [
+        1.2138862453043828,
+        -0.15628745328163396
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-09",
+      "original_test_index": 9,
+      "bucket_xy_m": [
+        1.1798593677024012,
+        -0.5817071647655893
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-10",
+      "original_test_index": 10,
+      "bucket_xy_m": [
+        1.1155016613275015,
+        -0.17151353841633726
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-12",
+      "original_test_index": 12,
+      "bucket_xy_m": [
+        1.1909716578968224,
+        0.047362857158011584
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-21",
+      "original_test_index": 21,
+      "bucket_xy_m": [
+        0.16275255472120964,
+        -0.6365356466995716
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-23",
+      "original_test_index": 23,
+      "bucket_xy_m": [
+        1.0821769084188266,
+        -0.5174710227733501
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-26",
+      "original_test_index": 26,
+      "bucket_xy_m": [
+        1.1532532351054154,
+        0.21845672365283675
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-35",
+      "original_test_index": 35,
+      "bucket_xy_m": [
+        1.217406544799545,
+        -0.39988567162964045
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-39",
+      "original_test_index": 39,
+      "bucket_xy_m": [
+        1.2199134134696716,
+        0.1802220024389507
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-41",
+      "original_test_index": 41,
+      "bucket_xy_m": [
+        1.2372435345605606,
+        -0.6134795749084982
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    }
+  ],
+  "original_development_layouts": [
+    {
+      "id": "old-test-08",
+      "original_test_index": 8,
+      "bucket_xy_m": [
+        1.2138862453043828,
+        -0.15628745328163396
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-09",
+      "original_test_index": 9,
+      "bucket_xy_m": [
+        1.1798593677024012,
+        -0.5817071647655893
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-10",
+      "original_test_index": 10,
+      "bucket_xy_m": [
+        1.1155016613275015,
+        -0.17151353841633726
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-12",
+      "original_test_index": 12,
+      "bucket_xy_m": [
+        1.1909716578968224,
+        0.047362857158011584
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-19",
+      "original_test_index": 19,
+      "bucket_xy_m": [
+        0.11575315227264736,
+        -0.5274625131305722
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-21",
+      "original_test_index": 21,
+      "bucket_xy_m": [
+        0.16275255472120964,
+        -0.6365356466995716
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-23",
+      "original_test_index": 23,
+      "bucket_xy_m": [
+        1.0821769084188266,
+        -0.5174710227733501
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-26",
+      "original_test_index": 26,
+      "bucket_xy_m": [
+        1.1532532351054154,
+        0.21845672365283675
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-35",
+      "original_test_index": 35,
+      "bucket_xy_m": [
+        1.217406544799545,
+        -0.39988567162964045
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-39",
+      "original_test_index": 39,
+      "bucket_xy_m": [
+        1.2199134134696716,
+        0.1802220024389507
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-41",
+      "original_test_index": 41,
+      "bucket_xy_m": [
+        1.2372435345605606,
+        -0.6134795749084982
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-48",
+      "original_test_index": 48,
+      "bucket_xy_m": [
+        1.0052579293475408,
+        -0.4646715157495981
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    }
+  ],
+  "control_source_ids": [
+    "expanded-search-v2/expand-shot-0002883",
+    "expanded-search-v2/expand-shot-0004049",
+    "expanded-search-v2/expand-shot-0004069",
+    "expanded-search-v2/expand-shot-0002018",
+    "expanded-search-v2/expand-shot-0004486",
+    "expanded-search-v2/expand-shot-0001430"
+  ],
+  "selected_prior_source_ids": [
+    "expanded-search-v2/expand-shot-0002883",
+    "expanded-search-v2/expand-shot-0004049",
+    "expanded-search-v2/expand-shot-0004069",
+    "expanded-search-v2/expand-shot-0002018",
+    "expanded-search-v2/expand-shot-0004486",
+    "expanded-search-v2/expand-shot-0001430",
+    "expanded-far-v1/far-shot-0005348",
+    "expanded-far-v1/far-shot-0002635",
+    "expanded-far-v1/far-shot-0002706",
+    "expanded-far-v1/far-shot-0002717",
+    "expanded-far-v1/far-shot-0004569",
+    "expanded-far-v1/far-shot-0001013",
+    "expanded-far-v1/far-shot-0004494",
+    "expanded-far-v1/far-shot-0004429",
+    "expanded-far-v1/far-shot-0006320",
+    "expanded-search-v2/expand-shot-0003224",
+    "expanded-search-v2/expand-shot-0003498",
+    "expanded-far-v1/far-shot-0007175",
+    "expanded-far-v1/far-shot-0006474",
+    "expanded-far-v1/far-shot-0001149",
+    "expanded-search-v2/expand-shot-0003761",
+    "expanded-far-v1/far-shot-0003799",
+    "expanded-far-v1/far-shot-0002034",
+    "expanded-far-v1/far-shot-0000253",
+    "expanded-far-v1/far-shot-0004613",
+    "expanded-far-v1/far-shot-0005590",
+    "expanded-far-v1/far-shot-0002919",
+    "expanded-search-v2/expand-shot-0000007",
+    "expanded-far-v1/far-shot-0003810",
+    "expanded-far-v1/far-shot-0007271",
+    "expanded-search-v2/expand-shot-0006235",
+    "expanded-search-v2/expand-shot-0002881",
+    "expanded-search-v2/expand-shot-0006246",
+    "expanded-search-v2/expand-shot-0006272",
+    "expanded-search-v2/expand-shot-0002942",
+    "expanded-search-v2/expand-shot-0006222",
+    "expanded-search-v2/expand-shot-0002461",
+    "expanded-search-v2/expand-shot-0002941",
+    "expanded-search-v2/expand-shot-0003039",
+    "expanded-search-v2/expand-shot-0006148",
+    "expanded-search-v2/expand-shot-0003813",
+    "expanded-far-v1/far-shot-0008978",
+    "expanded-far-v1/far-shot-0008864",
+    "expanded-far-v1/far-shot-0000380",
+    "expanded-far-v1/far-shot-0008896",
+    "expanded-far-v1/far-shot-0002130",
+    "expanded-far-v1/far-shot-0008891",
+    "expanded-far-v1/far-shot-0008900",
+    "expanded-search-v2/expand-shot-0003415",
+    "expanded-far-v1/far-shot-0008821",
+    "expanded-search-v2/expand-shot-0000228",
+    "expanded-far-v1/far-shot-0002163",
+    "expanded-far-v1/far-shot-0008318",
+    "expanded-search-v2/expand-shot-0000907",
+    "expanded-search-v2/expand-shot-0005239",
+    "expanded-search-v2/expand-shot-0000924",
+    "expanded-search-v2/expand-shot-0004140",
+    "expanded-search-v2/expand-shot-0001876",
+    "expanded-search-v2/expand-shot-0000920",
+    "expanded-search-v2/expand-shot-0004119",
+    "expanded-search-v2/expand-shot-0004146",
+    "expanded-search-v2/expand-shot-0004118",
+    "expanded-search-v2/expand-shot-0004101",
+    "expanded-search-v2/expand-shot-0004143",
+    "expanded-search-v2/expand-shot-0000869",
+    "expanded-far-v1/far-shot-0004030",
+    "expanded-far-v1/far-shot-0005763",
+    "expanded-far-v1/far-shot-0007535",
+    "expanded-search-v2/expand-shot-0003462",
+    "expanded-search-v2/expand-shot-0003373",
+    "expanded-far-v1/far-shot-0000446",
+    "expanded-far-v1/far-shot-0006659",
+    "expanded-far-v1/far-shot-0000513",
+    "expanded-far-v1/far-shot-0004068",
+    "expanded-far-v1/far-shot-0003147",
+    "expanded-far-v1/far-shot-0001350",
+    "expanded-far-v1/far-shot-0006740",
+    "expanded-search-v2/expand-shot-0005950",
+    "expanded-search-v2/expand-shot-0005988",
+    "expanded-search-v2/expand-shot-0001050",
+    "expanded-search-v2/expand-shot-0005999",
+    "expanded-search-v2/expand-shot-0001065",
+    "expanded-search-v2/expand-shot-0002619",
+    "expanded-search-v2/expand-shot-0005948",
+    "expanded-search-v2/expand-shot-0003468",
+    "expanded-search-v2/expand-shot-0000275",
+    "expanded-search-v2/expand-shot-0003379",
+    "expanded-search-v2/expand-shot-0003544",
+    "expanded-far-v1/far-shot-0008057",
+    "expanded-far-v1/far-shot-0006778",
+    "expanded-far-v1/far-shot-0005950",
+    "expanded-far-v1/far-shot-0008348",
+    "expanded-far-v1/far-shot-0008006",
+    "expanded-far-v1/far-shot-0008353",
+    "expanded-far-v1/far-shot-0004222",
+    "expanded-far-v1/far-shot-0003354",
+    "expanded-far-v1/far-shot-0000680",
+    "expanded-search-v2/expand-shot-0003301",
+    "expanded-far-v1/far-shot-0005981",
+    "expanded-far-v1/far-shot-0002377",
+    "expanded-search-v2/expand-shot-0002183",
+    "expanded-search-v2/expand-shot-0002240",
+    "expanded-search-v2/expand-shot-0004495",
+    "expanded-search-v2/expand-shot-0005600",
+    "expanded-search-v2/expand-shot-0002235",
+    "expanded-search-v2/expand-shot-0004479",
+    "expanded-search-v2/expand-shot-0002214",
+    "expanded-search-v2/expand-shot-0004493",
+    "expanded-search-v2/expand-shot-0001253",
+    "expanded-search-v2/expand-shot-0005646",
+    "expanded-search-v2/expand-shot-0002231",
+    "expanded-far-v1/far-shot-0008459",
+    "expanded-search-v2/expand-shot-0003311",
+    "expanded-search-v2/expand-shot-0003484",
+    "expanded-far-v1/far-shot-0000830",
+    "expanded-far-v1/far-shot-0002468",
+    "expanded-search-v2/expand-shot-0003392",
+    "expanded-far-v1/far-shot-0004397",
+    "expanded-far-v1/far-shot-0000810",
+    "expanded-search-v2/expand-shot-0003307",
+    "expanded-far-v1/far-shot-0004316",
+    "expanded-far-v1/far-shot-0006177",
+    "expanded-far-v1/far-shot-0008169"
+  ],
+  "selected_prior_source_hashes": [
+    "8af42c260c440c22606b0d54665c18a468b166c517beb700375462117f571517",
+    "0c37b2ecde6d4ee56c15219f95444b97041489a0bdcc0e1894b97e58091676fd",
+    "d391dcb4bdb07a93cd4e1bb0d8ecb1803365dba3672057c8b1e0f62f8429a735",
+    "0a7bf755e07fb90074f64c248327067ed1098c358595d704b22b8c7ce366c187",
+    "7b8feb5d16ef5179387d54e279b13188d425bad745596fa44387c91adb2ca619",
+    "c35baaa16a04c7ecd5b47784a8f7734472ccdbcf7e98506c93bb7aa91248f006",
+    "33c0f8495e744aea1182dfeefd0196277fa83fb9f4c004656c0510fae3502d5b",
+    "191555a63716eaf6b4382a1e507d4561f4e227036b32330383c0316badbecf8d",
+    "3f39ae4df934ef5f659104a195bff46383d29140fa4cf63087c29e42fca51894",
+    "4da032f97199676a4b9b0259a59aa34c540f10267079df684ac3aae151cea00c",
+    "8e5cfe14a29a20270cabf88242efad0a2e939959626e51ab2cbf7d2c5c89a0aa",
+    "6d01bc8a1307b0369eeff8a827b1e546ebb1b640d593c99c19a826801749f785",
+    "2771db4017d9570ad38b4413b994859e94a0fcf4b3ab0bbfa13137bb76907a19",
+    "a0e7100c55d39aa014052040affce2f6a7119b603276f1553c0321c6e9b3fea1",
+    "83dcf15404c6832ac0c40d7cacc7eeb88bbd3a92d7cd24c300f1c010a4341be3",
+    "161929b5eb973540845512b8874581872e3cb9fcffdb00d333cec2040757ff42",
+    "4e247d10ebcaa23dd521d6bed5d3db24f988856daf3412970c9a7fe8dc88695c",
+    "b51c583816fc469ab27384880e84818f47da006c72b631b12170c68328ed7c4e",
+    "4feee8a0937167d8ac61a4bc7d0fbdd376cca9ebfa15245e41835727db56241b",
+    "75c5d4a449d5436a0a1c9ab0209cb0273e1c4d26383cb0f6c48da3902665a3ac",
+    "45afb52d976f7b65e9acff4aa5ee150a2ab7a1ad94f4854039a5ebcd101f2570",
+    "f3f20a7e7158e005f2234c922e14dda72957c4980c7aad8dc25ace252127a5fd",
+    "7ba29d17c10f92ea59064f5bc34c2675482e37fd452e93d88d52df8efe44f858",
+    "35e5af2b77774889bd12de612a708717b661d601fec456a11bf75b4701049080",
+    "ad23adb71e379a50bdece5bdfb880434d5aa946f08cd1d820d38beadad551e37",
+    "5338d060bb5537134d89df21cdba5389361f48ef85012359eafce9e3df26b524",
+    "35880a88d63946c98f375f843f96300c3bb6f18d0cd3eed9ed3e25ebb2e69616",
+    "17d9c250c13804d043dc29480e9029fcfc9bd42572a5b54d5e941788a9372745",
+    "c8ec8c016bac8fcb8c46b872c3ab113f51c4a5ae4def84796022a1431280467b",
+    "2321a60849a9db2643661b862851d31a9e09bccf24e70fa7af91e9e5819f2b34",
+    "cff866df3ebb95f4fb1fcd6b44e226eca51f67c5f3d532219448b50e17e0844e",
+    "baddb7c20d1502362e97eb594cc62cd1c0ee45565ce6e63ffd9a1f3c64acfd6d",
+    "67c54fb7b5e99f1028422073dad4f6363b835d5957414567baf94b200daa5adb",
+    "bb39ea9386e6a7123e5ffe029db15af7f50bead64999e1be4b65e4cdd07a5511",
+    "f8a5ac482d0809e5b5ce2991a1ca1c5290b1f65656dec79052221cd271037836",
+    "ebc004d53566d69fb7df8994d15c668472833433192f27af952fb7781f0491b8",
+    "9c68f20f2f8552019a703856573d163748a5fe083b61e0d34d70cd786302b8c6",
+    "1285c48cf205613437dea9bfb364eb75a5053705f78c0799a4ac0e6c989b4b5b",
+    "dd620279384098ee34eed397fd93cb786e111ebda2b30c4c340557bc32d75453",
+    "3ed5f2365eb1cf04cadda53a06e78e9cbb7ee7567b0f07c5b70cc13290471785",
+    "f6ada415191fc8a8a8afbca60bc76d4bb32dc73c26f208c048fb875bdc7be6e9",
+    "b5f704fb30982f7eb5cb52fbc5c545693ffd482016c093f693c1457a3f288a64",
+    "c7a634ad661173b09ed3aaf7931d1f4b8b171e2685fc9805d52216dd45f8ce85",
+    "5b254b7219ec0c73e9eee4a224cac785e888deb916f16a0578dc2ca97e9e5f39",
+    "0ef70dbe79fc1db398149a7281a482be502b84d5a43348e444925957ebf1eeb9",
+    "e7bb0695da3883cb9719b9382cb6b43028d65ce99955021b1461b9ec47d35b8d",
+    "9008a83dd48575e31275dffeba31cb86eed01695609cac9f2b7207f5fac02e1b",
+    "2c20113ebe7bd9c1e47a21f7c772eba6145f97c407f25cb38e30fc814d9404ca",
+    "95ba3945337749acb7fbad09ddd4d4d4ac1124ae4ed5919ae9b19ac6d3793feb",
+    "df990bea4c521e8cf1d7f1c726cd6bc5706cac9f47202e5e3e28e972c28ac378",
+    "56e8a2a01698af64a5e46d73dac3e9ed93eb7c58299f2495db42cb1f0bea7e9c",
+    "556a3b8bcad1c556df8c8e7303226653a38d128f185a2bcc429127e45f6b5d51",
+    "c87211e8d639c3ecca647a090ec8908570cd62933577b4f47970895038687a18",
+    "1eeea928d2f78ce015281017604b1ddfd1c7cb8e9a636e4f328781c4232c0eb2",
+    "217d15e8c1ac7ba66f8df5c67e6697115f23f6adff626f57787d0351b8fbdad8",
+    "4d8d0246d1f7a706c68451c11d800fb718ab4ce0143f74ac58d6f31b4b83232b",
+    "582e59eb2b3dd89466023aeb7c2b5a98b7ea4c8027de8b9fade4cc616e0d2872",
+    "3894e6ba4f5bb94e93bca3c06ae3a96c5cf848da7aab76de1e86665f4e3ca746",
+    "9c2eb4a065f78803e15d6d902894f8f24ad32a5b816cee6632135e36d759760b",
+    "f95d2150d818ff6e04ed56bcc06d38010dbb1d95ec07a478050b6eed54beb651",
+    "8fe093007b57b40721eb84efb4ad938b6eedf458d5fc7a6e6db69c9190eb4821",
+    "05fa2a77b2dda38eaeaccb643d376d2a357f8a11d6aacf79f12cca71d771749c",
+    "5e371324f20a91ada1af144b87bdeb70b9a7152d398fba716bfc337345f824d5",
+    "edffe8a51e42a65d00a8cbd1d5781a8a6574f254e53173df3e736a457c33b820",
+    "4b780c509ed0f32d9a39d4c2c1658fbca5f288458987fa457f96f7c01272ff63",
+    "bb2e116f50bad6ab4da8d43a4db9d8bf7795335643ca6015f9118d299c9659ee",
+    "c535c3f4bca66f6f849377113522ceafe6e2af97efc878c89cf17accb6a4e14a",
+    "0d0ec54b4ab5ae872aaa9f7d4efe3be45ed729ceb58d1e9de031adcd1a4ca374",
+    "20edb6b81ca541e2231f6faed799db8df80e7de8fa7db992d8c89a4c81e607c8",
+    "f6fe3e39887ca484f169d61d0827636c5bb90a76098936ffa751e5345db79a21",
+    "b6d0bf38b1f2affc931663d1356769d06fbcab70e048fa677ca82d2ce71caa1f",
+    "1349c960401cf241fcce4c7d36eb3d91437967e9776fe26f001a843aa3cdf5e7",
+    "e44b2b1128d10abd6e09e0177ec2936a3e00d670c5d512d3281e33fc397f8443",
+    "5514b8d7fcb56202b3399036209ad6e1a9ee75ea55c6ac6af37c8b616588e0e2",
+    "7224bff3dc42c25c896a23c71c38f7051baa86351081d1e11d5d31923ef5ada2",
+    "a6bb0814034ab72491822a84bcb8830f3383a88123998b8cb3fe8ffb5aa3fff5",
+    "fd7bda9982639600721ff494510fb62491a63d0714c168509ee4f60a0e699d5e",
+    "177adb8368d840d84cf87dac26e32d4c79ff3c5f36c8253c5308f91ee1b6b13d",
+    "c13c6e2e3f5429507d0c53cbe9e4964e8f5647a9bf2f8d61ea3956747ec6eebd",
+    "ee46e973a8f79adaa6775b199326a2c1f98cc36ebf5305083868cbd526350a70",
+    "7e50c97c7d2a8065af8ed1f43a203f2b291d3548f548a4d0aafeefef4e0f65c5",
+    "35099c01260e0a23811affdeb3e8efffb078cab2884bb19a5855e76f3fd512ad",
+    "51cdd179d178a8fb9840a4d979d517abe42bd4990e3d4ac0a960cd1d0f28f986",
+    "cea9f34eee6e62d09f025cb673775bbb97ef7a9e2ac805ac52e469f2d36ba9f5",
+    "b956dda285cc8d03cab94724247e9396b6678379874b08d1cada1e635871e7a3",
+    "7379190739af3b159366c5f3aa28c303fb9f613bc92a8a5e14d59325fca64280",
+    "8ccdddc43722f3589e1f97d0d795fe31fa2a6fa7812ef4c5896a297c64c9816d",
+    "9dc1477e8544c7759b8f6096711a9f10685837a6d60253b1211b53bf07ea08ac",
+    "6a07d453156c6fb4db3765c1f10e739ebd79c5ec6d8349c4ff522e0285319363",
+    "ce8e54120100f6a8eb24df7877b569bc0c7113923b9852dea971846405a2f740",
+    "8df332ae7c2988947691137d47dc9b73d6a648bd8bca284afb4533691464d4b1",
+    "fe68d7006fe5f9c09e402eee77a5b1c329a447e653984a402c9c477a1069840f",
+    "abdd8cda99918520100d82fbdf087a2f12b8c31c753705dfa75bf716ca5b2bf0",
+    "fa4fa4bf02cb490302af5f554b77926ebff4a05d3958711354f5784ecd9c4a8e",
+    "904f4c7abd3a9d7b7576a1b174058cfa30d55051e14e0bba1ef1d46bd5a3b2a9",
+    "671019e7bee2365f574b58b8fab878f83c43f37d0d62a3a621f7c67f2f01a2b5",
+    "22e7367d4d36a06783814c6e756aa8107a51cf8a164c69522e5b46bc61a1acc6",
+    "3d5f3b96466b2d62ca81c3914fb0b565de9e166b3f0ed13b68c81bd68ac4fc81",
+    "bcef1661e783eb9210f84934d4b0850754d625eff2232fb3d3f1dcdeccf743aa",
+    "42901e2431bdc8b42fee9d6420f94a95e7bcbaa09afed6239d408ad7ed4afc67",
+    "a87dcf11b5a0a8adbe96282002bc6014dbcb21d8e5d83f39209979cebdadc5d4",
+    "96953202f636616083beebf928f80f7361e327bb07e93aa05c94a35f78a8085b",
+    "0324472b66886faa4be24fb060c354c78b595cf1e40446e4c0c6f45391c1cd2b",
+    "89ffa5a55c7de6b350ef1ff3692f61712fe61e2d27c0d86260e5d67a254b3a4c",
+    "855ad7f746595f9815fb0750997aed41b18f48c7454506d4eb1dc4aae23dd5cb",
+    "6ba652fadaf2adbd10c9bc04c1f70b6b6465795c50c39b518036ee5fdcead679",
+    "3a7d2ace59354f77eaa1ea1edb8a88a306db8e369f318b7777cae8700d4254d3",
+    "5eea7d38dc2da1bf376fb4ed9225020aec29ab5d1e090398f67c4a36e12611bd",
+    "5ebc867a1433ca6ec9c8b1004bed491016ced8f7d135aff6d0c46e3f3fa475a3",
+    "637ac63dfed315efab1a37b0e57c9b4a5395b738f4a6cdd614fb59c599bdbf5c",
+    "bd9f6fc64ae797114fbe3f9c07e3c0101664f658a417b88987f9be6718a15f1a",
+    "4ee26de7ccfa9a55e521168a9dd0099ea203721522562cdd4fb5371c7589146b",
+    "cbf6cc9567bcebd0d323beb7f61fd688daae0e207ecbf362012bce643b725d1a",
+    "2fc7a90ddd8224ca01e85234573dce7e511b0f9bd67cda0336adfedc5ea406cd",
+    "9d7169602ceac3d097607039bfcc92da5f977d300d4f522bcced56cf527a1cd0",
+    "8a1ff4e56a9e0766c62adc21a088e4afbebef0b931ba9e14597d59b26a488519",
+    "c3182e4890cff40b68d3e9b9d2baa61aa2aa2713fb0365dc0efcd39bf765497a",
+    "b371e661ed916404e3e57cb5124ee7078e7b2f8b5e712b463d460b90063f0fc0",
+    "cec9dced94e96779d24e7e1a7c8cbdba0f3196efa922b713bcb43c51bcd7af86",
+    "80caf37d2aefdc6f278982e52439348ec8a7734389cc14081fec4d1d79ee5c15",
+    "ed791223bed98b68252a5626db2b5544ae48ecbca8e6cd123a61b44947efddc7",
+    "045ad7cfa730fe662453e68ac634dc1a4ec852bdfe3d64a2020cc7e838564e35",
+    "b96c6069934df67599d9536161c6d7c078292b3f9f6b2ca74ced806cd14c3db1"
+  ],
+  "native_per_target": 1024,
+  "proposal_rounds": 96,
+  "proposals_per_target_round": 256,
+  "seed_sources_per_target": 12,
+  "top_candidates": 8,
+  "confirmations_per_candidate": 10,
+  "final_confirmations_per_candidate": 20,
+  "minimum_confirmation_rate": 0.8,
+  "confirmation_noise_std": [
+    0.001,
+    0.001,
+    0.002,
+    0.35,
+    0.002
+  ],
+  "control_repeats": 3,
+  "batch_size": 128,
+  "gpu_wait_timeout_s": 3600,
+  "ik_version": "sircus-query-stable-endpoint-ik-v1",
+  "geometry_version": "sircus-query-stable-native-geometry-v1",
+  "no_training": true,
+  "source_role": "All ten previous empty-mask positions remain development; no new test/generalization claim",
+  "acquisition": "Direct route capture first; direct partial retention next; airborne opening proximity before first external contact guides assisted misses, never their final capture label",
+  "confirmation_protocol": "Native captured source plus>=8/10 independent small perturbations; freeze highest-qualified candidate; require>=16/20 separately seeded final perturbations before bank addition; CPU rejects remain failures",
+  "physics": "Original native1920Hz integration/240Hz scorer and all contact/pose gates unchanged; prescribed release and held arm endpoints",
+  "scope": "IK determinism/branch audit and finite development feasibility search, no PPO, no model training, no hardware or exhaustive coverage",
+  "original_contract_fingerprint": "b12e2d1a739a0789de45e12f332b1a3c7339fe62c26c8f1c68686a5e15361191",
+  "scope_note": "Portable protocol excerpt; host source-directory mappings omitted. Original contract and exact fingerprint remain in runtime evidence."
+}

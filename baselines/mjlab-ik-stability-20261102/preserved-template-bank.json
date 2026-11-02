@@ -1,0 +1,573 @@
+{
+  "version": "sircus-relative-search-bank-v1",
+  "contract_fingerprint": "bb3fd22b9cfb153be000914da6ab7d765afcd14525301101cad379517efb9fda",
+  "training_catalogue_sha256": "b86d4fa10c7869965d205a6a61c586161406c26ce7fc9e7389c305878cd5295e",
+  "rotation_step_deg": 22.5,
+  "source_scope": "Original17-template prefix preserved; additions use deterministic branch-seeded native development search, not held-out labels",
+  "qualification": "Original qualifications retained; each addition has independent native perturbed-confirmation counts",
+  "templates": [
+    {
+      "source_trial_id": "shot-0000030",
+      "source_cell_id": "train-30",
+      "relative_board_xy_m": [
+        0.11167909472954851,
+        -0.31471325242253667
+      ],
+      "height_m": 0.26809875019708507,
+      "tilt_deg": 31.519844899807353,
+      "gap_m": 0.26155952009868144,
+      "source_route_quality": 2,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "shot-0000044",
+      "source_cell_id": "train-09",
+      "relative_board_xy_m": [
+        0.0831278041984389,
+        0.43277303546897866
+      ],
+      "height_m": 0.3058979909750582,
+      "tilt_deg": 22.285182534392025,
+      "gap_m": 0.3505774319473297,
+      "source_route_quality": 2,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "shot-0000303",
+      "source_cell_id": "train-23",
+      "relative_board_xy_m": [
+        0.16979219958719238,
+        -0.010253392939439887
+      ],
+      "height_m": 0.2741482940207319,
+      "tilt_deg": 27.534005060312847,
+      "gap_m": 0.0963651221865184,
+      "source_route_quality": 2,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "shot-0000780",
+      "source_cell_id": "train-10",
+      "relative_board_xy_m": [
+        0.04078886761454559,
+        0.2395029140064398
+      ],
+      "height_m": 0.2566869137423825,
+      "tilt_deg": 37.21897657594422,
+      "gap_m": 0.19484428737039663,
+      "source_route_quality": 2,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "shot-0001842",
+      "source_cell_id": "train-22",
+      "relative_board_xy_m": [
+        0.24276482857571463,
+        -0.16042323524710453
+      ],
+      "height_m": 0.261309804291553,
+      "tilt_deg": 39.96447587371121,
+      "gap_m": 0.26666980166964344,
+      "source_route_quality": 2,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "shot-0001849",
+      "source_cell_id": "train-29",
+      "relative_board_xy_m": [
+        0.23108279221163902,
+        -0.11219361676680106
+      ],
+      "height_m": 0.37955684738192197,
+      "tilt_deg": 41.28168398674323,
+      "gap_m": 0.11098990548313224,
+      "source_route_quality": 2,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "shot-0002290",
+      "source_cell_id": "train-15",
+      "relative_board_xy_m": [
+        0.3289274631341789,
+        0.2815011397910116
+      ],
+      "height_m": 0.3401140388694352,
+      "tilt_deg": 32.12817684891195,
+      "gap_m": 0.3115504318858502,
+      "source_route_quality": 2,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "shot-0002711",
+      "source_cell_id": "train-16",
+      "relative_board_xy_m": [
+        0.13701880401963917,
+        0.21755878763489284
+      ],
+      "height_m": 0.2463873495011888,
+      "tilt_deg": 31.29173377992751,
+      "gap_m": 0.19464084508438875,
+      "source_route_quality": 2,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "shot-0002929",
+      "source_cell_id": "train-24",
+      "relative_board_xy_m": [
+        0.05312419299663895,
+        -0.22266327385941614
+      ],
+      "height_m": 0.2523901061359576,
+      "tilt_deg": 34.43164861925402,
+      "gap_m": 0.18282897250748514,
+      "source_route_quality": 2,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "shot-0003671",
+      "source_cell_id": "train-31",
+      "relative_board_xy_m": [
+        0.003753461101223765,
+        -0.3492380188300199
+      ],
+      "height_m": 0.3167716465238942,
+      "tilt_deg": 24.73744380049194,
+      "gap_m": 0.25639362413121797,
+      "source_route_quality": 2,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "shot-0003972",
+      "source_cell_id": "train-17",
+      "relative_board_xy_m": [
+        -0.05289369335027283,
+        0.28803550635147973
+      ],
+      "height_m": 0.2638258903567998,
+      "tilt_deg": 21.22343755955649,
+      "gap_m": 0.18931971195681155,
+      "source_route_quality": 2,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "shot-0001629",
+      "source_cell_id": "train-19",
+      "relative_board_xy_m": [
+        -0.42387420670158793,
+        0.10398185073547025
+      ],
+      "height_m": 0.3487120764804143,
+      "tilt_deg": 21.71220358585077,
+      "gap_m": 0.2754840852618723,
+      "source_route_quality": 1,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "shot-0001793",
+      "source_cell_id": "train-08",
+      "relative_board_xy_m": [
+        0.2251196580914589,
+        0.24704904697493218
+      ],
+      "height_m": 0.42952109265211785,
+      "tilt_deg": 39.40105623280489,
+      "gap_m": 0.18734401135074727,
+      "source_route_quality": 1,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "shot-0003238",
+      "source_cell_id": "train-18",
+      "relative_board_xy_m": [
+        -0.23257301889771953,
+        0.18918511166838267
+      ],
+      "height_m": 0.40906503211023215,
+      "tilt_deg": 32.749881784770345,
+      "gap_m": 0.1353410311538266,
+      "source_route_quality": 1,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "shot-0003497",
+      "source_cell_id": "train-32",
+      "relative_board_xy_m": [
+        -0.24724791324068107,
+        -0.25533452273109564
+      ],
+      "height_m": 0.35015219012408155,
+      "tilt_deg": 24.7423382315244,
+      "gap_m": 0.17319174463262654,
+      "source_route_quality": 1,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "shot-0003735",
+      "source_cell_id": "train-25",
+      "relative_board_xy_m": [
+        -0.2186261691839455,
+        -0.15340133992100838
+      ],
+      "height_m": 0.33102094984211694,
+      "tilt_deg": 21.937971137003245,
+      "gap_m": 0.1571040569516942,
+      "source_route_quality": 1,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "expand-shot-0000721",
+      "source_cell_id": "old-test-19",
+      "source_target_id": "old-test-19",
+      "source_phase": "targeted_development",
+      "development_phase": "old",
+      "action_bounds_version": "original-shot-bounds-v1",
+      "relative_board_xy_m": [
+        0.37310919521068553,
+        0.2835362490294669
+      ],
+      "height_m": 0.3148753894482531,
+      "tilt_deg": 29.526774795958257,
+      "gap_m": 0.3852574465511124,
+      "source_route_quality": 2,
+      "confirmation": {
+        "attempts": 10,
+        "captures": 9,
+        "invalid": 0
+      },
+      "qualification": "development_confirmation_9_of_10",
+      "source_study_contract_fingerprint": "96550f5800c236afa346dd3fa48f7831d083e3b72fa3b4adf6455493d8acbf9a",
+      "source_record_sha256": "caab94e611fb502eab893bca128ad58dc9cf221b477968dcfaa48069e683ab0e",
+      "confirmation_study_contract_fingerprint": "184c3574ea96015d8f63152834fc77608c8b923a3266007ca1d6aae68d90988a",
+      "combined_child_role": "refinement",
+      "combined_child_contract_fingerprint": "184c3574ea96015d8f63152834fc77608c8b923a3266007ca1d6aae68d90988a",
+      "combined_child_bank_sha256": "d5750e8b9048297377d5290a162a17778449d1dcb1b5cc45e089a456c1f204fc",
+      "combined_child_template_index": 16,
+      "combined_source_mouth_clearance_mm": 37.03534966463994
+    }
+  ],
+  "parent_bank_sha256": "dcd708042db65f089276966f3652452e22f5f7179a6c687b38aee512fa5850e7",
+  "expansion_contract_fingerprint": "2ae3d6caeaf67765223e7222a364b9f11d822a4892c1f24def72de810e836d0e",
+  "action_bounds": {
+    "low": [
+      0.32,
+      -0.3,
+      0.18,
+      12.0,
+      0.065
+    ],
+    "high": [
+      1.01,
+      0.25,
+      0.53,
+      48.0,
+      0.52
+    ],
+    "version": "original-shot-bounds-v1"
+  },
+  "development_layouts": [
+    {
+      "id": "old-test-08",
+      "original_test_index": 8,
+      "bucket_xy_m": [
+        1.2138862453043828,
+        -0.15628745328163396
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-09",
+      "original_test_index": 9,
+      "bucket_xy_m": [
+        1.1798593677024012,
+        -0.5817071647655893
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-10",
+      "original_test_index": 10,
+      "bucket_xy_m": [
+        1.1155016613275015,
+        -0.17151353841633726
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-12",
+      "original_test_index": 12,
+      "bucket_xy_m": [
+        1.1909716578968224,
+        0.047362857158011584
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-19",
+      "original_test_index": 19,
+      "bucket_xy_m": [
+        0.11575315227264736,
+        -0.5274625131305722
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-21",
+      "original_test_index": 21,
+      "bucket_xy_m": [
+        0.16275255472120964,
+        -0.6365356466995716
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-23",
+      "original_test_index": 23,
+      "bucket_xy_m": [
+        1.0821769084188266,
+        -0.5174710227733501
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-26",
+      "original_test_index": 26,
+      "bucket_xy_m": [
+        1.1532532351054154,
+        0.21845672365283675
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-35",
+      "original_test_index": 35,
+      "bucket_xy_m": [
+        1.217406544799545,
+        -0.39988567162964045
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-39",
+      "original_test_index": 39,
+      "bucket_xy_m": [
+        1.2199134134696716,
+        0.1802220024389507
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-41",
+      "original_test_index": 41,
+      "bucket_xy_m": [
+        1.2372435345605606,
+        -0.6134795749084982
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-48",
+      "original_test_index": 48,
+      "bucket_xy_m": [
+        1.0052579293475408,
+        -0.4646715157495981
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    }
+  ],
+  "stable_ik_contract_fingerprint": "b12e2d1a739a0789de45e12f332b1a3c7339fe62c26c8f1c68686a5e15361191",
+  "stable_ik_development_layouts": [
+    {
+      "id": "old-test-08",
+      "original_test_index": 8,
+      "bucket_xy_m": [
+        1.2138862453043828,
+        -0.15628745328163396
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-09",
+      "original_test_index": 9,
+      "bucket_xy_m": [
+        1.1798593677024012,
+        -0.5817071647655893
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-10",
+      "original_test_index": 10,
+      "bucket_xy_m": [
+        1.1155016613275015,
+        -0.17151353841633726
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-12",
+      "original_test_index": 12,
+      "bucket_xy_m": [
+        1.1909716578968224,
+        0.047362857158011584
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-21",
+      "original_test_index": 21,
+      "bucket_xy_m": [
+        0.16275255472120964,
+        -0.6365356466995716
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-23",
+      "original_test_index": 23,
+      "bucket_xy_m": [
+        1.0821769084188266,
+        -0.5174710227733501
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-26",
+      "original_test_index": 26,
+      "bucket_xy_m": [
+        1.1532532351054154,
+        0.21845672365283675
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-35",
+      "original_test_index": 35,
+      "bucket_xy_m": [
+        1.217406544799545,
+        -0.39988567162964045
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-39",
+      "original_test_index": 39,
+      "bucket_xy_m": [
+        1.2199134134696716,
+        0.1802220024389507
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-41",
+      "original_test_index": 41,
+      "bucket_xy_m": [
+        1.2372435345605606,
+        -0.6134795749084982
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    }
+  ],
+  "sha256": "361f61c9f724a5f446383d0ad9c8ea44fb60bb3e64234e6da4e5b9c97891b2ee"
+}

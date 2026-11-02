@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from '/vendor/OrbitControls.js';
-import { studyReady, buildRequest, methodLabel, coverageRows, finiteVector, friendlyError, coverageSummary, comparisonRows, learningPoints, inStudiedRegion, BOARD_BODY_SIZE, bankComparisonRows, policyRouteLabel, poseInputValues, bankCoverageRows, bankCoverageStatus, formatMetric, solveButtonState, expansionTargetRows, expansionProgress, expandedComparisonRows } from '/state.mjs';
+import { studyReady, buildRequest, methodLabel, coverageRows, finiteVector, friendlyError, coverageSummary, comparisonRows, learningPoints, inStudiedRegion, BOARD_BODY_SIZE, bankComparisonRows, policyRouteLabel, poseInputValues, bankCoverageRows, bankCoverageStatus, formatMetric, solveButtonState, expansionTargetRows, expansionProgress, expandedComparisonRows, stableIkProgress, stableIkTargets, stableIkAuditRows, stableIkControlRows } from '/state.mjs';
 
 const $ = id => document.getElementById(id);
 const canvas = $('world');
@@ -344,6 +344,48 @@ function showExpansion() {
   drawChart($('expansionCaptureChart'), points, 'captures');
   drawChart($('expansionRewardChart'), points, 'reward', true);
 }
+function showStableIk() {
+  const progress = stableIkProgress(report);
+  $('ikStability').hidden = !progress;
+  if (!progress) return;
+  const shown = value => value === null || value === undefined ? '—' : value;
+  const flag = value => value === null ? 'Not yet verified' : value ? 'Passed' : 'Failed';
+  $('stableIkStatus').textContent = `IK stability study · ${progress.status} · ${progress.phase}${progress.queued ? ' · Waiting for shared 4090' : ''}`;
+  $('stableIkPolicy').textContent = 'Previous policy remains active. This study does not train or deploy a policy.';
+  addMetrics([
+    ['Selected development targets', progress.targets], ['New qualified settings', `${progress.qualified} / ${progress.targets || '—'}`],
+    ['Native search throws', progress.nativeSearchAttempts], ['First confirmation attempts', progress.confirmationAttempts],
+    ['Final confirmation attempts', progress.finalConfirmationAttempts], ['CPU geometry proposals', progress.geometryProposals],
+    ['Order / batch invariance', flag(progress.invariance)], ['Known valid branch preservation', flag(progress.preservation)],
+  ].filter(([, value]) => value !== null), $('stableIkSummary'));
+  const audit = stableIkAuditRows(report);
+  if (audit.length) expansionTable($('stableIkAudit'), ['Endpoint audit', 'Accepted / queries', 'Order mask changes', 'Batch mask changes', 'Max joint Δ (rad)', 'Saved branches preserved'], audit.map(row => [
+    row.label, `${shown(row.accepted)} / ${shown(row.queries)}`, shown(row.orderChanges), shown(row.batchChanges),
+    row.maxDelta === null ? '—' : row.maxDelta.toExponential(2), shown(row.preserved),
+  ]));
+  else $('stableIkAudit').textContent = 'Before / after endpoint audit has not completed.';
+  const controls = stableIkControlRows(report);
+  if (controls.length) expansionTable($('stableIkControls'), ['Same measured source controls', 'Direct captures / attempts', 'Clean captures', 'Rejected endpoints'], controls.map(row => [
+    row.label, `${shown(row.captures)} / ${shown(row.attempts)}`, shown(row.clean), shown(row.invalid),
+  ]));
+  else $('stableIkControls').textContent = 'Native control repeats have not completed.';
+  const targets = stableIkTargets(report);
+  const fraction = value => value && Number.isFinite(value.captures) && Number.isFinite(value.attempts) ? `${value.captures} / ${value.attempts}` : '—';
+  const confirmationStatus = row => {
+    if (row.promoted) return `Qualified · ${row.sourceId}`;
+    if (row.multipleFinalGroups) return `Multiple final groups; inspect evidence · ${row.confirmationSourceId}`;
+    const final = row.finalConfirmation;
+    if (final?.status) return `Final ${final.status} · ${row.confirmationSourceId}`;
+    if (row.firstConfirmation?.status === 'failed') return `Screening failed · ${row.confirmationSourceId}`;
+    return row.confirmationSourceId ? `${row.reason} · ${row.confirmationSourceId}` : row.reason;
+  };
+  if (targets.length) expansionTable($('stableIkTargets'), ['Remaining DEV target', 'X / Y (mm)', 'Direct captures / search', 'Assisted entries', 'Best screening / final', 'Status / source'], targets.map(row => [
+    row.id, row.xy.map(x => (1000 * x).toFixed(1)).join(' / '), `${shown(row.captures)} / ${shown(row.attempts)}`,
+    shown(row.assisted), `${fraction(row.firstConfirmation)} · ${fraction(row.finalConfirmation)}`,
+    confirmationStatus(row),
+  ]));
+  else $('stableIkTargets').textContent = 'The ten remaining development coordinates will appear once pinned to the previous geometry cache.';
+}
 function showComparison() {
   const rows = comparisonRows(report), points = learningPoints(report);
   if (rows.length) {
@@ -381,7 +423,7 @@ function showCoverage() {
   if (evaluation.layouts !== undefined) pairs.push(['Frozen test layouts', evaluation.layouts]);
   if (pairs.length) addMetrics(pairs, $('studySummary'));
   else $('studySummary').textContent = report.summary ?? 'Study metrics will appear when published. Unresolved cells remain visible.';
-  showComparison(); showBankComparison(); showExpansion();
+  showComparison(); showBankComparison(); showExpansion(); showStableIk();
 }
 async function loadStatus() {
   try {

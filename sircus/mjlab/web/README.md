@@ -225,3 +225,35 @@ perception, physical robustness or complete table coverage.
 python -m unittest sircus.mjlab.tests.test_prepare_expanded_report -v
 node --test sircus/mjlab/tests/test_expanded_ui.mjs
 ```
+
+### Optional IK stability and remaining-target study
+
+The read-only `#ikStability` section consumes `stable_ik_evaluation`. It reports
+the original and query-stable solver on the same controls, order/batch mask
+changes, saved-branch preservation, and the ten pinned development coordinates.
+Direct route captures and assisted entries stay separate. A newly qualified
+setting requires the declared first and final confirmation thresholds; the UI
+does not convert aggregate search captures into confirmed reliability.
+Per-target screening/final summaries are derived read-only from `shots.jsonl`, including failed final groups when there are zero promotions. A final-tested source retains its own screening denominator; otherwise the highest-capture completed screening group is shown. Invalid endpoints stay in the counts, and incomplete groups remain pending.
+
+Append the compact progress to a **copy of the current derived viewer report**
+so continuous, bank and expanded-study results are retained:
+
+```bash
+python -m sircus.mjlab.prepare_stable_report \
+  --base-display /absolute/local/display-before-ik.json \
+  --study /absolute/local/stable-ik-study \
+  --output /absolute/local/display-with-ik.json \
+  --watch-seconds 1800
+```
+
+This bounded, CPU-only watcher reads reports every five seconds. It exits early
+only after the study completes and `audit-stable.json` reports a passed audit.
+The output cannot be the base display or any path inside the study directory.
+No robot, GPU job, training run, server restart or model deployment is performed.
+The original inference handlers and active policy remain unchanged.
+
+```bash
+python -m unittest sircus.mjlab.tests.test_prepare_stable_report -v
+node --test sircus/mjlab/tests/test_stable_ui.mjs
+```

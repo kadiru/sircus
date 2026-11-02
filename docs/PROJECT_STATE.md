@@ -1,5 +1,12 @@
 # Project state
 
+## Deterministic IK and ten-target feasibility study — November 2, 2026
+
+- [Results and evidence](../baselines/mjlab-ik-stability-20261102/README.md): new opt-in target-hashed starts, independent branch convergence, source-request-aware continuation and collision-tested alternatives fix order/batch instability. All 16 saved-source rows preserve exact joint pairs; stable order/partition differences are at most 1.8e-15 rad. Original solver/physics/scorers remain unchanged. Cold 8/120 accepts 12/16 versus original 14/16 on this audit; explicitly increasing to 16 starts recovers 16/16 in a separate CPU diagnostic. Determinism is not universal reachability.
+- The exact remaining indices 8,9,10,12,21,23,26,35,39,41 received 1,024 native shots each. Direct captures occur at 10,21,23,26,39, including new hits at 23. Four hundred screening attempts and 20 independent final attempts produced no qualified additions: target 21 passed 8/10 screening but only 13/20 final. All 20 final endpoints were valid; remaining failures concern ball flight/entry. The original 17-template prefix and selected checkpoint remain intact; no PPO or model deployment occurred.
+- The 156-check independent audit passed. `#ikStability` reports endpoint invariance, native controls, direct/assisted findings and failed confirmations. Previous tables, solve routing and the running preview are preserved. Only 4090 native work was used; this task did not change 4070/Isaac/hardware/Viam/audio. Raw data and immutable source snapshots remain outside Git.
+- Before another training run: use validated broader cold starts or exact-source continuation, then investigate airborne range and release/contact sensitivity. Do not promote table-assisted entries, lower the reliability gate or treat these development coordinates as untouched tests.
+
 ## Targeted mjlab expansion and fair frozen comparison — November 2, 2026
 
 - [Published evidence/checkpoint](../baselines/mjlab-expanded-bank-20261102/README.md): the 12 previously unresolved test positions became development. 15,360 native search throws plus 1,000 confirmation attempts added one template qualified 9/10; original 16 remain an unchanged prefix. Six farther targets produced many table-assisted entries but zero qualified direct routes in 9,216 additional throws. No impossibility claim or scoring relaxation.
