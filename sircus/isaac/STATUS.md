@@ -1,4 +1,26 @@
-# User-selected farm recording completed — November 2, 2026
+# Fixed-camera actual training completed — November 2, 2026
+
+[Method and reproduction](ACTION_TRAINING_FILM.md),
+[checkpoint and verified evidence](../../baselines/isaac-action-training-20261102/README.md).
+Ten actual on-policy batches / 350 attempted slots / five PPO updates recorded
+from the exact saved angle. Seventeen supported cells, eighteen parked cells;
+156 releases and 30 qualified captures. All ten foreground attempts rebounded,
+two captured. The action-only video is 23.33 s; every captured frame totals
+52.33 s. Settling and optimizer waits were never filmed. Both files passed native
+frame/camera/contact, full scoring, decode and Mac checksum checks. The CPU audit
+recomputed all 350 likelihoods; this is not held-out evaluation or policy promotion.
+
+An incomplete v2 capture remains preserved. V3 starts fresh after a training-only
+camera scheduling fix; measured release guards and historical replay are unchanged.
+All 88 captured Python source hashes match. Local regression: 182 tests with seven
+Torch skips; six new audit tests passed on Ubuntu CPU. The finite job exited,
+4090 idle; 4070 workload and services untouched. No physical/Viam/audio actions.
+Source: `studies/action-training-20261102-v3`; raw run and exports:
+`output/action-training-20261102-v3` and `output/action-training-20261102-v3-export`.
+Media, raw telemetry and sampling checkpoints remain outside Git; only compact
+evidence and initial/final experimental checkpoints are published.
+
+# User-selected farm replay completed — November 2, 2026
 
 [Film and reproduction](CHOSEN_FARM_FILM.md),
 [compact verified baseline](../../baselines/isaac-chosen-farm-20261102/README.md).

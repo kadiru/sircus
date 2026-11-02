@@ -1,0 +1,95 @@
+{
+  "schema": "sircus-action-training-verification-v1",
+  "run": "action-training-20261102-v3",
+  "filming_protocol": "sircus-fixed-camera-on-policy-film-v2",
+  "scope": "Fresh ten-batch on-policy endpoint-shot PPO training recording; no held-out evaluation or policy promotion",
+  "source_snapshot": "studies/action-training-20261102-v3",
+  "source_archive_sha256": "e3693a90cab87fdd86d0836bd39dce52fd55eed26152787c3a660a315bfa5a9b",
+  "source_files_checked": 88,
+  "source_mismatches": [],
+  "tests": {
+    "local_suite_tests_run": 182,
+    "local_suite_skipped": 7,
+    "local_suite_result": "OK",
+    "skip_reason": "Six new CPU Torch audit tests and one existing Torch checkpoint test lack Torch in Mac environment",
+    "ubuntu_cpu_checkpoint_tests_run": 6,
+    "ubuntu_cpu_checkpoint_tests_result": "OK",
+    "black_check": "passed",
+    "repository_diff_check": "passed"
+  },
+  "native_checks": {
+    "all_cell_contacts_and_isolation": true,
+    "all_cell_rim_rays": true,
+    "all_camera_readbacks": true,
+    "all_actions_rewards_and_update_chain": true,
+    "independent_foreground_scoring_reconstruction": true,
+    "checkpoint_cpu_likelihood_replay": true,
+    "video_decoded_frames_fps_resolution_chapters": true,
+    "mac_transfer_digests": true
+  },
+  "training": {
+    "sampled_slots": 350,
+    "geometry_supported_sites": 17,
+    "parked_sites": 18,
+    "release_enabled_slots": 170,
+    "actual_releases": 156,
+    "invalid_slots": 194,
+    "qualified_captures": 30,
+    "clean_captures": 28,
+    "ppo_updates": 5
+  },
+  "foreground": {
+    "releases": 10,
+    "board_rebounds": 10,
+    "qualified_captures": 2,
+    "table_outcomes": 5,
+    "floor_outcomes": 3
+  },
+  "visual_review": {
+    "native_contact_sheets": "All ten batches: setup, release, board contact and outcome samples; full-size release/outcome samples for batch 1",
+    "note": "Native RTX pixels inspected. Geometric projection alone is not visibility proof. Batch8 repeats the foreground configuration; measured background work continues."
+  },
+  "independent_review": "All ten spans retain 36 setup frames; terminal cut 0.20\u20130.225s after measured outcome; rim contacts retained through table/floor or final successful entry; all events in fixed camera view",
+  "incomplete_prior_capture": {
+    "run": "action-training-20261102-v2",
+    "status": "Stopped before batch8 release at 3/36 motion frames because tiny residual blocked relative camera progress. Seven complete batches preserved outside Git; no frames or outcomes reused in v3.",
+    "fix": "Training-only camera schedule follows interpolation time; final measured release guards unchanged."
+  },
+  "runtime_end_state": {
+    "capture_exit_code": 0,
+    "postprocessing_exit_code": 0,
+    "rtx_4090": "idle:17MiB,0percent at final query",
+    "rtx_4070": "existing workload active:3280MiB,69percent; untouched",
+    "existing_services": "preserved",
+    "hardware_viam_audio_actions": false
+  },
+  "evidence_sha256": {
+    "result.json": "0a1b81f35869772f2fdb8e3bf75447ad72fd22b3b4ff046f1eef0eeae5e7ccf4",
+    "film.json": "f60998225b1fd41ef89d0aad7e92ddce892da7ce7db4d761044a548eeee4b629",
+    "checkpoint-audit.json": "1ce8471211f51e2ee7241cc727fa2f28891bd49b1fcac7636f26b1ca6c22d020",
+    "probes.json": "e23bbea11738453b30d8369da6a2cf9caa17250630bb2c09b127562cc2a89ecc",
+    "rim-rays.json": "98df6ec0211b66ea15dd2480a63efd0f3a29c41a58f502a8d9f55c8461c98878",
+    "menu-provenance.json": "49169407a7a322132de6b1e289fabde8bef478ac4920b93a053f310ca5fb61c4",
+    "selected-camera.json": "a7967c072b8f949318b43a510235d503c81c21e05f433670a0ce92a7af385ede",
+    "policy-00.pt": "4675500e6305fd63f24552d0040bbd314745bcd4fd3afb7fa1a19bb9d603c9bf",
+    "policy-final.pt": "a4f2153a8710f2e6c37a06318bfd99709278a443070895eb1d295b8435b81bdd"
+  },
+  "movies": {
+    "action_movie": {
+      "file": "action-training.mp4",
+      "sha256": "2cf1503f9f5517d5d2374d9b3c188a571d229547482b32c7d35a7d2a08dcb702",
+      "source_start_frame": 0,
+      "frames": 700,
+      "duration_s": 23.333333333333332,
+      "native_pixels_only": true,
+      "playback_multiple": 1
+    },
+    "untrimmed_movie": {
+      "file": "action-training-untrimmed.mp4",
+      "sha256": "24ab1899687f08cc6352256ab4f6e3a4e418c411074bad7171821d9846378af0",
+      "source_start_frame": 0,
+      "frames": 1570,
+      "duration_s": 52.333333333333336
+    }
+  }
+}

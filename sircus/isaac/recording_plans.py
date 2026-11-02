@@ -1,6 +1,16 @@
 """Versioned camera plans keep historical captures reproducible."""
 
 
+def setup_capture_progress(step, total_steps, measured_progress, training=False):
+    """Schedule training RGB by command time, independent of tiny pose residuals.
+
+    Frames still contain measured joint angles. This only schedules the camera;
+    joint readiness and the final pose/velocity/drift guards remain separate.
+    Historical replay keeps its original measured-progress schedule.
+    """
+    return min(1.0, step / total_steps) if training else measured_progress
+
+
 def recording_plan(name, camera=None):
     if name == "fixed-station-v1":
         from station_flight import SHOTS, camera_pose

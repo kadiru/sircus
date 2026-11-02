@@ -1,0 +1,51 @@
+{
+  "schema": "sircus-action-training-checkpoint-audit-v1",
+  "source_result_sha256": "0a1b81f35869772f2fdb8e3bf75447ad72fd22b3b4ff046f1eef0eeae5e7ccf4",
+  "source_contract_sha256": "b648bb205e8ffd64018608b3b35b7a620fd8a9713bf26a16dde05000eaf83137",
+  "source_clip_sha256": {
+    "clip-00.json": "0f744692ff96bb44490c5f21e3660cd7e9e7343efec836a5c09b36d20f81eb32",
+    "clip-01.json": "e250a1191f7e9220c9dc95c771d72711578e807cbd7d7ca48a8a8fa10e18a412",
+    "clip-02.json": "a882432d2da0d19bb4215ea09eecd7e59e87166465f944bb08322c5be3ef6e08",
+    "clip-03.json": "f82f8e998fbed2ff0045e42de5b79a7ab9266f4b8ee0c5a7e85a91d6dc1f4b5b",
+    "clip-04.json": "c19107312c9c3c96f0a31804319076d68fe3eabc201d2cb3fe9f79b34a562c67",
+    "clip-05.json": "883aac927ab05ef07308ea2eb36314c1bf507ba7fa727630b689bc75f59b7315",
+    "clip-06.json": "e240dd780e7498847b9dbd1ebd43fc3f1d565cfdcad1f82ed6457ce81f6905b4",
+    "clip-07.json": "1caff7f48b78036f60160a5b1323217ac8bd53899296d5f013d95c7563ab29e2",
+    "clip-08.json": "9021858f2be523839a4e8592344a265b8b8bbf4faaba34529a0427756bd42c3d",
+    "clip-09.json": "ecde8c5e4a1a228e24993515a62c8f957834f3753c1396bae644640570cd7f9c"
+  },
+  "checkpoint_sha256": {
+    "policy-00.pt": "4675500e6305fd63f24552d0040bbd314745bcd4fd3afb7fa1a19bb9d603c9bf",
+    "policy-01.pt": "dc96d1fc0b64a9a3bff0d080376d1c636c388f60d089b68d3f0b4cb50a9a6109",
+    "policy-02.pt": "a67a7897065a5282b31783800c022cdbe89941e609d56da5b6ba7ea00bfd43c8",
+    "policy-03.pt": "152a5c6ba7825cf692b808262c68abf86bfac6171eba98f4a3c8f4f0b3832e84",
+    "policy-04.pt": "b7f532f58453a2c60148f84ffe30fdc865085c82f5b3a2ee2993c40830e79334",
+    "policy-05.pt": "a49b0cb0a952963a3d1e2b89c9fedecc3ec00725869dcd8226cecb6ce773c6bd",
+    "policy-06.pt": "b3e8b889602161b2b99e7c32d97b1b5e0c690e0ebd80232c8289fa59cba85c79",
+    "policy-07.pt": "11361c545a915bf64e49ccf0591ce631671db594bb6bc220d90290ce7cd38fdc",
+    "policy-08.pt": "531cd694b8fc83b5148af92a9416c1966be467f7016daff5c1b3df4d7892dffd",
+    "policy-09.pt": "c740d132c5caa9bd336125e39bf3fbe6705f9bab064d18161d10022e4a5a4316",
+    "policy-final.pt": "a4f2153a8710f2e6c37a06318bfd99709278a443070895eb1d295b8435b81bdd"
+  },
+  "sampled_policy_hashes": [
+    "3d252682680588be4e461b35559215c3827aa3634727f7a941a897f6ebabe837",
+    "3d252682680588be4e461b35559215c3827aa3634727f7a941a897f6ebabe837",
+    "1c885ff3cb53a7d8cf6731982da3b037d7597c718ff1fb5fc846aa752c07bb9a",
+    "1c885ff3cb53a7d8cf6731982da3b037d7597c718ff1fb5fc846aa752c07bb9a",
+    "78bb9487a5e99212eb6a601fb2cfa28d6ec6aa4d2a3286638f5d20cc5a5f5e69",
+    "78bb9487a5e99212eb6a601fb2cfa28d6ec6aa4d2a3286638f5d20cc5a5f5e69",
+    "e253ed3dd0685bb347bfefd2faa45aa4e064d22c95c0fb730c261b44c115e418",
+    "e253ed3dd0685bb347bfefd2faa45aa4e064d22c95c0fb730c261b44c115e418",
+    "4882a3bfcb709abd497927d325aca8f1e77b1d4ad19219dcd00d008cd62aaaed",
+    "4882a3bfcb709abd497927d325aca8f1e77b1d4ad19219dcd00d008cd62aaaed"
+  ],
+  "final_policy_hash": "f2656315ddb61be73ca5c5daff158c391830faa0a1706a3f67deacb8015e441e",
+  "batches_checked": 10,
+  "latent_actions_checked": 350,
+  "updates_checked": 5,
+  "latent_logprob_max_abs_error": 9.5367431640625e-07,
+  "logprob_atol": 2e-05,
+  "logprob_rtol": 2e-05,
+  "checkpoint_loading": "torch.load(weights_only=True, map_location='cpu')",
+  "scope": "Sampling checkpoint, latent likelihood and logged update-chain audit; not a held-out evaluation or independent optimizer reconstruction."
+}

@@ -239,6 +239,11 @@ class ParallelShots:
 
     def prepare(self, actions):
         cfg, n = self.cfg, self.n
+        preparation_enabled = np.asarray(
+            getattr(self, "preparation_enabled", np.ones(n, dtype=bool)), dtype=bool
+        )
+        if preparation_enabled.shape != (n,):
+            raise ValueError("Expected one preparation-enabled flag per workcell")
         targets, releases, drop_targets = [], [], []
         q = {
             name: arm.data.default_joint_pos.clone() for name, arm in self.arms.items()
@@ -263,6 +268,11 @@ class ParallelShots:
             releases.append(release)
             drop_target = matrix(release + [0, 0, 0.095], [np.pi, 0, 0])
             drop_targets.append(drop_target)
+            if not preparation_enabled[i]:
+                # Opt-in idle sites must be invalid before the correction loop,
+                # so a raw fallback goal cannot retarget their parked board arm.
+                invalid[i] = "geometry_menu_empty"
+                continue
             for name, endpoint in [
                 ("Arm14", np.linalg.inv(base) @ target @ np.linalg.inv(mount)),
                 ("Arm10", drop_target),
