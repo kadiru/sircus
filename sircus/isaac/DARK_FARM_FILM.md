@@ -1,6 +1,10 @@
 # Compact farm recording
 
-The next recording defaults to [a fixed camera and twelve foreground drops](STATION_RECORDING.md). The appearance is awaiting selection from the gray/blue-gray previews. The one-minute tour below describes the historical film.
+The [completed silver recording](../../baselines/isaac-silver-station-20261102/README.md) uses [a fixed camera and twelve foreground drops](STATION_RECORDING.md), selected silver-gray tabletops, a neutral medium-gray floor and slightly brighter, softer lighting. The 57.33-second readable edit and 20.67-second 10× edit passed native contact, visibility, decode and checksum checks. The one-minute tour below describes the historical dark-floor film.
+
+For the silver station plan, release frames sample every two 240 Hz physics steps and play at 30 fps, showing the release phase at quarter physical speed. The twelve untrimmed chapters total 206.4 seconds. The new 10× export references that complete recorded source, giving approximately 20.7 seconds. It audits retained descent and rebound frames for at least ten trials. The historical dark-tour exports described below retain their original timing and trimming.
+
+## Historical dark-floor tour
 
 This replay uses the recorded PPO actions from the 35-table cylinder study. The native Isaac camera follows a 7 × 5 farm with 70 articulated UF850 arms. Each table retains its own bucket placement. Four consecutive attempts at the same front-row table use different board bearings, board heights, release gaps and tilts from the original training run.
 

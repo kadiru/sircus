@@ -8,7 +8,7 @@ FOREGROUND = 1  # Row 1, column 2.
 MIN_FOREGROUND_DROPS = 10
 SOURCE_BATCHES = (4, 3, 6, 0) * 3
 SHOTS = tuple(
-    Shot(f"station-{i + 1:02}", batch, FOREGROUND, 252, 6, 36)
+    Shot(f"station-{i + 1:02}", batch, FOREGROUND, 516, 2, 36)
     for i, batch in enumerate(SOURCE_BATCHES)
 )
 

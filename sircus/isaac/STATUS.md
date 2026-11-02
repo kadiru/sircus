@@ -1,4 +1,21 @@
-# Compact farm recording completed — November 2, 2026
+# Silver-gray fixed-camera recording completed — November 2, 2026
+
+[Verified silver recording](../../baselines/isaac-silver-station-20261102/README.md)
+uses the selected cool silver tabletops and softer, slightly brighter lighting.
+Twelve foreground drops remain visible from one fixed camera, with background
+activity: three captures, six floor arrivals, three bucket/table misses. The
+readable edit is 57.33 s; the full-source 10× edit is 20.67 s. Contact, camera,
+retained-frame, decode, checksum and resume checks passed. Full mock/numerical
+regression passed, including 137 Isaac tests with one Torch-dependent skip.
+
+The finite RTX 4090 capture/export completed; the 4070 workload and existing
+services were untouched. This is replay of sampled PPO actions with scripted
+transitions and initialized balls, not new training or physical validation.
+Source: `studies/silver-station-20261102-v2`; exporter:
+`studies/silver-station-post-20261102`; media:
+`output/silver-station-20261102-v2-export`. Raw media remain outside Git.
+
+# Historical compact farm recording — November 2, 2026
 
 [Verified replay](../../baselines/isaac-dark-farm-20261102/README.md) and
 [capture instructions](DARK_FARM_FILM.md) describe the native 35-table film,

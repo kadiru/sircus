@@ -1,0 +1,60 @@
+{
+  "version": "sircus-silver-station-verification-v1",
+  "scope": "Native PhysX replay of recorded PPO actions, with scripted transitions; no new optimizer updates or physical validation.",
+  "run": "silver-station-20261102-v2",
+  "previous_run": "silver-station-20261102-v1",
+  "source_study": "cylinder-film-35-v5",
+  "source_fingerprint": "98ebe47b48a01b9028747ab03bc913a033d90611e44f03b912e58f41c87ff79a",
+  "source_weights_sha256": "5a510b0c991c1233d3fc9c528d208c1b01fbb458959bc212eed76149d3fe675e",
+  "capture_source_files": 77,
+  "export_source_sha256": "841dfd4bc22e82002e673b393e562a2f69851ea8a10c3b0beccf4258afe1c95b",
+  "export_source_note": "The separately frozen postprocessor uses native bool in inside_frame for portable JSON counters. Capture source hashes are preserved unchanged.",
+  "checks": {
+    "contact_and_isolation_probes": true,
+    "rim_ray_probes": true,
+    "source_action_lineage": true,
+    "resumed_rgb_and_clip_hashes": true,
+    "fixed_camera_readback": true,
+    "visible_focused_bounces": 12,
+    "retained_10x_drop_events": 12,
+    "projected_background_rebounds_minimum_per_shot": 7,
+    "decoded_mp4_frame_counts_and_chapters": true,
+    "mac_transfer_checksums": true,
+    "native_retained_descent_and_rebound_pixels_inspected": 12
+  },
+  "local_tests": {
+    "full_mock_numerical_suite": "passed",
+    "isaac_tests": 137,
+    "isaac_skips": 1,
+    "skip": "Torch-dependent checkpoint audit on Mac"
+  },
+  "media": {
+    "dark-farm.mp4": {
+      "sha256": "4b6799ed891b95a9017c4f1c8557a3b95549718860f075935aa6fc9443492944",
+      "frames": 6192,
+      "duration_s": 206.4
+    },
+    "dark-drops.mp4": {
+      "sha256": "3fe03165cef8dd4956669acb5e9e84e329819c5f3ba72d3ebec605305a7be72e",
+      "frames": 1720,
+      "duration_s": 57.333333333333336
+    },
+    "station.mp4": {
+      "sha256": "3fe03165cef8dd4956669acb5e9e84e329819c5f3ba72d3ebec605305a7be72e",
+      "frames": 1720,
+      "duration_s": 57.333333333333336
+    },
+    "station-10x.mp4": {
+      "sha256": "12373005a15194a3fdff3a9d7d10dc5b8a691d52bfbf77dcb79f7883304923eb",
+      "frames": 620,
+      "duration_s": 20.666666666666668
+    }
+  },
+  "evidence_sha256": {
+    "film.json": "1571c6e4aa7bc93fed7e8de651d296444020013c2b26856e47ea67cb09ebf474",
+    "result.json": "47aecd6a33cf9c9b39fb1d739994d5266e66816a2e104914eb747aa706fbbb88",
+    "probes.json": "e23bbea11738453b30d8369da6a2cf9caa17250630bb2c09b127562cc2a89ecc",
+    "resume.json": "2bb0f7e45b073c0b7dfb7828f4f631a402e375284a89cdaf133a269e88fabb67",
+    "rim-rays.json": "98df6ec0211b66ea15dd2480a63efd0f3a29c41a58f502a8d9f55c8461c98878"
+  }
+}

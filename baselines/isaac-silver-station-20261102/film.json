@@ -1,0 +1,689 @@
+{
+  "version": "sircus-dark-farm-replay-v1",
+  "recording_plan": "fixed-station-v1",
+  "scope": "Native PhysX replay of previously sampled PPO actions",
+  "source_fingerprint": "98ebe47b48a01b9028747ab03bc913a033d90611e44f03b912e58f41c87ff79a",
+  "source_weights_sha256": "5a510b0c991c1233d3fc9c528d208c1b01fbb458959bc212eed76149d3fe675e",
+  "stage": {
+    "columns": 7,
+    "rows": 5,
+    "column_pitch_m": 2.5,
+    "row_pitch_m": 2.1,
+    "floor_surface_z_m": -0.775,
+    "floor_linear_rgb": [
+      0.22,
+      0.23,
+      0.24
+    ],
+    "seam_linear_rgb": [
+      0.22,
+      0.23,
+      0.24
+    ],
+    "seam_width_m": 0.009,
+    "floor_visual_span_m": 240.0,
+    "floor_collision": "Original filtered 4 m square per-cell colliders; invisible to the camera.",
+    "palette": "silver-soft-v1",
+    "table_linear_rgb": [
+      0.4,
+      0.44,
+      0.47
+    ],
+    "table_roughness": 0.72,
+    "ambient_occlusion": false,
+    "lighting": {
+      "dome_fill": 1050,
+      "key": {
+        "name": "SilverKey",
+        "intensity": 320,
+        "angle": 22.0,
+        "rotation_xyz_deg": [
+          -25,
+          -35,
+          0
+        ]
+      },
+      "fills": [
+        {
+          "name": "SilverLeftFill",
+          "intensity": 200,
+          "angle": 40.0,
+          "rotation_xyz_deg": [
+            25,
+            30,
+            150
+          ]
+        },
+        {
+          "name": "SilverRightFill",
+          "intensity": 160,
+          "angle": 45.0,
+          "rotation_xyz_deg": [
+            -20,
+            25,
+            -70
+          ]
+        }
+      ]
+    }
+  },
+  "appearance": "silver",
+  "workcells": 35,
+  "arms": 70,
+  "fps": 30,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "frames": 6192,
+  "resumed": {
+    "previous_run": "silver-station-20261102-v1",
+    "completed_chapters": 2,
+    "clip_sha256": {
+      "clip-00.json": "b2aad46edc5172c52c99149bf549aaad873df87f11b94515abdf8753590f67f9",
+      "clip-01.json": "f98068b1a6efb32e5c6a370b321f5a979d3b234b502e45fd6fafc9dd6f5bbd18"
+    },
+    "frames_sha256": "aeebe4d7e8553c6c7cba942f48abaecbf6adb1c3580ab3c2c480138494eb50b5",
+    "restored": "Measured final joint positions, zero velocity at camera cut."
+  },
+  "full_duration_s": 206.4,
+  "attempts": 420,
+  "releases": 197,
+  "captures": 23,
+  "focused_bounces": 12,
+  "focused_captures": 3,
+  "focused_floor_arrivals": 6,
+  "chapters": [
+    {
+      "shot": "station-01",
+      "title": "Station 01",
+      "start_frame": 0,
+      "frames": 516,
+      "move_frames": 36,
+      "stride": 2,
+      "source_batch": 4,
+      "focus": "r1c2",
+      "captured": false,
+      "board_bounce": true,
+      "literal_floor": false,
+      "action_only": true,
+      "station": true,
+      "visible_board_frame": 56,
+      "visible_bucket_entry_frame": null,
+      "visible_floor_frame": null,
+      "visible_bucket_contact_frame": 96,
+      "visible_table_contact_frame": 97,
+      "background_drops_in_view": 8,
+      "joint_excursion_deg": {
+        "Arm10": 59.99019351800397,
+        "Arm14": 46.47912311323495
+      }
+    },
+    {
+      "shot": "station-02",
+      "title": "Station 02",
+      "start_frame": 516,
+      "frames": 516,
+      "move_frames": 36,
+      "stride": 2,
+      "source_batch": 3,
+      "focus": "r1c2",
+      "captured": false,
+      "board_bounce": true,
+      "literal_floor": true,
+      "action_only": true,
+      "station": true,
+      "visible_board_frame": 578,
+      "visible_bucket_entry_frame": null,
+      "visible_floor_frame": 709,
+      "visible_bucket_contact_frame": 610,
+      "visible_table_contact_frame": 643,
+      "background_drops_in_view": 8,
+      "joint_excursion_deg": {
+        "Arm10": 44.639698528237155,
+        "Arm14": 33.977814214982274
+      }
+    },
+    {
+      "shot": "station-03",
+      "title": "Station 03",
+      "start_frame": 1032,
+      "frames": 516,
+      "move_frames": 36,
+      "stride": 2,
+      "source_batch": 6,
+      "focus": "r1c2",
+      "captured": true,
+      "board_bounce": true,
+      "literal_floor": false,
+      "action_only": true,
+      "station": true,
+      "visible_board_frame": 1096,
+      "visible_bucket_entry_frame": 1138,
+      "visible_floor_frame": null,
+      "visible_bucket_contact_frame": 1141,
+      "visible_table_contact_frame": null,
+      "background_drops_in_view": 8,
+      "joint_excursion_deg": {
+        "Arm10": 33.46185644235507,
+        "Arm14": 37.52849830029716
+      }
+    },
+    {
+      "shot": "station-04",
+      "title": "Station 04",
+      "start_frame": 1548,
+      "frames": 516,
+      "move_frames": 36,
+      "stride": 2,
+      "source_batch": 0,
+      "focus": "r1c2",
+      "captured": false,
+      "board_bounce": true,
+      "literal_floor": true,
+      "action_only": true,
+      "station": true,
+      "visible_board_frame": 1610,
+      "visible_bucket_entry_frame": null,
+      "visible_floor_frame": 1733,
+      "visible_bucket_contact_frame": 1642,
+      "visible_table_contact_frame": 1679,
+      "background_drops_in_view": 8,
+      "joint_excursion_deg": {
+        "Arm10": 21.636465936994178,
+        "Arm14": 29.567041973528116
+      }
+    },
+    {
+      "shot": "station-05",
+      "title": "Station 05",
+      "start_frame": 2064,
+      "frames": 516,
+      "move_frames": 36,
+      "stride": 2,
+      "source_batch": 4,
+      "focus": "r1c2",
+      "captured": false,
+      "board_bounce": true,
+      "literal_floor": false,
+      "action_only": true,
+      "station": true,
+      "visible_board_frame": 2120,
+      "visible_bucket_entry_frame": null,
+      "visible_floor_frame": null,
+      "visible_bucket_contact_frame": 2160,
+      "visible_table_contact_frame": 2161,
+      "background_drops_in_view": 8,
+      "joint_excursion_deg": {
+        "Arm10": 31.88781047990422,
+        "Arm14": 27.96148306571156
+      }
+    },
+    {
+      "shot": "station-06",
+      "title": "Station 06",
+      "start_frame": 2580,
+      "frames": 516,
+      "move_frames": 36,
+      "stride": 2,
+      "source_batch": 3,
+      "focus": "r1c2",
+      "captured": false,
+      "board_bounce": true,
+      "literal_floor": true,
+      "action_only": true,
+      "station": true,
+      "visible_board_frame": 2642,
+      "visible_bucket_entry_frame": null,
+      "visible_floor_frame": 2773,
+      "visible_bucket_contact_frame": 2674,
+      "visible_table_contact_frame": 2707,
+      "background_drops_in_view": 7,
+      "joint_excursion_deg": {
+        "Arm10": 44.639514113129565,
+        "Arm14": 33.97778945554653
+      }
+    },
+    {
+      "shot": "station-07",
+      "title": "Station 07",
+      "start_frame": 3096,
+      "frames": 516,
+      "move_frames": 36,
+      "stride": 2,
+      "source_batch": 6,
+      "focus": "r1c2",
+      "captured": true,
+      "board_bounce": true,
+      "literal_floor": false,
+      "action_only": true,
+      "station": true,
+      "visible_board_frame": 3160,
+      "visible_bucket_entry_frame": 3202,
+      "visible_floor_frame": null,
+      "visible_bucket_contact_frame": 3205,
+      "visible_table_contact_frame": null,
+      "background_drops_in_view": 8,
+      "joint_excursion_deg": {
+        "Arm10": 33.46185644235507,
+        "Arm14": 37.52849488520257
+      }
+    },
+    {
+      "shot": "station-08",
+      "title": "Station 08",
+      "start_frame": 3612,
+      "frames": 516,
+      "move_frames": 36,
+      "stride": 2,
+      "source_batch": 0,
+      "focus": "r1c2",
+      "captured": false,
+      "board_bounce": true,
+      "literal_floor": true,
+      "action_only": true,
+      "station": true,
+      "visible_board_frame": 3674,
+      "visible_bucket_entry_frame": null,
+      "visible_floor_frame": 3797,
+      "visible_bucket_contact_frame": 3706,
+      "visible_table_contact_frame": 3743,
+      "background_drops_in_view": 8,
+      "joint_excursion_deg": {
+        "Arm10": 21.636465936994178,
+        "Arm14": 29.567041973528116
+      }
+    },
+    {
+      "shot": "station-09",
+      "title": "Station 09",
+      "start_frame": 4128,
+      "frames": 516,
+      "move_frames": 36,
+      "stride": 2,
+      "source_batch": 4,
+      "focus": "r1c2",
+      "captured": false,
+      "board_bounce": true,
+      "literal_floor": false,
+      "action_only": true,
+      "station": true,
+      "visible_board_frame": 4184,
+      "visible_bucket_entry_frame": null,
+      "visible_floor_frame": null,
+      "visible_bucket_contact_frame": 4224,
+      "visible_table_contact_frame": 4225,
+      "background_drops_in_view": 8,
+      "joint_excursion_deg": {
+        "Arm10": 31.88781047990422,
+        "Arm14": 27.96148306571156
+      }
+    },
+    {
+      "shot": "station-10",
+      "title": "Station 10",
+      "start_frame": 4644,
+      "frames": 516,
+      "move_frames": 36,
+      "stride": 2,
+      "source_batch": 3,
+      "focus": "r1c2",
+      "captured": false,
+      "board_bounce": true,
+      "literal_floor": true,
+      "action_only": true,
+      "station": true,
+      "visible_board_frame": 4706,
+      "visible_bucket_entry_frame": null,
+      "visible_floor_frame": 4837,
+      "visible_bucket_contact_frame": 4738,
+      "visible_table_contact_frame": 4771,
+      "background_drops_in_view": 7,
+      "joint_excursion_deg": {
+        "Arm10": 44.639514113129565,
+        "Arm14": 33.97778945554653
+      }
+    },
+    {
+      "shot": "station-11",
+      "title": "Station 11",
+      "start_frame": 5160,
+      "frames": 516,
+      "move_frames": 36,
+      "stride": 2,
+      "source_batch": 6,
+      "focus": "r1c2",
+      "captured": true,
+      "board_bounce": true,
+      "literal_floor": false,
+      "action_only": true,
+      "station": true,
+      "visible_board_frame": 5224,
+      "visible_bucket_entry_frame": 5266,
+      "visible_floor_frame": null,
+      "visible_bucket_contact_frame": 5269,
+      "visible_table_contact_frame": null,
+      "background_drops_in_view": 8,
+      "joint_excursion_deg": {
+        "Arm10": 33.46185644235507,
+        "Arm14": 37.52849488520257
+      }
+    },
+    {
+      "shot": "station-12",
+      "title": "Station 12",
+      "start_frame": 5676,
+      "frames": 516,
+      "move_frames": 36,
+      "stride": 2,
+      "source_batch": 0,
+      "focus": "r1c2",
+      "captured": false,
+      "board_bounce": true,
+      "literal_floor": true,
+      "action_only": true,
+      "station": true,
+      "visible_board_frame": 5738,
+      "visible_bucket_entry_frame": null,
+      "visible_floor_frame": 5862,
+      "visible_bucket_contact_frame": 5770,
+      "visible_table_contact_frame": 5807,
+      "background_drops_in_view": 8,
+      "joint_excursion_deg": {
+        "Arm10": 21.63646595742138,
+        "Arm14": 29.567041973528116
+      }
+    }
+  ],
+  "full_movie": {
+    "file": "dark-farm.mp4",
+    "sha256": "4b6799ed891b95a9017c4f1c8557a3b95549718860f075935aa6fc9443492944",
+    "source_start_frame": 0,
+    "frames": 6192,
+    "duration_s": 206.4
+  },
+  "action_movie": {
+    "file": "dark-drops.mp4",
+    "sha256": "3fe03165cef8dd4956669acb5e9e84e329819c5f3ba72d3ebec605305a7be72e",
+    "frames": 1720,
+    "duration_s": 57.333333333333336,
+    "source_spans": [
+      {
+        "shot": "station-01",
+        "first_source_frame": 18,
+        "end_source_frame_exclusive": 113,
+        "first_sampled_frame": 18,
+        "encoded_frames": 95
+      },
+      {
+        "shot": "station-02",
+        "first_source_frame": 534,
+        "end_source_frame_exclusive": 725,
+        "first_sampled_frame": 534,
+        "encoded_frames": 191
+      },
+      {
+        "shot": "station-03",
+        "first_source_frame": 1050,
+        "end_source_frame_exclusive": 1154,
+        "first_sampled_frame": 1050,
+        "encoded_frames": 104
+      },
+      {
+        "shot": "station-04",
+        "first_source_frame": 1566,
+        "end_source_frame_exclusive": 1749,
+        "first_sampled_frame": 1566,
+        "encoded_frames": 183
+      },
+      {
+        "shot": "station-05",
+        "first_source_frame": 2082,
+        "end_source_frame_exclusive": 2177,
+        "first_sampled_frame": 2082,
+        "encoded_frames": 95
+      },
+      {
+        "shot": "station-06",
+        "first_source_frame": 2598,
+        "end_source_frame_exclusive": 2789,
+        "first_sampled_frame": 2598,
+        "encoded_frames": 191
+      },
+      {
+        "shot": "station-07",
+        "first_source_frame": 3114,
+        "end_source_frame_exclusive": 3218,
+        "first_sampled_frame": 3114,
+        "encoded_frames": 104
+      },
+      {
+        "shot": "station-08",
+        "first_source_frame": 3630,
+        "end_source_frame_exclusive": 3813,
+        "first_sampled_frame": 3630,
+        "encoded_frames": 183
+      },
+      {
+        "shot": "station-09",
+        "first_source_frame": 4146,
+        "end_source_frame_exclusive": 4241,
+        "first_sampled_frame": 4146,
+        "encoded_frames": 95
+      },
+      {
+        "shot": "station-10",
+        "first_source_frame": 4662,
+        "end_source_frame_exclusive": 4853,
+        "first_sampled_frame": 4662,
+        "encoded_frames": 191
+      },
+      {
+        "shot": "station-11",
+        "first_source_frame": 5178,
+        "end_source_frame_exclusive": 5282,
+        "first_sampled_frame": 5178,
+        "encoded_frames": 104
+      },
+      {
+        "shot": "station-12",
+        "first_source_frame": 5694,
+        "end_source_frame_exclusive": 5878,
+        "first_sampled_frame": 5694,
+        "encoded_frames": 184
+      }
+    ],
+    "source_frames": 1720,
+    "playback_multiple": 1
+  },
+  "station_movie": {
+    "file": "station.mp4",
+    "sha256": "3fe03165cef8dd4956669acb5e9e84e329819c5f3ba72d3ebec605305a7be72e",
+    "frames": 1720,
+    "duration_s": 57.333333333333336,
+    "source_spans": [
+      {
+        "shot": "station-01",
+        "first_source_frame": 18,
+        "end_source_frame_exclusive": 113,
+        "first_sampled_frame": 18,
+        "encoded_frames": 95
+      },
+      {
+        "shot": "station-02",
+        "first_source_frame": 534,
+        "end_source_frame_exclusive": 725,
+        "first_sampled_frame": 534,
+        "encoded_frames": 191
+      },
+      {
+        "shot": "station-03",
+        "first_source_frame": 1050,
+        "end_source_frame_exclusive": 1154,
+        "first_sampled_frame": 1050,
+        "encoded_frames": 104
+      },
+      {
+        "shot": "station-04",
+        "first_source_frame": 1566,
+        "end_source_frame_exclusive": 1749,
+        "first_sampled_frame": 1566,
+        "encoded_frames": 183
+      },
+      {
+        "shot": "station-05",
+        "first_source_frame": 2082,
+        "end_source_frame_exclusive": 2177,
+        "first_sampled_frame": 2082,
+        "encoded_frames": 95
+      },
+      {
+        "shot": "station-06",
+        "first_source_frame": 2598,
+        "end_source_frame_exclusive": 2789,
+        "first_sampled_frame": 2598,
+        "encoded_frames": 191
+      },
+      {
+        "shot": "station-07",
+        "first_source_frame": 3114,
+        "end_source_frame_exclusive": 3218,
+        "first_sampled_frame": 3114,
+        "encoded_frames": 104
+      },
+      {
+        "shot": "station-08",
+        "first_source_frame": 3630,
+        "end_source_frame_exclusive": 3813,
+        "first_sampled_frame": 3630,
+        "encoded_frames": 183
+      },
+      {
+        "shot": "station-09",
+        "first_source_frame": 4146,
+        "end_source_frame_exclusive": 4241,
+        "first_sampled_frame": 4146,
+        "encoded_frames": 95
+      },
+      {
+        "shot": "station-10",
+        "first_source_frame": 4662,
+        "end_source_frame_exclusive": 4853,
+        "first_sampled_frame": 4662,
+        "encoded_frames": 191
+      },
+      {
+        "shot": "station-11",
+        "first_source_frame": 5178,
+        "end_source_frame_exclusive": 5282,
+        "first_sampled_frame": 5178,
+        "encoded_frames": 104
+      },
+      {
+        "shot": "station-12",
+        "first_source_frame": 5694,
+        "end_source_frame_exclusive": 5878,
+        "first_sampled_frame": 5694,
+        "encoded_frames": 184
+      }
+    ],
+    "source_frames": 1720,
+    "playback_multiple": 1
+  },
+  "station_10x_movie": {
+    "file": "station-10x.mp4",
+    "sha256": "12373005a15194a3fdff3a9d7d10dc5b8a691d52bfbf77dcb79f7883304923eb",
+    "frames": 620,
+    "duration_s": 20.666666666666668,
+    "source_spans": [
+      {
+        "shot": "station-01",
+        "first_source_frame": 0,
+        "end_source_frame_exclusive": 516,
+        "first_sampled_frame": 0,
+        "encoded_frames": 52
+      },
+      {
+        "shot": "station-02",
+        "first_source_frame": 516,
+        "end_source_frame_exclusive": 1032,
+        "first_sampled_frame": 520,
+        "encoded_frames": 52
+      },
+      {
+        "shot": "station-03",
+        "first_source_frame": 1032,
+        "end_source_frame_exclusive": 1548,
+        "first_sampled_frame": 1040,
+        "encoded_frames": 51
+      },
+      {
+        "shot": "station-04",
+        "first_source_frame": 1548,
+        "end_source_frame_exclusive": 2064,
+        "first_sampled_frame": 1550,
+        "encoded_frames": 52
+      },
+      {
+        "shot": "station-05",
+        "first_source_frame": 2064,
+        "end_source_frame_exclusive": 2580,
+        "first_sampled_frame": 2070,
+        "encoded_frames": 51
+      },
+      {
+        "shot": "station-06",
+        "first_source_frame": 2580,
+        "end_source_frame_exclusive": 3096,
+        "first_sampled_frame": 2580,
+        "encoded_frames": 52
+      },
+      {
+        "shot": "station-07",
+        "first_source_frame": 3096,
+        "end_source_frame_exclusive": 3612,
+        "first_sampled_frame": 3100,
+        "encoded_frames": 52
+      },
+      {
+        "shot": "station-08",
+        "first_source_frame": 3612,
+        "end_source_frame_exclusive": 4128,
+        "first_sampled_frame": 3620,
+        "encoded_frames": 51
+      },
+      {
+        "shot": "station-09",
+        "first_source_frame": 4128,
+        "end_source_frame_exclusive": 4644,
+        "first_sampled_frame": 4130,
+        "encoded_frames": 52
+      },
+      {
+        "shot": "station-10",
+        "first_source_frame": 4644,
+        "end_source_frame_exclusive": 5160,
+        "first_sampled_frame": 4650,
+        "encoded_frames": 51
+      },
+      {
+        "shot": "station-11",
+        "first_source_frame": 5160,
+        "end_source_frame_exclusive": 5676,
+        "first_sampled_frame": 5160,
+        "encoded_frames": 52
+      },
+      {
+        "shot": "station-12",
+        "first_source_frame": 5676,
+        "end_source_frame_exclusive": 6192,
+        "first_sampled_frame": 5680,
+        "encoded_frames": 52
+      }
+    ],
+    "source_frames": 6192,
+    "playback_multiple": 10,
+    "playback_reference": "Untrimmed fixed-camera station recording",
+    "visible_drop_events": 12
+  }
+}
