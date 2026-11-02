@@ -1,0 +1,46 @@
+{
+  "verified_at_utc": "2026-11-02T21:22:47.948456+00:00",
+  "display_url": "http://127.0.0.1:18781/#expandedStudy",
+  "study_status": "completed",
+  "original_display_fields_unchanged": true,
+  "existing_http_server_pid": 186578,
+  "existing_http_start_ticks_unchanged": "60012405",
+  "active_policy": "Previous bank remains active; expanded model not deployed",
+  "native_study_and_display_updater_exited": true,
+  "frozen_results": {
+    "old_uniform": {
+      "captures": 175,
+      "attempts": 300,
+      "clean": 72,
+      "unresolved_positions": 25
+    },
+    "old_learned": {
+      "captures": 183,
+      "attempts": 300,
+      "clean": 93,
+      "unresolved_positions": 25
+    },
+    "expanded_uniform": {
+      "captures": 182,
+      "attempts": 300,
+      "clean": 76,
+      "unresolved_positions": 25
+    },
+    "expanded_learned": {
+      "captures": 188,
+      "attempts": 300,
+      "clean": 145,
+      "unresolved_positions": 25
+    }
+  },
+  "screenshot_sha256": "b0ce23b42cbd19c4075f25ba10afdba8ed927b22807537a9e2a6b91592755c6a",
+  "checks": [
+    "HTTP JSON comparison with preserved base",
+    "browser table with clean counts and descriptive interval",
+    "all original prefix branch/mask caches independently audited"
+  ],
+  "limitations": [
+    "UI remains a schematic replay, not an Isaac viewport",
+    "Expanded checkpoint is saved and evaluated, not deployed into solve controls"
+  ]
+}

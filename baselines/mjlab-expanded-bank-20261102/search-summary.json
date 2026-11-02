@@ -1,0 +1,454 @@
+{
+  "status": "completed",
+  "phase": "completed",
+  "contract_fingerprint": "96550f5800c236afa346dd3fa48f7831d083e3b72fa3b4adf6455493d8acbf9a",
+  "old_bank_study_fingerprint": "5618820c146be1f71edc59fe00a2a5260f6f479b41579fd22afb4c761310728e",
+  "old_bank_sha256": "34e4833b43e0003a95022274632492d7405f3c2f8afe06a2c8aa7d1a4df5394c",
+  "development_layouts": [
+    {
+      "id": "old-test-08",
+      "original_test_index": 8,
+      "bucket_xy_m": [
+        1.2138862453043828,
+        -0.15628745328163396
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-09",
+      "original_test_index": 9,
+      "bucket_xy_m": [
+        1.1798593677024012,
+        -0.5817071647655893
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-10",
+      "original_test_index": 10,
+      "bucket_xy_m": [
+        1.1155016613275015,
+        -0.17151353841633726
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-12",
+      "original_test_index": 12,
+      "bucket_xy_m": [
+        1.1909716578968224,
+        0.047362857158011584
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-19",
+      "original_test_index": 19,
+      "bucket_xy_m": [
+        0.11575315227264736,
+        -0.5274625131305722
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-21",
+      "original_test_index": 21,
+      "bucket_xy_m": [
+        0.16275255472120964,
+        -0.6365356466995716
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-23",
+      "original_test_index": 23,
+      "bucket_xy_m": [
+        1.0821769084188266,
+        -0.5174710227733501
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-26",
+      "original_test_index": 26,
+      "bucket_xy_m": [
+        1.1532532351054154,
+        0.21845672365283675
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-35",
+      "original_test_index": 35,
+      "bucket_xy_m": [
+        1.217406544799545,
+        -0.39988567162964045
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-39",
+      "original_test_index": 39,
+      "bucket_xy_m": [
+        1.2199134134696716,
+        0.1802220024389507
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-41",
+      "original_test_index": 41,
+      "bucket_xy_m": [
+        1.2372435345605606,
+        -0.6134795749084982
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-48",
+      "original_test_index": 48,
+      "bucket_xy_m": [
+        1.0052579293475408,
+        -0.4646715157495981
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    }
+  ],
+  "cells": [
+    {
+      "id": "old-test-08",
+      "original_test_index": 8,
+      "bucket_xy_m": [
+        1.2138862453043828,
+        -0.15628745328163396
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 512,
+        "captures": 0,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 512,
+        "mean_reward": -0.22428758217315942
+      },
+      "promotion": null,
+      "unresolved_reason": "No qualifying source found by the finite search yet"
+    },
+    {
+      "id": "old-test-09",
+      "original_test_index": 9,
+      "bucket_xy_m": [
+        1.1798593677024012,
+        -0.5817071647655893
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 512,
+        "captures": 0,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 512,
+        "mean_reward": -0.10666959004467658
+      },
+      "promotion": null,
+      "unresolved_reason": "No qualifying source found by the finite search yet"
+    },
+    {
+      "id": "old-test-10",
+      "original_test_index": 10,
+      "bucket_xy_m": [
+        1.1155016613275015,
+        -0.17151353841633726
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 512,
+        "captures": 4,
+        "clean": 1,
+        "invalid": 0,
+        "board_bounces": 512,
+        "mean_reward": -0.2051813330323841
+      },
+      "promotion": null,
+      "unresolved_reason": "No qualifying source found by the finite search yet"
+    },
+    {
+      "id": "old-test-12",
+      "original_test_index": 12,
+      "bucket_xy_m": [
+        1.1909716578968224,
+        0.047362857158011584
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 512,
+        "captures": 0,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 512,
+        "mean_reward": -0.2942270194278016
+      },
+      "promotion": null,
+      "unresolved_reason": "No qualifying source found by the finite search yet"
+    },
+    {
+      "id": "old-test-19",
+      "original_test_index": 19,
+      "bucket_xy_m": [
+        0.11575315227264736,
+        -0.5274625131305722
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 512,
+        "captures": 96,
+        "clean": 25,
+        "invalid": 0,
+        "board_bounces": 512,
+        "mean_reward": 0.8263177277025235
+      },
+      "promotion": null,
+      "unresolved_reason": "No qualifying source found by the finite search yet"
+    },
+    {
+      "id": "old-test-21",
+      "original_test_index": 21,
+      "bucket_xy_m": [
+        0.16275255472120964,
+        -0.6365356466995716
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 512,
+        "captures": 123,
+        "clean": 40,
+        "invalid": 0,
+        "board_bounces": 512,
+        "mean_reward": 1.0699246690971824
+      },
+      "promotion": null,
+      "unresolved_reason": "No qualifying source found by the finite search yet"
+    },
+    {
+      "id": "old-test-23",
+      "original_test_index": 23,
+      "bucket_xy_m": [
+        1.0821769084188266,
+        -0.5174710227733501
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 512,
+        "captures": 0,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 512,
+        "mean_reward": -0.11836551244031719
+      },
+      "promotion": null,
+      "unresolved_reason": "No qualifying source found by the finite search yet"
+    },
+    {
+      "id": "old-test-26",
+      "original_test_index": 26,
+      "bucket_xy_m": [
+        1.1532532351054154,
+        0.21845672365283675
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 512,
+        "captures": 4,
+        "clean": 1,
+        "invalid": 0,
+        "board_bounces": 512,
+        "mean_reward": -0.2600716641497075
+      },
+      "promotion": null,
+      "unresolved_reason": "No qualifying source found by the finite search yet"
+    },
+    {
+      "id": "old-test-35",
+      "original_test_index": 35,
+      "bucket_xy_m": [
+        1.217406544799545,
+        -0.39988567162964045
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 512,
+        "captures": 0,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 512,
+        "mean_reward": -0.10628712987974837
+      },
+      "promotion": null,
+      "unresolved_reason": "No qualifying source found by the finite search yet"
+    },
+    {
+      "id": "old-test-39",
+      "original_test_index": 39,
+      "bucket_xy_m": [
+        1.2199134134696716,
+        0.1802220024389507
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 512,
+        "captures": 3,
+        "clean": 1,
+        "invalid": 0,
+        "board_bounces": 512,
+        "mean_reward": -0.22454201124709008
+      },
+      "promotion": null,
+      "unresolved_reason": "No qualifying source found by the finite search yet"
+    },
+    {
+      "id": "old-test-41",
+      "original_test_index": 41,
+      "bucket_xy_m": [
+        1.2372435345605606,
+        -0.6134795749084982
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 512,
+        "captures": 0,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 512,
+        "mean_reward": -0.14123440181171254
+      },
+      "promotion": null,
+      "unresolved_reason": "No qualifying source found by the finite search yet"
+    },
+    {
+      "id": "old-test-48",
+      "original_test_index": 48,
+      "bucket_xy_m": [
+        1.0052579293475408,
+        -0.4646715157495981
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 512,
+        "captures": 117,
+        "clean": 44,
+        "invalid": 0,
+        "board_bounces": 512,
+        "mean_reward": 0.9011906950241807
+      },
+      "promotion": null,
+      "unresolved_reason": "No qualifying source found by the finite search yet"
+    }
+  ],
+  "native_search_attempts": 6144,
+  "confirmation_attempts": 290,
+  "geometry_proposals": 23296,
+  "additions": 0,
+  "elapsed_s": 361.61053396505304,
+  "timestamp_utc": "2026-11-02T20:47:13.348495+00:00",
+  "records": 6434,
+  "expanded_bank_sha256": "d7dbf78f0f06ad6559c41a5399e84b1ca4805566fd348b596974ca3341a19dd4",
+  "proposal_bank_sha256": "d407dbdd1368902128924b74ded29250e212fed8e7700c0d32ee10149871901c",
+  "bounds": {
+    "low": [
+      0.32,
+      -0.3,
+      0.18,
+      12.0,
+      0.065
+    ],
+    "high": [
+      1.01,
+      0.25,
+      0.53,
+      48.0,
+      0.52
+    ],
+    "version": "original-shot-bounds-v1"
+  },
+  "original_templates": 16,
+  "expanded_templates": 16,
+  "native_search_statistics": {
+    "attempts": 6144,
+    "captures": 347,
+    "clean": 112,
+    "invalid": 0,
+    "board_bounces": 6144,
+    "mean_reward": 0.09304723730144077
+  },
+  "confirmation_statistics": {
+    "attempts": 290,
+    "captures": 62,
+    "clean": 17,
+    "invalid": 44,
+    "board_bounces": 246,
+    "mean_reward": 0.7584116033280603
+  },
+  "versions": {
+    "mjlab": "1.6.0",
+    "mujoco": "3.11.0",
+    "mujoco-warp": "3.11.0",
+    "torch": "2.7.0",
+    "warp-lang": "1.14.0"
+  },
+  "source_sha256": {
+    "expanded_env.py": "b0e9744d1e82b9e575126e0c6d58e524372b75287713cfdf14d010cb2812df8b",
+    "compare.py": "3df8ca25a182377f28a9babf8743a4bd4789c4ad4b66ac193f180eb4defa8017",
+    "gpu_slot.py": "fcace6029058a9892296507358ee196b9b5296dc4287a07bedc786e3af4cad4a",
+    "model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+    "learning_solve.py": "836ae6db1172f8a9b43de20dbe0132cd1bc2095fe52cc4f923ebbf739f1c41e5",
+    "bank_policy.py": "0773471ab8327e822b7c6676b02c2beaf1185e90d72a3ab10fddaf8cd1595ae8",
+    "expand_bank.py": "c65110b9afa9c30658b99f0c11ae6e2aefbdf88442fc876dbc8b03e0888a320b",
+    "expand_geometry.py": "0b7982c3494b7cb7f799e073e3a7b788cca77617af0e9f509a4b7e273d926739",
+    "learning_env.py": "58d2f58be0e1981a5efd09e872bdea7d8f608e1fa21b5c87986505a20a4a4f8c",
+    "bank_solve.py": "457166a796492f66e29b9a52dd944a57119f180f12c89a6aface4d5d2f1ad001",
+    "prepare_interface.py": "3783ad300b73808fe9424a960b791afe7addbf28e8a4fab9b61be6ffaf1afbe8",
+    "learning_reach.py": "8eea1d565e9faefff0622a9e9a4666eb8d811ac086a8a6711caa8efa3029e9a4",
+    "contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407",
+    "isaac_pair.py": "4ab44904a2c966d6a8bf1567d4882a8bcfdf3c1dd3d2ea8d9e1bbeba6093d983",
+    "learning_policy.py": "5c37a248a0a44280f0f82fe3327973299ec6a4bbfccaaae9f750a898180c7792",
+    "interface.py": "00ae4d29643f12ff143c356422384e7daa047889e3790cceb7732325a5b5a6ea",
+    "verify_bank.py": "d8f3e0ce75533dd9aacc5018c2dacef2212de8f9e3d63fa50013e1080566fe9b",
+    "learning_contract.py": "9f2c44b76297f4ef7009c1b0107be983d0511d5654cb68b8e344dd316ed1fda8",
+    "learning_search.py": "7e37412363aa5263f0d71b76fe8b79af003ed81e92706beeb9e0f3706512e40a",
+    "learning_interface.py": "73f9bfcdb95bacfb7bc904853c26b7233a635c566930c1e51040a9473af9a29a",
+    "render_replay.py": "27a562466bc45f5615a95f6c7824ee96bb60e1e51556cedae59bf6982f5a5f50",
+    "expanded_actions.py": "d41817aa7ad4206139925256ab0cdf5288853e621d6b39824c10ad2d309679c3",
+    "learning_study.py": "1d9b358fe11007c7edfbeb607c6f769e9d4dae6e6832768e16cc0df98480f8df",
+    "learning_score.py": "e66b982c0e651c3a9f5855dd03efb87488cc924321aaf9cadb80d51bac2fe814",
+    "bank_geometry.py": "5c0d6775582c5524a323f1e9344c35317e8352e9f1f813f5dd0794c05de743f5",
+    "verify_learning.py": "2ac3124e0a5443d7d572eefe9b73d7711f67a2cdffb9a1198da9fdfac202e874",
+    "run.py": "969db2710378345aad34a6f802e33d6ea62488d75e560b9da5738bc0748c3dee",
+    "bank_study.py": "7699faeff915a772f3e838983ff1c8dec7721f2d55c79a594e185cd9e08e7dcb",
+    "learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+    "calibrate.py": "e2da7c22355899f35e7f9f28e8a3ae35001e29cc2e10e7a490c470809bd548fb"
+  }
+}

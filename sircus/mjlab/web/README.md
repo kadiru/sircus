@@ -185,3 +185,43 @@ same readiness/pending state and request handler as the full control-panel butto
 so solving does not require scrolling the scene out of view. Displayed training
 counts are **attempts**, including invalid endpoint requests. Metric labels round
 angles to 0.1° and retention to 0.01 s, with readable entry-quality names.
+
+### Optional expanded-bank development study
+
+The read-only **Expand the shot bank** panel at `#expandedStudy` consumes
+`expansion_evaluation: {search, training, status, active_policy}`. It does not
+change inference routing or existing study-readiness gates. The prior bank stays
+active until a separate, audited adapter/deployment task is authorized.
+
+Create a separate derived display report from the existing audited viewer report:
+
+```bash
+python -m sircus.mjlab.prepare_expanded_report \
+  --base-display /absolute/local/display-before-expansion.json \
+  --expansion-study /absolute/local/expanded-search \
+  --training-study /absolute/local/expanded-training \
+  --output /absolute/local/display-with-expansion.json \
+  --watch-seconds 1800
+```
+
+The optional watcher refreshes every five seconds for at most 1,800 seconds,
+exiting early when both reports complete. Missing in-progress reports remain
+explicitly pending. It neither starts training nor changes a service; connecting
+the derived report to an existing viewer is a separate operation. Original reports
+and the base display are read-only. Raw shot rows, trajectories, geometry chunks
+and candidate arrays from the new studies are omitted from the compact payload.
+
+The twelve old test failures are now **development** coordinates, and their
+search captures and independently perturbed confirmations are displayed separately.
+A new frozen comparison uses the same untouched test positions for old uniform,
+old learned, expanded uniform and expanded learned selection. When action bounds
+were widened, an additional old-bank/wider-bounds baseline isolates that change.
+Overall capture retains every request; conditional capture counts only eligible
+endpoints. No per-query outcome optimization occurs during this evaluation.
+These endpoint simulations do not establish grasping, collision-free transit,
+perception, physical robustness or complete table coverage.
+
+```bash
+python -m unittest sircus.mjlab.tests.test_prepare_expanded_report -v
+node --test sircus/mjlab/tests/test_expanded_ui.mjs
+```
