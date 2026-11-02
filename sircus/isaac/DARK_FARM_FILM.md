@@ -1,5 +1,7 @@
 # Compact farm recording
 
+The next recording defaults to [a fixed camera and twelve foreground drops](STATION_RECORDING.md). The appearance is awaiting selection from the gray/blue-gray previews. The one-minute tour below describes the historical film.
+
 This replay uses the recorded PPO actions from the 35-table cylinder study. The native Isaac camera follows a 7 × 5 farm with 70 articulated UF850 arms. Each table retains its own bucket placement. Four consecutive attempts at the same front-row table use different board bearings, board heights, release gaps and tilts from the original training run.
 
 The floor is one continuous matte black visual surface with 9 mm charcoal seams. Physical floor contact continues to use the isolated per-cell colliders. Table spacing is 2.50 m across and 2.10 m between rows, giving 700 mm and 850 mm aisles around the 1800 × 1250 mm tabletops. The camera descends to follow misses beyond the table edge.
@@ -13,6 +15,7 @@ Use the existing pinned Isaac Sim 5.1.0 / Isaac Lab 2.3.2 environment and genera
 ```bash
 python.sh film_cylinder_farm.py --headless --enable_cameras --device cuda:0 \
   --dark-replay /workspace/output/cylinder-film-35-v5 \
+  --recording-plan dark-tour-v1 \
   --output /workspace/output/dark-farm-new
 ```
 

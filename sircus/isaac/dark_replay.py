@@ -10,7 +10,7 @@ from pathlib import Path
 import numpy as np
 import torch
 from board_route import FORCE_THRESHOLD_N
-from dark_flight import SHOTS, camera_pose
+from recording_plans import recording_plan
 from dark_stage import stage_settings
 from feasibility_runtime import FeasibilityShots
 from parallel_runtime import ParallelShots, atomic
@@ -132,7 +132,7 @@ class ReplayShots:
         ball = None
         if phase == "release" and self.focus is not None:
             ball = self.ball.data.root_pos_w[self.focus].cpu().numpy()
-        eye, aim = camera_pose(self.shot, k, self.spec["cells"], self.origins, ball)
+        eye, aim = self.view_pose(self.shot, k, self.spec["cells"], self.origins, ball)
         self.write_rgb(eye, aim, elapsed)
         frame = self.frames[-1]
         frame["phase"] = phase
@@ -175,11 +175,14 @@ class ReplayShots:
         return rows
 
 
-def resume_prefix(env, previous):
+def resume_prefix(env, previous, shots, plan_name):
     """Restore a completed camera-cut prefix; preserve its original RGB and logs."""
-    chapters = json.loads((previous / "progress.json").read_text())["chapters"]
+    progress = json.loads((previous / "progress.json").read_text())
+    if progress.get("recording_plan", "dark-tour-v1") != plan_name:
+        raise ValueError("Resume requires the same recording plan")
+    chapters = progress["chapters"]
     count = len(chapters)
-    if not 0 < count < len(SHOTS) or not all(
+    if not 0 < count < len(shots) or not all(
         json.loads((previous / "probes.json").read_text())[i]["all_passed"]
         for i in range(6)
     ):
@@ -187,7 +190,7 @@ def resume_prefix(env, previous):
     manifest = {}
     frame_hash = hashlib.sha256()
     for i, c in enumerate(chapters):
-        plan = SHOTS[i]
+        plan = shots[i]
         if (c["shot"], c["focus"], c["source_batch"]) != (
             plan.name,
             env.spec["cells"][plan.focus]["id"] if plan.focus is not None else None,
@@ -233,6 +236,8 @@ def resume_prefix(env, previous):
 
 
 def run_replay(env, source, spec):
+    plan_name = getattr(env.args, "recording_plan", "dark-tour-v1")
+    shots, env.view_pose = recording_plan(plan_name)
     parent = json.loads((source / "result.json").read_text())
     if parent["fingerprint"] != spec["fingerprint"] or parent["articulations"] != 70:
         raise ValueError("Replay source does not match the 35-table training contract")
@@ -245,12 +250,12 @@ def run_replay(env, source, spec):
         device=env.sim.device,
     )
     chapters, resumed = (
-        resume_prefix(env, env.args.resume_filming)
+        resume_prefix(env, env.args.resume_filming, shots, plan_name)
         if env.args.resume_filming
         else ([], None)
     )
     skip = len(chapters)
-    for i, shot in enumerate(SHOTS):
+    for i, shot in enumerate(shots):
         if i < skip:
             continue
         encoding = (source / f"clip-{shot.source_batch:02}.json").read_bytes()
@@ -307,12 +312,14 @@ def run_replay(env, source, spec):
         )
         chapters.append(chapter)
         atomic(
-            env.dest / "progress.json", dict(chapters=chapters, frames=env.next_frame)
+            env.dest / "progress.json",
+            dict(chapters=chapters, frames=env.next_frame, recording_plan=plan_name),
         )
     atomic(
         env.dest / "result.json",
         dict(
             version="sircus-dark-farm-replay-v1",
+            recording_plan=plan_name,
             source_fingerprint=parent["fingerprint"],
             source_weights_sha256=parent["final_hash"],
             stage=stage_settings(),
