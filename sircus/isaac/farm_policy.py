@@ -8,7 +8,7 @@ from farm_contract import HIGH, LOW, WARM
 
 
 class Policy(torch.nn.Module):
-    def __init__(self):
+    def __init__(self, low=LOW, high=HIGH, warm=WARM, initial_logstd=-1.2):
         super().__init__()
 
         def mlp(out):
@@ -20,13 +20,17 @@ class Policy(torch.nn.Module):
                 torch.nn.Linear(64, out),
             )
 
-        self.actor, self.critic = mlp(3), mlp(1)
-        self.logstd = torch.nn.Parameter(torch.full((3,), -1.2))
+        self.actor, self.critic = mlp(len(low)), mlp(1)
+        self.logstd = torch.nn.Parameter(
+            torch.as_tensor(initial_logstd, dtype=torch.float32)
+            .expand(len(low))
+            .clone()
+        )
         torch.nn.init.zeros_(self.actor[-1].weight)
         with torch.no_grad():
             self.actor[-1].bias.copy_(
                 torch.tensor(
-                    np.arctanh(2 * (WARM - LOW) / (HIGH - LOW) - 1), dtype=torch.float32
+                    np.arctanh(2 * (warm - low) / (high - low) - 1), dtype=torch.float32
                 )
             )
 
