@@ -1,6 +1,7 @@
 """A floor miss must be measured after the board bounce and filmed in the foreground."""
 
 import sys
+import copy
 import hashlib
 import json
 import tempfile
@@ -19,12 +20,50 @@ from dark_export import (
     render_cut,
     highlight_span,
     verify_resume,
+    validate_station_series,
+    verify,
 )
 from dark_stage import FLOOR_Z_M
 from export_cylinder_film import read
 
 
 class DarkExportTests(unittest.TestCase):
+    def test_station_export_counts_actual_visible_rebounds_with_active_background(self):
+        chapters = [
+            dict(
+                focus="r1c2",
+                start_frame=i * 252,
+                station=True,
+                visible_board_frame=i * 252 + 50,
+                background_drops_in_view=2,
+            )
+            for i in range(10)
+        ]
+        validate_station_series(chapters)
+        with self.assertRaisesRegex(ValueError, "at least 10"):
+            validate_station_series(chapters[:9])
+        for field, value in (
+            ("visible_board_frame", None),
+            ("background_drops_in_view", 1),
+            ("station", False),
+            ("focus", "r1c3"),
+            ("start_frame", 0),
+        ):
+            with self.subTest(field=field):
+                altered = copy.deepcopy(chapters)
+                altered[-1][field] = value
+                with self.assertRaises(ValueError):
+                    validate_station_series(altered)
+
+    def test_historical_export_without_plan_metadata_selects_original_camera(self):
+        # Stop before artifact loading: this tests the dispatch of old result.json.
+        with patch("dark_export.read", return_value={}), patch(
+            "dark_export.recording_plan", side_effect=RuntimeError("selected plan")
+        ) as choose:
+            with self.assertRaisesRegex(RuntimeError, "selected plan"):
+                verify(Path("run"), Path("source"))
+            choose.assert_called_once_with("dark-tour-v1")
+
     def test_resume_requires_unchanged_original_rgb_and_shot_records(self):
         with tempfile.TemporaryDirectory() as tmp:
             base = Path(tmp)

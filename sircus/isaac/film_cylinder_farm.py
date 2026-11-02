@@ -23,6 +23,12 @@ p.add_argument(
 p.add_argument(
     "--resume-filming", type=Path, help="Resume a completed prefix at a camera cut"
 )
+p.add_argument(
+    "--recording-plan",
+    choices=("fixed-station-v1", "dark-tour-v1"),
+    default="fixed-station-v1",
+    help="Camera/release plan for --dark-replay",
+)
 AppLauncher.add_app_launcher_args(p)
 args = p.parse_args()
 if not args.enable_cameras:
