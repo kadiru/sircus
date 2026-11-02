@@ -42,4 +42,8 @@ This finite command does not start a server or update an existing service. `came
 
 ## Next recording
 
-Camera choice is pending. After selection, prepare a separate one-minute silver-gray film: circle the 35-table farm, then settle into the selected front-row view for several measured drops and visible arm configuration changes. Other tables should remain active in the background. The close view stays fixed in world coordinates and never follows a ball. Current preview code has not recorded or validated this future sequence; the existing silver station videos and historical dark tour remain separate.
+View 06 was selected, with a requested revision: shift 0.30 m to camera-right and set the eye to world Z=2.0 m, retaining the original aim. Right is the original view's horizontal screen-right direction, not world X. The new world eye is (11.278317, −6.458747, 2.0) m, aimed at (7.65, −4.15, 0.18) m. Original ten-view definitions remain unchanged; the adjustment is explicit and opt-in.
+
+To render only this revision, add `--camera-option 6 --camera-right-m 0.30 --camera-z-m 2.0` to the preview command. This writes a single `camera-06.jpg` and its manifest; the ten-choice gallery generator is for the full set.
+
+After review of that revised still, prepare a separate one-minute silver-gray film: circle the 35-table farm, then settle into the selected front-row view for several measured drops and visible arm configuration changes. Other tables should remain active in the background. The close view stays fixed in world coordinates and never follows a ball. Current preview code has not recorded or validated this future sequence; the existing silver station videos and historical dark tour remain separate.

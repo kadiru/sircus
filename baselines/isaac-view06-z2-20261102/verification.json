@@ -1,0 +1,38 @@
+{
+  "version": "sircus-selected-camera-verification-v1",
+  "run": "camera06-z2-20261102-v1",
+  "selected_option": 6,
+  "adjustment": {
+    "right_m": 0.3,
+    "z_m": 2.0,
+    "right_reference": "Original camera horizontal screen-right"
+  },
+  "world_eye_m": [
+    11.278317318325142,
+    -6.458746966825239,
+    2.0
+  ],
+  "world_target_m": [
+    7.65,
+    -4.149999809265137,
+    0.18
+  ],
+  "camera_readback": "passed within 0.2 mm",
+  "image_sha256": "88aab13f5ac66e16ef903208a31e658ea971db747d9ffa9bbef507ab325288b8",
+  "mac_transfer_sha256": "matched",
+  "capture_source_sha256": "all four matched",
+  "native_resolution": [
+    1920,
+    1080
+  ],
+  "visual_review": "passed",
+  "frozen_state": true,
+  "scope": "Static native Isaac preview; no new rollout or training.",
+  "existing_gpu_lock": "Waited for existing learning run to release its lock; no workload interrupted.",
+  "local_tests": {
+    "isaac_tests": 143,
+    "skipped": 1,
+    "skip": "Torch-dependent checkpoint audit on Mac"
+  },
+  "manifest_sha256": "89f63107c293ed90d6546cb057d268612aa0854307b760a5575c5e820f7d386b"
+}
