@@ -1,0 +1,196 @@
+{
+  "status": "completed",
+  "version": "sircus-contact-fresh-confirmation-v1",
+  "contract_fingerprint": "797f8cf037461b0fef52c3e281ec135a5ea5b0021870756896f95a7a83cd0660",
+  "groups": [
+    {
+      "id": "articulated-legacy-8",
+      "board_mode": "articulated",
+      "gravity_mode": "legacy",
+      "substeps": 8,
+      "attempts": 232,
+      "captures": 176,
+      "family_results": [
+        {
+          "family": "nominal",
+          "attempts": 32,
+          "independent_requests": 16,
+          "captures": 32,
+          "clean": 32,
+          "invalid": 0,
+          "board_bounces": 32,
+          "maximum_integrated_arm_hinge_excursion_rad": 7.462501525878906e-05
+        },
+        {
+          "family": "fresh_perturbation",
+          "attempts": 200,
+          "independent_requests": 100,
+          "captures": 144,
+          "clean": 34,
+          "invalid": 0,
+          "board_bounces": 200,
+          "maximum_integrated_arm_hinge_excursion_rad": 9.489059448242188e-05
+        }
+      ],
+      "reset_order": {
+        "max_full_horizon_difference_m": 11.697354316711426,
+        "max_common_scored_prefix_difference_m": 0.3276764452457428,
+        "max_before_first_bucket_contact_difference_m": 1.1026859283447266e-05,
+        "capture_disagreements": 2,
+        "exactly_identical_trajectories": 6,
+        "queries": 116,
+        "scope": "Full4s includes postterminal motion; prebucket measures flight before either paired run first touches the bucket"
+      }
+    },
+    {
+      "id": "articulated-passive_only-32",
+      "board_mode": "articulated",
+      "gravity_mode": "passive_only",
+      "substeps": 32,
+      "attempts": 232,
+      "captures": 232,
+      "family_results": [
+        {
+          "family": "nominal",
+          "attempts": 32,
+          "independent_requests": 16,
+          "captures": 32,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 32,
+          "maximum_integrated_arm_hinge_excursion_rad": 7.3909759521484375e-06
+        },
+        {
+          "family": "fresh_perturbation",
+          "attempts": 200,
+          "independent_requests": 100,
+          "captures": 200,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 200,
+          "maximum_integrated_arm_hinge_excursion_rad": 7.867813110351562e-06
+        }
+      ],
+      "reset_order": {
+        "max_full_horizon_difference_m": 0.07625550031661987,
+        "max_common_scored_prefix_difference_m": 0.06364721059799194,
+        "max_before_first_bucket_contact_difference_m": 1.1414289474487305e-05,
+        "capture_disagreements": 0,
+        "exactly_identical_trajectories": 6,
+        "queries": 116,
+        "scope": "Full4s includes postterminal motion; prebucket measures flight before either paired run first touches the bucket"
+      }
+    },
+    {
+      "id": "articulated-passive_only-64",
+      "board_mode": "articulated",
+      "gravity_mode": "passive_only",
+      "substeps": 64,
+      "attempts": 232,
+      "captures": 232,
+      "family_results": [
+        {
+          "family": "nominal",
+          "attempts": 32,
+          "independent_requests": 16,
+          "captures": 32,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 32,
+          "maximum_integrated_arm_hinge_excursion_rad": 2.384185791015625e-06
+        },
+        {
+          "family": "fresh_perturbation",
+          "attempts": 200,
+          "independent_requests": 100,
+          "captures": 200,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 200,
+          "maximum_integrated_arm_hinge_excursion_rad": 2.384185791015625e-06
+        }
+      ],
+      "reset_order": {
+        "max_full_horizon_difference_m": 0.07026147842407227,
+        "max_common_scored_prefix_difference_m": 0.04515296220779419,
+        "max_before_first_bucket_contact_difference_m": 2.0116567611694336e-07,
+        "capture_disagreements": 0,
+        "exactly_identical_trajectories": 4,
+        "queries": 116,
+        "scope": "Full4s includes postterminal motion; prebucket measures flight before either paired run first touches the bucket"
+      }
+    }
+  ],
+  "records": 700,
+  "scope": "Simulation-only local contact confirmation; no new model training, all-table coverage, transit or hardware claim",
+  "elapsed_s": 886.0019603199326,
+  "singletons": [
+    {
+      "variant": "articulated-passive_only-32",
+      "source_plan_id": "nominal-000",
+      "capture": true,
+      "batch_comparison": {
+        "max_full_horizon_difference_m": 0.0,
+        "max_common_scored_prefix_difference_m": 0.0,
+        "max_before_first_bucket_contact_difference_m": 0.0,
+        "capture_disagreements": 0,
+        "exactly_identical_trajectories": 1,
+        "queries": 1,
+        "scope": "Full4s includes postterminal motion; prebucket measures flight before either paired run first touches the bucket"
+      }
+    },
+    {
+      "variant": "articulated-passive_only-32",
+      "source_plan_id": "fresh-000",
+      "capture": true,
+      "batch_comparison": {
+        "max_full_horizon_difference_m": 0.0,
+        "max_common_scored_prefix_difference_m": 0.0,
+        "max_before_first_bucket_contact_difference_m": 0.0,
+        "capture_disagreements": 0,
+        "exactly_identical_trajectories": 1,
+        "queries": 1,
+        "scope": "Full4s includes postterminal motion; prebucket measures flight before either paired run first touches the bucket"
+      }
+    },
+    {
+      "variant": "articulated-passive_only-64",
+      "source_plan_id": "nominal-000",
+      "capture": true,
+      "batch_comparison": {
+        "max_full_horizon_difference_m": 0.02112358808517456,
+        "max_common_scored_prefix_difference_m": 0.0027901530265808105,
+        "max_before_first_bucket_contact_difference_m": 0.0,
+        "capture_disagreements": 0,
+        "exactly_identical_trajectories": 0,
+        "queries": 1,
+        "scope": "Full4s includes postterminal motion; prebucket measures flight before either paired run first touches the bucket"
+      }
+    },
+    {
+      "variant": "articulated-passive_only-64",
+      "source_plan_id": "fresh-000",
+      "capture": true,
+      "batch_comparison": {
+        "max_full_horizon_difference_m": 0.019145965576171875,
+        "max_common_scored_prefix_difference_m": 0.002758026123046875,
+        "max_before_first_bucket_contact_difference_m": 0.0,
+        "capture_disagreements": 0,
+        "exactly_identical_trajectories": 0,
+        "queries": 1,
+        "scope": "Full4s includes postterminal motion; prebucket measures flight before either paired run first touches the bucket"
+      }
+    }
+  ],
+  "timestep_comparisons": [
+    {
+      "first": "articulated-passive_only-32",
+      "second": "articulated-passive_only-64",
+      "ballistic_velocity_difference_at_350ms_max_m_s": 0.04667281359434128,
+      "ballistic_velocity_difference_at_350ms_mean_m_s": 0.02567039616405964,
+      "ballistic_position_difference_at_350ms_max_m": 0.004872916266322136
+    }
+  ],
+  "source_id": "stable-shot-0004711",
+  "source_report_sha256": "208a4c0655ce4ccc4fdef8a950b5271916f287e30278c18da147d2fcb128bfc6"
+}

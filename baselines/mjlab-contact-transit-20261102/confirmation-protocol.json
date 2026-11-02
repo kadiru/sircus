@@ -1,0 +1,140 @@
+{
+  "version": "sircus-contact-fresh-confirmation-v1",
+  "source_id": "stable-shot-0004711",
+  "scene": {
+    "scene_id": "sircus-isaac-foundation-v1",
+    "units": "metres, radians, kilograms, seconds",
+    "physics_contract": "sircus-isaac-physx-rigid-mount-v1",
+    "historical_scene": "sircus-two-arm-tapered-bucket-landscape-v1",
+    "arms": {
+      "model": "UFACTORY UF850",
+      "base_spacing_m": 1.33731,
+      "board_base_yaw_rad": 3.141592653589793,
+      "spacing_provenance": "User measured 52.65 inches; base-to-base interpretation assumed"
+    },
+    "board": {
+      "size_m": [
+        0.2,
+        0.3,
+        0.005
+      ],
+      "mass_kg": 0.4,
+      "tool_offset_m": 0.1,
+      "mount_yaw_rad": 1.5707963267948966,
+      "initial_center_m": [
+        0.67,
+        -0.1,
+        0.4
+      ],
+      "initial_tilt_deg": 25,
+      "size_status": "measured; landscape mount",
+      "mount_status": "provisional rigid fixed joint; compliance is NOT calibrated or modeled yet",
+      "mass_status": "provisional"
+    },
+    "bucket": {
+      "inner_top_diameter_m": 0.177,
+      "outer_top_diameter_m": 0.2,
+      "inner_bottom_diameter_m": 0.15,
+      "outer_bottom_diameter_m": 0.158,
+      "reported_height_m": 0.175,
+      "height_interpretation": "unresolved: overall height or interior depth",
+      "assumed_interior_depth_m": 0.175,
+      "assumed_bottom_thickness_m": 0.008,
+      "center_xy_m": [
+        0.67,
+        -0.42
+      ],
+      "placement_status": "provisional; operator/negative-Y side",
+      "taper": "straight-sided",
+      "segments": 64
+    },
+    "ball": {
+      "radius_m": 0.0375,
+      "mass_kg": 0.2,
+      "restitution": 0.65,
+      "friction": 0.2,
+      "status": "provisional; no physical calibration"
+    },
+    "dropper": {
+      "flange_target_m": [
+        0.67,
+        -0.1,
+        0.72
+      ],
+      "tool_status": "geometric two-finger proxy; not a calibrated gripper model"
+    },
+    "table": {
+      "size_m": [
+        1.8,
+        1.25,
+        0.05
+      ],
+      "center_m": [
+        0.67,
+        -0.25,
+        -0.025
+      ],
+      "status": "provisional enlarged support; tabletop Z=0"
+    },
+    "camera": {
+      "position_m": [
+        1.7,
+        -1.9,
+        1.65
+      ],
+      "look_at_m": [
+        0.65,
+        -0.15,
+        0.35
+      ],
+      "width": 640,
+      "height": 480,
+      "focal_length_mm": 20,
+      "horizontal_aperture_mm": 24,
+      "near_m": 0.05,
+      "far_m": 5.0,
+      "status": "synthetic ideal fixed RGB-D; not wrist-camera calibration"
+    },
+    "simulation": {
+      "physics_dt_s": 0.004166666666666667,
+      "render_every_steps": 8,
+      "seed": 42,
+      "contact_properties_status": "uncalibrated; separate from historical numerical models"
+    }
+  },
+  "seed": 20261125,
+  "noise_std": [
+    0.001,
+    0.001,
+    0.002,
+    0.35,
+    0.002
+  ],
+  "variants": [
+    {
+      "id": "articulated-legacy-8",
+      "board_mode": "articulated",
+      "gravity_mode": "legacy",
+      "substeps": 8
+    },
+    {
+      "id": "articulated-passive_only-32",
+      "board_mode": "articulated",
+      "gravity_mode": "passive_only",
+      "substeps": 32
+    },
+    {
+      "id": "articulated-passive_only-64",
+      "board_mode": "articulated",
+      "gravity_mode": "passive_only",
+      "substeps": 64
+    }
+  ],
+  "reset_repeats": 2,
+  "prior_records_sha256": "87936b659b639970595416a9ae8446b24257618c690167de8a90f6853dde7c32",
+  "selection": "Nominal configuration unchanged from historical source; all fresh inputs fixed before native outcomes. Same audited branches per protocol. One reset and its reversed-slot rerun; repetitions are paired, not200 independent jitters.",
+  "scope": "Simulation-only local contact confirmation; no new model training, all-table coverage, transit or hardware claim",
+  "artifact_kind": "Curated protocol excerpt; fingerprint belongs to complete archived source contract",
+  "original_contract_fingerprint": "797f8cf037461b0fef52c3e281ec135a5ea5b0021870756896f95a7a83cd0660",
+  "source_contract_file_sha256": "704b24be98b28be6f4c09c12238038709e7c5d695c955774007f4dd9396f47ab"
+}

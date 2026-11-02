@@ -1,0 +1,196 @@
+{
+  "reward": 14.791731377563263,
+  "success": true,
+  "board_bounce": true,
+  "whole_ball_entry": true,
+  "max_retention_s": 0.9999999999999977,
+  "closest_opening_distance_m": 0.01319577337881926,
+  "quality_score": 2,
+  "bucket_contact_before_entry": false,
+  "rim_band_contact": false,
+  "exited_after_entry": false,
+  "peak_bucket_force_before_entry_N": 0.0,
+  "minimum_mouth_clearance_mm": 37.56854675525165,
+  "route_success": true,
+  "route_quality": 2,
+  "single_bounce_success": true,
+  "board_contact_episodes": 1,
+  "external_contact_steps": 0,
+  "complete_success": true,
+  "physics_steps": 560,
+  "entry_class": "clean_capture",
+  "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+  "scoring_version": "sircus-isaac-fixed-shot-v5",
+  "route_version": "sircus-board-route-v1",
+  "contact_peaks_N": {
+    "board": 556.320068359375,
+    "bucket": 628.0208129882812,
+    "table": 0.0,
+    "floor": 0.0,
+    "robot": 0.0,
+    "unattributed": 0.0
+  },
+  "invalid": null,
+  "bucket_xy_m": [
+    0.16275255472120964,
+    -0.6365356466995716
+  ],
+  "values": [
+    0.4708757793012148,
+    -0.2778934014509746,
+    0.3973878458850598,
+    36.154791124080255,
+    0.3032930420811218
+  ],
+  "board_center_m": [
+    0.47087565064430237,
+    -0.27789342403411865,
+    0.3973878026008606
+  ],
+  "board_normal": [
+    -0.38446104526519775,
+    -0.4474961757659912,
+    0.8074260950088501
+  ],
+  "release_ball_center_m": [
+    0.4708757793012148,
+    -0.2778934014509746,
+    0.7381808879661815
+  ],
+  "q10": [
+    -0.5331623871001915,
+    -0.3654069384197669,
+    -2.043918815981244,
+    2.41236036898437e-06,
+    -1.6785118645912955,
+    -0.5331631332906016
+  ],
+  "q14": [
+    3.380062669046468,
+    1.5039574753021427,
+    -3.1992193103493975,
+    -0.4047718442151326,
+    -1.0624829296587495,
+    2.301608077910527
+  ],
+  "pose_gate": {
+    "board_position_error_mm": 0.00013760858048067563,
+    "board_normal_error_deg": 0.0,
+    "dropper_error_mm": 6.993171514669174e-05
+  },
+  "endpoint_collision_pairs": [],
+  "max_board_drift_mm": 0.0,
+  "bucket_collider_error_m": 0.0,
+  "board_quaternion_wxyz": [
+    -0.8638951778411865,
+    -0.12949956953525543,
+    0.2819872796535492,
+    -0.396734356880188
+  ],
+  "link_positions10": [
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      0.0,
+      0.0,
+      0.36399999260902405
+    ],
+    [
+      0.0,
+      0.0,
+      0.36399999260902405
+    ],
+    [
+      0.12001518905162811,
+      -0.0708291083574295,
+      0.728252112865448
+    ],
+    [
+      0.47087597846984863,
+      -0.27789315581321716,
+      0.923180878162384
+    ],
+    [
+      0.47087597846984863,
+      -0.27789315581321716,
+      0.923180878162384
+    ],
+    [
+      0.4708758294582367,
+      -0.27789342403411865,
+      0.833180844783783
+    ]
+  ],
+  "link_positions14": [
+    [
+      1.33731,
+      0,
+      0
+    ],
+    [
+      1.3373099565505981,
+      0.0,
+      0.36399999260902405
+    ],
+    [
+      1.3373099565505981,
+      0.0,
+      0.36399999260902405
+    ],
+    [
+      0.9591931700706482,
+      -0.09192004054784775,
+      0.39004626870155334
+    ],
+    [
+      0.5439231991767883,
+      -0.19286882877349854,
+      0.24397693574428558
+    ],
+    [
+      0.5439231991767883,
+      -0.19286882877349854,
+      0.24397693574428558
+    ],
+    [
+      0.5093217492103577,
+      -0.23314379155635834,
+      0.31664517521858215
+    ]
+  ],
+  "native_release": true,
+  "first_contact_s": {
+    "board": 0.24583333333333332,
+    "bucket": 0.55,
+    "table": null,
+    "floor": null,
+    "robot": null,
+    "unattributed": null
+  },
+  "first_external_contact_s": null,
+  "airborne_closest_opening_distance_m": 0.01319577337881926,
+  "bucket_contact_before_external": true,
+  "timing_scope": "Observed force maxima and ballXYZ at240Hz, clipped to original scorer terminal; acquisition diagnostics only",
+  "id": "stable-shot-0004711",
+  "phase": "search",
+  "bound_phase": "wide",
+  "target_id": "old-test-21",
+  "source_phase": "targeted_development",
+  "geometry_cache_file": "endpoint-batch-0053.npz",
+  "geometry_cache_row": 86,
+  "geometry_eligible": true,
+  "branch10": 0,
+  "branch14": 0,
+  "known_hint_used": true,
+  "known_pair_preserved": false,
+  "known_request_match": false,
+  "preserved_exact_nominal": false,
+  "refined_continuation": true,
+  "seed_source_id": "stable-shot-0002656",
+  "seed_source_record_sha256": "bcbb6fd480ee6b29f9de1bb77d7d41a7db3b78e82a12a52e8ed0abb5fccafd13",
+  "proposal_family": "known-branch-continuation",
+  "round_index": 4
+}

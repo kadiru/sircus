@@ -8,6 +8,8 @@ The current goal is a simulation showcase with an interactively placed bucket an
 
 ## Start here
 
+- **Contact repeatability:** [gravity/time-step diagnosis, 1,708 throws, exact settings and collision-aware transit](baselines/mjlab-contact-transit-20261102/README.md).100 fresh perturbed requests capture at corrected 32/64 substeps; all are rim-assisted. Numerical diagnostics and geometric paths stay separate from learned-policy performance.
+
 - **mjlab interactive shot study:** [bounded learning protocol](sircus/mjlab/LEARNING.md) and [drag-bucket/position-lock interface](sircus/mjlab/web/README.md). Frozen policy inference and native per-scene search are separate modes; the interface stays gated until the study and evaluation complete. Simulator-only endpoint configurations, without physical control or perception.
 
 - [Compact dark-floor farm film](sircus/isaac/DARK_FARM_FILM.md) — one-minute native Isaac recording, driven arm transitions, four configurations at one front table, trimmed impacts and a 10× station cut. [Verified replay results](baselines/isaac-dark-farm-20261102/README.md).

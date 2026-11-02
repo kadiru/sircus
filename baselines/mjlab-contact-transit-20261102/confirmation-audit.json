@@ -1,0 +1,2109 @@
+{
+  "version": "sircus-contact-confirmation-evidence-audit-v1",
+  "status": "passed",
+  "checks_count": 414,
+  "checks": [
+    {
+      "name": "contract_fingerprint",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "completed_version",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unchanged_original_nominal_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "new_seed_and_same_noise",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "nominal_and_fresh_partition",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unchanged_nominal_requests_and_joints",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "independently_regenerated_100_requests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "fresh_requests_disjoint_from_diagnostic",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "all_endpoint_rejects_retained_and_zero",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "matched_legacy_and_corrected_timestep_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "all_696_paired_outcomes_present_once",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "four_separate_singleton_diagnostics",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "exact_700_total_denominator",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "same_requests_and_joint_branches_every_protocol",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "release_and_scalar_parity_every_record",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "three_unique_reported_groups",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-legacy-8_group_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-legacy-8_nominal_statistics",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-legacy-8_fresh_perturbation_statistics",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-32_group_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-32_nominal_statistics",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-32_fresh_perturbation_statistics",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-64_group_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-64_nominal_statistics",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-64_fresh_perturbation_statistics",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "singleton_report_outcomes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "prior_records_hash",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "standalone_plan_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "explicit_4090_frozen_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/two-arm/scene.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/expanded_env.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/compare.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/verify_stable.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/gravity_audit.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/gpu_slot.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/prepare_stable_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/model.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/EXPANSION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/contact_confirm.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/learning_solve.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/bank_policy.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/expand_bank.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/IK_STABILITY.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/verify_expansion.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/expanded_study.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/expand_far.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/expand_geometry.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/verify_expanded.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/requirements.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/verify_far.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/transit_audit.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/learning_env.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/bank_solve.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/prepare_interface.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/learning_reach.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/stable_study.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/isaac_pair.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/REPEAT_DIAGNOSTIC.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/learning_policy.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/README.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/interface.env.example",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/interface.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/stable_geometry.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/prepare_expanded_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/prepare_contact_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/repeat_diagnostic.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/verify_bank.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/stable_ik.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/learning_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/expand_refine.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/learning_search.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/learning_interface.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/render_replay.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/expanded_actions.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/learning_study.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/learning_score.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/contact_model.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/UNRESOLVED_DIAGNOSIS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/contact_env.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/bank_geometry.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/verify_learning.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/verify_combined.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/run.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/bank_study.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/contact_study.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/verify_refinement.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/learning_ik.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/LEARNING.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/calibrate.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/combine_expansions.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/web/style.css",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/web/index.html",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/web/contact.mjs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/web/README.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/web/state.mjs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/web/app.js",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_stable_ui.mjs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_gpu_slot.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_far_mock.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_interface.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_contact_study.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_learning_adapter.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_verify_far.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_expand_geometry.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_expanded_ui.mjs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_expand_refine.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_transit_audit.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_contact_confirm.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_expand_far.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_learning_score.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_combine_expansions.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_bank_geometry.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_verify_expansion.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_expand_bank.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_stable_ik.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_gravity_audit.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_learning_ik.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_prepare_expanded_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_learning_search.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_stable_study.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_repeat_diagnostic.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_contact_ui.mjs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_verify_bank.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_prepare_contact_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_bank_study.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_verify_refinement.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_verify_stable.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_learning_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_bank_policy.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_model.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_verify_expanded.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_learning_reach.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_prepare_stable_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_expanded_study.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_expanded_actions.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_verify_learning.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/tests/test_interface_ui.mjs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/overhead_replay.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/generalized_rl.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/launch_scene.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/PLANE_SWEEP.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/STATUS.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/validation_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/plane_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/dark_export.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/farm_policy.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/BALANCED_PILOT.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/catalogue_confirmation.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/OVERHEAD_REPLAY.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/distance_catalogue_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/distance_catalogue_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/perception_estimator.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/feasibility_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/export_cylinder_film.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/distance_sweep.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/settled_shot.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/board_route.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/geometry.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/cylinder_farm.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/bucket_grid_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/learning_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/CYLINDER_FILM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/distance_catalogue.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/perception_worker.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/balanced_pilot.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/bucket_grid_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/perception.sh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/build_assets.sh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/ik_diagnostics.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/parallel_panel.js",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/distance_catalogue_panel.js",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/constraints.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/dark_replay.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/pilot_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/study_job.sh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/parallel_world.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/catalogue_panel.js",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/SHOT_CATALOGUE.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/plane_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/fixed_rl.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/farm_video.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/FEASIBILITY_MAP.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/BUCKET_GRID.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/prepare_assets.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/scene.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/film_cylinder_farm.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/bootstrap.sh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/NATIVE_VIEWPORT.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/feasibility.html",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/LEARNING_STUDY.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/diagnostic_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/README.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/feasibility_runtime.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/PERCEPTION_VALIDATION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/preview.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/IK_DISTANCE_AUDIT.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/DISTANCE_CATALOGUE.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/record_native_viewport.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/DARK_FARM_FILM.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/bucket_grid_panel.js",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/dropper_diagnostics.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/catalogue_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/plane_panel.js",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/farm_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/dark_stage.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/robust_ik.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/parallel_world.html",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/PERCEPTION.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/pilot_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/plane_sweep.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/bucket_grid.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/learning_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/feasibility_panel.js",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/dark_flight.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/perception_stream.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/validation_study.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/catalogue_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/overhead_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/entry_quality.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/native_viewport.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/parallel_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/PARALLEL_WORLD.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/farm_checkpoint_audit.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/feasibility_map.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/python.sh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/run.sh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/rl_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/farm_flight.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/validation_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/feasibility_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/RL_FIXED_SCENE.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/distance_route_audit.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/FARM_PPO.md",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/parallel_assets.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/parallel_video.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/inspect_capture.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/farm_training.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/perception_evaluate.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/parallel_runtime.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/overhead_video.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/parallel_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/settling_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/shot_catalogue.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/farm_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_geometry.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_pilot_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_dark_flight.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_bucket_grid_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_preview_diagnostic.mjs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_overhead_replay.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_catalogue_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_learning_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_catalogue_panel.mjs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_ik_diagnostics.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_parallel_preview.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_parallel_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_parallel_panel.mjs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_plane_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_entry_quality.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_bucket_grid_panel.mjs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_distance_catalogue.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_plane_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_pilot_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_feasibility_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_validation.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_dark_export.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_cylinder_farm.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_feasibility_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_plane_panel.mjs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_bucket_grid.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_learning_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_perception.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_diagnostic_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_release_gate.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_distance_route_audit.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_parallel_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_distance_catalogue_panel.mjs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_distance_catalogue_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_rl_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_parallel_video.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_feasibility_panel.mjs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_farm_training.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/tests/test_dark_stage.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:expanded_env.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:compare.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:verify_stable.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:gravity_audit.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:gpu_slot.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:prepare_stable_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:model.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:contact_confirm.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:learning_solve.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:bank_policy.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:expand_bank.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:verify_expansion.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:expanded_study.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:expand_far.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:expand_geometry.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:verify_expanded.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:verify_far.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:transit_audit.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:learning_env.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:bank_solve.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:prepare_interface.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:learning_reach.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:stable_study.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:isaac_pair.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:learning_policy.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:interface.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:stable_geometry.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:prepare_expanded_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:prepare_contact_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:repeat_diagnostic.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:verify_bank.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:stable_ik.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:learning_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:expand_refine.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:learning_search.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:learning_interface.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:render_replay.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:expanded_actions.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:learning_study.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:learning_score.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:contact_model.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:contact_env.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:bank_geometry.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:verify_learning.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:verify_combined.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:run.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:bank_study.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:contact_study.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:verify_refinement.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:learning_ik.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:calibrate.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_executed_module:combine_expansions.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "parent_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unchanged_shared_source:sircus/isaac/geometry.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unchanged_shared_source:sircus/isaac/rl_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unchanged_shared_source:sircus/isaac/entry_quality.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unchanged_shared_source:sircus/isaac/board_route.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unchanged_asset:assets/board_arm.urdf",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unchanged_asset:assets/dropper.urdf",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unchanged_asset:assets/poses.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unchanged_asset:vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link1.stl",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unchanged_asset:vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link2.stl",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unchanged_asset:vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link3.stl",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unchanged_asset:vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link4.stl",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unchanged_asset:vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link5.stl",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unchanged_asset:vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link6.stl",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unchanged_asset:vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link_base.stl",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unchanged_asset:vendor/xarm_ros2/xarm_description/meshes/uf850/visual/link1.stl",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unchanged_asset:vendor/xarm_ros2/xarm_description/meshes/uf850/visual/link2.stl",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unchanged_asset:vendor/xarm_ros2/xarm_description/meshes/uf850/visual/link3.stl",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unchanged_asset:vendor/xarm_ros2/xarm_description/meshes/uf850/visual/link4.stl",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unchanged_asset:vendor/xarm_ros2/xarm_description/meshes/uf850/visual/link5.stl",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unchanged_asset:vendor/xarm_ros2/xarm_description/meshes/uf850/visual/link6.stl",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unchanged_asset:vendor/xarm_ros2/xarm_description/meshes/uf850/visual/link_base.stl",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unchanged_provisional_scene",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "independent_original_full_pose_tolerance",
+      "passed": true,
+      "detail": {
+        "maxima": {
+          "position_m": 9.236487811011236e-09,
+          "weighted_pose_residual": 9.435520688037827e-09,
+          "collider_error_m": 0.0
+        },
+        "failures": []
+      }
+    },
+    {
+      "name": "independent_native_endpoint_contacts",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "independent_bucket_collision_transforms",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "articulated-legacy-8-0_native_query_arrays",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-legacy-8-0_saved_array_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-legacy-8-0_nonnegative_attributed_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-legacy-8-0_independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "articulated-legacy-8-0_350ms_velocity_rows",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-legacy-8-1_native_query_arrays",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-legacy-8-1_saved_array_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-legacy-8-1_nonnegative_attributed_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-legacy-8-1_independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "articulated-legacy-8-1_350ms_velocity_rows",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-legacy-8_reset_metrics",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-32-0_native_query_arrays",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-32-0_saved_array_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-32-0_nonnegative_attributed_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-32-0_independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "articulated-passive_only-32-0_350ms_velocity_rows",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-32-1_native_query_arrays",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-32-1_saved_array_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-32-1_nonnegative_attributed_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-32-1_independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "articulated-passive_only-32-1_350ms_velocity_rows",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-32_reset_metrics",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-64-0_native_query_arrays",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-64-0_saved_array_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-64-0_nonnegative_attributed_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-64-0_independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "articulated-passive_only-64-0_350ms_velocity_rows",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-64-1_native_query_arrays",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-64-1_saved_array_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-64-1_nonnegative_attributed_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-64-1_independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "articulated-passive_only-64-1_350ms_velocity_rows",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-64_reset_metrics",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-32-nominal-000_saved_array_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-32-nominal-000_nonnegative_attributed_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-32-nominal-000_independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "articulated-passive_only-32-singleton-nominal-000_comparison",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-32-fresh-000_saved_array_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-32-fresh-000_nonnegative_attributed_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-32-fresh-000_independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "articulated-passive_only-32-singleton-fresh-000_comparison",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-64-nominal-000_saved_array_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-64-nominal-000_nonnegative_attributed_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-64-nominal-000_independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "articulated-passive_only-64-singleton-nominal-000_comparison",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-64-fresh-000_saved_array_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-64-fresh-000_nonnegative_attributed_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "articulated-passive_only-64-fresh-000_independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "articulated-passive_only-64-singleton-fresh-000_comparison",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "timestep_ballistic_comparison",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "failures": [],
+  "independently_rescored_throws": 700,
+  "contract_fingerprint": "797f8cf037461b0fef52c3e281ec135a5ea5b0021870756896f95a7a83cd0660",
+  "evidence_sha256": {
+    "articulated-passive_only-32-reset-1.npz": "8dfe9126058c6f3b5f2372b5a0e46f34f0c8f16b20a857dae9b385c180a9352b",
+    "articulated-passive_only-64-reset-0.npz": "42dbe5aabf858d0b8ec9a8b3431a6a386b573b2d024414b7df877b0f175267c7",
+    "report.json": "208a4c0655ce4ccc4fdef8a950b5271916f287e30278c18da147d2fcb128bfc6",
+    "articulated-passive_only-32-reset-0.npz": "597e2b1643982b2a125174e9c84a31b9713dda2d29eefcb41da17d65017683d8",
+    "articulated-passive_only-32-singleton-fresh-000.npz": "e507e7a676687855defc88ad76e50d75858c8a6c08915c0742b999c864126f84",
+    "articulated-passive_only-32-singleton-nominal-000.npz": "7611a70b9296a10dcfa25c8084e00e2c9507a5ad1625715a7dbffa19c4c63536",
+    "articulated-passive_only-64-singleton-fresh-000.npz": "b0566c8d6bb1c77a60c932c845e99a548e1ce7f90fc9eb83aefdf8855f1599db",
+    "articulated-passive_only-64-reset-1.npz": "6b935851d115e7876fcc05e536abcf66bada8694215a5ae8b7418c006380acbc",
+    "execution-provenance.json": "10ff89803c05585ecd21254c24e4b178d4bb475d6449624f5056424bc9c797e0",
+    "articulated-passive_only-64-singleton-nominal-000.npz": "a8b3f0ac0058ceb520b5130c2cbdde6df78825ee4ee1f0b431161aa925388c57",
+    "contract.json": "704b24be98b28be6f4c09c12238038709e7c5d695c955774007f4dd9396f47ab",
+    "plan.json": "78b9edaa2502523ba52f1881e06ce102d1ab9db0f3ee0eac0d2836f1b2650e38",
+    "articulated-legacy-8-reset-1.npz": "fd5dab79732947558475d51512417f9c7d69ef79699deab0a6ad4a3e9b759afd",
+    "articulated-legacy-8-reset-0.npz": "40c5d01a6b201c26c1743d06b7002fc44d199412740e0d0811cda03b3de402dc",
+    "results.jsonl": "6578f96ea4f146792b814c29cabdd0a9b8b715735698d67950e0dd49a37f1218"
+  },
+  "limitations": [
+    "CPU rescoring and static FK verify saved evidence, not a new native dynamics execution.",
+    "There are 100 independent jitter requests per protocol, replayed twice; these are not 200 independent scenes.",
+    "Only the frozen nominal configuration and small local perturbations are covered; no all-table or training claim."
+  ]
+}
