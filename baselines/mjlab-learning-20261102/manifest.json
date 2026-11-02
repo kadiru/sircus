@@ -1,0 +1,16 @@
+{
+  "README.md": "76fdb0c30b3e690c5de96e10d28be51af243bb3e6831c0976ba5ce09ec69f478",
+  "bank-audit.json": "428141df6898b1c02605018b3264b2cffb8930ab837c1bd8b12f37f1e099946c",
+  "bank-contract.json": "fa8e458b66cda91ee9dde61ac7fc205b1f300f84764673de483099d2e7569cea",
+  "bank-first-repeat.json": "025259ea80a7c73437b49d4b4255568ecbd9ea975b0e9504316c62e3acd4b485",
+  "bank-selected.pt": "692ab5516de1bb79f42a70dc049c78e250f1ac0782ad5a23e50f66a2d2afcc50",
+  "bank-summary.json": "dbf1cac053a0840cb8a336aa53d9ded372e332086936d5d9c2265b0aaa2639ad",
+  "continuous-artifact-provenance.json": "ca12226c339186860496cdf9649abd6c229d0b97382e3c97cfca000858e0d662",
+  "continuous-audit.json": "f7184c1fa96f4acecd84c6e3502ded01d5db1dc738222341b62f1a203dc281ab",
+  "continuous-catalogue.json": "b86d4fa10c7869965d205a6a61c586161406c26ce7fc9e7389c305878cd5295e",
+  "continuous-contract.json": "e9956bec005deb7decd4054e05de2f545a4db0132b2860bd3ea70850a1416e20",
+  "continuous-selected.pt": "2d5b3a3f864c62337186617d5e33fed673813909c14a1d325a4f527c26118ddd",
+  "continuous-summary.json": "d8c2e2899d52b8a7cbc55f7fdaec16ba019087e6cc50e7f5d6144623583016af",
+  "proposal-bank.json": "ef6b2be54a22e71392f0b55fbb6f35b51c0f9724146069bbf782907df6b6d4c2",
+  "ui-verification.json": "d93ebbeb650c236fefbb374ad8b03a4d7b6145168d9e5c5503288c350b3f9f1c"
+}

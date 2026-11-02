@@ -1,0 +1,299 @@
+{
+  "version": "sircus-relative-search-bank-v1",
+  "contract_fingerprint": "bb3fd22b9cfb153be000914da6ab7d765afcd14525301101cad379517efb9fda",
+  "training_catalogue_sha256": "b86d4fa10c7869965d205a6a61c586161406c26ce7fc9e7389c305878cd5295e",
+  "rotation_step_deg": 22.5,
+  "source_scope": "Frozen TRAIN exploration teachers; never a policy or query success label",
+  "qualification": "3/3 confirmed teachers only",
+  "templates": [
+    {
+      "source_trial_id": "shot-0000030",
+      "source_cell_id": "train-30",
+      "relative_board_xy_m": [
+        0.11167909472954851,
+        -0.31471325242253667
+      ],
+      "height_m": 0.26809875019708507,
+      "tilt_deg": 31.519844899807353,
+      "gap_m": 0.26155952009868144,
+      "source_route_quality": 2,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "shot-0000044",
+      "source_cell_id": "train-09",
+      "relative_board_xy_m": [
+        0.0831278041984389,
+        0.43277303546897866
+      ],
+      "height_m": 0.3058979909750582,
+      "tilt_deg": 22.285182534392025,
+      "gap_m": 0.3505774319473297,
+      "source_route_quality": 2,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "shot-0000303",
+      "source_cell_id": "train-23",
+      "relative_board_xy_m": [
+        0.16979219958719238,
+        -0.010253392939439887
+      ],
+      "height_m": 0.2741482940207319,
+      "tilt_deg": 27.534005060312847,
+      "gap_m": 0.0963651221865184,
+      "source_route_quality": 2,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "shot-0000780",
+      "source_cell_id": "train-10",
+      "relative_board_xy_m": [
+        0.04078886761454559,
+        0.2395029140064398
+      ],
+      "height_m": 0.2566869137423825,
+      "tilt_deg": 37.21897657594422,
+      "gap_m": 0.19484428737039663,
+      "source_route_quality": 2,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "shot-0001842",
+      "source_cell_id": "train-22",
+      "relative_board_xy_m": [
+        0.24276482857571463,
+        -0.16042323524710453
+      ],
+      "height_m": 0.261309804291553,
+      "tilt_deg": 39.96447587371121,
+      "gap_m": 0.26666980166964344,
+      "source_route_quality": 2,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "shot-0001849",
+      "source_cell_id": "train-29",
+      "relative_board_xy_m": [
+        0.23108279221163902,
+        -0.11219361676680106
+      ],
+      "height_m": 0.37955684738192197,
+      "tilt_deg": 41.28168398674323,
+      "gap_m": 0.11098990548313224,
+      "source_route_quality": 2,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "shot-0002290",
+      "source_cell_id": "train-15",
+      "relative_board_xy_m": [
+        0.3289274631341789,
+        0.2815011397910116
+      ],
+      "height_m": 0.3401140388694352,
+      "tilt_deg": 32.12817684891195,
+      "gap_m": 0.3115504318858502,
+      "source_route_quality": 2,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "shot-0002711",
+      "source_cell_id": "train-16",
+      "relative_board_xy_m": [
+        0.13701880401963917,
+        0.21755878763489284
+      ],
+      "height_m": 0.2463873495011888,
+      "tilt_deg": 31.29173377992751,
+      "gap_m": 0.19464084508438875,
+      "source_route_quality": 2,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "shot-0002929",
+      "source_cell_id": "train-24",
+      "relative_board_xy_m": [
+        0.05312419299663895,
+        -0.22266327385941614
+      ],
+      "height_m": 0.2523901061359576,
+      "tilt_deg": 34.43164861925402,
+      "gap_m": 0.18282897250748514,
+      "source_route_quality": 2,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "shot-0003671",
+      "source_cell_id": "train-31",
+      "relative_board_xy_m": [
+        0.003753461101223765,
+        -0.3492380188300199
+      ],
+      "height_m": 0.3167716465238942,
+      "tilt_deg": 24.73744380049194,
+      "gap_m": 0.25639362413121797,
+      "source_route_quality": 2,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "shot-0003972",
+      "source_cell_id": "train-17",
+      "relative_board_xy_m": [
+        -0.05289369335027283,
+        0.28803550635147973
+      ],
+      "height_m": 0.2638258903567998,
+      "tilt_deg": 21.22343755955649,
+      "gap_m": 0.18931971195681155,
+      "source_route_quality": 2,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "shot-0001629",
+      "source_cell_id": "train-19",
+      "relative_board_xy_m": [
+        -0.42387420670158793,
+        0.10398185073547025
+      ],
+      "height_m": 0.3487120764804143,
+      "tilt_deg": 21.71220358585077,
+      "gap_m": 0.2754840852618723,
+      "source_route_quality": 1,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "shot-0001793",
+      "source_cell_id": "train-08",
+      "relative_board_xy_m": [
+        0.2251196580914589,
+        0.24704904697493218
+      ],
+      "height_m": 0.42952109265211785,
+      "tilt_deg": 39.40105623280489,
+      "gap_m": 0.18734401135074727,
+      "source_route_quality": 1,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "shot-0003238",
+      "source_cell_id": "train-18",
+      "relative_board_xy_m": [
+        -0.23257301889771953,
+        0.18918511166838267
+      ],
+      "height_m": 0.40906503211023215,
+      "tilt_deg": 32.749881784770345,
+      "gap_m": 0.1353410311538266,
+      "source_route_quality": 1,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "shot-0003497",
+      "source_cell_id": "train-32",
+      "relative_board_xy_m": [
+        -0.24724791324068107,
+        -0.25533452273109564
+      ],
+      "height_m": 0.35015219012408155,
+      "tilt_deg": 24.7423382315244,
+      "gap_m": 0.17319174463262654,
+      "source_route_quality": 1,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    },
+    {
+      "source_trial_id": "shot-0003735",
+      "source_cell_id": "train-25",
+      "relative_board_xy_m": [
+        -0.2186261691839455,
+        -0.15340133992100838
+      ],
+      "height_m": 0.33102094984211694,
+      "tilt_deg": 21.937971137003245,
+      "gap_m": 0.1571040569516942,
+      "source_route_quality": 1,
+      "confirmation": {
+        "attempts": 3,
+        "captures": 3,
+        "invalid": 0
+      },
+      "qualification": "train_confirmation_3_of_3"
+    }
+  ],
+  "sha256": "34e4833b43e0003a95022274632492d7405f3c2f8afe06a2c8aa7d1a4df5394c"
+}

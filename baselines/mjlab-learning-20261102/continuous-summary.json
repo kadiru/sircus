@@ -1,0 +1,2669 @@
+{
+  "status": "completed",
+  "phase": "completed",
+  "seed": 20261103,
+  "contract_fingerprint": "bb3fd22b9cfb153be000914da6ab7d765afcd14525301101cad379517efb9fda",
+  "scope": "Simulated privileged-geometry endpoint configuration learning. Arm endpoints initialized/held; no grasp or transit policy, no perception, no physical validation.",
+  "train_episodes": 8507,
+  "updates": 32,
+  "learning_curve": [
+    {
+      "update": 1,
+      "attempts": 128,
+      "captures": 34,
+      "clean": 8,
+      "invalid": 45,
+      "board_bounces": 83,
+      "mean_reward": 0.7557763369755149,
+      "timing": {
+        "seconds": 12.413297867984511,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "ef56a99eeb32f9752bd9aebc8bc7fe3cf5cba9c8a06f7dafee02acda9c068900",
+        "after": "f106e17fe5398be63811fca30907e6174ec3eb98b9b0aa468b48794198511ce2",
+        "epochs": [
+          {
+            "loss": 2.6395139694213867,
+            "actor_loss": 3.725290298461914e-09,
+            "critic_loss": 5.278217315673828,
+            "gradient_norm": 8.060264587402344
+          },
+          {
+            "loss": 2.5709054470062256,
+            "actor_loss": -0.02975195273756981,
+            "critic_loss": 5.200502395629883,
+            "gradient_norm": 5.586295127868652
+          },
+          {
+            "loss": 2.5142743587493896,
+            "actor_loss": -0.04889827221632004,
+            "critic_loss": 5.125530242919922,
+            "gradient_norm": 4.20736837387085
+          },
+          {
+            "loss": 2.468249797821045,
+            "actor_loss": -0.05865518003702164,
+            "critic_loss": 5.052992820739746,
+            "gradient_norm": 4.391532897949219
+          },
+          {
+            "loss": 2.4245245456695557,
+            "actor_loss": -0.06700185686349869,
+            "critic_loss": 4.982233047485352,
+            "gradient_norm": 3.989121913909912
+          },
+          {
+            "loss": 2.3889219760894775,
+            "actor_loss": -0.0681292787194252,
+            "critic_loss": 4.913280010223389,
+            "gradient_norm": 4.086604595184326
+          }
+        ]
+      }
+    },
+    {
+      "update": 2,
+      "attempts": 128,
+      "captures": 31,
+      "clean": 12,
+      "invalid": 49,
+      "board_bounces": 79,
+      "mean_reward": 0.663585861393521,
+      "timing": {
+        "seconds": 11.49687025800813,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "f106e17fe5398be63811fca30907e6174ec3eb98b9b0aa468b48794198511ce2",
+        "after": "106086bca908f96a4a46a35de57b2dec077871d299c7714bb8367aa31f9c6bb0",
+        "epochs": [
+          {
+            "loss": 2.323545455932617,
+            "actor_loss": 7.450580596923828e-09,
+            "critic_loss": 4.646265983581543,
+            "gradient_norm": 7.00900411605835
+          },
+          {
+            "loss": 2.27638578414917,
+            "actor_loss": -0.02072412148118019,
+            "critic_loss": 4.593392372131348,
+            "gradient_norm": 6.590477466583252
+          },
+          {
+            "loss": 2.2291746139526367,
+            "actor_loss": -0.04296683892607689,
+            "critic_loss": 4.543453216552734,
+            "gradient_norm": 4.1536478996276855
+          },
+          {
+            "loss": 2.196835994720459,
+            "actor_loss": -0.05106290429830551,
+            "critic_loss": 4.494965553283691,
+            "gradient_norm": 4.267287731170654
+          },
+          {
+            "loss": 2.1665565967559814,
+            "actor_loss": -0.05798792466521263,
+            "critic_loss": 4.448254585266113,
+            "gradient_norm": 4.6108551025390625
+          },
+          {
+            "loss": 2.13494873046875,
+            "actor_loss": -0.06731585413217545,
+            "critic_loss": 4.403692245483398,
+            "gradient_norm": 4.282400131225586
+          }
+        ]
+      }
+    },
+    {
+      "update": 3,
+      "attempts": 128,
+      "captures": 32,
+      "clean": 7,
+      "invalid": 49,
+      "board_bounces": 79,
+      "mean_reward": 0.6603027095870297,
+      "timing": {
+        "seconds": 9.64376115007326,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "106086bca908f96a4a46a35de57b2dec077871d299c7714bb8367aa31f9c6bb0",
+        "after": "a46e74864adbc958e65f18cba8c3b989dbb1c80f43ec1b02e29f0de733c861ef",
+        "epochs": [
+          {
+            "loss": 2.163188934326172,
+            "actor_loss": -0.0,
+            "critic_loss": 4.325538635253906,
+            "gradient_norm": 9.238687515258789
+          },
+          {
+            "loss": 2.1257612705230713,
+            "actor_loss": -0.018035704270005226,
+            "critic_loss": 4.286752700805664,
+            "gradient_norm": 8.142266273498535
+          },
+          {
+            "loss": 2.09584641456604,
+            "actor_loss": -0.029897639527916908,
+            "critic_loss": 4.250644683837891,
+            "gradient_norm": 6.019475936889648
+          },
+          {
+            "loss": 2.0725443363189697,
+            "actor_loss": -0.03598685562610626,
+            "critic_loss": 4.216216564178467,
+            "gradient_norm": 4.948530673980713
+          },
+          {
+            "loss": 2.048705577850342,
+            "actor_loss": -0.04317653551697731,
+            "critic_loss": 4.182916164398193,
+            "gradient_norm": 4.350371837615967
+          },
+          {
+            "loss": 2.024374008178711,
+            "actor_loss": -0.051295116543769836,
+            "critic_loss": 4.150487422943115,
+            "gradient_norm": 4.059240341186523
+          }
+        ]
+      }
+    },
+    {
+      "update": 4,
+      "attempts": 128,
+      "captures": 23,
+      "clean": 5,
+      "invalid": 44,
+      "board_bounces": 84,
+      "mean_reward": 0.40211242099305045,
+      "timing": {
+        "seconds": 14.237892156932503,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "a46e74864adbc958e65f18cba8c3b989dbb1c80f43ec1b02e29f0de733c861ef",
+        "after": "4ebf233b651a81de45c1ac36c71c90918470a8894a50c18c8a44365df5b112cb",
+        "epochs": [
+          {
+            "loss": 1.5769433975219727,
+            "actor_loss": 7.450580596923828e-09,
+            "critic_loss": 3.15303373336792,
+            "gradient_norm": 7.458531379699707
+          },
+          {
+            "loss": 1.5487009286880493,
+            "actor_loss": -0.020574763417243958,
+            "critic_loss": 3.1376962661743164,
+            "gradient_norm": 7.718334197998047
+          },
+          {
+            "loss": 1.5299909114837646,
+            "actor_loss": -0.03189966082572937,
+            "critic_loss": 3.1229238510131836,
+            "gradient_norm": 5.330443859100342
+          },
+          {
+            "loss": 1.518262505531311,
+            "actor_loss": -0.036099620163440704,
+            "critic_loss": 3.10786509513855,
+            "gradient_norm": 5.380037784576416
+          },
+          {
+            "loss": 1.5023211240768433,
+            "actor_loss": -0.04437389224767685,
+            "critic_loss": 3.092528820037842,
+            "gradient_norm": 4.947553634643555
+          },
+          {
+            "loss": 1.4799543619155884,
+            "actor_loss": -0.05885941535234451,
+            "critic_loss": 3.0767648220062256,
+            "gradient_norm": 4.716585636138916
+          }
+        ]
+      },
+      "validation": {
+        "attempts": 20,
+        "captures": 11,
+        "clean": 4,
+        "invalid": 4,
+        "board_bounces": 16,
+        "mean_reward": 2.126792435850725
+      }
+    },
+    {
+      "update": 5,
+      "attempts": 128,
+      "captures": 32,
+      "clean": 14,
+      "invalid": 46,
+      "board_bounces": 82,
+      "mean_reward": 0.7061806878304109,
+      "timing": {
+        "seconds": 14.175477541983128,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "4ebf233b651a81de45c1ac36c71c90918470a8894a50c18c8a44365df5b112cb",
+        "after": "7f7f056b58060d837f860880da18083436cd7c6eb1f2494f87347cfcc863fdcb",
+        "epochs": [
+          {
+            "loss": 2.139981985092163,
+            "actor_loss": -7.450580596923828e-09,
+            "critic_loss": 4.279099464416504,
+            "gradient_norm": 7.722710609436035
+          },
+          {
+            "loss": 2.124490737915039,
+            "actor_loss": -0.00713522732257843,
+            "critic_loss": 4.262385845184326,
+            "gradient_norm": 7.781016826629639
+          },
+          {
+            "loss": 2.1058387756347656,
+            "actor_loss": -0.01772666722536087,
+            "critic_loss": 4.24626350402832,
+            "gradient_norm": 7.310208797454834
+          },
+          {
+            "loss": 2.0897393226623535,
+            "actor_loss": -0.026012912392616272,
+            "critic_loss": 4.230636119842529,
+            "gradient_norm": 6.1050567626953125
+          },
+          {
+            "loss": 2.0695173740386963,
+            "actor_loss": -0.0385574996471405,
+            "critic_loss": 4.215280532836914,
+            "gradient_norm": 6.018899440765381
+          },
+          {
+            "loss": 2.047954797744751,
+            "actor_loss": -0.052583180367946625,
+            "critic_loss": 4.2002058029174805,
+            "gradient_norm": 4.122671604156494
+          }
+        ]
+      }
+    },
+    {
+      "update": 6,
+      "attempts": 128,
+      "captures": 30,
+      "clean": 8,
+      "invalid": 39,
+      "board_bounces": 89,
+      "mean_reward": 0.6454894786248924,
+      "timing": {
+        "seconds": 10.622650414006785,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "7f7f056b58060d837f860880da18083436cd7c6eb1f2494f87347cfcc863fdcb",
+        "after": "534a5966b63f6776caa1a6f3725a1410165737f2183146c6e4431fcb804ca893",
+        "epochs": [
+          {
+            "loss": 1.8787885904312134,
+            "actor_loss": 5.587935447692871e-09,
+            "critic_loss": 3.7567059993743896,
+            "gradient_norm": 5.7124924659729
+          },
+          {
+            "loss": 1.8641177415847778,
+            "actor_loss": -0.00881480798125267,
+            "critic_loss": 3.744993209838867,
+            "gradient_norm": 5.065699577331543
+          },
+          {
+            "loss": 1.85391104221344,
+            "actor_loss": -0.013173418119549751,
+            "critic_loss": 3.7332963943481445,
+            "gradient_norm": 5.653144836425781
+          },
+          {
+            "loss": 1.8416047096252441,
+            "actor_loss": -0.019712308421730995,
+            "critic_loss": 3.7217607498168945,
+            "gradient_norm": 5.424744129180908
+          },
+          {
+            "loss": 1.824806571006775,
+            "actor_loss": -0.03080499731004238,
+            "critic_loss": 3.7103488445281982,
+            "gradient_norm": 5.199567794799805
+          },
+          {
+            "loss": 1.8073222637176514,
+            "actor_loss": -0.04263018071651459,
+            "critic_loss": 3.6990299224853516,
+            "gradient_norm": 4.639223575592041
+          }
+        ]
+      }
+    },
+    {
+      "update": 7,
+      "attempts": 128,
+      "captures": 35,
+      "clean": 10,
+      "invalid": 32,
+      "board_bounces": 96,
+      "mean_reward": 0.8922950835823267,
+      "timing": {
+        "seconds": 14.676068643922918,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "534a5966b63f6776caa1a6f3725a1410165737f2183146c6e4431fcb804ca893",
+        "after": "59f7ea2dab57709d2e27e05a82a116ebba53882a649a8efc4d12ba51dacee443",
+        "epochs": [
+          {
+            "loss": 1.9605227708816528,
+            "actor_loss": -7.450580596923828e-09,
+            "critic_loss": 3.9201695919036865,
+            "gradient_norm": 9.909730911254883
+          },
+          {
+            "loss": 1.9289602041244507,
+            "actor_loss": -0.02551036700606346,
+            "critic_loss": 3.908064126968384,
+            "gradient_norm": 9.518514633178711
+          },
+          {
+            "loss": 1.9067038297653198,
+            "actor_loss": -0.04173140972852707,
+            "critic_loss": 3.8959927558898926,
+            "gradient_norm": 5.348620414733887
+          },
+          {
+            "loss": 1.8976843357086182,
+            "actor_loss": -0.04426969587802887,
+            "critic_loss": 3.8830294609069824,
+            "gradient_norm": 5.00347900390625
+          },
+          {
+            "loss": 1.8876465559005737,
+            "actor_loss": -0.04745307192206383,
+            "critic_loss": 3.8693199157714844,
+            "gradient_norm": 5.2676215171813965
+          },
+          {
+            "loss": 1.8773480653762817,
+            "actor_loss": -0.05072426050901413,
+            "critic_loss": 3.85526442527771,
+            "gradient_norm": 4.947638511657715
+          }
+        ]
+      }
+    },
+    {
+      "update": 8,
+      "attempts": 128,
+      "captures": 30,
+      "clean": 11,
+      "invalid": 39,
+      "board_bounces": 89,
+      "mean_reward": 0.6823280023208282,
+      "timing": {
+        "seconds": 13.885820310097188,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "59f7ea2dab57709d2e27e05a82a116ebba53882a649a8efc4d12ba51dacee443",
+        "after": "3c72a1226a85fe8e03c02a7329a6fcddbd5225a45148fade146a127f5e058e56",
+        "epochs": [
+          {
+            "loss": 1.880413293838501,
+            "actor_loss": -0.0,
+            "critic_loss": 3.759945869445801,
+            "gradient_norm": 6.4291558265686035
+          },
+          {
+            "loss": 1.863587498664856,
+            "actor_loss": -0.01535804569721222,
+            "critic_loss": 3.757009744644165,
+            "gradient_norm": 6.391993045806885
+          },
+          {
+            "loss": 1.850012183189392,
+            "actor_loss": -0.027620963752269745,
+            "critic_loss": 3.7543842792510986,
+            "gradient_norm": 5.263508319854736
+          },
+          {
+            "loss": 1.8414522409439087,
+            "actor_loss": -0.034897029399871826,
+            "critic_loss": 3.7518162727355957,
+            "gradient_norm": 5.676431655883789
+          },
+          {
+            "loss": 1.8288666009902954,
+            "actor_loss": -0.04618906229734421,
+            "critic_loss": 3.7492284774780273,
+            "gradient_norm": 5.0681891441345215
+          },
+          {
+            "loss": 1.8179692029953003,
+            "actor_loss": -0.05570502206683159,
+            "critic_loss": 3.7464652061462402,
+            "gradient_norm": 4.11895227432251
+          }
+        ]
+      },
+      "validation": {
+        "attempts": 20,
+        "captures": 9,
+        "clean": 4,
+        "invalid": 5,
+        "board_bounces": 15,
+        "mean_reward": 1.6694860109949712
+      }
+    },
+    {
+      "update": 9,
+      "attempts": 128,
+      "captures": 30,
+      "clean": 7,
+      "invalid": 44,
+      "board_bounces": 84,
+      "mean_reward": 0.6691678214400791,
+      "timing": {
+        "seconds": 16.357551269000396,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "3c72a1226a85fe8e03c02a7329a6fcddbd5225a45148fade146a127f5e058e56",
+        "after": "43d6bf041e36271206e8c7f7821bf0b2924226a7060c8af325b74eb19b55ffc7",
+        "epochs": [
+          {
+            "loss": 1.8160933256149292,
+            "actor_loss": 1.4901161193847656e-08,
+            "critic_loss": 3.631302833557129,
+            "gradient_norm": 7.084246635437012
+          },
+          {
+            "loss": 1.807873010635376,
+            "actor_loss": -0.00518537312746048,
+            "critic_loss": 3.625232458114624,
+            "gradient_norm": 6.609241962432861
+          },
+          {
+            "loss": 1.7912570238113403,
+            "actor_loss": -0.018440082669258118,
+            "critic_loss": 3.618509292602539,
+            "gradient_norm": 6.400894641876221
+          },
+          {
+            "loss": 1.7744319438934326,
+            "actor_loss": -0.03159189224243164,
+            "critic_loss": 3.611161708831787,
+            "gradient_norm": 5.115669250488281
+          },
+          {
+            "loss": 1.762342095375061,
+            "actor_loss": -0.03958873450756073,
+            "critic_loss": 3.6029744148254395,
+            "gradient_norm": 4.507559776306152
+          },
+          {
+            "loss": 1.7499781847000122,
+            "actor_loss": -0.04741479456424713,
+            "critic_loss": 3.5938973426818848,
+            "gradient_norm": 5.035162925720215
+          }
+        ]
+      }
+    },
+    {
+      "update": 10,
+      "attempts": 128,
+      "captures": 35,
+      "clean": 9,
+      "invalid": 34,
+      "board_bounces": 94,
+      "mean_reward": 0.9206248248047506,
+      "timing": {
+        "seconds": 13.96507997205481,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "43d6bf041e36271206e8c7f7821bf0b2924226a7060c8af325b74eb19b55ffc7",
+        "after": "0aa9e7b2c6d0aeee6c799c1550c54846b5f28be9d7e39b509c3e1aef3539705f",
+        "epochs": [
+          {
+            "loss": 1.9259668588638306,
+            "actor_loss": 7.450580596923828e-09,
+            "critic_loss": 3.851043701171875,
+            "gradient_norm": 7.927211284637451
+          },
+          {
+            "loss": 1.9146519899368286,
+            "actor_loss": -0.009153220802545547,
+            "critic_loss": 3.8467187881469727,
+            "gradient_norm": 7.878411769866943
+          },
+          {
+            "loss": 1.8948887586593628,
+            "actor_loss": -0.02663538232445717,
+            "critic_loss": 3.8421549797058105,
+            "gradient_norm": 6.036160945892334
+          },
+          {
+            "loss": 1.8823665380477905,
+            "actor_loss": -0.036668457090854645,
+            "critic_loss": 3.837174654006958,
+            "gradient_norm": 4.517695903778076
+          },
+          {
+            "loss": 1.8731590509414673,
+            "actor_loss": -0.04307693988084793,
+            "critic_loss": 3.8315749168395996,
+            "gradient_norm": 4.867157936096191
+          },
+          {
+            "loss": 1.8611103296279907,
+            "actor_loss": -0.05214156210422516,
+            "critic_loss": 3.8256044387817383,
+            "gradient_norm": 4.695895671844482
+          }
+        ]
+      }
+    },
+    {
+      "update": 11,
+      "attempts": 128,
+      "captures": 38,
+      "clean": 12,
+      "invalid": 38,
+      "board_bounces": 90,
+      "mean_reward": 0.9565225844609754,
+      "timing": {
+        "seconds": 8.849048595991917,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "0aa9e7b2c6d0aeee6c799c1550c54846b5f28be9d7e39b509c3e1aef3539705f",
+        "after": "7cf89978f09787dcf680d7957a410e29b20f68b818b6bc955b3b86e104509aef",
+        "epochs": [
+          {
+            "loss": 1.803330421447754,
+            "actor_loss": -1.6763806343078613e-08,
+            "critic_loss": 3.605759620666504,
+            "gradient_norm": 7.186973571777344
+          },
+          {
+            "loss": 1.7851276397705078,
+            "actor_loss": -0.011096242815256119,
+            "critic_loss": 3.5915446281433105,
+            "gradient_norm": 7.149472236633301
+          },
+          {
+            "loss": 1.7646629810333252,
+            "actor_loss": -0.023655403405427933,
+            "critic_loss": 3.5757317543029785,
+            "gradient_norm": 5.313286781311035
+          },
+          {
+            "loss": 1.7471660375595093,
+            "actor_loss": -0.03217730298638344,
+            "critic_loss": 3.5577797889709473,
+            "gradient_norm": 5.940328598022461
+          },
+          {
+            "loss": 1.729923963546753,
+            "actor_loss": -0.0398014560341835,
+            "critic_loss": 3.5385422706604004,
+            "gradient_norm": 4.846028804779053
+          },
+          {
+            "loss": 1.7109915018081665,
+            "actor_loss": -0.04837038740515709,
+            "critic_loss": 3.517813205718994,
+            "gradient_norm": 4.842223167419434
+          }
+        ]
+      }
+    },
+    {
+      "update": 12,
+      "attempts": 128,
+      "captures": 41,
+      "clean": 7,
+      "invalid": 45,
+      "board_bounces": 83,
+      "mean_reward": 0.9895796013787954,
+      "timing": {
+        "seconds": 8.700017379014753,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "7cf89978f09787dcf680d7957a410e29b20f68b818b6bc955b3b86e104509aef",
+        "after": "20bc3ce93eb1c62713d2bcaad166f871eac4475ada78b0c3485aada975ed1a2e",
+        "epochs": [
+          {
+            "loss": 2.2558047771453857,
+            "actor_loss": 1.862645149230957e-08,
+            "critic_loss": 4.510697364807129,
+            "gradient_norm": 10.053121566772461
+          },
+          {
+            "loss": 2.2355873584747314,
+            "actor_loss": -0.018311306834220886,
+            "critic_loss": 4.50688362121582,
+            "gradient_norm": 10.084510803222656
+          },
+          {
+            "loss": 2.21364164352417,
+            "actor_loss": -0.038556598126888275,
+            "critic_loss": 4.503480911254883,
+            "gradient_norm": 7.153069972991943
+          },
+          {
+            "loss": 2.198209047317505,
+            "actor_loss": -0.05234590917825699,
+            "critic_loss": 4.500193119049072,
+            "gradient_norm": 5.944328308105469
+          },
+          {
+            "loss": 2.1879427433013916,
+            "actor_loss": -0.06093723326921463,
+            "critic_loss": 4.4968414306640625,
+            "gradient_norm": 4.758969306945801
+          },
+          {
+            "loss": 2.180384397506714,
+            "actor_loss": -0.06669021397829056,
+            "critic_loss": 4.493229389190674,
+            "gradient_norm": 4.14162540435791
+          }
+        ]
+      },
+      "validation": {
+        "attempts": 20,
+        "captures": 7,
+        "clean": 4,
+        "invalid": 6,
+        "board_bounces": 14,
+        "mean_reward": 1.1693968221084439
+      }
+    },
+    {
+      "update": 13,
+      "attempts": 128,
+      "captures": 31,
+      "clean": 10,
+      "invalid": 48,
+      "board_bounces": 80,
+      "mean_reward": 0.637880415091233,
+      "timing": {
+        "seconds": 10.077391911065206,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "20bc3ce93eb1c62713d2bcaad166f871eac4475ada78b0c3485aada975ed1a2e",
+        "after": "37123c13966c6b8c1ac4665de27369e7758ae194bfb66021527d7c7e17035744",
+        "epochs": [
+          {
+            "loss": 1.708120584487915,
+            "actor_loss": 2.9802322387695312e-08,
+            "critic_loss": 3.4153199195861816,
+            "gradient_norm": 7.718340873718262
+          },
+          {
+            "loss": 1.6909143924713135,
+            "actor_loss": -0.014984585344791412,
+            "critic_loss": 3.4108753204345703,
+            "gradient_norm": 7.514247894287109
+          },
+          {
+            "loss": 1.6754066944122314,
+            "actor_loss": -0.027444973587989807,
+            "critic_loss": 3.4047794342041016,
+            "gradient_norm": 6.698354244232178
+          },
+          {
+            "loss": 1.6629071235656738,
+            "actor_loss": -0.03605120629072189,
+            "critic_loss": 3.39699125289917,
+            "gradient_norm": 6.458035945892334
+          },
+          {
+            "loss": 1.646731972694397,
+            "actor_loss": -0.047605760395526886,
+            "critic_loss": 3.3877487182617188,
+            "gradient_norm": 5.4282941818237305
+          },
+          {
+            "loss": 1.6301223039627075,
+            "actor_loss": -0.05886819213628769,
+            "critic_loss": 3.3770527839660645,
+            "gradient_norm": 4.079903602600098
+          }
+        ]
+      }
+    },
+    {
+      "update": 14,
+      "attempts": 128,
+      "captures": 34,
+      "clean": 9,
+      "invalid": 46,
+      "board_bounces": 82,
+      "mean_reward": 0.7856329663299623,
+      "timing": {
+        "seconds": 9.624735806020908,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "37123c13966c6b8c1ac4665de27369e7758ae194bfb66021527d7c7e17035744",
+        "after": "d7b7cb324afc0ac85c71d030e49ddeaa4ecf7eafe9be0164e28d576835270e51",
+        "epochs": [
+          {
+            "loss": 1.794118046760559,
+            "actor_loss": 1.1175870895385742e-08,
+            "critic_loss": 3.587306261062622,
+            "gradient_norm": 7.32745885848999
+          },
+          {
+            "loss": 1.7660553455352783,
+            "actor_loss": -0.025590084493160248,
+            "critic_loss": 3.5823593139648438,
+            "gradient_norm": 6.739762306213379
+          },
+          {
+            "loss": 1.7457890510559082,
+            "actor_loss": -0.04342537000775337,
+            "critic_loss": 3.577495574951172,
+            "gradient_norm": 5.38400936126709
+          },
+          {
+            "loss": 1.7364121675491333,
+            "actor_loss": -0.05031637102365494,
+            "critic_loss": 3.5725221633911133,
+            "gradient_norm": 4.712249279022217
+          },
+          {
+            "loss": 1.7266851663589478,
+            "actor_loss": -0.05745694786310196,
+            "critic_loss": 3.567347764968872,
+            "gradient_norm": 4.65962553024292
+          },
+          {
+            "loss": 1.716605544090271,
+            "actor_loss": -0.0648723840713501,
+            "critic_loss": 3.5620176792144775,
+            "gradient_norm": 3.9163830280303955
+          }
+        ]
+      }
+    },
+    {
+      "update": 15,
+      "attempts": 128,
+      "captures": 26,
+      "clean": 7,
+      "invalid": 44,
+      "board_bounces": 84,
+      "mean_reward": 0.5126549070235715,
+      "timing": {
+        "seconds": 15.553566074930131,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "d7b7cb324afc0ac85c71d030e49ddeaa4ecf7eafe9be0164e28d576835270e51",
+        "after": "511444902f9ed55cdf7fe4cea0e7f7ee2d5ed54c18ed427fbe12e7f5f10f0b00",
+        "epochs": [
+          {
+            "loss": 1.690026879310608,
+            "actor_loss": 1.862645149230957e-09,
+            "critic_loss": 3.3791139125823975,
+            "gradient_norm": 6.553133010864258
+          },
+          {
+            "loss": 1.6862515211105347,
+            "actor_loss": 0.00024986453354358673,
+            "critic_loss": 3.3710618019104004,
+            "gradient_norm": 6.673842430114746
+          },
+          {
+            "loss": 1.6718627214431763,
+            "actor_loss": -0.008687620051205158,
+            "critic_loss": 3.3601574897766113,
+            "gradient_norm": 7.175384044647217
+          },
+          {
+            "loss": 1.6541107892990112,
+            "actor_loss": -0.020129414275288582,
+            "critic_loss": 3.3475356101989746,
+            "gradient_norm": 6.353702545166016
+          },
+          {
+            "loss": 1.6337013244628906,
+            "actor_loss": -0.03356819599866867,
+            "critic_loss": 3.333592414855957,
+            "gradient_norm": 5.266403675079346
+          },
+          {
+            "loss": 1.6158051490783691,
+            "actor_loss": -0.043973978608846664,
+            "critic_loss": 3.3186099529266357,
+            "gradient_norm": 4.293663024902344
+          }
+        ]
+      }
+    },
+    {
+      "update": 16,
+      "attempts": 128,
+      "captures": 29,
+      "clean": 7,
+      "invalid": 40,
+      "board_bounces": 88,
+      "mean_reward": 0.6225523163895623,
+      "timing": {
+        "seconds": 7.394500792957842,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "511444902f9ed55cdf7fe4cea0e7f7ee2d5ed54c18ed427fbe12e7f5f10f0b00",
+        "after": "ca1aed2a0f89f6205545c257a9df1c707ce0dc2ff8bd2483d9abae69f099f18d",
+        "epochs": [
+          {
+            "loss": 1.6187372207641602,
+            "actor_loss": 1.1175870895385742e-08,
+            "critic_loss": 3.2365245819091797,
+            "gradient_norm": 7.291286468505859
+          },
+          {
+            "loss": 1.600569486618042,
+            "actor_loss": -0.01446145586669445,
+            "critic_loss": 3.2291102409362793,
+            "gradient_norm": 6.628085136413574
+          },
+          {
+            "loss": 1.5835530757904053,
+            "actor_loss": -0.028425883501768112,
+            "critic_loss": 3.2230048179626465,
+            "gradient_norm": 5.493028163909912
+          },
+          {
+            "loss": 1.5742101669311523,
+            "actor_loss": -0.035195544362068176,
+            "critic_loss": 3.2178564071655273,
+            "gradient_norm": 6.294096946716309
+          },
+          {
+            "loss": 1.5654487609863281,
+            "actor_loss": -0.04181700944900513,
+            "critic_loss": 3.2135744094848633,
+            "gradient_norm": 5.702301025390625
+          },
+          {
+            "loss": 1.5540249347686768,
+            "actor_loss": -0.05138701945543289,
+            "critic_loss": 3.209865093231201,
+            "gradient_norm": 5.179774284362793
+          }
+        ]
+      },
+      "validation": {
+        "attempts": 20,
+        "captures": 10,
+        "clean": 5,
+        "invalid": 3,
+        "board_bounces": 17,
+        "mean_reward": 1.9590923316234907
+      }
+    },
+    {
+      "update": 17,
+      "attempts": 128,
+      "captures": 40,
+      "clean": 10,
+      "invalid": 30,
+      "board_bounces": 98,
+      "mean_reward": 1.0508488762308772,
+      "timing": {
+        "seconds": 14.504501318908297,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "ca1aed2a0f89f6205545c257a9df1c707ce0dc2ff8bd2483d9abae69f099f18d",
+        "after": "1bf6eb514d2fb9b5f5c17900e77e414c1e6a4c5c67e990570751abc222f50259",
+        "epochs": [
+          {
+            "loss": 2.2906458377838135,
+            "actor_loss": -1.862645149230957e-08,
+            "critic_loss": 4.580330848693848,
+            "gradient_norm": 7.864807605743408
+          },
+          {
+            "loss": 2.2891926765441895,
+            "actor_loss": -0.006184384226799011,
+            "critic_loss": 4.589791297912598,
+            "gradient_norm": 7.816503047943115
+          },
+          {
+            "loss": 2.280093193054199,
+            "actor_loss": -0.017435327172279358,
+            "critic_loss": 4.59409236907959,
+            "gradient_norm": 6.671517848968506
+          },
+          {
+            "loss": 2.2706894874572754,
+            "actor_loss": -0.026219990104436874,
+            "critic_loss": 4.592852592468262,
+            "gradient_norm": 5.43729829788208
+          },
+          {
+            "loss": 2.2575812339782715,
+            "actor_loss": -0.03576910123229027,
+            "critic_loss": 4.585732460021973,
+            "gradient_norm": 4.892274379730225
+          },
+          {
+            "loss": 2.2429158687591553,
+            "actor_loss": -0.04424447566270828,
+            "critic_loss": 4.57335090637207,
+            "gradient_norm": 4.313798427581787
+          }
+        ]
+      }
+    },
+    {
+      "update": 18,
+      "attempts": 128,
+      "captures": 32,
+      "clean": 7,
+      "invalid": 38,
+      "board_bounces": 90,
+      "mean_reward": 0.7687531558012515,
+      "timing": {
+        "seconds": 12.31349292898085,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "1bf6eb514d2fb9b5f5c17900e77e414c1e6a4c5c67e990570751abc222f50259",
+        "after": "ef916a9b94304237423eceb22430b76422206ca92226130099c3343715075c21",
+        "epochs": [
+          {
+            "loss": 1.9487425088882446,
+            "actor_loss": -3.725290298461914e-09,
+            "critic_loss": 3.8965134620666504,
+            "gradient_norm": 8.170913696289062
+          },
+          {
+            "loss": 1.937576413154602,
+            "actor_loss": -0.009008334949612617,
+            "critic_loss": 3.8921961784362793,
+            "gradient_norm": 8.303800582885742
+          },
+          {
+            "loss": 1.9199107885360718,
+            "actor_loss": -0.02474108897149563,
+            "critic_loss": 3.888328790664673,
+            "gradient_norm": 5.911634922027588
+          },
+          {
+            "loss": 1.9115947484970093,
+            "actor_loss": -0.031181972473859787,
+            "critic_loss": 3.8845767974853516,
+            "gradient_norm": 5.342525482177734
+          },
+          {
+            "loss": 1.9053512811660767,
+            "actor_loss": -0.035542912781238556,
+            "critic_loss": 3.880810260772705,
+            "gradient_norm": 5.373300075531006
+          },
+          {
+            "loss": 1.8924134969711304,
+            "actor_loss": -0.04657746106386185,
+            "critic_loss": 3.877002000808716,
+            "gradient_norm": 5.303575038909912
+          }
+        ]
+      }
+    },
+    {
+      "update": 19,
+      "attempts": 128,
+      "captures": 22,
+      "clean": 8,
+      "invalid": 48,
+      "board_bounces": 80,
+      "mean_reward": 0.3696910149458813,
+      "timing": {
+        "seconds": 13.336055589024909,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "ef916a9b94304237423eceb22430b76422206ca92226130099c3343715075c21",
+        "after": "867d0c79eb0f285b90869ab5b7dd964a95b9962c350f31ab58a3040d4ced795a",
+        "epochs": [
+          {
+            "loss": 1.531853199005127,
+            "actor_loss": 2.2351741790771484e-08,
+            "critic_loss": 3.0627248287200928,
+            "gradient_norm": 6.013595104217529
+          },
+          {
+            "loss": 1.522050380706787,
+            "actor_loss": -0.010135888122022152,
+            "critic_loss": 3.063389301300049,
+            "gradient_norm": 6.1307692527771
+          },
+          {
+            "loss": 1.5013384819030762,
+            "actor_loss": -0.030185047537088394,
+            "critic_loss": 3.0620622634887695,
+            "gradient_norm": 5.811446666717529
+          },
+          {
+            "loss": 1.485812783241272,
+            "actor_loss": -0.044074758887290955,
+            "critic_loss": 3.058788537979126,
+            "gradient_norm": 5.1449480056762695
+          },
+          {
+            "loss": 1.4746166467666626,
+            "actor_loss": -0.05266594514250755,
+            "critic_loss": 3.053576707839966,
+            "gradient_norm": 4.918724536895752
+          },
+          {
+            "loss": 1.4639192819595337,
+            "actor_loss": -0.05994347482919693,
+            "critic_loss": 3.0467350482940674,
+            "gradient_norm": 4.5646443367004395
+          }
+        ]
+      }
+    },
+    {
+      "update": 20,
+      "attempts": 128,
+      "captures": 31,
+      "clean": 7,
+      "invalid": 35,
+      "board_bounces": 93,
+      "mean_reward": 0.7166761877406029,
+      "timing": {
+        "seconds": 12.353176817065105,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "867d0c79eb0f285b90869ab5b7dd964a95b9962c350f31ab58a3040d4ced795a",
+        "after": "53946daecae9cac4cf7b57e2efbff9958bf095f39f2c102865c0f0c105bf9d1e",
+        "epochs": [
+          {
+            "loss": 1.6965917348861694,
+            "actor_loss": -0.0,
+            "critic_loss": 3.392191171646118,
+            "gradient_norm": 4.980716228485107
+          },
+          {
+            "loss": 1.686096429824829,
+            "actor_loss": -0.010229825973510742,
+            "critic_loss": 3.391658306121826,
+            "gradient_norm": 4.952528476715088
+          },
+          {
+            "loss": 1.6756973266601562,
+            "actor_loss": -0.019516471773386,
+            "critic_loss": 3.3894314765930176,
+            "gradient_norm": 5.95507287979126
+          },
+          {
+            "loss": 1.667189359664917,
+            "actor_loss": -0.026291709393262863,
+            "critic_loss": 3.3859641551971436,
+            "gradient_norm": 6.486278057098389
+          },
+          {
+            "loss": 1.655592918395996,
+            "actor_loss": -0.035662710666656494,
+            "critic_loss": 3.3815112113952637,
+            "gradient_norm": 5.151271343231201
+          },
+          {
+            "loss": 1.6461044549942017,
+            "actor_loss": -0.04231631010770798,
+            "critic_loss": 3.3758397102355957,
+            "gradient_norm": 3.468500852584839
+          }
+        ]
+      },
+      "validation": {
+        "attempts": 20,
+        "captures": 8,
+        "clean": 1,
+        "invalid": 7,
+        "board_bounces": 13,
+        "mean_reward": 1.3533179985935169
+      }
+    },
+    {
+      "update": 21,
+      "attempts": 128,
+      "captures": 42,
+      "clean": 11,
+      "invalid": 40,
+      "board_bounces": 88,
+      "mean_reward": 1.0552476681960195,
+      "timing": {
+        "seconds": 10.972506224992685,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "53946daecae9cac4cf7b57e2efbff9958bf095f39f2c102865c0f0c105bf9d1e",
+        "after": "b62a75a7f328181a7018227de08bcc26441e2e99f9f87e4b15073a38c2cb268c",
+        "epochs": [
+          {
+            "loss": 1.9783486127853394,
+            "actor_loss": -3.725290298461914e-09,
+            "critic_loss": 3.955693483352661,
+            "gradient_norm": 8.20197582244873
+          },
+          {
+            "loss": 1.9544949531555176,
+            "actor_loss": -0.018049411475658417,
+            "critic_loss": 3.9440829753875732,
+            "gradient_norm": 6.879904270172119
+          },
+          {
+            "loss": 1.9337005615234375,
+            "actor_loss": -0.030478183180093765,
+            "critic_loss": 3.927349805831909,
+            "gradient_norm": 5.533568859100342
+          },
+          {
+            "loss": 1.9199984073638916,
+            "actor_loss": -0.033122941851615906,
+            "critic_loss": 3.9052329063415527,
+            "gradient_norm": 5.996806621551514
+          },
+          {
+            "loss": 1.9015437364578247,
+            "actor_loss": -0.03885941952466965,
+            "critic_loss": 3.8797945976257324,
+            "gradient_norm": 6.002154350280762
+          },
+          {
+            "loss": 1.8786007165908813,
+            "actor_loss": -0.04808945953845978,
+            "critic_loss": 3.8523669242858887,
+            "gradient_norm": 4.344567775726318
+          }
+        ]
+      }
+    },
+    {
+      "update": 22,
+      "attempts": 128,
+      "captures": 31,
+      "clean": 5,
+      "invalid": 35,
+      "board_bounces": 93,
+      "mean_reward": 0.7355049745324356,
+      "timing": {
+        "seconds": 8.00919758703094,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "b62a75a7f328181a7018227de08bcc26441e2e99f9f87e4b15073a38c2cb268c",
+        "after": "a681dba5f790e368a4b32a470468078767cbabd6272e06cf2e1e619b9b2890c8",
+        "epochs": [
+          {
+            "loss": 1.6842119693756104,
+            "actor_loss": -1.30385160446167e-08,
+            "critic_loss": 3.367408514022827,
+            "gradient_norm": 9.711517333984375
+          },
+          {
+            "loss": 1.6692074537277222,
+            "actor_loss": -0.01549166813492775,
+            "critic_loss": 3.3683812618255615,
+            "gradient_norm": 9.580692291259766
+          },
+          {
+            "loss": 1.6498769521713257,
+            "actor_loss": -0.03612969070672989,
+            "critic_loss": 3.3709945678710938,
+            "gradient_norm": 8.657278060913086
+          },
+          {
+            "loss": 1.6329503059387207,
+            "actor_loss": -0.054900240153074265,
+            "critic_loss": 3.374680757522583,
+            "gradient_norm": 4.515121936798096
+          },
+          {
+            "loss": 1.6310981512069702,
+            "actor_loss": -0.058740489184856415,
+            "critic_loss": 3.378655195236206,
+            "gradient_norm": 3.860424041748047
+          },
+          {
+            "loss": 1.6281161308288574,
+            "actor_loss": -0.0635186955332756,
+            "critic_loss": 3.3822457790374756,
+            "gradient_norm": 3.777427911758423
+          }
+        ]
+      }
+    },
+    {
+      "update": 23,
+      "attempts": 128,
+      "captures": 43,
+      "clean": 10,
+      "invalid": 32,
+      "board_bounces": 96,
+      "mean_reward": 1.1745601677323145,
+      "timing": {
+        "seconds": 14.338830368011259,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "a681dba5f790e368a4b32a470468078767cbabd6272e06cf2e1e619b9b2890c8",
+        "after": "8f9e3643e4fcb2a954b9f73bdbdc012d453dd3404f6237bbd366be84949c467e",
+        "epochs": [
+          {
+            "loss": 2.0579216480255127,
+            "actor_loss": -3.725290298461914e-09,
+            "critic_loss": 4.114818096160889,
+            "gradient_norm": 6.6713080406188965
+          },
+          {
+            "loss": 2.039564609527588,
+            "actor_loss": -0.016321416944265366,
+            "critic_loss": 4.110745429992676,
+            "gradient_norm": 6.721897602081299
+          },
+          {
+            "loss": 2.019444704055786,
+            "actor_loss": -0.03436580300331116,
+            "critic_loss": 4.106592655181885,
+            "gradient_norm": 4.672677993774414
+          },
+          {
+            "loss": 2.0095629692077637,
+            "actor_loss": -0.04206960275769234,
+            "critic_loss": 4.102234840393066,
+            "gradient_norm": 5.151629447937012
+          },
+          {
+            "loss": 2.0001261234283447,
+            "actor_loss": -0.04940571263432503,
+            "critic_loss": 4.098031520843506,
+            "gradient_norm": 4.977551460266113
+          },
+          {
+            "loss": 1.9885674715042114,
+            "actor_loss": -0.05902304872870445,
+            "critic_loss": 4.094146728515625,
+            "gradient_norm": 4.219934940338135
+          }
+        ]
+      }
+    },
+    {
+      "update": 24,
+      "attempts": 128,
+      "captures": 31,
+      "clean": 6,
+      "invalid": 43,
+      "board_bounces": 85,
+      "mean_reward": 0.6781146913532017,
+      "timing": {
+        "seconds": 14.093541642068885,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "8f9e3643e4fcb2a954b9f73bdbdc012d453dd3404f6237bbd366be84949c467e",
+        "after": "ad3d86bd996ee50e020f6528e8b92e09ea3507ef763ace14c5a815e3fadf63fe",
+        "epochs": [
+          {
+            "loss": 1.6322925090789795,
+            "actor_loss": -1.4901161193847656e-08,
+            "critic_loss": 3.2635488510131836,
+            "gradient_norm": 7.912841320037842
+          },
+          {
+            "loss": 1.6214442253112793,
+            "actor_loss": -0.014570552855730057,
+            "critic_loss": 3.270991563796997,
+            "gradient_norm": 7.775305271148682
+          },
+          {
+            "loss": 1.600895643234253,
+            "actor_loss": -0.03515440598130226,
+            "critic_loss": 3.271059989929199,
+            "gradient_norm": 6.455646514892578
+          },
+          {
+            "loss": 1.5847935676574707,
+            "actor_loss": -0.047310683876276016,
+            "critic_loss": 3.2631664276123047,
+            "gradient_norm": 4.311916828155518
+          },
+          {
+            "loss": 1.569962978363037,
+            "actor_loss": -0.053213052451610565,
+            "critic_loss": 3.2453079223632812,
+            "gradient_norm": 4.228976726531982
+          },
+          {
+            "loss": 1.5522292852401733,
+            "actor_loss": -0.05838628113269806,
+            "critic_loss": 3.2201855182647705,
+            "gradient_norm": 4.27541446685791
+          }
+        ]
+      },
+      "validation": {
+        "attempts": 20,
+        "captures": 11,
+        "clean": 4,
+        "invalid": 2,
+        "board_bounces": 18,
+        "mean_reward": 2.252507149131775
+      }
+    },
+    {
+      "update": 25,
+      "attempts": 128,
+      "captures": 28,
+      "clean": 7,
+      "invalid": 42,
+      "board_bounces": 86,
+      "mean_reward": 0.5700433149615727,
+      "timing": {
+        "seconds": 14.11240052501671,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "ad3d86bd996ee50e020f6528e8b92e09ea3507ef763ace14c5a815e3fadf63fe",
+        "after": "c70649ad5c70f13eb50952ec0fa57850ce19b70a3719b6029b25e45629019295",
+        "epochs": [
+          {
+            "loss": 2.053333282470703,
+            "actor_loss": -0.0,
+            "critic_loss": 4.105618953704834,
+            "gradient_norm": 7.833645343780518
+          },
+          {
+            "loss": 2.022984266281128,
+            "actor_loss": -0.015501677989959717,
+            "critic_loss": 4.075922966003418,
+            "gradient_norm": 7.560853481292725
+          },
+          {
+            "loss": 1.9895551204681396,
+            "actor_loss": -0.0331728495657444,
+            "critic_loss": 4.044405460357666,
+            "gradient_norm": 5.188251495361328
+          },
+          {
+            "loss": 1.9637507200241089,
+            "actor_loss": -0.04179435968399048,
+            "critic_loss": 4.010038375854492,
+            "gradient_norm": 4.372909069061279
+          },
+          {
+            "loss": 1.9403060674667358,
+            "actor_loss": -0.047167666256427765,
+            "critic_loss": 3.9738945960998535,
+            "gradient_norm": 4.06567907333374
+          },
+          {
+            "loss": 1.914970874786377,
+            "actor_loss": -0.0544997900724411,
+            "critic_loss": 3.93788743019104,
+            "gradient_norm": 4.149808883666992
+          }
+        ]
+      }
+    },
+    {
+      "update": 26,
+      "attempts": 128,
+      "captures": 29,
+      "clean": 4,
+      "invalid": 37,
+      "board_bounces": 91,
+      "mean_reward": 0.6102799719536616,
+      "timing": {
+        "seconds": 10.333930191933177,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "c70649ad5c70f13eb50952ec0fa57850ce19b70a3719b6029b25e45629019295",
+        "after": "3617f37b2026709e2c7ef7b23d0931f7f3e51e3bb8adb934d0d4d04626016f7a",
+        "epochs": [
+          {
+            "loss": 1.877823829650879,
+            "actor_loss": -3.725290298461914e-09,
+            "critic_loss": 3.7545928955078125,
+            "gradient_norm": 5.27852201461792
+          },
+          {
+            "loss": 1.8536019325256348,
+            "actor_loss": -0.01600087434053421,
+            "critic_loss": 3.738149642944336,
+            "gradient_norm": 4.830850124359131
+          },
+          {
+            "loss": 1.833206295967102,
+            "actor_loss": -0.0291801355779171,
+            "critic_loss": 3.723715305328369,
+            "gradient_norm": 4.574198246002197
+          },
+          {
+            "loss": 1.8225102424621582,
+            "actor_loss": -0.03335956856608391,
+            "critic_loss": 3.7106800079345703,
+            "gradient_norm": 5.9437947273254395
+          },
+          {
+            "loss": 1.8113982677459717,
+            "actor_loss": -0.03873026371002197,
+            "critic_loss": 3.6991958618164062,
+            "gradient_norm": 5.291369915008545
+          },
+          {
+            "loss": 1.7977018356323242,
+            "actor_loss": -0.047091759741306305,
+            "critic_loss": 3.688523769378662,
+            "gradient_norm": 4.133289813995361
+          }
+        ]
+      }
+    },
+    {
+      "update": 27,
+      "attempts": 128,
+      "captures": 41,
+      "clean": 6,
+      "invalid": 37,
+      "board_bounces": 91,
+      "mean_reward": 1.0558168710090787,
+      "timing": {
+        "seconds": 10.020120695931837,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "3617f37b2026709e2c7ef7b23d0931f7f3e51e3bb8adb934d0d4d04626016f7a",
+        "after": "ab565899df9360cebbd885f9a407c487148460a74575594b33e755230b75b71b",
+        "epochs": [
+          {
+            "loss": 2.166550636291504,
+            "actor_loss": -2.421438694000244e-08,
+            "critic_loss": 4.332036018371582,
+            "gradient_norm": 6.27582311630249
+          },
+          {
+            "loss": 2.1578121185302734,
+            "actor_loss": -0.011181531473994255,
+            "critic_loss": 4.336919784545898,
+            "gradient_norm": 6.1171040534973145
+          },
+          {
+            "loss": 2.1427857875823975,
+            "actor_loss": -0.02420533262193203,
+            "critic_loss": 4.332912445068359,
+            "gradient_norm": 5.370576858520508
+          },
+          {
+            "loss": 2.1254684925079346,
+            "actor_loss": -0.03494815528392792,
+            "critic_loss": 4.319760322570801,
+            "gradient_norm": 4.761874198913574
+          },
+          {
+            "loss": 2.1084718704223633,
+            "actor_loss": -0.04091837257146835,
+            "critic_loss": 4.297704696655273,
+            "gradient_norm": 4.404170036315918
+          },
+          {
+            "loss": 2.0860671997070312,
+            "actor_loss": -0.04837435111403465,
+            "critic_loss": 4.267805099487305,
+            "gradient_norm": 5.153380393981934
+          }
+        ]
+      }
+    },
+    {
+      "update": 28,
+      "attempts": 128,
+      "captures": 37,
+      "clean": 6,
+      "invalid": 38,
+      "board_bounces": 90,
+      "mean_reward": 0.9034914457320997,
+      "timing": {
+        "seconds": 16.41916160902474,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "ab565899df9360cebbd885f9a407c487148460a74575594b33e755230b75b71b",
+        "after": "8003a76bd091d47f0591ccbd4901e7b79c47aef67acc5c7e31e7b96bb9093722",
+        "epochs": [
+          {
+            "loss": 1.969290018081665,
+            "actor_loss": -5.587935447692871e-09,
+            "critic_loss": 3.9374988079071045,
+            "gradient_norm": 7.662276744842529
+          },
+          {
+            "loss": 1.951668381690979,
+            "actor_loss": -0.015417473390698433,
+            "critic_loss": 3.9330878257751465,
+            "gradient_norm": 7.432247161865234
+          },
+          {
+            "loss": 1.933088779449463,
+            "actor_loss": -0.031956419348716736,
+            "critic_loss": 3.929003953933716,
+            "gradient_norm": 6.74934720993042
+          },
+          {
+            "loss": 1.9190728664398193,
+            "actor_loss": -0.04403558745980263,
+            "critic_loss": 3.9251279830932617,
+            "gradient_norm": 5.965301513671875
+          },
+          {
+            "loss": 1.9028342962265015,
+            "actor_loss": -0.05837808921933174,
+            "critic_loss": 3.9213337898254395,
+            "gradient_norm": 4.895598411560059
+          },
+          {
+            "loss": 1.8897881507873535,
+            "actor_loss": -0.06947090476751328,
+            "critic_loss": 3.9174249172210693,
+            "gradient_norm": 3.59956955909729
+          }
+        ]
+      },
+      "validation": {
+        "attempts": 20,
+        "captures": 8,
+        "clean": 1,
+        "invalid": 1,
+        "board_bounces": 19,
+        "mean_reward": 1.5499479850690752
+      }
+    },
+    {
+      "update": 29,
+      "attempts": 128,
+      "captures": 30,
+      "clean": 4,
+      "invalid": 34,
+      "board_bounces": 94,
+      "mean_reward": 0.7207775821216157,
+      "timing": {
+        "seconds": 12.331784163950942,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "8003a76bd091d47f0591ccbd4901e7b79c47aef67acc5c7e31e7b96bb9093722",
+        "after": "b60d7b90e6db9d8d7b06724d47decc50ef86735af7d199b4f0715b88423938c3",
+        "epochs": [
+          {
+            "loss": 1.6628074645996094,
+            "actor_loss": -1.4901161193847656e-08,
+            "critic_loss": 3.324519634246826,
+            "gradient_norm": 6.614396095275879
+          },
+          {
+            "loss": 1.652206301689148,
+            "actor_loss": -0.01110103353857994,
+            "critic_loss": 3.325517177581787,
+            "gradient_norm": 6.449212074279785
+          },
+          {
+            "loss": 1.6386053562164307,
+            "actor_loss": -0.024534523487091064,
+            "critic_loss": 3.3251800537109375,
+            "gradient_norm": 6.618953704833984
+          },
+          {
+            "loss": 1.6249123811721802,
+            "actor_loss": -0.03738334774971008,
+            "critic_loss": 3.3234899044036865,
+            "gradient_norm": 4.370947360992432
+          },
+          {
+            "loss": 1.61277174949646,
+            "actor_loss": -0.047497302293777466,
+            "critic_loss": 3.319434642791748,
+            "gradient_norm": 4.605961799621582
+          },
+          {
+            "loss": 1.6036700010299683,
+            "actor_loss": -0.05355386435985565,
+            "critic_loss": 3.313342332839966,
+            "gradient_norm": 4.434527397155762
+          }
+        ]
+      }
+    },
+    {
+      "update": 30,
+      "attempts": 128,
+      "captures": 33,
+      "clean": 9,
+      "invalid": 35,
+      "board_bounces": 93,
+      "mean_reward": 0.7913156093463216,
+      "timing": {
+        "seconds": 13.483195933979005,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "b60d7b90e6db9d8d7b06724d47decc50ef86735af7d199b4f0715b88423938c3",
+        "after": "9849a0d34dd8d8d318008bafde7182f1466b40e91b802b2b4530387e02102fd9",
+        "epochs": [
+          {
+            "loss": 1.704817295074463,
+            "actor_loss": 2.9802322387695312e-08,
+            "critic_loss": 3.408527374267578,
+            "gradient_norm": 6.946540832519531
+          },
+          {
+            "loss": 1.6977773904800415,
+            "actor_loss": -0.005807705223560333,
+            "critic_loss": 3.4060611724853516,
+            "gradient_norm": 6.913998603820801
+          },
+          {
+            "loss": 1.6825635433197021,
+            "actor_loss": -0.01916959136724472,
+            "critic_loss": 3.402355194091797,
+            "gradient_norm": 5.557228088378906
+          },
+          {
+            "loss": 1.668368935585022,
+            "actor_loss": -0.03075982630252838,
+            "critic_loss": 3.3971447944641113,
+            "gradient_norm": 5.030527114868164
+          },
+          {
+            "loss": 1.6545829772949219,
+            "actor_loss": -0.04120061174035072,
+            "critic_loss": 3.3904523849487305,
+            "gradient_norm": 4.483277797698975
+          },
+          {
+            "loss": 1.6401796340942383,
+            "actor_loss": -0.051530733704566956,
+            "critic_loss": 3.3823041915893555,
+            "gradient_norm": 3.982483386993408
+          }
+        ]
+      }
+    },
+    {
+      "update": 31,
+      "attempts": 128,
+      "captures": 36,
+      "clean": 11,
+      "invalid": 38,
+      "board_bounces": 90,
+      "mean_reward": 0.8821097420846932,
+      "timing": {
+        "seconds": 14.580609419965185,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "9849a0d34dd8d8d318008bafde7182f1466b40e91b802b2b4530387e02102fd9",
+        "after": "189a3e499321e2d89e5b744ef1886e902d302f0863ba85f5d91fbfa37fd1ef59",
+        "epochs": [
+          {
+            "loss": 1.9081499576568604,
+            "actor_loss": 7.450580596923828e-09,
+            "critic_loss": 3.8151814937591553,
+            "gradient_norm": 5.910733222961426
+          },
+          {
+            "loss": 1.890289545059204,
+            "actor_loss": -0.013203337788581848,
+            "critic_loss": 3.8058650493621826,
+            "gradient_norm": 4.644498348236084
+          },
+          {
+            "loss": 1.8768553733825684,
+            "actor_loss": -0.021823488175868988,
+            "critic_loss": 3.796234369277954,
+            "gradient_norm": 4.024335861206055
+          },
+          {
+            "loss": 1.862756609916687,
+            "actor_loss": -0.030950307846069336,
+            "critic_loss": 3.786287307739258,
+            "gradient_norm": 4.125241756439209
+          },
+          {
+            "loss": 1.8498703241348267,
+            "actor_loss": -0.038847342133522034,
+            "critic_loss": 3.7763054370880127,
+            "gradient_norm": 4.883126258850098
+          },
+          {
+            "loss": 1.8353768587112427,
+            "actor_loss": -0.04852895438671112,
+            "critic_loss": 3.7666783332824707,
+            "gradient_norm": 4.888471603393555
+          }
+        ]
+      }
+    },
+    {
+      "update": 32,
+      "attempts": 128,
+      "captures": 35,
+      "clean": 8,
+      "invalid": 30,
+      "board_bounces": 98,
+      "mean_reward": 0.8952885150652242,
+      "timing": {
+        "seconds": 11.988118685898371,
+        "batch_worlds": 128,
+        "actual_shots": 128
+      },
+      "weight_change": {
+        "before": "189a3e499321e2d89e5b744ef1886e902d302f0863ba85f5d91fbfa37fd1ef59",
+        "after": "a36e620e7072766671b30e303a9ffd73257b3225c4e355d4fac494f3c34db836",
+        "epochs": [
+          {
+            "loss": 2.03116512298584,
+            "actor_loss": -7.450580596923828e-09,
+            "critic_loss": 4.061193466186523,
+            "gradient_norm": 7.57493257522583
+          },
+          {
+            "loss": 2.022151470184326,
+            "actor_loss": -0.008370369672775269,
+            "critic_loss": 4.059904098510742,
+            "gradient_norm": 7.610579490661621
+          },
+          {
+            "loss": 2.00528883934021,
+            "actor_loss": -0.024393051862716675,
+            "critic_loss": 4.058220863342285,
+            "gradient_norm": 5.258683204650879
+          },
+          {
+            "loss": 1.991646647453308,
+            "actor_loss": -0.03675967454910278,
+            "critic_loss": 4.055666923522949,
+            "gradient_norm": 4.567624092102051
+          },
+          {
+            "loss": 1.9781051874160767,
+            "actor_loss": -0.04851084202528,
+            "critic_loss": 4.052083969116211,
+            "gradient_norm": 3.7535922527313232
+          },
+          {
+            "loss": 1.96590256690979,
+            "actor_loss": -0.05830569565296173,
+            "critic_loss": 4.047266006469727,
+            "gradient_norm": 3.6413073539733887
+          }
+        ]
+      },
+      "validation": {
+        "attempts": 20,
+        "captures": 9,
+        "clean": 1,
+        "invalid": 3,
+        "board_bounces": 17,
+        "mean_reward": 1.6969210604052645
+      }
+    }
+  ],
+  "frozen_evaluation": {
+    "attempts": 150,
+    "captures": 65,
+    "clean": 16,
+    "invalid": 9,
+    "board_bounces": 141,
+    "mean_reward": 1.7247597177604492,
+    "policy_weight_sha256": "ad3d86bd996ee50e020f6528e8b92e09ea3507ef763ace14c5a815e3fadf63fe",
+    "layouts": 50,
+    "repeats": 3,
+    "trials": 150,
+    "comparison": {
+      "initial": {
+        "attempts": 150,
+        "captures": 27,
+        "clean": 0,
+        "invalid": 66,
+        "board_bounces": 84,
+        "mean_reward": 0.2572547914958876,
+        "policy_weight_sha256": "753b4910cb0f940a4c9c06bed2e3f7ceb3d0777542ebc83bbbf8cba9a2ed3105",
+        "layouts": 50,
+        "repeats": 3
+      },
+      "warm": {
+        "attempts": 150,
+        "captures": 58,
+        "clean": 23,
+        "invalid": 18,
+        "board_bounces": 132,
+        "mean_reward": 1.5328024518090206,
+        "policy_weight_sha256": "ef56a99eeb32f9752bd9aebc8bc7fe3cf5cba9c8a06f7dafee02acda9c068900",
+        "layouts": 50,
+        "repeats": 3
+      },
+      "selected": {
+        "attempts": 150,
+        "captures": 65,
+        "clean": 16,
+        "invalid": 9,
+        "board_bounces": 141,
+        "mean_reward": 1.7247597177604492,
+        "policy_weight_sha256": "ad3d86bd996ee50e020f6528e8b92e09ea3507ef763ace14c5a815e3fadf63fe",
+        "layouts": 50,
+        "repeats": 3
+      },
+      "board_locked": {
+        "attempts": 50,
+        "captures": 20,
+        "clean": 4,
+        "invalid": 3,
+        "board_bounces": 47,
+        "mean_reward": 1.5782879672751196,
+        "layouts": 50,
+        "constraint_source": "frozen selected free-policy endpoints at held-out XY; not arbitrary XYZ constraints"
+      },
+      "dropper_locked": {
+        "attempts": 50,
+        "captures": 23,
+        "clean": 3,
+        "invalid": 3,
+        "board_bounces": 47,
+        "mean_reward": 1.8795322047434788,
+        "layouts": 50,
+        "constraint_source": "frozen selected free-policy endpoints at held-out XY; not arbitrary XYZ constraints"
+      }
+    },
+    "search_at_inference": false
+  },
+  "elapsed_s": 1052.6618537449976,
+  "timestamp_utc": "2026-11-02T19:34:12.498349+00:00",
+  "exploration": {
+    "attempts": 4096,
+    "captures": 368,
+    "clean": 71,
+    "invalid": 2138,
+    "board_bounces": 1958,
+    "mean_reward": -0.19225242525498776
+  },
+  "last_batch": {
+    "attempts": 128,
+    "captures": 13,
+    "clean": 2,
+    "invalid": 66,
+    "board_bounces": 62,
+    "mean_reward": -0.14051021619482845,
+    "seconds": 14.047728926991113,
+    "batch_worlds": 128,
+    "actual_shots": 128,
+    "proposal_filter_exhausted": 0
+  },
+  "imitation": {
+    "samples": 105,
+    "source": "train exploration elites only",
+    "loss": 0.011634229682385921
+  },
+  "warm_validation": {
+    "attempts": 20,
+    "captures": 7,
+    "clean": 2,
+    "invalid": 6,
+    "board_bounces": 14,
+    "mean_reward": 1.2262989193575535
+  },
+  "selected_update": 24,
+  "checkpoint_sha256": "2d5b3a3f864c62337186617d5e33fed673813909c14a1d325a4f527c26118ddd",
+  "versions": {
+    "mjlab": "1.6.0",
+    "mujoco": "3.11.0",
+    "mujoco-warp": "3.11.0",
+    "torch": "2.7.0",
+    "warp-lang": "1.14.0"
+  },
+  "source_sha256": {
+    "compare.py": "3df8ca25a182377f28a9babf8743a4bd4789c4ad4b66ac193f180eb4defa8017",
+    "model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+    "learning_solve.py": "2635873e00d60d499add62a6632ef748294a8a7eb7a009eb6e97bac668669465",
+    "learning_env.py": "58d2f58be0e1981a5efd09e872bdea7d8f608e1fa21b5c87986505a20a4a4f8c",
+    "learning_reach.py": "8eea1d565e9faefff0622a9e9a4666eb8d811ac086a8a6711caa8efa3029e9a4",
+    "contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407",
+    "isaac_pair.py": "4ab44904a2c966d6a8bf1567d4882a8bcfdf3c1dd3d2ea8d9e1bbeba6093d983",
+    "learning_policy.py": "5c37a248a0a44280f0f82fe3327973299ec6a4bbfccaaae9f750a898180c7792",
+    "interface.py": "7d47c18181567dcb12de2346f3d3f476f858fc0098eb389a309224573521fbc9",
+    "learning_contract.py": "9f2c44b76297f4ef7009c1b0107be983d0511d5654cb68b8e344dd316ed1fda8",
+    "learning_interface.py": "e58ae18b5ea0eda44428eeb852cc85b1e66a6be6131f31af4b8d69863c7bb3a2",
+    "render_replay.py": "27a562466bc45f5615a95f6c7824ee96bb60e1e51556cedae59bf6982f5a5f50",
+    "learning_study.py": "1d9b358fe11007c7edfbeb607c6f769e9d4dae6e6832768e16cc0df98480f8df",
+    "learning_score.py": "e66b982c0e651c3a9f5855dd03efb87488cc924321aaf9cadb80d51bac2fe814",
+    "run.py": "969db2710378345aad34a6f802e33d6ea62488d75e560b9da5738bc0748c3dee",
+    "learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+    "calibrate.py": "e2da7c22355899f35e7f9f28e8a3ae35001e29cc2e10e7a490c470809bd548fb"
+  },
+  "records": 9237,
+  "coverage": {
+    "cells": [
+      {
+        "id": "train-00",
+        "bucket_xy_m": [
+          0.1,
+          -0.65
+        ],
+        "split": "train",
+        "captures": 0,
+        "trials": 118,
+        "valid": 80,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": -0.18870526185127975
+        }
+      },
+      {
+        "id": "train-01",
+        "bucket_xy_m": [
+          0.29,
+          -0.65
+        ],
+        "split": "train",
+        "captures": 0,
+        "trials": 117,
+        "valid": 78,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 1,
+          "clean": 1,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 1.541534117219877
+        }
+      },
+      {
+        "id": "train-02",
+        "bucket_xy_m": [
+          0.48,
+          -0.65
+        ],
+        "split": "train",
+        "captures": 1,
+        "trials": 117,
+        "valid": 77,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 2,
+          "clean": 1,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 2.8410674126856272
+        }
+      },
+      {
+        "id": "train-03",
+        "bucket_xy_m": [
+          0.6699999999999999,
+          -0.65
+        ],
+        "split": "train",
+        "captures": 1,
+        "trials": 117,
+        "valid": 84,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 2,
+          "clean": 1,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 2.835728084256386
+        }
+      },
+      {
+        "id": "train-04",
+        "bucket_xy_m": [
+          0.8599999999999999,
+          -0.65
+        ],
+        "split": "train",
+        "captures": 0,
+        "trials": 117,
+        "valid": 72,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": -0.1961167738285049
+        }
+      },
+      {
+        "id": "train-05",
+        "bucket_xy_m": [
+          1.0499999999999998,
+          -0.65
+        ],
+        "split": "train",
+        "captures": 0,
+        "trials": 117,
+        "valid": 67,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": -0.04905175870564504
+        }
+      },
+      {
+        "id": "train-06",
+        "bucket_xy_m": [
+          1.24,
+          -0.65
+        ],
+        "split": "train",
+        "captures": 0,
+        "trials": 117,
+        "valid": 29,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": -0.03385886819697522
+        }
+      },
+      {
+        "id": "train-07",
+        "bucket_xy_m": [
+          0.1,
+          -0.42500000000000004
+        ],
+        "split": "train",
+        "captures": 3,
+        "trials": 117,
+        "valid": 82,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 2,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 3.1571829665263547
+        }
+      },
+      {
+        "id": "train-08",
+        "bucket_xy_m": [
+          0.29,
+          -0.42500000000000004
+        ],
+        "split": "train",
+        "captures": 14,
+        "trials": 117,
+        "valid": 72,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.213353080729131
+        }
+      },
+      {
+        "id": "train-09",
+        "bucket_xy_m": [
+          0.48,
+          -0.42500000000000004
+        ],
+        "split": "train",
+        "captures": 27,
+        "trials": 117,
+        "valid": 81,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 1,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.30462757057406
+        }
+      },
+      {
+        "id": "train-10",
+        "bucket_xy_m": [
+          0.6699999999999999,
+          -0.42500000000000004
+        ],
+        "split": "train",
+        "captures": 28,
+        "trials": 117,
+        "valid": 85,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 2,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.370912317914658
+        }
+      },
+      {
+        "id": "train-11",
+        "bucket_xy_m": [
+          0.8599999999999999,
+          -0.42500000000000004
+        ],
+        "split": "train",
+        "captures": 11,
+        "trials": 117,
+        "valid": 46,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 2,
+          "clean": 2,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 2.957586285853832
+        }
+      },
+      {
+        "id": "train-12",
+        "bucket_xy_m": [
+          1.0499999999999998,
+          -0.42500000000000004
+        ],
+        "split": "train",
+        "captures": 1,
+        "trials": 117,
+        "valid": 23,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": -0.1925030314028834
+        }
+      },
+      {
+        "id": "train-13",
+        "bucket_xy_m": [
+          1.24,
+          -0.42500000000000004
+        ],
+        "split": "train",
+        "captures": 0,
+        "trials": 117,
+        "valid": 23,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 0.06997962904928264
+        }
+      },
+      {
+        "id": "train-14",
+        "bucket_xy_m": [
+          0.1,
+          -0.2
+        ],
+        "split": "train",
+        "captures": 11,
+        "trials": 117,
+        "valid": 75,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 1,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 1.3197768929738498
+        }
+      },
+      {
+        "id": "train-15",
+        "bucket_xy_m": [
+          0.29,
+          -0.2
+        ],
+        "split": "train",
+        "captures": 30,
+        "trials": 117,
+        "valid": 74,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.202467533393201
+        }
+      },
+      {
+        "id": "train-16",
+        "bucket_xy_m": [
+          0.48,
+          -0.2
+        ],
+        "split": "train",
+        "captures": 30,
+        "trials": 117,
+        "valid": 62,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 2,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.406613564310704
+        }
+      },
+      {
+        "id": "train-17",
+        "bucket_xy_m": [
+          0.6699999999999999,
+          -0.2
+        ],
+        "split": "train",
+        "captures": 29,
+        "trials": 117,
+        "valid": 81,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 1,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.315581876224242
+        }
+      },
+      {
+        "id": "train-18",
+        "bucket_xy_m": [
+          0.8599999999999999,
+          -0.2
+        ],
+        "split": "train",
+        "captures": 11,
+        "trials": 117,
+        "valid": 26,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.182369125569917
+        }
+      },
+      {
+        "id": "train-19",
+        "bucket_xy_m": [
+          1.0499999999999998,
+          -0.2
+        ],
+        "split": "train",
+        "captures": 1,
+        "trials": 117,
+        "valid": 19,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.2024123175037
+        }
+      },
+      {
+        "id": "train-20",
+        "bucket_xy_m": [
+          1.24,
+          -0.2
+        ],
+        "split": "train",
+        "captures": 0,
+        "trials": 117,
+        "valid": 16,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": -0.06277132002585313
+        }
+      },
+      {
+        "id": "train-21",
+        "bucket_xy_m": [
+          0.1,
+          0.025000000000000022
+        ],
+        "split": "train",
+        "captures": 0,
+        "trials": 117,
+        "valid": 77,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 0.09011405847435479
+        }
+      },
+      {
+        "id": "train-22",
+        "bucket_xy_m": [
+          0.29,
+          0.025000000000000022
+        ],
+        "split": "train",
+        "captures": 29,
+        "trials": 117,
+        "valid": 74,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 3,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.495188767072057
+        }
+      },
+      {
+        "id": "train-23",
+        "bucket_xy_m": [
+          0.48,
+          0.025000000000000022
+        ],
+        "split": "train",
+        "captures": 29,
+        "trials": 117,
+        "valid": 63,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 3,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.4706390392147926
+        }
+      },
+      {
+        "id": "train-24",
+        "bucket_xy_m": [
+          0.6699999999999999,
+          0.025000000000000022
+        ],
+        "split": "train",
+        "captures": 24,
+        "trials": 117,
+        "valid": 87,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.185442177092278
+        }
+      },
+      {
+        "id": "train-25",
+        "bucket_xy_m": [
+          0.8599999999999999,
+          0.025000000000000022
+        ],
+        "split": "train",
+        "captures": 5,
+        "trials": 117,
+        "valid": 12,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.217587243693393
+        }
+      },
+      {
+        "id": "train-26",
+        "bucket_xy_m": [
+          1.0499999999999998,
+          0.025000000000000022
+        ],
+        "split": "train",
+        "captures": 0,
+        "trials": 117,
+        "valid": 12,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 1,
+          "board_bounces": 2,
+          "mean_reward": -0.5493179545216059
+        }
+      },
+      {
+        "id": "train-27",
+        "bucket_xy_m": [
+          1.24,
+          0.025000000000000022
+        ],
+        "split": "train",
+        "captures": 0,
+        "trials": 117,
+        "valid": 18,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": -0.328182984776144
+        }
+      },
+      {
+        "id": "train-28",
+        "bucket_xy_m": [
+          0.1,
+          0.25
+        ],
+        "split": "train",
+        "captures": 5,
+        "trials": 117,
+        "valid": 75,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 1,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 2.0491898506624198
+        }
+      },
+      {
+        "id": "train-29",
+        "bucket_xy_m": [
+          0.29,
+          0.25
+        ],
+        "split": "train",
+        "captures": 23,
+        "trials": 117,
+        "valid": 82,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.201369460283883
+        }
+      },
+      {
+        "id": "train-30",
+        "bucket_xy_m": [
+          0.48,
+          0.25
+        ],
+        "split": "train",
+        "captures": 23,
+        "trials": 117,
+        "valid": 66,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 1,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.289487407192965
+        }
+      },
+      {
+        "id": "train-31",
+        "bucket_xy_m": [
+          0.6699999999999999,
+          0.25
+        ],
+        "split": "train",
+        "captures": 24,
+        "trials": 117,
+        "valid": 70,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 1,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.325949941942045
+        }
+      },
+      {
+        "id": "train-32",
+        "bucket_xy_m": [
+          0.8599999999999999,
+          0.25
+        ],
+        "split": "train",
+        "captures": 8,
+        "trials": 117,
+        "valid": 26,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.198545176650987
+        }
+      },
+      {
+        "id": "train-33",
+        "bucket_xy_m": [
+          1.0499999999999998,
+          0.25
+        ],
+        "split": "train",
+        "captures": 0,
+        "trials": 117,
+        "valid": 28,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 2,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 2.7277773638138405
+        }
+      },
+      {
+        "id": "train-34",
+        "bucket_xy_m": [
+          1.24,
+          0.25
+        ],
+        "split": "train",
+        "captures": 0,
+        "trials": 117,
+        "valid": 16,
+        "confirmation": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": -0.20832306469019232
+        }
+      }
+    ]
+  },
+  "test_note": "50 distinct held-out continuous XY positions, three nominal numerical repeats each; no per-scene search or weight updates."
+}

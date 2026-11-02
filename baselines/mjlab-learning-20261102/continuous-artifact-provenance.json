@@ -1,0 +1,31 @@
+{
+  "version": "sircus-mjlab-artifacts-v1",
+  "contract_fingerprint": "bb3fd22b9cfb153be000914da6ab7d765afcd14525301101cad379517efb9fda",
+  "checkpoint_sha256": "2d5b3a3f864c62337186617d5e33fed673813909c14a1d325a4f527c26118ddd",
+  "source_sha256": {
+    "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+    "sircus/isaac/rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+    "sircus/isaac/entry_quality.py": "2f3d8b73c871a41afc3c8f333f5df1d54fa8751720855ffff517e729217db9d4",
+    "sircus/isaac/board_route.py": "6409889aed6b0fd6a288eb9494b954ec5c3233ec41fdcf146940fc23276fb2e9"
+  },
+  "asset_sha256": {
+    "assets/board_arm.urdf": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340",
+    "assets/dropper.urdf": "3f40e56e46b040fb3339c1235ea85872f46511c45db2d37f7661db94a470bae3",
+    "assets/poses.json": "5847c2793606860a82cc74030c3fe529767318f189c5d48e3d66c0dc7b9f776a",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link1.stl": "4069840361c2693b5b1147da366d5ba8a49ff7ab2c52fed68e07e04e07786e3f",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link2.stl": "0e736a629e6000c3c912f5aaf76937f824f510ac8894db67bd0d7f1d6210fc52",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link3.stl": "f682201345117c4b021fd9db21bd9bef6824886c8324f046b7d5772d7c9fa426",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link4.stl": "7bf4ab507c07a2b26e6a8528decdfe32d71efffdf1dd391406f1ce2f9ff4caa7",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link5.stl": "103955f097086e0f5d46380ff89bc7ef669877bb65def38431a18fc5343e1ba0",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link6.stl": "86b95b77850f38ff1437284705a1c8c616e3da21faef72e4f06751fc741de3b3",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link_base.stl": "871d501d23e8164440656331ee0e005d859dbdb7fab1c3725bef423adac9cf0e",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/visual/link1.stl": "4069840361c2693b5b1147da366d5ba8a49ff7ab2c52fed68e07e04e07786e3f",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/visual/link2.stl": "ae2be91a991177f22dd5a12ad6533d982a9fc4f5af4749d70e2b817a312d1ed2",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/visual/link3.stl": "c5a1165e86839874e12abf7acfc0b4d5f18607408c326e7d1d1c7c7fb92217c8",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/visual/link4.stl": "c816f4c9fae6b038ba7f6e8c7b9804769146e71199cdfe7a1a87179a56973a61",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/visual/link5.stl": "cb701fe65fd2f9fa45bbc4080ccd749bc4320ee2b8e7af0fe3e69891abb0a554",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/visual/link6.stl": "d031adf90d7254b358ea922f8dfe3308cebec0852ba056e122a34353cc8ea9e3",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/visual/link_base.stl": "45c7cfc31975142401706ffd93c1a2ad3570fbe19694558c5ce75713ab07b5c7"
+  },
+  "training_catalogue_sha256": "b86d4fa10c7869965d205a6a61c586161406c26ce7fc9e7389c305878cd5295e"
+}

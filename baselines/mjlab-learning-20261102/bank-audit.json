@@ -1,0 +1,1411 @@
+{
+  "version": "sircus-mjlab-bank-audit-v1",
+  "contract_fingerprint": "5618820c146be1f71edc59fe00a2a5260f6f479b41579fd22afb4c761310728e",
+  "records": 2598,
+  "phase_counts": {
+    "validation-selected-0": 100,
+    "train-ppo": 2048,
+    "test-uniform-0": 50,
+    "test-uniform-1": 50,
+    "test-uniform-2": 50,
+    "test-selected-0": 50,
+    "test-selected-1": 50,
+    "test-selected-2": 50,
+    "test-parent-v2-0": 50,
+    "test-parent-v2-1": 50,
+    "test-parent-v2-2": 50
+  },
+  "checkpoints": {
+    "update_weight_sha256": [
+      "73a32657443af3dfa03fba9f3e2856d52331be50f9475f593b8a9b2209538725",
+      "bc40b146543e4bfe72fdd29fc4ebf6dcf6f41bbf3b5bd27a6511f91449d28628",
+      "86d82d5f899cebde2f9930de5955ac0da511aaf663019ea94b84deb0931985ce",
+      "12f21a45ab321124cea5531c407231b0c28d7d351021499aab76660ead856c0d",
+      "f6ee91023544dc09478e4bbdc73199793b48b50b7c886cb32e09c3f438b26e81",
+      "7c8e94a579453e503b75cd27dd7e06c8e78cf649fc05ee940dc92f069239f240",
+      "3b6e4c68468302875aaa64456fff7e55788be3a31b28a36ed45e20660e1a6096",
+      "c77e30b7f45bfc31f4d3998299e17d04282b8800c0895feebda932d2723bb6f2",
+      "f644c7100659d2318d886c60bb0153df4f10dd6f0869c511e4fea66e87f6e2c9",
+      "6cf9efb40e896b0f29fa290f45879da1265ec37054f12b12b7a1071a9faa8a5a",
+      "b883a0e6db1789f53a10d6132c7a09236767ab541e8780ae927c192bb46e5b8f",
+      "5843a02dbd3d7714ad48799c9c405a7b802d2c25799734287fd8b6feb6fbdace",
+      "ced7f4e4dd7f4e9a9c66e552ad0791f93ad22a90278b75940f6209b988bfe6f7",
+      "0054ef3d09d1cb3a07b068cb4788432ecdd77d31e1aff721366818c5fa70969c",
+      "441e2cd969381643269581acc76768ead447d47f8903f907fee8301297252c48",
+      "5040d4f644dde885c2ff59a9c03ab47d536e11bff4e51cd00ac3e4442aaaf61e",
+      "69bde7b6390c6ec5c3a601223f05ef0ce50ce07199484ec119da379208cf1586"
+    ],
+    "selected_weight_sha256": "ced7f4e4dd7f4e9a9c66e552ad0791f93ad22a90278b75940f6209b988bfe6f7",
+    "maximum_logp_error": 4.76837158203125e-07
+  },
+  "parent": {
+    "contract_fingerprint": "bb3fd22b9cfb153be000914da6ab7d765afcd14525301101cad379517efb9fda",
+    "checkpoint_sha256": "2d5b3a3f864c62337186617d5e33fed673813909c14a1d325a4f527c26118ddd",
+    "catalogue_sha256": "b86d4fa10c7869965d205a6a61c586161406c26ce7fc9e7389c305878cd5295e"
+  },
+  "passed": true,
+  "checks": [
+    {
+      "name": "bank_fingerprint",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "spatial_splits_disjoint",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stable_candidate_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train_bucket_sequence",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train_candidate_materialization",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train_array_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train_mask_reason_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train_finite_geometry",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train_geometry_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "validation_bucket_sequence",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "validation_candidate_materialization",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "validation_array_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "validation_mask_reason_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "validation_finite_geometry",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "validation_geometry_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "test_bucket_sequence",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "test_candidate_materialization",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "test_array_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "test_mask_reason_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "test_finite_geometry",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "test_geometry_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "study_completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract_fingerprint",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "trial_count_and_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "training_budget",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "training_release_count",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "eligible_training_context_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "validation_budget",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "initial_validation_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 20,
+          "captures": 10,
+          "clean": 6,
+          "invalid": 7,
+          "board_bounces": 13,
+          "mean_reward": 1.8711993421391597
+        },
+        "reported": {
+          "attempts": 20,
+          "captures": 10,
+          "clean": 6,
+          "invalid": 7,
+          "board_bounces": 13,
+          "mean_reward": 1.8711993421391597
+        }
+      }
+    },
+    {
+      "name": "update_1_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_1_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 109,
+          "clean": 55,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.747901695102035
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 109,
+          "clean": 55,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.747901695102035
+        }
+      }
+    },
+    {
+      "name": "update_2_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_2_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 91,
+          "clean": 38,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.1374442061352448
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 91,
+          "clean": 38,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.1374442061352448
+        }
+      }
+    },
+    {
+      "name": "update_3_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_3_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 105,
+          "clean": 54,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.6504451604313766
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 105,
+          "clean": 54,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.6504451604313766
+        }
+      }
+    },
+    {
+      "name": "update_4_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_4_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 103,
+          "clean": 45,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.5534437147120306
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 103,
+          "clean": 45,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.5534437147120306
+        }
+      }
+    },
+    {
+      "name": "validation_4_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 20,
+          "captures": 10,
+          "clean": 2,
+          "invalid": 7,
+          "board_bounces": 13,
+          "mean_reward": 1.7960966657771404
+        },
+        "reported": {
+          "attempts": 20,
+          "captures": 10,
+          "clean": 2,
+          "invalid": 7,
+          "board_bounces": 13,
+          "mean_reward": 1.7960966657771404
+        }
+      }
+    },
+    {
+      "name": "update_5_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_5_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 103,
+          "clean": 50,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.576932146463255
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 103,
+          "clean": 50,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.576932146463255
+        }
+      }
+    },
+    {
+      "name": "update_6_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_6_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 106,
+          "clean": 56,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.6768450551036254
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 106,
+          "clean": 56,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.6768450551036254
+        }
+      }
+    },
+    {
+      "name": "update_7_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_7_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 115,
+          "clean": 54,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.9512813835237584
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 115,
+          "clean": 54,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.9512813835237584
+        }
+      }
+    },
+    {
+      "name": "update_8_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_8_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 106,
+          "clean": 55,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.69534775695056
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 106,
+          "clean": 55,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.69534775695056
+        }
+      }
+    },
+    {
+      "name": "validation_8_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 20,
+          "captures": 10,
+          "clean": 2,
+          "invalid": 7,
+          "board_bounces": 13,
+          "mean_reward": 1.812373302121583
+        },
+        "reported": {
+          "attempts": 20,
+          "captures": 10,
+          "clean": 2,
+          "invalid": 7,
+          "board_bounces": 13,
+          "mean_reward": 1.812373302121583
+        }
+      }
+    },
+    {
+      "name": "update_9_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_9_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 99,
+          "clean": 49,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.421389193905032
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 99,
+          "clean": 49,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.421389193905032
+        }
+      }
+    },
+    {
+      "name": "update_10_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_10_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 110,
+          "clean": 59,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.791800615906734
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 110,
+          "clean": 59,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.791800615906734
+        }
+      }
+    },
+    {
+      "name": "update_11_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_11_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 105,
+          "clean": 57,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.675537882633167
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 105,
+          "clean": 57,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.675537882633167
+        }
+      }
+    },
+    {
+      "name": "update_12_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_12_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 108,
+          "clean": 55,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.7482464345743907
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 108,
+          "clean": 55,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.7482464345743907
+        }
+      }
+    },
+    {
+      "name": "validation_12_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 20,
+          "captures": 11,
+          "clean": 3,
+          "invalid": 7,
+          "board_bounces": 13,
+          "mean_reward": 1.9824638409218545
+        },
+        "reported": {
+          "attempts": 20,
+          "captures": 11,
+          "clean": 3,
+          "invalid": 7,
+          "board_bounces": 13,
+          "mean_reward": 1.9824638409218545
+        }
+      }
+    },
+    {
+      "name": "update_13_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_13_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 98,
+          "clean": 48,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.4363483379657396
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 98,
+          "clean": 48,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.4363483379657396
+        }
+      }
+    },
+    {
+      "name": "update_14_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_14_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 107,
+          "clean": 53,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.679622833935144
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 107,
+          "clean": 53,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.679622833935144
+        }
+      }
+    },
+    {
+      "name": "update_15_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_15_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 99,
+          "clean": 58,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.444200898693974
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 99,
+          "clean": 58,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.444200898693974
+        }
+      }
+    },
+    {
+      "name": "update_16_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_16_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 105,
+          "clean": 48,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.633499004630489
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 105,
+          "clean": 48,
+          "invalid": 0,
+          "board_bounces": 128,
+          "mean_reward": 3.633499004630489
+        }
+      }
+    },
+    {
+      "name": "validation_16_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 20,
+          "captures": 11,
+          "clean": 1,
+          "invalid": 7,
+          "board_bounces": 13,
+          "mean_reward": 1.9561639492467169
+        },
+        "reported": {
+          "attempts": 20,
+          "captures": 11,
+          "clean": 1,
+          "invalid": 7,
+          "board_bounces": 13,
+          "mean_reward": 1.9561639492467169
+        }
+      }
+    },
+    {
+      "name": "validation_only_checkpoint_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "known_phases",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "development_precedes_test_in_jsonl",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "single_shot_no_search_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "uniform_valid_bank_all_query_repeat_denominator",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "uniform_valid_bank_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 150,
+          "captures": 94,
+          "clean": 59,
+          "invalid": 36,
+          "board_bounces": 114,
+          "mean_reward": 2.5226275202618806
+        },
+        "reported": {
+          "attempts": 150,
+          "captures": 94,
+          "clean": 59,
+          "invalid": 36,
+          "board_bounces": 114,
+          "mean_reward": 2.5226275202618806
+        }
+      }
+    },
+    {
+      "name": "uniform_valid_bank_metadata",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "selected_bank_all_query_repeat_denominator",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "selected_bank_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 150,
+          "captures": 93,
+          "clean": 42,
+          "invalid": 36,
+          "board_bounces": 114,
+          "mean_reward": 2.4352665796077493
+        },
+        "reported": {
+          "attempts": 150,
+          "captures": 93,
+          "clean": 42,
+          "invalid": 36,
+          "board_bounces": 114,
+          "mean_reward": 2.4352665796077493
+        }
+      }
+    },
+    {
+      "name": "selected_bank_metadata",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "parent_v2_all_query_repeat_denominator",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "parent_v2_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 150,
+          "captures": 75,
+          "clean": 12,
+          "invalid": 12,
+          "board_bounces": 138,
+          "mean_reward": 1.959570633917424
+        },
+        "reported": {
+          "attempts": 150,
+          "captures": 75,
+          "clean": 12,
+          "invalid": 12,
+          "board_bounces": 138,
+          "mean_reward": 1.959570633917424
+        }
+      }
+    },
+    {
+      "name": "parent_v2_metadata",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "selected_top_level_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 150,
+          "captures": 93,
+          "clean": 42,
+          "invalid": 36,
+          "board_bounces": 114,
+          "mean_reward": 2.4352665796077493
+        },
+        "reported": {
+          "attempts": 150,
+          "captures": 93,
+          "clean": 42,
+          "invalid": 36,
+          "board_bounces": 114,
+          "mean_reward": 2.4352665796077493
+        }
+      }
+    },
+    {
+      "name": "selected_report_replay_matches_jsonl",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "selected_trial_denominator",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stable_candidate_mask_and_cached_branch_evidence",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "uniform_same_frozen_candidate_across_repeats",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "selected_same_frozen_candidate_across_repeats",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "split_file_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "critical_artifacts_manifest_complete",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "all_declared_artifact_hashes",
+      "passed": true,
+      "detail": {
+        "files": 26,
+        "mismatches": []
+      }
+    },
+    {
+      "name": "executed_source_hashes",
+      "passed": true,
+      "detail": {
+        "files": 23,
+        "mismatches": []
+      }
+    },
+    {
+      "name": "checkpoint_0_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "checkpoint_1_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "checkpoint_2_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "checkpoint_3_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "checkpoint_4_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "checkpoint_5_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "checkpoint_6_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "checkpoint_7_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "checkpoint_8_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "checkpoint_9_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "checkpoint_10_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "checkpoint_11_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "checkpoint_12_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "checkpoint_13_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "checkpoint_14_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "checkpoint_15_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "checkpoint_16_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "selected_checkpoint_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "reported_evaluation_weight_identities",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_1_weight_update_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_1_finite_epochs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_1_cpu_behavior_logp",
+      "passed": true,
+      "detail": {
+        "maximum_logp_error": 0.0,
+        "failures": []
+      }
+    },
+    {
+      "name": "ppo_2_weight_update_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_2_finite_epochs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_2_cpu_behavior_logp",
+      "passed": true,
+      "detail": {
+        "maximum_logp_error": 2.384185791015625e-07,
+        "failures": []
+      }
+    },
+    {
+      "name": "ppo_3_weight_update_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_3_finite_epochs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_3_cpu_behavior_logp",
+      "passed": true,
+      "detail": {
+        "maximum_logp_error": 4.76837158203125e-07,
+        "failures": []
+      }
+    },
+    {
+      "name": "ppo_4_weight_update_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_4_finite_epochs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_4_cpu_behavior_logp",
+      "passed": true,
+      "detail": {
+        "maximum_logp_error": 2.384185791015625e-07,
+        "failures": []
+      }
+    },
+    {
+      "name": "ppo_5_weight_update_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_5_finite_epochs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_5_cpu_behavior_logp",
+      "passed": true,
+      "detail": {
+        "maximum_logp_error": 2.384185791015625e-07,
+        "failures": []
+      }
+    },
+    {
+      "name": "ppo_6_weight_update_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_6_finite_epochs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_6_cpu_behavior_logp",
+      "passed": true,
+      "detail": {
+        "maximum_logp_error": 2.384185791015625e-07,
+        "failures": []
+      }
+    },
+    {
+      "name": "ppo_7_weight_update_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_7_finite_epochs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_7_cpu_behavior_logp",
+      "passed": true,
+      "detail": {
+        "maximum_logp_error": 2.384185791015625e-07,
+        "failures": []
+      }
+    },
+    {
+      "name": "ppo_8_weight_update_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_8_finite_epochs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_8_cpu_behavior_logp",
+      "passed": true,
+      "detail": {
+        "maximum_logp_error": 2.384185791015625e-07,
+        "failures": []
+      }
+    },
+    {
+      "name": "ppo_9_weight_update_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_9_finite_epochs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_9_cpu_behavior_logp",
+      "passed": true,
+      "detail": {
+        "maximum_logp_error": 2.384185791015625e-07,
+        "failures": []
+      }
+    },
+    {
+      "name": "ppo_10_weight_update_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_10_finite_epochs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_10_cpu_behavior_logp",
+      "passed": true,
+      "detail": {
+        "maximum_logp_error": 2.384185791015625e-07,
+        "failures": []
+      }
+    },
+    {
+      "name": "ppo_11_weight_update_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_11_finite_epochs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_11_cpu_behavior_logp",
+      "passed": true,
+      "detail": {
+        "maximum_logp_error": 4.76837158203125e-07,
+        "failures": []
+      }
+    },
+    {
+      "name": "ppo_12_weight_update_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_12_finite_epochs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_12_cpu_behavior_logp",
+      "passed": true,
+      "detail": {
+        "maximum_logp_error": 2.384185791015625e-07,
+        "failures": []
+      }
+    },
+    {
+      "name": "ppo_13_weight_update_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_13_finite_epochs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_13_cpu_behavior_logp",
+      "passed": true,
+      "detail": {
+        "maximum_logp_error": 2.384185791015625e-07,
+        "failures": []
+      }
+    },
+    {
+      "name": "ppo_14_weight_update_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_14_finite_epochs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_14_cpu_behavior_logp",
+      "passed": true,
+      "detail": {
+        "maximum_logp_error": 2.384185791015625e-07,
+        "failures": []
+      }
+    },
+    {
+      "name": "ppo_15_weight_update_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_15_finite_epochs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_15_cpu_behavior_logp",
+      "passed": true,
+      "detail": {
+        "maximum_logp_error": 4.76837158203125e-07,
+        "failures": []
+      }
+    },
+    {
+      "name": "ppo_16_weight_update_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_16_finite_epochs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_16_cpu_behavior_logp",
+      "passed": true,
+      "detail": {
+        "maximum_logp_error": 4.76837158203125e-07,
+        "failures": []
+      }
+    },
+    {
+      "name": "validation_0_cpu_argmax",
+      "passed": true,
+      "detail": {
+        "maximum_logp_error": 2.384185791015625e-07,
+        "failures": []
+      }
+    },
+    {
+      "name": "validation_4_cpu_argmax",
+      "passed": true,
+      "detail": {
+        "maximum_logp_error": 2.384185791015625e-07,
+        "failures": []
+      }
+    },
+    {
+      "name": "validation_8_cpu_argmax",
+      "passed": true,
+      "detail": {
+        "maximum_logp_error": 0.0,
+        "failures": []
+      }
+    },
+    {
+      "name": "validation_12_cpu_argmax",
+      "passed": true,
+      "detail": {
+        "maximum_logp_error": 2.384185791015625e-07,
+        "failures": []
+      }
+    },
+    {
+      "name": "validation_16_cpu_argmax",
+      "passed": true,
+      "detail": {
+        "maximum_logp_error": 2.384185791015625e-07,
+        "failures": []
+      }
+    },
+    {
+      "name": "uniform_cpu_behavior_logp",
+      "passed": true,
+      "detail": {
+        "maximum_logp_error": 0.0,
+        "failures": []
+      }
+    },
+    {
+      "name": "selected_cpu_frozen_argmax",
+      "passed": true,
+      "detail": {
+        "maximum_logp_error": 2.384185791015625e-07,
+        "failures": []
+      }
+    },
+    {
+      "name": "uniform_initial_actor",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "parent_contract_checkpoint_unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "bank_uses_only_frozen_parent_train_teachers",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "new_training_excludes_parent_validation_and_test",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "new_validation_test_are_fresh_vs_parent_layouts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "parent_training_grid_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "parent_cpu_frozen_actor_actions",
+      "passed": true,
+      "detail": [
+        6.169080735141108e-08,
+        9.834766390159899e-08,
+        6.258487700305793e-08,
+        5.364418029785156e-06,
+        8.13603401039753e-08
+      ]
+    },
+    {
+      "name": "parent_evaluation_checkpoint_identity",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "warnings": [
+    "Nominal frozen repeats test numerical repeatability, not perturbed reliability or continuous workspace coverage.",
+    "Saved file ordering and identities support frozen evaluation but cannot independently prove wall-clock freezing chronology.",
+    "PPO checkpoint changes, selected actions and pre-update behavior probabilities are verified; optimizer gradients and stochastic GPU RNG samples are not independently replayed.",
+    "Native cached geometry was checksum-bound; this audit does not rerun ball dynamics or certify collision-free arm transit. Parent/shared-asset provenance requires the separate artifact verifier."
+  ]
+}

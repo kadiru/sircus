@@ -1,0 +1,3567 @@
+{
+  "version": "sircus-mjlab-learning-audit-v1",
+  "study_contract_fingerprint": "bb3fd22b9cfb153be000914da6ab7d765afcd14525301101cad379517efb9fda",
+  "records": 9237,
+  "phase_counts": {
+    "train-exploration": 4096,
+    "train-confirmation": 315,
+    "validation-warm": 20,
+    "train-ppo": 4096,
+    "validation-4": 20,
+    "validation-8": 20,
+    "validation-12": 20,
+    "validation-16": 20,
+    "validation-20": 20,
+    "validation-24": 20,
+    "validation-28": 20,
+    "validation-32": 20,
+    "test-initial": 150,
+    "test-warm": 150,
+    "test-selected": 150,
+    "test-lock-board": 50,
+    "test-lock-dropper": 50
+  },
+  "checkpoints": {
+    "weight_sha256": {
+      "initial": "753b4910cb0f940a4c9c06bed2e3f7ceb3d0777542ebc83bbbf8cba9a2ed3105",
+      "warm": "ef56a99eeb32f9752bd9aebc8bc7fe3cf5cba9c8a06f7dafee02acda9c068900",
+      "selected": "ad3d86bd996ee50e020f6528e8b92e09ea3507ef763ace14c5a815e3fadf63fe",
+      "latest": "a36e620e7072766671b30e303a9ffd73257b3225c4e355d4fac494f3c34db836"
+    },
+    "maximum_action_error": [
+      6.169080735141108e-08,
+      1.6391277313232422e-07,
+      8.344650270775134e-08,
+      7.510185241699219e-06,
+      8.344650270775134e-08
+    ]
+  },
+  "fk": {
+    "board_saved_position_m": 3.296613367363879e-07,
+    "board_requested_position_m": 3.627546599303599e-05,
+    "dropper_requested_position_m": 5.551116817191418e-16,
+    "locked_position_m": 5.606351459942525e-16
+  },
+  "passed": true,
+  "checks": [
+    {
+      "name": "contract_fingerprint",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "spatial_splits_disjoint",
+      "passed": true,
+      "detail": {
+        "train": 35,
+        "validation": 20,
+        "test": 50
+      }
+    },
+    {
+      "name": "study_completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "records_count",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "coverage_report_matches_catalogue",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unique_sequential_trial_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "known_phase_names",
+      "passed": true,
+      "detail": [
+        "test-initial",
+        "test-lock-board",
+        "test-lock-dropper",
+        "test-selected",
+        "test-warm",
+        "train-confirmation",
+        "train-exploration",
+        "train-ppo",
+        "validation-12",
+        "validation-16",
+        "validation-20",
+        "validation-24",
+        "validation-28",
+        "validation-32",
+        "validation-4",
+        "validation-8",
+        "validation-warm"
+      ]
+    },
+    {
+      "name": "phase_layout_membership",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "jsonl_training_precedes_test",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no_search_in_frozen_evaluation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "exploration_budget",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "exploration_cyclic_layout_assignment",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_budget",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "training_count_excludes_validation_and_test",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "exploration_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 4096,
+          "captures": 368,
+          "clean": 71,
+          "invalid": 2138,
+          "board_bounces": 1958,
+          "mean_reward": -0.19225242525498776
+        },
+        "reported": {
+          "attempts": 4096,
+          "captures": 368,
+          "clean": 71,
+          "invalid": 2138,
+          "board_bounces": 1958,
+          "mean_reward": -0.19225242525498776
+        }
+      }
+    },
+    {
+      "name": "optimizer_update_count",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_1_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_1_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 34,
+          "clean": 8,
+          "invalid": 45,
+          "board_bounces": 83,
+          "mean_reward": 0.7557763369755149
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 34,
+          "clean": 8,
+          "invalid": 45,
+          "board_bounces": 83,
+          "mean_reward": 0.7557763369755149
+        }
+      }
+    },
+    {
+      "name": "update_2_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_2_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 31,
+          "clean": 12,
+          "invalid": 49,
+          "board_bounces": 79,
+          "mean_reward": 0.663585861393521
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 31,
+          "clean": 12,
+          "invalid": 49,
+          "board_bounces": 79,
+          "mean_reward": 0.663585861393521
+        }
+      }
+    },
+    {
+      "name": "update_3_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_3_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 32,
+          "clean": 7,
+          "invalid": 49,
+          "board_bounces": 79,
+          "mean_reward": 0.6603027095870297
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 32,
+          "clean": 7,
+          "invalid": 49,
+          "board_bounces": 79,
+          "mean_reward": 0.6603027095870297
+        }
+      }
+    },
+    {
+      "name": "update_4_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_4_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 23,
+          "clean": 5,
+          "invalid": 44,
+          "board_bounces": 84,
+          "mean_reward": 0.40211242099305045
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 23,
+          "clean": 5,
+          "invalid": 44,
+          "board_bounces": 84,
+          "mean_reward": 0.40211242099305045
+        }
+      }
+    },
+    {
+      "name": "validation_4_layout_sequence",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "validation_4_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 20,
+          "captures": 11,
+          "clean": 4,
+          "invalid": 4,
+          "board_bounces": 16,
+          "mean_reward": 2.126792435850725
+        },
+        "reported": {
+          "attempts": 20,
+          "captures": 11,
+          "clean": 4,
+          "invalid": 4,
+          "board_bounces": 16,
+          "mean_reward": 2.126792435850725
+        }
+      }
+    },
+    {
+      "name": "update_5_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_5_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 32,
+          "clean": 14,
+          "invalid": 46,
+          "board_bounces": 82,
+          "mean_reward": 0.7061806878304109
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 32,
+          "clean": 14,
+          "invalid": 46,
+          "board_bounces": 82,
+          "mean_reward": 0.7061806878304109
+        }
+      }
+    },
+    {
+      "name": "update_6_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_6_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 30,
+          "clean": 8,
+          "invalid": 39,
+          "board_bounces": 89,
+          "mean_reward": 0.6454894786248924
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 30,
+          "clean": 8,
+          "invalid": 39,
+          "board_bounces": 89,
+          "mean_reward": 0.6454894786248924
+        }
+      }
+    },
+    {
+      "name": "update_7_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_7_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 35,
+          "clean": 10,
+          "invalid": 32,
+          "board_bounces": 96,
+          "mean_reward": 0.8922950835823267
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 35,
+          "clean": 10,
+          "invalid": 32,
+          "board_bounces": 96,
+          "mean_reward": 0.8922950835823267
+        }
+      }
+    },
+    {
+      "name": "update_8_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_8_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 30,
+          "clean": 11,
+          "invalid": 39,
+          "board_bounces": 89,
+          "mean_reward": 0.6823280023208282
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 30,
+          "clean": 11,
+          "invalid": 39,
+          "board_bounces": 89,
+          "mean_reward": 0.6823280023208282
+        }
+      }
+    },
+    {
+      "name": "validation_8_layout_sequence",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "validation_8_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 20,
+          "captures": 9,
+          "clean": 4,
+          "invalid": 5,
+          "board_bounces": 15,
+          "mean_reward": 1.6694860109949712
+        },
+        "reported": {
+          "attempts": 20,
+          "captures": 9,
+          "clean": 4,
+          "invalid": 5,
+          "board_bounces": 15,
+          "mean_reward": 1.6694860109949712
+        }
+      }
+    },
+    {
+      "name": "update_9_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_9_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 30,
+          "clean": 7,
+          "invalid": 44,
+          "board_bounces": 84,
+          "mean_reward": 0.6691678214400791
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 30,
+          "clean": 7,
+          "invalid": 44,
+          "board_bounces": 84,
+          "mean_reward": 0.6691678214400791
+        }
+      }
+    },
+    {
+      "name": "update_10_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_10_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 35,
+          "clean": 9,
+          "invalid": 34,
+          "board_bounces": 94,
+          "mean_reward": 0.9206248248047506
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 35,
+          "clean": 9,
+          "invalid": 34,
+          "board_bounces": 94,
+          "mean_reward": 0.9206248248047506
+        }
+      }
+    },
+    {
+      "name": "update_11_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_11_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 38,
+          "clean": 12,
+          "invalid": 38,
+          "board_bounces": 90,
+          "mean_reward": 0.9565225844609754
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 38,
+          "clean": 12,
+          "invalid": 38,
+          "board_bounces": 90,
+          "mean_reward": 0.9565225844609754
+        }
+      }
+    },
+    {
+      "name": "update_12_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_12_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 41,
+          "clean": 7,
+          "invalid": 45,
+          "board_bounces": 83,
+          "mean_reward": 0.9895796013787954
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 41,
+          "clean": 7,
+          "invalid": 45,
+          "board_bounces": 83,
+          "mean_reward": 0.9895796013787954
+        }
+      }
+    },
+    {
+      "name": "validation_12_layout_sequence",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "validation_12_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 20,
+          "captures": 7,
+          "clean": 4,
+          "invalid": 6,
+          "board_bounces": 14,
+          "mean_reward": 1.1693968221084439
+        },
+        "reported": {
+          "attempts": 20,
+          "captures": 7,
+          "clean": 4,
+          "invalid": 6,
+          "board_bounces": 14,
+          "mean_reward": 1.1693968221084439
+        }
+      }
+    },
+    {
+      "name": "update_13_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_13_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 31,
+          "clean": 10,
+          "invalid": 48,
+          "board_bounces": 80,
+          "mean_reward": 0.637880415091233
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 31,
+          "clean": 10,
+          "invalid": 48,
+          "board_bounces": 80,
+          "mean_reward": 0.637880415091233
+        }
+      }
+    },
+    {
+      "name": "update_14_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_14_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 34,
+          "clean": 9,
+          "invalid": 46,
+          "board_bounces": 82,
+          "mean_reward": 0.7856329663299623
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 34,
+          "clean": 9,
+          "invalid": 46,
+          "board_bounces": 82,
+          "mean_reward": 0.7856329663299623
+        }
+      }
+    },
+    {
+      "name": "update_15_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_15_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 26,
+          "clean": 7,
+          "invalid": 44,
+          "board_bounces": 84,
+          "mean_reward": 0.5126549070235715
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 26,
+          "clean": 7,
+          "invalid": 44,
+          "board_bounces": 84,
+          "mean_reward": 0.5126549070235715
+        }
+      }
+    },
+    {
+      "name": "update_16_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_16_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 29,
+          "clean": 7,
+          "invalid": 40,
+          "board_bounces": 88,
+          "mean_reward": 0.6225523163895623
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 29,
+          "clean": 7,
+          "invalid": 40,
+          "board_bounces": 88,
+          "mean_reward": 0.6225523163895623
+        }
+      }
+    },
+    {
+      "name": "validation_16_layout_sequence",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "validation_16_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 20,
+          "captures": 10,
+          "clean": 5,
+          "invalid": 3,
+          "board_bounces": 17,
+          "mean_reward": 1.9590923316234907
+        },
+        "reported": {
+          "attempts": 20,
+          "captures": 10,
+          "clean": 5,
+          "invalid": 3,
+          "board_bounces": 17,
+          "mean_reward": 1.9590923316234907
+        }
+      }
+    },
+    {
+      "name": "update_17_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_17_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 40,
+          "clean": 10,
+          "invalid": 30,
+          "board_bounces": 98,
+          "mean_reward": 1.0508488762308772
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 40,
+          "clean": 10,
+          "invalid": 30,
+          "board_bounces": 98,
+          "mean_reward": 1.0508488762308772
+        }
+      }
+    },
+    {
+      "name": "update_18_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_18_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 32,
+          "clean": 7,
+          "invalid": 38,
+          "board_bounces": 90,
+          "mean_reward": 0.7687531558012515
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 32,
+          "clean": 7,
+          "invalid": 38,
+          "board_bounces": 90,
+          "mean_reward": 0.7687531558012515
+        }
+      }
+    },
+    {
+      "name": "update_19_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_19_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 22,
+          "clean": 8,
+          "invalid": 48,
+          "board_bounces": 80,
+          "mean_reward": 0.3696910149458813
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 22,
+          "clean": 8,
+          "invalid": 48,
+          "board_bounces": 80,
+          "mean_reward": 0.3696910149458813
+        }
+      }
+    },
+    {
+      "name": "update_20_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_20_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 31,
+          "clean": 7,
+          "invalid": 35,
+          "board_bounces": 93,
+          "mean_reward": 0.7166761877406029
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 31,
+          "clean": 7,
+          "invalid": 35,
+          "board_bounces": 93,
+          "mean_reward": 0.7166761877406029
+        }
+      }
+    },
+    {
+      "name": "validation_20_layout_sequence",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "validation_20_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 20,
+          "captures": 8,
+          "clean": 1,
+          "invalid": 7,
+          "board_bounces": 13,
+          "mean_reward": 1.3533179985935169
+        },
+        "reported": {
+          "attempts": 20,
+          "captures": 8,
+          "clean": 1,
+          "invalid": 7,
+          "board_bounces": 13,
+          "mean_reward": 1.3533179985935169
+        }
+      }
+    },
+    {
+      "name": "update_21_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_21_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 42,
+          "clean": 11,
+          "invalid": 40,
+          "board_bounces": 88,
+          "mean_reward": 1.0552476681960195
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 42,
+          "clean": 11,
+          "invalid": 40,
+          "board_bounces": 88,
+          "mean_reward": 1.0552476681960195
+        }
+      }
+    },
+    {
+      "name": "update_22_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_22_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 31,
+          "clean": 5,
+          "invalid": 35,
+          "board_bounces": 93,
+          "mean_reward": 0.7355049745324356
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 31,
+          "clean": 5,
+          "invalid": 35,
+          "board_bounces": 93,
+          "mean_reward": 0.7355049745324356
+        }
+      }
+    },
+    {
+      "name": "update_23_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_23_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 43,
+          "clean": 10,
+          "invalid": 32,
+          "board_bounces": 96,
+          "mean_reward": 1.1745601677323145
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 43,
+          "clean": 10,
+          "invalid": 32,
+          "board_bounces": 96,
+          "mean_reward": 1.1745601677323145
+        }
+      }
+    },
+    {
+      "name": "update_24_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_24_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 31,
+          "clean": 6,
+          "invalid": 43,
+          "board_bounces": 85,
+          "mean_reward": 0.6781146913532017
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 31,
+          "clean": 6,
+          "invalid": 43,
+          "board_bounces": 85,
+          "mean_reward": 0.6781146913532017
+        }
+      }
+    },
+    {
+      "name": "validation_24_layout_sequence",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "validation_24_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 20,
+          "captures": 11,
+          "clean": 4,
+          "invalid": 2,
+          "board_bounces": 18,
+          "mean_reward": 2.252507149131775
+        },
+        "reported": {
+          "attempts": 20,
+          "captures": 11,
+          "clean": 4,
+          "invalid": 2,
+          "board_bounces": 18,
+          "mean_reward": 2.252507149131775
+        }
+      }
+    },
+    {
+      "name": "update_25_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_25_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 28,
+          "clean": 7,
+          "invalid": 42,
+          "board_bounces": 86,
+          "mean_reward": 0.5700433149615727
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 28,
+          "clean": 7,
+          "invalid": 42,
+          "board_bounces": 86,
+          "mean_reward": 0.5700433149615727
+        }
+      }
+    },
+    {
+      "name": "update_26_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_26_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 29,
+          "clean": 4,
+          "invalid": 37,
+          "board_bounces": 91,
+          "mean_reward": 0.6102799719536616
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 29,
+          "clean": 4,
+          "invalid": 37,
+          "board_bounces": 91,
+          "mean_reward": 0.6102799719536616
+        }
+      }
+    },
+    {
+      "name": "update_27_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_27_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 41,
+          "clean": 6,
+          "invalid": 37,
+          "board_bounces": 91,
+          "mean_reward": 1.0558168710090787
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 41,
+          "clean": 6,
+          "invalid": 37,
+          "board_bounces": 91,
+          "mean_reward": 1.0558168710090787
+        }
+      }
+    },
+    {
+      "name": "update_28_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_28_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 37,
+          "clean": 6,
+          "invalid": 38,
+          "board_bounces": 90,
+          "mean_reward": 0.9034914457320997
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 37,
+          "clean": 6,
+          "invalid": 38,
+          "board_bounces": 90,
+          "mean_reward": 0.9034914457320997
+        }
+      }
+    },
+    {
+      "name": "validation_28_layout_sequence",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "validation_28_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 20,
+          "captures": 8,
+          "clean": 1,
+          "invalid": 1,
+          "board_bounces": 19,
+          "mean_reward": 1.5499479850690752
+        },
+        "reported": {
+          "attempts": 20,
+          "captures": 8,
+          "clean": 1,
+          "invalid": 1,
+          "board_bounces": 19,
+          "mean_reward": 1.5499479850690752
+        }
+      }
+    },
+    {
+      "name": "update_29_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_29_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 30,
+          "clean": 4,
+          "invalid": 34,
+          "board_bounces": 94,
+          "mean_reward": 0.7207775821216157
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 30,
+          "clean": 4,
+          "invalid": 34,
+          "board_bounces": 94,
+          "mean_reward": 0.7207775821216157
+        }
+      }
+    },
+    {
+      "name": "update_30_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_30_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 33,
+          "clean": 9,
+          "invalid": 35,
+          "board_bounces": 93,
+          "mean_reward": 0.7913156093463216
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 33,
+          "clean": 9,
+          "invalid": 35,
+          "board_bounces": 93,
+          "mean_reward": 0.7913156093463216
+        }
+      }
+    },
+    {
+      "name": "update_31_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_31_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 36,
+          "clean": 11,
+          "invalid": 38,
+          "board_bounces": 90,
+          "mean_reward": 0.8821097420846932
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 36,
+          "clean": 11,
+          "invalid": 38,
+          "board_bounces": 90,
+          "mean_reward": 0.8821097420846932
+        }
+      }
+    },
+    {
+      "name": "update_32_number",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "update_32_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 128,
+          "captures": 35,
+          "clean": 8,
+          "invalid": 30,
+          "board_bounces": 98,
+          "mean_reward": 0.8952885150652242
+        },
+        "reported": {
+          "attempts": 128,
+          "captures": 35,
+          "clean": 8,
+          "invalid": 30,
+          "board_bounces": 98,
+          "mean_reward": 0.8952885150652242
+        }
+      }
+    },
+    {
+      "name": "validation_32_layout_sequence",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "validation_32_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 20,
+          "captures": 9,
+          "clean": 1,
+          "invalid": 3,
+          "board_bounces": 17,
+          "mean_reward": 1.6969210604052645
+        },
+        "reported": {
+          "attempts": 20,
+          "captures": 9,
+          "clean": 1,
+          "invalid": 3,
+          "board_bounces": 17,
+          "mean_reward": 1.6969210604052645
+        }
+      }
+    },
+    {
+      "name": "warm_validation_layout_sequence",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "warm_validation_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 20,
+          "captures": 7,
+          "clean": 2,
+          "invalid": 6,
+          "board_bounces": 14,
+          "mean_reward": 1.2262989193575535
+        },
+        "reported": {
+          "attempts": 20,
+          "captures": 7,
+          "clean": 2,
+          "invalid": 6,
+          "board_bounces": 14,
+          "mean_reward": 1.2262989193575535
+        }
+      }
+    },
+    {
+      "name": "validation_only_checkpoint_selection",
+      "passed": true,
+      "detail": {
+        "recomputed_update": 24,
+        "reported_update": 24
+      }
+    },
+    {
+      "name": "test_initial_layout_and_repeat_sequence",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "test_initial_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 150,
+          "captures": 27,
+          "clean": 0,
+          "invalid": 66,
+          "board_bounces": 84,
+          "mean_reward": 0.2572547914958876
+        },
+        "reported": {
+          "attempts": 150,
+          "captures": 27,
+          "clean": 0,
+          "invalid": 66,
+          "board_bounces": 84,
+          "mean_reward": 0.2572547914958876
+        }
+      }
+    },
+    {
+      "name": "test_warm_layout_and_repeat_sequence",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "test_warm_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 150,
+          "captures": 58,
+          "clean": 23,
+          "invalid": 18,
+          "board_bounces": 132,
+          "mean_reward": 1.5328024518090206
+        },
+        "reported": {
+          "attempts": 150,
+          "captures": 58,
+          "clean": 23,
+          "invalid": 18,
+          "board_bounces": 132,
+          "mean_reward": 1.5328024518090206
+        }
+      }
+    },
+    {
+      "name": "test_selected_layout_and_repeat_sequence",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "test_selected_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 150,
+          "captures": 65,
+          "clean": 16,
+          "invalid": 9,
+          "board_bounces": 141,
+          "mean_reward": 1.7247597177604492
+        },
+        "reported": {
+          "attempts": 150,
+          "captures": 65,
+          "clean": 16,
+          "invalid": 9,
+          "board_bounces": 141,
+          "mean_reward": 1.7247597177604492
+        }
+      }
+    },
+    {
+      "name": "selected_top_level_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 150,
+          "captures": 65,
+          "clean": 16,
+          "invalid": 9,
+          "board_bounces": 141,
+          "mean_reward": 1.7247597177604492
+        },
+        "reported": {
+          "attempts": 150,
+          "captures": 65,
+          "clean": 16,
+          "invalid": 9,
+          "board_bounces": 141,
+          "mean_reward": 1.7247597177604492
+        }
+      }
+    },
+    {
+      "name": "selected_trial_count",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "selected_report_rows_match_jsonl",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "board_lock_layout_sequence",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "board_lock_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 50,
+          "captures": 20,
+          "clean": 4,
+          "invalid": 3,
+          "board_bounces": 47,
+          "mean_reward": 1.5782879672751196
+        },
+        "reported": {
+          "attempts": 50,
+          "captures": 20,
+          "clean": 4,
+          "invalid": 3,
+          "board_bounces": 47,
+          "mean_reward": 1.5782879672751196
+        }
+      }
+    },
+    {
+      "name": "shot-0009137_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009138_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009139_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009140_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009141_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009142_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009143_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009144_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009145_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009146_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009147_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009148_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009149_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009150_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009151_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009152_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009153_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009154_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009155_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009156_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009157_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009158_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009159_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009160_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009161_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009162_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009163_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009164_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009165_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009166_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009167_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009168_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009169_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009170_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009171_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009172_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009173_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009174_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009175_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009176_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009177_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009178_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009179_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009180_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009181_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009182_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009183_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009184_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009185_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009186_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "dropper_lock_layout_sequence",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "dropper_lock_statistics",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 50,
+          "captures": 23,
+          "clean": 3,
+          "invalid": 3,
+          "board_bounces": 47,
+          "mean_reward": 1.8795322047434788
+        },
+        "reported": {
+          "attempts": 50,
+          "captures": 23,
+          "clean": 3,
+          "invalid": 3,
+          "board_bounces": 47,
+          "mean_reward": 1.8795322047434788
+        }
+      }
+    },
+    {
+      "name": "shot-0009187_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009188_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009189_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009190_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009191_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009192_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009193_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009194_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009195_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009196_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009197_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009198_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009199_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009200_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009201_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009202_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009203_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009204_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009205_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009206_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009207_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009208_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009209_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009210_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009211_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009212_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009213_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009214_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009215_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009216_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009217_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009218_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009219_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009220_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009221_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009222_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009223_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009224_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009225_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009226_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009227_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009228_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009229_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009230_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009231_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009232_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009233_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009234_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009235_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shot-0009236_constraint_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_scoring_label_invariants",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "scalar_audit_evidence_present_and_passed",
+      "passed": true,
+      "detail": 24
+    },
+    {
+      "name": "confirmation_count",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "confirmation_associations_reconstructed",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "catalogue_layout_sequence",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-00_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-00_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-00_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": -0.18870526185127975
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": -0.18870526185127975
+        }
+      }
+    },
+    {
+      "name": "train-01_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-01_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-01_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 1,
+          "clean": 1,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 1.541534117219877
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 1,
+          "clean": 1,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 1.541534117219877
+        }
+      }
+    },
+    {
+      "name": "train-02_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-02_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-02_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 2,
+          "clean": 1,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 2.8410674126856272
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 2,
+          "clean": 1,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 2.8410674126856272
+        }
+      }
+    },
+    {
+      "name": "train-03_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-03_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-03_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 2,
+          "clean": 1,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 2.835728084256386
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 2,
+          "clean": 1,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 2.835728084256386
+        }
+      }
+    },
+    {
+      "name": "train-04_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-04_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-04_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": -0.1961167738285049
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": -0.1961167738285049
+        }
+      }
+    },
+    {
+      "name": "train-05_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-05_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-05_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": -0.04905175870564504
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": -0.04905175870564504
+        }
+      }
+    },
+    {
+      "name": "train-06_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-06_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-06_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": -0.03385886819697522
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": -0.03385886819697522
+        }
+      }
+    },
+    {
+      "name": "train-07_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-07_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-07_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 2,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 3.1571829665263547
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 2,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 3.1571829665263547
+        }
+      }
+    },
+    {
+      "name": "train-08_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-08_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-08_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.213353080729131
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.213353080729131
+        }
+      }
+    },
+    {
+      "name": "train-09_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-09_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-09_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 1,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.30462757057406
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 1,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.30462757057406
+        }
+      }
+    },
+    {
+      "name": "train-10_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-10_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-10_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 2,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.370912317914658
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 2,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.370912317914658
+        }
+      }
+    },
+    {
+      "name": "train-11_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-11_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-11_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 2,
+          "clean": 2,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 2.957586285853832
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 2,
+          "clean": 2,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 2.957586285853832
+        }
+      }
+    },
+    {
+      "name": "train-12_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-12_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-12_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": -0.1925030314028834
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": -0.1925030314028834
+        }
+      }
+    },
+    {
+      "name": "train-13_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-13_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-13_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 0.06997962904928264
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 0.06997962904928264
+        }
+      }
+    },
+    {
+      "name": "train-14_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-14_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-14_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 1,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 1.3197768929738498
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 1,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 1.3197768929738498
+        }
+      }
+    },
+    {
+      "name": "train-15_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-15_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-15_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.202467533393201
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.202467533393201
+        }
+      }
+    },
+    {
+      "name": "train-16_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-16_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-16_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 2,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.406613564310704
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 2,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.406613564310704
+        }
+      }
+    },
+    {
+      "name": "train-17_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-17_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-17_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 1,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.315581876224242
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 1,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.315581876224242
+        }
+      }
+    },
+    {
+      "name": "train-18_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-18_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-18_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.182369125569917
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.182369125569917
+        }
+      }
+    },
+    {
+      "name": "train-19_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-19_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-19_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.2024123175037
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.2024123175037
+        }
+      }
+    },
+    {
+      "name": "train-20_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-20_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-20_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": -0.06277132002585313
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": -0.06277132002585313
+        }
+      }
+    },
+    {
+      "name": "train-21_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-21_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-21_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 0.09011405847435479
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 0.09011405847435479
+        }
+      }
+    },
+    {
+      "name": "train-22_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-22_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-22_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 3,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.495188767072057
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 3,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.495188767072057
+        }
+      }
+    },
+    {
+      "name": "train-23_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-23_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-23_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 3,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.4706390392147926
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 3,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.4706390392147926
+        }
+      }
+    },
+    {
+      "name": "train-24_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-24_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-24_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.185442177092278
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.185442177092278
+        }
+      }
+    },
+    {
+      "name": "train-25_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-25_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-25_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.217587243693393
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.217587243693393
+        }
+      }
+    },
+    {
+      "name": "train-26_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-26_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-26_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 1,
+          "board_bounces": 2,
+          "mean_reward": -0.5493179545216059
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 1,
+          "board_bounces": 2,
+          "mean_reward": -0.5493179545216059
+        }
+      }
+    },
+    {
+      "name": "train-27_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-27_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-27_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": -0.328182984776144
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": -0.328182984776144
+        }
+      }
+    },
+    {
+      "name": "train-28_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-28_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-28_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 1,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 2.0491898506624198
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 1,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 2.0491898506624198
+        }
+      }
+    },
+    {
+      "name": "train-29_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-29_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-29_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.201369460283883
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.201369460283883
+        }
+      }
+    },
+    {
+      "name": "train-30_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-30_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-30_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 1,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.289487407192965
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 1,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.289487407192965
+        }
+      }
+    },
+    {
+      "name": "train-31_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-31_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-31_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 1,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.325949941942045
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 1,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.325949941942045
+        }
+      }
+    },
+    {
+      "name": "train-32_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-32_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-32_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.198545176650987
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.198545176650987
+        }
+      }
+    },
+    {
+      "name": "train-33_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-33_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-33_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 2,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 2.7277773638138405
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 2,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 2.7277773638138405
+        }
+      }
+    },
+    {
+      "name": "train-34_coverage_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-34_teacher_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "train-34_teacher_confirmation",
+      "passed": true,
+      "detail": {
+        "recomputed": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": -0.20832306469019232
+        },
+        "reported": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": -0.20832306469019232
+        }
+      }
+    },
+    {
+      "name": "imitation_train_only_sample_count",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_constraints_anchored_to_train_only_teachers",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "split_file_matches_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_mjlab_source_hashes",
+      "passed": true,
+      "detail": {
+        "files": 17,
+        "mismatched": []
+      }
+    },
+    {
+      "name": "initial_checkpoint_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "warm_checkpoint_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "selected_checkpoint_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "latest_checkpoint_contract",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "imitation_changes_weights",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_1_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_1_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_2_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_2_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_3_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_3_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_4_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_4_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_5_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_5_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_6_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_6_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_7_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_7_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_8_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_8_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_9_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_9_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_10_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_10_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_11_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_11_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_12_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_12_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_13_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_13_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_14_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_14_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_15_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_15_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_16_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_16_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_17_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_17_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_18_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_18_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_19_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_19_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_20_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_20_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_21_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_21_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_22_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_22_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_23_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_23_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_24_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_24_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_25_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_25_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_26_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_26_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_27_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_27_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_28_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_28_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_29_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_29_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_30_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_30_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_31_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_31_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_32_weight_chain",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ppo_32_finite_optimizer_logs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "latest_matches_last_update",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "selected_matches_validation_selected_weights",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "selected_checkpoint_file_hash",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "initial_evaluation_weight_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "test-initial_cpu_frozen_actor_actions",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "warm_evaluation_weight_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "test-warm_cpu_frozen_actor_actions",
+      "passed": true,
+      "detail": [
+        4.112720497495559e-08,
+        1.6391277313232422e-07,
+        6.258487700305793e-08,
+        4.291534423828125e-06,
+        8.136034013173088e-08
+      ]
+    },
+    {
+      "name": "selected_evaluation_weight_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "test-selected_cpu_frozen_actor_actions",
+      "passed": true,
+      "detail": [
+        6.169080735141108e-08,
+        1.311302185169616e-07,
+        6.258487705856908e-08,
+        4.291534423828125e-06,
+        8.136034013173088e-08
+      ]
+    },
+    {
+      "name": "test-lock-board_cpu_frozen_actor_actions",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        4.291534423828125e-06,
+        8.136034013173088e-08
+      ]
+    },
+    {
+      "name": "test-lock-dropper_cpu_frozen_actor_actions",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        8.344650270775134e-08,
+        7.510185241699219e-06,
+        8.344650270775134e-08
+      ]
+    },
+    {
+      "name": "independent_urdf_fk_and_valid_lock_positions",
+      "passed": true,
+      "detail": {
+        "maxima": {
+          "board_saved_position_m": 3.296613367363879e-07,
+          "board_requested_position_m": 3.627546599303599e-05,
+          "dropper_requested_position_m": 5.551116817191418e-16,
+          "locked_position_m": 5.606351459942525e-16
+        },
+        "failures": []
+      }
+    }
+  ],
+  "warnings": [
+    "Missing teacher_source_id fields were reconstructed from stable train-layout/top-three/three-repeat order; associations were not persisted before JSONL writing.",
+    "Source hashes cover the mjlab Python files declared by the runner; shared Isaac scorer/geometry dependencies need their own artifact provenance manifest.",
+    "Saved JSONL ordering and checkpoint identity support frozen evaluation; files alone cannot prove wall-clock freeze chronology.",
+    "Weight changes and hash continuity are checked. Exact PPO gradient replay is unavailable because sampled latent actions, old log probabilities and optimizer state were not all persisted.",
+    "This audit does not rerun ball dynamics or establish continuous tabletop coverage, grasping, collision-free transit or physical calibration."
+  ]
+}
