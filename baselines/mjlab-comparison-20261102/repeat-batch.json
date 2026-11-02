@@ -1,0 +1,1532 @@
+{
+  "version": "sircus-paired-engine-report-v1",
+  "benchmark_fingerprint": "f671564b60e8dec2487a1fd2414fa9c4e13924ef5db2ff1594609c557b173432",
+  "comparison": "fresh_paired_fixed_endpoint_contact_replay",
+  "unique_shots": 24,
+  "repeats": 3,
+  "first": {
+    "engine": "isaac_physx",
+    "versions": {
+      "isaaclab": "0.54.2",
+      "torch": "2.7.0+cu128",
+      "gpu": "NVIDIA GeForce RTX 4090",
+      "physics_substeps": 8,
+      "physics_dt_s": 0.0005208333333333333,
+      "scoring_dt_s": 0.004166666666666667
+    },
+    "timing": {
+      "setup_and_compile_s": 10.445902217063121,
+      "rollout_with_shared_scoring_s": 80.10705888201483,
+      "repeat_warmup_s": 9.122679151012562,
+      "kernel_only_s": null,
+      "scope": "Setup includes application startup, scene construction and first warmup. Rollout sums only three 960-tick loops with CPU shared scoring, state/force reads and trajectory sampling; all warmup is excluded. Kernel-only throughput was not measured."
+    },
+    "attempts": 72,
+    "valid": 72,
+    "initialization_failures": 0,
+    "captures": 24,
+    "clean_captures": 14,
+    "board_bounces": 72,
+    "capture_fraction": 0.3333333333333333
+  },
+  "second": {
+    "engine": "mjlab",
+    "versions": {
+      "mjlab": "1.6.0",
+      "mujoco": "3.11.0",
+      "mujoco-warp": "3.11.0",
+      "warp-lang": "1.14.0",
+      "torch": "2.7.0"
+    },
+    "timing": {
+      "setup_and_compile_s": 1.1304100070847198,
+      "rollout_with_shared_scoring_s": 12.347369230934419,
+      "attempts_per_s": 5.831201663558838
+    },
+    "attempts": 72,
+    "valid": 72,
+    "initialization_failures": 0,
+    "captures": 43,
+    "clean_captures": 5,
+    "board_bounces": 72,
+    "capture_fraction": 0.5972222222222222
+  },
+  "comparable_pairs": 72,
+  "capture_agreements": 51,
+  "capture_agreement_fraction": 0.7083333333333334,
+  "strata": [
+    {
+      "category": "clean_capture",
+      "unique_shots": 8,
+      "first": {
+        "attempts": 24,
+        "valid": 24,
+        "initialization_failures": 0,
+        "captures": 24,
+        "clean_captures": 14,
+        "board_bounces": 24,
+        "capture_fraction": 1.0
+      },
+      "second": {
+        "attempts": 24,
+        "valid": 24,
+        "initialization_failures": 0,
+        "captures": 23,
+        "clean_captures": 5,
+        "board_bounces": 24,
+        "capture_fraction": 0.9583333333333334
+      },
+      "comparable_pairs": 24,
+      "capture_agreements": 23
+    },
+    {
+      "category": "other_miss",
+      "unique_shots": 8,
+      "first": {
+        "attempts": 24,
+        "valid": 24,
+        "initialization_failures": 0,
+        "captures": 0,
+        "clean_captures": 0,
+        "board_bounces": 24,
+        "capture_fraction": 0.0
+      },
+      "second": {
+        "attempts": 24,
+        "valid": 24,
+        "initialization_failures": 0,
+        "captures": 0,
+        "clean_captures": 0,
+        "board_bounces": 24,
+        "capture_fraction": 0.0
+      },
+      "comparable_pairs": 24,
+      "capture_agreements": 24
+    },
+    {
+      "category": "rim_contact_miss",
+      "unique_shots": 8,
+      "first": {
+        "attempts": 24,
+        "valid": 24,
+        "initialization_failures": 0,
+        "captures": 0,
+        "clean_captures": 0,
+        "board_bounces": 24,
+        "capture_fraction": 0.0
+      },
+      "second": {
+        "attempts": 24,
+        "valid": 24,
+        "initialization_failures": 0,
+        "captures": 20,
+        "clean_captures": 0,
+        "board_bounces": 24,
+        "capture_fraction": 0.8333333333333334
+      },
+      "comparable_pairs": 24,
+      "capture_agreements": 4
+    }
+  ],
+  "pairs": [
+    {
+      "shot_id": "clip-03-r1c4",
+      "repeat": 0,
+      "source_category": "rim_contact_miss",
+      "first_capture": false,
+      "second_capture": true,
+      "capture_agrees": false,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 24886.565395422673,
+        "rms_mm": 8699.843032810579
+      }
+    },
+    {
+      "shot_id": "clip-03-r1c4",
+      "repeat": 1,
+      "source_category": "rim_contact_miss",
+      "first_capture": false,
+      "second_capture": true,
+      "capture_agrees": false,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 24901.965725974154,
+        "rms_mm": 8708.602969346743
+      }
+    },
+    {
+      "shot_id": "clip-03-r1c4",
+      "repeat": 2,
+      "source_category": "rim_contact_miss",
+      "first_capture": false,
+      "second_capture": true,
+      "capture_agrees": false,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 24902.04840276663,
+        "rms_mm": 8708.514644578743
+      }
+    },
+    {
+      "shot_id": "clip-02-r1c5",
+      "repeat": 0,
+      "source_category": "clean_capture",
+      "first_capture": true,
+      "second_capture": true,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 118.37699861623142,
+        "rms_mm": 53.895545972960335
+      }
+    },
+    {
+      "shot_id": "clip-02-r1c5",
+      "repeat": 1,
+      "source_category": "clean_capture",
+      "first_capture": true,
+      "second_capture": true,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 116.1601927848929,
+        "rms_mm": 53.397104446979654
+      }
+    },
+    {
+      "shot_id": "clip-02-r1c5",
+      "repeat": 2,
+      "source_category": "clean_capture",
+      "first_capture": true,
+      "second_capture": true,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 118.3764263251607,
+        "rms_mm": 46.77248587465159
+      }
+    },
+    {
+      "shot_id": "clip-00-r2c3",
+      "repeat": 0,
+      "source_category": "other_miss",
+      "first_capture": false,
+      "second_capture": false,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 952.0679442888571,
+        "rms_mm": 517.6215574114789
+      }
+    },
+    {
+      "shot_id": "clip-00-r2c3",
+      "repeat": 1,
+      "source_category": "other_miss",
+      "first_capture": false,
+      "second_capture": false,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 1011.3306430570904,
+        "rms_mm": 550.643531510733
+      }
+    },
+    {
+      "shot_id": "clip-00-r2c3",
+      "repeat": 2,
+      "source_category": "other_miss",
+      "first_capture": false,
+      "second_capture": false,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 1011.3306430570904,
+        "rms_mm": 550.643531510733
+      }
+    },
+    {
+      "shot_id": "clip-06-r1c2",
+      "repeat": 0,
+      "source_category": "clean_capture",
+      "first_capture": true,
+      "second_capture": true,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 93.30875916132665,
+        "rms_mm": 42.54201057569423
+      }
+    },
+    {
+      "shot_id": "clip-06-r1c2",
+      "repeat": 1,
+      "source_category": "clean_capture",
+      "first_capture": true,
+      "second_capture": true,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 89.11630702080346,
+        "rms_mm": 55.56376488572986
+      }
+    },
+    {
+      "shot_id": "clip-06-r1c2",
+      "repeat": 2,
+      "source_category": "clean_capture",
+      "first_capture": true,
+      "second_capture": true,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 89.49120498987837,
+        "rms_mm": 47.30608764408239
+      }
+    },
+    {
+      "shot_id": "clip-05-r4c3",
+      "repeat": 0,
+      "source_category": "clean_capture",
+      "first_capture": true,
+      "second_capture": true,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 80.38533531726077,
+        "rms_mm": 45.27567527461713
+      }
+    },
+    {
+      "shot_id": "clip-05-r4c3",
+      "repeat": 1,
+      "source_category": "clean_capture",
+      "first_capture": true,
+      "second_capture": true,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 80.40124164757191,
+        "rms_mm": 45.34800130353606
+      }
+    },
+    {
+      "shot_id": "clip-05-r4c3",
+      "repeat": 2,
+      "source_category": "clean_capture",
+      "first_capture": true,
+      "second_capture": true,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 80.38533531726077,
+        "rms_mm": 45.27567527461713
+      }
+    },
+    {
+      "shot_id": "clip-02-r2c2",
+      "repeat": 0,
+      "source_category": "rim_contact_miss",
+      "first_capture": false,
+      "second_capture": true,
+      "capture_agrees": false,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 2885.6632839531417,
+        "rms_mm": 1441.198010490063
+      }
+    },
+    {
+      "shot_id": "clip-02-r2c2",
+      "repeat": 1,
+      "source_category": "rim_contact_miss",
+      "first_capture": false,
+      "second_capture": true,
+      "capture_agrees": false,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 2885.6632839531417,
+        "rms_mm": 1441.198010490063
+      }
+    },
+    {
+      "shot_id": "clip-02-r2c2",
+      "repeat": 2,
+      "source_category": "rim_contact_miss",
+      "first_capture": false,
+      "second_capture": true,
+      "capture_agrees": false,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 7849.712212816428,
+        "rms_mm": 2646.0464259055166
+      }
+    },
+    {
+      "shot_id": "clip-01-r1c3",
+      "repeat": 0,
+      "source_category": "clean_capture",
+      "first_capture": true,
+      "second_capture": true,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 117.14534997210154,
+        "rms_mm": 64.47274161674103
+      }
+    },
+    {
+      "shot_id": "clip-01-r1c3",
+      "repeat": 1,
+      "source_category": "clean_capture",
+      "first_capture": true,
+      "second_capture": true,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 117.07134843413354,
+        "rms_mm": 64.41382994482974
+      }
+    },
+    {
+      "shot_id": "clip-01-r1c3",
+      "repeat": 2,
+      "source_category": "clean_capture",
+      "first_capture": true,
+      "second_capture": true,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 116.81374907254845,
+        "rms_mm": 63.709724397239206
+      }
+    },
+    {
+      "shot_id": "clip-09-r3c2",
+      "repeat": 0,
+      "source_category": "other_miss",
+      "first_capture": false,
+      "second_capture": false,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 571.8874338537357,
+        "rms_mm": 257.12582224732495
+      }
+    },
+    {
+      "shot_id": "clip-09-r3c2",
+      "repeat": 1,
+      "source_category": "other_miss",
+      "first_capture": false,
+      "second_capture": false,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 277.7118763914854,
+        "rms_mm": 144.18105944834718
+      }
+    },
+    {
+      "shot_id": "clip-09-r3c2",
+      "repeat": 2,
+      "source_category": "other_miss",
+      "first_capture": false,
+      "second_capture": false,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 277.7112250891717,
+        "rms_mm": 144.18074592320917
+      }
+    },
+    {
+      "shot_id": "clip-03-r1c2",
+      "repeat": 0,
+      "source_category": "rim_contact_miss",
+      "first_capture": false,
+      "second_capture": false,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 10318.086298331562,
+        "rms_mm": 3736.3689816292535
+      }
+    },
+    {
+      "shot_id": "clip-03-r1c2",
+      "repeat": 1,
+      "source_category": "rim_contact_miss",
+      "first_capture": false,
+      "second_capture": false,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 10500.453871553704,
+        "rms_mm": 3791.3952180900847
+      }
+    },
+    {
+      "shot_id": "clip-03-r1c2",
+      "repeat": 2,
+      "source_category": "rim_contact_miss",
+      "first_capture": false,
+      "second_capture": false,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 10511.267075027157,
+        "rms_mm": 3793.6498973569173
+      }
+    },
+    {
+      "shot_id": "clip-00-r1c5",
+      "repeat": 0,
+      "source_category": "other_miss",
+      "first_capture": false,
+      "second_capture": false,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 1201.7256282275587,
+        "rms_mm": 556.0232548316525
+      }
+    },
+    {
+      "shot_id": "clip-00-r1c5",
+      "repeat": 1,
+      "source_category": "other_miss",
+      "first_capture": false,
+      "second_capture": false,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 1201.9090499454264,
+        "rms_mm": 556.0290882882351
+      }
+    },
+    {
+      "shot_id": "clip-00-r1c5",
+      "repeat": 2,
+      "source_category": "other_miss",
+      "first_capture": false,
+      "second_capture": false,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 1201.7226178012484,
+        "rms_mm": 555.9940732362821
+      }
+    },
+    {
+      "shot_id": "clip-00-r3c3",
+      "repeat": 0,
+      "source_category": "clean_capture",
+      "first_capture": true,
+      "second_capture": true,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 80.38160867223439,
+        "rms_mm": 57.140574717255575
+      }
+    },
+    {
+      "shot_id": "clip-00-r3c3",
+      "repeat": 1,
+      "source_category": "clean_capture",
+      "first_capture": true,
+      "second_capture": true,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 80.3653106341932,
+        "rms_mm": 45.82429606665171
+      }
+    },
+    {
+      "shot_id": "clip-00-r3c3",
+      "repeat": 2,
+      "source_category": "clean_capture",
+      "first_capture": true,
+      "second_capture": true,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 80.38160867223439,
+        "rms_mm": 57.140574717255575
+      }
+    },
+    {
+      "shot_id": "clip-02-r3c2",
+      "repeat": 0,
+      "source_category": "clean_capture",
+      "first_capture": true,
+      "second_capture": true,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 106.7229264524348,
+        "rms_mm": 57.52017302571741
+      }
+    },
+    {
+      "shot_id": "clip-02-r3c2",
+      "repeat": 1,
+      "source_category": "clean_capture",
+      "first_capture": true,
+      "second_capture": true,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 106.7229264524348,
+        "rms_mm": 58.401943458130106
+      }
+    },
+    {
+      "shot_id": "clip-02-r3c2",
+      "repeat": 2,
+      "source_category": "clean_capture",
+      "first_capture": true,
+      "second_capture": true,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 106.21443369323082,
+        "rms_mm": 49.92835010046872
+      }
+    },
+    {
+      "shot_id": "clip-00-r3c5",
+      "repeat": 0,
+      "source_category": "rim_contact_miss",
+      "first_capture": false,
+      "second_capture": true,
+      "capture_agrees": false,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 16256.281357514872,
+        "rms_mm": 5419.400879589279
+      }
+    },
+    {
+      "shot_id": "clip-00-r3c5",
+      "repeat": 1,
+      "source_category": "rim_contact_miss",
+      "first_capture": false,
+      "second_capture": true,
+      "capture_agrees": false,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 16252.833158286667,
+        "rms_mm": 5417.226204516829
+      }
+    },
+    {
+      "shot_id": "clip-00-r3c5",
+      "repeat": 2,
+      "source_category": "rim_contact_miss",
+      "first_capture": false,
+      "second_capture": true,
+      "capture_agrees": false,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 16264.195918944182,
+        "rms_mm": 5422.069462475218
+      }
+    },
+    {
+      "shot_id": "clip-04-r1c3",
+      "repeat": 0,
+      "source_category": "rim_contact_miss",
+      "first_capture": false,
+      "second_capture": true,
+      "capture_agrees": false,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 24191.548298062487,
+        "rms_mm": 8378.974503570196
+      }
+    },
+    {
+      "shot_id": "clip-04-r1c3",
+      "repeat": 1,
+      "source_category": "rim_contact_miss",
+      "first_capture": false,
+      "second_capture": true,
+      "capture_agrees": false,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 24190.605667457494,
+        "rms_mm": 8377.386072814752
+      }
+    },
+    {
+      "shot_id": "clip-04-r1c3",
+      "repeat": 2,
+      "source_category": "rim_contact_miss",
+      "first_capture": false,
+      "second_capture": true,
+      "capture_agrees": false,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 24192.820375091895,
+        "rms_mm": 8379.818847214601
+      }
+    },
+    {
+      "shot_id": "clip-01-r3c4",
+      "repeat": 0,
+      "source_category": "other_miss",
+      "first_capture": false,
+      "second_capture": false,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 241.21725296659883,
+        "rms_mm": 115.67630295620785
+      }
+    },
+    {
+      "shot_id": "clip-01-r3c4",
+      "repeat": 1,
+      "source_category": "other_miss",
+      "first_capture": false,
+      "second_capture": false,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 812.1977024501653,
+        "rms_mm": 278.6859298921628
+      }
+    },
+    {
+      "shot_id": "clip-01-r3c4",
+      "repeat": 2,
+      "source_category": "other_miss",
+      "first_capture": false,
+      "second_capture": false,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 324.6454246411228,
+        "rms_mm": 155.7754715450935
+      }
+    },
+    {
+      "shot_id": "clip-08-r3c5",
+      "repeat": 0,
+      "source_category": "clean_capture",
+      "first_capture": true,
+      "second_capture": false,
+      "capture_agrees": false,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 66.09020532542256,
+        "rms_mm": 26.762209032327576
+      }
+    },
+    {
+      "shot_id": "clip-08-r3c5",
+      "repeat": 1,
+      "source_category": "clean_capture",
+      "first_capture": true,
+      "second_capture": true,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 66.09020532542256,
+        "rms_mm": 20.360343480363824
+      }
+    },
+    {
+      "shot_id": "clip-08-r3c5",
+      "repeat": 2,
+      "source_category": "clean_capture",
+      "first_capture": true,
+      "second_capture": true,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 66.09020532542256,
+        "rms_mm": 21.06783743912592
+      }
+    },
+    {
+      "shot_id": "clip-00-r2c5",
+      "repeat": 0,
+      "source_category": "other_miss",
+      "first_capture": false,
+      "second_capture": false,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 3722.4585745694976,
+        "rms_mm": 1665.4930595410854
+      }
+    },
+    {
+      "shot_id": "clip-00-r2c5",
+      "repeat": 1,
+      "source_category": "other_miss",
+      "first_capture": false,
+      "second_capture": false,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 3717.739862209922,
+        "rms_mm": 1662.6917489856967
+      }
+    },
+    {
+      "shot_id": "clip-00-r2c5",
+      "repeat": 2,
+      "source_category": "other_miss",
+      "first_capture": false,
+      "second_capture": false,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 3721.3336597515913,
+        "rms_mm": 1664.8556547886426
+      }
+    },
+    {
+      "shot_id": "clip-01-r5c4",
+      "repeat": 0,
+      "source_category": "other_miss",
+      "first_capture": false,
+      "second_capture": false,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 264.32459199018876,
+        "rms_mm": 124.06490885058335
+      }
+    },
+    {
+      "shot_id": "clip-01-r5c4",
+      "repeat": 1,
+      "source_category": "other_miss",
+      "first_capture": false,
+      "second_capture": false,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 261.61218185422473,
+        "rms_mm": 123.0130638452937
+      }
+    },
+    {
+      "shot_id": "clip-01-r5c4",
+      "repeat": 2,
+      "source_category": "other_miss",
+      "first_capture": false,
+      "second_capture": false,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 264.32459199018876,
+        "rms_mm": 124.06490885058335
+      }
+    },
+    {
+      "shot_id": "clip-00-r2c2",
+      "repeat": 0,
+      "source_category": "rim_contact_miss",
+      "first_capture": false,
+      "second_capture": true,
+      "capture_agrees": false,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 129.4112496702298,
+        "rms_mm": 49.814088926872344
+      }
+    },
+    {
+      "shot_id": "clip-00-r2c2",
+      "repeat": 1,
+      "source_category": "rim_contact_miss",
+      "first_capture": false,
+      "second_capture": true,
+      "capture_agrees": false,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 131.5988467649922,
+        "rms_mm": 56.857684933931395
+      }
+    },
+    {
+      "shot_id": "clip-00-r2c2",
+      "repeat": 2,
+      "source_category": "rim_contact_miss",
+      "first_capture": false,
+      "second_capture": false,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 129.41123491706574,
+        "rms_mm": 53.178307613987236
+      }
+    },
+    {
+      "shot_id": "clip-04-r2c3",
+      "repeat": 0,
+      "source_category": "other_miss",
+      "first_capture": false,
+      "second_capture": false,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 882.4842849531013,
+        "rms_mm": 339.5228699815712
+      }
+    },
+    {
+      "shot_id": "clip-04-r2c3",
+      "repeat": 1,
+      "source_category": "other_miss",
+      "first_capture": false,
+      "second_capture": false,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 882.4842849531013,
+        "rms_mm": 339.5228699815712
+      }
+    },
+    {
+      "shot_id": "clip-04-r2c3",
+      "repeat": 2,
+      "source_category": "other_miss",
+      "first_capture": false,
+      "second_capture": false,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 882.4842849531013,
+        "rms_mm": 339.5228699815712
+      }
+    },
+    {
+      "shot_id": "clip-05-r1c5",
+      "repeat": 0,
+      "source_category": "rim_contact_miss",
+      "first_capture": false,
+      "second_capture": true,
+      "capture_agrees": false,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 18881.70727470177,
+        "rms_mm": 6378.649202061647
+      }
+    },
+    {
+      "shot_id": "clip-05-r1c5",
+      "repeat": 1,
+      "source_category": "rim_contact_miss",
+      "first_capture": false,
+      "second_capture": true,
+      "capture_agrees": false,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 15802.28832312937,
+        "rms_mm": 5295.451479159509
+      }
+    },
+    {
+      "shot_id": "clip-05-r1c5",
+      "repeat": 2,
+      "source_category": "rim_contact_miss",
+      "first_capture": false,
+      "second_capture": true,
+      "capture_agrees": false,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 15802.28832312937,
+        "rms_mm": 5295.451479159509
+      }
+    },
+    {
+      "shot_id": "clip-01-r1c4",
+      "repeat": 0,
+      "source_category": "other_miss",
+      "first_capture": false,
+      "second_capture": false,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 131.5337846719233,
+        "rms_mm": 82.57702044134751
+      }
+    },
+    {
+      "shot_id": "clip-01-r1c4",
+      "repeat": 1,
+      "source_category": "other_miss",
+      "first_capture": false,
+      "second_capture": false,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 131.5337846719233,
+        "rms_mm": 82.57702044134751
+      }
+    },
+    {
+      "shot_id": "clip-01-r1c4",
+      "repeat": 2,
+      "source_category": "other_miss",
+      "first_capture": false,
+      "second_capture": false,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 112.34647867629877,
+        "rms_mm": 73.7193001709232
+      }
+    },
+    {
+      "shot_id": "clip-01-r2c2",
+      "repeat": 0,
+      "source_category": "clean_capture",
+      "first_capture": true,
+      "second_capture": true,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 90.88379472388023,
+        "rms_mm": 53.37963801947337
+      }
+    },
+    {
+      "shot_id": "clip-01-r2c2",
+      "repeat": 1,
+      "source_category": "clean_capture",
+      "first_capture": true,
+      "second_capture": true,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 90.88015389628787,
+        "rms_mm": 50.80096977294253
+      }
+    },
+    {
+      "shot_id": "clip-01-r2c2",
+      "repeat": 2,
+      "source_category": "clean_capture",
+      "first_capture": true,
+      "second_capture": true,
+      "capture_agrees": true,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 89.11180915476666,
+        "rms_mm": 46.30944169092691
+      }
+    },
+    {
+      "shot_id": "clip-00-r4c3",
+      "repeat": 0,
+      "source_category": "rim_contact_miss",
+      "first_capture": false,
+      "second_capture": true,
+      "capture_agrees": false,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 17837.528676423775,
+        "rms_mm": 5889.582918200143
+      }
+    },
+    {
+      "shot_id": "clip-00-r4c3",
+      "repeat": 1,
+      "source_category": "rim_contact_miss",
+      "first_capture": false,
+      "second_capture": true,
+      "capture_agrees": false,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 17831.799567039223,
+        "rms_mm": 5887.379071478624
+      }
+    },
+    {
+      "shot_id": "clip-00-r4c3",
+      "repeat": 2,
+      "source_category": "rim_contact_miss",
+      "first_capture": false,
+      "second_capture": true,
+      "capture_agrees": false,
+      "trajectory_error": {
+        "common_samples": 240,
+        "max_mm": 17837.27976383295,
+        "rms_mm": 5889.517912466182
+      }
+    }
+  ],
+  "repeatability": [
+    {
+      "shot_id": "clip-03-r1c4",
+      "first": {
+        "captures": [
+          false,
+          false,
+          false
+        ],
+        "all_repeats_agree": true
+      },
+      "second": {
+        "captures": [
+          true,
+          true,
+          true
+        ],
+        "all_repeats_agree": true
+      }
+    },
+    {
+      "shot_id": "clip-02-r1c5",
+      "first": {
+        "captures": [
+          true,
+          true,
+          true
+        ],
+        "all_repeats_agree": true
+      },
+      "second": {
+        "captures": [
+          true,
+          true,
+          true
+        ],
+        "all_repeats_agree": true
+      }
+    },
+    {
+      "shot_id": "clip-00-r2c3",
+      "first": {
+        "captures": [
+          false,
+          false,
+          false
+        ],
+        "all_repeats_agree": true
+      },
+      "second": {
+        "captures": [
+          false,
+          false,
+          false
+        ],
+        "all_repeats_agree": true
+      }
+    },
+    {
+      "shot_id": "clip-06-r1c2",
+      "first": {
+        "captures": [
+          true,
+          true,
+          true
+        ],
+        "all_repeats_agree": true
+      },
+      "second": {
+        "captures": [
+          true,
+          true,
+          true
+        ],
+        "all_repeats_agree": true
+      }
+    },
+    {
+      "shot_id": "clip-05-r4c3",
+      "first": {
+        "captures": [
+          true,
+          true,
+          true
+        ],
+        "all_repeats_agree": true
+      },
+      "second": {
+        "captures": [
+          true,
+          true,
+          true
+        ],
+        "all_repeats_agree": true
+      }
+    },
+    {
+      "shot_id": "clip-02-r2c2",
+      "first": {
+        "captures": [
+          false,
+          false,
+          false
+        ],
+        "all_repeats_agree": true
+      },
+      "second": {
+        "captures": [
+          true,
+          true,
+          true
+        ],
+        "all_repeats_agree": true
+      }
+    },
+    {
+      "shot_id": "clip-01-r1c3",
+      "first": {
+        "captures": [
+          true,
+          true,
+          true
+        ],
+        "all_repeats_agree": true
+      },
+      "second": {
+        "captures": [
+          true,
+          true,
+          true
+        ],
+        "all_repeats_agree": true
+      }
+    },
+    {
+      "shot_id": "clip-09-r3c2",
+      "first": {
+        "captures": [
+          false,
+          false,
+          false
+        ],
+        "all_repeats_agree": true
+      },
+      "second": {
+        "captures": [
+          false,
+          false,
+          false
+        ],
+        "all_repeats_agree": true
+      }
+    },
+    {
+      "shot_id": "clip-03-r1c2",
+      "first": {
+        "captures": [
+          false,
+          false,
+          false
+        ],
+        "all_repeats_agree": true
+      },
+      "second": {
+        "captures": [
+          false,
+          false,
+          false
+        ],
+        "all_repeats_agree": true
+      }
+    },
+    {
+      "shot_id": "clip-00-r1c5",
+      "first": {
+        "captures": [
+          false,
+          false,
+          false
+        ],
+        "all_repeats_agree": true
+      },
+      "second": {
+        "captures": [
+          false,
+          false,
+          false
+        ],
+        "all_repeats_agree": true
+      }
+    },
+    {
+      "shot_id": "clip-00-r3c3",
+      "first": {
+        "captures": [
+          true,
+          true,
+          true
+        ],
+        "all_repeats_agree": true
+      },
+      "second": {
+        "captures": [
+          true,
+          true,
+          true
+        ],
+        "all_repeats_agree": true
+      }
+    },
+    {
+      "shot_id": "clip-02-r3c2",
+      "first": {
+        "captures": [
+          true,
+          true,
+          true
+        ],
+        "all_repeats_agree": true
+      },
+      "second": {
+        "captures": [
+          true,
+          true,
+          true
+        ],
+        "all_repeats_agree": true
+      }
+    },
+    {
+      "shot_id": "clip-00-r3c5",
+      "first": {
+        "captures": [
+          false,
+          false,
+          false
+        ],
+        "all_repeats_agree": true
+      },
+      "second": {
+        "captures": [
+          true,
+          true,
+          true
+        ],
+        "all_repeats_agree": true
+      }
+    },
+    {
+      "shot_id": "clip-04-r1c3",
+      "first": {
+        "captures": [
+          false,
+          false,
+          false
+        ],
+        "all_repeats_agree": true
+      },
+      "second": {
+        "captures": [
+          true,
+          true,
+          true
+        ],
+        "all_repeats_agree": true
+      }
+    },
+    {
+      "shot_id": "clip-01-r3c4",
+      "first": {
+        "captures": [
+          false,
+          false,
+          false
+        ],
+        "all_repeats_agree": true
+      },
+      "second": {
+        "captures": [
+          false,
+          false,
+          false
+        ],
+        "all_repeats_agree": true
+      }
+    },
+    {
+      "shot_id": "clip-08-r3c5",
+      "first": {
+        "captures": [
+          true,
+          true,
+          true
+        ],
+        "all_repeats_agree": true
+      },
+      "second": {
+        "captures": [
+          false,
+          true,
+          true
+        ],
+        "all_repeats_agree": false
+      }
+    },
+    {
+      "shot_id": "clip-00-r2c5",
+      "first": {
+        "captures": [
+          false,
+          false,
+          false
+        ],
+        "all_repeats_agree": true
+      },
+      "second": {
+        "captures": [
+          false,
+          false,
+          false
+        ],
+        "all_repeats_agree": true
+      }
+    },
+    {
+      "shot_id": "clip-01-r5c4",
+      "first": {
+        "captures": [
+          false,
+          false,
+          false
+        ],
+        "all_repeats_agree": true
+      },
+      "second": {
+        "captures": [
+          false,
+          false,
+          false
+        ],
+        "all_repeats_agree": true
+      }
+    },
+    {
+      "shot_id": "clip-00-r2c2",
+      "first": {
+        "captures": [
+          false,
+          false,
+          false
+        ],
+        "all_repeats_agree": true
+      },
+      "second": {
+        "captures": [
+          true,
+          true,
+          false
+        ],
+        "all_repeats_agree": false
+      }
+    },
+    {
+      "shot_id": "clip-04-r2c3",
+      "first": {
+        "captures": [
+          false,
+          false,
+          false
+        ],
+        "all_repeats_agree": true
+      },
+      "second": {
+        "captures": [
+          false,
+          false,
+          false
+        ],
+        "all_repeats_agree": true
+      }
+    },
+    {
+      "shot_id": "clip-05-r1c5",
+      "first": {
+        "captures": [
+          false,
+          false,
+          false
+        ],
+        "all_repeats_agree": true
+      },
+      "second": {
+        "captures": [
+          true,
+          true,
+          true
+        ],
+        "all_repeats_agree": true
+      }
+    },
+    {
+      "shot_id": "clip-01-r1c4",
+      "first": {
+        "captures": [
+          false,
+          false,
+          false
+        ],
+        "all_repeats_agree": true
+      },
+      "second": {
+        "captures": [
+          false,
+          false,
+          false
+        ],
+        "all_repeats_agree": true
+      }
+    },
+    {
+      "shot_id": "clip-01-r2c2",
+      "first": {
+        "captures": [
+          true,
+          true,
+          true
+        ],
+        "all_repeats_agree": true
+      },
+      "second": {
+        "captures": [
+          true,
+          true,
+          true
+        ],
+        "all_repeats_agree": true
+      }
+    },
+    {
+      "shot_id": "clip-00-r4c3",
+      "first": {
+        "captures": [
+          false,
+          false,
+          false
+        ],
+        "all_repeats_agree": true
+      },
+      "second": {
+        "captures": [
+          true,
+          true,
+          true
+        ],
+        "all_repeats_agree": true
+      }
+    }
+  ],
+  "limitations": [
+    "Configurations were stratified by original Isaac outcome. Aggregate capture rates describe this diagnostic selection, not arbitrary-table policy performance.",
+    "Unperturbed repeats test numerical repeatability. They do not establish robustness to perception, contact or calibration error.",
+    "Fixed joint endpoints isolate release/contact physics. Grasping, path planning and interactive constrained policy search are separate tasks."
+  ]
+}

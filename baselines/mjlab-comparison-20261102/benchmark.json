@@ -1,0 +1,3923 @@
+{
+  "version": "sircus-engine-shot-parity-v1",
+  "source_fingerprint": "98ebe47b48a01b9028747ab03bc913a033d90611e44f03b912e58f41c87ff79a",
+  "source_result_sha256": "19f39a31a2d948d56c8c6cdee335d9e4a75483064de1917cecfcb1756117a2a1",
+  "scoring_version": "sircus-isaac-fixed-shot-v5",
+  "route_version": "sircus-board-route-v1",
+  "scorer_sha256": {
+    "rl_contract": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+    "entry_quality": "2f3d8b73c871a41afc3c8f333f5df1d54fa8751720855ffff517e729217db9d4",
+    "board_route": "6409889aed6b0fd6a288eb9494b954ec5c3233ec41fdcf146940fc23276fb2e9"
+  },
+  "scene": {
+    "scene_id": "sircus-isaac-foundation-v1",
+    "units": "metres, radians, kilograms, seconds",
+    "physics_contract": "sircus-isaac-physx-rigid-mount-v1",
+    "historical_scene": "sircus-two-arm-tapered-bucket-landscape-v1",
+    "arms": {
+      "model": "UFACTORY UF850",
+      "base_spacing_m": 1.33731,
+      "board_base_yaw_rad": 3.141592653589793,
+      "spacing_provenance": "User measured 52.65 inches; base-to-base interpretation assumed"
+    },
+    "board": {
+      "size_m": [
+        0.2,
+        0.3,
+        0.005
+      ],
+      "mass_kg": 0.4,
+      "tool_offset_m": 0.1,
+      "mount_yaw_rad": 1.5707963267948966,
+      "initial_center_m": [
+        0.67,
+        -0.1,
+        0.4
+      ],
+      "initial_tilt_deg": 25,
+      "size_status": "measured; landscape mount",
+      "mount_status": "provisional rigid fixed joint; compliance is NOT calibrated or modeled yet",
+      "mass_status": "provisional"
+    },
+    "bucket": {
+      "inner_top_diameter_m": 0.177,
+      "outer_top_diameter_m": 0.2,
+      "inner_bottom_diameter_m": 0.15,
+      "outer_bottom_diameter_m": 0.158,
+      "reported_height_m": 0.175,
+      "height_interpretation": "unresolved: overall height or interior depth",
+      "assumed_interior_depth_m": 0.175,
+      "assumed_bottom_thickness_m": 0.008,
+      "center_xy_m": [
+        0.67,
+        -0.42
+      ],
+      "placement_status": "provisional; operator/negative-Y side",
+      "taper": "straight-sided",
+      "segments": 64
+    },
+    "ball": {
+      "radius_m": 0.0375,
+      "mass_kg": 0.2,
+      "restitution": 0.65,
+      "friction": 0.2,
+      "status": "provisional; no physical calibration"
+    },
+    "dropper": {
+      "flange_target_m": [
+        0.67,
+        -0.1,
+        0.72
+      ],
+      "tool_status": "geometric two-finger proxy; not a calibrated gripper model"
+    },
+    "table": {
+      "size_m": [
+        1.8,
+        1.25,
+        0.05
+      ],
+      "center_m": [
+        0.67,
+        -0.25,
+        -0.025
+      ],
+      "status": "provisional enlarged support; tabletop Z=0"
+    },
+    "camera": {
+      "position_m": [
+        1.7,
+        -1.9,
+        1.65
+      ],
+      "look_at_m": [
+        0.65,
+        -0.15,
+        0.35
+      ],
+      "width": 640,
+      "height": 480,
+      "focal_length_mm": 20,
+      "horizontal_aperture_mm": 24,
+      "near_m": 0.05,
+      "far_m": 5.0,
+      "status": "synthetic ideal fixed RGB-D; not wrist-camera calibration"
+    },
+    "simulation": {
+      "physics_dt_s": 0.004166666666666667,
+      "render_every_steps": 8,
+      "seed": 42,
+      "contact_properties_status": "uncalibrated; separate from historical numerical models"
+    }
+  },
+  "dt_s": 0.004166666666666667,
+  "horizon_steps": 960,
+  "terminal_conditions": "Freeze scoring at first capture success or ball-center Z below -0.2 m, as in ParallelShots.",
+  "repeats": 3,
+  "seed": 20261102,
+  "source_unique_counts": {
+    "clean_capture": 23,
+    "assisted_capture": 0,
+    "rim_contact_miss": 33,
+    "other_miss": 13
+  },
+  "selection": "Round-robin outcome strata, unique geometry/actions, seeded shuffle; diagnostic success rates are selected by source outcome.",
+  "repeat_protocol": "Unperturbed resets; repeatability check, not physical robustness or generalization.",
+  "joint_state_timing": "final_joint_positions_rad was measured at the end of the source throw; exact source release joint angles were not recorded.",
+  "comparison_protocol": "fixed_endpoint_contact_replay; fresh paired engines use the same initialization and prescribed release, with joints held fixed.",
+  "shots": [
+    {
+      "shot_id": "clip-03-r1c4",
+      "cell_id": "r1c4",
+      "category": "rim_contact_miss",
+      "action": {
+        "id": "ring-02-pose-1",
+        "azimuth_offset_deg": -7.1250163489018234,
+        "azimuth_deg": 262.87498365109815,
+        "board_x_m": 0.6203861061643164,
+        "board_y_m": -0.146911150685467,
+        "height_m": 0.32,
+        "gap_m": 0.24,
+        "tilt_deg": 29.0
+      },
+      "bucket_xy_m": [
+        0.6700000000000002,
+        0.25
+      ],
+      "release_ball_center_m": [
+        0.6203861061643164,
+        -0.146911150685467,
+        0.5974999999999999
+      ],
+      "settled_board_center_m": [
+        0.6203858852386475,
+        -0.14691162109375,
+        0.3199997842311859
+      ],
+      "settled_board_normal": [
+        0.06013249549698654,
+        0.4810659581330462,
+        0.8746197041633805
+      ],
+      "final_joint_positions_rad": {
+        "Arm10": [
+          -0.23252923786640167,
+          -0.517615795135498,
+          -1.927004337310791,
+          3.942850071325665e-06,
+          -1.409388542175293,
+          -0.23252981901168823,
+          0.02500000037252903,
+          0.02500000037252903
+        ],
+        "Arm14": [
+          3.4578120708465576,
+          1.4762474298477173,
+          -3.476404905319214,
+          0.5012330412864685,
+          -1.9920074939727783,
+          2.920106887817383
+        ]
+      },
+      "isaac_reference": {
+        "id": "ring-02-pose-1",
+        "azimuth_offset_deg": -7.1250163489018234,
+        "azimuth_deg": 262.87498365109815,
+        "board_x_m": 0.6203861061643164,
+        "board_y_m": -0.146911150685467,
+        "height_m": 0.32,
+        "gap_m": 0.24,
+        "tilt_deg": 29.0,
+        "reward": 1.978029909053041,
+        "success": false,
+        "board_bounce": true,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "closest_opening_distance_m": 0.08584346497452662,
+        "quality_score": 0,
+        "entry_class": "miss",
+        "bucket_contact_before_entry": true,
+        "rim_band_contact": true,
+        "exited_after_entry": false,
+        "peak_bucket_force_before_entry_N": 116.43035125732422,
+        "minimum_mouth_clearance_mm": -212.66756934545475,
+        "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+        "route_version": "sircus-board-route-v1",
+        "route_success": false,
+        "route_quality": 0,
+        "single_bounce_success": false,
+        "board_contact_episodes": 1,
+        "external_contact_steps": 0,
+        "contact_peaks_N": {
+          "board": 150.02732849121094,
+          "bucket": 116.43035125732422,
+          "table": 0,
+          "floor": 0,
+          "robot": 0,
+          "unattributed": 0
+        },
+        "cell_id": "r1c4",
+        "invalid": null,
+        "settled": {
+          "position_error_mm": 0.0005627151011468266,
+          "normal_error_deg": 4.259466367698032e-05,
+          "joint_speed_rad_s": 6.687268960803294e-09,
+          "position_drift_mm": 0.0,
+          "normal_drift_deg": 0.0,
+          "dropper_position_error_mm": 0.0006338429166200631,
+          "iteration": 0
+        },
+        "release_ball_center_m": [
+          0.6203861061643164,
+          -0.146911150685467,
+          0.5974999999999999
+        ],
+        "bucket_xy_m": [
+          0.6700000000000002,
+          0.25
+        ],
+        "distance_m": 0.39999999999999997,
+        "heading_deg": 172.87498365109815,
+        "settled_board_center_m": [
+          0.6203858852386475,
+          -0.14691162109375,
+          0.3199997842311859
+        ],
+        "settled_board_normal": [
+          0.06013249549698654,
+          0.4810659581330462,
+          0.8746197041633805
+        ],
+        "final_board_center_m": [
+          0.6203896999359131,
+          -0.1469106674194336,
+          0.3199373781681061
+        ],
+        "final_board_normal": [
+          0.06006004703873069,
+          0.481042663859566,
+          0.8746374942206616
+        ],
+        "final_joint_positions_rad": {
+          "Arm10": [
+            -0.23252923786640167,
+            -0.517615795135498,
+            -1.927004337310791,
+            3.942850071325665e-06,
+            -1.409388542175293,
+            -0.23252981901168823,
+            0.02500000037252903,
+            0.02500000037252903
+          ],
+          "Arm14": [
+            3.4578120708465576,
+            1.4762474298477173,
+            -3.476404905319214,
+            0.5012330412864685,
+            -1.9920074939727783,
+            2.920106887817383
+          ]
+        }
+      },
+      "source": {
+        "clip": "clip-03.json",
+        "sha256": "14b1ede69ffbd18c59b3980a8d36bafcc4393205227fcdf8bfbeedf433665a7c"
+      }
+    },
+    {
+      "shot_id": "clip-02-r1c5",
+      "cell_id": "r1c5",
+      "category": "clean_capture",
+      "action": {
+        "id": "ring-01-pose-0",
+        "azimuth_offset_deg": -8.460685423631134,
+        "azimuth_deg": 225.23481745379362,
+        "board_x_m": 0.6454617017400957,
+        "board_y_m": -0.033999518821714314,
+        "height_m": 0.38,
+        "gap_m": 0.265,
+        "tilt_deg": 26.0
+      },
+      "bucket_xy_m": [
+        0.9271428571428573,
+        0.25
+      ],
+      "release_ball_center_m": [
+        0.6454617017400957,
+        -0.033999518821714314,
+        0.6825
+      ],
+      "settled_board_center_m": [
+        0.6454615592956543,
+        -0.03399944305419922,
+        0.37999993562698364
+      ],
+      "settled_board_normal": [
+        0.30870176039592734,
+        0.311242763410995,
+        0.8987942842234496
+      ],
+      "final_joint_positions_rad": {
+        "Arm10": [
+          -0.05263384431600571,
+          -0.6603311896324158,
+          -2.3401999473571777,
+          1.337097501163953e-06,
+          -1.6798686981201172,
+          -0.05263282358646393,
+          0.02500000037252903,
+          0.02500000037252903
+        ],
+        "Arm14": [
+          3.2650609016418457,
+          1.329805612564087,
+          -3.625079870223999,
+          0.3303758203983307,
+          -2.1535956859588623,
+          -2.183806896209717
+        ]
+      },
+      "isaac_reference": {
+        "id": "ring-01-pose-0",
+        "azimuth_offset_deg": -8.460685423631134,
+        "azimuth_deg": 225.23481745379362,
+        "board_x_m": 0.6454617017400957,
+        "board_y_m": -0.033999518821714314,
+        "height_m": 0.38,
+        "gap_m": 0.265,
+        "tilt_deg": 26.0,
+        "reward": 14.926478207127262,
+        "success": true,
+        "board_bounce": true,
+        "whole_ball_entry": true,
+        "max_retention_s": 0.9999999999999977,
+        "closest_opening_distance_m": 0.0044944329237639235,
+        "quality_score": 2,
+        "entry_class": "clean_capture",
+        "bucket_contact_before_entry": false,
+        "rim_band_contact": false,
+        "exited_after_entry": false,
+        "peak_bucket_force_before_entry_N": 0.0,
+        "minimum_mouth_clearance_mm": 40.22340826495065,
+        "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+        "route_version": "sircus-board-route-v1",
+        "route_success": true,
+        "route_quality": 2,
+        "single_bounce_success": true,
+        "board_contact_episodes": 1,
+        "external_contact_steps": 0,
+        "contact_peaks_N": {
+          "board": 162.92977905273438,
+          "bucket": 154.39527893066406,
+          "table": 0,
+          "floor": 0,
+          "robot": 0,
+          "unattributed": 0
+        },
+        "cell_id": "r1c5",
+        "invalid": null,
+        "settled": {
+          "position_error_mm": 0.00017370958652795533,
+          "normal_error_deg": 3.264498184817016e-05,
+          "joint_speed_rad_s": 2.0897838126643364e-08,
+          "position_drift_mm": 0.0,
+          "normal_drift_deg": 0.0,
+          "dropper_position_error_mm": 0.0012462292540283617,
+          "iteration": 0
+        },
+        "release_ball_center_m": [
+          0.6454617017400957,
+          -0.033999518821714314,
+          0.6825
+        ],
+        "bucket_xy_m": [
+          0.9271428571428573,
+          0.25
+        ],
+        "distance_m": 0.4,
+        "heading_deg": 135.23481745379362,
+        "settled_board_center_m": [
+          0.6454615592956543,
+          -0.03399944305419922,
+          0.37999993562698364
+        ],
+        "settled_board_normal": [
+          0.30870176039592734,
+          0.311242763410995,
+          0.8987942842234496
+        ],
+        "final_board_center_m": [
+          0.6454610824584961,
+          -0.03400135040283203,
+          0.37994831800460815
+        ],
+        "final_board_normal": [
+          0.3086343661617035,
+          0.3112350646670634,
+          0.8988200946494534
+        ],
+        "final_joint_positions_rad": {
+          "Arm10": [
+            -0.05263384431600571,
+            -0.6603311896324158,
+            -2.3401999473571777,
+            1.337097501163953e-06,
+            -1.6798686981201172,
+            -0.05263282358646393,
+            0.02500000037252903,
+            0.02500000037252903
+          ],
+          "Arm14": [
+            3.2650609016418457,
+            1.329805612564087,
+            -3.625079870223999,
+            0.3303758203983307,
+            -2.1535956859588623,
+            -2.183806896209717
+          ]
+        }
+      },
+      "source": {
+        "clip": "clip-02.json",
+        "sha256": "feb8e6b34abfaf7104dc0bb1ce88454e39629a3e5e3ce1c83499e6d86a6a0bbb"
+      }
+    },
+    {
+      "shot_id": "clip-00-r2c3",
+      "cell_id": "r2c3",
+      "category": "other_miss",
+      "action": {
+        "id": "ring-04-pose-2",
+        "azimuth_offset_deg": -15.0,
+        "azimuth_deg": 323.74949449286675,
+        "board_x_m": 0.735432897757421,
+        "board_y_m": -0.23652670536435352,
+        "height_m": 0.32,
+        "gap_m": 0.145,
+        "tilt_deg": 24.0
+      },
+      "bucket_xy_m": [
+        0.4128571428571429,
+        0.0
+      ],
+      "release_ball_center_m": [
+        0.735432897757421,
+        -0.23652670536435352,
+        0.5025
+      ],
+      "settled_board_center_m": [
+        0.7354326248168945,
+        -0.2365264892578125,
+        0.3199998140335083
+      ],
+      "settled_board_normal": [
+        -0.32800915007818704,
+        0.2405096319954067,
+        0.9135453543105672
+      ],
+      "final_joint_positions_rad": {
+        "Arm10": [
+          -0.31117525696754456,
+          -1.0678706169128418,
+          -2.6048762798309326,
+          1.1565968094373602e-07,
+          -1.5370055437088013,
+          -0.3111724853515625,
+          0.02500000037252903,
+          0.02500000037252903
+        ],
+        "Arm14": [
+          3.6235220432281494,
+          1.1558908224105835,
+          -4.196823596954346,
+          0.4102025032043457,
+          -1.984602689743042,
+          4.916595458984375
+        ]
+      },
+      "isaac_reference": {
+        "id": "ring-04-pose-2",
+        "azimuth_offset_deg": -15.0,
+        "azimuth_deg": 323.74949449286675,
+        "board_x_m": 0.735432897757421,
+        "board_y_m": -0.23652670536435352,
+        "height_m": 0.32,
+        "gap_m": 0.145,
+        "tilt_deg": 24.0,
+        "reward": 1.6354727063148415,
+        "success": false,
+        "board_bounce": true,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "closest_opening_distance_m": 0.13758399818383485,
+        "quality_score": 0,
+        "entry_class": "miss",
+        "bucket_contact_before_entry": true,
+        "rim_band_contact": false,
+        "exited_after_entry": false,
+        "peak_bucket_force_before_entry_N": 43.80297088623047,
+        "minimum_mouth_clearance_mm": -118.57956168032469,
+        "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+        "route_version": "sircus-board-route-v1",
+        "route_success": false,
+        "route_quality": 0,
+        "single_bounce_success": false,
+        "board_contact_episodes": 1,
+        "external_contact_steps": 659,
+        "contact_peaks_N": {
+          "board": 121.25447082519531,
+          "bucket": 43.80297088623047,
+          "table": 195.31069946289062,
+          "floor": 0,
+          "robot": 8.901200294494629,
+          "unattributed": 0
+        },
+        "cell_id": "r2c3",
+        "invalid": null,
+        "settled": {
+          "position_error_mm": 0.0003946924171096616,
+          "normal_error_deg": 5.184170947912105e-05,
+          "joint_speed_rad_s": 5.652752932405747e-09,
+          "position_drift_mm": 0.0,
+          "normal_drift_deg": 0.0,
+          "dropper_position_error_mm": 0.0007476228250578843,
+          "iteration": 0
+        },
+        "release_ball_center_m": [
+          0.735432897757421,
+          -0.23652670536435352,
+          0.5025
+        ],
+        "bucket_xy_m": [
+          0.4128571428571429,
+          0.0
+        ],
+        "distance_m": 0.4,
+        "heading_deg": 233.74949449286675,
+        "settled_board_center_m": [
+          0.7354326248168945,
+          -0.2365264892578125,
+          0.3199998140335083
+        ],
+        "settled_board_normal": [
+          -0.32800915007818704,
+          0.2405096319954067,
+          0.9135453543105672
+        ],
+        "final_board_center_m": [
+          0.7354342937469482,
+          -0.2365279197692871,
+          0.31998011469841003
+        ],
+        "final_board_normal": [
+          -0.32803426584042217,
+          0.24049643979544263,
+          0.9135398091381963
+        ],
+        "final_joint_positions_rad": {
+          "Arm10": [
+            -0.31117525696754456,
+            -1.0678706169128418,
+            -2.6048762798309326,
+            1.1565968094373602e-07,
+            -1.5370055437088013,
+            -0.3111724853515625,
+            0.02500000037252903,
+            0.02500000037252903
+          ],
+          "Arm14": [
+            3.6235220432281494,
+            1.1558908224105835,
+            -4.196823596954346,
+            0.4102025032043457,
+            -1.984602689743042,
+            4.916595458984375
+          ]
+        }
+      },
+      "source": {
+        "clip": "clip-00.json",
+        "sha256": "f8dcc97cf50a1fa17a12ee1476fa8b41ee1ec57900380ce62efd50fd08c6d920"
+      }
+    },
+    {
+      "shot_id": "clip-06-r1c2",
+      "cell_id": "r1c2",
+      "category": "clean_capture",
+      "action": {
+        "id": "ring-01-pose-0",
+        "azimuth_offset_deg": -5.282298683170836,
+        "azimuth_deg": 320.48023853997165,
+        "board_x_m": 0.46427634671480666,
+        "board_y_m": -0.004537727087971843,
+        "height_m": 0.38,
+        "gap_m": 0.265,
+        "tilt_deg": 26.0
+      },
+      "bucket_xy_m": [
+        0.15571428571428578,
+        0.25
+      ],
+      "release_ball_center_m": [
+        0.46427634671480666,
+        -0.004537727087971843,
+        0.6825
+      ],
+      "settled_board_center_m": [
+        0.4642753601074219,
+        -0.004538536071777344,
+        0.3799998462200165
+      ],
+      "settled_board_normal": [
+        -0.3381623951700814,
+        0.27895496655498847,
+        0.8987938145799286
+      ],
+      "final_joint_positions_rad": {
+        "Arm10": [
+          -0.009778705425560474,
+          -0.07033676654100418,
+          -1.5588151216506958,
+          4.273560989531688e-06,
+          -1.488478422164917,
+          -0.009782189503312111,
+          0.02500000037252903,
+          0.02500000037252903
+        ],
+        "Arm14": [
+          3.2126195430755615,
+          1.5480973720550537,
+          -3.1967978477478027,
+          0.3211396038532257,
+          -1.2783485651016235,
+          2.920106887817383
+        ]
+      },
+      "isaac_reference": {
+        "id": "ring-01-pose-0",
+        "azimuth_offset_deg": -5.282298683170836,
+        "azimuth_deg": 320.48023853997165,
+        "board_x_m": 0.46427634671480666,
+        "board_y_m": -0.004537727087971843,
+        "height_m": 0.38,
+        "gap_m": 0.265,
+        "tilt_deg": 26.0,
+        "reward": 14.9724195280222,
+        "success": true,
+        "board_bounce": true,
+        "whole_ball_entry": true,
+        "max_retention_s": 0.9999999999999977,
+        "closest_opening_distance_m": 0.0016663445521426044,
+        "quality_score": 2,
+        "entry_class": "clean_capture",
+        "bucket_contact_before_entry": false,
+        "rim_band_contact": false,
+        "exited_after_entry": false,
+        "peak_bucket_force_before_entry_N": 0.0,
+        "minimum_mouth_clearance_mm": 38.88346314300846,
+        "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+        "route_version": "sircus-board-route-v1",
+        "route_success": true,
+        "route_quality": 2,
+        "single_bounce_success": true,
+        "board_contact_episodes": 1,
+        "external_contact_steps": 0,
+        "contact_peaks_N": {
+          "board": 162.66354370117188,
+          "bucket": 154.9157257080078,
+          "table": 0,
+          "floor": 0,
+          "robot": 0,
+          "unattributed": 0
+        },
+        "cell_id": "r1c2",
+        "invalid": null,
+        "settled": {
+          "position_error_mm": 0.0012851059149409972,
+          "normal_error_deg": 3.867509804638244e-05,
+          "joint_speed_rad_s": 4.972867451158436e-09,
+          "position_drift_mm": 0.0,
+          "normal_drift_deg": 0.0,
+          "dropper_position_error_mm": 0.00015209885585078353,
+          "iteration": 0
+        },
+        "release_ball_center_m": [
+          0.46427634671480666,
+          -0.004537727087971843,
+          0.6825
+        ],
+        "bucket_xy_m": [
+          0.15571428571428578,
+          0.25
+        ],
+        "distance_m": 0.39999999999999997,
+        "heading_deg": 230.48023853997165,
+        "settled_board_center_m": [
+          0.4642753601074219,
+          -0.004538536071777344,
+          0.3799998462200165
+        ],
+        "settled_board_normal": [
+          -0.3381623951700814,
+          0.27895496655498847,
+          0.8987938145799286
+        ],
+        "final_board_center_m": [
+          0.46427345275878906,
+          -0.0045413970947265625,
+          0.3798444867134094
+        ],
+        "final_board_normal": [
+          -0.33832377147167864,
+          0.2789420646163712,
+          0.8987370862742537
+        ],
+        "final_joint_positions_rad": {
+          "Arm10": [
+            -0.009778705425560474,
+            -0.07033676654100418,
+            -1.5588151216506958,
+            4.273560989531688e-06,
+            -1.488478422164917,
+            -0.009782189503312111,
+            0.02500000037252903,
+            0.02500000037252903
+          ],
+          "Arm14": [
+            3.2126195430755615,
+            1.5480973720550537,
+            -3.1967978477478027,
+            0.3211396038532257,
+            -1.2783485651016235,
+            2.920106887817383
+          ]
+        }
+      },
+      "source": {
+        "clip": "clip-06.json",
+        "sha256": "e6bc151a6b05cf8fc3a5738abfd13da3b9a679cb1aaa1ed99856bc5e19e57718"
+      }
+    },
+    {
+      "shot_id": "clip-05-r4c3",
+      "cell_id": "r4c3",
+      "category": "clean_capture",
+      "action": {
+        "id": "ring-01-pose-0",
+        "azimuth_offset_deg": 10.057266763987855,
+        "azimuth_deg": 67.32204049188026,
+        "board_x_m": 0.5670775959012452,
+        "board_y_m": -0.13092541151838716,
+        "height_m": 0.38,
+        "gap_m": 0.265,
+        "tilt_deg": 26.0
+      },
+      "bucket_xy_m": [
+        0.4128571428571429,
+        -0.5
+      ],
+      "release_ball_center_m": [
+        0.5670775959012452,
+        -0.13092541151838716,
+        0.6825
+      ],
+      "settled_board_center_m": [
+        0.5671110153198242,
+        -0.13092994689941406,
+        0.3800249397754669
+      ],
+      "settled_board_normal": [
+        -0.1690384572494421,
+        -0.40449000529158063,
+        0.8987846436104401
+      ],
+      "final_joint_positions_rad": {
+        "Arm10": [
+          -0.22690849006175995,
+          -0.407020628452301,
+          -1.966947317123413,
+          3.1530273645330453e-06,
+          -1.5599266290664673,
+          -0.22690929472446442,
+          0.02500000037252903,
+          0.02500000037252903
+        ],
+        "Arm14": [
+          3.2147297859191895,
+          1.2849284410476685,
+          -3.71537709236145,
+          -0.4026913046836853,
+          -1.6359807252883911,
+          6.1986918449401855
+        ]
+      },
+      "isaac_reference": {
+        "id": "ring-01-pose-0",
+        "azimuth_offset_deg": 10.057266763987855,
+        "azimuth_deg": 67.32204049188026,
+        "board_x_m": 0.5670775959012452,
+        "board_y_m": -0.13092541151838716,
+        "height_m": 0.38,
+        "gap_m": 0.265,
+        "tilt_deg": 26.0,
+        "reward": 14.871493496373258,
+        "success": true,
+        "board_bounce": true,
+        "whole_ball_entry": true,
+        "max_retention_s": 0.9999999999999977,
+        "closest_opening_distance_m": 0.00796924887496728,
+        "quality_score": 2,
+        "entry_class": "clean_capture",
+        "bucket_contact_before_entry": false,
+        "rim_band_contact": false,
+        "exited_after_entry": false,
+        "peak_bucket_force_before_entry_N": 0.0,
+        "minimum_mouth_clearance_mm": 40.04576225372016,
+        "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+        "route_version": "sircus-board-route-v1",
+        "route_success": true,
+        "route_quality": 2,
+        "single_bounce_success": true,
+        "board_contact_episodes": 1,
+        "external_contact_steps": 0,
+        "contact_peaks_N": {
+          "board": 162.9242401123047,
+          "bucket": 154.36668395996094,
+          "table": 0,
+          "floor": 0,
+          "robot": 0,
+          "unattributed": 0
+        },
+        "cell_id": "r4c3",
+        "invalid": null,
+        "settled": {
+          "position_error_mm": 0.0419454362185012,
+          "normal_error_deg": 0.001601295662443855,
+          "joint_speed_rad_s": 6.2855698423902595e-09,
+          "position_drift_mm": 0.0,
+          "normal_drift_deg": 0.0,
+          "dropper_position_error_mm": 0.0007114838414732844,
+          "iteration": 0
+        },
+        "release_ball_center_m": [
+          0.5670775959012452,
+          -0.13092541151838716,
+          0.6825
+        ],
+        "bucket_xy_m": [
+          0.4128571428571429,
+          -0.5
+        ],
+        "distance_m": 0.4,
+        "heading_deg": -22.677959508119738,
+        "settled_board_center_m": [
+          0.5671110153198242,
+          -0.13092994689941406,
+          0.3800249397754669
+        ],
+        "settled_board_normal": [
+          -0.1690384572494421,
+          -0.40449000529158063,
+          0.8987846436104401
+        ],
+        "final_board_center_m": [
+          0.5671093463897705,
+          -0.13093185424804688,
+          0.3799493908882141
+        ],
+        "final_board_normal": [
+          -0.1691247170090664,
+          -0.4044965965647442,
+          0.8987654496386374
+        ],
+        "final_joint_positions_rad": {
+          "Arm10": [
+            -0.22690849006175995,
+            -0.407020628452301,
+            -1.966947317123413,
+            3.1530273645330453e-06,
+            -1.5599266290664673,
+            -0.22690929472446442,
+            0.02500000037252903,
+            0.02500000037252903
+          ],
+          "Arm14": [
+            3.2147297859191895,
+            1.2849284410476685,
+            -3.71537709236145,
+            -0.4026913046836853,
+            -1.6359807252883911,
+            6.1986918449401855
+          ]
+        }
+      },
+      "source": {
+        "clip": "clip-05.json",
+        "sha256": "9258e1b9946ee272359fedad60f2b8cc9e3578644310ff9137cae6567e7e882d"
+      }
+    },
+    {
+      "shot_id": "clip-02-r2c2",
+      "cell_id": "r2c2",
+      "category": "rim_contact_miss",
+      "action": {
+        "id": "ring-07-pose-1",
+        "azimuth_offset_deg": 30.0,
+        "azimuth_deg": 18.28847007491724,
+        "board_x_m": 0.567402600752469,
+        "board_y_m": 0.1255205567310774,
+        "height_m": 0.32,
+        "gap_m": 0.24,
+        "tilt_deg": 29.0
+      },
+      "bucket_xy_m": [
+        0.18760714285714292,
+        0.0
+      ],
+      "release_ball_center_m": [
+        0.567402600752469,
+        0.1255205567310774,
+        0.5974999999999999
+      ],
+      "settled_board_center_m": [
+        0.5674676895141602,
+        0.12551546096801758,
+        0.3200503885746002
+      ],
+      "settled_board_normal": [
+        -0.46042314100373716,
+        -0.15211787253658937,
+        0.874568856113225
+      ],
+      "final_joint_positions_rad": {
+        "Arm10": [
+          0.21770761907100677,
+          -0.3465119004249573,
+          -1.6934317350387573,
+          4.992177309759427e-06,
+          -1.3469197750091553,
+          0.21770551800727844,
+          0.02500000037252903,
+          0.02500000037252903
+        ],
+        "Arm14": [
+          2.9190406799316406,
+          1.299294114112854,
+          -3.845655918121338,
+          -0.25269266963005066,
+          -1.5601119995117188,
+          6.1529083251953125
+        ]
+      },
+      "isaac_reference": {
+        "id": "ring-07-pose-1",
+        "azimuth_offset_deg": 30.0,
+        "azimuth_deg": 18.28847007491724,
+        "board_x_m": 0.567402600752469,
+        "board_y_m": 0.1255205567310774,
+        "height_m": 0.32,
+        "gap_m": 0.24,
+        "tilt_deg": 29.0,
+        "reward": 1.9786669918540336,
+        "success": false,
+        "board_bounce": true,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "closest_opening_distance_m": 0.08576532314399055,
+        "quality_score": 0,
+        "entry_class": "miss",
+        "bucket_contact_before_entry": true,
+        "rim_band_contact": true,
+        "exited_after_entry": false,
+        "peak_bucket_force_before_entry_N": 116.40496063232422,
+        "minimum_mouth_clearance_mm": -105.98508958321287,
+        "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+        "route_version": "sircus-board-route-v1",
+        "route_success": false,
+        "route_quality": 0,
+        "single_bounce_success": false,
+        "board_contact_episodes": 1,
+        "external_contact_steps": 219,
+        "contact_peaks_N": {
+          "board": 150.04893493652344,
+          "bucket": 116.40496063232422,
+          "table": 153.3077392578125,
+          "floor": 0,
+          "robot": 110.07713317871094,
+          "unattributed": 0
+        },
+        "cell_id": "r2c2",
+        "invalid": null,
+        "settled": {
+          "position_error_mm": 0.08247134138533836,
+          "normal_error_deg": 0.006590205999393283,
+          "joint_speed_rad_s": 7.0903283244661e-09,
+          "position_drift_mm": 0.0,
+          "normal_drift_deg": 0.0,
+          "dropper_position_error_mm": 0.0012144459104979242,
+          "iteration": 0
+        },
+        "release_ball_center_m": [
+          0.567402600752469,
+          0.1255205567310774,
+          0.5974999999999999
+        ],
+        "bucket_xy_m": [
+          0.18760714285714292,
+          0.0
+        ],
+        "distance_m": 0.39999999999999997,
+        "heading_deg": -71.71152992508276,
+        "settled_board_center_m": [
+          0.5674676895141602,
+          0.12551546096801758,
+          0.3200503885746002
+        ],
+        "settled_board_normal": [
+          -0.46042314100373716,
+          -0.15211787253658937,
+          0.874568856113225
+        ],
+        "final_board_center_m": [
+          0.5674715042114258,
+          0.12551355361938477,
+          0.3199877142906189
+        ],
+        "final_board_normal": [
+          -0.4604914126859542,
+          -0.1521035462361005,
+          0.8745354024079852
+        ],
+        "final_joint_positions_rad": {
+          "Arm10": [
+            0.21770761907100677,
+            -0.3465119004249573,
+            -1.6934317350387573,
+            4.992177309759427e-06,
+            -1.3469197750091553,
+            0.21770551800727844,
+            0.02500000037252903,
+            0.02500000037252903
+          ],
+          "Arm14": [
+            2.9190406799316406,
+            1.299294114112854,
+            -3.845655918121338,
+            -0.25269266963005066,
+            -1.5601119995117188,
+            6.1529083251953125
+          ]
+        }
+      },
+      "source": {
+        "clip": "clip-02.json",
+        "sha256": "feb8e6b34abfaf7104dc0bb1ce88454e39629a3e5e3ce1c83499e6d86a6a0bbb"
+      }
+    },
+    {
+      "shot_id": "clip-01-r1c3",
+      "cell_id": "r1c3",
+      "category": "clean_capture",
+      "action": {
+        "id": "ring-04-pose-0",
+        "azimuth_offset_deg": -15.0,
+        "azimuth_deg": 291.30449712257524,
+        "board_x_m": 0.5581868858258807,
+        "board_y_m": -0.12266508530937081,
+        "height_m": 0.38,
+        "gap_m": 0.265,
+        "tilt_deg": 26.0
+      },
+      "bucket_xy_m": [
+        0.4128571428571429,
+        0.25
+      ],
+      "release_ball_center_m": [
+        0.5581868858258807,
+        -0.12266508530937081,
+        0.6825
+      ],
+      "settled_board_center_m": [
+        0.5581867694854736,
+        -0.1226654052734375,
+        0.3800000250339508
+      ],
+      "settled_board_normal": [
+        -0.15927133673915833,
+        0.4084139678444557,
+        0.8987940098614753
+      ],
+      "final_joint_positions_rad": {
+        "Arm10": [
+          -0.21632462739944458,
+          -0.37331700325012207,
+          -1.9215755462646484,
+          3.33363050231128e-06,
+          -1.5482585430145264,
+          -0.21632570028305054,
+          0.02500000037252903,
+          0.02500000037252903
+        ],
+        "Arm14": [
+          3.402904510498047,
+          1.3896762132644653,
+          -3.5059385299682617,
+          0.45410510897636414,
+          -1.6871789693832397,
+          2.920106887817383
+        ]
+      },
+      "isaac_reference": {
+        "id": "ring-04-pose-0",
+        "azimuth_offset_deg": -15.0,
+        "azimuth_deg": 291.30449712257524,
+        "board_x_m": 0.5581868858258807,
+        "board_y_m": -0.12266508530937081,
+        "height_m": 0.38,
+        "gap_m": 0.265,
+        "tilt_deg": 26.0,
+        "reward": 14.93760130484435,
+        "success": true,
+        "board_bounce": true,
+        "whole_ball_entry": true,
+        "max_retention_s": 0.9999999999999977,
+        "closest_opening_distance_m": 0.0038035695972221746,
+        "quality_score": 2,
+        "entry_class": "clean_capture",
+        "bucket_contact_before_entry": false,
+        "rim_band_contact": false,
+        "exited_after_entry": false,
+        "peak_bucket_force_before_entry_N": 0.0,
+        "minimum_mouth_clearance_mm": 39.99368879295195,
+        "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+        "route_version": "sircus-board-route-v1",
+        "route_success": true,
+        "route_quality": 2,
+        "single_bounce_success": true,
+        "board_contact_episodes": 1,
+        "external_contact_steps": 0,
+        "contact_peaks_N": {
+          "board": 162.89163208007812,
+          "bucket": 154.64439392089844,
+          "table": 0,
+          "floor": 0,
+          "robot": 0,
+          "unattributed": 0
+        },
+        "cell_id": "r1c3",
+        "invalid": null,
+        "settled": {
+          "position_error_mm": 0.0003413777863071991,
+          "normal_error_deg": 2.470048462016993e-05,
+          "joint_speed_rad_s": 5.007365633247218e-09,
+          "position_drift_mm": 0.0,
+          "normal_drift_deg": 0.0,
+          "dropper_position_error_mm": 0.0011633834058521393,
+          "iteration": 0
+        },
+        "release_ball_center_m": [
+          0.5581868858258807,
+          -0.12266508530937081,
+          0.6825
+        ],
+        "bucket_xy_m": [
+          0.4128571428571429,
+          0.25
+        ],
+        "distance_m": 0.4,
+        "heading_deg": 201.30449712257524,
+        "settled_board_center_m": [
+          0.5581867694854736,
+          -0.1226654052734375,
+          0.3800000250339508
+        ],
+        "settled_board_normal": [
+          -0.15927133673915833,
+          0.4084139678444557,
+          0.8987940098614753
+        ],
+        "final_board_center_m": [
+          0.5581851005554199,
+          -0.12266731262207031,
+          0.3799123764038086
+        ],
+        "final_board_normal": [
+          -0.15936934117429497,
+          0.4083875066875314,
+          0.8987886611852716
+        ],
+        "final_joint_positions_rad": {
+          "Arm10": [
+            -0.21632462739944458,
+            -0.37331700325012207,
+            -1.9215755462646484,
+            3.33363050231128e-06,
+            -1.5482585430145264,
+            -0.21632570028305054,
+            0.02500000037252903,
+            0.02500000037252903
+          ],
+          "Arm14": [
+            3.402904510498047,
+            1.3896762132644653,
+            -3.5059385299682617,
+            0.45410510897636414,
+            -1.6871789693832397,
+            2.920106887817383
+          ]
+        }
+      },
+      "source": {
+        "clip": "clip-01.json",
+        "sha256": "c3f9de29ab8db4afb079d597121ed90d3ca5e1de4638cfb5d812fc9cb001596c"
+      }
+    },
+    {
+      "shot_id": "clip-09-r3c2",
+      "cell_id": "r3c2",
+      "category": "other_miss",
+      "action": {
+        "id": "ring-04-pose-2",
+        "azimuth_offset_deg": -15.0,
+        "azimuth_deg": 1.2602047083119605,
+        "board_x_m": 0.5556175360607704,
+        "board_y_m": -0.2412028207749923,
+        "height_m": 0.32,
+        "gap_m": 0.145,
+        "tilt_deg": 24.0
+      },
+      "bucket_xy_m": [
+        0.15571428571428578,
+        -0.25
+      ],
+      "release_ball_center_m": [
+        0.5556175360607704,
+        -0.2412028207749923,
+        0.5025
+      ],
+      "settled_board_center_m": [
+        0.555628776550293,
+        -0.24119700491428375,
+        0.3200046122074127
+      ],
+      "settled_board_normal": [
+        -0.40665979880037373,
+        -0.008952979963801566,
+        0.913535796884505
+      ],
+      "final_joint_positions_rad": {
+        "Arm10": [
+          -0.409572035074234,
+          -0.4097723364830017,
+          -1.566186785697937,
+          6.579462024092209e-06,
+          -1.15641450881958,
+          -0.40957480669021606,
+          0.02500000037252903,
+          0.02500000037252903
+        ],
+        "Arm14": [
+          3.469326972961426,
+          1.4230934381484985,
+          -3.6054728031158447,
+          0.12317319959402084,
+          -1.4859931468963623,
+          5.9659295082092285
+        ]
+      },
+      "isaac_reference": {
+        "id": "ring-04-pose-2",
+        "azimuth_offset_deg": -15.0,
+        "azimuth_deg": 1.2602047083119605,
+        "board_x_m": 0.5556175360607704,
+        "board_y_m": -0.2412028207749923,
+        "height_m": 0.32,
+        "gap_m": 0.145,
+        "tilt_deg": 24.0,
+        "reward": 1.6356984897176594,
+        "success": false,
+        "board_bounce": true,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "closest_opening_distance_m": 0.13754136976571518,
+        "quality_score": 0,
+        "entry_class": "miss",
+        "bucket_contact_before_entry": true,
+        "rim_band_contact": false,
+        "exited_after_entry": false,
+        "peak_bucket_force_before_entry_N": 43.76138687133789,
+        "minimum_mouth_clearance_mm": -118.6964964650905,
+        "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+        "route_version": "sircus-board-route-v1",
+        "route_success": false,
+        "route_quality": 0,
+        "single_bounce_success": false,
+        "board_contact_episodes": 1,
+        "external_contact_steps": 659,
+        "contact_peaks_N": {
+          "board": 121.20802307128906,
+          "bucket": 43.76138687133789,
+          "table": 195.40782165527344,
+          "floor": 0,
+          "robot": 0,
+          "unattributed": 0
+        },
+        "cell_id": "r3c2",
+        "invalid": null,
+        "settled": {
+          "position_error_mm": 0.013470163239810106,
+          "normal_error_deg": 0.001421442100220086,
+          "joint_speed_rad_s": 2.3814268335087263e-09,
+          "position_drift_mm": 0.0,
+          "normal_drift_deg": 0.0,
+          "dropper_position_error_mm": 0.0002917516364321325,
+          "iteration": 0
+        },
+        "release_ball_center_m": [
+          0.5556175360607704,
+          -0.2412028207749923,
+          0.5025
+        ],
+        "bucket_xy_m": [
+          0.15571428571428578,
+          -0.25
+        ],
+        "distance_m": 0.4,
+        "heading_deg": -88.73979529168804,
+        "settled_board_center_m": [
+          0.555628776550293,
+          -0.24119700491428375,
+          0.3200046122074127
+        ],
+        "settled_board_normal": [
+          -0.40665979880037373,
+          -0.008952979963801566,
+          0.913535796884505
+        ],
+        "final_board_center_m": [
+          0.5556344985961914,
+          -0.24119848012924194,
+          0.31993556022644043
+        ],
+        "final_board_normal": [
+          -0.4067326875190659,
+          -0.008979111721317518,
+          0.9135030905564653
+        ],
+        "final_joint_positions_rad": {
+          "Arm10": [
+            -0.409572035074234,
+            -0.4097723364830017,
+            -1.566186785697937,
+            6.579462024092209e-06,
+            -1.15641450881958,
+            -0.40957480669021606,
+            0.02500000037252903,
+            0.02500000037252903
+          ],
+          "Arm14": [
+            3.469326972961426,
+            1.4230934381484985,
+            -3.6054728031158447,
+            0.12317319959402084,
+            -1.4859931468963623,
+            5.9659295082092285
+          ]
+        }
+      },
+      "source": {
+        "clip": "clip-09.json",
+        "sha256": "f41db97a6cb77a0f9c9c762ceeaa6dbe77931fd77fb69931d9de447c749f4f0f"
+      }
+    },
+    {
+      "shot_id": "clip-03-r1c2",
+      "cell_id": "r1c2",
+      "category": "rim_contact_miss",
+      "action": {
+        "id": "ring-09-pose-1",
+        "azimuth_offset_deg": 50.0,
+        "azimuth_deg": 15.762537223142461,
+        "board_x_m": 0.5406726128932314,
+        "board_y_m": 0.3586604175198489,
+        "height_m": 0.32,
+        "gap_m": 0.24,
+        "tilt_deg": 29.0
+      },
+      "bucket_xy_m": [
+        0.15571428571428578,
+        0.25
+      ],
+      "release_ball_center_m": [
+        0.5406726128932314,
+        0.3586604175198489,
+        0.5974999999999999
+      ],
+      "settled_board_center_m": [
+        0.5406723022460938,
+        0.3586606979370117,
+        0.3199995458126068
+      ],
+      "settled_board_normal": [
+        -0.4665796181301678,
+        -0.13169794156099823,
+        0.8746194098772921
+      ],
+      "final_joint_positions_rad": {
+        "Arm10": [
+          0.5857030153274536,
+          -0.5554811954498291,
+          -1.9818751811981201,
+          3.663549932753085e-06,
+          -1.426393985748291,
+          0.5857027769088745,
+          0.02500000037252903,
+          0.02500000037252903
+        ],
+        "Arm14": [
+          2.644963502883911,
+          1.665289044380188,
+          -3.1028993129730225,
+          -0.36208775639533997,
+          -1.2678792476654053,
+          2.920106887817383
+        ]
+      },
+      "isaac_reference": {
+        "id": "ring-09-pose-1",
+        "azimuth_offset_deg": 50.0,
+        "azimuth_deg": 15.762537223142461,
+        "board_x_m": 0.5406726128932314,
+        "board_y_m": 0.3586604175198489,
+        "height_m": 0.32,
+        "gap_m": 0.24,
+        "tilt_deg": 29.0,
+        "reward": 1.9651476589301462,
+        "success": false,
+        "board_bounce": true,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "closest_opening_distance_m": 0.08743456265678716,
+        "quality_score": 0,
+        "entry_class": "miss",
+        "bucket_contact_before_entry": true,
+        "rim_band_contact": true,
+        "exited_after_entry": false,
+        "peak_bucket_force_before_entry_N": 118.15544128417969,
+        "minimum_mouth_clearance_mm": -271.57711809989127,
+        "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+        "route_version": "sircus-board-route-v1",
+        "route_success": false,
+        "route_quality": 0,
+        "single_bounce_success": false,
+        "board_contact_episodes": 1,
+        "external_contact_steps": 0,
+        "contact_peaks_N": {
+          "board": 149.69239807128906,
+          "bucket": 118.15544128417969,
+          "table": 0,
+          "floor": 0,
+          "robot": 0,
+          "unattributed": 0
+        },
+        "cell_id": "r1c2",
+        "invalid": null,
+        "settled": {
+          "position_error_mm": 0.0006175934079086464,
+          "normal_error_deg": 8.194448115876977e-05,
+          "joint_speed_rad_s": 6.400158625297081e-09,
+          "position_drift_mm": 0.0,
+          "normal_drift_deg": 0.0,
+          "dropper_position_error_mm": 0.0022983385479636484,
+          "iteration": 0
+        },
+        "release_ball_center_m": [
+          0.5406726128932314,
+          0.3586604175198489,
+          0.5974999999999999
+        ],
+        "bucket_xy_m": [
+          0.15571428571428578,
+          0.25
+        ],
+        "distance_m": 0.4,
+        "heading_deg": -74.23746277685756,
+        "settled_board_center_m": [
+          0.5406723022460938,
+          0.3586606979370117,
+          0.3199995458126068
+        ],
+        "settled_board_normal": [
+          -0.4665796181301678,
+          -0.13169794156099823,
+          0.8746194098772921
+        ],
+        "final_board_center_m": [
+          0.5406789779663086,
+          0.3586559295654297,
+          0.3198416829109192
+        ],
+        "final_board_normal": [
+          -0.46671878021756025,
+          -0.1316229858909755,
+          0.8745564417333946
+        ],
+        "final_joint_positions_rad": {
+          "Arm10": [
+            0.5857030153274536,
+            -0.5554811954498291,
+            -1.9818751811981201,
+            3.663549932753085e-06,
+            -1.426393985748291,
+            0.5857027769088745,
+            0.02500000037252903,
+            0.02500000037252903
+          ],
+          "Arm14": [
+            2.644963502883911,
+            1.665289044380188,
+            -3.1028993129730225,
+            -0.36208775639533997,
+            -1.2678792476654053,
+            2.920106887817383
+          ]
+        }
+      },
+      "source": {
+        "clip": "clip-03.json",
+        "sha256": "14b1ede69ffbd18c59b3980a8d36bafcc4393205227fcdf8bfbeedf433665a7c"
+      }
+    },
+    {
+      "shot_id": "clip-00-r1c5",
+      "cell_id": "r1c5",
+      "category": "other_miss",
+      "action": {
+        "id": "ring-01-pose-2",
+        "azimuth_offset_deg": -8.460685423631134,
+        "azimuth_deg": 225.23481745379362,
+        "board_x_m": 0.6454617017400957,
+        "board_y_m": -0.033999518821714314,
+        "height_m": 0.32,
+        "gap_m": 0.145,
+        "tilt_deg": 24.0
+      },
+      "bucket_xy_m": [
+        0.9271428571428573,
+        0.25
+      ],
+      "release_ball_center_m": [
+        0.6454617017400957,
+        -0.033999518821714314,
+        0.5025
+      ],
+      "settled_board_center_m": [
+        0.6454615592956543,
+        -0.03399944305419922,
+        0.32000023126602173
+      ],
+      "settled_board_normal": [
+        0.2864255896834734,
+        0.28878128627900507,
+        0.9135457023430835
+      ],
+      "final_joint_positions_rad": {
+        "Arm10": [
+          -0.052631676197052,
+          -0.5234407186508179,
+          -1.7240545749664307,
+          5.736731054639677e-06,
+          -1.2006138563156128,
+          -0.05263325572013855,
+          0.02500000037252903,
+          0.02500000037252903
+        ],
+        "Arm14": [
+          0.11851613968610764,
+          -2.260282278060913,
+          -3.5600106716156006,
+          0.30800244212150574,
+          2.1549289226531982,
+          7.668930768200966e-11
+        ]
+      },
+      "isaac_reference": {
+        "id": "ring-01-pose-2",
+        "azimuth_offset_deg": -8.460685423631134,
+        "azimuth_deg": 225.23481745379362,
+        "board_x_m": 0.6454617017400957,
+        "board_y_m": -0.033999518821714314,
+        "height_m": 0.32,
+        "gap_m": 0.145,
+        "tilt_deg": 24.0,
+        "reward": 1.6354692282445566,
+        "success": false,
+        "board_bounce": true,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "closest_opening_distance_m": 0.13758465496983402,
+        "quality_score": 0,
+        "entry_class": "miss",
+        "bucket_contact_before_entry": true,
+        "rim_band_contact": false,
+        "exited_after_entry": false,
+        "peak_bucket_force_before_entry_N": 43.73265838623047,
+        "minimum_mouth_clearance_mm": -118.62876843100491,
+        "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+        "route_version": "sircus-board-route-v1",
+        "route_success": false,
+        "route_quality": 0,
+        "single_bounce_success": false,
+        "board_contact_episodes": 1,
+        "external_contact_steps": 659,
+        "contact_peaks_N": {
+          "board": 121.21766662597656,
+          "bucket": 43.73265838623047,
+          "table": 195.3983154296875,
+          "floor": 0,
+          "robot": 9.3069486618042,
+          "unattributed": 0
+        },
+        "cell_id": "r1c5",
+        "invalid": null,
+        "settled": {
+          "position_error_mm": 0.0002819842336359282,
+          "normal_error_deg": 7.73266331117209e-05,
+          "joint_speed_rad_s": 2.088843320535716e-09,
+          "position_drift_mm": 0.0,
+          "normal_drift_deg": 8.537736462515939e-07,
+          "dropper_position_error_mm": 0.0006297756132076257,
+          "iteration": 0
+        },
+        "release_ball_center_m": [
+          0.6454617017400957,
+          -0.033999518821714314,
+          0.5025
+        ],
+        "bucket_xy_m": [
+          0.9271428571428573,
+          0.25
+        ],
+        "distance_m": 0.4,
+        "heading_deg": 135.23481745379362,
+        "settled_board_center_m": [
+          0.6454615592956543,
+          -0.03399944305419922,
+          0.32000023126602173
+        ],
+        "settled_board_normal": [
+          0.2864255896834734,
+          0.28878128627900507,
+          0.9135457023430835
+        ],
+        "final_board_center_m": [
+          0.6454658508300781,
+          -0.033997535705566406,
+          0.3199416995048523
+        ],
+        "final_board_normal": [
+          0.28634966439833265,
+          0.28877174405233574,
+          0.9135725201295926
+        ],
+        "final_joint_positions_rad": {
+          "Arm10": [
+            -0.052631676197052,
+            -0.5234407186508179,
+            -1.7240545749664307,
+            5.736731054639677e-06,
+            -1.2006138563156128,
+            -0.05263325572013855,
+            0.02500000037252903,
+            0.02500000037252903
+          ],
+          "Arm14": [
+            0.11851613968610764,
+            -2.260282278060913,
+            -3.5600106716156006,
+            0.30800244212150574,
+            2.1549289226531982,
+            7.668930768200966e-11
+          ]
+        }
+      },
+      "source": {
+        "clip": "clip-00.json",
+        "sha256": "f8dcc97cf50a1fa17a12ee1476fa8b41ee1ec57900380ce62efd50fd08c6d920"
+      }
+    },
+    {
+      "shot_id": "clip-00-r3c3",
+      "cell_id": "r3c3",
+      "category": "clean_capture",
+      "action": {
+        "id": "ring-07-pose-0",
+        "azimuth_offset_deg": 30.0,
+        "azimuth_deg": 60.25643716352926,
+        "board_x_m": 0.6113047263247435,
+        "board_y_m": 0.09730182351359706,
+        "height_m": 0.38,
+        "gap_m": 0.265,
+        "tilt_deg": 26.0
+      },
+      "bucket_xy_m": [
+        0.4128571428571429,
+        -0.25
+      ],
+      "release_ball_center_m": [
+        0.6113047263247435,
+        0.09730182351359706,
+        0.6825
+      ],
+      "settled_board_center_m": [
+        0.6113142967224121,
+        0.09730002284049988,
+        0.3800083100795746
+      ],
+      "settled_board_normal": [
+        -0.21749534583560076,
+        -0.38061844025690517,
+        0.8987910644172278
+      ],
+      "final_joint_positions_rad": {
+        "Arm10": [
+          0.15783917903900146,
+          -0.5386595726013184,
+          -2.1537702083587646,
+          2.309933961441857e-06,
+          -1.6151105165481567,
+          0.15783938765525818,
+          0.02500000037252903,
+          0.02500000037252903
+        ],
+        "Arm14": [
+          2.898745536804199,
+          1.2018861770629883,
+          -3.8850276470184326,
+          -0.44681668281555176,
+          -1.789989948272705,
+          6.144472122192383
+        ]
+      },
+      "isaac_reference": {
+        "id": "ring-07-pose-0",
+        "azimuth_offset_deg": 30.0,
+        "azimuth_deg": 60.25643716352926,
+        "board_x_m": 0.6113047263247435,
+        "board_y_m": 0.09730182351359706,
+        "height_m": 0.38,
+        "gap_m": 0.265,
+        "tilt_deg": 26.0,
+        "reward": 14.93020123006345,
+        "success": true,
+        "board_bounce": true,
+        "whole_ball_entry": true,
+        "max_retention_s": 0.9999999999999977,
+        "closest_opening_distance_m": 0.004262750255605324,
+        "quality_score": 2,
+        "entry_class": "clean_capture",
+        "bucket_contact_before_entry": false,
+        "rim_band_contact": false,
+        "exited_after_entry": false,
+        "peak_bucket_force_before_entry_N": 0.0,
+        "minimum_mouth_clearance_mm": 40.114112777762266,
+        "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+        "route_version": "sircus-board-route-v1",
+        "route_success": true,
+        "route_quality": 2,
+        "single_bounce_success": true,
+        "board_contact_episodes": 1,
+        "external_contact_steps": 0,
+        "contact_peaks_N": {
+          "board": 162.9371337890625,
+          "bucket": 154.5091552734375,
+          "table": 0,
+          "floor": 0,
+          "robot": 0,
+          "unattributed": 0
+        },
+        "cell_id": "r3c3",
+        "invalid": null,
+        "settled": {
+          "position_error_mm": 0.012802045058252625,
+          "normal_error_deg": 0.0006602259815306596,
+          "joint_speed_rad_s": 1.1237413666265184e-08,
+          "position_drift_mm": 0.0,
+          "normal_drift_deg": 0.0,
+          "dropper_position_error_mm": 0.000287701643314101,
+          "iteration": 0
+        },
+        "release_ball_center_m": [
+          0.6113047263247435,
+          0.09730182351359706,
+          0.6825
+        ],
+        "bucket_xy_m": [
+          0.4128571428571429,
+          -0.25
+        ],
+        "distance_m": 0.4,
+        "heading_deg": -29.743562836470737,
+        "settled_board_center_m": [
+          0.6113142967224121,
+          0.09730002284049988,
+          0.3800083100795746
+        ],
+        "settled_board_normal": [
+          -0.21749534583560076,
+          -0.38061844025690517,
+          0.8987910644172278
+        ],
+        "final_board_center_m": [
+          0.6113128662109375,
+          0.09729946404695511,
+          0.3799547255039215
+        ],
+        "final_board_normal": [
+          -0.2175588033708964,
+          -0.3806028401846216,
+          0.8987823124201006
+        ],
+        "final_joint_positions_rad": {
+          "Arm10": [
+            0.15783917903900146,
+            -0.5386595726013184,
+            -2.1537702083587646,
+            2.309933961441857e-06,
+            -1.6151105165481567,
+            0.15783938765525818,
+            0.02500000037252903,
+            0.02500000037252903
+          ],
+          "Arm14": [
+            2.898745536804199,
+            1.2018861770629883,
+            -3.8850276470184326,
+            -0.44681668281555176,
+            -1.789989948272705,
+            6.144472122192383
+          ]
+        }
+      },
+      "source": {
+        "clip": "clip-00.json",
+        "sha256": "f8dcc97cf50a1fa17a12ee1476fa8b41ee1ec57900380ce62efd50fd08c6d920"
+      }
+    },
+    {
+      "shot_id": "clip-02-r3c2",
+      "cell_id": "r3c2",
+      "category": "clean_capture",
+      "action": {
+        "id": "ring-06-pose-0",
+        "azimuth_offset_deg": -30.0,
+        "azimuth_deg": 346.26020470831196,
+        "board_x_m": 0.5442680407675102,
+        "board_y_m": -0.34500515477614285,
+        "height_m": 0.38,
+        "gap_m": 0.265,
+        "tilt_deg": 26.0
+      },
+      "bucket_xy_m": [
+        0.15571428571428578,
+        -0.25
+      ],
+      "release_ball_center_m": [
+        0.5442680407675102,
+        -0.34500515477614285,
+        0.6825
+      ],
+      "settled_board_center_m": [
+        0.5442676544189453,
+        -0.3450053334236145,
+        0.3799998164176941
+      ],
+      "settled_board_normal": [
+        -0.4258275726588435,
+        0.1041182757551688,
+        0.898793782253331
+      ],
+      "final_joint_positions_rad": {
+        "Arm10": [
+          -0.5649731159210205,
+          -0.6503650546073914,
+          -2.3244237899780273,
+          1.423923436050245e-06,
+          -1.6740587949752808,
+          -0.5649721622467041,
+          0.02500000037252903,
+          0.02500000037252903
+        ],
+        "Arm14": [
+          3.6149919033050537,
+          1.4899382591247559,
+          -3.3093271255493164,
+          0.3009249269962311,
+          -1.3155966997146606,
+          2.920106887817383
+        ]
+      },
+      "isaac_reference": {
+        "id": "ring-06-pose-0",
+        "azimuth_offset_deg": -30.0,
+        "azimuth_deg": 346.26020470831196,
+        "board_x_m": 0.5442680407675102,
+        "board_y_m": -0.34500515477614285,
+        "height_m": 0.38,
+        "gap_m": 0.265,
+        "tilt_deg": 26.0,
+        "reward": 14.937721474644254,
+        "success": true,
+        "board_bounce": true,
+        "whole_ball_entry": true,
+        "max_retention_s": 0.9999999999999977,
+        "closest_opening_distance_m": 0.0037961274424322088,
+        "quality_score": 2,
+        "entry_class": "clean_capture",
+        "bucket_contact_before_entry": false,
+        "rim_band_contact": false,
+        "exited_after_entry": false,
+        "peak_bucket_force_before_entry_N": 0.0,
+        "minimum_mouth_clearance_mm": 39.352307274912214,
+        "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+        "route_version": "sircus-board-route-v1",
+        "route_success": true,
+        "route_quality": 2,
+        "single_bounce_success": true,
+        "board_contact_episodes": 1,
+        "external_contact_steps": 0,
+        "contact_peaks_N": {
+          "board": 162.76051330566406,
+          "bucket": 154.86863708496094,
+          "table": 0,
+          "floor": 0,
+          "robot": 0,
+          "unattributed": 0
+        },
+        "cell_id": "r3c2",
+        "invalid": null,
+        "settled": {
+          "position_error_mm": 0.0004635543072662371,
+          "normal_error_deg": 5.155972909312301e-05,
+          "joint_speed_rad_s": 9.398051226128246e-09,
+          "position_drift_mm": 0.0,
+          "normal_drift_deg": 0.0,
+          "dropper_position_error_mm": 0.00040564829502425003,
+          "iteration": 0
+        },
+        "release_ball_center_m": [
+          0.5442680407675102,
+          -0.34500515477614285,
+          0.6825
+        ],
+        "bucket_xy_m": [
+          0.15571428571428578,
+          -0.25
+        ],
+        "distance_m": 0.39999999999999997,
+        "heading_deg": 256.260204708312,
+        "settled_board_center_m": [
+          0.5442676544189453,
+          -0.3450053334236145,
+          0.3799998164176941
+        ],
+        "settled_board_normal": [
+          -0.4258275726588435,
+          0.1041182757551688,
+          0.898793782253331
+        ],
+        "final_board_center_m": [
+          0.5442676544189453,
+          -0.3450094759464264,
+          0.37986236810684204
+        ],
+        "final_board_normal": [
+          -0.42595534366330906,
+          0.10405166021663459,
+          0.8987409511148552
+        ],
+        "final_joint_positions_rad": {
+          "Arm10": [
+            -0.5649731159210205,
+            -0.6503650546073914,
+            -2.3244237899780273,
+            1.423923436050245e-06,
+            -1.6740587949752808,
+            -0.5649721622467041,
+            0.02500000037252903,
+            0.02500000037252903
+          ],
+          "Arm14": [
+            3.6149919033050537,
+            1.4899382591247559,
+            -3.3093271255493164,
+            0.3009249269962311,
+            -1.3155966997146606,
+            2.920106887817383
+          ]
+        }
+      },
+      "source": {
+        "clip": "clip-02.json",
+        "sha256": "feb8e6b34abfaf7104dc0bb1ce88454e39629a3e5e3ce1c83499e6d86a6a0bbb"
+      }
+    },
+    {
+      "shot_id": "clip-00-r3c5",
+      "cell_id": "r3c5",
+      "category": "rim_contact_miss",
+      "action": {
+        "id": "ring-02-pose-1",
+        "azimuth_offset_deg": -11.903541687686015,
+        "azimuth_deg": 137.84002114878473,
+        "board_x_m": 0.6306334119795298,
+        "board_y_m": 0.018481189152863564,
+        "height_m": 0.32,
+        "gap_m": 0.24,
+        "tilt_deg": 29.0
+      },
+      "bucket_xy_m": [
+        0.9271428571428573,
+        -0.25
+      ],
+      "release_ball_center_m": [
+        0.6306334119795298,
+        0.018481189152863564,
+        0.5974999999999999
+      ],
+      "settled_board_center_m": [
+        0.6306324005126953,
+        0.018480997532606125,
+        0.320000022649765
+      ],
+      "settled_board_normal": [
+        0.3593759829174644,
+        -0.32540523109412856,
+        0.8746201109502816
+      ],
+      "final_joint_positions_rad": {
+        "Arm10": [
+          0.029290981590747833,
+          -0.4960571527481079,
+          -1.8962730169296265,
+          4.094157247891417e-06,
+          -1.4002158641815186,
+          0.0292902160435915,
+          0.02500000037252903,
+          0.02500000037252903
+        ],
+        "Arm14": [
+          3.0383331775665283,
+          1.5237680673599243,
+          -3.3807480335235596,
+          -0.35054391622543335,
+          -2.15405011177063,
+          2.920106887817383
+        ]
+      },
+      "isaac_reference": {
+        "id": "ring-02-pose-1",
+        "azimuth_offset_deg": -11.903541687686015,
+        "azimuth_deg": 137.84002114878473,
+        "board_x_m": 0.6306334119795298,
+        "board_y_m": 0.018481189152863564,
+        "height_m": 0.32,
+        "gap_m": 0.24,
+        "tilt_deg": 29.0,
+        "reward": 1.974386597587951,
+        "success": false,
+        "board_bounce": true,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "closest_opening_distance_m": 0.08629131806508109,
+        "quality_score": 0,
+        "entry_class": "miss",
+        "bucket_contact_before_entry": true,
+        "rim_band_contact": true,
+        "exited_after_entry": false,
+        "peak_bucket_force_before_entry_N": 116.89036560058594,
+        "minimum_mouth_clearance_mm": -269.47713781285984,
+        "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+        "route_version": "sircus-board-route-v1",
+        "route_success": false,
+        "route_quality": 0,
+        "single_bounce_success": false,
+        "board_contact_episodes": 1,
+        "external_contact_steps": 2,
+        "contact_peaks_N": {
+          "board": 150.00408935546875,
+          "bucket": 116.89036560058594,
+          "table": 154.3502655029297,
+          "floor": 0,
+          "robot": 0,
+          "unattributed": 0
+        },
+        "cell_id": "r3c5",
+        "invalid": null,
+        "settled": {
+          "position_error_mm": 0.0010297069933874838,
+          "normal_error_deg": 4.797113964697583e-05,
+          "joint_speed_rad_s": 6.515209260982147e-09,
+          "position_drift_mm": 0.0,
+          "normal_drift_deg": 1.2074182697257333e-06,
+          "dropper_position_error_mm": 0.0004026886349319394,
+          "iteration": 0
+        },
+        "release_ball_center_m": [
+          0.6306334119795298,
+          0.018481189152863564,
+          0.5974999999999999
+        ],
+        "bucket_xy_m": [
+          0.9271428571428573,
+          -0.25
+        ],
+        "distance_m": 0.39999999999999997,
+        "heading_deg": 47.840021148784714,
+        "settled_board_center_m": [
+          0.6306324005126953,
+          0.018480997532606125,
+          0.320000022649765
+        ],
+        "settled_board_normal": [
+          0.3593759829174644,
+          -0.32540523109412856,
+          0.8746201109502816
+        ],
+        "final_board_center_m": [
+          0.6306366920471191,
+          0.01847943291068077,
+          0.3199337124824524
+        ],
+        "final_board_normal": [
+          0.35929526142476764,
+          -0.3253960657572555,
+          0.8746566843667335
+        ],
+        "final_joint_positions_rad": {
+          "Arm10": [
+            0.029290981590747833,
+            -0.4960571527481079,
+            -1.8962730169296265,
+            4.094157247891417e-06,
+            -1.4002158641815186,
+            0.0292902160435915,
+            0.02500000037252903,
+            0.02500000037252903
+          ],
+          "Arm14": [
+            3.0383331775665283,
+            1.5237680673599243,
+            -3.3807480335235596,
+            -0.35054391622543335,
+            -2.15405011177063,
+            2.920106887817383
+          ]
+        }
+      },
+      "source": {
+        "clip": "clip-00.json",
+        "sha256": "f8dcc97cf50a1fa17a12ee1476fa8b41ee1ec57900380ce62efd50fd08c6d920"
+      }
+    },
+    {
+      "shot_id": "clip-04-r1c3",
+      "cell_id": "r1c3",
+      "category": "rim_contact_miss",
+      "action": {
+        "id": "ring-04-pose-1",
+        "azimuth_offset_deg": -15.0,
+        "azimuth_deg": 291.30449712257524,
+        "board_x_m": 0.5581868858258807,
+        "board_y_m": -0.12266508530937081,
+        "height_m": 0.32,
+        "gap_m": 0.24,
+        "tilt_deg": 29.0
+      },
+      "bucket_xy_m": [
+        0.4128571428571429,
+        0.25
+      ],
+      "release_ball_center_m": [
+        0.5581868858258807,
+        -0.12266508530937081,
+        0.5974999999999999
+      ],
+      "settled_board_center_m": [
+        0.5581867694854736,
+        -0.1226654052734375,
+        0.31999996304512024
+      ],
+      "settled_board_normal": [
+        -0.17614367023850153,
+        0.45167891194549314,
+        0.8746196704503308
+      ],
+      "final_joint_positions_rad": {
+        "Arm10": [
+          -0.2163233458995819,
+          -0.31938233971595764,
+          -1.65859854221344,
+          5.1245342547190376e-06,
+          -1.3392162322998047,
+          -0.21632568538188934,
+          0.02500000037252903,
+          0.02500000037252903
+        ],
+        "Arm14": [
+          3.414231300354004,
+          1.5047852993011475,
+          -3.4188430309295654,
+          0.5086162090301514,
+          -1.7075660228729248,
+          2.920106887817383
+        ]
+      },
+      "isaac_reference": {
+        "id": "ring-04-pose-1",
+        "azimuth_offset_deg": -15.0,
+        "azimuth_deg": 291.30449712257524,
+        "board_x_m": 0.5581868858258807,
+        "board_y_m": -0.12266508530937081,
+        "height_m": 0.32,
+        "gap_m": 0.24,
+        "tilt_deg": 29.0,
+        "reward": 1.9769093785070186,
+        "success": false,
+        "board_bounce": true,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "closest_opening_distance_m": 0.08598102799871221,
+        "quality_score": 0,
+        "entry_class": "miss",
+        "bucket_contact_before_entry": true,
+        "rim_band_contact": true,
+        "exited_after_entry": false,
+        "peak_bucket_force_before_entry_N": 116.62071228027344,
+        "minimum_mouth_clearance_mm": -212.03914066523575,
+        "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+        "route_version": "sircus-board-route-v1",
+        "route_success": false,
+        "route_quality": 0,
+        "single_bounce_success": false,
+        "board_contact_episodes": 1,
+        "external_contact_steps": 0,
+        "contact_peaks_N": {
+          "board": 149.9895782470703,
+          "bucket": 116.62071228027344,
+          "table": 0,
+          "floor": 0,
+          "robot": 0,
+          "unattributed": 0
+        },
+        "cell_id": "r1c3",
+        "invalid": null,
+        "settled": {
+          "position_error_mm": 0.0003424584024811026,
+          "normal_error_deg": 3.120656550389842e-05,
+          "joint_speed_rad_s": 6.245716388519895e-09,
+          "position_drift_mm": 0.0,
+          "normal_drift_deg": 1.2074182697257333e-06,
+          "dropper_position_error_mm": 0.0005084513744687227,
+          "iteration": 0
+        },
+        "release_ball_center_m": [
+          0.5581868858258807,
+          -0.12266508530937081,
+          0.5974999999999999
+        ],
+        "bucket_xy_m": [
+          0.4128571428571429,
+          0.25
+        ],
+        "distance_m": 0.4,
+        "heading_deg": 201.30449712257524,
+        "settled_board_center_m": [
+          0.5581867694854736,
+          -0.1226654052734375,
+          0.31999996304512024
+        ],
+        "settled_board_normal": [
+          -0.17614367023850153,
+          0.45167891194549314,
+          0.8746196704503308
+        ],
+        "final_board_center_m": [
+          0.5581915378570557,
+          -0.1226663589477539,
+          0.31991511583328247
+        ],
+        "final_board_normal": [
+          -0.17623607016232914,
+          0.45165309067991904,
+          0.8746143911764863
+        ],
+        "final_joint_positions_rad": {
+          "Arm10": [
+            -0.2163233458995819,
+            -0.31938233971595764,
+            -1.65859854221344,
+            5.1245342547190376e-06,
+            -1.3392162322998047,
+            -0.21632568538188934,
+            0.02500000037252903,
+            0.02500000037252903
+          ],
+          "Arm14": [
+            3.414231300354004,
+            1.5047852993011475,
+            -3.4188430309295654,
+            0.5086162090301514,
+            -1.7075660228729248,
+            2.920106887817383
+          ]
+        }
+      },
+      "source": {
+        "clip": "clip-04.json",
+        "sha256": "935e2a71106c5f900ae7f72dee5865587799ac4d04fe4794d6dd6e26631d191d"
+      }
+    },
+    {
+      "shot_id": "clip-01-r3c4",
+      "cell_id": "r3c4",
+      "category": "other_miss",
+      "action": {
+        "id": "ring-02-pose-2",
+        "azimuth_offset_deg": 6.581944655178006,
+        "azimuth_deg": 96.58194465517806,
+        "board_x_m": 0.6241503568059477,
+        "board_y_m": 0.1473635743484525,
+        "height_m": 0.32,
+        "gap_m": 0.145,
+        "tilt_deg": 24.0
+      },
+      "bucket_xy_m": [
+        0.6700000000000002,
+        -0.25
+      ],
+      "release_ball_center_m": [
+        0.6241503568059477,
+        0.1473635743484525,
+        0.5025
+      ],
+      "settled_board_center_m": [
+        0.6241505742073059,
+        0.14736329019069672,
+        0.3200001120567322
+      ],
+      "settled_board_normal": [
+        0.04662080864244807,
+        -0.40405551841344045,
+        0.9135456410279512
+      ],
+      "final_joint_positions_rad": {
+        "Arm10": [
+          0.23185117542743683,
+          -0.5088529586791992,
+          -1.7032461166381836,
+          5.852538834005827e-06,
+          -1.1943931579589844,
+          0.23184944689273834,
+          0.02500000037252903,
+          0.02500000037252903
+        ],
+        "Arm14": [
+          2.84059739112854,
+          1.458797812461853,
+          -3.5317656993865967,
+          -0.419931024312973,
+          -1.9919358491897583,
+          5.756747245788574
+        ]
+      },
+      "isaac_reference": {
+        "id": "ring-02-pose-2",
+        "azimuth_offset_deg": 6.581944655178006,
+        "azimuth_deg": 96.58194465517806,
+        "board_x_m": 0.6241503568059477,
+        "board_y_m": 0.1473635743484525,
+        "height_m": 0.32,
+        "gap_m": 0.145,
+        "tilt_deg": 24.0,
+        "reward": 1.6355604555580538,
+        "success": false,
+        "board_bounce": true,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "closest_opening_distance_m": 0.1375674291288045,
+        "quality_score": 0,
+        "entry_class": "miss",
+        "bucket_contact_before_entry": true,
+        "rim_band_contact": false,
+        "exited_after_entry": false,
+        "peak_bucket_force_before_entry_N": 43.71198272705078,
+        "minimum_mouth_clearance_mm": -118.74210348873238,
+        "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+        "route_version": "sircus-board-route-v1",
+        "route_success": false,
+        "route_quality": 0,
+        "single_bounce_success": false,
+        "board_contact_episodes": 1,
+        "external_contact_steps": 647,
+        "contact_peaks_N": {
+          "board": 121.21691131591797,
+          "bucket": 43.71198272705078,
+          "table": 195.3918914794922,
+          "floor": 0,
+          "robot": 0,
+          "unattributed": 0
+        },
+        "cell_id": "r3c4",
+        "invalid": null,
+        "settled": {
+          "position_error_mm": 0.00037492091427070704,
+          "normal_error_deg": 6.155465233512212e-05,
+          "joint_speed_rad_s": 6.1838960618842975e-09,
+          "position_drift_mm": 0.0,
+          "normal_drift_deg": 0.0,
+          "dropper_position_error_mm": 0.0005909857703788433,
+          "iteration": 0
+        },
+        "release_ball_center_m": [
+          0.6241503568059477,
+          0.1473635743484525,
+          0.5025
+        ],
+        "bucket_xy_m": [
+          0.6700000000000002,
+          -0.25
+        ],
+        "distance_m": 0.4000000000000001,
+        "heading_deg": 6.581944655178043,
+        "settled_board_center_m": [
+          0.6241505742073059,
+          0.14736329019069672,
+          0.3200001120567322
+        ],
+        "settled_board_normal": [
+          0.04662080864244807,
+          -0.40405551841344045,
+          0.9135456410279512
+        ],
+        "final_board_center_m": [
+          0.6241534352302551,
+          0.1473613679409027,
+          0.31994855403900146
+        ],
+        "final_board_normal": [
+          0.04655940806433992,
+          -0.4040361001759296,
+          0.9135573606924332
+        ],
+        "final_joint_positions_rad": {
+          "Arm10": [
+            0.23185117542743683,
+            -0.5088529586791992,
+            -1.7032461166381836,
+            5.852538834005827e-06,
+            -1.1943931579589844,
+            0.23184944689273834,
+            0.02500000037252903,
+            0.02500000037252903
+          ],
+          "Arm14": [
+            2.84059739112854,
+            1.458797812461853,
+            -3.5317656993865967,
+            -0.419931024312973,
+            -1.9919358491897583,
+            5.756747245788574
+          ]
+        }
+      },
+      "source": {
+        "clip": "clip-01.json",
+        "sha256": "c3f9de29ab8db4afb079d597121ed90d3ca5e1de4638cfb5d812fc9cb001596c"
+      }
+    },
+    {
+      "shot_id": "clip-08-r3c5",
+      "cell_id": "r3c5",
+      "category": "clean_capture",
+      "action": {
+        "id": "ring-04-pose-0",
+        "azimuth_offset_deg": -15.0,
+        "azimuth_deg": 134.74356283647074,
+        "board_x_m": 0.6455688847826929,
+        "board_y_m": 0.034105786793084236,
+        "height_m": 0.38,
+        "gap_m": 0.265,
+        "tilt_deg": 26.0
+      },
+      "bucket_xy_m": [
+        0.9271428571428573,
+        -0.25
+      ],
+      "release_ball_center_m": [
+        0.6455688847826929,
+        0.034105786793084236,
+        0.6825
+      ],
+      "settled_board_center_m": [
+        0.6455678939819336,
+        0.03410555049777031,
+        0.3799999952316284
+      ],
+      "settled_board_normal": [
+        0.3085844402853601,
+        -0.3113592414602226,
+        0.8987942289373501
+      ],
+      "final_joint_positions_rad": {
+        "Arm10": [
+          0.052773766219615936,
+          -0.6609147191047668,
+          -2.3411264419555664,
+          1.3321803180588176e-06,
+          -1.6802116632461548,
+          0.05277479439973831,
+          0.02500000037252903,
+          0.02500000037252903
+        ],
+        "Arm14": [
+          3.017937660217285,
+          1.3294787406921387,
+          -3.6257400512695312,
+          -0.33053427934646606,
+          -2.1538493633270264,
+          6.282290458679199
+        ]
+      },
+      "isaac_reference": {
+        "id": "ring-04-pose-0",
+        "azimuth_offset_deg": -15.0,
+        "azimuth_deg": 134.74356283647074,
+        "board_x_m": 0.6455688847826929,
+        "board_y_m": 0.034105786793084236,
+        "height_m": 0.38,
+        "gap_m": 0.265,
+        "tilt_deg": 26.0,
+        "reward": 14.901568176109123,
+        "success": true,
+        "board_bounce": true,
+        "whole_ball_entry": true,
+        "max_retention_s": 0.9999999999999977,
+        "closest_opening_distance_m": 0.006056193475137613,
+        "quality_score": 2,
+        "entry_class": "clean_capture",
+        "bucket_contact_before_entry": false,
+        "rim_band_contact": false,
+        "exited_after_entry": false,
+        "peak_bucket_force_before_entry_N": 0.0,
+        "minimum_mouth_clearance_mm": 40.09631187568837,
+        "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+        "route_version": "sircus-board-route-v1",
+        "route_success": true,
+        "route_quality": 2,
+        "single_bounce_success": true,
+        "board_contact_episodes": 1,
+        "external_contact_steps": 0,
+        "contact_peaks_N": {
+          "board": 162.9275665283203,
+          "bucket": 154.33154296875,
+          "table": 0,
+          "floor": 0,
+          "robot": 0,
+          "unattributed": 0
+        },
+        "cell_id": "r3c5",
+        "invalid": null,
+        "settled": {
+          "position_error_mm": 0.0010185992133478043,
+          "normal_error_deg": 2.435874716346214e-05,
+          "joint_speed_rad_s": 1.2367283197534107e-08,
+          "position_drift_mm": 0.0,
+          "normal_drift_deg": 1.2074182697257333e-06,
+          "dropper_position_error_mm": 0.0003811402910152271,
+          "iteration": 0
+        },
+        "release_ball_center_m": [
+          0.6455688847826929,
+          0.034105786793084236,
+          0.6825
+        ],
+        "bucket_xy_m": [
+          0.9271428571428573,
+          -0.25
+        ],
+        "distance_m": 0.4,
+        "heading_deg": 44.74356283647074,
+        "settled_board_center_m": [
+          0.6455678939819336,
+          0.03410555049777031,
+          0.3799999952316284
+        ],
+        "settled_board_normal": [
+          0.3085844402853601,
+          -0.3113592414602226,
+          0.8987942289373501
+        ],
+        "final_board_center_m": [
+          0.6455674171447754,
+          0.03410403057932854,
+          0.3799462616443634
+        ],
+        "final_board_normal": [
+          0.30851605299578505,
+          -0.3113499502881632,
+          0.8988209240440834
+        ],
+        "final_joint_positions_rad": {
+          "Arm10": [
+            0.052773766219615936,
+            -0.6609147191047668,
+            -2.3411264419555664,
+            1.3321803180588176e-06,
+            -1.6802116632461548,
+            0.05277479439973831,
+            0.02500000037252903,
+            0.02500000037252903
+          ],
+          "Arm14": [
+            3.017937660217285,
+            1.3294787406921387,
+            -3.6257400512695312,
+            -0.33053427934646606,
+            -2.1538493633270264,
+            6.282290458679199
+          ]
+        }
+      },
+      "source": {
+        "clip": "clip-08.json",
+        "sha256": "1137e3fdd16662977121a98454e381f60ea38cfec8b067e4fb68dad46dc8ee81"
+      }
+    },
+    {
+      "shot_id": "clip-00-r2c5",
+      "cell_id": "r2c5",
+      "category": "other_miss",
+      "action": {
+        "id": "ring-07-pose-2",
+        "azimuth_offset_deg": 30.0,
+        "azimuth_deg": 231.25050550713323,
+        "board_x_m": 0.6767762205736332,
+        "board_y_m": -0.31195600217500885,
+        "height_m": 0.32,
+        "gap_m": 0.145,
+        "tilt_deg": 24.0
+      },
+      "bucket_xy_m": [
+        0.9271428571428573,
+        0.0
+      ],
+      "release_ball_center_m": [
+        0.6767762205736332,
+        -0.31195600217500885,
+        0.5025
+      ],
+      "settled_board_center_m": [
+        0.676823616027832,
+        -0.31203603744506836,
+        0.3200174570083618
+      ],
+      "settled_board_normal": [
+        0.25461294013965635,
+        0.31727593750160965,
+        0.9135142200293951
+      ],
+      "final_joint_positions_rad": {
+        "Arm10": [
+          -0.4319247305393219,
+          -0.8762863278388977,
+          -2.2728826999664307,
+          2.3373063413600903e-06,
+          -1.3965963125228882,
+          -0.4319230616092682,
+          0.02500000037252903,
+          0.02500000037252903
+        ],
+        "Arm14": [
+          3.6252243518829346,
+          1.654775619506836,
+          -3.140913486480713,
+          0.18271341919898987,
+          -2.0348312854766846,
+          2.92014217376709
+        ]
+      },
+      "isaac_reference": {
+        "id": "ring-07-pose-2",
+        "azimuth_offset_deg": 30.0,
+        "azimuth_deg": 231.25050550713323,
+        "board_x_m": 0.6767762205736332,
+        "board_y_m": -0.31195600217500885,
+        "height_m": 0.32,
+        "gap_m": 0.145,
+        "tilt_deg": 24.0,
+        "reward": 1.6687617449106902,
+        "success": false,
+        "board_bounce": true,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "closest_opening_distance_m": 0.13145695188033715,
+        "quality_score": 0,
+        "entry_class": "miss",
+        "bucket_contact_before_entry": true,
+        "rim_band_contact": false,
+        "exited_after_entry": false,
+        "peak_bucket_force_before_entry_N": 54.28343200683594,
+        "minimum_mouth_clearance_mm": -111.31240319738251,
+        "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+        "route_version": "sircus-board-route-v1",
+        "route_success": false,
+        "route_quality": 0,
+        "single_bounce_success": false,
+        "board_contact_episodes": 2,
+        "external_contact_steps": 666,
+        "contact_peaks_N": {
+          "board": 121.0596694946289,
+          "bucket": 54.28343200683594,
+          "table": 185.23788452148438,
+          "floor": 0,
+          "robot": 0,
+          "unattributed": 0
+        },
+        "cell_id": "r2c5",
+        "invalid": null,
+        "settled": {
+          "position_error_mm": 0.09463995283789049,
+          "normal_error_deg": 0.004521646007873893,
+          "joint_speed_rad_s": 2.7680725906975567e-06,
+          "position_drift_mm": 0.0004915124804938387,
+          "normal_drift_deg": 0.00012777828651583785,
+          "dropper_position_error_mm": 0.0010415192379750564,
+          "iteration": 0
+        },
+        "release_ball_center_m": [
+          0.6767762205736332,
+          -0.31195600217500885,
+          0.5025
+        ],
+        "bucket_xy_m": [
+          0.9271428571428573,
+          0.0
+        ],
+        "distance_m": 0.4000000000000001,
+        "heading_deg": 141.25050550713323,
+        "settled_board_center_m": [
+          0.676823616027832,
+          -0.31203603744506836,
+          0.3200174570083618
+        ],
+        "settled_board_normal": [
+          0.25461294013965635,
+          0.31727593750160965,
+          0.9135142200293951
+        ],
+        "final_board_center_m": [
+          0.6768288612365723,
+          -0.31203556060791016,
+          0.3199358582496643
+        ],
+        "final_board_normal": [
+          0.2545227777607394,
+          0.3172239458709058,
+          0.9135574003679516
+        ],
+        "final_joint_positions_rad": {
+          "Arm10": [
+            -0.4319247305393219,
+            -0.8762863278388977,
+            -2.2728826999664307,
+            2.3373063413600903e-06,
+            -1.3965963125228882,
+            -0.4319230616092682,
+            0.02500000037252903,
+            0.02500000037252903
+          ],
+          "Arm14": [
+            3.6252243518829346,
+            1.654775619506836,
+            -3.140913486480713,
+            0.18271341919898987,
+            -2.0348312854766846,
+            2.92014217376709
+          ]
+        }
+      },
+      "source": {
+        "clip": "clip-00.json",
+        "sha256": "f8dcc97cf50a1fa17a12ee1476fa8b41ee1ec57900380ce62efd50fd08c6d920"
+      }
+    },
+    {
+      "shot_id": "clip-01-r5c4",
+      "cell_id": "r5c4",
+      "category": "other_miss",
+      "action": {
+        "id": "ring-01-pose-2",
+        "azimuth_offset_deg": 7.883139316729739,
+        "azimuth_deg": 97.88313931672975,
+        "board_x_m": 0.615138776609863,
+        "board_y_m": -0.35378005329345485,
+        "height_m": 0.32,
+        "gap_m": 0.145,
+        "tilt_deg": 24.0
+      },
+      "bucket_xy_m": [
+        0.6700000000000002,
+        -0.75
+      ],
+      "release_ball_center_m": [
+        0.615138776609863,
+        -0.35378005329345485,
+        0.5025
+      ],
+      "settled_board_center_m": [
+        0.615138590335846,
+        -0.35378170013427734,
+        0.32000023126602173
+      ],
+      "settled_board_normal": [
+        0.05578532098425859,
+        -0.40289260815534067,
+        0.9135455895884289
+      ],
+      "final_joint_positions_rad": {
+        "Arm10": [
+          -0.5219327807426453,
+          -0.726696252822876,
+          -2.0299015045166016,
+          3.898411250702338e-06,
+          -1.3032053709030151,
+          -0.5219323039054871,
+          0.02500000037252903,
+          0.02500000037252903
+        ],
+        "Arm14": [
+          3.503281354904175,
+          1.5603305101394653,
+          -3.3266918659210205,
+          -0.40882837772369385,
+          -1.6404694318771362,
+          2.920106887817383
+        ]
+      },
+      "isaac_reference": {
+        "id": "ring-01-pose-2",
+        "azimuth_offset_deg": 7.883139316729739,
+        "azimuth_deg": 97.88313931672975,
+        "board_x_m": 0.615138776609863,
+        "board_y_m": -0.35378005329345485,
+        "height_m": 0.32,
+        "gap_m": 0.145,
+        "tilt_deg": 24.0,
+        "reward": 1.6368967464576283,
+        "success": false,
+        "board_bounce": true,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "closest_opening_distance_m": 0.1373153892697916,
+        "quality_score": 0,
+        "entry_class": "miss",
+        "bucket_contact_before_entry": true,
+        "rim_band_contact": false,
+        "exited_after_entry": false,
+        "peak_bucket_force_before_entry_N": 43.663856506347656,
+        "minimum_mouth_clearance_mm": -119.26135082199575,
+        "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+        "route_version": "sircus-board-route-v1",
+        "route_success": false,
+        "route_quality": 0,
+        "single_bounce_success": false,
+        "board_contact_episodes": 1,
+        "external_contact_steps": 659,
+        "contact_peaks_N": {
+          "board": 121.10958099365234,
+          "bucket": 43.663856506347656,
+          "table": 192.35035705566406,
+          "floor": 0,
+          "robot": 6.857641696929932,
+          "unattributed": 0
+        },
+        "cell_id": "r5c4",
+        "invalid": null,
+        "settled": {
+          "position_error_mm": 0.001673399736125787,
+          "normal_error_deg": 2.1497471115166028e-05,
+          "joint_speed_rad_s": 3.635108880573057e-09,
+          "position_drift_mm": 0.0,
+          "normal_drift_deg": 8.537736462515939e-07,
+          "dropper_position_error_mm": 0.00033559613705780284,
+          "iteration": 0
+        },
+        "release_ball_center_m": [
+          0.615138776609863,
+          -0.35378005329345485,
+          0.5025
+        ],
+        "bucket_xy_m": [
+          0.6700000000000002,
+          -0.75
+        ],
+        "distance_m": 0.4,
+        "heading_deg": 7.8831393167297374,
+        "settled_board_center_m": [
+          0.615138590335846,
+          -0.35378170013427734,
+          0.32000023126602173
+        ],
+        "settled_board_normal": [
+          0.05578532098425859,
+          -0.40289260815534067,
+          0.9135455895884289
+        ],
+        "final_board_center_m": [
+          0.6151430606842041,
+          -0.35377979278564453,
+          0.31991708278656006
+        ],
+        "final_board_normal": [
+          0.05569675894533671,
+          -0.40292618777055456,
+          0.9135361833291954
+        ],
+        "final_joint_positions_rad": {
+          "Arm10": [
+            -0.5219327807426453,
+            -0.726696252822876,
+            -2.0299015045166016,
+            3.898411250702338e-06,
+            -1.3032053709030151,
+            -0.5219323039054871,
+            0.02500000037252903,
+            0.02500000037252903
+          ],
+          "Arm14": [
+            3.503281354904175,
+            1.5603305101394653,
+            -3.3266918659210205,
+            -0.40882837772369385,
+            -1.6404694318771362,
+            2.920106887817383
+          ]
+        }
+      },
+      "source": {
+        "clip": "clip-01.json",
+        "sha256": "c3f9de29ab8db4afb079d597121ed90d3ca5e1de4638cfb5d812fc9cb001596c"
+      }
+    },
+    {
+      "shot_id": "clip-00-r2c2",
+      "cell_id": "r2c2",
+      "category": "rim_contact_miss",
+      "action": {
+        "id": "ring-02-pose-1",
+        "azimuth_offset_deg": 12.977828661839226,
+        "azimuth_deg": 1.2662987367564655,
+        "board_x_m": 0.5875094552660927,
+        "board_y_m": 0.008839713229218138,
+        "height_m": 0.32,
+        "gap_m": 0.24,
+        "tilt_deg": 29.0
+      },
+      "bucket_xy_m": [
+        0.18760714285714292,
+        0.0
+      ],
+      "release_ball_center_m": [
+        0.5875094552660927,
+        0.008839713229218138,
+        0.5974999999999999
+      ],
+      "settled_board_center_m": [
+        0.5875091552734375,
+        0.008840084075927734,
+        0.31999993324279785
+      ],
+      "settled_board_normal": [
+        -0.48469187940442426,
+        -0.010714199946654956,
+        0.8746193388891593
+      ],
+      "final_joint_positions_rad": {
+        "Arm10": [
+          0.015039199031889439,
+          -0.3649798333644867,
+          -1.7174924612045288,
+          4.89639842271572e-06,
+          -1.3525125980377197,
+          0.015037261880934238,
+          0.02500000037252903,
+          0.02500000037252903
+        ],
+        "Arm14": [
+          3.125060558319092,
+          1.218546748161316,
+          -4.023828029632568,
+          -0.018741216510534286,
+          -1.5948805809020996,
+          6.220353603363037
+        ]
+      },
+      "isaac_reference": {
+        "id": "ring-02-pose-1",
+        "azimuth_offset_deg": 12.977828661839226,
+        "azimuth_deg": 1.2662987367564655,
+        "board_x_m": 0.5875094552660927,
+        "board_y_m": 0.008839713229218138,
+        "height_m": 0.32,
+        "gap_m": 0.24,
+        "tilt_deg": 29.0,
+        "reward": 14.58419081939546,
+        "success": true,
+        "board_bounce": true,
+        "whole_ball_entry": true,
+        "max_retention_s": 0.9999999999999977,
+        "closest_opening_distance_m": 0.027968811315982462,
+        "quality_score": 1,
+        "entry_class": "assisted_or_marginal_capture",
+        "bucket_contact_before_entry": true,
+        "rim_band_contact": true,
+        "exited_after_entry": false,
+        "peak_bucket_force_before_entry_N": 116.2151107788086,
+        "minimum_mouth_clearance_mm": -7.887726139717389,
+        "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+        "route_version": "sircus-board-route-v1",
+        "route_success": false,
+        "route_quality": 0,
+        "single_bounce_success": false,
+        "board_contact_episodes": 1,
+        "external_contact_steps": 1,
+        "contact_peaks_N": {
+          "board": 150.0634765625,
+          "bucket": 128.18167114257812,
+          "table": 0,
+          "floor": 0,
+          "robot": 124.67578125,
+          "unattributed": 0
+        },
+        "cell_id": "r2c2",
+        "invalid": null,
+        "settled": {
+          "position_error_mm": 0.0004816423976445179,
+          "normal_error_deg": 4.565893336069746e-05,
+          "joint_speed_rad_s": 2.169224577741602e-09,
+          "position_drift_mm": 0.0,
+          "normal_drift_deg": 0.0,
+          "dropper_position_error_mm": 0.0007801668781996758,
+          "iteration": 0
+        },
+        "release_ball_center_m": [
+          0.5875094552660927,
+          0.008839713229218138,
+          0.5974999999999999
+        ],
+        "bucket_xy_m": [
+          0.18760714285714292,
+          0.0
+        ],
+        "distance_m": 0.4000000000000001,
+        "heading_deg": -88.73370126324355,
+        "settled_board_center_m": [
+          0.5875091552734375,
+          0.008840084075927734,
+          0.31999993324279785
+        ],
+        "settled_board_normal": [
+          -0.48469187940442426,
+          -0.010714199946654956,
+          0.8746193388891593
+        ],
+        "final_board_center_m": [
+          0.5875129699707031,
+          0.008836746215820312,
+          0.31994983553886414
+        ],
+        "final_board_normal": [
+          -0.4847509026628823,
+          -0.010715201008900443,
+          0.8745866148271764
+        ],
+        "final_joint_positions_rad": {
+          "Arm10": [
+            0.015039199031889439,
+            -0.3649798333644867,
+            -1.7174924612045288,
+            4.89639842271572e-06,
+            -1.3525125980377197,
+            0.015037261880934238,
+            0.02500000037252903,
+            0.02500000037252903
+          ],
+          "Arm14": [
+            3.125060558319092,
+            1.218546748161316,
+            -4.023828029632568,
+            -0.018741216510534286,
+            -1.5948805809020996,
+            6.220353603363037
+          ]
+        }
+      },
+      "source": {
+        "clip": "clip-00.json",
+        "sha256": "f8dcc97cf50a1fa17a12ee1476fa8b41ee1ec57900380ce62efd50fd08c6d920"
+      }
+    },
+    {
+      "shot_id": "clip-04-r2c3",
+      "cell_id": "r2c3",
+      "category": "other_miss",
+      "action": {
+        "id": "ring-06-pose-2",
+        "azimuth_offset_deg": -30.0,
+        "azimuth_deg": 308.74949449286675,
+        "board_x_m": 0.6632237794263669,
+        "board_y_m": -0.31195600217500896,
+        "height_m": 0.32,
+        "gap_m": 0.145,
+        "tilt_deg": 24.0
+      },
+      "bucket_xy_m": [
+        0.4128571428571429,
+        0.0
+      ],
+      "release_ball_center_m": [
+        0.6632237794263669,
+        -0.31195600217500896,
+        0.5025
+      ],
+      "settled_board_center_m": [
+        0.6632237434387207,
+        -0.31195640563964844,
+        0.3199998736381531
+      ],
+      "settled_board_normal": [
+        -0.2545837492897351,
+        0.31720945215535157,
+        0.9135454438947648
+      ],
+      "final_joint_positions_rad": {
+        "Arm10": [
+          -0.43966516852378845,
+          -0.8191769123077393,
+          -2.1784048080444336,
+          2.951658643723931e-06,
+          -1.3592277765274048,
+          -0.43966391682624817,
+          0.02500000037252903,
+          0.02500000037252903
+        ],
+        "Arm14": [
+          3.67824125289917,
+          1.3805519342422485,
+          -3.6944758892059326,
+          0.43172428011894226,
+          -1.8453140258789062,
+          2.920106887817383
+        ]
+      },
+      "isaac_reference": {
+        "id": "ring-06-pose-2",
+        "azimuth_offset_deg": -30.0,
+        "azimuth_deg": 308.74949449286675,
+        "board_x_m": 0.6632237794263669,
+        "board_y_m": -0.31195600217500896,
+        "height_m": 0.32,
+        "gap_m": 0.145,
+        "tilt_deg": 24.0,
+        "reward": 1.635746279589134,
+        "success": false,
+        "board_bounce": true,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "closest_opening_distance_m": 0.1375323488711894,
+        "quality_score": 0,
+        "entry_class": "miss",
+        "bucket_contact_before_entry": true,
+        "rim_band_contact": false,
+        "exited_after_entry": false,
+        "peak_bucket_force_before_entry_N": 43.76476287841797,
+        "minimum_mouth_clearance_mm": -118.49690073713836,
+        "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+        "route_version": "sircus-board-route-v1",
+        "route_success": false,
+        "route_quality": 0,
+        "single_bounce_success": false,
+        "board_contact_episodes": 1,
+        "external_contact_steps": 659,
+        "contact_peaks_N": {
+          "board": 121.23900604248047,
+          "bucket": 43.76476287841797,
+          "table": 195.3577117919922,
+          "floor": 0,
+          "robot": 0,
+          "unattributed": 0
+        },
+        "cell_id": "r2c3",
+        "invalid": null,
+        "settled": {
+          "position_error_mm": 0.00042431844450331087,
+          "normal_error_deg": 3.800012129883134e-05,
+          "joint_speed_rad_s": 5.862216045926516e-09,
+          "position_drift_mm": 0.0,
+          "normal_drift_deg": 1.2074182697257333e-06,
+          "dropper_position_error_mm": 0.0005925418331177935,
+          "iteration": 0
+        },
+        "release_ball_center_m": [
+          0.6632237794263669,
+          -0.31195600217500896,
+          0.5025
+        ],
+        "bucket_xy_m": [
+          0.4128571428571429,
+          0.0
+        ],
+        "distance_m": 0.4000000000000001,
+        "heading_deg": 218.74949449286675,
+        "settled_board_center_m": [
+          0.6632237434387207,
+          -0.31195640563964844,
+          0.3199998736381531
+        ],
+        "settled_board_normal": [
+          -0.2545837492897351,
+          0.31720945215535157,
+          0.9135454438947648
+        ],
+        "final_board_center_m": [
+          0.663226842880249,
+          -0.31195735931396484,
+          0.3199552595615387
+        ],
+        "final_board_normal": [
+          -0.2546322853351105,
+          0.31718049786548097,
+          0.9135419700478049
+        ],
+        "final_joint_positions_rad": {
+          "Arm10": [
+            -0.43966516852378845,
+            -0.8191769123077393,
+            -2.1784048080444336,
+            2.951658643723931e-06,
+            -1.3592277765274048,
+            -0.43966391682624817,
+            0.02500000037252903,
+            0.02500000037252903
+          ],
+          "Arm14": [
+            3.67824125289917,
+            1.3805519342422485,
+            -3.6944758892059326,
+            0.43172428011894226,
+            -1.8453140258789062,
+            2.920106887817383
+          ]
+        }
+      },
+      "source": {
+        "clip": "clip-04.json",
+        "sha256": "935e2a71106c5f900ae7f72dee5865587799ac4d04fe4794d6dd6e26631d191d"
+      }
+    },
+    {
+      "shot_id": "clip-05-r1c5",
+      "cell_id": "r1c5",
+      "category": "rim_contact_miss",
+      "action": {
+        "id": "ring-02-pose-1",
+        "azimuth_offset_deg": -13.805920438456013,
+        "azimuth_deg": 219.88958243896874,
+        "board_x_m": 0.6202301499506238,
+        "board_y_m": -0.006524053772612837,
+        "height_m": 0.32,
+        "gap_m": 0.24,
+        "tilt_deg": 29.0
+      },
+      "bucket_xy_m": [
+        0.9271428571428573,
+        0.25
+      ],
+      "release_ball_center_m": [
+        0.6202301499506238,
+        -0.006524053772612837,
+        0.5974999999999999
+      ],
+      "settled_board_center_m": [
+        0.6202292442321777,
+        -0.00652313232421875,
+        0.3200001120567322
+      ],
+      "settled_board_normal": [
+        0.37198504076221217,
+        0.31091331568078184,
+        0.8746199400776993
+      ],
+      "final_joint_positions_rad": {
+        "Arm10": [
+          -0.010524609126150608,
+          -0.46247249841690063,
+          -1.8491400480270386,
+          4.31954094892717e-06,
+          -1.3866676092147827,
+          -0.010525671765208244,
+          0.02500000037252903,
+          0.02500000037252903
+        ],
+        "Arm14": [
+          3.2246739864349365,
+          1.5744963884353638,
+          -3.279987096786499,
+          0.33179065585136414,
+          -2.1133008003234863,
+          2.920106887817383
+        ]
+      },
+      "isaac_reference": {
+        "id": "ring-02-pose-1",
+        "azimuth_offset_deg": -13.805920438456013,
+        "azimuth_deg": 219.88958243896874,
+        "board_x_m": 0.6202301499506238,
+        "board_y_m": -0.006524053772612837,
+        "height_m": 0.32,
+        "gap_m": 0.24,
+        "tilt_deg": 29.0,
+        "reward": 1.9802300408112563,
+        "success": false,
+        "board_bounce": true,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "closest_opening_distance_m": 0.08557382158822159,
+        "quality_score": 0,
+        "entry_class": "miss",
+        "bucket_contact_before_entry": true,
+        "rim_band_contact": true,
+        "exited_after_entry": false,
+        "peak_bucket_force_before_entry_N": 116.27290344238281,
+        "minimum_mouth_clearance_mm": -212.60731748462504,
+        "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+        "route_version": "sircus-board-route-v1",
+        "route_success": false,
+        "route_quality": 0,
+        "single_bounce_success": false,
+        "board_contact_episodes": 1,
+        "external_contact_steps": 0,
+        "contact_peaks_N": {
+          "board": 149.968994140625,
+          "bucket": 116.27290344238281,
+          "table": 0,
+          "floor": 0,
+          "robot": 0,
+          "unattributed": 0
+        },
+        "cell_id": "r1c5",
+        "invalid": null,
+        "settled": {
+          "position_error_mm": 0.001296900056924743,
+          "normal_error_deg": 3.378614363207012e-05,
+          "joint_speed_rad_s": 5.405516922962761e-09,
+          "position_drift_mm": 0.0,
+          "normal_drift_deg": 0.0,
+          "dropper_position_error_mm": 0.00018338520529703604,
+          "iteration": 0
+        },
+        "release_ball_center_m": [
+          0.6202301499506238,
+          -0.006524053772612837,
+          0.5974999999999999
+        ],
+        "bucket_xy_m": [
+          0.9271428571428573,
+          0.25
+        ],
+        "distance_m": 0.4,
+        "heading_deg": 129.88958243896874,
+        "settled_board_center_m": [
+          0.6202292442321777,
+          -0.00652313232421875,
+          0.3200001120567322
+        ],
+        "settled_board_normal": [
+          0.37198504076221217,
+          0.31091331568078184,
+          0.8746199400776993
+        ],
+        "final_board_center_m": [
+          0.620234489440918,
+          -0.006525993347167969,
+          0.31992435455322266
+        ],
+        "final_board_normal": [
+          0.371892281502333,
+          0.3109067269744617,
+          0.8746617278016782
+        ],
+        "final_joint_positions_rad": {
+          "Arm10": [
+            -0.010524609126150608,
+            -0.46247249841690063,
+            -1.8491400480270386,
+            4.31954094892717e-06,
+            -1.3866676092147827,
+            -0.010525671765208244,
+            0.02500000037252903,
+            0.02500000037252903
+          ],
+          "Arm14": [
+            3.2246739864349365,
+            1.5744963884353638,
+            -3.279987096786499,
+            0.33179065585136414,
+            -2.1133008003234863,
+            2.920106887817383
+          ]
+        }
+      },
+      "source": {
+        "clip": "clip-05.json",
+        "sha256": "9258e1b9946ee272359fedad60f2b8cc9e3578644310ff9137cae6567e7e882d"
+      }
+    },
+    {
+      "shot_id": "clip-01-r1c4",
+      "cell_id": "r1c4",
+      "category": "other_miss",
+      "action": {
+        "id": "ring-02-pose-2",
+        "azimuth_offset_deg": -7.1250163489018234,
+        "azimuth_deg": 262.87498365109815,
+        "board_x_m": 0.6203861061643164,
+        "board_y_m": -0.146911150685467,
+        "height_m": 0.32,
+        "gap_m": 0.145,
+        "tilt_deg": 24.0
+      },
+      "bucket_xy_m": [
+        0.6700000000000002,
+        0.25
+      ],
+      "release_ball_center_m": [
+        0.6203861061643164,
+        -0.146911150685467,
+        0.5025
+      ],
+      "settled_board_center_m": [
+        0.6203859448432922,
+        -0.1469106674194336,
+        0.3199998736381531
+      ],
+      "settled_board_normal": [
+        0.05044897452096919,
+        0.4035957456063285,
+        0.9135454970050776
+      ],
+      "final_joint_positions_rad": {
+        "Arm10": [
+          -0.2325281947851181,
+          -0.4980630874633789,
+          -1.687957525253296,
+          5.9358440012147184e-06,
+          -1.189894437789917,
+          -0.23253004252910614,
+          0.02500000037252903,
+          0.02500000037252903
+        ],
+        "Arm14": [
+          3.440159559249878,
+          1.4720443487167358,
+          -3.504640817642212,
+          0.41657060384750366,
+          -1.982014775276184,
+          2.920106887817383
+        ]
+      },
+      "isaac_reference": {
+        "id": "ring-02-pose-2",
+        "azimuth_offset_deg": -7.1250163489018234,
+        "azimuth_deg": 262.87498365109815,
+        "board_x_m": 0.6203861061643164,
+        "board_y_m": -0.146911150685467,
+        "height_m": 0.32,
+        "gap_m": 0.145,
+        "tilt_deg": 24.0,
+        "reward": 1.635600474831258,
+        "success": false,
+        "board_bounce": true,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "closest_opening_distance_m": 0.13755987333839076,
+        "quality_score": 0,
+        "entry_class": "miss",
+        "bucket_contact_before_entry": true,
+        "rim_band_contact": false,
+        "exited_after_entry": false,
+        "peak_bucket_force_before_entry_N": 43.766361236572266,
+        "minimum_mouth_clearance_mm": -118.70197830846564,
+        "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+        "route_version": "sircus-board-route-v1",
+        "route_success": false,
+        "route_quality": 0,
+        "single_bounce_success": false,
+        "board_contact_episodes": 1,
+        "external_contact_steps": 659,
+        "contact_peaks_N": {
+          "board": 121.215087890625,
+          "bucket": 43.766361236572266,
+          "table": 195.39151000976562,
+          "floor": 0,
+          "robot": 0,
+          "unattributed": 0
+        },
+        "cell_id": "r1c4",
+        "invalid": null,
+        "settled": {
+          "position_error_mm": 0.0005249169917818372,
+          "normal_error_deg": 2.8598231249430012e-05,
+          "joint_speed_rad_s": 4.4736090387687e-09,
+          "position_drift_mm": 0.0,
+          "normal_drift_deg": 8.537736462515939e-07,
+          "dropper_position_error_mm": 0.0004900794806907779,
+          "iteration": 0
+        },
+        "release_ball_center_m": [
+          0.6203861061643164,
+          -0.146911150685467,
+          0.5025
+        ],
+        "bucket_xy_m": [
+          0.6700000000000002,
+          0.25
+        ],
+        "distance_m": 0.39999999999999997,
+        "heading_deg": 172.87498365109815,
+        "settled_board_center_m": [
+          0.6203859448432922,
+          -0.1469106674194336,
+          0.3199998736381531
+        ],
+        "settled_board_normal": [
+          0.05044897452096919,
+          0.4035957456063285,
+          0.9135454970050776
+        ],
+        "final_board_center_m": [
+          0.6203890442848206,
+          -0.14691162109375,
+          0.3199496269226074
+        ],
+        "final_board_normal": [
+          0.050388337836532265,
+          0.40357793021786126,
+          0.91355671397628
+        ],
+        "final_joint_positions_rad": {
+          "Arm10": [
+            -0.2325281947851181,
+            -0.4980630874633789,
+            -1.687957525253296,
+            5.9358440012147184e-06,
+            -1.189894437789917,
+            -0.23253004252910614,
+            0.02500000037252903,
+            0.02500000037252903
+          ],
+          "Arm14": [
+            3.440159559249878,
+            1.4720443487167358,
+            -3.504640817642212,
+            0.41657060384750366,
+            -1.982014775276184,
+            2.920106887817383
+          ]
+        }
+      },
+      "source": {
+        "clip": "clip-01.json",
+        "sha256": "c3f9de29ab8db4afb079d597121ed90d3ca5e1de4638cfb5d812fc9cb001596c"
+      }
+    },
+    {
+      "shot_id": "clip-01-r2c2",
+      "cell_id": "r2c2",
+      "category": "clean_capture",
+      "action": {
+        "id": "ring-04-pose-0",
+        "azimuth_offset_deg": -15.0,
+        "azimuth_deg": 333.28847007491726,
+        "board_x_m": 0.5449195234416335,
+        "board_y_m": -0.17979950689877935,
+        "height_m": 0.38,
+        "gap_m": 0.265,
+        "tilt_deg": 26.0
+      },
+      "bucket_xy_m": [
+        0.18760714285714292,
+        0.0
+      ],
+      "release_ball_center_m": [
+        0.5449195234416335,
+        -0.17979950689877935,
+        0.6825
+      ],
+      "settled_board_center_m": [
+        0.5449190139770508,
+        -0.17979907989501953,
+        0.3800002634525299
+      ],
+      "settled_board_normal": [
+        -0.39158922432686943,
+        0.19704700078285511,
+        0.8987938355783056
+      ],
+      "final_joint_positions_rad": {
+        "Arm10": [
+          -0.31871476769447327,
+          -0.38063955307006836,
+          -1.9313479661941528,
+          3.295610667919391e-06,
+          -1.5507084131240845,
+          -0.31871578097343445,
+          0.02500000037252903,
+          0.02500000037252903
+        ],
+        "Arm14": [
+          3.4354043006896973,
+          1.3123003244400024,
+          -3.6602704524993896,
+          0.3077084720134735,
+          -1.4947936534881592,
+          6.173588275909424
+        ]
+      },
+      "isaac_reference": {
+        "id": "ring-04-pose-0",
+        "azimuth_offset_deg": -15.0,
+        "azimuth_deg": 333.28847007491726,
+        "board_x_m": 0.5449195234416335,
+        "board_y_m": -0.17979950689877935,
+        "height_m": 0.38,
+        "gap_m": 0.265,
+        "tilt_deg": 26.0,
+        "reward": 14.928289683139983,
+        "success": true,
+        "board_bounce": true,
+        "whole_ball_entry": true,
+        "max_retention_s": 0.9999999999999977,
+        "closest_opening_distance_m": 0.004381649408016093,
+        "quality_score": 2,
+        "entry_class": "clean_capture",
+        "bucket_contact_before_entry": false,
+        "rim_band_contact": false,
+        "exited_after_entry": false,
+        "peak_bucket_force_before_entry_N": 0.0,
+        "minimum_mouth_clearance_mm": 40.2247820575373,
+        "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+        "route_version": "sircus-board-route-v1",
+        "route_success": true,
+        "route_quality": 2,
+        "single_bounce_success": true,
+        "board_contact_episodes": 1,
+        "external_contact_steps": 0,
+        "contact_peaks_N": {
+          "board": 162.9175567626953,
+          "bucket": 154.50523376464844,
+          "table": 0,
+          "floor": 0,
+          "robot": 0,
+          "unattributed": 0
+        },
+        "cell_id": "r2c2",
+        "invalid": null,
+        "settled": {
+          "position_error_mm": 0.000715047975652512,
+          "normal_error_deg": 4.146739136575475e-05,
+          "joint_speed_rad_s": 4.997314562160682e-09,
+          "position_drift_mm": 0.0,
+          "normal_drift_deg": 0.0,
+          "dropper_position_error_mm": 0.000858370227450739,
+          "iteration": 0
+        },
+        "release_ball_center_m": [
+          0.5449195234416335,
+          -0.17979950689877935,
+          0.6825
+        ],
+        "bucket_xy_m": [
+          0.18760714285714292,
+          0.0
+        ],
+        "distance_m": 0.4000000000000001,
+        "heading_deg": 243.28847007491726,
+        "settled_board_center_m": [
+          0.5449190139770508,
+          -0.17979907989501953,
+          0.3800002634525299
+        ],
+        "settled_board_normal": [
+          -0.39158922432686943,
+          0.19704700078285511,
+          0.8987938355783056
+        ],
+        "final_board_center_m": [
+          0.5449190139770508,
+          -0.17980384826660156,
+          0.3799150586128235
+        ],
+        "final_board_normal": [
+          -0.3916804212312175,
+          0.19701808860476266,
+          0.8987604354813701
+        ],
+        "final_joint_positions_rad": {
+          "Arm10": [
+            -0.31871476769447327,
+            -0.38063955307006836,
+            -1.9313479661941528,
+            3.295610667919391e-06,
+            -1.5507084131240845,
+            -0.31871578097343445,
+            0.02500000037252903,
+            0.02500000037252903
+          ],
+          "Arm14": [
+            3.4354043006896973,
+            1.3123003244400024,
+            -3.6602704524993896,
+            0.3077084720134735,
+            -1.4947936534881592,
+            6.173588275909424
+          ]
+        }
+      },
+      "source": {
+        "clip": "clip-01.json",
+        "sha256": "c3f9de29ab8db4afb079d597121ed90d3ca5e1de4638cfb5d812fc9cb001596c"
+      }
+    },
+    {
+      "shot_id": "clip-00-r4c3",
+      "cell_id": "r4c3",
+      "category": "rim_contact_miss",
+      "action": {
+        "id": "ring-05-pose-1",
+        "azimuth_offset_deg": 15.0,
+        "azimuth_deg": 72.2647737278924,
+        "board_x_m": 0.5347046282386724,
+        "board_y_m": -0.11901024907984992,
+        "height_m": 0.32,
+        "gap_m": 0.24,
+        "tilt_deg": 29.0
+      },
+      "bucket_xy_m": [
+        0.4128571428571429,
+        -0.5
+      ],
+      "release_ball_center_m": [
+        0.5347046282386724,
+        -0.11901024907984992,
+        0.5974999999999999
+      ],
+      "settled_board_center_m": [
+        0.5347042083740234,
+        -0.11901044845581055,
+        0.3200002908706665
+      ],
+      "settled_board_normal": [
+        -0.1476821503996643,
+        -0.46176806603578857,
+        0.8746200521614507
+      ],
+      "final_joint_positions_rad": {
+        "Arm10": [
+          -0.21900729835033417,
+          -0.25405651330947876,
+          -1.5772439241409302,
+          5.402616352512268e-06,
+          -1.3231873512268066,
+          -0.21901023387908936,
+          0.02500000037252903,
+          0.02500000037252903
+        ],
+        "Arm14": [
+          3.181947946548462,
+          1.5083160400390625,
+          -3.4117770195007324,
+          -0.47294485569000244,
+          -1.5884264707565308,
+          2.920106887817383
+        ]
+      },
+      "isaac_reference": {
+        "id": "ring-05-pose-1",
+        "azimuth_offset_deg": 15.0,
+        "azimuth_deg": 72.2647737278924,
+        "board_x_m": 0.5347046282386724,
+        "board_y_m": -0.11901024907984992,
+        "height_m": 0.32,
+        "gap_m": 0.24,
+        "tilt_deg": 29.0,
+        "reward": 1.9717166076263615,
+        "success": false,
+        "board_bounce": true,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "closest_opening_distance_m": 0.08662059042387561,
+        "quality_score": 0,
+        "entry_class": "miss",
+        "bucket_contact_before_entry": true,
+        "rim_band_contact": true,
+        "exited_after_entry": false,
+        "peak_bucket_force_before_entry_N": 117.15708923339844,
+        "minimum_mouth_clearance_mm": -271.575179147652,
+        "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+        "route_version": "sircus-board-route-v1",
+        "route_success": false,
+        "route_quality": 0,
+        "single_bounce_success": false,
+        "board_contact_episodes": 1,
+        "external_contact_steps": 0,
+        "contact_peaks_N": {
+          "board": 149.96578979492188,
+          "bucket": 117.15708923339844,
+          "table": 0,
+          "floor": 0,
+          "robot": 0,
+          "unattributed": 0
+        },
+        "cell_id": "r4c3",
+        "invalid": null,
+        "settled": {
+          "position_error_mm": 0.0005483090750050785,
+          "normal_error_deg": 4.360936718686851e-05,
+          "joint_speed_rad_s": 5.696720428716162e-09,
+          "position_drift_mm": 0.0,
+          "normal_drift_deg": 0.0,
+          "dropper_position_error_mm": 0.0003567434224477016,
+          "iteration": 0
+        },
+        "release_ball_center_m": [
+          0.5347046282386724,
+          -0.11901024907984992,
+          0.5974999999999999
+        ],
+        "bucket_xy_m": [
+          0.4128571428571429,
+          -0.5
+        ],
+        "distance_m": 0.4,
+        "heading_deg": -17.735226272107592,
+        "settled_board_center_m": [
+          0.5347042083740234,
+          -0.11901044845581055,
+          0.3200002908706665
+        ],
+        "settled_board_normal": [
+          -0.1476821503996643,
+          -0.46176806603578857,
+          0.8746200521614507
+        ],
+        "final_board_center_m": [
+          0.5347099304199219,
+          -0.11900997161865234,
+          0.31990063190460205
+        ],
+        "final_board_normal": [
+          -0.14778998715838534,
+          -0.4617727407020585,
+          0.8745993686484306
+        ],
+        "final_joint_positions_rad": {
+          "Arm10": [
+            -0.21900729835033417,
+            -0.25405651330947876,
+            -1.5772439241409302,
+            5.402616352512268e-06,
+            -1.3231873512268066,
+            -0.21901023387908936,
+            0.02500000037252903,
+            0.02500000037252903
+          ],
+          "Arm14": [
+            3.181947946548462,
+            1.5083160400390625,
+            -3.4117770195007324,
+            -0.47294485569000244,
+            -1.5884264707565308,
+            2.920106887817383
+          ]
+        }
+      },
+      "source": {
+        "clip": "clip-00.json",
+        "sha256": "f8dcc97cf50a1fa17a12ee1476fa8b41ee1ec57900380ce62efd50fd08c6d920"
+      }
+    }
+  ],
+  "fingerprint": "f671564b60e8dec2487a1fd2414fa9c4e13924ef5db2ff1594609c557b173432"
+}

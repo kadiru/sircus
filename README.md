@@ -2,6 +2,8 @@
 
 Two UFACTORY850 arms learn to bounce a ball from a suction-mounted board into a bucket. Arm10 picks/releases; arm14 positions the board. This private repository is the shared source for Mac physical work and Ubuntu simulation work.
 
+The current goal is a simulation showcase with an interactively placed bucket and optional constraints on either arm. [The mjlab/Isaac comparison](baselines/mjlab-comparison-20261102/README.md) establishes the second engine's two-arm geometry and shared scoring.
+
 ![Architecture](docs/sircus-architecture.png)
 
 ## Start here
