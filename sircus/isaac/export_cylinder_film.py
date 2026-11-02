@@ -278,7 +278,7 @@ def encode_movie(frames_dir, movie, chapters, resolution):
     }
     for c in chapters:
         require(c["start_frame"] == start + count, "Chapter sequence is not contiguous")
-        title = titles[c["shot"]]
+        title = c["title"] if "title" in c else titles[c["shot"]]
         if c.get("focus"):
             title += f" ({c['focus']})"
         meta.extend(
@@ -366,7 +366,9 @@ def encode_movie(frames_dir, movie, chapters, resolution):
             "Encoded chapter timestamps disagree with raw frames",
         )
         require(
-            encoded.get("tags", {}).get("title", "").startswith(titles[c["shot"]]),
+            encoded.get("tags", {}).get("title", "").startswith(
+                c["title"] if "title" in c else titles[c["shot"]]
+            ),
             "Encoded chapter title is missing or incorrect",
         )
     return dict(
