@@ -1,3 +1,25 @@
+# Broad shot-learning study in progress — November 2, 2026
+
+[Method and reproduction](FARM_SHOT_LEARNING.md). New outcome-free broad proposals
+and a shared candidate-conditioned categorical PPO address the previous narrow
+menus and flat miss reward. The original 35 bucket positions, capture scorer and
+historical policies remain separate and unchanged.
+
+The bounded four-worker CPU search uses frozen source
+`studies/farm-shot-study-20261102-v3`; native learning uses v4, which corrects only
+the evaluation wording relative to the successful v3 smoke. The 4090 job is
+queued to start after search and comparison-path validation. Planned budget:
+up to 128 native candidates per site, 256 training batches / 8,960 throws /
+128 updates, and 16 stochastic plus one greedy frozen test per table/model.
+Same-layout development tests do not establish unseen-target generalization.
+
+The control smoke completed 280 training throws and four updates with zero
+invalid releases, and its CPU likelihood audit passed. Full local regression:
+250 tests, nine expected Torch skips; Ubuntu's actual Torch tests passed.
+Read-only Mac report: `http://127.0.0.1:18785/`. Its finite mirror reads named
+aggregate artifacts only; it exposes no robot commands. Existing services and
+4070 workload are untouched. Final study results are pending.
+
 # Expanded farm: all 35 sites released — November 2, 2026
 
 [Method and reproduction](EXPANDED_FARM_POSES.md),
