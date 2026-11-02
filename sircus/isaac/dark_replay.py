@@ -106,12 +106,17 @@ class ReplayShots:
                 )
                 ready &= err < (
                     0.001
-                    if getattr(self.args, "recording_plan", None) == "fixed-station-v1"
+                    if getattr(self.args, "recording_plan", None)
+                    in ("fixed-station-v1", "chosen-farm-v1")
                     else 0.00065
                 )
             supported = ready[self.source_valid]
             foreground_ready = self.focus is None or bool(ready[self.focus])
-            if getattr(self.args, "recording_plan", None) == "fixed-station-v1":
+            if (
+                getattr(self.args, "recording_plan", None)
+                in ("fixed-station-v1", "chosen-farm-v1")
+                and self.focus is not None
+            ):
                 eye, aim = self.view_pose(
                     self.shot, 0, self.spec["cells"], self.origins
                 )
@@ -201,6 +206,12 @@ def resume_prefix(env, previous, shots, plan_name):
     progress = json.loads((previous / "progress.json").read_text())
     if progress.get("recording_plan", "dark-tour-v1") != plan_name:
         raise ValueError("Resume requires the same recording plan")
+    if (
+        plan_name == "chosen-farm-v1"
+        and progress.get("selected_camera_sha256")
+        != hashlib.sha256((env.dest / "selected-camera.json").read_bytes()).hexdigest()
+    ):
+        raise ValueError("Resume requires the identical chosen camera file")
     chapters = progress["chapters"]
     count = len(chapters)
     if not 0 < count < len(shots) or not all(
@@ -258,7 +269,11 @@ def resume_prefix(env, previous, shots, plan_name):
 
 def run_replay(env, source, spec):
     plan_name = getattr(env.args, "recording_plan", "dark-tour-v1")
-    shots, env.view_pose = recording_plan(plan_name)
+    shots, env.view_pose = (
+        recording_plan(plan_name, env.saved_camera)
+        if plan_name == "chosen-farm-v1"
+        else recording_plan(plan_name)
+    )
     parent = json.loads((source / "result.json").read_text())
     if parent["fingerprint"] != spec["fingerprint"] or parent["articulations"] != 70:
         raise ValueError("Replay source does not match the 35-table training contract")
@@ -334,7 +349,18 @@ def run_replay(env, source, spec):
         chapters.append(chapter)
         atomic(
             env.dest / "progress.json",
-            dict(chapters=chapters, frames=env.next_frame, recording_plan=plan_name),
+            dict(
+                chapters=chapters,
+                frames=env.next_frame,
+                recording_plan=plan_name,
+                selected_camera_sha256=(
+                    hashlib.sha256(
+                        (env.dest / "selected-camera.json").read_bytes()
+                    ).hexdigest()
+                    if plan_name == "chosen-farm-v1"
+                    else None
+                ),
+            ),
         )
     atomic(
         env.dest / "result.json",
@@ -345,6 +371,14 @@ def run_replay(env, source, spec):
             source_weights_sha256=parent["final_hash"],
             stage=getattr(env, "stage_metadata", stage_settings()),
             appearance=getattr(env.args, "appearance", "dark"),
+            selected_camera=getattr(env, "saved_camera", None),
+            selected_camera_sha256=(
+                hashlib.sha256(
+                    (env.dest / "selected-camera.json").read_bytes()
+                ).hexdigest()
+                if plan_name == "chosen-farm-v1"
+                else None
+            ),
             origins_m=env.origins.tolist(),
             physics_dt_s=env.dt,
             workcells=env.n,

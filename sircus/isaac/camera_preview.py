@@ -61,6 +61,19 @@ def render_options(env, source):
                 options[selected - 1], env.args.camera_right_m, env.args.camera_z_m
             )
         ]
+    if getattr(env, "saved_camera", None) is not None:
+        chosen = env.saved_camera
+        anchor = env.origins[SOURCE_FOCUS]
+        options = [
+            dict(
+                camera_options()[5],
+                name="Chosen exported camera",
+                eye_m=chosen["eye_m"],
+                target_m=chosen["target_m"],
+                eye_offset_m=(np.array(chosen["eye_m"]) - anchor).tolist(),
+                target_offset_m=(np.array(chosen["target_m"]) - anchor).tolist(),
+            )
+        ]
     for option in options:
         eye, aim = np.array(option["eye_m"]), np.array(option["target_m"])
         # Flush the temporal renderer after a camera cut without advancing PhysX.
@@ -125,6 +138,11 @@ def render_options(env, source):
         scope="Static composition previews using saved articulated poses; no new rollout, training result or physical validation.",
         variants=variants,
     )
+    if getattr(env, "saved_camera", None) is not None:
+        manifest["selected_camera"] = env.saved_camera
+        manifest["selected_camera_sha256"] = hashlib.sha256(
+            (env.dest / "selected-camera.json").read_bytes()
+        ).hexdigest()
     if getattr(env.args, "scout_snapshot", False):
         from camera_scout_snapshot import write_snapshot
 

@@ -1,5 +1,12 @@
 # Project state
 
+## User-selected farm film completed — November 2, 2026
+
+- [Native one-minute recording](../sircus/isaac/CHOSEN_FARM_FILM.md): 35 tables / 70 articulated arms, selected silver-gray look, 14-second orbit, 2-second approach and 44-second fixed front-row view. The user's original camera JSON is preserved byte-for-byte and every native camera frame checked; no ball-following. [Compact evidence](../baselines/isaac-chosen-farm-20261102/README.md).
+- Eight foreground board rebounds: two retained captures, four measured floor arrivals and two bucket/table misses, with visible configuration changes and background releases. Full film is 60 s; front-row-only file is 44 s, both 1080p/30 fps. Native contact/isolation probes, rim rays, source lineage, frame/chapter counts, decode and Mac transfer digests passed. Selected native release/contact/outcome samples for all eight trials were inspected.
+- Replays selected PPO actions with scripted joint transitions and initialized balls; no new optimizer updates or held-out performance claim. All selected/repeated batches total 420 attempts, 198 releases, 29 captures. Source case `r1c2` stays at display slot `r1c7` as in the scout; this does not solve the old rightmost target. Geometry, reported-height uncertainty, historical training and previous videos remain intact.
+- Isaac regression suite completed 158 tests with one Torch-dependent skip on Mac; Black and diff checks passed. The finite 4090 job exited; read-only final GPU check found it idle and the existing 4070 workload active. Existing camera scout/services were preserved. No physical/Viam/audio changes.
+
 ## Interactive camera scout — November 2, 2026
 
 - [Camera-only browser window](../sircus/isaac/CAMERA_SCOUT.md) uses original UF850 meshes and a frozen native Isaac snapshot: 35 tables, 70 arms, measured body/object transforms and the selected right-front layout. All 490 arm-mesh matrices match the native export. Browser lighting/material appearance is approximate; final renders remain in Isaac.
