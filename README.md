@@ -6,7 +6,7 @@ Two UFACTORY850 arms learn to bounce a ball from a suction-mounted board into a 
 
 ## Start here
 
-- **Native Isaac recording:** [direct application-window capture](sircus/isaac/NATIVE_VIEWPORT.md), showing the live 32-table / 64-arm farm without composite panels.
+- **Native Isaac recording:** [direct application-window capture](sircus/isaac/NATIVE_VIEWPORT.md), showing the live 32-table / 64-arm farm in orthographic or elevated perspective views without composite panels.
 - **32-table PPO farm:** [actual training, video and reproduction](sircus/isaac/FARM_PPO.md). A shared neural policy selects board height, drop gap and tilt in 32 simultaneous Isaac Lab workcells. Recorded early/middle/late batches are training data; arm pickup and transit are not learned.
 - **Isaac Lab / RTX Ubuntu:** [isolated two-arm RGB-D foundation](sircus/isaac/README.md) and [verified setup status](sircus/isaac/STATUS.md). Uses a dedicated GPU, separate environment and new physics contract. Privileged shot learning and perception diagnostics are available; full grasp/path learning remains separate.
 - **Parallel Isaac world:** [32 workcells / 64 arms, fixed distinct targets](sircus/isaac/PARALLEL_WORLD.md), with [completed 1, 090-attempt experiment and exact settings](baselines/isaac-parallel-world-20261101/README.md). Live read-only world/video: `/parallel-world.html`. Six targets passed 10/10 fresh perturbations; farther feasibility remains unresolved. Parameter exploration, not a new RL policy.
