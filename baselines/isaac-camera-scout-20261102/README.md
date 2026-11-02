@@ -1,0 +1,9 @@
+# Interactive static camera scout — November 2, 2026
+
+The local camera window displays a frozen native Isaac snapshot with original UF850 STL geometry, exact URDF tool/board primitives and measured world transforms. There are 35 tables, 70 arms, 770 visual instances and 14 shared geometries. All 490 arm-mesh transforms matched the native body transforms exactly. Original material colors are retained except the board's gray scout display; browser lighting is approximate. This is camera scouting, not a new rollout, policy result or physical validation.
+
+[verification.json](verification.json) records native snapshot, input asset and generated scene digests; transform checks; browser interaction/export tests; and current runtime scope. Orbit, Pan, wheel zoom, numeric coordinates and exact reset were tested in Chrome. Browser autosave restored the view after reload. A camera JSON downloaded through the UI matched the full-precision selected eye/aim and native intrinsics.
+
+146 Isaac tests passed with one Torch-dependent skip on Mac. New checks cover measured WXYZ transform composition, fixed-child visual placement, rejection of absent moving-body poses, and GET-only HTTP routes with no physical API. Frontend fixtures checked STL parsing, tapered-bucket bounds, control references and reset accuracy with actual OrbitControls. Final browser screenshot and raw assets remain outside Git.
+
+Native snapshot source/output: `$HOME/sircus-isaac/studies/camera-scout-20261102-v1` and `output/camera-scout-20261102-v1` on the configured Ubuntu host. The finite 4090 job completed. The camera-only Mac HTTP server remains live at `http://127.0.0.1:18784/`; it does not auto-start after reboot. Existing services and the 4070 workload were untouched. [Controls, build and restart](../../sircus/isaac/CAMERA_SCOUT.md).

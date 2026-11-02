@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Sircus · Camera scout</title>
+  <link rel="stylesheet" href="scout.css">
+  <script type="importmap">{"imports":{"three":"/vendor/three.module.js"}}</script>
+  <script type="module" src="scout.js"></script>
+</head>
+<body>
+  <main class="workspace">
+    <header class="masthead">
+      <div><p class="eyebrow">Sircus / 35 workcells</p><h1>Camera scout</h1></div>
+      <span class="readonly"><span aria-hidden="true">●</span> Static saved poses</span>
+    </header>
+    <section class="stage" aria-label="Interactive scene preview">
+      <div id="viewport" tabindex="0" aria-label="Three-dimensional camera scouting view. Drag to orbit, right-drag to pan, scroll to zoom.">
+        <div id="loading" role="status"><span class="spinner" aria-hidden="true"></span><span id="loadingText">Loading saved scene…</span></div>
+        <div class="viewport-badge">Camera scout <span>·</span> Isaac final render</div>
+        <div class="axis-note">Z up <span>·</span> metres <span>·</span> 16:9</div>
+        <div id="webglError" class="error-card" role="alert" hidden></div>
+      </div>
+      <div class="stage-toolbar">
+        <p id="dragInstructions">Left-drag <strong>orbit</strong><span>·</span> Right-drag / Shift-drag <strong>pan</strong><span>·</span> Scroll <strong>zoom</strong></p>
+        <div class="stage-actions"><div class="drag-modes" role="group" aria-label="Left-drag mode"><button id="orbitModeButton" class="is-active" type="button" aria-pressed="true">Orbit</button><button id="panModeButton" type="button" aria-pressed="false">Pan</button></div><button id="fullscreenButton" class="quiet" type="button" title="Toggle fullscreen">Full screen</button></div>
+      </div>
+    </section>
+    <aside class="inspector" aria-label="Camera controls">
+      <div class="panel-heading"><div><p class="eyebrow">Compose the shot</p><h2>View controls</h2></div><span class="lens">23 mm</span></div>
+      <label class="field-label" for="preset">Starting view</label>
+      <select id="preset" disabled><option>Loading views…</option></select>
+      <div class="view-buttons">
+        <button id="resetButton" type="button" disabled>Reset view 06</button>
+        <button id="fitButton" type="button" disabled>Fit farm</button>
+        <button id="focusButton" type="button" disabled>Focus front table</button>
+      </div>
+      <form id="cameraForm">
+        <fieldset><legend>Camera eye <span>m</span></legend><div class="xyz-fields">
+          <label>X<input id="eyeX" name="eyeX" type="number" step="any" required></label>
+          <label>Y<input id="eyeY" name="eyeY" type="number" step="any" required></label>
+          <label>Z<input id="eyeZ" name="eyeZ" type="number" step="any" required></label>
+        </div></fieldset>
+        <fieldset><legend>Aim at <span>m</span></legend><div class="xyz-fields">
+          <label>X<input id="targetX" name="targetX" type="number" step="any" required></label>
+          <label>Y<input id="targetY" name="targetY" type="number" step="any" required></label>
+          <label>Z<input id="targetZ" name="targetZ" type="number" step="any" required></label>
+        </div></fieldset>
+        <button id="applyButton" class="apply" type="submit" disabled>Apply coordinates</button>
+      </form>
+      <p id="cameraReadout" class="camera-readout">Camera height and viewing distance will appear here.</p>
+      <div class="export-panel">
+        <h3>Use this camera in Isaac</h3>
+        <p>Save a camera file for a native Isaac still or recording. This preview changes only your viewpoint.</p>
+        <button id="saveButton" class="primary" type="button" disabled>Save camera JSON <span aria-hidden="true">↓</span></button>
+        <button id="copyButton" class="quiet copy" type="button" disabled>Copy camera JSON</button>
+        <p id="exportStatus" class="export-status" role="status" aria-live="polite"></p>
+      </div>
+      <details class="details"><summary>What this preview shows</summary><p>Original arm meshes, tool geometry and saved world poses. Objects are frozen. The board uses the selected gray display color. Browser materials and lighting are approximate; geometry is unchanged. Final framing and appearance should be checked with a native Isaac render.</p><p id="sourceNote"></p></details>
+    </aside>
+    <footer class="footer"><p id="sceneStatus" role="status">Preparing scene…</p><p>No simulation, training or hardware commands.</p></footer>
+  </main>
+</body>
+</html>

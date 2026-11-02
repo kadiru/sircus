@@ -39,6 +39,7 @@ p.add_argument(
 p.add_argument("--camera-option", type=int, choices=range(1, 11))
 p.add_argument("--camera-right-m", type=float, default=0.0)
 p.add_argument("--camera-z-m", type=float)
+p.add_argument("--scout-snapshot", action="store_true")
 AppLauncher.add_app_launcher_args(p)
 args = p.parse_args()
 if not args.enable_cameras:
@@ -47,6 +48,8 @@ if args.camera_previews and (not args.dark_replay or args.appearance != "silver"
     p.error("--camera-previews requires --dark-replay and --appearance silver")
 if args.camera_option is not None and not args.camera_previews:
     p.error("--camera-option requires --camera-previews")
+if args.scout_snapshot and not args.camera_previews:
+    p.error("--scout-snapshot requires --camera-previews")
 if (
     args.camera_right_m != 0 or args.camera_z_m is not None
 ) and args.camera_option is None:

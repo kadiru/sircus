@@ -1,0 +1,49 @@
+{
+  "version": "sircus-camera-scout-verification-v1",
+  "scope": "Read-only browser camera scout from a frozen native Isaac snapshot; no rollout or training result.",
+  "native_run": "camera-scout-20261102-v1",
+  "source_fingerprint": "98ebe47b48a01b9028747ab03bc913a033d90611e44f03b912e58f41c87ff79a",
+  "native_snapshot_sha256": "8dabd4d496154b7321aad1dd800565e846623f0e7c8528904553638289de3d6d",
+  "scene_json_sha256": "bbba88c0b2fe52c31782c3322b4e9d2772681a2eff146bbc34eb226c6f41afaf",
+  "source_assets_sha256": {
+    "dropper.urdf": "3f40e56e46b040fb3339c1235ea85872f46511c45db2d37f7661db94a470bae3",
+    "link_base.stl": "45c7cfc31975142401706ffd93c1a2ad3570fbe19694558c5ce75713ab07b5c7",
+    "link1.stl": "4069840361c2693b5b1147da366d5ba8a49ff7ab2c52fed68e07e04e07786e3f",
+    "link2.stl": "ae2be91a991177f22dd5a12ad6533d982a9fc4f5af4749d70e2b817a312d1ed2",
+    "link3.stl": "c5a1165e86839874e12abf7acfc0b4d5f18607408c326e7d1d1c7c7fb92217c8",
+    "link4.stl": "c816f4c9fae6b038ba7f6e8c7b9804769146e71199cdfe7a1a87179a56973a61",
+    "link5.stl": "cb701fe65fd2f9fa45bbc4080ccd749bc4320ee2b8e7af0fe3e69891abb0a554",
+    "link6.stl": "d031adf90d7254b358ea922f8dfe3308cebec0852ba056e122a34353cc8ea9e3",
+    "board_arm.urdf": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340"
+  },
+  "workcells": 35,
+  "arms": 70,
+  "visual_instances": 770,
+  "unique_geometries": 14,
+  "measured_mesh_transforms_checked": 490,
+  "max_matrix_error": 0.0,
+  "browser": {
+    "orbit": "verified by drag",
+    "pan": "verified target and eye translate together",
+    "zoom": "verified by wheel",
+    "numeric_apply": "verified",
+    "reset": "verified without residual damping drift",
+    "camera_download": "verified from saved JSON; full-precision eye/target and native intrinsics matched selected view",
+    "browser_autosave": "verified after reload",
+    "static_scene": "35 workcells visible; all objects frozen"
+  },
+  "tests": {
+    "isaac": 146,
+    "skipped": 1,
+    "skip": "Torch-dependent checkpoint audit on Mac",
+    "http": "GET allowlist, path traversal rejection, physical routes absent and POST unsupported",
+    "frontend": "syntax, original STL validation, bucket bounds and controls fixtures passed"
+  },
+  "runtime": {
+    "server": "http://127.0.0.1:18784/",
+    "server_scope": "loopback GET-only; remains running for user",
+    "native_gpu_job": "completed",
+    "other_gpu_workload": "untouched"
+  },
+  "screenshot_sha256": "a10eaea3bde51e5665d9897c24a8b5a2ed93fbf61749f0ba58116e4b1f72a29f"
+}
