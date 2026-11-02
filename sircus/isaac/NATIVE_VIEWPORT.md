@@ -10,6 +10,14 @@ The earlier `farm_video.py` movie used actual Isaac camera renders with presenta
 
 To reproduce the perspective recording, add `--view perspective` to the launch below and choose a new output directory. `--enable_cameras` is required and now checked before startup. The [perspective verification](../../baselines/isaac-native-viewport-20261101/perspective-verification.json) is separate from the original orthographic capture.
 
+### Low close-up
+
+`--view close-up --focus-cell 2 --playback-rate 0.5` frames a single workcell with a 35 mm perspective camera. Its eye is at table-local (2.05, −3.10, 1.25) m, looking at (0.67, −0.20, 0.45) m. The selected cell is explicit, and the other 31 cells still simulate. Cell 2 is the centered near target, chosen for framing rather than by recorded outcomes.
+
+`--playback-rate` bounds simulation-time progression per wall second during the filmed rollouts. The close-up uses at most 0.5× speed without modifying the 240 Hz physics step or interpolating video frames; rendering can make it slower. The camera follows no object and adds no trails or result overlays. Arm endpoints are reset between attempts, and gripper pickup/transit remains outside the task. This is a camera demonstration, not a fresh generalization study.
+
+See [close-up verification](../../baselines/isaac-native-viewport-20261101/closeup-verification.json) for the recorded camera, playback cap, source hashes and native movie checksum.
+
 ## What runs on screen
 
 `native_viewport.py` reuses the existing parallel PhysX scene, IK/settling checks, contact probes, shot evaluator and PPO implementation. A fresh seed (20261104) runs four simultaneous 32-shot batches and two PPO updates. All attempted shots, including misses, remain in the footage. This short demonstration is not a new policy comparison or a replacement for the [2,048-throw pilot](FARM_PPO.md).

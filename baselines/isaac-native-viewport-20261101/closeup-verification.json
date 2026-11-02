@@ -1,0 +1,293 @@
+{
+  "run": "native-closeup-20261101-v1",
+  "scope": "Native Isaac desktop recording of 32-cell live PPO; endpoint resets, no pickup/transit learning.",
+  "started_utc": "2026-11-02T01:09:05.651942+00:00",
+  "seed": 20261104,
+  "camera": {
+    "projection": "perspective",
+    "view": "close-up",
+    "focus_cell": 2,
+    "eye_world_m": [
+      15.55,
+      -3.1,
+      1.25
+    ],
+    "target_world_m": [
+      14.17,
+      -0.2,
+      0.45
+    ],
+    "focal_length": 35.0,
+    "horizontal_aperture": 36.0,
+    "vertical_aperture": 20.25
+  },
+  "maximum_simulation_playback_rate": 0.5,
+  "workcells": 32,
+  "arms": 64,
+  "throws": 128,
+  "optimizer_updates": 2,
+  "contract_fingerprint": "fa29b3667a6e37aea8a7642e3baded1110928a5bd874df2e1240ba5783b13688",
+  "weight_update_chain_verified": true,
+  "initial_weight_hash": "79e3ce81b31014575f7753060eeaf1e2fd9726d9f4a8f2c3166dba7860a77f36",
+  "final_weight_hash": "98e2cfa669435c52f4b80227c5aa4cfad1550deb08ad2b2072e77d9bdbe10fe1",
+  "probes": [
+    {
+      "kind": "bucket",
+      "all_passed": true
+    },
+    {
+      "kind": "rim",
+      "all_passed": true
+    },
+    {
+      "kind": "table",
+      "all_passed": true
+    },
+    {
+      "kind": "floor",
+      "all_passed": true
+    },
+    {
+      "kind": "robot",
+      "all_passed": true
+    },
+    {
+      "kind": "foreign_cell_collision_filter",
+      "all_passed": true
+    }
+  ],
+  "batches": [
+    {
+      "file": "batch-1-0.json",
+      "attempts": 32,
+      "captures": 6,
+      "clean": 1,
+      "single_bounce": 6,
+      "invalid": 0,
+      "mean_reward": -0.09783305733006387
+    },
+    {
+      "file": "batch-1-1.json",
+      "attempts": 32,
+      "captures": 8,
+      "clean": 2,
+      "single_bounce": 8,
+      "invalid": 0,
+      "mean_reward": 0.036380825748945994
+    },
+    {
+      "file": "batch-2-0.json",
+      "attempts": 32,
+      "captures": 6,
+      "clean": 4,
+      "single_bounce": 6,
+      "invalid": 0,
+      "mean_reward": -0.08910640104739664
+    },
+    {
+      "file": "batch-2-1.json",
+      "attempts": 32,
+      "captures": 7,
+      "clean": 0,
+      "single_bounce": 7,
+      "invalid": 0,
+      "mean_reward": -0.035258488694846525
+    }
+  ],
+  "totals": {
+    "attempts": 128,
+    "captures": 27,
+    "clean": 7,
+    "single_bounce": 27,
+    "invalid": 0,
+    "mean_reward": -0.04645428033084027
+  },
+  "recording": {
+    "source": "Direct X11 capture of the native Isaac Sim application window",
+    "window_id": "0x2800005",
+    "window_title": "Isaac Sim 5.1.0",
+    "dimensions": [
+      2400,
+      1000
+    ],
+    "fps": 30,
+    "encoding_padding": "At most one black pixel at right/bottom for even H.264 dimensions",
+    "compositor": false,
+    "overlays": false,
+    "interpolation": false,
+    "sha256": "92ac8da9e7ccd4536ecbf3c1e9ae7fa18c3e6927ba3067950c1e7e6d27a86294",
+    "bytes": 3645279,
+    "wall_s": 58.88077379192691
+  },
+  "ffprobe": {
+    "programs": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 2400,
+        "height": 1000,
+        "pix_fmt": "yuv420p",
+        "r_frame_rate": "30/1",
+        "nb_frames": "1759"
+      }
+    ],
+    "format": {
+      "duration": "58.634000",
+      "size": "3645279"
+    }
+  },
+  "full_video_decode_passed": true,
+  "source_hashes": {
+    "balanced_pilot.py": "9bc01127e7cbb1f7684b902016346a0ea96eab47945ad24a099a7c213f2074d2",
+    "board_route.py": "6409889aed6b0fd6a288eb9494b954ec5c3233ec41fdcf146940fc23276fb2e9",
+    "bootstrap.sh": "3017704a2fdee16d0bf8111e282fd92979e7481b68a35476b7473588a064af8e",
+    "bucket_grid.py": "63891f811d6a2765895c7f377f06fef6ade158470f1450eb7cb6ab626410462d",
+    "bucket_grid_contract.py": "c1cedb93cafd7c26d5e238376155d3355599b025386085c0e1155c2cedddea57",
+    "bucket_grid_report.py": "56c518ac7b7e5a9f9bebc53d6ca645653fc27fabbfaa9dfd3dac66ca99e89770",
+    "build_assets.sh": "14e87f135357b9660e6874217ffbda27a78f1e32fd0247f5e77f4fc213d7d415",
+    "catalogue_confirmation.py": "8262a0119e3a906fb28acb2b1c36e0da672ff59d5d5c5db12045feba26089098",
+    "catalogue_contract.py": "99e355a2e6682868d427b3be9d78678098d4f5fb62960af1a5d5e9419059e5df",
+    "catalogue_report.py": "33f2621d764d78ad790879ebd2ab6e76e944994181177f5fcede12fdcb70e2e5",
+    "diagnostic_report.py": "da7416ccd1255b23d13d28d07978a5fb392bb79cbc1323eed0a85437675c9829",
+    "distance_catalogue.py": "1df7189d4dde6fb012ce0d3aa24ad4efbaddac0cffc5016cfba993f91b7e8509",
+    "distance_catalogue_contract.py": "5c424ce4da6cdc726e9e81e601f20402656474b6dfb0e9d6bfa0360b282bcbbd",
+    "distance_catalogue_report.py": "5fd8c8b0e6db1a72f935610af50dcdb63566f04a76b8bd5678c386bf452a4e33",
+    "distance_route_audit.py": "38e39fb78f1116ca4fddd386a0ee8cb3181a1c311300a1707297254d34a35a76",
+    "distance_sweep.py": "8523c777f4c924e3c092b5562df738acf8fe6b53e9a2bd381c0340f02ce17165",
+    "dropper_diagnostics.py": "9609225633c2e0d91e80e70a6a1d23ee42da235b7e402819670b364fe7a73b09",
+    "entry_quality.py": "2f3d8b73c871a41afc3c8f333f5df1d54fa8751720855ffff517e729217db9d4",
+    "farm_checkpoint_audit.py": "24870cb9af4ac2bde8486165e6a819cb5c4469642b3694af4a411b10de7b5ab0",
+    "farm_contract.py": "e1a0d46f48926105a58d885e7b1c8761f03b8745937d6232aa130f00043038b5",
+    "farm_policy.py": "dc988c8b8e118d646c45ee5dd2d54f969a82b821fb74da2adca7b08fe3053e4e",
+    "farm_report.py": "6f7cf019e3d04b670ad7364aa3701488b413736ade0eac8289e80c65460bfb94",
+    "farm_training.py": "ed0db8395ae575d0776b4ba333d7821b8fe0222b4da099b56a4012fa2bfb7faa",
+    "farm_video.py": "6a6c3d6d46bd6f5074d07663d545e4a973d48f6d9bdaa9960e7bd981a84e883a",
+    "fixed_rl.py": "a4b55300aef232ed36dde446cd31705a32e69767c232560b46a76ee751426a80",
+    "generalized_rl.py": "dae2141cf26de76ad440d346affcd4af1ce55e826ac1c5d4096bcdf36d85298a",
+    "geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+    "ik_diagnostics.py": "b7bea24a4056d3bbd3ba82802c9b268010d7293436d3961bd002243e01b2bca7",
+    "inspect_capture.py": "35b793de30a38349a2ecb6db9463d792306eabaccc507c6cf6abbc4248d457b6",
+    "launch_scene.py": "88f6cdada4b43274b53f7093a86031f74c63358f60cff2f6eb4f9796a26e5661",
+    "learning_contract.py": "d8f4fe50f120c25ffbb819c763e8c62799ace407fb90931ae2c5f69fbd4f9d59",
+    "learning_report.py": "269efb56233efd05770be393d1ce579754b48dfa86d384da6402ef916faa6403",
+    "native_viewport.py": "7176b3d62cf37978f57fa6a3c3a44b1602148205a751de4213416732f3037415",
+    "overhead_contract.py": "60f2b5cc2c5dc94f8c8daf07703e38bbc3db92259e6791af711697831a679557",
+    "overhead_replay.py": "bf0ca157aa5eb61ace0954d0bd25168f4b73220392c2300263ce450b0f4e97da",
+    "overhead_video.py": "1fd49bd2cb4fe736a35b8ee6ad78707887e45d460ee3117b534c3036172d32f5",
+    "parallel_assets.py": "b4e07201f1ba3871595e02fbc1be1341f21f1d8d1f80f21c3a365cf26e24110a",
+    "parallel_contract.py": "13c1b13c9c0df0f322dc58cec377e254c39c71448d6c6a39069abb0d8e32fd0a",
+    "parallel_report.py": "0261a23d93ee50b57b755f3cb411ae33f009ef8ca7486718d814791df89f02cf",
+    "parallel_runtime.py": "d3f3fca45dec9de5b8e7288abc0696eab81da1024f0bf2049c0f9fd443480089",
+    "parallel_video.py": "0324ac3963adad1d9ebabc4ff59031e6c008f72d1029c9bcb1cb072e1eb8d082",
+    "parallel_world.py": "c7ac2fd04da80761041365cecc48a7c1ce5f39823bbce1eadda0a75ae1c37cdb",
+    "perception.sh": "47d616d6afce7d5da52e1a8fb049e0e5436076fcb3f3f4772c0604de9c75436b",
+    "perception_estimator.py": "ca5121590c047f89185f32069312281bb30c9919d6a7ebea5ff2b6f0383f6982",
+    "perception_evaluate.py": "9e54d7d19e499cf50fb3b242db98b08b77b9b3887bce8968038c9ff243c2854d",
+    "perception_stream.py": "8c05034ce4be5326dd44efcf71db513229c9bae8ffe028dfe974a10d8f89dd7b",
+    "perception_worker.py": "e493e1e4d8862aa018c0da9e76deed027c372adebba39bedb2469eb5c3102e9e",
+    "pilot_contract.py": "e36df5fed7725cb5ad2297cd060741abb43a407601719fd2dfc09051b4d15b8d",
+    "pilot_report.py": "2647ab6bd755fb65573e17f9e0fb7af7a68ad9ee51ed763c61ee2f5c5785506d",
+    "plane_contract.py": "663da66f046c2b5df60d710163e87340cff00c6df57f00594439cb1e3fe6ac47",
+    "plane_report.py": "aee9bdd8f804e8d9503542f1175525906fbfd405d8e6174f6b10a0a97fec6ebc",
+    "plane_sweep.py": "cc24ccf4d8bedfe98413567140f749a6e4836299bfe808d833da747821e7bedf",
+    "prepare_assets.py": "d7517e4f1f350bd7f48e5c23e48fc4dc4c63882b6b18ce4502bc8c5fd1999d93",
+    "preview.py": "e12dc450b077a55d35ab77042249cb589301052022ae6185ce8cca206fea01bf",
+    "python.sh": "de7e6d6f2e9fe1240a286bf6d991c0a741e2fb6c62d3ac315a9930ec3ccadeef",
+    "rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+    "robust_ik.py": "c3e5ce8673042c2fefbb784e825b34b30bb334a1ea3f9896cf0de0f975c71ee9",
+    "run.sh": "1de2ce4980259f0bf1ac801223c932b92daa521c98e87e4cb4ec35991ee8b08b",
+    "scene.json": "27ebf306e5a24a2702f13fa88e100cb107520c56688c15e9a8868350d4b5bf97",
+    "settled_shot.py": "488ed9f0df4dd91fb420b319071290d4f230677cb1f96b595d508ee03d60fa30",
+    "settling_contract.py": "d2586973fa21527f552de9c39569a88f31d4a9214c085d0756867869f572b9b1",
+    "shot_catalogue.py": "af9f57fed5ae8a01516195fc8178601a817995e78298e6b0529ce514f1bdd736",
+    "study_job.sh": "f8751f8746b70e7c66a8d73d2767a70e86ad9e52cbd866744dc2d6a62557c1f1",
+    "validation_contract.py": "94bd14c89cbe60db03b21550a39d2734d752d710a0499029a8a0eb229906e4ec",
+    "validation_report.py": "bff18d6082d029e9a86e73bece54bc18d7ca1a85ab7351524f91faab94cabb67",
+    "validation_study.py": "ab1cc694ab6ea8b1572a5da78c1f214b6c9155bbdfe359ba8a2eff80756a58bd"
+  },
+  "recorder_sha256": "e7ac1712331edbc39a9efde1ce26cac249388b62bb18f65a0106bdb0f61aab86",
+  "artifact_sha256": {
+    "result.json": "f69fbcba77140d71fa153fba88e1947484a96175b7ffec1323b848be665b01f0",
+    "recording.json": "1c90746d261608bb496fd4c9ca6028ab3058772f2c591d3bfefe9c6a85c24784",
+    "policy.pt": "b58904a1de169cf8988091dbe3d2c89a871368e393400ee44c86c525721f1365",
+    "batch-1-0.json": "a17aa034bbf7d61299623276b4018012880a2b7eddb2150df57e2d3589ab0c33",
+    "batch-1-1.json": "559788ff112f6180c581839f6a547637193448bbeeffed89db559b7a39ff3ec2",
+    "batch-2-0.json": "35ef3bc6e20f4bf7245161f90a1e19c2d9e0778fb84abdad3021283174c86164",
+    "batch-2-1.json": "f2da26b7e294f6c7a2334cf5b12c33bddfce072b1431f95cdd0e2930fcf20be0"
+  },
+  "limitations": [
+    "Camera demonstration repeats the bounded seed/contract; not an independent evaluation or promotion.",
+    "Cell 2 chosen for centered near-target framing, not by filmed outcomes.",
+    "Privileged geometry, height/gap/tilt actions, endpoint resets; no learned pickup or transit.",
+    "Measured/provisional scene unchanged; no physical validation."
+  ],
+  "focus_cell_summary": [
+    {
+      "batch": "batch-1-0.json",
+      "cell_id": "cell-02",
+      "height_m": 0.34712893813848494,
+      "gap_m": 0.20934711635112763,
+      "tilt_deg": 20.4346923828125,
+      "route_success": false,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.05416666666666666,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 442,
+      "invalid": null
+    },
+    {
+      "batch": "batch-1-1.json",
+      "cell_id": "cell-02",
+      "height_m": 0.3437282368540764,
+      "gap_m": 0.2137158989906311,
+      "tilt_deg": 18.586721181869507,
+      "route_success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 0,
+      "invalid": null
+    },
+    {
+      "batch": "batch-2-0.json",
+      "cell_id": "cell-02",
+      "height_m": 0.35755531042814254,
+      "gap_m": 0.1913149154186249,
+      "tilt_deg": 26.62250256538391,
+      "route_success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 0,
+      "invalid": null
+    },
+    {
+      "batch": "batch-2-1.json",
+      "cell_id": "cell-02",
+      "height_m": 0.3858126372098923,
+      "gap_m": 0.22350664615631105,
+      "tilt_deg": 25.288533449172974,
+      "route_success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 0,
+      "invalid": null
+    }
+  ],
+  "visual_review": {
+    "sample_times_s": [
+      5,
+      7,
+      9,
+      20,
+      33,
+      46
+    ],
+    "result": "Low perspective foreground table: both arms, board, bucket mouth and ball clearly visible; samples show release and subsequent flight. Native menus present, no composite panels or added trails."
+  }
+}
