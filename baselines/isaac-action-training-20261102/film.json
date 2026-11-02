@@ -1,0 +1,699 @@
+{
+  "schema": "sircus-action-training-export-v1",
+  "checkpoint_audit": {
+    "verified": true,
+    "file": "checkpoint-audit.json",
+    "sha256": "1ce8471211f51e2ee7241cc727fa2f28891bd49b1fcac7636f26b1ca6c22d020",
+    "audit": {
+      "schema": "sircus-action-training-checkpoint-audit-v1",
+      "source_result_sha256": "0a1b81f35869772f2fdb8e3bf75447ad72fd22b3b4ff046f1eef0eeae5e7ccf4",
+      "source_contract_sha256": "b648bb205e8ffd64018608b3b35b7a620fd8a9713bf26a16dde05000eaf83137",
+      "source_clip_sha256": {
+        "clip-00.json": "0f744692ff96bb44490c5f21e3660cd7e9e7343efec836a5c09b36d20f81eb32",
+        "clip-01.json": "e250a1191f7e9220c9dc95c771d72711578e807cbd7d7ca48a8a8fa10e18a412",
+        "clip-02.json": "a882432d2da0d19bb4215ea09eecd7e59e87166465f944bb08322c5be3ef6e08",
+        "clip-03.json": "f82f8e998fbed2ff0045e42de5b79a7ab9266f4b8ee0c5a7e85a91d6dc1f4b5b",
+        "clip-04.json": "c19107312c9c3c96f0a31804319076d68fe3eabc201d2cb3fe9f79b34a562c67",
+        "clip-05.json": "883aac927ab05ef07308ea2eb36314c1bf507ba7fa727630b689bc75f59b7315",
+        "clip-06.json": "e240dd780e7498847b9dbd1ebd43fc3f1d565cfdcad1f82ed6457ce81f6905b4",
+        "clip-07.json": "1caff7f48b78036f60160a5b1323217ac8bd53899296d5f013d95c7563ab29e2",
+        "clip-08.json": "9021858f2be523839a4e8592344a265b8b8bbf4faaba34529a0427756bd42c3d",
+        "clip-09.json": "ecde8c5e4a1a228e24993515a62c8f957834f3753c1396bae644640570cd7f9c"
+      },
+      "checkpoint_sha256": {
+        "policy-00.pt": "4675500e6305fd63f24552d0040bbd314745bcd4fd3afb7fa1a19bb9d603c9bf",
+        "policy-01.pt": "dc96d1fc0b64a9a3bff0d080376d1c636c388f60d089b68d3f0b4cb50a9a6109",
+        "policy-02.pt": "a67a7897065a5282b31783800c022cdbe89941e609d56da5b6ba7ea00bfd43c8",
+        "policy-03.pt": "152a5c6ba7825cf692b808262c68abf86bfac6171eba98f4a3c8f4f0b3832e84",
+        "policy-04.pt": "b7f532f58453a2c60148f84ffe30fdc865085c82f5b3a2ee2993c40830e79334",
+        "policy-05.pt": "a49b0cb0a952963a3d1e2b89c9fedecc3ec00725869dcd8226cecb6ce773c6bd",
+        "policy-06.pt": "b3e8b889602161b2b99e7c32d97b1b5e0c690e0ebd80232c8289fa59cba85c79",
+        "policy-07.pt": "11361c545a915bf64e49ccf0591ce631671db594bb6bc220d90290ce7cd38fdc",
+        "policy-08.pt": "531cd694b8fc83b5148af92a9416c1966be467f7016daff5c1b3df4d7892dffd",
+        "policy-09.pt": "c740d132c5caa9bd336125e39bf3fbe6705f9bab064d18161d10022e4a5a4316",
+        "policy-final.pt": "a4f2153a8710f2e6c37a06318bfd99709278a443070895eb1d295b8435b81bdd"
+      },
+      "sampled_policy_hashes": [
+        "3d252682680588be4e461b35559215c3827aa3634727f7a941a897f6ebabe837",
+        "3d252682680588be4e461b35559215c3827aa3634727f7a941a897f6ebabe837",
+        "1c885ff3cb53a7d8cf6731982da3b037d7597c718ff1fb5fc846aa752c07bb9a",
+        "1c885ff3cb53a7d8cf6731982da3b037d7597c718ff1fb5fc846aa752c07bb9a",
+        "78bb9487a5e99212eb6a601fb2cfa28d6ec6aa4d2a3286638f5d20cc5a5f5e69",
+        "78bb9487a5e99212eb6a601fb2cfa28d6ec6aa4d2a3286638f5d20cc5a5f5e69",
+        "e253ed3dd0685bb347bfefd2faa45aa4e064d22c95c0fb730c261b44c115e418",
+        "e253ed3dd0685bb347bfefd2faa45aa4e064d22c95c0fb730c261b44c115e418",
+        "4882a3bfcb709abd497927d325aca8f1e77b1d4ad19219dcd00d008cd62aaaed",
+        "4882a3bfcb709abd497927d325aca8f1e77b1d4ad19219dcd00d008cd62aaaed"
+      ],
+      "final_policy_hash": "f2656315ddb61be73ca5c5daff158c391830faa0a1706a3f67deacb8015e441e",
+      "batches_checked": 10,
+      "latent_actions_checked": 350,
+      "updates_checked": 5,
+      "latent_logprob_max_abs_error": 9.5367431640625e-07,
+      "logprob_atol": 2e-05,
+      "logprob_rtol": 2e-05,
+      "checkpoint_loading": "torch.load(weights_only=True, map_location='cpu')",
+      "scope": "Sampling checkpoint, latent likelihood and logged update-chain audit; not a held-out evaluation or independent optimizer reconstruction."
+    }
+  },
+  "source_fingerprint": "98ebe47b48a01b9028747ab03bc913a033d90611e44f03b912e58f41c87ff79a",
+  "selected_camera_sha256": "a7967c072b8f949318b43a510235d503c81c21e05f433670a0ce92a7af385ede",
+  "camera": {
+    "schema": "sircus-camera-scout-camera-v1",
+    "source_fingerprint": "98ebe47b48a01b9028747ab03bc913a033d90611e44f03b912e58f41c87ff79a",
+    "scope": "Camera only; static saved poses; validate with native Isaac render",
+    "eye_m": [
+      10.9706,
+      -6.194299999999998,
+      2.5405999999999977
+    ],
+    "target_m": [
+      7.830699999999999,
+      -3.4877,
+      0.39039999999999997
+    ],
+    "up_axis": "Z",
+    "focal_length_mm": 23,
+    "horizontal_aperture_mm": 36,
+    "vertical_aperture_mm": 20.25,
+    "resolution": [
+      1920,
+      1080
+    ]
+  },
+  "resolution": [
+    1920,
+    1080
+  ],
+  "fps": 30,
+  "training": {
+    "attempts": 350,
+    "captures": 30,
+    "clean": 28,
+    "single_bounce": 30,
+    "invalid": 194,
+    "mean_reward": -0.49291790503383187
+  },
+  "releases": 156,
+  "ppo_updates": 5,
+  "initial_weight_hash": "3d252682680588be4e461b35559215c3827aa3634727f7a941a897f6ebabe837",
+  "final_weight_hash": "f2656315ddb61be73ca5c5daff158c391830faa0a1706a3f67deacb8015e441e",
+  "final_checkpoint_sha256": "a4f2153a8710f2e6c37a06318bfd99709278a443070895eb1d295b8435b81bdd",
+  "sampling_checkpoints": [
+    {
+      "file": "policy-00.pt",
+      "sha256": "4675500e6305fd63f24552d0040bbd314745bcd4fd3afb7fa1a19bb9d603c9bf",
+      "weight_hash": "3d252682680588be4e461b35559215c3827aa3634727f7a941a897f6ebabe837"
+    },
+    {
+      "file": "policy-01.pt",
+      "sha256": "dc96d1fc0b64a9a3bff0d080376d1c636c388f60d089b68d3f0b4cb50a9a6109",
+      "weight_hash": "3d252682680588be4e461b35559215c3827aa3634727f7a941a897f6ebabe837"
+    },
+    {
+      "file": "policy-02.pt",
+      "sha256": "a67a7897065a5282b31783800c022cdbe89941e609d56da5b6ba7ea00bfd43c8",
+      "weight_hash": "1c885ff3cb53a7d8cf6731982da3b037d7597c718ff1fb5fc846aa752c07bb9a"
+    },
+    {
+      "file": "policy-03.pt",
+      "sha256": "152a5c6ba7825cf692b808262c68abf86bfac6171eba98f4a3c8f4f0b3832e84",
+      "weight_hash": "1c885ff3cb53a7d8cf6731982da3b037d7597c718ff1fb5fc846aa752c07bb9a"
+    },
+    {
+      "file": "policy-04.pt",
+      "sha256": "b7f532f58453a2c60148f84ffe30fdc865085c82f5b3a2ee2993c40830e79334",
+      "weight_hash": "78bb9487a5e99212eb6a601fb2cfa28d6ec6aa4d2a3286638f5d20cc5a5f5e69"
+    },
+    {
+      "file": "policy-05.pt",
+      "sha256": "a49b0cb0a952963a3d1e2b89c9fedecc3ec00725869dcd8226cecb6ce773c6bd",
+      "weight_hash": "78bb9487a5e99212eb6a601fb2cfa28d6ec6aa4d2a3286638f5d20cc5a5f5e69"
+    },
+    {
+      "file": "policy-06.pt",
+      "sha256": "b3e8b889602161b2b99e7c32d97b1b5e0c690e0ebd80232c8289fa59cba85c79",
+      "weight_hash": "e253ed3dd0685bb347bfefd2faa45aa4e064d22c95c0fb730c261b44c115e418"
+    },
+    {
+      "file": "policy-07.pt",
+      "sha256": "11361c545a915bf64e49ccf0591ce631671db594bb6bc220d90290ce7cd38fdc",
+      "weight_hash": "e253ed3dd0685bb347bfefd2faa45aa4e064d22c95c0fb730c261b44c115e418"
+    },
+    {
+      "file": "policy-08.pt",
+      "sha256": "531cd694b8fc83b5148af92a9416c1966be467f7016daff5c1b3df4d7892dffd",
+      "weight_hash": "4882a3bfcb709abd497927d325aca8f1e77b1d4ad19219dcd00d008cd62aaaed"
+    },
+    {
+      "file": "policy-09.pt",
+      "sha256": "c740d132c5caa9bd336125e39bf3fbe6705f9bab064d18161d10022e4a5a4316",
+      "weight_hash": "4882a3bfcb709abd497927d325aca8f1e77b1d4ad19219dcd00d008cd62aaaed"
+    }
+  ],
+  "raw_frames": 1570,
+  "raw_duration_s": 52.333333333333336,
+  "geometry_menu": {
+    "rule": "Both endpoints pass IK and measured settling before a ball is released.",
+    "file_sha256": "bb4c4349089b50a791ddb9c6ab1cd479494bd63699bba97ccc93e357d67a808d",
+    "probes": 2100,
+    "accepted_per_cell": [
+      0,
+      19,
+      13,
+      7,
+      8,
+      0,
+      0,
+      0,
+      22,
+      2,
+      0,
+      1,
+      0,
+      0,
+      0,
+      21,
+      5,
+      6,
+      5,
+      0,
+      0,
+      0,
+      7,
+      14,
+      11,
+      5,
+      0,
+      0,
+      0,
+      0,
+      4,
+      4,
+      0,
+      0,
+      0
+    ]
+  },
+  "chapters": [
+    {
+      "batch": 0,
+      "title": "Training batch 1 \u2014 table_contact",
+      "start_frame": 0,
+      "frames": 157,
+      "focus": "r1c2",
+      "motion_excursion_rad": {
+        "Arm10": 0.5251166820526123,
+        "Arm14": 0.5043691396713257
+      },
+      "background_visible_board_contacts": 11,
+      "source_start_frame": 0,
+      "source_end_frame_inclusive": 66,
+      "source_frames": 67,
+      "terminal_reason": "table_contact",
+      "terminal_physics_step": 6210,
+      "terminal_event_in_view": true,
+      "physical_retained_capture": false,
+      "route_qualified_capture": false,
+      "invalid": null,
+      "scoring_stop_step": 6302,
+      "scoring_retention_s": 0.0,
+      "padding_s": 0.2
+    },
+    {
+      "batch": 1,
+      "title": "Training batch 2 \u2014 floor_contact",
+      "start_frame": 157,
+      "frames": 157,
+      "focus": "r1c2",
+      "motion_excursion_rad": {
+        "Arm10": 0.4207499027252197,
+        "Arm14": 0.615203857421875
+      },
+      "background_visible_board_contacts": 15,
+      "source_start_frame": 157,
+      "source_end_frame_inclusive": 229,
+      "source_frames": 73,
+      "terminal_reason": "floor_contact",
+      "terminal_physics_step": 13104,
+      "terminal_event_in_view": true,
+      "physical_retained_capture": false,
+      "route_qualified_capture": false,
+      "invalid": null,
+      "scoring_stop_step": 13068,
+      "scoring_retention_s": 0.0,
+      "padding_s": 0.2
+    },
+    {
+      "batch": 2,
+      "title": "Training batch 3 \u2014 table_contact",
+      "start_frame": 314,
+      "frames": 157,
+      "focus": "r1c2",
+      "motion_excursion_rad": {
+        "Arm10": 0.4212840795516968,
+        "Arm14": 0.6146483421325684
+      },
+      "background_visible_board_contacts": 16,
+      "source_start_frame": 314,
+      "source_end_frame_inclusive": 380,
+      "source_frames": 67,
+      "terminal_reason": "table_contact",
+      "terminal_physics_step": 19954,
+      "terminal_event_in_view": true,
+      "physical_retained_capture": false,
+      "route_qualified_capture": false,
+      "invalid": null,
+      "scoring_stop_step": 20018,
+      "scoring_retention_s": 0.0,
+      "padding_s": 0.2
+    },
+    {
+      "batch": 3,
+      "title": "Training batch 4 \u2014 table_contact",
+      "start_frame": 471,
+      "frames": 157,
+      "focus": "r1c2",
+      "motion_excursion_rad": {
+        "Arm10": 0.2284146547317505,
+        "Arm14": 0.6274974346160889
+      },
+      "background_visible_board_contacts": 16,
+      "source_start_frame": 471,
+      "source_end_frame_inclusive": 536,
+      "source_frames": 66,
+      "terminal_reason": "table_contact",
+      "terminal_physics_step": 26486,
+      "terminal_event_in_view": true,
+      "physical_retained_capture": false,
+      "route_qualified_capture": false,
+      "invalid": null,
+      "scoring_stop_step": 26580,
+      "scoring_retention_s": 0.0,
+      "padding_s": 0.2
+    },
+    {
+      "batch": 4,
+      "title": "Training batch 5 \u2014 table_contact",
+      "start_frame": 628,
+      "frames": 157,
+      "focus": "r1c2",
+      "motion_excursion_rad": {
+        "Arm10": 0.8018937110900879,
+        "Arm14": 0.6163758337497711
+      },
+      "background_visible_board_contacts": 15,
+      "source_start_frame": 628,
+      "source_end_frame_inclusive": 686,
+      "source_frames": 59,
+      "terminal_reason": "table_contact",
+      "terminal_physics_step": 34227,
+      "terminal_event_in_view": true,
+      "physical_retained_capture": false,
+      "route_qualified_capture": false,
+      "invalid": null,
+      "scoring_stop_step": 35064,
+      "scoring_retention_s": 0.0,
+      "padding_s": 0.2
+    },
+    {
+      "batch": 5,
+      "title": "Training batch 6 \u2014 floor_contact",
+      "start_frame": 785,
+      "frames": 157,
+      "focus": "r1c2",
+      "motion_excursion_rad": {
+        "Arm10": 0.2074580192565918,
+        "Arm14": 0.11150932312011719
+      },
+      "background_visible_board_contacts": 15,
+      "source_start_frame": 785,
+      "source_end_frame_inclusive": 857,
+      "source_frames": 73,
+      "terminal_reason": "floor_contact",
+      "terminal_physics_step": 41184,
+      "terminal_event_in_view": true,
+      "physical_retained_capture": false,
+      "route_qualified_capture": false,
+      "invalid": null,
+      "scoring_stop_step": 41148,
+      "scoring_retention_s": 0.0,
+      "padding_s": 0.2
+    },
+    {
+      "batch": 6,
+      "title": "Training batch 7 \u2014 retained_bucket_entry",
+      "start_frame": 942,
+      "frames": 157,
+      "focus": "r1c2",
+      "motion_excursion_rad": {
+        "Arm10": 0.22752761840820312,
+        "Arm14": 0.10992467403411865
+      },
+      "background_visible_board_contacts": 12,
+      "source_start_frame": 942,
+      "source_end_frame_inclusive": 1019,
+      "source_frames": 78,
+      "terminal_reason": "retained_bucket_entry",
+      "terminal_physics_step": 46860,
+      "terminal_event_in_view": true,
+      "physical_retained_capture": true,
+      "route_qualified_capture": true,
+      "invalid": null,
+      "scoring_stop_step": 47099,
+      "scoring_retention_s": 0.9999999999999977,
+      "padding_s": 0.2
+    },
+    {
+      "batch": 7,
+      "title": "Training batch 8 \u2014 retained_bucket_entry",
+      "start_frame": 1099,
+      "frames": 157,
+      "focus": "r1c2",
+      "motion_excursion_rad": {
+        "Arm10": 2.9958784580230713e-05,
+        "Arm14": 0.0003534555435180664
+      },
+      "background_visible_board_contacts": 15,
+      "source_start_frame": 1099,
+      "source_end_frame_inclusive": 1176,
+      "source_frames": 78,
+      "terminal_reason": "retained_bucket_entry",
+      "terminal_physics_step": 53219,
+      "terminal_event_in_view": true,
+      "physical_retained_capture": true,
+      "route_qualified_capture": true,
+      "invalid": null,
+      "scoring_stop_step": 53458,
+      "scoring_retention_s": 0.9999999999999977,
+      "padding_s": 0.2
+    },
+    {
+      "batch": 8,
+      "title": "Training batch 9 \u2014 table_contact",
+      "start_frame": 1256,
+      "frames": 157,
+      "focus": "r1c2",
+      "motion_excursion_rad": {
+        "Arm10": 0.5939778434112668,
+        "Arm14": 0.6815567910671234
+      },
+      "background_visible_board_contacts": 16,
+      "source_start_frame": 1256,
+      "source_end_frame_inclusive": 1321,
+      "source_frames": 66,
+      "terminal_reason": "table_contact",
+      "terminal_physics_step": 60506,
+      "terminal_event_in_view": true,
+      "physical_retained_capture": false,
+      "route_qualified_capture": false,
+      "invalid": null,
+      "scoring_stop_step": 60600,
+      "scoring_retention_s": 0.0,
+      "padding_s": 0.2
+    },
+    {
+      "batch": 9,
+      "title": "Training batch 10 \u2014 floor_contact",
+      "start_frame": 1413,
+      "frames": 157,
+      "focus": "r1c2",
+      "motion_excursion_rad": {
+        "Arm10": 0.6487350463867188,
+        "Arm14": 0.7205403447151184
+      },
+      "background_visible_board_contacts": 15,
+      "source_start_frame": 1413,
+      "source_end_frame_inclusive": 1485,
+      "source_frames": 73,
+      "terminal_reason": "floor_contact",
+      "terminal_physics_step": 68484,
+      "terminal_event_in_view": true,
+      "physical_retained_capture": false,
+      "route_qualified_capture": false,
+      "invalid": null,
+      "scoring_stop_step": 68448,
+      "scoring_retention_s": 0.0,
+      "padding_s": 0.2
+    }
+  ],
+  "scope": "Actual on-policy endpoint-shot PPO training; scripted setup and initialized releases. All batches retained. Action-only visual cuts do not alter full-rate one-second scoring; no held-out evaluation or learned grasp/path claim.",
+  "action_movie": {
+    "file": "action-training.mp4",
+    "sha256": "2cf1503f9f5517d5d2374d9b3c188a571d229547482b32c7d35a7d2a08dcb702",
+    "source_start_frame": 0,
+    "frames": 700,
+    "duration_s": 23.333333333333332,
+    "chapters": [
+      {
+        "batch": 0,
+        "title": "Training batch 1 \u2014 table_contact",
+        "start_frame": 0,
+        "frames": 67,
+        "focus": "r1c2",
+        "motion_excursion_rad": {
+          "Arm10": 0.5251166820526123,
+          "Arm14": 0.5043691396713257
+        },
+        "background_visible_board_contacts": 11,
+        "source_start_frame": 0,
+        "source_end_frame_inclusive": 66,
+        "source_frames": 67,
+        "terminal_reason": "table_contact",
+        "terminal_physics_step": 6210,
+        "terminal_event_in_view": true,
+        "physical_retained_capture": false,
+        "route_qualified_capture": false,
+        "invalid": null,
+        "scoring_stop_step": 6302,
+        "scoring_retention_s": 0.0,
+        "padding_s": 0.2
+      },
+      {
+        "batch": 1,
+        "title": "Training batch 2 \u2014 floor_contact",
+        "start_frame": 67,
+        "frames": 73,
+        "focus": "r1c2",
+        "motion_excursion_rad": {
+          "Arm10": 0.4207499027252197,
+          "Arm14": 0.615203857421875
+        },
+        "background_visible_board_contacts": 15,
+        "source_start_frame": 157,
+        "source_end_frame_inclusive": 229,
+        "source_frames": 73,
+        "terminal_reason": "floor_contact",
+        "terminal_physics_step": 13104,
+        "terminal_event_in_view": true,
+        "physical_retained_capture": false,
+        "route_qualified_capture": false,
+        "invalid": null,
+        "scoring_stop_step": 13068,
+        "scoring_retention_s": 0.0,
+        "padding_s": 0.2
+      },
+      {
+        "batch": 2,
+        "title": "Training batch 3 \u2014 table_contact",
+        "start_frame": 140,
+        "frames": 67,
+        "focus": "r1c2",
+        "motion_excursion_rad": {
+          "Arm10": 0.4212840795516968,
+          "Arm14": 0.6146483421325684
+        },
+        "background_visible_board_contacts": 16,
+        "source_start_frame": 314,
+        "source_end_frame_inclusive": 380,
+        "source_frames": 67,
+        "terminal_reason": "table_contact",
+        "terminal_physics_step": 19954,
+        "terminal_event_in_view": true,
+        "physical_retained_capture": false,
+        "route_qualified_capture": false,
+        "invalid": null,
+        "scoring_stop_step": 20018,
+        "scoring_retention_s": 0.0,
+        "padding_s": 0.2
+      },
+      {
+        "batch": 3,
+        "title": "Training batch 4 \u2014 table_contact",
+        "start_frame": 207,
+        "frames": 66,
+        "focus": "r1c2",
+        "motion_excursion_rad": {
+          "Arm10": 0.2284146547317505,
+          "Arm14": 0.6274974346160889
+        },
+        "background_visible_board_contacts": 16,
+        "source_start_frame": 471,
+        "source_end_frame_inclusive": 536,
+        "source_frames": 66,
+        "terminal_reason": "table_contact",
+        "terminal_physics_step": 26486,
+        "terminal_event_in_view": true,
+        "physical_retained_capture": false,
+        "route_qualified_capture": false,
+        "invalid": null,
+        "scoring_stop_step": 26580,
+        "scoring_retention_s": 0.0,
+        "padding_s": 0.2
+      },
+      {
+        "batch": 4,
+        "title": "Training batch 5 \u2014 table_contact",
+        "start_frame": 273,
+        "frames": 59,
+        "focus": "r1c2",
+        "motion_excursion_rad": {
+          "Arm10": 0.8018937110900879,
+          "Arm14": 0.6163758337497711
+        },
+        "background_visible_board_contacts": 15,
+        "source_start_frame": 628,
+        "source_end_frame_inclusive": 686,
+        "source_frames": 59,
+        "terminal_reason": "table_contact",
+        "terminal_physics_step": 34227,
+        "terminal_event_in_view": true,
+        "physical_retained_capture": false,
+        "route_qualified_capture": false,
+        "invalid": null,
+        "scoring_stop_step": 35064,
+        "scoring_retention_s": 0.0,
+        "padding_s": 0.2
+      },
+      {
+        "batch": 5,
+        "title": "Training batch 6 \u2014 floor_contact",
+        "start_frame": 332,
+        "frames": 73,
+        "focus": "r1c2",
+        "motion_excursion_rad": {
+          "Arm10": 0.2074580192565918,
+          "Arm14": 0.11150932312011719
+        },
+        "background_visible_board_contacts": 15,
+        "source_start_frame": 785,
+        "source_end_frame_inclusive": 857,
+        "source_frames": 73,
+        "terminal_reason": "floor_contact",
+        "terminal_physics_step": 41184,
+        "terminal_event_in_view": true,
+        "physical_retained_capture": false,
+        "route_qualified_capture": false,
+        "invalid": null,
+        "scoring_stop_step": 41148,
+        "scoring_retention_s": 0.0,
+        "padding_s": 0.2
+      },
+      {
+        "batch": 6,
+        "title": "Training batch 7 \u2014 retained_bucket_entry",
+        "start_frame": 405,
+        "frames": 78,
+        "focus": "r1c2",
+        "motion_excursion_rad": {
+          "Arm10": 0.22752761840820312,
+          "Arm14": 0.10992467403411865
+        },
+        "background_visible_board_contacts": 12,
+        "source_start_frame": 942,
+        "source_end_frame_inclusive": 1019,
+        "source_frames": 78,
+        "terminal_reason": "retained_bucket_entry",
+        "terminal_physics_step": 46860,
+        "terminal_event_in_view": true,
+        "physical_retained_capture": true,
+        "route_qualified_capture": true,
+        "invalid": null,
+        "scoring_stop_step": 47099,
+        "scoring_retention_s": 0.9999999999999977,
+        "padding_s": 0.2
+      },
+      {
+        "batch": 7,
+        "title": "Training batch 8 \u2014 retained_bucket_entry",
+        "start_frame": 483,
+        "frames": 78,
+        "focus": "r1c2",
+        "motion_excursion_rad": {
+          "Arm10": 2.9958784580230713e-05,
+          "Arm14": 0.0003534555435180664
+        },
+        "background_visible_board_contacts": 15,
+        "source_start_frame": 1099,
+        "source_end_frame_inclusive": 1176,
+        "source_frames": 78,
+        "terminal_reason": "retained_bucket_entry",
+        "terminal_physics_step": 53219,
+        "terminal_event_in_view": true,
+        "physical_retained_capture": true,
+        "route_qualified_capture": true,
+        "invalid": null,
+        "scoring_stop_step": 53458,
+        "scoring_retention_s": 0.9999999999999977,
+        "padding_s": 0.2
+      },
+      {
+        "batch": 8,
+        "title": "Training batch 9 \u2014 table_contact",
+        "start_frame": 561,
+        "frames": 66,
+        "focus": "r1c2",
+        "motion_excursion_rad": {
+          "Arm10": 0.5939778434112668,
+          "Arm14": 0.6815567910671234
+        },
+        "background_visible_board_contacts": 16,
+        "source_start_frame": 1256,
+        "source_end_frame_inclusive": 1321,
+        "source_frames": 66,
+        "terminal_reason": "table_contact",
+        "terminal_physics_step": 60506,
+        "terminal_event_in_view": true,
+        "physical_retained_capture": false,
+        "route_qualified_capture": false,
+        "invalid": null,
+        "scoring_stop_step": 60600,
+        "scoring_retention_s": 0.0,
+        "padding_s": 0.2
+      },
+      {
+        "batch": 9,
+        "title": "Training batch 10 \u2014 floor_contact",
+        "start_frame": 627,
+        "frames": 73,
+        "focus": "r1c2",
+        "motion_excursion_rad": {
+          "Arm10": 0.6487350463867188,
+          "Arm14": 0.7205403447151184
+        },
+        "background_visible_board_contacts": 15,
+        "source_start_frame": 1413,
+        "source_end_frame_inclusive": 1485,
+        "source_frames": 73,
+        "terminal_reason": "floor_contact",
+        "terminal_physics_step": 68484,
+        "terminal_event_in_view": true,
+        "physical_retained_capture": false,
+        "route_qualified_capture": false,
+        "invalid": null,
+        "scoring_stop_step": 68448,
+        "scoring_retention_s": 0.0,
+        "padding_s": 0.2
+      }
+    ],
+    "native_pixels_only": true,
+    "playback_multiple": 1
+  },
+  "untrimmed_movie": {
+    "file": "action-training-untrimmed.mp4",
+    "sha256": "24ab1899687f08cc6352256ab4f6e3a4e418c411074bad7171821d9846378af0",
+    "source_start_frame": 0,
+    "frames": 1570,
+    "duration_s": 52.333333333333336
+  }
+}
