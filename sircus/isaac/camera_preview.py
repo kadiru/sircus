@@ -6,7 +6,13 @@ import shutil
 from pathlib import Path
 
 import numpy as np
-from camera_options import DISPLAY_SLOT, SOURCE_BATCH, SOURCE_FOCUS, camera_options
+from camera_options import (
+    DISPLAY_SLOT,
+    SOURCE_BATCH,
+    SOURCE_FOCUS,
+    adjusted_camera,
+    camera_options,
+)
 from parallel_runtime import atomic
 
 
@@ -47,7 +53,15 @@ def render_options(env, source):
     env.focus = SOURCE_FOCUS
     initial, physics_step = state_digest(env), env.steps
     variants = []
-    for option in camera_options():
+    options = camera_options()
+    selected = getattr(env.args, "camera_option", None)
+    if selected is not None:
+        options = [
+            adjusted_camera(
+                options[selected - 1], env.args.camera_right_m, env.args.camera_z_m
+            )
+        ]
+    for option in options:
         eye, aim = np.array(option["eye_m"]), np.array(option["target_m"])
         # Flush the temporal renderer after a camera cut without advancing PhysX.
         import torch
@@ -88,6 +102,7 @@ def render_options(env, source):
         workcell_origin_permutation_note="Whole source workcells 1 and 6 exchange display positions; their arms, bucket, board and ball remain together. All 35 unique target assignments are preserved.",
         origins_m=env.origins.tolist(),
         source_batch=SOURCE_BATCH,
+        selected_option=selected,
         source_clip_sha256=hashlib.sha256(
             (source / f"clip-{SOURCE_BATCH:02}.json").read_bytes()
         ).hexdigest(),

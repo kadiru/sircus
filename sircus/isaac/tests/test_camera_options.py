@@ -16,6 +16,7 @@ from camera_options import (
     FOCAL_LENGTH_MM,
     SOURCE_BATCH,
     SOURCE_FOCUS,
+    adjusted_camera,
     camera_options,
     preview_origins,
 )
@@ -41,6 +42,37 @@ def project(option, points):
 
 
 class CameraOptionsTests(unittest.TestCase):
+    def test_adjustment_moves_horizontally_right_keeps_aim_and_sets_world_z(self):
+        original = camera_options()[5]
+        saved = json.loads(json.dumps(original))
+        result = adjusted_camera(original, 0.30, 2.0)
+        delta = np.array(result["eye_m"]) - original["eye_m"]
+        self.assertAlmostEqual(np.linalg.norm(delta[:2]), 0.30)
+        forward_xy = (
+            np.array(original["target_m"])[:2] - np.array(original["eye_m"])[:2]
+        )
+        self.assertAlmostEqual(delta[:2] @ forward_xy, 0)
+        self.assertGreater(delta[0], 0)
+        self.assertGreater(delta[1], 0)
+        self.assertEqual(result["eye_m"][2], 2.0)
+        self.assertEqual(result["target_m"], original["target_m"])
+        self.assertEqual(original, saved)
+        for bad in (float("nan"), float("inf")):
+            with self.assertRaises(ValueError):
+                adjusted_camera(original, bad, 2.0)
+
+    def test_selected_adjustment_retains_focused_table_and_background(self):
+        option = adjusted_camera(camera_options()[5], 0.30, 2.0)
+        world = preview_origins()
+        envelope = list(itertools.product((-0.23, 1.57), (-0.875, 0.375), (0, 0.95)))
+        depth, uv = project(option, world[SOURCE_FOCUS] + envelope)
+        self.assertTrue(np.all(depth > 0.04))
+        self.assertLess(np.max(abs(uv)), 0.95)
+        depth, uv = project(option, world + [0.67, -0.25, 0.45])
+        visible = (depth > 0.04) & np.all(abs(uv) < 0.95, axis=1)
+        visible[SOURCE_FOCUS] = False
+        self.assertGreaterEqual(np.count_nonzero(visible), 25)
+
     def test_mapping_preserves_all_cells_and_the_focused_shot_geometry(self):
         original, preview = origins(), preview_origins()
         self.assertEqual((SOURCE_FOCUS, DISPLAY_SLOT, SOURCE_BATCH), (1, 6, 6))
