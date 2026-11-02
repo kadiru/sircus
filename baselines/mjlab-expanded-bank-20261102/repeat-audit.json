@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "all_artifact_bytes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source_bytes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "independent_urdf_fk_and_valid_lock_positions",
+      "passed": true,
+      "detail": {
+        "maxima": {
+          "board_saved_position_m": 2.3343972085922124e-07,
+          "board_requested_position_m": 4.871083751574258e-16,
+          "dropper_requested_position_m": 4.585973723508303e-16,
+          "locked_position_m": 0.0
+        },
+        "failures": []
+      }
+    },
+    {
+      "name": "independent_recorded_force_route_reconstruction",
+      "passed": true,
+      "detail": {
+        "rows": 108,
+        "failures": []
+      }
+    }
+  ],
+  "native_releases": 108,
+  "scalar_score_audits": 52,
+  "independent_fk": {
+    "board_saved_position_m": 2.3343972085922124e-07,
+    "board_requested_position_m": 4.871083751574258e-16,
+    "dropper_requested_position_m": 4.585973723508303e-16,
+    "locked_position_m": 0.0
+  }
+}

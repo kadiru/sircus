@@ -1,5 +1,13 @@
 # Project state
 
+## Targeted mjlab expansion and fair frozen comparison — November 2, 2026
+
+- [Published evidence/checkpoint](../baselines/mjlab-expanded-bank-20261102/README.md): the 12 previously unresolved test positions became development. 15,360 native search throws plus 1,000 confirmation attempts added one template qualified 9/10; original 16 remain an unchanged prefix. Six farther targets produced many table-assisted entries but zero qualified direct routes in 9,216 additional throws. No impossibility claim or scoring relaxation.
+- A 132-attempt diagnostic found saved-branch 27/30 versus fresh-IK 20/30 captures, with batch-slot-dependent multistart failures. Before retraining, v2 reused exact shared-prefix masks/joints/failure reasons by stable candidate ID, including strict-to-wide overlap. The general IK initializer still needs deterministic per-query starts and branch preservation.
+- 4,096 new PPO throws, 175 declared training contexts (125 eligible), 30 validation and 100 fresh test positions × 3. Same-split captures: old uniform 175/300, old learned 183/300, expanded uniform 182/300, retrained 188/300. The +2.0-point learned-versus-uniform gain has a descriptive 95% layout interval −3.3 to +7.7: no established capture advantage. Clean captures 145 versus 76 are a separate quality gain. Both banks still lack endpoints at 25/100 fresh positions.
+- Converted 12-coordinate rerun: old bank 1/12 eligible/captured, expanded 2/12; ten remain unresolved. This is development, not new held-out evidence. Independent audits pass 94 search, 41 refinement, 80 far, 60 join and 428 training checks; original results are preserved. New selected checkpoint SHA `768d21bdbe104f64c87eeec96bda81395f9ffea9af14f211baa53c70f7a898bd`.
+- Existing localhost preview adds read-only `#expandedStudy` results; previous inference controls remain active. New checkpoint requires its matching future adapter, with guards intact. All new native work used 4090 and the shared lock; this task did not change Isaac, 4070, Viam, hardware or audio. Raw native data/snapshots remain outside Git. Next is deterministic IK and airborne far-shot coverage, before another long PPO run.
+
 ## mjlab interactive policies and audited learning — November 2, 2026
 
 - [New interface](../sircus/mjlab/web/README.md): drag a bucket, fix board-center or released-ball XYZ, request a frozen prediction or separately labeled native search, and inspect the actual pose/ball trace. Native kinematics drive simplified arm surfaces; this is not an Isaac viewport. Manual controls stayed gated until both learning studies and independent audits completed.

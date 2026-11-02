@@ -1,0 +1,77 @@
+{
+  "scope": "Compact synthetic evidence and checkpoint; raw trials, runtime configs, credentials and generated assets excluded",
+  "files": {
+    "README.md": {
+      "sha256": "6bb7222bbd1b068a3f29c586a7682ed3ddd5c9d1324b983a02a60892074b9783",
+      "bytes": 9300
+    },
+    "combined-audit.json": {
+      "sha256": "2c12186f26db5754c1da26e99138f8d0bb9cab2f3a04ba1adf9b8502e1f1b6a4",
+      "bytes": 16602
+    },
+    "combined-summary.json": {
+      "sha256": "6f5eb80512b3b0474ea8a47be835b63834b33ef4e043fcefea5529d90b9d50a0",
+      "bytes": 40051
+    },
+    "expanded-bank.json": {
+      "sha256": "fc95cc8ec310ff85b7962ca30feb4faf99aa07ef8b1e83aeaa9025b2e9db44cd",
+      "bytes": 13517
+    },
+    "far-audit.json": {
+      "sha256": "e757ee6e3a5185449ff7a83126f3148530a22ad84f6024a3c1e03b5b371ec8ab",
+      "bytes": 14899
+    },
+    "far-summary.json": {
+      "sha256": "021d8f54a9d5d9c790536c576c3704b6fa92b0b6562367e4797f2bbae5886cdd",
+      "bytes": 25444
+    },
+    "position-results.json": {
+      "sha256": "69eb96a2ae70137cf273421c6d0f1f6ad28216a0bd4a867265a5ee6d3b2b0f41",
+      "bytes": 184209
+    },
+    "refinement-audit.json": {
+      "sha256": "cb9cbb73ec691e39856d902c30d3745bbd5570d03792e9df537234e5c2ce648a",
+      "bytes": 4872
+    },
+    "refinement-summary.json": {
+      "sha256": "c34a8ab703e099eed3b435b1b0bfdab0cea7ea7b2d27bee5744b867872b12d41",
+      "bytes": 16885
+    },
+    "repeat-audit.json": {
+      "sha256": "0d88df857763366795b469ebad0b0580671f7f5e11bf27be7ddd1b9509637dc0",
+      "bytes": 1077
+    },
+    "repeat-summary.json": {
+      "sha256": "1f1d03ce23b362c0a3e956b85fd804444222c16966a93f5122c3c05d18d45629",
+      "bytes": 14875
+    },
+    "search-audit.json": {
+      "sha256": "108e3b49cf32f35d552cd6422a35d29f48075506002185c20c204c909c195a64",
+      "bytes": 17079
+    },
+    "search-summary.json": {
+      "sha256": "89a2eecbe1e6ede5f4047aeb7f51d0826471bd04b835feec07b4c22ce8c6eff9",
+      "bytes": 14456
+    },
+    "selected.pt": {
+      "sha256": "768d21bdbe104f64c87eeec96bda81395f9ffea9af14f211baa53c70f7a898bd",
+      "bytes": 72145
+    },
+    "training-audit.json": {
+      "sha256": "5020788a4090462fdb314dc3f1bee09cba208be38950a15a3d9e27e8b2b8ec69",
+      "bytes": 70769
+    },
+    "training-contract.json": {
+      "sha256": "6e851b6e66175c7c1179820c28b77892e9c36d1a4148833047cef6354622f487",
+      "bytes": 43399
+    },
+    "training-summary.json": {
+      "sha256": "9c3bf9d0fa3bdfb12dd7006a07f3320c17059bb4ba8a95c55b3d17f0e1797d8f",
+      "bytes": 40783
+    },
+    "ui-verification.json": {
+      "sha256": "6093cb16dc26c48c9899036322bab0e37c0f7d52bafd73dcf9bf9fd5725c1447",
+      "bytes": 1413
+    }
+  }
+}

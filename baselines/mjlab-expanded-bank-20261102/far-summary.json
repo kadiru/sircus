@@ -1,0 +1,580 @@
+{
+  "status": "completed",
+  "phase": "completed",
+  "contract_fingerprint": "a1bc7528f836b4ebd65dce91724b18309f8cf9a34e8885f3b6b9c72b5e195026",
+  "old_bank_study_fingerprint": "5618820c146be1f71edc59fe00a2a5260f6f479b41579fd22afb4c761310728e",
+  "old_bank_sha256": "34e4833b43e0003a95022274632492d7405f3c2f8afe06a2c8aa7d1a4df5394c",
+  "development_layouts": [
+    {
+      "id": "old-test-08",
+      "original_test_index": 8,
+      "bucket_xy_m": [
+        1.2138862453043828,
+        -0.15628745328163396
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-09",
+      "original_test_index": 9,
+      "bucket_xy_m": [
+        1.1798593677024012,
+        -0.5817071647655893
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-10",
+      "original_test_index": 10,
+      "bucket_xy_m": [
+        1.1155016613275015,
+        -0.17151353841633726
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-12",
+      "original_test_index": 12,
+      "bucket_xy_m": [
+        1.1909716578968224,
+        0.047362857158011584
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-19",
+      "original_test_index": 19,
+      "bucket_xy_m": [
+        0.11575315227264736,
+        -0.5274625131305722
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-21",
+      "original_test_index": 21,
+      "bucket_xy_m": [
+        0.16275255472120964,
+        -0.6365356466995716
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-23",
+      "original_test_index": 23,
+      "bucket_xy_m": [
+        1.0821769084188266,
+        -0.5174710227733501
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-26",
+      "original_test_index": 26,
+      "bucket_xy_m": [
+        1.1532532351054154,
+        0.21845672365283675
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-35",
+      "original_test_index": 35,
+      "bucket_xy_m": [
+        1.217406544799545,
+        -0.39988567162964045
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-39",
+      "original_test_index": 39,
+      "bucket_xy_m": [
+        1.2199134134696716,
+        0.1802220024389507
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-41",
+      "original_test_index": 41,
+      "bucket_xy_m": [
+        1.2372435345605606,
+        -0.6134795749084982
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-48",
+      "original_test_index": 48,
+      "bucket_xy_m": [
+        1.0052579293475408,
+        -0.4646715157495981
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    }
+  ],
+  "selected_target_ids": [
+    "old-test-08",
+    "old-test-09",
+    "old-test-12",
+    "old-test-23",
+    "old-test-35",
+    "old-test-41"
+  ],
+  "prior_native_search_attempts": 6144,
+  "prior_confirmation_attempts": 290,
+  "retained_proposal_sources": 96,
+  "source_near_misses_sha256": "72b2ac8dd73e65d59beeb36c10e35efd1efc010c9d5d2635a040f470822c7956",
+  "native_search_attempts": 9216,
+  "confirmation_attempts": 0,
+  "geometry_proposals": 55296,
+  "additions": 0,
+  "cells": [
+    {
+      "id": "old-test-08",
+      "original_test_index": 8,
+      "bucket_xy_m": [
+        1.2138862453043828,
+        -0.15628745328163396
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 1536,
+        "captures": 0,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 1536,
+        "mean_reward": -0.23314320323774007
+      },
+      "searched_in_this_continuation": true,
+      "promotion": null,
+      "unresolved_reason": "No 8/10 qualified source in this finite missing-target search"
+    },
+    {
+      "id": "old-test-09",
+      "original_test_index": 9,
+      "bucket_xy_m": [
+        1.1798593677024012,
+        -0.5817071647655893
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 1536,
+        "captures": 0,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 1536,
+        "mean_reward": -0.11775335621017113
+      },
+      "searched_in_this_continuation": true,
+      "promotion": null,
+      "unresolved_reason": "No 8/10 qualified source in this finite missing-target search"
+    },
+    {
+      "id": "old-test-10",
+      "original_test_index": 10,
+      "bucket_xy_m": [
+        1.1155016613275015,
+        -0.17151353841633726
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 0,
+        "captures": 0,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 0,
+        "mean_reward": 0.0
+      },
+      "searched_in_this_continuation": false,
+      "promotion": null,
+      "unresolved_reason": "Not searched here; prior captured sources are handled by separate confirmation continuation"
+    },
+    {
+      "id": "old-test-12",
+      "original_test_index": 12,
+      "bucket_xy_m": [
+        1.1909716578968224,
+        0.047362857158011584
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 1536,
+        "captures": 0,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 1536,
+        "mean_reward": -0.2927838208429174
+      },
+      "searched_in_this_continuation": true,
+      "promotion": null,
+      "unresolved_reason": "No 8/10 qualified source in this finite missing-target search"
+    },
+    {
+      "id": "old-test-19",
+      "original_test_index": 19,
+      "bucket_xy_m": [
+        0.11575315227264736,
+        -0.5274625131305722
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 0,
+        "captures": 0,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 0,
+        "mean_reward": 0.0
+      },
+      "searched_in_this_continuation": false,
+      "promotion": null,
+      "unresolved_reason": "Not searched here; prior captured sources are handled by separate confirmation continuation"
+    },
+    {
+      "id": "old-test-21",
+      "original_test_index": 21,
+      "bucket_xy_m": [
+        0.16275255472120964,
+        -0.6365356466995716
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 0,
+        "captures": 0,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 0,
+        "mean_reward": 0.0
+      },
+      "searched_in_this_continuation": false,
+      "promotion": null,
+      "unresolved_reason": "Not searched here; prior captured sources are handled by separate confirmation continuation"
+    },
+    {
+      "id": "old-test-23",
+      "original_test_index": 23,
+      "bucket_xy_m": [
+        1.0821769084188266,
+        -0.5174710227733501
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 1536,
+        "captures": 0,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 1536,
+        "mean_reward": -0.10529348555771857
+      },
+      "searched_in_this_continuation": true,
+      "promotion": null,
+      "unresolved_reason": "No 8/10 qualified source in this finite missing-target search"
+    },
+    {
+      "id": "old-test-26",
+      "original_test_index": 26,
+      "bucket_xy_m": [
+        1.1532532351054154,
+        0.21845672365283675
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 0,
+        "captures": 0,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 0,
+        "mean_reward": 0.0
+      },
+      "searched_in_this_continuation": false,
+      "promotion": null,
+      "unresolved_reason": "Not searched here; prior captured sources are handled by separate confirmation continuation"
+    },
+    {
+      "id": "old-test-35",
+      "original_test_index": 35,
+      "bucket_xy_m": [
+        1.217406544799545,
+        -0.39988567162964045
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 1536,
+        "captures": 0,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 1536,
+        "mean_reward": -0.11206419266108879
+      },
+      "searched_in_this_continuation": true,
+      "promotion": null,
+      "unresolved_reason": "No 8/10 qualified source in this finite missing-target search"
+    },
+    {
+      "id": "old-test-39",
+      "original_test_index": 39,
+      "bucket_xy_m": [
+        1.2199134134696716,
+        0.1802220024389507
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 0,
+        "captures": 0,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 0,
+        "mean_reward": 0.0
+      },
+      "searched_in_this_continuation": false,
+      "promotion": null,
+      "unresolved_reason": "Not searched here; prior captured sources are handled by separate confirmation continuation"
+    },
+    {
+      "id": "old-test-41",
+      "original_test_index": 41,
+      "bucket_xy_m": [
+        1.2372435345605606,
+        -0.6134795749084982
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 1536,
+        "captures": 0,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 1536,
+        "mean_reward": -0.1299888752057434
+      },
+      "searched_in_this_continuation": true,
+      "promotion": null,
+      "unresolved_reason": "No 8/10 qualified source in this finite missing-target search"
+    },
+    {
+      "id": "old-test-48",
+      "original_test_index": 48,
+      "bucket_xy_m": [
+        1.0052579293475408,
+        -0.4646715157495981
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 0,
+        "captures": 0,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 0,
+        "mean_reward": 0.0
+      },
+      "searched_in_this_continuation": false,
+      "promotion": null,
+      "unresolved_reason": "Not searched here; prior captured sources are handled by separate confirmation continuation"
+    }
+  ],
+  "elapsed_s": 408.6962285209447,
+  "timestamp_utc": "2026-11-02T21:09:07.023317+00:00",
+  "records": 9216,
+  "expanded_bank_sha256": "e2c8b496c31c3ab753e1131aa1ca14c0d36bf764a725092aa5c479bce7206f48",
+  "proposal_bank_sha256": "cd373f20f48d86db21a860d29ef5f05c1531cd9df72819deb9459cbec5431e7f",
+  "bounds": {
+    "low": [
+      0.32,
+      -0.3,
+      0.18,
+      12.0,
+      0.065
+    ],
+    "high": [
+      1.01,
+      0.25,
+      0.53,
+      48.0,
+      0.52
+    ],
+    "version": "original-shot-bounds-v1"
+  },
+  "original_templates": 16,
+  "expanded_templates": 16,
+  "native_search_statistics": {
+    "attempts": 9216,
+    "captures": 0,
+    "clean": 0,
+    "invalid": 0,
+    "board_bounces": 9216,
+    "mean_reward": -0.1651711556192299
+  },
+  "confirmation_statistics": {
+    "attempts": 0,
+    "captures": 0,
+    "clean": 0,
+    "invalid": 0,
+    "board_bounces": 0,
+    "mean_reward": 0.0
+  },
+  "versions": {
+    "mjlab": "1.6.0",
+    "mujoco": "3.11.0",
+    "mujoco-warp": "3.11.0",
+    "torch": "2.7.0",
+    "warp-lang": "1.14.0"
+  },
+  "source_sha256": {
+    "expanded_env.py": "b0e9744d1e82b9e575126e0c6d58e524372b75287713cfdf14d010cb2812df8b",
+    "compare.py": "3df8ca25a182377f28a9babf8743a4bd4789c4ad4b66ac193f180eb4defa8017",
+    "gpu_slot.py": "fcace6029058a9892296507358ee196b9b5296dc4287a07bedc786e3af4cad4a",
+    "model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+    "learning_solve.py": "836ae6db1172f8a9b43de20dbe0132cd1bc2095fe52cc4f923ebbf739f1c41e5",
+    "bank_policy.py": "0773471ab8327e822b7c6676b02c2beaf1185e90d72a3ab10fddaf8cd1595ae8",
+    "expand_bank.py": "c65110b9afa9c30658b99f0c11ae6e2aefbdf88442fc876dbc8b03e0888a320b",
+    "verify_expansion.py": "541f2a6e8b58dcc6b07cbb94780474b49f5c785fc3012f92e327de97bc5ca8d1",
+    "expanded_study.py": "3985b878106d0a8f2b949dc38a82f566cd2d78023043810b0d6bae3d885f85c8",
+    "expand_far.py": "374aa54f7b24c8f6f598f75ed33881050fb06fcc496a6a6466fe20625763e167",
+    "expand_geometry.py": "0b7982c3494b7cb7f799e073e3a7b788cca77617af0e9f509a4b7e273d926739",
+    "verify_expanded.py": "c6291530121c7abe36c1e76183ea088bf009c2a6de33ed2b0a678cd1e513ac66",
+    "verify_far.py": "bd20cb8410657ae39562581b1a0157f3eaa4a4ba519aa1532bc051c6da1b5611",
+    "learning_env.py": "58d2f58be0e1981a5efd09e872bdea7d8f608e1fa21b5c87986505a20a4a4f8c",
+    "bank_solve.py": "457166a796492f66e29b9a52dd944a57119f180f12c89a6aface4d5d2f1ad001",
+    "prepare_interface.py": "3783ad300b73808fe9424a960b791afe7addbf28e8a4fab9b61be6ffaf1afbe8",
+    "learning_reach.py": "8eea1d565e9faefff0622a9e9a4666eb8d811ac086a8a6711caa8efa3029e9a4",
+    "contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407",
+    "isaac_pair.py": "4ab44904a2c966d6a8bf1567d4882a8bcfdf3c1dd3d2ea8d9e1bbeba6093d983",
+    "learning_policy.py": "5c37a248a0a44280f0f82fe3327973299ec6a4bbfccaaae9f750a898180c7792",
+    "interface.py": "00ae4d29643f12ff143c356422384e7daa047889e3790cceb7732325a5b5a6ea",
+    "prepare_expanded_report.py": "a3fa99cae4b6327658b2471986acac8b5f1b1aa0cc5ced0fb0c0ec0bc37e3ecd",
+    "repeat_diagnostic.py": "2a91c87c2234466dc1528464630f24856b7a3358f3a98862a1d7916ebac563e8",
+    "verify_bank.py": "d8f3e0ce75533dd9aacc5018c2dacef2212de8f9e3d63fa50013e1080566fe9b",
+    "learning_contract.py": "9f2c44b76297f4ef7009c1b0107be983d0511d5654cb68b8e344dd316ed1fda8",
+    "expand_refine.py": "bd55749d6fe0e16a2bf942efcca933a9bf2e579209760eecf89cfe1b6131f60a",
+    "learning_search.py": "7e37412363aa5263f0d71b76fe8b79af003ed81e92706beeb9e0f3706512e40a",
+    "learning_interface.py": "73f9bfcdb95bacfb7bc904853c26b7233a635c566930c1e51040a9473af9a29a",
+    "render_replay.py": "27a562466bc45f5615a95f6c7824ee96bb60e1e51556cedae59bf6982f5a5f50",
+    "expanded_actions.py": "d41817aa7ad4206139925256ab0cdf5288853e621d6b39824c10ad2d309679c3",
+    "learning_study.py": "1d9b358fe11007c7edfbeb607c6f769e9d4dae6e6832768e16cc0df98480f8df",
+    "learning_score.py": "e66b982c0e651c3a9f5855dd03efb87488cc924321aaf9cadb80d51bac2fe814",
+    "bank_geometry.py": "5c0d6775582c5524a323f1e9344c35317e8352e9f1f813f5dd0794c05de743f5",
+    "verify_learning.py": "2ac3124e0a5443d7d572eefe9b73d7711f67a2cdffb9a1198da9fdfac202e874",
+    "verify_combined.py": "c3de2bd00cdff61f5a848ae572a8e3caa3ec5b7ab84465d493d7c907b7b851e2",
+    "run.py": "969db2710378345aad34a6f802e33d6ea62488d75e560b9da5738bc0748c3dee",
+    "bank_study.py": "7699faeff915a772f3e838983ff1c8dec7721f2d55c79a594e185cd9e08e7dcb",
+    "verify_refinement.py": "d979ecd5a29e33fc7351283455ace3ab58bc544efee305a5f77f5b6341af1d53",
+    "learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+    "calibrate.py": "e2da7c22355899f35e7f9f28e8a3ae35001e29cc2e10e7a490c470809bd548fb",
+    "combine_expansions.py": "08bd8381c2feb7f4616c6ab52178c335274601efe8111c0ea5a07327575efe93"
+  },
+  "artifacts_sha256": {
+    "geometry-native-0082.npz": "eb55cbd2b446c7f9d6d1f779f92e46ddb4a08dedaafba65065bbba6474f34b32",
+    "geometry-native-0072.npz": "13c2d061d27cf48dd4c81aba4f079807a5c50970e1cd6c079627e1d8c04689c0",
+    "geometry-native-0063.npz": "86b6fa0c58b43bf77829db815bde26718f4c43b5fc5dbceef5a3c50a9ab27a84",
+    "geometry-native-0034.npz": "5b45d2465a8311becd417d95a953dd9b06f310a1151f8f74b05e14a28f0a182d",
+    "geometry-native-0004.npz": "cd8f8bf6e507df59f0158dbe12c5687081407109fdacd68265b68854c17da069",
+    "geometry-native-0077.npz": "0077f668d9c9ba7fbbc622545b4e1959bbeb5f5a4cadda382f7893c6cd729164",
+    "geometry-native-0018.npz": "7157a89c3165bbcf5d7ebf1781e931a8343585e41efef8eb208064fa1b769493",
+    "geometry-native-0076.npz": "e22922778e916ac12375020fa395310612ab29d8b2d2f273c6fd4c803f25df89",
+    "geometry-native-0046.npz": "5d7b68c0cdc9b2e524864c00e3bb8f7ab56a7753b1685dc4db3858ce59489ad5",
+    "geometry-native-0083.npz": "6fe00b6c4f1a37ec2e9e3656dd20f6acff4deac237b8471f227319d42cafca74",
+    "geometry-native-0002.npz": "564790218090004e8d381be21db0685d8ecf83eae8e91471f551cc2a7e73c4a6",
+    "geometry-native-0006.npz": "23ec3cc27e736a3872904bdb5201216d6cd7d0b891b5b3c8345bd28c58462de0",
+    "geometry-native-0009.npz": "447c820de70fba0c508851c2a13f85b38da365562c026c74f960339cdf5b5163",
+    "geometry-native-0026.npz": "82ec94ee3a8b8f3d199769a41187e8ab70b5e43b43b27f1d003875396bd3a976",
+    "geometry-native-0058.npz": "fa69e1bcaca1aeec8cc8b1bbefa17fc1add1ac36179a6d7932dea80a48740fb4",
+    "geometry-native-0075.npz": "0a8c832d3e4cddcc9e2cbfc98affaa7b9bad993af99790642dc25e6a6c7ce2b8",
+    "geometry-native-0008.npz": "f61a8c173c82e1502f1e7e0768cf94f015d7b15f1f4f080a5dc9fd56018114cb",
+    "geometry-native-0023.npz": "4de8445dbe0cae8ab9588830b938d17fdc960fe56f42aefb6341efe77e30cbee",
+    "expanded-bank.json": "e2c8b496c31c3ab753e1131aa1ca14c0d36bf764a725092aa5c479bce7206f48",
+    "geometry-native-0011.npz": "bba69782e10792e3699431f8ba6d42657568cc2883dfc40d305bef903396d8e3",
+    "geometry-native-0045.npz": "69407856edbd437bac06106c0e1df60db0d9f1810cda026877881f00e4098c67",
+    "geometry-native-0007.npz": "fb1d54b8131ff4aa7c237d116150205bfd538b47894687f3fdb08f43e3b0b630",
+    "geometry-native-0033.npz": "ddd999924bf46b522536d3da48fda2f3d5e860b21795e4aafdb5203dd9eafdf6",
+    "geometry-native-0015.npz": "31a96952bc930aafff73e5b2dc8d5dd843790e9a1d6e752fea17c8cf44da9ff2",
+    "geometry-native-0049.npz": "762f71ce3a7dd700ab03218d5ef121bd56aa267ab2cb0495bcf83b3c0d86c0c8",
+    "geometry-native-0028.npz": "c5bb3f51705452133bd71e8f0adb90dbdfda975ddce231b633542ce0dfe35274",
+    "geometry-native-0027.npz": "161d30e65294cbad904e72009759b538db3c1596fc33085f4d9799eac2e9dd0d",
+    "geometry-native-0073.npz": "5783e61c0846962ce46ca50f72d04be275514d14b4ade0739905045e77e3fde4",
+    "geometry-native-0050.npz": "24be017c72f942acee1bdf57496a5f2ce0b96e1e803b16e52c15828deda7a918",
+    "shots.jsonl": "0eea4d8a954d91c434adf18f2ead3720c0ff3b15c4573ecbf2a68248248ce13f",
+    "geometry-native-0071.npz": "5c9779ea2ec0863975e1c0b6af704edfc42151f7fc6ab56e4b17050339461fc7",
+    "geometry-native-0036.npz": "415489a014d858b03412d0bef6b91e33eeeb0d6b81a47769ede481972650d531",
+    "geometry-native-0000.npz": "4ef2c6c1a1fd15066be7ecdad35ed1438479bcd912ee4f6d662e96300281d4cb",
+    "geometry-native-0020.npz": "fe6599bf4e083804e521ba2ac0b0e10545fbf780ec9f86cc2de1d4c2260c20bd",
+    "geometry-native-0079.npz": "c32814ffa84625fbb3418d558467400d3c522c068642ec68964a6f01d518e285",
+    "geometry-native-0081.npz": "842da28091ba1d5eb42bd5177e2fe5c02faa1388440f2c04f3945f50a5d79f1d",
+    "geometry-native-0074.npz": "bffa2bf94b4ea29d37f01a7c082521054f807749ca0fad13e543a7adb4eafb09",
+    "geometry-native-0032.npz": "55b60535098df5913c5a7db9d9ab9b7bf2ffaef453698ecdcab93b113e86c05a",
+    "geometry-native-0025.npz": "3f40badd95ee1333f77106a629ff1dac399ca75fe95a580bc46b1b493fdf1c90",
+    "geometry-native-0017.npz": "ece6752c313ef0fa0956f15b5a4b9efd303edbc19e948f25c9c7232dd810b8f5",
+    "geometry-native-0043.npz": "87fdcff63a45ad43e6fb26159ec67dda5a9660488c7b804a92b44382c4ad363a",
+    "geometry-native-0057.npz": "31c68b844b7c52d0fe9158092c00e4ac5798c63e256dc6a2e68109cd6d4b810c",
+    "geometry-native-0037.npz": "802aa6f0cf939518a802fd7069753758bf5ed12fadf0a37bf477fe4bd3bfb0f0",
+    "geometry-native-0068.npz": "665be07c50c131f957903c2fee4bf5967ab953e74a0d97182732805156b00c30",
+    "geometry-native-0070.npz": "05a51606dacebc4944e20c1ff71f277dfc63a76047cb2a121e6e711fe6c6cb73",
+    "geometry-native-0080.npz": "72ea9040d473aebc65267a4265ec6b3bfff51c659db9ac30b38af634169d0dbc",
+    "geometry-native-0065.npz": "9c2e83a3b4f651d9888b6d443540a932951cd1846c2827c4efbf223e0403ec0d",
+    "geometry-native-0035.npz": "444bf31cbeb7d609ecf8fad6411c8c2a413ea350d851df231b415b59a74078bc",
+    "geometry-native-0066.npz": "88575b829766361b8c69a9d4f851272c20b5f68ccb3d457806cd2772386535e1",
+    "geometry-native-0030.npz": "39d67a156ac945a606451ef7d8837c4a768855b5c0938ba81efc161b496e1816",
+    "geometry-native-0041.npz": "47cb46e12bd64e7f08508a98131278b39b7bf06faadf66e682e22c9df0757a2e",
+    "geometry-native-0047.npz": "23f3a27eb0bbe2bfef2ef7471b0f0a7339431f43eef81e90c2a7f3b42b1bd867",
+    "geometry-native-0039.npz": "45fbf21e80f1591e5131a8a1a6e06a19a59e29fdc37098913a09352607f0a9cf",
+    "geometry-native-0056.npz": "f6734a106acb53adc081ae4417833a14e3f96942987eac4b10a266160743fad2",
+    "geometry-native-0053.npz": "fb3205a71b578b34f32dcfac7b6051d2a1e8a75bcc05bd2ad16b4d2552d13fad",
+    "geometry-native-0014.npz": "4d6f71ac0cd9a26a96c4cd4d8df6a6045d8c12ce1042c5ca1f96e7529f37c68c",
+    "geometry-native-0044.npz": "1783ff8d7f12dd6554d2df3f7467bc0b76735aa969b2ea39ebbb47e26c66e9c6",
+    "geometry-native-0067.npz": "06c9f3f147ffdebf8afea35f05d0d865bc8b9f881784097956cda0a79da8da2e",
+    "geometry-native-0051.npz": "02c3effb3c1a2ee4381756c78c593e354c4247fbae7a865784f1b396b5cb14e9",
+    "geometry-native-0048.npz": "5b963876a819a6fd50c553b61e396ad731ec895652638273c7f80c4d7f8a0e4a",
+    "geometry-native-0029.npz": "bcb21b0f9118a22102711ad38eb46d35e9a2b7b662e2b54e07cb140586c9a231",
+    "geometry-native-0059.npz": "42e0c196f9bbb8ea9274db3c0fc99e8d5a4bcb629afcdd64965e220db40033d8",
+    "geometry-native-0069.npz": "658aa5c6357e105e8c1e56ffcd833e8c041e2baebc8ed7f2eb679ea57365f2ce",
+    "geometry-native-0012.npz": "69a47ed5ef5eec76643de1cedd65dea91692e0598afa9c8e14ea9e2a2b49d4d6",
+    "geometry-native-0052.npz": "ed318bc2ac811bf6a1ddb06c482c43f36f353b6c4367ad36c0b5d00a73f1287f",
+    "geometry-native-0016.npz": "cea99ada2f5ab78f4cb4bb55f0ff336cb5e224e1d5c131848358b6952bd339e3",
+    "geometry-native-0022.npz": "e5cdc0263d139190e526745b26054969a11ea28fadd7499ba726dcb19ffd332e",
+    "geometry-native-0042.npz": "65056159c1bdab3523bb111a5ca310cbd7786f6770b1bdf6b2a9fb292c0d98c9",
+    "proposal-bank.json": "e2c8b496c31c3ab753e1131aa1ca14c0d36bf764a725092aa5c479bce7206f48",
+    "geometry-native-0040.npz": "e2fa95f2882666ab5973716db69625d871094f3cd87fcfaf29e3e4aea416bac1",
+    "geometry-native-0062.npz": "bc472a0c628529b3de4664b68ccdca79f2f709ae8ceda9d1918f1590ec7aff7f",
+    "geometry-native-0055.npz": "f12ac95309a17f9c49f41e4e9be4cb627a01886596f2baa2af7aa03346d1fc1e",
+    "geometry-native-0010.npz": "e43890e4014a43825ec3b0d3b795e933eacca042ad741ca46a7d1173d87ccb7e",
+    "geometry-native-0024.npz": "3c6cd8629559629aeddfcdc3502234ad04328bffe082d66f83f729fa3dd06aee",
+    "contract.json": "e137b05fbcb80274132a87b7e7e71a2353f25af13803165f3e7337e247e5bbc0",
+    "geometry-native-0003.npz": "31f50cda2a73192e7b6839150b003c50a68d567e42d84d7da9ce909cdd5b6e09",
+    "geometry-native-0054.npz": "988cc18e74d627440975dadcf03f234d13d8a7ec4775a1b3701e2a6e172aa15d",
+    "geometry-native-0078.npz": "3a9119d9e6d29b3ac3cd9fc476ca21624020bb874bf238d52c8020d7fc6277b4",
+    "geometry-native-0064.npz": "320f6921d6170b931f14da4275fe0501096936abc4d6da8af0aa719988e999ef",
+    "source-near-misses.jsonl": "72b2ac8dd73e65d59beeb36c10e35efd1efc010c9d5d2635a040f470822c7956",
+    "geometry-native-0013.npz": "e1c7aacdcb8aa834d639928e9e2606ed64a8f3890560fa25b409dbfc932351c1",
+    "geometry-native-0001.npz": "1c39c8a1faf05aa4c62ecfcb8916ee435ecdc53bec991305216f20c891c5bb1d",
+    "geometry-native-0061.npz": "ba543dcfe075fe4e1737268e6470cb2f422e52ae62f17bb698a1728540a96519",
+    "geometry-native-0005.npz": "b0ec63bca5a6378cea90912ef1b21b38ab1d907c35b2b2d9a1a21156e184f0fd",
+    "geometry-native-0021.npz": "88b90f4c7c72314aec163d1db6df8da4735424b7df6245f12e8e497747e2e88d",
+    "geometry-native-0038.npz": "e98268cd8b69bbb9904cc12565d918c866d5c50faca40147fff1d66cfcd8d135",
+    "geometry-native-0019.npz": "ea2658087fd72fd8919d5c6b2e2c2d67d0bac6f4018a9125af4c92cab2ea8c96",
+    "geometry-native-0060.npz": "79999e0572e27e3e2ad7f82429427e2160f65f6709f7239871ea6251a88c0825",
+    "geometry-native-0031.npz": "873bdf170f7398c28bce3f435d9d7158f1b1e42787cf3d726f9b931d459632b4"
+  }
+}

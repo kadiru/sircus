@@ -1,5 +1,11 @@
 # Sircus in mjlab
 
+The [targeted bank expansion](../../baselines/mjlab-expanded-bank-20261102/README.md)
+adds one 9/10-confirmed template after 15,360 search throws, followed by 4,096 PPO
+throws. On 100 fresh positions × 3: learned 188/300 versus uniform 182/300; the small
+capture gain is uncertain, while clean captures improve 145 versus 76. Shared
+original candidates retain identical cached IK branches. [Protocol](EXPANSION.md).
+
 The [interactive learning interface](web/README.md) and [two completed learning
 studies](../../baselines/mjlab-learning-20261102/README.md) extend this contact
 comparison. Bucket dragging, positional locks, frozen prediction, explicit search

@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from '/vendor/OrbitControls.js';
-import { studyReady, buildRequest, methodLabel, coverageRows, finiteVector, friendlyError, coverageSummary, comparisonRows, learningPoints, inStudiedRegion, BOARD_BODY_SIZE, bankComparisonRows, policyRouteLabel, poseInputValues, bankCoverageRows, bankCoverageStatus, formatMetric, solveButtonState } from '/state.mjs';
+import { studyReady, buildRequest, methodLabel, coverageRows, finiteVector, friendlyError, coverageSummary, comparisonRows, learningPoints, inStudiedRegion, BOARD_BODY_SIZE, bankComparisonRows, policyRouteLabel, poseInputValues, bankCoverageRows, bankCoverageStatus, formatMetric, solveButtonState, expansionTargetRows, expansionProgress, expandedComparisonRows } from '/state.mjs';
 
 const $ = id => document.getElementById(id);
 const canvas = $('world');
@@ -291,6 +291,59 @@ function showBankComparison() {
   }
   table.append(body); $('bankComparison').replaceChildren(table);
 }
+function expansionTable(target, headings, rows, selected = () => false) {
+  const table = document.createElement('table'), head = document.createElement('thead'), header = document.createElement('tr');
+  for (const label of headings) { const cell = document.createElement('th'); cell.textContent = label; header.append(cell); }
+  head.append(header); table.append(head);
+  const body = document.createElement('tbody');
+  for (const row of rows) {
+    const tr = document.createElement('tr'); if (selected(row)) tr.className = 'selected';
+    for (const value of row) { const td = document.createElement('td'); td.textContent = String(value); tr.append(td); }
+    body.append(tr);
+  }
+  table.append(body); target.replaceChildren(table);
+}
+function showExpansion() {
+  const progress = expansionProgress(report);
+  $('expandedStudy').hidden = !progress;
+  if (!progress) return;
+  $('expansionStatus').textContent = `Expanded-bank study · ${progress.status}`;
+  $('expansionActivePolicy').textContent = progress.activePolicy;
+  $('expansionPhase').textContent = `Search: ${progress.searchPhase} · Training: ${progress.trainingPhase}${progress.queued ? ` · Waiting for shared 4090 (${Math.round(progress.waitSeconds)} s)` : ''}`;
+  addMetrics([
+    ['Development targets with a promoted template', `${progress.promoted} / ${progress.targetCount || '—'}`],
+    ['Recorded native search throws · all stages', progress.nativeSearchAttempts], ['Perturbed confirmation attempts · all stages', progress.confirmationAttempts],
+    ['CPU geometry proposals', progress.geometryProposals], ['PPO training attempts', progress.trainAttempts],
+    ['Native training releases', progress.nativeTrainReleases],
+    ['PPO updates', `${progress.updates}${progress.updateBudget ? ` / ${progress.updateBudget}` : ''}`],
+  ].filter(([, value]) => value !== null), $('expansionSummary'));
+  const plan = progress.trainLayouts === null ? 'Fresh train/validation/test splits will be declared before training.' : `${progress.trainLayouts} training layouts · ${progress.validationLayouts ?? '—'} validation · ${progress.testLayouts ?? '—'} fresh test × ${progress.testRepeats ?? '—'} nominal repeats.`;
+  const geometry = progress.geometry ? ` Current CPU audit: ${progress.geometry.group}, ${progress.geometry.completed} / ${progress.geometry.total} queries.` : '';
+  const sampling = progress.eligibleContexts === null ? '' : ` Training samples ${progress.eligibleContexts} endpoint-eligible contexts; ${progress.excludedContexts ?? '—'} excluded contexts remain in complete evaluation denominators.`;
+  $('expansionPlan').textContent = plan + geometry + sampling;
+  const targets = expansionTargetRows(report);
+  if (targets.length) expansionTable($('expansionTargets'), ['Converted DEV target', 'X / Y (mm)', 'Search captures / attempts, or retained sources', 'Promoted confirmation', 'Status / source'], targets.map(row => [
+    row.id, row.xy.map(v => (v * 1000).toFixed(1)).join(' / '), row.retainedSources && !row.attempts ? `${row.retainedSources} prior captured sources` : `${row.captures} / ${row.attempts}`,
+    row.promoted ? `${row.confirmationCaptures} / ${row.confirmationAttempts}` : '—',
+    row.promoted ? `${row.phase || 'Confirmed'} · ${row.sourceId}` : row.unresolvedReason,
+  ]));
+  else $('expansionTargets').textContent = 'The twelve converted-development coordinates will appear when the search report is available.';
+  const rows = expandedComparisonRows(report);
+  if (rows.length) expansionTable($('expansionComparison'), ['Frozen method', 'Captures / shots', 'Overall %', 'Clean captures', 'Eligible shots', 'Conditional %', 'Positions captured', 'Unresolved positions'], rows.map(row => [
+    row.label, `${row.captures} / ${row.attempts}`, row.attempts ? `${(100 * row.captures / row.attempts).toFixed(1)}%` : '—', row.clean,
+    row.eligibleAttempts, row.conditionalCaptureRate === null ? '—' : `${(100 * row.conditionalCaptureRate).toFixed(1)}%`,
+    `${row.positionsWithCapture} / ${row.layouts}`, row.unresolvedPositions,
+  ]), row => row[0] === 'Expanded bank · learned');
+  else $('expansionComparison').textContent = 'Fresh frozen-checkpoint comparisons will appear after the full training study completes.';
+  const paired = progress.training?.paired_comparisons?.learning_vs_uniform;
+  const interval = paired?.descriptive_95pct_layout_bootstrap;
+  $('expansionConclusion').textContent = interval?.length === 2 && Number.isFinite(paired.capture_rate_difference)
+    ? `Learned minus uniform capture rate: ${(100 * paired.capture_rate_difference).toFixed(1)} percentage points; descriptive 95% paired layout interval ${(100 * interval[0]).toFixed(1)} to ${(100 * interval[1]).toFixed(1)}. ${interval[0] <= 0 && interval[1] >= 0 ? 'No established capture-rate advantage.' : 'Single seeded simulation study.'} Clean capture counts are a separate quality measure.`
+    : '';
+  const points = learningPoints(progress.training);
+  drawChart($('expansionCaptureChart'), points, 'captures');
+  drawChart($('expansionRewardChart'), points, 'reward', true);
+}
 function showComparison() {
   const rows = comparisonRows(report), points = learningPoints(report);
   if (rows.length) {
@@ -328,7 +381,7 @@ function showCoverage() {
   if (evaluation.layouts !== undefined) pairs.push(['Frozen test layouts', evaluation.layouts]);
   if (pairs.length) addMetrics(pairs, $('studySummary'));
   else $('studySummary').textContent = report.summary ?? 'Study metrics will appear when published. Unresolved cells remain visible.';
-  showComparison(); showBankComparison();
+  showComparison(); showBankComparison(); showExpansion();
 }
 async function loadStatus() {
   try {

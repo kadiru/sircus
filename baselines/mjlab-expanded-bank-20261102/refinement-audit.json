@@ -1,0 +1,235 @@
+{
+  "version": "sircus-refinement-evidence-audit-v1",
+  "passed": true,
+  "checks": [
+    {
+      "name": "contract_fingerprint",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "expanded_bank_fingerprint",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "original_bank_fingerprint",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "original_prefix_unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "completed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "only_fresh_confirmations_counted",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "qualification_unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "sequential_fresh_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "selected_source_hashes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "exact_original_source_records",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "only_actual_prior_development_captures",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "twelve_development_targets",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "development_provenance",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source_associations",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "ten_per_source_invalids_stay_in_denominator",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "bounds",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "capture_rule",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "native_endpoint_gates",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "one_promotion_per_target",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "addition_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "old-test-19_actual_8_of_10",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "old-test-19_exact_geometry_provenance",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "old-test-08_promotion_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "old-test-09_promotion_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "old-test-10_promotion_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "old-test-12_promotion_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "old-test-19_promotion_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "old-test-21_promotion_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "old-test-23_promotion_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "old-test-26_promotion_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "old-test-35_promotion_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "old-test-39_promotion_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "old-test-41_promotion_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "old-test-48_promotion_selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "fresh_confirmation_statistics",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 710,
+          "captures": 262,
+          "clean": 96,
+          "invalid": 61,
+          "board_bounces": 649,
+          "mean_reward": 1.5725015732323262
+        },
+        "expected": {
+          "attempts": 710,
+          "captures": 262,
+          "clean": 96,
+          "invalid": 61,
+          "board_bounces": 649,
+          "mean_reward": 1.5725015732323262
+        }
+      }
+    },
+    {
+      "name": "prior_report.json_hash",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "prior_shots.jsonl_hash",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "selected_source_file_hash",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "expanded_bank_file_hash",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "alias_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "immutable_source_hashes",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "records": 710,
+  "retained_sources": 71,
+  "warnings": [
+    "Converted development layouts are not a held-out test.",
+    "Prior sources and fresh confirmation counts are kept separate.",
+    "Clipped Gaussian geometry perturbations do not establish real-world reliability."
+  ]
+}
