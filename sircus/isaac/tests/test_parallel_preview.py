@@ -18,6 +18,10 @@ class ParallelPreviewTests(unittest.TestCase):
             run = out / "parallel-world-20261101T000000Z-n32"
             run.mkdir()
             (run / "overview.jpg").write_bytes(b"fixture-image")
+            (out / "feasibility-map.json").write_text('{"phase":"completed"}')
+            (out / "feasibility-settings.csv").write_text(
+                "cell_id,status\ntarget-00,unresolved\n"
+            )
             (root / "outside.txt").write_text("must stay outside")
             (run / "close.jpg").symlink_to(root / "outside.txt")
             with socket.socket() as sock:
@@ -52,6 +56,14 @@ class ParallelPreviewTests(unittest.TestCase):
                     ) as r:
                         self.assertEqual(r.read(), b"fixture-image")
                         self.assertEqual(r.headers["Content-Type"], "image/jpeg")
+                    for path, expected in [
+                        ("/feasibility.html", b"Where can we score?"),
+                        ("/feasibility_panel.js", b"renderFeasibility"),
+                        ("/feasibility-map.json", b"completed"),
+                        ("/feasibility-settings.csv", b"unresolved"),
+                    ]:
+                        with urllib.request.urlopen(base + path) as r:
+                            self.assertIn(expected, r.read())
                     for path in [
                         "/parallel-media/" + run.name + "/close.jpg",
                         "/parallel-media/" + run.name + "/trials.jsonl",
