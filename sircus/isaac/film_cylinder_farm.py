@@ -58,6 +58,12 @@ p.add_argument(
 )
 p.add_argument("--expanded-qualify-only", action="store_true")
 p.add_argument("--expanded-options-per-cell", type=int, default=4)
+p.add_argument("--learning-study", action="store_true")
+p.add_argument("--study-sweep-limit", type=int, default=128)
+p.add_argument("--study-train-batches", type=int, default=128)
+p.add_argument("--study-eval-repeats", type=int, default=16)
+p.add_argument("--study-seed", type=int, default=20261110)
+p.add_argument("--study-legacy-checkpoint", type=Path)
 AppLauncher.add_app_launcher_args(p)
 args = p.parse_args()
 training_camera = args.training_camera_json is not None
@@ -70,6 +76,10 @@ if (training_camera and menu_inputs != 1) or (not training_camera and menu_input
     )
 if args.expanded_qualify_only and args.expanded_pose_menu is None:
     p.error("--expanded-qualify-only requires --expanded-pose-menu")
+if args.learning_study and (
+    not training_camera or args.expanded_pose_menu is None or args.expanded_qualify_only
+):
+    p.error("--learning-study requires a training camera and expanded offline bank")
 if not 2 <= args.expanded_options_per_cell <= 32:
     p.error("Expanded native menus require 2..32 options per cell")
 if args.expanded_options_per_cell != 4 and args.expanded_pose_menu is None:
@@ -507,6 +517,11 @@ def main():
     probes = env.probes()
     atomic(dest / "probes.json", probes)
     if training_camera:
+        if args.learning_study:
+            from farm_learning_runtime import run_study
+
+            run_study(env, spec, args.expanded_pose_menu, args)
+            return
         from action_training import run_training
 
         if args.expanded_pose_menu is not None:

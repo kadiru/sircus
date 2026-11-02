@@ -1,5 +1,12 @@
 # Project state
 
+## Broad shot-learning study in progress — November 2, 2026
+
+- [Method and reproduction](../sircus/isaac/FARM_SHOT_LEARNING.md): the previous short run had 20 zero-capture sites and narrow local menus. New seeded inverse-ballistic and independent proposals vary board XY, height, gap and tilt across the original table, deriving distance/bearing from each unchanged bucket. Held-board overhang is permitted; original endpoint and capture checks remain active.
+- Four bounded CPU workers screen up to 512 IK candidates per site and retain up to 128. A queued 4090-only study will perform the native sweep, 8,960 on-policy throws / 128 PPO updates, and fresh frozen-policy tests at the same 35 coordinates. These are planned budgets, not completed results. No unseen-layout performance claim follows.
+- New versioned candidate-conditioned categorical PPO samples all native-accepted candidates. A separately versioned reward preserves graded miss feedback; capture truth and historical scores remain unchanged. All candidates stay available regardless of capture outcome. Joint setup is initialized, not a learned or verified travel path.
+- Native control smoke passed: 280 training throws, four updates, zero invalid releases; CPU audit verified every likelihood. Local regression: 250 tests, nine expected Torch skips; actual Ubuntu Torch policy/update checks passed. Existing 4070 workload and services were preserved. A separate read-only Mac results page is available on loopback port 18785; it reads only mirrored aggregate results. Final study results remain pending.
+
 ## Expanded farm: all 35 sites released — November 2, 2026
 
 - [Method and reproduction](../sircus/isaac/EXPANDED_FARM_POSES.md), [results and evidence](../baselines/isaac-expanded-farm-20261102/README.md): the completed v4 run made 350/350 releases, ten at each of the 35 unchanged bucket sites, with zero invalid trials. Five PPO updates produced 111 qualified captures, including 59 clean and 101 single-board-bounce captures. These are training outcomes, not a held-out performance estimate.

@@ -6,6 +6,7 @@ Two UFACTORY850 arms learn to bounce a ball from a suction-mounted board into a 
 
 ## Start here
 
+- [Broad shot search and shared-policy learning](sircus/isaac/FARM_SHOT_LEARNING.md) — wider board positions and ballistic proposals, a candidate-conditioned PPO policy, graded miss feedback and per-table frozen tests. The larger study is in progress; search outcomes are separate from learned-policy performance.
 - [All 35 farm sites releasing in the expanded PPO study](sircus/isaac/EXPANDED_FARM_POSES.md) — 350/350 releases, 111 qualified captures and 24 native-qualified options per table, from the unchanged selected camera. [Results and evidence](baselines/isaac-expanded-farm-20261102/README.md). A short training pass with scripted transit and privileged inputs; no held-out generalization claim.
 - [Fixed-camera PPO training and action-only editing](sircus/isaac/ACTION_TRAINING_FILM.md) — records every batch of a fresh ten-batch run at the selected angle; keeps setup/drop/outcome while preserving full scoring evidence and explaining parked cells.
 - [User-selected one-minute farm film](sircus/isaac/CHOSEN_FARM_FILM.md) — native silver-gray Isaac orbit, then eight drops at the exact exported front-row camera. [Verified recording evidence](baselines/isaac-chosen-farm-20261102/README.md); replay of selected PPO actions, not a new training benchmark.
