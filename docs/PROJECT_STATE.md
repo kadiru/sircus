@@ -1,5 +1,12 @@
 # Project state
 
+## mjlab interactive policies and audited learning — November 2, 2026
+
+- [New interface](../sircus/mjlab/web/README.md): drag a bucket, fix board-center or released-ball XYZ, request a frozen prediction or separately labeled native search, and inspect the actual pose/ball trace. Native kinematics drive simplified arm surfaces; this is not an Isaac viewport. Manual controls stayed gated until both learning studies and independent audits completed.
+- [Published evidence and checkpoints](../baselines/mjlab-learning-20261102/README.md):8,507 continuous-policy training attempts and2,048 categorical bank-policy attempts on RTX4090. Original continuous test65/150 captures. On a fresh50-position×3 comparison: continuous75/150, uniform feasible bank94/150, learned selector93/150. The learned selector did not outperform uniform selection; proposal geometry contributes the demonstrated gain. Twelve fresh positions lack a candidate in the finite bank, not proof of impossibility.
+- Both policies use privileged geometry and fixed/held joint endpoints. No learned grasp, arm transit, camera pipeline or physical deployment. Exact one-second scoring, provisional bucket-height interpretation and historical results remain unchanged.407 continuous-study and170 bank-study audit checks passed. The new localhost preview uses finite4090 child jobs; it owns no GPU between requests. Existing Isaac setup, its preview and the4070 workload were not changed by this task.
+- Source snapshots and raw evidence remain under the isolated mjlab runtime on Ubuntu. Code and compact synthetic evidence are on the task branch; starting or pulling that branch does not launch a server. Next research step: expand the candidate family/endpoint feasibility for unresolved edge positions, then test a learned selector against its geometric baseline on another untouched spatial split. Do not assume that more PPO updates alone solve empty action masks.
+
 ## Simulation-only mjlab comparison — November 2, 2026
 
 - The [isolated mjlab port](../sircus/mjlab/README.md) compiles both UF850s, the attached board, 64 bucket-wall segments, table and ball. Native geometry and 32 URDF kinematics checks passed. The bucket uses a mocap pose with actual collision-transform checks after a static-cache issue was found.

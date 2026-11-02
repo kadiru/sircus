@@ -1,0 +1,209 @@
+{
+  "scope": "Post-study interactive validation; separate from frozen evaluation; actual native throws except conflict rejection",
+  "cases": {
+    "default_free": {
+      "method": "bank_policy",
+      "success": true,
+      "bucket_xy_m": null,
+      "message": "Measured native capture from one frozen learned-bank choice",
+      "metrics": {
+        "board_bounces": 1,
+        "retention_s": 0.9999999999999977,
+        "quality": 2,
+        "invalid": null,
+        "attempts": 1,
+        "feasible_candidates": 24,
+        "candidate_count": 256,
+        "eligible_candidates": 24,
+        "native_candidate_count": 256,
+        "tilt_deg": 41.28168398674323,
+        "scalar_score_audit_passed": true
+      },
+      "poses": {
+        "board_center": [
+          0.56593257188797,
+          -0.15726688504219055,
+          0.3795567750930786
+        ],
+        "release_center": [
+          0.565932657833278,
+          -0.15726692338997839,
+          0.5280467528650542
+        ],
+        "board_normal": [
+          0.2159167230129242,
+          -0.6234301328659058,
+          0.7514752149581909
+        ]
+      },
+      "search_at_inference": false
+    },
+    "dragged_free": {
+      "method": "bank_policy",
+      "success": true,
+      "bucket_xy_m": [
+        0.7691409563761344,
+        -0.21777837169019465
+      ],
+      "message": "Measured native capture from one frozen learned-bank choice",
+      "metrics": {
+        "board_bounces": 1,
+        "retention_s": 0.9999999999999977,
+        "quality": 1,
+        "invalid": null,
+        "attempts": 1,
+        "feasible_candidates": 11,
+        "candidate_count": 256,
+        "eligible_candidates": 11,
+        "native_candidate_count": 256,
+        "tilt_deg": 41.28168398674323,
+        "scalar_score_audit_passed": true
+      },
+      "poses": {
+        "board_center": [
+          0.5985828638076782,
+          -0.02569352462887764,
+          0.379556804895401
+        ],
+        "release_center": [
+          0.5985829326900155,
+          -0.025693429396873135,
+          0.5280467528650542
+        ],
+        "board_normal": [
+          0.4380575716495514,
+          -0.49334657192230225,
+          0.7514752745628357
+        ]
+      },
+      "search_at_inference": false
+    },
+    "board_locked": {
+      "method": "frozen_policy",
+      "success": true,
+      "bucket_xy_m": [
+        0.7691409563761344,
+        -0.21777837169019465
+      ],
+      "message": "Measured simulated capture: board rebound and one continuous second fully inside",
+      "metrics": {
+        "board_bounces": 1,
+        "retention_s": 0.9999999999999977,
+        "quality": 1,
+        "invalid": null,
+        "external_contacts": 0,
+        "attempts": 1,
+        "scalar_score_audit_passed": true,
+        "search_proposal": null
+      },
+      "poses": {
+        "board_center": [
+          0.5985998511314392,
+          -0.02569993957877159,
+          0.37959998846054077
+        ],
+        "release_center": [
+          0.5986,
+          -0.0257,
+          0.5342051144599915
+        ],
+        "board_normal": [
+          0.3382301926612854,
+          -0.38094452023506165,
+          0.860512375831604
+        ]
+      },
+      "search_at_inference": false,
+      "maximum_lock_error_m": 1.4886856081197664e-07
+    },
+    "release_locked": {
+      "method": "frozen_policy",
+      "success": true,
+      "bucket_xy_m": [
+        0.7691409563761344,
+        -0.21777837169019465
+      ],
+      "message": "Measured simulated capture: board rebound and one continuous second fully inside",
+      "metrics": {
+        "board_bounces": 1,
+        "retention_s": 0.9999999999999977,
+        "quality": 1,
+        "invalid": null,
+        "external_contacts": 0,
+        "attempts": 1,
+        "scalar_score_audit_passed": true,
+        "search_proposal": null
+      },
+      "poses": {
+        "board_center": [
+          0.5986000299453735,
+          -0.025699932128190994,
+          0.32744279503822327
+        ],
+        "release_center": [
+          0.5986,
+          -0.0257,
+          0.5342
+        ],
+        "board_normal": [
+          0.29482948780059814,
+          -0.33206331729888916,
+          0.8959965109825134
+        ]
+      },
+      "search_at_inference": false,
+      "maximum_lock_error_m": 0.0
+    },
+    "explicit_search": {
+      "method": "search",
+      "success": true,
+      "bucket_xy_m": [
+        0.7691409563761344,
+        -0.21777837169019465
+      ],
+      "message": "Measured simulated capture: board rebound and one continuous second fully inside",
+      "metrics": {
+        "board_bounces": 1,
+        "retention_s": 0.9999999999999977,
+        "quality": 2,
+        "invalid": null,
+        "external_contacts": 0,
+        "attempts": 129,
+        "scalar_score_audit_passed": true,
+        "search_proposal": {
+          "method": "continuous_search"
+        }
+      },
+      "poses": {
+        "board_center": [
+          0.598599910736084,
+          -0.025700096040964127,
+          0.31122881174087524
+        ],
+        "release_center": [
+          0.5986,
+          -0.0257,
+          0.5342
+        ],
+        "board_normal": [
+          0.22569839656352997,
+          -0.2542012631893158,
+          0.9404478669166565
+        ]
+      },
+      "search_at_inference": true
+    },
+    "conflicting_locks": {
+      "method": "frozen_policy",
+      "success": false,
+      "bucket_xy_m": [
+        0.7691409563761344,
+        -0.21777837169019465
+      ],
+      "message": "Both locked XY positions conflict with the vertical center-impact shot family",
+      "metrics": null,
+      "poses": {},
+      "search_at_inference": false
+    }
+  }
+}

@@ -1,0 +1,6617 @@
+[
+  {
+    "id": "train-00",
+    "bucket_xy_m": [
+      0.1,
+      -0.65
+    ],
+    "split": "train",
+    "captures": 0,
+    "trials": 118,
+    "valid": 80,
+    "best": {
+      "reward": 14.854567947680742,
+      "success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "closest_opening_distance_m": 0.009059450871637556,
+      "quality_score": 1,
+      "bucket_contact_before_entry": true,
+      "rim_band_contact": true,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 124.41534423828125,
+      "minimum_mouth_clearance_mm": -312.19281755342473,
+      "route_success": false,
+      "route_quality": 0,
+      "single_bounce_success": false,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 1,
+      "complete_success": false,
+      "physics_steps": 464,
+      "entry_class": "assisted_or_marginal_capture",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 477.12237548828125,
+        "bucket": 559.11962890625,
+        "table": 894.8650512695312,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        0.1,
+        -0.65
+      ],
+      "values": [
+        0.6246115905411089,
+        -0.2320629446452221,
+        0.35131694940552133,
+        24.976688688422676,
+        0.17610236347086486
+      ],
+      "board_center_m": [
+        0.624611496925354,
+        -0.2320629507303238,
+        0.35131698846817017
+      ],
+      "board_normal": [
+        -0.3302587568759918,
+        -0.2631039619445801,
+        0.9064797163009644
+      ],
+      "release_ball_center_m": [
+        0.6246115905411089,
+        -0.2320629446452221,
+        0.5649193128763862
+      ],
+      "q10": [
+        -0.35573294567869385,
+        -0.5967159315631765,
+        -1.9696124968454867,
+        3.924636165143569e-06,
+        -1.3728965653086436,
+        -0.3557331189581349
+      ],
+      "q14": [
+        3.414723756557861,
+        1.1983653160338499,
+        -3.9845417590136747,
+        -0.16536472266645658,
+        -1.6350728672196309,
+        1.9256577848323377
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 0.00010162100455743407,
+        "board_normal_error_deg": 0.0,
+        "dropper_error_mm": 6.73663765906307e-05
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        -0.9216312170028687,
+        -0.07136909663677216,
+        0.20412397384643555,
+        -0.32223546504974365
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.20543067157268524,
+          -0.07632464915513992,
+          0.6866031289100647
+        ],
+        [
+          0.6246117353439331,
+          -0.2320626676082611,
+          0.7499192953109741
+        ],
+        [
+          0.6246117353439331,
+          -0.2320626676082611,
+          0.7499192953109741
+        ],
+        [
+          0.6246116161346436,
+          -0.23206298053264618,
+          0.659919261932373
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.9875118732452393,
+          -0.09799104183912277,
+          0.505912184715271
+        ],
+        [
+          0.6873605251312256,
+          -0.18207289278507233,
+          0.1790858805179596
+        ],
+        [
+          0.6873605251312256,
+          -0.18207289278507233,
+          0.1790858805179596
+        ],
+        [
+          0.657637357711792,
+          -0.20575255155563354,
+          0.2606689929962158
+        ]
+      ],
+      "id": "shot-0001960",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 0,
+      "clean": 0,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": -0.18870526185127975
+    }
+  },
+  {
+    "id": "train-01",
+    "bucket_xy_m": [
+      0.29,
+      -0.65
+    ],
+    "split": "train",
+    "captures": 0,
+    "trials": 117,
+    "valid": 78,
+    "best": {
+      "reward": 3.618933730322693,
+      "success": false,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.433333333333333,
+      "closest_opening_distance_m": 0.015868411928273117,
+      "quality_score": 0,
+      "bucket_contact_before_entry": false,
+      "rim_band_contact": false,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 0.0,
+      "minimum_mouth_clearance_mm": 21.01412246849362,
+      "route_success": false,
+      "route_quality": 0,
+      "single_bounce_success": false,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 0,
+      "complete_success": false,
+      "physics_steps": 960,
+      "entry_class": "miss",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 831.5751953125,
+        "bucket": 589.5642700195312,
+        "table": 0.0,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        0.29,
+        -0.65
+      ],
+      "values": [
+        0.5853198074811613,
+        -0.17317591625542572,
+        0.2877589242763554,
+        30.202810279032672,
+        0.38619842143249117
+      ],
+      "board_center_m": [
+        0.5853198170661926,
+        -0.17317594587802887,
+        0.28775882720947266
+      ],
+      "board_normal": [
+        -0.26488196849823,
+        -0.42767903208732605,
+        0.8642503619194031
+      ],
+      "release_ball_center_m": [
+        0.5853198074811613,
+        -0.17317591625542572,
+        0.7114573457088466
+      ],
+      "q10": [
+        -0.2876670998474764,
+        -0.5569569052601745,
+        -2.251409847378417,
+        1.669567782165558e-06,
+        -1.6944529421412347,
+        -0.2876666276773459
+      ],
+      "q14": [
+        3.2718482556931567,
+        1.3811375118877032,
+        -3.7613732807127893,
+        -0.4013353319611089,
+        -1.642026462345537,
+        2.354339562093285
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 0.00010193797707577204,
+        "board_normal_error_deg": 0.0,
+        "dropper_error_mm": 3.153231395000186e-05
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        -0.843482494354248,
+        -0.126759871840477,
+        0.227611243724823,
+        -0.4697473645210266
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.1976838856935501,
+          -0.05848872289061546,
+          0.6950591802597046
+        ],
+        [
+          0.5853199362754822,
+          -0.173175647854805,
+          0.8964573740959167
+        ],
+        [
+          0.5853199362754822,
+          -0.173175647854805,
+          0.8964573740959167
+        ],
+        [
+          0.5853198170661926,
+          -0.17317594587802887,
+          0.8064573407173157
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.957547664642334,
+          -0.049749262630939484,
+          0.43752285838127136
+        ],
+        [
+          0.6356472969055176,
+          -0.09191664308309555,
+          0.12355142831802368
+        ],
+        [
+          0.6356472969055176,
+          -0.09191664308309555,
+          0.12355142831802368
+        ],
+        [
+          0.6118080019950867,
+          -0.13040804862976074,
+          0.20133382081985474
+        ]
+      ],
+      "id": "shot-0000386",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 1,
+      "clean": 1,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": 1.541534117219877
+    }
+  },
+  {
+    "id": "train-02",
+    "bucket_xy_m": [
+      0.48,
+      -0.65
+    ],
+    "split": "train",
+    "captures": 1,
+    "trials": 117,
+    "valid": 77,
+    "best": {
+      "reward": 4.523337938268084,
+      "success": false,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.7999999999999984,
+      "closest_opening_distance_m": 0.004690199335688842,
+      "quality_score": 0,
+      "bucket_contact_before_entry": false,
+      "rim_band_contact": false,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 0.0,
+      "minimum_mouth_clearance_mm": 13.894519458894898,
+      "route_success": false,
+      "route_quality": 0,
+      "single_bounce_success": false,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 0,
+      "complete_success": false,
+      "physics_steps": 960,
+      "entry_class": "miss",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 707.45751953125,
+        "bucket": 591.2691040039062,
+        "table": 0.0,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        0.48,
+        -0.65
+      ],
+      "values": [
+        0.6231354318961082,
+        -0.16548445467013262,
+        0.332357094736655,
+        26.505472603251256,
+        0.29946639927335017
+      ],
+      "board_center_m": [
+        0.6231353282928467,
+        -0.16548453271389008,
+        0.3323570489883423
+      ],
+      "board_normal": [
+        -0.12643879652023315,
+        -0.42799752950668335,
+        0.8948916792869568
+      ],
+      "release_ball_center_m": [
+        0.6231354318961082,
+        -0.16548445467013262,
+        0.6693234940100051
+      ],
+      "q10": [
+        -0.25958336542885013,
+        -0.6240700315015806,
+        -2.2514098473784747,
+        1.8762991606592915e-06,
+        -1.6273398158989212,
+        -0.2595826280349808
+      ],
+      "q14": [
+        3.2629430070503815,
+        1.2726949229884261,
+        -3.876753586696611,
+        -0.4330682254079796,
+        -1.79069962990582,
+        2.5904548738539748
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 0.00013754043765725743,
+        "board_normal_error_deg": 0.02734717992921012,
+        "dropper_error_mm": 5.331856174782588e-05
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        -0.7797024250030518,
+        -0.13723108172416687,
+        0.18363478779792786,
+        -0.5826748013496399
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.22025763988494873,
+          -0.058494169265031815,
+          0.6804885864257812
+        ],
+        [
+          0.6231355667114258,
+          -0.16548417508602142,
+          0.8543235659599304
+        ],
+        [
+          0.6231355667114258,
+          -0.16548417508602142,
+          0.8543235659599304
+        ],
+        [
+          0.6231354475021362,
+          -0.1654844880104065,
+          0.7643235325813293
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.9672518372535706,
+          -0.04512983188033104,
+          0.47854387760162354
+        ],
+        [
+          0.6471586227416992,
+          -0.08416467905044556,
+          0.16232770681381226
+        ],
+        [
+          0.6471586227416992,
+          -0.08416467905044556,
+          0.16232770681381226
+        ],
+        [
+          0.6357792019844055,
+          -0.1226847693324089,
+          0.2428678423166275
+        ]
+      ],
+      "id": "shot-0003222",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 2,
+      "clean": 1,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": 2.8410674126856272
+    }
+  },
+  {
+    "id": "train-03",
+    "bucket_xy_m": [
+      0.6699999999999999,
+      -0.65
+    ],
+    "split": "train",
+    "captures": 1,
+    "trials": 117,
+    "valid": 84,
+    "best": {
+      "reward": 4.8608977846169825,
+      "success": false,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9624999999999978,
+      "closest_opening_distance_m": 0.00390911883616212,
+      "quality_score": 0,
+      "bucket_contact_before_entry": false,
+      "rim_band_contact": false,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 0.0,
+      "minimum_mouth_clearance_mm": 12.01702992568864,
+      "route_success": false,
+      "route_quality": 0,
+      "single_bounce_success": false,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 0,
+      "complete_success": false,
+      "physics_steps": 960,
+      "entry_class": "miss",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 566.8029174804688,
+        "bucket": 575.02392578125,
+        "table": 0.0,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.65
+      ],
+      "values": [
+        0.5908595104844729,
+        -0.1842324233288633,
+        0.3545315140203259,
+        36.17239445652642,
+        0.3095040857854898
+      ],
+      "board_center_m": [
+        0.5908594131469727,
+        -0.1842324137687683,
+        0.35453155636787415
+      ],
+      "board_normal": [
+        0.09886911511421204,
+        -0.5818769335746765,
+        0.8072448968887329
+      ],
+      "release_ball_center_m": [
+        0.5908595104844729,
+        -0.1842324233288633,
+        0.7015355998058157
+      ],
+      "q10": [
+        -0.3022584687867352,
+        -0.5730984454643065,
+        -2.251409847378434,
+        1.7210539501447958e-06,
+        -1.6783114019368806,
+        -0.3022579313863239
+      ],
+      "q14": [
+        3.2375745853596034,
+        1.384133972485958,
+        -3.537505620342906,
+        -0.6460369238860654,
+        -1.781763709016872,
+        3.0745078442502733
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 0.00010658001322902885,
+        "board_normal_error_deg": 0.0,
+        "dropper_error_mm": 5.83570440753745e-05
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        -0.61329185962677,
+        -0.23719415068626404,
+        0.20029112696647644,
+        -0.726288914680481
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.2018851339817047,
+          -0.06294948607683182,
+          0.6916884779930115
+        ],
+        [
+          0.5908596515655518,
+          -0.18423208594322205,
+          0.8865355849266052
+        ],
+        [
+          0.5908596515655518,
+          -0.18423208594322205,
+          0.8865355849266052
+        ],
+        [
+          0.5908595323562622,
+          -0.18423239886760712,
+          0.7965355515480042
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.9558483362197876,
+          -0.03672769293189049,
+          0.4363749325275421
+        ],
+        [
+          0.5720741748809814,
+          -0.07367552816867828,
+          0.20115523040294647
+        ],
+        [
+          0.5720741748809814,
+          -0.07367552816867828,
+          0.20115523040294647
+        ],
+        [
+          0.5809724926948547,
+          -0.12604472041130066,
+          0.2738070785999298
+        ]
+      ],
+      "id": "shot-0002698",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 2,
+      "clean": 1,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": 2.835728084256386
+    }
+  },
+  {
+    "id": "train-04",
+    "bucket_xy_m": [
+      0.8599999999999999,
+      -0.65
+    ],
+    "split": "train",
+    "captures": 0,
+    "trials": 117,
+    "valid": 72,
+    "best": {
+      "reward": 4.783638500489466,
+      "success": false,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9791666666666644,
+      "closest_opening_distance_m": 0.010967999114911822,
+      "quality_score": 0,
+      "bucket_contact_before_entry": true,
+      "rim_band_contact": true,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 311.1478576660156,
+      "minimum_mouth_clearance_mm": -464.98708263063696,
+      "route_success": false,
+      "route_quality": 0,
+      "single_bounce_success": false,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 1,
+      "complete_success": false,
+      "physics_steps": 960,
+      "entry_class": "miss",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 475.2690734863281,
+        "bucket": 559.5150146484375,
+        "table": 903.3543701171875,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.65
+      ],
+      "values": [
+        0.6366633960291064,
+        0.16747288086690143,
+        0.36553972906076565,
+        41.38512207349332,
+        0.20863659445093027
+      ],
+      "board_center_m": [
+        0.6366633772850037,
+        0.16747277975082397,
+        0.36553966999053955
+      ],
+      "board_normal": [
+        0.17423422634601593,
+        -0.6377445459365845,
+        0.7502828240394592
+      ],
+      "release_ball_center_m": [
+        0.6366633960291064,
+        0.16747288086690143,
+        0.611676323511696
+      ],
+      "q10": [
+        0.25721375600688173,
+        -0.601038172750982,
+        -2.0816489346503944,
+        3.059830101035903e-06,
+        -1.4806107619237703,
+        0.25721399146642715
+      ],
+      "q14": [
+        -3.5163806669089994,
+        1.4111661366392525,
+        -3.428856940296875,
+        -3.7936351012989813,
+        2.0804627917665393,
+        0.426560582878497
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 0.0001185963495138087,
+        "board_normal_error_deg": 0.0063928154557985,
+        "dropper_error_mm": 6.628020243068988e-05
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        -0.567671537399292,
+        -0.2808597981929779,
+        0.21442098915576935,
+        -0.7435660362243652
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.21328788995742798,
+          0.056104157119989395,
+          0.6856529116630554
+        ],
+        [
+          0.6366633176803589,
+          0.16747324168682098,
+          0.7966763973236084
+        ],
+        [
+          0.6366633176803589,
+          0.16747324168682098,
+          0.7966763973236084
+        ],
+        [
+          0.6366634368896484,
+          0.16747291386127472,
+          0.7066763639450073
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.978995144367218,
+          0.1409529447555542,
+          0.4259902238845825
+        ],
+        [
+          0.6035587787628174,
+          0.288644015789032,
+          0.22298572957515717
+        ],
+        [
+          0.6035587787628174,
+          0.288644015789032,
+          0.22298572957515717
+        ],
+        [
+          0.6192399263381958,
+          0.23124724626541138,
+          0.2905113995075226
+        ]
+      ],
+      "id": "shot-0003329",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 0,
+      "clean": 0,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": -0.1961167738285049
+    }
+  },
+  {
+    "id": "train-05",
+    "bucket_xy_m": [
+      1.0499999999999998,
+      -0.65
+    ],
+    "split": "train",
+    "captures": 0,
+    "trials": 117,
+    "valid": 67,
+    "best": {
+      "reward": 14.815139173426662,
+      "success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "closest_opening_distance_m": 0.011638204345072635,
+      "quality_score": 1,
+      "bucket_contact_before_entry": false,
+      "rim_band_contact": false,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 0.0,
+      "minimum_mouth_clearance_mm": -330.46146122044905,
+      "route_success": false,
+      "route_quality": 0,
+      "single_bounce_success": false,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 1,
+      "complete_success": false,
+      "physics_steps": 536,
+      "entry_class": "assisted_or_marginal_capture",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 347.8501892089844,
+        "bucket": 444.0448303222656,
+        "table": 943.8541870117188,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.65
+      ],
+      "values": [
+        0.6454579514738439,
+        -0.14276162743142234,
+        0.42953177973779233,
+        38.544001338394324,
+        0.14014102437933498
+      ],
+      "board_center_m": [
+        0.645457923412323,
+        -0.1427617222070694,
+        0.42953190207481384
+      ],
+      "board_normal": [
+        0.3885256052017212,
+        -0.4871556758880615,
+        0.7821299433708191
+      ],
+      "release_ball_center_m": [
+        0.6454579514738439,
+        -0.14276162743142234,
+        0.6071728041171274
+      ],
+      "q10": [
+        -0.21768136267863578,
+        -0.6071018280914893,
+        -2.0805001379202928,
+        3.0894881306081495e-06,
+        -1.473398309853104,
+        -0.21768111044991695
+      ],
+      "q14": [
+        3.2070638176790323,
+        1.2352747582489723,
+        -3.6258786909793446,
+        -0.6172277496938399,
+        -2.057613465876668,
+        3.547929420037572
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 0.00015727752242868293,
+        "board_normal_error_deg": 0.0,
+        "dropper_error_mm": 0.00010583686671547205
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        -0.4095529317855835,
+        -0.29737043380737305,
+        0.14319869875907898,
+        -0.8504889011383057
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.2172393798828125,
+          -0.048049457371234894,
+          0.684309720993042
+        ],
+        [
+          0.6454581022262573,
+          -0.14276129007339478,
+          0.7921727895736694
+        ],
+        [
+          0.6454581022262573,
+          -0.14276129007339478,
+          0.7921727895736694
+        ],
+        [
+          0.6454580426216125,
+          -0.14276160299777985,
+          0.7021727561950684
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.9698454141616821,
+          -0.02409418486058712,
+          0.49241071939468384
+        ],
+        [
+          0.5716379880905151,
+          -0.05020187050104141,
+          0.2809273600578308
+        ],
+        [
+          0.5716379880905151,
+          -0.05020187050104141,
+          0.2809273600578308
+        ],
+        [
+          0.6066053509712219,
+          -0.09404614567756653,
+          0.351318895816803
+        ]
+      ],
+      "id": "shot-0002350",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 0,
+      "clean": 0,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": -0.04905175870564504
+    }
+  },
+  {
+    "id": "train-06",
+    "bucket_xy_m": [
+      1.24,
+      -0.65
+    ],
+    "split": "train",
+    "captures": 0,
+    "trials": 117,
+    "valid": 29,
+    "best": {
+      "reward": 14.808671448122224,
+      "success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "closest_opening_distance_m": 0.012066553363106879,
+      "quality_score": 1,
+      "bucket_contact_before_entry": true,
+      "rim_band_contact": true,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 446.4975891113281,
+      "minimum_mouth_clearance_mm": -403.5717033685648,
+      "route_success": false,
+      "route_quality": 0,
+      "single_bounce_success": false,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 1,
+      "complete_success": false,
+      "physics_steps": 552,
+      "entry_class": "assisted_or_marginal_capture",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 560.5460205078125,
+        "bucket": 446.4975891113281,
+        "table": 891.0106201171875,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        1.24,
+        -0.65
+      ],
+      "values": [
+        0.616707398953174,
+        -0.019995215531658755,
+        0.4643908609490158,
+        37.938364505411755,
+        0.20186829850630353
+      ],
+      "board_center_m": [
+        0.6167072653770447,
+        -0.019995257258415222,
+        0.4643908143043518
+      ],
+      "board_normal": [
+        0.43240436911582947,
+        -0.4370608627796173,
+        0.7886727452278137
+      ],
+      "release_ball_center_m": [
+        0.616707398953174,
+        -0.019995215531658755,
+        0.7037591594553194
+      ],
+      "q10": [
+        -0.03241889540552444,
+        -0.5695003023392018,
+        -2.2514098473784303,
+        1.7096769639563994e-06,
+        -1.6819095450620345,
+        -0.03241837246298868
+      ],
+      "q14": [
+        3.0632159224155195,
+        1.320566874337786,
+        -3.382517121220515,
+        -0.4690677951490862,
+        -2.0464711270510163,
+        3.886379038050415
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 0.00014751077654595281,
+        "board_normal_error_deg": 0.0,
+        "dropper_error_mm": 4.7492946315063994e-05
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        -0.36423957347869873,
+        -0.2999817430973053,
+        0.12519864737987518,
+        -0.872734785079956
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.21018072962760925,
+          -0.006815428379923105,
+          0.692447304725647
+        ],
+        [
+          0.616707444190979,
+          -0.01999485492706299,
+          0.888759195804596
+        ],
+        [
+          0.616707444190979,
+          -0.01999485492706299,
+          0.888759195804596
+        ],
+        [
+          0.616707444190979,
+          -0.019995201379060745,
+          0.7987591624259949
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.9606157541275024,
+          0.02958325296640396,
+          0.46057283878326416
+        ],
+        [
+          0.5345504879951477,
+          0.06304658949375153,
+          0.3145431876182556
+        ],
+        [
+          0.5345504879951477,
+          0.06304658949375153,
+          0.3145431876182556
+        ],
+        [
+          0.5734668374061584,
+          0.02371082454919815,
+          0.38552355766296387
+        ]
+      ],
+      "id": "shot-0000706",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 0,
+      "clean": 0,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": -0.03385886819697522
+    }
+  },
+  {
+    "id": "train-07",
+    "bucket_xy_m": [
+      0.1,
+      -0.42500000000000004
+    ],
+    "split": "train",
+    "captures": 3,
+    "trials": 117,
+    "valid": 82,
+    "best": {
+      "reward": 14.855480951828326,
+      "success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "closest_opening_distance_m": 0.009000389385986487,
+      "quality_score": 1,
+      "bucket_contact_before_entry": false,
+      "rim_band_contact": true,
+      "exited_after_entry": true,
+      "peak_bucket_force_before_entry_N": 0.0,
+      "minimum_mouth_clearance_mm": 24.478645651917972,
+      "route_success": true,
+      "route_quality": 1,
+      "single_bounce_success": true,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 0,
+      "complete_success": true,
+      "physics_steps": 666,
+      "entry_class": "assisted_or_marginal_capture",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 709.8471069335938,
+        "bucket": 737.0843505859375,
+        "table": 0.0,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        0.1,
+        -0.42500000000000004
+      ],
+      "values": [
+        0.5154923473393045,
+        -0.15850979264120915,
+        0.32967456876353374,
+        22.395123947776746,
+        0.37261132106517864
+      ],
+      "board_center_m": [
+        0.5154922604560852,
+        -0.15850983560085297,
+        0.32967451214790344
+      ],
+      "board_normal": [
+        -0.32069680094718933,
+        -0.20568977296352386,
+        0.9245786070823669
+      ],
+      "release_ball_center_m": [
+        0.5154923473393045,
+        -0.15850979264120915,
+        0.7397858898287124
+      ],
+      "q10": [
+        -0.29832338588553015,
+        -0.34322004395743977,
+        -2.01830572180239,
+        2.493529670644026e-06,
+        -1.6750856778737162,
+        -0.29832428737679023
+      ],
+      "q14": [
+        0.1556832863047732,
+        -1.4893167935691238,
+        -2.156753857092745,
+        -0.17941272965026495,
+        2.1063644346613275,
+        -1.2766262408807412
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 0.00011224773665346559,
+        "board_normal_error_deg": 0.0,
+        "dropper_error_mm": 7.7654917120382e-05
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        0.9413524270057678,
+        0.05462611839175224,
+        -0.18635118007659912,
+        0.2759438157081604
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.125445157289505,
+          -0.03857390210032463,
+          0.7312541007995605
+        ],
+        [
+          0.5154924392700195,
+          -0.15850946307182312,
+          0.924785852432251
+        ],
+        [
+          0.5154924392700195,
+          -0.15850946307182312,
+          0.924785852432251
+        ],
+        [
+          0.51549232006073,
+          -0.1585097759962082,
+          0.8347858190536499
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.9533052444458008,
+          -0.060272298753261566,
+          0.39574331045150757
+        ],
+        [
+          0.576424777507782,
+          -0.1194290965795517,
+          0.1540045440196991
+        ],
+        [
+          0.576424777507782,
+          -0.1194290965795517,
+          0.1540045440196991
+        ],
+        [
+          0.5475619435310364,
+          -0.13794085383415222,
+          0.23721665143966675
+        ]
+      ],
+      "id": "shot-0003997",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 2,
+      "clean": 0,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": 3.1571829665263547
+    }
+  },
+  {
+    "id": "train-08",
+    "bucket_xy_m": [
+      0.29,
+      -0.42500000000000004
+    ],
+    "split": "train",
+    "captures": 14,
+    "trials": 117,
+    "valid": 72,
+    "best": {
+      "reward": 14.913744971219678,
+      "success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "closest_opening_distance_m": 0.0052902168340560616,
+      "quality_score": 1,
+      "bucket_contact_before_entry": true,
+      "rim_band_contact": true,
+      "exited_after_entry": true,
+      "peak_bucket_force_before_entry_N": 468.1557922363281,
+      "minimum_mouth_clearance_mm": 5.167355481349105,
+      "route_success": true,
+      "route_quality": 1,
+      "single_bounce_success": true,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 0,
+      "complete_success": true,
+      "physics_steps": 548,
+      "entry_class": "assisted_or_marginal_capture",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 462.7735290527344,
+        "bucket": 691.8776245117188,
+        "table": 0.0,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        0.29,
+        -0.42500000000000004
+      ],
+      "values": [
+        0.5151196580914589,
+        -0.17795095302506786,
+        0.42952109265211785,
+        39.40105623280489,
+        0.18734401135074727
+      ],
+      "board_center_m": [
+        0.5151196122169495,
+        -0.17795097827911377,
+        0.4295211136341095
+      ],
+      "board_normal": [
+        -0.4275258183479309,
+        -0.4691721796989441,
+        0.7727219462394714
+      ],
+      "release_ball_center_m": [
+        0.5151196580914589,
+        -0.17795095302506786,
+        0.6543651040028651
+      ],
+      "q10": [
+        -0.33262655445838357,
+        -0.27120691639156114,
+        -1.725851630945742,
+        4.284946672159759e-06,
+        -1.4546447145891102,
+        -0.33262870668596134
+      ],
+      "q14": [
+        0.11928066992702725,
+        -1.1714996719820496,
+        -1.8618932804483703,
+        -0.4484473889092148,
+        1.8648959027687122,
+        -1.120740698133466
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 5.641348617219534e-05,
+        "board_normal_error_deg": 0.0,
+        "dropper_error_mm": 0.00010915812919757176
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        0.8612086176872253,
+        0.13619588315486908,
+        -0.30836620926856995,
+        0.38036924600601196
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.09875092655420303,
+          -0.03411430865526199,
+          0.7397452592849731
+        ],
+        [
+          0.5151197910308838,
+          -0.17795062065124512,
+          0.8393651843070984
+        ],
+        [
+          0.5151197910308838,
+          -0.17795062065124512,
+          0.8393651843070984
+        ],
+        [
+          0.5151196718215942,
+          -0.1779509335756302,
+          0.7493652105331421
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.980543315410614,
+          -0.04275967553257942,
+          0.5156217813491821
+        ],
+        [
+          0.5963496565818787,
+          -0.08880855143070221,
+          0.28270381689071655
+        ],
+        [
+          0.5963496565818787,
+          -0.08880855143070221,
+          0.28270381689071655
+        ],
+        [
+          0.5578721761703491,
+          -0.1310337632894516,
+          0.3522489070892334
+        ]
+      ],
+      "id": "shot-0001793",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 3,
+      "clean": 0,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": 4.213353080729131
+    }
+  },
+  {
+    "id": "train-09",
+    "bucket_xy_m": [
+      0.48,
+      -0.42500000000000004
+    ],
+    "split": "train",
+    "captures": 27,
+    "trials": 117,
+    "valid": 81,
+    "best": {
+      "reward": 14.924982767023156,
+      "success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "closest_opening_distance_m": 0.004587619806723554,
+      "quality_score": 2,
+      "bucket_contact_before_entry": false,
+      "rim_band_contact": false,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 0.0,
+      "minimum_mouth_clearance_mm": 43.71274253522079,
+      "route_success": true,
+      "route_quality": 2,
+      "single_bounce_success": true,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 0,
+      "complete_success": true,
+      "physics_steps": 413,
+      "entry_class": "clean_capture",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 691.9086303710938,
+        "bucket": 610.906982421875,
+        "table": 0.0,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        0.48,
+        -0.42500000000000004
+      ],
+      "values": [
+        0.5631278041984389,
+        0.007773035468978617,
+        0.3058979909750582,
+        22.285182534392025,
+        0.3505774319473297
+      ],
+      "board_center_m": [
+        0.5631276965141296,
+        0.007773004472255707,
+        0.3058980107307434
+      ],
+      "board_normal": [
+        -0.07153265923261642,
+        -0.3724088966846466,
+        0.9253080487251282
+      ],
+      "release_ball_center_m": [
+        0.5631278041984389,
+        0.007773035468978617,
+        0.6939754229223879
+      ],
+      "q10": [
+        0.013795576571446826,
+        -0.35932781338766895,
+        -1.9298492491298969,
+        3.206047983016503e-06,
+        -1.5705214357721031,
+        0.01379448581413878
+      ],
+      "q14": [
+        3.038706988980748,
+        1.5253157259352292,
+        -3.4394958728289775,
+        -0.39577180160391634,
+        -1.7713706096846258,
+        2.964679362846184
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 0.00011378486009549979,
+        "board_normal_error_deg": 0.0,
+        "dropper_error_mm": 8.746631124317459e-05
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        -0.7563869953155518,
+        -0.12308815121650696,
+        0.14898106455802917,
+        -0.6249262094497681
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.13712717592716217,
+          0.0018923802999779582,
+          0.7290924787521362
+        ],
+        [
+          0.5631278157234192,
+          0.007773426361382008,
+          0.8789753913879395
+        ],
+        [
+          0.5631278157234192,
+          0.007773426361382008,
+          0.8789753913879395
+        ],
+        [
+          0.5631278157234192,
+          0.007773092947900295,
+          0.7889753580093384
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.9497731924057007,
+          0.04001179710030556,
+          0.3817298710346222
+        ],
+        [
+          0.5767189264297485,
+          0.07853101193904877,
+          0.13008961081504822
+        ],
+        [
+          0.5767189264297485,
+          0.07853101193904877,
+          0.13008961081504822
+        ],
+        [
+          0.5702809691429138,
+          0.045013897120952606,
+          0.21336719393730164
+        ]
+      ],
+      "id": "shot-0000044",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 3,
+      "clean": 1,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": 4.30462757057406
+    }
+  },
+  {
+    "id": "train-10",
+    "bucket_xy_m": [
+      0.6699999999999999,
+      -0.42500000000000004
+    ],
+    "split": "train",
+    "captures": 28,
+    "trials": 117,
+    "valid": 85,
+    "best": {
+      "reward": 14.748767583049373,
+      "success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "closest_opening_distance_m": 0.016108305476912044,
+      "quality_score": 2,
+      "bucket_contact_before_entry": false,
+      "rim_band_contact": false,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 0.0,
+      "minimum_mouth_clearance_mm": 35.89865026872364,
+      "route_success": true,
+      "route_quality": 2,
+      "single_bounce_success": true,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 0,
+      "complete_success": true,
+      "physics_steps": 589,
+      "entry_class": "clean_capture",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 434.6532287597656,
+        "bucket": 606.9491577148438,
+        "table": 0.0,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.42500000000000004
+      ],
+      "values": [
+        0.7107888676145455,
+        -0.18549708599356024,
+        0.2566869137423825,
+        37.21897657594422,
+        0.19484428737039663
+      ],
+      "board_center_m": [
+        0.7107887268066406,
+        -0.18549712002277374,
+        0.2566869854927063
+      ],
+      "board_normal": [
+        -0.1015496551990509,
+        -0.5962772965431213,
+        0.7963298559188843
+      ],
+      "release_ball_center_m": [
+        0.7107888676145455,
+        -0.18549708599356024,
+        0.48903120111277915
+      ],
+      "q10": [
+        -0.25528654566999065,
+        -0.819819859824959,
+        -2.1494440174671543,
+        3.186498424693562e-06,
+        -1.329624157663022,
+        -0.2552853969326089
+      ],
+      "q14": [
+        3.2599425881518047,
+        1.2497334879935047,
+        -4.130893828595585,
+        -0.6707288046319989,
+        -1.9379879073747062,
+        2.509111830635097
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 0.00016165692814103575,
+        "board_normal_error_deg": 0.0,
+        "dropper_error_mm": 0.00016627148221079284
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        -0.7242088913917542,
+        -0.20583753287792206,
+        0.24385656416416168,
+        -0.6112989783287048
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.2758585512638092,
+          -0.07199268788099289,
+          0.630118727684021
+        ],
+        [
+          0.7107890844345093,
+          -0.18549680709838867,
+          0.6740312576293945
+        ],
+        [
+          0.7107890844345093,
+          -0.18549680709838867,
+          0.6740312576293945
+        ],
+        [
+          0.7107890248298645,
+          -0.18549713492393494,
+          0.5840312242507935
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.9698271155357361,
+          -0.04369713366031647,
+          0.48707300424575806
+        ],
+        [
+          0.7300829887390137,
+          -0.07220417261123657,
+          0.1053844690322876
+        ],
+        [
+          0.7300829887390137,
+          -0.07220417261123657,
+          0.1053844690322876
+        ],
+        [
+          0.7209436893463135,
+          -0.12586939334869385,
+          0.17705398797988892
+        ]
+      ],
+      "id": "shot-0000780",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 3,
+      "clean": 2,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": 4.370912317914658
+    }
+  },
+  {
+    "id": "train-11",
+    "bucket_xy_m": [
+      0.8599999999999999,
+      -0.42500000000000004
+    ],
+    "split": "train",
+    "captures": 11,
+    "trials": 117,
+    "valid": 46,
+    "best": {
+      "reward": 14.72058483086035,
+      "success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "closest_opening_distance_m": 0.01805795155026205,
+      "quality_score": 2,
+      "bucket_contact_before_entry": false,
+      "rim_band_contact": false,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 0.0,
+      "minimum_mouth_clearance_mm": 30.44495799504746,
+      "route_success": true,
+      "route_quality": 2,
+      "single_bounce_success": true,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 0,
+      "complete_success": true,
+      "physics_steps": 473,
+      "entry_class": "clean_capture",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 740.7356567382812,
+        "bucket": 577.2911987304688,
+        "table": 0.0,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.42500000000000004
+      ],
+      "values": [
+        0.6470963493461261,
+        -0.017138088573231763,
+        0.3137168120096143,
+        34.7643756037841,
+        0.3133591063839553
+      ],
+      "board_center_m": [
+        0.6470963358879089,
+        -0.017138157039880753,
+        0.3137167990207672
+      ],
+      "board_normal": [
+        0.2638598084449768,
+        -0.5054792165756226,
+        0.8215038776397705
+      ],
+      "release_ball_center_m": [
+        0.6470963493461261,
+        -0.017138088573231763,
+        0.6645759183935696
+      ],
+      "q10": [
+        -0.026485920218196755,
+        -0.6269313275216674,
+        -2.2444690468807567,
+        1.9350204394556256e-06,
+        -1.6175377193811404,
+        -0.02648518512431581
+      ],
+      "q14": [
+        3.0354167764350297,
+        1.4004615623658923,
+        -3.6210167678833614,
+        -0.6049864105539916,
+        -2.154196248413072,
+        3.4585936569798013
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 7.097545902231649e-05,
+        "board_normal_error_deg": 0.021599848291982728,
+        "dropper_error_mm": 6.50850071764739e-05
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        -0.49462300539016724,
+        -0.2554870843887329,
+        0.15483659505844116,
+        -0.8161494731903076
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.22871695458889008,
+          -0.006058353465050459,
+          0.6798351407051086
+        ],
+        [
+          0.6470963954925537,
+          -0.017137765884399414,
+          0.849575936794281
+        ],
+        [
+          0.6470963954925537,
+          -0.017137765884399414,
+          0.849575936794281
+        ],
+        [
+          0.6470963954925537,
+          -0.017138099297881126,
+          0.7595759630203247
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.9551180601119995,
+          0.040731269866228104,
+          0.43010833859443665
+        ],
+        [
+          0.5969629287719727,
+          0.0789031982421875,
+          0.15763121843338013
+        ],
+        [
+          0.5969629287719727,
+          0.0789031982421875,
+          0.15763121843338013
+        ],
+        [
+          0.6207103729248047,
+          0.03340977430343628,
+          0.2315663993358612
+        ]
+      ],
+      "id": "shot-0001271",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 2,
+      "clean": 2,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": 2.957586285853832
+    }
+  },
+  {
+    "id": "train-12",
+    "bucket_xy_m": [
+      1.0499999999999998,
+      -0.42500000000000004
+    ],
+    "split": "train",
+    "captures": 1,
+    "trials": 117,
+    "valid": 23,
+    "best": {
+      "reward": 14.881591179383022,
+      "success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "closest_opening_distance_m": 0.007323526761199265,
+      "quality_score": 1,
+      "bucket_contact_before_entry": true,
+      "rim_band_contact": true,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 584.2379760742188,
+      "minimum_mouth_clearance_mm": -31.48280716565531,
+      "route_success": true,
+      "route_quality": 1,
+      "single_bounce_success": true,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 0,
+      "complete_success": true,
+      "physics_steps": 695,
+      "entry_class": "assisted_or_marginal_capture",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 694.3795776367188,
+        "bucket": 584.2379760742188,
+        "table": 0.0,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.42500000000000004
+      ],
+      "values": [
+        0.641407258943278,
+        -0.10161873560190784,
+        0.2637416523124998,
+        24.66610554771796,
+        0.3322557744367503
+      ],
+      "board_center_m": [
+        0.6414071917533875,
+        -0.10161881148815155,
+        0.2637416124343872
+      ],
+      "board_normal": [
+        0.32723984122276306,
+        -0.25899434089660645,
+        0.9087554216384888
+      ],
+      "release_ball_center_m": [
+        0.641407258943278,
+        -0.10161873560190784,
+        0.6334974267492501
+      ],
+      "q10": [
+        -0.15713207690869388,
+        -0.5901319010937712,
+        -2.1154049667569037,
+        2.7678849012498116e-06,
+        -1.5252730656871476,
+        -0.15713178040106954
+      ],
+      "q14": [
+        -3.0725678186932806,
+        1.6070505415619443,
+        -3.3769342990131963,
+        5.942555101288029,
+        -2.1425132067371346,
+        3.831719427843837
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 0.00010891954479468004,
+        "board_normal_error_deg": 0.0,
+        "dropper_error_mm": 9.431595916749605e-05
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        -0.3209543526172638,
+        -0.2017376720905304,
+        0.07017333060503006,
+        -0.9226950407028198
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.21434877812862396,
+          -0.033960212022066116,
+          0.6880390644073486
+        ],
+        [
+          0.6414073705673218,
+          -0.10161840915679932,
+          0.8184975385665894
+        ],
+        [
+          0.6414073705673218,
+          -0.10161840915679932,
+          0.8184975385665894
+        ],
+        [
+          0.641407310962677,
+          -0.10161872953176498,
+          0.7284975051879883
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.9484944343566895,
+          -0.02688213810324669,
+          0.3498624861240387
+        ],
+        [
+          0.5792316198348999,
+          -0.0524095818400383,
+          0.09107822179794312
+        ],
+        [
+          0.5792316198348999,
+          -0.0524095818400383,
+          0.09107822179794312
+        ],
+        [
+          0.6086832284927368,
+          -0.07571937888860703,
+          0.1728661060333252
+        ]
+      ],
+      "id": "shot-0000712",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 0,
+      "clean": 0,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": -0.1925030314028834
+    }
+  },
+  {
+    "id": "train-13",
+    "bucket_xy_m": [
+      1.24,
+      -0.42500000000000004
+    ],
+    "split": "train",
+    "captures": 0,
+    "trials": 117,
+    "valid": 23,
+    "best": {
+      "reward": 14.717338835464567,
+      "success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "closest_opening_distance_m": 0.018284553186044068,
+      "quality_score": 1,
+      "bucket_contact_before_entry": false,
+      "rim_band_contact": false,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 0.0,
+      "minimum_mouth_clearance_mm": -282.4662352672216,
+      "route_success": false,
+      "route_quality": 0,
+      "single_bounce_success": false,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 1,
+      "complete_success": false,
+      "physics_steps": 487,
+      "entry_class": "assisted_or_marginal_capture",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 425.2617492675781,
+        "bucket": 501.48486328125,
+        "table": 929.09326171875,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        1.24,
+        -0.42500000000000004
+      ],
+      "values": [
+        0.6592210156115226,
+        -0.18172091711022012,
+        0.46602296659153497,
+        29.763717902508162,
+        0.10964884371025477
+      ],
+      "board_center_m": [
+        0.6592210531234741,
+        -0.1817210167646408,
+        0.46602296829223633
+      ],
+      "board_normal": [
+        0.45787671208381653,
+        -0.1917971521615982,
+        0.8680800199508667
+      ],
+      "release_ball_center_m": [
+        0.6592210156115226,
+        -0.18172091711022012,
+        0.6131718103017898
+      ],
+      "q10": [
+        -0.2689870994554128,
+        -0.7085509249519965,
+        -2.2514098473784863,
+        2.1110157639340943e-06,
+        -1.5428589224473979,
+        -0.26898604820229827
+      ],
+      "q14": [
+        3.329244090827989,
+        1.2399322302911904,
+        -3.5671482011218956,
+        -0.32048754574114807,
+        -2.0878030389031803,
+        4.028591176031021
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 0.00010649433063043891,
+        "board_normal_error_deg": 0.0,
+        "dropper_error_mm": 0.00013055228364364474
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        -0.1904323548078537,
+        -0.2517918050289154,
+        0.050605546683073044,
+        -0.9475101828575134
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.24465954303741455,
+          -0.06744381785392761,
+          0.6601301431655884
+        ],
+        [
+          0.6592212319374084,
+          -0.1817205846309662,
+          0.7981717586517334
+        ],
+        [
+          0.6592212319374084,
+          -0.1817205846309662,
+          0.7981717586517334
+        ],
+        [
+          0.6592211127281189,
+          -0.18172089755535126,
+          0.7081717252731323
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.9749376177787781,
+          -0.06881067156791687,
+          0.49069416522979736
+        ],
+        [
+          0.5722243785858154,
+          -0.14527922868728638,
+          0.3010878264904022
+        ],
+        [
+          0.5722243785858154,
+          -0.14527922868728638,
+          0.3010878264904022
+        ],
+        [
+          0.6134333610534668,
+          -0.16254130005836487,
+          0.37921494245529175
+        ]
+      ],
+      "id": "shot-0000958",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 0,
+      "clean": 0,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": 0.06997962904928264
+    }
+  },
+  {
+    "id": "train-14",
+    "bucket_xy_m": [
+      0.1,
+      -0.2
+    ],
+    "split": "train",
+    "captures": 11,
+    "trials": 117,
+    "valid": 75,
+    "best": {
+      "reward": 14.88989449006286,
+      "success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "closest_opening_distance_m": 0.00679514140923021,
+      "quality_score": 1,
+      "bucket_contact_before_entry": true,
+      "rim_band_contact": true,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 732.4698486328125,
+      "minimum_mouth_clearance_mm": 0.797392055121568,
+      "route_success": true,
+      "route_quality": 1,
+      "single_bounce_success": true,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 0,
+      "complete_success": true,
+      "physics_steps": 403,
+      "entry_class": "assisted_or_marginal_capture",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 711.8280029296875,
+        "bucket": 732.4698486328125,
+        "table": 0.0,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        0.1,
+        -0.2
+      ],
+      "values": [
+        0.5212729406171328,
+        -0.060077790779238416,
+        0.2593902436820004,
+        32.81572192110865,
+        0.4560251912284729
+      ],
+      "board_center_m": [
+        0.5212728977203369,
+        -0.06007782369852066,
+        0.2593901753425598
+      ],
+      "board_normal": [
+        -0.5143119692802429,
+        -0.17082440853118896,
+        0.8404180407524109
+      ],
+      "release_ball_center_m": [
+        0.5212729406171328,
+        -0.060077790779238416,
+        0.7529154349104733
+      ],
+      "q10": [
+        -0.11475331574866174,
+        -0.31663109072834755,
+        -2.0157990129846333,
+        2.387187097319849e-06,
+        -1.699167922285487,
+        -0.1147543354701559
+      ],
+      "q14": [
+        0.038427402199353734,
+        -1.460925042697142,
+        -1.945580955183828,
+        -0.17530218196858455,
+        2.0957012196679283,
+        -1.4202732131777227
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 8.714409551889464e-05,
+        "board_normal_error_deg": 0.0,
+        "dropper_error_mm": 5.705888673420958e-05
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        0.9469709396362305,
+        0.04509760066866875,
+        -0.27884986996650696,
+        0.15315081179141998
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.12063313275575638,
+          -0.013903673738241196,
+          0.7346134185791016
+        ],
+        [
+          0.5212730169296265,
+          -0.06007740646600723,
+          0.9379153847694397
+        ],
+        [
+          0.5212730169296265,
+          -0.06007740646600723,
+          0.9379153847694397
+        ],
+        [
+          0.5212729573249817,
+          -0.060077741742134094,
+          0.8479154109954834
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.9499479532241821,
+          -0.014894078485667706,
+          0.40676504373550415
+        ],
+        [
+          0.6189922094345093,
+          -0.027621522545814514,
+          0.09971073269844055
+        ],
+        [
+          0.6189922094345093,
+          -0.027621522545814514,
+          0.09971073269844055
+        ],
+        [
+          0.5727040767669678,
+          -0.0429953895509243,
+          0.17534838616847992
+        ]
+      ],
+      "id": "shot-0000504",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 1,
+      "clean": 0,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": 1.3197768929738498
+    }
+  },
+  {
+    "id": "train-15",
+    "bucket_xy_m": [
+      0.29,
+      -0.2
+    ],
+    "split": "train",
+    "captures": 30,
+    "trials": 117,
+    "valid": 74,
+    "best": {
+      "reward": 14.917967238028055,
+      "success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "closest_opening_distance_m": 0.0050257542677616856,
+      "quality_score": 2,
+      "bucket_contact_before_entry": false,
+      "rim_band_contact": false,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 0.0,
+      "minimum_mouth_clearance_mm": 10.094367813666572,
+      "route_success": true,
+      "route_quality": 2,
+      "single_bounce_success": true,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 0,
+      "complete_success": true,
+      "physics_steps": 373,
+      "entry_class": "clean_capture",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 589.317138671875,
+        "bucket": 572.1990356445312,
+        "table": 0.0,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        0.29,
+        -0.2
+      ],
+      "values": [
+        0.6189274631341789,
+        0.08150113979101159,
+        0.3401140388694352,
+        32.12817684891195,
+        0.3115504318858502
+      ],
+      "board_center_m": [
+        0.6189273595809937,
+        0.08150114119052887,
+        0.34011396765708923
+      ],
+      "board_normal": [
+        -0.4040490984916687,
+        -0.3457913398742676,
+        0.8468607068061829
+      ],
+      "release_ball_center_m": [
+        0.6189274631341789,
+        0.08150113979101159,
+        0.6891644707552853
+      ],
+      "q10": [
+        0.13092037496551343,
+        -0.5716761491570352,
+        -2.2191104337115517,
+        1.9483607883898955e-06,
+        -1.6474342845775833,
+        0.13092084721595262
+      ],
+      "q14": [
+        2.9160688216283748,
+        1.1672171557295872,
+        -4.052064698286962,
+        -0.44594354380387363,
+        -1.705627158289297,
+        2.3589001485439955
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 0.0001256838058048114,
+        "board_normal_error_deg": 0.0,
+        "dropper_error_mm": 0.00012719666830464304
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        -0.9013909101486206,
+        -0.09590493887662888,
+        0.259561151266098,
+        -0.3330538272857666
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.20919948816299438,
+          0.02754680998623371,
+          0.6919888854026794
+        ],
+        [
+          0.6189274787902832,
+          0.08150145411491394,
+          0.8741644024848938
+        ],
+        [
+          0.6189274787902832,
+          0.08150145411491394,
+          0.8741644024848938
+        ],
+        [
+          0.618927538394928,
+          0.08150112628936768,
+          0.7841643691062927
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.987723708152771,
+          0.08020307868719101,
+          0.5171565413475037
+        ],
+        [
+          0.6956967115402222,
+          0.147201806306839,
+          0.1792105734348297
+        ],
+        [
+          0.6956967115402222,
+          0.147201806306839,
+          0.1792105734348297
+        ],
+        [
+          0.659332275390625,
+          0.11608027666807175,
+          0.25542789697647095
+        ]
+      ],
+      "id": "shot-0002290",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 3,
+      "clean": 0,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": 4.202467533393201
+    }
+  },
+  {
+    "id": "train-16",
+    "bucket_xy_m": [
+      0.48,
+      -0.2
+    ],
+    "split": "train",
+    "captures": 30,
+    "trials": 117,
+    "valid": 62,
+    "best": {
+      "reward": 14.845647430434354,
+      "success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "closest_opening_distance_m": 0.009638046458126546,
+      "quality_score": 2,
+      "bucket_contact_before_entry": false,
+      "rim_band_contact": false,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 0.0,
+      "minimum_mouth_clearance_mm": 22.96297471459163,
+      "route_success": true,
+      "route_quality": 2,
+      "single_bounce_success": true,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 0,
+      "complete_success": true,
+      "physics_steps": 405,
+      "entry_class": "clean_capture",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 466.4504699707031,
+        "bucket": 575.6987915039062,
+        "table": 0.0,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        0.48,
+        -0.2
+      ],
+      "values": [
+        0.6170188040196392,
+        0.017558787634892825,
+        0.2463873495011888,
+        31.29173377992751,
+        0.19464084508438875
+      ],
+      "board_center_m": [
+        0.6170187592506409,
+        0.017558790743350983,
+        0.2463873028755188
+      ],
+      "board_normal": [
+        -0.27679505944252014,
+        -0.43949583172798157,
+        0.8545339107513428
+      ],
+      "release_ball_center_m": [
+        0.6170188040196392,
+        0.017558787634892825,
+        0.47852819458557755
+      ],
+      "q10": [
+        0.02844489416500471,
+        -0.44719399031446533,
+        -1.5637713664748576,
+        6.870788324527485e-06,
+        -1.11657737619938,
+        0.02844212808615551
+      ],
+      "q14": [
+        2.991371441735044,
+        1.4019357516971678,
+        -3.8429845785342263,
+        -0.5146340003794077,
+        -1.8283804498965586,
+        2.5259923444251338
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 6.471382249443652e-05,
+        "board_normal_error_deg": 0.0,
+        "dropper_error_mm": 5.6540693493887815e-05
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        -0.8430372476577759,
+        -0.13033106923103333,
+        0.23610787093639374,
+        -0.46535494923591614
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.16858096420764923,
+          0.0047971890307962894,
+          0.7156496047973633
+        ],
+        [
+          0.6170187592506409,
+          0.017559103667736053,
+          0.6635282039642334
+        ],
+        [
+          0.6170187592506409,
+          0.017559103667736053,
+          0.6635282039642334
+        ],
+        [
+          0.6170187592506409,
+          0.017558762803673744,
+          0.5735281705856323
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.9571862816810608,
+          0.057534653693437576,
+          0.429541677236557
+        ],
+        [
+          0.669609785079956,
+          0.10106328874826431,
+          0.08402600884437561
+        ],
+        [
+          0.669609785079956,
+          0.10106328874826431,
+          0.08402600884437561
+        ],
+        [
+          0.6446982622146606,
+          0.06150836497545242,
+          0.16093391180038452
+        ]
+      ],
+      "id": "shot-0002711",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 3,
+      "clean": 2,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": 4.406613564310704
+    }
+  },
+  {
+    "id": "train-17",
+    "bucket_xy_m": [
+      0.6699999999999999,
+      -0.2
+    ],
+    "split": "train",
+    "captures": 29,
+    "trials": 117,
+    "valid": 81,
+    "best": {
+      "reward": 14.92037641683813,
+      "success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "closest_opening_distance_m": 0.004875115595892298,
+      "quality_score": 2,
+      "bucket_contact_before_entry": false,
+      "rim_band_contact": false,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 0.0,
+      "minimum_mouth_clearance_mm": 28.156481194135065,
+      "route_success": true,
+      "route_quality": 2,
+      "single_bounce_success": true,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 0,
+      "complete_success": true,
+      "physics_steps": 393,
+      "entry_class": "clean_capture",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 534.7073364257812,
+        "bucket": 543.0370483398438,
+        "table": 0.0,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.2
+      ],
+      "values": [
+        0.6171063066497271,
+        0.08803550635147972,
+        0.2638258903567998,
+        21.22343755955649,
+        0.18931971195681155
+      ],
+      "board_center_m": [
+        0.6171061992645264,
+        0.0880354642868042,
+        0.26382577419281006
+      ],
+      "board_normal": [
+        0.06538384407758713,
+        -0.3560522496700287,
+        0.9321759343147278
+      ],
+      "release_ball_center_m": [
+        0.6171063066497271,
+        0.08803550635147972,
+        0.4906456023136114
+      ],
+      "q10": [
+        0.14169735140404693,
+        -0.46045228993320625,
+        -1.6090389890403072,
+        6.488253413753973e-06,
+        -1.1485866991443499,
+        0.14169492898331176
+      ],
+      "q14": [
+        2.9322037535028844,
+        1.5791311449372196,
+        -3.446680692090799,
+        -0.3774398536725265,
+        -2.002754282095263,
+        3.3934814558456576
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 0.0001636920608335586,
+        "board_normal_error_deg": 0.0,
+        "dropper_error_mm": 6.334608852449172e-05
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        -0.6291252374649048,
+        -0.14148695766925812,
+        0.11787081509828568,
+        -0.7551751136779785
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.17155957221984863,
+          0.024474216625094414,
+          0.7133827209472656
+        ],
+        [
+          0.6171062588691711,
+          0.08803581446409225,
+          0.6756455302238464
+        ],
+        [
+          0.6171062588691711,
+          0.08803581446409225,
+          0.6756455302238464
+        ],
+        [
+          0.6171063184738159,
+          0.0880354642868042,
+          0.5856455564498901
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.9558412432670593,
+          0.08106201887130737,
+          0.36074796319007874
+        ],
+        [
+          0.6046832799911499,
+          0.15568572282791138,
+          0.08671244978904724
+        ],
+        [
+          0.6046832799911499,
+          0.15568572282791138,
+          0.08671244978904724
+        ],
+        [
+          0.6105678081512451,
+          0.12364069372415543,
+          0.17060816287994385
+        ]
+      ],
+      "id": "shot-0003972",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 3,
+      "clean": 1,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": 4.315581876224242
+    }
+  },
+  {
+    "id": "train-18",
+    "bucket_xy_m": [
+      0.8599999999999999,
+      -0.2
+    ],
+    "split": "train",
+    "captures": 11,
+    "trials": 117,
+    "valid": 26,
+    "best": {
+      "reward": 14.881773547700275,
+      "success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "closest_opening_distance_m": 0.007311896637799357,
+      "quality_score": 1,
+      "bucket_contact_before_entry": false,
+      "rim_band_contact": false,
+      "exited_after_entry": true,
+      "peak_bucket_force_before_entry_N": 0.0,
+      "minimum_mouth_clearance_mm": 46.674341048041406,
+      "route_success": true,
+      "route_quality": 1,
+      "single_bounce_success": true,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 0,
+      "complete_success": true,
+      "physics_steps": 403,
+      "entry_class": "assisted_or_marginal_capture",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 380.99310302734375,
+        "bucket": 665.0753173828125,
+        "table": 0.0,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.2
+      ],
+      "values": [
+        0.6274269811022803,
+        -0.01081488833161734,
+        0.40906503211023215,
+        32.749881784770345,
+        0.1353410311538266
+      ],
+      "board_center_m": [
+        0.6274269819259644,
+        -0.010814964771270752,
+        0.40906497836112976
+      ],
+      "board_normal": [
+        0.4196624457836151,
+        -0.3413718342781067,
+        0.8410401940345764
+      ],
+      "release_ball_center_m": [
+        0.6274269811022803,
+        -0.01081488833161734,
+        0.5819060632640587
+      ],
+      "q10": [
+        -0.01724132959231661,
+        -0.47814114276315833,
+        -1.8361304777034875,
+        4.502493483682244e-06,
+        -1.357989334970759,
+        -0.017242407722268278
+      ],
+      "q14": [
+        3.0732531434105153,
+        1.3729274574539072,
+        -3.4385267664075503,
+        -0.3746728962257839,
+        -2.1211731994250203,
+        3.9738966054501375
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 9.344872967046399e-05,
+        "board_normal_error_deg": 0.017601916066137566,
+        "dropper_error_mm": 4.696614279396576e-05
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        -0.3212643265724182,
+        -0.26564717292785645,
+        0.09440053254365921,
+        -0.9040516018867493
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.17942257225513458,
+          -0.0030931313522160053,
+          0.7102628946304321
+        ],
+        [
+          0.6274269819259644,
+          -0.010814564302563667,
+          0.7669061422348022
+        ],
+        [
+          0.6274269819259644,
+          -0.010814564302563667,
+          0.7669061422348022
+        ],
+        [
+          0.6274269819259644,
+          -0.010814899578690529,
+          0.6769061088562012
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.9558119773864746,
+          0.026110615581274033,
+          0.4406648576259613
+        ],
+        [
+          0.5476911067962646,
+          0.05404599756002426,
+          0.24926744401454926
+        ],
+        [
+          0.5476911067962646,
+          0.05404599756002426,
+          0.24926744401454926
+        ],
+        [
+          0.5854607224464417,
+          0.023322224617004395,
+          0.32496094703674316
+        ]
+      ],
+      "id": "shot-0003238",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 3,
+      "clean": 0,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": 4.182369125569917
+    }
+  },
+  {
+    "id": "train-19",
+    "bucket_xy_m": [
+      1.0499999999999998,
+      -0.2
+    ],
+    "split": "train",
+    "captures": 1,
+    "trials": 117,
+    "valid": 19,
+    "best": {
+      "reward": 14.534289250202562,
+      "success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "closest_opening_distance_m": 0.0318095923123075,
+      "quality_score": 1,
+      "bucket_contact_before_entry": true,
+      "rim_band_contact": true,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 656.1627197265625,
+      "minimum_mouth_clearance_mm": -28.46478825393859,
+      "route_success": true,
+      "route_quality": 1,
+      "single_bounce_success": true,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 0,
+      "complete_success": true,
+      "physics_steps": 487,
+      "entry_class": "assisted_or_marginal_capture",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 609.848388671875,
+        "bucket": 656.1627197265625,
+        "table": 0.0,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.2
+      ],
+      "values": [
+        0.6261257932984119,
+        -0.09601814926452976,
+        0.3487120764804143,
+        21.71220358585077,
+        0.2754840852618723
+      ],
+      "board_center_m": [
+        0.6261257529258728,
+        -0.09601819515228271,
+        0.3487120270729065
+      ],
+      "board_normal": [
+        0.35929179191589355,
+        -0.08813873678445816,
+        0.9290539026260376
+      ],
+      "release_ball_center_m": [
+        0.6261257932984119,
+        -0.09601814926452976,
+        0.6616961617422865
+      ],
+      "q10": [
+        -0.152174642172266,
+        -0.5642638203545133,
+        -2.1424694279955387,
+        2.4800336544306784e-06,
+        -1.5782056076650337,
+        -0.1521743679852425
+      ],
+      "q14": [
+        3.242945826905619,
+        1.4986849739609884,
+        -3.3836947127133215,
+        -0.1437960100070261,
+        -2.0951775191239252,
+        4.320688514767721
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 7.859217271363828e-05,
+        "board_normal_error_deg": 0.0,
+        "dropper_error_mm": 0.0001027736755727725
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        -0.11784380674362183,
+        -0.18698224425315857,
+        0.022599482908844948,
+        -0.9750075936317444
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.20615828037261963,
+          -0.03161568567156792,
+          0.6935439705848694
+        ],
+        [
+          0.6261259317398071,
+          -0.0960177332162857,
+          0.8466961979866028
+        ],
+        [
+          0.6261259317398071,
+          -0.0960177332162857,
+          0.8466961979866028
+        ],
+        [
+          0.6261258721351624,
+          -0.09601808339357376,
+          0.7566961646080017
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.950319766998291,
+          -0.03935900703072548,
+          0.3920975923538208
+        ],
+        [
+          0.557860255241394,
+          -0.07927150279283524,
+          0.17219184339046478
+        ],
+        [
+          0.557860255241394,
+          -0.07927150279283524,
+          0.17219184339046478
+        ],
+        [
+          0.5901965498924255,
+          -0.08720432221889496,
+          0.2558066248893738
+        ]
+      ],
+      "id": "shot-0001629",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 3,
+      "clean": 0,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": 4.2024123175037
+    }
+  },
+  {
+    "id": "train-20",
+    "bucket_xy_m": [
+      1.24,
+      -0.2
+    ],
+    "split": "train",
+    "captures": 0,
+    "trials": 117,
+    "valid": 16,
+    "best": {
+      "reward": 14.425595757531479,
+      "success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "closest_opening_distance_m": 0.04062688544974027,
+      "quality_score": 1,
+      "bucket_contact_before_entry": true,
+      "rim_band_contact": true,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 266.9128112792969,
+      "minimum_mouth_clearance_mm": -239.28287371265634,
+      "route_success": false,
+      "route_quality": 0,
+      "single_bounce_success": false,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 1,
+      "complete_success": false,
+      "physics_steps": 454,
+      "entry_class": "assisted_or_marginal_capture",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 433.43939208984375,
+        "bucket": 492.658203125,
+        "table": 879.1103515625,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        1.24,
+        -0.2
+      ],
+      "values": [
+        0.6588373742231647,
+        -0.09298268409320125,
+        0.4552390627055446,
+        25.218290372176803,
+        0.14819982371294008
+      ],
+      "board_center_m": [
+        0.6588371992111206,
+        -0.0929827094078064,
+        0.45523911714553833
+      ],
+      "board_normal": [
+        0.41902321577072144,
+        -0.07716015726327896,
+        0.9046912789344788
+      ],
+      "release_ball_center_m": [
+        0.6588373742231647,
+        -0.09298268409320125,
+        0.6409388864184846
+      ],
+      "q10": [
+        -0.1402129069555823,
+        -0.6673951863608076,
+        -2.251409847378489,
+        2.000017778856752e-06,
+        -1.5840146610391221,
+        -0.1402120060796639
+      ],
+      "q14": [
+        3.2445417451707264,
+        1.2155538999873816,
+        -3.6577078081424315,
+        -0.14379840103235544,
+        -2.151375794299815,
+        4.373987460145396
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 0.00018502366801154615,
+        "board_normal_error_deg": 0.0,
+        "dropper_error_mm": 3.979061365453288e-05
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        -0.08873279392719269,
+        -0.21739478409290314,
+        0.019848985597491264,
+        -0.9718396067619324
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.2390175610780716,
+          -0.03373381495475769,
+          0.6703211665153503
+        ],
+        [
+          0.6588374376296997,
+          -0.09298235923051834,
+          0.825938880443573
+        ],
+        [
+          0.6588374376296997,
+          -0.09298235923051834,
+          0.825938880443573
+        ],
+        [
+          0.6588373780250549,
+          -0.09298267960548401,
+          0.7359388470649719
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.9735963344573975,
+          -0.03757817670702934,
+          0.4996475577354431
+        ],
+        [
+          0.5792227983474731,
+          -0.07832194119691849,
+          0.28334787487983704
+        ],
+        [
+          0.5792227983474731,
+          -0.07832194119691849,
+          0.28334787487983704
+        ],
+        [
+          0.6169348955154419,
+          -0.08526669442653656,
+          0.3647700250148773
+        ]
+      ],
+      "id": "shot-0001000",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 0,
+      "clean": 0,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": -0.06277132002585313
+    }
+  },
+  {
+    "id": "train-21",
+    "bucket_xy_m": [
+      0.1,
+      0.025000000000000022
+    ],
+    "split": "train",
+    "captures": 0,
+    "trials": 117,
+    "valid": 77,
+    "best": {
+      "reward": 14.936149654389245,
+      "success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "closest_opening_distance_m": 0.0038935072646665166,
+      "quality_score": 2,
+      "bucket_contact_before_entry": false,
+      "rim_band_contact": false,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 0.0,
+      "minimum_mouth_clearance_mm": 23.593306702684032,
+      "route_success": false,
+      "route_quality": 0,
+      "single_bounce_success": false,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 6,
+      "complete_success": false,
+      "physics_steps": 396,
+      "entry_class": "clean_capture",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 454.39422607421875,
+        "bucket": 579.9888916015625,
+        "table": 0.0,
+        "floor": 0.0,
+        "robot": 555.2516479492188,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        0.1,
+        0.025000000000000022
+      ],
+      "values": [
+        0.4678756845554284,
+        0.16091567342134777,
+        0.4348702194881706,
+        38.99099636986452,
+        0.23025616840840224
+      ],
+      "board_center_m": [
+        0.46787551045417786,
+        0.1609157919883728,
+        0.4348701536655426
+      ],
+      "board_normal": [
+        -0.5902047753334045,
+        -0.21805737912654877,
+        0.7772447466850281
+      ],
+      "release_ball_center_m": [
+        0.4678756845554284,
+        0.16091567342134777,
+        0.7026263878965728
+      ],
+      "q10": [
+        0.331249390163885,
+        -0.16768685104744144,
+        -1.7129996617934475,
+        3.7585864453369943e-06,
+        -1.5453128107821739,
+        0.3312468497036835
+      ],
+      "q14": [
+        -0.26110331745480725,
+        -1.2795627528990847,
+        -2.080546670259851,
+        -0.3773981549785273,
+        1.7436091249422112,
+        -1.136743552777885
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 0.00022068530358587354,
+        "board_normal_error_deg": 0.0,
+        "dropper_error_mm": 3.914761641274233e-05
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        0.9279476404190063,
+        0.05874720215797424,
+        -0.3285215497016907,
+        0.16593846678733826
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.06155179440975189,
+          0.02116924710571766,
+          0.7485299110412598
+        ],
+        [
+          0.467875599861145,
+          0.16091600060462952,
+          0.8876264095306396
+        ],
+        [
+          0.467875599861145,
+          0.16091600060462952,
+          0.8876264095306396
+        ],
+        [
+          0.46787571907043457,
+          0.16091568768024445,
+          0.7976263761520386
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.9763948321342468,
+          0.09643632173538208,
+          0.4759836494922638
+        ],
+        [
+          0.5800144672393799,
+          0.20234638452529907,
+          0.28719353675842285
+        ],
+        [
+          0.5800144672393799,
+          0.20234638452529907,
+          0.28719353675842285
+        ],
+        [
+          0.5268959999084473,
+          0.18272154033184052,
+          0.35714566707611084
+        ]
+      ],
+      "id": "shot-0002051",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 0,
+      "clean": 0,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": 0.09011405847435479
+    }
+  },
+  {
+    "id": "train-22",
+    "bucket_xy_m": [
+      0.29,
+      0.025000000000000022
+    ],
+    "split": "train",
+    "captures": 29,
+    "trials": 117,
+    "valid": 74,
+    "best": {
+      "reward": 14.876444362083795,
+      "success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "closest_opening_distance_m": 0.007652218949041172,
+      "quality_score": 2,
+      "bucket_contact_before_entry": false,
+      "rim_band_contact": false,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 0.0,
+      "minimum_mouth_clearance_mm": 6.551285737263834,
+      "route_success": true,
+      "route_quality": 2,
+      "single_bounce_success": true,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 0,
+      "complete_success": true,
+      "physics_steps": 362,
+      "entry_class": "clean_capture",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 487.7138671875,
+        "bucket": 630.4400024414062,
+        "table": 0.0,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        0.29,
+        0.025000000000000022
+      ],
+      "values": [
+        0.5327648285757146,
+        -0.1354232352471045,
+        0.261309804291553,
+        39.96447587371121,
+        0.26666980166964344
+      ],
+      "board_center_m": [
+        0.5327647924423218,
+        -0.13542324304580688,
+        0.2613098621368408
+      ],
+      "board_normal": [
+        -0.5358787178993225,
+        0.3541180193424225,
+        0.7664428353309631
+      ],
+      "release_ball_center_m": [
+        0.5327648285757146,
+        -0.1354232352471045,
+        0.5654796059611964
+      ],
+      "q10": [
+        -0.24892254341231945,
+        -0.2544331465896166,
+        -1.5066797974090294,
+        6.0414704572913035e-06,
+        -1.252246650860657,
+        -0.24892589008128
+      ],
+      "q14": [
+        0.2808255175704554,
+        -1.4566428482215101,
+        -1.9837008156722604,
+        0.5802063501784053,
+        2.040711990918935,
+        -2.014487646648151
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 6.864779065226307e-05,
+        "board_normal_error_deg": 0.0,
+        "dropper_error_mm": 6.840574899295241e-05
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        0.9000248312950134,
+        -0.09836336970329285,
+        -0.3272663652896881,
+        -0.2705121636390686
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.09513498842716217,
+          -0.0241823922842741,
+          0.7414447069168091
+        ],
+        [
+          0.5327649712562561,
+          -0.13542290031909943,
+          0.750479519367218
+        ],
+        [
+          0.5327649712562561,
+          -0.13542290031909943,
+          0.750479519367218
+        ],
+        [
+          0.5327648520469666,
+          -0.1354232132434845,
+          0.6604795455932617
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.96502685546875,
+          -0.10738592594861984,
+          0.40842464566230774
+        ],
+        [
+          0.6345816254615784,
+          -0.202705979347229,
+          0.11568579077720642
+        ],
+        [
+          0.6345816254615784,
+          -0.202705979347229,
+          0.11568579077720642
+        ],
+        [
+          0.5863526463508606,
+          -0.17083504796028137,
+          0.18466556072235107
+        ]
+      ],
+      "id": "shot-0001842",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 3,
+      "clean": 3,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": 4.495188767072057
+    }
+  },
+  {
+    "id": "train-23",
+    "bucket_xy_m": [
+      0.48,
+      0.025000000000000022
+    ],
+    "split": "train",
+    "captures": 29,
+    "trials": 117,
+    "valid": 63,
+    "best": {
+      "reward": 14.892803138419339,
+      "success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "closest_opening_distance_m": 0.006610596988370286,
+      "quality_score": 2,
+      "bucket_contact_before_entry": false,
+      "rim_band_contact": false,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 0.0,
+      "minimum_mouth_clearance_mm": 36.23734901580259,
+      "route_success": true,
+      "route_quality": 2,
+      "single_bounce_success": true,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 0,
+      "complete_success": true,
+      "physics_steps": 361,
+      "entry_class": "clean_capture",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 329.30072021484375,
+        "bucket": 552.3927612304688,
+        "table": 0.0,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        0.48,
+        0.025000000000000022
+      ],
+      "values": [
+        0.6497921995871924,
+        0.014746607060560135,
+        0.2741482940207319,
+        27.534005060312847,
+        0.0963651221865184
+      ],
+      "board_center_m": [
+        0.6497921943664551,
+        0.014746570959687233,
+        0.2741484045982361
+      ],
+      "board_normal": [
+        -0.46143415570259094,
+        0.027864975854754448,
+        0.8867368102073669
+      ],
+      "release_ball_center_m": [
+        0.6497921995871924,
+        0.014746607060560135,
+        0.4080134162072503
+      ],
+      "q10": [
+        0.02268556171589161,
+        -0.5671427153996018,
+        -1.5762781345729713,
+        7.6038750896660854e-06,
+        -1.0091354192118098,
+        0.022682914029240955
+      ],
+      "q14": [
+        3.125833031470447,
+        1.233136549820547,
+        -4.172167399631978,
+        0.021057101748055085,
+        -1.7835134028682782,
+        1.5357228835258352
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 0.00011643845395379586,
+        "board_normal_error_deg": 0.0,
+        "dropper_error_mm": 6.464950996102904e-05
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        -0.9708299040794373,
+        0.0071755629032850266,
+        0.23786579072475433,
+        0.029286416247487068
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.20946237444877625,
+          0.0047533344477415085,
+          0.6929421424865723
+        ],
+        [
+          0.6497921943664551,
+          0.01474689319729805,
+          0.5930134057998657
+        ],
+        [
+          0.6497921943664551,
+          0.01474689319729805,
+          0.5930134057998657
+        ],
+        [
+          0.6497921943664551,
+          0.014746559783816338,
+          0.5030133724212646
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.9693775177001953,
+          0.005797605495899916,
+          0.49319785833358765
+        ],
+        [
+          0.7374646663665771,
+          0.009452562779188156,
+          0.10566839575767517
+        ],
+        [
+          0.7374646663665771,
+          0.009452562779188156,
+          0.10566839575767517
+        ],
+        [
+          0.6959356069564819,
+          0.011960070580244064,
+          0.1854747235774994
+        ]
+      ],
+      "id": "shot-0000303",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 3,
+      "clean": 3,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": 4.4706390392147926
+    }
+  },
+  {
+    "id": "train-24",
+    "bucket_xy_m": [
+      0.6699999999999999,
+      0.025000000000000022
+    ],
+    "split": "train",
+    "captures": 24,
+    "trials": 117,
+    "valid": 87,
+    "best": {
+      "reward": 14.842356157569096,
+      "success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "closest_opening_distance_m": 0.009852228922571909,
+      "quality_score": 2,
+      "bucket_contact_before_entry": false,
+      "rim_band_contact": false,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 0.0,
+      "minimum_mouth_clearance_mm": 24.928172846657002,
+      "route_success": true,
+      "route_quality": 2,
+      "single_bounce_success": true,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 0,
+      "complete_success": true,
+      "physics_steps": 401,
+      "entry_class": "clean_capture",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 428.0036926269531,
+        "bucket": 505.2448425292969,
+        "table": 0.0,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        0.6699999999999999,
+        0.025000000000000022
+      ],
+      "values": [
+        0.7231241929966389,
+        -0.19766327385941612,
+        0.2523901061359576,
+        34.43164861925402,
+        0.18282897250748514
+      ],
+      "board_center_m": [
+        0.7231241464614868,
+        -0.19766336679458618,
+        0.2523900866508484
+      ],
+      "board_normal": [
+        -0.13121873140335083,
+        0.549985945224762,
+        0.8248013854026794
+      ],
+      "release_ball_center_m": [
+        0.7231241929966389,
+        -0.19766327385941612,
+        0.47271907864344276
+      ],
+      "q10": [
+        -0.2668349704343649,
+        -0.8786230013574831,
+        -2.2102559014487744,
+        2.836399011187703e-06,
+        -1.331632900110682,
+        -0.26683345073608467
+      ],
+      "q14": [
+        3.6154138066933412,
+        1.351556635106174,
+        -3.920006098528798,
+        0.7186160098725098,
+        -2.154716597442399,
+        0.16131971269415138
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 0.00010574561783820133,
+        "board_normal_error_deg": 0.0,
+        "dropper_error_mm": 5.915005326106884e-05
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        -0.7497143745422363,
+        0.18339850008487701,
+        0.23230230808258057,
+        0.591886043548584
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.289619505405426,
+          -0.07916739583015442,
+          0.6129037141799927
+        ],
+        [
+          0.7231242656707764,
+          -0.19766294956207275,
+          0.657719075679779
+        ],
+        [
+          0.7231242656707764,
+          -0.19766294956207275,
+          0.657719075679779
+        ],
+        [
+          0.7231241464614868,
+          -0.19766327738761902,
+          0.567719042301178
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.9985830187797546,
+          -0.17369481921195984,
+          0.44881871342658997
+        ],
+        [
+          0.748055636882782,
+          -0.30216044187545776,
+          0.09567764401435852
+        ],
+        [
+          0.748055636882782,
+          -0.30216044187545776,
+          0.09567764401435852
+        ],
+        [
+          0.7362459897994995,
+          -0.25266197323799133,
+          0.16990993916988373
+        ]
+      ],
+      "id": "shot-0002929",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 3,
+      "clean": 0,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": 4.185442177092278
+    }
+  },
+  {
+    "id": "train-25",
+    "bucket_xy_m": [
+      0.8599999999999999,
+      0.025000000000000022
+    ],
+    "split": "train",
+    "captures": 5,
+    "trials": 117,
+    "valid": 12,
+    "best": {
+      "reward": 14.891054475029941,
+      "success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "closest_opening_distance_m": 0.006721510052815613,
+      "quality_score": 1,
+      "bucket_contact_before_entry": false,
+      "rim_band_contact": false,
+      "exited_after_entry": true,
+      "peak_bucket_force_before_entry_N": 0.0,
+      "minimum_mouth_clearance_mm": 4.287786165457607,
+      "route_success": true,
+      "route_quality": 1,
+      "single_bounce_success": true,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 0,
+      "complete_success": true,
+      "physics_steps": 414,
+      "entry_class": "assisted_or_marginal_capture",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 452.4759216308594,
+        "bucket": 761.7562866210938,
+        "table": 0.0,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        0.8599999999999999,
+        0.025000000000000022
+      ],
+      "values": [
+        0.6413738308160544,
+        -0.12840133992100836,
+        0.33102094984211694,
+        21.937971137003245,
+        0.1571040569516942
+      ],
+      "board_center_m": [
+        0.6413738131523132,
+        -0.1284012645483017,
+        0.3310207724571228
+      ],
+      "board_normal": [
+        0.305828332901001,
+        0.2145879566669464,
+        0.9275889992713928
+      ],
+      "release_ball_center_m": [
+        0.6413738308160544,
+        -0.12840133992100836,
+        0.5256250067938111
+      ],
+      "q10": [
+        -0.1975912415130068,
+        -0.5464424371612229,
+        -1.8083940440160882,
+        5.07662460461436e-06,
+        -1.2619516068853798,
+        -0.1975922926376144
+      ],
+      "q14": [
+        3.362291912109601,
+        1.496980267470036,
+        -3.4318389071097926,
+        0.1695863746541717,
+        -2.1371078938834684,
+        5.1693519734627635
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 0.0001935419561887065,
+        "board_normal_error_deg": 0.0,
+        "dropper_error_mm": 2.568576733758267e-05
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        0.2956680953502655,
+        -0.18144308030605316,
+        -0.05730609968304634,
+        -0.936149001121521
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.19871947169303894,
+          -0.03978358581662178,
+          0.6972084045410156
+        ],
+        [
+          0.641373872756958,
+          -0.1284010261297226,
+          0.7106250524520874
+        ],
+        [
+          0.641373872756958,
+          -0.1284010261297226,
+          0.7106250524520874
+        ],
+        [
+          0.6413738131523132,
+          -0.12840135395526886,
+          0.6206250190734863
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.9578061103820801,
+          -0.08514457195997238,
+          0.39276063442230225
+        ],
+        [
+          0.5832663774490356,
+          -0.16917264461517334,
+          0.15477882325649261
+        ],
+        [
+          0.5832663774490356,
+          -0.16917264461517334,
+          0.15477882325649261
+        ],
+        [
+          0.6107909679412842,
+          -0.14986005425453186,
+          0.2382618933916092
+        ]
+      ],
+      "id": "shot-0003735",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 3,
+      "clean": 0,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": 4.217587243693393
+    }
+  },
+  {
+    "id": "train-26",
+    "bucket_xy_m": [
+      1.0499999999999998,
+      0.025000000000000022
+    ],
+    "split": "train",
+    "captures": 0,
+    "trials": 117,
+    "valid": 12,
+    "best": {
+      "reward": 1.5630180390184205,
+      "success": false,
+      "board_bounce": true,
+      "whole_ball_entry": false,
+      "max_retention_s": 0.0,
+      "closest_opening_distance_m": 0.15211089492364754,
+      "quality_score": 0,
+      "bucket_contact_before_entry": false,
+      "rim_band_contact": false,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 0.0,
+      "minimum_mouth_clearance_mm": -147.48784596479663,
+      "route_success": false,
+      "route_quality": 0,
+      "single_bounce_success": false,
+      "board_contact_episodes": 2,
+      "external_contact_steps": 3,
+      "complete_success": false,
+      "physics_steps": 351,
+      "entry_class": "miss",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 566.0274658203125,
+        "bucket": 0.0,
+        "table": 800.5101318359375,
+        "floor": 0.0,
+        "robot": 386.1783142089844,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        1.0499999999999998,
+        0.025000000000000022
+      ],
+      "values": [
+        0.6608108588960924,
+        -0.09605592648795974,
+        0.4501294845313974,
+        20.931883650207062,
+        0.1498487240582241
+      ],
+      "board_center_m": [
+        0.660810649394989,
+        -0.09605597704648972,
+        0.45012953877449036
+      ],
+      "board_normal": [
+        0.3411363661289215,
+        0.10610945522785187,
+        0.934005856513977
+      ],
+      "release_ball_center_m": [
+        0.6608108588960924,
+        -0.09605592648795974,
+        0.6374782085896216
+      ],
+      "q10": [
+        -0.14435708218774904,
+        -0.6725870137362724,
+        -2.2514098473784894,
+        2.014362125349696e-06,
+        -1.5788228336635894,
+        -0.1443561620888417
+      ],
+      "q14": [
+        3.2970965086795276,
+        1.1993582664494482,
+        -3.71623192455967,
+        0.061555678363992984,
+        -2.134913086304476,
+        4.881869270296616
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 0.00022223678901976877,
+        "board_normal_error_deg": 0.0,
+        "dropper_error_mm": 8.863005798293486e-05
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        0.14771045744419098,
+        -0.17959009110927582,
+        -0.027285771444439888,
+        -0.9722060561180115
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.2404462993144989,
+          -0.03495238348841667,
+          0.6690638065338135
+        ],
+        [
+          0.6608109474182129,
+          -0.09605566412210464,
+          0.822478175163269
+        ],
+        [
+          0.6608109474182129,
+          -0.09605566412210464,
+          0.822478175163269
+        ],
+        [
+          0.6608108878135681,
+          -0.09605597704648972,
+          0.732478141784668
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.9782900810241699,
+          -0.05628473684191704,
+          0.5055514574050903
+        ],
+        [
+          0.5959947109222412,
+          -0.11621644347906113,
+          0.27266839146614075
+        ],
+        [
+          0.5959947109222412,
+          -0.11621644347906113,
+          0.27266839146614075
+        ],
+        [
+          0.6266970038414001,
+          -0.1066669225692749,
+          0.3567289412021637
+        ]
+      ],
+      "id": "shot-0003106",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 0,
+      "clean": 0,
+      "invalid": 1,
+      "board_bounces": 2,
+      "mean_reward": -0.5493179545216059
+    }
+  },
+  {
+    "id": "train-27",
+    "bucket_xy_m": [
+      1.24,
+      0.025000000000000022
+    ],
+    "split": "train",
+    "captures": 0,
+    "trials": 117,
+    "valid": 18,
+    "best": {
+      "reward": 1.2442168285357147,
+      "success": false,
+      "board_bounce": true,
+      "whole_ball_entry": false,
+      "max_retention_s": 0.0,
+      "closest_opening_distance_m": 0.25234151847806396,
+      "quality_score": 0,
+      "bucket_contact_before_entry": false,
+      "rim_band_contact": false,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 0.0,
+      "minimum_mouth_clearance_mm": -310.88533582485667,
+      "route_success": false,
+      "route_quality": 0,
+      "single_bounce_success": false,
+      "board_contact_episodes": 2,
+      "external_contact_steps": 6,
+      "complete_success": false,
+      "physics_steps": 452,
+      "entry_class": "miss",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 694.9876098632812,
+        "bucket": 0.0,
+        "table": 884.89599609375,
+        "floor": 0.0,
+        "robot": 508.4908752441406,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        1.24,
+        0.025000000000000022
+      ],
+      "values": [
+        0.6013495929767599,
+        -0.07002626583026134,
+        0.46992935076491626,
+        18.407226009619254,
+        0.20969237256592535
+      ],
+      "board_center_m": [
+        0.6013495326042175,
+        -0.07002618163824081,
+        0.4699293375015259
+      ],
+      "board_normal": [
+        0.31233033537864685,
+        0.04647260159254074,
+        0.9488362073898315
+      ],
+      "release_ball_center_m": [
+        0.6013495929767599,
+        -0.07002626583026134,
+        0.7171217233308416
+      ],
+      "q10": [
+        -0.11593419182444062,
+        -0.5476391362580669,
+        -2.2514098473784054,
+        1.639315183532068e-06,
+        -1.7037707111434708,
+        -0.11593375775178436
+      ],
+      "q14": [
+        3.2404210803126974,
+        1.3339917135189883,
+        -3.4158387314913563,
+        0.01646847006090723,
+        -1.9291020176665352,
+        4.7645446661574695
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 0.00010444643469793185,
+        "board_normal_error_deg": 0.0,
+        "dropper_error_mm": 8.613776429406865e-05
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        0.07283713668584824,
+        -0.15950746834278107,
+        -0.011801926419138908,
+        -0.9844353199005127
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.20169824361801147,
+          -0.023488305509090424,
+          0.6969656944274902
+        ],
+        [
+          0.6013496518135071,
+          -0.07002594321966171,
+          0.9021218419075012
+        ],
+        [
+          0.6013496518135071,
+          -0.07002594321966171,
+          0.9021218419075012
+        ],
+        [
+          0.6013495922088623,
+          -0.07002627849578857,
+          0.8121218085289001
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.9600435495376587,
+          -0.03740789368748665,
+          0.45549166202545166
+        ],
+        [
+          0.5420067310333252,
+          -0.07885565608739853,
+          0.28965044021606445
+        ],
+        [
+          0.5420067310333252,
+          -0.07885565608739853,
+          0.28965044021606445
+        ],
+        [
+          0.5701165199279785,
+          -0.07467344403266907,
+          0.3750457167625427
+        ]
+      ],
+      "id": "shot-0003597",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 0,
+      "clean": 0,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": -0.328182984776144
+    }
+  },
+  {
+    "id": "train-28",
+    "bucket_xy_m": [
+      0.1,
+      0.25
+    ],
+    "split": "train",
+    "captures": 5,
+    "trials": 117,
+    "valid": 75,
+    "best": {
+      "reward": 14.749160873189055,
+      "success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "closest_opening_distance_m": 0.016081321038807505,
+      "quality_score": 1,
+      "bucket_contact_before_entry": true,
+      "rim_band_contact": true,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 641.3300170898438,
+      "minimum_mouth_clearance_mm": 4.234905374681588,
+      "route_success": true,
+      "route_quality": 1,
+      "single_bounce_success": true,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 0,
+      "complete_success": true,
+      "physics_steps": 426,
+      "entry_class": "assisted_or_marginal_capture",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 653.908935546875,
+        "bucket": 641.3300170898438,
+        "table": 0.0,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        0.1,
+        0.25
+      ],
+      "values": [
+        0.495096351046599,
+        0.15822918052297535,
+        0.3103855865570308,
+        38.85726148952798,
+        0.4523576263727932
+      ],
+      "board_center_m": [
+        0.49509623646736145,
+        0.15822912752628326,
+        0.31038546562194824
+      ],
+      "board_normal": [
+        -0.6111137270927429,
+        0.14194618165493011,
+        0.7787114977836609
+      ],
+      "release_ball_center_m": [
+        0.495096351046599,
+        0.15822918052297535,
+        0.800243212929824
+      ],
+      "q10": [
+        0.30932496214651545,
+        -0.40015903673765474,
+        -2.251409847378081,
+        1.1024892112802006e-06,
+        -1.8512508106659984,
+        0.30932474303117835
+      ],
+      "q14": [
+        2.962750187830897,
+        1.3721970018597334,
+        -3.6661496435680165,
+        0.032988399817679426,
+        -1.2193387809089093,
+        1.5209617870021066
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 0.0001748208947520871,
+        "board_normal_error_deg": 0.0,
+        "dropper_error_mm": 0.00012351845292640643
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        -0.936923086643219,
+        0.03787562996149063,
+        0.330469012260437,
+        0.10738234221935272
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.14471817016601562,
+          0.04625009372830391,
+          0.723190188407898
+        ],
+        [
+          0.495096355676651,
+          0.15822955965995789,
+          0.9852431416511536
+        ],
+        [
+          0.495096355676651,
+          0.15822955965995789,
+          0.9852431416511536
+        ],
+        [
+          0.49509644508361816,
+          0.15822924673557281,
+          0.8952431678771973
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.9610734581947327,
+          0.0680123046040535,
+          0.4409441351890564
+        ],
+        [
+          0.611207902431488,
+          0.13125969469547272,
+          0.1624302864074707
+        ],
+        [
+          0.611207902431488,
+          0.13125969469547272,
+          0.1624302864074707
+        ],
+        [
+          0.5562075972557068,
+          0.1440345197916031,
+          0.23251432180404663
+        ]
+      ],
+      "id": "shot-0001078",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 1,
+      "clean": 0,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": 2.0491898506624198
+    }
+  },
+  {
+    "id": "train-29",
+    "bucket_xy_m": [
+      0.29,
+      0.25
+    ],
+    "split": "train",
+    "captures": 23,
+    "trials": 117,
+    "valid": 82,
+    "best": {
+      "reward": 14.939909924209577,
+      "success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "closest_opening_distance_m": 0.003660676725894656,
+      "quality_score": 2,
+      "bucket_contact_before_entry": false,
+      "rim_band_contact": false,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 0.0,
+      "minimum_mouth_clearance_mm": 42.84782172498068,
+      "route_success": true,
+      "route_quality": 2,
+      "single_bounce_success": true,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 0,
+      "complete_success": true,
+      "physics_steps": 362,
+      "entry_class": "clean_capture",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 357.923583984375,
+        "bucket": 625.498291015625,
+        "table": 0.0,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        0.29,
+        0.25
+      ],
+      "values": [
+        0.521082792211639,
+        0.13780638323319894,
+        0.37955684738192197,
+        41.28168398674323,
+        0.11098990548313224
+      ],
+      "board_center_m": [
+        0.5210826992988586,
+        0.13780632615089417,
+        0.37955689430236816
+      ],
+      "board_normal": [
+        -0.5935079455375671,
+        0.28815561532974243,
+        0.7514752745628357
+      ],
+      "release_ball_center_m": [
+        0.521082792211639,
+        0.13780638323319894,
+        0.5280467528650542
+      ],
+      "q10": [
+        0.25853853814042654,
+        -0.22868788564147383,
+        -1.3926796303432065,
+        6.956474844541473e-06,
+        -1.1639917447472057,
+        0.258534377391245
+      ],
+      "q14": [
+        3.0240658819517283,
+        1.157273978204346,
+        -3.8964240657057543,
+        0.2319888990794989,
+        -1.2284279578047277,
+        1.2361969079227864
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 0.00011871268905696108,
+        "board_normal_error_deg": 0.0,
+        "dropper_error_mm": 2.92113175737414e-05
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        -0.9120124578475952,
+        0.07898898422718048,
+        0.3435450792312622,
+        0.20969262719154358
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.08547304570674896,
+          0.02260429784655571,
+          0.7438465356826782
+        ],
+        [
+          0.5210826992988586,
+          0.13780668377876282,
+          0.7130467295646667
+        ],
+        [
+          0.5210826992988586,
+          0.13780668377876282,
+          0.7130467295646667
+        ],
+        [
+          0.5210828185081482,
+          0.13780637085437775,
+          0.6230467557907104
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.9826453924179077,
+          0.041874196380376816,
+          0.5207152366638184
+        ],
+        [
+          0.6338492631912231,
+          0.08305707573890686,
+          0.23677656054496765
+        ],
+        [
+          0.6338492631912231,
+          0.08305707573890686,
+          0.23677656054496765
+        ],
+        [
+          0.5804334878921509,
+          0.10899075865745544,
+          0.304409384727478
+        ]
+      ],
+      "id": "shot-0001849",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 3,
+      "clean": 0,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": 4.201369460283883
+    }
+  },
+  {
+    "id": "train-30",
+    "bucket_xy_m": [
+      0.48,
+      0.25
+    ],
+    "split": "train",
+    "captures": 23,
+    "trials": 117,
+    "valid": 66,
+    "best": {
+      "reward": 14.922560616187244,
+      "success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "closest_opening_distance_m": 0.004738707453960911,
+      "quality_score": 2,
+      "bucket_contact_before_entry": false,
+      "rim_band_contact": false,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 0.0,
+      "minimum_mouth_clearance_mm": 4.023137468818751,
+      "route_success": true,
+      "route_quality": 2,
+      "single_bounce_success": true,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 0,
+      "complete_success": true,
+      "physics_steps": 462,
+      "entry_class": "clean_capture",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 539.0741577148438,
+        "bucket": 573.5761108398438,
+        "table": 0.0,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        0.48,
+        0.25
+      ],
+      "values": [
+        0.5916790947295485,
+        -0.06471325242253667,
+        0.26809875019708507,
+        31.519844899807353,
+        0.26155952009868144
+      ],
+      "board_center_m": [
+        0.591679036617279,
+        -0.06471334397792816,
+        0.2680985927581787
+      ],
+      "board_normal": [
+        -0.17483694851398468,
+        0.4926922023296356,
+        0.8524590730667114
+      ],
+      "release_ball_center_m": [
+        0.5916790947295485,
+        -0.06471325242253667,
+        0.5671582702957665
+      ],
+      "q10": [
+        -0.10894467707860844,
+        -0.37904106221060885,
+        -1.6685269974635861,
+        5.403645539542438e-06,
+        -1.2894859352886212,
+        -0.10894684325589256
+      ],
+      "q14": [
+        3.3602753894844697,
+        1.4743215995234702,
+        -3.61255729690068,
+        0.5659919790247216,
+        -1.8260207309631906,
+        0.3022563567188738
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 0.0001911712185587082,
+        "board_normal_error_deg": 0.0,
+        "dropper_error_mm": 6.538519179847996e-05
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        -0.7861254215240479,
+        0.15668366849422455,
+        0.22185739874839783,
+        0.55519038438797
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.14345476031303406,
+          -0.01569022610783577,
+          0.7263182401657104
+        ],
+        [
+          0.5916792154312134,
+          -0.06471289694309235,
+          0.7521582245826721
+        ],
+        [
+          0.5916792154312134,
+          -0.06471289694309235,
+          0.7521582245826721
+        ],
+        [
+          0.5916791558265686,
+          -0.0647132396697998,
+          0.6621582508087158
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.9583686590194702,
+          -0.0842161774635315,
+          0.4015653431415558
+        ],
+        [
+          0.6248980760574341,
+          -0.15832458436489105,
+          0.10613119602203369
+        ],
+        [
+          0.6248980760574341,
+          -0.15832458436489105,
+          0.10613119602203369
+        ],
+        [
+          0.6091627478599548,
+          -0.11398256570100784,
+          0.18285268545150757
+        ]
+      ],
+      "id": "shot-0000030",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 3,
+      "clean": 1,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": 4.289487407192965
+    }
+  },
+  {
+    "id": "train-31",
+    "bucket_xy_m": [
+      0.6699999999999999,
+      0.25
+    ],
+    "split": "train",
+    "captures": 24,
+    "trials": 117,
+    "valid": 70,
+    "best": {
+      "reward": 14.976327673959407,
+      "success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "closest_opening_distance_m": 0.0014288121695392115,
+      "quality_score": 2,
+      "bucket_contact_before_entry": false,
+      "rim_band_contact": false,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 0.0,
+      "minimum_mouth_clearance_mm": 24.871682206041047,
+      "route_success": true,
+      "route_quality": 2,
+      "single_bounce_success": true,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 0,
+      "complete_success": true,
+      "physics_steps": 366,
+      "entry_class": "clean_capture",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 573.3839721679688,
+        "bucket": 570.7484130859375,
+        "table": 0.0,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        0.6699999999999999,
+        0.25
+      ],
+      "values": [
+        0.6737534611012237,
+        -0.0992380188300199,
+        0.3167716465238942,
+        24.73744380049194,
+        0.25639362413121797
+      ],
+      "board_center_m": [
+        0.6737533807754517,
+        -0.09923802316188812,
+        0.3167717158794403
+      ],
+      "board_normal": [
+        -0.004496864043176174,
+        0.41843682527542114,
+        0.9082349538803101
+      ],
+      "release_ball_center_m": [
+        0.6737534611012237,
+        -0.0992380188300199,
+        0.6106652706551121
+      ],
+      "q10": [
+        -0.14624705357419326,
+        -0.6922948176570372,
+        -2.2198594650549426,
+        2.3016011201828807e-06,
+        -1.527564647419343,
+        -0.1462461301332045
+      ],
+      "q14": [
+        3.405037359595642,
+        1.2920868357178035,
+        -3.891655762370757,
+        0.48886018777742873,
+        -2.100916570695369,
+        -0.014256677261563851
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 0.00010621293004041037,
+        "board_normal_error_deg": 0.0,
+        "dropper_error_mm": 5.894211156686265e-05
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        -0.6943959593772888,
+        0.15064790844917297,
+        0.1522754579782486,
+        0.6869729161262512
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.24628067016601562,
+          -0.036275915801525116,
+          0.6642163991928101
+        ],
+        [
+          0.673753559589386,
+          -0.09923772513866425,
+          0.7956652641296387
+        ],
+        [
+          0.673753559589386,
+          -0.09923772513866425,
+          0.7956652641296387
+        ],
+        [
+          0.6737534999847412,
+          -0.09923803806304932,
+          0.7056652307510376
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.9752957820892334,
+          -0.09764151275157928,
+          0.47129353880882263
+        ],
+        [
+          0.6746077537536621,
+          -0.1787407100200653,
+          0.1442069113254547
+        ],
+        [
+          0.6746077537536621,
+          -0.1787407100200653,
+          0.1442069113254547
+        ],
+        [
+          0.6742030382156372,
+          -0.14108170568943024,
+          0.22594821453094482
+        ]
+      ],
+      "id": "shot-0003671",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 3,
+      "clean": 1,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": 4.325949941942045
+    }
+  },
+  {
+    "id": "train-32",
+    "bucket_xy_m": [
+      0.8599999999999999,
+      0.25
+    ],
+    "split": "train",
+    "captures": 8,
+    "trials": 117,
+    "valid": 26,
+    "best": {
+      "reward": 14.93736014502533,
+      "success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "closest_opening_distance_m": 0.0038185060959173493,
+      "quality_score": 1,
+      "bucket_contact_before_entry": true,
+      "rim_band_contact": true,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 721.3255615234375,
+      "minimum_mouth_clearance_mm": -0.4176287404042862,
+      "route_success": true,
+      "route_quality": 1,
+      "single_bounce_success": true,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 0,
+      "complete_success": true,
+      "physics_steps": 578,
+      "entry_class": "assisted_or_marginal_capture",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 474.3641357421875,
+        "bucket": 721.3255615234375,
+        "table": 0.0,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        0.8599999999999999,
+        0.25
+      ],
+      "values": [
+        0.6127520867593188,
+        -0.005334522731095637,
+        0.35015219012408155,
+        24.7423382315244,
+        0.17319174463262654
+      ],
+      "board_center_m": [
+        0.6127521395683289,
+        -0.005334528163075447,
+        0.3501521646976471
+      ],
+      "board_normal": [
+        0.2911517918109894,
+        0.3006742298603058,
+        0.9081991910934448
+      ],
+      "release_ball_center_m": [
+        0.6127520867593188,
+        -0.005334522731095637,
+        0.5608439347567081
+      ],
+      "q10": [
+        -0.008711295105368439,
+        -0.4282272218493172,
+        -1.7204169953853468,
+        5.231991861712266e-06,
+        -1.29218977356986,
+        -0.008713073251277409
+      ],
+      "q14": [
+        3.221514422859906,
+        1.4821297859566527,
+        -3.40287107092976,
+        0.31769733110998327,
+        -2.0550481096447246,
+        5.538469346933352
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 5.8862564646496504e-05,
+        "board_normal_error_deg": 0.0,
+        "dropper_error_mm": 6.339675879592818e-05
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        0.3810449540615082,
+        -0.19726961851119995,
+        -0.08357712626457214,
+        -0.8993911147117615
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.1619434654712677,
+          -0.0014101797714829445,
+          0.7187848687171936
+        ],
+        [
+          0.6127520799636841,
+          -0.005334153771400452,
+          0.7458439469337463
+        ],
+        [
+          0.6127520799636841,
+          -0.005334153771400452,
+          0.7458439469337463
+        ],
+        [
+          0.6127520799636841,
+          -0.0053344727493822575,
+          0.65584397315979
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.950082004070282,
+          -0.031015461310744286,
+          0.3985332250595093
+        ],
+        [
+          0.5574332475662231,
+          -0.06246231496334076,
+          0.17759422957897186
+        ],
+        [
+          0.5574332475662231,
+          -0.06246231496334076,
+          0.17759422957897186
+        ],
+        [
+          0.5836369395256042,
+          -0.035401955246925354,
+          0.25933223962783813
+        ]
+      ],
+      "id": "shot-0003497",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 3,
+      "clean": 0,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": 4.198545176650987
+    }
+  },
+  {
+    "id": "train-33",
+    "bucket_xy_m": [
+      1.0499999999999998,
+      0.25
+    ],
+    "split": "train",
+    "captures": 0,
+    "trials": 117,
+    "valid": 28,
+    "best": {
+      "reward": 2.0366584103241783,
+      "success": false,
+      "board_bounce": true,
+      "whole_ball_entry": false,
+      "max_retention_s": 0.0,
+      "closest_opening_distance_m": 0.07885736488633685,
+      "quality_score": 0,
+      "bucket_contact_before_entry": true,
+      "rim_band_contact": true,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 426.27996826171875,
+      "minimum_mouth_clearance_mm": -380.80100411329175,
+      "route_success": false,
+      "route_quality": 0,
+      "single_bounce_success": false,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 3,
+      "complete_success": false,
+      "physics_steps": 341,
+      "entry_class": "miss",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 552.8872680664062,
+        "bucket": 426.27996826171875,
+        "table": 664.7525634765625,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        1.0499999999999998,
+        0.25
+      ],
+      "values": [
+        0.6520502020147816,
+        0.17491170694379493,
+        0.3456279816065084,
+        25.402609179877192,
+        0.23723169821830242
+      ],
+      "board_center_m": [
+        0.6520500779151917,
+        0.17491181194782257,
+        0.34562796354293823
+      ],
+      "board_normal": [
+        0.42153796553611755,
+        0.0795392394065857,
+        0.9033156633377075
+      ],
+      "release_ball_center_m": [
+        0.6520502020147816,
+        0.17491170694379493,
+        0.6203596798248108
+      ],
+      "q10": [
+        0.2620716450563684,
+        -0.6794262176649666,
+        -2.222106273337892,
+        2.249241549638257e-06,
+        -1.5426800556945026,
+        0.262072527615953
+      ],
+      "q14": [
+        2.9357572525464604,
+        1.488106935647839,
+        -3.4001306088821255,
+        0.19739673523105664,
+        -2.1511257154196053,
+        5.179307601011026
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 0.00016356297445149502,
+        "board_normal_error_deg": 0.014649702361305432,
+        "dropper_error_mm": 7.655400189734417e-05
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        0.09083390980958939,
+        -0.218913272023201,
+        -0.020472610369324684,
+        -0.9712914228439331
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.2366865873336792,
+          0.06348995864391327,
+          0.6673948764801025
+        ],
+        [
+          0.6520501971244812,
+          0.17491202056407928,
+          0.8053596615791321
+        ],
+        [
+          0.6520501971244812,
+          0.17491202056407928,
+          0.8053596615791321
+        ],
+        [
+          0.652050256729126,
+          0.17491169273853302,
+          0.715359628200531
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.9568465948104858,
+          0.07943644374608994,
+          0.3962106704711914
+        ],
+        [
+          0.5719579458236694,
+          0.15979966521263123,
+          0.1739979237318039
+        ],
+        [
+          0.5719579458236694,
+          0.15979966521263123,
+          0.1739979237318039
+        ],
+        [
+          0.6098963022232056,
+          0.16695788502693176,
+          0.25529640913009644
+        ]
+      ],
+      "id": "shot-0002378",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 2,
+      "clean": 0,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": 2.7277773638138405
+    }
+  },
+  {
+    "id": "train-34",
+    "bucket_xy_m": [
+      1.24,
+      0.25
+    ],
+    "split": "train",
+    "captures": 0,
+    "trials": 117,
+    "valid": 16,
+    "best": {
+      "reward": 14.806638862243155,
+      "success": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999977,
+      "closest_opening_distance_m": 0.012201485255668377,
+      "quality_score": 1,
+      "bucket_contact_before_entry": true,
+      "rim_band_contact": true,
+      "exited_after_entry": false,
+      "peak_bucket_force_before_entry_N": 420.38458251953125,
+      "minimum_mouth_clearance_mm": -312.5390056982348,
+      "route_success": false,
+      "route_quality": 0,
+      "single_bounce_success": false,
+      "board_contact_episodes": 1,
+      "external_contact_steps": 1,
+      "complete_success": false,
+      "physics_steps": 536,
+      "entry_class": "assisted_or_marginal_capture",
+      "quality_scope": "240 Hz bucket contact and polygon-mouth clearance; clean requires >=1mm entry margin, no pre-entry/rim-band contact, no subsequent partial exit; historical capture unchanged",
+      "scoring_version": "sircus-isaac-fixed-shot-v5",
+      "route_version": "sircus-board-route-v1",
+      "contact_peaks_N": {
+        "board": 437.5090026855469,
+        "bucket": 555.40087890625,
+        "table": 1143.3492431640625,
+        "floor": 0.0,
+        "robot": 0.0,
+        "unattributed": 0.0
+      },
+      "invalid": null,
+      "bucket_xy_m": [
+        1.24,
+        0.25
+      ],
+      "values": [
+        0.6693032644867704,
+        -0.021118740261853147,
+        0.45931503019260395,
+        20.18671649980591,
+        0.13791201416301122
+      ],
+      "board_center_m": [
+        0.6693031191825867,
+        -0.02111886814236641,
+        0.4593150019645691
+      ],
+      "board_normal": [
+        0.31169557571411133,
+        0.14807605743408203,
+        0.9385730624198914
+      ],
+      "release_ball_center_m": [
+        0.6693032644867704,
+        -0.021118740261853147,
+        0.6347270443556152
+      ],
+      "q10": [
+        -0.03155025429430793,
+        -0.6767012302587185,
+        -2.2514098473784903,
+        2.025657967233212e-06,
+        -1.57470861714109,
+        -0.03154931901564458
+      ],
+      "q14": [
+        3.2092148270131045,
+        1.12912329915391,
+        -3.8305744550523477,
+        0.1511832632715561,
+        -2.142399721647145,
+        5.149350286682159
+      ],
+      "pose_gate": {
+        "board_position_error_mm": 0.00019561071908336212,
+        "board_normal_error_deg": 0.0,
+        "dropper_error_mm": 7.253537937651684e-05
+      },
+      "endpoint_collision_pairs": [],
+      "max_board_drift_mm": 0.0,
+      "bucket_collider_error_m": 0.0,
+      "board_quaternion_wxyz": [
+        0.21653445065021515,
+        -0.17096135020256042,
+        -0.038544755429029465,
+        -0.9604162573814392
+      ],
+      "link_positions10": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.0,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.24410495162010193,
+          -0.007703234441578388,
+          0.6680616140365601
+        ],
+        [
+          0.669303297996521,
+          -0.02111845090985298,
+          0.8197271227836609
+        ],
+        [
+          0.669303297996521,
+          -0.02111845090985298,
+          0.8197271227836609
+        ],
+        [
+          0.669303297996521,
+          -0.021118786185979843,
+          0.7297270894050598
+        ]
+      ],
+      "link_positions14": [
+        [
+          1.33731,
+          0,
+          0
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          1.3373099565505981,
+          0.0,
+          0.36399999260902405
+        ],
+        [
+          0.9855404496192932,
+          -0.023825082927942276,
+          0.5307052135467529
+        ],
+        [
+          0.6100809574127197,
+          -0.04925299435853958,
+          0.2809860408306122
+        ],
+        [
+          0.6100809574127197,
+          -0.04925299435853958,
+          0.2809860408306122
+        ],
+        [
+          0.6381335854530334,
+          -0.03592647612094879,
+          0.365457683801651
+        ]
+      ],
+      "id": "shot-0003079",
+      "phase": "train-exploration",
+      "locks": {
+        "board": null,
+        "dropper": null
+      }
+    },
+    "confirmation": {
+      "attempts": 3,
+      "captures": 0,
+      "clean": 0,
+      "invalid": 0,
+      "board_bounces": 3,
+      "mean_reward": -0.20832306469019232
+    }
+  }
+]
