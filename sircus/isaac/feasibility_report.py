@@ -71,14 +71,31 @@ def assert_action(row, action):
         assert row["seed"] == action["seed"]
 
 
-def validate(d):
-    assert d["phase"] == "completed" and d["validation_passed"]
-    s = d["contract"]
+def validate_contract(s):
     assert not s["smoke"]
     expected = specification(s["scene"], [c["index"] for c in s["cells"]])
+    # libm atan2/hypot may differ by one ULP between Linux and macOS. Validate
+    # derived values within numerical precision, then retain their recorded bit
+    # patterns when checking the exact original fingerprint. Poses are unchanged.
+    for recorded, generated in zip(s["cells"], expected["cells"]):
+        for name in ("heading_deg", "distance_m"):
+            assert math.isclose(
+                recorded[name], generated[name], rel_tol=0, abs_tol=1e-12
+            )
+            generated[name] = recorded[name]
+    payload = {k: v for k, v in expected.items() if k != "fingerprint"}
+    expected["fingerprint"] = hashlib.sha256(
+        json.dumps(payload, sort_keys=True).encode()
+    ).hexdigest()
     # JSON normalization accounts only for tuple/list serialization.
     for key, value in json.loads(json.dumps(expected)).items():
         assert s[key] == value, key
+
+
+def validate(d):
+    assert d["phase"] == "completed" and d["validation_passed"]
+    s = d["contract"]
+    validate_contract(s)
     assert d["max_bucket_drift_m"] <= 1e-5
     kinds = ["bucket", "rim", "table", "floor", "robot"] + (
         ["foreign_cell_collision_filter"] if s["num_envs"] > 1 else []
@@ -135,7 +152,7 @@ def validate(d):
         for stage in STAGES:
             for r in c[stage]:
                 assert r["cell_id"] == c["id"] and r["stage"] == stage and r["included"]
-                dc = dynamic_cell(c, r)
+                dc = dynamic_cell(expected_cell, r)
                 assert math.isclose(r["distance_m"], dc["distance_m"], abs_tol=1e-12)
                 assert math.isclose(r["heading_deg"], dc["heading_deg"], abs_tol=1e-12)
                 if r["invalid"]:
@@ -204,7 +221,10 @@ def compact(d):
             if c[stage]:
                 row[stage + "_example"] = c[stage][0]
         if c["winner"]:
-            row["selected_geometry"] = dynamic_cell(c, c["winner"])
+            # A live cell also contains all trial histories. Export only geometry,
+            # not a deep copy of those raw observations under selected_geometry.
+            geometry = {k: c[k] for k in d["contract"]["cells"][0]}
+            row["selected_geometry"] = dynamic_cell(geometry, c["winner"])
         row["status"] = (
             (
                 "30_of_30"
@@ -297,7 +317,7 @@ def export(source, dest, executed_source):
             "beyond_dropper_outer_bound",
             "status",
         ]
-        writer = csv.DictWriter(f, fieldnames=fields)
+        writer = csv.DictWriter(f, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         for c, reach in zip(report["cells"], report["direct_drop_audit"]):
             a, stats = c["winner"], c["stages"]["confirmations"]

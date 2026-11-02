@@ -1,12 +1,12 @@
 # Project state
 
-## Workspace feasibility map — November 1, 2026 (running checkpoint)
+## Completed workspace feasibility map — November 1, 2026
 
-- [Protocol and reproduction](../sircus/isaac/FEASIBILITY_MAP.md): 32 wider tabletop targets, 17 candidate board/release XY positions, balanced height/gap/tilt proposals and local refinement. Actual articulated Isaac Lab / PhysX, privileged geometry, initialized endpoints. No new RL policy or perception training.
-- A bounded 4090 job `feasibility-20261102T012536Z-n32` is running from immutable `feasibility-map-v2`. Final counts and confirmation remain pending. The cap is 6,824 attempts; settings freeze before nominal repeats, a paired original-XY check and 30 small perturbations per selected target.
-- Four-cell and 32-cell smoke checks completed; all six contact/isolation probes passed. The direct-drop audit separates finite IK results from a conservative link-length reach bound. Unsuccessful search stays unresolved, never impossible. Bucket geometry/provisional height and historical baselines are preserved.
-- Read-only `/feasibility.html` shows the live map and measurements, with recorded-trajectory projections when repeats become available. Only the read-only results viewer was refreshed; the missing loopback SSH preview tunnel was restored. No hardware, Viam, audio or 4070 workload changes.
-- Full mock/numerical regression passed; 108 Isaac tests with one unavailable local Torch test skipped, plus four new panel tests. Independent completed-run raw/source/artifact verification is still pending.
+- [Verified settings and evidence](../baselines/isaac-feasibility-map-20261101/README.md): actual articulated Isaac Lab/PhysX search at 32 tabletop targets, with 17 board/release XY candidates and height/gap/tilt variation. Completed 6,212 attempts (3,043 releases; 3,169 endpoint/clearance rejects) in 25.96 minutes on RTX 4090. No new RL policy.
+- Fifteen targets had frozen settings and passed 3/3 nominal repeats each. Fresh perturbations: 364/450 captures, 338 single-bounce and 276 clean; six targets passed 30/30 each. Seventeen targets remain unresolved. This does not establish continuous coverage or physical reliability.
+- Target 23 is outside the conservative dropper reach bound but scored only 6/30 fresh repeats, all multiple-board-contact/assisted captures. Nominal 3/3 is not robust far-shot performance. Fixed-original-XY ablation scored 18/45 versus 45/45 selected nominal; it is a small selected development comparison.
+- All 6,212 records, 63 source hashes, four evidence hashes and 80 unchanged assets checked. Six contact/isolation probes passed. The portable verifier preserves the exact original fingerprint; four intentional corruptions were rejected. No raw histories, credentials or generated assets enter Git.
+- Read-only `/feasibility.html` shows the verified map, exact settings, failure reasons, recorded trajectory projections and CSV. The finite 4090 job exited; preview remains live; unrelated 4070 work, physical hardware, Viam and audio untouched. Next: robust far-target/trajectory diagnostics with reachability-aware proposals before another long PPO study. See [protocol](../sircus/isaac/FEASIBILITY_MAP.md).
 
 ## Direct native Isaac application recording — November 1, 2026
 

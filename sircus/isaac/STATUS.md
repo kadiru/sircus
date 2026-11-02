@@ -1,16 +1,18 @@
-# Workspace feasibility checkpoint — November 1, 2026 (local date)
+# Workspace feasibility completed — November 1, 2026 (local date)
 
-The bounded 4090 run `feasibility-20261102T012536Z-n32` is in progress.
-See [protocol](FEASIBILITY_MAP.md) and the newest project-state entry.
-Four-cell and 32-cell contact/settling smoke tests passed. The new map covers
-32 sampled bucket positions with optional board/release XY changes; this is
-finite development search, not trained inference or continuous workspace coverage.
-Final confirmation and independent artifact verification are pending.
+[Verified results](../../baselines/isaac-feasibility-map-20261101/README.md) and
+[protocol](FEASIBILITY_MAP.md): run `feasibility-20261102T012536Z-n32` finished
+6,212 attempts  / 3,043 accepted releases on the 4090. Fifteen selected targets;
+six passed 30/30 fresh perturbations. Target 23 is outside the direct-reach bound
+but captured only 6/30, all non-single-bounce assisted captures. No new RL policy,
+continuous workspace coverage or physical validation is claimed.
 
-The read-only preview now serves `/feasibility.html` from the separate
-`feasibility-preview-v1` snapshot on Ubuntu port 18860, forwarded to Mac 18780.
-Only that viewer was refreshed; the 4070 workload and other services were left
-alone. Prior sections below are historical process observations.
+All raw/summary records, source/evidence hashes and 80 asset hashes/mtimes matched.
+The job exited 0. The read-only preview serves `/feasibility.html` from the separate
+`feasibility-preview-v1` snapshot on Ubuntu port 18860, forwarded to Mac port 18780. Preview
+PID 2672808 remained active at this checkpoint; 4070 process 2653439 was unchanged.
+These are point-in-time observations, not deployment instructions. No physical,
+Viam or audio changes. Prior sections below are historical process observations.
 
 # Current checkpoint — parallel world completed, 2026-11-01 UTC
 

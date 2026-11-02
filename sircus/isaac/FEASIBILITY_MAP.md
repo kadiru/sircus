@@ -54,7 +54,7 @@ Use a NumPy/SciPy environment for the offline exporter. It checks source/artifac
 
 ## Interface and interpretation
 
-`/feasibility.html` provides a clickable tabletop map, exact selected geometry, separate fixed/expanded/refinement/confirmation counts, direct-reach audit, confidence intervals and CSV. Green means 30/30 fresh perturbations; amber indicates failures in a selected setting's repeats; gray means pending or unresolved. A 30/30 result has a Wilson lower 95% bound of about 88.6%, not guaranteed reliability. Those trials vary only the listed local parameters, not uncalibrated contact properties.
+`/feasibility.html` provides a clickable tabletop map, exact selected geometry, separate fixed/expanded/refinement/confirmation counts, direct-reach audit, confidence intervals and CSV. Each target also separates endpoint IK/settling rejections, external contacts and released misses, using the same counts in live and verified reports. Green means 30/30 fresh perturbations; amber indicates failures in a selected setting's repeats; gray means pending or unresolved. A 30/30 result has a Wilson lower 95% bound of about 88.6%, not guaranteed reliability. Those trials vary only the listed local parameters, not uncalibrated contact properties.
 
 The replay uses actual saved PhysX ball samples in top and flight-plane projections at half speed. It does not fabricate robot motion or substitute for the native Isaac videos. No physical, cloud, audio or command API is exposed.
 

@@ -1,0 +1,330 @@
+{
+  "verified_utc": "2026-11-02T01:52:12.927695+00:00",
+  "asset_files_checked": 80,
+  "asset_hashes_and_mtimes_unchanged": true,
+  "all_mtimes_predate_run": true,
+  "initial_audit_captured_utc": "2026-11-02T01:32:16.598499+00:00",
+  "scope": "Generated assets directory hashed during execution; mtimes checked to predate run; verify unchanged after completion. Not pre-launch hashing.",
+  "files": {
+    "board_arm/.asset_hash": {
+      "sha256": "5115835aa2e7536f2adad373cebc264c458792c1f549c737f9ca57b2553be830",
+      "bytes": 32
+    },
+    "board_arm/board_arm.usd": {
+      "sha256": "0e7e261b734d4f554c22706a5c949a2049edbe80222a94ee4dd37fb2d82fcfc5",
+      "bytes": 1460
+    },
+    "board_arm/config.yaml": {
+      "sha256": "006b403f29a441b18f409aa78b96ccc0beb1aa6be5978b6cda53a6feffc9fb5c",
+      "bytes": 571
+    },
+    "board_arm/configuration/board_arm_base.usd": {
+      "sha256": "9fabc92100116bb87690ba16e64afd684a8e1827970e638637561db592321a91",
+      "bytes": 4855223
+    },
+    "board_arm/configuration/board_arm_physics.usd": {
+      "sha256": "a1a9f33101135be5f0d92652089d37884efaf48dee824f7c9f556d9a2932db48",
+      "bytes": 5015
+    },
+    "board_arm/configuration/board_arm_robot.usd": {
+      "sha256": "b74ce5bb40b559ee4e91f63661bda2c9d7cb2f666e9bbd2218b3d53542a1796c",
+      "bytes": 1769
+    },
+    "board_arm/configuration/board_arm_sensor.usd": {
+      "sha256": "3b748738a4f116c4c925c4b43344f11ec478ba83383c45cc9a48dcfe1aaeaffc",
+      "bytes": 645
+    },
+    "board_arm.urdf": {
+      "sha256": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340",
+      "bytes": 8679
+    },
+    "dropper/.asset_hash": {
+      "sha256": "49573422b8bd715d4c997b19b2067eb57f9e57b7339cbcd0c6ba3c8d1e03f355",
+      "bytes": 32
+    },
+    "dropper/config.yaml": {
+      "sha256": "79c94585d7b4205d5f9e61c8d1faae2e22467b68e5a849ab2bf0a6c904f9d888",
+      "bytes": 565
+    },
+    "dropper/configuration/dropper_base.usd": {
+      "sha256": "8b32d1a10e932bd2cfae7d92304f6616fb6bb09cfae38cecc05c8554ef3b8545",
+      "bytes": 4855377
+    },
+    "dropper/configuration/dropper_physics.usd": {
+      "sha256": "88d74a46e05774e807ae2eb753e804ae8641270adfb17f451a1b89dabe6101dc",
+      "bytes": 5496
+    },
+    "dropper/configuration/dropper_robot.usd": {
+      "sha256": "98e1b1a9db7539fdd28a2b4df77283a0442d78ee35c5e2fdb026783ed10e9a14",
+      "bytes": 1822
+    },
+    "dropper/configuration/dropper_sensor.usd": {
+      "sha256": "3b748738a4f116c4c925c4b43344f11ec478ba83383c45cc9a48dcfe1aaeaffc",
+      "bytes": 645
+    },
+    "dropper/dropper.usd": {
+      "sha256": "7cb91900ffb47306e1adfd5c60dd9c22504a27279efffc4bfa65eb25733d19e1",
+      "bytes": 1458
+    },
+    "dropper.urdf": {
+      "sha256": "3f40e56e46b040fb3339c1235ea85872f46511c45db2d37f7661db94a470bae3",
+      "bytes": 9596
+    },
+    "poses.json": {
+      "sha256": "5847c2793606860a82cc74030c3fe529767318f189c5d48e3d66c0dc7b9f776a",
+      "bytes": 1723
+    },
+    "uf850.xacro": {
+      "sha256": "744e74086aec3101c1ecdc378eb37a81ebfbe993d83e2c1916836dcd0a6ce76c",
+      "bytes": 710
+    },
+    "xacro/_private_macro.xacro": {
+      "sha256": "f8a04002af04873930508af06b4288199f37d4b7a6fa627046a75c7f30bd573d",
+      "bytes": 583
+    },
+    "xacro/camera/camera.gazebo.xacro": {
+      "sha256": "1128e681a1e33fd9d6571c68b7cde69df07f10a0e6986e2ea8211bc2d5b0762b",
+      "bytes": 2941
+    },
+    "xacro/camera/realsense.gazebo.xacro": {
+      "sha256": "cc3015becbf210617621c29a8be31f05103b9deac13de33dcb1f843bc61a0572",
+      "bytes": 12704
+    },
+    "xacro/camera/realsense_d435i.urdf.xacro": {
+      "sha256": "1cacc1d144211dd75685b8e08ecc2b599e2fe1f2f6547083f7161e798770aa49",
+      "bytes": 3492
+    },
+    "xacro/common/common.gazebo.xacro": {
+      "sha256": "a59da43657e269866019aa5693fcecc9daee150828719e7194cb464f186eae00",
+      "bytes": 1901
+    },
+    "xacro/common/common.link.xacro": {
+      "sha256": "bcdb75c2d56195d93e4637b790f9804782eacf5cb5d37a77ce31bf8bba9bc55d",
+      "bytes": 12197
+    },
+    "xacro/common/common.material.xacro": {
+      "sha256": "2e0438da253454964e01b2008c8a6e59ddb3a4d19d271a6cb6d211929a6fbbc6",
+      "bytes": 522
+    },
+    "xacro/dual_xarm_device.urdf.xacro": {
+      "sha256": "fc8c9a4cb7796c944fba99f5a847bffe94db542ae851f9f84e7eba69a5cd043b",
+      "bytes": 7245
+    },
+    "xacro/gripper/bio_gripper.gazebo.xacro": {
+      "sha256": "d95707b8ce7952e6a448b2402533e6176e9e1f7843c6521ae01bbe37e6863f79",
+      "bytes": 3084
+    },
+    "xacro/gripper/bio_gripper.ros2_control.xacro": {
+      "sha256": "4a78d28864fd2b0e347723dda22dc9c7b6cb3c0497eee8aa9e7a76b29c842955",
+      "bytes": 834
+    },
+    "xacro/gripper/bio_gripper.transmission.xacro": {
+      "sha256": "05b2b3ed1d0f8ecba35be9edefbd2e3dc88aa627b080ef7412fd88a29d1bdc03",
+      "bytes": 729
+    },
+    "xacro/gripper/bio_gripper.urdf.xacro": {
+      "sha256": "dbb4b150fbf13ec8ed6cfa4f18dd7b0d66a37f2de183f1b6937fac027279df07",
+      "bytes": 4628
+    },
+    "xacro/gripper/bio_gripper_macro.xacro": {
+      "sha256": "71e537cf866beb543ed65f3ac5f9d18e078fc6e6c93d61a12f03ddfdc5b079a8",
+      "bytes": 1868
+    },
+    "xacro/gripper/gripper.urdf.xacro": {
+      "sha256": "ca4cd65316e94b56c5152df8906efc908ca7a4c744f799881bde5b2a75985336",
+      "bytes": 475
+    },
+    "xacro/gripper/gripper_macro.xacro": {
+      "sha256": "d786ceef4c0f77021ff0d2cb247d0fcb2e278c203454c6662250fd737cab16d7",
+      "bytes": 1713
+    },
+    "xacro/gripper/uflite_gripper.gazebo.xacro": {
+      "sha256": "250ce8af44b724b37c4d8de0c34edebe9f934485c3986b6eb602b805e53bae60",
+      "bytes": 3051
+    },
+    "xacro/gripper/uflite_gripper.ros2_control.xacro": {
+      "sha256": "f8e70a5003c0015b6c2ace27d680227e943b46fe7a14aa7824d8b495d34a578a",
+      "bytes": 835
+    },
+    "xacro/gripper/uflite_gripper.transmission.xacro": {
+      "sha256": "5fa8f4f0914f23bbedbb9ed0edf6c1e0753cc249b2e86e7dd15fea025cb8557a",
+      "bytes": 717
+    },
+    "xacro/gripper/uflite_gripper.urdf.xacro": {
+      "sha256": "10f4c1fca8823f2a676eea5c0fbd7daf86227d9f93a7d28d4a35dea552817216",
+      "bytes": 3711
+    },
+    "xacro/gripper/uflite_gripper_macro.xacro": {
+      "sha256": "0e84f6e931b5d34c21df7ebac91c64872a3911238f4bd79510305c8b18b58132",
+      "bytes": 1868
+    },
+    "xacro/gripper/xarm_gripper.gazebo.xacro": {
+      "sha256": "3a8c2d1d56cf39826c6d642b62e9d2a54a1092ee4181c6bf2733a5882cd611db",
+      "bytes": 4174
+    },
+    "xacro/gripper/xarm_gripper.ros2_control.xacro": {
+      "sha256": "b10d2c9ba475f0eefa584c3e926b8856e3c979941d3a940450d0d6b3fac46aa2",
+      "bytes": 829
+    },
+    "xacro/gripper/xarm_gripper.transmission.xacro": {
+      "sha256": "83a1298210243871e0039cf58b2a09a9c24e0848432e02a4da960ec8efbdf771",
+      "bytes": 710
+    },
+    "xacro/gripper/xarm_gripper.urdf.xacro": {
+      "sha256": "e1987b755501636b7ba32518d98ecb5fc8c6d2c4b1c45a49d332d6672f22c8cb",
+      "bytes": 9868
+    },
+    "xacro/gripper/xarm_gripper_macro.xacro": {
+      "sha256": "a3e9abbde7c7fdf666b8c4f3ae1404d9ffa2bf6529b668c4a56ba6e6144e9639",
+      "bytes": 3050
+    },
+    "xacro/lite6/lite6.gazebo.xacro": {
+      "sha256": "e6acf242fa64e49fa8da430e345c4169c25df75321d4aed0feeeb5e82bd99456",
+      "bytes": 806
+    },
+    "xacro/lite6/lite6.ros2_control.xacro": {
+      "sha256": "dbbfe52e4d02b3d5b3cd3c74b16f20216575daedfec409e6d140b6fb90d8fff7",
+      "bytes": 4843
+    },
+    "xacro/lite6/lite6.transmission.xacro": {
+      "sha256": "f1157e3d97777f521be047a8219e120b13adf984abf3105c624ac585a4fb3aa0",
+      "bytes": 3003
+    },
+    "xacro/lite6/lite6.urdf.xacro": {
+      "sha256": "5c55499cf63011be5476d498efc9e81a1256de331e6f4048a14ec17a8117a6fd",
+      "bytes": 10266
+    },
+    "xacro/lite6/lite6_robot_macro.xacro": {
+      "sha256": "42a2dc94ee14543f7d0b0d2036b60b7617d5dbe63ca73f52187df6fd732af32a",
+      "bytes": 3499
+    },
+    "xacro/other/other_geometry.urdf.xacro": {
+      "sha256": "27bda714ca08de56bb35a4b52c826f697b2bc3599153dfe19b96051d2a6f42a9",
+      "bytes": 4871
+    },
+    "xacro/uf850/uf850.gazebo.xacro": {
+      "sha256": "dd4a00433bd2b9e4cc97fa402b9abc3022543447c54dd74fd2fbacb6b80b3fdb",
+      "bytes": 806
+    },
+    "xacro/uf850/uf850.ros2_control.xacro": {
+      "sha256": "69ac4ee3648c3b9d03749b3b8239c7940723b5eee0a823309d74106aecc7668f",
+      "bytes": 5221
+    },
+    "xacro/uf850/uf850.transmission.xacro": {
+      "sha256": "479b6abf0275e610d670667868fe3c2bb991ec773ac8a624120869c98c45bf59",
+      "bytes": 3003
+    },
+    "xacro/uf850/uf850.urdf.xacro": {
+      "sha256": "38b9bbee3f795e5d12bf4a77428133f1c88a1f6a5d5d6d1be2e893322ad67f5e",
+      "bytes": 10272
+    },
+    "xacro/uf850/uf850_robot_macro.xacro": {
+      "sha256": "72554a557aea4851949ce2c4b88daad512e1c8430c9cdb15dbc99601542af002",
+      "bytes": 3591
+    },
+    "xacro/vacuum_gripper/lite_vacuum_gripper.urdf.xacro": {
+      "sha256": "8d416a367022fb3bdeb5a556f6d813c002edb666ebbae538db6d022629fb7000",
+      "bytes": 1505
+    },
+    "xacro/vacuum_gripper/vacuum_gripper.urdf.xacro": {
+      "sha256": "8cbe771538e400b1e37d13e97058f4632031769eb35d36ace9fdf67f1206fb12",
+      "bytes": 503
+    },
+    "xacro/vacuum_gripper/vacuum_gripper_macro.xacro": {
+      "sha256": "57fe866f6ed7ddb732bab99415c2948964dbca1014d66587adb18da26e13cf36",
+      "bytes": 1460
+    },
+    "xacro/vacuum_gripper/xarm_vacuum_gripper.urdf.xacro": {
+      "sha256": "cec477ece63e2f2251c86ceb64d946f4f477d214a50e0043425ec8d4d230f79b",
+      "bytes": 1482
+    },
+    "xacro/xarm5/xarm5.gazebo.xacro": {
+      "sha256": "0f85357ec31402c7bf14993becb55ee1bd50a82614cfdbb9a33f4530afe10041",
+      "bytes": 716
+    },
+    "xacro/xarm5/xarm5.ros2_control.xacro": {
+      "sha256": "558fbcea97d0087c2a6d2307e9e8a541f1b0d5d4adf79da09defbd535a8fd8ee",
+      "bytes": 4326
+    },
+    "xacro/xarm5/xarm5.transmission.xacro": {
+      "sha256": "e54b4aaf25639a33b88d64101500c30017f965b6a9c69e3018938f88e67a4dd1",
+      "bytes": 2538
+    },
+    "xacro/xarm5/xarm5.urdf.xacro": {
+      "sha256": "dde973a642402d2b433923baee4a925487f6eebf0c72cb1957f8853f6bf75674",
+      "bytes": 10511
+    },
+    "xacro/xarm5/xarm5_robot_macro.xacro": {
+      "sha256": "47bba012956a4e82d20ae35edee892e2a7ac901888270c4575e71fc65d5a8683",
+      "bytes": 3447
+    },
+    "xacro/xarm6/xarm6.gazebo.xacro": {
+      "sha256": "45502e8d9dbfdc50a23fd7174e14ec71aa9cdc07e9981240551a1e3c8ac3d137",
+      "bytes": 806
+    },
+    "xacro/xarm6/xarm6.ros2_control.xacro": {
+      "sha256": "8bd4f1708880c7eb384bcc8dd3b979f6550257881b332741b726ddbc4408ef48",
+      "bytes": 5205
+    },
+    "xacro/xarm6/xarm6.transmission.xacro": {
+      "sha256": "536f1bcdf87ac6f08c6511dd89235a322803007628caf6beed7ed652dcfd7d6d",
+      "bytes": 3003
+    },
+    "xacro/xarm6/xarm6.urdf.xacro": {
+      "sha256": "46bbef38b43c8f0da43193cd55f0487c2de33799577b7893651b936a26a7bf33",
+      "bytes": 11634
+    },
+    "xacro/xarm6/xarm6_robot_macro.xacro": {
+      "sha256": "54265661cb89f333410633e0bad5eaedb92aa7c7864eea26a1ff6bc80c59e095",
+      "bytes": 3597
+    },
+    "xacro/xarm7/xarm7.gazebo.xacro": {
+      "sha256": "a6e972fb5fa256a927021c747386d7406b6bfb6fec5c3779e708f3a20a9c2ecc",
+      "bytes": 899
+    },
+    "xacro/xarm7/xarm7.ros2_control.xacro": {
+      "sha256": "b2c0a23f1148147062ed5262bc7a96954d5ec2d0a63904a38be6d0992eb2acfc",
+      "bytes": 5524
+    },
+    "xacro/xarm7/xarm7.transmission.xacro": {
+      "sha256": "5ca4cff07212034ca1c1c06a674a17309f81f674ec3bc87ed0b26fa9efea6191",
+      "bytes": 3468
+    },
+    "xacro/xarm7/xarm7.urdf.xacro": {
+      "sha256": "3caca67dab86d8895c8c604eb495321f945ee942b48a5fa7feed186e9a758feb",
+      "bytes": 12898
+    },
+    "xacro/xarm7/xarm7_robot_macro.xacro": {
+      "sha256": "b564d5b09a2323a1400c5358bc2fd09060ba40b86c3cc010b06e407b68f98ce1",
+      "bytes": 3702
+    },
+    "xacro/xarm7_mirror/xarm7_mirror.gazebo.xacro": {
+      "sha256": "99beab3b613b9e2e6eeb4cb43f3fcb8adcf4fce39c9d7b9287b487131d58f36b",
+      "bytes": 906
+    },
+    "xacro/xarm7_mirror/xarm7_mirror.ros2_control.xacro": {
+      "sha256": "d4191fd1481d25979eb7c7ef92f8e3371358e7714fc87e6b6b5293d89a4468d2",
+      "bytes": 5531
+    },
+    "xacro/xarm7_mirror/xarm7_mirror.transmission.xacro": {
+      "sha256": "284f2c19c52e1d6aaa67975d9af73b82c35bddded115027b0cf7c9e44b0eb0bd",
+      "bytes": 3475
+    },
+    "xacro/xarm7_mirror/xarm7_mirror.urdf.xacro": {
+      "sha256": "1b31a83cbb671acc66774ff95557bbf3dff33aaad332a6ff81fe1865a06058b8",
+      "bytes": 9415
+    },
+    "xacro/xarm7_mirror/xarm7_mirror_robot_macro.xacro": {
+      "sha256": "0a4ab8f5a8c4955bb55a71d0faf5a286f0dffc6cfa9aa46c8506fd311de1391a",
+      "bytes": 3806
+    },
+    "xacro/xarm_device.urdf.xacro": {
+      "sha256": "bf85601d7447b6dcc40204e7a2ce6e6a5f349b0714cba5236e5d5d1209fdd0ab",
+      "bytes": 3973
+    },
+    "xacro/xarm_device_macro.xacro": {
+      "sha256": "a16bd8c4dc0c71c970ce339d4b2e435666f54e111be00d7ed4369af3a7ebae5c",
+      "bytes": 16784
+    }
+  }
+}
