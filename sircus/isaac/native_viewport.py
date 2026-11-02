@@ -20,12 +20,18 @@ p = argparse.ArgumentParser()
 p.add_argument("--assets", default="/workspace/assets")
 p.add_argument("--output", type=Path, required=True)
 p.add_argument(
-    "--view", choices=("orthographic", "perspective"), default="orthographic"
+    "--view",
+    choices=("orthographic", "perspective", "close-up"),
+    default="orthographic",
 )
+p.add_argument("--focus-cell", type=int, choices=range(32), default=2)
+p.add_argument("--playback-rate", type=float, default=1.0)
 AppLauncher.add_app_launcher_args(p)
 a = p.parse_args()
 if a.headless or a.livestream > 0:
     p.error("This demonstration requires the native desktop window")
+if not 0 < a.playback_rate <= 1:
+    p.error("--playback-rate must be greater than zero and at most one")
 if not a.enable_cameras:
     p.error("This demonstration requires --enable_cameras")
 a.output.mkdir(parents=True, exist_ok=False)
@@ -55,7 +61,7 @@ class LiveShots(ParallelShots):
         if self.pace and self.steps % 8 == 0:
             self.sim.render()
             now = time.monotonic()
-            target = (self.deadline or now) + 8 * self.dt
+            target = (self.deadline or now) + 8 * self.dt / a.playback_rate
             if target > now:
                 time.sleep(target - now)
             self.deadline = max(target, time.monotonic())
@@ -98,7 +104,8 @@ def main():
         cfg, poses, a.assets, a.output / "bucket.usda", 32, robot_body_filters(a.assets)
     )
     scene = InteractiveScene(scfg)
-    perspective = a.view == "perspective"
+    perspective = a.view != "orthographic"
+    close_up = a.view == "close-up"
     view = Camera(
         CameraCfg(
             prim_path="/World/FarmViewport",
@@ -107,7 +114,7 @@ def main():
             update_period=0,
             data_types=["rgb"],
             spawn=sim_utils.PinholeCameraCfg(
-                focal_length=24 if perspective else 20,
+                focal_length=35 if close_up else (24 if perspective else 20),
                 horizontal_aperture=36 if perspective else 400,
                 vertical_aperture=20.25 if perspective else 300,
                 clipping_range=(0.05, 200),
@@ -122,6 +129,9 @@ def main():
     env = LiveShots(sim, scene, None, None, cfg, poses, a, task, filters, a.output)
     center = env.origins.mean(axis=0) + [0.67, -0.25, 0.35]
     eye = center + ([18, -23, 20] if perspective else [0, -24, 48])
+    if close_up:
+        center = env.origins[a.focus_cell] + [0.67, -0.20, 0.45]
+        eye = env.origins[a.focus_cell] + [2.05, -3.10, 1.25]
     view.set_world_poses_from_view(
         torch.tensor(np.array([eye]), dtype=torch.float32, device=sim.device),
         torch.tensor(np.array([center]), dtype=torch.float32, device=sim.device),
@@ -145,7 +155,9 @@ def main():
             if window:
                 window.visible = False
     camera_metadata = dict(
-        projection=a.view,
+        projection="perspective" if perspective else "orthographic",
+        view=a.view,
+        focus_cell=a.focus_cell if close_up else None,
         eye_world_m=eye.tolist(),
         target_world_m=center.tolist(),
         focal_length=float(camera.GetFocalLengthAttr().Get()),
@@ -158,6 +170,7 @@ def main():
         scope="Native Isaac desktop recording of 32-cell live PPO; endpoint resets, no pickup/transit learning.",
         seed=20261104,
         camera=camera_metadata,
+        maximum_simulation_playback_rate=a.playback_rate,
         contract=ppo,
         workcells=32,
         arms=64,
