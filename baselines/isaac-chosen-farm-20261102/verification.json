@@ -1,0 +1,81 @@
+{
+  "schema": "sircus-chosen-farm-verification-v1",
+  "scope": "Native PhysX replay of selected, repeated PPO actions; no new training or held-out evaluation",
+  "run": "chosen-camera-20261102-v1",
+  "source_snapshot": "studies/chosen-camera-20261102-v1",
+  "source_files_checked": 85,
+  "source_mismatches": [],
+  "selected_camera_original_bytes_sha256": "a7967c072b8f949318b43a510235d503c81c21e05f433670a0ce92a7af385ede",
+  "scene_fingerprint": "98ebe47b48a01b9028747ab03bc913a033d90611e44f03b912e58f41c87ff79a",
+  "weights_sha256": "5a510b0c991c1233d3fc9c528d208c1b01fbb458959bc212eed76149d3fe675e",
+  "checks": {
+    "source_action_lineage": true,
+    "all_native_camera_frames": true,
+    "continuous_frame_numbering": true,
+    "bucket_rim_table_floor_robot_contacts": true,
+    "foreign_cell_collision_isolation": true,
+    "all_cell_rim_rays": true,
+    "measured_foreground_joint_movement": true,
+    "native_release_pose_settling_guards": true,
+    "mp4_decoded_frame_counts_resolution_fps_chapters": true,
+    "mac_transfer_sha256": true
+  },
+  "foreground": {
+    "releases": 8,
+    "board_rebounds": 8,
+    "retained_captures": 2,
+    "floor_arrivals": 4,
+    "bucket_table_misses": 2,
+    "min_projected_background_rebounds_per_chapter": 15
+  },
+  "visual_review": {
+    "native_full_resolution_sample_frames": [
+      0,
+      240,
+      525
+    ],
+    "contact_sheet": "release, board contact, available capture/floor contact and post-contact samples for all eight foreground trials",
+    "limitations": "Projection is geometric frustum coverage, not proof of pixel visibility. Bucket walls/arms can occlude the ball; unchanged user-selected camera."
+  },
+  "tests": {
+    "command": "python -m unittest discover -s sircus/isaac/tests -p test_*.py",
+    "tests_run": 158,
+    "skipped": 1,
+    "skip_reason": "Torch-dependent checkpoint audit unavailable in Mac environment",
+    "result": "OK",
+    "black_check": "passed for all 10 changed/new Python files",
+    "independent_review": "16 chosen-camera and legacy-export tests passed; no blockers"
+  },
+  "runtime_end_state": {
+    "capture_exit_code": 0,
+    "export_exit_code": 0,
+    "capture_resumed": false,
+    "rtx_4090": "idle at final read-only query, 17 MiB / 0% utilization",
+    "rtx_4070": "existing workload active, 3298 MiB / 58% utilization; untouched",
+    "existing_services": "preserved; camera scout remains running",
+    "hardware_viam_audio_actions": false
+  },
+  "evidence_sha256": {
+    "selected-camera.json": "a7967c072b8f949318b43a510235d503c81c21e05f433670a0ce92a7af385ede",
+    "result.json": "3bf33158d736773085f885b16107b836d5b9657e4dc5ebac816ec83f49890b4f",
+    "film.json": "09dcd8a65b577dc3c58f7e950ad744b4b101a46503fb1afd5cef87c8715c7f14",
+    "probes.json": "e23bbea11738453b30d8369da6a2cf9caa17250630bb2c09b127562cc2a89ecc",
+    "rim-rays.json": "98df6ec0211b66ea15dd2480a63efd0f3a29c41a58f502a8d9f55c8461c98878"
+  },
+  "movies": {
+    "full_movie": {
+      "file": "farm-one-minute.mp4",
+      "sha256": "e616c426e9ccf489eeae449694c7bdb5431381763473bacb852ce7e8808833c9",
+      "source_start_frame": 0,
+      "frames": 1800,
+      "duration_s": 60.0
+    },
+    "front_row_movie": {
+      "file": "front-row.mp4",
+      "sha256": "9b3641c7cc991dc085ab121262e51768fead2f23ec0198d4716759967c902f90",
+      "source_start_frame": 480,
+      "frames": 1320,
+      "duration_s": 44.0
+    }
+  }
+}

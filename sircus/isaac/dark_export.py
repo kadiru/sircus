@@ -197,12 +197,74 @@ def validate_station_series(chapters):
     )
 
 
+def validate_chosen_farm(chapters, total_frames):
+    """Require the one-minute tour and eight distinct measured foreground throws."""
+    require(total_frames == 1800, "Chosen farm recording must contain 1800 frames")
+    require(
+        len(chapters) == 12,
+        "Chosen farm recording needs four orbit and eight station shots",
+    )
+    orbit, station = chapters[:4], chapters[4:]
+    require(
+        all(
+            c["focus"] is None and not c["station"] and not c["action_only"]
+            for c in orbit
+        ),
+        "The first four chosen farm chapters must be the orbit",
+    )
+    require(
+        len({c["focus"] for c in station}) == 1 and station[0]["focus"] is not None,
+        "Chosen farm close-ups must retain one foreground workcell",
+    )
+    require(
+        len({c["start_frame"] for c in station}) == 8,
+        "Chosen farm recording repeats a foreground drop",
+    )
+    require(
+        all(
+            c["station"]
+            and c["action_only"]
+            and c["visible_board_frame"] is not None
+            and c["background_drops_in_view"] >= 2
+            for c in station
+        ),
+        "Need eight measured foreground rebounds and active background tables",
+    )
+
+
+def selected_camera(run, result, fingerprint):
+    """Check exact original camera bytes and validate them against the source scene."""
+    from saved_camera import load_camera
+
+    path = run / "selected-camera.json"
+    require(
+        digest(path) == result["selected_camera_sha256"],
+        "Selected camera file digest mismatch",
+    )
+    camera = load_camera(path, fingerprint)
+    require(
+        camera == result["selected_camera"],
+        "Selected camera JSON disagrees with result",
+    )
+    return camera
+
+
 def verify(run, source):
     result = read(run / "result.json")
     plan_name = result.get("recording_plan", "dark-tour-v1")
-    shots, camera_pose = recording_plan(plan_name)
+    camera = None
+    if plan_name == "chosen-farm-v1":
+        from recording_plans import plan_origins
+
+        parent, spec = read(source / "result.json"), read(source / "contract.json")
+        camera = selected_camera(run, result, spec["fingerprint"])
+        shots, camera_pose = recording_plan(plan_name, camera)
+        world = plan_origins(plan_name)
+    else:
+        shots, camera_pose = recording_plan(plan_name)
+        world = origins()
+        parent, spec = read(source / "result.json"), read(source / "contract.json")
     verify_resume(run, result)
-    parent, spec = read(source / "result.json"), read(source / "contract.json")
     require(result["version"] == "sircus-dark-farm-replay-v1", "Unknown replay")
     require(
         result["source_fingerprint"] == parent["fingerprint"] == spec["fingerprint"]
@@ -216,9 +278,22 @@ def verify(run, source):
         appearance_settings = stage_settings
     else:
         raise ValueError("Unknown appearance")
+    expected_stage = json.loads(json.dumps(appearance_settings()))
+    if plan_name == "chosen-farm-v1":
+        require(
+            appearance == "silver",
+            "Chosen farm requires the selected silver appearance",
+        )
+        expected_stage["camera_backdrop"] = dict(
+            renderer_settings={
+                "/rtx/background/source/type": 2,
+                "/rtx/background/source/color": [0.22, 0.23, 0.24],
+            },
+            documentation="https://docs.omniverse.nvidia.com/materials-and-rendering/latest/rtx-renderer_common.html",
+        )
     require(
-        result["stage"] == json.loads(json.dumps(appearance_settings()))
-        and np.array_equal(result["origins_m"], origins())
+        result["stage"] == expected_stage
+        and np.array_equal(result["origins_m"], world)
         and (result["workcells"], result["articulations"]) == (35, 70),
         "Wrong farm",
     )
@@ -315,7 +390,7 @@ def verify(run, source):
             ball = (
                 frame.get("focus_ball_world_m") if frame["phase"] == "release" else None
             )
-            eye, aim = camera_pose(plan, k, geometry, origins(), ball)
+            eye, aim = camera_pose(plan, k, geometry, world, ball)
             require(
                 np.allclose(eye, frame["eye_m"], atol=0.00021, rtol=0)
                 and np.allclose(aim, frame["target_m"], atol=0.00003, rtol=0),
@@ -330,16 +405,14 @@ def verify(run, source):
                 rows[j],
                 spec["scene"]["bucket"],
                 spec["scene"]["ball"]["radius_m"],
-                origins()[j],
+                world[j],
             )
-            if plan_name == "fixed-station-v1":
+            if plan_name in ("fixed-station-v1", "chosen-farm-v1"):
                 # The same recorded batch must also show active neighboring tables.
                 focused["background_drops_in_view"] = sum(
                     not r["invalid"]
                     and r["board_bounce"]
-                    and inside_frame(
-                        release[0], origins()[k] + r["release_ball_center_m"]
-                    )
+                    and inside_frame(release[0], world[k] + r["release_ball_center_m"])
                     for k, r in enumerate(rows)
                     if k != j
                 )
@@ -375,6 +448,8 @@ def verify(run, source):
     actions = [c for c in chapters if c["action_only"]]
     if plan_name == "fixed-station-v1":
         validate_station_series(actions)
+    elif plan_name == "chosen-farm-v1":
+        validate_chosen_farm(chapters, total)
     require(
         any(
             c["captured"] and c["visible_bucket_entry_frame"] is not None
@@ -397,6 +472,8 @@ def verify(run, source):
     return dict(
         version=result["version"],
         recording_plan=plan_name,
+        selected_camera=camera,
+        selected_camera_sha256=result.get("selected_camera_sha256"),
         scope="Native PhysX replay of previously sampled PPO actions",
         source_fingerprint=parent["fingerprint"],
         source_weights_sha256=parent["final_hash"],
@@ -556,6 +633,16 @@ def encode_all(run, summary, dest):
     chapters, frames = summary["chapters"], run / "frames"
     actions = [c for c in chapters if c["action_only"]]
     station = [c for c in chapters if c.get("station")]
+    if summary["recording_plan"] == "chosen-farm-v1":
+        summary["full_movie"] = encode_movie(
+            frames, dest / "farm-one-minute.mp4", chapters, summary["resolution"]
+        )
+        summary["front_row_movie"] = encode_movie(
+            frames, dest / "front-row.mp4", station, summary["resolution"]
+        )
+        contact_sheet(frames, dest / "contact-sheet.jpg", actions)
+        (dest / "film.json").write_text(json.dumps(summary, indent=2) + "\n")
+        return summary
     summary["full_movie"] = encode_movie(
         frames, dest / "dark-farm.mp4", chapters, summary["resolution"]
     )

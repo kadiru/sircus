@@ -1,4 +1,23 @@
-# Silver-gray fixed-camera recording completed — November 2, 2026
+# User-selected farm recording completed — November 2, 2026
+
+[Film and reproduction](CHOSEN_FARM_FILM.md),
+[compact verified baseline](../../baselines/isaac-chosen-farm-20261102/README.md).
+The user's exact exported camera is preserved. A 14-second orbit and 2-second
+approach lead to 44 seconds fixed on the front-right table, with eight measured
+board rebounds: two captures, four floor arrivals and two bucket/table misses.
+The 60-second full movie and 44-second close-up decoded at 1080p/30 fps and
+matched their digests after transfer. Source/camera, contacts, all-cell rim rays,
+frame/chapter and native visual checks passed. Isaac tests: 158 run, one skipped.
+
+This replays selected PPO actions, with scripted joint transitions and initialized
+balls; there are no new training updates or held-out policy performance claims.
+The finite 4090 job exited. A final read-only GPU query found the 4090 idle and
+the existing 4070 workload active. Existing services and the camera scout remain
+unchanged. No hardware/Viam/audio actions. Source and raw run:
+`studies/chosen-camera-20261102-v1`, `output/chosen-camera-20261102-v1`;
+media: `output/chosen-camera-20261102-v1-export`, outside Git.
+
+# Earlier silver-gray fixed-camera recording — November 2, 2026
 
 [Verified silver recording](../../baselines/isaac-silver-station-20261102/README.md)
 uses the selected cool silver tabletops and softer, slightly brighter lighting.
