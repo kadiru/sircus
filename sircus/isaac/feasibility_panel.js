@@ -9,6 +9,12 @@ function row(root,values,tag='td'){const tr=document.createElement('tr');for(con
 function selected(){return feasibilityData?.cells.find(c=>c.id===feasibilitySelection)||feasibilityData?.cells[0];}
 function color(c){const s=stats(c,'confirmations');return s.trials===30&&s.captures===30?'#5bd6b6':s.trials?'#ffbd62':'#7a969e';}
 function example(c,stage){return c[stage+'_example']||(c[stage]||[])[0];}
+function searchFailures(c){
+ const failures={};for(const stage of ['baseline','search','refinement']){
+  const counts=c.stages?.[stage]?.failures;if(counts){for(const [reason,n] of Object.entries(counts))failures[reason]=(failures[reason]||0)+n;}
+  else for(const r of c[stage]||[]){if(r.route_success)continue;const reason=r.invalid||(r.external_contact_steps?'external_contact':'released_miss');failures[reason]=(failures[reason]||0)+1;}
+ }return Object.entries(failures).sort((a,b)=>b[1]-a[1]);
+}
 function renderFeasibility(d){
  feasibilityData=d;const c=selected();if(!c)return;feasibilitySelection=c.id;
  const age=(Date.now()-Date.parse(d.timestamp_utc))/1000;fe('status').textContent=`${d.phase} · ${d.attempts.toLocaleString()} attempts · ${d.run}${!['completed','failed'].includes(d.phase)&&age>180?' · progress stale':''}`;
@@ -26,6 +32,9 @@ function renderFeasibility(d){
  const s=stats(c,'confirmations');fe('outcome').textContent=s.trials?`Fresh perturbations: ${s.captures}/${s.trials} captures; ${s.single_bounce} single-bounce; ${s.clean} clean entry; ${s.invalid} endpoint rejects.${s.wilson95?' 95% Wilson interval: '+s.wilson95.map(x=>(100*x).toFixed(1)+'%').join('–')+'.':''}`:'No fresh confirmation for this target yet.';
  const audit=d.direct_drop_audit?.find(a=>a.cell_id===c.id);fe('reach').textContent=!audit?'Direct reach audit pending.':audit.beyond_geometric_outer_bound?`Beyond dropper’s conservative ball-center reach bound (${mm(audit.ball_outer_bound_m)} mm horizontal). This follows from modeled link lengths, not an IK search failure.`:`Direct-drop endpoint IK: ${audit.tested_heights.filter(t=>t.solved).length}/${audit.tested_heights.length} tested heights solved. An IK failure alone does not prove unreachable.`;
  const n=stats(c,'nominal'),old=stats(c,'fixed_xy_ablation');fe('comparison').textContent=n.trials?`Frozen nominal: ${n.captures}/${n.trials}. Same heights/tilt at original board XY: ${old.captures}/${old.trials}. Small paired development check.`:'';
+ const failures=fe('failures');failures.replaceChildren();row(failures,['Search failure / rejection','Attempts'],'th');
+ const labels={endpoint_ik_Arm14:'Board-arm endpoint IK',endpoint_ik_Arm10:'Dropper-arm endpoint IK',settling_correction_ik:'Settling correction IK',endpoints_not_settled:'Pose did not settle',board_bucket_separation:'Board / bucket clearance guard',external_contact:'Detected external contact',released_miss:'Released, but not retained'};
+ const reasons=searchFailures(c);for(const [reason,n] of reasons)row(failures,[labels[reason]||reason,n]);if(!reasons.length)row(failures,['No failed search attempts recorded',0]);
  fe('summary').replaceChildren();row(fe('summary'),['Stage','Attempts','Captures','Single bounce','Clean','Invalid'],'th');for(const stage of ['baseline','search','refinement','nominal','fixed_xy_ablation','confirmations']){const sum=d.totals?.[stage]||d.cells.map(c=>stats(c,stage)).reduce((a,b)=>Object.fromEntries(['trials','captures','single_bounce','clean','invalid'].map(k=>[k,(a[k]||0)+b[k]])),{});row(fe('summary'),[stage.replaceAll('_',' '),sum.trials,sum.captures,sum.single_bounce,sum.clean,sum.invalid]);}
  fe('limits').replaceChildren();for(const text of d.limits||[d.contract.scope,d.contract.unknown_rule,d.contract.geometry_status]){const li=document.createElement('li');li.textContent=text;fe('limits').appendChild(li);}
  fe('verification').textContent=d.verification?`Verified ${d.verification.raw_rows_matched} raw rows, ${d.verification.source_hashes_matched} source hashes and ${d.verification.artifact_hashes_matched} artifact hashes. Contact/isolation probes ${d.probes.filter(p=>p.all_passed).length}/${d.probes.length}; bucket drift ${(d.max_bucket_drift_m*1000).toFixed(6)} mm.`:'Progress report — independent completed-run verification pending.';
