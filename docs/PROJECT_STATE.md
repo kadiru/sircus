@@ -1,5 +1,13 @@
 # Project state
 
+## Expanded farm: all 35 sites released — November 2, 2026
+
+- [Method and reproduction](../sircus/isaac/EXPANDED_FARM_POSES.md), [results and evidence](../baselines/isaac-expanded-farm-20261102/README.md): the completed v4 run made 350/350 releases, ten at each of the 35 unchanged bucket sites, with zero invalid trials. Five PPO updates produced 111 qualified captures, including 59 clean and 101 single-board-bounce captures. These are training outcomes, not a held-out performance estimate.
+- Native qualification supplied 24 configurations per table, 840 total, with variation in all five action dimensions. The menu is branch-local around measured holds. Nine sites nevertheless repeated one projected configuration in their ten sampled policy choices; available diversity does not prove that the policy explored it.
+- The bounded joint-readiness wait can finish with 34/35 cells ready. Independent final measured settling/release checks subsequently admitted all 350 releases; this does not mean every transit met the earlier readiness gate or certify collision-free paths. Earlier failed/partial diagnostics remain separate.
+- The CPU checkpoint/likelihood audit passed for the immutable v6 source. The original camera bytes, distinct bucket placements, bases, geometry uncertainty and scoring remain unchanged. Inputs are five privileged geometric features; the actor chooses five shot parameters. Transit and ball loading remain scripted. No held-out/generalization, perception-driven control or physical readiness claim follows.
+- Reproduction uses `--expanded-options-per-cell 24`; nearby-menu refinement recommends `--append 24`, followed by fresh native qualification. No hardware, Viam or audio deployment accompanies this work.
+
 ## Fixed-camera actual training recording — November 2, 2026
 
 - [Training and action-only film](../sircus/isaac/ACTION_TRAINING_FILM.md), [checkpoint and verification](../baselines/isaac-action-training-20261102/README.md): ten fresh 35-slot batches feed five PPO updates, all recorded at the exact selected camera. The edit retains every batch's setup/drop/outcome and removes quiet tails: 23.33 s versus 52.33 s for all captured frames, both native 1080p/30 fps. No camera tracking or outcome-selected replay.
