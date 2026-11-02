@@ -7,7 +7,7 @@ from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from recording_plans import setup_capture_progress
+from recording_plans import setup_capture_progress, transition_group_ready
 
 
 class SetupCaptureTests(unittest.TestCase):
@@ -33,6 +33,17 @@ class SetupCaptureTests(unittest.TestCase):
 
     def test_training_camera_progress_caps_at_end_of_command(self):
         self.assertEqual(setup_capture_progress(400, 240, 0.1, training=True), 1.0)
+
+    def test_all_cell_training_does_not_finish_with_two_ready_backgrounds(self):
+        ready = [True, True, True, False]
+        self.assertTrue(transition_group_ready(ready, True, 2))
+        self.assertFalse(transition_group_ready(ready, True, 2, require_all=True))
+
+    def test_all_qualified_cells_and_foreground_must_be_ready(self):
+        self.assertTrue(transition_group_ready([True] * 35, True, 0, require_all=True))
+        self.assertFalse(
+            transition_group_ready([True] * 35, False, 34, require_all=True)
+        )
 
 
 if __name__ == "__main__":

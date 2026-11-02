@@ -54,6 +54,85 @@ def load_geometry_menu(source, spec):
     )
 
 
+def task_dispatch(spec):
+    """Whitelist historical and expanded task contracts without guessing shapes."""
+    import cylinder_farm
+
+    if spec.get("version") == "sircus-cylinder-film-v2":
+        return cylinder_farm, False
+    if spec.get("version") == "sircus-expanded-cylinder-film-v1":
+        import expanded_farm
+
+        return expanded_farm, True
+    raise ValueError("Unsupported training task version")
+
+
+def training_formats(spec):
+    task, expanded = task_dispatch(spec)
+    return dict(
+        task_version=spec["version"],
+        action_dim=len(task.LOW),
+        report_schema=(
+            "sircus-action-training-film-v2"
+            if expanded
+            else "sircus-action-training-film-v1"
+        ),
+        clip_schema=(
+            "sircus-action-training-clip-v2"
+            if expanded
+            else "sircus-action-training-clip-v1"
+        ),
+        audit_schema=(
+            "sircus-action-training-checkpoint-audit-v2"
+            if expanded
+            else "sircus-action-training-checkpoint-audit-v1"
+        ),
+        export_schema=(
+            "sircus-action-training-export-v2"
+            if expanded
+            else "sircus-action-training-export-v1"
+        ),
+        protocol="sircus-fixed-camera-expanded-pose-film-v1" if expanded else PROTOCOL,
+    )
+
+
+def verify_expanded_binding(run, spec, report):
+    """Verify original camera bytes bound explicitly to a new action contract."""
+    task, expanded = task_dispatch(spec)
+    if not expanded:
+        return None
+    run = Path(run)
+    camera, binding = task.bind_camera(
+        run / "selected-camera.json", spec, report["origins_m"]
+    )
+    stored = json.loads((run / "camera-binding.json").read_text())
+    formats = training_formats(spec)
+    if (
+        stored != binding
+        or report["camera"] != camera
+        or report["camera_source_fingerprint"] != camera["source_fingerprint"]
+        or report["camera_binding_sha256"] != digest(run / "camera-binding.json")
+        or report["task_version"] != spec["version"]
+        or report["action_dim"] != formats["action_dim"]
+    ):
+        raise ValueError("Expanded camera/task binding mismatch")
+    return dict(
+        camera=camera, binding=binding, sha256=digest(run / "camera-binding.json")
+    )
+
+
+def load_expanded_training_menu(path, spec):
+    """Only native settled endpoint proofs may enable the expanded 35-cell task."""
+    from expanded_pose_menu import load_native_menu
+
+    menus, audit = load_native_menu(Path(path), spec)
+    if len(menus) != 35 or any(len(menu) < 2 for menu in menus):
+        raise ValueError(
+            "Expanded training needs two native-qualified actions at all 35 sites"
+        )
+    return menus, audit
+
+
 def hold_disabled_targets(targets, starts, enabled):
     """Keep menu-empty stations stationary before any articulated drive command."""
     for name in targets:
@@ -94,7 +173,21 @@ class ActionTrainingShots:
         original_plan = self.args.recording_plan
         self.args.recording_plan = "fixed-station-v1"
         try:
-            return ReplayShots.approach_endpoints(self, targets)
+            result = ReplayShots.approach_endpoints(self, targets)
+            if getattr(self, "require_all_transit_ready", False):
+                errors = np.maximum.reduce(
+                    [
+                        (arm.data.joint_pos[:, :6] - targets[name][:, :6])
+                        .abs()
+                        .amax(dim=1)
+                        .cpu()
+                        .numpy()
+                        for name, arm in self.arms.items()
+                    ]
+                )
+                self.transit_joint_error_rad = errors.tolist()
+                self.transit_ready_after_drive = (errors < 0.001).tolist()
+            return result
         finally:
             self.args.recording_plan = original_plan
 
@@ -147,15 +240,6 @@ class ActionTrainingShots:
 def run_training(env, spec, menu_source):
     """Run ten fresh 35-cell batches and five PPO updates, with bounded capture."""
     import torch
-    from cylinder_farm import (
-        HIGH,
-        LOGSTD,
-        LOW,
-        SEED,
-        WARM,
-        observation,
-        project_actions,
-    )
     from dark_flight import Shot
     from farm_contract import reward, statistics
     from farm_policy import Policy, update, weight_hash
@@ -163,11 +247,45 @@ def run_training(env, spec, menu_source):
 
     if env.n != 35 or spec["training_batches"] != BATCHES:
         raise ValueError("This bounded training film requires ten 35-cell batches")
-    menus, menu_audit = load_geometry_menu(menu_source, spec)
+    task, expanded = task_dispatch(spec)
+    env.require_all_transit_ready = expanded
+    formats = training_formats(spec)
+    LOW, HIGH, WARM, LOGSTD = task.LOW, task.HIGH, task.WARM, task.LOGSTD
+    observation, project_actions, SEED = (
+        task.observation,
+        task.project_actions,
+        task.SEED,
+    )
+    extra = {}
+    if expanded:
+        qualified = getattr(env, "expanded_menu_path", None)
+        if qualified is None:
+            raise ValueError(
+                "Expanded training requires a separately native-qualified menu artifact"
+            )
+        target = env.dest / "expanded-menu-qualified.json"
+        if Path(qualified).resolve() != target.resolve():
+            shutil.copyfile(qualified, target)
+        menus, menu_audit = load_expanded_training_menu(target, spec)
+        camera, binding = task.bind_camera(
+            env.dest / "selected-camera.json", spec, env.origins
+        )
+        if camera != env.saved_camera:
+            raise ValueError("Native camera differs from expanded experiment binding")
+        atomic(env.dest / "camera-binding.json", binding)
+        extra = dict(
+            task_version=spec["version"],
+            action_dim=formats["action_dim"],
+            camera_source_fingerprint=camera["source_fingerprint"],
+            camera_binding_sha256=digest(env.dest / "camera-binding.json"),
+            transition_policy="all-qualified-sites-ready-v1",
+        )
+    else:
+        menus, menu_audit = load_geometry_menu(menu_source, spec)
+        shutil.copyfile(Path(menu_source) / "menu.json", env.dest / "menu.json")
     enabled = np.array([bool(menu) for menu in menus])
     if not enabled[FOCUS]:
         raise ValueError("The chosen foreground has no qualified geometry menu")
-    shutil.copyfile(Path(menu_source) / "menu.json", env.dest / "menu.json")
     atomic(env.dest / "menu-provenance.json", menu_audit)
     env.source_valid = torch.tensor(enabled, dtype=torch.bool, device=env.sim.device)
     env.preparation_enabled = enabled.copy()
@@ -204,6 +322,7 @@ def run_training(env, spec, menu_source):
                 updates=len(changes),
                 menu_sha256=menu_audit["file_sha256"],
                 weight_hash=before,
+                **extra,
             ),
             checkpoint,
         )
@@ -236,8 +355,9 @@ def run_training(env, spec, menu_source):
         # all 35 attempted slots, including invalid rewards, enter each update.
         buffer.append((obs, latent, logp, returns))
         clip = dict(
-            schema="sircus-action-training-clip-v1",
-            filming_protocol=PROTOCOL,
+            schema=formats["clip_schema"],
+            filming_protocol=formats["protocol"],
+            **extra,
             batch=batch,
             focus=FOCUS,
             shot=env.shot.name,
@@ -266,6 +386,9 @@ def run_training(env, spec, menu_source):
             release_stride=RELEASE_STRIDE,
             scope="Actual on-policy data consumed by PPO; scripted joint transit and initialized ball release.",
         )
+        if expanded:
+            clip["transit_joint_error_rad"] = env.transit_joint_error_rad
+            clip["transit_ready_after_drive"] = env.transit_ready_after_drive
         atomic(env.dest / f"clip-{batch:02}.json", clip)
         summary = dict(
             batch=batch,
@@ -280,6 +403,8 @@ def run_training(env, spec, menu_source):
             optimizer_samples=env.n,
             **statistics(rows),
         )
+        if expanded:
+            summary["transit_ready_cells"] = sum(env.transit_ready_after_drive)
         batches.append(summary)
         if len(buffer) == spec["batches_per_update"]:
             changes.append(
@@ -307,12 +432,14 @@ def run_training(env, spec, menu_source):
             contract=spec,
             menu_sha256=menu_audit["file_sha256"],
             weight_hash=final,
+            **extra,
         ),
         env.dest / "policy-final.pt",
     )
     report = dict(
-        schema="sircus-action-training-film-v1",
-        filming_protocol=PROTOCOL,
+        schema=formats["report_schema"],
+        filming_protocol=formats["protocol"],
+        **extra,
         source_fingerprint=spec["fingerprint"],
         fingerprint=spec["fingerprint"],
         menu_sha256=menu_audit["file_sha256"],
@@ -337,7 +464,11 @@ def run_training(env, spec, menu_source):
         captures=sum(b["captures"] for b in batches),
         elapsed_s=time.monotonic() - started,
         source_sha256={p.name: digest(p) for p in Path(__file__).parent.glob("*.py")},
-        scope="Fresh ten-batch PPO training visualization; no held-out evaluation, learned grasp or learned joint path. Empty-menu cells stay parked/release-disabled; all 350 attempted slots remain in the original PPO optimizer.",
+        scope=(
+            "Fresh five-dimensional ten-batch PPO training visualization, with two or more native-qualified actions at all 35 fixed bucket sites. Original per-attempt release guards remain active; actual releases and invalids are reported. Scripted transit and initialized release; no held-out evaluation or learned grasp/joint path."
+            if expanded
+            else "Fresh ten-batch PPO training visualization; no held-out evaluation, learned grasp or learned joint path. Empty-menu cells stay parked/release-disabled; all 350 attempted slots remain in the original PPO optimizer."
+        ),
     )
     atomic(env.dest / "result.json", report)
     atomic(env.dest / "progress.json", dict(report, phase="completed"))

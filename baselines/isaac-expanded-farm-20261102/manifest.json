@@ -1,0 +1,73 @@
+{
+  "schema": "sircus-baseline-file-manifest-v1",
+  "files": {
+    "README.md": {
+      "sha256": "54c054ae83e611614cf422d458121600c82326e4079b278de892acc69f961810",
+      "bytes": 7222
+    },
+    "camera-binding.json": {
+      "sha256": "fac63122f45262b4aff83dd78068ebd5c8e9f765315570bf84944068375c01ad",
+      "bytes": 2055
+    },
+    "cell-summary.csv": {
+      "sha256": "6db600ce07c7388e0781e765bc755ecbe6d59e859a7898aebd1d46794dd64977",
+      "bytes": 1787
+    },
+    "cell-summary.json": {
+      "sha256": "69f4148ed142329345c3edbbc7abc421f785d3d7c403d5666bc7c633c71934d4",
+      "bytes": 27549
+    },
+    "checkpoint-audit.json": {
+      "sha256": "933d8f629d103f9fe2880f13945268024b1e3683ed8f12609f298f8542714752",
+      "bytes": 3779
+    },
+    "contract.json": {
+      "sha256": "291ca91848bddff8f812b59e790ac565657982a708dd9dcb7c7281136a87544f",
+      "bytes": 13572
+    },
+    "expanded-menu-qualified.json": {
+      "sha256": "932aff6edc796147e68753c5ef6c4470dcb76d769abc9384d5009ad9f14f1803",
+      "bytes": 1440004
+    },
+    "film.json": {
+      "sha256": "e36255fe8aeadc072ddc57c0f1633626535593a953f362401c126395fbb9a874",
+      "bytes": 29948
+    },
+    "menu-provenance.json": {
+      "sha256": "adfc91b9da86d68ae0fef2735e18fcd16964aa903e375cebd320dbf3aa3ffb4c",
+      "bytes": 507
+    },
+    "policy-00.pt": {
+      "sha256": "162b4f3de31b9a823257e9a9df08920931cdefbba8a5e65260aea632b159ee10",
+      "bytes": 44066
+    },
+    "policy-final.pt": {
+      "sha256": "c2350fcfd3b582228aac74510279f643cc35549c70bbe55d81809be91483cfec",
+      "bytes": 141865
+    },
+    "probes.json": {
+      "sha256": "e23bbea11738453b30d8369da6a2cf9caa17250630bb2c09b127562cc2a89ecc",
+      "bytes": 10323
+    },
+    "result.json": {
+      "sha256": "54acaf6796b094f1fcf6b7cac30fd3d8e3fe83ca97c59d4fbb3282db5a893bc6",
+      "bytes": 22062
+    },
+    "rim-rays.json": {
+      "sha256": "98df6ec0211b66ea15dd2480a63efd0f3a29c41a58f502a8d9f55c8461c98878",
+      "bytes": 5817
+    },
+    "selected-camera.json": {
+      "sha256": "a7967c072b8f949318b43a510235d503c81c21e05f433670a0ce92a7af385ede",
+      "bytes": 530
+    },
+    "transition-audit.json": {
+      "sha256": "975cde63e98cf06cb8a3276726879a6fdd15a6da0c020b2001ab6fd7e383c8f9",
+      "bytes": 16718
+    },
+    "verification.json": {
+      "sha256": "8ff9f41bf5b552d573d3d4b714b7e12d8ebcbe62d103105d15f9a97bb4f1f4f3",
+      "bytes": 3611
+    }
+  }
+}

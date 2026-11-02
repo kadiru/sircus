@@ -1,0 +1,1279 @@
+{
+  "schema": "sircus-expanded-farm-cell-summary-v1",
+  "source_fingerprint": "63362ef37a93881f769b39d1ee7456335f1cc7bf5db04ffa7e548ce9697455bf",
+  "source_clip_sha256": {
+    "clip-00.json": "c1bf0261ff4fe840e621329c49cf3900aa4b73a0c0604d05393c4c7eeb4fe4e7",
+    "clip-01.json": "7bbfa6a13f09473cdc02140bd3a0516592dec3bcbdda479da6fd74a0827c6e37",
+    "clip-02.json": "34b68d78e8187ea82582c2c46f314c7f285a4b0e08cf9e72ce2c4272fbd7c538",
+    "clip-03.json": "c30ef9eaa1ac1511489f333ee79096d52feb82d012925b12395d8b4083ae5657",
+    "clip-04.json": "2cddf4fd8f294e6f202a3bad92faaa71b69b75bf2789d7557020ee70e1bc171f",
+    "clip-05.json": "312028abaefd372e04ee1cf21ee184f0b445a12d7a6399d6b78926f682353a9f",
+    "clip-06.json": "d2b75b5bdd274b8756e08e4f9502bcfa7e361722a0045e4afc02501ef5d5cd4a",
+    "clip-07.json": "11e2edd0feca4dfc5ea63f21243b171cd694d0721c116a757e56296b4985d3ec",
+    "clip-08.json": "56a0fe21d33c2428d21cf73c1a18e22401e2465ca2652680421ff7a3ae960869",
+    "clip-09.json": "e7d91625c3a362c41690b67982ef7d1c3e7427a0661204229ab68d5df6e2796c"
+  },
+  "scope": "Development training counts and qualified menu ranges; no held-out evaluation.",
+  "cells": [
+    {
+      "cell_id": "r1c1",
+      "bucket_xy_m": [
+        -0.1014285714285714,
+        0.25
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 0,
+      "clean_captures": 0,
+      "single_bounce_captures": 0,
+      "distinct_sampled_configurations": 1,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          6.020043136961704,
+          8.189478215039031
+        ],
+        "radius_m": [
+          0.5013715881337465,
+          0.5138112891094614
+        ],
+        "height_m": [
+          0.52,
+          0.54
+        ],
+        "gap_m": [
+          0.3,
+          0.33
+        ],
+        "tilt_deg": [
+          42.0,
+          46.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r1c2",
+      "bucket_xy_m": [
+        0.15571428571428578,
+        0.25
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 10,
+      "clean_captures": 7,
+      "single_bounce_captures": 10,
+      "distinct_sampled_configurations": 5,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          -1.1675921616984795,
+          0.5962614997584126
+        ],
+        "radius_m": [
+          0.3958764308217357,
+          0.40571047847751435
+        ],
+        "height_m": [
+          0.36,
+          0.4
+        ],
+        "gap_m": [
+          0.24500000000000002,
+          0.28500000000000003
+        ],
+        "tilt_deg": [
+          25.0,
+          27.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r1c3",
+      "bucket_xy_m": [
+        0.4128571428571429,
+        0.25
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 10,
+      "clean_captures": 6,
+      "single_bounce_captures": 10,
+      "distinct_sampled_configurations": 5,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          -1.1715205375753044,
+          1.1373540288908544
+        ],
+        "radius_m": [
+          0.3919858996148618,
+          0.4081017697868114
+        ],
+        "height_m": [
+          0.36,
+          0.4
+        ],
+        "gap_m": [
+          0.24500000000000002,
+          0.28500000000000003
+        ],
+        "tilt_deg": [
+          24.0,
+          28.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r1c4",
+      "bucket_xy_m": [
+        0.6700000000000002,
+        0.25
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 3,
+      "clean_captures": 0,
+      "single_bounce_captures": 3,
+      "distinct_sampled_configurations": 6,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          -1.4320961841646351,
+          1.4320961841646636
+        ],
+        "radius_m": [
+          0.39,
+          0.41000000000000003
+        ],
+        "height_m": [
+          0.3,
+          0.34
+        ],
+        "gap_m": [
+          0.22,
+          0.26
+        ],
+        "tilt_deg": [
+          27.0,
+          31.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r1c5",
+      "bucket_xy_m": [
+        0.9271428571428573,
+        0.25
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 10,
+      "clean_captures": 5,
+      "single_bounce_captures": 10,
+      "distinct_sampled_configurations": 6,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          -9.487499690942087,
+          -7.469679994352589
+        ],
+        "radius_m": [
+          0.3929631148384867,
+          0.4071608900378747
+        ],
+        "height_m": [
+          0.37,
+          0.4
+        ],
+        "gap_m": [
+          0.24500000000000002,
+          0.28500000000000003
+        ],
+        "tilt_deg": [
+          24.0,
+          28.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r1c6",
+      "bucket_xy_m": [
+        1.1842857142857144,
+        0.25
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 0,
+      "clean_captures": 0,
+      "single_bounce_captures": 0,
+      "distinct_sampled_configurations": 1,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          -16.046833535170208,
+          -13.966346019503646
+        ],
+        "radius_m": [
+          0.5152818278141914,
+          0.529451863580564
+        ],
+        "height_m": [
+          0.27999999999999997,
+          0.32
+        ],
+        "gap_m": [
+          0.2,
+          0.24
+        ],
+        "tilt_deg": [
+          50.0,
+          52.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r1c7",
+      "bucket_xy_m": [
+        1.4414285714285717,
+        0.25
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 0,
+      "clean_captures": 0,
+      "single_bounce_captures": 0,
+      "distinct_sampled_configurations": 2,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          6.511704480091254,
+          7.412481310076998
+        ],
+        "radius_m": [
+          0.8647203747632021,
+          0.8758680825096803
+        ],
+        "height_m": [
+          0.37,
+          0.4
+        ],
+        "gap_m": [
+          0.08,
+          0.1
+        ],
+        "tilt_deg": [
+          12.0,
+          13.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r2c1",
+      "bucket_xy_m": [
+        -0.12899999999999998,
+        -0.124
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 0,
+      "clean_captures": 0,
+      "single_bounce_captures": 0,
+      "distinct_sampled_configurations": 1,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          6.933659765425745,
+          8.422696351262601
+        ],
+        "radius_m": [
+          0.7493310349905441,
+          0.7690624161926001
+        ],
+        "height_m": [
+          0.27999999999999997,
+          0.32
+        ],
+        "gap_m": [
+          0.12000000000000001,
+          0.16
+        ],
+        "tilt_deg": [
+          50.0,
+          52.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r2c2",
+      "bucket_xy_m": [
+        0.18760714285714292,
+        0.0
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 10,
+      "clean_captures": 5,
+      "single_bounce_captures": 10,
+      "distinct_sampled_configurations": 7,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          -1.3952174493737743,
+          1.4094443271491741
+        ],
+        "radius_m": [
+          0.3902134597077647,
+          0.4097968470631475
+        ],
+        "height_m": [
+          0.36,
+          0.4
+        ],
+        "gap_m": [
+          0.24500000000000002,
+          0.28500000000000003
+        ],
+        "tilt_deg": [
+          24.0,
+          28.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r2c3",
+      "bucket_xy_m": [
+        0.4128571428571429,
+        0.0
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 0,
+      "clean_captures": 0,
+      "single_bounce_captures": 0,
+      "distinct_sampled_configurations": 5,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          -16.13816203049413,
+          -13.827691728087302
+        ],
+        "radius_m": [
+          0.3919802098346222,
+          0.40599326854922985
+        ],
+        "height_m": [
+          0.3,
+          0.33
+        ],
+        "gap_m": [
+          0.12499999999999999,
+          0.155
+        ],
+        "tilt_deg": [
+          22.0,
+          26.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r2c4",
+      "bucket_xy_m": [
+        0.6700000000000002,
+        0.0
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 10,
+      "clean_captures": 10,
+      "single_bounce_captures": 0,
+      "distinct_sampled_configurations": 1,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          -172.4053566314085,
+          -168.6900675259797
+        ],
+        "radius_m": [
+          0.3026549190084311,
+          0.3059411708155671
+        ],
+        "height_m": [
+          0.37,
+          0.39
+        ],
+        "gap_m": [
+          0.12000000000000001,
+          0.16
+        ],
+        "tilt_deg": [
+          12.0,
+          14.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r2c5",
+      "bucket_xy_m": [
+        0.9271428571428573,
+        0.0
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 0,
+      "clean_captures": 0,
+      "single_bounce_captures": 0,
+      "distinct_sampled_configurations": 4,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          29.08569009965808,
+          30.87934428563338
+        ],
+        "radius_m": [
+          0.392251042008176,
+          0.40784693212466394
+        ],
+        "height_m": [
+          0.3,
+          0.32
+        ],
+        "gap_m": [
+          0.12499999999999999,
+          0.16499999999999998
+        ],
+        "tilt_deg": [
+          23.0,
+          26.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r2c6",
+      "bucket_xy_m": [
+        1.1523928571428572,
+        0.0
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 0,
+      "clean_captures": 0,
+      "single_bounce_captures": 0,
+      "distinct_sampled_configurations": 4,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          -16.098680772389116,
+          -14.423618364216281
+        ],
+        "radius_m": [
+          0.52,
+          0.5252996533637531
+        ],
+        "height_m": [
+          0.44,
+          0.47000000000000003
+        ],
+        "gap_m": [
+          0.2,
+          0.23
+        ],
+        "tilt_deg": [
+          42.0,
+          45.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r2c7",
+      "bucket_xy_m": [
+        1.469,
+        -0.124
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 0,
+      "clean_captures": 0,
+      "single_bounce_captures": 0,
+      "distinct_sampled_configurations": 4,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          7.292705149620417,
+          8.10158375675013
+        ],
+        "radius_m": [
+          0.7727464008327701,
+          0.7826985371137474
+        ],
+        "height_m": [
+          0.37,
+          0.4
+        ],
+        "gap_m": [
+          0.12000000000000001,
+          0.16
+        ],
+        "tilt_deg": [
+          19.0,
+          22.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r3c1",
+      "bucket_xy_m": [
+        -0.1014285714285714,
+        -0.25
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 0,
+      "clean_captures": 0,
+      "single_bounce_captures": 0,
+      "distinct_sampled_configurations": 3,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          -1.0946381819196631,
+          0.28674960058111765
+        ],
+        "radius_m": [
+          0.8055179598702125,
+          0.8172439997344983
+        ],
+        "height_m": [
+          0.29,
+          0.32
+        ],
+        "gap_m": [
+          0.2,
+          0.24
+        ],
+        "tilt_deg": [
+          51.0,
+          52.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r3c2",
+      "bucket_xy_m": [
+        0.15571428571428578,
+        -0.25
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 9,
+      "clean_captures": 7,
+      "single_bounce_captures": 9,
+      "distinct_sampled_configurations": 6,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          -1.3845227066731525,
+          1.3652814656145154
+        ],
+        "radius_m": [
+          0.39041004085448416,
+          0.4096095702006974
+        ],
+        "height_m": [
+          0.36,
+          0.4
+        ],
+        "gap_m": [
+          0.24500000000000002,
+          0.28500000000000003
+        ],
+        "tilt_deg": [
+          24.0,
+          28.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r3c3",
+      "bucket_xy_m": [
+        0.4128571428571429,
+        -0.25
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 4,
+      "clean_captures": 0,
+      "single_bounce_captures": 4,
+      "distinct_sampled_configurations": 7,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          18.126576830207426,
+          19.146059666375265
+        ],
+        "radius_m": [
+          0.39294524993369967,
+          0.4037788460081287
+        ],
+        "height_m": [
+          0.31,
+          0.33
+        ],
+        "gap_m": [
+          0.22,
+          0.26
+        ],
+        "tilt_deg": [
+          28.0,
+          31.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r3c4",
+      "bucket_xy_m": [
+        0.6700000000000002,
+        -0.25
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 4,
+      "clean_captures": 1,
+      "single_bounce_captures": 4,
+      "distinct_sampled_configurations": 5,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          -1.4320961841646351,
+          1.4320961841646351
+        ],
+        "radius_m": [
+          0.39,
+          0.41000000000000003
+        ],
+        "height_m": [
+          0.3,
+          0.34
+        ],
+        "gap_m": [
+          0.22,
+          0.26
+        ],
+        "tilt_deg": [
+          27.0,
+          31.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r3c5",
+      "bucket_xy_m": [
+        0.9271428571428573,
+        -0.25
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 9,
+      "clean_captures": 5,
+      "single_bounce_captures": 9,
+      "distinct_sampled_configurations": 6,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          -12.94769933356639,
+          -10.823752210973936
+        ],
+        "radius_m": [
+          0.3926446371679275,
+          0.4074680219394726
+        ],
+        "height_m": [
+          0.36,
+          0.4
+        ],
+        "gap_m": [
+          0.24500000000000002,
+          0.28500000000000003
+        ],
+        "tilt_deg": [
+          24.0,
+          28.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r3c6",
+      "bucket_xy_m": [
+        1.1842857142857144,
+        -0.25
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 0,
+      "clean_captures": 0,
+      "single_bounce_captures": 0,
+      "distinct_sampled_configurations": 1,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          -27.266552355298927,
+          -25.996654872648776
+        ],
+        "radius_m": [
+          0.6537942633394013,
+          0.6684447376911116
+        ],
+        "height_m": [
+          0.44,
+          0.48000000000000004
+        ],
+        "gap_m": [
+          0.08,
+          0.1
+        ],
+        "tilt_deg": [
+          42.0,
+          46.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r3c7",
+      "bucket_xy_m": [
+        1.4414285714285717,
+        -0.25
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 0,
+      "clean_captures": 0,
+      "single_bounce_captures": 0,
+      "distinct_sampled_configurations": 4,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          -12.662417543089788,
+          -11.654992326179638
+        ],
+        "radius_m": [
+          0.8882880232474704,
+          0.8968527738481853
+        ],
+        "height_m": [
+          0.44,
+          0.48000000000000004
+        ],
+        "gap_m": [
+          0.12000000000000001,
+          0.16
+        ],
+        "tilt_deg": [
+          34.0,
+          38.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r4c1",
+      "bucket_xy_m": [
+        -0.1014285714285714,
+        -0.5
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 0,
+      "clean_captures": 0,
+      "single_bounce_captures": 0,
+      "distinct_sampled_configurations": 1,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          0.9878169709110409,
+          2.2027228107530163
+        ],
+        "radius_m": [
+          0.8161682499613042,
+          0.8297946635604916
+        ],
+        "height_m": [
+          0.2,
+          0.22
+        ],
+        "gap_m": [
+          0.42,
+          0.46
+        ],
+        "tilt_deg": [
+          50.0,
+          52.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r4c2",
+      "bucket_xy_m": [
+        0.15571428571428578,
+        -0.5
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 10,
+      "clean_captures": 5,
+      "single_bounce_captures": 10,
+      "distinct_sampled_configurations": 4,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          -0.5696851634342579,
+          1.0071392419675647
+        ],
+        "radius_m": [
+          0.3929845145504273,
+          0.40308902546963454
+        ],
+        "height_m": [
+          0.38,
+          0.4
+        ],
+        "gap_m": [
+          0.24500000000000002,
+          0.28500000000000003
+        ],
+        "tilt_deg": [
+          26.0,
+          28.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r4c3",
+      "bucket_xy_m": [
+        0.4128571428571429,
+        -0.5
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 10,
+      "clean_captures": 7,
+      "single_bounce_captures": 10,
+      "distinct_sampled_configurations": 5,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          -1.188657160681828,
+          1.2212266313339057
+        ],
+        "radius_m": [
+          0.39162555100119245,
+          0.40844758268719433
+        ],
+        "height_m": [
+          0.36,
+          0.4
+        ],
+        "gap_m": [
+          0.24500000000000002,
+          0.28500000000000003
+        ],
+        "tilt_deg": [
+          24.0,
+          28.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r4c4",
+      "bucket_xy_m": [
+        0.6700000000000002,
+        -0.5
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 2,
+      "clean_captures": 0,
+      "single_bounce_captures": 2,
+      "distinct_sampled_configurations": 6,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          -1.4320961841646636,
+          1.4320961841646351
+        ],
+        "radius_m": [
+          0.39,
+          0.41000000000000003
+        ],
+        "height_m": [
+          0.3,
+          0.34
+        ],
+        "gap_m": [
+          0.22,
+          0.26
+        ],
+        "tilt_deg": [
+          27.0,
+          31.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r4c5",
+      "bucket_xy_m": [
+        0.9271428571428573,
+        -0.5
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 6,
+      "clean_captures": 1,
+      "single_bounce_captures": 6,
+      "distinct_sampled_configurations": 7,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          7.753059342536574,
+          9.229573547662739
+        ],
+        "radius_m": [
+          0.3995632611252371,
+          0.40705374463327637
+        ],
+        "height_m": [
+          0.31,
+          0.33
+        ],
+        "gap_m": [
+          0.22,
+          0.26
+        ],
+        "tilt_deg": [
+          28.0,
+          30.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r4c6",
+      "bucket_xy_m": [
+        1.1842857142857144,
+        -0.5
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 0,
+      "clean_captures": 0,
+      "single_bounce_captures": 0,
+      "distinct_sampled_configurations": 1,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          -4.232211454857094,
+          -3.094576535222103
+        ],
+        "radius_m": [
+          0.7473408642292612,
+          0.7606039490739835
+        ],
+        "height_m": [
+          0.27999999999999997,
+          0.31
+        ],
+        "gap_m": [
+          0.08,
+          0.1
+        ],
+        "tilt_deg": [
+          34.0,
+          37.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r4c7",
+      "bucket_xy_m": [
+        1.4414285714285717,
+        -0.5
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 0,
+      "clean_captures": 0,
+      "single_bounce_captures": 0,
+      "distinct_sampled_configurations": 4,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          -4.427311827031531,
+          -3.409419684919243
+        ],
+        "radius_m": [
+          0.9531087695172114,
+          0.9701924908943357
+        ],
+        "height_m": [
+          0.27999999999999997,
+          0.32
+        ],
+        "gap_m": [
+          0.12000000000000001,
+          0.16
+        ],
+        "tilt_deg": [
+          18.0,
+          22.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r5c1",
+      "bucket_xy_m": [
+        -0.1014285714285714,
+        -0.75
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 0,
+      "clean_captures": 0,
+      "single_bounce_captures": 0,
+      "distinct_sampled_configurations": 5,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          5.600991114988005,
+          6.394613906659799
+        ],
+        "radius_m": [
+          1.033469488506298,
+          1.0478831918078797
+        ],
+        "height_m": [
+          0.27999999999999997,
+          0.32
+        ],
+        "gap_m": [
+          0.3,
+          0.34
+        ],
+        "tilt_deg": [
+          42.0,
+          46.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r5c2",
+      "bucket_xy_m": [
+        0.15571428571428578,
+        -0.75
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 0,
+      "clean_captures": 0,
+      "single_bounce_captures": 0,
+      "distinct_sampled_configurations": 2,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          -6.875109535610079,
+          -5.818329697010881
+        ],
+        "radius_m": [
+          0.7667117703384435,
+          0.7809269740350311
+        ],
+        "height_m": [
+          0.37,
+          0.4
+        ],
+        "gap_m": [
+          0.12000000000000001,
+          0.16
+        ],
+        "tilt_deg": [
+          43.0,
+          46.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r5c3",
+      "bucket_xy_m": [
+        0.4128571428571429,
+        -0.75
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 4,
+      "clean_captures": 0,
+      "single_bounce_captures": 4,
+      "distinct_sampled_configurations": 6,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          -1.3195829928349951,
+          1.3440707550186914
+        ],
+        "radius_m": [
+          0.3907185232682611,
+          0.4093153253606189
+        ],
+        "height_m": [
+          0.3,
+          0.33
+        ],
+        "gap_m": [
+          0.22,
+          0.26
+        ],
+        "tilt_deg": [
+          27.0,
+          30.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r5c4",
+      "bucket_xy_m": [
+        0.6700000000000002,
+        -0.75
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 0,
+      "clean_captures": 0,
+      "single_bounce_captures": 0,
+      "distinct_sampled_configurations": 5,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          -1.4320961841646351,
+          1.4320961841646636
+        ],
+        "radius_m": [
+          0.39,
+          0.41000000000000003
+        ],
+        "height_m": [
+          0.3,
+          0.34
+        ],
+        "gap_m": [
+          0.12499999999999999,
+          0.16499999999999998
+        ],
+        "tilt_deg": [
+          22.0,
+          26.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r5c5",
+      "bucket_xy_m": [
+        0.9271428571428573,
+        -0.75
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 0,
+      "clean_captures": 0,
+      "single_bounce_captures": 0,
+      "distinct_sampled_configurations": 1,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          -0.039605045321849275,
+          1.7402303586487733
+        ],
+        "radius_m": [
+          0.5858275151877219,
+          0.6043127315811082
+        ],
+        "height_m": [
+          0.36,
+          0.4
+        ],
+        "gap_m": [
+          0.12000000000000001,
+          0.16
+        ],
+        "tilt_deg": [
+          12.0,
+          14.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r5c6",
+      "bucket_xy_m": [
+        1.1842857142857144,
+        -0.75
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 0,
+      "clean_captures": 0,
+      "single_bounce_captures": 0,
+      "distinct_sampled_configurations": 1,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          6.867052433569086,
+          7.908504516927394
+        ],
+        "radius_m": [
+          0.7808537974942714,
+          0.7951755036673686
+        ],
+        "height_m": [
+          0.52,
+          0.54
+        ],
+        "gap_m": [
+          0.08,
+          0.1
+        ],
+        "tilt_deg": [
+          18.0,
+          22.0
+        ]
+      }
+    },
+    {
+      "cell_id": "r5c7",
+      "bucket_xy_m": [
+        1.4414285714285717,
+        -0.75
+      ],
+      "native_options": 24,
+      "attempts": 10,
+      "releases": 10,
+      "qualified_captures": 0,
+      "clean_captures": 0,
+      "single_bounce_captures": 0,
+      "distinct_sampled_configurations": 2,
+      "native_menu_bounds": {
+        "azimuth_offset_deg": [
+          8.300787437238341,
+          9.315016544948435
+        ],
+        "radius_m": [
+          0.8630336267007949,
+          0.8741742459286355
+        ],
+        "height_m": [
+          0.22,
+          0.24
+        ],
+        "gap_m": [
+          0.08,
+          0.1
+        ],
+        "tilt_deg": [
+          50.0,
+          52.0
+        ]
+      }
+    }
+  ]
+}

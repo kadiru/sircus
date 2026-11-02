@@ -10,7 +10,11 @@ from pathlib import Path
 import numpy as np
 import torch
 from board_route import FORCE_THRESHOLD_N
-from recording_plans import recording_plan, setup_capture_progress
+from recording_plans import (
+    recording_plan,
+    setup_capture_progress,
+    transition_group_ready,
+)
 from dark_stage import stage_settings
 from dark_export import inside_frame
 from feasibility_runtime import FeasibilityShots
@@ -136,7 +140,12 @@ class ReplayShots:
                     ok and inside_frame(frame, point)
                     for ok, point in zip(visible_ready, prospective)
                 )
-                if foreground_ready and background_ready >= 2:
+                if transition_group_ready(
+                    supported.cpu().tolist(),
+                    foreground_ready,
+                    background_ready,
+                    require_all=getattr(self, "require_all_transit_ready", False),
+                ):
                     break
             elif foreground_ready and int(supported.sum()) >= min(12, len(supported)):
                 break

@@ -51,11 +51,29 @@ p.add_argument(
     type=Path,
     help="Completed matching run supplying geometry-only preflight menus",
 )
+p.add_argument(
+    "--expanded-pose-menu",
+    type=Path,
+    help="Expanded offline endpoint candidates for native qualification and 5-D PPO",
+)
+p.add_argument("--expanded-qualify-only", action="store_true")
+p.add_argument("--expanded-options-per-cell", type=int, default=4)
 AppLauncher.add_app_launcher_args(p)
 args = p.parse_args()
 training_camera = args.training_camera_json is not None
-if training_camera != (args.geometry_menu_source is not None):
-    p.error("--training-camera-json and --geometry-menu-source require each other")
+menu_inputs = int(args.geometry_menu_source is not None) + int(
+    args.expanded_pose_menu is not None
+)
+if (training_camera and menu_inputs != 1) or (not training_camera and menu_inputs):
+    p.error(
+        "Training-camera recording requires exactly one legacy or expanded menu source"
+    )
+if args.expanded_qualify_only and args.expanded_pose_menu is None:
+    p.error("--expanded-qualify-only requires --expanded-pose-menu")
+if not 2 <= args.expanded_options_per_cell <= 32:
+    p.error("Expanded native menus require 2..32 options per cell")
+if args.expanded_options_per_cell != 4 and args.expanded_pose_menu is None:
+    p.error("--expanded-options-per-cell requires --expanded-pose-menu")
 if training_camera and (
     args.dark_replay
     or args.resume_filming
@@ -301,14 +319,29 @@ def main():
     torch.manual_seed(SEED)
     cfg = json.loads(Path(__file__).with_name("scene.json").read_text())
     poses = json.loads((Path(args.assets) / "poses.json").read_text())
-    spec = specification(cfg, len(SHOTS))
+    if args.expanded_pose_menu is not None:
+        from expanded_farm import make_spec
+
+        spec = make_spec(cfg, len(SHOTS))
+    else:
+        spec = specification(cfg, len(SHOTS))
     saved_camera = None
+    camera_binding = None
     camera_path = args.training_camera_json or args.camera_json
     if camera_path is not None:
-        from saved_camera import load_camera
+        if args.expanded_pose_menu is not None:
+            from expanded_farm import bind_camera
+            from camera_options import preview_origins
 
-        saved_camera = load_camera(camera_path, spec["fingerprint"])
-        shutil.copyfile(camera_path, dest / "selected-camera.json")
+            saved_camera, camera_binding = bind_camera(
+                camera_path, spec, preview_origins(), dest / "selected-camera.json"
+            )
+            atomic(dest / "camera-binding.json", camera_binding)
+        else:
+            from saved_camera import load_camera
+
+            saved_camera = load_camera(camera_path, spec["fingerprint"])
+            shutil.copyfile(camera_path, dest / "selected-camera.json")
     atomic(
         dest / ("source-contract.json" if args.dark_replay else "contract.json"), spec
     )
@@ -400,6 +433,8 @@ def main():
     if args.dark_replay or training_camera:
         env.stage_metadata = stage_settings()
         env.saved_camera = saved_camera
+        if camera_binding is not None:
+            env.camera_binding = camera_binding
         if (
             args.camera_previews
             or args.recording_plan == "chosen-farm-v1"
@@ -474,6 +509,17 @@ def main():
     if training_camera:
         from action_training import run_training
 
+        if args.expanded_pose_menu is not None:
+            from expanded_pose_native import qualify_native_menu
+
+            env.expanded_menu_path = qualify_native_menu(
+                env,
+                spec,
+                args.expanded_pose_menu,
+                desired_per_cell=args.expanded_options_per_cell,
+            )
+            if args.expanded_qualify_only:
+                return
         run_training(env, spec, args.geometry_menu_source)
         return
     if args.dark_replay:
