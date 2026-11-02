@@ -199,7 +199,8 @@ class ParallelShots:
             # Deliberately put env0's ball over env1's bucket. It must pass through
             # foreign bucket/table/floor, rather than report an env0 bucket capture.
             xyz = self.origins + np.tile([0.1, -0.8, 0.04], (self.n, 1))
-            xyz[0] = self.origins[1] + [*self.bucket_xy[1], top + 0.15]
+            other = getattr(self, "foreign_probe_index", 1)
+            xyz[0] = self.origins[other] + [*self.bucket_xy[other], top + 0.15]
             self.set_balls(xyz, world=True)
             peak = np.zeros(6)
             for _ in range(240):
@@ -274,10 +275,7 @@ class ParallelShots:
                     q[name][i, self.arms[name].joint_names.index(f"joint{j + 1}")] = r[
                         "q"
                     ][j]
-        for name, arm in self.arms.items():
-            arm.write_joint_state_to_sim(q[name], torch.zeros_like(q[name]))
-            arm.set_joint_position_target(q[name])
-            arm.reset()
+        self.approach_endpoints(q)
         self.set_balls(np.tile([0.1, -0.8, 0.04], (n, 1)))
         for _ in range(120):
             self.tick()
@@ -346,6 +344,12 @@ class ParallelShots:
                 self.tick()
         self.assert_buckets_fixed()
         return np.array(releases), normals, records, invalid
+
+    def approach_endpoints(self, q):
+        for name, arm in self.arms.items():
+            arm.write_joint_state_to_sim(q[name], torch.zeros_like(q[name]))
+            arm.set_joint_position_target(q[name])
+            arm.reset()
 
     def board_poses(self):
         a = self.arms["Arm14"]
