@@ -1,5 +1,7 @@
 # Film a 35-table Isaac training run
 
+[Completed run, checkpoint and verified outcomes](../../baselines/isaac-cylinder-film-20261101/README.md)
+
 Open `sircus-front-row.mp4` for two close-up drops at different front-row tables, with the camera looking back across the farm. The 9.6-second cut uses the same frames as **22.5–32.1 s** in `sircus-drone-farm.mp4`. The full 43.5-second film starts with one 360° orbit, descends into an aisle, then cuts from the two front tables to a bird’s-eye view of the farm and an overhead view of a single bounce attempt.
 
 One perspective RTX camera renders 1920 × 1080 frames during the Isaac Sim rollout. Each chapter follows one simultaneous batch of throws. The front-row cameras choose two different tables with settled release poses **before** the balls drop. PhysX steps at 240 Hz. The 30 fps film samples every second physics step for the close-ups (quarter speed), and every fourth step for the wide shots (half speed). [Camera path and chapter timings](farm_flight.py)
