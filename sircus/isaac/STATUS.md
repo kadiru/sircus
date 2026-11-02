@@ -1,3 +1,17 @@
+# Workspace feasibility checkpoint — November 1, 2026 (local date)
+
+The bounded 4090 run `feasibility-20261102T012536Z-n32` is in progress.
+See [protocol](FEASIBILITY_MAP.md) and the newest project-state entry.
+Four-cell and 32-cell contact/settling smoke tests passed. The new map covers
+32 sampled bucket positions with optional board/release XY changes; this is
+finite development search, not trained inference or continuous workspace coverage.
+Final confirmation and independent artifact verification are pending.
+
+The read-only preview now serves `/feasibility.html` from the separate
+`feasibility-preview-v1` snapshot on Ubuntu port 18860, forwarded to Mac 18780.
+Only that viewer was refreshed; the 4070 workload and other services were left
+alone. Prior sections below are historical process observations.
+
 # Current checkpoint — parallel world completed, 2026-11-01 UTC
 
 Run `parallel-world-20261101T205548Z-n32` used one isolated RTX 4090 PhysX scene

@@ -1,5 +1,13 @@
 # Project state
 
+## Workspace feasibility map — November 1, 2026 (running checkpoint)
+
+- [Protocol and reproduction](../sircus/isaac/FEASIBILITY_MAP.md): 32 wider tabletop targets, 17 candidate board/release XY positions, balanced height/gap/tilt proposals and local refinement. Actual articulated Isaac Lab / PhysX, privileged geometry, initialized endpoints. No new RL policy or perception training.
+- A bounded 4090 job `feasibility-20261102T012536Z-n32` is running from immutable `feasibility-map-v2`. Final counts and confirmation remain pending. The cap is 6,824 attempts; settings freeze before nominal repeats, a paired original-XY check and 30 small perturbations per selected target.
+- Four-cell and 32-cell smoke checks completed; all six contact/isolation probes passed. The direct-drop audit separates finite IK results from a conservative link-length reach bound. Unsuccessful search stays unresolved, never impossible. Bucket geometry/provisional height and historical baselines are preserved.
+- Read-only `/feasibility.html` shows the live map and measurements, with recorded-trajectory projections when repeats become available. Only the read-only results viewer was refreshed; the missing loopback SSH preview tunnel was restored. No hardware, Viam, audio or 4070 workload changes.
+- Full mock/numerical regression passed; 108 Isaac tests with one unavailable local Torch test skipped, plus four new panel tests. Independent completed-run raw/source/artifact verification is still pending.
+
 ## Direct native Isaac application recording — November 1, 2026
 
 - Low close-up: `--view close-up --focus-cell 2 --playback-rate 0.5` frames one near-target table with both arms, board and bucket mouth clearly visible. Verified 58.634-second native video; foreground shots were one miss then three captures. This repeats the same bounded demo, not a new independent learning study. [Camera, contact and media evidence](../baselines/isaac-native-viewport-20261101/closeup-verification.json).
