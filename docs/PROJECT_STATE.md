@@ -1,5 +1,12 @@
 # Project state
 
+## Direct native Isaac application recording — November 1, 2026
+
+- [Native capture and reproduction](../sircus/isaac/NATIVE_VIEWPORT.md); [verification](../baselines/isaac-native-viewport-20261101/README.md). Direct X11 capture shows all 32 tables / 64 arms in the actual Isaac Sim 5.1 window, including menus and scene tree. No composited panels, generated replacement imagery or added trails. 58.1 seconds, 2400 × 1000, 30 fps.
+- A separate bounded demonstration completed 128 PhysX throws and two PPO updates (seed 20261104): 27 training captures, seven clean. These are not held-out test results or evidence of policy improvement. All contact/isolation probes, batch counts, update hashes, source hashes, full movie decode and sample-frame inspection passed.
+- Current training still covers a small tabletop grid with prescribed heading and fixed release/board XY. Actions are height/gap/tilt; endpoints are initialized, and pickup/transit are not learned. Arbitrary bucket positions are not covered. The existing selected policy's 6/32 test result (fixed baseline 9/32; far 0/14) remains unchanged.
+- The temporary GUI container was removed after recording. Existing preview/simulation services and the unrelated 4070 workload were preserved. Raw media, generated assets, logs and demonstration policy remain outside Git. No physical/Viam/audio actions.
+
 ## Actual 32-table PPO training farm — November 1, 2026
 
 - [Method and video reproduction](../sircus/isaac/FARM_PPO.md); [completed pilot and checkpoint evidence](../baselines/isaac-farm-ppo-20261101/README.md). A shared neural actor/critic trained on 2,048 PhysX throws across 32 simultaneous tables / 64 UF850 arms. The movie records actual on-policy batches at iterations 1, 8 and 16, with a wide orthographic view and synchronized close-ups. It is separate from the prior search and frozen replay.
