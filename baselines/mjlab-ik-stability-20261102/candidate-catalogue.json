@@ -1,0 +1,290 @@
+{
+  "scope": "Selected development candidates only; none qualified for confirmed bank or policy training",
+  "candidates": [
+    {
+      "target": "old-test-08",
+      "bucket_xy_m": [
+        1.2138862453043828,
+        -0.15628745328163396
+      ],
+      "status": "no_native_direct_capture",
+      "confirmed": false
+    },
+    {
+      "target": "old-test-09",
+      "bucket_xy_m": [
+        1.1798593677024012,
+        -0.5817071647655893
+      ],
+      "status": "no_native_direct_capture",
+      "confirmed": false
+    },
+    {
+      "target": "old-test-10",
+      "status": "failed_screening",
+      "confirmed": false,
+      "source_id": "stable-shot-0007490",
+      "source_record_sha256": "a54f09e19db1f9e3b858b8cfd2cab65aeb45a79811c7e75734b9ec107e951400",
+      "bucket_xy_m": [
+        1.1155016613275015,
+        -0.17151353841633726
+      ],
+      "values": [
+        0.6334365106101794,
+        -0.0026061283053567643,
+        0.27632651928205243,
+        31.376261837991624,
+        0.3797550501366381
+      ],
+      "q10": [
+        -0.004122006098498438,
+        -0.6224829260843607,
+        -2.307886277806004,
+        1.4647776360403538e-06,
+        -1.685403350975081,
+        -0.0041211802486010056
+      ],
+      "q14": [
+        -3.1793372488497904,
+        1.998757383233739,
+        -2.571247743507259,
+        6.117098354605044,
+        -1.9512337114296003,
+        -1.890536096768033
+      ],
+      "branch10": 0,
+      "branch14": 0,
+      "screening": {
+        "attempts": 10,
+        "captures": 6,
+        "clean": 5,
+        "invalid": 0,
+        "board_bounces": 10,
+        "mean_reward": 2.5923684161349865
+      },
+      "final_confirmation": null
+    },
+    {
+      "target": "old-test-12",
+      "bucket_xy_m": [
+        1.1909716578968224,
+        0.047362857158011584
+      ],
+      "status": "no_native_direct_capture",
+      "confirmed": false
+    },
+    {
+      "target": "old-test-21",
+      "status": "failed_final_confirmation",
+      "confirmed": false,
+      "source_id": "stable-shot-0004711",
+      "source_record_sha256": "2eeb7e025db0752fe5cbe540e72d2300777e7b8823f13c736c0fa00f57c5e26b",
+      "bucket_xy_m": [
+        0.16275255472120964,
+        -0.6365356466995716
+      ],
+      "values": [
+        0.4708757793012148,
+        -0.2778934014509746,
+        0.3973878458850598,
+        36.154791124080255,
+        0.3032930420811218
+      ],
+      "q10": [
+        -0.5331623871001915,
+        -0.3654069384197669,
+        -2.043918815981244,
+        2.41236036898437e-06,
+        -1.6785118645912955,
+        -0.5331631332906016
+      ],
+      "q14": [
+        3.380062669046468,
+        1.5039574753021427,
+        -3.1992193103493975,
+        -0.4047718442151326,
+        -1.0624829296587495,
+        2.301608077910527
+      ],
+      "branch10": 0,
+      "branch14": 0,
+      "screening": {
+        "attempts": 10,
+        "captures": 8,
+        "clean": 1,
+        "invalid": 0,
+        "board_bounces": 10,
+        "mean_reward": 3.4753221443414035
+      },
+      "final_confirmation": {
+        "attempts": 20,
+        "captures": 13,
+        "clean": 2,
+        "invalid": 0,
+        "board_bounces": 20,
+        "mean_reward": 2.86419026969299
+      }
+    },
+    {
+      "target": "old-test-23",
+      "status": "failed_screening",
+      "confirmed": false,
+      "source_id": "stable-shot-0007729",
+      "source_record_sha256": "62bad66fdba2a3d96d5d5f0e9325411a258b47babb080bec440a522662d8abba",
+      "bucket_xy_m": [
+        1.0821769084188266,
+        -0.5174710227733501
+      ],
+      "values": [
+        0.6219961278468814,
+        -0.22229118734961784,
+        0.34116231323186474,
+        29.48970118146199,
+        0.3196245929430309
+      ],
+      "q10": [
+        -0.3432455553410893,
+        -0.8418489915049641,
+        -2.6862106781001516,
+        -7.941398950320188e-07,
+        -1.8443616930486921,
+        -0.34324369039961344
+      ],
+      "q14": [
+        3.3546609138676278,
+        1.6526585979289419,
+        -3.074628918867652,
+        -0.3818359569035791,
+        -1.9408953963256124,
+        3.853882931634
+      ],
+      "branch10": 0,
+      "branch14": 0,
+      "screening": {
+        "attempts": 10,
+        "captures": 3,
+        "clean": 1,
+        "invalid": 2,
+        "board_bounces": 8,
+        "mean_reward": 1.0951541582722466
+      },
+      "final_confirmation": null
+    },
+    {
+      "target": "old-test-26",
+      "status": "failed_screening",
+      "confirmed": false,
+      "source_id": "stable-shot-0009165",
+      "source_record_sha256": "ef30c4b66c0bb3135cb6b17d79543ec936f095bf11e69e08f53bc9f1bdf7033a",
+      "bucket_xy_m": [
+        1.1532532351054154,
+        0.21845672365283675
+      ],
+      "values": [
+        0.6334922420663645,
+        0.0975848990972286,
+        0.3483019218523036,
+        30.8230437467105,
+        0.32928570893396025
+      ],
+      "q10": [
+        0.15283320676870746,
+        -0.7452409766048688,
+        -2.562673945470696,
+        -6.982804054103348e-08,
+        -1.8174329683504193,
+        0.15283472078511134
+      ],
+      "q14": [
+        3.0472953740577737,
+        2.023925207109395,
+        -2.3679004266599253,
+        0.16633565247303658,
+        -1.7625468254439196,
+        -1.2591062674632032
+      ],
+      "branch10": 0,
+      "branch14": 0,
+      "screening": {
+        "attempts": 10,
+        "captures": 4,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 10,
+        "mean_reward": 1.7546554068317293
+      },
+      "final_confirmation": null
+    },
+    {
+      "target": "old-test-35",
+      "bucket_xy_m": [
+        1.217406544799545,
+        -0.39988567162964045
+      ],
+      "status": "no_native_direct_capture",
+      "confirmed": false
+    },
+    {
+      "target": "old-test-39",
+      "status": "failed_screening",
+      "confirmed": false,
+      "source_id": "stable-shot-0006061",
+      "source_record_sha256": "69f3f1782ffb839503e3f85828eac136cc84637d599a52ae2afe064fec8eca84",
+      "bucket_xy_m": [
+        1.2199134134696716,
+        0.1802220024389507
+      ],
+      "values": [
+        0.6147142996094483,
+        -0.014465621770773329,
+        0.2828814547080499,
+        23.930984195168964,
+        0.4243554883854195
+      ],
+      "q10": [
+        -0.02353630100222672,
+        -0.6974422921172222,
+        -2.561674727803989,
+        -1.746238062137943e-07,
+        -1.8642324353642645,
+        -0.0235349923980316
+      ],
+      "q14": [
+        3.1893819039587847,
+        1.7625882863565923,
+        -3.0222493303981968,
+        0.1190193418175329,
+        -2.0451638913068884,
+        5.008664702484205
+      ],
+      "branch10": 0,
+      "branch14": 0,
+      "screening": {
+        "attempts": 10,
+        "captures": 2,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 10,
+        "mean_reward": 0.6328652952619949
+      },
+      "final_confirmation": null
+    },
+    {
+      "target": "old-test-41",
+      "bucket_xy_m": [
+        1.2372435345605606,
+        -0.6134795749084982
+      ],
+      "status": "no_native_direct_capture",
+      "confirmed": false
+    }
+  ],
+  "action_names": [
+    "board_x_m",
+    "board_y_m",
+    "board_height_m",
+    "tilt_from_horizontal_deg",
+    "vertical_drop_gap_m"
+  ],
+  "joint_units": "radians"
+}

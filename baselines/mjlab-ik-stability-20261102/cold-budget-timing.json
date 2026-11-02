@@ -1,0 +1,133 @@
+{
+  "scope": "Warm wall-clock CPU endpoint calls including native model/URDF construction,2threads; three repetitions, no GPU or dynamics",
+  "isolation": {
+    "8_240": {
+      "accepted": 12,
+      "seconds": 1.2488545440137386,
+      "reasons": {
+        "endpoint_ik_unresolved": 4,
+        "endpoint_qualified": 12
+      }
+    },
+    "16_120": {
+      "accepted": 16,
+      "seconds": 0.34764909895602614,
+      "reasons": {
+        "endpoint_qualified": 16
+      }
+    },
+    "8_180": {
+      "accepted": 12,
+      "seconds": 0.4270425180438906,
+      "reasons": {
+        "endpoint_ik_unresolved": 4,
+        "endpoint_qualified": 12
+      }
+    }
+  },
+  "repeated_budget_calls": [
+    {
+      "starts": 32,
+      "iterations": 240,
+      "seconds": 0.8405766029609367,
+      "accepted": 16
+    },
+    {
+      "starts": 8,
+      "iterations": 120,
+      "seconds": 0.31334242899902165,
+      "accepted": 12
+    },
+    {
+      "starts": 16,
+      "iterations": 180,
+      "seconds": 0.5198305059457198,
+      "accepted": 16
+    },
+    {
+      "starts": 16,
+      "iterations": 180,
+      "seconds": 0.5296191750094295,
+      "accepted": 16
+    },
+    {
+      "starts": 32,
+      "iterations": 240,
+      "seconds": 0.9057938840705901,
+      "accepted": 16
+    },
+    {
+      "starts": 8,
+      "iterations": 120,
+      "seconds": 0.30666078196372837,
+      "accepted": 12
+    },
+    {
+      "starts": 8,
+      "iterations": 120,
+      "seconds": 0.3121882489649579,
+      "accepted": 12
+    },
+    {
+      "starts": 16,
+      "iterations": 180,
+      "seconds": 0.5323529669549316,
+      "accepted": 16
+    },
+    {
+      "starts": 32,
+      "iterations": 240,
+      "seconds": 0.9261888259788975,
+      "accepted": 16
+    }
+  ],
+  "summary": {
+    "8_120": {
+      "median_s": 0.3121882489649579,
+      "all_accepted": [
+        12,
+        12,
+        12
+      ]
+    },
+    "16_180": {
+      "median_s": 0.5296191750094295,
+      "all_accepted": [
+        16,
+        16,
+        16
+      ]
+    },
+    "32_240": {
+      "median_s": 0.9057938840705901,
+      "all_accepted": [
+        16,
+        16,
+        16
+      ]
+    }
+  },
+  "adaptive_8_120_then_failed_only_16_120": [
+    {
+      "seconds": 0.5843609349103644,
+      "first_pass_accepted": 12,
+      "fallback_rows": 4,
+      "fallback_accepted": 4,
+      "total_accepted": 16
+    },
+    {
+      "seconds": 0.5994973999913782,
+      "first_pass_accepted": 12,
+      "fallback_rows": 4,
+      "fallback_accepted": 4,
+      "total_accepted": 16
+    },
+    {
+      "seconds": 0.6376893590204418,
+      "first_pass_accepted": 12,
+      "fallback_rows": 4,
+      "fallback_accepted": 4,
+      "total_accepted": 16
+    }
+  ]
+}

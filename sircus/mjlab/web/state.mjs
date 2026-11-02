@@ -177,3 +177,68 @@ export function expandedComparisonRows(report) {
       meanReward: Number.isFinite(row.mean_reward) ? row.mean_reward : null };
   });
 }
+
+/** Versioned stability diagnostics remain read-only and cannot activate a policy. */
+export function stableIkProgress(report) {
+  const value = report?.stable_ik_evaluation;
+  if (!value || typeof value !== 'object') return null;
+  const finite = x => typeof x === 'number' && Number.isFinite(x) ? x : null;
+  const queue = value.waiting_for_4090 ?? value.gpu_queue;
+  return {
+    status: String(value.status ?? 'not_started').replaceAll('_', ' '),
+    phase: String(value.phase ?? 'Waiting for diagnostic evidence'),
+    nativeSearchAttempts: finite(value.native_search_attempts),
+    confirmationAttempts: finite(value.confirmation_attempts),
+    finalConfirmationAttempts: finite(value.final_confirmation_attempts),
+    geometryProposals: finite(value.geometry_proposals),
+    qualified: stableIkTargets(report).filter(row => row.promoted).length,
+    targets: stableIkTargets(report).length,
+    queued: queue?.status === 'waiting_for_4090',
+    waitSeconds: finite(queue?.wait_s),
+    invariance: value.solver_audit?.order_batch_invariance?.passed ?? null,
+    preservation: value.solver_audit?.known_branch_preservation?.passed ?? null,
+    noTraining: value.no_training === true,
+  };
+}
+export function stableIkTargets(report) {
+  const value = report?.stable_ik_evaluation;
+  const rows = value?.cells?.length ? value.cells : value?.development_layouts;
+  if (!Array.isArray(rows)) return [];
+  const count = x => typeof x === 'number' && Number.isFinite(x) ? x : null;
+  return rows.map(row => ({
+    id: String(row.id ?? 'Unknown target'), xy: row.bucket_xy_m ?? row.bucket_xy,
+    attempts: count(row.search?.attempts), captures: count(row.search?.captures), clean: count(row.search?.clean),
+    assisted: count(row.observed_assisted_entries ?? row.search?.assisted),
+    firstConfirmation: row.best_screening ?? row.promotion?.first_confirmation ?? row.promotion?.confirmation ?? row.first_confirmation ?? null,
+    finalConfirmation: row.final_confirmation ?? row.promotion?.final_confirmation ?? null,
+    confirmationSourceId: row.best_screening?.source_trial_id ?? row.final_confirmation?.source_trial_id ?? row.promotion?.source_trial_id ?? '',
+    confirmationScope: row.confirmation_summary_scope ?? '',
+    multipleFinalGroups: row.multiple_final_groups === true,
+    promoted: !!row.promotion,
+    sourceId: row.promotion?.source_trial_id ?? '',
+    reason: row.unresolved_reason || 'No independently qualified setting yet',
+  })).filter(row => finiteVector(row.xy, 2));
+}
+export function stableIkAuditRows(report) {
+  const rows = report?.stable_ik_evaluation?.solver_audit?.comparison;
+  if (!Array.isArray(rows)) return [];
+  const finite = x => typeof x === 'number' && Number.isFinite(x) ? x : null;
+  const labels = { old: 'Original · 4 starts / 90 steps', stable_matched: 'Stable · matched 4 / 90', stable_free: 'Stable · 8 starts / 120 steps', stable_seeded: 'Stable · saved branch seed' };
+  return rows.map(row => ({
+    label: labels[row.method] ?? String(row.method ?? 'Unidentified solver'),
+    queries: finite(row.queries), accepted: finite(row.accepted),
+    orderChanges: finite(row.order_mask_changes), batchChanges: finite(row.batch_mask_changes),
+    maxDelta: finite(row.max_q_delta_rad), preserved: finite(row.preserved_known_branches),
+  }));
+}
+export function stableIkControlRows(report) {
+  const values = report?.stable_ik_evaluation?.control_statistics;
+  if (!values || typeof values !== 'object') return [];
+  const labels = { saved: 'Saved source joints', legacy_fresh: 'Original fresh IK',
+    stable_matched: 'Stable · matched 4 / 90', stable_free: 'Stable · 8 / 120', stable_seeded: 'Stable · saved branch seed' };
+  const count = x => typeof x === 'number' && Number.isFinite(x) ? x : null;
+  return Object.entries(labels).filter(([key]) => values[key]).map(([key, label]) => ({
+    label, attempts: count(values[key].attempts), captures: count(values[key].captures),
+    clean: count(values[key].clean), invalid: count(values[key].invalid),
+  }));
+}

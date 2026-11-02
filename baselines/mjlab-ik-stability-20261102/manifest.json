@@ -1,0 +1,45 @@
+{
+  "scope": "Compact synthetic IK/search evidence; no raw observations, runtime configurations, credentials or logs",
+  "files": {
+    "README.md": {
+      "sha256": "53822bbaeac35d6c7028678a9f7761b8f16f24d2a2b1c009d8af965cc3cad246",
+      "bytes": 7088
+    },
+    "candidate-catalogue.json": {
+      "sha256": "56c2887afefe7a1e290340399acca93295525d7c17de340e2a8b71b1383ed436",
+      "bytes": 7270
+    },
+    "cold-budget-fk.json": {
+      "sha256": "4a62520dcb5a24948996c616e80fbef7a96e402975c559c504e45732ad6b4396",
+      "bytes": 1065
+    },
+    "cold-budget-summary.json": {
+      "sha256": "98f19eeaa374da22c7ec6109856b0161aa446118de42257a37d743033f695006",
+      "bytes": 25434
+    },
+    "cold-budget-timing.json": {
+      "sha256": "f33a1d1b2345fa46e0c9151077a3328e280a2c8f05b543dd651b340c66e7fb25",
+      "bytes": 2686
+    },
+    "preserved-template-bank.json": {
+      "sha256": "52e3c9553b9771831b2aaf4d08b7949ad69361c4e1f2a24a805a42d2c07b433d",
+      "bytes": 16344
+    },
+    "protocol.json": {
+      "sha256": "3aea75800f85fcb4b01f74de0769163ffeb2475dfc6532e82557260bc4d0686f",
+      "bytes": 26150
+    },
+    "study-audit.json": {
+      "sha256": "2e2646bb695e7885022867ac9eed15ba08358ed79bb4987795d538c1c8ac90ae",
+      "bytes": 25852
+    },
+    "study-summary.json": {
+      "sha256": "430ffd8f39e3db5f9418daf38eae6c3ad3c0991b2b869e06c2ce0166a4b85313",
+      "bytes": 28046
+    },
+    "ui-verification.json": {
+      "sha256": "1b28de674b25d2fa1a07d7d917b67ed9de02c42e62b33f7cecb9b0e5f9bf81ca",
+      "bytes": 777
+    }
+  }
+}
