@@ -242,3 +242,54 @@ export function stableIkControlRows(report) {
     clean: count(values[key].clean), invalid: count(values[key].invalid),
   }));
 }
+
+// Read-only contact/transit evidence. This module never builds a solve request.
+const contactFinite = value => typeof value === 'number' && Number.isFinite(value);
+const contactCount = value => Number.isInteger(value) && value >= 0 ? value : null;
+
+export function contactStudy(report) {
+  const study = report?.contact_repeatability_evaluation;
+  return study && typeof study === 'object' && !Array.isArray(study) ? study : null;
+}
+
+export function contactGroups(report) {
+  return (contactStudy(report)?.groups ?? []).filter(row => row && typeof row.id === 'string').map(row => ({
+    ...row, attempts: contactCount(row.attempts), captures: contactCount(row.captures),
+    clean: contactCount(row.clean), invalid: contactCount(row.invalid),
+  }));
+}
+
+export function contactConfigurations(report) {
+  return (contactStudy(report)?.configurations ?? []).filter(row => row &&
+    typeof row.id === 'string' && finiteVector(row.board_xyz_m, 3) && finiteVector(row.bucket_xy_m, 2) &&
+    contactFinite(row.tilt_deg) && contactFinite(row.drop_gap_m) && finiteVector(row.release_center_m, 3));
+}
+
+export function transitRoutes(report) {
+  return (contactStudy(report)?.transit?.routes ?? []).filter(row => row && typeof row.id === 'string');
+}
+
+export function routePreview(route) {
+  if (route?.accepted !== true || !Array.isArray(route.frames) || route.frames.length < 2) return [];
+  const frames = route.frames;
+  if (!frames.every(frame => frame && contactFinite(frame.time) && finiteVector(frame.board_center, 3) &&
+      finiteVector(frame.board_quaternion_wxyz, 4) && Array.isArray(frame.link_positions10) &&
+      frame.link_positions10.length >= 2 && frame.link_positions10.every(p => finiteVector(p, 3)) &&
+      Array.isArray(frame.link_positions14) && frame.link_positions14.length >= 2 &&
+      frame.link_positions14.every(p => finiteVector(p, 3)))) return [];
+  if (frames.some((frame, i) => i && frame.time <= frames[i - 1].time)) return [];
+  return frames;
+}
+
+export function configurationsCsv(report) {
+  const cell = value => `"${String(value ?? '').replaceAll('"', '""')}"`;
+  const fields = ['id', 'condition', 'board_x_mm', 'board_y_mm', 'board_z_mm', 'tilt_deg',
+    'drop_gap_mm', 'release_ball_center_z_mm', 'bucket_x_mm', 'bucket_y_mm', 'horizontal_distance_mm',
+    ...Array.from({length: 6}, (_, i) => `q10_${i + 1}_rad`), ...Array.from({length: 6}, (_, i) => `q14_${i + 1}_rad`)];
+  const rows = contactConfigurations(report).map(row => [row.id, row.condition,
+    ...row.board_xyz_m.map(x => x * 1000), row.tilt_deg, row.drop_gap_m * 1000,
+    row.release_center_m[2] * 1000, ...row.bucket_xy_m.map(x => x * 1000),
+    Math.hypot(row.board_xyz_m[0] - row.bucket_xy_m[0], row.board_xyz_m[1] - row.bucket_xy_m[1]) * 1000,
+    ...(finiteVector(row.q10, 6) ? row.q10 : Array(6).fill('')), ...(finiteVector(row.q14, 6) ? row.q14 : Array(6).fill(''))]);
+  return [fields, ...rows].map(row => row.map(cell).join(',')).join('\r\n') + '\r\n';
+}

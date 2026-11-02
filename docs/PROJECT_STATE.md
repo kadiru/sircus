@@ -1,5 +1,12 @@
 # Project state
 
+## Contact repeatability and low/high transit — November 2, 2026
+
+- [Verified 1,708-throw results and exact configurations](../baselines/mjlab-contact-transit-20261102/README.md): the previous 13/20 used perturbed poses. Duplicate gravity compensation is a verified control bug; the dominant capture improvement comes from finer integration, with unchanged geometry/material/scorers. Corrected articulated 32/64 each capture 100/100 unique fresh jitters on both resets, plus 4/4 singleton checks. All corrected fresh captures are rim-assisted.32→64 still differs by up to 4.873 mm at 350 ms; no exact physics or physical calibration claim.
+- Independent audits pass 415+414 checks and rescore all 1,708 throws. Saved policy and original 17-template bank remain intact; no PPO. Historical results keep their version. The new read-only `#contactRepeatability` panel adds exact CSV and native-FK geometric path previews; existing inference routing stays unchanged.
+- Stricter CPU collision checks include non-adjacent self-collision and a carried ball. Nominal 21+20 jitter cases pass full serialized high-dropper/low-board cycles (21/25,11,650 samples,≥5.042769 mm modeled lower bound). Three others have separate modest alternative routes; target 39 is rejected for self-penetration. Sampled geometry is separate from actuator dynamics or universal reachability. See [protocol](../sircus/mjlab/CONTACT_REPEATABILITY.md).
+- All finite native/CPU jobs completed.4090 only/shared lock used;4070 workload and Isaac setup untouched. Simulation preview process retained; static/derived display updated and stale local SSH forward restored. Next study must explicitly bind corrected contact and stricter collision/transit gates before training; no automatic deployment of old policies into new physics.
+
 ## Deterministic IK and ten-target feasibility study — November 2, 2026
 
 - [Results and evidence](../baselines/mjlab-ik-stability-20261102/README.md): new opt-in target-hashed starts, independent branch convergence, source-request-aware continuation and collision-tested alternatives fix order/batch instability. All 16 saved-source rows preserve exact joint pairs; stable order/partition differences are at most 1.8e-15 rad. Original solver/physics/scorers remain unchanged. Cold 8/120 accepts 12/16 versus original 14/16 on this audit; explicitly increasing to 16 starts recovers 16/16 in a separate CPU diagnostic. Determinism is not universal reachability.

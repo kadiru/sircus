@@ -257,3 +257,22 @@ The original inference handlers and active policy remain unchanged.
 python -m unittest sircus.mjlab.tests.test_prepare_stable_report -v
 node --test sircus/mjlab/tests/test_stable_ui.mjs
 ```
+
+
+### Optional contact and transit evidence
+
+`#contactRepeatability` consumes `contact_repeatability_evaluation`. It is read-only:
+matched contact protocols, exact configuration CSV and a sampled native-FK route
+preview. `prepare_contact_report.py` reads immutable studies and writes a separate
+derived display. Pass `--base-display`, `--contact-study`, `--retest`, `--transit`,
+`--audit` and `--output`; the base and source directories cannot be overwritten.
+Missing counts or audits stay unknown/pending. Previous studies and inference
+readiness/routing are preserved. The HTTP process need not restart to refresh
+static files and its existing derived report.
+
+The contact result is 100 unique perturbed geometries replayedtwice per corrected
+protocol, not 200 independent trials. Rim-assisted retention and clean entry remain
+separate. Transit checks enable non-adjacent self-collision and carried-ball/world
+pairs, with explicit mechanical/grasp exclusions. Preview timing is illustrative;
+geometry samples do not certify dynamic control or formal continuous collision.
+See [contact/transit protocol](../CONTACT_REPEATABILITY.md).
