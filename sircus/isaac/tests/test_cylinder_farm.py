@@ -18,10 +18,24 @@ from cylinder_farm import (
     origins,
     project_actions,
 )
+from export_cylinder_film import matches_action
 from farm_flight import SHOTS, camera_pose, choose_front
 
 
 class CylinderFarmTests(unittest.TestCase):
+    def test_export_compares_angular_decode_in_degrees_and_geometry_in_metres(self):
+        expected = dict(
+            id="cylinder-ppo", azimuth_offset_deg=96.10670328140259, board_x_m=0.42
+        )
+        observed = dict(
+            expected, azimuth_offset_deg=96.1067247390747, board_x_m=0.42000015
+        )
+        self.assertTrue(matches_action(observed, expected))
+        for changed in (
+            dict(azimuth_offset_deg=96.107), dict(board_x_m=0.420001), dict(id="other")
+        ):
+            self.assertFalse(matches_action(dict(observed, **changed), expected))
+
     @classmethod
     def setUpClass(cls):
         cls.scene = json.loads((ISAAC / "scene.json").read_text())

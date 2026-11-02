@@ -30,8 +30,14 @@ def matches_action(actual, expected):
         if isinstance(value, str):
             if actual[key] != value:
                 return False
-        elif not np.isclose(actual[key], value, atol=2e-5, rtol=1e-8):
-            return False
+        else:
+            # Across NumPy builds a float32 tanh ULP can span 0.000022°
+            # when mapped onto the 360° ring. Compare in the field's units.
+            atol = {"azimuth_deg": 3e-5, "azimuth_offset_deg": 3e-5, "tilt_deg": 2e-5}.get(
+                key, 5e-7
+            )
+            if not np.isclose(actual[key], value, atol=atol, rtol=0):
+                return False
     return True
 
 
@@ -142,7 +148,7 @@ def verify(run):
                 and np.allclose(row["bucket_xy_m"], cell["bucket_xy_m"])
                 and matches_action(row, action)
                 and abs(row["distance_m"] - RADIUS) < 1e-8,
-                "Action or bucket mismatch",
+                f"Action or bucket mismatch in {name}, cell {cell['id']}",
             )
             expected = [
                 row["board_x_m"],
