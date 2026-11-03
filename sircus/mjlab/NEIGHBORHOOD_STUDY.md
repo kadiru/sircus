@@ -51,6 +51,14 @@ or old environment is modified. Actual native and Warp options are saved and
 checked, including float32 device representations. Geometry/material/scoring and
 gravity compensation are unchanged. Each shot has a four-second native horizon.
 
+The v2 option-check adapter records native solver tolerance1e-8 and Warp's
+effective float32 tolerance1e-6 separately. Pinned MuJoCo Warp3.11 floors tolerance
+with `max(tolerance,1e-6)` during model conversion; the previous adapter incorrectly
+expected the native value on Warp and stopped before any flight. The corrected
+check verifies the vendor conversion explicitly and never overwrites allocated
+options. CPU conversion evidence shows the parent environment uses the same
+native/Warp values. This repairs validation metadata, not contact dynamics.
+
 The separate finite engineering gate requires3/3 nominal and≥18/20 fresh captures
 at both64/128,≥21/23 paired capture-status agreements and≤5 mm maximum nominal
 position disagreement at350 ms. Rates at32 are also reported. This does not prove

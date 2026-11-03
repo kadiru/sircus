@@ -1,5 +1,26 @@
 # Project state
 
+## Height/tilt status and startup repair — November 3, 2026
+
+- The expansion has no new ball-flight results yet. Its original4090 queue timed
+  out unstarted; the unchanged retry stopped before release because its guard
+  expected native solver tolerance1e-8 on Warp, whose pinned conversion floors
+  tolerance to float32(1e-6). Failed attempts/logs are preserved separately.
+- The v2 guard pins both values explicitly and exactly; it does not override
+  allocated options or change parent contact/scoring. [CPU vendor-conversion
+  evidence](../baselines/mjlab-height-tilt-20261102/cpu-warp-option-conversion.json)
+  confirms the parent/default path matches.42 focused Ubuntu tests and454 local
+  mjlab tests passed (41 dependency/native skips); these are not native flights.
+- Corrected source is frozen at `studies/neighborhood-v2`, code58c1a9f, with
+  evidence planned at `output/neighborhood-v2`; its bounded supervisor queues
+  behind the current4090 owner, then audits and updates the existing viewer.
+  No4070, Isaac, hardware, cloud, service restart or policy activation changes.
+- `#heightTiltStudy` now shows prior verified64-only reference counts alongside
+  the new attempt's actual status. H397.388/T36.1548/G321.219 mm,
+  H500/T36.1548/G238.531 mm and H440/T32/G285.781 mm each had3/3 nominal and20/20
+  gap-noise captures. They do not yet establish the new height/tilt-noise or
+  paired-timestep reliability. See [status and exact values](../baselines/mjlab-height-tilt-20261102/README.md).
+
 ## Local height/tilt expansion — November 2, 2026
 
 - [Prespecified protocol](../sircus/mjlab/NEIGHBORHOOD_STUDY.md):75 local H/tilt
