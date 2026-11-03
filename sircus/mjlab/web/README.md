@@ -6,6 +6,14 @@ The user can drag the bucket in the table plane, optionally lock board-center
 XYZ or release-ball-center XYZ, request a prediction, and replay the resulting
 simulated ball trajectory. Locks constrain positions; orientation remains free.
 
+The separate `#distanceStudy` panel presents the [audited distance development
+study](../../../baselines/mjlab-distance-20261103/README.md): two rays, requested
+footprint/reach failures, five selected settings, paired repeatability and native
+flight examples. Its results do not update the active interactive solver. In
+the recorded-shot selector, `corner-d01` through`corner-d04` misses are optional
+post-hoc examples of table-assisted entry, explicitly separate from qualified
+capture counts. The panel changes no simulation state or policy.
+
 The manual solve button and backend both remain locked until the supplied report
 has `status: completed` and a nonempty `frozen_evaluation` object. Build and mock
 checks may run earlier. This gate respects the study-before-manual-testing order;

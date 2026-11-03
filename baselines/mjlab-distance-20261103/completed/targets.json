@@ -1,0 +1,1269 @@
+[
+  {
+    "id": "original-d00",
+    "distance_id": "original-d00",
+    "ray_id": "original",
+    "distance_m": 0.35,
+    "board_xy_m": [
+      0.4708757793012148,
+      -0.2778934014509746
+    ],
+    "bucket_xy_m": [
+      0.24279359343176338,
+      -0.5433713035238457
+    ],
+    "bucket_on_table": true,
+    "table_margin_m": 0.23162869647615433,
+    "reason": null,
+    "requested_contexts": 8,
+    "board_admitted_contexts": 8,
+    "captured_contexts": 8,
+    "search": {
+      "requests": 168,
+      "native_releases": 84,
+      "geometry_rejections": 84,
+      "captures": 24,
+      "clean_captures": 0,
+      "rim_assisted_captures": 24,
+      "capture_rate_per_request": 0.14285714285714285,
+      "capture_rate_per_native_release": 0.2857142857142857,
+      "rejection_reasons": {
+        "strict_clearance_reject": 4,
+        "workspace_prior_reject": 80
+      }
+    },
+    "phases": {
+      "coarse": {
+        "requests": 136,
+        "native_releases": 52,
+        "geometry_rejections": 84,
+        "captures": 15,
+        "clean_captures": 0,
+        "rim_assisted_captures": 15,
+        "capture_rate_per_request": 0.11029411764705882,
+        "capture_rate_per_native_release": 0.28846153846153844,
+        "rejection_reasons": {
+          "strict_clearance_reject": 4,
+          "workspace_prior_reject": 80
+        }
+      },
+      "far_extension": {
+        "requests": 0,
+        "native_releases": 0,
+        "geometry_rejections": 0,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": null,
+        "capture_rate_per_native_release": null,
+        "rejection_reasons": {}
+      },
+      "refinement": {
+        "requests": 32,
+        "native_releases": 32,
+        "geometry_rejections": 0,
+        "captures": 9,
+        "clean_captures": 0,
+        "rim_assisted_captures": 9,
+        "capture_rate_per_request": 0.28125,
+        "capture_rate_per_native_release": 0.28125,
+        "rejection_reasons": {}
+      }
+    },
+    "all_roles": {
+      "requests": 267,
+      "native_releases": 183,
+      "geometry_rejections": 84,
+      "captures": 108,
+      "clean_captures": 0,
+      "rim_assisted_captures": 108,
+      "capture_rate_per_request": 0.4044943820224719,
+      "capture_rate_per_native_release": 0.5901639344262295,
+      "rejection_reasons": {
+        "strict_clearance_reject": 4,
+        "workspace_prior_reject": 80
+      }
+    },
+    "selected_recipe_ids": [
+      "recipe-00"
+    ],
+    "fine_pair_qualified_recipes": 0,
+    "all_resolution_qualified_recipes": 0
+  },
+  {
+    "id": "original-d01",
+    "distance_id": "original-d01",
+    "ray_id": "original",
+    "distance_m": 0.45,
+    "board_xy_m": [
+      0.4708757793012148,
+      -0.2778934014509746
+    ],
+    "bucket_xy_m": [
+      0.17762725461192008,
+      -0.6192221326875232
+    ],
+    "bucket_on_table": true,
+    "table_margin_m": 0.15577786731247675,
+    "reason": null,
+    "requested_contexts": 8,
+    "board_admitted_contexts": 8,
+    "captured_contexts": 8,
+    "search": {
+      "requests": 168,
+      "native_releases": 81,
+      "geometry_rejections": 87,
+      "captures": 62,
+      "clean_captures": 0,
+      "rim_assisted_captures": 62,
+      "capture_rate_per_request": 0.36904761904761907,
+      "capture_rate_per_native_release": 0.7654320987654321,
+      "rejection_reasons": {
+        "strict_clearance_reject": 7,
+        "workspace_prior_reject": 80
+      }
+    },
+    "phases": {
+      "coarse": {
+        "requests": 136,
+        "native_releases": 52,
+        "geometry_rejections": 84,
+        "captures": 38,
+        "clean_captures": 0,
+        "rim_assisted_captures": 38,
+        "capture_rate_per_request": 0.27941176470588236,
+        "capture_rate_per_native_release": 0.7307692307692307,
+        "rejection_reasons": {
+          "strict_clearance_reject": 4,
+          "workspace_prior_reject": 80
+        }
+      },
+      "far_extension": {
+        "requests": 0,
+        "native_releases": 0,
+        "geometry_rejections": 0,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": null,
+        "capture_rate_per_native_release": null,
+        "rejection_reasons": {}
+      },
+      "refinement": {
+        "requests": 32,
+        "native_releases": 29,
+        "geometry_rejections": 3,
+        "captures": 24,
+        "clean_captures": 0,
+        "rim_assisted_captures": 24,
+        "capture_rate_per_request": 0.75,
+        "capture_rate_per_native_release": 0.8275862068965517,
+        "rejection_reasons": {
+          "strict_clearance_reject": 3
+        }
+      }
+    },
+    "all_roles": {
+      "requests": 267,
+      "native_releases": 180,
+      "geometry_rejections": 87,
+      "captures": 161,
+      "clean_captures": 0,
+      "rim_assisted_captures": 161,
+      "capture_rate_per_request": 0.602996254681648,
+      "capture_rate_per_native_release": 0.8944444444444445,
+      "rejection_reasons": {
+        "strict_clearance_reject": 7,
+        "workspace_prior_reject": 80
+      }
+    },
+    "selected_recipe_ids": [
+      "recipe-01"
+    ],
+    "fine_pair_qualified_recipes": 1,
+    "all_resolution_qualified_recipes": 1
+  },
+  {
+    "id": "original-d02",
+    "distance_id": "original-d02",
+    "ray_id": "original",
+    "distance_m": 0.47282574126472343,
+    "board_xy_m": [
+      0.4708757793012148,
+      -0.2778934014509746
+    ],
+    "bucket_xy_m": [
+      0.16275255472120964,
+      -0.6365356466995716
+    ],
+    "bucket_on_table": true,
+    "table_margin_m": 0.13846435330042836,
+    "reason": null,
+    "requested_contexts": 8,
+    "board_admitted_contexts": 8,
+    "captured_contexts": 8,
+    "search": {
+      "requests": 168,
+      "native_releases": 80,
+      "geometry_rejections": 88,
+      "captures": 51,
+      "clean_captures": 0,
+      "rim_assisted_captures": 51,
+      "capture_rate_per_request": 0.30357142857142855,
+      "capture_rate_per_native_release": 0.6375,
+      "rejection_reasons": {
+        "strict_clearance_reject": 8,
+        "workspace_prior_reject": 80
+      }
+    },
+    "phases": {
+      "coarse": {
+        "requests": 136,
+        "native_releases": 52,
+        "geometry_rejections": 84,
+        "captures": 31,
+        "clean_captures": 0,
+        "rim_assisted_captures": 31,
+        "capture_rate_per_request": 0.22794117647058823,
+        "capture_rate_per_native_release": 0.5961538461538461,
+        "rejection_reasons": {
+          "strict_clearance_reject": 4,
+          "workspace_prior_reject": 80
+        }
+      },
+      "far_extension": {
+        "requests": 0,
+        "native_releases": 0,
+        "geometry_rejections": 0,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": null,
+        "capture_rate_per_native_release": null,
+        "rejection_reasons": {}
+      },
+      "refinement": {
+        "requests": 32,
+        "native_releases": 28,
+        "geometry_rejections": 4,
+        "captures": 20,
+        "clean_captures": 0,
+        "rim_assisted_captures": 20,
+        "capture_rate_per_request": 0.625,
+        "capture_rate_per_native_release": 0.7142857142857143,
+        "rejection_reasons": {
+          "strict_clearance_reject": 4
+        }
+      }
+    },
+    "all_roles": {
+      "requests": 291,
+      "native_releases": 203,
+      "geometry_rejections": 88,
+      "captures": 174,
+      "clean_captures": 0,
+      "rim_assisted_captures": 174,
+      "capture_rate_per_request": 0.5979381443298969,
+      "capture_rate_per_native_release": 0.8571428571428571,
+      "rejection_reasons": {
+        "strict_clearance_reject": 8,
+        "workspace_prior_reject": 80
+      }
+    },
+    "selected_recipe_ids": [
+      "recipe-02"
+    ],
+    "fine_pair_qualified_recipes": 1,
+    "all_resolution_qualified_recipes": 1
+  },
+  {
+    "id": "original-d03",
+    "distance_id": "original-d03",
+    "ray_id": "original",
+    "distance_m": 0.55,
+    "board_xy_m": [
+      0.4708757793012148,
+      -0.2778934014509746
+    ],
+    "bucket_xy_m": [
+      0.11246091579207679,
+      -0.6950729618512008
+    ],
+    "bucket_on_table": true,
+    "table_margin_m": 0.07992703814879917,
+    "reason": null,
+    "requested_contexts": 8,
+    "board_admitted_contexts": 8,
+    "captured_contexts": 4,
+    "search": {
+      "requests": 152,
+      "native_releases": 65,
+      "geometry_rejections": 87,
+      "captures": 9,
+      "clean_captures": 0,
+      "rim_assisted_captures": 9,
+      "capture_rate_per_request": 0.05921052631578947,
+      "capture_rate_per_native_release": 0.13846153846153847,
+      "rejection_reasons": {
+        "strict_clearance_reject": 7,
+        "workspace_prior_reject": 80
+      }
+    },
+    "phases": {
+      "coarse": {
+        "requests": 136,
+        "native_releases": 52,
+        "geometry_rejections": 84,
+        "captures": 6,
+        "clean_captures": 0,
+        "rim_assisted_captures": 6,
+        "capture_rate_per_request": 0.04411764705882353,
+        "capture_rate_per_native_release": 0.11538461538461539,
+        "rejection_reasons": {
+          "strict_clearance_reject": 4,
+          "workspace_prior_reject": 80
+        }
+      },
+      "far_extension": {
+        "requests": 0,
+        "native_releases": 0,
+        "geometry_rejections": 0,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": null,
+        "capture_rate_per_native_release": null,
+        "rejection_reasons": {}
+      },
+      "refinement": {
+        "requests": 16,
+        "native_releases": 13,
+        "geometry_rejections": 3,
+        "captures": 3,
+        "clean_captures": 0,
+        "rim_assisted_captures": 3,
+        "capture_rate_per_request": 0.1875,
+        "capture_rate_per_native_release": 0.23076923076923078,
+        "rejection_reasons": {
+          "strict_clearance_reject": 3
+        }
+      }
+    },
+    "all_roles": {
+      "requests": 251,
+      "native_releases": 164,
+      "geometry_rejections": 87,
+      "captures": 104,
+      "clean_captures": 0,
+      "rim_assisted_captures": 104,
+      "capture_rate_per_request": 0.41434262948207173,
+      "capture_rate_per_native_release": 0.6341463414634146,
+      "rejection_reasons": {
+        "strict_clearance_reject": 7,
+        "workspace_prior_reject": 80
+      }
+    },
+    "selected_recipe_ids": [
+      "recipe-03"
+    ],
+    "fine_pair_qualified_recipes": 1,
+    "all_resolution_qualified_recipes": 0
+  },
+  {
+    "id": "original-d04",
+    "distance_id": "original-d04",
+    "ray_id": "original",
+    "distance_m": 0.6,
+    "board_xy_m": [
+      0.4708757793012148,
+      -0.2778934014509746
+    ],
+    "bucket_xy_m": [
+      0.07987774638215522,
+      -0.7329983764330394
+    ],
+    "bucket_on_table": true,
+    "table_margin_m": 0.04200162356696055,
+    "reason": null,
+    "requested_contexts": 8,
+    "board_admitted_contexts": 8,
+    "captured_contexts": 0,
+    "search": {
+      "requests": 136,
+      "native_releases": 52,
+      "geometry_rejections": 84,
+      "captures": 0,
+      "clean_captures": 0,
+      "rim_assisted_captures": 0,
+      "capture_rate_per_request": 0.0,
+      "capture_rate_per_native_release": 0.0,
+      "rejection_reasons": {
+        "strict_clearance_reject": 4,
+        "workspace_prior_reject": 80
+      }
+    },
+    "phases": {
+      "coarse": {
+        "requests": 136,
+        "native_releases": 52,
+        "geometry_rejections": 84,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": 0.0,
+        "capture_rate_per_native_release": 0.0,
+        "rejection_reasons": {
+          "strict_clearance_reject": 4,
+          "workspace_prior_reject": 80
+        }
+      },
+      "far_extension": {
+        "requests": 0,
+        "native_releases": 0,
+        "geometry_rejections": 0,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": null,
+        "capture_rate_per_native_release": null,
+        "rejection_reasons": {}
+      },
+      "refinement": {
+        "requests": 0,
+        "native_releases": 0,
+        "geometry_rejections": 0,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": null,
+        "capture_rate_per_native_release": null,
+        "rejection_reasons": {}
+      }
+    },
+    "all_roles": {
+      "requests": 136,
+      "native_releases": 52,
+      "geometry_rejections": 84,
+      "captures": 0,
+      "clean_captures": 0,
+      "rim_assisted_captures": 0,
+      "capture_rate_per_request": 0.0,
+      "capture_rate_per_native_release": 0.0,
+      "rejection_reasons": {
+        "strict_clearance_reject": 4,
+        "workspace_prior_reject": 80
+      }
+    },
+    "selected_recipe_ids": [],
+    "fine_pair_qualified_recipes": 0,
+    "all_resolution_qualified_recipes": 0
+  },
+  {
+    "id": "original-d05",
+    "distance_id": "original-d05",
+    "ray_id": "original",
+    "distance_m": 0.64,
+    "board_xy_m": [
+      0.4708757793012148,
+      -0.2778934014509746
+    ],
+    "bucket_xy_m": [
+      0.05381121085421786,
+      -0.7633387080985105
+    ],
+    "bucket_on_table": true,
+    "table_margin_m": 0.01166129190148954,
+    "reason": null,
+    "requested_contexts": 8,
+    "board_admitted_contexts": 8,
+    "captured_contexts": 0,
+    "search": {
+      "requests": 136,
+      "native_releases": 52,
+      "geometry_rejections": 84,
+      "captures": 0,
+      "clean_captures": 0,
+      "rim_assisted_captures": 0,
+      "capture_rate_per_request": 0.0,
+      "capture_rate_per_native_release": 0.0,
+      "rejection_reasons": {
+        "strict_clearance_reject": 4,
+        "workspace_prior_reject": 80
+      }
+    },
+    "phases": {
+      "coarse": {
+        "requests": 136,
+        "native_releases": 52,
+        "geometry_rejections": 84,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": 0.0,
+        "capture_rate_per_native_release": 0.0,
+        "rejection_reasons": {
+          "strict_clearance_reject": 4,
+          "workspace_prior_reject": 80
+        }
+      },
+      "far_extension": {
+        "requests": 0,
+        "native_releases": 0,
+        "geometry_rejections": 0,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": null,
+        "capture_rate_per_native_release": null,
+        "rejection_reasons": {}
+      },
+      "refinement": {
+        "requests": 0,
+        "native_releases": 0,
+        "geometry_rejections": 0,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": null,
+        "capture_rate_per_native_release": null,
+        "rejection_reasons": {}
+      }
+    },
+    "all_roles": {
+      "requests": 136,
+      "native_releases": 52,
+      "geometry_rejections": 84,
+      "captures": 0,
+      "clean_captures": 0,
+      "rim_assisted_captures": 0,
+      "capture_rate_per_request": 0.0,
+      "capture_rate_per_native_release": 0.0,
+      "rejection_reasons": {
+        "strict_clearance_reject": 4,
+        "workspace_prior_reject": 80
+      }
+    },
+    "selected_recipe_ids": [],
+    "fine_pair_qualified_recipes": 0,
+    "all_resolution_qualified_recipes": 0
+  },
+  {
+    "id": "original-d06",
+    "distance_id": "original-d06",
+    "ray_id": "original",
+    "distance_m": 0.65,
+    "board_xy_m": [
+      0.4708757793012148,
+      -0.2778934014509746
+    ],
+    "bucket_xy_m": [
+      0.04729457697223355,
+      -0.7709237910148783
+    ],
+    "bucket_on_table": false,
+    "table_margin_m": 0.004076208985121704,
+    "reason": "bucket_footprint_outside_table",
+    "requested_contexts": 8,
+    "board_admitted_contexts": 0,
+    "captured_contexts": 0,
+    "search": {
+      "requests": 136,
+      "native_releases": 0,
+      "geometry_rejections": 136,
+      "captures": 0,
+      "clean_captures": 0,
+      "rim_assisted_captures": 0,
+      "capture_rate_per_request": 0.0,
+      "capture_rate_per_native_release": null,
+      "rejection_reasons": {
+        "bucket_outer_footprint_off_table": 136
+      }
+    },
+    "phases": {
+      "coarse": {
+        "requests": 136,
+        "native_releases": 0,
+        "geometry_rejections": 136,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": 0.0,
+        "capture_rate_per_native_release": null,
+        "rejection_reasons": {
+          "bucket_outer_footprint_off_table": 136
+        }
+      },
+      "far_extension": {
+        "requests": 0,
+        "native_releases": 0,
+        "geometry_rejections": 0,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": null,
+        "capture_rate_per_native_release": null,
+        "rejection_reasons": {}
+      },
+      "refinement": {
+        "requests": 0,
+        "native_releases": 0,
+        "geometry_rejections": 0,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": null,
+        "capture_rate_per_native_release": null,
+        "rejection_reasons": {}
+      }
+    },
+    "all_roles": {
+      "requests": 136,
+      "native_releases": 0,
+      "geometry_rejections": 136,
+      "captures": 0,
+      "clean_captures": 0,
+      "rim_assisted_captures": 0,
+      "capture_rate_per_request": 0.0,
+      "capture_rate_per_native_release": null,
+      "rejection_reasons": {
+        "bucket_outer_footprint_off_table": 136
+      }
+    },
+    "selected_recipe_ids": [],
+    "fine_pair_qualified_recipes": 0,
+    "all_resolution_qualified_recipes": 0
+  },
+  {
+    "id": "corner-d00",
+    "distance_id": "corner-d00",
+    "ray_id": "corner",
+    "distance_m": 0.55,
+    "board_xy_m": [
+      0.4708757793012148,
+      -0.2778934014509746
+    ],
+    "bucket_xy_m": [
+      0.046798383013313516,
+      -0.628119559751114
+    ],
+    "bucket_on_table": true,
+    "table_margin_m": 0.146880440248886,
+    "reason": null,
+    "requested_contexts": 8,
+    "board_admitted_contexts": 8,
+    "captured_contexts": 3,
+    "search": {
+      "requests": 148,
+      "native_releases": 62,
+      "geometry_rejections": 86,
+      "captures": 9,
+      "clean_captures": 0,
+      "rim_assisted_captures": 9,
+      "capture_rate_per_request": 0.060810810810810814,
+      "capture_rate_per_native_release": 0.14516129032258066,
+      "rejection_reasons": {
+        "strict_clearance_reject": 6,
+        "workspace_prior_reject": 80
+      }
+    },
+    "phases": {
+      "coarse": {
+        "requests": 136,
+        "native_releases": 52,
+        "geometry_rejections": 84,
+        "captures": 5,
+        "clean_captures": 0,
+        "rim_assisted_captures": 5,
+        "capture_rate_per_request": 0.03676470588235294,
+        "capture_rate_per_native_release": 0.09615384615384616,
+        "rejection_reasons": {
+          "strict_clearance_reject": 4,
+          "workspace_prior_reject": 80
+        }
+      },
+      "far_extension": {
+        "requests": 0,
+        "native_releases": 0,
+        "geometry_rejections": 0,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": null,
+        "capture_rate_per_native_release": null,
+        "rejection_reasons": {}
+      },
+      "refinement": {
+        "requests": 12,
+        "native_releases": 10,
+        "geometry_rejections": 2,
+        "captures": 4,
+        "clean_captures": 0,
+        "rim_assisted_captures": 4,
+        "capture_rate_per_request": 0.3333333333333333,
+        "capture_rate_per_native_release": 0.4,
+        "rejection_reasons": {
+          "strict_clearance_reject": 2
+        }
+      }
+    },
+    "all_roles": {
+      "requests": 247,
+      "native_releases": 161,
+      "geometry_rejections": 86,
+      "captures": 42,
+      "clean_captures": 0,
+      "rim_assisted_captures": 42,
+      "capture_rate_per_request": 0.1700404858299595,
+      "capture_rate_per_native_release": 0.2608695652173913,
+      "rejection_reasons": {
+        "strict_clearance_reject": 6,
+        "workspace_prior_reject": 80
+      }
+    },
+    "selected_recipe_ids": [
+      "recipe-04"
+    ],
+    "fine_pair_qualified_recipes": 0,
+    "all_resolution_qualified_recipes": 0
+  },
+  {
+    "id": "corner-d01",
+    "distance_id": "corner-d01",
+    "ray_id": "corner",
+    "distance_m": 0.65,
+    "board_xy_m": [
+      0.4708757793012148,
+      -0.2778934014509746
+    ],
+    "bucket_xy_m": [
+      -0.030306598129941298,
+      -0.6917970430784122
+    ],
+    "bucket_on_table": true,
+    "table_margin_m": 0.08320295692158783,
+    "reason": null,
+    "requested_contexts": 32,
+    "board_admitted_contexts": 17,
+    "captured_contexts": 0,
+    "search": {
+      "requests": 472,
+      "native_releases": 98,
+      "geometry_rejections": 374,
+      "captures": 0,
+      "clean_captures": 0,
+      "rim_assisted_captures": 0,
+      "capture_rate_per_request": 0.0,
+      "capture_rate_per_native_release": 0.0,
+      "rejection_reasons": {
+        "strict_clearance_reject": 5,
+        "workspace_prior_reject": 369
+      }
+    },
+    "phases": {
+      "coarse": {
+        "requests": 136,
+        "native_releases": 52,
+        "geometry_rejections": 84,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": 0.0,
+        "capture_rate_per_native_release": 0.0,
+        "rejection_reasons": {
+          "strict_clearance_reject": 4,
+          "workspace_prior_reject": 80
+        }
+      },
+      "far_extension": {
+        "requests": 336,
+        "native_releases": 46,
+        "geometry_rejections": 290,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": 0.0,
+        "capture_rate_per_native_release": 0.0,
+        "rejection_reasons": {
+          "strict_clearance_reject": 1,
+          "workspace_prior_reject": 289
+        }
+      },
+      "refinement": {
+        "requests": 0,
+        "native_releases": 0,
+        "geometry_rejections": 0,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": null,
+        "capture_rate_per_native_release": null,
+        "rejection_reasons": {}
+      }
+    },
+    "all_roles": {
+      "requests": 472,
+      "native_releases": 98,
+      "geometry_rejections": 374,
+      "captures": 0,
+      "clean_captures": 0,
+      "rim_assisted_captures": 0,
+      "capture_rate_per_request": 0.0,
+      "capture_rate_per_native_release": 0.0,
+      "rejection_reasons": {
+        "strict_clearance_reject": 5,
+        "workspace_prior_reject": 369
+      }
+    },
+    "selected_recipe_ids": [],
+    "fine_pair_qualified_recipes": 0,
+    "all_resolution_qualified_recipes": 0
+  },
+  {
+    "id": "corner-d02",
+    "distance_id": "corner-d02",
+    "ray_id": "corner",
+    "distance_m": 0.7,
+    "board_xy_m": [
+      0.4708757793012148,
+      -0.2778934014509746
+    ],
+    "bucket_xy_m": [
+      -0.06885908870156865,
+      -0.7236357847420611
+    ],
+    "bucket_on_table": true,
+    "table_margin_m": 0.051364215257938856,
+    "reason": null,
+    "requested_contexts": 32,
+    "board_admitted_contexts": 17,
+    "captured_contexts": 0,
+    "search": {
+      "requests": 472,
+      "native_releases": 98,
+      "geometry_rejections": 374,
+      "captures": 0,
+      "clean_captures": 0,
+      "rim_assisted_captures": 0,
+      "capture_rate_per_request": 0.0,
+      "capture_rate_per_native_release": 0.0,
+      "rejection_reasons": {
+        "strict_clearance_reject": 5,
+        "workspace_prior_reject": 369
+      }
+    },
+    "phases": {
+      "coarse": {
+        "requests": 136,
+        "native_releases": 52,
+        "geometry_rejections": 84,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": 0.0,
+        "capture_rate_per_native_release": 0.0,
+        "rejection_reasons": {
+          "strict_clearance_reject": 4,
+          "workspace_prior_reject": 80
+        }
+      },
+      "far_extension": {
+        "requests": 336,
+        "native_releases": 46,
+        "geometry_rejections": 290,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": 0.0,
+        "capture_rate_per_native_release": 0.0,
+        "rejection_reasons": {
+          "strict_clearance_reject": 1,
+          "workspace_prior_reject": 289
+        }
+      },
+      "refinement": {
+        "requests": 0,
+        "native_releases": 0,
+        "geometry_rejections": 0,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": null,
+        "capture_rate_per_native_release": null,
+        "rejection_reasons": {}
+      }
+    },
+    "all_roles": {
+      "requests": 472,
+      "native_releases": 98,
+      "geometry_rejections": 374,
+      "captures": 0,
+      "clean_captures": 0,
+      "rim_assisted_captures": 0,
+      "capture_rate_per_request": 0.0,
+      "capture_rate_per_native_release": 0.0,
+      "rejection_reasons": {
+        "strict_clearance_reject": 5,
+        "workspace_prior_reject": 369
+      }
+    },
+    "selected_recipe_ids": [],
+    "fine_pair_qualified_recipes": 0,
+    "all_resolution_qualified_recipes": 0
+  },
+  {
+    "id": "corner-d03",
+    "distance_id": "corner-d03",
+    "ray_id": "corner",
+    "distance_m": 0.75,
+    "board_xy_m": [
+      0.4708757793012148,
+      -0.2778934014509746
+    ],
+    "bucket_xy_m": [
+      -0.107411579273196,
+      -0.7554745264057101
+    ],
+    "bucket_on_table": true,
+    "table_margin_m": 0.019525473594289883,
+    "reason": null,
+    "requested_contexts": 32,
+    "board_admitted_contexts": 17,
+    "captured_contexts": 0,
+    "search": {
+      "requests": 472,
+      "native_releases": 98,
+      "geometry_rejections": 374,
+      "captures": 0,
+      "clean_captures": 0,
+      "rim_assisted_captures": 0,
+      "capture_rate_per_request": 0.0,
+      "capture_rate_per_native_release": 0.0,
+      "rejection_reasons": {
+        "strict_clearance_reject": 5,
+        "workspace_prior_reject": 369
+      }
+    },
+    "phases": {
+      "coarse": {
+        "requests": 136,
+        "native_releases": 52,
+        "geometry_rejections": 84,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": 0.0,
+        "capture_rate_per_native_release": 0.0,
+        "rejection_reasons": {
+          "strict_clearance_reject": 4,
+          "workspace_prior_reject": 80
+        }
+      },
+      "far_extension": {
+        "requests": 336,
+        "native_releases": 46,
+        "geometry_rejections": 290,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": 0.0,
+        "capture_rate_per_native_release": 0.0,
+        "rejection_reasons": {
+          "strict_clearance_reject": 1,
+          "workspace_prior_reject": 289
+        }
+      },
+      "refinement": {
+        "requests": 0,
+        "native_releases": 0,
+        "geometry_rejections": 0,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": null,
+        "capture_rate_per_native_release": null,
+        "rejection_reasons": {}
+      }
+    },
+    "all_roles": {
+      "requests": 472,
+      "native_releases": 98,
+      "geometry_rejections": 374,
+      "captures": 0,
+      "clean_captures": 0,
+      "rim_assisted_captures": 0,
+      "capture_rate_per_request": 0.0,
+      "capture_rate_per_native_release": 0.0,
+      "rejection_reasons": {
+        "strict_clearance_reject": 5,
+        "workspace_prior_reject": 369
+      }
+    },
+    "selected_recipe_ids": [],
+    "fine_pair_qualified_recipes": 0,
+    "all_resolution_qualified_recipes": 0
+  },
+  {
+    "id": "corner-d04",
+    "distance_id": "corner-d04",
+    "ray_id": "corner",
+    "distance_m": 0.77,
+    "board_xy_m": [
+      0.4708757793012148,
+      -0.2778934014509746
+    ],
+    "bucket_xy_m": [
+      -0.12283257550184701,
+      -0.7682100230711698
+    ],
+    "bucket_on_table": true,
+    "table_margin_m": 0.0067899769288301826,
+    "reason": null,
+    "requested_contexts": 32,
+    "board_admitted_contexts": 17,
+    "captured_contexts": 0,
+    "search": {
+      "requests": 472,
+      "native_releases": 98,
+      "geometry_rejections": 374,
+      "captures": 0,
+      "clean_captures": 0,
+      "rim_assisted_captures": 0,
+      "capture_rate_per_request": 0.0,
+      "capture_rate_per_native_release": 0.0,
+      "rejection_reasons": {
+        "strict_clearance_reject": 5,
+        "workspace_prior_reject": 369
+      }
+    },
+    "phases": {
+      "coarse": {
+        "requests": 136,
+        "native_releases": 52,
+        "geometry_rejections": 84,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": 0.0,
+        "capture_rate_per_native_release": 0.0,
+        "rejection_reasons": {
+          "strict_clearance_reject": 4,
+          "workspace_prior_reject": 80
+        }
+      },
+      "far_extension": {
+        "requests": 336,
+        "native_releases": 46,
+        "geometry_rejections": 290,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": 0.0,
+        "capture_rate_per_native_release": 0.0,
+        "rejection_reasons": {
+          "strict_clearance_reject": 1,
+          "workspace_prior_reject": 289
+        }
+      },
+      "refinement": {
+        "requests": 0,
+        "native_releases": 0,
+        "geometry_rejections": 0,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": null,
+        "capture_rate_per_native_release": null,
+        "rejection_reasons": {}
+      }
+    },
+    "all_roles": {
+      "requests": 472,
+      "native_releases": 98,
+      "geometry_rejections": 374,
+      "captures": 0,
+      "clean_captures": 0,
+      "rim_assisted_captures": 0,
+      "capture_rate_per_request": 0.0,
+      "capture_rate_per_native_release": 0.0,
+      "rejection_reasons": {
+        "strict_clearance_reject": 5,
+        "workspace_prior_reject": 369
+      }
+    },
+    "selected_recipe_ids": [],
+    "fine_pair_qualified_recipes": 0,
+    "all_resolution_qualified_recipes": 0
+  },
+  {
+    "id": "corner-d05",
+    "distance_id": "corner-d05",
+    "ray_id": "corner",
+    "distance_m": 0.8,
+    "board_xy_m": [
+      0.4708757793012148,
+      -0.2778934014509746
+    ],
+    "bucket_xy_m": [
+      -0.14596406984482346,
+      -0.7873132680693593
+    ],
+    "bucket_on_table": false,
+    "table_margin_m": -0.015964069844823486,
+    "reason": "bucket_footprint_outside_table",
+    "requested_contexts": 8,
+    "board_admitted_contexts": 0,
+    "captured_contexts": 0,
+    "search": {
+      "requests": 136,
+      "native_releases": 0,
+      "geometry_rejections": 136,
+      "captures": 0,
+      "clean_captures": 0,
+      "rim_assisted_captures": 0,
+      "capture_rate_per_request": 0.0,
+      "capture_rate_per_native_release": null,
+      "rejection_reasons": {
+        "bucket_outer_footprint_off_table": 136
+      }
+    },
+    "phases": {
+      "coarse": {
+        "requests": 136,
+        "native_releases": 0,
+        "geometry_rejections": 136,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": 0.0,
+        "capture_rate_per_native_release": null,
+        "rejection_reasons": {
+          "bucket_outer_footprint_off_table": 136
+        }
+      },
+      "far_extension": {
+        "requests": 0,
+        "native_releases": 0,
+        "geometry_rejections": 0,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": null,
+        "capture_rate_per_native_release": null,
+        "rejection_reasons": {}
+      },
+      "refinement": {
+        "requests": 0,
+        "native_releases": 0,
+        "geometry_rejections": 0,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": null,
+        "capture_rate_per_native_release": null,
+        "rejection_reasons": {}
+      }
+    },
+    "all_roles": {
+      "requests": 136,
+      "native_releases": 0,
+      "geometry_rejections": 136,
+      "captures": 0,
+      "clean_captures": 0,
+      "rim_assisted_captures": 0,
+      "capture_rate_per_request": 0.0,
+      "capture_rate_per_native_release": null,
+      "rejection_reasons": {
+        "bucket_outer_footprint_off_table": 136
+      }
+    },
+    "selected_recipe_ids": [],
+    "fine_pair_qualified_recipes": 0,
+    "all_resolution_qualified_recipes": 0
+  },
+  {
+    "id": "corner-d06",
+    "distance_id": "corner-d06",
+    "ray_id": "corner",
+    "distance_m": 0.95,
+    "board_xy_m": [
+      0.4708757793012148,
+      -0.2778934014509746
+    ],
+    "bucket_xy_m": [
+      -0.2616215415597055,
+      -0.8828294930603062
+    ],
+    "bucket_on_table": false,
+    "table_margin_m": -0.13162154155970554,
+    "reason": "bucket_footprint_outside_table",
+    "requested_contexts": 8,
+    "board_admitted_contexts": 0,
+    "captured_contexts": 0,
+    "search": {
+      "requests": 136,
+      "native_releases": 0,
+      "geometry_rejections": 136,
+      "captures": 0,
+      "clean_captures": 0,
+      "rim_assisted_captures": 0,
+      "capture_rate_per_request": 0.0,
+      "capture_rate_per_native_release": null,
+      "rejection_reasons": {
+        "bucket_outer_footprint_off_table": 136
+      }
+    },
+    "phases": {
+      "coarse": {
+        "requests": 136,
+        "native_releases": 0,
+        "geometry_rejections": 136,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": 0.0,
+        "capture_rate_per_native_release": null,
+        "rejection_reasons": {
+          "bucket_outer_footprint_off_table": 136
+        }
+      },
+      "far_extension": {
+        "requests": 0,
+        "native_releases": 0,
+        "geometry_rejections": 0,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": null,
+        "capture_rate_per_native_release": null,
+        "rejection_reasons": {}
+      },
+      "refinement": {
+        "requests": 0,
+        "native_releases": 0,
+        "geometry_rejections": 0,
+        "captures": 0,
+        "clean_captures": 0,
+        "rim_assisted_captures": 0,
+        "capture_rate_per_request": null,
+        "capture_rate_per_native_release": null,
+        "rejection_reasons": {}
+      }
+    },
+    "all_roles": {
+      "requests": 136,
+      "native_releases": 0,
+      "geometry_rejections": 136,
+      "captures": 0,
+      "clean_captures": 0,
+      "rim_assisted_captures": 0,
+      "capture_rate_per_request": 0.0,
+      "capture_rate_per_native_release": null,
+      "rejection_reasons": {
+        "bucket_outer_footprint_off_table": 136
+      }
+    },
+    "selected_recipe_ids": [],
+    "fine_pair_qualified_recipes": 0,
+    "all_resolution_qualified_recipes": 0
+  }
+]

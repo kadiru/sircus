@@ -1,8 +1,8 @@
 # Sircus — Simple Circus
 
-**Current mjlab checkpoint:** the [completed local height/tilt and timestep study](baselines/mjlab-height-tilt-20261102/README.md) found eight configurations with **23/23 captures at each of 32/64/128 substeps**; ten of twelve selected recipes passed the prespecified 64/128 repeatability gate. These are fixed-bucket development results, not a new trained policy. The earlier [conditional gap-window study](baselines/mjlab-window-sac-20261102/README.md) and all historical contracts/results remain separate.
+**Current mjlab checkpoint:** the [completed seeded bucket-distance study](baselines/mjlab-distance-20261103/README.md) tested 3,891 requests /1,387 native releases, with 9,962 independent audit checks passed. Two selected settings at **450 and 472.826 mm captured 33/33 at each of 32/64/128 substeps**. The 550 mm original-ray setting passed the fine-pair gate but failed the 32-step repeat threshold. No qualified direct shot was found at 650–770 mm; observed tabletop-assisted entries remain failures.
 
-The next [seeded bucket-distance study](baselines/mjlab-distance-20261103/README.md) uses those eight configurations to search farther placements, with separate support/reach checks and paired repeatability. Its read-only `#distanceStudy` panel keeps new evidence separate from the completed parent.
+The read-only `#distanceStudy` panel shows both bucket rays, exact settings, paired repeats and actual saved successful/failed flights. This is development search, not a newly trained policy or continuous-table generalization. The [height/tilt parent](baselines/mjlab-height-tilt-20261102/README.md), [conditional gap-window study](baselines/mjlab-window-sac-20261102/README.md), original contracts and active solver routing remain separate.
 
 Two UFACTORY850 arms learn to bounce a ball from a suction-mounted board into a bucket. Arm10 picks/releases; arm14 positions the board. This private repository is the shared source for Mac physical work and Ubuntu simulation work.
 

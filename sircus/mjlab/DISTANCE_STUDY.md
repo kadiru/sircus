@@ -104,3 +104,32 @@ with actual bucket-specific saved trajectories. Static files/derived reports can
 be updated without restarting the viewer or activating a checkpoint. Never write
 derived files into an audited raw evidence directory. Raw observations, queues,
 logs and runtime configuration stay outside Git; curate small metrics and hashes.
+
+## Completed execution and native examples
+
+[Audited results and exact settings](../../baselines/mjlab-distance-20261103/README.md)
+record the completed 4090 run at execution commit 9ed20bc: 3,891 requests,
+1,387 native releases, and 9,962 independent checks passed. The current solver and
+policies were not changed. Farther targets produced tabletop-assisted entries,
+which remain failures under the original route contract.
+
+After the study and its full matching audit complete, the display adapter can
+append up to four explicitly post-hoc far-miss examples:
+
+```bash
+python -m sircus.mjlab.prepare_distance_report \
+  --base-display /absolute/current/interface-report.json \
+  --study /absolute/completed/distance-study \
+  --output /absolute/separate/distance-display.json \
+  --include-far-misses
+```
+
+This CPU-only transformation checks source record/cache hashes and exact
+record-column/geometry associations, reads saved arrays without pickle, and
+changes no score, gate or original evidence. It selects one recorded miss per
+supported target at least 650 mm away, ranked by whole entry, retention, closest
+opening distance and stable ID. Such examples explain failure; they are not an
+additional evaluation or an unbiased performance sample. The default is off.
+The selected-recipe trace limit retains all 30 possible 64/128 examples; optional
+post-hoc misses are additional. Publish a derived report only when the owning
+writer has completed, preserving every historical panel and the running viewer.

@@ -44,6 +44,22 @@ test('saved native trace projection follows its own bucket and rejects ambiguous
   assert.equal(c.distanceTrajectoryView(study,{...study.trace_examples[1],distance_m:.35}),null);
   assert.equal(c.distanceTrajectoryView(study,{...study.trace_examples[1],position_m:[[0,0,NaN],[0,0,0]]}),null);
 });
+test('flight references use this far bucket and only linked configured board geometry',()=>{
+  const calls=[],nodes=new Map();let dash=[];
+  const draw=new Proxy({setLineDash:value=>{dash=Array.from(value);},moveTo:(...args)=>calls.push({method:'moveTo',args,dash:Array.from(dash)}),fillText:(...args)=>calls.push({method:'fillText',args})},{get:(o,k)=>o[k]??(()=>{})});
+  const node=id=>{if(!nodes.has(id))nodes.set(id,{width:820,height:260,textContent:'',getContext:()=>draw});return nodes.get(id);};
+  const c=make({$:node}),study=fixture(),trace=study.trace_examples[1];trace.context_id='far-ctx';
+  Object.assign(study.contexts[1],{board_height_m:.45,bucket_xy_m:study.distances[1].bucket_xy_m,board_xy_m:[0,0]});
+  const original=JSON.stringify(trace.position_m);c.drawDistanceTrace(study,1);
+  const labels=calls.filter(r=>r.method==='fillText').map(r=>r.args[0]);
+  assert.ok(labels.includes('Bucket center axis (800.0 mm)'));assert.ok(labels.includes('Tabletop reference (z = 0)'));assert.ok(labels.includes('Configured board center'));
+  const bucketX=55+(.8+.1)/(.95+.1)*(820-80);assert.ok(calls.some(r=>r.method==='moveTo'&&r.dash.length>0&&Math.abs(r.args[0]-bucketX)<1e-9));
+  assert.equal(JSON.stringify(trace.position_m),original);assert.ok(node('distanceTraceCaption').textContent.includes('configured geometry, not a native observation'));
+  calls.length=0;delete study.contexts[1].board_height_m;study.settings.board_height_m=99;c.drawDistanceTrace(study,1);
+  assert.ok(!calls.some(r=>r.method==='fillText'&&r.args[0]==='Configured board center'));assert.ok(node('distanceTraceCaption').textContent.includes('height unknown; marker omitted'));
+  study.contexts[1].board_height_m=.45;study.contexts[1].distance_id='near';calls.length=0;c.drawDistanceTrace(study,1);
+  assert.ok(!calls.some(r=>r.method==='fillText'&&r.args[0]==='Configured board center'));
+});
 test('distance repeat qualification requires its own matching completed audit and all three resolutions',()=>{
   const c=make();let study=fixture(),r=study.selected_recipes[0],check=c.distanceRepeatCheck(study,r);assert.equal(check.perfect,true);assert.equal(check.qualified,true);
   for(const corrupt of [d=>d.audit.status='pending',d=>d.audit.contract_fingerprint='old',d=>d.contract_fingerprint='',d=>d.status='running',d=>d.version='unknown',d=>delete d.selected_recipes[0].fresh_by_substeps['32']]){

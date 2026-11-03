@@ -395,6 +395,13 @@ function distanceTrajectoryView(study,trace) {
   if(!value||[trace.distance_m,linked?.distance_m].some(d=>d!==undefined&&(!Number.isFinite(d)||Math.abs(d-value.distance)>1e-6)))return null;
   return {...value,bucket:buckets[0],board,ray:trace.ray_id??linked?.ray_id??'Unreported ray',distanceId:trace.distance_id??linked?.id??'Unreported distance'};
 }
+function distanceConfiguredBoardHeight(study,trace,view) {
+  const same=(a,b)=>finiteVector(a,2)&&finiteVector(b,2)&&a.every((n,i)=>Math.abs(n-b[i])<=1e-8);
+  const context=(study.contexts??[]).find(r=>r.id===trace.context_id),recipe=(study.selected_recipes??[]).find(r=>r.id===(trace.recipe_id??trace.method));
+  const rows=[context,recipe].filter(r=>r&&r.distance_id===view.distanceId&&same(r.bucket_xy_m,view.bucket)&&same(r.board_xy_m,view.board)&&Number.isFinite(r.board_height_m));
+  if(!rows.length||!rows.every(r=>Math.abs(r.board_height_m-rows[0].board_height_m)<=1e-8))return null;
+  return rows[0].board_height_m;
+}
 function drawDistanceLayout(study,rows) {
   const points=rows.filter(r=>finiteVector(r.bucket_xy_m,2)),board=study.settings?.board_xy_m,bounds=study.settings?.table_bounds_xy_m;
   const table=Array.isArray(bounds)&&bounds.length===2&&bounds.every(b=>finiteVector(b,2)&&b[0]<b[1]);
@@ -413,9 +420,16 @@ function drawDistanceLayout(study,rows) {
 function drawDistanceTrace(study,index) {
   const trace=study.trace_examples?.[index],view=distanceTrajectoryView(study,trace),canvas=$('distanceTrace');
   if(!view){const {c}=windowPlot(canvas,0,1,0,1,'Distance along this board → bucket axis (m)','Ball-center height above table (m)');c.fillText('No unambiguous saved native trace available',65,110);$('distanceTraceCaption').textContent='A distance-specific bucket association and actual saved positions are required; no ideal flight is generated.';return;}
-  const xs=view.points.map(p=>p[0]),zs=view.points.map(p=>p[1]),{c,x,y}=windowPlot(canvas,Math.min(-.1,...xs),Math.max(view.distance+.15,...xs),Math.min(0,...zs),Math.max(.3,...zs)+.05,'Distance along this board → bucket axis (m)','Ball-center height above table (m)');
+  const boardHeight=distanceConfiguredBoardHeight(study,trace,view),xs=view.points.map(p=>p[0]),zs=view.points.map(p=>p[1]),
+    xlow=Math.min(-.1,...xs),xhigh=Math.max(view.distance+.15,...xs),zlow=Math.min(0,...zs,boardHeight??0),zhigh=Math.max(.3,...zs,boardHeight??0)+.05,
+    {c,x,y}=windowPlot(canvas,xlow,xhigh,zlow,zhigh,'Distance along this board → bucket axis (m)','Ball-center height above table (m)');
+  c.strokeStyle='#81978a';c.fillStyle='#496f67';c.lineWidth=1;c.setLineDash([5,4]);c.textAlign='left';
+  c.beginPath();c.moveTo(x(view.distance),y(zlow));c.lineTo(x(view.distance),y(zhigh));c.stroke();
+  c.fillText(`Bucket center axis (${(view.distance*1000).toFixed(1)} mm)`,Math.min(x(view.distance)+6,canvas.width-190),42);
+  c.beginPath();c.moveTo(x(xlow),y(0));c.lineTo(x(xhigh),y(0));c.stroke();c.fillText('Tabletop reference (z = 0)',x(xlow)+6,y(0)-6);c.setLineDash([]);
+  if(boardHeight!==null){c.fillStyle='#b88a30';c.beginPath();c.arc(x(0),y(boardHeight),4,0,2*Math.PI);c.fill();c.fillText('Configured board center',x(0)+8,y(boardHeight)-7);}
   c.strokeStyle=trace.route_success===true?'#128b8c':'#ec7657';c.lineWidth=2;c.beginPath();view.points.forEach((p,i)=>{if(i)c.lineTo(x(p[0]),y(p[1]));else c.moveTo(x(p[0]),y(p[1]));});c.stroke();
-  $('distanceTraceCaption').textContent=`${trace.record_id??'Native record'} · ${view.ray} · ${view.distanceId} · ${(view.distance*1000).toFixed(1)} mm · bucket XY ${view.bucket.map(v=>(v*1000).toFixed(1)).join(' / ')} mm · ${trace.substeps??'?'} substeps · ${trace.route_success===true?'capture':trace.route_success===false?'miss':'unknown outcome'} · ${view.points.length} saved samples · max off-plane ${(view.lateral*1000).toFixed(1)} mm. ${distanceAuditReady(study)?'Completed matching audit.':'Evidence audit unverified.'} ${trace.selection_scope??''}`;
+  $('distanceTraceCaption').textContent=`${trace.record_id??'Native record'} · ${view.ray} · ${view.distanceId} · ${(view.distance*1000).toFixed(1)} mm · bucket XY ${view.bucket.map(v=>(v*1000).toFixed(1)).join(' / ')} mm · ${trace.substeps??'?'} substeps · ${trace.route_success===true?'capture':trace.route_success===false?'miss':'unknown outcome'} · ${view.points.length} saved samples · max off-plane ${(view.lateral*1000).toFixed(1)} mm. ${boardHeight===null?'Configured board-center height unknown; marker omitted.':'Board-center marker is configured geometry, not a native observation.'} ${distanceAuditReady(study)?'Completed matching audit.':'Evidence audit unverified.'} ${trace.selection_scope??''}`;
 }
 function showDistanceStudy() {
   const view=distanceStudyView(report.distance_evaluation);$('distanceStudy').hidden=!view;if(!view)return;

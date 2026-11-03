@@ -1,0 +1,697 @@
+[
+  {
+    "id": "recipe-00",
+    "context_id": "original-d00:recipe-10",
+    "distance_id": "original-d00",
+    "ray_id": "original",
+    "distance_m": 0.35,
+    "bucket_xy_m": [
+      0.24279359343176338,
+      -0.5433713035238457
+    ],
+    "board_xy_m": [
+      0.4708757793012148,
+      -0.2778934014509746
+    ],
+    "board_height_m": 0.46,
+    "tilt_deg": 36.0,
+    "gap_m": 0.20578125000000003,
+    "release_center_height_m": 0.70328125,
+    "source_record_id": "distance-shot-000127",
+    "selection": "Actual captured sample near widest sampled run center; optional far-context diversity",
+    "sampled_run_width_m": 0.04000000000000001,
+    "source_anchor_id": "recipe-10",
+    "by_substeps": {
+      "32": {
+        "all": {
+          "requests": 33,
+          "native_releases": 33,
+          "geometry_rejections": 0,
+          "captures": 31,
+          "clean_captures": 0,
+          "rim_assisted_captures": 31,
+          "capture_rate_per_request": 0.9393939393939394,
+          "capture_rate_per_native_release": 0.9393939393939394,
+          "rejection_reasons": {}
+        },
+        "nominal": {
+          "requests": 3,
+          "native_releases": 3,
+          "geometry_rejections": 0,
+          "captures": 3,
+          "clean_captures": 0,
+          "rim_assisted_captures": 3,
+          "capture_rate_per_request": 1.0,
+          "capture_rate_per_native_release": 1.0,
+          "rejection_reasons": {}
+        },
+        "fresh": {
+          "requests": 30,
+          "native_releases": 30,
+          "geometry_rejections": 0,
+          "captures": 28,
+          "clean_captures": 0,
+          "rim_assisted_captures": 28,
+          "capture_rate_per_request": 0.9333333333333333,
+          "capture_rate_per_native_release": 0.9333333333333333,
+          "rejection_reasons": {}
+        }
+      },
+      "64": {
+        "all": {
+          "requests": 33,
+          "native_releases": 33,
+          "geometry_rejections": 0,
+          "captures": 29,
+          "clean_captures": 0,
+          "rim_assisted_captures": 29,
+          "capture_rate_per_request": 0.8787878787878788,
+          "capture_rate_per_native_release": 0.8787878787878788,
+          "rejection_reasons": {}
+        },
+        "nominal": {
+          "requests": 3,
+          "native_releases": 3,
+          "geometry_rejections": 0,
+          "captures": 3,
+          "clean_captures": 0,
+          "rim_assisted_captures": 3,
+          "capture_rate_per_request": 1.0,
+          "capture_rate_per_native_release": 1.0,
+          "rejection_reasons": {}
+        },
+        "fresh": {
+          "requests": 30,
+          "native_releases": 30,
+          "geometry_rejections": 0,
+          "captures": 26,
+          "clean_captures": 0,
+          "rim_assisted_captures": 26,
+          "capture_rate_per_request": 0.8666666666666667,
+          "capture_rate_per_native_release": 0.8666666666666667,
+          "rejection_reasons": {}
+        }
+      },
+      "128": {
+        "all": {
+          "requests": 33,
+          "native_releases": 33,
+          "geometry_rejections": 0,
+          "captures": 24,
+          "clean_captures": 0,
+          "rim_assisted_captures": 24,
+          "capture_rate_per_request": 0.7272727272727273,
+          "capture_rate_per_native_release": 0.7272727272727273,
+          "rejection_reasons": {}
+        },
+        "nominal": {
+          "requests": 3,
+          "native_releases": 3,
+          "geometry_rejections": 0,
+          "captures": 2,
+          "clean_captures": 0,
+          "rim_assisted_captures": 2,
+          "capture_rate_per_request": 0.6666666666666666,
+          "capture_rate_per_native_release": 0.6666666666666666,
+          "rejection_reasons": {}
+        },
+        "fresh": {
+          "requests": 30,
+          "native_releases": 30,
+          "geometry_rejections": 0,
+          "captures": 22,
+          "clean_captures": 0,
+          "rim_assisted_captures": 22,
+          "capture_rate_per_request": 0.7333333333333333,
+          "capture_rate_per_native_release": 0.7333333333333333,
+          "rejection_reasons": {}
+        }
+      }
+    },
+    "sensitivity": {
+      "paired_attempts": 33,
+      "capture_agreement_64_128": 20,
+      "nominal_position_delta_350ms_max_m": 0.0028478973545134068,
+      "paired_engineering_gate": false,
+      "all_resolution_repeat_gate": false,
+      "scope": "Prespecified all-resolution capture repeats plus fine-pair nominal350ms check; not trajectory convergence or physical calibration"
+    },
+    "scope": "Actual captured development sample followed by paired engineering repeats; no continuous success interval or held-out policy claim."
+  },
+  {
+    "id": "recipe-01",
+    "context_id": "original-d01:recipe-00",
+    "distance_id": "original-d01",
+    "ray_id": "original",
+    "distance_m": 0.45,
+    "bucket_xy_m": [
+      0.17762725461192008,
+      -0.6192221326875232
+    ],
+    "board_xy_m": [
+      0.4708757793012148,
+      -0.2778934014509746
+    ],
+    "board_height_m": 0.3973878458850598,
+    "tilt_deg": 36.154791124080255,
+    "gap_m": 0.31121875,
+    "release_center_height_m": 0.7461065958850598,
+    "source_record_id": "distance-shot-003306",
+    "selection": "Actual captured sample near widest sampled run center; optional far-context diversity",
+    "sampled_run_width_m": 0.12,
+    "source_anchor_id": "recipe-00",
+    "by_substeps": {
+      "32": {
+        "all": {
+          "requests": 33,
+          "native_releases": 33,
+          "geometry_rejections": 0,
+          "captures": 33,
+          "clean_captures": 0,
+          "rim_assisted_captures": 33,
+          "capture_rate_per_request": 1.0,
+          "capture_rate_per_native_release": 1.0,
+          "rejection_reasons": {}
+        },
+        "nominal": {
+          "requests": 3,
+          "native_releases": 3,
+          "geometry_rejections": 0,
+          "captures": 3,
+          "clean_captures": 0,
+          "rim_assisted_captures": 3,
+          "capture_rate_per_request": 1.0,
+          "capture_rate_per_native_release": 1.0,
+          "rejection_reasons": {}
+        },
+        "fresh": {
+          "requests": 30,
+          "native_releases": 30,
+          "geometry_rejections": 0,
+          "captures": 30,
+          "clean_captures": 0,
+          "rim_assisted_captures": 30,
+          "capture_rate_per_request": 1.0,
+          "capture_rate_per_native_release": 1.0,
+          "rejection_reasons": {}
+        }
+      },
+      "64": {
+        "all": {
+          "requests": 33,
+          "native_releases": 33,
+          "geometry_rejections": 0,
+          "captures": 33,
+          "clean_captures": 0,
+          "rim_assisted_captures": 33,
+          "capture_rate_per_request": 1.0,
+          "capture_rate_per_native_release": 1.0,
+          "rejection_reasons": {}
+        },
+        "nominal": {
+          "requests": 3,
+          "native_releases": 3,
+          "geometry_rejections": 0,
+          "captures": 3,
+          "clean_captures": 0,
+          "rim_assisted_captures": 3,
+          "capture_rate_per_request": 1.0,
+          "capture_rate_per_native_release": 1.0,
+          "rejection_reasons": {}
+        },
+        "fresh": {
+          "requests": 30,
+          "native_releases": 30,
+          "geometry_rejections": 0,
+          "captures": 30,
+          "clean_captures": 0,
+          "rim_assisted_captures": 30,
+          "capture_rate_per_request": 1.0,
+          "capture_rate_per_native_release": 1.0,
+          "rejection_reasons": {}
+        }
+      },
+      "128": {
+        "all": {
+          "requests": 33,
+          "native_releases": 33,
+          "geometry_rejections": 0,
+          "captures": 33,
+          "clean_captures": 0,
+          "rim_assisted_captures": 33,
+          "capture_rate_per_request": 1.0,
+          "capture_rate_per_native_release": 1.0,
+          "rejection_reasons": {}
+        },
+        "nominal": {
+          "requests": 3,
+          "native_releases": 3,
+          "geometry_rejections": 0,
+          "captures": 3,
+          "clean_captures": 0,
+          "rim_assisted_captures": 3,
+          "capture_rate_per_request": 1.0,
+          "capture_rate_per_native_release": 1.0,
+          "rejection_reasons": {}
+        },
+        "fresh": {
+          "requests": 30,
+          "native_releases": 30,
+          "geometry_rejections": 0,
+          "captures": 30,
+          "clean_captures": 0,
+          "rim_assisted_captures": 30,
+          "capture_rate_per_request": 1.0,
+          "capture_rate_per_native_release": 1.0,
+          "rejection_reasons": {}
+        }
+      }
+    },
+    "sensitivity": {
+      "paired_attempts": 33,
+      "capture_agreement_64_128": 33,
+      "nominal_position_delta_350ms_max_m": 0.0023099349346011877,
+      "paired_engineering_gate": true,
+      "all_resolution_repeat_gate": true,
+      "scope": "Prespecified all-resolution capture repeats plus fine-pair nominal350ms check; not trajectory convergence or physical calibration"
+    },
+    "scope": "Actual captured development sample followed by paired engineering repeats; no continuous success interval or held-out policy claim."
+  },
+  {
+    "id": "recipe-02",
+    "context_id": "original-d02:recipe-00",
+    "distance_id": "original-d02",
+    "ray_id": "original",
+    "distance_m": 0.47282574126472343,
+    "bucket_xy_m": [
+      0.16275255472120964,
+      -0.6365356466995716
+    ],
+    "board_xy_m": [
+      0.4708757793012148,
+      -0.2778934014509746
+    ],
+    "board_height_m": 0.3973878458850598,
+    "tilt_deg": 36.154791124080255,
+    "gap_m": 0.32121875,
+    "release_center_height_m": 0.7561065958850598,
+    "source_record_id": "distance-shot-000300",
+    "selection": "Actual captured sample near widest sampled run center; optional far-context diversity",
+    "sampled_run_width_m": 0.08999999999999997,
+    "source_anchor_id": "recipe-00",
+    "by_substeps": {
+      "32": {
+        "all": {
+          "requests": 33,
+          "native_releases": 33,
+          "geometry_rejections": 0,
+          "captures": 33,
+          "clean_captures": 0,
+          "rim_assisted_captures": 33,
+          "capture_rate_per_request": 1.0,
+          "capture_rate_per_native_release": 1.0,
+          "rejection_reasons": {}
+        },
+        "nominal": {
+          "requests": 3,
+          "native_releases": 3,
+          "geometry_rejections": 0,
+          "captures": 3,
+          "clean_captures": 0,
+          "rim_assisted_captures": 3,
+          "capture_rate_per_request": 1.0,
+          "capture_rate_per_native_release": 1.0,
+          "rejection_reasons": {}
+        },
+        "fresh": {
+          "requests": 30,
+          "native_releases": 30,
+          "geometry_rejections": 0,
+          "captures": 30,
+          "clean_captures": 0,
+          "rim_assisted_captures": 30,
+          "capture_rate_per_request": 1.0,
+          "capture_rate_per_native_release": 1.0,
+          "rejection_reasons": {}
+        }
+      },
+      "64": {
+        "all": {
+          "requests": 33,
+          "native_releases": 33,
+          "geometry_rejections": 0,
+          "captures": 33,
+          "clean_captures": 0,
+          "rim_assisted_captures": 33,
+          "capture_rate_per_request": 1.0,
+          "capture_rate_per_native_release": 1.0,
+          "rejection_reasons": {}
+        },
+        "nominal": {
+          "requests": 3,
+          "native_releases": 3,
+          "geometry_rejections": 0,
+          "captures": 3,
+          "clean_captures": 0,
+          "rim_assisted_captures": 3,
+          "capture_rate_per_request": 1.0,
+          "capture_rate_per_native_release": 1.0,
+          "rejection_reasons": {}
+        },
+        "fresh": {
+          "requests": 30,
+          "native_releases": 30,
+          "geometry_rejections": 0,
+          "captures": 30,
+          "clean_captures": 0,
+          "rim_assisted_captures": 30,
+          "capture_rate_per_request": 1.0,
+          "capture_rate_per_native_release": 1.0,
+          "rejection_reasons": {}
+        }
+      },
+      "128": {
+        "all": {
+          "requests": 33,
+          "native_releases": 33,
+          "geometry_rejections": 0,
+          "captures": 33,
+          "clean_captures": 0,
+          "rim_assisted_captures": 33,
+          "capture_rate_per_request": 1.0,
+          "capture_rate_per_native_release": 1.0,
+          "rejection_reasons": {}
+        },
+        "nominal": {
+          "requests": 3,
+          "native_releases": 3,
+          "geometry_rejections": 0,
+          "captures": 3,
+          "clean_captures": 0,
+          "rim_assisted_captures": 3,
+          "capture_rate_per_request": 1.0,
+          "capture_rate_per_native_release": 1.0,
+          "rejection_reasons": {}
+        },
+        "fresh": {
+          "requests": 30,
+          "native_releases": 30,
+          "geometry_rejections": 0,
+          "captures": 30,
+          "clean_captures": 0,
+          "rim_assisted_captures": 30,
+          "capture_rate_per_request": 1.0,
+          "capture_rate_per_native_release": 1.0,
+          "rejection_reasons": {}
+        }
+      }
+    },
+    "sensitivity": {
+      "paired_attempts": 33,
+      "capture_agreement_64_128": 33,
+      "nominal_position_delta_350ms_max_m": 0.0024068376515060663,
+      "paired_engineering_gate": true,
+      "all_resolution_repeat_gate": true,
+      "scope": "Prespecified all-resolution capture repeats plus fine-pair nominal350ms check; not trajectory convergence or physical calibration"
+    },
+    "scope": "Actual captured development sample followed by paired engineering repeats; no continuous success interval or held-out policy claim."
+  },
+  {
+    "id": "recipe-03",
+    "context_id": "original-d03:recipe-08",
+    "distance_id": "original-d03",
+    "ray_id": "original",
+    "distance_m": 0.55,
+    "bucket_xy_m": [
+      0.11246091579207679,
+      -0.6950729618512008
+    ],
+    "board_xy_m": [
+      0.4708757793012148,
+      -0.2778934014509746
+    ],
+    "board_height_m": 0.3773878458850598,
+    "tilt_deg": 32.154791124080255,
+    "gap_m": 0.37121875,
+    "release_center_height_m": 0.7861065958850598,
+    "source_record_id": "distance-shot-000506",
+    "selection": "Actual captured sample near widest sampled run center; optional far-context diversity",
+    "sampled_run_width_m": 0.03999999999999998,
+    "source_anchor_id": "recipe-08",
+    "by_substeps": {
+      "32": {
+        "all": {
+          "requests": 33,
+          "native_releases": 33,
+          "geometry_rejections": 0,
+          "captures": 29,
+          "clean_captures": 0,
+          "rim_assisted_captures": 29,
+          "capture_rate_per_request": 0.8787878787878788,
+          "capture_rate_per_native_release": 0.8787878787878788,
+          "rejection_reasons": {}
+        },
+        "nominal": {
+          "requests": 3,
+          "native_releases": 3,
+          "geometry_rejections": 0,
+          "captures": 3,
+          "clean_captures": 0,
+          "rim_assisted_captures": 3,
+          "capture_rate_per_request": 1.0,
+          "capture_rate_per_native_release": 1.0,
+          "rejection_reasons": {}
+        },
+        "fresh": {
+          "requests": 30,
+          "native_releases": 30,
+          "geometry_rejections": 0,
+          "captures": 26,
+          "clean_captures": 0,
+          "rim_assisted_captures": 26,
+          "capture_rate_per_request": 0.8666666666666667,
+          "capture_rate_per_native_release": 0.8666666666666667,
+          "rejection_reasons": {}
+        }
+      },
+      "64": {
+        "all": {
+          "requests": 33,
+          "native_releases": 33,
+          "geometry_rejections": 0,
+          "captures": 33,
+          "clean_captures": 0,
+          "rim_assisted_captures": 33,
+          "capture_rate_per_request": 1.0,
+          "capture_rate_per_native_release": 1.0,
+          "rejection_reasons": {}
+        },
+        "nominal": {
+          "requests": 3,
+          "native_releases": 3,
+          "geometry_rejections": 0,
+          "captures": 3,
+          "clean_captures": 0,
+          "rim_assisted_captures": 3,
+          "capture_rate_per_request": 1.0,
+          "capture_rate_per_native_release": 1.0,
+          "rejection_reasons": {}
+        },
+        "fresh": {
+          "requests": 30,
+          "native_releases": 30,
+          "geometry_rejections": 0,
+          "captures": 30,
+          "clean_captures": 0,
+          "rim_assisted_captures": 30,
+          "capture_rate_per_request": 1.0,
+          "capture_rate_per_native_release": 1.0,
+          "rejection_reasons": {}
+        }
+      },
+      "128": {
+        "all": {
+          "requests": 33,
+          "native_releases": 33,
+          "geometry_rejections": 0,
+          "captures": 33,
+          "clean_captures": 0,
+          "rim_assisted_captures": 33,
+          "capture_rate_per_request": 1.0,
+          "capture_rate_per_native_release": 1.0,
+          "rejection_reasons": {}
+        },
+        "nominal": {
+          "requests": 3,
+          "native_releases": 3,
+          "geometry_rejections": 0,
+          "captures": 3,
+          "clean_captures": 0,
+          "rim_assisted_captures": 3,
+          "capture_rate_per_request": 1.0,
+          "capture_rate_per_native_release": 1.0,
+          "rejection_reasons": {}
+        },
+        "fresh": {
+          "requests": 30,
+          "native_releases": 30,
+          "geometry_rejections": 0,
+          "captures": 30,
+          "clean_captures": 0,
+          "rim_assisted_captures": 30,
+          "capture_rate_per_request": 1.0,
+          "capture_rate_per_native_release": 1.0,
+          "rejection_reasons": {}
+        }
+      }
+    },
+    "sensitivity": {
+      "paired_attempts": 33,
+      "capture_agreement_64_128": 33,
+      "nominal_position_delta_350ms_max_m": 0.0017157664988189936,
+      "paired_engineering_gate": true,
+      "all_resolution_repeat_gate": false,
+      "scope": "Prespecified all-resolution capture repeats plus fine-pair nominal350ms check; not trajectory convergence or physical calibration"
+    },
+    "scope": "Actual captured development sample followed by paired engineering repeats; no continuous success interval or held-out policy claim."
+  },
+  {
+    "id": "recipe-04",
+    "context_id": "corner-d00:recipe-08",
+    "distance_id": "corner-d00",
+    "ray_id": "corner",
+    "distance_m": 0.55,
+    "bucket_xy_m": [
+      0.046798383013313516,
+      -0.628119559751114
+    ],
+    "board_xy_m": [
+      0.4708757793012148,
+      -0.2778934014509746
+    ],
+    "board_height_m": 0.3773878458850598,
+    "tilt_deg": 32.154791124080255,
+    "gap_m": 0.38121875,
+    "release_center_height_m": 0.7961065958850598,
+    "source_record_id": "distance-shot-003394",
+    "selection": "Actual captured sample near widest sampled run center; optional far-context diversity",
+    "sampled_run_width_m": 0.02999999999999997,
+    "source_anchor_id": "recipe-08",
+    "by_substeps": {
+      "32": {
+        "all": {
+          "requests": 33,
+          "native_releases": 33,
+          "geometry_rejections": 0,
+          "captures": 8,
+          "clean_captures": 0,
+          "rim_assisted_captures": 8,
+          "capture_rate_per_request": 0.24242424242424243,
+          "capture_rate_per_native_release": 0.24242424242424243,
+          "rejection_reasons": {}
+        },
+        "nominal": {
+          "requests": 3,
+          "native_releases": 3,
+          "geometry_rejections": 0,
+          "captures": 0,
+          "clean_captures": 0,
+          "rim_assisted_captures": 0,
+          "capture_rate_per_request": 0.0,
+          "capture_rate_per_native_release": 0.0,
+          "rejection_reasons": {}
+        },
+        "fresh": {
+          "requests": 30,
+          "native_releases": 30,
+          "geometry_rejections": 0,
+          "captures": 8,
+          "clean_captures": 0,
+          "rim_assisted_captures": 8,
+          "capture_rate_per_request": 0.26666666666666666,
+          "capture_rate_per_native_release": 0.26666666666666666,
+          "rejection_reasons": {}
+        }
+      },
+      "64": {
+        "all": {
+          "requests": 33,
+          "native_releases": 33,
+          "geometry_rejections": 0,
+          "captures": 9,
+          "clean_captures": 0,
+          "rim_assisted_captures": 9,
+          "capture_rate_per_request": 0.2727272727272727,
+          "capture_rate_per_native_release": 0.2727272727272727,
+          "rejection_reasons": {}
+        },
+        "nominal": {
+          "requests": 3,
+          "native_releases": 3,
+          "geometry_rejections": 0,
+          "captures": 2,
+          "clean_captures": 0,
+          "rim_assisted_captures": 2,
+          "capture_rate_per_request": 0.6666666666666666,
+          "capture_rate_per_native_release": 0.6666666666666666,
+          "rejection_reasons": {}
+        },
+        "fresh": {
+          "requests": 30,
+          "native_releases": 30,
+          "geometry_rejections": 0,
+          "captures": 7,
+          "clean_captures": 0,
+          "rim_assisted_captures": 7,
+          "capture_rate_per_request": 0.23333333333333334,
+          "capture_rate_per_native_release": 0.23333333333333334,
+          "rejection_reasons": {}
+        }
+      },
+      "128": {
+        "all": {
+          "requests": 33,
+          "native_releases": 33,
+          "geometry_rejections": 0,
+          "captures": 16,
+          "clean_captures": 0,
+          "rim_assisted_captures": 16,
+          "capture_rate_per_request": 0.48484848484848486,
+          "capture_rate_per_native_release": 0.48484848484848486,
+          "rejection_reasons": {}
+        },
+        "nominal": {
+          "requests": 3,
+          "native_releases": 3,
+          "geometry_rejections": 0,
+          "captures": 2,
+          "clean_captures": 0,
+          "rim_assisted_captures": 2,
+          "capture_rate_per_request": 0.6666666666666666,
+          "capture_rate_per_native_release": 0.6666666666666666,
+          "rejection_reasons": {}
+        },
+        "fresh": {
+          "requests": 30,
+          "native_releases": 30,
+          "geometry_rejections": 0,
+          "captures": 14,
+          "clean_captures": 0,
+          "rim_assisted_captures": 14,
+          "capture_rate_per_request": 0.4666666666666667,
+          "capture_rate_per_native_release": 0.4666666666666667,
+          "rejection_reasons": {}
+        }
+      }
+    },
+    "sensitivity": {
+      "paired_attempts": 33,
+      "capture_agreement_64_128": 16,
+      "nominal_position_delta_350ms_max_m": 0.00011410356091801077,
+      "paired_engineering_gate": false,
+      "all_resolution_repeat_gate": false,
+      "scope": "Prespecified all-resolution capture repeats plus fine-pair nominal350ms check; not trajectory convergence or physical calibration"
+    },
+    "scope": "Actual captured development sample followed by paired engineering repeats; no continuous success interval or held-out policy claim."
+  }
+]

@@ -1,26 +1,45 @@
 # Project state
 
-## Seeded bucket-distance study — November 3, 2026
+## Completed seeded bucket-distance study — November 3, 2026
 
-- [Prespecified method](../sircus/mjlab/DISTANCE_STUDY.md): eight perfect parent
-  seeds, 14 requested bucket placements along two separately labeled rays;
-  seeded gap sweep, targeted farther-distance H/tilt expansion, captured-sample
-  refinement and up to 15 repeated configurations. Maximum 5,589 requests.
-- [CPU endpoint preflight](../baselines/mjlab-distance-20261103/cpu-preflight.json)
-  passed 238 checks in 28.36 seconds with CUDA disabled. All 24 exact seed controls
-  preserved source joints; 88/112 board contexts and 26/48 corner gap queries
-  passed strict native pose/clearance checks. Native flight results remain pending.
-- Table outer-footprint +5 mm margin is explicit: original ray about 648.8 mm,
-  diagonal toward the supported corner about 772.8 mm. Original 650 and corner
-  800/950 mm requests remain geometry failures, not silently clipped or simulated
-  outside the table. Rotated headings require newly verified board IK branches.
-- Each selected recipe receives 3 nominal +30 fresh H/tilt/gap-noise requests,
-  reused identically at 32/64/128. Prespecified all-resolution repeat counts and
-  the fine-pair position/outcome gate remain separate from convergence claims.
-- Source/evidence planned at `studies/distance-v1` / `output/distance-v1`; only
-  4090/shared lock, with bounded storage/runtime and final CPU rescoring. Existing
-  viewer static files/derived data can update without service restart. No 4070,
-  Isaac, hardware/Viam/audio change, policy activation or new RL training.
+- [Exact settings, both rays and evidence](../baselines/mjlab-distance-20261103/README.md):
+  4090 execution completed in 39.8 minutes at code 9ed20bc. Of 3,891 requests,
+  2,504 failed geometry checks; 1,387 native releases produced 589 strict-route
+  captures, all rim-assisted. All 9,962 independent audit checks passed,
+  including scalar rescoring of every saved flight.
+- Eight perfect parent seeds passed 24/24 exact controls. Fourteen requested
+  bucket placements and 208 H/tilt contexts (124 board-admitted) received 1,904
+  coarse, 1,344 conditional far-target and 124 refinement requests. Five selected
+  recipes received paired repeats. All layouts are adaptive DEVELOPMENT;
+  this is not new RL or held-out policy evaluation.
+- Original-ray 450 and 472.826 mm captured 33/33 at each of 32/64/128 and passed
+  both gates. Board H 397.388 mm, tilt 36.15479°, gaps 311.219/321.219 mm, ball-center
+  release 746.107/756.107 mm. Each recipe has 3 nominal +30 fresh jointly perturbed
+  H/tilt/gap requests, reused across resolutions, not 99 independent layouts.
+- Original-ray 550 mm (H 377.388, tilt 32.15479°, gap 371.219, release 786.107 mm)
+  captured 29/33, 33/33, 33/33. It passed the fine-pair gate but failed the
+  all-resolution repeat gate (26/30 fresh at 32). Original 350 mm and corner 550 mm
+  selected recipes failed fine-pair checks.
+- No strict-route capture at original 600/640 or corner 650/700/750/770 mm in this
+  finite study. All 392 admitted far native shots first contact the table as an
+  external object; some subsequently retain for 1 s but remain disqualified.
+  Post-hoc diagnostics separate range, external contact, entry, retention and
+  the recorded bucket-transform guard. No impossibility claim.
+- Original 650 mm has 4.076 mm outer-edge clearance and fails the 5 mm margin;
+  corner 800/950 mm are outside the table. No clipping or table expansion.
+  The reported 175 mm bucket-height uncertainty is unchanged.
+- `#distanceStudy` shows the completed matching audit, exact recipes, rejected
+  requests, paired gates and 14 native traces: ten nominal plus four explicitly
+  post-hoc far misses, hash-verified. Immutable execution source/evidence remain
+  at `studies/distance-v1` /`output/distance-v1`.
+- Both finite workers exited; the existing viewer was updated without restart
+  or policy activation. The 4070 and Isaac setup/workloads were untouched.
+  No hardware/Viam/audio, perception, actuator tracking or full-arm transit
+  claims. Compact metrics/hashes are in Git; raw states/logs remain local.
+  The CPU preflight remains separate geometry-only evidence.
+- Before more training, test lower board heights with retained moderate tilt
+  near the admitted dropper gap ceiling under a new contract. Table-assisted
+  entries must remain failures for direct board-to-bucket learning.
 
 ## Completed local height/tilt and timestep study — November 3, 2026
 
