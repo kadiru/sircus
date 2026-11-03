@@ -1,0 +1,668 @@
+{
+  "version": "sircus-window-cpu-preflight-v1",
+  "scope": "CPU native endpoint/FK admission and mock learning checks only; no ball flight, training, GPU use, path execution, service change or hardware access",
+  "created_utc": "2026-11-03T03:46:44.101625+00:00",
+  "immutable_snapshot_source_sha256": {
+    "sircus/mjlab/window_geometry.py": "27d16ebae82a53a7f9b948cfc0a67bc25618dcd2b11462b6969ac62dbbb779cf",
+    "sircus/mjlab/window_learning.py": "458c90b2d19043463b6f4a9e6abf68166476a92208209ef61e66bc8de5a7fe78",
+    "sircus/mjlab/window_contract.py": "98fada0cd8e7e64493c0eb683f350ca4956d85f4d333d7ef0473724a761ca91a",
+    "sircus/mjlab/tests/test_window_geometry.py": "a5875473142d1fb8b96e404346e9f5b5e8e240b59d2166d87675572ed34eea0c",
+    "sircus/mjlab/tests/test_window_learning.py": "e4be843014b327863ac0b740f264e8e60556551b1671808b63d325a6a3443f35",
+    "sircus/mjlab/stable_ik.py": "efd52c5e837339662c99c196e1a3cf4b5b260eecb7888258779030c459944e07",
+    "sircus/mjlab/corrected_geometry.py": "50a4a353d94cceb1fbb0216a40588c997034a121e554f3f84f530d7d47c470be",
+    "sircus/mjlab/transit_audit.py": "4400285187eebf3b1c7073a78ab74c94cbead88d52ffc5366e0258d2376f8c96",
+    "sircus/mjlab/learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+    "baselines/mjlab-contact-transit-20261102/scene.json": "27ebf306e5a24a2702f13fa88e100cb107520c56688c15e9a8868350d4b5bf97",
+    "baselines/mjlab-contact-transit-20261102/nominal-source.json": "e9dfd2ad63bd52efa4e66fcf1b2f05af4b9ac2ca2d2af1457ac915b30269c609"
+  },
+  "environment": {
+    "python": "3.10.12",
+    "packages": {
+      "torch": "2.7.0",
+      "mujoco": "3.11.0",
+      "numpy": "1.26.4",
+      "scipy": "1.15.3"
+    }
+  },
+  "environment_overrides": {
+    "CUDA_VISIBLE_DEVICES": "",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1"
+  },
+  "unit_tests": {
+    "modules": [
+      "sircus.mjlab.tests.test_window_geometry",
+      "sircus.mjlab.tests.test_window_learning"
+    ],
+    "tests_run": 23,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "elapsed_s": 1.311,
+    "command": "CUDA_VISIBLE_DEVICES='' OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 python -m unittest sircus.mjlab.tests.test_window_geometry sircus.mjlab.tests.test_window_learning"
+  },
+  "native_configuration": {
+    "scene_source": "baselines/mjlab-contact-transit-20261102/scene.json",
+    "anchor_source": "baselines/mjlab-contact-transit-20261102/nominal-source.json",
+    "source_use": "Geometry fields only through corrected_contract.geometry_hint; historical outcomes are not transferred",
+    "scene_bucket_override": [
+      0.16275255472120964,
+      -0.6365356466995716
+    ],
+    "scene_sha256": "08984872d9b68722f41b51f5e0421b061f83eeb7bcc370bcba1e8fee1086d130",
+    "action_bounds": {
+      "version": "sircus-window-low-board-actions-v1",
+      "low": [
+        0.3,
+        -0.5,
+        0.04,
+        8.0,
+        0.02
+      ],
+      "high": [
+        1.04,
+        0.35,
+        0.56,
+        64.0,
+        0.65
+      ]
+    },
+    "clearance_m": 0.005,
+    "device": "cpu"
+  },
+  "native_tests": {
+    "contexts": [
+      {
+        "id": "anchor",
+        "board_height_m": 0.3973878458850598,
+        "tilt_deg": 36.154791124080255,
+        "prepared": true,
+        "board_admitted": true,
+        "reason": null,
+        "q14": [
+          3.380062669046468,
+          1.5039574753021427,
+          -3.1992193103493975,
+          -0.4047718442151326,
+          -1.0624829296587495,
+          2.301608077910527
+        ],
+        "board_branch_sha256": "5d8865a584e582fd492be33bab583be8598cfc3053b31b8167875fde46223fa1",
+        "scope": "Strict CPU endpoints with a fixed board branch; no swept-path or ball-flight guarantee",
+        "board_query_sha256": "bdadfdf1a524a4af07cf8bb1cd965f323f1989389ec1eb1917261201d38b1089",
+        "board_world": [
+          [
+            0.5261700114904552,
+            -0.7585082916367748,
+            -0.38446103902267625,
+            0.4708757793012148
+          ],
+          [
+            0.6124393724641763,
+            0.651663388198433,
+            -0.44749619388037754,
+            -0.2778934014509746
+          ],
+          [
+            0.5899687568539712,
+            1.309993795337519e-16,
+            0.8074260745951791,
+            0.3973878458850598
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "board_branch_checks": [
+          {
+            "branch": 0,
+            "passed": true,
+            "reason": null,
+            "minimum_clearance_m": 0.006085006839541591,
+            "closest_pair": [
+              "Arm10/link4/collision/0",
+              "Arm10/link6/collision/0"
+            ],
+            "board_top_m": 0.4584032874729092,
+            "dropper_flange_z_m": 0.9500000007550979,
+            "margin_contacts": [],
+            "inconsistent_distance_queries": 0,
+            "unresolved_clearance_pairs": [],
+            "board_pose_error": {
+              "position_m": 2.950247830484314e-09,
+              "rotation_rad": 3.139294617224512e-09
+            }
+          }
+        ],
+        "board_branch_id": 0,
+        "board_geometry": {
+          "passed": true,
+          "reason": null,
+          "minimum_clearance_m": 0.006085006839541591,
+          "closest_pair": [
+            "Arm10/link4/collision/0",
+            "Arm10/link6/collision/0"
+          ],
+          "board_top_m": 0.4584032874729092,
+          "dropper_flange_z_m": 0.9500000007550979,
+          "margin_contacts": [],
+          "inconsistent_distance_queries": 0,
+          "unresolved_clearance_pairs": [],
+          "board_pose_error": {
+            "position_m": 2.950247830484314e-09,
+            "rotation_rad": 3.139294617224512e-09
+          }
+        },
+        "preserved_anchor_board": true
+      },
+      {
+        "id": "neighbor",
+        "board_height_m": 0.3873878458850598,
+        "tilt_deg": 36.154791124080255,
+        "prepared": true,
+        "board_admitted": true,
+        "reason": null,
+        "q14": [
+          3.3800626977745405,
+          1.5260485790209792,
+          -3.18040137614673,
+          -0.40405666657162004,
+          -1.0654920576485467,
+          2.3001349567556133
+        ],
+        "board_branch_sha256": "0efe3eb96628c9290bc09fddd660665ac6b1a4aad9c6f119fadad8403c3ac069",
+        "scope": "Strict CPU endpoints with a fixed board branch; no swept-path or ball-flight guarantee",
+        "board_query_sha256": "b94f93e469ddf8e089cd8305c44f6155ce6e9fd164c1369a5e3d84bfc7dd3330",
+        "board_world": [
+          [
+            0.5261700114904552,
+            -0.7585082916367748,
+            -0.38446103902267625,
+            0.4708757793012148
+          ],
+          [
+            0.6124393724641763,
+            0.651663388198433,
+            -0.44749619388037754,
+            -0.2778934014509746
+          ],
+          [
+            0.5899687568539712,
+            1.309993795337519e-16,
+            0.8074260745951791,
+            0.3873878458850598
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "board_branch_checks": [
+          {
+            "branch": 1,
+            "passed": true,
+            "reason": null,
+            "minimum_clearance_m": 0.006085006839541591,
+            "closest_pair": [
+              "Arm10/link4/collision/0",
+              "Arm10/link6/collision/0"
+            ],
+            "board_top_m": 0.4484032875500153,
+            "dropper_flange_z_m": 0.9500000007550979,
+            "margin_contacts": [],
+            "inconsistent_distance_queries": 0,
+            "unresolved_clearance_pairs": [],
+            "board_pose_error": {
+              "position_m": 3.2462035843186037e-09,
+              "rotation_rad": 3.228950481600318e-09
+            }
+          }
+        ],
+        "board_branch_id": 1,
+        "board_geometry": {
+          "passed": true,
+          "reason": null,
+          "minimum_clearance_m": 0.006085006839541591,
+          "closest_pair": [
+            "Arm10/link4/collision/0",
+            "Arm10/link6/collision/0"
+          ],
+          "board_top_m": 0.4484032875500153,
+          "dropper_flange_z_m": 0.9500000007550979,
+          "margin_contacts": [],
+          "inconsistent_distance_queries": 0,
+          "unresolved_clearance_pairs": [],
+          "board_pose_error": {
+            "position_m": 3.2462035843186037e-09,
+            "rotation_rad": 3.228950481600318e-09
+          }
+        },
+        "preserved_anchor_board": false
+      },
+      {
+        "id": "low-tilted",
+        "board_height_m": 0.06,
+        "tilt_deg": 52.0,
+        "prepared": true,
+        "board_admitted": false,
+        "reason": "board_ik_unresolved",
+        "q14": null,
+        "board_branch_sha256": null,
+        "scope": "Strict CPU endpoints with a fixed board branch; no swept-path or ball-flight guarantee",
+        "board_query_sha256": "ae54025f5d296a878c15569be365b0d5ee4c32aedbdcd469ed175c3ef146782e",
+        "board_world": [
+          [
+            0.40120404299396456,
+            -0.7585082916367748,
+            -0.5135177576321569,
+            0.4708757793012148
+          ],
+          [
+            0.46698433387584143,
+            0.651663388198433,
+            -0.5977126905096423,
+            -0.2778934014509746
+          ],
+          [
+            0.788010753606722,
+            1.7497353646128078e-16,
+            0.6156614753256584,
+            0.06
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "board_branch_checks": []
+      },
+      {
+        "id": "bounds-invalid",
+        "board_height_m": 0.039,
+        "tilt_deg": 12.0,
+        "prepared": true,
+        "board_admitted": false,
+        "reason": "context_bounds_rejected",
+        "q14": null,
+        "board_branch_sha256": null,
+        "scope": "Strict CPU endpoints with a fixed board branch; no swept-path or ball-flight guarantee"
+      }
+    ],
+    "requests": [
+      {
+        "context_id": "anchor",
+        "eligible": true,
+        "reason": null,
+        "values": [
+          0.4708757793012148,
+          -0.2778934014509746,
+          0.3973878458850598,
+          36.154791124080255,
+          0.2932930420811218
+        ],
+        "bucket_xy_m": [
+          0.16275255472120964,
+          -0.6365356466995716
+        ],
+        "q10": [
+          -0.5331621961074372,
+          -0.3501792094439922,
+          -1.9992437295671963,
+          2.6611174176754683e-06,
+          -1.6490645201225564,
+          -0.5331631184496055
+        ],
+        "q14": [
+          3.380062669046468,
+          1.5039574753021427,
+          -3.1992193103493975,
+          -0.4047718442151326,
+          -1.0624829296587495,
+          2.301608077910527
+        ],
+        "board_branch_sha256": "5d8865a584e582fd492be33bab583be8598cfc3053b31b8167875fde46223fa1",
+        "minimum_clearance_lower_bound_m": 0.007499999998683227,
+        "board_branch_id": 0,
+        "geometry_version": "sircus-fixed-board-gap-window-geometry-v1",
+        "scope": "Strict CPU endpoints with a fixed board branch; no swept-path or ball-flight guarantee",
+        "native_release": false,
+        "path_admitted": null,
+        "dropper_query_sha256": "3a2195c9def65af268c77701b01558c9e3edf8a8a4e47352410db5f15dd31806",
+        "branch_checks": [
+          {
+            "branch": 3,
+            "reason": 0,
+            "board_position_error_m": 2.672399286128334e-09,
+            "dropper_position_error_m": 1.4921461843965104e-11,
+            "board_normal_error_deg": 2.091309789151873e-06,
+            "bucket_collider_error_m": 0.0,
+            "pairs": [],
+            "independent_reject_arms": [],
+            "strict_geometry": {
+              "passed": true,
+              "reason": null,
+              "minimum_clearance_m": 0.007499999998683227,
+              "closest_pair": [
+                "Arm10/gripper_proxy/collision/0",
+                "ball/geom"
+              ],
+              "board_top_m": 0.4584032874729092,
+              "dropper_flange_z_m": 0.823180887955552,
+              "margin_contacts": [],
+              "inconsistent_distance_queries": 0,
+              "unresolved_clearance_pairs": []
+            },
+            "minimum_clearance_lower_bound_m": 0.007499999998683227,
+            "full_pose_error": {
+              "10": {
+                "position_m": 1.4921461843965104e-11,
+                "rotation_rad": 2.9573094789428364e-11
+              },
+              "14": {
+                "position_m": 2.950247830484314e-09,
+                "rotation_rad": 3.139294617224512e-09
+              }
+            }
+          }
+        ],
+        "dropper_branch_id": 3,
+        "preserved_anchor_dropper": false
+      },
+      {
+        "context_id": "anchor",
+        "eligible": true,
+        "reason": null,
+        "values": [
+          0.4708757793012148,
+          -0.2778934014509746,
+          0.3973878458850598,
+          36.154791124080255,
+          0.3032930420811218
+        ],
+        "bucket_xy_m": [
+          0.16275255472120964,
+          -0.6365356466995716
+        ],
+        "q10": [
+          -0.5331623871001915,
+          -0.3654069384197669,
+          -2.043918815981244,
+          2.41236036898437e-06,
+          -1.6785118645912955,
+          -0.5331631332906016
+        ],
+        "q14": [
+          3.380062669046468,
+          1.5039574753021427,
+          -3.1992193103493975,
+          -0.4047718442151326,
+          -1.0624829296587495,
+          2.301608077910527
+        ],
+        "board_branch_sha256": "5d8865a584e582fd492be33bab583be8598cfc3053b31b8167875fde46223fa1",
+        "minimum_clearance_lower_bound_m": 0.00749999942119417,
+        "board_branch_id": 0,
+        "geometry_version": "sircus-fixed-board-gap-window-geometry-v1",
+        "scope": "Strict CPU endpoints with a fixed board branch; no swept-path or ball-flight guarantee",
+        "native_release": false,
+        "path_admitted": null,
+        "dropper_query_sha256": "43f7c217c06eeea851694f904ffb50732a0160e0dc796546fecabfb9b7dd2906",
+        "branch_checks": [
+          {
+            "branch": 0,
+            "reason": 0,
+            "board_position_error_m": 2.672399286128334e-09,
+            "dropper_position_error_m": 6.89553839209375e-09,
+            "board_normal_error_deg": 2.091309789151873e-06,
+            "bucket_collider_error_m": 0.0,
+            "pairs": [],
+            "independent_reject_arms": [],
+            "strict_geometry": {
+              "passed": true,
+              "reason": null,
+              "minimum_clearance_m": 0.00749999942119417,
+              "closest_pair": [
+                "Arm10/gripper_proxy/collision/0",
+                "ball/geom"
+              ],
+              "board_top_m": 0.4584032874729092,
+              "dropper_flange_z_m": 0.8331808830245,
+              "margin_contacts": [],
+              "inconsistent_distance_queries": 0,
+              "unresolved_clearance_pairs": []
+            },
+            "minimum_clearance_lower_bound_m": 0.00749999942119417,
+            "full_pose_error": {
+              "10": {
+                "position_m": 6.89553839209375e-09,
+                "rotation_rad": 1.299830509516785e-08
+              },
+              "14": {
+                "position_m": 2.950247830484314e-09,
+                "rotation_rad": 3.139294617224512e-09
+              }
+            }
+          }
+        ],
+        "dropper_branch_id": 0,
+        "preserved_anchor_dropper": true
+      },
+      {
+        "context_id": "anchor",
+        "eligible": true,
+        "reason": null,
+        "values": [
+          0.4708757793012148,
+          -0.2778934014509746,
+          0.3973878458850598,
+          36.154791124080255,
+          0.3132930420811218
+        ],
+        "bucket_xy_m": [
+          0.16275255472120964,
+          -0.6365356466995716
+        ],
+        "q10": [
+          -0.5331625814023216,
+          -0.38243371286954214,
+          -2.091675437269868,
+          2.1492416851032965e-06,
+          -1.709241719429176,
+          -0.5331631461825262
+        ],
+        "q14": [
+          3.380062669046468,
+          1.5039574753021427,
+          -3.1992193103493975,
+          -0.4047718442151326,
+          -1.0624829296587495,
+          2.301608077910527
+        ],
+        "board_branch_sha256": "5d8865a584e582fd492be33bab583be8598cfc3053b31b8167875fde46223fa1",
+        "minimum_clearance_lower_bound_m": 0.0074999997775334615,
+        "board_branch_id": 0,
+        "geometry_version": "sircus-fixed-board-gap-window-geometry-v1",
+        "scope": "Strict CPU endpoints with a fixed board branch; no swept-path or ball-flight guarantee",
+        "native_release": false,
+        "path_admitted": null,
+        "dropper_query_sha256": "12f4a13e8ff03c4c6e958850059a2ae1273adfc5ac331aa9325275ac3491845f",
+        "branch_checks": [
+          {
+            "branch": 0,
+            "reason": 0,
+            "board_position_error_m": 2.672399286128334e-09,
+            "dropper_position_error_m": 2.640607299547987e-09,
+            "board_normal_error_deg": 2.091309789151873e-06,
+            "bucket_collider_error_m": 0.0,
+            "pairs": [],
+            "independent_reject_arms": [],
+            "strict_geometry": {
+              "passed": true,
+              "reason": null,
+              "minimum_clearance_m": 0.0074999997775334615,
+              "closest_pair": [
+                "Arm10/gripper_proxy/collision/0",
+                "ball/geom"
+              ],
+              "board_top_m": 0.4584032874729092,
+              "dropper_flange_z_m": 0.8431808860474199,
+              "margin_contacts": [],
+              "inconsistent_distance_queries": 0,
+              "unresolved_clearance_pairs": []
+            },
+            "minimum_clearance_lower_bound_m": 0.0074999997775334615,
+            "full_pose_error": {
+              "10": {
+                "position_m": 2.640607299547987e-09,
+                "rotation_rad": 4.998410652035092e-09
+              },
+              "14": {
+                "position_m": 2.950247830484314e-09,
+                "rotation_rad": 3.139294617224512e-09
+              }
+            }
+          }
+        ],
+        "dropper_branch_id": 0,
+        "preserved_anchor_dropper": false
+      },
+      {
+        "context_id": "anchor",
+        "eligible": false,
+        "reason": "action_bounds_or_invalid",
+        "values": [
+          0.4708757793012148,
+          -0.2778934014509746,
+          0.3973878458850598,
+          36.154791124080255,
+          0.001
+        ],
+        "bucket_xy_m": [
+          0.16275255472120964,
+          -0.6365356466995716
+        ],
+        "q10": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "q14": [
+          3.380062669046468,
+          1.5039574753021427,
+          -3.1992193103493975,
+          -0.4047718442151326,
+          -1.0624829296587495,
+          2.301608077910527
+        ],
+        "board_branch_sha256": "5d8865a584e582fd492be33bab583be8598cfc3053b31b8167875fde46223fa1",
+        "minimum_clearance_lower_bound_m": null,
+        "board_branch_id": 0,
+        "geometry_version": "sircus-fixed-board-gap-window-geometry-v1",
+        "scope": "Strict CPU endpoints with a fixed board branch; no swept-path or ball-flight guarantee",
+        "native_release": false,
+        "path_admitted": null
+      },
+      {
+        "context_id": "bounds-invalid",
+        "eligible": false,
+        "reason": "action_bounds_or_invalid",
+        "values": [
+          0.4708757793012148,
+          -0.2778934014509746,
+          0.039,
+          12.0,
+          0.3
+        ],
+        "bucket_xy_m": [
+          0.16275255472120964,
+          -0.6365356466995716
+        ],
+        "q10": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "q14": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "board_branch_sha256": null,
+        "minimum_clearance_lower_bound_m": null,
+        "board_branch_id": null,
+        "geometry_version": "sircus-fixed-board-gap-window-geometry-v1",
+        "scope": "Strict CPU endpoints with a fixed board branch; no swept-path or ball-flight guarantee",
+        "native_release": false,
+        "path_admitted": null
+      },
+      {
+        "context_id": "low-tilted",
+        "eligible": false,
+        "reason": "board_context_unresolved",
+        "values": [
+          0.4708757793012148,
+          -0.2778934014509746,
+          0.06,
+          52.0,
+          0.3
+        ],
+        "bucket_xy_m": [
+          0.16275255472120964,
+          -0.6365356466995716
+        ],
+        "q10": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "q14": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "board_branch_sha256": null,
+        "minimum_clearance_lower_bound_m": null,
+        "board_branch_id": null,
+        "geometry_version": "sircus-fixed-board-gap-window-geometry-v1",
+        "scope": "Strict CPU endpoints with a fixed board branch; no swept-path or ball-flight guarantee",
+        "native_release": false,
+        "path_admitted": null
+      }
+    ],
+    "elapsed_s": 0.4832627510186285,
+    "checks": {
+      "exact_anchor_q10_preserved": true,
+      "exact_anchor_q14_preserved": true,
+      "all_three_anchor_gaps_endpoint_admitted": true,
+      "q14_exactly_identical_across_anchor_gaps": true,
+      "strict_clearance_at_least_5mm": true,
+      "all_endpoint_only_no_native_release": true,
+      "bounds_rejections_retained": true,
+      "unresolved_board_rejection_retained": true
+    }
+  },
+  "fingerprint": "a4dd235bbb226dd8e39273d4c174c8b683f6a4e5875bcc0f2f84d38f2bb898fc"
+}

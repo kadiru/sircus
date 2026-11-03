@@ -1,5 +1,22 @@
 # Project state
 
+## Conditional gap-window/SAC experiment — November 2, 2026
+
+- [Prespecified method](../sircus/mjlab/WINDOW_STUDY.md): user-approved fixed-bucket
+  sweep followed by a binary success predictor and matched-budget terminal SAC.
+  Context is board height/tilt; action is release gap only. This is not learned
+  joint control or unseen-bucket generalization. No active policy switch.
+- New strict CPU adapter freezes one q14 branch per context before native labels,
+  independently solves dropper gaps, verifies both full flange poses and keeps
+  rejected requests visible. Ubuntu CPU preflight:23 tests passed; exact anchor
+  and ±10 mm gaps retain q14 and pass native FK/clearance. Physics results pending.
+- Both methods receive504 shared seed requests plus504 exclusive requests. Four
+  equal data milestones, quarantined validation selection and frozen final
+  8-context ×23-repeat tests include the same bounded-uniform baseline. Conditional
+  sampled windows, objectives, noise and unknown transit limits are explicit.
+- Only4090 native simulation is authorized;4070/Isaac/runtime services remain
+  unchanged. Execution status/evidence will be recorded at the completed boundary.
+
 ## Completed corrected-contact spatial study — November 2, 2026
 
 - [Final results](../baselines/mjlab-corrected-grid-20261102/README.md) and [protocol](../sircus/mjlab/CORRECTED_GRID.md): 35 development bucket positions, 11,760 initial geometry requests, 460 strictly admitted endpoints at 27 positions. The corrected articulated/passive-gravity 64-substep contract is frozen; historical definitions and policies are preserved.
