@@ -3,7 +3,7 @@ import { OrbitControls } from '/vendor/OrbitControls.js';
 import { contactStudy, contactGroups, contactConfigurations, transitRoutes, routePreview, configurationsCsv } from '/state.mjs';
 import { correctedGridProgress, correctedTrainingReadiness } from '/state.mjs';
 import { plannerReady, plannerOnly, searchReady, modeReady, plannerFarmRows, plannerGridRows, plannerGridSummary, plannerGridProgress, plannerGridCsv } from '/state.mjs';
-import { sweepRlStudy, sweepRlSummary, sweepRlProgress, sweepRlCompletedWorkers, sweepRlPoints, sweepRlCurves, sweepRlFinalRows, sweepRlStatusLabel, sweepRlCsv, sweepRlAdmissionRows, sweepRlHistory } from '/state.mjs';
+import { sweepRlStudy, sweepRlSummary, sweepRlProgress, sweepRlCompletedWorkers, sweepRlPoints, sweepRlCurves, sweepRlFinalRows, sweepRlStatusLabel, sweepRlCsv, sweepRlAdmissionRows, sweepRlHistory, historicalPlannerIsPreV2 } from '/state.mjs';
 import { studyReady, buildRequest, methodLabel, coverageRows, finiteVector, friendlyError, coverageSummary, comparisonRows, learningPoints, inStudiedRegion, BOARD_BODY_SIZE, bankComparisonRows, policyRouteLabel, poseInputValues, bankCoverageRows, bankCoverageStatus, formatMetric, solveButtonState, expansionTargetRows, expansionProgress, expandedComparisonRows, stableIkProgress, stableIkTargets, stableIkAuditRows, stableIkControlRows } from '/state.mjs';
 
 const $ = id => document.getElementById(id);
@@ -948,6 +948,10 @@ async function loadStatus() {
     const [s, r] = await Promise.all([fetch('/api/scene', { cache: 'no-store' }).then(v => v.json()), fetch('/api/study', { cache: 'no-store' }).then(v => v.json())]);
     const initial = !sceneSpec.version; sceneSpec = s; report = r;
     const standalone = plannerOnly(r);
+    const historicalPlanner = historicalPlannerIsPreV2(r);
+    $('plannerHistoricalNotice').hidden = !historicalPlanner;
+    $('plannerFarmHeading').textContent = historicalPlanner ? 'Historical farm targets · pre-v2' : "Select a table's bucket position";
+    $('plannerGridHeading').textContent = historicalPlanner ? 'Historical shot settings and repeats · pre-v2' : 'Shot settings. Repeated captures.';
     $('historicalStudies').hidden = standalone;
     const benchmarkView = !!sweepRlStudy(r) || typeof r.sweep_rl_error === 'string';
     document.title = benchmarkView ? 'Sircus · Sweep vs RL benchmark' : standalone ? 'Sircus · Sweep shot planner' : 'Sircus · mjlab learning lab';
