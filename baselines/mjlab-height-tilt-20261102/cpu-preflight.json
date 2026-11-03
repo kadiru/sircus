@@ -1,0 +1,160 @@
+{
+  "version": "sircus-neighborhood-cpu-preflight-v1",
+  "scope": "CPU native kinematics/collision checks only; no ball dynamics, GPU, actuator motion or service changes",
+  "elapsed_s": 4.335232960991561,
+  "source_sha256": {
+    "sircus/mjlab/neighborhood_geometry.py": "036bd12f0a57c8494f98b480f828190e9e4bdb24b8dbc869c46111917be2c2cc",
+    "sircus/mjlab/window_geometry.py": "27d16ebae82a53a7f9b948cfc0a67bc25618dcd2b11462b6969ac62dbbb779cf",
+    "sircus/mjlab/neighborhood_contract.py": "7685b667c402875674a0998a631eafc21338fc20d81f537feddbab212ebc113a"
+  },
+  "comparison_fingerprint": "d2df483d1dbe96784107cf610cc97aae4d3b6eebcbbd587eb3579f1f565ff0fb",
+  "confirmation_fingerprint": "043592904cf365e69bb7efd72b0e35e7714845d4764c7f6541526a1c0d9f2367",
+  "declared_contexts": 75,
+  "board_contexts_admitted": 72,
+  "controls": [
+    {
+      "anchor_id": "anchor397",
+      "context_id": "anchor397-h02-t02",
+      "eligible": true,
+      "both_joint_arrays_exact": true,
+      "minimum_clearance_lower_bound_m": 0.00749999981852878,
+      "board_branch_sha256": "5d8865a584e582fd492be33bab583be8598cfc3053b31b8167875fde46223fa1"
+    },
+    {
+      "anchor_id": "anchor500",
+      "context_id": "anchor500-h02-t02",
+      "eligible": true,
+      "both_joint_arrays_exact": true,
+      "minimum_clearance_lower_bound_m": 0.007499999490341969,
+      "board_branch_sha256": "4e5e1a257a4060e2980603f22abdc38e6ec8b04559519e753d3030fe55b42b75"
+    },
+    {
+      "anchor_id": "anchor440",
+      "context_id": "anchor440-h02-t02",
+      "eligible": true,
+      "both_joint_arrays_exact": true,
+      "minimum_clearance_lower_bound_m": 0.0061685761466294675,
+      "board_branch_sha256": "e4d0f36d791274acbc2aff6383663c6d991ce19af650b75e6d4435a3d8c48627"
+    }
+  ],
+  "nearby_requests": [
+    {
+      "anchor_id": "anchor397",
+      "gap_m": 0.31121875,
+      "eligible": true,
+      "reason": null
+    },
+    {
+      "anchor_id": "anchor397",
+      "gap_m": 0.33121875,
+      "eligible": true,
+      "reason": null
+    },
+    {
+      "anchor_id": "anchor397",
+      "kind": "local_variation",
+      "eligible": true,
+      "reason": null,
+      "local_gate": {
+        "version": "sircus-nominal-branch-local-variation-v1",
+        "max_joint_delta_rad": 0.1,
+        "arm10_max_abs_joint_delta_rad": 0.0,
+        "arm14_max_abs_joint_delta_rad": 0.0,
+        "passed": true
+      }
+    },
+    {
+      "anchor_id": "anchor397",
+      "kind": "local_variation",
+      "eligible": true,
+      "reason": null,
+      "local_gate": {
+        "version": "sircus-nominal-branch-local-variation-v1",
+        "max_joint_delta_rad": 0.1,
+        "arm10_max_abs_joint_delta_rad": 0.016013876674855876,
+        "arm14_max_abs_joint_delta_rad": 0.0046856197812426,
+        "passed": true
+      }
+    },
+    {
+      "anchor_id": "anchor500",
+      "gap_m": 0.22853124999999996,
+      "eligible": true,
+      "reason": null
+    },
+    {
+      "anchor_id": "anchor500",
+      "gap_m": 0.24853124999999998,
+      "eligible": true,
+      "reason": null
+    },
+    {
+      "anchor_id": "anchor500",
+      "kind": "local_variation",
+      "eligible": true,
+      "reason": null,
+      "local_gate": {
+        "version": "sircus-nominal-branch-local-variation-v1",
+        "max_joint_delta_rad": 0.1,
+        "arm10_max_abs_joint_delta_rad": 0.0,
+        "arm14_max_abs_joint_delta_rad": 0.0,
+        "passed": true
+      }
+    },
+    {
+      "anchor_id": "anchor500",
+      "kind": "local_variation",
+      "eligible": true,
+      "reason": null,
+      "local_gate": {
+        "version": "sircus-nominal-branch-local-variation-v1",
+        "max_joint_delta_rad": 0.1,
+        "arm10_max_abs_joint_delta_rad": 0.0196445167022965,
+        "arm14_max_abs_joint_delta_rad": 0.002741128921292857,
+        "passed": true
+      }
+    },
+    {
+      "anchor_id": "anchor440",
+      "gap_m": 0.27578125000000003,
+      "eligible": true,
+      "reason": null
+    },
+    {
+      "anchor_id": "anchor440",
+      "gap_m": 0.29578125000000005,
+      "eligible": true,
+      "reason": null
+    },
+    {
+      "anchor_id": "anchor440",
+      "kind": "local_variation",
+      "eligible": true,
+      "reason": null,
+      "local_gate": {
+        "version": "sircus-nominal-branch-local-variation-v1",
+        "max_joint_delta_rad": 0.1,
+        "arm10_max_abs_joint_delta_rad": 0.0,
+        "arm14_max_abs_joint_delta_rad": 0.0,
+        "passed": true
+      }
+    },
+    {
+      "anchor_id": "anchor440",
+      "kind": "local_variation",
+      "eligible": true,
+      "reason": null,
+      "local_gate": {
+        "version": "sircus-nominal-branch-local-variation-v1",
+        "max_joint_delta_rad": 0.1,
+        "arm10_max_abs_joint_delta_rad": 0.017091494292356124,
+        "arm14_max_abs_joint_delta_rad": 0.005005300418360115,
+        "passed": true
+      }
+    }
+  ],
+  "bounds_rejection": {
+    "eligible": false,
+    "reason": "action_bounds_or_invalid"
+  }
+}

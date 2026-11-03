@@ -1,6 +1,6 @@
 # Sircus — Simple Circus
 
-**Current mjlab checkpoint:** [corrected-contact 35-position feasibility map](baselines/mjlab-corrected-grid-20261102/README.md) and [protocol](sircus/mjlab/CORRECTED_GRID.md). Strict endpoints, a fixed shared start and fresh robustness checks precede further training. Historical policies/results retain their original contracts.
+**Current mjlab checkpoint:** [audited conditional gap-window study](baselines/mjlab-window-sac-20261102/README.md), followed by the opt-in [local height/tilt and timestep expansion](sircus/mjlab/NEIGHBORHOOD_STUDY.md). The fixed-bucket predictor succeeded at one unseen board pose; broader coverage and joint shot selection remain development work. Historical policies/results retain their original contracts.
 
 Two UFACTORY850 arms learn to bounce a ball from a suction-mounted board into a bucket. Arm10 picks/releases; arm14 positions the board. This private repository is the shared source for Mac physical work and Ubuntu simulation work.
 

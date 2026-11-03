@@ -1,5 +1,9 @@
 # Sircus in mjlab
 
+The next opt-in [local height/tilt and timestep study](NEIGHBORHOOD_STUDY.md)
+maps75 nearby contexts, searches release gaps and pairs identical shots at32/64/128
+substeps. It is development data collection; no new policy or active solver change.
+
 New opt-in [conditional gap-window/SAC experiment](WINDOW_STUDY.md): one fixed
 development bucket, 24/6/8 disjoint height/tilt contexts and equal1,008-request
 training budgets. It compares adaptive search plus a supervised capture predictor

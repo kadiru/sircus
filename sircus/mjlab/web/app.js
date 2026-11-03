@@ -348,6 +348,94 @@ function showExpansion() {
   drawChart($('expansionCaptureChart'), points, 'captures');
   drawChart($('expansionRewardChart'), points, 'reward', true);
 }
+// BEGIN READ-ONLY HEIGHT TILT STUDY
+function neighborhoodView(value) {
+  if(!value||typeof value!=='object')return null;
+  const contexts=(value.contexts??[]).filter(r=>r&&typeof r.id==='string'&&Number.isFinite(r.board_height_m)&&Number.isFinite(r.tilt_deg));
+  const families=[...new Set(contexts.map(r=>r.source_family??r.source_anchor_id??'Unreported family'))];
+  return {raw:value,contexts,families,recipes:(value.selected_recipes??[]).filter(r=>r&&typeof r.id==='string')};
+}
+function neighborhoodCell(row) {
+  const n=Number.isInteger(row.search_attempts)?row.search_attempts:null,k=Number.isInteger(row.search_captures)?row.search_captures:null;
+  const fraction=n!==null&&k!==null&&n>=0&&k>=0&&k<=n?`${k}/${n}`:'—';
+  const state=row.board_admitted===false?'unresolved':k>0?'capture':Number.isInteger(row.search_native_releases)&&row.search_native_releases>0?'miss':
+    row.board_admitted===true&&(row.eligible===true||(Number.isInteger(row.eligible)&&row.eligible>0))?'endpoint':
+    row.board_admitted===true&&row.geometry_requests>0&&row.eligible===0?'pair_rejected':'pending';
+  return {state,fraction,requests:n,captures:k,released:Number.isInteger(row.search_native_releases)?row.search_native_releases:null};
+}
+function neighborhoodAgreement(value,attempts) {
+  if(Number.isInteger(value)&&Number.isInteger(attempts)&&0<=value&&value<=attempts)return `${value} / ${attempts}`;
+  if(Number.isInteger(value)&&value>=0)return `${value} matched`;
+  if(value&&typeof value==='object'){
+    const k=value.agreements??value.matches??value.same,n=value.attempts??value.total??value.paired_requests;
+    if(Number.isInteger(k)&&Number.isInteger(n)&&0<=k&&k<=n)return `${k} / ${n}`;
+  }
+  return 'unreported';
+}
+function drawNeighborhoodMap(canvas,rows) {
+  const c=canvas.getContext('2d'),w=canvas.width,h=canvas.height;
+  c.clearRect(0,0,w,h);c.fillStyle='#edf0e7';c.fillRect(0,0,w,h);
+  const tilts=[...new Set(rows.map(r=>r.tilt_deg))].sort((a,b)=>a-b),heights=[...new Set(rows.map(r=>r.board_height_m))].sort((a,b)=>a-b);
+  if(!tilts.length||!heights.length)return;
+  const left=40,top=20,cw=(w-left-10)/tilts.length,ch=(h-top-42)/heights.length;
+  c.font='9px sans-serif';c.textAlign='center';
+  const colors={unresolved:'#cfd6ce',capture:'#80b7a6',miss:'#e5aa95',endpoint:'#b8cfd0',pair_rejected:'#ded5ba',pending:'#e9ece4'};
+  for(const row of rows){
+    const i=tilts.indexOf(row.tilt_deg),j=heights.indexOf(row.board_height_m),x=left+i*cw,y=top+(heights.length-j-1)*ch;
+    const cell=neighborhoodCell(row);c.fillStyle=colors[cell.state];c.fillRect(x+1,y+1,cw-2,ch-2);c.fillStyle='#234a45';c.fillText(cell.fraction,x+cw/2,y+ch/2+3);
+  }
+  c.fillStyle='#5d7d73';
+  tilts.forEach((v,i)=>c.fillText(v.toFixed(1),left+(i+.5)*cw,h-27));
+  heights.forEach((v,i)=>c.fillText((v*1000).toFixed(0),20,top+(heights.length-i-.5)*ch+3));
+  c.fillText('Tilt from horizontal (°)',w/2,h-9);c.textAlign='left';c.fillText('H mm',4,11);
+}
+function drawNeighborhoodTrace(study,index) {
+  const trace=study.trace_examples?.[index],view=windowTrajectoryView(study,trace),canvas=$('heightTiltTrace');
+  if(!view){const {c}=windowPlot(canvas,0,1,0,1,'Projected distance (m)','Ball-center height above table (m)');c.fillText('No saved native observation available',80,110);$('heightTiltTraceCaption').textContent='Only actual saved native positions are shown; no predicted or ideal-flight path is fabricated.';return;}
+  const xs=view.points.map(p=>p[0]),zs=view.points.map(p=>p[1]);
+  const {c,x,y}=windowPlot(canvas,Math.min(-.1,...xs),Math.max(view.distance+.15,...xs),Math.min(0,...zs),Math.max(.3,...zs)+.05,'Distance along board → bucket axis (m)','Ball-center height above table (m)');
+  c.strokeStyle=trace.route_success===true?'#128b8c':'#ec7657';c.lineWidth=2;c.beginPath();view.points.forEach((p,i)=>{if(i)c.lineTo(x(p[0]),y(p[1]));else c.moveTo(x(p[0]),y(p[1]));});c.stroke();
+  $('heightTiltTraceCaption').textContent=`${trace.record_id??'Native record'} · ${trace.context_id??'context unknown'} · ${trace.substeps??'unreported'} substeps · ${trace.route_success===true?'captured':trace.route_success===false?'missed':'outcome unknown'} · ${view.points.length} saved samples · max off-plane displacement ${(view.lateral*1000).toFixed(1)} mm. ${trace.selection_scope??''} Aggregate counts remain authoritative.`;
+}
+function showHeightTiltStudy() {
+  const view=neighborhoodView(report.neighborhood_evaluation);$('heightTiltStudy').hidden=!view;if(!view)return;
+  const study=view.raw,shown=v=>v===null||v===undefined?'unreported':v,mm=v=>Number.isFinite(v)?(v*1000).toFixed(1):'—';
+  $('heightTiltStatus').textContent=`${study.version??'Height / tilt sweep'} · ${study.status??'pending'} · ${study.phase??'pending'}${study.error?' · '+study.error:''}`;
+  $('heightTiltScope').textContent=`${study.scope??'Finite fixed-scene development search.'} ${study.active_policy??'Existing solver remains unchanged.'}`;
+  const resolved=view.contexts.filter(r=>r.board_admitted===true).length,unknown=view.contexts.filter(r=>typeof r.board_admitted!=='boolean').length;
+  const metrics=[['Declared development contexts',view.contexts.length],['Board IK resolved under current budget',`${resolved} / ${view.contexts.length}${unknown?' · '+unknown+' unknown':''}`],
+    ['Maximum requested-attempt budget',shown(study.max_requests)],['Fixed bucket XY mm',(study.settings?.bucket_xy_m??[]).map(mm).join(' / ')||'unreported'],
+    ['Independent evidence audit',study.audit?.status??'pending']];
+  for(const [key,value]of Object.entries(study.counts??{}))if(typeof value==='number')metrics.push([key.replaceAll('_',' '),value]);
+  for(const [key,label]of [['phase_counts','Phase request counts'],['substep_counts','Substep request counts']]){
+    const counts=Object.entries(study.counts?.[key]??{}).filter(([,n])=>Number.isInteger(n)&&n>=0);if(counts.length)metrics.push([label,counts.map(([name,n])=>`${name}: ${n}`).join(' · ')]);
+  }
+  addMetrics(metrics,$('heightTiltSummary'));
+  const maps=$('heightTiltMaps');maps.replaceChildren();
+  for(const family of view.families){
+    const rows=view.contexts.filter(r=>(r.source_family??r.source_anchor_id??'Unreported family')===family),box=document.createElement('div'),title=document.createElement('h4'),canvas=document.createElement('canvas'),note=document.createElement('p');
+    box.className='neighborhood-map';const anchor=(study.anchors??[]).find(r=>r.id===family),value=anchor?.values;title.textContent=Array.isArray(value)&&value.length===5?`${family}: H ${(value[2]*1000).toFixed(0)} mm / ${value[3].toFixed(2)}°`:family;canvas.width=260;canvas.height=235;canvas.setAttribute('role','img');canvas.setAttribute('aria-label',`${family}: board-height and tilt search requests/captures`);
+    note.className='fine';note.textContent=`${rows.filter(r=>r.board_admitted===true).length}/${rows.length} board contexts resolved · ${rows.reduce((n,r)=>n+(Number.isInteger(r.search_captures)?r.search_captures:0),0)} captures in recorded search`;
+    box.append(title,canvas,note);maps.append(box);drawNeighborhoodMap(canvas,rows);
+  }
+  const ratio=(k,n)=>Number.isInteger(k)&&Number.isInteger(n)&&k>=0&&k<=n?`${k} / ${n}`:'unreported';
+  expansionTable($('heightTiltContexts'),['Context','H mm / °','Board IK','Endpoints/all','Native/all','Captures/all','Best gap mm'],view.contexts.map(r=>[r.id,`${mm(r.board_height_m)} / ${r.tilt_deg.toFixed(2)}°`,r.board_admitted===true?'Resolved':r.board_admitted===false?'Unresolved':'unknown',ratio(r.eligible,r.geometry_requests),ratio(r.search_native_releases,r.search_attempts),ratio(r.search_captures,r.search_attempts),mm(r.best_gap_m)]));
+  expansionTable($('heightTiltRecipes'),['Recipe','Board H mm / °','Gap / release mm','Distance mm'],view.recipes.map(r=>[r.id,`${mm(r.board_height_m)} / ${Number.isFinite(r.tilt_deg)?r.tilt_deg.toFixed(2):'—'}°`,`${mm(r.gap_m)} / ${mm(r.release_center_height_m)}`,mm(r.distance_m)]));
+  const stats=(r,step,key='by_substeps')=>windowStatistics(r[key]?.[step]),native=s=>s.released===null?'unreported':`${s.released} / ${shown(s.requests)}`;
+  expansionTable($('heightTiltSensitivity'),['Recipe','32 cap/all','64 cap/all','128 cap/all','64↔128 match','Δ350 ms mm','Paired gate'],view.recipes.map(r=>{
+    const s=r.sensitivity??{};return[r.id,...['32','64','128'].map(step=>stats(r,step).fraction),neighborhoodAgreement(s.capture_agreement_64_128,s.paired_attempts),mm(s.nominal_position_delta_350ms_max_m),s.paired_engineering_gate===true?'Passed':s.paired_engineering_gate===false?'Failed':'pending'];
+  }));
+  const repeated=[];for(const r of view.recipes)for(const step of ['32','64','128']){
+    const all=stats(r,step);repeated.push([r.id,step,stats(r,step,'nominal_by_substeps').fraction,stats(r,step,'fresh_by_substeps').fraction,all.fraction,native(all),all.clean===null?'unreported':`${all.clean} / ${shown(all.requests)}`]);
+  }
+  expansionTable($('heightTiltRepeats'),['Recipe','Substeps','Nominal','Perturbed','Captures/all','Native/all','Clean/all'],repeated);
+  const select=$('heightTiltTraceSelect'),previous=select.value,traces=study.trace_examples??[];select.replaceChildren();
+  traces.forEach((trace,i)=>{const option=document.createElement('option');option.value=String(i);option.textContent=`${trace.substeps??'?'} substeps · ${trace.context_id??'context unknown'} · ${mm(trace.gap_m)} mm · ${trace.route_success===true?'capture':trace.route_success===false?'miss':'unknown'}`;select.append(option);});
+  select.disabled=!traces.length;if(traces.length)select.value=String(Math.min(Number(previous)||0,traces.length-1));select.onchange=()=>drawNeighborhoodTrace(study,Number(select.value)||0);drawNeighborhoodTrace(study,Number(select.value)||0);
+  $('heightTiltAudit').textContent=`Audit: ${study.audit?.status??'pending'}${Number.isInteger(study.audit?.checks_count)?' · '+study.audit.checks_count+' checks':''}. Contract: ${study.contract_fingerprint??'pending'}. ${study.audit?.reason??''}`;
+}
+// END READ-ONLY HEIGHT TILT STUDY
+
 // BEGIN READ-ONLY WINDOW STUDY
 const WINDOW_METHODS = {adaptive_surrogate:'Supervised success model',sac:'Terminal SAC',uniform_bounded:'Uniform bounded gaps'};
 function windowStatistics(value = {}) {
@@ -671,7 +759,7 @@ function showCoverage() {
   if (evaluation.layouts !== undefined) pairs.push(['Frozen test layouts', evaluation.layouts]);
   if (pairs.length) addMetrics(pairs, $('studySummary'));
   else $('studySummary').textContent = report.summary ?? 'Study metrics will appear when published. Unresolved cells remain visible.';
-  showComparison(); showBankComparison(); showExpansion(); showStableIk(); showContactStudy(); showCorrectedGrid(); showWindowStudy();
+  showComparison(); showBankComparison(); showExpansion(); showStableIk(); showContactStudy(); showCorrectedGrid(); showWindowStudy(); showHeightTiltStudy();
 }
 async function loadStatus() {
   try {

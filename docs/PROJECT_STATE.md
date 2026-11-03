@@ -1,5 +1,24 @@
 # Project state
 
+## Local height/tilt expansion — November 2, 2026
+
+- [Prespecified protocol](../sircus/mjlab/NEIGHBORHOOD_STUDY.md):75 local H/tilt
+  contexts around the three confirmed shots,17 coarse gaps/context and six
+  refinements for each captured context. Up to12 actual captured configurations
+  receive paired3 nominal +20 joint H/tilt/gap-noise trials at32/64/128 substeps.
+- Read-only Ubuntu native CPU preflight resolved72/75 board contexts and preserved
+  all three exact reference joint pairs. This is geometry evidence, not new ball
+  dynamics. Existing flight/scorers/policies remain unchanged; new128-step engine
+  is an opt-in fresh allocation. Native study is queued behind another existing
+  shared4090 study; physics results remain pending. The finite job will start
+  automatically when the lock is free, then independently audit/update the viewer.
+- All contexts are DEVELOPMENT, including the previously tested440 mm reference.
+  No new RL or unseen-layout score. Raw arrays/logs remain outside Git; source,
+  packages, parents and native assets are pinned.4090 only/shared lock;4070 and
+  Isaac setup/services remain untouched. New read-only `#heightTiltStudy` panel.
+  [Launch checkpoint](../baselines/mjlab-height-tilt-20261102/README.md) records
+  source/output paths, bounded processes, queue behavior and verification limits.
+
 ## Conditional gap-window/SAC experiment — November 2, 2026
 
 - [Prespecified method](../sircus/mjlab/WINDOW_STUDY.md): user-approved fixed-bucket
