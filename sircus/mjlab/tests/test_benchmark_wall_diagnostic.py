@@ -64,7 +64,7 @@ def row_for(arrays, *, identifier="sweep-7-validation-0000-layout-r0", repeat=0)
         bucket_xy_m=[0.0, 0.0],
         board_normal=[0.0, 0.0, 1.0],
         command_values=[0.6, -0.2, 0.3, 30.0, 0.2],
-        trajectory_dt_s=1 / 240,
+        trajectory_dt_s=1 / 60,
         native_release=True,
         invalid=None,
         frozen_artifact_sha256="a" * 64,
@@ -142,9 +142,37 @@ class TraceTests(unittest.TestCase):
         ):
             diagnostic.diagnose_trace(scene(), row, *arrays)
         row = row_for(arrays)
-        row["trajectory_dt_s"] = 1 / 120
         with self.assertRaisesRegex(diagnostic.DiagnosticError, "cadence"):
-            diagnostic.diagnose_trace(scene(), row, *arrays)
+            diagnostic.diagnose_trace(
+                scene(), row, *arrays, native_scoring_dt_s=1 / 120
+            )
+
+    def test_display_trail_cadence_does_not_override_native_scoring_cadence(self):
+        arrays = trace()
+        row = row_for(arrays)
+        self.assertEqual(row["trajectory_dt_s"], 1 / 60)
+        result = diagnostic.diagnose_trace(scene(), row, *arrays)
+        self.assertEqual(result["display_trajectory_dt_s"], 1 / 60)
+        self.assertEqual(result["scoring_trace_dt_s"], 1 / 240)
+        self.assertAlmostEqual(result["first_whole_entry_time_s"], 3 / 240)
+
+    def test_legacy_npz_and_explicit_correct_timing_pass_but_wrong_dt_fails(self):
+        legacy = diagnostic.native_cache_timing({})
+        self.assertEqual(legacy["scoring_dt_s"], 1 / 240)
+        self.assertIsNone(legacy["explicit_npz_timing"])
+        correct = diagnostic.native_cache_timing(
+            {"dt_s": np.asarray(1 / 240, dtype=np.float32)}
+        )
+        self.assertIn("dt_s", correct["explicit_npz_timing"])
+        with self.assertRaisesRegex(diagnostic.DiagnosticError, "NPZ cadence differs"):
+            diagnostic.native_cache_timing({"dt_s": np.asarray(1 / 60)})
+        times = (np.arange(1, 961) / 240).astype(np.float32)
+        diagnostic.native_cache_timing({"timestamps_s": times})
+        times[250] += 1 / 240
+        with self.assertRaisesRegex(
+            diagnostic.DiagnosticError, "NPZ timestamps differ"
+        ):
+            diagnostic.native_cache_timing({"timestamps_s": times})
 
     def test_nonfinite_wrong_shape_or_rejected_trace_cannot_be_diagnosed(self):
         arrays = list(trace())
@@ -192,9 +220,13 @@ class RunTests(unittest.TestCase):
             identity=dict(
                 scene_sha256=diagnostic.digest(scene()),
                 contract_fingerprint=ref["fingerprint"],
+                physics=dict(scoring_dt_s=1 / 240, horizon_s=4.0),
                 source_sha256={
                     name: diagnostic.file_sha256(diagnostic.ROOT / name)
-                    for name in diagnostic.SCORER_FILES
+                    for name in (
+                        *diagnostic.SCORER_FILES,
+                        *diagnostic.TRACE_SOURCE_FILES,
+                    )
                 },
             ),
             protocol=dict(milestones=[0, 256], evaluation=dict(repeats=3)),
@@ -272,6 +304,12 @@ class RunTests(unittest.TestCase):
         self.assertTrue(
             result["requests"][0]["diagnostic"]["original_score_reproduced"]
         )
+        self.assertEqual(
+            result["requests"][0]["native_cache_timing"]["scoring_dt_s"], 1 / 240
+        )
+        self.assertIsNone(
+            result["requests"][0]["native_cache_timing"]["explicit_npz_timing"]
+        )
         self.assertNotIn(str(self.root), json.dumps(result))
         self.assertEqual(
             result["run_report_sha256"],
@@ -300,8 +338,18 @@ class RunTests(unittest.TestCase):
         contract["fingerprint"] = diagnostic.digest(contract)
         self.write(path, contract)
         with self.assertRaisesRegex(
-            diagnostic.DiagnosticError, "scorer differs from frozen"
+            diagnostic.DiagnosticError, "scorer/cache producer differs from frozen"
         ):
+            diagnostic.diagnose_run(self.run, self.reference, [0])
+
+    def test_wrong_explicit_native_cache_dt_is_rejected_with_real_display_cadence(self):
+        path = self.run / "native/native-0000.npz"
+        with np.load(path, allow_pickle=False) as existing:
+            values = {name: existing[name] for name in existing.files}
+        values["dt_s"] = np.asarray(1 / 60)
+        np.savez(path, **values)
+        self.assertEqual(self.rows[0]["trajectory_dt_s"], 1 / 60)
+        with self.assertRaisesRegex(diagnostic.DiagnosticError, "NPZ cadence differs"):
             diagnostic.diagnose_run(self.run, self.reference, [0])
 
     def test_missing_validation_stops_at_test_boundary_without_decoding_its_outcome(
