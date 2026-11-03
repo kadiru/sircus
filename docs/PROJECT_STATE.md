@@ -1,5 +1,21 @@
 # Project state
 
+## Matched current-ball sweep/PPO benchmark — November 3, 2026
+
+- [Frozen design and reproduction](../sircus/mjlab/SWEEP_RL_BENCHMARK.md): guided
+  sweep-built library transfer versus continuous residual PPO, using the same 17
+  audited shared source recipes, corrected 64-contact and common-home/local gates.
+- Planned 3 seeds × 1,024 new requested training decisions per method, with
+  0/256/512/1,024 validation milestones, 12 fresh validation and 24 final-test
+  layouts, three paired nominal/perturbed requests each. Rejects consume budget;
+  native counts differ legitimately and are reported. Historical cost is separate.
+- New isolated worker, pipeline, read-only 18788 interface and independent auditor
+  are implemented. Mock/headless and pinned Ubuntu CPU/PPO checks passed; native
+  controls are queued behind an existing 4090 distance study. No benchmark outcome,
+  capture curve or RL superiority is claimed until the actual native stages run.
+- Original 35-position results/services and 4070 workload are preserved. Current
+  ball/materials and reported 175 mm bucket-height uncertainty remain unchanged.
+
 ## Completed expanded 35-position planner study — November 3, 2026
 
 - [Final settings, source-matched rates and compact evidence](../baselines/mjlab-grid35-expanded-20261103/README.md):
