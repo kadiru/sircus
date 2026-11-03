@@ -1,5 +1,72 @@
 # Project state
 
+## Completed local height/tilt and timestep study — November 3, 2026
+
+- [Audited settings and comparisons](../baselines/mjlab-height-tilt-20261102/README.md):
+  corrected4090 execution completed in30.3 min. Independent CPU audit passed3,430
+  checks, including all2,156 native releases.2,562 total requests retained406
+  geometry rejections;1,507 captures,39 clean.72/75 local H/tilt contexts had a
+  capture in the adaptive development search, not an unseen-layout evaluation.
+- 12 selected recipes each received3 nominal +20 fresh H/tilt/gap-noise requests,
+  reused identically at32/64/128 substeps. Eight captured23/23 at every resolution;
+  ten passed the prespecified64/128 gate and also met the32-step capture threshold.
+  Two H540 mm recipes failed. No69-independent-scenes claim or continuous-window
+  guarantee. Noise sigma:1 mm height,0.25° tilt,2 mm gap.
+- Recommended engineering candidate08: H377.388 mm, tilt32.1548°, gap331.219 mm,
+  ball-center release746.107 mm, fixed board-to-bucket distance472.826 mm;
+  23/23 at each step, all rim-assisted,0.285 mm nominal64/128 drift at350 ms.
+  Capture agreement and trajectory convergence remain distinct; recipe04 had
+  perfect captures but >5 mm coarse-versus-finer nominal displacement.
+- Raw evidence remains `output/neighborhood-v2`; code58c1a9f, fingerprint
+  `12b2952c68b38d6bb392e3256d140cb7445ea97c73b090a6a39c5dfc4a4aa680`.
+  `#heightTiltStudy` shows matching completed/audited results, all selected settings,
+  native trajectories, failures and separate prior64-only reference evidence.
+  Curated metadata/CSV and provenance are in Git; raw arrays/logs remain local.
+- Both finite workers exited. Existing viewer was updated without restart;
+  4070 and Isaac were left untouched. No new RL, policy activation, physical
+  commands, perception, full-arm path/tracking or bucket-position generalization.
+  Geometry/contact provisional measurements and historical studies are preserved.
+
+## Height/tilt status and startup repair — November 3, 2026
+
+- The expansion has no new ball-flight results yet. Its original4090 queue timed
+  out unstarted; the unchanged retry stopped before release because its guard
+  expected native solver tolerance1e-8 on Warp, whose pinned conversion floors
+  tolerance to float32(1e-6). Failed attempts/logs are preserved separately.
+- The v2 guard pins both values explicitly and exactly; it does not override
+  allocated options or change parent contact/scoring. [CPU vendor-conversion
+  evidence](../baselines/mjlab-height-tilt-20261102/cpu-warp-option-conversion.json)
+  confirms the parent/default path matches.42 focused Ubuntu tests and454 local
+  mjlab tests passed (41 dependency/native skips); these are not native flights.
+- Corrected source is frozen at `studies/neighborhood-v2`, code58c1a9f, with
+  evidence planned at `output/neighborhood-v2`; its bounded supervisor queues
+  behind the current4090 owner, then audits and updates the existing viewer.
+  No4070, Isaac, hardware, cloud, service restart or policy activation changes.
+- `#heightTiltStudy` now shows prior verified64-only reference counts alongside
+  the new attempt's actual status. H397.388/T36.1548/G321.219 mm,
+  H500/T36.1548/G238.531 mm and H440/T32/G285.781 mm each had3/3 nominal and20/20
+  gap-noise captures. They do not yet establish the new height/tilt-noise or
+  paired-timestep reliability. See [status and exact values](../baselines/mjlab-height-tilt-20261102/README.md).
+
+## Local height/tilt expansion — November 2, 2026
+
+- [Prespecified protocol](../sircus/mjlab/NEIGHBORHOOD_STUDY.md):75 local H/tilt
+  contexts around the three confirmed shots,17 coarse gaps/context and six
+  refinements for each captured context. Up to12 actual captured configurations
+  receive paired3 nominal +20 joint H/tilt/gap-noise trials at32/64/128 substeps.
+- Read-only Ubuntu native CPU preflight resolved72/75 board contexts and preserved
+  all three exact reference joint pairs. This is geometry evidence, not new ball
+  dynamics. Existing flight/scorers/policies remain unchanged; new128-step engine
+  is an opt-in fresh allocation. Native study is queued behind another existing
+  shared4090 study; physics results remain pending. The finite job will start
+  automatically when the lock is free, then independently audit/update the viewer.
+- All contexts are DEVELOPMENT, including the previously tested440 mm reference.
+  No new RL or unseen-layout score. Raw arrays/logs remain outside Git; source,
+  packages, parents and native assets are pinned.4090 only/shared lock;4070 and
+  Isaac setup/services remain untouched. New read-only `#heightTiltStudy` panel.
+  [Launch checkpoint](../baselines/mjlab-height-tilt-20261102/README.md) records
+  source/output paths, bounded processes, queue behavior and verification limits.
+
 ## Conditional gap-window/SAC experiment — November 2, 2026
 
 - [Prespecified method](../sircus/mjlab/WINDOW_STUDY.md): user-approved fixed-bucket
