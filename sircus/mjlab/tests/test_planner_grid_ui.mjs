@@ -92,6 +92,9 @@ test('CSV exports exact settings with explicit study versus saved cohorts and ev
   assert.equal(lines.length, 36);
   assert.match(lines[0], /study_fresh_captures/);
   assert.match(lines[0], /saved_fresh_captures/);
+  assert.match(lines[0], /search_captures/);
+  assert.match(lines[0], /search_cpu_candidates/);
+  assert.match(lines[0], /frozen_quality_cohort/);
   assert.ok(lines[1].includes('0.48903120111277915'));
   assert.ok(lines[1].includes('0.19484428737039663'));
   assert.ok(lines[1].includes("'=unsafe"));

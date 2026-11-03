@@ -14,3 +14,42 @@
 
 .corrected-grid-section{scroll-margin-top:24px}.corrected-grid-section h3{font-size:14px}.corrected-grid-section canvas{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:7px;margin-top:20px}.grid-legend{display:flex;gap:15px;flex-wrap:wrap;font-size:10px;margin-top:10px;color:#718477}.grid-endpoint{color:#578d92}.grid-captured{color:#a47320}.grid-qualified{color:var(--teal)}.corrected-grid-section .table-wrap td:last-child{white-space:normal;max-width:250px}
 .window-study-section{scroll-margin-top:24px}.window-study-section h3{font-size:14px;margin:25px 0 12px}.window-study-section canvas{display:block;width:100%;height:auto;margin-top:12px;border:1px solid var(--line);border-radius:7px;background:#edf0e7}.window-study-section select{font-size:12px}.window-study-section .metrics dl{max-width:680px}.window-study-section .scope-note{border-left-color:var(--teal)}.window-study-section details{margin-top:22px}.window-study-section .table-wrap td:first-child{max-width:230px;white-space:normal}
+
+/* A wide evidence table scrolls within the workspace, never the whole page. */
+.workspace,aside{min-width:0}
+#plannerGridStudy{min-width:0;max-width:100%;scroll-margin-top:24px}
+#plannerGridStudy>.section-top{flex-wrap:wrap;align-items:flex-start}
+#plannerGridStudy>.section-top>div{min-width:0;flex:1 1 260px}
+#plannerGridStudy>.section-top>.quiet{flex:0 0 auto}
+#plannerGridStudy .eyebrow,#plannerGridStatus,#plannerGridScope{overflow-wrap:anywhere}
+#plannerGridSummary dl{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:8px 14px;max-width:680px}
+#plannerGridSummary dt,#plannerGridSummary dd{min-width:0;overflow-wrap:anywhere}
+#plannerGridSummary dd{text-align:right;font-variant-numeric:tabular-nums}
+#plannerGridTable{display:block;width:100%;max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;border:1px solid var(--line);border-radius:7px}
+#plannerGridTable:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+#plannerGridTable table{width:max-content;min-width:100%;white-space:normal;text-align:left}
+#plannerGridTable th,#plannerGridTable td{vertical-align:top;padding:12px 14px;line-height:1.6;overflow-wrap:normal}
+#plannerGridTable th{background:#edf0e7;white-space:normal}
+#plannerGridTable th:first-child,#plannerGridTable td:first-child{position:sticky;left:0;z-index:1;min-width:168px;max-width:168px;background:var(--bg);border-right:1px solid var(--line)}
+#plannerGridTable th:first-child{background:#edf0e7;z-index:2}
+#plannerGridTable th:nth-child(2),#plannerGridTable td:nth-child(2){min-width:180px;max-width:220px}
+#plannerGridTable th:nth-child(3),#plannerGridTable td:nth-child(3){min-width:250px;max-width:280px}
+#plannerGridTable th:nth-child(4),#plannerGridTable td:nth-child(4){min-width:200px}
+#plannerGridTable th:nth-child(5),#plannerGridTable td:nth-child(5){min-width:80px}
+#plannerGridTable th:nth-child(6),#plannerGridTable td:nth-child(6){min-width:120px}
+#plannerGridTable th:nth-child(7),#plannerGridTable td:nth-child(7){min-width:140px}
+#plannerGridTable th:nth-child(8),#plannerGridTable td:nth-child(8),#plannerGridTable th:nth-child(9),#plannerGridTable td:nth-child(9){min-width:180px}
+#plannerGridTable th:nth-child(10),#plannerGridTable td:nth-child(10){min-width:210px;max-width:230px}
+#plannerGridTable th:nth-child(11),#plannerGridTable td:nth-child(11){min-width:190px;max-width:230px}
+#plannerGridTable .grid-cell-identity button,#plannerGridTable .grid-cell-identity small{display:block;margin-top:8px}
+#plannerGridTable .grid-cell-identity button{font-size:10px;padding:7px 9px}
+#plannerGridTable .grid-cell-identity small{font-size:10px;color:var(--muted)}
+#plannerGridTable .grid-cell-status details{margin-top:7px;max-width:190px;white-space:normal}
+#plannerGridTable .grid-cell-status details summary{font-size:10px;color:var(--teal)}
+#plannerGridTable .grid-cell-status details p{font-size:10px;white-space:normal;overflow-wrap:anywhere}
+@media(max-width:720px){
+  #plannerGridStudy>.section-top{gap:12px}
+  #plannerGridStudy>.section-top>div{flex-basis:100%}
+  #plannerGridSummary dl{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  #plannerGridTable th:first-child,#plannerGridTable td:first-child{min-width:150px;max-width:150px}
+}
