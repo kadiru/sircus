@@ -6,6 +6,39 @@ for the **current fixed ball**. It uses the corrected native MuJoCo/mjlab
 sampled common-home/local path admission. Historical studies remain unchanged.
 The experiment uses privileged scene geometry and prescribed held arm endpoints.
 
+## Completed frozen v1 result
+
+All six workers completed. The [checksummed compact evidence bundle](../../baselines/mjlab-sweep-rl-benchmark-20261103/README.md)
+contains the frozen contract/report, independent audit, split/prior definitions,
+per-seed and aggregate CSVs, source manifests and all six selected artifacts.
+The full audit passed **902,252 checks**, covering **7,440 requests / 3,738 native
+releases**; the separately quarantined 50 engineering controls are not included.
+
+| Method | Spent TRAIN requests / native releases | Selected budgets, seeds 20261311/12/13 | Frozen formal test successes / requests |
+|---|---:|---|---:|
+| Guided sweep | 3,072 / 1,385 | 0 / 0 / 0 | 67/216 (31.0%) |
+| Residual PPO | 3,072 / 1,641 | 256 / 1,024 / 0 | 58/216 (26.9%) |
+
+Every method/seed spent 1,024 requests, including rejects, regardless of the
+earlier checkpoint selected. Native totals by split are 3,026 TRAIN, 496
+validation and 216 test. Each frozen test worker released 36/72 natively; its 36
+rejected requests remain failures. All methods used the same current ball and
+17-recipe historical warm start. Sweep selection retained its zero-budget prior
+in all seeds; these results do not demonstrate improved performance from added
+sweep samples. All three selected sweep archives have empty learned libraries
+and the same zero-residual prior predictor; their different test counts reflect
+native execution variability, not different learned solutions. PPO selected three
+different budgets. This pilot does not demonstrate a consistent learning gain,
+and does not establish an ordinary capture/adaptation ranking under the
+contact-sensitive formal metric.
+
+The first full-audit attempt failed in summary assembly because a native-count
+keyword was supplied twice. Only the auditor summary was corrected in a separate
+source snapshot, then the full audit was rerun and passed. Executed training and
+evaluation sources, evidence bytes, formal labels, selections and original
+manifests were unchanged. The new result server binds the corrected passed audit;
+it does not erase the failed original audit or restart its earlier result server.
+
 ## Shared starting information and action family
 
 Both methods receive the same 17 audited recipes from the completed
@@ -129,7 +162,7 @@ explains that soft contact can produce penetration. Such overlap alone does not
 establish escape from the bucket. Compiled collision geometry and solver contact
 distances still need independent calibration to separate their contributions.
 
-The running protocol remains frozen. Its labels are reproducible **strict
+The completed protocol remains frozen. Its labels are reproducible **strict
 geometric one-second containment**, but should not yet rank ordinary capture
 performance or material-adaptation speed. No tolerance or historical label is
 changed to recover these failures. A corrected benchmark needs a separately
@@ -164,8 +197,32 @@ reproduces six selected failures without changing their scores or using test dat
 - Algorithm checkpoints and raw audit-data storage are distinct costs. The saved
   PPO artifact includes actor, critic and optimizer state; its file size is not
   an actor-only deployment footprint.
-- `query_s` measures prediction only. It excludes artifact loading and subsequent
-  IK, path and native admission, so it is not end-to-end shot latency.
+- `query_s` is the total cohort prediction/preparation loop: source-anchor lookup,
+  observation generation, one base prediction per layout, metadata and construction
+  of all three perturbed requests. Final testing has 24 base layouts / 72 requests.
+  Artifact loading occurs before this timer; evidence-file writing and subsequent
+  IK/path/native admission and simulation occur afterward. It is neither isolated
+  per-query inference latency nor end-to-end shot latency. The compact CSV's
+  `frozen_query_mean_s_per_layout` is this cohort total divided by 24, not a
+  separately instrumented actor-call timing.
+
+Completed-worker costs below are three-seed mean ± sample SD, read from
+[`aggregate-final.csv`](../../baselines/mjlab-sweep-rl-benchmark-20261103/aggregate-final.csv).
+They are descriptive measurements on the shared host, not hardware-independent
+algorithm costs. Reservation includes evaluation; setup/TRAIN wall and CPU do not.
+
+| Per-worker measurement | Guided sweep | Residual PPO |
+|---|---:|---:|
+| Setup + TRAIN wall (s) | 2,097.0 ± 62.2 | 2,099.6 ± 56.9 |
+| Setup + TRAIN process CPU (s) | 3,111.6 ± 94.1 | 3,123.6 ± 89.1 |
+| Full exclusive GPU reservation wall (s) | 3,134.6 ± 66.8 | 3,129.5 ± 75.0 |
+| Lifetime peak RSS (MiB) | 1,628.4 ± 5.3 | 1,738.4 ± 0.6 |
+| Lifetime sampled process VRAM peak (MiB) | 762.0 ± 0.0 | 762.0 ± 0.0 |
+
+The three sweep artifacts are 8,504 bytes each; the PPO artifacts are 135,965,
+135,965 and 45,825 bytes (seed order above). PPO's zero-budget checkpoint has no
+populated optimizer history. These saved-file sizes are not actor-only inference
+footprints and exclude raw traces, other milestones and per-update histories.
 
 Workers run sequentially with alternating method order across seeds. Every worker
 uses the same batch-32 native environment, fresh process/caches and two CPU threads.
@@ -194,6 +251,11 @@ The new panel shows capture-rate curves, training time, per-seed resources,
 counts, hashes and CSV. Its ordinary solver route stays unchanged. A missing
 measurement remains unknown. No physical dashboard, Viam/cloud configuration,
 audio, camera, soft ball or deformable gripper is commissioned here.
+
+The completed result view is a **new** server at
+[`http://127.0.0.1:18789/#sweepRlBenchmark`](http://127.0.0.1:18789/#sweepRlBenchmark),
+bound to the passed corrected audit. The original 18788 server and its failed
+original-audit binding were left untouched, along with all earlier services.
 
 The first point appears after setup and initial validation finish. Before then,
 the last published worker phase can lag CPU anchor/path preparation even after

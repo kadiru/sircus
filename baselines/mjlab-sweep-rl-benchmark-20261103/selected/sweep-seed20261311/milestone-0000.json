@@ -1,0 +1,399 @@
+{
+  "contract_fingerprint": "ca781af94c6bb0fd44c8f15b88d72b4784be16dd258294785ac6338c1a4ee541",
+  "method": "sweep",
+  "seed": 20261311,
+  "samples": 0,
+  "state": {
+    "version": "sircus-guided-residual-sweep-v1",
+    "seed": 20261311,
+    "train": [
+      {
+        "id": "dev-grid-00-00",
+        "row": 0,
+        "column": 0,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.1,
+          -0.65
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-00-01",
+        "row": 0,
+        "column": 1,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.29,
+          -0.65
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-00-02",
+        "row": 0,
+        "column": 2,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.48,
+          -0.65
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-00-03",
+        "row": 0,
+        "column": 3,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.6699999999999999,
+          -0.65
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-00-04",
+        "row": 0,
+        "column": 4,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.8599999999999999,
+          -0.65
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-00-05",
+        "row": 0,
+        "column": 5,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          1.0499999999999998,
+          -0.65
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-00-06",
+        "row": 0,
+        "column": 6,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          1.24,
+          -0.65
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-01-00",
+        "row": 1,
+        "column": 0,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.1,
+          -0.42500000000000004
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-01-01",
+        "row": 1,
+        "column": 1,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.29,
+          -0.42500000000000004
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-01-02",
+        "row": 1,
+        "column": 2,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.48,
+          -0.42500000000000004
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-01-03",
+        "row": 1,
+        "column": 3,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.6699999999999999,
+          -0.42500000000000004
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-01-04",
+        "row": 1,
+        "column": 4,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.8599999999999999,
+          -0.42500000000000004
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-01-05",
+        "row": 1,
+        "column": 5,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          1.0499999999999998,
+          -0.42500000000000004
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-01-06",
+        "row": 1,
+        "column": 6,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          1.24,
+          -0.42500000000000004
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-02-00",
+        "row": 2,
+        "column": 0,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.1,
+          -0.2
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-02-01",
+        "row": 2,
+        "column": 1,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.29,
+          -0.2
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-02-02",
+        "row": 2,
+        "column": 2,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.48,
+          -0.2
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-02-03",
+        "row": 2,
+        "column": 3,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.6699999999999999,
+          -0.2
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-02-04",
+        "row": 2,
+        "column": 4,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.8599999999999999,
+          -0.2
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-02-05",
+        "row": 2,
+        "column": 5,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          1.0499999999999998,
+          -0.2
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-02-06",
+        "row": 2,
+        "column": 6,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          1.24,
+          -0.2
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-03-00",
+        "row": 3,
+        "column": 0,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.1,
+          0.025000000000000022
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-03-01",
+        "row": 3,
+        "column": 1,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.29,
+          0.025000000000000022
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-03-02",
+        "row": 3,
+        "column": 2,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.48,
+          0.025000000000000022
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-03-03",
+        "row": 3,
+        "column": 3,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.6699999999999999,
+          0.025000000000000022
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-03-04",
+        "row": 3,
+        "column": 4,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.8599999999999999,
+          0.025000000000000022
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-03-05",
+        "row": 3,
+        "column": 5,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          1.0499999999999998,
+          0.025000000000000022
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-03-06",
+        "row": 3,
+        "column": 6,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          1.24,
+          0.025000000000000022
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-04-00",
+        "row": 4,
+        "column": 0,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.1,
+          0.25
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-04-01",
+        "row": 4,
+        "column": 1,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.29,
+          0.25
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-04-02",
+        "row": 4,
+        "column": 2,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.48,
+          0.25
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-04-03",
+        "row": 4,
+        "column": 3,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.6699999999999999,
+          0.25
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-04-04",
+        "row": 4,
+        "column": 4,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.8599999999999999,
+          0.25
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-04-05",
+        "row": 4,
+        "column": 5,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          1.0499999999999998,
+          0.25
+        ],
+        "split": "train"
+      },
+      {
+        "id": "dev-grid-04-06",
+        "row": 4,
+        "column": 6,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          1.24,
+          0.25
+        ],
+        "split": "train"
+      }
+    ],
+    "counts": {},
+    "best": {}
+  }
+}

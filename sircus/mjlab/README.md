@@ -1,6 +1,19 @@
 # Sircus in mjlab
 
-New opt-in [conditional gap-window/SAC experiment](WINDOW_STUDY.md): one fixed
+The [matched current-ball sweep/PPO benchmark](SWEEP_RL_BENCHMARK.md) completed
+all six workers. Each method/seed spent 1,024 TRAIN requests from the same
+17-recipe prior; frozen formal test scores are sweep **67/216 (31.0%)** and PPO
+**58/216 (26.9%)**. The strict 1 µm wall predicate is contact-sensitive, so these
+results do not establish an ordinary capture or adaptation winner. The
+[checksummed evidence and six selected artifacts](../../baselines/mjlab-sweep-rl-benchmark-20261103/README.md)
+passed the corrected 902,252-check audit: 7,440 total requests / 3,738 native
+releases. Setup + TRAIN wall averaged about 35 minutes per worker for either
+method; full reservation averaged about 52 minutes and sampled VRAM 762 MiB.
+The new [read-only result view](http://127.0.0.1:18789/#sweepRlBenchmark) is separate
+from existing services; no policy was activated. Contact calibration and a
+versioned scorer/reward/contract are required before the next comparative study.
+
+Earlier opt-in [conditional gap-window/SAC experiment](WINDOW_STUDY.md): one fixed
 development bucket, 24/6/8 disjoint height/tilt contexts and equal1,008-request
 training budgets. It compares adaptive search plus a supervised capture predictor
 with terminal continuous SAC, preserving rejected requests and frozen evaluation.

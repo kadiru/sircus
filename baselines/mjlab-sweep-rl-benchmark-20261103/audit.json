@@ -1,0 +1,230 @@
+{
+  "version": "sircus-sweep-residual-ppo-independent-audit-v1",
+  "status": "passed",
+  "checks": 902252,
+  "failures": [],
+  "contract_fingerprint": "ca781af94c6bb0fd44c8f15b88d72b4784be16dd258294785ac6338c1a4ee541",
+  "report_sha256": "b9a9f86c6be8649b04581310b2832877399c0fd095a82339be4ab9864f92dcec",
+  "report_fingerprint": "b7b178538275213350de7a2b6af60c7537b7ee4ca4b6c5be0a378d78b58730ab",
+  "study_manifest_sha256": "0181b0e277a1f23b33b20129ad56426c0a4287aab3c2d1b14f7205b6d4e76ff4",
+  "auditor_sha256": "3c66930551d675db092a2a23e43bdfe0e9587a4f3e739cb10dfd283a95ca961e",
+  "source_sha256": {
+    "sircus/mjlab/contact_env.py": "04655f30a1b216c037573a0b5e177e6209097026f930fc6efc6dfef289abc3da",
+    "sircus/mjlab/contact_model.py": "b2d522d07dd2e3bffa724feb68593b3fef17033b5274587ef9d130e5c40aa24f",
+    "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+    "sircus/mjlab/contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407",
+    "sircus/mjlab/learning_score.py": "e66b982c0e651c3a9f5855dd03efb87488cc924321aaf9cadb80d51bac2fe814",
+    "sircus/mjlab/corrected_geometry.py": "50a4a353d94cceb1fbb0216a40588c997034a121e554f3f84f530d7d47c470be",
+    "sircus/mjlab/stable_geometry.py": "2e00b5fc46d1b253b5c85b6823c781a37e26f5819b35586a8cc112b057ebaebf",
+    "sircus/mjlab/stable_ik.py": "efd52c5e837339662c99c196e1a3cf4b5b260eecb7888258779030c459944e07",
+    "sircus/mjlab/expanded_actions.py": "d41817aa7ad4206139925256ab0cdf5288853e621d6b39824c10ad2d309679c3",
+    "sircus/mjlab/bank_geometry.py": "5c0d6775582c5524a323f1e9344c35317e8352e9f1f813f5dd0794c05de743f5",
+    "sircus/mjlab/bank_study.py": "7699faeff915a772f3e838983ff1c8dec7721f2d55c79a594e185cd9e08e7dcb",
+    "sircus/mjlab/transit_audit.py": "4400285187eebf3b1c7073a78ab74c94cbead88d52ffc5366e0258d2376f8c96",
+    "sircus/mjlab/admission.py": "2dbc5776113f8afb0ea74e23d0c3a2542fd0223d94a6818aec8de4865d302d82",
+    "sircus/mjlab/learning_env.py": "58d2f58be0e1981a5efd09e872bdea7d8f608e1fa21b5c87986505a20a4a4f8c",
+    "sircus/mjlab/learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+    "sircus/mjlab/learning_reach.py": "8eea1d565e9faefff0622a9e9a4666eb8d811ac086a8a6711caa8efa3029e9a4",
+    "sircus/mjlab/learning_contract.py": "9f2c44b76297f4ef7009c1b0107be983d0511d5654cb68b8e344dd316ed1fda8",
+    "sircus/mjlab/run.py": "969db2710378345aad34a6f802e33d6ea62488d75e560b9da5738bc0748c3dee",
+    "sircus/mjlab/corrected_contract.py": "9800404859a7ae2b2934c26ca448be4a69ae90e481069da72732973b1d907ba2",
+    "sircus/mjlab/corrected_admission.py": "3d42913fc2a9599b0e5063bfc4ee0a03f003b4ba853338e407c8a3d82de3d64a",
+    "sircus/mjlab/gpu_slot.py": "fcace6029058a9892296507358ee196b9b5296dc4287a07bedc786e3af4cad4a",
+    "sircus/mjlab/expand_geometry.py": "0b7982c3494b7cb7f799e073e3a7b788cca77617af0e9f509a4b7e273d926739",
+    "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+    "sircus/isaac/rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+    "sircus/isaac/entry_quality.py": "2f3d8b73c871a41afc3c8f333f5df1d54fa8751720855ffff517e729217db9d4",
+    "sircus/isaac/board_route.py": "6409889aed6b0fd6a288eb9494b954ec5c3233ec41fdcf146940fc23276fb2e9",
+    "sircus/mjlab/sweep_worker.py": "6150969a6f442e3b899d878671a4daf08cd90c61f0abf96494d418316e0e7a5b",
+    "sircus/mjlab/sweep_contract.py": "2460d8e807f06ad4bfe491491d011a448eaedea57ef4c7e727a1b10a54409a0a",
+    "sircus/mjlab/benchmark_contract.py": "720394dafbdde1b56507a0abd6b64f82b29843037bce56e559f671995b62c63c",
+    "sircus/mjlab/benchmark_adapter.py": "85e3cee8b2714707772bb871f1a13f0f25bb8ce1f6c207a33c3f4efa946cf3c2",
+    "sircus/mjlab/benchmark_policy.py": "35cc605d17b7cdf02fcc1cf73b018bcefb98b172260a3a5ddc6856ac7d3779dc",
+    "sircus/mjlab/benchmark_resources.py": "4a535e1a1d91248d208dd44286c215439924a27e81b62ab7fce71284c94f14ba",
+    "sircus/mjlab/benchmark_run.py": "4c5c10efb2f42d8fa09198aa960796149b74f80915741b83f9463264409fd944",
+    "sircus/mjlab/benchmark_study.py": "f097258e6d30d84b4f0b862172cf1a443e404148b74a60e93699e096129bf8ad",
+    "sircus/mjlab/learning_policy.py": "5c37a248a0a44280f0f82fe3327973299ec6a4bbfccaaae9f750a898180c7792"
+  },
+  "prior_records_sha256": "c4c6da5d05f7a70d34efccf149c70f1b64aee0ae24f6d5f9c3f662dfda5a6f4b",
+  "prior_published_files": 23,
+  "requested_trials": 7440,
+  "native_releases": 3738,
+  "role_counts": {
+    "train": {
+      "attempts": 6144,
+      "captures": 2056,
+      "native_releases": 3026,
+      "invalid": 3118,
+      "clean": 727,
+      "mean_reward": 0.9575999630913072
+    },
+    "validation": {
+      "attempts": 864,
+      "captures": 359,
+      "native_releases": 496,
+      "invalid": 368,
+      "clean": 94,
+      "mean_reward": 1.4140432773238005
+    },
+    "test": {
+      "attempts": 432,
+      "captures": 125,
+      "native_releases": 216,
+      "invalid": 216,
+      "clean": 21,
+      "mean_reward": 0.7681958897679414
+    }
+  },
+  "controls": {
+    "requests": 50,
+    "native_releases": 48,
+    "used_for_training": false
+  },
+  "runs": [
+    {
+      "method": "ppo",
+      "seed": 20261311,
+      "requested": 1240,
+      "training_requests": 1024,
+      "provenance": {
+        "raw_rows": 1240,
+        "anchors": 39,
+        "local_paths": 661
+      },
+      "resources": {
+        "nvidia_samples": 2876,
+        "snapshots": 39
+      },
+      "native_releases": 661
+    },
+    {
+      "method": "ppo",
+      "seed": 20261312,
+      "requested": 1240,
+      "training_requests": 1024,
+      "provenance": {
+        "raw_rows": 1240,
+        "anchors": 39,
+        "local_paths": 665
+      },
+      "resources": {
+        "nvidia_samples": 2769,
+        "snapshots": 39
+      },
+      "native_releases": 665
+    },
+    {
+      "method": "ppo",
+      "seed": 20261313,
+      "requested": 1240,
+      "training_requests": 1024,
+      "provenance": {
+        "raw_rows": 1240,
+        "anchors": 39,
+        "local_paths": 673
+      },
+      "resources": {
+        "nvidia_samples": 2767,
+        "snapshots": 39
+      },
+      "native_releases": 673
+    },
+    {
+      "method": "sweep",
+      "seed": 20261311,
+      "requested": 1240,
+      "training_requests": 1024,
+      "provenance": {
+        "raw_rows": 1240,
+        "anchors": 39,
+        "local_paths": 563
+      },
+      "resources": {
+        "nvidia_samples": 2763,
+        "snapshots": 39
+      },
+      "native_releases": 584
+    },
+    {
+      "method": "sweep",
+      "seed": 20261312,
+      "requested": 1240,
+      "training_requests": 1024,
+      "provenance": {
+        "raw_rows": 1240,
+        "anchors": 39,
+        "local_paths": 568
+      },
+      "resources": {
+        "nvidia_samples": 2872,
+        "snapshots": 39
+      },
+      "native_releases": 586
+    },
+    {
+      "method": "sweep",
+      "seed": 20261313,
+      "requested": 1240,
+      "training_requests": 1024,
+      "provenance": {
+        "raw_rows": 1240,
+        "anchors": 39,
+        "local_paths": 539
+      },
+      "resources": {
+        "nvidia_samples": 2756,
+        "snapshots": 39
+      },
+      "native_releases": 569
+    }
+  ],
+  "maximum_numeric_error": {
+    "Shared global action lower bounds": 0.0,
+    "Shared global action upper bounds": 0.0,
+    "Shared restricted residual scales": 0.0,
+    "terminal reward": 0.0,
+    "continuous latent, not candidate index": 5.525655000226948e-08,
+    "unprojected command values": 0.0,
+    "realized requested geometry": 0.0,
+    "geometry-only observations": 0.0,
+    "Declared initial exploration": 0.0,
+    "observation buffer": 0.0,
+    "latent buffer": 0.0,
+    "behavior likelihood buffer": 0.0,
+    "native reward buffer": 2.3799684889524997e-07,
+    "behavior log probabilities": 2.86102294921875e-06,
+    "logstd": 0.0,
+    "actor.0.weight": 0.0,
+    "actor.0.bias": 0.0,
+    "actor.2.weight": 0.0,
+    "actor.2.bias": 0.0,
+    "actor.4.weight": 0.0,
+    "actor.4.bias": 0.0,
+    "critic.0.weight": 0.0,
+    "critic.0.bias": 0.0,
+    "critic.2.weight": 0.0,
+    "critic.2.bias": 0.0,
+    "critic.4.weight": 0.0,
+    "critic.4.bias": 0.0,
+    "mean_reward": 0.0,
+    "geometry-only inference inputs": 0.0,
+    "frozen direct actor inference": 5.960464477539063e-08,
+    "unsearched base action": 1.1887066619920006e-07,
+    "paired fixed placement noise": 0.0,
+    "closest_opening_distance_m": 2.7755575615628914e-17,
+    "max_retention_s": 0.0,
+    "minimum_mouth_clearance_mm": 1.1368683772161603e-13,
+    "geometry_s": 0.0,
+    "gpu_s": 0.0,
+    "independent TRAIN sweep action": 0.0
+  },
+  "elapsed_s": 75.04587295104284,
+  "scope": "Independent CPU identity/budget/split/source-prior checks, TRAIN-only sweep replay, behavior likelihoods and actual Adam/PPO update replay, frozen direct-inference reconstruction, scalar rescoring of every saved native trajectory, and resource-observation consistency. No new physics rollout.",
+  "limitations": [
+    "Source-bound recorded endpoint/common-home/local-path proofs checked; geometry was not independently rerun.",
+    "NVIDIA VRAM is a sampled process peak. PyTorch allocator peaks are separate. Process CPU time excludes external telemetry subprocess cost.",
+    "Training/setup wall time excludes evaluation; lazy native initialization is recorded separately. Reservation time includes evaluation.",
+    "Stored engineering-control report is source-bound; its raw trajectories are kept separately from this benchmark.",
+    "Current fixed-ball, geometry-observation, restricted residual shot selection with held endpoints; no grasp, driven motion, compliance or physical validation."
+  ]
+}

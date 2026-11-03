@@ -237,7 +237,7 @@ test('benchmark panel is additive and cannot start training or move the existing
   assert.ok(html.includes('not end-to-end shot latency'));
   assert.ok(html.includes('actor, critic and optimizer state'));
   assert.ok(html.includes('not an actor-only deployment footprint'));
-  assert.ok(js.includes("'Prediction time only'"));
+  assert.ok(js.includes("'24-layout prediction + preparation'"));
   const show = js.slice(js.indexOf('function showSweepRlBenchmark'), js.indexOf("$('play').onclick"));
   assert.ok(!show.includes('/api/solve') && !show.includes('POST') && !show.includes('applyResult('));
   assert.ok(js.includes('showSweepRlBenchmark();')); assert.ok(js.includes('sweep_rl_error'));
