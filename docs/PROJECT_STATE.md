@@ -1,5 +1,58 @@
 # Project state
 
+## Completed expanded 35-position planner study — November 3, 2026
+
+- [Final settings, source-matched rates and compact evidence](../baselines/mjlab-grid35-expanded-20261103/README.md):
+  **17 selected targets, 12 unresolved, 6 clearance-admission blockers**. Parent
+  and diversified follow-up both completed and passed independent audits
+  (66,373 and 74,791 checks; overlapping check sets are not additive evidence).
+- The parent selected 17 recipes; separate frozen repeats scored 51/51 nominal and
+  495/510 perturbed. One recipe scored 22/30. The follow-up changed that target's
+  board XY/bearing and joint branches; its selected replacement scored 3/3 and
+  28/30, all clean. Height, tilt and gap were essentially unchanged, and seeds
+  differ: this is an observed new-configuration result, not causal attribution.
+- The current bank retains 16 exact parent recipes plus the replacement. Its
+  individual recorded frozen rates are 28–30/30; ten are 30/30. These source-matched
+  stored cohorts are not a fresh common-bank evaluation or learned-policy rate.
+- The follow-up checked all 13,312 proposals at 13 unblocked targets. Only 101 of
+  6,656 broad/inverse proposals passed endpoint/clearance admission; all101 reached
+  native physics. Another 1,563 native search requests were local proposals. The
+  prefix bias was corrected; finite reach, clearance, path and flight coverage
+  remain limits. Six blockers record unproven clearance, not negative penetration.
+- Together the distinct stages requested 4,243 shots and released 4,234 natively:
+  2,944 search + 705 qualification + 594 frozen requests. Nine rejected qualification
+  requests remain in denominators. Do not pool those roles into a performance rate.
+- Both workers and the continuation exited. The separate 18787 results view
+  provides all 35 rows, full-precision CSV and read-only saved-shot replay. Original
+  18786/18781 services and the 4070 workload were preserved. No physical/Viam/audio
+  action, new RL, automatic recipe-catalogue update or policy deployment occurred.
+
+### Preserved method and integration boundary
+
+- [Protocol and reproduction](../sircus/mjlab/GRID_STUDY.md): run all 35 distinct
+  bucket targets, freshly confirm saved settings, then expand unresolved cells
+  with local gap/height/tilt/radius/bearing sweeps and broad proposals. Historical
+  captured geometries are warm starts only; current native checks supply labels.
+- Baseline budgets are 64 CPU proposals / 16 native search requests, expanded to
+  1,024 / 128 where unresolved. Up to 3 / 6 captured candidates receive the
+  unchanged strict geometry, common-home paths and 3 + 20 qualification trials.
+- Freeze all selected recipes before a separate 3 nominal + 30 perturbed repeat
+  set per selected cell. No fallback selection from final validation outcomes.
+  Qualification, final repeats and saved historical evidence remain separate.
+- A separate loopback results view on 18787 shows all table settings, counts,
+  explicit missing/blocked states, CSV and read-only native-data replay. The
+  original planner on 18786 and other simulation services are preserved. The
+  completed 4090 results are bound to their source/scene identities and audits.
+  No new RL or physical deployment.
+- An independent sampling audit found the first expanded cell spent all 128
+  native slots on local refinements before any broad sample was executed.
+  The [additive diversified follow-up](../sircus/mjlab/GRID_STUDY.md) corrects this:
+  audit all 1,024 proposals before choosing up to 128 eligible native attempts,
+  with a 64-slot broad/inverse quota and normalized geometric diversity. It
+  requires a completed, audited parent; archived outcomes never count as new
+  trials. The original parent remains unchanged. Only new selections get
+  new frozen repeats; inherited rates remain separately labeled.
+
 ## Sweep planner implementation checkpoint — November 2, 2026
 
 - [Independent simulation sweep planner](../sircus/mjlab/SWEEP_PLANNER.md) accepts

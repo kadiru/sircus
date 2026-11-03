@@ -1,0 +1,4559 @@
+{
+  "version": "sircus-sweep-grid35-development-v1",
+  "status": "completed",
+  "started_at": "2026-11-03T06:45:39.295792+00:00",
+  "updated_at": "2026-11-03T09:16:35.716462+00:00",
+  "identity": {
+    "contract_fingerprint": "8edba8a3349aa8bcb4c06b97f3f61a302684856513b0ac972cf849afd3f4f037",
+    "scene_sha256": "9a50295d9908be8634c2df1c0b460ec6011710cf8e14ce33cbc67a75749ff1c8",
+    "asset_sha256": {
+      "assets/board_arm.urdf": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340",
+      "assets/dropper.urdf": "3f40e56e46b040fb3339c1235ea85872f46511c45db2d37f7661db94a470bae3",
+      "assets/poses.json": "5847c2793606860a82cc74030c3fe529767318f189c5d48e3d66c0dc7b9f776a",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link1.stl": "4069840361c2693b5b1147da366d5ba8a49ff7ab2c52fed68e07e04e07786e3f",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link2.stl": "0e736a629e6000c3c912f5aaf76937f824f510ac8894db67bd0d7f1d6210fc52",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link3.stl": "f682201345117c4b021fd9db21bd9bef6824886c8324f046b7d5772d7c9fa426",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link4.stl": "7bf4ab507c07a2b26e6a8528decdfe32d71efffdf1dd391406f1ce2f9ff4caa7",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link5.stl": "103955f097086e0f5d46380ff89bc7ef669877bb65def38431a18fc5343e1ba0",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link6.stl": "86b95b77850f38ff1437284705a1c8c616e3da21faef72e4f06751fc741de3b3",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link_base.stl": "871d501d23e8164440656331ee0e005d859dbdb7fab1c3725bef423adac9cf0e"
+    },
+    "source_sha256": {
+      "sircus/mjlab/contact_env.py": "04655f30a1b216c037573a0b5e177e6209097026f930fc6efc6dfef289abc3da",
+      "sircus/mjlab/contact_model.py": "b2d522d07dd2e3bffa724feb68593b3fef17033b5274587ef9d130e5c40aa24f",
+      "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+      "sircus/mjlab/contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407",
+      "sircus/mjlab/learning_score.py": "e66b982c0e651c3a9f5855dd03efb87488cc924321aaf9cadb80d51bac2fe814",
+      "sircus/mjlab/corrected_geometry.py": "50a4a353d94cceb1fbb0216a40588c997034a121e554f3f84f530d7d47c470be",
+      "sircus/mjlab/stable_geometry.py": "2e00b5fc46d1b253b5c85b6823c781a37e26f5819b35586a8cc112b057ebaebf",
+      "sircus/mjlab/stable_ik.py": "efd52c5e837339662c99c196e1a3cf4b5b260eecb7888258779030c459944e07",
+      "sircus/mjlab/expanded_actions.py": "d41817aa7ad4206139925256ab0cdf5288853e621d6b39824c10ad2d309679c3",
+      "sircus/mjlab/bank_geometry.py": "5c0d6775582c5524a323f1e9344c35317e8352e9f1f813f5dd0794c05de743f5",
+      "sircus/mjlab/bank_study.py": "7699faeff915a772f3e838983ff1c8dec7721f2d55c79a594e185cd9e08e7dcb",
+      "sircus/mjlab/transit_audit.py": "4400285187eebf3b1c7073a78ab74c94cbead88d52ffc5366e0258d2376f8c96",
+      "sircus/mjlab/admission.py": "2dbc5776113f8afb0ea74e23d0c3a2542fd0223d94a6818aec8de4865d302d82",
+      "sircus/mjlab/learning_env.py": "58d2f58be0e1981a5efd09e872bdea7d8f608e1fa21b5c87986505a20a4a4f8c",
+      "sircus/mjlab/learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+      "sircus/mjlab/learning_reach.py": "8eea1d565e9faefff0622a9e9a4666eb8d811ac086a8a6711caa8efa3029e9a4",
+      "sircus/mjlab/learning_contract.py": "9f2c44b76297f4ef7009c1b0107be983d0511d5654cb68b8e344dd316ed1fda8",
+      "sircus/mjlab/run.py": "969db2710378345aad34a6f802e33d6ea62488d75e560b9da5738bc0748c3dee",
+      "sircus/mjlab/corrected_contract.py": "9800404859a7ae2b2934c26ca448be4a69ae90e481069da72732973b1d907ba2",
+      "sircus/mjlab/corrected_admission.py": "3d42913fc2a9599b0e5063bfc4ee0a03f003b4ba853338e407c8a3d82de3d64a",
+      "sircus/mjlab/gpu_slot.py": "fcace6029058a9892296507358ee196b9b5296dc4287a07bedc786e3af4cad4a",
+      "sircus/mjlab/expand_geometry.py": "0b7982c3494b7cb7f799e073e3a7b788cca77617af0e9f509a4b7e273d926739",
+      "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+      "sircus/isaac/rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+      "sircus/isaac/entry_quality.py": "2f3d8b73c871a41afc3c8f333f5df1d54fa8751720855ffff517e729217db9d4",
+      "sircus/isaac/board_route.py": "6409889aed6b0fd6a288eb9494b954ec5c3233ec41fdcf146940fc23276fb2e9",
+      "sircus/mjlab/sweep_worker.py": "6150969a6f442e3b899d878671a4daf08cd90c61f0abf96494d418316e0e7a5b",
+      "sircus/mjlab/sweep_contract.py": "2460d8e807f06ad4bfe491491d011a448eaedea57ef4c7e727a1b10a54409a0a",
+      "sircus/mjlab/grid_study.py": "e358b728cd450fb2cd6f7444bbc8d3f5c3cf968da5412372c5f523bbb12249fe",
+      "sircus/mjlab/grid_study_contract.py": "45b5c46a19d9db5bdead5b336dedd8222496a0fc3cf1f59d263fba745fbb0efe"
+    },
+    "physics": {
+      "version": "sircus-articulated-passive-contact-15360hz-v1",
+      "board_mode": "articulated",
+      "gravity_mode": "passive_only",
+      "substeps": 64,
+      "native_dt_s": 6.510416666666667e-05,
+      "scoring_dt_s": 0.004166666666666667,
+      "horizon_s": 4.0,
+      "solref": [
+        0.004,
+        0.15
+      ],
+      "contact_friction": 0.35,
+      "solver": "newton",
+      "solver_iterations": 100,
+      "solver_tolerance": 1e-08,
+      "cone": "pyramidal",
+      "integrator": "implicitfast",
+      "arm_control": "Prescribed joint endpoints reset before each native step; no learned grasp/transit/actuator dynamics",
+      "scorer": "Unchanged board rebound + whole sphere entry + continuous1s retention; external assistance disqualifies route; bucket rim assistance counts"
+    }
+  },
+  "protocol": {
+    "version": "sircus-grid35-expanded-sweep-v1",
+    "grid": [
+      {
+        "id": "dev-grid-00-00",
+        "row": 0,
+        "column": 0,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.1,
+          -0.65
+        ]
+      },
+      {
+        "id": "dev-grid-00-01",
+        "row": 0,
+        "column": 1,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.29,
+          -0.65
+        ]
+      },
+      {
+        "id": "dev-grid-00-02",
+        "row": 0,
+        "column": 2,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.48,
+          -0.65
+        ]
+      },
+      {
+        "id": "dev-grid-00-03",
+        "row": 0,
+        "column": 3,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.6699999999999999,
+          -0.65
+        ]
+      },
+      {
+        "id": "dev-grid-00-04",
+        "row": 0,
+        "column": 4,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.8599999999999999,
+          -0.65
+        ]
+      },
+      {
+        "id": "dev-grid-00-05",
+        "row": 0,
+        "column": 5,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          1.0499999999999998,
+          -0.65
+        ]
+      },
+      {
+        "id": "dev-grid-00-06",
+        "row": 0,
+        "column": 6,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          1.24,
+          -0.65
+        ]
+      },
+      {
+        "id": "dev-grid-01-00",
+        "row": 1,
+        "column": 0,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.1,
+          -0.42500000000000004
+        ]
+      },
+      {
+        "id": "dev-grid-01-01",
+        "row": 1,
+        "column": 1,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.29,
+          -0.42500000000000004
+        ]
+      },
+      {
+        "id": "dev-grid-01-02",
+        "row": 1,
+        "column": 2,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.48,
+          -0.42500000000000004
+        ]
+      },
+      {
+        "id": "dev-grid-01-03",
+        "row": 1,
+        "column": 3,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.6699999999999999,
+          -0.42500000000000004
+        ]
+      },
+      {
+        "id": "dev-grid-01-04",
+        "row": 1,
+        "column": 4,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.8599999999999999,
+          -0.42500000000000004
+        ]
+      },
+      {
+        "id": "dev-grid-01-05",
+        "row": 1,
+        "column": 5,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          1.0499999999999998,
+          -0.42500000000000004
+        ]
+      },
+      {
+        "id": "dev-grid-01-06",
+        "row": 1,
+        "column": 6,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          1.24,
+          -0.42500000000000004
+        ]
+      },
+      {
+        "id": "dev-grid-02-00",
+        "row": 2,
+        "column": 0,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.1,
+          -0.2
+        ]
+      },
+      {
+        "id": "dev-grid-02-01",
+        "row": 2,
+        "column": 1,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.29,
+          -0.2
+        ]
+      },
+      {
+        "id": "dev-grid-02-02",
+        "row": 2,
+        "column": 2,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.48,
+          -0.2
+        ]
+      },
+      {
+        "id": "dev-grid-02-03",
+        "row": 2,
+        "column": 3,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.6699999999999999,
+          -0.2
+        ]
+      },
+      {
+        "id": "dev-grid-02-04",
+        "row": 2,
+        "column": 4,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.8599999999999999,
+          -0.2
+        ]
+      },
+      {
+        "id": "dev-grid-02-05",
+        "row": 2,
+        "column": 5,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          1.0499999999999998,
+          -0.2
+        ]
+      },
+      {
+        "id": "dev-grid-02-06",
+        "row": 2,
+        "column": 6,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          1.24,
+          -0.2
+        ]
+      },
+      {
+        "id": "dev-grid-03-00",
+        "row": 3,
+        "column": 0,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.1,
+          0.025000000000000022
+        ]
+      },
+      {
+        "id": "dev-grid-03-01",
+        "row": 3,
+        "column": 1,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.29,
+          0.025000000000000022
+        ]
+      },
+      {
+        "id": "dev-grid-03-02",
+        "row": 3,
+        "column": 2,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.48,
+          0.025000000000000022
+        ]
+      },
+      {
+        "id": "dev-grid-03-03",
+        "row": 3,
+        "column": 3,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.6699999999999999,
+          0.025000000000000022
+        ]
+      },
+      {
+        "id": "dev-grid-03-04",
+        "row": 3,
+        "column": 4,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.8599999999999999,
+          0.025000000000000022
+        ]
+      },
+      {
+        "id": "dev-grid-03-05",
+        "row": 3,
+        "column": 5,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          1.0499999999999998,
+          0.025000000000000022
+        ]
+      },
+      {
+        "id": "dev-grid-03-06",
+        "row": 3,
+        "column": 6,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          1.24,
+          0.025000000000000022
+        ]
+      },
+      {
+        "id": "dev-grid-04-00",
+        "row": 4,
+        "column": 0,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.1,
+          0.25
+        ]
+      },
+      {
+        "id": "dev-grid-04-01",
+        "row": 4,
+        "column": 1,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.29,
+          0.25
+        ]
+      },
+      {
+        "id": "dev-grid-04-02",
+        "row": 4,
+        "column": 2,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.48,
+          0.25
+        ]
+      },
+      {
+        "id": "dev-grid-04-03",
+        "row": 4,
+        "column": 3,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.6699999999999999,
+          0.25
+        ]
+      },
+      {
+        "id": "dev-grid-04-04",
+        "row": 4,
+        "column": 4,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.8599999999999999,
+          0.25
+        ]
+      },
+      {
+        "id": "dev-grid-04-05",
+        "row": 4,
+        "column": 5,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          1.0499999999999998,
+          0.25
+        ]
+      },
+      {
+        "id": "dev-grid-04-06",
+        "row": 4,
+        "column": 6,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          1.24,
+          0.25
+        ]
+      }
+    ],
+    "stages": [
+      {
+        "name": "baseline",
+        "cpu_candidates": 64,
+        "native_budget": 16,
+        "confirmation_candidates": 3
+      },
+      {
+        "name": "expanded",
+        "cpu_candidates": 1024,
+        "native_budget": 128,
+        "confirmation_candidates": 6
+      }
+    ],
+    "action_order": [
+      "board_x_m",
+      "board_y_m",
+      "board_height_m",
+      "tilt_deg",
+      "gap_m"
+    ],
+    "bounds": {
+      "low": [
+        0.3,
+        -0.5,
+        0.12,
+        8.0,
+        0.05
+      ],
+      "high": [
+        1.04,
+        0.35,
+        0.6,
+        60.0,
+        0.65
+      ],
+      "version": "sircus-expanded-shot-actions-v1"
+    },
+    "qualification": {
+      "nominal": 3,
+      "fresh": 20,
+      "required_fresh": 18
+    },
+    "frozen_validation": {
+      "nominal": 3,
+      "fresh": 30,
+      "seed": 20361130,
+      "selection": "Freeze all selected settings before these trials; never select a fallback on their outcomes"
+    },
+    "perturbation_std": [
+      0.001,
+      0.001,
+      0.002,
+      0.35,
+      0.002
+    ],
+    "seed": 20261130,
+    "physics": {
+      "version": "sircus-articulated-passive-contact-15360hz-v1",
+      "board_mode": "articulated",
+      "gravity_mode": "passive_only",
+      "substeps": 64,
+      "native_dt_s": 6.510416666666667e-05,
+      "scoring_dt_s": 0.004166666666666667,
+      "horizon_s": 4.0,
+      "solref": [
+        0.004,
+        0.15
+      ],
+      "contact_friction": 0.35,
+      "solver": "newton",
+      "solver_iterations": 100,
+      "solver_tolerance": 1e-08,
+      "cone": "pyramidal",
+      "integrator": "implicitfast",
+      "arm_control": "Prescribed joint endpoints reset before each native step; no learned grasp/transit/actuator dynamics",
+      "scorer": "Unchanged board rebound + whole sphere entry + continuous1s retention; external assistance disqualifies route; bucket rim assistance counts"
+    },
+    "staging": "Unchanged fixed common home; failed home/placement geometry is explicit",
+    "scope": "Development search and repeatability, not RL inference or held-out spatial generalization"
+  },
+  "cells": [
+    {
+      "id": "dev-grid-00-00",
+      "bucket_xy_m": [
+        0.1,
+        -0.65
+      ],
+      "row": 0,
+      "column": 0,
+      "status": "unresolved",
+      "stage": "expanded",
+      "search": {
+        "cpu_candidates": 224,
+        "rejected": 69,
+        "native_requests": 130,
+        "confirmation_requests": 0,
+        "captures": 0
+      },
+      "selected": null,
+      "nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "scope": "Unknown repeat quality breakdown"
+      },
+      "reason": "No qualified setting in this finite stage; inspect geometry, native outcomes and candidate-specific repeat records",
+      "result_url": null,
+      "frozen_validation": null,
+      "attempts": [
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-00-00-baseline",
+          "request_payload_sha256": "ef855aa77fd7d44b421373e4cbdee9fe56870f7b0bf405d12456fd687d3899bc",
+          "result_payload_sha256": "38b91dec04540a0ef635bf49f2081b5c4c2e9a44da991701f301c023bcf09269",
+          "request_sha256": null,
+          "result_sha256": "6df8f66b89ce85e4990fe52b23d052b85dcf02bcc3aabd1187b745ea807997c7",
+          "evidence_sha256": {
+            "home.json": "a4c9bc11413e83d5aed752d2876282d6675a244f59e9a6c5e91c23cdc003fe19",
+            "result.json": "6df8f66b89ce85e4990fe52b23d052b85dcf02bcc3aabd1187b745ea807997c7",
+            "shots.jsonl": "c65af35d1e6e1fca1ee72925a890ad36725257381a8830266ee8b7481590a3bc",
+            "geometry.json": "43743f85b8a5fe4bf1205778dc5a41c159b0a5e13d69b72ba6f5ed578fb8c022",
+            "native-0000.npz": "0cbb6367463ee55150ccc5a898219de8bf9e96cb72f8ea0a158707133412eb5a",
+            "proposals.json": "a44de4313c35fee4865014dc92e0b90f58b3c3c1d9a434628f9466a1815f6a9e",
+            "request.json": "3a0de773815f68c3f42b1a518caa7d6ddee80f3a002723f2650778d54202f675"
+          },
+          "native_request_sha256": "392833ad0fa09ffa74665b8362ba982c1c2998ae685ee6857967b51595fc6ab8",
+          "saved_evidence": false,
+          "status_native": "no_verified_solution_within_budget",
+          "success": false
+        },
+        {
+          "stage": "expanded",
+          "request_id": "dev-grid-00-00-expanded",
+          "request_payload_sha256": "f61df6bce766185ff203a4c6c5a2c9752e5be59dcb519b0529c6b5e138bfa7b7",
+          "result_payload_sha256": "a66a8abc7c23d45719c31480a4967d4a50bbfbc0c699a8ff3acdbffef85b96a3",
+          "request_sha256": null,
+          "result_sha256": "4b4ab7b69aa9ec896abcf601595709a5b4af1a8ebe6227f39e8c85a76e50aec0",
+          "evidence_sha256": {
+            "home.json": "a4c9bc11413e83d5aed752d2876282d6675a244f59e9a6c5e91c23cdc003fe19",
+            "result.json": "4b4ab7b69aa9ec896abcf601595709a5b4af1a8ebe6227f39e8c85a76e50aec0",
+            "shots.jsonl": "f2357c500d79ac3bce187e90b3219fe60331a01b25dbf76db451d2a4b3934aaf",
+            "native-0004.npz": "8a424783eddeabe3aa2f9b5a83801c107aa6f699a97719d936c5f6dc0a14d265",
+            "native-0003.npz": "82345ea0d166fbe09f9ea92fe962db539c47fd01d88d0237d6124a64edaae74e",
+            "geometry.json": "3b9445ebb9b7ad70c05fd1ac8ebde9083f07493bb386240e0d592f70c71f6589",
+            "native-0000.npz": "c4edbb278f4833f6038a430b51f701afaf25c0b3112248903a2e6faa5a6fcdd0",
+            "native-0001.npz": "8d161f958ec52bf0004b94bfdfb43d168ffe78ded45cdc3fc741b3af09a4fe3f",
+            "proposals.json": "bc184c8502073c8bfb81011e2c4d80679837cf74c30ef5881a08d4ff37a1a125",
+            "native-0002.npz": "f2f124e77d63352e8b8dc46a16f117ac1de76f866e48559cf8b10455cc023e89",
+            "request.json": "35a39dbe68436dacc37d63bf881f75e0e7a0e5166e424f03f15e8893f39c44de"
+          },
+          "native_request_sha256": "11b8ef2c4092b81ca92d128bb9f4bacbf40d25c760afcdeb90bf32bd0670160b",
+          "saved_evidence": false,
+          "status_native": "no_verified_solution_within_budget",
+          "success": false
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-00-01",
+      "bucket_xy_m": [
+        0.29,
+        -0.65
+      ],
+      "row": 0,
+      "column": 1,
+      "status": "verified_fresh",
+      "stage": "expanded",
+      "search": {
+        "cpu_candidates": 224,
+        "rejected": 77,
+        "native_requests": 135,
+        "confirmation_requests": 69,
+        "captures": 96
+      },
+      "selected": {
+        "board_center_m": [
+          0.535865068435669,
+          -0.23588967323303223,
+          0.2819211184978485
+        ],
+        "tilt_deg": 29.1559664461903,
+        "gap_m": 0.36537494722226627,
+        "release_ball_center_m": [
+          0.5358651777067402,
+          -0.23588975855944536,
+          0.6847961001021488
+        ],
+        "distance_m": 0.4815983748019931,
+        "source": "fresh_study",
+        "request_id": "dev-grid-00-01-expanded",
+        "configuration_sha256": "eed1779c752b33c208d0363fd1faf75caba45cbd4679d7e43928216f67d71c2f"
+      },
+      "nominal": {
+        "captures": 3,
+        "attempts": 3,
+        "rate": 1.0,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": 19,
+        "attempts": 20,
+        "rate": 0.95,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": 19,
+        "assisted": 0,
+        "cohort": "fresh",
+        "source": "fresh_study",
+        "scope": "Explicit recorded repeat cohort"
+      },
+      "reason": "Fresh study qualification passed",
+      "result_url": "/api/planner-grid/result/dev-grid-00-01",
+      "frozen_validation": {
+        "status": "completed",
+        "configuration_sha256": "eed1779c752b33c208d0363fd1faf75caba45cbd4679d7e43928216f67d71c2f",
+        "seed": 20361131,
+        "nominal": {
+          "captures": 3,
+          "attempts": 3,
+          "rate": 1.0,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "fresh": {
+          "captures": 30,
+          "attempts": 30,
+          "rate": 1.0,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "quality": {
+          "clean": 30,
+          "assisted": 0,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "scope": "Separate frozen recipe validation; no reselection from these outcomes"
+      },
+      "attempts": [
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-00-01-baseline",
+          "request_payload_sha256": "c0bca47a04a0fafb3c7e065a18b6bc0d36ef98291a53b50f6b54a1a87980450b",
+          "result_payload_sha256": "a394396b52b262d5618f72ddaa6fb466d12a9338a3526d9394953a3464b73798",
+          "request_sha256": null,
+          "result_sha256": "accbb557ddff22c521f8403dc31a3b3433907f03c185ee4d32d8b8c739302be1",
+          "evidence_sha256": {
+            "home.json": "a4c9bc11413e83d5aed752d2876282d6675a244f59e9a6c5e91c23cdc003fe19",
+            "result.json": "accbb557ddff22c521f8403dc31a3b3433907f03c185ee4d32d8b8c739302be1",
+            "qualification-001.json": "0c889bb03031f0385232a7e348103196f88d68881e5b56a4cb9e6cd874fb8754",
+            "shots.jsonl": "8c597eca27965e7ef63a7fae6c8e7e4ce5ad322fdec4562c29999dcfdf9218c7",
+            "native-0004.npz": "90bd30a6d0bed7efea71246aa6f98c5bd9a996c2eb2d25416eaeb1de641fa8ef",
+            "native-0003.npz": "7f82bf38d2f9d5916d8997335117029c2c49e5caf847b82649c099cde2c16ea5",
+            "geometry.json": "4023af2c2d66a6c5212fcacb5c71a86436c26034fae2e0d47781409d8887c326",
+            "qualification-000.json": "003ec705d827d961ca6f5614075304a7b1d21f193b8babaf6efb4f178e8ea81b",
+            "native-0005.npz": "43e3a4951a94f2ee0508cc100509d9e18d2282bd4d73d70d4fcf69391cdc5d89",
+            "native-0000.npz": "a28714eb6a742c0b3dee803de6cbd53cca6d6b20840dc32d75985c306d8490d9",
+            "native-0001.npz": "d185f6078e3fdf25a2d472254e6b417851afa777c0458d2211c577352a8f17fb",
+            "proposals.json": "7029872c0cd7f63d3ef219cd4c97b080efaffd98bf19016f42f286b993941007",
+            "native-0002.npz": "13b829b0df7eb2e40aa674b09762942149b877904df604caa0f83e251b598938",
+            "request.json": "7199104e5856f9426f1fd8d2cf464dc1e081123c9ae367515363f784180f9c30",
+            "qualification-002.json": "51f789d82cd0df3b6251941e56cc4034e635860e28275be6bc3ed8e7140c1003"
+          },
+          "native_request_sha256": "98ba4c6b27a7b2d61463ce55f994c6c5162eb381247e1ad8b59b95ed98ba4696",
+          "saved_evidence": false,
+          "status_native": "capture_found_confirmation_unresolved",
+          "success": false
+        },
+        {
+          "stage": "expanded",
+          "request_id": "dev-grid-00-01-expanded",
+          "request_payload_sha256": "53562125c2d6a64afee2d3a3121c141f35f3b8703ce13753874d97dbd6606e9e",
+          "result_payload_sha256": "44e393380a9a620bbc6923f1de8d754e846e1d20a9e04c840f90f996d4ca2e6c",
+          "request_sha256": null,
+          "result_sha256": "74f487c03869857f2601e1d38cddc0d3bb31fa731359091687da8d0eb96288ce",
+          "evidence_sha256": {
+            "native-0006.npz": "7ebb9c02fa4c5db62b3e05020043631efb58e64eb4d4f5d31f27069b431ea09e",
+            "home.json": "a4c9bc11413e83d5aed752d2876282d6675a244f59e9a6c5e91c23cdc003fe19",
+            "result.json": "74f487c03869857f2601e1d38cddc0d3bb31fa731359091687da8d0eb96288ce",
+            "shots.jsonl": "b55ab2f34c9f1042d23a40d8e139da7caca2f0229267c1152c529a5b9439d6d7",
+            "native-0004.npz": "dc17edb8c9c0a0c0467cadf81bccf0c8730eeea64001f7983d7eabe29e45e4b2",
+            "native-0003.npz": "d04e8b267b48cdea9496bb549f4e15a6f8a040d634ff985205c16b7bdfb3f0b6",
+            "geometry.json": "b2333f1fb4e81d59b70a1a51917588f89ef0d06cd842fd5a75210ec59e9b342d",
+            "qualification-000.json": "2ee6d108650847fa1a1c093b7a5e4012c1da306ca0a265e3c62e0339e6d3405c",
+            "native-0005.npz": "ee865d5862e2027cd3f4e17c2e50005b00d97c6006d7bd550dc0214c0ce4223b",
+            "native-0000.npz": "af81c79427d41d8fb7c2cf1747afb74f127814b8107c81493728043b031b2ea6",
+            "native-0001.npz": "914485d730588900a5e5b6ee1b870017355e252dbd000452f5829877bd5a56af",
+            "proposals.json": "044377e535337bf856b911e61d5d54cde42e629650e08b69267b8ffd5280b7ec",
+            "native-0002.npz": "21ea36d3a163d5989ca3cd250723a2eaf2cc4207bfd56c9b929560d42f8b8188",
+            "request.json": "fb701c279cf296a72d00b686a54da2b6bf6ac406065ffc9fb70dec3c1eb44464"
+          },
+          "native_request_sha256": "d31e97916f78d7768bec542bd69380151a524c7f59da684dbdd26b12339dfb47",
+          "saved_evidence": false,
+          "status_native": "verified_shot",
+          "success": true
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-00-02",
+      "bucket_xy_m": [
+        0.48,
+        -0.65
+      ],
+      "row": 0,
+      "column": 2,
+      "status": "verified_fresh",
+      "stage": "baseline",
+      "search": {
+        "cpu_candidates": 0,
+        "rejected": 0,
+        "native_requests": 0,
+        "confirmation_requests": 23,
+        "captures": 0
+      },
+      "selected": {
+        "board_center_m": [
+          0.6093376874923706,
+          -0.4443374276161194,
+          0.25668689608573914
+        ],
+        "tilt_deg": 37.21897657594422,
+        "gap_m": 0.19484428737039663,
+        "release_ball_center_m": [
+          0.6093377971368164,
+          -0.44433738363365904,
+          0.48903120111277915
+        ],
+        "distance_m": 0.24295129364839585,
+        "source": "fresh_study",
+        "request_id": "dev-grid-00-02-baseline",
+        "configuration_sha256": "02ac8242787f41962a7f42c0fafa5a77ac54ce98693582d87090f8f4c982e78e"
+      },
+      "nominal": {
+        "captures": 3,
+        "attempts": 3,
+        "rate": 1.0,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": 20,
+        "attempts": 20,
+        "rate": 1.0,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": 20,
+        "assisted": 0,
+        "cohort": "fresh",
+        "source": "fresh_study",
+        "scope": "Explicit recorded repeat cohort"
+      },
+      "reason": "Fresh study qualification passed",
+      "result_url": "/api/planner-grid/result/dev-grid-00-02",
+      "frozen_validation": {
+        "status": "completed",
+        "configuration_sha256": "02ac8242787f41962a7f42c0fafa5a77ac54ce98693582d87090f8f4c982e78e",
+        "seed": 20361132,
+        "nominal": {
+          "captures": 3,
+          "attempts": 3,
+          "rate": 1.0,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "fresh": {
+          "captures": 29,
+          "attempts": 30,
+          "rate": 0.9666666666666667,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "quality": {
+          "clean": 29,
+          "assisted": 0,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "scope": "Separate frozen recipe validation; no reselection from these outcomes"
+      },
+      "attempts": [
+        {
+          "stage": "saved_reference",
+          "request_id": "dev-grid-00-02-saved",
+          "request_payload_sha256": "883574d691abb3b32c00b0ffa25d62097cbfef6ff0485b604c27667975383f49",
+          "result_payload_sha256": "e3eca1ef571c2b6eefd25d361683393d9a435e1aa1152e6b4c6d167a0ab37e4e",
+          "request_sha256": null,
+          "result_sha256": "4e4b69a050644b3ecd23f7802b44783290be99217d4e403bc0af10be57629f36",
+          "evidence_sha256": {
+            "result.json": "4e4b69a050644b3ecd23f7802b44783290be99217d4e403bc0af10be57629f36",
+            "request.json": "1e91f4e91826cad04490d2f6e9f4483ce9e1db0975ea8fd966511daf0da6f2f0"
+          },
+          "native_request_sha256": "ed90c00cf9bd2fa7e4a6e1f8ffe3811a8b972700c256ac4c625c5f829b32ca0f",
+          "saved_evidence": true,
+          "status_native": "verified_shot",
+          "success": true
+        },
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-00-02-baseline",
+          "request_payload_sha256": "c141b4d9e4e7c324d5624d4d8cd9e1f772d38383bb74a5219f8db3778fcdbba1",
+          "result_payload_sha256": "1b5731071a7f95ed0d821c4f3cdd523656f82bf494536b57fbe59917b46a075e",
+          "request_sha256": null,
+          "result_sha256": "f87ca58366fb0e48ffe295178c86dc9f3e966b21b255ae930f35a7d022f2ba48",
+          "evidence_sha256": {
+            "result.json": "f87ca58366fb0e48ffe295178c86dc9f3e966b21b255ae930f35a7d022f2ba48",
+            "shots.jsonl": "687177dfecdb0a118cf59c1b63f62acdbb60d1932ca718eb2a75d426d878ae72",
+            "geometry.json": "a8c03383db1f3ddbbe29404254afa6e0f87664434591c68257dccd7e44ed87e5",
+            "qualification-000.json": "813cc2417493a5124d0f5757148b56a076af3a5c0ef4b946cc2a94eff20bacd6",
+            "native-0000.npz": "c7339c7a682edd6f496c63a71b0505d76192015c1a9b511a5d0a2b421d3b82ce",
+            "native-0001.npz": "38d4cf2ebf76fed9f69fe027c133a6c5f1218a92efe87f68d7f679aafb5db4ec",
+            "request.json": "3f5a6e53cff3faa83cbf5c375a0a8a5ac621edf8b0430c3c88087f3d602448dd"
+          },
+          "native_request_sha256": "52920d79a6f96708ec9db2ff2a5b96ddc5819675d601a302c57c498735690388",
+          "saved_evidence": false,
+          "status_native": "verified_shot",
+          "success": true
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-00-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.65
+      ],
+      "row": 0,
+      "column": 3,
+      "status": "verified_fresh",
+      "stage": "baseline",
+      "search": {
+        "cpu_candidates": 0,
+        "rejected": 0,
+        "native_requests": 0,
+        "confirmation_requests": 23,
+        "captures": 0
+      },
+      "selected": {
+        "board_center_m": [
+          0.6393200755119324,
+          -0.3517719805240631,
+          0.40906503796577454
+        ],
+        "tilt_deg": 32.749881784770345,
+        "gap_m": 0.1353410311538266,
+        "release_ball_center_m": [
+          0.6393201165766431,
+          -0.35177196585614784,
+          0.5819060632640587
+        ],
+        "distance_m": 0.29980195023904255,
+        "source": "fresh_study",
+        "request_id": "dev-grid-00-03-baseline",
+        "configuration_sha256": "bef50f889cdf19df9406cb795c386825e298b2eeb60c97cefa02b8f247f2fbdd"
+      },
+      "nominal": {
+        "captures": 3,
+        "attempts": 3,
+        "rate": 1.0,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": 19,
+        "attempts": 20,
+        "rate": 0.95,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": 0,
+        "assisted": 19,
+        "cohort": "fresh",
+        "source": "fresh_study",
+        "scope": "Explicit recorded repeat cohort"
+      },
+      "reason": "Fresh study qualification passed",
+      "result_url": "/api/planner-grid/result/dev-grid-00-03",
+      "frozen_validation": {
+        "status": "completed",
+        "configuration_sha256": "bef50f889cdf19df9406cb795c386825e298b2eeb60c97cefa02b8f247f2fbdd",
+        "seed": 20361133,
+        "nominal": {
+          "captures": 3,
+          "attempts": 3,
+          "rate": 1.0,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "fresh": {
+          "captures": 29,
+          "attempts": 30,
+          "rate": 0.9666666666666667,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "quality": {
+          "clean": 0,
+          "assisted": 29,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "scope": "Separate frozen recipe validation; no reselection from these outcomes"
+      },
+      "attempts": [
+        {
+          "stage": "saved_reference",
+          "request_id": "dev-grid-00-03-saved",
+          "request_payload_sha256": "1e019e4dda59e9f28d1ed7eec35497b4c17ca266f502b481298686f5700b3e3c",
+          "result_payload_sha256": "6b4c38acbbaf3abb1beaaca1d09751f3f7eea5505c64b799d6037c947048ef33",
+          "request_sha256": null,
+          "result_sha256": "4203f7e20284357b1cce7bb5eedd436f347d9775863a94920073e9625e2f9265",
+          "evidence_sha256": {
+            "result.json": "4203f7e20284357b1cce7bb5eedd436f347d9775863a94920073e9625e2f9265",
+            "request.json": "44f929fe72fadf0e8ccdebc7c7968d902b011cc4766ab114519e7b8f8e1fc514"
+          },
+          "native_request_sha256": "aaabdbd7fb242a0f265f6a571a756d35a2916171374fa8eb37c8018109a821b9",
+          "saved_evidence": true,
+          "status_native": "verified_shot",
+          "success": true
+        },
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-00-03-baseline",
+          "request_payload_sha256": "b0ad61be4fe6b7e1a9d34309fb68ca442a13e7085460c24e4f338ea8452ce5da",
+          "result_payload_sha256": "ae15e34b0775c99eefb8fd57e0d4b604f1fb8eea47203a13d805aaa86339d4b5",
+          "request_sha256": null,
+          "result_sha256": "d40a5d588caff438bb1eece17f3af529cd98140cf647460be4724fd95ff77c97",
+          "evidence_sha256": {
+            "result.json": "d40a5d588caff438bb1eece17f3af529cd98140cf647460be4724fd95ff77c97",
+            "shots.jsonl": "18bf019d86c656232b2ca1a52474da0ed86e5925f91c72b94d437ea75cdc0faa",
+            "geometry.json": "7d6c729376830d3272e8462b00142c0d33591f9c5cfa323c0d278760e234bc00",
+            "qualification-000.json": "c1214838e4fa1911213278d30eb282e5128fda5382d9fae12405e01f169ecf4e",
+            "native-0000.npz": "672a7cc4476cd6160f4a8292a5ba7731498c82206f96a12ae74765a20828020b",
+            "native-0001.npz": "26842036ee8e8f0184dc8fdf46002e99c19858e15b55473ff95ccef446f80595",
+            "request.json": "2dcc41180e14363d7f8809fa408ccb99f6d23991492db9dd226cc6f2c2a7d24f"
+          },
+          "native_request_sha256": "d23ec0f62689d0bb8def42c1ed5ac287c9929e0a7dc737a32c5fb3778c6c6664",
+          "saved_evidence": false,
+          "status_native": "verified_shot",
+          "success": true
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-00-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.65
+      ],
+      "row": 0,
+      "column": 4,
+      "status": "unresolved",
+      "stage": "expanded",
+      "search": {
+        "cpu_candidates": 1045,
+        "rejected": 1030,
+        "native_requests": 15,
+        "confirmation_requests": 0,
+        "captures": 0
+      },
+      "selected": null,
+      "nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "scope": "Unknown repeat quality breakdown"
+      },
+      "reason": "No qualified setting in this finite stage; inspect geometry, native outcomes and candidate-specific repeat records",
+      "result_url": null,
+      "frozen_validation": null,
+      "attempts": [
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-00-04-baseline",
+          "request_payload_sha256": "5be512aa043eafe7cb88e343f3311080c6230656230df4abc8b72e91fb95bd9e",
+          "result_payload_sha256": "5934e0b3690a10ae28779c5647063bafb2cc5c50954a9f628645db4d594e3904",
+          "request_sha256": null,
+          "result_sha256": "500a53fd328a53a61ea42cced083f29d45073699efeefd8366303e1f7019bd07",
+          "evidence_sha256": {
+            "home.json": "a4c9bc11413e83d5aed752d2876282d6675a244f59e9a6c5e91c23cdc003fe19",
+            "result.json": "500a53fd328a53a61ea42cced083f29d45073699efeefd8366303e1f7019bd07",
+            "geometry.json": "47eb0d1111267c98bed1b6cc4164aa49e7fdfa37a6fb700c9fa23875bcd5940a",
+            "proposals.json": "eb1e4f0c36af868bb0f42b76aea5dd44050e7795eb086cdf72407069fb4275d3",
+            "request.json": "707e77081150b2e68148675147d067b0e8a338b26990fc02fe8c8525c967bf50"
+          },
+          "native_request_sha256": "47359a5a154f6327137e4adc038410b76fabfab09772c1ef9466029e4dba6645",
+          "saved_evidence": false,
+          "status_native": "no_verified_solution_within_budget",
+          "success": false
+        },
+        {
+          "stage": "expanded",
+          "request_id": "dev-grid-00-04-expanded",
+          "request_payload_sha256": "b8704da19b2be7620c40f97507fb287b5ab6ece9db760934867e4a3c40ad3c02",
+          "result_payload_sha256": "11a43075f37fc8df36caf482efa0632cc152ec86ddbfd2b497b5e33a4ebae06c",
+          "request_sha256": null,
+          "result_sha256": "2f1363fe55ab5c5af94c59f9ab588e0addcb2bb64f421a8d418ae4dccb7ca7d0",
+          "evidence_sha256": {
+            "native-0006.npz": "446f15511bec90dd8beaa1586d6ad546f6674bc7ce52bd29587812aa01b64d17",
+            "home.json": "a4c9bc11413e83d5aed752d2876282d6675a244f59e9a6c5e91c23cdc003fe19",
+            "result.json": "2f1363fe55ab5c5af94c59f9ab588e0addcb2bb64f421a8d418ae4dccb7ca7d0",
+            "shots.jsonl": "393e0a42d3b7e9dd86758eb25659046b10ce852264327e09e95ae8752fac619e",
+            "native-0004.npz": "68c6ad4c02e531537ae7ff1b93150da38f3701dacbb5b9077c364c0715c2812b",
+            "native-0010.npz": "ede08fd2d702b0cffba5ce71709306eb3b4df2a4a44c7bd1cc8757caa70697fb",
+            "native-0009.npz": "a72d9fd200b933bae381746e0aaec1e0355d0db33d9270b110821dd10351c990",
+            "native-0008.npz": "d441f75bfdd3e9641cee77727e861b3949ab42e409e5d9ef80b0047426b7a1f0",
+            "native-0003.npz": "b7c86d10af3397fad30af44e64ab062181b6c20b9dccef0f6e0b5612e1049983",
+            "geometry.json": "9b887dde390176fb18493b896d0bd15f1de3925dceb1cb500162dbb4fe3a54a4",
+            "native-0005.npz": "5226ea1b20477e77bb755003cd3e7a0c0bde7516c72f2b8c4717ae66a37d94d8",
+            "native-0000.npz": "b44c0673fe8f87881db81e432949a943cd324020657cc15c7a67338a96bc82df",
+            "native-0007.npz": "16a09af8e53de4ee7e1968ce3e79eb3187472076ee357ff8b231156ac36e938f",
+            "native-0012.npz": "42e25a49bfd99c7880d49cb6e6bee4061aeb5d4b07b458c9ccd4120067b3a2ee",
+            "native-0001.npz": "4a0ad3be6bf27bdfaeff4ef2c0c5d9e992646bdeef7fb994fd305470e957eacb",
+            "proposals.json": "38aa68f71c1ed66470eb103d267a2756af919809634bfa690ccefc921acc0cec",
+            "native-0011.npz": "99c3638aa0f459f3c884fe2cb45515df14aa89822b33fc4cede773242d2ddff4",
+            "native-0002.npz": "7ba31800557968e36bbfb17db1e796d6fe18c38b18fc06d6b980a4c5018eb4c7",
+            "request.json": "a8999b3080459eed299d15ad7aadb768b9267c497421045e766748926eb9bca8"
+          },
+          "native_request_sha256": "68e7f0d7b5721ba06ae5a12fe3470a6bed3726b42966c8810a7d4c16b3ca2624",
+          "saved_evidence": false,
+          "status_native": "no_verified_solution_within_budget",
+          "success": false
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-00-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.65
+      ],
+      "row": 0,
+      "column": 5,
+      "status": "unresolved",
+      "stage": "expanded",
+      "search": {
+        "cpu_candidates": 1068,
+        "rejected": 1059,
+        "native_requests": 9,
+        "confirmation_requests": 0,
+        "captures": 0
+      },
+      "selected": null,
+      "nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "scope": "Unknown repeat quality breakdown"
+      },
+      "reason": "No qualified setting in this finite stage; inspect geometry, native outcomes and candidate-specific repeat records",
+      "result_url": null,
+      "frozen_validation": null,
+      "attempts": [
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-00-05-baseline",
+          "request_payload_sha256": "f970fc6054d87e84c7676625bc09f5775a96dab41c460ee6983c413c7d2d9653",
+          "result_payload_sha256": "8b892c254e1fd6671c682fe868e8d732839bd19228ddcd8009ad9ade4fdae40d",
+          "request_sha256": null,
+          "result_sha256": "b0ef2089f905044b9eef05312533b28eeeb3e416197daf48b3c19cab7c2d5e00",
+          "evidence_sha256": {
+            "home.json": "a4c9bc11413e83d5aed752d2876282d6675a244f59e9a6c5e91c23cdc003fe19",
+            "result.json": "b0ef2089f905044b9eef05312533b28eeeb3e416197daf48b3c19cab7c2d5e00",
+            "geometry.json": "2dea9b92c37bca77101ed19d34cfd09f313cdc411b30e5dc4f020aa07becc1a1",
+            "proposals.json": "8328d566926583ce7e6e0a66d5a33a9bda17ba077b7a488e2af3967c99f7ad2e",
+            "request.json": "f40c8450a2eb3f93c958cdf6ecf1cdcdff7bdccb23dea63f661402015803a323"
+          },
+          "native_request_sha256": "118b652463be2f20915923ae20abf4440521bde8992f6aab30be79836418de30",
+          "saved_evidence": false,
+          "status_native": "no_verified_solution_within_budget",
+          "success": false
+        },
+        {
+          "stage": "expanded",
+          "request_id": "dev-grid-00-05-expanded",
+          "request_payload_sha256": "a670ce1b3de4b487a46a5c25980ac36373bb6a1a708c858def01ff945db641f9",
+          "result_payload_sha256": "dc45dffbd841077a5014530cd08ad5580e74bc953a1404d814dbbb59a473942c",
+          "request_sha256": null,
+          "result_sha256": "bf63785cd01cf62a1b583dca655c24b25d1636cb05f638abc532b818d16d06d4",
+          "evidence_sha256": {
+            "native-0006.npz": "00283d543ab3cfa77b3ddd8c10abf1d01ef8195e92644ea1d2b7502f2223c85f",
+            "home.json": "a4c9bc11413e83d5aed752d2876282d6675a244f59e9a6c5e91c23cdc003fe19",
+            "result.json": "bf63785cd01cf62a1b583dca655c24b25d1636cb05f638abc532b818d16d06d4",
+            "shots.jsonl": "bd793ddc1acd0b5e984fe69dcac66acff4ce6d57afd524678e7d5bbe91af7197",
+            "native-0004.npz": "5fb943c14cb86d9058850fe4ef4ce4ef3b2e0cd0219161b659c2a8cd5ea1b1c2",
+            "native-0003.npz": "93cafca16c73e68a28020526fc3f3f92ba39a265ad749ae1b1fd13c0446997fb",
+            "geometry.json": "f29385e21babb144ebfea9041650301fe1f85c346b3e0003d6b644bb9cb3e2dd",
+            "native-0005.npz": "4792fa5c26b0b4fd47bc2192280101cf6f2475a836228bd96be760c3f8ecba97",
+            "native-0000.npz": "5818c51f519eb9d426885768edbf3b1cb4d191e3d5ad825924ea24f5a015ad43",
+            "native-0007.npz": "91b5d12bada2e3fed76a47890b644e99f9e1eeeb7cd7c29ef59318185292aad2",
+            "native-0001.npz": "be1e76dfbc1ac37e461634c710b786c72e404443e1f22fddb910779902dd2493",
+            "proposals.json": "1209e7edb3d08d293cfcfcd3a7b6e8959aae5702fac6bddd17e7f358d6f7a287",
+            "native-0002.npz": "47b84ca0f2045b12c4a70364cd300433fc5aef405a7bc5fdd2014ce9375b95e1",
+            "request.json": "b27731e48f88dfb4facccf0bc0e5e5cd1e69bb777e17e1335d50fa088318dbaf"
+          },
+          "native_request_sha256": "ea9e1ac6bd88398f0c833bdbbaf4b8e557c66fc8a09ed2206e126875b1d6268e",
+          "saved_evidence": false,
+          "status_native": "no_verified_solution_within_budget",
+          "success": false
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-00-06",
+      "bucket_xy_m": [
+        1.24,
+        -0.65
+      ],
+      "row": 0,
+      "column": 6,
+      "status": "unresolved",
+      "stage": "expanded",
+      "search": {
+        "cpu_candidates": 288,
+        "rejected": 159,
+        "native_requests": 129,
+        "confirmation_requests": 0,
+        "captures": 0
+      },
+      "selected": null,
+      "nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "scope": "Unknown repeat quality breakdown"
+      },
+      "reason": "No qualified setting in this finite stage; inspect geometry, native outcomes and candidate-specific repeat records",
+      "result_url": null,
+      "frozen_validation": null,
+      "attempts": [
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-00-06-baseline",
+          "request_payload_sha256": "9a4a460ec063ccce8472159d91651aea1066ad9ed51ad13f223176b6e36d0f12",
+          "result_payload_sha256": "9dcde6965bab05282a2e819a1af8b52309b90347b3b873a9fec2c178ee25556e",
+          "request_sha256": null,
+          "result_sha256": "aed6e48edd74d172a2f1a438d5829902770b052c7b476f5be3a21ae8be4a7135",
+          "evidence_sha256": {
+            "home.json": "a4c9bc11413e83d5aed752d2876282d6675a244f59e9a6c5e91c23cdc003fe19",
+            "result.json": "aed6e48edd74d172a2f1a438d5829902770b052c7b476f5be3a21ae8be4a7135",
+            "shots.jsonl": "7ad26e1712e54131ef4676ef28d5bab6ce70803849985fee6ed686ccc82ce811",
+            "geometry.json": "8e60a05e812b9468746b69388019c9248373ecf82e1ebddad8f73e5c4e59ccb8",
+            "native-0000.npz": "8dbeac6d3a271516fb3875b9e69b84123f4b638c4a0c4129fddc9271e427efc5",
+            "proposals.json": "76dc9128c49c1efa8a5ee0ca9e5e42bfa06470a1d1ae091d5951d558b725c9e8",
+            "request.json": "072176b6d3aac91ab0a9ac2518f291c6feffab56255122adfda661de5faeb16d"
+          },
+          "native_request_sha256": "3ac42504910078408b7f82eaa42b7f763e06d6c66f3acbebee73e178b6d52186",
+          "saved_evidence": false,
+          "status_native": "no_verified_solution_within_budget",
+          "success": false
+        },
+        {
+          "stage": "expanded",
+          "request_id": "dev-grid-00-06-expanded",
+          "request_payload_sha256": "2eb3dd3c008aef487d7b7409764d838ff8543983f1b8642068cf434b53c5a849",
+          "result_payload_sha256": "85f5356895c3471ccc83cde4b70bc895c2d567cee96f89de7331d5ee234fc772",
+          "request_sha256": null,
+          "result_sha256": "bb1a87379d8212a02acba22da4d082c967770cd9df618d41949c1c094a4ba8a1",
+          "evidence_sha256": {
+            "native-0006.npz": "4a12c7849fe870cdd2e0306767c55fff85678be0d2f037cbe717e92bdbe78c37",
+            "home.json": "a4c9bc11413e83d5aed752d2876282d6675a244f59e9a6c5e91c23cdc003fe19",
+            "result.json": "bb1a87379d8212a02acba22da4d082c967770cd9df618d41949c1c094a4ba8a1",
+            "shots.jsonl": "354d7d785c6afd790e1de6cb4dc63c2148341f0c29fa6d2f23374ee15da665e9",
+            "native-0004.npz": "6da686cdc67b3c6908d96f1b28a41764a7d8593909a225b1435ff1f64c3fbe7a",
+            "native-0003.npz": "de9aca6aa345c102bcc28204d329ad8badeaff786ba36b710e175d71c6d537e3",
+            "geometry.json": "be8480d1d13c1115a0723b643ad5edc60a2d197537a5d958310097e0812a850b",
+            "native-0005.npz": "e0ab020eff31b461971006abb669b9b104e285b58b2799a614f9163317139307",
+            "native-0000.npz": "15116230f59f88fd0fd0836a71ca1e28c8b1de114ab27ae3b97e511e4574a1d1",
+            "native-0001.npz": "034ad984c4561383bd9157092d26a3216728f1152940ec72e4a89b09976d27b1",
+            "proposals.json": "972293f526b15c2f9e64ad56386cb4fa72f70c624cf136b8d4ff120e9b81e21f",
+            "native-0002.npz": "1ee099bb2af1abe8786c1002e10417f2df9360babd3a7e3732a479f351108bac",
+            "request.json": "9db508f3531eae345923abc03eb0a70b221bfdd7505d448cb11919f6d55cd1bc"
+          },
+          "native_request_sha256": "e7f504ec6fea111b66921e0aa3d4efcf0bb22e5a494053c4b7aa53215f4cc649",
+          "saved_evidence": false,
+          "status_native": "no_verified_solution_within_budget",
+          "success": false
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-01-00",
+      "bucket_xy_m": [
+        0.1,
+        -0.42500000000000004
+      ],
+      "row": 1,
+      "column": 0,
+      "status": "verified_fresh",
+      "stage": "expanded",
+      "search": {
+        "cpu_candidates": 224,
+        "rejected": 91,
+        "native_requests": 133,
+        "confirmation_requests": 124,
+        "captures": 84
+      },
+      "selected": {
+        "board_center_m": [
+          0.5201200246810913,
+          -0.2803051173686981,
+          0.3375024199485779
+        ],
+        "tilt_deg": 32.16581205142042,
+        "gap_m": 0.31342370391110463,
+        "release_ball_center_m": [
+          0.5201201151696303,
+          -0.2803050489973325,
+          0.6884260616223454
+        ],
+        "distance_m": 0.44433933451555585,
+        "source": "fresh_study",
+        "request_id": "dev-grid-01-00-expanded",
+        "configuration_sha256": "0870e3c3139226f100d8a399b5d13925a9b66c751fde01bc8556c34b30f195c6"
+      },
+      "nominal": {
+        "captures": 3,
+        "attempts": 3,
+        "rate": 1.0,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": 18,
+        "attempts": 20,
+        "rate": 0.9,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": 13,
+        "assisted": 5,
+        "cohort": "fresh",
+        "source": "fresh_study",
+        "scope": "Explicit recorded repeat cohort"
+      },
+      "reason": "Fresh study qualification passed",
+      "result_url": "/api/planner-grid/result/dev-grid-01-00",
+      "frozen_validation": {
+        "status": "completed",
+        "configuration_sha256": "0870e3c3139226f100d8a399b5d13925a9b66c751fde01bc8556c34b30f195c6",
+        "seed": 20361137,
+        "nominal": {
+          "captures": 3,
+          "attempts": 3,
+          "rate": 1.0,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "fresh": {
+          "captures": 29,
+          "attempts": 30,
+          "rate": 0.9666666666666667,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "quality": {
+          "clean": 18,
+          "assisted": 11,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "scope": "Separate frozen recipe validation; no reselection from these outcomes"
+      },
+      "attempts": [
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-01-00-baseline",
+          "request_payload_sha256": "f9a1fec36f4a785454410ec0f9f7e9aad54bfa7e1a6c5652b31739f1aa1180ef",
+          "result_payload_sha256": "e380bde6555589ef9f16952dff6e83b5e75fd4331db6996d042a41ed2f128245",
+          "request_sha256": null,
+          "result_sha256": "eb7b30136cdbf6105e12d32077f997a4d0a2df507e939efc0a0385dbbebaef49",
+          "evidence_sha256": {
+            "native-0006.npz": "c0016af2eba8d6e185a6b4ac2953aa8620c7485d17354b02bd5219b28e174d3e",
+            "home.json": "a4c9bc11413e83d5aed752d2876282d6675a244f59e9a6c5e91c23cdc003fe19",
+            "result.json": "eb7b30136cdbf6105e12d32077f997a4d0a2df507e939efc0a0385dbbebaef49",
+            "qualification-001.json": "7e932ca3b96319d2d2e153d8d8e23c10c4e1614ba2856fa26da15e4e67ab34f2",
+            "shots.jsonl": "d013dd4ffa3885c86fb9e44dda72d8df3212a0fb527bc2c9c15fac78a273ef6e",
+            "native-0004.npz": "22dfa4ea9a4d9266d6c3fe3a2ea07ecc3432e753a855bd81721b2f59067ac3b1",
+            "native-0003.npz": "bf1c5d408754095826de463111c2a68d9db3e2874e48b5b979d9541c27a1d76c",
+            "geometry.json": "d4e197ccfa95895e960eb030ac72ea55ed1d18bb30e842420d0ebd227df644ee",
+            "qualification-000.json": "35b272785c25ba210667356269c56c2f40ab1dead4a29830e71b18cfe87049d9",
+            "native-0005.npz": "4006db13949c2426791ed2861c161fc0e6c58af4a43befae960fd65106d1191c",
+            "native-0000.npz": "d4ef7c8cbfd0d4f38f3baa93baac2a015b4f7a04cbf4e505ea59d461e59a4c5e",
+            "native-0001.npz": "e8730e1c54a8a92ce803fe4cf8c9d0538f20472eb0321b12a032fdd4701e9328",
+            "proposals.json": "d62f4b04744fb6cbce0bef38d329fce77b09ad72637d38979b30e7c4c0dfd5a0",
+            "native-0002.npz": "3f87eb72a624af1a4ef5da8818e2a7e7467c97cd44241c5ecfd67612a9d4ceda",
+            "request.json": "f5a5df1f7335e4148a060557577fb158d33c884848448dec4ae0a61634ec086f",
+            "qualification-002.json": "e70afe2c9de75938d5055bb443c3a887b69bc825fb01f7f2949bead1ec778104"
+          },
+          "native_request_sha256": "4fc2a6283b2b523af66e5d7706a342d5ed40489ba3d51f69d59db97f649309c1",
+          "saved_evidence": false,
+          "status_native": "capture_found_confirmation_unresolved",
+          "success": false
+        },
+        {
+          "stage": "expanded",
+          "request_id": "dev-grid-01-00-expanded",
+          "request_payload_sha256": "dda8d4a1dbdd5c15edb016962d5f0c170283a919722315e03c0a649913fbb3a5",
+          "result_payload_sha256": "7bfb9805cde5b2729d15f39bc173e38fc5c0ed03a8ab4986ec22666d73239fdc",
+          "request_sha256": null,
+          "result_sha256": "380efbd7d591eae00199335309e7a21c2c2c1c3c181568607ce5139433a8c609",
+          "evidence_sha256": {
+            "native-0006.npz": "65d6eae5b2300d1f7806cb4c3fd80d936f945b20a9005f4b1685ef9c01b5553f",
+            "home.json": "a4c9bc11413e83d5aed752d2876282d6675a244f59e9a6c5e91c23cdc003fe19",
+            "result.json": "380efbd7d591eae00199335309e7a21c2c2c1c3c181568607ce5139433a8c609",
+            "qualification-001.json": "506cfd242a4d4b282efa84863d587a17ddb8ffaa2e2642ee8ebfcb81aa32e512",
+            "shots.jsonl": "0b608f898cca4e04743420b05f3f7abd88d0571b1ccca3df0f3be4ed2d7bc198",
+            "native-0004.npz": "d3f1015eeb9478e24a64ec6d96485d1ede329ab814b5262d40b54a80f2eff8d5",
+            "native-0010.npz": "625e5a0b2254cd7624f976810786285d775150746b6d0f7e05ddb85724f47191",
+            "native-0009.npz": "82ac09d872f8caeb9688f53714c6d82eb1fa74bece8f3a2dc25b8da0c71ec8f8",
+            "qualification-003.json": "1fccbacc4f736ad769700ec17d70ecf61fe3dc45ab9606f6c6bea658466cf24e",
+            "native-0008.npz": "ef9a5f84fe5b2e29800777529546a9341326bae3d83a086e63111a735776506c",
+            "native-0003.npz": "a2a09047cef26f40c4d34cdb01d086358f6f7b414430bfabc39bc49153da1030",
+            "geometry.json": "0ed817452be075c6eed67acd8863468a46c571826a5ec3d5bdf46d8358b39953",
+            "qualification-000.json": "95b2dfe53bd92f3f9094de8b9dcde9b1dd348e2dfe9f3ff8de16cf6955038aae",
+            "native-0005.npz": "016e9e05dead02ec3d1c0613ac7895de4a2b81fb656c6f5b4cb75bb1fd80a000",
+            "native-0000.npz": "a052eb5ef581b31511cbfc5e3734db0b3d0676123ef2883169c54da1e0ebdf51",
+            "native-0007.npz": "47051b6a5e599f4c442209e30c5c11ff8e2145a372722d933890b988b4cb59ec",
+            "native-0012.npz": "0e3fe535921775c4fd47a9bc284de0b0aa68e90b2773e0c31a5fe24bdc5bb54f",
+            "native-0001.npz": "a6179a501e1711ffa1717ea36fd86a5754a3384f53b766dcf72d9d91653955e1",
+            "proposals.json": "4eba8accf45c1864c1d74ae820243e8084648ed7eb8d4711677ee2ab5bb155b7",
+            "native-0011.npz": "5a724d2e626bd22d990c5b307c2f048f9cb361fdbec8112b5ac3c6c696d5d7b4",
+            "qualification-004.json": "b994fdb8efa12ce0d3c82ce53331384750738c637b0e30f519e9e57aa28ec25f",
+            "native-0002.npz": "9515a7d0ac73da93eaec53daf681fa99bd3134428500d97ac4b99b4a1f70cb95",
+            "request.json": "634ac20780b69a8e600ee377cc8f58b1c276b3c0d7e36610615778b801e6bf05",
+            "qualification-002.json": "7ca02ece7b119c712819d5062cdb9e2910804d22bfa9351b11d730f9408e1731"
+          },
+          "native_request_sha256": "906686bc88f3665cbcde6932da2fae340f8d3908ede728b08d7d9ffd328e42d4",
+          "saved_evidence": false,
+          "status_native": "verified_shot",
+          "success": true
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-01-01",
+      "bucket_xy_m": [
+        0.29,
+        -0.42500000000000004
+      ],
+      "row": 1,
+      "column": 1,
+      "status": "verified_fresh",
+      "stage": "expanded",
+      "search": {
+        "cpu_candidates": 160,
+        "rejected": 4,
+        "native_requests": 144,
+        "confirmation_requests": 49,
+        "captures": 127
+      },
+      "selected": {
+        "board_center_m": [
+          0.5380192995071411,
+          -0.2013864815235138,
+          0.2680985927581787
+        ],
+        "tilt_deg": 31.519844899807353,
+        "gap_m": 0.22955952009868144,
+        "release_ball_center_m": [
+          0.5380193932287101,
+          -0.20138642252214384,
+          0.5351582702957665
+        ],
+        "distance_m": 0.33394098067390116,
+        "source": "fresh_study",
+        "request_id": "dev-grid-01-01-expanded",
+        "configuration_sha256": "cf9f6562451e0cf90100247d18434828b6fc8e6a6bf1d4406695b65a81b8c311"
+      },
+      "nominal": {
+        "captures": 3,
+        "attempts": 3,
+        "rate": 1.0,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": 19,
+        "attempts": 20,
+        "rate": 0.95,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": 19,
+        "assisted": 0,
+        "cohort": "fresh",
+        "source": "fresh_study",
+        "scope": "Explicit recorded repeat cohort"
+      },
+      "reason": "Fresh study qualification passed",
+      "result_url": "/api/planner-grid/result/dev-grid-01-01",
+      "frozen_validation": {
+        "status": "completed",
+        "configuration_sha256": "cf9f6562451e0cf90100247d18434828b6fc8e6a6bf1d4406695b65a81b8c311",
+        "seed": 20361138,
+        "nominal": {
+          "captures": 3,
+          "attempts": 3,
+          "rate": 1.0,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "fresh": {
+          "captures": 22,
+          "attempts": 30,
+          "rate": 0.7333333333333333,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "quality": {
+          "clean": 22,
+          "assisted": 0,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "scope": "Separate frozen recipe validation; no reselection from these outcomes"
+      },
+      "attempts": [
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-01-01-baseline",
+          "request_payload_sha256": "51baec7d2b54de5ed8fef9d48ff497591d2f675575604fe305e0272df97d38ba",
+          "result_payload_sha256": "99e36b07913a50d536c60304741987b93000e1e1f44f1df50b2de69945c335c6",
+          "request_sha256": null,
+          "result_sha256": "8db7ca6b7706654dbbb31783238943590843f063db6b955409cc32104a5de958",
+          "evidence_sha256": {
+            "home.json": "a4c9bc11413e83d5aed752d2876282d6675a244f59e9a6c5e91c23cdc003fe19",
+            "result.json": "8db7ca6b7706654dbbb31783238943590843f063db6b955409cc32104a5de958",
+            "qualification-001.json": "7192b3405b306c88cdcbbffd40ebe4143f43374f2aa90c4ba9468a299d98d52c",
+            "shots.jsonl": "074f49697f2740a93d8891730c074e7de385f709455f4a7de7e64c1ca4934257",
+            "geometry.json": "3b0135f6688f296582e51c652331f657c3891ed7976b5310f2e0ccea1171a1c6",
+            "qualification-000.json": "9176923ce44aa3e1992d1e031b1d4112c329e3b5a246fbbdb35e0f1f07af71e6",
+            "native-0000.npz": "7ced9518022f0fb85e30812670d1e9c32d679ac2eff84c8a674a02aeb4c4d2e2",
+            "native-0001.npz": "29964a209dbd07fe3afc8d43b1ded9d3044a9c6003f798ec926280182275e441",
+            "proposals.json": "5e9700de6685a7ad071ef6a319d3fc0392bfde135f1d23733d0929a457f9c0b7",
+            "request.json": "56f3073a6eb5a618a811f9402ff8f4093e897cbfdb98e8cf8722811051bdbd9c",
+            "qualification-002.json": "191fd52d1f2fbec07c0da84e951311f7c4deb9d387313d6af52262d0b44c9164"
+          },
+          "native_request_sha256": "130610e33601b428ccee4c7b3714ed89d6986cab4f3a33bec802891b77d4f05c",
+          "saved_evidence": false,
+          "status_native": "capture_found_confirmation_unresolved",
+          "success": false
+        },
+        {
+          "stage": "expanded",
+          "request_id": "dev-grid-01-01-expanded",
+          "request_payload_sha256": "1a35935830e569279738f4a493ca58289e2722b0f70810c4823a0af2e8d18371",
+          "result_payload_sha256": "e09ea1097f995270fdc61a7eb701c1671f3dd402befdeb9053078076684ad12d",
+          "request_sha256": null,
+          "result_sha256": "36551fa632ef621939c1fbfe6741bb97e86f3c2371c02c92362473c66860dce5",
+          "evidence_sha256": {
+            "native-0006.npz": "690aebfedf38ae122d2fbf17fdedc29b17e8c4c3725549f5a0d11085f2b5e115",
+            "home.json": "a4c9bc11413e83d5aed752d2876282d6675a244f59e9a6c5e91c23cdc003fe19",
+            "result.json": "36551fa632ef621939c1fbfe6741bb97e86f3c2371c02c92362473c66860dce5",
+            "qualification-001.json": "35e35a825da45dfc9125988d7149aa05ce591b93e26fc041b089015426c42717",
+            "shots.jsonl": "6f50cb424c4cfa28b64cccb39bcc33e3459ebf0988f422e9e0c580bdb3a12684",
+            "native-0004.npz": "d9379b7ccdb06b4aa42eb40634f3b7f52077896551aa7fd2e8538ef584271bb1",
+            "native-0003.npz": "0fa859f0d4fbec96331b3c028ae543f9eaec4b7ad3fad32e5a83570947f5fe35",
+            "geometry.json": "fe1df98f6c42f4ee54085b1b315c7fc700449661b20172088ebc095e1bf055d7",
+            "qualification-000.json": "100bd73fab3e16402b7493ca295fce69af0abaf80935657c6cbe010d9bc954e4",
+            "native-0005.npz": "0b231fec6b4f647e5cf9866e941719fb609acc88e0c096764f7710d75776e30b",
+            "native-0000.npz": "f0ee8cfc588ad943c56413f77ac88f71cdb10528d520e25b7d268d53e87f7cd5",
+            "native-0007.npz": "7709d1efc54627cbe505207300ddd25cfd3ad6f2816be77ee6098e50bbe89a79",
+            "native-0001.npz": "0068fa2e1a7bf9cdde1efde8c35a6d1e42ce7151adff44b329c8c4fd3ba5f52a",
+            "proposals.json": "afbf261f9e7701a9427c5af76c8729959794bf46e174bcc36787c2a4315e6dfd",
+            "native-0002.npz": "396a61ca8bc86a090f47f6ab7e137c680d9efd5b89764d767afe70d608d7b15a",
+            "request.json": "ab3eea4b528dca14585a5d38038a6ebbbf0a589fbe40ed73c4a5ee9d12b77cd7"
+          },
+          "native_request_sha256": "27de910294618b31b0e4fc8fa99e9194365ca4918b43edaeb25d632e8e28052f",
+          "saved_evidence": false,
+          "status_native": "verified_shot",
+          "success": true
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-01-02",
+      "bucket_xy_m": [
+        0.48,
+        -0.42500000000000004
+      ],
+      "row": 1,
+      "column": 2,
+      "status": "verified_fresh",
+      "stage": "baseline",
+      "search": {
+        "cpu_candidates": 0,
+        "rejected": 0,
+        "native_requests": 0,
+        "confirmation_requests": 23,
+        "captures": 0
+      },
+      "selected": {
+        "board_center_m": [
+          0.6407912373542786,
+          -0.36949631571769714,
+          0.27414828538894653
+        ],
+        "tilt_deg": 27.534005060312847,
+        "gap_m": 0.0963651221865184,
+        "release_ball_center_m": [
+          0.6407913415821311,
+          -0.36949623814869914,
+          0.4080134162072503
+        ],
+        "distance_m": 0.17010138441185454,
+        "source": "fresh_study",
+        "request_id": "dev-grid-01-02-baseline",
+        "configuration_sha256": "b99b06a14f17fbd83db8ed4c3b04021b61ed932125875621354740f1e5144683"
+      },
+      "nominal": {
+        "captures": 3,
+        "attempts": 3,
+        "rate": 1.0,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": 20,
+        "attempts": 20,
+        "rate": 1.0,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": 20,
+        "assisted": 0,
+        "cohort": "fresh",
+        "source": "fresh_study",
+        "scope": "Explicit recorded repeat cohort"
+      },
+      "reason": "Fresh study qualification passed",
+      "result_url": "/api/planner-grid/result/dev-grid-01-02",
+      "frozen_validation": {
+        "status": "completed",
+        "configuration_sha256": "b99b06a14f17fbd83db8ed4c3b04021b61ed932125875621354740f1e5144683",
+        "seed": 20361139,
+        "nominal": {
+          "captures": 3,
+          "attempts": 3,
+          "rate": 1.0,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "fresh": {
+          "captures": 30,
+          "attempts": 30,
+          "rate": 1.0,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "quality": {
+          "clean": 30,
+          "assisted": 0,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "scope": "Separate frozen recipe validation; no reselection from these outcomes"
+      },
+      "attempts": [
+        {
+          "stage": "saved_reference",
+          "request_id": "dev-grid-01-02-saved",
+          "request_payload_sha256": "af073b8e64b3881a3b66ab4e716b411b0df87d065990d3287bc2a03c1f1a97d7",
+          "result_payload_sha256": "0f09850bebf5021918786b8d4e52912f17c3fd2ae8a1eac65c4a50c6a47d0f59",
+          "request_sha256": null,
+          "result_sha256": "08baee9b164e9a65adeab5180fae322031efe54df151872454287fec9007f709",
+          "evidence_sha256": {
+            "result.json": "08baee9b164e9a65adeab5180fae322031efe54df151872454287fec9007f709",
+            "request.json": "b375a2b5fb6dd8fd828ece9c16c8e08606953ade6ae6d4567846d03dd0796ca4"
+          },
+          "native_request_sha256": "f938762957b7292a9b3d25bf8885a38dfddc1413d7456416a5cdff9c1a370b93",
+          "saved_evidence": true,
+          "status_native": "verified_shot",
+          "success": true
+        },
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-01-02-baseline",
+          "request_payload_sha256": "8e3a8f69d335921449d68b73b372eb626eb349e56c12985986a766fcb2750bb1",
+          "result_payload_sha256": "e0103810fab866086bc4ed5c3e61851c2b240f554794ba367f0dc8010d2d94b6",
+          "request_sha256": null,
+          "result_sha256": "4052fb144a349572e1cece10aae2b11da7cfd1d55b76003579fba259249bb4f2",
+          "evidence_sha256": {
+            "result.json": "4052fb144a349572e1cece10aae2b11da7cfd1d55b76003579fba259249bb4f2",
+            "shots.jsonl": "c9db7367f51e5e777d0cf3120f4981721c30f1d9c0b76ba919d32dd803be92ad",
+            "geometry.json": "f46d4720d801a00afdda472e01f76430da870c04099b0be4e4db46514f18788c",
+            "qualification-000.json": "43374f716f4bc05d15d269dc3cf15124fd3977ddff8112bef2f6e0425abe2c66",
+            "native-0000.npz": "37cac3e5c13e1f6a51cbc61cebae13aaf2435db4db901eb02e41f25b12f9e19d",
+            "native-0001.npz": "76a59256fe5ff6c4ddbbaf2bcc210d2c8642f0aae1eaa3c731da528346444824",
+            "request.json": "5e2863956cec265231b2245cb383696cf420364a6b9869cead27130f97edda57"
+          },
+          "native_request_sha256": "b007e886deaace3536a7353329326c70239e1fc118a9688cb9d6759ead4192d0",
+          "saved_evidence": false,
+          "status_native": "verified_shot",
+          "success": true
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-01-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.42500000000000004
+      ],
+      "row": 1,
+      "column": 3,
+      "status": "verified_fresh",
+      "stage": "baseline",
+      "search": {
+        "cpu_candidates": 64,
+        "rejected": 48,
+        "native_requests": 16,
+        "confirmation_requests": 23,
+        "captures": 13
+      },
+      "selected": {
+        "board_center_m": [
+          0.6119402647018433,
+          -0.16431160271167755,
+          0.33102089166641235
+        ],
+        "tilt_deg": 21.937971137003245,
+        "gap_m": 0.1571040569516942,
+        "release_ball_center_m": [
+          0.6119402546153168,
+          -0.16431160572922765,
+          0.5256250067938111
+        ],
+        "distance_m": 0.2670755948109941,
+        "source": "fresh_study",
+        "request_id": "dev-grid-01-03-baseline",
+        "configuration_sha256": "0672a40aa340c751e3f7e5533a03fe4c454cdaa47070020442daa90d15707b49"
+      },
+      "nominal": {
+        "captures": 3,
+        "attempts": 3,
+        "rate": 1.0,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": 20,
+        "attempts": 20,
+        "rate": 1.0,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": 7,
+        "assisted": 13,
+        "cohort": "fresh",
+        "source": "fresh_study",
+        "scope": "Explicit recorded repeat cohort"
+      },
+      "reason": "Fresh study qualification passed",
+      "result_url": "/api/planner-grid/result/dev-grid-01-03",
+      "frozen_validation": {
+        "status": "completed",
+        "configuration_sha256": "0672a40aa340c751e3f7e5533a03fe4c454cdaa47070020442daa90d15707b49",
+        "seed": 20361140,
+        "nominal": {
+          "captures": 3,
+          "attempts": 3,
+          "rate": 1.0,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "fresh": {
+          "captures": 29,
+          "attempts": 30,
+          "rate": 0.9666666666666667,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "quality": {
+          "clean": 10,
+          "assisted": 19,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "scope": "Separate frozen recipe validation; no reselection from these outcomes"
+      },
+      "attempts": [
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-01-03-baseline",
+          "request_payload_sha256": "e67a4ab34f9aa7ca27f3e16159a9f096d85f4b356ce0dedb87d9fda739f9dc0d",
+          "result_payload_sha256": "4c32de8bafecabb94d7758fc6f8e7a64fe59c07698411327d3c78a691fd8ef71",
+          "request_sha256": null,
+          "result_sha256": "b7ce10f1fbcc772c9040034461493423a8fbde6d371b163f4826abf965d0a892",
+          "evidence_sha256": {
+            "home.json": "a4c9bc11413e83d5aed752d2876282d6675a244f59e9a6c5e91c23cdc003fe19",
+            "result.json": "b7ce10f1fbcc772c9040034461493423a8fbde6d371b163f4826abf965d0a892",
+            "shots.jsonl": "cc30a171b31477773311e0706111995a5b74be0156cff6a7fb570b5e264cf537",
+            "native-0003.npz": "a2d56d742c9a98aabd2b091363911214bee1f349a3e6987c14c7c8a605746b16",
+            "geometry.json": "adc895322f01ef4ad0b44775f26367b62dfd4210c2cd575d1bff4c366889cff4",
+            "qualification-000.json": "4d3f17c6a22cda55cf053903a311f43fb1a2814f1197f0b8e05fde5bd8ffed6b",
+            "native-0000.npz": "58f8e27fa18367c93cb04555e9053e6492fdeda925efe950a097ed66294ae263",
+            "native-0001.npz": "19e7ef6c729258d3ccef9dfa75c705c38384427c5f7718f341833973704921ad",
+            "proposals.json": "f378db137e65d4cd23d948721efbd34c14888acffc4aacc0cf7ca30fd4e0c899",
+            "native-0002.npz": "885bb6c968dc3cdd64d9850c5bcb0e9f32188a9930df659bb15972037c6386d1",
+            "request.json": "d00b524513dc2a5d56b64d33f8fab48e724de42bb23dbd99c96349aa5cfa64a9"
+          },
+          "native_request_sha256": "4ff072a23f5805fa023fa5accca6f5a4b399ac252b55f445162cbc95fd24565a",
+          "saved_evidence": false,
+          "status_native": "verified_shot",
+          "success": true
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-01-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.42500000000000004
+      ],
+      "row": 1,
+      "column": 4,
+      "status": "verified_fresh",
+      "stage": "baseline",
+      "search": {
+        "cpu_candidates": 0,
+        "rejected": 0,
+        "native_requests": 0,
+        "confirmation_requests": 23,
+        "captures": 0
+      },
+      "selected": {
+        "board_center_m": [
+          0.6274269819259644,
+          -0.23581497371196747,
+          0.40906503796577454
+        ],
+        "tilt_deg": 32.749881784770345,
+        "gap_m": 0.1353410311538266,
+        "release_ball_center_m": [
+          0.6274269811022803,
+          -0.23581488833161737,
+          0.5819060632640587
+        ],
+        "distance_m": 0.2998019061108005,
+        "source": "fresh_study",
+        "request_id": "dev-grid-01-04-baseline",
+        "configuration_sha256": "82c4d238efcab5709f8546b11ebd292e3bf81c0c4b62fec6f9c566e0fcb05828"
+      },
+      "nominal": {
+        "captures": 3,
+        "attempts": 3,
+        "rate": 1.0,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": 20,
+        "attempts": 20,
+        "rate": 1.0,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": 0,
+        "assisted": 20,
+        "cohort": "fresh",
+        "source": "fresh_study",
+        "scope": "Explicit recorded repeat cohort"
+      },
+      "reason": "Fresh study qualification passed",
+      "result_url": "/api/planner-grid/result/dev-grid-01-04",
+      "frozen_validation": {
+        "status": "completed",
+        "configuration_sha256": "82c4d238efcab5709f8546b11ebd292e3bf81c0c4b62fec6f9c566e0fcb05828",
+        "seed": 20361141,
+        "nominal": {
+          "captures": 3,
+          "attempts": 3,
+          "rate": 1.0,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "fresh": {
+          "captures": 30,
+          "attempts": 30,
+          "rate": 1.0,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "quality": {
+          "clean": 0,
+          "assisted": 30,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "scope": "Separate frozen recipe validation; no reselection from these outcomes"
+      },
+      "attempts": [
+        {
+          "stage": "saved_reference",
+          "request_id": "dev-grid-01-04-saved",
+          "request_payload_sha256": "2b498f0e980ad94653573ac1955d1e0d9c41c6eb1d6df2f4f66c0afd98ca0830",
+          "result_payload_sha256": "05c22ad81eee3e08591226e38a77cee8b9969f30b05eb25ab8e8905af5891c48",
+          "request_sha256": null,
+          "result_sha256": "ce341ce83fcf54892541e110962ee82af3e038d8297dfcd54a8e799ee4209ec1",
+          "evidence_sha256": {
+            "result.json": "ce341ce83fcf54892541e110962ee82af3e038d8297dfcd54a8e799ee4209ec1",
+            "request.json": "314c337a932494ca57546eb637b1c21906498f3577f477dd5033fbd6328f7c1a"
+          },
+          "native_request_sha256": "d4a565890422d0b63e404f24fbd8b80a982e4e1f47837bb3ec3144c139ddfcd0",
+          "saved_evidence": true,
+          "status_native": "verified_shot",
+          "success": true
+        },
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-01-04-baseline",
+          "request_payload_sha256": "716663aefa6ceb02e46f6d8c354373ee729bb2c84c71f4a4fe4ac5502cb294c4",
+          "result_payload_sha256": "807bdc0f3699e438af8100fc676c37dbe30136a426db7850a6684b2e6f187164",
+          "request_sha256": null,
+          "result_sha256": "86f58f964d3f788aa51efa99a70e2d56e02cb30bf7ce8398fd3f65c9d99ea393",
+          "evidence_sha256": {
+            "result.json": "86f58f964d3f788aa51efa99a70e2d56e02cb30bf7ce8398fd3f65c9d99ea393",
+            "shots.jsonl": "5ae6f01646448934a462a62e52c06331aa8c0437f3bb9a86385a5d7e2fbd4421",
+            "geometry.json": "8303af26c7c1241532079ef1d8040ff8d61570b4229ad3c8030e82a47442a2cd",
+            "qualification-000.json": "0c95d3543890a3e896a177c888c6a8c35c6c0f0f8df0116383a67bb73f9d8cf2",
+            "native-0000.npz": "29ed366887ac52285569d0b986861eb133311143e7858b16bde3d54a50add318",
+            "native-0001.npz": "4638f77e82bebf7878be12b31046e312ec3f09e49e275630b6ead78020a0bf9e",
+            "request.json": "2674f56a8ccc44274ccc5870db1063a992beacea79b1072b81d44245d781ebdb"
+          },
+          "native_request_sha256": "790cfeea8698cb6ace3cc4f4420808dceff5edea12d8a68917511c38b5c5fd3d",
+          "saved_evidence": false,
+          "status_native": "verified_shot",
+          "success": true
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-01-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.42500000000000004
+      ],
+      "row": 1,
+      "column": 5,
+      "status": "unresolved",
+      "stage": "expanded",
+      "search": {
+        "cpu_candidates": 1065,
+        "rejected": 1055,
+        "native_requests": 10,
+        "confirmation_requests": 0,
+        "captures": 0
+      },
+      "selected": null,
+      "nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "scope": "Unknown repeat quality breakdown"
+      },
+      "reason": "No qualified setting in this finite stage; inspect geometry, native outcomes and candidate-specific repeat records",
+      "result_url": null,
+      "frozen_validation": null,
+      "attempts": [
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-01-05-baseline",
+          "request_payload_sha256": "5116cb1d3b2fb4ed26bebd07f6748be1d348b9f8cb5f03161411d7a2380bb197",
+          "result_payload_sha256": "2c79c831345ed18375d155d0381aa64a0e4b22341cf624bd78181525b46e00bf",
+          "request_sha256": null,
+          "result_sha256": "92f2a0ae865a4ff0a3cec095b192bce7c0933d2fa2bb4d34c80e259e3ac722e9",
+          "evidence_sha256": {
+            "home.json": "a4c9bc11413e83d5aed752d2876282d6675a244f59e9a6c5e91c23cdc003fe19",
+            "result.json": "92f2a0ae865a4ff0a3cec095b192bce7c0933d2fa2bb4d34c80e259e3ac722e9",
+            "geometry.json": "ddcd2318bb8032fd4a0a1ae9b7b35a41db40a31b856c9a1474731ddeeecfc9ef",
+            "proposals.json": "d50368786f0f803a9f7950157949c4e9c46e41fe0ffb7d2a5056649f05a155e4",
+            "request.json": "65188f14877d6013ce834001de50bb388102f9959e541c83999326bfc82e887f"
+          },
+          "native_request_sha256": "cc16b2b0819339bdbbf7622f4c9ee0a8d3f10681c71bd5080bdbfe87ee7226e2",
+          "saved_evidence": false,
+          "status_native": "no_verified_solution_within_budget",
+          "success": false
+        },
+        {
+          "stage": "expanded",
+          "request_id": "dev-grid-01-05-expanded",
+          "request_payload_sha256": "49a734ffa70367a0dace62de8c5971a85e018fcaf1343b8d490f4d0335ffa161",
+          "result_payload_sha256": "e84335015a99444f5c523a7926afa09b35bd1b67a4d6b207952eb0f7fa5cd933",
+          "request_sha256": null,
+          "result_sha256": "d8b90b7d3122cb6e790f02cd3aea6d30bbb0522c5e6b8d4d557115d182ca991a",
+          "evidence_sha256": {
+            "native-0006.npz": "1140b51ef484ab6024906e028b006fe42b6d4a6db1586966cf34632ebe000ca7",
+            "home.json": "a4c9bc11413e83d5aed752d2876282d6675a244f59e9a6c5e91c23cdc003fe19",
+            "result.json": "d8b90b7d3122cb6e790f02cd3aea6d30bbb0522c5e6b8d4d557115d182ca991a",
+            "shots.jsonl": "7ddb71fab61f9194509cd3518424985c5b903f3e2bad563d5c5bc3316b189c91",
+            "native-0004.npz": "4767bc7fd321ecd9f6bf463437be0069a6e8b755793f783d63e359c752d2e577",
+            "native-0008.npz": "328ffa90cd79b918f2eb185ea58f1a883b754f254dd49ada2e744433798c3ad4",
+            "native-0003.npz": "1f267f550aa185cd5b18a4a3d276ea3ca3177974bfb06b56021d1bb978b9a2b3",
+            "geometry.json": "b25beec9157b19fc81b034043de71fc1fe95dccb9cf590e648743ba0431979ca",
+            "native-0005.npz": "cf6de42acba6afa58a4d3271686a495178bbd7d93f6125efedebe3eeb8517066",
+            "native-0000.npz": "e4fbb4feea83f0942b31575f135e0e9beaf9a62f6c9ca696701ec205b6df5b8a",
+            "native-0007.npz": "e4ae15a34f79726546adf786a4eb3e81865754643a1170b218d3924166d30fa8",
+            "native-0001.npz": "ad072c60effec7e6289f36d895435310146e7a5c0816ea98a26ea2a3c258fc8a",
+            "proposals.json": "1960a2cdcd307394ce93a4e2bb495f03e3dcad14bb08b5b699b9806bcb7c3e6e",
+            "native-0002.npz": "73cee1c629e21d829b4551c213a17a7974f7eb03cb6dbedf28c79ef4c09fe43c",
+            "request.json": "1889ede6f12961771e94480253945863d284e7d9a49c1b5662a637ef96c8ad34"
+          },
+          "native_request_sha256": "c0ad7d30c48eeccdd8cd813b9d2b4212bbe907a822f206230afb688bd6327f53",
+          "saved_evidence": false,
+          "status_native": "no_verified_solution_within_budget",
+          "success": false
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-01-06",
+      "bucket_xy_m": [
+        1.24,
+        -0.42500000000000004
+      ],
+      "row": 1,
+      "column": 6,
+      "status": "unresolved",
+      "stage": "expanded",
+      "search": {
+        "cpu_candidates": 224,
+        "rejected": 80,
+        "native_requests": 129,
+        "confirmation_requests": 0,
+        "captures": 0
+      },
+      "selected": null,
+      "nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "scope": "Unknown repeat quality breakdown"
+      },
+      "reason": "No qualified setting in this finite stage; inspect geometry, native outcomes and candidate-specific repeat records",
+      "result_url": null,
+      "frozen_validation": null,
+      "attempts": [
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-01-06-baseline",
+          "request_payload_sha256": "c5607f15e8fe1b705b2e9c61a21d32509eb390c41700d2d44cde43edbb9f357c",
+          "result_payload_sha256": "5fa3c60ce504e5ee77d047e40bb9f763f27f1a180d7de93c32682f15fc141556",
+          "request_sha256": null,
+          "result_sha256": "a5fdab78665c6cbb443b4eb44b7eb1848c9ede7d4714f90f8b3e960d2b5be0cb",
+          "evidence_sha256": {
+            "home.json": "a4c9bc11413e83d5aed752d2876282d6675a244f59e9a6c5e91c23cdc003fe19",
+            "result.json": "a5fdab78665c6cbb443b4eb44b7eb1848c9ede7d4714f90f8b3e960d2b5be0cb",
+            "shots.jsonl": "28dda5aabb8a83c5d6ca3222f245f7b100b23a45b23aac9dff4edfef458b51b5",
+            "geometry.json": "5c8ae7273102591651d6ed7aeb96b10b90da51ea326c264e978c95ac443cfffc",
+            "native-0000.npz": "f989016dac38e303b040c22bf411c931ba4dff1a3c16fd29cf615545ac2997cd",
+            "proposals.json": "c719d391e9ef68c0e9f80378563e46211cc9a8f84a6706db0dbcc04a9d7e23ba",
+            "request.json": "c3f397d99da3471503721d84e20406a4c27b78f148d90d528f6de7873039b09c"
+          },
+          "native_request_sha256": "060354318cf32c33a16dc0bccaa1b15a42746a8d654b97fc857e6f10994cb0d6",
+          "saved_evidence": false,
+          "status_native": "no_verified_solution_within_budget",
+          "success": false
+        },
+        {
+          "stage": "expanded",
+          "request_id": "dev-grid-01-06-expanded",
+          "request_payload_sha256": "b58a7006fbd2d402836d1bc18d324d5e6e22e09aec5cc2f9986d044d300900bb",
+          "result_payload_sha256": "d976a33404c9e267a974f929144e126238d5e29f1fb21671d9178822dd3bb0af",
+          "request_sha256": null,
+          "result_sha256": "e232c7495a9b9127f54158da8885716b7a095107b52aaaa1ec10bdf43b6118d9",
+          "evidence_sha256": {
+            "home.json": "a4c9bc11413e83d5aed752d2876282d6675a244f59e9a6c5e91c23cdc003fe19",
+            "result.json": "e232c7495a9b9127f54158da8885716b7a095107b52aaaa1ec10bdf43b6118d9",
+            "shots.jsonl": "713442855256e13b22d6161557407b4a8756eabc6cc4da5f3d40b4915b77f04d",
+            "native-0004.npz": "e94999116addb453bf11639d5d9819a141f724f516238905f13cba9bd376d095",
+            "native-0003.npz": "4b8be61bd1647e3dd537219f0ba380d6a255aad71a81aaa3f967ada0b0948a28",
+            "geometry.json": "4e610e240b6f96fe05f02ea6a0006f48562d0bf5a8ac69fee49f001f0dbb8e9a",
+            "native-0000.npz": "3c10f5a287862481e6e0280375ed7537bbcceeed312c00bc3614063efe8248da",
+            "native-0001.npz": "bc1fa9f8f1ee11f2238e4aee1346af2b1225f0e9cae3c838bf48830062138863",
+            "proposals.json": "79f1fa2b8934b4030a1b88ba251891cf3e83b1526d0ac248905c87576d459acd",
+            "native-0002.npz": "d4eac531743a34fedba3f2109d643063b4303e2514c061937c8f628adae18c87",
+            "request.json": "50c78f5925a80a98f62fcbfebe5771f128503ff476c2230b564f6919aaa9df43"
+          },
+          "native_request_sha256": "c2860afc94ddd38e2a3251cedaf9459fba814b7fc751570779fa29fb71c3fddb",
+          "saved_evidence": false,
+          "status_native": "no_verified_solution_within_budget",
+          "success": false
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-02-00",
+      "bucket_xy_m": [
+        0.1,
+        -0.2
+      ],
+      "row": 2,
+      "column": 0,
+      "status": "verified_fresh",
+      "stage": "baseline",
+      "search": {
+        "cpu_candidates": 64,
+        "rejected": 51,
+        "native_requests": 13,
+        "confirmation_requests": 46,
+        "captures": 11
+      },
+      "selected": {
+        "board_center_m": [
+          0.5316381454467773,
+          -0.23353539407253265,
+          0.3401139974594116
+        ],
+        "tilt_deg": 32.12817684891195,
+        "gap_m": 0.3115504318858502,
+        "release_ball_center_m": [
+          0.5316382045586326,
+          -0.2335354748426996,
+          0.6891644707552853
+        ],
+        "distance_m": 0.4329389232447614,
+        "source": "fresh_study",
+        "request_id": "dev-grid-02-00-baseline",
+        "configuration_sha256": "c35baa78d9548bd35a179f4ef17a6439a7b79d6a78cb63faf14c5e6ba11f0997"
+      },
+      "nominal": {
+        "captures": 3,
+        "attempts": 3,
+        "rate": 1.0,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": 20,
+        "attempts": 20,
+        "rate": 1.0,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": 4,
+        "assisted": 16,
+        "cohort": "fresh",
+        "source": "fresh_study",
+        "scope": "Explicit recorded repeat cohort"
+      },
+      "reason": "Fresh study qualification passed",
+      "result_url": "/api/planner-grid/result/dev-grid-02-00",
+      "frozen_validation": {
+        "status": "completed",
+        "configuration_sha256": "c35baa78d9548bd35a179f4ef17a6439a7b79d6a78cb63faf14c5e6ba11f0997",
+        "seed": 20361144,
+        "nominal": {
+          "captures": 3,
+          "attempts": 3,
+          "rate": 1.0,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "fresh": {
+          "captures": 30,
+          "attempts": 30,
+          "rate": 1.0,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "quality": {
+          "clean": 6,
+          "assisted": 24,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "scope": "Separate frozen recipe validation; no reselection from these outcomes"
+      },
+      "attempts": [
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-02-00-baseline",
+          "request_payload_sha256": "35b987f44e3bcc2e7a760b59b8034981c83dfcb24e71ad46951c3537f3916f88",
+          "result_payload_sha256": "94eb4d55dfb072d9b9f451d94b5a5e76439eea4b5a5439d9330f7bf82d2b7649",
+          "request_sha256": null,
+          "result_sha256": "f6fdc77052dcde0752730c6af37b06e7720390f48a312a95bf1162f87b896037",
+          "evidence_sha256": {
+            "home.json": "98604e92807ac5414525f616d2a7086aa3551ffc530e61dfb8de0955f642bad5",
+            "result.json": "f6fdc77052dcde0752730c6af37b06e7720390f48a312a95bf1162f87b896037",
+            "qualification-001.json": "21f386d739d2b309d57893bbf9d7f7574cef5f8b8150d2b1c6228f5fbb7818a7",
+            "shots.jsonl": "ebbe8692bc10178198bfa660950eb1335bcb41c2761e82df0883fb8f707f5c18",
+            "native-0004.npz": "4eb52e5b59ca49ac4fab2da3b335f550685a785168c6775345a063f4aaa6d635",
+            "native-0003.npz": "626161ae5dfd385da6d6bbc203ce31b83f9b6082bf9671c98feabf47f9d11830",
+            "geometry.json": "f24181d455bbe07413e559e87ddacf68174886959cfdeb374292f08da7ec53a3",
+            "qualification-000.json": "dcbecac03d2baed5c33e6a050752a6cb1ba0a26340d4391604c2c934df5c7173",
+            "native-0005.npz": "667bbeb42e64c23069b2c618d999bea2139949f33980b1bf6786b926804483d5",
+            "native-0000.npz": "96df78c5213d4df0a7957369d7e0ee50b123bd06788fa75ad04139a66a9b8f94",
+            "native-0001.npz": "8e2cc923a8a8ef2676d675759e0ab39f5eb4eafc30a967887ff54ef0302fc08b",
+            "proposals.json": "7c437553f1d2a2e97db7c137aacd44822a596f9e2f779912b6c89614fe6eff44",
+            "native-0002.npz": "d7566de2611be3196b33185fdf78b9910c781ccacba4a506050dfcf39d7dbbe4",
+            "request.json": "465394bcabf63710d509d99e0e645bc32014de0952909667f9d43f53cc916c83"
+          },
+          "native_request_sha256": "6cd9aa570f72e7453ae175e88c9707625f39c693a270d321af0cf4bcf6b6fd06",
+          "saved_evidence": false,
+          "status_native": "verified_shot",
+          "success": true
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-02-01",
+      "bucket_xy_m": [
+        0.29,
+        -0.2
+      ],
+      "row": 2,
+      "column": 1,
+      "status": "verified_fresh",
+      "stage": "baseline",
+      "search": {
+        "cpu_candidates": 0,
+        "rejected": 0,
+        "native_requests": 0,
+        "confirmation_requests": 23,
+        "captures": 0
+      },
+      "selected": {
+        "board_center_m": [
+          0.5915048718452454,
+          -0.3435669541358948,
+          0.2680986523628235
+        ],
+        "tilt_deg": 31.519844899807353,
+        "gap_m": 0.26155952009868144,
+        "release_ball_center_m": [
+          0.591504920117288,
+          -0.3435668297172108,
+          0.5671582702957665
+        ],
+        "distance_m": 0.33394109969615293,
+        "source": "fresh_study",
+        "request_id": "dev-grid-02-01-baseline",
+        "configuration_sha256": "494638bd33fd47de0f80c9102721c5a91e48415c0560dc102118a91630074b56"
+      },
+      "nominal": {
+        "captures": 3,
+        "attempts": 3,
+        "rate": 1.0,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": 20,
+        "attempts": 20,
+        "rate": 1.0,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": 20,
+        "assisted": 0,
+        "cohort": "fresh",
+        "source": "fresh_study",
+        "scope": "Explicit recorded repeat cohort"
+      },
+      "reason": "Fresh study qualification passed",
+      "result_url": "/api/planner-grid/result/dev-grid-02-01",
+      "frozen_validation": {
+        "status": "completed",
+        "configuration_sha256": "494638bd33fd47de0f80c9102721c5a91e48415c0560dc102118a91630074b56",
+        "seed": 20361145,
+        "nominal": {
+          "captures": 3,
+          "attempts": 3,
+          "rate": 1.0,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "fresh": {
+          "captures": 29,
+          "attempts": 30,
+          "rate": 0.9666666666666667,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "quality": {
+          "clean": 28,
+          "assisted": 1,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "scope": "Separate frozen recipe validation; no reselection from these outcomes"
+      },
+      "attempts": [
+        {
+          "stage": "saved_reference",
+          "request_id": "dev-grid-02-01-saved",
+          "request_payload_sha256": "64f1124a81fc41f87f768c91cd81de2248a26981d2f211b966ec53b7038a02c2",
+          "result_payload_sha256": "82abbef21b995d8ce589a28b011924abee654647daf6687cce5bd4b12f6e4a01",
+          "request_sha256": null,
+          "result_sha256": "15e986020ea7c56a03d74a15c584c919913427d17ee2d66bfb168e1f22f87402",
+          "evidence_sha256": {
+            "result.json": "15e986020ea7c56a03d74a15c584c919913427d17ee2d66bfb168e1f22f87402",
+            "request.json": "8ffb124066209321c5cb63d0ec06dc5103ee37a3a15ae0a2b649bc9424c0f351"
+          },
+          "native_request_sha256": "511660d268f1456c99ca24e39af16650f6dbdc12fce7404f57a0522aa8039177",
+          "saved_evidence": true,
+          "status_native": "verified_shot",
+          "success": true
+        },
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-02-01-baseline",
+          "request_payload_sha256": "ce11ee33dad776600acf5a397e412110bca178c1d6560167cb1f40e52e030d47",
+          "result_payload_sha256": "ec15d994bf6c8a72d331c9410a91dc4eb84808bb0749383739bb60696f0d2f56",
+          "request_sha256": null,
+          "result_sha256": "8f938f4976df2880bfec05651f4198e29e2b9c4870f30da0a54d8e0460f90e34",
+          "evidence_sha256": {
+            "result.json": "8f938f4976df2880bfec05651f4198e29e2b9c4870f30da0a54d8e0460f90e34",
+            "shots.jsonl": "6c45540c968f4fc98e446bfa7cebe9d507efff4ff76335b6981fadb56b3d25c8",
+            "geometry.json": "13d7bf16b2cd94423d262388ee5fec3d4da71d750ddca3a4f9661cc736bdf4da",
+            "qualification-000.json": "456f1769cd4a9c79b6b83559df8a48144514920d6b7d11919f0a21779ae00706",
+            "native-0000.npz": "b4dbdbc8ecc47806d052e895c746ed0de3d943f46f633a44c4ac6a197f69bded",
+            "native-0001.npz": "0ebfbb439cc9dfa494e827b63aa0d8dbf5985218ba15e6a122da6ff7047a6c83",
+            "request.json": "f4fe133ff86b8a43285b3e43e814360a4db6614076cdd4354664b96ed6e0b3ed"
+          },
+          "native_request_sha256": "5edd15838dfc8693f5bfc4785c36f9fa3f13f4257fb28abe0dd4ea4430e64cc5",
+          "saved_evidence": false,
+          "status_native": "verified_shot",
+          "success": true
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-02-02",
+      "bucket_xy_m": [
+        0.48,
+        -0.2
+      ],
+      "row": 2,
+      "column": 2,
+      "status": "verified_fresh",
+      "stage": "baseline",
+      "search": {
+        "cpu_candidates": 0,
+        "rejected": 0,
+        "native_requests": 0,
+        "confirmation_requests": 23,
+        "captures": 0
+      },
+      "selected": {
+        "board_center_m": [
+          0.6329436302185059,
+          -0.2744496464729309,
+          0.27414828538894653
+        ],
+        "tilt_deg": 27.534005060312847,
+        "gap_m": 0.0963651221865184,
+        "release_ball_center_m": [
+          0.6329437343752256,
+          -0.27444956160238937,
+          0.4080134162072503
+        ],
+        "distance_m": 0.1701014517408933,
+        "source": "fresh_study",
+        "request_id": "dev-grid-02-02-baseline",
+        "configuration_sha256": "b9377091068594d21e8b36f8d97898564e3c10225dd43d2965c3b09cfa141d6c"
+      },
+      "nominal": {
+        "captures": 3,
+        "attempts": 3,
+        "rate": 1.0,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": 20,
+        "attempts": 20,
+        "rate": 1.0,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": 20,
+        "assisted": 0,
+        "cohort": "fresh",
+        "source": "fresh_study",
+        "scope": "Explicit recorded repeat cohort"
+      },
+      "reason": "Fresh study qualification passed",
+      "result_url": "/api/planner-grid/result/dev-grid-02-02",
+      "frozen_validation": {
+        "status": "completed",
+        "configuration_sha256": "b9377091068594d21e8b36f8d97898564e3c10225dd43d2965c3b09cfa141d6c",
+        "seed": 20361146,
+        "nominal": {
+          "captures": 3,
+          "attempts": 3,
+          "rate": 1.0,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "fresh": {
+          "captures": 30,
+          "attempts": 30,
+          "rate": 1.0,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "quality": {
+          "clean": 30,
+          "assisted": 0,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "scope": "Separate frozen recipe validation; no reselection from these outcomes"
+      },
+      "attempts": [
+        {
+          "stage": "saved_reference",
+          "request_id": "dev-grid-02-02-saved",
+          "request_payload_sha256": "d19c0267d4d4b2916a3f7a37ad5f3d4e6d44795915d88171ab7669f6967e9193",
+          "result_payload_sha256": "bfb1d87a7266d77226b20fe57a20a365fb6372a5ccdacb7f2854a60e4a929062",
+          "request_sha256": null,
+          "result_sha256": "395b4c02203216c4fc18a43b92c7bf575bee88bb822ea372fb152294e154cbcd",
+          "evidence_sha256": {
+            "result.json": "395b4c02203216c4fc18a43b92c7bf575bee88bb822ea372fb152294e154cbcd",
+            "request.json": "322696964f105846909c3248406df743dee3249e3171d6dd3c94f8da7af9a53c"
+          },
+          "native_request_sha256": "e7208532dfa149bb50d60adf6567c8931bfc912c7e5b2ce0941381f2804c0e01",
+          "saved_evidence": true,
+          "status_native": "verified_shot",
+          "success": true
+        },
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-02-02-baseline",
+          "request_payload_sha256": "4f493289bdc05aa61beb8fcc1cf22e5f767cad19e8faa86e6c00f66ffe9fe03f",
+          "result_payload_sha256": "a695a38826e804f4b382931a8fc39cf37b418ef7eaff5cbd26237cd8c442e8a3",
+          "request_sha256": null,
+          "result_sha256": "e39a577793d8f1813b5cca20b7c06208a4f21797e158a5b47060d9af50d90b6e",
+          "evidence_sha256": {
+            "result.json": "e39a577793d8f1813b5cca20b7c06208a4f21797e158a5b47060d9af50d90b6e",
+            "shots.jsonl": "f207dd89ba5c93340b8e2ff3514d2cac66ab0197115d69357b5abf21a73e06f3",
+            "geometry.json": "d938bad7ba727037a02e7f1e61a23cf94bafa721759281d7486a0359d2721f83",
+            "qualification-000.json": "31d4a73f69a97aa854ef70e85c5a2810e101c4e8c311653d8f0271c96890f751",
+            "native-0000.npz": "072fd3c2b66e4acf24bb2cef7523ca59eb7e7c256a04009add24870e772a381b",
+            "native-0001.npz": "18e819ff5a26b3a4522b6bd360a98fdcd85de26f981c22ad9b4f437eda4c8790",
+            "request.json": "e5d75be6a37faa7897bdb783ae8bab52301c6639bc7133a662a9da1f0084e164"
+          },
+          "native_request_sha256": "b213b5a468518ed5bcd91bfa2d7bb2496369a15225a8018c505b22c5bc58b7d0",
+          "saved_evidence": false,
+          "status_native": "verified_shot",
+          "success": true
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-02-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.2
+      ],
+      "row": 2,
+      "column": 3,
+      "status": "blocked",
+      "stage": "expanded",
+      "search": {
+        "cpu_candidates": 0,
+        "rejected": 0,
+        "native_requests": 0,
+        "confirmation_requests": 0,
+        "captures": 0
+      },
+      "selected": null,
+      "nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "scope": "Unknown repeat quality breakdown"
+      },
+      "reason": "No qualified setting in this finite stage; inspect geometry, native outcomes and candidate-specific repeat records",
+      "result_url": null,
+      "frozen_validation": null,
+      "attempts": [
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-02-03-baseline",
+          "request_payload_sha256": "b5eaa664fc9fc39c3b7f8e4240722983632202c62d2fc358fc70834d92f184bf",
+          "result_payload_sha256": "6abe7dd738012bf77302665a10c10ed9c7d1f94c74ecf79ffb722461d9299b82",
+          "request_sha256": null,
+          "result_sha256": "97d25049afae9b31e24355eac1d539b95361b2e9d8dd0b13c66e33ea3eb558ac",
+          "evidence_sha256": {
+            "home.json": "0d3c850ea4b14f30e2f7b491dc27b120572d174f16014ff539e75c80a86086da",
+            "result.json": "97d25049afae9b31e24355eac1d539b95361b2e9d8dd0b13c66e33ea3eb558ac",
+            "request.json": "08338fa33f674c6ce65af659ee1f95920faad9dbbf485e77c7f3f82f2b9375d0"
+          },
+          "native_request_sha256": "c9ae5991723ddf1bb5d35cfcae22ba7c42e364c0974fd246df47d8432f8e7603",
+          "saved_evidence": false,
+          "status_native": "common_home_unresolved",
+          "success": false
+        },
+        {
+          "stage": "expanded",
+          "request_id": "dev-grid-02-03-expanded",
+          "request_payload_sha256": "a61f05f36e3903b14db517e79be77c8aee128f1be106a5c2d7139dc16cb738fa",
+          "result_payload_sha256": "e2eef6d31366a669b68ad0d6ada7fdfbbafb244b0f8cde2dd141863aae5fc287",
+          "request_sha256": null,
+          "result_sha256": "e3ce094b064149da71fba5b33a57af5e5dc02a6c3992b72063ce02195789b858",
+          "evidence_sha256": {
+            "home.json": "0d3c850ea4b14f30e2f7b491dc27b120572d174f16014ff539e75c80a86086da",
+            "result.json": "e3ce094b064149da71fba5b33a57af5e5dc02a6c3992b72063ce02195789b858",
+            "request.json": "e2f51a257059fb1382e91ae15a5d0465e4d9cad816f13215b04e045cda6eb7b6"
+          },
+          "native_request_sha256": "56db29bb73efba284d18e292e2c86700dfe1070bedadaf23bd48a2e8fa4f4f55",
+          "saved_evidence": false,
+          "status_native": "common_home_unresolved",
+          "success": false
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-02-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.2
+      ],
+      "row": 2,
+      "column": 4,
+      "status": "blocked",
+      "stage": "expanded",
+      "search": {
+        "cpu_candidates": 0,
+        "rejected": 0,
+        "native_requests": 0,
+        "confirmation_requests": 0,
+        "captures": 0
+      },
+      "selected": null,
+      "nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "scope": "Unknown repeat quality breakdown"
+      },
+      "reason": "No qualified setting in this finite stage; inspect geometry, native outcomes and candidate-specific repeat records",
+      "result_url": null,
+      "frozen_validation": null,
+      "attempts": [
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-02-04-baseline",
+          "request_payload_sha256": "0399195495a2fa3cec64d10a7a21e5d5b9eaef13ca035260566b5f317c772999",
+          "result_payload_sha256": "d2c5ec705f32d6f4392b592c94d65d2f813dde2544430c50031a12332026ec87",
+          "request_sha256": null,
+          "result_sha256": "0e5d81b6cac150d85356d3347e56db67cda092d36874b310fc6062fe3c0309b2",
+          "evidence_sha256": {
+            "home.json": "647d04cc7acb90bac485a8a31dcc98bcabc8fb7451500f8ff87e2fe47b9c2858",
+            "result.json": "0e5d81b6cac150d85356d3347e56db67cda092d36874b310fc6062fe3c0309b2",
+            "request.json": "982749a921dee498360a5cb592c7d98af6b477dbff44db6c3b6ea7d266767a65"
+          },
+          "native_request_sha256": "7961344ce3fddc1cf861921ff09437b28758c16b40dbcabdbb78245893025941",
+          "saved_evidence": false,
+          "status_native": "common_home_unresolved",
+          "success": false
+        },
+        {
+          "stage": "expanded",
+          "request_id": "dev-grid-02-04-expanded",
+          "request_payload_sha256": "23d9389ec254a93443be268f61529e109657f0b59585beaeb68ac307a16d63b8",
+          "result_payload_sha256": "bd796015bd1c171c971c1b4f564c321f4ee7c1ff0054262a6eb9d42763bf35cd",
+          "request_sha256": null,
+          "result_sha256": "7e5e610d619124c371f52129a891d69160836a6b0d9d53dcb999546aec9ae811",
+          "evidence_sha256": {
+            "home.json": "647d04cc7acb90bac485a8a31dcc98bcabc8fb7451500f8ff87e2fe47b9c2858",
+            "result.json": "7e5e610d619124c371f52129a891d69160836a6b0d9d53dcb999546aec9ae811",
+            "request.json": "6fe182315e2fe209b324c6c091f693c5c27b6ddcd7b13e846e302fe055433c03"
+          },
+          "native_request_sha256": "45995d5c8abf8b62fe1709239f293cc03cd884cb8e0089a47310614a61381d9c",
+          "saved_evidence": false,
+          "status_native": "common_home_unresolved",
+          "success": false
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-02-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.2
+      ],
+      "row": 2,
+      "column": 5,
+      "status": "unresolved",
+      "stage": "expanded",
+      "search": {
+        "cpu_candidates": 1055,
+        "rejected": 1046,
+        "native_requests": 9,
+        "confirmation_requests": 0,
+        "captures": 1
+      },
+      "selected": null,
+      "nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "scope": "Unknown repeat quality breakdown"
+      },
+      "reason": "No qualified setting in this finite stage; inspect geometry, native outcomes and candidate-specific repeat records",
+      "result_url": null,
+      "frozen_validation": null,
+      "attempts": [
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-02-05-baseline",
+          "request_payload_sha256": "3a2c5180fb56b015b229cd64598d883e298555a40aea1019f8af9eef5e4afe60",
+          "result_payload_sha256": "c192524161aa509aa498d53890d6d35ae49ebbe9f54cf873ceaa4b41c3422ed0",
+          "request_sha256": null,
+          "result_sha256": "5962d670df61d7461b2a56d3f44c82ab56ed4cb1cfeced46cff33d7a369c48f4",
+          "evidence_sha256": {
+            "home.json": "a4c9bc11413e83d5aed752d2876282d6675a244f59e9a6c5e91c23cdc003fe19",
+            "result.json": "5962d670df61d7461b2a56d3f44c82ab56ed4cb1cfeced46cff33d7a369c48f4",
+            "geometry.json": "977bf08f9e9f2052710e3d03b871d8d41c079abb3d27cbe3f6138ecde770d35c",
+            "proposals.json": "2df5484b0fdc56e57680f79b273b4e62e582729c7294cf570537a3b6c1f1a32c",
+            "request.json": "0a334fca20de7d54d0c563fffaee2e6c23fc477678156d540417f1fda3e6c06b"
+          },
+          "native_request_sha256": "c49efb341039dfd184bc927664ea82ddc83d444c53bbc341f5c1e84eaab95398",
+          "saved_evidence": false,
+          "status_native": "no_verified_solution_within_budget",
+          "success": false
+        },
+        {
+          "stage": "expanded",
+          "request_id": "dev-grid-02-05-expanded",
+          "request_payload_sha256": "2e33b479750d30ac65b22798b3d801cd33256d0329d75f871e3b597e2281e628",
+          "result_payload_sha256": "0596d88fb2665a6cc0f91456f513edcb15a3940597229d4b463aa18200079d2c",
+          "request_sha256": null,
+          "result_sha256": "dbc209804ab6eb49827a733e8e0cb672da5dcf74b3bebc8ce7791cb3b4c78184",
+          "evidence_sha256": {
+            "native-0006.npz": "c322c6913df103beff6d1227a4dd0fb8f1e55fd5551986e0c95f19e4ef98474d",
+            "home.json": "a4c9bc11413e83d5aed752d2876282d6675a244f59e9a6c5e91c23cdc003fe19",
+            "result.json": "dbc209804ab6eb49827a733e8e0cb672da5dcf74b3bebc8ce7791cb3b4c78184",
+            "shots.jsonl": "b668709b15d86f38cb5ccaf2f658029fc28258ff225bd4158cf69f7539ba1d3b",
+            "native-0004.npz": "f95fcbb277b5dee5f8bd63dc403af9945e49c255a845a30ee6810aebaeb6ff61",
+            "native-0008.npz": "d208769584b193601bdec5ad0ef28d98c9b2f092b7830b3daf625420382e2639",
+            "native-0003.npz": "9e9e0a2f4f7875c56b5e8ba5b90f07699739de8a51d0c25701ea69649177e3fc",
+            "geometry.json": "3692eeabb06a472ca0bdb99d0e884ffd8503e25ab249b572a70eb75fdd0e4dc5",
+            "qualification-000.json": "2cbd77eb0249a17030ad268dead80d5a8fdc53a6a7ceb87618afb259246e9f9d",
+            "native-0005.npz": "8f391cbfd9332d1d4b81655c19782778825d242c1c2d31a3158d3f0ac03b5f67",
+            "native-0000.npz": "236d851a159a76426d91edfaeea991c50689039eedb11aae7f6d4854e0bbe357",
+            "native-0007.npz": "f6d6f292607ef209cc396798d5ef249c5217a0f3270eec7fa9934dcdfe50f70a",
+            "native-0001.npz": "e0ff1bda24c9565f4a6a6f8d8a2dd027934641ecca84c5ed2fab597ca83bd496",
+            "proposals.json": "9b062a2f8e8c617acdaa06ca19950e05223dc3f0eddddd622644a03ffe211799",
+            "native-0002.npz": "a2c2f6ccbb1f2b89fc687280ba357ffdf1054e0865300b45296859cd1056d2e9",
+            "request.json": "cfe81b935ee01d7c72fd928554143f92a49f6c092961c0aebc513238d263cf18"
+          },
+          "native_request_sha256": "453e0d9728e32b53bcdbd1b91c35a0f5457be3e4277bd2b3e545eb12a34088ee",
+          "saved_evidence": false,
+          "status_native": "capture_found_confirmation_unresolved",
+          "success": false
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-02-06",
+      "bucket_xy_m": [
+        1.24,
+        -0.2
+      ],
+      "row": 2,
+      "column": 6,
+      "status": "unresolved",
+      "stage": "expanded",
+      "search": {
+        "cpu_candidates": 224,
+        "rejected": 67,
+        "native_requests": 129,
+        "confirmation_requests": 0,
+        "captures": 0
+      },
+      "selected": null,
+      "nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "scope": "Unknown repeat quality breakdown"
+      },
+      "reason": "No qualified setting in this finite stage; inspect geometry, native outcomes and candidate-specific repeat records",
+      "result_url": null,
+      "frozen_validation": null,
+      "attempts": [
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-02-06-baseline",
+          "request_payload_sha256": "57bb94225e34e1d02dfc8cb672bd198e9f456009a75817ea527013f81f3b76b3",
+          "result_payload_sha256": "75b7c01c39ae21939e3d0e981d9d6d6594df2bd85dc228fa8c765e31752f7424",
+          "request_sha256": null,
+          "result_sha256": "c36556b82dc3a86d118f847beab3fa4d7a4b1f255cfcb484b4f0107a31781700",
+          "evidence_sha256": {
+            "home.json": "65f3f387be696af200e1e787dbb2911e93c2f63160475478049efe735a095e76",
+            "result.json": "c36556b82dc3a86d118f847beab3fa4d7a4b1f255cfcb484b4f0107a31781700",
+            "shots.jsonl": "585088ec80dc1bfaff22dd6eb5361e5b237f2c7fa93af2ea8b7118fca830cae4",
+            "geometry.json": "417a9b23ec56d28388beba87c7b8c2fe49fe2efce7a5afd3dd5d83ee4a5a79f3",
+            "native-0000.npz": "e022123736bf6e769fd7d6022b754af8e6a8a1437c25060cc1fd18b91f33faa6",
+            "proposals.json": "1611db72816f3c3d8179cf14f1de049d36744a8ecfb2efa9e3f18b85bf16cd05",
+            "request.json": "74a8dc2f6c3eb6db29bfbe43806858ea596b3d56e9d8ba49fddcc9c8ad5e9ee2"
+          },
+          "native_request_sha256": "57318b881d7496be1226dc5ecfa5db42d87947451ab71a4708da95852ff4b62b",
+          "saved_evidence": false,
+          "status_native": "no_verified_solution_within_budget",
+          "success": false
+        },
+        {
+          "stage": "expanded",
+          "request_id": "dev-grid-02-06-expanded",
+          "request_payload_sha256": "4fe04b7255adf27cb2a37f81f6b1a1ec388aaa00474d8a7fa59155cbb74d24d1",
+          "result_payload_sha256": "1632c45de67a01b4b3923fd4bd63eb822c65925739ee7dd5fdd6552134220136",
+          "request_sha256": null,
+          "result_sha256": "e7e672a2560a74a56e8574cac558a46539417b88cb0fd1d145da26f7f8c182d9",
+          "evidence_sha256": {
+            "home.json": "65f3f387be696af200e1e787dbb2911e93c2f63160475478049efe735a095e76",
+            "result.json": "e7e672a2560a74a56e8574cac558a46539417b88cb0fd1d145da26f7f8c182d9",
+            "shots.jsonl": "e4a4875c3dfb86ae7b99a7e11102a8b93edbbac3c3c0efadc4dd9fe7fa16d66e",
+            "native-0004.npz": "0a3c502138a9b3de2e2f05eb437e93aea2ec7b04515a840554838f709f8d76de",
+            "native-0003.npz": "25a0025e9230453dd08d1e678dd05f041e925626cc91e91e4bee211b6e0e8710",
+            "geometry.json": "f538cf000d8ee41551abfe88a247cfff2021ddbd24aa9bb17d2a3759a8ba2e42",
+            "native-0000.npz": "18069ec2aa839946614359db21701d2024612e4221dca7b38a24929bb5046d66",
+            "native-0001.npz": "4da2bd3494412706460470401cc5a247825d1ce407a969bfb2094d1df2980368",
+            "proposals.json": "7985520a54a78cbdd7d71109868986c6d60af296db038f298a24ed43dee5428c",
+            "native-0002.npz": "eabd86e44316a16d9e693988950194ec6061c4ea94028d1b2baf68cb42a94483",
+            "request.json": "4214ce3d2505f453e6283ea890f50ebf85f6b5971c62b46f537e9e25891898fe"
+          },
+          "native_request_sha256": "9fd79dbc692b5fdb07f62a0f91f4c96be0c87eb8d8a78bd3e48c064465dbfea0",
+          "saved_evidence": false,
+          "status_native": "no_verified_solution_within_budget",
+          "success": false
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-03-00",
+      "bucket_xy_m": [
+        0.1,
+        0.025000000000000022
+      ],
+      "row": 3,
+      "column": 0,
+      "status": "blocked",
+      "stage": "expanded",
+      "search": {
+        "cpu_candidates": 0,
+        "rejected": 0,
+        "native_requests": 0,
+        "confirmation_requests": 0,
+        "captures": 0
+      },
+      "selected": null,
+      "nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "scope": "Unknown repeat quality breakdown"
+      },
+      "reason": "No qualified setting in this finite stage; inspect geometry, native outcomes and candidate-specific repeat records",
+      "result_url": null,
+      "frozen_validation": null,
+      "attempts": [
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-03-00-baseline",
+          "request_payload_sha256": "a8815aec7caaa9ff105d1345d3ce0965b001ab7f60614ad8d9e29b3fb40ed5ce",
+          "result_payload_sha256": "73012bdf63bc74ac21cc93bde919ee12af5e4c0d1c4308c96c599d0817c5fa25",
+          "request_sha256": null,
+          "result_sha256": "779363dd53a30b57fdd72a6ec3a4bb70d9b9a7288c1ffb7a1c6aa98bc33eb74a",
+          "evidence_sha256": {
+            "home.json": "7deaea222982c72036a92d72a5a01bdf0b5fa1b5840096339da2d390154d0c1e",
+            "result.json": "779363dd53a30b57fdd72a6ec3a4bb70d9b9a7288c1ffb7a1c6aa98bc33eb74a",
+            "request.json": "acbe94a59807589f48720467d72ce9df2ef40183da22434876a3d9458aa8b7a9"
+          },
+          "native_request_sha256": "9c9e52f889f77d599d9bd15b94aa851e0d57462525d38358b47641d2faad1aba",
+          "saved_evidence": false,
+          "status_native": "common_home_unresolved",
+          "success": false
+        },
+        {
+          "stage": "expanded",
+          "request_id": "dev-grid-03-00-expanded",
+          "request_payload_sha256": "70c0899365dd0031c860de6b96ded459c0efe29cecff71637c0891c77b0df656",
+          "result_payload_sha256": "3ce14f66773d90580731ee2c04d167d785af4565eb2ac698f3578d43bd316a52",
+          "request_sha256": null,
+          "result_sha256": "9113a084d995021dd1970da557e4fc8e258afa80566aac790416e2f4e4664808",
+          "evidence_sha256": {
+            "home.json": "7deaea222982c72036a92d72a5a01bdf0b5fa1b5840096339da2d390154d0c1e",
+            "result.json": "9113a084d995021dd1970da557e4fc8e258afa80566aac790416e2f4e4664808",
+            "request.json": "f244659f12b3955bc7ed8e1f0a44735b370f0444f6ca61c062af1b9a729c3f2e"
+          },
+          "native_request_sha256": "a7e94a67f71486ae5b380a02bee830b7c31cb5d3cb2ce5d60df64d69da145f85",
+          "saved_evidence": false,
+          "status_native": "common_home_unresolved",
+          "success": false
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-03-01",
+      "bucket_xy_m": [
+        0.29,
+        0.025000000000000022
+      ],
+      "row": 3,
+      "column": 1,
+      "status": "verified_fresh",
+      "stage": "baseline",
+      "search": {
+        "cpu_candidates": 0,
+        "rejected": 0,
+        "native_requests": 0,
+        "confirmation_requests": 23,
+        "captures": 0
+      },
+      "selected": {
+        "board_center_m": [
+          0.4597921371459961,
+          0.014746682718396187,
+          0.2741483747959137
+        ],
+        "tilt_deg": 27.534005060312847,
+        "gap_m": 0.0963651221865184,
+        "release_ball_center_m": [
+          0.45979219958719236,
+          0.014746607060560135,
+          0.4080134162072503
+        ],
+        "distance_m": 0.17010144135744995,
+        "source": "fresh_study",
+        "request_id": "dev-grid-03-01-baseline",
+        "configuration_sha256": "27542d34af1b88fc796a449f58176f10a4a7295a0268b52272f046647c7dad41"
+      },
+      "nominal": {
+        "captures": 3,
+        "attempts": 3,
+        "rate": 1.0,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": 20,
+        "attempts": 20,
+        "rate": 1.0,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": 20,
+        "assisted": 0,
+        "cohort": "fresh",
+        "source": "fresh_study",
+        "scope": "Explicit recorded repeat cohort"
+      },
+      "reason": "Fresh study qualification passed",
+      "result_url": "/api/planner-grid/result/dev-grid-03-01",
+      "frozen_validation": {
+        "status": "completed",
+        "configuration_sha256": "27542d34af1b88fc796a449f58176f10a4a7295a0268b52272f046647c7dad41",
+        "seed": 20361152,
+        "nominal": {
+          "captures": 3,
+          "attempts": 3,
+          "rate": 1.0,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "fresh": {
+          "captures": 30,
+          "attempts": 30,
+          "rate": 1.0,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "quality": {
+          "clean": 30,
+          "assisted": 0,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "scope": "Separate frozen recipe validation; no reselection from these outcomes"
+      },
+      "attempts": [
+        {
+          "stage": "saved_reference",
+          "request_id": "dev-grid-03-01-saved",
+          "request_payload_sha256": "34fb106f17f18e617eea45b731c1d89bc2f5cb15ebcabdcac514eaa34c507a4b",
+          "result_payload_sha256": "d123f500490ef5ff370fbf21c8a56814acb8cdee1a75d190b4b86d0ee3facf2e",
+          "request_sha256": null,
+          "result_sha256": "83f9c908607b8f69d1134c2d2ffac0541078d15bed1f3fe7da0167efa36b344e",
+          "evidence_sha256": {
+            "result.json": "83f9c908607b8f69d1134c2d2ffac0541078d15bed1f3fe7da0167efa36b344e",
+            "request.json": "6e412727315d9c8e080cff125fddec9251a1c2cf78b7559b3423cc6a8839f441"
+          },
+          "native_request_sha256": "e92f339abc1bab2a4e09307be2f96981048f2cfda17d91dd2d0291de0fa521b7",
+          "saved_evidence": true,
+          "status_native": "verified_shot",
+          "success": true
+        },
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-03-01-baseline",
+          "request_payload_sha256": "a97c05fbf1df62dd2f9519bed1162b08983afe097240e5fa51499b96792ec66a",
+          "result_payload_sha256": "6bd7ac1e2fa7703aa2b31ddf85117d2a3efb6919d1407cf62b5fa4a90bed5fcb",
+          "request_sha256": null,
+          "result_sha256": "ebecc2c48288389f5387b55d272023928c10f4ea04f9839cf36ce9432039e0b6",
+          "evidence_sha256": {
+            "result.json": "ebecc2c48288389f5387b55d272023928c10f4ea04f9839cf36ce9432039e0b6",
+            "shots.jsonl": "92dee3ba1d5c0df385a88e542ae236d213aeab3b2935174d94d4c5c808e48ad9",
+            "geometry.json": "03614584c0a81e538fe9f21f35667bd231a492407197726a6c76de195d3d8d76",
+            "qualification-000.json": "5b5472afac6159325f19254bd4e58315578cfde43d61dea17b6f553dbd933421",
+            "native-0000.npz": "a17b49dad697d7ee1d0422f047dfc2537671acbe4924cdb781ae110bbc07ab8f",
+            "native-0001.npz": "d9b54409f80200504b520247a7474979c37532f445b90f789ab93bac18e90c79",
+            "request.json": "1a4ee7e8d6056c92fc18a71cf01fe64038fdab63499cef70a4b55e576829ef56"
+          },
+          "native_request_sha256": "ab955f6a25414c0afb59586924cc148fe3166a21719b775142edff325a537a28",
+          "saved_evidence": false,
+          "status_native": "verified_shot",
+          "success": true
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-03-02",
+      "bucket_xy_m": [
+        0.48,
+        0.025000000000000022
+      ],
+      "row": 3,
+      "column": 2,
+      "status": "verified_fresh",
+      "stage": "baseline",
+      "search": {
+        "cpu_candidates": 0,
+        "rejected": 0,
+        "native_requests": 0,
+        "confirmation_requests": 23,
+        "captures": 0
+      },
+      "selected": {
+        "board_center_m": [
+          0.6329437494277954,
+          -0.04944964498281479,
+          0.27414825558662415
+        ],
+        "tilt_deg": 27.534005060312847,
+        "gap_m": 0.0963651221865184,
+        "release_ball_center_m": [
+          0.6329437343752256,
+          -0.04944956160238935,
+          0.4080134162072503
+        ],
+        "distance_m": 0.17010155827357795,
+        "source": "fresh_study",
+        "request_id": "dev-grid-03-02-baseline",
+        "configuration_sha256": "197de01d718432216131a9d15e2619c8505b8acf38ee2d4bc97fa68c93c8018f"
+      },
+      "nominal": {
+        "captures": 3,
+        "attempts": 3,
+        "rate": 1.0,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": 20,
+        "attempts": 20,
+        "rate": 1.0,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": 20,
+        "assisted": 0,
+        "cohort": "fresh",
+        "source": "fresh_study",
+        "scope": "Explicit recorded repeat cohort"
+      },
+      "reason": "Fresh study qualification passed",
+      "result_url": "/api/planner-grid/result/dev-grid-03-02",
+      "frozen_validation": {
+        "status": "completed",
+        "configuration_sha256": "197de01d718432216131a9d15e2619c8505b8acf38ee2d4bc97fa68c93c8018f",
+        "seed": 20361153,
+        "nominal": {
+          "captures": 3,
+          "attempts": 3,
+          "rate": 1.0,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "fresh": {
+          "captures": 30,
+          "attempts": 30,
+          "rate": 1.0,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "quality": {
+          "clean": 30,
+          "assisted": 0,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "scope": "Separate frozen recipe validation; no reselection from these outcomes"
+      },
+      "attempts": [
+        {
+          "stage": "saved_reference",
+          "request_id": "dev-grid-03-02-saved",
+          "request_payload_sha256": "839e4ceac614742fc375493420aa5b756166c39b4874ddbeded0eaac2267ded7",
+          "result_payload_sha256": "2f8940ed109f95b4e8d797a7ab9987e49d71a0829f43f4eeeeb15c34c6ed0b38",
+          "request_sha256": null,
+          "result_sha256": "e7afd2a9cfbefe714833bcf25b2d529059c4f55fa8def8a536ec897333f6d175",
+          "evidence_sha256": {
+            "result.json": "e7afd2a9cfbefe714833bcf25b2d529059c4f55fa8def8a536ec897333f6d175",
+            "request.json": "1dcd544ee20f7abad377cafbfbf76416311ff62afb1268fd84e878b20c07f538"
+          },
+          "native_request_sha256": "9ade3745531ff2dbdb73c5ad22bd3779b13c4b8a592a9268f643dbee719f0034",
+          "saved_evidence": true,
+          "status_native": "verified_shot",
+          "success": true
+        },
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-03-02-baseline",
+          "request_payload_sha256": "3e89c75d56781a9f77b715a35014fae1c07d5eb08489208e279413d16818fa13",
+          "result_payload_sha256": "0a81f88b9ed0369f659b0ea49d3d70a5b5c4974c38c5d3dacc087d2903f9da54",
+          "request_sha256": null,
+          "result_sha256": "be2d7593e5d489f17f3e4deb6a33b1b81071fca06a368449d56e1fedc22e9cf4",
+          "evidence_sha256": {
+            "result.json": "be2d7593e5d489f17f3e4deb6a33b1b81071fca06a368449d56e1fedc22e9cf4",
+            "shots.jsonl": "f198eee5f0f601d12729d9489f8271e9b192c24af6f41e05eb21782994458fe0",
+            "geometry.json": "06265cdfa3f31a77886ddd4b3bf8f127f1fdff04c9425b38211f0b8859537d94",
+            "qualification-000.json": "b960971af2960a95e140a3ba63140ca7d9effd50bae79ff40c5fcd2ab0690f44",
+            "native-0000.npz": "eadf02baf760946224b215f98b7c2a9c653800f116bf82f8ec1be06b8ceeddd0",
+            "native-0001.npz": "44182470276a59cb3452197b43d8a8900d4006026c6b93031772509fc5dd3a9f",
+            "request.json": "cb0fe913ca6673affe92d6aee4e622912577bbafc1937b94fbc695057e2446ec"
+          },
+          "native_request_sha256": "b66f3f37f08aadeec3fcf72b23af1412956b4e03d38d58c56ee3ff93e83360cb",
+          "saved_evidence": false,
+          "status_native": "verified_shot",
+          "success": true
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-03-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        0.025000000000000022
+      ],
+      "row": 3,
+      "column": 3,
+      "status": "blocked",
+      "stage": "expanded",
+      "search": {
+        "cpu_candidates": 0,
+        "rejected": 0,
+        "native_requests": 0,
+        "confirmation_requests": 0,
+        "captures": 0
+      },
+      "selected": null,
+      "nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "scope": "Unknown repeat quality breakdown"
+      },
+      "reason": "No qualified setting in this finite stage; inspect geometry, native outcomes and candidate-specific repeat records",
+      "result_url": null,
+      "frozen_validation": null,
+      "attempts": [
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-03-03-baseline",
+          "request_payload_sha256": "f4e32fb1c53c1e82748c04a53a058fb85dcd1d567fd4ac62c12ca1a75ac91abe",
+          "result_payload_sha256": "495be2d7d25126f63609ca2b6eb88836145aae9f6538fa74892463699a518208",
+          "request_sha256": null,
+          "result_sha256": "dca6c5f7185d05095c493af4fc96414e193bd0a0944d06319a751748964111e1",
+          "evidence_sha256": {
+            "home.json": "dcf4fb9b1bf7d5ce44eae67d0ae2e3502ac1f6cccb528e7dfa2f313283f48b0c",
+            "result.json": "dca6c5f7185d05095c493af4fc96414e193bd0a0944d06319a751748964111e1",
+            "request.json": "3e2a82336ab8ef3137ae3f814e712a2b68747414a9894c7c7c538f9c21e699f5"
+          },
+          "native_request_sha256": "d29681b37e40a74dd9fffabc090404d1a16df73f31cc3384b911da23fe39ff8b",
+          "saved_evidence": false,
+          "status_native": "common_home_unresolved",
+          "success": false
+        },
+        {
+          "stage": "expanded",
+          "request_id": "dev-grid-03-03-expanded",
+          "request_payload_sha256": "d69f5be355cb443cd616e6d3185104852b97707c086c7020a41295c2c8e478f2",
+          "result_payload_sha256": "f5abfab9a5ed1368897c3bb00495766f07cbcb23a19133d45e51955aaf874f07",
+          "request_sha256": null,
+          "result_sha256": "f5f30fb6641c7099ff98e85e307f410a80244a999969301e4381f722faf7e220",
+          "evidence_sha256": {
+            "home.json": "dcf4fb9b1bf7d5ce44eae67d0ae2e3502ac1f6cccb528e7dfa2f313283f48b0c",
+            "result.json": "f5f30fb6641c7099ff98e85e307f410a80244a999969301e4381f722faf7e220",
+            "request.json": "d003b18fca06cd2e6ac1cda24997b76926f543c71978ead01c369be69360bc5c"
+          },
+          "native_request_sha256": "b294e6f4b83e769d3fcf134b52edf3fab60e6115c8c62d56010d62f5aa1ec55f",
+          "saved_evidence": false,
+          "status_native": "common_home_unresolved",
+          "success": false
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-03-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        0.025000000000000022
+      ],
+      "row": 3,
+      "column": 4,
+      "status": "blocked",
+      "stage": "expanded",
+      "search": {
+        "cpu_candidates": 0,
+        "rejected": 0,
+        "native_requests": 0,
+        "confirmation_requests": 0,
+        "captures": 0
+      },
+      "selected": null,
+      "nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "scope": "Unknown repeat quality breakdown"
+      },
+      "reason": "No qualified setting in this finite stage; inspect geometry, native outcomes and candidate-specific repeat records",
+      "result_url": null,
+      "frozen_validation": null,
+      "attempts": [
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-03-04-baseline",
+          "request_payload_sha256": "2892c74d37b6832c38bd0671da36b7c50e8e324722f80941ff012ceec5d27014",
+          "result_payload_sha256": "6e5cfc60745101dc90efac07ef77cfa8d4cc2e006d7449623a623d12a09f487f",
+          "request_sha256": null,
+          "result_sha256": "1e12c37bc8170f2013aea780882d8bb3303295488c4bfabfd575b3670f802093",
+          "evidence_sha256": {
+            "home.json": "1402dc9235acd23dcf8c95a468d23289c57646f1d65b7333d40854895073c196",
+            "result.json": "1e12c37bc8170f2013aea780882d8bb3303295488c4bfabfd575b3670f802093",
+            "request.json": "92a2d23a03a6d4176549b7849d5608c0e36de9fee63ea1d8c7cc592276227aa0"
+          },
+          "native_request_sha256": "e579093b3969eae366b24f63120ad2afd93721443c253d3dd3c0cdc87b762049",
+          "saved_evidence": false,
+          "status_native": "common_home_unresolved",
+          "success": false
+        },
+        {
+          "stage": "expanded",
+          "request_id": "dev-grid-03-04-expanded",
+          "request_payload_sha256": "c01b27484a8d1543e7388b0f3b61d6338f94cf3c1e6d48cde688dd55760ee319",
+          "result_payload_sha256": "91b6824a58ed7ecf03d823fde3e6b7815693b649558a4a5a99a2e2d94746a49a",
+          "request_sha256": null,
+          "result_sha256": "778919525bee36771669cb9bc5288d0344f808c0f476b062c28bed019ef15f0f",
+          "evidence_sha256": {
+            "home.json": "1402dc9235acd23dcf8c95a468d23289c57646f1d65b7333d40854895073c196",
+            "result.json": "778919525bee36771669cb9bc5288d0344f808c0f476b062c28bed019ef15f0f",
+            "request.json": "6a140588f87cddade8f00e1e7db2d1115d987b00b514787a80ab954da47d1f9d"
+          },
+          "native_request_sha256": "f6fef60b8a8eac3de502daf3c400c8fc178c948c1600cd497bfdbc2e80fff28e",
+          "saved_evidence": false,
+          "status_native": "common_home_unresolved",
+          "success": false
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-03-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        0.025000000000000022
+      ],
+      "row": 3,
+      "column": 5,
+      "status": "unresolved",
+      "stage": "expanded",
+      "search": {
+        "cpu_candidates": 224,
+        "rejected": 94,
+        "native_requests": 129,
+        "confirmation_requests": 0,
+        "captures": 0
+      },
+      "selected": null,
+      "nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "scope": "Unknown repeat quality breakdown"
+      },
+      "reason": "No qualified setting in this finite stage; inspect geometry, native outcomes and candidate-specific repeat records",
+      "result_url": null,
+      "frozen_validation": null,
+      "attempts": [
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-03-05-baseline",
+          "request_payload_sha256": "1f720c862cda391cd3d9464c3207f9d51f7d8aec9b115b89fc177732d7ee4681",
+          "result_payload_sha256": "b95c94a756af4da6f14085c51b998ea3718807e4288832d671437f283a1b9118",
+          "request_sha256": null,
+          "result_sha256": "4623830e9ee7520ced749cf9b176feb5c3314289c44953021fb2cfbb3815d34d",
+          "evidence_sha256": {
+            "home.json": "ea59ff0852a66a78af7683ab2a26f697467aeb2cd3a092972b72e981328e8f8b",
+            "result.json": "4623830e9ee7520ced749cf9b176feb5c3314289c44953021fb2cfbb3815d34d",
+            "shots.jsonl": "bd6bc2beaa63ff0cf04170943f82ed086ed5b8249b68275ffcff09146083181a",
+            "geometry.json": "8fdbc711e16f6979114acaa8c8a49febdbff03da0f64a253d5fc71d6541eaf23",
+            "native-0000.npz": "57863b41b064cafde1e3a3c9bfd39c79b5f9c5e21340e043b17a1dfef100eea1",
+            "proposals.json": "c09d20e8167665a96bc208e86f31140d7e3f854e026e442647522fd73e222cb7",
+            "request.json": "fe8fc016df338f12b062bf4b276ca168afb425322bb23cfc14a6bbb6dbf0ad7d"
+          },
+          "native_request_sha256": "646ccf3bf18c288ac6528fb702334482d703fc288c3dd0d9327490f8ae76546f",
+          "saved_evidence": false,
+          "status_native": "no_verified_solution_within_budget",
+          "success": false
+        },
+        {
+          "stage": "expanded",
+          "request_id": "dev-grid-03-05-expanded",
+          "request_payload_sha256": "85406134a6bffbfc72dd19c519f26c70c3acd8c92ed133481fe58d1901372cf9",
+          "result_payload_sha256": "51692951313eef4dee6572744b9c585ead7ce6ae7ac8fb129ca8b87ea1c70eb3",
+          "request_sha256": null,
+          "result_sha256": "3bf60d3654930991e76b1318d3628be825835379a636a8e4493ae0b44d0d3c9a",
+          "evidence_sha256": {
+            "home.json": "ea59ff0852a66a78af7683ab2a26f697467aeb2cd3a092972b72e981328e8f8b",
+            "result.json": "3bf60d3654930991e76b1318d3628be825835379a636a8e4493ae0b44d0d3c9a",
+            "shots.jsonl": "7f505e06e0f48fb4153de387d71769635390e546e96674abffe6fde6f68f5281",
+            "native-0004.npz": "b87d954f2b331b533d8f66d579bc076759f949df89a69e1f9c0c0d06e63824c9",
+            "native-0003.npz": "9b3bcaf1045dd7352a798a6796ce4bccfbd902abf00aff2285b30f63667062dd",
+            "geometry.json": "a0bfa3de9c2483875df9496b66e06785d115bb38ff9bf1320ce5b0d416ee8043",
+            "native-0000.npz": "b4aa7e939aecb4a442b131a034a1abc68f55d43830456a71ccef26ead513b6ed",
+            "native-0001.npz": "c561b94176d971a1e5178dd30464fb04547ff0bd2605fc7f20ad3a8459196139",
+            "proposals.json": "6bfe44056180a97ca8b82381bd880060089ae96cda110a80fc76bdd46f6df7c9",
+            "native-0002.npz": "d7d4ca0c56004a4bea0b96fa7adbc78e329a5fde1314dc9b3c36624a3be11a13",
+            "request.json": "66c63481167715b523c233078a79407ed2777c297fb04abb54c0117c6b957e28"
+          },
+          "native_request_sha256": "84223a0df82be0e8aa7a339d548bb2ac8245de5b4c9444320c202a3348973f39",
+          "saved_evidence": false,
+          "status_native": "no_verified_solution_within_budget",
+          "success": false
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-03-06",
+      "bucket_xy_m": [
+        1.24,
+        0.025000000000000022
+      ],
+      "row": 3,
+      "column": 6,
+      "status": "blocked",
+      "stage": "expanded",
+      "search": {
+        "cpu_candidates": 0,
+        "rejected": 0,
+        "native_requests": 0,
+        "confirmation_requests": 0,
+        "captures": 0
+      },
+      "selected": null,
+      "nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "scope": "Unknown repeat quality breakdown"
+      },
+      "reason": "No qualified setting in this finite stage; inspect geometry, native outcomes and candidate-specific repeat records",
+      "result_url": null,
+      "frozen_validation": null,
+      "attempts": [
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-03-06-baseline",
+          "request_payload_sha256": "e705849a40fa00f4adc3f6f83fb6aea85fa0166678233c321facdba60ed1f2dc",
+          "result_payload_sha256": "87924d68d6f62d03756562267df2364db167dadf064036c25480bc98c8915000",
+          "request_sha256": null,
+          "result_sha256": "12953e1f5b257e7bb066c3ab7610e6d78868daf34d58221408307b9ab7062895",
+          "evidence_sha256": {
+            "home.json": "17291b75fae41665bef250bff5aceef81a9cdf981b8b3d2b2a835c9ae987d07c",
+            "result.json": "12953e1f5b257e7bb066c3ab7610e6d78868daf34d58221408307b9ab7062895",
+            "request.json": "d82113c7bdc7669945f25790cddb42cf65180c7d263e02a77c9676af463e5c9b"
+          },
+          "native_request_sha256": "36e9495a05cf20569fd163c0bb0da46948fee4f58a1f27bb87f24e61d8a24953",
+          "saved_evidence": false,
+          "status_native": "common_home_unresolved",
+          "success": false
+        },
+        {
+          "stage": "expanded",
+          "request_id": "dev-grid-03-06-expanded",
+          "request_payload_sha256": "4d61256f8f8ae2a7ef137eb6a75a07d2127d3430ec27dba5859e81ce358b067e",
+          "result_payload_sha256": "0cf87badd6884a97aff40840545ebd0f4008fb9c746d4a75d88b1a7579134ce4",
+          "request_sha256": null,
+          "result_sha256": "6271fc92c62e87b35821207c4b7ae5ac1403602cf016035f7e3c6ae0c14c9405",
+          "evidence_sha256": {
+            "home.json": "17291b75fae41665bef250bff5aceef81a9cdf981b8b3d2b2a835c9ae987d07c",
+            "result.json": "6271fc92c62e87b35821207c4b7ae5ac1403602cf016035f7e3c6ae0c14c9405",
+            "request.json": "66a76cd744048c784c056318538c9f87beb831c2ccf442e0ab88d1ad050d1771"
+          },
+          "native_request_sha256": "91df473553578e6a9b56bacc407bd71970f1b69872a4360fe86e66f99480f20c",
+          "saved_evidence": false,
+          "status_native": "common_home_unresolved",
+          "success": false
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-04-00",
+      "bucket_xy_m": [
+        0.1,
+        0.25
+      ],
+      "row": 4,
+      "column": 0,
+      "status": "verified_fresh",
+      "stage": "baseline",
+      "search": {
+        "cpu_candidates": 0,
+        "rejected": 0,
+        "native_requests": 0,
+        "confirmation_requests": 23,
+        "captures": 0
+      },
+      "selected": {
+        "board_center_m": [
+          0.4859480857849121,
+          0.0538363941013813,
+          0.3401140570640564
+        ],
+        "tilt_deg": 32.12817684891195,
+        "gap_m": 0.3115504318858502,
+        "release_ball_center_m": [
+          0.4859482320228433,
+          0.053836471519380646,
+          0.6891644707552853
+        ],
+        "distance_m": 0.43293889314796663,
+        "source": "fresh_study",
+        "request_id": "dev-grid-04-00-baseline",
+        "configuration_sha256": "74aa3513d26bba229fd5dfecdb3f67d9f7009a75830918c0d9c067e80e8f2554"
+      },
+      "nominal": {
+        "captures": 3,
+        "attempts": 3,
+        "rate": 1.0,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": 20,
+        "attempts": 20,
+        "rate": 1.0,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": 3,
+        "assisted": 17,
+        "cohort": "fresh",
+        "source": "fresh_study",
+        "scope": "Explicit recorded repeat cohort"
+      },
+      "reason": "Fresh study qualification passed",
+      "result_url": "/api/planner-grid/result/dev-grid-04-00",
+      "frozen_validation": {
+        "status": "completed",
+        "configuration_sha256": "74aa3513d26bba229fd5dfecdb3f67d9f7009a75830918c0d9c067e80e8f2554",
+        "seed": 20361158,
+        "nominal": {
+          "captures": 3,
+          "attempts": 3,
+          "rate": 1.0,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "fresh": {
+          "captures": 30,
+          "attempts": 30,
+          "rate": 1.0,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "quality": {
+          "clean": 14,
+          "assisted": 16,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "scope": "Separate frozen recipe validation; no reselection from these outcomes"
+      },
+      "attempts": [
+        {
+          "stage": "saved_reference",
+          "request_id": "dev-grid-04-00-saved",
+          "request_payload_sha256": "a7003f70db322403bc056d04f3bc937db1206de2bd138f4644167aacab7a3312",
+          "result_payload_sha256": "2a47494ee71d152ff106aa9707235cf41de4ecf7e8b26e2e5abc3636caff9299",
+          "request_sha256": null,
+          "result_sha256": "5d0d56dc02f3d8c22a8def470b355f53b48a76d3f4ae8808b4ecbc6e948ee30d",
+          "evidence_sha256": {
+            "result.json": "5d0d56dc02f3d8c22a8def470b355f53b48a76d3f4ae8808b4ecbc6e948ee30d",
+            "request.json": "2bb7af75ad728159ed7d37527b19a1781e576be0d40302c810da4c55c8acff58"
+          },
+          "native_request_sha256": "9b291068d4ad15152ffc0738b0c07ac9576263f36a33706b8168a68dbafafad9",
+          "saved_evidence": true,
+          "status_native": "verified_shot",
+          "success": true
+        },
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-04-00-baseline",
+          "request_payload_sha256": "59ae35d647fcbe093687e5bc6b91fccf33f2f04e37e8fdc71d2d9cc2fe65557f",
+          "result_payload_sha256": "793c165910d5055f49d412f7ae1da16863b9d3831e909e839a82466ec1e2f3a0",
+          "request_sha256": null,
+          "result_sha256": "2281544049389e20a34a7a30de2fbf5f391d086b383ec084f945b8fda0356659",
+          "evidence_sha256": {
+            "result.json": "2281544049389e20a34a7a30de2fbf5f391d086b383ec084f945b8fda0356659",
+            "shots.jsonl": "7346f6079dd7ab1215c7efc6cce7d342c72b0e2dbbad0dc4a57c0524dc9fe7b3",
+            "geometry.json": "b572564be1d0ba29723a0186a7263880144b96352f4f0810b7ba459c0fd5d0a0",
+            "qualification-000.json": "ddb546918d76f2fc383a2e9e3738653a9924c23a5b43ccf1b7540cbc6eb30da1",
+            "native-0000.npz": "cc3eebe57b0ef7f367ebbf5c94e2f7f6f6cc51b29f7522be8773b870bc21f4ce",
+            "native-0001.npz": "7b51df191dc32db59a945e43985f8a7e10ad2ce183b48d7efb00dd42d4c54d77",
+            "request.json": "2af06f813d65a6be3dabc6daf7be18696c94c6767ac2841091c2e15f0dbb95fb"
+          },
+          "native_request_sha256": "68df5d435b9d8c052f2082528864faaf43239482ce829ac1ddceff7ba0e340d3",
+          "saved_evidence": false,
+          "status_native": "verified_shot",
+          "success": true
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-04-01",
+      "bucket_xy_m": [
+        0.29,
+        0.25
+      ],
+      "row": 4,
+      "column": 1,
+      "status": "verified_fresh",
+      "stage": "baseline",
+      "search": {
+        "cpu_candidates": 0,
+        "rejected": 0,
+        "native_requests": 0,
+        "confirmation_requests": 23,
+        "captures": 0
+      },
+      "selected": {
+        "board_center_m": [
+          0.5715010166168213,
+          -0.07892753183841705,
+          0.3401140570640564
+        ],
+        "tilt_deg": 32.12817684891195,
+        "gap_m": 0.3115504318858502,
+        "release_ball_center_m": [
+          0.5715011397910115,
+          -0.07892746313417898,
+          0.6891644707552853
+        ],
+        "distance_m": 0.43293896054480563,
+        "source": "fresh_study",
+        "request_id": "dev-grid-04-01-baseline",
+        "configuration_sha256": "d105544da9f475e9d1d97b19722be317e5d25ad5a898772cc52fe2a81dd11842"
+      },
+      "nominal": {
+        "captures": 3,
+        "attempts": 3,
+        "rate": 1.0,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": 19,
+        "attempts": 20,
+        "rate": 0.95,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": 10,
+        "assisted": 9,
+        "cohort": "fresh",
+        "source": "fresh_study",
+        "scope": "Explicit recorded repeat cohort"
+      },
+      "reason": "Fresh study qualification passed",
+      "result_url": "/api/planner-grid/result/dev-grid-04-01",
+      "frozen_validation": {
+        "status": "completed",
+        "configuration_sha256": "d105544da9f475e9d1d97b19722be317e5d25ad5a898772cc52fe2a81dd11842",
+        "seed": 20361159,
+        "nominal": {
+          "captures": 3,
+          "attempts": 3,
+          "rate": 1.0,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "fresh": {
+          "captures": 30,
+          "attempts": 30,
+          "rate": 1.0,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "quality": {
+          "clean": 5,
+          "assisted": 25,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "scope": "Separate frozen recipe validation; no reselection from these outcomes"
+      },
+      "attempts": [
+        {
+          "stage": "saved_reference",
+          "request_id": "dev-grid-04-01-saved",
+          "request_payload_sha256": "5ca27ce93deb1799d54557388455b4b8c3122c0d7203d1df808015350a24fc8f",
+          "result_payload_sha256": "f9ee5d7c34a9e296514febce4743762c39795596bac76cd40384cb8ec7fac1ae",
+          "request_sha256": null,
+          "result_sha256": "d84650e3aa7df3ca4a10c250be0fc8e9fbba7ae56fbd3506163a6ec8c7faaef0",
+          "evidence_sha256": {
+            "result.json": "d84650e3aa7df3ca4a10c250be0fc8e9fbba7ae56fbd3506163a6ec8c7faaef0",
+            "request.json": "8ef80d1a7823a30bcdc25c0b94aa8a406a6a19e939a27f2254c66c6fb5fe4562"
+          },
+          "native_request_sha256": "9d01552f7badfbc65911d1c261b270fa67e96acdbb5bf998bdbafb70831ef2ab",
+          "saved_evidence": true,
+          "status_native": "verified_shot",
+          "success": true
+        },
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-04-01-baseline",
+          "request_payload_sha256": "36bba1399e0b027e6bc12acecc133cca86fbdd8c17c8ecae73867cb2724af68f",
+          "result_payload_sha256": "90d0b5cea1efabd4992bef37bf3ebf606dcc4e2dabd14df42b2d29ee28505a44",
+          "request_sha256": null,
+          "result_sha256": "b0dc1963358bcc122da90b41edac1474259727ecbf213990c705e8ba27534ff9",
+          "evidence_sha256": {
+            "result.json": "b0dc1963358bcc122da90b41edac1474259727ecbf213990c705e8ba27534ff9",
+            "shots.jsonl": "6485c1b7118b48455e9d3643f51dd4010596d6579dd33ddba3431bb28ea7932d",
+            "geometry.json": "86c68e868b6844a1f56969622b65f444eb8bfbbbd23468c18c7b1f08d6b21abf",
+            "qualification-000.json": "6e29ff74502b82c85305df3943f1fafc1648e5233a8e33bec066bc90764225d5",
+            "native-0000.npz": "36d6d853dc7d86e39d9147bfb851104982e092c9430dde90ac05b67c384b92dd",
+            "native-0001.npz": "6221f5de4070cda05dff0b2432541fcddd6c25e77e6601f6934633b14152a5a1",
+            "request.json": "7f42ace96f9f24159d48c962943697ecf6954d3ef09c70496bc9147ba5b88940"
+          },
+          "native_request_sha256": "8d4351d6ed416cf76b703b2d34016376f81b2ac35fc2286e581f1709a4e1a4d7",
+          "saved_evidence": false,
+          "status_native": "verified_shot",
+          "success": true
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-04-02",
+      "bucket_xy_m": [
+        0.48,
+        0.25
+      ],
+      "row": 4,
+      "column": 2,
+      "status": "verified_fresh",
+      "stage": "baseline",
+      "search": {
+        "cpu_candidates": 0,
+        "rejected": 0,
+        "native_requests": 0,
+        "confirmation_requests": 23,
+        "captures": 0
+      },
+      "selected": {
+        "board_center_m": [
+          0.5928109884262085,
+          0.12268856912851334,
+          0.27414843440055847
+        ],
+        "tilt_deg": 27.534005060312847,
+        "gap_m": 0.0963651221865184,
+        "release_ball_center_m": [
+          0.5928109720430352,
+          0.12268854060166831,
+          0.4080134162072503
+        ],
+        "distance_m": 0.17010149776014166,
+        "source": "fresh_study",
+        "request_id": "dev-grid-04-02-baseline",
+        "configuration_sha256": "88989318f0b799ee80bc0d5d4346fea54fbff6fe832b06a38bfb7f9a4809371e"
+      },
+      "nominal": {
+        "captures": 3,
+        "attempts": 3,
+        "rate": 1.0,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": 20,
+        "attempts": 20,
+        "rate": 1.0,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": 20,
+        "assisted": 0,
+        "cohort": "fresh",
+        "source": "fresh_study",
+        "scope": "Explicit recorded repeat cohort"
+      },
+      "reason": "Fresh study qualification passed",
+      "result_url": "/api/planner-grid/result/dev-grid-04-02",
+      "frozen_validation": {
+        "status": "completed",
+        "configuration_sha256": "88989318f0b799ee80bc0d5d4346fea54fbff6fe832b06a38bfb7f9a4809371e",
+        "seed": 20361160,
+        "nominal": {
+          "captures": 3,
+          "attempts": 3,
+          "rate": 1.0,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "fresh": {
+          "captures": 30,
+          "attempts": 30,
+          "rate": 1.0,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "quality": {
+          "clean": 30,
+          "assisted": 0,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "scope": "Separate frozen recipe validation; no reselection from these outcomes"
+      },
+      "attempts": [
+        {
+          "stage": "saved_reference",
+          "request_id": "dev-grid-04-02-saved",
+          "request_payload_sha256": "445710153739ba3fbce3e0a59a843fa60e66cfd404ab6bf104b0d32b0b99274c",
+          "result_payload_sha256": "b80eb692de970f09f7bd156732d781b6e7a54250f90d5bf9b271a90b44bba3d5",
+          "request_sha256": null,
+          "result_sha256": "559f406cf65096238e8f32bcf04cdfcd064919d80132194a31c9b4e99129d47e",
+          "evidence_sha256": {
+            "result.json": "559f406cf65096238e8f32bcf04cdfcd064919d80132194a31c9b4e99129d47e",
+            "request.json": "44f29ca09a8d958ccb6f2750cc0c7488195c8ff6d585b44304485cb15fb6af6e"
+          },
+          "native_request_sha256": "d1051160a7d559b3419c46919e4c0f1fc22417ae6fb388c1173741afd9319683",
+          "saved_evidence": true,
+          "status_native": "verified_shot",
+          "success": true
+        },
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-04-02-baseline",
+          "request_payload_sha256": "b3d0cf8f580b145797c369a1d391acd28140d01334b09732fd610de937b1bd31",
+          "result_payload_sha256": "a37e902fab075019aed3d1b8d115e321c1b5706b9823fb09fe04972afa5e69ad",
+          "request_sha256": null,
+          "result_sha256": "a9f8dbfd0aa379deaed1449745c046995e058b61f265214fa9cc2794f4fee979",
+          "evidence_sha256": {
+            "result.json": "a9f8dbfd0aa379deaed1449745c046995e058b61f265214fa9cc2794f4fee979",
+            "shots.jsonl": "c9ff1193e4f769273ee6665257d2d194d90f85bb1ef0e720f87424118fe8d37c",
+            "geometry.json": "70273832eca5deff2c67d4e3297f5da5db0e80b2fe7a673439c81ccdf4cc92e0",
+            "qualification-000.json": "914509684b4a612e7c48231a986a2435b2803c8a3d10d52b867ba16468dd0677",
+            "native-0000.npz": "e8e145f5bf361c58ad3c1c3697ac8c50397a0107e0062254f1b3bdca676a41a8",
+            "native-0001.npz": "5f74cb89fd52fc07f4f0d4481ee0e13e04a31283784b2d14e605b138af4a27f0",
+            "request.json": "71fe6b73c4a524cb4d684b91e78b6715b139598ff0f7a61cbd1201c8bca6f5f9"
+          },
+          "native_request_sha256": "a5c597dd45a8f6b4a9c224d0d3cd075b3105dc64b579d3cb510a351822de1cc3",
+          "saved_evidence": false,
+          "status_native": "verified_shot",
+          "success": true
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-04-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        0.25
+      ],
+      "row": 4,
+      "column": 3,
+      "status": "verified_fresh",
+      "stage": "baseline",
+      "search": {
+        "cpu_candidates": 0,
+        "rejected": 0,
+        "native_requests": 0,
+        "confirmation_requests": 23,
+        "captures": 0
+      },
+      "selected": {
+        "board_center_m": [
+          0.5842174887657166,
+          -0.037267498672008514,
+          0.40906500816345215
+        ],
+        "tilt_deg": 32.749881784770345,
+        "gap_m": 0.1353410311538266,
+        "release_ball_center_m": [
+          0.5842175886210091,
+          -0.03726745985959323,
+          0.5819060632640587
+        ],
+        "distance_m": 0.2998020263889695,
+        "source": "fresh_study",
+        "request_id": "dev-grid-04-03-baseline",
+        "configuration_sha256": "8a1f2266b2b048f7ca3e78892f8c2eb83389ec1ef8bee91143d2c8e9ec03773f"
+      },
+      "nominal": {
+        "captures": 3,
+        "attempts": 3,
+        "rate": 1.0,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": 19,
+        "attempts": 20,
+        "rate": 0.95,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": 0,
+        "assisted": 19,
+        "cohort": "fresh",
+        "source": "fresh_study",
+        "scope": "Explicit recorded repeat cohort"
+      },
+      "reason": "Fresh study qualification passed",
+      "result_url": "/api/planner-grid/result/dev-grid-04-03",
+      "frozen_validation": {
+        "status": "completed",
+        "configuration_sha256": "8a1f2266b2b048f7ca3e78892f8c2eb83389ec1ef8bee91143d2c8e9ec03773f",
+        "seed": 20361161,
+        "nominal": {
+          "captures": 3,
+          "attempts": 3,
+          "rate": 1.0,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "fresh": {
+          "captures": 28,
+          "attempts": 30,
+          "rate": 0.9333333333333333,
+          "denominator_scope": "All requested repeats, including geometry/path rejects"
+        },
+        "quality": {
+          "clean": 0,
+          "assisted": 28,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "scope": "Separate frozen recipe validation; no reselection from these outcomes"
+      },
+      "attempts": [
+        {
+          "stage": "saved_reference",
+          "request_id": "dev-grid-04-03-saved",
+          "request_payload_sha256": "1cc615a106c47df3cb13ab0c6bc1b1f8a4ccdc2b607cbe183c23095fea2b430f",
+          "result_payload_sha256": "047b09eb5eae7ad67ff3983a14d3764e35ef894fc785c6f22301e683c9f27f96",
+          "request_sha256": null,
+          "result_sha256": "32d72d9dd0f03af268c9170e5d0e94af19060cd00a0605616bec084e75e81aac",
+          "evidence_sha256": {
+            "result.json": "32d72d9dd0f03af268c9170e5d0e94af19060cd00a0605616bec084e75e81aac",
+            "request.json": "eb44f72e53ac2b52363639716290eafe9ef8bd487af3514418d07c0427a0f6db"
+          },
+          "native_request_sha256": "f07314c6b74976c691efd26a194979d4b0ee784aeb85b670d43babd0a4754c14",
+          "saved_evidence": true,
+          "status_native": "verified_shot",
+          "success": true
+        },
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-04-03-baseline",
+          "request_payload_sha256": "a080d158193a5e40d93d615c17212f5602e88560f47a2d2d382b0f199cab45b3",
+          "result_payload_sha256": "f26b81c402a5afbfb06b56ecffad40c509a79c10b76f36ce4dccb847708527dc",
+          "request_sha256": null,
+          "result_sha256": "60c0a65d42552f48290376106d6acec5ed393bba1eb739ac293845cadea971ea",
+          "evidence_sha256": {
+            "result.json": "60c0a65d42552f48290376106d6acec5ed393bba1eb739ac293845cadea971ea",
+            "shots.jsonl": "eccf5e504128cabe47b8bb48574f96ba3972ae86f5435453e35d7c9e11215cef",
+            "geometry.json": "a7a5206956bb370afba6931dbeef0159d9a88b9e6b2980482b0a134555e2beb1",
+            "qualification-000.json": "4ac91070a400b35775735dc0a3c794b7c47978000acae7a92361368e2bca8f66",
+            "native-0000.npz": "d4e3b386ff0e06eee7f8d197b8b0e6211b283479452aade1b446b06b98a79319",
+            "native-0001.npz": "553f096bbe80fa8aea3095b487ce6a9356dfec12ceb476f190c65a8c2bedf76a",
+            "request.json": "918ffc9e35ccbe9f2f90a17096c3d2c3e63c32a49a5c5a334c3a11eb081386f8"
+          },
+          "native_request_sha256": "0c275b9a03d3949c90a623ff8c1f5c7f95e169e5d7c901fa2b9382ead236683a",
+          "saved_evidence": false,
+          "status_native": "verified_shot",
+          "success": true
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-04-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        0.25
+      ],
+      "row": 4,
+      "column": 4,
+      "status": "unresolved",
+      "stage": "expanded",
+      "search": {
+        "cpu_candidates": 224,
+        "rejected": 90,
+        "native_requests": 133,
+        "confirmation_requests": 0,
+        "captures": 121
+      },
+      "selected": null,
+      "nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "scope": "Unknown repeat quality breakdown"
+      },
+      "reason": "No qualified setting in this finite stage; inspect geometry, native outcomes and candidate-specific repeat records",
+      "result_url": null,
+      "frozen_validation": null,
+      "attempts": [
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-04-04-baseline",
+          "request_payload_sha256": "fcc440c3c8670aa691d8e6eda2dd11bce519ca76d255f7f77809ef70b5847153",
+          "result_payload_sha256": "c225b58224eacbcf236d69209e613a2e1cde3b93d834bbe473aee117cfc7e88f",
+          "request_sha256": null,
+          "result_sha256": "6f9210cf3b6a67add5a41de295139803a2e31796a083356f3160c19684ab7efa",
+          "evidence_sha256": {
+            "home.json": "a4c9bc11413e83d5aed752d2876282d6675a244f59e9a6c5e91c23cdc003fe19",
+            "result.json": "6f9210cf3b6a67add5a41de295139803a2e31796a083356f3160c19684ab7efa",
+            "qualification-001.json": "e33140d55ce250bb2aa06ad38d276dacc1706b8156e10dcdc11847689a6be84f",
+            "shots.jsonl": "8a7f43be1eec9a83dc34dd6b0767b680317ee6327c7d78dbf504b95a50cb1512",
+            "geometry.json": "16ed5a0a600ecbcf96e6f47cd3fba5cff523108fa7bba94348924f1e15badf93",
+            "qualification-000.json": "da08c503c2f4b5cd271244af85f43cdd70350dcfea608536f4ac86d3751482c3",
+            "native-0000.npz": "649e078bafa1ad718470b5c7718089f952c313e9b65c2f6c0b5edc4bb59db3d3",
+            "proposals.json": "e1c10d693cd8cad41a440bbf8a6a3b70475671adc9e1d1a3cf21b2650b030ee5",
+            "request.json": "71318827dd459e0a3ae86bb4c8777b5551a245437e8d6c34c944b6547a1cf448",
+            "qualification-002.json": "2bacc7348c6d03c1f4e88d9c762d70cb25652eb02332d3f19f62c3917eb4243c"
+          },
+          "native_request_sha256": "4c8a414d4c2384af3c691e35f6163264c80003472881c04cc7ca8fe0385be9e1",
+          "saved_evidence": false,
+          "status_native": "capture_found_confirmation_unresolved",
+          "success": false
+        },
+        {
+          "stage": "expanded",
+          "request_id": "dev-grid-04-04-expanded",
+          "request_payload_sha256": "66621a8b9eb3ba44951dc1fc4e43beb47fb666bcbcd80635d59d329564fbf9c0",
+          "result_payload_sha256": "12610f6fe62ce19a49b3b8d1cbac828d593bc43f835a0594a94fe68a7fb0c130",
+          "request_sha256": null,
+          "result_sha256": "9e5f179a182ed467a3acd996ef623366be9ee0a3af865449cecf22480690fbfb",
+          "evidence_sha256": {
+            "qualification-005.json": "c7e40adfce908ad3db06168bc6244c24ac8d182e2e904eb3d8d14c0c5d2bd8dd",
+            "home.json": "a4c9bc11413e83d5aed752d2876282d6675a244f59e9a6c5e91c23cdc003fe19",
+            "result.json": "9e5f179a182ed467a3acd996ef623366be9ee0a3af865449cecf22480690fbfb",
+            "qualification-001.json": "6736e425da5a679859c26a8516fcb2a4aba2a8f7269df86b8310b76eabb4ae80",
+            "shots.jsonl": "b7dab7453c7cd68e49e32231fe7af2c1ce0260c74cfdd99128a5a2e70bb409d7",
+            "native-0004.npz": "26700a16cac20dca92988b223e28a878d75e29beadf3fc9262f117ddb737b0d5",
+            "qualification-003.json": "3ec2c5ee3f40fcf7756bb9314693ba5bc46b30533aafca8407cb09e41499a9be",
+            "native-0003.npz": "b28b8186e2945aa849ba5d4af05ee44f3bcdd39ac8bda9157f59ab6913baf351",
+            "geometry.json": "ea323b26d5247b573b45c7c00405a8074c646e52e4bde2f772f95490d215f8bc",
+            "qualification-000.json": "ad0475b89f36061ade4c470e0254731593b6d39207bc729fdc59d41543d1730e",
+            "native-0000.npz": "89fd0757ecdd33b7f79c7a84da6ccfe6e38cc137a633e8ea98f1a1f08b77a175",
+            "native-0001.npz": "d1249ec95090071caec39c433139c5cda8a158021225c0a0bd19d6ee15e2909f",
+            "proposals.json": "17678eda92ffb808552369e7473d08adc342245eb136a866e9861b7d192cea8c",
+            "qualification-004.json": "1afd9674b35b426bf2a2e58d24a4e3ca04bb4a159f125b60f96d2acf47419600",
+            "native-0002.npz": "1dd42178d692887b8cbcf2176e2f990d726be47dfb21290b11cd2f6b7b23d51c",
+            "request.json": "b7e4d0816650851d6873f7431fe2f533bb21cc3e0395ce20f9dd3ffcb3ecdf76",
+            "qualification-002.json": "b90656ee170da7ea4d55e9d12128a138d20c70e62e42ee3980065435672c6a47"
+          },
+          "native_request_sha256": "2bfcac2c0735c2f9e5d94311833c745a724a3f443d519d4be26db154847520a9",
+          "saved_evidence": false,
+          "status_native": "capture_found_confirmation_unresolved",
+          "success": false
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-04-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        0.25
+      ],
+      "row": 4,
+      "column": 5,
+      "status": "unresolved",
+      "stage": "expanded",
+      "search": {
+        "cpu_candidates": 1075,
+        "rejected": 1067,
+        "native_requests": 8,
+        "confirmation_requests": 0,
+        "captures": 0
+      },
+      "selected": null,
+      "nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "scope": "Unknown repeat quality breakdown"
+      },
+      "reason": "No qualified setting in this finite stage; inspect geometry, native outcomes and candidate-specific repeat records",
+      "result_url": null,
+      "frozen_validation": null,
+      "attempts": [
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-04-05-baseline",
+          "request_payload_sha256": "fd6ac83e4ee471b48735de7884a484211f28f16c859817f39165ce7891b697ce",
+          "result_payload_sha256": "baf2a1200c43f69b2b691940eff7e5dba8f05d70de1a9d863fa54d9e43960d35",
+          "request_sha256": null,
+          "result_sha256": "5130799ec5fb71134e963d7ee775c69574ca8e6c053d4d24e8163ea1442e52ad",
+          "evidence_sha256": {
+            "home.json": "a4c9bc11413e83d5aed752d2876282d6675a244f59e9a6c5e91c23cdc003fe19",
+            "result.json": "5130799ec5fb71134e963d7ee775c69574ca8e6c053d4d24e8163ea1442e52ad",
+            "geometry.json": "cabd4d906c78c02cc245a20501b441067cb08189ab293f82c41de1fad490be8d",
+            "proposals.json": "f1cd9a5a40498be44d6be6bf7fbe7cf6735ee75c30ea6d055f2465fc0ab07dee",
+            "request.json": "bb184c186fd5f33e8748abf24ef556325b8740d9c41a289a1b40eac6c93eb035"
+          },
+          "native_request_sha256": "066ecb70b6154f4b3f59e6b8bd0e7cb58ece9a9b46ac515ae93c91da0cee2783",
+          "saved_evidence": false,
+          "status_native": "no_verified_solution_within_budget",
+          "success": false
+        },
+        {
+          "stage": "expanded",
+          "request_id": "dev-grid-04-05-expanded",
+          "request_payload_sha256": "b724fc3f1b413c959e2054959283bc842402a6184f6f8cb59c49ff2ba9611ff6",
+          "result_payload_sha256": "1af6c97863d12d9ca5ffbca6a9970cfae0c47a5d4d0a6cf5aeed1bef9aca703a",
+          "request_sha256": null,
+          "result_sha256": "71dc58add7cb8f677eca34b78a410eb6fd2de9fb822538c496eb8c57e53e45d5",
+          "evidence_sha256": {
+            "native-0006.npz": "c2f2a31e52f6016636f1191aa72fe342434af63cbec3aea3ddf6c46bd40c1525",
+            "home.json": "a4c9bc11413e83d5aed752d2876282d6675a244f59e9a6c5e91c23cdc003fe19",
+            "result.json": "71dc58add7cb8f677eca34b78a410eb6fd2de9fb822538c496eb8c57e53e45d5",
+            "shots.jsonl": "1a8452c6ad45d7c7d707358da71114a228544c8c642c2e40e8e37ab581b63854",
+            "native-0004.npz": "5af28c662c144f4743a707226a4e7eed285469e772d585b8f5c3bac028629cb9",
+            "native-0003.npz": "f9acc5d311b5358b62b2897dba3eda61491135146e9bb35c842ce848c736b3e6",
+            "geometry.json": "407a75fc62e9406f9f96b2d93026ab3c0b8f583445b6d8e892a0e7973015aeee",
+            "native-0005.npz": "771c3878e8a02b95788be88f24fdf57728731681322b623cf736884b4cdd88c3",
+            "native-0000.npz": "903f21af2bf21dbac33f7961311cfde9d40ee0ba9ef0ca1de4f11be91121715f",
+            "native-0007.npz": "62bb6854111367a47b755710779862e685076d3672b4028b5ccd89ffdf200899",
+            "native-0001.npz": "4a458288fcb25f0662140659ca238154255ce8a86a3dc1ff8dc764913ef243ea",
+            "proposals.json": "4cceee3a582c0c53efa7d8b5c1cb1523521fd164866a31f6356d3960383202f9",
+            "native-0002.npz": "08dd8403ab13898eae8d04ca9b92654f894386b48155313c6fb1df1846b188b7",
+            "request.json": "20c9d747db388307fbb90694a521b0f7289268bc27a3c414977c571f8e017c74"
+          },
+          "native_request_sha256": "2101d34dfc798c47d0c1683613e7cd6d28bd396f95c224c9fee321475439bafb",
+          "saved_evidence": false,
+          "status_native": "no_verified_solution_within_budget",
+          "success": false
+        }
+      ]
+    },
+    {
+      "id": "dev-grid-04-06",
+      "bucket_xy_m": [
+        1.24,
+        0.25
+      ],
+      "row": 4,
+      "column": 6,
+      "status": "unresolved",
+      "stage": "expanded",
+      "search": {
+        "cpu_candidates": 1083,
+        "rejected": 1074,
+        "native_requests": 9,
+        "confirmation_requests": 0,
+        "captures": 0
+      },
+      "selected": null,
+      "nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_nominal": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "saved_fresh": {
+        "captures": null,
+        "attempts": null,
+        "rate": null,
+        "denominator_scope": "All requested repeats, including geometry/path rejects"
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "scope": "Unknown repeat quality breakdown"
+      },
+      "reason": "No qualified setting in this finite stage; inspect geometry, native outcomes and candidate-specific repeat records",
+      "result_url": null,
+      "frozen_validation": null,
+      "attempts": [
+        {
+          "stage": "baseline",
+          "request_id": "dev-grid-04-06-baseline",
+          "request_payload_sha256": "62dbc551ffa70b69c20f50c6d9e40a6d329adbd6e6b7adfae8092fa3352bd94c",
+          "result_payload_sha256": "c1fddc6c1b8e8926c166a2036c400557e042f78a8625fb8f5c573a236de01a86",
+          "request_sha256": null,
+          "result_sha256": "a2fbb3bd3adbb649d7557b69e96de22b12ac7ea2081aa08244bb11c934bce170",
+          "evidence_sha256": {
+            "home.json": "a4c9bc11413e83d5aed752d2876282d6675a244f59e9a6c5e91c23cdc003fe19",
+            "result.json": "a2fbb3bd3adbb649d7557b69e96de22b12ac7ea2081aa08244bb11c934bce170",
+            "geometry.json": "0302d167e5710ececfd0141fe035e5413e9468d4ad0f06cc1d0433dd7c5e4e4f",
+            "proposals.json": "06146454b042e9750903f36aac18b1de91b95a0a2b488acd01188b70eaaa417a",
+            "request.json": "534f46e0701a25b835d27e3ddd45c0400c061dd0bff2aa192672c373ae1ddd9d"
+          },
+          "native_request_sha256": "4e43f8dede97bcf97c1b12fc01fe75853252c2e7e912284a24fef626a5f643af",
+          "saved_evidence": false,
+          "status_native": "no_verified_solution_within_budget",
+          "success": false
+        },
+        {
+          "stage": "expanded",
+          "request_id": "dev-grid-04-06-expanded",
+          "request_payload_sha256": "39c14545f7bfc301e0c511e76cc9d2e03a56df5a1177de1b4e545bb025e11438",
+          "result_payload_sha256": "8a5a875d38169252ad82b1597e58c2c027c90ec4d2dfe4098db74f5985c92332",
+          "request_sha256": null,
+          "result_sha256": "69dd8a26972f0aee8ebadeaa49e92de095bed21e5c3bdd4f28293f1553823696",
+          "evidence_sha256": {
+            "native-0006.npz": "a9c6a75552e621186df8de4a86dc052ef3c80bbb153a694bf8764bbdd541d4b8",
+            "home.json": "a4c9bc11413e83d5aed752d2876282d6675a244f59e9a6c5e91c23cdc003fe19",
+            "result.json": "69dd8a26972f0aee8ebadeaa49e92de095bed21e5c3bdd4f28293f1553823696",
+            "shots.jsonl": "b85104aaf8afe6aa420c6bf14853b45f75e9c8edd4a1403bd317e3d741e60c5e",
+            "native-0004.npz": "88ce236ab61d47a72bcf2c00d93cd26c751f8c568bf709b79f54e45debebfd7f",
+            "native-0003.npz": "b378849820f2da95521246dcbe358decf50f4a6c5fca3f6a0a96a8d1b632fa85",
+            "geometry.json": "e1de6b5959e5dbe64b0adce035676b1fbcc9336d8798585d3483f1d301f8158b",
+            "native-0005.npz": "1635f7609b5984b0c193cca4bf66c9d66a5620fdfbd06000e4ade499fe59c4d9",
+            "native-0000.npz": "a41d0ec943d829e296106df3c7f912d3053012550856a03c885c23124df4627a",
+            "native-0007.npz": "ff9b111264253f06da25eccecd528d78a03f1db5d4eed6191095e319909b17e4",
+            "native-0001.npz": "652bff7cda433489733b3004d072ab4f3ae568cbb191d3de5e040b5116d6b016",
+            "proposals.json": "e413694be24d620a90836928c034f56d8b77aaeed025584352b3af4b6dcb8ab4",
+            "native-0002.npz": "6da0880da25e90851c4769562c0a8e9e7aca2beb52ea82a0aeb4e862dfcbeb1f",
+            "request.json": "95d542311d7a28cc459f5906832e18f01a4a155abcad8db3d9ab60435fe12764"
+          },
+          "native_request_sha256": "7d937ee6801ac75054ea0722d09e09e2a5736dfce8a2df431412e7a6ba5e4dd1",
+          "saved_evidence": false,
+          "status_native": "no_verified_solution_within_budget",
+          "success": false
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "grid_positions": 35,
+    "verified_fresh": 17,
+    "saved_verified": 0,
+    "unresolved": 12,
+    "blocked": 6,
+    "pending": 0,
+    "failed": 0,
+    "cpu_candidates": 8535,
+    "geometry_rejected": 7161,
+    "search_native_requests": 1280,
+    "confirmation_requests": 587,
+    "frozen_validation_completed": 17,
+    "frozen_nominal_captures": 51,
+    "frozen_nominal_attempts": 51,
+    "frozen_fresh_captures": 495,
+    "frozen_fresh_attempts": 510
+  },
+  "scope": "Searched development settings, not RL inference or continuous-table coverage. Prescribed held endpoints and sampled geometric paths; no impact compliance or grasp/transit dynamics.",
+  "fingerprint": "61a7700deb8319d85cb210238c11f56878eed19d34e4597f7031c0d181668dc0"
+}

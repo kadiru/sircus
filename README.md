@@ -1,6 +1,6 @@
 # Sircus — Simple Circus
 
-**Current mjlab checkpoint:** [corrected-contact 35-position feasibility map](baselines/mjlab-corrected-grid-20261102/README.md) and [protocol](sircus/mjlab/CORRECTED_GRID.md). Strict endpoints, a fixed shared start and fresh robustness checks precede further training. Historical policies/results retain their original contracts.
+**Current mjlab checkpoint:** [expanded 35-position planner results](baselines/mjlab-grid35-expanded-20261103/README.md): 17 selected recipes, 12 unresolved targets and 6 clearance blockers. Source-matched frozen repeats score 28–30/30 per selected recipe; 16 cohorts are retained from the audited parent and one is new. This is searched simulation evidence, not a trained policy or all-table coverage. Historical policies/results retain their original contracts.
 
 Two UFACTORY850 arms learn to bounce a ball from a suction-mounted board into a bucket. Arm10 picks/releases; arm14 positions the board. This private repository is the shared source for Mac physical work and Ubuntu simulation work.
 
@@ -9,6 +9,12 @@ The current goal is a simulation showcase with an interactively placed bucket an
 ![Architecture](docs/sircus-architecture.png)
 
 ## Start here
+
+- **35-table planner study:** [expanded sweeps and separately frozen repeats](sircus/mjlab/GRID_STUDY.md).
+  Per-table settings, saved versus current qualification, and independent 3 + 30
+  repeat counts appear in the study interface and [all-35 CSV](baselines/mjlab-grid35-expanded-20261103/per-table-settings.csv).
+  Both native studies completed and passed their independent audits. Unresolved
+  and blocked cells stay visible; no new policy or catalogue was deployed.
 
 - **Sweep shot planner:** [place a bucket, search and replay a confirmed shot](sircus/mjlab/SWEEP_PLANNER.md).
   Independent of learned-policy readiness, with exact saved recipes for12 farm

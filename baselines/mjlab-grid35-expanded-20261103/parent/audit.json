@@ -1,0 +1,1011 @@
+{
+  "version": "sircus-independent-grid35-evidence-audit-v1",
+  "status": "passed",
+  "checks": 66373,
+  "failures": [],
+  "study_manifest_sha256": "2ee238e486908da9c4a80f9935eb95fd246601ff41ab6ea4e3396966b35b4370",
+  "contract_fingerprint": "701dd6f35a5cffc0030cdc5d73caa354ecf717ceb8fa993d984d699f14530df4",
+  "report_sha256": "e90625557df575077cfcf81ef82d0ec05ea3dcc0c5d9b0f9af09fbac9c643561",
+  "frozen_selection_sha256": "c217c5ae03067f1fb21356419ae4ebc34b33f14242b7f1e1591ea03c700e0cf8",
+  "auditor_sha256": "3dfdc91ce1b8fb531ef2a859ada90c7d17653c26a821f761511895e8e38f5176",
+  "source_sha256": {
+    "sircus/mjlab/contact_env.py": "04655f30a1b216c037573a0b5e177e6209097026f930fc6efc6dfef289abc3da",
+    "sircus/mjlab/contact_model.py": "b2d522d07dd2e3bffa724feb68593b3fef17033b5274587ef9d130e5c40aa24f",
+    "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+    "sircus/mjlab/contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407",
+    "sircus/mjlab/learning_score.py": "e66b982c0e651c3a9f5855dd03efb87488cc924321aaf9cadb80d51bac2fe814",
+    "sircus/mjlab/corrected_geometry.py": "50a4a353d94cceb1fbb0216a40588c997034a121e554f3f84f530d7d47c470be",
+    "sircus/mjlab/stable_geometry.py": "2e00b5fc46d1b253b5c85b6823c781a37e26f5819b35586a8cc112b057ebaebf",
+    "sircus/mjlab/stable_ik.py": "efd52c5e837339662c99c196e1a3cf4b5b260eecb7888258779030c459944e07",
+    "sircus/mjlab/expanded_actions.py": "d41817aa7ad4206139925256ab0cdf5288853e621d6b39824c10ad2d309679c3",
+    "sircus/mjlab/bank_geometry.py": "5c0d6775582c5524a323f1e9344c35317e8352e9f1f813f5dd0794c05de743f5",
+    "sircus/mjlab/bank_study.py": "7699faeff915a772f3e838983ff1c8dec7721f2d55c79a594e185cd9e08e7dcb",
+    "sircus/mjlab/transit_audit.py": "4400285187eebf3b1c7073a78ab74c94cbead88d52ffc5366e0258d2376f8c96",
+    "sircus/mjlab/admission.py": "2dbc5776113f8afb0ea74e23d0c3a2542fd0223d94a6818aec8de4865d302d82",
+    "sircus/mjlab/learning_env.py": "58d2f58be0e1981a5efd09e872bdea7d8f608e1fa21b5c87986505a20a4a4f8c",
+    "sircus/mjlab/learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+    "sircus/mjlab/learning_reach.py": "8eea1d565e9faefff0622a9e9a4666eb8d811ac086a8a6711caa8efa3029e9a4",
+    "sircus/mjlab/learning_contract.py": "9f2c44b76297f4ef7009c1b0107be983d0511d5654cb68b8e344dd316ed1fda8",
+    "sircus/mjlab/run.py": "969db2710378345aad34a6f802e33d6ea62488d75e560b9da5738bc0748c3dee",
+    "sircus/mjlab/corrected_contract.py": "9800404859a7ae2b2934c26ca448be4a69ae90e481069da72732973b1d907ba2",
+    "sircus/mjlab/corrected_admission.py": "3d42913fc2a9599b0e5063bfc4ee0a03f003b4ba853338e407c8a3d82de3d64a",
+    "sircus/mjlab/gpu_slot.py": "fcace6029058a9892296507358ee196b9b5296dc4287a07bedc786e3af4cad4a",
+    "sircus/mjlab/expand_geometry.py": "0b7982c3494b7cb7f799e073e3a7b788cca77617af0e9f509a4b7e273d926739",
+    "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+    "sircus/isaac/rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+    "sircus/isaac/entry_quality.py": "2f3d8b73c871a41afc3c8f333f5df1d54fa8751720855ffff517e729217db9d4",
+    "sircus/isaac/board_route.py": "6409889aed6b0fd6a288eb9494b954ec5c3233ec41fdcf146940fc23276fb2e9",
+    "sircus/mjlab/sweep_worker.py": "6150969a6f442e3b899d878671a4daf08cd90c61f0abf96494d418316e0e7a5b",
+    "sircus/mjlab/sweep_contract.py": "2460d8e807f06ad4bfe491491d011a448eaedea57ef4c7e727a1b10a54409a0a",
+    "sircus/mjlab/grid_study.py": "e358b728cd450fb2cd6f7444bbc8d3f5c3cf968da5412372c5f523bbb12249fe",
+    "sircus/mjlab/grid_study_contract.py": "45b5c46a19d9db5bdead5b336dedd8222496a0fc3cf1f59d263fba745fbb0efe"
+  },
+  "asset_sha256": {
+    "assets/board_arm.urdf": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340",
+    "assets/dropper.urdf": "3f40e56e46b040fb3339c1235ea85872f46511c45db2d37f7661db94a470bae3",
+    "assets/poses.json": "5847c2793606860a82cc74030c3fe529767318f189c5d48e3d66c0dc7b9f776a",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link1.stl": "4069840361c2693b5b1147da366d5ba8a49ff7ab2c52fed68e07e04e07786e3f",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link2.stl": "0e736a629e6000c3c912f5aaf76937f824f510ac8894db67bd0d7f1d6210fc52",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link3.stl": "f682201345117c4b021fd9db21bd9bef6824886c8324f046b7d5772d7c9fa426",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link4.stl": "7bf4ab507c07a2b26e6a8528decdfe32d71efffdf1dd391406f1ce2f9ff4caa7",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link5.stl": "103955f097086e0f5d46380ff89bc7ef669877bb65def38431a18fc5343e1ba0",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link6.stl": "86b95b77850f38ff1437284705a1c8c616e3da21faef72e4f06751fc741de3b3",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link_base.stl": "871d501d23e8164440656331ee0e005d859dbdb7fab1c3725bef423adac9cf0e"
+  },
+  "packages": {
+    "mjlab": "1.6.0",
+    "mujoco": "3.11.0",
+    "mujoco-warp": "3.11.0",
+    "torch": "2.7.0",
+    "warp-lang": "1.14.0",
+    "numpy": "1.26.4",
+    "ml-dtypes": "0.5.4"
+  },
+  "physics": {
+    "version": "sircus-articulated-passive-contact-15360hz-v1",
+    "board_mode": "articulated",
+    "gravity_mode": "passive_only",
+    "substeps": 64,
+    "native_dt_s": 6.510416666666667e-05,
+    "scoring_dt_s": 0.004166666666666667,
+    "horizon_s": 4.0,
+    "solref": [
+      0.004,
+      0.15
+    ],
+    "contact_friction": 0.35,
+    "solver": "newton",
+    "solver_iterations": 100,
+    "solver_tolerance": 1e-08,
+    "cone": "pyramidal",
+    "integrator": "implicitfast",
+    "arm_control": "Prescribed joint endpoints reset before each native step; no learned grasp/transit/actuator dynamics",
+    "scorer": "Unchanged board rebound + whole sphere entry + continuous1s retention; external assistance disqualifies route; bucket rim assistance counts"
+  },
+  "totals": {
+    "native_releases": 1858,
+    "requested_rows": 1867,
+    "captures": 968,
+    "frozen_requests": 561,
+    "frozen_releases": 561,
+    "frozen_captures": 546
+  },
+  "cells": [
+    {
+      "id": "dev-grid-00-00",
+      "bucket_xy_m": [
+        0.1,
+        -0.65
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 2,
+          "native_releases": 2,
+          "confirmation_sets": 0
+        },
+        {
+          "stage": "expanded",
+          "requests": 128,
+          "native_releases": 128,
+          "confirmation_sets": 0
+        }
+      ],
+      "native_rows": 130,
+      "frozen_geometry_rechecked": 0
+    },
+    {
+      "id": "dev-grid-00-01",
+      "bucket_xy_m": [
+        0.29,
+        -0.65
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 53,
+          "native_releases": 53,
+          "confirmation_sets": 3
+        },
+        {
+          "stage": "expanded",
+          "requests": 151,
+          "native_releases": 151,
+          "confirmation_sets": 1
+        }
+      ],
+      "native_rows": 237,
+      "frozen_geometry_rechecked": 0,
+      "frozen": {
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 30,
+          "attempts": 30
+        },
+        "configuration_sha256": "eed1779c752b33c208d0363fd1faf75caba45cbd4679d7e43928216f67d71c2f"
+      }
+    },
+    {
+      "id": "dev-grid-00-02",
+      "bucket_xy_m": [
+        0.48,
+        -0.65
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 23,
+          "native_releases": 23,
+          "confirmation_sets": 1
+        }
+      ],
+      "native_rows": 56,
+      "frozen_geometry_rechecked": 0,
+      "frozen": {
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 29,
+          "attempts": 30
+        },
+        "configuration_sha256": "02ac8242787f41962a7f42c0fafa5a77ac54ce98693582d87090f8f4c982e78e"
+      }
+    },
+    {
+      "id": "dev-grid-00-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.65
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 23,
+          "native_releases": 23,
+          "confirmation_sets": 1
+        }
+      ],
+      "native_rows": 56,
+      "frozen_geometry_rechecked": 0,
+      "frozen": {
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 29,
+          "attempts": 30
+        },
+        "configuration_sha256": "bef50f889cdf19df9406cb795c386825e298b2eeb60c97cefa02b8f247f2fbdd"
+      }
+    },
+    {
+      "id": "dev-grid-00-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.65
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 0,
+          "native_releases": 0,
+          "confirmation_sets": 0
+        },
+        {
+          "stage": "expanded",
+          "requests": 15,
+          "native_releases": 15,
+          "confirmation_sets": 0
+        }
+      ],
+      "native_rows": 15,
+      "frozen_geometry_rechecked": 0
+    },
+    {
+      "id": "dev-grid-00-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.65
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 0,
+          "native_releases": 0,
+          "confirmation_sets": 0
+        },
+        {
+          "stage": "expanded",
+          "requests": 9,
+          "native_releases": 9,
+          "confirmation_sets": 0
+        }
+      ],
+      "native_rows": 9,
+      "frozen_geometry_rechecked": 0
+    },
+    {
+      "id": "dev-grid-00-06",
+      "bucket_xy_m": [
+        1.24,
+        -0.65
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 1,
+          "native_releases": 1,
+          "confirmation_sets": 0
+        },
+        {
+          "stage": "expanded",
+          "requests": 128,
+          "native_releases": 128,
+          "confirmation_sets": 0
+        }
+      ],
+      "native_rows": 129,
+      "frozen_geometry_rechecked": 0
+    },
+    {
+      "id": "dev-grid-01-00",
+      "bucket_xy_m": [
+        0.1,
+        -0.42500000000000004
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 54,
+          "native_releases": 54,
+          "confirmation_sets": 3
+        },
+        {
+          "stage": "expanded",
+          "requests": 203,
+          "native_releases": 203,
+          "confirmation_sets": 5
+        }
+      ],
+      "native_rows": 290,
+      "frozen_geometry_rechecked": 0,
+      "frozen": {
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 29,
+          "attempts": 30
+        },
+        "configuration_sha256": "0870e3c3139226f100d8a399b5d13925a9b66c751fde01bc8556c34b30f195c6"
+      }
+    },
+    {
+      "id": "dev-grid-01-01",
+      "bucket_xy_m": [
+        0.29,
+        -0.42500000000000004
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 19,
+          "native_releases": 19,
+          "confirmation_sets": 3
+        },
+        {
+          "stage": "expanded",
+          "requests": 174,
+          "native_releases": 174,
+          "confirmation_sets": 2
+        }
+      ],
+      "native_rows": 226,
+      "frozen_geometry_rechecked": 0,
+      "frozen": {
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 22,
+          "attempts": 30
+        },
+        "configuration_sha256": "cf9f6562451e0cf90100247d18434828b6fc8e6a6bf1d4406695b65a81b8c311"
+      }
+    },
+    {
+      "id": "dev-grid-01-02",
+      "bucket_xy_m": [
+        0.48,
+        -0.42500000000000004
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 23,
+          "native_releases": 23,
+          "confirmation_sets": 1
+        }
+      ],
+      "native_rows": 56,
+      "frozen_geometry_rechecked": 0,
+      "frozen": {
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 30,
+          "attempts": 30
+        },
+        "configuration_sha256": "b99b06a14f17fbd83db8ed4c3b04021b61ed932125875621354740f1e5144683"
+      }
+    },
+    {
+      "id": "dev-grid-01-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.42500000000000004
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 39,
+          "native_releases": 39,
+          "confirmation_sets": 1
+        }
+      ],
+      "native_rows": 72,
+      "frozen_geometry_rechecked": 0,
+      "frozen": {
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 29,
+          "attempts": 30
+        },
+        "configuration_sha256": "0672a40aa340c751e3f7e5533a03fe4c454cdaa47070020442daa90d15707b49"
+      }
+    },
+    {
+      "id": "dev-grid-01-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.42500000000000004
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 23,
+          "native_releases": 23,
+          "confirmation_sets": 1
+        }
+      ],
+      "native_rows": 56,
+      "frozen_geometry_rechecked": 0,
+      "frozen": {
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 30,
+          "attempts": 30
+        },
+        "configuration_sha256": "82c4d238efcab5709f8546b11ebd292e3bf81c0c4b62fec6f9c566e0fcb05828"
+      }
+    },
+    {
+      "id": "dev-grid-01-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.42500000000000004
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 0,
+          "native_releases": 0,
+          "confirmation_sets": 0
+        },
+        {
+          "stage": "expanded",
+          "requests": 10,
+          "native_releases": 10,
+          "confirmation_sets": 0
+        }
+      ],
+      "native_rows": 10,
+      "frozen_geometry_rechecked": 0
+    },
+    {
+      "id": "dev-grid-01-06",
+      "bucket_xy_m": [
+        1.24,
+        -0.42500000000000004
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 1,
+          "native_releases": 1,
+          "confirmation_sets": 0
+        },
+        {
+          "stage": "expanded",
+          "requests": 128,
+          "native_releases": 128,
+          "confirmation_sets": 0
+        }
+      ],
+      "native_rows": 129,
+      "frozen_geometry_rechecked": 0
+    },
+    {
+      "id": "dev-grid-02-00",
+      "bucket_xy_m": [
+        0.1,
+        -0.2
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 59,
+          "native_releases": 50,
+          "confirmation_sets": 2
+        }
+      ],
+      "native_rows": 83,
+      "frozen_geometry_rechecked": 0,
+      "frozen": {
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 30,
+          "attempts": 30
+        },
+        "configuration_sha256": "c35baa78d9548bd35a179f4ef17a6439a7b79d6a78cb63faf14c5e6ba11f0997"
+      }
+    },
+    {
+      "id": "dev-grid-02-01",
+      "bucket_xy_m": [
+        0.29,
+        -0.2
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 23,
+          "native_releases": 23,
+          "confirmation_sets": 1
+        }
+      ],
+      "native_rows": 56,
+      "frozen_geometry_rechecked": 0,
+      "frozen": {
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 29,
+          "attempts": 30
+        },
+        "configuration_sha256": "494638bd33fd47de0f80c9102721c5a91e48415c0560dc102118a91630074b56"
+      }
+    },
+    {
+      "id": "dev-grid-02-02",
+      "bucket_xy_m": [
+        0.48,
+        -0.2
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 23,
+          "native_releases": 23,
+          "confirmation_sets": 1
+        }
+      ],
+      "native_rows": 56,
+      "frozen_geometry_rechecked": 0,
+      "frozen": {
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 30,
+          "attempts": 30
+        },
+        "configuration_sha256": "b9377091068594d21e8b36f8d97898564e3c10225dd43d2965c3b09cfa141d6c"
+      }
+    },
+    {
+      "id": "dev-grid-02-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.2
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 0,
+          "native_releases": 0,
+          "confirmation_sets": 0
+        },
+        {
+          "stage": "expanded",
+          "requests": 0,
+          "native_releases": 0,
+          "confirmation_sets": 0
+        }
+      ],
+      "native_rows": 0,
+      "frozen_geometry_rechecked": 0
+    },
+    {
+      "id": "dev-grid-02-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.2
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 0,
+          "native_releases": 0,
+          "confirmation_sets": 0
+        },
+        {
+          "stage": "expanded",
+          "requests": 0,
+          "native_releases": 0,
+          "confirmation_sets": 0
+        }
+      ],
+      "native_rows": 0,
+      "frozen_geometry_rechecked": 0
+    },
+    {
+      "id": "dev-grid-02-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.2
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 0,
+          "native_releases": 0,
+          "confirmation_sets": 0
+        },
+        {
+          "stage": "expanded",
+          "requests": 9,
+          "native_releases": 9,
+          "confirmation_sets": 1
+        }
+      ],
+      "native_rows": 9,
+      "frozen_geometry_rechecked": 0
+    },
+    {
+      "id": "dev-grid-02-06",
+      "bucket_xy_m": [
+        1.24,
+        -0.2
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 1,
+          "native_releases": 1,
+          "confirmation_sets": 0
+        },
+        {
+          "stage": "expanded",
+          "requests": 128,
+          "native_releases": 128,
+          "confirmation_sets": 0
+        }
+      ],
+      "native_rows": 129,
+      "frozen_geometry_rechecked": 0
+    },
+    {
+      "id": "dev-grid-03-00",
+      "bucket_xy_m": [
+        0.1,
+        0.025000000000000022
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 0,
+          "native_releases": 0,
+          "confirmation_sets": 0
+        },
+        {
+          "stage": "expanded",
+          "requests": 0,
+          "native_releases": 0,
+          "confirmation_sets": 0
+        }
+      ],
+      "native_rows": 0,
+      "frozen_geometry_rechecked": 0
+    },
+    {
+      "id": "dev-grid-03-01",
+      "bucket_xy_m": [
+        0.29,
+        0.025000000000000022
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 23,
+          "native_releases": 23,
+          "confirmation_sets": 1
+        }
+      ],
+      "native_rows": 56,
+      "frozen_geometry_rechecked": 0,
+      "frozen": {
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 30,
+          "attempts": 30
+        },
+        "configuration_sha256": "27542d34af1b88fc796a449f58176f10a4a7295a0268b52272f046647c7dad41"
+      }
+    },
+    {
+      "id": "dev-grid-03-02",
+      "bucket_xy_m": [
+        0.48,
+        0.025000000000000022
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 23,
+          "native_releases": 23,
+          "confirmation_sets": 1
+        }
+      ],
+      "native_rows": 56,
+      "frozen_geometry_rechecked": 0,
+      "frozen": {
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 30,
+          "attempts": 30
+        },
+        "configuration_sha256": "197de01d718432216131a9d15e2619c8505b8acf38ee2d4bc97fa68c93c8018f"
+      }
+    },
+    {
+      "id": "dev-grid-03-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        0.025000000000000022
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 0,
+          "native_releases": 0,
+          "confirmation_sets": 0
+        },
+        {
+          "stage": "expanded",
+          "requests": 0,
+          "native_releases": 0,
+          "confirmation_sets": 0
+        }
+      ],
+      "native_rows": 0,
+      "frozen_geometry_rechecked": 0
+    },
+    {
+      "id": "dev-grid-03-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        0.025000000000000022
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 0,
+          "native_releases": 0,
+          "confirmation_sets": 0
+        },
+        {
+          "stage": "expanded",
+          "requests": 0,
+          "native_releases": 0,
+          "confirmation_sets": 0
+        }
+      ],
+      "native_rows": 0,
+      "frozen_geometry_rechecked": 0
+    },
+    {
+      "id": "dev-grid-03-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        0.025000000000000022
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 1,
+          "native_releases": 1,
+          "confirmation_sets": 0
+        },
+        {
+          "stage": "expanded",
+          "requests": 128,
+          "native_releases": 128,
+          "confirmation_sets": 0
+        }
+      ],
+      "native_rows": 129,
+      "frozen_geometry_rechecked": 0
+    },
+    {
+      "id": "dev-grid-03-06",
+      "bucket_xy_m": [
+        1.24,
+        0.025000000000000022
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 0,
+          "native_releases": 0,
+          "confirmation_sets": 0
+        },
+        {
+          "stage": "expanded",
+          "requests": 0,
+          "native_releases": 0,
+          "confirmation_sets": 0
+        }
+      ],
+      "native_rows": 0,
+      "frozen_geometry_rechecked": 0
+    },
+    {
+      "id": "dev-grid-04-00",
+      "bucket_xy_m": [
+        0.1,
+        0.25
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 23,
+          "native_releases": 23,
+          "confirmation_sets": 1
+        }
+      ],
+      "native_rows": 56,
+      "frozen_geometry_rechecked": 0,
+      "frozen": {
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 30,
+          "attempts": 30
+        },
+        "configuration_sha256": "74aa3513d26bba229fd5dfecdb3f67d9f7009a75830918c0d9c067e80e8f2554"
+      }
+    },
+    {
+      "id": "dev-grid-04-01",
+      "bucket_xy_m": [
+        0.29,
+        0.25
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 23,
+          "native_releases": 23,
+          "confirmation_sets": 1
+        }
+      ],
+      "native_rows": 56,
+      "frozen_geometry_rechecked": 0,
+      "frozen": {
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 30,
+          "attempts": 30
+        },
+        "configuration_sha256": "d105544da9f475e9d1d97b19722be317e5d25ad5a898772cc52fe2a81dd11842"
+      }
+    },
+    {
+      "id": "dev-grid-04-02",
+      "bucket_xy_m": [
+        0.48,
+        0.25
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 23,
+          "native_releases": 23,
+          "confirmation_sets": 1
+        }
+      ],
+      "native_rows": 56,
+      "frozen_geometry_rechecked": 0,
+      "frozen": {
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 30,
+          "attempts": 30
+        },
+        "configuration_sha256": "88989318f0b799ee80bc0d5d4346fea54fbff6fe832b06a38bfb7f9a4809371e"
+      }
+    },
+    {
+      "id": "dev-grid-04-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        0.25
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 23,
+          "native_releases": 23,
+          "confirmation_sets": 1
+        }
+      ],
+      "native_rows": 56,
+      "frozen_geometry_rechecked": 0,
+      "frozen": {
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 28,
+          "attempts": 30
+        },
+        "configuration_sha256": "8a1f2266b2b048f7ca3e78892f8c2eb83389ec1ef8bee91143d2c8e9ec03773f"
+      }
+    },
+    {
+      "id": "dev-grid-04-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        0.25
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 5,
+          "native_releases": 5,
+          "confirmation_sets": 3
+        },
+        {
+          "stage": "expanded",
+          "requests": 128,
+          "native_releases": 128,
+          "confirmation_sets": 6
+        }
+      ],
+      "native_rows": 133,
+      "frozen_geometry_rechecked": 0
+    },
+    {
+      "id": "dev-grid-04-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        0.25
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 0,
+          "native_releases": 0,
+          "confirmation_sets": 0
+        },
+        {
+          "stage": "expanded",
+          "requests": 8,
+          "native_releases": 8,
+          "confirmation_sets": 0
+        }
+      ],
+      "native_rows": 8,
+      "frozen_geometry_rechecked": 0
+    },
+    {
+      "id": "dev-grid-04-06",
+      "bucket_xy_m": [
+        1.24,
+        0.25
+      ],
+      "stage_checks": [
+        {
+          "stage": "baseline",
+          "requests": 0,
+          "native_releases": 0,
+          "confirmation_sets": 0
+        },
+        {
+          "stage": "expanded",
+          "requests": 9,
+          "native_releases": 9,
+          "confirmation_sets": 0
+        }
+      ],
+      "native_rows": 9,
+      "frozen_geometry_rechecked": 0
+    }
+  ],
+  "maximum_numeric_error": {
+    "closest_opening_distance_m": 5.551115123125783e-17,
+    "max_retention_s": 0,
+    "minimum_mouth_clearance_mm": 1.1368683772161603e-13
+  },
+  "elapsed_s": 46.78652884403709,
+  "scope": "Read-only independent scalar rescoring of saved native arrays and evidence/selection/cohort checks; no new physics rollout",
+  "geometry_scope": "Recorded endpoint/local-path proof identities checked; geometry was not independently rerun"
+}

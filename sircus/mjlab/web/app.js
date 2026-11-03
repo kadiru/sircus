@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from '/vendor/OrbitControls.js';
 import { contactStudy, contactGroups, contactConfigurations, transitRoutes, routePreview, configurationsCsv } from '/state.mjs';
 import { correctedGridProgress, correctedTrainingReadiness } from '/state.mjs';
-import { plannerReady, plannerOnly, searchReady, modeReady, plannerFarmRows } from '/state.mjs';
+import { plannerReady, plannerOnly, searchReady, modeReady, plannerFarmRows, plannerGridRows, plannerGridSummary, plannerGridProgress, plannerGridCsv } from '/state.mjs';
 import { studyReady, buildRequest, methodLabel, coverageRows, finiteVector, friendlyError, coverageSummary, comparisonRows, learningPoints, inStudiedRegion, BOARD_BODY_SIZE, bankComparisonRows, policyRouteLabel, poseInputValues, bankCoverageRows, bankCoverageStatus, formatMetric, solveButtonState, expansionTargetRows, expansionProgress, expandedComparisonRows, stableIkProgress, stableIkTargets, stableIkAuditRows, stableIkControlRows } from '/state.mjs';
 
 const $ = id => document.getElementById(id);
@@ -67,7 +67,7 @@ bucket.castShadow = bucket.receiveShadow = true; bucketGroup.add(bucket);
 const bucketBase = new THREE.Mesh(new THREE.CylinderGeometry(.079, .079, .008, 64), material(0xd39a3e));
 bucketBase.rotation.x = Math.PI / 2; bucketBase.position.z = .004; bucketGroup.add(bucketBase);
 let sceneSpec = {}, report = {}, pending = false, activeRequest = null, currentTrajectory = [], playTime = 0, playing = false, pathLine;
-let methodChosen = false, farmSignature = '';
+let methodChosen = false, farmSignature = '', gridStudySignature = '';
 let transitFrames = [], transitTime = 0, transitName = "";
 let bucketXY = [.65, -.4];
 const armGroups = [new THREE.Group(), new THREE.Group()]; armGroups.forEach(g => world.add(g));
@@ -170,6 +170,7 @@ function setPending(value) {
   pending = value; syncSolveButtons();
   for (const id of ['bucketX', 'bucketY', 'boardLock', 'dropLock', 'mode', 'searchBudget']) $(id).disabled = value;
   for (const button of $('plannerFarmGrid').children) button.disabled = value;
+  for (const button of $('plannerGridTable').querySelectorAll('button')) button.disabled = value;
   updateConstraintPreview();
 }
 function addMetrics(pairs, target) {
@@ -177,7 +178,7 @@ function addMetrics(pairs, target) {
   for (const [key, value] of pairs) { const dt = document.createElement('dt'), dd = document.createElement('dd'); dt.textContent = key; dd.textContent = String(value); dl.append(dt, dd); }
   target.replaceChildren(dl);
 }
-function applyResult(result) {
+function applyResult(result, { recordedPlayback = false } = {}) {
   const config = result.configuration || {}, b = config.board_center, n = config.board_normal;
   if (finiteVector(b, 3)) board.position.fromArray(b);
   if (finiteVector(config.board_quaternion_wxyz, 4)) {
@@ -200,7 +201,7 @@ function applyResult(result) {
     $('play').disabled = false; $('timeline').disabled = false; playTime = currentTrajectory[0].time; playing = true;
   }
   const success = result.success === true;
-  const recorded = ['catalogue', 'catalog_lookup', 'cached', 'dataset_lookup'].includes(result.method) || result.provenance?.cache_hit === true;
+  const recorded = recordedPlayback || ['catalogue', 'catalog_lookup', 'cached', 'dataset_lookup'].includes(result.method) || result.provenance?.cache_hit === true;
   const busy = result.status_native === 'busy';
   $('sceneOutcome').textContent = success ? recorded ? '✓ Saved verified shot · recorded native evidence' : '✓ Verified capture · native simulation' : busy ? '4090 busy · no new shot executed' : 'No verified solution within budget · see result';
   $('sceneOutcome').className = `scene-outcome ${success ? 'ready' : 'failed'}`;
@@ -271,8 +272,111 @@ function showPlannerFarm() {
     button.setAttribute('aria-pressed', String(selected)); button.disabled = pending;
     button.style.borderColor = selected ? 'var(--teal)' : 'var(--line)';
   }
-  $('plannerFarmSummary').textContent = `${rows.filter(row => row.cached).length} / ${rows.length} targets have a saved verified recipe. Select one to inspect, then solve. Other positions remain available by dragging the bucket.`;
+  $('plannerFarmSummary').textContent = report.planner_grid_study
+    ? `${rows.filter(row => row.cached).length} / ${rows.length} targets have an original catalogue recipe. The study below shows new settings and repeat results for every table.`
+    : `${rows.filter(row => row.cached).length} / ${rows.length} targets have a saved verified recipe. Select one to inspect, then solve. Other positions remain available by dragging the bucket.`;
 }
+const gridMillimetres = value => Number.isFinite(value) ? `${(value * 1000).toFixed(1)}` : '—';
+const gridVector = value => finiteVector(value, 3) ? value.map(gridMillimetres).join(', ') : '—';
+function gridRepeats(value) {
+  if (!value) return 'Pending / unknown';
+  return `${value.captures}/${value.attempts}${value.attempts ? ` · ${(100 * value.captures / value.attempts).toFixed(1)}%` : ' · no trials'}`;
+}
+function gridQuality(value) {
+  if (!value || value.clean === null && value.assisted === null) return 'Unknown';
+  const scope = [value.cohort ? `${value.cohort} cohort` : 'cohort unknown', value.source === 'saved_reference' ? 'saved reference' : value.source === 'fresh_study' ? 'current study' : value.source === 'frozen_validation' ? 'frozen validation' : 'source unknown'];
+  return `${value.clean ?? '—'} / ${value.assisted ?? '—'}\n${scope.join(' · ')}`;
+}
+async function viewPlannerGridResult(row) {
+  if (pending || !row.resultUrl || !row.xy) return;
+  try {
+    setPending(true);
+    const response = await fetch(row.resultUrl, { cache: 'no-store' });
+    const data = await response.json();
+    if (!response.ok) throw Error(data.error || `HTTP ${response.status}`);
+    const result = data.result ?? data;
+    if (!result || typeof result !== 'object' || !Array.isArray(result.trajectory)) throw Error('Recorded shot has no native trajectory');
+    $('boardLock').checked = false; $('dropLock').checked = false;
+    setBucket(row.xy.slice()); clearResult(`Loading table ${row.label} recorded shot`);
+    applyResult(result, { recordedPlayback: true });
+    $('resultText').textContent = `Table ${row.label} · recorded native study evidence. ${result.message ?? 'No new search or physics trial was run.'}`;
+    $('world').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } catch (error) {
+    $('resultTitle').textContent = 'Recorded shot unavailable'; $('resultText').textContent = friendlyError(error.message);
+    $('resultDot').className = 'status-dot failed';
+  } finally { setPending(false); }
+}
+function showPlannerGridStudy() {
+  if (typeof report.planner_grid_error === 'string') {
+    $('plannerGridStudy').hidden = false; gridStudySignature = '';
+    $('plannerGridStatus').textContent = `Study evidence unavailable · ${friendlyError(report.planner_grid_error)}`;
+    $('plannerGridScope').textContent = 'The study report could not be verified. Recorded trial results are unavailable until a valid report is restored.';
+    $('plannerGridSummary').replaceChildren(); $('plannerGridTable').replaceChildren(); $('plannerGridDownload').disabled = true;
+    return;
+  }
+  const summary = plannerGridSummary(report), rows = plannerGridRows(report);
+  $('plannerGridStudy').hidden = !summary;
+  if (!summary) return;
+  const signature = JSON.stringify([report.planner_grid_study, report.planner_grid_blockers, report.planner_grid_parent]);
+  if (signature === gridStudySignature) return;
+  gridStudySignature = signature;
+  const progress = plannerGridProgress(summary);
+  $('plannerGridStatus').textContent = `${summary.status.replaceAll('_', ' ')} · ${progress}${summary.updated ? ` · updated ${summary.updated}` : ''}`;
+  addMetrics([['Qualified recipes available', `${summary.qualified}/${summary.total}`], ['Fresh study / saved reference', `${summary.freshQualified} / ${summary.savedQualified}`], ['Unresolved / blocked', summary.unresolved],
+    ['Frozen nominal captures', `${gridRepeats(summary.frozenNominal)}${summary.frozenNominal ? ` · ${summary.frozenNominal.reported} cells` : ''}`],
+    ['Frozen perturbed captures', `${gridRepeats(summary.frozenFresh)}${summary.frozenFresh ? ` · ${summary.frozenFresh.reported} cells` : ''}`]], $('plannerGridSummary'));
+  $('plannerGridScope').textContent = summary.scope || 'Corrected native MuJoCo sweep search. These are development targets; repeated captures are separate from exploratory search and saved reference evidence.';
+  $('plannerGridParentNote').hidden = !report.planner_grid_study.protocol?.inherited_baseline;
+  const table = document.createElement('table'), head = document.createElement('thead'), header = document.createElement('tr'), body = document.createElement('tbody');
+  for (const label of ['Table / bucket XY mm', 'Study status', 'Frozen validation', 'Board XYZ mm', 'Tilt', 'Ball release Z mm', 'Gap / distance mm', 'Qualification nominal', 'Qualification perturbed', 'Clean / assisted', 'Search effort']) {
+    const th = document.createElement('th'); th.textContent = label; th.scope = 'col'; header.append(th);
+  }
+  head.append(header); table.append(head, body);
+  for (const row of rows) {
+    const tr = document.createElement('tr'); tr.dataset.cellId = row.id;
+    const cell = text => { const td = document.createElement('td'); td.style.whiteSpace = 'pre-line'; td.textContent = text; tr.append(td); return td; };
+    const identity = cell(`${row.label}\n${row.xy ? row.xy.map(gridMillimetres).join(', ') : 'Unknown XY'}`);
+    identity.className = 'grid-cell-identity';
+    const status = cell(`${row.status.replaceAll('_', ' ')}${row.displayStage ? `\n${row.displayStage}` : ''}`);
+    status.className = 'grid-cell-status';
+    if (row.reason) {
+      status.title = row.reason;
+      const details = document.createElement('details'), summary = document.createElement('summary'), reason = document.createElement('p');
+      summary.textContent = 'Details'; reason.textContent = row.reason; details.append(summary, reason); status.append(details);
+    }
+    if (['qualified', 'verified_fresh', 'saved_verified'].includes(row.status)) status.style.color = 'var(--teal)';
+    const currentFrozen = !row.selected && ['unresolved', 'blocked', 'failed'].includes(row.status) ? 'Not evaluated · no selected shot'
+      : !row.frozenExpected ? 'Saved recipe · no new frozen repeats' : row.frozen ? `${row.frozen.status.replaceAll('_', ' ')}\nNominal ${gridRepeats(row.frozen.nominal)}\nPerturbed ${gridRepeats(row.frozen.fresh)}\nClean / assisted: ${gridQuality(row.frozen.quality)}` : 'Pending / unknown';
+    const previousFrozen = row.previousFrozen ? `\n\nPrevious study frozen repeats\nNominal ${gridRepeats(row.previousFrozen.nominal)}\nPerturbed ${gridRepeats(row.previousFrozen.fresh)}\nClean / assisted: ${gridQuality(row.previousFrozen.quality)}` : '';
+    const frozen = cell(currentFrozen + previousFrozen);
+    if (row.frozen?.configurationSha) frozen.title = `Frozen configuration SHA256: ${row.frozen.configurationSha}`;
+    cell(`${gridVector(row.selected?.board)}${row.selected ? `\n${row.selected.source}` : ''}`);
+    cell(row.selected?.tilt === null || !row.selected ? '—' : `${row.selected.tilt.toFixed(2)}°`);
+    cell(gridMillimetres(row.selected?.release?.[2]));
+    cell(`${gridMillimetres(row.selected?.gap)} / ${gridMillimetres(row.selected?.distance)}`);
+    cell(`${gridRepeats(row.nominal)}${row.savedNominal ? `\nSaved: ${gridRepeats(row.savedNominal)}` : ''}`);
+    cell(`${gridRepeats(row.fresh)}${row.savedFresh ? `\nSaved: ${gridRepeats(row.savedFresh)}` : ''}`);
+    cell(gridQuality(row.quality));
+    const searchCaptures = row.search.captures !== null && row.search.nativeRequests !== null
+      ? `${row.search.captures}/${row.search.nativeRequests} search captures`
+      : `${row.search.nativeRequests ?? '—'} native requests · captures unknown`;
+    cell(`${searchCaptures}\n${row.search.rejected ?? '—'} geometry rejects${row.search.cpuCandidates !== null ? ` / ${row.search.cpuCandidates} proposals` : ''}`);
+    if (row.resultUrl && row.xy) {
+      const button = document.createElement('button'); button.type = 'button'; button.className = 'quiet'; button.textContent = 'View recorded shot';
+      button.setAttribute('aria-label', `View table ${row.label} recorded native shot`); button.disabled = pending;
+      button.onclick = () => viewPlannerGridResult(row); identity.append(button);
+    } else {
+      const unavailable = document.createElement('small'); unavailable.textContent = 'No saved trajectory'; identity.append(unavailable);
+    }
+    body.append(tr);
+  }
+  $('plannerGridTable').replaceChildren(table);
+  $('plannerGridDownload').disabled = !rows.length;
+}
+$('plannerGridDownload').onclick = () => {
+  const blob = new Blob([plannerGridCsv(report)], { type: 'text/csv;charset=utf-8' }), url = URL.createObjectURL(blob);
+  const link = document.createElement('a'); link.href = url; link.download = 'sircus-35-table-sweep.csv'; link.click(); URL.revokeObjectURL(url);
+};
 $('play').onclick = () => { if (!currentTrajectory.length) return; if (playTime >= currentTrajectory.at(-1).time) playTime = currentTrajectory[0].time; playing = !playing; };
 $('timeline').oninput = () => { playing = false; if (currentTrajectory.length) playTime = currentTrajectory[0].time + Number($('timeline').value) / 1000 * (currentTrajectory.at(-1).time - currentTrajectory[0].time); };
 function makeSvg(tag, attributes = {}) {
@@ -743,6 +847,7 @@ async function loadStatus() {
     $('fingerprint').textContent = `Scene fingerprint: ${r.scene_fingerprint ?? r.contract_fingerprint ?? r.fingerprint ?? s.fingerprint ?? 'not reported'}`;
     if (ready && $('resultTitle').textContent === 'Waiting for the learning study') { $('resultTitle').textContent = 'Ready to test a bucket position'; $('resultText').textContent = 'Choose a bucket position and optional arm locks, then solve.'; }
     showPlannerFarm();
+    showPlannerGridStudy();
     if (!standalone) showCoverage();
   } catch (error) { $('studyTitle').textContent = 'Study connection unavailable'; $('studyDetail').textContent = error.message; for (const id of ['solve', 'solveTop']) $(id).disabled = true; }
 }

@@ -1,0 +1,10 @@
+{
+  "version": "sircus-compact-grid35-study-v1",
+  "scope": "Curated simulation evidence; raw trajectories, logs and host state excluded. Original manifest refers to retained external raw evidence.",
+  "study_manifest_sha256": "96a029e4267da4dcea4955016c9218ebf1c6cc4563c331fed926a39a962185a7",
+  "audit_sha256": "f16745ba041586b3f04eb043be3627639a639a4782a676a38a56c86344cbd685",
+  "report_sha256": "85f00eaca0e0f6aa520ce1e544c7a87d708f62ef0f18e3b5b9e7f341f8bdb28b",
+  "contract_fingerprint": "adf11a6b1a6c936da87b64a25e43a4e192edb4753081df1b21126e65ca4f0a4c",
+  "selected_configurations": 17,
+  "diversified_stage_records": 13
+}
