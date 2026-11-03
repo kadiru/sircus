@@ -17,6 +17,14 @@
   original planner on 18786 and other simulation services are preserved. The
   finite 4090 run is in progress; current results must be read from its verified
   report, not inferred from this checkpoint. No new RL or physical deployment.
+- An independent sampling audit found the first expanded cell spent all 128
+  native slots on local refinements before any broad sample was executed.
+  The [additive diversified follow-up](../sircus/mjlab/GRID_STUDY.md) corrects this:
+  audit all 1,024 proposals before choosing up to 128 eligible native attempts,
+  with a 64-slot broad/inverse quota and normalized geometric diversity. It
+  requires a completed, audited parent; archived outcomes never count as new
+  trials. Current parent execution remains unchanged. Only new selections get
+  new frozen repeats; inherited rates remain separately labeled.
 
 ## Sweep planner implementation checkpoint — November 2, 2026
 

@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from '/vendor/OrbitControls.js';
 import { contactStudy, contactGroups, contactConfigurations, transitRoutes, routePreview, configurationsCsv } from '/state.mjs';
 import { correctedGridProgress, correctedTrainingReadiness } from '/state.mjs';
-import { plannerReady, plannerOnly, searchReady, modeReady, plannerFarmRows, plannerGridRows, plannerGridSummary, plannerGridCsv } from '/state.mjs';
+import { plannerReady, plannerOnly, searchReady, modeReady, plannerFarmRows, plannerGridRows, plannerGridSummary, plannerGridProgress, plannerGridCsv } from '/state.mjs';
 import { studyReady, buildRequest, methodLabel, coverageRows, finiteVector, friendlyError, coverageSummary, comparisonRows, learningPoints, inStudiedRegion, BOARD_BODY_SIZE, bankComparisonRows, policyRouteLabel, poseInputValues, bankCoverageRows, bankCoverageStatus, formatMetric, solveButtonState, expansionTargetRows, expansionProgress, expandedComparisonRows, stableIkProgress, stableIkTargets, stableIkAuditRows, stableIkControlRows } from '/state.mjs';
 
 const $ = id => document.getElementById(id);
@@ -317,14 +317,16 @@ function showPlannerGridStudy() {
   const summary = plannerGridSummary(report), rows = plannerGridRows(report);
   $('plannerGridStudy').hidden = !summary;
   if (!summary) return;
-  const signature = JSON.stringify([report.planner_grid_study, report.planner_grid_blockers]);
+  const signature = JSON.stringify([report.planner_grid_study, report.planner_grid_blockers, report.planner_grid_parent]);
   if (signature === gridStudySignature) return;
   gridStudySignature = signature;
-  $('plannerGridStatus').textContent = `${summary.status.replaceAll('_', ' ')} · ${summary.finished}/${summary.total} cells finished${summary.updated ? ` · updated ${summary.updated}` : ''}`;
+  const progress = plannerGridProgress(summary);
+  $('plannerGridStatus').textContent = `${summary.status.replaceAll('_', ' ')} · ${progress}${summary.updated ? ` · updated ${summary.updated}` : ''}`;
   addMetrics([['Qualified recipes available', `${summary.qualified}/${summary.total}`], ['Fresh study / saved reference', `${summary.freshQualified} / ${summary.savedQualified}`], ['Unresolved / blocked', summary.unresolved],
     ['Frozen nominal captures', `${gridRepeats(summary.frozenNominal)}${summary.frozenNominal ? ` · ${summary.frozenNominal.reported} cells` : ''}`],
     ['Frozen perturbed captures', `${gridRepeats(summary.frozenFresh)}${summary.frozenFresh ? ` · ${summary.frozenFresh.reported} cells` : ''}`]], $('plannerGridSummary'));
   $('plannerGridScope').textContent = summary.scope || 'Corrected native MuJoCo sweep search. These are development targets; repeated captures are separate from exploratory search and saved reference evidence.';
+  $('plannerGridParentNote').hidden = !report.planner_grid_study.protocol?.inherited_baseline;
   const table = document.createElement('table'), head = document.createElement('thead'), header = document.createElement('tr'), body = document.createElement('tbody');
   for (const label of ['Table / bucket XY mm', 'Study status', 'Frozen validation', 'Board XYZ mm', 'Tilt', 'Ball release Z mm', 'Gap / distance mm', 'Qualification nominal', 'Qualification perturbed', 'Clean / assisted', 'Search effort']) {
     const th = document.createElement('th'); th.textContent = label; th.scope = 'col'; header.append(th);
@@ -335,7 +337,7 @@ function showPlannerGridStudy() {
     const cell = text => { const td = document.createElement('td'); td.style.whiteSpace = 'pre-line'; td.textContent = text; tr.append(td); return td; };
     const identity = cell(`${row.label}\n${row.xy ? row.xy.map(gridMillimetres).join(', ') : 'Unknown XY'}`);
     identity.className = 'grid-cell-identity';
-    const status = cell(`${row.status.replaceAll('_', ' ')}${row.stage ? `\n${row.stage.replaceAll('_', ' ')}` : ''}`);
+    const status = cell(`${row.status.replaceAll('_', ' ')}${row.displayStage ? `\n${row.displayStage}` : ''}`);
     status.className = 'grid-cell-status';
     if (row.reason) {
       status.title = row.reason;
@@ -343,7 +345,9 @@ function showPlannerGridStudy() {
       summary.textContent = 'Details'; reason.textContent = row.reason; details.append(summary, reason); status.append(details);
     }
     if (['qualified', 'verified_fresh', 'saved_verified'].includes(row.status)) status.style.color = 'var(--teal)';
-    const frozen = cell(row.frozen ? `${row.frozen.status.replaceAll('_', ' ')}\nNominal ${gridRepeats(row.frozen.nominal)}\nPerturbed ${gridRepeats(row.frozen.fresh)}\nClean / assisted: ${gridQuality(row.frozen.quality)}` : 'Pending / unknown');
+    const currentFrozen = !row.frozenExpected ? 'Saved recipe · no new frozen repeats' : row.frozen ? `${row.frozen.status.replaceAll('_', ' ')}\nNominal ${gridRepeats(row.frozen.nominal)}\nPerturbed ${gridRepeats(row.frozen.fresh)}\nClean / assisted: ${gridQuality(row.frozen.quality)}` : 'Pending / unknown';
+    const previousFrozen = row.previousFrozen ? `\n\nPrevious study frozen repeats\nNominal ${gridRepeats(row.previousFrozen.nominal)}\nPerturbed ${gridRepeats(row.previousFrozen.fresh)}\nClean / assisted: ${gridQuality(row.previousFrozen.quality)}` : '';
+    const frozen = cell(currentFrozen + previousFrozen);
     if (row.frozen?.configurationSha) frozen.title = `Frozen configuration SHA256: ${row.frozen.configurationSha}`;
     cell(`${gridVector(row.selected?.board)}${row.selected ? `\n${row.selected.source}` : ''}`);
     cell(row.selected?.tilt === null || !row.selected ? '—' : `${row.selected.tilt.toFixed(2)}°`);

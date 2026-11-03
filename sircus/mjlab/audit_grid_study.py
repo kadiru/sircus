@@ -119,6 +119,482 @@ def signature(row):
     return tuple(tuple(row[key]) for key in ("values", "q10", "q14"))
 
 
+def parent_snapshot(study, contract, identity, checks):
+    """Validate an archived, fully audited parent without crediting new trials."""
+    metadata = contract.get("parent")
+    if metadata is None:
+        return None
+    checks.equal(
+        metadata.get("version"),
+        "sircus-grid35-parent-evidence-v1",
+        "Parent evidence version",
+    )
+    path = Path(study) / "parent"
+    files = {
+        name: read(path / name)
+        for name in (
+            "contract.json",
+            "report.json",
+            "frozen-selection.json",
+            "manifest.json",
+            "audit.json",
+        )
+    }
+    for field, name in (
+        ("study_manifest_sha256", "manifest.json"),
+        ("report_sha256", "report.json"),
+        ("frozen_selection_sha256", "frozen-selection.json"),
+        ("audit_sha256", "audit.json"),
+    ):
+        checks.equal(sha(path / name), metadata.get(field), "Parent file/" + name)
+    parent_contract = dict(files["contract.json"])
+    fingerprint = parent_contract.pop("fingerprint")
+    checks.equal(digest(parent_contract), fingerprint, "Parent contract fingerprint")
+    checks.equal(
+        metadata.get("contract_fingerprint"), fingerprint, "Parent contract binding"
+    )
+    parent_identity = parent_contract["identity"]
+    parent_report = files["report.json"]
+    from .grid_study_contract import validate_report
+
+    validate_report(parent_report)
+    checks.equal(parent_report["status"], "completed", "Parent study is complete")
+    checks.equal(
+        parent_report["fingerprint"],
+        metadata.get("report_fingerprint"),
+        "Parent report fingerprint",
+    )
+    checks.equal(parent_report["identity"], parent_identity, "Parent report identity")
+    checks.equal(
+        parent_report["protocol"], parent_contract["protocol"], "Parent protocol"
+    )
+    checks.equal(
+        files["frozen-selection.json"],
+        {c["id"]: c["selected"] for c in parent_report["cells"] if c.get("selected")},
+        "Parent immutable selection",
+    )
+    # The original manifest references raw arrays outside this compact archive.
+    # Only archived critical bytes and original request/result sidecars are
+    # checked here. The full parent audit binds its original native arrays.
+    original_manifest = files["manifest.json"]
+    for name in ("contract.json", "report.json", "frozen-selection.json"):
+        checks.equal(
+            sha(path / name),
+            original_manifest.get(name),
+            "Parent original file/" + name,
+        )
+    parent_audit = files["audit.json"]
+    checks.equal(
+        parent_audit.get("status"), "passed", "Parent independent audit passed"
+    )
+    checks.equal(parent_audit.get("failures"), [], "Parent audit has no failures")
+    checks.require(parent_audit.get("checks", 0) > 0, "Parent audit records checks")
+    for key, value in (
+        ("contract_fingerprint", fingerprint),
+        ("study_manifest_sha256", metadata["study_manifest_sha256"]),
+        ("report_sha256", metadata["report_sha256"]),
+        ("frozen_selection_sha256", metadata["frozen_selection_sha256"]),
+    ):
+        checks.equal(parent_audit.get(key), value, "Parent audit binding/" + key)
+    for key in ("source_sha256", "asset_sha256", "physics"):
+        checks.equal(metadata.get(key), parent_identity[key], "Parent metadata/" + key)
+        checks.equal(parent_audit.get(key), parent_identity[key], "Parent audit/" + key)
+    for key in ("contract_fingerprint", "scene_sha256", "asset_sha256", "physics"):
+        checks.equal(
+            parent_identity[key], identity[key], "Parent compatible identity/" + key
+        )
+    for name, expected in parent_identity["source_sha256"].items():
+        checks.equal(
+            identity["source_sha256"].get(name),
+            expected,
+            "Parent compatible native/source dependency/" + name,
+        )
+    checks.equal(
+        parent_audit.get("packages"),
+        parent_contract["packages"],
+        "Parent audited packages",
+    )
+    checks.equal(
+        contract["packages"], parent_contract["packages"], "Parent compatible packages"
+    )
+    return dict(
+        metadata=metadata,
+        report=parent_report,
+        manifest=original_manifest,
+        contract=files["contract.json"],
+        audit=parent_audit,
+        cells={c["id"]: c for c in parent_report["cells"]},
+    )
+
+
+def check_parent_wrapper(path, attempt, parent, checks, cell_id):
+    """A new-reader wrapper must preserve original bytes, IDs and provenance."""
+    result = attempt["result"]
+    evidence = result.get("provenance", {}).get("parent_evidence", {})
+    original_request = read(Path(path) / "original-request.json")
+    original_result = read(Path(path) / "original-result.json")
+    original_request_id = original_request["request_id"]
+    parent_cell = parent["cells"][cell_id]
+    parent_attempt = next(
+        a for a in parent_cell["attempts"] if a["request_id"] == original_request_id
+    )
+    if parent_cell.get("selected"):
+        checks.equal(
+            original_request_id,
+            parent_cell["selected"]["request_id"],
+            cell_id + "/parent selected request",
+        )
+    else:
+        checks.equal(
+            parent_attempt,
+            parent_cell["attempts"][-1],
+            cell_id + "/parent last unresolved attempt",
+        )
+    original_stage = parent_attempt["stage"]
+    directory = "saved" if original_stage == "saved_reference" else original_stage
+    for kind, payload in (("request", original_request), ("result", original_result)):
+        filename = "original-" + kind + ".json"
+        original_file = f"cells/{cell_id}/{directory}/{kind}.json"
+        checks.equal(
+            sha(Path(path) / filename),
+            parent["manifest"].get(original_file),
+            cell_id + "/parent original byte identity/" + kind,
+        )
+        checks.equal(
+            digest(payload),
+            parent_attempt[kind + "_payload_sha256"],
+            cell_id + "/parent original payload/" + kind,
+        )
+        checks.equal(
+            evidence.get("original_" + kind + "_payload_sha256"),
+            digest(payload),
+            cell_id + "/nested parent payload/" + kind,
+        )
+        checks.equal(
+            evidence.get("original_" + kind + "_file"),
+            original_file,
+            cell_id + "/nested original path/" + kind,
+        )
+    expected = {
+        "parent_contract_fingerprint": parent["metadata"]["contract_fingerprint"],
+        "parent_report_fingerprint": parent["metadata"]["report_fingerprint"],
+        "parent_manifest_sha256": parent["metadata"]["study_manifest_sha256"],
+        "parent_audit_sha256": parent["metadata"]["audit_sha256"],
+        "original_request_id": original_request_id,
+        "original_result_sha256": sha(Path(path) / "original-result.json"),
+        "original_stage": original_stage,
+        "original_provenance": original_result["provenance"],
+        "original_metrics": original_result["metrics"],
+    }
+    for key, value in expected.items():
+        checks.equal(
+            evidence.get(key), value, cell_id + "/nested parent identity/" + key
+        )
+    checks.equal(
+        original_result["request_id"],
+        original_request_id,
+        cell_id + "/original request/result ID",
+    )
+    checks.equal(
+        attempt["request"]["bucket_xy"],
+        original_request["bucket_xy"],
+        cell_id + "/parent fixed bucket",
+    )
+    for key in (
+        "configuration",
+        "trajectory",
+        "motion",
+        "success",
+        "qualified",
+        "status_native",
+        "bucket_xy_m",
+        "constraints",
+    ):
+        checks.equal(
+            result.get(key),
+            original_result.get(key),
+            cell_id + "/preserved parent result/" + key,
+        )
+    checks.equal(
+        result.get("method"), "catalog_lookup", cell_id + "/parent wrapper method"
+    )
+    checks.require(
+        result["provenance"].get("saved_evidence") is True,
+        cell_id + "/parent saved evidence",
+    )
+    for key in (
+        "cpu_candidates",
+        "geometry_rejected",
+        "search_requests",
+        "confirmation_requests",
+        "search_cpu_candidates",
+        "search_geometry_rejected",
+        "search_captures",
+    ):
+        checks.equal(
+            result["metrics"].get(key), 0, cell_id + "/no new parent work/" + key
+        )
+    for key in (
+        "nominal_attempts",
+        "nominal_captures",
+        "fresh_attempts",
+        "fresh_captures",
+    ):
+        checks.equal(
+            result["metrics"].get(key),
+            original_result["metrics"].get(key),
+            cell_id + "/saved parent cohort/" + key,
+        )
+    checks.require(
+        not (Path(path) / "shots.jsonl").exists(),
+        cell_id + "/parent wrapper has no new trial file",
+    )
+    return original_result
+
+
+def inherited_validation(cell, parent, checks):
+    """Return parent's already audited final rates without new trial credit."""
+    selected = cell["selected"]
+    previous = parent["cells"][cell["id"]]
+    checks.require(
+        previous.get("selected") is not None,
+        cell["id"] + "/inherited selected recipe exists",
+    )
+    checks.equal(
+        selected["configuration_sha256"],
+        previous["selected"]["configuration_sha256"],
+        cell["id"] + "/inherited frozen configuration",
+    )
+    validation = previous.get("frozen_validation")
+    checks.require(
+        validation is not None,
+        cell["id"] + "/parent independent repeat evidence exists",
+    )
+    checks.equal(
+        validation["configuration_sha256"],
+        selected["configuration_sha256"],
+        cell["id"] + "/parent final rates exact configuration",
+    )
+    return validation
+
+
+def followup_targets(parent_report, criterion, checks):
+    expected = dict(
+        nominal_required=3,
+        nominal_attempts=3,
+        fresh_required=27,
+        fresh_attempts=30,
+        missing_or_blocked=True,
+    )
+    checks.equal(
+        criterion, expected, "Prespecified fragile/unresolved target criterion"
+    )
+    targets = []
+    for cell in parent_report["cells"]:
+        validation = cell.get("frozen_validation") or {}
+        nominal, fresh = validation.get("nominal", {}), validation.get("fresh", {})
+        if (
+            not cell.get("selected")
+            or validation.get("status") != "completed"
+            or nominal.get("captures") != 3
+            or nominal.get("attempts") != 3
+            or fresh.get("attempts") != 30
+            or fresh.get("captures") is None
+            or fresh["captures"] < 27
+        ):
+            targets.append(cell["id"])
+    return targets
+
+
+def check_followup_contract(study, contract, parent, checks):
+    protocol = contract["protocol"]
+    checks.require(
+        protocol.get("inherited_baseline") is True, "Explicit inherited-baseline scope"
+    )
+    checks.equal(
+        protocol.get("frozen_scope"),
+        "new_selected_only",
+        "New independent repeats scope",
+    )
+    targets = followup_targets(
+        parent["report"], protocol.get("target_selection"), checks
+    )
+    checks.equal(
+        protocol.get("targeted_cell_ids"),
+        targets,
+        "Every unresolved or fragile parent cell is targeted",
+    )
+    hints = read(Path(study) / "parent-hints.json")
+    checks.equal(
+        set(hints), set(targets), "Warm-start map includes every targeted cell"
+    )
+    checks.equal(
+        digest(hints), contract["parent_hints_sha256"], "Parent geometry hints identity"
+    )
+    row_manifest = read(Path(study) / "parent-row-manifest.json")
+    checks.equal(
+        row_manifest, contract["parent_row_manifest"], "Parent row manifest identity"
+    )
+    for name, expected in row_manifest.items():
+        checks.require(
+            any(name.startswith("cells/" + cell + "/") for cell in targets)
+            and name.endswith("/shots.jsonl")
+            and "/frozen-repeat/" not in name,
+            "Only declared parent development rows become warm starts",
+        )
+        checks.equal(
+            parent["manifest"].get(name),
+            expected,
+            "Parent warm-start file identity/" + name,
+        )
+    layouts = {row["id"]: row for row in grid_layouts()}
+    allowed = {
+        "source_id",
+        "source_namespace",
+        "source_record_sha256",
+        "values",
+        "q10",
+        "q14",
+        "bucket_xy_m",
+        "use",
+    }
+    for cell_id, rows in hints.items():
+        for hint in rows:
+            checks.equal(
+                set(hint), allowed, cell_id + "/geometry-only parent hint fields"
+            )
+            checks.equal(
+                hint["source_namespace"],
+                "audited_parent_geometry_only",
+                cell_id + "/parent hint namespace",
+            )
+            checks.equal(
+                hint["bucket_xy_m"],
+                layouts[cell_id]["bucket_xy_m"],
+                cell_id + "/parent hint exact layout",
+            )
+            for key, size in (("values", 5), ("q10", 6), ("q14", 6)):
+                array = np.asarray(hint[key], float)
+                checks.require(
+                    array.shape == (size,) and np.isfinite(array).all(),
+                    cell_id + "/finite parent hint/" + key,
+                )
+            source_hash = hint["source_record_sha256"]
+            checks.require(
+                isinstance(source_hash, str)
+                and len(source_hash) == 64
+                and all(c in "0123456789abcdef" for c in source_hash),
+                cell_id + "/parent source record hash",
+            )
+    return targets
+
+
+def check_diversity(path, geometry, shots, metrics, checks, label):
+    """All proposals precede native selection; broad quota cannot be a prefix."""
+    path = Path(path)
+    selection = read(path / "diversity.json")
+    proposals = read(path / "proposals.json")
+    n = metrics["search_cpu_candidates"]
+    checked = geometry[:n]
+    checks.equal(n, len(proposals["values"]), label + "/every proposal audited")
+    checks.equal(len(proposals["metadata"]), n, label + "/proposal metadata count")
+    checks.equal(selection["planned_cpu_candidates"], n, label + "/planned candidates")
+    checks.equal(selection["checked_cpu_candidates"], n, label + "/checked candidates")
+    checks.require(
+        selection["all_proposals_audited"] is True, label + "/full pool audited"
+    )
+    for row, value, meta in zip(checked, proposals["values"], proposals["metadata"]):
+        checks.equal(row["values"], value, label + "/geometry proposal values")
+        checks.equal(row["proposal"], meta, label + "/geometry proposal metadata")
+    checks.equal(
+        metrics["search_geometry_rejected"],
+        sum(not row["geometry_eligible"] for row in checked),
+        label + "/search geometry rejects",
+    )
+    indices = selection["selected_indices"]
+    checks.require(
+        all(
+            isinstance(i, int) and not isinstance(i, bool) and 0 <= i < n
+            for i in indices
+        ),
+        label + "/selection indices",
+    )
+    checks.equal(len(indices), len(set(indices)), label + "/unique selected candidates")
+    chosen = [checked[i] for i in indices]
+    checks.require(
+        all(row["geometry_eligible"] for row in chosen),
+        label + "/selected admitted candidates",
+    )
+    checks.equal(
+        selection["selected_ids"],
+        [row["id"] for row in chosen],
+        label + "/selected IDs",
+    )
+    checks.equal(
+        selection["selection_sha256"],
+        digest(chosen),
+        label + "/exact geometry selection hash",
+    )
+    native = [row for row in shots if row["phase"] == "search"]
+    checks.equal(
+        [row["id"] for row in native],
+        selection["selected_ids"],
+        label + "/native selection IDs",
+    )
+    for row, original in zip(native, chosen):
+        checks.equal(
+            signature(row), signature(original), label + "/selected native branches"
+        )
+    eligible = [row for row in checked if row["geometry_eligible"]]
+    checks.equal(
+        len(chosen),
+        min(selection["native_budget"], len(eligible)),
+        label + "/finite native budget",
+    )
+    broad_methods = {"broad_space_filling", "inverse_ballistic_ring"}
+    broad_available = sum(
+        row.get("proposal", {}).get("method") in broad_methods for row in eligible
+    )
+    broad_selected = sum(
+        row.get("proposal", {}).get("method") in broad_methods for row in chosen
+    )
+    checks.equal(
+        selection["available_broad"], broad_available, label + "/eligible broad count"
+    )
+    checks.equal(
+        selection["selected_broad"], broad_selected, label + "/selected broad count"
+    )
+    checks.require(
+        broad_selected >= min(selection["requested_broad_quota"], broad_available),
+        label + "/native broad family quota",
+    )
+    checks.require(selection["quota_satisfied"] is True, label + "/quota evidence")
+    for key, rows in (
+        ("checked", checked),
+        ("eligible", eligible),
+        ("selected", chosen),
+    ):
+        summary = selection[key]
+        checks.equal(summary["count"], len(rows), label + "/range count/" + key)
+        if rows:
+            values = np.asarray([row["values"] for row in rows], float)
+            for i, name in enumerate(
+                ("board_x_m", "board_y_m", "board_height_m", "tilt_deg", "gap_m")
+            ):
+                checks.equal(
+                    summary["ranges"][name],
+                    [float(values[:, i].min()), float(values[:, i].max())],
+                    label + "/actual parameter range/" + key + "/" + name,
+                )
+    return dict(
+        checked=n,
+        native_selected=len(chosen),
+        broad_available=broad_available,
+        broad_selected=broad_selected,
+        selection_sha256=selection["selection_sha256"],
+    )
+
+
 def check_motion(proof, source, bucket, home_sha, checks, label):
     if not proof.get("passed"):
         return False
@@ -423,6 +899,12 @@ def audit(study, reference, assets, *, repository=None, recheck_frozen_geometry=
         checks.equal(
             identity["source_sha256"].get(name), expected, "Native dependency: " + name
         )
+    parent = parent_snapshot(study, contract, identity, checks)
+    followup_cell_ids = (
+        check_followup_contract(study, contract, parent, checks)
+        if parent is not None
+        else None
+    )
     raw_hints_path = Path(reference) / "shots.jsonl"
     checks.equal(
         sha(raw_hints_path),
@@ -463,6 +945,21 @@ def audit(study, reference, assets, *, repository=None, recheck_frozen_geometry=
         report, expected_report, "Display is exactly reconstructed from its ledger"
     )
     selected = {c["id"]: c["selected"] for c in report["cells"] if c.get("selected")}
+    if followup_cell_ids is not None:
+        for layout in grid_layouts():
+            stages = [a["stage"] for a in ledger["attempts"].get(layout["id"], [])]
+            checks.require(
+                set(stages).issubset({"baseline", "expanded"}),
+                layout["id"] + "/only declared follow-up stages",
+            )
+            checks.equal(
+                stages.count("baseline"), 1, layout["id"] + "/one archived baseline"
+            )
+            checks.equal(
+                stages.count("expanded"),
+                int(layout["id"] in followup_cell_ids),
+                layout["id"] + "/complete prespecified follow-up target coverage",
+            )
     checks.equal(
         read(study / "frozen-selection.json"),
         selected,
@@ -545,6 +1042,20 @@ def audit(study, reference, assets, *, repository=None, recheck_frozen_geometry=
                 ),
                 stage_label + "/request identity",
             )
+            if result["provenance"].get("parent_evidence") is not None:
+                checks.require(
+                    parent is not None, stage_label + "/parent snapshot required"
+                )
+                check_parent_wrapper(path, attempt, parent, checks, cell_id)
+                cell_report["stage_checks"].append(
+                    dict(
+                        stage=stage,
+                        requests=0,
+                        native_releases=0,
+                        inherited_parent=True,
+                    )
+                )
+                continue
             if stage == "saved_reference":
                 checks.require(
                     result["provenance"].get("saved_evidence") is True,
@@ -607,8 +1118,46 @@ def audit(study, reference, assets, *, repository=None, recheck_frozen_geometry=
                 sum(not r["geometry_eligible"] for r in geometry),
                 stage_label + "/endpoint rejects",
             )
+            if (
+                parent is not None
+                and stage == "expanded"
+                and result["status_native"] != "common_home_unresolved"
+            ):
+                checks.require(
+                    (path / "diversity.json").is_file(),
+                    stage_label + "/required diverse selection evidence",
+                )
+                checks.equal(
+                    metrics["search_cpu_candidates"],
+                    request["cpu_candidates"],
+                    stage_label + "/entire expanded geometry budget checked",
+                )
+            if (path / "diversity.json").exists():
+                cell_report["diversity"] = check_diversity(
+                    path, geometry, shots, metrics, checks, stage_label
+                )
+                selection = read(path / "diversity.json")
+                checks.equal(
+                    selection["native_budget"],
+                    request["search_budget"],
+                    stage_label + "/selection native budget",
+                )
+                checks.equal(
+                    selection["seed"],
+                    contract["protocol"]["seed"]
+                    + (cell["row"] * 7 + cell["column"]) * 100,
+                    stage_label + "/selection seed",
+                )
             parsed = []
-            for confirmation_path in sorted(path.glob("qualification-*.json")):
+            for ordinal, confirmation_path in enumerate(
+                sorted(path.glob("qualification-*.json"))
+            ):
+                if (path / "diversity.json").exists():
+                    checks.equal(
+                        read(confirmation_path)["seed"],
+                        selection["seed"] + 10000 + ordinal,
+                        stage_label + "/independent candidate qualification seed",
+                    )
                 parsed.append(
                     check_confirmation(
                         read(confirmation_path),
@@ -666,7 +1215,23 @@ def audit(study, reference, assets, *, repository=None, recheck_frozen_geometry=
                 )
             )
         frozen_path = study / "cells" / cell_id / "frozen-repeat"
-        if cell_id in selected:
+        if (
+            cell_id in selected
+            and parent is not None
+            and selected[cell_id]["source"] == "saved_reference"
+        ):
+            checks.require(
+                not frozen_path.exists(),
+                cell_id + "/inherited recipe has no duplicate new repeat run",
+            )
+            checks.require(
+                cell_id not in ledger["validation"],
+                cell_id + "/inherited final rates are not new validation",
+            )
+            previous = inherited_validation(cell, parent, checks)
+            cell_report["parent_frozen"] = previous
+            totals["inherited_selected"] += 1
+        elif cell_id in selected:
             check_manifest(frozen_path, checks)
             validation = read(frozen_path / "validation.json")
             checks.equal(
@@ -840,6 +1405,7 @@ def audit(study, reference, assets, *, repository=None, recheck_frozen_geometry=
         packages=contract["packages"],
         physics=PHYSICS,
         totals=dict(totals),
+        parent_evidence=(parent["metadata"] if parent is not None else None),
         cells=cell_reports,
         maximum_numeric_error=dict(checks.float_maximum_error),
         elapsed_s=time.monotonic() - begin,
