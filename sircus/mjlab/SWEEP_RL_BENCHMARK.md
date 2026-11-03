@@ -144,7 +144,9 @@ reproduces six selected failures without changing their scores or using test dat
 ## Resource measurements
 
 - Training/setup wall time and current worker CPU time exclude validation/test.
-  CPU time for the external NVIDIA telemetry subprocess is excluded.
+  These are instrumented implementation costs, including evidence I/O, not
+  isolated algorithm timings. CPU time for the external NVIDIA telemetry
+  subprocess is excluded.
 - The recorded `geometry_s` subtotal covers training endpoint/home checks.
   Sampled common-home and local-path checks contribute to total CPU/wall time,
   but are not included in that subtotal. Their `path_s` timings remain in the
@@ -153,12 +155,17 @@ reproduces six selected failures without changing their scores or using test dat
   It is not a measurement of active kernel utilization.
 - Total exclusive 4090 worker reservation includes evaluation and lazy native
   initialization. Queue waiting is outside the reservation.
-- Peak RSS and GPU memory are lifetime process measurements, including evaluation.
+- Peak RSS and GPU memory are lifetime process measurements as of each snapshot,
+  including the simulator and evaluation, rather than policy-only memory.
   Memory units are **MiB**. NVIDIA process VRAM is sampled once per second, so its
   recorded maximum is a sampled peak; PyTorch allocated/reserved peaks are separate.
 - Native initialization time is recorded separately; it may first occur in the
   zero-budget validation stage.
-- Algorithm checkpoints and raw audit-data storage are distinct costs.
+- Algorithm checkpoints and raw audit-data storage are distinct costs. The saved
+  PPO artifact includes actor, critic and optimizer state; its file size is not
+  an actor-only deployment footprint.
+- `query_s` measures prediction only. It excludes artifact loading and subsequent
+  IK, path and native admission, so it is not end-to-end shot latency.
 
 Workers run sequentially with alternating method order across seeds. Every worker
 uses the same batch-32 native environment, fresh process/caches and two CPU threads.
