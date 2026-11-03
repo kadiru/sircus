@@ -1,6 +1,7 @@
 """Read-only replay guards with temporary JSON fixtures, without sockets/GPU."""
 
 import copy
+import hashlib
 import json
 from pathlib import Path
 import tempfile
@@ -105,6 +106,58 @@ class GridStudyServerTests(unittest.TestCase):
             action()
         self.assertEqual(caught.exception.status, status)
 
+    def blocked_report(self, homes, *, state=None):
+        attempts = []
+        for stage, home in homes:
+            path = self.study / "cells" / self.layout["id"] / stage / "home.json"
+            path.parent.mkdir(parents=True, exist_ok=True)
+            self.write(path, home)
+            request_id = "blocked-" + stage
+            result = dict(
+                request_id=request_id,
+                bucket_xy_m=self.layout["bucket_xy_m"],
+                success=False,
+                status_native="common_home_unresolved",
+                method="sweep_planner",
+                metrics={},
+                provenance=dict(self.identity, policy_used=False, saved_evidence=False),
+            )
+            attempts.append(
+                dict(
+                    stage=stage,
+                    request=dict(
+                        request_id=request_id,
+                        mode="search",
+                        bucket_xy=self.layout["bucket_xy_m"],
+                    ),
+                    result=result,
+                    evidence_sha256={
+                        "home.json": hashlib.sha256(path.read_bytes()).hexdigest()
+                    },
+                )
+            )
+        value = contract.make_report(
+            {self.layout["id"]: attempts},
+            identity=self.identity,
+            protocol=dict(mock=True),
+            states={self.layout["id"]: state} if state else None,
+        )
+        self.write(self.report_path, value)
+        return value
+
+    @staticmethod
+    def home(pair=None, distance=-0.001):
+        return dict(
+            passed=False,
+            reason="clearance",
+            margin_contacts=[
+                dict(
+                    pair=pair or ["Arm10/link_base/collision/0", "bucket/wall00"],
+                    distance_m=distance,
+                )
+            ],
+        )
+
     def test_verified_report_and_recorded_shot_preserve_native_identity_without_solver_work(
         self,
     ):
@@ -184,6 +237,83 @@ class GridStudyServerTests(unittest.TestCase):
             404, dict(error="No qualified recorded shot")
         )
         state.submit.assert_not_called()
+
+    def test_hash_checked_home_notes_classify_only_actual_negative_base_contacts(self):
+        raw = self.blocked_report([("baseline", self.home())])
+        envelope = self.state.report()
+        self.assertEqual(envelope["planner_grid_study"], raw)
+        self.assertEqual(
+            envelope["planner_grid_study"]["fingerprint"], raw["fingerprint"]
+        )
+        self.assertEqual(
+            envelope["planner_grid_blockers"],
+            {
+                self.layout[
+                    "id"
+                ]: "Bucket overlaps an arm base; another placement is needed."
+            },
+        )
+        for home in (
+            self.home(distance=0.0),
+            self.home(distance=0.001),
+            self.home(pair=["Arm14/link4/collision/0", "bucket/wall00"]),
+        ):
+            self.blocked_report([("baseline", home)])
+            note = self.state.report()["planner_grid_blockers"][self.layout["id"]]
+            self.assertEqual(
+                note,
+                "Prescribed starting pose is blocked; another staging strategy needs validation.",
+            )
+        self.solver.assert_not_called()
+
+    def test_notes_use_latest_stage_without_falling_back_to_stale_overlap_evidence(
+        self,
+    ):
+        self.blocked_report(
+            [
+                ("baseline", self.home()),
+                (
+                    "expanded",
+                    self.home(pair=["Arm14/link4/collision/0", "bucket/wall00"]),
+                ),
+            ]
+        )
+        self.assertIn(
+            "starting pose",
+            self.state.report()["planner_grid_blockers"][self.layout["id"]],
+        )
+        path = self.study / "cells" / self.layout["id"] / "expanded" / "home.json"
+        path.unlink()
+        self.assertEqual(self.state.report()["planner_grid_blockers"], {})
+        self.solver.assert_not_called()
+
+    def test_missing_changed_unbound_or_escaped_home_does_not_classify_a_blocker(self):
+        self.blocked_report([("baseline", self.home())])
+        path = self.study / "cells" / self.layout["id"] / "baseline" / "home.json"
+        self.write(path, self.home(distance=0.001))
+        self.assertEqual(self.state.report()["planner_grid_blockers"], {})
+        report = self.blocked_report([("baseline", self.home())])
+        report["cells"][0]["attempts"][0]["evidence_sha256"] = {}
+        self.resign(report)
+        self.write(self.report_path, report)
+        self.assertEqual(self.state.report()["planner_grid_blockers"], {})
+        self.blocked_report([("baseline", self.home())])
+        outside = self.directory / "outside-home.json"
+        self.write(outside, self.home())
+        path.unlink()
+        path.symlink_to(outside)
+        self.assertEqual(self.state.report()["planner_grid_blockers"], {})
+        self.solver.assert_not_called()
+
+    def test_unresolved_search_and_invalid_home_do_not_gain_verified_blocker_notes(
+        self,
+    ):
+        self.blocked_report([("baseline", self.home())], state="unresolved")
+        self.assertEqual(self.state.report()["planner_grid_blockers"], {})
+        for home in (dict(passed=True), dict(passed=False, margin_contacts="unknown")):
+            self.blocked_report([("baseline", home)])
+            self.assertEqual(self.state.report()["planner_grid_blockers"], {})
+        self.solver.assert_not_called()
 
 
 if __name__ == "__main__":

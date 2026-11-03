@@ -164,13 +164,14 @@ export function plannerGridRows(report) {
   return rows.map((row, index) => {
     const selected = row.selected && typeof row.selected === 'object' ? row.selected : null;
     const frozen = row.frozen_validation && typeof row.frozen_validation === 'object' ? row.frozen_validation : null;
+    const blocker = report?.planner_grid_blockers?.[row.id];
     return {
       id: String(row.id ?? `table-${index + 1}`), index,
       label: `${Math.floor(index / 7) + 1}·${index % 7 + 1}`,
       xy: finiteVector(row.bucket_xy_m, 2) ? row.bucket_xy_m.slice() : null,
       status: typeof row.status === 'string' ? row.status : 'unknown',
       stage: typeof row.stage === 'string' ? row.stage : '',
-      reason: typeof row.reason === 'string' ? row.reason : '',
+      reason: typeof blocker === 'string' ? blocker : typeof row.reason === 'string' ? row.reason : '',
       selected: selected ? {
         board: finiteVector(selected.board_center_m, 3) ? selected.board_center_m.slice() : null,
         release: finiteVector(selected.release_ball_center_m, 3) ? selected.release_ball_center_m.slice() : null,
