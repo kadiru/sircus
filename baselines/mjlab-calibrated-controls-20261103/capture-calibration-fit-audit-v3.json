@@ -1,0 +1,675 @@
+{
+  "version": "sircus-native-contact-calibration-report-v1",
+  "status": "passed",
+  "checks": 3444,
+  "failures": [],
+  "synthetic_fixture": false,
+  "auditor_version": "sircus-native-contact-calibration-audit-v1",
+  "auditor_sha256": "98f905394c0e7f2b082d7b60b51baedd95fd6984b5265f6e7673c56b963f9afe",
+  "scorer_source_sha256": {
+    "sircus/mjlab/calibrated_score.py": "b90fb4886f2297534b81b399620c647952eb2e486217289c65548713977e3539",
+    "sircus/mjlab/calibrated_score_oracle.py": "74ff1b43d342a28e7b4af6d3ec757f577aec076ac286535f4c16e053e31a00df"
+  },
+  "scene_sha256": "9a50295d9908be8634c2df1c0b460ec6011710cf8e14ce33cbc67a75749ff1c8",
+  "asset_sha256": {
+    "assets/board_arm.urdf": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340",
+    "assets/dropper.urdf": "3f40e56e46b040fb3339c1235ea85872f46511c45db2d37f7661db94a470bae3",
+    "assets/poses.json": "5847c2793606860a82cc74030c3fe529767318f189c5d48e3d66c0dc7b9f776a",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link1.stl": "4069840361c2693b5b1147da366d5ba8a49ff7ab2c52fed68e07e04e07786e3f",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link2.stl": "0e736a629e6000c3c912f5aaf76937f824f510ac8894db67bd0d7f1d6210fc52",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link3.stl": "f682201345117c4b021fd9db21bd9bef6824886c8324f046b7d5772d7c9fa426",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link4.stl": "7bf4ab507c07a2b26e6a8528decdfe32d71efffdf1dd391406f1ce2f9ff4caa7",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link5.stl": "103955f097086e0f5d46380ff89bc7ef669877bb65def38431a18fc5343e1ba0",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link6.stl": "86b95b77850f38ff1437284705a1c8c616e3da21faef72e4f06751fc741de3b3",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link_base.stl": "871d501d23e8164440656331ee0e005d859dbdb7fab1c3725bef423adac9cf0e"
+  },
+  "prelaunch_journal_sha256": "8b14feefd220bd73a0d0ff3006a1aa94219eefee8ef3efa480dc5f95c699c8e1",
+  "provenance_scope": "Inputs/geometry and source bytes verified after controlled launches; supplied journal preserves root's prelaunch producer hashes. No producer source manifest was embedded in raw caches.",
+  "packages": {
+    "mujoco": "3.11.0",
+    "numpy": "1.26.4",
+    "scipy": "1.15.3"
+  },
+  "limitations": [
+    "No new physics rollout was performed by this CPU audit.",
+    "Isolated component witnesses are not board-bounce route success or physical validation.",
+    "Canonical time is dt-times-tick; native floating-point clock drift is retained separately.",
+    "No policy/method outcomes were used to fit or verify these contact bounds."
+  ],
+  "score_config": {
+    "version": "sircus-contact-capture-calibration-v1",
+    "compiled_planes": [
+      [
+        -0.9958438016625772,
+        -0.048923055889060735,
+        0.07682224477780725,
+        0.07407370636414408
+      ],
+      [
+        -0.9862533100453171,
+        -0.14629679255412778,
+        0.07682224230670577,
+        0.07407370523050143
+      ],
+      [
+        -0.9671646968837514,
+        -0.24226182902421992,
+        0.07682223180564902,
+        0.0740737087993093
+      ],
+      [
+        -0.9387616129998699,
+        -0.335894293140727,
+        0.07682224803644967,
+        0.07407370931446518
+      ],
+      [
+        -0.9013177263104634,
+        -0.4262918002015179,
+        0.07682224495213637,
+        0.07407370828278605
+      ],
+      [
+        -0.8551938881228084,
+        -0.5125834137590949,
+        0.07682224714538141,
+        0.07407370679712226
+      ],
+      [
+        -0.8008339200137002,
+        -0.5939388651452391,
+        0.0768222430385624,
+        0.07407370718508616
+      ],
+      [
+        -0.7387616956990932,
+        -0.6695741179296628,
+        0.07682224655992763,
+        0.07407370822036664
+      ],
+      [
+        -0.6695741179296604,
+        -0.7387616956990956,
+        0.07682224655992764,
+        0.07407370822036666
+      ],
+      [
+        -0.5939388651452379,
+        -0.8008339200137011,
+        0.07682224303856243,
+        0.07407370718508617
+      ],
+      [
+        -0.512583413759099,
+        -0.8551938881228061,
+        0.07682224714538145,
+        0.07407370679712225
+      ],
+      [
+        -0.42629180020150437,
+        -0.9013177263104697,
+        0.07682224495213637,
+        0.07407370828278603
+      ],
+      [
+        -0.33589429314072167,
+        -0.9387616129998718,
+        0.07682224803644964,
+        0.0740737093144652
+      ],
+      [
+        -0.24226182902422017,
+        -0.9671646968837514,
+        0.07682223180564904,
+        0.0740737087993093
+      ],
+      [
+        -0.14629679255412795,
+        -0.9862533100453171,
+        0.07682224230670581,
+        0.07407370523050147
+      ],
+      [
+        -0.048923055889060936,
+        -0.9958438016625772,
+        0.07682224477780727,
+        0.07407370636414408
+      ],
+      [
+        0.048923055889060936,
+        -0.9958438016625772,
+        0.07682224477780729,
+        0.07407370636414408
+      ],
+      [
+        0.14629679255412795,
+        -0.9862533100453171,
+        0.07682224230670581,
+        0.07407370523050144
+      ],
+      [
+        0.24226182902421567,
+        -0.9671646968837525,
+        0.07682223180564901,
+        0.07407370879930934
+      ],
+      [
+        0.3358942931407195,
+        -0.9387616129998726,
+        0.07682224803644969,
+        0.07407370931446523
+      ],
+      [
+        0.4262918002015086,
+        -0.9013177263104677,
+        0.07682224495213637,
+        0.07407370828278603
+      ],
+      [
+        0.5125834137590962,
+        -0.8551938881228076,
+        0.07682224714538148,
+        0.07407370679712223
+      ],
+      [
+        0.5939388651452349,
+        -0.8008339200137033,
+        0.0768222430385624,
+        0.07407370718508616
+      ],
+      [
+        0.6695741179296615,
+        -0.7387616956990944,
+        0.07682224655992767,
+        0.07407370822036667
+      ],
+      [
+        0.7387616956995484,
+        -0.6695741179291606,
+        0.07682224655992759,
+        0.07407370822036666
+      ],
+      [
+        0.8008339200137011,
+        -0.5939388651452379,
+        0.07682224303856243,
+        0.07407370718508617
+      ],
+      [
+        0.8551938881228099,
+        -0.5125834137590922,
+        0.07682224714538147,
+        0.07407370679712223
+      ],
+      [
+        0.9013177263104676,
+        -0.4262918002015089,
+        0.07682224495213638,
+        0.07407370828278602
+      ],
+      [
+        0.9387616129998696,
+        -0.33589429314072805,
+        0.07682224803644967,
+        0.07407370931446522
+      ],
+      [
+        0.9671646968837506,
+        -0.2422618290242234,
+        0.07682223180564901,
+        0.0740737087993093
+      ],
+      [
+        0.9862533100453171,
+        -0.14629679255412778,
+        0.07682224230670577,
+        0.07407370523050144
+      ],
+      [
+        0.9958438016625772,
+        -0.04892305588906074,
+        0.07682224477780725,
+        0.07407370636414408
+      ],
+      [
+        0.9958438016625772,
+        0.04892305588906074,
+        0.07682224477780725,
+        0.07407370636414408
+      ],
+      [
+        0.9862533100453171,
+        0.14629679255412778,
+        0.07682224230670576,
+        0.07407370523050143
+      ],
+      [
+        0.9671646968837514,
+        0.24226182902421992,
+        0.07682223180564902,
+        0.0740737087993093
+      ],
+      [
+        0.9387616129998683,
+        0.33589429314073144,
+        0.07682224803644966,
+        0.07407370931446519
+      ],
+      [
+        0.9013177263104634,
+        0.4262918002015179,
+        0.07682224495213637,
+        0.07407370828278605
+      ],
+      [
+        0.8551938881228099,
+        0.5125834137590922,
+        0.07682224714538147,
+        0.07407370679712223
+      ],
+      [
+        0.8008339200137002,
+        0.5939388651452391,
+        0.0768222430385624,
+        0.07407370718508616
+      ],
+      [
+        0.7387616956990932,
+        0.6695741179296628,
+        0.07682224655992763,
+        0.07407370822036664
+      ],
+      [
+        0.6695741179296606,
+        0.7387616956990953,
+        0.0768222465599276,
+        0.07407370822036666
+      ],
+      [
+        0.5939388651452379,
+        0.8008339200137011,
+        0.07682224303856243,
+        0.07407370718508617
+      ],
+      [
+        0.512583413759099,
+        0.8551938881228061,
+        0.07682224714538145,
+        0.07407370679712225
+      ],
+      [
+        0.42629180020150437,
+        0.9013177263104697,
+        0.07682224495213637,
+        0.07407370828278603
+      ],
+      [
+        0.33589429314072167,
+        0.9387616129998718,
+        0.07682224803644964,
+        0.0740737093144652
+      ],
+      [
+        0.24226182902422028,
+        0.9671646968837514,
+        0.07682223180564904,
+        0.07407370879930933
+      ],
+      [
+        0.14629679255412795,
+        0.9862533100453171,
+        0.07682224230670581,
+        0.07407370523050147
+      ],
+      [
+        0.048923055889060936,
+        0.9958438016625772,
+        0.07682224477780727,
+        0.07407370636414408
+      ],
+      [
+        -0.048923055889060936,
+        0.9958438016625772,
+        0.07682224477780727,
+        0.07407370636414408
+      ],
+      [
+        -0.14629679255412795,
+        0.9862533100453171,
+        0.07682224230670581,
+        0.07407370523050144
+      ],
+      [
+        -0.24226182902421567,
+        0.9671646968837525,
+        0.07682223180564901,
+        0.07407370879930934
+      ],
+      [
+        -0.3358942931407195,
+        0.9387616129998726,
+        0.07682224803644969,
+        0.07407370931446523
+      ],
+      [
+        -0.4262918002015086,
+        0.9013177263104677,
+        0.07682224495213637,
+        0.07407370828278603
+      ],
+      [
+        -0.5125834137590962,
+        0.8551938881228076,
+        0.07682224714538148,
+        0.07407370679712223
+      ],
+      [
+        -0.5939388651452349,
+        0.8008339200137033,
+        0.0768222430385624,
+        0.07407370718508616
+      ],
+      [
+        -0.6695741179296615,
+        0.7387616956990944,
+        0.07682224655992767,
+        0.07407370822036667
+      ],
+      [
+        -0.7387616956995484,
+        0.6695741179291606,
+        0.07682224655992759,
+        0.07407370822036666
+      ],
+      [
+        -0.8008339200137011,
+        0.5939388651452379,
+        0.07682224303856243,
+        0.07407370718508617
+      ],
+      [
+        -0.8551938881228099,
+        0.5125834137590922,
+        0.07682224714538147,
+        0.07407370679712223
+      ],
+      [
+        -0.9013177263104676,
+        0.4262918002015089,
+        0.07682224495213638,
+        0.07407370828278602
+      ],
+      [
+        -0.9387616129998696,
+        0.33589429314072805,
+        0.07682224803644967,
+        0.07407370931446522
+      ],
+      [
+        -0.9671646968837506,
+        0.2422618290242234,
+        0.07682223180564901,
+        0.0740737087993093
+      ],
+      [
+        -0.9862533100453171,
+        0.14629679255412778,
+        0.07682224230670577,
+        0.07407370523050141
+      ],
+      [
+        -0.9958438016625772,
+        0.04892305588906087,
+        0.07682224477780725,
+        0.07407370636414409
+      ]
+    ],
+    "compiled_floor_m": 0.008,
+    "compiled_rim_m": 0.18300000141316475,
+    "wall_tolerance_m": 0.003563906005203724,
+    "floor_tolerance_m": 0.0029438360916376116,
+    "wall_tolerance_cap_m": 0.003800000000000003,
+    "floor_tolerance_cap_m": 0.004,
+    "geometry_epsilon_m": 2e-06,
+    "max_speed_m_s": 6.25,
+    "retention_s": 1.0,
+    "fingerprint": "ab0d2b5b0bcb9122b0ca3e996501d33a6ebe1069e57aebd11d7643a597f55a20"
+  },
+  "score_config_sha256": "3a0b48129c89a0aac5740d3be04bf3c985cde0fd3ede55be4b5ffaf9ae95c4ba",
+  "fit_rule": "1.25 * maximum fit contact/inside-plane overlap + 8um; capped below wall thickness and half base thickness",
+  "fit_evidence": {
+    "role": "fit",
+    "substeps": 64,
+    "fixture_order": "canonical",
+    "fixture_count": 57,
+    "evidence_sha256": {
+      "candidate-score-config.json": "c3d7ec84243489431be8913b086fe3772ea32f68c80e0a23407f7761e1619e04",
+      "compiled-geometry.json": "6b0eca3ca46df822dae18d279a39b2d4ec2305bd597fdcbe76908f4c0b277bd3",
+      "component-summary.json": "946f9f9674f0f4c5e293f0fbbfbeb070e04238d58a43b122282d560415274afb",
+      "fixture-manifest.json": "a153dfaaadba4b29564ffb429e0423c1c9767cb5d2dc239cf20dd3104c66b3b5",
+      "native-components.npz": "6bbd3f5889fe2b69fa3b71991d390dfd01504f3e07578cc4ac8f4ade17ff3b2e"
+    },
+    "fixture_fingerprint": "8a5ccef6ab9af7c6ff9327b61937468105ac1d110b8b87b3d9bcd2b87e1f22cb",
+    "input_order_sha256": "375f1a6bcfd6dd99fe05326172200c3f92c989b0444f8b76e9d4e273237e29ca",
+    "input_case_ids": [
+      "fit-vertical-0",
+      "fit-vertical-1",
+      "fit-vertical-2",
+      "fit-vertical-3",
+      "fit-wall-0-0-0-1",
+      "fit-wall-0-0-0-3",
+      "fit-wall-0-0-0-6",
+      "fit-wall-0-0-1-1",
+      "fit-wall-0-0-1-3",
+      "fit-wall-0-0-1-6",
+      "fit-wall-0-1-0-1",
+      "fit-wall-0-1-0-3",
+      "fit-wall-0-1-0-6",
+      "fit-wall-0-1-1-1",
+      "fit-wall-0-1-1-3",
+      "fit-wall-0-1-1-6",
+      "fit-wall-1-0-0-1",
+      "fit-wall-1-0-0-3",
+      "fit-wall-1-0-0-6",
+      "fit-wall-1-0-1-1",
+      "fit-wall-1-0-1-3",
+      "fit-wall-1-0-1-6",
+      "fit-wall-1-1-0-1",
+      "fit-wall-1-1-0-3",
+      "fit-wall-1-1-0-6",
+      "fit-wall-1-1-1-1",
+      "fit-wall-1-1-1-3",
+      "fit-wall-1-1-1-6",
+      "fit-wall-2-0-0-1",
+      "fit-wall-2-0-0-3",
+      "fit-wall-2-0-0-6",
+      "fit-wall-2-0-1-1",
+      "fit-wall-2-0-1-3",
+      "fit-wall-2-0-1-6",
+      "fit-wall-2-1-0-1",
+      "fit-wall-2-1-0-3",
+      "fit-wall-2-1-0-6",
+      "fit-wall-2-1-1-1",
+      "fit-wall-2-1-1-3",
+      "fit-wall-2-1-1-6",
+      "fit-wall-3-0-0-1",
+      "fit-wall-3-0-0-3",
+      "fit-wall-3-0-0-6",
+      "fit-wall-3-0-1-1",
+      "fit-wall-3-0-1-3",
+      "fit-wall-3-0-1-6",
+      "fit-wall-3-1-0-1",
+      "fit-wall-3-1-0-3",
+      "fit-wall-3-1-0-6",
+      "fit-wall-3-1-1-1",
+      "fit-wall-3-1-1-3",
+      "fit-wall-3-1-1-6",
+      "fit-rim-0",
+      "fit-rim-1",
+      "fit-rim-2",
+      "fit-rim-3",
+      "fit-outside"
+    ],
+    "source": {
+      "source_sha256": {
+        "sircus/mjlab/capture_calibration.py": "871cec164b1a8dfa88e5a48c8761a985ac33536b4838489fc13ca5fed870fc2c",
+        "sircus/mjlab/calibrated_native_log.py": "c555bc762116a18da2802321ba40248a7d2bbe7b9590e176853547e8a4c8272c"
+      },
+      "reference_source_sha256": {
+        "sircus/mjlab/contact_env.py": "04655f30a1b216c037573a0b5e177e6209097026f930fc6efc6dfef289abc3da",
+        "sircus/mjlab/contact_model.py": "b2d522d07dd2e3bffa724feb68593b3fef17033b5274587ef9d130e5c40aa24f",
+        "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+        "sircus/mjlab/contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407",
+        "sircus/mjlab/learning_score.py": "e66b982c0e651c3a9f5855dd03efb87488cc924321aaf9cadb80d51bac2fe814",
+        "sircus/mjlab/corrected_geometry.py": "50a4a353d94cceb1fbb0216a40588c997034a121e554f3f84f530d7d47c470be",
+        "sircus/mjlab/stable_geometry.py": "2e00b5fc46d1b253b5c85b6823c781a37e26f5819b35586a8cc112b057ebaebf",
+        "sircus/mjlab/stable_ik.py": "efd52c5e837339662c99c196e1a3cf4b5b260eecb7888258779030c459944e07",
+        "sircus/mjlab/expanded_actions.py": "d41817aa7ad4206139925256ab0cdf5288853e621d6b39824c10ad2d309679c3",
+        "sircus/mjlab/bank_geometry.py": "5c0d6775582c5524a323f1e9344c35317e8352e9f1f813f5dd0794c05de743f5",
+        "sircus/mjlab/bank_study.py": "7699faeff915a772f3e838983ff1c8dec7721f2d55c79a594e185cd9e08e7dcb",
+        "sircus/mjlab/transit_audit.py": "4400285187eebf3b1c7073a78ab74c94cbead88d52ffc5366e0258d2376f8c96",
+        "sircus/mjlab/admission.py": "2dbc5776113f8afb0ea74e23d0c3a2542fd0223d94a6818aec8de4865d302d82",
+        "sircus/mjlab/learning_env.py": "58d2f58be0e1981a5efd09e872bdea7d8f608e1fa21b5c87986505a20a4a4f8c",
+        "sircus/mjlab/learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+        "sircus/mjlab/learning_reach.py": "8eea1d565e9faefff0622a9e9a4666eb8d811ac086a8a6711caa8efa3029e9a4",
+        "sircus/mjlab/learning_contract.py": "9f2c44b76297f4ef7009c1b0107be983d0511d5654cb68b8e344dd316ed1fda8",
+        "sircus/mjlab/run.py": "969db2710378345aad34a6f802e33d6ea62488d75e560b9da5738bc0748c3dee",
+        "sircus/mjlab/corrected_contract.py": "9800404859a7ae2b2934c26ca448be4a69ae90e481069da72732973b1d907ba2",
+        "sircus/mjlab/corrected_admission.py": "3d42913fc2a9599b0e5063bfc4ee0a03f003b4ba853338e407c8a3d82de3d64a",
+        "sircus/mjlab/gpu_slot.py": "fcace6029058a9892296507358ee196b9b5296dc4287a07bedc786e3af4cad4a",
+        "sircus/mjlab/expand_geometry.py": "0b7982c3494b7cb7f799e073e3a7b788cca77617af0e9f509a4b7e273d926739",
+        "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+        "sircus/isaac/rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+        "sircus/isaac/entry_quality.py": "2f3d8b73c871a41afc3c8f333f5df1d54fa8751720855ffff517e729217db9d4",
+        "sircus/isaac/board_route.py": "6409889aed6b0fd6a288eb9494b954ec5c3233ec41fdcf146940fc23276fb2e9",
+        "sircus/mjlab/sweep_worker.py": "6150969a6f442e3b899d878671a4daf08cd90c61f0abf96494d418316e0e7a5b",
+        "sircus/mjlab/sweep_contract.py": "2460d8e807f06ad4bfe491491d011a448eaedea57ef4c7e727a1b10a54409a0a"
+      },
+      "binding_scope": "Supplied prelaunch hash journal, with post-run source-byte verification; caches did not embed producer source hashes"
+    },
+    "geometry_sha256": "7be78490527126841a8b580731a7d6415ef273358785810809f9d132a53896ca",
+    "geometry": {
+      "queries": 2055,
+      "fixture_grid_sha256": "a43573bcebcdf904a264a52abf895c602d80ed2c053c4787e3bc2af32a05a07c",
+      "maximum_signed_distance_error_m": 3.928099580850775e-09,
+      "normal_coefficient_guard": 0.0001,
+      "maximum_facet_normal_coefficient_error": 5.290505727587418e-07,
+      "maximum_facet_plane_distance_bound_m": 8.579387343979339e-08,
+      "geometry_epsilon_m": 2e-06,
+      "scope": "CPU nativeCCD geom-distance queries using independently reconstructed compiler hull facets; no producer plane-extraction or fit function"
+    },
+    "timing": {
+      "samples": 128,
+      "eligible_dynamic_contacts": 6064,
+      "sample_references_sha256": "ae74c988ac202995ea63b78150256685f45f16204fd6a40db7feddf6d7af65a3",
+      "pre_state_error_max_m": 1.1876992819792598e-08,
+      "pre_state_error_median_m": 2.8014183056646047e-09,
+      "pre_state_error_p95_m": 5.952013568469305e-09,
+      "post_state_error_max_m": 0.0003761810480828742,
+      "post_state_error_median_m": 4.367121149874767e-05,
+      "pre_state_wins": 128,
+      "established_contact_state": "position_m[k] (pre-integration)",
+      "force_observation": "Solver force observation for interval [time_s[k],time_s[k+1]], not an instantaneous post-state force",
+      "position_state": "position_m[k+1] is post-integration",
+      "canonical_time": "Exact dt-times-tick convention; native GPU clock accumulation/drift is recorded separately"
+    },
+    "contact_frame_degeneracy": {
+      "zero_frame_contacts": 0,
+      "maximum_cpu_distance_error_m": 0.0,
+      "maximum_cpu_tangency_distance_m": 0.0,
+      "all_zero_frame_contacts_checked": true,
+      "references_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "treatment": "No direction inferred from zero frames; only precision-bounded CPU-verified tangencies accepted"
+    },
+    "envelope": {
+      "maximum_wall_overlap_m": 0.002844724804162979,
+      "maximum_floor_overlap_m": 0.002348668873310089,
+      "maximum_pre_post_bucket_speed_m_s": 6.00049765277168,
+      "wall_envelope_m": 0.003563906005203724,
+      "floor_envelope_m": 0.0029438360916376116,
+      "wall_inside_envelope": true,
+      "floor_inside_envelope": true
+    },
+    "maximum_native_clock_drift_s": 0.0008041858673095703,
+    "containment_component_witnesses": {
+      "fit-vertical-0": true,
+      "fit-vertical-1": true,
+      "fit-vertical-2": true,
+      "fit-vertical-3": true,
+      "fit-wall-0-0-0-1": true,
+      "fit-wall-0-0-0-3": true,
+      "fit-wall-0-0-0-6": true,
+      "fit-wall-0-0-1-1": true,
+      "fit-wall-0-0-1-3": true,
+      "fit-wall-0-0-1-6": true,
+      "fit-wall-0-1-0-1": true,
+      "fit-wall-0-1-0-3": true,
+      "fit-wall-0-1-0-6": true,
+      "fit-wall-0-1-1-1": true,
+      "fit-wall-0-1-1-3": true,
+      "fit-wall-0-1-1-6": true,
+      "fit-wall-1-0-0-1": true,
+      "fit-wall-1-0-0-3": true,
+      "fit-wall-1-0-0-6": true,
+      "fit-wall-1-0-1-1": true,
+      "fit-wall-1-0-1-3": true,
+      "fit-wall-1-0-1-6": true,
+      "fit-wall-1-1-0-1": true,
+      "fit-wall-1-1-0-3": true,
+      "fit-wall-1-1-0-6": true,
+      "fit-wall-1-1-1-1": true,
+      "fit-wall-1-1-1-3": true,
+      "fit-wall-1-1-1-6": true,
+      "fit-wall-2-0-0-1": true,
+      "fit-wall-2-0-0-3": true,
+      "fit-wall-2-0-0-6": true,
+      "fit-wall-2-0-1-1": true,
+      "fit-wall-2-0-1-3": true,
+      "fit-wall-2-0-1-6": true,
+      "fit-wall-2-1-0-1": true,
+      "fit-wall-2-1-0-3": true,
+      "fit-wall-2-1-0-6": true,
+      "fit-wall-2-1-1-1": true,
+      "fit-wall-2-1-1-3": true,
+      "fit-wall-2-1-1-6": true,
+      "fit-wall-3-0-0-1": true,
+      "fit-wall-3-0-0-3": true,
+      "fit-wall-3-0-0-6": true,
+      "fit-wall-3-0-1-1": true,
+      "fit-wall-3-0-1-3": true,
+      "fit-wall-3-0-1-6": true,
+      "fit-wall-3-1-0-1": true,
+      "fit-wall-3-1-0-3": true,
+      "fit-wall-3-1-0-6": true,
+      "fit-wall-3-1-1-1": true,
+      "fit-wall-3-1-1-3": true,
+      "fit-wall-3-1-1-6": true,
+      "fit-rim-0": true,
+      "fit-rim-1": true,
+      "fit-rim-2": true,
+      "fit-rim-3": true,
+      "fit-outside": false
+    },
+    "scope": "Isolated bucket/ball geometry/contact controls, not completed board-bounce shots",
+    "diagnostic_only": false,
+    "effective_options": {
+      "timestep": 6.510416666666667e-05,
+      "solver": 2,
+      "iterations": 100,
+      "tolerance": 1e-08,
+      "cone": 0,
+      "integrator": 3,
+      "ccd_iterations": 50,
+      "ccd_tolerance": 1e-06,
+      "disableflags": 0,
+      "enableflags": 0,
+      "gravity": [
+        0.0,
+        0.0,
+        -9.81
+      ]
+    }
+  },
+  "elapsed_s": 3.1453736160183325,
+  "fingerprint": "d63bbaa76876e527881e8996437c2c5f128ca398a8667afa354ea74e814273cf"
+}

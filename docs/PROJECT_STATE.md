@@ -22,7 +22,13 @@
   requests. This is finite sampled geometry, not executed arm transit.
 - The complete six-worker synthetic CPU PPO/controller/auditor/exporter gate,
   native-constructor/reset-stream regressions, repository mock suites and GitHub
-  CI passed. A new frozen-source TRAIN-only native smoke is underway. The long
+  CI passed. Native engineering controls captured17/17 source shots and passed
+  a discarded real PPO update:50 requests/48 native releases, independently
+  audited with9,179 checks. These are separate engineering data, not TRAIN/test.
+  Measured repeated-path cost motivated verified-prefix reuse for both methods;
+  exact actions and clearance/sampling limits remain unchanged. The new frozen
+  source passed32 CPU integration/admission/adapter/native-constructor controls;
+  its fresh TRAIN-only native smoke is underway. The long
   matched three-seed×1,024-request/method study has **not started**; no corrected
   capture-rate or adaptation ranking is available yet.
 - A separate read-only v2 interface is implemented for port18790 but not launched.
@@ -31,6 +37,10 @@
   costs separately from archived v1. New evaluation coordinates exclude all71
   historical coordinates. Geometry search remains at inference; flight search
   does not. The task remains privileged-geometry held-endpoint shot selection.
+- [Compact simulation calibration and setup controls](../baselines/mjlab-calibrated-controls-20261103/README.md)
+  retain exact fit/verification/home records and source/raw hashes. The old71
+  supplemental audit independently checks recorded proof hashes/structure;
+  it does not recompute every collision geometry sample.
 
 ## Completed matched current-ball sweep/PPO benchmark — November 3, 2026
 

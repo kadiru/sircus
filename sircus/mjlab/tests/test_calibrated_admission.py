@@ -13,6 +13,7 @@ from sircus.mjlab.calibrated_admission import (
     CLEARANCE_M, HOME_VERSION, SAMPLE_STEP_RAD, SCOPE, GeometryResolver,
     SerializedPlanner, StrictSolver, _signed, rank_sources, source_geometry,
     validate_home, verify_connection, verify_path, verify_resolution, anchor_candidates, anchor_search_spec,
+    CONNECTION_POLICY_VERSION,
 )
 from sircus.mjlab.learning_contract import digest
 
@@ -52,9 +53,9 @@ class FakeSolver:
 class FakePlanner:
     def __init__(self,h,blocked=False): self.home=h;self.blocked=blocked;self.calls=[]
     def check_home(self,bucket): return dict(passed=not self.blocked,hard_reject=self.blocked,reason='clearance' if self.blocked else None)
-    def plan(self,target,bucket):
-        self.calls.append((np.asarray(target).tolist(),list(bucket)))
-        return proof(np.r_[self.home['q10'],self.home['q14']],np.asarray(target))
+    def plan(self,target,bucket,*,start=None):
+        self.calls.append((np.asarray(target).tolist(),list(bucket),None if start is None else np.asarray(start).tolist()))
+        return proof(np.r_[self.home['q10'],self.home['q14']] if start is None else np.asarray(start),np.asarray(target))
 
 
 class ResolverTests(unittest.TestCase):
@@ -88,6 +89,73 @@ class ResolverTests(unittest.TestCase):
             result=resolver.connect(row,requested)
             self.assertTrue(result['passed']);self.assertEqual(result['values'],requested)
             self.assertFalse(result['action_substituted']);verify_connection(result,row,resolver.home,requested)
+            self.assertIsNone(planner.calls[-1][2]);self.assertNotIn('connection_route',result['proof'])
+
+    def test_exact_anchor_joints_reuse_hash_bound_prefix_without_planner_call(self):
+        with tempfile.TemporaryDirectory() as directory:
+            resolver,solver,planner=self.build(directory)
+            anchor=resolver.resolve([.5,-.4]);calls=len(planner.calls)
+            result=resolver.connect(anchor,anchor['anchor_values'])
+            self.assertTrue(result['passed']);self.assertEqual(len(planner.calls),calls)
+            self.assertEqual(result['connection_policy'],CONNECTION_POLICY_VERSION)
+            route=result['proof']['connection_route']
+            self.assertTrue(route['exact_anchor_endpoint']);self.assertIsNone(route['suffix_proof'])
+            self.assertEqual(route['prefix']['prefix_sha256'],digest(anchor['proof']))
+            self.assertEqual(result['proof']['waypoints'],anchor['proof']['waypoints'])
+            self.assertEqual(result['proof']['edges'],anchor['proof']['edges'])
+            verify_connection(result,anchor,resolver.home,anchor['anchor_values'])
+
+    def test_changed_exact_action_checks_only_suffix_and_composes_both_directions(self):
+        with tempfile.TemporaryDirectory() as directory:
+            resolver,solver,planner=self.build(directory)
+            anchor=resolver.resolve([.5,-.4]);calls=len(planner.calls)
+            requested=[.61,-.2,.3,30.,.2];result=resolver.connect(anchor,requested)
+            self.assertTrue(result['passed']);self.assertEqual(len(planner.calls),calls+1)
+            aq=np.r_[anchor['resolved']['q10'],anchor['resolved']['q14']].tolist()
+            self.assertEqual(planner.calls[-1][2],aq)
+            joined=result['proof'];suffix=joined['connection_route']['suffix_proof']
+            self.assertEqual(joined['waypoints'],anchor['proof']['waypoints']+suffix['waypoints'][1:])
+            self.assertEqual(joined['edges'],anchor['proof']['edges']+suffix['edges'])
+            self.assertEqual(joined['reverse_edges'],suffix['reverse_edges']+anchor['proof']['reverse_edges'])
+            self.assertEqual(result['values'],requested);verify_connection(result,anchor,resolver.home,requested)
+            for change in ('hash','edge_count','prefix_waypoint','suffix_target','reverse'):
+                bad=copy.deepcopy(result);route=bad['proof']['connection_route']
+                if change=='hash':route['prefix']['prefix_sha256']='f'*64
+                if change=='edge_count':route['prefix']['prefix_edge_count']+=1
+                if change=='prefix_waypoint':bad['proof']['waypoints'][0][0]=.01
+                if change=='suffix_target':route['suffix_proof']['waypoints'][-1][0]+=.01
+                if change=='reverse':bad['proof']['reverse_edges']=bad['proof']['reverse_edges'][::-1]
+                with self.subTest(change=change),self.assertRaises(ValueError):verify_connection(bad,anchor,resolver.home,requested)
+
+    def test_prefix_requires_exact_saved_resolution_bytes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            resolver,solver,planner=self.build(directory)
+            anchor=resolver.resolve([.5,-.4]);bad=copy.deepcopy(anchor)
+            bad['proof']['minimum_clearance_m']=.007
+            bad['attempts'][-1]['paths'][-1]=bad['proof']
+            verify_resolution(bad,resolver.sources,resolver.home)
+            with self.assertRaisesRegex(ValueError,'bytes/prefix'):resolver.connect(bad,bad['anchor_values'])
+            path=resolver.directory/anchor['file'];path.write_bytes(path.read_bytes()+b'\n')
+            with self.assertRaisesRegex(ValueError,'bytes/prefix'):resolver.connect(anchor,anchor['anchor_values'])
+
+    def test_blocked_suffix_falls_back_to_full_home_for_same_requested_endpoint(self):
+        class SuffixBlocked(FakePlanner):
+            def plan(self,target,bucket,*,start=None):
+                result=super().plan(target,bucket,start=start)
+                return dict(passed=False,reason='strict_suffix_clearance_rejected') if start is not None else result
+        with tempfile.TemporaryDirectory() as directory:
+            h=home({});planner=SuffixBlocked(h);solver=FakeSolver()
+            resolver=GeometryResolver({'scene':{}},directory,Path(directory)/'out',[source('a')],home=h,solver=solver,planner=planner)
+            anchor=resolver.resolve([.5,-.4]);calls=len(planner.calls)
+            requested=[.61,-.2,.3,30.,.2];result=resolver.connect(anchor,requested)
+            self.assertTrue(result['passed']);self.assertEqual(len(planner.calls),calls+2)
+            self.assertIsNotNone(planner.calls[-2][2]);self.assertIsNone(planner.calls[-1][2])
+            self.assertEqual(planner.calls[-2][0],planner.calls[-1][0]);self.assertEqual(result['values'],requested)
+            self.assertFalse(result['path_attempts'][0]['passed'])
+            self.assertEqual(result['proof']['connection_route']['kind'],'full_home_after_anchor_suffix')
+            verify_connection(result,anchor,h,requested)
+            bad=copy.deepcopy(result);bad['proof']['connection_route']['suffix_attempt_index']=1
+            with self.assertRaisesRegex(ValueError,'preceding'):verify_connection(bad,anchor,h,requested)
 
     def test_derived_geometry_anchor_is_selected_before_action_and_audited(self):
         class DerivedSolver(FakeSolver):
@@ -147,6 +215,7 @@ class ResolverTests(unittest.TestCase):
 class SimpleGate:
     def __init__(self, blocked=False):
         self.bucket_xy=np.zeros(2);self.calls=[];self.blocked=blocked
+        self.names=[]
         limits=np.array([[-2.,2.]]*6)
         self.native=type("Limits",(),{"limits10":limits,"limits14":limits})()
     def check(self,q,**kwargs):
@@ -157,6 +226,29 @@ class SimpleGate:
 
 
 class PlannerTests(unittest.TestCase):
+    def test_exact_anchor_reuse_does_not_rerun_actual_sampled_collision_gate(self):
+        gate=SimpleGate();h=home({});pathsolver=type('Solver',(),{'gate':gate,'ik':object()})()
+        planner=SerializedPlanner({},pathsolver,h,rrt_nodes=0)
+        with tempfile.TemporaryDirectory() as directory:
+            resolver=GeometryResolver({'scene':{}},directory,Path(directory)/'out',[source('a')],
+                home=h,solver=FakeSolver(),planner=planner)
+            anchor=resolver.resolve([.5,-.4]);self.assertTrue(anchor['passed']);self.assertGreater(len(gate.calls),100)
+            gate.calls.clear();result=resolver.connect(anchor,anchor['anchor_values'])
+            self.assertTrue(result['passed']);self.assertEqual(gate.calls,[])
+            verify_connection(result,anchor,h,anchor['anchor_values'])
+
+    def test_actual_suffix_samples_stay_at_anchor_instead_of_rechecking_home_prefix(self):
+        gate=SimpleGate();h=home({});pathsolver=type('Solver',(),{'gate':gate,'ik':object()})()
+        planner=SerializedPlanner({},pathsolver,h,rrt_nodes=0)
+        with tempfile.TemporaryDirectory() as directory:
+            resolver=GeometryResolver({'scene':{}},directory,Path(directory)/'out',[source('a')],
+                home=h,solver=FakeSolver(),planner=planner)
+            anchor=resolver.resolve([.5,-.4]);gate.calls.clear()
+            requested=[.61,-.2,.3,30.,.2];result=resolver.connect(anchor,requested)
+            self.assertTrue(result['passed']);self.assertGreater(len(gate.calls),0);self.assertLess(len(gate.calls),20)
+            self.assertTrue(all(.6-1e-12<=q[0]<=.61+1e-12 and q[6]==-.2 for q in gate.calls))
+            verify_connection(result,anchor,h,requested)
+
     def test_serialized_order_fallback_preserves_strict_edges_and_reverse(self):
         gate=SimpleGate();solver=type("Solver",(),{"gate":gate,"ik":object()})()
         planner=SerializedPlanner({},solver,home({}),rrt_nodes=0)
