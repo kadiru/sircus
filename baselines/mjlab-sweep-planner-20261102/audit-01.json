@@ -1,0 +1,226 @@
+{
+  "version": "sircus-independent-planner-audit-v1",
+  "status": "passed",
+  "checks": 919,
+  "failures": [],
+  "elapsed_s": 23.80056520702783,
+  "bindings": {
+    "result_sha256": "258244cc96e6e634f5fcd5d2688208d8c04d09cd02286d7f3c37f59183bc7608",
+    "manifest_sha256": "8fe4009e20e80df36f5b52edaf2bcec4d2903de8e0ba53c2823cb68788be5fed",
+    "request_sha256": "ee398a3927e3c7e20d0061e6c95ed60ad044d846352ebb48219dbc0ce1976c41",
+    "reference_contract_sha256": "f0b99c9084f5070dfebe0134e9a9194b4dd414f13b72eef3a15d2d3fa137f5f5",
+    "source_sha256": {
+      "sircus/mjlab/contact_env.py": "04655f30a1b216c037573a0b5e177e6209097026f930fc6efc6dfef289abc3da",
+      "sircus/mjlab/contact_model.py": "b2d522d07dd2e3bffa724feb68593b3fef17033b5274587ef9d130e5c40aa24f",
+      "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+      "sircus/mjlab/contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407",
+      "sircus/mjlab/learning_score.py": "e66b982c0e651c3a9f5855dd03efb87488cc924321aaf9cadb80d51bac2fe814",
+      "sircus/mjlab/corrected_geometry.py": "50a4a353d94cceb1fbb0216a40588c997034a121e554f3f84f530d7d47c470be",
+      "sircus/mjlab/stable_geometry.py": "2e00b5fc46d1b253b5c85b6823c781a37e26f5819b35586a8cc112b057ebaebf",
+      "sircus/mjlab/stable_ik.py": "efd52c5e837339662c99c196e1a3cf4b5b260eecb7888258779030c459944e07",
+      "sircus/mjlab/expanded_actions.py": "d41817aa7ad4206139925256ab0cdf5288853e621d6b39824c10ad2d309679c3",
+      "sircus/mjlab/bank_geometry.py": "5c0d6775582c5524a323f1e9344c35317e8352e9f1f813f5dd0794c05de743f5",
+      "sircus/mjlab/bank_study.py": "7699faeff915a772f3e838983ff1c8dec7721f2d55c79a594e185cd9e08e7dcb",
+      "sircus/mjlab/transit_audit.py": "4400285187eebf3b1c7073a78ab74c94cbead88d52ffc5366e0258d2376f8c96",
+      "sircus/mjlab/admission.py": "2dbc5776113f8afb0ea74e23d0c3a2542fd0223d94a6818aec8de4865d302d82",
+      "sircus/mjlab/learning_env.py": "58d2f58be0e1981a5efd09e872bdea7d8f608e1fa21b5c87986505a20a4a4f8c",
+      "sircus/mjlab/learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+      "sircus/mjlab/learning_reach.py": "8eea1d565e9faefff0622a9e9a4666eb8d811ac086a8a6711caa8efa3029e9a4",
+      "sircus/mjlab/learning_contract.py": "9f2c44b76297f4ef7009c1b0107be983d0511d5654cb68b8e344dd316ed1fda8",
+      "sircus/mjlab/run.py": "969db2710378345aad34a6f802e33d6ea62488d75e560b9da5738bc0748c3dee",
+      "sircus/mjlab/corrected_contract.py": "9800404859a7ae2b2934c26ca448be4a69ae90e481069da72732973b1d907ba2",
+      "sircus/mjlab/corrected_admission.py": "3d42913fc2a9599b0e5063bfc4ee0a03f003b4ba853338e407c8a3d82de3d64a",
+      "sircus/mjlab/gpu_slot.py": "fcace6029058a9892296507358ee196b9b5296dc4287a07bedc786e3af4cad4a",
+      "sircus/mjlab/expand_geometry.py": "0b7982c3494b7cb7f799e073e3a7b788cca77617af0e9f509a4b7e273d926739",
+      "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+      "sircus/isaac/rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+      "sircus/isaac/entry_quality.py": "2f3d8b73c871a41afc3c8f333f5df1d54fa8751720855ffff517e729217db9d4",
+      "sircus/isaac/board_route.py": "6409889aed6b0fd6a288eb9494b954ec5c3233ec41fdcf146940fc23276fb2e9",
+      "sircus/mjlab/sweep_worker.py": "6150969a6f442e3b899d878671a4daf08cd90c61f0abf96494d418316e0e7a5b",
+      "sircus/mjlab/sweep_contract.py": "2460d8e807f06ad4bfe491491d011a448eaedea57ef4c7e727a1b10a54409a0a"
+    },
+    "asset_sha256": {
+      "assets/board_arm.urdf": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340",
+      "assets/dropper.urdf": "3f40e56e46b040fb3339c1235ea85872f46511c45db2d37f7661db94a470bae3",
+      "assets/poses.json": "5847c2793606860a82cc74030c3fe529767318f189c5d48e3d66c0dc7b9f776a",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link1.stl": "4069840361c2693b5b1147da366d5ba8a49ff7ab2c52fed68e07e04e07786e3f",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link2.stl": "0e736a629e6000c3c912f5aaf76937f824f510ac8894db67bd0d7f1d6210fc52",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link3.stl": "f682201345117c4b021fd9db21bd9bef6824886c8324f046b7d5772d7c9fa426",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link4.stl": "7bf4ab507c07a2b26e6a8528decdfe32d71efffdf1dd391406f1ce2f9ff4caa7",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link5.stl": "103955f097086e0f5d46380ff89bc7ef669877bb65def38431a18fc5343e1ba0",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link6.stl": "86b95b77850f38ff1437284705a1c8c616e3da21faef72e4f06751fc741de3b3",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link_base.stl": "871d501d23e8164440656331ee0e005d859dbdb7fab1c3725bef423adac9cf0e"
+    }
+  },
+  "manifest_files": 8,
+  "source_files": 28,
+  "asset_files": 10,
+  "ledger_rows": 28,
+  "phase_counts": {
+    "search": 5,
+    "nominal": 3,
+    "fresh": 20
+  },
+  "native_array_files": 4,
+  "rescored_rows": 28,
+  "captures_by_phase": {
+    "search": 1,
+    "nominal": 3,
+    "fresh": 20
+  },
+  "max_numeric_errors": {
+    "max_retention_s": 0.0,
+    "closest_opening_distance_m": 3.469446951953614e-18,
+    "peak_bucket_force_before_entry_N": 0.0,
+    "minimum_mouth_clearance_mm": 1.1368683772161603e-13
+  },
+  "bucket_xy_m": [
+    0.49,
+    -0.64
+  ],
+  "original_evidence_gap": "Original worker saved64 search-geometry rows but did not persist20 fresh endpoint/local-path proofs. This supplementary audit recomputes their CPU strict5mm geometry and composed nominal-to-variation paths using frozenv2 source and exact recorded branches; original evidence is unchanged.",
+  "scope": "Independent saved-trajectory scalar rescoring plus CPU-only fixed-branch geometry/local-path rechecks. No new native rollout, no CUDA, no hardware or actuator-dynamics validation.",
+  "original_audit_sha256": "f27569fe4abb496a17e099100e22e92985277c6c352af448ba2a59cc8c00123d",
+  "fresh_admission_rechecks": [
+    {
+      "id": "candidate-00000-fresh-0",
+      "strict_passed": true,
+      "minimum_clearance_m": 0.007499999979398875,
+      "local_path_passed": true,
+      "local_path_scope": "fixed_common_home_via_nominal_to_exact_variation_and_reverse_sampled_geometry"
+    },
+    {
+      "id": "candidate-00000-fresh-1",
+      "strict_passed": true,
+      "minimum_clearance_m": 0.007499999983653471,
+      "local_path_passed": true,
+      "local_path_scope": "fixed_common_home_via_nominal_to_exact_variation_and_reverse_sampled_geometry"
+    },
+    {
+      "id": "candidate-00000-fresh-2",
+      "strict_passed": true,
+      "minimum_clearance_m": 0.00749999999294404,
+      "local_path_passed": true,
+      "local_path_scope": "fixed_common_home_via_nominal_to_exact_variation_and_reverse_sampled_geometry"
+    },
+    {
+      "id": "candidate-00000-fresh-3",
+      "strict_passed": true,
+      "minimum_clearance_m": 0.00749999998834916,
+      "local_path_passed": true,
+      "local_path_scope": "fixed_common_home_via_nominal_to_exact_variation_and_reverse_sampled_geometry"
+    },
+    {
+      "id": "candidate-00000-fresh-4",
+      "strict_passed": true,
+      "minimum_clearance_m": 0.00749999997824069,
+      "local_path_passed": true,
+      "local_path_scope": "fixed_common_home_via_nominal_to_exact_variation_and_reverse_sampled_geometry"
+    },
+    {
+      "id": "candidate-00000-fresh-5",
+      "strict_passed": true,
+      "minimum_clearance_m": 0.007499999339829255,
+      "local_path_passed": true,
+      "local_path_scope": "fixed_common_home_via_nominal_to_exact_variation_and_reverse_sampled_geometry"
+    },
+    {
+      "id": "candidate-00000-fresh-6",
+      "strict_passed": true,
+      "minimum_clearance_m": 0.007499999961498971,
+      "local_path_passed": true,
+      "local_path_scope": "fixed_common_home_via_nominal_to_exact_variation_and_reverse_sampled_geometry"
+    },
+    {
+      "id": "candidate-00000-fresh-7",
+      "strict_passed": true,
+      "minimum_clearance_m": 0.007499999984034389,
+      "local_path_passed": true,
+      "local_path_scope": "fixed_common_home_via_nominal_to_exact_variation_and_reverse_sampled_geometry"
+    },
+    {
+      "id": "candidate-00000-fresh-8",
+      "strict_passed": true,
+      "minimum_clearance_m": 0.007499998553169074,
+      "local_path_passed": true,
+      "local_path_scope": "fixed_common_home_via_nominal_to_exact_variation_and_reverse_sampled_geometry"
+    },
+    {
+      "id": "candidate-00000-fresh-9",
+      "strict_passed": true,
+      "minimum_clearance_m": 0.007499999982662153,
+      "local_path_passed": true,
+      "local_path_scope": "fixed_common_home_via_nominal_to_exact_variation_and_reverse_sampled_geometry"
+    },
+    {
+      "id": "candidate-00000-fresh-10",
+      "strict_passed": true,
+      "minimum_clearance_m": 0.007499999982315431,
+      "local_path_passed": true,
+      "local_path_scope": "fixed_common_home_via_nominal_to_exact_variation_and_reverse_sampled_geometry"
+    },
+    {
+      "id": "candidate-00000-fresh-11",
+      "strict_passed": true,
+      "minimum_clearance_m": 0.007499999993253903,
+      "local_path_passed": true,
+      "local_path_scope": "fixed_common_home_via_nominal_to_exact_variation_and_reverse_sampled_geometry"
+    },
+    {
+      "id": "candidate-00000-fresh-12",
+      "strict_passed": true,
+      "minimum_clearance_m": 0.007499999980245975,
+      "local_path_passed": true,
+      "local_path_scope": "fixed_common_home_via_nominal_to_exact_variation_and_reverse_sampled_geometry"
+    },
+    {
+      "id": "candidate-00000-fresh-13",
+      "strict_passed": true,
+      "minimum_clearance_m": 0.0064428443522457635,
+      "local_path_passed": true,
+      "local_path_scope": "fixed_common_home_via_nominal_to_exact_variation_and_reverse_sampled_geometry"
+    },
+    {
+      "id": "candidate-00000-fresh-14",
+      "strict_passed": true,
+      "minimum_clearance_m": 0.007499999925700163,
+      "local_path_passed": true,
+      "local_path_scope": "fixed_common_home_via_nominal_to_exact_variation_and_reverse_sampled_geometry"
+    },
+    {
+      "id": "candidate-00000-fresh-15",
+      "strict_passed": true,
+      "minimum_clearance_m": 0.007499999934127866,
+      "local_path_passed": true,
+      "local_path_scope": "fixed_common_home_via_nominal_to_exact_variation_and_reverse_sampled_geometry"
+    },
+    {
+      "id": "candidate-00000-fresh-16",
+      "strict_passed": true,
+      "minimum_clearance_m": 0.00749999969516979,
+      "local_path_passed": true,
+      "local_path_scope": "fixed_common_home_via_nominal_to_exact_variation_and_reverse_sampled_geometry"
+    },
+    {
+      "id": "candidate-00000-fresh-17",
+      "strict_passed": true,
+      "minimum_clearance_m": 0.007499999980236538,
+      "local_path_passed": true,
+      "local_path_scope": "fixed_common_home_via_nominal_to_exact_variation_and_reverse_sampled_geometry"
+    },
+    {
+      "id": "candidate-00000-fresh-18",
+      "strict_passed": true,
+      "minimum_clearance_m": 0.007499999992682138,
+      "local_path_passed": true,
+      "local_path_scope": "fixed_common_home_via_nominal_to_exact_variation_and_reverse_sampled_geometry"
+    },
+    {
+      "id": "candidate-00000-fresh-19",
+      "strict_passed": true,
+      "minimum_clearance_m": 0.007499999968605953,
+      "local_path_passed": true,
+      "local_path_scope": "fixed_common_home_via_nominal_to_exact_variation_and_reverse_sampled_geometry"
+    }
+  ]
+}

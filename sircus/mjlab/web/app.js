@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from '/vendor/OrbitControls.js';
 import { contactStudy, contactGroups, contactConfigurations, transitRoutes, routePreview, configurationsCsv } from '/state.mjs';
 import { correctedGridProgress, correctedTrainingReadiness } from '/state.mjs';
+import { plannerReady, plannerOnly, searchReady, modeReady, plannerFarmRows } from '/state.mjs';
 import { studyReady, buildRequest, methodLabel, coverageRows, finiteVector, friendlyError, coverageSummary, comparisonRows, learningPoints, inStudiedRegion, BOARD_BODY_SIZE, bankComparisonRows, policyRouteLabel, poseInputValues, bankCoverageRows, bankCoverageStatus, formatMetric, solveButtonState, expansionTargetRows, expansionProgress, expandedComparisonRows, stableIkProgress, stableIkTargets, stableIkAuditRows, stableIkControlRows } from '/state.mjs';
 
 const $ = id => document.getElementById(id);
@@ -66,6 +67,7 @@ bucket.castShadow = bucket.receiveShadow = true; bucketGroup.add(bucket);
 const bucketBase = new THREE.Mesh(new THREE.CylinderGeometry(.079, .079, .008, 64), material(0xd39a3e));
 bucketBase.rotation.x = Math.PI / 2; bucketBase.position.z = .004; bucketGroup.add(bucketBase);
 let sceneSpec = {}, report = {}, pending = false, activeRequest = null, currentTrajectory = [], playTime = 0, playing = false, pathLine;
+let methodChosen = false, farmSignature = '';
 let transitFrames = [], transitTime = 0, transitName = "";
 let bucketXY = [.65, -.4];
 const armGroups = [new THREE.Group(), new THREE.Group()]; armGroups.forEach(g => world.add(g));
@@ -148,17 +150,26 @@ function updateConstraintPreview() {
 for (const id of ['bucketX', 'bucketY']) $(id).addEventListener('change', () => { if (Number.isFinite(number('bucketX')) && Number.isFinite(number('bucketY'))) setBucket([number('bucketX'), number('bucketY')], false); clearResult('Bucket changed — ready for a new solve'); });
 for (const id of ['boardLock', 'dropLock', 'boardX', 'boardY', 'boardZ', 'dropX', 'dropY', 'dropZ']) $(id).addEventListener('change', () => { updateConstraintPreview(); clearResult('Arm constraints changed'); });
 updateConstraintPreview();
-function updateMethodHelp() { $('methodHelp').textContent = $('mode').value === 'policy' ? policyRouteLabel(report, $('boardLock').checked, $('dropLock').checked) : 'Explicit per-scene search. This is measured separately from frozen-policy performance.'; }
-$('mode').onchange = updateMethodHelp;
+function updateMethodHelp() {
+  const search = $('mode').value === 'search', planner = plannerReady(report);
+  $('methodHelp').textContent = !search ? policyRouteLabel(report, $('boardLock').checked, $('dropLock').checked) : planner
+    ? 'Sweep planner · corrected native MuJoCo · endpoint-held. Exact saved targets can replay recorded evidence; new targets require bounded search and fresh native verification. No solution within budget does not mean impossible.'
+    : 'Explicit per-scene search. This is measured separately from frozen-policy performance.';
+  $('searchBudgetFields').hidden = !(search && planner);
+  $('policyOption').disabled = !studyReady(report);
+  $('searchOption').disabled = !searchReady(report);
+}
+$('mode').onchange = () => { methodChosen = true; updateMethodHelp(); syncSolveButtons(); };
 function syncSolveButtons() {
-  const state = solveButtonState(report, pending);
+  const state = solveButtonState(report, pending, $('mode').value);
   for (const id of ['solve', 'solveTop']) $(id).disabled = state.disabled;
   $('solve').firstChild.textContent = state.mainLabel;
   $('solveTop').textContent = state.topLabel;
 }
 function setPending(value) {
   pending = value; syncSolveButtons();
-  for (const id of ['bucketX', 'bucketY', 'boardLock', 'dropLock', 'mode']) $(id).disabled = value;
+  for (const id of ['bucketX', 'bucketY', 'boardLock', 'dropLock', 'mode', 'searchBudget']) $(id).disabled = value;
+  for (const button of $('plannerFarmGrid').children) button.disabled = value;
   updateConstraintPreview();
 }
 function addMetrics(pairs, target) {
@@ -189,10 +200,12 @@ function applyResult(result) {
     $('play').disabled = false; $('timeline').disabled = false; playTime = currentTrajectory[0].time; playing = true;
   }
   const success = result.success === true;
-  $('sceneOutcome').textContent = success ? '✓ Qualified capture · native verification' : 'No qualified capture · see result';
+  const recorded = ['catalogue', 'catalog_lookup', 'cached', 'dataset_lookup'].includes(result.method) || result.provenance?.cache_hit === true;
+  const busy = result.status_native === 'busy';
+  $('sceneOutcome').textContent = success ? recorded ? '✓ Saved verified shot · recorded native evidence' : '✓ Verified capture · native simulation' : busy ? '4090 busy · no new shot executed' : 'No verified solution within budget · see result';
   $('sceneOutcome').className = `scene-outcome ${success ? 'ready' : 'failed'}`;
   $('resultDot').className = `status-dot ${success ? 'ready' : 'failed'}`;
-  $('resultTitle').textContent = success ? 'Qualified capture in simulation' : 'No qualified capture for this request';
+  $('resultTitle').textContent = success ? recorded ? 'Recorded verified shot at this exact target' : 'Verified capture in simulation' : busy ? 'Simulation GPU is busy' : 'No verified shot for this request';
   const provenance = methodLabel(result.method);
   $('resultText').textContent = `${provenance}. ${result.message ?? result.reason ?? 'Board bounce, whole-ball entry and one continuous second retained are required.'}`;
   const metrics = result.metrics || {}, pairs = [['Method', provenance], ['Request', result.request_id?.slice(0, 10) ?? '—']];
@@ -202,9 +215,10 @@ function applyResult(result) {
   addMetrics(pairs, $('metrics'));
 }
 async function requestSolve() {
-  if (!studyReady(report) || pending) return;
+  if (!modeReady(report, $('mode').value) || pending) return;
   try {
-    const payload = buildRequest($('mode').value, bucketXY, $('boardLock').checked, vector('board'), $('dropLock').checked, vector('drop'), crypto.randomUUID());
+    const budget = $('mode').value === 'search' && plannerReady(report) ? Number($('searchBudget').value) : undefined;
+    const payload = buildRequest($('mode').value, bucketXY, $('boardLock').checked, vector('board'), $('dropLock').checked, vector('drop'), crypto.randomUUID(), budget);
     clearResult('Finding a posture'); setPending(true);
     const response = await fetch('/api/solve', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
     const data = await response.json();
@@ -221,11 +235,43 @@ async function pollSolution() {
     if (!response.ok) throw Error('Unable to read simulation status');
     const data = await response.json();
     if (data.job_id !== activeRequest) throw Error('Simulation response belongs to another request');
-    if (data.status === 'running') { setTimeout(pollSolution, 700); return; }
+    if (['running', 'queued', 'waiting'].includes(data.status)) {
+      $('sceneOutcome').textContent = data.status === 'running' ? 'Checking geometry and native shot verification…' : 'Waiting for the shared 4090 · no workload interrupted';
+      setTimeout(pollSolution, 700); return;
+    }
     if (data.status === 'error') throw Error(data.error || 'Simulation failed');
     if (data.status !== 'completed') throw Error('Unexpected simulation state');
     applyResult(data.result); setPending(false);
   } catch (error) { setPending(false); $('sceneOutcome').textContent = 'Simulation unavailable'; $('resultTitle').textContent = 'Solve did not complete'; $('resultText').textContent = friendlyError(error.message); $('resultDot').className = 'status-dot failed'; }
+}
+function showPlannerFarm() {
+  const rows = plannerFarmRows(report), target = $('plannerFarmGrid');
+  $('plannerFarm').hidden = !rows.length;
+  const signature = JSON.stringify(rows);
+  if (signature !== farmSignature) {
+    farmSignature = signature;
+    target.replaceChildren();
+    for (const row of rows) {
+      const button = document.createElement('button');
+      const label = `${Math.floor(row.index / 7) + 1}·${row.index % 7 + 1}`;
+      button.type = 'button'; button.className = 'quiet'; button.style.cssText = 'padding:10px 3px;min-width:0';
+      button.textContent = `${label}${row.cached ? ' ✓' : ''}`;
+      button.title = `${row.id}: X ${(row.xy[0] * 1000).toFixed(1)}, Y ${(row.xy[1] * 1000).toFixed(1)} mm · ${row.status.replaceAll('_', ' ')}${row.cached ? ' · saved verified recipe' : ''}`;
+      button.setAttribute('aria-label', button.title);
+      button.dataset.bucketX = row.xy[0]; button.dataset.bucketY = row.xy[1];
+      button.onclick = () => {
+        if (pending) return;
+        setBucket(row.xy.slice()); clearResult(`Farm target ${label} selected`); showPlannerFarm();
+      };
+      target.append(button);
+    }
+  }
+  for (const button of target.children) {
+    const selected = Math.abs(Number(button.dataset.bucketX) - bucketXY[0]) < 1e-9 && Math.abs(Number(button.dataset.bucketY) - bucketXY[1]) < 1e-9;
+    button.setAttribute('aria-pressed', String(selected)); button.disabled = pending;
+    button.style.borderColor = selected ? 'var(--teal)' : 'var(--line)';
+  }
+  $('plannerFarmSummary').textContent = `${rows.filter(row => row.cached).length} / ${rows.length} targets have a saved verified recipe. Select one to inspect, then solve. Other positions remain available by dragging the bucket.`;
 }
 $('play').onclick = () => { if (!currentTrajectory.length) return; if (playTime >= currentTrajectory.at(-1).time) playTime = currentTrajectory[0].time; playing = !playing; };
 $('timeline').oninput = () => { playing = false; if (currentTrajectory.length) playTime = currentTrajectory[0].time + Number($('timeline').value) / 1000 * (currentTrajectory.at(-1).time - currentTrajectory[0].time); };
@@ -677,6 +723,11 @@ async function loadStatus() {
   try {
     const [s, r] = await Promise.all([fetch('/api/scene', { cache: 'no-store' }).then(v => v.json()), fetch('/api/study', { cache: 'no-store' }).then(v => v.json())]);
     const initial = !sceneSpec.version; sceneSpec = s; report = r;
+    const standalone = plannerOnly(r);
+    $('historicalStudies').hidden = standalone;
+    document.title = standalone ? 'Sircus · Sweep shot planner' : 'Sircus · mjlab learning lab';
+    $('workspaceHeading').textContent = standalone ? 'Sweep shot planner' : 'Place a target. Find a posture.';
+    if (!methodChosen && plannerReady(r)) $('mode').value = 'search';
     if (initial) {
       if (s.bucket?.xy) setBucket(s.bucket.xy);
       if (s.table?.size) { table.scale.set(...s.table.size.map((v, i) => v / [1.8, 1.25, .05][i])); table.position.fromArray(s.table.center); }
@@ -684,14 +735,15 @@ async function loadStatus() {
       if (s.release_center) ['X', 'Y', 'Z'].forEach((axis, i) => { $('drop' + axis).value = s.release_center[i] * 1000; });
     }
     updateMethodHelp();
-    const ready = studyReady(r);
-    $('studyTitle').textContent = ready ? 'Studies complete · frozen evaluations ready' : r.bank_evaluation && r.bank_evaluation.status !== 'completed' ? `Bank study ${r.bank_evaluation.status ?? 'pending'}` : `Study ${String(r.status ?? 'unavailable').replaceAll('_', ' ')}`;
-    $('studyDetail').textContent = ready ? 'Manual simulation testing is now available.' : 'Manual solves remain locked until evaluation finishes.';
+    const ready = modeReady(r, $('mode').value), planner = plannerReady(r);
+    $('studyTitle').textContent = planner ? 'Sweep planner ready · simulation only' : ready ? 'Studies complete · frozen evaluations ready' : r.bank_evaluation && r.bank_evaluation.status !== 'completed' ? `Bank study ${r.bank_evaluation.status ?? 'pending'}` : `Study ${String(r.status ?? 'unavailable').replaceAll('_', ' ')}`;
+    $('studyDetail').textContent = planner ? 'Corrected native MuJoCo · endpoint-held. Learned inference stays separately gated.' : ready ? 'Manual simulation testing is now available.' : 'Manual solves remain locked until evaluation finishes.';
     $('studyState').querySelector('.status-dot').className = `status-dot ${ready ? 'ready' : ''}`;
     syncSolveButtons();
     $('fingerprint').textContent = `Scene fingerprint: ${r.scene_fingerprint ?? r.contract_fingerprint ?? r.fingerprint ?? s.fingerprint ?? 'not reported'}`;
     if (ready && $('resultTitle').textContent === 'Waiting for the learning study') { $('resultTitle').textContent = 'Ready to test a bucket position'; $('resultText').textContent = 'Choose a bucket position and optional arm locks, then solve.'; }
-    showCoverage();
+    showPlannerFarm();
+    if (!standalone) showCoverage();
   } catch (error) { $('studyTitle').textContent = 'Study connection unavailable'; $('studyDetail').textContent = error.message; for (const id of ['solve', 'solveTop']) $(id).disabled = true; }
 }
 loadStatus(); setInterval(loadStatus, 5000);

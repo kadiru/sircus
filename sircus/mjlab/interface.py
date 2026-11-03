@@ -1,8 +1,9 @@
-"""Local-only study-gated browser interface for simulated two-arm shots.
+"""Local-only capability-gated browser interface for simulated two-arm shots.
 
 No robot clients, cloud configuration, credentials, or background training are
-loaded here. The numerical solver is an explicit injected callback and is only
-imported after a completed frozen-policy evaluation is available.
+loaded here. Numerical solvers are explicit injected callbacks. Learned policy
+inference retains its completed-study gate; an independently configured sweep
+planner can serve explicit search requests without enabling a learned policy.
 """
 
 import argparse
@@ -17,6 +18,7 @@ from urllib.parse import urlsplit
 
 WEB = Path(__file__).with_name("web")
 VENDOR = Path(__file__).resolve().parents[1] / "simulation" / "web" / "vendor"
+PLANNER_VERSION = "sircus-corrected-sweep-planner-v1"
 DEFAULT_SCENE = {
     "version": "sircus-mjlab-interface-v1",
     "units": "m",
@@ -65,9 +67,30 @@ def study_ready(report):
         and bool(report["frozen_evaluation"])
         and (
             not report.get("bank_evaluation")
-            or (isinstance(report["bank_evaluation"], dict) and report["bank_evaluation"].get("status") == "completed")
+            or (
+                isinstance(report["bank_evaluation"], dict)
+                and report["bank_evaluation"].get("status") == "completed"
+            )
         )
     )
+
+
+def planner_ready(report):
+    """An explicit corrected-planner capability never enables learned inference."""
+    planner = report.get("planner") if isinstance(report, dict) else None
+    return (
+        isinstance(planner, dict)
+        and planner.get("ready") is True
+        and planner.get("version") == PLANNER_VERSION
+    )
+
+
+def search_ready(report):
+    # Preserve the old completed-study search route only for legacy reports.
+    # A present but invalid/incomplete new capability must fail closed.
+    if isinstance(report, dict) and "planner" in report:
+        return planner_ready(report)
+    return study_ready(report)
 
 
 def _vector(value, length, label):
@@ -84,11 +107,23 @@ def _vector(value, length, label):
 def validate_request(payload, scene):
     if not isinstance(payload, dict):
         raise RequestError("Expected a JSON object")
-    if set(payload) - {"mode", "bucket_xy", "constraints", "request_id"}:
+    if set(payload) - {
+        "mode",
+        "bucket_xy",
+        "constraints",
+        "request_id",
+        "search_budget",
+    }:
         raise RequestError("Unknown request fields")
     mode = payload.get("mode", "policy")
     if mode not in ("policy", "search"):
         raise RequestError("Mode must be policy or search")
+    search_budget = payload.get("search_budget")
+    if search_budget is not None:
+        if mode != "search":
+            raise RequestError("search_budget is available only for explicit search")
+        if type(search_budget) is not int or not 16 <= search_budget <= 128:
+            raise RequestError("search_budget must be an integer from 16 to 128")
     xy = _vector(payload.get("bucket_xy"), 2, "bucket_xy")
     bounds = scene.get("bucket_bounds", DEFAULT_SCENE["bucket_bounds"])
     for key, value in zip(("x", "y"), xy):
@@ -114,7 +149,10 @@ def validate_request(payload, scene):
     request_id = payload.get("request_id", str(uuid.uuid4()))
     if not isinstance(request_id, str) or not 1 <= len(request_id) <= 128:
         raise RequestError("Invalid request_id")
-    return dict(mode=mode, bucket_xy=xy, constraints=clean, request_id=request_id)
+    request = dict(mode=mode, bucket_xy=xy, constraints=clean, request_id=request_id)
+    if search_budget is not None:
+        request["search_budget"] = search_budget
+    return request
 
 
 class InterfaceState:
@@ -137,7 +175,12 @@ class InterfaceState:
                 for key, value in public["bank_evaluation"].items()
                 if key != "rows"
             }
-        return {**public, "interface_ready": study_ready(report)}
+        return {
+            **public,
+            "interface_ready": study_ready(report),
+            "policy_ready": study_ready(report),
+            "search_ready": search_ready(report),
+        }
 
     def scene(self):
         supplied = _read_json(self.scene_json, {})
@@ -150,12 +193,15 @@ class InterfaceState:
             return dict(self.job)
 
     def submit(self, payload):
-        if not study_ready(self.report()):
+        request = validate_request(payload, self.scene())
+        report = self.report()
+        if request["mode"] == "policy" and not study_ready(report):
             raise RequestError(
-                "Manual solves are locked until the learning study and frozen evaluation finish",
+                "Learned policy is locked until the learning study and frozen evaluation finish",
                 423,
             )
-        request = validate_request(payload, self.scene())
+        if request["mode"] == "search" and not search_ready(report):
+            raise RequestError("No verified sweep-planner capability is ready", 423)
         if self.solver is None:
             raise RequestError("No compatible numerical solver is configured", 503)
         with self.lock:
@@ -190,6 +236,8 @@ class InterfaceState:
                 "catalog_lookup",
                 "cached",
                 "dataset_lookup",
+                "sweep_planner",
+                "corrected_sweep",
             }:
                 raise ValueError(
                     "Search or lookup cannot be returned as policy inference"
