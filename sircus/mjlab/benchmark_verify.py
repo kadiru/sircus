@@ -1974,6 +1974,21 @@ def audit_controls(study, reference, assets, *, repository):
     )
 
 
+
+def build_run_summary(method, seed, training_requests, rows, native_summary):
+    """Compose already checked native evidence without duplicate count keywords."""
+    row_counts = counts(rows)
+    if native_summary.get("native_releases") != row_counts["native_releases"]:
+        raise EvidenceError("Run summary native count disagrees with requested rows")
+    return dict(
+        method=method,
+        seed=seed,
+        requested=row_counts["attempts"],
+        training_requests=training_requests,
+        **native_summary,
+    )
+
+
 def audit(study, reference, assets, *, repository):
     from sircus.mjlab.sweep_worker import load_reference
 
@@ -2082,14 +2097,7 @@ def audit(study, reference, assets, *, repository):
         run_results[(method, seed)] = run_report
         all_rows.extend(rows)
         summaries.append(
-            dict(
-                method=method,
-                seed=seed,
-                requested=counts(rows)["attempts"],
-                training_requests=p["sample_budget"],
-                native_releases=counts(rows)["native_releases"],
-                **summary,
-            )
+            build_run_summary(method, seed, p["sample_budget"], rows, summary)
         )
     checks.equal(
         len(all_rows),
