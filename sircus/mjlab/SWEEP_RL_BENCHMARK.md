@@ -138,6 +138,9 @@ real partial exits/re-entry and outside negatives), then a versioned scorer,
 reward and contract with fresh evaluation. Diagnostic trace analysis is separate
 from method selection and does not use final-test outcomes.
 
+A [validation-only diagnostic with trace hashes](../../baselines/mjlab-sweep-rl-numerics-20261103/README.md)
+reproduces six selected failures without changing their scores or using test data.
+
 ## Resource measurements
 
 - Training/setup wall time and current worker CPU time exclude validation/test.
