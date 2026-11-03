@@ -10,6 +10,10 @@ The current goal is a simulation showcase with an interactively placed bucket an
 
 ## Start here
 
+- **35-table planner study:** [expanded sweeps and separately frozen repeats](sircus/mjlab/GRID_STUDY.md).
+  Per-table settings, saved versus current qualification, and independent 3 + 30
+  repeat counts appear in the study interface. Unresolved and blocked cells stay visible.
+
 - **Sweep shot planner:** [place a bucket, search and replay a confirmed shot](sircus/mjlab/SWEEP_PLANNER.md).
   Independent of learned-policy readiness, with exact saved recipes for12 farm
   targets and corrected native search for new coordinates. Finite search can

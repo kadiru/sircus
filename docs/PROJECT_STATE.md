@@ -1,5 +1,23 @@
 # Project state
 
+## Expanded 35-position planner study — November 2, 2026
+
+- [Protocol and reproduction](../sircus/mjlab/GRID_STUDY.md): run all 35 distinct
+  bucket targets, freshly confirm saved settings, then expand unresolved cells
+  with local gap/height/tilt/radius/bearing sweeps and broad proposals. Historical
+  captured geometries are warm starts only; current native checks supply labels.
+- Baseline budgets are 64 CPU proposals / 16 native search requests, expanded to
+  1,024 / 128 where unresolved. Up to 3 / 6 captured candidates receive the
+  unchanged strict geometry, common-home paths and 3 + 20 qualification trials.
+- Freeze all selected recipes before a separate 3 nominal + 30 perturbed repeat
+  set per selected cell. No fallback selection from final validation outcomes.
+  Qualification, final repeats and saved historical evidence remain separate.
+- A separate loopback results view on 18787 shows all table settings, counts,
+  explicit missing/blocked states, CSV and read-only native-data replay. The
+  original planner on 18786 and other simulation services are preserved. The
+  finite 4090 run is in progress; current results must be read from its verified
+  report, not inferred from this checkpoint. No new RL or physical deployment.
+
 ## Sweep planner implementation checkpoint — November 2, 2026
 
 - [Independent simulation sweep planner](../sircus/mjlab/SWEEP_PLANNER.md) accepts
