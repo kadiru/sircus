@@ -1,0 +1,1992 @@
+{
+  "version": "sircus-neighborhood-recipe-curation-v1",
+  "contract_fingerprint": "12b2952c68b38d6bb392e3256d140cb7445ea97c73b090a6a39c5dfc4a4aa680",
+  "scope": "Finite selected DEVELOPMENT samples at one fixed board/bucket XY. Sampled capture runs and their extrema do not certify continuous success intervals. Current IK/staging failures are not proof of global impossibility. Paired timestep repetitions reuse the same23 requested configurations; they are not69 independent layouts. Robustness covers declared joint height/tilt/gap noise only, not all placement errors, actuator tracking or physical validity.",
+  "repeat_noise_std": [
+    0.001,
+    0.25,
+    0.002
+  ],
+  "repeat_noise_order": [
+    "height_m",
+    "tilt_deg",
+    "gap_m"
+  ],
+  "robustness_gate": "At each specified timestep,3/3 nominal captures and>=18/20 fresh captures, counting rejected requests as failures; finite engineering observation, not probability certification",
+  "recipes": [
+    {
+      "recipe_id": "recipe-00",
+      "context_id": "anchor397-h02-t02",
+      "source_record_id": "neighborhood-shot-000009",
+      "selection": "prespecified_anchor",
+      "board_height_m": 0.3973878458850598,
+      "tilt_deg": 36.154791124080255,
+      "drop_gap_m": 0.32121875,
+      "ball_release_center_height_m": 0.7561065958850598,
+      "board_to_bucket_horizontal_distance_m": 0.47282574126472343,
+      "sampled_run_width_m": null,
+      "by_substeps": {
+        "32": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 23,
+            "clean": 0,
+            "board_bounces": 23,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 20,
+            "clean": 0,
+            "board_bounces": 20,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": true,
+          "perfect_capture_in_all_requested_repeats": true
+        },
+        "64": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 23,
+            "clean": 0,
+            "board_bounces": 23,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 20,
+            "clean": 0,
+            "board_bounces": 20,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": true,
+          "perfect_capture_in_all_requested_repeats": true
+        },
+        "128": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 23,
+            "clean": 0,
+            "board_bounces": 23,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 20,
+            "clean": 0,
+            "board_bounces": 20,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": true,
+          "perfect_capture_in_all_requested_repeats": true
+        }
+      },
+      "paired_capture_comparisons": {
+        "32_64": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 23,
+          "capture_status_disagreements_all_requests": 0,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 23,
+          "both_captured": 23
+        },
+        "64_128": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 23,
+          "capture_status_disagreements_all_requests": 0,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 23,
+          "both_captured": 23
+        },
+        "32_128": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 23,
+          "capture_status_disagreements_all_requests": 0,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 23,
+          "both_captured": 23
+        }
+      },
+      "sensitivity_64_128": {
+        "paired_attempts": 23,
+        "capture_agreement_64_128": 23,
+        "nominal_position_delta_350ms_max_m": 0.0024068376515060663,
+        "paired_engineering_gate": true,
+        "scope": "Paired identical requests/joints and finite nominal350ms check; not mathematical convergence or physical calibration"
+      },
+      "observed_repeatability_at_all_tested_timesteps": true,
+      "perfect_capture_at_all_tested_timesteps": true,
+      "conservative_all_timestep_candidate": true
+    },
+    {
+      "recipe_id": "recipe-01",
+      "context_id": "anchor500-h02-t02",
+      "source_record_id": "neighborhood-shot-000012",
+      "selection": "prespecified_anchor",
+      "board_height_m": 0.5,
+      "tilt_deg": 36.154791124080255,
+      "drop_gap_m": 0.23853124999999997,
+      "ball_release_center_height_m": 0.77603125,
+      "board_to_bucket_horizontal_distance_m": 0.47282574126472343,
+      "sampled_run_width_m": null,
+      "by_substeps": {
+        "32": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 22,
+            "clean": 0,
+            "board_bounces": 23,
+            "misses_after_release": 1,
+            "capture_rate_all_requests": 0.9565217391304348,
+            "capture_rate_native_releases": 0.9565217391304348
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 19,
+            "clean": 0,
+            "board_bounces": 20,
+            "misses_after_release": 1,
+            "capture_rate_all_requests": 0.95,
+            "capture_rate_native_releases": 0.95
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": true,
+          "perfect_capture_in_all_requested_repeats": false
+        },
+        "64": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 23,
+            "clean": 0,
+            "board_bounces": 23,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 20,
+            "clean": 0,
+            "board_bounces": 20,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": true,
+          "perfect_capture_in_all_requested_repeats": true
+        },
+        "128": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 23,
+            "clean": 0,
+            "board_bounces": 23,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 20,
+            "clean": 0,
+            "board_bounces": 20,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": true,
+          "perfect_capture_in_all_requested_repeats": true
+        }
+      },
+      "paired_capture_comparisons": {
+        "32_64": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 22,
+          "capture_status_disagreements_all_requests": 1,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 22,
+          "both_captured": 22
+        },
+        "64_128": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 23,
+          "capture_status_disagreements_all_requests": 0,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 23,
+          "both_captured": 23
+        },
+        "32_128": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 22,
+          "capture_status_disagreements_all_requests": 1,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 22,
+          "both_captured": 22
+        }
+      },
+      "sensitivity_64_128": {
+        "paired_attempts": 23,
+        "capture_agreement_64_128": 23,
+        "nominal_position_delta_350ms_max_m": 0.0020511772017925978,
+        "paired_engineering_gate": true,
+        "scope": "Paired identical requests/joints and finite nominal350ms check; not mathematical convergence or physical calibration"
+      },
+      "observed_repeatability_at_all_tested_timesteps": true,
+      "perfect_capture_at_all_tested_timesteps": false,
+      "conservative_all_timestep_candidate": true
+    },
+    {
+      "recipe_id": "recipe-02",
+      "context_id": "anchor440-h02-t02",
+      "source_record_id": "neighborhood-shot-000015",
+      "selection": "prespecified_anchor",
+      "board_height_m": 0.44,
+      "tilt_deg": 32.0,
+      "drop_gap_m": 0.28578125000000004,
+      "ball_release_center_height_m": 0.76328125,
+      "board_to_bucket_horizontal_distance_m": 0.47282574126472343,
+      "sampled_run_width_m": null,
+      "by_substeps": {
+        "32": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 23,
+            "clean": 0,
+            "board_bounces": 23,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 20,
+            "clean": 0,
+            "board_bounces": 20,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": true,
+          "perfect_capture_in_all_requested_repeats": true
+        },
+        "64": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 23,
+            "clean": 0,
+            "board_bounces": 23,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 20,
+            "clean": 0,
+            "board_bounces": 20,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": true,
+          "perfect_capture_in_all_requested_repeats": true
+        },
+        "128": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 23,
+            "clean": 0,
+            "board_bounces": 23,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 20,
+            "clean": 0,
+            "board_bounces": 20,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": true,
+          "perfect_capture_in_all_requested_repeats": true
+        }
+      },
+      "paired_capture_comparisons": {
+        "32_64": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 23,
+          "capture_status_disagreements_all_requests": 0,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 23,
+          "both_captured": 23
+        },
+        "64_128": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 23,
+          "capture_status_disagreements_all_requests": 0,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 23,
+          "both_captured": 23
+        },
+        "32_128": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 23,
+          "capture_status_disagreements_all_requests": 0,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 23,
+          "both_captured": 23
+        }
+      },
+      "sensitivity_64_128": {
+        "paired_attempts": 23,
+        "capture_agreement_64_128": 23,
+        "nominal_position_delta_350ms_max_m": 0.0004281089932192117,
+        "paired_engineering_gate": true,
+        "scope": "Paired identical requests/joints and finite nominal350ms check; not mathematical convergence or physical calibration"
+      },
+      "observed_repeatability_at_all_tested_timesteps": true,
+      "perfect_capture_at_all_tested_timesteps": true,
+      "conservative_all_timestep_candidate": true
+    },
+    {
+      "recipe_id": "recipe-03",
+      "context_id": "anchor397-h04-t04",
+      "source_record_id": "neighborhood-shot-000441",
+      "selection": "diverse_observed_capture",
+      "board_height_m": 0.4373878458850598,
+      "tilt_deg": 40.154791124080255,
+      "drop_gap_m": 0.30121875,
+      "ball_release_center_height_m": 0.7761065958850598,
+      "board_to_bucket_horizontal_distance_m": 0.47282574126472343,
+      "sampled_run_width_m": 0.06,
+      "by_substeps": {
+        "32": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 23,
+            "clean": 0,
+            "board_bounces": 23,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 20,
+            "clean": 0,
+            "board_bounces": 20,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": true,
+          "perfect_capture_in_all_requested_repeats": true
+        },
+        "64": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 23,
+            "clean": 0,
+            "board_bounces": 23,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 20,
+            "clean": 0,
+            "board_bounces": 20,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": true,
+          "perfect_capture_in_all_requested_repeats": true
+        },
+        "128": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 23,
+            "clean": 0,
+            "board_bounces": 23,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 20,
+            "clean": 0,
+            "board_bounces": 20,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": true,
+          "perfect_capture_in_all_requested_repeats": true
+        }
+      },
+      "paired_capture_comparisons": {
+        "32_64": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 23,
+          "capture_status_disagreements_all_requests": 0,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 23,
+          "both_captured": 23
+        },
+        "64_128": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 23,
+          "capture_status_disagreements_all_requests": 0,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 23,
+          "both_captured": 23
+        },
+        "32_128": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 23,
+          "capture_status_disagreements_all_requests": 0,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 23,
+          "both_captured": 23
+        }
+      },
+      "sensitivity_64_128": {
+        "paired_attempts": 23,
+        "capture_agreement_64_128": 23,
+        "nominal_position_delta_350ms_max_m": 0.0022553405724465847,
+        "paired_engineering_gate": true,
+        "scope": "Paired identical requests/joints and finite nominal350ms check; not mathematical convergence or physical calibration"
+      },
+      "observed_repeatability_at_all_tested_timesteps": true,
+      "perfect_capture_at_all_tested_timesteps": true,
+      "conservative_all_timestep_candidate": true
+    },
+    {
+      "recipe_id": "recipe-04",
+      "context_id": "anchor440-h04-t00",
+      "source_record_id": "neighborhood-shot-001223",
+      "selection": "diverse_observed_capture",
+      "board_height_m": 0.48,
+      "tilt_deg": 28.0,
+      "drop_gap_m": 0.26578125,
+      "ball_release_center_height_m": 0.78328125,
+      "board_to_bucket_horizontal_distance_m": 0.47282574126472343,
+      "sampled_run_width_m": 0.04999999999999999,
+      "by_substeps": {
+        "32": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 23,
+            "clean": 0,
+            "board_bounces": 23,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 20,
+            "clean": 0,
+            "board_bounces": 20,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": true,
+          "perfect_capture_in_all_requested_repeats": true
+        },
+        "64": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 23,
+            "clean": 0,
+            "board_bounces": 23,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 20,
+            "clean": 0,
+            "board_bounces": 20,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": true,
+          "perfect_capture_in_all_requested_repeats": true
+        },
+        "128": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 23,
+            "clean": 0,
+            "board_bounces": 23,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 20,
+            "clean": 0,
+            "board_bounces": 20,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": true,
+          "perfect_capture_in_all_requested_repeats": true
+        }
+      },
+      "paired_capture_comparisons": {
+        "32_64": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 23,
+          "capture_status_disagreements_all_requests": 0,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 23,
+          "both_captured": 23
+        },
+        "64_128": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 23,
+          "capture_status_disagreements_all_requests": 0,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 23,
+          "both_captured": 23
+        },
+        "32_128": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 23,
+          "capture_status_disagreements_all_requests": 0,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 23,
+          "both_captured": 23
+        }
+      },
+      "sensitivity_64_128": {
+        "paired_attempts": 23,
+        "capture_agreement_64_128": 23,
+        "nominal_position_delta_350ms_max_m": 0.0021753779146820307,
+        "paired_engineering_gate": true,
+        "scope": "Paired identical requests/joints and finite nominal350ms check; not mathematical convergence or physical calibration"
+      },
+      "observed_repeatability_at_all_tested_timesteps": true,
+      "perfect_capture_at_all_tested_timesteps": true,
+      "conservative_all_timestep_candidate": true
+    },
+    {
+      "recipe_id": "recipe-05",
+      "context_id": "anchor500-h04-t00",
+      "source_record_id": "neighborhood-shot-000798",
+      "selection": "diverse_observed_capture",
+      "board_height_m": 0.54,
+      "tilt_deg": 32.154791124080255,
+      "drop_gap_m": 0.21853124999999995,
+      "ball_release_center_height_m": 0.79603125,
+      "board_to_bucket_horizontal_distance_m": 0.47282574126472343,
+      "sampled_run_width_m": 0.015000000000000013,
+      "by_substeps": {
+        "32": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 13,
+            "clean": 0,
+            "board_bounces": 23,
+            "misses_after_release": 10,
+            "capture_rate_all_requests": 0.5652173913043478,
+            "capture_rate_native_releases": 0.5652173913043478
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 0,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 3,
+            "capture_rate_all_requests": 0.0,
+            "capture_rate_native_releases": 0.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 13,
+            "clean": 0,
+            "board_bounces": 20,
+            "misses_after_release": 7,
+            "capture_rate_all_requests": 0.65,
+            "capture_rate_native_releases": 0.65
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": false,
+          "perfect_capture_in_all_requested_repeats": false
+        },
+        "64": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 21,
+            "clean": 0,
+            "board_bounces": 23,
+            "misses_after_release": 2,
+            "capture_rate_all_requests": 0.9130434782608695,
+            "capture_rate_native_releases": 0.9130434782608695
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 1,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 2,
+            "capture_rate_all_requests": 0.3333333333333333,
+            "capture_rate_native_releases": 0.3333333333333333
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 20,
+            "clean": 0,
+            "board_bounces": 20,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": false,
+          "perfect_capture_in_all_requested_repeats": false
+        },
+        "128": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 21,
+            "clean": 0,
+            "board_bounces": 23,
+            "misses_after_release": 2,
+            "capture_rate_all_requests": 0.9130434782608695,
+            "capture_rate_native_releases": 0.9130434782608695
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 2,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 1,
+            "capture_rate_all_requests": 0.6666666666666666,
+            "capture_rate_native_releases": 0.6666666666666666
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 19,
+            "clean": 0,
+            "board_bounces": 20,
+            "misses_after_release": 1,
+            "capture_rate_all_requests": 0.95,
+            "capture_rate_native_releases": 0.95
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": false,
+          "perfect_capture_in_all_requested_repeats": false
+        }
+      },
+      "paired_capture_comparisons": {
+        "32_64": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 15,
+          "capture_status_disagreements_all_requests": 8,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 15,
+          "both_captured": 13
+        },
+        "64_128": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 19,
+          "capture_status_disagreements_all_requests": 4,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 19,
+          "both_captured": 19
+        },
+        "32_128": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 13,
+          "capture_status_disagreements_all_requests": 10,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 13,
+          "both_captured": 12
+        }
+      },
+      "sensitivity_64_128": {
+        "paired_attempts": 23,
+        "capture_agreement_64_128": 19,
+        "nominal_position_delta_350ms_max_m": 0.00046098892926238477,
+        "paired_engineering_gate": false,
+        "scope": "Paired identical requests/joints and finite nominal350ms check; not mathematical convergence or physical calibration"
+      },
+      "observed_repeatability_at_all_tested_timesteps": false,
+      "perfect_capture_at_all_tested_timesteps": false,
+      "conservative_all_timestep_candidate": false
+    },
+    {
+      "recipe_id": "recipe-06",
+      "context_id": "anchor500-h04-t04",
+      "source_record_id": "neighborhood-shot-000867",
+      "selection": "diverse_observed_capture",
+      "board_height_m": 0.54,
+      "tilt_deg": 40.154791124080255,
+      "drop_gap_m": 0.22853124999999996,
+      "ball_release_center_height_m": 0.80603125,
+      "board_to_bucket_horizontal_distance_m": 0.47282574126472343,
+      "sampled_run_width_m": 0.0,
+      "by_substeps": {
+        "32": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 19,
+            "geometry_rejections": 4,
+            "captures": 7,
+            "clean": 0,
+            "board_bounces": 19,
+            "misses_after_release": 12,
+            "capture_rate_all_requests": 0.30434782608695654,
+            "capture_rate_native_releases": 0.3684210526315789
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 0,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 3,
+            "capture_rate_all_requests": 0.0,
+            "capture_rate_native_releases": 0.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 16,
+            "geometry_rejections": 4,
+            "captures": 7,
+            "clean": 0,
+            "board_bounces": 16,
+            "misses_after_release": 9,
+            "capture_rate_all_requests": 0.35,
+            "capture_rate_native_releases": 0.4375
+          },
+          "geometry_rejection_reasons": {
+            "strict_clearance_reject": 4
+          },
+          "observed_repeatability_gate": false,
+          "perfect_capture_in_all_requested_repeats": false
+        },
+        "64": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 19,
+            "geometry_rejections": 4,
+            "captures": 10,
+            "clean": 0,
+            "board_bounces": 19,
+            "misses_after_release": 9,
+            "capture_rate_all_requests": 0.43478260869565216,
+            "capture_rate_native_releases": 0.5263157894736842
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 16,
+            "geometry_rejections": 4,
+            "captures": 7,
+            "clean": 0,
+            "board_bounces": 16,
+            "misses_after_release": 9,
+            "capture_rate_all_requests": 0.35,
+            "capture_rate_native_releases": 0.4375
+          },
+          "geometry_rejection_reasons": {
+            "strict_clearance_reject": 4
+          },
+          "observed_repeatability_gate": false,
+          "perfect_capture_in_all_requested_repeats": false
+        },
+        "128": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 19,
+            "geometry_rejections": 4,
+            "captures": 12,
+            "clean": 0,
+            "board_bounces": 19,
+            "misses_after_release": 7,
+            "capture_rate_all_requests": 0.5217391304347826,
+            "capture_rate_native_releases": 0.631578947368421
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 16,
+            "geometry_rejections": 4,
+            "captures": 9,
+            "clean": 0,
+            "board_bounces": 16,
+            "misses_after_release": 7,
+            "capture_rate_all_requests": 0.45,
+            "capture_rate_native_releases": 0.5625
+          },
+          "geometry_rejection_reasons": {
+            "strict_clearance_reject": 4
+          },
+          "observed_repeatability_gate": false,
+          "perfect_capture_in_all_requested_repeats": false
+        }
+      },
+      "paired_capture_comparisons": {
+        "32_64": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 12,
+          "capture_status_disagreements_all_requests": 11,
+          "jointly_native_configurations": 19,
+          "capture_status_agreements_jointly_native": 8,
+          "both_captured": 3
+        },
+        "64_128": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 17,
+          "capture_status_disagreements_all_requests": 6,
+          "jointly_native_configurations": 19,
+          "capture_status_agreements_jointly_native": 13,
+          "both_captured": 8
+        },
+        "32_128": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 12,
+          "capture_status_disagreements_all_requests": 11,
+          "jointly_native_configurations": 19,
+          "capture_status_agreements_jointly_native": 8,
+          "both_captured": 4
+        }
+      },
+      "sensitivity_64_128": {
+        "paired_attempts": 23,
+        "capture_agreement_64_128": 17,
+        "nominal_position_delta_350ms_max_m": 0.0004188460879959166,
+        "paired_engineering_gate": false,
+        "scope": "Paired identical requests/joints and finite nominal350ms check; not mathematical convergence or physical calibration"
+      },
+      "observed_repeatability_at_all_tested_timesteps": false,
+      "perfect_capture_at_all_tested_timesteps": false,
+      "conservative_all_timestep_candidate": false
+    },
+    {
+      "recipe_id": "recipe-07",
+      "context_id": "anchor397-h00-t04",
+      "source_record_id": "neighborhood-shot-001322",
+      "selection": "diverse_observed_capture",
+      "board_height_m": 0.35738784588505984,
+      "tilt_deg": 40.154791124080255,
+      "drop_gap_m": 0.38621875,
+      "ball_release_center_height_m": 0.7811065958850598,
+      "board_to_bucket_horizontal_distance_m": 0.47282574126472343,
+      "sampled_run_width_m": 0.030000000000000027,
+      "by_substeps": {
+        "32": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 21,
+            "clean": 13,
+            "board_bounces": 23,
+            "misses_after_release": 2,
+            "capture_rate_all_requests": 0.9130434782608695,
+            "capture_rate_native_releases": 0.9130434782608695
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 3,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 18,
+            "clean": 10,
+            "board_bounces": 20,
+            "misses_after_release": 2,
+            "capture_rate_all_requests": 0.9,
+            "capture_rate_native_releases": 0.9
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": true,
+          "perfect_capture_in_all_requested_repeats": false
+        },
+        "64": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 23,
+            "clean": 11,
+            "board_bounces": 23,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 20,
+            "clean": 11,
+            "board_bounces": 20,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": true,
+          "perfect_capture_in_all_requested_repeats": true
+        },
+        "128": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 23,
+            "clean": 8,
+            "board_bounces": 23,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 20,
+            "clean": 8,
+            "board_bounces": 20,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": true,
+          "perfect_capture_in_all_requested_repeats": true
+        }
+      },
+      "paired_capture_comparisons": {
+        "32_64": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 21,
+          "capture_status_disagreements_all_requests": 2,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 21,
+          "both_captured": 21
+        },
+        "64_128": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 23,
+          "capture_status_disagreements_all_requests": 0,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 23,
+          "both_captured": 23
+        },
+        "32_128": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 21,
+          "capture_status_disagreements_all_requests": 2,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 21,
+          "both_captured": 21
+        }
+      },
+      "sensitivity_64_128": {
+        "paired_attempts": 23,
+        "capture_agreement_64_128": 23,
+        "nominal_position_delta_350ms_max_m": 0.0016149847069755197,
+        "paired_engineering_gate": true,
+        "scope": "Paired identical requests/joints and finite nominal350ms check; not mathematical convergence or physical calibration"
+      },
+      "observed_repeatability_at_all_tested_timesteps": true,
+      "perfect_capture_at_all_tested_timesteps": false,
+      "conservative_all_timestep_candidate": true
+    },
+    {
+      "recipe_id": "recipe-08",
+      "context_id": "anchor397-h01-t00",
+      "source_record_id": "neighborhood-shot-000121",
+      "selection": "diverse_observed_capture",
+      "board_height_m": 0.3773878458850598,
+      "tilt_deg": 32.154791124080255,
+      "drop_gap_m": 0.33121875,
+      "ball_release_center_height_m": 0.7461065958850598,
+      "board_to_bucket_horizontal_distance_m": 0.47282574126472343,
+      "sampled_run_width_m": 0.12,
+      "by_substeps": {
+        "32": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 23,
+            "clean": 0,
+            "board_bounces": 23,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 20,
+            "clean": 0,
+            "board_bounces": 20,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": true,
+          "perfect_capture_in_all_requested_repeats": true
+        },
+        "64": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 23,
+            "clean": 0,
+            "board_bounces": 23,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 20,
+            "clean": 0,
+            "board_bounces": 20,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": true,
+          "perfect_capture_in_all_requested_repeats": true
+        },
+        "128": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 23,
+            "clean": 0,
+            "board_bounces": 23,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 20,
+            "clean": 0,
+            "board_bounces": 20,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": true,
+          "perfect_capture_in_all_requested_repeats": true
+        }
+      },
+      "paired_capture_comparisons": {
+        "32_64": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 23,
+          "capture_status_disagreements_all_requests": 0,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 23,
+          "both_captured": 23
+        },
+        "64_128": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 23,
+          "capture_status_disagreements_all_requests": 0,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 23,
+          "both_captured": 23
+        },
+        "32_128": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 23,
+          "capture_status_disagreements_all_requests": 0,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 23,
+          "both_captured": 23
+        }
+      },
+      "sensitivity_64_128": {
+        "paired_attempts": 23,
+        "capture_agreement_64_128": 23,
+        "nominal_position_delta_350ms_max_m": 0.00028538386686705053,
+        "paired_engineering_gate": true,
+        "scope": "Paired identical requests/joints and finite nominal350ms check; not mathematical convergence or physical calibration"
+      },
+      "observed_repeatability_at_all_tested_timesteps": true,
+      "perfect_capture_at_all_tested_timesteps": true,
+      "conservative_all_timestep_candidate": true
+    },
+    {
+      "recipe_id": "recipe-09",
+      "context_id": "anchor500-h01-t04",
+      "source_record_id": "neighborhood-shot-000617",
+      "selection": "diverse_observed_capture",
+      "board_height_m": 0.48,
+      "tilt_deg": 40.154791124080255,
+      "drop_gap_m": 0.27853124999999995,
+      "ball_release_center_height_m": 0.7960312499999999,
+      "board_to_bucket_horizontal_distance_m": 0.47282574126472343,
+      "sampled_run_width_m": 0.02999999999999997,
+      "by_substeps": {
+        "32": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 23,
+            "clean": 0,
+            "board_bounces": 23,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 20,
+            "clean": 0,
+            "board_bounces": 20,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": true,
+          "perfect_capture_in_all_requested_repeats": true
+        },
+        "64": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 23,
+            "clean": 0,
+            "board_bounces": 23,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 20,
+            "clean": 0,
+            "board_bounces": 20,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": true,
+          "perfect_capture_in_all_requested_repeats": true
+        },
+        "128": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 23,
+            "clean": 0,
+            "board_bounces": 23,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 20,
+            "clean": 0,
+            "board_bounces": 20,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": true,
+          "perfect_capture_in_all_requested_repeats": true
+        }
+      },
+      "paired_capture_comparisons": {
+        "32_64": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 23,
+          "capture_status_disagreements_all_requests": 0,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 23,
+          "both_captured": 23
+        },
+        "64_128": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 23,
+          "capture_status_disagreements_all_requests": 0,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 23,
+          "both_captured": 23
+        },
+        "32_128": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 23,
+          "capture_status_disagreements_all_requests": 0,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 23,
+          "both_captured": 23
+        }
+      },
+      "sensitivity_64_128": {
+        "paired_attempts": 23,
+        "capture_agreement_64_128": 23,
+        "nominal_position_delta_350ms_max_m": 0.0024520335718989372,
+        "paired_engineering_gate": true,
+        "scope": "Paired identical requests/joints and finite nominal350ms check; not mathematical convergence or physical calibration"
+      },
+      "observed_repeatability_at_all_tested_timesteps": true,
+      "perfect_capture_at_all_tested_timesteps": true,
+      "conservative_all_timestep_candidate": true
+    },
+    {
+      "recipe_id": "recipe-10",
+      "context_id": "anchor440-h03-t04",
+      "source_record_id": "neighborhood-shot-001206",
+      "selection": "diverse_observed_capture",
+      "board_height_m": 0.46,
+      "tilt_deg": 36.0,
+      "drop_gap_m": 0.26578125,
+      "ball_release_center_height_m": 0.76328125,
+      "board_to_bucket_horizontal_distance_m": 0.47282574126472343,
+      "sampled_run_width_m": 0.07999999999999996,
+      "by_substeps": {
+        "32": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 23,
+            "clean": 0,
+            "board_bounces": 23,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 20,
+            "clean": 0,
+            "board_bounces": 20,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": true,
+          "perfect_capture_in_all_requested_repeats": true
+        },
+        "64": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 23,
+            "clean": 0,
+            "board_bounces": 23,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 20,
+            "clean": 0,
+            "board_bounces": 20,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": true,
+          "perfect_capture_in_all_requested_repeats": true
+        },
+        "128": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 23,
+            "clean": 0,
+            "board_bounces": 23,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 20,
+            "clean": 0,
+            "board_bounces": 20,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": true,
+          "perfect_capture_in_all_requested_repeats": true
+        }
+      },
+      "paired_capture_comparisons": {
+        "32_64": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 23,
+          "capture_status_disagreements_all_requests": 0,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 23,
+          "both_captured": 23
+        },
+        "64_128": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 23,
+          "capture_status_disagreements_all_requests": 0,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 23,
+          "both_captured": 23
+        },
+        "32_128": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 23,
+          "capture_status_disagreements_all_requests": 0,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 23,
+          "both_captured": 23
+        }
+      },
+      "sensitivity_64_128": {
+        "paired_attempts": 23,
+        "capture_agreement_64_128": 23,
+        "nominal_position_delta_350ms_max_m": 0.0004334382829256356,
+        "paired_engineering_gate": true,
+        "scope": "Paired identical requests/joints and finite nominal350ms check; not mathematical convergence or physical calibration"
+      },
+      "observed_repeatability_at_all_tested_timesteps": true,
+      "perfect_capture_at_all_tested_timesteps": true,
+      "conservative_all_timestep_candidate": true
+    },
+    {
+      "recipe_id": "recipe-11",
+      "context_id": "anchor500-h01-t00",
+      "source_record_id": "neighborhood-shot-000547",
+      "selection": "diverse_observed_capture",
+      "board_height_m": 0.48,
+      "tilt_deg": 32.154791124080255,
+      "drop_gap_m": 0.25853125,
+      "ball_release_center_height_m": 0.77603125,
+      "board_to_bucket_horizontal_distance_m": 0.47282574126472343,
+      "sampled_run_width_m": 0.05499999999999999,
+      "by_substeps": {
+        "32": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 23,
+            "clean": 0,
+            "board_bounces": 23,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 20,
+            "clean": 0,
+            "board_bounces": 20,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": true,
+          "perfect_capture_in_all_requested_repeats": true
+        },
+        "64": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 23,
+            "clean": 0,
+            "board_bounces": 23,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 20,
+            "clean": 0,
+            "board_bounces": 20,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": true,
+          "perfect_capture_in_all_requested_repeats": true
+        },
+        "128": {
+          "total": {
+            "attempts": 23,
+            "native_releases": 23,
+            "geometry_rejections": 0,
+            "captures": 23,
+            "clean": 0,
+            "board_bounces": 23,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "nominal": {
+            "attempts": 3,
+            "native_releases": 3,
+            "geometry_rejections": 0,
+            "captures": 3,
+            "clean": 0,
+            "board_bounces": 3,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "fresh": {
+            "attempts": 20,
+            "native_releases": 20,
+            "geometry_rejections": 0,
+            "captures": 20,
+            "clean": 0,
+            "board_bounces": 20,
+            "misses_after_release": 0,
+            "capture_rate_all_requests": 1.0,
+            "capture_rate_native_releases": 1.0
+          },
+          "geometry_rejection_reasons": {},
+          "observed_repeatability_gate": true,
+          "perfect_capture_in_all_requested_repeats": true
+        }
+      },
+      "paired_capture_comparisons": {
+        "32_64": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 23,
+          "capture_status_disagreements_all_requests": 0,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 23,
+          "both_captured": 23
+        },
+        "64_128": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 23,
+          "capture_status_disagreements_all_requests": 0,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 23,
+          "both_captured": 23
+        },
+        "32_128": {
+          "paired_requested_configurations": 23,
+          "capture_status_agreements_all_requests": 23,
+          "capture_status_disagreements_all_requests": 0,
+          "jointly_native_configurations": 23,
+          "capture_status_agreements_jointly_native": 23,
+          "both_captured": 23
+        }
+      },
+      "sensitivity_64_128": {
+        "paired_attempts": 23,
+        "capture_agreement_64_128": 23,
+        "nominal_position_delta_350ms_max_m": 0.000463075062725693,
+        "paired_engineering_gate": true,
+        "scope": "Paired identical requests/joints and finite nominal350ms check; not mathematical convergence or physical calibration"
+      },
+      "observed_repeatability_at_all_tested_timesteps": true,
+      "perfect_capture_at_all_tested_timesteps": true,
+      "conservative_all_timestep_candidate": true
+    }
+  ]
+}

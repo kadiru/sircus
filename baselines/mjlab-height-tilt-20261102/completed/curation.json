@@ -1,0 +1,32 @@
+{
+  "version": "sircus-neighborhood-curation-v1",
+  "contract_fingerprint": "12b2952c68b38d6bb392e3256d140cb7445ea97c73b090a6a39c5dfc4a4aa680",
+  "source_study": "output/neighborhood-v2",
+  "source_commit": "58c1a9f11ab289ff3d81f54cfda3dd44e79bf960",
+  "files_sha256": {
+    "audit-neighborhood.json": "294fc84217edf838217fdacd04eec7fbf8b08d7253af6b6ae7defe79cead6cac",
+    "context-coverage.csv": "f1fe654b34122f897151fa7d8915181c63566a728c0e799e29d706d54fc0c4c4",
+    "context-coverage.json": "017151107c9093ac373bd265642df28058a577a3ca8b4b35e406627c488d44f9",
+    "contract.json": "5f31f28be0c952d70149952e2d792136a3cc956039bbc652aac3654d6e567dd1",
+    "coverage-provenance.json": "185bf6f02f529565bd2049ee2593517866926987d239af84a6cc0dd0e94e5b10",
+    "effective-options.json": "624c9b2ed4a04c3f8cc6a58a8e877b0b45fe61260e310a2419ac12f0f9211043",
+    "evidence-manifest.json": "5b74b0e9bd784ac3988da553f2b4403074a386ad1b2a7c748fa982c967aa439d",
+    "native-summary.json": "a61615326a5c25185e7ac50a629a4b577d75b9acf234a6df2bcb39a88419e913",
+    "recipe-comparison.csv": "cb4bd5f29b9e84340ac166315c49b555e61ea0d825ebbe7f5e0122096ab5bb9e",
+    "recipe-comparison.json": "a5d2ee67e159641b1041ea88e12ae3453a9b303fdd5789378aaa7101ce5bb789",
+    "scene.json": "a7eaa516f1177c65bd79402c94e842161e31dd8702cb3e1068e9145edd5376d9",
+    "timestep-diagnostics.json": "e275b6df0a28a5852c824c8a2345e32b7298ca42d61af23541dff3a48ab28b86"
+  },
+  "source_report_sha256": "560ccfedd0adeae17fa926c86de417be3ffe7313f5c08ae117ee937c9354c8f4",
+  "scope": "Curated synthetic metrics, exact requested settings, contracts and checksums; raw NPZ/records/logs remain outside Git",
+  "validation": {
+    "json_finite": true,
+    "contract_identity": true,
+    "contexts": 75,
+    "recipes": 12,
+    "recipe_timestep_csv_rows": 36,
+    "counts_reconstructed": true,
+    "native_independent_audit": "passed",
+    "native_audit_checks": 3430
+  }
+}

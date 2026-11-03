@@ -1,0 +1,2156 @@
+{
+  "version": "sircus-posthoc-paired-timestep-position-diagnostic-v1",
+  "created_at": "2026-11-03T11:22:56.392153+00:00",
+  "study_namespace": "neighborhood-v2",
+  "contract_fingerprint": "12b2952c68b38d6bb392e3256d140cb7445ea97c73b090a6a39c5dfc4a4aa680",
+  "scope": "Post hoc diagnostic only: extends the inspected nominal350ms timestep pairs to32/64 and32/128. These pairs were not prespecified qualification gates. No gate or result labels are added or changed. One sampled position is not full-trajectory convergence, robustness beyond the sampled perturbations, or physical validation.",
+  "measurement": {
+    "scoring_hz": 240,
+    "sample_index": 83,
+    "time_s": 0.35,
+    "coordinates": "world_m",
+    "distance": "Euclidean norm, reported in millimetres",
+    "nominal_repeats_per_pair": 3,
+    "timestep_pairs": [
+      [
+        32,
+        64
+      ],
+      [
+        32,
+        128
+      ],
+      [
+        64,
+        128
+      ]
+    ],
+    "capture_agreement_scope": "Same23 nominal/fresh requested joint arrays, not independent random samples across timesteps"
+  },
+  "independent_cpu_audit": {
+    "status": "passed",
+    "checks_count": 3430,
+    "records": 2562,
+    "independently_rescored_throws": 2156,
+    "failures_count": 0,
+    "auditor_source_relative_path": "sircus/mjlab/neighborhood_verify.py",
+    "auditor_source_sha256": "31c2e1f13d6b3d782c0a7bea8005b169f0b218ea5a59a8a931fca3be144d8755",
+    "full_audit_sha256": "294fc84217edf838217fdacd04eec7fbf8b08d7253af6b6ae7defe79cead6cac",
+    "storage": "Full independent rerun saved outside original evidence directory in Ubuntu /tmp; original evidence and manifest untouched",
+    "cuda_visible_devices": ""
+  },
+  "source_artifacts_sha256": {
+    "report.json": "560ccfedd0adeae17fa926c86de417be3ffe7313f5c08ae117ee937c9354c8f4",
+    "contract.json": "5f31f28be0c952d70149952e2d792136a3cc956039bbc652aac3654d6e567dd1",
+    "records.jsonl": "d7351f2b427b1e3d6de33eaa575fa4072ff435be44eab6e44e7012311c5bd5f4",
+    "evidence-manifest.json": "5b74b0e9bd784ac3988da553f2b4403074a386ad1b2a7c748fa982c967aa439d",
+    "recipes.json": "932a9d54a5353216eb83ef3da07adf25eedcf15f2c0ca3de9c4bc9fae6bce6e4",
+    "native-0030.npz": "78cddd3fe3dbef63c1e202a34c1e56784de876ab1731c922f5539d9955a2da44",
+    "native-0035.npz": "60ff7cb79b56fd131975f2568ea1ac9940a8291819f1cc781cbafac2add732ff",
+    "native-0040.npz": "1aac7b1611c6fc85a75ef1076a06d4cd4598e53a6965f212c473ded381bf648e",
+    "native-0031.npz": "91ce99a2299d435bfbd098b539d576fd2ebd4475551ef3d57dbea88b6f865e8a",
+    "native-0036.npz": "828faffc4aeb888551ddbc410868bf129830e6d3d0a21af81d37182f55503212",
+    "native-0041.npz": "d62a5c750b73e6fb381322fa9ca9e2f74439d32f35a7c900f5845c357125011e",
+    "native-0032.npz": "232533cbf73a46c443d3806694e2824611c64541f2a8859abdb3ed80037192ba",
+    "native-0037.npz": "c7be8137358826bbf75b78b46c4089ea65426c594d000def0c8987a2c2708da0",
+    "native-0042.npz": "054f5170ee66f0839b92a7a26d79da5040419f5b8df22870c195d783d17b22f0",
+    "native-0033.npz": "318ced539961b77767b7309b7d0f77863d4cd314fc110b018ab69a7bb0955043",
+    "native-0038.npz": "6c4dc1848344177e7c74392f850935cc0a7df32c3ca84ab6d510fa30b3e32d5a",
+    "native-0043.npz": "cb2e79581f479c608737198af811abcac928ae158bc82269d9a036b4e58e5621"
+  },
+  "recipes": [
+    {
+      "id": "recipe-00",
+      "context_id": "anchor397-h02-t02",
+      "nominal_and_fresh_captures": {
+        "32": {
+          "nominal": 3,
+          "fresh": 20
+        },
+        "64": {
+          "nominal": 3,
+          "fresh": 20
+        },
+        "128": {
+          "nominal": 3,
+          "fresh": 20
+        }
+      },
+      "pairs": [
+        {
+          "left_substeps": 32,
+          "right_substeps": 64,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-00-repeat-00",
+              "left_record_id": "neighborhood-shot-001734",
+              "right_record_id": "neighborhood-shot-002010",
+              "left_cache": {
+                "file": "native-0030.npz",
+                "row": 0
+              },
+              "right_cache": {
+                "file": "native-0035.npz",
+                "row": 0
+              },
+              "distance_mm": 0.7062717922963202
+            },
+            {
+              "repeat_id": "recipe-00-repeat-01",
+              "left_record_id": "neighborhood-shot-001735",
+              "right_record_id": "neighborhood-shot-002011",
+              "left_cache": {
+                "file": "native-0030.npz",
+                "row": 1
+              },
+              "right_cache": {
+                "file": "native-0035.npz",
+                "row": 1
+              },
+              "distance_mm": 0.7063397206366062
+            },
+            {
+              "repeat_id": "recipe-00-repeat-02",
+              "left_record_id": "neighborhood-shot-001736",
+              "right_record_id": "neighborhood-shot-002012",
+              "left_cache": {
+                "file": "native-0030.npz",
+                "row": 2
+              },
+              "right_cache": {
+                "file": "native-0035.npz",
+                "row": 2
+              },
+              "distance_mm": 0.7062717922963202
+            }
+          ],
+          "max_nominal_distance_mm": 0.7063397206366062,
+          "capture_status_agreement": 23,
+          "paired_requests": 23
+        },
+        {
+          "left_substeps": 32,
+          "right_substeps": 128,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-00-repeat-00",
+              "left_record_id": "neighborhood-shot-001734",
+              "right_record_id": "neighborhood-shot-002286",
+              "left_cache": {
+                "file": "native-0030.npz",
+                "row": 0
+              },
+              "right_cache": {
+                "file": "native-0040.npz",
+                "row": 0
+              },
+              "distance_mm": 3.1125200912356377
+            },
+            {
+              "repeat_id": "recipe-00-repeat-01",
+              "left_record_id": "neighborhood-shot-001735",
+              "right_record_id": "neighborhood-shot-002287",
+              "left_cache": {
+                "file": "native-0030.npz",
+                "row": 1
+              },
+              "right_cache": {
+                "file": "native-0040.npz",
+                "row": 1
+              },
+              "distance_mm": 3.1125200912356377
+            },
+            {
+              "repeat_id": "recipe-00-repeat-02",
+              "left_record_id": "neighborhood-shot-001736",
+              "right_record_id": "neighborhood-shot-002288",
+              "left_cache": {
+                "file": "native-0030.npz",
+                "row": 2
+              },
+              "right_cache": {
+                "file": "native-0040.npz",
+                "row": 2
+              },
+              "distance_mm": 3.1125200912356377
+            }
+          ],
+          "max_nominal_distance_mm": 3.1125200912356377,
+          "capture_status_agreement": 23,
+          "paired_requests": 23
+        },
+        {
+          "left_substeps": 64,
+          "right_substeps": 128,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-00-repeat-00",
+              "left_record_id": "neighborhood-shot-002010",
+              "right_record_id": "neighborhood-shot-002286",
+              "left_cache": {
+                "file": "native-0035.npz",
+                "row": 0
+              },
+              "right_cache": {
+                "file": "native-0040.npz",
+                "row": 0
+              },
+              "distance_mm": 2.4068376515060663
+            },
+            {
+              "repeat_id": "recipe-00-repeat-01",
+              "left_record_id": "neighborhood-shot-002011",
+              "right_record_id": "neighborhood-shot-002287",
+              "left_cache": {
+                "file": "native-0035.npz",
+                "row": 1
+              },
+              "right_cache": {
+                "file": "native-0040.npz",
+                "row": 1
+              },
+              "distance_mm": 2.4067724589258432
+            },
+            {
+              "repeat_id": "recipe-00-repeat-02",
+              "left_record_id": "neighborhood-shot-002012",
+              "right_record_id": "neighborhood-shot-002288",
+              "left_cache": {
+                "file": "native-0035.npz",
+                "row": 2
+              },
+              "right_cache": {
+                "file": "native-0040.npz",
+                "row": 2
+              },
+              "distance_mm": 2.4068376515060663
+            }
+          ],
+          "max_nominal_distance_mm": 2.4068376515060663,
+          "capture_status_agreement": 23,
+          "paired_requests": 23
+        }
+      ]
+    },
+    {
+      "id": "recipe-01",
+      "context_id": "anchor500-h02-t02",
+      "nominal_and_fresh_captures": {
+        "32": {
+          "nominal": 3,
+          "fresh": 19
+        },
+        "64": {
+          "nominal": 3,
+          "fresh": 20
+        },
+        "128": {
+          "nominal": 3,
+          "fresh": 20
+        }
+      },
+      "pairs": [
+        {
+          "left_substeps": 32,
+          "right_substeps": 64,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-01-repeat-00",
+              "left_record_id": "neighborhood-shot-001757",
+              "right_record_id": "neighborhood-shot-002033",
+              "left_cache": {
+                "file": "native-0030.npz",
+                "row": 23
+              },
+              "right_cache": {
+                "file": "native-0035.npz",
+                "row": 23
+              },
+              "distance_mm": 5.262366030365229
+            },
+            {
+              "repeat_id": "recipe-01-repeat-01",
+              "left_record_id": "neighborhood-shot-001758",
+              "right_record_id": "neighborhood-shot-002034",
+              "left_cache": {
+                "file": "native-0030.npz",
+                "row": 24
+              },
+              "right_cache": {
+                "file": "native-0035.npz",
+                "row": 24
+              },
+              "distance_mm": 5.262366030365229
+            },
+            {
+              "repeat_id": "recipe-01-repeat-02",
+              "left_record_id": "neighborhood-shot-001759",
+              "right_record_id": "neighborhood-shot-002035",
+              "left_cache": {
+                "file": "native-0030.npz",
+                "row": 25
+              },
+              "right_cache": {
+                "file": "native-0035.npz",
+                "row": 25
+              },
+              "distance_mm": 5.262366030365229
+            }
+          ],
+          "max_nominal_distance_mm": 5.262366030365229,
+          "capture_status_agreement": 22,
+          "paired_requests": 23
+        },
+        {
+          "left_substeps": 32,
+          "right_substeps": 128,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-01-repeat-00",
+              "left_record_id": "neighborhood-shot-001757",
+              "right_record_id": "neighborhood-shot-002309",
+              "left_cache": {
+                "file": "native-0030.npz",
+                "row": 23
+              },
+              "right_cache": {
+                "file": "native-0040.npz",
+                "row": 23
+              },
+              "distance_mm": 3.21309850551188
+            },
+            {
+              "repeat_id": "recipe-01-repeat-01",
+              "left_record_id": "neighborhood-shot-001758",
+              "right_record_id": "neighborhood-shot-002310",
+              "left_cache": {
+                "file": "native-0030.npz",
+                "row": 24
+              },
+              "right_cache": {
+                "file": "native-0040.npz",
+                "row": 24
+              },
+              "distance_mm": 3.21309850551188
+            },
+            {
+              "repeat_id": "recipe-01-repeat-02",
+              "left_record_id": "neighborhood-shot-001759",
+              "right_record_id": "neighborhood-shot-002311",
+              "left_cache": {
+                "file": "native-0030.npz",
+                "row": 25
+              },
+              "right_cache": {
+                "file": "native-0040.npz",
+                "row": 25
+              },
+              "distance_mm": 3.21309850551188
+            }
+          ],
+          "max_nominal_distance_mm": 3.21309850551188,
+          "capture_status_agreement": 22,
+          "paired_requests": 23
+        },
+        {
+          "left_substeps": 64,
+          "right_substeps": 128,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-01-repeat-00",
+              "left_record_id": "neighborhood-shot-002033",
+              "right_record_id": "neighborhood-shot-002309",
+              "left_cache": {
+                "file": "native-0035.npz",
+                "row": 23
+              },
+              "right_cache": {
+                "file": "native-0040.npz",
+                "row": 23
+              },
+              "distance_mm": 2.0511772017925978
+            },
+            {
+              "repeat_id": "recipe-01-repeat-01",
+              "left_record_id": "neighborhood-shot-002034",
+              "right_record_id": "neighborhood-shot-002310",
+              "left_cache": {
+                "file": "native-0035.npz",
+                "row": 24
+              },
+              "right_cache": {
+                "file": "native-0040.npz",
+                "row": 24
+              },
+              "distance_mm": 2.0511772017925978
+            },
+            {
+              "repeat_id": "recipe-01-repeat-02",
+              "left_record_id": "neighborhood-shot-002035",
+              "right_record_id": "neighborhood-shot-002311",
+              "left_cache": {
+                "file": "native-0035.npz",
+                "row": 25
+              },
+              "right_cache": {
+                "file": "native-0040.npz",
+                "row": 25
+              },
+              "distance_mm": 2.0511772017925978
+            }
+          ],
+          "max_nominal_distance_mm": 2.0511772017925978,
+          "capture_status_agreement": 23,
+          "paired_requests": 23
+        }
+      ]
+    },
+    {
+      "id": "recipe-02",
+      "context_id": "anchor440-h02-t02",
+      "nominal_and_fresh_captures": {
+        "32": {
+          "nominal": 3,
+          "fresh": 20
+        },
+        "64": {
+          "nominal": 3,
+          "fresh": 20
+        },
+        "128": {
+          "nominal": 3,
+          "fresh": 20
+        }
+      },
+      "pairs": [
+        {
+          "left_substeps": 32,
+          "right_substeps": 64,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-02-repeat-00",
+              "left_record_id": "neighborhood-shot-001780",
+              "right_record_id": "neighborhood-shot-002056",
+              "left_cache": {
+                "file": "native-0030.npz",
+                "row": 46
+              },
+              "right_cache": {
+                "file": "native-0035.npz",
+                "row": 46
+              },
+              "distance_mm": 0.8741486817598343
+            },
+            {
+              "repeat_id": "recipe-02-repeat-01",
+              "left_record_id": "neighborhood-shot-001781",
+              "right_record_id": "neighborhood-shot-002057",
+              "left_cache": {
+                "file": "native-0030.npz",
+                "row": 47
+              },
+              "right_cache": {
+                "file": "native-0035.npz",
+                "row": 47
+              },
+              "distance_mm": 0.8741486817598343
+            },
+            {
+              "repeat_id": "recipe-02-repeat-02",
+              "left_record_id": "neighborhood-shot-001782",
+              "right_record_id": "neighborhood-shot-002058",
+              "left_cache": {
+                "file": "native-0030.npz",
+                "row": 48
+              },
+              "right_cache": {
+                "file": "native-0035.npz",
+                "row": 48
+              },
+              "distance_mm": 0.8741231868043542
+            }
+          ],
+          "max_nominal_distance_mm": 0.8741486817598343,
+          "capture_status_agreement": 23,
+          "paired_requests": 23
+        },
+        {
+          "left_substeps": 32,
+          "right_substeps": 128,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-02-repeat-00",
+              "left_record_id": "neighborhood-shot-001780",
+              "right_record_id": "neighborhood-shot-002332",
+              "left_cache": {
+                "file": "native-0030.npz",
+                "row": 46
+              },
+              "right_cache": {
+                "file": "native-0040.npz",
+                "row": 46
+              },
+              "distance_mm": 1.2982208281755447
+            },
+            {
+              "repeat_id": "recipe-02-repeat-01",
+              "left_record_id": "neighborhood-shot-001781",
+              "right_record_id": "neighborhood-shot-002333",
+              "left_cache": {
+                "file": "native-0030.npz",
+                "row": 47
+              },
+              "right_cache": {
+                "file": "native-0040.npz",
+                "row": 47
+              },
+              "distance_mm": 1.2982208281755447
+            },
+            {
+              "repeat_id": "recipe-02-repeat-02",
+              "left_record_id": "neighborhood-shot-001782",
+              "right_record_id": "neighborhood-shot-002334",
+              "left_cache": {
+                "file": "native-0030.npz",
+                "row": 48
+              },
+              "right_cache": {
+                "file": "native-0040.npz",
+                "row": 48
+              },
+              "distance_mm": 1.2982208281755447
+            }
+          ],
+          "max_nominal_distance_mm": 1.2982208281755447,
+          "capture_status_agreement": 23,
+          "paired_requests": 23
+        },
+        {
+          "left_substeps": 64,
+          "right_substeps": 128,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-02-repeat-00",
+              "left_record_id": "neighborhood-shot-002056",
+              "right_record_id": "neighborhood-shot-002332",
+              "left_cache": {
+                "file": "native-0035.npz",
+                "row": 46
+              },
+              "right_cache": {
+                "file": "native-0040.npz",
+                "row": 46
+              },
+              "distance_mm": 0.42808378930203617
+            },
+            {
+              "repeat_id": "recipe-02-repeat-01",
+              "left_record_id": "neighborhood-shot-002057",
+              "right_record_id": "neighborhood-shot-002333",
+              "left_cache": {
+                "file": "native-0035.npz",
+                "row": 47
+              },
+              "right_cache": {
+                "file": "native-0040.npz",
+                "row": 47
+              },
+              "distance_mm": 0.42808378930203617
+            },
+            {
+              "repeat_id": "recipe-02-repeat-02",
+              "left_record_id": "neighborhood-shot-002058",
+              "right_record_id": "neighborhood-shot-002334",
+              "left_cache": {
+                "file": "native-0035.npz",
+                "row": 48
+              },
+              "right_cache": {
+                "file": "native-0040.npz",
+                "row": 48
+              },
+              "distance_mm": 0.4281089932192117
+            }
+          ],
+          "max_nominal_distance_mm": 0.4281089932192117,
+          "capture_status_agreement": 23,
+          "paired_requests": 23
+        }
+      ]
+    },
+    {
+      "id": "recipe-03",
+      "context_id": "anchor397-h04-t04",
+      "nominal_and_fresh_captures": {
+        "32": {
+          "nominal": 3,
+          "fresh": 20
+        },
+        "64": {
+          "nominal": 3,
+          "fresh": 20
+        },
+        "128": {
+          "nominal": 3,
+          "fresh": 20
+        }
+      },
+      "pairs": [
+        {
+          "left_substeps": 32,
+          "right_substeps": 64,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-03-repeat-00",
+              "left_record_id": "neighborhood-shot-001803",
+              "right_record_id": "neighborhood-shot-002079",
+              "left_cache": {
+                "file": "native-0031.npz",
+                "row": 5
+              },
+              "right_cache": {
+                "file": "native-0036.npz",
+                "row": 5
+              },
+              "distance_mm": 3.7170173600316048
+            },
+            {
+              "repeat_id": "recipe-03-repeat-01",
+              "left_record_id": "neighborhood-shot-001804",
+              "right_record_id": "neighborhood-shot-002080",
+              "left_cache": {
+                "file": "native-0031.npz",
+                "row": 6
+              },
+              "right_cache": {
+                "file": "native-0036.npz",
+                "row": 6
+              },
+              "distance_mm": 3.7170173600316048
+            },
+            {
+              "repeat_id": "recipe-03-repeat-02",
+              "left_record_id": "neighborhood-shot-001805",
+              "right_record_id": "neighborhood-shot-002081",
+              "left_cache": {
+                "file": "native-0031.npz",
+                "row": 7
+              },
+              "right_cache": {
+                "file": "native-0036.npz",
+                "row": 7
+              },
+              "distance_mm": 3.7170173600316048
+            }
+          ],
+          "max_nominal_distance_mm": 3.7170173600316048,
+          "capture_status_agreement": 23,
+          "paired_requests": 23
+        },
+        {
+          "left_substeps": 32,
+          "right_substeps": 128,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-03-repeat-00",
+              "left_record_id": "neighborhood-shot-001803",
+              "right_record_id": "neighborhood-shot-002355",
+              "left_cache": {
+                "file": "native-0031.npz",
+                "row": 5
+              },
+              "right_cache": {
+                "file": "native-0041.npz",
+                "row": 5
+              },
+              "distance_mm": 1.4623900642618537
+            },
+            {
+              "repeat_id": "recipe-03-repeat-01",
+              "left_record_id": "neighborhood-shot-001804",
+              "right_record_id": "neighborhood-shot-002356",
+              "left_cache": {
+                "file": "native-0031.npz",
+                "row": 6
+              },
+              "right_cache": {
+                "file": "native-0041.npz",
+                "row": 6
+              },
+              "distance_mm": 1.4623900642618537
+            },
+            {
+              "repeat_id": "recipe-03-repeat-02",
+              "left_record_id": "neighborhood-shot-001805",
+              "right_record_id": "neighborhood-shot-002357",
+              "left_cache": {
+                "file": "native-0031.npz",
+                "row": 7
+              },
+              "right_cache": {
+                "file": "native-0041.npz",
+                "row": 7
+              },
+              "distance_mm": 1.4623900642618537
+            }
+          ],
+          "max_nominal_distance_mm": 1.4623900642618537,
+          "capture_status_agreement": 23,
+          "paired_requests": 23
+        },
+        {
+          "left_substeps": 64,
+          "right_substeps": 128,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-03-repeat-00",
+              "left_record_id": "neighborhood-shot-002079",
+              "right_record_id": "neighborhood-shot-002355",
+              "left_cache": {
+                "file": "native-0036.npz",
+                "row": 5
+              },
+              "right_cache": {
+                "file": "native-0041.npz",
+                "row": 5
+              },
+              "distance_mm": 2.2553405724465847
+            },
+            {
+              "repeat_id": "recipe-03-repeat-01",
+              "left_record_id": "neighborhood-shot-002080",
+              "right_record_id": "neighborhood-shot-002356",
+              "left_cache": {
+                "file": "native-0036.npz",
+                "row": 6
+              },
+              "right_cache": {
+                "file": "native-0041.npz",
+                "row": 6
+              },
+              "distance_mm": 2.2553405724465847
+            },
+            {
+              "repeat_id": "recipe-03-repeat-02",
+              "left_record_id": "neighborhood-shot-002081",
+              "right_record_id": "neighborhood-shot-002357",
+              "left_cache": {
+                "file": "native-0036.npz",
+                "row": 7
+              },
+              "right_cache": {
+                "file": "native-0041.npz",
+                "row": 7
+              },
+              "distance_mm": 2.2553405724465847
+            }
+          ],
+          "max_nominal_distance_mm": 2.2553405724465847,
+          "capture_status_agreement": 23,
+          "paired_requests": 23
+        }
+      ]
+    },
+    {
+      "id": "recipe-04",
+      "context_id": "anchor440-h04-t00",
+      "nominal_and_fresh_captures": {
+        "32": {
+          "nominal": 3,
+          "fresh": 20
+        },
+        "64": {
+          "nominal": 3,
+          "fresh": 20
+        },
+        "128": {
+          "nominal": 3,
+          "fresh": 20
+        }
+      },
+      "pairs": [
+        {
+          "left_substeps": 32,
+          "right_substeps": 64,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-04-repeat-00",
+              "left_record_id": "neighborhood-shot-001826",
+              "right_record_id": "neighborhood-shot-002102",
+              "left_cache": {
+                "file": "native-0031.npz",
+                "row": 28
+              },
+              "right_cache": {
+                "file": "native-0036.npz",
+                "row": 28
+              },
+              "distance_mm": 5.558687262237072
+            },
+            {
+              "repeat_id": "recipe-04-repeat-01",
+              "left_record_id": "neighborhood-shot-001827",
+              "right_record_id": "neighborhood-shot-002103",
+              "left_cache": {
+                "file": "native-0031.npz",
+                "row": 29
+              },
+              "right_cache": {
+                "file": "native-0036.npz",
+                "row": 29
+              },
+              "distance_mm": 5.558687262237072
+            },
+            {
+              "repeat_id": "recipe-04-repeat-02",
+              "left_record_id": "neighborhood-shot-001828",
+              "right_record_id": "neighborhood-shot-002104",
+              "left_cache": {
+                "file": "native-0031.npz",
+                "row": 30
+              },
+              "right_cache": {
+                "file": "native-0036.npz",
+                "row": 30
+              },
+              "distance_mm": 5.558687262237072
+            }
+          ],
+          "max_nominal_distance_mm": 5.558687262237072,
+          "capture_status_agreement": 23,
+          "paired_requests": 23
+        },
+        {
+          "left_substeps": 32,
+          "right_substeps": 128,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-04-repeat-00",
+              "left_record_id": "neighborhood-shot-001826",
+              "right_record_id": "neighborhood-shot-002378",
+              "left_cache": {
+                "file": "native-0031.npz",
+                "row": 28
+              },
+              "right_cache": {
+                "file": "native-0041.npz",
+                "row": 28
+              },
+              "distance_mm": 3.3837526571005583
+            },
+            {
+              "repeat_id": "recipe-04-repeat-01",
+              "left_record_id": "neighborhood-shot-001827",
+              "right_record_id": "neighborhood-shot-002379",
+              "left_cache": {
+                "file": "native-0031.npz",
+                "row": 29
+              },
+              "right_cache": {
+                "file": "native-0041.npz",
+                "row": 29
+              },
+              "distance_mm": 3.3837526571005583
+            },
+            {
+              "repeat_id": "recipe-04-repeat-02",
+              "left_record_id": "neighborhood-shot-001828",
+              "right_record_id": "neighborhood-shot-002380",
+              "left_cache": {
+                "file": "native-0031.npz",
+                "row": 30
+              },
+              "right_cache": {
+                "file": "native-0041.npz",
+                "row": 30
+              },
+              "distance_mm": 3.3837025985121727
+            }
+          ],
+          "max_nominal_distance_mm": 3.3837526571005583,
+          "capture_status_agreement": 23,
+          "paired_requests": 23
+        },
+        {
+          "left_substeps": 64,
+          "right_substeps": 128,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-04-repeat-00",
+              "left_record_id": "neighborhood-shot-002102",
+              "right_record_id": "neighborhood-shot-002378",
+              "left_cache": {
+                "file": "native-0036.npz",
+                "row": 28
+              },
+              "right_cache": {
+                "file": "native-0041.npz",
+                "row": 28
+              },
+              "distance_mm": 2.1753280889242887
+            },
+            {
+              "repeat_id": "recipe-04-repeat-01",
+              "left_record_id": "neighborhood-shot-002103",
+              "right_record_id": "neighborhood-shot-002379",
+              "left_cache": {
+                "file": "native-0036.npz",
+                "row": 29
+              },
+              "right_cache": {
+                "file": "native-0041.npz",
+                "row": 29
+              },
+              "distance_mm": 2.1753280889242887
+            },
+            {
+              "repeat_id": "recipe-04-repeat-02",
+              "left_record_id": "neighborhood-shot-002104",
+              "right_record_id": "neighborhood-shot-002380",
+              "left_cache": {
+                "file": "native-0036.npz",
+                "row": 30
+              },
+              "right_cache": {
+                "file": "native-0041.npz",
+                "row": 30
+              },
+              "distance_mm": 2.1753779146820307
+            }
+          ],
+          "max_nominal_distance_mm": 2.1753779146820307,
+          "capture_status_agreement": 23,
+          "paired_requests": 23
+        }
+      ]
+    },
+    {
+      "id": "recipe-05",
+      "context_id": "anchor500-h04-t00",
+      "nominal_and_fresh_captures": {
+        "32": {
+          "nominal": 0,
+          "fresh": 13
+        },
+        "64": {
+          "nominal": 1,
+          "fresh": 20
+        },
+        "128": {
+          "nominal": 2,
+          "fresh": 19
+        }
+      },
+      "pairs": [
+        {
+          "left_substeps": 32,
+          "right_substeps": 64,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-05-repeat-00",
+              "left_record_id": "neighborhood-shot-001849",
+              "right_record_id": "neighborhood-shot-002125",
+              "left_cache": {
+                "file": "native-0031.npz",
+                "row": 51
+              },
+              "right_cache": {
+                "file": "native-0036.npz",
+                "row": 51
+              },
+              "distance_mm": 4.868115298449993
+            },
+            {
+              "repeat_id": "recipe-05-repeat-01",
+              "left_record_id": "neighborhood-shot-001850",
+              "right_record_id": "neighborhood-shot-002126",
+              "left_cache": {
+                "file": "native-0031.npz",
+                "row": 52
+              },
+              "right_cache": {
+                "file": "native-0036.npz",
+                "row": 52
+              },
+              "distance_mm": 4.868115298449993
+            },
+            {
+              "repeat_id": "recipe-05-repeat-02",
+              "left_record_id": "neighborhood-shot-001851",
+              "right_record_id": "neighborhood-shot-002127",
+              "left_cache": {
+                "file": "native-0031.npz",
+                "row": 53
+              },
+              "right_cache": {
+                "file": "native-0036.npz",
+                "row": 53
+              },
+              "distance_mm": 4.868115298449993
+            }
+          ],
+          "max_nominal_distance_mm": 4.868115298449993,
+          "capture_status_agreement": 15,
+          "paired_requests": 23
+        },
+        {
+          "left_substeps": 32,
+          "right_substeps": 128,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-05-repeat-00",
+              "left_record_id": "neighborhood-shot-001849",
+              "right_record_id": "neighborhood-shot-002401",
+              "left_cache": {
+                "file": "native-0031.npz",
+                "row": 51
+              },
+              "right_cache": {
+                "file": "native-0041.npz",
+                "row": 51
+              },
+              "distance_mm": 5.328652448952198
+            },
+            {
+              "repeat_id": "recipe-05-repeat-01",
+              "left_record_id": "neighborhood-shot-001850",
+              "right_record_id": "neighborhood-shot-002402",
+              "left_cache": {
+                "file": "native-0031.npz",
+                "row": 52
+              },
+              "right_cache": {
+                "file": "native-0041.npz",
+                "row": 52
+              },
+              "distance_mm": 5.328652448952198
+            },
+            {
+              "repeat_id": "recipe-05-repeat-02",
+              "left_record_id": "neighborhood-shot-001851",
+              "right_record_id": "neighborhood-shot-002403",
+              "left_cache": {
+                "file": "native-0031.npz",
+                "row": 53
+              },
+              "right_cache": {
+                "file": "native-0041.npz",
+                "row": 53
+              },
+              "distance_mm": 5.328652448952198
+            }
+          ],
+          "max_nominal_distance_mm": 5.328652448952198,
+          "capture_status_agreement": 13,
+          "paired_requests": 23
+        },
+        {
+          "left_substeps": 64,
+          "right_substeps": 128,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-05-repeat-00",
+              "left_record_id": "neighborhood-shot-002125",
+              "right_record_id": "neighborhood-shot-002401",
+              "left_cache": {
+                "file": "native-0036.npz",
+                "row": 51
+              },
+              "right_cache": {
+                "file": "native-0041.npz",
+                "row": 51
+              },
+              "distance_mm": 0.4609889292623848
+            },
+            {
+              "repeat_id": "recipe-05-repeat-01",
+              "left_record_id": "neighborhood-shot-002126",
+              "right_record_id": "neighborhood-shot-002402",
+              "left_cache": {
+                "file": "native-0036.npz",
+                "row": 52
+              },
+              "right_cache": {
+                "file": "native-0041.npz",
+                "row": 52
+              },
+              "distance_mm": 0.4609889292623848
+            },
+            {
+              "repeat_id": "recipe-05-repeat-02",
+              "left_record_id": "neighborhood-shot-002127",
+              "right_record_id": "neighborhood-shot-002403",
+              "left_cache": {
+                "file": "native-0036.npz",
+                "row": 53
+              },
+              "right_cache": {
+                "file": "native-0041.npz",
+                "row": 53
+              },
+              "distance_mm": 0.4609889292623848
+            }
+          ],
+          "max_nominal_distance_mm": 0.4609889292623848,
+          "capture_status_agreement": 19,
+          "paired_requests": 23
+        }
+      ]
+    },
+    {
+      "id": "recipe-06",
+      "context_id": "anchor500-h04-t04",
+      "nominal_and_fresh_captures": {
+        "32": {
+          "nominal": 0,
+          "fresh": 7
+        },
+        "64": {
+          "nominal": 3,
+          "fresh": 7
+        },
+        "128": {
+          "nominal": 3,
+          "fresh": 9
+        }
+      },
+      "pairs": [
+        {
+          "left_substeps": 32,
+          "right_substeps": 64,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-06-repeat-00",
+              "left_record_id": "neighborhood-shot-001872",
+              "right_record_id": "neighborhood-shot-002148",
+              "left_cache": {
+                "file": "native-0032.npz",
+                "row": 10
+              },
+              "right_cache": {
+                "file": "native-0037.npz",
+                "row": 10
+              },
+              "distance_mm": 1.1344715021550655
+            },
+            {
+              "repeat_id": "recipe-06-repeat-01",
+              "left_record_id": "neighborhood-shot-001873",
+              "right_record_id": "neighborhood-shot-002149",
+              "left_cache": {
+                "file": "native-0032.npz",
+                "row": 11
+              },
+              "right_cache": {
+                "file": "native-0037.npz",
+                "row": 11
+              },
+              "distance_mm": 1.1344715021550655
+            },
+            {
+              "repeat_id": "recipe-06-repeat-02",
+              "left_record_id": "neighborhood-shot-001874",
+              "right_record_id": "neighborhood-shot-002150",
+              "left_cache": {
+                "file": "native-0032.npz",
+                "row": 12
+              },
+              "right_cache": {
+                "file": "native-0037.npz",
+                "row": 12
+              },
+              "distance_mm": 1.134512247517705
+            }
+          ],
+          "max_nominal_distance_mm": 1.134512247517705,
+          "capture_status_agreement": 12,
+          "paired_requests": 23
+        },
+        {
+          "left_substeps": 32,
+          "right_substeps": 128,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-06-repeat-00",
+              "left_record_id": "neighborhood-shot-001872",
+              "right_record_id": "neighborhood-shot-002424",
+              "left_cache": {
+                "file": "native-0032.npz",
+                "row": 10
+              },
+              "right_cache": {
+                "file": "native-0042.npz",
+                "row": 10
+              },
+              "distance_mm": 1.5527120558544993
+            },
+            {
+              "repeat_id": "recipe-06-repeat-01",
+              "left_record_id": "neighborhood-shot-001873",
+              "right_record_id": "neighborhood-shot-002425",
+              "left_cache": {
+                "file": "native-0032.npz",
+                "row": 11
+              },
+              "right_cache": {
+                "file": "native-0042.npz",
+                "row": 11
+              },
+              "distance_mm": 1.5527120558544993
+            },
+            {
+              "repeat_id": "recipe-06-repeat-02",
+              "left_record_id": "neighborhood-shot-001874",
+              "right_record_id": "neighborhood-shot-002426",
+              "left_cache": {
+                "file": "native-0032.npz",
+                "row": 12
+              },
+              "right_cache": {
+                "file": "native-0042.npz",
+                "row": 12
+              },
+              "distance_mm": 1.5527120558544993
+            }
+          ],
+          "max_nominal_distance_mm": 1.5527120558544993,
+          "capture_status_agreement": 12,
+          "paired_requests": 23
+        },
+        {
+          "left_substeps": 64,
+          "right_substeps": 128,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-06-repeat-00",
+              "left_record_id": "neighborhood-shot-002148",
+              "right_record_id": "neighborhood-shot-002424",
+              "left_cache": {
+                "file": "native-0037.npz",
+                "row": 10
+              },
+              "right_cache": {
+                "file": "native-0042.npz",
+                "row": 10
+              },
+              "distance_mm": 0.4188460879959166
+            },
+            {
+              "repeat_id": "recipe-06-repeat-01",
+              "left_record_id": "neighborhood-shot-002149",
+              "right_record_id": "neighborhood-shot-002425",
+              "left_cache": {
+                "file": "native-0037.npz",
+                "row": 11
+              },
+              "right_cache": {
+                "file": "native-0042.npz",
+                "row": 11
+              },
+              "distance_mm": 0.4188460879959166
+            },
+            {
+              "repeat_id": "recipe-06-repeat-02",
+              "left_record_id": "neighborhood-shot-002150",
+              "right_record_id": "neighborhood-shot-002426",
+              "left_cache": {
+                "file": "native-0037.npz",
+                "row": 12
+              },
+              "right_cache": {
+                "file": "native-0042.npz",
+                "row": 12
+              },
+              "distance_mm": 0.41880374192260206
+            }
+          ],
+          "max_nominal_distance_mm": 0.4188460879959166,
+          "capture_status_agreement": 17,
+          "paired_requests": 23
+        }
+      ]
+    },
+    {
+      "id": "recipe-07",
+      "context_id": "anchor397-h00-t04",
+      "nominal_and_fresh_captures": {
+        "32": {
+          "nominal": 3,
+          "fresh": 18
+        },
+        "64": {
+          "nominal": 3,
+          "fresh": 20
+        },
+        "128": {
+          "nominal": 3,
+          "fresh": 20
+        }
+      },
+      "pairs": [
+        {
+          "left_substeps": 32,
+          "right_substeps": 64,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-07-repeat-00",
+              "left_record_id": "neighborhood-shot-001895",
+              "right_record_id": "neighborhood-shot-002171",
+              "left_cache": {
+                "file": "native-0032.npz",
+                "row": 29
+              },
+              "right_cache": {
+                "file": "native-0037.npz",
+                "row": 29
+              },
+              "distance_mm": 0.48690897529013455
+            },
+            {
+              "repeat_id": "recipe-07-repeat-01",
+              "left_record_id": "neighborhood-shot-001896",
+              "right_record_id": "neighborhood-shot-002172",
+              "left_cache": {
+                "file": "native-0032.npz",
+                "row": 30
+              },
+              "right_cache": {
+                "file": "native-0037.npz",
+                "row": 30
+              },
+              "distance_mm": 0.48690897529013455
+            },
+            {
+              "repeat_id": "recipe-07-repeat-02",
+              "left_record_id": "neighborhood-shot-001897",
+              "right_record_id": "neighborhood-shot-002173",
+              "left_cache": {
+                "file": "native-0032.npz",
+                "row": 31
+              },
+              "right_cache": {
+                "file": "native-0037.npz",
+                "row": 31
+              },
+              "distance_mm": 0.48690897529013455
+            }
+          ],
+          "max_nominal_distance_mm": 0.48690897529013455,
+          "capture_status_agreement": 21,
+          "paired_requests": 23
+        },
+        {
+          "left_substeps": 32,
+          "right_substeps": 128,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-07-repeat-00",
+              "left_record_id": "neighborhood-shot-001895",
+              "right_record_id": "neighborhood-shot-002447",
+              "left_cache": {
+                "file": "native-0032.npz",
+                "row": 29
+              },
+              "right_cache": {
+                "file": "native-0042.npz",
+                "row": 29
+              },
+              "distance_mm": 2.10167421028018
+            },
+            {
+              "repeat_id": "recipe-07-repeat-01",
+              "left_record_id": "neighborhood-shot-001896",
+              "right_record_id": "neighborhood-shot-002448",
+              "left_cache": {
+                "file": "native-0032.npz",
+                "row": 30
+              },
+              "right_cache": {
+                "file": "native-0042.npz",
+                "row": 30
+              },
+              "distance_mm": 2.10167421028018
+            },
+            {
+              "repeat_id": "recipe-07-repeat-02",
+              "left_record_id": "neighborhood-shot-001897",
+              "right_record_id": "neighborhood-shot-002449",
+              "left_cache": {
+                "file": "native-0032.npz",
+                "row": 31
+              },
+              "right_cache": {
+                "file": "native-0042.npz",
+                "row": 31
+              },
+              "distance_mm": 2.101654652506113
+            }
+          ],
+          "max_nominal_distance_mm": 2.10167421028018,
+          "capture_status_agreement": 21,
+          "paired_requests": 23
+        },
+        {
+          "left_substeps": 64,
+          "right_substeps": 128,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-07-repeat-00",
+              "left_record_id": "neighborhood-shot-002171",
+              "right_record_id": "neighborhood-shot-002447",
+              "left_cache": {
+                "file": "native-0037.npz",
+                "row": 29
+              },
+              "right_cache": {
+                "file": "native-0042.npz",
+                "row": 29
+              },
+              "distance_mm": 1.6149847069755197
+            },
+            {
+              "repeat_id": "recipe-07-repeat-01",
+              "left_record_id": "neighborhood-shot-002172",
+              "right_record_id": "neighborhood-shot-002448",
+              "left_cache": {
+                "file": "native-0037.npz",
+                "row": 30
+              },
+              "right_cache": {
+                "file": "native-0042.npz",
+                "row": 30
+              },
+              "distance_mm": 1.6149847069755197
+            },
+            {
+              "repeat_id": "recipe-07-repeat-02",
+              "left_record_id": "neighborhood-shot-002173",
+              "right_record_id": "neighborhood-shot-002449",
+              "left_cache": {
+                "file": "native-0037.npz",
+                "row": 31
+              },
+              "right_cache": {
+                "file": "native-0042.npz",
+                "row": 31
+              },
+              "distance_mm": 1.6149651492014527
+            }
+          ],
+          "max_nominal_distance_mm": 1.6149847069755197,
+          "capture_status_agreement": 23,
+          "paired_requests": 23
+        }
+      ]
+    },
+    {
+      "id": "recipe-08",
+      "context_id": "anchor397-h01-t00",
+      "nominal_and_fresh_captures": {
+        "32": {
+          "nominal": 3,
+          "fresh": 20
+        },
+        "64": {
+          "nominal": 3,
+          "fresh": 20
+        },
+        "128": {
+          "nominal": 3,
+          "fresh": 20
+        }
+      },
+      "pairs": [
+        {
+          "left_substeps": 32,
+          "right_substeps": 64,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-08-repeat-00",
+              "left_record_id": "neighborhood-shot-001918",
+              "right_record_id": "neighborhood-shot-002194",
+              "left_cache": {
+                "file": "native-0032.npz",
+                "row": 52
+              },
+              "right_cache": {
+                "file": "native-0037.npz",
+                "row": 52
+              },
+              "distance_mm": 0.898883561603725
+            },
+            {
+              "repeat_id": "recipe-08-repeat-01",
+              "left_record_id": "neighborhood-shot-001919",
+              "right_record_id": "neighborhood-shot-002195",
+              "left_cache": {
+                "file": "native-0032.npz",
+                "row": 53
+              },
+              "right_cache": {
+                "file": "native-0037.npz",
+                "row": 53
+              },
+              "distance_mm": 0.898883561603725
+            },
+            {
+              "repeat_id": "recipe-08-repeat-02",
+              "left_record_id": "neighborhood-shot-001920",
+              "right_record_id": "neighborhood-shot-002196",
+              "left_cache": {
+                "file": "native-0032.npz",
+                "row": 54
+              },
+              "right_cache": {
+                "file": "native-0037.npz",
+                "row": 54
+              },
+              "distance_mm": 0.8989092893898487
+            }
+          ],
+          "max_nominal_distance_mm": 0.8989092893898487,
+          "capture_status_agreement": 23,
+          "paired_requests": 23
+        },
+        {
+          "left_substeps": 32,
+          "right_substeps": 128,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-08-repeat-00",
+              "left_record_id": "neighborhood-shot-001918",
+              "right_record_id": "neighborhood-shot-002470",
+              "left_cache": {
+                "file": "native-0032.npz",
+                "row": 52
+              },
+              "right_cache": {
+                "file": "native-0042.npz",
+                "row": 52
+              },
+              "distance_mm": 1.1836622143164277
+            },
+            {
+              "repeat_id": "recipe-08-repeat-01",
+              "left_record_id": "neighborhood-shot-001919",
+              "right_record_id": "neighborhood-shot-002471",
+              "left_cache": {
+                "file": "native-0032.npz",
+                "row": 53
+              },
+              "right_cache": {
+                "file": "native-0042.npz",
+                "row": 53
+              },
+              "distance_mm": 1.1836622143164277
+            },
+            {
+              "repeat_id": "recipe-08-repeat-02",
+              "left_record_id": "neighborhood-shot-001920",
+              "right_record_id": "neighborhood-shot-002472",
+              "left_cache": {
+                "file": "native-0032.npz",
+                "row": 54
+              },
+              "right_cache": {
+                "file": "native-0042.npz",
+                "row": 54
+              },
+              "distance_mm": 1.1836879421025515
+            }
+          ],
+          "max_nominal_distance_mm": 1.1836879421025515,
+          "capture_status_agreement": 23,
+          "paired_requests": 23
+        },
+        {
+          "left_substeps": 64,
+          "right_substeps": 128,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-08-repeat-00",
+              "left_record_id": "neighborhood-shot-002194",
+              "right_record_id": "neighborhood-shot-002470",
+              "left_cache": {
+                "file": "native-0037.npz",
+                "row": 52
+              },
+              "right_cache": {
+                "file": "native-0042.npz",
+                "row": 52
+              },
+              "distance_mm": 0.28538386686705053
+            },
+            {
+              "repeat_id": "recipe-08-repeat-01",
+              "left_record_id": "neighborhood-shot-002195",
+              "right_record_id": "neighborhood-shot-002471",
+              "left_cache": {
+                "file": "native-0037.npz",
+                "row": 53
+              },
+              "right_cache": {
+                "file": "native-0042.npz",
+                "row": 53
+              },
+              "distance_mm": 0.28538386686705053
+            },
+            {
+              "repeat_id": "recipe-08-repeat-02",
+              "left_record_id": "neighborhood-shot-002196",
+              "right_record_id": "neighborhood-shot-002472",
+              "left_cache": {
+                "file": "native-0037.npz",
+                "row": 54
+              },
+              "right_cache": {
+                "file": "native-0042.npz",
+                "row": 54
+              },
+              "distance_mm": 0.28538386686705053
+            }
+          ],
+          "max_nominal_distance_mm": 0.28538386686705053,
+          "capture_status_agreement": 23,
+          "paired_requests": 23
+        }
+      ]
+    },
+    {
+      "id": "recipe-09",
+      "context_id": "anchor500-h01-t04",
+      "nominal_and_fresh_captures": {
+        "32": {
+          "nominal": 3,
+          "fresh": 20
+        },
+        "64": {
+          "nominal": 3,
+          "fresh": 20
+        },
+        "128": {
+          "nominal": 3,
+          "fresh": 20
+        }
+      },
+      "pairs": [
+        {
+          "left_substeps": 32,
+          "right_substeps": 64,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-09-repeat-00",
+              "left_record_id": "neighborhood-shot-001941",
+              "right_record_id": "neighborhood-shot-002217",
+              "left_cache": {
+                "file": "native-0033.npz",
+                "row": 15
+              },
+              "right_cache": {
+                "file": "native-0038.npz",
+                "row": 15
+              },
+              "distance_mm": 3.9816531352698803
+            },
+            {
+              "repeat_id": "recipe-09-repeat-01",
+              "left_record_id": "neighborhood-shot-001942",
+              "right_record_id": "neighborhood-shot-002218",
+              "left_cache": {
+                "file": "native-0033.npz",
+                "row": 16
+              },
+              "right_cache": {
+                "file": "native-0038.npz",
+                "row": 16
+              },
+              "distance_mm": 3.9816531352698803
+            },
+            {
+              "repeat_id": "recipe-09-repeat-02",
+              "left_record_id": "neighborhood-shot-001943",
+              "right_record_id": "neighborhood-shot-002219",
+              "left_cache": {
+                "file": "native-0033.npz",
+                "row": 17
+              },
+              "right_cache": {
+                "file": "native-0038.npz",
+                "row": 17
+              },
+              "distance_mm": 3.9816531352698803
+            }
+          ],
+          "max_nominal_distance_mm": 3.9816531352698803,
+          "capture_status_agreement": 23,
+          "paired_requests": 23
+        },
+        {
+          "left_substeps": 32,
+          "right_substeps": 128,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-09-repeat-00",
+              "left_record_id": "neighborhood-shot-001941",
+              "right_record_id": "neighborhood-shot-002493",
+              "left_cache": {
+                "file": "native-0033.npz",
+                "row": 15
+              },
+              "right_cache": {
+                "file": "native-0043.npz",
+                "row": 15
+              },
+              "distance_mm": 1.5315114287659526
+            },
+            {
+              "repeat_id": "recipe-09-repeat-01",
+              "left_record_id": "neighborhood-shot-001942",
+              "right_record_id": "neighborhood-shot-002494",
+              "left_cache": {
+                "file": "native-0033.npz",
+                "row": 16
+              },
+              "right_cache": {
+                "file": "native-0043.npz",
+                "row": 16
+              },
+              "distance_mm": 1.5315114287659526
+            },
+            {
+              "repeat_id": "recipe-09-repeat-02",
+              "left_record_id": "neighborhood-shot-001943",
+              "right_record_id": "neighborhood-shot-002495",
+              "left_cache": {
+                "file": "native-0033.npz",
+                "row": 17
+              },
+              "right_cache": {
+                "file": "native-0043.npz",
+                "row": 17
+              },
+              "distance_mm": 1.5314911724999547
+            }
+          ],
+          "max_nominal_distance_mm": 1.5315114287659526,
+          "capture_status_agreement": 23,
+          "paired_requests": 23
+        },
+        {
+          "left_substeps": 64,
+          "right_substeps": 128,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-09-repeat-00",
+              "left_record_id": "neighborhood-shot-002217",
+              "right_record_id": "neighborhood-shot-002493",
+              "left_cache": {
+                "file": "native-0038.npz",
+                "row": 15
+              },
+              "right_cache": {
+                "file": "native-0043.npz",
+                "row": 15
+              },
+              "distance_mm": 2.452014246955514
+            },
+            {
+              "repeat_id": "recipe-09-repeat-01",
+              "left_record_id": "neighborhood-shot-002218",
+              "right_record_id": "neighborhood-shot-002494",
+              "left_cache": {
+                "file": "native-0038.npz",
+                "row": 16
+              },
+              "right_cache": {
+                "file": "native-0043.npz",
+                "row": 16
+              },
+              "distance_mm": 2.452014246955514
+            },
+            {
+              "repeat_id": "recipe-09-repeat-02",
+              "left_record_id": "neighborhood-shot-002219",
+              "right_record_id": "neighborhood-shot-002495",
+              "left_cache": {
+                "file": "native-0038.npz",
+                "row": 17
+              },
+              "right_cache": {
+                "file": "native-0043.npz",
+                "row": 17
+              },
+              "distance_mm": 2.4520335718989372
+            }
+          ],
+          "max_nominal_distance_mm": 2.4520335718989372,
+          "capture_status_agreement": 23,
+          "paired_requests": 23
+        }
+      ]
+    },
+    {
+      "id": "recipe-10",
+      "context_id": "anchor440-h03-t04",
+      "nominal_and_fresh_captures": {
+        "32": {
+          "nominal": 3,
+          "fresh": 20
+        },
+        "64": {
+          "nominal": 3,
+          "fresh": 20
+        },
+        "128": {
+          "nominal": 3,
+          "fresh": 20
+        }
+      },
+      "pairs": [
+        {
+          "left_substeps": 32,
+          "right_substeps": 64,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-10-repeat-00",
+              "left_record_id": "neighborhood-shot-001964",
+              "right_record_id": "neighborhood-shot-002240",
+              "left_cache": {
+                "file": "native-0033.npz",
+                "row": 38
+              },
+              "right_cache": {
+                "file": "native-0038.npz",
+                "row": 38
+              },
+              "distance_mm": 0.9168751421384513
+            },
+            {
+              "repeat_id": "recipe-10-repeat-01",
+              "left_record_id": "neighborhood-shot-001965",
+              "right_record_id": "neighborhood-shot-002241",
+              "left_cache": {
+                "file": "native-0033.npz",
+                "row": 39
+              },
+              "right_cache": {
+                "file": "native-0038.npz",
+                "row": 39
+              },
+              "distance_mm": 0.9168985416181386
+            },
+            {
+              "repeat_id": "recipe-10-repeat-02",
+              "left_record_id": "neighborhood-shot-001966",
+              "right_record_id": "neighborhood-shot-002242",
+              "left_cache": {
+                "file": "native-0033.npz",
+                "row": 40
+              },
+              "right_cache": {
+                "file": "native-0038.npz",
+                "row": 40
+              },
+              "distance_mm": 0.9168751421384513
+            }
+          ],
+          "max_nominal_distance_mm": 0.9168985416181386,
+          "capture_status_agreement": 23,
+          "paired_requests": 23
+        },
+        {
+          "left_substeps": 32,
+          "right_substeps": 128,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-10-repeat-00",
+              "left_record_id": "neighborhood-shot-001964",
+              "right_record_id": "neighborhood-shot-002516",
+              "left_cache": {
+                "file": "native-0033.npz",
+                "row": 38
+              },
+              "right_cache": {
+                "file": "native-0043.npz",
+                "row": 38
+              },
+              "distance_mm": 1.349463127553463
+            },
+            {
+              "repeat_id": "recipe-10-repeat-01",
+              "left_record_id": "neighborhood-shot-001965",
+              "right_record_id": "neighborhood-shot-002517",
+              "left_cache": {
+                "file": "native-0033.npz",
+                "row": 39
+              },
+              "right_cache": {
+                "file": "native-0043.npz",
+                "row": 39
+              },
+              "distance_mm": 1.3494868762791157
+            },
+            {
+              "repeat_id": "recipe-10-repeat-02",
+              "left_record_id": "neighborhood-shot-001966",
+              "right_record_id": "neighborhood-shot-002518",
+              "left_cache": {
+                "file": "native-0033.npz",
+                "row": 40
+              },
+              "right_cache": {
+                "file": "native-0043.npz",
+                "row": 40
+              },
+              "distance_mm": 1.349463127553463
+            }
+          ],
+          "max_nominal_distance_mm": 1.3494868762791157,
+          "capture_status_agreement": 23,
+          "paired_requests": 23
+        },
+        {
+          "left_substeps": 64,
+          "right_substeps": 128,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-10-repeat-00",
+              "left_record_id": "neighborhood-shot-002240",
+              "right_record_id": "neighborhood-shot-002516",
+              "left_cache": {
+                "file": "native-0038.npz",
+                "row": 38
+              },
+              "right_cache": {
+                "file": "native-0043.npz",
+                "row": 38
+              },
+              "distance_mm": 0.4334382829256356
+            },
+            {
+              "repeat_id": "recipe-10-repeat-01",
+              "left_record_id": "neighborhood-shot-002241",
+              "right_record_id": "neighborhood-shot-002517",
+              "left_cache": {
+                "file": "native-0038.npz",
+                "row": 39
+              },
+              "right_cache": {
+                "file": "native-0043.npz",
+                "row": 39
+              },
+              "distance_mm": 0.4334382829256356
+            },
+            {
+              "repeat_id": "recipe-10-repeat-02",
+              "left_record_id": "neighborhood-shot-002242",
+              "right_record_id": "neighborhood-shot-002518",
+              "left_cache": {
+                "file": "native-0038.npz",
+                "row": 40
+              },
+              "right_cache": {
+                "file": "native-0043.npz",
+                "row": 40
+              },
+              "distance_mm": 0.4334382829256356
+            }
+          ],
+          "max_nominal_distance_mm": 0.4334382829256356,
+          "capture_status_agreement": 23,
+          "paired_requests": 23
+        }
+      ]
+    },
+    {
+      "id": "recipe-11",
+      "context_id": "anchor500-h01-t00",
+      "nominal_and_fresh_captures": {
+        "32": {
+          "nominal": 3,
+          "fresh": 20
+        },
+        "64": {
+          "nominal": 3,
+          "fresh": 20
+        },
+        "128": {
+          "nominal": 3,
+          "fresh": 20
+        }
+      },
+      "pairs": [
+        {
+          "left_substeps": 32,
+          "right_substeps": 64,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-11-repeat-00",
+              "left_record_id": "neighborhood-shot-001987",
+              "right_record_id": "neighborhood-shot-002263",
+              "left_cache": {
+                "file": "native-0033.npz",
+                "row": 61
+              },
+              "right_cache": {
+                "file": "native-0038.npz",
+                "row": 61
+              },
+              "distance_mm": 4.849312826991081
+            },
+            {
+              "repeat_id": "recipe-11-repeat-01",
+              "left_record_id": "neighborhood-shot-001988",
+              "right_record_id": "neighborhood-shot-002264",
+              "left_cache": {
+                "file": "native-0033.npz",
+                "row": 62
+              },
+              "right_cache": {
+                "file": "native-0038.npz",
+                "row": 62
+              },
+              "distance_mm": 4.849218297749758
+            },
+            {
+              "repeat_id": "recipe-11-repeat-02",
+              "left_record_id": "neighborhood-shot-001989",
+              "right_record_id": "neighborhood-shot-002265",
+              "left_cache": {
+                "file": "native-0033.npz",
+                "row": 63
+              },
+              "right_cache": {
+                "file": "native-0038.npz",
+                "row": 63
+              },
+              "distance_mm": 4.849218297749758
+            }
+          ],
+          "max_nominal_distance_mm": 4.849312826991081,
+          "capture_status_agreement": 23,
+          "paired_requests": 23
+        },
+        {
+          "left_substeps": 32,
+          "right_substeps": 128,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-11-repeat-00",
+              "left_record_id": "neighborhood-shot-001987",
+              "right_record_id": "neighborhood-shot-002539",
+              "left_cache": {
+                "file": "native-0033.npz",
+                "row": 61
+              },
+              "right_cache": {
+                "file": "native-0043.npz",
+                "row": 61
+              },
+              "distance_mm": 4.387496504932642
+            },
+            {
+              "repeat_id": "recipe-11-repeat-01",
+              "left_record_id": "neighborhood-shot-001988",
+              "right_record_id": "neighborhood-shot-002540",
+              "left_cache": {
+                "file": "native-0033.npz",
+                "row": 62
+              },
+              "right_cache": {
+                "file": "native-0043.npz",
+                "row": 62
+              },
+              "distance_mm": 4.387449007481337
+            },
+            {
+              "repeat_id": "recipe-11-repeat-02",
+              "left_record_id": "neighborhood-shot-001989",
+              "right_record_id": "neighborhood-shot-002541",
+              "left_cache": {
+                "file": "native-0033.npz",
+                "row": 63
+              },
+              "right_cache": {
+                "file": "native-0043.npz",
+                "row": 63
+              },
+              "distance_mm": 4.387449007481337
+            }
+          ],
+          "max_nominal_distance_mm": 4.387496504932642,
+          "capture_status_agreement": 23,
+          "paired_requests": 23
+        },
+        {
+          "left_substeps": 64,
+          "right_substeps": 128,
+          "nominal_samples": [
+            {
+              "repeat_id": "recipe-11-repeat-00",
+              "left_record_id": "neighborhood-shot-002263",
+              "right_record_id": "neighborhood-shot-002539",
+              "left_cache": {
+                "file": "native-0038.npz",
+                "row": 61
+              },
+              "right_cache": {
+                "file": "native-0043.npz",
+                "row": 61
+              },
+              "distance_mm": 0.463075062725693
+            },
+            {
+              "repeat_id": "recipe-11-repeat-01",
+              "left_record_id": "neighborhood-shot-002264",
+              "right_record_id": "neighborhood-shot-002540",
+              "left_cache": {
+                "file": "native-0038.npz",
+                "row": 62
+              },
+              "right_cache": {
+                "file": "native-0043.npz",
+                "row": 62
+              },
+              "distance_mm": 0.46302544069476426
+            },
+            {
+              "repeat_id": "recipe-11-repeat-02",
+              "left_record_id": "neighborhood-shot-002265",
+              "right_record_id": "neighborhood-shot-002541",
+              "left_cache": {
+                "file": "native-0038.npz",
+                "row": 63
+              },
+              "right_cache": {
+                "file": "native-0043.npz",
+                "row": 63
+              },
+              "distance_mm": 0.46302544069476426
+            }
+          ],
+          "max_nominal_distance_mm": 0.463075062725693,
+          "capture_status_agreement": 23,
+          "paired_requests": 23
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "recipes": 12,
+    "timestep_pairs": 36,
+    "nominal_comparisons": 108,
+    "max_nominal_distance_mm": 5.558687262237072,
+    "prespecified_gate_reminder": "Existing study gate compares64/128 only. This post hoc diagnostic adds no new pass/fail gate."
+  },
+  "raw_study_relative_path": "output/neighborhood-v2",
+  "frozen_source_relative_path": "studies/neighborhood-v2",
+  "paths_relative_to": "Ubuntu sircus-mjlab runtime root",
+  "relevant_source_sha256": {
+    "sircus/mjlab/timestep_env.py": "6efe3593d51960fbae2dc01e641198d6da9dba31869b7c77708cc8b6cf7578cd",
+    "sircus/mjlab/contact_env.py": "04655f30a1b216c037573a0b5e177e6209097026f930fc6efc6dfef289abc3da",
+    "sircus/mjlab/neighborhood_verify.py": "31c2e1f13d6b3d782c0a7bea8005b169f0b218ea5a59a8a931fca3be144d8755",
+    "sircus/mjlab/neighborhood_contract.py": "7685b667c402875674a0998a631eafc21338fc20d81f537feddbab212ebc113a",
+    "sircus/mjlab/contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407"
+  }
+}

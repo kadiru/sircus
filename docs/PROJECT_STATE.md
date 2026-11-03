@@ -1,5 +1,32 @@
 # Project state
 
+## Completed local height/tilt and timestep study — November 3, 2026
+
+- [Audited settings and comparisons](../baselines/mjlab-height-tilt-20261102/README.md):
+  corrected4090 execution completed in30.3 min. Independent CPU audit passed3,430
+  checks, including all2,156 native releases.2,562 total requests retained406
+  geometry rejections;1,507 captures,39 clean.72/75 local H/tilt contexts had a
+  capture in the adaptive development search, not an unseen-layout evaluation.
+- 12 selected recipes each received3 nominal +20 fresh H/tilt/gap-noise requests,
+  reused identically at32/64/128 substeps. Eight captured23/23 at every resolution;
+  ten passed the prespecified64/128 gate and also met the32-step capture threshold.
+  Two H540 mm recipes failed. No69-independent-scenes claim or continuous-window
+  guarantee. Noise sigma:1 mm height,0.25° tilt,2 mm gap.
+- Recommended engineering candidate08: H377.388 mm, tilt32.1548°, gap331.219 mm,
+  ball-center release746.107 mm, fixed board-to-bucket distance472.826 mm;
+  23/23 at each step, all rim-assisted,0.285 mm nominal64/128 drift at350 ms.
+  Capture agreement and trajectory convergence remain distinct; recipe04 had
+  perfect captures but >5 mm coarse-versus-finer nominal displacement.
+- Raw evidence remains `output/neighborhood-v2`; code58c1a9f, fingerprint
+  `12b2952c68b38d6bb392e3256d140cb7445ea97c73b090a6a39c5dfc4a4aa680`.
+  `#heightTiltStudy` shows matching completed/audited results, all selected settings,
+  native trajectories, failures and separate prior64-only reference evidence.
+  Curated metadata/CSV and provenance are in Git; raw arrays/logs remain local.
+- Both finite workers exited. Existing viewer was updated without restart;
+  4070 and Isaac were left untouched. No new RL, policy activation, physical
+  commands, perception, full-arm path/tracking or bucket-position generalization.
+  Geometry/contact provisional measurements and historical studies are preserved.
+
 ## Height/tilt status and startup repair — November 3, 2026
 
 - The expansion has no new ball-flight results yet. Its original4090 queue timed
