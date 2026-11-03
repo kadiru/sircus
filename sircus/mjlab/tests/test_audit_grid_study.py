@@ -341,6 +341,77 @@ def diversity_fixture(root, *, indices=(0, 1, 4, 5)):
     return rows, shots, dict(search_cpu_candidates=8, search_geometry_rejected=0)
 
 
+def selected_cohort_fixture(index, captured, clean):
+    source = dict(
+        values=[0.6 + index * 0.01, -0.2, 0.3, 28.0, 0.2],
+        q10=[float(index)] * 6,
+        q14=[1.0] * 6,
+    )
+    source_id = f"source-{index}"
+    search = dict(
+        source,
+        id=source_id,
+        phase="search",
+        native_release=True,
+        scalar_score_audit_passed=True,
+        route_success=True,
+        invalid=None,
+        board_bounce=True,
+        route_quality=2 - index,
+        closest_opening_distance_m=0.01,
+    )
+    nominal = []
+    for i in range(3):
+        nominal.append(
+            dict(
+                search,
+                id=f"{source_id}-nominal-{i}",
+                phase="nominal",
+                board_center_m=source["values"][:3],
+                release_ball_center_m=[source["values"][0], -0.2, 0.5375],
+            )
+        )
+    fresh = []
+    for i in range(20):
+        fresh.append(
+            dict(
+                search,
+                id=f"{source_id}-fresh-{i}",
+                phase="fresh",
+                route_success=i < captured,
+                route_quality=2 if i < clean else 1 if i < captured else 0,
+            )
+        )
+    cohort = dict(
+        source_id=source_id,
+        source=source,
+        nominal=nominal,
+        fresh=fresh,
+        purpose="qualification",
+    )
+    rows = {row["id"]: row for row in [search] + nominal + fresh}
+    result = dict(
+        success=True,
+        configuration=dict(
+            q10=source["q10"],
+            q14=source["q14"],
+            tilt_deg=28.0,
+            gap_m=0.2,
+            board_center=nominal[0]["board_center_m"],
+            release_center=nominal[0]["release_ball_center_m"],
+        ),
+        metrics=dict(
+            nominal_captures=3,
+            nominal_attempts=3,
+            fresh_captures=captured,
+            fresh_attempts=20,
+            fresh_clean_captures=clean,
+            fresh_assisted_captures=captured - clean,
+        ),
+    )
+    return cohort, rows, result
+
+
 class GridAuditTests(unittest.TestCase):
     def test_manifest_covers_all_files_and_detects_mutation(self):
         with tempfile.TemporaryDirectory() as folder:
@@ -601,6 +672,85 @@ class GridAuditTests(unittest.TestCase):
                     audit.check_diversity(
                         root, geometry, shots, metrics, audit.Checks(), "mock"
                     )
+
+    def test_best_qualified_recipe_prefers_later_twenty_over_first_eighteen(self):
+        first, rows, _ = selected_cohort_fixture(0, 18, 18)
+        later, more, result = selected_cohort_fixture(1, 20, 17)
+        rows.update(more)
+        selected = audit.check_selected_qualification(
+            result,
+            [first, later],
+            rows,
+            audit.SELECTED_SHOT_RULE,
+            audit.Checks(),
+            "mock",
+        )
+        self.assertEqual(selected["selected_source_id"], "source-1")
+        wrong = selected_cohort_fixture(0, 18, 18)[2]
+        with self.assertRaisesRegex(audit.EvidenceError, "best-cohort q10"):
+            audit.check_selected_qualification(
+                wrong,
+                [first, later],
+                rows,
+                audit.SELECTED_SHOT_RULE,
+                audit.Checks(),
+                "mock",
+            )
+
+    def test_best_recipe_ties_use_clean_count_then_native_source_rank(self):
+        for first_clean, later_clean, winner in ((10, 18, 1), (18, 18, 0)):
+            first, rows, first_result = selected_cohort_fixture(0, 20, first_clean)
+            later, more, later_result = selected_cohort_fixture(1, 20, later_clean)
+            rows.update(more)
+            selected = audit.check_selected_qualification(
+                first_result if winner == 0 else later_result,
+                [first, later],
+                rows,
+                audit.SELECTED_SHOT_RULE,
+                audit.Checks(),
+                "mock",
+            )
+            self.assertEqual(selected["selected_source_id"], f"source-{winner}")
+
+    def test_early_stop_requires_twenty_clean_and_three_nominal_captures(self):
+        first, rows, result = selected_cohort_fixture(0, 18, 18)
+        _, more, _ = selected_cohort_fixture(1, 20, 18)
+        rows.update(more)
+        with self.assertRaisesRegex(audit.EvidenceError, "early stop"):
+            audit.check_selected_qualification(
+                result,
+                [first],
+                rows,
+                audit.SELECTED_SHOT_RULE,
+                audit.Checks(),
+                "mock",
+            )
+        perfect, rows, result = selected_cohort_fixture(0, 20, 20)
+        rows.update(more)
+        selected = audit.check_selected_qualification(
+            result,
+            [perfect],
+            rows,
+            audit.SELECTED_SHOT_RULE,
+            audit.Checks(),
+            "mock",
+        )
+        self.assertEqual(selected["tested_candidates"], 1)
+
+    def test_best_recipe_cannot_display_another_cohorts_counts(self):
+        first, rows, _ = selected_cohort_fixture(0, 18, 18)
+        later, more, result = selected_cohort_fixture(1, 20, 18)
+        rows.update(more)
+        result["metrics"]["fresh_captures"] = 18
+        with self.assertRaisesRegex(audit.EvidenceError, "displayed fresh captures"):
+            audit.check_selected_qualification(
+                result,
+                [first, later],
+                rows,
+                audit.SELECTED_SHOT_RULE,
+                audit.Checks(),
+                "mock",
+            )
 
 
 if __name__ == "__main__":

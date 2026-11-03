@@ -107,7 +107,12 @@ eligible, then normalized farthest-point geometric diversity. Flight outcomes
 do not determine this selection. Save planned, checked, eligible and actually
 executed family counts and parameter ranges separately.
 
-Current qualification remains 3 nominal + 20 perturbed requests. Freeze every
+Current qualification remains 3 nominal + 20 perturbed requests. Compare up to
+six captured candidates and choose a qualified recipe by most fresh captures,
+then most clean fresh captures, then native search rank. Stop early only for
+3/3 nominal and 20/20 fresh with all 20 clean. This rule was strengthened before
+follow-up trials started after one parent recipe scored only 22/30 in its frozen
+check; the parent's selection and results remain unchanged. Freeze every
 newly selected recipe before a separate new 3 + 30 repeat set. Unchanged parent
 recipes retain their previous frozen rates, explicitly labeled as previous-study
 evidence; they do not inflate current work or current validation counts. A failed

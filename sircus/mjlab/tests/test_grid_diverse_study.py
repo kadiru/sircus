@@ -500,6 +500,146 @@ class DiverseStudyTests(unittest.TestCase):
         self.assertEqual(selected["checked"]["count"], 256)
         self.assertEqual(selected["selected"]["count"], 128)
 
+    def qualification_search(self, cohorts):
+        planner = object.__new__(d.DiversePlanner)
+        planner.directory = self.root / "qualification-choice"
+        planner.directory.mkdir()
+        planner.rows = []
+        planner.counts = dict(
+            cpu_candidates=0,
+            geometry_rejected=0,
+            search_requests=0,
+            confirmation_requests=0,
+            search_cpu_candidates=0,
+            search_geometry_rejected=0,
+            search_captures=0,
+        )
+        planner.ref = dict(
+            scene=self.scene,
+            contract=dict(fingerprint="b" * 64),
+            asset_hashes={"mesh": "c" * 64},
+            source_hashes={"mock": "d" * 64},
+        )
+        planner.admission = SimpleNamespace(
+            check_home=Mock(return_value=dict(passed=True))
+        )
+        rows = [
+            dict(
+                id=f"source-{i}",
+                bucket_xy_m=[0.1, -0.65],
+                values=[0.55, -0.3, 0.4, 32.0, 0.3 + i * 0.001],
+                q10=[float(i)] * 6,
+                q14=[1.0] * 6,
+                geometry_eligible=True,
+                geometry_reason="endpoint_admitted",
+                proposal=dict(method="local_mock"),
+                native_release=True,
+                route_success=True,
+                invalid=None,
+                scalar_score_audit_passed=True,
+                route_quality=2,
+                board_bounce=True,
+                closest_opening_distance_m=0.01 + i * 0.001,
+                board_center_m=[0.55, -0.3, 0.4],
+                release_ball_center_m=[0.55, -0.3, 0.7375 + i * 0.001],
+                board_normal=[0.0, -0.5, 0.8660254],
+                board_quaternion_wxyz=[1.0, 0.0, 0.0, 0.0],
+                link_positions10=[[0.0, 0.0, 0.0]] * 6,
+                link_positions14=[[1.33731, 0.0, 0.0]] * 6,
+                max_retention_s=1.0,
+                board_contact_episodes=1,
+            )
+            for i in range(len(cohorts))
+        ]
+        planner.audit = Mock(return_value=rows)
+        planner.storage_check = Mock()
+
+        def execute(_env, candidates, phase):
+            planner.rows.extend(dict(row, phase=phase) for row in candidates)
+
+        planner.execute = Mock(side_effect=execute)
+
+        def confirm(_env, source, *, seed):
+            i = int(source["id"].split("-")[-1])
+            captured, clean = cohorts[i]
+            nominal = [
+                dict(source, id=source["id"] + f"-nominal-{j}") for j in range(3)
+            ]
+            record = dict(
+                qualified=captured >= 18,
+                source_values=source["values"],
+                source_q10=source["q10"],
+                source_q14=source["q14"],
+                nominal=[r["id"] for r in nominal],
+                fresh=[f"fresh-{i}-{j}" for j in range(20)],
+                nominal_counts=dict(captures=3, attempts=3),
+                fresh_counts=dict(captures=captured, attempts=20),
+                quality=dict(clean=clean, assisted=captured - clean, cohort="fresh"),
+                motion=dict(passed=True),
+                seed=seed,
+            )
+            return record, nominal, []
+
+        planner.confirm = Mock(side_effect=confirm)
+        request = dict(
+            request_id="qualification-fixture",
+            bucket_xy=[0.1, -0.65],
+            search_budget=128,
+            constraints=dict(board_position=None, dropper_position=None),
+        )
+        measured = planner.search(
+            None,
+            request,
+            np.asarray([r["values"] for r in rows]),
+            [r["proposal"] for r in rows],
+            seed=7,
+        )
+        return planner, measured
+
+    def test_qualification_compares_later_twenty_capture_recipe_and_binds_its_metrics(
+        self,
+    ):
+        planner, measured = self.qualification_search([(18, 18), (20, 17), (20, 19)])
+        self.assertEqual(planner.confirm.call_count, 3)
+        self.assertEqual(
+            [c.args[1]["id"] for c in planner.confirm.call_args_list],
+            ["source-0", "source-1", "source-2"],
+        )
+        self.assertTrue(measured["success"])
+        self.assertEqual(measured["configuration"]["q10"], [2.0] * 6)
+        self.assertEqual(measured["configuration"]["gap_m"], 0.302)
+        self.assertEqual(measured["metrics"]["fresh_captures"], 20)
+        self.assertEqual(measured["metrics"]["fresh_clean_captures"], 19)
+        self.assertEqual(measured["metrics"]["fresh_assisted_captures"], 1)
+        self.assertEqual(
+            measured["metrics"]["confirmation_configuration_sha256"],
+            digest(measured["configuration"]),
+        )
+
+    def test_only_perfect_clean_cohort_can_stop_qualification_early(self):
+        planner, measured = self.qualification_search([(20, 20), (20, 20), (20, 20)])
+        self.assertEqual(planner.confirm.call_count, 1)
+        self.assertEqual(measured["configuration"]["q10"], [0.0] * 6)
+        self.assertEqual(measured["metrics"]["fresh_clean_captures"], 20)
+        rule = d.protocol(
+            dict(
+                contract_fingerprint="a" * 64,
+                study_manifest_sha256="b" * 64,
+                audit_sha256="c" * 64,
+            ),
+            [],
+        )["selected_shot_rule"]
+        self.assertEqual(rule, d.SELECTED_SHOT_RULE)
+        self.assertEqual(rule["candidate_limit"], 6)
+        self.assertIn("Never", rule["frozen_validation"])
+
+    def test_qualification_limit_is_six_and_native_rank_breaks_equal_repeat_ties(self):
+        planner, measured = self.qualification_search([(19, 10)] * 7)
+        self.assertEqual(planner.confirm.call_count, 6)
+        self.assertEqual(measured["configuration"]["q10"], [0.0] * 6)
+        self.assertEqual(measured["metrics"]["fresh_captures"], 19)
+        self.assertEqual(measured["metrics"]["fresh_clean_captures"], 10)
+
     def test_blocked_home_does_not_launch_native_or_claim_search_coverage(self):
         planner = object.__new__(d.DiversePlanner)
         planner.directory = self.root / "blocked"
