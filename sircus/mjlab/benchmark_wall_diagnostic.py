@@ -21,7 +21,7 @@ from .contract import FORCE_NAMES, ScoreStream
 from ..isaac.board_route import FORCE_THRESHOLD_N
 from ..isaac.rl_contract import GEOMETRY_EPS_M
 
-VERSION = "sircus-validation-wall-diagnostic-v1"
+VERSION = "sircus-validation-wall-diagnostic-v2"
 DT_S = 1 / 240
 HORIZON_STEPS = 960
 ROOT = Path(__file__).resolve().parents[2]
@@ -30,6 +30,10 @@ SCORER_FILES = (
     "sircus/isaac/rl_contract.py",
     "sircus/isaac/entry_quality.py",
     "sircus/isaac/board_route.py",
+)
+TRACE_SOURCE_FILES = (
+    "sircus/mjlab/contact_env.py",
+    "sircus/mjlab/sweep_worker.py",
 )
 ORIGINAL_FIELDS = (
     "success",
@@ -254,7 +258,59 @@ def trace_sha256(identifier, positions, velocities, forces):
     return hasher.hexdigest()
 
 
-def diagnose_trace(scene, row, positions, velocities, forces):
+def native_cache_timing(arrays):
+    """Check optional explicit cache timing; legacy caches have no dt field.
+
+    Legacy timing is bound by frozen physics, hash-checked trace producers, and
+    the exact960-row shape. The row's1/60s display trail metadata is unrelated.
+    """
+    names = set(arrays.files if hasattr(arrays, "files") else arrays)
+    explicit = {}
+    for name in ("dt_s", "scoring_dt_s", "trajectory_dt_s"):
+        if name not in names:
+            continue
+        value = np.asarray(arrays[name])
+        require(
+            value.size == 1 and value.dtype.kind in "fiu",
+            "Invalid NPZ cadence metadata",
+        )
+        dt = float(value.reshape(-1)[0])
+        require(
+            math.isfinite(dt) and math.isclose(dt, DT_S, rel_tol=1e-7, abs_tol=0),
+            "NPZ cadence differs from frozen scoring cadence",
+        )
+        explicit[name] = dt
+    for name in ("time_s", "times_s", "timestamps_s"):
+        if name not in names:
+            continue
+        times = np.asarray(arrays[name])
+        require(
+            times.shape == (HORIZON_STEPS,) and times.dtype.kind == "f",
+            "Invalid NPZ timestamp metadata",
+        )
+        expected = np.arange(1, HORIZON_STEPS + 1) * DT_S
+        precision = np.finfo(times.dtype).eps * HORIZON_STEPS * DT_S
+        require(
+            np.allclose(times, expected, rtol=0, atol=precision),
+            "NPZ timestamps differ from frozen post-step scoring cadence",
+        )
+        explicit[name] = dict(
+            samples=int(times.size),
+            first_time_s=float(times[0]),
+            last_time_s=float(times[-1]),
+        )
+    return dict(
+        scoring_dt_s=DT_S,
+        horizon_steps=HORIZON_STEPS,
+        horizon_s=HORIZON_STEPS * DT_S,
+        explicit_npz_timing=explicit or None,
+        basis="Frozen physics + hash-bound native trace producer +960-row shape; explicit NPZ timing additionally checked when present.",
+    )
+
+
+def diagnose_trace(
+    scene, row, positions, velocities, forces, *, native_scoring_dt_s=DT_S
+):
     """Reproduce the unchanged score, then explain resets in that scored prefix."""
     positions, velocities, forces = map(np.asarray, (positions, velocities, forces))
     require(
@@ -271,7 +327,7 @@ def diagnose_trace(scene, row, positions, velocities, forces):
         scene["simulation"]["physics_dt_s"] == DT_S, "Changed original scoring cadence"
     )
     require(
-        row.get("trajectory_dt_s") == DT_S, "Row cadence differs from original scorer"
+        native_scoring_dt_s == DT_S, "Native trace cadence differs from original scorer"
     )
     require(
         row.get("native_release") and not row.get("invalid"),
@@ -309,6 +365,8 @@ def diagnose_trace(scene, row, positions, velocities, forces):
     overlaps = states["nominal_wall_overlap_m"][post]
     return dict(
         original_score_reproduced=True,
+        scoring_trace_dt_s=native_scoring_dt_s,
+        display_trajectory_dt_s=row.get("trajectory_dt_s"),
         first_whole_entry_sample=first_entry,
         first_whole_entry_time_s=(
             (first_entry + 1) * DT_S if first_entry is not None else None
@@ -377,13 +435,21 @@ def diagnose_run(run, reference, milestones, *, request_ids=None):
     unsigned_ref = dict(ref)
     unsigned_ref.pop("fingerprint")
     require(digest(unsigned_ref) == ref["fingerprint"], "Reference fingerprint changed")
-    sources = {name: file_sha256(ROOT / name) for name in SCORER_FILES}
+    physics = contract["identity"]["physics"]
+    require(
+        physics["scoring_dt_s"] == DT_S
+        and physics["horizon_s"] == DT_S * HORIZON_STEPS,
+        "Frozen scoring cadence/horizon differs",
+    )
+    sources = {
+        name: file_sha256(ROOT / name) for name in (*SCORER_FILES, *TRACE_SOURCE_FILES)
+    }
     require(
         all(
             contract["identity"]["source_sha256"].get(name) == value
             for name, value in sources.items()
         ),
-        "Installed original scorer differs from frozen study",
+        "Installed original scorer/cache producer differs from frozen study",
     )
     report_text = report_path.read_text()
     report = selected_members(
@@ -545,17 +611,20 @@ def diagnose_run(run, reference, milestones, *, request_ids=None):
                     == (HORIZON_STEPS, len(ids), len(FORCE_NAMES)),
                     "Native force cache dimensions differ",
                 )
+                timing = native_cache_timing(arrays)
                 metrics = diagnose_trace(
                     ref["scene"],
                     row,
                     arrays["position_m"][:, index],
                     arrays["velocity_m_s"][:, index],
                     arrays["forces_N"][:, index],
+                    native_scoring_dt_s=timing["scoring_dt_s"],
                 )
             detail.update(
                 native_cache_file=name,
                 native_cache_row=index,
                 native_cache_sha256=cache_hashes[name],
+                native_cache_timing=timing,
                 diagnostic=metrics,
             )
         details.append(detail)
@@ -584,6 +653,7 @@ def diagnose_run(run, reference, milestones, *, request_ids=None):
             wall_failure="Original nominal whole-sphere wall-clearance predicate fails using its unchanged geometry epsilon.",
             below_floor="Original bucket-interior bottom-height predicate, separate from the attributed simulation floor contact-force channel.",
             time_origin="Saved sample0 is the first post-step observation at1/240s; zero-based indices and sampled times are both reported.",
+            display_trajectory_dt_s="Canonical row metadata describes the downsampled display trail (normally1/60s), not the960-sample native scoring arrays.",
         ),
         cohorts=cohorts,
         analyzed_request_ids=[r["id"] for r in details],
@@ -591,6 +661,7 @@ def diagnose_run(run, reference, milestones, *, request_ids=None):
         limitations=[
             "Whole-sphere wall-clearance failure is a geometric diagnostic, not proof of a ball escaping or certified physical penetration.",
             "Durations and first-entry times are sampled at240Hz; they are not substep collision measurements.",
+            "Legacy native NPZ files contain no dt/timestamps: their scoring cadence is established by the frozen physics, hash-bound producer code and960-row dimensions, not independently measured from timestamps.",
             "Original scoring freezes on first success or ball-center Z below-0.2m; scored-prefix and full recorded-trace end states are distinct.",
             "Native GPU contact trajectories can differ with identical recorded commands; this diagnostic does not establish bitwise simulator determinism.",
             "This diagnostic does not replace the full independent study/provenance audit; it explains only the selected completed validation cohorts.",
