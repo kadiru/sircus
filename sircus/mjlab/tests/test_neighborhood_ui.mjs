@@ -7,6 +7,14 @@ const source=readFileSync(new URL('../web/app.js',import.meta.url),'utf8');
 const code=source.slice(source.indexOf('// BEGIN READ-ONLY HEIGHT TILT STUDY'),source.indexOf('// END READ-ONLY HEIGHT TILT STUDY'));
 const windowCode=source.slice(source.indexOf('// BEGIN READ-ONLY WINDOW STUDY'),source.indexOf('// END READ-ONLY WINDOW STUDY'));
 const make=extra=>{const c=vm.createContext({finiteVector:(v,n)=>Array.isArray(v)&&v.length===n&&v.every(Number.isFinite),...extra});vm.runInContext(windowCode+'\n'+code,c);return c;};
+function referenceFixture(){
+  const load=name=>JSON.parse(readFileSync(new URL(`../../../baselines/mjlab-window-sac-20261102/${name}`,import.meta.url),'utf8'));
+  const previous=load('native-results.json');previous.audit=load('audit-window.json');previous.window_confirmations=load('confirmation/report.json');previous.window_confirmations.audit=load('confirmation/audit-window-confirmation.json');
+  const recipes=previous.window_confirmations.recipes,context=previous.test_contexts.find(r=>r.methods?.adaptive_surrogate?.total?.captures>0),model=context.methods.adaptive_surrogate;
+  const anchors=[...recipes.filter(r=>r.nominal.captures===r.nominal.attempts&&r.fresh.captures===r.fresh.attempts).map(r=>({id:r.id,values:[...previous.settings.board_xy_m,r.board_height_m,r.tilt_deg,r.gap_m]})),
+    {id:'surrogate-reference',values:[...previous.settings.board_xy_m,context.board_height_m,context.tilt_deg,model.gap_m]}];
+  return {study:{settings:{board_xy_m:previous.settings.board_xy_m,bucket_xy_m:previous.settings.bucket_xy_m},anchors},previous};
+}
 
 test('neighborhood evidence stays optional and does not conflate IK with a capture',()=>{
   const c=make();assert.equal(c.neighborhoodView(null),null);
@@ -34,6 +42,38 @@ test('narrow layouts allow grid tracks to shrink while tables remain scrollable'
   assert.match(css,/\.neighborhood-map\{min-width:0\}/);
   assert.match(css,/\.table-wrap\{overflow-x:auto/);
 });
+test('prior reference table reads the three audited source shots without changing counts',()=>{
+  const c=make(),{study,previous}=referenceFixture(),before=JSON.stringify(previous),rows=c.neighborhoodReferenceShots(study,previous);
+  assert.equal(rows.length,3);assert.ok(rows.every(r=>r.verified&&r.substeps===64));
+  assert.deepEqual(Array.from(rows,r=>r.source),['Confirm','Confirm','Test']);
+  for(const row of rows){assert.equal(row.nominal.captures,3);assert.equal(row.fresh.captures,20);assert.equal(row.total.native_releases,23);}
+  assert.equal(JSON.stringify(previous),before);
+  const recipe=previous.window_confirmations.recipes.find(r=>r.id===rows[0].source_id);
+  recipe.nominal={attempts:2,captures:1,native_releases:2};recipe.fresh={attempts:4,captures:3,native_releases:4};recipe.total={attempts:6,captures:4,native_releases:6};
+  const changed=c.neighborhoodReferenceShots(study,previous)[0];assert.equal(changed.nominal.captures,1);assert.equal(changed.fresh.captures,3);assert.equal(changed.total.native_releases,6);
+});
+test('missing or mismatched reference audits and geometry stay unknown',()=>{
+  const c=make();let data=referenceFixture();
+  assert.ok(c.neighborhoodReferenceShots(data.study,undefined).every(r=>!r.verified));
+  for(const corrupt of [d=>d.previous.audit.contract_fingerprint='other',d=>d.previous.audit.status='failed',d=>d.previous.status='running',d=>d.previous.version='unknown',d=>d.study.settings.bucket_xy_m=[0,0]]){
+    data=referenceFixture();corrupt(data);assert.ok(c.neighborhoodReferenceShots(data.study,data.previous).every(r=>!r.verified));
+  }
+  data=referenceFixture();data.previous.window_confirmations.audit.status='failed';let rows=c.neighborhoodReferenceShots(data.study,data.previous);assert.equal(rows[0].verified,false);assert.equal(rows[1].verified,false);assert.equal(rows[2].verified,true);
+  data=referenceFixture();data.previous.window_confirmations.parent_contract_fingerprint='other';rows=c.neighborhoodReferenceShots(data.study,data.previous);assert.equal(rows[0].verified,false);assert.equal(rows[2].verified,true);
+  data=referenceFixture();data.study.anchors[0].values[0]+=.1;assert.equal(c.neighborhoodReferenceShots(data.study,data.previous)[0].verified,false);
+});
+test('prior matches must be unique and complete; missing native counts are never inferred',()=>{
+  const c=make();let data=referenceFixture();const id=data.study.anchors[0].id;
+  data.previous.window_confirmations.recipes=data.previous.window_confirmations.recipes.filter(r=>r.id!==id);
+  assert.equal(c.neighborhoodReferenceShots(data.study,data.previous)[0].verified,false);
+  data=referenceFixture();data.previous.window_confirmations.recipes.push(data.previous.window_confirmations.recipes.find(r=>r.id===id));
+  assert.equal(c.neighborhoodReferenceShots(data.study,data.previous)[0].verified,false);
+  data=referenceFixture();let recipe=data.previous.window_confirmations.recipes.find(r=>r.id===id);delete recipe.fresh;
+  assert.equal(c.neighborhoodReferenceShots(data.study,data.previous)[0].verified,false);
+  data=referenceFixture();recipe=data.previous.window_confirmations.recipes.find(r=>r.id===id);delete recipe.total.native_releases;
+  const row=c.neighborhoodReferenceShots(data.study,data.previous)[0];assert.equal(row.verified,true);assert.equal(c.windowStatistics(row.total).released,null);
+  recipe.total.native_releases=0;assert.equal(c.neighborhoodReferenceShots(data.study,data.previous)[0].verified,false);
+});
 test('timestep agreement does not invent a denominator or assume convergence',()=>{
   const c=make();assert.equal(c.neighborhoodAgreement({agreements:22,attempts:23}),'22 / 23');
   assert.equal(c.neighborhoodAgreement(22),'22 matched');assert.equal(c.neighborhoodAgreement(22,23),'22 / 23');assert.equal(c.neighborhoodAgreement(.95),'unreported');
@@ -43,7 +83,7 @@ test('readonly panel has no solve, training, network or policy mutation hooks',(
   for(const text of ['fetch(', '/api/solve','syncSolveButtons','activateCheckpoint','startTraining'])assert.ok(!code.includes(text));
   assert.ok(source.includes("fetch('/api/solve'"));assert.ok(source.includes('showCorrectedGrid(); showWindowStudy(); showHeightTiltStudy();'));
   const html=readFileSync(new URL('../web/index.html',import.meta.url),'utf8');
-  for(const id of ['heightTiltStudy','heightTiltMaps','heightTiltRecipes','heightTiltContexts','heightTiltSensitivity','heightTiltRepeats','heightTiltTraceSelect','heightTiltTrace'])assert.ok(html.includes(`id="${id}"`));
+  for(const id of ['heightTiltStudy','heightTiltReferences','heightTiltReferenceScope','heightTiltMaps','heightTiltRecipes','heightTiltContexts','heightTiltSensitivity','heightTiltRepeats','heightTiltTraceSelect','heightTiltTrace'])assert.ok(html.includes(`id="${id}"`));
   for(const text of ['No RL training','No RL training or new held-out evaluation','reported 175 mm','does not activate a policy','not a certified continuous range'])assert.ok(html.includes(text));
 });
 test('render preserves requested, native and per-timestep repeat denominators',()=>{
@@ -55,6 +95,9 @@ test('render preserves requested, native and per-timestep repeat denominators',(
   c.showHeightTiltStudy();assert.equal(node('heightTiltStudy').hidden,true);
   c.report.neighborhood_evaluation={status:'waiting_for_4090',phase:'device_queue',contexts:[{id:'a',source_family:'anchor-a',board_height_m:.4,tilt_deg:32,board_admitted:null,geometry_requests:0,eligible:0,search_attempts:0,search_native_releases:0,search_captures:0}]};
   c.showHeightTiltStudy();assert.ok(node('heightTiltMaps').children[0].children[2].textContent.includes('1 unknown'));assert.ok(node('heightTiltMaps').children[0].children[2].textContent.includes('search pending'));
+  const earlier=referenceFixture();Object.assign(c.report.neighborhood_evaluation,{anchors:earlier.study.anchors,settings:earlier.study.settings});c.report.window_study_evaluation=earlier.previous;c.showHeightTiltStudy();
+  assert.equal(tables.get(node('heightTiltReferences')).rows[0][3],'3 / 3');assert.equal(tables.get(node('heightTiltReferences')).rows[0][4],'20 / 20');assert.ok(node('heightTiltReferenceScope').textContent.includes('32/128-substep results are pending'));assert.equal(c.report.neighborhood_evaluation.contexts[0].search_attempts,0);
+  c.report.neighborhood_evaluation.status='failed';c.showHeightTiltStudy();assert.ok(node('heightTiltReferenceScope').textContent.includes('No new 32/128-substep results are available'));
   c.report.neighborhood_evaluation={status:'running',phase:'search',contexts:[{id:'a',source_family:'anchor-a',board_height_m:.4,tilt_deg:32,board_admitted:true,geometry_requests:17,eligible:10,search_attempts:17,search_native_releases:10,search_captures:7,best_gap_m:.3}],
     settings:{board_xy_m:[.5,-.3],bucket_xy_m:[.1,-.6]},counts:{requests:17,native_releases:10},selected_recipes:[{id:'recipe',context_id:'a',board_height_m:.4,tilt_deg:32,gap_m:.3,release_center_height_m:.7375,distance_m:.5,
       by_substeps:{'32':{attempts:23,captures:13,native_releases:20,clean:3},'64':{attempts:23,captures:21,native_releases:22,clean:5},'128':{attempts:23,captures:20}},
