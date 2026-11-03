@@ -1,5 +1,30 @@
 # Project state
 
+## Lower-board far-target study — November 3, 2026
+
+- [Frozen method](../sircus/mjlab/LOWBOARD_STUDY.md): four exact parent corner
+  targets at 650/700/750/770 mm; board heights 220–360 mm by 20, independent
+  tilts 28/32/36/40°, and five release levels near the unchanged reach prior.
+  Eight exact source contexts provide 24 controls, followed by 640 requested
+  development shots; captured-only refinement/repeats bound the total at 1,968.
+- [CPU preflight](../baselines/mjlab-lowboard-20261103/README.md) passed 1,769
+  checks:208/640 paired endpoints admitted,24/24 exact source queries retained.
+  Per target 13/32 board contexts pass the prior and 52/160 paired requests pass
+  native FK/clearance. Highest requested 814.324 mm ball-center release fails
+  dropper links 4/6 self-clearance; the next tested 804.324 mm level is admitted.
+  This brackets tested endpoints, not an exact reach limit or arm-path proof.
+- Native results pending at source freeze. Planned immutable source/evidence:
+  `studies/lowboard-v1` /`output/lowboard-v1`. The finite 4090 worker uses the shared
+  lock; 4070 and Isaac deployment/workloads are outside this task. Existing viewer
+  receives a separate read-only `#lowBoardStudy` without service restart or policy
+  activation. Source/package/assets/options, parent hashes, all native flights,
+  requested rejects and paired repeats require independent CPU audit.
+- New noise seed 20261207; 3 nominal +30 fresh joint H/tilt/gap variations per selected
+  capture at 32/64/128, same gates as parent. If no capture is found, no successful
+  recipe or untested-resolution evidence is invented. Reported bucket-height
+  uncertainty and old baselines remain unchanged. This is development search,
+  not new RL, held-out generalization, arm transit, perception or hardware work.
+
 ## Completed seeded bucket-distance study — November 3, 2026
 
 - [Exact settings, both rays and evidence](../baselines/mjlab-distance-20261103/README.md):
