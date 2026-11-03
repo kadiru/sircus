@@ -5,6 +5,22 @@ positions, using corrected native MuJoCo/mjlab physics. It learns no policy and
 does not establish continuous-table coverage. The interface displays one selected
 workcell and the complete per-table evidence table.
 
+## Completed result — November 3, 2026
+
+[Audited compact evidence and full-precision settings](../../baselines/mjlab-grid35-expanded-20261103/README.md)
+cover all 35 targets: 17 selected recipes, 12 unresolved and 6 clearance-admission
+blockers. Parent and follow-up audits passed separately. The parent froze 17
+recipes (51/51 nominal, 495/510 perturbed); one 22/30 recipe was replaced by a new
+bearing/joint configuration scoring 3/3 and 28/30. Sixteen exact parent configurations
+retain their original frozen rates. Current per-recipe recorded rates are 28–30/30,
+not a new common-bank test or learned-policy success rate.
+
+The diversified pass audited 13,312 proposals at 13 clear targets. All 101 eligible
+broad/inverse poses reached native physics, out of 6,656 proposed; another 1,563
+native search shots were local proposals. No additional target qualified. Finite
+geometry/path/flight limits remain explicit. Both finite workers exited; the
+existing solver catalogue, policy routing and other services were preserved.
+
 ## Search and selection
 
 Each target retains the original scene, materials, ball, bucket dimensions,

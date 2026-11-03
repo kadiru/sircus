@@ -345,7 +345,8 @@ function showPlannerGridStudy() {
       summary.textContent = 'Details'; reason.textContent = row.reason; details.append(summary, reason); status.append(details);
     }
     if (['qualified', 'verified_fresh', 'saved_verified'].includes(row.status)) status.style.color = 'var(--teal)';
-    const currentFrozen = !row.frozenExpected ? 'Saved recipe · no new frozen repeats' : row.frozen ? `${row.frozen.status.replaceAll('_', ' ')}\nNominal ${gridRepeats(row.frozen.nominal)}\nPerturbed ${gridRepeats(row.frozen.fresh)}\nClean / assisted: ${gridQuality(row.frozen.quality)}` : 'Pending / unknown';
+    const currentFrozen = !row.selected && ['unresolved', 'blocked', 'failed'].includes(row.status) ? 'Not evaluated · no selected shot'
+      : !row.frozenExpected ? 'Saved recipe · no new frozen repeats' : row.frozen ? `${row.frozen.status.replaceAll('_', ' ')}\nNominal ${gridRepeats(row.frozen.nominal)}\nPerturbed ${gridRepeats(row.frozen.fresh)}\nClean / assisted: ${gridQuality(row.frozen.quality)}` : 'Pending / unknown';
     const previousFrozen = row.previousFrozen ? `\n\nPrevious study frozen repeats\nNominal ${gridRepeats(row.previousFrozen.nominal)}\nPerturbed ${gridRepeats(row.previousFrozen.fresh)}\nClean / assisted: ${gridQuality(row.previousFrozen.quality)}` : '';
     const frozen = cell(currentFrozen + previousFrozen);
     if (row.frozen?.configurationSha) frozen.title = `Frozen configuration SHA256: ${row.frozen.configurationSha}`;
