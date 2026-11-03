@@ -296,7 +296,7 @@
     "clips_or_projects_action": false
   },
   "flight_rollouts": 0,
-  "complete_shot_native_smoke": "Separate gate; pending at controls-bundle preparation",
+  "complete_shot_native_smoke": "Separate shared engineering gate passed; see native-complete-shot-summary.json. No change to historical71 geometry-proof scope.",
   "new_benchmark_capture_rates": null,
   "limitations": [
     "No new collision geometry, IK, trajectory integration or ball-flight rollout was performed.",
@@ -306,5 +306,5 @@
     "Sampled setup paths are not driven actuator/impact-compliance validation.",
     "Ball/bucket materials and dimensions retain the existing provisional simulation assumptions."
   ],
-  "fingerprint": "05cf8287db5574b24a88176d8783920162d0958985e9d6c405391edb7b390ea9"
+  "fingerprint": "4c903ac945a57924bd03bad90d2d20bd6bcc609fe51fcab8bd414d2f41b35969"
 }

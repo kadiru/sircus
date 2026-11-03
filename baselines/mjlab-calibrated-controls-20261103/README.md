@@ -27,8 +27,18 @@ The isolated current-ball bucket controls passed an independent CPU audit:
 The versioned complete-shot scorer still requires a measured board rebound,
 whole-ball mouth entry and continuous one-second retention. Rim-assisted
 captures count; a partial exit resets retention. Component containment controls
-alone do not validate that complete-shot route. Native complete-shot smoke is a
-separate gate and was pending when this controls bundle was prepared.
+alone do not validate that complete-shot route. The separate native complete-shot
+engineering gate subsequently passed from immutable `calibrated-native-v2c`: 50
+requested decisions, 48 native releases, and captures for all 17 exact shared
+source recipes. One deliberate setup rejection remained in the ledger. The
+32-decision discarded PPO check used actual simulator scores and changed the
+actor; its model/data are not reused for the matched-budget benchmark. The
+independent CPU audit passed 9,167 checks. Producer controls took 367.0 seconds;
+the audit took 3.4 seconds. These are shared engineering checks, separate from
+method-training budgets and held-out evaluation, with no new benchmark rates.
+See `native-complete-shot-summary.json` and the exact
+`native-complete-shot-audit-v2c.json`; both native traces and models remain out
+of this bundle.
 
 `home-control-v5.json` is the exact simulated canonical-home record with identity
 `8f89fdb561beeb571ee1975f8677354decb3a8002be3fb95d6e4772bbe2ba62d`.
@@ -44,7 +54,7 @@ sampled clearance and greater-than-150 mm board/bucket separation constraints
 remain in force. Sampled geometry/path proofs do not validate driven arm
 motion, grasping or impact compliance.
 
-The two contact reports and canonical-home JSON preserve their exact original
+The contact reports, native complete-shot audit and canonical-home JSON preserve their exact original
 bytes and fingerprints. Derived summaries retain original input hashes and
 relative source/proof references. `source-and-evidence-manifest.json` binds the
 producer, auditor and raw native-cache hashes. No raw arrays, host paths,
