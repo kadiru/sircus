@@ -1,0 +1,215 @@
+{
+  "version": "sircus-low-board-far-development-v1",
+  "seed": 20261207,
+  "board_xy_m": [
+    0.4708757793012148,
+    -0.2778934014509746
+  ],
+  "rays": [
+    {
+      "id": "corner",
+      "label": "Diagonal toward supported table corner",
+      "unit_xy": [
+        -0.7710498114325478,
+        -0.6367748332729808
+      ],
+      "heading_deg": -140.44825482032886,
+      "distances_m": [
+        0.65,
+        0.7,
+        0.75,
+        0.77
+      ]
+    }
+  ],
+  "targets": [
+    {
+      "id": "corner-d01",
+      "distance_id": "corner-d01",
+      "ray_id": "corner",
+      "distance_m": 0.65,
+      "board_xy_m": [
+        0.4708757793012148,
+        -0.2778934014509746
+      ],
+      "bucket_xy_m": [
+        -0.030306598129941298,
+        -0.6917970430784122
+      ],
+      "bucket_on_table": true,
+      "table_margin_m": 0.08320295692158783,
+      "reason": null
+    },
+    {
+      "id": "corner-d02",
+      "distance_id": "corner-d02",
+      "ray_id": "corner",
+      "distance_m": 0.7,
+      "board_xy_m": [
+        0.4708757793012148,
+        -0.2778934014509746
+      ],
+      "bucket_xy_m": [
+        -0.06885908870156865,
+        -0.7236357847420611
+      ],
+      "bucket_on_table": true,
+      "table_margin_m": 0.051364215257938856,
+      "reason": null
+    },
+    {
+      "id": "corner-d03",
+      "distance_id": "corner-d03",
+      "ray_id": "corner",
+      "distance_m": 0.75,
+      "board_xy_m": [
+        0.4708757793012148,
+        -0.2778934014509746
+      ],
+      "bucket_xy_m": [
+        -0.107411579273196,
+        -0.7554745264057101
+      ],
+      "bucket_on_table": true,
+      "table_margin_m": 0.019525473594289883,
+      "reason": null
+    },
+    {
+      "id": "corner-d04",
+      "distance_id": "corner-d04",
+      "ray_id": "corner",
+      "distance_m": 0.77,
+      "board_xy_m": [
+        0.4708757793012148,
+        -0.2778934014509746
+      ],
+      "bucket_xy_m": [
+        -0.12283257550184701,
+        -0.7682100230711698
+      ],
+      "bucket_on_table": true,
+      "table_margin_m": 0.0067899769288301826,
+      "reason": null
+    }
+  ],
+  "control_target": {
+    "id": "parent-control",
+    "distance_id": "parent-control",
+    "ray_id": "original_control",
+    "distance_m": 0.47282574126472343,
+    "board_xy_m": [
+      0.4708757793012148,
+      -0.2778934014509746
+    ],
+    "bucket_xy_m": [
+      0.16275255472120964,
+      -0.6365356466995716
+    ],
+    "scope": "Exact source controls; excluded from far-target search tables"
+  },
+  "table_bounds_xy_m": [
+    [
+      -0.22999999999999998,
+      1.57
+    ],
+    [
+      -0.875,
+      0.375
+    ]
+  ],
+  "table_bucket_margin_m": 0.005,
+  "bucket_outer_radius_m": 0.1,
+  "bounds": {
+    "version": "sircus-window-low-board-actions-v1",
+    "low": [
+      0.3,
+      -0.5,
+      0.04,
+      8.0,
+      0.02
+    ],
+    "high": [
+      1.04,
+      0.35,
+      0.56,
+      64.0,
+      0.65
+    ]
+  },
+  "substeps": [
+    32,
+    64,
+    128
+  ],
+  "reach_limit": {
+    "ball_center_height_m": 0.8193243380486807,
+    "board_height_plus_gap_m": 0.7818243380486807,
+    "wrist_radius_m": 0.842,
+    "shoulder_height_m": 0.364,
+    "flange_above_ball_m": 0.095,
+    "prior_wrist_offset_m": 0.09,
+    "formula": "Zball_max = 0.364 + sqrt(0.842^2 - X^2 - Y^2) - 0.095 - 0.09",
+    "scope": "Unchanged cheap spherical workspace prior only; native IK and strict clearance are separate checks"
+  },
+  "grid": {
+    "board_heights_m": [
+      0.22,
+      0.24,
+      0.26,
+      0.28,
+      0.3,
+      0.32,
+      0.34,
+      0.36
+    ],
+    "tilts_deg": [
+      28.0,
+      32.0,
+      36.0,
+      40.0
+    ],
+    "release_headroom_m": [
+      0.005,
+      0.015,
+      0.03,
+      0.05,
+      0.08
+    ],
+    "source_anchor_selection": "Nearest normalized H/40mm and tilt/4deg, then stable source ID; no outcome labels"
+  },
+  "height_noise_m": 0.001,
+  "tilt_noise_deg": 0.25,
+  "gap_noise_m": 0.002,
+  "repeatability": {
+    "nominal": 3,
+    "fresh": 30,
+    "noise_std": [
+      0.001,
+      0.25,
+      0.002
+    ],
+    "same_requests_and_joints": true,
+    "clipping": false,
+    "retry": false,
+    "max_local_joint_delta_rad": 0.1
+  },
+  "search": {
+    "control_contexts": 8,
+    "coarse_contexts": 128,
+    "coarse_requests": 640,
+    "refinement_per_captured_context": 4,
+    "maximum_recipes": 8
+  },
+  "gates": {
+    "fine_pair": "3/3nominal and>=27/30fresh at64/128,>=30/33capture agreement,<=5mm nominal350mspositiondelta",
+    "all_resolution": "Fine-pair gate plus3/3nominal and>=27/30fresh at32; no32position-convergence claim"
+  },
+  "budgets": {
+    "controls": 24,
+    "coarse": 640,
+    "refinement_max": 512,
+    "repeats_max": 792,
+    "maximum_requests": 1968
+  },
+  "scope": "Lower-board/moderate-tilt DEVELOPMENT search at four previously studied far bucket positions; privileged geometry and prescribed endpoints. No new RL, held-out layout performance, continuous success interval, arm transit, actuator or physical validation."
+}

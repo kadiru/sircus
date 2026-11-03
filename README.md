@@ -4,10 +4,11 @@
 
 The read-only `#distanceStudy` panel shows both bucket rays, exact settings, paired repeats and actual saved successful/failed flights. This is development search, not a newly trained policy or continuous-table generalization. The [height/tilt parent](baselines/mjlab-height-tilt-20261102/README.md), [conditional gap-window study](baselines/mjlab-window-sac-20261102/README.md), original contracts and active solver routing remain separate.
 
-The next [lower-board far-shot study](sircus/mjlab/LOWBOARD_STUDY.md) independently
-crosses 220–360 mm board heights with 28–40° tilt and release levels near the
-unchanged reach prior. Its separate `#lowBoardStudy` panel retains all failures
-and will require a completed independent audit before qualifying any setting.
+The [completed lower-board far-shot study](baselines/mjlab-lowboard-20261103/README.md)
+tested 640 far requests, including 208 admitted native releases, at 650–770 mm;
+none captured. All 24 parent controls reproduced. The 2,435-check independent audit
+passed. Its read-only `#lowBoardStudy` shows failures and geometry limits; no
+successful recipe or fresh-repeat evidence was invented.
 
 Two UFACTORY850 arms learn to bounce a ball from a suction-mounted board into a bucket. Arm10 picks/releases; arm14 positions the board. This private repository is the shared source for Mac physical work and Ubuntu simulation work.
 

@@ -68,8 +68,13 @@ test('actual partial and completed data render exact settings and native flight 
   assert.ok(node('lowBoardCeiling').textContent.includes('cheap spherical prior'));assert.ok(node('lowBoardCeiling').textContent.includes('not a certified native reach limit'));
   assert.ok(labels.includes('Bucket center axis (700.0 mm)'));assert.ok(labels.includes('Configured board center'));assert.ok(node('lowBoardTraceCaption').textContent.includes('not a native observation'));
   assert.equal(JSON.stringify(s.trace_examples),before);assert.equal(c.report.distance_evaluation,previous);
-  const selected=s.selected_recipes;s.selected_recipes=[];s.counts.captures=24;c.showLowBoardStudy();
+  const selected=s.selected_recipes;s.selected_recipes=[];s.counts={requests:24,native_releases:24,captures:24,phase_counts:{controls:24}};
+  s.contexts[0].search_captures=0;s.contexts[0].search_native_releases=0;c.showLowBoardStudy();
   assert.equal(node('lowBoardConclusion').textContent,'No captured development setting was selected; repeatability is not established.');assert.equal(s.counts.captures,24);
+  let metrics=new Map(node('lowBoardSummary').metrics);assert.equal(metrics.get('Far-target search captures'),0);assert.equal(metrics.get('Far-target native releases (search)'),0);
+  assert.equal(metrics.get('Far-target search requests'),5);assert.equal(metrics.get('Baseline control requests'),24);assert.equal(metrics.get('All-phase captures (includes controls)'),24);
+  assert.equal(metrics.get('All-phase requests (includes controls)'),24);assert.equal(metrics.get('All-phase native releases (includes controls)'),24);assert.equal(metrics.has('captures'),false);
+  delete s.counts.phase_counts.controls;c.showLowBoardStudy();metrics=new Map(node('lowBoardSummary').metrics);assert.equal(metrics.get('Baseline control requests'),'unknown');assert.equal(metrics.get('All-phase captures (includes controls)'),24);
   s.selected_recipes=selected;
   s.status='waiting_for_4090';s.phase='device_queue';s.queue={reason:'shared GPU lock',wait_s:120};c.showLowBoardStudy();assert.ok(node('lowBoardStatus').textContent.includes('2 min queued'));assert.ok(node('lowBoardConclusion').textContent.includes('awaits'));assert.equal(tables.get(node('lowBoardSensitivity')).rows[0][4],'Unverified');
   s.status='failed';s.error='preflight stopped';s.trace_examples=[];c.showLowBoardStudy();assert.ok(node('lowBoardStatus').textContent.includes('preflight stopped'));assert.equal(node('lowBoardTraceSelect').disabled,true);assert.ok(node('lowBoardTraceCaption').textContent.includes('no ideal trajectory'));

@@ -1,0 +1,193 @@
+{
+  "version": "sircus-posthoc-tilt-boundary-cpu-diagnostic-v1",
+  "scope": "POSTHOC geometry-only proposal diagnostic, excluded from frozen lowboard-v1. No GPU, ball dynamics, native capture, training, service change, prior relaxation or impossibility claim.",
+  "parent_fingerprint": "6d94edc505db7201f603456116303cd14acd9dde26e364ea295b1739c78f8499",
+  "source_geometry_sha256": "bc7276a7104680c32220dfc589cd46793beffab6166d64da0956e4bc2ed8e507",
+  "elapsed_s": 9.628487573005259,
+  "summary": [
+    {
+      "board_height_m": 0.38,
+      "tilt_deg": 24,
+      "source_anchor_id": "recipe-08",
+      "board_admitted": false,
+      "board_reason": "workspace_prior_reject",
+      "admitted_headrooms_m": [],
+      "endpoint_reasons": {
+        "workspace_prior_reject": 4
+      }
+    },
+    {
+      "board_height_m": 0.38,
+      "tilt_deg": 28,
+      "source_anchor_id": "recipe-08",
+      "board_admitted": true,
+      "board_reason": null,
+      "admitted_headrooms_m": [
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "endpoint_reasons": {}
+    },
+    {
+      "board_height_m": 0.38,
+      "tilt_deg": 30,
+      "source_anchor_id": "recipe-08",
+      "board_admitted": true,
+      "board_reason": null,
+      "admitted_headrooms_m": [
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "endpoint_reasons": {}
+    },
+    {
+      "board_height_m": 0.38,
+      "tilt_deg": 32,
+      "source_anchor_id": "recipe-08",
+      "board_admitted": true,
+      "board_reason": null,
+      "admitted_headrooms_m": [
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "endpoint_reasons": {}
+    },
+    {
+      "board_height_m": 0.4,
+      "tilt_deg": 24,
+      "source_anchor_id": "recipe-08",
+      "board_admitted": false,
+      "board_reason": "workspace_prior_reject",
+      "admitted_headrooms_m": [],
+      "endpoint_reasons": {
+        "workspace_prior_reject": 4
+      }
+    },
+    {
+      "board_height_m": 0.4,
+      "tilt_deg": 28,
+      "source_anchor_id": "recipe-08",
+      "board_admitted": true,
+      "board_reason": null,
+      "admitted_headrooms_m": [
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "endpoint_reasons": {}
+    },
+    {
+      "board_height_m": 0.4,
+      "tilt_deg": 30,
+      "source_anchor_id": "recipe-08",
+      "board_admitted": true,
+      "board_reason": null,
+      "admitted_headrooms_m": [
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "endpoint_reasons": {}
+    },
+    {
+      "board_height_m": 0.4,
+      "tilt_deg": 32,
+      "source_anchor_id": "recipe-08",
+      "board_admitted": true,
+      "board_reason": null,
+      "admitted_headrooms_m": [
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "endpoint_reasons": {}
+    },
+    {
+      "board_height_m": 0.42,
+      "tilt_deg": 24,
+      "source_anchor_id": "recipe-04",
+      "board_admitted": false,
+      "board_reason": "workspace_prior_reject",
+      "admitted_headrooms_m": [],
+      "endpoint_reasons": {
+        "workspace_prior_reject": 4
+      }
+    },
+    {
+      "board_height_m": 0.42,
+      "tilt_deg": 28,
+      "source_anchor_id": "recipe-02",
+      "board_admitted": true,
+      "board_reason": null,
+      "admitted_headrooms_m": [
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "endpoint_reasons": {}
+    },
+    {
+      "board_height_m": 0.42,
+      "tilt_deg": 30,
+      "source_anchor_id": "recipe-02",
+      "board_admitted": true,
+      "board_reason": null,
+      "admitted_headrooms_m": [
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "endpoint_reasons": {}
+    },
+    {
+      "board_height_m": 0.42,
+      "tilt_deg": 32,
+      "source_anchor_id": "recipe-02",
+      "board_admitted": true,
+      "board_reason": null,
+      "admitted_headrooms_m": [
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "endpoint_reasons": {}
+    }
+  ],
+  "raw_proof_sha256": "f577761cb3c6e455e749b93df6d56e8e3c6d2db413d7c4bc3a26c7d93a070490",
+  "raw_evidence_reference": "temporary/low-board-posthoc-tilt-boundary-cpu.json",
+  "target_distance_m": 0.65,
+  "requested_contexts": 12,
+  "board_admitted_contexts": 9,
+  "paired_endpoint_requests": 48,
+  "paired_endpoints_admitted": 36,
+  "requested_heights_m": [
+    0.38,
+    0.4,
+    0.42
+  ],
+  "requested_tilts_deg": [
+    24,
+    28,
+    30,
+    32
+  ],
+  "requested_headroom_m": [
+    0.015,
+    0.03,
+    0.05,
+    0.08
+  ],
+  "caveat": "POSTHOC CPU geometry diagnostic outside frozen lowboard-v1. No ball flight, GPU experiment, capture, learned policy or safe arm path was tested. Admission is a strict endpoint check with fixed-source hints, not an actual safe-height boundary or impossibility proof. No supplement physics was launched."
+}
