@@ -67,6 +67,16 @@ After prediction the exact requested action is checked; it is never projected,
 clipped or replaced by a successful fallback. Finite search failures are labeled
 unresolved, not proofs of global impossibility.
 
+An admitted anchor's immutable sampled path can be reused as a verified prefix.
+Identical requested joints reuse that exact proof; otherwise the planner checks
+a serialized anchor-to-request suffix and binds the concatenated forward and
+reverse proofs. If the suffix is blocked, full canonical-home planning remains
+available for the same requested action. Prefix hashes, exact concatenation,
+clearance and sampling are checked independently. This avoids repeatedly
+checking the same long prefix, without changing the requested shot or bounds.
+Both methods use the same cache policy, with initial resolution charged to each
+run. The policy is part of the frozen setup/source identity.
+
 ## Matched learning design
 
 Both methods receive the same current ball,17 source recipes,35 TRAIN bucket

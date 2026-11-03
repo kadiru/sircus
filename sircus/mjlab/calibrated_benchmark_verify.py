@@ -288,6 +288,27 @@ def check_setup_evidence(directory, rows, prior, home, checks):
     return dict(resolutions=len(resolved),connections=len(connections))
 
 
+def check_native_clock(clock, ticks, checks, label, *, synthetic=False):
+    """Check independently reconstructed native f32 accumulation, never retime data.
+
+    All five independently audited component-control datasets reproduce this
+    recurrence bit for bit. Canonical tick-derived time remains separate.
+    """
+    clock,ticks=np.asarray(clock),np.asarray(ticks,dtype=np.float64)
+    checks.require(clock.ndim==2 and clock.shape[0]==len(ticks),label+"/native clock world/time dimensions")
+    checks.require(np.isfinite(clock).all(),label+"/finite observed native clock")
+    checks.require((clock[0]==0).all(),label+"/native clock reset at time zero")
+    checks.require((np.diff(clock,axis=0)>0).all(),label+"/strictly positive native clock increments")
+    checks.require((np.ptp(clock,axis=1)<=1e-7).all(),label+"/world native clocks agree")
+    if not synthetic:
+        checks.require(clock.dtype==np.float32,label+"/native clock recorded float32 precision")
+        dt=float(ticks[1]-ticks[0])
+        expected=np.empty(len(ticks),dtype=np.float32);expected[0]=0.
+        np.cumsum(np.full(len(ticks)-1,np.float32(dt),dtype=np.float32),dtype=np.float32,out=expected[1:])
+        checks.require(np.array_equal(clock,np.broadcast_to(expected[:,None],clock.shape)),label+"/independent exact repeated-float32 native clock reconstruction")
+    return np.max(np.abs(clock.astype(np.float64)-ticks[:,None]),axis=0)
+
+
 def rescore_rows(directory, rows, scene, calibration, checks, label, trace_spec, *, assets=None):
     from .calibrated_score_oracle import score_trace
     by_file,traces={},{}
@@ -381,11 +402,12 @@ def rescore_rows(directory, rows, scene, calibration, checks, label, trace_spec,
             checks.numeric(arrays["time_s"],ticks,label+"/explicit canonical native ticks",1e-12)
             checks.require("native_time_s" in arrays,label+"/observed native GPU clock retained")
             native_time=arrays["native_time_s"]
-            checks.require(native_time.shape in ((total_steps+1,),(total_steps+1,len(ids))),label+"/native clock dimensions")
-            checks.require(np.isfinite(native_time).all() and (np.diff(native_time,axis=0)>=0).all(),label+"/finite monotonic observed native clock")
+            checks.equal(native_time.shape,(total_steps+1,len(ids)),label+"/native clock dimensions")
+            clock_drift=check_native_clock(native_time,ticks,checks,label,synthetic=synthetic)
             for index,row in members:
                 name=label+"/"+row["id"]
                 checks.equal(str(ids[index]),row["id"],name+"/dense trace request binding")
+                checks.numeric(row["native_clock_drift_s"],float(clock_drift[index]),name+"/reported actual native clock drift",1e-12)
                 trace={"position_m":arrays["position_m"][:,index],
                        "velocity_m_s":arrays["velocity_m_s"][:,index],
                        "forces_N":arrays["forces_N"][:,index],
@@ -426,7 +448,7 @@ def rescore_rows(directory, rows, scene, calibration, checks, label, trace_spec,
                 refs=tangency_references[index]
                 traces[row["id"]]=dict(zero_frame_contacts=len(refs),references_sha256=digest(refs),
                     max_cpu_distance_error_m=max((r[4] for r in refs),default=0.),
-                    max_cpu_tangency_distance_m=max((abs(r[2]) for r in refs),default=0.))
+                    max_cpu_tangency_distance_m=max((abs(r[2]) for r in refs),default=0.),native_clock_drift_s=float(clock_drift[index]))
     checks.equal(set(by_file),{str(p.relative_to(directory)) for p in directory.rglob("*.npz")},label+"/no unassigned dense native arrays")
     return traces
 

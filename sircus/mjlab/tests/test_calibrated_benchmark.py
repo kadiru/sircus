@@ -81,12 +81,15 @@ class ContractTests(unittest.TestCase):
             contact_distance_m=np.full((1600,1,2),np.inf),contact_geom_ids=np.full((1600,1,2,2),-1,dtype=np.int32),
             contact_position_m=np.zeros((1600,1,2,3)),contact_normal=np.zeros((1600,1,2,3)))
         arrays["contact_distance_m"][0,0,1]=0.;arrays["contact_geom_ids"][0,0,1]=[99,100]
+        observed=np.r_[np.float32(0),np.cumsum(np.full(1600,np.float32(.001)),dtype=np.float32)]
+        arrays["native_time_s"]=observed[:,None]
         trace={k:(v[:,0] if v.ndim>=2 else v) for k,v in arrays.items() if k!="record_ids"}
         row=score_trace(scene,bucket,normal,cfg,trace)
         row.update(id="a",values=values.tolist(),bucket_xy_m=bucket,native_release=True,native_cache_file="native.npz",native_cache_row=0,
             board_center_m=values[:3].tolist(),board_normal=normal.tolist(),release_ball_center_m=release.tolist(),
             native_initial_ball_center_m=release.tolist(),native_initial_bucket_center_m=[*bucket,0.],
-            pose_gate=dict(board_position_error_mm=0.,board_normal_error_deg=0.,dropper_error_mm=0.),bucket_collider_error_m=0.,calibrated_geometry_sha256="x")
+            pose_gate=dict(board_position_error_mm=0.,board_normal_error_deg=0.,dropper_error_mm=0.),bucket_collider_error_m=0.,calibrated_geometry_sha256="x",
+            native_clock_drift_s=float(np.max(np.abs(observed.astype(float)-times))))
         model=SimpleNamespace(jnt_qposadr=np.array([0]),body_mocapid=np.array([0]),
             geom=lambda name:SimpleNamespace(id=0 if name=="ball/geom" else 1),
             joint=lambda name:SimpleNamespace(id=0),body=lambda name:SimpleNamespace(id=0))
@@ -106,6 +109,17 @@ class ContractTests(unittest.TestCase):
                 distance[0]=.001
                 with self.assertRaisesRegex(EvidenceError,"independently verified"):
                     rescore_rows(root,[row],scene,cfg,Checks(),"bad-zero-frame",spec,assets=root)
+
+    def test_native_clock_rejects_stale_stalled_and_retimed_observations(self):
+        from sircus.mjlab.calibrated_benchmark_verify import check_native_clock, Checks, EvidenceError
+        ticks=np.arange(61441,dtype=np.float64)/15360
+        clock=np.r_[np.float32(0),np.cumsum(np.full(61440,np.float32(1/15360)),dtype=np.float32)][:,None]
+        drift=check_native_clock(clock,ticks,Checks(),"native")
+        self.assertAlmostEqual(float(drift[0]),.0008041858673095703,delta=1e-12)
+        for label,changed in (("stale",clock+np.float32(4.)),("retimed",ticks.astype(np.float32)[:,None]),("wrong precision",clock.astype(float))):
+            with self.subTest(label=label),self.assertRaises(EvidenceError):check_native_clock(changed,ticks,Checks(),label)
+        stalled=clock.copy();stalled[100]=stalled[99]
+        with self.assertRaisesRegex(EvidenceError,"positive"):check_native_clock(stalled,ticks,Checks(),"stalled")
 
     def test_calibration_kind_and_exact_verification_binding(self):
         scene=read(ROOT/'sircus/isaac/scene.json');cfg=config(scene)
@@ -184,7 +198,7 @@ class CompleteFixtureTests(unittest.TestCase):
                         native_initial_bucket_center_m=[*xy,0.],q10=requested['q10'],q14=requested['q14'],
                         native_initial_q10=requested['q10'],native_initial_q14=requested['q14'],
                         bucket_collider_error_m=0.,pose_gate=dict(board_position_error_mm=0.,board_normal_error_deg=0.,dropper_error_mm=0.),
-                        synthetic_fixture=True)
+                        synthetic_fixture=True,native_clock_drift_s=0.)
                     positions.append(xyz);velocities.append(velocity);forces.append(force);rows.append(measured)
                 arrays=dict(position_m=np.stack(positions,axis=1),velocity_m_s=np.stack(velocities,axis=1),
                             forces_N=np.stack(forces,axis=1),time_s=times,native_time_s=np.tile(times[:,None],(1,len(rows))),

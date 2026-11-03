@@ -191,10 +191,14 @@ def checked_setup_home(path):
         vector = np.asarray(home.get(key), dtype=float)
         if vector.shape != (6,) or not np.isfinite(vector).all():
             raise ValueError("Setup home requires finite six-joint poses")
-    from .calibrated_admission import anchor_search_spec, VERSION as RESOLVER_VERSION
+    from .calibrated_admission import (
+        anchor_search_spec, VERSION as RESOLVER_VERSION,
+        CONNECTION_POLICY_VERSION, CONNECTION_POLICY,
+    )
     return dict(home=copy.deepcopy(home), home_file_sha256=sha(path),
                 home_record_sha256=digest(home),
                 resolver=RESOLVER_VERSION, anchor_search=anchor_search_spec(),
+                connection_policy=CONNECTION_POLICY_VERSION, connection_policy_scope=CONNECTION_POLICY,
                 geometry_candidate_budget=64, rrt_nodes=192,
                 source_order="nearest original source bucket XY then source ID",
                 no_flight_labels=True, no_postprediction_action_fallback=True)

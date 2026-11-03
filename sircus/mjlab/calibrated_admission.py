@@ -36,6 +36,14 @@ HOME_CENTERS = (
     (.95, -.25, .60), (1.05, .15, .75), (.85, .25, .65),
 )
 SCOPE = "prescribed canonical initial park to exact requested endpoint and reverse; finite sampled geometry, not actuator/grasp validation"
+CONNECTION_POLICY_VERSION = "sircus-verified-anchor-prefix-connection-v1"
+CONNECTION_POLICY = (
+    "Reuse the hash-bound admitted canonical-home-to-anchor sampled prefix; "
+    "identical requested joints reuse that proof, otherwise certify a serialized "
+    "anchor-to-exact-request suffix and concatenate forward/reverse proofs; "
+    "blocked suffixes retain full canonical-home planning fallback. Exact actions, "
+    "5mm clearance and 0.5degree sampling remain unchanged."
+)
 
 ANCHOR_ATTEMPT_BUDGET = 64
 DERIVED_OFFSETS = (
@@ -519,16 +527,18 @@ class GeometryResolver:
 
     def connect(self, anchor, requested_values):
         verify_resolution(anchor,self.sources,self.home)
+        self._check_resolution_bytes(anchor)
         values = _vector(requested_values, 5, "requested values").tolist()
         bucket = _vector(anchor["bucket_xy_m"], 2, "bucket").tolist()
-        key = digest(dict(version=VERSION, resolution_sha256=anchor["sha256"], values=values, bucket_xy_m=bucket))
+        key = digest(dict(version=VERSION, connection_policy=CONNECTION_POLICY_VERSION,
+            resolution_sha256=anchor["sha256"], values=values, bucket_xy_m=bucket))
         if key in self._connected: return dict(copy.deepcopy(self._connected[key]), cache_hit=True)
         begin = time.monotonic(); timing = dict(home_s=0., endpoint_s=0., path_s=0., wall_s=0.)
         record = dict(version=VERSION, bucket_xy_m=bucket, values=values, resolution_file=anchor["file"],
             resolution_sha256=anchor["sha256"], home_sha256=self.home["sha256"],
             passed=False, geometry_eligible=False, endpoint_eligible=None, reason=None,
             q10=[0.]*6, q14=[0.]*6, proof=None, endpoint_attempts=None, path_attempts=[], timing=timing,
-            action_substituted=False, anchor_values=anchor["anchor_values"],
+            action_substituted=False, connection_policy=CONNECTION_POLICY_VERSION, anchor_values=anchor["anchor_values"],
             anchor_derivation_sha256=digest(anchor["anchor_derivation"]))
         if not anchor["home_passed"]:
             record["reason"] = "fixed_base_clearance_rejected" if anchor.get("hard_reject") else "canonical_home_unresolved_in_layout"
@@ -540,7 +550,29 @@ class GeometryResolver:
             record["endpoint_attempts"] = endpoint; record["endpoint_eligible"] = endpoint["passed"]
             record["reason"] = endpoint["reason"]
             for row in endpoint["candidates"]:
-                start = time.monotonic(); proof = self.planner.plan(np.r_[row["q10"], row["q14"]], bucket); timing["path_s"] += time.monotonic()-start
+                target = np.r_[row["q10"], row["q14"]]
+                start = time.monotonic()
+                if anchor["passed"]:
+                    aq = np.r_[anchor["resolved"]["q10"], anchor["resolved"]["q14"]]
+                    if np.array_equal(aq, target):
+                        proof = compose_anchor_prefix(anchor, self.home, target)
+                    else:
+                        suffix = self.planner.plan(target, bucket, start=aq)
+                        if suffix["passed"]:
+                            proof = compose_anchor_prefix(anchor, self.home, target, suffix)
+                        else:
+                            rejected = dict(passed=False, reason="finite_anchor_suffix_unresolved",
+                                connection_route=dict(kind="anchor_suffix_rejected", prefix=anchor_prefix_identity(anchor),
+                                    target_q=target.tolist(), suffix_proof=suffix))
+                            suffix_index = len(record["path_attempts"])
+                            record["path_attempts"].append(rejected)
+                            proof = copy.deepcopy(self.planner.plan(target, bucket))
+                            proof["connection_route"] = dict(kind="full_home_after_anchor_suffix", prefix=anchor_prefix_identity(anchor),
+                                suffix_attempt_index=suffix_index)
+                else:
+                    # An unresolved nominal anchor never vetoes an actual action.
+                    proof = self.planner.plan(target, bucket)
+                timing["path_s"] += time.monotonic()-start
                 record["path_attempts"].append(proof)
                 if proof["passed"]:
                     record.update(passed=True, geometry_eligible=True, q10=row["q10"], q14=row["q14"],
@@ -550,6 +582,51 @@ class GeometryResolver:
         record.update(self._save("connections", key, record))
         self._connected[key] = copy.deepcopy(record)
         return dict(record, cache_hit=False)
+
+    def _check_resolution_bytes(self, anchor):
+        """A cached prefix must be the exact immutable pre-policy record."""
+        import hashlib
+        path = (self.directory / anchor["file"]).resolve()
+        if not path.is_relative_to(self.directory.resolve()):
+            raise ValueError("Resolution evidence path escaped its directory")
+        raw = path.read_bytes()
+        payload = {k:v for k,v in anchor.items() if k not in ("file", "sha256", "cache_hit")}
+        if (hashlib.sha256(raw).hexdigest() != anchor["sha256"]
+                or json.loads(raw) != _plain(payload)):
+            raise ValueError("Resolution evidence bytes/prefix identity changed")
+
+
+def anchor_prefix_identity(anchor):
+    if not anchor.get("passed") or not anchor.get("anchor_admitted") or not anchor.get("resolved"):
+        raise ValueError("A passed admitted anchor is required for prefix reuse")
+    return dict(version=CONNECTION_POLICY_VERSION, resolution_file=anchor["file"], resolution_sha256=anchor["sha256"],
+        home_sha256=anchor["home_sha256"], prefix_sha256=digest(anchor["proof"]),
+        prefix_edge_count=len(anchor["proof"]["edges"]), prefix_waypoint_count=len(anchor["proof"]["waypoints"]),
+        anchor_q=np.r_[anchor["resolved"]["q10"],anchor["resolved"]["q14"]].tolist())
+
+
+def compose_anchor_prefix(anchor, home, target, suffix=None):
+    """Concatenate already checked sampled edges; never resample the prefix."""
+    target = _vector(target, 12, "exact requested endpoint")
+    prefix = anchor["proof"]; identity = anchor_prefix_identity(anchor)
+    aq = np.asarray(identity["anchor_q"]); start = np.r_[home["q10"],home["q14"]]
+    verify_path(prefix, start, aq)
+    if suffix is None:
+        if not np.array_equal(target, aq): raise ValueError("An identity suffix must end at the exact anchor joints")
+        points, edges, reverse = prefix["waypoints"], prefix["edges"], prefix["reverse_edges"]
+        clearance = prefix["minimum_clearance_m"]
+    else:
+        verify_path(suffix, aq, target)
+        points = prefix["waypoints"] + suffix["waypoints"][1:]
+        edges = prefix["edges"] + suffix["edges"]
+        reverse = suffix["reverse_edges"] + prefix["reverse_edges"]
+        clearance = min(prefix["minimum_clearance_m"], suffix["minimum_clearance_m"])
+    result = dict(passed=True, reason=None, scope=SCOPE, waypoints=copy.deepcopy(points), edges=copy.deepcopy(edges),
+        reverse_edges=copy.deepcopy(reverse), minimum_clearance_m=clearance, max_joint_sample_step_rad=SAMPLE_STEP_RAD,
+        connection_route=dict(kind="verified_anchor_prefix", prefix=identity, exact_anchor_endpoint=suffix is None,
+                              suffix_proof=copy.deepcopy(suffix)))
+    verify_path(result, start, target)
+    return result
 
 
 def verify_path(proof, start, target):
@@ -633,9 +710,41 @@ def verify_connection(record, anchor, home, requested_values):
             or record.get("values") != _vector(requested_values, 5, "requested values").tolist()
             or record.get("bucket_xy_m") != anchor["bucket_xy_m"]
             or record.get("action_substituted") is not False
+            or record.get("connection_policy") != CONNECTION_POLICY_VERSION
             or record.get("anchor_values") != anchor["anchor_values"]
             or record.get("anchor_derivation_sha256") != digest(anchor["anchor_derivation"])):
         raise ValueError("Exact requested action/resolution binding changed")
+    for index, attempt in enumerate(record.get("path_attempts", [])):
+        route = attempt.get("connection_route")
+        if route is None:
+            if anchor.get("passed"):
+                raise ValueError("Admitted anchor connection omitted prefix/fallback provenance")
+            continue
+        if route.get("prefix") != anchor_prefix_identity(anchor):
+            raise ValueError("Cached prefix identity/hash/edge count changed")
+        kind = route.get("kind")
+        if kind == "verified_anchor_prefix":
+            suffix = route.get("suffix_proof")
+            if route.get("exact_anchor_endpoint") is not (suffix is None):
+                raise ValueError("Cached prefix suffix mode changed")
+            target = np.asarray(attempt["waypoints"][-1])
+            expected = compose_anchor_prefix(anchor, home, target, suffix)
+            if attempt != expected:
+                raise ValueError("Cached prefix/suffix concatenation changed")
+        elif kind == "anchor_suffix_rejected":
+            if attempt.get("passed") is not False or route.get("suffix_proof", {}).get("passed") is not False:
+                raise ValueError("Rejected anchor suffix contains a passed route")
+            _vector(route.get("target_q"), 12, "suffix target")
+        elif kind == "full_home_after_anchor_suffix":
+            prior = route.get("suffix_attempt_index")
+            if type(prior) is not int or not 0 <= prior < index:
+                raise ValueError("Full-home fallback lacks its preceding rejected suffix")
+            failed = record["path_attempts"][prior].get("connection_route", {})
+            if (failed.get("kind") != "anchor_suffix_rejected" or failed.get("prefix") != route["prefix"]
+                    or attempt.get("passed") and failed.get("target_q") != attempt["waypoints"][-1]):
+                raise ValueError("Full-home fallback target/prefix changed")
+        else:
+            raise ValueError("Unknown sampled connection route")
     if record.get("passed"):
         if not record.get("endpoint_eligible") or not record.get("geometry_eligible") or not anchor["home_passed"]:
             raise ValueError("Admitted request lacks actual endpoint/home checks")
