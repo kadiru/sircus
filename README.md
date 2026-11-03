@@ -10,6 +10,12 @@ The current goal is a simulation showcase with an interactively placed bucket an
 
 ## Start here
 
+- **Sweep versus RL benchmark:** [matched current-ball protocol](sircus/mjlab/SWEEP_RL_BENCHMARK.md).
+  Three seeds, equal new requested-shot budgets, fresh validation/test layouts,
+  capture-rate curves and measured time/memory. Implementation checks pass;
+  native controls and the benchmark are queued behind existing 4090 work.
+  No new benchmark result or RL advantage is claimed at this checkpoint.
+
 - **35-table planner study:** [expanded sweeps and separately frozen repeats](sircus/mjlab/GRID_STUDY.md).
   Per-table settings, saved versus current qualification, and independent 3 + 30
   repeat counts appear in the study interface and [all-35 CSV](baselines/mjlab-grid35-expanded-20261103/per-table-settings.csv).

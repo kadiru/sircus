@@ -3,6 +3,7 @@ import { OrbitControls } from '/vendor/OrbitControls.js';
 import { contactStudy, contactGroups, contactConfigurations, transitRoutes, routePreview, configurationsCsv } from '/state.mjs';
 import { correctedGridProgress, correctedTrainingReadiness } from '/state.mjs';
 import { plannerReady, plannerOnly, searchReady, modeReady, plannerFarmRows, plannerGridRows, plannerGridSummary, plannerGridProgress, plannerGridCsv } from '/state.mjs';
+import { sweepRlStudy, sweepRlSummary, sweepRlPoints, sweepRlCurves, sweepRlFinalRows, sweepRlCsv } from '/state.mjs';
 import { studyReady, buildRequest, methodLabel, coverageRows, finiteVector, friendlyError, coverageSummary, comparisonRows, learningPoints, inStudiedRegion, BOARD_BODY_SIZE, bankComparisonRows, policyRouteLabel, poseInputValues, bankCoverageRows, bankCoverageStatus, formatMetric, solveButtonState, expansionTargetRows, expansionProgress, expandedComparisonRows, stableIkProgress, stableIkTargets, stableIkAuditRows, stableIkControlRows } from '/state.mjs';
 
 const $ = id => document.getElementById(id);
@@ -67,7 +68,7 @@ bucket.castShadow = bucket.receiveShadow = true; bucketGroup.add(bucket);
 const bucketBase = new THREE.Mesh(new THREE.CylinderGeometry(.079, .079, .008, 64), material(0xd39a3e));
 bucketBase.rotation.x = Math.PI / 2; bucketBase.position.z = .004; bucketGroup.add(bucketBase);
 let sceneSpec = {}, report = {}, pending = false, activeRequest = null, currentTrajectory = [], playTime = 0, playing = false, pathLine;
-let methodChosen = false, farmSignature = '', gridStudySignature = '';
+let methodChosen = false, farmSignature = '', gridStudySignature = '', benchmarkSignature = '';
 let transitFrames = [], transitTime = 0, transitName = "";
 let bucketXY = [.65, -.4];
 const armGroups = [new THREE.Group(), new THREE.Group()]; armGroups.forEach(g => world.add(g));
@@ -376,6 +377,92 @@ function showPlannerGridStudy() {
 $('plannerGridDownload').onclick = () => {
   const blob = new Blob([plannerGridCsv(report)], { type: 'text/csv;charset=utf-8' }), url = URL.createObjectURL(blob);
   const link = document.createElement('a'); link.href = url; link.download = 'sircus-35-table-sweep.csv'; link.click(); URL.revokeObjectURL(url);
+};
+const benchmarkNumber = (value, suffix = '', digits = 1) => value === null || value === undefined ? 'Unknown' : `${Number(value).toFixed(digits)}${suffix}`;
+const benchmarkCounts = value => value ? `${value.captures}/${value.attempts}${value.attempts ? ` · ${(100 * value.captures / value.attempts).toFixed(1)}%` : ' · no trials'}` : 'Unknown';
+function drawBenchmarkCurve(target, curves, metric) {
+  const valid = point => metric === 'rate' ? point.rate !== null : point.wallS !== null;
+  const all = curves.flatMap(curve => curve.points.filter(valid));
+  if (!all.length) { const text = document.createElement('p'); text.textContent = 'Waiting for measured validation milestones.'; target.replaceChildren(text); return; }
+  const width = 420, height = 240, left = 48, right = 18, top = 18, bottom = 58;
+  const maxX = Math.max(1, ...all.map(point => point.samples));
+  const maxY = metric === 'rate' ? 100 : Math.max(1, ...all.map(point => point.wallS)) * 1.08;
+  const px = value => left + value / maxX * (width - left - right), py = value => height - bottom - value / maxY * (height - top - bottom);
+  const svg = makeSvg('svg', { viewBox: `0 0 ${width} ${height}`, role: 'img', 'aria-label': metric === 'rate' ? 'Validation capture rate versus new training shot requests for sweep and residual PPO' : 'Setup and training elapsed time excluding validation versus equal shot-request budgets' });
+  for (let i = 0; i <= 4; i++) {
+    const value = maxY * i / 4, y = py(value);
+    svg.append(makeSvg('line', { x1: left, x2: width - right, y1: y, y2: y, class: 'grid' }));
+    const label = makeSvg('text', { x: left - 7, y: y + 3, 'text-anchor': 'end' }); label.textContent = metric === 'rate' ? `${value.toFixed(0)}%` : value >= 60 ? `${(value / 60).toFixed(1)}m` : `${value.toFixed(0)}s`; svg.append(label);
+  }
+  const colors = ['#a97312', '#128b8c', '#b75439'];
+  curves.forEach((curve, index) => {
+    const points = curve.points.filter(valid), color = colors[index % colors.length];
+    if (!points.length) return;
+    const value = point => metric === 'rate' ? point.rate * 100 : point.wallS;
+    svg.append(makeSvg('polyline', { points: points.map(point => `${px(point.samples)},${py(value(point))}`).join(' '), fill: 'none', stroke: color, 'stroke-width': 2.5, 'stroke-dasharray': index ? '6 3' : 'none' }));
+    for (const point of points) {
+      if (metric === 'rate' && point.seeds > 1 && point.minRate !== null && point.maxRate !== null) {
+        const x = px(point.samples), y1 = py(point.minRate * 100), y2 = py(point.maxRate * 100);
+        svg.append(makeSvg('line', { x1: x, x2: x, y1, y2, stroke: color, 'stroke-width': 1.4, opacity: .65 }));
+        for (const y of [y1, y2]) svg.append(makeSvg('line', { x1: x - 4, x2: x + 4, y1: y, y2: y, stroke: color, 'stroke-width': 1.4 }));
+      }
+      const dot = makeSvg('circle', { cx: px(point.samples), cy: py(value(point)), r: 3.5, fill: color });
+      const title = makeSvg('title'); title.textContent = `${curve.label} · ${point.samples} requests · ${point.seeds} seeds · ${point.captures}/${point.attempts} validation captures`; dot.append(title); svg.append(dot);
+    }
+    const legend = makeSvg('text', { x: left + index * 170, y: height - 4, fill: color, class: 'benchmark-legend-label' }); legend.textContent = curve.label; svg.append(legend);
+  });
+  const ticks = [...new Set([0, ...all.map(point => point.samples)])].sort((a, b) => a - b);
+  for (const value of ticks) { const label = makeSvg('text', { x: px(value), y: height - bottom + 17, 'text-anchor': 'middle' }); label.textContent = value; svg.append(label); }
+  const axis = makeSvg('text', { x: width / 2, y: height - 24, 'text-anchor': 'middle', class: 'axis-label' }); axis.textContent = 'New training shot requests / method / seed'; svg.append(axis);
+  target.replaceChildren(svg);
+}
+function showSweepRlBenchmark() {
+  if (typeof report.sweep_rl_error === 'string') {
+    $('sweepRlBenchmark').hidden = false; benchmarkSignature = '';
+    $('benchmarkStatus').textContent = `Benchmark evidence unavailable · ${friendlyError(report.sweep_rl_error)}`;
+    for (const id of ['benchmarkSummary', 'benchmarkCaptureChart', 'benchmarkTimeChart', 'benchmarkResourceTable', 'benchmarkMilestones', 'benchmarkFinalTable']) $(id).replaceChildren();
+    $('benchmarkScope').textContent = 'The benchmark report could not be verified. No benchmark measurements are displayed.';
+    $('benchmarkPrior').textContent = ''; $('benchmarkAudit').textContent = ''; $('benchmarkFinalStatus').textContent = 'Final results unavailable.'; $('benchmarkDownload').disabled = true;
+    return;
+  }
+  const study = sweepRlStudy(report), summary = sweepRlSummary(report);
+  $('sweepRlBenchmark').hidden = !summary;
+  if (!summary) return;
+  const signature = JSON.stringify(study);
+  if (signature === benchmarkSignature) return;
+  const firstDisplay = !benchmarkSignature;
+  benchmarkSignature = signature;
+  const curves = sweepRlCurves(report), points = sweepRlPoints(report), finals = sweepRlFinalRows(report);
+  $('benchmarkStatus').textContent = `${summary.status.replaceAll('_', ' ')}${summary.phase ? ` · ${summary.phase.replaceAll('_', ' ')}` : ''} · ${summary.completedRuns}/${summary.totalRuns} method/seed runs complete${summary.auditStatus ? ` · audit ${summary.auditStatus}` : ''}`;
+  addMetrics([['Equal training budget per method / seed', summary.budget === null ? 'Unknown' : summary.budget],
+    ['Training seeds', summary.seedCount || 'Not reported'], ['Measured validation checkpoints', points.length],
+    ['Verified final method / seed records', summary.status === 'completed' ? finals.length : 'Pending']], $('benchmarkSummary'));
+  $('benchmarkScope').textContent = summary.scope || 'Matched current-ball shot benchmark; source/physics and evaluation limits belong to the frozen contract.';
+  $('benchmarkPrior').textContent = `Shared prior: ${summary.priorRecipes === null ? 'unknown number of' : summary.priorRecipes} recipes. Latest source collection: ${summary.priorReleases === null ? 'unknown' : summary.priorReleases.toLocaleString()} native releases, separate from the new training budget. ${summary.priorFullCostKnown ? '' : 'Full predecessor acquisition cost is not known. '}${summary.priorScope}`;
+  drawBenchmarkCurve($('benchmarkCaptureChart'), curves, 'rate'); drawBenchmarkCurve($('benchmarkTimeChart'), curves, 'wallS');
+  const latest = curves.filter(curve => curve.points.length).map(curve => ({ ...curve.points.at(-1), label: curve.label }));
+  expansionTable($('benchmarkResourceTable'), ['Method / budget', 'Validation captures', 'Seeds reported', 'Native validation / rejected', 'Mean setup + training time', 'Mean CPU / geometry time', 'Mean GPU phase / reservation', 'Peak RSS / sampled VRAM', 'Torch allocated / reserved peak'], latest.map(row => [
+    `${row.label}\n${row.samples} requests`, benchmarkCounts(row), `${row.seeds} / ${summary.seedCount || 'unknown'}`,
+    `${row.nativeReleases ?? 'Unknown'} / ${row.invalid ?? 'Unknown'}`, benchmarkNumber(row.wallS, ' s'),
+    `${benchmarkNumber(row.cpuS, ' s')} / ${benchmarkNumber(row.geometryS, ' s')}`, `${benchmarkNumber(row.gpuS, ' s')} / ${benchmarkNumber(row.gpuReservationS, ' s')}`,
+    `${benchmarkNumber(row.peakRssMb, ' MiB')} / ${benchmarkNumber(row.peakVramMb, ' MiB')}`,
+    `${benchmarkNumber(row.torchAllocatedMb, ' MiB')} / ${benchmarkNumber(row.torchReservedMb, ' MiB')}`]));
+  expansionTable($('benchmarkMilestones'), ['Method', 'Seed', 'Training requests', 'Validation capture', 'Native / rejected', 'Setup + training', 'CPU / geometry', 'GPU phase / reservation', 'Peak RSS / sampled VRAM', 'Validation time'], points.map(row => [
+    row.label, row.seed, row.samples, benchmarkCounts(row.counts), `${row.counts.nativeReleases ?? 'Unknown'} / ${row.counts.invalid ?? 'Unknown'}`,
+    benchmarkNumber(row.resources.wall_s, ' s'), `${benchmarkNumber(row.resources.cpu_s, ' s')} / ${benchmarkNumber(row.resources.geometry_s, ' s')}`,
+    `${benchmarkNumber(row.resources.gpu_s, ' s')} / ${benchmarkNumber(row.resources.gpu_reservation_s, ' s')}`, `${benchmarkNumber(row.resources.peak_rss_mb, ' MiB')} / ${benchmarkNumber(row.resources.peak_vram_mb, ' MiB')}`,
+    benchmarkNumber(row.resources.evaluation_wall_s, ' s')]));
+  $('benchmarkFinalStatus').textContent = summary.status === 'completed' ? `${finals.length} frozen method/seed records. Test requests are separate from training and checkpoint-selection validation.` : 'Final results remain pending until the benchmark completes. Validation is not final test performance.';
+  expansionTable($('benchmarkFinalTable'), ['Frozen method', 'Seed', 'Selected training budget', 'Test captures', 'Clean', 'Native / rejected', 'Query time', 'Artifact SHA256'], finals.map(row => [row.label, row.seed, row.selectedSamples ?? 'Unknown',
+    benchmarkCounts(row.counts), row.counts.clean ?? 'Unknown', `${row.counts.nativeReleases ?? 'Unknown'} / ${row.counts.invalid ?? 'Unknown'}`,
+    benchmarkNumber(row.queryS, ' s', 3), row.artifactSha]));
+  $('benchmarkAudit').textContent = `${summary.auditStatus ? `Independent audit: ${summary.auditStatus}. ` : 'Independent audit: pending or not reported. '}Contract: ${summary.fingerprint ?? 'not reported'}. This panel does not activate a checkpoint or launch training.`;
+  $('benchmarkDownload').disabled = !points.length && !finals.length;
+  if (firstDisplay && location.hash === '#sweepRlBenchmark') $('sweepRlBenchmark').scrollIntoView({ block: 'start' });
+}
+$('benchmarkDownload').onclick = () => {
+  const blob = new Blob([sweepRlCsv(report)], { type: 'text/csv;charset=utf-8' }), url = URL.createObjectURL(blob);
+  const link = document.createElement('a'); link.href = url; link.download = 'sircus-sweep-rl-measurements.csv'; link.click(); URL.revokeObjectURL(url);
 };
 $('play').onclick = () => { if (!currentTrajectory.length) return; if (playTime >= currentTrajectory.at(-1).time) playTime = currentTrajectory[0].time; playing = !playing; };
 $('timeline').oninput = () => { playing = false; if (currentTrajectory.length) playTime = currentTrajectory[0].time + Number($('timeline').value) / 1000 * (currentTrajectory.at(-1).time - currentTrajectory[0].time); };
@@ -829,8 +916,9 @@ async function loadStatus() {
     const initial = !sceneSpec.version; sceneSpec = s; report = r;
     const standalone = plannerOnly(r);
     $('historicalStudies').hidden = standalone;
-    document.title = standalone ? 'Sircus · Sweep shot planner' : 'Sircus · mjlab learning lab';
-    $('workspaceHeading').textContent = standalone ? 'Sweep shot planner' : 'Place a target. Find a posture.';
+    const benchmarkView = !!sweepRlStudy(r) || typeof r.sweep_rl_error === 'string';
+    document.title = benchmarkView ? 'Sircus · Sweep vs RL benchmark' : standalone ? 'Sircus · Sweep shot planner' : 'Sircus · mjlab learning lab';
+    $('workspaceHeading').textContent = benchmarkView ? 'Sweep versus RL benchmark' : standalone ? 'Sweep shot planner' : 'Place a target. Find a posture.';
     if (!methodChosen && plannerReady(r)) $('mode').value = 'search';
     if (initial) {
       if (s.bucket?.xy) setBucket(s.bucket.xy);
@@ -848,6 +936,7 @@ async function loadStatus() {
     if (ready && $('resultTitle').textContent === 'Waiting for the learning study') { $('resultTitle').textContent = 'Ready to test a bucket position'; $('resultText').textContent = 'Choose a bucket position and optional arm locks, then solve.'; }
     showPlannerFarm();
     showPlannerGridStudy();
+    showSweepRlBenchmark();
     if (!standalone) showCoverage();
   } catch (error) { $('studyTitle').textContent = 'Study connection unavailable'; $('studyDetail').textContent = error.message; for (const id of ['solve', 'solveTop']) $(id).disabled = true; }
 }
