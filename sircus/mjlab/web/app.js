@@ -379,6 +379,41 @@ function neighborhoodFamilySummary(rows) {
     requests:knownSearch?rows.reduce((n,r)=>n+r.search_attempts,0):null,
     captures:knownSearch?rows.reduce((n,r)=>n+r.search_captures,0):null};
 }
+function neighborhoodReferenceShots(study,previous) {
+  const same=(a,b)=>Array.isArray(a)&&Array.isArray(b)&&a.length===b.length&&a.every((v,i)=>Number.isFinite(v)&&Number.isFinite(b[i])&&Math.abs(v-b[i])<=1e-9);
+  const anchors=(study.anchors??[]).filter(a=>typeof a.id==='string'&&finiteVector(a.values,5));
+  const rows=anchors.map(a=>({id:a.id,board_xy_m:a.values.slice(0,2),board_height_m:a.values[2],tilt_deg:a.values[3],gap_m:a.values[4],verified:false,source:'unknown',reason:'Earlier reference evidence unavailable'}));
+  const fp=previous?.contract_fingerprint;
+  const ready=previous?.version==='sircus-fixed-bucket-gap-study-v1'&&previous.settings?.version===previous.version&&
+    previous.status==='completed'&&typeof fp==='string'&&fp&&previous.audit?.status==='passed'&&previous.audit.contract_fingerprint===fp&&
+    (previous.physics?.substeps===undefined||previous.physics.substeps===64)&&
+    same(study.settings?.board_xy_m,previous.settings?.board_xy_m)&&same(study.settings?.bucket_xy_m,previous.settings?.bucket_xy_m);
+  if(!ready)return rows;
+  const confirmation=previous.window_confirmations,confirmationReady=confirmation?.version==='sircus-train-window-engineering-confirmation-v1'&&
+    confirmation.status==='completed'&&confirmation.audit?.status==='passed'&&confirmation.parent_contract_fingerprint===fp;
+  const completeCounts=data=>{
+    const valid=s=>s&&Number.isInteger(s.attempts)&&s.attempts>0&&Number.isInteger(s.captures)&&0<=s.captures&&s.captures<=s.attempts&&
+      (s.native_releases===undefined||(Number.isInteger(s.native_releases)&&s.captures<=s.native_releases&&s.native_releases<=s.attempts));
+    return ['nominal','fresh','total'].every(key=>valid(data[key]))&&data.total.attempts===data.nominal.attempts+data.fresh.attempts&&data.total.captures===data.nominal.captures+data.fresh.captures&&
+      (!['nominal','fresh','total'].every(key=>Number.isInteger(data[key].native_releases))||data.total.native_releases===data.nominal.native_releases+data.fresh.native_releases);
+  };
+  return rows.map(row=>{
+    if(!same(row.board_xy_m,study.settings?.board_xy_m))return {...row,reason:'Reference anchor board XY does not match this study'};
+    const pose=[row.board_height_m,row.tilt_deg,row.gap_m],matches=[];
+    if(confirmationReady)for(const recipe of confirmation.recipes??[])if(same(pose,[recipe.board_height_m,recipe.tilt_deg,recipe.gap_m]))
+      matches.push({data:recipe,source:'Confirm',source_id:recipe.id,source_scope:'Earlier TRAIN-window confirmation'});
+    for(const context of previous.test_contexts??[]){
+      const method=context.methods?.adaptive_surrogate;
+      if(method&&same(pose,[context.board_height_m,context.tilt_deg,method.gap_m]))
+        matches.push({data:method,source:'Test',source_id:context.context_id,source_scope:'Earlier frozen surrogate TEST context'});
+    }
+    if(matches.length!==1)return {...row,reason:matches.length?'Ambiguous earlier reference records':'No matching audited earlier reference'};
+    const match=matches[0];
+    if(!completeCounts(match.data))return {...row,reason:'Earlier reference outcome counts are incomplete'};
+    return {...row,verified:true,reason:null,substeps:64,source:match.source,source_id:match.source_id,source_scope:match.source_scope,
+      source_contract_fingerprint:fp,nominal:match.data.nominal,fresh:match.data.fresh,total:match.data.total};
+  });
+}
 function drawNeighborhoodMap(canvas,rows) {
   const c=canvas.getContext('2d'),w=canvas.width,h=canvas.height;
   c.clearRect(0,0,w,h);c.fillStyle='#edf0e7';c.fillRect(0,0,w,h);
@@ -419,6 +454,14 @@ function showHeightTiltStudy() {
     const counts=Object.entries(study.counts?.[key]??{}).filter(([,n])=>Number.isInteger(n)&&n>=0);if(counts.length)metrics.push([label,counts.map(([name,n])=>`${name}: ${n}`).join(' · ')]);
   }
   addMetrics(metrics,$('heightTiltSummary'));
+  const references=neighborhoodReferenceShots(study,report.window_study_evaluation);
+  expansionTable($('heightTiltReferences'),['Reference','Board mm / °','Gap mm','Nominal','Gap-only noise','Native/all','Source'],references.map(r=>{
+    const nominal=windowStatistics(r.nominal),fresh=windowStatistics(r.fresh),total=windowStatistics(r.total);
+    return[r.id,`${mm(r.board_height_m)} / ${r.tilt_deg.toFixed(2)}°`,mm(r.gap_m),r.verified?nominal.fraction:'unknown',r.verified?fresh.fraction:'unknown',r.verified&&total.released!==null?`${total.released} / ${total.requests}`:'unknown',r.verified?r.source:'unknown'];
+  }));
+  const pairedAvailable=view.recipes.some(r=>['32','128'].some(s=>Number.isInteger(r.by_substeps?.[s]?.attempts)&&r.by_substeps[s].attempts>0));
+  const timestepStatus=pairedAvailable?'New paired timestep results are shown separately below.':['failed','cancelled','blocked_resources','blocked_storage','blocked_geometry'].includes(study.status)?'No new 32/128-substep results are available from this attempt.':'The expanded study’s 32/128-substep results are pending.';
+  $('heightTiltReferenceScope').textContent=`Earlier 64-substep, gap-only perturbation evidence; it does not verify the new board-height/tilt noise. ${timestepStatus} ${references.map(r=>`${r.id}: ${r.verified?r.source_scope+' · '+r.source_id:r.reason}`).join(' · ')}`;
   const maps=$('heightTiltMaps');maps.replaceChildren();
   for(const family of view.families){
     const rows=view.contexts.filter(r=>(r.source_family??r.source_anchor_id??'Unreported family')===family),box=document.createElement('div'),title=document.createElement('h4'),canvas=document.createElement('canvas'),note=document.createElement('p');
