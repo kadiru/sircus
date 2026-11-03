@@ -29,7 +29,12 @@ class CorrectedDisplayTests(unittest.TestCase):
         audit=self.study/'audit-corrected.json';audit.write_text(json.dumps(dict(status='passed',contract_fingerprint='wrong',checks=[{'passed':True}],failures=[])))
         self.assertEqual(prepare(self.base,self.study,self.out)['corrected_grid_evaluation']['verification']['status'],'failed')
         audit.write_text(json.dumps(dict(status='passed',contract_fingerprint='exact',checks=[{'passed':True}],failures=[])))
-        self.assertEqual(prepare(self.base,self.study,self.out)['corrected_grid_evaluation']['verification']['status'],'passed')
+        self.assertEqual(prepare(self.base,self.study,self.out)['corrected_grid_evaluation']['verification']['status'],'pending')
+        supplemental=self.study/'audit-corrected-supplement.json'
+        supplemental.write_text(audit.read_text())
+        complete=prepare(self.base,self.study,self.out)['corrected_grid_evaluation']
+        self.assertEqual(complete['verification']['status'],'passed')
+        self.assertTrue(all(a['identity_matched'] for a in complete['audits'].values()))
         (self.study/'audit-corrected-supplement.json').write_text(json.dumps(dict(status='failed',contract_fingerprint='exact',checks=[{'passed':False}],failures=['coverage'])))
         self.assertEqual(prepare(self.base,self.study,self.out)['corrected_grid_evaluation']['verification']['status'],'failed')
         self.assertEqual(source.read_bytes(),before)
@@ -54,5 +59,19 @@ class CorrectedDisplayTests(unittest.TestCase):
         self.assertEqual(value['cells'][0]['search'],dict(attempts=1,captures=1,invalid=0))
         self.assertEqual(value['cells'][1]['search'],dict(attempts=1,captures=0,invalid=0))
         self.assertEqual([c['status'] for c in value['cells']],['native_capture','no_capture_in_budget'])
+        self.assertEqual(value['stage_statistics']['search'],dict(requests=2,releases=2,captures=1))
+    def test_phase_counts_keep_rejected_confirmations_in_the_denominator(self):
+        report=dict(status='completed',records=3,qualified_sources=[{},{}],
+            cells=[dict(id='a',confirmations=[dict(qualified=True),dict(qualified=True)])])
+        rows=[dict(phase='search',geometry_eligible=True,status='not_selected_budget'),
+              dict(phase='confirmation',geometry_eligible=False,native_release=False,invalid='clearance'),
+              dict(phase='confirmation',geometry_eligible=True,native_release=True,route_success=True)]
+        (self.study/'report.json').write_text(json.dumps(report))
+        (self.study/'shots.jsonl').write_text(''.join(json.dumps(row)+'\n' for row in rows))
+        value=prepare(self.base,self.study,self.out)['corrected_grid_evaluation']
+        self.assertEqual(value['stage_statistics']['confirmation'],dict(requests=2,releases=1,captures=1))
+        self.assertEqual(value['stage_statistics']['search']['requests'],0)
+        self.assertEqual(value['counts']['qualified_settings'],2)
+        self.assertEqual(value['counts']['positions_with_multiple_qualified'],1)
 
 if __name__=='__main__':unittest.main()

@@ -1,0 +1,4435 @@
+{
+  "version": "sircus-corrected-grid-curated-native-results-v1",
+  "evidence_kind": "Synthetic native development search and selected-source confirmation; not policy evaluation",
+  "status": "completed",
+  "completed_utc": "2026-11-03T01:17:37.344915+00:00",
+  "elapsed_s": 3546.8950677620014,
+  "contract_fingerprint": "8edba8a3349aa8bcb4c06b97f3f61a302684856513b0ac972cf849afd3f4f037",
+  "physics": {
+    "version": "sircus-articulated-passive-contact-15360hz-v1",
+    "board_mode": "articulated",
+    "gravity_mode": "passive_only",
+    "substeps": 64,
+    "native_dt_s": 6.510416666666667e-05,
+    "scoring_dt_s": 0.004166666666666667,
+    "horizon_s": 4.0,
+    "solref": [
+      0.004,
+      0.15
+    ],
+    "contact_friction": 0.35,
+    "solver": "newton",
+    "solver_iterations": 100,
+    "solver_tolerance": 1e-08,
+    "cone": "pyramidal",
+    "integrator": "implicitfast",
+    "arm_control": "Prescribed joint endpoints reset before each native step; no learned grasp/transit/actuator dynamics",
+    "scorer": "Unchanged board rebound + whole sphere entry + continuous1s retention; external assistance disqualifies route; bucket rim assistance counts"
+  },
+  "effective_native_options": {
+    "timestep": 6.510416666666667e-05,
+    "solver": 2,
+    "cone": 0,
+    "integrator": 3,
+    "iterations": 100,
+    "tolerance": 1e-08,
+    "gravity": [
+      0.0,
+      0.0,
+      -9.81
+    ]
+  },
+  "counts": {
+    "grid_positions": 35,
+    "geometry_requests": 12427,
+    "endpoint_eligible": 460,
+    "native_attempts": 1127,
+    "captures": 927,
+    "confirmation_attempts": 580,
+    "common_home_connected": 17,
+    "home_clear_positions": 29,
+    "qualified_positions": 12,
+    "native_releases": 1114,
+    "initial_geometry_requests": 11760,
+    "qualified_settings": 17,
+    "positions_with_multiple_qualified_settings": 5,
+    "positions_with_native_capture": 22
+  },
+  "stage_statistics": {
+    "search": {
+      "requests": 460,
+      "native_releases": 460,
+      "captures": 349,
+      "clean_captures": 141,
+      "rejected_requests": 0,
+      "rejection_reasons": {}
+    },
+    "nominal": {
+      "requests": 87,
+      "native_releases": 87,
+      "captures": 83,
+      "clean_captures": 63,
+      "rejected_requests": 0,
+      "rejection_reasons": {}
+    },
+    "confirmation": {
+      "requests": 580,
+      "native_releases": 567,
+      "captures": 495,
+      "clean_captures": 337,
+      "rejected_requests": 13,
+      "rejection_reasons": {
+        "no_eligible_bank_endpoint": 13
+      }
+    }
+  },
+  "cell_result_categories": {
+    "no_capture_in_search": 5,
+    "confirmation_failed": 5,
+    "qualified": 12,
+    "endpoint_unresolved": 8,
+    "common_start_path_unresolved": 5
+  },
+  "cells": [
+    {
+      "id": "dev-grid-00-00",
+      "bucket_xy_m": [
+        0.1,
+        -0.65
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 6,
+      "search": {
+        "attempts": 6,
+        "captures": 0,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": true,
+        "reason": null,
+        "category": "home_clear",
+        "minimum_clearance_m": 0.006085006839541591,
+        "closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": false,
+      "transit_attempts": [],
+      "confirmations": [],
+      "qualified_settings": 0,
+      "result_category": "no_capture_in_search"
+    },
+    {
+      "id": "dev-grid-00-01",
+      "bucket_xy_m": [
+        0.29,
+        -0.65
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 8,
+      "search": {
+        "attempts": 8,
+        "captures": 3,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": true,
+        "reason": null,
+        "category": "home_clear",
+        "minimum_clearance_m": 0.006085006839541591,
+        "closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": true,
+      "transit_attempts": [
+        {
+          "source_id": "dev-grid-00-01-template-001-rotation-15",
+          "passed": true,
+          "reason": null,
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-00-01-source-00.json"
+        },
+        {
+          "source_id": "dev-grid-00-01-template-016-rotation-01",
+          "passed": true,
+          "reason": null,
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-00-01-source-01.json"
+        }
+      ],
+      "confirmations": [
+        {
+          "source_id": "dev-grid-00-01-template-001-rotation-15",
+          "nominal": {
+            "attempts": 3,
+            "captures": 3
+          },
+          "fresh": {
+            "attempts": 20,
+            "captures": 9,
+            "invalid": 0
+          },
+          "motion": {
+            "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+            "file": "transit-dev-grid-00-01-source-00.json"
+          },
+          "qualified": false
+        },
+        {
+          "source_id": "dev-grid-00-01-template-016-rotation-01",
+          "nominal": {
+            "attempts": 3,
+            "captures": 0
+          },
+          "fresh": {
+            "attempts": 20,
+            "captures": 16,
+            "invalid": 0
+          },
+          "motion": {
+            "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+            "file": "transit-dev-grid-00-01-source-01.json"
+          },
+          "qualified": false
+        }
+      ],
+      "qualified_settings": 0,
+      "result_category": "confirmation_failed"
+    },
+    {
+      "id": "dev-grid-00-02",
+      "bucket_xy_m": [
+        0.48,
+        -0.65
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 17,
+      "search": {
+        "attempts": 17,
+        "captures": 11,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": true,
+        "reason": null,
+        "category": "home_clear",
+        "minimum_clearance_m": 0.006085006839541591,
+        "closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": true,
+      "transit_attempts": [
+        {
+          "source_id": "dev-grid-00-02-template-007-rotation-00",
+          "passed": true,
+          "reason": null,
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-00-02-source-00.json"
+        },
+        {
+          "source_id": "dev-grid-00-02-template-003-rotation-15",
+          "passed": true,
+          "reason": null,
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-00-02-source-01.json"
+        }
+      ],
+      "confirmations": [
+        {
+          "source_id": "dev-grid-00-02-template-007-rotation-00",
+          "nominal": {
+            "attempts": 3,
+            "captures": 3
+          },
+          "fresh": {
+            "attempts": 20,
+            "captures": 14,
+            "invalid": 6
+          },
+          "motion": {
+            "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+            "file": "transit-dev-grid-00-02-source-00.json"
+          },
+          "qualified": false
+        },
+        {
+          "source_id": "dev-grid-00-02-template-003-rotation-15",
+          "nominal": {
+            "attempts": 3,
+            "captures": 3
+          },
+          "fresh": {
+            "attempts": 20,
+            "captures": 20,
+            "invalid": 0
+          },
+          "motion": {
+            "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+            "file": "transit-dev-grid-00-02-source-01.json"
+          },
+          "qualified": true
+        }
+      ],
+      "qualified_settings": 1,
+      "result_category": "qualified"
+    },
+    {
+      "id": "dev-grid-00-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.65
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 10,
+      "search": {
+        "attempts": 10,
+        "captures": 6,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": true,
+        "reason": null,
+        "category": "home_clear",
+        "minimum_clearance_m": 0.006085006839541591,
+        "closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": true,
+      "transit_attempts": [
+        {
+          "source_id": "dev-grid-00-03-template-004-rotation-06",
+          "passed": true,
+          "reason": null,
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-00-03-source-00.json"
+        },
+        {
+          "source_id": "dev-grid-00-03-template-013-rotation-14",
+          "passed": true,
+          "reason": null,
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-00-03-source-01.json"
+        }
+      ],
+      "confirmations": [
+        {
+          "source_id": "dev-grid-00-03-template-004-rotation-06",
+          "nominal": {
+            "attempts": 3,
+            "captures": 3
+          },
+          "fresh": {
+            "attempts": 20,
+            "captures": 17,
+            "invalid": 0
+          },
+          "motion": {
+            "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+            "file": "transit-dev-grid-00-03-source-00.json"
+          },
+          "qualified": false
+        },
+        {
+          "source_id": "dev-grid-00-03-template-013-rotation-14",
+          "nominal": {
+            "attempts": 3,
+            "captures": 3
+          },
+          "fresh": {
+            "attempts": 20,
+            "captures": 19,
+            "invalid": 0
+          },
+          "motion": {
+            "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+            "file": "transit-dev-grid-00-03-source-01.json"
+          },
+          "qualified": true
+        }
+      ],
+      "qualified_settings": 1,
+      "result_category": "qualified"
+    },
+    {
+      "id": "dev-grid-00-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.65
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 1,
+      "search": {
+        "attempts": 1,
+        "captures": 0,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": true,
+        "reason": null,
+        "category": "home_clear",
+        "minimum_clearance_m": 0.006085006839541591,
+        "closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": false,
+      "transit_attempts": [],
+      "confirmations": [],
+      "qualified_settings": 0,
+      "result_category": "no_capture_in_search"
+    },
+    {
+      "id": "dev-grid-00-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.65
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 2,
+      "search": {
+        "attempts": 2,
+        "captures": 0,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": true,
+        "reason": null,
+        "category": "home_clear",
+        "minimum_clearance_m": 0.006085006839541591,
+        "closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": false,
+      "transit_attempts": [],
+      "confirmations": [],
+      "qualified_settings": 0,
+      "result_category": "no_capture_in_search"
+    },
+    {
+      "id": "dev-grid-00-06",
+      "bucket_xy_m": [
+        1.24,
+        -0.65
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 0,
+      "search": {
+        "attempts": 0,
+        "captures": 0,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": true,
+        "reason": null,
+        "category": "home_clear",
+        "minimum_clearance_m": 0.006085006839541591,
+        "closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": false,
+      "transit_attempts": [],
+      "confirmations": [],
+      "qualified_settings": 0,
+      "result_category": "endpoint_unresolved"
+    },
+    {
+      "id": "dev-grid-01-00",
+      "bucket_xy_m": [
+        0.1,
+        -0.42500000000000004
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 9,
+      "search": {
+        "attempts": 9,
+        "captures": 3,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": true,
+        "reason": null,
+        "category": "home_clear",
+        "minimum_clearance_m": 0.006085006839541591,
+        "closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": true,
+      "transit_attempts": [
+        {
+          "source_id": "dev-grid-01-00-template-006-rotation-15",
+          "passed": true,
+          "reason": null,
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-01-00-source-00.json"
+        },
+        {
+          "source_id": "dev-grid-01-00-template-001-rotation-13",
+          "passed": true,
+          "reason": null,
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-01-00-source-01.json"
+        }
+      ],
+      "confirmations": [
+        {
+          "source_id": "dev-grid-01-00-template-006-rotation-15",
+          "nominal": {
+            "attempts": 3,
+            "captures": 3
+          },
+          "fresh": {
+            "attempts": 20,
+            "captures": 11,
+            "invalid": 0
+          },
+          "motion": {
+            "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+            "file": "transit-dev-grid-01-00-source-00.json"
+          },
+          "qualified": false
+        },
+        {
+          "source_id": "dev-grid-01-00-template-001-rotation-13",
+          "nominal": {
+            "attempts": 3,
+            "captures": 2
+          },
+          "fresh": {
+            "attempts": 20,
+            "captures": 7,
+            "invalid": 0
+          },
+          "motion": {
+            "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+            "file": "transit-dev-grid-01-00-source-01.json"
+          },
+          "qualified": false
+        }
+      ],
+      "qualified_settings": 0,
+      "result_category": "confirmation_failed"
+    },
+    {
+      "id": "dev-grid-01-01",
+      "bucket_xy_m": [
+        0.29,
+        -0.42500000000000004
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 34,
+      "search": {
+        "attempts": 34,
+        "captures": 27,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": true,
+        "reason": null,
+        "category": "home_clear",
+        "minimum_clearance_m": 0.006085006839541591,
+        "closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": true,
+      "transit_attempts": [
+        {
+          "source_id": "dev-grid-01-01-template-000-rotation-05",
+          "passed": true,
+          "reason": null,
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-01-01-source-00.json"
+        },
+        {
+          "source_id": "dev-grid-01-01-template-000-rotation-04",
+          "passed": true,
+          "reason": null,
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-01-01-source-01.json"
+        }
+      ],
+      "confirmations": [
+        {
+          "source_id": "dev-grid-01-01-template-000-rotation-05",
+          "nominal": {
+            "attempts": 3,
+            "captures": 3
+          },
+          "fresh": {
+            "attempts": 20,
+            "captures": 17,
+            "invalid": 0
+          },
+          "motion": {
+            "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+            "file": "transit-dev-grid-01-01-source-00.json"
+          },
+          "qualified": false
+        },
+        {
+          "source_id": "dev-grid-01-01-template-000-rotation-04",
+          "nominal": {
+            "attempts": 3,
+            "captures": 3
+          },
+          "fresh": {
+            "attempts": 20,
+            "captures": 15,
+            "invalid": 0
+          },
+          "motion": {
+            "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+            "file": "transit-dev-grid-01-01-source-01.json"
+          },
+          "qualified": false
+        }
+      ],
+      "qualified_settings": 0,
+      "result_category": "confirmation_failed"
+    },
+    {
+      "id": "dev-grid-01-02",
+      "bucket_xy_m": [
+        0.48,
+        -0.42500000000000004
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 29,
+      "search": {
+        "attempts": 29,
+        "captures": 29,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": true,
+        "reason": null,
+        "category": "home_clear",
+        "minimum_clearance_m": 0.006085006839541591,
+        "closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": true,
+      "transit_attempts": [
+        {
+          "source_id": "dev-grid-01-02-template-002-rotation-00",
+          "passed": true,
+          "reason": null,
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-01-02-source-00.json"
+        },
+        {
+          "source_id": "dev-grid-01-02-template-002-rotation-01",
+          "passed": true,
+          "reason": null,
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-01-02-source-01.json"
+        }
+      ],
+      "confirmations": [
+        {
+          "source_id": "dev-grid-01-02-template-002-rotation-00",
+          "nominal": {
+            "attempts": 3,
+            "captures": 3
+          },
+          "fresh": {
+            "attempts": 20,
+            "captures": 20,
+            "invalid": 0
+          },
+          "motion": {
+            "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+            "file": "transit-dev-grid-01-02-source-00.json"
+          },
+          "qualified": true
+        },
+        {
+          "source_id": "dev-grid-01-02-template-002-rotation-01",
+          "nominal": {
+            "attempts": 3,
+            "captures": 3
+          },
+          "fresh": {
+            "attempts": 20,
+            "captures": 20,
+            "invalid": 0
+          },
+          "motion": {
+            "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+            "file": "transit-dev-grid-01-02-source-01.json"
+          },
+          "qualified": true
+        }
+      ],
+      "qualified_settings": 2,
+      "result_category": "qualified"
+    },
+    {
+      "id": "dev-grid-01-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.42500000000000004
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 20,
+      "search": {
+        "attempts": 20,
+        "captures": 15,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": true,
+        "reason": null,
+        "category": "home_clear",
+        "minimum_clearance_m": 0.006085006839541591,
+        "closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": true,
+      "transit_attempts": [
+        {
+          "source_id": "dev-grid-01-03-template-002-rotation-03",
+          "passed": false,
+          "reason": "finite_common_home_connection_unresolved",
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-01-03-source-00.json"
+        },
+        {
+          "source_id": "dev-grid-01-03-template-002-rotation-05",
+          "passed": true,
+          "reason": null,
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-01-03-source-01.json"
+        }
+      ],
+      "confirmations": [
+        {
+          "source_id": "dev-grid-01-03-template-002-rotation-05",
+          "nominal": {
+            "attempts": 3,
+            "captures": 3
+          },
+          "fresh": {
+            "attempts": 20,
+            "captures": 6,
+            "invalid": 0
+          },
+          "motion": {
+            "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+            "file": "transit-dev-grid-01-03-source-01.json"
+          },
+          "qualified": false
+        }
+      ],
+      "qualified_settings": 0,
+      "result_category": "confirmation_failed"
+    },
+    {
+      "id": "dev-grid-01-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.42500000000000004
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 6,
+      "search": {
+        "attempts": 6,
+        "captures": 6,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": true,
+        "reason": null,
+        "category": "home_clear",
+        "minimum_clearance_m": 0.006085006839541591,
+        "closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": true,
+      "transit_attempts": [
+        {
+          "source_id": "dev-grid-01-04-template-013-rotation-00",
+          "passed": true,
+          "reason": null,
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-01-04-source-00.json"
+        },
+        {
+          "source_id": "dev-grid-01-04-template-012-rotation-04",
+          "passed": true,
+          "reason": null,
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-01-04-source-01.json"
+        }
+      ],
+      "confirmations": [
+        {
+          "source_id": "dev-grid-01-04-template-013-rotation-00",
+          "nominal": {
+            "attempts": 3,
+            "captures": 3
+          },
+          "fresh": {
+            "attempts": 20,
+            "captures": 20,
+            "invalid": 0
+          },
+          "motion": {
+            "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+            "file": "transit-dev-grid-01-04-source-00.json"
+          },
+          "qualified": true
+        },
+        {
+          "source_id": "dev-grid-01-04-template-012-rotation-04",
+          "nominal": {
+            "attempts": 3,
+            "captures": 3
+          },
+          "fresh": {
+            "attempts": 20,
+            "captures": 18,
+            "invalid": 0
+          },
+          "motion": {
+            "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+            "file": "transit-dev-grid-01-04-source-01.json"
+          },
+          "qualified": true
+        }
+      ],
+      "qualified_settings": 2,
+      "result_category": "qualified"
+    },
+    {
+      "id": "dev-grid-01-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.42500000000000004
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 2,
+      "search": {
+        "attempts": 2,
+        "captures": 0,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": true,
+        "reason": null,
+        "category": "home_clear",
+        "minimum_clearance_m": 0.006085006839541591,
+        "closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": false,
+      "transit_attempts": [],
+      "confirmations": [],
+      "qualified_settings": 0,
+      "result_category": "no_capture_in_search"
+    },
+    {
+      "id": "dev-grid-01-06",
+      "bucket_xy_m": [
+        1.24,
+        -0.42500000000000004
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 0,
+      "search": {
+        "attempts": 0,
+        "captures": 0,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": true,
+        "reason": null,
+        "category": "home_clear",
+        "minimum_clearance_m": 0.006085006839541591,
+        "closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": false,
+      "transit_attempts": [],
+      "confirmations": [],
+      "qualified_settings": 0,
+      "result_category": "endpoint_unresolved"
+    },
+    {
+      "id": "dev-grid-02-00",
+      "bucket_xy_m": [
+        0.1,
+        -0.2
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 17,
+      "search": {
+        "attempts": 17,
+        "captures": 9,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": true,
+        "reason": null,
+        "category": "home_clear",
+        "minimum_clearance_m": 0.005481528996837293,
+        "closest_pair": [
+          "Arm10/link_base/collision/0",
+          "bucket/wall17"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": true,
+      "transit_attempts": [
+        {
+          "source_id": "dev-grid-02-00-new-003",
+          "passed": true,
+          "reason": null,
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-02-00-source-00.json"
+        },
+        {
+          "source_id": "dev-grid-02-00-template-012-rotation-15",
+          "passed": false,
+          "reason": "finite_common_home_connection_unresolved",
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-02-00-source-01.json"
+        }
+      ],
+      "confirmations": [
+        {
+          "source_id": "dev-grid-02-00-new-003",
+          "nominal": {
+            "attempts": 3,
+            "captures": 3
+          },
+          "fresh": {
+            "attempts": 20,
+            "captures": 16,
+            "invalid": 3
+          },
+          "motion": {
+            "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+            "file": "transit-dev-grid-02-00-source-00.json"
+          },
+          "qualified": false
+        }
+      ],
+      "qualified_settings": 0,
+      "result_category": "confirmation_failed"
+    },
+    {
+      "id": "dev-grid-02-01",
+      "bucket_xy_m": [
+        0.29,
+        -0.2
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 53,
+      "search": {
+        "attempts": 53,
+        "captures": 40,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": true,
+        "reason": null,
+        "category": "home_clear",
+        "minimum_clearance_m": 0.006085006839541591,
+        "closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": true,
+      "transit_attempts": [
+        {
+          "source_id": "dev-grid-02-01-template-000-rotation-02",
+          "passed": true,
+          "reason": null,
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-02-01-source-00.json"
+        },
+        {
+          "source_id": "dev-grid-02-01-template-007-rotation-13",
+          "passed": true,
+          "reason": null,
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-02-01-source-01.json"
+        }
+      ],
+      "confirmations": [
+        {
+          "source_id": "dev-grid-02-01-template-000-rotation-02",
+          "nominal": {
+            "attempts": 3,
+            "captures": 3
+          },
+          "fresh": {
+            "attempts": 20,
+            "captures": 20,
+            "invalid": 0
+          },
+          "motion": {
+            "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+            "file": "transit-dev-grid-02-01-source-00.json"
+          },
+          "qualified": true
+        },
+        {
+          "source_id": "dev-grid-02-01-template-007-rotation-13",
+          "nominal": {
+            "attempts": 3,
+            "captures": 3
+          },
+          "fresh": {
+            "attempts": 20,
+            "captures": 16,
+            "invalid": 4
+          },
+          "motion": {
+            "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+            "file": "transit-dev-grid-02-01-source-01.json"
+          },
+          "qualified": false
+        }
+      ],
+      "qualified_settings": 1,
+      "result_category": "qualified"
+    },
+    {
+      "id": "dev-grid-02-02",
+      "bucket_xy_m": [
+        0.48,
+        -0.2
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 28,
+      "search": {
+        "attempts": 28,
+        "captures": 26,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": true,
+        "reason": null,
+        "category": "home_clear",
+        "minimum_clearance_m": 0.006085006839541591,
+        "closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": true,
+      "transit_attempts": [
+        {
+          "source_id": "dev-grid-02-02-template-002-rotation-14",
+          "passed": true,
+          "reason": null,
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-02-02-source-00.json"
+        },
+        {
+          "source_id": "dev-grid-02-02-template-002-rotation-15",
+          "passed": true,
+          "reason": null,
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-02-02-source-01.json"
+        }
+      ],
+      "confirmations": [
+        {
+          "source_id": "dev-grid-02-02-template-002-rotation-14",
+          "nominal": {
+            "attempts": 3,
+            "captures": 3
+          },
+          "fresh": {
+            "attempts": 20,
+            "captures": 20,
+            "invalid": 0
+          },
+          "motion": {
+            "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+            "file": "transit-dev-grid-02-02-source-00.json"
+          },
+          "qualified": true
+        },
+        {
+          "source_id": "dev-grid-02-02-template-002-rotation-15",
+          "nominal": {
+            "attempts": 3,
+            "captures": 3
+          },
+          "fresh": {
+            "attempts": 20,
+            "captures": 20,
+            "invalid": 0
+          },
+          "motion": {
+            "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+            "file": "transit-dev-grid-02-02-source-01.json"
+          },
+          "qualified": true
+        }
+      ],
+      "qualified_settings": 2,
+      "result_category": "qualified"
+    },
+    {
+      "id": "dev-grid-02-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.2
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 7,
+      "search": {
+        "attempts": 7,
+        "captures": 6,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": false,
+        "reason": "clearance",
+        "category": "staging_clearance_blocked",
+        "minimum_clearance_m": 0.0,
+        "closest_pair": [
+          "Arm14/link4/collision/0",
+          "bucket/wall09"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": false,
+      "transit_attempts": [
+        {
+          "source_id": "dev-grid-02-03-template-013-rotation-14",
+          "passed": false,
+          "reason": "common_home_not_admitted_in_layout",
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-02-03-source-00.json"
+        },
+        {
+          "source_id": "dev-grid-02-03-template-012-rotation-02",
+          "passed": false,
+          "reason": "common_home_not_admitted_in_layout",
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-02-03-source-01.json"
+        }
+      ],
+      "confirmations": [],
+      "qualified_settings": 0,
+      "result_category": "common_start_path_unresolved"
+    },
+    {
+      "id": "dev-grid-02-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.2
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 5,
+      "search": {
+        "attempts": 5,
+        "captures": 4,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": false,
+        "reason": "clearance",
+        "category": "staging_clearance_blocked",
+        "minimum_clearance_m": 0.0,
+        "closest_pair": [
+          "Arm14/link4/collision/0",
+          "bucket/wall17"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": false,
+      "transit_attempts": [
+        {
+          "source_id": "dev-grid-02-04-template-013-rotation-00",
+          "passed": false,
+          "reason": "common_home_not_admitted_in_layout",
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-02-04-source-00.json"
+        },
+        {
+          "source_id": "dev-grid-02-04-new-038",
+          "passed": false,
+          "reason": "common_home_not_admitted_in_layout",
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-02-04-source-01.json"
+        }
+      ],
+      "confirmations": [],
+      "qualified_settings": 0,
+      "result_category": "common_start_path_unresolved"
+    },
+    {
+      "id": "dev-grid-02-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.2
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 1,
+      "search": {
+        "attempts": 1,
+        "captures": 0,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": true,
+        "reason": null,
+        "category": "home_clear",
+        "minimum_clearance_m": 0.006085006839541591,
+        "closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": false,
+      "transit_attempts": [],
+      "confirmations": [],
+      "qualified_settings": 0,
+      "result_category": "no_capture_in_search"
+    },
+    {
+      "id": "dev-grid-02-06",
+      "bucket_xy_m": [
+        1.24,
+        -0.2
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 0,
+      "search": {
+        "attempts": 0,
+        "captures": 0,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": true,
+        "reason": null,
+        "category": "home_clear",
+        "minimum_clearance_m": 0.005481529299802071,
+        "closest_pair": [
+          "Arm14/link_base/collision/0",
+          "bucket/wall14"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": false,
+      "transit_attempts": [],
+      "confirmations": [],
+      "qualified_settings": 0,
+      "result_category": "endpoint_unresolved"
+    },
+    {
+      "id": "dev-grid-03-00",
+      "bucket_xy_m": [
+        0.1,
+        0.025000000000000022
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 0,
+      "search": {
+        "attempts": 0,
+        "captures": 0,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": false,
+        "reason": "clearance",
+        "category": "staging_clearance_blocked",
+        "minimum_clearance_m": 0.0,
+        "closest_pair": [
+          "Arm10/link_base/collision/0",
+          "bucket/wall23"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": false,
+      "transit_attempts": [],
+      "confirmations": [],
+      "qualified_settings": 0,
+      "result_category": "endpoint_unresolved"
+    },
+    {
+      "id": "dev-grid-03-01",
+      "bucket_xy_m": [
+        0.29,
+        0.025000000000000022
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 58,
+      "search": {
+        "attempts": 58,
+        "captures": 44,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": true,
+        "reason": null,
+        "category": "home_clear",
+        "minimum_clearance_m": 0.006085006839541591,
+        "closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": true,
+      "transit_attempts": [
+        {
+          "source_id": "dev-grid-03-01-template-002-rotation-00",
+          "passed": true,
+          "reason": null,
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-03-01-source-00.json"
+        },
+        {
+          "source_id": "dev-grid-03-01-template-006-rotation-12",
+          "passed": true,
+          "reason": null,
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-03-01-source-01.json"
+        }
+      ],
+      "confirmations": [
+        {
+          "source_id": "dev-grid-03-01-template-002-rotation-00",
+          "nominal": {
+            "attempts": 3,
+            "captures": 3
+          },
+          "fresh": {
+            "attempts": 20,
+            "captures": 20,
+            "invalid": 0
+          },
+          "motion": {
+            "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+            "file": "transit-dev-grid-03-01-source-00.json"
+          },
+          "qualified": true
+        },
+        {
+          "source_id": "dev-grid-03-01-template-006-rotation-12",
+          "nominal": {
+            "attempts": 3,
+            "captures": 3
+          },
+          "fresh": {
+            "attempts": 20,
+            "captures": 19,
+            "invalid": 0
+          },
+          "motion": {
+            "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+            "file": "transit-dev-grid-03-01-source-01.json"
+          },
+          "qualified": true
+        }
+      ],
+      "qualified_settings": 2,
+      "result_category": "qualified"
+    },
+    {
+      "id": "dev-grid-03-02",
+      "bucket_xy_m": [
+        0.48,
+        0.025000000000000022
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 38,
+      "search": {
+        "attempts": 38,
+        "captures": 36,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": true,
+        "reason": null,
+        "category": "home_clear",
+        "minimum_clearance_m": 0.006085006839541591,
+        "closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": true,
+      "transit_attempts": [
+        {
+          "source_id": "dev-grid-03-02-template-002-rotation-14",
+          "passed": true,
+          "reason": null,
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-03-02-source-00.json"
+        },
+        {
+          "source_id": "dev-grid-03-02-template-002-rotation-15",
+          "passed": true,
+          "reason": null,
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-03-02-source-01.json"
+        }
+      ],
+      "confirmations": [
+        {
+          "source_id": "dev-grid-03-02-template-002-rotation-14",
+          "nominal": {
+            "attempts": 3,
+            "captures": 3
+          },
+          "fresh": {
+            "attempts": 20,
+            "captures": 20,
+            "invalid": 0
+          },
+          "motion": {
+            "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+            "file": "transit-dev-grid-03-02-source-00.json"
+          },
+          "qualified": true
+        },
+        {
+          "source_id": "dev-grid-03-02-template-002-rotation-15",
+          "nominal": {
+            "attempts": 3,
+            "captures": 3
+          },
+          "fresh": {
+            "attempts": 20,
+            "captures": 20,
+            "invalid": 0
+          },
+          "motion": {
+            "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+            "file": "transit-dev-grid-03-02-source-01.json"
+          },
+          "qualified": true
+        }
+      ],
+      "qualified_settings": 2,
+      "result_category": "qualified"
+    },
+    {
+      "id": "dev-grid-03-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        0.025000000000000022
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 8,
+      "search": {
+        "attempts": 8,
+        "captures": 6,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": false,
+        "reason": "clearance",
+        "category": "staging_clearance_blocked",
+        "minimum_clearance_m": 0.0,
+        "closest_pair": [
+          "Arm14/link4/collision/0",
+          "bucket/wall48"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": false,
+      "transit_attempts": [
+        {
+          "source_id": "dev-grid-03-03-template-002-rotation-05",
+          "passed": false,
+          "reason": "common_home_not_admitted_in_layout",
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-03-03-source-00.json"
+        },
+        {
+          "source_id": "dev-grid-03-03-template-000-rotation-15",
+          "passed": false,
+          "reason": "common_home_not_admitted_in_layout",
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-03-03-source-01.json"
+        }
+      ],
+      "confirmations": [],
+      "qualified_settings": 0,
+      "result_category": "common_start_path_unresolved"
+    },
+    {
+      "id": "dev-grid-03-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        0.025000000000000022
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 2,
+      "search": {
+        "attempts": 2,
+        "captures": 1,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": false,
+        "reason": "clearance",
+        "category": "staging_clearance_blocked",
+        "minimum_clearance_m": 0.0,
+        "closest_pair": [
+          "Arm14/link4/collision/0",
+          "bucket/wall37"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": false,
+      "transit_attempts": [
+        {
+          "source_id": "dev-grid-03-04-new-002",
+          "passed": false,
+          "reason": "common_home_not_admitted_in_layout",
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-03-04-source-00.json"
+        }
+      ],
+      "confirmations": [],
+      "qualified_settings": 0,
+      "result_category": "common_start_path_unresolved"
+    },
+    {
+      "id": "dev-grid-03-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        0.025000000000000022
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 0,
+      "search": {
+        "attempts": 0,
+        "captures": 0,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": true,
+        "reason": null,
+        "category": "home_clear",
+        "minimum_clearance_m": 0.005696706021869027,
+        "closest_pair": [
+          "Arm14/link4/collision/0",
+          "bucket/wall35"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": false,
+      "transit_attempts": [],
+      "confirmations": [],
+      "qualified_settings": 0,
+      "result_category": "endpoint_unresolved"
+    },
+    {
+      "id": "dev-grid-03-06",
+      "bucket_xy_m": [
+        1.24,
+        0.025000000000000022
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 0,
+      "search": {
+        "attempts": 0,
+        "captures": 0,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": false,
+        "reason": "clearance",
+        "category": "staging_clearance_blocked",
+        "minimum_clearance_m": 0.0,
+        "closest_pair": [
+          "Arm14/link_base/collision/0",
+          "bucket/wall00"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": false,
+      "transit_attempts": [],
+      "confirmations": [],
+      "qualified_settings": 0,
+      "result_category": "endpoint_unresolved"
+    },
+    {
+      "id": "dev-grid-04-00",
+      "bucket_xy_m": [
+        0.1,
+        0.25
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 12,
+      "search": {
+        "attempts": 12,
+        "captures": 6,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": true,
+        "reason": null,
+        "category": "home_clear",
+        "minimum_clearance_m": 0.006085006839541591,
+        "closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": true,
+      "transit_attempts": [
+        {
+          "source_id": "dev-grid-04-00-template-012-rotation-14",
+          "passed": false,
+          "reason": "finite_common_home_connection_unresolved",
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-04-00-source-00.json"
+        },
+        {
+          "source_id": "dev-grid-04-00-template-006-rotation-13",
+          "passed": true,
+          "reason": null,
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-04-00-source-01.json"
+        }
+      ],
+      "confirmations": [
+        {
+          "source_id": "dev-grid-04-00-template-006-rotation-13",
+          "nominal": {
+            "attempts": 3,
+            "captures": 3
+          },
+          "fresh": {
+            "attempts": 20,
+            "captures": 20,
+            "invalid": 0
+          },
+          "motion": {
+            "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+            "file": "transit-dev-grid-04-00-source-01.json"
+          },
+          "qualified": true
+        }
+      ],
+      "qualified_settings": 1,
+      "result_category": "qualified"
+    },
+    {
+      "id": "dev-grid-04-01",
+      "bucket_xy_m": [
+        0.29,
+        0.25
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 47,
+      "search": {
+        "attempts": 47,
+        "captures": 37,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": true,
+        "reason": null,
+        "category": "home_clear",
+        "minimum_clearance_m": 0.006085006839541591,
+        "closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": true,
+      "transit_attempts": [
+        {
+          "source_id": "dev-grid-04-01-template-006-rotation-12",
+          "passed": true,
+          "reason": null,
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-04-01-source-00.json"
+        },
+        {
+          "source_id": "dev-grid-04-01-template-000-rotation-03",
+          "passed": false,
+          "reason": "finite_common_home_connection_unresolved",
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-04-01-source-01.json"
+        }
+      ],
+      "confirmations": [
+        {
+          "source_id": "dev-grid-04-01-template-006-rotation-12",
+          "nominal": {
+            "attempts": 3,
+            "captures": 3
+          },
+          "fresh": {
+            "attempts": 20,
+            "captures": 20,
+            "invalid": 0
+          },
+          "motion": {
+            "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+            "file": "transit-dev-grid-04-01-source-00.json"
+          },
+          "qualified": true
+        }
+      ],
+      "qualified_settings": 1,
+      "result_category": "qualified"
+    },
+    {
+      "id": "dev-grid-04-02",
+      "bucket_xy_m": [
+        0.48,
+        0.25
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 27,
+      "search": {
+        "attempts": 27,
+        "captures": 24,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": true,
+        "reason": null,
+        "category": "home_clear",
+        "minimum_clearance_m": 0.006085006839541591,
+        "closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": true,
+      "transit_attempts": [
+        {
+          "source_id": "dev-grid-04-02-template-002-rotation-14",
+          "passed": true,
+          "reason": null,
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-04-02-source-00.json"
+        },
+        {
+          "source_id": "dev-grid-04-02-template-002-rotation-15",
+          "passed": false,
+          "reason": "finite_common_home_connection_unresolved",
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-04-02-source-01.json"
+        }
+      ],
+      "confirmations": [
+        {
+          "source_id": "dev-grid-04-02-template-002-rotation-14",
+          "nominal": {
+            "attempts": 3,
+            "captures": 3
+          },
+          "fresh": {
+            "attempts": 20,
+            "captures": 20,
+            "invalid": 0
+          },
+          "motion": {
+            "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+            "file": "transit-dev-grid-04-02-source-00.json"
+          },
+          "qualified": true
+        }
+      ],
+      "qualified_settings": 1,
+      "result_category": "qualified"
+    },
+    {
+      "id": "dev-grid-04-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        0.25
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 6,
+      "search": {
+        "attempts": 6,
+        "captures": 5,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": true,
+        "reason": null,
+        "category": "home_clear",
+        "minimum_clearance_m": 0.006085006839541591,
+        "closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": true,
+      "transit_attempts": [
+        {
+          "source_id": "dev-grid-04-03-template-002-rotation-11",
+          "passed": true,
+          "reason": null,
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-04-03-source-00.json"
+        },
+        {
+          "source_id": "dev-grid-04-03-template-013-rotation-05",
+          "passed": true,
+          "reason": null,
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-04-03-source-01.json"
+        }
+      ],
+      "confirmations": [
+        {
+          "source_id": "dev-grid-04-03-template-002-rotation-11",
+          "nominal": {
+            "attempts": 3,
+            "captures": 3
+          },
+          "fresh": {
+            "attempts": 20,
+            "captures": 15,
+            "invalid": 0
+          },
+          "motion": {
+            "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+            "file": "transit-dev-grid-04-03-source-00.json"
+          },
+          "qualified": false
+        },
+        {
+          "source_id": "dev-grid-04-03-template-013-rotation-05",
+          "nominal": {
+            "attempts": 3,
+            "captures": 3
+          },
+          "fresh": {
+            "attempts": 20,
+            "captures": 20,
+            "invalid": 0
+          },
+          "motion": {
+            "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+            "file": "transit-dev-grid-04-03-source-01.json"
+          },
+          "qualified": true
+        }
+      ],
+      "qualified_settings": 1,
+      "result_category": "qualified"
+    },
+    {
+      "id": "dev-grid-04-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        0.25
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 7,
+      "search": {
+        "attempts": 7,
+        "captures": 5,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": true,
+        "reason": null,
+        "category": "home_clear",
+        "minimum_clearance_m": 0.006085006839541591,
+        "closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": false,
+      "transit_attempts": [
+        {
+          "source_id": "dev-grid-04-04-template-000-rotation-13",
+          "passed": false,
+          "reason": "finite_common_home_connection_unresolved",
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-04-04-source-00.json"
+        },
+        {
+          "source_id": "dev-grid-04-04-template-013-rotation-03",
+          "passed": false,
+          "reason": "finite_common_home_connection_unresolved",
+          "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+          "file": "transit-dev-grid-04-04-source-01.json"
+        }
+      ],
+      "confirmations": [],
+      "qualified_settings": 0,
+      "result_category": "common_start_path_unresolved"
+    },
+    {
+      "id": "dev-grid-04-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        0.25
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 0,
+      "search": {
+        "attempts": 0,
+        "captures": 0,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": true,
+        "reason": null,
+        "category": "home_clear",
+        "minimum_clearance_m": 0.006085006839541591,
+        "closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": false,
+      "transit_attempts": [],
+      "confirmations": [],
+      "qualified_settings": 0,
+      "result_category": "endpoint_unresolved"
+    },
+    {
+      "id": "dev-grid-04-06",
+      "bucket_xy_m": [
+        1.24,
+        0.25
+      ],
+      "initial_geometry_requests": 336,
+      "strict_endpoint_options": 0,
+      "search": {
+        "attempts": 0,
+        "captures": 0,
+        "invalid": 0
+      },
+      "home_geometry": {
+        "passed": true,
+        "reason": null,
+        "category": "home_clear",
+        "minimum_clearance_m": 0.006085006839541591,
+        "closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "fixed_base_penetrations": [],
+        "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d"
+      },
+      "common_start_connected": false,
+      "transit_attempts": [],
+      "confirmations": [],
+      "qualified_settings": 0,
+      "result_category": "endpoint_unresolved"
+    }
+  ],
+  "qualified_settings": [
+    {
+      "source": {
+        "id": "dev-grid-00-02-template-003-rotation-15",
+        "cell_id": "dev-grid-00-02",
+        "candidate_id": "template-003-rotation-15",
+        "values": [
+          0.6093377971368164,
+          -0.44433738363365904,
+          0.2566869137423825,
+          37.21897657594422,
+          0.19484428737039663
+        ],
+        "bucket_xy_m": [
+          0.48,
+          -0.65
+        ],
+        "q10": [
+          -0.6300716148033775,
+          -0.9108475905564863,
+          -2.300792654355231,
+          2.1877765420905684e-06,
+          -1.389945058497398,
+          -0.6300697578670205
+        ],
+        "q14": [
+          3.6214899685120625,
+          1.5410155685241844,
+          -3.4742301436565803,
+          -0.322013192246137,
+          -1.3069797448596923,
+          2.093701920169578
+        ],
+        "board_center_m": [
+          0.6093376874923706,
+          -0.4443374276161194,
+          0.25668689608573914
+        ],
+        "board_normal": [
+          -0.32200533151626587,
+          -0.5120271444320679,
+          0.7963297367095947
+        ],
+        "release_ball_center_m": [
+          0.6093377971368164,
+          -0.44433738363365904,
+          0.48903120111277915
+        ],
+        "route_success": true,
+        "route_quality": 2,
+        "entry_class": "clean_capture",
+        "minimum_mouth_clearance_mm": 34.250889656937346,
+        "native_cache_file": "native-batch-0000.npz",
+        "native_cache_row": 27,
+        "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+      },
+      "transit_file": "transit-dev-grid-00-02-source-01.json",
+      "transit_scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+      "noise_seed": 20262132,
+      "nominal_ids": [
+        "dev-grid-00-02-template-003-rotation-15-nominal-00",
+        "dev-grid-00-02-template-003-rotation-15-nominal-01",
+        "dev-grid-00-02-template-003-rotation-15-nominal-02"
+      ],
+      "fresh_ids": [
+        "dev-grid-00-02-template-003-rotation-15-confirmation-00",
+        "dev-grid-00-02-template-003-rotation-15-confirmation-01",
+        "dev-grid-00-02-template-003-rotation-15-confirmation-02",
+        "dev-grid-00-02-template-003-rotation-15-confirmation-03",
+        "dev-grid-00-02-template-003-rotation-15-confirmation-04",
+        "dev-grid-00-02-template-003-rotation-15-confirmation-05",
+        "dev-grid-00-02-template-003-rotation-15-confirmation-06",
+        "dev-grid-00-02-template-003-rotation-15-confirmation-07",
+        "dev-grid-00-02-template-003-rotation-15-confirmation-08",
+        "dev-grid-00-02-template-003-rotation-15-confirmation-09",
+        "dev-grid-00-02-template-003-rotation-15-confirmation-10",
+        "dev-grid-00-02-template-003-rotation-15-confirmation-11",
+        "dev-grid-00-02-template-003-rotation-15-confirmation-12",
+        "dev-grid-00-02-template-003-rotation-15-confirmation-13",
+        "dev-grid-00-02-template-003-rotation-15-confirmation-14",
+        "dev-grid-00-02-template-003-rotation-15-confirmation-15",
+        "dev-grid-00-02-template-003-rotation-15-confirmation-16",
+        "dev-grid-00-02-template-003-rotation-15-confirmation-17",
+        "dev-grid-00-02-template-003-rotation-15-confirmation-18",
+        "dev-grid-00-02-template-003-rotation-15-confirmation-19"
+      ],
+      "nominal_attempts": 3,
+      "nominal_captures": 3,
+      "fresh_attempts": 20,
+      "fresh_captures": 20,
+      "fresh_invalid": 0,
+      "qualified": true,
+      "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+    },
+    {
+      "source": {
+        "id": "dev-grid-00-03-template-013-rotation-14",
+        "cell_id": "dev-grid-00-03",
+        "candidate_id": "template-013-rotation-14",
+        "values": [
+          0.6393201165766431,
+          -0.35177196585614784,
+          0.40906503211023215,
+          32.749881784770345,
+          0.1353410311538266
+        ],
+        "bucket_xy_m": [
+          0.6699999999999999,
+          -0.65
+        ],
+        "q10": [
+          -0.5030259984910076,
+          -0.9169500466671392,
+          -2.52482746590146,
+          5.232266461956605e-07,
+          -1.6078774192389524,
+          -0.5030238160340703
+        ],
+        "q14": [
+          3.480212397302147,
+          1.2416688442245072,
+          -3.6944724551070287,
+          -0.5550956062779694,
+          -1.634067140858074,
+          2.8237719691607093
+        ],
+        "board_center_m": [
+          0.6393200755119324,
+          -0.3517719805240631,
+          0.40906503796577454
+        ],
+        "board_normal": [
+          0.05535966530442238,
+          -0.5381324887275696,
+          0.8410402536392212
+        ],
+        "release_ball_center_m": [
+          0.6393201165766431,
+          -0.35177196585614784,
+          0.5819060632640587
+        ],
+        "route_success": true,
+        "route_quality": 1,
+        "entry_class": "assisted_or_marginal_capture",
+        "minimum_mouth_clearance_mm": 40.32958648842557,
+        "native_cache_file": "native-batch-0000.npz",
+        "native_cache_row": 37,
+        "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+      },
+      "transit_file": "transit-dev-grid-00-03-source-01.json",
+      "transit_scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+      "noise_seed": 20262134,
+      "nominal_ids": [
+        "dev-grid-00-03-template-013-rotation-14-nominal-00",
+        "dev-grid-00-03-template-013-rotation-14-nominal-01",
+        "dev-grid-00-03-template-013-rotation-14-nominal-02"
+      ],
+      "fresh_ids": [
+        "dev-grid-00-03-template-013-rotation-14-confirmation-00",
+        "dev-grid-00-03-template-013-rotation-14-confirmation-01",
+        "dev-grid-00-03-template-013-rotation-14-confirmation-02",
+        "dev-grid-00-03-template-013-rotation-14-confirmation-03",
+        "dev-grid-00-03-template-013-rotation-14-confirmation-04",
+        "dev-grid-00-03-template-013-rotation-14-confirmation-05",
+        "dev-grid-00-03-template-013-rotation-14-confirmation-06",
+        "dev-grid-00-03-template-013-rotation-14-confirmation-07",
+        "dev-grid-00-03-template-013-rotation-14-confirmation-08",
+        "dev-grid-00-03-template-013-rotation-14-confirmation-09",
+        "dev-grid-00-03-template-013-rotation-14-confirmation-10",
+        "dev-grid-00-03-template-013-rotation-14-confirmation-11",
+        "dev-grid-00-03-template-013-rotation-14-confirmation-12",
+        "dev-grid-00-03-template-013-rotation-14-confirmation-13",
+        "dev-grid-00-03-template-013-rotation-14-confirmation-14",
+        "dev-grid-00-03-template-013-rotation-14-confirmation-15",
+        "dev-grid-00-03-template-013-rotation-14-confirmation-16",
+        "dev-grid-00-03-template-013-rotation-14-confirmation-17",
+        "dev-grid-00-03-template-013-rotation-14-confirmation-18",
+        "dev-grid-00-03-template-013-rotation-14-confirmation-19"
+      ],
+      "nominal_attempts": 3,
+      "nominal_captures": 3,
+      "fresh_attempts": 20,
+      "fresh_captures": 19,
+      "fresh_invalid": 0,
+      "qualified": true,
+      "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+    },
+    {
+      "source": {
+        "id": "dev-grid-01-02-template-002-rotation-00",
+        "cell_id": "dev-grid-01-02",
+        "candidate_id": "template-002-rotation-00",
+        "values": [
+          0.6497921995871924,
+          -0.43525339293943993,
+          0.2741482940207319,
+          27.534005060312847,
+          0.0963651221865184
+        ],
+        "bucket_xy_m": [
+          0.48,
+          -0.42500000000000004
+        ],
+        "q10": [
+          -0.5901996435953553,
+          -1.0137384532392364,
+          -2.296533770695839,
+          2.3961244362388675e-06,
+          -1.2827953146529913,
+          -0.5901974590763881
+        ],
+        "q14": [
+          3.775057190306422,
+          1.516658229252575,
+          -3.524278994703446,
+          0.3004708982035638,
+          -1.520495146104944,
+          0.9197563944695339
+        ],
+        "board_center_m": [
+          0.6497920751571655,
+          -0.4352532923221588,
+          0.27414825558662415
+        ],
+        "board_normal": [
+          -0.4614343047142029,
+          0.027865450829267502,
+          0.8867366313934326
+        ],
+        "release_ball_center_m": [
+          0.6497921995871924,
+          -0.43525339293943993,
+          0.4080134162072503
+        ],
+        "route_success": true,
+        "route_quality": 2,
+        "entry_class": "clean_capture",
+        "minimum_mouth_clearance_mm": 43.93225140556829,
+        "native_cache_file": "native-batch-0000.npz",
+        "native_cache_row": 88,
+        "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+      },
+      "transit_file": "transit-dev-grid-01-02-source-00.json",
+      "transit_scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+      "noise_seed": 20262166,
+      "nominal_ids": [
+        "dev-grid-01-02-template-002-rotation-00-nominal-00",
+        "dev-grid-01-02-template-002-rotation-00-nominal-01",
+        "dev-grid-01-02-template-002-rotation-00-nominal-02"
+      ],
+      "fresh_ids": [
+        "dev-grid-01-02-template-002-rotation-00-confirmation-00",
+        "dev-grid-01-02-template-002-rotation-00-confirmation-01",
+        "dev-grid-01-02-template-002-rotation-00-confirmation-02",
+        "dev-grid-01-02-template-002-rotation-00-confirmation-03",
+        "dev-grid-01-02-template-002-rotation-00-confirmation-04",
+        "dev-grid-01-02-template-002-rotation-00-confirmation-05",
+        "dev-grid-01-02-template-002-rotation-00-confirmation-06",
+        "dev-grid-01-02-template-002-rotation-00-confirmation-07",
+        "dev-grid-01-02-template-002-rotation-00-confirmation-08",
+        "dev-grid-01-02-template-002-rotation-00-confirmation-09",
+        "dev-grid-01-02-template-002-rotation-00-confirmation-10",
+        "dev-grid-01-02-template-002-rotation-00-confirmation-11",
+        "dev-grid-01-02-template-002-rotation-00-confirmation-12",
+        "dev-grid-01-02-template-002-rotation-00-confirmation-13",
+        "dev-grid-01-02-template-002-rotation-00-confirmation-14",
+        "dev-grid-01-02-template-002-rotation-00-confirmation-15",
+        "dev-grid-01-02-template-002-rotation-00-confirmation-16",
+        "dev-grid-01-02-template-002-rotation-00-confirmation-17",
+        "dev-grid-01-02-template-002-rotation-00-confirmation-18",
+        "dev-grid-01-02-template-002-rotation-00-confirmation-19"
+      ],
+      "nominal_attempts": 3,
+      "nominal_captures": 3,
+      "fresh_attempts": 20,
+      "fresh_captures": 20,
+      "fresh_invalid": 0,
+      "qualified": true,
+      "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+    },
+    {
+      "source": {
+        "id": "dev-grid-01-02-template-002-rotation-01",
+        "cell_id": "dev-grid-01-02",
+        "candidate_id": "template-002-rotation-01",
+        "values": [
+          0.6407913415821311,
+          -0.36949623814869914,
+          0.2741482940207319,
+          27.534005060312847,
+          0.0963651221865184
+        ],
+        "bucket_xy_m": [
+          0.48,
+          -0.42500000000000004
+        ],
+        "q10": [
+          -0.523060898799601,
+          -0.8354841834197865,
+          -1.9954647372464822,
+          4.569024762631627e-06,
+          -1.1599805451258778,
+          -0.5230603373314011
+        ],
+        "q14": [
+          3.6486983481682667,
+          1.4075943129689341,
+          -3.758995568048231,
+          0.08045564008764286,
+          -1.550764513946029,
+          1.4139086612569547
+        ],
+        "board_center_m": [
+          0.6407912373542786,
+          -0.36949631571769714,
+          0.27414828538894653
+        ],
+        "board_normal": [
+          -0.4369732737541199,
+          -0.15083926916122437,
+          0.8867369294166565
+        ],
+        "release_ball_center_m": [
+          0.6407913415821311,
+          -0.36949623814869914,
+          0.4080134162072503
+        ],
+        "route_success": true,
+        "route_quality": 2,
+        "entry_class": "clean_capture",
+        "minimum_mouth_clearance_mm": 43.42749952133528,
+        "native_cache_file": "native-batch-0000.npz",
+        "native_cache_row": 91,
+        "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+      },
+      "transit_file": "transit-dev-grid-01-02-source-01.json",
+      "transit_scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+      "noise_seed": 20262167,
+      "nominal_ids": [
+        "dev-grid-01-02-template-002-rotation-01-nominal-00",
+        "dev-grid-01-02-template-002-rotation-01-nominal-01",
+        "dev-grid-01-02-template-002-rotation-01-nominal-02"
+      ],
+      "fresh_ids": [
+        "dev-grid-01-02-template-002-rotation-01-confirmation-00",
+        "dev-grid-01-02-template-002-rotation-01-confirmation-01",
+        "dev-grid-01-02-template-002-rotation-01-confirmation-02",
+        "dev-grid-01-02-template-002-rotation-01-confirmation-03",
+        "dev-grid-01-02-template-002-rotation-01-confirmation-04",
+        "dev-grid-01-02-template-002-rotation-01-confirmation-05",
+        "dev-grid-01-02-template-002-rotation-01-confirmation-06",
+        "dev-grid-01-02-template-002-rotation-01-confirmation-07",
+        "dev-grid-01-02-template-002-rotation-01-confirmation-08",
+        "dev-grid-01-02-template-002-rotation-01-confirmation-09",
+        "dev-grid-01-02-template-002-rotation-01-confirmation-10",
+        "dev-grid-01-02-template-002-rotation-01-confirmation-11",
+        "dev-grid-01-02-template-002-rotation-01-confirmation-12",
+        "dev-grid-01-02-template-002-rotation-01-confirmation-13",
+        "dev-grid-01-02-template-002-rotation-01-confirmation-14",
+        "dev-grid-01-02-template-002-rotation-01-confirmation-15",
+        "dev-grid-01-02-template-002-rotation-01-confirmation-16",
+        "dev-grid-01-02-template-002-rotation-01-confirmation-17",
+        "dev-grid-01-02-template-002-rotation-01-confirmation-18",
+        "dev-grid-01-02-template-002-rotation-01-confirmation-19"
+      ],
+      "nominal_attempts": 3,
+      "nominal_captures": 3,
+      "fresh_attempts": 20,
+      "fresh_captures": 20,
+      "fresh_invalid": 0,
+      "qualified": true,
+      "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+    },
+    {
+      "source": {
+        "id": "dev-grid-01-04-template-013-rotation-00",
+        "cell_id": "dev-grid-01-04",
+        "candidate_id": "template-013-rotation-00",
+        "values": [
+          0.6274269811022803,
+          -0.23581488833161737,
+          0.40906503211023215,
+          32.749881784770345,
+          0.1353410311538266
+        ],
+        "bucket_xy_m": [
+          0.8599999999999999,
+          -0.42500000000000004
+        ],
+        "q10": [
+          -0.3595174907988004,
+          -0.6207472057824205,
+          -2.043813976279813,
+          3.4213064459494097e-06,
+          -1.4230667704827134,
+          -0.3595173145881308
+        ],
+        "q14": [
+          3.354803750756091,
+          1.4452727268763417,
+          -3.299125496347952,
+          -0.4709019031044447,
+          -1.9440738011948415,
+          3.71837972864094
+        ],
+        "board_center_m": [
+          0.6274269819259644,
+          -0.23581497371196747,
+          0.40906503796577454
+        ],
+        "board_normal": [
+          0.4196629226207733,
+          -0.34137192368507385,
+          0.8410402536392212
+        ],
+        "release_ball_center_m": [
+          0.6274269811022803,
+          -0.23581488833161737,
+          0.5819060632640587
+        ],
+        "route_success": true,
+        "route_quality": 1,
+        "entry_class": "assisted_or_marginal_capture",
+        "minimum_mouth_clearance_mm": 39.81887378128204,
+        "native_cache_file": "native-batch-0001.npz",
+        "native_cache_row": 8,
+        "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+      },
+      "transit_file": "transit-dev-grid-01-04-source-00.json",
+      "transit_scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+      "noise_seed": 20262170,
+      "nominal_ids": [
+        "dev-grid-01-04-template-013-rotation-00-nominal-00",
+        "dev-grid-01-04-template-013-rotation-00-nominal-01",
+        "dev-grid-01-04-template-013-rotation-00-nominal-02"
+      ],
+      "fresh_ids": [
+        "dev-grid-01-04-template-013-rotation-00-confirmation-00",
+        "dev-grid-01-04-template-013-rotation-00-confirmation-01",
+        "dev-grid-01-04-template-013-rotation-00-confirmation-02",
+        "dev-grid-01-04-template-013-rotation-00-confirmation-03",
+        "dev-grid-01-04-template-013-rotation-00-confirmation-04",
+        "dev-grid-01-04-template-013-rotation-00-confirmation-05",
+        "dev-grid-01-04-template-013-rotation-00-confirmation-06",
+        "dev-grid-01-04-template-013-rotation-00-confirmation-07",
+        "dev-grid-01-04-template-013-rotation-00-confirmation-08",
+        "dev-grid-01-04-template-013-rotation-00-confirmation-09",
+        "dev-grid-01-04-template-013-rotation-00-confirmation-10",
+        "dev-grid-01-04-template-013-rotation-00-confirmation-11",
+        "dev-grid-01-04-template-013-rotation-00-confirmation-12",
+        "dev-grid-01-04-template-013-rotation-00-confirmation-13",
+        "dev-grid-01-04-template-013-rotation-00-confirmation-14",
+        "dev-grid-01-04-template-013-rotation-00-confirmation-15",
+        "dev-grid-01-04-template-013-rotation-00-confirmation-16",
+        "dev-grid-01-04-template-013-rotation-00-confirmation-17",
+        "dev-grid-01-04-template-013-rotation-00-confirmation-18",
+        "dev-grid-01-04-template-013-rotation-00-confirmation-19"
+      ],
+      "nominal_attempts": 3,
+      "nominal_captures": 3,
+      "fresh_attempts": 20,
+      "fresh_captures": 20,
+      "fresh_invalid": 0,
+      "qualified": true,
+      "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+    },
+    {
+      "source": {
+        "id": "dev-grid-01-04-template-012-rotation-04",
+        "cell_id": "dev-grid-01-04",
+        "candidate_id": "template-012-rotation-04",
+        "values": [
+          0.6129509530250676,
+          -0.19988034190854112,
+          0.42952109265211785,
+          39.40105623280489,
+          0.18734401135074727
+        ],
+        "bucket_xy_m": [
+          0.8599999999999999,
+          -0.42500000000000004
+        ],
+        "q10": [
+          -0.3152294509651739,
+          -0.5989733920890306,
+          -2.177426831722042,
+          2.3381330359353177e-06,
+          -1.578453423353884,
+          -0.3152289641776269
+        ],
+        "q14": [
+          3.2864226230301656,
+          1.4622053338425822,
+          -3.1887477254159973,
+          -0.5525069226646295,
+          -1.933020874487622,
+          3.741726242875122
+        ],
+        "board_center_m": [
+          0.6129509210586548,
+          -0.1998804807662964,
+          0.4295211434364319
+        ],
+        "board_normal": [
+          0.46917232871055603,
+          -0.42752593755722046,
+          0.7727218270301819
+        ],
+        "release_ball_center_m": [
+          0.6129509530250676,
+          -0.19988034190854112,
+          0.6543651040028651
+        ],
+        "route_success": true,
+        "route_quality": 1,
+        "entry_class": "assisted_or_marginal_capture",
+        "minimum_mouth_clearance_mm": 37.28306778017253,
+        "native_cache_file": "native-batch-0001.npz",
+        "native_cache_row": 9,
+        "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+      },
+      "transit_file": "transit-dev-grid-01-04-source-01.json",
+      "transit_scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+      "noise_seed": 20262171,
+      "nominal_ids": [
+        "dev-grid-01-04-template-012-rotation-04-nominal-00",
+        "dev-grid-01-04-template-012-rotation-04-nominal-01",
+        "dev-grid-01-04-template-012-rotation-04-nominal-02"
+      ],
+      "fresh_ids": [
+        "dev-grid-01-04-template-012-rotation-04-confirmation-00",
+        "dev-grid-01-04-template-012-rotation-04-confirmation-01",
+        "dev-grid-01-04-template-012-rotation-04-confirmation-02",
+        "dev-grid-01-04-template-012-rotation-04-confirmation-03",
+        "dev-grid-01-04-template-012-rotation-04-confirmation-04",
+        "dev-grid-01-04-template-012-rotation-04-confirmation-05",
+        "dev-grid-01-04-template-012-rotation-04-confirmation-06",
+        "dev-grid-01-04-template-012-rotation-04-confirmation-07",
+        "dev-grid-01-04-template-012-rotation-04-confirmation-08",
+        "dev-grid-01-04-template-012-rotation-04-confirmation-09",
+        "dev-grid-01-04-template-012-rotation-04-confirmation-10",
+        "dev-grid-01-04-template-012-rotation-04-confirmation-11",
+        "dev-grid-01-04-template-012-rotation-04-confirmation-12",
+        "dev-grid-01-04-template-012-rotation-04-confirmation-13",
+        "dev-grid-01-04-template-012-rotation-04-confirmation-14",
+        "dev-grid-01-04-template-012-rotation-04-confirmation-15",
+        "dev-grid-01-04-template-012-rotation-04-confirmation-16",
+        "dev-grid-01-04-template-012-rotation-04-confirmation-17",
+        "dev-grid-01-04-template-012-rotation-04-confirmation-18",
+        "dev-grid-01-04-template-012-rotation-04-confirmation-19"
+      ],
+      "nominal_attempts": 3,
+      "nominal_captures": 3,
+      "fresh_attempts": 20,
+      "fresh_captures": 18,
+      "fresh_invalid": 0,
+      "qualified": true,
+      "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+    },
+    {
+      "source": {
+        "id": "dev-grid-02-01-template-000-rotation-02",
+        "cell_id": "dev-grid-02-01",
+        "candidate_id": "template-000-rotation-02",
+        "values": [
+          0.591504920117288,
+          -0.3435668297172108,
+          0.26809875019708507,
+          31.519844899807353,
+          0.26155952009868144
+        ],
+        "bucket_xy_m": [
+          0.29,
+          -0.2
+        ],
+        "q10": [
+          -0.5262152721885088,
+          -0.661682292481418,
+          -2.073037940174041,
+          3.331445486375231e-06,
+          -1.4113556471086228,
+          -0.5262148671699266
+        ],
+        "q14": [
+          3.6736744974724416,
+          1.5730092885742963,
+          -3.4061743410390886,
+          0.4487826581845725,
+          -1.5131306452691327,
+          0.6425790708056012
+        ],
+        "board_center_m": [
+          0.5915048718452454,
+          -0.3435669541358948,
+          0.2680986523628235
+        ],
+        "board_normal": [
+          -0.47201433777809143,
+          0.22475765645503998,
+          0.8524591326713562
+        ],
+        "release_ball_center_m": [
+          0.591504920117288,
+          -0.3435668297172108,
+          0.5671582702957665
+        ],
+        "route_success": true,
+        "route_quality": 2,
+        "entry_class": "clean_capture",
+        "minimum_mouth_clearance_mm": 35.885136869638046,
+        "native_cache_file": "native-batch-0001.npz",
+        "native_cache_row": 38,
+        "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+      },
+      "transit_file": "transit-dev-grid-02-01-source-00.json",
+      "transit_scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+      "noise_seed": 20262199,
+      "nominal_ids": [
+        "dev-grid-02-01-template-000-rotation-02-nominal-00",
+        "dev-grid-02-01-template-000-rotation-02-nominal-01",
+        "dev-grid-02-01-template-000-rotation-02-nominal-02"
+      ],
+      "fresh_ids": [
+        "dev-grid-02-01-template-000-rotation-02-confirmation-00",
+        "dev-grid-02-01-template-000-rotation-02-confirmation-01",
+        "dev-grid-02-01-template-000-rotation-02-confirmation-02",
+        "dev-grid-02-01-template-000-rotation-02-confirmation-03",
+        "dev-grid-02-01-template-000-rotation-02-confirmation-04",
+        "dev-grid-02-01-template-000-rotation-02-confirmation-05",
+        "dev-grid-02-01-template-000-rotation-02-confirmation-06",
+        "dev-grid-02-01-template-000-rotation-02-confirmation-07",
+        "dev-grid-02-01-template-000-rotation-02-confirmation-08",
+        "dev-grid-02-01-template-000-rotation-02-confirmation-09",
+        "dev-grid-02-01-template-000-rotation-02-confirmation-10",
+        "dev-grid-02-01-template-000-rotation-02-confirmation-11",
+        "dev-grid-02-01-template-000-rotation-02-confirmation-12",
+        "dev-grid-02-01-template-000-rotation-02-confirmation-13",
+        "dev-grid-02-01-template-000-rotation-02-confirmation-14",
+        "dev-grid-02-01-template-000-rotation-02-confirmation-15",
+        "dev-grid-02-01-template-000-rotation-02-confirmation-16",
+        "dev-grid-02-01-template-000-rotation-02-confirmation-17",
+        "dev-grid-02-01-template-000-rotation-02-confirmation-18",
+        "dev-grid-02-01-template-000-rotation-02-confirmation-19"
+      ],
+      "nominal_attempts": 3,
+      "nominal_captures": 3,
+      "fresh_attempts": 20,
+      "fresh_captures": 20,
+      "fresh_invalid": 0,
+      "qualified": true,
+      "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+    },
+    {
+      "source": {
+        "id": "dev-grid-02-02-template-002-rotation-14",
+        "cell_id": "dev-grid-02-02",
+        "candidate_id": "template-002-rotation-14",
+        "values": [
+          0.5928109720430352,
+          -0.3273114593983317,
+          0.2741482940207319,
+          27.534005060312847,
+          0.0963651221865184
+        ],
+        "bucket_xy_m": [
+          0.48,
+          -0.2
+        ],
+        "q10": [
+          -0.5044859353823791,
+          -0.6413184758855824,
+          -1.6876120989288994,
+          6.807630348245227e-06,
+          -1.0462936227569422,
+          -0.5044876351785006
+        ],
+        "q14": [
+          3.661734248722614,
+          1.723102213119237,
+          -3.107415410421586,
+          0.46970803013779977,
+          -1.5818800086412819,
+          0.23587532007446554
+        ],
+        "board_center_m": [
+          0.592810869216919,
+          -0.32731154561042786,
+          0.27414822578430176
+        ],
+        "board_normal": [
+          -0.3065798580646515,
+          0.34598681330680847,
+          0.8867367506027222
+        ],
+        "release_ball_center_m": [
+          0.5928109720430352,
+          -0.3273114593983317,
+          0.4080134162072503
+        ],
+        "route_success": true,
+        "route_quality": 2,
+        "entry_class": "clean_capture",
+        "minimum_mouth_clearance_mm": 44.31079255790477,
+        "native_cache_file": "native-batch-0001.npz",
+        "native_cache_row": 107,
+        "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+      },
+      "transit_file": "transit-dev-grid-02-02-source-00.json",
+      "transit_scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+      "noise_seed": 20262201,
+      "nominal_ids": [
+        "dev-grid-02-02-template-002-rotation-14-nominal-00",
+        "dev-grid-02-02-template-002-rotation-14-nominal-01",
+        "dev-grid-02-02-template-002-rotation-14-nominal-02"
+      ],
+      "fresh_ids": [
+        "dev-grid-02-02-template-002-rotation-14-confirmation-00",
+        "dev-grid-02-02-template-002-rotation-14-confirmation-01",
+        "dev-grid-02-02-template-002-rotation-14-confirmation-02",
+        "dev-grid-02-02-template-002-rotation-14-confirmation-03",
+        "dev-grid-02-02-template-002-rotation-14-confirmation-04",
+        "dev-grid-02-02-template-002-rotation-14-confirmation-05",
+        "dev-grid-02-02-template-002-rotation-14-confirmation-06",
+        "dev-grid-02-02-template-002-rotation-14-confirmation-07",
+        "dev-grid-02-02-template-002-rotation-14-confirmation-08",
+        "dev-grid-02-02-template-002-rotation-14-confirmation-09",
+        "dev-grid-02-02-template-002-rotation-14-confirmation-10",
+        "dev-grid-02-02-template-002-rotation-14-confirmation-11",
+        "dev-grid-02-02-template-002-rotation-14-confirmation-12",
+        "dev-grid-02-02-template-002-rotation-14-confirmation-13",
+        "dev-grid-02-02-template-002-rotation-14-confirmation-14",
+        "dev-grid-02-02-template-002-rotation-14-confirmation-15",
+        "dev-grid-02-02-template-002-rotation-14-confirmation-16",
+        "dev-grid-02-02-template-002-rotation-14-confirmation-17",
+        "dev-grid-02-02-template-002-rotation-14-confirmation-18",
+        "dev-grid-02-02-template-002-rotation-14-confirmation-19"
+      ],
+      "nominal_attempts": 3,
+      "nominal_captures": 3,
+      "fresh_attempts": 20,
+      "fresh_captures": 20,
+      "fresh_invalid": 0,
+      "qualified": true,
+      "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+    },
+    {
+      "source": {
+        "id": "dev-grid-02-02-template-002-rotation-15",
+        "cell_id": "dev-grid-02-02",
+        "candidate_id": "template-002-rotation-15",
+        "values": [
+          0.6329437343752256,
+          -0.27444956160238937,
+          0.2741482940207319,
+          27.534005060312847,
+          0.0963651221865184
+        ],
+        "bucket_xy_m": [
+          0.48,
+          -0.2
+        ],
+        "q10": [
+          -0.4091447225101502,
+          -0.6775700065572006,
+          -1.7433437615072473,
+          6.404261492882597e-06,
+          -1.0657737549397737,
+          -0.4091459716935879
+        ],
+        "q14": [
+          3.605488254462896,
+          1.4020923636949572,
+          -3.771196630769529,
+          0.37976000506802415,
+          -1.7138144403861637,
+          0.7695285946508968
+        ],
+        "board_center_m": [
+          0.6329436302185059,
+          -0.2744496464729309,
+          0.27414828538894653
+        ],
+        "board_normal": [
+          -0.41564643383026123,
+          0.20232729613780975,
+          0.8867367506027222
+        ],
+        "release_ball_center_m": [
+          0.6329437343752256,
+          -0.27444956160238937,
+          0.4080134162072503
+        ],
+        "route_success": true,
+        "route_quality": 2,
+        "entry_class": "clean_capture",
+        "minimum_mouth_clearance_mm": 44.140848845324996,
+        "native_cache_file": "native-batch-0001.npz",
+        "native_cache_row": 109,
+        "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+      },
+      "transit_file": "transit-dev-grid-02-02-source-01.json",
+      "transit_scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+      "noise_seed": 20262202,
+      "nominal_ids": [
+        "dev-grid-02-02-template-002-rotation-15-nominal-00",
+        "dev-grid-02-02-template-002-rotation-15-nominal-01",
+        "dev-grid-02-02-template-002-rotation-15-nominal-02"
+      ],
+      "fresh_ids": [
+        "dev-grid-02-02-template-002-rotation-15-confirmation-00",
+        "dev-grid-02-02-template-002-rotation-15-confirmation-01",
+        "dev-grid-02-02-template-002-rotation-15-confirmation-02",
+        "dev-grid-02-02-template-002-rotation-15-confirmation-03",
+        "dev-grid-02-02-template-002-rotation-15-confirmation-04",
+        "dev-grid-02-02-template-002-rotation-15-confirmation-05",
+        "dev-grid-02-02-template-002-rotation-15-confirmation-06",
+        "dev-grid-02-02-template-002-rotation-15-confirmation-07",
+        "dev-grid-02-02-template-002-rotation-15-confirmation-08",
+        "dev-grid-02-02-template-002-rotation-15-confirmation-09",
+        "dev-grid-02-02-template-002-rotation-15-confirmation-10",
+        "dev-grid-02-02-template-002-rotation-15-confirmation-11",
+        "dev-grid-02-02-template-002-rotation-15-confirmation-12",
+        "dev-grid-02-02-template-002-rotation-15-confirmation-13",
+        "dev-grid-02-02-template-002-rotation-15-confirmation-14",
+        "dev-grid-02-02-template-002-rotation-15-confirmation-15",
+        "dev-grid-02-02-template-002-rotation-15-confirmation-16",
+        "dev-grid-02-02-template-002-rotation-15-confirmation-17",
+        "dev-grid-02-02-template-002-rotation-15-confirmation-18",
+        "dev-grid-02-02-template-002-rotation-15-confirmation-19"
+      ],
+      "nominal_attempts": 3,
+      "nominal_captures": 3,
+      "fresh_attempts": 20,
+      "fresh_captures": 20,
+      "fresh_invalid": 0,
+      "qualified": true,
+      "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+    },
+    {
+      "source": {
+        "id": "dev-grid-03-01-template-002-rotation-00",
+        "cell_id": "dev-grid-03-01",
+        "candidate_id": "template-002-rotation-00",
+        "values": [
+          0.45979219958719236,
+          0.014746607060560135,
+          0.2741482940207319,
+          27.534005060312847,
+          0.0963651221865184
+        ],
+        "bucket_xy_m": [
+          0.29,
+          0.025000000000000022
+        ],
+        "q10": [
+          0.03206026869132311,
+          -0.09599029226790387,
+          -0.9680150150828721,
+          1.0925836434555903e-05,
+          -0.8720247228729696,
+          0.03205199299770506
+        ],
+        "q14": [
+          3.129625908508164,
+          1.71607688165469,
+          -3.1211359961043965,
+          0.023828758296228828,
+          -1.21563289727272,
+          1.5196264497336829
+        ],
+        "board_center_m": [
+          0.4597921371459961,
+          0.014746682718396187,
+          0.2741483747959137
+        ],
+        "board_normal": [
+          -0.4614342451095581,
+          0.027865134179592133,
+          0.8867368102073669
+        ],
+        "release_ball_center_m": [
+          0.45979219958719236,
+          0.014746607060560135,
+          0.4080134162072503
+        ],
+        "route_success": true,
+        "route_quality": 2,
+        "entry_class": "clean_capture",
+        "minimum_mouth_clearance_mm": 43.17482656352147,
+        "native_cache_file": "native-batch-0001.npz",
+        "native_cache_row": 127,
+        "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+      },
+      "transit_file": "transit-dev-grid-03-01-source-00.json",
+      "transit_scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+      "noise_seed": 20262234,
+      "nominal_ids": [
+        "dev-grid-03-01-template-002-rotation-00-nominal-00",
+        "dev-grid-03-01-template-002-rotation-00-nominal-01",
+        "dev-grid-03-01-template-002-rotation-00-nominal-02"
+      ],
+      "fresh_ids": [
+        "dev-grid-03-01-template-002-rotation-00-confirmation-00",
+        "dev-grid-03-01-template-002-rotation-00-confirmation-01",
+        "dev-grid-03-01-template-002-rotation-00-confirmation-02",
+        "dev-grid-03-01-template-002-rotation-00-confirmation-03",
+        "dev-grid-03-01-template-002-rotation-00-confirmation-04",
+        "dev-grid-03-01-template-002-rotation-00-confirmation-05",
+        "dev-grid-03-01-template-002-rotation-00-confirmation-06",
+        "dev-grid-03-01-template-002-rotation-00-confirmation-07",
+        "dev-grid-03-01-template-002-rotation-00-confirmation-08",
+        "dev-grid-03-01-template-002-rotation-00-confirmation-09",
+        "dev-grid-03-01-template-002-rotation-00-confirmation-10",
+        "dev-grid-03-01-template-002-rotation-00-confirmation-11",
+        "dev-grid-03-01-template-002-rotation-00-confirmation-12",
+        "dev-grid-03-01-template-002-rotation-00-confirmation-13",
+        "dev-grid-03-01-template-002-rotation-00-confirmation-14",
+        "dev-grid-03-01-template-002-rotation-00-confirmation-15",
+        "dev-grid-03-01-template-002-rotation-00-confirmation-16",
+        "dev-grid-03-01-template-002-rotation-00-confirmation-17",
+        "dev-grid-03-01-template-002-rotation-00-confirmation-18",
+        "dev-grid-03-01-template-002-rotation-00-confirmation-19"
+      ],
+      "nominal_attempts": 3,
+      "nominal_captures": 3,
+      "fresh_attempts": 20,
+      "fresh_captures": 20,
+      "fresh_invalid": 0,
+      "qualified": true,
+      "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+    },
+    {
+      "source": {
+        "id": "dev-grid-03-01-template-006-rotation-12",
+        "cell_id": "dev-grid-03-01",
+        "candidate_id": "template-006-rotation-12",
+        "values": [
+          0.5715011397910115,
+          -0.30392746313417895,
+          0.3401140388694352,
+          32.12817684891195,
+          0.3115504318858502
+        ],
+        "bucket_xy_m": [
+          0.29,
+          0.025000000000000022
+        ],
+        "q10": [
+          -0.48877496577108215,
+          -0.6834698621670379,
+          -2.3937304068011924,
+          1.0116932688845922e-06,
+          -1.7102605436246654,
+          -0.488773787844174
+        ],
+        "q14": [
+          3.639638510979637,
+          1.5430047994116425,
+          -3.27881054568355,
+          0.5471194496466557,
+          -1.553176291608139,
+          0.2356130410773855
+        ],
+        "board_center_m": [
+          0.5715010166168213,
+          -0.3039274215698242,
+          0.34011411666870117
+        ],
+        "board_normal": [
+          -0.34579136967658997,
+          0.4040490686893463,
+          0.8468605875968933
+        ],
+        "release_ball_center_m": [
+          0.5715011397910115,
+          -0.30392746313417895,
+          0.6891644707552853
+        ],
+        "route_success": true,
+        "route_quality": 2,
+        "entry_class": "clean_capture",
+        "minimum_mouth_clearance_mm": 38.0438253933243,
+        "native_cache_file": "native-batch-0002.npz",
+        "native_cache_row": 38,
+        "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+      },
+      "transit_file": "transit-dev-grid-03-01-source-01.json",
+      "transit_scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+      "noise_seed": 20262235,
+      "nominal_ids": [
+        "dev-grid-03-01-template-006-rotation-12-nominal-00",
+        "dev-grid-03-01-template-006-rotation-12-nominal-01",
+        "dev-grid-03-01-template-006-rotation-12-nominal-02"
+      ],
+      "fresh_ids": [
+        "dev-grid-03-01-template-006-rotation-12-confirmation-00",
+        "dev-grid-03-01-template-006-rotation-12-confirmation-01",
+        "dev-grid-03-01-template-006-rotation-12-confirmation-02",
+        "dev-grid-03-01-template-006-rotation-12-confirmation-03",
+        "dev-grid-03-01-template-006-rotation-12-confirmation-04",
+        "dev-grid-03-01-template-006-rotation-12-confirmation-05",
+        "dev-grid-03-01-template-006-rotation-12-confirmation-06",
+        "dev-grid-03-01-template-006-rotation-12-confirmation-07",
+        "dev-grid-03-01-template-006-rotation-12-confirmation-08",
+        "dev-grid-03-01-template-006-rotation-12-confirmation-09",
+        "dev-grid-03-01-template-006-rotation-12-confirmation-10",
+        "dev-grid-03-01-template-006-rotation-12-confirmation-11",
+        "dev-grid-03-01-template-006-rotation-12-confirmation-12",
+        "dev-grid-03-01-template-006-rotation-12-confirmation-13",
+        "dev-grid-03-01-template-006-rotation-12-confirmation-14",
+        "dev-grid-03-01-template-006-rotation-12-confirmation-15",
+        "dev-grid-03-01-template-006-rotation-12-confirmation-16",
+        "dev-grid-03-01-template-006-rotation-12-confirmation-17",
+        "dev-grid-03-01-template-006-rotation-12-confirmation-18",
+        "dev-grid-03-01-template-006-rotation-12-confirmation-19"
+      ],
+      "nominal_attempts": 3,
+      "nominal_captures": 3,
+      "fresh_attempts": 20,
+      "fresh_captures": 19,
+      "fresh_invalid": 0,
+      "qualified": true,
+      "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+    },
+    {
+      "source": {
+        "id": "dev-grid-03-02-template-002-rotation-14",
+        "cell_id": "dev-grid-03-02",
+        "candidate_id": "template-002-rotation-14",
+        "values": [
+          0.5928109720430352,
+          -0.10231145939833167,
+          0.2741482940207319,
+          27.534005060312847,
+          0.0963651221865184
+        ],
+        "bucket_xy_m": [
+          0.48,
+          0.025000000000000022
+        ],
+        "q10": [
+          -0.17090743635835914,
+          -0.44283314864288215,
+          -1.3983993472901795,
+          8.8222427629721e-06,
+          -0.9555661983895373,
+          -0.1709117063375001
+        ],
+        "q14": [
+          3.3817459095531692,
+          1.4181259942287703,
+          -3.7357501076473025,
+          0.4291309113019441,
+          -1.755914616650894,
+          0.6201588061199218
+        ],
+        "board_center_m": [
+          0.592810869216919,
+          -0.1023113876581192,
+          0.27414828538894653
+        ],
+        "board_normal": [
+          -0.30657994747161865,
+          0.34598708152770996,
+          0.8867364525794983
+        ],
+        "release_ball_center_m": [
+          0.5928109720430352,
+          -0.10231145939833167,
+          0.4080134162072503
+        ],
+        "route_success": true,
+        "route_quality": 2,
+        "entry_class": "clean_capture",
+        "minimum_mouth_clearance_mm": 44.275801265972376,
+        "native_cache_file": "native-batch-0002.npz",
+        "native_cache_row": 84,
+        "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+      },
+      "transit_file": "transit-dev-grid-03-02-source-00.json",
+      "transit_scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+      "noise_seed": 20262236,
+      "nominal_ids": [
+        "dev-grid-03-02-template-002-rotation-14-nominal-00",
+        "dev-grid-03-02-template-002-rotation-14-nominal-01",
+        "dev-grid-03-02-template-002-rotation-14-nominal-02"
+      ],
+      "fresh_ids": [
+        "dev-grid-03-02-template-002-rotation-14-confirmation-00",
+        "dev-grid-03-02-template-002-rotation-14-confirmation-01",
+        "dev-grid-03-02-template-002-rotation-14-confirmation-02",
+        "dev-grid-03-02-template-002-rotation-14-confirmation-03",
+        "dev-grid-03-02-template-002-rotation-14-confirmation-04",
+        "dev-grid-03-02-template-002-rotation-14-confirmation-05",
+        "dev-grid-03-02-template-002-rotation-14-confirmation-06",
+        "dev-grid-03-02-template-002-rotation-14-confirmation-07",
+        "dev-grid-03-02-template-002-rotation-14-confirmation-08",
+        "dev-grid-03-02-template-002-rotation-14-confirmation-09",
+        "dev-grid-03-02-template-002-rotation-14-confirmation-10",
+        "dev-grid-03-02-template-002-rotation-14-confirmation-11",
+        "dev-grid-03-02-template-002-rotation-14-confirmation-12",
+        "dev-grid-03-02-template-002-rotation-14-confirmation-13",
+        "dev-grid-03-02-template-002-rotation-14-confirmation-14",
+        "dev-grid-03-02-template-002-rotation-14-confirmation-15",
+        "dev-grid-03-02-template-002-rotation-14-confirmation-16",
+        "dev-grid-03-02-template-002-rotation-14-confirmation-17",
+        "dev-grid-03-02-template-002-rotation-14-confirmation-18",
+        "dev-grid-03-02-template-002-rotation-14-confirmation-19"
+      ],
+      "nominal_attempts": 3,
+      "nominal_captures": 3,
+      "fresh_attempts": 20,
+      "fresh_captures": 20,
+      "fresh_invalid": 0,
+      "qualified": true,
+      "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+    },
+    {
+      "source": {
+        "id": "dev-grid-03-02-template-002-rotation-15",
+        "cell_id": "dev-grid-03-02",
+        "candidate_id": "template-002-rotation-15",
+        "values": [
+          0.6329437343752256,
+          -0.04944956160238935,
+          0.2741482940207319,
+          27.534005060312847,
+          0.0963651221865184
+        ],
+        "bucket_xy_m": [
+          0.48,
+          0.025000000000000022
+        ],
+        "q10": [
+          -0.07797256854704732,
+          -0.527544617384228,
+          -1.5183948814527004,
+          8.00978403813776e-06,
+          -0.9908502640888932,
+          -0.07797573146961811
+        ],
+        "q14": [
+          3.281213966959217,
+          1.2786652608177327,
+          -4.057761983577384,
+          0.26707235212037156,
+          -1.7792643312294458,
+          1.0890659439079808
+        ],
+        "board_center_m": [
+          0.6329437494277954,
+          -0.04944964498281479,
+          0.27414825558662415
+        ],
+        "board_normal": [
+          -0.415646493434906,
+          0.20232726633548737,
+          0.8867367506027222
+        ],
+        "release_ball_center_m": [
+          0.6329437343752256,
+          -0.04944956160238935,
+          0.4080134162072503
+        ],
+        "route_success": true,
+        "route_quality": 2,
+        "entry_class": "clean_capture",
+        "minimum_mouth_clearance_mm": 43.90942796097598,
+        "native_cache_file": "native-batch-0002.npz",
+        "native_cache_row": 88,
+        "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+      },
+      "transit_file": "transit-dev-grid-03-02-source-01.json",
+      "transit_scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+      "noise_seed": 20262237,
+      "nominal_ids": [
+        "dev-grid-03-02-template-002-rotation-15-nominal-00",
+        "dev-grid-03-02-template-002-rotation-15-nominal-01",
+        "dev-grid-03-02-template-002-rotation-15-nominal-02"
+      ],
+      "fresh_ids": [
+        "dev-grid-03-02-template-002-rotation-15-confirmation-00",
+        "dev-grid-03-02-template-002-rotation-15-confirmation-01",
+        "dev-grid-03-02-template-002-rotation-15-confirmation-02",
+        "dev-grid-03-02-template-002-rotation-15-confirmation-03",
+        "dev-grid-03-02-template-002-rotation-15-confirmation-04",
+        "dev-grid-03-02-template-002-rotation-15-confirmation-05",
+        "dev-grid-03-02-template-002-rotation-15-confirmation-06",
+        "dev-grid-03-02-template-002-rotation-15-confirmation-07",
+        "dev-grid-03-02-template-002-rotation-15-confirmation-08",
+        "dev-grid-03-02-template-002-rotation-15-confirmation-09",
+        "dev-grid-03-02-template-002-rotation-15-confirmation-10",
+        "dev-grid-03-02-template-002-rotation-15-confirmation-11",
+        "dev-grid-03-02-template-002-rotation-15-confirmation-12",
+        "dev-grid-03-02-template-002-rotation-15-confirmation-13",
+        "dev-grid-03-02-template-002-rotation-15-confirmation-14",
+        "dev-grid-03-02-template-002-rotation-15-confirmation-15",
+        "dev-grid-03-02-template-002-rotation-15-confirmation-16",
+        "dev-grid-03-02-template-002-rotation-15-confirmation-17",
+        "dev-grid-03-02-template-002-rotation-15-confirmation-18",
+        "dev-grid-03-02-template-002-rotation-15-confirmation-19"
+      ],
+      "nominal_attempts": 3,
+      "nominal_captures": 3,
+      "fresh_attempts": 20,
+      "fresh_captures": 20,
+      "fresh_invalid": 0,
+      "qualified": true,
+      "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+    },
+    {
+      "source": {
+        "id": "dev-grid-04-00-template-006-rotation-13",
+        "cell_id": "dev-grid-04-00",
+        "candidate_id": "template-006-rotation-13",
+        "values": [
+          0.4859482320228433,
+          0.053836471519380646,
+          0.3401140388694352,
+          32.12817684891195,
+          0.3115504318858502
+        ],
+        "bucket_xy_m": [
+          0.1,
+          0.25
+        ],
+        "q10": [
+          0.11033073533695018,
+          -0.14057798490519088,
+          -1.6509739384627473,
+          4.051592048448079e-06,
+          -1.5103959535629008,
+          0.11032786030476233
+        ],
+        "q14": [
+          3.1310135652336473,
+          1.4049368410593965,
+          -3.5533214797742096,
+          0.24656485653446195,
+          -1.311753182818435,
+          1.109449432592991
+        ],
+        "board_center_m": [
+          0.4859480857849121,
+          0.0538363941013813,
+          0.3401140570640564
+        ],
+        "board_normal": [
+          -0.4740925431251526,
+          0.24096408486366272,
+          0.8468607068061829
+        ],
+        "release_ball_center_m": [
+          0.4859482320228433,
+          0.053836471519380646,
+          0.6891644707552853
+        ],
+        "route_success": true,
+        "route_quality": 1,
+        "entry_class": "assisted_or_marginal_capture",
+        "minimum_mouth_clearance_mm": 37.1926903333376,
+        "native_cache_file": "native-batch-0002.npz",
+        "native_cache_row": 108,
+        "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+      },
+      "transit_file": "transit-dev-grid-04-00-source-01.json",
+      "transit_scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+      "noise_seed": 20262268,
+      "nominal_ids": [
+        "dev-grid-04-00-template-006-rotation-13-nominal-00",
+        "dev-grid-04-00-template-006-rotation-13-nominal-01",
+        "dev-grid-04-00-template-006-rotation-13-nominal-02"
+      ],
+      "fresh_ids": [
+        "dev-grid-04-00-template-006-rotation-13-confirmation-00",
+        "dev-grid-04-00-template-006-rotation-13-confirmation-01",
+        "dev-grid-04-00-template-006-rotation-13-confirmation-02",
+        "dev-grid-04-00-template-006-rotation-13-confirmation-03",
+        "dev-grid-04-00-template-006-rotation-13-confirmation-04",
+        "dev-grid-04-00-template-006-rotation-13-confirmation-05",
+        "dev-grid-04-00-template-006-rotation-13-confirmation-06",
+        "dev-grid-04-00-template-006-rotation-13-confirmation-07",
+        "dev-grid-04-00-template-006-rotation-13-confirmation-08",
+        "dev-grid-04-00-template-006-rotation-13-confirmation-09",
+        "dev-grid-04-00-template-006-rotation-13-confirmation-10",
+        "dev-grid-04-00-template-006-rotation-13-confirmation-11",
+        "dev-grid-04-00-template-006-rotation-13-confirmation-12",
+        "dev-grid-04-00-template-006-rotation-13-confirmation-13",
+        "dev-grid-04-00-template-006-rotation-13-confirmation-14",
+        "dev-grid-04-00-template-006-rotation-13-confirmation-15",
+        "dev-grid-04-00-template-006-rotation-13-confirmation-16",
+        "dev-grid-04-00-template-006-rotation-13-confirmation-17",
+        "dev-grid-04-00-template-006-rotation-13-confirmation-18",
+        "dev-grid-04-00-template-006-rotation-13-confirmation-19"
+      ],
+      "nominal_attempts": 3,
+      "nominal_captures": 3,
+      "fresh_attempts": 20,
+      "fresh_captures": 20,
+      "fresh_invalid": 0,
+      "qualified": true,
+      "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+    },
+    {
+      "source": {
+        "id": "dev-grid-04-01-template-006-rotation-12",
+        "cell_id": "dev-grid-04-01",
+        "candidate_id": "template-006-rotation-12",
+        "values": [
+          0.5715011397910115,
+          -0.07892746313417898,
+          0.3401140388694352,
+          32.12817684891195,
+          0.3115504318858502
+        ],
+        "bucket_xy_m": [
+          0.29,
+          0.25
+        ],
+        "q10": [
+          -0.13724436984369912,
+          -0.39800280640067054,
+          -1.9703195510946958,
+          3.0878343141888617e-06,
+          -1.5723167447143365,
+          -0.13724519103820593
+        ],
+        "q14": [
+          3.3604194562542617,
+          1.2869106930093888,
+          -3.79584347616379,
+          0.49014202520324046,
+          -1.6444971999389115,
+          0.6002880170435735
+        ],
+        "board_center_m": [
+          0.5715010166168213,
+          -0.07892753183841705,
+          0.3401140570640564
+        ],
+        "board_normal": [
+          -0.3457913100719452,
+          0.4040491282939911,
+          0.8468606472015381
+        ],
+        "release_ball_center_m": [
+          0.5715011397910115,
+          -0.07892746313417898,
+          0.6891644707552853
+        ],
+        "route_success": true,
+        "route_quality": 2,
+        "entry_class": "clean_capture",
+        "minimum_mouth_clearance_mm": 37.93455000622257,
+        "native_cache_file": "native-batch-0003.npz",
+        "native_cache_row": 21,
+        "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+      },
+      "transit_file": "transit-dev-grid-04-01-source-00.json",
+      "transit_scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+      "noise_seed": 20262269,
+      "nominal_ids": [
+        "dev-grid-04-01-template-006-rotation-12-nominal-00",
+        "dev-grid-04-01-template-006-rotation-12-nominal-01",
+        "dev-grid-04-01-template-006-rotation-12-nominal-02"
+      ],
+      "fresh_ids": [
+        "dev-grid-04-01-template-006-rotation-12-confirmation-00",
+        "dev-grid-04-01-template-006-rotation-12-confirmation-01",
+        "dev-grid-04-01-template-006-rotation-12-confirmation-02",
+        "dev-grid-04-01-template-006-rotation-12-confirmation-03",
+        "dev-grid-04-01-template-006-rotation-12-confirmation-04",
+        "dev-grid-04-01-template-006-rotation-12-confirmation-05",
+        "dev-grid-04-01-template-006-rotation-12-confirmation-06",
+        "dev-grid-04-01-template-006-rotation-12-confirmation-07",
+        "dev-grid-04-01-template-006-rotation-12-confirmation-08",
+        "dev-grid-04-01-template-006-rotation-12-confirmation-09",
+        "dev-grid-04-01-template-006-rotation-12-confirmation-10",
+        "dev-grid-04-01-template-006-rotation-12-confirmation-11",
+        "dev-grid-04-01-template-006-rotation-12-confirmation-12",
+        "dev-grid-04-01-template-006-rotation-12-confirmation-13",
+        "dev-grid-04-01-template-006-rotation-12-confirmation-14",
+        "dev-grid-04-01-template-006-rotation-12-confirmation-15",
+        "dev-grid-04-01-template-006-rotation-12-confirmation-16",
+        "dev-grid-04-01-template-006-rotation-12-confirmation-17",
+        "dev-grid-04-01-template-006-rotation-12-confirmation-18",
+        "dev-grid-04-01-template-006-rotation-12-confirmation-19"
+      ],
+      "nominal_attempts": 3,
+      "nominal_captures": 3,
+      "fresh_attempts": 20,
+      "fresh_captures": 20,
+      "fresh_invalid": 0,
+      "qualified": true,
+      "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+    },
+    {
+      "source": {
+        "id": "dev-grid-04-02-template-002-rotation-14",
+        "cell_id": "dev-grid-04-02",
+        "candidate_id": "template-002-rotation-14",
+        "values": [
+          0.5928109720430352,
+          0.12268854060166831,
+          0.2741482940207319,
+          27.534005060312847,
+          0.0963651221865184
+        ],
+        "bucket_xy_m": [
+          0.48,
+          0.25
+        ],
+        "q10": [
+          0.20407533531886818,
+          -0.45234958736476183,
+          -1.4116109973552946,
+          8.73513710654646e-06,
+          -0.9592614098097529,
+          0.2040711894532201
+        ],
+        "q14": [
+          3.0587919151323266,
+          1.3796130702984617,
+          -3.8214727167464217,
+          0.32764469704308047,
+          -1.692365633016388,
+          0.908813702225822
+        ],
+        "board_center_m": [
+          0.5928109884262085,
+          0.12268856912851334,
+          0.27414843440055847
+        ],
+        "board_normal": [
+          -0.30657944083213806,
+          0.3459870219230652,
+          0.8867367506027222
+        ],
+        "release_ball_center_m": [
+          0.5928109720430352,
+          0.12268854060166831,
+          0.4080134162072503
+        ],
+        "route_success": true,
+        "route_quality": 2,
+        "entry_class": "clean_capture",
+        "minimum_mouth_clearance_mm": 44.01101970459195,
+        "native_cache_file": "native-batch-0003.npz",
+        "native_cache_row": 57,
+        "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+      },
+      "transit_file": "transit-dev-grid-04-02-source-00.json",
+      "transit_scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+      "noise_seed": 20262271,
+      "nominal_ids": [
+        "dev-grid-04-02-template-002-rotation-14-nominal-00",
+        "dev-grid-04-02-template-002-rotation-14-nominal-01",
+        "dev-grid-04-02-template-002-rotation-14-nominal-02"
+      ],
+      "fresh_ids": [
+        "dev-grid-04-02-template-002-rotation-14-confirmation-00",
+        "dev-grid-04-02-template-002-rotation-14-confirmation-01",
+        "dev-grid-04-02-template-002-rotation-14-confirmation-02",
+        "dev-grid-04-02-template-002-rotation-14-confirmation-03",
+        "dev-grid-04-02-template-002-rotation-14-confirmation-04",
+        "dev-grid-04-02-template-002-rotation-14-confirmation-05",
+        "dev-grid-04-02-template-002-rotation-14-confirmation-06",
+        "dev-grid-04-02-template-002-rotation-14-confirmation-07",
+        "dev-grid-04-02-template-002-rotation-14-confirmation-08",
+        "dev-grid-04-02-template-002-rotation-14-confirmation-09",
+        "dev-grid-04-02-template-002-rotation-14-confirmation-10",
+        "dev-grid-04-02-template-002-rotation-14-confirmation-11",
+        "dev-grid-04-02-template-002-rotation-14-confirmation-12",
+        "dev-grid-04-02-template-002-rotation-14-confirmation-13",
+        "dev-grid-04-02-template-002-rotation-14-confirmation-14",
+        "dev-grid-04-02-template-002-rotation-14-confirmation-15",
+        "dev-grid-04-02-template-002-rotation-14-confirmation-16",
+        "dev-grid-04-02-template-002-rotation-14-confirmation-17",
+        "dev-grid-04-02-template-002-rotation-14-confirmation-18",
+        "dev-grid-04-02-template-002-rotation-14-confirmation-19"
+      ],
+      "nominal_attempts": 3,
+      "nominal_captures": 3,
+      "fresh_attempts": 20,
+      "fresh_captures": 20,
+      "fresh_invalid": 0,
+      "qualified": true,
+      "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+    },
+    {
+      "source": {
+        "id": "dev-grid-04-03-template-013-rotation-05",
+        "cell_id": "dev-grid-04-03",
+        "candidate_id": "template-013-rotation-05",
+        "values": [
+          0.5842175886210091,
+          -0.03726745985959323,
+          0.40906503211023215,
+          32.749881784770345,
+          0.1353410311538266
+        ],
+        "bucket_xy_m": [
+          0.6699999999999999,
+          0.25
+        ],
+        "q10": [
+          -0.06370956653488606,
+          -0.354282700624828,
+          -1.668820025582027,
+          5.250476083527988e-06,
+          -1.3145373249566366,
+          -0.0637117820478867
+        ],
+        "q14": [
+          3.3133704665156634,
+          1.3837680914724992,
+          -3.4175663448339115,
+          0.535433630642191,
+          -1.8911163149373151,
+          5.933330764856622
+        ],
+        "board_center_m": [
+          0.5842174887657166,
+          -0.037267498672008514,
+          0.40906500816345215
+        ],
+        "board_normal": [
+          0.1547885686159134,
+          0.518355131149292,
+          0.8410400748252869
+        ],
+        "release_ball_center_m": [
+          0.5842175886210091,
+          -0.03726745985959323,
+          0.5819060632640587
+        ],
+        "route_success": true,
+        "route_quality": 1,
+        "entry_class": "assisted_or_marginal_capture",
+        "minimum_mouth_clearance_mm": 37.40847197725723,
+        "native_cache_file": "native-batch-0003.npz",
+        "native_cache_row": 63,
+        "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+      },
+      "transit_file": "transit-dev-grid-04-03-source-01.json",
+      "transit_scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry",
+      "noise_seed": 20262274,
+      "nominal_ids": [
+        "dev-grid-04-03-template-013-rotation-05-nominal-00",
+        "dev-grid-04-03-template-013-rotation-05-nominal-01",
+        "dev-grid-04-03-template-013-rotation-05-nominal-02"
+      ],
+      "fresh_ids": [
+        "dev-grid-04-03-template-013-rotation-05-confirmation-00",
+        "dev-grid-04-03-template-013-rotation-05-confirmation-01",
+        "dev-grid-04-03-template-013-rotation-05-confirmation-02",
+        "dev-grid-04-03-template-013-rotation-05-confirmation-03",
+        "dev-grid-04-03-template-013-rotation-05-confirmation-04",
+        "dev-grid-04-03-template-013-rotation-05-confirmation-05",
+        "dev-grid-04-03-template-013-rotation-05-confirmation-06",
+        "dev-grid-04-03-template-013-rotation-05-confirmation-07",
+        "dev-grid-04-03-template-013-rotation-05-confirmation-08",
+        "dev-grid-04-03-template-013-rotation-05-confirmation-09",
+        "dev-grid-04-03-template-013-rotation-05-confirmation-10",
+        "dev-grid-04-03-template-013-rotation-05-confirmation-11",
+        "dev-grid-04-03-template-013-rotation-05-confirmation-12",
+        "dev-grid-04-03-template-013-rotation-05-confirmation-13",
+        "dev-grid-04-03-template-013-rotation-05-confirmation-14",
+        "dev-grid-04-03-template-013-rotation-05-confirmation-15",
+        "dev-grid-04-03-template-013-rotation-05-confirmation-16",
+        "dev-grid-04-03-template-013-rotation-05-confirmation-17",
+        "dev-grid-04-03-template-013-rotation-05-confirmation-18",
+        "dev-grid-04-03-template-013-rotation-05-confirmation-19"
+      ],
+      "nominal_attempts": 3,
+      "nominal_captures": 3,
+      "fresh_attempts": 20,
+      "fresh_captures": 20,
+      "fresh_invalid": 0,
+      "qualified": true,
+      "physics_version": "sircus-articulated-passive-contact-15360hz-v1"
+    }
+  ],
+  "audits": {
+    "audit-corrected.json": {
+      "version": "sircus-corrected-grid-evidence-audit-v1",
+      "status": "passed",
+      "contract_fingerprint": "8edba8a3349aa8bcb4c06b97f3f61a302684856513b0ac972cf849afd3f4f037",
+      "independently_rescored_throws": 1114,
+      "limitations": [
+        "Stored-array scoring and provenance audit; native ball dynamics are not independently rerun.",
+        "The35gridpositionsaredevelopment;futurevalidation/testcoordinatesarefrozenandnottestedhere.",
+        "Common-staging certificate identities, endpoints and admission claims checked; full native geometric path checks are performed by the separately versioned admission runner, not repeated here."
+      ],
+      "checks": 3115,
+      "artifact_sha256": "cf204a1a8526b910010d0f779e7d90760a3ee6376d6ff3662e370a0bf7460188"
+    },
+    "audit-corrected-supplement.json": {
+      "version": "sircus-corrected-grid-evidence-audit-v1",
+      "status": "passed",
+      "contract_fingerprint": "8edba8a3349aa8bcb4c06b97f3f61a302684856513b0ac972cf849afd3f4f037",
+      "independently_rescored_throws": 1114,
+      "limitations": [
+        "Stored-array scoring and provenance audit; native ball dynamics are not independently rerun.",
+        "The35gridpositionsaredevelopment;futurevalidation/testcoordinatesarefrozenandnottestedhere.",
+        "Common-staging certificate identities, endpoints and admission claims checked; full native geometric path checks are performed by the separately versioned admission runner, not repeated here."
+      ],
+      "checks": 3165,
+      "artifact_sha256": "1034e03ec4d156fea947e467e6d2937f542c1c3801f51626cb33ff905e772ad7",
+      "auditor_source_sha256": "b16796dff78eb23310247492dee7da40d4f6d9cc7a3fc7d9024062d4dfd4e5b4"
+    }
+  },
+  "audit_scope": "Both audits independently rescore the same 1,114 native releases. Their check sets overlap; 3,115+3,165 is not 6,280 unique independent tests.",
+  "catalogue": {
+    "version": "sircus-corrected64-confirmed-catalogue-v1",
+    "fingerprint": "ba7d2f6c692359aaf157b6a26937ac0cec6d354c1e836faef75c501dc2be4e35",
+    "artifact_sha256": "cd4d1f351b83a631c70eefefa5e3e58f064b30934729250a80ec0ac6c1b52ade",
+    "qualification": "Strict source endpoint/common-home transit,3/3nominal and>=18/20fresh64; no historical success inherited"
+  },
+  "artifacts_sha256": {
+    "report.json": "46b5e318863b9f750d170fbbb9aad32a17e5a4b92777563ca3e17fccba3324ee",
+    "contract.json": "f0b99c9084f5070dfebe0134e9a9194b4dd414f13b72eef3a15d2d3fa137f5f5",
+    "confirmed-catalogue.json": "cd4d1f351b83a631c70eefefa5e3e58f064b30934729250a80ec0ac6c1b52ade",
+    "shots.jsonl": "b98de581b81ba016e8e0ef7653fc9245eed9ca5d165a615796780d44e9274ab2"
+  },
+  "source_sha256": {
+    "sircus/isaac/board_route.py": "6409889aed6b0fd6a288eb9494b954ec5c3233ec41fdcf146940fc23276fb2e9",
+    "sircus/isaac/entry_quality.py": "2f3d8b73c871a41afc3c8f333f5df1d54fa8751720855ffff517e729217db9d4",
+    "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+    "sircus/isaac/rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+    "sircus/mjlab/admission.py": "2dbc5776113f8afb0ea74e23d0c3a2542fd0223d94a6818aec8de4865d302d82",
+    "sircus/mjlab/bank_geometry.py": "5c0d6775582c5524a323f1e9344c35317e8352e9f1f813f5dd0794c05de743f5",
+    "sircus/mjlab/bank_policy.py": "0773471ab8327e822b7c6676b02c2beaf1185e90d72a3ab10fddaf8cd1595ae8",
+    "sircus/mjlab/bank_solve.py": "457166a796492f66e29b9a52dd944a57119f180f12c89a6aface4d5d2f1ad001",
+    "sircus/mjlab/bank_study.py": "7699faeff915a772f3e838983ff1c8dec7721f2d55c79a594e185cd9e08e7dcb",
+    "sircus/mjlab/calibrate.py": "e2da7c22355899f35e7f9f28e8a3ae35001e29cc2e10e7a490c470809bd548fb",
+    "sircus/mjlab/combine_expansions.py": "08bd8381c2feb7f4616c6ab52178c335274601efe8111c0ea5a07327575efe93",
+    "sircus/mjlab/compare.py": "3df8ca25a182377f28a9babf8743a4bd4789c4ad4b66ac193f180eb4defa8017",
+    "sircus/mjlab/contact_confirm.py": "c80716c6a0353f5ba637c01d171114aee429b14c11b21f5400ec3dc9792fc1ac",
+    "sircus/mjlab/contact_env.py": "04655f30a1b216c037573a0b5e177e6209097026f930fc6efc6dfef289abc3da",
+    "sircus/mjlab/contact_model.py": "b2d522d07dd2e3bffa724feb68593b3fef17033b5274587ef9d130e5c40aa24f",
+    "sircus/mjlab/contact_study.py": "fed3be5310ed6fdfd3e7e3631a9a58ab08508c304e929b16558f8c50ee305fd2",
+    "sircus/mjlab/contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407",
+    "sircus/mjlab/corrected_admission.py": "3d42913fc2a9599b0e5063bfc4ee0a03f003b4ba853338e407c8a3d82de3d64a",
+    "sircus/mjlab/corrected_contract.py": "9800404859a7ae2b2934c26ca448be4a69ae90e481069da72732973b1d907ba2",
+    "sircus/mjlab/corrected_geometry.py": "50a4a353d94cceb1fbb0216a40588c997034a121e554f3f84f530d7d47c470be",
+    "sircus/mjlab/corrected_grid.py": "ff312f08a595ff0ff877305cea591ea5d0b7c5f327e5fa9079e526e22d972596",
+    "sircus/mjlab/corrected_pipeline.py": "12b10bc35e51f6323fd3ebe6b4efa90dd4a15e69d070dc510dc4751a624dfa19",
+    "sircus/mjlab/corrected_verify.py": "9f65ce8a89754d39e65d46d88b64e4bfcf0f2754feb1aa7dc8f34bf18ed02cb4",
+    "sircus/mjlab/expand_bank.py": "c65110b9afa9c30658b99f0c11ae6e2aefbdf88442fc876dbc8b03e0888a320b",
+    "sircus/mjlab/expand_far.py": "374aa54f7b24c8f6f598f75ed33881050fb06fcc496a6a6466fe20625763e167",
+    "sircus/mjlab/expand_geometry.py": "0b7982c3494b7cb7f799e073e3a7b788cca77617af0e9f509a4b7e273d926739",
+    "sircus/mjlab/expand_refine.py": "bd55749d6fe0e16a2bf942efcca933a9bf2e579209760eecf89cfe1b6131f60a",
+    "sircus/mjlab/expanded_actions.py": "d41817aa7ad4206139925256ab0cdf5288853e621d6b39824c10ad2d309679c3",
+    "sircus/mjlab/expanded_env.py": "b0e9744d1e82b9e575126e0c6d58e524372b75287713cfdf14d010cb2812df8b",
+    "sircus/mjlab/expanded_study.py": "4a271fe5b1b0d3df20c2c53ce7ef0be87a1d0a681c980708a62df29a6d1bef06",
+    "sircus/mjlab/gpu_slot.py": "fcace6029058a9892296507358ee196b9b5296dc4287a07bedc786e3af4cad4a",
+    "sircus/mjlab/gravity_audit.py": "d4d250396c537b4701631d3e170c35fe40534607d57efaca7164edf4d5581339",
+    "sircus/mjlab/interface.py": "00ae4d29643f12ff143c356422384e7daa047889e3790cceb7732325a5b5a6ea",
+    "sircus/mjlab/isaac_pair.py": "4ab44904a2c966d6a8bf1567d4882a8bcfdf3c1dd3d2ea8d9e1bbeba6093d983",
+    "sircus/mjlab/learning_contract.py": "9f2c44b76297f4ef7009c1b0107be983d0511d5654cb68b8e344dd316ed1fda8",
+    "sircus/mjlab/learning_env.py": "58d2f58be0e1981a5efd09e872bdea7d8f608e1fa21b5c87986505a20a4a4f8c",
+    "sircus/mjlab/learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+    "sircus/mjlab/learning_interface.py": "73f9bfcdb95bacfb7bc904853c26b7233a635c566930c1e51040a9473af9a29a",
+    "sircus/mjlab/learning_policy.py": "5c37a248a0a44280f0f82fe3327973299ec6a4bbfccaaae9f750a898180c7792",
+    "sircus/mjlab/learning_reach.py": "8eea1d565e9faefff0622a9e9a4666eb8d811ac086a8a6711caa8efa3029e9a4",
+    "sircus/mjlab/learning_score.py": "e66b982c0e651c3a9f5855dd03efb87488cc924321aaf9cadb80d51bac2fe814",
+    "sircus/mjlab/learning_search.py": "7e37412363aa5263f0d71b76fe8b79af003ed81e92706beeb9e0f3706512e40a",
+    "sircus/mjlab/learning_solve.py": "836ae6db1172f8a9b43de20dbe0132cd1bc2095fe52cc4f923ebbf739f1c41e5",
+    "sircus/mjlab/learning_study.py": "1d9b358fe11007c7edfbeb607c6f769e9d4dae6e6832768e16cc0df98480f8df",
+    "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+    "sircus/mjlab/prepare_contact_report.py": "c90afae3b0d8b20ac0646c97427944d45a0d13419188ecba9348fa264b4461c9",
+    "sircus/mjlab/prepare_corrected_report.py": "4a8f6a8978e53a6c594f2b9fdb86dc8a7167ab6b1ea8cd0567150ad3c177d6b2",
+    "sircus/mjlab/prepare_expanded_report.py": "a3fa99cae4b6327658b2471986acac8b5f1b1aa0cc5ced0fb0c0ec0bc37e3ecd",
+    "sircus/mjlab/prepare_interface.py": "3783ad300b73808fe9424a960b791afe7addbf28e8a4fab9b61be6ffaf1afbe8",
+    "sircus/mjlab/prepare_stable_report.py": "50ebf337210c94c60ecf081f1caf6cd8854f73646737000fcbe8dd1dd8a423c7",
+    "sircus/mjlab/render_replay.py": "27a562466bc45f5615a95f6c7824ee96bb60e1e51556cedae59bf6982f5a5f50",
+    "sircus/mjlab/repeat_diagnostic.py": "2a91c87c2234466dc1528464630f24856b7a3358f3a98862a1d7916ebac563e8",
+    "sircus/mjlab/requirements.txt": "7c1952bf096917a04387df1c4942bad66c2614cb61f09a55fbe64aa76d087a13",
+    "sircus/mjlab/run.py": "969db2710378345aad34a6f802e33d6ea62488d75e560b9da5738bc0748c3dee",
+    "sircus/mjlab/stable_geometry.py": "2e00b5fc46d1b253b5c85b6823c781a37e26f5819b35586a8cc112b057ebaebf",
+    "sircus/mjlab/stable_ik.py": "efd52c5e837339662c99c196e1a3cf4b5b260eecb7888258779030c459944e07",
+    "sircus/mjlab/stable_study.py": "c9fe1cc71103e1eda5dbd7f9869627c1b09555dca4242e376b7f239198a19ea9",
+    "sircus/mjlab/transit_audit.py": "4400285187eebf3b1c7073a78ab74c94cbead88d52ffc5366e0258d2376f8c96",
+    "sircus/mjlab/transit_detour.py": "700980ef138c281fec2e569d398c54fbfbf2647ac0cc7060e450875e2976e126",
+    "sircus/mjlab/verify_bank.py": "d8f3e0ce75533dd9aacc5018c2dacef2212de8f9e3d63fa50013e1080566fe9b",
+    "sircus/mjlab/verify_combined.py": "c3de2bd00cdff61f5a848ae572a8e3caa3ec5b7ab84465d493d7c907b7b851e2",
+    "sircus/mjlab/verify_contact.py": "17f3b735b98006a9b948444b6262e09de8f6d544b7f0b2228e5bc14ab1d5a182",
+    "sircus/mjlab/verify_contact_confirm.py": "098956227ca8d05bce29ea591b9ade12518d82148526e1787cbfe611fd6a0486",
+    "sircus/mjlab/verify_expanded.py": "f08de30a4c7c9db94bcd9f483e42f925c69f213c60f37ef9dd57049aedfd618d",
+    "sircus/mjlab/verify_expansion.py": "541f2a6e8b58dcc6b07cbb94780474b49f5c785fc3012f92e327de97bc5ca8d1",
+    "sircus/mjlab/verify_far.py": "bd20cb8410657ae39562581b1a0157f3eaa4a4ba519aa1532bc051c6da1b5611",
+    "sircus/mjlab/verify_learning.py": "2ac3124e0a5443d7d572eefe9b73d7711f67a2cdffb9a1198da9fdfac202e874",
+    "sircus/mjlab/verify_refinement.py": "d979ecd5a29e33fc7351283455ace3ab58bc544efee305a5f77f5b6341af1d53",
+    "sircus/mjlab/verify_stable.py": "4cefb89c5cbcc81d1b25e7ace53e9493ce90c19904d7e8c39ca30726ddc1e29c"
+  },
+  "asset_sha256": {
+    "assets/board_arm.urdf": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340",
+    "assets/dropper.urdf": "3f40e56e46b040fb3339c1235ea85872f46511c45db2d37f7661db94a470bae3",
+    "assets/poses.json": "5847c2793606860a82cc74030c3fe529767318f189c5d48e3d66c0dc7b9f776a",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link1.stl": "4069840361c2693b5b1147da366d5ba8a49ff7ab2c52fed68e07e04e07786e3f",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link2.stl": "0e736a629e6000c3c912f5aaf76937f824f510ac8894db67bd0d7f1d6210fc52",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link3.stl": "f682201345117c4b021fd9db21bd9bef6824886c8324f046b7d5772d7c9fa426",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link4.stl": "7bf4ab507c07a2b26e6a8528decdfe32d71efffdf1dd391406f1ce2f9ff4caa7",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link5.stl": "103955f097086e0f5d46380ff89bc7ef669877bb65def38431a18fc5343e1ba0",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link6.stl": "86b95b77850f38ff1437284705a1c8c616e3da21faef72e4f06751fc741de3b3",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link_base.stl": "871d501d23e8164440656331ee0e005d859dbdb7fab1c3725bef423adac9cf0e"
+  },
+  "packages": {
+    "mjlab": "1.6.0",
+    "mujoco": "3.11.0",
+    "mujoco-warp": "3.11.0",
+    "torch": "2.7.0",
+    "warp-lang": "1.14.0",
+    "numpy": "1.26.4",
+    "scipy": "1.15.3",
+    "ml-dtypes": "0.5.4"
+  },
+  "common_home_sha256": "1f9d7cf6973976656cd5752f362402372fd552a5f2f1f078681b24388be5166d",
+  "future_splits": {
+    "validation": [
+      [
+        1.0793963508047384,
+        0.02573155042504338
+      ],
+      [
+        1.1258111375870081,
+        0.24833443170878278
+      ],
+      [
+        0.23093112027721535,
+        -0.10759045767902176
+      ],
+      [
+        0.8849315233708782,
+        -0.1297512301351399
+      ],
+      [
+        0.8433206003360593,
+        -0.2613519996293712
+      ],
+      [
+        1.1467851543710488,
+        -0.26313582853723405
+      ],
+      [
+        0.3977295897089992,
+        -0.04591267879520311
+      ],
+      [
+        0.4929877573070177,
+        -0.22881141760305507
+      ],
+      [
+        0.3088058308120882,
+        -0.22347041460401879
+      ],
+      [
+        1.1830006936238497,
+        -0.30486004334004785
+      ],
+      [
+        0.9767713253184733,
+        -0.4228652215428303
+      ],
+      [
+        0.5440897030282427,
+        -0.132109085465691
+      ],
+      [
+        0.3117702936381561,
+        0.2018602534347519
+      ],
+      [
+        1.108390522299434,
+        0.056733218348773096
+      ],
+      [
+        0.1276305040238682,
+        -0.43761475698896435
+      ],
+      [
+        1.2113229964189547,
+        0.012648294676212313
+      ],
+      [
+        0.23490715814571947,
+        -0.2533380949619593
+      ],
+      [
+        0.6624428690928033,
+        -0.14379007305021885
+      ],
+      [
+        0.6443854945208659,
+        -0.48194993979708256
+      ],
+      [
+        0.5737495354615102,
+        -0.5600639728289809
+      ],
+      [
+        0.5049781311187369,
+        -0.21028044361633547
+      ],
+      [
+        0.20312047384069284,
+        0.02736068849261397
+      ],
+      [
+        0.10913227751429609,
+        -0.42586431127588315
+      ],
+      [
+        0.8736139635196027,
+        -0.3970136586801934
+      ],
+      [
+        0.3307968199111099,
+        -0.3437944419385525
+      ],
+      [
+        0.19382726776521203,
+        0.052520309091068196
+      ],
+      [
+        0.3144195218806827,
+        -0.5079285348877394
+      ],
+      [
+        1.1039439754708782,
+        -0.5464029952333126
+      ],
+      [
+        0.9973703860173797,
+        -0.3166188958561117
+      ],
+      [
+        0.22037176718241736,
+        -0.48579319300068224
+      ]
+    ],
+    "test": [
+      [
+        0.6597677880069986,
+        0.1701535022254539
+      ],
+      [
+        1.1353624316575903,
+        -0.2903276464836973
+      ],
+      [
+        0.12470471381434636,
+        0.10426749568493254
+      ],
+      [
+        0.7159805482901537,
+        0.1644705251856673
+      ],
+      [
+        0.5936013624630018,
+        0.05356495988354748
+      ],
+      [
+        0.15199158726652032,
+        -0.5933122850947062
+      ],
+      [
+        0.5953464486598731,
+        0.17340942579895524
+      ],
+      [
+        1.0785310428519315,
+        -0.6345100759110882
+      ],
+      [
+        1.172594834447042,
+        -0.20412730048484057
+      ],
+      [
+        0.7858395498936098,
+        -0.37966565349166337
+      ],
+      [
+        0.1195180965195684,
+        0.05602856463392747
+      ],
+      [
+        0.5288568044047938,
+        0.07618101163128854
+      ],
+      [
+        0.9874140237568817,
+        -0.31177507214815453
+      ],
+      [
+        0.15664670069760334,
+        -0.1406329607784781
+      ],
+      [
+        0.6946417287865758,
+        -0.5994701390332797
+      ],
+      [
+        0.4325605223473261,
+        0.08938468569004687
+      ],
+      [
+        0.1863192217278117,
+        -0.42201727292649327
+      ],
+      [
+        1.0002854750027916,
+        0.16423847029029004
+      ],
+      [
+        1.1603020919838443,
+        -0.1794210732642888
+      ],
+      [
+        0.8183412773018407,
+        -0.04993031007141835
+      ],
+      [
+        1.125053378907706,
+        0.041521991540098835
+      ],
+      [
+        0.20241952724769183,
+        0.08263675565956052
+      ],
+      [
+        1.1810810895569894,
+        -0.29841122545885485
+      ],
+      [
+        0.4867297570039576,
+        -0.5532719304504904
+      ],
+      [
+        1.0216454410588247,
+        0.1401025578659848
+      ],
+      [
+        0.12942141310480212,
+        0.006943065209471189
+      ],
+      [
+        0.49289657077715454,
+        0.19510844369441815
+      ],
+      [
+        0.6144595736491062,
+        -0.22190887353740257
+      ],
+      [
+        0.46267889697580944,
+        -0.10498665352168379
+      ],
+      [
+        0.8690325927162125,
+        -0.418198393948442
+      ],
+      [
+        0.3361229164452095,
+        -0.10457893958113407
+      ],
+      [
+        0.4758683022252226,
+        0.02063858848864919
+      ],
+      [
+        0.8135966552011047,
+        -0.4858497883586217
+      ],
+      [
+        0.5579144089187198,
+        -0.39668660195670813
+      ],
+      [
+        0.5118706608762675,
+        0.23678830783661287
+      ],
+      [
+        0.8650543805271315,
+        -0.5343513095788673
+      ],
+      [
+        0.5111970270824063,
+        -0.42722906584303705
+      ],
+      [
+        0.3809594284124339,
+        0.11224065161696317
+      ],
+      [
+        0.8787652842437285,
+        0.10858018636954136
+      ],
+      [
+        0.4341869005462152,
+        -0.42101730825921946
+      ],
+      [
+        0.941825180265327,
+        -0.30817609687982384
+      ],
+      [
+        1.182183229673851,
+        -0.1387674516830225
+      ],
+      [
+        0.8488508911286559,
+        -0.05519136542721381
+      ],
+      [
+        0.5285302015847844,
+        0.10978049813013624
+      ],
+      [
+        0.2506707180956492,
+        -0.261864238265048
+      ],
+      [
+        0.14986681313300726,
+        0.13223351214564083
+      ],
+      [
+        0.43492098551873004,
+        -0.4722550015387994
+      ],
+      [
+        1.0886759056356905,
+        0.09081142364761752
+      ],
+      [
+        0.718794836912003,
+        -0.6250189107202515
+      ],
+      [
+        0.24584590157670538,
+        -0.035124289647290086
+      ],
+      [
+        0.17234353093559673,
+        -0.19351358332955065
+      ],
+      [
+        1.1834623012563692,
+        -0.1255909847081046
+      ],
+      [
+        0.17302120998162357,
+        -0.4970840018526598
+      ],
+      [
+        0.8531804263527092,
+        -0.5156478994041359
+      ],
+      [
+        0.18010415497957877,
+        -0.5300697350801582
+      ],
+      [
+        0.17530958182330697,
+        -0.27183453477891795
+      ],
+      [
+        0.5857523052382643,
+        0.007708367261437421
+      ],
+      [
+        1.072279758998448,
+        0.1750151364943595
+      ],
+      [
+        0.9909810207926933,
+        -0.1391861442919028
+      ],
+      [
+        0.401909512590933,
+        -0.32752809586699017
+      ],
+      [
+        0.7610425218053755,
+        -0.47403385030298223
+      ],
+      [
+        0.38727485487710367,
+        -0.14606325164712586
+      ],
+      [
+        0.792246031364226,
+        -0.6029274251229196
+      ],
+      [
+        0.6625851581210151,
+        -0.1905914110851003
+      ],
+      [
+        0.11375425705248243,
+        0.17092902718752845
+      ],
+      [
+        0.9936569117651118,
+        -0.27710126793173
+      ],
+      [
+        0.3953798788027366,
+        -0.4358942052028447
+      ],
+      [
+        0.8245039421991549,
+        -0.2812467044552926
+      ],
+      [
+        0.9102713991190702,
+        -0.5346727920395982
+      ],
+      [
+        0.2369070123237165,
+        0.21798039211518594
+      ],
+      [
+        0.706957204049345,
+        -0.23313216935801895
+      ],
+      [
+        1.0599588422555017,
+        -0.18376244176274192
+      ],
+      [
+        0.20673034567724272,
+        0.21535117364944112
+      ],
+      [
+        1.0782216659596906,
+        0.14595414379906313
+      ],
+      [
+        0.46476596846867824,
+        -0.09442603549937156
+      ],
+      [
+        0.12948345874046047,
+        -0.3652711053004041
+      ],
+      [
+        1.11880735529791,
+        0.07689474536288476
+      ],
+      [
+        0.9380750455767284,
+        0.1414121531255642
+      ],
+      [
+        0.6386940524048241,
+        -0.3294166049045705
+      ],
+      [
+        0.9850074188302761,
+        -0.1511887089641295
+      ],
+      [
+        0.5118180635373363,
+        -0.40004788355343024
+      ],
+      [
+        0.7374093247055992,
+        -0.2169686904788068
+      ],
+      [
+        1.1483387568171235,
+        0.24907019290109844
+      ],
+      [
+        1.134099163178778,
+        -0.013619296342597953
+      ],
+      [
+        0.9805111677195874,
+        -0.3241635422639716
+      ],
+      [
+        0.5842511277455696,
+        -0.10005661102250785
+      ],
+      [
+        0.8620667912217166,
+        -0.294941326257277
+      ],
+      [
+        0.8330278051563067,
+        0.06339922596225211
+      ],
+      [
+        1.0358194822892186,
+        -0.0002037757669662854
+      ],
+      [
+        0.8508522952295672,
+        -0.36184158624737894
+      ],
+      [
+        0.6959125713094029,
+        -0.48392274281949166
+      ],
+      [
+        0.6592655689103234,
+        -0.05076386095103458
+      ],
+      [
+        0.11697023823283545,
+        -0.13917555220514877
+      ],
+      [
+        0.9850586650336667,
+        0.02011862798105868
+      ],
+      [
+        1.0712878359765041,
+        -0.3675289333295988
+      ],
+      [
+        0.6865486851300838,
+        -0.43606337336411777
+      ],
+      [
+        0.24460710854117582,
+        0.23422869434121696
+      ],
+      [
+        1.1340726136918289,
+        -0.05917201473047207
+      ],
+      [
+        0.4597541601842826,
+        -0.22440078920188244
+      ],
+      [
+        1.129875120789821,
+        -0.6179475419951409
+      ]
+    ],
+    "train": [
+      [
+        0.1,
+        -0.65
+      ],
+      [
+        0.29,
+        -0.65
+      ],
+      [
+        0.48,
+        -0.65
+      ],
+      [
+        0.6699999999999999,
+        -0.65
+      ],
+      [
+        0.8599999999999999,
+        -0.65
+      ],
+      [
+        1.0499999999999998,
+        -0.65
+      ],
+      [
+        1.24,
+        -0.65
+      ],
+      [
+        0.1,
+        -0.42500000000000004
+      ],
+      [
+        0.29,
+        -0.42500000000000004
+      ],
+      [
+        0.48,
+        -0.42500000000000004
+      ],
+      [
+        0.6699999999999999,
+        -0.42500000000000004
+      ],
+      [
+        0.8599999999999999,
+        -0.42500000000000004
+      ],
+      [
+        1.0499999999999998,
+        -0.42500000000000004
+      ],
+      [
+        1.24,
+        -0.42500000000000004
+      ],
+      [
+        0.1,
+        -0.2
+      ],
+      [
+        0.29,
+        -0.2
+      ],
+      [
+        0.48,
+        -0.2
+      ],
+      [
+        0.6699999999999999,
+        -0.2
+      ],
+      [
+        0.8599999999999999,
+        -0.2
+      ],
+      [
+        1.0499999999999998,
+        -0.2
+      ],
+      [
+        1.24,
+        -0.2
+      ],
+      [
+        0.1,
+        0.025000000000000022
+      ],
+      [
+        0.29,
+        0.025000000000000022
+      ],
+      [
+        0.48,
+        0.025000000000000022
+      ],
+      [
+        0.6699999999999999,
+        0.025000000000000022
+      ],
+      [
+        0.8599999999999999,
+        0.025000000000000022
+      ],
+      [
+        1.0499999999999998,
+        0.025000000000000022
+      ],
+      [
+        1.24,
+        0.025000000000000022
+      ],
+      [
+        0.1,
+        0.25
+      ],
+      [
+        0.29,
+        0.25
+      ],
+      [
+        0.48,
+        0.25
+      ],
+      [
+        0.6699999999999999,
+        0.25
+      ],
+      [
+        0.8599999999999999,
+        0.25
+      ],
+      [
+        1.0499999999999998,
+        0.25
+      ],
+      [
+        1.24,
+        0.25
+      ]
+    ]
+  },
+  "future_split_scope": "Frozen before current native outcomes and disjoint from supplied mjlab source/historical coordinates; grid is DEVELOPMENT then TRAIN; validation/test receive no outcome search here. No claim against every experiment ever run.",
+  "limitations": [
+    "All 35 coordinates are development then future training; these are not held-out model performance results.",
+    "Aggregate 927 captures across 1127 search/selected-repeat requests is selection-biased and is not an unbiased policy success rate.",
+    "No PPO/checkpoint replacement occurred. Existing learner/inference use older physics and require a matching corrected-contract adapter.",
+    "Finite endpoint/path families and at most two sources per position do not establish impossibility at failed positions.",
+    "Paths are sampled geometry; prescribed joint endpoints during flight are not learned grasp/transit or actuator tracking.",
+    "Reported 175 mm bucket height remains unresolved; provisional 175 mm interior plus 8 mm bottom retained."
+  ],
+  "action_diversity": {
+    "qualified_source_records": 17,
+    "unique_candidate_ids": 12,
+    "oriented_relative_geometry_prototypes": 12,
+    "height_tilt_gap_triples": 6,
+    "rounding_decimals": 10,
+    "oriented_key": "[boardX-bucketX, boardY-bucketY, boardH, tiltDeg, gap] rounded10; normalize negative zero",
+    "height_triple_key": "[boardH, tiltDeg, gap] rounded10",
+    "limitation": "Preserve all17 absolute source poses/joint branches. Reused geometry prototypes are not kinematically or dynamically interchangeable; deduplicate before uniform-vs-learned sampling or explicitly model branch choices."
+  },
+  "training_readiness": {
+    "evidence": "passed_for_limited_pilot_preparation",
+    "existing_trainer_contract_compatible": false,
+    "required_next_gate": "Deduplicate relative geometry prototypes; implement and smoke-test corrected64/passive-only physics with CorrectedGeometry/common-home admission and shared candidate masks/joints before a fresh-init selector pilot.",
+    "suggested_pilot_budget": [
+      2048,
+      4096
+    ],
+    "policy_evaluation": "Freeze geometry-only bank and train35/validation30/test100. No held-out outcome search/resampling; compare same proposals against uniform and retain unresolved layouts in full denominator.",
+    "far_right_grid": {
+      "x_min_m": 1.05,
+      "positions": 10,
+      "native_search_captures": 0
+    },
+    "broad_table_training_ready": false
+  }
+}

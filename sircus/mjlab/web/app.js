@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from '/vendor/OrbitControls.js';
 import { contactStudy, contactGroups, contactConfigurations, transitRoutes, routePreview, configurationsCsv } from '/state.mjs';
-import { correctedGridProgress } from '/state.mjs';
+import { correctedGridProgress, correctedTrainingReadiness } from '/state.mjs';
 import { studyReady, buildRequest, methodLabel, coverageRows, finiteVector, friendlyError, coverageSummary, comparisonRows, learningPoints, inStudiedRegion, BOARD_BODY_SIZE, bankComparisonRows, policyRouteLabel, poseInputValues, bankCoverageRows, bankCoverageStatus, formatMetric, solveButtonState, expansionTargetRows, expansionProgress, expandedComparisonRows, stableIkProgress, stableIkTargets, stableIkAuditRows, stableIkControlRows } from '/state.mjs';
 
 const $ = id => document.getElementById(id);
@@ -356,10 +356,20 @@ function showCorrectedGrid() {
   const display = value => String(value).replaceAll('_',' ');
   $('correctedGridStatus').textContent = `${display(progress.status)} · ${display(progress.phase)}${progress.queue ? ' · Waiting for shared 4090' : ''}`;
   $('correctedGridScope').textContent = `${progress.scope}. ${progress.reason} Contract: ${progress.fingerprint}`;
-  addMetrics([['Declared bucket positions',progress.cells.length],['Geometry requests',shown(progress.geometryRequests)],
+  const readiness = correctedTrainingReadiness(report);
+  $('correctedGridReadinessTitle').textContent = readiness.title;
+  $('correctedGridReadiness').textContent = readiness.text;
+  const auditText = audit => !audit ? 'pending' : `${audit.status}${Number.isInteger(audit.checks) ? ` · ${audit.checks.toLocaleString()} checks` : ''}`;
+  addMetrics([['Declared bucket positions',progress.cells.length],['Geometry requests · including confirmations',shown(progress.geometryRequests)],
     ['Shot test requests',shown(progress.nativeAttempts)],['Actual native releases',shown(progress.nativeReleases)],['Fresh confirmation requests',shown(progress.confirmationAttempts)],
     ['Robust qualified positions',progress.qualified === null ? '—' : `${progress.qualified} / ${progress.cells.length}`],
-    ['Clear shared-start layouts',shown(progress.homeClear)],['Common-start connected positions',shown(progress.connected)],['Independent audit',progress.verification]],$('correctedGridSummary'));
+    ['Qualified settings',shown(progress.settings)],['Positions with multiple qualified choices',shown(progress.multipleChoices)],
+    ['Clear shared-start layouts',shown(progress.homeClear)],['Common-start connected positions',shown(progress.connected)],
+    ['Native evidence audit',auditText(progress.audits.native)],['Admission coverage audit',auditText(progress.audits.supplemental)]],$('correctedGridSummary'));
+  const stages = progress.stages;
+  expansionTable($('correctedGridStages'),['Stage','Shot requests','Native releases','Captures'],stages ? [
+    ['Search',stages.search],['Nominal repeats',stages.nominal],['Fresh perturbations',stages.confirmation]
+  ].map(([name,stage])=>[name,stage.requests,stage.releases,stage.captures]) : []);
   const canvas = $('correctedGridMap'), ctx = canvas.getContext('2d'), w = canvas.width, h = canvas.height;
   const px = x => 45 + (x + .23) / 1.8 * (w - 90), py = y => h - 35 - (y + .875) / 1.25 * (h - 60);
   ctx.clearRect(0,0,w,h);ctx.fillStyle='#edf0e7';ctx.fillRect(0,0,w,h);
@@ -372,9 +382,9 @@ function showCorrectedGrid() {
   for (const [x,label] of [[0,'10'],[1.33731,'14']]) { ctx.fillStyle='#455f60';ctx.fillRect(px(x)-9,py(0)-9,18,18);ctx.font='bold 10px sans-serif';ctx.fillStyle='#fff';ctx.fillText(label,px(x),py(0)+4); }
   ctx.fillStyle='#607c74';ctx.textAlign='left';ctx.font='11px sans-serif';ctx.fillText('Tabletop map · bucket centers · square markers = arm bases',50,17);
   const fraction=g=>g && Number.isFinite(g.captures) && Number.isFinite(g.attempts) ? `${g.captures}/${g.attempts}`:'—';
-  expansionTable($('correctedGridCells'),['Position','Bucket X / Y (mm)','Endpoint options','Native captures / attempts','Fresh confirmations','Status'],progress.cells.map(row=>[
+  expansionTable($('correctedGridCells'),['Position','Bucket X / Y (mm)','Endpoint options','Search captures / requests','Nominal · fresh per source','Status'],progress.cells.map(row=>[
     row.id,row.xy.map(x=>(1000*x).toFixed(1)).join(' / '),shown(row.eligible),row.attempts===null?'—':row.attempts===0?'No native shot':`${shown(row.captures)} / ${row.attempts}`,
-    row.confirmations.map(g=>fraction(g.fresh)).join(' · ')||'—',row.qualified?'Robust and connected':row.reason,
+    row.confirmations.map(g=>`${fraction(g.nominal)} · ${fraction(g.fresh)}`).join('; ')||'—',row.qualified?'Robust and connected':row.reason,
   ]));
 }
 function showContactStudy() {

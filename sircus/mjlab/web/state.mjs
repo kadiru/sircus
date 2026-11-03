@@ -311,11 +311,25 @@ export function correctedGridProgress(report) {
     qualified: contactCount(counts.qualified_positions),
     connected: contactCount(counts.common_home_connected),
     homeClear: contactCount(counts.home_clear_positions),
+    settings: contactCount(counts.qualified_settings),
+    multipleChoices: contactCount(counts.positions_with_multiple_qualified),
+    audits: value.audits ?? {},
+    stages: value.stage_statistics ?? null,
     verification: value.verification?.status ?? 'pending',
     scope: value.scope ?? 'Seeded development grid; no new policy training',
     reason: value.reason ?? '',
     fingerprint: value.contract_fingerprint ?? 'pending',
   };
+}
+export function correctedTrainingReadiness(report) {
+  const progress = correctedGridProgress(report);
+  const pending = {readyToLaunch:false,title:'Training decision pending',text:'Wait for the complete study and both contract-matched audits.'};
+  if (!progress || progress.status !== 'completed') return pending;
+  if (progress.verification !== 'passed' || !['native','supplemental'].every(name => progress.audits[name]?.status === 'passed'))
+    return {...pending,title:'Study finished; audit clearance required'};
+  if (!(progress.qualified > 0)) return {...pending,title:'More feasible settings needed',text:'No position passed the declared path and robustness checks.'};
+  return {readyToLaunch:false,title:'Audited evidence ready for a limited pilot',
+    text:`${progress.settings ?? 'Qualified'} settings at ${progress.qualified}/${progress.cells.length} development positions; ${progress.multipleChoices ?? 'unknown'} positions have multiple qualified choices. Next: deduplicate relative geometry prototypes, adapt and smoke-test the learner with corrected physics and shared-start admission, then compare against uniform feasible selection. Table-wide training and held-out generalization remain unvalidated.`};
 }
 export function correctedGridRows(report) {
   const value = report?.corrected_grid_evaluation;

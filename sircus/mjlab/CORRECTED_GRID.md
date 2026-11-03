@@ -1,8 +1,8 @@
 # Corrected-contact spatial development map
 
 This is a finite, headless **development search**, followed by independent CPU
-verification. The native job has started; final capture counts and qualification
-results are pending. It does not train PPO, replace an active policy, restart a
+verification. The native study and both CPU audits completed. Seventeen sources at 12 of 35
+positions qualify; full results and exact settings are in the dated baseline. It does not train PPO, replace an active policy, restart a
 service, or change Isaac, the 4070 workload or physical hardware.
 
 The read-only viewer section is `#correctedGrid`. Curated results belong in
@@ -110,9 +110,51 @@ common-home identities. Compressed 240 Hz positions, velocities and categorized
 contact forces support independent scalar rescoring. Preserve raw evidence and
 runtime snapshots outside Git; publish curated summaries and their checksums.
 
+The completed run also used a separately reviewed supplemental CPU verifier.
+Reuse the recorded pipeline `audit_command` from its JSON status, run from the
+reviewed audit-only snapshot with CUDA hidden, retain `--source` pointing to the
+original executing snapshot, and change `--output` to
+`STUDY/audit-corrected-supplement.json`. This validates original native sources
+without replacing them. The display's training assessment requires both this
+supplemental output and `audit-corrected.json` to match and pass; the basic finite
+pipeline alone creates only the latter. Their overlapping checks are displayed
+separately. Neither audit launches training.
+
 Review the completed map and audit before proposing a corrected-version training
 study. Any later learned-versus-uniform comparison needs frozen shared candidate
 masks/joints, an actual saved checkpoint and outcome-free inference on the frozen
 test split. The existing viewer's old policy routing stays unchanged meanwhile.
 Sampled geometry does not certify continuous collision avoidance, dynamics,
 grasp stability, perception or continuous-table coverage.
+
+## Completed checkpoint and training readiness
+
+The study completed 460 search releases, 87 nominal repeats and 580 fresh requests
+(567 releases; 13 rejected requests remain failures). Captures were 349, 83 and 495,
+respectively. The 17 qualified sources cover 12/35 development layouts; only five
+layouts have two qualified sources. Both audits independently rescore the same
+1,114 releases and pass 3,115 and 3,165 overlapping checks. Neither rightmost grid
+column (X≥1.05 m, ten positions) produced a search capture.
+
+The evidence supports a **limited pilot after a matching training adapter and
+smoke checks**, not immediate reuse of the old trainers. `bank_study` and
+`expanded_study` still instantiate legacy environments/masks; their policy
+mathematics can be reused, their recorded physics contracts cannot. A corrected
+pilot must use `ContactEnvironment(substeps=64, board_mode="articulated",
+gravity_mode="passive_only")`, `CorrectedGeometry`, fixed-home admission and
+shared frozen masks/joint branches for learned and uniform choices. Path rejects
+stay failures or are excluded by the same geometry-only mask for both methods.
+
+Deduplicate repeated relative geometry prototypes before sampling: the 17 absolute
+source poses/joint pairs represent 12 oriented relative prototypes. Preserve every
+source/branch provenance; identical endpoint geometry does not imply identical
+arm clearance or dynamics. If branch choices remain separate actions, include
+features that distinguish them. Do not let duplicate source records artificially
+weight the uniform baseline.
+
+A proposed fresh-init 2,048–4,096-throw terminal-PPO pilot is a centralized
+contextual shot selector with privileged bucket geometry; IK and geometric path
+planning remain external. Freeze the geometry-derived candidate bank and existing
+35/30/100 split, select checkpoints using validation only, then evaluate frozen
+learned and uniform policies without test rollout search or resampling. Keep all
+unsupported layouts in headline denominators. This pilot has not been launched.
