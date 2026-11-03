@@ -1,0 +1,222 @@
+{
+  "version": "sircus-cpu-warp-option-conversion-v1",
+  "created_at": "2026-11-03T09:21:47.304724+00:00",
+  "device": "cpu",
+  "cuda_visible_devices": "",
+  "scope": "CPU primitive model option conversion only; no GPU construction or ball flight",
+  "packages": {
+    "mujoco": "3.11.0",
+    "mujoco-warp": "3.11.0",
+    "mjlab": "1.6.0",
+    "warp-lang": "1.14.0"
+  },
+  "vendor_rule": {
+    "module": "mujoco_warp._src.io",
+    "function": "put_model",
+    "line": 430,
+    "expression": "opt.tolerance = max(opt.tolerance, 1e-6)",
+    "source_sha256": "6fe550047ed4b82c307741f84a8a4800587469c52e5ce292a3073824f3451fa6"
+  },
+  "options": {
+    "32": {
+      "native": {
+        "timestep": 0.00013020833333333333,
+        "tolerance": 1e-8,
+        "gravity": [
+          0,
+          0,
+          -9.81
+        ],
+        "solver": 2,
+        "integrator": 3,
+        "cone": 0,
+        "iterations": 100
+      },
+      "warp": {
+        "timestep": {
+          "value": [
+            0.0001302083401242271
+          ],
+          "dtype": "float32",
+          "shape": [
+            1
+          ]
+        },
+        "tolerance": {
+          "value": [
+            9.999999974752427e-7
+          ],
+          "dtype": "float32",
+          "shape": [
+            1
+          ]
+        },
+        "gravity": {
+          "value": [
+            [
+              0,
+              0,
+              -9.8100004196167
+            ]
+          ],
+          "dtype": "float32",
+          "shape": [
+            1,
+            3
+          ]
+        },
+        "solver": {
+          "value": 2,
+          "type": "int"
+        },
+        "integrator": {
+          "value": 3,
+          "type": "int"
+        },
+        "cone": {
+          "value": 0,
+          "type": "int"
+        },
+        "iterations": {
+          "value": 100,
+          "type": "int"
+        }
+      }
+    },
+    "64": {
+      "native": {
+        "timestep": 0.00006510416666666667,
+        "tolerance": 1e-8,
+        "gravity": [
+          0,
+          0,
+          -9.81
+        ],
+        "solver": 2,
+        "integrator": 3,
+        "cone": 0,
+        "iterations": 100
+      },
+      "warp": {
+        "timestep": {
+          "value": [
+            0.00006510417006211355
+          ],
+          "dtype": "float32",
+          "shape": [
+            1
+          ]
+        },
+        "tolerance": {
+          "value": [
+            9.999999974752427e-7
+          ],
+          "dtype": "float32",
+          "shape": [
+            1
+          ]
+        },
+        "gravity": {
+          "value": [
+            [
+              0,
+              0,
+              -9.8100004196167
+            ]
+          ],
+          "dtype": "float32",
+          "shape": [
+            1,
+            3
+          ]
+        },
+        "solver": {
+          "value": 2,
+          "type": "int"
+        },
+        "integrator": {
+          "value": 3,
+          "type": "int"
+        },
+        "cone": {
+          "value": 0,
+          "type": "int"
+        },
+        "iterations": {
+          "value": 100,
+          "type": "int"
+        }
+      }
+    },
+    "128": {
+      "native": {
+        "timestep": 0.00003255208333333333,
+        "tolerance": 1e-8,
+        "gravity": [
+          0,
+          0,
+          -9.81
+        ],
+        "solver": 2,
+        "integrator": 3,
+        "cone": 0,
+        "iterations": 100
+      },
+      "warp": {
+        "timestep": {
+          "value": [
+            0.00003255208503105678
+          ],
+          "dtype": "float32",
+          "shape": [
+            1
+          ]
+        },
+        "tolerance": {
+          "value": [
+            9.999999974752427e-7
+          ],
+          "dtype": "float32",
+          "shape": [
+            1
+          ]
+        },
+        "gravity": {
+          "value": [
+            [
+              0,
+              0,
+              -9.8100004196167
+            ]
+          ],
+          "dtype": "float32",
+          "shape": [
+            1,
+            3
+          ]
+        },
+        "solver": {
+          "value": 2,
+          "type": "int"
+        },
+        "integrator": {
+          "value": 3,
+          "type": "int"
+        },
+        "cone": {
+          "value": 0,
+          "type": "int"
+        },
+        "iterations": {
+          "value": 100,
+          "type": "int"
+        }
+      }
+    }
+  },
+  "parent_default_matches_explicit": {
+    "32": true,
+    "64": true,
+    "128": true
+  }
+}

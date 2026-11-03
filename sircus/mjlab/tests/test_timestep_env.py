@@ -16,7 +16,7 @@ def options(substeps=64, worlds=1):
     native = NS(timestep=1 / (240 * substeps), tolerance=1e-8,
         gravity=np.asarray([0., 0., -9.81]), solver=2, integrator=3, cone=0, iterations=100)
     warp = NS(timestep=np.full(worlds, native.timestep, np.float32),
-        tolerance=np.full(worlds, native.tolerance, np.float32),
+        tolerance=np.full(worlds, 1e-6, np.float32),
         gravity=np.tile(native.gravity, (worlds, 1)).astype(np.float32),
         solver=2, integrator=3, cone=0, iterations=100)
     return native, warp
@@ -90,6 +90,8 @@ class TimestepOptionsTests(unittest.TestCase):
             self.assertEqual(value['scoring_dt_s'],1/240); self.assertEqual(value['solref'],[.004,.15])
             self.assertEqual(value['contact_friction'],.35); self.assertEqual(value['board_mode'],'articulated')
             self.assertEqual(value['gravity_mode'],'passive_only')
+            self.assertEqual(value['native_solver_tolerance'],1e-8)
+            self.assertEqual(value['warp_solver_tolerance'],1e-6)
         for value in (8,16,256,64.,True,None):
             with self.assertRaises(ValueError):module.physics_settings(value)
 
@@ -100,6 +102,9 @@ class TimestepOptionsTests(unittest.TestCase):
             self.assertEqual(result['substeps'],s);self.assertEqual(result['timestep_s'],1/(240*s))
             self.assertEqual(result['warp']['timestep_s'],np.full(3,1/(240*s),np.float32).tolist())
             self.assertEqual(result['warp']['dtypes']['timestep'],'float32')
+            self.assertEqual(result['warp']['tolerance'],np.full(3,1e-6,np.float32).tolist())
+            self.assertEqual(result['native_solver_tolerance'],1e-8)
+            self.assertEqual(result['warp_solver_tolerance'],1e-6)
             self.assertTrue(np.array_equal(native.gravity,before[0].gravity));self.assertTrue(np.array_equal(warp.timestep,before[1].timestep))
 
     def test_native_option_mismatch_fails_closed(self):
@@ -122,6 +127,26 @@ class TimestepOptionsTests(unittest.TestCase):
         for value in (np.asarray([],np.float32),np.array([np.nan],np.float32)):
             native,warp=options();warp.timestep=value
             with self.assertRaises(RuntimeError):module.validate_options(native,warp,64)
+
+    def test_vendor_tolerance_floor_is_required_not_a_relaxed_comparison(self):
+        for value in (1e-8,1e-7,2e-6):
+            native,warp=options(worlds=2);warp.tolerance[:]=value
+            with self.subTest(value=value),self.assertRaises(RuntimeError):module.validate_options(native,warp,64)
+        native,warp=options();native.tolerance=1e-6
+        with self.assertRaises(RuntimeError):module.validate_options(native,warp,64)
+        native,warp=options();native.tolerance=np.nextafter(1e-8,np.inf)
+        with self.assertRaises(RuntimeError):module.validate_options(native,warp,64)
+
+    def test_recorded_installed_cpu_conversion_matches_strict_guard(self):
+        path=Path(__file__).resolve().parents[3]/'baselines/mjlab-height-tilt-20261102/cpu-warp-option-conversion.json'
+        proof=json.loads(path.read_text())
+        self.assertEqual(proof['device'],'cpu');self.assertEqual(proof['cuda_visible_devices'],'')
+        self.assertTrue(all(proof['parent_default_matches_explicit'].values()))
+        for step in module.SUBSTEPS:
+            row=proof['options'][str(step)]
+            native=NS(**row['native'])
+            warp=NS(**{key:np.asarray(value['value'],dtype=value['dtype']) if 'dtype' in value else value['value'] for key,value in row['warp'].items()})
+            self.assertEqual(module.validate_options(native,warp,step)['substeps'],step)
 
 
 class TimestepConstructionTests(unittest.TestCase):

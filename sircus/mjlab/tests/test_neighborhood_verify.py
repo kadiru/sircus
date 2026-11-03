@@ -156,7 +156,7 @@ class NeighborhoodEffectiveOptionsTests(unittest.TestCase):
         result={}
         for step in (32,64,128):
             native=NS(timestep=1/(240*step),tolerance=1e-8,gravity=[0,0,-9.81],solver=2,integrator=3,cone=0,iterations=100)
-            warp=NS(timestep=np.asarray([native.timestep],np.float32),tolerance=np.asarray([1e-8],np.float32),gravity=np.asarray([[0,0,-9.81]],np.float32),solver=2,integrator=3,cone=0,iterations=100)
+            warp=NS(timestep=np.asarray([native.timestep],np.float32),tolerance=np.asarray([1e-6],np.float32),gravity=np.asarray([[0,0,-9.81]],np.float32),solver=2,integrator=3,cone=0,iterations=100)
             result[str(step)]=validate_options(native,warp,step)
         write(root,'effective-options.json',result);return dict(effective_native_options=copy.deepcopy(result))
 
@@ -170,6 +170,16 @@ class NeighborhoodEffectiveOptionsTests(unittest.TestCase):
             a=Audit();audit_options(a,root,report);self.assertFalse(result(a)['actual_native_and_warp_options_128'])
             report=self.fixture(root);report['effective_native_options']['32']['tolerance']=1e-4;a=Audit();audit_options(a,root,report)
             self.assertFalse(result(a)['all_effective_options_retained'])
+
+    def test_wrong_native_or_warp_tolerance_cannot_be_hidden_in_matching_report(self):
+        for kind,value in (('native',1e-6),('warp',1e-8),('warp',2e-6)):
+            with tempfile.TemporaryDirectory() as directory:
+                root=Path(directory);report=self.fixture(root);options=json.loads((root/'effective-options.json').read_text())
+                if kind=='native':options['64']['tolerance']=value
+                else:options['64']['warp']['tolerance'][0]=float(np.float32(value))
+                report['effective_native_options']=copy.deepcopy(options);write(root,'effective-options.json',options)
+                a=Audit();audit_options(a,root,report)
+                with self.subTest(kind=kind,value=value):self.assertFalse(result(a)['actual_native_and_warp_options_64'])
 
 
 if __name__=='__main__':unittest.main()

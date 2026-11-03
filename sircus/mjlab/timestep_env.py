@@ -15,8 +15,11 @@ import numpy as np
 
 from .gpu_slot import GPU_UUID
 
-VERSION = "sircus-articulated-passive-timestep-sensitivity-v1"
+VERSION = "sircus-articulated-passive-timestep-sensitivity-v2"
 SUBSTEPS = (32, 64, 128)
+NATIVE_SOLVER_TOLERANCE = 1e-8
+WARP_SOLVER_TOLERANCE = 1e-6
+TOLERANCE_CONVERSION = "MuJoCo Warp3.11 put_model clamps native tolerance with max(tolerance,1e-6) before float32 storage"
 
 
 def checked_substeps(substeps):
@@ -31,7 +34,9 @@ def physics_settings(substeps):
         substeps=substeps, native_dt_s=1 / (240 * substeps), scoring_dt_s=1 / 240,
         horizon_s=4., board_mode="articulated", gravity_mode="passive_only",
         solref=[.004, .15], contact_friction=.35, solver="newton",
-        solver_iterations=100, solver_tolerance=1e-8, cone="pyramidal", integrator="implicitfast",
+        solver_iterations=100, solver_tolerance=NATIVE_SOLVER_TOLERANCE,
+        native_solver_tolerance=NATIVE_SOLVER_TOLERANCE, warp_solver_tolerance=WARP_SOLVER_TOLERANCE,
+        tolerance_conversion=TOLERANCE_CONVERSION, cone="pyramidal", integrator="implicitfast",
         scope="Paired prescribed endpoint ball flights; no timestep-convergence or actuator-tracking claim")
 
 
@@ -53,20 +58,22 @@ def validate_options(native, warp, substeps):
     """Read/check every effective option used by the controlled intervention.
 
     Native options retain double precision. Warp timestep/tolerance/gravity are
-    float32 device arrays in pinned MuJoCo Warp3.11; compare their stored values
-    exactly with the float32 representation, including every expanded world.
+    float32 device arrays in pinned MuJoCo Warp3.11. Its put_model explicitly
+    floors solver tolerance at1e-6; native tolerance remains1e-8. Verify these
+    distinct stored values exactly, including every expanded world. Never
+    override the allocated Warp value, which would change the parent physics.
     """
     substeps = checked_substeps(substeps)
     expected_dt = 1 / (240 * substeps)
     if (not np.isfinite(native.timestep) or not np.isclose(native.timestep, expected_dt, rtol=0, atol=1e-15)
             or int(native.solver) != 2 or int(native.integrator) != 3 or int(native.cone) != 0
             or int(native.iterations) != 100 or not np.isfinite(native.tolerance)
-            or not np.isclose(native.tolerance, 1e-8, rtol=0, atol=1e-12)
+            or float(native.tolerance) != NATIVE_SOLVER_TOLERANCE
             or not np.array_equal(np.asarray(native.gravity), [0., 0., -9.81])):
         raise RuntimeError("Effective native model differs from the declared timestep experiment")
     dt, tolerance, gravity = [_option_array(getattr(warp, name)) for name in ("timestep", "tolerance", "gravity")]
     if (any(value.dtype != np.dtype('float32') for value in (dt, tolerance, gravity))
-            or not np.all(dt == np.float32(expected_dt)) or not np.all(tolerance == np.float32(1e-8))
+            or not np.all(dt == np.float32(expected_dt)) or not np.all(tolerance == np.float32(WARP_SOLVER_TOLERANCE))
             or gravity.shape[-1:] != (3,) or not np.all(gravity == np.asarray([0., 0., -9.81], np.float32))
             or int(warp.solver) != 2 or int(warp.integrator) != 3 or int(warp.cone) != 0
             or int(warp.iterations) != 100):
@@ -74,6 +81,8 @@ def validate_options(native, warp, substeps):
     return dict(version=f"{VERSION}-{substeps}", substeps=substeps, timestep_s=float(native.timestep),
         solver=int(native.solver), integrator=int(native.integrator), cone=int(native.cone),
         iterations=int(native.iterations), tolerance=float(native.tolerance), gravity=np.asarray(native.gravity).tolist(),
+        native_solver_tolerance=NATIVE_SOLVER_TOLERANCE, warp_solver_tolerance=WARP_SOLVER_TOLERANCE,
+        tolerance_conversion=TOLERANCE_CONVERSION,
         board_mode="articulated", gravity_mode="passive_only", scoring_dt_s=1 / 240,
         warp=dict(timestep_s=dt.tolist(), tolerance=tolerance.tolist(), gravity=gravity.tolist(),
             solver=int(warp.solver), integrator=int(warp.integrator), cone=int(warp.cone), iterations=int(warp.iterations),
@@ -109,7 +118,7 @@ def _initialize(self, scene, assets, n, bounds, substeps, deps):
     # These values are applied BEFORE put_model/CUDA graph allocation by mjlab1.6.
     # The old ContactEnvironment and any already allocated engine are untouched.
     options = deps.MujocoCfg(timestep=1 / (240 * substeps), integrator="implicitfast", cone="pyramidal",
-        solver="newton", iterations=100, tolerance=1e-8, gravity=(0., 0., -9.81))
+        solver="newton", iterations=100, tolerance=NATIVE_SOLVER_TOLERANCE, gravity=(0., 0., -9.81))
     self.sim = deps.Simulation(num_envs=n, cfg=deps.SimulationCfg(mujoco=options, nconmax=512, njmax=2048),
         model=self.m, device=self.device)
     self.effective_options = validate_options(self.sim.mj_model.opt, self.sim.model.opt, substeps)
