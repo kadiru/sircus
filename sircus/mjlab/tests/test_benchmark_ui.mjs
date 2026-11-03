@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { sweepRlStudy, sweepRlSummary, sweepRlProgress, sweepRlPoints, sweepRlCurves, sweepRlFinalRows, sweepRlResources, sweepRlStatusLabel, sweepRlCsv } from '../web/state.mjs';
+import { sweepRlStudy, sweepRlSummary, sweepRlProgress, sweepRlCompletedWorkers, sweepRlPoints, sweepRlCurves, sweepRlFinalRows, sweepRlResources, sweepRlStatusLabel, sweepRlCsv } from '../web/state.mjs';
 
 const sha = 'a'.repeat(64);
 const counts = (captures = 12, attempts = 36) => ({ captures, attempts, native_releases: attempts - 2, invalid: 2, clean: Math.min(10, captures), mean_reward: .4 });
@@ -93,6 +93,54 @@ test('completed-run progress charges spent budget rather than the selected check
   assert.deepEqual(progress.reportedRunning, []);
 });
 
+test('completed worker costs use final run snapshots while other workers and final outcomes remain pending', () => {
+  const report = fixture({ curves: [point({ samples: 1024 })], runs: [
+    { method: 'sweep', seed: 42, status: 'completed', train_requests: 1024, train_native_releases: 900, selected_samples: 256,
+      resources: resources({ wall_s: 120, evaluation_wall_s: 45, gpu_reservation_s: 190, peak_vram_mb: 950 }) },
+    { method: 'ppo', seed: 42, status: 'running', train_requests: 896, train_native_releases: 700, resources: resources({ wall_s: 90 }) },
+  ], final_test: [{ method: 'sweep', seed: 42, counts: counts(35), frozen_artifact_sha256: sha }] });
+  const before = JSON.stringify(report), rows = sweepRlCompletedWorkers(report);
+  assert.equal(rows.length, 1); assert.equal(rows[0].method, 'sweep'); assert.equal(rows[0].seed, 42);
+  assert.equal(rows[0].requests, 1024); assert.equal(rows[0].nativeReleases, 900);
+  assert.equal(rows[0].resources.wall_s, 120); assert.equal(rows[0].resources.evaluation_wall_s, 45);
+  assert.equal(rows[0].resources.gpu_reservation_s, 190); assert.equal(rows[0].resources.peak_vram_mb, 950);
+  assert.equal(sweepRlPoints(report)[0].resources.wall_s, 20); assert.deepEqual(sweepRlFinalRows(report), []);
+  assert.ok(!Object.hasOwn(rows[0], 'counts') && !Object.hasOwn(rows[0], 'selectedSamples'));
+  assert.equal(JSON.stringify(report), before);
+});
+
+test('completed worker resources preserve missing measurements and observed zeros', () => {
+  assert.deepEqual(sweepRlCompletedWorkers({}), []); assert.deepEqual(sweepRlCompletedWorkers(fixture()), []);
+  const rows = sweepRlCompletedWorkers(fixture({ runs: [
+    { method: 'sweep', seed: 42, status: 'completed', resources: { wall_s: 0, cpu_s: false, evaluation_wall_s: '20', peak_vram_mb: -1 } },
+  ] }));
+  assert.equal(rows.length, 1); assert.equal(rows[0].requests, null); assert.equal(rows[0].nativeReleases, null);
+  assert.equal(rows[0].resources.wall_s, 0);
+  for (const key of ['cpu_s', 'evaluation_wall_s', 'peak_vram_mb', 'torch_allocated_mb', 'gpu_reservation_s']) assert.equal(rows[0].resources[key], null);
+});
+
+test('completed worker costs guard declared methods, seeds and training budget', () => {
+  const worker = { method: 'sweep', seed: 42, status: 'completed', train_requests: 1024, train_native_releases: 900, resources: resources() };
+  const rows = sweepRlCompletedWorkers(fixture({ runs: [worker, { ...worker, method: 'unknown' }, { ...worker, seed: 999 },
+    { ...worker, seed: 43, train_requests: 1025 }, { ...worker, seed: 44, train_native_releases: 1025 }] }));
+  assert.equal(rows.length, 3); assert.equal(rows[0].requests, 1024);
+  assert.equal(rows[1].requests, null); assert.equal(rows[1].nativeReleases, null);
+  assert.equal(rows[2].requests, 1024); assert.equal(rows[2].nativeReleases, null);
+  for (const budget of [null, 0, -1, false, '1024', 1.5]) {
+    const report = fixture({ runs: [worker] }); report.sweep_rl_benchmark.protocol.sample_budget = budget;
+    assert.deepEqual(sweepRlCompletedWorkers(report), []);
+  }
+});
+
+test('completed worker costs dedupe exact snapshots and omit conflicting counters, resources or status', () => {
+  const worker = { method: 'sweep', seed: 42, status: 'completed', train_requests: 1024, train_native_releases: 900, resources: resources() };
+  assert.equal(sweepRlCompletedWorkers(fixture({ runs: [worker, { ...worker, resources: { ...worker.resources } }] })).length, 1);
+  for (const conflicting of [{ ...worker, train_requests: 1000 }, { ...worker, train_native_releases: 899 },
+    { ...worker, resources: resources({ peak_vram_mb: 800 }) }, { ...worker, status: 'running' }]) {
+    assert.deepEqual(sweepRlCompletedWorkers(fixture({ runs: [worker, conflicting, worker] })), []);
+  }
+});
+
 test('curves retain all validation requests, pool seed counts and expose seed range', () => {
   const report = fixture({ curves: [point(), point({ seed: 43, validation: counts(24), resources: resources({ wall_s: 30, peak_vram_mb: 800 }) })] });
   const value = sweepRlCurves(report).find(row => row.id === 'ppo').points[0];
@@ -180,6 +228,9 @@ test('benchmark panel is additive and cannot start training or move the existing
   assert.ok(html.includes('Final held-out test · frozen artifacts'));
   assert.ok(html.includes('Validation is excluded from the training budget'));
   assert.ok(html.includes('Process VRAM is sampled'));
+  assert.ok(html.includes('Completed worker costs · includes final evaluation'));
+  assert.ok(html.includes('Setup + TRAIN wall and process CPU exclude all evaluation'));
+  assert.ok(html.includes('This table contains no test capture outcomes'));
   const show = js.slice(js.indexOf('function showSweepRlBenchmark'), js.indexOf("$('play').onclick"));
   assert.ok(!show.includes('/api/solve') && !show.includes('POST') && !show.includes('applyResult('));
   assert.ok(js.includes('showSweepRlBenchmark();')); assert.ok(js.includes('sweep_rl_error'));
