@@ -401,6 +401,7 @@ function showHeightTiltStudy() {
   const view=neighborhoodView(report.neighborhood_evaluation);$('heightTiltStudy').hidden=!view;if(!view)return;
   const study=view.raw,shown=v=>v===null||v===undefined?'unreported':v,mm=v=>Number.isFinite(v)?(v*1000).toFixed(1):'—';
   $('heightTiltStatus').textContent=`${study.version??'Height / tilt sweep'} · ${study.status??'pending'} · ${study.phase??'pending'}${study.error?' · '+study.error:''}`;
+  if(study.queue?.reason)$('heightTiltStatus').textContent+=` · ${study.queue.reason}${Number.isFinite(study.queue.wait_s)?' ('+Math.floor(study.queue.wait_s/60)+' min)':''}`;
   $('heightTiltScope').textContent=`${study.scope??'Finite fixed-scene development search.'} ${study.active_policy??'Existing solver remains unchanged.'}`;
   const resolved=view.contexts.filter(r=>r.board_admitted===true).length,unknown=view.contexts.filter(r=>typeof r.board_admitted!=='boolean').length;
   const metrics=[['Declared development contexts',view.contexts.length],['Board IK resolved under current budget',`${resolved} / ${view.contexts.length}${unknown?' · '+unknown+' unknown':''}`],

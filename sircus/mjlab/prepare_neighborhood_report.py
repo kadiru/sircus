@@ -33,6 +33,7 @@ def compact(raw):
     result = select(raw, ("version", "status", "phase", "contract_fingerprint", "scope", "reason", "error", "elapsed_s", "max_requests"))
     result["settings"] = select(raw.get("settings", {}), SETTINGS_FIELDS)
     result["counts"] = select(raw.get("counts", {}), COUNT_FIELDS)
+    result["queue"] = select(raw.get("queue", {}), ("wait_s", "reason"))
     result["active_policy"] = "Read-only development sweep; existing inference and historical studies remain unchanged"
     result["contexts"] = [select(row, CONTEXT_FIELDS) for row in raw.get("contexts", []) if isinstance(row, dict)]
     result["anchors"] = [select(row, ("id", "source_family", "board_height_m", "tilt_deg", "gap_m", "values", "bucket_xy_m"))
