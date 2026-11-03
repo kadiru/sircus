@@ -11,3 +11,5 @@
 .contact-section{scroll-margin-top:24px}.contact-section h3{font-size:14px;margin:24px 0 12px}.diagnosis-list{font-size:12px;line-height:1.7;padding-left:20px;color:#496f67}.preview-buttons{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}.contact-section .table-wrap td:last-child{white-space:normal;max-width:250px}.contact-section .table-wrap{max-width:100%}
 
 .contact-details{margin-top:18px;font-size:12px}.contact-details summary{cursor:pointer;color:var(--teal);font-weight:650}
+
+.corrected-grid-section{scroll-margin-top:24px}.corrected-grid-section h3{font-size:14px}.corrected-grid-section canvas{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:7px;margin-top:20px}.grid-legend{display:flex;gap:15px;flex-wrap:wrap;font-size:10px;margin-top:10px;color:#718477}.grid-endpoint{color:#578d92}.grid-captured{color:#a47320}.grid-qualified{color:var(--teal)}.corrected-grid-section .table-wrap td:last-child{white-space:normal;max-width:250px}

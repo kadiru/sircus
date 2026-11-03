@@ -1,5 +1,13 @@
 # Project state
 
+## Corrected-contact spatial admission study — November 2, 2026
+
+- [Protocol](../sircus/mjlab/CORRECTED_GRID.md) and [curated evidence](../baselines/mjlab-corrected-grid-20261102/README.md): the corrected articulated/passive-gravity 64-substep contract is explicit. The 7×5 development grid spans bucket X100–1240 mm/Y−650–250 mm. All 11,760 initial geometry requests were screened; 460 admitted requests at27/35 positions proceed to new native tests. No new PPO or checkpoint change.
+- One frozen12-joint home is rechecked at every layout;29/35 clear it. Four layouts obstruct this posture. Supplementary convex-hull evidence verifies modeled fixed-base/bucket overlap at two others; it does not rewrite the original conservative categories. Qualification requires a sampled serialized path from this exact home and back,3/3 nominal and≥18/20 fresh perturbed captures. Each counted confirmation also passes local geometry/path admission; rejections remain failures.
+- The finite4090 native search/confirmation job is running, followed by independent CPU rescoring/admission audits. Future30-validation/100-test coordinates were frozen before these outcomes, >5mm from supplied historical mjlab coordinates and each other; they are not searched here. The35 grid positions are development, then future training. Live `#correctedGrid` separates endpoint, native capture, qualification and audit progress.
+- Existing preview process/policy routing remain in place. Static/derived display and a bounded CPU watcher changed; Isaac setup,4070 workload, hardware, Viam and audio were untouched. Prescribed joint endpoints and sampled transit do not validate actuator tracking, grasping, continuous collision detection, perception or physical operation. Reported175mm bucket height remains unresolved; provisional interior175mm plus8mm bottom is preserved.
+- Next: inspect completed map/audits, address empty masks and repeatability before freezing a corrected-physics selector pilot against identical uniform feasible proposals. Never inherit historical success labels or optimize held-out layouts at inference.
+
 ## Contact repeatability and low/high transit — November 2, 2026
 
 - [Verified 1,708-throw results and exact configurations](../baselines/mjlab-contact-transit-20261102/README.md): the previous 13/20 used perturbed poses. Duplicate gravity compensation is a verified control bug; the dominant capture improvement comes from finer integration, with unchanged geometry/material/scorers. Corrected articulated 32/64 each capture 100/100 unique fresh jitters on both resets, plus 4/4 singleton checks. All corrected fresh captures are rim-assisted.32→64 still differs by up to 4.873 mm at 350 ms; no exact physics or physical calibration claim.

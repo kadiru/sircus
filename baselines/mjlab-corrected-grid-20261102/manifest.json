@@ -1,0 +1,10 @@
+{
+  "version": "sircus-curated-baseline-checksums-v1",
+  "scope": "Curated synthetic CPU checkpoint; native study still running",
+  "files": {
+    "README.md": "439c086906b960e73045864af1d65391bab88dca266b67ebb47c18a6e9572fdc",
+    "cpu-admission.json": "94dd46d151584a9c2caa1b2feb19a2d791a33097146a8cd75392504ccbdff18c",
+    "base-overlap.json": "feee0873a991820f7e40d006e9974834d55597239312604bdc652c6e962468d2",
+    "base_overlap_probe.py": "5a433bb1b12fe51d9fe77bf900350dbb5e519ed8d81f1189290594cb2e02aa60"
+  }
+}

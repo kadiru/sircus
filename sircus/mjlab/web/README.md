@@ -276,3 +276,35 @@ separate. Transit checks enable non-adjacent self-collision and carried-ball/wor
 pairs, with explicit mechanical/grasp exclusions. Preview timing is illustrative;
 geometry samples do not certify dynamic control or formal continuous collision.
 See [contact/transit protocol](../CONTACT_REPEATABILITY.md).
+
+### Corrected-contact spatial development map
+
+The read-only `#correctedGrid` section consumes `corrected_grid_evaluation`.
+It shows the 35 requested DEV bucket positions, pending versus completed endpoint
+audits, native search attempts, fixed-home connections and fresh confirmations.
+Home-clearance checks distinguish actual bucket/base penetration from staging
+obstruction and unproven clearance. A home-clear position still needs a checked
+route to the exact selected joints; endpoint validity alone does not supply it.
+
+The current job uses corrected articulated 64-substep physics. Each selected
+source requires 3/3 nominal and at least 18/20 fresh captures, with geometry/motion
+rejects retained. Final results remain pending; there is no new training or
+automatic change to existing solve buttons, readiness guards or policy routing.
+See [the complete protocol and reproduction command](../CORRECTED_GRID.md) and
+[the dated evidence](../../../baselines/mjlab-corrected-grid-20261102/README.md).
+
+Append progress to a separate derived report while preserving previous studies:
+
+```bash
+python -m sircus.mjlab.prepare_corrected_report \
+  --base-display /path/to/display-before-corrected-grid.json \
+  --study /path/to/new-corrected-grid \
+  --output /path/to/display-with-corrected-grid.json \
+  --watch-seconds 30000
+```
+
+This CPU-only watcher reads existing evidence and waits for the matching audit.
+It cannot launch native jobs, train a policy or restart a server. Its output must
+be outside the study and differ from the base display. The map remains a finite
+development search, separate from the frozen future 30-validation/100-test split
+and from learned-policy performance.

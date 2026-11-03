@@ -1,0 +1,802 @@
+{
+  "version": "sircus-cpu-fixed-base-convex-intersection-probe-v1",
+  "mujoco_version": "3.11.0",
+  "model_xml_sha256": "9f80c8616425d4f9afdb683cfa90593235bd95cd3e10c54d8cb60f3ee338a11f",
+  "contract_sha256": "f0b99c9084f5070dfebe0134e9a9194b4dd414f13b72eef3a15d2d3fa137f5f5",
+  "probe_source_sha256": "5a433bb1b12fe51d9fe77bf900350dbb5e519ed8d81f1189290594cb2e02aa60",
+  "cases": [
+    {
+      "cell_id": "dev-grid-03-00",
+      "bucket_xy_m": [
+        0.1,
+        0.025000000000000022
+      ],
+      "fixed_base_ancestors": [
+        {
+          "body": "Arm10/link_base",
+          "joints": 0
+        }
+      ],
+      "base_is_fixed_to_world": true,
+      "tested_bucket_wall_segments": 64,
+      "positive_intersections": [
+        {
+          "pair": [
+            "Arm10/link_base/collision/0",
+            "bucket/wall23"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.0017547034916942927,
+          "witness_center_m": [
+            0.04700370494145806,
+            0.08047782027735774,
+            0.008349455445840098
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.0017547034006024087,
+          "maximum_constraint_violation_m": 9.109188403577662e-11
+        },
+        {
+          "pair": [
+            "Arm10/link_base/collision/0",
+            "bucket/wall24"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.002873821925481499,
+          "witness_center_m": [
+            0.04035599955136889,
+            0.07766626509883914,
+            0.030969411136678584
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.0028738211648624977,
+          "maximum_constraint_violation_m": 7.606190013768888e-10
+        },
+        {
+          "pair": [
+            "Arm10/link_base/collision/0",
+            "bucket/wall25"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.003439934100707287,
+          "witness_center_m": [
+            0.03340357047932532,
+            0.0736354839845226,
+            0.06125234385289858
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.003439934006661996,
+          "maximum_constraint_violation_m": 9.404529108594795e-11
+        },
+        {
+          "pair": [
+            "Arm10/link_base/collision/0",
+            "bucket/wall26"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004055480471856217,
+          "witness_center_m": [
+            0.026488666375676387,
+            0.06889108520908578,
+            0.09417972640707357
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.004055479591996634,
+          "maximum_constraint_violation_m": 8.798595827613775e-10
+        },
+        {
+          "pair": [
+            "Arm10/link_base/collision/0",
+            "bucket/wall27"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004390381612258993,
+          "witness_center_m": [
+            0.019114619055943374,
+            0.06325593550885102,
+            0.13078747980491987
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.004390380614344858,
+          "maximum_constraint_violation_m": 9.979141350063836e-10
+        },
+        {
+          "pair": [
+            "Arm10/link_base/collision/0",
+            "bucket/wall28"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004607359490942836,
+          "witness_center_m": [
+            0.011590841529431283,
+            0.056633301109967366,
+            0.1712741744457711
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.004607358055862543,
+          "maximum_constraint_violation_m": 1.4350802933146833e-09
+        },
+        {
+          "pair": [
+            "Arm10/link_base/collision/0",
+            "bucket/wall29"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004645305806478245,
+          "witness_center_m": [
+            0.00816577914153462,
+            0.048003274329281906,
+            0.17835469459142897
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.004645303442209329,
+          "maximum_constraint_violation_m": 2.3642689160607855e-09
+        },
+        {
+          "pair": [
+            "Arm10/link_base/collision/0",
+            "bucket/wall30"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004645305553650476,
+          "witness_center_m": [
+            0.006353274253421364,
+            0.038891179718527485,
+            0.17835469477561558
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.004645304928492026,
+          "maximum_constraint_violation_m": 6.251584501806851e-10
+        },
+        {
+          "pair": [
+            "Arm10/link_base/collision/0",
+            "bucket/wall31"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004645305608675071,
+          "witness_center_m": [
+            0.005442633107730008,
+            0.02964530557793463,
+            0.17835469191248107
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.004645304288386162,
+          "maximum_constraint_violation_m": 1.3202889094510173e-09
+        },
+        {
+          "pair": [
+            "Arm10/link_base/collision/0",
+            "bucket/wall32"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004645305608675043,
+          "witness_center_m": [
+            0.005442633107729968,
+            0.020354694422065445,
+            0.17835469191248107
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.004645304288386117,
+          "maximum_constraint_violation_m": 1.3202889259308903e-09
+        },
+        {
+          "pair": [
+            "Arm10/link_base/collision/0",
+            "bucket/wall33"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004645305553650447,
+          "witness_center_m": [
+            0.006353274253421384,
+            0.011108820281472545,
+            0.17835469477561552
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.004645304928492015,
+          "maximum_constraint_violation_m": 6.251584319660886e-10
+        },
+        {
+          "pair": [
+            "Arm10/link_base/collision/0",
+            "bucket/wall34"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004645305806478237,
+          "witness_center_m": [
+            0.008165779141534608,
+            0.001996725670718149,
+            0.17835469459142897
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.004645303442209321,
+          "maximum_constraint_violation_m": 2.3642689160607855e-09
+        },
+        {
+          "pair": [
+            "Arm10/link_base/collision/0",
+            "bucket/wall35"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004645305757398716,
+          "witness_center_m": [
+            0.010862703024775123,
+            -0.006893833171601657,
+            0.17835469343175658
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.004645304246741923,
+          "maximum_constraint_violation_m": 1.5106567932340886e-09
+        },
+        {
+          "pair": [
+            "Arm10/link_base/collision/0",
+            "bucket/wall36"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004645305855175891,
+          "witness_center_m": [
+            0.01441806649478134,
+            -0.015477239097493656,
+            0.17835469229117018
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.004645305798901145,
+          "maximum_constraint_violation_m": 5.627474614772199e-11
+        },
+        {
+          "pair": [
+            "Arm10/link_base/collision/0",
+            "bucket/wall37"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004645308209525708,
+          "witness_center_m": [
+            0.01879763086901923,
+            -0.02367082549420677,
+            0.17835469270993393
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.004645304814249304,
+          "maximum_constraint_violation_m": 3.3952764046454864e-09
+        },
+        {
+          "pair": [
+            "Arm10/link_base/collision/0",
+            "bucket/wall38"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004645307470456688,
+          "witness_center_m": [
+            0.023959215461876546,
+            -0.03139568810687709,
+            0.17835469191342876
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.004645304696889938,
+          "maximum_constraint_violation_m": 2.7735667495337735e-09
+        },
+        {
+          "pair": [
+            "Arm10/link_base/collision/0",
+            "bucket/wall39"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.00464530547273162,
+          "witness_center_m": [
+            0.029853115257418242,
+            -0.0385774306368572,
+            0.1783546933202609
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.0046453054727315785,
+          "maximum_constraint_violation_m": 4.163336342344337e-17
+        },
+        {
+          "pair": [
+            "Arm10/link_base/collision/0",
+            "bucket/wall40"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.00460496611257914,
+          "witness_center_m": [
+            0.03697467020251879,
+            -0.04453773541582649,
+            0.1708276256266216
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.004604966112579132,
+          "maximum_constraint_violation_m": 7.806255641895632e-18
+        },
+        {
+          "pair": [
+            "Arm10/link_base/collision/0",
+            "bucket/wall41"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004385947025026047,
+          "witness_center_m": [
+            0.0467530357157382,
+            -0.046795221253236235,
+            0.12995983722273466
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.0043859454699551196,
+          "maximum_constraint_violation_m": 1.5550709270631402e-09
+        },
+        {
+          "pair": [
+            "Arm10/link_base/collision/0",
+            "bucket/wall42"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004049518929367451,
+          "witness_center_m": [
+            0.05587078088847715,
+            -0.04833298376672592,
+            0.09386082490454774
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.0040495182810866975,
+          "maximum_constraint_violation_m": 6.482807537316893e-10
+        },
+        {
+          "pair": [
+            "Arm10/link_base/collision/0",
+            "bucket/wall43"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.003441777109677305,
+          "witness_center_m": [
+            0.06419100991234379,
+            -0.04929513925797982,
+            0.06135097091284598
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.0034417771096772764,
+          "maximum_constraint_violation_m": 2.862293735361732e-17
+        },
+        {
+          "pair": [
+            "Arm10/link_base/collision/0",
+            "bucket/wall44"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.0028638252068066217,
+          "witness_center_m": [
+            0.07223559874908063,
+            -0.049512730791971514,
+            0.030434681846132124
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.002863825204645607,
+          "maximum_constraint_violation_m": 2.1610148566442167e-12
+        },
+        {
+          "pair": [
+            "Arm10/link_base/collision/0",
+            "bucket/wall45"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.0016564955052191005,
+          "witness_center_m": [
+            0.07934718927261858,
+            -0.048789643442282,
+            0.008329895178458451
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.0016564955052190966,
+          "maximum_constraint_violation_m": 3.903127820947816e-18
+        }
+      ],
+      "strongest": {
+        "pair": [
+          "Arm10/link_base/collision/0",
+          "bucket/wall37"
+        ],
+        "positive_volume_overlap": true,
+        "inscribed_intersection_radius_m": 0.004645308209525708,
+        "witness_center_m": [
+          0.01879763086901923,
+          -0.02367082549420677,
+          0.17835469270993393
+        ],
+        "independently_checked_minimum_facet_clearance_m": 0.004645304814249304,
+        "maximum_constraint_violation_m": 3.3952764046454864e-09
+      },
+      "scope": "Convex hulls of actual compiled MuJoCo mesh collision geometries; not a real-hardware claim"
+    },
+    {
+      "cell_id": "dev-grid-03-06",
+      "bucket_xy_m": [
+        1.24,
+        0.025000000000000022
+      ],
+      "fixed_base_ancestors": [
+        {
+          "body": "Arm14/link_base",
+          "joints": 0
+        }
+      ],
+      "base_is_fixed_to_world": true,
+      "tested_bucket_wall_segments": 64,
+      "positive_intersections": [
+        {
+          "pair": [
+            "Arm14/link_base/collision/0",
+            "bucket/wall00"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.0046453056086751,
+          "witness_center_m": [
+            1.33455736689227,
+            0.029645305577934617,
+            0.17835469191248104
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.004645304288386054,
+          "maximum_constraint_violation_m": 1.3202890456268102e-09
+        },
+        {
+          "pair": [
+            "Arm14/link_base/collision/0",
+            "bucket/wall01"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004645305553650506,
+          "witness_center_m": [
+            1.3336467257465785,
+            0.038891179718527465,
+            0.1783546947756154
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.004645304928492022,
+          "maximum_constraint_violation_m": 6.251584840077928e-10
+        },
+        {
+          "pair": [
+            "Arm14/link_base/collision/0",
+            "bucket/wall02"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004645305806478206,
+          "witness_center_m": [
+            1.3318342208584653,
+            0.048003274329281795,
+            0.17835469459142902
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.00464530344220937,
+          "maximum_constraint_violation_m": 2.3642688362635056e-09
+        },
+        {
+          "pair": [
+            "Arm14/link_base/collision/0",
+            "bucket/wall03"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004619836575977376,
+          "witness_center_m": [
+            1.3286485771772878,
+            0.05671896647288555,
+            0.17360229033055774
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.004619833779879956,
+          "maximum_constraint_violation_m": 2.7960974195717636e-09
+        },
+        {
+          "pair": [
+            "Arm14/link_base/collision/0",
+            "bucket/wall04"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004406648625227047,
+          "witness_center_m": [
+            1.3211850734352204,
+            0.06339767947901682,
+            0.1338227979610609
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.004406647566186139,
+          "maximum_constraint_violation_m": 1.0590409079205831e-09
+        },
+        {
+          "pair": [
+            "Arm14/link_base/collision/0",
+            "bucket/wall05"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004125448984299343,
+          "witness_center_m": [
+            1.3137919224466184,
+            0.06912039943101883,
+            0.09792254790194205
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.0041254480175132455,
+          "maximum_constraint_violation_m": 9.66786097358896e-10
+        },
+        {
+          "pair": [
+            "Arm14/link_base/collision/0",
+            "bucket/wall06"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.0035247441938535463,
+          "witness_center_m": [
+            1.3069076536331194,
+            0.07394543743488888,
+            0.06578907895890553
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.0035247440137368127,
+          "maximum_constraint_violation_m": 1.8011673359394353e-10
+        },
+        {
+          "pair": [
+            "Arm14/link_base/collision/0",
+            "bucket/wall07"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.00295576569261782,
+          "witness_center_m": [
+            1.2999139040280854,
+            0.07799377535049179,
+            0.03535281744867933
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.0029557650636466985,
+          "maximum_constraint_violation_m": 6.289711212796589e-10
+        },
+        {
+          "pair": [
+            "Arm14/link_base/collision/0",
+            "bucket/wall08"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.0022910389991510393,
+          "witness_center_m": [
+            1.2929850730402626,
+            0.08122509122674725,
+            0.00845626737032784
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.002291038925236522,
+          "maximum_constraint_violation_m": 7.391451730190401e-11
+        },
+        {
+          "pair": [
+            "Arm14/link_base/collision/0",
+            "bucket/wall50"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.0024932124205634195,
+          "witness_center_m": [
+            1.2601351398110994,
+            -0.04996551151741354,
+            0.010609562101098627
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.002493212420562219,
+          "maximum_constraint_violation_m": 1.2004286453759505e-15
+        },
+        {
+          "pair": [
+            "Arm14/link_base/collision/0",
+            "bucket/wall51"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.003024736335711159,
+          "witness_center_m": [
+            1.2679286561155567,
+            -0.05032975834940587,
+            0.03904228291491006
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.0030247363357107653,
+          "maximum_constraint_violation_m": 3.937822290467352e-16
+        },
+        {
+          "pair": [
+            "Arm14/link_base/collision/0",
+            "bucket/wall52"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.003603622488878505,
+          "witness_center_m": [
+            1.2760539507402282,
+            -0.050096760174133746,
+            0.07000854812495255
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.0036036224888780226,
+          "maximum_constraint_violation_m": 4.822531263215524e-16
+        },
+        {
+          "pair": [
+            "Arm14/link_base/collision/0",
+            "bucket/wall53"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004196927332088155,
+          "witness_center_m": [
+            1.2844228177225654,
+            -0.04903771453659483,
+            0.1017461289392214
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.004196927067240286,
+          "maximum_constraint_violation_m": 2.648478693301204e-10
+        },
+        {
+          "pair": [
+            "Arm14/link_base/collision/0",
+            "bucket/wall54"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004431632371727692,
+          "witness_center_m": [
+            1.2938015998967403,
+            -0.04754306092590555,
+            0.13848440507445026
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.004431630602023118,
+          "maximum_constraint_violation_m": 1.7697045738562789e-09
+        },
+        {
+          "pair": [
+            "Arm14/link_base/collision/0",
+            "bucket/wall55"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004642265789013159,
+          "witness_center_m": [
+            1.3035358282929923,
+            -0.045100983635484246,
+            0.17778750769736007
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.004642265789013056,
+          "maximum_constraint_violation_m": 1.0321604682062002e-16
+        },
+        {
+          "pair": [
+            "Arm14/link_base/collision/0",
+            "bucket/wall56"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004645305472731426,
+          "witness_center_m": [
+            1.3101468847425821,
+            -0.03857743063685658,
+            0.17835469332026113
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.004645305472731426,
+          "maximum_constraint_violation_m": 0.0
+        },
+        {
+          "pair": [
+            "Arm14/link_base/collision/0",
+            "bucket/wall57"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004645307375461921,
+          "witness_center_m": [
+            1.3160407829831196,
+            -0.03139568695360753,
+            0.17835469200842358
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.004645304601895718,
+          "maximum_constraint_violation_m": 2.7735662030958785e-09
+        },
+        {
+          "pair": [
+            "Arm14/link_base/collision/0",
+            "bucket/wall58"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004645307382224156,
+          "witness_center_m": [
+            1.3212023703758156,
+            -0.02367082522151688,
+            0.17835469353723551
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.004645303986947181,
+          "maximum_constraint_violation_m": 3.39527697536951e-09
+        },
+        {
+          "pair": [
+            "Arm14/link_base/collision/0",
+            "bucket/wall59"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004645305946736024,
+          "witness_center_m": [
+            1.3255819351920626,
+            -0.01547723989531183,
+            0.17835469219960967
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.00464530399088714,
+          "maximum_constraint_violation_m": 1.955848884759026e-09
+        },
+        {
+          "pair": [
+            "Arm14/link_base/collision/0",
+            "bucket/wall60"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004645305757398689,
+          "witness_center_m": [
+            1.329137296975225,
+            -0.006893833171601624,
+            0.1783546934317566
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.004645304246741866,
+          "maximum_constraint_violation_m": 1.5106568227243877e-09
+        },
+        {
+          "pair": [
+            "Arm14/link_base/collision/0",
+            "bucket/wall61"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004645305806478318,
+          "witness_center_m": [
+            1.3318342208584655,
+            0.001996725670718101,
+            0.1783546945914289
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.00464530344220937,
+          "maximum_constraint_violation_m": 2.3642689481531698e-09
+        },
+        {
+          "pair": [
+            "Arm14/link_base/collision/0",
+            "bucket/wall62"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004645305553650491,
+          "witness_center_m": [
+            1.3336467257465787,
+            0.01110882028147251,
+            0.17835469477561555
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.0046453049284918,
+          "maximum_constraint_violation_m": 6.251586904398865e-10
+        },
+        {
+          "pair": [
+            "Arm14/link_base/collision/0",
+            "bucket/wall63"
+          ],
+          "positive_volume_overlap": true,
+          "inscribed_intersection_radius_m": 0.004645305608675071,
+          "witness_center_m": [
+            1.33455736689227,
+            0.020354694422065403,
+            0.17835469191248102
+          ],
+          "independently_checked_minimum_facet_clearance_m": 0.004645304288386054,
+          "maximum_constraint_violation_m": 1.3202890170038728e-09
+        }
+      ],
+      "strongest": {
+        "pair": [
+          "Arm14/link_base/collision/0",
+          "bucket/wall58"
+        ],
+        "positive_volume_overlap": true,
+        "inscribed_intersection_radius_m": 0.004645307382224156,
+        "witness_center_m": [
+          1.3212023703758156,
+          -0.02367082522151688,
+          0.17835469353723551
+        ],
+        "independently_checked_minimum_facet_clearance_m": 0.004645303986947181,
+        "maximum_constraint_violation_m": 3.39527697536951e-09
+      },
+      "scope": "Convex hulls of actual compiled MuJoCo mesh collision geometries; not a real-hardware claim"
+    }
+  ],
+  "limitations": [
+    "Supplementary evidence only; running source, masks, records and original classifications were not changed.",
+    "Positive-radius hull intersection proves overlap of these modeled convex collision solids, not general unreachability elsewhere.",
+    "The witness radius is not a signed penetration-depth estimate."
+  ],
+  "evidence_kind": "Supplementary synthetic CPU convex-solid intersection evidence",
+  "relationship_to_initial_admission": {
+    "cpu_admission_file": "cpu-admission.json",
+    "original_conservative_home_categories": {
+      "dev-grid-03-00": "staging_clearance_blocked",
+      "dev-grid-03-06": "staging_clearance_blocked"
+    },
+    "original_categories_and_running_records_changed": false,
+    "interpretation": "The original conservative gate labeled these cells staging_clearance_blocked. This separate positive-radius hull intersection proof establishes modeled fixed-base/bucket overlap at the two exact placements; it does not rewrite the gate output or establish real-hardware collision calibration."
+  },
+  "reproduction": {
+    "working_directory": "Repository root at the frozen source identities recorded in cpu-admission.json",
+    "command": "CUDA_VISIBLE_DEVICES=\"\" PYTHONPATH=. \"$SIRCUS_PYTHON\" baselines/mjlab-corrected-grid-20261102/base_overlap_probe.py \"$SIRCUS_CORRECTED_STUDY\" \"$SIRCUS_NATIVE_ASSETS\" \"$SIRCUS_BASE_PROBE_OUTPUT\"",
+    "inputs": {
+      "SIRCUS_PYTHON": "Pinned CPU-capable Python executable",
+      "SIRCUS_CORRECTED_STUDY": "Directory with the matching contract.json and common-home.json",
+      "SIRCUS_NATIVE_ASSETS": "Matching generated UF850 URDFs and collision meshes",
+      "SIRCUS_BASE_PROBE_OUTPUT": "New output JSON filename; existing files are not overwritten"
+    },
+    "packages": {
+      "mjlab": "1.6.0",
+      "mujoco": "3.11.0",
+      "mujoco-warp": "3.11.0",
+      "torch": "2.7.0",
+      "warp-lang": "1.14.0",
+      "numpy": "1.26.4",
+      "scipy": "1.15.3",
+      "ml-dtypes": "0.5.4"
+    },
+    "probe_copy_sha256": "5a433bb1b12fe51d9fe77bf900350dbb5e519ed8d81f1189290594cb2e02aa60",
+    "original_probe_record_sha256": "5855653d753483471d0745b79f33ce2b096f87b062553e309a08b59074410bef"
+  }
+}
