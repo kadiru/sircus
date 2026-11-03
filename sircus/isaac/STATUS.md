@@ -1,24 +1,26 @@
-# Broad shot-learning study in progress — November 2, 2026
+# Broad shot-learning study completed — November 2, 2026
 
-[Method and reproduction](FARM_SHOT_LEARNING.md). New outcome-free broad proposals
-and a shared candidate-conditioned categorical PPO address the previous narrow
-menus and flat miss reward. The original 35 bucket positions, capture scorer and
-historical policies remain separate and unchanged.
+[Method](FARM_SHOT_LEARNING.md),
+[per-table results and checkpoints](../../baselines/isaac-farm-shot-learning-20261102/README.md).
+The broad CPU bank has 1,607 proposals; 1,236 passed native qualification.
+Nineteen sites captured, four more than the previous short run; all 19 selected
+settings passed 4/4 nominal repeats. This is development search, not inference.
 
-The bounded four-worker CPU search uses frozen source
-`studies/farm-shot-study-20261102-v3`; native learning uses v4, which corrects only
-the evaluation wording relative to the successful v3 smoke. The 4090 job is
-queued to start after search and comparison-path validation. Planned budget:
-up to 128 native candidates per site, 256 training batches / 8,960 throws /
-128 updates, and 16 stochastic plus one greedy frozen test per table/model.
-Same-layout development tests do not establish unseen-target generalization.
+The native v4 study completed 8,960 training attempts and 128 PPO updates. Frozen
+sampled scores improved from 96/560 to 183/560. Greedy selection remains 10/35,
+versus the older policy's 14/35; do not promote it. Same-layout development tests,
+privileged features, initialized endpoints and provisional physics remain explicit.
+All 35 bucket coordinates, original scoring and historical policies are preserved.
 
-The control smoke completed 280 training throws and four updates with zero
-invalid releases, and its CPU likelihood audit passed. Full local regression:
-250 tests, nine expected Torch skips; Ubuntu's actual Torch tests passed.
-Read-only Mac report: `http://127.0.0.1:18785/`. Its finite mirror reads named
-aggregate artifacts only; it exposes no robot commands. Existing services and
-4070 workload are untouched. Final study results are pending.
+Independent audit matched all 97 frozen source hashes, 439 stage/per-cell reports,
+8,960 training likelihoods and 1,190 categorical frozen-evaluation likelihoods.
+Full regression passed, including 266 Isaac tests with ten Mac Torch skips; actual
+Ubuntu policy/transfer CPU tests passed. Read-only results page: port 18785.
+The main GPU job exited. A separate frozen-policy probe never launched: another
+agent held the 4090 lock throughout its 900-second queue wait. That queue exited;
+no probe process remains. Existing services and the 4070 workload were not
+interrupted. Prepared probe configurations and CPU tests are ready, but native
+validation is outstanding. Final Ubuntu storage: approximately 3.8 GiB free.
 
 # Expanded farm: all 35 sites released — November 2, 2026
 

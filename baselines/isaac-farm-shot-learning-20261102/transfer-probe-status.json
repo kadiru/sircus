@@ -1,0 +1,17 @@
+{
+  "schema": "sircus-transfer-probe-status-v1",
+  "status": "blocked",
+  "reason_code": "shared_gpu_lock_timeout",
+  "queue_timeout_s": 900,
+  "exit_code": 1,
+  "native_started": false,
+  "study_fingerprint": "dde5280aedf1f41a441f62f87abfdb9e3d43430c85469d27323f04044d92a35c",
+  "source_fingerprint": "63362ef37a93881f769b39d1ee7456335f1cc7bf5db04ffa7e548ce9697455bf",
+  "source_checkpoint_sha256": "71c255fbc96f0904f0f2683b01b7d08407b61b8df7efb8c43ddeb0a584d29bff",
+  "offline_probe_bank_sha256": "af98129f0180b51e820cbdf55b293ac4a0b81c703ac9a6f6052e10601a4863f6",
+  "probe_source_archive_sha256": "5334dd8fdb240e68ffdc2ccb4d3fe3a3daa240e6a68494569f6348e595d4997d",
+  "blocking_workload": "another agent: sircus.mjlab.corrected_grid",
+  "other_workloads_untouched": true,
+  "queue_process_exited": true,
+  "observed_utc": "2026-11-03T00:42:26.615403+00:00"
+}

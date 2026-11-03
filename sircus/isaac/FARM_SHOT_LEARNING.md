@@ -2,7 +2,7 @@
 
 This study asks whether a shared policy can rank cooperative board-and-drop configurations for the original 35 distinct bucket sites. The immediate goal is to find successful configurations at the sites that previously scored zero, then compare a longer learned policy against its initial policy and the earlier frozen policy. The exact tabletop, bucket positions, arm bases, provisional physics and capture definition remain unchanged.
 
-The study is implemented, and broad CPU proposal generation precedes native tests. Native search, training and evaluation results must be read from the completed run artifacts; they are not yet established by this document. Frozen source revisions and partial search evidence remain separate. Earlier results remain in [the expanded farm baseline](../../baselines/isaac-expanded-farm-20261102/README.md).
+The [completed study, per-table scores and exact configurations](../../baselines/isaac-farm-shot-learning-20261102/README.md) record 19 search-successful targets, 8,960 PPO attempts and frozen sampled improvement from 96/560 to 183/560. Greedy success stayed at 10/35, so this is not a dependable deterministic inverse-physics policy. A separate no-retraining probe uses new candidate configurations at the same bucket sites; it is not an unseen-bucket test. Frozen source revisions and partial search evidence remain separate. Earlier results remain in [the expanded farm baseline](../../baselines/isaac-expanded-farm-20261102/README.md).
 
 ## The learning problem
 
@@ -66,7 +66,7 @@ The resulting 11 values pass through a shared `11 → 96 → 96 → 1` tanh netw
 
 This policy learns a ranking relationship between target geometry and candidate shot parameters. At deployment it selects a configuration with one network pass over the qualified candidates. It does not run a capture optimizer at inference. It also does not yet produce an unconstrained continuous solution or prove that the learned ranking transfers to unseen bucket positions.
 
-The planned longer run uses **256 batches × 35 shots = 8,960 on-policy training throws** and **128 PPO updates**, with two batches per update. Each update uses four epochs, Adam learning rate 0.0003, ratio clipping 0.2, value coefficient 0.5, categorical entropy coefficient 0.01 and gradient-norm cap 1.0. Each shot terminates, so its return is its observed reward; there is no next-state bootstrap or GAE. The entropy bonus encourages exploration of available configurations. Successful actions do not become supervised optimizer labels.
+The completed predeclared run used **256 batches × 35 shots = 8,960 on-policy training throws** and **128 PPO updates**, with two batches per update. Each update uses four epochs, Adam learning rate 0.0003, ratio clipping 0.2, value coefficient 0.5, categorical entropy coefficient 0.01 and gradient-norm cap 1.0. Each shot terminates, so its return is its observed reward; there is no next-state bootstrap or GAE. The entropy bonus encourages exploration of available configurations. Successful actions do not become supervised optimizer labels.
 
 The bounded native sweep can add up to 4,480 development attempts before training, plus separate repeats and frozen evaluations. These are different data uses and are reported separately. Headless learning initializes arm endpoints directly and records no RGB frames, avoiding filming waits and storage overhead. Final release checks and 240 Hz physics scoring remain active. A successful headless endpoint shot does not establish that a driven arm path can reach it safely.
 
@@ -130,6 +130,12 @@ python.sh farm_learning_runtime.py NEW_STUDY_DIRECTORY
 ```
 
 The legacy checkpoint expects its original `expanded-menu-qualified.json` beside it. The current parallel CPU search divides cell indices across four workers; merged manifests must preserve every original cell and exact source identity. A post-filtered frozen proposal bank records its own source hash and actual fitted-board clearance checks; it does not relabel the earlier bank as native-qualified. The study command explicitly overrides the CLI's 128-batch default with the planned 256 batches.
+
+## Separate frozen-candidate probe
+
+`farm_transfer_probe.py` qualifies a new offline bank and evaluates the exact learned checkpoint without an optimizer or policy updates. Use `--transfer-probe-checkpoint FINAL_POLICY.pt` instead of `--learning-study`, with the same camera, scene and expanded-bank arguments. The checkpoint's completed budget, sealed contract, feature layout and geometry fingerprint are checked. All natively accepted candidates remain available regardless of capture outcome. `farm_transfer_probe.py RUN` audits frozen weights, categorical probabilities, budgets and summaries on CPU.
+
+This tests new shot configurations at seen bucket locations, not unseen bucket layouts. A bank may contain preserved controls, so novel-proposal outcomes and overall policy scores need separate interpretation. The prepared 39-new-configuration attempt did not launch: its 900-second shared-lock wait expired behind another agent's job. Native validation remains outstanding; coordinate GPU ownership before a new attempt. The primary study is complete and unaffected.
 
 Key artifacts are `farm-study-contract.json`, `sweep-proposal-protocol.json`, `native-qualified-study-bank.json`, `stages/…/batch-….json`, sampling/final policies, `farm-study-result.json`, `progress.json` and `candidate-checkpoint-audit.json`. The audit reloads saved policies on CPU, recomputes categorical sampling likelihoods and verifies logged update linkage and artifact hashes. It does not independently reconstruct optimizer mathematics, replay full contact telemetry or establish held-out performance.
 
