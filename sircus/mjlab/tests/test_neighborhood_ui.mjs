@@ -18,6 +18,21 @@ test('neighborhood evidence stays optional and does not conflate IK with a captu
   cell=c.neighborhoodCell({board_admitted:true,search_attempts:17,search_captures:0,search_native_releases:10});assert.equal(cell.state,'miss');
   cell=c.neighborhoodCell({board_admitted:true,search_attempts:17,search_captures:5,search_native_releases:10});assert.equal(cell.state,'capture');assert.equal(cell.fraction,'5/17');
   assert.equal(c.neighborhoodCell({}).fraction,'—');assert.equal(c.neighborhoodCell({}).state,'pending');
+  assert.equal(c.neighborhoodCell({board_admitted:null,search_attempts:0,search_captures:0,search_native_releases:0}).fraction,'pending');
+});
+test('queued family data stays unknown rather than implying failed IK or missed shots',()=>{
+  const c=make(),rows=Array.from({length:25},()=>({board_admitted:null,search_attempts:0,search_captures:0}));
+  let value=c.neighborhoodFamilySummary(rows);assert.equal(value.resolved,0);assert.equal(value.unresolved,0);assert.equal(value.unknown,25);assert.equal(value.requests,0);
+  rows[0]={board_admitted:true,search_attempts:17,search_captures:5};rows[1]={board_admitted:false,search_attempts:17,search_captures:0};
+  value=c.neighborhoodFamilySummary(rows);assert.equal(value.resolved,1);assert.equal(value.unresolved,1);assert.equal(value.unknown,23);assert.equal(value.requests,34);assert.equal(value.captures,5);
+  delete rows[2].search_attempts;assert.equal(c.neighborhoodFamilySummary(rows).requests,null);
+});
+test('narrow layouts allow grid tracks to shrink while tables remain scrollable',()=>{
+  const css=readFileSync(new URL('../web/style.css',import.meta.url),'utf8');
+  assert.match(css,/\.workspace\{min-width:0\}/);
+  assert.match(css,/\.neighborhood-section\{min-width:0;max-width:100%;overflow-wrap:anywhere\}/);
+  assert.match(css,/\.neighborhood-map\{min-width:0\}/);
+  assert.match(css,/\.table-wrap\{overflow-x:auto/);
 });
 test('timestep agreement does not invent a denominator or assume convergence',()=>{
   const c=make();assert.equal(c.neighborhoodAgreement({agreements:22,attempts:23}),'22 / 23');
@@ -38,6 +53,8 @@ test('render preserves requested, native and per-timestep repeat denominators',(
   const node=id=>{if(!nodes.has(id))nodes.set(id,element());return nodes.get(id);};
   const c=make({$:node,document:{createElement:element},report:{},addMetrics:(rows,target)=>{target.metrics=rows;},expansionTable:(target,headers,rows)=>{tables.set(target,{headers,rows});}});
   c.showHeightTiltStudy();assert.equal(node('heightTiltStudy').hidden,true);
+  c.report.neighborhood_evaluation={status:'waiting_for_4090',phase:'device_queue',contexts:[{id:'a',source_family:'anchor-a',board_height_m:.4,tilt_deg:32,board_admitted:null,geometry_requests:0,eligible:0,search_attempts:0,search_native_releases:0,search_captures:0}]};
+  c.showHeightTiltStudy();assert.ok(node('heightTiltMaps').children[0].children[2].textContent.includes('1 unknown'));assert.ok(node('heightTiltMaps').children[0].children[2].textContent.includes('search pending'));
   c.report.neighborhood_evaluation={status:'running',phase:'search',contexts:[{id:'a',source_family:'anchor-a',board_height_m:.4,tilt_deg:32,board_admitted:true,geometry_requests:17,eligible:10,search_attempts:17,search_native_releases:10,search_captures:7,best_gap_m:.3}],
     settings:{board_xy_m:[.5,-.3],bucket_xy_m:[.1,-.6]},counts:{requests:17,native_releases:10},selected_recipes:[{id:'recipe',context_id:'a',board_height_m:.4,tilt_deg:32,gap_m:.3,release_center_height_m:.7375,distance_m:.5,
       by_substeps:{'32':{attempts:23,captures:13,native_releases:20,clean:3},'64':{attempts:23,captures:21,native_releases:22,clean:5},'128':{attempts:23,captures:20}},
