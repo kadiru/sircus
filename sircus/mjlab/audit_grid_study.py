@@ -36,6 +36,23 @@ FLOAT_FIELDS = (
     "max_retention_s",
     "minimum_mouth_clearance_mm",
 )
+SELECTED_SHOT_RULE = dict(
+    candidate_limit=6,
+    ranking=[
+        "qualification_fresh_captures",
+        "qualification_fresh_clean_captures",
+        "native_search_rank",
+    ],
+    native_search_rank="sweep_contract.rank_row(search_source)",
+    early_stop=dict(
+        nominal_captures=3,
+        nominal_attempts=3,
+        fresh_captures=20,
+        fresh_attempts=20,
+        fresh_clean_captures=20,
+    ),
+    frozen_validation="Never used for recipe selection or fallback",
+)
 
 
 class EvidenceError(ValueError):
@@ -416,6 +433,11 @@ def check_followup_contract(study, contract, parent, checks):
         "new_selected_only",
         "New independent repeats scope",
     )
+    checks.equal(
+        protocol.get("selected_shot_rule"),
+        SELECTED_SHOT_RULE,
+        "Declared best-cohort shot selection",
+    )
     targets = followup_targets(
         parent["report"], protocol.get("target_selection"), checks
     )
@@ -595,6 +617,117 @@ def check_diversity(path, geometry, shots, metrics, checks, label):
     )
 
 
+def native_rank(row):
+    """Reconstruct the declared search-source ordering from scalar-audited data."""
+    valid = bool(row.get("native_release")) and not row.get("invalid")
+    captured = valid and bool(row.get("route_success"))
+    distance = row.get("closest_opening_distance_m", 2.0)
+    if not isinstance(distance, (int, float)) or not np.isfinite(distance):
+        distance = 2.0
+    return (
+        captured,
+        int(row.get("route_quality", 0)) if captured else 0,
+        valid and bool(row.get("board_bounce")),
+        -float(distance),
+        str(row.get("id", "")),
+    )
+
+
+def qualification_score(cohort, rows):
+    return (
+        sum(map(capture, cohort["fresh"])),
+        sum(capture(row) and row.get("route_quality") == 2 for row in cohort["fresh"]),
+        native_rank(rows[cohort["source_id"]]),
+    )
+
+
+def check_selected_qualification(result, cohorts, rows, rule, checks, label):
+    """The final recipe uses the best tested cohort, without final-test feedback."""
+    checks.equal(rule, SELECTED_SHOT_RULE, label + "/predeclared cohort selection rule")
+    candidates = sorted(
+        [row for row in rows.values() if row.get("phase") == "search" and capture(row)],
+        key=native_rank,
+        reverse=True,
+    )[: rule["candidate_limit"]]
+    checks.require(
+        len(cohorts) <= len(candidates), label + "/candidate qualification limit"
+    )
+    checks.equal(
+        [cohort["source_id"] for cohort in cohorts],
+        [row["id"] for row in candidates[: len(cohorts)]],
+        label + "/tested native-ranked candidate prefix",
+    )
+
+    def qualified(cohort):
+        return (
+            len(cohort["nominal"]) == 3
+            and all(map(capture, cohort["nominal"]))
+            and len(cohort["fresh"]) == 20
+            and sum(map(capture, cohort["fresh"])) >= 18
+        )
+
+    def perfect(cohort):
+        return qualified(cohort) and qualification_score(cohort, rows)[:2] == (20, 20)
+
+    if len(cohorts) < len(candidates):
+        checks.require(
+            bool(cohorts) and perfect(cohorts[-1]),
+            label + "/early stop requires perfect clean repeats",
+        )
+    eligible = [cohort for cohort in cohorts if qualified(cohort)]
+    checks.equal(
+        bool(result.get("success")),
+        bool(eligible),
+        label + "/qualified result availability",
+    )
+    if not eligible:
+        return None
+    best = max(eligible, key=lambda cohort: qualification_score(cohort, rows))
+    config = result["configuration"]
+    checks.equal(config["q10"], best["source"]["q10"], label + "/best-cohort q10")
+    checks.equal(config["q14"], best["source"]["q14"], label + "/best-cohort q14")
+    checks.equal(
+        [config["tilt_deg"], config["gap_m"]],
+        best["source"]["values"][3:],
+        label + "/best-cohort exact action",
+    )
+    measured = best["nominal"][0]
+    checks.equal(
+        config["board_center"],
+        measured["board_center_m"],
+        label + "/best-cohort board pose",
+    )
+    checks.equal(
+        config["release_center"],
+        measured["release_ball_center_m"],
+        label + "/best-cohort release pose",
+    )
+    for prefix in ("nominal", "fresh"):
+        counts = cohort_counts(best[prefix])
+        for name in ("captures", "attempts"):
+            checks.equal(
+                result["metrics"][prefix + "_" + name],
+                counts[name],
+                label + "/best-cohort displayed " + prefix + " " + name,
+            )
+    checks.equal(
+        result["metrics"]["fresh_clean_captures"],
+        qualification_score(best, rows)[1],
+        label + "/best-cohort displayed clean captures",
+    )
+    checks.equal(
+        result["metrics"]["fresh_assisted_captures"],
+        sum(capture(row) and row.get("route_quality") == 1 for row in best["fresh"]),
+        label + "/best-cohort displayed assisted captures",
+    )
+    return dict(
+        selected_source_id=best["source_id"],
+        tested_candidates=len(cohorts),
+        fresh_captures=qualification_score(best, rows)[0],
+        fresh_clean_captures=qualification_score(best, rows)[1],
+    )
+
+
 def check_motion(proof, source, bucket, home_sha, checks, label):
     if not proof.get("passed"):
         return False
@@ -702,7 +835,13 @@ def check_confirmation(record, rows, geometry, bucket, home_sha, checks, label):
         checks.equal(
             record["qualified"], False, label + "/rejected staging qualification"
         )
-        return dict(source=source, nominal=nominal, fresh=fresh, purpose=purpose)
+        return dict(
+            source=source,
+            source_id=record["source_id"],
+            nominal=nominal,
+            fresh=fresh,
+            purpose=purpose,
+        )
     checks.equal(len(nominal), 3, label + "/nominal denominator")
     for index, row in enumerate(nominal):
         checks.equal(
@@ -725,7 +864,13 @@ def check_confirmation(record, rows, geometry, bucket, home_sha, checks, label):
         checks.equal(
             record["qualified"], False, label + "/failed nominal qualification"
         )
-        return dict(source=source, nominal=nominal, fresh=fresh, purpose=purpose)
+        return dict(
+            source=source,
+            source_id=record["source_id"],
+            nominal=nominal,
+            fresh=fresh,
+            purpose=purpose,
+        )
     checks.equal(len(fresh), expected_count, label + "/fresh denominator")
     variations = record.get("variations", [])
     checks.equal(len(variations), expected_count, label + "/variation proof count")
@@ -784,7 +929,13 @@ def check_confirmation(record, rows, geometry, bucket, home_sha, checks, label):
         and sum(map(capture, fresh)) >= 18
     )
     checks.equal(record["qualified"], qualified, label + "/qualification")
-    return dict(source=source, nominal=nominal, fresh=fresh, purpose=purpose)
+    return dict(
+        source=source,
+        source_id=record["source_id"],
+        nominal=nominal,
+        fresh=fresh,
+        purpose=purpose,
+    )
 
 
 def rescore_rows(directory, rows, scene, checks, label):
@@ -1137,6 +1288,21 @@ def audit(study, reference, assets, *, repository=None, recheck_frozen_geometry=
                     path, geometry, shots, metrics, checks, stage_label
                 )
                 selection = read(path / "diversity.json")
+                expanded_protocol = next(
+                    item
+                    for item in contract["protocol"]["stages"]
+                    if item["name"] == "expanded"
+                )
+                checks.equal(
+                    selection["requested_broad_quota"],
+                    expanded_protocol["broad_native_quota"],
+                    stage_label + "/predeclared broad native quota",
+                )
+                checks.equal(
+                    selection["method"],
+                    contract["protocol"]["selection_method"],
+                    stage_label + "/predeclared diversity selection",
+                )
                 checks.equal(
                     selection["native_budget"],
                     request["search_budget"],
@@ -1168,6 +1334,19 @@ def audit(study, reference, assets, *, repository=None, recheck_frozen_geometry=
                         checks,
                         stage_label + "/" + confirmation_path.name,
                     )
+                )
+            if (
+                parent is not None
+                and stage == "expanded"
+                and (path / "diversity.json").exists()
+            ):
+                cell_report["candidate_selection"] = check_selected_qualification(
+                    result,
+                    parsed,
+                    rows,
+                    contract["protocol"]["selected_shot_rule"],
+                    checks,
+                    stage_label,
                 )
             if result["configuration"]:
                 config = result["configuration"]

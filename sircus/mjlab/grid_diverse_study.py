@@ -46,6 +46,23 @@ TARGET_SELECTION = dict(
     fresh_attempts=30,
     missing_or_blocked=True,
 )
+SELECTED_SHOT_RULE = dict(
+    candidate_limit=6,
+    ranking=[
+        "qualification_fresh_captures",
+        "qualification_fresh_clean_captures",
+        "native_search_rank",
+    ],
+    native_search_rank="sweep_contract.rank_row(search_source)",
+    early_stop=dict(
+        nominal_captures=3,
+        nominal_attempts=3,
+        fresh_captures=20,
+        fresh_attempts=20,
+        fresh_clean_captures=20,
+    ),
+    frozen_validation="Never used for recipe selection or fallback",
+)
 SNAPSHOT_FILES = (
     "contract.json",
     "report.json",
@@ -430,6 +447,24 @@ def select_diverse(rows, *, budget=NATIVE_BUDGET, broad_quota=BROAD_QUOTA, seed=
     return chosen
 
 
+def qualification_rank(source, record):
+    """Rank only development qualification evidence, before frozen validation."""
+    return (
+        record.get("fresh_counts", {}).get("captures", -1),
+        record.get("quality", {}).get("clean", -1),
+        rank_row(source),
+    )
+
+
+def perfect_qualification(record):
+    return bool(
+        record.get("qualified")
+        and record.get("nominal_counts") == dict(captures=3, attempts=3)
+        and record.get("fresh_counts") == dict(captures=20, attempts=20)
+        and record.get("quality", {}).get("clean") == 20
+    )
+
+
 def diverse_pool(
     scene, bucket, hints, *, seed, extra=(), exclude=(), limit=CPU_CANDIDATES
 ):
@@ -588,7 +623,7 @@ class DiversePlanner(StudyPlanner):
             key=rank_row,
             reverse=True,
         )
-        selected, cohort = None, None
+        selected, cohort, qualified = None, None, []
         for i, source in enumerate(successful[:confirmation_candidates]):
             current, nominal, fresh = self.confirm(env, source, seed=seed + 10000 + i)
             if selected is None or current.get("fresh_counts", {}).get(
@@ -596,7 +631,16 @@ class DiversePlanner(StudyPlanner):
             ) > cohort.get("fresh_counts", {}).get("captures", -1):
                 selected, cohort = nominal[0] if nominal else source, current
             if current["qualified"]:
-                return self.outcome(request, nominal[0], current)
+                qualified.append(
+                    (qualification_rank(source, current), nominal[0], current)
+                )
+                # The declared objectives cannot improve beyond all20clean
+                # captures. Frozen validation remains entirely untouched.
+                if perfect_qualification(current):
+                    break
+        if qualified:
+            _, selected, cohort = max(qualified, key=lambda item: item[0])
+            return self.outcome(request, selected, cohort)
         if selected is not None:
             return self.outcome(request, selected, cohort)
         best = max(self.rows, key=rank_row) if self.rows else None
@@ -657,6 +701,7 @@ def protocol(parent, targets):
             ),
         ],
         selection_method="family_quota_and_normalized_farthest_point",
+        selected_shot_rule=SELECTED_SHOT_RULE,
         action_order=["board_x_m", "board_y_m", "board_height_m", "tilt_deg", "gap_m"],
         bounds=WIDE_BOUNDS,
         qualification=dict(nominal=3, fresh=20, required_fresh=18),
