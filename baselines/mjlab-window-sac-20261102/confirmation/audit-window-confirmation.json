@@ -1,0 +1,434 @@
+{
+  "version": "sircus-train-window-engineering-confirmation-v1",
+  "status": "passed",
+  "contract_fingerprint": "043592904cf365e69bb7efd72b0e35e7714845d4764c7f6541526a1c0d9f2367",
+  "checks": [
+    {
+      "name": "contract_fingerprint",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "completed_quarantined_confirmation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "immutable_audited_parent_and_train_only_plan",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "native_assets",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "original_core_source_unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "original_scene_physics_anchor_and_frozen_branches",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "matching_auditor_packages",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "effective_corrected64_options_and_report",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "complete_92_frozen_requests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "frozen_geometry_rejections_and_reward",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch_native_membership_0",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-0:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-0:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-0:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-0:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-0:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch_cache_pointers_0",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch_native_membership_1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-1:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-1:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-1:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-1:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-1:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch_cache_pointers_1",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "every_attempt_and_release_once",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "complete_evidence_manifest",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "recipe-00:nominal",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "native_releases": 3,
+          "mean_reward": 4.23599247991685
+        },
+        "expected": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "native_releases": 3,
+          "mean_reward": 4.23599247991685
+        }
+      }
+    },
+    {
+      "name": "recipe-00:fresh",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 20,
+          "captures": 5,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 20,
+          "native_releases": 20,
+          "mean_reward": 0.9191206074167759
+        },
+        "expected": {
+          "attempts": 20,
+          "captures": 5,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 20,
+          "native_releases": 20,
+          "mean_reward": 0.9191206074167759
+        }
+      }
+    },
+    {
+      "name": "recipe-00:total",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 23,
+          "captures": 8,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 23,
+          "native_releases": 23,
+          "mean_reward": 1.3517560690472206
+        },
+        "expected": {
+          "attempts": 23,
+          "captures": 8,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 23,
+          "native_releases": 23,
+          "mean_reward": 1.3517560690472206
+        }
+      }
+    },
+    {
+      "name": "recipe-01:nominal",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "native_releases": 3,
+          "mean_reward": 4.241817689912705
+        },
+        "expected": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "native_releases": 3,
+          "mean_reward": 4.241817689912705
+        }
+      }
+    },
+    {
+      "name": "recipe-01:fresh",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 20,
+          "captures": 20,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 20,
+          "native_releases": 20,
+          "mean_reward": 4.235252138059133
+        },
+        "expected": {
+          "attempts": 20,
+          "captures": 20,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 20,
+          "native_releases": 20,
+          "mean_reward": 4.235252138059133
+        }
+      }
+    },
+    {
+      "name": "recipe-01:total",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 23,
+          "captures": 23,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 23,
+          "native_releases": 23,
+          "mean_reward": 4.236108514387859
+        },
+        "expected": {
+          "attempts": 23,
+          "captures": 23,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 23,
+          "native_releases": 23,
+          "mean_reward": 4.236108514387859
+        }
+      }
+    },
+    {
+      "name": "recipe-02:nominal",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "native_releases": 3,
+          "mean_reward": -0.1766044716120354
+        },
+        "expected": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "native_releases": 3,
+          "mean_reward": -0.1766044716120354
+        }
+      }
+    },
+    {
+      "name": "recipe-02:fresh",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 20,
+          "captures": 5,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 20,
+          "native_releases": 20,
+          "mean_reward": 1.0860195372195576
+        },
+        "expected": {
+          "attempts": 20,
+          "captures": 5,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 20,
+          "native_releases": 20,
+          "mean_reward": 1.0860195372195576
+        }
+      }
+    },
+    {
+      "name": "recipe-02:total",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 23,
+          "captures": 5,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 23,
+          "native_releases": 23,
+          "mean_reward": 0.921329449111089
+        },
+        "expected": {
+          "attempts": 23,
+          "captures": 5,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 23,
+          "native_releases": 23,
+          "mean_reward": 0.921329449111089
+        }
+      }
+    },
+    {
+      "name": "recipe-03:nominal",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "native_releases": 3,
+          "mean_reward": 4.2177187550982875
+        },
+        "expected": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "native_releases": 3,
+          "mean_reward": 4.2177187550982875
+        }
+      }
+    },
+    {
+      "name": "recipe-03:fresh",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 20,
+          "captures": 20,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 20,
+          "native_releases": 20,
+          "mean_reward": 4.223853966460896
+        },
+        "expected": {
+          "attempts": 20,
+          "captures": 20,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 20,
+          "native_releases": 20,
+          "mean_reward": 4.223853966460896
+        }
+      }
+    },
+    {
+      "name": "recipe-03:total",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 23,
+          "captures": 23,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 23,
+          "native_releases": 23,
+          "mean_reward": 4.2230537215005555
+        },
+        "expected": {
+          "attempts": 23,
+          "captures": 23,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 23,
+          "native_releases": 23,
+          "mean_reward": 4.2230537215005555
+        }
+      }
+    }
+  ],
+  "checks_count": 39,
+  "failures": [],
+  "independently_rescored_throws": 92,
+  "scope": "Post-study TRAIN-derived engineering repeats; excluded from original learner comparison and all policy selection; held endpoints only, no path/actuator validation"
+}

@@ -30,6 +30,11 @@ inside. Rim assistance counts; external assistance does not. The reported
   twin critics learn the existing shaped terminal reward. Every shot terminates,
   so there is no next-state bootstrap. Alpha=.02,400 seed-data updates then32
   updates/round, batch64, CPU network training. Native physics uses only4090.
+- SAC uses two64-unit tanh hidden layers in the actor and each critic, Adam at
+  0.0003, replay capacity100,000 (never reached), seed20261203 and the recorded
+  independent RNG offsets. The supervised model uses seed0,64 RBF centers,
+  width0.65 in normalized input units, L2 coefficient0.1 and129 inference gaps.
+  There is no adaptive entropy tuning, discount bootstrap or hyperparameter search.
 - Different learning objectives are explicit: surrogate predicts captures; SAC
   optimizes shaped reward plus entropy. Both are evaluated by capture counts.
 - Four matched data milestones504/672/840/1008; six validation contexts ×three
@@ -82,3 +87,27 @@ existing combined viewer report; it does not switch inference or restart a serve
 The live viewer's **Conditional gap study** panel preserves older results.
 Raw native arrays/logs remain outside Git; curated reports, CPU preflight and
 selected small checkpoints may be published with matching fingerprints.
+
+## Separate window-center confirmations
+
+After the original comparison/audit, `window_confirmation` reconstructs the four
+sampled hit runs from shared/adaptive TRAIN records only. It freezes their four
+midpoints and3 nominal +20 fresh2 mm-gap perturbations each (92 requests,
+seed20261204). It checks original scene/packages/native assets/source identities,
+retains exact board branches and independently rescores all saved releases.
+This engineering budget never updates either learner, selects a checkpoint or
+changes the original2,211-request comparison. Original evidence remains immutable.
+
+```bash
+python -m sircus.mjlab.window_confirmation \
+  --study "$HOME/sircus-mjlab/output/window-sac-v1" \
+  --assets "$HOME/sircus-isaac/assets" \
+  --output "$HOME/sircus-mjlab/output/window-confirmation-NEW" \
+  --gpu-lock "$HOME/sircus-isaac/scene.lock"
+```
+
+Use the same4090 UUID/thread environment above. Original study/audit must pass.
+For offline display, `prepare_window_report --confirmation-study EXTERNAL_DIR`
+adds a separate table. It checks parent fingerprint identity and never writes
+into either evidence directory. Completed, audited TEST illustrations are selected
+from hashed saved NPZ positions; aggregate test metrics are unchanged.
