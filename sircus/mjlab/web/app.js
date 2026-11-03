@@ -372,6 +372,24 @@ function neighborhoodAgreement(value,attempts) {
   }
   return 'unreported';
 }
+function neighborhoodAuditReady(study) {
+  return study?.version==='sircus-local-height-tilt-sensitivity-v1'&&study.status==='completed'&&
+    typeof study.contract_fingerprint==='string'&&study.contract_fingerprint.length>0&&
+    study.audit?.status==='passed'&&study.audit.contract_fingerprint===study.contract_fingerprint;
+}
+function neighborhoodRepeatCheck(study,recipe) {
+  const unknown=reason=>({verified:false,thresholds:null,perfect:null,qualified:null,label:'Unverified',reason});
+  if(!neighborhoodAuditReady(study))return unknown('A completed study and matching passed audit are required.');
+  const valid=(s,n)=>s&&s.attempts===n&&Number.isInteger(s.captures)&&0<=s.captures&&s.captures<=n&&
+    Number.isInteger(s.native_releases)&&s.captures<=s.native_releases&&s.native_releases<=n;
+  const rows=['32','64','128'].map(step=>({nominal:recipe.nominal_by_substeps?.[step],fresh:recipe.fresh_by_substeps?.[step],total:recipe.by_substeps?.[step]}));
+  if(!rows.every(r=>valid(r.nominal,3)&&valid(r.fresh,20)&&valid(r.total,23)&&
+    r.total.captures===r.nominal.captures+r.fresh.captures&&r.total.native_releases===r.nominal.native_releases+r.fresh.native_releases))
+    return unknown('Complete, consistent nominal, perturbed and native counts are required at all three resolutions.');
+  const thresholds=rows.every(r=>r.nominal.captures===3&&r.fresh.captures>=18),perfect=rows.every(r=>r.total.captures===23),gate=recipe.sensitivity?.paired_engineering_gate;
+  return {verified:true,thresholds,perfect,qualified:typeof gate==='boolean'?thresholds&&gate:null,
+    label:perfect?'Perfect 23/23 each':thresholds?'Meets repeat threshold':'Below repeat threshold',reason:null};
+}
 function neighborhoodFamilySummary(rows) {
   const resolved=rows.filter(r=>r.board_admitted===true).length,unresolved=rows.filter(r=>r.board_admitted===false).length;
   const knownSearch=rows.every(r=>Number.isInteger(r.search_attempts)&&r.search_attempts>=0&&Number.isInteger(r.search_captures)&&0<=r.search_captures&&r.search_captures<=r.search_attempts);
@@ -472,10 +490,13 @@ function showHeightTiltStudy() {
   }
   const ratio=(k,n)=>Number.isInteger(k)&&Number.isInteger(n)&&k>=0&&k<=n?`${k} / ${n}`:'unreported';
   expansionTable($('heightTiltContexts'),['Context','H mm / °','Board IK','Endpoints/all','Native/all','Captures/all','Best gap mm'],view.contexts.map(r=>[r.id,`${mm(r.board_height_m)} / ${r.tilt_deg.toFixed(2)}°`,r.board_admitted===true?'Resolved':r.board_admitted===false?'Unresolved':'unknown',ratio(r.eligible,r.geometry_requests),ratio(r.search_native_releases,r.search_attempts),ratio(r.search_captures,r.search_attempts),mm(r.best_gap_m)]));
-  expansionTable($('heightTiltRecipes'),['Recipe','Board H mm / °','Gap / release mm','Distance mm'],view.recipes.map(r=>[r.id,`${mm(r.board_height_m)} / ${Number.isFinite(r.tilt_deg)?r.tilt_deg.toFixed(2):'—'}°`,`${mm(r.gap_m)} / ${mm(r.release_center_height_m)}`,mm(r.distance_m)]));
+  const checked=view.recipes.map(recipe=>({recipe,check:neighborhoodRepeatCheck(study,recipe)})),perfect=checked.filter(r=>r.check.perfect===true),qualified=checked.filter(r=>r.check.qualified===true),verified=checked.filter(r=>r.check.verified);
+  $('heightTiltConclusion').textContent=!neighborhoodAuditReady(study)?'Three-resolution qualification is unverified: a completed study with a matching passed evidence audit is required.':
+    !checked.length?'No selected recipe repeats are available.':`${perfect.length} / ${checked.length} selected recipes captured 23/23 at each of 32, 64 and 128 substeps. ${qualified.length} / ${checked.length} meet 3/3 nominal and at least 18/20 perturbed captures at every resolution plus the prespecified 64↔128 gate. ${verified.length<checked.length?checked.length-verified.length+' recipes have incomplete repeat evidence. ':''}${perfect.length?'Perfect-capture recipes: '+perfect.map(r=>r.recipe.id).join(', ')+'. ':''}${qualified.length?'Repeat-threshold + fine-pair qualifiers: '+qualified.map(r=>r.recipe.id).join(', ')+'.':''}`;
+  expansionTable($('heightTiltRecipes'),['Recipe','Board H mm / °','Gap / release mm','Distance mm','32/64/128 captures'],checked.map(({recipe:r,check})=>[r.id,`${mm(r.board_height_m)} / ${Number.isFinite(r.tilt_deg)?r.tilt_deg.toFixed(2):'—'}°`,`${mm(r.gap_m)} / ${mm(r.release_center_height_m)}`,mm(r.distance_m),check.label]));
   const stats=(r,step,key='by_substeps')=>windowStatistics(r[key]?.[step]),native=s=>s.released===null?'unreported':`${s.released} / ${shown(s.requests)}`;
-  expansionTable($('heightTiltSensitivity'),['Recipe','32 cap/all','64 cap/all','128 cap/all','64↔128 match','Δ350 ms mm','Paired gate'],view.recipes.map(r=>{
-    const s=r.sensitivity??{};return[r.id,...['32','64','128'].map(step=>stats(r,step).fraction),neighborhoodAgreement(s.capture_agreement_64_128,s.paired_attempts),mm(s.nominal_position_delta_350ms_max_m),s.paired_engineering_gate===true?'Passed':s.paired_engineering_gate===false?'Failed':'pending'];
+  expansionTable($('heightTiltSensitivity'),['Recipe','32 cap/all','64 cap/all','128 cap/all','64↔128 match','64↔128 Δ350 ms mm','64↔128 gate'],view.recipes.map(r=>{
+    const s=r.sensitivity??{};return[r.id,...['32','64','128'].map(step=>stats(r,step).fraction),neighborhoodAgreement(s.capture_agreement_64_128,s.paired_attempts),mm(s.nominal_position_delta_350ms_max_m),!neighborhoodAuditReady(study)?'Unverified':s.paired_engineering_gate===true?'Passed':s.paired_engineering_gate===false?'Failed':'pending'];
   }));
   const repeated=[];for(const r of view.recipes)for(const step of ['32','64','128']){
     const all=stats(r,step);repeated.push([r.id,step,stats(r,step,'nominal_by_substeps').fraction,stats(r,step,'fresh_by_substeps').fraction,all.fraction,native(all),all.clean===null?'unreported':`${all.clean} / ${shown(all.requests)}`]);

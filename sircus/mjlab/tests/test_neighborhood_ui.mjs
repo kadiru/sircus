@@ -15,6 +15,16 @@ function referenceFixture(){
     {id:'surrogate-reference',values:[...previous.settings.board_xy_m,context.board_height_m,context.tilt_deg,model.gap_m]}];
   return {study:{settings:{board_xy_m:previous.settings.board_xy_m,bucket_xy_m:previous.settings.bucket_xy_m},anchors},previous};
 }
+function repeatFixture(fresh32=20){
+  const study={version:'sircus-local-height-tilt-sensitivity-v1',status:'completed',contract_fingerprint:'matched-contract',audit:{status:'passed',contract_fingerprint:'matched-contract'}};
+  const recipe={id:'recipe',board_height_m:.4,tilt_deg:32,gap_m:.3,nominal_by_substeps:{},fresh_by_substeps:{},by_substeps:{},sensitivity:{paired_engineering_gate:true}};
+  for(const step of ['32','64','128']){
+    recipe.nominal_by_substeps[step]={attempts:3,captures:3,native_releases:3};
+    recipe.fresh_by_substeps[step]={attempts:20,captures:step==='32'?fresh32:20,native_releases:20};
+    recipe.by_substeps[step]={attempts:23,captures:3+recipe.fresh_by_substeps[step].captures,native_releases:23};
+  }
+  return {study,recipe};
+}
 
 test('neighborhood evidence stays optional and does not conflate IK with a capture',()=>{
   const c=make();assert.equal(c.neighborhoodView(null),null);
@@ -79,12 +89,33 @@ test('timestep agreement does not invent a denominator or assume convergence',()
   assert.equal(c.neighborhoodAgreement(22),'22 matched');assert.equal(c.neighborhoodAgreement(22,23),'22 / 23');assert.equal(c.neighborhoodAgreement(.95),'unreported');
   assert.equal(c.neighborhoodAgreement({agreements:24,attempts:23}),'unreported');
 });
+test('three-resolution capture check distinguishes perfect, threshold and fine-pair qualification',()=>{
+  const c=make();let {study,recipe}=repeatFixture();const before=JSON.stringify(recipe);
+  let check=c.neighborhoodRepeatCheck(study,recipe);assert.equal(check.perfect,true);assert.equal(check.qualified,true);assert.equal(JSON.stringify(recipe),before);
+  for(const captures of [18,19]){
+    ({study,recipe}=repeatFixture(captures));check=c.neighborhoodRepeatCheck(study,recipe);assert.equal(check.perfect,false);assert.equal(check.thresholds,true);assert.equal(check.qualified,true);
+  }
+  ({study,recipe}=repeatFixture(17));check=c.neighborhoodRepeatCheck(study,recipe);assert.equal(check.verified,true);assert.equal(check.thresholds,false);assert.equal(check.qualified,false);
+  ({study,recipe}=repeatFixture());recipe.sensitivity.paired_engineering_gate=false;check=c.neighborhoodRepeatCheck(study,recipe);assert.equal(check.perfect,true);assert.equal(check.thresholds,true);assert.equal(check.qualified,false);
+  delete recipe.sensitivity.paired_engineering_gate;assert.equal(c.neighborhoodRepeatCheck(study,recipe).qualified,null);
+});
+test('three-resolution qualification stays unverified without complete counts and a matching completed audit',()=>{
+  const c=make();
+  for(const corrupt of [d=>delete d.study.audit,d=>d.study.audit.status='pending',d=>d.study.audit.contract_fingerprint='other',d=>d.study.contract_fingerprint='',d=>d.study.status='running',d=>d.study.version='other',
+    d=>delete d.recipe.fresh_by_substeps['32'],d=>delete d.recipe.by_substeps['128'].native_releases,d=>d.recipe.by_substeps['64'].captures=22,d=>d.recipe.nominal_by_substeps['32'].captures=4,d=>d.recipe.fresh_by_substeps['32'].native_releases=19]){
+    const data=repeatFixture();corrupt(data);const check=c.neighborhoodRepeatCheck(data.study,data.recipe);assert.equal(check.verified,false);assert.equal(check.qualified,null);assert.equal(check.label,'Unverified');
+  }
+  const {study,recipe}=repeatFixture();recipe.nominal_by_substeps['32'].captures=2;recipe.by_substeps['32'].captures=22;
+  const check=c.neighborhoodRepeatCheck(study,recipe);assert.equal(check.verified,true);assert.equal(check.thresholds,false);
+});
 test('readonly panel has no solve, training, network or policy mutation hooks',()=>{
   for(const text of ['fetch(', '/api/solve','syncSolveButtons','activateCheckpoint','startTraining'])assert.ok(!code.includes(text));
   assert.ok(source.includes("fetch('/api/solve'"));assert.ok(source.includes('showCorrectedGrid(); showWindowStudy(); showHeightTiltStudy();'));
   const html=readFileSync(new URL('../web/index.html',import.meta.url),'utf8');
-  for(const id of ['heightTiltStudy','heightTiltReferences','heightTiltReferenceScope','heightTiltMaps','heightTiltRecipes','heightTiltContexts','heightTiltSensitivity','heightTiltRepeats','heightTiltTraceSelect','heightTiltTrace'])assert.ok(html.includes(`id="${id}"`));
+  for(const id of ['heightTiltStudy','heightTiltReferences','heightTiltReferenceScope','heightTiltMaps','heightTiltConclusion','heightTiltRecipes','heightTiltContexts','heightTiltSensitivity','heightTiltRepeats','heightTiltTraceSelect','heightTiltTrace'])assert.ok(html.includes(`id="${id}"`));
   for(const text of ['No RL training','No RL training or new held-out evaluation','reported 175 mm','does not activate a policy','not a certified continuous range'])assert.ok(html.includes(text));
+  assert.ok(html.includes('64↔128 substeps only'));assert.ok(html.includes('does not assess 32-substep positional convergence'));
+  assert.ok(html.includes('Additional descriptive check, defined after the run'));
 });
 test('render preserves requested, native and per-timestep repeat denominators',()=>{
   const nodes=new Map(),tables=new Map();
@@ -105,8 +136,16 @@ test('render preserves requested, native and per-timestep repeat denominators',(
     trace_examples:[{record_id:'actual',context_id:'a',substeps:128,route_success:false,position_m:[[.5,-.3,.7],[.2,-.6,.2]]}]};
   c.showHeightTiltStudy();assert.equal(node('heightTiltStudy').hidden,false);assert.equal(node('heightTiltMaps').children.length,1);
   const searched=tables.get(node('heightTiltContexts')).rows[0];assert.equal(searched[3],'10 / 17');assert.equal(searched[4],'10 / 17');assert.equal(searched[5],'7 / 17');assert.equal(searched[6],'300.0');
-  const sensitivity=tables.get(node('heightTiltSensitivity')).rows[0];assert.deepEqual(Array.from(sensitivity.slice(1,4)),['13 / 23','21 / 23','20 / 23']);assert.equal(sensitivity[4],'22 / 23');assert.equal(sensitivity[5],'4.0');assert.equal(sensitivity[6],'Failed');
+  const sensitivity=tables.get(node('heightTiltSensitivity')).rows[0];assert.deepEqual(Array.from(sensitivity.slice(1,4)),['13 / 23','21 / 23','20 / 23']);assert.equal(sensitivity[4],'22 / 23');assert.equal(sensitivity[5],'4.0');assert.equal(sensitivity[6],'Unverified');
+  assert.equal(tables.get(node('heightTiltSensitivity')).headers[6],'64↔128 gate');assert.ok(node('heightTiltConclusion').textContent.includes('qualification is unverified'));
   const repeats=tables.get(node('heightTiltRepeats')).rows;assert.equal(repeats[1][2],'3 / 3');assert.equal(repeats[1][3],'18 / 20');assert.equal(repeats[1][5],'22 / 23');assert.equal(repeats[2][5],'unreported');
   assert.ok(node('heightTiltTraceCaption').textContent.includes('2 saved samples'));assert.equal(node('heightTiltTraceSelect').disabled,false);
   c.report.neighborhood_evaluation.trace_examples=[];c.showHeightTiltStudy();assert.equal(node('heightTiltTraceSelect').disabled,true);assert.ok(node('heightTiltTraceCaption').textContent.includes('no predicted or ideal-flight path'));
+  const {study,recipe}=repeatFixture(),threshold=repeatFixture(18).recipe;threshold.id='threshold';
+  Object.assign(c.report.neighborhood_evaluation,study,{selected_recipes:[recipe,threshold]});c.showHeightTiltStudy();
+  assert.ok(node('heightTiltConclusion').textContent.includes('1 / 2 selected recipes captured 23/23'));
+  assert.ok(node('heightTiltConclusion').textContent.includes('2 / 2 meet 3/3 nominal'));
+  assert.equal(tables.get(node('heightTiltRecipes')).rows[0][4],'Perfect 23/23 each');assert.equal(tables.get(node('heightTiltRecipes')).rows[1][4],'Meets repeat threshold');
+  assert.equal(tables.get(node('heightTiltSensitivity')).rows[0][6],'Passed');
+  c.report.neighborhood_evaluation.audit.contract_fingerprint='other';c.showHeightTiltStudy();assert.equal(tables.get(node('heightTiltSensitivity')).rows[0][6],'Unverified');assert.equal(tables.get(node('heightTiltRecipes')).rows[0][4],'Unverified');
 });
