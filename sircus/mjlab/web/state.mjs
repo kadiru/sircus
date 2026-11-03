@@ -142,6 +142,94 @@ export function plannerFarmRows(report) {
   })).filter(row => finiteVector(row.xy, 2));
 }
 
+function observedCount(value) {
+  return Number.isInteger(value) && value >= 0 ? value : null;
+}
+function observedRepeats(value) {
+  const captures = observedCount(value?.captures), attempts = observedCount(value?.attempts);
+  return captures !== null && attempts !== null && captures <= attempts ? { captures, attempts } : null;
+}
+function observedQuality(value) {
+  return { clean: observedCount(value?.clean), assisted: observedCount(value?.assisted),
+    cohort: ['nominal', 'fresh'].includes(value?.cohort) ? value.cohort : null,
+    source: ['fresh_study', 'saved_reference', 'frozen_validation'].includes(value?.source) ? value.source : null };
+}
+export function plannerGridResultPath(value) {
+  return typeof value === 'string' && /^\/api\/planner-grid\/result\/[a-zA-Z0-9_-]+$/.test(value) ? value : null;
+}
+/** New study repeats remain separate from any saved-reference confirmation. */
+export function plannerGridRows(report) {
+  const rows = report?.planner_grid_study?.cells;
+  if (!Array.isArray(rows)) return [];
+  return rows.map((row, index) => {
+    const selected = row.selected && typeof row.selected === 'object' ? row.selected : null;
+    const frozen = row.frozen_validation && typeof row.frozen_validation === 'object' ? row.frozen_validation : null;
+    return {
+      id: String(row.id ?? `table-${index + 1}`), index,
+      label: `${Math.floor(index / 7) + 1}·${index % 7 + 1}`,
+      xy: finiteVector(row.bucket_xy_m, 2) ? row.bucket_xy_m.slice() : null,
+      status: typeof row.status === 'string' ? row.status : 'unknown',
+      stage: typeof row.stage === 'string' ? row.stage : '',
+      reason: typeof row.reason === 'string' ? row.reason : '',
+      selected: selected ? {
+        board: finiteVector(selected.board_center_m, 3) ? selected.board_center_m.slice() : null,
+        release: finiteVector(selected.release_ball_center_m, 3) ? selected.release_ball_center_m.slice() : null,
+        tilt: Number.isFinite(selected.tilt_deg) ? selected.tilt_deg : null,
+        gap: Number.isFinite(selected.gap_m) ? selected.gap_m : null,
+        distance: Number.isFinite(selected.distance_m) ? selected.distance_m : null,
+        source: selected.source === 'fresh_study' ? 'Fresh study' : selected.source === 'saved_reference' ? 'Saved reference' : 'Source unknown',
+      } : null,
+      nominal: observedRepeats(row.nominal), fresh: observedRepeats(row.fresh),
+      savedNominal: observedRepeats(row.saved_nominal), savedFresh: observedRepeats(row.saved_fresh),
+      quality: observedQuality(row.quality),
+      frozen: frozen ? { status: typeof frozen.status === 'string' ? frozen.status : 'unknown',
+        nominal: observedRepeats(frozen.nominal), fresh: observedRepeats(frozen.fresh), quality: observedQuality(frozen.quality),
+        configurationSha: typeof frozen.configuration_sha256 === 'string' && /^[a-f0-9]{64}$/.test(frozen.configuration_sha256) ? frozen.configuration_sha256 : null } : null,
+      search: { nativeRequests: observedCount(row.search?.native_requests), rejected: observedCount(row.search?.rejected),
+        cpuCandidates: observedCount(row.search?.cpu_candidates), captures: observedCount(row.search?.captures) },
+      resultUrl: plannerGridResultPath(row.result_url ?? selected?.result_url),
+    };
+  });
+}
+export function plannerGridSummary(report) {
+  const study = report?.planner_grid_study;
+  if (!study || typeof study !== 'object' || !Array.isArray(study.cells)) return null;
+  const rows = plannerGridRows(report), complete = new Set(['qualified', 'verified_fresh', 'saved_verified', 'unresolved', 'blocked', 'failed', 'completed']);
+  const aggregate = get => {
+    const available = rows.map(get).filter(value => value != null);
+    if (!available.length) return null;
+    return available.reduce((sum, value) => ({ captures: sum.captures + value.captures, attempts: sum.attempts + value.attempts, reported: available.length }), { captures: 0, attempts: 0, reported: available.length });
+  };
+  return {
+    status: typeof study.status === 'string' ? study.status : 'unknown',
+    total: rows.length, finished: rows.filter(row => complete.has(row.status)).length,
+    qualified: rows.filter(row => ['Fresh study', 'Saved reference'].includes(row.selected?.source)).length,
+    freshQualified: rows.filter(row => row.selected?.source === 'Fresh study').length,
+    savedQualified: rows.filter(row => row.selected?.source === 'Saved reference').length,
+    unresolved: rows.filter(row => ['unresolved', 'blocked', 'failed'].includes(row.status)).length,
+    nominal: aggregate(row => row.nominal), fresh: aggregate(row => row.fresh),
+    frozenNominal: aggregate(row => row.frozen?.nominal), frozenFresh: aggregate(row => row.frozen?.fresh),
+    updated: typeof study.updated_at === 'string' ? study.updated_at : null,
+    scope: typeof study.scope === 'string' ? study.scope : '',
+  };
+}
+export function plannerGridCsv(report) {
+  const csvValue = value => {
+    if (value === null || value === undefined) return '';
+    const text = typeof value === 'string' && /^[=+\-@]/.test(value) ? `'${value}` : String(value);
+    return `"${text.replaceAll('"', '""')}"`;
+  };
+  const header = ['table', 'id', 'bucket_x_m', 'bucket_y_m', 'status', 'stage', 'source', 'board_x_m', 'board_y_m', 'board_center_z_m', 'board_tilt_deg', 'drop_gap_m', 'release_ball_center_x_m', 'release_ball_center_y_m', 'release_ball_center_z_m', 'board_to_bucket_distance_m', 'study_nominal_captures', 'study_nominal_attempts', 'study_fresh_captures', 'study_fresh_attempts', 'saved_nominal_captures', 'saved_nominal_attempts', 'saved_fresh_captures', 'saved_fresh_attempts', 'frozen_validation_status', 'frozen_nominal_captures', 'frozen_nominal_attempts', 'frozen_fresh_captures', 'frozen_fresh_attempts', 'frozen_configuration_sha256', 'quality_clean', 'quality_assisted', 'quality_cohort', 'quality_source', 'search_native_requests', 'search_geometry_rejected', 'reason'];
+  const rows = plannerGridRows(report).map(row => [row.label, row.id, ...(row.xy ?? [null, null]), row.status, row.stage, row.selected?.source,
+    ...(row.selected?.board ?? [null, null, null]), row.selected?.tilt, row.selected?.gap, ...(row.selected?.release ?? [null, null, null]), row.selected?.distance,
+    row.nominal?.captures, row.nominal?.attempts, row.fresh?.captures, row.fresh?.attempts,
+    row.savedNominal?.captures, row.savedNominal?.attempts, row.savedFresh?.captures, row.savedFresh?.attempts,
+    row.frozen?.status, row.frozen?.nominal?.captures, row.frozen?.nominal?.attempts, row.frozen?.fresh?.captures, row.frozen?.fresh?.attempts, row.frozen?.configurationSha,
+    row.quality.clean, row.quality.assisted, row.quality.cohort, row.quality.source,
+    row.search.nativeRequests, row.search.rejected, row.reason]);
+  return [header, ...rows].map(row => row.map(csvValue).join(',')).join('\n') + '\n';
+}
+
 /** Read-only study display: these fields never change the active solver route. */
 export function expansionTargetRows(report) {
   const search = report?.expansion_evaluation?.search;

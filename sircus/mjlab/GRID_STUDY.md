@@ -1,0 +1,124 @@
+# Expanded 35-table sweep study
+
+This development experiment searches the same 7 × 5 distinct tabletop bucket
+positions, using corrected native MuJoCo/mjlab physics. It learns no policy and
+does not establish continuous-table coverage. The interface displays one selected
+workcell and the complete per-table evidence table.
+
+## Search and selection
+
+Each target retains the original scene, materials, ball, bucket dimensions,
+landscape board mount, strict endpoint checks and fixed common home. A bucket
+that blocks the common home remains explicitly blocked. In particular, a fixed
+base/bucket overlap cannot be cured by another arm configuration. Finite failure
+is not a proof that no shot exists with other staging or shot families.
+
+The action is board X/Y/Z, bucket-facing tilt and the vertical release gap. The
+ball is released above the board center. Heading faces the bucket; horizontal
+release velocity and lateral impact offsets are outside this family.
+
+| Parameter | Search bounds |
+|---|---|
+| Board center X | 300–1,040 mm |
+| Board center Y | −500–350 mm |
+| Board center Z above table | 120–600 mm |
+| Tilt from horizontal | 8–60° |
+| Ball-bottom release gap above board center | 50–650 mm |
+
+Measured native board centers can differ slightly from requested centers because
+of numerical FK. Release Z means the **ball center**, and is nominally board Z
+plus gap plus the 37.5 mm ball radius. Neither value is the gripper flange height.
+
+1. Save the 12 qualified historical target recipes as explicitly old evidence.
+   Freshly retest those exact recipes rather than counting their previous repeats
+   as this study's work.
+2. Baseline search at other targets: up to 64 CPU proposals and 16 native search
+   releases. Historical captured geometries from the same target lead, followed
+   by translated/inverse-ballistic and broad deterministic proposals. All poses
+   pass current geometry checks and all labels come from new native simulation.
+3. Expand unresolved targets: up to 1,024 new CPU proposals and 128 native search
+   releases. Previously checked values are excluded. Exact historical poses,
+   interleaved local refinements and seeded broad proposals cover additional
+   height, gap, tilt, radius and bearing combinations. Local warm starts include
+   measured baseline captures and near misses; inherited success is never used.
+4. Up to three baseline or six expanded captured candidates receive sampled
+   common-home path admission and 3 nominal plus 20 perturbed repeats. Qualification
+   requires 3/3 and at least 18/20 captures. Each cohort is bound to its exact
+   values and joint branches; the selected rates are never totals from several
+   configurations. Other attempted cohorts remain in the raw work ledger.
+
+The historical hint input is hash-checked: 349 captured search geometries across
+22 targets, plus the qualified catalogue. Only geometry, joints and source
+identity are retained. This is outcome-informed development search, not a test
+of unseen-layout policy inference.
+
+Local refinements interleave all selected warm starts:
+
+- Gap: ±1, 2, 4, 8, 16 and 32 mm.
+- Board Z: ±5, 15 and 30 mm.
+- Tilt: ±0.5, 1, 2 and 4°.
+- Board/bucket radius: ±10, 25 and 50 mm.
+- Bearing around the bucket: ±3, 7.5 and 15°.
+- Joint parameter perturbations and the existing broad/inverse-ballistic pool
+  fill the remaining budget. Out-of-bounds proposals are omitted, never clipped.
+
+## Independent frozen repeats
+
+After search finishes, freeze every selected setting in `frozen-selection.json`.
+Run **3 nominal plus 30 fresh perturbed requests** for each frozen setting, using
+new per-cell seeds. Never choose a replacement from these outcomes. The final
+rates remain visible even if they are worse than qualification.
+
+Both qualification and final variations use independent Gaussian board X/Y
+noise of 1 mm, board Z and gap noise of 2 mm, and tilt noise of 0.35°. Rejected
+endpoint or local-path requests remain in the requested-repeat denominator.
+Saved-reference, qualification, search and frozen-validation outcomes are kept
+separate. Clean versus rim-assisted quality is tagged with its recorded cohort.
+
+Success still requires a board rebound, whole-ball entry and one continuous
+second inside without external assistance. Rim-assisted captures count. Neither
+an ODD event nor a geometric or analytic trajectory is a capture label here.
+
+## Reproduction
+
+Use the pinned mjlab environment and generated assets/reference described in
+[SWEEP_PLANNER.md](SWEEP_PLANNER.md). The runner binds all native dependencies,
+its own source, the report contract, assets, packages, hints, grid and protocol.
+Changing those identities requires a separate output directory.
+
+```bash
+export PYTHONPATH="$HOME/sircus-mjlab/studies/YOUR_FROZEN_SNAPSHOT"
+export CUDA_VISIBLE_DEVICES=GPU-ab1950b0-01dd-0fab-407f-2d17936b27f4
+export OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2
+"$HOME/sircus-mjlab/venv/bin/python" -u -m sircus.mjlab.grid_study \
+  --reference "$HOME/sircus-mjlab/output/corrected-grid-v1" \
+  --assets "$HOME/sircus-isaac/assets" \
+  --gpu-lock "$HOME/sircus-isaac/scene.lock" \
+  --output "$HOME/sircus-mjlab/output/YOUR_NEW_STUDY"
+```
+
+`--prepare-only` checks input identities and publishes the complete initial
+35-row snapshot without new physics. An identical interrupted run can resume
+completed stages from its ledger. Unique output directories preserve old runs.
+Do not edit an active snapshot, overwrite historical outputs or bypass the GPU
+lock. This runner selects only the 4090 and never signals other workloads.
+
+The separate `grid_study_server` adds `--study-dir` to the sweep server's launch
+arguments. It serves `planner_grid_study` inside `/api/study`. Read-only
+`GET /api/planner-grid/result/<cell-id>` verifies report/source/configuration and
+result identity before replay; it cannot start a search. The ordinary explicit
+search button retains its original separately gated behavior.
+
+## Evidence and limits
+
+The run keeps its request/result ledger, exact proposals, endpoint rejects,
+candidate-specific nominal/fresh IDs, all local-path proofs, native arrays and
+checksums outside Git. Compact verified settings, counts and audit summaries may
+be published as a dated baseline. Neither cached evidence nor absent trials are
+presented as new successful drops.
+
+Native arm endpoints are prescribed before every substep. Geometric setup paths
+are sampled checks; this does not demonstrate physical grasping, actuator
+tracking or realistic impact compliance. Contact/mount properties and the
+reported 175 mm bucket-height interpretation remain provisional. Isaac, physical
+Viam resources, sound and unrelated workloads are independent of this experiment.
