@@ -3,7 +3,7 @@ import { OrbitControls } from '/vendor/OrbitControls.js';
 import { contactStudy, contactGroups, contactConfigurations, transitRoutes, routePreview, configurationsCsv } from '/state.mjs';
 import { correctedGridProgress, correctedTrainingReadiness } from '/state.mjs';
 import { plannerReady, plannerOnly, searchReady, modeReady, plannerFarmRows, plannerGridRows, plannerGridSummary, plannerGridProgress, plannerGridCsv } from '/state.mjs';
-import { sweepRlStudy, sweepRlSummary, sweepRlPoints, sweepRlCurves, sweepRlFinalRows, sweepRlStatusLabel, sweepRlCsv } from '/state.mjs';
+import { sweepRlStudy, sweepRlSummary, sweepRlProgress, sweepRlPoints, sweepRlCurves, sweepRlFinalRows, sweepRlStatusLabel, sweepRlCsv } from '/state.mjs';
 import { studyReady, buildRequest, methodLabel, coverageRows, finiteVector, friendlyError, coverageSummary, comparisonRows, learningPoints, inStudiedRegion, BOARD_BODY_SIZE, bankComparisonRows, policyRouteLabel, poseInputValues, bankCoverageRows, bankCoverageStatus, formatMetric, solveButtonState, expansionTargetRows, expansionProgress, expandedComparisonRows, stableIkProgress, stableIkTargets, stableIkAuditRows, stableIkControlRows } from '/state.mjs';
 
 const $ = id => document.getElementById(id);
@@ -425,7 +425,7 @@ function showSweepRlBenchmark() {
     $('benchmarkStatus').textContent = `Benchmark evidence unavailable · ${friendlyError(report.sweep_rl_error)}`;
     for (const id of ['benchmarkSummary', 'benchmarkCaptureChart', 'benchmarkTimeChart', 'benchmarkResourceTable', 'benchmarkMilestones', 'benchmarkFinalTable']) $(id).replaceChildren();
     $('benchmarkScope').textContent = 'The benchmark report could not be verified. No benchmark measurements are displayed.';
-    $('benchmarkPrior').textContent = ''; $('benchmarkAudit').textContent = ''; $('benchmarkFinalStatus').textContent = 'Final results unavailable.'; $('benchmarkDownload').disabled = true;
+    $('benchmarkPrior').textContent = ''; $('benchmarkProgress').textContent = ''; $('benchmarkAudit').textContent = ''; $('benchmarkFinalStatus').textContent = 'Final results unavailable.'; $('benchmarkDownload').disabled = true;
     return;
   }
   const study = sweepRlStudy(report), summary = sweepRlSummary(report);
@@ -435,8 +435,12 @@ function showSweepRlBenchmark() {
   if (signature === benchmarkSignature) return;
   const firstDisplay = !benchmarkSignature;
   benchmarkSignature = signature;
-  const curves = sweepRlCurves(report), points = sweepRlPoints(report), finals = sweepRlFinalRows(report);
+  const curves = sweepRlCurves(report), points = sweepRlPoints(report), finals = sweepRlFinalRows(report), progress = sweepRlProgress(report);
   $('benchmarkStatus').textContent = `${sweepRlStatusLabel(summary)} · ${summary.completedRuns}/${summary.totalRuns} method/seed runs complete${summary.auditStatus ? ` · audit ${summary.auditStatus}` : ''}`;
+  const observed = value => value === null ? 'Unknown' : value.toLocaleString(), runTotal = progress.declaredRuns ?? 'unknown';
+  const trainingProgress = progress.requests === null ? 'Awaiting reported training-request counters.' : `Recorded training decisions: ${observed(progress.requests)} / ${observed(progress.declaredRequests)} declared.`;
+  const runningProgress = progress.reportedRunning.map(worker => `${worker.label}, seed ${worker.seed}: ${observed(worker.requests)} / ${observed(progress.budget)} requests`).join('; ');
+  $('benchmarkProgress').textContent = `${trainingProgress} Recorded native training releases: ${observed(progress.nativeReleases)}. Counter coverage: requests ${progress.requestCounterRuns}/${runTotal}, native ${progress.nativeCounterRuns}/${runTotal} runs.${runningProgress ? ` Reported running: ${runningProgress}.` : ''}${progress.conflictingRuns ? ` ${progress.conflictingRuns} conflicting worker counter record(s) omitted.` : ''} Validation and test requests are separate.`;
   addMetrics([['Equal training budget per method / seed', summary.budget === null ? 'Unknown' : summary.budget],
     ['Training seeds', summary.seedCount || 'Not reported'], ['Measured validation checkpoints', points.length],
     ['Verified final method / seed records', summary.status === 'completed' ? finals.length : 'Pending']], $('benchmarkSummary'));

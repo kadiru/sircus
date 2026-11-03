@@ -354,6 +354,34 @@ export function sweepRlFinalRows(report) {
       selectedSamples: unique('selected_samples'), trainingRequests: unique('train_requests'), queryS: benchNumber(raw.query_s) }];
   });
 }
+export function sweepRlProgress(report) {
+  const study = sweepRlStudy(report);
+  if (!study) return null;
+  const methods = new Map(benchMethods(study).map(method => [method.id, method.label]));
+  const seeds = new Set((Array.isArray(study.protocol?.seeds) ? study.protocol.seeds : []).filter(seed => benchInteger(seed) !== null));
+  const budget = benchInteger(study.protocol?.sample_budget), declared = methods.size * seeds.size;
+  const declaredRuns = declared > 0 ? declared : null;
+  const declaredRequests = declaredRuns !== null && budget !== null && budget > 0 && Number.isSafeInteger(declaredRuns * budget) ? declaredRuns * budget : null;
+  const workers = new Map(), conflicts = new Set();
+  for (const raw of Array.isArray(study.runs) ? study.runs : []) {
+    if (!raw || !methods.has(raw.method) || !seeds.has(raw.seed)) continue;
+    const key = JSON.stringify([raw.method, raw.seed]);
+    if (conflicts.has(key)) continue;
+    const requested = benchInteger(raw.train_requests), native = benchInteger(raw.train_native_releases);
+    const requests = budget !== null && budget > 0 && requested !== null && requested <= budget ? requested : null;
+    const row = { method: raw.method, label: methods.get(raw.method), seed: raw.seed,
+      status: typeof raw.status === 'string' ? raw.status : 'unknown', requests,
+      nativeReleases: requests !== null && native !== null && native <= requests ? native : null };
+    if (workers.has(key) && JSON.stringify(workers.get(key)) !== JSON.stringify(row)) { workers.delete(key); conflicts.add(key); }
+    else workers.set(key, row);
+  }
+  const rows = [...workers.values()], requestRows = rows.filter(row => row.requests !== null), nativeRows = rows.filter(row => row.nativeReleases !== null);
+  return { declaredRuns, declaredRequests, budget,
+    requests: requestRows.length ? requestRows.reduce((total, row) => total + row.requests, 0) : null,
+    nativeReleases: nativeRows.length ? nativeRows.reduce((total, row) => total + row.nativeReleases, 0) : null,
+    requestCounterRuns: requestRows.length, nativeCounterRuns: nativeRows.length,
+    conflictingRuns: conflicts.size, reportedRunning: rows.filter(row => row.status === 'running') };
+}
 export function sweepRlSummary(report) {
   const study = sweepRlStudy(report);
   if (!study) return null;

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { sweepRlStudy, sweepRlSummary, sweepRlPoints, sweepRlCurves, sweepRlFinalRows, sweepRlResources, sweepRlStatusLabel, sweepRlCsv } from '../web/state.mjs';
+import { sweepRlStudy, sweepRlSummary, sweepRlProgress, sweepRlPoints, sweepRlCurves, sweepRlFinalRows, sweepRlResources, sweepRlStatusLabel, sweepRlCsv } from '../web/state.mjs';
 
 const sha = 'a'.repeat(64);
 const counts = (captures = 12, attempts = 36) => ({ captures, attempts, native_releases: attempts - 2, invalid: 2, clean: Math.min(10, captures), mean_reward: .4 });
@@ -27,6 +27,70 @@ test('first-measurement label does not infer GPU waiting from a stale queued rep
   assert.equal(sweepRlStatusLabel(sweepRlSummary(report)), 'Awaiting first completed measurements');
   report.sweep_rl_benchmark.status = 'running'; report.sweep_rl_benchmark.phase = 'validating';
   assert.equal(sweepRlStatusLabel(sweepRlSummary(report)), 'running · validating');
+});
+
+test('batch progress uses recorded TRAIN counters beyond the last validation milestone', () => {
+  const report = fixture({ curves: [point({ samples: 512 })], runs: [
+    { method: 'sweep', seed: 42, status: 'completed', train_requests: 1024, train_native_releases: 900, selected_samples: 256 },
+    { method: 'ppo', seed: 42, status: 'running', train_requests: 896, train_native_releases: 700, selected_samples: 0 },
+  ], final_test: [{ method: 'sweep', seed: 42, counts: counts(20), frozen_artifact_sha256: sha }] });
+  const before = JSON.stringify(report), progress = sweepRlProgress(report);
+  assert.equal(progress.requests, 1920); assert.equal(progress.nativeReleases, 1600);
+  assert.equal(progress.declaredRequests, 6144); assert.equal(progress.declaredRuns, 6);
+  assert.equal(progress.requestCounterRuns, 2); assert.equal(progress.nativeCounterRuns, 2);
+  assert.equal(progress.reportedRunning.length, 1); assert.equal(progress.reportedRunning[0].requests, 896);
+  assert.equal(sweepRlCurves(report)[1].points[0].samples, 512);
+  assert.equal(JSON.stringify(report), before);
+});
+
+test('missing training counters stay unknown, while an observed zero stays zero', () => {
+  assert.equal(sweepRlProgress({}), null);
+  let progress = sweepRlProgress(fixture());
+  assert.equal(progress.requests, null); assert.equal(progress.nativeReleases, null);
+  assert.equal(progress.requestCounterRuns, 0); assert.equal(progress.nativeCounterRuns, 0);
+  progress = sweepRlProgress(fixture({ runs: [{ method: 'sweep', seed: 42, status: 'running', train_requests: 0, train_native_releases: 0 }] }));
+  assert.equal(progress.requests, 0); assert.equal(progress.nativeReleases, 0);
+  assert.equal(progress.requestCounterRuns, 1); assert.equal(progress.nativeCounterRuns, 1);
+});
+
+test('invalid or undeclared worker counters cannot inflate recorded training progress', () => {
+  const report = fixture({ runs: [
+    { method: 'ppo', seed: 42, status: 'running', train_requests: '896', train_native_releases: 700 },
+    { method: 'sweep', seed: 43, status: 'running', train_requests: 64, train_native_releases: 65 },
+    { method: 'ppo', seed: 44, status: 'running', train_requests: true, train_native_releases: 0 },
+    { method: 'unknown', seed: 42, train_requests: 1024, train_native_releases: 1024 },
+    { method: 'sweep', seed: 999, train_requests: 1024, train_native_releases: 1024 },
+  ] });
+  const progress = sweepRlProgress(report);
+  assert.equal(progress.requests, 64); assert.equal(progress.nativeReleases, null);
+  assert.equal(progress.requestCounterRuns, 1); assert.equal(progress.nativeCounterRuns, 0);
+  for (const value of [-1, 1.5, NaN, Infinity, 1025]) {
+    const bad = sweepRlProgress(fixture({ runs: [{ method: 'ppo', seed: 42, train_requests: value, train_native_releases: 0 }] }));
+    assert.equal(bad.requests, null); assert.equal(bad.nativeReleases, null);
+  }
+});
+
+test('duplicate method/seed progress is never double counted and conflicts stay unknown', () => {
+  const worker = { method: 'sweep', seed: 42, status: 'running', train_requests: 128, train_native_releases: 100 };
+  const report = fixture({ runs: [worker, { ...worker }] });
+  let progress = sweepRlProgress(report);
+  assert.equal(progress.requests, 128); assert.equal(progress.nativeReleases, 100);
+  assert.equal(progress.requestCounterRuns, 1); assert.equal(progress.conflictingRuns, 0);
+  report.sweep_rl_benchmark.runs.push({ ...worker, train_requests: 256 });
+  progress = sweepRlProgress(report);
+  assert.equal(progress.requests, null); assert.equal(progress.nativeReleases, null);
+  assert.equal(progress.requestCounterRuns, 0); assert.equal(progress.conflictingRuns, 1);
+});
+
+test('completed-run progress charges spent budget rather than the selected checkpoint budget', () => {
+  const report = fixture({ status: 'completed' });
+  report.sweep_rl_benchmark.runs = report.sweep_rl_benchmark.protocol.methods.flatMap(method =>
+    report.sweep_rl_benchmark.protocol.seeds.map(seed => ({ method: method.id, seed, status: 'completed',
+      train_requests: 1024, train_native_releases: 800, selected_samples: 256 })));
+  const progress = sweepRlProgress(report);
+  assert.equal(progress.requests, 6144); assert.equal(progress.nativeReleases, 4800);
+  assert.equal(progress.requestCounterRuns, 6); assert.equal(progress.nativeCounterRuns, 6);
+  assert.deepEqual(progress.reportedRunning, []);
 });
 
 test('curves retain all validation requests, pool seed counts and expose seed range', () => {
