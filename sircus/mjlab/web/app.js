@@ -357,7 +357,7 @@ function neighborhoodView(value) {
 }
 function neighborhoodCell(row) {
   const n=Number.isInteger(row.search_attempts)?row.search_attempts:null,k=Number.isInteger(row.search_captures)?row.search_captures:null;
-  const fraction=n!==null&&k!==null&&n>=0&&k>=0&&k<=n?`${k}/${n}`:'—';
+  const fraction=n!==null&&k!==null&&n>=0&&k>=0&&k<=n?(n===0?'pending':`${k}/${n}`):'—';
   const state=row.board_admitted===false?'unresolved':k>0?'capture':Number.isInteger(row.search_native_releases)&&row.search_native_releases>0?'miss':
     row.board_admitted===true&&(row.eligible===true||(Number.isInteger(row.eligible)&&row.eligible>0))?'endpoint':
     row.board_admitted===true&&row.geometry_requests>0&&row.eligible===0?'pair_rejected':'pending';
@@ -371,6 +371,13 @@ function neighborhoodAgreement(value,attempts) {
     if(Number.isInteger(k)&&Number.isInteger(n)&&0<=k&&k<=n)return `${k} / ${n}`;
   }
   return 'unreported';
+}
+function neighborhoodFamilySummary(rows) {
+  const resolved=rows.filter(r=>r.board_admitted===true).length,unresolved=rows.filter(r=>r.board_admitted===false).length;
+  const knownSearch=rows.every(r=>Number.isInteger(r.search_attempts)&&r.search_attempts>=0&&Number.isInteger(r.search_captures)&&0<=r.search_captures&&r.search_captures<=r.search_attempts);
+  return {total:rows.length,resolved,unresolved,unknown:rows.length-resolved-unresolved,
+    requests:knownSearch?rows.reduce((n,r)=>n+r.search_attempts,0):null,
+    captures:knownSearch?rows.reduce((n,r)=>n+r.search_captures,0):null};
 }
 function drawNeighborhoodMap(canvas,rows) {
   const c=canvas.getContext('2d'),w=canvas.width,h=canvas.height;
@@ -416,7 +423,8 @@ function showHeightTiltStudy() {
   for(const family of view.families){
     const rows=view.contexts.filter(r=>(r.source_family??r.source_anchor_id??'Unreported family')===family),box=document.createElement('div'),title=document.createElement('h4'),canvas=document.createElement('canvas'),note=document.createElement('p');
     box.className='neighborhood-map';const anchor=(study.anchors??[]).find(r=>r.id===family),value=anchor?.values;title.textContent=Array.isArray(value)&&value.length===5?`${family}: H ${(value[2]*1000).toFixed(0)} mm / ${value[3].toFixed(2)}°`:family;canvas.width=260;canvas.height=235;canvas.setAttribute('role','img');canvas.setAttribute('aria-label',`${family}: board-height and tilt search requests/captures`);
-    note.className='fine';note.textContent=`${rows.filter(r=>r.board_admitted===true).length}/${rows.length} board contexts resolved · ${rows.reduce((n,r)=>n+(Number.isInteger(r.search_captures)?r.search_captures:0),0)} captures in recorded search`;
+    const summary=neighborhoodFamilySummary(rows);
+    note.className='fine';note.textContent=`${summary.resolved}/${summary.total} board contexts resolved${summary.unknown?' · '+summary.unknown+' unknown':''}${summary.unresolved?' · '+summary.unresolved+' unresolved':''} · ${summary.requests>0?summary.captures+'/'+summary.requests+' captures in search':'search pending'}`;
     box.append(title,canvas,note);maps.append(box);drawNeighborhoodMap(canvas,rows);
   }
   const ratio=(k,n)=>Number.isInteger(k)&&Number.isInteger(n)&&k>=0&&k<=n?`${k} / ${n}`:'unreported';
