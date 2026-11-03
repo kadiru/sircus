@@ -16,7 +16,8 @@
   invalid request rejected, and a discarded real PPO actor update. Independent
   controls audit passed 6,881 checks. The six-run benchmark started afterward;
   final held-out results and any method advantage remain pending.
-- Interim validation trace review found a material metric limitation: tiny wall
+- A [validation-only trace diagnostic](../baselines/mjlab-sweep-rl-numerics-20261103/README.md)
+  found a material metric limitation: tiny wall
   overlaps can reset the 1 µm strict containment predicate even for early-entry,
   end-inside balls. The frozen study continues unchanged; its formal labels do
   not yet establish ordinary capture/adaptation rankings. Independent contact
