@@ -15,6 +15,8 @@ The current goal is a simulation showcase with an interactively placed bucket an
   capture-rate curves and measured time/memory. [Native engineering controls](baselines/mjlab-sweep-rl-controls-20261103/README.md)
   passed all 17 source shots and the independent 6,881-check audit. The six-run
   benchmark is running; final held-out results and any method advantage remain pending.
+  Strict containment is under numerical contact-boundary review; see the protocol
+  before interpreting these rates as ordinary bucket-capture performance.
 
 - **35-table planner study:** [expanded sweeps and separately frozen repeats](sircus/mjlab/GRID_STUDY.md).
   Per-table settings, saved versus current qualification, and independent 3 + 30

@@ -16,6 +16,11 @@
   invalid request rejected, and a discarded real PPO actor update. Independent
   controls audit passed 6,881 checks. The six-run benchmark started afterward;
   final held-out results and any method advantage remain pending.
+- Interim validation trace review found a material metric limitation: tiny wall
+  overlaps can reset the 1 µm strict containment predicate even for early-entry,
+  end-inside balls. The frozen study continues unchanged; its formal labels do
+  not yet establish ordinary capture/adaptation rankings. Independent contact
+  calibration and a versioned scorer are required before that stronger claim.
 - Original 35-position results/services and 4070 workload are preserved. Current
   ball/materials and reported 175 mm bucket-height uncertainty remain unchanged.
 

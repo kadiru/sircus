@@ -115,6 +115,29 @@ sweep dependencies, CPU optimizer/likelihood replay, checkpoint selection and
 frozen inference. Path evidence identities are checked; an audit does not claim
 a separate continuous collision proof or independently rerun all geometry.
 
+## Numerical limitation in the frozen v1 metric
+
+Completed validation traces exposed sensitivity to wall contact: six shots that
+lost capture at the 256-request sweep checkpoint entered early and finished
+inside, but brief nominal wall overlaps reset the continuous-retention clock.
+The criterion permits only 1 µm wall overlap, while the floor permits 1 mm.
+The nominal 64-facet/taper distance formula is consistent between scalar and
+batched scoring; this is not evidence of a transcription mismatch.
+
+[MuJoCo's solver documentation](https://mujoco.readthedocs.io/en/stable/modeling.html#solver-parameters)
+explains that soft contact can produce penetration. Such overlap alone does not
+establish escape from the bucket. Compiled collision geometry and solver contact
+distances still need independent calibration to separate their contributions.
+
+The running protocol remains frozen. Its labels are reproducible **strict
+geometric one-second containment**, but should not yet rank ordinary capture
+performance or material-adaptation speed. No tolerance or historical label is
+changed to recover these failures. A corrected benchmark needs a separately
+frozen control set (resting/contacting balls, retained impacts, rim assistance,
+real partial exits/re-entry and outside negatives), then a versioned scorer,
+reward and contract with fresh evaluation. Diagnostic trace analysis is separate
+from method selection and does not use final-test outcomes.
+
 ## Resource measurements
 
 - Training/setup wall time and current worker CPU time exclude validation/test.
