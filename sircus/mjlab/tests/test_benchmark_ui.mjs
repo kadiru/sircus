@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { sweepRlStudy, sweepRlSummary, sweepRlPoints, sweepRlCurves, sweepRlFinalRows, sweepRlResources, sweepRlCsv } from '../web/state.mjs';
+import { sweepRlStudy, sweepRlSummary, sweepRlPoints, sweepRlCurves, sweepRlFinalRows, sweepRlResources, sweepRlStatusLabel, sweepRlCsv } from '../web/state.mjs';
 
 const sha = 'a'.repeat(64);
 const counts = (captures = 12, attempts = 36) => ({ captures, attempts, native_releases: attempts - 2, invalid: 2, clean: Math.min(10, captures), mean_reward: .4 });
@@ -20,6 +20,13 @@ test('missing benchmark and pending measurements stay distinct from observed zer
   const observed = fixture({ curves: [point({ samples: 0, validation: counts(0), resources: resources({ wall_s: 0 }) })] });
   const value = sweepRlCurves(observed)[1].points[0];
   assert.equal(value.samples, 0); assert.equal(value.rate, 0); assert.equal(value.wallS, 0);
+});
+
+test('first-measurement label does not infer GPU waiting from a stale queued report', () => {
+  const report = fixture({ status: 'queued', phase: 'waiting_for_4090', curves: [] });
+  assert.equal(sweepRlStatusLabel(sweepRlSummary(report)), 'Awaiting first completed measurements');
+  report.sweep_rl_benchmark.status = 'running'; report.sweep_rl_benchmark.phase = 'validating';
+  assert.equal(sweepRlStatusLabel(sweepRlSummary(report)), 'running · validating');
 });
 
 test('curves retain all validation requests, pool seed counts and expose seed range', () => {

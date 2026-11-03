@@ -3,7 +3,7 @@ import { OrbitControls } from '/vendor/OrbitControls.js';
 import { contactStudy, contactGroups, contactConfigurations, transitRoutes, routePreview, configurationsCsv } from '/state.mjs';
 import { correctedGridProgress, correctedTrainingReadiness } from '/state.mjs';
 import { plannerReady, plannerOnly, searchReady, modeReady, plannerFarmRows, plannerGridRows, plannerGridSummary, plannerGridProgress, plannerGridCsv } from '/state.mjs';
-import { sweepRlStudy, sweepRlSummary, sweepRlPoints, sweepRlCurves, sweepRlFinalRows, sweepRlCsv } from '/state.mjs';
+import { sweepRlStudy, sweepRlSummary, sweepRlPoints, sweepRlCurves, sweepRlFinalRows, sweepRlStatusLabel, sweepRlCsv } from '/state.mjs';
 import { studyReady, buildRequest, methodLabel, coverageRows, finiteVector, friendlyError, coverageSummary, comparisonRows, learningPoints, inStudiedRegion, BOARD_BODY_SIZE, bankComparisonRows, policyRouteLabel, poseInputValues, bankCoverageRows, bankCoverageStatus, formatMetric, solveButtonState, expansionTargetRows, expansionProgress, expandedComparisonRows, stableIkProgress, stableIkTargets, stableIkAuditRows, stableIkControlRows } from '/state.mjs';
 
 const $ = id => document.getElementById(id);
@@ -433,7 +433,7 @@ function showSweepRlBenchmark() {
   const firstDisplay = !benchmarkSignature;
   benchmarkSignature = signature;
   const curves = sweepRlCurves(report), points = sweepRlPoints(report), finals = sweepRlFinalRows(report);
-  $('benchmarkStatus').textContent = `${summary.status.replaceAll('_', ' ')}${summary.phase ? ` · ${summary.phase.replaceAll('_', ' ')}` : ''} · ${summary.completedRuns}/${summary.totalRuns} method/seed runs complete${summary.auditStatus ? ` · audit ${summary.auditStatus}` : ''}`;
+  $('benchmarkStatus').textContent = `${sweepRlStatusLabel(summary)} · ${summary.completedRuns}/${summary.totalRuns} method/seed runs complete${summary.auditStatus ? ` · audit ${summary.auditStatus}` : ''}`;
   addMetrics([['Equal training budget per method / seed', summary.budget === null ? 'Unknown' : summary.budget],
     ['Training seeds', summary.seedCount || 'Not reported'], ['Measured validation checkpoints', points.length],
     ['Verified final method / seed records', summary.status === 'completed' ? finals.length : 'Pending']], $('benchmarkSummary'));
@@ -441,13 +441,13 @@ function showSweepRlBenchmark() {
   $('benchmarkPrior').textContent = `Shared prior: ${summary.priorRecipes === null ? 'unknown number of' : summary.priorRecipes} recipes. Latest source collection: ${summary.priorReleases === null ? 'unknown' : summary.priorReleases.toLocaleString()} native releases, separate from the new training budget. ${summary.priorFullCostKnown ? '' : 'Full predecessor acquisition cost is not known. '}${summary.priorScope}`;
   drawBenchmarkCurve($('benchmarkCaptureChart'), curves, 'rate'); drawBenchmarkCurve($('benchmarkTimeChart'), curves, 'wallS');
   const latest = curves.filter(curve => curve.points.length).map(curve => ({ ...curve.points.at(-1), label: curve.label }));
-  expansionTable($('benchmarkResourceTable'), ['Method / budget', 'Validation captures', 'Seeds reported', 'Native validation / rejected', 'Mean setup + training time', 'Mean CPU / geometry time', 'Mean GPU phase / reservation', 'Peak RSS / sampled VRAM', 'Torch allocated / reserved peak'], latest.map(row => [
+  expansionTable($('benchmarkResourceTable'), ['Method / budget', 'Validation captures', 'Seeds reported', 'Native validation / rejected', 'Mean setup + training time', 'Mean CPU / endpoint-home wall', 'Mean GPU phase / reservation', 'Peak RSS / sampled VRAM', 'Torch allocated / reserved peak'], latest.map(row => [
     `${row.label}\n${row.samples} requests`, benchmarkCounts(row), `${row.seeds} / ${summary.seedCount || 'unknown'}`,
     `${row.nativeReleases ?? 'Unknown'} / ${row.invalid ?? 'Unknown'}`, benchmarkNumber(row.wallS, ' s'),
     `${benchmarkNumber(row.cpuS, ' s')} / ${benchmarkNumber(row.geometryS, ' s')}`, `${benchmarkNumber(row.gpuS, ' s')} / ${benchmarkNumber(row.gpuReservationS, ' s')}`,
     `${benchmarkNumber(row.peakRssMb, ' MiB')} / ${benchmarkNumber(row.peakVramMb, ' MiB')}`,
     `${benchmarkNumber(row.torchAllocatedMb, ' MiB')} / ${benchmarkNumber(row.torchReservedMb, ' MiB')}`]));
-  expansionTable($('benchmarkMilestones'), ['Method', 'Seed', 'Training requests', 'Validation capture', 'Native / rejected', 'Setup + training', 'CPU / geometry', 'GPU phase / reservation', 'Peak RSS / sampled VRAM', 'Validation time'], points.map(row => [
+  expansionTable($('benchmarkMilestones'), ['Method', 'Seed', 'Training requests', 'Validation capture', 'Native / rejected', 'Setup + training', 'CPU / endpoint-home wall', 'GPU phase / reservation', 'Peak RSS / sampled VRAM', 'Validation time'], points.map(row => [
     row.label, row.seed, row.samples, benchmarkCounts(row.counts), `${row.counts.nativeReleases ?? 'Unknown'} / ${row.counts.invalid ?? 'Unknown'}`,
     benchmarkNumber(row.resources.wall_s, ' s'), `${benchmarkNumber(row.resources.cpu_s, ' s')} / ${benchmarkNumber(row.resources.geometry_s, ' s')}`,
     `${benchmarkNumber(row.resources.gpu_s, ' s')} / ${benchmarkNumber(row.resources.gpu_reservation_s, ' s')}`, `${benchmarkNumber(row.resources.peak_rss_mb, ' MiB')} / ${benchmarkNumber(row.resources.peak_vram_mb, ' MiB')}`,

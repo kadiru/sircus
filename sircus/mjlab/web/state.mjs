@@ -371,6 +371,11 @@ export function sweepRlSummary(report) {
     priorScope: typeof prior.scope === 'string' ? prior.scope : '',
     fingerprint: benchHash(study.contract_fingerprint), auditStatus: typeof study.audit?.status === 'string' ? study.audit.status : null };
 }
+export function sweepRlStatusLabel(summary) {
+  if (!summary) return 'Benchmark measurements unavailable';
+  if (summary.status === 'queued' && summary.curvePoints === 0) return 'Awaiting first completed measurements';
+  return `${String(summary.status).replaceAll('_', ' ')}${summary.phase ? ` · ${summary.phase.replaceAll('_', ' ')}` : ''}`;
+}
 export function sweepRlCsv(report) {
   const study = sweepRlStudy(report);
   const escape = value => {

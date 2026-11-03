@@ -119,6 +119,10 @@ a separate continuous collision proof or independently rerun all geometry.
 
 - Training/setup wall time and current worker CPU time exclude validation/test.
   CPU time for the external NVIDIA telemetry subprocess is excluded.
+- The recorded `geometry_s` subtotal covers training endpoint/home checks.
+  Sampled common-home and local-path checks contribute to total CPU/wall time,
+  but are not included in that subtotal. Their `path_s` timings remain in the
+  per-batch evidence; this frozen run does not aggregate a separate path subtotal.
 - Native GPU-phase elapsed wall time is recorded separately from CPU geometry.
   It is not a measurement of active kernel utilization.
 - Total exclusive 4090 worker reservation includes evaluation and lazy native
@@ -157,3 +161,8 @@ The new panel shows capture-rate curves, training time, per-seed resources,
 counts, hashes and CSV. Its ordinary solver route stays unchanged. A missing
 measurement remains unknown. No physical dashboard, Viam/cloud configuration,
 audio, camera, soft ball or deformable gripper is commissioned here.
+
+The first point appears after setup and initial validation finish. Before then,
+the last published worker phase can lag CPU anchor/path preparation even after
+the GPU lock is acquired. The interface therefore says it is awaiting the first
+completed measurements rather than inferring that the GPU is still unavailable.
