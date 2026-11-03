@@ -1,26 +1,44 @@
 # Project state
 
-## Matched current-ball sweep/PPO benchmark — November 3, 2026
+## Completed matched current-ball sweep/PPO benchmark — November 3, 2026
 
 - [Frozen design and reproduction](../sircus/mjlab/SWEEP_RL_BENCHMARK.md): guided
   sweep-built library transfer versus continuous residual PPO, using the same 17
   audited shared source recipes, corrected 64-contact and common-home/local gates.
-- Running 3 seeds × 1,024 new requested training decisions per method, with
+- Completed 3 seeds × 1,024 spent training decisions per method, with
   0/256/512/1,024 validation milestones, 12 fresh validation and 24 final-test
-  layouts, three paired nominal/perturbed requests each. Rejects consume budget;
-  native counts differ legitimately and are reported. Historical cost is separate.
-- New isolated worker, pipeline, read-only 18788 interface and independent auditor
-  are implemented. Mock/headless and pinned Ubuntu CPU/PPO checks passed.
+  layouts, three paired nominal/perturbed requests each: 6,144 TRAIN + 864
+  validation + 432 test = 7,440 requests. Rejects consume budget. Native releases
+  are 3,026 TRAIN, 496 validation and 216 test = 3,738; TRAIN native counts are
+  sweep 1,385/3,072 and PPO 1,641/3,072. Shared 17-recipe historical cost is separate.
+- [Checksummed frozen evidence and six selected artifacts](../baselines/mjlab-sweep-rl-benchmark-20261103/README.md):
+  sweep **67/216 (31.0%)**, PPO **58/216 (26.9%)**, under the frozen formal
+  strict-containment metric only. Validation selected budgets 0/0/0 for sweep
+  and 256/1,024/0 for PPO (seeds 20261311/12/13); all workers still spent 1,024
+  TRAIN decisions. No checkpoint was activated. Mock/headless and pinned Ubuntu
+  CPU/PPO checks passed.
+- The corrected independent full audit passed **902,252 checks**. The first
+  attempt failed while composing a summary with a duplicate native-count keyword;
+  an auditor-only fix in a separate source snapshot produced a new full audit.
+  Executed workers, frozen report, scores, evidence and selections were unchanged.
   [Native controls](../baselines/mjlab-sweep-rl-controls-20261103/README.md) passed:
   17/17 exact source captures, 50 requests / 48 native releases, a deliberately
   invalid request rejected, and a discarded real PPO actor update. Independent
-  controls audit passed 6,881 checks. The six-run benchmark started afterward;
-  final held-out results and any method advantage remain pending.
+  controls audit passed 6,881 checks; these controls are separate from the 7,440.
+- Per-worker three-seed mean setup + TRAIN wall: sweep 2,097.0 s, PPO 2,099.6 s;
+  process CPU 3,111.6/3,123.6 s and full GPU reservation 3,134.6/3,129.5 s.
+  Lifetime RSS means are 1,628.4/1,738.4 MiB, sampled process VRAM 762 MiB for both.
+  Timings include implementation/evidence I/O; memory includes simulator and
+  evaluation. Full costs and artifact sizes are in the frozen CSVs. `query_s`
+  totals cohort prediction/preparation, not per-query or end-to-end latency.
+- New read-only results server [18789](http://127.0.0.1:18789/#sweepRlBenchmark)
+  binds the passed corrected audit. The earlier 18788 process with its failed
+  original-audit binding is untouched; this was a separate server, not a restart.
 - A [validation-only trace diagnostic](../baselines/mjlab-sweep-rl-numerics-20261103/README.md)
   found a material metric limitation: tiny wall
   overlaps can reset the 1 µm strict containment predicate even for early-entry,
-  end-inside balls. The frozen study continues unchanged; its formal labels do
-  not yet establish ordinary capture/adaptation rankings. Independent contact
+  end-inside balls. The completed frozen study's formal labels do not establish
+  ordinary capture/adaptation rankings. Independent contact
   calibration and a versioned scorer are required before that stronger claim.
 - Original 35-position results/services and 4070 workload are preserved. Current
   ball/materials and reported 175 mm bucket-height uncertainty remain unchanged.

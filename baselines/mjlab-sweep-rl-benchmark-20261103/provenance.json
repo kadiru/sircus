@@ -1,0 +1,164 @@
+{
+  "version": "sircus-sweep-rl-curation-v2",
+  "study_version": "sircus-sweep-rl-benchmark-v1",
+  "audit_version": "sircus-sweep-residual-ppo-independent-audit-v1",
+  "metric": "Frozen v1 strict geometric one-second containment",
+  "limitation": "The v1 wall predicate allows only 1 micrometre nominal overlap; selected validation traces show material contact-boundary sensitivity. Formal labels do not establish an ordinary bucket-capture or material-adaptation winner. Original scores, selected artifacts and source evidence remain unchanged.",
+  "curator_sha256": "2d436fbfb69cb31ca110d859d556d4784a129e386e704eee846125f3fa5ac984",
+  "report_sha256": "b9a9f86c6be8649b04581310b2832877399c0fd095a82339be4ab9864f92dcec",
+  "contract_sha256": "9e2e7e5928795d1e7b096a2771c1a44c47a37d659a3a7e6ef9a07626ef7a62c5",
+  "contract_fingerprint": "ca781af94c6bb0fd44c8f15b88d72b4784be16dd258294785ac6338c1a4ee541",
+  "audit_sha256": "490d5bb33bc5ca5d99bac33f03f29543e930b515fe570d49198227b108bb725e",
+  "original_manifest_sha256": "0181b0e277a1f23b33b20129ad56426c0a4287aab3c2d1b14f7205b6d4e76ff4",
+  "prior_file_sha256": "4249664d7163df92af3c77886224d98519c394ab4457ebc3229957bfb6d3e0f4",
+  "splits_file_sha256": "54a88fed9c700081638afd557ebf312abd3e65aa192f97bbbf8fa61ac80822be",
+  "original_manifests_are_unbundled_evidence_references": true,
+  "source_sha256": {
+    "sircus/mjlab/contact_env.py": "04655f30a1b216c037573a0b5e177e6209097026f930fc6efc6dfef289abc3da",
+    "sircus/mjlab/contact_model.py": "b2d522d07dd2e3bffa724feb68593b3fef17033b5274587ef9d130e5c40aa24f",
+    "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+    "sircus/mjlab/contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407",
+    "sircus/mjlab/learning_score.py": "e66b982c0e651c3a9f5855dd03efb87488cc924321aaf9cadb80d51bac2fe814",
+    "sircus/mjlab/corrected_geometry.py": "50a4a353d94cceb1fbb0216a40588c997034a121e554f3f84f530d7d47c470be",
+    "sircus/mjlab/stable_geometry.py": "2e00b5fc46d1b253b5c85b6823c781a37e26f5819b35586a8cc112b057ebaebf",
+    "sircus/mjlab/stable_ik.py": "efd52c5e837339662c99c196e1a3cf4b5b260eecb7888258779030c459944e07",
+    "sircus/mjlab/expanded_actions.py": "d41817aa7ad4206139925256ab0cdf5288853e621d6b39824c10ad2d309679c3",
+    "sircus/mjlab/bank_geometry.py": "5c0d6775582c5524a323f1e9344c35317e8352e9f1f813f5dd0794c05de743f5",
+    "sircus/mjlab/bank_study.py": "7699faeff915a772f3e838983ff1c8dec7721f2d55c79a594e185cd9e08e7dcb",
+    "sircus/mjlab/transit_audit.py": "4400285187eebf3b1c7073a78ab74c94cbead88d52ffc5366e0258d2376f8c96",
+    "sircus/mjlab/admission.py": "2dbc5776113f8afb0ea74e23d0c3a2542fd0223d94a6818aec8de4865d302d82",
+    "sircus/mjlab/learning_env.py": "58d2f58be0e1981a5efd09e872bdea7d8f608e1fa21b5c87986505a20a4a4f8c",
+    "sircus/mjlab/learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+    "sircus/mjlab/learning_reach.py": "8eea1d565e9faefff0622a9e9a4666eb8d811ac086a8a6711caa8efa3029e9a4",
+    "sircus/mjlab/learning_contract.py": "9f2c44b76297f4ef7009c1b0107be983d0511d5654cb68b8e344dd316ed1fda8",
+    "sircus/mjlab/run.py": "969db2710378345aad34a6f802e33d6ea62488d75e560b9da5738bc0748c3dee",
+    "sircus/mjlab/corrected_contract.py": "9800404859a7ae2b2934c26ca448be4a69ae90e481069da72732973b1d907ba2",
+    "sircus/mjlab/corrected_admission.py": "3d42913fc2a9599b0e5063bfc4ee0a03f003b4ba853338e407c8a3d82de3d64a",
+    "sircus/mjlab/gpu_slot.py": "fcace6029058a9892296507358ee196b9b5296dc4287a07bedc786e3af4cad4a",
+    "sircus/mjlab/expand_geometry.py": "0b7982c3494b7cb7f799e073e3a7b788cca77617af0e9f509a4b7e273d926739",
+    "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+    "sircus/isaac/rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+    "sircus/isaac/entry_quality.py": "2f3d8b73c871a41afc3c8f333f5df1d54fa8751720855ffff517e729217db9d4",
+    "sircus/isaac/board_route.py": "6409889aed6b0fd6a288eb9494b954ec5c3233ec41fdcf146940fc23276fb2e9",
+    "sircus/mjlab/sweep_worker.py": "6150969a6f442e3b899d878671a4daf08cd90c61f0abf96494d418316e0e7a5b",
+    "sircus/mjlab/sweep_contract.py": "2460d8e807f06ad4bfe491491d011a448eaedea57ef4c7e727a1b10a54409a0a",
+    "sircus/mjlab/benchmark_contract.py": "720394dafbdde1b56507a0abd6b64f82b29843037bce56e559f671995b62c63c",
+    "sircus/mjlab/benchmark_adapter.py": "85e3cee8b2714707772bb871f1a13f0f25bb8ce1f6c207a33c3f4efa946cf3c2",
+    "sircus/mjlab/benchmark_policy.py": "35cc605d17b7cdf02fcc1cf73b018bcefb98b172260a3a5ddc6856ac7d3779dc",
+    "sircus/mjlab/benchmark_resources.py": "4a535e1a1d91248d208dd44286c215439924a27e81b62ab7fce71284c94f14ba",
+    "sircus/mjlab/benchmark_run.py": "4c5c10efb2f42d8fa09198aa960796149b74f80915741b83f9463264409fd944",
+    "sircus/mjlab/benchmark_study.py": "f097258e6d30d84b4f0b862172cf1a443e404148b74a60e93699e096129bf8ad",
+    "sircus/mjlab/learning_policy.py": "5c37a248a0a44280f0f82fe3327973299ec6a4bbfccaaae9f750a898180c7792"
+  },
+  "workers": [
+    {
+      "worker": "ppo-seed20261311",
+      "report_sha256": "f4222e9a2b1adf59fd01b1342810ab8a0c72737fdb5b45c39b3b95aaecad327a",
+      "manifest_sha256": "2d026199e2366b2a4c4b529309e8009d505581601d293670678dc9402711ecfa",
+      "selection_sha256": "4c769a02f3112335d35f1a79e7dd31646b0da479cb1bc25d8a61cdbf88e4ffa9",
+      "selected_source_member": "runs/ppo-seed20261311/checkpoints/milestone-0256.pt",
+      "selected_sha256": "65bd48fa001f541874230dc6f4db3a2c931a5f52acdd7744d884495682d69058"
+    },
+    {
+      "worker": "ppo-seed20261312",
+      "report_sha256": "9ff5d9fd0bab0956c8bfcdd16d6527e3071f8755e1761016e5afed8fb70e8b0e",
+      "manifest_sha256": "a28f9b397dab50c3efa05565160b65718c838410ea88bf56dfd5ca25404bbd65",
+      "selection_sha256": "ce20b100df1001d7280cc4fb4df6a4d96f215bd380530ec07fc711f693305fa2",
+      "selected_source_member": "runs/ppo-seed20261312/checkpoints/milestone-1024.pt",
+      "selected_sha256": "1a12bfd446efc2d6ec2fd4e44c762cec550d6cf17dab14080f4d863ce65b843d"
+    },
+    {
+      "worker": "ppo-seed20261313",
+      "report_sha256": "11fbbd2984db94c51ea8594b7b2fb9318f1db5d609aafee612c416c83ad2a193",
+      "manifest_sha256": "0a0a23a7639d12d5b1ddbd946c1b5c7635f064d42b2cf51c65405370c6c1d406",
+      "selection_sha256": "8c7ea187f94f6a0c852615bc61e07c7274cd1048a6a52696e86a724298b77654",
+      "selected_source_member": "runs/ppo-seed20261313/checkpoints/milestone-0000.pt",
+      "selected_sha256": "556a7600b34ee0f60d2ec47498f9a9c2a67c894f48dc9b651ff6079f8d50b573"
+    },
+    {
+      "worker": "sweep-seed20261311",
+      "report_sha256": "040ffae0f5b709b5a2233cd5f6f04b9f2e0b3db90849f1cf6fbad807b6447da3",
+      "manifest_sha256": "a908051aaceb6960a69a593f7200c3f743f9ab3c980ebe9ea108f686cdb62171",
+      "selection_sha256": "d545812488d9c947d78f1aeafa3f1537c86ac22c837c91288bcaa007fcf3fa92",
+      "selected_source_member": "runs/sweep-seed20261311/sweep/milestone-0000.json",
+      "selected_sha256": "30a021cce487159aac738cbc9240d3dedebf2885945d5e5a30865d6865bf582b"
+    },
+    {
+      "worker": "sweep-seed20261312",
+      "report_sha256": "ea97935972d9c5c031b0131256a52c0d3e8a93c831738d2926c9f1d9a7ae16d2",
+      "manifest_sha256": "1b3d70a9fec24a2889e58db9a7668e2ae4182b3ecbbb678d54053590505884d4",
+      "selection_sha256": "8391b4fc3214962d06adada53c0f6583343b6b275d5991b64e11c57fe3d901a4",
+      "selected_source_member": "runs/sweep-seed20261312/sweep/milestone-0000.json",
+      "selected_sha256": "3b9609c64cf715aa0163182e6292d220253c9c9bd350b036240597ccbce22e26"
+    },
+    {
+      "worker": "sweep-seed20261313",
+      "report_sha256": "aa95337468563a3426ab5d3463319e49aa62a3e3e56c0e4b8a5c4e0624decdb1",
+      "manifest_sha256": "90565ad3a68f68f24d905f97abc635ed7da29a10a17997fda160d45214f88c21",
+      "selection_sha256": "803b42bc5d71df21953efa17def04f4405778c37150e25762e977ef570a15432",
+      "selected_source_member": "runs/sweep-seed20261313/sweep/milestone-0000.json",
+      "selected_sha256": "917e3c00767258febb85ccaa9b051c06acd45729994f940c0f3cafb170e2d1da"
+    }
+  ],
+  "selected_artifacts": [
+    {
+      "method": "ppo",
+      "seed": 20261311,
+      "selected_samples": 256,
+      "path": "selected/ppo-seed20261311/milestone-0256.pt",
+      "sha256": "65bd48fa001f541874230dc6f4db3a2c931a5f52acdd7744d884495682d69058",
+      "bytes": 135965
+    },
+    {
+      "method": "ppo",
+      "seed": 20261312,
+      "selected_samples": 1024,
+      "path": "selected/ppo-seed20261312/milestone-1024.pt",
+      "sha256": "1a12bfd446efc2d6ec2fd4e44c762cec550d6cf17dab14080f4d863ce65b843d",
+      "bytes": 135965
+    },
+    {
+      "method": "ppo",
+      "seed": 20261313,
+      "selected_samples": 0,
+      "path": "selected/ppo-seed20261313/milestone-0000.pt",
+      "sha256": "556a7600b34ee0f60d2ec47498f9a9c2a67c894f48dc9b651ff6079f8d50b573",
+      "bytes": 45825
+    },
+    {
+      "method": "sweep",
+      "seed": 20261311,
+      "selected_samples": 0,
+      "path": "selected/sweep-seed20261311/milestone-0000.json",
+      "sha256": "30a021cce487159aac738cbc9240d3dedebf2885945d5e5a30865d6865bf582b",
+      "bytes": 8504
+    },
+    {
+      "method": "sweep",
+      "seed": 20261312,
+      "selected_samples": 0,
+      "path": "selected/sweep-seed20261312/milestone-0000.json",
+      "sha256": "3b9609c64cf715aa0163182e6292d220253c9c9bd350b036240597ccbce22e26",
+      "bytes": 8504
+    },
+    {
+      "method": "sweep",
+      "seed": 20261313,
+      "selected_samples": 0,
+      "path": "selected/sweep-seed20261313/milestone-0000.json",
+      "sha256": "917e3c00767258febb85ccaa9b051c06acd45729994f940c0f3cafb170e2d1da",
+      "bytes": 8504
+    }
+  ],
+  "raw_source_files_rehashed": false,
+  "physics_rerun": false,
+  "scores_changed": false,
+  "excluded": [
+    "raw native arrays",
+    "per-request rows/predictions/path proofs",
+    "logs/queues",
+    "unselected checkpoints/per-update histories",
+    "host runtime configuration",
+    "credentials"
+  ]
+}

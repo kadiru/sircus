@@ -466,7 +466,7 @@ function showSweepRlBenchmark() {
     `${benchmarkNumber(row.resources.peak_rss_mb, ' MiB')} / ${benchmarkNumber(row.resources.peak_vram_mb, ' MiB')}`,
     `${benchmarkNumber(row.resources.torch_allocated_mb, ' MiB')} / ${benchmarkNumber(row.resources.torch_reserved_mb, ' MiB')}`]));
   $('benchmarkFinalStatus').textContent = summary.status === 'completed' ? `${finals.length} frozen method/seed records. Test requests are separate from training and checkpoint-selection validation.` : 'Final results remain pending until the benchmark completes. Validation is not final test performance.';
-  expansionTable($('benchmarkFinalTable'), ['Frozen method', 'Seed', 'Selected training budget', 'Test captures', 'Clean', 'Native / rejected', 'Prediction time only', 'Artifact SHA256'], finals.map(row => [row.label, row.seed, row.selectedSamples ?? 'Unknown',
+  expansionTable($('benchmarkFinalTable'), ['Frozen method', 'Seed', 'Selected training budget', 'Test captures', 'Clean', 'Native / rejected', '24-layout prediction + preparation', 'Artifact SHA256'], finals.map(row => [row.label, row.seed, row.selectedSamples ?? 'Unknown',
     benchmarkCounts(row.counts), row.counts.clean ?? 'Unknown', `${row.counts.nativeReleases ?? 'Unknown'} / ${row.counts.invalid ?? 'Unknown'}`,
     benchmarkNumber(row.queryS, ' s', 3), row.artifactSha]));
   $('benchmarkAudit').textContent = `${summary.auditStatus ? `Independent audit: ${summary.auditStatus}. ` : 'Independent audit: pending or not reported. '}Contract: ${summary.fingerprint ?? 'not reported'}. This panel does not activate a checkpoint or launch training.`;
