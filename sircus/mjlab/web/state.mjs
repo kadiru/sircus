@@ -125,6 +125,7 @@ export function formatMetric(key, value) {
   return String(value);
 }
 export function solveButtonState(report, pending, mode = 'policy') {
+  if (report?.benchmark_read_only === true) return { disabled: true, mainLabel: 'Read-only benchmark ', topLabel: 'Read-only benchmark' };
   return { disabled: pending || !modeReady(report, mode),
     mainLabel: pending ? 'Solving and simulating… ' : 'Find drop-bounce posture ',
     topLabel: pending ? 'Solving…' : 'Find posture ↗' };
@@ -295,7 +296,8 @@ function benchCounts(value) {
 export function sweepRlResources(value) {
   const raw = value && typeof value === 'object' ? value : {};
   return Object.fromEntries(['wall_s', 'cpu_s', 'geometry_s', 'gpu_s', 'peak_rss_mb', 'peak_vram_mb',
-    'torch_allocated_mb', 'torch_reserved_mb', 'setup_s', 'evaluation_wall_s', 'gpu_reservation_s'].map(key => [key, benchNumber(raw[key])]));
+    'torch_allocated_mb', 'torch_reserved_mb', 'setup_s', 'evaluation_wall_s', 'gpu_reservation_s',
+    'path_s', 'context_resolution_s', 'admission_wall_s', 'postprocess_s'].map(key => [key, benchNumber(raw[key])]));
 }
 function benchMethods(study) {
   const values = study?.protocol?.methods;
@@ -334,7 +336,7 @@ export function sweepRlCurves(report) {
       return { samples, captures, attempts, rate: attempts ? captures / attempts : null, seeds: rows.length,
         minRate: rates.length ? Math.min(...rates) : null, maxRate: rates.length ? Math.max(...rates) : null,
         nativeReleases: count('nativeReleases'), invalid: count('invalid'),
-        wallS: mean('wall_s'), cpuS: mean('cpu_s'), geometryS: mean('geometry_s'), gpuS: mean('gpu_s'), gpuReservationS: mean('gpu_reservation_s'),
+        wallS: mean('wall_s'), cpuS: mean('cpu_s'), geometryS: mean('geometry_s'), pathS: mean('path_s'), gpuS: mean('gpu_s'), gpuReservationS: mean('gpu_reservation_s'),
         peakRssMb: maximum('peak_rss_mb'), peakVramMb: maximum('peak_vram_mb'),
         torchAllocatedMb: maximum('torch_allocated_mb'), torchReservedMb: maximum('torch_reserved_mb') };
     });
@@ -344,6 +346,8 @@ export function sweepRlCurves(report) {
 export function sweepRlFinalRows(report) {
   const study = sweepRlStudy(report), labels = new Map(benchMethods(study).map(row => [row.id, row.label]));
   if (study?.status !== 'completed' || !Array.isArray(study.final_test)) return [];
+  if (study.version === 'sircus-calibrated-sweep-rl-benchmark-v2' &&
+      (study.test_disclosure !== 'verified' || study.audit?.status !== 'passed' || study.audit?.synthetic_fixture !== false)) return [];
   return study.final_test.flatMap(raw => {
     const counts = benchCounts(raw?.counts), artifactSha = benchHash(raw?.frozen_artifact_sha256);
     if (!raw || !labels.has(raw.method) || benchInteger(raw.seed) === null || !counts || !artifactSha) return [];
@@ -351,8 +355,37 @@ export function sweepRlFinalRows(report) {
       && run.status === 'completed' && benchHash(run.checkpoint_sha256) === artifactSha);
     const unique = key => { const values = new Set(matching.map(run => benchInteger(run[key])).filter(value => value !== null)); return values.size === 1 ? [...values][0] : null; };
     return [{ method: raw.method, label: labels.get(raw.method), seed: raw.seed, counts, artifactSha,
-      selectedSamples: unique('selected_samples'), trainingRequests: unique('train_requests'), queryS: benchNumber(raw.query_s) }];
+      selectedSamples: unique('selected_samples'), trainingRequests: unique('train_requests'), queryS: benchNumber(raw.query_s),
+      prePredictionPlusPolicyS: benchNumber(raw.pre_prediction_plus_policy_s),
+      contextResolutionS: benchNumber(raw.context_resolution_timing?.wall_s),
+      contextGeometryS: benchNumber(raw.context_resolution_timing?.geometry_s), contextPathS: benchNumber(raw.context_resolution_timing?.path_s) }];
   });
+}
+export function sweepRlAdmissionRows(report) {
+  const study = sweepRlStudy(report), labels = new Map(benchMethods(study).map(row => [row.id, row.label]));
+  const seeds = new Set(Array.isArray(study?.protocol?.seeds) ? study.protocol.seeds : []), budget = benchInteger(study?.protocol?.sample_budget);
+  const rows = new Map(), conflicts = new Set();
+  for (const run of Array.isArray(study?.runs) ? study.runs : []) {
+    const a = run?.admission;
+    if (!labels.has(run?.method) || !seeds.has(run?.seed) || !a || typeof a !== 'object') continue;
+    const key = JSON.stringify([run.method, run.seed]);
+    if (conflicts.has(key)) continue;
+    const requested = benchInteger(a.requested), native = benchInteger(a.native_releases), rejected = benchInteger(a.rejected);
+    if (requested === null || native === null || rejected === null || native + rejected !== requested || budget === null || requested > budget) continue;
+    const reasons = Object.entries(a.reasons && typeof a.reasons === 'object' ? a.reasons : {})
+      .filter(([reason, count]) => typeof reason === 'string' && benchInteger(count) !== null).sort(([a], [b]) => a.localeCompare(b));
+    if (reasons.reduce((sum, [, count]) => sum + count, 0) !== rejected) continue;
+    const row = { method: run.method, label: labels.get(run.method), seed: run.seed, requested, native, rejected,
+      fixedBase: benchInteger(a.fixed_base_rejected), anchorUnresolved: benchInteger(a.anchor_unresolved),
+      invalidPhysics: benchInteger(a.invalid_physics), reasons };
+    if (rows.has(key) && JSON.stringify(rows.get(key)) !== JSON.stringify(row)) { rows.delete(key); conflicts.add(key); }
+    else rows.set(key, row);
+  }
+  return [...rows.values()].sort((a, b) => a.method.localeCompare(b.method) || a.seed - b.seed);
+}
+export function sweepRlHistory(report) {
+  const value = report?.historical_sweep_rl_benchmark;
+  return value?.version === 'sircus-sweep-rl-benchmark-v1' && value.historical === true ? value : null;
 }
 export function sweepRlProgress(report) {
   const study = sweepRlStudy(report);
@@ -408,7 +441,9 @@ export function sweepRlSummary(report) {
   const protocol = study.protocol ?? {}, seeds = Array.isArray(protocol.seeds) ? protocol.seeds.filter(v => benchInteger(v) !== null) : [];
   const runs = Array.isArray(study.runs) ? study.runs.filter(row => row && typeof row.method === 'string') : [];
   const prior = protocol.prior && typeof protocol.prior === 'object' ? protocol.prior : {};
-  return { status: typeof study.status === 'string' ? study.status : 'unknown', phase: typeof study.phase === 'string' ? study.phase : '',
+  return { version: study.version, calibrated: study.version === 'sircus-calibrated-sweep-rl-benchmark-v2',
+    testDisclosed: study.test_disclosure === 'verified',
+    status: typeof study.status === 'string' ? study.status : 'unknown', phase: typeof study.phase === 'string' ? study.phase : '',
     seedCount: seeds.length, seeds, methodCount: benchMethods(study).length, budget: benchInteger(protocol.sample_budget),
     milestones: Array.isArray(protocol.milestones) ? protocol.milestones.filter(v => benchInteger(v) !== null) : [],
     completedRuns: runs.filter(row => row.status === 'completed').length, totalRuns: seeds.length * benchMethods(study).length,
@@ -443,6 +478,14 @@ export function sweepRlCsv(report) {
     row.counts.attempts, row.counts.nativeReleases, row.counts.invalid, row.counts.clean,
     row.counts.attempts ? row.counts.captures / row.counts.attempts : null,
     ...Array(11).fill(null), row.queryS, row.artifactSha, study?.contract_fingerprint]);
+  if (study?.version === 'sircus-calibrated-sweep-rl-benchmark-v2') {
+    columns.push('scorer_version', 'score_config_sha256', 'sampled_path_wall_s', 'context_resolution_wall_s',
+      'adapter_pipeline_wall_s', 'postprocess_wall_s', 'test_prepolicy_geometry_wall_s', 'test_prepolicy_plus_prediction_s');
+    const extra = sweepRlPoints(report).map(row => [row.resources.path_s, row.resources.context_resolution_s,
+      row.resources.admission_wall_s, row.resources.postprocess_s, null, null]);
+    extra.push(...sweepRlFinalRows(report).map(row => [null, null, null, null, row.contextResolutionS, row.prePredictionPlusPolicyS]));
+    values.forEach((row, i) => row.push(study.protocol?.scorer_version, study.calibration?.score_config_sha256, ...extra[i]));
+  }
   return [columns, ...values].map(row => row.map(escape).join(',')).join('\n') + '\n';
 }
 

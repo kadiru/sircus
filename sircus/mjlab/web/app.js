@@ -3,7 +3,7 @@ import { OrbitControls } from '/vendor/OrbitControls.js';
 import { contactStudy, contactGroups, contactConfigurations, transitRoutes, routePreview, configurationsCsv } from '/state.mjs';
 import { correctedGridProgress, correctedTrainingReadiness } from '/state.mjs';
 import { plannerReady, plannerOnly, searchReady, modeReady, plannerFarmRows, plannerGridRows, plannerGridSummary, plannerGridProgress, plannerGridCsv } from '/state.mjs';
-import { sweepRlStudy, sweepRlSummary, sweepRlProgress, sweepRlCompletedWorkers, sweepRlPoints, sweepRlCurves, sweepRlFinalRows, sweepRlStatusLabel, sweepRlCsv } from '/state.mjs';
+import { sweepRlStudy, sweepRlSummary, sweepRlProgress, sweepRlCompletedWorkers, sweepRlPoints, sweepRlCurves, sweepRlFinalRows, sweepRlStatusLabel, sweepRlCsv, sweepRlAdmissionRows, sweepRlHistory } from '/state.mjs';
 import { studyReady, buildRequest, methodLabel, coverageRows, finiteVector, friendlyError, coverageSummary, comparisonRows, learningPoints, inStudiedRegion, BOARD_BODY_SIZE, bankComparisonRows, policyRouteLabel, poseInputValues, bankCoverageRows, bankCoverageStatus, formatMetric, solveButtonState, expansionTargetRows, expansionProgress, expandedComparisonRows, stableIkProgress, stableIkTargets, stableIkAuditRows, stableIkControlRows } from '/state.mjs';
 
 const $ = id => document.getElementById(id);
@@ -419,6 +419,7 @@ function drawBenchmarkCurve(target, curves, metric) {
   const axis = makeSvg('text', { x: width / 2, y: height - 24, 'text-anchor': 'middle', class: 'axis-label' }); axis.textContent = 'New training shot requests / method / seed'; svg.append(axis);
   target.replaceChildren(svg, legend);
 }
+const benchmarkLegacyNotes = Object.fromEntries(['benchmarkMetricNote', 'benchmarkResourceNote', 'benchmarkQueryNote'].map(id => [id, $(id).textContent]));
 function showSweepRlBenchmark() {
   if (typeof report.sweep_rl_error === 'string') {
     $('sweepRlBenchmark').hidden = false; benchmarkSignature = '';
@@ -426,16 +427,26 @@ function showSweepRlBenchmark() {
     for (const id of ['benchmarkSummary', 'benchmarkCaptureChart', 'benchmarkTimeChart', 'benchmarkResourceTable', 'benchmarkMilestones', 'benchmarkWorkerCosts', 'benchmarkFinalTable']) $(id).replaceChildren();
     $('benchmarkScope').textContent = 'The benchmark report could not be verified. No benchmark measurements are displayed.';
     $('benchmarkPrior').textContent = ''; $('benchmarkProgress').textContent = ''; $('benchmarkAudit').textContent = ''; $('benchmarkFinalStatus').textContent = 'Final results unavailable.'; $('benchmarkDownload').disabled = true;
+    for (const id of ['benchmarkRule', 'benchmarkAdmissionSection', 'benchmarkHistory']) $(id).hidden = true;
     return;
   }
   const study = sweepRlStudy(report), summary = sweepRlSummary(report);
   $('sweepRlBenchmark').hidden = !summary;
   if (!summary) return;
-  const signature = JSON.stringify(study);
+  const signature = JSON.stringify([study, report.historical_sweep_rl_benchmark, report.historical_sweep_rl_error]);
   if (signature === benchmarkSignature) return;
   const firstDisplay = !benchmarkSignature;
   benchmarkSignature = signature;
   const curves = sweepRlCurves(report), points = sweepRlPoints(report), finals = sweepRlFinalRows(report), progress = sweepRlProgress(report), workers = sweepRlCompletedWorkers(report);
+  $('benchmarkHeading').textContent = summary.calibrated ? 'Sweep versus RL · calibrated v2' : 'Sweep versus RL · original v1';
+  $('benchmarkRule').hidden = !summary.calibrated;
+  if (summary.calibrated) {
+    const c = study.calibration?.score_config ?? {}, setup = study.setup ?? {};
+    $('benchmarkRule').textContent = `Capture: board rebound → whole-ball bucket entry → ${benchmarkNumber(c.retention_s, ' s', 2)} continuously retained. Rim-assisted captures count. Calibrated contact allowances: wall ${benchmarkNumber(c.wall_tolerance_m === undefined ? null : c.wall_tolerance_m * 1000, ' mm', 3)}, floor ${benchmarkNumber(c.floor_tolerance_m === undefined ? null : c.floor_tolerance_m * 1000, ' mm', 3)}. Scorer ${study.protocol?.scorer_version ?? 'Unknown'}. Calibration ${study.calibration?.score_config_sha256 ?? 'Unknown'}.`;
+    $('benchmarkMetricNote').textContent = `New v2 metric and setup contract; historical v1 labels remain unchanged. A new canonical simulator park replaces the previously obstructed initial pose; connectivity from the old park is not claimed. Shared geometry resolution allows at most ${setup.geometry_candidate_budget ?? 'Unknown'} source/offset candidates before prediction. Exact action endpoints and forward/reverse paths retain the 5 mm clearance threshold. No physical validation.`;
+    $('benchmarkResourceNote').textContent = 'Instrumented wall/CPU include setup, geometry-only source search, exact-action admission and evidence I/O; evaluation is separate. Endpoint/home and sampled-path wall costs are reported separately where observed. Native GPU phase is elapsed simulation time, not kernel utilization. Full GPU reservation includes evaluation. RSS and Torch peaks include simulator/evaluation; process VRAM is sampled once per second. Memory is MiB; missing values stay unknown.';
+    $('benchmarkQueryNote').textContent = 'Frozen prediction still pays geometry-only pre-policy source resolution; its measured time is shown separately from prediction/preparation. Neither method searches ball-flight outcomes at test time. These subtotals exclude artifact loading and later exact-action IK/path admission/native execution, so they are not end-to-end latency. PPO artifact size includes actor, critic and optimizer state.';
+  } else for (const [id, text] of Object.entries(benchmarkLegacyNotes)) $(id).textContent = text;
   $('benchmarkStatus').textContent = `${sweepRlStatusLabel(summary)} · ${summary.completedRuns}/${summary.totalRuns} method/seed runs complete${summary.auditStatus ? ` · audit ${summary.auditStatus}` : ''}`;
   const observed = value => value === null ? 'Unknown' : value.toLocaleString(), runTotal = progress.declaredRuns ?? 'unknown';
   const trainingProgress = progress.requests === null ? 'Awaiting reported training-request counters.' : `Recorded training decisions: ${observed(progress.requests)} / ${observed(progress.declaredRequests)} declared.`;
@@ -443,15 +454,15 @@ function showSweepRlBenchmark() {
   $('benchmarkProgress').textContent = `${trainingProgress} Recorded native training releases: ${observed(progress.nativeReleases)}. Counter coverage: requests ${progress.requestCounterRuns}/${runTotal}, native ${progress.nativeCounterRuns}/${runTotal} runs.${runningProgress ? ` Reported running: ${runningProgress}.` : ''}${progress.conflictingRuns ? ` ${progress.conflictingRuns} conflicting worker counter record(s) omitted.` : ''} Validation and test requests are separate.`;
   addMetrics([['Equal training budget per method / seed', summary.budget === null ? 'Unknown' : summary.budget],
     ['Training seeds', summary.seedCount || 'Not reported'], ['Measured validation checkpoints', points.length],
-    ['Verified final method / seed records', summary.status === 'completed' ? finals.length : 'Pending']], $('benchmarkSummary'));
+    ['Verified final method / seed records', summary.status === 'completed' && (!summary.calibrated || summary.testDisclosed) ? finals.length : 'Pending']], $('benchmarkSummary'));
   $('benchmarkScope').textContent = summary.scope || 'Matched current-ball shot benchmark; source/physics and evaluation limits belong to the frozen contract.';
   $('benchmarkPrior').textContent = `Shared prior: ${summary.priorRecipes === null ? 'unknown number of' : summary.priorRecipes} recipes. Latest source collection: ${summary.priorReleases === null ? 'unknown' : summary.priorReleases.toLocaleString()} native releases, separate from the new training budget. ${summary.priorFullCostKnown ? '' : 'Full predecessor acquisition cost is not known. '}${summary.priorScope}`;
   drawBenchmarkCurve($('benchmarkCaptureChart'), curves, 'rate'); drawBenchmarkCurve($('benchmarkTimeChart'), curves, 'wallS');
   const latest = curves.filter(curve => curve.points.length).map(curve => ({ ...curve.points.at(-1), label: curve.label }));
-  expansionTable($('benchmarkResourceTable'), ['Method / budget', 'Validation captures', 'Seeds reported', 'Native validation / rejected', 'Mean setup + training time', 'Mean CPU / endpoint-home wall', 'Mean GPU phase / reservation', 'Peak RSS / sampled VRAM', 'Torch allocated / reserved peak'], latest.map(row => [
+  expansionTable($('benchmarkResourceTable'), ['Method / budget', 'Validation captures', 'Seeds reported', 'Native validation / rejected', 'Mean setup + training time', summary.calibrated ? 'Mean CPU / endpoint-home / path wall' : 'Mean CPU / endpoint-home wall', 'Mean GPU phase / reservation', 'Peak RSS / sampled VRAM', 'Torch allocated / reserved peak'], latest.map(row => [
     `${row.label}\n${row.samples} requests`, benchmarkCounts(row), `${row.seeds} / ${summary.seedCount || 'unknown'}`,
     `${row.nativeReleases ?? 'Unknown'} / ${row.invalid ?? 'Unknown'}`, benchmarkNumber(row.wallS, ' s'),
-    `${benchmarkNumber(row.cpuS, ' s')} / ${benchmarkNumber(row.geometryS, ' s')}`, `${benchmarkNumber(row.gpuS, ' s')} / ${benchmarkNumber(row.gpuReservationS, ' s')}`,
+    `${benchmarkNumber(row.cpuS, ' s')} / ${benchmarkNumber(row.geometryS, ' s')}${summary.calibrated ? ` / ${benchmarkNumber(row.pathS, ' s')}` : ''}`, `${benchmarkNumber(row.gpuS, ' s')} / ${benchmarkNumber(row.gpuReservationS, ' s')}`,
     `${benchmarkNumber(row.peakRssMb, ' MiB')} / ${benchmarkNumber(row.peakVramMb, ' MiB')}`,
     `${benchmarkNumber(row.torchAllocatedMb, ' MiB')} / ${benchmarkNumber(row.torchReservedMb, ' MiB')}`]));
   expansionTable($('benchmarkMilestones'), ['Method', 'Seed', 'Training requests', 'Validation capture', 'Native / rejected', 'Setup + training', 'CPU / endpoint-home wall', 'GPU phase / reservation', 'Peak RSS / sampled VRAM', 'Validation time'], points.map(row => [
@@ -465,12 +476,21 @@ function showSweepRlBenchmark() {
     benchmarkNumber(row.resources.evaluation_wall_s, ' s'), benchmarkNumber(row.resources.gpu_reservation_s, ' s'),
     `${benchmarkNumber(row.resources.peak_rss_mb, ' MiB')} / ${benchmarkNumber(row.resources.peak_vram_mb, ' MiB')}`,
     `${benchmarkNumber(row.resources.torch_allocated_mb, ' MiB')} / ${benchmarkNumber(row.resources.torch_reserved_mb, ' MiB')}`]));
-  $('benchmarkFinalStatus').textContent = summary.status === 'completed' ? `${finals.length} frozen method/seed records. Test requests are separate from training and checkpoint-selection validation.` : 'Final results remain pending until the benchmark completes. Validation is not final test performance.';
-  expansionTable($('benchmarkFinalTable'), ['Frozen method', 'Seed', 'Selected training budget', 'Test captures', 'Clean', 'Native / rejected', '24-layout prediction + preparation', 'Artifact SHA256'], finals.map(row => [row.label, row.seed, row.selectedSamples ?? 'Unknown',
+  const admission = sweepRlAdmissionRows(report);
+  $('benchmarkAdmissionSection').hidden = !summary.calibrated;
+  expansionTable($('benchmarkAdmissionTable'), ['Method / seed', 'TRAIN requested', 'Native releases / setup rejects', 'Fixed-base rejects', 'Unresolved pre-policy anchors', 'Native numeric failures', 'Setup rejection reasons'], admission.map(row => [
+    `${row.label}\nSeed ${row.seed}`, row.requested, `${row.native} / ${row.rejected}`, row.fixedBase ?? 'Unknown', row.anchorUnresolved ?? 'Unknown', row.invalidPhysics ?? 'Unknown', row.reasons.map(([reason, count]) => `${reason}: ${count}`).join('\n') || 'None observed']));
+  $('benchmarkFinalStatus').textContent = summary.status === 'completed' && (!summary.calibrated || summary.testDisclosed) ? `${finals.length} frozen method/seed records. Test requests are separate from training and checkpoint-selection validation.` : summary.calibrated ? 'TEST results remain hidden until the full benchmark completes and its independent byte-bound audit passes. Validation is not final test performance.' : 'Final results remain pending until the benchmark completes. Validation is not final test performance.';
+  expansionTable($('benchmarkFinalTable'), ['Frozen method', 'Seed', 'Selected training budget', 'Test captures', 'Clean', 'Native / rejected', summary.calibrated ? '24-layout prediction / pre-policy geometry' : '24-layout prediction + preparation', 'Artifact SHA256'], finals.map(row => [row.label, row.seed, row.selectedSamples ?? 'Unknown',
     benchmarkCounts(row.counts), row.counts.clean ?? 'Unknown', `${row.counts.nativeReleases ?? 'Unknown'} / ${row.counts.invalid ?? 'Unknown'}`,
-    benchmarkNumber(row.queryS, ' s', 3), row.artifactSha]));
+    `${benchmarkNumber(row.queryS, ' s', 3)}${summary.calibrated ? ` / ${benchmarkNumber(row.contextResolutionS, ' s', 3)}` : ''}`, row.artifactSha]));
   $('benchmarkAudit').textContent = `${summary.auditStatus ? `Independent audit: ${summary.auditStatus}. ` : 'Independent audit: pending or not reported. '}Contract: ${summary.fingerprint ?? 'not reported'}. This panel does not activate a checkpoint or launch training.`;
   $('benchmarkDownload').disabled = !points.length && !finals.length;
+  const history = sweepRlHistory(report);
+  $('benchmarkHistory').hidden = !history && !report.historical_sweep_rl_error;
+  $('benchmarkHistoryNote').textContent = history ? `${history.metric ?? 'Original v1 metric'}. ${history.limitation ?? ''}` : report.historical_sweep_rl_error ?? '';
+  const historicalRows = history ? sweepRlFinalRows({ sweep_rl_benchmark: history }) : [];
+  expansionTable($('benchmarkHistoryTable'), ['Historical method', 'Seed', 'Original v1 test capture', 'Native / rejected'], historicalRows.map(row => [row.label, row.seed, benchmarkCounts(row.counts), `${row.counts.nativeReleases ?? 'Unknown'} / ${row.counts.invalid ?? 'Unknown'}`]));
   if (firstDisplay && location.hash === '#sweepRlBenchmark') $('sweepRlBenchmark').scrollIntoView({ block: 'start' });
 }
 $('benchmarkDownload').onclick = () => {
@@ -941,8 +961,8 @@ async function loadStatus() {
     }
     updateMethodHelp();
     const ready = modeReady(r, $('mode').value), planner = plannerReady(r);
-    $('studyTitle').textContent = planner ? 'Sweep planner ready · simulation only' : ready ? 'Studies complete · frozen evaluations ready' : r.bank_evaluation && r.bank_evaluation.status !== 'completed' ? `Bank study ${r.bank_evaluation.status ?? 'pending'}` : `Study ${String(r.status ?? 'unavailable').replaceAll('_', ' ')}`;
-    $('studyDetail').textContent = planner ? 'Corrected native MuJoCo · endpoint-held. Learned inference stays separately gated.' : ready ? 'Manual simulation testing is now available.' : 'Manual solves remain locked until evaluation finishes.';
+    $('studyTitle').textContent = r.benchmark_read_only ? 'Read-only benchmark · simulation only' : planner ? 'Sweep planner ready · simulation only' : ready ? 'Studies complete · frozen evaluations ready' : r.bank_evaluation && r.bank_evaluation.status !== 'completed' ? `Bank study ${r.bank_evaluation.status ?? 'pending'}` : `Study ${String(r.status ?? 'unavailable').replaceAll('_', ' ')}`;
+    $('studyDetail').textContent = r.benchmark_read_only ? 'Read-only benchmark. The scene and recorded grid replays are historical; this page cannot launch training or new solves.' : planner ? 'Corrected native MuJoCo · endpoint-held. Learned inference stays separately gated.' : ready ? 'Manual simulation testing is now available.' : 'Manual solves remain locked until evaluation finishes.';
     $('studyState').querySelector('.status-dot').className = `status-dot ${ready ? 'ready' : ''}`;
     syncSolveButtons();
     $('fingerprint').textContent = `Scene fingerprint: ${r.scene_fingerprint ?? r.contract_fingerprint ?? r.fingerprint ?? s.fingerprint ?? 'not reported'}`;
