@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {correctedGridProgress,correctedGridRows,studyReady} from '../web/state.mjs';
+import {correctedGridProgress,correctedGridRows,correctedTrainingReadiness,studyReady} from '../web/state.mjs';
 
 test('corrected study remains optional and never changes active inference readiness',()=>{
   assert.equal(correctedGridProgress({}),null);assert.deepEqual(correctedGridRows({}),[]);
@@ -36,4 +36,18 @@ test('new grid has no request handler and preserves the original solve endpoints
   for(const id of ['correctedGrid','correctedGridMap','correctedGridStatus','correctedGridCells']) assert.ok(html.includes(`id="${id}"`));
   assert.ok(html.includes('does not measure continuous state-space coverage'));
   assert.ok(js.includes("fetch('/api/solve'"));
+});
+test('training assessment needs completed matched audits and never launches a learner',()=>{
+  const value={status:'completed',counts:{qualified_positions:12,qualified_settings:17,positions_with_multiple_qualified:5},
+    cells:Array.from({length:35},(_,i)=>({id:String(i),bucket_xy_m:[.1+i*.01,0]})),verification:{status:'passed'},
+    audits:{native:{status:'passed'},supplemental:{status:'pending'}}};
+  const report={corrected_grid_evaluation:value};
+  assert.equal(correctedTrainingReadiness(report).title,'Study finished; audit clearance required');
+  value.audits.supplemental.status='passed';
+  const view=correctedTrainingReadiness(report);
+  assert.equal(view.title,'Audited evidence ready for a limited pilot');
+  assert.equal(view.readyToLaunch,false);assert.ok(view.text.includes('17 settings at 12/35'));assert.ok(view.text.includes('5 positions'));
+  value.status='running';assert.equal(correctedTrainingReadiness(report).title,'Training decision pending');
+  value.status='completed';value.counts.qualified_positions=0;
+  assert.equal(correctedTrainingReadiness(report).title,'More feasible settings needed');
 });

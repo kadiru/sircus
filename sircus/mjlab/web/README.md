@@ -286,10 +286,13 @@ Home-clearance checks distinguish actual bucket/base penetration from staging
 obstruction and unproven clearance. A home-clear position still needs a checked
 route to the exact selected joints; endpoint validity alone does not supply it.
 
-The current job uses corrected articulated 64-substep physics. Each selected
+The completed job used corrected articulated 64-substep physics. Each selected
 source requires 3/3 nominal and at least 18/20 fresh captures, with geometry/motion
-rejects retained. Final results remain pending; there is no new training or
-automatic change to existing solve buttons, readiness guards or policy routing.
+rejects retained. Seventeen settings at 12/35 positions qualified. Both original
+and supplemental audits passed and are shown separately because their check sets
+overlap. The panel also shows phase-specific requests/releases/captures and the
+remaining learner-adapter gate. There is no new training or automatic change to
+existing solve buttons, inference readiness guards or policy routing.
 See [the complete protocol and reproduction command](../CORRECTED_GRID.md) and
 [the dated evidence](../../../baselines/mjlab-corrected-grid-20261102/README.md).
 
@@ -303,7 +306,7 @@ python -m sircus.mjlab.prepare_corrected_report \
   --watch-seconds 30000
 ```
 
-This CPU-only watcher reads existing evidence and waits for the matching audit.
+This CPU-only watcher reads existing evidence and waits for both contract-matched audit outputs.
 It cannot launch native jobs, train a policy or restart a server. Its output must
 be outside the study and differ from the base display. The map remains a finite
 development search, separate from the frozen future 30-validation/100-test split

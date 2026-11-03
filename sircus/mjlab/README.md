@@ -1,11 +1,11 @@
 # Sircus in mjlab
 
-The [corrected-contact spatial map](CORRECTED_GRID.md) is now running: a 7 × 5 DEV
-bucket grid,336 geometry queries per layout, strict endpoints and connections
-from one fixed common home. Reference physics uses 64 substeps, with 3 nominal
-and 20 fresh attempts per selected source. Final results are pending. This is
-feasibility development; no new PPO or automatic policy switch has started.
-[Curated study evidence](../../baselines/mjlab-corrected-grid-20261102/README.md).
+The [corrected-contact spatial map](CORRECTED_GRID.md) completed: 35 DEV layouts,
+460 native search releases, 87 nominal repeats and 580 fresh requests. Seventeen
+settings at 12 positions passed fixed-home paths and the 3/3 plus ≥18/20 gate.
+Both CPU audits passed. This supports preparation of a limited corrected-physics
+selector pilot; existing trainers still need a matching adapter. No new PPO or
+policy switch occurred. [Final evidence and exact settings](../../baselines/mjlab-corrected-grid-20261102/README.md).
 
 The [IK-stability follow-up](../../baselines/mjlab-ik-stability-20261102/README.md)
 fixes query-order dependence and preserves all 16 saved-source branches in its
