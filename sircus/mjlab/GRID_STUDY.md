@@ -79,6 +79,58 @@ Success still requires a board rebound, whole-ball entry and one continuous
 second inside without external assistance. Rim-assisted captures count. Neither
 an ODD event nor a geometric or analytic trajectory is a capture label here.
 
+## Additive diversified follow-up
+
+The first completed expanded cell exposed an acquisition bias: although 1,024
+poses were planned, the native budget was exhausted after 160 CPU checks and
+128 local shots. No broad proposal reached physics. The actually tested gap
+range was only 81–195 mm. Three entries involved a table rebound and correctly
+failed the intended board-to-bucket route. Planned ranges must not be described
+as tested coverage.
+
+`grid_diverse_study` is a separate, versioned follow-up, added after that finding.
+It preserves the original run and requires its completed, independently passed
+audit before starting. All 35 old outcomes are archived as saved evidence, with
+exact original request/result sidecars, IDs, provenance and parent hashes. None
+of those trials count as new work.
+
+Targets are fixed before new outcomes: every unresolved position and each
+previously selected recipe whose final set was missing/blocked or below 3/3
+nominal or 27/30 perturbed captures. These previous final findings now inform a
+new development round; their original scores remain unchanged.
+
+For each clear target, audit **all 1,024 distinct proposals first**. At least half
+of the pool comes from broad/inverse proposals. Joint local sweeps include gaps
+60–640 mm and tilts 12–60°, jointly with the board positions/heights. Select up to
+128 eligible native attempts with a 64-slot broad/inverse quota when enough are
+eligible, then normalized farthest-point geometric diversity. Flight outcomes
+do not determine this selection. Save planned, checked, eligible and actually
+executed family counts and parameter ranges separately.
+
+Current qualification remains 3 nominal + 20 perturbed requests. Freeze every
+newly selected recipe before a separate new 3 + 30 repeat set. Unchanged parent
+recipes retain their previous frozen rates, explicitly labeled as previous-study
+evidence; they do not inflate current work or current validation counts. A failed
+follow-up can leave a fragile saved fallback visible with its actual old rates.
+The interface verifies cell, bucket and configuration identity before showing any
+inherited rate.
+
+```bash
+"$HOME/sircus-mjlab/venv/bin/python" -u -m sircus.mjlab.grid_diverse_study \
+  --reference "$HOME/sircus-mjlab/output/corrected-grid-v1" \
+  --assets "$HOME/sircus-isaac/assets" \
+  --gpu-lock "$HOME/sircus-isaac/scene.lock" \
+  --parent-study "$HOME/sircus-mjlab/output/planner-grid35-v1" \
+  --parent-audit "$HOME/sircus-mjlab/audits/planner-grid35-v1.json" \
+  --parent-source "$HOME/sircus-mjlab/studies/planner-grid35-v1" \
+  --output "$HOME/sircus-mjlab/output/YOUR_NEW_DIVERSE_STUDY"
+```
+
+Use a frozen source snapshot and the same pinned environment variables as below.
+`--prepare-only` validates and archives parent evidence without GPU work. Missing
+or altered parent evidence fails closed. The optional results-view
+`--parent-study-dir` defaults to the exact compact copy inside the follow-up.
+
 ## Reproduction
 
 Use the pinned mjlab environment and generated assets/reference described in

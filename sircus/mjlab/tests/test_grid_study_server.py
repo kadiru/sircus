@@ -9,6 +9,7 @@ import unittest
 from unittest.mock import Mock, patch
 
 from sircus.mjlab import grid_study_contract as contract
+from sircus.mjlab import grid_diverse_study as diverse
 from sircus.mjlab import grid_study_server as server
 from sircus.mjlab.interface import RequestError
 from sircus.mjlab.learning_contract import digest
@@ -158,6 +159,105 @@ class GridStudyServerTests(unittest.TestCase):
             ],
         )
 
+    def followup_state(self):
+        parent = self.study / "parent"
+        parent.mkdir()
+        request = dict(
+            request_id=self.result["request_id"],
+            mode="search",
+            bucket_xy=self.layout["bucket_xy_m"],
+        )
+        attempt = dict(stage="baseline", request=request, result=self.result)
+        states = {
+            layout["id"]: "unresolved"
+            for layout in contract.grid_layouts()
+            if layout["id"] != self.layout["id"]
+        }
+        validation = dict(
+            status="completed",
+            configuration_sha256=digest(self.result["configuration"]),
+            nominal=dict(captures=3, attempts=3),
+            fresh=dict(captures=29, attempts=30),
+        )
+        parent_contract = dict(
+            identity=self.identity,
+            protocol=dict(fixture=True),
+            packages=dict(fixture="1"),
+        )
+        parent_contract["fingerprint"] = digest(parent_contract)
+        parent_report = contract.make_report(
+            {self.layout["id"]: [attempt]},
+            identity=self.identity,
+            protocol=parent_contract["protocol"],
+            status="completed",
+            states=states,
+            validation_by_cell={self.layout["id"]: validation},
+        )
+        self.write(parent / "contract.json", parent_contract)
+        self.write(parent / "report.json", parent_report)
+        self.write(
+            parent / "frozen-selection.json",
+            {
+                row["id"]: row["selected"]
+                for row in parent_report["cells"]
+                if row.get("selected")
+            },
+        )
+        manifest = {
+            name: server.sha(parent / name)
+            for name in ("contract.json", "report.json", "frozen-selection.json")
+        }
+        self.write(parent / "manifest.json", manifest)
+        audit = dict(
+            status="passed",
+            failures=[],
+            checks=3,
+            contract_fingerprint=parent_contract["fingerprint"],
+            study_manifest_sha256=server.sha(parent / "manifest.json"),
+            report_sha256=server.sha(parent / "report.json"),
+            frozen_selection_sha256=server.sha(parent / "frozen-selection.json"),
+            packages=parent_contract["packages"],
+            **{
+                key: self.identity[key]
+                for key in ("source_sha256", "asset_sha256", "physics")
+            }
+        )
+        self.write(parent / "audit.json", audit)
+        metadata = diverse.load_parent_snapshot(parent)["metadata"]
+        identity = copy.deepcopy(self.identity)
+        identity["source_sha256"]["followup"] = "e" * 64
+        protocol = diverse.protocol(
+            metadata, [layout["id"] for layout in contract.grid_layouts()[1:]]
+        )
+        result = copy.deepcopy(self.result)
+        result.update(
+            method="catalog_lookup",
+            provenance=dict(identity, policy_used=False, saved_evidence=True),
+        )
+        current_attempt = dict(
+            stage="baseline",
+            request=request,
+            result=result,
+            result_url="/api/planner-grid/result/" + self.layout["id"],
+        )
+        current_report = contract.make_report(
+            {self.layout["id"]: [current_attempt]}, identity=identity, protocol=protocol
+        )
+        self.write(self.report_path, current_report)
+        self.write(self.result_path, result)
+        current_contract = dict(identity=identity, protocol=protocol, parent=metadata)
+        current_contract["fingerprint"] = digest(current_contract)
+        self.write(self.study / "contract.json", current_contract)
+        with patch.object(
+            server, "study_identity", return_value=self.identity
+        ), patch.object(
+            server,
+            "followup_helpers",
+            return_value=(lambda _ref: identity, diverse.load_parent_snapshot),
+        ):
+            state = server.GridState({}, self.study, self.base_path, None, self.solver)
+        return state, parent_report, current_report
+
     def test_verified_report_and_recorded_shot_preserve_native_identity_without_solver_work(
         self,
     ):
@@ -287,6 +387,53 @@ class GridStudyServerTests(unittest.TestCase):
         self.assertEqual(self.state.report()["planner_grid_blockers"], {})
         self.solver.assert_not_called()
 
+    def test_unresolved_fixed_base_clearance_is_distinct_from_penetration_and_staging(
+        self,
+    ):
+        expected = "Clearance between the bucket and a fixed arm base is unproven; placement or geometry needs validation."
+        for role in ("Arm10", "Arm14"):
+            home = dict(
+                passed=False,
+                reason="unproven_clearance",
+                margin_contacts=[],
+                minimum_clearance_m=0.0,
+                closest_pair=[role + "/link_base/collision/0", "bucket/wall00"],
+                unresolved_clearance_pairs=[
+                    dict(
+                        pair=[role + "/link_base/collision/0", "bucket/wall00"],
+                        lower_bound_m=0.0,
+                    )
+                ],
+            )
+            raw = self.blocked_report([("baseline", home)])
+            envelope = self.state.report()
+            self.assertEqual(
+                envelope["planner_grid_blockers"][self.layout["id"]], expected
+            )
+            self.assertEqual(envelope["planner_grid_study"], raw)
+        for pair in (
+            ["Arm14/link4/collision/0", "bucket/wall00"],
+            ["Arm10/link_base/collision/0", "table"],
+        ):
+            home["unresolved_clearance_pairs"] = [dict(pair=pair, lower_bound_m=0.0)]
+            self.blocked_report([("baseline", home)])
+            self.assertIn(
+                "starting pose",
+                self.state.report()["planner_grid_blockers"][self.layout["id"]],
+            )
+        home = self.home()
+        home["unresolved_clearance_pairs"] = [
+            dict(
+                pair=["Arm14/link_base/collision/0", "bucket/wall00"], lower_bound_m=0.0
+            )
+        ]
+        self.blocked_report([("baseline", home)])
+        self.assertEqual(
+            self.state.report()["planner_grid_blockers"][self.layout["id"]],
+            "Bucket overlaps an arm base; another placement is needed.",
+        )
+        self.solver.assert_not_called()
+
     def test_missing_changed_unbound_or_escaped_home_does_not_classify_a_blocker(self):
         self.blocked_report([("baseline", self.home())])
         path = self.study / "cells" / self.layout["id"] / "baseline" / "home.json"
@@ -313,6 +460,81 @@ class GridStudyServerTests(unittest.TestCase):
         for home in (dict(passed=True), dict(passed=False, margin_contacts="unknown")):
             self.blocked_report([("baseline", home)])
             self.assertEqual(self.state.report()["planner_grid_blockers"], {})
+        self.solver.assert_not_called()
+
+    def test_followup_envelope_preserves_bound_audited_parent_and_current_reports_separately(
+        self,
+    ):
+        state, parent, current = self.followup_state()
+        envelope = state.report()
+        self.assertEqual(envelope["planner_grid_parent"], parent)
+        self.assertEqual(envelope["planner_grid_study"], current)
+        self.assertEqual(
+            envelope["planner_grid_parent"]["cells"][0]["frozen_validation"]["fresh"][
+                "captures"
+            ],
+            29,
+        )
+        self.assertIsNone(
+            envelope["planner_grid_study"]["cells"][0]["frozen_validation"]
+        )
+        self.assertEqual(
+            state.recorded_result(self.layout["id"])["method"], "catalog_lookup"
+        )
+        self.assertEqual(json.loads(self.report_path.read_text()), current)
+        self.solver.assert_not_called()
+
+    def test_parent_audit_tampering_never_serves_stale_parent_rates(self):
+        state, _parent, _current = self.followup_state()
+        state.report()
+        audit_path = self.study / "parent" / "audit.json"
+        audit = json.loads(audit_path.read_text())
+        audit["checks"] += 1
+        self.write(audit_path, audit)
+        self.assert_status(409, state.grid_report)
+        envelope = state.report()
+        self.assertIn("planner_grid_error", envelope)
+        self.assertNotIn("planner_grid_parent", envelope)
+        self.assertNotIn("planner_grid_study", envelope)
+        self.solver.assert_not_called()
+
+    def test_current_followup_contract_protocol_and_parent_binding_are_pinned(self):
+        state, _parent, current = self.followup_state()
+        changed = copy.deepcopy(current)
+        changed["protocol"]["parent_manifest_sha256"] = "f" * 64
+        self.resign(changed)
+        self.write(self.report_path, changed)
+        self.assert_status(409, state.grid_report)
+        self.write(self.report_path, current)
+        path = self.study / "contract.json"
+        original = json.loads(path.read_text())
+        original["parent"]["audit_sha256"] = "f" * 64
+        original.pop("fingerprint")
+        original["fingerprint"] = digest(original)
+        self.write(path, original)
+        self.assert_status(409, state.grid_report)
+        self.solver.assert_not_called()
+
+    def test_v1_cannot_claim_parent_evidence_or_an_inherited_baseline_without_a_bound_contract(
+        self,
+    ):
+        with patch.object(server, "study_identity", return_value=self.identity):
+            self.assert_status(
+                409,
+                lambda: server.GridState(
+                    {},
+                    self.study,
+                    self.base_path,
+                    None,
+                    self.solver,
+                    parent_study=self.directory,
+                ),
+            )
+        report = copy.deepcopy(self.report)
+        report["protocol"]["inherited_baseline"] = True
+        self.resign(report)
+        self.write(self.report_path, report)
+        self.assert_status(409, self.state.grid_report)
         self.solver.assert_not_called()
 
 
