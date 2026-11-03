@@ -8,12 +8,14 @@ import re
 from http.server import ThreadingHTTPServer
 from urllib.parse import urlsplit
 
+from .corrected_contract import sha
+from .corrected_grid import home_layout_summary
 from .grid_study import study_identity
 from .grid_study_contract import validate_report
 from .interface import InterfaceState, RequestError, handler_for
 from .learning_contract import digest
 from .sweep_server import public_state, ui_scene
-from .sweep_worker import atomic, load_reference
+from .sweep_worker import atomic, contained, load_reference
 
 
 class GridState(InterfaceState):
@@ -41,9 +43,48 @@ class GridState(InterfaceState):
         report = super().report()
         try:
             report["planner_grid_study"] = self.grid_report()
+            report["planner_grid_blockers"] = self.blocker_notes(
+                report["planner_grid_study"]
+            )
         except RequestError as exc:
             report["planner_grid_error"] = str(exc)
         return report
+
+    def blocker_notes(self, report):
+        """Explain hash-checked home failures without altering signed evidence."""
+        notes = {}
+        for row in report["cells"]:
+            if row.get("status") != "blocked":
+                continue
+            attempts = [
+                a
+                for a in row.get("attempts", [])
+                if a.get("stage") in {"baseline", "expanded"}
+            ]
+            if not attempts:
+                continue
+            attempt = attempts[-1]
+            expected = attempt.get("evidence_sha256", {}).get("home.json")
+            if not expected:
+                continue
+            try:
+                path = contained(
+                    self.study, f"cells/{row['id']}/{attempt['stage']}/home.json"
+                )
+                if sha(path) != expected:
+                    continue
+                home = json.loads(path.read_text())
+                if not isinstance(home, dict) or home.get("passed") is not False:
+                    continue
+                checked = home_layout_summary(home)
+            except (OSError, ValueError, TypeError, AttributeError):
+                continue
+            notes[row["id"]] = (
+                "Bucket overlaps an arm base; another placement is needed."
+                if checked["fixed_base_penetrations"]
+                else "Prescribed starting pose is blocked; another staging strategy needs validation."
+            )
+        return notes
 
     def recorded_result(self, cell_id):
         if not re.fullmatch(r"dev-grid-\d{2}-\d{2}", cell_id):

@@ -272,7 +272,9 @@ function showPlannerFarm() {
     button.setAttribute('aria-pressed', String(selected)); button.disabled = pending;
     button.style.borderColor = selected ? 'var(--teal)' : 'var(--line)';
   }
-  $('plannerFarmSummary').textContent = `${rows.filter(row => row.cached).length} / ${rows.length} targets have a saved verified recipe. Select one to inspect, then solve. Other positions remain available by dragging the bucket.`;
+  $('plannerFarmSummary').textContent = report.planner_grid_study
+    ? `${rows.filter(row => row.cached).length} / ${rows.length} targets have an original catalogue recipe. The study below shows new settings and repeat results for every table.`
+    : `${rows.filter(row => row.cached).length} / ${rows.length} targets have a saved verified recipe. Select one to inspect, then solve. Other positions remain available by dragging the bucket.`;
 }
 const gridMillimetres = value => Number.isFinite(value) ? `${(value * 1000).toFixed(1)}` : '—';
 const gridVector = value => finiteVector(value, 3) ? value.map(gridMillimetres).join(', ') : '—';
@@ -315,7 +317,7 @@ function showPlannerGridStudy() {
   const summary = plannerGridSummary(report), rows = plannerGridRows(report);
   $('plannerGridStudy').hidden = !summary;
   if (!summary) return;
-  const signature = JSON.stringify(report.planner_grid_study);
+  const signature = JSON.stringify([report.planner_grid_study, report.planner_grid_blockers]);
   if (signature === gridStudySignature) return;
   gridStudySignature = signature;
   $('plannerGridStatus').textContent = `${summary.status.replaceAll('_', ' ')} · ${summary.finished}/${summary.total} cells finished${summary.updated ? ` · updated ${summary.updated}` : ''}`;

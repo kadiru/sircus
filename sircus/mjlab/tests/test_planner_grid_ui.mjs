@@ -67,6 +67,17 @@ test('recorded replay paths remain a narrow same-origin read-only endpoint', () 
   }
 });
 
+test('verified envelope blocker notes replace only display reasons, not signed native data', () => {
+  const native = { version: 'sircus-planner-grid-study-v1', cells: [{ id: 'blocked', status: 'blocked', reason: 'Finite search stage ended' }] };
+  const original = JSON.stringify(native), note = 'Prescribed starting pose is blocked; another staging strategy needs validation.';
+  const report = { planner_grid_study: native, planner_grid_blockers: { blocked: note } };
+  assert.equal(plannerGridRows(report)[0].reason, note);
+  assert.equal(JSON.stringify(native), original);
+  assert.equal(plannerGridRows({ ...report, planner_grid_blockers: { blocked: null } })[0].reason, 'Finite search stage ended');
+  assert.equal(plannerGridRows({ ...report, planner_grid_blockers: {} })[0].reason, 'Finite search stage ended');
+  assert.ok(plannerGridCsv(report).includes(note));
+});
+
 test('frozen validation is independent of qualification and saved repeats', () => {
   const row = { id: 'checked', status: 'saved_verified', saved_nominal: { captures: 3, attempts: 3 }, saved_fresh: { captures: 20, attempts: 20 },
     frozen_validation: { status: 'completed', nominal: { captures: 1, attempts: 3 }, fresh: { captures: 2, attempts: 30 }, configuration_sha256: 'a'.repeat(64),
