@@ -1,5 +1,43 @@
 # Local height/tilt/timestep study
 
+## Status checked November 3, 2026
+
+**No new flight results yet.** The original two-hour queue expired before any
+physics. A single unchanged resubmission acquired the4090 but its option guard
+stopped initialization: native tolerance1e-8 is converted by MuJoCo Warp3.11 to
+float32 tolerance1e-6. Both attempts have zero native releases and remain saved.
+
+The [CPU conversion proof](cpu-warp-option-conversion.json) verifies this vendor
+rule and shows the parent/default configuration has the same effective values.
+The fresh v2 adapter now checks both values exactly, without mutating them or
+changing contact/scoring.42 focused tests passed in the pinned Ubuntu environment;
+the complete local mjlab suite passed454 tests with41 dependency/native skips.
+
+Corrected execution source: `~/sircus-mjlab/studies/neighborhood-v2`, code commit
+`58c1a9f11ab289ff3d81f54cfda3dd44e79bf960`; planned evidence
+`~/sircus-mjlab/output/neighborhood-v2`. Supervisor1383189 is a historical launch
+identifier. The job is queued cooperatively behind another4090 mjlab study,
+with a four-hour queue limit and four-hour execution limit. Its supervisor will
+audit and update the existing viewer automatically; no server restart or active
+policy change.4070 and Isaac remain untouched.
+
+The interface now displays the earlier audited references separately:
+
+| Board-center height mm | Tilt from horizontal | Gap mm | Ball-center release height mm | Nominal | Fresh gap-only noise | Validated substeps |
+|---|---|---|---|---|---|---|
+|397.388|36.1548°|321.219|756.107|3/3|20/20|64 only|
+|500.000|36.1548°|238.531|776.031|3/3|20/20|64 only|
+|440.000|32.0000°|285.781|763.281|3/3|20/20|64 only|
+
+All use the same fixed472.826 mm horizontal board-to-bucket distance and all
+captures were rim-assisted. Fresh noise varied gap only with sigma2 mm; this
+does not establish robustness to board-height/tilt noise or32/128 substeps.
+No setting has passed this study's paired32/64/128 checks yet. The first two
+references are prior TRAIN-window confirmations; the440 mm reference is the
+old frozen TEST result, now explicitly a known DEVELOPMENT anchor.
+
+## Original launch checkpoint — November 2
+
 Status at launch checkpoint: **queued for the shared4090 allocation**. No new
 ball-flight result is claimed yet. The existing35-position study retains its
 lock and is not interrupted. The4070 workload and Isaac setup remain untouched.
