@@ -64,6 +64,7 @@ p.add_argument("--study-train-batches", type=int, default=128)
 p.add_argument("--study-eval-repeats", type=int, default=16)
 p.add_argument("--study-seed", type=int, default=20261110)
 p.add_argument("--study-legacy-checkpoint", type=Path)
+p.add_argument("--transfer-probe-checkpoint", type=Path)
 AppLauncher.add_app_launcher_args(p)
 args = p.parse_args()
 training_camera = args.training_camera_json is not None
@@ -80,6 +81,15 @@ if args.learning_study and (
     not training_camera or args.expanded_pose_menu is None or args.expanded_qualify_only
 ):
     p.error("--learning-study requires a training camera and expanded offline bank")
+if args.transfer_probe_checkpoint is not None and (
+    not training_camera
+    or args.expanded_pose_menu is None
+    or args.expanded_qualify_only
+    or args.learning_study
+):
+    p.error(
+        "A transfer probe requires a training camera and offline bank, without training"
+    )
 if not 2 <= args.expanded_options_per_cell <= 32:
     p.error("Expanded native menus require 2..32 options per cell")
 if args.expanded_options_per_cell != 4 and args.expanded_pose_menu is None:
@@ -517,6 +527,11 @@ def main():
     probes = env.probes()
     atomic(dest / "probes.json", probes)
     if training_camera:
+        if args.transfer_probe_checkpoint is not None:
+            from farm_transfer_probe import run_transfer_probe
+
+            run_transfer_probe(env, spec, args.expanded_pose_menu, args)
+            return
         if args.learning_study:
             from farm_learning_runtime import run_study
 

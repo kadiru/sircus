@@ -1,0 +1,2728 @@
+{
+  "schema": "sircus-farm-shot-bank-audit-v1",
+  "bank_sha256": "398fcfd53793a47bd1ca7677f5be521e795111b9f6b4744a51fbac175d170082",
+  "bank_bytes": 21651264,
+  "bank_fingerprint": "2605ae1507edc7c0a75889e1380925775b1a05864f0584757df231a405fec311",
+  "task_fingerprint": "63362ef37a93881f769b39d1ee7456335f1cc7bf5db04ffa7e548ce9697455bf",
+  "qualification": "offline_endpoint_ik",
+  "all_35_bucket_positions_and_static_scene_match_original": true,
+  "distinct_bucket_positions": 35,
+  "worker_merge_and_hashes_verified_read_only_on_ubuntu": true,
+  "worker_artifacts": [
+    {
+      "worker": 0,
+      "file": "worker-0.json",
+      "sha256": "236bd30ab26b80137ed64b499a0b62055e3c8a48bc5dae27e293fc20e1166615",
+      "fingerprint": "b85c3b4590eb0897c6c49a889dac6f0a0665f908f898d6edb1b30c3f7f7a8f26",
+      "assigned_cells": [
+        0,
+        4,
+        8,
+        12,
+        16,
+        20,
+        24,
+        28,
+        32
+      ],
+      "passed": true
+    },
+    {
+      "worker": 1,
+      "file": "worker-1.json",
+      "sha256": "cd51e9880415d637c3cfb8d270fe3ecbe057356c207cdfc11e5cf6bdcf2af676",
+      "fingerprint": "cd8fc46236f65ca1fb18aa9e6950582d46022b248cf1aba3d220ca4be96b7669",
+      "assigned_cells": [
+        1,
+        5,
+        9,
+        13,
+        17,
+        21,
+        25,
+        29,
+        33
+      ],
+      "passed": true
+    },
+    {
+      "worker": 2,
+      "file": "worker-2.json",
+      "sha256": "79fae913891cfc9ef7ce467c4b96dd098a935250a1344b0ebc7098803541c229",
+      "fingerprint": "eadd1d2ac73d1084b813a4bcab5824c270d5a9b480c3fe997a2a448766e0a6ec",
+      "assigned_cells": [
+        2,
+        6,
+        10,
+        14,
+        18,
+        22,
+        26,
+        30,
+        34
+      ],
+      "passed": true
+    },
+    {
+      "worker": 3,
+      "file": "worker-3.json",
+      "sha256": "38807d830604c522f59fc2e2dcfa31ddfd3f1a649d0e59ba7294d4f90d6a4036",
+      "fingerprint": "9ad6388f80306380f45a235becdf6abc085281ba441fee1940bbcb0a3373ac52",
+      "assigned_cells": [
+        3,
+        7,
+        11,
+        15,
+        19,
+        23,
+        27,
+        31
+      ],
+      "passed": true
+    }
+  ],
+  "seed_manifest_sha256": "932aff6edc796147e68753c5ef6c4470dcb76d769abc9384d5009ad9f14f1803",
+  "proposal_protocol": {
+    "version": "sircus-physics-informed-shot-sweep-v2",
+    "workspace": "table",
+    "proposal_xy_bounds": [
+      [
+        -0.22999999999999998,
+        1.57
+      ],
+      [
+        -0.875,
+        0.375
+      ]
+    ],
+    "control_options_per_requested_site": 2,
+    "max_checks_per_cell": 512,
+    "accepted_per_cell": 128,
+    "candidates_per_cell": 2048,
+    "inverse_ballistic_to_broad_ratio": "3:1 where eligible; broad fallback",
+    "restitution_priors": [
+      0.45,
+      0.55,
+      0.65,
+      0.75,
+      0.85
+    ],
+    "rim_plane_radius_offsets": [
+      -1.0,
+      0.0,
+      1.0
+    ],
+    "held_board_overhang_allowed": true,
+    "actual_fk_board_center_tolerance_m": 0.0001,
+    "actual_fk_board_bottom_clearance_m": 0.015,
+    "geometry_only": true,
+    "outcome_scope": "Caller may prioritize failed sites; proposals/IK use no capture outcomes."
+  },
+  "source_verifier_sha256": {
+    "shot_sweep.py": "663c25689bb8174b1644f25d3bbbccff9baf446ca68be0a7ff1459249b981a9f",
+    "expanded_pose_menu.py": "5bfbb470fbd395126880b77a8ca136768eda7d844d89afd924935bfb506e2ea5",
+    "expanded_pose_native.py": "b5092c3003419c04f569fe4475064a0ea92f907efe5a96cbcbb0872898690d37",
+    "prepare_assets.py": "d7517e4f1f350bd7f48e5c23e48fc4dc4c63882b6b18ce4502bc8c5fd1999d93"
+  },
+  "audit_script_sha256": "13ff1a39390381d7e1ccea7930e90594a11081fa9a70399fe18039382fc8ea44",
+  "local_urdf_sha256": {
+    "dropper.urdf": "3f40e56e46b040fb3339c1235ea85872f46511c45db2d37f7661db94a470bae3",
+    "board_arm.urdf": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340"
+  },
+  "remote_urdf_sha256": {
+    "dropper.urdf": "3f40e56e46b040fb3339c1235ea85872f46511c45db2d37f7661db94a470bae3",
+    "board_arm.urdf": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340"
+  },
+  "urdf_bytes_match_remote": true,
+  "options_checked": 1607,
+  "all_actual_fk_and_geometry_checks_passed": true,
+  "unique_ids_and_physical_configurations_per_cell": true,
+  "max_weighted_ik_residual": {
+    "Arm10": 6.321767664237852e-05,
+    "Arm14": 9.932912697926781e-05
+  },
+  "max_actual_board_center_error_m": 9.152387704642706e-05,
+  "max_board_normal_error_deg": 0.01835053412720334,
+  "min_actual_board_bottom_clearance_m": 0.021158448470010346,
+  "board_overhang_options": 125,
+  "overhang_scope": "Arm-held board overhang allowed and diagnostic only; does not invalidate historical captures.",
+  "action_fields": [
+    "azimuth_deg",
+    "azimuth_offset_deg",
+    "board_x_m",
+    "board_y_m",
+    "gap_m",
+    "height_m",
+    "id",
+    "radius_m",
+    "tilt_deg"
+  ],
+  "check_fields": [
+    "action_id",
+    "analytic_prior",
+    "ik",
+    "ik_checked",
+    "reason"
+  ],
+  "outcome_fields_absent_from_actions_and_geometry_checks": true,
+  "scope": "Independent CPU provenance, strict endpoint FK and board center/bottom/bucket-clearance audit only. No new native simulation, capture scoring or path validation.",
+  "cells": [
+    {
+      "index": 0,
+      "cell_id": "r1c1",
+      "bucket_xy_m": [
+        -0.1014285714285714,
+        0.25
+      ],
+      "cpu_qualified_options": 95,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.14471134648421927,
+          "max": 0.54
+        },
+        "gap_m": {
+          "min": 0.0803533648940823,
+          "max": 0.5374390984937956
+        },
+        "tilt_deg": {
+          "min": 12.302527025561773,
+          "max": 51.5512122246602
+        },
+        "radius_m": {
+          "min": 0.4976413438233384,
+          "max": 0.9792720162557647
+        },
+        "azimuth_offset_deg": {
+          "min": -17.056507517648072,
+          "max": 32.04982260765962
+        },
+        "azimuth_deg": {
+          "min": 0.9356702209550306,
+          "max": 359.62238948390643
+        },
+        "board_x_m": {
+          "min": 0.3718168063878411,
+          "max": 0.7115517756189551
+        },
+        "board_y_m": {
+          "min": -0.3983792188316,
+          "max": 0.35150646932569285
+        },
+        "azimuth_circular_span_deg": 49.10633012530769
+      },
+      "max_board_center_error_m": 8.533832520487373e-05,
+      "min_actual_board_bottom_clearance_m": 0.03729730640299761,
+      "board_overhang_options": 16,
+      "max_weighted_ik_residual": {
+        "Arm10": 2.2660185545770246e-08,
+        "Arm14": 9.901023503496452e-05
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 9,
+        "near_25mm": 4,
+        "max_predicted_range_m": 0.595120226843261,
+        "min_actual_radius_m": 0.4976413438233384,
+        "max_actual_radius_m": 0.9792720162557647,
+        "best_range_match": {
+          "action_id": "shot-sweep-00-00386",
+          "predicted_range_m": 0.595120226843261,
+          "actual_radius_m": 0.5951202268432609,
+          "signed_error_m": 1.1102230246251565e-16,
+          "absolute_error_m": 1.1102230246251565e-16,
+          "height_m": 0.3793629037265617,
+          "gap_m": 0.4319063597166356,
+          "tilt_deg": 21.58751861641218,
+          "board_x_m": 0.48453653295034116,
+          "board_y_m": 0.14601451616603178
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 1,
+      "cell_id": "r1c2",
+      "bucket_xy_m": [
+        0.15571428571428578,
+        0.25
+      ],
+      "cpu_qualified_options": 128,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.1452293768819578,
+          "max": 0.5362569360573266
+        },
+        "gap_m": {
+          "min": 0.08338524629742108,
+          "max": 0.5355941071663092
+        },
+        "tilt_deg": {
+          "min": 12.23591208820039,
+          "max": 51.722275863723006
+        },
+        "radius_m": {
+          "min": 0.3031969012041535,
+          "max": 0.6864426561116492
+        },
+        "azimuth_offset_deg": {
+          "min": -16.298924473412058,
+          "max": 48.663104494862466
+        },
+        "azimuth_deg": {
+          "min": 0.6768829605995399,
+          "max": 359.9745140656724
+        },
+        "board_x_m": {
+          "min": 0.41298309523673304,
+          "max": 0.756181565117381
+        },
+        "board_y_m": {
+          "min": -0.2584819875718166,
+          "max": 0.3530863709101222
+        },
+        "azimuth_circular_span_deg": 64.96202896827452
+      },
+      "max_board_center_error_m": 7.74503853313378e-05,
+      "min_actual_board_bottom_clearance_m": 0.07375086473286718,
+      "board_overhang_options": 31,
+      "max_weighted_ik_residual": {
+        "Arm10": 3.205542915239101e-08,
+        "Arm14": 9.752368931687477e-05
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 39,
+        "near_25mm": 16,
+        "max_predicted_range_m": 0.5086969125715202,
+        "min_actual_radius_m": 0.3031969012041535,
+        "max_actual_radius_m": 0.6864426561116492,
+        "best_range_match": {
+          "action_id": "shot-sweep-01-00742",
+          "predicted_range_m": 0.47548142197383936,
+          "actual_radius_m": 0.4754814219738394,
+          "signed_error_m": -5.551115123125783e-17,
+          "absolute_error_m": 5.551115123125783e-17,
+          "height_m": 0.38394937688195796,
+          "gap_m": 0.30316328410690885,
+          "tilt_deg": 27.20110516251466,
+          "board_x_m": 0.518232118674233,
+          "board_y_m": -0.057674183883354324
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 2,
+      "cell_id": "r1c3",
+      "bucket_xy_m": [
+        0.4128571428571429,
+        0.25
+      ],
+      "cpu_qualified_options": 79,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.14061609692698165,
+          "max": 0.5388152898884413
+        },
+        "gap_m": {
+          "min": 0.08895120299605491,
+          "max": 0.4657522332777514
+        },
+        "tilt_deg": {
+          "min": 13.616078883005901,
+          "max": 50.6530277733492
+        },
+        "radius_m": {
+          "min": 0.3005298551173766,
+          "max": 0.576626410503145
+        },
+        "azimuth_offset_deg": {
+          "min": -21.4821696030605,
+          "max": 60.79662800276702
+        },
+        "azimuth_deg": {
+          "min": 7.101125125342245,
+          "max": 353.4705128730351
+        },
+        "board_x_m": {
+          "min": 0.5066906987709974,
+          "max": 0.7347668706459973
+        },
+        "board_y_m": {
+          "min": -0.27146985253906675,
+          "max": 0.28980129515183406
+        },
+        "azimuth_circular_span_deg": 82.27879760582755
+      },
+      "max_board_center_error_m": 9.152387704642706e-05,
+      "min_actual_board_bottom_clearance_m": 0.05095783605126486,
+      "board_overhang_options": 2,
+      "max_weighted_ik_residual": {
+        "Arm10": 2.402241485819029e-08,
+        "Arm14": 9.858234343318533e-05
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 22,
+        "near_25mm": 9,
+        "max_predicted_range_m": 0.5435464135193635,
+        "min_actual_radius_m": 0.3005298551173766,
+        "max_actual_radius_m": 0.576626410503145,
+        "best_range_match": {
+          "action_id": "shot-sweep-02-00278",
+          "predicted_range_m": 0.39987183146775757,
+          "actual_radius_m": 0.39987183146775757,
+          "signed_error_m": 0.0,
+          "absolute_error_m": 0.0,
+          "height_m": 0.38713528988844137,
+          "gap_m": 0.2336691774496685,
+          "tilt_deg": 26.574965061383956,
+          "board_x_m": 0.6609387456459974,
+          "board_y_m": -0.06361281855034517
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 3,
+      "cell_id": "r1c4",
+      "bucket_xy_m": [
+        0.6700000000000002,
+        0.25
+      ],
+      "cpu_qualified_options": 42,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.16212236312948045,
+          "max": 0.5396199631294805
+        },
+        "gap_m": {
+          "min": 0.08281668378302184,
+          "max": 0.41798665488600995
+        },
+        "tilt_deg": {
+          "min": 13.317275631733928,
+          "max": 51.40140724356233
+        },
+        "radius_m": {
+          "min": 0.300725388732831,
+          "max": 0.5188511132887839
+        },
+        "azimuth_offset_deg": {
+          "min": -22.676043417795654,
+          "max": 7.612299086219139
+        },
+        "azimuth_deg": {
+          "min": 247.32395658220432,
+          "max": 277.6122990862191
+        },
+        "board_x_m": {
+          "min": 0.5407516317647247,
+          "max": 0.7127975302022248
+        },
+        "board_y_m": {
+          "min": -0.2681782076672955,
+          "max": -0.028313857720640656
+        },
+        "azimuth_circular_span_deg": 30.288342504014736
+      },
+      "max_board_center_error_m": 1.252346337710076e-05,
+      "min_actual_board_bottom_clearance_m": 0.10002079081529393,
+      "board_overhang_options": 0,
+      "max_weighted_ik_residual": {
+        "Arm10": 4.464640411394256e-08,
+        "Arm14": 1.622450081581715e-05
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 14,
+        "near_25mm": 5,
+        "max_predicted_range_m": 0.4435395474888344,
+        "min_actual_radius_m": 0.300725388732831,
+        "max_actual_radius_m": 0.5188511132887839,
+        "best_range_match": {
+          "action_id": "shot-sweep-03-00996",
+          "predicted_range_m": 0.3219821993962207,
+          "actual_radius_m": 0.3219821993962207,
+          "signed_error_m": 0.0,
+          "absolute_error_m": 0.0,
+          "height_m": 0.3038439631294805,
+          "gap_m": 0.21909421412478777,
+          "tilt_deg": 23.62964547763147,
+          "board_x_m": 0.6501754598897248,
+          "board_y_m": -0.07137131847357459
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 4,
+      "cell_id": "r1c5",
+      "bucket_xy_m": [
+        0.9271428571428573,
+        0.25
+      ],
+      "cpu_qualified_options": 39,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.15443257517520217,
+          "max": 0.5386885751752022
+        },
+        "gap_m": {
+          "min": 0.09532704929998922,
+          "max": 0.44977447081128163
+        },
+        "tilt_deg": {
+          "min": 12.95570763491686,
+          "max": 46.69165099185147
+        },
+        "radius_m": {
+          "min": 0.3003103821400556,
+          "max": 0.598990592090922
+        },
+        "azimuth_offset_deg": {
+          "min": -53.334845583829775,
+          "max": 9.479259837330403
+        },
+        "azimuth_deg": {
+          "min": 180.36065729359498,
+          "max": 243.17476271475516
+        },
+        "board_x_m": {
+          "min": 0.5816710689538566,
+          "max": 0.6847228267663565
+        },
+        "board_y_m": {
+          "min": -0.27678271329708526,
+          "max": 0.24802451430362793
+        },
+        "azimuth_circular_span_deg": 62.81410542116021
+      },
+      "max_board_center_error_m": 1.1885488800424925e-06,
+      "min_actual_board_bottom_clearance_m": 0.0957720010342169,
+      "board_overhang_options": 1,
+      "max_weighted_ik_residual": {
+        "Arm10": 2.5534792139445545e-08,
+        "Arm14": 1.1717811828180124e-06
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 12,
+        "near_25mm": 6,
+        "max_predicted_range_m": 0.4813331871455617,
+        "min_actual_radius_m": 0.3003103821400556,
+        "max_actual_radius_m": 0.598990592090922,
+        "best_range_match": {
+          "action_id": "shot-sweep-04-00266",
+          "predicted_range_m": 0.3138373807122055,
+          "actual_radius_m": 0.31383738071220546,
+          "signed_error_m": 5.551115123125783e-17,
+          "absolute_error_m": 5.551115123125783e-17,
+          "height_m": 0.4237701751752022,
+          "gap_m": 0.18712411949090876,
+          "tilt_deg": 18.351078611295748,
+          "board_x_m": 0.6133116939538565,
+          "board_y_m": 0.24802451430362793
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 5,
+      "cell_id": "r1c6",
+      "bucket_xy_m": [
+        1.1842857142857144,
+        0.25
+      ],
+      "cpu_qualified_options": 15,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.18365835054873828,
+          "max": 0.4618507720280531
+        },
+        "gap_m": {
+          "min": 0.18186225850768217,
+          "max": 0.4373558028642002
+        },
+        "tilt_deg": {
+          "min": 14.914895829755393,
+          "max": 52.0
+        },
+        "radius_m": {
+          "min": 0.4917888659805564,
+          "max": 0.6724791305306081
+        },
+        "azimuth_offset_deg": {
+          "min": -38.51976000792075,
+          "max": 4.164931206250429
+        },
+        "azimuth_deg": {
+          "min": 175.71770276893676,
+          "max": 218.40239398310794
+        },
+        "board_x_m": {
+          "min": 0.5974098378400668,
+          "max": 0.6938697987775668
+        },
+        "board_y_m": {
+          "min": -0.16773093916062853,
+          "max": 0.28672218020144125
+        },
+        "azimuth_circular_span_deg": 42.68469121417115
+      },
+      "max_board_center_error_m": 5.789680860563323e-07,
+      "min_actual_board_bottom_clearance_m": 0.08846414454818345,
+      "board_overhang_options": 2,
+      "max_weighted_ik_residual": {
+        "Arm10": 6.321767664237852e-05,
+        "Arm14": 7.145354846895667e-07
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 0,
+        "near_25mm": 0,
+        "max_predicted_range_m": 0.4832101059435058,
+        "min_actual_radius_m": 0.4917888659805564,
+        "max_actual_radius_m": 0.6724791305306081,
+        "best_range_match": {
+          "action_id": "shot-sweep-05-01132",
+          "predicted_range_m": 0.4832101059435058,
+          "actual_radius_m": 0.5976498899699776,
+          "signed_error_m": -0.11443978402647181,
+          "absolute_error_m": 0.11443978402647181,
+          "height_m": 0.33648757202805313,
+          "gap_m": 0.3453065229871807,
+          "tilt_deg": 24.651315178836132,
+          "board_x_m": 0.6332252675275668,
+          "board_y_m": 0.018660909053750396
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 6,
+      "cell_id": "r1c7",
+      "bucket_xy_m": [
+        1.4414285714285717,
+        0.25
+      ],
+      "cpu_qualified_options": 13,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.17592481859022097,
+          "max": 0.466228818590221
+        },
+        "gap_m": {
+          "min": 0.08,
+          "max": 0.2861181412442806
+        },
+        "tilt_deg": {
+          "min": 12.0,
+          "max": 51.66986035174894
+        },
+        "radius_m": {
+          "min": 0.7486614621214145,
+          "max": 0.9572415555738233
+        },
+        "azimuth_offset_deg": {
+          "min": -26.484441320941414,
+          "max": 12.855464142665994
+        },
+        "azimuth_deg": {
+          "min": 177.9195303679102,
+          "max": 217.25943583151758
+        },
+        "board_x_m": {
+          "min": 0.571971544652814,
+          "max": 0.772362169652814
+        },
+        "board_y_m": {
+          "min": -0.2869502370703847,
+          "max": 0.277178706688189
+        },
+        "azimuth_circular_span_deg": 39.33990546360735
+      },
+      "max_board_center_error_m": 2.2641958285998316e-07,
+      "min_actual_board_bottom_clearance_m": 0.09234914002563883,
+      "board_overhang_options": 1,
+      "max_weighted_ik_residual": {
+        "Arm10": 7.588474402259567e-09,
+        "Arm14": 2.3500071113392743e-07
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 0,
+        "near_25mm": 0,
+        "max_predicted_range_m": 0.3682214095275485,
+        "min_actual_radius_m": 0.7486614621214145,
+        "max_actual_radius_m": 0.9572415555738233,
+        "best_range_match": {
+          "action_id": "shot-sweep-06-01603",
+          "predicted_range_m": 0.3255873513357713,
+          "actual_radius_m": 0.7885147341489005,
+          "signed_error_m": -0.4629273828131292,
+          "absolute_error_m": 0.4629273828131292,
+          "height_m": 0.381364818590221,
+          "gap_m": 0.21334846194398904,
+          "tilt_deg": 39.799086497504014,
+          "board_x_m": 0.698534044652814,
+          "board_y_m": -0.014316492214417553
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 7,
+      "cell_id": "r2c1",
+      "bucket_xy_m": [
+        -0.12899999999999998,
+        -0.124
+      ],
+      "cpu_qualified_options": 89,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.14104605450547106,
+          "max": 0.515283530488445
+        },
+        "gap_m": {
+          "min": 0.08631063116320158,
+          "max": 0.5207685684842672
+        },
+        "tilt_deg": {
+          "min": 12.806387633851424,
+          "max": 52.0
+        },
+        "radius_m": {
+          "min": 0.5093091713688057,
+          "max": 0.9415845938274985
+        },
+        "azimuth_offset_deg": {
+          "min": -21.324291225044135,
+          "max": 32.84186444281761
+        },
+        "azimuth_deg": {
+          "min": 0.09829081723844452,
+          "max": 359.8519641961721
+        },
+        "board_x_m": {
+          "min": 0.3797282948131018,
+          "max": 0.7101970448131019
+        },
+        "board_y_m": {
+          "min": -0.40660952439552567,
+          "max": 0.35470734803245785
+        },
+        "azimuth_circular_span_deg": 54.166155667861744
+      },
+      "max_board_center_error_m": 4.973574831099199e-05,
+      "min_actual_board_bottom_clearance_m": 0.027918512749279728,
+      "board_overhang_options": 6,
+      "max_weighted_ik_residual": {
+        "Arm10": 1.5192979570665376e-07,
+        "Arm14": 6.0309500934005785e-05
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 4,
+        "near_25mm": 2,
+        "max_predicted_range_m": 0.603182262363035,
+        "min_actual_radius_m": 0.5093091713688057,
+        "max_actual_radius_m": 0.9415845938274985,
+        "best_range_match": {
+          "action_id": "shot-sweep-07-01708",
+          "predicted_range_m": 0.5334873736431307,
+          "actual_radius_m": 0.5334873736431307,
+          "signed_error_m": 0.0,
+          "absolute_error_m": 0.0,
+          "height_m": 0.514899530488445,
+          "gap_m": 0.30181492793052567,
+          "tilt_deg": 35.950165559380515,
+          "board_x_m": 0.4037954592100941,
+          "board_y_m": -0.09683795880736745
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 8,
+      "cell_id": "r2c2",
+      "bucket_xy_m": [
+        0.18760714285714292,
+        0.0
+      ],
+      "cpu_qualified_options": 128,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.14102658494791684,
+          "max": 0.5381849849479169
+        },
+        "gap_m": {
+          "min": 0.08987856365483358,
+          "max": 0.5565476394122347
+        },
+        "tilt_deg": {
+          "min": 12.306973540510384,
+          "max": 51.49555355553668
+        },
+        "radius_m": {
+          "min": 0.30304139074383296,
+          "max": 0.5258487841953874
+        },
+        "azimuth_offset_deg": {
+          "min": -26.069247982614684,
+          "max": 54.48324799159644
+        },
+        "azimuth_deg": {
+          "min": 0.38511520861501713,
+          "max": 359.4969556801407
+        },
+        "board_x_m": {
+          "min": 0.45361527951712877,
+          "max": 0.6920185998296288
+        },
+        "board_y_m": {
+          "min": -0.2998800507411169,
+          "max": 0.31702286040047745
+        },
+        "azimuth_circular_span_deg": 80.55249597421113
+      },
+      "max_board_center_error_m": 5.89469091250251e-05,
+      "min_actual_board_bottom_clearance_m": 0.05930527269405417,
+      "board_overhang_options": 10,
+      "max_weighted_ik_residual": {
+        "Arm10": 2.5371944217970693e-08,
+        "Arm14": 7.989173774337772e-05
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 47,
+        "near_25mm": 27,
+        "max_predicted_range_m": 0.5180671319195362,
+        "min_actual_radius_m": 0.30304139074383296,
+        "max_actual_radius_m": 0.5258487841953874,
+        "best_range_match": {
+          "action_id": "shot-sweep-08-00789",
+          "predicted_range_m": 0.39082788745541963,
+          "actual_radius_m": 0.39082788745541963,
+          "signed_error_m": 0.0,
+          "absolute_error_m": 0.0,
+          "height_m": 0.4307929849479169,
+          "gap_m": 0.22944674476534102,
+          "tilt_deg": 20.76734526382021,
+          "board_x_m": 0.5784199670171287,
+          "board_y_m": -0.003431338654544702
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 9,
+      "cell_id": "r2c3",
+      "bucket_xy_m": [
+        0.4128571428571429,
+        0.0
+      ],
+      "cpu_qualified_options": 50,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.14367012698012788,
+          "max": 0.49889572698012796
+        },
+        "gap_m": {
+          "min": 0.09908753960606018,
+          "max": 0.3862691091756191
+        },
+        "tilt_deg": {
+          "min": 13.927743003277987,
+          "max": 50.70089908740799
+        },
+        "radius_m": {
+          "min": 0.3011818617187101,
+          "max": 0.42564212569165544
+        },
+        "azimuth_offset_deg": {
+          "min": -41.926035065768104,
+          "max": 83.14184530768716
+        },
+        "azimuth_deg": {
+          "min": 6.964496971994079,
+          "max": 352.862395497163
+        },
+        "board_x_m": {
+          "min": 0.5487633397489385,
+          "max": 0.7482750584989385
+        },
+        "board_y_m": {
+          "min": -0.36017921188799606,
+          "max": 0.3462679760406733
+        },
+        "azimuth_circular_span_deg": 125.06788037345524
+      },
+      "max_board_center_error_m": 6.988426031865048e-05,
+      "min_actual_board_bottom_clearance_m": 0.06861208168484975,
+      "board_overhang_options": 21,
+      "max_weighted_ik_residual": {
+        "Arm10": 1.4193011192612684e-08,
+        "Arm14": 6.579614109821738e-05
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 17,
+        "near_25mm": 5,
+        "max_predicted_range_m": 0.42048413522078354,
+        "min_actual_radius_m": 0.3011818617187101,
+        "max_actual_radius_m": 0.42564212569165544,
+        "best_range_match": {
+          "action_id": "shot-sweep-09-01044",
+          "predicted_range_m": 0.3162179338831232,
+          "actual_radius_m": 0.31621793388312314,
+          "signed_error_m": 5.551115123125783e-17,
+          "absolute_error_m": 5.551115123125783e-17,
+          "height_m": 0.17170212698012788,
+          "gap_m": 0.3398605189438808,
+          "tilt_deg": 20.856191525082778,
+          "board_x_m": 0.7267418553739385,
+          "board_y_m": 0.038342782339833015
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 10,
+      "cell_id": "r2c4",
+      "bucket_xy_m": [
+        0.6700000000000002,
+        0.0
+      ],
+      "cpu_qualified_options": 4,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.38,
+          "max": 0.45568683404670984
+        },
+        "gap_m": {
+          "min": 0.10136234671177388,
+          "max": 0.14
+        },
+        "tilt_deg": {
+          "min": 12.0,
+          "max": 39.999119156794904
+        },
+        "radius_m": {
+          "min": 0.30134176371200694,
+          "max": 0.31661475978078757
+        },
+        "azimuth_offset_deg": {
+          "min": -171.44223421723564,
+          "max": -2.901562200505168
+        },
+        "azimuth_deg": {
+          "min": 98.55776578276435,
+          "max": 267.0984377994948
+        },
+        "board_x_m": {
+          "min": 0.62,
+          "max": 0.6547460284870196
+        },
+        "board_y_m": {
+          "min": -0.30095543675126424,
+          "max": 0.3130896783226573
+        },
+        "azimuth_circular_span_deg": 168.5406720167304
+      },
+      "max_board_center_error_m": 1.6708978469494987e-12,
+      "min_actual_board_bottom_clearance_m": 0.3407143469961258,
+      "board_overhang_options": 3,
+      "max_weighted_ik_residual": {
+        "Arm10": 7.886738916387374e-09,
+        "Arm14": 1.7203938037064518e-12
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 1,
+        "near_25mm": 0,
+        "max_predicted_range_m": 0.2541846892679991,
+        "min_actual_radius_m": 0.30134176371200694,
+        "max_actual_radius_m": 0.31661475978078757,
+        "best_range_match": {
+          "action_id": "shot-sweep-10-01193",
+          "predicted_range_m": 0.2519950055487327,
+          "actual_radius_m": 0.30134176371200694,
+          "signed_error_m": -0.04934675816327422,
+          "absolute_error_m": 0.04934675816327422,
+          "height_m": 0.45568683404670984,
+          "gap_m": 0.10136234671177388,
+          "tilt_deg": 39.999119156794904,
+          "board_x_m": 0.6547460284870196,
+          "board_y_m": -0.30095543675126424
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 11,
+      "cell_id": "r2c5",
+      "bucket_xy_m": [
+        0.9271428571428573,
+        0.0
+      ],
+      "cpu_qualified_options": 28,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.23711056559366522,
+          "max": 0.5121825655936654
+        },
+        "gap_m": {
+          "min": 0.10682212158323132,
+          "max": 0.2851328957385039
+        },
+        "tilt_deg": {
+          "min": 12.768328789412033,
+          "max": 45.806943652266796
+        },
+        "radius_m": {
+          "min": 0.30668662441696376,
+          "max": 0.4008320644094947
+        },
+        "azimuth_offset_deg": {
+          "min": -66.44060331876767,
+          "max": 30.144645661706164
+        },
+        "azimuth_deg": {
+          "min": 134.80990218836556,
+          "max": 231.3951511688394
+        },
+        "board_x_m": {
+          "min": 0.5777289946375778,
+          "max": 0.7064887602625778
+        },
+        "board_y_m": {
+          "min": -0.31323730019494145,
+          "max": 0.22212316314906144
+        },
+        "azimuth_circular_span_deg": 96.5852489804738
+      },
+      "max_board_center_error_m": 8.993461535144467e-08,
+      "min_actual_board_bottom_clearance_m": 0.14922534445182317,
+      "board_overhang_options": 2,
+      "max_weighted_ik_residual": {
+        "Arm10": 2.709984730764368e-08,
+        "Arm14": 8.938545224422997e-08
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 10,
+        "near_25mm": 6,
+        "max_predicted_range_m": 0.35894977566777214,
+        "min_actual_radius_m": 0.30668662441696376,
+        "max_actual_radius_m": 0.4008320644094947,
+        "best_range_match": {
+          "action_id": "shot-sweep-11-01066",
+          "predicted_range_m": 0.31697696515129453,
+          "actual_radius_m": 0.3169769651512945,
+          "signed_error_m": 5.551115123125783e-17,
+          "absolute_error_m": 5.551115123125783e-17,
+          "height_m": 0.40425296559366536,
+          "gap_m": 0.15906064354962293,
+          "tilt_deg": 33.52872624285405,
+          "board_x_m": 0.6581489165125778,
+          "board_y_m": -0.16768022048148268
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 12,
+      "cell_id": "r2c6",
+      "bucket_xy_m": [
+        1.1523928571428572,
+        0.0
+      ],
+      "cpu_qualified_options": 23,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.15383693725348316,
+          "max": 0.46
+        },
+        "gap_m": {
+          "min": 0.10700583501903518,
+          "max": 0.37057426868217913
+        },
+        "tilt_deg": {
+          "min": 17.667958130450888,
+          "max": 44.80544873901587
+        },
+        "radius_m": {
+          "min": 0.45158758043075875,
+          "max": 0.5857274547819051
+        },
+        "azimuth_offset_deg": {
+          "min": -36.6773238339685,
+          "max": 8.377590025515076
+        },
+        "azimuth_deg": {
+          "min": 155.03420609111424,
+          "max": 200.08911995059782
+        },
+        "board_x_m": {
+          "min": 0.6040460878108488,
+          "max": 0.7121515565608488
+        },
+        "board_y_m": {
+          "min": -0.1667162955437217,
+          "max": 0.24722215290262128
+        },
+        "azimuth_circular_span_deg": 45.05491385948358
+      },
+      "max_board_center_error_m": 3.989981193048831e-07,
+      "min_actual_board_bottom_clearance_m": 0.08574197223244671,
+      "board_overhang_options": 1,
+      "max_weighted_ik_residual": {
+        "Arm10": 2.4447510967680328e-08,
+        "Arm14": 4.6158222409425566e-07
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 0,
+        "near_25mm": 0,
+        "max_predicted_range_m": 0.4836686115372633,
+        "min_actual_radius_m": 0.45158758043075875,
+        "max_actual_radius_m": 0.5857274547819051,
+        "best_range_match": {
+          "action_id": "shot-sweep-12-01228",
+          "predicted_range_m": 0.4836686115372633,
+          "actual_radius_m": 0.5429373821039153,
+          "signed_error_m": -0.059268770566651974,
+          "absolute_error_m": 0.059268770566651974,
+          "height_m": 0.3281473372534832,
+          "gap_m": 0.3525320315625593,
+          "tilt_deg": 25.574885086307997,
+          "board_x_m": 0.6095392518733488,
+          "board_y_m": -0.009537511821728129
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 13,
+      "cell_id": "r2c7",
+      "bucket_xy_m": [
+        1.469,
+        -0.124
+      ],
+      "cpu_qualified_options": 7,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.16259663607948446,
+          "max": 0.39837263607948453
+        },
+        "gap_m": {
+          "min": 0.12948336632289556,
+          "max": 0.4343563359188971
+        },
+        "tilt_deg": {
+          "min": 20.0,
+          "max": 43.60397024787861
+        },
+        "radius_m": {
+          "min": 0.7727464008327701,
+          "max": 0.8550519412858724
+        },
+        "azimuth_offset_deg": {
+          "min": -21.90763620128496,
+          "max": 9.761612680468204
+        },
+        "azimuth_deg": {
+          "min": 156.37185645305843,
+          "max": 188.04110533481156
+        },
+        "board_x_m": {
+          "min": 0.6311383225465214,
+          "max": 0.7
+        },
+        "board_y_m": {
+          "min": -0.2374002044134178,
+          "max": 0.2187040479871305
+        },
+        "azimuth_circular_span_deg": 31.669248881753106
+      },
+      "max_board_center_error_m": 2.5119167968033953e-05,
+      "min_actual_board_bottom_clearance_m": 0.07338181422327698,
+      "board_overhang_options": 1,
+      "max_weighted_ik_residual": {
+        "Arm10": 3.675779958884354e-08,
+        "Arm14": 2.9051296923045037e-05
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 0,
+        "near_25mm": 0,
+        "max_predicted_range_m": 0.5032406782490413,
+        "min_actual_radius_m": 0.7727464008327701,
+        "max_actual_radius_m": 0.8550519412858724,
+        "best_range_match": {
+          "action_id": "shot-sweep-13-01463",
+          "predicted_range_m": 0.5032406782490413,
+          "actual_radius_m": 0.8418718284429578,
+          "signed_error_m": -0.33863115019391654,
+          "absolute_error_m": 0.33863115019391654,
+          "height_m": 0.2656366360794845,
+          "gap_m": 0.42795900147491533,
+          "tilt_deg": 23.318470623536015,
+          "board_x_m": 0.6311383225465214,
+          "board_y_m": -0.041926953384611165
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 14,
+      "cell_id": "r3c1",
+      "bucket_xy_m": [
+        -0.1014285714285714,
+        -0.25
+      ],
+      "cpu_qualified_options": 84,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.14709129695244472,
+          "max": 0.5339072969524448
+        },
+        "gap_m": {
+          "min": 0.08443438603458611,
+          "max": 0.5131215551607055
+        },
+        "tilt_deg": {
+          "min": 12.5315261127507,
+          "max": 52.0
+        },
+        "radius_m": {
+          "min": 0.5035865974433908,
+          "max": 0.9460922099229401
+        },
+        "azimuth_offset_deg": {
+          "min": -22.6589773107346,
+          "max": 30.444399565580625
+        },
+        "azimuth_deg": {
+          "min": 0.5983986787091251,
+          "max": 359.40905355257894
+        },
+        "board_x_m": {
+          "min": 0.3868336478069344,
+          "max": 0.7373707367042861
+        },
+        "board_y_m": {
+          "min": -0.401633322129158,
+          "max": 0.33396338568977213
+        },
+        "azimuth_circular_span_deg": 53.103376876315224
+      },
+      "max_board_center_error_m": 5.5378474285438076e-05,
+      "min_actual_board_bottom_clearance_m": 0.04471500736356995,
+      "board_overhang_options": 5,
+      "max_weighted_ik_residual": {
+        "Arm10": 3.186072559491671e-05,
+        "Arm14": 6.829772145595674e-05
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 1,
+        "near_25mm": 1,
+        "max_predicted_range_m": 0.574091618917904,
+        "min_actual_radius_m": 0.5035865974433908,
+        "max_actual_radius_m": 0.9460922099229401,
+        "best_range_match": {
+          "action_id": "shot-sweep-14-01701",
+          "predicted_range_m": 0.5528966281583549,
+          "actual_radius_m": 0.5767403135413692,
+          "signed_error_m": -0.02384368538301429,
+          "absolute_error_m": 0.02384368538301429,
+          "height_m": 0.4859723861415655,
+          "gap_m": 0.3090627971514894,
+          "tilt_deg": 28.275563194864887,
+          "board_x_m": 0.4745045462444344,
+          "board_y_m": -0.2194969963569402
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 15,
+      "cell_id": "r3c2",
+      "bucket_xy_m": [
+        0.15571428571428578,
+        -0.25
+      ],
+      "cpu_qualified_options": 128,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.1429021656581937,
+          "max": 0.5392669656581939
+        },
+        "gap_m": {
+          "min": 0.08492695429888594,
+          "max": 0.5237334975385013
+        },
+        "tilt_deg": {
+          "min": 12.059067362712145,
+          "max": 51.057686858884054
+        },
+        "radius_m": {
+          "min": 0.304578739639298,
+          "max": 0.7917750906282112
+        },
+        "azimuth_offset_deg": {
+          "min": -36.89581090640445,
+          "max": 36.792961769641124
+        },
+        "azimuth_deg": {
+          "min": 0.04756380333213701,
+          "max": 359.52591236532294
+        },
+        "board_x_m": {
+          "min": 0.41264230744750974,
+          "max": 0.7082693582099643
+        },
+        "board_y_m": {
+          "min": -0.3931754778751425,
+          "max": 0.34163680059905555
+        },
+        "azimuth_circular_span_deg": 73.68877267604557
+      },
+      "max_board_center_error_m": 9.060571724336533e-05,
+      "min_actual_board_bottom_clearance_m": 0.021158448470010346,
+      "board_overhang_options": 3,
+      "max_weighted_ik_residual": {
+        "Arm10": 5.7760069584677926e-08,
+        "Arm14": 9.932912697926781e-05
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 36,
+        "near_25mm": 21,
+        "max_predicted_range_m": 0.5117105845263533,
+        "min_actual_radius_m": 0.304578739639298,
+        "max_actual_radius_m": 0.7917750906282112,
+        "best_range_match": {
+          "action_id": "shot-sweep-15-01756",
+          "predicted_range_m": 0.49697844767012794,
+          "actual_radius_m": 0.49697844767012794,
+          "signed_error_m": 0.0,
+          "absolute_error_m": 0.0,
+          "height_m": 0.2360861656581937,
+          "gap_m": 0.45935313794852994,
+          "tilt_deg": 19.48036788464713,
+          "board_x_m": 0.5411823465100097,
+          "board_y_m": 0.0636908534767856
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 16,
+      "cell_id": "r3c3",
+      "bucket_xy_m": [
+        0.4128571428571429,
+        -0.25
+      ],
+      "cpu_qualified_options": 55,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.1420089773996744,
+          "max": 0.5255993773996744
+        },
+        "gap_m": {
+          "min": 0.09152557421511973,
+          "max": 0.4670263733690707
+        },
+        "tilt_deg": {
+          "min": 12.139508338360805,
+          "max": 51.708852899005635
+        },
+        "radius_m": {
+          "min": 0.30224316247434474,
+          "max": 0.6017356335691045
+        },
+        "azimuth_offset_deg": {
+          "min": -57.91361766990231,
+          "max": 44.674403032122626
+        },
+        "azimuth_deg": {
+          "min": 3.6035619270068784,
+          "max": 348.20501663036106
+        },
+        "board_x_m": {
+          "min": 0.49783311810238806,
+          "max": 0.7434961278589817
+        },
+        "board_y_m": {
+          "min": -0.3962095315463705,
+          "max": 0.2925088883266329
+        },
+        "azimuth_circular_span_deg": 102.58802070202489
+      },
+      "max_board_center_error_m": 4.7994395179612525e-05,
+      "min_actual_board_bottom_clearance_m": 0.07188887584298737,
+      "board_overhang_options": 3,
+      "max_weighted_ik_residual": {
+        "Arm10": 4.600406153834562e-05,
+        "Arm14": 5.964887292904679e-05
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 16,
+        "near_25mm": 7,
+        "max_predicted_range_m": 0.4507587624695515,
+        "min_actual_radius_m": 0.30224316247434474,
+        "max_actual_radius_m": 0.6017356335691045,
+        "best_range_match": {
+          "action_id": "shot-sweep-16-01788",
+          "predicted_range_m": 0.4405166196846247,
+          "actual_radius_m": 0.4405166196846248,
+          "signed_error_m": -1.1102230246251565e-16,
+          "absolute_error_m": 1.1102230246251565e-16,
+          "height_m": 0.3932473773996744,
+          "gap_m": 0.2659259099875564,
+          "tilt_deg": 28.499358400834772,
+          "board_x_m": 0.5356260868523881,
+          "board_y_m": 0.17306344513401384
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 17,
+      "cell_id": "r3c4",
+      "bucket_xy_m": [
+        0.6700000000000002,
+        -0.25
+      ],
+      "cpu_qualified_options": 29,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.18480136811714312,
+          "max": 0.5384141681171432
+        },
+        "gap_m": {
+          "min": 0.09627711766937455,
+          "max": 0.37436124928120296
+        },
+        "tilt_deg": {
+          "min": 12.25109640333128,
+          "max": 51.07904531392482
+        },
+        "radius_m": {
+          "min": 0.30063745722356916,
+          "max": 0.5476038326422726
+        },
+        "azimuth_offset_deg": {
+          "min": -9.193823886735231,
+          "max": 19.725351336779255
+        },
+        "azimuth_deg": {
+          "min": 80.80617611326481,
+          "max": 109.72535133677931
+        },
+        "board_x_m": {
+          "min": 0.5497237366762443,
+          "max": 0.7180342835512442
+        },
+        "board_y_m": {
+          "min": 0.0467753161729797,
+          "max": 0.29673687436516394
+        },
+        "azimuth_circular_span_deg": 28.919175223514515
+      },
+      "max_board_center_error_m": 7.28999952790513e-05,
+      "min_actual_board_bottom_clearance_m": 0.08290493867764359,
+      "board_overhang_options": 1,
+      "max_weighted_ik_residual": {
+        "Arm10": 3.2496716406534626e-08,
+        "Arm14": 8.072897966019546e-05
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 10,
+        "near_25mm": 3,
+        "max_predicted_range_m": 0.3940178651105037,
+        "min_actual_radius_m": 0.30063745722356916,
+        "max_actual_radius_m": 0.5476038326422726,
+        "best_range_match": {
+          "action_id": "shot-sweep-17-01241",
+          "predicted_range_m": 0.3369884175462019,
+          "actual_radius_m": 0.3369884175462019,
+          "signed_error_m": 0.0,
+          "absolute_error_m": 0.0,
+          "height_m": 0.28323336811714317,
+          "gap_m": 0.24921491507398072,
+          "tilt_deg": 22.721166955508618,
+          "board_x_m": 0.5888350648012443,
+          "board_y_m": 0.07706795449030934
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 18,
+      "cell_id": "r3c5",
+      "bucket_xy_m": [
+        0.9271428571428573,
+        -0.25
+      ],
+      "cpu_qualified_options": 37,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.14412702775131234,
+          "max": 0.5318712067779143
+        },
+        "gap_m": {
+          "min": 0.09774058306599429,
+          "max": 0.37237883029898833
+        },
+        "tilt_deg": {
+          "min": 12.701719489313883,
+          "max": 50.38410505452824
+        },
+        "radius_m": {
+          "min": 0.3002834615901234,
+          "max": 0.6228731545563923
+        },
+        "azimuth_offset_deg": {
+          "min": -36.681432222154,
+          "max": 24.224082753924534
+        },
+        "azimuth_deg": {
+          "min": 113.06213061431676,
+          "max": 173.96764559039528
+        },
+        "board_x_m": {
+          "min": 0.5660914731006788,
+          "max": 0.7300374585377838
+        },
+        "board_y_m": {
+          "min": -0.21655941196011208,
+          "max": 0.31583545302079585
+        },
+        "azimuth_circular_span_deg": 60.90551497607851
+      },
+      "max_board_center_error_m": 8.536590289646334e-05,
+      "min_actual_board_bottom_clearance_m": 0.038863377380034855,
+      "board_overhang_options": 2,
+      "max_weighted_ik_residual": {
+        "Arm10": 2.4908931895407303e-08,
+        "Arm14": 9.524866654447969e-05
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 11,
+        "near_25mm": 6,
+        "max_predicted_range_m": 0.4537220073609611,
+        "min_actual_radius_m": 0.3002834615901234,
+        "max_actual_radius_m": 0.6228731545563923,
+        "best_range_match": {
+          "action_id": "shot-sweep-18-00824",
+          "predicted_range_m": 0.33578212665986673,
+          "actual_radius_m": 0.3357821266598666,
+          "signed_error_m": 1.1102230246251565e-16,
+          "absolute_error_m": 1.1102230246251565e-16,
+          "height_m": 0.42511920677791426,
+          "gap_m": 0.23645760562604842,
+          "tilt_deg": 15.621931305818912,
+          "board_x_m": 0.6381617856006788,
+          "board_y_m": -0.07900416123613696
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 19,
+      "cell_id": "r3c6",
+      "bucket_xy_m": [
+        1.1842857142857144,
+        -0.25
+      ],
+      "cpu_qualified_options": 15,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.16215234083020102,
+          "max": 0.46
+        },
+        "gap_m": {
+          "min": 0.08,
+          "max": 0.403036661865342
+        },
+        "tilt_deg": {
+          "min": 12.933455939969528,
+          "max": 44.0
+        },
+        "radius_m": {
+          "min": 0.4810388720541898,
+          "max": 0.6997088280674475
+        },
+        "azimuth_offset_deg": {
+          "min": -28.261637042130417,
+          "max": 14.489622488430967
+        },
+        "azimuth_deg": {
+          "min": 135.47815824955762,
+          "max": 178.229417780119
+        },
+        "board_x_m": {
+          "min": 0.58921869882062,
+          "max": 0.72457026132062
+        },
+        "board_y_m": {
+          "min": -0.23513706720603844,
+          "max": 0.2021057311478709
+        },
+        "azimuth_circular_span_deg": 42.751259530561356
+      },
+      "max_board_center_error_m": 1.4553895775756928e-05,
+      "min_actual_board_bottom_clearance_m": 0.06182887189566465,
+      "board_overhang_options": 0,
+      "max_weighted_ik_residual": {
+        "Arm10": 2.6298538954929567e-08,
+        "Arm14": 2.5533986994145346e-05
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 0,
+        "near_25mm": 0,
+        "max_predicted_range_m": 0.47452977160594895,
+        "min_actual_radius_m": 0.4810388720541898,
+        "max_actual_radius_m": 0.6997088280674475,
+        "best_range_match": {
+          "action_id": "shot-sweep-19-01284",
+          "predicted_range_m": 0.4330064350531722,
+          "actual_radius_m": 0.5703689978442589,
+          "signed_error_m": -0.13736256279108666,
+          "absolute_error_m": 0.13736256279108666,
+          "height_m": 0.3900607430446352,
+          "gap_m": 0.2620400217583714,
+          "tilt_deg": 25.643459775234184,
+          "board_x_m": 0.6319226153166666,
+          "board_y_m": -0.1078177205163241
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 20,
+      "cell_id": "r3c7",
+      "bucket_xy_m": [
+        1.4414285714285717,
+        -0.25
+      ],
+      "cpu_qualified_options": 6,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.17358025130995725,
+          "max": 0.46
+        },
+        "gap_m": {
+          "min": 0.11101060223533006,
+          "max": 0.3069289695822688
+        },
+        "tilt_deg": {
+          "min": 12.564885361912326,
+          "max": 36.0
+        },
+        "radius_m": {
+          "min": 0.8038466053592174,
+          "max": 0.9068968511241555
+        },
+        "azimuth_offset_deg": {
+          "min": -21.527433404347647,
+          "max": 4.091288542810162
+        },
+        "azimuth_deg": {
+          "min": 147.46902574390285,
+          "max": 173.08774769106066
+        },
+        "board_x_m": {
+          "min": 0.62,
+          "max": 0.6856121215906581
+        },
+        "board_y_m": {
+          "min": -0.15325776004957237,
+          "max": 0.2376887420080407
+        },
+        "azimuth_circular_span_deg": 25.618721947157837
+      },
+      "max_board_center_error_m": 2.1935616148578912e-14,
+      "min_actual_board_bottom_clearance_m": 0.08740900163591585,
+      "board_overhang_options": 1,
+      "max_weighted_ik_residual": {
+        "Arm10": 1.5845606197529923e-09,
+        "Arm14": 2.5937604904072908e-14
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 0,
+        "near_25mm": 0,
+        "max_predicted_range_m": 0.3250930657673287,
+        "min_actual_radius_m": 0.8038466053592174,
+        "max_actual_radius_m": 0.9068968511241555,
+        "best_range_match": {
+          "action_id": "shot-sweep-20-01699",
+          "predicted_range_m": 0.31831361498809596,
+          "actual_radius_m": 0.8038466053592174,
+          "signed_error_m": -0.4855329903711214,
+          "absolute_error_m": 0.4855329903711214,
+          "height_m": 0.33998025130995724,
+          "gap_m": 0.3069289695822688,
+          "tilt_deg": 12.564885361912326,
+          "board_x_m": 0.6434246215906582,
+          "board_y_m": -0.15325776004957237
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 21,
+      "cell_id": "r4c1",
+      "bucket_xy_m": [
+        -0.1014285714285714,
+        -0.5
+      ],
+      "cpu_qualified_options": 50,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.16198391607646806,
+          "max": 0.539839916076468
+        },
+        "gap_m": {
+          "min": 0.0875389280028849,
+          "max": 0.4943543643198899
+        },
+        "tilt_deg": {
+          "min": 12.297010516670117,
+          "max": 52.0
+        },
+        "radius_m": {
+          "min": 0.5410948783785382,
+          "max": 1.1212849023388562
+        },
+        "azimuth_offset_deg": {
+          "min": -23.488398064646503,
+          "max": 20.04959973871769
+        },
+        "azimuth_deg": {
+          "min": 3.9191773731719137,
+          "max": 47.45717517653611
+        },
+        "board_x_m": {
+          "min": 0.4135929001020596,
+          "max": 0.6989057191759444
+        },
+        "board_y_m": {
+          "min": -0.4489027809538003,
+          "max": 0.32613151259901163
+        },
+        "azimuth_circular_span_deg": 43.53799780336419
+      },
+      "max_board_center_error_m": 5.629488373946258e-05,
+      "min_actual_board_bottom_clearance_m": 0.04210870277682287,
+      "board_overhang_options": 1,
+      "max_weighted_ik_residual": {
+        "Arm10": 2.363684702144792e-05,
+        "Arm14": 6.380431610435168e-05
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 0,
+        "near_25mm": 0,
+        "max_predicted_range_m": 0.563367237730744,
+        "min_actual_radius_m": 0.5410948783785382,
+        "max_actual_radius_m": 1.1212849023388562,
+        "best_range_match": {
+          "action_id": "shot-sweep-21-01754",
+          "predicted_range_m": 0.46892120866531206,
+          "actual_radius_m": 0.6194813339903862,
+          "signed_error_m": -0.15056012532507412,
+          "absolute_error_m": 0.15056012532507412,
+          "height_m": 0.48491698584041104,
+          "gap_m": 0.35764346351042625,
+          "tilt_deg": 43.915922097340484,
+          "board_x_m": 0.41491125947705965,
+          "board_y_m": -0.15772773676084606
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 22,
+      "cell_id": "r4c2",
+      "bucket_xy_m": [
+        0.15571428571428578,
+        -0.5
+      ],
+      "cpu_qualified_options": 91,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.1570599713057572,
+          "max": 0.5394471713057573
+        },
+        "gap_m": {
+          "min": 0.0857757837965063,
+          "max": 0.5265921103271185
+        },
+        "tilt_deg": {
+          "min": 12.209176541318108,
+          "max": 51.542302537039
+        },
+        "radius_m": {
+          "min": 0.3220399217929856,
+          "max": 0.9162393311019785
+        },
+        "azimuth_offset_deg": {
+          "min": -29.131004406516183,
+          "max": 23.61696269041522
+        },
+        "azimuth_deg": {
+          "min": 8.743979244582011,
+          "max": 61.49194634151343
+        },
+        "board_x_m": {
+          "min": 0.4061173687941667,
+          "max": 0.6879409618937389
+        },
+        "board_y_m": {
+          "min": -0.43860665029622004,
+          "max": 0.30514534260815296
+        },
+        "azimuth_circular_span_deg": 52.747967096931404
+      },
+      "max_board_center_error_m": 7.569194831811019e-05,
+      "min_actual_board_bottom_clearance_m": 0.02692832128478334,
+      "board_overhang_options": 1,
+      "max_weighted_ik_residual": {
+        "Arm10": 6.852384676326562e-08,
+        "Arm14": 9.079803852886138e-05
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 15,
+        "near_25mm": 8,
+        "max_predicted_range_m": 0.5647638094093906,
+        "min_actual_radius_m": 0.3220399217929856,
+        "max_actual_radius_m": 0.9162393311019785,
+        "best_range_match": {
+          "action_id": "shot-sweep-22-00309",
+          "predicted_range_m": 0.44614314122234133,
+          "actual_radius_m": 0.4461431412223414,
+          "signed_error_m": -5.551115123125783e-17,
+          "absolute_error_m": 5.551115123125783e-17,
+          "height_m": 0.3508519713057572,
+          "gap_m": 0.41505923085925744,
+          "tilt_deg": 38.128843859107185,
+          "board_x_m": 0.5120255719191668,
+          "board_y_m": -0.23151169525887827
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 23,
+      "cell_id": "r4c3",
+      "bucket_xy_m": [
+        0.4128571428571429,
+        -0.5
+      ],
+      "cpu_qualified_options": 86,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.14384816492849617,
+          "max": 0.5315937788264595
+        },
+        "gap_m": {
+          "min": 0.08032030255169995,
+          "max": 0.5369952295877927
+        },
+        "tilt_deg": {
+          "min": 12.921508353675444,
+          "max": 50.40588986138056
+        },
+        "radius_m": {
+          "min": 0.300493280125424,
+          "max": 0.9050966977327203
+        },
+        "azimuth_offset_deg": {
+          "min": -23.660619867241962,
+          "max": 23.12557098806562
+        },
+        "azimuth_deg": {
+          "min": 33.60415386065044,
+          "max": 80.39034471595804
+        },
+        "board_x_m": {
+          "min": 0.4789416398349724,
+          "max": 0.7125109757724724
+        },
+        "board_y_m": {
+          "min": -0.3205903608594969,
+          "max": 0.35757686287066637
+        },
+        "azimuth_circular_span_deg": 46.78619085530761
+      },
+      "max_board_center_error_m": 7.947706581621601e-05,
+      "min_actual_board_bottom_clearance_m": 0.07542452536780482,
+      "board_overhang_options": 2,
+      "max_weighted_ik_residual": {
+        "Arm10": 3.090099456102537e-08,
+        "Arm14": 8.712145184261928e-05
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 24,
+        "near_25mm": 14,
+        "max_predicted_range_m": 0.5497915839819557,
+        "min_actual_radius_m": 0.300493280125424,
+        "max_actual_radius_m": 0.9050966977327203,
+        "best_range_match": {
+          "action_id": "shot-sweep-23-00572",
+          "predicted_range_m": 0.3254022323839768,
+          "actual_radius_m": 0.32540223238397675,
+          "signed_error_m": 5.551115123125783e-17,
+          "absolute_error_m": 5.551115123125783e-17,
+          "height_m": 0.32075217882645957,
+          "gap_m": 0.2182389329522085,
+          "tilt_deg": 21.75116266437932,
+          "board_x_m": 0.5433215226474724,
+          "board_y_m": -0.2018965641821613
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 24,
+      "cell_id": "r4c4",
+      "bucket_xy_m": [
+        0.6700000000000002,
+        -0.5
+      ],
+      "cpu_qualified_options": 46,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.15669162176094104,
+          "max": 0.5395161844968897
+        },
+        "gap_m": {
+          "min": 0.10750071148997785,
+          "max": 0.3865844266086783
+        },
+        "tilt_deg": {
+          "min": 13.682707337952444,
+          "max": 51.81950877323604
+        },
+        "radius_m": {
+          "min": 0.30658365141498983,
+          "max": 0.8380340307584349
+        },
+        "azimuth_offset_deg": {
+          "min": -12.201331934067213,
+          "max": 22.491798663187666
+        },
+        "azimuth_deg": {
+          "min": 77.7986680659328,
+          "max": 112.4917986631877
+        },
+        "board_x_m": {
+          "min": 0.5385566934387055,
+          "max": 0.7384947042569119
+        },
+        "board_y_m": {
+          "min": -0.2133188043143559,
+          "max": 0.33802690604137364
+        },
+        "azimuth_circular_span_deg": 34.69313059725488
+      },
+      "max_board_center_error_m": 7.673627894118183e-05,
+      "min_actual_board_bottom_clearance_m": 0.07444293425236705,
+      "board_overhang_options": 1,
+      "max_weighted_ik_residual": {
+        "Arm10": 1.6232773283547354e-08,
+        "Arm14": 8.602911676643667e-05
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 13,
+        "near_25mm": 7,
+        "max_predicted_range_m": 0.4607806994222825,
+        "min_actual_radius_m": 0.30658365141498983,
+        "max_actual_radius_m": 0.8380340307584349,
+        "best_range_match": {
+          "action_id": "shot-sweep-24-00121",
+          "predicted_range_m": 0.32403416216567416,
+          "actual_radius_m": 0.32403416216567416,
+          "signed_error_m": 0.0,
+          "absolute_error_m": 0.0,
+          "height_m": 0.32396418449688974,
+          "gap_m": 0.23494816156386825,
+          "tilt_deg": 35.25705136127605,
+          "board_x_m": 0.6145820840637055,
+          "board_y_m": -0.18073992914288795
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 25,
+      "cell_id": "r4c5",
+      "bucket_xy_m": [
+        0.9271428571428573,
+        -0.5
+      ],
+      "cpu_qualified_options": 33,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.1677211294503405,
+          "max": 0.5250971294503407
+        },
+        "gap_m": {
+          "min": 0.10035572755664313,
+          "max": 0.43699728588743236
+        },
+        "tilt_deg": {
+          "min": 13.82052867484096,
+          "max": 41.843899660133054
+        },
+        "radius_m": {
+          "min": 0.30600515788356397,
+          "max": 0.6969690465499547
+        },
+        "azimuth_offset_deg": {
+          "min": -13.106608967805386,
+          "max": 26.085441373089168
+        },
+        "azimuth_deg": {
+          "min": 109.62861730430222,
+          "max": 148.82066764519675
+        },
+        "board_x_m": {
+          "min": 0.5722839605968019,
+          "max": 0.6962097418468018
+        },
+        "board_y_m": {
+          "min": -0.33206764433820346,
+          "max": 0.1564680278970214
+        },
+        "azimuth_circular_span_deg": 39.192050340894525
+      },
+      "max_board_center_error_m": 6.518502715821096e-05,
+      "min_actual_board_bottom_clearance_m": 0.08802476029127583,
+      "board_overhang_options": 0,
+      "max_weighted_ik_residual": {
+        "Arm10": 4.700776214612356e-08,
+        "Arm14": 7.985212794655792e-05
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 7,
+        "near_25mm": 2,
+        "max_predicted_range_m": 0.5028227988705586,
+        "min_actual_radius_m": 0.30600515788356397,
+        "max_actual_radius_m": 0.6969690465499547,
+        "best_range_match": {
+          "action_id": "shot-sweep-25-01396",
+          "predicted_range_m": 0.4640143695803823,
+          "actual_radius_m": 0.46401436958038234,
+          "signed_error_m": -5.551115123125783e-17,
+          "absolute_error_m": 5.551115123125783e-17,
+          "height_m": 0.4144539294503407,
+          "gap_m": 0.2782664087768319,
+          "tilt_deg": 30.768229037784966,
+          "board_x_m": 0.6140320074718019,
+          "board_y_m": -0.1575515644723291
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 26,
+      "cell_id": "r4c6",
+      "bucket_xy_m": [
+        1.1842857142857144,
+        -0.5
+      ],
+      "cpu_qualified_options": 8,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.1804108693057169,
+          "max": 0.43769086930571693
+        },
+        "gap_m": {
+          "min": 0.08,
+          "max": 0.3310435723313054
+        },
+        "tilt_deg": {
+          "min": 15.355447815908498,
+          "max": 48.14282572725336
+        },
+        "radius_m": {
+          "min": 0.7018180431674192,
+          "max": 0.9786459148392915
+        },
+        "azimuth_offset_deg": {
+          "min": -22.144881076321838,
+          "max": -0.7121557921539932
+        },
+        "azimuth_deg": {
+          "min": 119.98013527257997,
+          "max": 141.41286055674783
+        },
+        "board_x_m": {
+          "min": 0.62,
+          "max": 0.73691996809709
+        },
+        "board_y_m": {
+          "min": -0.05888114955572876,
+          "max": 0.333780030142488
+        },
+        "azimuth_circular_span_deg": 21.432725284167873
+      },
+      "max_board_center_error_m": 1.686910992285187e-09,
+      "min_actual_board_bottom_clearance_m": 0.08760589884296843,
+      "board_overhang_options": 2,
+      "max_weighted_ik_residual": {
+        "Arm10": 1.707405875223101e-08,
+        "Arm14": 2.988708648721515e-09
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 0,
+        "near_25mm": 0,
+        "max_predicted_range_m": 0.3080591664871556,
+        "min_actual_radius_m": 0.7018180431674192,
+        "max_actual_radius_m": 0.9786459148392915,
+        "best_range_match": {
+          "action_id": "shot-sweep-26-00691",
+          "predicted_range_m": 0.3080591664871556,
+          "actual_radius_m": 0.7072565449632866,
+          "signed_error_m": -0.399197378476131,
+          "absolute_error_m": 0.399197378476131,
+          "height_m": 0.1893708693057169,
+          "gap_m": 0.3310435723313054,
+          "tilt_deg": 15.956499656629761,
+          "board_x_m": 0.63145121809709,
+          "board_y_m": -0.05888114955572876
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 27,
+      "cell_id": "r4c7",
+      "bucket_xy_m": [
+        1.4414285714285717,
+        -0.5
+      ],
+      "cpu_qualified_options": 8,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.25046391884602137,
+          "max": 0.5192639188460215
+        },
+        "gap_m": {
+          "min": 0.10216426331637747,
+          "max": 0.22111470063416166
+        },
+        "tilt_deg": {
+          "min": 18.550052773701545,
+          "max": 47.9114351929352
+        },
+        "radius_m": {
+          "min": 0.8202678081096515,
+          "max": 1.1036545531308855
+        },
+        "azimuth_offset_deg": {
+          "min": -17.186313433784335,
+          "max": 9.525251976355122
+        },
+        "azimuth_deg": {
+          "min": 135.40611112839727,
+          "max": 162.11767653853673
+        },
+        "board_x_m": {
+          "min": 0.5746557593217894,
+          "max": 0.7029760718217893
+        },
+        "board_y_m": {
+          "min": -0.24812608702977013,
+          "max": 0.2748505933543175
+        },
+        "azimuth_circular_span_deg": 26.71156541013943
+      },
+      "max_board_center_error_m": 1.8380794018556834e-07,
+      "min_actual_board_bottom_clearance_m": 0.1703626395746855,
+      "board_overhang_options": 1,
+      "max_weighted_ik_residual": {
+        "Arm10": 4.7743926306772045e-09,
+        "Arm14": 1.7143675538863747e-07
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 0,
+        "near_25mm": 0,
+        "max_predicted_range_m": 0.3644565227866647,
+        "min_actual_radius_m": 0.8202678081096515,
+        "max_actual_radius_m": 1.1036545531308855,
+        "best_range_match": {
+          "action_id": "shot-sweep-27-01395",
+          "predicted_range_m": 0.2671410892700552,
+          "actual_radius_m": 0.8202678081096515,
+          "signed_error_m": -0.5531267188395963,
+          "absolute_error_m": 0.5531267188395963,
+          "height_m": 0.46998391884602153,
+          "gap_m": 0.10216426331637747,
+          "tilt_deg": 27.595882976556545,
+          "board_x_m": 0.6607885718217894,
+          "board_y_m": -0.24812608702977013
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 28,
+      "cell_id": "r5c1",
+      "bucket_xy_m": [
+        -0.1014285714285714,
+        -0.75
+      ],
+      "cpu_qualified_options": 38,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.14665601454043534,
+          "max": 0.5101760145404355
+        },
+        "gap_m": {
+          "min": 0.08305858015641883,
+          "max": 0.46888123984236196
+        },
+        "tilt_deg": {
+          "min": 12.481779876275105,
+          "max": 51.970885811662036
+        },
+        "radius_m": {
+          "min": 0.7613926523967293,
+          "max": 1.199754630654751
+        },
+        "azimuth_offset_deg": {
+          "min": -13.65357038557815,
+          "max": 16.152714471497575
+        },
+        "azimuth_deg": {
+          "min": 26.463670050588796,
+          "max": 56.26995490766452
+        },
+        "board_x_m": {
+          "min": 0.43305292446439914,
+          "max": 0.6650841744643992
+        },
+        "board_y_m": {
+          "min": -0.3815628242813249,
+          "max": 0.23743580397656316
+        },
+        "azimuth_circular_span_deg": 29.806284857075752
+      },
+      "max_board_center_error_m": 6.50120232706423e-05,
+      "min_actual_board_bottom_clearance_m": 0.056024083986014536,
+      "board_overhang_options": 1,
+      "max_weighted_ik_residual": {
+        "Arm10": 3.57562876905817e-08,
+        "Arm14": 6.29749271408691e-05
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 0,
+        "near_25mm": 0,
+        "max_predicted_range_m": 0.5852877718026545,
+        "min_actual_radius_m": 0.7613926523967293,
+        "max_actual_radius_m": 1.199754630654751,
+        "best_range_match": {
+          "action_id": "shot-sweep-28-00865",
+          "predicted_range_m": 0.5796138176158873,
+          "actual_radius_m": 0.8042662324735763,
+          "signed_error_m": -0.22465241485768905,
+          "absolute_error_m": 0.22465241485768905,
+          "height_m": 0.4182099928440149,
+          "gap_m": 0.37572009255799516,
+          "tilt_deg": 26.888872013646086,
+          "board_x_m": 0.4660656472892446,
+          "board_y_m": -0.18009256504314997
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 29,
+      "cell_id": "r5c2",
+      "bucket_xy_m": [
+        0.15571428571428578,
+        -0.75
+      ],
+      "cpu_qualified_options": 45,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.14233838970375443,
+          "max": 0.5215050120375019
+        },
+        "gap_m": {
+          "min": 0.08613802729406217,
+          "max": 0.5421480231291309
+        },
+        "tilt_deg": {
+          "min": 12.52410604395871,
+          "max": 51.322002362516194
+        },
+        "radius_m": {
+          "min": 0.5009737457247296,
+          "max": 1.1646104879958492
+        },
+        "azimuth_offset_deg": {
+          "min": -18.736765031091153,
+          "max": 17.029095320890946
+        },
+        "azimuth_deg": {
+          "min": 32.911880152177766,
+          "max": 68.67774050415986
+        },
+        "board_x_m": {
+          "min": 0.4491038679734517,
+          "max": 0.7356273054734517
+        },
+        "board_y_m": {
+          "min": -0.452088267100706,
+          "max": 0.3348929392611031
+        },
+        "azimuth_circular_span_deg": 35.7658603519821
+      },
+      "max_board_center_error_m": 5.19363092876152e-05,
+      "min_actual_board_bottom_clearance_m": 0.03769013355164706,
+      "board_overhang_options": 1,
+      "max_weighted_ik_residual": {
+        "Arm10": 4.8842496384554004e-08,
+        "Arm14": 6.872448399273704e-05
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 0,
+        "near_25mm": 0,
+        "max_predicted_range_m": 0.6096406544903924,
+        "min_actual_radius_m": 0.5009737457247296,
+        "max_actual_radius_m": 1.1646104879958492,
+        "best_range_match": {
+          "action_id": "shot-sweep-29-00638",
+          "predicted_range_m": 0.45316165991364266,
+          "actual_radius_m": 0.5293594839670327,
+          "signed_error_m": -0.07619782405339004,
+          "absolute_error_m": 0.07619782405339004,
+          "height_m": 0.30815461203750183,
+          "gap_m": 0.3720649449227462,
+          "tilt_deg": 30.974291979939693,
+          "board_x_m": 0.5178344004227763,
+          "board_y_m": -0.36387762847854466
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 30,
+      "cell_id": "r5c3",
+      "bucket_xy_m": [
+        0.4128571428571429,
+        -0.75
+      ],
+      "cpu_qualified_options": 46,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.1580348535412261,
+          "max": 0.5347900535412262
+        },
+        "gap_m": {
+          "min": 0.08730902077862848,
+          "max": 0.5383011402273226
+        },
+        "tilt_deg": {
+          "min": 14.43436877834093,
+          "max": 51.504119584227915
+        },
+        "radius_m": {
+          "min": 0.3050060287111077,
+          "max": 1.045065584578693
+        },
+        "azimuth_offset_deg": {
+          "min": -10.694239439842335,
+          "max": 14.580261075406526
+        },
+        "azimuth_deg": {
+          "min": 57.721791318388085,
+          "max": 82.99629183363693
+        },
+        "board_x_m": {
+          "min": 0.49844000813010036,
+          "max": 0.7375128698299491
+        },
+        "board_y_m": {
+          "min": -0.4751161742168212,
+          "max": 0.2687034689067853
+        },
+        "azimuth_circular_span_deg": 25.27450051524886
+      },
+      "max_board_center_error_m": 6.219845086678017e-05,
+      "min_actual_board_bottom_clearance_m": 0.05322905976044756,
+      "board_overhang_options": 1,
+      "max_weighted_ik_residual": {
+        "Arm10": 2.5509787762386542e-08,
+        "Arm14": 6.520753356476091e-05
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 3,
+        "near_25mm": 1,
+        "max_predicted_range_m": 0.5243121696609525,
+        "min_actual_radius_m": 0.3050060287111077,
+        "max_actual_radius_m": 1.045065584578693,
+        "best_range_match": {
+          "action_id": "shot-sweep-30-00425",
+          "predicted_range_m": 0.40386482753541586,
+          "actual_radius_m": 0.4254881081271565,
+          "signed_error_m": -0.021623280591740623,
+          "absolute_error_m": 0.021623280591740623,
+          "height_m": 0.42655325354122614,
+          "gap_m": 0.2153855841785748,
+          "tilt_deg": 27.66695044074349,
+          "board_x_m": 0.5529321956301004,
+          "board_y_m": -0.34823002881215726
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 31,
+      "cell_id": "r5c4",
+      "bucket_xy_m": [
+        0.6700000000000002,
+        -0.75
+      ],
+      "cpu_qualified_options": 31,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.1649326698687688,
+          "max": 0.5377993657377481
+        },
+        "gap_m": {
+          "min": 0.09649260939398549,
+          "max": 0.45130600011685185
+        },
+        "tilt_deg": {
+          "min": 17.845521199781306,
+          "max": 42.51869926138913
+        },
+        "radius_m": {
+          "min": 0.3490703971684698,
+          "max": 1.0408784566262785
+        },
+        "azimuth_offset_deg": {
+          "min": -1.8898005789013155,
+          "max": 13.699022569609497
+        },
+        "azimuth_deg": {
+          "min": 88.1101994210987,
+          "max": 103.69902256960953
+        },
+        "board_x_m": {
+          "min": 0.5305097095312832,
+          "max": 0.6957440845312832
+        },
+        "board_y_m": {
+          "min": -0.40292755270463265,
+          "max": 0.2908680684205136
+        },
+        "azimuth_circular_span_deg": 15.588823148510812
+      },
+      "max_board_center_error_m": 6.13115225942143e-06,
+      "min_actual_board_bottom_clearance_m": 0.06807428501114485,
+      "board_overhang_options": 1,
+      "max_weighted_ik_residual": {
+        "Arm10": 3.7655462531042466e-08,
+        "Arm14": 7.501649827079072e-06
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 0,
+        "near_25mm": 0,
+        "max_predicted_range_m": 0.5467842979060776,
+        "min_actual_radius_m": 0.3490703971684698,
+        "max_actual_radius_m": 1.0408784566262785,
+        "best_range_match": {
+          "action_id": "shot-sweep-31-01712",
+          "predicted_range_m": 0.3551433516626513,
+          "actual_radius_m": 0.4073692843099259,
+          "signed_error_m": -0.0522259326472746,
+          "absolute_error_m": 0.0522259326472746,
+          "height_m": 0.3717806698687688,
+          "gap_m": 0.21342540029114895,
+          "tilt_deg": 33.27763885446605,
+          "board_x_m": 0.6210602767143506,
+          "board_y_m": -0.3455811116133356
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 32,
+      "cell_id": "r5c5",
+      "bucket_xy_m": [
+        0.9271428571428573,
+        -0.75
+      ],
+      "cpu_qualified_options": 9,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.1847880269830068,
+          "max": 0.5368208699779797
+        },
+        "gap_m": {
+          "min": 0.09539293515437314,
+          "max": 0.33138178829736153
+        },
+        "tilt_deg": {
+          "min": 12.0,
+          "max": 46.21124046799682
+        },
+        "radius_m": {
+          "min": 0.4953967499533063,
+          "max": 0.9781105981072913
+        },
+        "azimuth_offset_deg": {
+          "min": -5.658324613644595,
+          "max": 10.18404634282544
+        },
+        "azimuth_deg": {
+          "min": 105.92564462812501,
+          "max": 121.76801558459503
+        },
+        "board_x_m": {
+          "min": 0.549393005394226,
+          "max": 0.763846130394226
+        },
+        "board_y_m": {
+          "min": -0.32758647681848796,
+          "max": 0.16007681445182298
+        },
+        "azimuth_circular_span_deg": 15.842370956470006
+      },
+      "max_board_center_error_m": 1.0243295615400265e-07,
+      "min_actual_board_bottom_clearance_m": 0.12319664576567525,
+      "board_overhang_options": 0,
+      "max_weighted_ik_residual": {
+        "Arm10": 1.0780738128351971e-08,
+        "Arm14": 1.229630262625721e-07
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 0,
+        "near_25mm": 0,
+        "max_predicted_range_m": 0.35989904489100466,
+        "min_actual_radius_m": 0.4953967499533063,
+        "max_actual_radius_m": 0.9781105981072913,
+        "best_range_match": {
+          "action_id": "shot-sweep-32-00249",
+          "predicted_range_m": 0.3233343094440882,
+          "actual_radius_m": 0.4953967499533063,
+          "signed_error_m": -0.1720624405092181,
+          "absolute_error_m": 0.1720624405092181,
+          "height_m": 0.1847880269830068,
+          "gap_m": 0.33138178829736153,
+          "tilt_deg": 19.49600633294269,
+          "board_x_m": 0.6683287244188484,
+          "board_y_m": -0.32758647681848796
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 33,
+      "cell_id": "r5c6",
+      "bucket_xy_m": [
+        1.1842857142857144,
+        -0.75
+      ],
+      "cpu_qualified_options": 10,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.211264698878185,
+          "max": 0.54
+        },
+        "gap_m": {
+          "min": 0.08,
+          "max": 0.27704322764815065
+        },
+        "tilt_deg": {
+          "min": 12.257722078067879,
+          "max": 51.506407277166296
+        },
+        "radius_m": {
+          "min": 0.6656811444574052,
+          "max": 1.1904357467862112
+        },
+        "azimuth_offset_deg": {
+          "min": -13.062138448891204,
+          "max": 11.227401974876557
+        },
+        "azimuth_deg": {
+          "min": 115.28921636783988,
+          "max": 139.57875679160765
+        },
+        "board_x_m": {
+          "min": 0.593129019850436,
+          "max": 0.681019644850436
+        },
+        "board_y_m": {
+          "min": -0.3183708764790901,
+          "max": 0.3263479163878509
+        },
+        "azimuth_circular_span_deg": 24.28954042376779
+      },
+      "max_board_center_error_m": 1.5737866904264444e-08,
+      "min_actual_board_bottom_clearance_m": 0.16501768887191853,
+      "board_overhang_options": 1,
+      "max_weighted_ik_residual": {
+        "Arm10": 3.035177229828428e-08,
+        "Arm14": 1.7308150358161258e-08
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 0,
+        "near_25mm": 0,
+        "max_predicted_range_m": 0.3845517169263823,
+        "min_actual_radius_m": 0.6656811444574052,
+        "max_actual_radius_m": 1.1904357467862112,
+        "best_range_match": {
+          "action_id": "shot-sweep-33-01111",
+          "predicted_range_m": 0.2450269208847854,
+          "actual_radius_m": 0.6656811444574052,
+          "signed_error_m": -0.42065422357261983,
+          "absolute_error_m": 0.42065422357261983,
+          "height_m": 0.211264698878185,
+          "gap_m": 0.22106655126331093,
+          "tilt_deg": 23.497391499555476,
+          "board_x_m": 0.677504019850436,
+          "board_y_m": -0.3183708764790901
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    },
+    {
+      "index": 34,
+      "cell_id": "r5c7",
+      "bucket_xy_m": [
+        1.4414285714285717,
+        -0.75
+      ],
+      "cpu_qualified_options": 12,
+      "actual_fk_rejections": 0,
+      "ranges": {
+        "height_m": {
+          "min": 0.1645206422307428,
+          "max": 0.5071766422307429
+        },
+        "gap_m": {
+          "min": 0.08,
+          "max": 0.3822977796631131
+        },
+        "tilt_deg": {
+          "min": 13.217072828812562,
+          "max": 52.0
+        },
+        "radius_m": {
+          "min": 0.8587009177696575,
+          "max": 1.178174162700251
+        },
+        "azimuth_offset_deg": {
+          "min": -9.326833523935647,
+          "max": 8.86215194273663
+        },
+        "azimuth_deg": {
+          "min": 130.55592603989743,
+          "max": 148.7449115065697
+        },
+        "board_x_m": {
+          "min": 0.5800589474050614,
+          "max": 0.7118948849050614
+        },
+        "board_y_m": {
+          "min": -0.3,
+          "max": 0.12302854054845813
+        },
+        "azimuth_circular_span_deg": 18.188985466672307
+      },
+      "max_board_center_error_m": 1.187815460238369e-06,
+      "min_actual_board_bottom_clearance_m": 0.08915457826976375,
+      "board_overhang_options": 0,
+      "max_weighted_ik_residual": {
+        "Arm10": 2.037993039653392e-08,
+        "Arm14": 1.2375814892606036e-06
+      },
+      "analytic_range_audit": {
+        "model": "feasibility_contract.proposed_range, frictionless e=.65 static plane, rim+ballradius crossing",
+        "near_50mm": 0,
+        "near_25mm": 0,
+        "max_predicted_range_m": 0.503545478034172,
+        "min_actual_radius_m": 0.8587009177696575,
+        "max_actual_radius_m": 1.178174162700251,
+        "best_range_match": {
+          "action_id": "shot-sweep-34-01979",
+          "predicted_range_m": 0.503545478034172,
+          "actual_radius_m": 1.0635412100094779,
+          "signed_error_m": -0.5599957319753058,
+          "absolute_error_m": 0.5599957319753058,
+          "height_m": 0.3382166422307429,
+          "gap_m": 0.3822977796631131,
+          "tilt_deg": 20.24937936525133,
+          "board_x_m": 0.5800589474050614,
+          "board_y_m": -0.12617127655259341
+        },
+        "scope": "Heuristic comparison within the finite strict-IK bank, not proof of capture, retention, physical impossibility or completeness."
+      }
+    }
+  ],
+  "analytic_augmentation_script_sha256": "227e31c0dab2930caaae9ba35c777dd94d2c4a3a8f1350554bd12efb17e3800e",
+  "analytic_limitations": "No native ball outcome inspected in this audit; missing near-range matches cannot establish impossibility. Prediction omits friction and downstream rim/retention dynamics."
+}

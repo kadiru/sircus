@@ -27,6 +27,7 @@ STAGES = (
     "legacy_stochastic",
     "legacy_deterministic",
 )
+TRANSFER_STAGES = ("probe_sweep", "transfer_stochastic", "transfer_deterministic")
 COUNT_KEYS = ("attempts", "releases", "invalid", "captures", "clean", "single_bounce")
 MEAN_KEYS = ("mean_learning_reward", "mean_historical_reward")
 ACTION_KEYS = (
@@ -150,7 +151,41 @@ def baseline_cells(document):
     return result
 
 
-def normalize_state(document, baseline, complete=False, updated_utc=None):
+def learning_curve(document):
+    """Derive only counts and a trailing16batch rate from saved training summaries."""
+    stages = document.get("stages", {})
+    if not isinstance(stages, dict):
+        raise ValueError("Expected saved stage summary lists")
+    batches = stages.get("train", [])
+    if not isinstance(batches, list) or len(batches) > 4096:
+        raise ValueError("Invalid or unbounded training curve")
+    result, recent, throws = [], [], 0
+    for batch in batches:
+        stats = clean_stats(batch)
+        if stats is None or "captures" not in stats or "attempts" not in stats:
+            raise ValueError("Training curve requires saved batch counts")
+        attempts, captures = stats["attempts"], stats["captures"]
+        if captures > attempts:
+            raise ValueError("Training captures exceed attempts")
+        if not attempts:
+            continue
+        throws += attempts
+        recent.append((captures, attempts))
+        recent = recent[-16:]
+        result.append(
+            dict(
+                throws=throws,
+                captures=captures,
+                attempts=attempts,
+                rolling16rate=sum(c for c, a in recent) / sum(a for c, a in recent),
+            )
+        )
+    return result
+
+
+def normalize_state(
+    document, baseline, complete=False, updated_utc=None, stage_names=STAGES
+):
     """Keep aggregate report fields; reject mismatched table/bucket identities."""
     if not isinstance(document, dict):
         raise ValueError("Expected a study aggregate mapping")
@@ -180,7 +215,9 @@ def normalize_state(document, baseline, complete=False, updated_utc=None):
             raise ValueError("Expected per-stage aggregate mappings")
         current[identity] = dict(
             stages={
-                name: clean_stats(stages[name]) for name in STAGES if name in stages
+                name: clean_stats(stages[name])
+                for name in stage_names
+                if name in stages
             },
             best_sweep_action=clean_action(raw.get("best_sweep_action")),
         )
@@ -200,7 +237,9 @@ def normalize_state(document, baseline, complete=False, updated_utc=None):
     if not isinstance(aggregates, dict):
         raise ValueError("Expected stage summary mappings")
     summary = {
-        name: clean_stats(aggregates[name]) for name in STAGES if name in aggregates
+        name: clean_stats(aggregates[name])
+        for name in stage_names
+        if name in aggregates
     }
     phase = document.get("phase", "completed" if complete else "waiting")
     if not isinstance(phase, str) or len(phase) > 300:
@@ -220,8 +259,127 @@ def normalize_state(document, baseline, complete=False, updated_utc=None):
         identity=fingerprints,
         summary=summary,
         per_cell=cells,
+        learning_curve=learning_curve(document),
         scope="Simulation development study. Search/best-setting repeats are separate from frozen learned-policy evaluation. Same bucket coordinates do not establish unseen-layout generalization.",
     )
+
+
+def merge_transfer(state, main_document, transfer, baseline):
+    """Attach only independently named stages bound to the exact final policy.
+
+    Main metrics and identity are never replaced. This probes new shot choices
+    at the same seen bucket positions; preserved controls may also be selected.
+    """
+    if not state["complete"] or not isinstance(transfer, dict):
+        raise ValueError("Transfer requires a completed, known parent study")
+    if transfer.get("version") != "sircus-frozen-candidate-transfer-v1":
+        raise ValueError("Unknown transfer experiment version")
+    parent = main_document.get("study_fingerprint")
+    expected_checkpoint = main_document.get("checkpoints", {}).get(
+        "candidate-policy-final.pt"
+    )
+    expected_weights = main_document.get("final_weight_hash")
+    expected_bank = main_document.get("native_bank_sha256")
+    checkpoint = transfer.get(
+        "source_checkpoint_sha256", transfer.get("source_policy_sha256")
+    )
+    if (
+        not parent
+        or transfer.get("parent_study_fingerprint") != parent
+        or transfer.get("source_fingerprint") != main_document.get("source_fingerprint")
+    ):
+        raise ValueError("Transfer has an unknown parent or different scene")
+    if (
+        not expected_checkpoint
+        or checkpoint != expected_checkpoint
+        or not expected_weights
+        or transfer.get("source_policy_weight_hash") != expected_weights
+        or not expected_bank
+        or transfer.get("source_native_bank_sha256") != expected_bank
+        or type(transfer.get("policy_updates")) is not int
+        or transfer["policy_updates"] != 0
+    ):
+        raise ValueError("Transfer checkpoint, original bank or frozen weights differ")
+    if (
+        "source_policy_sha256" in transfer
+        and transfer["source_policy_sha256"] != checkpoint
+    ):
+        raise ValueError("Transfer checkpoint aliases disagree")
+    fingerprint = transfer.get("fingerprint")
+    new_bank = transfer.get("transfer_native_bank_sha256")
+    if any(
+        not isinstance(v, str) or not v or len(v) > 160 for v in (fingerprint, new_bank)
+    ):
+        raise ValueError("Transfer provenance is incomplete")
+    raw_cells = transfer.get("per_cell")
+    if isinstance(raw_cells, dict):
+        # Native transfer reports aggregate rows by stage, while the primary
+        # report aggregates stages by row. Only these three names are adapted.
+        grouped = {}
+        for stage in TRANSFER_STAGES:
+            rows = raw_cells.get(stage)
+            if not isinstance(rows, list):
+                raise ValueError("Transfer is missing a completed stage")
+            seen = set()
+            for row in rows:
+                if not isinstance(row, dict) or row.get("cell_id") in seen:
+                    raise ValueError("Transfer repeats or corrupts a table row")
+                identity = row.get("cell_id")
+                seen.add(identity)
+                if identity not in grouped:
+                    grouped[identity] = dict(
+                        cell_id=identity,
+                        bucket_xy_m=coordinates(row.get("bucket_xy_m")),
+                        stages={},
+                    )
+                if (
+                    coordinates(row.get("bucket_xy_m"))
+                    != grouped[identity]["bucket_xy_m"]
+                ):
+                    raise ValueError("Transfer stages disagree about bucket placement")
+                grouped[identity]["stages"][stage] = row
+            if seen != set(CELL_IDS):
+                raise ValueError("Transfer stage must include all 35 original tables")
+        raw_cells = list(grouped.values())
+    extra = normalize_state(
+        dict(
+            source_fingerprint=transfer["source_fingerprint"],
+            per_cell=raw_cells,
+            summary=transfer.get("summary", {}),
+        ),
+        baseline,
+        complete=True,
+        stage_names=TRANSFER_STAGES,
+    )
+    merged = copy.deepcopy(state)
+    for main_row, transfer_row in zip(merged["per_cell"], extra["per_cell"]):
+        if any(stage not in transfer_row["stages"] for stage in TRANSFER_STAGES):
+            raise ValueError("Transfer table is missing a completed stage")
+        main_row["stages"].update(transfer_row["stages"])
+    if any(stage not in extra["summary"] for stage in TRANSFER_STAGES):
+        raise ValueError("Transfer summary is missing a completed stage")
+    for stage in TRANSFER_STAGES:
+        for key in COUNT_KEYS:
+            values = [row["stages"][stage].get(key) for row in extra["per_cell"]]
+            if any(value is None for value in values) or extra["summary"][stage].get(
+                key
+            ) != sum(values):
+                raise ValueError("Transfer summary differs from its per-table counts")
+    merged["summary"].update(extra["summary"])
+    merged["transfer"] = dict(
+        status="verified",
+        provenance=dict(
+            fingerprint=fingerprint,
+            parent_study_fingerprint=parent,
+            source_checkpoint_sha256=checkpoint,
+            source_policy_weight_hash=expected_weights,
+            source_native_bank_sha256=expected_bank,
+            transfer_native_bank_sha256=new_bank,
+            policy_updates=0,
+        ),
+        scope="Frozen trained policy on a different qualified shot bank at the same 35 seen bucket positions. The bank can include preserved controls; not every choice is novel. Probe sweep outcomes are not learned-policy performance. No new bucket-layout generalization or policy updates.",
+    )
+    return merged
 
 
 def read_json(path, parent=None):
@@ -231,6 +389,29 @@ def read_json(path, parent=None):
     if path.stat().st_size > MAX_BYTES:
         raise ValueError("Aggregate JSON exceeds the report size limit")
     return json.loads(path.read_text())
+
+
+def blocked_transfer_status(state, main_document, status):
+    """Validate a not-started probe status without admitting any trial metrics."""
+    checkpoint = main_document.get("checkpoints", {}).get("candidate-policy-final.pt")
+    if (
+        not state["complete"]
+        or not isinstance(status, dict)
+        or status.get("schema") != "sircus-transfer-probe-status-v1"
+        or not main_document.get("study_fingerprint")
+        or status.get("study_fingerprint") != main_document["study_fingerprint"]
+        or status.get("source_fingerprint") != main_document.get("source_fingerprint")
+        or not checkpoint
+        or status.get("source_checkpoint_sha256") != checkpoint
+        or status.get("native_started") is not False
+        or status.get("status") != "blocked"
+        or status.get("reason_code") != "shared_gpu_lock_timeout"
+    ):
+        raise ValueError("Unrecognized or mismatched not-started transfer status")
+    return dict(
+        status="blocked",
+        reason="The transfer probe did not run: another job held the shared GPU lock for the 900-second wait. The main training study remains verified.",
+    )
 
 
 def read_state(output, baseline=DEFAULT_BASELINE):
@@ -258,9 +439,35 @@ def read_state(output, baseline=DEFAULT_BASELINE):
         if path is not None
         else None
     )
-    return normalize_state(
+    state = normalize_state(
         document, previous, complete=path == result, updated_utc=updated
     )
+    state["transfer"] = dict(status="unavailable")
+    transfer_path = output / "transfer-probe-result.json"
+    if transfer_path.is_file():
+        try:
+            return merge_transfer(
+                state, document, read_json(transfer_path, output), previous
+            )
+        except (OSError, ValueError, TypeError, KeyError):
+            # Optional evidence cannot overwrite or hide a valid main report.
+            state["transfer"] = dict(
+                status="rejected",
+                reason="Transfer identity or aggregate validation failed; its results are excluded.",
+            )
+    else:
+        status_path = output / "transfer-probe-status.json"
+        if status_path.is_file():
+            try:
+                state["transfer"] = blocked_transfer_status(
+                    state, document, read_json(status_path, output)
+                )
+            except (OSError, ValueError, TypeError, KeyError):
+                state["transfer"] = dict(
+                    status="rejected",
+                    reason="Transfer status identity validation failed; its status is excluded.",
+                )
+    return state
 
 
 def render_page(state):

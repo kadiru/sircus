@@ -1,0 +1,11 @@
+{
+  "schema": "sircus-categorical-study-checkpoint-audit-v1",
+  "study_fingerprint": "dde5280aedf1f41a441f62f87abfdb9e3d43430c85469d27323f04044d92a35c",
+  "source_result_sha256": "3040e1a358e3bcfadb30da40494f092f05c5babbe5a9e9696aa0ae727e3b7a4e",
+  "native_bank_sha256": "ef30ed61c67c459b2f9db9a68e3dd4649cf161f410e3e8ad4d19fd2f2afa35d3",
+  "batches_checked": 256,
+  "samples_checked": 8960,
+  "updates_checked": 128,
+  "log_probability_max_abs_error": 1.9073486328125e-06,
+  "scope": "CPU sampling likelihood and logged update-chain audit; not an independent optimizer reconstruction, full native contact audit or unseen-layout test."
+}

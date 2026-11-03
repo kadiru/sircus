@@ -13,6 +13,8 @@ from farm_learning_report import (
     baseline_cells,
     clean_stats,
     make_handler,
+    merge_transfer,
+    learning_curve,
     normalize_state,
     ratio,
     read_state,
@@ -43,6 +45,9 @@ def fixture_result():
         version="sircus-candidate-shot-learning-v1",
         study_fingerprint="fixture-study",
         source_fingerprint=fixture_baseline()["source_fingerprint"],
+        checkpoints={"candidate-policy-final.pt": "c" * 64},
+        final_weight_hash="a" * 64,
+        native_bank_sha256="b" * 64,
         summary={"candidate_final_stochastic": fixture_stats()},
         per_cell=[
             dict(
@@ -62,7 +67,195 @@ def fixture_result():
     )
 
 
+def fixture_transfer():
+    main = fixture_result()
+    stages = ("probe_sweep", "transfer_stochastic", "transfer_deterministic")
+    one = fixture_stats()
+    aggregate = {
+        key: value * 35 if type(value) is int else value for key, value in one.items()
+    }
+    return dict(
+        version="sircus-frozen-candidate-transfer-v1",
+        fingerprint="d" * 64,
+        parent_study_fingerprint=main["study_fingerprint"],
+        source_fingerprint=main["source_fingerprint"],
+        source_checkpoint_sha256=main["checkpoints"]["candidate-policy-final.pt"],
+        source_policy_weight_hash=main["final_weight_hash"],
+        source_native_bank_sha256=main["native_bank_sha256"],
+        transfer_native_bank_sha256="e" * 64,
+        policy_updates=0,
+        summary={stage: copy.deepcopy(aggregate) for stage in stages},
+        per_cell={
+            stage: [
+                dict(
+                    cell_id=row["cell_id"],
+                    bucket_xy_m=row["bucket_xy_m"],
+                    **fixture_stats()
+                )
+                for row in main["per_cell"]
+            ]
+            for stage in stages
+        },
+    )
+
+
 class FarmLearningReportTests(unittest.TestCase):
+    def test_bound_gpu_timeout_status_reports_not_run_without_merging_payloads(self):
+        main = fixture_result()
+        status = dict(
+            schema="sircus-transfer-probe-status-v1",
+            study_fingerprint=main["study_fingerprint"],
+            source_fingerprint=main["source_fingerprint"],
+            source_checkpoint_sha256=main["checkpoints"]["candidate-policy-final.pt"],
+            native_started=False,
+            status="blocked",
+            reason_code="shared_gpu_lock_timeout",
+            per_cell=fixture_transfer()["per_cell"],
+        )
+        with tempfile.TemporaryDirectory() as name:
+            output = Path(name)
+            (output / "farm-study-result.json").write_text(json.dumps(main))
+            (output / "transfer-probe-status.json").write_text(json.dumps(status))
+            state = read_state(output)
+            self.assertEqual(state["transfer"]["status"], "blocked")
+            self.assertIn("did not run", state["transfer"]["reason"])
+            self.assertNotIn("transfer_stochastic", state["per_cell"][0]["stages"])
+            self.assertEqual(
+                state["per_cell"][0]["stages"]["candidate_final_stochastic"][
+                    "captures"
+                ],
+                3,
+            )
+            status["source_checkpoint_sha256"] = "f" * 64
+            (output / "transfer-probe-status.json").write_text(json.dumps(status))
+            self.assertEqual(read_state(output)["transfer"]["status"], "rejected")
+
+    def test_completed_matching_transfer_overrides_an_old_status_file(self):
+        with tempfile.TemporaryDirectory() as name:
+            output = Path(name)
+            (output / "farm-study-result.json").write_text(json.dumps(fixture_result()))
+            (output / "transfer-probe-result.json").write_text(
+                json.dumps(fixture_transfer())
+            )
+            (output / "transfer-probe-status.json").write_text(
+                "obsolete-status-is-not-read"
+            )
+            state = read_state(output)
+            self.assertEqual(state["transfer"]["status"], "verified")
+            self.assertIn("transfer_stochastic", state["per_cell"][0]["stages"])
+
+    def test_learning_curve_uses_cumulative_attempts_and_only_last16_batches(self):
+        batches = [dict(attempts=35, captures=0)] * 10 + [
+            dict(attempts=35, captures=35)
+        ] * 10
+        curve = learning_curve(dict(stages=dict(train=batches)))
+        self.assertEqual(curve[-1]["throws"], 700)
+        self.assertEqual(curve[-1]["rolling16rate"], 10 / 16)
+        self.assertEqual(curve[0]["rolling16rate"], 0)
+        self.assertEqual(learning_curve({}), [])
+        with self.assertRaises(ValueError):
+            learning_curve(dict(stages=dict(train=[dict(attempts=2, captures=3)])))
+
+    def test_verified_transfer_adds_only_separate_metrics_and_preserves_main_identity(
+        self,
+    ):
+        main = fixture_result()
+        state = normalize_state(main, fixture_baseline(), complete=True)
+        original = copy.deepcopy(state)
+        merged = merge_transfer(state, main, fixture_transfer(), fixture_baseline())
+        self.assertEqual(state, original)
+        self.assertEqual(merged["identity"], original["identity"])
+        self.assertEqual(
+            merged["summary"]["candidate_final_stochastic"],
+            original["summary"]["candidate_final_stochastic"],
+        )
+        self.assertEqual(
+            merged["per_cell"][0]["stages"]["candidate_final_stochastic"],
+            original["per_cell"][0]["stages"]["candidate_final_stochastic"],
+        )
+        self.assertEqual(
+            merged["per_cell"][0]["stages"]["transfer_stochastic"]["captures"], 3
+        )
+        self.assertEqual(merged["transfer"]["status"], "verified")
+        self.assertEqual(merged["transfer"]["provenance"]["policy_updates"], 0)
+
+    def test_transfer_cannot_replace_primary_stages_through_row_or_summary_fields(self):
+        main = fixture_result()
+        state = normalize_state(main, fixture_baseline(), complete=True)
+        transfer = fixture_transfer()
+        grouped = []
+        for i, row in enumerate(main["per_cell"]):
+            grouped.append(
+                dict(
+                    cell_id=row["cell_id"],
+                    bucket_xy_m=row["bucket_xy_m"],
+                    stages={
+                        **{stage: fixture_stats() for stage in transfer["per_cell"]},
+                        "candidate_final_stochastic": fixture_stats(captures=6),
+                    },
+                )
+            )
+        transfer["per_cell"] = grouped
+        transfer["summary"]["candidate_final_stochastic"] = fixture_stats(captures=6)
+        merged = merge_transfer(state, main, transfer, fixture_baseline())
+        self.assertEqual(
+            merged["per_cell"][0]["stages"]["candidate_final_stochastic"]["captures"], 3
+        )
+        self.assertEqual(merged["summary"]["candidate_final_stochastic"]["captures"], 3)
+
+    def test_transfer_requires_exact_known_parent_final_checkpoint_and_frozen_weight_identity(
+        self,
+    ):
+        main = fixture_result()
+        state = normalize_state(main, fixture_baseline(), complete=True)
+        for key, wrong in (
+            ("parent_study_fingerprint", "other-study"),
+            ("parent_study_fingerprint", None),
+            ("source_checkpoint_sha256", "f" * 64),
+            ("source_policy_weight_hash", "f" * 64),
+            ("source_native_bank_sha256", "f" * 64),
+            ("source_fingerprint", "other-scene"),
+            ("policy_updates", 1),
+        ):
+            transfer = fixture_transfer()
+            transfer[key] = wrong
+            with self.subTest(key=key, wrong=wrong), self.assertRaises(ValueError):
+                merge_transfer(state, main, transfer, fixture_baseline())
+
+    def test_optional_bad_transfer_is_excluded_without_hiding_valid_primary_results(
+        self,
+    ):
+        with tempfile.TemporaryDirectory() as name:
+            output = Path(name)
+            (output / "farm-study-result.json").write_text(json.dumps(fixture_result()))
+            transfer = fixture_transfer()
+            transfer["source_checkpoint_sha256"] = "f" * 64
+            (output / "transfer-probe-result.json").write_text(json.dumps(transfer))
+            state = read_state(output)
+            self.assertTrue(state["complete"])
+            self.assertEqual(state["transfer"]["status"], "rejected")
+            self.assertEqual(
+                state["per_cell"][0]["stages"]["candidate_final_stochastic"][
+                    "captures"
+                ],
+                3,
+            )
+            self.assertNotIn("transfer_stochastic", state["per_cell"][0]["stages"])
+
+    def test_transfer_rejects_changed_buckets_missing_tables_and_wrong_totals(self):
+        main = fixture_result()
+        state = normalize_state(main, fixture_baseline(), complete=True)
+        for change in ("bucket", "missing", "totals"):
+            transfer = fixture_transfer()
+            if change == "bucket":
+                transfer["per_cell"]["probe_sweep"][0]["bucket_xy_m"][0] += 0.01
+            elif change == "missing":
+                transfer["per_cell"]["transfer_stochastic"].pop()
+            else:
+                transfer["summary"]["transfer_stochastic"]["captures"] -= 1
+            with self.subTest(change=change), self.assertRaises(ValueError):
+                merge_transfer(state, main, transfer, fixture_baseline())
+
     def test_per_table_comparison_preserves_all_35_distinct_bucket_coordinates(self):
         baseline = fixture_baseline()
         state = normalize_state(fixture_result(), baseline, complete=True)

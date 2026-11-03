@@ -1,0 +1,120 @@
+{
+  "schema": "sircus-independent-native-study-audit-v1",
+  "study_fingerprint": "dde5280aedf1f41a441f62f87abfdb9e3d43430c85469d27323f04044d92a35c",
+  "source_result_sha256": "3040e1a358e3bcfadb30da40494f092f05c5babbe5a9e9696aa0ae727e3b7a4e",
+  "frozen_python_source_hashes_matched": 97,
+  "distinct_unchanged_bucket_sites": 35,
+  "stage_batches_recomputed": 439,
+  "all_stage_and_per_cell_summaries_exact": true,
+  "native_candidate_criteria_recomputed": 1607,
+  "native_bank_membership_exact": true,
+  "native_candidates_total": 1236,
+  "native_accepted_misses_retained": 930,
+  "candidate_frozen_evaluation_likelihoods_checked": 1190,
+  "candidate_greedy_actions_checked": 70,
+  "candidate_eval_logp_max_abs_error": 1.9073486328125e-06,
+  "checkpoint_audit": {
+    "schema": "sircus-categorical-study-checkpoint-audit-v1",
+    "study_fingerprint": "dde5280aedf1f41a441f62f87abfdb9e3d43430c85469d27323f04044d92a35c",
+    "source_result_sha256": "3040e1a358e3bcfadb30da40494f092f05c5babbe5a9e9696aa0ae727e3b7a4e",
+    "native_bank_sha256": "ef30ed61c67c459b2f9db9a68e3dd4649cf161f410e3e8ad4d19fd2f2afa35d3",
+    "batches_checked": 256,
+    "samples_checked": 8960,
+    "updates_checked": 128,
+    "log_probability_max_abs_error": 1.9073486328125e-06,
+    "scope": "CPU sampling likelihood and logged update-chain audit; not an independent optimizer reconstruction, full native contact audit or unseen-layout test."
+  },
+  "summary": {
+    "sweep": {
+      "attempts": 1607,
+      "releases": 1236,
+      "invalid": 371,
+      "captures": 306,
+      "clean": 72,
+      "single_bounce": 269,
+      "mean_learning_reward": -0.14986813891241874,
+      "mean_historical_reward": -0.18738927901680358
+    },
+    "best_repeat": {
+      "attempts": 140,
+      "releases": 140,
+      "invalid": 0,
+      "captures": 76,
+      "clean": 53,
+      "single_bounce": 68,
+      "mean_learning_reward": 0.8941441257179157,
+      "mean_historical_reward": 0.7542010780186359
+    },
+    "legacy_deterministic": {
+      "attempts": 35,
+      "releases": 35,
+      "invalid": 0,
+      "captures": 14,
+      "clean": 7,
+      "single_bounce": 13,
+      "mean_learning_reward": 0.4374586573987528,
+      "mean_historical_reward": 0.3723331437328313
+    },
+    "legacy_stochastic": {
+      "attempts": 560,
+      "releases": 560,
+      "invalid": 0,
+      "captures": 169,
+      "clean": 76,
+      "single_bounce": 151,
+      "mean_learning_reward": 0.225790440943793,
+      "mean_historical_reward": 0.17583603661628672
+    },
+    "candidate_initial_deterministic": {
+      "attempts": 35,
+      "releases": 35,
+      "invalid": 0,
+      "captures": 10,
+      "clean": 8,
+      "single_bounce": 9,
+      "mean_learning_reward": 0.23913979900490123,
+      "mean_historical_reward": 0.19407241101640552
+    },
+    "candidate_initial_stochastic": {
+      "attempts": 560,
+      "releases": 560,
+      "invalid": 0,
+      "captures": 96,
+      "clean": 16,
+      "single_bounce": 76,
+      "mean_learning_reward": -0.08929888043800985,
+      "mean_historical_reward": -0.11586843475049677
+    },
+    "train": {
+      "attempts": 8960,
+      "releases": 8959,
+      "invalid": 1,
+      "captures": 2503,
+      "clean": 303,
+      "single_bounce": 2134,
+      "mean_learning_reward": 0.18439639029613367,
+      "mean_historical_reward": 0.12894541691469666
+    },
+    "candidate_final_deterministic": {
+      "attempts": 35,
+      "releases": 35,
+      "invalid": 0,
+      "captures": 10,
+      "clean": 3,
+      "single_bounce": 10,
+      "mean_learning_reward": 0.270515129067571,
+      "mean_historical_reward": 0.19328462953798353
+    },
+    "candidate_final_stochastic": {
+      "attempts": 560,
+      "releases": 560,
+      "invalid": 0,
+      "captures": 183,
+      "clean": 35,
+      "single_bounce": 166,
+      "mean_learning_reward": 0.32031718678983767,
+      "mean_historical_reward": 0.2475176927967896
+    }
+  },
+  "scope": "Artifact and recorded-scoring consistency audit, candidate frozen-policy sampling checks, and CPU train likelihood/update linkage. Does not replay full contact traces or independently reconstruct optimizer mathematics. Legacy samples do not record latent/log-probability values, so only logged artifact identity is available there."
+}
