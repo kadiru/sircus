@@ -395,6 +395,7 @@ function drawBenchmarkCurve(target, curves, metric) {
     const label = makeSvg('text', { x: left - 7, y: y + 3, 'text-anchor': 'end' }); label.textContent = metric === 'rate' ? `${value.toFixed(0)}%` : value >= 60 ? `${(value / 60).toFixed(1)}m` : `${value.toFixed(0)}s`; svg.append(label);
   }
   const colors = ['#a97312', '#128b8c', '#b75439'];
+  const legend = document.createElement('div'); legend.className = 'benchmark-chart-legend';
   curves.forEach((curve, index) => {
     const points = curve.points.filter(valid), color = colors[index % colors.length];
     if (!points.length) return;
@@ -409,12 +410,14 @@ function drawBenchmarkCurve(target, curves, metric) {
       const dot = makeSvg('circle', { cx: px(point.samples), cy: py(value(point)), r: 3.5, fill: color });
       const title = makeSvg('title'); title.textContent = `${curve.label} · ${point.samples} requests · ${point.seeds} seeds · ${point.captures}/${point.attempts} validation captures`; dot.append(title); svg.append(dot);
     }
-    const legend = makeSvg('text', { x: left + index * 170, y: height - 4, fill: color, class: 'benchmark-legend-label' }); legend.textContent = curve.label; svg.append(legend);
+    const entry = document.createElement('span'), swatch = document.createElement('i'), label = document.createElement('span');
+    swatch.className = 'benchmark-legend-swatch'; swatch.style.borderTop = `3px ${index ? 'dashed' : 'solid'} ${color}`; swatch.setAttribute('aria-hidden', 'true');
+    label.textContent = curve.label; entry.append(swatch, label); legend.append(entry);
   });
   const ticks = [...new Set([0, ...all.map(point => point.samples)])].sort((a, b) => a - b);
   for (const value of ticks) { const label = makeSvg('text', { x: px(value), y: height - bottom + 17, 'text-anchor': 'middle' }); label.textContent = value; svg.append(label); }
   const axis = makeSvg('text', { x: width / 2, y: height - 24, 'text-anchor': 'middle', class: 'axis-label' }); axis.textContent = 'New training shot requests / method / seed'; svg.append(axis);
-  target.replaceChildren(svg);
+  target.replaceChildren(svg, legend);
 }
 function showSweepRlBenchmark() {
   if (typeof report.sweep_rl_error === 'string') {
