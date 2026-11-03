@@ -280,6 +280,10 @@ export function sweepRlStudy(report) {
   const value = report?.sweep_rl_benchmark;
   return value && typeof value === 'object' && !Array.isArray(value) ? value : null;
 }
+export function historicalPlannerIsPreV2(report) {
+  return report?.benchmark_read_only === true
+    && sweepRlStudy(report)?.version === 'sircus-calibrated-sweep-rl-benchmark-v2';
+}
 function benchCounts(value) {
   if (!value || typeof value !== 'object') return null;
   const captures = benchInteger(value.captures), attempts = benchInteger(value.attempts);

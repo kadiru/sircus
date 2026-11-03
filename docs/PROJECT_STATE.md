@@ -1,6 +1,6 @@
 # Project state
 
-## Calibrated benchmark v2 — implementation ready, native checks in progress
+## Calibrated benchmark v2 — matched study running
 
 - [Additive protocol and reproduction](../sircus/mjlab/CALIBRATED_BENCHMARK.md),
   [draft PR62](https://github.com/kadiru/sircus/pull/62), stacked on PR60. No merge,
@@ -22,16 +22,17 @@
   requests. This is finite sampled geometry, not executed arm transit.
 - The complete six-worker synthetic CPU PPO/controller/auditor/exporter gate,
   native-constructor/reset-stream regressions, repository mock suites and GitHub
-  CI passed. Native engineering controls captured17/17 source shots and passed
-  a discarded real PPO update:50 requests/48 native releases, independently
-  audited with9,179 checks. These are separate engineering data, not TRAIN/test.
+  CI passed. Final-source native engineering controls captured17/17 source shots
+  and passed a discarded real PPO update:50 requests/48 native releases,
+  independently audited with9,167 checks. These are separate engineering data,
+  not TRAIN/test.
   Measured repeated-path cost motivated verified-prefix reuse for both methods;
   exact actions and clearance/sampling limits remain unchanged. The new frozen
-  source passed32 CPU integration/admission/adapter/native-constructor controls;
-  its fresh TRAIN-only native smoke is underway. The long
-  matched three-seed×1,024-request/method study has **not started**; no corrected
-  capture-rate or adaptation ranking is available yet.
-- A separate read-only v2 interface is implemented for port18790 but not launched.
+  source passed32 CPU integration/admission/adapter/native-constructor controls
+  and its fresh native gate. The long matched three-seed×1,024-request/method
+  study is **running on the4090**; validation measurements appear live. Final
+  test capture rates and adaptation rankings remain pending the complete audit.
+- A separate read-only v2 interface is live on[18790](http://127.0.0.1:18790/#sweepRlBenchmark).
   It binds calibration, home, source and report identities, hides TEST until a
   completed exact independent audit passes, and displays admission counts and
   costs separately from archived v1. New evaluation coordinates exclude all71

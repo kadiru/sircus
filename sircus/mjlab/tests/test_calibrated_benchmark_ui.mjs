@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { sweepRlSummary, sweepRlFinalRows, sweepRlAdmissionRows, sweepRlHistory, sweepRlResources, sweepRlCurves, sweepRlCsv, solveButtonState } from '../web/state.mjs';
+import { sweepRlSummary, sweepRlFinalRows, sweepRlAdmissionRows, sweepRlHistory, sweepRlResources, sweepRlCurves, sweepRlCsv, solveButtonState, historicalPlannerIsPreV2 } from '../web/state.mjs';
 
 const hash = 'a'.repeat(64);
 const counts = { attempts: 72, captures: 60, native_releases: 70, invalid: 2, clean: 55 };
@@ -71,4 +71,25 @@ test('read-only v2 view disables solves even when an inherited planner is ready'
   }
   assert.ok(js.includes('TEST results remain hidden until the full benchmark completes'));
   assert.ok(html.includes('different scoring/setup rules and different evaluation coordinates'));
+});
+
+test('calibrated read-only view labels inherited farm/grid as historical without changing their evidence', () => {
+  const report=fixture();report.planner_grid_study={qualified:17,blocked:6};
+  const original=JSON.stringify(report);
+  assert.equal(historicalPlannerIsPreV2(report),true);
+  assert.equal(historicalPlannerIsPreV2({...report,benchmark_read_only:false}),false);
+  assert.equal(historicalPlannerIsPreV2(fixture({version:'sircus-sweep-rl-benchmark-v1'})),false);
+  assert.equal(historicalPlannerIsPreV2({}),false);
+  assert.equal(JSON.stringify(report),original);
+  const html=readFileSync(new URL('../web/index.html',import.meta.url),'utf8');
+  const js=readFileSync(new URL('../web/app.js',import.meta.url),'utf8');
+  assert.ok(html.includes('Capture rate as samples accumulate'));
+  assert.ok(!html.includes('Strict capture rate as samples accumulate'));
+  assert.ok(html.indexOf('id="plannerHistoricalNotice"')<html.indexOf('id="plannerFarm"'));
+  assert.ok(html.indexOf('id="plannerHistoricalNotice"')<html.indexOf('id="plannerGridStudy"'));
+  assert.ok(html.includes('earlier scoring and setup rules'));
+  assert.ok(html.includes('do not report calibrated-v2 admission or capture performance'));
+  assert.ok(js.includes("$('plannerHistoricalNotice').hidden = !historicalPlanner"));
+  assert.ok(js.includes('Historical farm targets · pre-v2'));
+  assert.ok(js.includes('Historical shot settings and repeats · pre-v2'));
 });
