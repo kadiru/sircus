@@ -1,5 +1,18 @@
 # Project state
 
+## Agreed sweep/RL/impact-response direction — November 2, 2026
+
+- [Proposed comparison and stretch-goal protocol](../sircus/isaac/SWEEP_RL_COMPLIANCE_STUDY.md)
+  separates fixed-material shot search, direct continuous RL inference at 50
+  unseen distances, posture-dependent impact telemetry and later squeeze-based
+  ball identification. This is a design checkpoint, not executed training.
+- An existing separate MJLab fixed-bucket gap-window/SAC job was running during
+  the read-only check. It does not test unseen bucket distances. Preserve its
+  processes/results and review that narrower study before starting another job.
+- Greater extension may change impact response, but the relationship needs
+  matched measurements. Static squeeze stiffness alone does not determine
+  dynamic bounce behavior. No hardware, services or GPU workloads were changed.
+
 ## Broad shot-learning study completed — November 2, 2026
 
 - [Method](../sircus/isaac/FARM_SHOT_LEARNING.md), [per-table results, exact settings and checkpoints](../baselines/isaac-farm-shot-learning-20261102/README.md): 1,607 broad proposals produced 1,236 native-valid shots and 306 captures. Search found successful settings at 19/35 targets, including previously unscored r1c1/r2c1/r2c3/r2c5; all 19 selected recipes passed 4/4 nominal repeats. Sixteen targets remain unresolved in this bank, not proven impossible.
