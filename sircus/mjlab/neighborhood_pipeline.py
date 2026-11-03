@@ -12,7 +12,9 @@ from .gpu_slot import GPU_UUID
 
 
 def publish(study,display):
-    if not (study/'report.json').exists():return
+    if not (study/'report.json').exists():
+        from .neighborhood_queue_display import publish_pending
+        publish_pending(study,display);return
     from .prepare_neighborhood_report import prepare
     derived=display.with_name('neighborhood-derived-display.json')
     for _ in range(3):
