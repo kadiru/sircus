@@ -1,0 +1,665 @@
+{
+  "identity": {
+    "contract_fingerprint": "8edba8a3349aa8bcb4c06b97f3f61a302684856513b0ac972cf849afd3f4f037",
+    "scene_sha256": "9a50295d9908be8634c2df1c0b460ec6011710cf8e14ce33cbc67a75749ff1c8",
+    "asset_sha256": {
+      "assets/board_arm.urdf": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340",
+      "assets/dropper.urdf": "3f40e56e46b040fb3339c1235ea85872f46511c45db2d37f7661db94a470bae3",
+      "assets/poses.json": "5847c2793606860a82cc74030c3fe529767318f189c5d48e3d66c0dc7b9f776a",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link1.stl": "4069840361c2693b5b1147da366d5ba8a49ff7ab2c52fed68e07e04e07786e3f",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link2.stl": "0e736a629e6000c3c912f5aaf76937f824f510ac8894db67bd0d7f1d6210fc52",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link3.stl": "f682201345117c4b021fd9db21bd9bef6824886c8324f046b7d5772d7c9fa426",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link4.stl": "7bf4ab507c07a2b26e6a8528decdfe32d71efffdf1dd391406f1ce2f9ff4caa7",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link5.stl": "103955f097086e0f5d46380ff89bc7ef669877bb65def38431a18fc5343e1ba0",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link6.stl": "86b95b77850f38ff1437284705a1c8c616e3da21faef72e4f06751fc741de3b3",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link_base.stl": "871d501d23e8164440656331ee0e005d859dbdb7fab1c3725bef423adac9cf0e"
+    },
+    "source_sha256": {
+      "sircus/mjlab/contact_env.py": "04655f30a1b216c037573a0b5e177e6209097026f930fc6efc6dfef289abc3da",
+      "sircus/mjlab/contact_model.py": "b2d522d07dd2e3bffa724feb68593b3fef17033b5274587ef9d130e5c40aa24f",
+      "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+      "sircus/mjlab/contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407",
+      "sircus/mjlab/learning_score.py": "e66b982c0e651c3a9f5855dd03efb87488cc924321aaf9cadb80d51bac2fe814",
+      "sircus/mjlab/corrected_geometry.py": "50a4a353d94cceb1fbb0216a40588c997034a121e554f3f84f530d7d47c470be",
+      "sircus/mjlab/stable_geometry.py": "2e00b5fc46d1b253b5c85b6823c781a37e26f5819b35586a8cc112b057ebaebf",
+      "sircus/mjlab/stable_ik.py": "efd52c5e837339662c99c196e1a3cf4b5b260eecb7888258779030c459944e07",
+      "sircus/mjlab/expanded_actions.py": "d41817aa7ad4206139925256ab0cdf5288853e621d6b39824c10ad2d309679c3",
+      "sircus/mjlab/bank_geometry.py": "5c0d6775582c5524a323f1e9344c35317e8352e9f1f813f5dd0794c05de743f5",
+      "sircus/mjlab/bank_study.py": "7699faeff915a772f3e838983ff1c8dec7721f2d55c79a594e185cd9e08e7dcb",
+      "sircus/mjlab/transit_audit.py": "4400285187eebf3b1c7073a78ab74c94cbead88d52ffc5366e0258d2376f8c96",
+      "sircus/mjlab/admission.py": "2dbc5776113f8afb0ea74e23d0c3a2542fd0223d94a6818aec8de4865d302d82",
+      "sircus/mjlab/learning_env.py": "58d2f58be0e1981a5efd09e872bdea7d8f608e1fa21b5c87986505a20a4a4f8c",
+      "sircus/mjlab/learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+      "sircus/mjlab/learning_reach.py": "8eea1d565e9faefff0622a9e9a4666eb8d811ac086a8a6711caa8efa3029e9a4",
+      "sircus/mjlab/learning_contract.py": "9f2c44b76297f4ef7009c1b0107be983d0511d5654cb68b8e344dd316ed1fda8",
+      "sircus/mjlab/run.py": "969db2710378345aad34a6f802e33d6ea62488d75e560b9da5738bc0748c3dee",
+      "sircus/mjlab/corrected_contract.py": "9800404859a7ae2b2934c26ca448be4a69ae90e481069da72732973b1d907ba2",
+      "sircus/mjlab/corrected_admission.py": "3d42913fc2a9599b0e5063bfc4ee0a03f003b4ba853338e407c8a3d82de3d64a",
+      "sircus/mjlab/gpu_slot.py": "fcace6029058a9892296507358ee196b9b5296dc4287a07bedc786e3af4cad4a",
+      "sircus/mjlab/expand_geometry.py": "0b7982c3494b7cb7f799e073e3a7b788cca77617af0e9f509a4b7e273d926739",
+      "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+      "sircus/isaac/rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+      "sircus/isaac/entry_quality.py": "2f3d8b73c871a41afc3c8f333f5df1d54fa8751720855ffff517e729217db9d4",
+      "sircus/isaac/board_route.py": "6409889aed6b0fd6a288eb9494b954ec5c3233ec41fdcf146940fc23276fb2e9",
+      "sircus/mjlab/sweep_worker.py": "6150969a6f442e3b899d878671a4daf08cd90c61f0abf96494d418316e0e7a5b",
+      "sircus/mjlab/sweep_contract.py": "2460d8e807f06ad4bfe491491d011a448eaedea57ef4c7e727a1b10a54409a0a",
+      "sircus/mjlab/grid_study.py": "e358b728cd450fb2cd6f7444bbc8d3f5c3cf968da5412372c5f523bbb12249fe",
+      "sircus/mjlab/grid_study_contract.py": "45b5c46a19d9db5bdead5b336dedd8222496a0fc3cf1f59d263fba745fbb0efe",
+      "sircus/mjlab/grid_diverse_study.py": "8eb5d56b2489d270de16845388318bb2c57f9aba1767bb9935ab4f9af1d1f28c"
+    },
+    "physics": {
+      "version": "sircus-articulated-passive-contact-15360hz-v1",
+      "board_mode": "articulated",
+      "gravity_mode": "passive_only",
+      "substeps": 64,
+      "native_dt_s": 6.510416666666667e-05,
+      "scoring_dt_s": 0.004166666666666667,
+      "horizon_s": 4.0,
+      "solref": [
+        0.004,
+        0.15
+      ],
+      "contact_friction": 0.35,
+      "solver": "newton",
+      "solver_iterations": 100,
+      "solver_tolerance": 1e-08,
+      "cone": "pyramidal",
+      "integrator": "implicitfast",
+      "arm_control": "Prescribed joint endpoints reset before each native step; no learned grasp/transit/actuator dynamics",
+      "scorer": "Unchanged board rebound + whole sphere entry + continuous1s retention; external assistance disqualifies route; bucket rim assistance counts"
+    }
+  },
+  "protocol": {
+    "version": "sircus-grid35-diverse-followup-v2",
+    "inherited_baseline": true,
+    "frozen_scope": "new_selected_only",
+    "parent_contract_fingerprint": "701dd6f35a5cffc0030cdc5d73caa354ecf717ceb8fa993d984d699f14530df4",
+    "parent_manifest_sha256": "2ee238e486908da9c4a80f9935eb95fd246601ff41ab6ea4e3396966b35b4370",
+    "parent_audit_sha256": "85c1bb6f2126df72b7265f467fbe1df2aacf966211cc6fae6d32eef2aee797ed",
+    "targeted_cell_ids": [
+      "dev-grid-00-00",
+      "dev-grid-00-04",
+      "dev-grid-00-05",
+      "dev-grid-00-06",
+      "dev-grid-01-01",
+      "dev-grid-01-05",
+      "dev-grid-01-06",
+      "dev-grid-02-03",
+      "dev-grid-02-04",
+      "dev-grid-02-05",
+      "dev-grid-02-06",
+      "dev-grid-03-00",
+      "dev-grid-03-03",
+      "dev-grid-03-04",
+      "dev-grid-03-05",
+      "dev-grid-03-06",
+      "dev-grid-04-04",
+      "dev-grid-04-05",
+      "dev-grid-04-06"
+    ],
+    "grid": [
+      {
+        "id": "dev-grid-00-00",
+        "row": 0,
+        "column": 0,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.1,
+          -0.65
+        ]
+      },
+      {
+        "id": "dev-grid-00-01",
+        "row": 0,
+        "column": 1,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.29,
+          -0.65
+        ]
+      },
+      {
+        "id": "dev-grid-00-02",
+        "row": 0,
+        "column": 2,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.48,
+          -0.65
+        ]
+      },
+      {
+        "id": "dev-grid-00-03",
+        "row": 0,
+        "column": 3,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.6699999999999999,
+          -0.65
+        ]
+      },
+      {
+        "id": "dev-grid-00-04",
+        "row": 0,
+        "column": 4,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.8599999999999999,
+          -0.65
+        ]
+      },
+      {
+        "id": "dev-grid-00-05",
+        "row": 0,
+        "column": 5,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          1.0499999999999998,
+          -0.65
+        ]
+      },
+      {
+        "id": "dev-grid-00-06",
+        "row": 0,
+        "column": 6,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          1.24,
+          -0.65
+        ]
+      },
+      {
+        "id": "dev-grid-01-00",
+        "row": 1,
+        "column": 0,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.1,
+          -0.42500000000000004
+        ]
+      },
+      {
+        "id": "dev-grid-01-01",
+        "row": 1,
+        "column": 1,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.29,
+          -0.42500000000000004
+        ]
+      },
+      {
+        "id": "dev-grid-01-02",
+        "row": 1,
+        "column": 2,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.48,
+          -0.42500000000000004
+        ]
+      },
+      {
+        "id": "dev-grid-01-03",
+        "row": 1,
+        "column": 3,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.6699999999999999,
+          -0.42500000000000004
+        ]
+      },
+      {
+        "id": "dev-grid-01-04",
+        "row": 1,
+        "column": 4,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.8599999999999999,
+          -0.42500000000000004
+        ]
+      },
+      {
+        "id": "dev-grid-01-05",
+        "row": 1,
+        "column": 5,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          1.0499999999999998,
+          -0.42500000000000004
+        ]
+      },
+      {
+        "id": "dev-grid-01-06",
+        "row": 1,
+        "column": 6,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          1.24,
+          -0.42500000000000004
+        ]
+      },
+      {
+        "id": "dev-grid-02-00",
+        "row": 2,
+        "column": 0,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.1,
+          -0.2
+        ]
+      },
+      {
+        "id": "dev-grid-02-01",
+        "row": 2,
+        "column": 1,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.29,
+          -0.2
+        ]
+      },
+      {
+        "id": "dev-grid-02-02",
+        "row": 2,
+        "column": 2,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.48,
+          -0.2
+        ]
+      },
+      {
+        "id": "dev-grid-02-03",
+        "row": 2,
+        "column": 3,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.6699999999999999,
+          -0.2
+        ]
+      },
+      {
+        "id": "dev-grid-02-04",
+        "row": 2,
+        "column": 4,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.8599999999999999,
+          -0.2
+        ]
+      },
+      {
+        "id": "dev-grid-02-05",
+        "row": 2,
+        "column": 5,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          1.0499999999999998,
+          -0.2
+        ]
+      },
+      {
+        "id": "dev-grid-02-06",
+        "row": 2,
+        "column": 6,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          1.24,
+          -0.2
+        ]
+      },
+      {
+        "id": "dev-grid-03-00",
+        "row": 3,
+        "column": 0,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.1,
+          0.025000000000000022
+        ]
+      },
+      {
+        "id": "dev-grid-03-01",
+        "row": 3,
+        "column": 1,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.29,
+          0.025000000000000022
+        ]
+      },
+      {
+        "id": "dev-grid-03-02",
+        "row": 3,
+        "column": 2,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.48,
+          0.025000000000000022
+        ]
+      },
+      {
+        "id": "dev-grid-03-03",
+        "row": 3,
+        "column": 3,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.6699999999999999,
+          0.025000000000000022
+        ]
+      },
+      {
+        "id": "dev-grid-03-04",
+        "row": 3,
+        "column": 4,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.8599999999999999,
+          0.025000000000000022
+        ]
+      },
+      {
+        "id": "dev-grid-03-05",
+        "row": 3,
+        "column": 5,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          1.0499999999999998,
+          0.025000000000000022
+        ]
+      },
+      {
+        "id": "dev-grid-03-06",
+        "row": 3,
+        "column": 6,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          1.24,
+          0.025000000000000022
+        ]
+      },
+      {
+        "id": "dev-grid-04-00",
+        "row": 4,
+        "column": 0,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.1,
+          0.25
+        ]
+      },
+      {
+        "id": "dev-grid-04-01",
+        "row": 4,
+        "column": 1,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.29,
+          0.25
+        ]
+      },
+      {
+        "id": "dev-grid-04-02",
+        "row": 4,
+        "column": 2,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.48,
+          0.25
+        ]
+      },
+      {
+        "id": "dev-grid-04-03",
+        "row": 4,
+        "column": 3,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.6699999999999999,
+          0.25
+        ]
+      },
+      {
+        "id": "dev-grid-04-04",
+        "row": 4,
+        "column": 4,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          0.8599999999999999,
+          0.25
+        ]
+      },
+      {
+        "id": "dev-grid-04-05",
+        "row": 4,
+        "column": 5,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          1.0499999999999998,
+          0.25
+        ]
+      },
+      {
+        "id": "dev-grid-04-06",
+        "row": 4,
+        "column": 6,
+        "role": "development_then_train",
+        "bucket_xy_m": [
+          1.24,
+          0.25
+        ]
+      }
+    ],
+    "target_selection": {
+      "nominal_required": 3,
+      "nominal_attempts": 3,
+      "fresh_required": 27,
+      "fresh_attempts": 30,
+      "missing_or_blocked": true
+    },
+    "stages": [
+      {
+        "name": "baseline",
+        "scope": "Archived audited parent evidence; no new work"
+      },
+      {
+        "name": "expanded",
+        "cpu_candidates": 1024,
+        "native_budget": 128,
+        "broad_native_quota": 64,
+        "confirmation_candidates": 6
+      }
+    ],
+    "selection_method": "family_quota_and_normalized_farthest_point",
+    "selected_shot_rule": {
+      "candidate_limit": 6,
+      "ranking": [
+        "qualification_fresh_captures",
+        "qualification_fresh_clean_captures",
+        "native_search_rank"
+      ],
+      "native_search_rank": "sweep_contract.rank_row(search_source)",
+      "early_stop": {
+        "nominal_captures": 3,
+        "nominal_attempts": 3,
+        "fresh_captures": 20,
+        "fresh_attempts": 20,
+        "fresh_clean_captures": 20
+      },
+      "frozen_validation": "Never used for recipe selection or fallback"
+    },
+    "action_order": [
+      "board_x_m",
+      "board_y_m",
+      "board_height_m",
+      "tilt_deg",
+      "gap_m"
+    ],
+    "bounds": {
+      "low": [
+        0.3,
+        -0.5,
+        0.12,
+        8.0,
+        0.05
+      ],
+      "high": [
+        1.04,
+        0.35,
+        0.6,
+        60.0,
+        0.65
+      ],
+      "version": "sircus-expanded-shot-actions-v1"
+    },
+    "qualification": {
+      "nominal": 3,
+      "fresh": 20,
+      "required_fresh": 18
+    },
+    "frozen_validation": {
+      "nominal": 3,
+      "fresh": 30,
+      "seed": 20361201,
+      "selection": "Freeze all choices before these trials; no fallback or reselection from frozen outcomes"
+    },
+    "seed": 20261201,
+    "perturbation_std": [
+      0.001,
+      0.001,
+      0.002,
+      0.35,
+      0.002
+    ],
+    "physics": {
+      "version": "sircus-articulated-passive-contact-15360hz-v1",
+      "board_mode": "articulated",
+      "gravity_mode": "passive_only",
+      "substeps": 64,
+      "native_dt_s": 6.510416666666667e-05,
+      "scoring_dt_s": 0.004166666666666667,
+      "horizon_s": 4.0,
+      "solref": [
+        0.004,
+        0.15
+      ],
+      "contact_friction": 0.35,
+      "solver": "newton",
+      "solver_iterations": 100,
+      "solver_tolerance": 1e-08,
+      "cone": "pyramidal",
+      "integrator": "implicitfast",
+      "arm_control": "Prescribed joint endpoints reset before each native step; no learned grasp/transit/actuator dynamics",
+      "scorer": "Unchanged board rebound + whole sphere entry + continuous1s retention; external assistance disqualifies route; bucket rim assistance counts"
+    },
+    "staging": "Unchanged fixed common home; failed home/placement geometry is explicit",
+    "scope": "Additive searched development settings, not RL or unseen spatial generalization"
+  },
+  "hints_sha256": "7b484be745d01557a821fc02339dfd08fb179f0940fa75266d9e72cf2d9adb05",
+  "parent_hints_sha256": "4d129e08dfaafd7c4119b3776a30d78f8c5b060f7ada753b55131849e2171fe9",
+  "parent_row_manifest": {
+    "cells/dev-grid-00-00/expanded/shots.jsonl": "f2357c500d79ac3bce187e90b3219fe60331a01b25dbf76db451d2a4b3934aaf",
+    "cells/dev-grid-00-00/baseline/shots.jsonl": "c65af35d1e6e1fca1ee72925a890ad36725257381a8830266ee8b7481590a3bc",
+    "cells/dev-grid-00-04/expanded/shots.jsonl": "393e0a42d3b7e9dd86758eb25659046b10ce852264327e09e95ae8752fac619e",
+    "cells/dev-grid-00-05/expanded/shots.jsonl": "bd793ddc1acd0b5e984fe69dcac66acff4ce6d57afd524678e7d5bbe91af7197",
+    "cells/dev-grid-00-06/expanded/shots.jsonl": "354d7d785c6afd790e1de6cb4dc63c2148341f0c29fa6d2f23374ee15da665e9",
+    "cells/dev-grid-00-06/baseline/shots.jsonl": "7ad26e1712e54131ef4676ef28d5bab6ce70803849985fee6ed686ccc82ce811",
+    "cells/dev-grid-01-01/expanded/shots.jsonl": "6f50cb424c4cfa28b64cccb39bcc33e3459ebf0988f422e9e0c580bdb3a12684",
+    "cells/dev-grid-01-01/baseline/shots.jsonl": "074f49697f2740a93d8891730c074e7de385f709455f4a7de7e64c1ca4934257",
+    "cells/dev-grid-01-05/expanded/shots.jsonl": "7ddb71fab61f9194509cd3518424985c5b903f3e2bad563d5c5bc3316b189c91",
+    "cells/dev-grid-01-06/expanded/shots.jsonl": "713442855256e13b22d6161557407b4a8756eabc6cc4da5f3d40b4915b77f04d",
+    "cells/dev-grid-01-06/baseline/shots.jsonl": "28dda5aabb8a83c5d6ca3222f245f7b100b23a45b23aac9dff4edfef458b51b5",
+    "cells/dev-grid-02-05/expanded/shots.jsonl": "b668709b15d86f38cb5ccaf2f658029fc28258ff225bd4158cf69f7539ba1d3b",
+    "cells/dev-grid-02-06/expanded/shots.jsonl": "e4a4875c3dfb86ae7b99a7e11102a8b93edbbac3c3c0efadc4dd9fe7fa16d66e",
+    "cells/dev-grid-02-06/baseline/shots.jsonl": "585088ec80dc1bfaff22dd6eb5361e5b237f2c7fa93af2ea8b7118fca830cae4",
+    "cells/dev-grid-03-05/expanded/shots.jsonl": "7f505e06e0f48fb4153de387d71769635390e546e96674abffe6fde6f68f5281",
+    "cells/dev-grid-03-05/baseline/shots.jsonl": "bd6bc2beaa63ff0cf04170943f82ed086ed5b8249b68275ffcff09146083181a",
+    "cells/dev-grid-04-04/expanded/shots.jsonl": "b7dab7453c7cd68e49e32231fe7af2c1ce0260c74cfdd99128a5a2e70bb409d7",
+    "cells/dev-grid-04-04/baseline/shots.jsonl": "8a7f43be1eec9a83dc34dd6b0767b680317ee6327c7d78dbf504b95a50cb1512",
+    "cells/dev-grid-04-05/expanded/shots.jsonl": "1a8452c6ad45d7c7d707358da71114a228544c8c642c2e40e8e37ab581b63854",
+    "cells/dev-grid-04-06/expanded/shots.jsonl": "b85104aaf8afe6aa420c6bf14853b45f75e9c8edd4a1403bd317e3d741e60c5e"
+  },
+  "packages": {
+    "mjlab": "1.6.0",
+    "mujoco": "3.11.0",
+    "mujoco-warp": "3.11.0",
+    "torch": "2.7.0",
+    "warp-lang": "1.14.0",
+    "numpy": "1.26.4",
+    "ml-dtypes": "0.5.4"
+  },
+  "parent": {
+    "version": "sircus-grid35-parent-evidence-v1",
+    "contract_fingerprint": "701dd6f35a5cffc0030cdc5d73caa354ecf717ceb8fa993d984d699f14530df4",
+    "report_fingerprint": "61a7700deb8319d85cb210238c11f56878eed19d34e4597f7031c0d181668dc0",
+    "study_manifest_sha256": "2ee238e486908da9c4a80f9935eb95fd246601ff41ab6ea4e3396966b35b4370",
+    "report_sha256": "e90625557df575077cfcf81ef82d0ec05ea3dcc0c5d9b0f9af09fbac9c643561",
+    "frozen_selection_sha256": "c217c5ae03067f1fb21356419ae4ebc34b33f14242b7f1e1591ea03c700e0cf8",
+    "audit_sha256": "85c1bb6f2126df72b7265f467fbe1df2aacf966211cc6fae6d32eef2aee797ed",
+    "source_sha256": {
+      "sircus/mjlab/contact_env.py": "04655f30a1b216c037573a0b5e177e6209097026f930fc6efc6dfef289abc3da",
+      "sircus/mjlab/contact_model.py": "b2d522d07dd2e3bffa724feb68593b3fef17033b5274587ef9d130e5c40aa24f",
+      "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+      "sircus/mjlab/contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407",
+      "sircus/mjlab/learning_score.py": "e66b982c0e651c3a9f5855dd03efb87488cc924321aaf9cadb80d51bac2fe814",
+      "sircus/mjlab/corrected_geometry.py": "50a4a353d94cceb1fbb0216a40588c997034a121e554f3f84f530d7d47c470be",
+      "sircus/mjlab/stable_geometry.py": "2e00b5fc46d1b253b5c85b6823c781a37e26f5819b35586a8cc112b057ebaebf",
+      "sircus/mjlab/stable_ik.py": "efd52c5e837339662c99c196e1a3cf4b5b260eecb7888258779030c459944e07",
+      "sircus/mjlab/expanded_actions.py": "d41817aa7ad4206139925256ab0cdf5288853e621d6b39824c10ad2d309679c3",
+      "sircus/mjlab/bank_geometry.py": "5c0d6775582c5524a323f1e9344c35317e8352e9f1f813f5dd0794c05de743f5",
+      "sircus/mjlab/bank_study.py": "7699faeff915a772f3e838983ff1c8dec7721f2d55c79a594e185cd9e08e7dcb",
+      "sircus/mjlab/transit_audit.py": "4400285187eebf3b1c7073a78ab74c94cbead88d52ffc5366e0258d2376f8c96",
+      "sircus/mjlab/admission.py": "2dbc5776113f8afb0ea74e23d0c3a2542fd0223d94a6818aec8de4865d302d82",
+      "sircus/mjlab/learning_env.py": "58d2f58be0e1981a5efd09e872bdea7d8f608e1fa21b5c87986505a20a4a4f8c",
+      "sircus/mjlab/learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+      "sircus/mjlab/learning_reach.py": "8eea1d565e9faefff0622a9e9a4666eb8d811ac086a8a6711caa8efa3029e9a4",
+      "sircus/mjlab/learning_contract.py": "9f2c44b76297f4ef7009c1b0107be983d0511d5654cb68b8e344dd316ed1fda8",
+      "sircus/mjlab/run.py": "969db2710378345aad34a6f802e33d6ea62488d75e560b9da5738bc0748c3dee",
+      "sircus/mjlab/corrected_contract.py": "9800404859a7ae2b2934c26ca448be4a69ae90e481069da72732973b1d907ba2",
+      "sircus/mjlab/corrected_admission.py": "3d42913fc2a9599b0e5063bfc4ee0a03f003b4ba853338e407c8a3d82de3d64a",
+      "sircus/mjlab/gpu_slot.py": "fcace6029058a9892296507358ee196b9b5296dc4287a07bedc786e3af4cad4a",
+      "sircus/mjlab/expand_geometry.py": "0b7982c3494b7cb7f799e073e3a7b788cca77617af0e9f509a4b7e273d926739",
+      "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+      "sircus/isaac/rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+      "sircus/isaac/entry_quality.py": "2f3d8b73c871a41afc3c8f333f5df1d54fa8751720855ffff517e729217db9d4",
+      "sircus/isaac/board_route.py": "6409889aed6b0fd6a288eb9494b954ec5c3233ec41fdcf146940fc23276fb2e9",
+      "sircus/mjlab/sweep_worker.py": "6150969a6f442e3b899d878671a4daf08cd90c61f0abf96494d418316e0e7a5b",
+      "sircus/mjlab/sweep_contract.py": "2460d8e807f06ad4bfe491491d011a448eaedea57ef4c7e727a1b10a54409a0a",
+      "sircus/mjlab/grid_study.py": "e358b728cd450fb2cd6f7444bbc8d3f5c3cf968da5412372c5f523bbb12249fe",
+      "sircus/mjlab/grid_study_contract.py": "45b5c46a19d9db5bdead5b336dedd8222496a0fc3cf1f59d263fba745fbb0efe"
+    },
+    "asset_sha256": {
+      "assets/board_arm.urdf": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340",
+      "assets/dropper.urdf": "3f40e56e46b040fb3339c1235ea85872f46511c45db2d37f7661db94a470bae3",
+      "assets/poses.json": "5847c2793606860a82cc74030c3fe529767318f189c5d48e3d66c0dc7b9f776a",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link1.stl": "4069840361c2693b5b1147da366d5ba8a49ff7ab2c52fed68e07e04e07786e3f",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link2.stl": "0e736a629e6000c3c912f5aaf76937f824f510ac8894db67bd0d7f1d6210fc52",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link3.stl": "f682201345117c4b021fd9db21bd9bef6824886c8324f046b7d5772d7c9fa426",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link4.stl": "7bf4ab507c07a2b26e6a8528decdfe32d71efffdf1dd391406f1ce2f9ff4caa7",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link5.stl": "103955f097086e0f5d46380ff89bc7ef669877bb65def38431a18fc5343e1ba0",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link6.stl": "86b95b77850f38ff1437284705a1c8c616e3da21faef72e4f06751fc741de3b3",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link_base.stl": "871d501d23e8164440656331ee0e005d859dbdb7fab1c3725bef423adac9cf0e"
+    },
+    "physics": {
+      "version": "sircus-articulated-passive-contact-15360hz-v1",
+      "board_mode": "articulated",
+      "gravity_mode": "passive_only",
+      "substeps": 64,
+      "native_dt_s": 6.510416666666667e-05,
+      "scoring_dt_s": 0.004166666666666667,
+      "horizon_s": 4.0,
+      "solref": [
+        0.004,
+        0.15
+      ],
+      "contact_friction": 0.35,
+      "solver": "newton",
+      "solver_iterations": 100,
+      "solver_tolerance": 1e-08,
+      "cone": "pyramidal",
+      "integrator": "implicitfast",
+      "arm_control": "Prescribed joint endpoints reset before each native step; no learned grasp/transit/actuator dynamics",
+      "scorer": "Unchanged board rebound + whole sphere entry + continuous1s retention; external assistance disqualifies route; bucket rim assistance counts"
+    }
+  },
+  "fingerprint": "adf11a6b1a6c936da87b64a25e43a4e192edb4753081df1b21126e65ca4f0a4c"
+}

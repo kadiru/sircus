@@ -311,3 +311,21 @@ It cannot launch native jobs, train a policy or restart a server. Its output mus
 be outside the study and differ from the base display. The map remains a finite
 development search, separate from the frozen future 30-validation/100-test split
 and from learned-policy performance.
+
+### Expanded 35-table sweep results
+
+The separate `grid_study_server` serves the [35-position sweep study](../GRID_STUDY.md)
+at `#plannerGridStudy`, without changing the existing learned-policy adapters.
+Every row retains its bucket XY, status, exact selected board/drop settings,
+qualification counts and independent frozen repeats. Unresolved/blocked rows have
+no selected-shot evaluation. Use **Download CSV** for all 35 rows and **View
+recorded shot** to replay an available hash-bound native trajectory without GPU
+work. Scroll the results table horizontally to inspect every setting.
+
+An additive follow-up verifies its compact parent archive before showing previous
+frozen rates. A previous rate appears only for the same cell, bucket and exact
+selected configuration; new configurations wait for their own evaluation. Saved
+trials never increase the new-work counters. The ordinary **Find posture** route
+remains a separate explicit lookup/search; the study does not silently deploy its
+new recipes into that catalogue. The scene shows one selected workcell, rather
+than 35 live simultaneous workcells or an Isaac viewport.

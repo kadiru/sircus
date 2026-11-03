@@ -1,0 +1,1861 @@
+{
+  "version": "sircus-source-matched-grid35-bank-v1",
+  "scope": "Selected simulated recipes with source-matched frozen rates; no active solver deployment",
+  "study_fingerprint": "a64391641270a870dbdc295ff455690c0648ea5e114a15f632741738dd234592",
+  "parent_fingerprint": "61a7700deb8319d85cb210238c11f56878eed19d34e4597f7031c0d181668dc0",
+  "rows": [
+    {
+      "id": "dev-grid-00-00",
+      "index": 0,
+      "label": "1·1",
+      "xy": [
+        0.1,
+        -0.65
+      ],
+      "status": "unresolved",
+      "stage": "expanded",
+      "displayStage": "expanded",
+      "reason": "No qualified setting in this finite stage; inspect geometry, native outcomes and candidate-specific repeat records",
+      "selected": null,
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": null,
+      "savedFresh": null,
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": null,
+      "frozenExpected": true,
+      "search": {
+        "nativeRequests": 128,
+        "rejected": 675,
+        "cpuCandidates": 1024,
+        "captures": 0
+      },
+      "resultUrl": null
+    },
+    {
+      "id": "dev-grid-00-01",
+      "index": 1,
+      "label": "1·2",
+      "xy": [
+        0.29,
+        -0.65
+      ],
+      "status": "saved_verified",
+      "stage": "baseline",
+      "displayStage": "baseline",
+      "reason": "Archived parent evidence; this follow-up has not rerun these qualification or frozen-validation trials",
+      "selected": {
+        "board": [
+          0.535865068435669,
+          -0.23588967323303223,
+          0.2819211184978485
+        ],
+        "release": [
+          0.5358651777067402,
+          -0.23588975855944536,
+          0.6847961001021488
+        ],
+        "tilt": 29.1559664461903,
+        "gap": 0.36537494722226627,
+        "distance": 0.4815983748019931,
+        "configurationSha": "eed1779c752b33c208d0363fd1faf75caba45cbd4679d7e43928216f67d71c2f",
+        "source": "Saved reference"
+      },
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": {
+        "captures": 3,
+        "attempts": 3
+      },
+      "savedFresh": {
+        "captures": 19,
+        "attempts": 20
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": {
+        "status": "completed",
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 30,
+          "attempts": 30
+        },
+        "quality": {
+          "clean": 30,
+          "assisted": 0,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "configurationSha": "eed1779c752b33c208d0363fd1faf75caba45cbd4679d7e43928216f67d71c2f"
+      },
+      "frozenExpected": false,
+      "search": {
+        "nativeRequests": 0,
+        "rejected": 0,
+        "cpuCandidates": 0,
+        "captures": 0
+      },
+      "resultUrl": "/api/planner-grid/result/dev-grid-00-01"
+    },
+    {
+      "id": "dev-grid-00-02",
+      "index": 2,
+      "label": "1·3",
+      "xy": [
+        0.48,
+        -0.65
+      ],
+      "status": "saved_verified",
+      "stage": "baseline",
+      "displayStage": "baseline",
+      "reason": "Archived parent evidence; this follow-up has not rerun these qualification or frozen-validation trials",
+      "selected": {
+        "board": [
+          0.6093376874923706,
+          -0.4443374276161194,
+          0.25668689608573914
+        ],
+        "release": [
+          0.6093377971368164,
+          -0.44433738363365904,
+          0.48903120111277915
+        ],
+        "tilt": 37.21897657594422,
+        "gap": 0.19484428737039663,
+        "distance": 0.24295129364839585,
+        "configurationSha": "02ac8242787f41962a7f42c0fafa5a77ac54ce98693582d87090f8f4c982e78e",
+        "source": "Saved reference"
+      },
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": {
+        "captures": 3,
+        "attempts": 3
+      },
+      "savedFresh": {
+        "captures": 20,
+        "attempts": 20
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": {
+        "status": "completed",
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 29,
+          "attempts": 30
+        },
+        "quality": {
+          "clean": 29,
+          "assisted": 0,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "configurationSha": "02ac8242787f41962a7f42c0fafa5a77ac54ce98693582d87090f8f4c982e78e"
+      },
+      "frozenExpected": false,
+      "search": {
+        "nativeRequests": 0,
+        "rejected": 0,
+        "cpuCandidates": 0,
+        "captures": 0
+      },
+      "resultUrl": "/api/planner-grid/result/dev-grid-00-02"
+    },
+    {
+      "id": "dev-grid-00-03",
+      "index": 3,
+      "label": "1·4",
+      "xy": [
+        0.6699999999999999,
+        -0.65
+      ],
+      "status": "saved_verified",
+      "stage": "baseline",
+      "displayStage": "baseline",
+      "reason": "Archived parent evidence; this follow-up has not rerun these qualification or frozen-validation trials",
+      "selected": {
+        "board": [
+          0.6393200755119324,
+          -0.3517719805240631,
+          0.40906503796577454
+        ],
+        "release": [
+          0.6393201165766431,
+          -0.35177196585614784,
+          0.5819060632640587
+        ],
+        "tilt": 32.749881784770345,
+        "gap": 0.1353410311538266,
+        "distance": 0.29980195023904255,
+        "configurationSha": "bef50f889cdf19df9406cb795c386825e298b2eeb60c97cefa02b8f247f2fbdd",
+        "source": "Saved reference"
+      },
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": {
+        "captures": 3,
+        "attempts": 3
+      },
+      "savedFresh": {
+        "captures": 19,
+        "attempts": 20
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": {
+        "status": "completed",
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 29,
+          "attempts": 30
+        },
+        "quality": {
+          "clean": 0,
+          "assisted": 29,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "configurationSha": "bef50f889cdf19df9406cb795c386825e298b2eeb60c97cefa02b8f247f2fbdd"
+      },
+      "frozenExpected": false,
+      "search": {
+        "nativeRequests": 0,
+        "rejected": 0,
+        "cpuCandidates": 0,
+        "captures": 0
+      },
+      "resultUrl": "/api/planner-grid/result/dev-grid-00-03"
+    },
+    {
+      "id": "dev-grid-00-04",
+      "index": 4,
+      "label": "1·5",
+      "xy": [
+        0.8599999999999999,
+        -0.65
+      ],
+      "status": "unresolved",
+      "stage": "expanded",
+      "displayStage": "expanded",
+      "reason": "No qualified setting in this finite stage; inspect geometry, native outcomes and candidate-specific repeat records",
+      "selected": null,
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": null,
+      "savedFresh": null,
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": null,
+      "frozenExpected": true,
+      "search": {
+        "nativeRequests": 128,
+        "rejected": 694,
+        "cpuCandidates": 1024,
+        "captures": 1
+      },
+      "resultUrl": null
+    },
+    {
+      "id": "dev-grid-00-05",
+      "index": 5,
+      "label": "1·6",
+      "xy": [
+        1.0499999999999998,
+        -0.65
+      ],
+      "status": "unresolved",
+      "stage": "expanded",
+      "displayStage": "expanded",
+      "reason": "No qualified setting in this finite stage; inspect geometry, native outcomes and candidate-specific repeat records",
+      "selected": null,
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": null,
+      "savedFresh": null,
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": null,
+      "frozenExpected": true,
+      "search": {
+        "nativeRequests": 128,
+        "rejected": 739,
+        "cpuCandidates": 1024,
+        "captures": 0
+      },
+      "resultUrl": null
+    },
+    {
+      "id": "dev-grid-00-06",
+      "index": 6,
+      "label": "1·7",
+      "xy": [
+        1.24,
+        -0.65
+      ],
+      "status": "unresolved",
+      "stage": "expanded",
+      "displayStage": "expanded",
+      "reason": "No qualified setting in this finite stage; inspect geometry, native outcomes and candidate-specific repeat records",
+      "selected": null,
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": null,
+      "savedFresh": null,
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": null,
+      "frozenExpected": true,
+      "search": {
+        "nativeRequests": 128,
+        "rejected": 714,
+        "cpuCandidates": 1024,
+        "captures": 0
+      },
+      "resultUrl": null
+    },
+    {
+      "id": "dev-grid-01-00",
+      "index": 7,
+      "label": "2·1",
+      "xy": [
+        0.1,
+        -0.42500000000000004
+      ],
+      "status": "saved_verified",
+      "stage": "baseline",
+      "displayStage": "baseline",
+      "reason": "Archived parent evidence; this follow-up has not rerun these qualification or frozen-validation trials",
+      "selected": {
+        "board": [
+          0.5201200246810913,
+          -0.2803051173686981,
+          0.3375024199485779
+        ],
+        "release": [
+          0.5201201151696303,
+          -0.2803050489973325,
+          0.6884260616223454
+        ],
+        "tilt": 32.16581205142042,
+        "gap": 0.31342370391110463,
+        "distance": 0.44433933451555585,
+        "configurationSha": "0870e3c3139226f100d8a399b5d13925a9b66c751fde01bc8556c34b30f195c6",
+        "source": "Saved reference"
+      },
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": {
+        "captures": 3,
+        "attempts": 3
+      },
+      "savedFresh": {
+        "captures": 18,
+        "attempts": 20
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": {
+        "status": "completed",
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 29,
+          "attempts": 30
+        },
+        "quality": {
+          "clean": 18,
+          "assisted": 11,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "configurationSha": "0870e3c3139226f100d8a399b5d13925a9b66c751fde01bc8556c34b30f195c6"
+      },
+      "frozenExpected": false,
+      "search": {
+        "nativeRequests": 0,
+        "rejected": 0,
+        "cpuCandidates": 0,
+        "captures": 0
+      },
+      "resultUrl": "/api/planner-grid/result/dev-grid-01-00"
+    },
+    {
+      "id": "dev-grid-01-01",
+      "index": 8,
+      "label": "2·2",
+      "xy": [
+        0.29,
+        -0.42500000000000004
+      ],
+      "status": "verified_fresh",
+      "stage": "expanded",
+      "displayStage": "expanded",
+      "reason": "Fresh study qualification passed",
+      "selected": {
+        "board": [
+          0.6228941679000854,
+          -0.3985802233219147,
+          0.2680986523628235
+        ],
+        "release": [
+          0.6228943350461746,
+          -0.3985800616172553,
+          0.5351582702957665
+        ],
+        "tilt": 31.519844899807353,
+        "gap": 0.22955952009868144,
+        "distance": 0.3339409103742909,
+        "configurationSha": "f2c0580c6373e6f3e380f6c73e5432dfb7cc31053174eed15c83c3d9ef194337",
+        "source": "Fresh study"
+      },
+      "nominal": {
+        "captures": 3,
+        "attempts": 3
+      },
+      "fresh": {
+        "captures": 19,
+        "attempts": 20
+      },
+      "savedNominal": null,
+      "savedFresh": null,
+      "quality": {
+        "clean": 19,
+        "assisted": 0,
+        "cohort": "fresh",
+        "source": "fresh_study"
+      },
+      "frozen": {
+        "status": "completed",
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 28,
+          "attempts": 30
+        },
+        "quality": {
+          "clean": 28,
+          "assisted": 0,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "configurationSha": "f2c0580c6373e6f3e380f6c73e5432dfb7cc31053174eed15c83c3d9ef194337"
+      },
+      "previousFrozen": null,
+      "frozenExpected": true,
+      "search": {
+        "nativeRequests": 128,
+        "rejected": 573,
+        "cpuCandidates": 1024,
+        "captures": 44
+      },
+      "resultUrl": "/api/planner-grid/result/dev-grid-01-01"
+    },
+    {
+      "id": "dev-grid-01-02",
+      "index": 9,
+      "label": "2·3",
+      "xy": [
+        0.48,
+        -0.42500000000000004
+      ],
+      "status": "saved_verified",
+      "stage": "baseline",
+      "displayStage": "baseline",
+      "reason": "Archived parent evidence; this follow-up has not rerun these qualification or frozen-validation trials",
+      "selected": {
+        "board": [
+          0.6407912373542786,
+          -0.36949631571769714,
+          0.27414828538894653
+        ],
+        "release": [
+          0.6407913415821311,
+          -0.36949623814869914,
+          0.4080134162072503
+        ],
+        "tilt": 27.534005060312847,
+        "gap": 0.0963651221865184,
+        "distance": 0.17010138441185454,
+        "configurationSha": "b99b06a14f17fbd83db8ed4c3b04021b61ed932125875621354740f1e5144683",
+        "source": "Saved reference"
+      },
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": {
+        "captures": 3,
+        "attempts": 3
+      },
+      "savedFresh": {
+        "captures": 20,
+        "attempts": 20
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": {
+        "status": "completed",
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 30,
+          "attempts": 30
+        },
+        "quality": {
+          "clean": 30,
+          "assisted": 0,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "configurationSha": "b99b06a14f17fbd83db8ed4c3b04021b61ed932125875621354740f1e5144683"
+      },
+      "frozenExpected": false,
+      "search": {
+        "nativeRequests": 0,
+        "rejected": 0,
+        "cpuCandidates": 0,
+        "captures": 0
+      },
+      "resultUrl": "/api/planner-grid/result/dev-grid-01-02"
+    },
+    {
+      "id": "dev-grid-01-03",
+      "index": 10,
+      "label": "2·4",
+      "xy": [
+        0.6699999999999999,
+        -0.42500000000000004
+      ],
+      "status": "saved_verified",
+      "stage": "baseline",
+      "displayStage": "baseline",
+      "reason": "Archived parent evidence; this follow-up has not rerun these qualification or frozen-validation trials",
+      "selected": {
+        "board": [
+          0.6119402647018433,
+          -0.16431160271167755,
+          0.33102089166641235
+        ],
+        "release": [
+          0.6119402546153168,
+          -0.16431160572922765,
+          0.5256250067938111
+        ],
+        "tilt": 21.937971137003245,
+        "gap": 0.1571040569516942,
+        "distance": 0.2670755948109941,
+        "configurationSha": "0672a40aa340c751e3f7e5533a03fe4c454cdaa47070020442daa90d15707b49",
+        "source": "Saved reference"
+      },
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": {
+        "captures": 3,
+        "attempts": 3
+      },
+      "savedFresh": {
+        "captures": 20,
+        "attempts": 20
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": {
+        "status": "completed",
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 29,
+          "attempts": 30
+        },
+        "quality": {
+          "clean": 10,
+          "assisted": 19,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "configurationSha": "0672a40aa340c751e3f7e5533a03fe4c454cdaa47070020442daa90d15707b49"
+      },
+      "frozenExpected": false,
+      "search": {
+        "nativeRequests": 0,
+        "rejected": 0,
+        "cpuCandidates": 0,
+        "captures": 0
+      },
+      "resultUrl": "/api/planner-grid/result/dev-grid-01-03"
+    },
+    {
+      "id": "dev-grid-01-04",
+      "index": 11,
+      "label": "2·5",
+      "xy": [
+        0.8599999999999999,
+        -0.42500000000000004
+      ],
+      "status": "saved_verified",
+      "stage": "baseline",
+      "displayStage": "baseline",
+      "reason": "Archived parent evidence; this follow-up has not rerun these qualification or frozen-validation trials",
+      "selected": {
+        "board": [
+          0.6274269819259644,
+          -0.23581497371196747,
+          0.40906503796577454
+        ],
+        "release": [
+          0.6274269811022803,
+          -0.23581488833161737,
+          0.5819060632640587
+        ],
+        "tilt": 32.749881784770345,
+        "gap": 0.1353410311538266,
+        "distance": 0.2998019061108005,
+        "configurationSha": "82c4d238efcab5709f8546b11ebd292e3bf81c0c4b62fec6f9c566e0fcb05828",
+        "source": "Saved reference"
+      },
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": {
+        "captures": 3,
+        "attempts": 3
+      },
+      "savedFresh": {
+        "captures": 20,
+        "attempts": 20
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": {
+        "status": "completed",
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 30,
+          "attempts": 30
+        },
+        "quality": {
+          "clean": 0,
+          "assisted": 30,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "configurationSha": "82c4d238efcab5709f8546b11ebd292e3bf81c0c4b62fec6f9c566e0fcb05828"
+      },
+      "frozenExpected": false,
+      "search": {
+        "nativeRequests": 0,
+        "rejected": 0,
+        "cpuCandidates": 0,
+        "captures": 0
+      },
+      "resultUrl": "/api/planner-grid/result/dev-grid-01-04"
+    },
+    {
+      "id": "dev-grid-01-05",
+      "index": 12,
+      "label": "2·6",
+      "xy": [
+        1.0499999999999998,
+        -0.42500000000000004
+      ],
+      "status": "unresolved",
+      "stage": "expanded",
+      "displayStage": "expanded",
+      "reason": "No qualified setting in this finite stage; inspect geometry, native outcomes and candidate-specific repeat records",
+      "selected": null,
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": null,
+      "savedFresh": null,
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": null,
+      "frozenExpected": true,
+      "search": {
+        "nativeRequests": 128,
+        "rejected": 750,
+        "cpuCandidates": 1024,
+        "captures": 3
+      },
+      "resultUrl": null
+    },
+    {
+      "id": "dev-grid-01-06",
+      "index": 13,
+      "label": "2·7",
+      "xy": [
+        1.24,
+        -0.42500000000000004
+      ],
+      "status": "unresolved",
+      "stage": "expanded",
+      "displayStage": "expanded",
+      "reason": "No qualified setting in this finite stage; inspect geometry, native outcomes and candidate-specific repeat records",
+      "selected": null,
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": null,
+      "savedFresh": null,
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": null,
+      "frozenExpected": true,
+      "search": {
+        "nativeRequests": 128,
+        "rejected": 761,
+        "cpuCandidates": 1024,
+        "captures": 0
+      },
+      "resultUrl": null
+    },
+    {
+      "id": "dev-grid-02-00",
+      "index": 14,
+      "label": "3·1",
+      "xy": [
+        0.1,
+        -0.2
+      ],
+      "status": "saved_verified",
+      "stage": "baseline",
+      "displayStage": "baseline",
+      "reason": "Archived parent evidence; this follow-up has not rerun these qualification or frozen-validation trials",
+      "selected": {
+        "board": [
+          0.5316381454467773,
+          -0.23353539407253265,
+          0.3401139974594116
+        ],
+        "release": [
+          0.5316382045586326,
+          -0.2335354748426996,
+          0.6891644707552853
+        ],
+        "tilt": 32.12817684891195,
+        "gap": 0.3115504318858502,
+        "distance": 0.4329389232447614,
+        "configurationSha": "c35baa78d9548bd35a179f4ef17a6439a7b79d6a78cb63faf14c5e6ba11f0997",
+        "source": "Saved reference"
+      },
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": {
+        "captures": 3,
+        "attempts": 3
+      },
+      "savedFresh": {
+        "captures": 20,
+        "attempts": 20
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": {
+        "status": "completed",
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 30,
+          "attempts": 30
+        },
+        "quality": {
+          "clean": 6,
+          "assisted": 24,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "configurationSha": "c35baa78d9548bd35a179f4ef17a6439a7b79d6a78cb63faf14c5e6ba11f0997"
+      },
+      "frozenExpected": false,
+      "search": {
+        "nativeRequests": 0,
+        "rejected": 0,
+        "cpuCandidates": 0,
+        "captures": 0
+      },
+      "resultUrl": "/api/planner-grid/result/dev-grid-02-00"
+    },
+    {
+      "id": "dev-grid-02-01",
+      "index": 15,
+      "label": "3·2",
+      "xy": [
+        0.29,
+        -0.2
+      ],
+      "status": "saved_verified",
+      "stage": "baseline",
+      "displayStage": "baseline",
+      "reason": "Archived parent evidence; this follow-up has not rerun these qualification or frozen-validation trials",
+      "selected": {
+        "board": [
+          0.5915048718452454,
+          -0.3435669541358948,
+          0.2680986523628235
+        ],
+        "release": [
+          0.591504920117288,
+          -0.3435668297172108,
+          0.5671582702957665
+        ],
+        "tilt": 31.519844899807353,
+        "gap": 0.26155952009868144,
+        "distance": 0.33394109969615293,
+        "configurationSha": "494638bd33fd47de0f80c9102721c5a91e48415c0560dc102118a91630074b56",
+        "source": "Saved reference"
+      },
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": {
+        "captures": 3,
+        "attempts": 3
+      },
+      "savedFresh": {
+        "captures": 20,
+        "attempts": 20
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": {
+        "status": "completed",
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 29,
+          "attempts": 30
+        },
+        "quality": {
+          "clean": 28,
+          "assisted": 1,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "configurationSha": "494638bd33fd47de0f80c9102721c5a91e48415c0560dc102118a91630074b56"
+      },
+      "frozenExpected": false,
+      "search": {
+        "nativeRequests": 0,
+        "rejected": 0,
+        "cpuCandidates": 0,
+        "captures": 0
+      },
+      "resultUrl": "/api/planner-grid/result/dev-grid-02-01"
+    },
+    {
+      "id": "dev-grid-02-02",
+      "index": 16,
+      "label": "3·3",
+      "xy": [
+        0.48,
+        -0.2
+      ],
+      "status": "saved_verified",
+      "stage": "baseline",
+      "displayStage": "baseline",
+      "reason": "Archived parent evidence; this follow-up has not rerun these qualification or frozen-validation trials",
+      "selected": {
+        "board": [
+          0.6329436302185059,
+          -0.2744496464729309,
+          0.27414828538894653
+        ],
+        "release": [
+          0.6329437343752256,
+          -0.27444956160238937,
+          0.4080134162072503
+        ],
+        "tilt": 27.534005060312847,
+        "gap": 0.0963651221865184,
+        "distance": 0.1701014517408933,
+        "configurationSha": "b9377091068594d21e8b36f8d97898564e3c10225dd43d2965c3b09cfa141d6c",
+        "source": "Saved reference"
+      },
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": {
+        "captures": 3,
+        "attempts": 3
+      },
+      "savedFresh": {
+        "captures": 20,
+        "attempts": 20
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": {
+        "status": "completed",
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 30,
+          "attempts": 30
+        },
+        "quality": {
+          "clean": 30,
+          "assisted": 0,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "configurationSha": "b9377091068594d21e8b36f8d97898564e3c10225dd43d2965c3b09cfa141d6c"
+      },
+      "frozenExpected": false,
+      "search": {
+        "nativeRequests": 0,
+        "rejected": 0,
+        "cpuCandidates": 0,
+        "captures": 0
+      },
+      "resultUrl": "/api/planner-grid/result/dev-grid-02-02"
+    },
+    {
+      "id": "dev-grid-02-03",
+      "index": 17,
+      "label": "3·4",
+      "xy": [
+        0.6699999999999999,
+        -0.2
+      ],
+      "status": "blocked",
+      "stage": "expanded",
+      "displayStage": "expanded",
+      "reason": "Prescribed starting pose is blocked; another staging strategy needs validation.",
+      "selected": null,
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": null,
+      "savedFresh": null,
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": null,
+      "frozenExpected": true,
+      "search": {
+        "nativeRequests": 0,
+        "rejected": 0,
+        "cpuCandidates": 0,
+        "captures": 0
+      },
+      "resultUrl": null
+    },
+    {
+      "id": "dev-grid-02-04",
+      "index": 18,
+      "label": "3·5",
+      "xy": [
+        0.8599999999999999,
+        -0.2
+      ],
+      "status": "blocked",
+      "stage": "expanded",
+      "displayStage": "expanded",
+      "reason": "Prescribed starting pose is blocked; another staging strategy needs validation.",
+      "selected": null,
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": null,
+      "savedFresh": null,
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": null,
+      "frozenExpected": true,
+      "search": {
+        "nativeRequests": 0,
+        "rejected": 0,
+        "cpuCandidates": 0,
+        "captures": 0
+      },
+      "resultUrl": null
+    },
+    {
+      "id": "dev-grid-02-05",
+      "index": 19,
+      "label": "3·6",
+      "xy": [
+        1.0499999999999998,
+        -0.2
+      ],
+      "status": "unresolved",
+      "stage": "expanded",
+      "displayStage": "expanded",
+      "reason": "No qualified setting in this finite stage; inspect geometry, native outcomes and candidate-specific repeat records",
+      "selected": null,
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": null,
+      "savedFresh": null,
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": null,
+      "frozenExpected": true,
+      "search": {
+        "nativeRequests": 128,
+        "rejected": 731,
+        "cpuCandidates": 1024,
+        "captures": 1
+      },
+      "resultUrl": null
+    },
+    {
+      "id": "dev-grid-02-06",
+      "index": 20,
+      "label": "3·7",
+      "xy": [
+        1.24,
+        -0.2
+      ],
+      "status": "unresolved",
+      "stage": "expanded",
+      "displayStage": "expanded",
+      "reason": "No qualified setting in this finite stage; inspect geometry, native outcomes and candidate-specific repeat records",
+      "selected": null,
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": null,
+      "savedFresh": null,
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": null,
+      "frozenExpected": true,
+      "search": {
+        "nativeRequests": 128,
+        "rejected": 692,
+        "cpuCandidates": 1024,
+        "captures": 0
+      },
+      "resultUrl": null
+    },
+    {
+      "id": "dev-grid-03-00",
+      "index": 21,
+      "label": "4·1",
+      "xy": [
+        0.1,
+        0.025000000000000022
+      ],
+      "status": "blocked",
+      "stage": "expanded",
+      "displayStage": "expanded",
+      "reason": "Clearance between the bucket and a fixed arm base is unproven; placement or geometry needs validation.",
+      "selected": null,
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": null,
+      "savedFresh": null,
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": null,
+      "frozenExpected": true,
+      "search": {
+        "nativeRequests": 0,
+        "rejected": 0,
+        "cpuCandidates": 0,
+        "captures": 0
+      },
+      "resultUrl": null
+    },
+    {
+      "id": "dev-grid-03-01",
+      "index": 22,
+      "label": "4·2",
+      "xy": [
+        0.29,
+        0.025000000000000022
+      ],
+      "status": "saved_verified",
+      "stage": "baseline",
+      "displayStage": "baseline",
+      "reason": "Archived parent evidence; this follow-up has not rerun these qualification or frozen-validation trials",
+      "selected": {
+        "board": [
+          0.4597921371459961,
+          0.014746682718396187,
+          0.2741483747959137
+        ],
+        "release": [
+          0.45979219958719236,
+          0.014746607060560135,
+          0.4080134162072503
+        ],
+        "tilt": 27.534005060312847,
+        "gap": 0.0963651221865184,
+        "distance": 0.17010144135744995,
+        "configurationSha": "27542d34af1b88fc796a449f58176f10a4a7295a0268b52272f046647c7dad41",
+        "source": "Saved reference"
+      },
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": {
+        "captures": 3,
+        "attempts": 3
+      },
+      "savedFresh": {
+        "captures": 20,
+        "attempts": 20
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": {
+        "status": "completed",
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 30,
+          "attempts": 30
+        },
+        "quality": {
+          "clean": 30,
+          "assisted": 0,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "configurationSha": "27542d34af1b88fc796a449f58176f10a4a7295a0268b52272f046647c7dad41"
+      },
+      "frozenExpected": false,
+      "search": {
+        "nativeRequests": 0,
+        "rejected": 0,
+        "cpuCandidates": 0,
+        "captures": 0
+      },
+      "resultUrl": "/api/planner-grid/result/dev-grid-03-01"
+    },
+    {
+      "id": "dev-grid-03-02",
+      "index": 23,
+      "label": "4·3",
+      "xy": [
+        0.48,
+        0.025000000000000022
+      ],
+      "status": "saved_verified",
+      "stage": "baseline",
+      "displayStage": "baseline",
+      "reason": "Archived parent evidence; this follow-up has not rerun these qualification or frozen-validation trials",
+      "selected": {
+        "board": [
+          0.6329437494277954,
+          -0.04944964498281479,
+          0.27414825558662415
+        ],
+        "release": [
+          0.6329437343752256,
+          -0.04944956160238935,
+          0.4080134162072503
+        ],
+        "tilt": 27.534005060312847,
+        "gap": 0.0963651221865184,
+        "distance": 0.17010155827357795,
+        "configurationSha": "197de01d718432216131a9d15e2619c8505b8acf38ee2d4bc97fa68c93c8018f",
+        "source": "Saved reference"
+      },
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": {
+        "captures": 3,
+        "attempts": 3
+      },
+      "savedFresh": {
+        "captures": 20,
+        "attempts": 20
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": {
+        "status": "completed",
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 30,
+          "attempts": 30
+        },
+        "quality": {
+          "clean": 30,
+          "assisted": 0,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "configurationSha": "197de01d718432216131a9d15e2619c8505b8acf38ee2d4bc97fa68c93c8018f"
+      },
+      "frozenExpected": false,
+      "search": {
+        "nativeRequests": 0,
+        "rejected": 0,
+        "cpuCandidates": 0,
+        "captures": 0
+      },
+      "resultUrl": "/api/planner-grid/result/dev-grid-03-02"
+    },
+    {
+      "id": "dev-grid-03-03",
+      "index": 24,
+      "label": "4·4",
+      "xy": [
+        0.6699999999999999,
+        0.025000000000000022
+      ],
+      "status": "blocked",
+      "stage": "expanded",
+      "displayStage": "expanded",
+      "reason": "Prescribed starting pose is blocked; another staging strategy needs validation.",
+      "selected": null,
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": null,
+      "savedFresh": null,
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": null,
+      "frozenExpected": true,
+      "search": {
+        "nativeRequests": 0,
+        "rejected": 0,
+        "cpuCandidates": 0,
+        "captures": 0
+      },
+      "resultUrl": null
+    },
+    {
+      "id": "dev-grid-03-04",
+      "index": 25,
+      "label": "4·5",
+      "xy": [
+        0.8599999999999999,
+        0.025000000000000022
+      ],
+      "status": "blocked",
+      "stage": "expanded",
+      "displayStage": "expanded",
+      "reason": "Prescribed starting pose is blocked; another staging strategy needs validation.",
+      "selected": null,
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": null,
+      "savedFresh": null,
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": null,
+      "frozenExpected": true,
+      "search": {
+        "nativeRequests": 0,
+        "rejected": 0,
+        "cpuCandidates": 0,
+        "captures": 0
+      },
+      "resultUrl": null
+    },
+    {
+      "id": "dev-grid-03-05",
+      "index": 26,
+      "label": "4·6",
+      "xy": [
+        1.0499999999999998,
+        0.025000000000000022
+      ],
+      "status": "unresolved",
+      "stage": "expanded",
+      "displayStage": "expanded",
+      "reason": "No qualified setting in this finite stage; inspect geometry, native outcomes and candidate-specific repeat records",
+      "selected": null,
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": null,
+      "savedFresh": null,
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": null,
+      "frozenExpected": true,
+      "search": {
+        "nativeRequests": 128,
+        "rejected": 802,
+        "cpuCandidates": 1024,
+        "captures": 0
+      },
+      "resultUrl": null
+    },
+    {
+      "id": "dev-grid-03-06",
+      "index": 27,
+      "label": "4·7",
+      "xy": [
+        1.24,
+        0.025000000000000022
+      ],
+      "status": "blocked",
+      "stage": "expanded",
+      "displayStage": "expanded",
+      "reason": "Clearance between the bucket and a fixed arm base is unproven; placement or geometry needs validation.",
+      "selected": null,
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": null,
+      "savedFresh": null,
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": null,
+      "frozenExpected": true,
+      "search": {
+        "nativeRequests": 0,
+        "rejected": 0,
+        "cpuCandidates": 0,
+        "captures": 0
+      },
+      "resultUrl": null
+    },
+    {
+      "id": "dev-grid-04-00",
+      "index": 28,
+      "label": "5·1",
+      "xy": [
+        0.1,
+        0.25
+      ],
+      "status": "saved_verified",
+      "stage": "baseline",
+      "displayStage": "baseline",
+      "reason": "Archived parent evidence; this follow-up has not rerun these qualification or frozen-validation trials",
+      "selected": {
+        "board": [
+          0.4859480857849121,
+          0.0538363941013813,
+          0.3401140570640564
+        ],
+        "release": [
+          0.4859482320228433,
+          0.053836471519380646,
+          0.6891644707552853
+        ],
+        "tilt": 32.12817684891195,
+        "gap": 0.3115504318858502,
+        "distance": 0.43293889314796663,
+        "configurationSha": "74aa3513d26bba229fd5dfecdb3f67d9f7009a75830918c0d9c067e80e8f2554",
+        "source": "Saved reference"
+      },
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": {
+        "captures": 3,
+        "attempts": 3
+      },
+      "savedFresh": {
+        "captures": 20,
+        "attempts": 20
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": {
+        "status": "completed",
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 30,
+          "attempts": 30
+        },
+        "quality": {
+          "clean": 14,
+          "assisted": 16,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "configurationSha": "74aa3513d26bba229fd5dfecdb3f67d9f7009a75830918c0d9c067e80e8f2554"
+      },
+      "frozenExpected": false,
+      "search": {
+        "nativeRequests": 0,
+        "rejected": 0,
+        "cpuCandidates": 0,
+        "captures": 0
+      },
+      "resultUrl": "/api/planner-grid/result/dev-grid-04-00"
+    },
+    {
+      "id": "dev-grid-04-01",
+      "index": 29,
+      "label": "5·2",
+      "xy": [
+        0.29,
+        0.25
+      ],
+      "status": "saved_verified",
+      "stage": "baseline",
+      "displayStage": "baseline",
+      "reason": "Archived parent evidence; this follow-up has not rerun these qualification or frozen-validation trials",
+      "selected": {
+        "board": [
+          0.5715010166168213,
+          -0.07892753183841705,
+          0.3401140570640564
+        ],
+        "release": [
+          0.5715011397910115,
+          -0.07892746313417898,
+          0.6891644707552853
+        ],
+        "tilt": 32.12817684891195,
+        "gap": 0.3115504318858502,
+        "distance": 0.43293896054480563,
+        "configurationSha": "d105544da9f475e9d1d97b19722be317e5d25ad5a898772cc52fe2a81dd11842",
+        "source": "Saved reference"
+      },
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": {
+        "captures": 3,
+        "attempts": 3
+      },
+      "savedFresh": {
+        "captures": 19,
+        "attempts": 20
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": {
+        "status": "completed",
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 30,
+          "attempts": 30
+        },
+        "quality": {
+          "clean": 5,
+          "assisted": 25,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "configurationSha": "d105544da9f475e9d1d97b19722be317e5d25ad5a898772cc52fe2a81dd11842"
+      },
+      "frozenExpected": false,
+      "search": {
+        "nativeRequests": 0,
+        "rejected": 0,
+        "cpuCandidates": 0,
+        "captures": 0
+      },
+      "resultUrl": "/api/planner-grid/result/dev-grid-04-01"
+    },
+    {
+      "id": "dev-grid-04-02",
+      "index": 30,
+      "label": "5·3",
+      "xy": [
+        0.48,
+        0.25
+      ],
+      "status": "saved_verified",
+      "stage": "baseline",
+      "displayStage": "baseline",
+      "reason": "Archived parent evidence; this follow-up has not rerun these qualification or frozen-validation trials",
+      "selected": {
+        "board": [
+          0.5928109884262085,
+          0.12268856912851334,
+          0.27414843440055847
+        ],
+        "release": [
+          0.5928109720430352,
+          0.12268854060166831,
+          0.4080134162072503
+        ],
+        "tilt": 27.534005060312847,
+        "gap": 0.0963651221865184,
+        "distance": 0.17010149776014166,
+        "configurationSha": "88989318f0b799ee80bc0d5d4346fea54fbff6fe832b06a38bfb7f9a4809371e",
+        "source": "Saved reference"
+      },
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": {
+        "captures": 3,
+        "attempts": 3
+      },
+      "savedFresh": {
+        "captures": 20,
+        "attempts": 20
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": {
+        "status": "completed",
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 30,
+          "attempts": 30
+        },
+        "quality": {
+          "clean": 30,
+          "assisted": 0,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "configurationSha": "88989318f0b799ee80bc0d5d4346fea54fbff6fe832b06a38bfb7f9a4809371e"
+      },
+      "frozenExpected": false,
+      "search": {
+        "nativeRequests": 0,
+        "rejected": 0,
+        "cpuCandidates": 0,
+        "captures": 0
+      },
+      "resultUrl": "/api/planner-grid/result/dev-grid-04-02"
+    },
+    {
+      "id": "dev-grid-04-03",
+      "index": 31,
+      "label": "5·4",
+      "xy": [
+        0.6699999999999999,
+        0.25
+      ],
+      "status": "saved_verified",
+      "stage": "baseline",
+      "displayStage": "baseline",
+      "reason": "Archived parent evidence; this follow-up has not rerun these qualification or frozen-validation trials",
+      "selected": {
+        "board": [
+          0.5842174887657166,
+          -0.037267498672008514,
+          0.40906500816345215
+        ],
+        "release": [
+          0.5842175886210091,
+          -0.03726745985959323,
+          0.5819060632640587
+        ],
+        "tilt": 32.749881784770345,
+        "gap": 0.1353410311538266,
+        "distance": 0.2998020263889695,
+        "configurationSha": "8a1f2266b2b048f7ca3e78892f8c2eb83389ec1ef8bee91143d2c8e9ec03773f",
+        "source": "Saved reference"
+      },
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": {
+        "captures": 3,
+        "attempts": 3
+      },
+      "savedFresh": {
+        "captures": 19,
+        "attempts": 20
+      },
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": {
+        "status": "completed",
+        "nominal": {
+          "captures": 3,
+          "attempts": 3
+        },
+        "fresh": {
+          "captures": 28,
+          "attempts": 30
+        },
+        "quality": {
+          "clean": 0,
+          "assisted": 28,
+          "cohort": "fresh",
+          "source": "frozen_validation"
+        },
+        "configurationSha": "8a1f2266b2b048f7ca3e78892f8c2eb83389ec1ef8bee91143d2c8e9ec03773f"
+      },
+      "frozenExpected": false,
+      "search": {
+        "nativeRequests": 0,
+        "rejected": 0,
+        "cpuCandidates": 0,
+        "captures": 0
+      },
+      "resultUrl": "/api/planner-grid/result/dev-grid-04-03"
+    },
+    {
+      "id": "dev-grid-04-04",
+      "index": 32,
+      "label": "5·5",
+      "xy": [
+        0.8599999999999999,
+        0.25
+      ],
+      "status": "unresolved",
+      "stage": "expanded",
+      "displayStage": "expanded",
+      "reason": "No qualified setting in this finite stage; inspect geometry, native outcomes and candidate-specific repeat records",
+      "selected": null,
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": null,
+      "savedFresh": null,
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": null,
+      "frozenExpected": true,
+      "search": {
+        "nativeRequests": 128,
+        "rejected": 812,
+        "cpuCandidates": 1024,
+        "captures": 94
+      },
+      "resultUrl": null
+    },
+    {
+      "id": "dev-grid-04-05",
+      "index": 33,
+      "label": "5·6",
+      "xy": [
+        1.0499999999999998,
+        0.25
+      ],
+      "status": "unresolved",
+      "stage": "expanded",
+      "displayStage": "expanded",
+      "reason": "No qualified setting in this finite stage; inspect geometry, native outcomes and candidate-specific repeat records",
+      "selected": null,
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": null,
+      "savedFresh": null,
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": null,
+      "frozenExpected": true,
+      "search": {
+        "nativeRequests": 128,
+        "rejected": 760,
+        "cpuCandidates": 1024,
+        "captures": 0
+      },
+      "resultUrl": null
+    },
+    {
+      "id": "dev-grid-04-06",
+      "index": 34,
+      "label": "5·7",
+      "xy": [
+        1.24,
+        0.25
+      ],
+      "status": "unresolved",
+      "stage": "expanded",
+      "displayStage": "expanded",
+      "reason": "No qualified setting in this finite stage; inspect geometry, native outcomes and candidate-specific repeat records",
+      "selected": null,
+      "nominal": null,
+      "fresh": null,
+      "savedNominal": null,
+      "savedFresh": null,
+      "quality": {
+        "clean": null,
+        "assisted": null,
+        "cohort": null,
+        "source": null
+      },
+      "frozen": null,
+      "previousFrozen": null,
+      "frozenExpected": true,
+      "search": {
+        "nativeRequests": 128,
+        "rejected": 756,
+        "cpuCandidates": 1024,
+        "captures": 0
+      },
+      "resultUrl": null
+    }
+  ]
+}
