@@ -1,0 +1,199 @@
+{
+  "version": "sircus-native-complete-shot-engineering-control-summary-v1",
+  "status": "passed",
+  "simulation_only": true,
+  "synthetic_fixture": false,
+  "scope": "Shared engineering validation outside matched-budget method training and held-out evaluation; no learning curves or generalization estimate",
+  "producer_scope_note": "The unchanged producer labels its recipe inputs TRAIN-only; this publication treats the discarded run as shared engineering evidence, not benchmark training/test results.",
+  "immutable_source_snapshot": "calibrated-native-v2c",
+  "producer_report_sha256": "86194bd80476ed6daacdee9e457aa72c4e57fa19d9d5bd02af6be81d0f493e77",
+  "producer_manifest_sha256": "99a567b9b8353ca3348d29930659bc6320d17eec5427a408fd53ee5feea08e5e",
+  "independent_audit_file": "native-complete-shot-audit-v2c.json",
+  "independent_audit_sha256": "758ebd2c5c647d88c948897200e797c6bfcc85e7a4a5990a2838dcedcd606cc7",
+  "independent_audit_checks": 9167,
+  "independent_auditor_source_sha256": "4f7af7da8789311769579ab87096d251e75455d4e146018c388c9a4a3812b5a9",
+  "producer_source_sha256": {
+    "sircus/mjlab/calibrated_benchmark_smoke.py": "1312bf58912de62c239094fe51d4ee60dacdf795137a4b1951740488a78852a7"
+  },
+  "identity": {
+    "contract_fingerprint": "8edba8a3349aa8bcb4c06b97f3f61a302684856513b0ac972cf849afd3f4f037",
+    "scene_sha256": "9a50295d9908be8634c2df1c0b460ec6011710cf8e14ce33cbc67a75749ff1c8",
+    "reward_version": "sircus-calibrated-shot-reward-v2",
+    "scorer_version": "sircus-calibrated-native-capture-v2",
+    "trace_schema": {
+      "version": "sircus-dense-native-interval-trace-v2",
+      "position_m": "(T+1,N,3), includes time zero",
+      "velocity_m_s": "(T+1,N,3), includes time zero",
+      "forces_N": "(T,N,6), interval contact-force observations",
+      "force_names": [
+        "board",
+        "bucket",
+        "table",
+        "floor",
+        "robot",
+        "unattributed"
+      ],
+      "time_s": "(T+1,), canonical dt-times-tick native times",
+      "native_time_s": "(T+1,N), observed native GPU clock with drift retained",
+      "contact_distance_m": "(T,N,2), nearest ball/wall and ball/base contact distance, +inf absent",
+      "contact_geom_ids": "(T,N,2,2), native geom pair IDs, -1 absent",
+      "contact_position_m": "(T,N,2,3), native contact positions, zeros absent",
+      "contact_normal": "(T,N,2,3), native contact frame normals, zeros absent",
+      "contact_alignment": "Interval contact fields correspond to PREstate position_m[k], verified independently against native geomDistance",
+      "time_provenance": "time_s is tick-derived; native_time_s is the recorded engine clock",
+      "native_dt_s": 6.510416666666667e-05,
+      "horizon_s": 4.0,
+      "scoring_dt_s": 6.510416666666667e-05,
+      "alignment": "forces[i] belongs to native interval [time[i],time[i+1]]"
+    }
+  },
+  "canonical_home_record_sha256": "8f89fdb561beeb571ee1975f8677354decb3a8002be3fb95d6e4772bbe2ba62d",
+  "requested_decisions": 50,
+  "native_releases": 48,
+  "exact_shared_source_recipes_evaluated": 17,
+  "exact_shared_source_recipes_captured": 17,
+  "deliberate_rejections": 1,
+  "discarded_ppo_requests": 32,
+  "actor_changed": true,
+  "behavior_logp_max_error": 0.0,
+  "source_recipe_controls": {
+    "sha256": "3a63b24469aba8177692417945b98a3fc7153e634e0b5c0a12e4c13ea88f9e91",
+    "requested": 17,
+    "native_releases": 17,
+    "route_captures": 17,
+    "invalid_decisions": 0,
+    "invalid_physics": 0,
+    "scalar_score_audit_passed": true,
+    "quality_counts": {
+      "1": 5,
+      "2": 12
+    },
+    "reward_min": 4.214015441763547,
+    "reward_max": 4.53565751105372,
+    "reward_mean": 4.4154763065730025,
+    "timing": {
+      "geometry_s": 6.255464064190164,
+      "path_s": 0.012048473116010427,
+      "gpu_s": 43.89622791297734,
+      "postprocess_s": 2.069719822029583,
+      "native_init_s": 2.7178853360237554,
+      "wall_s": 55.27565449394751,
+      "requested": 17,
+      "native_releases": 17,
+      "resolver_candidates": 0,
+      "resolver_cache_hits": 17,
+      "scope": "Measured setup/admission/native pipeline wall time; not GPU kernel-active time"
+    },
+    "reward_source": "row.reward"
+  },
+  "discarded_ppo_engineering_check": {
+    "sha256": "20ebc76d290b6c7ad8b1501e68f627e467731cba045a6180528cade720570a47",
+    "requested": 32,
+    "native_releases": 31,
+    "route_captures": 28,
+    "invalid_decisions": 1,
+    "invalid_physics": 0,
+    "scalar_score_audit_passed": true,
+    "quality_counts": {
+      "0": 4,
+      "1": 18,
+      "2": 10
+    },
+    "reward_min": -1.0,
+    "reward_max": 4.533458709716797,
+    "reward_mean": 3.7487231730410713,
+    "timing": {
+      "geometry_s": 10.778376084985211,
+      "path_s": 15.953581560170278,
+      "gpu_s": 44.76625398697797,
+      "postprocess_s": 3.989534492022358,
+      "native_init_s": 0.0,
+      "wall_s": 75.98007955902722,
+      "requested": 32,
+      "native_releases": 31,
+      "resolver_candidates": 0,
+      "resolver_cache_hits": 32,
+      "scope": "Measured setup/admission/native pipeline wall time; not GPU kernel-active time"
+    },
+    "reward_source": "ppo-buffer.npz/reward (actual discarded optimizer input)",
+    "actor_before": "75c1e37d8a214c41ce6b4ee999272b770462e984eef7aee3edd9ff76699e39a1",
+    "actor_after": "1a263081ea2fb07a8ff4666bb6b83ffc8797875db89519995682f9d820d5589b",
+    "likelihood_error": 0.0,
+    "update": {
+      "before": "bb940f43e737d6bb2a4cb81ecff672725dc22bc2c285586b01f96c41a8a19e59",
+      "after": "3db3f1ff66f3a134ce16ec0f9215a99bf13e678d48eb173f8f88eb17368b32f8",
+      "epochs": [
+        {
+          "loss": 9.094393730163574,
+          "actor_loss": 1.601874828338623e-07,
+          "critic_loss": 18.187976837158203,
+          "gradient_norm": 8.476239204406738
+        },
+        {
+          "loss": 8.994587898254395,
+          "actor_loss": -0.013419754803180695,
+          "critic_loss": 18.01520538330078,
+          "gradient_norm": 8.377708435058594
+        },
+        {
+          "loss": 8.895503044128418,
+          "actor_loss": -0.026798926293849945,
+          "critic_loss": 17.843791961669922,
+          "gradient_norm": 8.2935152053833
+        },
+        {
+          "loss": 8.797085762023926,
+          "actor_loss": -0.04016704857349396,
+          "critic_loss": 17.67369270324707,
+          "gradient_norm": 8.213205337524414
+        },
+        {
+          "loss": 8.699947357177734,
+          "actor_loss": -0.052889384329319,
+          "critic_loss": 17.50486183166504,
+          "gradient_norm": 7.986384391784668
+        },
+        {
+          "loss": 8.609307289123535,
+          "actor_loss": -0.05965827405452728,
+          "critic_loss": 17.337116241455078,
+          "gradient_norm": 7.774960994720459
+        }
+      ]
+    },
+    "reward_buffer_sha256": "0261f40c31142b6777c72e2ab8935f2a85b51b78505948462b7a55e2d445c988",
+    "rejected_reward": [
+      -1.0
+    ]
+  },
+  "quality_scale": {
+    "0": "No complete route capture (including rejected setup decisions)",
+    "1": "Captured with retention; clean-entry criteria not all satisfied",
+    "2": "Captured with clean entry under versioned scorer"
+  },
+  "contact_geometry": {
+    "zero_frame_contacts": 16,
+    "maximum_cpu_distance_error_m": 6.170557340784422e-08,
+    "maximum_cpu_tangency_distance_m": 9.523318609400144e-08,
+    "references_sha256": "82323fbe737cb2230649c25a4712a092f758a61a40421652d2bedeb45cc98964",
+    "all_zero_frame_contacts_checked": true,
+    "treatment": "No direction inferred; zero frames accepted only within fixed2um exact tangency and independently checked same-pair PREstate CPU geomDistance"
+  },
+  "timing": {
+    "producer_elapsed_s": 367.0072656229604,
+    "independent_audit_elapsed_s": 3.4212535260012373,
+    "scope": "Phase timings are pipeline wall observations, not GPU kernel-active time; producer elapsed includes surrounding control setup."
+  },
+  "score_definition": "Measured board rebound, whole-ball mouth entry and continuous one-second retention; rim assistance allowed, partial exit resets retention.",
+  "reused_for_benchmark_training": false,
+  "new_benchmark_capture_rates": null,
+  "raw_traces_included": false,
+  "policies_included": false,
+  "limitations": [
+    "17/17 is an engineering recipe check, not held-out policy performance.",
+    "The 32-decision PPO model/update is discarded; it is not the model in the independent long benchmark.",
+    "No physical hardware, perception, driven-arm motion or real-material adaptation is validated.",
+    "Historical old71 geometry-proof metadata retains its own source bindings and scope; this native control gate does not reclassify it."
+  ],
+  "fingerprint": "888b1ba67a349248557ab94dd2c64c61e0d67c463a5cc114406a6dfe3ece81ea"
+}
