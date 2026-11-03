@@ -1,5 +1,27 @@
 # Project state
 
+## Seeded bucket-distance study — November 3, 2026
+
+- [Prespecified method](../sircus/mjlab/DISTANCE_STUDY.md): eight perfect parent
+  seeds, 14 requested bucket placements along two separately labeled rays;
+  seeded gap sweep, targeted farther-distance H/tilt expansion, captured-sample
+  refinement and up to 15 repeated configurations. Maximum 5,589 requests.
+- [CPU endpoint preflight](../baselines/mjlab-distance-20261103/cpu-preflight.json)
+  passed 238 checks in 28.36 seconds with CUDA disabled. All 24 exact seed controls
+  preserved source joints; 88/112 board contexts and 26/48 corner gap queries
+  passed strict native pose/clearance checks. Native flight results remain pending.
+- Table outer-footprint +5 mm margin is explicit: original ray about 648.8 mm,
+  diagonal toward the supported corner about 772.8 mm. Original 650 and corner
+  800/950 mm requests remain geometry failures, not silently clipped or simulated
+  outside the table. Rotated headings require newly verified board IK branches.
+- Each selected recipe receives 3 nominal +30 fresh H/tilt/gap-noise requests,
+  reused identically at 32/64/128. Prespecified all-resolution repeat counts and
+  the fine-pair position/outcome gate remain separate from convergence claims.
+- Source/evidence planned at `studies/distance-v1` / `output/distance-v1`; only
+  4090/shared lock, with bounded storage/runtime and final CPU rescoring. Existing
+  viewer static files/derived data can update without service restart. No 4070,
+  Isaac, hardware/Viam/audio change, policy activation or new RL training.
+
 ## Completed local height/tilt and timestep study — November 3, 2026
 
 - [Audited settings and comparisons](../baselines/mjlab-height-tilt-20261102/README.md):

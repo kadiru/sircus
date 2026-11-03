@@ -1,0 +1,16 @@
+{
+  "version": "sircus-distance-cpu-preflight-provenance-v1",
+  "curated_file": "cpu-preflight.json",
+  "curated_sha256": "39a0642df9f22963cd20008e15f7500768eb2175aa61573f646f04683bd1def0",
+  "parent_fingerprint": "12b2952c68b38d6bb392e3256d140cb7445ea97c73b090a6a39c5dfc4a4aa680",
+  "parent_source_files_checked": 85,
+  "parent_source_files_match": true,
+  "parent_source_manifest_sha256": "7b819bfb1b4296fd759183df2f165e46d87a31642c7b87df470d28e8d32067fe",
+  "new_geometry_sha256": "bc7276a7104680c32220dfc589cd46793beffab6166d64da0956e4bc2ed8e507",
+  "frozen_native_study": false,
+  "native_dynamics_tested": false,
+  "cuda_visible_devices": "",
+  "gpu_jobs_started": 0,
+  "services_changed": 0,
+  "scope": "Isolated strict CPU endpoint preflight only. Parent native/scoring source, assets and pinned packages verified unchanged. No joint arrays, raw observations, credentials or host paths included."
+}

@@ -2,6 +2,8 @@
 
 **Current mjlab checkpoint:** the [completed local height/tilt and timestep study](baselines/mjlab-height-tilt-20261102/README.md) found eight configurations with **23/23 captures at each of 32/64/128 substeps**; ten of twelve selected recipes passed the prespecified 64/128 repeatability gate. These are fixed-bucket development results, not a new trained policy. The earlier [conditional gap-window study](baselines/mjlab-window-sac-20261102/README.md) and all historical contracts/results remain separate.
 
+The next [seeded bucket-distance study](baselines/mjlab-distance-20261103/README.md) uses those eight configurations to search farther placements, with separate support/reach checks and paired repeatability. Its read-only `#distanceStudy` panel keeps new evidence separate from the completed parent.
+
 Two UFACTORY850 arms learn to bounce a ball from a suction-mounted board into a bucket. Arm10 picks/releases; arm14 positions the board. This private repository is the shared source for Mac physical work and Ubuntu simulation work.
 
 The current goal is a simulation showcase with an interactively placed bucket and optional constraints on either arm. [The mjlab/Isaac comparison](baselines/mjlab-comparison-20261102/README.md) establishes the second engine's two-arm geometry and shared scoring.
