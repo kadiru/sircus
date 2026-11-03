@@ -1,5 +1,37 @@
 # Project state
 
+## Calibrated benchmark v2 — implementation ready, native checks in progress
+
+- [Additive protocol and reproduction](../sircus/mjlab/CALIBRATED_BENCHMARK.md),
+  [draft PR62](https://github.com/kadiru/sircus/pull/62), stacked on PR60. No merge,
+  policy activation, hardware/Viam/audio work, existing-service restart or4070
+  workload change. Historical v1 remains unchanged below.
+- Independently audited current-ball bucket-contact calibration passed3,444 fit
+  and15,011 verification checks. Canonical64, fine128 and reversed64 controls all
+  passed the frozen wall3.563906mm/floor2.943836mm envelope without refitting.
+  These are simulated soft-contact allowances, separate from2µm geometry
+  precision; component controls alone do not certify a complete board-bounce shot.
+- New capture scoring requires observed board rebound, open-mouth whole-ball
+  entry and one continuous second from the first valid inside timestamp. Partial
+  exits reset retention; rim-assisted captures count. A separate oracle checks
+  dense native traces. Historical labels are never rewritten.
+- Geometry-only pre-policy resolution plus exact-action admission preserves5mm
+  clearance,>150mm board–bucket distance and serialized forward/reverse paths
+  sampled at≤0.5°. CPU audit admitted69/71 old layouts (33/35 TRAIN,12/12 old
+  validation,24/24 oldtest); two genuine fixed-base/bucket conflicts remain failed
+  requests. This is finite sampled geometry, not executed arm transit.
+- The complete six-worker synthetic CPU PPO/controller/auditor/exporter gate,
+  native-constructor/reset-stream regressions, repository mock suites and GitHub
+  CI passed. A new frozen-source TRAIN-only native smoke is underway. The long
+  matched three-seed×1,024-request/method study has **not started**; no corrected
+  capture-rate or adaptation ranking is available yet.
+- A separate read-only v2 interface is implemented for port18790 but not launched.
+  It binds calibration, home, source and report identities, hides TEST until a
+  completed exact independent audit passes, and displays admission counts and
+  costs separately from archived v1. New evaluation coordinates exclude all71
+  historical coordinates. Geometry search remains at inference; flight search
+  does not. The task remains privileged-geometry held-endpoint shot selection.
+
 ## Completed matched current-ball sweep/PPO benchmark — November 3, 2026
 
 - [Frozen design and reproduction](../sircus/mjlab/SWEEP_RL_BENCHMARK.md): guided
