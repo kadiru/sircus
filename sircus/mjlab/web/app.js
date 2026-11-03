@@ -324,15 +324,22 @@ function showPlannerGridStudy() {
     ['Frozen perturbed captures', `${gridRepeats(summary.frozenFresh)}${summary.frozenFresh ? ` · ${summary.frozenFresh.reported} cells` : ''}`]], $('plannerGridSummary'));
   $('plannerGridScope').textContent = summary.scope || 'Corrected native MuJoCo sweep search. These are development targets; repeated captures are separate from exploratory search and saved reference evidence.';
   const table = document.createElement('table'), head = document.createElement('thead'), header = document.createElement('tr'), body = document.createElement('tbody');
-  for (const label of ['Table / bucket XY mm', 'Study status', 'Frozen validation', 'Board XYZ mm', 'Tilt', 'Ball release Z mm', 'Gap / distance mm', 'Qualification nominal', 'Qualification perturbed', 'Clean / assisted', 'Search effort', 'Recorded shot']) {
+  for (const label of ['Table / bucket XY mm', 'Study status', 'Frozen validation', 'Board XYZ mm', 'Tilt', 'Ball release Z mm', 'Gap / distance mm', 'Qualification nominal', 'Qualification perturbed', 'Clean / assisted', 'Search effort']) {
     const th = document.createElement('th'); th.textContent = label; th.scope = 'col'; header.append(th);
   }
   head.append(header); table.append(head, body);
   for (const row of rows) {
     const tr = document.createElement('tr'); tr.dataset.cellId = row.id;
     const cell = text => { const td = document.createElement('td'); td.style.whiteSpace = 'pre-line'; td.textContent = text; tr.append(td); return td; };
-    cell(`${row.label}\n${row.xy ? row.xy.map(gridMillimetres).join(', ') : 'Unknown XY'}`);
-    const status = cell(`${row.status.replaceAll('_', ' ')}${row.stage ? `\n${row.stage.replaceAll('_', ' ')}` : ''}${row.reason ? `\n${row.reason}` : ''}`);
+    const identity = cell(`${row.label}\n${row.xy ? row.xy.map(gridMillimetres).join(', ') : 'Unknown XY'}`);
+    identity.className = 'grid-cell-identity';
+    const status = cell(`${row.status.replaceAll('_', ' ')}${row.stage ? `\n${row.stage.replaceAll('_', ' ')}` : ''}`);
+    status.className = 'grid-cell-status';
+    if (row.reason) {
+      status.title = row.reason;
+      const details = document.createElement('details'), summary = document.createElement('summary'), reason = document.createElement('p');
+      summary.textContent = 'Details'; reason.textContent = row.reason; details.append(summary, reason); status.append(details);
+    }
     if (['qualified', 'verified_fresh', 'saved_verified'].includes(row.status)) status.style.color = 'var(--teal)';
     const frozen = cell(row.frozen ? `${row.frozen.status.replaceAll('_', ' ')}\nNominal ${gridRepeats(row.frozen.nominal)}\nPerturbed ${gridRepeats(row.frozen.fresh)}\nClean / assisted: ${gridQuality(row.frozen.quality)}` : 'Pending / unknown');
     if (row.frozen?.configurationSha) frozen.title = `Frozen configuration SHA256: ${row.frozen.configurationSha}`;
@@ -343,13 +350,17 @@ function showPlannerGridStudy() {
     cell(`${gridRepeats(row.nominal)}${row.savedNominal ? `\nSaved: ${gridRepeats(row.savedNominal)}` : ''}`);
     cell(`${gridRepeats(row.fresh)}${row.savedFresh ? `\nSaved: ${gridRepeats(row.savedFresh)}` : ''}`);
     cell(gridQuality(row.quality));
-    cell(`${row.search.nativeRequests ?? '—'} native requests\n${row.search.rejected ?? '—'} geometry rejects${row.search.cpuCandidates !== null ? ` / ${row.search.cpuCandidates} proposals` : ''}`);
-    const action = cell('');
+    const searchCaptures = row.search.captures !== null && row.search.nativeRequests !== null
+      ? `${row.search.captures}/${row.search.nativeRequests} search captures`
+      : `${row.search.nativeRequests ?? '—'} native requests · captures unknown`;
+    cell(`${searchCaptures}\n${row.search.rejected ?? '—'} geometry rejects${row.search.cpuCandidates !== null ? ` / ${row.search.cpuCandidates} proposals` : ''}`);
     if (row.resultUrl && row.xy) {
       const button = document.createElement('button'); button.type = 'button'; button.className = 'quiet'; button.textContent = 'View recorded shot';
       button.setAttribute('aria-label', `View table ${row.label} recorded native shot`); button.disabled = pending;
-      button.onclick = () => viewPlannerGridResult(row); action.append(button);
-    } else action.textContent = 'No saved trajectory';
+      button.onclick = () => viewPlannerGridResult(row); identity.append(button);
+    } else {
+      const unavailable = document.createElement('small'); unavailable.textContent = 'No saved trajectory'; identity.append(unavailable);
+    }
     body.append(tr);
   }
   $('plannerGridTable').replaceChildren(table);

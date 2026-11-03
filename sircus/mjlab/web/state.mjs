@@ -219,14 +219,15 @@ export function plannerGridCsv(report) {
     const text = typeof value === 'string' && /^[=+\-@]/.test(value) ? `'${value}` : String(value);
     return `"${text.replaceAll('"', '""')}"`;
   };
-  const header = ['table', 'id', 'bucket_x_m', 'bucket_y_m', 'status', 'stage', 'source', 'board_x_m', 'board_y_m', 'board_center_z_m', 'board_tilt_deg', 'drop_gap_m', 'release_ball_center_x_m', 'release_ball_center_y_m', 'release_ball_center_z_m', 'board_to_bucket_distance_m', 'study_nominal_captures', 'study_nominal_attempts', 'study_fresh_captures', 'study_fresh_attempts', 'saved_nominal_captures', 'saved_nominal_attempts', 'saved_fresh_captures', 'saved_fresh_attempts', 'frozen_validation_status', 'frozen_nominal_captures', 'frozen_nominal_attempts', 'frozen_fresh_captures', 'frozen_fresh_attempts', 'frozen_configuration_sha256', 'quality_clean', 'quality_assisted', 'quality_cohort', 'quality_source', 'search_native_requests', 'search_geometry_rejected', 'reason'];
+  const header = ['table', 'id', 'bucket_x_m', 'bucket_y_m', 'status', 'stage', 'source', 'board_x_m', 'board_y_m', 'board_center_z_m', 'board_tilt_deg', 'drop_gap_m', 'release_ball_center_x_m', 'release_ball_center_y_m', 'release_ball_center_z_m', 'board_to_bucket_distance_m', 'study_nominal_captures', 'study_nominal_attempts', 'study_fresh_captures', 'study_fresh_attempts', 'saved_nominal_captures', 'saved_nominal_attempts', 'saved_fresh_captures', 'saved_fresh_attempts', 'frozen_validation_status', 'frozen_nominal_captures', 'frozen_nominal_attempts', 'frozen_fresh_captures', 'frozen_fresh_attempts', 'frozen_configuration_sha256', 'frozen_quality_clean', 'frozen_quality_assisted', 'frozen_quality_cohort', 'quality_clean', 'quality_assisted', 'quality_cohort', 'quality_source', 'search_captures', 'search_native_requests', 'search_geometry_rejected', 'search_cpu_candidates', 'reason'];
   const rows = plannerGridRows(report).map(row => [row.label, row.id, ...(row.xy ?? [null, null]), row.status, row.stage, row.selected?.source,
     ...(row.selected?.board ?? [null, null, null]), row.selected?.tilt, row.selected?.gap, ...(row.selected?.release ?? [null, null, null]), row.selected?.distance,
     row.nominal?.captures, row.nominal?.attempts, row.fresh?.captures, row.fresh?.attempts,
     row.savedNominal?.captures, row.savedNominal?.attempts, row.savedFresh?.captures, row.savedFresh?.attempts,
     row.frozen?.status, row.frozen?.nominal?.captures, row.frozen?.nominal?.attempts, row.frozen?.fresh?.captures, row.frozen?.fresh?.attempts, row.frozen?.configurationSha,
+    row.frozen?.quality?.clean, row.frozen?.quality?.assisted, row.frozen?.quality?.cohort,
     row.quality.clean, row.quality.assisted, row.quality.cohort, row.quality.source,
-    row.search.nativeRequests, row.search.rejected, row.reason]);
+    row.search.captures, row.search.nativeRequests, row.search.rejected, row.search.cpuCandidates, row.reason]);
   return [header, ...rows].map(row => row.map(csvValue).join(',')).join('\n') + '\n';
 }
 
