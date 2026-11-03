@@ -15,6 +15,8 @@ from sircus.mjlab.interface import (
     InterfaceState,
     RequestError,
     handler_for,
+    planner_ready,
+    search_ready,
     study_ready,
     validate_request,
 )
@@ -58,6 +60,67 @@ class InterfaceTests(unittest.TestCase):
         self.assertTrue(
             study_ready({"status": "completed", "frozen_evaluation": {"trials": 1}})
         )
+
+    def test_corrected_search_readiness_does_not_unlock_policy(self):
+        report = {
+            "status": "running",
+            "planner": {"ready": True, "version": "sircus-corrected-sweep-planner-v1"},
+        }
+        self.report_path.write_text(json.dumps(report))
+        self.assertTrue(planner_ready(report))
+        self.assertTrue(search_ready(report))
+        self.assertFalse(study_ready(report))
+        calls = []
+
+        def solve(request):
+            calls.append(request)
+            return {
+                "method": "sweep_planner",
+                "success": False,
+                "status_native": "no_verified_solution_within_budget",
+            }
+
+        state = InterfaceState(self.report_path, solver=solve)
+        public = state.report()
+        self.assertTrue(public["search_ready"])
+        self.assertFalse(public["interface_ready"])
+        self.assertFalse(public["policy_ready"])
+        with self.assertRaises(RequestError) as ctx:
+            state.submit(self.request)
+        self.assertEqual(ctx.exception.status, 423)
+        state.submit({**self.request, "mode": "search", "search_budget": 32})
+        result = self.await_result(state)
+        self.assertEqual(result["status"], "completed")
+        self.assertEqual(calls[0]["search_budget"], 32)
+        self.assertFalse(result["result"]["success"])
+
+    def test_invalid_planner_capability_does_not_fall_back_to_legacy_search(self):
+        ready = {"status": "completed", "frozen_evaluation": {"trials": 1}}
+        self.assertTrue(search_ready(ready))
+        for capability in (
+            None,
+            {},
+            {"ready": True, "version": "other"},
+            {"ready": "true", "version": "sircus-corrected-sweep-planner-v1"},
+        ):
+            self.assertFalse(search_ready({**ready, "planner": capability}))
+        self.assertTrue(study_ready({**ready, "planner": {}}))
+
+    def test_search_budget_is_bounded_and_not_a_policy_control(self):
+        for budget in (16, 64, 128):
+            request = validate_request(
+                {**self.request, "mode": "search", "search_budget": budget},
+                DEFAULT_SCENE,
+            )
+            self.assertEqual(request["search_budget"], budget)
+        for budget in (True, 15, 129, 32.0, "64", float("nan")):
+            with self.assertRaises(RequestError):
+                validate_request(
+                    {**self.request, "mode": "search", "search_budget": budget},
+                    DEFAULT_SCENE,
+                )
+        with self.assertRaises(RequestError):
+            validate_request({**self.request, "search_budget": 64}, DEFAULT_SCENE)
 
     def test_missing_study_never_calls_solver(self):
         calls = []
@@ -184,6 +247,16 @@ class InterfaceTests(unittest.TestCase):
         self.assertEqual(self.await_result(state)["status"], "error")
         state.submit({**self.request, "mode": "search"})
         self.assertEqual(self.await_result(state)["status"], "completed")
+
+    def test_corrected_search_cannot_masquerade_as_policy(self):
+        self.completed()
+        for method in ("sweep_planner", "corrected_sweep"):
+            state = InterfaceState(
+                self.report_path,
+                solver=lambda request: {"method": method, "success": True},
+            )
+            state.submit(self.request)
+            self.assertEqual(self.await_result(state)["status"], "error")
 
     def test_wrong_request_and_nan_result_rejected(self):
         self.completed()

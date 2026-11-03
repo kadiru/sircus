@@ -10,6 +10,11 @@ The current goal is a simulation showcase with an interactively placed bucket an
 
 ## Start here
 
+- **Sweep shot planner:** [place a bucket, search and replay a confirmed shot](sircus/mjlab/SWEEP_PLANNER.md).
+  Independent of learned-policy readiness, with exact saved recipes for12 farm
+  targets and corrected native search for new coordinates. Finite search can
+  remain unresolved; arbitrary query support is not all-table success coverage.
+
 - **Contact repeatability:** [gravity/time-step diagnosis, 1,708 throws, exact settings and collision-aware transit](baselines/mjlab-contact-transit-20261102/README.md).100 fresh perturbed requests capture at corrected 32/64 substeps; all are rim-assisted. Numerical diagnostics and geometric paths stay separate from learned-policy performance.
 
 - **mjlab interactive shot study:** [bounded learning protocol](sircus/mjlab/LEARNING.md) and [drag-bucket/position-lock interface](sircus/mjlab/web/README.md). Frozen policy inference and native per-scene search are separate modes; the interface stays gated until the study and evaluation complete. Simulator-only endpoint configurations, without physical control or perception.

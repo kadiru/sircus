@@ -3,6 +3,71 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { Quaternion, Vector3 } from '../../simulation/web/vendor/three.module.js';
 import { friendlyError, buildRequest, studyReady, coverageRows, methodLabel, coverageSummary, comparisonRows, learningPoints, inStudiedRegion, BOARD_BODY_SIZE, bankComparisonRows, policyRouteLabel, poseInputValues, bankCoverageRows, bankCoverageStatus, formatMetric, solveButtonState } from '../web/state.mjs';
+import { plannerReady, plannerOnly, searchReady, modeReady, plannerFarmRows } from '../web/state.mjs';
+
+test('only an explicit standalone flag hides historical panels without removing controls', () => {
+  const combined = { planner: { ready: true, version: 'sircus-corrected-sweep-planner-v1' },
+    frozen_evaluation: { attempts: 10 }, learning_curve: [{ update: 1 }] };
+  assert.equal(plannerOnly({ ...combined, planner_only: true }), true);
+  for (const report of [null, {}, combined, { ...combined, planner_only: false }, { planner_only: 'true' }]) {
+    assert.equal(plannerOnly(report), false);
+  }
+  const html = readFileSync(new URL('../web/index.html', import.meta.url), 'utf8');
+  const js = readFileSync(new URL('../web/app.js', import.meta.url), 'utf8');
+  assert.ok(html.indexOf('id="plannerFarmGrid"') < html.indexOf('id="historicalStudies"'));
+  for (const id of ['coverage', 'comparisonTable', 'captureChart', 'rewardChart']) {
+    assert.ok(html.indexOf(`id="${id}"`) > html.indexOf('id="historicalStudies"'));
+  }
+  for (const id of ['bucketX', 'bucketY', 'boardLock', 'dropLock', 'mode', 'solve', 'searchBudget']) {
+    assert.ok(html.indexOf(`id="${id}"`) > html.indexOf('<aside>'));
+  }
+  assert.ok(js.includes("$('historicalStudies').hidden = standalone"));
+  assert.ok(js.includes("'Sircus · Sweep shot planner'"));
+  assert.ok(js.includes("for (const id of ['solve', 'solveTop']) $(id).onclick = requestSolve"));
+  assert.ok(js.includes('if (!standalone) showCoverage()'));
+});
+
+test('a separately ready sweep planner never enables the learned policy', () => {
+  const report = { status: 'running', planner: { ready: true, version: 'sircus-corrected-sweep-planner-v1' } };
+  assert.equal(plannerReady(report), true);
+  assert.equal(searchReady(report), true);
+  assert.equal(modeReady(report, 'search'), true);
+  assert.equal(modeReady(report, 'policy'), false);
+  assert.equal(solveButtonState(report, false, 'search').disabled, false);
+  assert.equal(solveButtonState(report, false).disabled, true);
+  assert.equal(solveButtonState(report, true, 'search').disabled, true);
+  assert.equal(modeReady(report, 'physical'), false);
+});
+test('invalid present planner capability fails closed while legacy studies retain search', () => {
+  const legacy = { status: 'completed', frozen_evaluation: { attempts: 1 } };
+  assert.equal(searchReady(legacy), true);
+  for (const planner of [null, {}, { ready: 'true', version: 'sircus-corrected-sweep-planner-v1' }, { ready: true, version: 'legacy' }]) {
+    assert.equal(searchReady({ ...legacy, planner }), false);
+  }
+});
+test('search budgets stay explicit, bounded and absent from policy requests', () => {
+  const args = [[.65, -.4], false, [], false, [], 'id'];
+  assert.equal(buildRequest('search', ...args, 64).search_budget, 64);
+  assert.equal(Object.hasOwn(buildRequest('policy', ...args), 'search_budget'), false);
+  for (const budget of [true, 15, 129, 32.5, NaN]) assert.throws(() => buildRequest('search', ...args, budget));
+  assert.throws(() => buildRequest('policy', ...args, 64));
+});
+test('farm selector preserves exact coordinates and does not fabricate cached success', () => {
+  const rows = plannerFarmRows({ planner: { farm_cells: [
+    { id: 'first', bucket_xy_m: [.1, -.65], status: 'qualified', cache_available: true },
+    { id: 'second', bucket_xy_m: [.3, -.65], status: 'unresolved' },
+    { id: 'bad', bucket_xy_m: [NaN, 0], cache_available: true },
+  ] } });
+  assert.deepEqual(rows.map(r => [r.id, r.xy, r.cached]), [['first', [.1, -.65], true], ['second', [.3, -.65], false]]);
+  const html = readFileSync(new URL('../web/index.html', import.meta.url), 'utf8');
+  const js = readFileSync(new URL('../web/app.js', import.meta.url), 'utf8');
+  assert.ok(html.includes('id="plannerFarmGrid"'));
+  assert.ok(html.includes('single-cell view'));
+  assert.ok(js.includes('Sweep planner · corrected native MuJoCo · endpoint-held'));
+  assert.ok(js.includes('Saved verified shot · recorded native evidence'));
+  assert.ok(js.includes("modeReady(report, $('mode').value)"));
+  assert.match(methodLabel('sweep_planner'), /corrected native MuJoCo/);
+});
 
 test('manual solve gates until a frozen evaluation is complete', () => {
   assert.equal(studyReady({ status: 'running', frozen_evaluation: { trials: 5 } }), false);

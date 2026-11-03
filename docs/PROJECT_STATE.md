@@ -1,5 +1,21 @@
 # Project state
 
+## Sweep planner implementation checkpoint — November 2, 2026
+
+- [Independent simulation sweep planner](../sircus/mjlab/SWEEP_PLANNER.md) accepts
+  tabletop bucket XY and optional positional locks without requiring an RL
+  checkpoint. It preserves learned-policy guards and legacy result identities.
+- Exact corrected-catalogue recipes at12 grid positions replay saved hash-bound
+  native evidence. New positions use source-relative/analytic/broad proposals,
+  strict geometry, corrected native contact,3/3nominal and>=18/20fresh captures,
+  plus sampled common-home geometric admission before a ready result.
+- The viewer is one workcell plus a selectable7x5 farm-target grid, not a live
+  Isaac farm rendering. Endpoint-held dynamics are not validated arm compliance.
+  Raw evidence/cache stays local. [Native verification and runtime identities](../baselines/mjlab-sweep-planner-20261102/README.md)
+  show two new development targets, each3/3nominal and20/20fresh, with independently
+  rescored native data and supplemental CPU geometry/path checks. Both replay in
+  the new loopback18786 UI. This is search, not an unseen-target RL result.
+
 ## Conditional gap-window/SAC experiment — November 2, 2026
 
 - [Prespecified method](../sircus/mjlab/WINDOW_STUDY.md): user-approved fixed-bucket

@@ -8,6 +8,18 @@ export function studyReady(report) {
     Object.keys(report.frozen_evaluation).length > 0 &&
     (!report.bank_evaluation || report.bank_evaluation.status === 'completed');
 }
+export function plannerReady(report) {
+  return report?.planner?.ready === true && report.planner.version === 'sircus-corrected-sweep-planner-v1';
+}
+export function plannerOnly(report) {
+  return report?.planner_only === true;
+}
+export function searchReady(report) {
+  return report && Object.hasOwn(report, 'planner') ? plannerReady(report) : studyReady(report);
+}
+export function modeReady(report, mode = 'policy') {
+  return mode === 'search' ? searchReady(report) : mode === 'policy' && studyReady(report);
+}
 export function finiteVector(values, length) {
   return Array.isArray(values) && values.length === length && values.every(x => typeof x === 'number' && Number.isFinite(x));
 }
@@ -15,20 +27,24 @@ export function friendlyError(value) {
   const lines = String(value || 'Simulation request failed').split('\n').map(x => x.trim()).filter(Boolean);
   return (lines.at(-1) || 'Simulation request failed').replace(/^(RuntimeError|ValueError|OSError):\s*/, '');
 }
-export function buildRequest(mode, bucket, boardLock, board, dropLock, drop, requestId) {
+export function buildRequest(mode, bucket, boardLock, board, dropLock, drop, requestId, searchBudget) {
   if (!['policy', 'search'].includes(mode)) throw Error('Unknown inference mode');
   if (!finiteVector(bucket, 2)) throw Error('Enter a valid bucket position');
   if (boardLock && !finiteVector(board, 3)) throw Error('Enter a valid board center');
   if (dropLock && !finiteVector(drop, 3)) throw Error('Enter a valid release center');
-  return { mode, bucket_xy: bucket, constraints: {
+  if (searchBudget !== undefined && (mode !== 'search' || !Number.isInteger(searchBudget) || searchBudget < 16 || searchBudget > 128)) throw Error('Search budget must be an integer from 16 to 128');
+  const request = { mode, bucket_xy: bucket, constraints: {
     board_position: boardLock ? board : null,
     dropper_position: dropLock ? drop : null,
   }, request_id: requestId };
+  if (searchBudget !== undefined) request.search_budget = searchBudget;
+  return request;
 }
 export function methodLabel(method) {
   if (['bank_policy', 'relative_bank_policy', 'bank_selected'].includes(method)) return 'Frozen relative-bank policy · geometry prior';
   if (['frozen_policy', 'ppo', 'scene_conditioned_ppo', 'policy'].includes(method)) return 'Frozen learned policy';
   if (['search', 'refinement', 'search_refinement'].includes(method)) return 'Per-scene search · not policy inference';
+  if (['sweep_planner', 'corrected_sweep'].includes(method)) return 'Sweep planner · corrected native MuJoCo · endpoint-held';
   if (['catalogue', 'catalog_lookup', 'cached', 'dataset_lookup'].includes(method)) return 'Saved setting lookup · not policy inference';
   return method || 'Solver method not reported';
 }
@@ -108,10 +124,22 @@ export function formatMetric(key, value) {
   }
   return String(value);
 }
-export function solveButtonState(report, pending) {
-  return { disabled: pending || !studyReady(report),
+export function solveButtonState(report, pending, mode = 'policy') {
+  return { disabled: pending || !modeReady(report, mode),
     mainLabel: pending ? 'Solving and simulating… ' : 'Find drop-bounce posture ',
     topLabel: pending ? 'Solving…' : 'Find posture ↗' };
+}
+
+export function plannerFarmRows(report) {
+  const rows = report?.planner?.farm_cells;
+  if (!Array.isArray(rows)) return [];
+  return rows.map((row, i) => ({
+    id: String(row.id ?? `farm-${i + 1}`),
+    xy: row.bucket_xy_m,
+    status: String(row.status ?? 'unresolved'),
+    cached: row.cache_available === true || row.cacheavailable === true,
+    index: i,
+  })).filter(row => finiteVector(row.xy, 2));
 }
 
 /** Read-only study display: these fields never change the active solver route. */
