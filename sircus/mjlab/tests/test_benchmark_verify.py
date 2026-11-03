@@ -18,6 +18,7 @@ from sircus.mjlab.benchmark_verify import (
     EvidenceError,
     PRIOR_PATH,
     behavior_log_prob,
+    build_run_summary,
     check_behavior_likelihood,
     check_contract_protocol,
     check_row_invariants,
@@ -83,6 +84,37 @@ def refresh_manifests(bundle):
         )
         + "\n"
     )
+
+
+
+class RunSummaryTests(unittest.TestCase):
+    def test_native_summary_and_reject_denominator_compose_without_duplicate_keys(self):
+        rows = [
+            row("native-1"),
+            row("native-2"),
+            row("rejected", native_release=False, invalid=True, route_success=False),
+        ]
+        native = dict(
+            native_releases=2,
+            provenance={"checked": True},
+            resources={"wall_s": 3.0},
+        )
+        before = copy.deepcopy(native)
+        result = build_run_summary("sweep", 20261311, 1024, rows, native)
+        encoded = json.dumps(result)
+        self.assertEqual(encoded.count('"native_releases"'), 1)
+        self.assertEqual(result["requested"], 3)
+        self.assertEqual(result["native_releases"], 2)
+        self.assertEqual(result["method"], "sweep")
+        self.assertEqual(result["seed"], 20261311)
+        self.assertEqual(result["training_requests"], 1024)
+        self.assertEqual(result["provenance"], native["provenance"])
+        self.assertEqual(result["resources"], native["resources"])
+        self.assertEqual(native, before)
+
+    def test_mismatched_native_summary_count_is_rejected(self):
+        with self.assertRaisesRegex(EvidenceError, "native count"):
+            build_run_summary("ppo", 20261311, 1024, [row()], {"native_releases": 0})
 
 
 class PriorTests(unittest.TestCase):
