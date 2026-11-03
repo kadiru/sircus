@@ -1,0 +1,5948 @@
+{
+  "version": "sircus-fixed-bucket-window-evidence-audit-v1",
+  "status": "passed",
+  "failures": [],
+  "checks": [
+    {
+      "name": "contract_fingerprint",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "completed_window_study_version",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "corrected64_physics",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/board_route.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/entry_quality.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/geometry.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/isaac/rl_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/admission.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/bank_geometry.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/bank_policy.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/bank_solve.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/bank_study.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/calibrate.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/combine_expansions.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/compare.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/contact_confirm.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/contact_env.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/contact_model.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/contact_study.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/corrected_admission.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/corrected_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/corrected_geometry.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/corrected_grid.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/corrected_pipeline.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/corrected_verify.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/expand_bank.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/expand_far.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/expand_geometry.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/expand_refine.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/expanded_actions.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/expanded_env.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/expanded_study.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/gpu_slot.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/gravity_audit.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/interface.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/isaac_pair.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/learning_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/learning_env.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/learning_ik.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/learning_interface.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/learning_policy.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/learning_reach.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/learning_score.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/learning_search.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/learning_solve.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/learning_study.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/model.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/prepare_contact_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/prepare_corrected_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/prepare_expanded_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/prepare_interface.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/prepare_stable_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/prepare_window_report.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/render_replay.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/repeat_diagnostic.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/requirements.txt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/run.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/stable_geometry.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/stable_ik.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/stable_study.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/transit_audit.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/transit_detour.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/verify_bank.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/verify_combined.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/verify_contact.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/verify_contact_confirm.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/verify_expanded.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/verify_expansion.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/verify_far.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/verify_learning.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/verify_refinement.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/verify_stable.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/window_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/window_geometry.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/window_learning.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/window_pipeline.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/window_study.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source:sircus/mjlab/window_verify.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "matching_independent_scorer:sircus/mjlab/contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "matching_independent_scorer:sircus/isaac/geometry.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "matching_independent_scorer:sircus/isaac/rl_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "matching_independent_scorer:sircus/isaac/entry_quality.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "matching_independent_scorer:sircus/isaac/board_route.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "matching_independent_scorer:sircus/mjlab/learning_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "matching_independent_scorer:sircus/mjlab/window_learning.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "matching_independent_scorer:sircus/mjlab/window_contract.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "matching_independent_scorer:sircus/mjlab/admission.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "native_asset:assets/board_arm.urdf",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "native_asset:assets/dropper.urdf",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "native_asset:assets/poses.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "native_asset:vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link1.stl",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "native_asset:vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link2.stl",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "native_asset:vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link3.stl",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "native_asset:vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link4.stl",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "native_asset:vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link5.stl",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "native_asset:vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link6.stl",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "native_asset:vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link_base.stl",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:adaptive_surrogate-1008.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:adaptive_surrogate-504.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:adaptive_surrogate-672.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:adaptive_surrogate-840.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:batches.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:checkpoints.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:common-home.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:contract.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:effective-options.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:frozen-test-plan.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0000.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0001.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0002.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0003.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0004.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0005.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0006.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0007.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0008.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0009.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0010.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0011.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0012.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0013.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0014.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0015.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0016.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0017.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0018.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0019.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0020.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0021.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0022.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0023.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0024.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0025.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0026.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0027.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0028.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0029.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0030.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0031.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0032.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0033.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0034.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0035.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0036.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0037.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0038.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0039.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0040.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0041.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0042.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0043.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0044.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0045.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0046.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0047.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0048.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0049.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0050.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0051.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0052.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0053.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0054.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:geometry-0055.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0000.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0004.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0005.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0006.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0007.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0008.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0009.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0012.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0013.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0014.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0015.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0016.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0017.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0018.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0019.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0020.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0021.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0022.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0024.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0025.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0026.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0027.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0028.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0029.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0030.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0031.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0032.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0033.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0034.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0036.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0037.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0038.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0039.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0040.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0041.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0042.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0043.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0044.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0045.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0046.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0048.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0049.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0050.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0051.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:native-0052.npz",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:path-window-shot-001797.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0000.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0001.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0002.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0003.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0004.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0005.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0006.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0007.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0008.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0009.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0010.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0011.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0012.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0013.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0014.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0015.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0016.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0017.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0018.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0019.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0020.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0021.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0022.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0023.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0024.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0025.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0026.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0027.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0028.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0029.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0030.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0031.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0032.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0033.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0034.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0035.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0036.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0037.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0038.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0039.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0040.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0041.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0042.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0043.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0044.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0045.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0046.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0047.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0048.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0049.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0050.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0051.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0052.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0053.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0054.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:plan-0055.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:prepared-contexts.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:records.jsonl",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:sac-1008.pt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:sac-504.pt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:sac-672.pt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:sac-840.pt",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:sac-updates.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:scene.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:selected-checkpoints.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved_evidence:selected-paths.json",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "complete_evidence_manifest_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "prespecified_protocol_settings_and_report_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "prespecified_24_6_8_disjoint_contexts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "all_prepared_contexts_including_unsupported",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "frozen_context_geometry_and_branch_identity",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "unique_record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "all_rows_keep_declared_split_roles",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "fixed_bucket_xy_context_and_gap_identity",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "every_gap_retains_frozen_q14_branch",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "strict_release_and_capture_invariants",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "unchanged_terminal_reward",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "prepared_context_file_report_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inline_geometry_matches_exact_executed_request",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "identical_requests_have_method_independent_geometry",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "all_2211_requests_including_invalids_and_controls",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "complete_same_504_seed_geometry_requests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "balanced_additional_504_requests_each",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "fixed_adaptive_and_sac_round_denominators",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "reported_full_denominators_and_no_free_training",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "training_requests_504_shared_plus_504_each",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "all_and_only_1512_unique_training_requests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "four_equal_training_milestones_each",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "checkpoints_train_only_exact_shared_then_method_prefix",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "adaptive_surrogate-504:checkpoint_file_sha256",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "adaptive_surrogate-504:actual_model_train_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "sac-504:checkpoint_file_sha256",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "sac-504:actual_terminal_actor_critic_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "sac-504:actual_replay_exact_train_inputs_and_rewards",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "adaptive_surrogate-672:checkpoint_file_sha256",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "adaptive_surrogate-672:actual_model_train_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "sac-672:checkpoint_file_sha256",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "sac-672:actual_terminal_actor_critic_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "sac-672:actual_replay_exact_train_inputs_and_rewards",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "adaptive_surrogate-840:checkpoint_file_sha256",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "adaptive_surrogate-840:actual_model_train_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "sac-840:checkpoint_file_sha256",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "sac-840:actual_terminal_actor_critic_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "sac-840:actual_replay_exact_train_inputs_and_rewards",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "adaptive_surrogate-1008:checkpoint_file_sha256",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "adaptive_surrogate-1008:actual_model_train_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "sac-1008:checkpoint_file_sha256",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "sac-1008:actual_terminal_actor_critic_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "sac-1008:actual_replay_exact_train_inputs_and_rewards",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "adaptive_surrogate-504:same_18_validation_requests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "sac-504:same_18_validation_requests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "adaptive_surrogate-672:same_18_validation_requests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "sac-672:same_18_validation_requests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "adaptive_surrogate-840:same_18_validation_requests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "sac-840:same_18_validation_requests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "adaptive_surrogate-1008:same_18_validation_requests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "sac-1008:same_18_validation_requests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "all_and_only_144_validation_requests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "adaptive_surrogate:checkpoint_selected_by_validation_only",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "adaptive_surrogate:test_uses_only_frozen_selected_checkpoint",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "sac:checkpoint_selected_by_validation_only",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "sac:test_uses_only_frozen_selected_checkpoint",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "test_has_only_two_frozen_learners_and_uniform",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "adaptive_surrogate:all_8_test_contexts_and_184_requests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "adaptive_surrogate:frozen_gap_three_nominal_twenty_fresh",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "sac:all_8_test_contexts_and_184_requests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "sac:frozen_gap_three_nominal_twenty_fresh",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "uniform_bounded:all_8_test_contexts_and_184_requests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "uniform_bounded:frozen_gap_three_nominal_twenty_fresh",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "same_gap_noise_schedule_all_test_methods",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "all_test_requests_match_pre_outcome_frozen_plan",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "exact_paired_seeded_validation_and_test_noise_no_resampling",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "eight_outcome_free_uniform_actions_without_oracle_masking",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "adaptive_surrogate-504:validation_frozen_model_actions",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "sac-504:validation_frozen_model_actions",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "adaptive_surrogate-672:validation_frozen_model_actions",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "sac-672:validation_frozen_model_actions",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "sac:test_frozen_model_actions_without_native_search",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "adaptive_surrogate-840:validation_frozen_model_actions",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "sac-840:validation_frozen_model_actions",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "adaptive_surrogate-1008:validation_frozen_model_actions",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "adaptive_surrogate:test_frozen_model_actions_without_native_search",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "sac-1008:validation_frozen_model_actions",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "selected_checkpoint_report_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "adaptive_surrogate:reported_test_statistics",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 184,
+          "captures": 23,
+          "clean": 0,
+          "invalid": 115,
+          "board_bounces": 69,
+          "mean_reward": -0.14660486141488424,
+          "native_releases": 69,
+          "mean_learning_reward": -0.14660486141488424
+        },
+        "expected": {
+          "attempts": 184,
+          "captures": 23,
+          "clean": 0,
+          "invalid": 115,
+          "board_bounces": 69,
+          "native_releases": 69,
+          "mean_reward": -0.14660486141488424
+        }
+      }
+    },
+    {
+      "name": "sac:reported_test_statistics",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 184,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 115,
+          "board_bounces": 69,
+          "mean_reward": -0.6979408887161284,
+          "native_releases": 69,
+          "mean_learning_reward": -0.6979408887161284
+        },
+        "expected": {
+          "attempts": 184,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 115,
+          "board_bounces": 69,
+          "native_releases": 69,
+          "mean_reward": -0.6979408887161284
+        }
+      }
+    },
+    {
+      "name": "uniform_bounded:reported_test_statistics",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 184,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 184,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 184,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 184,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "all_8_test_contexts_in_report_including_unsupported",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "test-00:adaptive_surrogate:total",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-00:adaptive_surrogate:nominal",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-00:adaptive_surrogate:fresh",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-00:sac:total",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-00:sac:nominal",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-00:sac:fresh",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-00:uniform_bounded:total",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-00:uniform_bounded:nominal",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-00:uniform_bounded:fresh",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-01:adaptive_surrogate:total",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-01:adaptive_surrogate:nominal",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-01:adaptive_surrogate:fresh",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-01:sac:total",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-01:sac:nominal",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-01:sac:fresh",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-01:uniform_bounded:total",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-01:uniform_bounded:nominal",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-01:uniform_bounded:fresh",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-02:adaptive_surrogate:total",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-02:adaptive_surrogate:nominal",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-02:adaptive_surrogate:fresh",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-02:sac:total",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-02:sac:nominal",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-02:sac:fresh",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-02:uniform_bounded:total",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-02:uniform_bounded:nominal",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-02:uniform_bounded:fresh",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-03:adaptive_surrogate:total",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 23,
+          "mean_reward": -0.1948226295596361,
+          "native_releases": 23,
+          "mean_learning_reward": -0.1948226295596361
+        },
+        "expected": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 23,
+          "native_releases": 23,
+          "mean_reward": -0.1948226295596361
+        }
+      }
+    },
+    {
+      "name": "test-03:adaptive_surrogate:nominal",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": -0.1954361378168643,
+          "native_releases": 3,
+          "mean_learning_reward": -0.1954361378168643
+        },
+        "expected": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "native_releases": 3,
+          "mean_reward": -0.1954361378168643
+        }
+      }
+    },
+    {
+      "name": "test-03:adaptive_surrogate:fresh",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 20,
+          "mean_reward": -0.19473060332105185,
+          "native_releases": 20,
+          "mean_learning_reward": -0.19473060332105185
+        },
+        "expected": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 20,
+          "native_releases": 20,
+          "mean_reward": -0.19473060332105185
+        }
+      }
+    },
+    {
+      "name": "test-03:sac:total",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 23,
+          "mean_reward": -0.18547179556286722,
+          "native_releases": 23,
+          "mean_learning_reward": -0.18547179556286722
+        },
+        "expected": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 23,
+          "native_releases": 23,
+          "mean_reward": -0.18547179556286722
+        }
+      }
+    },
+    {
+      "name": "test-03:sac:nominal",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": -0.185426802887517,
+          "native_releases": 3,
+          "mean_learning_reward": -0.185426802887517
+        },
+        "expected": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "native_releases": 3,
+          "mean_reward": -0.185426802887517
+        }
+      }
+    },
+    {
+      "name": "test-03:sac:fresh",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 20,
+          "mean_reward": -0.18547854446416973,
+          "native_releases": 20,
+          "mean_learning_reward": -0.18547854446416973
+        },
+        "expected": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 20,
+          "native_releases": 20,
+          "mean_reward": -0.18547854446416973
+        }
+      }
+    },
+    {
+      "name": "test-03:uniform_bounded:total",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-03:uniform_bounded:nominal",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-03:uniform_bounded:fresh",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-04:adaptive_surrogate:total",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-04:adaptive_surrogate:nominal",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-04:adaptive_surrogate:fresh",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-04:sac:total",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-04:sac:nominal",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-04:sac:fresh",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-04:uniform_bounded:total",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-04:uniform_bounded:nominal",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-04:uniform_bounded:fresh",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-05:adaptive_surrogate:total",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 23,
+          "mean_reward": -0.19307758249566762,
+          "native_releases": 23,
+          "mean_learning_reward": -0.19307758249566762
+        },
+        "expected": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 23,
+          "native_releases": 23,
+          "mean_reward": -0.19307758249566762
+        }
+      }
+    },
+    {
+      "name": "test-05:adaptive_surrogate:nominal",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": -0.19180401820971035,
+          "native_releases": 3,
+          "mean_learning_reward": -0.19180401820971035
+        },
+        "expected": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "native_releases": 3,
+          "mean_reward": -0.19180401820971035
+        }
+      }
+    },
+    {
+      "name": "test-05:adaptive_surrogate:fresh",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 20,
+          "mean_reward": -0.1932686171385612,
+          "native_releases": 20,
+          "mean_learning_reward": -0.1932686171385612
+        },
+        "expected": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 20,
+          "native_releases": 20,
+          "mean_reward": -0.1932686171385612
+        }
+      }
+    },
+    {
+      "name": "test-05:sac:total",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 23,
+          "mean_reward": -0.1975623707521,
+          "native_releases": 23,
+          "mean_learning_reward": -0.1975623707521
+        },
+        "expected": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 23,
+          "native_releases": 23,
+          "mean_reward": -0.1975623707521
+        }
+      }
+    },
+    {
+      "name": "test-05:sac:nominal",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": -0.19827393146491223,
+          "native_releases": 3,
+          "mean_learning_reward": -0.19827393146491223
+        },
+        "expected": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "native_releases": 3,
+          "mean_reward": -0.19827393146491223
+        }
+      }
+    },
+    {
+      "name": "test-05:sac:fresh",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 20,
+          "mean_reward": -0.1974556366451782,
+          "native_releases": 20,
+          "mean_learning_reward": -0.1974556366451782
+        },
+        "expected": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 20,
+          "native_releases": 20,
+          "mean_reward": -0.1974556366451782
+        }
+      }
+    },
+    {
+      "name": "test-05:uniform_bounded:total",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-05:uniform_bounded:nominal",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-05:uniform_bounded:fresh",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-06:adaptive_surrogate:total",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 23,
+          "captures": 23,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 23,
+          "mean_reward": 4.215061320736231,
+          "native_releases": 23,
+          "mean_learning_reward": 4.215061320736231
+        },
+        "expected": {
+          "attempts": 23,
+          "captures": 23,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 23,
+          "native_releases": 23,
+          "mean_reward": 4.215061320736231
+        }
+      }
+    },
+    {
+      "name": "test-06:adaptive_surrogate:nominal",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": 4.209561051556805,
+          "native_releases": 3,
+          "mean_learning_reward": 4.209561051556805
+        },
+        "expected": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "native_releases": 3,
+          "mean_reward": 4.209561051556805
+        }
+      }
+    },
+    {
+      "name": "test-06:adaptive_surrogate:fresh",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 20,
+          "captures": 20,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 20,
+          "mean_reward": 4.215886361113144,
+          "native_releases": 20,
+          "mean_learning_reward": 4.215886361113144
+        },
+        "expected": {
+          "attempts": 20,
+          "captures": 20,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 20,
+          "native_releases": 20,
+          "mean_reward": 4.215886361113144
+        }
+      }
+    },
+    {
+      "name": "test-06:sac:total",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 23,
+          "mean_reward": -0.20049294341405982,
+          "native_releases": 23,
+          "mean_learning_reward": -0.20049294341405982
+        },
+        "expected": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 23,
+          "native_releases": 23,
+          "mean_reward": -0.20049294341405982
+        }
+      }
+    },
+    {
+      "name": "test-06:sac:nominal",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "mean_reward": -0.1955921615321047,
+          "native_releases": 3,
+          "mean_learning_reward": -0.1955921615321047
+        },
+        "expected": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 3,
+          "native_releases": 3,
+          "mean_reward": -0.1955921615321047
+        }
+      }
+    },
+    {
+      "name": "test-06:sac:fresh",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 20,
+          "mean_reward": -0.20122806069635318,
+          "native_releases": 20,
+          "mean_learning_reward": -0.20122806069635318
+        },
+        "expected": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 20,
+          "native_releases": 20,
+          "mean_reward": -0.20122806069635318
+        }
+      }
+    },
+    {
+      "name": "test-06:uniform_bounded:total",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-06:uniform_bounded:nominal",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-06:uniform_bounded:fresh",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-07:adaptive_surrogate:total",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-07:adaptive_surrogate:nominal",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-07:adaptive_surrogate:fresh",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-07:sac:total",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-07:sac:nominal",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-07:sac:fresh",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-07:uniform_bounded:total",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 23,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 23,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-07:uniform_bounded:nominal",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 3,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "test-07:uniform_bounded:fresh",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "mean_reward": -1.0,
+          "native_releases": 0,
+          "mean_learning_reward": -1.0
+        },
+        "expected": {
+          "attempts": 20,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 20,
+          "board_bounces": 0,
+          "native_releases": 0,
+          "mean_reward": -1.0
+        }
+      }
+    },
+    {
+      "name": "three_exact_quarantined_anchor_controls",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "geometry_only_historical_anchor_no_inherited_outcomes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "effective_native_options_recorded",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "actual_auditor_packages_match_pinned_execution",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch_packets_sequential",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-0:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-0:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-0:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-0:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-0:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-0:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-0:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-0:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-0:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-1:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-1:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-1:zero_releases_have_no_native_cache",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-1:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-2:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-2:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-2:zero_releases_have_no_native_cache",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-2:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-3:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-3:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-3:zero_releases_have_no_native_cache",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-3:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-4:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-4:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-4:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-4:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-4:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-4:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-4:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-4:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-4:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-5:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-5:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-5:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-5:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-5:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-5:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-5:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-5:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-5:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-6:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-6:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-6:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-6:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-6:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-6:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-6:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-6:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-6:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-7:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-7:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-7:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-7:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-7:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-7:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-7:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-7:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-7:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-8:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-8:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-8:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-8:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-8:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-8:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-8:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-8:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-8:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-9:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-9:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-9:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-9:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-9:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-9:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-9:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-9:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-9:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-10:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-10:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-10:zero_releases_have_no_native_cache",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-10:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-11:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-11:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-11:zero_releases_have_no_native_cache",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-11:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-12:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-12:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-12:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-12:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-12:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-12:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-12:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-12:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-12:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-13:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-13:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-13:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-13:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-13:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-13:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-13:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-13:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-13:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-14:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-14:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-14:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-14:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-14:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-14:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-14:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-14:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-14:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-15:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-15:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-15:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-15:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-15:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-15:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-15:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-15:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-15:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-16:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-16:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-16:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-16:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-16:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-16:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-16:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-16:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-16:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-17:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-17:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-17:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-17:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-17:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-17:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-17:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-17:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-17:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-18:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-18:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-18:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-18:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-18:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-18:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-18:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-18:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-18:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-19:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-19:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-19:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-19:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-19:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-19:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-19:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-19:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-19:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-20:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-20:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-20:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-20:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-20:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-20:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-20:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-20:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-20:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-21:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-21:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-21:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-21:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-21:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-21:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-21:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-21:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-21:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-22:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-22:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-22:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-22:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-22:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-22:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-22:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-22:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-22:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-23:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-23:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-23:zero_releases_have_no_native_cache",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-23:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-24:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-24:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-24:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-24:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-24:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-24:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-24:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-24:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-24:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-25:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-25:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-25:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-25:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-25:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-25:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-25:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-25:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-25:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-26:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-26:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-26:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-26:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-26:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-26:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-26:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-26:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-26:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-27:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-27:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-27:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-27:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-27:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-27:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-27:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-27:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-27:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-28:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-28:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-28:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-28:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-28:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-28:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-28:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-28:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-28:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-29:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-29:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-29:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-29:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-29:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-29:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-29:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-29:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-29:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-30:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-30:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-30:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-30:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-30:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-30:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-30:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-30:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-30:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-31:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-31:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-31:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-31:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-31:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-31:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-31:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-31:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-31:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-32:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-32:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-32:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-32:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-32:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-32:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-32:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-32:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-32:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-33:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-33:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-33:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-33:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-33:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-33:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-33:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-33:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-33:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-34:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-34:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-34:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-34:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-34:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-34:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-34:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-34:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-34:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-35:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-35:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-35:zero_releases_have_no_native_cache",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-35:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-36:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-36:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-36:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-36:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-36:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-36:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-36:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-36:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-36:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-37:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-37:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-37:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-37:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-37:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-37:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-37:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-37:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-37:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-38:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-38:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-38:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-38:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-38:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-38:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-38:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-38:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-38:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-39:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-39:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-39:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-39:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-39:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-39:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-39:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-39:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-39:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-40:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-40:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-40:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-40:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-40:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-40:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-40:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-40:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-40:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-41:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-41:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-41:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-41:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-41:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-41:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-41:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-41:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-41:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-42:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-42:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-42:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-42:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-42:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-42:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-42:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-42:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-42:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-43:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-43:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-43:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-43:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-43:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-43:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-43:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-43:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-43:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-44:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-44:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-44:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-44:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-44:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-44:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-44:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-44:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-44:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-45:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-45:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-45:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-45:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-45:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-45:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-45:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-45:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-45:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-46:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-46:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-46:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-46:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-46:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-46:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-46:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-46:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-46:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-47:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-47:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-47:zero_releases_have_no_native_cache",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-47:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-48:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-48:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-48:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-48:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-48:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-48:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-48:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-48:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-48:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-49:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-49:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-49:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-49:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-49:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-49:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-49:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-49:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-49:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-50:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-50:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-50:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-50:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-50:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-50:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-50:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-50:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-50:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-51:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-51:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-51:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-51:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-51:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-51:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-51:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-51:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-51:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-52:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-52:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-52:native_cache_row_association",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-52:record_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-52:finite_full_trace_shapes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-52:released_corrected_protocol",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-52:nonnegative_forces",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-52:independent_scalar_rescore",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "batch-52:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-53:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-53:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-53:zero_releases_have_no_native_cache",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-53:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-54:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-54:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-54:zero_releases_have_no_native_cache",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-54:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-55:pre_outcome_plan_and_geometry_identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-55:all_admitted_and_only_admitted_release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-55:zero_releases_have_no_native_cache",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "batch-55:rejected_requests_have_no_native_row",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "every_requested_record_present_once_in_batches",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "every_released_record_independently_rescored_once",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "checks_count": 886,
+  "contract_fingerprint": "d2df483d1dbe96784107cf610cc97aae4d3b6eebcbbd587eb3579f1f565ff0fb",
+  "auditor_source_sha256": "c1d9c65e7b8a48aed40c30d243aaf55cb9b99df8dc3e2cc2164848b7e68765d4",
+  "executed_source_directory": "~/sircus-mjlab/studies/window-sac-v2",
+  "records": 2211,
+  "independently_rescored_throws": 397,
+  "limitations": [
+    "Saved evidence/provenance and CPU scoring audit; native ball dynamics are not rerun.",
+    "Fixed bucket and board XY; held-out board-height/tilt contexts do not establish new-bucket generalization.",
+    "Strict endpoints/held poses do not establish actuator trajectories or common-start connectivity."
+  ]
+}

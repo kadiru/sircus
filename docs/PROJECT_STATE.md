@@ -9,13 +9,32 @@
 - New strict CPU adapter freezes one q14 branch per context before native labels,
   independently solves dropper gaps, verifies both full flange poses and keeps
   rejected requests visible. Ubuntu CPU preflight:23 tests passed; exact anchor
-  and ±10 mm gaps retain q14 and pass native FK/clearance. Physics results pending.
+  and ±10 mm gaps retain q14 and pass native FK/clearance. The original comparison
+  completed on4090 in29.1 min; [evidence/checkpoints](../baselines/mjlab-window-sac-20261102/README.md)
+  passed886 independent checks, including rescoring all397 native releases.
 - Both methods receive504 shared seed requests plus504 exclusive requests. Four
   equal data milestones, quarantined validation selection and frozen final
   8-context ×23-repeat tests include the same bounded-uniform baseline. Conditional
   sampled windows, objectives, noise and unknown transit limits are explicit.
+- Frozen tests: supervised predictor23/184, SAC0/184, bounded uniform0/184.
+  Both learned methods released69/184 natively; uniform's eight frozen random
+  base gaps all failed geometry. Every predictor capture came from H440 mm,
+  tilt32°, gap285.781 mm:3/3 nominal and20/20 gap-noise repeats, all rim-assisted.
+  Its specified common-home geometric path passed separately. This supports one
+  narrow transfer case. No checkpoint was activated.
+- All2,211 attempts remain:1,512 unique train,144 validation,552 test and three
+  quarantined controls;1,814 rejected geometry. Train/validation/test board IK
+  resolution was6/24,2/6,3/8 under current budget/staging. The adaptive sweep
+  found four separated sampled capture runs at H397/500 mm, tilt36.1548°;
+  a separate92-request center-repeat follow-up completed and passed39 audit checks.
+  Two wider-run centers scored3/3 nominal +20/20 fresh: H397.388/tilt36.1548°/
+  gap321.219 mm and H500/tilt36.1548°/gap238.531 mm. The two narrow patches scored
+  only5/20 fresh each; one midpoint captured0/3 nominal despite captured neighbors.
+  All59 confirmation captures were rim-assisted; gap-only robustness is limited.
 - Only4090 native simulation is authorized;4070/Isaac/runtime services remain
-  unchanged. Execution status/evidence will be recorded at the completed boundary.
+  unchanged. Both finite jobs completed. Next: expand reachable height/tilt TRAIN
+  neighborhoods and freeze fresh validation/test contexts before another learning
+  run. Current evaluated contexts are known; no broad coverage claim or long run.
 
 ## Completed corrected-contact spatial study — November 2, 2026
 

@@ -1,0 +1,19 @@
+{
+  "timestep_s": 6.510416666666667e-05,
+  "solver": 2,
+  "solver_name": "mjSOL_NEWTON",
+  "integrator": 3,
+  "integrator_name": "mjINT_IMPLICITFAST",
+  "cone": 0,
+  "cone_name": "mjCONE_PYRAMIDAL",
+  "iterations": 100,
+  "tolerance": 1e-08,
+  "gravity": [
+    0.0,
+    0.0,
+    -9.81
+  ],
+  "substeps": 64,
+  "board_mode": "articulated",
+  "gravity_mode": "passive_only"
+}

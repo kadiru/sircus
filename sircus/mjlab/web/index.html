@@ -12,7 +12,7 @@
 <p class="eyebrow">FIXED BUCKET / RELEASE-GAP LEARNING</p><h2>Find a window. Learn a shot.</h2>
 <p id="windowStatus" class="subtle" role="status"></p><p id="windowScope" class="scope-note"></p>
 <div id="windowSummary" class="metrics"></div>
-<p class="fine">The bucket and board XY stay fixed. Context is board height and tilt; the only learned action is release gap. The 24 / 6 / 8 split separates training, checkpoint-selection validation and frozen test contexts. These are not new bucket positions.</p>
+<p class="fine">The bucket and board XY stay fixed. Context is board height and tilt; the only learned action is release gap. The 24 / 6 / 8 split separates training, checkpoint-selection validation and frozen test contexts. These are not new bucket positions. Board IK counts describe the current solver budget and parked-dropper staging choice; unresolved does not mean globally impossible. Full release-gap, paired-arm and clearance checks are separate.</p>
 <h3>Does more training data help?</h3><canvas id="windowLearningChart" width="820" height="260" role="img" aria-label="Validation capture rate against training shot requests"></canvas>
 <div id="windowCurve" class="table-wrap"></div>
 <p class="fine">Teal: supervised success model. Coral: terminal SAC. Both share the first 504 shot requests; each receives its own additional 504 requests. Validation outcomes select a checkpoint but never train either model. SAC optimizes shaped reward plus entropy; the surrogate fits binary capture labels and its probability is uncalibrated. Objectives differ, so capture rate and reward are reported separately.</p>
@@ -23,6 +23,7 @@
 <canvas id="windowTrace" width="820" height="330" role="img" aria-label="Actual native ball positions projected along the board-to-bucket direction versus height"></canvas><p id="windowTraceCaption" class="fine"></p>
 <p class="fine">This is a projection of saved native positions, not an ideal ballistic illustration. Bucket height remains provisional: reported 175 mm; this experiment assumes 175 mm interior depth plus an 8 mm base. Held endpoints and geometric path audits do not establish whole-arm dynamic tracking, grasping, perception or physical validity.</p>
 <p id="windowAudit" class="scope-note"></p><p class="fine">This read-only section does not activate a checkpoint or change the interactive solver above.</p>
+<div id="windowConfirmations" hidden><h3>Separate window repeatability checks</h3><p id="windowConfirmationStatus" class="subtle" role="status"></p><div id="windowConfirmationTable" class="table-wrap"></div><p id="windowConfirmationScope" class="fine"></p><p class="fine">Separate post-study engineering repeats: four selected TRAIN-only sampled hit islands, each planned for 3 nominal shots + 20 fresh gap-only perturbations (92 requests). These checks do not retrain or select a policy and are not part of the SAC method comparison. All requests, actual native releases and clean captures remain distinct.</p></div>
 </section>
 <section id="correctedGrid" class="results-section corrected-grid-section" hidden>
 <p class="eyebrow">NEW PHYSICS CONTRACT / 35 DEVELOPMENT POSITIONS</p><h2>Map reachable, reliable shots.</h2>

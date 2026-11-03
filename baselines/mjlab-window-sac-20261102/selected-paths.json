@@ -1,0 +1,10 @@
+[
+  {
+    "record_id": "window-shot-001797",
+    "method": "adaptive_surrogate",
+    "passed": true,
+    "file": "path-window-shot-001797.json",
+    "reason": null,
+    "scope": "fixed_common_home_to_exact_selected_shot_and_reverse_sampled_geometry"
+  }
+]

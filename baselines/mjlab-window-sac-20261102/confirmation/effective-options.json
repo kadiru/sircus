@@ -1,0 +1,16 @@
+{
+  "timestep_s": 6.510416666666667e-05,
+  "solver": 2,
+  "integrator": 3,
+  "cone": 0,
+  "iterations": 100,
+  "tolerance": 1e-08,
+  "gravity": [
+    0.0,
+    0.0,
+    -9.81
+  ],
+  "substeps": 64,
+  "board_mode": "articulated",
+  "gravity_mode": "passive_only"
+}

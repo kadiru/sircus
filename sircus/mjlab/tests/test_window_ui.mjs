@@ -21,6 +21,37 @@ test('context splits are explicitly disjoint height/tilt identities, never new b
   groups.test[0].board_height_m=.3;
   assert.equal(context.windowStudyView({settings:{contexts:groups}}).disjoint,false);
 });
+test('prepared-board coverage distinguishes resolved, unresolved and unknown evidence',()=>{
+  const make=(id,h)=>({id,board_height_m:h,tilt_deg:24});
+  const groups={train:[make('a',.2),make('b',.3)],validation:[make('c',.4)],test:[make('d',.5)]};
+  const study={version:'sircus-fixed-bucket-gap-study-v1',settings:{version:'sircus-fixed-bucket-gap-study-v1',contexts:groups},
+    prepared_contexts:[{...groups.train[0],reason:null},{...groups.train[1],reason:'board_ik_unresolved'},
+      {...groups.validation[0],prepared:true,board_admitted:true},{...groups.test[0]}]};
+  let value=context.windowBoardCoverage(study);
+  assert.equal(value.all.resolved,2);assert.equal(value.all.unresolved,1);assert.equal(value.all.unknown,1);
+  assert.equal(value.train.resolved,1);assert.equal(value.validation.resolved,1);assert.equal(value.test.unknown,1);
+  study.version='unrecognized';value=context.windowBoardCoverage(study);
+  assert.equal(value.all.resolved,1);assert.equal(value.all.unknown,3);
+  study.prepared_contexts.push({...groups.validation[0],board_admitted:true});
+  assert.equal(context.windowBoardCoverage(study).validation.unknown,1);
+});
+test('board coverage never admits missing, mismatched or explicitly unprepared rows',()=>{
+  const row={id:'a',board_height_m:.2,tilt_deg:24};
+  const study={settings:{contexts:{train:[row]}},prepared_contexts:[{...row,prepared:false,board_admitted:true}]};
+  assert.equal(context.windowBoardCoverage(study).all.unknown,1);
+  study.prepared_contexts=[{...row,board_height_m:.3,board_admitted:true}];
+  assert.equal(context.windowBoardCoverage(study).all.unknown,1);
+  study.prepared_contexts={train:[{...row,prepared:true,board_admitted:false}]};
+  assert.equal(context.windowBoardCoverage(study).all.unresolved,1);
+});
+test('separate recipe repeats require the exact parent fingerprint',()=>{
+  assert.equal(context.windowConfirmationView({}),null);
+  const supplement={parent_contract_fingerprint:'a',status:'completed',recipes:[{id:'train-recipe'}]};
+  assert.equal(context.windowConfirmationView({contract_fingerprint:'a',window_confirmations:supplement}).recipes.length,1);
+  const bad=context.windowConfirmationView({contract_fingerprint:'b',window_confirmations:supplement});
+  assert.equal(bad.status,'failed');assert.equal(bad.recipes.length,0);
+  assert.equal(context.windowConfirmationView({window_confirmations:{recipes:[]}}).status,'failed');
+});
 test('native trajectory view projects the actual stored points and exposes lateral deviation',()=>{
   const study={settings:{board_xy_m:[0,0],bucket_xy_m:[0,-.6]}};
   const trace={position_m:[[0,0,.7],[.02,-.2,.3],[.01,-.6,.1]]};
@@ -53,4 +84,12 @@ test('partial and completed reports render without inferred results or changed d
   assert.equal(row[1],'13 / 20');assert.equal(row[2],'18 / 20');
   assert.equal(nodes.get('windowTraceSelect').disabled,false);
   assert.ok(nodes.get('windowTraceCaption').textContent.includes('2 saved samples'));
+  assert.equal(nodes.get('windowConfirmations').hidden,true);
+  context.report.window_study_evaluation.contract_fingerprint='a';
+  context.report.window_study_evaluation.window_confirmations={parent_contract_fingerprint:'a',status:'completed',recipes:[{
+    id:'recipe',context_id:'train',nominal:{attempts:3,captures:3},fresh:{attempts:20,captures:10},total:{attempts:23,captures:13,native_releases:20,clean:9}}]};
+  context.showWindowStudy();const repeat=tables.get(nodes.get('windowConfirmationTable'))[0];
+  assert.equal(nodes.get('windowConfirmations').hidden,false);
+  assert.equal(repeat[6],'13 / 23');assert.equal(repeat[7],'20 / 23');assert.equal(repeat[8],'9 / 23');
+  assert.equal(tables.get(nodes.get('windowComparison'))[0][1],'13 / 20');
 });

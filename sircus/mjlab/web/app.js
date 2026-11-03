@@ -360,6 +360,35 @@ function windowStatistics(value = {}) {
     clean:Number.isInteger(value.clean)?value.clean:null,invalid:Number.isInteger(value.invalid)?value.invalid:null,
     interval:Array.isArray(value.descriptive_95pct_wilson)&&value.descriptive_95pct_wilson.length===2&&value.descriptive_95pct_wilson.every(Number.isFinite)?value.descriptive_95pct_wilson:null};
 }
+function windowBoardCoverage(study) {
+  const groups=study.settings?.contexts??{},raw=study.prepared_contexts??[];
+  const prepared=Array.isArray(raw)?raw:Object.values(raw).filter(Array.isArray).flat();
+  const exactLegacy=study.version==='sircus-fixed-bucket-gap-study-v1'&&study.settings?.version==='sircus-fixed-bucket-gap-study-v1';
+  const summarize=rows=>{
+    let resolved=0,unresolved=0,unknown=0;
+    for(const row of rows){
+      const matches=prepared.filter(p=>(p.id??p.context_id)===row.id&&p.board_height_m===row.board_height_m&&p.tilt_deg===row.tilt_deg);
+      const p=matches.length===1?matches[0]:null;
+      let outcome=null;
+      if(p&&p.prepared!==false){
+        if(typeof p.board_admitted==='boolean')outcome=p.board_admitted;
+        else if(exactLegacy&&Object.hasOwn(p,'reason')){
+          if(p.reason===null)outcome=true;else if(typeof p.reason==='string')outcome=false;
+        }
+      }
+      if(outcome===true)resolved++;else if(outcome===false)unresolved++;else unknown++;
+    }
+    return {total:rows.length,resolved,unresolved,unknown};
+  };
+  const rows=['train','validation','test'].map(name=>Array.isArray(groups[name])?groups[name]:[]);
+  return {all:summarize(rows.flat()),train:summarize(rows[0]),validation:summarize(rows[1]),test:summarize(rows[2])};
+}
+function windowConfirmationView(study) {
+  const value=study.window_confirmations;if(!value||typeof value!=='object')return null;
+  if(typeof study.contract_fingerprint!=='string'||!study.contract_fingerprint||value.parent_contract_fingerprint!==study.contract_fingerprint)
+    return {status:'failed',reason:'Window confirmation parent fingerprint does not match this learning study',recipes:[]};
+  return value;
+}
 function windowStudyView(value) {
   if (!value || typeof value !== 'object') return null;
   const groups=value.settings?.contexts??{}, identities=[], coordinates=[];
@@ -369,7 +398,7 @@ function windowStudyView(value) {
     return rows.length;
   });
   const disjoint=identities.length>0&&identities.every(v=>typeof v==='string')&&new Set(identities).size===identities.length&&new Set(coordinates).size===coordinates.length;
-  return {raw:value,split,disjoint,curve:(value.learning_curve??[]).filter(r=>r.method in WINDOW_METHODS&&Number.isFinite(r.milestone))
+  return {raw:value,split,disjoint,boardCoverage:windowBoardCoverage(value),curve:(value.learning_curve??[]).filter(r=>r.method in WINDOW_METHODS&&Number.isFinite(r.milestone))
     .map(r=>({...r,stats:windowStatistics(r.validation)})),test:Object.entries(value.test??{}).filter(([name])=>name in WINDOW_METHODS)
     .map(([name,stats])=>({name,stats:windowStatistics(stats)}))};
 }
@@ -421,20 +450,23 @@ function drawWindowRuns(study) {
 }
 function drawWindowTrace(study,index) {
   const trace=study.trace_examples?.[index],view=windowTrajectoryView(study,trace),canvas=$('windowTrace');
-  if(!view){const {c}=windowPlot(canvas,0,1,0,1,'Projected distance (m)','Ball-center height above table (m)');c.fillText('Saved native trajectory pending',80,110);$('windowTraceCaption').textContent='No trajectory is reconstructed from a prediction or ideal flight model.';return;}
+  if(!view){const {c}=windowPlot(canvas,0,1,0,1,'Projected distance (m)','Ball-center height above table (m)');c.fillText('Saved native trajectory pending',80,110);$('windowTraceCaption').textContent=`No trajectory is reconstructed from a prediction or ideal flight model. ${(study.trace_warnings??[]).join(' ')}`;return;}
   const xs=view.points.map(p=>p[0]),zs=view.points.map(p=>p[1]);
   const {c,x,y}=windowPlot(canvas,Math.min(-.1,...xs),Math.max(view.distance+.15,...xs),Math.min(0,...zs),Math.max(.3,...zs)+.05,'Distance along board → bucket axis (m)','Ball-center height above table (m)');
   c.strokeStyle='#a47320';c.lineWidth=2;c.beginPath();c.moveTo(x(view.distance-.1),y(.183));c.lineTo(x(view.distance-.079),y(.008));c.lineTo(x(view.distance+.079),y(.008));c.lineTo(x(view.distance+.1),y(.183));c.stroke();
   c.strokeStyle=trace.route_success?'#128b8c':'#ec7657';c.lineWidth=2;c.beginPath();view.points.forEach((p,i)=>{if(i)c.lineTo(x(p[0]),y(p[1]));else c.moveTo(x(p[0]),y(p[1]));});c.stroke();
   c.fillStyle='#173c3d';const first=view.points[0];c.beginPath();c.arc(x(first[0]),y(first[1]),4,0,Math.PI*2);c.fill();
-  $('windowTraceCaption').textContent=`${trace.context_id??'Context unknown'} · gap ${Number.isFinite(trace.gap_m)?(trace.gap_m*1000).toFixed(1)+' mm':'unknown'} · ${trace.route_success===true?'captured':trace.route_success===false?'missed':'outcome unknown'} · ${view.points.length} saved samples · maximum off-plane displacement ${(1000*view.lateral).toFixed(1)} mm. Projection does not hide lateral error from the scorer.`;
+  $('windowTraceCaption').textContent=`${trace.method??'Native example'} · ${trace.role??'role unreported'} · ${trace.context_id??'Context unknown'} · gap ${Number.isFinite(trace.gap_m)?(trace.gap_m*1000).toFixed(1)+' mm':'unknown'} · ${trace.route_success===true?'captured':trace.route_success===false?'missed':'outcome unknown'} · ${view.points.length} saved samples · maximum off-plane displacement ${(1000*view.lateral).toFixed(1)} mm. Projection does not hide lateral error from the scorer. ${trace.selection_scope??''} ${(study.trace_warnings??[]).join(' ')}`;
 }
 function showWindowStudy() {
   const view=windowStudyView(report.window_study_evaluation);$('windowStudy').hidden=!view;if(!view)return;
   const study=view.raw,shown=v=>v===null||v===undefined?'—':v,mm=v=>Number.isFinite(v)?(v*1000).toFixed(1):'—';
   $('windowStatus').textContent=`${study.version??'Gap study'} · ${study.status??'pending'} · ${study.phase??'pending'}`;
   $('windowScope').textContent=`${study.scope??study.settings?.scope??'Fixed bucket and board XY; held-out height/tilt contexts only.'} ${study.active_policy??'Previous interactive solver remains active.'}`;
+  const coverage=view.boardCoverage,covered=row=>row.total?`${row.resolved} / ${row.total}${row.unknown?' · '+row.unknown+' unknown':''}`:'—';
   const pairs=[['Train / validation / test contexts',`${view.split.join(' / ')} · ${view.disjoint?'disjoint declared contexts':'split identity not verified'}`],
+    ['Board IK resolved under current budget · all contexts',covered(coverage.all)],
+    ['Board IK resolved · train / validation / test',[coverage.train,coverage.validation,coverage.test].map(covered).join(' · ')],
     ['Fixed bucket XY (mm)',(study.settings?.bucket_xy_m??[]).map(mm).join(' / ')||'—'],['Fixed board XY (mm)',(study.settings?.board_xy_m??[]).map(mm).join(' / ')||'—'],
     ['Native evidence audit',study.audit?.status??'pending']];
   for(const [key,value] of Object.entries(study.counts??{}))if(Number.isFinite(value))pairs.push([key.replaceAll('_',' '),value]);
@@ -447,10 +479,19 @@ function showWindowStudy() {
   const rows=[];for(const row of study.test_contexts??[])for(const [method,value] of Object.entries(row.methods??{}))if(method in WINDOW_METHODS){const nominal=windowStatistics(value.nominal),fresh=windowStatistics(value.fresh),total=windowStatistics(value.total);rows.push([row.context_id,`${mm(row.board_height_m)} / ${shown(row.tilt_deg)}°`,WINDOW_METHODS[method],mm(value.gap_m),nominal.fraction,fresh.fraction,total.fraction,native(total)]);}
   expansionTable($('windowTestContexts'),['Test context','Board H mm / tilt','Method','Gap mm','Nominal captures / requests','Fresh captures / requests','All captures / requests','Native / all'],rows);
   const select=$('windowTraceSelect'),previous=select.value,traces=study.trace_examples??[];
-  select.replaceChildren(...traces.map((trace,i)=>{const option=document.createElement('option');option.value=String(i);option.textContent=`${trace.context_id??'Unknown'} · ${trace.method??'native'} · ${mm(trace.gap_m)} mm · ${trace.route_success?'capture':'miss'}`;return option;}));
+  select.replaceChildren(...traces.map((trace,i)=>{const option=document.createElement('option');option.value=String(i);option.textContent=`${trace.method??'native'} · ${trace.role??'role unreported'} · ${trace.context_id??'Unknown'} · ${mm(trace.gap_m)} mm · ${trace.route_success?'capture':'miss'}`;return option;}));
   if(previous!==''&&Number(previous)<traces.length)select.value=previous;select.disabled=!traces.length;select.onchange=()=>drawWindowTrace(study,Number(select.value));drawWindowTrace(study,Number(select.value));
   const checkpoints=Object.entries(study.selected_checkpoints??{}).map(([name,value])=>`${WINDOW_METHODS[name]??name}: ${value?.milestone??value?.training_requests??'checkpoint pending'} training requests`).join('; ');
   $('windowAudit').textContent=`Audit: ${study.audit?.status??'pending'}${study.audit?.reason?' · '+study.audit.reason:''}. Contract: ${study.contract_fingerprint??'unreported'}. ${checkpoints}`;
+  const confirmation=windowConfirmationView(study);$('windowConfirmations').hidden=!confirmation;
+  if(confirmation){
+    $('windowConfirmationStatus').textContent=`${confirmation.status??'pending'} · separate repeatability audit: ${confirmation.audit?.status??'pending'}${Number.isInteger(confirmation.audit?.checks_count)?' · '+confirmation.audit.checks_count+' checks':''}${confirmation.reason?' · '+confirmation.reason:''}`;
+    $('windowConfirmationScope').textContent=confirmation.scope??'Gap-only repeatability at frozen TRAIN configurations; no continuous-window or policy-generalization claim.';
+    expansionTable($('windowConfirmationTable'),['Recipe','Board mm / °','Gap / release mm','Distance mm','Nominal','Fresh','Total','Native','Clean'],(confirmation.recipes??[]).map(row=>{
+      const nominal=windowStatistics(row.nominal),fresh=windowStatistics(row.fresh),total=windowStatistics(row.total);
+      return [row.id??'recipe',`${mm(row.board_height_m)} / ${Number.isFinite(row.tilt_deg)?row.tilt_deg.toFixed(2):'—'}°`,`${mm(row.gap_m)} / ${mm(row.release_center_height_m)}`,mm(row.distance_m),nominal.fraction,fresh.fraction,total.fraction,native(total),total.clean===null?'unreported':`${total.clean} / ${shown(total.requests)}`];
+    }));
+  }
 }
 // END READ-ONLY WINDOW STUDY
 function showCorrectedGrid() {

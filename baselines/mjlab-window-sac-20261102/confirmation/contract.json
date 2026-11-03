@@ -1,0 +1,514 @@
+{
+  "version": "sircus-train-window-engineering-confirmation-v1",
+  "parent_contract_fingerprint": "d2df483d1dbe96784107cf610cc97aae4d3b6eebcbbd587eb3579f1f565ff0fb",
+  "parent_file_sha256": {
+    "contract.json": "af6cd113314c233c7f1eeac7893787680b926225453f51325ab058c528ff9c42",
+    "report.json": "4021881a6f5910a53372884b0e9983672b0ca5f3444e93f09e256ff142856660",
+    "records.jsonl": "394a9acf2364557c110e565e5d8dd6bd6bb763f53e80fa449eb9c92dadc2406a",
+    "prepared-contexts.json": "1f8d5eb55f9a5f4819bdfdcc4580e47efc663374c206216f0919e2f4e9918c78",
+    "audit-window.json": "e654456934c8949f673894f2f4371c193c7d1f7566eebecc4f54629b10eaf2bd",
+    "evidence-manifest.json": "8ea05c4c0676a5b5b977473365bae2a6f439df21461497066385f0d8fa37ca52"
+  },
+  "source_sha256": {
+    "sircus/isaac/board_route.py": "6409889aed6b0fd6a288eb9494b954ec5c3233ec41fdcf146940fc23276fb2e9",
+    "sircus/isaac/entry_quality.py": "2f3d8b73c871a41afc3c8f333f5df1d54fa8751720855ffff517e729217db9d4",
+    "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+    "sircus/isaac/rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+    "sircus/mjlab/admission.py": "2dbc5776113f8afb0ea74e23d0c3a2542fd0223d94a6818aec8de4865d302d82",
+    "sircus/mjlab/bank_geometry.py": "5c0d6775582c5524a323f1e9344c35317e8352e9f1f813f5dd0794c05de743f5",
+    "sircus/mjlab/bank_policy.py": "0773471ab8327e822b7c6676b02c2beaf1185e90d72a3ab10fddaf8cd1595ae8",
+    "sircus/mjlab/bank_solve.py": "457166a796492f66e29b9a52dd944a57119f180f12c89a6aface4d5d2f1ad001",
+    "sircus/mjlab/bank_study.py": "7699faeff915a772f3e838983ff1c8dec7721f2d55c79a594e185cd9e08e7dcb",
+    "sircus/mjlab/calibrate.py": "e2da7c22355899f35e7f9f28e8a3ae35001e29cc2e10e7a490c470809bd548fb",
+    "sircus/mjlab/combine_expansions.py": "08bd8381c2feb7f4616c6ab52178c335274601efe8111c0ea5a07327575efe93",
+    "sircus/mjlab/compare.py": "3df8ca25a182377f28a9babf8743a4bd4789c4ad4b66ac193f180eb4defa8017",
+    "sircus/mjlab/contact_confirm.py": "c80716c6a0353f5ba637c01d171114aee429b14c11b21f5400ec3dc9792fc1ac",
+    "sircus/mjlab/contact_env.py": "04655f30a1b216c037573a0b5e177e6209097026f930fc6efc6dfef289abc3da",
+    "sircus/mjlab/contact_model.py": "b2d522d07dd2e3bffa724feb68593b3fef17033b5274587ef9d130e5c40aa24f",
+    "sircus/mjlab/contact_study.py": "fed3be5310ed6fdfd3e7e3631a9a58ab08508c304e929b16558f8c50ee305fd2",
+    "sircus/mjlab/contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407",
+    "sircus/mjlab/corrected_admission.py": "3d42913fc2a9599b0e5063bfc4ee0a03f003b4ba853338e407c8a3d82de3d64a",
+    "sircus/mjlab/corrected_contract.py": "9800404859a7ae2b2934c26ca448be4a69ae90e481069da72732973b1d907ba2",
+    "sircus/mjlab/corrected_geometry.py": "50a4a353d94cceb1fbb0216a40588c997034a121e554f3f84f530d7d47c470be",
+    "sircus/mjlab/corrected_grid.py": "ff312f08a595ff0ff877305cea591ea5d0b7c5f327e5fa9079e526e22d972596",
+    "sircus/mjlab/corrected_pipeline.py": "4b439b08a8988ccba53c4c5e83a5d7e32e2068d9bbf54a140f4237540c930ea9",
+    "sircus/mjlab/corrected_verify.py": "b16796dff78eb23310247492dee7da40d4f6d9cc7a3fc7d9024062d4dfd4e5b4",
+    "sircus/mjlab/expand_bank.py": "c65110b9afa9c30658b99f0c11ae6e2aefbdf88442fc876dbc8b03e0888a320b",
+    "sircus/mjlab/expand_far.py": "374aa54f7b24c8f6f598f75ed33881050fb06fcc496a6a6466fe20625763e167",
+    "sircus/mjlab/expand_geometry.py": "0b7982c3494b7cb7f799e073e3a7b788cca77617af0e9f509a4b7e273d926739",
+    "sircus/mjlab/expand_refine.py": "bd55749d6fe0e16a2bf942efcca933a9bf2e579209760eecf89cfe1b6131f60a",
+    "sircus/mjlab/expanded_actions.py": "d41817aa7ad4206139925256ab0cdf5288853e621d6b39824c10ad2d309679c3",
+    "sircus/mjlab/expanded_env.py": "b0e9744d1e82b9e575126e0c6d58e524372b75287713cfdf14d010cb2812df8b",
+    "sircus/mjlab/expanded_study.py": "4a271fe5b1b0d3df20c2c53ce7ef0be87a1d0a681c980708a62df29a6d1bef06",
+    "sircus/mjlab/gpu_slot.py": "fcace6029058a9892296507358ee196b9b5296dc4287a07bedc786e3af4cad4a",
+    "sircus/mjlab/gravity_audit.py": "d4d250396c537b4701631d3e170c35fe40534607d57efaca7164edf4d5581339",
+    "sircus/mjlab/interface.py": "00ae4d29643f12ff143c356422384e7daa047889e3790cceb7732325a5b5a6ea",
+    "sircus/mjlab/isaac_pair.py": "4ab44904a2c966d6a8bf1567d4882a8bcfdf3c1dd3d2ea8d9e1bbeba6093d983",
+    "sircus/mjlab/learning_contract.py": "9f2c44b76297f4ef7009c1b0107be983d0511d5654cb68b8e344dd316ed1fda8",
+    "sircus/mjlab/learning_env.py": "58d2f58be0e1981a5efd09e872bdea7d8f608e1fa21b5c87986505a20a4a4f8c",
+    "sircus/mjlab/learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+    "sircus/mjlab/learning_interface.py": "73f9bfcdb95bacfb7bc904853c26b7233a635c566930c1e51040a9473af9a29a",
+    "sircus/mjlab/learning_policy.py": "5c37a248a0a44280f0f82fe3327973299ec6a4bbfccaaae9f750a898180c7792",
+    "sircus/mjlab/learning_reach.py": "8eea1d565e9faefff0622a9e9a4666eb8d811ac086a8a6711caa8efa3029e9a4",
+    "sircus/mjlab/learning_score.py": "e66b982c0e651c3a9f5855dd03efb87488cc924321aaf9cadb80d51bac2fe814",
+    "sircus/mjlab/learning_search.py": "7e37412363aa5263f0d71b76fe8b79af003ed81e92706beeb9e0f3706512e40a",
+    "sircus/mjlab/learning_solve.py": "836ae6db1172f8a9b43de20dbe0132cd1bc2095fe52cc4f923ebbf739f1c41e5",
+    "sircus/mjlab/learning_study.py": "1d9b358fe11007c7edfbeb607c6f769e9d4dae6e6832768e16cc0df98480f8df",
+    "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+    "sircus/mjlab/prepare_contact_report.py": "c90afae3b0d8b20ac0646c97427944d45a0d13419188ecba9348fa264b4461c9",
+    "sircus/mjlab/prepare_corrected_report.py": "d91849cad5fa36d7a701d0b8c832953717e33e6d3818bd1b5dc268bb49bd1a3c",
+    "sircus/mjlab/prepare_expanded_report.py": "a3fa99cae4b6327658b2471986acac8b5f1b1aa0cc5ced0fb0c0ec0bc37e3ecd",
+    "sircus/mjlab/prepare_interface.py": "3783ad300b73808fe9424a960b791afe7addbf28e8a4fab9b61be6ffaf1afbe8",
+    "sircus/mjlab/prepare_stable_report.py": "50ebf337210c94c60ecf081f1caf6cd8854f73646737000fcbe8dd1dd8a423c7",
+    "sircus/mjlab/prepare_window_report.py": "4b78bf62bb47444f8d795677694e47fb9321f4e04dcdcdf1b27a0cd0fdf6dda5",
+    "sircus/mjlab/render_replay.py": "27a562466bc45f5615a95f6c7824ee96bb60e1e51556cedae59bf6982f5a5f50",
+    "sircus/mjlab/repeat_diagnostic.py": "2a91c87c2234466dc1528464630f24856b7a3358f3a98862a1d7916ebac563e8",
+    "sircus/mjlab/requirements.txt": "7c1952bf096917a04387df1c4942bad66c2614cb61f09a55fbe64aa76d087a13",
+    "sircus/mjlab/run.py": "969db2710378345aad34a6f802e33d6ea62488d75e560b9da5738bc0748c3dee",
+    "sircus/mjlab/stable_geometry.py": "2e00b5fc46d1b253b5c85b6823c781a37e26f5819b35586a8cc112b057ebaebf",
+    "sircus/mjlab/stable_ik.py": "efd52c5e837339662c99c196e1a3cf4b5b260eecb7888258779030c459944e07",
+    "sircus/mjlab/stable_study.py": "c9fe1cc71103e1eda5dbd7f9869627c1b09555dca4242e376b7f239198a19ea9",
+    "sircus/mjlab/transit_audit.py": "4400285187eebf3b1c7073a78ab74c94cbead88d52ffc5366e0258d2376f8c96",
+    "sircus/mjlab/transit_detour.py": "700980ef138c281fec2e569d398c54fbfbf2647ac0cc7060e450875e2976e126",
+    "sircus/mjlab/verify_bank.py": "d8f3e0ce75533dd9aacc5018c2dacef2212de8f9e3d63fa50013e1080566fe9b",
+    "sircus/mjlab/verify_combined.py": "c3de2bd00cdff61f5a848ae572a8e3caa3ec5b7ab84465d493d7c907b7b851e2",
+    "sircus/mjlab/verify_contact.py": "17f3b735b98006a9b948444b6262e09de8f6d544b7f0b2228e5bc14ab1d5a182",
+    "sircus/mjlab/verify_contact_confirm.py": "098956227ca8d05bce29ea591b9ade12518d82148526e1787cbfe611fd6a0486",
+    "sircus/mjlab/verify_expanded.py": "f08de30a4c7c9db94bcd9f483e42f925c69f213c60f37ef9dd57049aedfd618d",
+    "sircus/mjlab/verify_expansion.py": "541f2a6e8b58dcc6b07cbb94780474b49f5c785fc3012f92e327de97bc5ca8d1",
+    "sircus/mjlab/verify_far.py": "bd20cb8410657ae39562581b1a0157f3eaa4a4ba519aa1532bc051c6da1b5611",
+    "sircus/mjlab/verify_learning.py": "2ac3124e0a5443d7d572eefe9b73d7711f67a2cdffb9a1198da9fdfac202e874",
+    "sircus/mjlab/verify_refinement.py": "d979ecd5a29e33fc7351283455ace3ab58bc544efee305a5f77f5b6341af1d53",
+    "sircus/mjlab/verify_stable.py": "4cefb89c5cbcc81d1b25e7ace53e9493ce90c19904d7e8c39ca30726ddc1e29c",
+    "sircus/mjlab/window_confirmation.py": "f0023d8da28f433f48dee96fc9aa40e6f1aa19c0340f7a6a5cff34c0de8fdfc2",
+    "sircus/mjlab/window_contract.py": "89c2afb9e4c6665b54e02231d0dc39a4f43b02203ba18586a8526fa9bd22cd75",
+    "sircus/mjlab/window_geometry.py": "27d16ebae82a53a7f9b948cfc0a67bc25618dcd2b11462b6969ac62dbbb779cf",
+    "sircus/mjlab/window_learning.py": "458c90b2d19043463b6f4a9e6abf68166476a92208209ef61e66bc8de5a7fe78",
+    "sircus/mjlab/window_pipeline.py": "e783027066da8823255d3111548d09383bc3f5d86606c85a3f9e02f8e3e41456",
+    "sircus/mjlab/window_study.py": "5af400512287cb85a1ee58b15811fdb1dfe38034f54ba94cc6d8752310832a9d",
+    "sircus/mjlab/window_verify.py": "c1d9c65e7b8a48aed40c30d243aaf55cb9b99df8dc3e2cc2164848b7e68765d4"
+  },
+  "display_only_source_changes": {
+    "sircus/mjlab/prepare_window_report.py": {
+      "parent": "395f36dd0f1cbf39e860d020dd450027a8e33b441c2e8d8802448fe7812d4f3a",
+      "confirmation": "4b78bf62bb47444f8d795677694e47fb9321f4e04dcdcdf1b27a0cd0fdf6dda5"
+    }
+  },
+  "packages": {
+    "mjlab": "1.6.0",
+    "mujoco": "3.11.0",
+    "mujoco-warp": "3.11.0",
+    "torch": "2.7.0",
+    "warp-lang": "1.14.0",
+    "numpy": "1.26.4",
+    "scipy": "1.15.3",
+    "ml-dtypes": "0.5.4"
+  },
+  "asset_sha256": {
+    "assets/board_arm.urdf": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340",
+    "assets/dropper.urdf": "3f40e56e46b040fb3339c1235ea85872f46511c45db2d37f7661db94a470bae3",
+    "assets/poses.json": "5847c2793606860a82cc74030c3fe529767318f189c5d48e3d66c0dc7b9f776a",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link1.stl": "4069840361c2693b5b1147da366d5ba8a49ff7ab2c52fed68e07e04e07786e3f",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link2.stl": "0e736a629e6000c3c912f5aaf76937f824f510ac8894db67bd0d7f1d6210fc52",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link3.stl": "f682201345117c4b021fd9db21bd9bef6824886c8324f046b7d5772d7c9fa426",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link4.stl": "7bf4ab507c07a2b26e6a8528decdfe32d71efffdf1dd391406f1ce2f9ff4caa7",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link5.stl": "103955f097086e0f5d46380ff89bc7ef669877bb65def38431a18fc5343e1ba0",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link6.stl": "86b95b77850f38ff1437284705a1c8c616e3da21faef72e4f06751fc741de3b3",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link_base.stl": "871d501d23e8164440656331ee0e005d859dbdb7fab1c3725bef423adac9cf0e"
+  },
+  "scene": {
+    "scene_id": "sircus-isaac-foundation-v1",
+    "units": "metres, radians, kilograms, seconds",
+    "physics_contract": "sircus-isaac-physx-rigid-mount-v1",
+    "historical_scene": "sircus-two-arm-tapered-bucket-landscape-v1",
+    "arms": {
+      "model": "UFACTORY UF850",
+      "base_spacing_m": 1.33731,
+      "board_base_yaw_rad": 3.141592653589793,
+      "spacing_provenance": "User measured 52.65 inches; base-to-base interpretation assumed"
+    },
+    "board": {
+      "size_m": [
+        0.2,
+        0.3,
+        0.005
+      ],
+      "mass_kg": 0.4,
+      "tool_offset_m": 0.1,
+      "mount_yaw_rad": 1.5707963267948966,
+      "initial_center_m": [
+        0.67,
+        -0.1,
+        0.4
+      ],
+      "initial_tilt_deg": 25,
+      "size_status": "measured; landscape mount",
+      "mount_status": "provisional rigid fixed joint; compliance is NOT calibrated or modeled yet",
+      "mass_status": "provisional"
+    },
+    "bucket": {
+      "inner_top_diameter_m": 0.177,
+      "outer_top_diameter_m": 0.2,
+      "inner_bottom_diameter_m": 0.15,
+      "outer_bottom_diameter_m": 0.158,
+      "reported_height_m": 0.175,
+      "height_interpretation": "unresolved: overall height or interior depth",
+      "assumed_interior_depth_m": 0.175,
+      "assumed_bottom_thickness_m": 0.008,
+      "center_xy_m": [
+        0.16275255472120964,
+        -0.6365356466995716
+      ],
+      "placement_status": "provisional; operator/negative-Y side",
+      "taper": "straight-sided",
+      "segments": 64
+    },
+    "ball": {
+      "radius_m": 0.0375,
+      "mass_kg": 0.2,
+      "restitution": 0.65,
+      "friction": 0.2,
+      "status": "provisional; no physical calibration"
+    },
+    "dropper": {
+      "flange_target_m": [
+        0.67,
+        -0.1,
+        0.72
+      ],
+      "tool_status": "geometric two-finger proxy; not a calibrated gripper model"
+    },
+    "table": {
+      "size_m": [
+        1.8,
+        1.25,
+        0.05
+      ],
+      "center_m": [
+        0.67,
+        -0.25,
+        -0.025
+      ],
+      "status": "provisional enlarged support; tabletop Z=0"
+    },
+    "camera": {
+      "position_m": [
+        1.7,
+        -1.9,
+        1.65
+      ],
+      "look_at_m": [
+        0.65,
+        -0.15,
+        0.35
+      ],
+      "width": 640,
+      "height": 480,
+      "focal_length_mm": 20,
+      "horizontal_aperture_mm": 24,
+      "near_m": 0.05,
+      "far_m": 5.0,
+      "status": "synthetic ideal fixed RGB-D; not wrist-camera calibration"
+    },
+    "simulation": {
+      "physics_dt_s": 0.004166666666666667,
+      "render_every_steps": 8,
+      "seed": 42,
+      "contact_properties_status": "uncalibrated; separate from historical numerical models"
+    }
+  },
+  "physics": {
+    "version": "sircus-articulated-passive-contact-15360hz-v1",
+    "board_mode": "articulated",
+    "gravity_mode": "passive_only",
+    "substeps": 64,
+    "native_dt_s": 6.510416666666667e-05,
+    "scoring_dt_s": 0.004166666666666667,
+    "horizon_s": 4.0,
+    "solref": [
+      0.004,
+      0.15
+    ],
+    "contact_friction": 0.35,
+    "solver": "newton",
+    "solver_iterations": 100,
+    "solver_tolerance": 1e-08,
+    "cone": "pyramidal",
+    "integrator": "implicitfast",
+    "arm_control": "Prescribed joint endpoints reset before each native step; no learned grasp/transit/actuator dynamics",
+    "scorer": "Unchanged board rebound + whole sphere entry + continuous1s retention; external assistance disqualifies route; bucket rim assistance counts"
+  },
+  "anchor_geometry": {
+    "source_id": "stable-shot-0004711",
+    "source_namespace": "window-reference-geometry",
+    "source_record_sha256": "2eeb7e025db0752fe5cbe540e72d2300777e7b8823f13c736c0fa00f57c5e26b",
+    "values": [
+      0.4708757793012148,
+      -0.2778934014509746,
+      0.3973878458850598,
+      36.154791124080255,
+      0.3032930420811218
+    ],
+    "q10": [
+      -0.5331623871001915,
+      -0.3654069384197669,
+      -2.043918815981244,
+      2.41236036898437e-06,
+      -1.6785118645912955,
+      -0.5331631332906016
+    ],
+    "q14": [
+      3.380062669046468,
+      1.5039574753021427,
+      -3.1992193103493975,
+      -0.4047718442151326,
+      -1.0624829296587495,
+      2.301608077910527
+    ],
+    "bucket_xy_m": [
+      0.16275255472120964,
+      -0.6365356466995716
+    ],
+    "use": "Geometry continuation seed only; no historical outcome inherited"
+  },
+  "frozen_contexts": [
+    {
+      "id": "train-h04-t02",
+      "board_height_m": 0.3973878458850598,
+      "tilt_deg": 36.154791124080255,
+      "prepared": true,
+      "board_admitted": true,
+      "reason": null,
+      "q14": [
+        3.380062669046468,
+        1.5039574753021427,
+        -3.1992193103493975,
+        -0.4047718442151326,
+        -1.0624829296587495,
+        2.301608077910527
+      ],
+      "board_branch_sha256": "5d8865a584e582fd492be33bab583be8598cfc3053b31b8167875fde46223fa1",
+      "scope": "Strict CPU endpoints with a fixed board branch; no swept-path or ball-flight guarantee",
+      "board_query_sha256": "bdadfdf1a524a4af07cf8bb1cd965f323f1989389ec1eb1917261201d38b1089",
+      "board_world": [
+        [
+          0.5261700114904552,
+          -0.7585082916367748,
+          -0.38446103902267625,
+          0.4708757793012148
+        ],
+        [
+          0.6124393724641763,
+          0.651663388198433,
+          -0.44749619388037754,
+          -0.2778934014509746
+        ],
+        [
+          0.5899687568539712,
+          1.309993795337519e-16,
+          0.8074260745951791,
+          0.3973878458850598
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "board_branch_checks": [
+        {
+          "branch": 0,
+          "passed": true,
+          "reason": null,
+          "minimum_clearance_m": 0.006085006839541591,
+          "closest_pair": [
+            "Arm10/link4/collision/0",
+            "Arm10/link6/collision/0"
+          ],
+          "board_top_m": 0.4584032874729092,
+          "dropper_flange_z_m": 0.9500000007550979,
+          "margin_contacts": [],
+          "inconsistent_distance_queries": 0,
+          "unresolved_clearance_pairs": [],
+          "board_pose_error": {
+            "position_m": 2.950247830484314e-09,
+            "rotation_rad": 3.139294617224512e-09
+          }
+        }
+      ],
+      "board_branch_id": 0,
+      "board_geometry": {
+        "passed": true,
+        "reason": null,
+        "minimum_clearance_m": 0.006085006839541591,
+        "closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "board_top_m": 0.4584032874729092,
+        "dropper_flange_z_m": 0.9500000007550979,
+        "margin_contacts": [],
+        "inconsistent_distance_queries": 0,
+        "unresolved_clearance_pairs": [],
+        "board_pose_error": {
+          "position_m": 2.950247830484314e-09,
+          "rotation_rad": 3.139294617224512e-09
+        }
+      },
+      "preserved_anchor_board": true
+    },
+    {
+      "id": "train-h05-t02",
+      "board_height_m": 0.5,
+      "tilt_deg": 36.154791124080255,
+      "prepared": true,
+      "board_admitted": true,
+      "reason": null,
+      "q14": [
+        3.3800625094671295,
+        1.3290082173517987,
+        -3.2926636054314735,
+        -0.42472264762768996,
+        -0.9878776375256848,
+        2.340021487095091
+      ],
+      "board_branch_sha256": "4e5e1a257a4060e2980603f22abdc38e6ec8b04559519e753d3030fe55b42b75",
+      "scope": "Strict CPU endpoints with a fixed board branch; no swept-path or ball-flight guarantee",
+      "board_query_sha256": "990dacc9b1be0c5c4a7d857ef327dee06479d0c9ff0e4e8991dca2f6fef0ab91",
+      "board_world": [
+        [
+          0.5261700114904552,
+          -0.7585082916367748,
+          -0.38446103902267625,
+          0.4708757793012148
+        ],
+        [
+          0.6124393724641763,
+          0.651663388198433,
+          -0.44749619388037754,
+          -0.2778934014509746
+        ],
+        [
+          0.5899687568539712,
+          1.309993795337519e-16,
+          0.8074260745951791,
+          0.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "board_branch_checks": [
+        {
+          "branch": 0,
+          "passed": true,
+          "reason": null,
+          "minimum_clearance_m": 0.006085006839541591,
+          "closest_pair": [
+            "Arm10/link4/collision/0",
+            "Arm10/link6/collision/0"
+          ],
+          "board_top_m": 0.561015440873142,
+          "dropper_flange_z_m": 0.9500000007550979,
+          "margin_contacts": [],
+          "inconsistent_distance_queries": 0,
+          "unresolved_clearance_pairs": [],
+          "board_pose_error": {
+            "position_m": 1.0660903767605977e-11,
+            "rotation_rad": 1.1309728309647688e-11
+          }
+        }
+      ],
+      "board_branch_id": 0,
+      "board_geometry": {
+        "passed": true,
+        "reason": null,
+        "minimum_clearance_m": 0.006085006839541591,
+        "closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "board_top_m": 0.561015440873142,
+        "dropper_flange_z_m": 0.9500000007550979,
+        "margin_contacts": [],
+        "inconsistent_distance_queries": 0,
+        "unresolved_clearance_pairs": [],
+        "board_pose_error": {
+          "position_m": 1.0660903767605977e-11,
+          "rotation_rad": 1.1309728309647688e-11
+        }
+      },
+      "preserved_anchor_board": false
+    }
+  ],
+  "settings": {
+    "seed": 20261204,
+    "nominal": 3,
+    "fresh": 20,
+    "gap_sigma_m": 0.002,
+    "bounds": {
+      "version": "sircus-window-low-board-actions-v1",
+      "low": [
+        0.3,
+        -0.5,
+        0.04,
+        8.0,
+        0.02
+      ],
+      "high": [
+        1.04,
+        0.35,
+        0.56,
+        64.0,
+        0.65
+      ]
+    },
+    "clipping": false,
+    "retries": 0
+  },
+  "recipes": [
+    {
+      "id": "recipe-00",
+      "context_id": "train-h04-t02",
+      "board_height_m": 0.3973878458850598,
+      "tilt_deg": 36.154791124080255,
+      "observed_low_gap_m": 0.22475,
+      "observed_high_gap_m": 0.22475,
+      "gap_m": 0.22475
+    },
+    {
+      "id": "recipe-01",
+      "context_id": "train-h04-t02",
+      "board_height_m": 0.3973878458850598,
+      "tilt_deg": 36.154791124080255,
+      "observed_low_gap_m": 0.272,
+      "observed_high_gap_m": 0.3704375,
+      "gap_m": 0.32121875
+    },
+    {
+      "id": "recipe-02",
+      "context_id": "train-h05-t02",
+      "board_height_m": 0.5,
+      "tilt_deg": 36.154791124080255,
+      "observed_low_gap_m": 0.1775,
+      "observed_high_gap_m": 0.1814375,
+      "gap_m": 0.17946875
+    },
+    {
+      "id": "recipe-03",
+      "context_id": "train-h05-t02",
+      "board_height_m": 0.5,
+      "tilt_deg": 36.154791124080255,
+      "observed_low_gap_m": 0.209,
+      "observed_high_gap_m": 0.2680625,
+      "gap_m": 0.23853124999999997
+    }
+  ],
+  "plan_sha256": "2cb612fc7235a3aa0e3514b0e394ff38af69a8970f3662d44c61dc04dfbdd0eb",
+  "scope": "Post-study TRAIN-derived engineering repeats; excluded from original learner comparison and all policy selection; held endpoints only, no path/actuator validation",
+  "fingerprint": "043592904cf365e69bb7efd72b0e35e7714845d4764c7f6541526a1c0d9f2367"
+}

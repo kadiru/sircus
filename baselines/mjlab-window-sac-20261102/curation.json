@@ -1,0 +1,10 @@
+{
+  "version": "sircus-window-curation-v1",
+  "contract_fingerprint": "d2df483d1dbe96784107cf610cc97aae4d3b6eebcbbd587eb3579f1f565ff0fb",
+  "original_report_sha256": "4021881a6f5910a53372884b0e9983672b0ca5f3444e93f09e256ff142856660",
+  "original_audit_sha256": "e654456934c8949f673894f2f4371c193c7d1f7566eebecc4f54629b10eaf2bd",
+  "original_evidence_manifest_sha256": "8ea05c4c0676a5b5b977473365bae2a6f439df21461497066385f0d8fa37ca52",
+  "raw_evidence_location": "~/sircus-mjlab/output/window-sac-v1",
+  "scope": "Only curated synthetic metrics, exact requested actions, model checkpoints and provenance are included; no raw observations or host calibration.",
+  "text_normalization": "CSV CRLF line endings normalized to LF for Git; cells unchanged"
+}

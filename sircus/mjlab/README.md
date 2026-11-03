@@ -5,6 +5,9 @@ development bucket, 24/6/8 disjoint height/tilt contexts and equal1,008-request
 training budgets. It compares adaptive search plus a supervised capture predictor
 with terminal continuous SAC, preserving rejected requests and frozen evaluation.
 This does not replace the existing viewer policy or claim all-table coverage.
+Completed: predictor23/184 frozen tests versus SAC0/184; only3/8 test board
+contexts resolved. Two separately repeated wider-window centers captured3/3
+nominal +20/20 gap-noise trials. [Audited results and exact settings](../../baselines/mjlab-window-sac-20261102/README.md).
 
 The [corrected-contact spatial map](CORRECTED_GRID.md) completed: 35 DEV layouts,
 460 native search releases, 87 nominal repeats and 580 fresh requests. Seventeen
