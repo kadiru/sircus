@@ -3,7 +3,7 @@ import { OrbitControls } from '/vendor/OrbitControls.js';
 import { contactStudy, contactGroups, contactConfigurations, transitRoutes, routePreview, configurationsCsv } from '/state.mjs';
 import { correctedGridProgress, correctedTrainingReadiness } from '/state.mjs';
 import { plannerReady, plannerOnly, searchReady, modeReady, plannerFarmRows, plannerGridRows, plannerGridSummary, plannerGridProgress, plannerGridCsv } from '/state.mjs';
-import { sweepRlStudy, sweepRlSummary, sweepRlProgress, sweepRlPoints, sweepRlCurves, sweepRlFinalRows, sweepRlStatusLabel, sweepRlCsv } from '/state.mjs';
+import { sweepRlStudy, sweepRlSummary, sweepRlProgress, sweepRlCompletedWorkers, sweepRlPoints, sweepRlCurves, sweepRlFinalRows, sweepRlStatusLabel, sweepRlCsv } from '/state.mjs';
 import { studyReady, buildRequest, methodLabel, coverageRows, finiteVector, friendlyError, coverageSummary, comparisonRows, learningPoints, inStudiedRegion, BOARD_BODY_SIZE, bankComparisonRows, policyRouteLabel, poseInputValues, bankCoverageRows, bankCoverageStatus, formatMetric, solveButtonState, expansionTargetRows, expansionProgress, expandedComparisonRows, stableIkProgress, stableIkTargets, stableIkAuditRows, stableIkControlRows } from '/state.mjs';
 
 const $ = id => document.getElementById(id);
@@ -423,7 +423,7 @@ function showSweepRlBenchmark() {
   if (typeof report.sweep_rl_error === 'string') {
     $('sweepRlBenchmark').hidden = false; benchmarkSignature = '';
     $('benchmarkStatus').textContent = `Benchmark evidence unavailable · ${friendlyError(report.sweep_rl_error)}`;
-    for (const id of ['benchmarkSummary', 'benchmarkCaptureChart', 'benchmarkTimeChart', 'benchmarkResourceTable', 'benchmarkMilestones', 'benchmarkFinalTable']) $(id).replaceChildren();
+    for (const id of ['benchmarkSummary', 'benchmarkCaptureChart', 'benchmarkTimeChart', 'benchmarkResourceTable', 'benchmarkMilestones', 'benchmarkWorkerCosts', 'benchmarkFinalTable']) $(id).replaceChildren();
     $('benchmarkScope').textContent = 'The benchmark report could not be verified. No benchmark measurements are displayed.';
     $('benchmarkPrior').textContent = ''; $('benchmarkProgress').textContent = ''; $('benchmarkAudit').textContent = ''; $('benchmarkFinalStatus').textContent = 'Final results unavailable.'; $('benchmarkDownload').disabled = true;
     return;
@@ -435,7 +435,7 @@ function showSweepRlBenchmark() {
   if (signature === benchmarkSignature) return;
   const firstDisplay = !benchmarkSignature;
   benchmarkSignature = signature;
-  const curves = sweepRlCurves(report), points = sweepRlPoints(report), finals = sweepRlFinalRows(report), progress = sweepRlProgress(report);
+  const curves = sweepRlCurves(report), points = sweepRlPoints(report), finals = sweepRlFinalRows(report), progress = sweepRlProgress(report), workers = sweepRlCompletedWorkers(report);
   $('benchmarkStatus').textContent = `${sweepRlStatusLabel(summary)} · ${summary.completedRuns}/${summary.totalRuns} method/seed runs complete${summary.auditStatus ? ` · audit ${summary.auditStatus}` : ''}`;
   const observed = value => value === null ? 'Unknown' : value.toLocaleString(), runTotal = progress.declaredRuns ?? 'unknown';
   const trainingProgress = progress.requests === null ? 'Awaiting reported training-request counters.' : `Recorded training decisions: ${observed(progress.requests)} / ${observed(progress.declaredRequests)} declared.`;
@@ -459,6 +459,12 @@ function showSweepRlBenchmark() {
     benchmarkNumber(row.resources.wall_s, ' s'), `${benchmarkNumber(row.resources.cpu_s, ' s')} / ${benchmarkNumber(row.resources.geometry_s, ' s')}`,
     `${benchmarkNumber(row.resources.gpu_s, ' s')} / ${benchmarkNumber(row.resources.gpu_reservation_s, ' s')}`, `${benchmarkNumber(row.resources.peak_rss_mb, ' MiB')} / ${benchmarkNumber(row.resources.peak_vram_mb, ' MiB')}`,
     benchmarkNumber(row.resources.evaluation_wall_s, ' s')]));
+  expansionTable($('benchmarkWorkerCosts'), ['Completed worker / seed', 'Spent TRAIN requests / native releases', 'Setup + TRAIN wall / CPU', 'Validation + test wall', 'Full GPU reservation', 'Lifetime peak RSS / sampled VRAM', 'Torch allocated / reserved peak'], workers.map(row => [
+    `${row.label}\nSeed ${row.seed}`, `${row.requests ?? 'Unknown'} / ${row.nativeReleases ?? 'Unknown'}`,
+    `${benchmarkNumber(row.resources.wall_s, ' s')} / ${benchmarkNumber(row.resources.cpu_s, ' s')}`,
+    benchmarkNumber(row.resources.evaluation_wall_s, ' s'), benchmarkNumber(row.resources.gpu_reservation_s, ' s'),
+    `${benchmarkNumber(row.resources.peak_rss_mb, ' MiB')} / ${benchmarkNumber(row.resources.peak_vram_mb, ' MiB')}`,
+    `${benchmarkNumber(row.resources.torch_allocated_mb, ' MiB')} / ${benchmarkNumber(row.resources.torch_reserved_mb, ' MiB')}`]));
   $('benchmarkFinalStatus').textContent = summary.status === 'completed' ? `${finals.length} frozen method/seed records. Test requests are separate from training and checkpoint-selection validation.` : 'Final results remain pending until the benchmark completes. Validation is not final test performance.';
   expansionTable($('benchmarkFinalTable'), ['Frozen method', 'Seed', 'Selected training budget', 'Test captures', 'Clean', 'Native / rejected', 'Query time', 'Artifact SHA256'], finals.map(row => [row.label, row.seed, row.selectedSamples ?? 'Unknown',
     benchmarkCounts(row.counts), row.counts.clean ?? 'Unknown', `${row.counts.nativeReleases ?? 'Unknown'} / ${row.counts.invalid ?? 'Unknown'}`,

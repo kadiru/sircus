@@ -382,6 +382,26 @@ export function sweepRlProgress(report) {
     requestCounterRuns: requestRows.length, nativeCounterRuns: nativeRows.length,
     conflictingRuns: conflicts.size, reportedRunning: rows.filter(row => row.status === 'running') };
 }
+export function sweepRlCompletedWorkers(report) {
+  const study = sweepRlStudy(report), methods = new Map(benchMethods(study).map(method => [method.id, method.label]));
+  const seeds = new Set((Array.isArray(study?.protocol?.seeds) ? study.protocol.seeds : []).filter(seed => benchInteger(seed) !== null));
+  const budget = benchInteger(study?.protocol?.sample_budget);
+  if (budget === null || budget === 0) return [];
+  const workers = new Map(), conflicts = new Set();
+  for (const raw of Array.isArray(study?.runs) ? study.runs : []) {
+    if (!raw || !methods.has(raw.method) || !seeds.has(raw.seed)) continue;
+    const key = JSON.stringify([raw.method, raw.seed]);
+    if (conflicts.has(key)) continue;
+    const requested = benchInteger(raw.train_requests), native = benchInteger(raw.train_native_releases);
+    const requests = requested !== null && requested <= budget ? requested : null;
+    const row = { method: raw.method, label: methods.get(raw.method), seed: raw.seed, status: raw.status,
+      requests, nativeReleases: requests !== null && native !== null && native <= requests ? native : null,
+      resources: sweepRlResources(raw.resources) };
+    if (workers.has(key) && JSON.stringify(workers.get(key)) !== JSON.stringify(row)) { workers.delete(key); conflicts.add(key); }
+    else workers.set(key, row);
+  }
+  return [...workers.values()].filter(row => row.status === 'completed').sort((a, b) => a.method.localeCompare(b.method) || a.seed - b.seed);
+}
 export function sweepRlSummary(report) {
   const study = sweepRlStudy(report);
   if (!study) return null;
