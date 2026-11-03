@@ -231,6 +231,13 @@ test('benchmark panel is additive and cannot start training or move the existing
   assert.ok(html.includes('Completed worker costs · includes final evaluation'));
   assert.ok(html.includes('Setup + TRAIN wall and process CPU exclude all evaluation'));
   assert.ok(html.includes('This table contains no test capture outcomes'));
+  assert.ok(html.includes('instrumented implementation costs, including evidence I/O'));
+  assert.ok(html.includes('lifetime peaks include the simulator and evaluation'));
+  assert.ok(html.includes('excludes artifact loading and subsequent IK, path and native admission'));
+  assert.ok(html.includes('not end-to-end shot latency'));
+  assert.ok(html.includes('actor, critic and optimizer state'));
+  assert.ok(html.includes('not an actor-only deployment footprint'));
+  assert.ok(js.includes("'Prediction time only'"));
   const show = js.slice(js.indexOf('function showSweepRlBenchmark'), js.indexOf("$('play').onclick"));
   assert.ok(!show.includes('/api/solve') && !show.includes('POST') && !show.includes('applyResult('));
   assert.ok(js.includes('showSweepRlBenchmark();')); assert.ok(js.includes('sweep_rl_error'));
