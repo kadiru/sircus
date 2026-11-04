@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { VALIDATION_FAILURE_CATEGORIES, validationFailureAuditState, validationFailureCells,
   validationFailureSummary, validationFailureRepresentatives, validationFailureReplayPath,
-  validationFailureReplayMatches } from '../web/state.mjs';
+  validationFailureReplayMatches, validationFailureShouldScroll, validationPoseNumber } from '../web/state.mjs';
 
 const sha = 'a'.repeat(64), replayId = 'b'.repeat(32);
 const categories = extra => ({ captured_clean: 1, captured_assisted: 2, setup_rejected: 2,
@@ -43,10 +43,31 @@ test('readiness fails closed for missing, unaudited, synthetic and stale source 
     r=>delete r.validation_failure_audit.fingerprint,r=>delete r.validation_failure_audit.source.audit_sha256,
     r=>r.validation_failure_audit.source.contract_fingerprint='f'.repeat(64),r=>r.sweep_rl_benchmark.audit.status='pending',
     r=>r.sweep_rl_benchmark.audit.synthetic_fixture=true,r=>r.sweep_rl_benchmark.status='running',
-    r=>delete r.sweep_rl_benchmark.audit,r=>r.validation_failure_audit.layouts[1]=structuredClone(r.validation_failure_audit.layouts[0])]) {
+    r=>delete r.sweep_rl_benchmark.audit,r=>r.validation_failure_audit.layouts.pop(),
+    r=>r.validation_failure_audit.layouts[1]=structuredClone(r.validation_failure_audit.layouts[0])]) {
     const r=fixture();change(r);assert.equal(validationFailureAuditState(r).ready,false);
     assert.deepEqual(validationFailureCells(r),[]);assert.deepEqual(validationFailureRepresentatives(r),[]);
   }
+});
+
+test('audit hash scroll waits for readiness and happens only once instead of on polling',()=>{
+  assert.equal(validationFailureShouldScroll({},'#validationFailureAudit',false),false);
+  const report=fixture();assert.equal(validationFailureShouldScroll(report,'#validationFailureAudit',false),true);
+  assert.equal(validationFailureShouldScroll(report,'#validationFailureAudit',true),false);
+  assert.equal(validationFailureShouldScroll(report,'#sweepRlBenchmark',false),false);
+  report.validation_failure_audit.status='pending';assert.equal(validationFailureShouldScroll(report,'#validationFailureAudit',false),false);
+  const js=readFileSync(new URL('../web/app.js',import.meta.url),'utf8');
+  assert.equal(js.split('validationAuditScrolled = true').length-1,1);
+  assert.ok(js.includes('validationFailureShouldScroll(report, location.hash, validationAuditScrolled)'));
+  assert.ok(js.includes("validationView ? 'Sircus · Validation failure audit'"));
+});
+
+test('capture tier wording stays marginal-aware and tiny pose errors remain distinguishable from zero/unknown',()=>{
+  assert.equal(VALIDATION_FAILURE_CATEGORIES.captured_assisted,'Assisted or marginal capture');
+  assert.equal(validationPoseNumber(.000042),'0.000042');
+  assert.equal(validationPoseNumber(0),'0.000000');
+  assert.equal(validationPoseNumber(undefined),'Unknown');assert.equal(validationPoseNumber(null),'Unknown');
+  assert.equal(validationPoseNumber(NaN),'Unknown');
 });
 
 test('selected primary and all checkpoint slices stay separate repeated validation cohorts',()=>{

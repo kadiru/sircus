@@ -1,6 +1,6 @@
 # Sircus — Simple Circus
 
-**Current mjlab checkpoint:** [completed matched sweep/PPO benchmark](baselines/mjlab-sweep-rl-benchmark-20261103/README.md). Frozen formal test scores are sweep **67/216 (31.0%)**, PPO **58/216 (26.9%)**. The 1 µm wall-overlap rule is contact-sensitive, so these labels do not establish an ordinary capture or adaptation winner. The earlier [35-position planner](baselines/mjlab-grid35-expanded-20261103/README.md) retains 17 selected recipes, 12 unresolved targets and 6 clearance blockers; its historical definitions/results remain unchanged.
+**Current mjlab checkpoint:** [calibrated sweep/PPO comparison](baselines/mjlab-calibrated-benchmark-20261104/README.md): frozen held-out captures **78/216 (36.1%) sweep**, **97/216 (44.9%) PPO**. The [validation-only failure audit](baselines/mjlab-validation-failures-20261104/README.md) adds a bucket heatmap, recorded misses and initial-pose checks, preserving the completed benchmark. [Open diagnostics](http://127.0.0.1:18792/#validationFailureAudit). Historical v1 and the earlier35-position planner retain their original definitions and results.
 
 Two UFACTORY850 arms learn to bounce a ball from a suction-mounted board into a bucket. Arm10 picks/releases; arm14 positions the board. This private repository is the shared source for Mac physical work and Ubuntu simulation work.
 
@@ -10,7 +10,13 @@ The current goal is a simulation showcase with an interactively placed bucket an
 
 ## Start here
 
-- **Sweep versus RL benchmark:** [matched current-ball protocol](sircus/mjlab/SWEEP_RL_BENCHMARK.md).
+- **Validation failure audit:** [method and pose-observability limits](sircus/mjlab/VALIDATION_FAILURE_AUDIT.md).
+  CPU-only diagnosis of864 existing validation requests; selected checkpoint
+  cohort216 is a subset, not fresh evaluation. Shows12 observed bucket positions,
+  requested/native initial poses and hash-bound ball replays, with no new shots,
+  policy changes or GPU work. [Calibrated v2 methodology/results](sircus/mjlab/CALIBRATED_BENCHMARK.md).
+
+- **Historical v1 sweep versus RL benchmark:** [original current-ball protocol](sircus/mjlab/SWEEP_RL_BENCHMARK.md).
   All six workers completed: 1,024 spent TRAIN requests per method/seed, 6,144 TRAIN
   + 864 validation + 432 test requests, using the same 17-recipe historical prior.
   The [checksummed results and six selected artifacts](baselines/mjlab-sweep-rl-benchmark-20261103/README.md)

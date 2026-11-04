@@ -520,7 +520,7 @@ export function sweepRlCsv(report) {
 
 // Validation-only diagnostics are additive; they never select a checkpoint.
 export const VALIDATION_FAILURE_CATEGORIES = {
-  captured_clean: 'Clean capture', captured_assisted: 'Assisted capture',
+  captured_clean: 'Clean capture', captured_assisted: 'Assisted or marginal capture',
   setup_rejected: 'Setup rejected · no native release', invalid_physics: 'Outside calibrated physics domain',
   external_disqualified_retention: 'Retention disqualified by external contact',
   no_board_bounce: 'No accepted board rebound', entry_not_retained: 'Entry without one-second retention',
@@ -547,11 +547,15 @@ export function validationFailureAuditState(report) {
       || !hashMapping(source.source_sha256) || !hashMapping(source.auditor_dependencies))
     return fail('Validation source and audit bindings are incomplete.');
   if (source.contract_fingerprint !== benchmark.contract_fingerprint) return fail('Validation evidence belongs to a different source contract.');
-  if (!Array.isArray(value.layouts) || !value.layouts.length || value.layouts.some(row => typeof row?.id !== 'string' || !finiteVector(row.bucket_xy_m, 2))
+  if (!Array.isArray(value.layouts) || value.layouts.length !== 12 || value.layouts.some(row => typeof row?.id !== 'string' || !finiteVector(row.bucket_xy_m, 2))
       || new Set(value.layouts.map(row => row.id)).size !== value.layouts.length)
     return fail('Validation bucket layouts are missing or invalid.');
   return { present: true, ready: true, reason: '', audit: value };
 }
+export function validationFailureShouldScroll(report, hash, alreadyScrolled) {
+  return alreadyScrolled !== true && hash === '#validationFailureAudit' && validationFailureAuditState(report).ready;
+}
+export const validationPoseNumber = value => Number.isFinite(value) ? value.toFixed(6) : 'Unknown';
 function validationCellCounts(cell) {
   if (!cell || benchInteger(cell.attempts) === null || cell.attempts === 0 || benchInteger(cell.captures) === null
       || benchInteger(cell.native_releases) === null || cell.captures > cell.native_releases || cell.native_releases > cell.attempts) return null;

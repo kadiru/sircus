@@ -68,3 +68,18 @@ hash bindings. Use the pinned Ubuntu environment with `CUDA_VISIBLE_DEVICES=""`.
 This audit is development diagnosis. If its findings change the method, future
 performance claims require a fresh held-out test cohort; the completed benchmark
 keeps its original definitions and results.
+
+## Completed diagnosis
+
+The [compact evidence](../../baselines/mjlab-validation-failures-20261104/README.md)
+binds all864 validation requests and704 native traces to the frozen benchmark.
+Selected validation captures are70/108 sweep and74/108 PPO. Combined failures
+are33 setup rejections,33 no-entry shots and six externally disqualified
+retentions. Of the33 no-entry trajectories,29 cross the nominal whole-entry
+height short of the bucket; four remain unclassified after intervening contacts.
+No causal claim about release speed, gap or board tilt follows from that label.
+
+Initial numerical pose errors are negligible at the prescribed endpoints; dynamic
+settling and impact pose remain unobserved. The next experiment should separate
+setup conflicts from controlled gap/tilt feasibility at short-miss layouts, using
+validation-only development data before freezing a new test comparison.

@@ -4,7 +4,7 @@ import { contactStudy, contactGroups, contactConfigurations, transitRoutes, rout
 import { correctedGridProgress, correctedTrainingReadiness } from '/state.mjs';
 import { plannerReady, plannerOnly, searchReady, modeReady, plannerFarmRows, plannerGridRows, plannerGridSummary, plannerGridProgress, plannerGridCsv } from '/state.mjs';
 import { sweepRlStudy, sweepRlSummary, sweepRlProgress, sweepRlCompletedWorkers, sweepRlPoints, sweepRlCurves, sweepRlFinalRows, sweepRlFinalAggregate, sweepRlStatusLabel, sweepRlCsv, sweepRlAdmissionRows, sweepRlHistory, historicalPlannerIsPreV2 } from '/state.mjs';
-import { validationFailureAuditState, validationFailureCells, validationFailureSummary, validationFailureRepresentatives, validationFailureReplayMatches } from '/state.mjs';
+import { validationFailureAuditState, validationFailureCells, validationFailureSummary, validationFailureRepresentatives, validationFailureReplayMatches, validationFailureShouldScroll, validationPoseNumber } from '/state.mjs';
 import { studyReady, buildRequest, methodLabel, coverageRows, finiteVector, friendlyError, coverageSummary, comparisonRows, learningPoints, inStudiedRegion, BOARD_BODY_SIZE, bankComparisonRows, policyRouteLabel, poseInputValues, bankCoverageRows, bankCoverageStatus, formatMetric, solveButtonState, expansionTargetRows, expansionProgress, expandedComparisonRows, stableIkProgress, stableIkTargets, stableIkAuditRows, stableIkControlRows } from '/state.mjs';
 
 const $ = id => document.getElementById(id);
@@ -70,7 +70,7 @@ const bucketBase = new THREE.Mesh(new THREE.CylinderGeometry(.079, .079, .008, 6
 bucketBase.rotation.x = Math.PI / 2; bucketBase.position.z = .004; bucketGroup.add(bucketBase);
 let sceneSpec = {}, report = {}, pending = false, activeRequest = null, currentTrajectory = [], playTime = 0, playing = false, pathLine;
 let methodChosen = false, farmSignature = '', gridStudySignature = '', benchmarkSignature = '';
-let validationFailureSignature = '', validationSelectedLayout = '', validationReplayGeneration = 0;
+let validationFailureSignature = '', validationSelectedLayout = '', validationReplayGeneration = 0, validationAuditScrolled = false;
 let transitFrames = [], transitTime = 0, transitName = "";
 let bucketXY = [.65, -.4];
 const armGroups = [new THREE.Group(), new THREE.Group()]; armGroups.forEach(g => world.add(g));
@@ -467,7 +467,6 @@ function drawValidationFailureMap(rows) {
   $('validationFailureMap').replaceChildren(svg);
 }
 const validationPoseVector = (value, scale = 1000) => finiteVector(value, 3) ? value.map(v => (v * scale).toFixed(scale === 1 ? 4 : 2)).join(', ') : 'Unknown';
-const validationPoseNumber = value => Number.isFinite(value) ? value.toFixed(3) : 'Unknown';
 function showValidationFailureCards(cards, fingerprint) {
   const target = $('validationFailureCards'); target.replaceChildren();
   if (!cards.length) { const p = document.createElement('p'); p.className = 'fine'; p.textContent = 'No representative miss was saved for this method/cohort. This is not evidence that every shot captured; inspect the counts above.'; target.append(p); }
@@ -553,6 +552,10 @@ function showValidationFailureAudit() {
   } else $('validationFailureMap').replaceChildren();
   showValidationFailureCards(validationFailureRepresentatives(report, method, checkpoint), state.audit.fingerprint);
   $('validationFailureReplayStatus').textContent = '';
+  if (validationFailureShouldScroll(report, location.hash, validationAuditScrolled)) {
+    validationAuditScrolled = true;
+    section.scrollIntoView({ block: 'start' });
+  }
 }
 $('validationFailureMethod').onchange = showValidationFailureAudit;
 $('validationFailureCheckpoint').onchange = showValidationFailureAudit;
@@ -1096,8 +1099,9 @@ async function loadStatus() {
     $('plannerGridHeading').textContent = historicalPlanner ? 'Historical shot settings and repeats · pre-v2' : 'Shot settings. Repeated captures.';
     $('historicalStudies').hidden = standalone;
     const benchmarkView = !!sweepRlStudy(r) || typeof r.sweep_rl_error === 'string';
-    document.title = benchmarkView ? 'Sircus · Sweep vs RL benchmark' : standalone ? 'Sircus · Sweep shot planner' : 'Sircus · mjlab learning lab';
-    $('workspaceHeading').textContent = benchmarkView ? 'Sweep versus RL benchmark' : standalone ? 'Sweep shot planner' : 'Place a target. Find a posture.';
+    const validationView = location.hash === '#validationFailureAudit';
+    document.title = validationView ? 'Sircus · Validation failure audit' : benchmarkView ? 'Sircus · Sweep vs RL benchmark' : standalone ? 'Sircus · Sweep shot planner' : 'Sircus · mjlab learning lab';
+    $('workspaceHeading').textContent = validationView ? 'Validation failure audit' : benchmarkView ? 'Sweep versus RL benchmark' : standalone ? 'Sweep shot planner' : 'Place a target. Find a posture.';
     if (!methodChosen && plannerReady(r)) $('mode').value = 'search';
     if (initial) {
       if (s.bucket?.xy) setBucket(s.bucket.xy);
