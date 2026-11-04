@@ -632,6 +632,97 @@ export function validationFailureReplayMatches(result, card) {
       && (!i || row.time > trajectory[i - 1].time));
 }
 
+// Controlled follow-up results remain separate from the frozen benchmark.
+export function impactPoseSweepState(report) {
+  const study = report?.impact_pose_sweep;
+  const present = !!study || typeof report?.impact_pose_sweep_error === 'string';
+  const fail = reason => ({present, ready:false, reason, study:null});
+  if (typeof report?.impact_pose_sweep_error === 'string') return fail('Impact sweep failed source or evidence verification.');
+  if (!study || typeof study !== 'object' || Array.isArray(study)) return fail('Impact pose sweep is not available.');
+  if (study.status !== 'completed') return fail(`Impact pose sweep ${String(study.status ?? 'pending').replaceAll('_',' ')} · completed audited measurements are pending.`);
+  if (study.version !== 'sircus-impact-pose-sweep-v1' || study.synthetic_fixture !== false || !benchHash(study.fingerprint)
+      || study.audit?.status !== 'passed') return fail('A completed native sweep and passed independent audit are required.');
+  if (!['benchmark_report_sha256','validation_report_sha256','contract_fingerprint'].every(key=>benchHash(study.source?.[key])))
+    return fail('Frozen benchmark and validation-source bindings are incomplete.');
+  const benchmark = sweepRlStudy(report);
+  if (benchmark && study.source.contract_fingerprint !== benchmark.contract_fingerprint) return fail('Impact sweep source contract does not match the frozen benchmark.');
+  if (!Array.isArray(study.layouts) || !study.layouts.length || study.layouts.some(row=>typeof row?.id !== 'string' || !finiteVector(row.bucket_xy_m,2))
+      || new Set(study.layouts.map(row=>row.id)).size !== study.layouts.length) return fail('Controlled source postures are missing or invalid.');
+  return {present:true,ready:true,reason:'',study};
+}
+export function impactPoseReplayPath(id) {
+  return typeof id === 'string' && /^[a-z0-9][a-z0-9_-]{7,95}$/.test(id) ? `/api/impact-sweep/replay/${id}` : null;
+}
+function impactPoseTrial(raw, layout, radius) {
+  if (!raw || typeof raw.id !== 'string' || !['sweep','confirmation'].includes(raw.phase) || !finiteVector(raw.values,5)
+      || typeof raw.native_release !== 'boolean' || typeof raw.success !== 'boolean' || raw.success && !raw.native_release) return null;
+  const release = finiteVector(raw.release_ball_center_m,3) ? raw.release_ball_center_m.slice()
+    : [raw.values[0],raw.values[1],raw.values[2]+raw.values[4]+radius];
+  const path = impactPoseReplayPath(raw.replay_id);
+  return {id:raw.id,phase:raw.phase,baseline:raw.baseline === true,values:raw.values.slice(),board:raw.values.slice(0,3),tilt:raw.values[3],gap:raw.values[4],release,
+    nativeRelease:raw.native_release,success:raw.success,reason:typeof raw.invalid === 'string' ? raw.invalid : '',
+    pose:raw.pose_summary ?? raw.pose_logging ?? null,replayId:raw.replay_id,
+    resultUrl:raw.native_release && path && benchHash(raw.replay_sha256) ? path : null,xy:layout.bucket_xy_m.slice(),
+    sourceRowId:layout.source_row_id,contextId:layout.context_id ?? layout.id,method:layout.source_method ?? 'Unknown'};
+}
+function impactCounts(trials) {
+  return {attempts:trials.length,nativeReleases:trials.filter(t=>t.nativeRelease).length,captures:trials.filter(t=>t.success).length,
+    setupRejected:trials.filter(t=>!t.nativeRelease).length};
+}
+export function impactPoseSweepLayouts(report) {
+  const state=impactPoseSweepState(report);if(!state.ready)return [];
+  const radius=Number.isFinite(state.study.protocol?.ball_radius_m) ? state.study.protocol.ball_radius_m : .0375;
+  return state.study.layouts.map(layout=>{
+    const raw=Array.isArray(layout.trials)?layout.trials:[],trials=raw.map(row=>impactPoseTrial(row,layout,radius));
+    const valid=raw.length>0 && trials.every(Boolean) && new Set(trials.map(t=>t.id)).size===trials.length;
+    const good=valid?trials:[],sweep=good.filter(t=>t.phase==='sweep'),confirmation=good.filter(t=>t.phase==='confirmation');
+    const selected=layout.selected && typeof layout.selected.id === 'string' && finiteVector(layout.selected.values,5)
+      ? good.find(t=>t.phase==='sweep' && t.id===layout.selected.id && t.values.every((v,i)=>v===layout.selected.values[i])) ?? null : null;
+    const claimed=layout.confirmation;
+    const confirmationBound=valid && claimed && benchInteger(claimed.attempts)===confirmation.length
+      && benchInteger(claimed.native_releases)===confirmation.filter(t=>t.nativeRelease).length
+      && benchInteger(claimed.captures)===confirmation.filter(t=>t.success).length
+      && (!confirmation.length || selected && confirmation.every(t=>t.values.every((v,i)=>v===selected.values[i])));
+    return {id:layout.id,contextId:layout.context_id??layout.id,method:layout.source_method??'Unknown',xy:layout.bucket_xy_m.slice(),
+      sourceRowId:typeof layout.source_row_id==='string'?layout.source_row_id:'Unknown',valid,trials:good,sweep,confirmation,
+      counts:valid?impactCounts(good):null,sweepCounts:valid?impactCounts(sweep):null,
+      confirmationCounts:confirmationBound?impactCounts(confirmation):null,selected,
+      baselineValues:finiteVector(layout.baseline_values,5)?layout.baseline_values.slice():null};
+  });
+}
+export function impactPoseSweepSummary(report) {
+  const state=impactPoseSweepState(report),layouts=impactPoseSweepLayouts(report);if(!state.ready)return null;
+  const known=layouts.length>0&&layouts.every(l=>l.valid),all=known?layouts.flatMap(l=>l.trials):[];
+  return {postures:layouts.length,positions:new Set(layouts.map(l=>JSON.stringify(l.xy))).size,
+    counts:known?impactCounts(all):null,sweep:known?impactCounts(all.filter(t=>t.phase==='sweep')):null,
+    confirmation:known&&layouts.every(l=>l.confirmationCounts)?impactCounts(all.filter(t=>t.phase==='confirmation')):null,
+    status:state.study.status};
+}
+export function impactPoseSweepCells(layout) {
+  if(!layout?.valid)return [];
+  const tilts=[...new Set(layout.sweep.map(t=>t.tilt))].sort((a,b)=>a-b),gaps=[...new Set(layout.sweep.map(t=>t.gap))].sort((a,b)=>a-b);
+  return tilts.flatMap(tilt=>gaps.map(gap=>{
+    const trials=layout.sweep.filter(t=>t.tilt===tilt&&t.gap===gap),unique=trials.length===1;
+    return {tilt,gap,trial:unique?trials[0]:null,status:!unique?'unknown':!trials[0].nativeRelease?'rejected':trials[0].success?'captured':'missed'};
+  }));
+}
+export function impactPoseReplayMatches(result,trial) {
+  const trajectory=result?.trajectory,config=result?.configuration;
+  if(!trial?.resultUrl || result?.method!=='impact_sweep_recorded_replay' || result.request_id!==trial.id
+      || result.success!==trial.success || !finiteVector(result.bucket_xy_m,2) || !result.bucket_xy_m.every((v,i)=>v===trial.xy[i])
+      || !finiteVector(config?.board_center,3) || !finiteVector(config?.board_normal,3) || !finiteVector(config?.release_center,3)
+      || !Array.isArray(trajectory) || trajectory.length<2 || trajectory[0]?.time!==0
+      || !trajectory.every((row,i)=>Number.isFinite(row?.time)&&row.time>=0&&finiteVector(row.ball,3)&&(!i||row.time>trajectory[i-1].time)))return false;
+  if(result.pose_history!==undefined && !impactPoseHistory(result.pose_history,trajectory.at(-1).time))return false;
+  return true;
+}
+export function impactPoseHistory(history,horizon=Infinity) {
+  return Array.isArray(history) && history.length>1 && history[0]?.time===0 && history.every((row,i)=>
+    Number.isFinite(row?.time)&&row.time>=0&&row.time<=horizon&&(!i||row.time>history[i-1].time)
+    && finiteVector(row.board_center,3)&&finiteVector(row.board_quaternion_wxyz,4)
+    && ['link_positions10','link_positions14'].every(key=>Array.isArray(row[key])&&row[key].length>1&&row[key].every(p=>finiteVector(p,3))));
+}
+
 /** Read-only study display: these fields never change the active solver route. */
 export function expansionTargetRows(report) {
   const search = report?.expansion_evaluation?.search;
