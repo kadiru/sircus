@@ -6,3 +6,4 @@ warp-lang==1.14.0
 torch==2.7.0
 numpy==1.26.4
 ml-dtypes==0.5.4
+scipy==1.15.3
