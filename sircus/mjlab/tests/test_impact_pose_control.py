@@ -79,6 +79,18 @@ class ImpactControlTests(unittest.TestCase):
             b = copy.deepcopy(a); alter(b)
             self.assertEqual(compare_observations(a, b, {}, {})["status"], "failed")
 
+    def test_complete_scores_compared_for_all_thirteen_worlds(self):
+        a = self.fixture()
+        scores = [dict(success=False, reward=.1, physics_steps=61440) for _ in range(13)]
+        result = compare_observations(a, copy.deepcopy(a), scores, copy.deepcopy(scores))
+        self.assertEqual(result["status"], "passed")
+        self.assertEqual(result["scored_worlds"], 13)
+        changed = copy.deepcopy(scores)
+        changed[12]["reward"] += .0000001
+        result = compare_observations(a, copy.deepcopy(a), scores, changed)
+        self.assertEqual(result["status"], "failed")
+        self.assertFalse(result["complete_scalar_score_output_exact"])
+
 
 if __name__ == "__main__":
     unittest.main()

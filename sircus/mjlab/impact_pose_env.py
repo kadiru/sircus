@@ -105,7 +105,9 @@ def reconstruct_pose_arrays(model, joints, velocity, times, forces, ball, ball_v
     shape = (size, q.shape[1])
     result = dict(
         pose_time_s=times.copy(), pose_joint_qpos_rad=q.copy(), pose_joint_qvel_rad_s=v.copy(),
-        pose_held_joint_qpos_rad=q[0].copy(),
+        # The frozen environment slices every multidimensional observation as
+        # value[:, world], so even constant metadata needs a sample axis.
+        pose_held_joint_qpos_rad=q[:1].copy(),
         pose_sample_state_index=np.full(shape, -1, dtype=np.int64),
         pose_sample_valid=np.zeros(shape, dtype=bool), pose_sample_time_s=np.zeros(shape),
         pose_first_impact_interval=np.asarray([item[1] for item in selections], dtype=np.int64),
@@ -218,7 +220,7 @@ def verify_pose_arrays(model, arrays, rows=None):
         raise ValueError("Non-finite dense pose state")
     if not np.array_equal(times, arrays["time_s"]):
         raise ValueError("Pose and ball clocks differ")
-    if not np.array_equal(arrays["pose_held_joint_qpos_rad"], q[0]):
+    if not np.array_equal(arrays["pose_held_joint_qpos_rad"], q[:1]):
         raise ValueError("Held endpoint differs from the recorded initial joints")
     checked, maximum = 0, 0.
     for world in range(q.shape[1]):

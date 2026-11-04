@@ -178,6 +178,25 @@ class ImpactPoseTests(unittest.TestCase):
         np.testing.assert_allclose(arrays["pose_joint_qpos_rad"][:, 0, 6], [0, .05, .08])
         np.testing.assert_allclose(arrays["pose_joint_qvel_rad_s"][:, 0, 6], [0, .2, .2])
 
+    def test_every_augmented_field_supports_frozen_world_extraction_above_twelve_worlds(self):
+        from sircus.mjlab.impact_pose_env import reconstruct_pose_arrays, verify_pose_arrays
+
+        count, times = 15, np.arange(129)/15360
+        q = np.zeros((len(times), count, 12), np.float32)
+        v = np.zeros_like(q)
+        force = np.zeros((len(times)-1, count, 6))
+        ball = np.zeros((len(times), count, 3))
+        arrays = dict(time_s=times, position_m=ball, velocity_m_s=ball.copy(), forces_N=force)
+        arrays.update(reconstruct_pose_arrays(self.model, q, v, times, force, ball, ball.copy()))
+        self.assertEqual(arrays["pose_held_joint_qpos_rad"].shape, (1, count, 12))
+        for world in range(count):
+            # This is the unchanged calibrated environment's trace extraction.
+            trace = {key: value[:, world] if value.ndim >= 2 and key != "time_s" else value
+                     for key, value in arrays.items()}
+            self.assertEqual(trace["pose_held_joint_qpos_rad"].shape, (1, 12))
+            self.assertEqual(trace["pose_joint_qpos_rad"].shape, (len(times), 12))
+        self.assertEqual(verify_pose_arrays(self.model, arrays)["status"], "passed")
+
 
 if __name__ == "__main__":
     unittest.main()

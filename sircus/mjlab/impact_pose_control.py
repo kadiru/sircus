@@ -25,7 +25,7 @@ from .sweep_worker import atomic, load_reference
 VERSION = "sircus-impact-pose-equivalence-controls-v2"
 MAX_FP32_ULPS = 8
 APPROXIMATE_KEYS = frozenset(("velocity_m_s", "forces_N"))
-SCOPE = ("Three fresh engineering controls, outside sweep/training/evaluation budgets. "
+SCOPE = ("Three fresh engineering batches, outside sweep/training/evaluation budgets. "
          "Endpoint-reset dynamics and frozen capture scorer remain unchanged. "
          "Eight-FP32-ULP tolerance applies only to logger comparison of forces and "
          "velocities, never geometry, clocks, category thresholds, or score outputs.")
@@ -93,12 +93,14 @@ def compare_observations(reference, observed, score_reference, score_observed):
     if not force_mask_equal: failures.append("force_category_threshold_masks")
     score_equal = digest(score_reference) == digest(score_observed)
     if not score_equal: failures.append("complete_scalar_score_output")
+    score_keys = sorted(score_reference[0]) if isinstance(score_reference, list) and score_reference else sorted(score_reference)
     return dict(status="passed" if not failures else "failed", failures=failures,
                 original_fields=fields, additive_pose_fields=extras,
                 force_category_threshold_N=FORCE_THRESHOLD_N,
                 force_category_threshold_masks_exact=bool(force_mask_equal),
                 complete_scalar_score_output_exact=bool(score_equal),
-                score_keys=sorted(score_reference), scope=SCOPE)
+                score_keys=score_keys,
+                scored_worlds=len(score_reference) if isinstance(score_reference, list) else 1, scope=SCOPE)
 
 
 def run(args):
@@ -113,6 +115,8 @@ def run(args):
 
     if os.environ.get("CUDA_VISIBLE_DEVICES") != GPU_UUID:
         raise RuntimeError("Select only the authorized RTX4090 UUID")
+    if isinstance(args.worlds, bool) or not isinstance(args.worlds, int) or not 1 <= args.worlds <= 32:
+        raise ValueError("Engineering controls require1..32worlds per batch")
     if args.output.exists():
         raise ValueError("Controls require a new output directory; old failed evidence is preserved")
     for root in (args.study, args.reference, args.assets, args.plan.parent):
@@ -138,14 +142,15 @@ def run(args):
     if len(rows) != 1 or digest(rows[0]) != source["source_row_sha256"]:
         raise ValueError("Frozen control row identity changed")
     row = rows[0]
-    bucket, values = np.asarray([row["bucket_xy_m"]]), np.asarray([row["values"]])
-    q10, q14 = (np.asarray([row[key]]) for key in ("q10", "q14"))
+    bucket, values = (np.repeat(np.asarray([row[key]]), args.worlds, axis=0) for key in ("bucket_xy_m", "values"))
+    q10, q14 = (np.repeat(np.asarray([row[key]]), args.worlds, axis=0) for key in ("q10", "q14"))
     ref = load_reference(args.reference, args.assets)
     if digest(ref["scene"]) != contract["identity"]["scene_sha256"]:
         raise ValueError("Control scene differs from frozen scene")
     calibration = contract["identity"]["calibration"]["score_config"]
     args.output.mkdir(parents=True, exist_ok=False)
-    protocol = dict(version=VERSION, status="prepared", engineering_requests=3,
+    protocol = dict(version=VERSION, status="prepared", engineering_batches=3,
+        worlds_per_batch=args.worlds, engineering_requests=3*args.worlds,
         ordered_runs=["baseline1", "baseline2", "instrumented"], maximum_fp32_ulps=MAX_FP32_ULPS,
         approximate_fields=sorted(APPROXIMATE_KEYS), exact_fields="Every other original array, nonfinite pattern, force threshold mask, and complete scalar score output",
         source_row_id=source["source_row_id"], source=plan["source"], plan_sha256=sha(args.plan),
@@ -154,20 +159,22 @@ def run(args):
     start = time.monotonic()
     with gpu_slot(args.gpu_lock, timeout_s=600, poll_s=2):
         torch.set_num_threads(2)
-        env = ImpactPoseEnvironment(ref["scene"], args.assets, calibration, n=1, bounds=WIDE_BOUNDS)
+        env = ImpactPoseEnvironment(ref["scene"], args.assets, calibration, n=args.worlds, bounds=WIDE_BOUNDS)
         observed, saved, timings, scores = {}, {}, {}, {}
         for label in protocol["ordered_runs"]:
-            with fixed_endpoints(env, bucket, values, q10, q14, np.ones(1, dtype=bool)):
+            with fixed_endpoints(env, bucket, values, q10, q14, np.ones(args.worlds, dtype=bool)):
                 if label == "instrumented":
-                    result, metadata = env.run(bucket, values, constraints(1), record=True)
+                    result, metadata = env.run(bucket, values, constraints(args.worlds), record=True)
                 else:
-                    result, metadata = CalibratedEnvironment.run(env, bucket, values, constraints(1), record=True)
+                    result, metadata = CalibratedEnvironment.run(env, bucket, values, constraints(args.worlds), record=True)
             observed[label], timings[label] = result, metadata
             saved[label] = {key: value.copy() for key, value in env.last_arrays.items()}
             np.savez_compressed(args.output / (label+".npz"), **saved[label])
-            trace = {key: value[:, 0] if value.ndim >= 2 and key != "time_s" else value
-                     for key, value in saved[label].items() if not key.startswith("pose_")}
-            scores[label] = score_trace(ref["scene"], bucket[0], result[0]["board_normal"], calibration, trace)
+            scores[label] = []
+            for world in range(args.worlds):
+                trace = {key: value[:, world] if value.ndim >= 2 and key != "time_s" else value
+                         for key, value in saved[label].items() if not key.startswith("pose_")}
+                scores[label].append(score_trace(ref["scene"], bucket[world], result[world]["board_normal"], calibration, trace))
         comparisons = {a+"_vs_"+b: compare_observations(saved[a], saved[b], scores[a], scores[b])
                        for a, b in (("baseline1", "baseline2"), ("baseline1", "instrumented"), ("baseline2", "instrumented"))}
         fk = verify_pose_arrays(env.sim.mj_model, saved["instrumented"], observed["instrumented"])
@@ -175,11 +182,12 @@ def run(args):
         comparisons=comparisons, complete_scores=scores,
         fk={key: value for key, value in fk.items() if key != "summaries"},
         instrumented_pose_summary=observed["instrumented"][0]["pose_logging"],
+        instrumented_pose_summaries=[row["pose_logging"] for row in observed["instrumented"]],
         evidence_sha256={str(p.relative_to(args.output)): sha(p) for p in args.output.iterdir() if p.is_file()},
         timings=timings, wall_s=time.monotonic()-start,
         conclusion="Numerical equivalence within declared engineering bounds; does not prove hardware fidelity or isolate the cause of GPU floating-point variation")
     atomic(args.output / "report.json", report)
-    print(json.dumps(dict(status=report["status"], engineering_requests=3,
+    print(json.dumps(dict(status=report["status"], engineering_requests=3*args.worlds,
                          report_sha256=sha(args.output / "report.json"), comparisons=comparisons,
                          fk=report["fk"])), flush=True)
     if report["status"] != "passed":
@@ -191,6 +199,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ("plan", "study", "reference", "assets", "gpu-lock", "output"):
         parser.add_argument("--"+name, type=Path, required=True)
+    parser.add_argument("--worlds", type=int, choices=range(1, 33), default=1,
+                        help="Repeated source posture worlds per batch;13exercises batch indexing above12joints")
     run(parser.parse_args())
 
 
