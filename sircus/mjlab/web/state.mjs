@@ -661,6 +661,12 @@ function impactPoseTrial(raw, layout, radius) {
   const path = impactPoseReplayPath(raw.replay_id);
   return {id:raw.id,phase:raw.phase,baseline:raw.baseline === true,values:raw.values.slice(),board:raw.values.slice(0,3),tilt:raw.values[3],gap:raw.values[4],release,
     nativeRelease:raw.native_release,success:raw.success,reason:typeof raw.invalid === 'string' ? raw.invalid : '',
+    category:typeof raw.category === 'string' ? raw.category : 'unknown',
+    missRegion:typeof raw.miss_region?.region === 'string' ? raw.miss_region.region : typeof raw.miss_region === 'string' ? raw.miss_region : 'unknown',
+    geometricMissRegion:typeof raw.miss_region?.geometric_region === 'string' ? raw.miss_region.geometric_region : null,
+    missRegionReason:typeof raw.miss_region?.reason === 'string' ? raw.miss_region.reason : 'not_recorded',
+    closestOpeningDistanceMm:raw.native_release && Number.isFinite(raw.closest_opening_distance_m) && raw.closest_opening_distance_m>=0
+      ? raw.closest_opening_distance_m*1000 : null,
     pose:raw.pose_summary ?? raw.pose_logging ?? null,replayId:raw.replay_id,
     resultUrl:raw.native_release && path && benchHash(raw.replay_sha256) ? path : null,xy:layout.bucket_xy_m.slice(),
     sourceRowId:layout.source_row_id,contextId:layout.context_id ?? layout.id,method:layout.source_method ?? 'Unknown'};
@@ -685,6 +691,9 @@ export function impactPoseSweepLayouts(report) {
       && (!confirmation.length || selected && confirmation.every(t=>t.values.every((v,i)=>v===selected.values[i])));
     return {id:layout.id,contextId:layout.context_id??layout.id,method:layout.source_method??'Unknown',xy:layout.bucket_xy_m.slice(),
       sourceRowId:typeof layout.source_row_id==='string'?layout.source_row_id:'Unknown',valid,trials:good,sweep,confirmation,
+      baseline:valid?sweep.find(trial=>trial.baseline)??null:null,
+      sourceCategory:typeof layout.source_category==='string'?layout.source_category:'unknown',
+      sourceMissRegion:typeof layout.source_miss_region?.region==='string'?layout.source_miss_region.region:'unknown',
       counts:valid?impactCounts(good):null,sweepCounts:valid?impactCounts(sweep):null,
       confirmationCounts:confirmationBound?impactCounts(confirmation):null,selected,
       baselineValues:finiteVector(layout.baseline_values,5)?layout.baseline_values.slice():null};

@@ -105,3 +105,21 @@ test('new panel is read-only, labels timing and spawned-ball limitations, and do
   assert.ok(js.includes('currentPoseHistory = impactPoseHistory(result.pose_history'));
   assert.ok(js.includes('const pose = currentPoseHistory[k]'));assert.ok(js.includes('drawArms(pose)'));
 });
+
+test('short, long and unknown observed crossings remain distinct from contact-altered geometry and scored proximity',()=>{
+  const r=fixture(),raw=r.impact_pose_sweep.layouts[0];
+  raw.source_category='no_whole_ball_entry';raw.source_miss_region={region:'short'};
+  for(const [index,region] of ['short','long','unknown'].entries())Object.assign(raw.trials[index],{
+    category:'no_whole_ball_entry',miss_region:{region,geometric_region:index===2?'long':region,reason:index===2?'intervening_contact':'observed_crossing'},
+    closest_opening_distance_m:.025+index*.01});
+  const layout=impactPoseSweepLayouts(r)[0];
+  assert.deepEqual(layout.trials.slice(0,3).map(t=>t.missRegion),['short','long','unknown']);
+  assert.equal(layout.trials[2].geometricMissRegion,'long');assert.equal(layout.trials[2].missRegionReason,'intervening_contact');
+  assert.equal(layout.trials[0].closestOpeningDistanceMm,25);assert.equal(layout.trials[2].closestOpeningDistanceMm,45);
+  assert.equal(layout.trials[3].closestOpeningDistanceMm,null);
+  assert.equal(layout.sourceCategory,'no_whole_ball_entry');assert.equal(layout.sourceMissRegion,'short');
+  assert.equal(layout.baseline.id,layout.sweep.find(t=>t.baseline).id);
+  delete raw.trials[0].miss_region;delete raw.trials[0].closest_opening_distance_m;
+  const missing=impactPoseSweepLayouts(r)[0].trials[0];assert.equal(missing.missRegion,'unknown');assert.equal(missing.geometricMissRegion,null);
+  assert.equal(missing.closestOpeningDistanceMm,null);
+});

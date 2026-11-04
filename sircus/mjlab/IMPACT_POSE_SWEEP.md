@@ -55,6 +55,18 @@ uninstrumented runs and one instrumented run. Only force/velocity observations
 allow up to eight FP32 representations per element; geometry, clocks, contact
 threshold masks and the complete scalar scoring output must match exactly.
 This engineering comparison does not relax capture scoring or calibration.
+The three singleton controls passed. A later three-batch, 13-world control
+(39 engineering throws) exercised the corrected multi-world metadata layout and
+verified all 16,432 FK samples. Its full-horizon comparison failed, including
+baseline versus baseline: later paths differed by up to 0.578 mm. Ball positions,
+clocks and contact geometry matched through first impact and first external
+contact; impact force/velocity observations had small numerical differences.
+Capture/entry/rebound/retention/quality decisions agreed. The explicit CPU review
+is **reviewed with baseline variability**, not a retroactive equivalence pass.
+The bounded development study proceeds with independently scored observations
+and fresh nominal repeats, without changing physics or capture thresholds.
+The first attempted sweep also retained an unpublished batch-metadata indexing
+failure; its corrected successor uses the same requested grid and new output.
 Selection uses capture, quality,
 retention, observed opening proximity, then stable request ID. A case with no
 admitted native request remains unresolved; its baseline repeats still count as

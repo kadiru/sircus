@@ -1,5 +1,12 @@
 # Sircus — Simple Circus
 
+**Latest native diagnostic:** [impact-pose logging and a bounded height/tilt sweep](baselines/mjlab-impact-pose-sweep-20261104/README.md)
+completed 45 development requests at two short-miss bucket positions: 27 native
+throws, 18 finite IK rejections, zero captures. The independent trace/FK audit
+passed; strict cross-run numerical equivalence remains a separately documented
+limitation. [Inspect settings, heatmaps and recorded poses](http://127.0.0.1:18793/#impactPoseSweep).
+The completed benchmark below remains frozen.
+
 **Current mjlab checkpoint:** [calibrated sweep/PPO comparison](baselines/mjlab-calibrated-benchmark-20261104/README.md): frozen held-out captures **78/216 (36.1%) sweep**, **97/216 (44.9%) PPO**. The [validation-only failure audit](baselines/mjlab-validation-failures-20261104/README.md) adds a bucket heatmap, recorded misses and initial-pose checks, preserving the completed benchmark. [Open diagnostics](http://127.0.0.1:18792/#validationFailureAudit). Historical v1 and the earlier35-position planner retain their original definitions and results.
 
 Two UFACTORY850 arms learn to bounce a ball from a suction-mounted board into a bucket. Arm10 picks/releases; arm14 positions the board. This private repository is the shared source for Mac physical work and Ubuntu simulation work.

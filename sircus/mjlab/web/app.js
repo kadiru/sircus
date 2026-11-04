@@ -572,10 +572,19 @@ const impactVector = value => finiteVector(value,3) ? value.map(impactMillimetre
 function showImpactPoseTrial(layout, trial) {
   impactPoseSelectedTrial = trial?.id ?? '';
   $('impactPoseTrialIdentity').textContent = trial ? `${trial.id} · ${trial.phase} · ${impactPoseOutcome(trial)}` : 'No complete trial evidence for this square.';
-  expansionTable($('impactPoseTrialSettings'), ['Requested quantity','Value'], trial ? [
+  const closest=value=>Number.isFinite(value?.closestOpeningDistanceMm)?`${value.closestOpeningDistanceMm.toFixed(3)} mm`:'Unknown';
+  expansionTable($('impactPoseTrialSettings'), ['Requested setting / recorded outcome','Value'], trial ? [
     ['Board center XYZ · mm',impactVector(trial.board)], ['Bucket center XY · mm',trial.xy.map(impactMillimetres).join(', ')],
     ['Board tilt from horizontal · degrees',trial.tilt.toFixed(6)], ['Ball-bottom gap above board center plane · mm',impactMillimetres(trial.gap)],
     ['Ball release center XYZ · mm',impactVector(trial.release)],
+    ['Recorded outcome category',trial.category.replaceAll('_',' ')],
+    ['Observed crossing region / reason',`${trial.missRegion} / ${trial.missRegionReason.replaceAll('_',' ')}`],
+    ['Geometric crossing region · contact-altered observation',trial.geometricMissRegion??'Not recorded'],
+    ['Closest scored whole-entry target-center distance',closest(trial)],
+    ['Fresh original-setting outcome',layout.baseline?`${impactPoseOutcome(layout.baseline)} · region ${layout.baseline.missRegion} · closest ${closest(layout.baseline)}`:'Unknown'],
+    ['Archived source shot · separate observation',`${layout.sourceCategory.replaceAll('_',' ')} · region ${layout.sourceMissRegion}`],
+    ['Metric scope','Crossing labels describe observed geometry, not speed or tilt causes. Closest distance is the scorer’s minimum post-rebound 3D distance to bucket XY at rim-minus-ball-radius height, capped at 2,000 mm; it is not crossing error.'],
+
   ] : [['Missing','No settings or zero counts inferred']]);
   const pose=trial?.pose;
   const number=value=>Number.isFinite(value)?value.toFixed(6):'Unknown';
@@ -616,7 +625,8 @@ function drawImpactPoseHeatmap(layout) {
     const gi=gaps.indexOf(cell.gap),ti=tilts.indexOf(cell.tilt),x=left+gi*cw,y=top+(tilts.length-1-ti)*ch;
     const trial=cell.trial,selected=trial?.id===impactPoseSelectedTrial,best=trial?.id===layout.selected?.id;
     const label=cell.status==='captured'?'Capture':cell.status==='missed'?'Miss':cell.status==='rejected'?'× Rejected':'?';
-    const text=`Tilt ${cell.tilt.toFixed(3)} degrees; drop gap ${(cell.gap*1000).toFixed(1)} mm; ${impactPoseOutcome(trial)}`;
+    const proximity=Number.isFinite(trial?.closestOpeningDistanceMm)?`${trial.closestOpeningDistanceMm.toFixed(3)} mm`:'unknown';
+    const text=`Tilt ${cell.tilt.toFixed(3)} degrees; drop gap ${(cell.gap*1000).toFixed(1)} mm; ${impactPoseOutcome(trial)}; observed region ${trial?.missRegion??'unknown'}; geometric crossing ${trial?.geometricMissRegion??'unknown'}; closest scored target distance ${proximity}; fresh original setting ${impactPoseOutcome(layout.baseline)}`;
     const group=makeSvg('g',{tabindex:0,role:'button','aria-label':text,class:'impact-pose-target'});
     group.append(makeSvg('rect',{x:x+3,y:y+3,width:cw-6,height:ch-6,rx:5,
       fill:({captured:'#8ac5b0',missed:'#efbcac',rejected:'#d9dcd7',unknown:'#e0e4dc'})[cell.status],

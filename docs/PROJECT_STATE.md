@@ -1,5 +1,36 @@
 # Project state
 
+## Impact-pose / controlled short-miss study — November 4, 2026
+
+- [Exact settings, results and evidence](../baselines/mjlab-impact-pose-sweep-20261104/README.md),
+  [method](../sircus/mjlab/IMPACT_POSE_SWEEP.md), and
+  [separate read-only interface](http://127.0.0.1:18793/#impactPoseSweep).
+  New native MuJoCo Warp development shots on4090; the completed benchmark,
+  policies/scorer/calibration, old validation audit and original scene geometry
+  remain frozen. No existing service restart,4070 interruption, hardware, Viam
+  or audio work.
+- Three qualifying source postures at two validation bucket positions; fixed
+  bucket XY and board XYZ.36 gap/tilt requests plus nine separately selected
+  nominal repeats:27 native throws,18 finite IK rejects,zero captures. All native
+  shots rebounded from the board and remained observed short without whole-ball
+  entry. Higher +120/+180mm gaps were unresolved by the finite IK search, not
+  proved physically impossible. Each selected proximity fallback scored0/3.
+- Added per-native-state arm joints/velocities,240Hz board/flange/link FK and a
+  dense ±10ms first-impact window. Independent trace/FK/request/replay audit
+  passed42,760checks and was reproduced in a fresh CPU-only process. Maximum
+  sampled board movement0.0004578mm is a numerical held-endpoint observation;
+  natural settling, compliance and physical grasp/release remain unvalidated.
+- Strict multi-world full-trajectory equivalence failed even between two
+  uninstrumented batches. Independent FK passed; initial/impact positions and
+  semantic capture decisions agreed, while later contact trajectories varied
+  by up to0.578mm. This remains reviewed baseline variability, not a passed
+  equivalence claim. Earlier failed controls and an aborted metadata-indexing
+  run are preserved separately; the corrected study kept the requested grid.
+- Native producer5e8ba50, reportb143eaa2…e7535; dense data remain local. Next:
+  diagnose the rejected higher releases and test closer/lower board postures
+  before a new learning change. Closest-distance fallback can include later
+  external contacts; it is distinct from direct-flight crossing shortfall.
+
 ## Validation-only failure diagnosis — November 4, 2026
 
 - [Method and limits](../sircus/mjlab/VALIDATION_FAILURE_AUDIT.md),
