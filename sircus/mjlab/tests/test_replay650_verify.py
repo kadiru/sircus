@@ -141,6 +141,20 @@ class ReplayAccountingTests(unittest.TestCase):
             with self.assertRaisesRegex(EvidenceError, "options"):
                 verify.audit_options(changed, Checks())
 
+    def test_dependency_ancestry_explicitly_includes_scipy_and_rejects_changed_pin(self):
+        from sircus.mjlab.corrected_contract import PINNED_PACKAGES
+        declared = dict(PINNED_PACKAGES, scipy="1.15.3")
+        declared["torch"] += "+cu128"
+        with patch.object(verify.importlib.metadata, "version", side_effect=declared.__getitem__):
+            self.assertEqual(verify.audit_packages(declared, Checks()), declared)
+            missing = dict(declared); missing.pop("scipy")
+            with self.assertRaisesRegex(EvidenceError, "complete native ancestry"):
+                verify.audit_packages(missing, Checks())
+        changed = dict(declared, scipy="1.15.4")
+        with patch.object(verify.importlib.metadata, "version", side_effect=changed.__getitem__):
+            with self.assertRaisesRegex(EvidenceError, "Pinned package/scipy"):
+                verify.audit_packages(changed, Checks())
+
     def test_exact_groups_and_real_proof_branch_detect_joint_and_clearance_tampering(self):
         scene, original, groups, proofs = group_fixture()
         verify.audit_groups(groups, proofs, original, scene, Checks())

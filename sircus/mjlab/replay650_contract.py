@@ -14,6 +14,7 @@ OLD_FINGERPRINT='c4e59119e71f724b1e1941ae080e40c8aa001d954356715188895803fcd41a8
 SUBSTEPS=(64,128)
 GAPS=(.3768,.3808,.3848,.3868,.3888)
 MAX_REQUESTS=48
+REPLAY_EXTRA_PACKAGES={'scipy':'1.15.3'}
 SCOPE=('Fresh matched calibrated-scoring engineering replay and conditional gap window. '
     'Privileged geometry, prescribed held endpoints, strict fresh5mm endpoint checks; '
     'no learned grasp/transit/actuator motion, new RL, held-out evaluation or physical validation. '
@@ -21,6 +22,14 @@ SCOPE=('Fresh matched calibrated-scoring engineering replay and conditional gap 
 
 
 def read(path):return json.loads(Path(path).read_text())
+
+
+def validate_replay_packages(versions):
+    from .corrected_contract import PINNED_PACKAGES,validate_packages
+    validate_packages(versions)
+    if set(versions)!=set(PINNED_PACKAGES)|set(REPLAY_EXTRA_PACKAGES) or any(versions.get(k)!=v for k,v in REPLAY_EXTRA_PACKAGES.items()):
+        raise ValueError('Exact historical replay dependency set required, including SciPy1.15.3')
+    return dict(versions)
 
 
 def verify_manifest(root,name):

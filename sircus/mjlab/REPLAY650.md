@@ -71,3 +71,8 @@ labeling results verified. Older study panels remain intact.
 
 Raw dense observations and joint arrays stay outside Git. Curated results and
 proof hashes belong in `baselines/mjlab-calibrated650-20261104/`.
+
+Startup attempt `replay650-v1` stopped before evidence allocation or native
+flights because the historical package dictionary also records SciPy1.15.3.
+The corrected producer/auditor pin that exact eighth dependency; no runtime
+package was installed, changed or downgraded. Its startup logs remain separate.

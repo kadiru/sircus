@@ -9,6 +9,13 @@ from sircus.mjlab.tests.test_replay650_verify import group_fixture, rows
 
 
 class ReplayContractTests(unittest.TestCase):
+    def test_exact_historical_dependency_set_includes_scipy(self):
+        from sircus.mjlab.corrected_contract import PINNED_PACKAGES
+        versions=dict(PINNED_PACKAGES,scipy='1.15.3')
+        self.assertEqual(protocol.validate_replay_packages(versions), versions)
+        for invalid in (dict(PINNED_PACKAGES), dict(versions,scipy='1.15.2'), dict(versions,unexpected='1.0')):
+            with self.assertRaises(ValueError):protocol.validate_replay_packages(invalid)
+
     def test_literal_frozen_plans_match_independent_verifier(self):
         _, _, groups, _ = group_fixture()
         initial = protocol.plan(groups[:3], 'replay')

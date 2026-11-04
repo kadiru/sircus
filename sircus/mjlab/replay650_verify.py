@@ -135,6 +135,18 @@ def check_source_files(source, declared, checks, label):
         checks.equal(sha(contained(source, name)), expected, label+"/"+name)
 
 
+def audit_packages(declared, checks):
+    """Retain the parent's full dependency identity, including CPU hull math."""
+    from .corrected_contract import PINNED_PACKAGES
+    expected = dict(PINNED_PACKAGES, scipy="1.15.3")
+    actual = {name: importlib.metadata.version(name) for name in expected}
+    checks.equal(declared, actual, "Actual CPU audit package versions match complete native ancestry")
+    for name, pinned in expected.items():
+        public = actual[name].split("+")[0] if name == "torch" else actual[name]
+        checks.equal(public, pinned, "Pinned package/"+name)
+    return actual
+
+
 def check_calibration(study, declared, checks):
     """Frozen independently verified calibration is consumed, never refitted."""
     from .calibrated_score_oracle import validate_calibration
@@ -544,11 +556,7 @@ def audit(study, source, assets, *, shallow_study, positive_study, positive_audi
     from .learning_solve import required_asset_paths
     actual_assets = {n: sha(contained(assets.parent, n)) for n in required_asset_paths(assets)}
     checks.equal(spec["asset_sha256"], actual_assets, "Actual robot collision assets and poses")
-    from .corrected_contract import PINNED_PACKAGES
-    actual_packages = {n: importlib.metadata.version(n) for n in PINNED_PACKAGES}
-    checks.equal(spec["packages"], actual_packages, "Actual CPU audit package versions match native study")
-    for name, pinned in PINNED_PACKAGES.items():
-        checks.equal(actual_packages[name].split("+")[0] if name == "torch" else actual_packages[name], pinned, "Pinned package/"+name)
+    audit_packages(spec["packages"], checks)
     calibration = check_calibration(study, spec["calibration"], checks)
     parent, original = audit_input_sources(shallow_study, positive_study, positive_audit, spec["input_bindings"], checks, spec["calibration"])
     checks.equal(spec["scene"], parent["scene"], "Historical scene geometry and provisional measurements preserved")

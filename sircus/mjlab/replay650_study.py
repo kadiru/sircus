@@ -30,7 +30,7 @@ def run(a):
     from .replay650_geometry import ReplayGeometry
     from .learning_solve import required_asset_paths
     scene,sources,calibration,bindings=protocol.load_inputs(a.old_study,a.positive_study,a.positive_audit,a.calibration_report,a.verification_report)
-    packages=validate_packages({name:importlib.metadata.version(name) for name in PINNED_PACKAGES})
+    packages=protocol.validate_replay_packages({name:importlib.metadata.version(name) for name in set(PINNED_PACKAGES)|set(protocol.REPLAY_EXTRA_PACKAGES)})
     assets={n:sha(a.assets.parent/n) for n in required_asset_paths(a.assets)}
     old=protocol.read(a.old_study/'contract.json')
     if assets!=old['asset_sha256'] or packages!=old['packages']:raise ValueError('Pinned asset/package mismatch')
