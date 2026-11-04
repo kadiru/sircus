@@ -2,6 +2,8 @@
 
 This loopback reader never launches training or a solver. TEST outcomes require
 completed study bytes and an independently passed audit bound to those bytes.
+This reader revision is separate from immutable producer C; it validates both
+independent audit dependencies and does not change experimental source/results.
 """
 
 import argparse
@@ -18,6 +20,9 @@ from .interface import RequestError
 from .learning_contract import digest
 from .sweep_server import public_state, ui_scene
 from .sweep_worker import atomic, load_reference
+
+
+READER_VERSION = "sircus-calibrated-read-only-benchmark-reader-v2.1"
 
 
 def benchmark_helpers():
@@ -44,6 +49,11 @@ def public_calibrated_benchmark(raw, identity, audit=None):
     ready = raw.get("status") == "completed" and audit is not None and audit.get("status") == "passed"
     value["test_disclosure"] = "verified" if ready else "hidden_until_completed_and_audited"
     value["evidence_kind"] = "native_current_ball_v2"
+    value["reader_provenance"] = dict(
+        version=READER_VERSION, reader_source_sha256=sha(Path(__file__)),
+        producer_contract_fingerprint=raw.get("contract_fingerprint"),
+        scope="Separate read-only reader compatibility revision; immutable producer C and audited experiment bytes are unchanged",
+    )
     value["calibration"] = fields(identity["calibration"], (
         "calibration_version", "verification_version", "calibration_checks", "verification_checks", "score_config_sha256"))
     value["calibration"]["score_config"] = fields(identity["calibration"]["score_config"], (
@@ -117,7 +127,10 @@ class CalibratedBenchmarkState(GridState):
                 or audit.get("study_manifest_sha256") != sha(self.benchmark / "manifest.json")
                 or audit.get("source_sha256") != self.benchmark_identity["source_sha256"]
                 or audit.get("auditor_sha256") != sha(Path(__file__).with_name("calibrated_benchmark_verify.py"))
-                or audit.get("auditor_dependencies") != {"sircus/mjlab/benchmark_verify.py": sha(Path(__file__).with_name("benchmark_verify.py"))}
+                or audit.get("auditor_dependencies") != {
+                    "sircus/mjlab/benchmark_verify.py": sha(Path(__file__).with_name("benchmark_verify.py")),
+                    "sircus/mjlab/verify_capture_calibration.py": sha(Path(__file__).with_name("verify_capture_calibration.py")),
+                }
                 or audit.get("synthetic_fixture") is not False
                 or audit.get("study_kind") != "native_current_ball_v2"):
             raise ValueError("Calibrated independent audit binding changed")

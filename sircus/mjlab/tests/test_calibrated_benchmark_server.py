@@ -79,7 +79,9 @@ class CalibratedServerTests(unittest.TestCase):
             report_fingerprint=self.raw["fingerprint"],study_manifest_sha256=server.sha(self.directory/"manifest.json"),
             source_sha256=self.identity["source_sha256"],
             auditor_sha256=server.sha(Path(server.__file__).with_name("calibrated_benchmark_verify.py")),
-            auditor_dependencies={"sircus/mjlab/benchmark_verify.py":server.sha(Path(server.__file__).with_name("benchmark_verify.py"))})
+            auditor_dependencies={
+                "sircus/mjlab/benchmark_verify.py":server.sha(Path(server.__file__).with_name("benchmark_verify.py")),
+                "sircus/mjlab/verify_capture_calibration.py":server.sha(Path(server.__file__).with_name("verify_capture_calibration.py"))})
         self.write("independent-audit.json",dict(value,**extra))
 
     def test_preserves_grid_read_only_and_live_train_counts(self):
@@ -94,6 +96,27 @@ class CalibratedServerTests(unittest.TestCase):
         self.audit()
         self.assertEqual(len(self.state.benchmark_report()["final_test"]),6)
         self.assertEqual(self.state.benchmark_report()["test_disclosure"],"verified")
+
+    def test_both_exact_auditor_dependency_hashes_required(self):
+        self.complete();self.audit()
+        valid=json.loads((self.directory/"independent-audit.json").read_text())["auditor_dependencies"]
+        self.assertEqual(len(self.state.benchmark_report()["final_test"]),6)
+        for key in valid:
+            missing=dict(valid);missing.pop(key)
+            wrong=dict(valid);wrong[key]="f"*64
+            for changed in (missing,wrong):
+                with self.subTest(key=key,changed=changed):
+                    self.audit(auditor_dependencies=changed)
+                    with self.assertRaises(RequestError):self.state.benchmark_report()
+        self.audit(auditor_dependencies=dict(valid,unrecognized="a"*64))
+        with self.assertRaises(RequestError):self.state.benchmark_report()
+
+    def test_reader_revision_provenance_keeps_producer_contract(self):
+        value=self.state.benchmark_report()["reader_provenance"]
+        self.assertEqual(value["version"],server.READER_VERSION)
+        self.assertEqual(value["reader_source_sha256"],server.sha(Path(server.__file__)))
+        self.assertEqual(value["producer_contract_fingerprint"],self.spec["fingerprint"])
+        self.assertIn("producer C",value["scope"])
 
     def test_audit_cannot_unlock_running_test_or_leak_role_counts(self):
         self.audit(role_counts={"test":dict(attempts=72,captures=70)})

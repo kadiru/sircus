@@ -134,3 +134,8 @@ configuration is changed by source synchronization.
 The read-only v2 interface and compact result bundle must be bound to the passed
 independent audit. An uncompleted or failed audit is never displayed as a verified
 comparison. Existing v1/planner services and policies remain separate.
+
+Reader revision v2.1 checks both auditor dependencies, including the isolated
+capture-calibration verifier. Its response includes its own source hash and the
+unchanged producer contract fingerprint. This compatibility revision is separate
+from immutable producer C and does not alter the running experiment or its data.
