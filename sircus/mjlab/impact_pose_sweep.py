@@ -373,6 +373,13 @@ def verify(args):
     contract, scene, calibration, source, prior, cases = inspect_inputs(args)
     check(plan["source"] == report["source"] == source, "Frozen sources changed")
     check(plan["layouts"] == cases and plan["requests"] == grid_requests(cases), "Exact predeclared sweep changed")
+    check(report["version"] == VERSION and report["status"] == "completed" and report["synthetic_fixture"] is False,
+          "Completed native diagnostic report required")
+    check(report["protocol"] == plan["protocol"] and report["source_code_sha256"] == plan["source_code_sha256"]
+          and report["plan_sha256"] == sha(output / "plan.json"), "Report protocol/source/plan changed")
+    check(len(report["layouts"]) == len(cases), "Report layout/posture count changed")
+    check(all(name in manifest for name in ("plan.json", "report.json", "rows.jsonl", "diagnosed-rows.json", "selection.json")),
+          "Incomplete derived evidence manifest")
     for name, expected in manifest.items(): check(sha(member(output, name)) == expected, "Derived evidence changed: " + name)
     for name, expected in plan["source_code_sha256"].items(): check(sha(member(args.repository, name)) == expected, "Executed source changed")
     rows = [json.loads(s) for s in (output / "rows.jsonl").read_text().splitlines()]
@@ -425,13 +432,24 @@ def verify(args):
             check(row["pose_logging"] == pose_audit["summaries"][col], "Compact native pose summary changed")
             trial = next(t for c in report["layouts"] for t in c["trials"] if t["id"] == row["id"])
             replay = read(member(output, "replays/" + trial["replay_id"] + ".json"))["result"]
+            expected_configuration = dict(board_center=row["board_center_m"], board_normal=row["board_normal"],
+                board_quaternion_wxyz=row["board_quaternion_wxyz"], release_center=arrays["position_m"][0, col].tolist(),
+                q10=row["native_initial_q10"], q14=row["native_initial_q14"],
+                link_positions10=row["link_positions10"], link_positions14=row["link_positions14"])
+            check(replay["configuration"] == expected_configuration and replay["values"] == row["values"]
+                  and replay["bucket_xy_m"] == row["bucket_xy_m"]
+                  and replay["success"] is bool(row["route_success"] and not row.get("invalid")), "Replay configuration/outcome changed")
             for point in replay["trajectory"]:
                 index = int(round(point["time"] / dt))
                 check(0 <= index < len(t) and point["time"] == float(t[index])
                       and point["ball"] == arrays["position_m"][index, col].tolist(), "Replay ball sample/time changed")
             expected_history = trajectory_and_pose(arrays, col, scene["arms"]["base_spacing_m"])[1]
             check(replay["pose_history"] == expected_history, "Replay pose samples/time changed")
-    check(report["summary"]["requests"] == len(rows) and report["summary"]["captures"] == count(rows)["captures"], "Report totals changed")
+    check(report["summary"]["requests"] == len(rows)
+          and report["summary"]["captures"] == count(rows)["captures"]
+          and report["summary"]["native_releases"] == count(rows)["native_releases"], "Report totals changed")
+    check(report["summary"]["sweep"] == count([r for r in rows if r["phase"] == "sweep"])
+          and report["summary"]["confirmation"] == count([r for r in rows if r["phase"] == "confirmation"]), "Report phase totals changed")
     for case, observed in zip(cases, report["layouts"]):
         pool = [r for r in rows if r["case_id"] == case["id"]]
         check(case["id"] == observed["id"] and len(observed["trials"]) == len(pool), "Case report changed")
