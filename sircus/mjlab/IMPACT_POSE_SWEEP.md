@@ -47,8 +47,15 @@ This gives 12 requested grid points per case, including its exact baseline,
 followed by three fresh nominal repeats of its selected setting. The actual
 source-bound plan has three qualifying postures at two bucket positions: 36
 search plus nine confirmation requests. A missing method/layout example is not
-invented. Two separate logger-equivalence
-engineering throws are outside that budget. Selection uses capture, quality,
+invented. Logger-equivalence engineering throws are outside that budget.
+The initial two-throw exact comparison is retained separately: positions,
+clocks and contact geometry matched, while force/velocity differed by at most
+two FP32 representations. A new predeclared three-throw control compares two
+uninstrumented runs and one instrumented run. Only force/velocity observations
+allow up to eight FP32 representations per element; geometry, clocks, contact
+threshold masks and the complete scalar scoring output must match exactly.
+This engineering comparison does not relax capture scoring or calibration.
+Selection uses capture, quality,
 retention, observed opening proximity, then stable request ID. A case with no
 admitted native request remains unresolved; its baseline repeats still count as
 requested failures. Three nominal repeats do not demonstrate robust capture.

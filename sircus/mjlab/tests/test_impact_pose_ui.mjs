@@ -97,7 +97,7 @@ test('new panel is read-only, labels timing and spawned-ball limitations, and do
   const html=readFileSync(new URL('../web/index.html',import.meta.url),'utf8'),js=readFileSync(new URL('../web/app.js',import.meta.url),'utf8');
   for(const id of ['impactPoseSweep','impactPoseStatus','impactPoseLayout','impactPoseHeatmap','impactPoseConfirmation','impactPosePoseChecks','impactPoseReplay'])
     assert.equal(html.split(`id="${id}"`).length-1,1);
-  for(const text of ['two previously observed validation bucket positions','only vertical drop gap and board tilt vary','Completed benchmark results and checkpoints stay frozen',
+  for(const text of ['previously observed short-miss validation bucket positions','only vertical drop gap and board tilt vary','Completed benchmark results and checkpoints stay frozen',
     'not a capture-rate estimate','Contact observations belong to the preceding native interval','prescribed endpoints before every step','spawns the ball in free flight'])assert.ok(html.includes(text));
   const block=js.slice(js.indexOf('function impactPoseOutcome'),js.indexOf('const benchmarkLegacyNotes ='));
   assert.ok(block.includes("method:'GET'"));assert.ok(!block.includes('POST')&&!block.includes('/api/solve'));
