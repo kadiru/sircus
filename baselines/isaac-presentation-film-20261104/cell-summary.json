@@ -1,0 +1,441 @@
+{
+  "schema": "sircus-native-presentation-cell-summary-v1",
+  "scope": "Fresh native saved-configuration filming trials; no new optimizer updates or held-out policy evaluation",
+  "source_fingerprint": "63362ef37a93881f769b39d1ee7456335f1cc7bf5db04ffa7e548ce9697455bf",
+  "source_result_sha256": "d1cf165c22aa98d8004c5a7b029a0a76d8b4f544b01729cbc406790e752daf1f",
+  "counts": {
+    "attempts": 1050,
+    "captures": 329,
+    "clean": 163,
+    "single_bounce": 296,
+    "invalid": 1,
+    "mean_reward": 0.21702434357437406
+  },
+  "cells": [
+    {
+      "cell_id": "r1c1",
+      "bucket_xy_m": [
+        -0.1014285714285714,
+        0.25
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 14,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r1c2",
+      "bucket_xy_m": [
+        0.15571428571428578,
+        0.25
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 28,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r1c3",
+      "bucket_xy_m": [
+        0.4128571428571429,
+        0.25
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 27,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r1c4",
+      "bucket_xy_m": [
+        0.6700000000000002,
+        0.25
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 7,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r1c5",
+      "bucket_xy_m": [
+        0.9271428571428573,
+        0.25
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 29,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r1c6",
+      "bucket_xy_m": [
+        1.1842857142857144,
+        0.25
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 0,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r1c7",
+      "bucket_xy_m": [
+        1.4414285714285717,
+        0.25
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 0,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r2c1",
+      "bucket_xy_m": [
+        -0.12899999999999998,
+        -0.124
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 0,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r2c2",
+      "bucket_xy_m": [
+        0.18760714285714292,
+        0.0
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 29,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r2c3",
+      "bucket_xy_m": [
+        0.4128571428571429,
+        0.0
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 4,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r2c4",
+      "bucket_xy_m": [
+        0.6700000000000002,
+        0.0
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 26,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r2c5",
+      "bucket_xy_m": [
+        0.9271428571428573,
+        0.0
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 3,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r2c6",
+      "bucket_xy_m": [
+        1.1523928571428572,
+        0.0
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 0,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r2c7",
+      "bucket_xy_m": [
+        1.469,
+        -0.124
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 0,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r3c1",
+      "bucket_xy_m": [
+        -0.1014285714285714,
+        -0.25
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 0,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r3c2",
+      "bucket_xy_m": [
+        0.15571428571428578,
+        -0.25
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 28,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r3c3",
+      "bucket_xy_m": [
+        0.4128571428571429,
+        -0.25
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 12,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r3c4",
+      "bucket_xy_m": [
+        0.6700000000000002,
+        -0.25
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 8,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r3c5",
+      "bucket_xy_m": [
+        0.9271428571428573,
+        -0.25
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 29,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r3c6",
+      "bucket_xy_m": [
+        1.1842857142857144,
+        -0.25
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 0,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r3c7",
+      "bucket_xy_m": [
+        1.4414285714285717,
+        -0.25
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 0,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r4c1",
+      "bucket_xy_m": [
+        -0.1014285714285714,
+        -0.5
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 0,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r4c2",
+      "bucket_xy_m": [
+        0.15571428571428578,
+        -0.5
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 30,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r4c3",
+      "bucket_xy_m": [
+        0.4128571428571429,
+        -0.5
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 30,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r4c4",
+      "bucket_xy_m": [
+        0.6700000000000002,
+        -0.5
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 8,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r4c5",
+      "bucket_xy_m": [
+        0.9271428571428573,
+        -0.5
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 10,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r4c6",
+      "bucket_xy_m": [
+        1.1842857142857144,
+        -0.5
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 0,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r4c7",
+      "bucket_xy_m": [
+        1.4414285714285717,
+        -0.5
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 0,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r5c1",
+      "bucket_xy_m": [
+        -0.1014285714285714,
+        -0.75
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 0,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r5c2",
+      "bucket_xy_m": [
+        0.15571428571428578,
+        -0.75
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 0,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r5c3",
+      "bucket_xy_m": [
+        0.4128571428571429,
+        -0.75
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 7,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r5c4",
+      "bucket_xy_m": [
+        0.6700000000000002,
+        -0.75
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 0,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r5c5",
+      "bucket_xy_m": [
+        0.9271428571428573,
+        -0.75
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 0,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r5c6",
+      "bucket_xy_m": [
+        1.1842857142857144,
+        -0.75
+      ],
+      "attempts": 30,
+      "releases": 30,
+      "captures": 0,
+      "rejections": [],
+      "distinct_requested_geometries": 24
+    },
+    {
+      "cell_id": "r5c7",
+      "bucket_xy_m": [
+        1.4414285714285717,
+        -0.75
+      ],
+      "attempts": 30,
+      "releases": 29,
+      "captures": 0,
+      "rejections": [
+        {
+          "cycle": 0,
+          "reason": "settling_correction_ik"
+        }
+      ],
+      "distinct_requested_geometries": 24
+    }
+  ]
+}

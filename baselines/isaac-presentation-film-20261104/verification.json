@@ -1,0 +1,156 @@
+{
+  "schema": "sircus-native-presentation-verification-v1",
+  "status": "passed",
+  "recording_commit": "a6f15785d8b5c78a67d6e95d2b1e3ea7ef97cc45",
+  "exporter_commit": "e9d9f5734dad91768b68aca56bc318cd045ea5e8",
+  "recording_archive_sha256": "9f699cce7a34f878bb044ba79f4d23c59c2150e44b2eab65416ae93878cc61d0",
+  "source_fingerprint": "63362ef37a93881f769b39d1ee7456335f1cc7bf5db04ffa7e548ce9697455bf",
+  "selected_camera_sha256": "a7967c072b8f949318b43a510235d503c81c21e05f433670a0ce92a7af385ede",
+  "source_result_sha256": "d1cf165c22aa98d8004c5a7b029a0a76d8b4f544b01729cbc406790e752daf1f",
+  "source_contract_sha256": "291ca91848bddff8f812b59e790ac565657982a708dd9dcb7c7281136a87544f",
+  "plan_sha256": "daa6810fa83828174efd05a91b1b7d019ec325227f97159a7ba0d70a37e0cde2",
+  "full_film_report_sha256": "1ca1126b21b0a9651598e234e78b00e81780b9f91178769a7bc55ee9330c7cb3",
+  "exporter_code_sha256": "d84eea19245dea53824ea233c8ea201a8c989017d43d31c4598eac9ec5973c5c",
+  "scope": "Fresh native Isaac Sim/PhysX presentation trials using frozen qualified shot configurations. Scripted driven arm transit and initialized ball release; no new optimizer updates, learned grasp/path, held-out policy evaluation or physical validation. Native camera imagery with an optional text caption.",
+  "runtime": {
+    "isaac_sim": "5.1.0-rc.19",
+    "isaac_lab": "2.3.2",
+    "device": "RTX 4090",
+    "native_supervisor_returncode": 0,
+    "recording_elapsed_s": 1663.9297510620672
+  },
+  "recording": {
+    "workcells": 35,
+    "articulations": 70,
+    "cycles": 30,
+    "raw_frames": 4710,
+    "raw_frame_duration_s": 157.0,
+    "counts": {
+      "attempts": 1050,
+      "captures": 329,
+      "clean": 163,
+      "single_bounce": 296,
+      "invalid": 1,
+      "mean_reward": 0.21702434357437406
+    },
+    "minimum_releases_per_cell": 29,
+    "maximum_releases_per_cell": 30,
+    "distinct_geometries_per_cell": 24,
+    "optimizer_updates": 0,
+    "verified_endpoint_fits": 1680
+  },
+  "movie": {
+    "file": "farm-one-minute.mp4",
+    "sha256": "2618492bffec0732fb1ef3b59080dd571a807a8a60530b7b4a2d357cd4790450",
+    "frames": 1800,
+    "duration_s": 60.0,
+    "codec": "h264",
+    "fps": 30,
+    "resolution": [
+      1920,
+      1080
+    ],
+    "decode_verified": true,
+    "non_simulation_content": [
+      "text_caption"
+    ],
+    "caption_lines": [
+      "SIRCUS \u00b7 Native Isaac Sim",
+      "Saved configuration trials \u00b7 action edit"
+    ],
+    "caption_font": "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
+  },
+  "edit": {
+    "complete_chronological_cycles": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ],
+    "foreground_drops": 24,
+    "foreground_captures": 22,
+    "foreground_table_misses": 2,
+    "miss_cycles": [
+      18,
+      21
+    ],
+    "source_action_frames": 1827,
+    "encoded_frames": 1800,
+    "unique_source_frames": 1800,
+    "playback_multiple": 1.015,
+    "quiet_tails_removed": true,
+    "outcome_selection": false,
+    "setup_timing": "36 measured joint-progress frames per driven setup; compressed timing, not real-time controller execution"
+  },
+  "verification": {
+    "full_rate_hz": 240,
+    "all_cell_native_observation_samples": 1008000,
+    "independently_rescored_valid_trials": 1049,
+    "rejected_trials": 1,
+    "full_video_decode": true,
+    "mac_transfer_sha256_match": true,
+    "exact_fixed_camera_all_frames": true,
+    "original_physics_control_sources_preserved": true,
+    "original_and_fresh_contact_rim_probes_passed": true,
+    "exact_stage_bound_to_original": true,
+    "minimum_background_contact_cells_projected_in_frame": 33,
+    "background_visibility_method": "Camera projection check plus representative native RGB visual inspection; not a pixel segmentation or occlusion guarantee",
+    "visual_qa": {
+      "native_contact_sheet_reviewed": true,
+      "encoded_frames_reviewed": [
+        0,
+        450,
+        900,
+        1410,
+        1649,
+        1799
+      ],
+      "appearance": "Silver-gray, selected fixed perspective, foreground drops and background activity verified"
+    },
+    "unit_tests": {
+      "run": 243,
+      "skipped": 8,
+      "result": "passed"
+    },
+    "private_launcher_tests": 13
+  },
+  "end_state": {
+    "gpu4090": "idle, 17 MiB after native exit",
+    "gpu4070": "existing workload active; untouched",
+    "available_storage_gib_approx": 80,
+    "preserved_dashboard_ports": [
+      18781,
+      18791,
+      18792,
+      18793
+    ],
+    "hardware_viam_audio_changes": false,
+    "service_restarts": false
+  },
+  "artifacts_outside_git": {
+    "ubuntu_raw": "output/presentation-farm-20261104-v2",
+    "ubuntu_export": "output/presentation-farm-20261104-v2-export",
+    "mac_media": ".runtime/media/farm-presentation-20261104",
+    "raw_rgb_npz_logs_and_movie": "Retained outside Git"
+  }
+}

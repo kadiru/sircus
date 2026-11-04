@@ -221,8 +221,20 @@ visual review are separate completion checks.
 
 ## Final recording result
 
-Pending. Record the completed native run and immutable source paths, source and
-export commits, actual attempt/release/capture/rejection counts, retained
-chronological cycles, playback multiplier, movie digest, contact-sheet review,
-native verification results and final storage/runtime state here after capture
-and export finish. No numerical result is claimed by this pending section.
+Completed on November 4, 2026. The [compact evidence](../../baselines/isaac-presentation-film-20261104/README.md)
+records 30 native cycles, 1,050 attempts, 1,049 releases and 329 route-qualified captures.
+All 35 tables released, with 29–30 admitted releases each. One release remained
+rejected by the original settling-correction IK guard.
+
+The 60-second movie retains chronological cycles 0–23: 24 foreground drops,
+22 captures and two table misses. Its 1,827 action frames become 1,800 distinct
+original frames at 1.015× playback. Full decode, all-cell native rescoring,
+exact camera/stage/source checks, Mac transfer digests and visual review passed.
+
+Recording source: `a6f15785d8b5c78a67d6e95d2b1e3ea7ef97cc45`.
+Exporter source: `e9d9f5734dad91768b68aca56bc318cd045ea5e8`.
+Native run: `output/presentation-farm-20261104-v2`; export appends `-export`.
+Movie SHA256: `2618492bffec0732fb1ef3b59080dd571a807a8a60530b7b4a2d357cd4790450`.
+Raw media/evidence stay outside Git; the compact manifest records their bindings.
+The native job exited successfully, the 4090 was idle, and the existing 4070 workload
+and services were preserved. No hardware/Viam/audio deployment accompanied the film.
