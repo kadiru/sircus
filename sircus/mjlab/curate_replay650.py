@@ -196,7 +196,7 @@ def curate(study, audit_path, output):
     output.mkdir(parents=True)
     write_json(output / "summary.json", summary)
     with (output / "configurations.csv").open("w", newline="") as stream:
-        writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
+        writer = csv.DictWriter(stream, fieldnames=list(rows[0]), lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
     write_json(output / "checksums.json", {p.name:sha(p) for p in sorted(output.iterdir()) if p.is_file()})
