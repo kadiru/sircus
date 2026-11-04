@@ -17,6 +17,11 @@ height/gap/tilt experiments. Its [first verified results](../../baselines/isaac-
 and video appear in `/parallel-world.html`. It does not switch the stationary
 foundation or existing PPO task automatically.
 
+The separate [one-minute native farm film](PRESENTATION_FILM.md) records fresh
+35-table trials from the saved fixed perspective camera, using qualified
+geometry variation, driven arm setup and complete outcome evidence. It makes no
+new optimizer updates and preserves the original training/scoring contracts.
+
 ## Pinned baseline
 
 - Isaac Lab tag `v2.3.2`, commit `37ddf626871758333d6ed89cf64ad702aef127d0`.
