@@ -22,6 +22,11 @@ The separate [one-minute native farm film](PRESENTATION_FILM.md) records fresh
 geometry variation, driven arm setup and complete outcome evidence. It makes no
 new optimizer updates and preserves the original training/scoring contracts.
 
+The opt-in [native RL training film](NATIVE_RL_FILM.md) records a fresh categorical
+PPO study with early/middle/late on-policy footage, all-table learning curves and
+separate frozen checks on the same 35 known layouts. Its versioned learning and
+assessment protocol preserves the original geometry, camera and scoring.
+
 ## Pinned baseline
 
 - Isaac Lab tag `v2.3.2`, commit `37ddf626871758333d6ed89cf64ad702aef127d0`.
