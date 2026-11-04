@@ -6,7 +6,7 @@ import tempfile
 import unittest
 from unittest import mock
 
-from sircus.mjlab.prepare_replay650_report import KEY, VERSION, compact, full_audit_verified, prepare, watch
+from sircus.mjlab.prepare_replay650_report import AUDIT_VERSION, KEY, VERSION, compact, full_audit_verified, prepare, watch
 
 
 class Replay650DisplayTests(unittest.TestCase):
@@ -29,7 +29,7 @@ class Replay650DisplayTests(unittest.TestCase):
                 max_retention_s=1.2,invalid='',invalid_physics=False,scalar_score_audit_passed=True,external_contact_steps=0,
                 position_m=[[0,0,.8043],[.65,0,.1]],cache_file='native/trace.npz',cache_sha256='e'*64,q10=[1]*6)],
             source_sha256={'sircus/mjlab/replay650_contract.py':'f'*64,'/absolute/host':'a'*64,'../outside':'a'*64})
-        self.audit=dict(status='passed',contract_fingerprint='replay',checks_count=1,checks=[{'passed':True}],failures=[])
+        self.audit=dict(version=AUDIT_VERSION,status='passed',contract_fingerprint='replay',checks_count=1,checks=[{'passed':True}],failures=[])
 
     def tearDown(self):self.tmp.cleanup()
 
@@ -57,6 +57,7 @@ class Replay650DisplayTests(unittest.TestCase):
         self.assertEqual(trace['group_id'],'candidate-650');self.assertEqual(trace['cache_file'],'native/trace.npz')
         self.assertFalse(trace['invalid_physics']);self.assertTrue(trace['scalar_score_audit_passed'])
         self.assertTrue(value['audit']['full_checks_verified'])
+        self.assertEqual(value['audit']['version'],AUDIT_VERSION)
         self.assertTrue(value['audit']['bound_files_verified'])
         self.assertEqual(value['audit']['report_sha256'],value['audit']['observed_report_sha256'])
         self.assertEqual(value['audit']['evidence_manifest_sha256'],value['audit']['observed_evidence_manifest_sha256'])
@@ -93,7 +94,7 @@ class Replay650DisplayTests(unittest.TestCase):
     def test_matching_complete_full_audit_is_required_and_embedded_flags_are_ignored(self):
         self.assertTrue(full_audit_verified(self.raw,self.audit))
         changes=[lambda r,a:r.update(version='old'),lambda r,a:r.update(status='running'),lambda r,a:r.update(phase='replay-128'),
-            lambda r,a:a.update(contract_fingerprint='old'),lambda r,a:a.update(checks=[]),lambda r,a:a.update(checks_count=0),
+            lambda r,a:a.update(contract_fingerprint='old'),lambda r,a:a.pop('version'),lambda r,a:a.update(version='old-audit'),lambda r,a:a.update(checks=[]),lambda r,a:a.update(checks_count=0),
             lambda r,a:a.update(checks_count=True),lambda r,a:a.update(checks_count=1.0),lambda r,a:a.update(checks_count=2),
             lambda r,a:a.update(checks=[{'passed':'yes'}]),lambda r,a:a.update(checks=[{'passed':1}]),lambda r,a:a.update(failures=[{}])]
         for change in changes:

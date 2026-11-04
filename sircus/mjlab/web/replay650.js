@@ -1,5 +1,6 @@
 // Additive, read-only reader. No shared dashboard state or solver routes.
 export const VERSION='sircus-calibrated-650-replay-v1';
+export const AUDIT_VERSION='sircus-calibrated-650-independent-audit-v2';
 const STEPS=['64','128'];
 const ROLES={positive_control:'Positive control',negative_control:'Negative control',candidate:'650 mm candidate',window:'Conditional gap window'};
 const finiteVector=(v,n)=>Array.isArray(v)&&v.length===n&&v.every(Number.isFinite);
@@ -16,8 +17,8 @@ export function replay650View(raw) {
 }
 export function replay650AuditReady(raw) {
   const a=raw?.audit;return raw?.version===VERSION&&raw.status==='completed'&&raw.phase==='completed'&&
-    typeof raw.contract_fingerprint==='string'&&raw.contract_fingerprint.length>0&&a?.status==='passed'&&a.contract_fingerprint===raw.contract_fingerprint&&
-    a.full_checks_verified===true&&Number.isInteger(a.checks_count)&&a.checks_count>0&&/^[a-f0-9]{64}$/.test(a.source_sha256??'');
+    typeof raw.contract_fingerprint==='string'&&raw.contract_fingerprint.length>0&&a?.version===AUDIT_VERSION&&a.status==='passed'&&a.contract_fingerprint===raw.contract_fingerprint&&
+    a.full_checks_verified===true&&a.bound_files_verified===true&&Number.isInteger(a.checks_count)&&a.checks_count>0&&/^[a-f0-9]{64}$/.test(a.source_sha256??'');
 }
 function validStats(s) {
   return s&&Number.isInteger(s.attempts)&&s.attempts===3&&Number.isInteger(s.native_releases)&&0<=s.native_releases&&s.native_releases<=3&&

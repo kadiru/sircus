@@ -13,13 +13,14 @@ import importlib.metadata
 import json
 import math
 from pathlib import Path
+import sys
 import time
 
 import numpy as np
 
 from .benchmark_verify import Checks, EvidenceError, contained, digest, read, sha
 
-VERSION = "sircus-calibrated-650-independent-audit-v1"
+VERSION = "sircus-calibrated-650-independent-audit-v2"
 STUDY_VERSION = "sircus-calibrated-650-replay-v1"
 STEPS = (64, 128)
 WINDOW_GAPS_M = (.3768, .3808, .3848, .3868, .3888)
@@ -164,8 +165,60 @@ def check_calibration(study, declared, checks):
     checks.equal(declared["score_config"], cfg, "Executed frozen score configuration")
     checks.equal(declared["score_config_sha256"], digest(cfg), "Executed calibration identity")
     checks.numeric(cfg["retention_s"], 1., "One continuous second unchanged", 0)
-    checks.numeric(cfg["native_dt_s"], 1/15360, "Frozen fit used canonical64 dynamics", 0)
+    # The frozen report's score_config stores contact/containment bounds, not
+    # simulator cadence. Cadence is independently recorded for actual fit and
+    # verification fixtures. Never manufacture a missing config field or refit.
+    if "native_dt_s" in cfg:
+        checks.numeric(cfg["native_dt_s"], 1/15360, "Optional score-config cadence agrees with actual fit", 0)
+    fit = calibration["fit_evidence"]
+    checks.equal((fit["role"], fit["substeps"], fit["fixture_order"], fit["fixture_count"]),
+                 ("fit", 64, "canonical", 57), "Frozen actual canonical64 fit fixtures")
+    records = verification["verification"]
+    checks.equal([(r["role"], r["substeps"], r["fixture_order"], r["fixture_count"]) for r in records],
+                 [("verification", 64, "canonical", 72), ("verification", 128, "canonical", 72),
+                  ("verification", 64, "reversed", 72)], "Frozen separate canonical/fine/reversed verification fixtures")
+    for record in [fit, *records]:
+        expected = dict(timestep=1/(240*record["substeps"]), solver=2, iterations=100,
+                        tolerance=1e-8, cone=0, integrator=3, ccd_iterations=50,
+                        ccd_tolerance=1e-6, disableflags=0, enableflags=0, gravity=[0., 0., -9.81])
+        checks.equal(record["effective_options"], expected, "Actual frozen fit/verification native options")
     return cfg
+
+
+def auditor_identity(producer_source, producer_hashes, checks):
+    """Bind revised checker bytes separately from immutable execution source.
+
+    A corrected checker may rescore old native caches without changing their
+    producer snapshot. Every actually imported non-checker core dependency must
+    still be byte-identical to that original producer, including the oracle.
+    """
+    auditor_root = Path(__file__).resolve().parents[2]
+    own = "sircus/mjlab/replay650_verify.py"
+    dependencies = {}
+    for module in tuple(sys.modules.values()):
+        name = getattr(module, "__name__", "")
+        filename = getattr(module, "__file__", None)
+        if not filename or not (name.startswith("sircus.mjlab.") or name.startswith("sircus.isaac.")):
+            continue
+        path = Path(filename).resolve()
+        checks.require(path.is_relative_to(auditor_root), "Auditor imports one explicit source snapshot/"+name)
+        relative = str(path.relative_to(auditor_root))
+        if len(Path(relative).parts) != 3 or path.suffix != ".py" or relative == own:
+            continue
+        if relative.startswith("sircus/isaac/") and relative not in producer_hashes:
+            continue
+        checks.require(relative in producer_hashes, "Auditor core dependency declared by original producer/"+relative)
+        actual = sha(path)
+        checks.equal(actual, producer_hashes[relative], "Unchanged actual auditor core/oracle dependency/"+relative)
+        dependencies[relative] = actual
+    checks.require("sircus/mjlab/calibrated_score_oracle.py" in dependencies,
+                   "Actual independent scorer dependency recorded")
+    checks.equal(sha(contained(producer_source, own)), producer_hashes[own],
+                 "Original producer's historical checker bytes remain unchanged")
+    return dict(version=VERSION, auditor_sha256=sha(Path(__file__)),
+                original_producer_auditor_sha256=producer_hashes[own],
+                dependencies_sha256=dependencies,
+                scope="Revised CPU checker source is separate from immutable original execution; all imported non-checker core dependencies unchanged")
 
 
 def read_records(path):
@@ -595,9 +648,11 @@ def audit(study, source, assets, *, shallow_study, positive_study, positive_audi
     audit_batches(study, rows, checks)
     audit_report(report, rows, groups, positions, gate, checks)
     audit_traces(study, report, rows, groups, spec["scene"], checks)
+    revision = auditor_identity(source, spec["source_sha256"], checks)
     return dict(version=VERSION, status="passed", contract_fingerprint=fp, checks_count=checks.count,
                 checks=checks.entries, failures=[], auditor_sha256=sha(Path(__file__)),
                 report_sha256=sha(study/"report.json"), evidence_manifest_sha256=sha(study/"evidence-manifest.json"),
+                auditor_identity=revision, producer_source_sha256=spec["source_sha256"],
                 requested_trials=len(rows), native_releases=len(traces), gate=gate,
                 elapsed_s=time.monotonic()-started,
                 limitations=["Nominal engineering repeats only; no fresh-noise robustness or learned-policy claim.",

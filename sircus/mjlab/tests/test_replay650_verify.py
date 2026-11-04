@@ -155,6 +155,44 @@ class ReplayAccountingTests(unittest.TestCase):
             with self.assertRaisesRegex(EvidenceError, "Pinned package/scipy"):
                 verify.audit_packages(changed, Checks())
 
+    def test_actual_frozen_calibration_schema_proves_cadence_through_fixture_metadata(self):
+        from sircus.mjlab.calibrated_benchmark_contract import checked_calibration
+        source = Path(__file__).resolve().parents[3]/"baselines/mjlab-calibrated-benchmark-20261104"
+        declared = checked_calibration(source/"calibration.json", source/"verification.json")
+        self.assertNotIn("native_dt_s", declared["score_config"])
+        self.assertEqual(verify.check_calibration(source, declared, Checks()), declared["score_config"])
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            calibration = json.loads((source/"calibration.json").read_text())
+            verification = json.loads((source/"verification.json").read_text())
+            calibration["fit_evidence"]["effective_options"]["timestep"] = 1/30720
+            (root/"calibration.json").write_text(json.dumps(calibration))
+            verification["calibration_sha256"] = verify.sha(root/"calibration.json")
+            (root/"verification.json").write_text(json.dumps(verification))
+            modified = checked_calibration(root/"calibration.json", root/"verification.json")
+            with self.assertRaisesRegex(EvidenceError, "Actual frozen fit/verification native options"):
+                verify.check_calibration(root, modified, Checks())
+
+    def test_revised_auditor_is_separate_but_actual_oracle_dependency_must_match_producer(self):
+        # Import the actual oracle; this test does no dynamics or GPU work.
+        from sircus.mjlab import calibrated_score_oracle
+        root = Path(__file__).resolve().parents[3]
+        declared = {str(p.relative_to(root)): verify.sha(p) for p in (root/"sircus/mjlab").glob("*.py")}
+        declared.update({str(p.relative_to(root)): verify.sha(p) for p in (root/"sircus/isaac").glob("*.py")})
+        own = "sircus/mjlab/replay650_verify.py"
+        with tempfile.TemporaryDirectory() as directory:
+            producer = Path(directory)
+            path = producer/own; path.parent.mkdir(parents=True)
+            path.write_text("# Immutable historical checker bytes, not executed.\n")
+            declared[own] = verify.sha(path)
+            identity = verify.auditor_identity(producer, declared, Checks())
+            self.assertNotEqual(identity["auditor_sha256"], identity["original_producer_auditor_sha256"])
+            self.assertIn("sircus/mjlab/calibrated_score_oracle.py", identity["dependencies_sha256"])
+            dirty = dict(declared)
+            dirty["sircus/mjlab/calibrated_score_oracle.py"] = "0"*64
+            with self.assertRaisesRegex(EvidenceError, "actual auditor core/oracle dependency"):
+                verify.auditor_identity(producer, dirty, Checks())
+
     def test_exact_groups_and_real_proof_branch_detect_joint_and_clearance_tampering(self):
         scene, original, groups, proofs = group_fixture()
         verify.audit_groups(groups, proofs, original, scene, Checks())

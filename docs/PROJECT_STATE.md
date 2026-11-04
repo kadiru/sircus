@@ -1,6 +1,6 @@
 # Project state
 
-## Calibrated 650 mm replay — preparation November 4, 2026
+## Calibrated 650 mm replay — November 4, 2026
 
 - [Frozen finite protocol](../sircus/mjlab/REPLAY650.md) and
   [geometry-only preflight](../baselines/mjlab-calibrated650-20261104/README.md):
@@ -10,7 +10,13 @@
 - The five-gap window is conditional on both-resolution capture/control, valid
   physics, independent scoring and ≤5mm350ms drift gates. Maximum48 requests;
   this is held-endpoint engineering verification, not new RL or fresh-noise
-  reliability. Historical shallow misses are preserved. Native results pending.
+  reliability. Historical shallow misses are preserved.
+- Fresh18 native releases completed: positive control3/3 and negative0/3 at
+  both resolutions; candidate3/3 at64 but0/3 at128, which never achieved whole
+  entry. Candidate350ms drift1.734mm passes the positional check, but outcome
+  agreement fails. Window remains closed; none of its30 conditional requests ran.
+  The64 captures are rim-assisted; finer integration deflects the ball outside
+  after rim contact. Final independent evidence audit is being completed.
 - Additive read-only interface key `calibrated650_replay`; existing viewer,
   4070 workload and Isaac configuration remain separate and unchanged.
 
