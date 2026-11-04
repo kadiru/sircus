@@ -1,5 +1,19 @@
 # Project state
 
+## Calibrated 650 mm replay — preparation November 4, 2026
+
+- [Frozen finite protocol](../sircus/mjlab/REPLAY650.md) and
+  [geometry-only preflight](../baselines/mjlab-calibrated650-20261104/README.md):
+  replay the exact 380 mm board / 28° tilt / 386.8 mm gap shot at 650 mm distance,
+  with matched positive/negative controls and three nominal copies at64/128.
+  All eight initial/conditional endpoint groups passed fresh5mm CPU clearance.
+- The five-gap window is conditional on both-resolution capture/control, valid
+  physics, independent scoring and ≤5mm350ms drift gates. Maximum48 requests;
+  this is held-endpoint engineering verification, not new RL or fresh-noise
+  reliability. Historical shallow misses are preserved. Native results pending.
+- Additive read-only interface key `calibrated650_replay`; existing viewer,
+  4070 workload and Isaac configuration remain separate and unchanged.
+
 ## Calibrated benchmark v2 — completed November 4, 2026 UTC
 
 - [Protocol, results and reproduction](../sircus/mjlab/CALIBRATED_BENCHMARK.md),
