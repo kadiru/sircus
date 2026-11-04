@@ -80,6 +80,7 @@ class CurationTests(unittest.TestCase):
         self.assertEqual(summary["counts"]["attempts"], 18)
         self.assertEqual(summary["window"], dict(status="skipped_gate_closed", opened=False, requested_trials=0))
         self.assertEqual(len(summary["groups"]), 8)
+        self.assertNotIn(b"\r", (self.base/"completed/configurations.csv").read_bytes())
         with (self.base/"completed/configurations.csv").open() as stream:
             rows = list(csv.DictReader(stream))
         self.assertEqual(len(rows), 16)
