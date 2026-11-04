@@ -64,8 +64,9 @@ function table(target,headers,rows) {
   if(!rows.length){const tr=d.createElement('tr'),td=d.createElement('td');td.colSpan=headers.length;td.textContent='No observations available yet.';tr.append(td);body.append(tr);}
   t.append(head,body);target.replaceChildren(t);
 }
-function groupRows(groups) {
-  return groups.flatMap(g=>STEPS.map(step=>{const s=g.by_substeps?.[step]??{};return[`${ROLES[g.role]} · ${g.id}${Number.isFinite(g.gap_m)?' · '+mm(g.gap_m,3)+' mm gap':''}`,step,
+function groupRows(groups,gateClosed=false) {
+  return groups.flatMap(g=>STEPS.map(step=>{const s=g.by_substeps?.[step]??{},label=`${ROLES[g.role]} · ${g.id}${Number.isFinite(g.gap_m)?' · '+mm(g.gap_m,3)+' mm gap':''}`;
+    if(gateClosed)return[label,step,...Array(6).fill('not run (gate closed)')];return[label,step,
     fraction(s.native_releases,s.attempts),fraction(s.captures,s.attempts),fraction(s.whole_entries,s.attempts),fraction(s.invalid,s.attempts),fraction(s.clean,s.attempts),s.attempts===0?'pending':s.native_releases===0?'not observed':s.native_releases>0&&Number.isFinite(s.max_retention_s)?s.max_retention_s.toFixed(3)+' s':'unknown'];}));
 }
 function drawTrace(root,raw,trace) {
@@ -80,7 +81,7 @@ function drawTrace(root,raw,trace) {
   c.strokeStyle='#81978a';c.setLineDash([5,4]);c.beginPath();c.moveTo(x(view.distance),y(zl));c.lineTo(x(view.distance),y(zh));c.stroke();c.fillText(`Bucket center axis (${mm(view.distance)} mm)`,Math.min(x(view.distance)+6,w-190),42);c.setLineDash([]);
   if(view.boardHeight!==null){c.fillStyle='#b88a30';c.beginPath();c.arc(x(0),y(view.boardHeight),4,0,2*Math.PI);c.fill();c.fillText('Configured board center',x(0)+8,y(view.boardHeight)-7);}
   c.strokeStyle=trace.route_success===true?'#128b8c':trace.route_success===false?'#ec7657':'#6e8180';c.lineWidth=2;c.beginPath();view.points.forEach((p,i)=>{if(i)c.lineTo(x(p[0]),y(p[1]));else c.moveTo(x(p[0]),y(p[1]));});c.stroke();
-  const bool=v=>v===true?'yes':v===false?'no':'unknown',invalid=trace.invalid===false||trace.invalid===''?'none':trace.invalid===undefined||trace.invalid===null?'unknown':String(trace.invalid);
+  const bool=v=>v===true?'yes':v===false?'no':'unknown',invalid=trace.invalid===false||trace.invalid===''||trace.invalid===null?'none':trace.invalid===undefined?'unknown':String(trace.invalid);
   const oracle=typeof trace.oracle_agreement==='boolean'?trace.oracle_agreement:trace.scalar_score_audit_passed;
   text(root,'trace-caption',`${trace.record_id??'Unknown record'} · ${ROLES[trace.role]??trace.role??'unknown role'} · ${trace.substeps??'?'} substeps · ${view.points.length} actual saved samples · bucket XY ${view.bucket.map(v=>mm(v)).join(' / ')} mm · whole entry ${bool(trace.whole_ball_entry)} · max retention ${Number.isFinite(trace.max_retention_s)?trace.max_retention_s.toFixed(3)+' s':'unknown'} · invalid ${invalid} · invalid physics ${bool(trace.invalid_physics)} · oracle agreement ${bool(oracle)} · max off-plane ${mm(view.lateral)} mm. ${view.boardHeight===null?'Configured board height unknown; marker omitted.':'Board marker is configured geometry.'} ${replay650AuditReady(raw)?'Completed matching full audit.':'Full audit unverified.'} ${trace.selection_scope??''}`);
 }
@@ -97,8 +98,9 @@ export function renderReplay650(root,raw) {
   const headers=['Group / requested gap','Substeps','Native/all','Captures/all','Whole entry/all','Invalid/all','Clean/all','Max retention'];
   table(node(root,'controls'),headers,groupRows(view.initial.filter(g=>g.role!=='candidate')));table(node(root,'candidate-results'),headers,groupRows(view.initial.filter(g=>g.role==='candidate')));
   text(root,'window-status',!replay650AuditReady(raw)?'Conditional window qualification is unverified while the full audit is pending.':raw.gate?.window_opened===true?'Conditional window opened after the initial gate; these are three nominal repeats per gap and step.':raw.gate?.window_opened===false?'Conditional window was not opened.':'Whether the window opened is unknown.');
-  table(node(root,'window'),headers,groupRows(view.window));
-  const sensitivity=view.groups.map(g=>[`${ROLES[g.role]} · ${g.id}`,fraction(g.sensitivity?.capture_agreement,g.sensitivity?.paired_attempts),Number.isFinite(g.sensitivity?.nominal_position_delta_350ms_max_m)?mm(g.sensitivity.nominal_position_delta_350ms_max_m,3)+' mm':'unknown']);
+  const windowClosed=replay650AuditReady(raw)&&raw.gate?.status==='failed'&&raw.gate.window_opened===false;
+  table(node(root,'window'),headers,groupRows(view.window,windowClosed));
+  const sensitivity=view.groups.map(g=>[`${ROLES[g.role]} · ${g.id}`,windowClosed&&g.role==='window'?'not run (gate closed)':fraction(g.sensitivity?.capture_agreement,g.sensitivity?.paired_attempts),windowClosed&&g.role==='window'?'not run (gate closed)':Number.isFinite(g.sensitivity?.nominal_position_delta_350ms_max_m)?mm(g.sensitivity.nominal_position_delta_350ms_max_m,3)+' mm':'unknown']);
   table(node(root,'sensitivity'),['Group','64↔128 outcome agreement','Nominal 350 ms drift'],sensitivity);
   const select=node(root,'trace-select'),previous=select?.value,traces=Array.isArray(raw.trace_examples)?raw.trace_examples:[];
   if(select){const doc=select.ownerDocument;select.replaceChildren();for(const trace of traces){const option=doc.createElement('option');option.value=trace.record_id??'';option.textContent=`${ROLES[trace.role]??trace.role??'?'} · ${trace.group_id??'?'} · ${trace.substeps??'?'} steps · ${trace.route_success===true?'capture':trace.route_success===false?'miss':'unknown'}`;select.append(option);}select.disabled=!traces.length;select.value=traces.some(t=>t.record_id===previous)?previous:traces[0]?.record_id??'';select.onchange=()=>drawTrace(root,raw,traces.find(t=>t.record_id===select.value));drawTrace(root,raw,traces.find(t=>t.record_id===select.value));}

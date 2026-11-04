@@ -67,6 +67,14 @@ test('render keeps controls/candidate/window separate and exposes entry/retentio
   assert.equal(rows('window')[1][3],'unknown');assert.ok(get('window-status').textContent.includes('unverified'));
   raw.status='completed';raw.phase='completed';raw.gate={...raw.gate,status:'failed',candidate:false,window_opened:false};ui.renderReplay650(root,raw);
   assert.equal(get('gate').attrs['data-state'],'failed');assert.ok(get('window-status').textContent.includes('not opened'));
+  raw.groups.push(...raw.settings.gaps_m.slice(1).map((gap,i)=>({id:`window-extra-${i}`,role:'window',gap_m:gap,by_substeps:{}})));ui.renderReplay650(root,raw);
+  assert.equal(rows('window').length,10);
+  assert.ok(rows('window').every(row=>row.slice(2).every(v=>v==='not run (gate closed)')));
+  assert.ok(rows('sensitivity').slice(-5).every(row=>row.slice(1).every(v=>v==='not run (gate closed)')));
+  assert.notEqual(rows('sensitivity')[0][1],'not run (gate closed)');
+  raw.trace_examples[0].invalid=null;ui.renderReplay650(root,raw);assert.ok(get('trace-caption').textContent.includes(' · invalid none ·'));
+  delete raw.trace_examples[0].invalid;ui.renderReplay650(root,raw);assert.ok(get('trace-caption').textContent.includes(' · invalid unknown ·'));
+  raw.audit.bound_files_verified=false;ui.renderReplay650(root,raw);assert.equal(rows('window')[0][3],'pending');assert.notEqual(rows('sensitivity').at(-1)[1],'not run (gate closed)');
   ui.renderReplay650(root,null);assert.equal(root.hidden,true);
 });
 test('reader polls only the study snapshot every five seconds and marks unavailable refreshes unverified',async()=>{

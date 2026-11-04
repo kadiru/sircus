@@ -16,9 +16,14 @@
   entry. Candidate350ms drift1.734mm passes the positional check, but outcome
   agreement fails. Window remains closed; none of its30 conditional requests ran.
   The64 captures are rim-assisted; finer integration deflects the ball outside
-  after rim contact. Final independent evidence audit is being completed.
+  after rim contact. Independent auditv2 **passed5,224 checks**; source, package,
+  asset, calibration, raw-cache, initial-joint, native-option and full scoring
+  bindings passed. The corrected checker runs separately from the preserved
+  native producer; no flight was retried for an audit correction.
 - Additive read-only interface key `calibrated650_replay`; existing viewer,
   4070 workload and Isaac configuration remain separate and unchanged.
+- [Verified results and exact CSV](../baselines/mjlab-calibrated650-20261104/README.md).
+  Next: seek central entry with more rim clearance before another gap window.
 
 ## Calibrated benchmark v2 — completed November 4, 2026 UTC
 
