@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { sweepRlSummary, sweepRlFinalRows, sweepRlAdmissionRows, sweepRlHistory, sweepRlResources, sweepRlCurves, sweepRlCsv, solveButtonState, historicalPlannerIsPreV2 } from '../web/state.mjs';
+import { sweepRlSummary, sweepRlFinalRows, sweepRlFinalAggregate, sweepRlAdmissionRows, sweepRlHistory, sweepRlResources, sweepRlCurves, sweepRlCsv, solveButtonState, historicalPlannerIsPreV2 } from '../web/state.mjs';
 
 const hash = 'a'.repeat(64);
 const counts = { attempts: 72, captures: 60, native_releases: 70, invalid: 2, clean: 55 };
@@ -92,4 +92,46 @@ test('calibrated read-only view labels inherited farm/grid as historical without
   assert.ok(js.includes("$('plannerHistoricalNotice').hidden = !historicalPlanner"));
   assert.ok(js.includes('Historical farm targets · pre-v2'));
   assert.ok(js.includes('Historical shot settings and repeats · pre-v2'));
+});
+
+const fullFinal = () => {
+  const report=fixture(), study=report.sweep_rl_benchmark;
+  study.protocol.seeds=[42,43,44];study.runs=[];study.final_test=[];
+  for (const method of ['sweep','ppo']) for (const [i,seed] of study.protocol.seeds.entries()) {
+    const captures=method==='sweep'?[26,26,26][i]:[32,32,33][i], clean=method==='sweep'?[20,21,22][i]:[25,26,27][i];
+    study.runs.push({method,seed,status:'completed',checkpoint_sha256:hash,train_requests:1024,selected_samples:256});
+    study.final_test.push({method,seed,counts:{attempts:72,captures,clean,native_releases:70,invalid:2},frozen_artifact_sha256:hash});
+  }
+  return report;
+};
+test('verified complete TEST aggregate sums requests across seeds and derives the observed rate difference', () => {
+  const report=fullFinal(), original=JSON.stringify(report), value=sweepRlFinalAggregate(report);
+  assert.equal(value.seedCount,3);assert.equal(value.methods.length,2);
+  assert.deepEqual(value.methods.map(r=>[r.method,r.captures,r.attempts,r.clean,r.seeds]),[
+    ['sweep',78,216,63,3],['ppo',97,216,78,3]]);
+  assert.equal(value.methods[0].percent.toFixed(1),'36.1');assert.equal(value.methods[1].percent.toFixed(1),'44.9');
+  assert.equal(value.ppoMinusSweepPp.toFixed(1),'8.8');assert.equal(JSON.stringify(report),original);
+});
+
+test('final aggregate stays hidden for pending, unaudited, missing, duplicate and incomplete seed evidence', () => {
+  assert.equal(sweepRlFinalAggregate({}),null);
+  for (const change of [r=>r.status='running',r=>r.test_disclosure='hidden_until_completed_and_audited',
+    r=>r.audit.status='pending',r=>r.final_test.pop(),r=>r.final_test[0]=structuredClone(r.final_test[1]),
+    r=>delete r.final_test[0].counts.clean,r=>r.version='sircus-sweep-rl-benchmark-v1']) {
+    const report=fullFinal();change(report.sweep_rl_benchmark);assert.equal(sweepRlFinalAggregate(report),null);
+  }
+  const fewer=fullFinal();fewer.sweep_rl_benchmark.protocol.seeds=[42];
+  fewer.sweep_rl_benchmark.final_test=fewer.sweep_rl_benchmark.final_test.filter(r=>r.seed===42);
+  assert.equal(sweepRlFinalAggregate(fewer).ppoMinusSweepPp,null);
+});
+
+test('aggregate display keeps per-seed records and labels totals as descriptive repeated TEST trials', () => {
+  const html=readFileSync(new URL('../web/index.html',import.meta.url),'utf8');
+  const js=readFileSync(new URL('../web/app.js',import.meta.url),'utf8');
+  assert.ok(html.includes('id="benchmarkFinalAggregate" hidden'));
+  assert.ok(html.includes('id="benchmarkFinalTable"'));
+  assert.ok(html.includes('request totals are not counts of independent bucket positions'));
+  assert.ok(html.includes('separate from validation and do not establish statistical significance'));
+  assert.ok(js.includes("$('benchmarkFinalAggregate').hidden = !aggregate"));
+  assert.ok(!js.includes('78 / 216')&&!js.includes('97 / 216')&&!js.includes('36.1%')&&!js.includes('44.9%'));
 });

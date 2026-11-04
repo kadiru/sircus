@@ -1,0 +1,681 @@
+{
+  "train": [
+    {
+      "id": "dev-grid-00-00",
+      "row": 0,
+      "column": 0,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        0.1,
+        -0.65
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-00-01",
+      "row": 0,
+      "column": 1,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        0.29,
+        -0.65
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-00-02",
+      "row": 0,
+      "column": 2,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        0.48,
+        -0.65
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-00-03",
+      "row": 0,
+      "column": 3,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.65
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-00-04",
+      "row": 0,
+      "column": 4,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.65
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-00-05",
+      "row": 0,
+      "column": 5,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.65
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-00-06",
+      "row": 0,
+      "column": 6,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        1.24,
+        -0.65
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-01-00",
+      "row": 1,
+      "column": 0,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        0.1,
+        -0.42500000000000004
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-01-01",
+      "row": 1,
+      "column": 1,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        0.29,
+        -0.42500000000000004
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-01-02",
+      "row": 1,
+      "column": 2,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        0.48,
+        -0.42500000000000004
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-01-03",
+      "row": 1,
+      "column": 3,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.42500000000000004
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-01-04",
+      "row": 1,
+      "column": 4,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.42500000000000004
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-01-05",
+      "row": 1,
+      "column": 5,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.42500000000000004
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-01-06",
+      "row": 1,
+      "column": 6,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        1.24,
+        -0.42500000000000004
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-02-00",
+      "row": 2,
+      "column": 0,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        0.1,
+        -0.2
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-02-01",
+      "row": 2,
+      "column": 1,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        0.29,
+        -0.2
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-02-02",
+      "row": 2,
+      "column": 2,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        0.48,
+        -0.2
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-02-03",
+      "row": 2,
+      "column": 3,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.2
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-02-04",
+      "row": 2,
+      "column": 4,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.2
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-02-05",
+      "row": 2,
+      "column": 5,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.2
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-02-06",
+      "row": 2,
+      "column": 6,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        1.24,
+        -0.2
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-03-00",
+      "row": 3,
+      "column": 0,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        0.1,
+        0.025000000000000022
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-03-01",
+      "row": 3,
+      "column": 1,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        0.29,
+        0.025000000000000022
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-03-02",
+      "row": 3,
+      "column": 2,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        0.48,
+        0.025000000000000022
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-03-03",
+      "row": 3,
+      "column": 3,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        0.025000000000000022
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-03-04",
+      "row": 3,
+      "column": 4,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        0.025000000000000022
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-03-05",
+      "row": 3,
+      "column": 5,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        0.025000000000000022
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-03-06",
+      "row": 3,
+      "column": 6,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        1.24,
+        0.025000000000000022
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-04-00",
+      "row": 4,
+      "column": 0,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        0.1,
+        0.25
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-04-01",
+      "row": 4,
+      "column": 1,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        0.29,
+        0.25
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-04-02",
+      "row": 4,
+      "column": 2,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        0.48,
+        0.25
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-04-03",
+      "row": 4,
+      "column": 3,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        0.25
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-04-04",
+      "row": 4,
+      "column": 4,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        0.25
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-04-05",
+      "row": 4,
+      "column": 5,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        0.25
+      ],
+      "split": "train"
+    },
+    {
+      "id": "dev-grid-04-06",
+      "row": 4,
+      "column": 6,
+      "role": "development_then_train",
+      "bucket_xy_m": [
+        1.24,
+        0.25
+      ],
+      "split": "train"
+    }
+  ],
+  "validation": [
+    {
+      "id": "calibrated-validation-00",
+      "split": "validation",
+      "bucket_xy_m": [
+        0.34920347234897586,
+        -0.522874982873138
+      ]
+    },
+    {
+      "id": "calibrated-validation-01",
+      "split": "validation",
+      "bucket_xy_m": [
+        0.9141211430351965,
+        -0.2376997756247694
+      ]
+    },
+    {
+      "id": "calibrated-validation-02",
+      "split": "validation",
+      "bucket_xy_m": [
+        0.6689101502743681,
+        -0.40246418497705905
+      ]
+    },
+    {
+      "id": "calibrated-validation-03",
+      "split": "validation",
+      "bucket_xy_m": [
+        1.1096434643829722,
+        -0.5808825398577193
+      ]
+    },
+    {
+      "id": "calibrated-validation-04",
+      "split": "validation",
+      "bucket_xy_m": [
+        0.2735035656727215,
+        -0.6257436721972153
+      ]
+    },
+    {
+      "id": "calibrated-validation-05",
+      "split": "validation",
+      "bucket_xy_m": [
+        1.0065530961319848,
+        -0.600042764920928
+      ]
+    },
+    {
+      "id": "calibrated-validation-06",
+      "split": "validation",
+      "bucket_xy_m": [
+        0.506739722247167,
+        0.2470934350880174
+      ]
+    },
+    {
+      "id": "calibrated-validation-07",
+      "split": "validation",
+      "bucket_xy_m": [
+        0.1301917905258433,
+        -0.47998983748011637
+      ]
+    },
+    {
+      "id": "calibrated-validation-08",
+      "split": "validation",
+      "bucket_xy_m": [
+        0.14896884572943628,
+        0.05034593174095814
+      ]
+    },
+    {
+      "id": "calibrated-validation-09",
+      "split": "validation",
+      "bucket_xy_m": [
+        0.7559702967838473,
+        -0.37925876799590696
+      ]
+    },
+    {
+      "id": "calibrated-validation-10",
+      "split": "validation",
+      "bucket_xy_m": [
+        0.6980351402852146,
+        0.07085953053006211
+      ]
+    },
+    {
+      "id": "calibrated-validation-11",
+      "split": "validation",
+      "bucket_xy_m": [
+        0.11071174924917018,
+        -0.45111616178363834
+      ]
+    }
+  ],
+  "test": [
+    {
+      "id": "calibrated-test-00",
+      "split": "test",
+      "bucket_xy_m": [
+        0.3864558493843614,
+        -0.5325542591765426
+      ]
+    },
+    {
+      "id": "calibrated-test-01",
+      "split": "test",
+      "bucket_xy_m": [
+        0.7505382374007202,
+        0.17089684959977158
+      ]
+    },
+    {
+      "id": "calibrated-test-02",
+      "split": "test",
+      "bucket_xy_m": [
+        0.8094180474659061,
+        0.08381639729898338
+      ]
+    },
+    {
+      "id": "calibrated-test-03",
+      "split": "test",
+      "bucket_xy_m": [
+        0.7215252111375191,
+        0.17776819646036235
+      ]
+    },
+    {
+      "id": "calibrated-test-04",
+      "split": "test",
+      "bucket_xy_m": [
+        0.9766900674830693,
+        0.04471685818009763
+      ]
+    },
+    {
+      "id": "calibrated-test-05",
+      "split": "test",
+      "bucket_xy_m": [
+        0.9544818941111218,
+        -0.5320970050059037
+      ]
+    },
+    {
+      "id": "calibrated-test-06",
+      "split": "test",
+      "bucket_xy_m": [
+        1.1206647113641182,
+        0.05566182836845235
+      ]
+    },
+    {
+      "id": "calibrated-test-07",
+      "split": "test",
+      "bucket_xy_m": [
+        0.9221322370699345,
+        -0.41289493838000135
+      ]
+    },
+    {
+      "id": "calibrated-test-08",
+      "split": "test",
+      "bucket_xy_m": [
+        0.6212760385581824,
+        0.24646087386707627
+      ]
+    },
+    {
+      "id": "calibrated-test-09",
+      "split": "test",
+      "bucket_xy_m": [
+        0.8730818093711407,
+        -0.39628503660141573
+      ]
+    },
+    {
+      "id": "calibrated-test-10",
+      "split": "test",
+      "bucket_xy_m": [
+        0.1920437845123584,
+        0.18668814454223448
+      ]
+    },
+    {
+      "id": "calibrated-test-11",
+      "split": "test",
+      "bucket_xy_m": [
+        0.3732109521608017,
+        -0.016026967750729537
+      ]
+    },
+    {
+      "id": "calibrated-test-12",
+      "split": "test",
+      "bucket_xy_m": [
+        0.38328669690614037,
+        -0.5996078937650455
+      ]
+    },
+    {
+      "id": "calibrated-test-13",
+      "split": "test",
+      "bucket_xy_m": [
+        0.6455788154678018,
+        -0.10294705539431748
+      ]
+    },
+    {
+      "id": "calibrated-test-14",
+      "split": "test",
+      "bucket_xy_m": [
+        0.9151585345080916,
+        -0.4956495754352291
+      ]
+    },
+    {
+      "id": "calibrated-test-15",
+      "split": "test",
+      "bucket_xy_m": [
+        0.7543447121233673,
+        -0.4924803154495173
+      ]
+    },
+    {
+      "id": "calibrated-test-16",
+      "split": "test",
+      "bucket_xy_m": [
+        0.820357920769812,
+        0.1090949086429166
+      ]
+    },
+    {
+      "id": "calibrated-test-17",
+      "split": "test",
+      "bucket_xy_m": [
+        0.6175596685328808,
+        -0.13804752166394152
+      ]
+    },
+    {
+      "id": "calibrated-test-18",
+      "split": "test",
+      "bucket_xy_m": [
+        0.139561758896088,
+        -0.09570815935693211
+      ]
+    },
+    {
+      "id": "calibrated-test-19",
+      "split": "test",
+      "bucket_xy_m": [
+        0.22338291201125435,
+        -0.17264204328846167
+      ]
+    },
+    {
+      "id": "calibrated-test-20",
+      "split": "test",
+      "bucket_xy_m": [
+        0.5566728512418989,
+        0.13771271488467784
+      ]
+    },
+    {
+      "id": "calibrated-test-21",
+      "split": "test",
+      "bucket_xy_m": [
+        0.6164802199411287,
+        -0.06615227159335424
+      ]
+    },
+    {
+      "id": "calibrated-test-22",
+      "split": "test",
+      "bucket_xy_m": [
+        0.32947053138520466,
+        -0.1097661926007445
+      ]
+    },
+    {
+      "id": "calibrated-test-23",
+      "split": "test",
+      "bucket_xy_m": [
+        0.4910137656064828,
+        -0.32134153482013617
+      ]
+    }
+  ]
+}

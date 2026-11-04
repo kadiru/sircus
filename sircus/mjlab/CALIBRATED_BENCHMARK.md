@@ -116,6 +116,59 @@ as native results. A separate TRAIN-only native smoke requires source captures,
 a deliberate rejection, a real discarded PPO update, and an independent audit.
 The long controller verifies this evidence and frozen source/config identities.
 
+## Completed native comparison — November 4, 2026 UTC
+
+The [checksummed compact evidence and six selected artifacts](../../baselines/mjlab-calibrated-benchmark-20261104/README.md)
+are bound to a passed independent audit of **1,204,473 checks over 7,440 requests**.
+The requested phase budgets were6,144 TRAIN,864 validation and432 TEST; native
+releases were4,380,704 and383 respectively. All setup rejects remain in the
+requested-trial denominators;10 native TRAIN numerical failures also count as
+failed attempts. Calibration and discarded engineering controls are separate.
+
+| Method | Spent TRAIN requests / native releases | Selected budgets by seed | Frozen TEST captures / requests | Clean captures |
+|---|---:|---|---:|---:|
+| Guided sweep |3,072 /2,036 |0 /1,024 /1,024 |78/216 (36.1%) |16 |
+| Residual PPO |3,072 /2,344 |1,024 /1,024 /256 |97/216 (44.9%) |26 |
+
+Seeds are20261411/12/13. Per-seed TEST captures were31/22/25 for sweep and
+28/33/36 for PPO, each out of72. PPO's aggregate advantage is8.8 percentage
+points in this study; it lost the first paired seed. These are descriptive
+three-seed results on24 shared held-out layouts with three paired trials per
+layout, not216 independent layouts or a demonstrated universal advantage.
+Both methods still miss more than half of requested TEST shots.
+
+Validation selects by capture count, then mean shaped reward, then earliest
+checkpoint. Equal capture counts can select different checkpoints when rewards
+differ. The first sweep selected its starting artifact; all workers nevertheless
+spent their full1,024 TRAIN requests. The third PPO seed selected256 requests
+(27/36 validation captures) rather than its final checkpoint (24/36). Final TEST
+outcomes did not select or replace artifacts. This study does not establish a
+monotonic capture-rate learning curve or convergence.
+
+| Per-worker three-seed mean | Guided sweep | Residual PPO |
+|---|---:|---:|
+| Setup + TRAIN wall time, excluding evaluation |4,018.9 s |4,076.6 s |
+| Process CPU time, excluding evaluation |6,257.2 s |6,325.0 s |
+| Validation + TEST wall time |1,439.3 s |1,070.2 s |
+| Full GPU reservation, including evaluation |5,459.1 s |5,147.7 s |
+| Lifetime peak RSS |1,878.5 MiB |2,002.6 MiB |
+| Sampled peak process VRAM |1,092.0 MiB |1,216.0 MiB |
+
+These implementation costs include geometry checks and evidence I/O. They are
+not GPU kernel timings or minimal inference memory. Evaluation cost differs
+because the methods propose different actions; equal requested samples did not
+produce equal native-release counts. Full measurements and descriptive sample
+SDs are in the CSVs. Fast actor/library prediction still requires roughly300 s
+of geometry-only source resolution for the24-layout cohort, followed by exact
+action admission; it is not an end-to-end millisecond planner.
+
+The separate [read-only interface](http://127.0.0.1:18791/#sweepRlBenchmark) shows
+validation curves, admission reasons, costs and the audited frozen TEST records.
+Original v1/scenes remain separately labeled. No policy was activated, and no
+existing service,4070 workload, physical robot or Viam configuration changed.
+The next bounded step is a validation-only failure breakdown of geometry rejects
+versus admitted flight misses before choosing another training change.
+
 ## Reproduction
 
 Use the pinned environment in[requirements.txt](requirements.txt) with native
