@@ -209,6 +209,42 @@ class FilmTests(unittest.TestCase):
         self.assertEqual(before.getpixel((1500,40)),(0,0,0,0))
         self.assertGreater(after.getpixel((1500,40))[3],0)
 
+    def test_learning_plot_recomputes_rates_and_keeps_assessments_separate(self):
+        summary=dict(status="verified",learning_curve=self.curve,
+                     known_layout_assessments=self.assessments)
+        data=film.learning_plot_data(summary)
+        self.assertEqual(len(data["training"]),128)
+        self.assertEqual(data["training"][34],(35,34/35))
+        self.assertEqual([p["completed_train_batches"]for p in data["known_layout_checks"]],
+                         [0,32,64,128])
+        self.assertEqual(data["known_layout_checks"][-1]["captures"],128)
+        self.assertEqual(data["known_layout_checks"][-1]["attempts"],280)
+        broken=copy.deepcopy(summary);broken["learning_curve"][10]["captures"]+=1
+        with self.assertRaisesRegex(ValueError,"rates differ"):
+            film.learning_plot_data(broken)
+        broken=copy.deepcopy(summary);broken["known_layout_assessments"][0]["attempts"]=35
+        with self.assertRaisesRegex(ValueError,"assessment counts"):
+            film.learning_plot_data(broken)
+        broken=copy.deepcopy(summary);broken["status"]="in-progress"
+        with self.assertRaisesRegex(ValueError,"verified"):
+            film.learning_plot_data(broken)
+
+    @unittest.skipUnless(importlib.util.find_spec("PIL"), "Pillow is required for plot rendering")
+    def test_standalone_learning_curve_file_is_bound_by_its_image_hash(self):
+        from PIL import Image
+
+        summary=dict(status="verified",learning_curve=self.curve,
+                     known_layout_assessments=self.assessments)
+        output=self.root/"learning-curve.png"
+        metadata=film.render_learning_curve(summary,output)
+        self.assertEqual(metadata["sha256"],film.sha(output))
+        self.assertEqual(metadata["training_curve_points"],128)
+        self.assertEqual(metadata["known_layout_assessment_points"],4)
+        with Image.open(output) as image:
+            self.assertEqual(image.size,(1600,1000))
+        with self.assertRaisesRegex(ValueError,"must be new"):
+            film.render_learning_curve(summary,output)
+
 
 def math_log(value):
     import math
