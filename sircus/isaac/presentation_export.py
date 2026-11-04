@@ -62,6 +62,19 @@ def signed(value, label):
     return actual
 
 
+def verify_stage(actual, frozen_source):
+    """Compare the exact JSON renderer contract, including every original key.
+
+    Native JSON necessarily stores RGB tuples as lists. Normalize only this
+    serialization boundary; do not omit fields or introduce numeric tolerance.
+    """
+    expected = stage_settings()
+    expected["camera_backdrop"] = BACKDROP
+    expected = json.loads(json.dumps(expected, allow_nan=False))
+    require(actual == frozen_source == expected, "Silver-gray lighting or floor changed")
+    return expected
+
+
 def choose_prefix(chapters, target_frames=TARGET_FRAMES, maximum_speed=MAX_SPEED_MULTIPLE,
                   minimum_drops=MIN_FOREGROUND_DROPS):
     """First complete chronological prefix, with no outcome-based skipping.
@@ -267,8 +280,7 @@ def verify(run, source):
             and report["fps"] == FPS and report["physics_dt_s"] == DT
             and plan["camera"] == camera and plan["camera_binding"] == binding,
             "Camera/cadence changed")
-    expected_stage = stage_settings();expected_stage["camera_backdrop"] = BACKDROP
-    require(report["stage"] == expected_stage, "Silver-gray lighting or floor changed")
+    expected_stage = verify_stage(report["stage"], read(source/"result.json")["stage"])
     menus,menu_audit = load_native_menu(run/"expanded-menu-qualified.json",spec)
     require(len(menus) ==35 and all(len(m)>=2 for m in menus), "All farm sites need qualified source options")
     verify_probes(run,35)
@@ -343,6 +355,7 @@ def verify(run, source):
         source_code_sha256=recorded,
         exporter_code_sha256=sha(__file__),
         selected_camera_sha256=sha(run/"selected-camera.json"),camera=camera,camera_binding=binding,
+        stage=expected_stage,
         source=source_binding,geometry_menu=menu_audit,workcells=35,articulations=70,
         all_cycles=len(chapters),retained_complete_prefix_cycles=len(selected),
         omitted_cycles_reason="Chronological duration-only suffix; all source cycles and outcomes remain in raw evidence",
