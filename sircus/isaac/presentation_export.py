@@ -190,8 +190,8 @@ def verify_physics(run, clip, records, scene, origins, cells):
         i = frame["physics_step"] - clip["release_step"] - 1
         require(0 <= i < count and np.array_equal(frame["all_ball_world_m"], arrays["position_m"][i]),
                 "Camera ball readback differs from native packet")
-        for arm,name in enumerate(("Arm10", "Arm14")):
-            require(np.array_equal(frame["all_joints_rad"][name], arrays["joint_position_rad"][i,:,arm]),
+        for arm,arm_name in enumerate(("Arm10", "Arm14")):
+            require(np.array_equal(frame["all_joints_rad"][arm_name], arrays["joint_position_rad"][i,:,arm]),
                     "Camera articulation readback differs from native packet")
     telemetry=clip["focus_telemetry"]
     require(len(telemetry)==count,"Foreground JSON/native packet horizon changed")
