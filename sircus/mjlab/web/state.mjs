@@ -365,6 +365,31 @@ export function sweepRlFinalRows(report) {
       contextGeometryS: benchNumber(raw.context_resolution_timing?.geometry_s), contextPathS: benchNumber(raw.context_resolution_timing?.path_s) }];
   });
 }
+export function sweepRlFinalAggregate(report) {
+  const study = sweepRlStudy(report);
+  if (study?.version !== 'sircus-calibrated-sweep-rl-benchmark-v2') return null;
+  const methods = benchMethods(study), seeds = study.protocol?.seeds, rows = sweepRlFinalRows(report);
+  if (!methods.length || new Set(methods.map(m => m.id)).size !== methods.length || !Array.isArray(seeds)
+      || !seeds.length || seeds.some(seed => benchInteger(seed) === null) || new Set(seeds).size !== seeds.length
+      || rows.length !== methods.length * seeds.length) return null;
+  const seen = new Set(), allowedMethods = new Set(methods.map(m => m.id)), allowedSeeds = new Set(seeds);
+  for (const row of rows) {
+    const key = JSON.stringify([row.method, row.seed]);
+    if (!allowedMethods.has(row.method) || !allowedSeeds.has(row.seed) || seen.has(key)
+        || row.counts.attempts <= 0 || row.counts.clean === null) return null;
+    seen.add(key);
+  }
+  const totals = methods.map(method => {
+    const cohort = rows.filter(row => row.method === method.id);
+    const sum = key => cohort.reduce((total, row) => total + row.counts[key], 0);
+    const captures = sum('captures'), attempts = sum('attempts');
+    return { method: method.id, label: method.label, captures, attempts, clean: sum('clean'),
+      seeds: cohort.length, percent: 100 * captures / attempts };
+  });
+  const sweep = totals.find(row => row.method === 'sweep'), ppo = totals.find(row => row.method === 'ppo');
+  return { methods: totals, seedCount: seeds.length,
+    ppoMinusSweepPp: seeds.length === 3 && totals.length === 2 && sweep && ppo ? ppo.percent - sweep.percent : null };
+}
 export function sweepRlAdmissionRows(report) {
   const study = sweepRlStudy(report), labels = new Map(benchMethods(study).map(row => [row.id, row.label]));
   const seeds = new Set(Array.isArray(study?.protocol?.seeds) ? study.protocol.seeds : []), budget = benchInteger(study?.protocol?.sample_budget);

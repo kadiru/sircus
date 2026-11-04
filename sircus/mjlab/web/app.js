@@ -3,7 +3,7 @@ import { OrbitControls } from '/vendor/OrbitControls.js';
 import { contactStudy, contactGroups, contactConfigurations, transitRoutes, routePreview, configurationsCsv } from '/state.mjs';
 import { correctedGridProgress, correctedTrainingReadiness } from '/state.mjs';
 import { plannerReady, plannerOnly, searchReady, modeReady, plannerFarmRows, plannerGridRows, plannerGridSummary, plannerGridProgress, plannerGridCsv } from '/state.mjs';
-import { sweepRlStudy, sweepRlSummary, sweepRlProgress, sweepRlCompletedWorkers, sweepRlPoints, sweepRlCurves, sweepRlFinalRows, sweepRlStatusLabel, sweepRlCsv, sweepRlAdmissionRows, sweepRlHistory, historicalPlannerIsPreV2 } from '/state.mjs';
+import { sweepRlStudy, sweepRlSummary, sweepRlProgress, sweepRlCompletedWorkers, sweepRlPoints, sweepRlCurves, sweepRlFinalRows, sweepRlFinalAggregate, sweepRlStatusLabel, sweepRlCsv, sweepRlAdmissionRows, sweepRlHistory, historicalPlannerIsPreV2 } from '/state.mjs';
 import { studyReady, buildRequest, methodLabel, coverageRows, finiteVector, friendlyError, coverageSummary, comparisonRows, learningPoints, inStudiedRegion, BOARD_BODY_SIZE, bankComparisonRows, policyRouteLabel, poseInputValues, bankCoverageRows, bankCoverageStatus, formatMetric, solveButtonState, expansionTargetRows, expansionProgress, expandedComparisonRows, stableIkProgress, stableIkTargets, stableIkAuditRows, stableIkControlRows } from '/state.mjs';
 
 const $ = id => document.getElementById(id);
@@ -424,10 +424,10 @@ function showSweepRlBenchmark() {
   if (typeof report.sweep_rl_error === 'string') {
     $('sweepRlBenchmark').hidden = false; benchmarkSignature = '';
     $('benchmarkStatus').textContent = `Benchmark evidence unavailable · ${friendlyError(report.sweep_rl_error)}`;
-    for (const id of ['benchmarkSummary', 'benchmarkCaptureChart', 'benchmarkTimeChart', 'benchmarkResourceTable', 'benchmarkMilestones', 'benchmarkWorkerCosts', 'benchmarkFinalTable']) $(id).replaceChildren();
+    for (const id of ['benchmarkSummary', 'benchmarkCaptureChart', 'benchmarkTimeChart', 'benchmarkResourceTable', 'benchmarkMilestones', 'benchmarkWorkerCosts', 'benchmarkFinalTable', 'benchmarkFinalAggregateTable']) $(id).replaceChildren();
     $('benchmarkScope').textContent = 'The benchmark report could not be verified. No benchmark measurements are displayed.';
     $('benchmarkPrior').textContent = ''; $('benchmarkProgress').textContent = ''; $('benchmarkAudit').textContent = ''; $('benchmarkFinalStatus').textContent = 'Final results unavailable.'; $('benchmarkDownload').disabled = true;
-    for (const id of ['benchmarkRule', 'benchmarkAdmissionSection', 'benchmarkHistory']) $(id).hidden = true;
+    for (const id of ['benchmarkRule', 'benchmarkAdmissionSection', 'benchmarkHistory', 'benchmarkFinalAggregate']) $(id).hidden = true;
     return;
   }
   const study = sweepRlStudy(report), summary = sweepRlSummary(report);
@@ -481,6 +481,11 @@ function showSweepRlBenchmark() {
   expansionTable($('benchmarkAdmissionTable'), ['Method / seed', 'TRAIN requested', 'Native releases / setup rejects', 'Fixed-base rejects', 'Unresolved pre-policy anchors', 'Native numeric failures', 'Setup rejection reasons'], admission.map(row => [
     `${row.label}\nSeed ${row.seed}`, row.requested, `${row.native} / ${row.rejected}`, row.fixedBase ?? 'Unknown', row.anchorUnresolved ?? 'Unknown', row.invalidPhysics ?? 'Unknown', row.reasons.map(([reason, count]) => `${reason}: ${count}`).join('\n') || 'None observed']));
   $('benchmarkFinalStatus').textContent = summary.status === 'completed' && (!summary.calibrated || summary.testDisclosed) ? `${finals.length} frozen method/seed records. Test requests are separate from training and checkpoint-selection validation.` : summary.calibrated ? 'TEST results remain hidden until the full benchmark completes and its independent byte-bound audit passes. Validation is not final test performance.' : 'Final results remain pending until the benchmark completes. Validation is not final test performance.';
+  const aggregate = sweepRlFinalAggregate(report);
+  $('benchmarkFinalAggregate').hidden = !aggregate;
+  expansionTable($('benchmarkFinalAggregateTable'), ['Method', 'Captured / requested', 'Capture rate', 'Training seeds', 'Clean captures'],
+    aggregate ? aggregate.methods.map(row => [row.label, `${row.captures} / ${row.attempts}`, `${row.percent.toFixed(1)}%`, row.seeds, row.clean]) : []);
+  $('benchmarkFinalAggregateNote').textContent = aggregate ? `All requested cases, including admission rejects, remain in the denominator.${aggregate.ppoMinusSweepPp === null ? '' : ` Observed PPO − sweep difference: ${aggregate.ppoMinusSweepPp >= 0 ? '+' : ''}${aggregate.ppoMinusSweepPp.toFixed(1)} percentage points.`}` : '';
   expansionTable($('benchmarkFinalTable'), ['Frozen method', 'Seed', 'Selected training budget', 'Test captures', 'Clean', 'Native / rejected', summary.calibrated ? '24-layout prediction / pre-policy geometry' : '24-layout prediction + preparation', 'Artifact SHA256'], finals.map(row => [row.label, row.seed, row.selectedSamples ?? 'Unknown',
     benchmarkCounts(row.counts), row.counts.clean ?? 'Unknown', `${row.counts.nativeReleases ?? 'Unknown'} / ${row.counts.invalid ?? 'Unknown'}`,
     `${benchmarkNumber(row.queryS, ' s', 3)}${summary.calibrated ? ` / ${benchmarkNumber(row.contextResolutionS, ' s', 3)}` : ''}`, row.artifactSha]));

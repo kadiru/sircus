@@ -1,0 +1,17 @@
+{
+  "method": "ppo",
+  "seed": 20261411,
+  "selected_samples": 1024,
+  "artifact": {
+    "path": "checkpoints/milestone-1024.pt",
+    "sha256": "c3d032b1c3480f01919653fc8ddaa3bb27d5aa78b1e2c25a7fbd6428e00c538b",
+    "samples": 1024
+  },
+  "validation_key": [
+    23,
+    2.5670536877052856,
+    -1024
+  ],
+  "contract_fingerprint": "f96e6c9e0878564ef88c626cc2cbc46cc48a83f803a16300b3d1945d3fd62f11",
+  "frozen_before_test": true
+}

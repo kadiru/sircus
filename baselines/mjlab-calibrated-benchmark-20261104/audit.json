@@ -1,0 +1,346 @@
+{
+  "version": "sircus-calibrated-sweep-rl-independent-audit-v2",
+  "status": "passed",
+  "checks": 1204473,
+  "failures": [],
+  "study_kind": "native_current_ball_v2",
+  "synthetic_fixture": false,
+  "contract_fingerprint": "f96e6c9e0878564ef88c626cc2cbc46cc48a83f803a16300b3d1945d3fd62f11",
+  "report_sha256": "8d59cf3d44d6657aa8cddd5a22270e39f044357c51ebf690ae0ba940ccf44ba7",
+  "report_fingerprint": "a474d75d9740751fdb974772cb1e2f5160c8f1befc5fce192afb7edf9a1b8123",
+  "study_manifest_sha256": "970f2b079c5d00491e95b3f58bfd1180e58fd366d116e0ab4e44731073f9ccb4",
+  "auditor_sha256": "4f7af7da8789311769579ab87096d251e75455d4e146018c388c9a4a3812b5a9",
+  "auditor_dependencies": {
+    "sircus/mjlab/benchmark_verify.py": "3c66930551d675db092a2a23e43bdfe0e9587a4f3e739cb10dfd283a95ca961e",
+    "sircus/mjlab/verify_capture_calibration.py": "98f905394c0e7f2b082d7b60b51baedd95fd6984b5265f6e7673c56b963f9afe"
+  },
+  "source_sha256": {
+    "sircus/mjlab/contact_env.py": "04655f30a1b216c037573a0b5e177e6209097026f930fc6efc6dfef289abc3da",
+    "sircus/mjlab/contact_model.py": "b2d522d07dd2e3bffa724feb68593b3fef17033b5274587ef9d130e5c40aa24f",
+    "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+    "sircus/mjlab/contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407",
+    "sircus/mjlab/learning_score.py": "e66b982c0e651c3a9f5855dd03efb87488cc924321aaf9cadb80d51bac2fe814",
+    "sircus/mjlab/corrected_geometry.py": "50a4a353d94cceb1fbb0216a40588c997034a121e554f3f84f530d7d47c470be",
+    "sircus/mjlab/stable_geometry.py": "2e00b5fc46d1b253b5c85b6823c781a37e26f5819b35586a8cc112b057ebaebf",
+    "sircus/mjlab/stable_ik.py": "efd52c5e837339662c99c196e1a3cf4b5b260eecb7888258779030c459944e07",
+    "sircus/mjlab/expanded_actions.py": "d41817aa7ad4206139925256ab0cdf5288853e621d6b39824c10ad2d309679c3",
+    "sircus/mjlab/bank_geometry.py": "5c0d6775582c5524a323f1e9344c35317e8352e9f1f813f5dd0794c05de743f5",
+    "sircus/mjlab/bank_study.py": "7699faeff915a772f3e838983ff1c8dec7721f2d55c79a594e185cd9e08e7dcb",
+    "sircus/mjlab/transit_audit.py": "4400285187eebf3b1c7073a78ab74c94cbead88d52ffc5366e0258d2376f8c96",
+    "sircus/mjlab/admission.py": "2dbc5776113f8afb0ea74e23d0c3a2542fd0223d94a6818aec8de4865d302d82",
+    "sircus/mjlab/learning_env.py": "58d2f58be0e1981a5efd09e872bdea7d8f608e1fa21b5c87986505a20a4a4f8c",
+    "sircus/mjlab/learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+    "sircus/mjlab/learning_reach.py": "8eea1d565e9faefff0622a9e9a4666eb8d811ac086a8a6711caa8efa3029e9a4",
+    "sircus/mjlab/learning_contract.py": "9f2c44b76297f4ef7009c1b0107be983d0511d5654cb68b8e344dd316ed1fda8",
+    "sircus/mjlab/run.py": "969db2710378345aad34a6f802e33d6ea62488d75e560b9da5738bc0748c3dee",
+    "sircus/mjlab/corrected_contract.py": "9800404859a7ae2b2934c26ca448be4a69ae90e481069da72732973b1d907ba2",
+    "sircus/mjlab/corrected_admission.py": "3d42913fc2a9599b0e5063bfc4ee0a03f003b4ba853338e407c8a3d82de3d64a",
+    "sircus/mjlab/gpu_slot.py": "fcace6029058a9892296507358ee196b9b5296dc4287a07bedc786e3af4cad4a",
+    "sircus/mjlab/expand_geometry.py": "0b7982c3494b7cb7f799e073e3a7b788cca77617af0e9f509a4b7e273d926739",
+    "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+    "sircus/isaac/rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+    "sircus/isaac/entry_quality.py": "2f3d8b73c871a41afc3c8f333f5df1d54fa8751720855ffff517e729217db9d4",
+    "sircus/isaac/board_route.py": "6409889aed6b0fd6a288eb9494b954ec5c3233ec41fdcf146940fc23276fb2e9",
+    "sircus/mjlab/sweep_worker.py": "6150969a6f442e3b899d878671a4daf08cd90c61f0abf96494d418316e0e7a5b",
+    "sircus/mjlab/sweep_contract.py": "2460d8e807f06ad4bfe491491d011a448eaedea57ef4c7e727a1b10a54409a0a",
+    "sircus/mjlab/calibrated_benchmark_contract.py": "7d0964249d0f18604d9f17ef9662b5cd7878500e674f30f4f6eb55ae766491be",
+    "sircus/mjlab/calibrated_benchmark_run.py": "cfd92d6dc988167fc2ed055bf7a2770a9f39f293224189c521a1d55bde1454a8",
+    "sircus/mjlab/calibrated_benchmark_study.py": "352a5a867fecfe3a6bc53821a61860075807d12c81cdc30e0900ecbc118c9c3e",
+    "sircus/mjlab/calibrated_benchmark_smoke.py": "1312bf58912de62c239094fe51d4ee60dacdf795137a4b1951740488a78852a7",
+    "sircus/mjlab/calibrated_adapter.py": "58789fcbb7549a6d7ff0513de3e2878651d1aa72e4022c8b17f269c71e1c35f1",
+    "sircus/mjlab/calibrated_admission.py": "37d43d8503c4e0a9835d8ae8fe6793ee09938bc746f1a513af3e4aa2b6f295a8",
+    "sircus/mjlab/calibrated_env.py": "04818b0590936a471c5ea48f5cebd110e62975b7a4159d652349b69f53a256a5",
+    "sircus/mjlab/calibrated_score.py": "b90fb4886f2297534b81b399620c647952eb2e486217289c65548713977e3539",
+    "sircus/mjlab/calibrated_score_oracle.py": "74ff1b43d342a28e7b4af6d3ec757f577aec076ac286535f4c16e053e31a00df",
+    "sircus/mjlab/calibrated_native_log.py": "c555bc762116a18da2802321ba40248a7d2bbe7b9590e176853547e8a4c8272c",
+    "sircus/mjlab/capture_calibration.py": "3d508db4b25ee7daef2a862353650645b2479cba645259fa9627c85c6cbb8499",
+    "sircus/mjlab/benchmark_adapter.py": "85e3cee8b2714707772bb871f1a13f0f25bb8ce1f6c207a33c3f4efa946cf3c2",
+    "sircus/mjlab/benchmark_contract.py": "720394dafbdde1b56507a0abd6b64f82b29843037bce56e559f671995b62c63c",
+    "sircus/mjlab/benchmark_policy.py": "35cc605d17b7cdf02fcc1cf73b018bcefb98b172260a3a5ddc6856ac7d3779dc",
+    "sircus/mjlab/benchmark_resources.py": "4a535e1a1d91248d208dd44286c215439924a27e81b62ab7fce71284c94f14ba",
+    "sircus/mjlab/learning_policy.py": "5c37a248a0a44280f0f82fe3327973299ec6a4bbfccaaae9f750a898180c7792"
+  },
+  "requested_trials": 7440,
+  "native_releases": 5467,
+  "role_counts": {
+    "train": {
+      "attempts": 6144,
+      "captures": 2439,
+      "native_releases": 4380,
+      "invalid": 1774,
+      "clean": 842,
+      "mean_reward": 1.373197905420718
+    },
+    "validation": {
+      "attempts": 864,
+      "captures": 550,
+      "native_releases": 704,
+      "invalid": 160,
+      "clean": 260,
+      "mean_reward": 2.553598510088086
+    },
+    "test": {
+      "attempts": 432,
+      "captures": 175,
+      "native_releases": 383,
+      "invalid": 49,
+      "clean": 42,
+      "mean_reward": 1.5444929062703745
+    }
+  },
+  "admission_by_role": {
+    "train": {
+      "requested": 6144,
+      "native_releases": 4380,
+      "rejected": 1764,
+      "reasons": {
+        "board_bucket_distance_constraint_rejected": 27,
+        "finite_ik_unresolved": 855,
+        "strict_endpoint_clearance_or_pose_rejected": 416,
+        "action_bounds_rejected": 116,
+        "fixed_base_clearance_rejected": 350
+      },
+      "fixed_base_rejected": 350,
+      "anchor_unresolved": 350,
+      "invalid_physics": 10
+    },
+    "validation": {
+      "requested": 864,
+      "native_releases": 704,
+      "rejected": 160,
+      "reasons": {
+        "board_bucket_distance_constraint_rejected": 15,
+        "strict_endpoint_clearance_or_pose_rejected": 66,
+        "finite_ik_unresolved": 7,
+        "fixed_base_clearance_rejected": 72
+      },
+      "fixed_base_rejected": 72,
+      "anchor_unresolved": 72,
+      "invalid_physics": 0
+    },
+    "test": {
+      "requested": 432,
+      "native_releases": 383,
+      "rejected": 49,
+      "reasons": {
+        "board_bucket_distance_constraint_rejected": 3,
+        "finite_ik_unresolved": 15,
+        "strict_endpoint_clearance_or_pose_rejected": 9,
+        "action_bounds_rejected": 4,
+        "fixed_base_clearance_rejected": 18
+      },
+      "fixed_base_rejected": 18,
+      "anchor_unresolved": 18,
+      "invalid_physics": 0
+    }
+  },
+  "runs": [
+    {
+      "method": "ppo",
+      "seed": 20261411,
+      "requested": 1240,
+      "training_requests": 1024,
+      "provenance": {
+        "resolutions": 71,
+        "connections": 1240
+      },
+      "resources": {
+        "nvidia_samples": 4690,
+        "snapshots": 78
+      },
+      "native_releases": 959,
+      "contact_geometry": {
+        "zero_frame_contacts": 486,
+        "maximum_cpu_distance_error_m": 6.410296260472848e-08,
+        "maximum_cpu_tangency_distance_m": 1.0532599107465623e-07,
+        "references_sha256": "64ad0be0da3fa975f40d5e23136ebea891b9c6d30bc44a9250954bac3b92a4bb",
+        "all_zero_frame_contacts_checked": true,
+        "treatment": "No direction inferred; zero frames accepted only within fixed2um exact tangency and independently checked same-pair PREstate CPU geomDistance"
+      }
+    },
+    {
+      "method": "ppo",
+      "seed": 20261412,
+      "requested": 1240,
+      "training_requests": 1024,
+      "provenance": {
+        "resolutions": 71,
+        "connections": 1240
+      },
+      "resources": {
+        "nvidia_samples": 4864,
+        "snapshots": 78
+      },
+      "native_releases": 972,
+      "contact_geometry": {
+        "zero_frame_contacts": 482,
+        "maximum_cpu_distance_error_m": 1.0568772651486924e-07,
+        "maximum_cpu_tangency_distance_m": 1.4242339297504403e-07,
+        "references_sha256": "650252101588eb97fa17f25b77f1a0bb3e9a663d520fbee4a8c2bdcea64d5897",
+        "all_zero_frame_contacts_checked": true,
+        "treatment": "No direction inferred; zero frames accepted only within fixed2um exact tangency and independently checked same-pair PREstate CPU geomDistance"
+      }
+    },
+    {
+      "method": "ppo",
+      "seed": 20261413,
+      "requested": 1240,
+      "training_requests": 1024,
+      "provenance": {
+        "resolutions": 71,
+        "connections": 1240
+      },
+      "resources": {
+        "nvidia_samples": 4966,
+        "snapshots": 78
+      },
+      "native_releases": 963,
+      "contact_geometry": {
+        "zero_frame_contacts": 408,
+        "maximum_cpu_distance_error_m": 5.588705548342787e-08,
+        "maximum_cpu_tangency_distance_m": 1.6334731121891988e-07,
+        "references_sha256": "8760ca4764c5daffb2ea694297fb1ef27f8ff5ab74e664988643c3902f3f6d2b",
+        "all_zero_frame_contacts_checked": true,
+        "treatment": "No direction inferred; zero frames accepted only within fixed2um exact tangency and independently checked same-pair PREstate CPU geomDistance"
+      }
+    },
+    {
+      "method": "sweep",
+      "seed": 20261411,
+      "requested": 1240,
+      "training_requests": 1024,
+      "provenance": {
+        "resolutions": 71,
+        "connections": 1195
+      },
+      "resources": {
+        "nvidia_samples": 4972,
+        "snapshots": 78
+      },
+      "native_releases": 857,
+      "contact_geometry": {
+        "zero_frame_contacts": 360,
+        "maximum_cpu_distance_error_m": 7.355207671394526e-08,
+        "maximum_cpu_tangency_distance_m": 1.1453026999702631e-07,
+        "references_sha256": "cd62c469cc601aebe5921add4473e21078c0d19bd472f52025bfc6a4f0f7c588",
+        "all_zero_frame_contacts_checked": true,
+        "treatment": "No direction inferred; zero frames accepted only within fixed2um exact tangency and independently checked same-pair PREstate CPU geomDistance"
+      }
+    },
+    {
+      "method": "sweep",
+      "seed": 20261412,
+      "requested": 1240,
+      "training_requests": 1024,
+      "provenance": {
+        "resolutions": 71,
+        "connections": 1189
+      },
+      "resources": {
+        "nvidia_samples": 5465,
+        "snapshots": 78
+      },
+      "native_releases": 838,
+      "contact_geometry": {
+        "zero_frame_contacts": 319,
+        "maximum_cpu_distance_error_m": 5.930573156176511e-08,
+        "maximum_cpu_tangency_distance_m": 1.3869368624408462e-07,
+        "references_sha256": "3116282a03b65b972c5752d89ee6dc4ff1afef480f49daed2a2e50acd91c4cd9",
+        "all_zero_frame_contacts_checked": true,
+        "treatment": "No direction inferred; zero frames accepted only within fixed2um exact tangency and independently checked same-pair PREstate CPU geomDistance"
+      }
+    },
+    {
+      "method": "sweep",
+      "seed": 20261413,
+      "requested": 1240,
+      "training_requests": 1024,
+      "provenance": {
+        "resolutions": 71,
+        "connections": 1174
+      },
+      "resources": {
+        "nvidia_samples": 4974,
+        "snapshots": 78
+      },
+      "native_releases": 878,
+      "contact_geometry": {
+        "zero_frame_contacts": 340,
+        "maximum_cpu_distance_error_m": 6.927887116064957e-08,
+        "maximum_cpu_tangency_distance_m": 1.7833002525363684e-07,
+        "references_sha256": "4e2a85c6050dbd21af7d719bbed76dba9213879954b71a7690bc67c33ce34e7a",
+        "all_zero_frame_contacts_checked": true,
+        "treatment": "No direction inferred; zero frames accepted only within fixed2um exact tangency and independently checked same-pair PREstate CPU geomDistance"
+      }
+    }
+  ],
+  "elapsed_s": 240.8445289520314,
+  "maximum_numeric_error": {
+    "Shared five-parameter residual bounds": 0.0,
+    "Unconditional fresh coordinates": 0.0,
+    "Declared sampling time step": 0.0,
+    "Dense scoring time step": 0.0,
+    "Full declared horizon": 0.0,
+    "One continuous second required": 0.0,
+    "calibrated terminal reward": 0.0,
+    "TRAIN coordinate": 0.0,
+    "Bounded residual action": 0.0,
+    "Requested policy action": 0.0,
+    "No training action substitution": 0.0,
+    "observation after fixed geometry resolution": 0.0,
+    "q10": 2.3779985269811732e-07,
+    "q14": 2.3825403872024253e-07,
+    "runtime collision planes match calibration": 0.0,
+    "explicit canonical native ticks": 0.0,
+    "reported actual native clock drift": 0.0,
+    "release target bound to drop gap": 0.0,
+    "observed time-zero ball association": 0.0,
+    "dense time-zero release pose": 2.9799831935406473e-08,
+    "native bucket matches requested layout": 4.7683715642676816e-08,
+    "reported actual board center error": 0.0,
+    "reported actual board angle error": 3.096694216157825e-10,
+    "max_retention_s": 0.0,
+    "closest_opening_distance_m": 5.551115123125783e-17,
+    "Declared initial exploration": 0.0,
+    "observation buffer": 0.0,
+    "latent buffer": 0.0,
+    "behavior likelihood buffer": 0.0,
+    "native reward buffer": 2.3822918926441616e-07,
+    "behavior log probabilities": 2.86102294921875e-06,
+    "logstd": 0.0,
+    "actor.0.weight": 0.0,
+    "actor.0.bias": 0.0,
+    "actor.2.weight": 0.0,
+    "actor.2.bias": 0.0,
+    "actor.4.weight": 0.0,
+    "actor.4.bias": 0.0,
+    "critic.0.weight": 0.0,
+    "critic.0.bias": 0.0,
+    "critic.2.weight": 0.0,
+    "critic.2.bias": 0.0,
+    "critic.4.weight": 0.0,
+    "critic.4.bias": 0.0,
+    "mean_reward": 0.0,
+    "Direct prediction coordinate": 0.0,
+    "Direct prediction observation": 0.0,
+    "Independent frozen actor prediction": 5.960464477539063e-08,
+    "Frozen base action without outcome search": 2.295498759963266e-07,
+    "No action replacement after prediction": 0.0,
+    "Paired placement perturbation": 0.0,
+    "Exact realized request, no projection": 0.0,
+    "Pre-prediction geometry plus frozen policy timing": 0.0,
+    "geometry_s": 0.0,
+    "gpu_s": 0.0,
+    "path_s": 0.0,
+    "context_resolution_s": 0.0,
+    "postprocess_s": 0.0,
+    "Measured TRAIN admission wall prefix": 0.0,
+    "independent TRAIN sweep action": 0.0
+  },
+  "scope": "Independent CPU fresh-split/budget/source/calibration/home/proof checks, direct prediction and actual PPO/Adam replay, and dense native-interval oracle rescoring; no new rollout.",
+  "limitations": [
+    "Sampled geometry proofs are hash/semantic checked, not a new continuous collision proof.",
+    "Measured memory includes simulator/evaluation; telemetry is sampled; instrumented wall time is not kernel utilization.",
+    "Current-ball privileged-geometry held-endpoint shot selection, not physical grasp/transit/compliance validation."
+  ]
+}
