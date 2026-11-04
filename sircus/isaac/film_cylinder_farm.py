@@ -58,8 +58,33 @@ p.add_argument(
 )
 p.add_argument("--expanded-qualify-only", action="store_true")
 p.add_argument("--expanded-options-per-cell", type=int, default=4)
+p.add_argument(
+    "--presentation-source", type=Path,
+    help="Completed native expanded run supplying geometry-only filming menus",
+)
+p.add_argument("--presentation-camera-json", type=Path)
+p.add_argument("--presentation-batches", type=int, default=30)
 AppLauncher.add_app_launcher_args(p)
 args = p.parse_args()
+from presentation_recording import validate_options
+
+try:
+    presentation = validate_options(
+        args.presentation_source, args.presentation_camera_json,
+        args.presentation_batches, appearance=args.appearance,
+        incompatible=bool(
+            args.training_camera_json or args.geometry_menu_source
+            or args.expanded_pose_menu or args.expanded_qualify_only
+            or args.expanded_options_per_cell != 4 or args.dark_replay
+            or args.resume_filming or args.camera_json or args.preview_only
+            or args.camera_previews or args.camera_option is not None
+            or args.scout_snapshot or args.camera_right_m != 0
+            or args.camera_z_m is not None
+            or args.recording_plan != "fixed-station-v1"
+        ),
+    )
+except ValueError as error:
+    p.error(str(error))
 training_camera = args.training_camera_json is not None
 menu_inputs = int(args.geometry_menu_source is not None) + int(
     args.expanded_pose_menu is not None
@@ -319,7 +344,17 @@ def main():
     torch.manual_seed(SEED)
     cfg = json.loads(Path(__file__).with_name("scene.json").read_text())
     poses = json.loads((Path(args.assets) / "poses.json").read_text())
-    if args.expanded_pose_menu is not None:
+    presentation_bundle = None
+    if presentation:
+        from presentation_recording import load_source
+
+        presentation_bundle = load_source(
+            args.presentation_source, args.presentation_camera_json
+        )
+        spec = copy.deepcopy(presentation_bundle["spec"])
+        if spec["scene"] != cfg:
+            raise ValueError("Presentation requires the unchanged source scene")
+    elif args.expanded_pose_menu is not None:
         from expanded_farm import make_spec
 
         spec = make_spec(cfg, len(SHOTS))
@@ -327,9 +362,11 @@ def main():
         spec = specification(cfg, len(SHOTS))
     saved_camera = None
     camera_binding = None
-    camera_path = args.training_camera_json or args.camera_json
+    camera_path = (
+        args.presentation_camera_json or args.training_camera_json or args.camera_json
+    )
     if camera_path is not None:
-        if args.expanded_pose_menu is not None:
+        if args.expanded_pose_menu is not None or presentation:
             from expanded_farm import bind_camera
             from camera_options import preview_origins
 
@@ -342,9 +379,12 @@ def main():
 
             saved_camera = load_camera(camera_path, spec["fingerprint"])
             shutil.copyfile(camera_path, dest / "selected-camera.json")
-    atomic(
-        dest / ("source-contract.json" if args.dark_replay else "contract.json"), spec
-    )
+    if presentation:
+        shutil.copyfile(args.presentation_source / "contract.json", dest / "contract.json")
+    else:
+        atomic(
+            dest / ("source-contract.json" if args.dark_replay else "contract.json"), spec
+        )
     sim = sim_utils.SimulationContext(
         sim_utils.SimulationCfg(
             dt=cfg["simulation"]["physics_dt_s"],
@@ -371,7 +411,7 @@ def main():
     layout = origins
     scene_type = RectangularScene
     shots_type = FilmShots
-    if args.dark_replay or training_camera:
+    if args.dark_replay or training_camera or presentation:
         import dark_stage
         from dark_replay import ReplayShots, run_replay
 
@@ -385,6 +425,7 @@ def main():
             args.camera_previews
             or args.recording_plan == "chosen-farm-v1"
             or training_camera
+            or presentation
         ):
             from camera_options import preview_origins
             from camera_preview import configure_backdrop
@@ -395,7 +436,13 @@ def main():
         class CompactScene(RectangularScene):
             grid_origins = staticmethod(layout)
 
-        if training_camera:
+        if presentation:
+            from presentation_recording import PresentationShots
+
+            class CompactShots(PresentationShots, FilmShots):
+                pass
+
+        elif training_camera:
             from action_training import ActionTrainingShots
 
             class CompactShots(ActionTrainingShots, FilmShots):
@@ -430,7 +477,7 @@ def main():
     )
     if not np.array_equal(env.origins, layout()):
         raise ValueError("Isaac workcell origins disagree with the 5 by 7 layout")
-    if args.dark_replay or training_camera:
+    if args.dark_replay or training_camera or presentation:
         env.stage_metadata = stage_settings()
         env.saved_camera = saved_camera
         if camera_binding is not None:
@@ -439,6 +486,7 @@ def main():
             args.camera_previews
             or args.recording_plan == "chosen-farm-v1"
             or training_camera
+            or presentation
         ):
             env.stage_metadata["camera_backdrop"] = preview_backdrop
         if args.preview_only or args.camera_previews:
@@ -506,6 +554,11 @@ def main():
     env.probe_positions["table"] = [1.313, -0.625, 0.25]
     probes = env.probes()
     atomic(dest / "probes.json", probes)
+    if presentation:
+        from presentation_recording import run_presentation
+
+        run_presentation(env, presentation_bundle, args.presentation_batches)
+        return
     if training_camera:
         from action_training import run_training
 
