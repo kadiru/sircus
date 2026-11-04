@@ -10,6 +10,11 @@ none captured. All 24 parent controls reproduced. The 2,435-check independent au
 passed. Its read-only `#lowBoardStudy` shows failures and geometry limits; no
 successful recipe or fresh-repeat evidence was invented.
 
+The next [exact shallow-board candidate test](sircus/mjlab/SHALLOW_STUDY.md) tests
+H380 mm /28° /gap386.8 mm at the same four far targets, with captures-only fresh
+paired repeats. Its separate `#shallowBoardStudy` retains prior results; native
+outcomes are pending at source freeze. No new policy is trained or activated.
+
 Two UFACTORY850 arms learn to bounce a ball from a suction-mounted board into a bucket. Arm10 picks/releases; arm14 positions the board. This private repository is the shared source for Mac physical work and Ubuntu simulation work.
 
 The current goal is a simulation showcase with an interactively placed bucket and optional constraints on either arm. [The mjlab/Isaac comparison](baselines/mjlab-comparison-20261102/README.md) establishes the second engine's two-arm geometry and shared scoring.

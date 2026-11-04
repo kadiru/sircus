@@ -1,0 +1,87 @@
+{
+  "version": "sircus-exact-shallow-candidate-cpu-preflight-v1",
+  "status": "passed",
+  "scope": "Exact4endpoint CPU geometry only; no GPU, ball flight, capture, service/physics/source changes or motion-path guarantee.",
+  "parent_fingerprint": "2581c867b89056977d7085e3be115da6b5bbe9562b24d816ddb2a1b219bbca74",
+  "scene_sha256": "08984872d9b68722f41b51f5e0421b061f83eeb7bcc370bcba1e8fee1086d130",
+  "source_sha256": {
+    "sircus/mjlab/distance_geometry.py": "bc7276a7104680c32220dfc589cd46793beffab6166d64da0956e4bc2ed8e507",
+    "sircus/mjlab/window_geometry.py": "27d16ebae82a53a7f9b948cfc0a67bc25618dcd2b11462b6969ac62dbbb779cf",
+    "sircus/mjlab/neighborhood_geometry.py": "036bd12f0a57c8494f98b480f828190e9e4bdb24b8dbc869c46111917be2c2cc",
+    "sircus/mjlab/expand_geometry.py": "0b7982c3494b7cb7f799e073e3a7b788cca77617af0e9f509a4b7e273d926739",
+    "sircus/mjlab/learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+    "sircus/mjlab/stable_ik.py": "efd52c5e837339662c99c196e1a3cf4b5b260eecb7888258779030c459944e07",
+    "sircus/mjlab/admission.py": "2dbc5776113f8afb0ea74e23d0c3a2542fd0223d94a6818aec8de4865d302d82",
+    "sircus/mjlab/corrected_geometry.py": "50a4a353d94cceb1fbb0216a40588c997034a121e554f3f84f530d7d47c470be",
+    "sircus/mjlab/transit_audit.py": "4400285187eebf3b1c7073a78ab74c94cbead88d52ffc5366e0258d2376f8c96"
+  },
+  "exact_candidate": {
+    "board_height_m": 0.38,
+    "tilt_deg": 28,
+    "gap_m": 0.3868,
+    "requested_ball_center_height_m": 0.8043
+  },
+  "previous_posthoc_gap_m": 0.38682433804868066,
+  "gap_difference_m": -0.000024338048680683233,
+  "elapsed_s": 2.34945380105637,
+  "gap_difference_micrometres": -24.338048680683233,
+  "endpoint_requests": 4,
+  "endpoints_admitted": 4,
+  "per_distance": [
+    {
+      "distance_id": "corner-d01",
+      "distance_m": 0.65,
+      "source_anchor_id": "recipe-08",
+      "board_pose_admitted": true,
+      "paired_endpoint_admitted": true,
+      "minimum_clearance_lower_bound_m": 0.005969445772255888,
+      "maximum_full_native_position_error_m": 6.658603545374472e-10,
+      "maximum_full_native_rotation_error_rad": 9.010481417286291e-10,
+      "board_branch_sha256": "7b739fae0148abaecc8743b2e2debac43826f3a008f084254b798d83152782e6"
+    },
+    {
+      "distance_id": "corner-d02",
+      "distance_m": 0.7,
+      "source_anchor_id": "recipe-08",
+      "board_pose_admitted": true,
+      "paired_endpoint_admitted": true,
+      "minimum_clearance_lower_bound_m": 0.005969445772255888,
+      "maximum_full_native_position_error_m": 6.658603545374472e-10,
+      "maximum_full_native_rotation_error_rad": 9.010481417286291e-10,
+      "board_branch_sha256": "7d63445f88498d3ea2475a5f6b14635ba6b8a0b6c8c217d598645e38a27a4a3a"
+    },
+    {
+      "distance_id": "corner-d03",
+      "distance_m": 0.75,
+      "source_anchor_id": "recipe-08",
+      "board_pose_admitted": true,
+      "paired_endpoint_admitted": true,
+      "minimum_clearance_lower_bound_m": 0.005969445772255888,
+      "maximum_full_native_position_error_m": 6.658603545374472e-10,
+      "maximum_full_native_rotation_error_rad": 9.010481417286291e-10,
+      "board_branch_sha256": "e67c1834a6b43b3d51ed3d9d98bf8bb52b30e6e0c372792e8fa85d59098310f6"
+    },
+    {
+      "distance_id": "corner-d04",
+      "distance_m": 0.77,
+      "source_anchor_id": "recipe-08",
+      "board_pose_admitted": true,
+      "paired_endpoint_admitted": true,
+      "minimum_clearance_lower_bound_m": 0.005969445772255888,
+      "maximum_full_native_position_error_m": 6.658603545374472e-10,
+      "maximum_full_native_rotation_error_rad": 9.010481417286291e-10,
+      "board_branch_sha256": "5c39c9bd21c165074dbed1274e7efbf62a54cf1903b730e0451cd86ff6186c17"
+    }
+  ],
+  "minimum_clearance_lower_bound_m": 0.005969445772255888,
+  "maximum_full_native_position_error_m": 6.658603545374472e-10,
+  "cuda_disabled": true,
+  "native_flights_executed": 0,
+  "capture_outcomes_tested": false,
+  "discovery_and_repeats_status": "pending",
+  "raw_evidence_reference": "temporary/shallow-board-exact-cpu-preflight.json",
+  "raw_proof_sha256": "4fede69be6bbdc98d83dc43688808c33662f52465f16c0bc1b197b472448afa9",
+  "comparison_scope": "Exact requested gap386.8mm is24.338micrometres below the previous CPU proposal386.824338mm. It was solved as a distinct exact request; no capture or contact-repeatability equivalence is inferred.",
+  "boundary_scope": "Independent strict full-pose/5mmendpoint checks only; no arm transit, actuator tracking, actual safe-height boundary or physical validation.",
+  "privacy_scope": "Only requested settings, scalar error/clearance metrics and source/proof hashes; no joint arrays, raw poses/trajectories, credentials or host paths."
+}

@@ -1,5 +1,19 @@
 # Project state
 
+## Exact shallow-board candidate — source freeze November 3, 2026
+
+- [Frozen protocol](../sircus/mjlab/SHALLOW_STUDY.md): H380 mm,28° tilt,exact
+  gap386.8 mm (ball-center804.3 mm); four same corner targets650/700/750/770 mm.
+- 24 exact parent controls +4 discovery shots at64; actual captures only get
+  3 nominal +30 fresh H/tilt/gap-noise requests paired at32/64/128. Maximum424
+  requests, no parameter refinement, clipping, resampling or hidden retries.
+- Native outcomes pending at this source freeze. Independent source/geometry/
+  scoring audit and separate `#shallowBoardStudy` will distinguish all requests,
+  actual releases, controls, capture quality and repeated qualification.
+- Shared4090 lock preserves concurrent work; no4070 orIsaac changes. This is
+  engineering feasibility/repeatability, not newRL or arbitrary table coverage.
+  Prior evidence,scoring,provisionalbucketheight and active policies preserved.
+
 ## Completed lower-board far-target study — November 3, 2026
 
 - [Results and exact settings](../baselines/mjlab-lowboard-20261103/README.md):

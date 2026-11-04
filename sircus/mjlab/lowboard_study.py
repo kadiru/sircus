@@ -28,7 +28,7 @@ def storage_check(path):
     return dict(free_bytes=free,study_bytes=used,maximum_study_bytes=256*1024**2,minimum_free_bytes=512*1024**2)
 
 
-def _run(a):
+def _run(a, protocol=protocol):
     from .bank_study import run_bank_rows,unresolved_row
     from .distance_geometry import DistanceGeometry,audit_distance_variations
     from .learning_solve import required_asset_paths
@@ -82,7 +82,7 @@ def _run(a):
         completed=[]
         for offset in range(0,len(requests),a.batch):
             chunk=copy.deepcopy(requests[offset:offset+a.batch]);packet=len(batches)
-            for r in chunk:r.update(id=f'lowboard-shot-{sequence:06d}',substeps=step);sequence+=1
+            for r in chunk:r.update(id=f'{getattr(protocol,"RECORD_PREFIX","lowboard-shot-")}{sequence:06d}',substeps=step);sequence+=1
             plan_file=f'plan-{packet:04d}.json';geo_file=f'geometry-{packet:04d}.json';atomic(a.output/plan_file,chunk)
             gates=copy.deepcopy(audited[offset:offset+a.batch]) if audited is not None else geometry.audit([r['context_id'] for r in chunk],[r['gap_m'] for r in chunk])
             atomic(a.output/geo_file,dict(record_ids=[r['id'] for r in chunk],rows=gates));eligible=np.asarray([g['eligible'] for g in gates],bool)
