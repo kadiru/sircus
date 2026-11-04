@@ -1,5 +1,12 @@
 # Project state
 
+## One-minute native farm presentation — November 4, 2026
+
+- [Film and reproduction](../sircus/isaac/PRESENTATION_FILM.md), [compact evidence](../baselines/isaac-presentation-film-20261104/README.md): 60 seconds of fresh native Isaac Sim/PhysX, 35 tables/70 arms, exact saved fixed camera and unchanged silver-gray look. Chronological foreground trials retain setup/drop/outcome, with simultaneous background drops; quiet tails removed. No ball tracking, looping or generated replacement imagery.
+- Final edit: 24 foreground drops, 22 captures and two table misses; 1,827 action frames uniformly retimed 1.015× to 1,800 unique frames at 1080p/30 fps. The full 30-cycle source contains 1,050 attempts, 1,049 releases and 329 captures. All 35 cells released; one original settling-correction IK rejection is retained. These are saved-configuration filming trials with scripted transit and initialized releases, not new PPO updates or held-out performance.
+- All-cell 240 Hz state/score audit, exact camera/stage/source checks, fresh contact/rim probes, full video decode, Mac transfer hashes and representative native/encoded-frame visual review passed. 243 local tests completed successfully with eight dependency skips. Raw media/telemetry remain outside Git, with compact per-cell counts and manifest published.
+- Finite 4090 capture exited successfully; 4070 workload and existing dashboard processes were preserved. About 80 GiB free. Completed learning benchmarks and historical geometry/scoring definitions remain separate. No hardware, Viam, audio or service deployment.
+
 ## Expanded farm: all 35 sites released — November 2, 2026
 
 - [Method and reproduction](../sircus/isaac/EXPANDED_FARM_POSES.md), [results and evidence](../baselines/isaac-expanded-farm-20261102/README.md): the completed v4 run made 350/350 releases, ten at each of the 35 unchanged bucket sites, with zero invalid trials. Five PPO updates produced 111 qualified captures, including 59 clean and 101 single-board-bounce captures. These are training outcomes, not a held-out performance estimate.
