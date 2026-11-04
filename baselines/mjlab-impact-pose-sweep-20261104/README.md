@@ -87,7 +87,10 @@ hardware, Viam and audio were untouched.
 
 Open [the read-only interface](http://127.0.0.1:18793/#impactPoseSweep), choose a
 source posture, click a grid square and inspect exact settings, impact poses and
-the recorded replay. This view cannot run new shots or command hardware.
+the recorded replay. This view cannot run new shots or command hardware. Live checks verified all27
+recorded replay GETs,18 rejected cases without a trajectory (404), and POST405.
+Browser checks covered posture switching, rejected-cell replay gating, exact
+settings and recorded integrated FK playback through impact.
 
 This compact bundle contains exact metadata and checksums only. The derived
 manifest references unbundled native packets, paths and replay files retained on
