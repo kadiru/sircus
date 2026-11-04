@@ -220,7 +220,7 @@ def diagnose_native(row, scene, calibration, arrays):
     require(bool(accepted is not None) == bool(row["board_bounce"]), "Accepted rebound reconstruction differs")
     if row["invalid_physics"]: category = "invalid_physics"
     elif row["route_success"]: category = "captured_clean" if row["route_quality"] == 2 else "captured_assisted"
-    elif row["success"]: category = "external_disqualified_retention"
+    elif row["success"] and row["external_contact_steps"]: category = "external_disqualified_retention"
     elif not row["board_bounce"]: category = "no_board_bounce"
     elif row["whole_ball_entry"]: category = "entry_not_retained"
     else: category = "no_whole_ball_entry"
