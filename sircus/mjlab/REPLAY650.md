@@ -63,6 +63,12 @@ python -m sircus.mjlab.replay650_pipeline \
 ```
 
 The independent audit is `python -m sircus.mjlab.replay650_verify --help`.
+Auditor v2 reads cadence from the actual frozen fit/verification fixture records;
+the original v1 checker incorrectly expected a timestep inside the contact-only
+score configuration. The revised checker runs from a separate snapshot with
+`--source` pointing to the original immutable producer. It records its own and
+imported dependency hashes separately. No native observations or scoring rules
+change, and no physics retry is needed for this offline correction.
 The additive HTML/CSS/module fragment is `web/replay650.html`; inline its explicit
 style/script placeholders when the existing viewer does not serve new filenames.
 The panel makes a read-only GET to `/api/study` and requires the exact completed

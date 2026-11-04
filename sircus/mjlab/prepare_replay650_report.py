@@ -14,6 +14,7 @@ import time
 
 KEY = "calibrated650_replay"
 VERSION = "sircus-calibrated-650-replay-v1"
+AUDIT_VERSION = "sircus-calibrated-650-independent-audit-v2"
 TERMINAL = {"completed", "failed", "cancelled", "blocked_geometry", "blocked_storage", "blocked_resources"}
 GEOMETRY = ("id", "role", "group_id", "gap_m", "board_height_m", "tilt_deg", "release_center_height_m",
     "ball_radius_m", "distance_m", "board_xy_m", "bucket_xy_m", "scope", "source_record_id", "source_record_sha256", "source_contract_fingerprint")
@@ -41,7 +42,7 @@ def full_audit_verified(raw, audit):
     checks, count = audit.get("checks"), audit.get("checks_count")
     fingerprint = raw.get("contract_fingerprint")
     return bool(raw.get("version") == VERSION and raw.get("status") == "completed" and raw.get("phase") == "completed" and
-        isinstance(fingerprint, str) and fingerprint and audit.get("status") == "passed" and
+        isinstance(fingerprint, str) and fingerprint and audit.get("version") == AUDIT_VERSION and audit.get("status") == "passed" and
         audit.get("contract_fingerprint") == fingerprint and not audit.get("failures") and
         isinstance(checks, list) and checks and isinstance(count, int) and not isinstance(count, bool) and count > 0 and
         count == len(checks) and all(isinstance(c, dict) and c.get("passed") is True for c in checks))
@@ -123,7 +124,7 @@ def prepare(base_display, study, output):
         except (OSError, ValueError):
             audit_bytes, audit = None, {}
         audit = audit if isinstance(audit, dict) else {}
-        value["audit"] = select(audit, ("status", "contract_fingerprint", "checks_count", "reason", "limitations", "report_sha256", "evidence_manifest_sha256"))
+        value["audit"] = select(audit, ("version", "status", "contract_fingerprint", "checks_count", "reason", "limitations", "report_sha256", "evidence_manifest_sha256"))
         try:
             manifest_bytes = (study / "evidence-manifest.json").read_bytes()
         except OSError:

@@ -8,7 +8,7 @@ function fixture(){
   const group=(id,role,distance,captures)=>({id,role,distance_m:distance,board_xy_m:[0,0],bucket_xy_m:[distance,0],board_height_m:.38,tilt_deg:28,gap_m:.3868,release_center_height_m:.8043,
     by_substeps:Object.fromEntries(['64','128'].map(s=>[s,{attempts:3,native_releases:3,captures,invalid:0,clean:0,whole_entries:captures,max_retention_s:captures?1.2:0}])),
     sensitivity:{paired_attempts:3,capture_agreement:3,nominal_position_delta_350ms_max_m:.002}});
-  return {version:ui.VERSION,status:'completed',phase:'completed',contract_fingerprint:'replay',audit:{status:'passed',contract_fingerprint:'replay',checks_count:1,full_checks_verified:true,source_sha256:'a'.repeat(64)},
+  return {version:ui.VERSION,status:'completed',phase:'completed',contract_fingerprint:'replay',audit:{version:ui.AUDIT_VERSION,status:'passed',contract_fingerprint:'replay',checks_count:1,full_checks_verified:true,bound_files_verified:true,source_sha256:'a'.repeat(64)},
     settings:{candidate:{board_height_m:.38,tilt_deg:28,gap_m:.3868,release_center_height_m:.8043,distance_m:.65},
       controls:{positive_control:{id:'positive-control',role:'positive_control'},negative_control:{id:'negative-control',role:'negative_control'}},
       gaps_m:[.3768,.3808,.3848,.3868,.3888],substeps:[64,128]},
@@ -31,6 +31,7 @@ const flush=()=>new Promise(resolve=>setImmediate(resolve));
 test('initial gate requires matching full audit, exact controls, explicit booleans and drift',()=>{
   let raw=fixture();assert.equal(ui.replay650Gate(raw).qualified,true);
   for(const corrupt of [r=>r.status='running',r=>r.phase='window-128',r=>r.version='historical',r=>r.audit.contract_fingerprint='old',r=>r.audit.full_checks_verified='true',
+    r=>delete r.audit.version,r=>r.audit.version='old-audit',r=>r.audit.bound_files_verified=false,r=>r.audit.bound_files_verified='true',
     r=>r.audit.checks_count=0,r=>r.audit.source_sha256='bad',r=>delete r.gate.physics_valid,r=>delete r.gate.window_opened,r=>r.groups[0].by_substeps['64'].captures=2]){
     raw=fixture();corrupt(raw);assert.equal(ui.replay650Gate(raw).qualified,null);
   }
