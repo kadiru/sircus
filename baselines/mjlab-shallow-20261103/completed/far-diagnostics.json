@@ -1,0 +1,350 @@
+{
+  "version": "sircus-shallow-four-flight-cpu-diagnosis-v1",
+  "created_utc": "2026-11-04T18:10:33.539786+00:00",
+  "scope": "Post-hoc CPU diagnosis of four saved DEVELOPMENT discovery flights, one per distance. No new physics, scorer change, qualification, reliability/probability estimate or policy training.",
+  "contract_fingerprint": "c4e59119e71f724b1e1941ae080e40c8aa001d954356715188895803fcd41a84",
+  "raw_study_relative_path": "output/shallow-v1",
+  "source_relative_path": "studies/shallow-v1",
+  "source_artifacts_sha256": {
+    "contract.json": "b21f603864f9c02504be57bedbe3b9ce28292fb98b3929853a6db0883552e996",
+    "report.json": "e1a949c04ea92af2a6b5ec5b05c3fa9b1b4391831b515c75196272c7b7fc35f2",
+    "records.jsonl": "b1a44093647cc41a2b6c96147ab6516c4dbfb41cdfbcc10abb8f5fe658912403",
+    "evidence-manifest.json": "01eb783ffc688873108698548313c60a66a9d4d8a4a60809ce20e2254a980830",
+    "audit-shallow.json": "3210d5d4725deea6c5ef963730e02f82785d94d85ab45e49d07e8813099c1bd4",
+    "effective-options.json": "4d9e842cad8cf87d98418e102d227232df163710d78f2fdae7c3f0dae20f74d2",
+    "native-0001.npz": "1094eb1c0b02505d8c4f6a42bc9bfb03e7d3e7608e7d3573c55b15f23bd97643"
+  },
+  "native_wall_contact_and_scorer_source_sha256": {
+    "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+    "sircus/mjlab/contact_model.py": "b2d522d07dd2e3bffa724feb68593b3fef17033b5274587ef9d130e5c40aa24f",
+    "sircus/mjlab/contact_env.py": "04655f30a1b216c037573a0b5e177e6209097026f930fc6efc6dfef289abc3da",
+    "sircus/mjlab/timestep_env.py": "6efe3593d51960fbae2dc01e641198d6da9dba31869b7c77708cc8b6cf7578cd",
+    "sircus/mjlab/contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407",
+    "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+    "sircus/isaac/rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+    "sircus/isaac/entry_quality.py": "2f3d8b73c871a41afc3c8f333f5df1d54fa8751720855ffff517e729217db9d4",
+    "sircus/isaac/board_route.py": "6409889aed6b0fd6a288eb9494b954ec5c3233ec41fdcf146940fc23276fb2e9"
+  },
+  "collector_sha256": "471ca05e3438d6b696fa538c1e1f5312ea829d8dc4ca6da10639a100242f6aed",
+  "independent_audit": {
+    "status": "passed",
+    "checks_count": 359,
+    "native_tested_substeps": [
+      64
+    ]
+  },
+  "predicate": {
+    "version": "unchanged archived ShotScore",
+    "geometry_epsilon_m": 0.000001,
+    "continuous_retention_required_s": 1,
+    "floor_tolerance_m": 0.001,
+    "contact_threshold_N": 0.01,
+    "bucket_top_m": 0.183,
+    "bucket_floor_m": 0.008,
+    "ball_radius_m": 0.0375,
+    "tapered_wall_planes": 64,
+    "top": "center_z + radius <= bucket_top + geometry_epsilon",
+    "bottom": "center_z - radius >= bucket_floor - 0.001",
+    "side": "(inner_plane_at_center_z - maximum_wall_normal_projection) / sqrt(1+taper_slope^2) >= radius - geometry_epsilon",
+    "reset": "Any failed whole-sphere predicate resets continuous retention to zero; entered flag remains true."
+  },
+  "timing_scope": "Saved positions/velocities at240Hz, contact forces are native-substep maxima. Contact times resolve4.17ms intervals. Plane crossings interpolate adjacent saved samples before ANY nonboard contact, and missing/censored crossings are never extrapolated.",
+  "plane_scope": "Signed forward error and conservative axis band are one-dimensional explanatory proxies, not sphere-entry or maximum-range guarantees. No claim that absent/censored crossings would be short or long.",
+  "aggregate": {
+    "discovery_flights": 4,
+    "strict_captures": 0,
+    "whole_ball_entries": 1,
+    "retained_captures": 0
+  },
+  "flights": [
+    {
+      "record_id": "shallow-shot-000024",
+      "distance_id": "corner-d01",
+      "distance_m": 0.65,
+      "requested_settings": {
+        "board_height_m": 0.38,
+        "tilt_deg": 28,
+        "gap_m": 0.3868,
+        "ball_center_release_height_m": 0.8043
+      },
+      "substeps": 64,
+      "native_release": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "strict_route_capture": false,
+      "historical_retained_capture": false,
+      "closest_opening_distance_m": 0.032518523929448394,
+      "bucket_contact_before_entry": true,
+      "rim_band_contact": true,
+      "minimum_mouth_clearance_mm": 0.17284865833979562,
+      "partial_top_exit_flag": true,
+      "first_board_contact_s": 0.2791666666666667,
+      "first_bucket_contact_s": 0.6,
+      "first_external_contact_s": null,
+      "first_external_categories": [],
+      "first_external_order": "none",
+      "external_contact_steps": 0,
+      "pre_first_nonboard_descending_planes": {
+        "center_at_rim": {
+          "observed": false,
+          "reason": "nonboard_contact_before_crossing_or_no_crossing"
+        },
+        "whole_ball_below_rim": {
+          "observed": false,
+          "reason": "nonboard_contact_before_crossing_or_no_crossing"
+        }
+      },
+      "retention": {
+        "first_whole_entry_s": 1.0208333333333333,
+        "maximum_continuous_retention_s": 0.5124999999999994,
+        "retention_reset_count": 25,
+        "reset_predicate_counts": {
+          "top": 1,
+          "side": 24
+        },
+        "first_reset": {
+          "reset_time_s": 1.1666666666666667,
+          "previous_continuous_retention_s": 0.14583333333333337,
+          "failed_predicates": [
+            "top"
+          ],
+          "predicate_margins_m": {
+            "top": -0.0018531259765625016,
+            "bottom": 0.10285412597656249,
+            "side": 0.0030255536644739484
+          }
+        },
+        "longest_segment_reset": {
+          "reset_time_s": 2.216666666666667,
+          "previous_continuous_retention_s": 0.5124999999999994,
+          "failed_predicates": [
+            "side"
+          ],
+          "predicate_margins_m": {
+            "top": 0.09999730916118621,
+            "bottom": 0.001003690838813783,
+            "side": -0.000008414745012536029
+          }
+        },
+        "first_partial_top_exit_s": 1.1666666666666667,
+        "after_entry_predicate_violation_samples": {
+          "top": 31,
+          "bottom": 0,
+          "side": 25,
+          "whole_ball_above_rim": 0
+        },
+        "minimum_after_entry_predicate_margins_m": {
+          "top": -0.019985887097358705,
+          "bottom": 0.0005212508440017713,
+          "side": -0.00019261954354844735
+        },
+        "terminal_predicate_margins_m": {
+          "top": 0.10000109405612945,
+          "bottom": 0.0009999059438705457,
+          "side": 0.00007186920438248534
+        },
+        "terminal_continuous_retention_s": 0.024999999999999998,
+        "observation_scope": "Predicate failures are not automatically physical bucket escape. Whole-ball-above-rim samples are reported separately; late side-margin resets require contact/geometry tolerance diagnosis."
+      },
+      "recorded_bucket_collider_error_m": 0,
+      "scalar_rescore_matches": true
+    },
+    {
+      "record_id": "shallow-shot-000025",
+      "distance_id": "corner-d02",
+      "distance_m": 0.7,
+      "requested_settings": {
+        "board_height_m": 0.38,
+        "tilt_deg": 28,
+        "gap_m": 0.3868,
+        "ball_center_release_height_m": 0.8043
+      },
+      "substeps": 64,
+      "native_release": true,
+      "board_bounce": true,
+      "whole_ball_entry": false,
+      "strict_route_capture": false,
+      "historical_retained_capture": false,
+      "closest_opening_distance_m": 0.1418947850920213,
+      "bucket_contact_before_entry": true,
+      "rim_band_contact": true,
+      "minimum_mouth_clearance_mm": -397.06617509132195,
+      "partial_top_exit_flag": false,
+      "first_board_contact_s": 0.2791666666666667,
+      "first_bucket_contact_s": 0.6125,
+      "first_external_contact_s": 0.6833333333333333,
+      "first_external_categories": [
+        "table"
+      ],
+      "first_external_order": "after_bucket_contact_before_whole_entry",
+      "external_contact_steps": 194,
+      "pre_first_nonboard_descending_planes": {
+        "center_at_rim": {
+          "observed": false,
+          "reason": "nonboard_contact_before_crossing_or_no_crossing"
+        },
+        "whole_ball_below_rim": {
+          "observed": false,
+          "reason": "nonboard_contact_before_crossing_or_no_crossing"
+        }
+      },
+      "retention": {
+        "first_whole_entry_s": null,
+        "maximum_continuous_retention_s": 0,
+        "retention_reset_count": 0,
+        "reset_predicate_counts": {},
+        "first_reset": null,
+        "longest_segment_reset": null,
+        "first_partial_top_exit_s": null,
+        "after_entry_predicate_violation_samples": null,
+        "minimum_after_entry_predicate_margins_m": null,
+        "terminal_predicate_margins_m": null,
+        "terminal_continuous_retention_s": 0,
+        "observation_scope": "Predicate failures are not automatically physical bucket escape. Whole-ball-above-rim samples are reported separately; late side-margin resets require contact/geometry tolerance diagnosis."
+      },
+      "recorded_bucket_collider_error_m": 0,
+      "scalar_rescore_matches": true
+    },
+    {
+      "record_id": "shallow-shot-000026",
+      "distance_id": "corner-d03",
+      "distance_m": 0.7499999999999999,
+      "requested_settings": {
+        "board_height_m": 0.38,
+        "tilt_deg": 28,
+        "gap_m": 0.3868,
+        "ball_center_release_height_m": 0.8043
+      },
+      "substeps": 64,
+      "native_release": true,
+      "board_bounce": true,
+      "whole_ball_entry": false,
+      "strict_route_capture": false,
+      "historical_retained_capture": false,
+      "closest_opening_distance_m": 0.13684808885076888,
+      "bucket_contact_before_entry": true,
+      "rim_band_contact": false,
+      "minimum_mouth_clearance_mm": -253.9374668088776,
+      "partial_top_exit_flag": false,
+      "first_board_contact_s": 0.2791666666666667,
+      "first_bucket_contact_s": 0.65,
+      "first_external_contact_s": 0.6708333333333333,
+      "first_external_categories": [
+        "table"
+      ],
+      "first_external_order": "after_bucket_contact_before_whole_entry",
+      "external_contact_steps": 405,
+      "pre_first_nonboard_descending_planes": {
+        "center_at_rim": {
+          "observed": true,
+          "time_s": 0.6125252544445046,
+          "forward_from_board_m": 0.565084584517327,
+          "signed_forward_error_from_bucket_center_m": -0.18491541548267287,
+          "lateral_from_bucket_axis_m": 0.006314607197286604,
+          "conservative_axis_band_half_width_m": 0.05089339787415776,
+          "axis_band_proxy_class": "short"
+        },
+        "whole_ball_below_rim": {
+          "observed": true,
+          "time_s": 0.6279337485407892,
+          "forward_from_board_m": 0.5911655876667018,
+          "signed_forward_error_from_bucket_center_m": -0.1588344123332981,
+          "lateral_from_bucket_axis_m": 0.006602220560648742,
+          "conservative_axis_band_half_width_m": 0.05089339787415776,
+          "axis_band_proxy_class": "short"
+        }
+      },
+      "retention": {
+        "first_whole_entry_s": null,
+        "maximum_continuous_retention_s": 0,
+        "retention_reset_count": 0,
+        "reset_predicate_counts": {},
+        "first_reset": null,
+        "longest_segment_reset": null,
+        "first_partial_top_exit_s": null,
+        "after_entry_predicate_violation_samples": null,
+        "minimum_after_entry_predicate_margins_m": null,
+        "terminal_predicate_margins_m": null,
+        "terminal_continuous_retention_s": 0,
+        "observation_scope": "Predicate failures are not automatically physical bucket escape. Whole-ball-above-rim samples are reported separately; late side-margin resets require contact/geometry tolerance diagnosis."
+      },
+      "recorded_bucket_collider_error_m": 0,
+      "scalar_rescore_matches": true
+    },
+    {
+      "record_id": "shallow-shot-000027",
+      "distance_id": "corner-d04",
+      "distance_m": 0.77,
+      "requested_settings": {
+        "board_height_m": 0.38,
+        "tilt_deg": 28,
+        "gap_m": 0.3868,
+        "ball_center_release_height_m": 0.8043
+      },
+      "substeps": 64,
+      "native_release": true,
+      "board_bounce": true,
+      "whole_ball_entry": false,
+      "strict_route_capture": false,
+      "historical_retained_capture": false,
+      "closest_opening_distance_m": 0.15099512225592765,
+      "bucket_contact_before_entry": true,
+      "rim_band_contact": false,
+      "minimum_mouth_clearance_mm": -218.1410647783991,
+      "partial_top_exit_flag": false,
+      "first_board_contact_s": 0.2791666666666667,
+      "first_bucket_contact_s": 0.6625,
+      "first_external_contact_s": 0.6708333333333333,
+      "first_external_categories": [
+        "table"
+      ],
+      "first_external_order": "after_bucket_contact_before_whole_entry",
+      "external_contact_steps": 442,
+      "pre_first_nonboard_descending_planes": {
+        "center_at_rim": {
+          "observed": true,
+          "time_s": 0.6125252544445046,
+          "forward_from_board_m": 0.5650845845173269,
+          "signed_forward_error_from_bucket_center_m": -0.2049154154826731,
+          "lateral_from_bucket_axis_m": 0.006314607197286548,
+          "conservative_axis_band_half_width_m": 0.05089339787415776,
+          "axis_band_proxy_class": "short"
+        },
+        "whole_ball_below_rim": {
+          "observed": true,
+          "time_s": 0.6279337485407892,
+          "forward_from_board_m": 0.5911655876667017,
+          "signed_forward_error_from_bucket_center_m": -0.17883441233329833,
+          "lateral_from_bucket_axis_m": 0.006602220560648686,
+          "conservative_axis_band_half_width_m": 0.05089339787415776,
+          "axis_band_proxy_class": "short"
+        }
+      },
+      "retention": {
+        "first_whole_entry_s": null,
+        "maximum_continuous_retention_s": 0,
+        "retention_reset_count": 0,
+        "reset_predicate_counts": {},
+        "first_reset": null,
+        "longest_segment_reset": null,
+        "first_partial_top_exit_s": null,
+        "after_entry_predicate_violation_samples": null,
+        "minimum_after_entry_predicate_margins_m": null,
+        "terminal_predicate_margins_m": null,
+        "terminal_continuous_retention_s": 0,
+        "observation_scope": "Predicate failures are not automatically physical bucket escape. Whole-ball-above-rim samples are reported separately; late side-margin resets require contact/geometry tolerance diagnosis."
+      },
+      "recorded_bucket_collider_error_m": 0,
+      "scalar_rescore_matches": true
+    }
+  ],
+  "privacy_scope": "Derived scalar metrics, event summaries and hashes only; no raw joints, pose/velocity/force sample arrays, host paths or credentials.",
+  "mouth_clearance_metric_scope": "Archived EntryQuality minimum over mouth-height samples before first whole entry. For shots with no entry, this may include later contact-influenced excursions; it is not a first-rim clearance measurement.",
+  "failure_interpretation": {
+    "corner_d01": "Whole entry followed by one observed partial top exit and later wall-side predicate resets. The longest0.5125s segment ends8.415micrometres beyond the unchanged1micrometre side tolerance. No whole-ball-above-rim sample or external contact was observed after entry; no physical escape is inferred from a predicate reset alone.",
+    "corner_d02": "Bucket/rim contact precedes an observed unassisted descending rim-plane crossing, so that crossing is censored; later table contact and no whole entry.",
+    "corner_d03_and_d04": "Observed unassisted rim-center crossings are short of bucket center by184.915/204.915mm with about6.315mm lateral offset, followed by bucket-exterior/table contact and no entry.",
+    "one_shot_scope": "One discovery flight per distance. These observations are not capture probabilities, repeatability results, timestep convergence or proof of infeasibility."
+  },
+  "next_bounded_diagnostic": "Replay the exact650mm shot under the existing separately versioned calibrated native contract with its matching controls and64/128verification. This follow-up was not performed by the present diagnostic. Preserve this historical strict miss and its original1micrometre geometry tolerance; never relabel its saved result under another contract. No new calibration study or broad gap/RL search is proposed here."
+}

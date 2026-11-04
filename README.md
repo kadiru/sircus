@@ -10,10 +10,11 @@ none captured. All 24 parent controls reproduced. The 2,435-check independent au
 passed. Its read-only `#lowBoardStudy` shows failures and geometry limits; no
 successful recipe or fresh-repeat evidence was invented.
 
-The next [exact shallow-board candidate test](sircus/mjlab/SHALLOW_STUDY.md) tests
-H380 mm /28° /gap386.8 mm at the same four far targets, with captures-only fresh
-paired repeats. Its separate `#shallowBoardStudy` retains prior results; native
-outcomes are pending at source freeze. No new policy is trained or activated.
+The [completed exact shallow-board candidate](baselines/mjlab-shallow-20261103/README.md)
+H380 mm /28° /gap386.8 mm missed all four far discovery shots; all24 controls
+reproduced and359 audit checks passed. At650 mm the ball fully entered, but strict
+retention reached only 0.5125 s. Saved wall-boundary resets make replay under the
+existing parallel calibrated contract the next priority before more search or RL. Prior results remain separate.
 
 Two UFACTORY850 arms learn to bounce a ball from a suction-mounted board into a bucket. Arm10 picks/releases; arm14 positions the board. This private repository is the shared source for Mac physical work and Ubuntu simulation work.
 

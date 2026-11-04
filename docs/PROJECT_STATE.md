@@ -1,18 +1,31 @@
 # Project state
 
-## Exact shallow-board candidate — source freeze November 3, 2026
+## Completed shallow-board candidate — verified November 4, 2026
 
-- [Frozen protocol](../sircus/mjlab/SHALLOW_STUDY.md): H380 mm,28° tilt,exact
-  gap386.8 mm (ball-center804.3 mm); four same corner targets650/700/750/770 mm.
-- 24 exact parent controls +4 discovery shots at64; actual captures only get
-  3 nominal +30 fresh H/tilt/gap-noise requests paired at32/64/128. Maximum424
-  requests, no parameter refinement, clipping, resampling or hidden retries.
-- Native outcomes pending at this source freeze. Independent source/geometry/
-  scoring audit and separate `#shallowBoardStudy` will distinguish all requests,
-  actual releases, controls, capture quality and repeated qualification.
-- Shared4090 lock preserves concurrent work; no4070 orIsaac changes. This is
-  engineering feasibility/repeatability, not newRL or arbitrary table coverage.
-  Prior evidence,scoring,provisionalbucketheight and active policies preserved.
+- [Results and diagnosis](../baselines/mjlab-shallow-20261103/README.md): exact
+  H380 mm /28° /gap386.8 mm, release804.3 mm; one native discovery at each of
+  650/700/750/770 mm. All four endpoints admitted; all strict captures failed.
+  All24 controls reproduced.359 independent audit checks passed,28 flights
+  rescored;85.90 s native run. No captured recipe, no repeats,64 substeps only.
+- At 650 mm achieved whole entry and0.5125 s longest strict retention. It had early
+  partial top exit and later small side-plane violations; no post-entry sample
+  placed the whole ball above the rim, and no external assistance was recorded.
+  One longest-segment reset had−0.008415 mm side margin. Do not relabel this as
+  a successful capture or claim a confirmed full escape.
+- Next: reuse the parallel calibrated contract (branch
+  `codex/macbook-calibrated-benchmark`,9019ff4,PR62) for fresh650 mm matched-control
+  replay and64/128 validation. That completed branch already addresses simulated
+  soft-contact containment; no duplicate calibration, silent score relaxation,
+  old-result relabeling or merge occurred here. Its PPO97/216 vs sweep78/216 TEST
+  uses different scoring/cohorts and remains separate. Only then consider a small
+  fixedH/T gap window, followed by fresh qualification. No new run launched.
+- Execution274d27e, fingerprintc4e59119e71f724b…; immutable
+  `studies/shallow-v1` /`output/shallow-v1`. Read-only completed viewer
+  `#shallowBoardStudy`; worker/audit exited normally. LocalSSHforward restored
+  during results check; no service restarts,4070 orIsaac deployment changes.
+  Curated metrics/hashes inGit; raw arrays, joints, logs and credentials excluded.
+  This remains feasibility/numerical validation, not newRL, physical work or
+  arbitrary table coverage. Historical fingerprints/bucket uncertainty preserved.
 
 ## Completed lower-board far-target study — November 3, 2026
 
