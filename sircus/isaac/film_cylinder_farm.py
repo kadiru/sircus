@@ -64,6 +64,9 @@ p.add_argument(
 )
 p.add_argument("--presentation-camera-json", type=Path)
 p.add_argument("--presentation-batches", type=int, default=30)
+p.add_argument("--rl-study-source", type=Path,
+               help="Completed native expanded run supplying geometry-only PPO options")
+p.add_argument("--rl-study-camera-json", type=Path)
 AppLauncher.add_app_launcher_args(p)
 args = p.parse_args()
 from presentation_recording import validate_options
@@ -81,6 +84,25 @@ try:
             or args.scout_snapshot or args.camera_right_m != 0
             or args.camera_z_m is not None
             or args.recording_plan != "fixed-station-v1"
+        ),
+    )
+except ValueError as error:
+    p.error(str(error))
+from rl_film_study import validate_options as validate_rl_options
+try:
+    rl_study = validate_rl_options(
+        args.rl_study_source, args.rl_study_camera_json,
+        appearance=args.appearance,
+        incompatible=bool(
+            presentation or args.training_camera_json or args.geometry_menu_source
+            or args.expanded_pose_menu or args.expanded_qualify_only
+            or args.expanded_options_per_cell != 4 or args.dark_replay
+            or args.resume_filming or args.camera_json or args.preview_only
+            or args.camera_previews or args.camera_option is not None
+            or args.scout_snapshot or args.camera_right_m != 0
+            or args.camera_z_m is not None
+            or args.recording_plan != "fixed-station-v1"
+            or args.presentation_batches != 30
         ),
     )
 except ValueError as error:
@@ -345,11 +367,12 @@ def main():
     cfg = json.loads(Path(__file__).with_name("scene.json").read_text())
     poses = json.loads((Path(args.assets) / "poses.json").read_text())
     presentation_bundle = None
-    if presentation:
+    if presentation or rl_study:
         from presentation_recording import load_source
 
         presentation_bundle = load_source(
-            args.presentation_source, args.presentation_camera_json
+            args.rl_study_source if rl_study else args.presentation_source,
+            args.rl_study_camera_json if rl_study else args.presentation_camera_json,
         )
         spec = copy.deepcopy(presentation_bundle["spec"])
         if spec["scene"] != cfg:
@@ -363,10 +386,11 @@ def main():
     saved_camera = None
     camera_binding = None
     camera_path = (
-        args.presentation_camera_json or args.training_camera_json or args.camera_json
+        args.rl_study_camera_json or args.presentation_camera_json
+        or args.training_camera_json or args.camera_json
     )
     if camera_path is not None:
-        if args.expanded_pose_menu is not None or presentation:
+        if args.expanded_pose_menu is not None or presentation or rl_study:
             from expanded_farm import bind_camera
             from camera_options import preview_origins
 
@@ -381,6 +405,8 @@ def main():
             shutil.copyfile(camera_path, dest / "selected-camera.json")
     if presentation:
         shutil.copyfile(args.presentation_source / "contract.json", dest / "contract.json")
+    elif rl_study:
+        shutil.copyfile(args.rl_study_source / "contract.json", dest / "contract.json")
     else:
         atomic(
             dest / ("source-contract.json" if args.dark_replay else "contract.json"), spec
@@ -411,7 +437,7 @@ def main():
     layout = origins
     scene_type = RectangularScene
     shots_type = FilmShots
-    if args.dark_replay or training_camera or presentation:
+    if args.dark_replay or training_camera or presentation or rl_study:
         import dark_stage
         from dark_replay import ReplayShots, run_replay
 
@@ -426,6 +452,7 @@ def main():
             or args.recording_plan == "chosen-farm-v1"
             or training_camera
             or presentation
+            or rl_study
         ):
             from camera_options import preview_origins
             from camera_preview import configure_backdrop
@@ -436,7 +463,13 @@ def main():
         class CompactScene(RectangularScene):
             grid_origins = staticmethod(layout)
 
-        if presentation:
+        if rl_study:
+            from rl_film_study import RLStudyShots
+
+            class CompactShots(RLStudyShots, FilmShots):
+                pass
+
+        elif presentation:
             from presentation_recording import PresentationShots
 
             class CompactShots(PresentationShots, FilmShots):
@@ -477,7 +510,7 @@ def main():
     )
     if not np.array_equal(env.origins, layout()):
         raise ValueError("Isaac workcell origins disagree with the 5 by 7 layout")
-    if args.dark_replay or training_camera or presentation:
+    if args.dark_replay or training_camera or presentation or rl_study:
         env.stage_metadata = stage_settings()
         env.saved_camera = saved_camera
         if camera_binding is not None:
@@ -487,6 +520,7 @@ def main():
             or args.recording_plan == "chosen-farm-v1"
             or training_camera
             or presentation
+            or rl_study
         ):
             env.stage_metadata["camera_backdrop"] = preview_backdrop
         if args.preview_only or args.camera_previews:
@@ -554,6 +588,11 @@ def main():
     env.probe_positions["table"] = [1.313, -0.625, 0.25]
     probes = env.probes()
     atomic(dest / "probes.json", probes)
+    if rl_study:
+        from rl_film_study import run_study
+
+        run_study(env, presentation_bundle)
+        return
     if presentation:
         from presentation_recording import run_presentation
 
