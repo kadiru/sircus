@@ -44,8 +44,10 @@ For each case, bucket XY and board XYZ stay fixed. The only varied values are:
 - Bucket-facing board tilt: baseline minus 4°, baseline, baseline plus 4°.
 
 This gives 12 requested grid points per case, including its exact baseline,
-followed by three fresh nominal repeats of its selected setting: 48 search plus
-12 confirmation requests for four cases. Two separate logger-equivalence
+followed by three fresh nominal repeats of its selected setting. The actual
+source-bound plan has three qualifying postures at two bucket positions: 36
+search plus nine confirmation requests. A missing method/layout example is not
+invented. Two separate logger-equivalence
 engineering throws are outside that budget. Selection uses capture, quality,
 retention, observed opening proximity, then stable request ID. A case with no
 admitted native request remains unresolved; its baseline repeats still count as

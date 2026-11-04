@@ -356,7 +356,7 @@ def build_report(plan, rows, output, scene, calibration):
         plan_sha256=sha(output / "plan.json"), layouts=layouts,
         summary=dict(requests=len(rows), **{k: v for k, v in count(rows).items() if k != "attempts"},
                      sweep=count(sweep), confirmation=count([r for r in rows if r["phase"] == "confirmation"])),
-        limitations=[SCOPE, "Only the two observed-short validation bucket positions and four source postures are diagnosed; no all-table coverage.",
+        limitations=[SCOPE, f"Only {len({c['context_id'] for c in plan['layouts']})} observed-short validation bucket positions and {len(plan['layouts'])} source postures are diagnosed; no all-table coverage.",
             "Three repeated nominal executions establish local repeatability only; no perturbation robustness or generalization claim.",
             "Frozen benchmark policies, original results, calibration/scoring and final TEST remain unchanged."])
 
