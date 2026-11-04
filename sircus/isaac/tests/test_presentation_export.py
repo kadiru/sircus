@@ -159,6 +159,8 @@ class PresentationExportTests(unittest.TestCase):
     def test_all35_native_records_are_independently_rescored(self):
         _, clip, rows, scene, origins, cells = self.physics_fixture()
         summary, audits = exporter.verify_physics(self.root,clip,rows,scene,origins,cells)
+        self.assertEqual(summary["file"], "physics-00.npz")
+        self.assertEqual(summary["sha256"], exporter.sha(self.root/summary["file"]))
         self.assertEqual(summary["rescored_worlds"],35)
         self.assertEqual(len(audits),35)
         self.assertTrue(all(a["scoring_stop_step"] == 2 for a in audits))
