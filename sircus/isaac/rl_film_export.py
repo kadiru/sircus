@@ -396,6 +396,110 @@ def make_overlay(summary,batch,reveal_current):
     return overlay
 
 
+def learning_plot_data(summary):
+    """Recompute plotted rates from verified integer counts, including rejects."""
+    require(summary.get("status") == "verified", "Plot requires verified study data")
+    curve = summary["learning_curve"]
+    assessments = summary["known_layout_assessments"]
+    require(len(curve) == 128 and len(assessments) == 4, "Incomplete learning plot data")
+    raw, rolling = [], []
+    for batch, point in enumerate(curve):
+        require(point["batch"] == batch and point["completed_train_batches"] == batch+1
+                and point["attempts"] == 35 and type(point["captures"]) is int
+                and 0 <= point["captures"] <= 35,
+                "Learning plot training counts changed")
+        rate = point["captures"]/35
+        recent = curve[max(0, batch-7):batch+1]
+        smoothed = sum(p["captures"] for p in recent)/(35*len(recent))
+        require(np.isclose(point["batch_capture_rate"], rate, atol=1e-12, rtol=0)
+                and np.isclose(point["rolling_capture_rate"], smoothed, atol=1e-12, rtol=0),
+                "Learning plot rates differ from attempted-shot counts")
+        raw.append((batch+1, rate))
+        rolling.append((batch+1, smoothed))
+    checks = []
+    for stage, point in zip(ASSESSMENT_STAGES, assessments):
+        require(point["after_train_batches"] == stage and point["attempts"] == 280
+                and type(point["captures"]) is int and 0 <= point["captures"] <= 280,
+                "Learning plot assessment counts changed")
+        rate = point["captures"]/280
+        require(np.isclose(point["capture_rate"], rate, atol=1e-12, rtol=0),
+                "Learning plot assessment rate differs from counts")
+        checks.append(dict(completed_train_batches=stage, capture_rate=rate,
+                           captures=point["captures"], attempts=280,
+                           wilson95=wilson(point["captures"], 280)))
+    return dict(training=raw, rolling8=rolling, known_layout_checks=checks)
+
+
+def render_learning_curve(summary, output):
+    """Save a standalone plot with final results readable beyond the video tail."""
+    from PIL import Image, ImageDraw, ImageFont
+
+    output = Path(output)
+    require(not output.exists(), "Learning plot output must be new")
+    data = learning_plot_data(summary)
+    font = caption_font()
+    require(font is not None, "An installed DejaVu/Arial font is required")
+    fonts = {size: ImageFont.truetype(str(font), size) for size in (19, 21, 24, 34)}
+    image = Image.new("RGB", (1600, 1000), (24, 31, 40))
+    draw = ImageDraw.Draw(image)
+    draw.text((55, 30), "SIRCUS · Actual PPO learning results", font=fonts[34], fill=(238, 244, 248))
+    draw.text((57, 82), "35 known bucket layouts · 4,480 training attempts · 64 PPO updates",
+              font=fonts[21], fill=(186, 207, 224))
+    draw.line((64, 131, 109, 131), fill=(134, 153, 171), width=2)
+    draw.text((120, 118), "Training batch (35 attempts)", font=fonts[19], fill=(195, 210, 224))
+    draw.line((505, 131, 550, 131), fill=(85, 211, 238), width=4)
+    draw.text((562, 118), "Previous 8 completed batches", font=fonts[19], fill=(195, 210, 224))
+    draw.ellipse((1009, 125, 1021, 137), fill=(245, 199, 95))
+    draw.text((1034, 118), "Frozen-policy known-layout check", font=fonts[19], fill=(195, 210, 224))
+    x0, y0, x1, y1 = 110, 218, 1510, 805
+
+    def position(batch, rate):
+        return x0+(x1-x0)*batch/128, y1-(y1-y0)*rate
+
+    draw.text((55, 172), "Capture rate (% of all attempted shots)", font=fonts[21], fill=(213, 225, 236))
+    for percent in (0, 25, 50, 75, 100):
+        _, y = position(0, percent/100)
+        draw.line((x0, y, x1, y), fill=(63, 79, 96), width=1)
+        draw.text((49, y-12), f"{percent}%", font=fonts[21], fill=(170, 190, 208))
+    for batch in (0, 32, 64, 96, 128):
+        x, _ = position(batch, 0)
+        draw.line((x, y0, x, y1), fill=(44, 60, 77), width=1)
+        label = str(batch)
+        box = draw.textbbox((0, 0), label, font=fonts[21])
+        draw.text((x-(box[2]-box[0])/2, y1+12), label, font=fonts[21], fill=(170, 190, 208))
+    draw.line([position(x, y) for x, y in data["training"]], fill=(134, 153, 171), width=2)
+    draw.line([position(x, y) for x, y in data["rolling8"]], fill=(85, 211, 238), width=4)
+    for point in data["known_layout_checks"]:
+        batch, rate = point["completed_train_batches"], point["capture_rate"]
+        x, y = position(batch, rate)
+        low, high = point["wilson95"]
+        _, low_y = position(batch, low)
+        _, high_y = position(batch, high)
+        draw.line((x, low_y, x, high_y), fill=(245, 199, 95), width=3)
+        draw.line((x-8, low_y, x+8, low_y), fill=(245, 199, 95), width=3)
+        draw.line((x-8, high_y, x+8, high_y), fill=(245, 199, 95), width=3)
+        draw.ellipse((x-6, y-6, x+6, y+6), fill=(245, 199, 95))
+        label = f"{100*rate:.1f}% · {point['captures']}/280"
+        box = draw.textbbox((0, 0), label, font=fonts[19])
+        label_width = box[2]-box[0]
+        label_x = max(x0+8, min(x-label_width/2, x1-label_width-8))
+        label_y = max(y0+5, high_y-31)
+        draw.rectangle((label_x-5, label_y-2, label_x+label_width+5, label_y+25), fill=(24, 31, 40))
+        draw.text((label_x, label_y), label, font=fonts[19], fill=(250, 214, 133))
+    draw.text((614, 852), "Completed training batches", font=fonts[24], fill=(211, 225, 236))
+    draw.text((56, 905), "Checkpoint checks: 280 independently sampled attempts each; error bars are descriptive 95% Wilson intervals.",
+              font=fonts[19], fill=(180, 201, 219))
+    draw.text((56, 938), "Same 35 known layouts; no held-out-layout claim. Rejected releases remain in every attempt denominator.",
+              font=fonts[19], fill=(180, 201, 219))
+    image.save(output)
+    return dict(file=output.name, sha256=sha(output), resolution=[1600, 1000],
+                training_curve_points=128, known_layout_assessment_points=4,
+                x_axis="Completed training batches (35 attempts each)",
+                y_axis="Capture rate among all attempted shots", rolling_window_batches=8,
+                assessment_interval="Descriptive pooled 95% Wilson interval; same 35 known layouts",
+                data_source="Verified learning_curve and known_layout_assessments integer counts")
+
+
 def render(run,out,summary):
     from PIL import Image
 
@@ -451,6 +555,7 @@ def export(run,out,source):
     require(not out.exists() and not out.resolve().is_relative_to(run.resolve()),"A new export directory outside raw evidence is required")
     summary=verify(run,source);out.mkdir(parents=True)
     summary["movie"]=render(run,out,summary)
+    summary["learning_curve_image"]=render_learning_curve(summary,out/"learning-curve.png")
     (out/"film.json").write_text(json.dumps(summary,indent=2,allow_nan=False)+"\n")
     print(json.dumps({k:summary[k]for k in("status","frames","duration_s","playback_multiple","movie")}),flush=True)
     return summary
