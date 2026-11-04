@@ -142,9 +142,11 @@ workspace, or the complete unresolved horizon. Rejected attempts remain labeled.
 The exporter selects the first complete chronological prefix long enough for
 60 seconds, with at least ten foreground rebounds. It never skips a failed
 chapter to select a successful one. Any omitted suffix remains audited in the
-raw evidence. At least two other visible tables must show board contacts in
-each selected chapter, and both foreground arms must show measured configuration
-changes across the selected sequence.
+raw evidence. Board-contact points from at least two other cells must project inside the
+camera frame in each selected chapter. This is a geometric visibility check;
+it does not prove that every point is unoccluded in the rendered pixels. Selected
+native frames also receive visual inspection. Both foreground arms must show
+measured configuration changes across the selected sequence.
 
 The output is exactly 1,800 frames at 30 fps. A uniform playback adjustment of
 at most 1.10× may shorten the selected prefix to one minute. It selects distinct

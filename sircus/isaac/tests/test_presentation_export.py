@@ -32,6 +32,26 @@ class PresentationExportTests(unittest.TestCase):
                      terminal_reason="endpoint_rejected" if i == 0 else "floor_contact")
                 for i in range(count)]
 
+    def test_native_json_stage_preserves_exact_frozen_renderer_contract(self):
+        source = json.loads((ISAAC.parents[1]/"baselines/isaac-expanded-farm-20261102/result.json").read_text())["stage"]
+        expected = exporter.verify_stage(source, copy.deepcopy(source))
+        self.assertEqual(expected, source)
+        self.assertEqual(type(expected["floor_linear_rgb"]), list)
+
+    def test_actual_or_original_stage_changes_are_rejected_without_tolerance(self):
+        source = json.loads((ISAAC.parents[1]/"baselines/isaac-expanded-farm-20261102/result.json").read_text())["stage"]
+        for mutate in (
+            lambda s: s["floor_linear_rgb"].__setitem__(0, 0.2200001),
+            lambda s: s["table_linear_rgb"].__setitem__(1, 0.4400001),
+            lambda s: s["lighting"]["key"].__setitem__("intensity", 321),
+            lambda s: s.__setitem__("unexpected_renderer_setting", True),
+        ):
+            changed = copy.deepcopy(source)
+            mutate(changed)
+            for actual,frozen in ((changed,source),(source,changed)):
+                with self.assertRaisesRegex(ValueError,"Silver-gray lighting or floor changed"):
+                    exporter.verify_stage(actual,frozen)
+
     def test_first_complete_prefix_retains_failures_and_ignores_capture_labels(self):
         chapters = self.chapters()
         selected = exporter.choose_prefix(chapters)
