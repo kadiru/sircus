@@ -1,5 +1,18 @@
 # Project state
 
+## Clean650 development sweep — preparation November 4, 2026
+
+- [Frozen bounded protocol](../sircus/mjlab/CLEAN650.md):360 H/tilt/gap grid
+  combinations plus the original650 reference, up to81 local refinements,
+  top-five matched64/128 checks and initial/final controls; maximum496 requests.
+- Prior650 shot is timestep-sensitive and remains separate. Clean capture is
+  required before promotion; rim assistance, rejects, misses and pending values
+  are distinct. Noise testing and further PPO are deferred.
+- Strict5mm endpoints and calibrated dense scoring remain unchanged; held endpoints
+  do not validate arm transit or actuator motion. Native results pending.
+- Additive read-only `clean650_study` UI key; existing services,4070 and Isaac
+  configuration are preserved.
+
 ## Calibrated 650 mm replay — November 4, 2026
 
 - [Frozen finite protocol](../sircus/mjlab/REPLAY650.md) and
