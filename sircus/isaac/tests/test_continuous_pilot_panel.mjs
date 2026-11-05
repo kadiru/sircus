@@ -1,0 +1,14 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+const source=fs.readFileSync(new URL('../continuous_pilot.js',import.meta.url),'utf8');
+const panel=await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
+assert.equal(panel.cellValue({feasibility:{attempts:0,admitted:0}},'feasibility'),null);
+assert.equal(panel.cellValue({feasibility:{attempts:10,admitted:6}},'feasibility'),.6);
+assert.equal(panel.cellValue({evaluation:[]},'final'),null);
+assert.equal(panel.cellValue({evaluation:[{update_count:2,capture_rate:.5},{update_count:1,capture_rate:1}]},'final'),.5);
+assert.equal(panel.rowLabel({captures:0,attempts:0,capture_rate:null}),'0/0 · not tested');
+assert.equal(panel.latestChecks({assessments:[{split:'test',update_count:0},{split:'test',update_count:8}]}).get('test').update_count,8);
+assert.notEqual(panel.color(null),panel.color(0));
+assert.match(source,/textContent/);
+assert.doesNotMatch(source,/innerHTML|fetch\([^)]*POST|WebSocket|command|actuate/);
+console.log('Continuous-pilot panel checks passed');
