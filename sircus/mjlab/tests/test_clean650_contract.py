@@ -15,6 +15,18 @@ def row(i=0,quality=2,step=64):
 
 
 class CleanContractTests(unittest.TestCase):
+    def test_fine_profile_has_separate_version_and_literal_small_grid(self):
+        seed=dict(row(),source_record_id='old650',source_record_sha256='a'*64)
+        grid=p.coarse(seed,'fine-v2');settings=p.settings('fine-v2')
+        self.assertEqual(len(grid),76)
+        self.assertEqual(grid[0]['values'][2:],[.375,27.,.38])
+        self.assertEqual(grid[-2]['values'][2:],[.385,29.,.40])
+        self.assertEqual(settings['max_requests'],211)
+        self.assertNotEqual(p.PROFILES['fine-v2']['version'],p.VERSION)
+        refined=p.refinement([row()],'fine-v2')
+        np.testing.assert_allclose(refined[0]['values'][2:],[.375,27.75,.3843],atol=1e-12)
+        self.assertEqual(p.settings()['coarse_requests'],361)
+
     def test_exact_360_grid_plus_original_and_finite_conditional_budget(self):
         seed=dict(row(),source_record_id='old650',source_record_sha256='a'*64)
         grid=p.coarse(seed)

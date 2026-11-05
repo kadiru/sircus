@@ -15,6 +15,10 @@ import time
 KEY = "clean650_study"
 VERSION = "sircus-clean650-height-tilt-gap-v1"
 AUDIT_VERSION = "sircus-clean650-independent-audit-v1"
+FINE_VERSION = "sircus-clean650-height-tilt-gap-fine-v2"
+FINE_AUDIT_VERSION = "sircus-clean650-independent-audit-v2"
+VERSION_PAIRS = {VERSION: AUDIT_VERSION, FINE_VERSION: FINE_AUDIT_VERSION}
+HISTORY_KEY = "previous_clean650_studies"
 TERMINAL = {"completed", "failed", "cancelled", "blocked_geometry", "blocked_storage", "blocked_resources"}
 GEOMETRY = ("id", "role", "group_id", "phase", "stage", "substeps", "values", "gap_m", "board_height_m", "tilt_deg", "release_center_height_m",
     "ball_radius_m", "distance_m", "board_xy_m", "bucket_xy_m", "source_id", "source_record_id", "source_record_sha256", "geometry_sha256")
@@ -42,8 +46,8 @@ def full_audit_verified(raw, audit):
     """Check full audit structure; prepare also binds its exact report/manifest bytes."""
     checks, count = audit.get("checks"), audit.get("checks_count")
     fingerprint = raw.get("contract_fingerprint")
-    return bool(raw.get("version") == VERSION and raw.get("status") == "completed" and raw.get("phase") == "completed" and
-        isinstance(fingerprint, str) and fingerprint and audit.get("version") == AUDIT_VERSION and audit.get("status") == "passed" and
+    return bool(raw.get("version") in VERSION_PAIRS and raw.get("status") == "completed" and raw.get("phase") == "completed" and
+        isinstance(fingerprint, str) and fingerprint and audit.get("version") == VERSION_PAIRS.get(raw.get("version")) and audit.get("status") == "passed" and
         audit.get("contract_fingerprint") == fingerprint and not audit.get("failures") and
         isinstance(checks, list) and checks and isinstance(count, int) and not isinstance(count, bool) and count > 0 and
         count == len(checks) and all(isinstance(c, dict) and c.get("passed") is True for c in checks))
@@ -64,7 +68,7 @@ def compact(raw):
     value = select(raw, ("version", "status", "phase", "contract_fingerprint", "scope", "error", "reason", "elapsed_s"))
     value["queue"] = select(raw.get("queue", {}), ("reason", "wait_s"))
     settings = raw.get("settings", {})
-    value["settings"] = select(settings, ("version", "heights_m", "tilts_deg", "gaps_m", "substeps", "max_requests", "coarse_requests", "refinement_max_requests", "verification_limit", "verification_sources", "refinement_seed_limit", "refinement_seeds", "repeats_per_group", "repeats_per_resolution", "refinement_offsets", "selection_rule", "selection", "verification_scope", "minimum_clearance_m", "max_drift_350ms_m", "scope", "no_noise", "no_ppo"))
+    value["settings"] = select(settings, ("version", "profile", "profile_label", "heights_m", "tilts_deg", "gaps_m", "substeps", "max_requests", "coarse_requests", "refinement_max_requests", "verification_limit", "verification_sources", "refinement_seed_limit", "refinement_seeds", "repeats_per_group", "repeats_per_resolution", "refinement_offsets", "selection_rule", "selection", "verification_scope", "minimum_clearance_m", "max_drift_350ms_m", "scope", "no_noise", "no_ppo"))
     value["settings"]["grid"] = select(settings.get("grid", {}), ("heights_m", "tilts_deg", "gaps_m", "requests"))
     reference = settings.get("grid", {}).get("reference")
     if isinstance(reference, dict):
@@ -102,6 +106,58 @@ def compact(raw):
     return value
 
 
+def historical_summary(raw):
+    """Preserve a sanitized publication summary, not raw observations or queues.
+
+    Audit flags describe the earlier publication. Its immutable evidence is not
+    re-audited during a later profile's display refresh.
+    """
+    if not isinstance(raw, dict) or raw.get("version") not in VERSION_PAIRS:
+        return None
+    fingerprint = raw.get("contract_fingerprint")
+    if not isinstance(fingerprint, str) or not fingerprint:
+        return None
+    value = select(raw, ("version", "status", "phase", "contract_fingerprint", "scope", "elapsed_s", "display_updated_utc"))
+    value["counts"] = select(raw.get("counts", {}), STATS + ("requests",))
+    value["gate"] = select(raw.get("gate", {}), QUALIFICATION + ("qualified_settings", "controls_pre_passed", "controls_post_passed", "more_ppo_started"))
+    value["settings"] = select(raw.get("settings", {}), ("profile", "profile_label", "max_requests", "coarse_requests"))
+    audit = select(raw.get("audit", {}), ("version", "status", "contract_fingerprint", "checks_count", "full_checks_verified", "bound_files_verified", "source_sha256", "report_sha256", "evidence_manifest_sha256"))
+    # A mismatched study/checker pair must never retain a verified badge.
+    if audit.get("version") != VERSION_PAIRS[raw["version"]]:
+        audit["full_checks_verified"] = False
+    value["audit"] = audit
+    value["history_scope"] = "Previously published compact summary; earlier audit status is retained, not freshly re-audited here."
+    return value
+
+
+def merge_display(base, value):
+    """Use for queued publication too, before the new study has a report file."""
+    if not isinstance(base, dict):
+        raise ValueError("Existing display must be a dictionary")
+    result = copy.deepcopy(base)
+    current = base.get(KEY)
+    candidates = list(base.get(HISTORY_KEY, [])) if isinstance(base.get(HISTORY_KEY), list) else []
+    if isinstance(current, dict) and isinstance(current.get(HISTORY_KEY), list):
+        candidates.extend(current[HISTORY_KEY])
+    if isinstance(current, dict) and current.get("contract_fingerprint") != (value or {}).get("contract_fingerprint"):
+        candidates.append(current)
+    history = {}
+    for item in candidates:
+        summary = historical_summary(item)
+        if summary is None or summary["contract_fingerprint"] == (value or {}).get("contract_fingerprint"):
+            continue
+        fingerprint = summary["contract_fingerprint"]
+        old = history.get(fingerprint)
+        rank = lambda v: (v.get("status") == "completed" and v.get("phase") == "completed", v.get("audit", {}).get("full_checks_verified") is True)
+        if old is None or rank(summary) > rank(old):
+            history[fingerprint] = summary
+    result[HISTORY_KEY] = list(history.values())
+    result[KEY] = copy.deepcopy(value)
+    if result[KEY] is not None:
+        result[KEY][HISTORY_KEY] = copy.deepcopy(result[HISTORY_KEY])
+    return result
+
+
 def prepare(base_display, study, output):
     base_display, study, output = map(Path, (base_display, study, output))
     if output.resolve() == base_display.resolve() or output.resolve().is_relative_to(study.resolve()):
@@ -109,14 +165,12 @@ def prepare(base_display, study, output):
     base = optional_json(base_display)
     if not isinstance(base, dict):
         raise ValueError("A valid existing base display report is required")
-    result = copy.deepcopy(base)
     try:
         report_bytes = (study / "report.json").read_bytes()
         raw = json.loads(report_bytes)
     except (OSError, ValueError):
         report_bytes, raw = None, None
     value = compact(raw)
-    result[KEY] = value
     if value is not None:
         try:
             audit_bytes = (study / "audit-clean650.json").read_bytes()
@@ -142,6 +196,7 @@ def prepare(base_display, study, output):
         if audit.get("status") == "passed" and not value["audit"]["full_checks_verified"]:
             value["audit"]["verification_reason"] = "Audited report or evidence-manifest bytes are missing or mismatched" if not bound else "Completed exact-version evidence and a nonempty matching strictly passed full audit are required"
         value["display_updated_utc"] = datetime.datetime.now(datetime.timezone.utc).isoformat()
+    result = merge_display(base, value)
     payload = json.dumps(result, indent=2, allow_nan=False) + "\n"
     output.parent.mkdir(parents=True, exist_ok=True)
     temporary = output.with_suffix(output.suffix + ".tmp")

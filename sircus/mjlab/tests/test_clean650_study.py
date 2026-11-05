@@ -73,7 +73,7 @@ class ExecutorFixture:
 
 
 class CleanControllerTests(unittest.TestCase):
-    def run_fixture(self, fail_initial=False):
+    def run_fixture(self, fail_initial=False, profile='coarse-v1'):
         directory = tempfile.TemporaryDirectory()
         self.addCleanup(directory.cleanup)
         root = Path(directory.name)
@@ -85,7 +85,7 @@ class CleanControllerTests(unittest.TestCase):
         calibration, verification = root/"calibration.json", root/"verification.json"
         calibration.write_text("{}"); verification.write_text("{}")
         args = SimpleNamespace(old_study=old, assets=assets, calibration_report=calibration,
-                               verification_report=verification, output=root/"evidence", batch=32, wall_time_limit=7200)
+                               verification_report=verification, output=root/"evidence", batch=32, wall_time_limit=7200,profile=profile)
         config = dict(calibration_sha256="b"*64, verification_sha256="c"*64, score_config_sha256="d"*64, score_config={})
         geometry = GeometryFixture()
         executors = []
@@ -147,6 +147,15 @@ class CleanControllerTests(unittest.TestCase):
                 self.assertEqual(sha(output/name), expected)
         self.assertEqual(len(report["trace_examples"]), 17)
         self.assert_manifest(output, report)
+
+    def test_fine_controller_preserves_v1_and_uses_finer_bounded_profile(self):
+        output,report,geometry,executor=self.run_fixture(profile='fine-v2')
+        self.assertEqual(report['version'],protocol.FINE_VERSION)
+        self.assertEqual(report['counts']['attempts'],211)
+        self.assertEqual(report['counts']['phase_counts'],dict(controls_pre=12,coarse=76,refinement=81,verification=30,controls_post=12))
+        self.assertEqual(report['settings']['refinement_offsets']['gap_m'],[-.0025,0.,.0025])
+        self.assertEqual(protocol.settings()['max_requests'],496)
+        self.assert_manifest(output,report)
 
 
 class NativeExecutionTests(unittest.TestCase):

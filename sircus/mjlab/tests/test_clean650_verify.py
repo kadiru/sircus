@@ -37,6 +37,45 @@ def verification_rows():
 
 
 class CleanAuditTests(unittest.TestCase):
+    def test_explicit_fine_profile_preserves_original_coarse_literals(self):
+        coarse = verify.profile_for()
+        fine = verify.profile_for("sircus-clean650-height-tilt-gap-fine-v2")
+        self.assertEqual((coarse["coarse_requests"], coarse["max_requests"], coarse["audit_version"]),
+                         (361, 496, "sircus-clean650-independent-audit-v1"))
+        self.assertEqual((fine["coarse_requests"], fine["max_requests"], fine["audit_version"]),
+                         (76, 211, "sircus-clean650-independent-audit-v2"))
+        fine["heights"] = (1.,)
+        self.assertEqual(verify.profile_for("sircus-clean650-height-tilt-gap-fine-v2")["heights"], (.375, .38, .385))
+        with self.assertRaisesRegex(EvidenceError, "Unknown"):
+            verify.profile_for("unversioned-fine-override")
+
+    def test_fine_grid_is75_plus_reference_and_narrow_refinement_offsets(self):
+        from sircus.mjlab import clean650_contract as protocol
+        seed = row("source", source_record_id="historical-source", source_record_sha256="a"*64)
+        fine = verify.profile_for("sircus-clean650-height-tilt-gap-fine-v2")
+        values = verify.coarse_values(seed, fine)
+        self.assertEqual(len(values), 76)
+        self.assertEqual(len({tuple(v) for v in values}), 75)
+        self.assertEqual(values[0], [.47, -.27, .375, 27., .38])
+        self.assertEqual(values[74], [.47, -.27, .385, 29., .40])
+        self.assertEqual(values[-1], seed["values"])
+        self.assertEqual(values, [g["values"] for g in protocol.coarse(seed, "fine-v2")])
+        local = verify.local_values(seed, fine)
+        self.assertEqual(local[0], [.47, -.27, .375, 27.75, .3843])
+        self.assertEqual(local[-1], [.47, -.27, .385, 28.25, .3893])
+        np.testing.assert_allclose(local, [g["values"] for g in protocol.refinement([seed], "fine-v2")], rtol=0, atol=1e-12)
+
+    def test_fine_settings_cannot_relabel_a_coarse_grid_or_change_the_budget(self):
+        from sircus.mjlab import clean650_contract as protocol
+        fine = verify.profile_for("sircus-clean650-height-tilt-gap-fine-v2")
+        verify.audit_settings(protocol.settings("fine-v2"), Checks(), fine)
+        verify.audit_settings(protocol.settings(), Checks())
+        with self.assertRaisesRegex(EvidenceError, "protocol/grid"):
+            verify.audit_settings(protocol.settings(), Checks(), fine)
+        changed = protocol.settings("fine-v2");changed["max_requests"] += 1
+        with self.assertRaisesRegex(EvidenceError, "max_requests"):
+            verify.audit_settings(changed, Checks(), fine)
+
     def test_independent_accounting_matches_producer_without_using_producer_selection(self):
         from sircus.mjlab import clean650_contract as protocol
         data = controls()

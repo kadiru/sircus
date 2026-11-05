@@ -14,6 +14,13 @@ TILTS=(16.,20.,24.,28.,32.,36.)
 GAPS=(.20,.24,.28,.32,.36,.40,.44,.48,.52,.56)
 STEPS=(64,128)
 MAX_REQUESTS=496
+FINE_VERSION='sircus-clean650-height-tilt-gap-fine-v2'
+PROFILES={
+    'coarse-v1':dict(version=VERSION,heights=HEIGHTS,tilts=TILTS,gaps=GAPS,
+        offsets=((- .02,0.,.02),(-2.,0.,2.),(-.02,0.,.02))),
+    'fine-v2':dict(version=FINE_VERSION,heights=(.375,.38,.385),tilts=(27.,27.5,28.,28.5,29.),
+        gaps=(.38,.3868,.39,.395,.40),offsets=((- .005,0.,.005),(-.25,0.,.25),(-.0025,0.,.0025))),
+}
 SCOPE=('Fixed650 DEVELOPMENT height/tilt/gap sweep with calibrated simulated contacts and held endpoints. '
        'No new PPO, noise study, held-out generalization, grasp/transit, actuator, perception or physical validation. '
        'Historical labels and the prior timestep-sensitive650 result remain unchanged.')
@@ -35,12 +42,26 @@ def load_inputs(a):
         and spec['scene']==scene and spec['calibration']==calibration):raise ValueError('Exact completed independently audited650 replay required')
     previous.verify_manifest(root,'evidence-manifest.json')
     bindings['replay']={n:sha(root/n) for n in ('contract.json','report.json','audit-replay650.json','records.jsonl','evidence-manifest.json')}
+    if getattr(a,'profile','coarse-v1')=='fine-v2':
+        root=Path(a.coarse_study);spec=read(root/'contract.json');report=read(root/'report.json');audit=read(root/'audit-clean650.json')
+        unsigned=dict(spec);fp=unsigned.pop('fingerprint',None);checks=audit.get('checks',[])
+        if not (digest(unsigned)==fp=='28baa4e28639d0e7581561bf546a42de2a738ef4fd6a1521230d69887424f28b'
+            and spec.get('version')==VERSION and report.get('version')==VERSION
+            and report.get('status')==report.get('phase')=='completed' and report.get('contract_fingerprint')==fp
+            and audit.get('version')=='sircus-clean650-independent-audit-v1' and audit.get('status')=='passed'
+            and audit.get('contract_fingerprint')==fp and not audit.get('failures') and len(checks)>0
+            and audit.get('checks_count')==len(checks) and all(c.get('passed') is True for c in checks)
+            and audit.get('report_sha256')==sha(root/'report.json') and audit.get('evidence_manifest_sha256')==sha(root/'evidence-manifest.json')
+            and spec['scene']==scene and spec['calibration']==calibration):raise ValueError('Exact completed independently audited coarse650 study required')
+        previous.verify_manifest(root,'evidence-manifest.json')
+        bindings['coarse']={n:sha(root/n) for n in ('contract.json','report.json','audit-clean650.json','records.jsonl','evidence-manifest.json')}
     return scene,sources,calibration,bindings
 
 
-def coarse(seed):
+def coarse(seed,profile='coarse-v1'):
+    config=PROFILES[profile]
     result=[]
-    for i,(height,tilt,gap) in enumerate(itertools.product(HEIGHTS,TILTS,GAPS)):
+    for i,(height,tilt,gap) in enumerate(itertools.product(config['heights'],config['tilts'],config['gaps'])):
         result.append(dict(id=f'coarse-{i:04}',role='discovery',phase='coarse',values=[*seed['values'][:2],height,tilt,gap],
             bucket_xy_m=copy.deepcopy(seed['bucket_xy_m']),source_record_id=seed['source_record_id'],source_record_sha256=seed['source_record_sha256']))
     result.append(dict(copy.deepcopy(seed),id='reference-650',role='discovery',phase='coarse'))
@@ -61,11 +82,12 @@ def ranked(rows,count):
     return sorted(rows,key=key)[:count]
 
 
-def refinement(seeds):
+def refinement(seeds,profile='coarse-v1'):
+    offsets=PROFILES[profile]['offsets']
     groups=[]
     for s,seed in enumerate(seeds):
         for i,j,k in itertools.product(range(3),repeat=3):
-            values=copy.deepcopy(seed['values']);values[2]+=(-.02,0.,.02)[i];values[3]+=(-2.,0.,2.)[j];values[4]+=(-.02,0.,.02)[k]
+            values=copy.deepcopy(seed['values']);values[2]+=offsets[0][i];values[3]+=offsets[1][j];values[4]+=offsets[2][k]
             groups.append(dict(id=f'refine-s{s:02}-h{i}t{j}g{k}',role='discovery',phase='refinement',values=values,
                 bucket_xy_m=copy.deepcopy(seed['bucket_xy_m']),source_record_id=seed['id'],source_record_sha256=digest(seed)))
     return groups
@@ -122,9 +144,10 @@ def qualification(rows,positions,*,controls_passed,source_clean):
     return dict(status='qualified' if good else 'failed',clean_both=clean_both,physics_valid=physics,oracle_agreement=oracle,max_drift_m=drift,qualified=good)
 
 
-def settings():
-    return dict(grid=dict(heights_m=list(HEIGHTS),tilts_deg=list(TILTS),gaps_m=list(GAPS),reference=[.38,28.,.3868]),
-        coarse_requests=361,refinement_seeds=3,refinement_offsets=dict(height_m=[-.02,0.,.02],tilt_deg=[-2.,0.,2.],gap_m=[-.02,0.,.02]),
-        refinement_max_requests=81,verification_sources=5,verification_dedup_decimals=9,repeats_per_resolution=3,substeps=list(STEPS),max_requests=MAX_REQUESTS,
+def settings(profile='coarse-v1'):
+    config=PROFILES[profile];coarse_count=len(config['heights'])*len(config['tilts'])*len(config['gaps'])+1
+    return dict(grid=dict(heights_m=list(config['heights']),tilts_deg=list(config['tilts']),gaps_m=list(config['gaps']),reference=[.38,28.,.3868]),
+        coarse_requests=coarse_count,refinement_seeds=3,refinement_offsets=dict(zip(('height_m','tilt_deg','gap_m'),map(list,config['offsets']))),
+        refinement_max_requests=81,verification_sources=5,verification_dedup_decimals=9,repeats_per_resolution=3,substeps=list(STEPS),max_requests=coarse_count+135,
         verification_scope='Nominal exact configurations only; no perturbation/noise study',minimum_clearance_m=.005,max_drift_350ms_m=.005,
         selection='Native valid only; clean capture, capture, whole entry without external contact, mouth clearance, retention, opening distance, stable ID',scope=SCOPE)

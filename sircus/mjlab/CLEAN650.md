@@ -53,6 +53,28 @@ perception or physical performance. No noise study, PPO update or active-policy
 replacement is included. Prior failed650 replay and historical scoring results
 remain in their original namespaces and interface panels.
 
+## Completed coarse search and frozen fine follow-up
+
+The v1 search completed496 requested attempts/155 native releases. Among442
+discovery requests,101 native releases produced0clean and2rim-assisted captures,
+both the exact original reference. Its matched verification remained3/3rim at64
+versus0/3capture at128. Both pre/post control sets passed; the independent audit
+passed64,075 checks. [Curated evidence](../../baselines/mjlab-clean650-20261104/README.md)
+keeps control counts distinct from650 discovery. This is not proof of impossibility.
+
+The separately versioned `fine-v2` profile keeps the same scene/calibration and
+fully binds that audited v1 result. It uses H375/380/385mm × tilt27/27.5/28/28.5/29°
+× gap380/386.8/390/395/400mm:75 combinations plus the exact reference. The top3
+native results receive27 refinements each using ±5mm height, ±0.25° tilt and
+±2.5mm gap. Initial/final controls and top5 matched64/128 verification are
+unchanged; maximum211 requests. Selection rules are unchanged and all rejects
+remain counted. Only literal profile/version pairs receive a verified UI badge.
+
+Run the pipeline below with `--profile fine-v2 --coarse-study AUDITED_V1_OUTPUT`
+in a new frozen source/output namespace. Do not modify a prior producer or its
+raw evidence. The UI preserves the previous completed result while showing the
+latest profile. Noise and further PPO remain deferred.
+
 ## Run
 
 Use the pinned Ubuntu environment, a new immutable source/output directory, the

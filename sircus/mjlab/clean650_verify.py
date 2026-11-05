@@ -30,6 +30,22 @@ GAPS = (.20, .24, .28, .32, .36, .40, .44, .48, .52, .56)
 STEPS = (64, 128)
 MAX_REQUESTS = 496
 AuditChecks = replay.AuditChecks
+PROFILES = {
+    STUDY_VERSION: dict(version=STUDY_VERSION, audit_version=VERSION,
+        heights=HEIGHTS, tilts=TILTS, gaps=GAPS, coarse_requests=361, max_requests=496,
+        offsets=((- .02, 0., .02), (-2., 0., 2.), (-.02, 0., .02))),
+    "sircus-clean650-height-tilt-gap-fine-v2": dict(version="sircus-clean650-height-tilt-gap-fine-v2",
+        audit_version="sircus-clean650-independent-audit-v2", heights=(.375, .38, .385),
+        tilts=(27., 27.5, 28., 28.5, 29.), gaps=(.38, .3868, .39, .395, .40),
+        coarse_requests=76, max_requests=211,
+        offsets=((- .005, 0., .005), (-.25, 0., .25), (-.0025, 0., .0025))),
+}
+
+
+def profile_for(version=STUDY_VERSION):
+    if version not in PROFILES:
+        raise EvidenceError("Unknown or unsupported clean650 study profile")
+    return copy.deepcopy(PROFILES[version])
 
 
 def statistics(rows):
@@ -80,15 +96,17 @@ def select_unique(rows, limit):
     return chosen
 
 
-def coarse_values(seed):
+def coarse_values(seed, profile=None):
+    profile = profile or profile_for()
     xy = seed["values"][:2]
-    return [[*xy, h, t, g] for h, t, g in itertools.product(HEIGHTS, TILTS, GAPS)] + [copy.deepcopy(seed["values"])]
+    return [[*xy, h, t, g] for h, t, g in itertools.product(profile["heights"], profile["tilts"], profile["gaps"])] + [copy.deepcopy(seed["values"])]
 
 
-def local_values(source):
+def local_values(source, profile=None):
+    profile = profile or profile_for()
     v = source["values"]
     return [[v[0], v[1], round(v[2]+h, 8), round(v[3]+t, 8), round(v[4]+g, 8)]
-            for h, t, g in itertools.product((-.02, 0., .02), (-2., 0., 2.), (-.02, 0., .02))]
+            for h, t, g in itertools.product(*profile["offsets"])]
 
 
 def control_gate(rows):
@@ -176,7 +194,7 @@ def audit_native_rows(rows, plan, groups, checks):
             checks.require("native_cache_file" not in row, label+"/rejected request has no invented native trace")
 
 
-def auditor_identity(producer_source, producer_hashes, checks):
+def auditor_identity(producer_source, producer_hashes, checks, *, audit_version=VERSION):
     """Separate checker identity; imported core dependencies stay source-bound."""
     root = Path(__file__).resolve().parents[2];own = "sircus/mjlab/clean650_verify.py";dependencies = {}
     for module in tuple(sys.modules.values()):
@@ -195,7 +213,7 @@ def auditor_identity(producer_source, producer_hashes, checks):
         dependencies[relative] = actual
     checks.require("sircus/mjlab/calibrated_score_oracle.py" in dependencies, "Independent scorer identity retained")
     checks.equal(sha(contained(producer_source, own)), producer_hashes[own], "Original producer checker bytes preserved")
-    return dict(version=VERSION, auditor_sha256=sha(Path(__file__)), original_producer_auditor_sha256=producer_hashes[own],
+    return dict(version=audit_version, auditor_sha256=sha(Path(__file__)), original_producer_auditor_sha256=producer_hashes[own],
                 dependencies_sha256=dependencies)
 
 
@@ -233,6 +251,34 @@ def audit_prior_replay(study, bindings, checks):
     return spec, report
 
 
+def audit_coarse_parent(study, bindings, checks):
+    """The fine follow-up depends on one exact completed coarse study."""
+    names = {"contract.json", "report.json", "audit-clean650.json", "records.jsonl", "evidence-manifest.json"}
+    checks.equal(set(bindings), names, "Fine follow-up binds every coarse parent input")
+    for name, expected in bindings.items():
+        checks.equal(sha(contained(study, name)), expected, "Exact frozen coarse parent/"+name)
+    spec, report, proof = (read(study/name) for name in ("contract.json", "report.json", "audit-clean650.json"))
+    unsigned = dict(spec);fp = unsigned.pop("fingerprint", None)
+    checks.equal(digest(unsigned), fp, "Coarse parent contract identity")
+    checks.equal(fp, "28baa4e28639d0e7581561bf546a42de2a738ef4fd6a1521230d69887424f28b", "Exact coarse study selected before fine follow-up")
+    checks.equal(spec["version"], STUDY_VERSION, "Historical coarse protocol preserved")
+    checks.equal((report["version"], report["status"], report["phase"]), (STUDY_VERSION, "completed", "completed"), "Coarse parent completed")
+    checks.equal(report["contract_fingerprint"], fp, "Coarse report exact identity")
+    checks.equal(proof["version"], VERSION, "Coarse independent audit version preserved")
+    checks.equal(proof["status"], "passed", "Coarse parent independent audit passed")
+    checks.require(not proof.get("failures") and proof["checks_count"] == len(proof["checks"]) > 0
+                   and all(c.get("passed") is True for c in proof["checks"]), "Complete passed coarse audit entries")
+    checks.equal(proof["contract_fingerprint"], fp, "Coarse parent audit exact identity")
+    checks.equal(proof["report_sha256"], sha(study/"report.json"), "Coarse parent audit binds report")
+    checks.equal(proof["evidence_manifest_sha256"], sha(study/"evidence-manifest.json"), "Coarse parent audit binds native artifacts")
+    manifest = replay.check_manifest(study, checks)
+    checks.equal(report["evidence_sha256"], manifest, "Coarse parent complete evidence binding")
+    checks.equal(proof["requested_trials"], 496, "Full coarse budget consumed before fine follow-up")
+    checks.equal(proof["native_releases"], 155, "Exact historical coarse native release count")
+    checks.equal(proof["gate"], report["gate"], "Original coarse qualification unchanged")
+    return spec
+
+
 def source_fields(actual, expected, checks, label):
     for key in ("values", "bucket_xy_m"):
         checks.numeric(actual[key], expected[key], label+"/unchanged configured geometry/"+key, 1e-12)
@@ -241,32 +287,33 @@ def source_fields(actual, expected, checks, label):
             checks.equal(actual[key], expected[key], label+"/source provenance/"+key)
 
 
-def audit_initial(groups, seed, controls, checks):
-    checks.equal(len(groups), 363, "Two fixed controls plus360grid and1reference groups")
+def audit_initial(groups, seed, controls, checks, profile=None):
+    profile = profile or profile_for();count = profile["coarse_requests"]
+    checks.equal(len(groups), count+2, "Two fixed controls plus literal grid and1reference groups")
     for actual, source in zip(groups[:2], controls):
         checks.equal(actual["id"], source["id"], "Original control group identity")
         checks.equal(actual["role"], source["role"], "Original control role")
         source_fields(actual, source, checks, actual["id"])
         for key in ("q10", "q14"):
             checks.equal(actual[key], source[key], "Control exact historical joint branch/"+key)
-    for index, (actual, value) in enumerate(zip(groups[2:], coarse_values(seed))):
-        ident = f"coarse-{index:04d}" if index < 360 else "reference-650"
+    for index, (actual, value) in enumerate(zip(groups[2:], coarse_values(seed, profile))):
+        ident = f"coarse-{index:04d}" if index < count-1 else "reference-650"
         checks.equal(actual["id"], ident, "Frozen H/T/G lexicographic grid identity")
         checks.equal(actual["role"], "discovery", ident+"/coarse role")
         checks.equal(actual["phase"], "coarse", ident+"/coarse phase")
         checks.numeric(actual["values"], value, ident+"/literal grid geometry", 1e-12)
         checks.equal(actual["bucket_xy_m"], seed["bucket_xy_m"], ident+"/fixed650mm bucket")
         checks.numeric(np.linalg.norm(np.asarray(actual["bucket_xy_m"])-actual["values"][:2]), .65, ident+"/fixed650mm plane distance", 1e-12)
-        if index == 360:
+        if index == count-1:
             for key in ("q10", "q14"):
                 if actual["eligible"]:
                     checks.equal(actual[key], seed[key], "Exact original650 reference joints/"+key)
 
 
-def audit_refinement(groups, selected, checks):
+def audit_refinement(groups, selected, checks, profile=None):
     checks.equal(len(groups), len(selected)*27, "All27 conditional refinements per selected source retained")
     for s, source in enumerate(selected):
-        for index, (actual, value) in enumerate(zip(groups[s*27:(s+1)*27], local_values(source))):
+        for index, (actual, value) in enumerate(zip(groups[s*27:(s+1)*27], local_values(source, profile))):
             i, j, k = np.unravel_index(index, (3, 3, 3))
             checks.equal(actual["id"], f"refine-s{s:02d}-h{i}t{j}g{k}", "Fixed local-offset identity")
             checks.equal(actual["role"], "discovery", actual["id"]+"/refinement discovery role")
@@ -336,12 +383,13 @@ def audit_statistics(actual, rows, checks, label):
             checks.equal(actual[key], expected, label+"/"+key)
 
 
-def audit_settings(settings, checks):
-    expected = dict(grid=dict(heights_m=list(HEIGHTS), tilts_deg=list(TILTS), gaps_m=list(GAPS), reference=[.38, 28., .3868]),
-                    coarse_requests=361, refinement_seeds=3,
-                    refinement_offsets=dict(height_m=[-.02, 0., .02], tilt_deg=[-2., 0., 2.], gap_m=[-.02, 0., .02]),
+def audit_settings(settings, checks, profile=None):
+    profile = profile or profile_for()
+    expected = dict(grid=dict(heights_m=list(profile["heights"]), tilts_deg=list(profile["tilts"]), gaps_m=list(profile["gaps"]), reference=[.38, 28., .3868]),
+                    coarse_requests=profile["coarse_requests"], refinement_seeds=3,
+                    refinement_offsets=dict(zip(("height_m", "tilt_deg", "gap_m"), map(list, profile["offsets"]))),
                     refinement_max_requests=81, verification_sources=5, repeats_per_resolution=3,
-                    substeps=list(STEPS), max_requests=MAX_REQUESTS, minimum_clearance_m=.005, max_drift_350ms_m=.005,
+                    substeps=list(STEPS), max_requests=profile["max_requests"], minimum_clearance_m=.005, max_drift_350ms_m=.005,
                     verification_dedup_decimals=9)
     for key, value in expected.items():
         checks.equal(settings[key], value, "Literal prespecified sweep protocol/"+key)
@@ -349,7 +397,7 @@ def audit_settings(settings, checks):
                    "No fresh-noise qualification claimed")
 
 
-def audit_adaptive_stage(study, stages, index, name, groups, selected, plan, rows_before, proofs, checks):
+def audit_adaptive_stage(study, stages, index, name, groups, selected, plan, rows_before, proofs, checks, *, initial_count=363):
     checks.equal(read(study/(name+"-selection.json")), dict(source_ids=[r["id"] for r in selected]),
                  name+"/only preceding observed source IDs determine the stage")
     checks.equal(read(study/(name+"-plan.json")), plan, name+"/complete conditional plan saved")
@@ -362,7 +410,7 @@ def audit_adaptive_stage(study, stages, index, name, groups, selected, plan, row
     checks.equal(set(stage["files_sha256"]), names, name+"/all conditional files declared")
     for filename, expected in stage["files_sha256"].items():
         checks.equal(sha(contained(study, filename)), expected, name+"/conditional file bytes/"+filename)
-    prefix = max((g["geometry_row"] for g in groups), default=(362 if index == 0 else 362)) + 1
+    prefix = max((g["geometry_row"] for g in groups), default=initial_count-1) + 1
     checks.equal(stage["geometry_sha256"], digest(proofs[:prefix]), name+"/full actual geometry-proof prefix frozen")
 
 
@@ -417,15 +465,16 @@ def audit_report(report, rows, groups, verification_groups, sources, positions, 
     return gate
 
 
-def audit(study, source, assets, *, shallow_study, positive_study, positive_audit, replay_study):
+def audit(study, source, assets, *, shallow_study, positive_study, positive_audit, replay_study, coarse_study=None):
     started, checks = time.monotonic(), AuditChecks()
     study, source, assets = map(Path, (study, source, assets))
     manifest = replay.check_manifest(study, checks)
     spec, report = read(study/"contract.json"), read(study/"report.json")
+    profile = profile_for(spec["version"]);initial_count = profile["coarse_requests"]+2
     unsigned = dict(spec);fp = unsigned.pop("fingerprint", None)
     checks.equal(digest(unsigned), fp, "Complete clean650 contract fingerprint")
-    checks.equal(spec["version"], STUDY_VERSION, "Versioned calibrated clean650 study")
-    checks.equal(report["version"], STUDY_VERSION, "Versioned clean650 report")
+    checks.equal(spec["version"], profile["version"], "Explicit versioned calibrated clean650 profile")
+    checks.equal(report["version"], profile["version"], "Versioned clean650 report")
     checks.equal(report["contract_fingerprint"], fp, "Report exact contract identity")
     checks.equal((report["status"], report["phase"]), ("completed", "completed"), "Finite study completed")
     checks.equal(spec["evidence_kind"], "native_calibrated_clean650_sweep", "Actual simulated native evidence")
@@ -441,6 +490,13 @@ def audit(study, source, assets, *, shallow_study, positive_study, positive_audi
     calibration = replay.check_calibration(study, spec["calibration"], checks)
     parent, original = replay.audit_input_sources(shallow_study, positive_study, positive_audit, spec["input_bindings"], checks, spec["calibration"])
     prior, _ = audit_prior_replay(Path(replay_study), spec["input_bindings"]["replay"], checks)
+    if profile["version"] != STUDY_VERSION:
+        checks.require(coarse_study is not None, "Fine follow-up requires its original coarse study")
+        coarse_parent = audit_coarse_parent(Path(coarse_study), spec["input_bindings"]["coarse"], checks)
+        for key in ("scene", "calibration", "packages", "asset_sha256"):
+            checks.equal(spec[key], coarse_parent[key], "Fine follow-up preserves coarse parent/"+key)
+    else:
+        checks.require("coarse" not in spec["input_bindings"], "Historical coarse profile has no retrospective fine dependency")
     checks.equal(spec["scene"], parent["scene"], "Original scene and all provisional measurements preserved")
     checks.equal(spec["scene"], prior["scene"], "Same scene as prior matched650 replay")
     checks.equal(spec["calibration"], prior["calibration"], "Calibration not refitted")
@@ -450,28 +506,28 @@ def audit(study, source, assets, *, shallow_study, positive_study, positive_audi
     checks.equal(set(spec["frozen_files_sha256"]), frozen, "All preoutcome inputs frozen")
     for name, expected in spec["frozen_files_sha256"].items():
         checks.equal(sha(contained(study, name)), expected, "Original preoutcome file bytes/"+name)
-    audit_settings(spec["settings"], checks)
+    audit_settings(spec["settings"], checks, profile)
     checks.equal(report["settings"], spec["settings"], "Report exact frozen experiment settings")
     initial_groups, initial_proofs = read(study/"initial-groups.json"), read(study/"initial-geometry.json")
     seed = next(g for g in original if g["role"] == "candidate")
     controls = [g for g in original if g["role"].endswith("_control")]
-    audit_initial(initial_groups, seed, controls, checks)
+    audit_initial(initial_groups, seed, controls, checks, profile)
     before = make_plan(initial_groups[:2], "controls_pre", steps=STEPS, repeats=3)
     coarse = make_plan(initial_groups[2:], "coarse", steps=(64,), repeats=1)
     after = make_plan(initial_groups[:2], "controls_post", steps=STEPS, repeats=3)
     checks.equal(read(study/"initial-plan.json"), dict(controls_pre=before, coarse=coarse, controls_post=after), "Complete literal initial/control/coarse plans")
     groups, proofs = read(study/"groups.json"), read(study/"geometry.json")
-    checks.equal(groups[:363], initial_groups, "Initial groups never mutated after outcomes")
-    checks.equal(proofs[:363], initial_proofs, "Initial geometry proofs never mutated after outcomes")
+    checks.equal(groups[:initial_count], initial_groups, "Initial groups never mutated after outcomes")
+    checks.equal(proofs[:initial_count], initial_proofs, "Initial geometry proofs never mutated after outcomes")
     audit_geometry(groups, proofs, spec["scene"], assets, checks)
     rows = replay.read_records(study/"records.jsonl")
-    checks.require(12 <= len(rows) <= MAX_REQUESTS, "Finite requested attempt budget including rejects")
+    checks.require(12 <= len(rows) <= profile["max_requests"], "Finite profile requested budget including rejects")
     checks.equal([r["id"] for r in rows[:12]], [r["id"] for r in before], "Controls precede every development request")
     pre = control_gate(rows[:12])
     checks.equal(read(study/"initial-control-gate.json"), pre, "Initial independently reconstructed control gate")
     selected_coarse = select([r for r in rows if r["phase"] == "coarse"], 3) if pre["status"] == "passed" else []
     refined = read(study/"refinement-groups.json")
-    audit_refinement(refined, selected_coarse, checks)
+    audit_refinement(refined, selected_coarse, checks, profile)
     refine_plan = make_plan(refined, "refinement", steps=(64,), repeats=1)
     selected_verify = select_unique([r for r in rows if r["phase"] in ("coarse", "refinement")], 5) if pre["status"] == "passed" else []
     verified = read(study/"verification-groups.json")
@@ -481,9 +537,9 @@ def audit(study, source, assets, *, shallow_study, positive_study, positive_audi
     stages = read(study/"adaptive-stages.json")
     checks.equal(len(stages), 2, "Exactly two declared adaptive stages, no retries")
     prior_rows = rows[:12+len(coarse)] if pre["status"] == "passed" else rows[:12]
-    audit_adaptive_stage(study, stages, 0, "refinement", refined, selected_coarse, refine_plan, prior_rows, proofs, checks)
+    audit_adaptive_stage(study, stages, 0, "refinement", refined, selected_coarse, refine_plan, prior_rows, proofs, checks, initial_count=initial_count)
     prior_rows = rows[:12+len(coarse)+len(refine_plan)] if pre["status"] == "passed" else rows[:12]
-    audit_adaptive_stage(study, stages, 1, "verification", verified, selected_verify, verification_plan, prior_rows, proofs, checks)
+    audit_adaptive_stage(study, stages, 1, "verification", verified, selected_verify, verification_plan, prior_rows, proofs, checks, initial_count=initial_count)
     expected = before+coarse+refine_plan+verification_plan+after if pre["status"] == "passed" else before
     audit_native_rows(rows, expected, groups, checks)
     replay.audit_batches(study, rows, checks)
@@ -504,8 +560,8 @@ def audit(study, source, assets, *, shallow_study, positive_study, positive_audi
         positions, traces = {}, {}
     gate = audit_report(report, rows, groups, verified, selected_verify, positions, pre, post, spec["scene"], checks)
     audit_traces(study, report, rows, groups, spec["scene"], checks)
-    identity = auditor_identity(source, spec["source_sha256"], checks)
-    return dict(version=VERSION, status="passed", contract_fingerprint=fp, checks_count=checks.count,
+    identity = auditor_identity(source, spec["source_sha256"], checks, audit_version=profile["audit_version"])
+    return dict(version=profile["audit_version"], status="passed", contract_fingerprint=fp, checks_count=checks.count,
                 checks=checks.entries, failures=[], auditor_sha256=sha(Path(__file__)),
                 report_sha256=sha(study/"report.json"), evidence_manifest_sha256=sha(study/"evidence-manifest.json"),
                 auditor_identity=identity, producer_source_sha256=spec["source_sha256"],
@@ -519,14 +575,17 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ("study", "source", "assets", "shallow-study", "positive-study", "positive-audit", "replay-study", "output"):
         parser.add_argument("--"+name, type=Path, required=True)
+    parser.add_argument("--coarse-study", type=Path)
     args = parser.parse_args()
     if args.output.resolve().is_relative_to(args.study.resolve()) and args.output.name != "audit-clean650.json":
         raise ValueError("Only designated new audit may be written inside frozen evidence")
     try:
         result = audit(args.study, args.source, args.assets, shallow_study=args.shallow_study,
-                       positive_study=args.positive_study, positive_audit=args.positive_audit, replay_study=args.replay_study)
+                       positive_study=args.positive_study, positive_audit=args.positive_audit, replay_study=args.replay_study,
+                       coarse_study=args.coarse_study)
     except (EvidenceError, ValueError, KeyError, OSError) as error:
-        result = dict(version=VERSION, status="failed", failures=[str(error)])
+        version = profile_for(read(args.study/"contract.json")["version"])["audit_version"]
+        result = dict(version=version, status="failed", failures=[str(error)])
         args.output.write_text(json.dumps(result, indent=2, allow_nan=False)+"\n")
         raise
     args.output.write_text(json.dumps(result, indent=2, allow_nan=False)+"\n")

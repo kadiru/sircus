@@ -24,6 +24,19 @@ test('nominal clean qualification requires exact complete audit, controls, obser
   raw=fixture();corrupt(raw);assert.equal(ui.clean650Qualification(raw,raw.verification[0]).passed,null);}
  raw=fixture();raw.verification[0].qualification={qualified:false,status:'failed'};assert.equal(ui.clean650Qualification(raw,raw.verification[0]).passed,false);
 });
+test('only registered study-auditor pairs qualify and profile history stays separate',()=>{
+  for(const [version,auditor] of [[ui.VERSION,ui.AUDIT_VERSION],[ui.FINE_VERSION,ui.FINE_AUDIT_VERSION]]){
+    const raw=fixture();raw.version=version;raw.audit.version=auditor;assert.equal(ui.clean650AuditReady(raw),true);
+    raw.audit.version=auditor===ui.AUDIT_VERSION?ui.FINE_AUDIT_VERSION:ui.AUDIT_VERSION;assert.equal(ui.clean650AuditReady(raw),false);
+  }
+  const raw=fixture(),old=fixture();old.contract_fingerprint='old';old.audit.contract_fingerprint='old';old.counts={attempts:496,native_releases:155,clean:12};old.gate.qualified_settings=0;
+  raw.version=ui.FINE_VERSION;raw.audit.version=ui.FINE_AUDIT_VERSION;raw.previous_clean650_studies=[old];raw.settings.coarse_requests=1001;raw.settings.refinement_seeds=3;raw.settings.refinement_offsets={height_m:[-.01,0,.01],tilt_deg:[-1,0,1],gap_m:[-.01,0,.01]};raw.settings.verification_sources=5;raw.settings.repeats_per_resolution=3;
+  const before=JSON.stringify(raw),d=dom();ui.renderClean650(d.root,raw);
+  assert.equal(d.get('profile').textContent,'Fine-grid follow-up · v2');assert.equal(d.rows('history').length,1);assert.equal(d.rows('history')[0][0],'Original sweep · v1');assert.equal(d.rows('history')[0][2],'496');assert.equal(d.rows('history')[0][3],'155');assert.equal(d.rows('history')[0][5],'0');assert.equal(d.rows('history')[0][6],'Verified at publication');
+  assert.ok(d.get('plan-detail').textContent.includes('1001 coarse requests'));assert.ok(d.get('plan-detail').textContent.includes('3 refinement seeds × 27'));
+  assert.ok(d.get('history-note').textContent.includes('not re-audited'));assert.equal(JSON.stringify(raw),before);
+  raw.version='unregistered';assert.equal(ui.clean650AuditReady(raw),false);
+});
 test('render distinguishes all-phase/search/controls/verification and missing versus observed counts',()=>{
  const d=dom(),raw=fixture(),before=JSON.stringify(raw);ui.renderClean650(d.root,raw);
  assert.equal(d.root.hidden,false);assert.equal(d.rows('summary')[0][1],'18');assert.equal(d.rows('summary')[4][1],'3');assert.equal(d.rows('controls').length,2);assert.equal(d.rows('controls')[0][2],'64');

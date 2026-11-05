@@ -1,6 +1,6 @@
 # Project state
 
-## Clean650 development sweep — preparation November 4, 2026
+## Clean650 development sweep — November 4, 2026
 
 - [Frozen bounded protocol](../sircus/mjlab/CLEAN650.md):360 H/tilt/gap grid
   combinations plus the original650 reference, up to81 local refinements,
@@ -8,8 +8,21 @@
 - Prior650 shot is timestep-sensitive and remains separate. Clean capture is
   required before promotion; rim assistance, rejects, misses and pending values
   are distinct. Noise testing and further PPO are deferred.
+- Completed496 requests:155 native releases and341 endpoint rejections.
+  Discovery442 requests admitted101 native releases:0clean and2rim captures,
+  both the original380mm/28°/386.8mm target. Verification reproduced3/3rim at64
+  and0/3capture at128; no qualified setting. All12clean captures in all-phase
+  totals belong to positive controls, not650mm discovery. Initial/final controls
+  passed; the independent audit passed64,075 checks.
+- [Curated v1 results](../baselines/mjlab-clean650-20261104/README.md) preserve
+  every requested H/tilt/gap and rejection without raw joints or observations.
+- A separately versioned fine follow-up targets H375/380/385mm,
+  tilt27/27.5/28/28.5/29° and gap380/386.8/390/395/400mm, plus the exact reference.
+  Fine refinement uses ±5mm/±0.25°/±2.5mm. Maximum211 requests including matched
+  controls and verification. This plan is frozen before native outcomes.
 - Strict5mm endpoints and calibrated dense scoring remain unchanged; held endpoints
-  do not validate arm transit or actuator motion. Native results pending.
+  do not validate arm transit or actuator motion. Finite IK failures do not prove
+  the requested poses physically unreachable, nor does this sweep prove650mm impossible.
 - Additive read-only `clean650_study` UI key; existing services,4070 and Isaac
   configuration are preserved.
 

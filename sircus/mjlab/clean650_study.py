@@ -27,6 +27,7 @@ def run(a):
     from .clean650_native import NativeExecutor
     from .learning_solve import required_asset_paths
     scene,sources,calibration,bindings=protocol.load_inputs(a)
+    profile=getattr(a,'profile','coarse-v1');version=protocol.PROFILES[profile]['version'];settings=protocol.settings(profile)
     old=protocol.read(a.old_study/'contract.json')
     packages=validate_replay_packages({n:importlib.metadata.version(n) for n in set(PINNED_PACKAGES)|set(REPLAY_EXTRA_PACKAGES)})
     assets={n:sha(a.assets.parent/n) for n in required_asset_paths(a.assets)}
@@ -36,18 +37,18 @@ def run(a):
     started=time.monotonic();source=Path(__file__).resolve().parents[2];seed=next(g for g in sources if g['role']=='candidate')
     geometry=CleanGeometry(scene,a.assets,seed)
     controls=[dict(copy.deepcopy(g),phase='controls') for g in sources if g['role'].endswith('_control')]
-    groups=geometry.check_many(controls+protocol.coarse(seed));control_groups=groups[:2]
+    groups=geometry.check_many(controls+protocol.coarse(seed,profile));control_groups=groups[:2]
     atomic(a.output/'initial-groups.json',groups);atomic(a.output/'initial-geometry.json',jsonable(geometry.proofs))
     initial=dict(controls_pre=protocol.plan(control_groups,'controls_pre',protocol.STEPS,3),
         coarse=protocol.plan(groups[2:],'coarse'),controls_post=protocol.plan(control_groups,'controls_post',protocol.STEPS,3))
     atomic(a.output/'initial-plan.json',initial)
-    spec=dict(version=protocol.VERSION,scene=scene,settings=protocol.settings(),calibration=calibration,input_bindings=bindings,
+    spec=dict(version=version,scene=scene,settings=settings,calibration=calibration,input_bindings=bindings,
         source_sha256=source_manifest(source),asset_sha256=assets,packages=packages,
         frozen_files_sha256={n:sha(a.output/n) for n in ('initial-groups.json','initial-geometry.json','initial-plan.json','calibration.json','verification.json')},
         created_utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),native_environment_batch=a.batch,scope=protocol.SCOPE,
         evidence_kind='native_calibrated_clean650_sweep')
     spec['fingerprint']=digest(spec);atomic(a.output/'contract.json',spec)
-    report=dict(version=protocol.VERSION,status='running',phase='prepared',contract_fingerprint=spec['fingerprint'],scope=protocol.SCOPE,
+    report=dict(version=version,status='running',phase='prepared',contract_fingerprint=spec['fingerprint'],scope=protocol.SCOPE,
         settings=spec['settings'],calibration={k:calibration[k] for k in ('calibration_sha256','verification_sha256','score_config_sha256')},
         counts={},groups=[],controls=[],top_settings=[],verification=[],gate={},trace_examples=[])
     stages=[];verification_groups=[];verification_sources=[]
@@ -86,14 +87,14 @@ def run(a):
         atomic(a.output/'groups.json',groups);atomic(a.output/'geometry.json',jsonable(geometry.proofs));report['storage']=storage_check(a.output)
         atomic(a.output/'report.json',report)
         print(__import__('json').dumps(dict(phase=phase,elapsed_s=round(report['elapsed_s'],1),counts=report['counts'],gate=report['gate'])),flush=True)
-        if len(rows)>protocol.MAX_REQUESTS or report['elapsed_s']>a.wall_time_limit:raise RuntimeError('Finite sweep budget exceeded')
+        if len(rows)>settings['max_requests'] or report['elapsed_s']>a.wall_time_limit:raise RuntimeError('Finite sweep budget exceeded')
     executor=NativeExecutor(scene,a.assets,calibration,a.output,a.batch,publish);publish('prepared')
     executor.execute(initial['controls_pre']);pre=protocol.control_gate(executor.rows)
     atomic(a.output/'initial-control-gate.json',pre)
     if pre['status']=='passed':
         executor.execute(initial['coarse'])
         seeds=protocol.ranked([r for r in executor.rows if r['phase']=='coarse'],3)
-        refined=geometry.check_many(protocol.refinement(seeds));groups.extend(refined)
+        refined=geometry.check_many(protocol.refinement(seeds,profile));groups.extend(refined)
         requests=protocol.plan(refined,'refinement');stage('refinement',refined,requests,seeds);publish('refinement-prepared');executor.execute(requests)
         verification_sources=protocol.verification_selection([r for r in executor.rows if r['phase'] in ('coarse','refinement')],5)
         verification_groups=geometry.check_many(protocol.verification(verification_sources));groups.extend(verification_groups)
@@ -122,8 +123,11 @@ def run(a):
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     for name in ('old-study','positive-study','positive-audit','calibration-report','verification-report','replay-study','assets','output','gpu-lock'):p.add_argument('--'+name,type=Path,required=True)
+    p.add_argument('--profile',choices=tuple(protocol.PROFILES),default='coarse-v1');p.add_argument('--coarse-study',type=Path)
     p.add_argument('--batch',type=int,default=32,choices=(16,32));p.add_argument('--queue-timeout',type=float,default=14400);p.add_argument('--wall-time-limit',type=float,default=7200)
-    a=p.parse_args();from .gpu_slot import gpu_slot
+    a=p.parse_args()
+    if a.profile=='fine-v2' and a.coarse_study is None:p.error('--coarse-study is required for fine-v2')
+    from .gpu_slot import gpu_slot
     try:
         with gpu_slot(a.gpu_lock,timeout_s=a.queue_timeout,notify=lambda r:print(__import__('json').dumps(r),flush=True)):run(a)
     except Exception as error:
