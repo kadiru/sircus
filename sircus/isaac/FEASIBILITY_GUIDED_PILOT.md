@@ -1,8 +1,10 @@
 # Geometry-guided continuous PPO pilot
 
 This separate follow-up addresses the broad pilot's 1,214 admission failures in
-1,600 training attempts. The original study and localhost:18794 viewer remain
-frozen. Native results are pending the bounded smoke and fresh pilot.
+1,600 training attempts. The original study evidence remains frozen; its former
+localhost:18794 listener was unavailable and was not restarted. The [completed
+study and portable checkpoints](../../baselines/isaac-feasibility-guided-pilot-20261105/README.md)
+show fewer reach/IK failures but worse capture performance.
 
 ## Proposal method
 
@@ -43,7 +45,7 @@ hyperparameters and reward as the broad pilot. The geometry-conditioned decoder
 changes physical action support and exploration scale. It is not a fine-tune of
 the old global-domain checkpoint or an experiment isolating only PPO.
 
-The planned matched budget is 64 × 25 = 1,600 attempted training shots, 16 updates,
+The completed matched budget was 64 × 25 = 1,600 attempted training shots, 16 updates,
 25 training/five validation/five test coordinates, and eight nominal frozen
 initial/final repeats per site. Invalid requests remain in the reward buffer.
 Report guided initial→final and broad final→guided final separately so the
@@ -99,5 +101,5 @@ python feasibility_guided_server.py --output NEW_EXPORT --port 18795
 ```
 
 Keep raw observations, generated assets, media and runtime configuration outside
-Git. Compact models and independently audited evidence will be published once
-the finite run and media checks finish. No physical, Viam or audio deployment.
+Git. Compact models and independently audited evidence are in the linked baseline.
+The original broad study and scoring fingerprints remain separate. No physical, Viam or audio deployment.
