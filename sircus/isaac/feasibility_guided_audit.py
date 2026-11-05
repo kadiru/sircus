@@ -283,6 +283,11 @@ def compare_runs(old_run, guided_run):
     old_result, new_result = (chain.read(p / "result.json") for p in (old_run, guided_run))
     chain.validate_study(old_study, old_spec)
     backend_for_run(guided_run).validate_study(new_study, new_spec)
+    for result, study in ((old_result, old_study), (new_result, new_study)):
+        chain.require(result.get("status") == "completed" and result.get("schema") == study["schema"]
+                      and result.get("study_fingerprint") == study["fingerprint"]
+                      and result.get("geometry_fingerprint") == study["geometry_fingerprint"],
+                      "Comparison requires completed bound results")
     chain.require(old_spec == new_spec and old_study["cells"] == new_study["cells"],
                   "Comparison geometry or held-out membership changed")
     for key in ("training_batches", "batches_per_update", "assessment_batches", "seed",
@@ -292,18 +297,32 @@ def compare_runs(old_run, guided_run):
     chain.require(old_study["source"]["camera_sha256"] == new_study["source"]["camera_sha256"],
                   "Comparison camera changed")
     chain.require(all(old_result["source_sha256"].get(k) == new_result["source_sha256"].get(k)
+                      == chain.digest(Path(__file__).with_name(k))
                       for k in SCORING_FILES), "Comparison scoring/release definitions changed")
     from farm_contract import statistics
 
     def stats(run, result):
         batches = result["batches"]
-        train = [row for summary in batches for row in chain.read(
-            chain.evidence_file(run, summary["file"], trial=True))["rows"] if row["split"] == "train"]
+        def rows_for(summary, mode):
+            path = chain.evidence_file(run, summary["file"], trial=True)
+            chain.require(chain.digest(path) == summary["sha256"], "Comparison trial checksum changed")
+            trial = chain.read(path)
+            chain.require(trial.get("mode") == summary.get("mode") == mode
+                          and len(trial.get("rows", [])) == 35
+                          and [(r["cell_id"], r["split"]) for r in trial["rows"]]
+                          == [(c["id"], c["split"]) for c in old_study["cells"]],
+                          "Comparison trial membership changed")
+            return trial["rows"]
+        train = [row for summary in batches for row in rows_for(summary, "train")
+                 if row["split"] == "train"]
+        chain.require(len(train) == 25*old_study["training_batches"]
+                      and len(result["assessments"]) == 2*old_study["assessment_batches"],
+                      "Comparison sample budget changed")
         values = dict(training=statistics(train), frozen={})
         repeats = len(result["assessments"]) // 2
         for stage, label in enumerate(("initial", "final")):
             rows = [row for summary in result["assessments"][stage*repeats:(stage+1)*repeats]
-                    for row in chain.read(chain.evidence_file(run, summary["file"], trial=True))["rows"]]
+                    for row in rows_for(summary, "eval")]
             values["frozen"][label] = {split: statistics([r for r in rows if r["split"] == split])
                                        for split in ("train", "validation", "test")}
         return values
