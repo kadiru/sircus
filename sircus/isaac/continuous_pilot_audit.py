@@ -118,7 +118,7 @@ def verify_checkpoint_chain(run, executed_source=None):
     """Check every continuous trial against its frozen CPU-loaded checkpoint."""
     import torch
     from continuous_feasibility import LOW, HIGH, decode_action, geometry_coverage
-    from continuous_policy import (build_observations, physical_actions, load_checkpoint,
+    from continuous_policy import (ContinuousPolicy, build_observations, physical_actions, load_checkpoint,
                                    weight_hash, actor_weight_hash)
     from farm_contract import reward, statistics
 
@@ -183,6 +183,11 @@ def verify_checkpoint_chain(run, executed_source=None):
         return policy
 
     initial = checkpoint(report["initial"],0,0)
+    with torch.random.fork_rng(devices=[]):
+        torch.manual_seed(study["seed"])
+        fresh=ContinuousPolicy()
+    require(weight_hash(fresh)==weight_hash(initial),
+            "Initial checkpoint differs from declared fresh seeded initialization")
     final = checkpoint(report["final"],batches//4,batches*25)
     require(report["initial_hash"] == weight_hash(initial)
             and report["final_hash"] == weight_hash(final), "Initial/final policy identity changed")
@@ -307,6 +312,20 @@ def verify_checkpoint_chain(run, executed_source=None):
     require(len(training_rows) == 25*batches and len(membership) == batches
             and all(m["cell_ids"] == expected_train_ids and m["samples"] == 25 for m in membership),
             "Held-out layouts entered optimization or rejected attempts were filtered")
+    with torch.no_grad():
+        initial_mean=initial.distribution(observations).loc.tanh().cpu().numpy()
+        final_mean=final.distribution(observations).loc.tanh().cpu().numpy()
+    initial_physical=physical_actions(initial_mean,LOW,HIGH)
+    final_physical=physical_actions(final_mean,LOW,HIGH)
+    action_delta=final_physical-initial_physical
+    mean_action_change=dict(action_names=study["domain"]["names"],
+        changed_cells=int((np.abs(final_mean-initial_mean).max(axis=1)>1e-7).sum()),
+        max_absolute_physical_delta=np.abs(action_delta).max(axis=0).tolist(),
+        mean_absolute_physical_delta=np.abs(action_delta).mean(axis=0).tolist(),
+        per_cell=[dict(cell_id=cell["id"],split=cell["split"],initial=initial_physical[i].tolist(),
+                       final=final_physical[i].tolist(),delta=action_delta[i].tolist())
+                  for i,cell in enumerate(study["cells"])],
+        scope="Direct deterministic network outputs before IK; changes alone do not prove a capture-rate improvement")
     return dict(schema=SCHEMA,status="passed",study_fingerprint=study_hash,
         geometry_fingerprint=geometry_hash,domain_fingerprint=domain_hash,
         ik_protocol=study.get("ik_protocol","not_declared_in_historical_smoke"),
@@ -318,7 +337,9 @@ def verify_checkpoint_chain(run, executed_source=None):
                            for label in ("validation","test")},
         optimizer_membership_sha256=canonical_hash(membership),
         max_logp_error=max_logp_error,logp_tolerance=LOGP_TOLERANCE,
+        fresh_seeded_initialization_verified=True,
         actor_changed=actor_weight_hash(initial)!=actor_weight_hash(final),
+        deterministic_mean_action_change=mean_action_change,
         train_statistics=statistics(training_rows),
         geometry_coverage_attempts=len(coverage_rows),
         geometry_coverage_excluded_from_optimizer=True,
