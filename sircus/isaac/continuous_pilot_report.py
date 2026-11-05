@@ -206,6 +206,39 @@ def foreground_caption(foreground):
             f"| tilt {p['tilt_deg']:.1f}° | bearing offset {p['bearing_offset_deg']:+.1f}°")
 
 
+def prior_training_counts(trials, cells, batch):
+    """Use every earlier training attempt, including unfilmed/rejected shots.
+
+    Current/future outcomes, coverage and evaluation never enter this prefix.
+    It describes exploratory training history, not frozen-policy quality.
+    """
+    require(type(batch) is int and batch >= 0, "Invalid training prefix boundary")
+    earlier = [trial for trial in trials if trial.get("mode") == "train"
+               and type(trial.get("batch")) is int and trial["batch"] < batch]
+    earlier.sort(key=lambda trial: trial["batch"])
+    require([trial["batch"] for trial in earlier] == list(range(batch)),
+            "Missing or duplicate earlier training batch in video prefix")
+    expected = {cell["id"] for cell in cells if cell["split"] == "train"}
+    rows, sources = [], {}
+    for trial in earlier:
+        active = active_rows(trial, cells)
+        require({row["cell_id"] for row in active} == expected,
+                "Training prefix omitted attempted training cells or included held-out cells")
+        rows.extend(active)
+        if "_source_file" in trial:
+            sources[trial["_source_file"]] = trial["_source_sha256"]
+    return dict(completed_batches=batch, batch_ids=list(range(batch)), **counts(rows),
+                source_trial_sha256=sources,
+                scope="Exploratory prior training only; all earlier active attempts including unfilmed and rejected shots. Excludes current/future batches, coverage and evaluation; not frozen-policy quality.")
+
+
+def training_heading(batch, budget, update, prefix):
+    require(type(budget) is int and 0 <= batch < budget and type(update) is int and update >= 0
+            and prefix["completed_batches"] == batch, "Training caption identity differs from prefix")
+    return (f"PPO TRAINING | batch {batch+1}/{budget} | U{update} | exploratory prior training: "
+            f"{prefix['captures']}/{prefix['attempts']} captures")
+
+
 def summarize(run):
     run = Path(run)
     study = read(local_file(run, "study.json"))
@@ -480,6 +513,14 @@ def native_frame_manifest(run, clips):
 def encode_native_frames(run, output, clips):
     audits = native_frame_manifest(run, clips)
     geometry = read(local_file(run, "contract.json"))["scene"]
+    study = read(local_file(run, "study.json"))
+    trials = []
+    for path in sorted((Path(run)/"trials").glob("*.json")):
+        trial = read(path)
+        require(trial.get("study_fingerprint") == study["fingerprint"],
+                "Caption source trial belongs to a different study")
+        trial.update(_source_file="trials/"+path.name, _source_sha256=sha(path))
+        trials.append(trial)
     encoded = []
     for index, (clip, audit) in enumerate(zip(clips, audits)):
         name = f"trial-{index:03d}.mp4"
@@ -493,9 +534,14 @@ def encode_native_frames(run, output, clips):
                    "PPO TRAINING" if mode == "train" else "FROZEN POLICY EVALUATION")
         batch, update = clip["batch"], clip.get("update_count")
         require(type(batch) is int and (update is None or type(update) is int), "Invalid native film identity")
-        caption += f" | batch {batch+1}"
-        if update is not None:
-            caption += f" | sampling update {update}"
+        prefix = None
+        if mode == "train":
+            prefix = prior_training_counts(trials, study["cells"], batch)
+            caption = training_heading(batch, study["training_batches"], update, prefix)
+        else:
+            caption += f" | batch {batch+1}"
+            if update is not None:
+                caption += f" | sampling update {update}"
         caption_path = Path(output)/f"caption-{index:03d}.txt"
         caption_path.write_text(caption)
         home = audit["episode_home"] or {}
@@ -529,8 +575,8 @@ def encode_native_frames(run, output, clips):
         metadata = {key: value for key, value in clip.items()
                     if key not in ("frames", "rows", "rollout", "actions")}
         encoded.append(dict(metadata, file=name, **data, native_frame_audit=audit,
-                            foreground=foreground,
-                            non_simulation_content="Data-derived trial mode/batch/update, episode-setup provenance and requested foreground geometry captions; no future outcome displayed"))
+                            foreground=foreground, prior_training=prefix,
+                            non_simulation_content="Data-derived trial mode/batch/update, exploratory prior-training prefix, episode-setup provenance and requested foreground geometry captions; no current/future outcome displayed"))
     require(all(any(clip["native_frame_audit"]["foreground_joint_excursion_rad"][arm] > .02
                     for clip in encoded) for arm in ("Arm10", "Arm14")),
             "No measured foreground movement of both arms in the recorded trials")

@@ -151,6 +151,44 @@ class ReportTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "requested shot parameter"):
             report.foreground_metadata(clip, dict(ball=dict(radius_m=.0375)))
 
+    def test_training_caption_prefix_counts_unfilmed_prior_attempts_only(self):
+        trials = [self.training(0), self.training(1, captured=True),
+                  self.training(2, invalid="settling")]
+        trials[1]["filmed"] = False
+        for trial in trials:
+            # Held-out/inactive successes cannot inflate the prior numerator.
+            trial["rows"][1] = outcome("b", captured=True)
+            trial.update(_source_file=f"trials/train-{trial['batch']}.json",
+                         _source_sha256=f"digest-{trial['batch']}")
+        trials += [dict(mode="coverage", batch=0, rows="do not inspect"),
+                   dict(mode="eval", batch=0, rows="do not inspect"),
+                   dict(mode="train", batch=3, rows="current outcome must not be read"),
+                   dict(mode="train", batch=9, rows="future outcome must not be read")]
+        prefix = report.prior_training_counts(trials, self.cells, 3)
+        self.assertEqual(prefix["attempts"], 3)
+        self.assertEqual(prefix["captures"], 1)
+        self.assertEqual(prefix["invalid"], 1)
+        self.assertEqual(prefix["batch_ids"], [0, 1, 2])
+        self.assertEqual(len(prefix["source_trial_sha256"]), 3)
+        heading = report.training_heading(3, 64, 0, prefix)
+        self.assertIn("batch 4/64", heading)
+        self.assertIn("exploratory prior training: 1/3 captures", heading)
+        poisoned = copy.deepcopy(trials)
+        poisoned[-1]["rows"] = [outcome("a", captured=True)]*100
+        self.assertEqual(report.prior_training_counts(poisoned, self.cells, 3), prefix)
+
+    def test_initial_training_caption_is_zero_over_zero_and_missing_history_fails(self):
+        prefix = report.prior_training_counts([dict(mode="train", batch=0, rows="unavailable")], self.cells, 0)
+        self.assertEqual(prefix["attempts"], 0)
+        self.assertEqual(prefix["captures"], 0)
+        self.assertIn("0/0 captures", report.training_heading(0, 64, 0, prefix))
+        with self.assertRaisesRegex(ValueError, "Missing or duplicate"):
+            report.prior_training_counts([self.training(0), self.training(2)], self.cells, 3)
+        bad = self.training(0)
+        bad["active_cell_ids"] = ["a", "b"]
+        with self.assertRaisesRegex(ValueError, "held-out"):
+            report.prior_training_counts([bad], self.cells, 1)
+
     def test_eval_optimizer_feedback_and_multiple_weights_at_same_stage_rejected(self):
         trial = dict(mode="eval", update_count=0, policy_hash="weights-a",
                      active_cell_ids=["b"], rows=[outcome("b")], optimizer_samples=1)
