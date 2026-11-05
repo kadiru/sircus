@@ -248,7 +248,8 @@ film_cpu=/home/kadir/sircus-mjlab/venv/bin/python
 
 CUDA_VISIBLE_DEVICES="" PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=1 \
   OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 "$film_cpu" \
-  "$film_helpers/rl_film_audit.py" "$film_run" --source "$qualified_run"
+  "$film_helpers/rl_film_audit.py" "$film_run" --source "$qualified_run" \
+  --output "${film_run}-checkpoint-audit.json"
 
 CUDA_VISIBLE_DEVICES="" PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=1 \
   OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 "$film_cpu" \
@@ -256,9 +257,15 @@ CUDA_VISIBLE_DEVICES="" PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=1 \
   --source "$qualified_run"
 ```
 
-The audit creates a new `checkpoint-audit.json`; do not overwrite an old audit
-to conceal mismatched evidence. Export requires a new directory and a passing
-bound audit. It writes `rl-training.mp4`, `poster.png` and `film.json`, then checks
+The configured native output is root-owned. The CPU audit writes a new, writable
+sibling report with `--output`; before running the exporter, add an exclusive,
+byte-for-byte copy as `NATIVE_RUN/checkpoint-audit.json` using the configured
+container's `docker exec -u 0` and standard Python file access. Verify the report
+SHA, passed status and its binding to the unchanged native `result.json`. Do not
+chmod/chown the run, replace original observations or overwrite an existing audit.
+The completed run used this sequence; the original source and trial bytes stayed
+unchanged. Export requires that bound audit and a new export directory. It writes
+`rl-training.mp4`, `poster.png`, `learning-curve.png` and `film.json`, then checks
 H.264 dimensions, cadence, chapter/frame counts, duration and a full decode.
 
 Before launch, 48 new policy/study/checkpoint-audit/export checks were exercised.
@@ -273,12 +280,23 @@ python scripts/check-repository.py --staged
 git diff --check
 ```
 
-## Final native study and film result
+## Final results
 
-Pending. The producer was launched from the pinned source above, but this section
-makes no completion or improvement claim. After the full run, record the actual
-study fingerprint, initial/intermediate/final known-layout capture rates and
-intervals, training/assessment attempts and rejection counts, actor/entropy and
-executed-geometry changes, checkpoint/native audits, selected film duration and
-hash, visual review, transfer checks, final storage/GPU/service state and the
-published task commit. Keep all older baselines identified separately.
+Completed: [portable evidence and checkpoints](../../baselines/isaac-native-rl-film-20261104/README.md).
+Native 4,480 training attempts produced 64 PPO updates; independent frozen checks
+on the same known layouts improved 90 →112 →118 →128 captures out of 280,
+or **32.1% →40.0% →42.1% →45.7%**. All releases passed admission. These are
+one-seed results on known layouts, with the original capture definition.
+
+Clean captures declined 45 →20 →18 →18; do not infer a quality improvement from
+the total-capture gain. Final per-site sampling was 16 sites at 8/8 and 19 at 0/8.
+Three sites that scored during training did not score in their eight final checks.
+This does not establish physical infeasibility or arbitrary-workspace coverage.
+
+The actual training film is 60.73 s /1,822 unique native frames /1080p30. All 24
+prescheduled early/middle/late collection chapters are included at 1× flight speed;
+the foreground captured in all 24. The whole-farm curve provides the learning
+comparison. Full native telemetry, checkpoint/category/reward/hash checks, video
+decode, Mac transfer digests and representative visual review passed. The model,
+learning curve and compact manifest are published; raw observations/media stay private.
+The finite 4090 study exited successfully and existing workloads/services were preserved.

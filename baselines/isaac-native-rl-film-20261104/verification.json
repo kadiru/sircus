@@ -1,0 +1,310 @@
+{
+  "schema": "sircus-native-rl-film-verification-v1",
+  "status": "passed",
+  "producer_commit": "207811f28364a2c09fedb221e8553fde0f7562b2",
+  "exporter_commit": "22dabe7021ce6715b27e3aedce2944d7e0f7b5c7",
+  "source_archive_sha256": "26cf0d75f5c136e213d0ea1a255b1a83ba74ef04bef1c25a3d1945be6804b494",
+  "study_fingerprint": "1603e14bbfe4953d768ec91a285fe76e11a7c488ae90ea545947ba2ac8f0b410",
+  "geometry_fingerprint": "63362ef37a93881f769b39d1ee7456335f1cc7bf5db04ffa7e548ce9697455bf",
+  "selected_camera_sha256": "a7967c072b8f949318b43a510235d503c81c21e05f433670a0ce92a7af385ede",
+  "source_result_sha256": "f09686045167248631476d9b5f963c1fc34f6dd61081c773593d25dcdaefce54",
+  "full_film_report_sha256": "e1166ef5659eb40a26df05404679a215d4f8333407ad8c10bc08c277ce5fe833",
+  "checkpoint_audit_sha256": "82be6b14a12e034ff618c987d110e5e7b60b13589917524c554db62e82dd5133",
+  "policy_precision": {
+    "dtype": "float32",
+    "allow_tf32": false,
+    "matmul_precision": "highest"
+  },
+  "training": {
+    "attempts": 4480,
+    "captures": 1844,
+    "invalid": 0,
+    "updates": 64,
+    "epochs_per_update": 4,
+    "samples_per_update": 70,
+    "seed": 20261110,
+    "elapsed_s_including_assessment_and_filming": 1726.050526774954
+  },
+  "assessments": [
+    {
+      "after_train_batches": 0,
+      "update_count_before": 0,
+      "files": [
+        "assessment-000-00.json",
+        "assessment-000-01.json",
+        "assessment-000-02.json",
+        "assessment-000-03.json",
+        "assessment-000-04.json",
+        "assessment-000-05.json",
+        "assessment-000-06.json",
+        "assessment-000-07.json"
+      ],
+      "checkpoint_file": "assessment-policy-000.pt",
+      "checkpoint_sha256": "753fe70a0d3ae70d4a8acabe03b524d560cdacab17f40d4a4d7eebcb73c3af58",
+      "policy_hash": "b7a760bb71824de6d09d59159bfe00d4559caf5556739d313aa99e682da7038e",
+      "actor_hash": "0b40774da04d4903128db6e75eea9fd8d664a3860aabff42c506cb136c22bbd2",
+      "attempts": 280,
+      "captures": 90,
+      "clean": 45,
+      "single_bounce": 81,
+      "invalid": 0,
+      "mean_reward": 0.2337119937854296,
+      "capture_rate": 0.32142857142857145,
+      "wilson95": [
+        0.2694602876752583,
+        0.37823036183210945
+      ],
+      "scope": "Frozen stochastic policy; 8 common seeded batches on the same known 35 layouts; no optimizer or search"
+    },
+    {
+      "after_train_batches": 32,
+      "update_count_before": 16,
+      "files": [
+        "assessment-032-00.json",
+        "assessment-032-01.json",
+        "assessment-032-02.json",
+        "assessment-032-03.json",
+        "assessment-032-04.json",
+        "assessment-032-05.json",
+        "assessment-032-06.json",
+        "assessment-032-07.json"
+      ],
+      "checkpoint_file": "assessment-policy-032.pt",
+      "checkpoint_sha256": "9eb38e1d6d6c66e564c243c794eee1d1d8d403a70b1f50106266ae50e56e9681",
+      "policy_hash": "8c16114c32f073b2dd1773f0dd585ac325a24222b31f3d74d02fb9e91e7198fc",
+      "actor_hash": "d6e9fc27ac3fa597146dd3cba67ee22e1bcd36550e34371778e7111620054204",
+      "attempts": 280,
+      "captures": 112,
+      "clean": 20,
+      "single_bounce": 103,
+      "invalid": 0,
+      "mean_reward": 0.3718871936639809,
+      "capture_rate": 0.4,
+      "wilson95": [
+        0.344345065701913,
+        0.458361698022213
+      ],
+      "scope": "Frozen stochastic policy; 8 common seeded batches on the same known 35 layouts; no optimizer or search"
+    },
+    {
+      "after_train_batches": 64,
+      "update_count_before": 32,
+      "files": [
+        "assessment-064-00.json",
+        "assessment-064-01.json",
+        "assessment-064-02.json",
+        "assessment-064-03.json",
+        "assessment-064-04.json",
+        "assessment-064-05.json",
+        "assessment-064-06.json",
+        "assessment-064-07.json"
+      ],
+      "checkpoint_file": "assessment-policy-064.pt",
+      "checkpoint_sha256": "626c91f37db1a705e4fd3998679dec5ae555c86c5a4460fc9b651b00578e024b",
+      "policy_hash": "114773dd7ca2f12ea926ffbc130edf83f0826e7cc622b3a2a6261a6cdfa51ed7",
+      "actor_hash": "0750cf5d83fae6b942bbdc27ab209a77effb16400fec22a4b70120fe949a1ef7",
+      "attempts": 280,
+      "captures": 118,
+      "clean": 18,
+      "single_bounce": 111,
+      "invalid": 0,
+      "mean_reward": 0.41227199760400557,
+      "capture_rate": 0.42142857142857143,
+      "wilson95": [
+        0.3650373103623645,
+        0.47994657542087743
+      ],
+      "scope": "Frozen stochastic policy; 8 common seeded batches on the same known 35 layouts; no optimizer or search"
+    },
+    {
+      "after_train_batches": 128,
+      "update_count_before": 64,
+      "files": [
+        "assessment-128-00.json",
+        "assessment-128-01.json",
+        "assessment-128-02.json",
+        "assessment-128-03.json",
+        "assessment-128-04.json",
+        "assessment-128-05.json",
+        "assessment-128-06.json",
+        "assessment-128-07.json"
+      ],
+      "checkpoint_file": "assessment-policy-128.pt",
+      "checkpoint_sha256": "e8102fd61062619c356c1611697cfc9c99637e1cf0bcd9795f8d56b0b4af3397",
+      "policy_hash": "0a7b2c1e36b84a661cd06faf913b0a7d352e08949cec65de39d889b114e5771f",
+      "actor_hash": "1badff34a88ed3f029a7f0aabd2d4ead3846075f4c19dd16ea3a18f1fb96a03f",
+      "attempts": 280,
+      "captures": 128,
+      "clean": 18,
+      "single_bounce": 120,
+      "invalid": 0,
+      "mean_reward": 0.4805658763781626,
+      "capture_rate": 0.45714285714285713,
+      "wilson95": [
+        0.3997665750473909,
+        0.5156791808343775
+      ],
+      "scope": "Frozen stochastic policy; 8 common seeded batches on the same known 35 layouts; no optimizer or search"
+    }
+  ],
+  "capture_gain_percentage_points": 13.571428571428571,
+  "quality_tradeoff": {
+    "clean_counts_per280": [
+      45,
+      20,
+      18,
+      18
+    ],
+    "single_bounce_capture_counts_per280": [
+      81,
+      103,
+      111,
+      120
+    ],
+    "scope": "Clean and single-bounce subsets overlap; totalcapturegain is not allqualitygain"
+  },
+  "layout_coverage": {
+    "initial_sites_with_at_least_one_capture": 17,
+    "final_sites_with_at_least_one_capture": 16,
+    "final_sites_zero_of8": 19,
+    "final_sites_eight_of8": 16,
+    "training_sites_with_capture": 19,
+    "training_capture_but_zero_final8": [
+      "r2c3",
+      "r2c5",
+      "r5c4"
+    ],
+    "scope": "Eight stochastic assessment attempts per known site; zero does not establish physical infeasibility"
+  },
+  "executed_diversity": {
+    "min_unique_options": 15,
+    "max_unique_options": 24,
+    "foreground_unique_options": 18,
+    "foreground_selected_ranges": {
+      "azimuth_offset_deg": [
+        -1.1675921616984795,
+        0.5962614997584126
+      ],
+      "radius_m": [
+        0.3958764308217357,
+        0.40571047847751435
+      ],
+      "height_m": [
+        0.37,
+        0.4
+      ],
+      "gap_m": [
+        0.255,
+        0.28500000000000003
+      ],
+      "tilt_deg": [
+        25.0,
+        27.0
+      ]
+    }
+  },
+  "movie": {
+    "file": "rl-training.mp4",
+    "sha256": "21833835150ba4a981cf50be425daac92ede06a092a4d025bbafd7a51b52e1bb",
+    "frames": 1822,
+    "duration_s": 60.733333333333334,
+    "resolution": [
+      1920,
+      1080
+    ],
+    "fps": 30,
+    "codec": "h264",
+    "decode_verified": true,
+    "non_simulation_content": [
+      "provenance_text",
+      "data_derived_learning_curve",
+      "data_derived_result_labels"
+    ]
+  },
+  "learning_curve_image": {
+    "file": "learning-curve.png",
+    "sha256": "e88b9ba44eb12ff8397401322ca8125aa5d7886dd910e224b52845c9cd0e639f",
+    "resolution": [
+      1600,
+      1000
+    ],
+    "training_curve_points": 128,
+    "known_layout_assessment_points": 4,
+    "x_axis": "Completed training batches (35 attempts each)",
+    "y_axis": "Capture rate among all attempted shots",
+    "rolling_window_batches": 8,
+    "assessment_interval": "Descriptive pooled 95% Wilson interval; same 35 known layouts",
+    "data_source": "Verified learning_curve and known_layout_assessments integer counts"
+  },
+  "filmed_batches": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    120,
+    121,
+    122,
+    123,
+    124,
+    125,
+    126,
+    127
+  ],
+  "foreground_film_captures": 24,
+  "foreground_film_attempts": 24,
+  "scope": "Fresh native Isaac Sim categorical-PPO training collection. The actor selects among 24 native-qualified configurations per known bucket layout. Filmed scripted transit is a visualization before common canonical episode initialization; grasping and joint paths are not learned. Native camera pixels receive explicitly data-derived text/curve overlays. Assessments use the same 35 known layouts with no optimizer updates; they are not held-out spatial generalization or physical validation.",
+  "setup_protocol": "scripted-visual-transit-then-common-canonical-endpoint-init-v1",
+  "setup_timing": "Driven setup is a compressed visualization followed by the common canonical endpoint initialization used by all scored episodes.",
+  "verification": {
+    "native_trials_independently_rescored": 5600,
+    "all_cell_native_state_samples": 5376000,
+    "native_hz": 240,
+    "checkpoints_checked": 133,
+    "update_chain_checked": 64,
+    "actor_changed": true,
+    "logprob_cpu_cuda_max_abs_error": 1.430511474609375e-06,
+    "entropy_cpu_cuda_max_abs_error": 1.1920928955078125e-06,
+    "original_source_geometry_and_camera_bound": true,
+    "fresh_contact_rim_isolation_probes_passed": true,
+    "full_video_decode_passed": true,
+    "video_and_curve_mac_transfer_hashes_match": true,
+    "visual_review_encoded_frames": [
+      0,
+      450,
+      900,
+      1350,
+      1810,
+      1821
+    ],
+    "visual_review_curve": true,
+    "local_regression_tests": 293,
+    "local_dependency_skips": 28,
+    "new_cpu_torch_pillow_tests": 50
+  },
+  "end_state": {
+    "native_exit_code": 0,
+    "gpu4090": "idle17MiB after run",
+    "gpu4070": "existingworkloadactiveanduntouched",
+    "free_storage_gib_approx": 78,
+    "service_restarts": 0,
+    "hardware_viam_audio_changes": false
+  },
+  "artifacts_outside_git": {
+    "raw": "output/native-rl-film-20261104-v1",
+    "export": "output/native-rl-film-20261104-v1-export",
+    "mac": ".runtime/media/native-rl-film-20261104",
+    "kept_private": "Raw RGB, NPZ, individual trial observations, intermediate checkpoints, logs, source archives and movie"
+  }
+}

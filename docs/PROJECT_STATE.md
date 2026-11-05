@@ -1,5 +1,13 @@
 # Project state
 
+## Actual native PPO training and video — November 4, 2026
+
+- [Method](../sircus/isaac/NATIVE_RL_FILM.md), [verified evidence/checkpoints](../baselines/isaac-native-rl-film-20261104/README.md): a fresh categorical PPO actor learned among 24 native-qualified local shot configurations at each of 35 known bucket layouts. 4,480 native training attempts, 64 actor/critic updates; separate frozen-policy checks used 280 attempts each at 0/16/32/64 updates, without search or optimizer feedback.
+- Capture checks rose **90→112→118→128 /280 (32.1%→40.0%→42.1%→45.7%)**. Clean captures fell 45→20→18→18. Final sampling captured at 16 sites (8/8 each); 19 sites remained 0/8, including three that had scored during training. This is a one-seed known-layout result, not proof of unknown-layout coverage or a quality improvement in every metric.
+- The 60.73-second actual training film retains all 24 prescheduled early/middle/late chapters at the exact saved fixed camera and silver-gray look, with data-derived progress overlays. All 24 foreground trials captured; whole-farm curves establish the comparison. Setup is scripted native transit preceding common canonical endpoint initialization for every scored episode; grasp/paths/perception are not learned.
+- All 5,600 training/assessment outcomes independently rescored from 5,376,000 all-cell 240 Hz observations; all 133 checkpoints, sampled categorical likelihoods, actor changes, rewards and optimizer membership audited. Full video decode, transfer hashes and visual review passed. 293 local tests passed with 28 dependency skips; all 50 new tests passed on Ubuntu CPU Torch/Pillow.
+- Finite 4090 run exited 0; existing 4070 workload, dashboards and prior benchmarks were preserved. About 78 GiB free. No hardware, Viam, audio or service deployment. Published policy schema and study/menu/geometry guards stay separate from historical Gaussian/Viam adapters.
+
 ## One-minute native farm presentation — November 4, 2026
 
 - [Film and reproduction](../sircus/isaac/PRESENTATION_FILM.md), [compact evidence](../baselines/isaac-presentation-film-20261104/README.md): 60 seconds of fresh native Isaac Sim/PhysX, 35 tables/70 arms, exact saved fixed camera and unchanged silver-gray look. Chronological foreground trials retain setup/drop/outcome, with simultaneous background drops; quiet tails removed. No ball tracking, looping or generated replacement imagery.
