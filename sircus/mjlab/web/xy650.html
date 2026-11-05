@@ -1,0 +1,33 @@
+<!-- Additive read-only fragment: place before #clean650Study. -->
+<!--XY650_STYLE-->
+<section id="xy650Study" class="xy650-panel" hidden>
+  <p class="xy650-eyebrow">XY TRANSLATIONS · FIXED 650 MM DISTANCE AND BEARING</p>
+  <h2>Translate the setup. Find a clean shot.</h2>
+  <p data-xy650="connection" class="xy650-small" role="status">Waiting for a read-only snapshot.</p>
+  <p data-xy650="status" class="xy650-status"></p>
+  <p data-xy650="scope" class="xy650-note"></p>
+  <p data-xy650="plan" class="xy650-note"></p>
+  <div data-xy650="summary" class="xy650-scroll" tabindex="0" role="region" aria-label="XY translated 650 mm all-phase totals"></div>
+  <p class="xy650-small">The board and bucket receive the same configured XY offset, preserving their 650 mm separation and bearing. All-phase totals include controls, discovery and nominal verification. Every requested shot remains counted, including geometry rejections. Clean and rim-contact captures are separate; controls are not 650 mm discovery successes.</p>
+  <h3>Search progress by phase</h3>
+  <div data-xy650="phases" class="xy650-scroll" tabindex="0" role="region" aria-label="XY search and verification phase counts"></div>
+  <p data-xy650="plan-detail" class="xy650-small">The translated grid and conditional budgets are frozen before outcomes. Missing values remain unknown.</p>
+  <h3>Matched controls before and after search</h3>
+  <div data-xy650="controls" class="xy650-scroll" tabindex="0" role="region" aria-label="Initial and final matched positive and negative controls"></div>
+  <h3>Best observed translated settings</h3>
+  <div data-xy650="top" class="xy650-scroll" tabindex="0" role="region" aria-label="Observed translated shot settings and first-flight diagnostics"></div>
+  <p class="xy650-small">ΔX/ΔY is the shared board-and-bucket translation from the original 650 mm scene. Board XY and bucket XY are configured world coordinates. Release height is the ball center above tabletop; gap is ball-bottom clearance above the board-center plane. A successful discovery record still needs separate matched verification.</p>
+  <p class="xy650-small">First-flight center-plane margin is a diagnostic of the ball center crossing the rim-height plane before the declared cutoff. It does not prove whole-ball entry, one-second retention or capture. Scored mouth clearance comes from the separate calibrated capture evaluator.</p>
+  <h3>64 / 128 substeps · nominal verification</h3>
+  <p data-xy650="result" class="xy650-note" role="status" data-state="unknown">Unverified.</p>
+  <div data-xy650="verification" class="xy650-scroll" tabindex="0" role="region" aria-label="Matched translated clean-shot verification"></div>
+  <p class="xy650-small">Qualification requires the before/after controls, three clean captures at each resolution, valid physics, independent scoring agreement and ≤5 mm matched displacement at 350 ms. Exact paired inputs and the complete evidence must pass the matching full audit.</p>
+  <h3>Actual saved native flight</h3>
+  <label class="xy650-small">Recorded trial <select data-xy650="trace-select" aria-label="Choose an XY translated 650 mm study trial"></select></label>
+  <canvas data-xy650="trace" width="820" height="280" role="img" aria-label="Actual saved native ball flight toward this trial's translated bucket"></canvas>
+  <p data-xy650="trace-caption" class="xy650-small"></p>
+  <p data-xy650="audit" class="xy650-note"></p>
+  <p class="xy650-small">Noise and further PPO remain deferred. This is a finite development search with prescribed held endpoints; it does not validate grasping, arm transit, actuator tracking or physical deployment. The original current-ball contact calibration and reported 175 mm bucket-height uncertainty remain unchanged.</p>
+  <p class="xy650-small">Earlier clean-650 profiles and the calibrated 650 mm replay remain below under their original fingerprints and definitions. This panel does not replace their results, change solver controls or activate a policy.</p>
+</section>
+<!--XY650_SCRIPT-->

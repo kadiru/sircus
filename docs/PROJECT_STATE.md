@@ -1,5 +1,21 @@
 # Project state
 
+## XY650 translated-plane study — preparation November 5, 2026
+
+- [Frozen protocol](../sircus/mjlab/XY650.md): translate board and bucket together
+  by nine ΔX−10/0/+10mm, ΔY40/60/80mm offsets, retaining650mm distance/bearing.
+  243 H/T/G queries +9 translated old references +1 original =253 coarse;
+  unique top3 ×27 local refinements, top5 ×3 repeats at64/128 and24 controls:
+  maximum388 requests. No noise or PPO.
+- New first-flight-only ranking excludes positions after subsequent contacts.
+  Center-plane aperture diagnostics remain separate from calibrated whole-ball
+  entry and one-second capture. Original scorers, materials and results remain.
+- CPU-only planning preflight admitted105/253 targets, minimum5.212mm clearance;
+  this is not evidence of a ball flight or successful recipe. Native results pending.
+- New scene/query/execution identities, complete requested denominators and an
+  independent full audit gate the additive `xy650_study` UI.4070/Isaac remain
+  separate; existing services are not restarted. Raw observations stay outside Git.
+
 ## Clean650 development sweep — November 4, 2026
 
 - [Frozen bounded protocol](../sircus/mjlab/CLEAN650.md):360 H/tilt/gap grid
