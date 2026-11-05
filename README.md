@@ -10,6 +10,12 @@ The current goal is a simulation showcase with an interactively placed bucket an
 
 ## Start here
 
+- **Translated XY650 development search:** [bounded protocol](sircus/mjlab/XY650.md).
+  Board and bucket move together at fixed650mm distance/bearing; fresh strict
+  endpoints, first-flight-only ranking and matched64/128 qualification. This
+  follows three fixed-XY searches with no qualified clean650 recipe. Native
+  translated-study results are pending; no noise or new PPO is included.
+
 - **Sweep versus RL benchmark:** [matched current-ball protocol](sircus/mjlab/SWEEP_RL_BENCHMARK.md).
   All six workers completed: 1,024 spent TRAIN requests per method/seed, 6,144 TRAIN
   + 864 validation + 432 test requests, using the same 17-recipe historical prior.
