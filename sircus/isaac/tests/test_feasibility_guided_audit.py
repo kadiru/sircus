@@ -4,6 +4,7 @@ import copy
 import json
 import math
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -13,6 +14,7 @@ from scipy.stats import qmc
 ISAAC = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ISAAC))
 import feasibility_guided_audit as audit
+import continuous_policy as base_policy
 from continuous_feasibility import ACTION_NAMES, LOW, HIGH, canonical_hash, decode_action
 from expanded_farm import make_spec
 
@@ -143,6 +145,117 @@ class GuidedSupportAuditTests(unittest.TestCase):
             seal(changed)
             with self.subTest(field=key), self.assertRaises(ValueError):
                 audit.validate_guided_study(changed, self.spec, self.support, "b"*64, "c"*64)
+
+
+@unittest.skipIf(base_policy.torch is None, "Configured CPU Torch is unavailable")
+class GuidedChainAuditTests(unittest.TestCase):
+    def make_run(self, root):
+        from feasibility_guided_pilot import make_study
+        import feasibility_guided_policy as policy_module
+        from feasibility_guided_support import physical_actions
+        from farm_contract import reward, statistics
+        torch = base_policy.torch
+        torch.set_num_threads(1)
+        torch.manual_seed(20261112)
+        support, feasibility, spec = fixture()
+        root.mkdir(exist_ok=True)
+        (root/"trials").mkdir()
+        def write(name, value):
+            (root/name).write_text(json.dumps(value, allow_nan=False))
+        write("support.json", support)
+        write("feasibility.json", feasibility)
+        write("contract.json", spec)
+        study = make_study(dict(spec=spec, source=dict(camera_sha256="a"*64)), 4, support)
+        study.update(support_sha256=audit.chain.digest(root/"support.json"),
+                     feasibility_sha256=audit.chain.digest(root/"feasibility.json"))
+        seal(study)
+        write("study.json", study)
+        policy = policy_module.GuidedPolicy()
+        optimizer = torch.optim.Adam(policy.parameters(), lr=.0003)
+        observations = torch.from_numpy(base_policy.build_observations(study["cells"]))
+        train = [i for i, c in enumerate(study["cells"]) if c["split"] == "train"]
+        changes, summaries, assessments, buffer = [], [], [], []
+        def checkpoint(name, batches):
+            payload = policy_module.checkpoint_payload(policy, optimizer,
+                study_fingerprint=study["fingerprint"], geometry_fingerprint=spec["fingerprint"],
+                domain_fingerprint=study["domain"]["fingerprint"], support_fingerprint=support["fingerprint"],
+                update_count=len(changes), attempted_shots=batches*25, seed=study["seed"])
+            torch.save(payload, root/name)
+            return dict(file=name, sha256=audit.chain.digest(root/name),
+                        policy_hash=base_policy.weight_hash(policy), actor_hash=base_policy.actor_weight_hash(policy))
+        def trial(mode, batch, cp):
+            picked = base_policy.sample(policy, observations, deterministic=mode == "eval")
+            physical = physical_actions(picked["actions_normalized"], support, study["cells"])
+            actions = [decode_action(c, a, f"{mode}-{batch}-{i}") for i, (c, a) in enumerate(zip(study["cells"], physical))]
+            rows = [dict(a, cell_id=c["id"], split=c["split"], invalid="synthetic_reject",
+                         route_success=False, route_quality=0, single_bounce_success=False)
+                    for c, a in zip(study["cells"], actions)]
+            returns = torch.tensor([reward(r) for r in rows], dtype=torch.float32)
+            enabled = [i in train for i in range(35)] if mode == "train" else [True]*35
+            home = dict(protocol=audit.chain.HOME_PROTOCOL, episode_reset=True,
+                        path_eligible=[True]*35, path_checks=[dict(accepted=True) for _ in range(35)], physics_step=100,
+                        **{key: {arm: [[0.]*6 for _ in range(35)] for arm in ("Arm10", "Arm14")}
+                           for key in ("target_joint_rad", "measured_joint_rad", "measured_joint_velocity_rad_s")})
+            name = f"trials/{mode}-{len(summaries)+len(assessments):04d}.json"
+            data = dict(schema=study["schema"], mode=mode, batch=batch, update_count=len(changes),
+                        study_fingerprint=study["fingerprint"], checkpoint=cp, policy_hash=base_policy.weight_hash(policy),
+                        observations=observations.tolist(), latent=picked["latent"].tolist(),
+                        actions_normalized=picked["actions_normalized"].tolist(), logp=picked["logp"].tolist(),
+                        actions=actions, rows=rows, rewards=returns.tolist(), enabled=enabled,
+                        active_cell_ids=[c["id"] for c, use in zip(study["cells"], enabled) if use],
+                        optimizer_samples=25 if mode == "train" else 0, deterministic=mode == "eval",
+                        policy_action_used=True, home=home, release_step=200, support_fingerprint=support["fingerprint"])
+            write(name, data)
+            return dict(mode=mode, batch=batch, update_count=len(changes), file=name,
+                        sha256=audit.chain.digest(root/name), **statistics([r for r, use in zip(rows, enabled) if use])), \
+                   (observations[train], picked["latent"][train], picked["logp"][train], returns[train])
+        initial = checkpoint("policy-initial.pt", 0)
+        for repeat in range(2):
+            summary, _ = trial("eval", repeat, initial)
+            assessments.append(summary)
+        for batch in range(4):
+            cp = checkpoint(f"policy-before-{batch:03d}.pt", batch)
+            summary, data = trial("train", batch, cp)
+            summaries.append(summary)
+            buffer.append(data)
+        change = base_policy.update(policy, optimizer, *[torch.cat(g) for g in zip(*buffer)], study["ppo"])
+        change.update(update_count=1, training_batches=[0, 1, 2, 3], sample_count=100)
+        changes.append(change)
+        final = checkpoint("policy-final.pt", 4)
+        for repeat in range(2):
+            summary, _ = trial("eval", repeat, final)
+            assessments.append(summary)
+        report = dict(schema=study["schema"], status="completed", study_fingerprint=study["fingerprint"],
+                      geometry_fingerprint=spec["fingerprint"], workcells=35, articulations=70,
+                      initial=initial, final=final, initial_hash=initial["policy_hash"], final_hash=final["policy_hash"],
+                      batches=summaries, assessments=assessments, updates=changes, coverage=[])
+        write("result.json", report)
+        return report
+
+    def test_complete_guided_chain_keeps_every_reject_and_heldout_exclusion(self):
+        with tempfile.TemporaryDirectory() as name:
+            root = Path(name)
+            self.make_run(root)
+            result = audit.audit(root)
+            self.assertEqual(result["optimizer_samples"], 100)
+            self.assertEqual(result["train_statistics"]["invalid"], 100)
+            self.assertEqual(result["support_evidence"]["unresolved_cells"], 1)
+            self.assertTrue(result["fresh_seeded_initialization_verified"])
+            self.assertLess(result["max_logp_error"], 1e-5)
+
+    def test_rehashed_trial_support_metadata_mismatch_is_rejected(self):
+        with tempfile.TemporaryDirectory() as name:
+            root = Path(name)
+            report = self.make_run(root)
+            summary = report["batches"][0]
+            path = root/summary["file"]
+            value = json.loads(path.read_text())
+            value["support_fingerprint"] = "f"*64
+            path.write_text(json.dumps(value))
+            summary["sha256"] = audit.chain.digest(path)
+            (root/"result.json").write_text(json.dumps(report))
+            with self.assertRaisesRegex(ValueError, "Trial guided support"):
+                audit.audit(root)
 
 
 if __name__ == "__main__":
