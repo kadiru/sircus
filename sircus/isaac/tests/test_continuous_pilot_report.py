@@ -124,7 +124,8 @@ class ReportTests(unittest.TestCase):
         self.assertEqual(prediction["measured_board"]["center_m"][2], .398)
         self.assertEqual(prediction["outcome"]["state"], "release_withheld")
         output = self.root/"settings.csv"
-        report.write_settings_csv(summary, output)
+        metadata = report.write_settings_csv(summary, output)
+        self.assertEqual(metadata["text"].encode("utf-8"), output.read_bytes())
         with output.open() as saved:
             rows = list(csv.DictReader(saved))
         self.assertEqual(rows[1]["initial_captures"], "1")

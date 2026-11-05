@@ -175,6 +175,22 @@ class ContinuousAuditTests(unittest.TestCase):
                                        batches=summaries,updates=changes))
         return report
 
+    def test_rehashed_nonfresh_initial_checkpoint_is_rejected(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);report=self.fixture(root)
+            torch=policy_module.torch;path=root/report["initial"]["file"]
+            saved=torch.load(path,weights_only=True)
+            saved["state_dict"]["critic.4.bias"]+=.1
+            changed=policy_module.ContinuousPolicy();changed.load_state_dict(saved["state_dict"])
+            saved["weight_hash"]=policy_module.weight_hash(changed)
+            torch.save(saved,path)
+            report["initial"]["sha256"]=audit.digest(path)
+            report["initial"]["policy_hash"]=saved["weight_hash"]
+            report["initial_hash"]=saved["weight_hash"]
+            write(root/"result.json",report)
+            with self.assertRaisesRegex(ValueError,"fresh seeded initialization"):
+                audit.verify_checkpoint_chain(root)
+
     def test_partial_first_update_checks_all_attempts_without_needing_final_evaluation(self):
         with tempfile.TemporaryDirectory() as d:
             root=Path(d);self.fixture(root)
@@ -201,6 +217,8 @@ class ContinuousAuditTests(unittest.TestCase):
             self.assertEqual({k:len(v) for k,v in result["held_out_cell_ids"].items()},dict(validation=5,test=5))
             self.assertGreater(result["train_statistics"]["invalid"],0)
             self.assertTrue(result["actor_changed"])
+            self.assertGreater(result["deterministic_mean_action_change"]["changed_cells"],0)
+            self.assertEqual(len(result["deterministic_mean_action_change"]["per_cell"]),35)
             self.assertLess(result["max_logp_error"],1e-5)
             self.assertEqual(len(result["checkpoints"]),6)
             self.assertEqual(len(result["trials"]),8)
