@@ -48,6 +48,9 @@ def make_study(bundle, batches=64):
                  training_split="25 fixed bucket sites; five validation and five test sites excluded from optimization",
                  evaluation="Frozen deterministic direct inference, repeated native trials; identical repeats measure numerical repeatability, not independent layout generalization",
                  setup="Live scripted articulation drives from previous measured joints; no per-trial joint-state resets; coarse swept proxy and final measured settlement gates",
+                 measurement_hold_s=1.75,
+                 episode_start="Scripted live drive to original saved home joints, six seconds of original hold drives, then sample/execute shot; common home target for coverage/train/frozen checks, no joint-state reset",
+                 home_hold_s=6.0,
                  motion_scope="Self collision disabled in source asset; coarse path proxy is not collision certification; initialized ball release, no grasp/path learning",
                  video="All training batches, normal-time 30fps setup/release, exact fixed saved camera; no ball following",
                  scope="Single-seed continuous-action terminal contextual PPO pilot; sampled feasibility, not exhaustive reachability or physical validation")
@@ -86,6 +89,10 @@ class ContinuousShots:
                 qualifications.append(dict(accepted=False, reason="inactive_split"))
                 eligible.append(False)
                 continue
+            if not self.home_readback["path_eligible"][i]:
+                qualifications.append(dict(accepted=False, reason="common_home_path_proxy_rejected"))
+                eligible.append(False)
+                continue
             seeds = {name: arm.data.joint_pos[i, :6].cpu().numpy().copy()
                      for name, arm in self.arms.items()}
             if self.trial_mode == "coverage" and self.coverage_fits[i] is not None:
@@ -106,12 +113,36 @@ class ContinuousShots:
         self.qualifications = qualifications
         self.preparation_enabled = np.asarray(eligible)
         releases, normals, records, invalid = FeasibilityShots.prepare(self, actions)
+        self.scoring_normals = normals.copy()
         for i, fit in enumerate(qualifications):
             if not fit["accepted"]:
                 invalid[i] = fit["reason"]
             elif self.path_reasons[i] is not None:
                 invalid[i] = self.path_reasons[i]
         return releases, normals, records, invalid
+
+    def home(self):
+        from continuous_feasibility import approximate_path_check
+
+        import torch
+        starts = {n:a.data.joint_pos.clone() for n,a in self.arms.items()}
+        goals = {n:a.data.default_joint_pos.clone() for n,a in self.arms.items()}
+        enabled = np.ones(self.n,dtype=bool)
+        home_checks=[]
+        for i in range(self.n):
+            check=approximate_path_check(self.cfg,self.continuous_links,
+                {n:starts[n][i,:6].cpu().numpy() for n in starts},
+                {n:goals[n][i,:6].cpu().numpy() for n in goals},cell=self.base_cells[i],samples=16)
+            enabled[i]=check["accepted"]
+            home_checks.append(check)
+        self.preparation_enabled=enabled
+        self.approach_endpoints(goals)
+        for _ in range(round(6/self.dt)):
+            self.tick()
+        return dict(protocol="live-scripted-common-home-v1",target_joint_rad={n:goals[n][:,:6].cpu().tolist() for n in goals},
+            measured_joint_rad={n:a.data.joint_pos[:,:6].cpu().tolist() for n,a in self.arms.items()},
+            measured_joint_velocity_rad_s={n:a.data.joint_vel[:,:6].cpu().tolist() for n,a in self.arms.items()},
+            path_eligible=enabled.tolist(),path_checks=home_checks,physics_step=self.steps)
 
     def approach_endpoints(self, targets):
         starts = {n: a.data.joint_pos.clone() for n, a in self.arms.items()}
@@ -170,6 +201,18 @@ class ContinuousShots:
         if fit["solved"]:
             verified_fit(target, fit, self.continuous_links[name], name == "Arm14")
         return fit
+
+    def board_poses(self):
+        from parallel_runtime import ParallelShots
+
+        # The endpoint-initialized historical task did not include large driven
+        # transitions. Allow the restored original hold drives to dissipate
+        # motion before EACH unchanged stability/position test. No velocity or
+        # pose is overwritten, and no acceptance threshold is relaxed.
+        if self.capture_trial and self.phase == "setup":
+            for _ in range(round(1.75/self.dt)):
+                self.tick()
+        return ParallelShots.board_poses(self)
 
     def tick(self):
         from parallel_runtime import ParallelShots
@@ -278,6 +321,8 @@ def run_study(env, bundle, batches=64, feasibility_path=None):
         env.capture_trial, env.film_trial, env.phase = True, film, "setup"
         env.trial_start_step = env.steps
         first = env.next_frame
+        home=env.home()
+        env.home_readback=home
         rows, raw = env.shot_batch(actions, record_video=film, enabled=env.active_mask)
         env.capture_trial, env.film_trial, env.phase = False, False, None
         active = [i for i in range(35) if env.active_mask[i]]
@@ -286,6 +331,7 @@ def run_study(env, bundle, batches=64, feasibility_path=None):
             r["qualification"] = env.qualifications[i]
             r["path_rejection"] = env.path_reasons[i]
             r["path_proxy"] = env.path_checks[i]
+            r["scoring_board_normal"] = env.scoring_normals[i].tolist()
         returns = torch.tensor([reward(r) for r in rows], dtype=torch.float32, device=env.sim.device)
         name = f"{mode}-{len(summaries)+len(assessments)+len(coverages):04d}"
         physics = None
@@ -302,6 +348,7 @@ def run_study(env, bundle, batches=64, feasibility_path=None):
             enabled=env.active_mask.tolist(), deterministic=deterministic,
             optimizer_samples=len(active) if mode == "train" else 0,
             policy_action_used=mode != "coverage",
+            home=home,
             release_step=env.release_step, score_end_step=env.steps, physics=physics,
             trajectory_m=raw["trajectory_m"], wall_s=raw["wall_s"],
             transit_joint_error_rad=env.transit_joint_error_rad)

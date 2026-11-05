@@ -37,8 +37,11 @@ deterministic policies each receive eight repeated native trials per site.
 Repeated identical layouts measure numerical repeatability; five held-out
 sites are a small spatial test, not table-wide generalization evidence.
 
-All filmed setup is normal-time 30 fps actual articulation drive motion from
-the preceding measured pose. There are no per-trial joint-state teleports.
+Every episode first drives to the same saved home targets and holds for six
+seconds; measured home joints are logged for comparison. All filmed setup is
+normal-time 30 fps actual articulation drive motion, including this episodic
+initialization. An additional 1.75-second hold precedes each original measured
+settling check, without changing its thresholds. There are no per-trial joint-state teleports.
 Ball placement at release is initialized; pickup and joint paths are scripted.
 The exact saved user camera and silver-gray appearance remain fixed. Coverage
 and on-policy footage are labeled separately; no outcome selects the clips.

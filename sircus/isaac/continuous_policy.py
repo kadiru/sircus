@@ -27,6 +27,7 @@ ACTION_DIM = len(ACTION_NAMES)
 # state-conditioned bucket-to-REFERENCE distance; no successful-shot labels.
 INITIAL_NORMALIZED = [0.0, 0.0, 2*(.35-.14)/(.60-.14)-1,
                       2*(.24-.08)/(.56-.08)-1, 2*(29-12)/(52-12)-1]
+INITIAL_LOGSTD = [-2.2, -2.0, -1.5, -1.5, -1.2]
 ARCHITECTURE = dict(
     version=POLICY_VERSION,
     observation_dim=OBSERVATION_DIM,
@@ -36,7 +37,7 @@ ARCHITECTURE = dict(
     activation="tanh",
     actor="state-conditioned independent Gaussian; tanh-squashed continuous actions",
     critic="state-only terminal return prediction",
-    initial_logstd=-0.9,
+    initial_logstd=INITIAL_LOGSTD,
     initial_actor_residual_normalized=INITIAL_NORMALIZED,
     initial_radius_prior=dict(observation_feature=2, physical_domain_m=[.28, 1.20],
                               prior_clip_m=[.29, 1.19],
@@ -116,7 +117,7 @@ class ContinuousPolicy(_BaseModule):
 
         self.actor = mlp(ACTION_DIM)
         self.critic = mlp(1)
-        self.logstd = torch.nn.Parameter(torch.full((ACTION_DIM,), -0.9))
+        self.logstd = torch.nn.Parameter(torch.tensor(INITIAL_LOGSTD,dtype=torch.float32))
         # Every bucket starts at the declared geometric prior plus zero learned radius residual.
         # There is no fitted checkpoint, per-cell warm start or success catalogue.
         torch.nn.init.zeros_(self.actor[-1].weight)

@@ -38,7 +38,7 @@ class GeometryTests(unittest.TestCase):
         # state-conditioned in distribution(), tested with Torch below.
         np.testing.assert_allclose(decoded[0][[0,2,3,4]], [0, .35, .24, math.radians(29)],
                                    atol=1e-14, rtol=0)
-        self.assertEqual(module.ARCHITECTURE["initial_logstd"], -.9)
+        self.assertEqual(module.ARCHITECTURE["initial_logstd"], [-2.2,-2.0,-1.5,-1.5,-1.2])
         self.assertEqual(module.ARCHITECTURE["initial_radius_prior"]["prior_clip_m"], [.29,1.19])
         self.assertEqual(module.ACTION_NAMES[0], "bearing_offset_rad")
         self.assertEqual(module.ACTION_NAMES[2], "height_m")
@@ -77,7 +77,7 @@ class ContinuousPPOTests(unittest.TestCase):
         expected = self.torch.tensor(module.INITIAL_NORMALIZED).atanh().expand(128,5).clone()
         expected[:,1] = math.atanh(2*(.29-.28)/(.92)-1)
         self.torch.testing.assert_close(dist.loc, expected)
-        self.torch.testing.assert_close(dist.scale, self.torch.full((128, 5), math.exp(-.9)))
+        self.torch.testing.assert_close(dist.scale, self.torch.tensor(module.INITIAL_LOGSTD).exp().expand(128,5))
         self.assertEqual(module.ACTION_DIM, 5)
         self.assertEqual(self.policy.value(self.obs).shape, (128,))
 

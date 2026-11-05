@@ -12,3 +12,8 @@ assert.notEqual(panel.color(null),panel.color(0));
 assert.match(source,/textContent/);
 assert.doesNotMatch(source,/innerHTML|fetch\([^)]*POST|WebSocket|command|actuate/);
 console.log('Continuous-pilot panel checks passed');
+const ranges=panel.actionRangeRows({study:{domain:{names:['height_m','tilt_rad'],low:[.14,Math.PI/12],high:[.6,Math.PI/4]}},sampled_training_action_ranges:{height_m:{min:.2,max:.5}}});
+assert.equal(ranges[0][1],'140.0–600.0 mm');
+assert.equal(ranges[0][2],'200.0–500.0 mm');
+assert.equal(ranges[1][1],'15.0–45.0 °');
+assert.equal(ranges[1][2],'not sampled');
