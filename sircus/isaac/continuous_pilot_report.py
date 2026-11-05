@@ -673,7 +673,8 @@ def write_settings_csv(summary, path):
                 row["measured_board_"+axis+"_m"] = center[index] if center is not None else None
                 row["measured_board_normal_"+axis] = normal[index] if normal is not None else None
             writer.writerow(row)
-    return dict(file=Path(path).name, sha256=sha(path), cells=len(summary["cells"]),
+    return dict(file=Path(path).name, sha256=sha(path), text=Path(path).read_bytes().decode("utf-8"),
+                cells=len(summary["cells"]),
                 scope="Initial and latest frozen-policy outcomes and requested geometry; no per-cell search or measured gripper pose. Latest is final only after completed collection.")
 
 
