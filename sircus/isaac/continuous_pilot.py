@@ -95,12 +95,19 @@ class ContinuousShots:
                 qualifications.append(dict(accepted=False, reason="inactive_split"))
                 eligible.append(False)
                 continue
+            if self.trial_mode != "coverage" and getattr(self, "support_missing", [False]*self.n)[i]:
+                qualifications.append(dict(accepted=False, reason="no_geometry_support"))
+                eligible.append(False)
+                continue
             if not self.home_readback["path_eligible"][i]:
                 qualifications.append(dict(accepted=False, reason="common_home_path_proxy_rejected"))
                 eligible.append(False)
                 continue
             seeds = {name: arm.data.joint_pos[i, :6].cpu().numpy().copy()
                      for name, arm in self.arms.items()}
+            guided_seeds = getattr(self, "proposal_ik_seeds", None)
+            if self.trial_mode != "coverage" and guided_seeds is not None and guided_seeds[i] is not None:
+                seeds = {n: guided_seeds[i][n]["q"] for n in self.arms}
             if self.trial_mode == "coverage" and self.coverage_fits[i] is not None:
                 seeds = {n: self.coverage_fits[i][n]["q"] for n in self.arms}
             fit = qualify_action(self.cfg, self.base_cells[i], action, self.continuous_links, seeds, solver=solve)
