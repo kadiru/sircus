@@ -19,7 +19,7 @@ function dom(){const nodes=new Map(),drawCalls=[],draw=new Proxy({fillText:(...v
 const flush=()=>new Promise(r=>setImmediate(r));
 test('nominal clean qualification requires exact complete audit, controls, observed clean counts and paired drift',()=>{
  let raw=fixture();assert.equal(ui.xy650Qualification(raw,raw.verification[0]).passed,true);
- for(const corrupt of [r=>r.status='running',r=>r.audit.version='old',r=>r.audit.bound_files_verified='true',r=>r.audit.contract_fingerprint='other',r=>r.audit.checks_count=0,r=>r.audit.full_checks_verified=false,
+ for(const corrupt of [r=>r.status='running',r=>r.audit.version='old',r=>r.audit.version='sircus-xy650-independent-audit-v1',r=>r.audit.bound_files_verified='true',r=>r.audit.contract_fingerprint='other',r=>r.audit.checks_count=0,r=>r.audit.full_checks_verified=false,
   r=>delete r.gate.controls_post_passed,r=>r.gate.controls_pre_passed=false,r=>r.verification[0].by_substeps[128].clean=2,r=>delete r.verification[0].qualification.physics_valid,r=>r.verification[0].sensitivity.nominal_position_delta_350ms_max_m=.005001]){
   raw=fixture();corrupt(raw);assert.equal(ui.xy650Qualification(raw,raw.verification[0]).passed,null);}
  raw=fixture();raw.verification[0].qualification={qualified:false,status:'failed'};assert.equal(ui.xy650Qualification(raw,raw.verification[0]).passed,false);

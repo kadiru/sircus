@@ -14,7 +14,7 @@ import time
 
 KEY = "xy650_study"
 VERSION = "sircus-xy650-shift-study-v1"
-AUDIT_VERSION = "sircus-xy650-independent-audit-v1"
+AUDIT_VERSION = "sircus-xy650-independent-audit-v2"
 TERMINAL = {"completed", "failed", "cancelled", "blocked_geometry", "blocked_storage", "blocked_resources"}
 GEOMETRY = ("id", "role", "group_id", "phase", "stage", "substeps", "values", "gap_m", "board_height_m", "tilt_deg", "release_center_height_m",
     "ball_radius_m", "distance_m", "board_xy_m", "bucket_xy_m", "source_id", "source_record_id", "source_record_sha256", "geometry_sha256", "translation_m", "query_fingerprint", "source_query_fingerprint", "execution_fingerprint", "query_kind")
@@ -147,9 +147,10 @@ def merge_display(base, value):
     return result
 
 
-def prepare(base_display, study, output):
+def prepare(base_display, study, output, audit_path=None):
     base_display, study, output = map(Path, (base_display, study, output))
-    if output.resolve() == base_display.resolve() or output.resolve().is_relative_to(study.resolve()):
+    audit_path = Path(audit_path) if audit_path is not None else study / "audit-xy650.json"
+    if output.resolve() in (base_display.resolve(), audit_path.resolve()) or output.resolve().is_relative_to(study.resolve()):
         raise ValueError("Write a separate derived report outside original evidence")
     base = optional_json(base_display)
     if not isinstance(base, dict):
@@ -162,7 +163,7 @@ def prepare(base_display, study, output):
     value = compact(raw)
     if value is not None:
         try:
-            audit_bytes = (study / "audit-xy650.json").read_bytes()
+            audit_bytes = audit_path.read_bytes()
             audit = json.loads(audit_bytes)
         except (OSError, ValueError):
             audit_bytes, audit = None, {}
@@ -194,12 +195,12 @@ def prepare(base_display, study, output):
     return result
 
 
-def watch(base_display, study, output, seconds=0):
+def watch(base_display, study, output, seconds=0, audit_path=None):
     if not math.isfinite(seconds) or not 0 <= seconds <= 30000:
         raise ValueError("Bounded watch must be 0–30,000 seconds")
     started = time.monotonic()
     while True:
-        result = prepare(base_display, study, output)
+        result = prepare(base_display, study, output, audit_path=audit_path)
         value = result[KEY]
         if value and value.get("status") in TERMINAL:
             return result
@@ -214,5 +215,6 @@ if __name__ == "__main__":
     for name in ("base-display", "study", "output"):
         parser.add_argument("--"+name, type=Path, required=True)
     parser.add_argument("--watch-seconds", type=float, default=0)
+    parser.add_argument("--audit", type=Path, help="Explicit independent audit file; defaults to STUDY/audit-xy650.json")
     args = parser.parse_args()
-    watch(args.base_display, args.study, args.output, args.watch_seconds)
+    watch(args.base_display, args.study, args.output, args.watch_seconds, audit_path=args.audit)

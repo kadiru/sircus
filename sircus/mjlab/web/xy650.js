@@ -1,6 +1,6 @@
 // Additive read-only evidence view. No solver, policy or robot requests.
 export const VERSION='sircus-xy650-shift-study-v1';
-export const AUDIT_VERSION='sircus-xy650-independent-audit-v1';
+export const AUDIT_VERSION='sircus-xy650-independent-audit-v2';
 const STEPS=['64','128'];
 const finiteVector=(v,n)=>Array.isArray(v)&&v.length===n&&v.every(Number.isFinite);
 const mm=(v,d=1)=>Number.isFinite(v)?(v*1000).toFixed(d):'unknown';
