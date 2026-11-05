@@ -125,6 +125,38 @@ class ComparisonTests(unittest.TestCase):
         raw["cells"][0]["status"]="unresolved"
         with self.assertRaisesRegex(ValueError,"fingerprint"):module.compact_support(raw)
 
+    def test_posthoc_exclusion_recomputes_membership_and_binds_frozen_sources(self):
+        b,g=fixture(),fixture(True)
+        g["study"]["support_sha256"]="support-bytes"
+        support=dict(fingerprint="support-fp",cells=[dict(cell_id="c10",
+            low=[-.1,.5,.2,.1,.4],high=[.1,.6,.4,.3,.6])])
+        action=dict(zip(("bearing_offset_rad","radius_m","height_m","gap_m","tilt_rad"),[0,.4,.3,.2,.5]))
+        b["cells"][10].update(evaluation=[dict(count(8,8,0,16))],
+            frozen_predictions=[dict(update_count=16,requested=action)])
+        trials={f"trials/eval-{i:04d}.json":str(i) for i in range(76,84)}
+        b["source_sha256"].update(trials)
+        for key in ("native","checkpoint"):b["audits"][key]["sha256"]=key+"-audit"
+        row=dict(cell_id="c10",split="train",bucket_xy_m=[1.,0],
+            old_frozen_captures=8,old_frozen_attempts=8,
+            old_requested_action=action,guided_low=support["cells"][0]["low"],
+            guided_high=support["cells"][0]["high"],inside_guided_box=False,
+            excluded_axes=[dict(axis="radius_m")])
+        r=dict(schema="sircus-guided-support-success-exclusion-v1",status="completed",
+            old_source_result_sha256=module.BASELINE_RESULT_SHA256,old_study_fingerprint=b["study_fingerprint"],
+            geometry_fingerprint=g["geometry_fingerprint"],support_sha256="support-bytes",support_fingerprint="support-fp",
+            original_native_audit_sha256="native-audit",original_checkpoint_audit_sha256="checkpoint-audit",
+            source_trial_sha256=trials,records=[row],old_successful_sites=1,old_successful_repeated_captures=8,
+            old_successful_settings_retained=0,old_successful_settings_excluded=1,excluded_repeated_successes=8,
+            excluded_site_counts_by_axis={"radius_m":1})
+        module.verify_support_exclusion(r,g,b,support)
+        for field in ("old_source_result_sha256","support_sha256","geometry_fingerprint"):
+            changed=copy.deepcopy(r);changed[field]="wrong"
+            with self.subTest(field=field),self.assertRaises(ValueError):module.verify_support_exclusion(changed,g,b,support)
+        changed=copy.deepcopy(r);changed["records"][0]["inside_guided_box"]=True
+        with self.assertRaisesRegex(ValueError,"classification"):module.verify_support_exclusion(changed,g,b,support)
+        changed=copy.deepcopy(r);changed["old_successful_settings_excluded"]=0
+        with self.assertRaisesRegex(ValueError,"aggregate"):module.verify_support_exclusion(changed,g,b,support)
+
     def test_new_html_keeps_native_ui_and_adds_comparison_without_controls(self):
         text=server.index_html().decode()
         for name in ("map","video","curve","comparisonChecks","comparisonScope"):
