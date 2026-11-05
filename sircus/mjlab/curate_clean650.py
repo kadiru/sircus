@@ -21,7 +21,9 @@ VERSION = "sircus-clean650-curation-v1"
 STUDY_VERSION = "sircus-clean650-height-tilt-gap-v1"
 AUDIT_VERSION = "sircus-clean650-independent-audit-v1"
 FINE_STUDY_VERSION = "sircus-clean650-height-tilt-gap-fine-v2"
-VERSION_PAIRS = {STUDY_VERSION:AUDIT_VERSION,FINE_STUDY_VERSION:"sircus-clean650-independent-audit-v2"}
+RAISED_STUDY_VERSION = "sircus-clean650-height-tilt-gap-raised-v3"
+VERSION_PAIRS = {STUDY_VERSION:AUDIT_VERSION,FINE_STUDY_VERSION:"sircus-clean650-independent-audit-v2",
+                 RAISED_STUDY_VERSION:"sircus-clean650-independent-audit-v3"}
 STEPS = (64, 128)
 PHASES = ("controls_pre", "coarse", "refinement", "verification", "controls_post")
 STAT_FIELDS = ("attempts", "native_releases", "captures", "invalid", "clean", "whole_entries",
@@ -144,17 +146,19 @@ def verified_inputs(study, audit_path):
 def settings(value,version=STUDY_VERSION):
     require(version in VERSION_PAIRS,"Unexpected frozen profile")
     fine=version==FINE_STUDY_VERSION
-    expected = dict(coarse_requests=76 if fine else 361, refinement_seeds=3, refinement_max_requests=81,
-                    verification_sources=5, verification_dedup_decimals=9, repeats_per_resolution=3, substeps=list(STEPS), max_requests=211 if fine else 496,
+    raised=version==RAISED_STUDY_VERSION
+    expected = dict(coarse_requests=28 if raised else 76 if fine else 361, refinement_seeds=3, refinement_max_requests=81,
+                    verification_sources=5, verification_dedup_decimals=9, repeats_per_resolution=3, substeps=list(STEPS), max_requests=163 if raised else 211 if fine else 496,
                     minimum_clearance_m=.005, max_drift_350ms_m=.005)
     for key, target in expected.items():
         require(value.get(key) == target, "Unexpected frozen protocol setting: "+key)
     grid = value["grid"]
-    require(grid.get("heights_m") == ([.375,.38,.385] if fine else [.22,.26,.30,.34,.38,.42])
-            and grid.get("tilts_deg") == ([27.,27.5,28.,28.5,29.] if fine else [16.,20.,24.,28.,32.,36.])
-            and grid.get("gaps_m") == ([.38,.3868,.39,.395,.40] if fine else [.20,.24,.28,.32,.36,.40,.44,.48,.52,.56])
+    require(grid.get("heights_m") == ([.40,.42,.44] if raised else [.375,.38,.385] if fine else [.22,.26,.30,.34,.38,.42])
+            and grid.get("tilts_deg") == ([26.,27.,28.] if raised else [27.,27.5,28.,28.5,29.] if fine else [16.,20.,24.,28.,32.,36.])
+            and grid.get("gaps_m") == ([.3268,.3468,.3668] if raised else [.38,.3868,.39,.395,.40] if fine else [.20,.24,.28,.32,.36,.40,.44,.48,.52,.56])
             and grid.get("reference") == [.38,28.,.3868], "Unexpected frozen grid")
-    offsets = (dict(height_m=[-.005,0.,.005],tilt_deg=[-.25,0.,.25],gap_m=[-.0025,0.,.0025]) if fine else
+    offsets = (dict(height_m=[-.005,0.,.005],tilt_deg=[-.5,0.,.5],gap_m=[-.0025,0.,.0025]) if raised else
+               dict(height_m=[-.005,0.,.005],tilt_deg=[-.25,0.,.25],gap_m=[-.0025,0.,.0025]) if fine else
                dict(height_m=[-.02,0.,.02], tilt_deg=[-2.,0.,2.], gap_m=[-.02,0.,.02]))
     require(value.get("refinement_offsets") == offsets, "Unexpected adaptive offsets")
     return dict(**expected, grid={k:list(grid[k]) for k in ("heights_m", "tilts_deg", "gaps_m", "reference")},

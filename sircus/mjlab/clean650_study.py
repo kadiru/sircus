@@ -126,7 +126,7 @@ def main():
     p.add_argument('--profile',choices=tuple(protocol.PROFILES),default='coarse-v1');p.add_argument('--coarse-study',type=Path)
     p.add_argument('--batch',type=int,default=32,choices=(16,32));p.add_argument('--queue-timeout',type=float,default=14400);p.add_argument('--wall-time-limit',type=float,default=7200)
     a=p.parse_args()
-    if a.profile=='fine-v2' and a.coarse_study is None:p.error('--coarse-study is required for fine-v2')
+    if a.profile!='coarse-v1' and a.coarse_study is None:p.error('--coarse-study is required for follow-up profiles')
     from .gpu_slot import gpu_slot
     try:
         with gpu_slot(a.gpu_lock,timeout_s=a.queue_timeout,notify=lambda r:print(__import__('json').dumps(r),flush=True)):run(a)

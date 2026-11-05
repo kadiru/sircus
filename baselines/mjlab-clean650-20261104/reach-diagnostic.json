@@ -1,0 +1,248 @@
+{
+  "version": "sircus-clean650-cpu-reach-diagnostic-v1",
+  "evidence_kind": "CPU-only mathematical IK and fresh native endpoint-collider diagnostic; no native ball flight",
+  "prior_contract_fingerprint": "28baa4e28639d0e7581561bf546a42de2a738ef4fd6a1521230d69887424f28b",
+  "scope": "Fixed board XY and fixed 650 mm board-to-bucket XY separation. This is a model-specific necessary workspace bound, not a global reachability claim. No frozen study source, results, scoring, historical labels or scenes were modified.",
+  "fixed_geometry": {
+    "board_xy_m": [
+      0.4708757793012148,
+      -0.2778934014509746
+    ],
+    "bucket_xy_m": [
+      -0.030306598129941298,
+      -0.6917970430784122
+    ],
+    "board_bucket_distance_m": 0.65,
+    "board_tool_offset_m": 0.1,
+    "ball_radius_m": 0.0375
+  },
+  "analytic_necessary_bound": {
+    "reference_board_height_m": 0.38,
+    "shoulder_height_above_arm_base_mm": 364.0,
+    "upper_arm_translation_length_mm": 390.0,
+    "forearm_translation_length_mm": 451.6370223974115,
+    "maximum_shoulder_to_wrist_distance_mm": 841.6370223974114,
+    "flange_to_wrist_projection_along_flange_z_mm": 89.99999999939283,
+    "rounded_urdf_rpy_transverse_ambiguity_mm": 0.00033058845929745395,
+    "derivation": [
+      "URDF joint2 origin coincides with the shoulder at 364 mm above the base; joint4 and joint5 origins coincide at the wrist intersection.",
+      "The shoulder-to-wrist displacement is the sum of rotated fixed translations for joint3 (390 mm) and joint4 (150 mm, 426 mm). The triangle inequality gives distance <=390+sqrt(150^2+426^2)=841.637022 mm regardless of revolute joint values.",
+      "URDF joint6 translation is approximately 90 mm along the final flange +Z. Compute required wrist center as requested flange position minus 89.9999999994 mm times requested flange +Z. Rounded rpy leaves at most 0.000330589 mm transverse ambiguity; subtract this from any excess before claiming violation.",
+      "The board is mounted 100 mm along the flange normal. Reducing tilt while keeping board center fixed moves the required flange and wrist farther from the shoulder."
+    ],
+    "rows": [
+      {
+        "board_tilt_deg": 28.0,
+        "requested_shoulder_to_wrist_mm": 841.5283051211037,
+        "excess_over_upper_bound_mm": -0.10871727630779038,
+        "conservative_excess_after_rpy_ambiguity_mm": -0.10904786476708783,
+        "necessary_bound_violated": false
+      },
+      {
+        "board_tilt_deg": 27.75,
+        "requested_shoulder_to_wrist_mm": 842.2564987668995,
+        "excess_over_upper_bound_mm": 0.6194763694881145,
+        "conservative_excess_after_rpy_ambiguity_mm": 0.619145781028817,
+        "necessary_bound_violated": true
+      },
+      {
+        "board_tilt_deg": 27.5,
+        "requested_shoulder_to_wrist_mm": 842.9858124840791,
+        "excess_over_upper_bound_mm": 1.3487900866676616,
+        "conservative_excess_after_rpy_ambiguity_mm": 1.3484594982083642,
+        "necessary_bound_violated": true
+      },
+      {
+        "board_tilt_deg": 27.25,
+        "requested_shoulder_to_wrist_mm": 843.7162295009914,
+        "excess_over_upper_bound_mm": 2.0792071035800053,
+        "conservative_excess_after_rpy_ambiguity_mm": 2.078876515120708,
+        "necessary_bound_violated": true
+      },
+      {
+        "board_tilt_deg": 27.0,
+        "requested_shoulder_to_wrist_mm": 844.4477330666658,
+        "excess_over_upper_bound_mm": 2.8107106692544237,
+        "conservative_excess_after_rpy_ambiguity_mm": 2.8103800807951265,
+        "necessary_bound_violated": true
+      }
+    ]
+  },
+  "solver_diagnostic": {
+    "device": "CPU; CUDA hidden",
+    "height_m": 0.38,
+    "starts": 16,
+    "optional_continuation_branch": true,
+    "iteration_budgets": [
+      180,
+      1000
+    ],
+    "position_acceptance_tolerance_mm": 0.1,
+    "full_orientation_required": true,
+    "rows": [
+      {
+        "board_tilt_deg": 28.0,
+        "position_error_mm": 6.658607882645862e-07,
+        "orientation_error_deg": 5.16262430227735e-08,
+        "valid_branch_count": 11,
+        "minimum_joint_limit_margin_deg": 32.60189149815831
+      },
+      {
+        "board_tilt_deg": 27.5,
+        "position_error_mm": 1.2030345634169617,
+        "orientation_error_deg": 0.09595064627457327,
+        "valid_branch_count": 0,
+        "minimum_joint_limit_margin_deg": 31.578103981088645
+      },
+      {
+        "board_tilt_deg": 27.0,
+        "position_error_mm": 2.50601011688709,
+        "orientation_error_deg": 0.2002135563420372,
+        "valid_branch_count": 0,
+        "minimum_joint_limit_margin_deg": 12.762101985355898
+      }
+    ],
+    "more_iterations_changed_best_minima": false,
+    "continuation": {
+      "tilt_step_deg": 0.25,
+      "iterations_per_step": 1000,
+      "first_step_tilt_deg": 27.75,
+      "first_step_position_error_mm": 0.5526323556523868,
+      "first_step_orientation_error_deg": 0.0440379925833422,
+      "all_four_steps_unresolved": true,
+      "minimum_joint_limit_margin_deg": 31.54660611173819
+    },
+    "interpretation": "At H380 mm, lower tilts 27.75/27.5/27 degrees exceed a necessary URDF wrist-reach bound. The observed failure is not repaired by a longer iteration budget or quarter-degree continuation, and is not caused by a joint-limit clamp. The nominal 28 degree pose is only0.109 mm inside this geometric upper bound."
+  },
+  "higher_board_endpoint_preflight": {
+    "device": "CPU; CUDA hidden",
+    "request_count": 9,
+    "admitted_count": 8,
+    "rejected_count": 1,
+    "strict_clearance_minimum_mm": 5.0,
+    "same_board_and_bucket_xy": true,
+    "release_ball_center_height_m": 0.8043,
+    "drop_gap_definition": "release ball-center height minus board-center height minus ball radius",
+    "rows": [
+      {
+        "board_height_m": 0.4,
+        "board_tilt_deg": 26.0,
+        "drop_gap_m": 0.3668,
+        "release_ball_center_height_m": 0.8043,
+        "eligible": false,
+        "rejection_reason": "ik_unresolved",
+        "valid_dropper_branches": 11,
+        "valid_board_branches": 0,
+        "minimum_clearance_lower_bound_mm": null
+      },
+      {
+        "board_height_m": 0.4,
+        "board_tilt_deg": 27.0,
+        "drop_gap_m": 0.3668,
+        "release_ball_center_height_m": 0.8043,
+        "eligible": true,
+        "rejection_reason": null,
+        "valid_dropper_branches": 11,
+        "valid_board_branches": 15,
+        "minimum_clearance_lower_bound_mm": 5.969445772255888
+      },
+      {
+        "board_height_m": 0.4,
+        "board_tilt_deg": 28.0,
+        "drop_gap_m": 0.3668,
+        "release_ball_center_height_m": 0.8043,
+        "eligible": true,
+        "rejection_reason": null,
+        "valid_dropper_branches": 11,
+        "valid_board_branches": 14,
+        "minimum_clearance_lower_bound_mm": 5.969445772255888
+      },
+      {
+        "board_height_m": 0.42,
+        "board_tilt_deg": 26.0,
+        "drop_gap_m": 0.34680000000000005,
+        "release_ball_center_height_m": 0.8043,
+        "eligible": true,
+        "rejection_reason": null,
+        "valid_dropper_branches": 11,
+        "valid_board_branches": 14,
+        "minimum_clearance_lower_bound_mm": 5.969445772255888
+      },
+      {
+        "board_height_m": 0.42,
+        "board_tilt_deg": 27.0,
+        "drop_gap_m": 0.34680000000000005,
+        "release_ball_center_height_m": 0.8043,
+        "eligible": true,
+        "rejection_reason": null,
+        "valid_dropper_branches": 11,
+        "valid_board_branches": 14,
+        "minimum_clearance_lower_bound_mm": 5.969445772255888
+      },
+      {
+        "board_height_m": 0.42,
+        "board_tilt_deg": 28.0,
+        "drop_gap_m": 0.34680000000000005,
+        "release_ball_center_height_m": 0.8043,
+        "eligible": true,
+        "rejection_reason": null,
+        "valid_dropper_branches": 11,
+        "valid_board_branches": 11,
+        "minimum_clearance_lower_bound_mm": 5.969445772255888
+      },
+      {
+        "board_height_m": 0.44,
+        "board_tilt_deg": 26.0,
+        "drop_gap_m": 0.32680000000000003,
+        "release_ball_center_height_m": 0.8043,
+        "eligible": true,
+        "rejection_reason": null,
+        "valid_dropper_branches": 11,
+        "valid_board_branches": 13,
+        "minimum_clearance_lower_bound_mm": 5.969445772255888
+      },
+      {
+        "board_height_m": 0.44,
+        "board_tilt_deg": 27.0,
+        "drop_gap_m": 0.32680000000000003,
+        "release_ball_center_height_m": 0.8043,
+        "eligible": true,
+        "rejection_reason": null,
+        "valid_dropper_branches": 11,
+        "valid_board_branches": 11,
+        "minimum_clearance_lower_bound_mm": 5.969445772255888
+      },
+      {
+        "board_height_m": 0.44,
+        "board_tilt_deg": 28.0,
+        "drop_gap_m": 0.32680000000000003,
+        "release_ball_center_height_m": 0.8043,
+        "eligible": true,
+        "rejection_reason": null,
+        "valid_dropper_branches": 11,
+        "valid_board_branches": 13,
+        "minimum_clearance_lower_bound_mm": 5.969445772255888
+      }
+    ],
+    "interpretation": "Raising the board admits lower tilts while preserving the exact nominal ball release height. Eight endpoints pass fresh strict native collider and 5 mm clearance checks. These have not been simulated as ball flights, repeated, timestep-verified, or shown to capture; native testing would require a separately declared study."
+  },
+  "source_sha256": {
+    "sircus/mjlab/learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+    "sircus/mjlab/stable_ik.py": "efd52c5e837339662c99c196e1a3cf4b5b260eecb7888258779030c459944e07",
+    "sircus/mjlab/clean650_geometry.py": "4b010d2e566fe99c90f5d87545c4b0e5117b432e07f6469d4d95ad108cb0f061",
+    "sircus/mjlab/corrected_geometry.py": "50a4a353d94cceb1fbb0216a40588c997034a121e554f3f84f530d7d47c470be",
+    "assets/board_arm.urdf": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340",
+    "assets/dropper.urdf": "3f40e56e46b040fb3339c1235ea85872f46511c45db2d37f7661db94a470bae3"
+  },
+  "urdf_asset_hashes_match_prior_contract": true,
+  "scratch_evidence_sha256": {
+    "lower_tilt_ik_and_analytic_bound": "8fdd16b898e14b34fe1fee83ec911c8d50f1876c10c145f5bdbd49a4257e9df1",
+    "higher_board_endpoint_preflight": "8f551542b16156c3a3c1a832d2cf15185db62b45d5283252f33921b8ea068926"
+  },
+  "limitations": [
+    "Necessary geometric bound is specific to the pinned UF850 URDF and full flange pose constraints.",
+    "Endpoint admission does not verify gripper grasp, arm transit, actuator dynamics or ball capture.",
+    "The small nominal reach slack is not a physical robot calibration or manufacturing tolerance estimate.",
+    "No GPU was initialized; the 4070 workload and Isaac setup were not touched."
+  ]
+}

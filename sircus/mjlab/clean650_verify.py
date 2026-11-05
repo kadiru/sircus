@@ -39,6 +39,11 @@ PROFILES = {
         tilts=(27., 27.5, 28., 28.5, 29.), gaps=(.38, .3868, .39, .395, .40),
         coarse_requests=76, max_requests=211,
         offsets=((- .005, 0., .005), (-.25, 0., .25), (-.0025, 0., .0025))),
+    "sircus-clean650-height-tilt-gap-raised-v3": dict(version="sircus-clean650-height-tilt-gap-raised-v3",
+        audit_version="sircus-clean650-independent-audit-v3", heights=(.40, .42, .44),
+        tilts=(26., 27., 28.), gaps=(.3268, .3468, .3668),
+        coarse_requests=28, max_requests=163,
+        offsets=((- .005, 0., .005), (-.5, 0., .5), (-.0025, 0., .0025))),
 }
 
 

@@ -26,10 +26,10 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     keys=('old-study','positive-study','positive-audit','calibration-report','verification-report','replay-study','assets','output','gpu-lock','display')
     for k in keys:p.add_argument('--'+k,type=Path,required=True)
-    p.add_argument('--profile',choices=('coarse-v1','fine-v2'),default='coarse-v1');p.add_argument('--coarse-study',type=Path)
+    p.add_argument('--profile',choices=('coarse-v1','fine-v2','raised-v3'),default='coarse-v1');p.add_argument('--coarse-study',type=Path)
     p.add_argument('--batch',type=int,default=32,choices=(16,32));p.add_argument('--queue-timeout',type=float,default=14400);p.add_argument('--wall-time-limit',type=float,default=7200)
     a=p.parse_args();source=Path(__file__).resolve().parents[2]
-    if a.profile=='fine-v2' and a.coarse_study is None:p.error('--coarse-study is required for fine-v2')
+    if a.profile!='coarse-v1' and a.coarse_study is None:p.error('--coarse-study is required for follow-up profiles')
     if a.output.exists() or not a.display.is_file():raise ValueError('New study namespace and existing display required')
     env=dict(os.environ,CUDA_VISIBLE_DEVICES=GPU_UUID,OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1',PYTHONDONTWRITEBYTECODE='1')
     command=[sys.executable,'-u','-m','sircus.mjlab.clean650_study']

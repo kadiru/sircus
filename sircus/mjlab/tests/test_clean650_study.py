@@ -157,6 +157,15 @@ class CleanControllerTests(unittest.TestCase):
         self.assertEqual(protocol.settings()['max_requests'],496)
         self.assert_manifest(output,report)
 
+    def test_raised_controller_has_distinct_frozen_163_request_plan(self):
+        output,report,geometry,executor=self.run_fixture(profile='raised-v3')
+        self.assertEqual(report['version'],protocol.RAISED_VERSION)
+        self.assertEqual(report['counts']['attempts'],163)
+        self.assertEqual(report['counts']['phase_counts'],dict(controls_pre=12,coarse=28,refinement=81,verification=30,controls_post=12))
+        self.assertEqual(report['settings']['refinement_offsets']['tilt_deg'],[-.5,0.,.5])
+        self.assertEqual(protocol.settings()['max_requests'],496)
+        self.assert_manifest(output,report)
+
 
 class NativeExecutionTests(unittest.TestCase):
     def test_exact_rows_keep_all_native_evidence_and_rejections_keep_denominators(self):

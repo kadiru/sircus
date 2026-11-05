@@ -19,7 +19,18 @@
 - A separately versioned fine follow-up targets H375/380/385mm,
   tilt27/27.5/28/28.5/29° and gap380/386.8/390/395/400mm, plus the exact reference.
   Fine refinement uses ±5mm/±0.25°/±2.5mm. Maximum211 requests including matched
-  controls and verification. This plan is frozen before native outcomes.
+  controls and verification. Completed211/106native;105 rejects,0clean650
+  captures and0qualified settings. All12clean captures again belong to controls.
+  Reference verification stayed3/3rim at64,0/3at128. Both control sets passed;
+  auditv2 passed33,824 checks. [Fine results](../baselines/mjlab-clean650-fine-20261104/README.md).
+- [CPU model reach diagnosis](../baselines/mjlab-clean650-20261104/reach-diagnostic.json):
+  atH380/T28 the required shoulder-to-wrist distance841.528mm is0.109mm below
+  the URDF triangle-inequality upper bound841.637mm. T27.5 requires842.986mm.
+  Extra iterations/continuation do not repair the necessary-bound violation.
+  Raising board height admitted8/9 endpoint-only probes at release center804.3mm.
+- A separate raised-v3 profile therefore tests H400/420/440mm ×T26/27/28° ×
+  G326.8/346.8/366.8mm plus reference;27+1 coarse requests, ±5mm/±0.5°/±2.5mm
+  refinement and matched checks; maximum163. Same fixed XY650 scene and scorer.
 - Strict5mm endpoints and calibrated dense scoring remain unchanged; held endpoints
   do not validate arm transit or actuator motion. Finite IK failures do not prove
   the requested poses physically unreachable, nor does this sweep prove650mm impossible.

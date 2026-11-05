@@ -15,6 +15,18 @@ def row(i=0,quality=2,step=64):
 
 
 class CleanContractTests(unittest.TestCase):
+    def test_raised_board_profile_preserves_650xy_and_varies_gap_independently(self):
+        seed=dict(row(),source_record_id='old650',source_record_sha256='a'*64)
+        grid=p.coarse(seed,'raised-v3');settings=p.settings('raised-v3')
+        self.assertEqual(len(grid),28)
+        self.assertEqual(grid[0]['values'][2:],[.40,26.,.3268])
+        self.assertEqual(grid[-2]['values'][2:],[.44,28.,.3668])
+        self.assertEqual(settings['max_requests'],163)
+        self.assertEqual(settings['refinement_offsets']['tilt_deg'],[-.5,0.,.5])
+        self.assertEqual(p.PROFILES['raised-v3']['version'],p.RAISED_VERSION)
+        self.assertTrue(all(g['bucket_xy_m']==seed['bucket_xy_m'] and g['values'][:2]==seed['values'][:2] for g in grid))
+        self.assertEqual(p.settings('fine-v2')['max_requests'],211)
+
     def test_fine_profile_has_separate_version_and_literal_small_grid(self):
         seed=dict(row(),source_record_id='old650',source_record_sha256='a'*64)
         grid=p.coarse(seed,'fine-v2');settings=p.settings('fine-v2')
