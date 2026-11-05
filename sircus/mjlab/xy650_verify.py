@@ -23,7 +23,7 @@ from .benchmark_verify import EvidenceError, contained, digest, read, sha
 from . import clean650_verify as clean_audit
 from . import replay650_verify as replay
 
-VERSION = "sircus-xy650-independent-audit-v1"
+VERSION = "sircus-xy650-independent-audit-v2"
 STUDY_VERSION = "sircus-xy650-shift-study-v1"
 METRIC_VERSION = "sircus-xy650-first-flight-aperture-v1"
 DISTANCE_RULE = "translated-board-and-bucket-fixed650-bearing-v1"
@@ -418,6 +418,25 @@ def audit_settings(settings, checks):
                    "Noise robustness explicitly excluded")
 
 
+def audit_static_ancestry(spec, original, replay_parent, coarse_parent, raised_parent, checks):
+    """The original shallow contract predates contact-calibration metadata.
+
+    Its exact byte/fingerprint identity is checked by audit_input_sources,
+    which separately checks the positive control's complete calibration. Every
+    later calibrated parent must still explicitly contain and match it.
+    """
+    ancestors = (("original", original), ("matched replay", replay_parent),
+                 ("coarse", coarse_parent), ("raised", raised_parent))
+    for name, ancestor in ancestors:
+        for key in ("scene", "packages", "asset_sha256"):
+            checks.require(key in ancestor, "Explicit ancestor model field/"+name+"/"+key)
+            checks.equal(spec[key], ancestor[key], "Unchanged static physical model/"+name+"/"+key)
+    checks.require("calibration" not in original, "Exact historical shallow schema predates contact calibration")
+    for name, ancestor in ancestors[1:]:
+        checks.require("calibration" in ancestor, "Explicit calibrated ancestor identity/"+name)
+        checks.equal(spec["calibration"], ancestor["calibration"], "Unchanged contact calibration/"+name)
+
+
 def audit_group_metadata(actual, group, scene, checks, label):
     clean_audit.audit_group_metadata(actual, group, scene, checks, label)
     for key in ("phase", "translation_m", "query_kind", "query_fingerprint", "source_query_fingerprint"):
@@ -532,9 +551,7 @@ def audit(study, source, assets, *, shallow_study, positive_study, positive_audi
     prior, _ = clean_audit.audit_prior_replay(Path(replay_study), spec["input_bindings"]["replay"], checks)
     coarse_parent = clean_audit.audit_coarse_parent(Path(coarse_study), spec["input_bindings"]["coarse"], checks)
     raised_parent = audit_raised_parent(Path(raised_study), spec["input_bindings"]["raised"], checks)
-    for name, ancestor in (("original", parent), ("matched replay", prior), ("coarse", coarse_parent), ("raised", raised_parent)):
-        for key in ("scene", "calibration", "packages", "asset_sha256"):
-            checks.equal(spec[key], ancestor[key], "Unchanged static physical model and calibration/"+name+"/"+key)
+    audit_static_ancestry(spec, parent, prior, coarse_parent, raised_parent, checks)
     frozen = {"initial-groups.json", "initial-geometry.json", "initial-plan.json", "calibration.json", "verification.json"}
     checks.equal(set(spec["frozen_files_sha256"]), frozen, "Every pre-outcome input declared")
     for name, expected in spec["frozen_files_sha256"].items():

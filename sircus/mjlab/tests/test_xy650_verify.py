@@ -251,6 +251,23 @@ class XYAuditTests(unittest.TestCase):
         self.assertEqual(len({r["id"] for r in actual}), 12)
         self.assertEqual(len({r["pair_id"] for r in actual}), 6)
 
+    def test_original_shallow_schema_lacks_calibration_but_later_parents_require_it(self):
+        model = dict(scene={"bucket": "original"}, packages={"pinned": "version"}, asset_sha256={"collision": "a"*64})
+        spec = dict(model, calibration={"frozen_contact": "b"*64})
+        calibrated = [copy.deepcopy(spec) for _ in range(3)]
+        audit.audit_static_ancestry(spec, model, *calibrated, Checks())
+        self.assertEqual(audit.VERSION, "sircus-xy650-independent-audit-v2")
+        for index in range(3):
+            missing = copy.deepcopy(calibrated);missing[index].pop("calibration")
+            with self.subTest(parent=index), self.assertRaisesRegex(EvidenceError, "Explicit calibrated ancestor"):
+                audit.audit_static_ancestry(spec, model, *missing, Checks())
+            changed = copy.deepcopy(calibrated);changed[index]["calibration"]["frozen_contact"] = "changed"
+            with self.subTest(parent=index), self.assertRaisesRegex(EvidenceError, "Unchanged contact calibration"):
+                audit.audit_static_ancestry(spec, model, *changed, Checks())
+        changed = copy.deepcopy(model);changed["asset_sha256"]["collision"] = "changed"
+        with self.assertRaisesRegex(EvidenceError, "Unchanged static physical model"):
+            audit.audit_static_ancestry(spec, changed, *calibrated, Checks())
+
 
 if __name__ == "__main__":
     unittest.main()
