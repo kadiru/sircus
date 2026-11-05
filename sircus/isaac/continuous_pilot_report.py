@@ -8,6 +8,7 @@ checks scalar outcome consistency, source hashes and optional video decoding.
 
 import argparse
 import collections
+import csv
 import hashlib
 import json
 import math
@@ -17,6 +18,7 @@ import subprocess
 
 
 SCHEMA = "sircus-continuous-pilot-report-v1"
+FOREGROUND_CELL = 1
 
 
 def require(condition, message):
@@ -128,6 +130,82 @@ def numeric_ranges(actions):
             for key, values in grouped.items()}
 
 
+def requested_parameters(action, ball_radius_m=None):
+    """Requested shot geometry only; never call an initialized ball a sensor."""
+    result = {}
+    for key in ("board_x_m", "board_y_m", "height_m", "gap_m", "radius_m",
+                "tilt_rad", "tilt_deg", "bearing_rad", "bearing_offset_rad"):
+        if key in action:
+            value = action[key]
+            require(type(value) in (int, float) and math.isfinite(value), "Non-finite requested shot parameter")
+            result[key] = value
+    if "tilt_deg" not in result and "tilt_rad" in result:
+        result["tilt_deg"] = math.degrees(result["tilt_rad"])
+    if "bearing_rad" in result:
+        result["bearing_deg"] = math.degrees(result["bearing_rad"]) % 360
+    if "bearing_offset_rad" in result:
+        result["bearing_offset_deg"] = math.degrees(result["bearing_offset_rad"])
+    if "height_m" in result and "gap_m" in result:
+        result["release_ball_bottom_height_m"] = result["height_m"]+result["gap_m"]
+        if ball_radius_m is not None:
+            require(type(ball_radius_m) in (int, float) and math.isfinite(ball_radius_m)
+                    and ball_radius_m > 0, "Invalid declared ball radius")
+            result["release_ball_center_height_m"] = result["release_ball_bottom_height_m"]+ball_radius_m
+            if "board_x_m" in result and "board_y_m" in result:
+                result["release_ball_center_m"] = [result["board_x_m"], result["board_y_m"],
+                                                   result["release_ball_center_height_m"]]
+    return result
+
+
+def outcome_status(row):
+    if "invalid" not in row:
+        state = "unknown"
+    elif row["invalid"]:
+        state = "release_withheld"
+    elif row.get("route_success") is True:
+        state = "captured"
+    elif row.get("route_success") is False:
+        state = "released_no_qualified_capture"
+    else:
+        state = "unknown"
+    return dict(state=state, invalid_reason=row.get("invalid"),
+                admitted=not row["invalid"] if "invalid" in row else None,
+                captured=row.get("route_success"), clean=row.get("route_quality") == 2,
+                board_bounce=row.get("board_bounce"), whole_ball_entry=row.get("whole_ball_entry"),
+                max_retention_s=row.get("max_retention_s"),
+                external_contact_steps=row.get("external_contact_steps"))
+
+
+def prediction_record(trial, row, action, geometry, filename):
+    radius = (geometry or {}).get("ball", {}).get("radius_m")
+    return dict(update_count=trial.get("update_count", trial.get("update_count_before")),
+                policy_hash=trial["policy_hash"], repeat=trial.get("batch"), source_trial=filename,
+                requested=requested_parameters(action, radius),
+                measured_board=dict(center_m=row.get("settled_board_center_m"),
+                    normal=row.get("settled_board_normal"), settling_errors=row.get("settled")),
+                outcome=outcome_status(row),
+                coordinate_frame="Table-local metres; board normal follows common world/table axes",
+                release_provenance="Requested initialized ball-center pose, not measured gripper/ball localization")
+
+
+def foreground_metadata(clip, geometry):
+    require(len(clip["actions"]) == len(clip["rows"]) == 35, "Foreground settings need the original35 native cells")
+    action, row = clip["actions"][FOREGROUND_CELL], clip["rows"][FOREGROUND_CELL]
+    radius = geometry["ball"]["radius_m"]
+    requested = requested_parameters(action, radius)
+    require(all(key in requested for key in ("height_m", "gap_m", "release_ball_center_height_m",
+                "radius_m", "tilt_deg", "bearing_offset_deg")), "Incomplete requested foreground geometry")
+    return dict(cell_id=row["cell_id"], requested=requested, outcome=outcome_status(row),
+                parameter_provenance="Commanded/requested geometry; ball is initialized at release. Not measured gripper or perception output.")
+
+
+def foreground_caption(foreground):
+    p = foreground["requested"]
+    return (f"Requested FG (mm): board H {p['height_m']*1000:.0f} | gap {p['gap_m']*1000:.0f} | "
+            f"ball-center release {p['release_ball_center_height_m']*1000:.1f} | radius {p['radius_m']*1000:.0f} "
+            f"| tilt {p['tilt_deg']:.1f}° | bearing offset {p['bearing_offset_deg']:+.1f}°")
+
+
 def summarize(run):
     run = Path(run)
     study = read(local_file(run, "study.json"))
@@ -138,6 +216,12 @@ def summarize(run):
     xy = [tuple(cell["bucket_xy_m"]) for cell in cells]
     require(len(set(xy)) == len(xy), "Bucket positions are not distinct")
     source_hashes = {"study.json": sha(run/"study.json")}
+    geometry = None
+    if (run/"contract.json").is_file():
+        contract = read(local_file(run, "contract.json"))
+        scene = contract.get("scene", {})
+        geometry = {key: scene[key] for key in ("table", "bucket", "ball", "board") if key in scene}
+        source_hashes["contract.json"] = sha(run/"contract.json")
     feasibility = read(local_file(run, "feasibility.json"))
     if "source_fingerprint" in feasibility:
         require(feasibility["source_fingerprint"] == study.get("geometry_fingerprint"),
@@ -150,6 +234,7 @@ def summarize(run):
             "Invalid endpoint-map record")
     batches, train_rows, coverage_rows, evaluation, trial_rows = [], [], [], collections.defaultdict(list), []
     evaluation_deterministic = collections.defaultdict(list)
+    predictions = {}
     all_actions = []
     paths = sorted((run/"trials").glob("*.json"))
     for path in paths:
@@ -192,6 +277,13 @@ def summarize(run):
                 key = (update, row["split"], trial["policy_hash"])
                 evaluation[key].append(row)
                 evaluation_deterministic[key].append(trial.get("deterministic"))
+                if trial.get("deterministic") is True:
+                    action = row
+                    if len(trial.get("actions", [])) == len(cells):
+                        index = next(i for i, cell in enumerate(cells) if cell["id"] == row["cell_id"])
+                        action = trial["actions"][index]
+                    predictions[(row["cell_id"], update)] = prediction_record(
+                        trial, row, action, geometry, "trials/"+path.name)
         trial_rows.append(dict(file="trials/"+path.name, mode=mode, update_count=update, rows=rows))
         source_hashes["trials/"+path.name] = sha(path)
     batches.sort(key=lambda item: item["batch"])
@@ -236,6 +328,7 @@ def summarize(run):
             action_ranges=numeric_ranges(row["action"] for row in mapped if row["valid"])),
             training=counts(row for row in train_rows if row["cell_id"] == name),
             coverage=counts(row for row in coverage_rows if row["cell_id"] == name),
+            frozen_predictions=[predictions[key] for key in sorted(predictions) if key[0] == name],
             evaluation=[item for item in heldout if item["attempts"]]))
     result_path = run/"result.json"
     result = read(result_path) if result_path.is_file() else {}
@@ -269,12 +362,6 @@ def summarize(run):
             audits[label] = dict(file=filename, sha256=sha(audit_path), report=value)
             source_hashes[filename] = sha(audit_path)
     native_audit = audits.get("native", audits.get("other", {})).get("report")
-    geometry = None
-    if (run/"contract.json").is_file():
-        contract = read(local_file(run, "contract.json"))
-        scene = contract.get("scene", {})
-        geometry = {key: scene[key] for key in ("table", "bucket", "ball", "board") if key in scene}
-        source_hashes["contract.json"] = sha(run/"contract.json")
     return dict(schema=SCHEMA, status=result.get("status", "in_progress"),
                 exporter_code_sha256=sha(__file__),
                 study_fingerprint=study.get("fingerprint"),
@@ -285,6 +372,7 @@ def summarize(run):
                 study=study, cells=cell_results, feasibility=dict(attempts=len(map_rows),
                     admitted=sum(row["valid"] for row in map_rows),
                     rejected=sum(not row["valid"] for row in map_rows),
+                    ik_protocol=feasibility.get("ik_protocol"), scope=feasibility.get("scope"),
                     reasons=dict(collections.Counter(str(row.get("reason") or "admitted") for row in map_rows))),
                 geometry=geometry,
                 training=counts(train_rows), coverage=counts(coverage_rows),
@@ -391,6 +479,7 @@ def native_frame_manifest(run, clips):
 
 def encode_native_frames(run, output, clips):
     audits = native_frame_manifest(run, clips)
+    geometry = read(local_file(run, "contract.json"))["scene"]
     encoded = []
     for index, (clip, audit) in enumerate(zip(clips, audits)):
         name = f"trial-{index:03d}.mp4"
@@ -418,13 +507,18 @@ def encode_native_frames(run, output, clips):
                          if reset else "Native articulated setup; scripted joint drives; initialized ball release.")
         setup_caption_path = Path(output)/f"setup-caption-{index:03d}.txt"
         setup_caption_path.write_text(setup_caption)
+        foreground = foreground_metadata(clip, geometry)
+        requested_caption_path = Path(output)/f"requested-caption-{index:03d}.txt"
+        requested_caption_path.write_text(foreground_caption(foreground))
         def filter_path(path):
             return str(Path(path).resolve()).replace("\\", "\\\\").replace("'", "\\'").replace(":", "\\:")
-        video_filter = ("drawbox=x=18:y=16:w=1220:h=86:color=0x17202bcc:t=fill,"
+        video_filter = ("drawbox=x=18:y=16:w=1220:h=116:color=0x17202bcc:t=fill,"
                         f"drawtext=fontfile='{filter_path(font)}':textfile='{filter_path(caption_path)}':"
                         "x=32:y=28:fontsize=25:fontcolor=0xeff5fa,"
                         f"drawtext=fontfile='{filter_path(font)}':textfile='{filter_path(setup_caption_path)}':"
-                        "x=32:y=67:fontsize=18:fontcolor=0xc5d4e4")
+                        "x=32:y=67:fontsize=18:fontcolor=0xc5d4e4,"
+                        f"drawtext=fontfile='{filter_path(font)}':textfile='{filter_path(requested_caption_path)}':"
+                        "x=32:y=96:fontsize=18:fontcolor=0xedcf96")
         subprocess.run(["ffmpeg", "-v", "error", "-n", "-framerate", "30",
             "-start_number", str(audit["first_frame"]), "-i", str(Path(run)/"frames/%05d.jpg"),
             "-frames:v", str(audit["frames"]), "-vf", video_filter, "-an", "-c:v", "libx264", "-pix_fmt", "yuv420p",
@@ -435,7 +529,8 @@ def encode_native_frames(run, output, clips):
         metadata = {key: value for key, value in clip.items()
                     if key not in ("frames", "rows", "rollout", "actions")}
         encoded.append(dict(metadata, file=name, **data, native_frame_audit=audit,
-                            non_simulation_content="Data-derived trial mode/batch/update and episode-setup provenance text captions"))
+                            foreground=foreground,
+                            non_simulation_content="Data-derived trial mode/batch/update, episode-setup provenance and requested foreground geometry captions; no future outcome displayed"))
     require(all(any(clip["native_frame_audit"]["foreground_joint_excursion_rad"][arm] > .02
                     for clip in encoded) for arm in ("Arm10", "Arm14")),
             "No measured foreground movement of both arms in the recorded trials")
@@ -529,12 +624,66 @@ def make_action_edit(output, source_clips, encoded):
         full_untrimmed_movie="trials.mp4")
 
 
+def write_settings_csv(summary, path):
+    """One row per cell; frozen predictions only, never a best-shot search."""
+    fields = ["cell_id", "split", "study_status", "bucket_x_m", "bucket_y_m",
+              "map_requests", "map_admitted", "initial_update", "initial_attempts",
+              "initial_captures", "initial_invalid", "latest_update", "latest_attempts",
+              "latest_captures", "latest_invalid", "latest_admitted", "latest_invalid_reason",
+              "latest_outcome", "requested_board_x_m", "requested_board_y_m", "requested_board_height_m",
+              "requested_gap_m", "requested_ball_center_release_height_m", "requested_radius_m",
+              "requested_tilt_deg", "requested_bearing_deg", "requested_bearing_offset_deg",
+              "measured_board_x_m", "measured_board_y_m", "measured_board_z_m",
+              "measured_board_normal_x", "measured_board_normal_y", "measured_board_normal_z",
+              "board_position_error_mm", "board_normal_error_deg", "joint_speed_rad_s",
+              "max_retention_s", "external_contact_steps", "prediction_trial", "release_provenance"]
+    with Path(path).open("w", newline="", encoding="utf-8") as output:
+        writer = csv.DictWriter(output, fieldnames=fields)
+        writer.writeheader()
+        for cell in summary["cells"]:
+            checks = sorted(cell["evaluation"], key=lambda value: value["update_count"])
+            initial, latest = (checks[0], checks[-1]) if checks else ({}, {})
+            predictions = sorted(cell.get("frozen_predictions", []), key=lambda value: value["update_count"])
+            prediction = predictions[-1] if predictions else {}
+            requested = prediction.get("requested", {})
+            outcome = prediction.get("outcome", {})
+            measured = prediction.get("measured_board", {})
+            center, normal = measured.get("center_m"), measured.get("normal")
+            errors = measured.get("settling_errors") or {}
+            row = dict(cell_id=cell["id"], split=cell["split"], study_status=summary["status"],
+                bucket_x_m=cell["bucket_xy_m"][0], bucket_y_m=cell["bucket_xy_m"][1],
+                map_requests=cell["feasibility"]["attempts"], map_admitted=cell["feasibility"]["admitted"],
+                latest_admitted=outcome.get("admitted"), latest_invalid_reason=outcome.get("invalid_reason"),
+                latest_outcome=outcome.get("state"), prediction_trial=prediction.get("source_trial"),
+                max_retention_s=outcome.get("max_retention_s"),
+                external_contact_steps=outcome.get("external_contact_steps"),
+                board_position_error_mm=errors.get("position_error_mm"),
+                board_normal_error_deg=errors.get("normal_error_deg"), joint_speed_rad_s=errors.get("joint_speed_rad_s"),
+                release_provenance=prediction.get("release_provenance"))
+            for prefix, value in (("initial", initial), ("latest", latest)):
+                for target, source in (("update", "update_count"), ("attempts", "attempts"),
+                                       ("captures", "captures"), ("invalid", "invalid")):
+                    row[f"{prefix}_{target}"] = value.get(source)
+            for target, source in (("board_x_m", "board_x_m"), ("board_y_m", "board_y_m"),
+                ("board_height_m", "height_m"), ("gap_m", "gap_m"),
+                ("ball_center_release_height_m", "release_ball_center_height_m"), ("radius_m", "radius_m"),
+                ("tilt_deg", "tilt_deg"), ("bearing_deg", "bearing_deg"), ("bearing_offset_deg", "bearing_offset_deg")):
+                row["requested_"+target] = requested.get(source)
+            for axis, index in zip("xyz", range(3)):
+                row["measured_board_"+axis+"_m"] = center[index] if center is not None else None
+                row["measured_board_normal_"+axis] = normal[index] if normal is not None else None
+            writer.writerow(row)
+    return dict(file=Path(path).name, sha256=sha(path), cells=len(summary["cells"]),
+                scope="Initial and latest frozen-policy outcomes and requested geometry; no per-cell search or measured gripper pose. Latest is final only after completed collection.")
+
+
 def export(run, output, *, media=False, action_edit=False):
     run, output = Path(run), Path(output)
     require(not output.exists() and not output.resolve().is_relative_to(run.resolve()),
             "Export must use a new directory outside raw evidence")
     summary = summarize(run)
     output.mkdir(parents=True)
+    summary["settings_csv"] = write_settings_csv(summary, output/"settings.csv")
     if media and (run/"clips.json").is_file():
         manifest = read(run/"clips.json")
         clips = manifest if isinstance(manifest, list) else manifest["clips"]

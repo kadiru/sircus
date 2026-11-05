@@ -15,7 +15,8 @@ def resource(root, request):
     source = Path(__file__).parent
     fixed = {"/": (source/"continuous_pilot.html", "text/html; charset=utf-8"),
              "/continuous_pilot.js": (source/"continuous_pilot.js", "application/javascript"),
-             "/report.json": (Path(root)/"report.json", "application/json")}
+             "/report.json": (Path(root)/"report.json", "application/json"),
+             "/settings.csv": (Path(root)/"settings.csv", "text/csv; charset=utf-8")}
     if path in fixed:
         result = fixed[path]
     elif re.fullmatch(r"/((action-)?trials|(action-)?trial-\d{3})\.mp4", path):
