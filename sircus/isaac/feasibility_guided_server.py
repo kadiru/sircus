@@ -23,6 +23,8 @@ def index_html():
     source = source.replace("Two articulated arms choose a bounce point, board height and tilt, and ball-release height. Reachability sampling, learning and frozen evaluation stay separate.",
         "A geometry-only map narrows continuous shot proposals. The previous broad-domain pilot remains frozen for comparison; native scoring and release guards stay unchanged.")
     source = source.replace('Allowed domain', 'Global outer domain')
+    source = source.replace('<div id="actionRanges" class="scroll">',
+        '<p class="note">Actually sampled ranges include every attempted request, including rejected actions and dummy global-bound requests for the two unresolved supports. They are not executed motion or successful-shot coverage.</p><div id="actionRanges" class="scroll">')
     source = source.replace('<div class="metrics" id="metrics">', PANEL+'\n<div class="metrics" id="metrics">')
     return source.replace('</body>', '<script type="module" src="/feasibility_guided_panel.js"></script></body>').encode()
 

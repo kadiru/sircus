@@ -133,6 +133,7 @@ class ComparisonTests(unittest.TestCase):
         self.assertIn("/feasibility_guided_panel.js",text)
         self.assertNotIn("/api/physical",text)
         self.assertIn("previous broad-domain pilot remains frozen",text)
+        self.assertIn("not executed motion or successful-shot coverage",text)
 
 
 if __name__=="__main__":unittest.main()
