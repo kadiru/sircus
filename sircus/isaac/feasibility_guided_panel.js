@@ -27,7 +27,7 @@ export function supportRows(support){
  return (support?.cells||[]).map(cell=>{
   if(cell.status!=='supported')return [cell.cell_id,'unresolved','—','—','—','—','—','No local support; fallback attempts still counted'];
   const range=(i,scale=1000)=>`${(cell.low[i]*scale).toFixed(1)}–${(cell.high[i]*scale).toFixed(1)}`;
-  return [cell.cell_id,'supported',range(0,180/Math.PI),range(1),range(2),range(3),range(4,180/Math.PI),`${percent(cell.probe_acceptance)} sampled qualification`];
+  return [cell.cell_id,'supported',range(0,180/Math.PI),range(1),range(2),range(3),range(4,180/Math.PI),`${percent(cell.probe_acceptance)} sampled qualification${cell.qualification_target_met===false?' · BELOW 75% TARGET':''}`];
  });
 }
 function node(tag,text){const n=document.createElement(tag);if(text!==undefined)n.textContent=text;return n;}
@@ -42,7 +42,7 @@ function curves(comparison){
  for(const v of[0,.25,.5,.75,1])svg(root,'text',{x:x(max*v),y:308,fill:'#aebfd0','font-size':12,'text-anchor':'middle'},Math.round(max*v));
  svg(root,'text',{x:350,y:335,fill:'#aebfd0','text-anchor':'middle'},'Attempted training shots, including rejected requests');
 }
-export function readyForFinalClaim(comparison){return comparison.status==='completed'&&['broad','guided'].every(key=>['native','checkpoint','feasibility'].every(a=>comparison.methods[key].audit_status[a]==='passed'));}
+export function readyForFinalClaim(comparison){return comparison.status==='completed'&&comparison.independent_audit?.report?.status==='completed'&&['broad','guided'].every(key=>['native','checkpoint','feasibility'].every(a=>comparison.methods[key].audit_status[a]==='passed'));}
 function render(report){
  const c=report.comparison,status=document.getElementById('comparisonStatus');
  if(!c){status.textContent='Verified baseline comparison is unavailable; no improvement claim.';return;}
@@ -52,7 +52,8 @@ function render(report){
  document.getElementById('comparisonScope').textContent=c.scientific_scope;
  document.getElementById('comparisonActionScope').textContent=c.action_scope;
  const prep=c.geometry_preparation,support=prep.support;
- document.getElementById('comparisonPreparation').textContent=`${prep.cost_scope} Original map: ${prep.original_sobol_requests} requests, ${prep.original_map_admitted} admitted. Local support: ${support?`${support.supported_cells}/35 cells; ${support.probe_accepted}/${support.probe_requests} accepted probes; ${Number.isFinite(support.elapsed_s)?support.elapsed_s.toFixed(1)+' s':'time unknown'}`:'not attached'}.`;
+ const cost=prep.process_resource_receipt?.report,resource=cost?` Measured support preprocessing: ${cost.wall_s.toFixed(2)} s wall, ${cost.user_cpu_s.toFixed(2)} s user CPU, ${cost.system_cpu_s.toFixed(2)} s system CPU, ${(cost.maximum_resident_set_kib/1024).toFixed(1)} MiB GNU time maximum RSS (not aggregate worker peak; excludes prior map cost).`:'';
+ document.getElementById('comparisonPreparation').textContent=`${prep.cost_scope} Original map: ${prep.original_sobol_requests} requests, ${prep.original_map_admitted} admitted. Local support: ${support?`${support.supported_cells}/35 cells; ${support.probe_accepted}/${support.probe_requests} accepted probes; ${Number.isFinite(support.elapsed_s)?support.elapsed_s.toFixed(1)+' s':'time unknown'}`:'not attached'}.${resource}`;
  table(document.getElementById('comparisonSupports'),['Cell','Support','Bearing °','Radius mm','Board H mm','Gap mm','Tilt °','Qualification'],supportRows(support));
  document.getElementById('comparisonSupport').textContent=JSON.stringify(c.geometry_preparation,null,2);
  curves(c);

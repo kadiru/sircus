@@ -9,6 +9,11 @@ The separate opt-in [fixed-scene RL task](RL_FIXED_SCENE.md) now trains shot
 parameters on this scene. `run.sh start` remains the stationary foundation;
 `run.sh train` explicitly replaces it with a bounded training run.
 
+The [geometry-guided continuous pilot](FEASIBILITY_GUIDED_PILOT.md) uses the
+previous geometry map for local continuous proposals and compares frozen
+held-out checks with the separate broad-domain pilot. Geometry assistance and
+reinforcement learning contributions remain explicitly distinguished.
+
 ## Parallel workcells
 
 The separate [32-table world](PARALLEL_WORLD.md) uses64 articulated arms in one

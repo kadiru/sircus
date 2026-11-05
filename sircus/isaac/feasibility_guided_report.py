@@ -7,6 +7,7 @@ Geometry preparation is not a scoring search, and its cost is separate.
 
 import argparse
 import copy
+import hashlib
 import json
 from pathlib import Path
 
@@ -105,29 +106,128 @@ def comparison(guided, baseline, *, baseline_report_sha256=None, support=None):
                 inference_scope="No capture search or outcome-based action selection during frozen inference; arm paths and initialized ball release remain scripted.")
 
 
-def add_comparison(summary, baseline_path, run):
+def verify_comparison_audit(receipt, value):
+    if "comparison" in receipt:
+        require(receipt.get("status") == "passed"
+                and receipt.get("source_result_sha256") == value["methods"]["guided"]["source_result_sha256"],
+                "Independent containing audit is not passed or belongs to another guided result")
+        receipt = receipt["comparison"]
+    require(receipt.get("schema") == SCHEMA and receipt.get("status") == "completed",
+            "Independent comparison is incomplete or uses a different schema")
+    require(receipt.get("original_result_sha256") == value["methods"]["broad"]["source_result_sha256"]
+            and receipt.get("guided_result_sha256") == value["methods"]["guided"]["source_result_sha256"],
+            "Independent comparison belongs to different native results")
+    def equal_counts(left, right):
+        require(left is not None and right is not None
+                and all(left[k] == right[k] for k in ("attempts", "captures", "clean"))
+                and left["invalid"] == right["rejected"], "Independent comparison count mismatch")
+    for source, method in (("original", "broad"), ("guided", "guided")):
+        left, right = receipt[source], value["methods"][method]
+        equal_counts(left["training"], right["training"])
+        for stage in ("initial", "final"):
+            for split in SPLITS:
+                equal_counts(left["frozen"][stage][split], right["frozen"][split][stage])
+    return receipt
+
+
+def canonical_digest(value):
+    return hashlib.sha256(json.dumps(value, sort_keys=True, allow_nan=False).encode()).hexdigest()
+
+
+def compact_support(raw):
+    """Retain action definitions and bind omitted geometry probes by digest.
+
+    This is a derived receipt, not a replacement signed support contract. Its
+    source fingerprint continues to name the immutable full geometry file.
+    """
+    unsigned = dict(raw)
+    fp = unsigned.pop("fingerprint", None)
+    require(fp == canonical_digest(unsigned), "Guided support fingerprint mismatch")
+    require(raw.get("schema") == "sircus-feasibility-guided-support-v1"
+            and raw.get("policy_geometry_only") is True,
+            "Unsupported or non-geometric guided support")
+    top_keys = ("schema", "source_fingerprint", "feasibility_fingerprint", "policy_geometry_only",
+        "asset_sha256", "action_names", "global_low", "global_high", "base_half_width", "width_scales",
+        "probe_count", "probe_seed", "minimum_probe_acceptance", "anchor_rank", "anchor_path_samples",
+        "probe_solver", "seed_source", "elapsed_s", "probe_requests", "probe_accepted", "supported_cells", "scope")
+    result = {key:copy.deepcopy(raw[key]) for key in top_keys if key in raw}
+    result.update(source_support_fingerprint=fp, compact_receipt=True,
+        omission_scope="Full geometry probe actions, qualifications, anchor IK joint fits, canonical joints and path readbacks stay outside this report. Exact omitted decision lists are SHA256-bound; native captures never select these supports.")
+    result["cells"] = []
+    fields = ("cell_id", "cell_index", "bucket_xy_m", "map_candidates", "status", "reason", "low", "high",
+              "anchor_action", "anchor_proposal", "anchor_score", "selected_width_scale", "probe_acceptance", "qualification_target_met")
+    for cell in raw["cells"]:
+        row = {key:copy.deepcopy(cell[key]) for key in fields if key in cell}
+        row["anchor_checks_sha256"] = canonical_digest(cell.get("anchor_checks", []))
+        row["anchor_checks_count"] = len(cell.get("anchor_checks", []))
+        row["anchor_ik_sha256"] = canonical_digest(cell["anchor_ik"]) if cell.get("anchor_ik") else None
+        row["calibration"] = []
+        for probe in cell.get("calibration", []):
+            decision = {key:copy.deepcopy(probe[key]) for key in ("scale", "low", "high", "requests", "accepted", "acceptance")}
+            records = probe["records"]
+            require(len(records) == decision["requests"], "Probe decision count mismatch")
+            decision.update(records_count=len(records), records_sha256=canonical_digest(records))
+            row["calibration"].append(decision)
+        result["cells"].append(row)
+    return result
+
+
+def add_comparison(summary, baseline_path, run, *, support_cost_path=None):
     baseline_path, run = Path(baseline_path), Path(run)
     baseline = read(baseline_path)
-    support_path = run/"support.json"
-    support = None
-    if support_path.is_file():
-        raw = read(local_file(run, "support.json"))
-        summary["source_sha256"]["support.json"] = sha(support_path)
-        # Keep exact support definitions/provenance auditable. No outcomes may
-        # influence this receipt; the independent audit verifies its derivation.
-        support = raw
+    support_path = local_file(run, "support.json")
+    raw = read(support_path)
+    support_sha = sha(support_path)
+    study = summary["study"]
+    require(study.get("support_sha256") == support_sha,
+            "Study belongs to different support bytes")
+    require(study.get("support_fingerprint") == raw["fingerprint"]
+            and study.get("domain", {}).get("support_fingerprint") == raw["fingerprint"],
+            "Study support fingerprint mismatch")
+    require(study.get("domain", {}).get("decoder") == "geometry-conditioned local affine residual-v1",
+            "Unknown guided action decoder")
+    require(study.get("feasibility_sha256") == summary["source_sha256"].get("feasibility.json"),
+            "Study belongs to a different geometry map")
+    summary["source_sha256"]["support.json"] = support_sha
+    require(raw.get("source_fingerprint") == summary["geometry_fingerprint"],
+            "Support belongs to a different scene")
+    support = compact_support(raw)
+    support["source_support_sha256"] = support_sha
     summary["comparison"] = comparison(summary, baseline,
         baseline_report_sha256=sha(baseline_path), support=support)
+    audit_path = run/"comparison-audit.json"
+    if audit_path.is_file():
+        audit_path = local_file(run, "comparison-audit.json")
+        receipt = read(audit_path)
+        comparison_receipt = verify_comparison_audit(receipt, summary["comparison"])
+        audit_sha = sha(audit_path)
+        summary["source_sha256"]["comparison-audit.json"] = audit_sha
+        summary["comparison"]["independent_audit"] = dict(sha256=audit_sha, report=comparison_receipt,
+            source_receipt_schema=receipt.get("schema"), source_receipt_status=receipt.get("status"))
+    else:
+        summary["comparison"]["independent_audit"] = dict(status="not_attached")
+    preparation = summary["comparison"]["geometry_preparation"]
+    if support_cost_path is not None:
+        cost_path = Path(support_cost_path)
+        cost = read(cost_path)
+        require(cost.get("support_sha256") == support_sha
+                and cost.get("support_fingerprint") == raw["fingerprint"],
+                "Process resource receipt belongs to another support")
+        preparation["process_resource_receipt"] = dict(sha256=sha(cost_path), report=cost,
+            scope="Explicit process-resource receipt. A process peak RSS is not simultaneous aggregate RAM across workers; CPU accounting scope follows the source receipt.")
+    else:
+        preparation["process_resource_receipt"] = dict(status="not_attached",
+            scope="Support wall time is recorded; process CPU and RSS remain unavailable in this report.")
     summary["exporter_wrapper_sha256"] = sha(__file__)
     return summary
 
 
-def export(run, output, baseline_report, *, media=False, action_edit=False):
+def export(run, output, baseline_report, *, media=False, action_edit=False, support_cost_path=None):
     # Fail before encoding expensive native footage if the baseline or split
     # is incompatible. Recheck after the shared exporter binds its sources.
-    add_comparison(summarize(run), baseline_report, run)
+    add_comparison(summarize(run), baseline_report, run, support_cost_path=support_cost_path)
     summary = native_export(run, output, media=media, action_edit=action_edit)
-    add_comparison(summary, baseline_report, run)
+    add_comparison(summary, baseline_report, run, support_cost_path=support_cost_path)
     (Path(output)/"report.json").write_text(json.dumps(summary, indent=2, allow_nan=False)+"\n")
     return summary
 
@@ -137,11 +237,12 @@ if __name__ == "__main__":
     parser.add_argument("run", type=Path)
     parser.add_argument("output", type=Path)
     parser.add_argument("--baseline-report", type=Path, required=True)
+    parser.add_argument("--support-cost", type=Path, help="Optional explicit process-resource JSON receipt")
     parser.add_argument("--media", action="store_true")
     parser.add_argument("--action-edit", action="store_true")
     args = parser.parse_args()
     value = export(args.run, args.output, args.baseline_report,
-                   media=args.media, action_edit=args.action_edit)
+                   media=args.media, action_edit=args.action_edit, support_cost_path=args.support_cost)
     print(json.dumps(dict(status=value["status"], training=value["training"],
                          comparison=value["comparison"]["final_policy_difference"],
                          movie=value["movie"]), allow_nan=False))
