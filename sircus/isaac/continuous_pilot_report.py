@@ -240,7 +240,21 @@ def summarize(run):
     result_path = run/"result.json"
     result = read(result_path) if result_path.is_file() else {}
     if result:
+        require(result.get("study_fingerprint") == study.get("fingerprint"),
+                "Native result belongs to a different study")
         source_hashes["result.json"] = sha(result_path)
+        if result.get("status") == "completed":
+            expected = study.get("training_batches")
+            if expected is not None:
+                require([item["batch"] for item in batches] == list(range(expected)),
+                        "Completed study has missing or reordered training attempts")
+            declared = [entry for key in ("batches", "assessments", "coverage")
+                        for entry in result.get(key, [])]
+            require({entry["file"] for entry in declared} == {"trials/"+path.name for path in paths},
+                    "Completed result does not bind every native trial")
+            for entry in declared:
+                require(entry["sha256"] == sha(local_file(run, entry["file"])),
+                        "Native trial changed after the completed result was saved")
     audit_path = run/"audit.json"
     native_audit = read(audit_path) if audit_path.is_file() else None
     if native_audit is not None:
@@ -304,11 +318,13 @@ def native_frame_manifest(run, clips):
             "Chosen-camera metadata changed")
     seen, previous, result = set(), -1, []
     for clip in clips:
+        home = None
         if "trial_file" in clip:
             trial = read(local_file(run, clip["trial_file"]))
             require(all(clip[key] == trial[key] for key in
                         ("mode", "batch", "update_count", "actions", "rows", "release_step")),
                     "Native film does not match its recorded policy/coverage trial")
+            home = trial.get("home")
         frames = clip["frames"]
         require(isinstance(frames, list) and frames, "A recorded trial needs native frame metadata")
         require(clip.get("fps", 30) == 30, "Native clip frame rate changed")
@@ -358,7 +374,8 @@ def native_frame_manifest(run, clips):
             release_frames=sum(frame["phase"] == "release" for frame in frames),
             foreground_joint_excursion_rad=excursions,
             camera_sha256=sha(run/"selected-camera.json"),
-            camera_readback_position_tolerance_m=.0002))
+            camera_readback_position_tolerance_m=.0002,
+            episode_home=home))
     return result
 
 
@@ -382,11 +399,22 @@ def encode_native_frames(run, output, clips):
             caption += f" | sampling update {update}"
         caption_path = Path(output)/f"caption-{index:03d}.txt"
         caption_path.write_text(caption)
+        home = audit["episode_home"] or {}
+        reset = home.get("episode_reset") is True
+        if reset:
+            require(home.get("protocol") == "canonical-episode-home-reset-before-visible-drive-v1",
+                    "Unknown episode-reset protocol cannot be labeled in the video")
+        setup_caption = ("Episode reset before visible goal travel; scripted joint drives; initialized ball release."
+                         if reset else "Native articulated setup; scripted joint drives; initialized ball release.")
+        setup_caption_path = Path(output)/f"setup-caption-{index:03d}.txt"
+        setup_caption_path.write_text(setup_caption)
         def filter_path(path):
             return str(Path(path).resolve()).replace("\\", "\\\\").replace("'", "\\'").replace(":", "\\:")
-        video_filter = ("drawbox=x=18:y=16:w=1220:h=54:color=0x17202bcc:t=fill,"
+        video_filter = ("drawbox=x=18:y=16:w=1220:h=86:color=0x17202bcc:t=fill,"
                         f"drawtext=fontfile='{filter_path(font)}':textfile='{filter_path(caption_path)}':"
-                        "x=32:y=28:fontsize=25:fontcolor=0xeff5fa")
+                        "x=32:y=28:fontsize=25:fontcolor=0xeff5fa,"
+                        f"drawtext=fontfile='{filter_path(font)}':textfile='{filter_path(setup_caption_path)}':"
+                        "x=32:y=67:fontsize=18:fontcolor=0xc5d4e4")
         subprocess.run(["ffmpeg", "-v", "error", "-n", "-framerate", "30",
             "-start_number", str(audit["first_frame"]), "-i", str(Path(run)/"frames/%05d.jpg"),
             "-frames:v", str(audit["frames"]), "-vf", video_filter, "-an", "-c:v", "libx264", "-pix_fmt", "yuv420p",
@@ -397,15 +425,14 @@ def encode_native_frames(run, output, clips):
         metadata = {key: value for key, value in clip.items()
                     if key not in ("frames", "rows", "rollout", "actions")}
         encoded.append(dict(metadata, file=name, **data, native_frame_audit=audit,
-                            non_simulation_content="Data-derived trial mode/batch/update text caption"))
+                            non_simulation_content="Data-derived trial mode/batch/update and episode-setup provenance text captions"))
     require(all(any(clip["native_frame_audit"]["foreground_joint_excursion_rad"][arm] > .02
                     for clip in encoded) for arm in ("Arm10", "Arm14")),
             "No measured foreground movement of both arms in the recorded trials")
     return encoded
 
 
-def action_frame_indices(frames, *, context_frames=12, joint_change_rad=.0001,
-                         ball_change_m=.0005):
+def action_frame_indices(frames, *, context_frames=12, joint_change_rad=.0001):
     """Remove only setup dwells with no motion above conservative readback gates.
 
     Keep every release frame, first/last context and every trial. These gates
@@ -413,7 +440,7 @@ def action_frame_indices(frames, *, context_frames=12, joint_change_rad=.0001,
     stationary. Full normal-time native clips are always preserved separately.
     """
     require(frames and type(context_frames) is int and context_frames >= 0
-            and joint_change_rad > 0 and ball_change_m > 0, "Invalid action-edit thresholds")
+            and joint_change_rad > 0, "Invalid action-edit thresholds")
     count = len(frames)
     keep = set(range(min(count, context_frames+1)))
     keep.update(range(max(0, count-context_frames-1), count))
@@ -430,19 +457,10 @@ def action_frame_indices(frames, *, context_frames=12, joint_change_rad=.0001,
         slow_joints = max(abs(x-y) for arm in ("Arm10", "Arm14")
                           for a, b in zip(window_before["all_joints_rad"][arm], frame["all_joints_rad"][arm])
                           for x, y in zip(a, b)) >= .0005
-        balls_before, balls_after = before.get("all_ball_world_m"), frame.get("all_ball_world_m")
-        # Missing ball readback is conservative: do not cut the interval.
-        moving_ball = balls_before is None or balls_after is None
-        if not moving_ball:
-            require(len(balls_before) == len(balls_after) == 35,
-                    "Action edit needs actual all-cell ball positions")
-            require(all(len(v) == 3 and all(type(x) in (int, float) and math.isfinite(x) for x in v)
-                        for v in [*balls_before, *balls_after]), "Invalid actual ball-motion readback")
-            moving_ball = max(math.dist(a, b) for a, b in zip(balls_before, balls_after)) >= ball_change_m
-            old_balls = window_before.get("all_ball_world_m")
-            if old_balls is not None:
-                moving_ball |= max(math.dist(a, b) for a, b in zip(old_balls, balls_after)) >= .001
-        if joints >= joint_change_rad or slow_joints or moving_ball:
+        # During setup the balls are parked, unscored initialization objects;
+        # escaped setup balls must not keep an otherwise idle arm dwell alive.
+        # Every recorded release frame above is retained regardless of motion.
+        if joints >= joint_change_rad or slow_joints:
             keep.update(range(max(0, index-1-context_frames), min(count, index+context_frames+1)))
     result = sorted(keep)
     require(result and result[0] == 0 and result[-1] == count-1
@@ -493,10 +511,11 @@ def make_action_edit(output, source_clips, encoded):
     data = inspect_movie(movie)
     require(data["frames"] == sum(clip["frames"] for clip in result), "Action movie lost native chapters")
     return dict(file=movie.name, **data, clips=result,
-        selection="All recorded trials in order; only setup dwell below declared joint/ball motion thresholds removed. Every release frame preserved, no speedup.",
-        thresholds=dict(joint_change_rad_per_frame=.0001, ball_change_m_per_frame=.0005,
+        selection="All recorded trials in order; only setup dwell below declared arm-joint motion thresholds removed. Parked/unscored setup-ball motion is ignored; every release frame preserved, no speedup.",
+        thresholds=dict(joint_change_rad_per_frame=.0001,
                         slow_window_frames=15, joint_change_rad_per_window=.0005,
-                        ball_change_m_per_window=.001, before_after_context_frames=12, fps=30),
+                        before_after_context_frames=12, fps=30,
+                        setup_ball_motion="Ignored: balls are parked/unscored during setup; all release frames are kept"),
         full_untrimmed_movie="trials.mp4")
 
 

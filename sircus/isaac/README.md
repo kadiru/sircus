@@ -27,6 +27,12 @@ PPO study with early/middle/late on-policy footage, all-table learning curves an
 separate frozen checks on the same 35 known layouts. Its versioned learning and
 assessment protocol preserves the original geometry, camera and scoring.
 
+The opt-in [continuous feasibility/PPO pilot](CONTINUOUS_PILOT.md) surveys a
+broad five-dimensional action space, uses a disjoint 25/5/5 optimizer split,
+and records live endpoint setup after explicit standard episode resets. Its
+new read-only interface keeps endpoint feasibility, learning, and frozen checks
+separate. Historical results and runtimes remain unchanged.
+
 ## Pinned baseline
 
 - Isaac Lab tag `v2.3.2`, commit `37ddf626871758333d6ed89cf64ad702aef127d0`.
