@@ -26,6 +26,10 @@ from prepare_assets import chain, fk, matrix
 from robust_ik import normal_jacobian
 
 VERSION = "sircus-continuous-feasibility-v1"
+IK_PROTOCOLS = {
+    "bounded_two_start40": dict(solver="continuous_feasibility.bounded_solve", starts=2, max_nfev_per_start=40, seed="fixed original pose seed per request", acceptance_residual=1e-4),
+    "full_robust_v2": dict(solver="robust_ik.solve", version="sircus-endpoint-ik-v2", normal_only_budgets=[80,80,500,500]+[400]*8, full_orientation_budgets=[100,500]+[400]*8, multistart_seed=20261101, acceptance_residual=1e-4),
+}
 SEED = 20261112
 ACTION_NAMES = ("bearing_offset_rad", "radius_m", "height_m", "gap_m", "tilt_rad")
 LOW = np.array([-math.pi, 0.28, 0.14, 0.08, math.radians(12.0)])
@@ -317,7 +321,9 @@ def qualify_action(scene, cell, action, links, seeds, *, solver=bounded_solve):
     return record
 
 
-def make_spec(source_spec, samples_per_cell=128):
+def make_spec(source_spec, samples_per_cell=128, ik_protocol="bounded_two_start40"):
+    if ik_protocol not in IK_PROTOCOLS:
+        raise ValueError("Unknown geometry-only IK protocol")
     if type(samples_per_cell) is not int or not 1 <= samples_per_cell <= 4096 or samples_per_cell & (samples_per_cell - 1):
         raise ValueError("Sobol samples per cell must be a power of two in 1..4096")
     cells = copy.deepcopy(source_spec["cells"])
@@ -327,6 +333,7 @@ def make_spec(source_spec, samples_per_cell=128):
     value = dict(version=VERSION, source_fingerprint=source_spec["fingerprint"],
                  scene=scene, scene_sha256=canonical_hash(scene), cells=cells,
                  seed=SEED, samples_per_cell=samples_per_cell, total_requests=35*samples_per_cell,
+                 ik_protocol=ik_protocol, ik_budget=copy.deepcopy(IK_PROTOCOLS[ik_protocol]),
                  action_names=list(ACTION_NAMES), action_low=LOW.tolist(), action_high=HIGH.tolist(),
                  sampling="Independent scrambled Sobol five-dimensional sequence per original cell, all requests retained",
                  split_assignment={c["id"]: split_for_index(i) for i, c in enumerate(cells)},
@@ -350,10 +357,14 @@ def _cell_map(job):
     poses = json.loads((assets / "poses.json").read_text())
     seeds = dict(Arm10=np.asarray(poses["dropper_joint_rad"]), Arm14=np.asarray(poses["board_joint_rad"]))
     cell = spec["cells"][i]
+    if spec.get("ik_protocol", "bounded_two_start40") == "full_robust_v2":
+        from robust_ik import solve as solver
+    else:
+        solver = bounded_solve
     records = []
     for j, values in enumerate(sample_values(spec, i)):
         action = decode_action(cell, values, f"sobol-{i:02d}-{j:04d}")
-        record = qualify_action(spec["scene"], cell, action, links, seeds)
+        record = qualify_action(spec["scene"], cell, action, links, seeds, solver=solver)
         record.update(cell_id=cell["id"], cell_index=i, proposal=j, split=spec["split_assignment"][cell["id"]])
         records.append(record)
     return records
@@ -387,7 +398,7 @@ def build_map(spec, assets, progress=None, workers=1):
                             reasons=dict(Counter(r["reason"] or "endpoint_proxy_qualified" for r in group)),
                             qualified_ranges={k: [min(r["action"][k] for r in accepted), max(r["action"][k] for r in accepted)] for k in ACTION_NAMES} if accepted else {}))
     result = dict(schema="sircus-continuous-feasibility-result-v1", spec_fingerprint=spec["fingerprint"],
-                  source_fingerprint=spec["source_fingerprint"], records=records, cells=summary,
+                  source_fingerprint=spec["source_fingerprint"], ik_protocol=spec.get("ik_protocol", "bounded_two_start40"), records=records, cells=summary,
                   requests=len(records), qualified=sum(r["accepted"] for r in records),
                   elapsed_s=time.monotonic()-started, scope=SCOPE,
                   asset_sha256={file:hashlib.sha256((assets/file).read_bytes()).hexdigest() for file in ("dropper.urdf","board_arm.urdf","poses.json")})
@@ -456,11 +467,12 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--samples", type=int, default=128)
     parser.add_argument("--workers", type=int, default=8)
+    parser.add_argument("--ik-protocol", choices=sorted(IK_PROTOCOLS), default="bounded_two_start40")
     args = parser.parse_args()
     if args.output.exists():
         parser.error("Choose a new output directory; previous studies are preserved")
     args.output.mkdir(parents=True)
-    spec = make_spec(json.loads(args.source_spec.read_text()), args.samples)
+    spec = make_spec(json.loads(args.source_spec.read_text()), args.samples, args.ik_protocol)
     (args.output / "contract.json").write_text(json.dumps(spec, allow_nan=False))
     def progress(value):
         print(json.dumps(value), flush=True)

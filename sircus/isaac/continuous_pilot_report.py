@@ -255,10 +255,20 @@ def summarize(run):
             for entry in declared:
                 require(entry["sha256"] == sha(local_file(run, entry["file"])),
                         "Native trial changed after the completed result was saved")
-    audit_path = run/"audit.json"
-    native_audit = read(audit_path) if audit_path.is_file() else None
-    if native_audit is not None:
-        source_hashes["audit.json"] = sha(audit_path)
+    audits = {}
+    for label, filename in (("native", "native-audit.json"), ("checkpoint", "checkpoint-audit.json"),
+                            ("feasibility", "feasibility-audit.json"), ("other", "audit.json")):
+        audit_path = run/filename
+        if audit_path.is_file():
+            value = read(local_file(run, filename))
+            if label != "feasibility" and "study_fingerprint" in value:
+                require(value["study_fingerprint"] == study.get("fingerprint"), "Audit belongs to a different study")
+            if "source_result_sha256" in value:
+                audited = run/"feasibility.json" if label == "feasibility" else result_path
+                require(audited.is_file() and value["source_result_sha256"] == sha(audited), "Audit belongs to different result bytes")
+            audits[label] = dict(file=filename, sha256=sha(audit_path), report=value)
+            source_hashes[filename] = sha(audit_path)
+    native_audit = audits.get("native", audits.get("other", {})).get("report")
     geometry = None
     if (run/"contract.json").is_file():
         contract = read(local_file(run, "contract.json"))
@@ -282,7 +292,7 @@ def summarize(run):
                 learning_curve=batches, assessments=checks,
                 sampled_training_action_ranges=numeric_ranges(all_actions),
                 trial_files=len(paths), elapsed_s=result.get("elapsed_s", result.get("seconds")),
-                native_audit=native_audit,
+                native_audit=native_audit, audits=audits,
                 audit_scope="Report counts and capture invariants checked against active native scalar rows. Raw trajectory and checkpoint verification are separately labeled.",
                 source_sha256=source_hashes, clips=[], movie=None)
 

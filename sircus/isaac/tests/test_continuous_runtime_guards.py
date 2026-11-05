@@ -22,6 +22,24 @@ class CPUView:
 
 
 class AdmissionGuardTests(unittest.TestCase):
+    def test_warmup_precedes_each_original_measurement_window_only(self):
+        env=pilot.ContinuousShots(); env.capture_trial=True; env.phase="setup"
+        env.dt=1/240; env.steps=0; env.board_pose_reads=0
+        env.tick=lambda:setattr(env,"steps",env.steps+1)
+        class Parent:
+            @staticmethod
+            def board_poses(current): return current.steps
+        with mock.patch.dict(sys.modules,{"parallel_runtime":types.SimpleNamespace(ParallelShots=Parent)}):
+            self.assertEqual(env.board_poses(),420)
+            # Original parent inserts this 250-ms interval between paired reads.
+            for _ in range(60): env.tick()
+            self.assertEqual(env.board_poses(),480)  # no warmup after the window
+            self.assertEqual(env.board_poses(),900)  # next window gets its warmup
+            self.assertEqual(env.board_poses(),900)
+            env.phase="release"
+            self.assertEqual(env.board_poses(),900)  # no scorer-time extra ticks
+        self.assertEqual(env.board_pose_reads,4)
+
     def test_rejected_path_and_inactive_layout_are_disabled_before_parent_prepare(self):
         env = pilot.ContinuousShots()
         env.home_readback={"path_eligible":[True,True,True]}
@@ -29,6 +47,7 @@ class AdmissionGuardTests(unittest.TestCase):
         env.home_readback=dict(path_eligible=[True]*3)
         env.arms={n:types.SimpleNamespace(data=types.SimpleNamespace(joint_pos=CPUView(np.zeros((3,6)))))
                   for n in ("Arm10","Arm14")}
+        env.board_pose_reads=99
         env.cfg={}; env.base_cells=[dict(id=str(i)) for i in range(3)]
         env.continuous_links={}; env.ik_cache={}
         accepted=dict(accepted=True,ik={n:dict(q=[.1]*6) for n in env.arms})
@@ -38,6 +57,7 @@ class AdmissionGuardTests(unittest.TestCase):
         class Parent:
             @staticmethod
             def prepare(current,actions):
+                self.assertEqual(current.board_pose_reads,0)
                 parent_calls.append(current.preparation_enabled.copy())
                 return np.zeros((3,3)),np.zeros((3,3)),[[],[],[]],["parent_idle"]*3
 

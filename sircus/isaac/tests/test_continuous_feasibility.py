@@ -40,6 +40,15 @@ class FeasibilityTests(unittest.TestCase):
         self.assertEqual([assignment.count(k) for k in ("train","validation","test")], [25,5,5])
         self.assertEqual(len({tuple(c["bucket_xy_m"]) for c in self.spec["cells"]}),35)
 
+    def test_ik_protocol_changes_fingerprint_without_changing_sampled_requests(self):
+        strong=cf.make_spec(self.source,128,"full_robust_v2")
+        self.assertNotEqual(strong["fingerprint"],self.spec["fingerprint"])
+        self.assertEqual(strong["ik_protocol"],"full_robust_v2")
+        self.assertEqual(strong["ik_budget"]["version"],"sircus-endpoint-ik-v2")
+        self.assertEqual(len(strong["ik_budget"]["normal_only_budgets"]),12)
+        np.testing.assert_array_equal(cf.sample_values(strong,0),cf.sample_values(self.spec,0))
+        with self.assertRaises(ValueError):cf.make_spec(self.source,128,"unbounded")
+
     def test_sobol_sampling_reproducible_broad_and_no_outcomes(self):
         first = cf.sample_values(self.spec, 0)
         np.testing.assert_array_equal(first, cf.sample_values(self.spec, 0))

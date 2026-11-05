@@ -75,6 +75,10 @@ def validate_study(study, spec):
     if "coverage_batches" in study:
         require(study["coverage_batches"] == 4 and isinstance(study.get("feasibility_sha256"),str),
                 "Geometry coverage protocol changed")
+    ik_protocol = study.get("ik_protocol")
+    require(ik_protocol in (None,"full_robust_v2")
+            and (study.get("training_batches") != 64 or ik_protocol == "full_robust_v2"),
+            "Continuous native IK protocol changed")
     cells = study["cells"]
     require(len(cells) == len(spec["cells"]) == 35 and
             cells == [dict(c, split=split_for_index(i)) for i,c in enumerate(spec["cells"])],
@@ -156,6 +160,9 @@ def verify_checkpoint_chain(run, executed_source=None):
         signed(feasibility,"Geometry feasibility map")
         require(feasibility.get("source_fingerprint") == geometry_hash,
                 "Geometry coverage uses a different source")
+        if study.get("ik_protocol") == "full_robust_v2":
+            require(feasibility.get("ik_protocol") == "full_robust_v2",
+                    "Native robust IK and feasibility-map solver protocols differ")
         coverage_plans = geometry_coverage(feasibility,spec["cells"],batches=coverage_batches)
 
     def checkpoint(reference, updates, attempts):
@@ -302,6 +309,7 @@ def verify_checkpoint_chain(run, executed_source=None):
             "Held-out layouts entered optimization or rejected attempts were filtered")
     return dict(schema=SCHEMA,status="passed",study_fingerprint=study_hash,
         geometry_fingerprint=geometry_hash,domain_fingerprint=domain_hash,
+        ik_protocol=study.get("ik_protocol","not_declared_in_historical_smoke"),
         source_result_sha256=digest(run/"result.json"), study_sha256=digest(run/"study.json"),
         checkpoints=checkpoint_hashes,trials=trial_hashes,updates=len(report["updates"]),
         optimizer_samples=len(training_rows), training_batches=batches,

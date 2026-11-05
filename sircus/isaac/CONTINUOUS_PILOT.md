@@ -13,7 +13,7 @@ bounds do not imply that both arms can reach a full orbit.
 
 The geometry-only map retains 512 independently scrambled Sobol requests per
 bucket site (17,920 total). It checks board/table bounds, URDF outer reach,
-bounded numerical IK, independent FK/joint limits, and provisional joint-chain
+deterministic multistart numerical IK, independent FK/joint limits, and provisional joint-chain
 capsule clearances. A finite failed IK attempt is unresolved, not impossible.
 Native trials add a 16-point joint-interpolation proxy and unchanged measured
 settling/release checks. These do not certify all mesh/self-collision or tracked
@@ -43,7 +43,9 @@ for comparison. After that reset, the chosen shot endpoint is reached by live
 articulation drives; it is never initialized at the scored endpoint. All filmed setup is
 normal-time 30 fps actual articulation drive motion, including this episodic
 initialization. An additional 1.75-second hold precedes each original measured
-settling check, without changing its thresholds. Episode reset cuts are explicit; there are no joint-state teleports during
+settling window starts, preserving the original 250 ms measurement window and
+thresholds. Native qualification and correction use the unchanged full robust
+IK v2 solver; earlier bounded two-start surveys remain separate diagnostics. Episode reset cuts are explicit; there are no joint-state teleports during
 visible setup or at the scored endpoint.
 Ball placement at release is initialized; pickup and joint paths are scripted.
 The exact saved user camera and silver-gray appearance remain fixed. Coverage
