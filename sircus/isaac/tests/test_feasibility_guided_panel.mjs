@@ -6,6 +6,9 @@ const row={attempts:40,released:30,rejected:10,captures:8,clean:2,capture_rate:.
 const method=()=>({label:'method',training:row,frozen:Object.fromEntries(['train','validation','test'].map(s=>[s,{initial:row,final:null}])),audit_status:{native:'passed',checkpoint:'passed',feasibility:'passed'}});
 const c={status:'in_progress',methods:{broad:method(),guided:method()},final_policy_difference:{validation:{guided_minus_broad_percentage_points:null},test:{guided_minus_broad_percentage_points:null}}};
 assert.equal(panel.percent(null),'pending');
+assert.equal(panel.supportExclusionNote(c),null);
+c.posthoc_support_exclusion={report:{old_successful_sites:6,old_successful_settings_excluded:6}};
+assert.match(panel.supportExclusionNote(c),/POSTHOC.*all 6 previously successful.*does not prove.*not used to tune/);
 const supports=panel.supportRows({cells:[{cell_id:'empty',status:'unresolved',low:[-9,-9,-9,-9,-9],high:[9,9,9,9,9]},{cell_id:'ok',status:'supported',low:[0,.3,.2,.1,0],high:[.1,.4,.3,.2,.2],probe_acceptance:.375,qualification_target_met:false}]});
 assert.equal(supports[0][2],'—');
 assert.equal(supports[1][3],'300.0–400.0');

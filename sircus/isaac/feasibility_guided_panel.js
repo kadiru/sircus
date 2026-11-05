@@ -30,6 +30,13 @@ export function supportRows(support){
   return [cell.cell_id,'supported',range(0,180/Math.PI),range(1),range(2),range(3),range(4,180/Math.PI),`${percent(cell.probe_acceptance)} sampled qualification${cell.qualification_target_met===false?' · BELOW 75% TARGET':''}`];
  });
 }
+export function supportExclusionNote(comparison){
+ const receipt=comparison.posthoc_support_exclusion?.report;
+ if(!receipt)return null;
+ const all=receipt.old_successful_sites,excluded=receipt.old_successful_settings_excluded;
+ const finding=all>0&&excluded===all?`Geometry guidance excludes all ${all} previously successful settings.`:`Geometry guidance excludes ${excluded}/${all} previously successful settings.`;
+ return `POSTHOC EVALUATION · ${finding} Lower reach/IK failure alone does not improve aiming. This does not prove the new boxes have no successful shots. The diagnostic was not used to tune anchors, policy, rewards or training support.`;
+}
 function node(tag,text){const n=document.createElement(tag);if(text!==undefined)n.textContent=text;return n;}
 function table(target,headers,rows){target.replaceChildren();const t=node('table'),head=node('thead'),tr=node('tr');for(const v of headers)tr.appendChild(node('th',v));head.appendChild(tr);t.appendChild(head);const body=node('tbody');for(const row of rows){const r=node('tr');for(const v of row)r.appendChild(node('td',String(v)));body.appendChild(r);}t.appendChild(body);target.appendChild(t);}
 function svg(parent,tag,attrs,text){const n=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const[k,v]of Object.entries(attrs))n.setAttribute(k,String(v));if(text!==undefined)n.textContent=text;parent.appendChild(n);return n;}
@@ -48,6 +55,8 @@ function render(report){
  if(!c){status.textContent='Verified baseline comparison is unavailable; no improvement claim.';return;}
  status.textContent=readyForFinalClaim(c)?'Completed comparison · native/policy/geometry audit receipts attached':'Preliminary comparison · complete audit receipts or native run still pending';
  document.getElementById('comparisonSummary').textContent=comparisonSummary(c);
+ let posthoc=document.getElementById('comparisonPosthoc');if(!posthoc){posthoc=node('p');posthoc.id='comparisonPosthoc';posthoc.className='note';document.getElementById('comparisonSummary').after(posthoc);}
+ const exclusion=supportExclusionNote(c);posthoc.hidden=!exclusion;posthoc.textContent=exclusion||'';
  table(document.getElementById('comparisonChecks'),['Method','Split','Stage','Attempted','Released','Captured / attempted','Clean','Rejected'],frozenRows(c));
  document.getElementById('comparisonScope').textContent=c.scientific_scope;
  document.getElementById('comparisonActionScope').textContent=c.action_scope;
@@ -55,7 +64,7 @@ function render(report){
  const cost=prep.process_resource_receipt?.report,resource=cost?` Measured support preprocessing: ${cost.wall_s.toFixed(2)} s wall, ${cost.user_cpu_s.toFixed(2)} s user CPU, ${cost.system_cpu_s.toFixed(2)} s system CPU, ${(cost.maximum_resident_set_kib/1024).toFixed(1)} MiB GNU time maximum RSS (not aggregate worker peak; excludes prior map cost).`:'';
  document.getElementById('comparisonPreparation').textContent=`${prep.cost_scope} Original map: ${prep.original_sobol_requests} requests, ${prep.original_map_admitted} admitted. Local support: ${support?`${support.supported_cells}/35 cells; ${support.probe_accepted}/${support.probe_requests} accepted probes; ${Number.isFinite(support.elapsed_s)?support.elapsed_s.toFixed(1)+' s':'time unknown'}`:'not attached'}.${resource}`;
  table(document.getElementById('comparisonSupports'),['Cell','Support','Bearing °','Radius mm','Board H mm','Gap mm','Tilt °','Qualification'],supportRows(support));
- document.getElementById('comparisonSupport').textContent=JSON.stringify(c.geometry_preparation,null,2);
+ document.getElementById('comparisonSupport').textContent=JSON.stringify({geometry_preparation:c.geometry_preparation,posthoc_support_exclusion:c.posthoc_support_exclusion||'not attached'},null,2);
  curves(c);
 }
 if(typeof document!=='undefined'){
