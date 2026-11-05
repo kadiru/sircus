@@ -171,7 +171,25 @@ class ContinuousAuditTests(unittest.TestCase):
             initial=initial,final=final,initial_hash=initial["policy_hash"],final_hash=final["policy_hash"],
             batches=summaries,assessments=evals,updates=changes,coverage=coverages)
         write(root/"result.json",report)
+        write(root/"progress.json",dict(schema=study["schema"],study_fingerprint=study["fingerprint"],
+                                       batches=summaries,updates=changes))
         return report
+
+    def test_partial_first_update_checks_all_attempts_without_needing_final_evaluation(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);self.fixture(root)
+            (root/"result.json").unlink()  # not required by partial running-job audit
+            result=audit.verify_first_update(root)
+            self.assertEqual(result["optimizer_samples"],100)
+            self.assertEqual(result["updates"],1)
+            self.assertEqual(len(result["train_cell_ids"]),25)
+            self.assertEqual(len(result["trials"]),4)
+            self.assertTrue(result["actor_changed"])
+            self.assertGreater(result["train_statistics"]["invalid"],0)
+            progress=audit.read(root/"progress.json")
+            progress["updates"][0]["sample_count"]=66;write(root/"progress.json",progress)
+            with self.assertRaisesRegex(ValueError,"membership changed"):
+                audit.verify_first_update(root)
 
     def test_full_synthetic_chain_retains_all_attempts_and_has_no_holdout_leakage(self):
         with tempfile.TemporaryDirectory() as d:

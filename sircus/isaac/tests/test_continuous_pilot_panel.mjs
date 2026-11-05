@@ -17,3 +17,6 @@ assert.equal(ranges[0][1],'140.0–600.0 mm');
 assert.equal(ranges[0][2],'200.0–500.0 mm');
 assert.equal(ranges[1][1],'15.0–45.0 °');
 assert.equal(ranges[1][2],'not sampled');
+assert.match(panel.requestedText({height_m:.4,gap_m:.3,release_ball_center_height_m:.7375,radius_m:.5,tilt_deg:30,bearing_offset_deg:5,board_x_m:.61,board_y_m:-.2}),/Requested:.*H 400 mm.*ball-center release 737.5 mm/);
+assert.equal(panel.outcomeText({state:'release_withheld',invalid_reason:'ik_unresolved'}),'Release withheld: ik_unresolved');
+assert.equal(panel.outcomeText({state:'released_no_qualified_capture'}),'Released; no qualified capture');

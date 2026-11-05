@@ -1,6 +1,7 @@
 """Meaningful checks on split isolation, attempt denominators and read-only media."""
 
 import copy
+import csv
 import json
 from pathlib import Path
 import sys
@@ -104,6 +105,50 @@ class ReportTests(unittest.TestCase):
         self.assertEqual(result["unique_layouts"], 1)
         self.assertEqual(result["layouts_with_capture"], 1)
         self.assertIsNone(result["wilson95"])
+
+    def test_frozen_prediction_and_csv_keep_requested_release_separate_from_board_readback(self):
+        self.write("contract.json", dict(scene=dict(ball=dict(radius_m=.0375))))
+        action = dict(board_x_m=.61, board_y_m=-.2, height_m=.4, gap_m=.3,
+                      radius_m=.5, tilt_rad=.4, bearing_rad=1.2, bearing_offset_rad=.1)
+        for update in (0, 1):
+            row = outcome("b", captured=update == 0, invalid="endpoints_not_settled" if update else None)
+            row.update(settled_board_center_m=[.61, -.2, .398], settled_board_normal=[0., .2, .98],
+                       settled=dict(position_error_mm=2., normal_error_deg=.1, joint_speed_rad_s=.003))
+            self.write(f"trials/eval-{update}.json", dict(mode="eval", batch=0, update_count=update,
+                policy_hash=f"frozen-{update}", deterministic=True, active_cell_ids=["b"],
+                actions=[{}, action], rows=[outcome("a"), row], optimizer_samples=0))
+        summary = report.summarize(self.run)
+        prediction = summary["cells"][1]["frozen_predictions"][-1]
+        self.assertEqual(prediction["requested"]["height_m"], .4)
+        self.assertAlmostEqual(prediction["requested"]["release_ball_center_height_m"], .7375)
+        self.assertEqual(prediction["measured_board"]["center_m"][2], .398)
+        self.assertEqual(prediction["outcome"]["state"], "release_withheld")
+        output = self.root/"settings.csv"
+        report.write_settings_csv(summary, output)
+        with output.open() as saved:
+            rows = list(csv.DictReader(saved))
+        self.assertEqual(rows[1]["initial_captures"], "1")
+        self.assertEqual(rows[1]["latest_captures"], "0")
+        self.assertEqual(rows[1]["requested_board_height_m"], "0.4")
+        self.assertEqual(rows[1]["measured_board_z_m"], "0.398")
+        self.assertEqual(rows[1]["latest_invalid_reason"], "endpoints_not_settled")
+        self.assertIn("not measured gripper", rows[1]["release_provenance"])
+
+    def test_requested_foreground_caption_cannot_reveal_future_native_outcome(self):
+        action = dict(board_x_m=.61, board_y_m=-.2, height_m=.4, gap_m=.3,
+                      radius_m=.5, tilt_rad=.4, bearing_rad=1.2, bearing_offset_rad=.1)
+        clip = dict(actions=[copy.deepcopy(action) for _ in range(35)],
+                    rows=[outcome(str(i), invalid="special_future_failure") for i in range(35)])
+        foreground = report.foreground_metadata(clip, dict(ball=dict(radius_m=.0375)))
+        caption = report.foreground_caption(foreground)
+        self.assertIn("Requested FG", caption)
+        self.assertIn("ball-center release 737.5", caption)
+        self.assertNotIn("special_future_failure", caption)
+        self.assertNotIn("withheld", caption)
+        self.assertEqual(foreground["outcome"]["invalid_reason"], "special_future_failure")
+        clip["actions"][1]["height_m"] = True
+        with self.assertRaisesRegex(ValueError, "requested shot parameter"):
+            report.foreground_metadata(clip, dict(ball=dict(radius_m=.0375)))
 
     def test_eval_optimizer_feedback_and_multiple_weights_at_same_stage_rejected(self):
         trial = dict(mode="eval", update_count=0, policy_hash="weights-a",
@@ -243,8 +288,10 @@ class ReadOnlyViewerTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             (root/"report.json").write_text("{}")
+            (root/"settings.csv").write_text("cell_id\n")
             (root/"trial-001.mp4").write_bytes(b"fixture")
             self.assertEqual(server.resource(root, "/report.json")[1], "application/json")
+            self.assertEqual(server.resource(root, "/settings.csv")[1], "text/csv; charset=utf-8")
             self.assertEqual(server.resource(root, "/trial-001.mp4")[1], "video/mp4")
             for path in ("/../report.json", "/run", "/stop", "/study.json", "/etc/passwd", "/trial-1.mp4"):
                 self.assertIsNone(server.resource(root, path))

@@ -329,6 +329,120 @@ def verify_checkpoint_chain(run, executed_source=None):
         scope="CPU checkpoint/input/likelihood/reward/update-membership audit only; native telemetry rescoring and optimizer arithmetic are separate")
 
 
+def verify_first_update(run,executed_source=None):
+    """Audit the first 100 on-policy attempts while the native pilot continues.
+
+    This reads immutable completed trial/checkpoint files and one progress
+    snapshot. It never rewrites the run, creates a GPU session or extrapolates
+    a final score from partial training. The full completed-run audit is still
+    required before publishing final results.
+    """
+    import torch
+    from continuous_feasibility import LOW,HIGH,decode_action
+    from continuous_policy import (build_observations,physical_actions,load_checkpoint,
+                                   weight_hash,actor_weight_hash)
+    from farm_contract import reward,statistics
+
+    run=Path(run)
+    spec,study=read(run/"contract.json"),read(run/"study.json")
+    study_hash,geometry_hash,domain_hash=validate_study(study,spec)
+    snapshot=(run/"progress.json").read_bytes()
+    progress=json.loads(snapshot)
+    require(progress.get("schema")==study["schema"]
+            and progress.get("study_fingerprint")==study_hash
+            and len(progress.get("batches",[]))>=4 and len(progress.get("updates",[]))>=1,
+            "First complete PPO update is not available")
+    change=progress["updates"][0]
+    require(change.get("update_count")==1 and change.get("training_batches")==[0,1,2,3]
+            and change.get("sample_count")==change.get("samples")==100
+            and len(change.get("epochs",[]))==study["ppo"]["epochs"],
+            "First PPO update membership changed")
+    obs=build_observations(spec["cells"]); obs_t=torch.from_numpy(obs)
+    train=[i for i,c in enumerate(study["cells"]) if c["split"]=="train"]
+    expected_enabled=[i in train for i in range(35)]
+    ids=[study["cells"][i]["id"] for i in train]
+    trials,checkpoints,rows,membership={}, {}, [], []
+    max_logp_error=0.
+
+    def checkpoint(path,updates,attempts):
+        checksum=digest(path)
+        model,saved=load_checkpoint(path,study_fingerprint=study_hash,geometry_fingerprint=geometry_hash,
+                                   domain_fingerprint=domain_hash,expected_updates=updates,
+                                   expected_attempted_shots=attempts)
+        require(digest(path)==checksum,"Checkpoint is still being written")
+        require(saved["seed"]==study["seed"],"First-update policy seed changed")
+        checkpoints[path.name]=checksum
+        return model
+
+    before=None
+    for batch,summary in enumerate(progress["batches"][:4]):
+        path=evidence_file(run,summary["file"],trial=True)
+        require(digest(path)==summary["sha256"],"First-update trial checksum changed")
+        trials[summary["file"]]=digest(path)
+        data=read(path);reference=data["checkpoint"]
+        cp=evidence_file(run,reference["file"],suffix=".pt")
+        model=checkpoint(cp,0,batch*25)
+        require(reference["sha256"]==checkpoints[cp.name]
+                and reference["policy_hash"]==data.get("policy_hash")==change["before"]==weight_hash(model)
+                and reference["actor_hash"]==change["actor_before"]==actor_weight_hash(model),
+                "First-update sampling checkpoint changed")
+        require(data.get("schema")==study["schema"] and data.get("study_fingerprint")==study_hash
+                and data.get("mode")==summary.get("mode")=="train"
+                and data.get("batch")==summary.get("batch")==batch
+                and data.get("update_count")==summary.get("update_count")==0
+                and data.get("enabled")==expected_enabled and data.get("active_cell_ids")==ids
+                and data.get("optimizer_samples")==25 and data.get("deterministic") is False
+                and data.get("policy_action_used") is True,
+                "First-update train/held-out membership changed")
+        actual_obs=finite(data["observations"],(35,5),"first-update observations")
+        latent=finite(data["latent"],(35,5),"first-update latent")
+        normalized=finite(data["actions_normalized"],(35,5),"first-update actions")
+        stored_logp=finite(data["logp"],(35,),"first-update likelihood")
+        require(np.array_equal(actual_obs,obs),"First-update observation geometry changed")
+        with torch.no_grad():
+            latent_t=torch.from_numpy(latent)
+            actual_logp=model.log_prob(obs_t,latent_t).numpy()
+            require(np.allclose(normalized,latent_t.tanh().numpy(),rtol=2e-6,atol=2e-6),
+                    "First-update bounded action changed")
+        require(np.allclose(actual_logp,stored_logp,rtol=LOGP_TOLERANCE,atol=LOGP_TOLERANCE),
+                "First-update stored likelihood differs from sampling model")
+        max_logp_error=max(max_logp_error,float(np.abs(actual_logp-stored_logp).max()))
+        actions=[decode_action(c,a,f"train-{batch}-{i}")
+                 for i,(c,a) in enumerate(zip(spec["cells"],physical_actions(normalized,LOW,HIGH)))]
+        require(data["actions"]==actions and len(data["rows"])==35,"First-update direct action decoding changed")
+        for i,(row,action) in enumerate(zip(data["rows"],actions)):
+            require(row["cell_id"]==study["cells"][i]["id"] and row["split"]==study["cells"][i]["split"]
+                    and all(row.get(k)==v for k,v in action.items()),"First-update outcome/action binding changed")
+        rewards=finite(data["rewards"],(35,),"first-update reward")
+        require(np.array_equal(rewards,np.asarray([reward(r) for r in data["rows"]],dtype=np.float32)),
+                "First-update terminal reward changed")
+        selected=[data["rows"][i] for i in train]
+        for key,value in statistics(selected).items():
+            require(np.isclose(summary[key],value,rtol=0,atol=1e-7),"First-update counts changed")
+        rows.extend(selected)
+        membership.append(dict(batch=batch,ids=ids,latent=latent[train].tolist(),
+                               logp=stored_logp[train].tolist(),rewards=rewards[train].tolist()))
+        before=model
+    next_name="policy-final.pt" if study["training_batches"]==4 else "policy-before-004.pt"
+    after=checkpoint(evidence_file(run,next_name,suffix=".pt"),1,100)
+    require(change["after"]==weight_hash(after) and change["actor_after"]==actor_weight_hash(after),
+            "First PPO update does not match the next actual checkpoint")
+    for epoch in change["epochs"]:
+        require(epoch.get("samples")==100 and all(type(v) in (int,float) and np.isfinite(v) for v in epoch.values()),
+                "Invalid first-update optimization diagnostic")
+    return dict(schema="sircus-continuous-first-update-checkpoint-audit-v1",status="passed",
+                study_fingerprint=study_hash,geometry_fingerprint=geometry_hash,
+                domain_fingerprint=domain_hash,ik_protocol=study.get("ik_protocol"),
+                updates=1,optimizer_samples=100,train_cell_ids=ids,
+                checkpoints=checkpoints,trials=trials,first_update=change,
+                optimizer_membership_sha256=canonical_hash(membership),
+                progress_snapshot_sha256=hashlib.sha256(snapshot).hexdigest(),
+                source_py_sha256={p.name:digest(p) for p in sorted(Path(executed_source).glob("*.py"))} if executed_source else {},
+                max_logp_error=max_logp_error,train_statistics=statistics(rows),
+                actor_changed=actor_weight_hash(before)!=actor_weight_hash(after),
+                scope="Partial CPU audit of first 100 attempted train shots and one checkpoint update; no final score or generalization claim. Completed-run native and checkpoint audits remain required.")
+
+
 def home_comparison(readbacks,cells):
     """Describe actual common-home repeatability; never drop blocked score rows.
 
@@ -406,10 +520,12 @@ def main():
     parser.add_argument("--run",type=Path,required=True)
     parser.add_argument("--executed-source",type=Path)
     parser.add_argument("--output",type=Path,required=True)
+    parser.add_argument("--first-update-only",action="store_true")
     args = parser.parse_args()
     if args.output.exists():
         raise FileExistsError("Audit output already exists")
-    value = verify_checkpoint_chain(args.run,args.executed_source)
+    value = (verify_first_update(args.run,args.executed_source) if args.first_update_only
+             else verify_checkpoint_chain(args.run,args.executed_source))
     with args.output.open("x") as output:
         json.dump(value,output,allow_nan=False)
     print(json.dumps(value,allow_nan=False))
