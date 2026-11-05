@@ -1,0 +1,277 @@
+{
+  "schema": "sircus-continuous-pilot-compact-v1",
+  "status": "completed",
+  "producer_commit": "c0e5dfd5172cce27be76e22797d39af15cf7506a",
+  "audit_commit": "1cb55b2927f9b2584998dc8b77f83dc99d87484c",
+  "exporter_commit": "d4076510041c65844a197584a6909ef38521c89b",
+  "native_result_sha256": "cf7e05910a22269330fc3ec89c10ed080ef0c5c67f3528b31c07e1b3735ca614",
+  "study_fingerprint": "cda667c71c6a801d03e21dac81365b8d1a2d36be32176e8e14971c194ec2789c",
+  "geometry_fingerprint": "63362ef37a93881f769b39d1ee7456335f1cc7bf5db04ffa7e548ce9697455bf",
+  "domain": {
+    "names": [
+      "bearing_offset_rad",
+      "radius_m",
+      "height_m",
+      "gap_m",
+      "tilt_rad"
+    ],
+    "low": [
+      -3.141592653589793,
+      0.28,
+      0.14,
+      0.08,
+      0.20943951023931956
+    ],
+    "high": [
+      3.141592653589793,
+      1.2,
+      0.6,
+      0.56,
+      0.9075712110370514
+    ],
+    "reference_xy_m": [
+      0.67,
+      -0.1
+    ],
+    "gap_definition": "Ball-bottom release Z minus board-center Z; ball center adds radius",
+    "fingerprint": "28937cf485815c0bd0ac6e0b8e0266e21d3b52efdeb7c35544c56b21b20855ae"
+  },
+  "native_seconds_including_filming": 3680.4794985089684,
+  "raw_rgb_frames": 19929,
+  "training": {
+    "attempts": 1600,
+    "captures": 62,
+    "clean": 25,
+    "single_bounce": 62,
+    "invalid": 1214,
+    "capture_rate": 0.03875,
+    "wilson95": [
+      0.030344956086711943,
+      0.04936458011314166
+    ],
+    "failures": {
+      "external_contact": 313,
+      "endpoint_ik_unresolved_Arm14": 339,
+      "outer_link_length_bound": 284,
+      "board_table_proxy_overlap": 19,
+      "captured": 62,
+      "endpoint_ik_unresolved_Arm10": 483,
+      "settling_correction_ik": 33,
+      "endpoints_not_settled": 49,
+      "released_miss": 11,
+      "board_bucket_proxy_overlap": 7
+    }
+  },
+  "assessments": [
+    {
+      "update_count": 0,
+      "split": "test",
+      "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+      "attempts": 40,
+      "captures": 8,
+      "clean": 0,
+      "single_bounce": 8,
+      "invalid": 24,
+      "capture_rate": 0.2,
+      "wilson95": null,
+      "failures": {
+        "endpoint_ik_unresolved_Arm14": 24,
+        "captured": 8,
+        "external_contact": 8
+      },
+      "unique_layouts": 5,
+      "layouts_with_capture": 1,
+      "deterministic": true,
+      "interval_scope": "No binomial interval: repeated deterministic trials share layouts and are not independent generalization samples."
+    },
+    {
+      "update_count": 0,
+      "split": "train",
+      "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+      "attempts": 200,
+      "captures": 8,
+      "clean": 0,
+      "single_bounce": 8,
+      "invalid": 152,
+      "capture_rate": 0.04,
+      "wilson95": null,
+      "failures": {
+        "endpoint_ik_unresolved_Arm14": 80,
+        "released_miss": 8,
+        "settling_correction_ik": 40,
+        "board_table_proxy_overlap": 8,
+        "endpoints_not_settled": 16,
+        "endpoint_ik_unresolved_Arm10": 8,
+        "captured": 8,
+        "external_contact": 32
+      },
+      "unique_layouts": 25,
+      "layouts_with_capture": 1,
+      "deterministic": true,
+      "interval_scope": "No binomial interval: repeated deterministic trials share layouts and are not independent generalization samples."
+    },
+    {
+      "update_count": 0,
+      "split": "validation",
+      "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+      "attempts": 40,
+      "captures": 8,
+      "clean": 8,
+      "single_bounce": 8,
+      "invalid": 32,
+      "capture_rate": 0.2,
+      "wilson95": null,
+      "failures": {
+        "captured": 8,
+        "settling_correction_ik": 32
+      },
+      "unique_layouts": 5,
+      "layouts_with_capture": 1,
+      "deterministic": true,
+      "interval_scope": "No binomial interval: repeated deterministic trials share layouts and are not independent generalization samples."
+    },
+    {
+      "update_count": 16,
+      "split": "test",
+      "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+      "attempts": 40,
+      "captures": 8,
+      "clean": 0,
+      "single_bounce": 8,
+      "invalid": 16,
+      "capture_rate": 0.2,
+      "wilson95": null,
+      "failures": {
+        "endpoints_not_settled": 8,
+        "external_contact": 16,
+        "endpoint_ik_unresolved_Arm14": 8,
+        "captured": 8
+      },
+      "unique_layouts": 5,
+      "layouts_with_capture": 1,
+      "deterministic": true,
+      "interval_scope": "No binomial interval: repeated deterministic trials share layouts and are not independent generalization samples."
+    },
+    {
+      "update_count": 16,
+      "split": "train",
+      "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+      "attempts": 200,
+      "captures": 32,
+      "clean": 0,
+      "single_bounce": 32,
+      "invalid": 64,
+      "capture_rate": 0.16,
+      "wilson95": null,
+      "failures": {
+        "external_contact": 104,
+        "captured": 32,
+        "settling_correction_ik": 16,
+        "endpoint_ik_unresolved_Arm14": 24,
+        "endpoint_ik_unresolved_Arm10": 16,
+        "board_table_proxy_overlap": 8
+      },
+      "unique_layouts": 25,
+      "layouts_with_capture": 4,
+      "deterministic": true,
+      "interval_scope": "No binomial interval: repeated deterministic trials share layouts and are not independent generalization samples."
+    },
+    {
+      "update_count": 16,
+      "split": "validation",
+      "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+      "attempts": 40,
+      "captures": 8,
+      "clean": 8,
+      "single_bounce": 8,
+      "invalid": 32,
+      "capture_rate": 0.2,
+      "wilson95": null,
+      "failures": {
+        "captured": 8,
+        "board_table_proxy_overlap": 8,
+        "endpoint_ik_unresolved_Arm10": 16,
+        "settling_correction_ik": 8
+      },
+      "unique_layouts": 5,
+      "layouts_with_capture": 1,
+      "deterministic": true,
+      "interval_scope": "No binomial interval: repeated deterministic trials share layouts and are not independent generalization samples."
+    }
+  ],
+  "feasibility": {
+    "attempts": 17920,
+    "admitted": 155,
+    "rejected": 17765,
+    "ik_protocol": "full_robust_v2",
+    "scope": "Geometry-only finite Sobol endpoint feasibility survey. Independent FK and joint-limit verification; provisional joint-chain capsule clearance checks. No ball release outcomes or rewards, native settling, self-collision proof, collision-certified paths, exhaustive coverage or impossibility claims.",
+    "reasons": {
+      "endpoint_ik_unresolved_Arm10": 616,
+      "outer_link_length_bound": 16644,
+      "arm_table_proxy_overlap_Arm14": 31,
+      "board_bucket_proxy_overlap": 189,
+      "endpoint_ik_unresolved_Arm14": 285,
+      "admitted": 155
+    }
+  },
+  "sampled_training_action_ranges": {
+    "bearing_offset_rad": {
+      "min": -1.2604283084354295,
+      "max": 1.1283801263157587,
+      "samples": 1600
+    },
+    "bearing_rad": {
+      "min": -3.8755971194136283,
+      "max": 3.730913045102855,
+      "samples": 1600
+    },
+    "radius_m": {
+      "min": 0.28339472174644476,
+      "max": 1.0656164741516112,
+      "samples": 1600
+    },
+    "board_x_m": {
+      "min": -0.14518539103652234,
+      "max": 1.2896084312326883,
+      "samples": 1600
+    },
+    "board_y_m": {
+      "min": -0.8272307090407259,
+      "max": 0.792165424261385,
+      "samples": 1600
+    },
+    "height_m": {
+      "min": 0.2169899356365204,
+      "max": 0.4923574650287628,
+      "samples": 1600
+    },
+    "gap_m": {
+      "min": 0.11843707084655762,
+      "max": 0.4025760960578919,
+      "samples": 1600
+    },
+    "tilt_rad": {
+      "min": 0.27384858135153634,
+      "max": 0.7985686726044348,
+      "samples": 1600
+    },
+    "tilt_deg": {
+      "min": 15.690367937088013,
+      "max": 45.75461459159852,
+      "samples": 1600
+    },
+    "azimuth_deg": {
+      "min": 0.16993994090358633,
+      "max": 359.562437033389,
+      "samples": 1600
+    },
+    "azimuth_offset_deg": {
+      "min": -72.2172224521637,
+      "max": 64.6514189243317,
+      "samples": 1600
+    }
+  },
+  "scope": "One-step privileged-geometry continuous-action PPO pilot on 35 inherited bucket sites; current 25/5/5 optimization split is not globally unseen-layout evaluation. Endpoint feasibility is not collision-certified motion planning. Scripted arm transit and initialized ball release; grasp and joint paths are not learned.",
+  "scoring": "Board bounce + whole-ball entry + one continuous second retained; no detected external route contact. Rim-assisted captures count; clean captures reported separately.",
+  "uncertainty": "Bucket reported height 175 mm remains unresolved overall-height versus interior-depth. Contact properties and rigid board mount remain provisional."
+}
