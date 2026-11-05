@@ -182,7 +182,14 @@ def verify_camera_frame(frame,camera):
 def audit(run):
     run=Path(run)
     result=json.loads((run/'result.json').read_text());study=json.loads((run/'study.json').read_text());spec=json.loads((run/'contract.json').read_text())
-    require(result.get('schema')==study.get('schema')=='sircus-native-continuous-pilot-v1' and result.get('status')=='completed',"Completed continuous native pilot required")
+    schema=study.get('schema')
+    require(schema in ('sircus-native-continuous-pilot-v1','sircus-native-feasibility-guided-pilot-v1')
+            and result.get('schema')==schema and result.get('status')=='completed',"Completed continuous native pilot required")
+    if schema=='sircus-native-feasibility-guided-pilot-v1':
+        # Reuse the same physical scorer only after checking the separate,
+        # geometry-conditioned policy/support protocol. Never relabel old runs.
+        from feasibility_guided_audit import backend_for_run
+        backend_for_run(run).validate_study(study,spec)
     study_hash=signed(study,'Study');geometry_hash=signed(spec,'Geometry')
     require(result['study_fingerprint']==study_hash and result['geometry_fingerprint']==study['geometry_fingerprint']==geometry_hash,"Native study/geometry binding changed")
     cells=spec['cells'];require(len(cells)==35 and result['workcells']==35 and result['articulations']==70,"Expected unchanged 35 workcells/70arms")
@@ -213,6 +220,7 @@ def audit(run):
         audits.append(value);trial_hashes[summary['file']]=summary['sha256']
     require(set(clips).issubset(trial_hashes),"Unassociated recorded clip")
     return dict(schema=SCHEMA,status='passed',audit_source_sha256=digest(__file__),
+                native_study_schema=schema,
                 scoring_source_sha256=scoring_source_sha256,source_result_sha256=digest(run/'result.json'),
                 source_study_sha256=digest(run/'study.json'),source_contract_sha256=digest(run/'contract.json'),
                 clips_sha256=digest(run/'clips.json'),study_fingerprint=study_hash,source_trial_sha256=trial_hashes,

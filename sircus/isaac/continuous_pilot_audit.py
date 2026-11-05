@@ -114,7 +114,7 @@ def validate_study(study, spec):
     return study_hash, geometry_hash, domain_hash
 
 
-def verify_checkpoint_chain(run, executed_source=None):
+def verify_checkpoint_chain(run, executed_source=None, *, policy_backend=None):
     """Check every continuous trial against its frozen CPU-loaded checkpoint."""
     import torch
     from continuous_feasibility import LOW, HIGH, decode_action, geometry_coverage
@@ -122,9 +122,19 @@ def verify_checkpoint_chain(run, executed_source=None):
                                    weight_hash, actor_weight_hash)
     from farm_contract import reward, statistics
 
+    # A distinct, explicit protocol adapter may reuse chain/membership checks.
+    # Default callers retain every historical study/domain/policy guard.
+    # The adapter validates its own sealed study and decoder before returning.
+    validate_plan = validate_study
+    if policy_backend is not None:
+        validate_plan = policy_backend.validate_study
+        ContinuousPolicy = policy_backend.policy_factory
+        load_checkpoint = policy_backend.load_checkpoint
+        physical_actions = policy_backend.physical_actions
+
     run = Path(run)
     spec, study, report = (read(run/name) for name in ("contract.json", "study.json", "result.json"))
-    study_hash, geometry_hash, domain_hash = validate_study(study,spec)
+    study_hash, geometry_hash, domain_hash = validate_plan(study,spec)
     require(report.get("schema") == study["schema"] and report.get("status") == "completed"
             and report.get("study_fingerprint") == study_hash
             and report.get("geometry_fingerprint") == geometry_hash
@@ -350,7 +360,7 @@ def verify_checkpoint_chain(run, executed_source=None):
         scope="CPU checkpoint/input/likelihood/reward/update-membership audit only; native telemetry rescoring and optimizer arithmetic are separate")
 
 
-def verify_first_update(run,executed_source=None):
+def verify_first_update(run,executed_source=None, *, policy_backend=None):
     """Audit the first 100 on-policy attempts while the native pilot continues.
 
     This reads immutable completed trial/checkpoint files and one progress
@@ -364,9 +374,15 @@ def verify_first_update(run,executed_source=None):
                                    weight_hash,actor_weight_hash)
     from farm_contract import reward,statistics
 
+    validate_plan = validate_study
+    if policy_backend is not None:
+        validate_plan = policy_backend.validate_study
+        load_checkpoint = policy_backend.load_checkpoint
+        physical_actions = policy_backend.physical_actions
+
     run=Path(run)
     spec,study=read(run/"contract.json"),read(run/"study.json")
-    study_hash,geometry_hash,domain_hash=validate_study(study,spec)
+    study_hash,geometry_hash,domain_hash=validate_plan(study,spec)
     snapshot=(run/"progress.json").read_bytes()
     progress=json.loads(snapshot)
     require(progress.get("schema")==study["schema"]
