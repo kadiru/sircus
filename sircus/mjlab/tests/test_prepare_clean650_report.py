@@ -6,7 +6,7 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from sircus.mjlab.prepare_clean650_report import AUDIT_VERSION,KEY,VERSION,compact,full_audit_verified,prepare,watch
+from sircus.mjlab.prepare_clean650_report import AUDIT_VERSION,FINE_VERSION,FINE_AUDIT_VERSION,HISTORY_KEY,KEY,VERSION,compact,full_audit_verified,merge_display,prepare,watch
 
 class Clean650PublisherTests(unittest.TestCase):
     def setUp(self):
@@ -50,6 +50,43 @@ class Clean650PublisherTests(unittest.TestCase):
         raw=dict(version=VERSION,counts={'attempts':0},verification=[{'id':'x','by_substeps':{'64':{'attempts':0}}}],trace_examples=[{'position_m':[[0,0,float('nan')],[0,0,0]]}]);v=compact(raw)
         self.assertNotIn('captures',v['counts']);self.assertNotIn('native_releases',v['verification'][0]['by_substeps']['64']);self.assertEqual(v['trace_examples'],[])
         raw=copy.deepcopy(self.raw);raw['trace_examples'][0].update(cache_file='../escape',cache_sha256='bad');t=compact(raw)['trace_examples'][0];self.assertNotIn('cache_file',t);self.assertNotIn('cache_sha256',t)
+    def test_explicit_profile_and_auditor_pairing(self):
+        for version,expected in ((VERSION,AUDIT_VERSION),(FINE_VERSION,FINE_AUDIT_VERSION)):
+            raw=dict(self.raw,version=version)
+            for auditor in (AUDIT_VERSION,FINE_AUDIT_VERSION,"sircus-clean650-independent-audit-v3"):
+                self.assertEqual(full_audit_verified(raw,dict(self.audit,version=auditor)),auditor==expected)
+        self.assertFalse(full_audit_verified(dict(self.raw,version="unregistered-profile"),self.audit))
+
+    def test_previous_v1_survives_first_queue_fine_publication_and_refresh_without_duplicates(self):
+        self.raw['counts'].update(attempts=496,native_releases=155,clean=12)
+        self.raw['gate'].update(qualified_settings=0,status='failed')
+        self.write();published=prepare(self.base,self.study,self.output);before=copy.deepcopy(published)
+        queued=compact(dict(version=FINE_VERSION,status='waiting_for_4090',phase='device_queue'))
+        waiting=merge_display(published,queued)
+        self.assertEqual(published,before)
+        self.assertEqual(len(waiting[HISTORY_KEY]),1)
+        old=waiting[HISTORY_KEY][0]
+        self.assertEqual(old['version'],VERSION);self.assertEqual(old['counts']['attempts'],496);self.assertEqual(old['counts']['native_releases'],155);self.assertEqual(old['gate']['qualified_settings'],0)
+        self.assertEqual(waiting[KEY][HISTORY_KEY],waiting[HISTORY_KEY]);self.assertNotIn('groups',old);self.assertNotIn('position_m',json.dumps(old))
+        self.assertTrue(old['audit']['full_checks_verified'])
+        self.base.write_text(json.dumps(waiting))
+        self.raw.update(version=FINE_VERSION,contract_fingerprint='fine')
+        self.audit.update(version=FINE_AUDIT_VERSION,contract_fingerprint='fine')
+        self.write();fine=prepare(self.base,self.study,self.output)
+        self.assertTrue(fine[KEY]['audit']['full_checks_verified']);self.assertEqual(fine[KEY]['version'],FINE_VERSION)
+        self.assertEqual(len(fine[HISTORY_KEY]),1);self.assertEqual(fine[HISTORY_KEY][0],old)
+        self.base.write_text(json.dumps(fine));again=prepare(self.base,self.study,self.output)
+        self.assertEqual(again[HISTORY_KEY],fine[HISTORY_KEY])
+        self.assertEqual({k:again[k] for k in self.old},self.old)
+
+    def test_history_is_sanitized_and_cannot_inherit_an_incompatible_checker_badge(self):
+        old=dict(self.raw,audit=dict(self.audit,version=FINE_AUDIT_VERSION,full_checks_verified=True,bound_files_verified=True),q10=[1]*6,token='never retained')
+        base=dict(self.old,clean650_study=old,previous_clean650_studies=[old,old,dict(old,version='unknown')])
+        result=merge_display(base,compact(dict(version=FINE_VERSION,status='running')))
+        self.assertEqual(len(result[HISTORY_KEY]),1)
+        history=result[HISTORY_KEY][0];self.assertFalse(history['audit']['full_checks_verified'])
+        self.assertNotIn('q10',json.dumps(history));self.assertNotIn('never retained',json.dumps(history))
+
     def test_separate_output_and_bounded_watch_guards(self):
         self.assertIsNone(prepare(self.base,self.study,self.output)[KEY]);self.write()
         for output in (self.base,self.study/'display.json'):

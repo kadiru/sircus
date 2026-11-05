@@ -1,6 +1,10 @@
 // Additive read-only evidence view. No solver, policy or robot requests.
 export const VERSION='sircus-clean650-height-tilt-gap-v1';
 export const AUDIT_VERSION='sircus-clean650-independent-audit-v1';
+export const FINE_VERSION='sircus-clean650-height-tilt-gap-fine-v2';
+export const FINE_AUDIT_VERSION='sircus-clean650-independent-audit-v2';
+export const VERSION_PAIRS=Object.freeze({[VERSION]:AUDIT_VERSION,[FINE_VERSION]:FINE_AUDIT_VERSION});
+export const profileLabel=version=>version===VERSION?'Original sweep · v1':version===FINE_VERSION?'Fine-grid follow-up · v2':'Unknown study profile';
 const STEPS=['64','128'];
 const finiteVector=(v,n)=>Array.isArray(v)&&v.length===n&&v.every(Number.isFinite);
 const mm=(v,d=1)=>Number.isFinite(v)?(v*1000).toFixed(d):'unknown';
@@ -10,8 +14,8 @@ const node=(root,name)=>root.querySelector(`[data-clean650="${name}"]`);
 const text=(root,name,value)=>{const n=node(root,name);if(n)n.textContent=value;};
 const rows=raw=>Array.isArray(raw)?raw.filter(g=>g&&typeof g==='object'):[];
 const stats=g=>g.statistics??g.stats??g;
-export function clean650AuditReady(raw){const a=raw?.audit;return raw?.version===VERSION&&raw.status==='completed'&&raw.phase==='completed'&&
-  typeof raw.contract_fingerprint==='string'&&raw.contract_fingerprint.length>0&&a?.version===AUDIT_VERSION&&a.status==='passed'&&a.contract_fingerprint===raw.contract_fingerprint&&
+export function clean650AuditReady(raw){const a=raw?.audit;return Object.hasOwn(VERSION_PAIRS,raw?.version??'')&&raw.status==='completed'&&raw.phase==='completed'&&
+  typeof raw.contract_fingerprint==='string'&&raw.contract_fingerprint.length>0&&a?.version===VERSION_PAIRS[raw.version]&&a.status==='passed'&&a.contract_fingerprint===raw.contract_fingerprint&&
   a.full_checks_verified===true&&a.bound_files_verified===true&&Number.isInteger(a.checks_count)&&a.checks_count>0&&/^[a-f0-9]{64}$/.test(a.source_sha256??'');}
 export function clean650Qualification(raw,g){
   if(!clean650AuditReady(raw))return {passed:null,label:'Unverified'};
@@ -21,7 +25,7 @@ export function clean650Qualification(raw,g){
     return {passed:true,label:'Nominal clean gate passed'};
   return {passed:null,label:'Unverified / incomplete gate'};
 }
-export function clean650View(raw){if(!raw||typeof raw!=='object')return null;return {raw,controls:rows(raw.controls),top:rows(raw.top_settings),verification:rows(raw.verification)};}
+export function clean650View(raw){if(!raw||typeof raw!=='object')return null;return {raw,controls:rows(raw.controls),top:rows(raw.top_settings),verification:rows(raw.verification),history:rows(raw.previous_clean650_studies)};}
 export function clean650Trajectory(raw,trace) {
   if(!trace)return null;
   const group=[...(raw.groups??[]),...(raw.controls??[]),...(raw.top_settings??[]),...(raw.verification??[])].find(g=>g.id===trace.group_id);
@@ -78,10 +82,17 @@ export function renderClean650(root,raw){
   const view=clean650View(raw);root.hidden=!view;if(!view)return;
   const finished=raw.status==='completed'&&raw.phase==='completed',verified=clean650AuditReady(raw);
   text(root,'connection','Read-only snapshot loaded');
+  text(root,'profile',profileLabel(raw.version));
   text(root,'status',`${raw.version??'Clean 650 mm sweep'} · ${raw.status??'pending'} · ${raw.phase??'pending'}${raw.error?' · '+raw.error:''}${raw.reason?' · '+raw.reason:''}${raw.queue?.reason?' · '+raw.queue.reason:''}`);
   text(root,'scope',raw.scope??'Fixed 650 mm calibrated simulated-contact search, then matched nominal clean-shot verification; no noise, PPO or physical validation.');
   const s=raw.settings??{},grid=s.grid??{},hs=s.heights_m??grid.heights_m,ts=s.tilts_deg??grid.tilts_deg,gs=s.gaps_m??grid.gaps_m;
   text(root,'plan',`Coarse grid: board H ${Array.isArray(hs)?hs.map(v=>mm(v)).join(' / '):'unknown'} mm; tilt ${Array.isArray(ts)?ts.join(' / '):'unknown'}°; gap ${Array.isArray(gs)?gs.map(v=>mm(v)).join(' / '):'unknown'} mm. Original reference is separate. Maximum ${count(s.max_requests)} requested shots, including controls and rejections.`);
+  const history=view.history.map(h=>[profileLabel(h.version),String(h.contract_fingerprint??'unknown').slice(0,12),count(h.counts?.attempts??h.counts?.requests),count(h.counts?.native_releases),count(h.counts?.clean),count(h.gate?.qualified_settings),clean650AuditReady(h)?'Verified at publication':'Unverified']);
+  table(node(root,'history'),['Previous study','Fingerprint','All-phase requests','Native','All-phase clean','Qualified settings','Prior audit'],history);
+  text(root,'history-note',history.length?'Earlier publication summaries are preserved separately. Their evidence is not re-audited by the current refresh; all-phase clean totals include controls.':'No earlier clean-650 study summary is present. Historical calibrated replay panels remain unchanged below.');
+  const coarse=Number.isInteger(s.coarse_requests)?s.coarse_requests:null,seeds=s.refinement_seeds??s.refinement_seed_limit,verify=s.verification_sources??s.verification_limit,repeats=s.repeats_per_resolution??s.repeats_per_group,offsets=s.refinement_offsets??{};
+  const localKeys=['height_m','tilt_deg','gap_m'],local=localKeys.every(k=>Array.isArray(offsets[k]))?localKeys.reduce((n,k)=>n*offsets[k].length,1):null;
+  text(root,'plan-detail',`This profile declares ${count(coarse)} coarse requests, up to ${count(seeds)} refinement seeds${local!==null?' × '+local+' local combinations':''}, and up to ${count(verify)} selected settings × ${count(repeats)} nominal repeats per resolution. Requests rejected by geometry remain counted. This is adaptive development search, not held-out policy evaluation.`);
   const c=raw.counts??{};
   table(node(root,'summary'),['All-phase metric','Observed value'],[['Requested shots',count(c.attempts??c.requests)],['Native releases',count(c.native_releases)],['Captures',count(c.captures)],['Clean captures',count(c.clean)],['Rim-contact captures',count(c.rim_assisted)],['Invalid requests',count(c.invalid)],['Geometry rejections',count(c.geometry_rejections)],['Full audit',verified?'Verified':'Unverified / pending']]);
   table(node(root,'phases'),['Phase','Requested','Native','Clean captures','All captures','Invalid'],clean650PhaseRows(raw));

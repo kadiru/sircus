@@ -26,12 +26,16 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     keys=('old-study','positive-study','positive-audit','calibration-report','verification-report','replay-study','assets','output','gpu-lock','display')
     for k in keys:p.add_argument('--'+k,type=Path,required=True)
+    p.add_argument('--profile',choices=('coarse-v1','fine-v2'),default='coarse-v1');p.add_argument('--coarse-study',type=Path)
     p.add_argument('--batch',type=int,default=32,choices=(16,32));p.add_argument('--queue-timeout',type=float,default=14400);p.add_argument('--wall-time-limit',type=float,default=7200)
     a=p.parse_args();source=Path(__file__).resolve().parents[2]
+    if a.profile=='fine-v2' and a.coarse_study is None:p.error('--coarse-study is required for fine-v2')
     if a.output.exists() or not a.display.is_file():raise ValueError('New study namespace and existing display required')
     env=dict(os.environ,CUDA_VISIBLE_DEVICES=GPU_UUID,OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1',PYTHONDONTWRITEBYTECODE='1')
     command=[sys.executable,'-u','-m','sircus.mjlab.clean650_study']
     for k in (*[k.replace('-','_') for k in keys if k!='display'],'batch','queue_timeout','wall_time_limit'):command+=['--'+k.replace('_','-'),str(getattr(a,k))]
+    command+=['--profile',a.profile]
+    if a.coarse_study is not None:command+=['--coarse-study',str(a.coarse_study)]
     state=dict(status='starting',source=str(source),output=str(a.output),pipeline_pid=os.getpid(),started_unix_s=time.time());statepath=a.output.with_suffix('.pipeline.json')
     a.output.parent.mkdir(parents=True,exist_ok=True)
     with a.output.with_suffix('.log').open('x') as log:
@@ -52,6 +56,7 @@ def main():
             command=[sys.executable,'-u','-m','sircus.mjlab.clean650_verify','--study',str(a.output),'--source',str(source),'--assets',str(a.assets),
                 '--shallow-study',str(a.old_study),'--positive-study',str(a.positive_study),'--positive-audit',str(a.positive_audit),'--replay-study',str(a.replay_study),
                 '--output',str(a.output/'audit-clean650.json')]
+            if a.coarse_study is not None:command+=['--coarse-study',str(a.coarse_study)]
             try:
                 result=subprocess.run(command,cwd=source,env=dict(env,CUDA_VISIBLE_DEVICES=''),stdout=log,stderr=subprocess.STDOUT,timeout=1800)
                 state.update(audit_exit_code=result.returncode,status='completed' if result.returncode==0 else 'audit_failed')
