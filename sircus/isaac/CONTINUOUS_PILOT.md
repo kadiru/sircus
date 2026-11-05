@@ -37,15 +37,19 @@ deterministic policies each receive eight repeated native trials per site.
 Repeated identical layouts measure numerical repeatability; five held-out
 sites are a small spatial test, not table-wide generalization evidence.
 
-Every episode first drives to the same saved home targets and holds for six
-seconds; measured home joints are logged for comparison. All filmed setup is
+Every episode uses a standard canonical simulation reset to the same home
+before recording, then holds for six seconds. Measured home joints are logged
+for comparison. After that reset, the chosen shot endpoint is reached by live
+articulation drives; it is never initialized at the scored endpoint. All filmed setup is
 normal-time 30 fps actual articulation drive motion, including this episodic
 initialization. An additional 1.75-second hold precedes each original measured
-settling check, without changing its thresholds. There are no per-trial joint-state teleports.
+settling check, without changing its thresholds. Episode reset cuts are explicit; there are no joint-state teleports during
+visible setup or at the scored endpoint.
 Ball placement at release is initialized; pickup and joint paths are scripted.
 The exact saved user camera and silver-gray appearance remain fixed. Coverage
 and on-policy footage are labeled separately; no outcome selects the clips.
-Full-rate release telemetry records all balls, arm joints, board poses and
+Sixteen prescheduled early/middle/late training batches and four geometry
+coverage batches are filmed; all 64 training batches retain full-rate release telemetry records all balls, arm joints, board poses and
 contacts. Raw media and telemetry remain outside Git.
 
 Use the pinned Isaac Sim 5.1 / Isaac Lab 2.3.2 environment from README. Run a

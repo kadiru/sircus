@@ -48,6 +48,24 @@ class StudyMembershipTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,"split changed"):
             audit.validate_study(reseal(changed),source["spec"])
 
+    def test_actual_home_state_variation_is_reported_separately_from_blocked_targets(self):
+        cells=[dict(id="matched",split="train"),dict(id="blocked",split="test")]
+        rows=[]
+        for updates in (0,1):
+            q=np.zeros((2,2,6)); target=q.copy()
+            if updates:
+                q[:,0,:]=.0003; q[:,1,:]=.2; target[:,1,:]=.2
+            rows.append(dict(mode="eval",updates=updates,batch=0,eligible=np.array([True,False]),
+                             measured_joint_rad=q,target_joint_rad=target,
+                             measured_joint_velocity_rad_s=np.zeros((2,2,6))))
+        result=audit.home_comparison(rows,cells)
+        self.assertEqual(result["compared_cells"],2)
+        self.assertEqual(result["all_eval_home_path_eligible_cells"],1)
+        self.assertEqual(result["eligible_cells_with_joint_range_at_most_tolerance"],1)
+        self.assertAlmostEqual(result["eligible_only_max_all_eval_joint_range_rad"],.0003)
+        self.assertAlmostEqual(result["max_commanded_home_target_range_rad"],.2)
+        self.assertEqual(result["path_rejected_home_instances"],2)
+
     def test_resigned_domain_or_budget_changes_are_rejected(self):
         source = bundle()
         for field,value in (("training_batches",8),("batches_per_update",2),("assessment_batches",3)):
@@ -117,7 +135,12 @@ class ContinuousAuditTests(unittest.TestCase):
                        else plan["enabled"] if plan is not None else [True]*35)
             active = [i for i,b in enumerate(enabled) if b]
             name = f"trials/{mode}-{len(summaries)+len(evals)+len(coverages):04d}.json"
-            data = dict(schema=study["schema"],mode=mode,batch=batch,study_fingerprint=study["fingerprint"],
+            home=dict(protocol=audit.HOME_PROTOCOL,episode_reset=True,path_eligible=[True]*35,
+                      path_checks=[dict(accepted=True) for _ in range(35)],physics_step=100,
+                      target_joint_rad={name:[[0.]*6 for _ in range(35)] for name in ("Arm10","Arm14")},
+                      measured_joint_rad={name:[[.0002]*6 for _ in range(35)] for name in ("Arm10","Arm14")},
+                      measured_joint_velocity_rad_s={name:[[.00001]*6 for _ in range(35)] for name in ("Arm10","Arm14")})
+            data = dict(home=home,release_step=200,schema=study["schema"],mode=mode,batch=batch,study_fingerprint=study["fingerprint"],
                 checkpoint=cp,policy_hash=policy_module.weight_hash(policy),update_count=len(changes),
                 enabled=enabled,active_cell_ids=[study["cells"][i]["id"] for i in active],
                 optimizer_samples=25 if mode=="train" else 0,deterministic=mode=="eval", policy_action_used=mode!="coverage",
@@ -163,6 +186,8 @@ class ContinuousAuditTests(unittest.TestCase):
             self.assertLess(result["max_logp_error"],1e-5)
             self.assertEqual(len(result["checkpoints"]),6)
             self.assertEqual(len(result["trials"]),8)
+            self.assertEqual(result["home_comparison"]["all_eval_home_path_eligible_cells"],35)
+            self.assertEqual(result["home_comparison"]["max_all_eval_joint_range_rad"],0.)
 
     def test_geometry_coverage_actions_are_verified_but_never_enter_policy_updates(self):
         with tempfile.TemporaryDirectory() as d:

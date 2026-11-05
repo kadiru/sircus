@@ -2,8 +2,8 @@
 
 The actor learns one cooperative shot decision, not the arm trajectories. Every
 sampled attempt is retained. Endpoint qualification never replaces the action
-with a catalogue entry. Only the initial scene is initialized; later arm travel
-uses articulation drives without writing/resetting joint states.
+with a catalogue entry. Each episode resets to the same home before filming; all subsequent shot
+setup uses live articulation drives without endpoint joint-state resets.
 """
 
 import copy
@@ -47,12 +47,13 @@ def make_study(bundle, batches=64):
                  observations="Five privileged geometric features from original fixed bucket layouts",
                  training_split="25 fixed bucket sites; five validation and five test sites excluded from optimization",
                  evaluation="Frozen deterministic direct inference, repeated native trials; identical repeats measure numerical repeatability, not independent layout generalization",
-                 setup="Live scripted articulation drives from previous measured joints; no per-trial joint-state resets; coarse swept proxy and final measured settlement gates",
+                 setup="Canonical episode home reset before visible setup; live scripted articulation drive to chosen shot; no endpoint reset; coarse swept proxy and final measured settlement gates",
                  measurement_hold_s=1.75,
-                 episode_start="Scripted live drive to original saved home joints, six seconds of original hold drives, then sample/execute shot; common home target for coverage/train/frozen checks, no joint-state reset",
+                 episode_start="Canonical episode reset to original saved home joints before filming, six seconds original hold, then live shot drive; same reset for coverage/train/eval; no endpoint reset",
                  home_hold_s=6.0,
                  motion_scope="Self collision disabled in source asset; coarse path proxy is not collision certification; initialized ball release, no grasp/path learning",
-                 video="All training batches, normal-time 30fps setup/release, exact fixed saved camera; no ball following",
+                 filmed_training_batches=list(range(batches)) if batches == 4 else list(range(4))+list(range(16,20))+list(range(32,36))+list(range(60,64)),
+                 video="Prescheduled early/middle/late training batches, normal-time 30fps setup/release; episode reset happens before visible setup; exact fixed saved camera, no ball following",
                  scope="Single-seed continuous-action terminal contextual PPO pilot; sampled feasibility, not exhaustive reachability or physical validation")
     study["fingerprint"] = canonical_hash(study)
     return study
@@ -122,27 +123,20 @@ class ContinuousShots:
         return releases, normals, records, invalid
 
     def home(self):
-        from continuous_feasibility import approximate_path_check
+        from parallel_runtime import ParallelShots
 
-        import torch
-        starts = {n:a.data.joint_pos.clone() for n,a in self.arms.items()}
-        goals = {n:a.data.default_joint_pos.clone() for n,a in self.arms.items()}
-        enabled = np.ones(self.n,dtype=bool)
-        home_checks=[]
-        for i in range(self.n):
-            check=approximate_path_check(self.cfg,self.continuous_links,
-                {n:starts[n][i,:6].cpu().numpy() for n in starts},
-                {n:goals[n][i,:6].cpu().numpy() for n in goals},cell=self.base_cells[i],samples=16)
-            enabled[i]=check["accepted"]
-            home_checks.append(check)
-        self.preparation_enabled=enabled
-        self.approach_endpoints(goals)
+        # Standard episodic reset happens before any visible setup, never at a
+        # selected shot endpoint. All later arm motion is driven and measured.
+        ParallelShots._initialize_states(self)
         for _ in range(round(6/self.dt)):
             self.tick()
-        return dict(protocol="live-scripted-common-home-v1",target_joint_rad={n:goals[n][:,:6].cpu().tolist() for n in goals},
+        return dict(protocol="canonical-episode-home-reset-before-visible-drive-v1",
+            episode_reset=True, target_joint_rad={n:a.data.default_joint_pos[:,:6].cpu().tolist() for n,a in self.arms.items()},
             measured_joint_rad={n:a.data.joint_pos[:,:6].cpu().tolist() for n,a in self.arms.items()},
             measured_joint_velocity_rad_s={n:a.data.joint_vel[:,:6].cpu().tolist() for n,a in self.arms.items()},
-            path_eligible=enabled.tolist(),path_checks=home_checks,physics_step=self.steps)
+            path_eligible=[True]*self.n,
+            path_checks=[dict(accepted=True, scope="Canonical simulation episode reset; no physical home path claimed") for _ in range(self.n)],
+            physics_step=self.steps)
 
     def approach_endpoints(self, targets):
         starts = {n: a.data.joint_pos.clone() for n, a in self.arms.items()}
@@ -316,13 +310,14 @@ def run_study(env, bundle, batches=64, feasibility_path=None):
             actions = coverage["actions"]
             env.active_mask = np.asarray(coverage["enabled"], dtype=bool)
             env.coverage_fits = coverage["fits"]
+        env.capture_trial, env.film_trial, env.phase = False, False, None
+        home=env.home()
+        env.home_readback=home
         env.trial_mode, env.trial_batch = mode, batch
         env.frames, env.physics_samples = [], []
         env.capture_trial, env.film_trial, env.phase = True, film, "setup"
         env.trial_start_step = env.steps
         first = env.next_frame
-        home=env.home()
-        env.home_readback=home
         rows, raw = env.shot_batch(actions, record_video=film, enabled=env.active_mask)
         env.capture_trial, env.film_trial, env.phase = False, False, None
         active = [i for i in range(35) if env.active_mask[i]]
@@ -377,7 +372,7 @@ def run_study(env, bundle, batches=64, feasibility_path=None):
         assessments.append(row)
     for batch in range(batches):
         cp = checkpoint(f"policy-before-{batch:03d}.pt", batch)
-        row, data = trial("train", batch, cp, film=True)
+        row, data = trial("train", batch, cp, film=batch in study["filmed_training_batches"])
         summaries.append(row)
         buffer.append(data)
         if len(buffer) == study["batches_per_update"]:

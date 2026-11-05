@@ -18,7 +18,7 @@ def resource(root, request):
              "/report.json": (Path(root)/"report.json", "application/json")}
     if path in fixed:
         result = fixed[path]
-    elif re.fullmatch(r"/(trials|trial-\d{3})\.mp4", path):
+    elif re.fullmatch(r"/((action-)?trials|(action-)?trial-\d{3})\.mp4", path):
         result = (Path(root)/path[1:], "video/mp4")
     else:
         return None

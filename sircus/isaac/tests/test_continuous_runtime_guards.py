@@ -26,6 +26,7 @@ class AdmissionGuardTests(unittest.TestCase):
         env = pilot.ContinuousShots()
         env.home_readback={"path_eligible":[True,True,True]}
         env.n=3; env.active_mask=np.array([True,True,False]); env.trial_mode="train"
+        env.home_readback=dict(path_eligible=[True]*3)
         env.arms={n:types.SimpleNamespace(data=types.SimpleNamespace(joint_pos=CPUView(np.zeros((3,6)))))
                   for n in ("Arm10","Arm14")}
         env.cfg={}; env.base_cells=[dict(id=str(i)) for i in range(3)]

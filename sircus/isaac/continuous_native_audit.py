@@ -169,6 +169,16 @@ def verify_trial(run,trial,scene,cells,origins,clip=None):
                 frame_readbacks=frames_checked,board_max_translation_through_score_mm=max(board_drift,default=0.0))
 
 
+
+def verify_camera_frame(frame,camera):
+    # RTX pose readback uses float32. Preserve the exact selected-camera file
+    # hash while applying the producer's existing 0.2mm numerical pose gate.
+    eye=finite(frame['eye_m'],(3,),'camera eye')
+    target=finite(frame['target_m'],(3,),'camera target')
+    require(np.linalg.norm(eye-np.asarray(camera['eye_m']))<=2e-4
+            and np.allclose(target,camera['target_m'],atol=1e-9,rtol=0),
+            'Recorded camera moved')
+
 def audit(run):
     run=Path(run)
     result=json.loads((run/'result.json').read_text());study=json.loads((run/'study.json').read_text());spec=json.loads((run/'contract.json').read_text())
@@ -177,6 +187,10 @@ def audit(run):
     require(result['study_fingerprint']==study_hash and result['geometry_fingerprint']==study['geometry_fingerprint']==geometry_hash,"Native study/geometry binding changed")
     cells=spec['cells'];require(len(cells)==35 and result['workcells']==35 and result['articulations']==70,"Expected unchanged 35 workcells/70arms")
     origins=finite(result['origins_m'],(35,3),'origins')
+    scoring_files=('rl_contract.py','board_route.py','entry_quality.py','farm_contract.py','settling_contract.py')
+    scoring_source_sha256={name:digest(Path(__file__).with_name(name)) for name in scoring_files}
+    require(all(result['source_sha256'].get(name)==sha for name,sha in scoring_source_sha256.items()),
+            'Native scoring definitions differ from the recorded producer')
     clips_payload=json.loads((run/'clips.json').read_text())
     clips={clip['trial_file']:clip for clip in clips_payload['clips']}
     require(len(clips)==len(clips_payload['clips']),"Duplicate recorded trial clips")
@@ -193,12 +207,13 @@ def audit(run):
         if clip is not None:
             require(clip['camera_sha256']==study['source']['camera_sha256']==digest(run/'selected-camera.json'),"Recorded camera source changed")
             for frame in clip['frames']:
-                require(same(frame['eye_m'],result['camera']['eye_m'],1e-12) and same(frame['target_m'],result['camera']['target_m'],1e-12),"Recorded camera moved")
+                verify_camera_frame(frame,result['camera'])
         value=verify_trial(run,trial,spec['scene'],cells,origins,clip)
         value.update(trial_file=summary['file'],mode=trial['mode'])
         audits.append(value);trial_hashes[summary['file']]=summary['sha256']
     require(set(clips).issubset(trial_hashes),"Unassociated recorded clip")
-    return dict(schema=SCHEMA,status='passed',source_result_sha256=digest(run/'result.json'),
+    return dict(schema=SCHEMA,status='passed',audit_source_sha256=digest(__file__),
+                scoring_source_sha256=scoring_source_sha256,source_result_sha256=digest(run/'result.json'),
                 source_study_sha256=digest(run/'study.json'),source_contract_sha256=digest(run/'contract.json'),
                 clips_sha256=digest(run/'clips.json'),study_fingerprint=study_hash,source_trial_sha256=trial_hashes,
                 trials=audits,native_time_steps=sum(a['native_steps'] for a in audits),

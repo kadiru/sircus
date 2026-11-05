@@ -39,7 +39,8 @@ class PilotContractTests(unittest.TestCase):
     def test_live_transit_never_resets_joints(self):
         tree=ast.parse(Path(pilot.__file__).read_text())
         cls=next(n for n in tree.body if isinstance(n,ast.ClassDef) and n.name == "ContinuousShots")
-        attrs=[n.func.attr for n in ast.walk(cls) if isinstance(n,ast.Call) and isinstance(n.func,ast.Attribute)]
+        drive=next(n for n in cls.body if isinstance(n,ast.FunctionDef) and n.name == "approach_endpoints")
+        attrs=[n.func.attr for n in ast.walk(drive) if isinstance(n,ast.Call) and isinstance(n.func,ast.Attribute)]
         for forbidden in ("write_joint_state_to_sim","reset"):
             self.assertNotIn(forbidden,attrs)
         self.assertIn("set_joint_position_target",attrs)
