@@ -139,6 +139,9 @@ def summarize(run):
     require(len(set(xy)) == len(xy), "Bucket positions are not distinct")
     source_hashes = {"study.json": sha(run/"study.json")}
     feasibility = read(local_file(run, "feasibility.json"))
+    if "source_fingerprint" in feasibility:
+        require(feasibility["source_fingerprint"] == study.get("geometry_fingerprint"),
+                "Feasibility map belongs to a different scene")
     source_hashes["feasibility.json"] = sha(run/"feasibility.json")
     map_rows = [dict(row, valid=row.get("valid", row.get("accepted")))
                 for row in feasibility.get("rows", feasibility.get("records", []))]
@@ -152,6 +155,9 @@ def summarize(run):
     for path in paths:
         require(not path.is_symlink(), "Trial symlink is not evidence")
         trial = read(path)
+        if "study_fingerprint" in trial:
+            require(trial["study_fingerprint"] == study.get("fingerprint"),
+                    "Trial belongs to a different continuous study")
         rows = active_rows(trial, cells)
         mode = trial["mode"]
         require(mode in ("train", "eval", "assessment", "coverage"), "Unknown trial mode")
@@ -239,9 +245,9 @@ def summarize(run):
     return dict(schema=SCHEMA, status=result.get("status", "in_progress"),
                 study_fingerprint=study.get("fingerprint"),
                 geometry_fingerprint=study.get("geometry_fingerprint"),
-                scope="One-step privileged-geometry continuous-action PPO pilot. Endpoint feasibility is not collision-certified motion planning. Scripted arm transit and initialized ball release; grasp and joint paths are not learned.",
+                scope="One-step privileged-geometry continuous-action PPO pilot on 35 inherited bucket sites; current 25/5/5 optimization split is not globally unseen-layout evaluation. Endpoint feasibility is not collision-certified motion planning. Scripted arm transit and initialized ball release; grasp and joint paths are not learned.",
                 scoring="Board bounce + whole-ball entry + one continuous second retained; no detected external route contact. Rim-assisted captures count; clean captures reported separately.",
-                uncertainty="Bucket reported height175mm remains unresolved overall-height versus interior-depth. Contact properties and rigid board mount remain provisional.",
+                uncertainty="Bucket reported height 175 mm remains unresolved overall-height versus interior-depth. Contact properties and rigid board mount remain provisional.",
                 study=study, cells=cell_results, feasibility=dict(attempts=len(map_rows),
                     admitted=sum(row["valid"] for row in map_rows),
                     rejected=sum(not row["valid"] for row in map_rows),
@@ -306,7 +312,7 @@ def native_frame_manifest(run, clips):
             require(frame["phase"] in ("setup", "move", "release"), "Unknown native camera phase")
             # RTX readback is float32 even when the saved requested camera is
             # double precision. Preserve the source bytes and use the original
-            # native2e-4m readback gate; target is the requested double vector.
+            # native 2e-4 m readback gate; target is the requested double vector.
             require(len(frame["eye_m"]) == 3
                     and all(type(x) in (int, float) and math.isfinite(x) for x in frame["eye_m"])
                     and math.dist(frame["eye_m"], camera["eye_m"]) <= .0002

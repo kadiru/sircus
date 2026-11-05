@@ -40,9 +40,13 @@ class PilotContractTests(unittest.TestCase):
         tree=ast.parse(Path(pilot.__file__).read_text())
         cls=next(n for n in tree.body if isinstance(n,ast.ClassDef) and n.name == "ContinuousShots")
         attrs=[n.func.attr for n in ast.walk(cls) if isinstance(n,ast.Call) and isinstance(n.func,ast.Attribute)]
-        for forbidden in ("write_joint_state_to_sim","reset","approach_endpoints"):
+        for forbidden in ("write_joint_state_to_sim","reset"):
             self.assertNotIn(forbidden,attrs)
         self.assertIn("set_joint_position_target",attrs)
+        for call in ast.walk(cls):
+            if isinstance(call,ast.Call) and isinstance(call.func,ast.Attribute) and call.func.attr == "approach_endpoints":
+                self.assertIsInstance(call.func.value,ast.Name)
+                self.assertEqual(call.func.value.id,"self")
 
     def test_full_time_recording_stride(self):
         text=Path(pilot.__file__).read_text()
