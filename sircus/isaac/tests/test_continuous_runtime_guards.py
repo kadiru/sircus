@@ -71,6 +71,26 @@ class AdmissionGuardTests(unittest.TestCase):
         self.assertEqual(invalid,["inter_arm_proxy_overlap","endpoint_ik_unresolved_Arm10","inactive_split"])
 
 
+    def test_guided_missing_support_retains_reject_and_seed_only_warmstarts_fresh_fit(self):
+        env=pilot.ContinuousShots();env.n=2;env.active_mask=np.array([True,True]);env.trial_mode="train"
+        env.home_readback={"path_eligible":[True,True]};env.support_missing=[True,False]
+        env.proposal_ik_seeds=[None,{n:{"q":[.25]*6} for n in ("Arm10","Arm14")}]
+        env.arms={n:types.SimpleNamespace(data=types.SimpleNamespace(joint_pos=CPUView(np.zeros((2,6))))) for n in ("Arm10","Arm14")}
+        env.cfg={};env.base_cells=[dict(id=str(i)) for i in range(2)];env.continuous_links={};env.ik_cache={}
+        fitted={"accepted":True,"ik":{n:{"q":[.3]*6} for n in env.arms}}
+        class Parent:
+            @staticmethod
+            def prepare(current,actions):
+                np.testing.assert_array_equal(current.preparation_enabled,[False,True])
+                return np.zeros((2,3)),np.zeros((2,3)),[[],[]],["parent_idle"]*2
+        with mock.patch.dict(sys.modules,{"feasibility_runtime":types.SimpleNamespace(FeasibilityShots=Parent)}), mock.patch.object(pilot,"qualify_action",return_value=fitted) as qualify, mock.patch("expanded_pose_menu.endpoint_targets",return_value={n:np.eye(4) for n in env.arms}), mock.patch("continuous_feasibility.approximate_path_check",return_value=dict(accepted=True,reasons=[])):
+            _,_,_,invalid=env.prepare([{},{}])
+        self.assertEqual(qualify.call_count,1)
+        self.assertEqual(qualify.call_args.args[4],{n:[.25]*6 for n in env.arms})
+        self.assertEqual(invalid,["no_geometry_support","parent_idle"])
+        np.testing.assert_array_equal(env.active_mask,[True,True])
+
+
 @unittest.skipIf(policy.torch is None,"PyTorch CPU environment is unavailable")
 class DriveGuardTests(unittest.TestCase):
     def test_disabled_targets_hold_measured_start_while_eligible_targets_use_live_drives(self):

@@ -71,6 +71,7 @@ p.add_argument("--continuous-source", type=Path)
 p.add_argument("--continuous-camera-json", type=Path)
 p.add_argument("--continuous-batches", type=int, default=64)
 p.add_argument("--continuous-feasibility", type=Path)
+p.add_argument("--feasibility-guided-support", type=Path, help="Opt-in geometry-only local residual support; requires continuous mode")
 AppLauncher.add_app_launcher_args(p)
 args = p.parse_args()
 from presentation_recording import validate_options
@@ -130,6 +131,8 @@ try:
     )
 except ValueError as error:
     p.error(str(error))
+if args.feasibility_guided_support is not None and not continuous:
+    p.error("--feasibility-guided-support requires continuous mode")
 training_camera = args.training_camera_json is not None
 menu_inputs = int(args.geometry_menu_source is not None) + int(
     args.expanded_pose_menu is not None
@@ -627,7 +630,11 @@ def main():
         if args.continuous_feasibility is None:
             raise ValueError("Continuous pilot requires a completed geometry-only feasibility map")
 
-        run_study(env, presentation_bundle, args.continuous_batches, args.continuous_feasibility)
+        if args.feasibility_guided_support is not None:
+            from feasibility_guided_pilot import run_study as run_guided
+            run_guided(env, presentation_bundle, args.continuous_batches, args.continuous_feasibility, args.feasibility_guided_support)
+        else:
+            run_study(env, presentation_bundle, args.continuous_batches, args.continuous_feasibility)
         return
     if rl_study:
         from rl_film_study import run_study
