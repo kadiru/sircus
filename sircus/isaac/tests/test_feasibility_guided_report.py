@@ -83,6 +83,48 @@ class ComparisonTests(unittest.TestCase):
         self.assertEqual(c["geometry_preparation"]["support"]["seconds"],12)
         self.assertIn("additional preprocessing",c["geometry_preparation"]["cost_scope"])
 
+    def test_independent_comparison_receipt_binds_both_results_and_counts(self):
+        g,b=fixture(True),fixture();c=module.comparison(g,b)
+        audit=dict(schema=module.SCHEMA,status="completed",
+                   original_result_sha256=b["source_sha256"]["result.json"],guided_result_sha256="new")
+        for label,method in (("original","broad"),("guided","guided")):
+            m=c["methods"][method]
+            def original(row):
+                row=copy.deepcopy(row);row["invalid"]=row["rejected"];return row
+            audit[label]=dict(training=original(m["training"]),frozen={
+                stage:{split:original(m["frozen"][split][stage]) for split in module.SPLITS}
+                for stage in ("initial","final")})
+        module.verify_comparison_audit(audit,c)
+        nested=dict(schema="checkpoint-audit",status="passed",source_result_sha256="new",comparison=audit)
+        self.assertEqual(module.verify_comparison_audit(nested,c),audit)
+        nested["source_result_sha256"]="wrong"
+        with self.assertRaisesRegex(ValueError,"containing audit"):module.verify_comparison_audit(nested,c)
+        audit["guided"]["frozen"]["final"]["test"]["captures"]+=1
+        with self.assertRaisesRegex(ValueError,"count mismatch"):module.verify_comparison_audit(audit,c)
+        audit["guided_result_sha256"]="other"
+        with self.assertRaisesRegex(ValueError,"different native"):module.verify_comparison_audit(audit,c)
+
+    def test_compact_support_omits_probe_and_ik_readbacks_but_binds_decisions(self):
+        raw=dict(schema="sircus-feasibility-guided-support-v1",policy_geometry_only=True,
+                 cells=[dict(cell_id="a",status="supported",anchor_action={"height_m":.3},
+                  anchor_ik={"Arm10":{"q":[.1,.2]}},anchor_checks=[{"readback":"private trace"}],
+                  low=[0]*5,high=[1]*5,qualification_target_met=False,
+                  calibration=[dict(scale=.125,low=[0]*5,high=[1]*5,requests=1,accepted=0,
+                    acceptance=0,records=[{"qualification":{"q":[.4,.5]},"accepted":False}])])])
+        raw["fingerprint"]=module.canonical_digest(raw)
+        compact=module.compact_support(raw)
+        text=json.dumps(compact)
+        self.assertNotIn('"records":',text)
+        self.assertNotIn('"anchor_ik":',text)
+        self.assertNotIn('"q":',text)
+        self.assertNotIn('private trace',text)
+        self.assertEqual(compact["source_support_fingerprint"],raw["fingerprint"])
+        self.assertEqual(compact["cells"][0]["calibration"][0]["records_count"],1)
+        self.assertEqual(compact["cells"][0]["calibration"][0]["records_sha256"],
+                         module.canonical_digest(raw["cells"][0]["calibration"][0]["records"]))
+        raw["cells"][0]["status"]="unresolved"
+        with self.assertRaisesRegex(ValueError,"fingerprint"):module.compact_support(raw)
+
     def test_new_html_keeps_native_ui_and_adds_comparison_without_controls(self):
         text=server.index_html().decode()
         for name in ("map","video","curve","comparisonChecks","comparisonScope"):
