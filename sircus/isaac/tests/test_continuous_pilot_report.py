@@ -146,6 +146,19 @@ class ReportTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "outside raw"):
             report.export(self.run, self.run/"export")
 
+    def test_completed_result_must_bind_every_trial_and_detect_later_edits(self):
+        trial = self.training(0)
+        self.write("trials/train.json", trial)
+        self.write("study.json", dict(cells=self.cells, fingerprint="study", domain={}, training_batches=1))
+        self.write("result.json", dict(status="completed", study_fingerprint="study",
+            batches=[dict(file="trials/train.json", sha256=report.sha(self.run/"trials/train.json"))],
+            assessments=[], coverage=[]))
+        self.assertEqual(report.summarize(self.run)["status"], "completed")
+        trial["rows"][0]["invalid"] = "changed_after_completion"
+        self.write("trials/train.json", trial)
+        with self.assertRaisesRegex(ValueError, "changed after"):
+            report.summarize(self.run)
+
     def test_paths_and_symlinks_cannot_escape_evidence(self):
         (self.run/"alias.json").symlink_to(self.run/"study.json")
         for filename in ("../study.json", "/etc/passwd", "alias.json", "missing.json"):
@@ -213,14 +226,16 @@ class ReportTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "chronological"):
             report.contiguous_spans([0, 0])
 
-    def test_action_edit_keeps_slow_drift_and_is_conservative_when_ball_data_missing(self):
+    def test_action_edit_keeps_slow_arm_drift_and_ignores_parked_setup_ball_motion(self):
         frames = [dict(phase="setup", all_joints_rad={name: [[i*.00009]*6 for _ in range(35)]
             for name in ("Arm10", "Arm14")}, all_ball_world_m=[[0., 0., 0.] for _ in range(35)]) for i in range(60)]
         indices = report.action_frame_indices(frames, context_frames=2)
         self.assertIn(30, indices)
-        for frame in frames:
-            frame.pop("all_ball_world_m")
-        self.assertEqual(report.action_frame_indices(frames), list(range(60)))
+        for index, frame in enumerate(frames):
+            frame["all_joints_rad"] = {name: [[0.]*6 for _ in range(35)] for name in ("Arm10", "Arm14")}
+            frame["all_ball_world_m"] = [[float(index)*1000, 0., -float(index)*1000] for _ in range(35)]
+        indices = report.action_frame_indices(frames, context_frames=2)
+        self.assertEqual(indices, [0, 1, 2, 57, 58, 59])
 
 
 class ReadOnlyViewerTests(unittest.TestCase):
