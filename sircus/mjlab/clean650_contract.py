@@ -15,11 +15,14 @@ GAPS=(.20,.24,.28,.32,.36,.40,.44,.48,.52,.56)
 STEPS=(64,128)
 MAX_REQUESTS=496
 FINE_VERSION='sircus-clean650-height-tilt-gap-fine-v2'
+RAISED_VERSION='sircus-clean650-height-tilt-gap-raised-v3'
 PROFILES={
     'coarse-v1':dict(version=VERSION,heights=HEIGHTS,tilts=TILTS,gaps=GAPS,
         offsets=((- .02,0.,.02),(-2.,0.,2.),(-.02,0.,.02))),
     'fine-v2':dict(version=FINE_VERSION,heights=(.375,.38,.385),tilts=(27.,27.5,28.,28.5,29.),
         gaps=(.38,.3868,.39,.395,.40),offsets=((- .005,0.,.005),(-.25,0.,.25),(-.0025,0.,.0025))),
+    'raised-v3':dict(version=RAISED_VERSION,heights=(.40,.42,.44),tilts=(26.,27.,28.),
+        gaps=(.3268,.3468,.3668),offsets=((- .005,0.,.005),(-.5,0.,.5),(-.0025,0.,.0025))),
 }
 SCOPE=('Fixed650 DEVELOPMENT height/tilt/gap sweep with calibrated simulated contacts and held endpoints. '
        'No new PPO, noise study, held-out generalization, grasp/transit, actuator, perception or physical validation. '
@@ -42,7 +45,7 @@ def load_inputs(a):
         and spec['scene']==scene and spec['calibration']==calibration):raise ValueError('Exact completed independently audited650 replay required')
     previous.verify_manifest(root,'evidence-manifest.json')
     bindings['replay']={n:sha(root/n) for n in ('contract.json','report.json','audit-replay650.json','records.jsonl','evidence-manifest.json')}
-    if getattr(a,'profile','coarse-v1')=='fine-v2':
+    if getattr(a,'profile','coarse-v1')!='coarse-v1':
         root=Path(a.coarse_study);spec=read(root/'contract.json');report=read(root/'report.json');audit=read(root/'audit-clean650.json')
         unsigned=dict(spec);fp=unsigned.pop('fingerprint',None);checks=audit.get('checks',[])
         if not (digest(unsigned)==fp=='28baa4e28639d0e7581561bf546a42de2a738ef4fd6a1521230d69887424f28b'

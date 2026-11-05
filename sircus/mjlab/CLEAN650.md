@@ -75,6 +75,22 @@ in a new frozen source/output namespace. Do not modify a prior producer or its
 raw evidence. The UI preserves the previous completed result while showing the
 latest profile. Noise and further PPO remain deferred.
 
+Fine-v2 completed211 requests/106 native releases with0clean650 discovery or
+verification captures; both control sets passed and auditv2 passed33,824 checks.
+The [fine evidence](../../baselines/mjlab-clean650-fine-20261104/README.md) is separate.
+A [CPU reach diagnostic](../../baselines/mjlab-clean650-20261104/reach-diagnostic.json)
+found a necessary full-pose workspace bound at H380:28° has0.109mm wrist-reach
+slack, while27.5° exceeds the model's bound by1.349mm. Higher boards admit lower
+tilts with the same804.3mm nominal release center; eight of nine CPU probes pass.
+
+The separately frozen `raised-v3` profile tests H400/420/440mm ×T26/27/28° ×
+G326.8/346.8/366.8mm (27 combinations plus reference). It retains the same XY650
+scene, scorer, controls and verification; refinement is H±5mm/T±0.5°/G±2.5mm.
+Maximum163 requested attempts. Use `--profile raised-v3 --coarse-study AUDITED_V1_OUTPUT`.
+This profile is motivated by the CPU endpoint probes; no flight success is assumed.
+For inline publication, wrap `clean650.js` in `<script type="module">` so its
+exports parse correctly. The existing viewer service need not restart.
+
 ## Run
 
 Use the pinned Ubuntu environment, a new immutable source/output directory, the

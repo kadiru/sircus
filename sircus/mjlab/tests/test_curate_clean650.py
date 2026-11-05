@@ -71,6 +71,25 @@ class CleanExportTests(unittest.TestCase):
         self.audit['version']=export.AUDIT_VERSION;self.bind()
         with self.assertRaisesRegex(ValueError,'Full independent audit'):self.run_export('wrong-pair')
 
+    def test_raised_profile_exports_163_only_with_literal_grid_and_matching_v3_audit(self):
+        self.fixture(profile='raised-v3')
+        summary=self.run_export()
+        self.assertEqual(summary['study_version'],export.RAISED_STUDY_VERSION)
+        self.assertEqual(summary['counts']['attempts'],163)
+        self.assertEqual(summary['counts']['phase_counts'],dict(controls_pre=12,coarse=28,refinement=81,verification=30,controls_post=12))
+        self.assertEqual(summary['settings']['grid'],dict(heights_m=[.40,.42,.44],tilts_deg=[26.,27.,28.],gaps_m=[.3268,.3468,.3668],reference=[.38,28.,.3868]))
+        self.assertEqual(summary['settings']['refinement_offsets'],dict(height_m=[-.005,0.,.005],tilt_deg=[-.5,0.,.5],gap_m=[-.0025,0.,.0025]))
+        self.assertEqual(summary['settings']['verification_dedup_decimals'],9)
+        content=(self.study.parent/'publication/requested-shots.csv').read_bytes()
+        self.assertNotIn(b'\r',content)
+        self.assertEqual(len(list(csv.DictReader(content.decode().splitlines()))),163)
+        for old in (export.AUDIT_VERSION,export.VERSION_PAIRS[export.FINE_STUDY_VERSION]):
+            self.audit['version']=old;self.bind()
+            with self.assertRaisesRegex(ValueError,'Full independent audit'):self.run_export('wrong-pair-'+old[-2:])
+        declared=export.read(self.study/'contract.json')['settings']
+        for edit in (dict(max_requests=211),dict(coarse_requests=76),dict(refinement_offsets=dict(height_m=[-.005,0.,.005],tilt_deg=[-.25,0.,.25],gap_m=[-.0025,0.,.0025]))):
+            with self.assertRaises(ValueError):export.settings(dict(declared,**edit),export.RAISED_STUDY_VERSION)
+
     def test_blocked_controls_export_only_executed_requests_and_no_qualification(self):
         self.fixture(blocked=True)
         summary = self.run_export()

@@ -76,6 +76,36 @@ class CleanAuditTests(unittest.TestCase):
         with self.assertRaisesRegex(EvidenceError, "max_requests"):
             verify.audit_settings(changed, Checks(), fine)
 
+    def test_raised_grid_is27_plus_exact_reference_with_declared_offsets(self):
+        from sircus.mjlab import clean650_contract as protocol
+        seed = row("source", source_record_id="historical-source", source_record_sha256="a"*64)
+        raised = verify.profile_for("sircus-clean650-height-tilt-gap-raised-v3")
+        self.assertEqual((raised["coarse_requests"], raised["max_requests"], raised["audit_version"]),
+                         (28, 163, "sircus-clean650-independent-audit-v3"))
+        values = verify.coarse_values(seed, raised)
+        self.assertEqual(len(values), 28)
+        self.assertEqual(len({tuple(v) for v in values}), 28)
+        self.assertEqual(values[0], [.47, -.27, .40, 26., .3268])
+        self.assertEqual(values[26], [.47, -.27, .44, 28., .3668])
+        self.assertEqual(values[-1], seed["values"])
+        self.assertEqual(values, [g["values"] for g in protocol.coarse(seed, "raised-v3")])
+        local = verify.local_values(seed, raised)
+        self.assertEqual(local[0], [.47, -.27, .375, 27.5, .3843])
+        self.assertEqual(local[-1], [.47, -.27, .385, 28.5, .3893])
+        self.assertEqual(local[13], seed["values"])
+        np.testing.assert_allclose(local, [g["values"] for g in protocol.refinement([seed], "raised-v3")],
+                                   rtol=0, atol=1e-12)
+
+    def test_raised_settings_are_independent_of_fine_grid_and_budget(self):
+        from sircus.mjlab import clean650_contract as protocol
+        raised = verify.profile_for("sircus-clean650-height-tilt-gap-raised-v3")
+        verify.audit_settings(protocol.settings("raised-v3"), Checks(), raised)
+        with self.assertRaisesRegex(EvidenceError, "protocol/grid"):
+            verify.audit_settings(protocol.settings("fine-v2"), Checks(), raised)
+        changed = protocol.settings("raised-v3");changed["max_requests"] += 1
+        with self.assertRaisesRegex(EvidenceError, "max_requests"):
+            verify.audit_settings(changed, Checks(), raised)
+
     def test_independent_accounting_matches_producer_without_using_producer_selection(self):
         from sircus.mjlab import clean650_contract as protocol
         data = controls()

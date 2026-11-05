@@ -25,7 +25,7 @@ test('nominal clean qualification requires exact complete audit, controls, obser
  raw=fixture();raw.verification[0].qualification={qualified:false,status:'failed'};assert.equal(ui.clean650Qualification(raw,raw.verification[0]).passed,false);
 });
 test('only registered study-auditor pairs qualify and profile history stays separate',()=>{
-  for(const [version,auditor] of [[ui.VERSION,ui.AUDIT_VERSION],[ui.FINE_VERSION,ui.FINE_AUDIT_VERSION]]){
+  for(const [version,auditor] of [[ui.VERSION,ui.AUDIT_VERSION],[ui.FINE_VERSION,ui.FINE_AUDIT_VERSION],[ui.RAISED_VERSION,ui.RAISED_AUDIT_VERSION]]){
     const raw=fixture();raw.version=version;raw.audit.version=auditor;assert.equal(ui.clean650AuditReady(raw),true);
     raw.audit.version=auditor===ui.AUDIT_VERSION?ui.FINE_AUDIT_VERSION:ui.AUDIT_VERSION;assert.equal(ui.clean650AuditReady(raw),false);
   }
@@ -36,6 +36,20 @@ test('only registered study-auditor pairs qualify and profile history stays sepa
   assert.ok(d.get('plan-detail').textContent.includes('1001 coarse requests'));assert.ok(d.get('plan-detail').textContent.includes('3 refinement seeds × 27'));
   assert.ok(d.get('history-note').textContent.includes('not re-audited'));assert.equal(JSON.stringify(raw),before);
   raw.version='unregistered';assert.equal(ui.clean650AuditReady(raw),false);
+});
+test('raised-board v3 has its own audit pair and keeps both historical profiles visible',()=>{
+  const raw=fixture(),original=fixture(),fine=fixture();
+  original.contract_fingerprint='original';original.audit.contract_fingerprint='original';
+  fine.version=ui.FINE_VERSION;fine.audit.version=ui.FINE_AUDIT_VERSION;fine.contract_fingerprint='fine';fine.audit.contract_fingerprint='fine';
+  raw.version=ui.RAISED_VERSION;raw.audit.version=ui.RAISED_AUDIT_VERSION;raw.previous_clean650_studies=[original,fine];
+  raw.settings={max_requests:163,coarse_requests:28,refinement_seeds:3,verification_sources:5,repeats_per_resolution:3,grid:{heights_m:[.40,.42,.44],tilts_deg:[26,27,28],gaps_m:[.3268,.3468,.3668]},refinement_offsets:{height_m:[-.005,0,.005],tilt_deg:[-.5,0,.5],gap_m:[-.0025,0,.0025]}};
+  const before=JSON.stringify(raw),d=dom();ui.renderClean650(d.root,raw);
+  assert.equal(d.get('profile').textContent,'Raised-board follow-up · v3');assert.equal(d.rows('history').length,2);
+  assert.deepEqual(d.rows('history').map(r=>r[0]),['Original sweep · v1','Fine-grid follow-up · v2']);
+  assert.ok(d.get('plan').textContent.includes('Maximum 163 requested shots'));assert.ok(d.get('plan-detail').textContent.includes('28 coarse requests'));
+  assert.equal(ui.clean650Qualification(raw,raw.verification[0]).passed,true);
+  for(const old of [ui.AUDIT_VERSION,ui.FINE_AUDIT_VERSION]){raw.audit.version=old;assert.equal(ui.clean650AuditReady(raw),false);}
+  raw.audit.version=ui.RAISED_AUDIT_VERSION;assert.equal(JSON.stringify(raw),before);
 });
 test('render distinguishes all-phase/search/controls/verification and missing versus observed counts',()=>{
  const d=dom(),raw=fixture(),before=JSON.stringify(raw);ui.renderClean650(d.root,raw);

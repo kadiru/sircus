@@ -17,7 +17,10 @@ VERSION = "sircus-clean650-height-tilt-gap-v1"
 AUDIT_VERSION = "sircus-clean650-independent-audit-v1"
 FINE_VERSION = "sircus-clean650-height-tilt-gap-fine-v2"
 FINE_AUDIT_VERSION = "sircus-clean650-independent-audit-v2"
-VERSION_PAIRS = {VERSION: AUDIT_VERSION, FINE_VERSION: FINE_AUDIT_VERSION}
+RAISED_VERSION = "sircus-clean650-height-tilt-gap-raised-v3"
+RAISED_AUDIT_VERSION = "sircus-clean650-independent-audit-v3"
+VERSION_PAIRS = {VERSION: AUDIT_VERSION, FINE_VERSION: FINE_AUDIT_VERSION,
+                 RAISED_VERSION: RAISED_AUDIT_VERSION}
 HISTORY_KEY = "previous_clean650_studies"
 TERMINAL = {"completed", "failed", "cancelled", "blocked_geometry", "blocked_storage", "blocked_resources"}
 GEOMETRY = ("id", "role", "group_id", "phase", "stage", "substeps", "values", "gap_m", "board_height_m", "tilt_deg", "release_center_height_m",

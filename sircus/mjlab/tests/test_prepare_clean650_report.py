@@ -6,7 +6,7 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from sircus.mjlab.prepare_clean650_report import AUDIT_VERSION,FINE_VERSION,FINE_AUDIT_VERSION,HISTORY_KEY,KEY,VERSION,compact,full_audit_verified,merge_display,prepare,watch
+from sircus.mjlab.prepare_clean650_report import AUDIT_VERSION,FINE_VERSION,FINE_AUDIT_VERSION,RAISED_VERSION,RAISED_AUDIT_VERSION,HISTORY_KEY,KEY,VERSION,compact,full_audit_verified,merge_display,prepare,watch
 
 class Clean650PublisherTests(unittest.TestCase):
     def setUp(self):
@@ -51,9 +51,9 @@ class Clean650PublisherTests(unittest.TestCase):
         self.assertNotIn('captures',v['counts']);self.assertNotIn('native_releases',v['verification'][0]['by_substeps']['64']);self.assertEqual(v['trace_examples'],[])
         raw=copy.deepcopy(self.raw);raw['trace_examples'][0].update(cache_file='../escape',cache_sha256='bad');t=compact(raw)['trace_examples'][0];self.assertNotIn('cache_file',t);self.assertNotIn('cache_sha256',t)
     def test_explicit_profile_and_auditor_pairing(self):
-        for version,expected in ((VERSION,AUDIT_VERSION),(FINE_VERSION,FINE_AUDIT_VERSION)):
+        for version,expected in ((VERSION,AUDIT_VERSION),(FINE_VERSION,FINE_AUDIT_VERSION),(RAISED_VERSION,RAISED_AUDIT_VERSION)):
             raw=dict(self.raw,version=version)
-            for auditor in (AUDIT_VERSION,FINE_AUDIT_VERSION,"sircus-clean650-independent-audit-v3"):
+            for auditor in (AUDIT_VERSION,FINE_AUDIT_VERSION,RAISED_AUDIT_VERSION,"unregistered-auditor"):
                 self.assertEqual(full_audit_verified(raw,dict(self.audit,version=auditor)),auditor==expected)
         self.assertFalse(full_audit_verified(dict(self.raw,version="unregistered-profile"),self.audit))
 
@@ -78,6 +78,29 @@ class Clean650PublisherTests(unittest.TestCase):
         self.base.write_text(json.dumps(fine));again=prepare(self.base,self.study,self.output)
         self.assertEqual(again[HISTORY_KEY],fine[HISTORY_KEY])
         self.assertEqual({k:again[k] for k in self.old},self.old)
+
+    def test_both_prior_profiles_survive_raised_queue_completion_and_repeated_refresh(self):
+        self.write();original=prepare(self.base,self.study,self.output)
+        self.base.write_text(json.dumps(original))
+        self.raw.update(version=FINE_VERSION,contract_fingerprint='fine')
+        self.audit.update(version=FINE_AUDIT_VERSION,contract_fingerprint='fine')
+        self.write();fine=prepare(self.base,self.study,self.output)
+        before=copy.deepcopy(fine)
+        waiting=merge_display(fine,compact(dict(version=RAISED_VERSION,status='waiting_for_4090',phase='device_queue')))
+        self.assertEqual(fine,before)
+        self.assertEqual([h['version'] for h in waiting[HISTORY_KEY]],[VERSION,FINE_VERSION])
+        self.assertEqual(len({h['contract_fingerprint'] for h in waiting[HISTORY_KEY]}),2)
+        self.assertTrue(all(h['audit']['full_checks_verified'] for h in waiting[HISTORY_KEY]))
+        self.base.write_text(json.dumps(waiting))
+        self.raw.update(version=RAISED_VERSION,contract_fingerprint='raised')
+        self.audit.update(version=RAISED_AUDIT_VERSION,contract_fingerprint='raised')
+        self.write();raised=prepare(self.base,self.study,self.output)
+        self.assertTrue(raised[KEY]['audit']['full_checks_verified'])
+        self.assertEqual(raised[HISTORY_KEY],waiting[HISTORY_KEY])
+        self.base.write_text(json.dumps(raised));again=prepare(self.base,self.study,self.output)
+        self.assertEqual(again[HISTORY_KEY],raised[HISTORY_KEY])
+        self.assertEqual(again[KEY][HISTORY_KEY],raised[HISTORY_KEY])
+        self.assertNotIn('q10',json.dumps(again[HISTORY_KEY]))
 
     def test_history_is_sanitized_and_cannot_inherit_an_incompatible_checker_badge(self):
         old=dict(self.raw,audit=dict(self.audit,version=FINE_AUDIT_VERSION,full_checks_verified=True,bound_files_verified=True),q10=[1]*6,token='never retained')
