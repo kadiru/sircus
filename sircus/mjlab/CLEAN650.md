@@ -91,6 +91,15 @@ This profile is motivated by the CPU endpoint probes; no flight success is assum
 For inline publication, wrap `clean650.js` in `<script type="module">` so its
 exports parse correctly. The existing viewer service need not restart.
 
+Raised-v3 completed163 requests/120 native, with0clean650 and0qualified settings.
+Both control sets passed; independent auditv3 passed31,902 checks. The original
+reference again scored3/3rim at64 and0/3at128. [Results and three-profile comparison](../../baselines/mjlab-clean650-raised-20261104/README.md)
+show708 discovery requests/219 native drops/190 distinct admitted targets and
+no clean650 capture. These are bounded development results, not proof that650mm
+is impossible. Further PPO remains deferred. Future work should reconsider
+the fixed plane/action constraints and pre-table miss ranking under a new
+prespecified protocol rather than weaken the clean/timestep gate.
+
 ## Run
 
 Use the pinned Ubuntu environment, a new immutable source/output directory, the

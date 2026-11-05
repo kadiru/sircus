@@ -31,11 +31,24 @@
 - A separate raised-v3 profile therefore tests H400/420/440mm ×T26/27/28° ×
   G326.8/346.8/366.8mm plus reference;27+1 coarse requests, ±5mm/±0.5°/±2.5mm
   refinement and matched checks; maximum163. Same fixed XY650 scene and scorer.
+  Completed163/120native,43rejects,0clean650 and0qualified; before/after controls
+  passed and auditv3 passed31,902 checks. [Raised results and comparison](../baselines/mjlab-clean650-raised-20261104/README.md).
+- Across the three profiles:870 total requests/381native, including72controls
+  and90verification requests. Discovery only:708 requests,219native releases,
+  190distinct native targets,8rim captures of the one original setting,0clean.
+  All36all-phase clean captures belong to positive controls. No new recipe
+  qualified at64/128; these finite results do not prove all650mm shots impossible.
+- Further PPO remains deferred. Next bounded work should reconsider the fixed
+  bounce-plane position/action constraints and rank miss trajectories before
+  external/table contact, then prespecify a new scene or search. No guard removal,
+  material refit, noise study, policy activation or lower capture threshold.
 - Strict5mm endpoints and calibrated dense scoring remain unchanged; held endpoints
   do not validate arm transit or actuator motion. Finite IK failures do not prove
   the requested poses physically unreachable, nor does this sweep prove650mm impossible.
 - Additive read-only `clean650_study` UI key; existing services,4070 and Isaac
   configuration are preserved.
+- Draft [PR69](https://github.com/kadiru/sircus/pull/69) remains stacked on PR65;
+  all source and curated results are separate from raw runtime observations.
 
 ## Calibrated 650 mm replay — November 4, 2026
 
