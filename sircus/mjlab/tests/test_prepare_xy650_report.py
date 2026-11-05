@@ -29,7 +29,7 @@ class XY650PublisherTests(unittest.TestCase):
         encoded=json.dumps(v);self.assertNotIn('q10',encoded);self.assertNotIn('q14',encoded);self.assertNotIn('private_token',encoded);self.assertNotIn('do not expose',encoded);self.assertNotIn('previous_clean650_studies',v)
     def test_exact_pair_complete_full_checks_and_fingerprint_required(self):
         self.assertTrue(full_audit_verified(self.raw,self.audit))
-        for change in (lambda r,a:r.update(status='running'),lambda r,a:r.update(version='sircus-clean650-height-tilt-gap-v1'),lambda r,a:r.update(phase='verify128'),lambda r,a:a.update(version='sircus-clean650-independent-audit-v1'),lambda r,a:a.update(contract_fingerprint='other'),lambda r,a:a.update(checks=[]),lambda r,a:a.update(checks_count=True),lambda r,a:a.update(checks_count=0),lambda r,a:a.update(checks_count=2),lambda r,a:a.update(checks=[{'passed':1}]),lambda r,a:a.update(failures=['failed'])):
+        for change in (lambda r,a:r.update(status='running'),lambda r,a:r.update(version='sircus-clean650-height-tilt-gap-v1'),lambda r,a:r.update(phase='verify128'),lambda r,a:a.update(version='sircus-clean650-independent-audit-v1'),lambda r,a:a.update(version='sircus-xy650-independent-audit-v1'),lambda r,a:a.update(contract_fingerprint='other'),lambda r,a:a.update(checks=[]),lambda r,a:a.update(checks_count=True),lambda r,a:a.update(checks_count=0),lambda r,a:a.update(checks_count=2),lambda r,a:a.update(checks=[{'passed':1}]),lambda r,a:a.update(failures=['failed'])):
             raw,audit=copy.deepcopy(self.raw),copy.deepcopy(self.audit);change(raw,audit);self.assertFalse(full_audit_verified(raw,audit))
     def test_postaudit_byte_tampering_and_missing_bindings_fail_closed(self):
         for kind in ('report','manifest','missingmanifest','missinghash','wronghash','missingaudit'):
@@ -42,6 +42,25 @@ class XY650PublisherTests(unittest.TestCase):
             if kind in ('missinghash','wronghash'):(self.study/'audit-xy650.json').write_text(json.dumps(self.audit))
             if kind=='missingaudit':(self.study/'audit-xy650.json').unlink()
             self.assertFalse(prepare(self.base,self.study,self.output)[KEY]['audit']['full_checks_verified'])
+    def test_explicit_external_v2_proof_preserves_frozen_failed_v1_and_binds_exact_bytes(self):
+        self.write();external=self.root/'xy650-audit-v2.json'
+        external.write_bytes((self.study/'audit-xy650.json').read_bytes())
+        failed=dict(self.audit,version='sircus-xy650-independent-audit-v1',status='failed',checks_count=0,checks=[],failures=['historical calibration schema'])
+        (self.study/'audit-xy650.json').write_text(json.dumps(failed))
+        frozen={p.name:p.read_bytes() for p in self.study.iterdir()};external_before=external.read_bytes()
+        self.assertFalse(prepare(self.base,self.study,self.output)[KEY]['audit']['full_checks_verified'])
+        value=prepare(self.base,self.study,self.output,audit_path=external)[KEY]
+        self.assertTrue(value['audit']['full_checks_verified']);self.assertEqual(value['audit']['version'],AUDIT_VERSION)
+        self.assertEqual(value['audit']['source_sha256'],hashlib.sha256(external_before).hexdigest())
+        self.assertEqual({p.name:p.read_bytes() for p in self.study.iterdir()},frozen);self.assertEqual(external.read_bytes(),external_before)
+        with self.assertRaises(ValueError):prepare(self.base,self.study,external,audit_path=external)
+        for name in ('report.json','evidence-manifest.json'):
+            old=(self.study/name).read_bytes();(self.study/name).write_bytes(old+b'\n')
+            self.assertFalse(prepare(self.base,self.study,self.output,audit_path=external)[KEY]['audit']['full_checks_verified'])
+            (self.study/name).write_bytes(old)
+        bad=dict(self.audit,version='sircus-xy650-independent-audit-v1');external.write_text(json.dumps(bad))
+        self.assertFalse(prepare(self.base,self.study,self.output,audit_path=external)[KEY]['audit']['full_checks_verified'])
+
     def test_missing_diagnostic_counts_and_null_crossing_remain_explicit(self):
         raw=dict(version=VERSION,counts={'attempts':0},top_settings=[{'id':'x','first_flight':{'version':'sircus-xy650-first-flight-aperture-v1','available':True,'first_crossing':None,'mouth_clearance_m':None}}],trace_examples=[{'position_m':[[0,0,float('nan')],[0,0,0]]}]);v=compact(raw)
         self.assertNotIn('captures',v['counts']);self.assertIsNone(v['top_settings'][0]['first_flight']['first_crossing']);self.assertIsNone(v['top_settings'][0]['first_flight']['mouth_clearance_m']);self.assertEqual(v['trace_examples'],[])
