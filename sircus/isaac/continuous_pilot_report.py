@@ -230,6 +230,9 @@ def summarize(run):
             admitted=sum(row["valid"] for row in mapped),
             rejected=sum(not row["valid"] for row in mapped),
             reasons=dict(collections.Counter(str(row.get("reason") or "admitted") for row in mapped)),
+            poses=[dict(proposal=row.get("proposal"), action=row["action"],
+                        qualification="Geometry, independent FK and coarse clearance proxies only; no native capture label")
+                   for row in mapped if row["valid"]],
             action_ranges=numeric_ranges(row["action"] for row in mapped if row["valid"])),
             training=counts(row for row in train_rows if row["cell_id"] == name),
             coverage=counts(row for row in coverage_rows if row["cell_id"] == name),
@@ -242,7 +245,14 @@ def summarize(run):
     native_audit = read(audit_path) if audit_path.is_file() else None
     if native_audit is not None:
         source_hashes["audit.json"] = sha(audit_path)
+    geometry = None
+    if (run/"contract.json").is_file():
+        contract = read(local_file(run, "contract.json"))
+        scene = contract.get("scene", {})
+        geometry = {key: scene[key] for key in ("table", "bucket", "ball", "board") if key in scene}
+        source_hashes["contract.json"] = sha(run/"contract.json")
     return dict(schema=SCHEMA, status=result.get("status", "in_progress"),
+                exporter_code_sha256=sha(__file__),
                 study_fingerprint=study.get("fingerprint"),
                 geometry_fingerprint=study.get("geometry_fingerprint"),
                 scope="One-step privileged-geometry continuous-action PPO pilot on 35 inherited bucket sites; current 25/5/5 optimization split is not globally unseen-layout evaluation. Endpoint feasibility is not collision-certified motion planning. Scripted arm transit and initialized ball release; grasp and joint paths are not learned.",
@@ -252,6 +262,7 @@ def summarize(run):
                     admitted=sum(row["valid"] for row in map_rows),
                     rejected=sum(not row["valid"] for row in map_rows),
                     reasons=dict(collections.Counter(str(row.get("reason") or "admitted") for row in map_rows))),
+                geometry=geometry,
                 training=counts(train_rows), coverage=counts(coverage_rows),
                 coverage_scope="Prescheduled geometry-coverage attempts; outcomes excluded from policy updates and frozen evaluation.",
                 learning_curve=batches, assessments=checks,
@@ -393,7 +404,103 @@ def encode_native_frames(run, output, clips):
     return encoded
 
 
-def export(run, output, *, media=False):
+def action_frame_indices(frames, *, context_frames=12, joint_change_rad=.0001,
+                         ball_change_m=.0005):
+    """Remove only setup dwells with no motion above conservative readback gates.
+
+    Keep every release frame, first/last context and every trial. These gates
+    are declared editorial thresholds, not a statement that motors are exactly
+    stationary. Full normal-time native clips are always preserved separately.
+    """
+    require(frames and type(context_frames) is int and context_frames >= 0
+            and joint_change_rad > 0 and ball_change_m > 0, "Invalid action-edit thresholds")
+    count = len(frames)
+    keep = set(range(min(count, context_frames+1)))
+    keep.update(range(max(0, count-context_frames-1), count))
+    for index, frame in enumerate(frames):
+        if frame["phase"] == "release":
+            keep.add(index)
+        if not index:
+            continue
+        before = frames[index-1]
+        window_before = frames[max(0, index-15)]
+        joints = max(abs(x-y) for arm in ("Arm10", "Arm14")
+                     for a, b in zip(before["all_joints_rad"][arm], frame["all_joints_rad"][arm])
+                     for x, y in zip(a, b))
+        slow_joints = max(abs(x-y) for arm in ("Arm10", "Arm14")
+                          for a, b in zip(window_before["all_joints_rad"][arm], frame["all_joints_rad"][arm])
+                          for x, y in zip(a, b)) >= .0005
+        balls_before, balls_after = before.get("all_ball_world_m"), frame.get("all_ball_world_m")
+        # Missing ball readback is conservative: do not cut the interval.
+        moving_ball = balls_before is None or balls_after is None
+        if not moving_ball:
+            require(len(balls_before) == len(balls_after) == 35,
+                    "Action edit needs actual all-cell ball positions")
+            require(all(len(v) == 3 and all(type(x) in (int, float) and math.isfinite(x) for x in v)
+                        for v in [*balls_before, *balls_after]), "Invalid actual ball-motion readback")
+            moving_ball = max(math.dist(a, b) for a, b in zip(balls_before, balls_after)) >= ball_change_m
+            old_balls = window_before.get("all_ball_world_m")
+            if old_balls is not None:
+                moving_ball |= max(math.dist(a, b) for a, b in zip(old_balls, balls_after)) >= .001
+        if joints >= joint_change_rad or slow_joints or moving_ball:
+            keep.update(range(max(0, index-1-context_frames), min(count, index+context_frames+1)))
+    result = sorted(keep)
+    require(result and result[0] == 0 and result[-1] == count-1
+            and all(i in keep for i, frame in enumerate(frames) if frame["phase"] == "release"),
+            "Action edit lost a trial boundary or ball-flight frame")
+    return result
+
+
+def contiguous_spans(indices):
+    require(indices and all(b > a for a, b in zip(indices, indices[1:])),
+            "Action frame indices must be unique and chronological")
+    result = []
+    first = previous = indices[0]
+    for value in indices[1:]:
+        if value > previous+1:
+            result.append([first, previous])
+            first = value
+        previous = value
+    result.append([first, previous])
+    return result
+
+
+def make_action_edit(output, source_clips, encoded):
+    output = Path(output)
+    require(len(source_clips) == len(encoded), "Missing chronological action-edit source clips")
+    result = []
+    for index, (source, clip) in enumerate(zip(source_clips, encoded)):
+        indices = action_frame_indices(source["frames"])
+        spans = contiguous_spans(indices)
+        select = "+".join(f"between(n,{first},{last})" for first, last in spans)
+        name = f"action-trial-{index:03d}.mp4"
+        subprocess.run(["ffmpeg", "-v", "error", "-n", "-i", str(output/clip["file"]),
+            "-vf", f"select='{select}',setpts=N/(30*TB)", "-an", "-c:v", "libx264",
+            "-pix_fmt", "yuv420p", "-threads", "4", "-preset", "fast", "-crf", "18",
+            "-r", "30", "-movflags", "+faststart", str(output/name)], check=True)
+        data = inspect_movie(output/name)
+        require(data["frames"] == len(indices), "Action edit added or lost selected native frames")
+        result.append(dict(file=name, **data, mode=source["mode"], batch=source["batch"],
+            original_clip=clip["file"], original_frames=clip["frames"],
+            retained_native_global_frames=[source["frames"][i]["frame"] for i in indices],
+            source_local_spans_inclusive=spans,
+            removed_setup_dwell_frames=clip["frames"]-len(indices)))
+    listing = output/"action-concat.txt"
+    listing.write_text("".join(f"file '{item['file']}'\n" for item in result))
+    movie = output/"action-trials.mp4"
+    subprocess.run(["ffmpeg", "-v", "error", "-n", "-f", "concat", "-safe", "1", "-i", str(listing),
+        "-map", "0:v:0", "-an", "-c", "copy", "-movflags", "+faststart", str(movie)], check=True)
+    data = inspect_movie(movie)
+    require(data["frames"] == sum(clip["frames"] for clip in result), "Action movie lost native chapters")
+    return dict(file=movie.name, **data, clips=result,
+        selection="All recorded trials in order; only setup dwell below declared joint/ball motion thresholds removed. Every release frame preserved, no speedup.",
+        thresholds=dict(joint_change_rad_per_frame=.0001, ball_change_m_per_frame=.0005,
+                        slow_window_frames=15, joint_change_rad_per_window=.0005,
+                        ball_change_m_per_window=.001, before_after_context_frames=12, fps=30),
+        full_untrimmed_movie="trials.mp4")
+
+
+def export(run, output, *, media=False, action_edit=False):
     run, output = Path(run), Path(output)
     require(not output.exists() and not output.resolve().is_relative_to(run.resolve()),
             "Export must use a new directory outside raw evidence")
@@ -428,6 +535,10 @@ def export(run, output, *, media=False):
                     "Concatenation lost native frames")
             summary["movie"] = dict(file=movie.name, **data,
                 selection="All native clips in recorded manifest order; no outcome selection or retiming")
+            if action_edit:
+                require(all(isinstance(clip.get("frames"), list) for clip in clips),
+                        "Action edit requires actual native frame/joint/ball metadata")
+                summary["action_movie"] = make_action_edit(output, clips, summary["clips"])
     (output/"report.json").write_text(json.dumps(summary, indent=2, allow_nan=False)+"\n")
     return summary
 
@@ -437,6 +548,7 @@ if __name__ == "__main__":
     parser.add_argument("run", type=Path)
     parser.add_argument("output", type=Path)
     parser.add_argument("--media", action="store_true")
+    parser.add_argument("--action-edit", action="store_true", help="Also remove only measured setup dwells, preserving full clips")
     args = parser.parse_args()
-    result = export(args.run, args.output, media=args.media)
+    result = export(args.run, args.output, media=args.media, action_edit=args.action_edit)
     print(json.dumps({key: result[key] for key in ("status", "training", "assessments", "movie")}, allow_nan=False))

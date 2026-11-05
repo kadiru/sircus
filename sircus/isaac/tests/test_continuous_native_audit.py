@@ -99,6 +99,15 @@ class NativeAuditTests(unittest.TestCase):
         self.assertEqual(result['clean_captures'],2)
         self.assertTrue(all(r['max_retention_s']>=1-1e-9 and r['external_contact_steps']==0 for r in self.trial['rows']))
 
+    def test_camera_float32_rounding_uses_existing_native_pose_tolerance(self):
+        camera=dict(eye_m=[10.9706,-6.1943,2.5406],target_m=[7.8307,-3.4877,.3904])
+        frame=dict(eye_m=np.asarray(camera['eye_m'],dtype=np.float32).tolist(),target_m=camera['target_m'])
+        ca.verify_camera_frame(frame,camera)
+        frame['eye_m'][0]+=.0003
+        with self.assertRaisesRegex(ValueError,'camera moved'):ca.verify_camera_frame(frame,camera)
+        frame=dict(eye_m=[camera['eye_m'][0]+.00015,camera['eye_m'][1]+.00015,camera['eye_m'][2]],target_m=camera['target_m'])
+        with self.assertRaisesRegex(ValueError,'camera moved'):ca.verify_camera_frame(frame,camera)
+
     def test_rehashed_clock_corruption_rejected(self):
         self.data['time_step'][1]=13;self.rewrite_data()
         with self.assertRaisesRegex(ValueError,'clock coverage'):self.verify()

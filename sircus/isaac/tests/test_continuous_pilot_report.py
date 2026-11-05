@@ -53,6 +53,8 @@ class ReportTests(unittest.TestCase):
         self.assertEqual(value["learning_curve"][0]["mean_reward"], 1.)
         self.assertEqual(value["cells"][1]["training"]["attempts"], 0)
         self.assertEqual(value["feasibility"]["attempts"], 3)
+        self.assertEqual(len(value["cells"][0]["feasibility"]["poses"]), 1)
+        self.assertIn("no native capture label", value["cells"][0]["feasibility"]["poses"][0]["qualification"])
         self.assertEqual(value["sampled_training_action_ranges"]["radius_m"]["max"], .31)
 
     def test_heldout_training_and_ambiguous_active_rows_are_rejected(self):
@@ -187,6 +189,38 @@ class ReportTests(unittest.TestCase):
         bad[0]["frames"][1].pop("all_joints_rad")
         with self.assertRaisesRegex(ValueError, "readbacks"):
             report.native_frame_manifest(self.run, bad)
+
+    def test_action_edit_preserves_motion_context_full_release_and_failed_trial(self):
+        frames = []
+        for i in range(100):
+            q = 0. if i < 40 else .3
+            frames.append(dict(phase="setup" if i < 90 else "release",
+                all_joints_rad={name: [[q]*6 for _ in range(35)] for name in ("Arm10", "Arm14")},
+                all_ball_world_m=[[0., 0., 0.] for _ in range(35)]))
+        indices = report.action_frame_indices(frames, context_frames=2)
+        self.assertEqual(indices[0], 0)
+        self.assertEqual(indices[-1], 99)
+        self.assertTrue(set(range(37, 43)).issubset(indices))
+        self.assertTrue(set(range(90, 100)).issubset(indices))
+        self.assertNotIn(20, indices)
+        stationary = copy.deepcopy(frames)
+        for frame in stationary:
+            frame["phase"] = "setup"
+            frame["all_joints_rad"] = {name: [[0.]*6 for _ in range(35)] for name in ("Arm10", "Arm14")}
+        indices = report.action_frame_indices(stationary, context_frames=2)
+        self.assertEqual(indices, [0, 1, 2, 97, 98, 99])
+        self.assertEqual(report.contiguous_spans(indices), [[0, 2], [97, 99]])
+        with self.assertRaisesRegex(ValueError, "chronological"):
+            report.contiguous_spans([0, 0])
+
+    def test_action_edit_keeps_slow_drift_and_is_conservative_when_ball_data_missing(self):
+        frames = [dict(phase="setup", all_joints_rad={name: [[i*.00009]*6 for _ in range(35)]
+            for name in ("Arm10", "Arm14")}, all_ball_world_m=[[0., 0., 0.] for _ in range(35)]) for i in range(60)]
+        indices = report.action_frame_indices(frames, context_frames=2)
+        self.assertIn(30, indices)
+        for frame in frames:
+            frame.pop("all_ball_world_m")
+        self.assertEqual(report.action_frame_indices(frames), list(range(60)))
 
 
 class ReadOnlyViewerTests(unittest.TestCase):

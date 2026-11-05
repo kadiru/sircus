@@ -14,6 +14,7 @@ import numpy as np
 
 SCHEMA = "sircus-continuous-pilot-checkpoint-audit-v1"
 LOGP_TOLERANCE = 3e-5
+HOME_PROTOCOL = "canonical-episode-home-reset-before-visible-drive-v1"
 
 
 def require(condition, message):
@@ -89,13 +90,20 @@ def validate_study(study, spec):
             and study.get("assessment_batches") == (2 if study["training_batches"] == 4 else 8)
             and study.get("seed") == 20261112
             and study.get("architecture") == ARCHITECTURE
-            and study.get("policy_version") == POLICY_VERSION,
+            and study.get("policy_version") == POLICY_VERSION
+            and study.get("measurement_hold_s") == 1.75
+            and study.get("home_hold_s") == 6.0
+            and study.get("episode_start") == "Canonical episode reset to original saved home joints before filming, six seconds original hold, then live shot drive; same reset for coverage/train/eval; no endpoint reset",
             "Continuous study plan/policy changed")
     require(study["domain"].get("names") == list(ACTION_NAMES)
             and study["domain"].get("low") == LOW.tolist()
             and study["domain"].get("high") == HIGH.tolist()
             and study["domain"].get("reference_xy_m") == [.67,-.10],
             "Physical continuous action domain changed")
+    expected_filmed = (list(range(4)) if study["training_batches"] == 4 else
+                       list(range(4))+list(range(16,20))+list(range(32,36))+list(range(60,64)))
+    require(study.get("filmed_training_batches") == expected_filmed,
+            "Prescheduled filmed training batches changed")
     require(study.get("ppo") == dict(lr=.0003, epochs=4, clip=.2, value_coef=.5,
                                      entropy_coef=.005, grad_norm=1.),
             "Continuous PPO hyperparameters changed")
@@ -137,7 +145,7 @@ def verify_checkpoint_chain(run, executed_source=None):
     checkpoint_hashes, trial_hashes, policies = {}, {}, {}
     max_logp_error = 0.0
     training_rows, evaluation_rows = [], {"initial":[],"final":[]}
-    membership, coverage_rows = [], []
+    membership, coverage_rows, home_readbacks = [], [], []
     coverage_batches = study.get("coverage_batches",0)
     require(len(report.get("coverage",[])) == coverage_batches, "Incomplete geometry coverage")
     coverage_plans = []
@@ -197,6 +205,25 @@ def verify_checkpoint_chain(run, executed_source=None):
                 and data.get("deterministic") is (mode == "eval")
                 and data.get("policy_action_used") is (mode != "coverage"),
                 "Training membership or frozen-evaluation protocol changed")
+        home = data.get("home",{})
+        require(home.get("protocol") == HOME_PROTOCOL and home.get("episode_reset") is True
+                and isinstance(home.get("path_eligible"),list)
+                and len(home["path_eligible"]) == 35
+                and home["path_eligible"] == [True]*35
+                and len(home.get("path_checks",[])) == 35
+                and all(check.get("accepted") is use for check,use in zip(home["path_checks"],home["path_eligible"]))
+                and type(home.get("physics_step")) is int
+                and home["physics_step"] <= data.get("release_step",-1),
+                "Common-home path/readback protocol changed")
+        home_arrays = {}
+        for key in ("target_joint_rad","measured_joint_rad","measured_joint_velocity_rad_s"):
+            require(set(home.get(key,{})) == {"Arm10","Arm14"}, "Incomplete home arm readback")
+            home_arrays[key] = np.stack([finite(home[key][name],(35,6),"home "+key)
+                                          for name in ("Arm10","Arm14")])
+        home_readbacks.append(dict(mode=mode,updates=updates,batch=batch,
+                                   eligible=np.asarray(home["path_eligible"],dtype=bool),**home_arrays))
+        for row,use in zip(data["rows"],home["path_eligible"]):
+            require(use or row.get("invalid"), "Blocked common-home path admitted a release")
         actual_obs = finite(data["observations"],(35,5),"policy observations")
         latent = finite(data["latent"],(35,5),"Gaussian action latent")
         normalized = finite(data["actions_normalized"],(35,5),"bounded action")
@@ -287,10 +314,83 @@ def verify_checkpoint_chain(run, executed_source=None):
         train_statistics=statistics(training_rows),
         geometry_coverage_attempts=len(coverage_rows),
         geometry_coverage_excluded_from_optimizer=True,
+        home_comparison=home_comparison(home_readbacks,study["cells"]),
         assessment_statistics={label:{split:statistics([r for r in rows if r["split"] == split])
                                       for split in ("train","validation","test")}
                                for label,rows in evaluation_rows.items()},
         scope="CPU checkpoint/input/likelihood/reward/update-membership audit only; native telemetry rescoring and optimizer arithmetic are separate")
+
+
+def home_comparison(readbacks,cells):
+    """Describe actual common-home repeatability; never drop blocked score rows.
+
+    The canonical reset occurs before visible driven shot setup. Actual joints,
+    targets and velocity are compared across assessments rather than assuming
+    that identical nominal reset commands establish matched measured states.
+    One milliradian is the live drive-readiness tolerance, not physical calibration.
+    """
+    evaluation=[row for row in readbacks if row["mode"] == "eval"]
+    initial=[row for row in evaluation if row["updates"] == 0]
+    final=[row for row in evaluation if row["updates"] != 0]
+    require(initial and len(initial) == len(final), "Incomplete initial/final home comparison")
+    q=np.stack([row["measured_joint_rad"] for row in evaluation])
+    targets=np.stack([row["target_joint_rad"] for row in evaluation])
+    velocity=np.stack([row["measured_joint_velocity_rad_s"] for row in evaluation])
+    initial_q=np.stack([row["measured_joint_rad"] for row in initial])
+    final_q=np.stack([row["measured_joint_rad"] for row in final])
+    eligible=np.stack([row["eligible"] for row in evaluation]).all(axis=0)
+    mean_delta=np.abs(initial_q.mean(axis=0)-final_q.mean(axis=0)).max(axis=(0,2))
+    repeat_range=np.ptp(q,axis=0).max(axis=(0,2))
+    target_range=np.ptp(targets,axis=0).max(axis=(0,2))
+    speed=np.abs(velocity).max(axis=(0,1,3))
+    target_error=np.abs(q-targets).max(axis=(0,1,3))
+    per_cell=[dict(cell_id=cell["id"],split=cell["split"],all_eval_home_paths_eligible=bool(eligible[i]),
+                   initial_final_mean_joint_difference_rad=float(mean_delta[i]),
+                   all_eval_joint_range_rad=float(repeat_range[i]),
+                   commanded_home_target_range_rad=float(target_range[i]),
+                   max_measured_home_speed_rad_s=float(speed[i]),
+                   max_commanded_target_error_rad=float(target_error[i])) for i,cell in enumerate(cells)]
+    per_arm=[]
+    for arm_index,arm in enumerate(("Arm10","Arm14")):
+        variation=np.ptp(q[:,arm_index,:,:],axis=0).max(axis=1)
+        mean_diff=np.abs(initial_q.mean(axis=0)[arm_index]-final_q.mean(axis=0)[arm_index]).max(axis=1)
+        per_arm.append(dict(arm=arm,max_eval_joint_component_range_rad=float(variation.max()),
+            max_initial_final_mean_joint_difference_rad=float(mean_diff.max()),
+            per_cell=[dict(cell_id=cell["id"],all_eval_home_paths_eligible=bool(eligible[i]),
+                           eval_joint_component_range_rad=float(variation[i]),
+                           initial_final_mean_joint_difference_rad=float(mean_diff[i])) for i,cell in enumerate(cells)]))
+    all_q=np.stack([row["measured_joint_rad"] for row in readbacks])
+    all_velocity=np.stack([row["measured_joint_velocity_rad_s"] for row in readbacks])
+    all_range=np.ptp(all_q,axis=0)
+    worst_arm,worst_cell,worst_joint=map(int,np.unravel_index(all_range.argmax(),all_range.shape))
+    joint_series=all_q[:,worst_arm,worst_cell,worst_joint]
+    low_index,high_index=int(joint_series.argmin()),int(joint_series.argmax())
+    all_trials=dict(trials=len(readbacks),
+        max_pairwise_joint_component_difference_rad=float(all_range.max()),
+        max_measured_joint_speed_rad_s=float(np.abs(all_velocity).max()),
+        worst=dict(arm=("Arm10","Arm14")[worst_arm],cell_id=cells[worst_cell]["id"],joint=worst_joint+1,
+                   minimum=dict(mode=readbacks[low_index]["mode"],batch=readbacks[low_index]["batch"],value_rad=float(joint_series[low_index])),
+                   maximum=dict(mode=readbacks[high_index]["mode"],batch=readbacks[high_index]["batch"],value_rad=float(joint_series[high_index]))),
+        per_arm=[dict(arm=arm,max_pairwise_joint_component_difference_rad=float(all_range[a].max()),
+                      per_cell=[dict(cell_id=cell["id"],max_pairwise_joint_component_difference_rad=float(all_range[a,i].max()))
+                                for i,cell in enumerate(cells)]) for a,arm in enumerate(("Arm10","Arm14"))])
+    return dict(protocol=HOME_PROTOCOL,repeats_per_checkpoint=len(initial),
+                reset_before_visible_drive=True,
+                matched_eval_home_states_at_tolerance=bool((repeat_range <= .001).all() and (target_range <= 1e-7).all()),
+                compared_cells=len(cells),all_eval_home_path_eligible_cells=int(eligible.sum()),
+                path_rejected_home_instances=int(sum((~row["eligible"]).sum() for row in evaluation)),
+                max_initial_final_mean_joint_difference_rad=float(mean_delta.max()),
+                max_all_eval_joint_range_rad=float(repeat_range.max()),
+                max_commanded_home_target_range_rad=float(target_range.max()),
+                max_measured_home_speed_rad_s=float(speed.max()),
+                max_commanded_target_error_rad=float(target_error.max()),
+                eligible_only_max_initial_final_mean_joint_difference_rad=float(mean_delta[eligible].max()) if eligible.any() else None,
+                eligible_only_max_all_eval_joint_range_rad=float(repeat_range[eligible].max()) if eligible.any() else None,
+                eligible_only_max_commanded_target_range_rad=float(target_range[eligible].max()) if eligible.any() else None,
+                comparison_tolerance_rad=.001,
+                eligible_cells_with_joint_range_at_most_tolerance=int((eligible & (repeat_range <= .001)).sum()),
+                per_cell=per_cell,per_arm=per_arm,all_trial_home_comparison=all_trials,
+                scope="Canonical simulator episode reset before visible drives. Measured home state repeatability and target consistency are reported separately; retained path flags describe reset eligibility, not a physical home trajectory. No score rows are removed and no physical calibration/collision certificate is implied.")
 
 
 def main():
