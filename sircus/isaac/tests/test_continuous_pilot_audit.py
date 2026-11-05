@@ -68,7 +68,7 @@ class StudyMembershipTests(unittest.TestCase):
 
     def test_resigned_domain_or_budget_changes_are_rejected(self):
         source = bundle()
-        for field,value in (("training_batches",8),("batches_per_update",2),("assessment_batches",3)):
+        for field,value in (("training_batches",8),("batches_per_update",2),("assessment_batches",3),("ik_protocol","unversioned_solver")):
             changed = copy.deepcopy(make_study(source,4)); changed[field] = value
             with self.subTest(field=field),self.assertRaises(ValueError):
                 audit.validate_study(reseal(changed),source["spec"])
@@ -102,7 +102,7 @@ class ContinuousAuditTests(unittest.TestCase):
                 for j,height in enumerate((.3,.35)):
                     action = decode_action(cell,[0,.4,height,.24,np.deg2rad(29)],f"geometry-{cell['id']}-{j}")
                     records.append(dict(cell_id=cell["id"],accepted=True,action=action,ik={}))
-            feasibility = dict(source_fingerprint=source["spec"]["fingerprint"],
+            feasibility = dict(source_fingerprint=source["spec"]["fingerprint"],ik_protocol="full_robust_v2",
                                cells=[dict(cell_id=c["id"]) for c in study["cells"]],records=records)
             feasibility["fingerprint"] = audit.canonical_hash(feasibility)
             write(root/"feasibility.json",feasibility)

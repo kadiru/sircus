@@ -17,7 +17,7 @@ import numpy as np
 from scipy.spatial.transform import Rotation
 from scipy.stats import qmc
 
-from continuous_feasibility import (VERSION, LOW, HIGH, ACTION_NAMES,
+from continuous_feasibility import (VERSION, LOW, HIGH, ACTION_NAMES, IK_PROTOCOLS,
     approximate_clearance, canonical_hash, geometry_check, split_for_index)
 from expanded_pose_menu import endpoint_targets, outer_bounds
 from prepare_assets import chain, fk
@@ -68,6 +68,12 @@ def audit(run, producer, assets):
         require(canonical_hash({k:v for k,v in payload.items() if k!="fingerprint"}) == payload.get("fingerprint"), f"Changed {name} fingerprint")
     require(spec["version"]==VERSION and result["schema"]=="sircus-continuous-feasibility-result-v1","Unknown feasibility protocol")
     require(result["spec_fingerprint"]==spec["fingerprint"] and result["source_fingerprint"]==spec["source_fingerprint"],"Feasibility source identity changed")
+    protocol=spec.get("ik_protocol","bounded_two_start40")
+    require(protocol in IK_PROTOCOLS,"Unknown feasibility IK protocol")
+    if "ik_protocol" in spec:
+        require(spec.get("ik_budget")==IK_PROTOCOLS[protocol],"Changed feasibility solver budget")
+    if "ik_protocol" in result:
+        require(result["ik_protocol"]==protocol,"Changed result solver identity")
     require(spec["action_low"]==LOW.tolist() and spec["action_high"]==HIGH.tolist() and spec["action_names"]==list(ACTION_NAMES),"Feasibility domain changed")
     require(provenance["cuda_visible_devices"]=="" and provenance["samples_per_cell"]==spec["samples_per_cell"],"CPU survey provenance changed")
     for name,sha in provenance["source_sha256"].items():
@@ -131,7 +137,7 @@ def audit(run, producer, assets):
     require(accepted==result["qualified"],"Changed qualified total")
     return dict(schema=SCHEMA,status="passed",requests=35*n,qualified=accepted,independently_checked_solved_endpoints=solved,
                 cells_with_qualified=sum(c["qualified"]>0 for c in result["cells"]),reasons=dict(reasons),
-                spec_fingerprint=spec["fingerprint"],result_fingerprint=result["fingerprint"],
+                ik_protocol=protocol,spec_fingerprint=spec["fingerprint"],result_fingerprint=result["fingerprint"],
                 contract_sha256=digest(run/"contract.json"),feasibility_sha256=digest(run/"feasibility.json"),
                 producer_provenance_sha256=digest(run/"run-provenance.json"),producer_module_sha256=provenance["source_sha256"]["continuous_feasibility.py"],
                 scope="All sampled requests, immutable producer/assets, decoded actions, FK residuals, geometric/proxy admission and denominators verified. No IK search rerun, native settling or collision-path certificate.")

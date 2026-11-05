@@ -49,6 +49,9 @@ def make_study(bundle, batches=64):
                  evaluation="Frozen deterministic direct inference, repeated native trials; identical repeats measure numerical repeatability, not independent layout generalization",
                  setup="Canonical episode home reset before visible setup; live scripted articulation drive to chosen shot; no endpoint reset; coarse swept proxy and final measured settlement gates",
                  measurement_hold_s=1.75,
+                 measurement_window_s=.25,
+                 ik_protocol="full_robust_v2",
+                 ik_scope="Unchanged robust_ik.py v2 with strict and deterministic multistarts; action unchanged, independent FK verification, failures retained",
                  episode_start="Canonical episode reset to original saved home joints before filming, six seconds original hold, then live shot drive; same reset for coverage/train/eval; no endpoint reset",
                  home_hold_s=6.0,
                  motion_scope="Self collision disabled in source asset; coarse path proxy is not collision certification; initialized ball release, no grasp/path learning",
@@ -81,7 +84,9 @@ class ContinuousShots:
         from feasibility_runtime import FeasibilityShots
         from expanded_pose_menu import endpoint_targets
         from continuous_feasibility import approximate_path_check
+        from robust_ik import solve
 
+        self.board_pose_reads = 0
         eligible, qualifications = [], []
         self.path_reasons = [None] * self.n
         self.path_checks = [None] * self.n
@@ -98,7 +103,7 @@ class ContinuousShots:
                      for name, arm in self.arms.items()}
             if self.trial_mode == "coverage" and self.coverage_fits[i] is not None:
                 seeds = {n: self.coverage_fits[i][n]["q"] for n in self.arms}
-            fit = qualify_action(self.cfg, self.base_cells[i], action, self.continuous_links, seeds)
+            fit = qualify_action(self.cfg, self.base_cells[i], action, self.continuous_links, seeds, solver=solve)
             qualifications.append(fit)
             if fit["accepted"]:
                 targets = endpoint_targets(self.cfg, self.base_cells[i], action)
@@ -184,14 +189,14 @@ class ContinuousShots:
         self.assert_buckets_fixed()
 
     def _ik(self, target, name, seed=None):
-        from continuous_feasibility import bounded_solve
+        from robust_ik import solve
         from expanded_pose_native import verified_fit
         key = (name, tuple(target.ravel()))
         if seed is None and key in self.ik_cache:
             return self.ik_cache[key]
         if seed is None:
             seed = self.poses["board_joint_rad" if name == "Arm14" else "dropper_joint_rad"]
-        fit = bounded_solve(target, self.continuous_links[name], seed, name == "Arm14")
+        fit = solve(target, self.continuous_links[name], seed, name == "Arm14")
         if fit["solved"]:
             verified_fit(target, fit, self.continuous_links[name], name == "Arm14")
         return fit
@@ -201,11 +206,13 @@ class ContinuousShots:
 
         # The endpoint-initialized historical task did not include large driven
         # transitions. Allow the restored original hold drives to dissipate
-        # motion before EACH unchanged stability/position test. No velocity or
+        # motion before each stability window starts. No velocity or
         # pose is overwritten, and no acceptance threshold is relaxed.
         if self.capture_trial and self.phase == "setup":
-            for _ in range(round(1.75/self.dt)):
-                self.tick()
+            if self.board_pose_reads % 2 == 0:
+                for _ in range(round(1.75/self.dt)):
+                    self.tick()
+            self.board_pose_reads += 1
         return ParallelShots.board_poses(self)
 
     def tick(self):
