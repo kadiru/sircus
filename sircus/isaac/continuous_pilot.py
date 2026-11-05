@@ -229,6 +229,7 @@ def run_study(env, bundle, batches=64, feasibility_path=None):
     study["fingerprint"] = canonical_hash({k:v for k,v in study.items() if k != "fingerprint"})
     atomic(env.dest/"study.json", study)
     env.study = study
+    env.focus = FOCUS
     env.active_mask = np.ones(35, dtype=bool)
     from prepare_assets import chain
     env.continuous_links = {name: chain(ET.parse(Path(env.args.assets)/filename).getroot())
