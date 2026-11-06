@@ -1,0 +1,19 @@
+#policy64Diagnosis{min-width:0;max-width:100%;overflow-wrap:anywhere;margin-top:28px;padding-top:24px;border-top:1px solid #d5ded0;scroll-margin-top:24px;color:#183f3e}
+#policy64Diagnosis[hidden]{display:none}
+#policy64Diagnosis h2{font-size:23px;line-height:1.22;margin:8px 0 14px}
+#policy64Diagnosis h3{font-size:14px;margin:25px 0 10px}
+#policy64Diagnosis .policy64-diagnosis-eyebrow{font-size:10px;letter-spacing:2px;font-weight:750;color:#128b8c}
+#policy64Diagnosis .policy64-diagnosis-small{font-size:11px;line-height:1.6;color:#617d72}
+#policy64Diagnosis .policy64-diagnosis-status{font-size:12px;line-height:1.6}
+#policy64Diagnosis .policy64-diagnosis-note{font-size:11px;line-height:1.65;background:#e8eee4;border-left:3px solid #92b6a5;padding:10px 13px;border-radius:3px;margin-top:12px}
+#policy64Diagnosis [data-state="failed"]{background:#f5e8dc;border-left-color:#ec7657}
+#policy64Diagnosis [data-state="passed"]{background:#e0eee5;border-left-color:#128b8c}
+#policy64Diagnosis [data-state="capture-only"]{background:#f4eedb;border-left-color:#b88a30}
+#policy64Diagnosis .policy64-diagnosis-scroll{max-width:100%;overflow-x:auto;margin-top:12px}
+#policy64Diagnosis table{width:100%;border-collapse:collapse;font-size:11px;font-variant-numeric:tabular-nums;text-align:right}
+#policy64Diagnosis th{font-size:10px;font-weight:650;color:#617d72;padding:8px 6px;border-bottom:1px solid #c9d5ca;white-space:normal}
+#policy64Diagnosis td{padding:10px 6px;border-bottom:1px solid #d5ded0;white-space:nowrap}
+#policy64Diagnosis th:first-child,#policy64Diagnosis td:first-child{text-align:left;white-space:normal;min-width:115px;max-width:220px}
+#policy64Diagnosis select{font:inherit;max-width:100%;margin:5px 0}
+#policy64Diagnosis canvas{display:block;width:100%;height:auto;margin-top:12px;border:1px solid #d5ded0;border-radius:6px;background:#edf0e7}
+@media(max-width:600px){#policy64Diagnosis h2{font-size:20px}}

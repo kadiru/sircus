@@ -1,0 +1,39 @@
+<!-- Additive read-only fragment before #policy64Study; preserve original results. -->
+<!--POLICY64_DIAGNOSIS_STYLE-->
+<section id="policy64Diagnosis" hidden>
+  <p class="policy64-diagnosis-eyebrow">PAIRED BC / PPO DIAGNOSIS · FIXED 64 SUBSTEPS</p>
+  <h2>Separate setup rejection from a missed flight.</h2>
+  <p data-policy64-diagnosis="connection" class="policy64-diagnosis-small" role="status">Waiting for a read-only snapshot.</p>
+  <p data-policy64-diagnosis="status" class="policy64-diagnosis-status"></p>
+  <p data-policy64-diagnosis="source" class="policy64-diagnosis-note"></p>
+  <p data-policy64-diagnosis="result" class="policy64-diagnosis-note" data-state="unknown"></p>
+  <div data-policy64-diagnosis="counts" class="policy64-diagnosis-scroll" role="region" aria-label="Original paired TEST outcome totals" tabindex="0"></div>
+  <div data-policy64-diagnosis="transitions" class="policy64-diagnosis-scroll" role="region" aria-label="BC to selected PPO outcome transitions" tabindex="0"></div>
+  <p class="policy64-diagnosis-small">These are the original 50 paired TEST layouts. Every setup rejection remains counted. A rejected setup has no ball flight; a native miss had a simulated release. Clean capture is a separate subset. Outcome differences are descriptive for one seed and one nominal shot per position, not causal proof or a reliability estimate.</p>
+  <h3>Where the setup checks failed</h3>
+  <div data-policy64-diagnosis="reasons" class="policy64-diagnosis-scroll" role="region" aria-label="Observed setup rejection reasons" tabindex="0"></div>
+  <p class="policy64-diagnosis-small">Finite IK failure means no admitted solution was found within its search budget. It does not prove a pose unreachable. Endpoint clearance or pose checks do not validate full arm transit.</p>
+  <h3>Requested parameter changes · PPO minus BC</h3>
+  <p data-policy64-diagnosis="actor-shift" class="policy64-diagnosis-small"></p>
+  <div data-policy64-diagnosis="deltas" class="policy64-diagnosis-scroll" role="region" aria-label="Five requested shot-parameter delta summaries" tabindex="0"></div>
+  <label class="policy64-diagnosis-small">Group <select data-policy64-diagnosis="pair-filter" aria-label="Filter paired layouts"><option value="all">All layouts</option><option value="bc_only">BC capture only</option><option value="ppo_only">PPO capture only</option><option value="both">Both capture</option><option value="neither">Neither captures</option></select></label>
+  <label class="policy64-diagnosis-small">Layout <select data-policy64-diagnosis="pair-select" aria-label="Choose a paired TEST layout"></select></label>
+  <div data-policy64-diagnosis="pair" class="policy64-diagnosis-scroll" role="region" aria-label="Selected paired configuration and outcomes" tabindex="0"></div>
+  <p data-policy64-diagnosis="pair-caption" class="policy64-diagnosis-small"></p>
+  <p data-policy64-diagnosis="optimizer" class="policy64-diagnosis-small"></p>
+  <div data-policy64-diagnosis="hypotheses" class="policy64-diagnosis-scroll" role="region" aria-label="Observed associations and unproven hypotheses" tabindex="0"></div>
+  <h3>Saved native examples · original TEST evidence</h3>
+  <label class="policy64-diagnosis-small">Example <select data-policy64-diagnosis="example-select" aria-label="Choose an original native example"></select></label>
+  <canvas data-policy64-diagnosis="flight" width="820" height="320" role="img" aria-label="Observed paired ball flights in a single explicitly shared projection"></canvas>
+  <p data-policy64-diagnosis="flight-caption" class="policy64-diagnosis-small"></p>
+  <h3>Post-hoc counterfactuals · separate development evidence</h3>
+  <div data-policy64-diagnosis="counterfactuals" class="policy64-diagnosis-scroll" role="region" aria-label="Post-hoc intervention status and evidence" tabindex="0"></div>
+  <p class="policy64-diagnosis-small">Changing one parameter after seeing TEST outcomes is an exploratory intervention. Geometry-only checks do not establish capture. Reused outcomes are bookkeeping, not a new trial. Fresh replays, if present, are separately audited post-hoc development shots; they do not alter the frozen 50-position comparison.</p>
+  <p data-policy64-diagnosis="native-status" class="policy64-diagnosis-note"></p>
+  <div data-policy64-diagnosis="native-comparison" class="policy64-diagnosis-scroll" role="region" aria-label="Separately audited 96-request post-hoc comparison" tabindex="0"></div>
+  <p data-policy64-diagnosis="model" class="policy64-diagnosis-small"></p>
+  <div data-policy64-diagnosis="model-sources" class="policy64-diagnosis-small"></div>
+  <p data-policy64-diagnosis="audit" class="policy64-diagnosis-note"></p>
+  <p class="policy64-diagnosis-small">Privileged geometry and held endpoints only. Earlier 128-substep failures, compatibility guards and original fingerprints remain unchanged. This view performs no training, prediction, flight search, robot control or automatic policy activation.</p>
+</section>
+<!--POLICY64_DIAGNOSIS_SCRIPT-->
