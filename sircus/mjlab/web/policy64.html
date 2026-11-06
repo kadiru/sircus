@@ -20,11 +20,11 @@
   <div data-policy64="comparison" class="policy64-scroll" tabindex="0" role="region" aria-label="Matched prior, nearest-success, BC and PPO test results"></div>
   <p class="policy64-small">Each method gets one nominal shot per test layout. Requested shots include endpoint rejections; native releases and invalid requests remain separate. Capture requires a board bounce, whole-ball entry and one continuous second inside. Rim-assisted captures count; clean captures are a separate subset. Controls and training attempts are not test successes.</p>
   <p class="policy64-small">This is a warm-start ablation, not an equal-training-budget contest: nearest-success and BC share 6,144 historical TRAIN requests; PPO adds 1,024 fresh training requests. The prior uses 17 historical geometric hints. Fresh TEST layouts and per-method shot counts are matched; training exposure is not.</p>
-  <h3>Selected PPO checkpoint · tested positions</h3>
-  <canvas data-policy64="coverage" width="820" height="380" role="img" aria-label="Selected PPO results at the 50 prescribed test bucket positions"></canvas>
+  <h3>Selected BC→PPO checkpoint · tested positions</h3>
+  <canvas data-policy64="coverage" width="820" height="380" role="img" aria-label="Selected BC to PPO checkpoint results at the 50 prescribed test bucket positions"></canvas>
   <p data-policy64="coverage-caption" class="policy64-small"></p>
-  <div data-policy64="coverage-table" class="policy64-scroll" tabindex="0" role="region" aria-label="Per-position selected PPO test outcomes"></div>
-  <p class="policy64-small">Position colors represent the saved trial outcome, not a continuous success map. Untested positions remain unknown. Fifty nominal test layouts do not establish all-table coverage, noise robustness or generalization beyond the evaluated positions.</p>
+  <div data-policy64="coverage-table" class="policy64-scroll" tabindex="0" role="region" aria-label="Per-position selected BC to PPO checkpoint test outcomes"></div>
+  <p class="policy64-small">Prefix 0 is the initial BC policy before fresh PPO updates. Position colors represent the saved trial outcome, not a continuous success map. Untested positions remain unknown. Fifty nominal test layouts do not establish all-table coverage, noise robustness or generalization beyond the evaluated positions.</p>
   <h3>Actual saved native flight</h3>
   <label class="policy64-small">Recorded trial <select data-policy64="trace-select" aria-label="Choose a policy study native trial"></select></label>
   <canvas data-policy64="trace" width="820" height="280" role="img" aria-label="Saved native ball flight toward this trial's bucket"></canvas>

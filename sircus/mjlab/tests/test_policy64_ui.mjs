@@ -35,6 +35,14 @@ test('optional counter columns require at least one valid observed count and nev
  Object.assign(raw.test_comparison[3].counts,{rim_assisted:26,geometry_rejections:1});ui.renderPolicy64(d.root,raw);
  assert.ok(!headers().includes('Observed rim/all'));assert.ok(!headers().includes('Geometry rejects'));assert.equal(d.rows('comparison')[3][5],'0 / 50');assert.equal(d.rows('comparison')[3].length,8);
 });
+test('selected prefix0 is explicitly BC while prefix256 keeps neutral checkpoint labels and sample counts',()=>{
+ const raw=fixture(),d=dom();raw.selected.samples=0;raw.test_comparison[3].samples=0;ui.renderPolicy64(d.root,raw);
+ assert.equal(d.rows('comparison')[3][0],'Selected BC→PPO checkpoint');assert.equal(d.rows('comparison')[3].at(-1),'0');assert.equal(d.get('result').attrs['data-state'],'passed');
+ assert.ok(d.get('result').textContent.includes('prefix 0, initial BC policy'));assert.ok(d.get('artifacts').textContent.includes('prefix 0 is the initial BC policy before fresh PPO updates'));assert.ok(d.get('coverage-caption').textContent.includes('Selected prefix 0 is the initial BC policy'));
+ raw.selected.samples=256;raw.test_comparison[3].samples=256;ui.renderPolicy64(d.root,raw);
+ assert.equal(d.rows('comparison')[3].at(-1),'256');assert.ok(d.get('result').textContent.includes('prefix 256'));assert.ok(d.get('artifacts').textContent.includes('256 fresh training samples'));assert.ok(d.get('coverage-caption').textContent.includes('Selected prefix 256.'));assert.equal(d.get('result').attrs['data-state'],'passed');
+ for(const name of ['result','artifacts','coverage-caption'])assert.ok(!d.get(name).textContent.includes('initial BC policy'));
+});
 test('live curves stay provisional, failures are explicit and zero captures are not a software qualification failure',()=>{
  const d=dom(),raw=fixture();raw.status='running';ui.renderPolicy64(d.root,raw);assert.ok(d.get('result').textContent.includes('provisional'));assert.equal(d.get('result').attrs['data-state'],'unknown');
  raw.status='failed';raw.error='Own finite worker stopped';ui.renderPolicy64(d.root,raw);assert.ok(d.get('status').textContent.includes('Own finite worker stopped'));assert.ok(d.get('result').textContent.includes('failed'));assert.equal(d.get('result').attrs['data-state'],'failed');
@@ -54,7 +62,7 @@ test('trajectory binds supplied bucket and configured action without analytic fl
 });
 test('fragment retains 64-only, privileged geometry, historical128 and unequal-exposure boundaries',()=>{
  const html=readFileSync(new URL('../web/policy64.html',import.meta.url),'utf8'),css=readFileSync(new URL('../web/policy64.css',import.meta.url),'utf8');
- for(const value of ['id="policy64Study"','<!--POLICY64_STYLE-->','<!--POLICY64_SCRIPT-->','historical 128-substep capture failures','warm-start ablation','6,144 historical TRAIN','not an equal-training-budget contest','test inference must not search simulated ball flights','Untested positions remain unknown'])assert.ok(html.includes(value),value);
+ for(const value of ['id="policy64Study"','<!--POLICY64_STYLE-->','<!--POLICY64_SCRIPT-->','historical 128-substep capture failures','warm-start ablation','6,144 historical TRAIN','not an equal-training-budget contest','test inference must not search simulated ball flights','Untested positions remain unknown','Selected BC→PPO checkpoint','Prefix 0 is the initial BC policy before fresh PPO updates'])assert.ok(html.includes(value),value);
  assert.ok(css.includes('overflow-x:auto'));for(const forbidden of ['/api/solve','/api/control','/api/predict','startTraining','activateCheckpoint','</script'])assert.ok(!source.includes(forbidden));
 });
 test('poller GETs every 5 seconds, leaves old report keys untouched and marks stale reads',async()=>{
