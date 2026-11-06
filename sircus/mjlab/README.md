@@ -1,5 +1,11 @@
 # Sircus in mjlab
 
+Latest: [PPO versus imitation diagnosis](POLICY64_DIAGNOSIS.md), with
+[audited paired examples and 96-slot intervention results](../../baselines/mjlab-policy64-diagnosis-20261106/README.md).
+Five of seven lost captures were setup rejections; board-height-only restoration
+recovered all five once. The original two native misses repeated at 64. No new
+training or policy activation. UI: `#policy64Diagnosis`.
+
 Completed [fixed-64 success-bootstrap/PPO study](POLICY64.md): historical TRAIN-only
 successes seeded an actor, followed by 1,024 fresh PPO requests and frozen comparison
 at 50 new bucket positions. [Results and checkpoints](../../baselines/mjlab-policy64-20261105/README.md):

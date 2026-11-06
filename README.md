@@ -1,5 +1,11 @@
 # Sircus — Simple Circus
 
+**Completed PPO diagnosis:** [paired setup/flight evidence and post-hoc interventions](baselines/mjlab-policy64-diagnosis-20261106/README.md).
+Five of seven lost imitation captures became setup rejects. Restoring board height
+recovered all five in one fresh test each; the two native flight losses repeated.
+The 96-slot fixed64 diagnosis passed its independent audit. See `#policy64Diagnosis`
+for exact configurations and recorded flights. No new model or WAM was trained.
+
 **Completed fixed-64 learning study:** [Results and trained checkpoints](baselines/mjlab-policy64-20261105/README.md).
 Historical TRAIN successes bootstrapped imitation, followed by 1,024 fresh PPO
 requests. On 50 new test bucket positions: prior 19 captures, nearest success 18,

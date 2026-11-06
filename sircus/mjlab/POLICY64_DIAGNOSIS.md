@@ -1,5 +1,9 @@
 # Why did PPO underperform imitation?
 
+Completed [results, per-layout deltas and native variant counts](../../baselines/mjlab-policy64-diagnosis-20261106/README.md):
+all 96 slots, 64 native releases, zero physics-invalid releases and 164,270 passed
+independent checks. This protocol and producer were frozen before new outcomes.
+
 This is a post-hoc diagnostic of the completed [fixed64 study](POLICY64.md),
 not another training run. Its original 50 TEST positions now serve as diagnosis
 and development data. Any later tuned model requires newly frozen holdouts.
