@@ -17,7 +17,9 @@ import uuid
 
 from shot_benchmark_report import digest, read, require, safe_path, sha
 
-RECEIPT_SCHEMA = 'sircus-shot-benchmark-video-receipt-v1'
+RECEIPT_SCHEMA = 'sircus-shot-benchmark-video-receipt-v2'
+LEGACY_RECEIPT_SCHEMA = 'sircus-shot-benchmark-video-receipt-v1'
+LEGACY_ENCODER_SHA256 = '860e14dfc3b5740c0cc8483aff73d4b408892f343a80c096df979fa2c788faac'
 
 
 def canonical_sha(value):
@@ -78,9 +80,28 @@ def validate_clip(run, clip, experiment, camera, expected_owner):
         path=safe_path(run,f"frames/{frame['frame']:05d}.jpg");data=path.read_bytes()
         require(hashlib.sha256(data).hexdigest()==digest(frame['jpeg_sha256'],'JPEG SHA'),'Native JPEG bytes changed')
         require(jpeg_dimensions(data)==[1920,1080],'Actual JPEG resolution differs')
-    require(release>0 and setup>0,'A complete chapter requires visible setup and release frames')
+    require(setup>0,'A complete chapter requires visible setup frames')
+    enabled, rows = trial.get('enabled'), trial.get('rows')
+    valid_mask = (isinstance(enabled,list) and isinstance(rows,list) and len(enabled)==len(rows)==35
+                  and all(type(v) is bool for v in enabled) and any(enabled))
+    active = [r for r,use in zip(rows,enabled) if use] if valid_mask else None
+    active_attempts = len(active) if active is not None else None
+    rejected_attempts = sum(bool(r.get('invalid')) for r in active) if active is not None else None
+    release_status = 'release_frames_recorded'
+    if not release:
+        require(valid_mask,'Setup-only chapter requires an explicit nonempty native enabled/row mask')
+        require('physics' in trial and trial['physics'] is None,
+                'Setup-only chapter must explicitly have no physics rollout')
+        require(type(trial.get('score_end_step')) is int and type(trial['release_step']) is int
+                and trial['release_step'] >= 0 and trial['score_end_step'] == trial['release_step'],
+                'Setup-only chapter score clock must not advance after release step')
+        require(all(isinstance(r.get('invalid'),str) and r['invalid'] and r.get('route_success') is False
+                    and r.get('released') is not True for r in active),
+                'Admitted or unverified active trial requires release frames')
+        release_status = 'all_active_requests_rejected'
     return dict(source_clip_sha256=canonical_sha(clip),source_trial_sha256=sha(trial_path),frames=len(frames),
-        release_frames=release,setup_frames=setup,first_frame=ids[0],last_frame=ids[-1],
+        release_frames=release,setup_frames=setup,release_status=release_status,
+        active_attempts=active_attempts,rejected_attempts=rejected_attempts,first_frame=ids[0],last_frame=ids[-1],
         maximum_camera_readback_error_m=maximum_camera_error,
         source_frame_hashes_sha256=canonical_sha([[f['frame'],f['jpeg_sha256']] for f in frames]))
 
@@ -96,10 +117,28 @@ def inspect_movie(path, ffmpeg, ffprobe, *, threads=4):
     return dict(sha256=sha(path),frames=frames,duration_s=duration,fps=fps,decode_verified=True)
 
 
-def caption_for(clip):
+def caption_for(clip, validated=None):
+    detail = ('All '+str(validated['active_attempts'])+' active requests rejected; no ball released. Native setup footage; no improvement claim.'
+              if validated and validated['release_status']=='all_active_requests_rejected' else
+              'Native simulation; scripted joint travel; initialized ball release. No improvement claim.')
     return (f"{clip['method'].upper()} | seed {clip['seed']} | {clip['mode'].upper()} | "
             f"TRAIN attempts before chapter {clip['training_attempts']}\n"
-            'Native simulation; scripted joint travel; initialized ball release. No improvement claim.')
+            + detail)
+
+
+def compatible_receipt(saved, current_binding):
+    """Preserve known native-C exports without rewriting their source identity."""
+    if saved.get('schema') == RECEIPT_SCHEMA:
+        return saved.get('source_binding') == current_binding
+    old = saved.get('source_binding', {})
+    new_fields = {'release_status','active_attempts','rejected_attempts'}
+    legacy_keys = set(current_binding)-new_fields
+    return (saved.get('schema') == LEGACY_RECEIPT_SCHEMA
+            and old.get('encoder_sha256') == LEGACY_ENCODER_SHA256
+            and current_binding['release_frames'] > 0
+            and current_binding['release_status'] == 'release_frames_recorded'
+            and set(old) == legacy_keys
+            and all(old[k] == current_binding[k] for k in legacy_keys if k != 'encoder_sha256'))
 
 
 def font_path():
@@ -157,15 +196,15 @@ def encode_run(run, experiment_file, *, ffmpeg=None, ffprobe=None, threads=4):
             require(not receipt.is_symlink() and not movie.is_symlink() and not caption.is_symlink(), 'Derived chapter files cannot be symlinks')
             if receipt.is_file():
                 saved=read(receipt)
-                require(saved['schema']==RECEIPT_SCHEMA and saved['source_binding']==source_binding,'Existing chapter receipt belongs to different source')
+                require(compatible_receipt(saved,source_binding),'Existing chapter receipt belongs to different source')
                 require(movie.is_file() and not movie.is_symlink() and saved['video']['sha256']==sha(movie),'Existing encoded movie changed')
-                require(caption.is_file() and sha(caption)==saved['caption_sha256'] and caption.read_text()==caption_for(clip),'Existing caption receipt changed')
+                require(caption.is_file() and sha(caption)==saved['caption_sha256'] and caption.read_text()==caption_for(clip,validated),'Existing caption receipt changed')
                 require(saved['video']['decode_verified'] is True and saved['video']['frames']==validated['frames'],'Incomplete existing decode receipt')
                 record=saved['video']
             else:
                 require(not movie.exists(),'Encoded movie without its receipt; inspect interrupted export before retrying')
-                if caption.exists():require(caption.read_text()==caption_for(clip),'Interrupted caption differs')
-                else:caption.write_text(caption_for(clip))
+                if caption.exists():require(caption.read_text()==caption_for(clip,validated),'Interrupted caption differs')
+                else:caption.write_text(caption_for(clip,validated))
                 temporary=media/(stem+'.part-'+uuid.uuid4().hex+'.mp4')
                 vf=("drawbox=x=18:y=16:w=1760:h=90:color=0x17202bcc:t=fill,"
                     f"drawtext=fontfile='{filter_path(font)}':textfile='{filter_path(caption)}':"
@@ -175,7 +214,10 @@ def encode_run(run, experiment_file, *, ffmpeg=None, ffprobe=None, threads=4):
                 require(details['frames']==validated['frames'],'Encoded movie lost or added native frames')
                 require(not movie.exists(),'Concurrent encoded destination appeared')
                 temporary.replace(movie)
-                record=dict(experiment_id=experiment['experiment_id'],experiment_sha256=sha(experiment_file),source_commit=experiment['source']['commit'],file='media/'+movie.name,selection='prescheduled',camera_sha256=clip['camera_sha256'],method=clip['method'],seed=clip['seed'],training_attempts=clip['training_attempts'],label=f"{clip['mode']} batch {clip['batch']} · full native chapter",provenance='Actual prescheduled native simulation; all source frames at normal30fps, no outcome selection/speedup. Scripted joint travel and initialized release are not learned motor control.',**details)
+                withheld = validated['release_status']=='all_active_requests_rejected'
+                label = (f"{clip['mode']} batch {clip['batch']} · all {validated['active_attempts']} active requests rejected · no release" if withheld else f"{clip['mode']} batch {clip['batch']} · full native chapter")
+                provenance = ('Actual prescheduled native setup-only rejection chapter; no ball released. All source frames at normal30fps, no outcome selection/speedup. Scripted joint travel is not learned motor control.' if withheld else 'Actual prescheduled native simulation; all source frames at normal30fps, no outcome selection/speedup. Scripted joint travel and initialized release are not learned motor control.')
+                record=dict(release_status=validated['release_status'],active_attempts=validated['active_attempts'],rejected_attempts=validated['rejected_attempts'],release_frames=validated['release_frames'],experiment_id=experiment['experiment_id'],experiment_sha256=sha(experiment_file),source_commit=experiment['source']['commit'],file='media/'+movie.name,selection='prescheduled',camera_sha256=clip['camera_sha256'],method=clip['method'],seed=clip['seed'],training_attempts=clip['training_attempts'],label=label,provenance=provenance,**details)
                 atomic(receipt,dict(schema=RECEIPT_SCHEMA,source_binding=source_binding,caption_sha256=sha(caption),video=record))
             if i<len(prior):require(record==prior[i],'Existing video-index chapter changed')
             videos.append(record)
