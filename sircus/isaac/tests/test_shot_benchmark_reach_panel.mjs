@@ -27,6 +27,15 @@ const top=all(nodes.get('reachAuditTop')),side=all(nodes.get('reachAuditSide'));
 for(const e of [...top,...side])for(const v of Object.values(e.attributes))assert.doesNotMatch(String(v),/NaN|Infinity/);
 assert.match(nodes.get('reachAuditCaseMetrics').children[0].children[1].children[0].children[3].textContent,/not evaluated/);
 const title='<script>alert("bad")</script>';const inert=structuredClone(fixture);inert.cases[0].label=title;panel.renderReachAudit(inert);assert.ok(nodes.get('reachAuditCaseTitle').textContent.includes(title));assert.ok(!all(nodes.get('reachAuditCaseTitle')).some(e=>e.tag==='script'));
+// Exercise the actual embedded-load/live-refresh lifecycle, not only direct render.
+const payload=JSON.stringify(fixture);document.getElementById('reach-ik-audit-data').textContent=payload;
+panel.loadEmbeddedReachAudit();assert.equal(nodes.get('reachAuditCasePanel').hidden,false);
+const loadedStatus=nodes.get('reachAuditStatus').textContent;
+for(let i=0;i<3;i++){panel.checkEmbeddedReachSource(native);assert.equal(nodes.get('reachAuditStatus').textContent,loadedStatus);assert.equal(nodes.get('reachAuditCasePanel').hidden,false);}
+assert.equal(nodes.get('reach-ik-audit-data').textContent,payload,'Live checks must retain raw snapshot bytes');
+panel.checkEmbeddedReachSource({...native,commit:'0'.repeat(40)});assert.match(nodes.get('reachAuditStatus').textContent,/Audit source mismatch.*differs from live/);assert.equal(nodes.get('reachAuditCasePanel').hidden,true);
+panel.loadEmbeddedReachAudit();panel.checkEmbeddedReachSource(native);assert.equal(nodes.get('reachAuditCasePanel').hidden,false);assert.equal(nodes.get('reachAuditStatus').textContent,loadedStatus);
+nodes.get('reach-ik-audit-data').textContent='{"schema":"broken"}';panel.loadEmbeddedReachAudit();assert.match(nodes.get('reachAuditStatus').textContent,/Audit unavailable/);assert.equal(nodes.get('reachAuditCasePanel').hidden,true);panel.checkEmbeddedReachSource(native);assert.match(nodes.get('reachAuditStatus').textContent,/Audit unavailable/,'Failed load must not retain stale evidence');
 delete globalThis.document;
 const html=fs.readFileSync(new URL('../shot_benchmark.html',import.meta.url),'utf8');for(const id of ['reach-ik-audit','reachAuditStatus','reachAuditBars','reachAuditHeatmap','reachAuditCase','reachAuditTop','reachAuditSide','reachAuditProbe','reach-ik-audit-data'])assert.ok(html.includes(`id="${id}"`));assert.match(html,/in-plane rectangle rotation is not fully constrained/);assert.doesNotMatch(source,/innerHTML|WebSocket|method:\s*['"]POST|XMLHttpRequest/);
 // The bundle builder only writes new staging files; original report/native bytes are not inputs.
