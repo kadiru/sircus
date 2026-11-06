@@ -23,7 +23,7 @@ requires 1,600 attempted training shots, 16 audited updates, the three-method
 comparison, original camera and unchanged scoring identities. It verifies the
 preflight and pilot both actually ran the selected final producer/archive; an
 older producer's measurements cannot be relabeled as a new direct preflight.
-The default producer is `92c09f4`, with its separately pinned source archive.
+The default producer is `40dd24f`, with its separately pinned source archive.
 
 The output retains byte-identical initial/final weights and full signed
 `support.json`. This geometry artifact contains offline anchor configurations,

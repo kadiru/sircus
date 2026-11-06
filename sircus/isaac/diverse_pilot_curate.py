@@ -27,8 +27,8 @@ from diverse_pilot_report import (SCHEMA as COMPARISON_SCHEMA, STUDY_SCHEMA,
     setup_check_receipt, verify_comparison_audit)
 
 SCHEMA = "sircus-diverse-pilot-curation-v1"
-FINAL_PRODUCER = "92c09f40d8399f38a40d47d618385b24b7d1674a"
-FINAL_ARCHIVE = "f60df50edcfe45753945082ba6c1b4ed0b9f2e484c7a4755133b8f463e411795"
+FINAL_PRODUCER = "40dd24ffdfeec0cd521fdfbf409c31c68c69a2d7"
+FINAL_ARCHIVE = "7f2b1fa1daf0da75a26445be940be1c46b2898939eddd25bc89b746f4706f893"
 CAMERA_SHA256 = "a7967c072b8f949318b43a510235d503c81c21e05f433670a0ce92a7af385ede"
 SHA_RE = re.compile(r"[0-9a-f]{64}\Z")
 COMMIT_RE = re.compile(r"[0-9a-f]{40}\Z")
