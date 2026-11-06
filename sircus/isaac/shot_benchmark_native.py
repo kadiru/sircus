@@ -138,9 +138,7 @@ def run_benchmark(env, bundle, plan_path, method, seed, *, smoke=False):
     total_return = 0.; trial_index=0; train_wall=0.
     overhead=dict(proposal_wall_s=0.,update_wall_s=0.,checkpoint_wall_s=0.,
         scope="Measured call wall times; checkpoint time includes TRAIN/initial/milestone artifacts. Already included in training_wall_s when inside a paid TRAIN iteration; do not add twice.")
-    resources = {k:dict(wall_s=0., cpu_s=0., peak_rss_mib=0., peak_gpu_mib=0.,
-        scope="Native episode wall/CPU intervals by filming flag, including home/evidence serialization but excluding learner/proposal/checkpoint calls; evaluation included. RSS process lifetime high-water and sampled whole-device occupied GPU memory, not isolated phase peaks. Full TRAIN iteration timing is separately logged.")
-        for k in ("headless","render")}
+    resources = {k:None for k in ("headless","render")}
     originals = copy.deepcopy(bundle["spec"]["cells"])
     started = time.monotonic()
 
@@ -237,7 +235,11 @@ def run_benchmark(env, bundle, plan_path, method, seed, *, smoke=False):
                 scope="Actual prescheduled native trials, scripted driven setup and initialized release; fixed camera, no outcome selection")
             clip_manifest.append(clip);atomic(env.dest/"clips.json",dict(clips=clip_manifest))
         elapsed=time.monotonic()-begin
-        use=resources["render" if film else "headless"]
+        phase="render" if film else "headless"
+        if resources[phase] is None:
+            resources[phase]=dict(wall_s=0.,cpu_s=0.,peak_rss_mib=0.,peak_gpu_mib=0.,
+                scope="Native episode wall/CPU intervals by filming flag, including home/evidence serialization but excluding learner/proposal/checkpoint calls; evaluation included. RSS process lifetime high-water and sampled whole-device occupied GPU memory, not isolated phase peaks. Full TRAIN iteration timing is separately logged.")
+        use=resources[phase]
         use["wall_s"]+=elapsed;use["cpu_s"]+=time.process_time()-cpu
         use["peak_rss_mib"]=max(use["peak_rss_mib"],resource.getrusage(resource.RUSAGE_SELF).ru_maxrss/1024)
         free,total=torch.cuda.mem_get_info()
