@@ -183,12 +183,18 @@ def audit(run):
     run=Path(run)
     result=json.loads((run/'result.json').read_text());study=json.loads((run/'study.json').read_text());spec=json.loads((run/'contract.json').read_text())
     schema=study.get('schema')
-    require(schema in ('sircus-native-continuous-pilot-v1','sircus-native-feasibility-guided-pilot-v1')
+    require(schema in ('sircus-native-continuous-pilot-v1','sircus-native-feasibility-guided-pilot-v1',
+                       'sircus-native-diverse-settled-pilot-v1')
             and result.get('schema')==schema and result.get('status')=='completed',"Completed continuous native pilot required")
     if schema=='sircus-native-feasibility-guided-pilot-v1':
         # Reuse the same physical scorer only after checking the separate,
         # geometry-conditioned policy/support protocol. Never relabel old runs.
         from feasibility_guided_audit import backend_for_run
+        backend_for_run(run).validate_study(study,spec)
+    if schema=='sircus-native-diverse-settled-pilot-v1':
+        # This opt-in hybrid/controller protocol retains the same physical
+        # scorer and measured release gates. Historical branches stay intact.
+        from diverse_pilot_audit import backend_for_run, verify_settling_history
         backend_for_run(run).validate_study(study,spec)
     study_hash=signed(study,'Study');geometry_hash=signed(spec,'Geometry')
     require(result['study_fingerprint']==study_hash and result['geometry_fingerprint']==study['geometry_fingerprint']==geometry_hash,"Native study/geometry binding changed")
@@ -216,6 +222,8 @@ def audit(run):
             for frame in clip['frames']:
                 verify_camera_frame(frame,result['camera'])
         value=verify_trial(run,trial,spec['scene'],cells,origins,clip)
+        if schema=='sircus-native-diverse-settled-pilot-v1':
+            value['driven_settlement_audit']=verify_settling_history(trial,spec['scene'],cells,study)
         value.update(trial_file=summary['file'],mode=trial['mode'])
         audits.append(value);trial_hashes[summary['file']]=summary['sha256']
     require(set(clips).issubset(trial_hashes),"Unassociated recorded clip")

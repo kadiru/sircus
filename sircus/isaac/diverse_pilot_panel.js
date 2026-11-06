@@ -60,6 +60,12 @@ export function readyForFinalClaim(comparison){
    &&['native','checkpoint','feasibility'].every(a=>comparison.methods[key].audit_status[a]==='passed'));
 }
 
+export function setupCheckSummary(receipt){
+ const r=receipt?.report;
+ if(!r)return null;
+ return `${r.attempts} unchanged prior training requests: ${r.before_admitted} admitted before, ${r.after_admitted} after; ${r.repaired} repaired and ${r.regressions} regressed. ${r.ball_releases} ball releases. This measures setup admission, not capture rate or held-out policy performance.`;
+}
+
 function node(tag,text){const n=document.createElement(tag);if(text!==undefined)n.textContent=text;return n;}
 function table(target,headers,rows){
  target.replaceChildren();const t=node('table'),thead=node('thead'),heading=node('tr');
@@ -87,6 +93,10 @@ function render(report){
  document.getElementById('comparisonScope').textContent=c.scientific_scope;
  document.getElementById('comparisonActionScope').textContent=c.action_scope;
  document.getElementById('comparisonSettling').textContent=JSON.stringify(Object.fromEntries(METHODS.map(key=>[key,c.methods[key].setup_protocol])),null,2);
+ const setupText=setupCheckSummary(c.setup_check);document.getElementById('setupCheck').hidden=!setupText;
+ document.getElementById('setupCheckSummary').textContent=setupText||'';
+ document.getElementById('setupCheckScope').textContent=c.setup_check?.scope||'';
+ document.getElementById('setupCheckReceipt').textContent=c.setup_check?JSON.stringify(c.setup_check,null,2):'';
  const prep=c.geometry_preparation,support=prep.support,usage=c.region_usage,cost=prep.process_resource_receipt?.report;
  const count=support?`${support.retained_region_count} regions at ${support.retained_supported_cells}/35 sites`:'support not attached';
  let resource='';

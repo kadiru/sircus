@@ -14,6 +14,7 @@ PANEL = '''<section id="comparison"><h2>Broad, local and diverse-region PPO</h2>
 <p id="comparisonActionScope" class="note"></p><p id="comparisonScope"></p>
 <h3>Admission and settling failures</h3><div id="comparisonFailures" class="scroll"></div>
 <p class="note">Counts include rejected active attempts. Improved admission alone is not improved capture; a changed setup controller also changes the native experiment.</p>
+<div id="setupCheck" hidden><h3>Fixed-request setup check</h3><p id="setupCheckSummary"></p><p id="setupCheckScope" class="note"></p><details><summary>Compact setup-check receipt</summary><pre id="setupCheckReceipt"></pre></details></div>
 <details><summary>Exact declared setup and settling protocol</summary><pre id="comparisonSettling"></pre></details>
 <h3>Geometry-region diversity</h3><p id="comparisonPreparation"></p><div id="comparisonSupports" class="scroll"></div>
 <p>Ranges below are envelopes over separate local regions. Gaps between regions are not permitted actions, and finite qualification probes do not certify a feasible interior. Sampled requests are not executed motion or successful-shot coverage.</p>

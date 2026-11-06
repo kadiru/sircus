@@ -6,6 +6,8 @@ const row={attempts:40,released:30,rejected:10,captures:8,clean:2,capture_rate:.
 const method=()=>({label:'method',status:'completed',training:row,training_failure_counts:{endpoints_not_settled:10},frozen:Object.fromEntries(['train','validation','test'].map(s=>[s,{initial:row,final:null}])),audit_status:{native:'passed',checkpoint:'passed',feasibility:'passed'}});
 const comparison={status:'in_progress',methods:{broad:method(),guided:method(),diverse:method()},final_policy_difference:{validation:{diverse_minus_broad_percentage_points:null,diverse_minus_guided_percentage_points:null},test:{diverse_minus_broad_percentage_points:null,diverse_minus_guided_percentage_points:null}}};
 assert.equal(panel.frozenRows(comparison).length,18);
+assert.equal(panel.setupCheckSummary(null),null);
+assert.match(panel.setupCheckSummary({report:{attempts:100,before_admitted:20,after_admitted:70,repaired:55,regressions:5,ball_releases:0}}),/100 unchanged.*20 admitted.*70 after.*55 repaired.*5 regressed.*0 ball releases.*not capture rate/);
 assert.equal(panel.frozenRows(comparison)[1][3],'pending');
 assert.match(panel.comparisonSummary(comparison),/denominator.*incomplete.*pending/);
 assert.equal(panel.readyForFinalClaim(comparison),false);
