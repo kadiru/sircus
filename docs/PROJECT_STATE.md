@@ -1,5 +1,22 @@
 # Project state
 
+## Impact-point 650 mm study — preparation, November 5, 2026
+
+- [Frozen protocol](../sircus/mjlab/IMPACT650.md): three exact XY650 source families
+  receive 9 forward × 5 lateral surface-tangent offsets. Their board-arm joints,
+  H/T/G and buckets are fixed; nonzero offsets solve only the dropper endpoint.
+- Nominal ray point P lies on the board center plane. Gap is vertical ball-bottom
+  clearance above P, preserving old releases at zero offset. Native dynamics
+  must use the actual shifted release and matching dropper FK; P is not an
+  observed finite-ball surface contact. Board centers remain 650 mm away, but
+  nominal P-to-bucket horizontal distance varies and is displayed separately.
+- Maximum 189 requests: 135 coarse64 + 24 controls + up to 30 matched64/128
+  nominal verification requests. Rejects remain counted, no hidden resampling.
+  At most one acquired-slot worker-hour; noise and PPO remain deferred.
+- Native results pending. Dedicated source/output namespace and independent
+  offset-aware audit preserve all old evidence. Read-only UI is additive.
+  4070 and Isaac workloads must remain unchanged.
+
 ## Remaining 30° recipes — completed verification, November 5, 2026
 
 - [Frozen protocol](../sircus/mjlab/TILT650.md): five exact previously unverified

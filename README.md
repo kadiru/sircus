@@ -10,6 +10,11 @@ The current goal is a simulation showcase with an interactively placed bucket an
 
 ## Start here
 
+- **Bounded impact-point study:** [protocol and 189-request plan](sircus/mjlab/IMPACT650.md).
+  Three fixed source families, real off-center releases, matched 64/128 checks.
+  Board centers stay 650 mm from buckets; nominal impact flight distance varies.
+  Results pending; maximum 200 requests and one acquired-slot worker-hour.
+
 - **Remaining 30° verification:** [bounded 54-request protocol](sircus/mjlab/TILT650.md).
   [Completed audited results](baselines/mjlab-tilt30-650-20261105/README.md): all five
   exact recipes captured 3/3 at 64 and 0/3 at 128; no recipe qualified. All 54
