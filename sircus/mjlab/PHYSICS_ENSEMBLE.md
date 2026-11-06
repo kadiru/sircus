@@ -1,5 +1,9 @@
 # Offline learned physics ensemble — fixed64 pilot
 
+The [trained checkpoint and independent training-only checks](../../baselines/mjlab-physics-ensemble-20261106/README.md)
+are saved separately. Fresh native comparison remains pending; training loss
+does not establish a held-out capture rate.
+
 This is a small state-based forward model, not a video world-action model or a
 new PPO run. It learns from the authenticated **1,024 current policy64 TRAIN
 requests**: 887 native releases, 615 captures, and 137 setup rejections. Known
@@ -75,3 +79,29 @@ The existing interactive solver and all old result panels remain separate.
 No policy activation, service restart, physical deployment, point-cloud
 perception, grasping, driven arm-transit learning, noise study or 128 convergence
 is included.
+
+## Reproduce or inspect
+
+Use an isolated checkout of frozen producer `fa554312b25827315c6eefe56c19c0de42606b0c`
+and the pinned mjlab Python. Input directories must contain the original
+authenticated policy64 evidence/proof, immutable native source and measured/
+provisional assets. A fresh output directory is mandatory. Required local paths
+are placeholders below; no credentials are needed for this simulation study.
+
+```bash
+CUDA_VISIBLE_DEVICES=GPU-ab1950b0-01dd-0fab-407f-2d17936b27f4 \
+  /path/to/pinned-mjlab-python -m sircus.mjlab.physics_ensemble_pipeline \
+  --parent-study /path/to/policy64-v1 \
+  --parent-audit /path/to/policy64-v1-audit.json \
+  --native-source /path/to/frozen-policy64-source \
+  --assets /path/to/assets \
+  --output /path/to/new-physics-ensemble-study \
+  --gpu-lock /path/to/existing-shared-scene.lock \
+  --display /path/to/existing-interface-report.json \
+  --queue-timeout 86400 --wall-time-limit 7200
+```
+
+The supervisor publishes partial/final snapshots without restarting the existing
+viewer, waits for the GPU and invokes the independent CPU audit after completion.
+The matching static panel must be installed separately. Do not launch a duplicate
+worker against the same output or replace/restart an active study to inspect it.

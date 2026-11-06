@@ -1,10 +1,11 @@
 # Sircus — Simple Circus
 
-**Physics ensemble pilot:** [frozen offline-fit and fresh held-out comparison protocol](sircus/mjlab/PHYSICS_ENSEMBLE.md).
-Five small forward models learn from the current 1,024 TRAIN requests. Saved BC,
-PPO and ensemble-ranked shots will share 60 new TEST bucket positions; all native
-results require the independent audit. The UI separates CPU fitting, waiting for
-the 4090 and actual evaluation. No current model-performance result is claimed.
+**Physics ensemble trained; native comparison pending:** [checkpoint and independently checked fit](baselines/mjlab-physics-ensemble-20261106/README.md).
+Five small forward models fitted the current 1,024 TRAIN requests; independent
+training-only replay passed 126,235 checks. Saved BC, PPO and ensemble-ranked
+shots will share 60 fresh TEST positions. Native work waits for the 4090 without
+interrupting Isaac. The UI separates fitting, preparation/queue and evaluation;
+no held-out capture result or winner is claimed yet.
 
 **Completed PPO diagnosis:** [paired setup/flight evidence and post-hoc interventions](baselines/mjlab-policy64-diagnosis-20261106/README.md).
 Five of seven lost imitation captures became setup rejects. Restoring board height
