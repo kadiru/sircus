@@ -1,10 +1,11 @@
 # Sircus — Simple Circus
 
-**New fixed-64 learning study:** [TRAIN-only success bootstrap → PPO protocol](sircus/mjlab/POLICY64.md).
-The user selected 64 for this simulation-only phase. Reuse audited historical
-TRAIN labels, fit a behavioral-cloning actor, then spend 1,024 fresh PPO requests;
-freeze/select with 12 new validation positions and compare on 50 new test positions.
-No native results yet. Earlier 128 failures remain intact; no physical or convergence claim.
+**Completed fixed-64 learning study:** [Results and trained checkpoints](baselines/mjlab-policy64-20261105/README.md).
+Historical TRAIN successes bootstrapped imitation, followed by 1,024 fresh PPO
+requests. On 50 new test bucket positions: prior 19 captures, nearest success 18,
+imitation 20, selected PPO 18. PPO did not improve capture rate. All 1,284 fresh
+requests passed independent evidence checks; results and native flight examples
+are in the UI's `#policy64Study` panel. Earlier 128 failures remain intact.
 
 **Latest mjlab diagnostic:** the [bounded impact-point study](baselines/mjlab-impact650-20261105/README.md) completed 189 requests / 146 native releases in 9.1 worker-minutes. Five selected settings captured 15/15 at 64 and 0/15 at 128; none qualified. Controls and all 54,829 independent audit checks passed. No new PPO or noise run was started.
 

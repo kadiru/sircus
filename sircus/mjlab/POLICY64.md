@@ -1,5 +1,10 @@
 # Fixed-64 success bootstrap → PPO
 
+Completed results, exact checkpoints and nominal settings are published in the
+[November 5 baseline](../../baselines/mjlab-policy64-20261105/README.md).
+PPO captured 18/50 new test layouts versus imitation's 20/50; it did not improve
+capture rate. The protocol below was frozen before collecting those outcomes.
+
 This study deliberately fixes native physics at **64 substeps**. Earlier
 64/128 disagreements remain published and are not reclassified as reliable
 physics. No 128 convergence or noise requirement is imposed on this new policy.
