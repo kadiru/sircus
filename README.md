@@ -6,6 +6,7 @@ Two UFACTORY850 arms learn to bounce a ball from a suction-mounted board into a 
 
 ## Start here
 
+- [Fresh-layout sweep versus PPO, 10,000 attempts × two methods × three seeds](sircus/isaac/SWEEP_PPO_10K.md) — new pre-external-contact miss feedback, 35-table farm and frozen unseen-position checks. Prepared protocol and tools; results must come from actual native receipts.
 - [Completed diverse-pose settling pilot](sircus/isaac/DIVERSE_SETTLED_PILOT.md) — fixed-request admission improved 48→80/100 with unchanged release guards. The 1,600-attempt PPO study did not improve held-out capture rate; [audited models, comparison and video receipts](baselines/isaac-diverse-settled-pilot-20261105/README.md) preserve the result and earlier baselines.
 - [All 35 farm sites releasing in the expanded PPO study](sircus/isaac/EXPANDED_FARM_POSES.md) — 350/350 releases, 111 qualified captures and 24 native-qualified options per table, from the unchanged selected camera. [Results and evidence](baselines/isaac-expanded-farm-20261102/README.md). A short training pass with scripted transit and privileged inputs; no held-out generalization claim.
 - [Fixed-camera PPO training and action-only editing](sircus/isaac/ACTION_TRAINING_FILM.md) — records every batch of a fresh ten-batch run at the selected angle; keeps setup/drop/outcome while preserving full scoring evidence and explaining parked cells.

@@ -1,5 +1,13 @@
 # Project state
 
+## Fresh-layout sweep/PPO benchmark — November 6, 2026
+
+- [Protocol](../sircus/isaac/SWEEP_PPO_10K.md): 10,000 requested TRAIN shots per method/seed, sweep and PPO, three paired seeds; 60,000 total. All rejects count. Exactly 1,000/2,500/5,000/10,000 milestones, with final-only unseen TEST and no flight search during held-out prediction.
+- The physical simulation remains 35 tables and 70 arms. Frozen new coordinates cover 35 TRAIN, 35 validation and 70 TEST sites, stratified over 7×5 tabletop bins. Actual layout generation passed 25 mm separation against all other split sites and 560 discovered published historical coordinates; it used 379 draws and no IK/outcome filtering. This is not a global unpublished-history novelty claim.
+- A new reward versions informative near/far feedback strictly before the first external contact. Historical scoring, capture labels, materials, original reward, measured driven controller and full-DOF release gates remain unchanged. The generic continuous policy and sweep decoder accept new coordinates without exact-context map lookup or inference-time shot search.
+- CPU/mock implementation and full local regressions passed. The native smoke, Ubuntu Torch checks and all six production runs remain pending at this source checkpoint. New read-only reader defaults to 18797; earlier reports stay frozen. Do not interpret source preparation as completed training or deployment.
+- Native traces use lossless NPZ/gzip JSON; film sources use quality-82 1080p JPEG at the unchanged fixed camera. Bounded 4090-only launchers, a finite method/seed queue, independent audits and incremental CPU video publication are separate from the existing 4070 workload, Viam, hardware, audio and previous readers.
+
 ## Completed diverse-pose settling pilot — November 5–6, 2026
 
 - [Protocol and verified setup](../sircus/isaac/DIVERSE_SETTLED_PILOT.md): direct final producer `40dd24f` admitted 80/100 unchanged prior training requests, versus 48/100 previously; 32 repairs, zero regressions. Independent CPU verification checked 33,950 windows, 43 corrections, original holding gains and the full 8/6-DOF velocity gates. No task releases or PPO updates belong to this setup check.
