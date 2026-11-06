@@ -1,5 +1,11 @@
 # Sircus — Simple Circus
 
+**New fixed-64 learning study:** [TRAIN-only success bootstrap → PPO protocol](sircus/mjlab/POLICY64.md).
+The user selected 64 for this simulation-only phase. Reuse audited historical
+TRAIN labels, fit a behavioral-cloning actor, then spend 1,024 fresh PPO requests;
+freeze/select with 12 new validation positions and compare on 50 new test positions.
+No native results yet. Earlier 128 failures remain intact; no physical or convergence claim.
+
 **Latest mjlab diagnostic:** the [bounded impact-point study](baselines/mjlab-impact650-20261105/README.md) completed 189 requests / 146 native releases in 9.1 worker-minutes. Five selected settings captured 15/15 at 64 and 0/15 at 128; none qualified. Controls and all 54,829 independent audit checks passed. No new PPO or noise run was started.
 
 **Existing policy benchmark, historical definitions:** [completed matched sweep/PPO benchmark](baselines/mjlab-sweep-rl-benchmark-20261103/README.md). Frozen formal test scores are sweep **67/216 (31.0%)**, PPO **58/216 (26.9%)**. The 1 µm wall-overlap rule is contact-sensitive, so these labels do not establish an ordinary capture or adaptation winner. The earlier [35-position planner](baselines/mjlab-grid35-expanded-20261103/README.md) retains 17 selected recipes, 12 unresolved targets and 6 clearance blockers; its historical definitions/results remain unchanged.
