@@ -231,6 +231,7 @@ class SettledTransitShots(ContinuousShots):
             reason=None
             if not self.active_mask[i]:reason="inactive_split"
             elif self.trial_mode!="coverage" and getattr(self,"support_missing",[False]*self.n)[i]:reason="no_geometry_support"
+            elif not self.home_readback["path_eligible"][i]:reason="common_home_path_proxy_rejected"
             if reason:
                 self.qualifications.append(dict(accepted=False,reason=reason));invalid[i]=reason;continue
             actual={n:a.data.joint_pos[i,:6].cpu().numpy().copy() for n,a in self.arms.items()}
@@ -303,4 +304,9 @@ class SettledTransitShots(ContinuousShots):
         self.scoring_normals=normals.copy()
         self.settlement_records=records
         self.assert_buckets_fixed()
+        # Preserve FeasibilityShots' explicit recomputed-distance guard,
+        # including its boundary behavior beyond the parameter-space LOW.
+        for i,cell in enumerate(self.spec["cells"]):
+            if cell["distance_m"] < .28:
+                invalid[i]="board_bucket_separation"
         return np.asarray(releases),normals,records,invalid

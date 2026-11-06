@@ -171,7 +171,8 @@ class FeedbackSelectionTests(unittest.TestCase):
         env = controller.SettledTransitShots(); env.n = 1
         env.active_mask = np.array([True]); env.trial_mode = "train"
         env.arms = {n:Arm() for n in ("Arm10", "Arm14")}
-        env.base_cells = [dict(id="cell")]; env.spec = {"cells":[]}
+        env.base_cells = [dict(id="cell",distance_m=.4)]; env.spec = {"cells":[]}
+        env.home_readback={"path_eligible":[True]}
         env.cfg = dict(arms=dict(base_spacing_m=1.), board=dict(tool_offset_m=.1, mount_yaw_rad=0.))
         env.continuous_links = {n:[] for n in env.arms}; env.ik_cache = {}
         env.approach_endpoints = lambda q: None; env.assert_buckets_fixed = lambda: None
@@ -184,6 +185,32 @@ class FeedbackSelectionTests(unittest.TestCase):
         with mock.patch("feasibility_contract.dynamic_cell", side_effect=lambda c,a:c.copy()), mock.patch("expanded_pose_menu.endpoint_targets", return_value=endpoints), mock.patch("continuous_feasibility.qualify_action", return_value=fit), mock.patch("continuous_feasibility.approximate_path_check", return_value=dict(accepted=True,reasons=[])) as proxy:
             result = env.prepare([{} for _ in range(env.n)])
         return result, proxy
+    def test_blocked_home_skips_ik_and_marks_all_arm_targets_for_actual_pose_holding(self):
+        env=self.env([metric()]);env.home_readback={"path_eligible":[False]}
+        recorded=[]
+        env.approach_endpoints=lambda goals:recorded.append(env.preparation_enabled.copy())
+        endpoints={n:np.eye(4) for n in env.arms}
+        with mock.patch("feasibility_contract.dynamic_cell",side_effect=lambda c,a:c.copy()), mock.patch("expanded_pose_menu.endpoint_targets",return_value=endpoints), mock.patch("continuous_feasibility.qualify_action") as qualify, mock.patch("continuous_feasibility.approximate_path_check") as path:
+            result=env.prepare([{}])
+        self.assertEqual(result[-1],["common_home_path_proxy_rejected"])
+        self.assertEqual(env.qualifications,[dict(accepted=False,reason="common_home_path_proxy_rejected")])
+        self.assertEqual(len(recorded),1)
+        np.testing.assert_array_equal(recorded[0],[False])
+        qualify.assert_not_called();path.assert_not_called();env._ik.assert_not_called()
+
+    def test_final_bucket_separation_uses_recomputed_xy_distance_at_exact_boundary(self):
+        for distance,expected in [(np.nextafter(.28,0.),"board_bucket_separation"),(.28,None)]:
+            with self.subTest(distance=distance):
+                env=self.env([metric()])
+                env.base_cells=[dict(id="cell",bucket_xy_m=[0.,0.],distance_m=.4)]
+                action=dict(board_x_m=float(distance),board_y_m=0.,radius_m=.28)
+                fit=dict(accepted=True,ik={n:dict(q=[.01]*6) for n in env.arms})
+                with mock.patch("expanded_pose_menu.endpoint_targets",return_value={n:np.eye(4) for n in env.arms}), mock.patch("continuous_feasibility.qualify_action",return_value=fit), mock.patch("continuous_feasibility.approximate_path_check",return_value=dict(accepted=True,reasons=[])):
+                    result=env.prepare([action])
+                self.assertEqual(result[-1],[expected])
+                self.assertEqual(env.spec["cells"][0]["distance_m"],distance)
+                self.assertEqual(action["radius_m"],.28)
+
     def test_moving_or_grossly_lagging_arm_does_not_receive_bias_correction(self):
         for m, reason in [(metric(position_error_mm=3.,position_drift_mm=.2), "setup_motion_not_quiet"), (metric(position_error_mm=3., arms={n:dict(position_rad=[0.]*6,target_rad=[.03]*6) for n in ("Arm10","Arm14")}), "setup_transit_incomplete")]:
             with self.subTest(reason=reason):
@@ -191,7 +218,8 @@ class FeedbackSelectionTests(unittest.TestCase):
                 self.assertEqual(result[-1], [reason]); env._ik.assert_not_called()
     def test_pending_motion_recovers_during_other_cells_feedback_without_early_bias(self):
         env=self.env([metric()]);env.n=2;env.active_mask=np.array([True,True])
-        env.base_cells=[dict(id="pending"),dict(id="other")]
+        env.base_cells=[dict(id="pending",distance_m=.4),dict(id="other",distance_m=.4)]
+        env.home_readback={"path_eligible":[True,True]}
         for a in env.arms.values():
             a.data.joint_pos=Array(np.zeros((2,6)))
             a.data.default_joint_pos=Array(np.zeros((2,6)))

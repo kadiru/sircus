@@ -5,10 +5,12 @@ admit the new bounded setup controller while preserving scoring/release limits.
 """
 
 import argparse
+import ast
 import copy
 import hashlib
 import json
 import math
+import tarfile
 from pathlib import Path
 
 import numpy as np
@@ -965,6 +967,173 @@ def audit_setup_check(run, original_run):
         history_audits=history_receipts, scope="Fixed first-four-training-batch setup-only comparison; independent raw request/history/counter checks. No capture measurement, policy training or physical release is claimed. Producer source identity remains separately bound by its launch receipt.")
 
 
+GUARD_PREFLIGHT_COMMIT = "5e0b664a05534d83ceb1948651dfabdd2191ef40"
+GUARD_PREFLIGHT_ARCHIVE_SHA256 = "e5076ff392360946fd2368fa590dc8a25e2eaa4cacd04a5e78c3c3b5f8a6e6ee"
+GUARD_UNCHANGED_FILES = ("continuous_pilot.py", "diverse_pilot.py", "film_cylinder_farm.py", "feasibility_contract.py")
+
+
+def _ast_key(node):
+    return ast.dump(node, include_attributes=False)
+
+
+def _method(tree, class_name, method_name):
+    classes = [node for node in tree.body if isinstance(node, ast.ClassDef) and node.name == class_name]
+    require(len(classes) == 1, "Expected one source class: "+class_name)
+    methods = [node for node in classes[0].body if isinstance(node, ast.FunctionDef) and node.name == method_name]
+    require(len(methods) == 1, "Expected one source method: "+method_name)
+    return methods[0]
+
+
+def verify_guard_only_controller_ast(old_text, new_text):
+    """Accept exactly the two restored guard nodes and no other AST change."""
+    old, new = ast.parse(old_text), ast.parse(new_text)
+    home_guard = ast.parse('if not self.home_readback["path_eligible"][i]:\n reason="common_home_path_proxy_rejected"').body[0]
+    distance_guard = ast.parse('for i,cell in enumerate(self.spec["cells"]):\n if cell["distance_m"] < .28:\n  invalid[i]="board_bucket_separation"').body[0]
+    keys = [_ast_key(home_guard), _ast_key(distance_guard)]
+    require(all(sum(_ast_key(n) == key for n in ast.walk(old)) == 0 for key in keys), "Old controller already contains a claimed new guard")
+    require(all(sum(_ast_key(n) == key for n in ast.walk(new)) == 1 for key in keys), "Expected exactly the two literal restored guards")
+    old_prepare, new_prepare = _method(old, "SettledTransitShots", "prepare"), _method(new, "SettledTransitShots", "prepare")
+    require(len(new_prepare.body) >= 2 and _ast_key(new_prepare.body[-2]) == keys[1]
+        and isinstance(new_prepare.body[-1], ast.Return) and _ast_key(new_prepare.body[-1]) == _ast_key(old_prepare.body[-1]),
+        "Distance guard is not immediately before the unchanged final return")
+    # Assignment/iteration targets have Store context; compare identifiers
+    # explicitly instead of expression contexts when locating the source loop.
+    loops = [node for node in new_prepare.body if isinstance(node, ast.For)
+        and isinstance(node.target, ast.Tuple) and [getattr(x, "id", None) for x in node.target.elts] == ["i", "action"]
+        and _ast_key(node.iter) == _ast_key(ast.parse("enumerate(actions)", mode="eval").body)]
+    require(len(loops) == 1 and sum(_ast_key(n) == keys[0] for n in ast.walk(loops[0])) == 1,
+        "Home-eligibility guard is not in the initial indexed action loop")
+    removed = [0, 0]
+    class Strip(ast.NodeTransformer):
+        def visit_If(self, node):
+            if _ast_key(node) == keys[0]:
+                removed[0] += 1
+                return None
+            return self.generic_visit(node)
+        def visit_For(self, node):
+            if _ast_key(node) == keys[1]:
+                removed[1] += 1
+                return None
+            return self.generic_visit(node)
+    stripped = Strip().visit(copy.deepcopy(new))
+    require(removed == [1, 1] and _ast_key(stripped) == _ast_key(old),
+            "Controller AST differs beyond the two restored guard nodes")
+    return dict(removed_guard_nodes=removed, whole_controller_ast_equal_after_exact_removal=True,
+        old_controller_ast_sha256=hashlib.sha256(_ast_key(old).encode()).hexdigest(),
+        stripped_new_controller_ast_sha256=hashlib.sha256(_ast_key(stripped).encode()).hexdigest())
+
+
+def verify_home_source_invariant(continuous_text, runner_text):
+    """Prove the literal return and assignment order, not an observed new flag."""
+    home = _method(ast.parse(continuous_text), "ContinuousShots", "home")
+    returns = [node for node in ast.walk(home) if isinstance(node, ast.Return)]
+    require(len(returns) == 1 and isinstance(returns[0].value, ast.Call)
+        and isinstance(returns[0].value.func, ast.Name) and returns[0].value.func.id == "dict", "Home return is not the fixed dictionary source invariant")
+    eligible = [keyword.value for keyword in returns[0].value.keywords if keyword.arg == "path_eligible"]
+    require(len(eligible) == 1 and _ast_key(eligible[0]) == _ast_key(ast.parse("[True]*self.n", mode="eval").body),
+            "Home path eligibility is not literal True times workcell count")
+    functions = [node for node in ast.parse(runner_text).body if isinstance(node, ast.FunctionDef) and node.name == "run_setup_check"]
+    require(len(functions) == 1, "Expected one setup-check source function")
+    function = functions[0]
+    home_assignments = [node for node in ast.walk(function) if isinstance(node, ast.Assign)
+        and any(_ast_key(t) == _ast_key(ast.Attribute(value=ast.Name(id="env", ctx=ast.Load()), attr="home_readback", ctx=ast.Store())) for t in node.targets)]
+    require(len(home_assignments) == 1 and _ast_key(home_assignments[0].value) == _ast_key(ast.parse("env.home()", mode="eval").body),
+            "Setup-check home_readback assignment is not the unchanged env.home() call")
+    loops = [node for node in function.body if isinstance(node, ast.For)
+        and isinstance(node.target, ast.Name) and node.target.id == "item"]
+    require(len(loops) == 1, "Setup-check training-request loop changed")
+    loop = loops[0]
+    assignment_index = next((i for i, node in enumerate(loop.body) if node is home_assignments[0]), None)
+    prepare_nodes = [(i, node) for i, node in enumerate(loop.body) if isinstance(node, ast.Assign)
+        and isinstance(node.value, ast.Call) and _ast_key(node.value.func) == _ast_key(ast.parse("env.prepare", mode="eval").body)]
+    require(assignment_index is not None and len(prepare_nodes) == 1 and assignment_index < prepare_nodes[0][0]
+        and _ast_key(prepare_nodes[0][1].value) == _ast_key(ast.parse('env.prepare(old["actions"])', mode="eval").body),
+        "Setup-check home assignment does not precede prepare of the saved request")
+    for node in loop.body[assignment_index+1:prepare_nodes[0][0]]:
+        require(not any(isinstance(child, ast.Attribute) and child.attr == "home_readback" for child in ast.walk(node)),
+                "Setup-check changes home_readback before prepare")
+    return dict(home_return_path_eligible_literal_true_times_n=True, home_readback_assigned_from_home_before_each_prepare=True,
+        basis="Source-invariant home eligibility, not an observed newly added flag")
+
+
+def audit_guard_restoration_applicability(run, old_source, new_source, *, original_run=None, prior_setup_audit=None, old_archive=None):
+    """Bounded inert-guard proof for exactly the already measured 100 requests.
+
+    This is neither a resimulation nor validation of newly proposed actions.
+    Native preflight provenance remains the old 5e0b664 producer throughout.
+    """
+    run, old_source, new_source = Path(run), Path(old_source), Path(new_source)
+    original_run = Path(original_run) if original_run is not None else run.parent/"feasibility-guided-pilot-20261105-v1"
+    prior_setup_audit = Path(prior_setup_audit) if prior_setup_audit is not None else Path(str(run)+"-independent-audit.json")
+    old_archive = Path(old_archive) if old_archive is not None else Path(str(old_source.parents[1])+".tar.gz")
+    require(old_archive.is_file() and digest(old_archive) == GUARD_PREFLIGHT_ARCHIVE_SHA256,
+            "Old preflight source archive identity changed")
+    filenames = ("settled_transit.py",)+GUARD_UNCHANGED_FILES
+    old_hashes, new_hashes = {}, {}
+    with tarfile.open(old_archive, "r:gz") as archive:
+        members = archive.getmembers()
+        for name in filenames:
+            old_file, new_file = old_source/name, new_source/name
+            require(old_file.is_file() and new_file.is_file() and not old_file.is_symlink() and not new_file.is_symlink(),
+                    "Missing or linked guard-proof source file")
+            selected = [m for m in members if m.isfile() and m.name.endswith("sircus/isaac/"+name)]
+            require(len(selected) == 1, "Old source archive member missing or ambiguous: "+name)
+            data = archive.extractfile(selected[0]).read()
+            require(data == old_file.read_bytes(), "Old source snapshot differs from pinned archive: "+name)
+            old_hashes[name], new_hashes[name] = digest(old_file), digest(new_file)
+    require(all(old_hashes[name] == new_hashes[name] for name in GUARD_UNCHANGED_FILES),
+            "Runtime/source geometry files changed beyond restored guards")
+    ast_receipt = verify_guard_only_controller_ast((old_source/"settled_transit.py").read_text(),
+                                                 (new_source/"settled_transit.py").read_text())
+    invariant = verify_home_source_invariant((new_source/"continuous_pilot.py").read_text(), (new_source/"diverse_pilot.py").read_text())
+    launch_path, status_path = Path(str(run)+".launch.json"), Path(str(run)+".supervisor.json")
+    require(launch_path.is_file() and status_path.is_file(), "Missing measured preflight launch/exit receipt")
+    launch, status = read(launch_path), read(status_path)
+    require(launch.get("source_commit") == status.get("source_commit") == GUARD_PREFLIGHT_COMMIT
+        and status.get("status") == "completed" and status.get("returncode") == 0,
+        "Guard applicability requires completed 5e preflight provenance")
+    integrity = launch.get("integrity", {})
+    require(integrity.get("archive_sha256") == GUARD_PREFLIGHT_ARCHIVE_SHA256
+        and all(integrity.get("source_members_sha256", {}).get("sircus/isaac/"+name) == sha for name, sha in old_hashes.items()),
+        "Measured preflight launch does not bind the pinned source archive members")
+    measured = audit_setup_check(run, original_run)
+    require(prior_setup_audit.is_file() and not prior_setup_audit.is_symlink(), "Missing prior independent V5 setup audit")
+    prior = read(prior_setup_audit)
+    require(prior.get("schema") == "sircus-fixed-request-setup-audit-v1" and prior.get("status") == "passed"
+        and all(prior.get(key) == measured.get(key) for key in ("source_setup_sha256", "source_raw_sha256", "source_result_sha256",
+            "geometry_fingerprint", "checked_attempts", "ball_releases", "source_trial_sha256", "before_admitted", "after_admitted", "repaired", "regressions")),
+        "Prior independent preflight audit does not bind these measured requests")
+    spec = read(evidence_file(original_run, "contract.json"))
+    raw = read(evidence_file(run, "setup-check-raw.json"))
+    require(len(spec["cells"]) == 35, "Guard proof requires measured 35-cell setup")
+    geometry_tree = ast.parse((new_source/"feasibility_contract.py").read_text())
+    definitions = [n for n in geometry_tree.body if isinstance(n, ast.FunctionDef) and n.name == "dynamic_cell"]
+    require(len(definitions) == 1, "Expected one real dynamic_cell source function")
+    namespace = dict(copy=copy, math=math)
+    exec(compile(ast.Module(body=[copy.deepcopy(definitions[0])], type_ignores=[]), str(new_source/"feasibility_contract.py"), "exec"), namespace)
+    dynamic_cell = namespace["dynamic_cell"]
+    distances = []
+    for batch, record in enumerate(raw["records"]):
+        require(len(record["actions"]) == len(record["enabled"]) == 35, "Guard proof workcell count changed")
+        for i, use in enumerate(record["enabled"]):
+            if use:
+                cell = dynamic_cell(spec["cells"][i], record["actions"][i])
+                distance = cell["distance_m"]
+                require(math.isfinite(distance) and distance >= .28, "Restored recomputed-distance guard changes a measured request")
+                distances.append(dict(batch=batch, cell_id=spec["cells"][i]["id"], recomputed_distance_m=distance))
+    require(len(distances) == 100, "Guard proof must cover all 100 active measured requests")
+    return dict(schema="sircus-setup-guard-restoration-applicability-v1", status="passed", audit_source_sha256=digest(__file__),
+        measured_preflight_source_commit=GUARD_PREFLIGHT_COMMIT, measured_preflight_source_archive_sha256=GUARD_PREFLIGHT_ARCHIVE_SHA256,
+        measured_setup_sha256=measured["source_setup_sha256"], measured_raw_sha256=measured["source_raw_sha256"],
+        prior_independent_audit_sha256=digest(prior_setup_audit), launch_sha256=digest(launch_path), supervisor_sha256=digest(status_path),
+        source_trial_sha256=measured["source_trial_sha256"], geometry_fingerprint=measured["geometry_fingerprint"],
+        old_source_sha256=old_hashes, new_source_sha256=new_hashes, controller_ast=ast_receipt, home_eligibility=invariant,
+        checked_active_requests=100, observed_workcell_count=35, ball_releases=0, resimulation=False,
+        recomputed_distance_min_m=min(r["recomputed_distance_m"] for r in distances),
+        recomputed_distance_max_m=max(r["recomputed_distance_m"] for r in distances), distances=distances,
+        scope="Bounded source-inertness proof for exactly the previously measured 100 requests. Home eligibility is a SOURCE INVARIANT, not an observed new flag. Preflight remains producer5e; new guards are false on these inputs. No resimulation, new proposal validation, capture measurement or new producer execution is claimed.")
+
+
 def audit(run, executed_source=None, *, first_update_only=False):
     return verify_first_update(run,executed_source) if first_update_only else verify_checkpoint_chain(run, executed_source)
 
@@ -977,6 +1146,10 @@ def main():
     parser.add_argument("--first-update-only", action="store_true")
     parser.add_argument("--setup-check-source", type=Path,
                         help="Audit setup-check files against this frozen prior guided run, without policy/result requirements")
+    parser.add_argument("--guard-source-old", type=Path)
+    parser.add_argument("--guard-source-new", type=Path)
+    parser.add_argument("--prior-setup-audit", type=Path)
+    parser.add_argument("--guard-old-archive", type=Path)
     parser.add_argument("--compare-original", type=Path)
     parser.add_argument("--compare-guided", type=Path)
     args = parser.parse_args()
@@ -986,7 +1159,15 @@ def main():
     require(not args.first_update_only or not args.compare_original, "Partial pilot cannot produce final comparison")
     require(not args.setup_check_source or not (args.first_update_only or args.compare_original or args.compare_guided),
             "Setup-only audit cannot produce policy/full-study comparisons")
-    result = audit_setup_check(args.run, args.setup_check_source) if args.setup_check_source else audit(args.run, args.executed_source, first_update_only=args.first_update_only)
+    require(bool(args.guard_source_old) == bool(args.guard_source_new), "Supply both guard source snapshots")
+    if args.guard_source_old:
+        require(not (args.first_update_only or args.compare_original or args.compare_guided), "Guard applicability proof is separate from policy/full-study audits")
+        result = audit_guard_restoration_applicability(args.run, args.guard_source_old, args.guard_source_new,
+            original_run=args.setup_check_source, prior_setup_audit=args.prior_setup_audit, old_archive=args.guard_old_archive)
+    elif args.setup_check_source:
+        result = audit_setup_check(args.run, args.setup_check_source)
+    else:
+        result = audit(args.run, args.executed_source, first_update_only=args.first_update_only)
     if args.compare_original:
         result["comparison"] = compare_runs(args.compare_original, args.compare_guided, args.run)
     with args.output.open("x") as file:
