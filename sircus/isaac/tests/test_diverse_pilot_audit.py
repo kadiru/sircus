@@ -175,9 +175,10 @@ def settling_fixture():
         m.update(previous_board_center_m=m["board_center_m"], previous_board_normal=m["board_normal"],
                  previous_dropper_flange_m=m["dropper_flange_m"])
         history = [dict(copy.deepcopy(m), measurement_start_step=300+60*j, physics_step=360+60*j) for j in range(7)]
-        actions.append(action); records.append(history); rows.append(dict(invalid=None, settled=history[-1]))
+        actions.append(action); records.append(history); rows.append(dict(invalid=None, settled=history[-1],
+            qualification=dict(accepted=True),path_proxy=dict(accepted=True),path_rejection=None))
     trial = dict(setup_controller=protocol(), settling_history=records, transit_history=transit,
-        correction_history=[], actions=actions, rows=rows, release_step=720)
+        correction_history=[], actions=actions, rows=rows, enabled=[True]*35, release_step=720)
     return trial, spec, dict(settling_protocol=protocol())
 
 
@@ -187,6 +188,8 @@ class SettlingAuditTests(unittest.TestCase):
         value = audit.verify_settling_history(trial, spec["scene"], spec["cells"], study)
         self.assertEqual(value["measured_windows"], 245)
         self.assertTrue(value["original_holding_gains_restored"])
+        self.assertTrue(value['early_exit']['complete_initial_qualification_path_eligibility_logged'])
+        self.assertEqual(value['early_exit']['eligible_cell_stage_checks'],35)
 
     def test_changed_readback_restore_cadence_and_final_admission_fail(self):
         for key in ("restore", "cadence", "pose", "speed", "row"):
@@ -208,6 +211,61 @@ class SettlingAuditTests(unittest.TestCase):
         m["arms"]["Arm10"]["position_rad"][0] = .03
         with self.assertRaisesRegex(ValueError, "unfinished joint transit"):
             audit.verify_settling_history(trial, spec["scene"], spec["cells"], study)
+
+    def test_quiet_but_large_joint_lag_does_not_allow_early_exit(self):
+        trial,spec,study=settling_fixture()
+        # The spatial measurement also lies outside release tolerance; quiet
+        # gross joint lag must therefore wait, not trigger steady-bias feedback.
+        for m in trial['settling_history'][0]:
+            m['board_center_m']=(np.asarray(m['board_center_m'])+[.003,0,0]).tolist()
+            m['previous_board_center_m']=(np.asarray(m['previous_board_center_m'])+[.003,0,0]).tolist()
+            m['position_error_mm']=3.
+            m['arms']['Arm10']['position_rad'][0]=.03
+        trial['rows'][0]['invalid']='endpoints_not_settled'
+        with self.assertRaisesRegex(ValueError,'exited early'):
+            audit.verify_settling_history(trial,spec['scene'],spec['cells'],study)
+
+    def test_feedback_ready_requires_joint_lag_not_only_quiet(self):
+        trial,_,_=settling_fixture();m=copy.deepcopy(trial['settling_history'][0][-1])
+        self.assertTrue(audit.independent_feedback_ready(m))
+        m['arms']['Arm10']['position_rad'][0]=.02001
+        self.assertFalse(audit.independent_feedback_ready(m))
+        m['arms']['Arm10']['position_rad'][0]=.02
+        self.assertTrue(audit.independent_feedback_ready(m))
+
+    def test_global_window_clock_is_common_and_finite(self):
+        trial,spec,study=settling_fixture()
+        trial['settling_history'][1].pop()
+        with self.assertRaisesRegex(ValueError,'Global settling measurement clock'):
+            audit.verify_settling_history(trial,spec['scene'],spec['cells'],study)
+        trial,spec,study=settling_fixture()
+        for i,history in enumerate(trial['settling_history']):
+            last=history[-1]
+            trial['settling_history'][i]=[dict(copy.deepcopy(last),iteration=0,
+                measurement_start_step=300+j*60,physics_step=360+j*60) for j in range(257)]
+            trial['rows'][i]['settled']=trial['settling_history'][i][-1]
+        trial['release_step']=trial['settling_history'][0][-1]['physics_step']
+        with self.assertRaisesRegex(ValueError,'finite bound'):
+            audit.verify_settling_history(trial,spec['scene'],spec['cells'],study)
+
+    def test_prior_correction_failure_is_excluded_from_later_early_exit(self):
+        trial,spec,study=settling_fixture()
+        for i,history in enumerate(trial['settling_history']):
+            extra=[dict(copy.deepcopy(m),iteration=1,measurement_start_step=m['measurement_start_step']+420,
+                        physics_step=m['physics_step']+420) for m in history]
+            history.extend(extra);trial['rows'][i]['settled']=history[-1]
+        for m in trial['settling_history'][0]:
+            m['board_center_m']=(np.asarray(m['board_center_m'])+[.003,0,0]).tolist()
+            m['previous_board_center_m']=(np.asarray(m['previous_board_center_m'])+[.003,0,0]).tolist()
+            m['position_error_mm']=3.
+            if m['iteration']==1: m['arms']['Arm10']['position_rad'][0]=.03
+        before=trial['settling_history'][0][6]
+        trial['rows'][0]['invalid']='settling_correction_ik'
+        trial['correction_history']=[dict(cell_id=spec['cells'][0]['id'],iteration=0,measured=before,
+            arms=['Arm14'],fits={'Arm14':dict(solved=False)},invalid='settling_correction_ik')]
+        trial['release_step']=trial['settling_history'][0][-1]['physics_step']
+        result=audit.verify_settling_history(trial,spec['scene'],spec['cells'],study)
+        self.assertEqual(result['early_exit']['eligible_cell_stage_checks'],69)
 
 
 class SetupCheckAuditTests(unittest.TestCase):
@@ -235,7 +293,9 @@ class SetupCheckAuditTests(unittest.TestCase):
             batches.append(dict(file=name, sha256=sha, mode="train", batch=index))
             invalid = [None if use else "inactive_split" for use in enabled]
             records.append(dict(source_trial=name, source_trial_sha256=sha, actions=trial["actions"], enabled=enabled,
-                invalid=invalid, settling_history=trial["settling_history"], transit_history=trial["transit_history"], correction_history=[]))
+                invalid=invalid, settling_history=trial["settling_history"], transit_history=trial["transit_history"], correction_history=[],
+                qualifications=[dict(accepted=bool(use)) for use in enabled],
+                path_checks=[dict(accepted=True) if use else None for use in enabled], path_reasons=[None]*35))
             for i, use in enumerate(enabled):
                 if use:
                     before.append(rows[i]["invalid"]); after.append(None)
@@ -270,9 +330,11 @@ class SetupCheckAuditTests(unittest.TestCase):
             self.assertEqual(result["ball_releases"], 0)
             self.assertEqual(len(result["history_audits"]), 4)
             self.assertTrue(all("no physical ball release" in h["cutoff_scope"] for h in result["history_audits"]))
+            self.assertTrue(all(h['early_exit']['complete_initial_qualification_path_eligibility_logged']
+                                for h in result['history_audits']))
 
     def test_setup_source_request_order_summary_and_heldout_corruption_rejected(self):
-        for key in ("request", "order", "summary", "heldout", "gain"):
+        for key in ("request", "order", "summary", "heldout", "gain", "eligibility"):
             with self.subTest(key=key), tempfile.TemporaryDirectory() as name:
                 old, new = self.make_setup(Path(name))
                 raw = json.loads((new/"setup-check-raw.json").read_text())
@@ -281,6 +343,7 @@ class SetupCheckAuditTests(unittest.TestCase):
                 elif key == "order": raw["records"][0], raw["records"][1] = raw["records"][1], raw["records"][0]
                 elif key == "summary": summary["repaired"] += 1
                 elif key == "heldout": raw["records"][0]["invalid"][0] = None
+                elif key == 'eligibility': raw['records'][0].pop('qualifications')
                 else: raw["records"][0]["transit_history"][-1]["restored_gains"]["Arm10"]["stiffness"][0][0] += 1
                 (new/"setup-check-raw.json").write_text(json.dumps(raw)); (new/"setup-check.json").write_text(json.dumps(summary))
                 with self.assertRaises(ValueError): self.verify(old, new)

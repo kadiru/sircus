@@ -60,6 +60,7 @@ def run_setup_check(env, bundle, feasibility_path, source):
                 joint_speed_rad_s=settled[i][-1]["joint_speed_rad_s"]))
         records.append(dict(source_trial=item["file"],source_trial_sha256=digest(source/item["file"]),
             actions=old["actions"],enabled=old["enabled"],invalid=invalid,settling_history=settled,
+            qualifications=env.qualifications,path_checks=env.path_checks,path_reasons=env.path_reasons,
             transit_history=env.transit_history,correction_history=env.correction_history))
         atomic(env.dest/"setup-check-progress.json",dict(batches=len(records),before_admitted=before.count(None),after_admitted=after.count(None)))
     summary=dict(schema="sircus-fixed-request-setup-check-v1",status="completed",source_result_sha256=expected,

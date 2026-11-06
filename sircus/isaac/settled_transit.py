@@ -12,7 +12,7 @@ from scipy.spatial.transform import Rotation
 from continuous_pilot import ContinuousShots
 from settling_contract import accepted, correction, pose_errors
 
-VERSION = "sircus-driven-settlement-v3"
+VERSION = "sircus-driven-settlement-v4"
 
 
 def protocol():
@@ -22,6 +22,7 @@ def protocol():
                 gain_restore_ramp_s=1., holding_gains="Original native gains/caps restored before measurement and release",
                 initial_stabilization_max_s=40., correction_stabilization_max_s=8.,
                 total_stabilization_max_s=64., minimum_hold_s=1.75, measurement_window_s=.25,
+                stability_early_exit="After minimum hold, every currently eligible cell is release-ready or quiet with joint lag <=0.02 rad",
                 corrections_max=3, correction_joint_lag_limit_rad=.02,
                 release_position_mm=2., release_normal_deg=.5,
                 release_joint_velocity_rad_s=.005, release_board_drift_mm=.1,
@@ -65,6 +66,12 @@ def quiet(metric):
 
 def release_ready(metric):
     return accepted(metric) and metric["dropper_position_error_mm"] <= 2
+
+
+def feedback_ready(metric):
+    lag=max(abs(p-t) for state in metric["arms"].values()
+            for p,t in zip(state["position_rad"],state["target_rad"]))
+    return quiet(metric) and lag <= .02
 
 
 class SettledTransitShots(ContinuousShots):
@@ -191,7 +198,7 @@ class SettledTransitShots(ContinuousShots):
         maximum=40. if iteration==0 else 8.
         for window in range(round(maximum/.25)):
             metrics,centers,normals=self._measure(board_targets,drop_targets,iteration,records)
-            if (window+1)*.25 >= 1.75 and all(release_ready(metrics[i]) or quiet(metrics[i]) for i in np.flatnonzero(eligible)):
+            if (window+1)*.25 >= 1.75 and all(release_ready(metrics[i]) or feedback_ready(metrics[i]) for i in np.flatnonzero(eligible)):
                 break
         return metrics,centers,normals
 

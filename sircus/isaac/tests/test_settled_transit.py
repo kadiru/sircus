@@ -102,6 +102,29 @@ class GateTests(unittest.TestCase):
         self.assertEqual(spec["initial_stabilization_max_s"],40.)
         self.assertEqual(spec["correction_stabilization_max_s"],8.)
         self.assertEqual(spec["total_stabilization_max_s"],64.)
+    def test_quiet_gross_joint_lag_uses_full_budget_until_feedback_is_eligible(self):
+        env=controller.SettledTransitShots();calls=[]
+        gross=metric(position_error_mm=3.,arms={n:dict(position_rad=[0.]*6,target_rad=[.03]*6) for n in ("Arm10","Arm14")})
+        def unchanged(*args):
+            calls.append(None)
+            return [gross],None,None
+        env._measure=unchanged
+        env._wait_stable(None,None,0,[[]],np.array([True]))
+        self.assertEqual(len(calls),160)
+        calls.clear()
+        env._wait_stable(None,None,1,[[]],np.array([True]))
+        self.assertEqual(len(calls),32)
+        calls.clear()
+        def recovers(*args):
+            calls.append(None)
+            m=gross if len(calls)<20 else metric(position_error_mm=3.)
+            return [m],None,None
+        env._measure=recovers
+        env._wait_stable(None,None,0,[[]],np.array([True]))
+        self.assertEqual(len(calls),20)
+        self.assertTrue(controller.quiet(gross))
+        self.assertFalse(controller.feedback_ready(gross))
+
     def test_setup_does_not_write_endpoint_state_or_reset_articulations(self):
         tree = ast.parse(Path(controller.__file__).read_text())
         cls = next(n for n in tree.body if isinstance(n, ast.ClassDef) and n.name == "SettledTransitShots")
