@@ -39,17 +39,18 @@ function range(regions,axis,scale=1000){
 export function supportRows(support,usage){
  const used=new Map((usage?.cells||[]).map(c=>[c.cell_id,c]));
  return (support?.cells||[]).map(cell=>{
-  const regions=cell.regions||[],observed=used.get(cell.cell_id);
-  const sampled=usage?.status!=='logged'?'not logged':observed?.split!=='train'?'held out':observed.sampled_regions;
-  return [cell.cell_id,cell.status,regions.length,sampled,range(regions,0,180/Math.PI),range(regions,1),
-   range(regions,2),range(regions,3),range(regions,4,180/Math.PI)];
+  const regions=cell.regions||[],locals=regions.filter(r=>r.kind==='local_geometry'),globals=regions.filter(r=>r.kind==='global_exploration'),observed=used.get(cell.cell_id);
+  const sampled=usage?.status!=='logged'?'not logged':observed?.split!=='train'?'held out':observed.sampled_local_regions;
+  const globalAttempts=usage?.status!=='logged'?'not logged':observed?.split!=='train'?'held out':observed.global_exploration_attempts;
+  return [cell.cell_id,cell.status,locals.length,globals.length,sampled,globalAttempts,
+   range(locals,0,180/Math.PI),range(locals,1),range(locals,2),range(locals,3),range(locals,4,180/Math.PI)];
  });
 }
 
 export function regionRows(support){
  return (support?.cells||[]).flatMap(cell=>(cell.regions||[]).map(r=>[
-  cell.cell_id,r.id,...[0,1,2,3,4].map(i=>range([r],i,i===0||i===4?180/Math.PI:1000)),
-  Number.isFinite(r.probe_acceptance)?`${percent(r.probe_acceptance)} sampled${r.qualification_target_met===false?' · below target':''}`:'anchor/probe receipt only'
+  cell.cell_id,r.id,r.kind,...[0,1,2,3,4].map(i=>range([r],i,i===0||i===4?180/Math.PI:1000)),
+  r.kind==='global_exploration'?'GLOBAL DOMAIN UNQUALIFIED · fresh solve and gates required':'Qualified anchor only · local interior unqualified'
  ]));
 }
 
@@ -98,12 +99,12 @@ function render(report){
  document.getElementById('setupCheckScope').textContent=c.setup_check?.scope||'';
  document.getElementById('setupCheckReceipt').textContent=c.setup_check?JSON.stringify(c.setup_check,null,2):'';
  const prep=c.geometry_preparation,support=prep.support,usage=c.region_usage,cost=prep.process_resource_receipt?.report;
- const count=support?`${support.retained_region_count} regions at ${support.retained_supported_cells}/35 sites`:'support not attached';
+ const count=support?`${support.retained_local_region_count} qualified geometry anchors/local boxes plus ${support.retained_global_region_count} UNQUALIFIED global exploration domains at ${support.retained_supported_cells}/35 sites (${support.retained_region_count} total action choices)`:'support not attached';
  let resource='';
  if(cost){const f=value=>Number.isFinite(value)?value.toFixed(2):'unknown';resource=` Resource receipt: ${f(cost.wall_s)} s wall, ${f(cost.user_cpu_s)} s user CPU, ${f(cost.system_cpu_s)} s system CPU; ${Number.isFinite(cost.maximum_resident_set_kib)?(cost.maximum_resident_set_kib/1024).toFixed(1):'unknown'} MiB process peak RSS (not aggregate worker peak; original map cost excluded).`;}
  document.getElementById('comparisonPreparation').textContent=`${prep.cost_scope} Original map: ${prep.original_sobol_requests} requests, ${prep.original_map_admitted} qualified endpoints. New support: ${count}.${resource} ${usage?.scope||'Region-choice usage is not attached.'}`;
- table(document.getElementById('comparisonSupports'),['Cell','Support','Regions','Requested regions sampled in training','Bearing envelope °','Radius envelope mm','Board H envelope mm','Gap envelope mm','Tilt envelope °'],supportRows(support,usage));
- table(document.getElementById('comparisonRegions'),['Cell','Region','Bearing °','Radius mm','Board H mm','Gap mm','Tilt °','Geometry qualification'],regionRows(support));
+ table(document.getElementById('comparisonSupports'),['Cell','Support','Qualified anchors/local boxes','Unqualified global domains','Local regions sampled in training','Global exploration requests','Local bearing envelope °','Local radius envelope mm','Local board H envelope mm','Local gap envelope mm','Local tilt envelope °'],supportRows(support,usage));
+ table(document.getElementById('comparisonRegions'),['Cell','Region','Kind','Bearing °','Radius mm','Board H mm','Gap mm','Tilt °','Qualification boundary'],regionRows(support));
  document.getElementById('comparisonSupport').textContent=JSON.stringify({geometry_preparation:prep,region_usage:usage,inference_scope:c.inference_scope},null,2);
  curves(c);
 }

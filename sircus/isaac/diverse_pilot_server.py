@@ -17,7 +17,7 @@ PANEL = '''<section id="comparison"><h2>Broad, local and diverse-region PPO</h2>
 <div id="setupCheck" hidden><h3>Fixed-request setup check</h3><p id="setupCheckSummary"></p><p id="setupCheckScope" class="note"></p><details><summary>Compact setup-check receipt</summary><pre id="setupCheckReceipt"></pre></details></div>
 <details><summary>Exact declared setup and settling protocol</summary><pre id="comparisonSettling"></pre></details>
 <h3>Geometry-region diversity</h3><p id="comparisonPreparation"></p><div id="comparisonSupports" class="scroll"></div>
-<p>Ranges below are envelopes over separate local regions. Gaps between regions are not permitted actions, and finite qualification probes do not certify a feasible interior. Sampled requests are not executed motion or successful-shot coverage.</p>
+<p>Ranges below describe the local-region envelopes only. Gaps between local regions are not certified feasible. Each supported site also has one explicitly unqualified full-domain exploration choice, preserving the original action bounds. Neither local boxes nor global exploration certify feasible interiors. Sampled requests are not executed motion or successful-shot coverage.</p>
 <details><summary>Individual geometry regions and provenance</summary><div id="comparisonRegions" class="scroll"></div><pre id="comparisonSupport"></pre></details>
 </section>'''
 
@@ -27,7 +27,7 @@ def index_html():
     text=text.replace("Sircus · Continuous shot pilot","Sircus · Diverse-region PPO comparison")
     text=text.replace("A wider shot space. A continuous policy.","More feasible choices. Measured settling.")
     text=text.replace("Two articulated arms choose a bounce point, board height and tilt, and ball-release height. Reachability sampling, learning and frozen evaluation stay separate.",
-        "A hybrid policy chooses a geometry region and continuous shot parameters. Both earlier pilots stay frozen; measured release gates and capture scoring remain unchanged.")
+        "A hybrid policy chooses a local geometry-anchor region or unqualified global exploration, then continuous shot parameters. Both earlier pilots stay frozen; measured release gates and capture scoring remain unchanged.")
     text=text.replace('<div class="metrics" id="metrics">',PANEL+'\n<div class="metrics" id="metrics">')
     return text.replace('</body>','<script type="module" src="/diverse_pilot_panel.js"></script></body>').encode()
 
@@ -36,7 +36,7 @@ def base_script():
     # Label only this served copy; historical readers keep their original bytes.
     text=Path(__file__).with_name("continuous_pilot.js").read_text()
     text=text.replace("report.study?.domain?.decoder==='geometry-conditioned local affine residual-v1'?",
-        "['geometry-conditioned local affine residual-v1','geometry-only region choice + local affine residual-v1'].includes(report.study?.domain?.decoder)?")
+        "['geometry-conditioned local affine residual-v1','geometry-only region choice + affine residual-v2'].includes(report.study?.domain?.decoder)?")
     return text.encode()
 
 

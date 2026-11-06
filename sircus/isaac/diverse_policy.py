@@ -15,12 +15,12 @@ import numpy as np
 
 import continuous_policy as base
 from continuous_feasibility import HIGH, LOW
-from diverse_support import validate_support
+from diverse_support import validate_support, SCHEMA_V1
 
 torch = base.torch
-POLICY_VERSION = "sircus-diverse-hybrid-shot-ppo-v1"
-ARCHITECTURE = dict(
-    version=POLICY_VERSION, observation_dim=5, action_dim=5, latent_dim=6,
+POLICY_VERSION_V1 = "sircus-diverse-hybrid-shot-ppo-v1"
+ARCHITECTURE_V1 = dict(
+    version=POLICY_VERSION_V1, observation_dim=5, action_dim=5, latent_dim=6,
     latent_layout=["categorical_region_index", "bearing_latent", "radius_latent", "height_latent", "gap_latent", "tilt_latent"],
     action_names=list(base.ACTION_NAMES), hidden=[64, 64], activation="tanh",
     actor="Shared geometry-conditioned categorical region scorer and conditional diagonal Gaussian residual actor",
@@ -31,6 +31,11 @@ ARCHITECTURE = dict(
     entropy_coordinates="joint categorical region and normalized residual; not physical shot-volume entropy",
     deterministic="argmax region logits (geometry-prior region ordering breaks ties), then conditional Gaussian mean",
 )
+POLICY_VERSION = "sircus-diverse-hybrid-shot-ppo-v2"
+ARCHITECTURE = dict(copy.deepcopy(ARCHITECTURE_V1), version=POLICY_VERSION,
+    initial_region_distribution="uniform over retained local geometry regions and one unqualified full-domain exploration escape per supported context",
+    physical_decoder="explicit local/global geometry region index plus affine five-dimensional residual box",
+    exploration_scope="All local anchors retained plus original global action domain; global requests are not prequalified and may fail unchanged native gates")
 build_observations = base.build_observations
 weight_hash = base.weight_hash
 
@@ -68,6 +73,8 @@ class DiversePolicy(_Module):
         base._torch()
         super().__init__()
         validate_support(support, cells)
+        self.policy_version = POLICY_VERSION_V1 if support["schema"] == SCHEMA_V1 else POLICY_VERSION
+        self.architecture = copy.deepcopy(ARCHITECTURE_V1 if support["schema"] == SCHEMA_V1 else ARCHITECTURE)
         observations, mask, features = _geometry(support)
         self.support_fingerprint = support["fingerprint"]
         self.register_buffer("context_observations", torch.tensor(observations))
@@ -210,7 +217,7 @@ def checkpoint_payload(policy, optimizer, *, study_fingerprint, geometry_fingerp
                          ("domain", domain_fingerprint), ("support", support_fingerprint)):
         base._sha(value, label)
     base._require(type(seed) is int and 0 <= seed < 2**63, "Invalid hybrid training seed")
-    return dict(policy_version=POLICY_VERSION, architecture=copy.deepcopy(ARCHITECTURE),
+    return dict(policy_version=policy.policy_version, architecture=copy.deepcopy(policy.architecture),
         study_fingerprint=study_fingerprint, geometry_fingerprint=geometry_fingerprint,
         domain_fingerprint=domain_fingerprint, support_fingerprint=support_fingerprint,
         update_count=update_count, attempted_shots=attempted_shots, seed=seed,
@@ -226,8 +233,10 @@ def load_checkpoint(path, *, support, study_fingerprint, geometry_fingerprint,
     base._require(support["fingerprint"] == support_fingerprint
         and support["source_fingerprint"] == geometry_fingerprint, "Diverse checkpoint support/geometry mismatch")
     saved = base._torch().load(Path(path), map_location="cpu", weights_only=True)
-    base._require(isinstance(saved, dict) and saved.get("policy_version") == POLICY_VERSION
-        and saved.get("architecture") == ARCHITECTURE, "Hybrid checkpoint architecture mismatch")
+    expected_version = POLICY_VERSION_V1 if support["schema"] == SCHEMA_V1 else POLICY_VERSION
+    expected_architecture = ARCHITECTURE_V1 if support["schema"] == SCHEMA_V1 else ARCHITECTURE
+    base._require(isinstance(saved, dict) and saved.get("policy_version") == expected_version
+        and saved.get("architecture") == expected_architecture, "Hybrid checkpoint architecture mismatch")
     for key, expected in (("study_fingerprint", study_fingerprint), ("geometry_fingerprint", geometry_fingerprint),
                           ("domain_fingerprint", domain_fingerprint), ("support_fingerprint", support_fingerprint)):
         base._sha(expected, key)

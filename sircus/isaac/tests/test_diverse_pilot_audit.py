@@ -36,10 +36,10 @@ def fixture():
     for row, cell in zip(support["cells"], spec["cells"]):
         row["cell_id"], row["bucket_xy_m"] = cell["id"], cell["bucket_xy_m"]
         row["anchor_checks"] = []
-        row["map_candidates"] = row["region_count"]
+        row["map_candidates"] = row["local_region_count"]
         prior = np.array([0., np.clip(np.linalg.norm(np.array([.67, -.10])-cell["bucket_xy_m"]), .29, 1.19), .35, .24, math.radians(29)])
         pairs = []
-        for region in row["regions"]:
+        for region in row["regions"][:-1] if row["regions"] else []:
             values = np.array([region["anchor_action"][key] for key in ACTION_NAMES])
             region["anchor_action"] = decode_action(cell, values, region["anchor_action"]["id"])
             travel = np.mean([np.square(region["anchor_ik"][name]["q"]).sum() for name in home])
@@ -53,12 +53,20 @@ def fixture():
         pairs.sort(key=lambda r: (r["anchor_score"], r["proposal"]))
         for i, region in enumerate(pairs):
             region["id"] = i
+        row["local_coverage"] = support_module._coverage(pairs)
+        if pairs:
+            first = pairs[0]
+            pairs.append(dict(id=len(pairs), kind="global_exploration", proposal=-1, interior_qualified=False,
+                anchor_action=copy.deepcopy(first["anchor_action"]), anchor_ik=copy.deepcopy(first["anchor_ik"]),
+                low=LOW.tolist(), high=HIGH.tolist(), qualification_scope=support_module.GLOBAL_QUALIFICATION_SCOPE))
         row["regions"] = pairs
         row["coverage"] = support_module._coverage(pairs)
     feasibility = seal(dict(source_fingerprint=spec["fingerprint"], ik_protocol="full_robust_v2",
                             asset_sha256={"poses.json": "a"*64}, records=records))
     support.update(source_fingerprint=spec["fingerprint"], feasibility_fingerprint=feasibility["fingerprint"],
-        canonical_home_joint_rad=home, asset_sha256=feasibility["asset_sha256"], anchor_path_samples=16)
+        canonical_home_joint_rad=home, asset_sha256=feasibility["asset_sha256"], anchor_path_samples=16,
+        coverage=support_module._coverage([r for row in support["cells"] for r in row["regions"]]),
+        local_coverage=support_module._coverage([r for row in support["cells"] for r in row["regions"] if r["kind"]=='local_geometry']))
     seal(support)
     return support, feasibility, spec
 
@@ -72,12 +80,14 @@ class SupportAuditTests(unittest.TestCase):
 
     def test_every_path_qualified_anchor_retained(self):
         value = self.verify()
-        self.assertEqual(value["retained_regions"], 100)
+        self.assertEqual(value["retained_regions"], 134)
+        self.assertEqual(value["local_regions"], 100)
+        self.assertEqual(value["global_regions"], 34)
         self.assertEqual(value["supported_cells"], 34)
         self.assertTrue(value["all_path_qualified_anchors_retained"])
 
     def test_pruned_anchor_rejected_even_with_new_support_fingerprint(self):
-        self.support["cells"][2]["regions"].pop()
+        self.support["cells"][2]["regions"].pop(0)
         self.support["cells"][2]["region_count"] -= 1
         seal(self.support)
         with self.assertRaisesRegex(ValueError, "pruned or duplicated"):
@@ -96,6 +106,16 @@ class SupportAuditTests(unittest.TestCase):
             seal(changed)
             with self.subTest(key=key), self.assertRaisesRegex(ValueError, "region/action/width"):
                 audit.validate_support_evidence(changed, self.map, self.spec)
+
+    def test_global_region_must_preserve_original_bounds_and_never_claim_qualification(self):
+        for key in ('bounds','qualification','anchor'):
+            changed=copy.deepcopy(self.support); region=changed['cells'][2]['regions'][-1]
+            if key=='bounds': region['high'][3]-=.001
+            elif key=='qualification': region['interior_qualified']=True
+            else: region['anchor_ik']['Arm10']['q'][0]+=.1
+            seal(changed)
+            with self.subTest(key=key), self.assertRaisesRegex(ValueError,'escape region'):
+                audit.validate_support_evidence(changed,self.map,self.spec)
 
     def test_independent_selected_region_decode_and_unresolved_dummy(self):
         indices = np.zeros(35, dtype=int); indices[2] = 2

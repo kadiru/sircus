@@ -31,20 +31,49 @@ def fixture():
         regions = []
         for j in range(0 if i == 0 else 1 if i == 1 else 3):
             center = np.array([j*.2, .4+j*.10, .35+j*.04, .24+j*.05, math.radians(29+j*4)])
-            regions.append(dict(id=j, proposal=j, anchor_action=decode_action(cell, center, f"{i}-{j}"),
+            regions.append(dict(id=j, kind="local_geometry", proposal=j, interior_qualified=False,
+                anchor_action=decode_action(cell, center, f"{i}-{j}"),
                 anchor_ik={n: dict(q=[j*.1]*6) for n in ("Arm10", "Arm14")},
                 low=np.maximum(LOW, center-support.HALF_WIDTH).tolist(),
                 high=np.minimum(HIGH, center+support.HALF_WIDTH).tolist()))
+        local_count, local_coverage = len(regions), support._coverage(regions)
+        if regions:
+            regions.append(dict(id=local_count, kind="global_exploration", proposal=-1, interior_qualified=False,
+                anchor_action=copy.deepcopy(regions[0]["anchor_action"]), anchor_ik=copy.deepcopy(regions[0]["anchor_ik"]),
+                low=LOW.tolist(), high=HIGH.tolist(), qualification_scope=support.GLOBAL_QUALIFICATION_SCOPE))
         rows.append(dict(cell_id=cell["id"], cell_index=i, bucket_xy_m=cell["bucket_xy_m"],
             status="supported" if regions else "unresolved", region_count=len(regions),
+            local_region_count=local_count, global_region_count=int(bool(local_count)), local_coverage=local_coverage,
             regions=regions, coverage=support._coverage(regions)))
     all_regions = [r for row in rows for r in row["regions"]]
     value = signed(dict(schema=support.SCHEMA, source_fingerprint="a"*64,
         feasibility_fingerprint="b"*64, policy_geometry_only=True,
         action_names=list(support.ACTION_NAMES), global_low=LOW.tolist(), global_high=HIGH.tolist(),
         fixed_half_width=support.HALF_WIDTH.tolist(), cells=rows, region_count=len(all_regions),
-        supported_cells=34, max_regions_per_cell=3, coverage=support._coverage(all_regions)))
+        supported_cells=34, local_region_count=sum(r['local_region_count'] for r in rows), global_region_count=34,
+        local_coverage=support._coverage([r for r in all_regions if r['kind']=='local_geometry']),
+        max_regions_per_cell=4, coverage=support._coverage(all_regions)))
     return cells, value
+
+
+def legacy_fixture():
+    """Original v1 layout stays loadable under its original typed identity."""
+    cells, value = fixture()
+    value['schema'] = support.SCHEMA_V1
+    for row in value['cells']:
+        if row['regions']:
+            row['regions'].pop()
+        for region in row['regions']:
+            region.pop('kind'); region.pop('interior_qualified')
+        row['region_count'] = len(row['regions'])
+        row['coverage'] = support._coverage(row['regions'])
+        for key in ('local_region_count','global_region_count','local_coverage'):
+            row.pop(key)
+    all_regions = [r for row in value['cells'] for r in row['regions']]
+    value.update(region_count=len(all_regions),max_regions_per_cell=3,coverage=support._coverage(all_regions))
+    for key in ('local_region_count','global_region_count','local_coverage'):
+        value.pop(key)
+    return cells, signed(value)
 
 
 class DiverseSupportTests(unittest.TestCase):
@@ -78,7 +107,7 @@ class DiverseSupportTests(unittest.TestCase):
         changed = dict(cells[2], bucket_xy_m=[.020001, -.2])
         with self.assertRaises(ValueError):
             support.physical_actions(np.zeros((1, 5)), value, [changed], [0])
-        for bad in ([3], [-1], [0.2], [float("nan")], [[0]]):
+        for bad in ([4], [-1], [0.2], [float("nan")], [[0]]):
             with self.subTest(bad=bad), self.assertRaises(ValueError):
                 support.physical_actions(np.zeros((1, 5)), value, cells[2:3], bad)
         for raw in (np.zeros((1, 4)), np.ones((1, 5))*1.01):
@@ -102,8 +131,10 @@ class DiverseSupportTests(unittest.TestCase):
                     fit.update(captures=99999, reward=-99999)
             again = support._cell_support(({}, cell, 0, altered, "unused"))
         self.assertEqual(row, again)
-        self.assertEqual({r["proposal"] for r in row["regions"]}, set(range(4)))
-        self.assertEqual(row["region_count"], 4)
+        self.assertEqual({r["proposal"] for r in row["regions"] if r['kind']=='local_geometry'}, set(range(4)))
+        self.assertEqual(row["region_count"], 5)
+        self.assertEqual(row["local_region_count"], 4)
+        self.assertEqual(row["global_region_count"], 1)
         self.assertTrue(all("reward" not in r and "captures" not in r for r in row["regions"]))
 
     def test_rejected_path_is_evidence_not_region_and_no_probe_shrink(self):
@@ -116,7 +147,8 @@ class DiverseSupportTests(unittest.TestCase):
              patch.object(support, "approximate_path_check", side_effect=[dict(accepted=False), dict(accepted=True)]):
             row = support._cell_support(({}, cell, 0, options, "unused"))
         self.assertEqual(len(row["anchor_checks"]), 2)
-        self.assertEqual(row["region_count"], 1)
+        self.assertEqual(row["region_count"], 2)
+        self.assertEqual(row["local_region_count"], 1)
         self.assertEqual(row["regions"][0]["proposal"], 1)
         center = support._values(options[1]["action"])
         np.testing.assert_array_equal(row["regions"][0]["low"], np.maximum(LOW, center-support.HALF_WIDTH))
@@ -150,6 +182,41 @@ class DiverseSupportTests(unittest.TestCase):
         seeds[0]["Arm10"]["q"][0] = 99
         self.assertEqual(value["cells"][2]["regions"][2]["anchor_ik"]["Arm10"]["q"][0], .2)
 
+    def test_global_escape_preserves_entire_original_domain_without_outcome_labels(self):
+        cells, value = fixture()
+        rng = np.random.default_rng(20261115)
+        physical = np.vstack([LOW, HIGH, LOW+rng.random((100, 5))*(HIGH-LOW)])
+        normalized = 2*(physical-LOW)/(HIGH-LOW)-1
+        contexts = [cells[2]]*len(physical)
+        indices = [value['cells'][2]['region_count']-1]*len(physical)
+        actual = support.physical_actions(normalized, value, contexts, indices)
+        np.testing.assert_allclose(actual, physical, atol=3e-16, rtol=0)
+        region = value['cells'][2]['regions'][-1]
+        self.assertEqual(region['kind'], 'global_exploration')
+        self.assertFalse(region['interior_qualified'])
+        self.assertEqual(region['proposal'], -1)
+        self.assertEqual(region['anchor_ik'], value['cells'][2]['regions'][0]['anchor_ik'])
+
+    def test_global_escape_cannot_be_omitted_or_claimed_qualified(self):
+        cells, value = fixture()
+        for key in ('omitted', 'qualified', 'seed', 'bounds'):
+            changed = copy.deepcopy(value)
+            region = changed['cells'][2]['regions'][-1]
+            if key=='omitted': changed['cells'][2]['regions'].pop()
+            elif key=='qualified': region['interior_qualified']=True
+            elif key=='seed': region['anchor_ik']['Arm10']['q'][0]=9
+            else: region['high'][3]-=.01
+            with self.subTest(key=key), self.assertRaises(ValueError): support.validate_support(signed(changed))
+
+    def test_v1_support_identity_and_decoder_remain_unchanged(self):
+        cells, value = legacy_fixture()
+        support.validate_support(value, cells)
+        self.assertEqual(value['schema'], 'sircus-diverse-shot-support-v1')
+        self.assertEqual(value['region_count'], 100)
+        actual = support.physical_actions(np.zeros((1,5)),value,cells[2:3],[2])
+        region = value['cells'][2]['regions'][2]
+        np.testing.assert_array_equal(actual[0],(np.asarray(region['low'])+region['high'])/2)
+
 
 @unittest.skipIf(old.torch is None, "Configured CPU Torch unavailable")
 class HybridPolicyTests(unittest.TestCase):
@@ -165,9 +232,9 @@ class HybridPolicyTests(unittest.TestCase):
 
     def test_initial_uniform_mask_zero_residual_deterministic_argmax(self):
         regions, residuals, mask = self.policy.distributions(self.obs)
-        self.torch.testing.assert_close(regions.probs[2], self.torch.ones(3)/3)
-        self.torch.testing.assert_close(regions.probs[0], self.torch.tensor([1., 0., 0.]))
-        self.torch.testing.assert_close(regions.probs[1], self.torch.tensor([1., 0., 0.]))
+        self.torch.testing.assert_close(regions.probs[2], self.torch.ones(4)/4)
+        self.torch.testing.assert_close(regions.probs[0], self.torch.tensor([1., 0., 0., 0.]))
+        self.torch.testing.assert_close(regions.probs[1], self.torch.tensor([.5, .5, 0., 0.]))
         self.torch.testing.assert_close(residuals.loc, self.torch.zeros_like(residuals.loc))
         drawn = policy.sample(self.policy, self.obs, deterministic=True)
         self.assertEqual(drawn["latent"].shape, (35, 6))
@@ -254,6 +321,20 @@ class HybridPolicyTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             policy.checkpoint_payload(old.ContinuousPolicy(), None, **self.bindings,
                 update_count=0, attempted_shots=0, seed=2)
+
+    def test_v1_checkpoint_metadata_and_weights_roundtrip_without_relabeling(self):
+        cells, value = legacy_fixture()
+        model = policy.DiversePolicy(value)
+        binding = dict(self.bindings,support_fingerprint=value['fingerprint'])
+        payload = policy.checkpoint_payload(model,None,**binding,update_count=0,attempted_shots=0,seed=2)
+        self.assertEqual(payload['policy_version'],policy.POLICY_VERSION_V1)
+        self.assertEqual(payload['architecture'],policy.ARCHITECTURE_V1)
+        self.assertNotEqual(payload['policy_version'],policy.POLICY_VERSION)
+        with tempfile.TemporaryDirectory() as name:
+            path=Path(name)/'old.pt';self.torch.save(payload,path)
+            loaded,saved=policy.load_checkpoint(path,support=value,**binding)
+            self.assertEqual(policy.weight_hash(loaded),policy.weight_hash(model))
+            self.assertEqual(saved['policy_version'],'sircus-diverse-hybrid-shot-ppo-v1')
 
 
 if __name__ == "__main__":

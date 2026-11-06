@@ -78,21 +78,23 @@ def run_setup_check(env, bundle, feasibility_path, source):
 
 def make_study(bundle, batches, support):
     from diverse_policy import ARCHITECTURE, POLICY_VERSION
-    from diverse_support import validate_support
+    from diverse_support import validate_support, SCHEMA as SUPPORT_SCHEMA
     validate_support(support, bundle["spec"]["cells"])
+    if support["schema"] != SUPPORT_SCHEMA:
+        raise ValueError("New pilot requires v2 local/global support; v1 remains a historical contract")
     if support["source_fingerprint"] != bundle["spec"]["fingerprint"]:
         raise ValueError("Support belongs to a different geometry")
     study = original_study(bundle, batches)
     study.update(schema=SCHEMA, policy_version=POLICY_VERSION, architecture=ARCHITECTURE,
         support_fingerprint=support["fingerprint"],
-        support_scope="Geometry-only union of all path-qualified map anchor regions with fixed residual widths; anchor-only qualification, not certified interiors or successful-shot menus. Empty support remains a rejected attempt.",
+        support_scope="All path-qualified geometry-map anchors with fixed local residual boxes, plus one full original-domain exploration escape per supported context. Only anchors are qualified; every box interior remains unqualified. No successful-shot selection. Empty support remains rejected.",
         inference_scope="Geometry-assisted/transductive use of the known map at held-out coordinates; no capture labels or reward-based search at inference. Not globally unseen position generalization.",
         scope="Single-seed geometry-region hybrid terminal PPO pilot with a new bounded setup controller; privileged known-layout geometry, scripted arm travel and initialized ball release")
     from settled_transit import protocol
     study["settling_protocol"] = protocol()
     study["setup"] = protocol()["scope"]
     study["ik_protocol"] = "full_robust_v2-equivalent-fk-v1"
-    study["domain"].update(decoder="geometry-only region choice + local affine residual-v1", support_fingerprint=support["fingerprint"],
+    study["domain"].update(decoder="geometry-only region choice + affine residual-v2", support_fingerprint=support["fingerprint"],
         residual_bounds=[-1,1], global_bounds_scope="Original physical envelope; actual per-context bounds are in support.json")
     study["domain"]["fingerprint"] = canonical_hash({k:v for k,v in study["domain"].items() if k != "fingerprint"})
     study["fingerprint"] = canonical_hash({k:v for k,v in study.items() if k != "fingerprint"})

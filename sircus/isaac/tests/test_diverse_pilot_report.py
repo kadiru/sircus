@@ -34,10 +34,17 @@ def fixture(kind="diverse"):
 
 def support():
     raw=dict(schema=module.SUPPORT_SCHEMA,policy_geometry_only=True,
+        global_low=[-2,0,0,0,0],global_high=[2,1,1,1,1],
+        local_region_count=2,global_region_count=1,region_count=3,
         cells=[dict(cell_id="c10",status="supported",bucket_xy_m=[1.,0],regions=[
-            dict(id=0,low=[0,.3,.2,.1,.2],high=[.1,.4,.3,.2,.3],
+            dict(id=0,kind="local_geometry",proposal=7,interior_qualified=False,anchor_action={"height_m":.25},
+                 low=[0,.3,.2,.1,.2],high=[.1,.4,.3,.2,.3],
                  anchor_ik={"Arm10":{"q":[.1,.2]}},calibration=[{"private":"probe readback"}]),
-            dict(id=1,low=[1,.6,.4,.3,.4],high=[1.1,.7,.5,.4,.5])],
+            dict(id=1,kind="local_geometry",proposal=11,interior_qualified=False,anchor_action={"height_m":.45},
+                 low=[1,.6,.4,.3,.4],high=[1.1,.7,.5,.4,.5]),
+            dict(id=2,kind="global_exploration",proposal=-1,interior_qualified=False,anchor_action={"height_m":.25},
+                 low=[-2,0,0,0,0],high=[2,1,1,1,1],qualification_scope=module.GLOBAL_QUALIFICATION_SCOPE)],
+            local_region_count=2,global_region_count=1,region_count=3,
             anchor_checks=[{"private":"joint readback"}])])
     raw["fingerprint"]=module.canonical_digest(raw)
     return raw
@@ -137,7 +144,10 @@ class ComparisonTests(unittest.TestCase):
 
     def test_compact_union_preserves_separate_regions_and_binds_omitted_readbacks(self):
         raw=support();value=module.compact_support(raw)
-        self.assertEqual(value["retained_region_count"],2)
+        self.assertEqual(value["retained_region_count"],3)
+        self.assertEqual(value["retained_local_region_count"],2)
+        self.assertEqual(value["retained_global_region_count"],1)
+        self.assertEqual(value["cells"][0]["regions"][2]["qualification_state"],"unqualified_global_exploration")
         self.assertEqual(value["cells"][0]["regions"][1]["low"],[1,.6,.4,.3,.4])
         self.assertIn("source_support_fingerprint",value)
         self.assertEqual(value["cells"][0]["regions"][0]["omitted_fields_sha256"],
@@ -158,6 +168,17 @@ class ComparisonTests(unittest.TestCase):
             raw=support();mutate(raw);raw.pop("fingerprint");raw["fingerprint"]=module.canonical_digest(raw)
             with self.subTest(mutate=mutate),self.assertRaises(ValueError):module.compact_support(raw)
 
+    def test_global_domain_cannot_be_labeled_as_a_qualified_region(self):
+        for mutate in (
+            lambda r:r["cells"][0]["regions"][2].update(kind="local_geometry"),
+            lambda r:r["cells"][0]["regions"][2].update(interior_qualified=True),
+            lambda r:r["cells"][0]["regions"][2].update(qualification_scope="Certified feasible global domain"),
+            lambda r:r["cells"][0]["regions"][2].update(low=[0,0,0,0,0]),
+            lambda r:r.update(local_region_count=3,global_region_count=0),
+        ):
+            raw=support();mutate(raw);raw.pop("fingerprint");raw["fingerprint"]=module.canonical_digest(raw)
+            with self.subTest(mutate=mutate),self.assertRaises(ValueError):module.compact_support(raw)
+
     def test_region_usage_excludes_inactive_heldout_and_coverage_requests(self):
         with tempfile.TemporaryDirectory() as temp:
             root=Path(temp);(root/"trials").mkdir()
@@ -170,7 +191,14 @@ class ComparisonTests(unittest.TestCase):
             value=module.region_usage(root,sup)
             self.assertEqual(value["logged_training_attempts"],1)
             self.assertEqual(value["cells"][0]["attempted_region_counts"],{"1":1})
+            self.assertEqual(value["cells"][0]["sampled_local_regions"],1)
+            self.assertEqual(value["cells"][0]["global_exploration_attempts"],0)
             self.assertEqual(value["cells"][1]["sampled_regions"],0)
+            trial["region_indices"][0]=2
+            (root/"trials/a.json").write_text(json.dumps(trial))
+            global_value=module.region_usage(root,sup)
+            self.assertEqual(global_value["cells"][0]["sampled_local_regions"],0)
+            self.assertEqual(global_value["cells"][0]["global_exploration_attempts"],1)
             trial["region_indices"][0]=999
             (root/"trials/a.json").write_text(json.dumps(trial))
             with self.assertRaisesRegex(ValueError,"Unknown requested"):module.region_usage(root,sup)
@@ -182,9 +210,10 @@ class ComparisonTests(unittest.TestCase):
         self.assertIn("/diverse_pilot_panel.js",html)
         self.assertIn("/settings.csv",html)
         self.assertNotIn("/api/physical",html)
-        self.assertIn("Gaps between regions are not permitted",html)
+        self.assertIn("Gaps between local regions are not certified feasible",html)
+        self.assertIn("unqualified full-domain exploration",html)
         served=server.base_script().decode()
-        self.assertIn("geometry-only region choice + local affine residual-v1",served)
+        self.assertIn("geometry-only region choice + affine residual-v2",served)
         self.assertIn("'Global outer domain'",served)
 
 

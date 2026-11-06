@@ -6,6 +6,7 @@ admit the new bounded setup controller while preserving scoring/release limits.
 
 import argparse
 import copy
+import hashlib
 import json
 import math
 from pathlib import Path
@@ -18,7 +19,8 @@ from continuous_pilot_audit import (require, read, digest, canonical_hash, signe
 
 SCHEMA = "sircus-diverse-settled-checkpoint-audit-v1"
 STUDY_SCHEMA = "sircus-native-diverse-settled-pilot-v1"
-DECODER = "geometry-only region choice + local affine residual-v1"
+DECODER_V1 = "geometry-only region choice + local affine residual-v1"
+DECODER = "geometry-only region choice + affine residual-v2"
 SCORING_FILES = ("rl_contract.py", "board_route.py", "entry_quality.py", "farm_contract.py", "settling_contract.py")
 
 
@@ -34,7 +36,8 @@ def validate_support_evidence(support, feasibility, spec):
     signed(feasibility, "Geometry map")
     geometry = signed(spec, "Source geometry")
     half = np.array([math.radians(7.5), .040, .040, .080, math.radians(8)])
-    require(support.get("schema") == "sircus-diverse-shot-support-v1"
+    v2 = support.get("schema") == "sircus-diverse-shot-support-v2"
+    require(support.get("schema") in ("sircus-diverse-shot-support-v1", "sircus-diverse-shot-support-v2")
         and support.get("policy_geometry_only") is True
         and support.get("source_fingerprint") == geometry
         and support.get("feasibility_fingerprint") == feasibility["fingerprint"]
@@ -87,9 +90,12 @@ def validate_support_evidence(support, feasibility, spec):
             if check["path"]["accepted"]:
                 retained.append((score, int(original["proposal"]), original, expected, check["path"]))
         retained.sort(key=lambda value: value[:2])
-        require(len(row["regions"]) == row.get("region_count") == len(retained), "Path-qualified geometry anchor was pruned or duplicated")
+        local_regions = row["regions"][:-1] if v2 and row["regions"] else row["regions"]
+        global_count = int(bool(retained)) if v2 else 0
+        require(len(local_regions) == len(retained) and row.get("region_count") == len(retained)+global_count,
+                "Path-qualified geometry anchor was pruned or duplicated")
         require(row.get("status") == ("supported" if retained else "unresolved"), "Empty diverse support relabeled")
-        for region_id, (region, (score, proposal, original, action, path)) in enumerate(zip(row["regions"], retained)):
+        for region_id, (region, (score, proposal, original, action, path)) in enumerate(zip(local_regions, retained)):
             center = np.array([action[key] for key in ACTION_NAMES])
             seeds = {name: dict(q=original["ik"][name]["q"]) for name in ("Arm10", "Arm14")}
             require(region.get("id") == region_id and region.get("proposal") == proposal
@@ -97,15 +103,38 @@ def validate_support_evidence(support, feasibility, spec):
                 and region.get("anchor_path") == path and abs(region.get("anchor_score", math.inf)-score) < 2e-7
                 and region.get("low") == np.maximum(LOW, center-half).tolist()
                 and region.get("high") == np.minimum(HIGH, center+half).tolist(), "Diverse retained region/action/width changed")
+            if v2:
+                require(region.get("kind") == "local_geometry" and region.get("interior_qualified") is False,
+                        "Local geometry region mislabeled")
+        if v2:
+            require(row.get("local_region_count") == len(retained) and row.get("global_region_count") == global_count
+                and row.get("local_coverage") == coverage(local_regions), "Local/global geometry count or envelope changed")
+            if retained:
+                global_ = row["regions"][-1]
+                require(global_.get("id") == len(retained) and global_.get("kind") == "global_exploration"
+                    and global_.get("proposal") == -1 and global_.get("interior_qualified") is False
+                    and global_.get("low") == LOW.tolist() and global_.get("high") == HIGH.tolist()
+                    and global_.get("anchor_action") == local_regions[0]["anchor_action"]
+                    and global_.get("anchor_ik") == local_regions[0]["anchor_ik"]
+                    and global_.get("qualification_scope") == "Full original action domain is unqualified. First geometry anchor supplies only an IK warm start; every requested action still needs fresh IK/path/settlement gates.",
+                    "Missing or falsely qualified full-domain escape region")
         require(row.get("coverage") == coverage(row["regions"]), "Diverse per-cell coverage envelope changed")
         all_regions.extend(row["regions"])
-        counts.append(dict(cell_id=cell["id"], map_candidates=len(candidates), regions=len(retained), coverage=row["coverage"]))
+        counts.append(dict(cell_id=cell["id"], map_candidates=len(candidates), regions=len(row["regions"]),
+                           local_regions=len(retained), global_regions=global_count, coverage=row["coverage"]))
     require(support.get("region_count") == len(all_regions)
         and support.get("supported_cells") == sum(c["regions"] > 0 for c in counts)
         and support.get("max_regions_per_cell") == max(c["regions"] for c in counts)
         and support.get("coverage") == coverage(all_regions), "Diverse aggregate geometry accounting changed")
+    if v2:
+        require(support.get("local_region_count") == sum(c["local_regions"] for c in counts)
+            and support.get("global_region_count") == sum(c["global_regions"] for c in counts)
+            and support.get("local_coverage") == coverage([r for r in all_regions if r["kind"] == "local_geometry"]),
+            "Diverse local/global aggregate changed")
     return dict(supported_cells=sum(c["regions"] > 0 for c in counts), unresolved_cells=sum(c["regions"] == 0 for c in counts),
-        retained_regions=len(all_regions), all_path_qualified_anchors_retained=True, per_cell=counts,
+        retained_regions=len(all_regions), local_regions=sum(c["local_regions"] for c in counts),
+        global_regions=sum(c["global_regions"] for c in counts), original_domain_escape_available=v2,
+        all_path_qualified_anchors_retained=True, per_cell=counts,
         scope="Independent candidate membership, geometry-prior ranking and fixed-box arithmetic; original map IK/path proxy results not replayed, region interiors not certified")
 
 
@@ -134,15 +163,16 @@ def independent_physical_actions(normalized, indices, support, cells):
 
 def validate_diverse_study(study, spec, support, support_sha256, feasibility_sha256):
     from continuous_policy import ARCHITECTURE as OLD_ARCH, POLICY_VERSION as OLD_VERSION
-    from diverse_policy import ARCHITECTURE, POLICY_VERSION
+    from diverse_policy import ARCHITECTURE, POLICY_VERSION, ARCHITECTURE_V1, POLICY_VERSION_V1
     from diverse_support import validate_support
     from settled_transit import protocol
     study_hash, geometry_hash, domain_hash = signed(study, "Diverse study"), signed(spec, "Source geometry"), signed(study["domain"], "Diverse domain")
     validate_support(support, spec["cells"])
-    require(study.get("schema") == STUDY_SCHEMA and study.get("architecture") == ARCHITECTURE
-        and study.get("policy_version") == POLICY_VERSION and study.get("support_fingerprint") == support["fingerprint"]
+    v2 = support["schema"] == "sircus-diverse-shot-support-v2"
+    require(study.get("schema") == STUDY_SCHEMA and study.get("architecture") == (ARCHITECTURE if v2 else ARCHITECTURE_V1)
+        and study.get("policy_version") == (POLICY_VERSION if v2 else POLICY_VERSION_V1) and study.get("support_fingerprint") == support["fingerprint"]
         and study.get("support_sha256") == support_sha256 and study.get("feasibility_sha256") == feasibility_sha256
-        and study["domain"].get("decoder") == DECODER and study["domain"].get("support_fingerprint") == support["fingerprint"]
+        and study["domain"].get("decoder") == (DECODER if v2 else DECODER_V1) and study["domain"].get("support_fingerprint") == support["fingerprint"]
         and support.get("source_fingerprint") == geometry_hash, "Diverse study/policy/support identity changed")
     require(study.get("settling_protocol") == protocol() and study.get("setup") == protocol()["scope"]
         and study.get("ik_protocol") == "full_robust_v2-equivalent-fk-v1"
@@ -299,7 +329,8 @@ def verify_settling_history(trial, scene, cells, study):
             windows += 1
         for iteration in {m["iteration"] for m in history}:
             count = sum(m["iteration"] == iteration for m in history)
-            require(7 <= count <= 32, "Measured stabilization hold outside declared 1.75..8 second bound")
+            require(7 <= count <= (160 if iteration == 0 else 32),
+                    "Measured stabilization hold outside declared initial/correction bound")
         require(row.get("settled") == history[-1], "Release row does not use final measured stability window")
         if not row["invalid"]:
             require(accepted(history[-1]) and history[-1]["dropper_position_error_mm"] <= 2,
