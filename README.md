@@ -10,6 +10,10 @@ The current goal is a simulation showcase with an interactively placed bucket an
 
 ## Start here
 
+- **Remaining 30° verification:** [bounded 54-request protocol](sircus/mjlab/TILT650.md).
+  Five exact previously unverified XY650 captures receive matched 64/128 repeats
+  with separate fresh capture and clean gates. No adaptive search, noise or PPO.
+
 - **Translated XY650 development search:** [bounded protocol](sircus/mjlab/XY650.md).
   Board and bucket move together at fixed 650 mm distance/bearing; fresh strict
   endpoints, first-flight-only ranking and matched 64/128 qualification. This

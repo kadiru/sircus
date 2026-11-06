@@ -1,5 +1,22 @@
 # Project state
 
+## Remaining 30° recipes — bounded verification, November 5, 2026
+
+- [Frozen protocol](../sircus/mjlab/TILT650.md): five exact previously unverified
+  30° coarse captures from the completed XY650 parent, preserving each selected
+  joint pair and original geometry/calibration. Three repeats at 64 and 128,
+  plus original before/after controls: maximum 54 requests, no adaptive search.
+- Historical parent captures remain rim-assisted. Fresh capture qualification
+  and fresh clean qualification are separate; neither is a noise-reliability or
+  learned-policy result. Initial controls must pass before candidate execution.
+- Native results pending. Four prior calibrated 650 mm searches total 1,258
+  requests / 609 native releases; discovery alone 1,042 / 393, 32 rim captures,
+  zero clean. Their worker elapsed times sum to 48.6 minutes, excluding setup,
+  audits and development. If no candidate captures at both resolutions, stop
+  blind fine-grid expansion and diagnose contacts/flight before further PPO.
+- Viewer restored after reboot; only the new bounded 4090 worker is authorized.
+  No 4070 workload, Isaac service, hardware or historical evidence is changed.
+
 ## XY650 translated-plane study — November 5, 2026
 
 - [Frozen protocol](../sircus/mjlab/XY650.md): translate board and bucket together
