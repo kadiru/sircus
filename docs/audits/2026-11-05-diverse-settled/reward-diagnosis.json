@@ -1,0 +1,171 @@
+{
+  "analysis_only": true,
+  "by_region_kind": {
+    "global_exploration": {
+      "external_contact_miss": 22,
+      "rejected": 277
+    },
+    "local_geometry": {
+      "external_contact_miss": 755,
+      "other_released_miss": 30,
+      "qualified_capture": 57,
+      "rejected": 331
+    },
+    "unsupported": {
+      "rejected": 128
+    }
+  },
+  "canonical_hash_recipe": "SHA256 of UTF-8 json.dumps(value, sort_keys=True, allow_nan=False), with default separators.",
+  "categories": {
+    "external_contact_miss": {
+      "attempts": 777,
+      "board_bounce_count": 777,
+      "clean_qualified_capture_count": 0,
+      "closest_opening_distance_m": {
+        "max": 0.36671755908450504,
+        "mean": 0.13506935106903617,
+        "min": 0.002016855677941471,
+        "scope": "Saved trajectory-derived closest opening distance."
+      },
+      "legacy_capture_count": 68,
+      "qualified_capture_count": 0,
+      "reward_max": -0.5,
+      "reward_mean": -0.5,
+      "reward_min": -0.5,
+      "unique_reward_count": 1,
+      "whole_ball_entry_count": 69
+    },
+    "other_released_miss": {
+      "attempts": 30,
+      "board_bounce_count": 30,
+      "clean_qualified_capture_count": 0,
+      "closest_opening_distance_m": {
+        "max": 0.1771808458867465,
+        "mean": 0.12692441892205483,
+        "min": 0.08313518885985938,
+        "scope": "Saved trajectory-derived closest opening distance."
+      },
+      "legacy_capture_count": 0,
+      "qualified_capture_count": 0,
+      "reward_max": 0.22504425048828125,
+      "reward_mean": 0.18851236750682196,
+      "reward_min": 0.15710854530334473,
+      "unique_reward_count": 30,
+      "whole_ball_entry_count": 0
+    },
+    "qualified_capture": {
+      "attempts": 57,
+      "board_bounce_count": 57,
+      "clean_qualified_capture_count": 4,
+      "closest_opening_distance_m": {
+        "max": 0.04703134202379315,
+        "mean": 0.01842718855332788,
+        "min": 0.0012125912911060686,
+        "scope": "Saved trajectory-derived closest opening distance."
+      },
+      "legacy_capture_count": 57,
+      "qualified_capture_count": 57,
+      "reward_max": 1.7363053560256958,
+      "reward_mean": 1.6145136000817282,
+      "reward_min": 1.5268620252609253,
+      "unique_reward_count": 57,
+      "whole_ball_entry_count": 57
+    },
+    "rejected": {
+      "attempts": 736,
+      "board_bounce_count": 0,
+      "clean_qualified_capture_count": 0,
+      "closest_opening_distance_m": {
+        "max": 2.0,
+        "mean": 2.0,
+        "min": 2.0,
+        "scope": "Rejected rows use the inherited 2m sentinel, not an observed miss distance."
+      },
+      "legacy_capture_count": 0,
+      "qualified_capture_count": 0,
+      "reward_max": -1.0,
+      "reward_mean": -1.0,
+      "reward_min": -1.0,
+      "unique_reward_count": 1,
+      "whole_ball_entry_count": 0
+    }
+  },
+  "counts": {
+    "attempts": 1600,
+    "clean_qualified_captures": 4,
+    "external_contact_misses": 777,
+    "legacy_captures": 125,
+    "legacy_captures_excluded_from_qualified": 68,
+    "other_released_misses": 30,
+    "qualified_captures": 57,
+    "rejected": 736,
+    "released": 864,
+    "released_misses": 807
+  },
+  "evaluation_scope": "No evaluation or coverage outcomes included; all counts concern optimizer training attempts only.",
+  "flat_feedback": {
+    "all_attempts": 1600,
+    "external_branch_scope": "Every external-contact shot returns -0.5 before the board-bounce, closest-distance and retention terms; this suppresses distance feedback for these misses.",
+    "external_misses_fraction_of_released_misses": 0.9628252788104089,
+    "first_400_training_prefix": {
+      "attempts": 400,
+      "flat_count": 380,
+      "flat_percent": 95.0
+    },
+    "flat_count": 1513,
+    "flat_fraction": 0.945625,
+    "flat_percent": 94.5625,
+    "interpretation": "This diagnoses weak/dense-feedback limitation; it does not prove reward alone caused poor held-out performance.",
+    "minus_half_count": 777,
+    "minus_one_count": 736
+  },
+  "ordered_trial_manifest_canonical_sha256": "5e90345035f78f876693df92f5446bc540097cc8e477dc9fa8248975b23ea67e",
+  "qualification_scope": "Capture counts use unchanged board-route success, not legacy success. A legacy capture with disallowed external contact is excluded. Clean counts use route_quality==2.",
+  "reject_reasons": {
+    "arm_table_proxy_overlap_Arm14": 7,
+    "board_bucket_proxy_overlap": 14,
+    "board_table_proxy_overlap": 2,
+    "endpoint_ik_unresolved_Arm10": 121,
+    "endpoint_ik_unresolved_Arm14": 77,
+    "endpoints_not_settled": 14,
+    "no_geometry_support": 128,
+    "outer_link_length_bound": 191,
+    "setup_motion_not_quiet": 78,
+    "setup_transit_incomplete": 104
+  },
+  "return_recomputation": {
+    "checked": 1600,
+    "max_abs_float32_error": 5.9371952465525624e-08,
+    "mismatch_count": 0,
+    "mismatch_tolerance": 1e-06,
+    "source": "farm_contract.reward",
+    "source_sha256": "e1a0d46f48926105a58d885e7b1c8761f03b8745937d6232aa130f00043038b5"
+  },
+  "schema": "sircus-training-reward-diagnosis-v1",
+  "scope": "Analysis only of all completed 64 training batches. No new training, proposals, evaluation trials, reward changes, simulator steps or hardware actions. Stored outcomes and returns remain unchanged.",
+  "source_binding": {
+    "scoring_source_sha256": {
+      "board_route.py": "6409889aed6b0fd6a288eb9494b954ec5c3233ec41fdcf146940fc23276fb2e9",
+      "entry_quality.py": "2f3d8b73c871a41afc3c8f333f5df1d54fa8751720855ffff517e729217db9d4",
+      "farm_contract.py": "e1a0d46f48926105a58d885e7b1c8761f03b8745937d6232aa130f00043038b5",
+      "rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+      "settling_contract.py": "d2586973fa21527f552de9c39569a88f31d4a9214c085d0756867869f572b9b1"
+    },
+    "source_archive_sha256": "7f2b1fa1daf0da75a26445be940be1c46b2898939eddd25bc89b746f4706f893",
+    "source_commit": "40dd24ffdfeec0cd521fdfbf409c31c68c69a2d7"
+  },
+  "source_canonical_sha256": "37955535fa4cfe28d7186aa66ec1dfa09edc8628e0b1d375147f5bb7f968aba4",
+  "source_checkpoint_audit_sha256": "e6df3cac143080cdd99f879fc5eb446ffabfa5078fabf50908035d92925361bd",
+  "source_result_sha256": "433ed3496ada64b0d6edf626e4d796c25285441b014b649d1d1fdccc34f236f9",
+  "status": "completed",
+  "training_scope": {
+    "batch_first": 0,
+    "batch_last": 63,
+    "batches": 64,
+    "first_trial": "trials/train-0012.json",
+    "last_trial": "trials/train-0075.json",
+    "optimizer_attempts": 1600,
+    "updates": 16
+  },
+  "trial_manifest_scope": "Ordered list of {batch,file,sha256} for all 64 result.batches, individually rehashed and matched; aggregate digest only is exported."
+}

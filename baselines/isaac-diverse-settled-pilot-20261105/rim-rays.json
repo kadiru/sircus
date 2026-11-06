@@ -1,0 +1,8 @@
+{
+  "all35_passed": true,
+  "clearance_m": 0.0495,
+  "raw_readbacks_sha256": "695261350db018d57a33f69e1c824420654af7f2e9637694853d272fa8aa868e",
+  "rays": 3,
+  "scope": "Startup rim-ray contact diagnostics; native per-ray force arrays excluded.",
+  "source_sha256": "98df6ec0211b66ea15dd2480a63efd0f3a29c41a58f502a8d9f55c8461c98878"
+}

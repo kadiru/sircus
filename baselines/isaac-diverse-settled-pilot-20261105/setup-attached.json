@@ -1,0 +1,104 @@
+{
+  "after_admitted": 80,
+  "after_failures": {
+    "endpoint_ik_unresolved_Arm14": 2,
+    "no_geometry_support": 8,
+    "setup_motion_not_quiet": 5,
+    "setup_transit_incomplete": 5
+  },
+  "attempts": 100,
+  "ball_releases": 0,
+  "before_admitted": 48,
+  "before_failures": {
+    "board_bucket_proxy_overlap": 2,
+    "endpoint_ik_unresolved_Arm14": 2,
+    "endpoints_not_settled": 36,
+    "no_geometry_support": 8,
+    "settling_correction_ik": 4
+  },
+  "geometry_fingerprint": "63362ef37a93881f769b39d1ee7456335f1cc7bf5db04ffa7e548ce9697455bf",
+  "paired_summary": {
+    "independent_audit": {
+      "checked_attempts": 100,
+      "checked_training_batches": 4,
+      "original_holding_gains_restored": true,
+      "quiet_before_every_correction_verified": true,
+      "sha256": "39b88834a3c622cf9f0d970e57b90d261def84143a82e106d4c657d676bacfe5",
+      "source_raw_sha256": "7e2c645a23d9f9cc22be895b175fed48108d6dcebfd4b012d6a23ede973002b0",
+      "source_trial_sha256": {
+        "trials/train-0012.json": "e62e5bfbebb6a5707763b172f9315dc362ddabe239dfb2a1ef504aaf64dcf432",
+        "trials/train-0013.json": "1a3417e777e5478b41c709d96949ba98e1abee13b7765fc447ed3f3a0ac0a83b",
+        "trials/train-0014.json": "2f2af7c8847e7706d641c5edabf5ea1325264fb6470ce5e7b3cf2af324a15503",
+        "trials/train-0015.json": "7b256ad2a0339a1f33d8a5370718f400f3b375877d415a2164e55b3b274ff34b"
+      },
+      "status": "passed"
+    },
+    "measured_preflight_producer": {
+      "launch_sha256": "3b655d24431b0fa4c6ed1daff678aa99bba09f63ab6e7ab6bfe7532fa8c4a386",
+      "source_archive_sha256": "7f2b1fa1daf0da75a26445be940be1c46b2898939eddd25bc89b746f4706f893",
+      "source_commit": "40dd24ffdfeec0cd521fdfbf409c31c68c69a2d7",
+      "source_controller_sha256": "2bff0597861b629c589174c2bb14c39bd439efdf9036c0972e862a0204a78bdc",
+      "supervisor_sha256": "9018ea73193c2e8a9f660879e11ca7f7e090d6c70cbea83ffc54c4275d8178e1"
+    },
+    "metrics": {
+      "joint_speed_rad_s": {
+        "count": 100,
+        "maximum": 0.013441072776913643,
+        "mean": 0.0004345129313115881,
+        "median": 2.4072459382296074e-05,
+        "minimum": 1.9967014708299757e-09
+      },
+      "position_drift_mm": {
+        "count": 100,
+        "maximum": 0.017082224076148123,
+        "mean": 0.0008098415491986088,
+        "median": 0.0,
+        "minimum": 0.0
+      },
+      "position_error_mm": {
+        "count": 100,
+        "maximum": 558.9321691866814,
+        "mean": 30.697992299974587,
+        "median": 0.6047661565787434,
+        "minimum": 0.0030000355691947064
+      }
+    },
+    "omission_scope": "Individual paired/transit/physics readbacks remain private. This is direct40dd execution, not reuse or relabeling of V4/5e prototype measurements.",
+    "requests": 100
+  },
+  "regressions": 0,
+  "repaired": 32,
+  "schema": "sircus-diverse-settling-setup-check-v1",
+  "scope": "Direct final-producer40dd V7 setup-only replay of the first four frozen prior training batches. Zero task-shot releases; startup contact probes are separate. Not capture evaluation, PPO data, held-out evaluation or independent noisy trials.",
+  "selection": "First four saved training batches in original order, all 25 training contexts; no held-out/outcome filtering",
+  "settling_protocol": {
+    "correction_joint_lag_limit_rad": 0.02,
+    "correction_stabilization_max_s": 8.0,
+    "corrections_max": 3,
+    "gain_restore_ramp_s": 1.0,
+    "holding_gains": "Original native gains/caps restored before measurement and release",
+    "initial_stabilization_max_s": 40.0,
+    "measurement_window_s": 0.25,
+    "minimum_hold_s": 1.75,
+    "release_board_drift_mm": 0.1,
+    "release_joint_velocity_rad_s": 0.005,
+    "release_normal_deg": 0.5,
+    "release_normal_drift_deg": 0.05,
+    "release_position_mm": 2.0,
+    "scope": "Bounded driven setup and steady-bias feedback for both arms; no selected-endpoint joint-state reset. Readiness and release are distinct. Original score/impact holding drives unchanged.",
+    "stability_early_exit": "After minimum hold, every currently eligible cell is release-ready or quiet with joint lag <=0.02 rad",
+    "total_stabilization_max_s": 64.0,
+    "transit_damping": 180.0,
+    "transit_effort": "Original URDF joint caps",
+    "transit_stiffness": 6000.0,
+    "transit_tail_max_s": 8.0,
+    "transit_velocity_rad_s": 0.85,
+    "velocity_gate_scope": "Legacy numeric maximum over ALL articulation DOFs, including both simulated gripper fingers; revolute rad/s and prismatic native m/s. Six-axis FK/lag state stays separate.",
+    "version": "sircus-driven-settlement-v5"
+  },
+  "source_guided_result_sha256": "cd90e6ec9c1e1bc3729ca5113b67d98c6ebf680f0964cec68065acb1f98138ca",
+  "source_setup_check_sha256": "a49de1e750599953611de58aa6217f3f4649a9a87b4aa7b9321d000212040a20",
+  "status": "completed",
+  "support_fingerprint": "0f121c6b1396859dc40d742d575efc3fc19fc31fb70e623af2ebfe7721e17c9b",
+  "support_sha256": "12bab39090f60611d426e623ffe6bccb1a70b8f6acc5679f7d7a97b4a6586c02"
+}

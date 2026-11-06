@@ -1,8 +1,74 @@
 # Diverse-region PPO and measured driven setup
 
-This opt-in follow-up keeps the broad and single-local-box pilots frozen.
-The direct final-source setup check passed; the matched PPO pilot is running.
-New learned-policy and held-out results remain pending.
+This completed opt-in follow-up keeps the broad and single-local-box pilots
+frozen. The direct setup check, full checkpoint/comparison audit and independent
+native telemetry audit passed. It improves setup admission, but does not improve
+held-out capture rate. The new policy is not promoted over the broad baseline.
+
+## Completed learning result
+
+All methods used 1,600 attempted training shots and 16 PPO updates. Frozen final
+checks use eight nominal repeats at each inherited site, not independent new
+layouts or perturbation trials.
+
+| Method | Training captures / attempts | Rejected training requests | Frozen train | Validation | Test |
+|---|---:|---:|---:|---:|---:|
+| Broad continuous | 62/1,600 | 1,214 | 32/200 | 8/40 | 8/40 |
+| One local region | 23/1,600 | 879 | 8/200 | 0/40 | 8/40 |
+| Diverse regions + measured settling | 57/1,600 | 736 | 24/200 | 0/40 | 8/40 |
+
+The new policy's frozen train result improves from 0 to 24/200; validation stays
+0/40 and test stays 8/40. The three newly scoring sites (`r1c5`, `r2c3`, `r3c2`)
+are training sites. Test site `r3c3` remains 8/8 and changes from rim-assisted to
+clean entries. That quality change does not establish a held-out capture-rate
+gain. Training has four clean captures; final frozen test has eight.
+
+The expanded proposal domain increases reach/IK rejects from 54 in the local
+pilot to 389, while native setup/correction failures fall from 679 to 196.
+The remaining rejects are 128 unsupported requests and 23 geometry-proxy
+failures. Every reject remains in the optimizer and denominator. No capture
+used requested bounce radius at least 600 mm; all 461 admitted training shots
+in that range missed. This is not proof that those distances are impossible.
+
+The unchanged reward gives **1,513/1,600 (94.56%)** attempts one of two flat
+penalties. All 777 external-contact misses receive -0.5 despite closest-opening
+distances spanning 2.02–366.72 mm. Thus most misses do not give useful distance
+feedback. The [aggregate reward audit](../../docs/audits/2026-11-05-diverse-settled/README.md)
+recomputes every training return without changing the benchmark. Of 807 misses,
+176 touched the bucket before their first external contact; they cannot all be
+described as undershoots. Sixty-eight legacy retained-ball outcomes fail the
+required board-route definition and are not counted as captures.
+
+Next: version the miss-feedback design while keeping the capture criterion
+fixed, then repeat a bounded pilot. More compute, quasi-perception training and
+model promotion are not justified by this result alone.
+
+The run completed normally in 7,944.428 seconds, including setup, recording and
+evaluation. This is not a matched headless compute comparison. The final result
+SHA256 is `433ed3496ada64b0d6edf626e4d796c25285441b014b649d1d1fdccc34f236f9`.
+Checkpoint/comparison audit: `e6df3cac143080cdd99f879fc5eb446ffabfa5078fabf50908035d92925361bd`.
+Native audit: `820a6341859a470a93836a7e45f9ca73b602622f37093ff1bd1ad91f13941f12`.
+The native audit rescored 1,442 releases across all 84 batches, verified
+2,400 recorded release-frame bindings and 704,725 setup windows. Arm travel and
+ball release initialization remain scripted; the model learns shot selection.
+
+## Recording and portable evidence
+
+The [curated baseline](../../baselines/isaac-diverse-settled-pilot-20261105/README.md)
+contains byte-identical initial/final checkpoints, full signed proposal support,
+comparison, learning curves, requested settings and compact source-bound audits.
+All 25 selected files passed manifest verification. The final checkpoint loaded
+and predicted on Ubuntu CPU with 16 updates/1,600 attempts; a mismatched geometry
+fingerprint was rejected. This prediction check is not a new native trial.
+
+The actual Isaac film has 20 prescheduled chapters at the same fixed camera:
+27m38.44s full, or 22m42.94s with quiet setup dwells removed. The action edit
+retains all 2,400 release frames, uses normal-time playback and keeps visible
+scripted arm travel. No outcome selection, ball tracking or generated imagery
+was used. Recorded training chapters use policy updates 0/4/8/15; the final
+update-16 model is assessed numerically, not falsely presented as filmed.
+Full video decode and source/export checks passed. Videos remain outside Git;
+`film.json` binds their SHA256 hashes and exact edits.
 
 ## Verified setup checkpoint
 
@@ -20,9 +86,8 @@ The setup summary SHA256 is
 independent audit SHA256 is
 `39b88834a3c622cf9f0d970e57b90d261def84143a82e106d4c657d676bacfe5`.
 The final pilot uses the same immutable producer/archive, with 1,600 attempted
-training shots, 16 updates and the unchanged 25/5/5 split. At this checkpoint
-its geometry/initial checks are underway; no new completed learning result is
-claimed. Raw native traces and media remain outside Git.
+training shots, 16 updates and the unchanged 25/5/5 split. Raw native traces and
+media remain outside Git.
 
 ## Two changes, measured separately from learning
 
@@ -128,8 +193,8 @@ nor global interiors have a feasibility certificate.
 ## Policy and comparison
 
 The fresh hybrid actor selects a categorical region and five continuous
-tanh-Gaussian residuals. Its PPO likelihood is the categorical probability plus
-the conditional squashed-Gaussian log density. Entropy is in joint region and
+tanh-Gaussian residuals. Its joint PPO log likelihood adds the categorical log
+probability to the conditional squashed-Gaussian log density. Entropy is in joint region and
 normalized-residual coordinates, not physical shot-volume entropy. Deterministic
 inference selects the highest-probability region then that region's residual
 mean; it is not a mixture-averaged shot. At clipped domain edges, zero residual

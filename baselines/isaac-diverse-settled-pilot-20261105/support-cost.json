@@ -1,0 +1,16 @@
+{
+  "description": "Additive display normalization only: maximum_resident_set_kib aliases the original max_rss_kib. Original receipt bytes remain unchanged. GNU time process peak RSS is not aggregate worker memory; excludes original map/native calibration/pilot cost.",
+  "max_rss_kib": 224084,
+  "maximum_resident_set_kib": 224084,
+  "raw_time_sha256": "f3593904038e5d277f5668d77f6263a7f025f35c1058d1ad7a19a343b8d5dbb4",
+  "schema": "sircus-support-preparation-resource-v1",
+  "scope": "CPU-only preparation for153localregions+33globaldomains; maximumRSS is GNUtime process metric, not aggregate8worker memory. Excludes original17920request map and native calibration/pilot cost.",
+  "source_commit": "2170cb95176f4cdb0be665dbecc8bb40ad3736e0",
+  "source_cost_sha256": "ecaac03d33b918885543c3ea9681f5bc5904afc22152ba0cc8a68463459092aa",
+  "support_fingerprint": "0f121c6b1396859dc40d742d575efc3fc19fc31fb70e623af2ebfe7721e17c9b",
+  "support_sha256": "12bab39090f60611d426e623ffe6bccb1a70b8f6acc5679f7d7a97b4a6586c02",
+  "system_cpu_s": 0.16,
+  "user_cpu_s": 2.47,
+  "wall_s": 1.04,
+  "workers": 8
+}

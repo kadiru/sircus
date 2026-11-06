@@ -1,0 +1,63 @@
+{
+  "per_cell_check_count": 175,
+  "per_cell_probe_kinds": 5,
+  "probes": [
+    {
+      "all_passed": true,
+      "kind": "bucket",
+      "omitted_fields_sha256": "8e5c8ffc054001f01dc0230606ed6a78d586d622b6692f43cf33a0551caadb73",
+      "per_cell_count": 35,
+      "per_cell_passed_count": 35,
+      "single_isolation_passed_count": null,
+      "single_isolation_probe_count": null
+    },
+    {
+      "all_passed": true,
+      "kind": "rim",
+      "omitted_fields_sha256": "8ceaa9a9d22444d3a88aff0116e05cc3b3df954efc1d4f83db75ef7d8ffe31d1",
+      "per_cell_count": 35,
+      "per_cell_passed_count": 35,
+      "single_isolation_passed_count": null,
+      "single_isolation_probe_count": null
+    },
+    {
+      "all_passed": true,
+      "kind": "table",
+      "omitted_fields_sha256": "0410d5ff56c5eacb35b5cedf0fe666934cebb46232928847c199a44cfc3cf91d",
+      "per_cell_count": 35,
+      "per_cell_passed_count": 35,
+      "single_isolation_passed_count": null,
+      "single_isolation_probe_count": null
+    },
+    {
+      "all_passed": true,
+      "kind": "floor",
+      "omitted_fields_sha256": "3cb8303babcebc0bd829ca0ff8a3091e1b7981e60d0f29c33e11c66bd539e044",
+      "per_cell_count": 35,
+      "per_cell_passed_count": 35,
+      "single_isolation_passed_count": null,
+      "single_isolation_probe_count": null
+    },
+    {
+      "all_passed": true,
+      "kind": "robot",
+      "omitted_fields_sha256": "7368170dbc404c2c49b559110bebc08e94957d08ef8105de9de4f5e714105b7e",
+      "per_cell_count": 35,
+      "per_cell_passed_count": 35,
+      "single_isolation_passed_count": null,
+      "single_isolation_probe_count": null
+    },
+    {
+      "all_passed": true,
+      "kind": "foreign_cell_collision_filter",
+      "omitted_fields_sha256": "cd14fc6b5de61a66b2793c6fff1f059f411788c3c0b88e8500dc9c808f1a2fa9",
+      "per_cell_count": null,
+      "per_cell_passed_count": null,
+      "single_isolation_passed_count": 1,
+      "single_isolation_probe_count": 1
+    }
+  ],
+  "scope": "Compact startup contact/isolation checks: five kinds at35 cells plus one foreign-cell isolation probe. Force readbacks omitted and hash-bound. Not task-shot or capture counts.",
+  "single_isolation_probe_count": 1,
+  "source_sha256": "e23bbea11738453b30d8369da6a2cf9caa17250630bb2c09b127562cc2a89ecc"
+}
