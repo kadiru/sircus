@@ -112,11 +112,14 @@ class BenchmarkReportTests(unittest.TestCase):
             return value,digest
         with patch.object(report_module,'read_snapshot',side_effect=concurrent):d=summarize(self.root)
         self.assertEqual(d['runs'][0]['train']['attempts'],1000);self.assertEqual(d['runs'][0]['evidence']['progress.json'],old_sha);self.assertNotEqual(sha(p),old_sha)
-    def test_verified_sha_cache_invalidates_mutable_and_atomic_changes(self):
+    def test_sha_recomputes_same_size_changes_even_with_identical_metadata(self):
         p=self.root/'mutable.txt';p.write_bytes(b'first');a=sha(p);old=p.stat()
         self.assertEqual(sha(p),a)
-        p.write_bytes(b'other');os.utime(p,ns=(old.st_atime_ns,old.st_mtime_ns))
-        b=sha(p);self.assertNotEqual(a,b)
+        # Simulate coarse filesystem timestamps: stat metadata remains identical
+        # while different same-size bytes must produce a different digest.
+        with patch.object(Path,'stat',return_value=old):
+            p.write_bytes(b'other');os.utime(p,ns=(old.st_atime_ns,old.st_mtime_ns))
+            b=sha(p);self.assertNotEqual(a,b)
         replacement=self.root/'replacement';replacement.write_bytes(b'third');replacement.replace(p)
         self.assertNotEqual(sha(p),b)
     def test_byte_ranges_for_read_only_video_seeking(self):
