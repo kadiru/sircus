@@ -1,0 +1,2463 @@
+{
+  "all_cell_observations": 2822400,
+  "audit_source_sha256": "5d2c1a0215c6866c17a8e32c013e2c834871464e353bfadc17bad485524a291e",
+  "clips_sha256": "21fd2c511c9ce5a92f60c7aa36faf5ca90ec40677a9aaa30d16e0ab65334d32b",
+  "frame_readbacks": 2400,
+  "native_study_schema": "sircus-native-diverse-settled-pilot-v1",
+  "native_time_steps": 80640,
+  "rescored_releases": 1442,
+  "schema": "sircus-continuous-native-outcome-audit-v1",
+  "scope": "Every admitted release independently rescored from all240Hz native ball/force observations using original retention/route/entry definitions; camera joints/balls bound. Policy likelihoods and mesh/path safety remain separate audits.",
+  "scoring_source_sha256": {
+    "board_route.py": "6409889aed6b0fd6a288eb9494b954ec5c3233ec41fdcf146940fc23276fb2e9",
+    "entry_quality.py": "2f3d8b73c871a41afc3c8f333f5df1d54fa8751720855ffff517e729217db9d4",
+    "farm_contract.py": "e1a0d46f48926105a58d885e7b1c8761f03b8745937d6232aa130f00043038b5",
+    "rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+    "settling_contract.py": "d2586973fa21527f552de9c39569a88f31d4a9214c085d0756867869f572b9b1"
+  },
+  "source_contract_sha256": "291ca91848bddff8f812b59e790ac565657982a708dd9dcb7c7281136a87544f",
+  "source_result_sha256": "433ed3496ada64b0d6edf626e4d796c25285441b014b649d1d1fdccc34f236f9",
+  "source_study_sha256": "afdfdfcfe569360b1ef50c6569b5c2971324db1da643a897ac319dcee679d790",
+  "source_trial_sha256": {
+    "trials/coverage-0000.json": "9e39f5520223f54acb6b49061e73cbb0d77ca0404c33f14a9c43b669fbccc146",
+    "trials/coverage-0001.json": "5d82cceb20b588a6348a74dbc27bc1516810ab67d7931e054a5e91b06ac23dd3",
+    "trials/coverage-0002.json": "ac14b8c369ceceef83206602df7ef1292fab5f11c3f06ed05cb69d41ed2a440e",
+    "trials/coverage-0003.json": "5c219b460d5b2969a12f7b4e7bdbb22b3e6bba7c18220d6cf1933ac361980043",
+    "trials/eval-0004.json": "81ae1e5b99aeea48ca59429def98837bc10223b2a6e3b4954cc191656d2cec0b",
+    "trials/eval-0005.json": "7da4a0fef0face17c199b60ad73ba7898b01d4bb22b69e29d8ac3db4a65592b4",
+    "trials/eval-0006.json": "db86e117bd5305a71d763d19f1f1d9fb77f785399e7aab2d9b4909430517d303",
+    "trials/eval-0007.json": "18f349148665861fde8714e578b9b260468843997a7f3ce918044d8602ba1f89",
+    "trials/eval-0008.json": "0b1141d297f57641aae79e7a590b5f4aad73a6f85d1e264d38df5dcf6c29103a",
+    "trials/eval-0009.json": "9d218bd9895dd50daea16a7c7c14b514277264eec27f4745e78bbfe8486400ab",
+    "trials/eval-0010.json": "b8b5588476618f69bfa240d1728968f1feacf5d9a6d5bcf61dd7802cc1245cba",
+    "trials/eval-0011.json": "7f12f5f9689f42b3ecf6955d2d59a785897e263beb42d8ea1a75f8dffba6a469",
+    "trials/eval-0076.json": "a41e5e7775db2820d612082099dd1d64cdea9a896294091e8ba6f44d2dd04647",
+    "trials/eval-0077.json": "77de8d50692a38f5c17440e023e0504bba857d6478f564d27759c788fc5934c2",
+    "trials/eval-0078.json": "59f107903092acaad79ae992fb782deb0d17e76f36fa652cd46358d265a0de34",
+    "trials/eval-0079.json": "e652f58a2881d704baabe8530d05855826666d379f8b06d1b3f2954bacbb0728",
+    "trials/eval-0080.json": "1e875811055f9c253dabebd5f7af0c818a2bda686f3a1a6cdb3fe301e2c4bb30",
+    "trials/eval-0081.json": "30dea23c0f155e5719779da1c9cc32e9d83f528dc98dc07aa45380e064775c20",
+    "trials/eval-0082.json": "55e7873276b9a28a1a14a6e19deb805f245c3ce98ca39a668e92872386e096f0",
+    "trials/eval-0083.json": "b2bed398549b53ae0fb39b22d06d5a77d562db9ad5282ecdbc0756fa32b0f049",
+    "trials/train-0012.json": "0b1206909aae79a4793d4f81f9b2ffabb771f46fce8e3b543c547d69c3f1ba90",
+    "trials/train-0013.json": "13573446dd939fa05fef711140f6b34ba4a3fb122909ca4efc1e3b948efc3e31",
+    "trials/train-0014.json": "de0af29703227c9630f05de57e21fe4075bd864c7915ede0a905d32fa986581f",
+    "trials/train-0015.json": "9c007d6a748ff9f1d6814cab731afbd22123920cf20015c3fd66fb8621db03cc",
+    "trials/train-0016.json": "8e840579041eb27c33ce01b9f00cbf368ab62f3c939c99cae7488a35a9a631d4",
+    "trials/train-0017.json": "d133f6c7765a8d3760b43c7ea029a6099929187977b4eba3c537e266b67604f9",
+    "trials/train-0018.json": "a03ba3d5442f35d70895e8fa3be12a6f6a10479ce0f19fbf8f89c437c00564f3",
+    "trials/train-0019.json": "5f8d237484daf1a3f9af6e7d11ace4981432a8fc70331c589c459dd633976900",
+    "trials/train-0020.json": "58641bcfb83cb7176645762fddf41624a584f849040a685fd6b82cd989e0171d",
+    "trials/train-0021.json": "fa585b2f444e819eb639427dafddc439fc2a9335098c6c6d15b97ecd1eeaa8d2",
+    "trials/train-0022.json": "4657030039113bf69f42042699660a045e3199fff9ed29f2e465284b0bf1f01e",
+    "trials/train-0023.json": "9dbb20c17eab2960280ae87c4d02d67b3358b44bbc790299dc12b1b3bf495a34",
+    "trials/train-0024.json": "f98f7632b17196bf367ae7fc378b1f5ff9286fa3157f9fb8d4bf0be224c334ca",
+    "trials/train-0025.json": "5d865941e0831b0ccf2e33ad258cb657a04e4e87e4be4d4090b02d37dbba2a0e",
+    "trials/train-0026.json": "bc9b57c270be20dc875ee0b08abce0a9acaedbcf6c4422e084b4f8c41a5ed996",
+    "trials/train-0027.json": "2a6a726ba324692f4829deee5098680e4db8b99f545ef5d273521143a599a2e1",
+    "trials/train-0028.json": "e32c6346b4e41d8e1840cb971f44a6bef9a5c704470bd9e8aad4729761dbf6c0",
+    "trials/train-0029.json": "4b48d0523789e25948f1a49c9d74a088b3a1b4911e64f338d9603ffd9cc8fa67",
+    "trials/train-0030.json": "3329392a408bf058a3f0af97f99bcd909a261bf0de2626f83737fdfcc88eb467",
+    "trials/train-0031.json": "eff56a6dacf70407801ef2cc822f70c3a47de01ea6a75d000e9da6f10094cc6b",
+    "trials/train-0032.json": "3d45afa89bcf7e389942ff9055c9fbb53d7bd3bdc841f31083b6f9fa1e17ce43",
+    "trials/train-0033.json": "0f0a19821d7d4655b229ec16832a9e89753ca7ff3eddfc767fc614fff28abbc4",
+    "trials/train-0034.json": "5dc5ba87f2ffd6e921b417e3000820fe97deb7b768a7887702623b697db05ae4",
+    "trials/train-0035.json": "2a5521d2cf6092e90bdd2873822da0f55476dbee15e14bd11e6c2b9a3a44c941",
+    "trials/train-0036.json": "16b80cf87e543fe0ed8a2e55088b1ed074f5f242839fac78378ce7ccf6d4b3b7",
+    "trials/train-0037.json": "679ad94b57706fb093b965a026944c663862ccf1b491ae6a265302080d4ec5d4",
+    "trials/train-0038.json": "3afb9d9a375c182822ad1c33d922dffea401cd677b70d14655e6a657fc75fd52",
+    "trials/train-0039.json": "7d387f06ffa599208796ca1f53fbd068434bfb1e5cff98bc0d0ab8f66ce164ae",
+    "trials/train-0040.json": "35eb567fa25a0179f5231f30a6247a2639eb957cf0d0d297c18b2146b152214e",
+    "trials/train-0041.json": "196e6a7788227b6a7b119cf21338b245995001cb91c5efcd603955b1a6f22f41",
+    "trials/train-0042.json": "a6ce084bfa9381928142d63acb3b64b2e820ec5ab2a9605fd235a8d5e6e81544",
+    "trials/train-0043.json": "4af74bf8a7b88c74ad613b730adc743df19a0672a1f4d74f580b00fb16c0777c",
+    "trials/train-0044.json": "ba0cb95a4769df990d5243e8b0212458d2d368055f7f6b0706806dde534f02f6",
+    "trials/train-0045.json": "3a90f5706aa2cb359158a96bf09ba7852462c75b44d61fbedab3ba2574acdac8",
+    "trials/train-0046.json": "ec4d382def4e2b5110a8bd6edf925f4b0b1553c44bda37e96093fc33b38e2413",
+    "trials/train-0047.json": "ba1797419877eb5ec92d2421405fd70ae1fd2ce6fbb671636b6c0b7a6ba5bf91",
+    "trials/train-0048.json": "570eb23093dbedab3f3266489d785594d90bbc04fd8772cf91aa278c07125b52",
+    "trials/train-0049.json": "f0ac9150f4e01e00bc218def64773d80b482034241357b76833bb42aacc9500c",
+    "trials/train-0050.json": "d02e9a1710c6ac00bc560557aa5e706dfe7a1ace75e16b636287c37933ed3a9f",
+    "trials/train-0051.json": "087854221178ce1ac89dbd3d4759da159303a3b8383c31e7b298050d148b1c3d",
+    "trials/train-0052.json": "6504320cfb3ee73ea3d62db5638d3ea3c2dec80b3a09017b94c53b736d9dfcf4",
+    "trials/train-0053.json": "7fa8e86ac0315dec5f936f12e6f4436b1adda294496142079eafb726909e9294",
+    "trials/train-0054.json": "d09edb29af4999cec2dff80ed395f6afe4d1631da300203b3faabb76f90d31f0",
+    "trials/train-0055.json": "c1f3cb5f43c8c1ba6d5baf26c0a5409e8de34a91607f2db97d8ac49b9a4c3921",
+    "trials/train-0056.json": "52ecd1afdbeebf908db66abc466d9b918b553b29b3ab2f942b2ddaab0b5eaa14",
+    "trials/train-0057.json": "eac3a351d74a05fc551d829f9d2865e0b77a2ffcf7ff2709ba17d5a32ee98b22",
+    "trials/train-0058.json": "c5bd82f09170d26817365d03a5a7e7db40f2e5e21366b3a10bb4142cae623450",
+    "trials/train-0059.json": "8b45300bcae3bdcafca8528f00c61b0529b2fa13106b78c2d9eb83c97398eb73",
+    "trials/train-0060.json": "b625d373f909c1caf0a93600c16d4f74918201d1ff2ad5d3d7936951374cf85d",
+    "trials/train-0061.json": "f71c04dbc04a454de54997567fc17fe5ee720799c5dcad3c7a82dd6d5ae04528",
+    "trials/train-0062.json": "1efd83e5aa36a5b4404b0017193ca2ce33db5e58be8f1e129469556c1b6a7dc1",
+    "trials/train-0063.json": "14b2c960195988b2e389e1217af8ac2b44be3927615ec3f526fc626cb4550520",
+    "trials/train-0064.json": "0e45745d7419d74937627d59717a61230a56072f42919caf7426f77d77c64d0d",
+    "trials/train-0065.json": "95ae1ba6f047d0a307c69d919083537e3b306045e49d2d48581369e925db695f",
+    "trials/train-0066.json": "f12b986fac0e89bda8f080af823694746dec28b306936751af86b07366ed649a",
+    "trials/train-0067.json": "f484e83ea78fcf316d47e7eee17cbc9b9e810d4b903526d72e5f7c35a3520107",
+    "trials/train-0068.json": "6ff9ad5c183f34a9c2706e628d3225208e842076c5381dc2042a502fbe5572fa",
+    "trials/train-0069.json": "6574b4d8caa49feb810b7e5dc72b359d315678f8bc116db896264dbb24818071",
+    "trials/train-0070.json": "50cf66579dfca0442ac489174535a433b74d04b2aaf52bb9196fe7d037895e19",
+    "trials/train-0071.json": "0822f34daacf2cb5232105321f6c6c59f9fd3b82052c0c312a2a12979a7a376a",
+    "trials/train-0072.json": "291102ac3a40b9bf4a627c6e380b37789aa7566743efd3000530abe10d10ef83",
+    "trials/train-0073.json": "fd20bd01da7e633f74e02c0c73e895d8e94084923d9a23f72baa678f0280717b",
+    "trials/train-0074.json": "813b4aee4aec74f2ba7c98d15d06075ad9827a9f2c3b113155b4372166c50745",
+    "trials/train-0075.json": "71989ec24babf9de45d7d6d7e9b9a4ca5065551c6ee9daafd03ca7817c41ebd8"
+  },
+  "status": "passed",
+  "study_fingerprint": "f97dff5d77ccc0e6742f7926bb655fe1da7e060434506cad3353de32edf78e15",
+  "trials": [
+    {
+      "board_max_translation_through_score_mm": 0.49893109826371074,
+      "captures": 2,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 9,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "coverage-0000-physics.npz",
+      "frame_readbacks": 120,
+      "invalid_cells": 10,
+      "mode": "coverage",
+      "native_steps": 960,
+      "rescored_releases": 25,
+      "sha256": "2dc098a9be0e111150ad1f8c9a35a443feef62121df27b11c5399340a10c6748",
+      "trial_file": "trials/coverage-0000.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.21754337649326771,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 5,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "coverage-0001-physics.npz",
+      "frame_readbacks": 120,
+      "invalid_cells": 9,
+      "mode": "coverage",
+      "native_steps": 960,
+      "rescored_releases": 26,
+      "sha256": "09133f77eb22ac7ec1183122a168337c013ba4c87278d4381eb536a3d727f6a9",
+      "trial_file": "trials/coverage-0001.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.17236810526810586,
+      "captures": 2,
+      "clean_captures": 1,
+      "driven_settlement_audit": {
+        "bias_corrections": 6,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "coverage-0002-physics.npz",
+      "frame_readbacks": 120,
+      "invalid_cells": 8,
+      "mode": "coverage",
+      "native_steps": 960,
+      "rescored_releases": 27,
+      "sha256": "9148937ef65f57f1f329c1cf2dbb55acc27eff60d9b0c924e78f077568ab31f1",
+      "trial_file": "trials/coverage-0002.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.1832305424613878,
+      "captures": 4,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 7,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "coverage-0003-physics.npz",
+      "frame_readbacks": 120,
+      "invalid_cells": 7,
+      "mode": "coverage",
+      "native_steps": 960,
+      "rescored_releases": 28,
+      "sha256": "3f1340d78bbc8032900e62a871bb897f5ccc9caa0fd8ada5aa3166ed64e22370",
+      "trial_file": "trials/coverage-0003.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.19743139273487031,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 6,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0012-physics.npz",
+      "frame_readbacks": 120,
+      "invalid_cells": 20,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 15,
+      "sha256": "9efb468800771eda39e6037677975ee9a1b49ca896900ba4164aa435ba282b4a",
+      "trial_file": "trials/train-0012.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.09848723857430741,
+      "captures": 0,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 7,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0013-physics.npz",
+      "frame_readbacks": 120,
+      "invalid_cells": 19,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 16,
+      "sha256": "e6686ce44ead02ac9bd8bb9fb8094cbcd3d09d321442e21aa5601ad687eef7e7",
+      "trial_file": "trials/train-0013.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.11608230852289125,
+      "captures": 0,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 2,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0014-physics.npz",
+      "frame_readbacks": 120,
+      "invalid_cells": 22,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 13,
+      "sha256": "34192b251f98c28cd4e078b310548666a3dba305041d453952c63613e7bc5e93",
+      "trial_file": "trials/train-0014.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.1695255486993119,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 5,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0015-physics.npz",
+      "frame_readbacks": 120,
+      "invalid_cells": 25,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 10,
+      "sha256": "a7538f7e46ecd22775baa40f5d6a745a30a6732dc51849ed011e233b43de49e9",
+      "trial_file": "trials/train-0015.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.1938070636242628,
+      "captures": 0,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 0,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0016-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 21,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 14,
+      "sha256": "215bd1778e46b39a30e31685f256deffdbf6fb5acb43126c4e873d5d3b0673fc",
+      "trial_file": "trials/train-0016.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.18486844783183187,
+      "captures": 0,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 7,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0017-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 21,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 14,
+      "sha256": "c159bac36a6ad9136c79bf3207327b4a572967f8a0f370e8895a6c988b4fcb50",
+      "trial_file": "trials/train-0017.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.18011024803854525,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 9,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0018-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 20,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 15,
+      "sha256": "986b4ac37919b8384841296ae0ea0855bb982d5d9f41d4c06fdb7ad6afdf8591",
+      "trial_file": "trials/train-0018.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.1847623789217323,
+      "captures": 0,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 8,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 39,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 3
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 6685,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0019-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 23,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 12,
+      "sha256": "7dc01dceda3ae54e76f81225d1c72a52c89cd833602f072fe797950bc566fbd2",
+      "trial_file": "trials/train-0019.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.18372708291281015,
+      "captures": 0,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 4,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 26,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 2
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 3640,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0020-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 22,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 13,
+      "sha256": "e3efe58b4adf0e769bdca0038122d722b3f3255170a1b7c12910e609623e9305",
+      "trial_file": "trials/train-0020.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.14002477109897882,
+      "captures": 2,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 1,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0021-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 24,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 11,
+      "sha256": "7652d1b93a861f8990b9424fe05339d6ca7930b90d4f44eea244ae31dfcaec28",
+      "trial_file": "trials/train-0021.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.15484749746974558,
+      "captures": 1,
+      "clean_captures": 1,
+      "driven_settlement_audit": {
+        "bias_corrections": 4,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0022-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 25,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 10,
+      "sha256": "8d6f7f3c952df6077bdab379ec407fb86f1f25a7e7e50e5bdc30e2db27f8b2ed",
+      "trial_file": "trials/train-0022.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.1421948691131547,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 3,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0023-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 23,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 12,
+      "sha256": "38bbe7600e662aafd4e1cc3a62d67e601657d85249741a5b95b9b7d9a35ed125",
+      "trial_file": "trials/train-0023.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.1812383416108787,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 3,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0024-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 22,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 13,
+      "sha256": "6117d3833375365e9dc2d146efce4843175867309209ddb15bf58a402654f767",
+      "trial_file": "trials/train-0024.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.18779154925141484,
+      "captures": 2,
+      "clean_captures": 1,
+      "driven_settlement_audit": {
+        "bias_corrections": 3,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0025-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 22,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 13,
+      "sha256": "26f7a21e3dbfd8a046515bad14fea92374ef6053389e401e6121ff17223ef828",
+      "trial_file": "trials/train-0025.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.1559086231281981,
+      "captures": 0,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 4,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 22,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 2
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 5110,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0026-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 24,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 11,
+      "sha256": "556a13780f448041b49df23e0c6beeb1de9751c91acf9722c13e6024ad35b670",
+      "trial_file": "trials/train-0026.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.14295657456386834,
+      "captures": 2,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 7,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0027-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 19,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 16,
+      "sha256": "20b8f51683c92d469d44da60d376266f52259bf8dd2a7dee6ed36ffd1a17d2c2",
+      "trial_file": "trials/train-0027.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.20628681522794068,
+      "captures": 3,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 5,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0028-physics.npz",
+      "frame_readbacks": 120,
+      "invalid_cells": 22,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 13,
+      "sha256": "eccc06272da180657a470975b465ed31aac855903adfde56f6eb7d697bfc4970",
+      "trial_file": "trials/train-0028.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.14795146125834435,
+      "captures": 0,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 6,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0029-physics.npz",
+      "frame_readbacks": 120,
+      "invalid_cells": 25,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 10,
+      "sha256": "ceecc6ed904c1da2766e56387ffe06105315c69c88ecc05cfdad790009371e3f",
+      "trial_file": "trials/train-0029.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.14122734137345105,
+      "captures": 0,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 6,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0030-physics.npz",
+      "frame_readbacks": 120,
+      "invalid_cells": 24,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 11,
+      "sha256": "b2006861f7306289cb655a241a168bb767678c79273062eebccabdd72ba7888b",
+      "trial_file": "trials/train-0030.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.13844440400134772,
+      "captures": 0,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 8,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0031-physics.npz",
+      "frame_readbacks": 120,
+      "invalid_cells": 24,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 11,
+      "sha256": "e51c506965e5ecb806238c2e0c38e74d0cb3be234c69966c72567588cc50dfda",
+      "trial_file": "trials/train-0031.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.12455083196982741,
+      "captures": 3,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 3,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0032-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 20,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 15,
+      "sha256": "f077d2f4a447c81328d0be3f3c7de512c8f87b99909845bf079018b11c2548cf",
+      "trial_file": "trials/train-0032.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.1956325868377462,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 1,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0033-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 23,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 12,
+      "sha256": "c5b532be569c8774da89af9c4531f0be32f17c1ecb5a66e8df105d64254b5d8c",
+      "trial_file": "trials/train-0033.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.17586503236088902,
+      "captures": 0,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 8,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 13,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 1
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 7875,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0034-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 25,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 10,
+      "sha256": "62ae008bd8a5c8cc6636f1ffd4747c8c81a7cce27fcea5469f36cc1c899a7445",
+      "trial_file": "trials/train-0034.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.17051368195097893,
+      "captures": 0,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 6,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0035-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 18,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 17,
+      "sha256": "ed809006e5eed335583e8fedf8529d42d813a9b88145bc1b530d2a057e0a95a3",
+      "trial_file": "trials/train-0035.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.14386385737452656,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 5,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0036-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 22,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 13,
+      "sha256": "8104db6faef55685357df1effee10c5d30cd5f15cce18d21eff3e4712333ed39",
+      "trial_file": "trials/train-0036.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.09482847235631198,
+      "captures": 2,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 3,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0037-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 21,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 14,
+      "sha256": "c611641b2d0a7114233b5d8901be0d9bbcdf3e521f8b9e5fcc3afca3cd59f0f7",
+      "trial_file": "trials/train-0037.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.1703307352727279,
+      "captures": 2,
+      "clean_captures": 1,
+      "driven_settlement_audit": {
+        "bias_corrections": 4,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 34,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 2
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 6685,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0038-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 18,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 17,
+      "sha256": "89b3dc318d6fe3ec06029e73181d5d73080144bb4b032370fcd95b17950d0340",
+      "trial_file": "trials/train-0038.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.16264097939711064,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 3,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0039-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 21,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 14,
+      "sha256": "d2f87520854d657858e7e4cda712d4134671fc23bd30c3a744c514a25745ed6c",
+      "trial_file": "trials/train-0039.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.15573952987324446,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 4,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0040-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 22,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 13,
+      "sha256": "14e6498509d845be376bf843f21f2723db896ea19be1d8a2063090892ce6ecf6",
+      "trial_file": "trials/train-0040.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.16542758385185152,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 3,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0041-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 20,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 15,
+      "sha256": "2ee6b8c0f28faecc360ef83161d2a34e6b4283026630e85767d274dc7e7194ff",
+      "trial_file": "trials/train-0041.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.13274414232000709,
+      "captures": 3,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 4,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0042-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 22,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 13,
+      "sha256": "30ed804b7353d8402dcec0442703933dd25139ddbd08e669f7f74cf66f4491f6",
+      "trial_file": "trials/train-0042.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.1661911519477144,
+      "captures": 0,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 3,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0043-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 20,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 15,
+      "sha256": "ac304eea0affec2ab7495de8a121ae51b091f7c5a316eb9510b3a17abca94c01",
+      "trial_file": "trials/train-0043.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.13494181621354073,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 2,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0044-physics.npz",
+      "frame_readbacks": 120,
+      "invalid_cells": 20,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 15,
+      "sha256": "8aaca3104281708c8d1719980145e4acfabe1dcdf8aeded8c1220e02c029e678",
+      "trial_file": "trials/train-0044.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.17481240502092987,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 1,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0045-physics.npz",
+      "frame_readbacks": 120,
+      "invalid_cells": 22,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 13,
+      "sha256": "6deb380835177d654671239be12afa0b821753fd4b35b05491e9fbe93b3548a3",
+      "trial_file": "trials/train-0045.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.15746912686154246,
+      "captures": 1,
+      "clean_captures": 1,
+      "driven_settlement_audit": {
+        "bias_corrections": 11,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0046-physics.npz",
+      "frame_readbacks": 120,
+      "invalid_cells": 22,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 13,
+      "sha256": "5a7d4bc44ecdaf5ec6b3af7c8139515de887d7862b8394751b54b7a901355998",
+      "trial_file": "trials/train-0046.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.151078260387294,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 3,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0047-physics.npz",
+      "frame_readbacks": 120,
+      "invalid_cells": 24,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 11,
+      "sha256": "2c82aa09f39ae70d9229dc315e1037b4c12489d124525bf758803bd8e503146e",
+      "trial_file": "trials/train-0047.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.18414841906633228,
+      "captures": 2,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 2,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0048-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 21,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 14,
+      "sha256": "5e4aa25c9e00d84a35fb5a6b7b56f4f9e06cd48293650814d0eb86f07fb08b09",
+      "trial_file": "trials/train-0048.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.17042792751453817,
+      "captures": 2,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 4,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0049-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 22,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 13,
+      "sha256": "72fbdbf3d9d2c7df6e3a5ebc57e9a64871c8e02f8cf77a8c9b090bbe1289b15f",
+      "trial_file": "trials/train-0049.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.15135224384721369,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 6,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0050-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 21,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 14,
+      "sha256": "0d707459e9de8a2f8f19de36bcb670e76ffc955ab2ad63f88004a231f80a988f",
+      "trial_file": "trials/train-0050.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.12740769307129085,
+      "captures": 0,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 2,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0051-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 20,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 15,
+      "sha256": "a31e5d7035af747906bbfa6fafe3912a726e6c4b713088a01f5f89cb3d388aee",
+      "trial_file": "trials/train-0051.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.18826498126145452,
+      "captures": 2,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 2,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0052-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 17,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 18,
+      "sha256": "e88c223b864821e604346551fd2df49ef8d6b16eb5418db70aa6fed7c5d8833d",
+      "trial_file": "trials/train-0052.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.1545009872643277,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 6,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0053-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 21,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 14,
+      "sha256": "eaf91240086267ce8238f6d53bede5aa35febce12e1ec89c73858d2e70c3c0db",
+      "trial_file": "trials/train-0053.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.1287200429942459,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 2,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0054-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 18,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 17,
+      "sha256": "f1d2daf726fcc0f7aadecd5aee04f6156f20fc93dd3d33776c6d18254c7d62a7",
+      "trial_file": "trials/train-0054.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.21431231289170682,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 3,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0055-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 24,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 11,
+      "sha256": "d98f0177fe29eacba43520ba3797644fd13edc93bd582fbeeb29bb5b55694e53",
+      "trial_file": "trials/train-0055.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.15602068742737174,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 4,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0056-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 21,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 14,
+      "sha256": "4862801c258379dbea5ad8ef735abb29c582a0f20b0f1f86528edb75a8d8e538",
+      "trial_file": "trials/train-0056.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.17509370809420943,
+      "captures": 0,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 4,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0057-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 21,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 14,
+      "sha256": "1c67f7f38ee0b080d82762ad3c586800bad5a4b60fca6e940479032b3fe839dc",
+      "trial_file": "trials/train-0057.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 2.173036802560091,
+      "captures": 0,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 7,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0058-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 23,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 12,
+      "sha256": "d882398a885df0716f0fa24abef17fce2d038338d4fe1cbb4478cb50f809f037",
+      "trial_file": "trials/train-0058.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.2038867532974109,
+      "captures": 0,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 11,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0059-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 23,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 12,
+      "sha256": "973d32c405598e9b6b44fb664d20668aed701233f90229ad3072461aa7c2a8b5",
+      "trial_file": "trials/train-0059.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.12151122791692615,
+      "captures": 0,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 1,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0060-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 18,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 17,
+      "sha256": "ba16824e8373b35bc69b28378f335f91bfb77deb4390a14c5c4f2a31d78a6652",
+      "trial_file": "trials/train-0060.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.1894815795822069,
+      "captures": 2,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 6,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0061-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 21,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 14,
+      "sha256": "a0b8f9a38e40c2f8e6a55f560cd3035c9d1e060ac61a928214475df79dcef646",
+      "trial_file": "trials/train-0061.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.17943607235793024,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 6,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0062-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 21,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 14,
+      "sha256": "0f04b69bb4086c3d692b17ef6588de7373f28b3edfe61436bdd8f0e04190e44f",
+      "trial_file": "trials/train-0062.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.19189143495168537,
+      "captures": 0,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 6,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0063-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 22,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 13,
+      "sha256": "27f893b725b2fa8e0a13fbda9ff969fbecafd89e51ca0a82955bb33568403f17",
+      "trial_file": "trials/train-0063.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.14195746916811913,
+      "captures": 0,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 3,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0064-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 23,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 12,
+      "sha256": "c458dcba59ad44ee87ef48dbffb9b07411072219aebdf758196b5185da6c7b5f",
+      "trial_file": "trials/train-0064.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.17028575530275702,
+      "captures": 0,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 5,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0065-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 21,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 14,
+      "sha256": "39b4f7b086243698dab2a0833b15f5352099d8909b65e70751c6a5fa474c4a49",
+      "trial_file": "trials/train-0065.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.1893371663754806,
+      "captures": 2,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 5,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0066-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 21,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 14,
+      "sha256": "eeaa00872eeba73f044c0142a1380a23a128a153273648a82084043656e752d0",
+      "trial_file": "trials/train-0066.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.16506901010870934,
+      "captures": 0,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 1,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 26,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 2
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 1995,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0067-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 22,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 13,
+      "sha256": "b00c29d4e727aaf32466898841a87010c078e3c7933cda42fc967fe6ba0b2e23",
+      "trial_file": "trials/train-0067.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.1617482485016808,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 6,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0068-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 19,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 16,
+      "sha256": "5f054705fc6099f549d8a50232f3bdf0c255009bd1d3c9e8f6ab6f2b046a3d07",
+      "trial_file": "trials/train-0068.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.17274699348490685,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 0,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0069-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 19,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 16,
+      "sha256": "60ede3966d09322a9d802f59654290d7b97fe20505cf84b1543a09081787d9c9",
+      "trial_file": "trials/train-0069.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.16667679301463068,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 2,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0070-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 19,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 16,
+      "sha256": "2d401ce546324697d0ab8ce575bcd4810358c2b32f4e15d3e05715eca28793a7",
+      "trial_file": "trials/train-0070.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.18867706239689142,
+      "captures": 0,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 4,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0071-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 23,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 12,
+      "sha256": "469ebee9776100a68fbdfc54a413788bf863a0cd69dd4a82d344f5fa5c00627c",
+      "trial_file": "trials/train-0071.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.175399225554429,
+      "captures": 0,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 3,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0072-physics.npz",
+      "frame_readbacks": 120,
+      "invalid_cells": 24,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 11,
+      "sha256": "dbdfc0b221465bc3b95e44f8220920fe5fece3d5380187ee48a20012440de0ed",
+      "trial_file": "trials/train-0072.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.10173302871407941,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 4,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0073-physics.npz",
+      "frame_readbacks": 120,
+      "invalid_cells": 24,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 11,
+      "sha256": "921aab393f317b730ad4e7b7129e9b3581cdb712ae871d0f6950d3b8a3b0156d",
+      "trial_file": "trials/train-0073.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.1989046431845054,
+      "captures": 2,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 2,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0074-physics.npz",
+      "frame_readbacks": 120,
+      "invalid_cells": 20,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 15,
+      "sha256": "9c8c873c376429acda0a58402590e8692d9a3b60460cfe883b80e2ff362434c9",
+      "trial_file": "trials/train-0074.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.137641720357351,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 3,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 0,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 0
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 8960,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "train-0075-physics.npz",
+      "frame_readbacks": 120,
+      "invalid_cells": 20,
+      "mode": "train",
+      "native_steps": 960,
+      "rescored_releases": 15,
+      "sha256": "c2db534fa28562008a05c6b0278b523097ae1c726be598afff02df1323a13369",
+      "trial_file": "trials/train-0075.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.17767728422768414,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 17,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 32,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 1
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 7840,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "eval-0004-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 6,
+      "mode": "eval",
+      "native_steps": 960,
+      "rescored_releases": 29,
+      "sha256": "4d057730e2c2d16f6370b25b242df2ef4534f3c81731c59c1f52785111f7bb9c",
+      "trial_file": "trials/eval-0004.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.17767728422768414,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 17,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 32,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 1
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 7840,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "eval-0005-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 6,
+      "mode": "eval",
+      "native_steps": 960,
+      "rescored_releases": 29,
+      "sha256": "87d1346be1edcc7a143620bec0b7ab9d0954d5cb7a6ca9fc8ae61e96773bc05f",
+      "trial_file": "trials/eval-0005.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.17194513930007815,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 17,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 32,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 1
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 7875,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "eval-0006-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 6,
+      "mode": "eval",
+      "native_steps": 960,
+      "rescored_releases": 29,
+      "sha256": "a30a707365471a1875af81a013849d8b620ab878181e3c852fca254c095a32e2",
+      "trial_file": "trials/eval-0006.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.17194513930007815,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 17,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 32,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 1
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 7875,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "eval-0007-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 6,
+      "mode": "eval",
+      "native_steps": 960,
+      "rescored_releases": 29,
+      "sha256": "12921e9393196df916f8dd9325128a5687b0cc11759cce0f1e2373f8b3792c45",
+      "trial_file": "trials/eval-0007.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.17194513930007815,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 17,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 32,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 1
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 7875,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "eval-0008-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 6,
+      "mode": "eval",
+      "native_steps": 960,
+      "rescored_releases": 29,
+      "sha256": "6be5e8e7d35db4bfa7199f79cf2bc5f3db203decf9d0f3b853b190e96c07ef18",
+      "trial_file": "trials/eval-0008.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.17194513930007815,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 17,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 32,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 1
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 7875,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "eval-0009-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 6,
+      "mode": "eval",
+      "native_steps": 960,
+      "rescored_releases": 29,
+      "sha256": "9393894fad4e6d61ed6e3ad6a02b7764f5b6748339f3b4317f4ff81745c036ed",
+      "trial_file": "trials/eval-0009.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.17767728422768414,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 17,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 32,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 1
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 7875,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "eval-0010-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 6,
+      "mode": "eval",
+      "native_steps": 960,
+      "rescored_releases": 29,
+      "sha256": "5ca61b1299783d286701c7d1fc19ac0bbda58f8c5d5caa115f8d726487386e3d",
+      "trial_file": "trials/eval-0010.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.17194513930007815,
+      "captures": 1,
+      "clean_captures": 0,
+      "driven_settlement_audit": {
+        "bias_corrections": 17,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 32,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 1
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 7840,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "eval-0011-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 6,
+      "mode": "eval",
+      "native_steps": 960,
+      "rescored_releases": 29,
+      "sha256": "2cf7104acbe4383d748baeea99d54d2756398a263001d9f7768cd6aa22dc0587",
+      "trial_file": "trials/eval-0011.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.17142378783319145,
+      "captures": 4,
+      "clean_captures": 1,
+      "driven_settlement_audit": {
+        "bias_corrections": 8,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 93,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 3
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 6790,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "eval-0076-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 5,
+      "mode": "eval",
+      "native_steps": 960,
+      "rescored_releases": 30,
+      "sha256": "81018bc85a64c71a112fcde618933f3b8eea562f66f260f66c43c3b928b6a612",
+      "trial_file": "trials/eval-0076.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.17142378783319145,
+      "captures": 4,
+      "clean_captures": 1,
+      "driven_settlement_audit": {
+        "bias_corrections": 8,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 93,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 3
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 6790,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "eval-0077-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 5,
+      "mode": "eval",
+      "native_steps": 960,
+      "rescored_releases": 30,
+      "sha256": "ce276064a254bc3faac8aabea8a95e62b7af0f7c74cce2884d3db289410b5214",
+      "trial_file": "trials/eval-0077.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.17142378783319145,
+      "captures": 4,
+      "clean_captures": 1,
+      "driven_settlement_audit": {
+        "bias_corrections": 8,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 93,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 3
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 6790,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "eval-0078-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 5,
+      "mode": "eval",
+      "native_steps": 960,
+      "rescored_releases": 30,
+      "sha256": "817b5dacf18400d6a714fccb5de26346f17bd88ea3550cf1ab88ac1ea8b95138",
+      "trial_file": "trials/eval-0078.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.17142378783319145,
+      "captures": 4,
+      "clean_captures": 1,
+      "driven_settlement_audit": {
+        "bias_corrections": 8,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 93,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 3
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 6790,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "eval-0079-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 5,
+      "mode": "eval",
+      "native_steps": 960,
+      "rescored_releases": 30,
+      "sha256": "002366bfcb6c6dd21487a0aa23bed79c6497a9a57095b62b8a8fc51032c91c66",
+      "trial_file": "trials/eval-0079.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.17142378783319145,
+      "captures": 4,
+      "clean_captures": 1,
+      "driven_settlement_audit": {
+        "bias_corrections": 8,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 93,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 3
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 6790,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "eval-0080-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 5,
+      "mode": "eval",
+      "native_steps": 960,
+      "rescored_releases": 30,
+      "sha256": "3d20b2cc60843277337cb42309670b910a78f641f3fdb02dfcf4256471c261ff",
+      "trial_file": "trials/eval-0080.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.17142378783319145,
+      "captures": 4,
+      "clean_captures": 1,
+      "driven_settlement_audit": {
+        "bias_corrections": 8,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 93,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 3
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 6790,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "eval-0081-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 5,
+      "mode": "eval",
+      "native_steps": 960,
+      "rescored_releases": 30,
+      "sha256": "143bb731c997ccf7696a36789c50b5727326729a1bcc09578432ee238dfaaec1",
+      "trial_file": "trials/eval-0081.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.17142378783319145,
+      "captures": 4,
+      "clean_captures": 1,
+      "driven_settlement_audit": {
+        "bias_corrections": 8,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 93,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 3
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 6790,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "eval-0082-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 5,
+      "mode": "eval",
+      "native_steps": 960,
+      "rescored_releases": 30,
+      "sha256": "5428aa69fa4e1f0bb76c8340dccbf93aaac70ec313fbef094df35615f1ccb8d4",
+      "trial_file": "trials/eval-0082.json"
+    },
+    {
+      "board_max_translation_through_score_mm": 0.17142378783319145,
+      "captures": 4,
+      "clean_captures": 1,
+      "driven_settlement_audit": {
+        "bias_corrections": 8,
+        "early_exit": {
+          "complete_initial_qualification_path_eligibility_logged": true,
+          "eligible_cell_stage_checks": 93,
+          "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+          "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+          "short_global_windows": 3
+        },
+        "full_articulation_velocity_gate_verified": true,
+        "measured_windows": 6790,
+        "original_holding_gains_restored": true,
+        "quiet_before_every_correction_verified": true,
+        "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic"
+      },
+      "file": "eval-0083-physics.npz",
+      "frame_readbacks": 0,
+      "invalid_cells": 5,
+      "mode": "eval",
+      "native_steps": 960,
+      "rescored_releases": 30,
+      "sha256": "58cc07cc3269e72cb281b1220c8b0001231ec9a762ce245ddf96b226eee78d71",
+      "trial_file": "trials/eval-0083.json"
+    }
+  ]
+}

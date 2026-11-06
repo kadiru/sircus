@@ -1,0 +1,111 @@
+{
+  "after_admitted": 80,
+  "after_failures": {
+    "endpoint_ik_unresolved_Arm14": 2,
+    "no_geometry_support": 8,
+    "setup_motion_not_quiet": 5,
+    "setup_transit_incomplete": 5
+  },
+  "attempts": 100,
+  "audit_source_sha256": "d90383b24c9300d1d90cd3d94ec1160a97c25e2c0b155cffbe74e4947932e179",
+  "ball_releases": 0,
+  "before_admitted": 48,
+  "before_failures": {
+    "board_bucket_proxy_overlap": 2,
+    "endpoint_ik_unresolved_Arm14": 2,
+    "endpoints_not_settled": 36,
+    "no_geometry_support": 8,
+    "settling_correction_ik": 4
+  },
+  "checked_attempts": 100,
+  "checked_training_batches": 4,
+  "geometry_fingerprint": "63362ef37a93881f769b39d1ee7456335f1cc7bf5db04ffa7e548ce9697455bf",
+  "history_audits": [
+    {
+      "bias_corrections": 9,
+      "cutoff_scope": "Final setup-decision clock only; no physical ball release or scoring event",
+      "early_exit": {
+        "complete_initial_qualification_path_eligibility_logged": true,
+        "eligible_cell_stage_checks": 0,
+        "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+        "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+        "short_global_windows": 0
+      },
+      "full_articulation_velocity_gate_verified": true,
+      "measured_windows": 8960,
+      "original_holding_gains_restored": true,
+      "quiet_before_every_correction_verified": true,
+      "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic",
+      "setup_decision_step": 21295,
+      "source_trial": "trials/train-0012.json"
+    },
+    {
+      "bias_corrections": 12,
+      "cutoff_scope": "Final setup-decision clock only; no physical ball release or scoring event",
+      "early_exit": {
+        "complete_initial_qualification_path_eligibility_logged": true,
+        "eligible_cell_stage_checks": 23,
+        "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+        "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+        "short_global_windows": 1
+      },
+      "full_articulation_velocity_gate_verified": true,
+      "measured_windows": 8120,
+      "original_holding_gains_restored": true,
+      "quiet_before_every_correction_verified": true,
+      "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic",
+      "setup_decision_step": 39435,
+      "source_trial": "trials/train-0013.json"
+    },
+    {
+      "bias_corrections": 9,
+      "cutoff_scope": "Final setup-decision clock only; no physical ball release or scoring event",
+      "early_exit": {
+        "complete_initial_qualification_path_eligibility_logged": true,
+        "eligible_cell_stage_checks": 0,
+        "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+        "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+        "short_global_windows": 0
+      },
+      "full_articulation_velocity_gate_verified": true,
+      "measured_windows": 8960,
+      "original_holding_gains_restored": true,
+      "quiet_before_every_correction_verified": true,
+      "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic",
+      "setup_decision_step": 59011,
+      "source_trial": "trials/train-0014.json"
+    },
+    {
+      "bias_corrections": 13,
+      "cutoff_scope": "Final setup-decision clock only; no physical ball release or scoring event",
+      "early_exit": {
+        "complete_initial_qualification_path_eligibility_logged": true,
+        "eligible_cell_stage_checks": 22,
+        "readiness": "Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+        "scope": "Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures",
+        "short_global_windows": 1
+      },
+      "full_articulation_velocity_gate_verified": true,
+      "measured_windows": 7910,
+      "original_holding_gains_restored": true,
+      "quiet_before_every_correction_verified": true,
+      "scope": "Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic",
+      "setup_decision_step": 76821,
+      "source_trial": "trials/train-0015.json"
+    }
+  ],
+  "regressions": 0,
+  "repaired": 32,
+  "schema": "sircus-fixed-request-setup-audit-v1",
+  "scope": "Fixed first-four-training-batch setup-only comparison; independent raw request/history/counter checks. No capture measurement, policy training or physical release is claimed. Producer source identity remains separately bound by its launch receipt.",
+  "source_raw_sha256": "7e2c645a23d9f9cc22be895b175fed48108d6dcebfd4b012d6a23ede973002b0",
+  "source_result_sha256": "cd90e6ec9c1e1bc3729ca5113b67d98c6ebf680f0964cec68065acb1f98138ca",
+  "source_setup_sha256": "a49de1e750599953611de58aa6217f3f4649a9a87b4aa7b9321d000212040a20",
+  "source_trial_sha256": {
+    "trials/train-0012.json": "e62e5bfbebb6a5707763b172f9315dc362ddabe239dfb2a1ef504aaf64dcf432",
+    "trials/train-0013.json": "1a3417e777e5478b41c709d96949ba98e1abee13b7765fc447ed3f3a0ac0a83b",
+    "trials/train-0014.json": "2f2af7c8847e7706d641c5edabf5ea1325264fb6470ce5e7b3cf2af324a15503",
+    "trials/train-0015.json": "7b256ad2a0339a1f33d8a5370718f400f3b375877d415a2164e55b3b274ff34b"
+  },
+  "status": "passed"
+}

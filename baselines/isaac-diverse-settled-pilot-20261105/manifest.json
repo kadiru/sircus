@@ -1,0 +1,129 @@
+{
+  "auditor_commit": "40dd24ffdfeec0cd521fdfbf409c31c68c69a2d7",
+  "curator_code_sha256": "6a7ddee641380917b4d8e196abab60fa7384230b3761843eda6d51d7ac30c177",
+  "domain_fingerprint": "e9739fe933c7cea7c06bbea2657a6d4781aaa91da963eafea2afdfc273dfae71",
+  "exporter_commit": "40dd24ffdfeec0cd521fdfbf409c31c68c69a2d7",
+  "external_media": {
+    "action-trials.mp4": "bf208cf31dc5b23a65cbf69b6fe15efd08c3034d91c253d33a0fbe9ea22b0a44",
+    "trials.mp4": "96d01acb1af62795c2af6a9bcd19f8886fdf2104065c63adcf8c28f13b000df9"
+  },
+  "files": {
+    "README.md": {
+      "bytes": 3987,
+      "sha256": "a43e959d6cb3efb41cf7fdba006ec9c6f1c0d3779fd4027e26a9d9bc6ad88b57"
+    },
+    "camera-binding.json": {
+      "bytes": 418,
+      "sha256": "4b7265bed9b8a3ef3dd8372e74f00fac0e9fcd778fd2183ca5f660b212ef7916"
+    },
+    "checkpoint-audit.json": {
+      "bytes": 121656,
+      "sha256": "fc9ca7f2b484cb4f0fca8eababe6918b84fa8ca7d7de43b648f9c61c1f017b3d"
+    },
+    "comparison-audit.json": {
+      "bytes": 121656,
+      "sha256": "fc9ca7f2b484cb4f0fca8eababe6918b84fa8ca7d7de43b648f9c61c1f017b3d"
+    },
+    "comparison.json": {
+      "bytes": 603896,
+      "sha256": "7a23627aeb6df145aede57b09fb77a9eb3d8c2d6269358b10e7baf71e8a9911e"
+    },
+    "contact-probes.json": {
+      "bytes": 2288,
+      "sha256": "5caac9683fc822806864ab6ab2f5d47daa239161c0ad4561423cf1ec9bcae2e0"
+    },
+    "contract.json": {
+      "bytes": 19365,
+      "sha256": "4925fecf895f2f0f8668c027e3e721d70ba71c6dd66ed7d1189da98f632fd352"
+    },
+    "feasibility-audit.json": {
+      "bytes": 1263,
+      "sha256": "9a3127a52c42331c3ca014c70ba9971f5fd3f965be88bb275d205ae703eb590f"
+    },
+    "film.json": {
+      "bytes": 151591,
+      "sha256": "e04c0cb4804d53ee9463b4ea50e85ca203eba10b97f611b759288220ba0f0210"
+    },
+    "learning-curve.json": {
+      "bytes": 44550,
+      "sha256": "0ee82f8880802fa3f3876cfd4ac00f6fa171587e0b200fd19fcd27b46d7d758c"
+    },
+    "native-audit.json": {
+      "bytes": 113848,
+      "sha256": "1d854cddc9df3fd2513aa6f618609fdbf383db98d037f22ca54963fc39f2b2e4"
+    },
+    "policy-final.pt": {
+      "bytes": 231903,
+      "sha256": "42b7e586c39b24fdadebd929534978f0da44aa8aa10219167a53917949a577bd"
+    },
+    "policy-initial.pt": {
+      "bytes": 93733,
+      "sha256": "541e8ce85db3e0c838092c90ec5e38174996b10f6fc61f408a0728a07f312fb6"
+    },
+    "region-usage.json": {
+      "bytes": 11918,
+      "sha256": "42fa0a6613cd4fbcbe07558df8ad01b41fe4479f860d5d2c8e1a64e18598d314"
+    },
+    "requested-settings.csv": {
+      "bytes": 15194,
+      "sha256": "38d107eed056134564a17ca2e82572ad4e926793fcf69c64f91641b3feb3e8fd"
+    },
+    "rim-rays.json": {
+      "bytes": 335,
+      "sha256": "7985f098bd82d6c64eaa8d8ac843701b17546ffae16e788a7cb10c46f3711abe"
+    },
+    "selected-camera.json": {
+      "bytes": 530,
+      "sha256": "a7967c072b8f949318b43a510235d503c81c21e05f433670a0ce92a7af385ede"
+    },
+    "setup-attached.json": {
+      "bytes": 4993,
+      "sha256": "3115b46feadae2d86b95c81557c30c48f99bf4a9405622af7181e314e185a509"
+    },
+    "setup-audit.json": {
+      "bytes": 5526,
+      "sha256": "5acfdcc598ea5e842504b56fa95c1fe23e17df58dd310884fdab731ba5ae9885"
+    },
+    "setup-summary.json": {
+      "bytes": 74628,
+      "sha256": "096319a89c1b7091fafb2cc5826b86bb8569d1087726471d5ca14aca91ce1f97"
+    },
+    "study.json": {
+      "bytes": 38930,
+      "sha256": "f4a2af0c859d5607578f965e61ff5a90c55c81e844fb3f1a51b2e1096baa3cef"
+    },
+    "summary.json": {
+      "bytes": 785269,
+      "sha256": "d1812c906b47a98c27ea17bb09a094e5c3da900f4eda5c3cd8e3c8c9462f1dcc"
+    },
+    "support-cost.json": {
+      "bytes": 1100,
+      "sha256": "8f48e1b45d07d6077721cab49e585fda416bce555415e619bcd19f7207b38cbf"
+    },
+    "support-definitions.json": {
+      "bytes": 360409,
+      "sha256": "2e2ad70e49f187d1ea5e0142accca69992bbbf5abef19ab2f01a5d7b2d1a432f"
+    },
+    "support.json": {
+      "bytes": 1242851,
+      "sha256": "12bab39090f60611d426e623ffe6bccb1a70b8f6acc5679f7d7a97b4a6586c02"
+    }
+  },
+  "geometry_fingerprint": "63362ef37a93881f769b39d1ee7456335f1cc7bf5db04ffa7e548ce9697455bf",
+  "native_source_archive_sha256": "7f2b1fa1daf0da75a26445be940be1c46b2898939eddd25bc89b746f4706f893",
+  "native_source_commit": "40dd24ffdfeec0cd521fdfbf409c31c68c69a2d7",
+  "schema": "sircus-diverse-pilot-curation-v1",
+  "scope": "Manifest excludes itself. Full signed geometry support and byte-identical audited weights retained. No raw native observations, host calibration, credentials, frames, media, logs or runtime launch configuration copied.",
+  "source_inputs_sha256": {
+    "checkpoint_audit": "e6df3cac143080cdd99f879fc5eb446ffabfa5078fabf50908035d92925361bd",
+    "full_settings_csv": "01871a194b8b2c3987ce9c2257b75d74c1e693a1554ae7ea00eceaed15cf610d",
+    "full_support": "12bab39090f60611d426e623ffe6bccb1a70b8f6acc5679f7d7a97b4a6586c02",
+    "native_audit": "820a6341859a470a93836a7e45f9ca73b602622f37093ff1bd1ad91f13941f12",
+    "report": "dbf1d8b74ea2c83f130854c8af61eebc6107fd0fb136e54497ba98ed7624b727",
+    "result": "433ed3496ada64b0d6edf626e4d796c25285441b014b649d1d1fdccc34f236f9",
+    "setup_audit": "39b88834a3c622cf9f0d970e57b90d261def84143a82e106d4c657d676bacfe5",
+    "study": "afdfdfcfe569360b1ef50c6569b5c2971324db1da643a897ac319dcee679d790"
+  },
+  "study_fingerprint": "f97dff5d77ccc0e6742f7926bb655fe1da7e060434506cad3353de32edf78e15",
+  "support_fingerprint": "0f121c6b1396859dc40d742d575efc3fc19fc31fb70e623af2ebfe7721e17c9b"
+}
