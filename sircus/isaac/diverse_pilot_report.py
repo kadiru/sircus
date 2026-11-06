@@ -24,6 +24,44 @@ BASELINE_RESULT_SHA256 = "cf7e05910a22269330fc3ec89c10ed080ef0c5c67f3528b31c07e1
 GUIDED_RESULT_SHA256 = "cd90e6ec9c1e1bc3729ca5113b67d98c6ebf680f0964cec68065acb1f98138ca"
 METHODS = ("broad", "guided", "diverse")
 SPLITS = ("train", "validation", "test")
+SETUP_CHECK_SCHEMA = "sircus-diverse-settling-setup-check-v1"
+
+
+def setup_check_receipt(value, summary):
+    """Check a compact setup-only ablation, never treating admission as capture."""
+    study = summary["study"]
+    require(value.get("schema") == SETUP_CHECK_SCHEMA and value.get("status") == "completed",
+            "Setup check is incomplete or uses an unknown schema")
+    require(value.get("source_guided_result_sha256") == GUIDED_RESULT_SHA256
+            and value.get("geometry_fingerprint") == summary["geometry_fingerprint"]
+            and value.get("support_fingerprint") == study["support_fingerprint"]
+            and value.get("support_sha256") == study["support_sha256"],
+            "Setup check belongs to different frozen requests, geometry or support")
+    require(value.get("settling_protocol") == study["settling_protocol"],
+            "Setup check used a different native settling protocol")
+    fields = ("attempts", "before_admitted", "after_admitted", "repaired", "regressions", "ball_releases")
+    require(all(type(value.get(k)) is int and value[k] >= 0 for k in fields)
+            and value["attempts"] == 100 and value["ball_releases"] == 0,
+            "Setup check requires 100 fixed requests and zero ball releases")
+    n,before,after,repaired,regressions = (value[k] for k in fields[:-1])
+    require(before <= n and after <= n and repaired <= n-before and regressions <= before
+            and after-before == repaired-regressions, "Inconsistent paired setup counts")
+    for name, admitted in (("before_failures",before),("after_failures",after)):
+        counts = value.get(name)
+        require(isinstance(counts,dict) and all(isinstance(k,str) and type(v) is int and v > 0
+                for k,v in counts.items()) and sum(counts.values()) == n-admitted,
+                "Inconsistent setup failure denominator")
+    private_sha = value.get("source_setup_check_sha256")
+    require(isinstance(private_sha,str) and len(private_sha) == 64
+            and all(c in "0123456789abcdef" for c in private_sha),
+            "Missing private setup-check source SHA256")
+    # Native paired/joint/physics histories do not enter this public summary.
+    keep = ("schema", "status", "source_guided_result_sha256", "geometry_fingerprint",
+            "support_fingerprint", "support_sha256", "source_setup_check_sha256",
+            "attempts", "before_admitted", "after_admitted", "repaired", "regressions",
+            "before_failures", "after_failures", "ball_releases", "settling_protocol",
+            "paired_summary", "selection", "scope")
+    return {k:copy.deepcopy(value[k]) for k in keep if k in value}
 
 
 def compact_support(raw):
@@ -231,6 +269,13 @@ def add_comparison(summary, broad_path, guided_path, run, *, support_cost_path=N
                 and cost.get("support_fingerprint") == raw["fingerprint"],
                 "Resource receipt belongs to another support")
         c["geometry_preparation"]["process_resource_receipt"] = dict(sha256=sha(support_cost_path),report=cost)
+    setup_path = run/"setup-check.json"
+    if setup_path.is_file():
+        setup_path = local_file(run,"setup-check.json")
+        setup = setup_check_receipt(read(setup_path),summary)
+        c["setup_check"] = dict(sha256=sha(setup_path),report=setup,
+            scope="Paired setup-admission check of the first four frozen prior training batches, before learning. Zero ball releases; not captures, PPO data or held-out evaluation. Full per-request/native histories stay outside the report.")
+        summary["source_sha256"]["setup-check.json"] = sha(setup_path)
     path = run/"comparison-audit.json"
     if path.is_file():
         path = local_file(run,"comparison-audit.json")

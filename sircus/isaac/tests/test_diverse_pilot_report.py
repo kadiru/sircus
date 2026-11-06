@@ -98,6 +98,30 @@ class ComparisonTests(unittest.TestCase):
         self.compare(value)
         self.assertEqual(value,before)
 
+    def test_optional_setup_check_is_bound_to_frozen_requests_and_no_drops(self):
+        report=fixture();report["study"].update(support_sha256="support-bytes",support_fingerprint="support-fp")
+        value=dict(schema=module.SETUP_CHECK_SCHEMA,status="completed",source_guided_result_sha256=module.GUIDED_RESULT_SHA256,
+            geometry_fingerprint=report["geometry_fingerprint"],support_sha256="support-bytes",support_fingerprint="support-fp",
+            settling_protocol=report["study"]["settling_protocol"],source_setup_check_sha256="a"*64,
+            attempts=100,before_admitted=20,after_admitted=70,repaired=55,regressions=5,ball_releases=0,
+            before_failures={"endpoints_not_settled":80},after_failures={"endpoints_not_settled":30},
+            paired=[{"joint_readback":"private"}],records=[{"physics":"private"}])
+        receipt=module.setup_check_receipt(value,report)
+        self.assertEqual(receipt["after_admitted"],70)
+        self.assertNotIn("paired",receipt);self.assertNotIn("records",receipt)
+        for mutate in (
+            lambda r:r.update(source_guided_result_sha256="wrong"),
+            lambda r:r.update(geometry_fingerprint="wrong"),
+            lambda r:r.update(support_fingerprint="wrong"),
+            lambda r:r.update(ball_releases=1),
+            lambda r:r.update(attempts=99),
+            lambda r:r.update(repaired=56),
+            lambda r:r.update(after_failures={"endpoints_not_settled":29}),
+            lambda r:r.update(settling_protocol={"different":"controller"}),
+        ):
+            wrong=copy.deepcopy(value);mutate(wrong)
+            with self.subTest(mutate=mutate),self.assertRaises(ValueError):module.setup_check_receipt(wrong,report)
+
     def test_independent_receipt_binds_all_three_result_ids_and_every_stage(self):
         comparison=self.compare()
         receipt=dict(schema=module.SCHEMA,status="completed",methods=copy.deepcopy(comparison["methods"]))
