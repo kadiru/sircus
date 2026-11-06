@@ -24,33 +24,13 @@ def require(value, message):
         raise ValueError(message)
 
 
-_SHA_CACHE = {}
-
-
 def sha(path):
-    """Reuse only a fully hashed, stat-identical file in this publisher process.
-
-    Both ctime and mtime, inode, device and size are checked. Mutable/atomic
-    changes invalidate the cache; a file changing during hashing is rejected.
-    There is no persistent cache to trust across processes or machines.
-    """
-    path = Path(path)
-    def signature():
-        s = path.stat()
-        return (s.st_dev,s.st_ino,s.st_size,s.st_mtime_ns,s.st_ctime_ns)
-    key = str(path.absolute())
-    before = signature()
-    cached = _SHA_CACHE.get(key)
-    if cached is not None and cached[0] == before:
-        return cached[1]
+    """Hash actual bytes every time; filesystem timestamps are not integrity proof."""
     value = hashlib.sha256()
-    with path.open('rb') as stream:
+    with Path(path).open('rb') as stream:
         for block in iter(lambda: stream.read(1024*1024), b''):
             value.update(block)
-    require(signature() == before, 'Evidence changed during hashing; retry a stable snapshot')
-    result = value.hexdigest()
-    _SHA_CACHE[key] = (before,result)
-    return result
+    return value.hexdigest()
 
 
 def read(path):

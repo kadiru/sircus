@@ -83,7 +83,8 @@ args = p.parse_args()
 if args.shot_benchmark_plan is not None:
     if (args.continuous_source is None or args.shot_benchmark_method is None
             or args.shot_benchmark_seed is None or args.diverse_settled_support is not None
-            or args.feasibility_guided_support is not None or args.settling_check_source is not None):
+            or args.feasibility_guided_support is not None or args.settling_check_source is not None
+            or args.continuous_feasibility is not None or args.continuous_batches != 64):
         p.error("Benchmark requires its plan, method, seed and continuous source, without historical support/check modes")
 elif args.shot_benchmark_method is not None or args.shot_benchmark_seed is not None or args.shot_benchmark_smoke:
     p.error("Benchmark options require --shot-benchmark-plan")
