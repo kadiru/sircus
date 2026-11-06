@@ -72,6 +72,8 @@ p.add_argument("--continuous-camera-json", type=Path)
 p.add_argument("--continuous-batches", type=int, default=64)
 p.add_argument("--continuous-feasibility", type=Path)
 p.add_argument("--feasibility-guided-support", type=Path, help="Opt-in geometry-only local residual support; requires continuous mode")
+p.add_argument("--diverse-settled-support", type=Path, help="Opt-in diverse geometry regions and measured driven setup; requires continuous mode")
+p.add_argument("--settling-check-source", type=Path, help="Replay four fixed prior training requests for setup-only qualification, without releases or PPO")
 AppLauncher.add_app_launcher_args(p)
 args = p.parse_args()
 from presentation_recording import validate_options
@@ -131,6 +133,10 @@ try:
     )
 except ValueError as error:
     p.error(str(error))
+if args.diverse_settled_support is not None and (not continuous or args.feasibility_guided_support is not None):
+    p.error("Diverse settled support requires continuous mode and excludes guided mode")
+if args.settling_check_source is not None and args.diverse_settled_support is None:
+    p.error("Setup-only check requires diverse-settled mode")
 if args.feasibility_guided_support is not None and not continuous:
     p.error("--feasibility-guided-support requires continuous mode")
 training_camera = args.training_camera_json is not None
@@ -494,6 +500,9 @@ def main():
 
         if continuous:
             from continuous_pilot import ContinuousShots
+            if args.diverse_settled_support is not None:
+                from settled_transit import SettledTransitShots
+                ContinuousShots = SettledTransitShots
 
             class CompactShots(ContinuousShots, FilmShots):
                 pass
@@ -630,7 +639,13 @@ def main():
         if args.continuous_feasibility is None:
             raise ValueError("Continuous pilot requires a completed geometry-only feasibility map")
 
-        if args.feasibility_guided_support is not None:
+        if args.diverse_settled_support is not None:
+            from diverse_pilot import run_study as run_diverse, run_setup_check
+            if args.settling_check_source is not None:
+                run_setup_check(env, presentation_bundle, args.continuous_feasibility, args.settling_check_source)
+            else:
+                run_diverse(env, presentation_bundle, args.continuous_batches, args.continuous_feasibility, args.diverse_settled_support)
+        elif args.feasibility_guided_support is not None:
             from feasibility_guided_pilot import run_study as run_guided
             run_guided(env, presentation_bundle, args.continuous_batches, args.continuous_feasibility, args.feasibility_guided_support)
         else:
