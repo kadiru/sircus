@@ -304,9 +304,10 @@ class SettledTransitShots(ContinuousShots):
         self.scoring_normals=normals.copy()
         self.settlement_records=records
         self.assert_buckets_fixed()
-        # Preserve FeasibilityShots' explicit recomputed-distance guard,
-        # including its boundary behavior beyond the parameter-space LOW.
+        # Preserve the exact recomputed minimum-distance boundary for every
+        # otherwise eligible request. Keep the first cause for already rejected
+        # requests, including inactive and unsupported accounting rows.
         for i,cell in enumerate(self.spec["cells"]):
-            if cell["distance_m"] < .28:
+            if invalid[i] is None and cell["distance_m"] < .28:
                 invalid[i]="board_bucket_separation"
         return np.asarray(releases),normals,records,invalid

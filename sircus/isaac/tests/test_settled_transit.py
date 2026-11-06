@@ -211,6 +211,22 @@ class FeedbackSelectionTests(unittest.TestCase):
                 self.assertEqual(env.spec["cells"][0]["distance_m"],distance)
                 self.assertEqual(action["radius_m"],.28)
 
+    def test_under_limit_request_preserves_first_rejection_cause(self):
+        for reason in ("inactive_split","no_geometry_support","common_home_path_proxy_rejected",
+                       "endpoint_ik_unresolved_Arm10","setup_motion_not_quiet"):
+            with self.subTest(reason=reason):
+                env=self.env([metric(position_error_mm=3.,position_drift_mm=.2)]*4)
+                env.base_cells=[dict(id="cell",distance_m=.1)]
+                if reason=="inactive_split":env.active_mask[:]=False
+                elif reason=="no_geometry_support":env.support_missing=[True]
+                elif reason=="common_home_path_proxy_rejected":env.home_readback["path_eligible"]=[False]
+                fit=(dict(accepted=False,reason=reason) if reason.startswith("endpoint_ik") else
+                     dict(accepted=True,ik={n:dict(q=[.01]*6) for n in env.arms}))
+                with mock.patch("feasibility_contract.dynamic_cell",side_effect=lambda c,a:c.copy()), mock.patch("expanded_pose_menu.endpoint_targets",return_value={n:np.eye(4) for n in env.arms}), mock.patch("continuous_feasibility.qualify_action",return_value=fit), mock.patch("continuous_feasibility.approximate_path_check",return_value=dict(accepted=True,reasons=[])):
+                    result=env.prepare([{}])
+                self.assertEqual(result[-1],[reason])
+                env._ik.assert_not_called()
+
     def test_moving_or_grossly_lagging_arm_does_not_receive_bias_correction(self):
         for m, reason in [(metric(position_error_mm=3.,position_drift_mm=.2), "setup_motion_not_quiet"), (metric(position_error_mm=3., arms={n:dict(position_rad=[0.]*6,target_rad=[.03]*6) for n in ("Arm10","Arm14")}), "setup_transit_incomplete")]:
             with self.subTest(reason=reason):

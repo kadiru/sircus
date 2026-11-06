@@ -988,7 +988,7 @@ def verify_guard_only_controller_ast(old_text, new_text):
     """Accept exactly the two restored guard nodes and no other AST change."""
     old, new = ast.parse(old_text), ast.parse(new_text)
     home_guard = ast.parse('if not self.home_readback["path_eligible"][i]:\n reason="common_home_path_proxy_rejected"').body[0]
-    distance_guard = ast.parse('for i,cell in enumerate(self.spec["cells"]):\n if cell["distance_m"] < .28:\n  invalid[i]="board_bucket_separation"').body[0]
+    distance_guard = ast.parse('for i,cell in enumerate(self.spec["cells"]):\n if invalid[i] is None and cell["distance_m"] < .28:\n  invalid[i]="board_bucket_separation"').body[0]
     keys = [_ast_key(home_guard), _ast_key(distance_guard)]
     require(all(sum(_ast_key(n) == key for n in ast.walk(old)) == 0 for key in keys), "Old controller already contains a claimed new guard")
     require(all(sum(_ast_key(n) == key for n in ast.walk(new)) == 1 for key in keys), "Expected exactly the two literal restored guards")
