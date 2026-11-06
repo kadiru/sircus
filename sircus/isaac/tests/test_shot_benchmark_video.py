@@ -46,7 +46,7 @@ class VideoTests(unittest.TestCase):
     def test_header_camera_hash_and_trial_are_verified_before_encoding(self):
         self.assertEqual(video.jpeg_dimensions((self.run/'frames/00000.jpg').read_bytes()),[1920,1080])
         good=video.validate_clip(self.run,self.clip,self.experiment,self.camera,self.owner);self.assertEqual(good['release_frames'],1)
-        for mutate,pattern in [(lambda c:c['frames'][0].update(eye_m=[10,10,10]),'Camera'),(lambda c:c.update(trial_sha256='0'*64),'Trial bytes'),(lambda c:c['frames'][1].update(phase='setup'),'complete chapter'),(lambda c:c.update(end_frame=4),'boundaries')]:
+        for mutate,pattern in [(lambda c:c['frames'][0].update(eye_m=[10,10,10]),'Camera'),(lambda c:c.update(trial_sha256='0'*64),'Trial bytes'),(lambda c:c['frames'][1].update(phase='setup'),'enabled/row mask'),(lambda c:c.update(end_frame=4),'boundaries')]:
             c=copy.deepcopy(self.clip);mutate(c)
             with self.assertRaisesRegex(ValueError,pattern):video.validate_clip(self.run,c,self.experiment,self.camera,self.owner)
         (self.run/'frames/00000.jpg').write_bytes(b'corrupted')
@@ -84,6 +84,71 @@ class VideoTests(unittest.TestCase):
         with gzip.open(path,'wt') as stream:json.dump(trial,stream)
         self.clip['trial_sha256']=video.sha(path)
         with self.assertRaisesRegex(ValueError,'source/split'):video.validate_clip(self.run,self.clip,self.experiment,self.camera,self.owner)
+    def rejection_clip(self, *, admitted=False, enabled=True):
+        clip=copy.deepcopy(self.clip)
+        for f in clip['frames']:f['phase']='setup'
+        trial=video.trial_read(self.run/clip['trial_file'])
+        trial['enabled']=[True]*15+[False]*20 if enabled else [False]*35
+        trial['physics']=None;trial['score_end_step']=trial['release_step']
+        trial['rows']=[dict(cell_id=f'cell-{i}',invalid='endpoint_ik_unresolved_Arm10' if i<15 else 'inactive',route_success=False) for i in range(35)]
+        if admitted:trial['rows'][0]['invalid']=None
+        with gzip.open(self.run/clip['trial_file'],'wt') as stream:json.dump(trial,stream)
+        clip['trial_sha256']=video.sha(self.run/clip['trial_file']);clip['rows']=trial['rows']
+        self.write(self.run/'clips.json',dict(clips=[clip]))
+        return clip
+    def test_all_active_rejected_setup_only_chapter_is_preserved_and_honestly_labeled(self):
+        clip=self.rejection_clip();result=video.validate_clip(self.run,clip,self.experiment,self.camera,self.owner)
+        self.assertEqual(result['release_frames'],0);self.assertEqual(result['active_attempts'],15);self.assertEqual(result['rejected_attempts'],15)
+        self.assertEqual(result['release_status'],'all_active_requests_rejected')
+        a,b,c=self.mocks()
+        with a,b,c:encoded=self.encode()
+        record=encoded['videos'][0];self.assertEqual(record['frames'],2);self.assertEqual(record['release_frames'],0)
+        self.assertIn('all 15 active requests rejected',record['label']);self.assertIn('no ball released',record['provenance'])
+        receipt=next((self.run/'media').glob('*.receipt.json'));data=video.read(receipt)
+        self.assertEqual(data['schema'],video.RECEIPT_SCHEMA)
+        caption=next((self.run/'media').glob('*.caption.txt')).read_text();self.assertIn('no ball released',caption);self.assertNotIn('initialized ball release',caption)
+        self.assertEqual((self.run/'progress.json').read_bytes(),self.progress_bytes)
+    def test_any_admitted_or_unverified_active_attempt_still_requires_release_frames(self):
+        clip=self.rejection_clip(admitted=True)
+        with self.assertRaisesRegex(ValueError,'requires release frames'):video.validate_clip(self.run,clip,self.experiment,self.camera,self.owner)
+        clip=self.rejection_clip();trial=video.trial_read(self.run/clip['trial_file']);trial['rows'][0]['released']=True
+        with gzip.open(self.run/clip['trial_file'],'wt') as stream:json.dump(trial,stream)
+        clip['trial_sha256']=video.sha(self.run/clip['trial_file']);clip['rows']=trial['rows']
+        with self.assertRaisesRegex(ValueError,'requires release frames'):video.validate_clip(self.run,clip,self.experiment,self.camera,self.owner)
+        clip=self.rejection_clip(enabled=False)
+        with self.assertRaisesRegex(ValueError,'enabled/row mask'):video.validate_clip(self.run,clip,self.experiment,self.camera,self.owner)
+        clip=self.rejection_clip();trial=video.trial_read(self.run/clip['trial_file']);trial['rows'][0]['route_success']=True
+        with gzip.open(self.run/clip['trial_file'],'wt') as stream:json.dump(trial,stream)
+        clip['trial_sha256']=video.sha(self.run/clip['trial_file']);clip['rows']=trial['rows']
+        with self.assertRaisesRegex(ValueError,'requires release frames'):video.validate_clip(self.run,clip,self.experiment,self.camera,self.owner)
+    def test_all_rejected_flags_cannot_hide_physics_or_advanced_score_clock(self):
+        for contradictory,pattern in (({'physics':{'file':'native.npz','samples':960}},'no physics rollout'),
+                                      ({'score_end_step':99999},'score clock'),
+                                      ({'score_end_step':None},'score clock')):
+            clip=self.rejection_clip();trial=video.trial_read(self.run/clip['trial_file']);trial.update(contradictory)
+            with gzip.open(self.run/clip['trial_file'],'wt') as stream:json.dump(trial,stream)
+            clip['trial_sha256']=video.sha(self.run/clip['trial_file'])
+            with self.assertRaisesRegex(ValueError,pattern):video.validate_clip(self.run,clip,self.experiment,self.camera,self.owner)
+        clip=self.rejection_clip();trial=video.trial_read(self.run/clip['trial_file']);trial.pop('physics')
+        with gzip.open(self.run/clip['trial_file'],'wt') as stream:json.dump(trial,stream)
+        clip['trial_sha256']=video.sha(self.run/clip['trial_file'])
+        with self.assertRaisesRegex(ValueError,'no physics rollout'):video.validate_clip(self.run,clip,self.experiment,self.camera,self.owner)
+    def test_known_legacy_successful_chapter_is_reused_without_relabeling_or_reencoding(self):
+        a,b,c=self.mocks()
+        with a,b,c:self.encode()
+        receipt=next((self.run/'media').glob('*.receipt.json'));saved=video.read(receipt)
+        saved['schema']=video.LEGACY_RECEIPT_SCHEMA;saved['source_binding']['encoder_sha256']=video.LEGACY_ENCODER_SHA256
+        for k in ('release_status','active_attempts','rejected_attempts'):saved['source_binding'].pop(k)
+        for k in ('release_status','active_attempts','rejected_attempts','release_frames'):saved['video'].pop(k)
+        self.write(receipt,saved);self.write(self.run/'video-index.json',dict(videos=[saved['video']]))
+        prior_receipt=receipt.read_bytes();prior_index=(self.run/'video-index.json').read_bytes()
+        a,b,c=self.mocks()
+        with a,b as encoder,c as inspector:result=self.encode();encoder.assert_not_called();inspector.assert_not_called()
+        self.assertEqual(result['videos'],[saved['video']]);self.assertEqual(receipt.read_bytes(),prior_receipt)
+        self.assertEqual(video.read(self.run/'video-index.json'),json.loads(prior_index))
+        saved['source_binding']['encoder_sha256']='0'*64;self.write(receipt,saved)
+        with patch.object(video,'font_path',return_value=self.font):
+            with self.assertRaisesRegex(ValueError,'different source'):self.encode()
     def test_actual_decode_check_requires_exact_frames_format_and_normal_time(self):
         p=self.run/'fake.mp4';p.write_bytes(b'mock-only')
         probe=dict(streams=[dict(codec_type='video',codec_name='h264',width=1920,height=1080,avg_frame_rate='30/1',nb_read_frames='2',duration=2/30)],format={'duration':2/30})

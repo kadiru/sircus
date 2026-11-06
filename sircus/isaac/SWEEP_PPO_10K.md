@@ -143,3 +143,30 @@ Passed PPO smoke audit SHA256:
 
 The full production audits and held-out results remain pending at launch. No
 winning method, learned physics understanding or physical readiness is claimed.
+
+## Publication recovery — November 6, 2026
+
+A follow-up health check found native training still running on the 4090, while
+the CPU video watcher had stopped at a legitimate all-rejected filmed chapter.
+At TRAIN prefix 1,000 the scheduled partial batch had 15 requested actions,
+all rejected, plus 20 inactive cells: 2,228 setup frames and no released ball.
+The unchanged native auditor explicitly accepts that evidence. It was the
+separate movie validator that incorrectly demanded release frames in every film.
+
+The offline encoder now accepts setup-only footage only when the enabled mask,
+all active rejection rows, explicit null physics and unchanged release/end clock
+prove no ball was released. It labels the chapter accordingly. Any admitted or
+unverified action still requires release evidence. Camera/frame/trial hashes and
+existing known C-encoder receipts remain checked; earlier movies are retained.
+A video-export failure now leaves verified curve/earlier-video publication active
+and is logged separately for retry. Integrity failures in the report itself still
+stop publication.
+
+This recovery changes only the offline publisher and its tests. Execute its
+reviewed files from a separate source directory with the original frozen C
+modules on PYTHONPATH. Do not replace the native source archive, experiment,
+running simulator/coordinator, policy, scoring contract or pinned auditor.
+Observed interim first-seed sweep validation captures were 3/35 at initialization,
+6/35 after 1,000 requests and 8/35 after 2,500. No production run had finished at
+this check, PPO was queued, and final TEST remained unopened; no sweep/PPO winner
+can be concluded. These checks do not tune the ongoing study.
