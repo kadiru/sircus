@@ -74,8 +74,19 @@ p.add_argument("--continuous-feasibility", type=Path)
 p.add_argument("--feasibility-guided-support", type=Path, help="Opt-in geometry-only local residual support; requires continuous mode")
 p.add_argument("--diverse-settled-support", type=Path, help="Opt-in diverse geometry regions and measured driven setup; requires continuous mode")
 p.add_argument("--settling-check-source", type=Path, help="Replay four fixed prior training requests for setup-only qualification, without releases or PPO")
+p.add_argument("--shot-benchmark-plan", type=Path, help="Separate versioned sweep/PPO experiment; never changes historical pilot contracts")
+p.add_argument("--shot-benchmark-method", choices=("sweep", "ppo"))
+p.add_argument("--shot-benchmark-seed", type=int)
+p.add_argument("--shot-benchmark-smoke", action="store_true")
 AppLauncher.add_app_launcher_args(p)
 args = p.parse_args()
+if args.shot_benchmark_plan is not None:
+    if (args.continuous_source is None or args.shot_benchmark_method is None
+            or args.shot_benchmark_seed is None or args.diverse_settled_support is not None
+            or args.feasibility_guided_support is not None or args.settling_check_source is not None):
+        p.error("Benchmark requires its plan, method, seed and continuous source, without historical support/check modes")
+elif args.shot_benchmark_method is not None or args.shot_benchmark_seed is not None or args.shot_benchmark_smoke:
+    p.error("Benchmark options require --shot-benchmark-plan")
 from presentation_recording import validate_options
 
 try:
@@ -500,7 +511,10 @@ def main():
 
         if continuous:
             from continuous_pilot import ContinuousShots
-            if args.diverse_settled_support is not None:
+            if args.shot_benchmark_plan is not None:
+                from shot_benchmark_native import BenchmarkShots
+                ContinuousShots = BenchmarkShots
+            elif args.diverse_settled_support is not None:
                 from settled_transit import SettledTransitShots
                 ContinuousShots = SettledTransitShots
 
@@ -636,6 +650,12 @@ def main():
     if continuous:
         from continuous_pilot import run_study
 
+        if args.shot_benchmark_plan is not None:
+            from shot_benchmark_native import run_benchmark
+            run_benchmark(env, presentation_bundle, args.shot_benchmark_plan,
+                          args.shot_benchmark_method, args.shot_benchmark_seed,
+                          smoke=args.shot_benchmark_smoke)
+            return
         if args.continuous_feasibility is None:
             raise ValueError("Continuous pilot requires a completed geometry-only feasibility map")
 
