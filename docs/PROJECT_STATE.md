@@ -1,5 +1,11 @@
 # Project state
 
+## Diverse-pose settling checkpoint — November 5, 2026
+
+- [Protocol and verified setup](../sircus/isaac/DIVERSE_SETTLED_PILOT.md): direct final producer `40dd24f` admitted 80/100 unchanged prior training requests, versus 48/100 previously; 32 repairs, zero regressions. Independent CPU verification checked 33,950 windows, 43 corrections, original holding gains and the full 8/6-DOF velocity gates. No task releases or PPO updates belong to this setup check.
+- The fresh 4090 pilot is **running, not completed**: 1,600 attempted training shots/16 updates, unchanged 25/5/5 layouts, 153 local geometry regions plus 33 explicitly unqualified global exploration choices. Neither region interiors nor unresolved sites are certified feasible. Geometry assistance on held-out coordinates is transductive, not globally unseen-position evaluation.
+- Native trials are recorded at the original fixed camera and silver-gray stage. The separate read-only comparison page on port18796 shows the setup result; learned-policy/frozen comparisons remain pending. Existing broad/local benchmarks stay frozen. Scripted joint travel and initialized ball release are not learned grasp/motor control. No hardware, Viam, audio,4070 or old-reader changes accompany this study.
+
 ## Geometry-guided continuous PPO pilot — November 5, 2026
 
 - [Protocol](../sircus/isaac/FEASIBILITY_GUIDED_PILOT.md), [compact models and audited results](../baselines/isaac-feasibility-guided-pilot-20261105/README.md): matched 1,600-attempt/16-update study on the unchanged inherited 25/5/5 layouts. Geometry-only per-context local boxes reduce endpoint reach/IK rejections from 1,106 to 54; all rejects remain in the optimizer. Geometry assistance at held-out coordinates is transductive, not globally unseen-layout evaluation.
