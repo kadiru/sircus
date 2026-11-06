@@ -72,9 +72,12 @@ each paid batch the learner artifact and RNG/counters are saved. Independent
 CPU audits rescore native trajectories, prefix feedback, release/settling gates,
 likelihoods, TRAIN membership and frozen prediction identities.
 
-Full TRAIN iteration wall time includes proposal/inference, checkpoint, native
-home/setup/score, serialization and learner updates, while excluding evaluation.
-Headless and filmed native episode timing is also reported separately. Memory
+TRAIN wall time includes before-batch checkpoints, proposal/inference, native
+home/setup/scoring, trial serialization and learner updates. It excludes initial/
+milestone checkpoint saves, evaluation, progress publication, independent auditing
+and video publication. Headless and filmed native episode intervals are reported
+separately and include evaluation episodes. Checkpoint overhead overlaps TRAIN
+time; do not add these counters together. Memory
 scope distinguishes process lifetime RSS and sampled device occupancy from
 isolated phase or aggregate worker peaks. Geometry and evaluation work do not
 disappear into the 10,000-shot budget.
@@ -95,3 +98,48 @@ the interface displays actual saved counts and pending/failed runs explicitly.
 The bucket's reported 175 mm height interpretation, rigid attachment and fixed
 material assumptions remain provisional. New-ball adaptation and perception
 training are future experiments, not capabilities established by this study.
+
+## Launch checkpoint — November 6, 2026
+
+Native producer `df8de16709852880239b8234869bdc65c6f7e957` is frozen in a
+checksum-verified source archive. Both actual 35-TRAIN/35-smoke-validation
+runs exited normally and passed independent CPU audits. These diagnostic shots
+are separate from the 60,000 production TRAIN budget. The PPO smoke exercised
+one actual optimizer update; the sweep smoke verified paid proposal/state replay.
+The actual Ubuntu CPU suite passed 77 checks without skips. Earlier Mac full
+regressions and GitHub CI also passed.
+
+The finite six-run queue started on the 4090 at 2026-11-06 19:39 UTC, beginning
+with sweep seed 20261121. A separate CPU watcher verifies and encodes prescheduled
+trial chapters and publishes the comparison. A Mac mirror transfers only bound
+reports/media into the new GET/HEAD-only reader at
+`http://127.0.0.1:18797/#training`; videos are under `#videos`. Refresh cadence is
+approximately five minutes plus transfer time. The page exposes no control APIs.
+The Ubuntu job continues if the Mac sleeps, but the Mac mirror/viewer must be
+running for local updates. Earlier readers and the 4070 workload were untouched.
+
+Smoke episode timing suggests roughly 2–3 days for all six runs if representative;
+this is an estimate, not a completion guarantee. Native setup failures consume
+paid samples and remain visible. A failed native run or audit stops subsequent
+runs. Partial runs require explicit recovery rather than a silent restart with
+another full sample budget. The queue and publisher have finite eight-day bounds;
+each native process has a sixteen-hour bound and preserves the shared GPU lock.
+
+Runtime roots (generated evidence remains outside Git):
+
+- Ubuntu input/raw evidence: `/home/kadir/sircus-isaac/output/sweep-ppo-10k-20261106-v2`.
+- Ubuntu published report/media: the sibling path ending in `-published`.
+- Mac mirror: `<repository>/.runtime/media/shot-benchmark-20261106-v2-live`.
+- Mac receipts/mirror status: `<repository>/.runtime/shot-benchmark-20261106/control`.
+
+Source archive SHA256:
+`6dcaa4199bb2df890579fe2fde245f1a48b33deae5869c70399cce4cf8712905`.
+Experiment SHA256:
+`77afe173a07917dd87ce43f37809a9ac6ef99beebd7e8e35f703c0e5cf1e3a26`.
+Passed sweep smoke audit SHA256:
+`cb668843aa252de83719b24b36f229a9a7d4ac28314bfadb4c7fca6a9a762152`.
+Passed PPO smoke audit SHA256:
+`4c0e3833c895a3a9200b97deb25cde793e70f9b0766ace33e839b8d014686f16`.
+
+The full production audits and held-out results remain pending at launch. No
+winning method, learned physics understanding or physical readiness is claimed.
