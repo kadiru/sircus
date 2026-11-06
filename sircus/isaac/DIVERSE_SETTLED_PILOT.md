@@ -68,6 +68,16 @@ found. Its partial data stays separate and must not be used as learning or
 held-out benchmark evidence. Rerun the same fixed setup requests with v5 before
 a fresh pilot; do not reuse the aborted initial checkpoint or samples.
 
+The final controller also preserves the inherited home-eligibility and exact
+recomputed 280 mm minimum board-to-bucket separation guards. A separate bounded
+source-applicability receipt may connect the measured v5 preflight to that
+guard-only restoration: it must verify the complete controller AST, unchanged
+runtime files, original archived source, all 100 saved requests and their actual
+recomputed distances. Home eligibility is a source invariant in this preflight,
+not a newly observed flag. Such a receipt is not a resimulation, a new producer
+measurement or a feasibility certificate for future actions. Each newly sampled
+PPO action still passes the full native admission checks.
+
 The new proposal support retains **every** geometry-map anchor passing the
 original canonical-home path proxy, rather than selecting one anchor and
 shrinking its box. Fixed residual half-widths are 7.5 degrees bearing, 40 mm
