@@ -1,5 +1,28 @@
 # Project state
 
+## Learned physics ensemble pilot — November 6, 2026
+
+- [Protocol](../sircus/mjlab/PHYSICS_ENSEMBLE.md): fixed five-member state-based
+  forward model, using only 1,024 current authenticated policy64 TRAIN requests.
+  No historical bootstrap, control, validation, TEST or diagnosis labels enter fit.
+- The exact saved imitation/PPO checkpoints remain unchanged. Freeze 24 fresh
+  diagnostic validation and 60 fresh TEST bucket positions, 10 mm from all declared
+  prior benchmark/diagnosis layouts and each other. The final model has no
+  validation-based tuning. All 252 evaluation predictions precede all outcomes.
+- Ensemble ranks 16 model candidates, with at most four geometry-only checks;
+  each method executes one requested shot per position. Its extra planning and
+  different historical exposure remain explicit. All rejects stay in denominators.
+- At most 264 fresh native decisions (72 validation, 180 TEST, 12 controls),
+  unchanged calibrated64 scoring. Existing 128 failures and provisional geometry
+  are preserved. No perception, video WAM, grasping or driven-transit claim.
+- Small networks fit on two CPU threads; native execution queues for the 4090
+  shared slot and no foreign process, with a two-hour acquired budget and a
+  24-hour queue bound. The active Isaac job and 4070 are not interrupted.
+- `#physicsEnsembleStudy` is additive/read-only. Pending model fits and queue
+  status are separate from independently audited native comparison results.
+  Historical panels and the existing interactive solver stay unchanged.
+
+
 ## Fixed64 PPO versus imitation diagnosis — completed, November 6, 2026
 
 - [Protocol](../sircus/mjlab/POLICY64_DIAGNOSIS.md),
