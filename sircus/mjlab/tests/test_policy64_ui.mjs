@@ -22,10 +22,18 @@ test('final comparison requires exact full audit, controls, four 50-shot cohorts
 test('render separates bootstrap and fresh costs, validation curves, matched test and actual coverage',()=>{
  const raw=fixture(),before=JSON.stringify(raw),d=dom();ui.renderPolicy64(d.root,raw);assert.equal(d.root.hidden,false);
  assert.equal(d.rows('progress')[0][1],'6144');assert.equal(d.rows('progress')[1][1],'1024 / 1024');assert.equal(d.rows('progress')[2][1],'48');assert.equal(d.rows('progress')[3][1],'200');
- assert.equal(d.rows('curve-table').length,4);assert.equal(d.rows('curve-table')[2][3],'7 / 12');assert.equal(d.rows('comparison').length,4);assert.equal(d.rows('comparison')[3][3],'25 / 50');assert.equal(d.rows('comparison')[3][4],'10 / 50');assert.equal(d.rows('comparison')[3][5],'unknown');
+ assert.equal(d.rows('curve-table').length,4);assert.equal(d.rows('curve-table')[2][3],'7 / 12');assert.equal(d.rows('comparison').length,4);assert.equal(d.rows('comparison')[3][3],'25 / 50');assert.equal(d.rows('comparison')[3][4],'10 / 50');assert.equal(d.rows('comparison')[3][5],'0 / 50');assert.equal(d.rows('comparison')[3].length,8);
  assert.equal(d.rows('coverage-table').length,50);assert.equal(d.rows('coverage-table')[0][3],'clean');assert.equal(d.rows('coverage-table')[15][3],'capture');assert.equal(d.rows('coverage-table')[40][3],'miss');
  assert.ok(d.get('result').textContent.includes('warm-start ablation'));assert.ok(d.get('result').textContent.includes('25 / 50'));assert.ok(d.get('result').textContent.includes('not a 128-substep'));assert.equal(d.get('result').attrs['data-state'],'passed');
  assert.ok(d.get('trace-caption').textContent.includes('2 actual saved samples'));assert.ok(d.get('trace-caption').textContent.includes('configured board XY'));assert.ok(d.get('trace-caption').textContent.includes('observed board center 0.1 / 0.0 / 380.2 mm'));assert.equal(JSON.stringify(raw),before);
+});
+test('optional counter columns require at least one valid observed count and never infer missing counters',()=>{
+ const raw=fixture(),d=dom(),headers=()=>d.get('comparison').children[0].children[0].children[0].children.map(c=>c.textContent);
+ ui.renderPolicy64(d.root,raw);assert.ok(!headers().includes('Observed rim/all'));assert.ok(!headers().includes('Geometry rejects'));
+ Object.assign(raw.test_comparison[3].counts,{rim_assisted:15,geometry_rejections:0});ui.renderPolicy64(d.root,raw);
+ assert.ok(headers().includes('Observed rim/all'));assert.ok(headers().includes('Geometry rejects'));assert.equal(d.rows('comparison')[3][5],'15 / 50');assert.equal(d.rows('comparison')[3][7],'0');assert.equal(d.rows('comparison')[0][5],'unknown');assert.equal(d.rows('comparison')[0][7],'unknown');
+ Object.assign(raw.test_comparison[3].counts,{rim_assisted:26,geometry_rejections:1});ui.renderPolicy64(d.root,raw);
+ assert.ok(!headers().includes('Observed rim/all'));assert.ok(!headers().includes('Geometry rejects'));assert.equal(d.rows('comparison')[3][5],'0 / 50');assert.equal(d.rows('comparison')[3].length,8);
 });
 test('live curves stay provisional, failures are explicit and zero captures are not a software qualification failure',()=>{
  const d=dom(),raw=fixture();raw.status='running';ui.renderPolicy64(d.root,raw);assert.ok(d.get('result').textContent.includes('provisional'));assert.equal(d.get('result').attrs['data-state'],'unknown');
