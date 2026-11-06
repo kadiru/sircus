@@ -30,10 +30,11 @@ drives, collision assets, material parameters and the one-second capture scorer
 are unchanged. This does not certify full mesh/self-collision safety.
 
 Before training, replay the first four saved training-request batches from the
-immutable guided run as a setup-only check. Do not release any ball or use any
+immutable guided run as a setup-only check. Do not release task shots or use any
 held-out outcome to select these requests. Save every target, measured state,
 gain transition, stability window and correction. Compare setup admission, not
-capture performance, against their original saved outcomes.
+capture performance, against their original saved outcomes. Standard startup
+contact/rim diagnostic probes are separate from these setup attempts and PPO.
 
 The first audited 100-request check with eight-second windows admitted 62 versus
 48 originally, but 26 targets still had measurable board drift. Traces localized
@@ -42,6 +43,13 @@ understated the observed finite-difference motion. The longer bounded window
 preserves the original impact holding gains and independent drift guard. Rerun
 the same fixed requests to verify it before the PPO pilot. This is controller
 calibration from setup-only traces, not tuning on ball capture or held-out scores.
+
+The 40-second initial-wait check recovered 80/100 requests with no regressions.
+Its remaining quiet/gross-lag cases revealed an early-exit bug: quiet motion alone
+could return before using the configured wait budget. Controller v4 requires
+quiet motion **and** lag at most 0.02 rad before bias feedback; a release-ready
+pose can still finish immediately after the minimum measurement hold. These
+conditions preserve the original release gates and avoid premature timeouts.
 
 The new proposal support retains **every** geometry-map anchor passing the
 original canonical-home path proxy, rather than selecting one anchor and

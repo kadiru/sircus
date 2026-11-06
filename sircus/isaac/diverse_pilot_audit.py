@@ -237,6 +237,14 @@ def verify_joint_components(policy, observations, latent, data):
         require(np.allclose(stored, value, atol=LOGP_TOLERANCE, rtol=LOGP_TOLERANCE), "Hybrid constituent likelihood changed: "+name)
 
 
+def independent_feedback_ready(metric):
+    """Quiet readbacks alone never establish readiness to correct steady bias."""
+    lag = max(abs(p-t) for state in metric["arms"].values()
+              for p, t in zip(state["position_rad"], state["target_rad"]))
+    return (metric["joint_speed_rad_s"] <= .005 and metric["position_drift_mm"] <= .1
+        and metric["normal_drift_deg"] <= .05 and metric["dropper_drift_mm"] <= .1 and lag <= .02)
+
+
 def verify_settling_history(trial, scene, cells, study):
     """Check measured windows and quiet-before-bias feedback, never relax gates."""
     from scipy.spatial.transform import Rotation
@@ -253,6 +261,9 @@ def verify_settling_history(trial, scene, cells, study):
     corrections = trial.get("correction_history", [])
     require(isinstance(records, list) and len(records) == 35 and all(isinstance(r, list) and r for r in records),
             "Missing measured settling windows")
+    global_clock = [(m.get("iteration"), m.get("measurement_start_step"), m.get("physics_step")) for m in records[0]]
+    require(len(global_clock) <= 256 and all([(m.get("iteration"), m.get("measurement_start_step"), m.get("physics_step"))
+            for m in history] == global_clock for history in records), "Global settling measurement clock changed or exceeded finite bound")
     require(len(transit) >= 3 and transit[0].get("phase") == "start"
         and transit[-1].get("phase") == "restored_original_hold"
         and all(type(t.get("step")) is int for t in transit)
@@ -354,11 +365,49 @@ def verify_settling_history(trial, scene, cells, study):
                 expected_arms.append("Arm10")
             require(correction.get("arms") == expected_arms and set(correction.get("fits", {})).issubset(expected_arms),
                     "Bias correction moved an arm already within tolerance")
+            require(correction.get("invalid") in (None, "settling_correction_ik", "settling_correction_path_proxy"),
+                    "Unexpected correction-stage rejection reason")
+            if correction.get("invalid") is None:
+                require(set(correction.get("fits", {})) == set(expected_arms)
+                    and all(fit.get("solved") is True for fit in correction["fits"].values()),
+                    "Applied correction lacks solved arm targets")
     require(all(c.get("cell_id") in by_id for c in corrections), "Unknown correction workcell")
+    # V4 native and setup-only rows both retain initial qualification/path
+    # admission, allowing complete reconstruction of the common wait barrier.
+    complete_eligibility = (isinstance(trial.get("enabled"), list) and len(trial["enabled"]) == 35
+        and all("qualification" in row and "path_proxy" in row for row in trial["rows"]))
+    require(complete_eligibility, "V4 audit requires complete initial qualification/path eligibility records")
+    require(all(isinstance(row["qualification"], dict) and type(row["qualification"].get("accepted")) is bool
+        and (not row["qualification"]["accepted"] or isinstance(row["path_proxy"], dict)
+             and type(row["path_proxy"].get("accepted")) is bool) for row in trial["rows"]),
+        "Missing native initial qualification/path eligibility flags")
+    eligible = [bool(trial["enabled"][i] and row["qualification"].get("accepted")
+        and row["path_proxy"] and row["path_proxy"].get("accepted") and not row.get("path_rejection"))
+        for i, row in enumerate(trial["rows"])]
+    short_windows = eligible_checks = 0
+    for iteration in sorted({m["iteration"] for m in records[0]}):
+        indices = [j for j, m in enumerate(records[0]) if m["iteration"] == iteration]
+        maximum = 160 if iteration == 0 else 32
+        if len(indices) < maximum:
+            short_windows += 1
+            for i, use in enumerate(eligible):
+                prior_failure = any(c["cell_id"] == cells[i]["id"] and c["iteration"] < iteration
+                                    and c.get("invalid") is not None for c in corrections)
+                if use and not prior_failure:
+                    metric = records[i][indices[-1]]
+                    require((accepted(metric) and metric["dropper_position_error_mm"] <= 2)
+                        or independent_feedback_ready(metric),
+                        "Stabilization exited early before release or joint-lag-aware feedback readiness")
+                    eligible_checks += 1
     require(max(history[-1]["physics_step"] for history in records) <= trial["release_step"],
             "Release preceded final stability measurement")
     return dict(measured_windows=windows, bias_corrections=len(corrections), original_holding_gains_restored=True,
-                quiet_before_every_correction_verified=True, scope="Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic")
+                quiet_before_every_correction_verified=True,
+                early_exit=dict(short_global_windows=short_windows, eligible_cell_stage_checks=eligible_checks,
+                    complete_initial_qualification_path_eligibility_logged=complete_eligibility,
+                    readiness="Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
+                    scope="Full currently eligible-cell reconstruction from initial qualification/path rows and prior correction failures"),
+                scope="Readback arithmetic and controller cadence/gates, not collision-certified paths or optimizer arithmetic")
 
 def verify_checkpoint_chain(run, executed_source=None):
     """Check every continuous trial against its frozen CPU-loaded checkpoint."""
@@ -845,14 +894,18 @@ def audit_setup_check(run, original_run):
         require(record.get("actions") == old.get("actions") and record.get("enabled") == old.get("enabled") == expected_enabled
             and len(old.get("rows", [])) == 35 and len(record.get("invalid", [])) == 35,
             "Setup-check requests, membership or status vector changed")
+        require(all(isinstance(record.get(key), list) and len(record[key]) == 35
+                    for key in ("qualifications", "path_checks", "path_reasons")),
+                "V4 setup-check missing initial qualification/path eligibility readbacks")
         histories = record.get("settling_history", [])
         require(len(histories) == 35 and all(isinstance(h, list) and h for h in histories),
                 "Setup-check missing measured histories")
         # This is a history-validation cutoff, not an invented ball release.
         decision_cutoff = max(h[-1]["physics_step"] for h in histories)
         virtual = dict(record, setup_controller=summary["settling_protocol"],
-            rows=[dict(invalid=invalid, settled=history[-1])
-                  for invalid, history in zip(record["invalid"], histories)], release_step=decision_cutoff)
+            rows=[dict(invalid=invalid, settled=history[-1], qualification=record["qualifications"][i],
+                       path_proxy=record["path_checks"][i], path_rejection=record["path_reasons"][i])
+                  for i, (invalid, history) in enumerate(zip(record["invalid"], histories))], release_step=decision_cutoff)
         history_receipt = verify_settling_history(virtual, spec["scene"], cells,
                                                 dict(settling_protocol=summary["settling_protocol"]))
         history_receipt.update(source_trial=source_summary["file"], setup_decision_step=decision_cutoff,
