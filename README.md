@@ -6,6 +6,7 @@ Two UFACTORY850 arms learn to bounce a ball from a suction-mounted board into a 
 
 ## Start here
 
+- [Read-only reach / IK rejection audit](sircus/isaac/REACH_IK_AUDIT.md) — frozen 7,490-request diagnosis, bucket heatmap and requested failed-pose diagrams; the current benchmark continues unchanged.
 - [Fresh-layout sweep versus PPO, 10,000 attempts × two methods × three seeds](sircus/isaac/SWEEP_PPO_10K.md) — new pre-external-contact miss feedback, 35-table farm and frozen unseen-position checks. Both native smoke audits passed; the finite six-run 4090 queue is running. Live progress and prescheduled trial videos use the separate read-only reader on localhost:18797.
 - [Completed diverse-pose settling pilot](sircus/isaac/DIVERSE_SETTLED_PILOT.md) — fixed-request admission improved 48→80/100 with unchanged release guards. The 1,600-attempt PPO study did not improve held-out capture rate; [audited models, comparison and video receipts](baselines/isaac-diverse-settled-pilot-20261105/README.md) preserve the result and earlier baselines.
 - [All 35 farm sites releasing in the expanded PPO study](sircus/isaac/EXPANDED_FARM_POSES.md) — 350/350 releases, 111 qualified captures and 24 native-qualified options per table, from the unchanged selected camera. [Results and evidence](baselines/isaac-expanded-farm-20261102/README.md). A short training pass with scripted transit and privileged inputs; no held-out generalization claim.

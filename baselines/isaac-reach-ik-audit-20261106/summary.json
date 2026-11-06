@@ -1,0 +1,1338 @@
+{
+  "schema": "sircus-shot-benchmark-reach-audit-v1",
+  "snapshot": {
+    "progress_sha256": "dbd1b61de482199d78ac5611bb31147f7f52955dbb0e76fc781282594c8907e3",
+    "source": {
+      "commit": "df8de16709852880239b8234869bdc65c6f7e957",
+      "archive_sha256": "6dcaa4199bb2df890579fe2fde245f1a48b33deae5869c70399cce4cf8712905",
+      "geometry_fingerprint": "63362ef37a93881f769b39d1ee7456335f1cc7bf5db04ffa7e548ce9697455bf",
+      "camera_sha256": "a7967c072b8f949318b43a510235d503c81c21e05f433670a0ce92a7af385ede",
+      "scoring_version": "sircus-isaac-fixed-shot-v5+board-route"
+    },
+    "method": "sweep",
+    "seed": 20261121,
+    "train_attempts": 7490,
+    "trial_count": 217,
+    "created_utc": "2026-11-06T23:16:16.142109+00:00",
+    "native_elapsed_s": 12020.992161492002
+  },
+  "totals": {
+    "attempts": 7490,
+    "rejected": 6363,
+    "released": 1127,
+    "captures": 491,
+    "clean": 132,
+    "reason_counts": {
+      "endpoint_ik_unresolved_Arm14": 1032,
+      "setup_transit_incomplete": 69,
+      "endpoint_ik_unresolved_Arm10": 1479,
+      "setup_motion_not_quiet": 76,
+      "outer_link_length_bound": 3449,
+      "board_bucket_proxy_overlap": 203,
+      "board_table_proxy_overlap": 15,
+      "arm_table_proxy_overlap_Arm14": 33,
+      "endpoints_not_settled": 6,
+      "settling_correction_path_proxy": 1
+    },
+    "rejection_rate": 0.8495327102803738
+  },
+  "categories": [
+    {
+      "id": "outer_reach",
+      "label": "Outside conservative outer reach",
+      "count": 3449,
+      "fraction_of_attempts": 0.46048064085447266,
+      "fraction_of_rejected": 0.542039918277542,
+      "interpretation": "The requested flange lies beyond an arm's URDF origin-length bound. This is a necessary reach bound; being inside does not prove a pose reachable."
+    },
+    {
+      "id": "dropper_ik",
+      "label": "Dropper endpoint IK unresolved",
+      "count": 1479,
+      "fraction_of_attempts": 0.19746328437917224,
+      "fraction_of_rejected": 0.23243752946723245,
+      "interpretation": "The finite multistart solver did not satisfy the position and full-orientation residual gate. This does not prove that no solution exists."
+    },
+    {
+      "id": "board_ik",
+      "label": "Board endpoint IK unresolved",
+      "count": 1032,
+      "fraction_of_attempts": 0.1377837116154873,
+      "fraction_of_rejected": 0.1621876473361622,
+      "interpretation": "The finite multistart solver did not satisfy the position and board-normal residual gate. This does not prove that no solution exists."
+    },
+    {
+      "id": "clearance_proxy",
+      "label": "Clearance proxy rejection",
+      "count": 251,
+      "fraction_of_attempts": 0.03351134846461949,
+      "fraction_of_rejected": 0.039446801823039446,
+      "interpretation": "A conservative board/bucket/table or arm capsule proxy overlaps. Such proxies can reject safe poses; they are not exact mesh-collision certificates."
+    },
+    {
+      "id": "transit",
+      "label": "Path or transit rejection",
+      "count": 69,
+      "fraction_of_attempts": 0.009212283044058744,
+      "fraction_of_rejected": 0.010843941537010843,
+      "interpretation": "Endpoint qualification is separate from the sampled path proxy and actual driven transit."
+    },
+    {
+      "id": "settling",
+      "label": "Settling or correction rejection",
+      "count": 83,
+      "fraction_of_attempts": 0.011081441922563417,
+      "fraction_of_rejected": 0.013044161559013044,
+      "interpretation": "Actual driven readback did not satisfy the original endpoint/quiet release gates or a correction could not qualify."
+    }
+  ],
+  "cells": [
+    {
+      "id": "train-000",
+      "attempts": 214,
+      "rejected": 196,
+      "captures": 0,
+      "reason_counts": {
+        "endpoint_ik_unresolved_Arm14": 9,
+        "outer_link_length_bound": 142,
+        "endpoint_ik_unresolved_Arm10": 42,
+        "arm_table_proxy_overlap_Arm14": 2,
+        "setup_motion_not_quiet": 1
+      },
+      "bucket_xy_m": [
+        0.05793605634806605,
+        -0.6730296545840689
+      ]
+    },
+    {
+      "id": "train-001",
+      "attempts": 214,
+      "rejected": 190,
+      "captures": 1,
+      "reason_counts": {
+        "endpoint_ik_unresolved_Arm14": 29,
+        "outer_link_length_bound": 121,
+        "endpoint_ik_unresolved_Arm10": 28,
+        "setup_motion_not_quiet": 2,
+        "setup_transit_incomplete": 3,
+        "board_bucket_proxy_overlap": 4,
+        "arm_table_proxy_overlap_Arm14": 2,
+        "endpoints_not_settled": 1
+      },
+      "bucket_xy_m": [
+        0.2928776180046119,
+        -0.59378304863021
+      ]
+    },
+    {
+      "id": "train-002",
+      "attempts": 214,
+      "rejected": 185,
+      "captures": 8,
+      "reason_counts": {
+        "outer_link_length_bound": 131,
+        "endpoint_ik_unresolved_Arm10": 30,
+        "endpoint_ik_unresolved_Arm14": 23,
+        "board_bucket_proxy_overlap": 1
+      },
+      "bucket_xy_m": [
+        0.339743320124928,
+        -0.6178392837933195
+      ]
+    },
+    {
+      "id": "train-003",
+      "attempts": 214,
+      "rejected": 192,
+      "captures": 2,
+      "reason_counts": {
+        "outer_link_length_bound": 114,
+        "endpoint_ik_unresolved_Arm10": 53,
+        "endpoint_ik_unresolved_Arm14": 19,
+        "arm_table_proxy_overlap_Arm14": 1,
+        "board_bucket_proxy_overlap": 2,
+        "setup_transit_incomplete": 1,
+        "setup_motion_not_quiet": 2
+      },
+      "bucket_xy_m": [
+        0.7292042552983234,
+        -0.5548216079239923
+      ]
+    },
+    {
+      "id": "train-004",
+      "attempts": 214,
+      "rejected": 188,
+      "captures": 4,
+      "reason_counts": {
+        "outer_link_length_bound": 115,
+        "endpoint_ik_unresolved_Arm10": 45,
+        "endpoint_ik_unresolved_Arm14": 24,
+        "setup_motion_not_quiet": 2,
+        "arm_table_proxy_overlap_Arm14": 1,
+        "board_bucket_proxy_overlap": 1
+      },
+      "bucket_xy_m": [
+        0.7991567861295718,
+        -0.540799016845328
+      ]
+    },
+    {
+      "id": "train-005",
+      "attempts": 214,
+      "rejected": 204,
+      "captures": 0,
+      "reason_counts": {
+        "endpoint_ik_unresolved_Arm14": 28,
+        "outer_link_length_bound": 137,
+        "endpoint_ik_unresolved_Arm10": 35,
+        "setup_transit_incomplete": 1,
+        "arm_table_proxy_overlap_Arm14": 1,
+        "board_table_proxy_overlap": 2
+      },
+      "bucket_xy_m": [
+        1.135344063625093,
+        -0.6844938748792812
+      ]
+    },
+    {
+      "id": "train-006",
+      "attempts": 214,
+      "rejected": 200,
+      "captures": 0,
+      "reason_counts": {
+        "setup_transit_incomplete": 1,
+        "outer_link_length_bound": 136,
+        "endpoint_ik_unresolved_Arm10": 44,
+        "endpoint_ik_unresolved_Arm14": 15,
+        "board_table_proxy_overlap": 1,
+        "setup_motion_not_quiet": 3
+      },
+      "bucket_xy_m": [
+        1.2979007439570616,
+        -0.5853354765282337
+      ]
+    },
+    {
+      "id": "train-007",
+      "attempts": 214,
+      "rejected": 190,
+      "captures": 0,
+      "reason_counts": {
+        "endpoint_ik_unresolved_Arm14": 17,
+        "outer_link_length_bound": 135,
+        "endpoint_ik_unresolved_Arm10": 37,
+        "setup_motion_not_quiet": 1
+      },
+      "bucket_xy_m": [
+        -0.05954425093446395,
+        -0.45495865437255384
+      ]
+    },
+    {
+      "id": "train-008",
+      "attempts": 214,
+      "rejected": 166,
+      "captures": 23,
+      "reason_counts": {
+        "endpoint_ik_unresolved_Arm14": 14,
+        "outer_link_length_bound": 83,
+        "endpoint_ik_unresolved_Arm10": 65,
+        "arm_table_proxy_overlap_Arm14": 1,
+        "board_bucket_proxy_overlap": 2,
+        "setup_transit_incomplete": 1
+      },
+      "bucket_xy_m": [
+        0.3165017481503109,
+        -0.44909357694379104
+      ]
+    },
+    {
+      "id": "train-009",
+      "attempts": 214,
+      "rejected": 150,
+      "captures": 36,
+      "reason_counts": {
+        "endpoint_ik_unresolved_Arm14": 22,
+        "outer_link_length_bound": 88,
+        "endpoint_ik_unresolved_Arm10": 32,
+        "arm_table_proxy_overlap_Arm14": 3,
+        "board_bucket_proxy_overlap": 2,
+        "setup_motion_not_quiet": 3
+      },
+      "bucket_xy_m": [
+        0.34165296643385185,
+        -0.41707615597659253
+      ]
+    },
+    {
+      "id": "train-010",
+      "attempts": 214,
+      "rejected": 179,
+      "captures": 28,
+      "reason_counts": {
+        "outer_link_length_bound": 73,
+        "endpoint_ik_unresolved_Arm14": 30,
+        "endpoint_ik_unresolved_Arm10": 27,
+        "board_bucket_proxy_overlap": 42,
+        "setup_motion_not_quiet": 2,
+        "endpoints_not_settled": 1,
+        "arm_table_proxy_overlap_Arm14": 2,
+        "setup_transit_incomplete": 2
+      },
+      "bucket_xy_m": [
+        0.7290583542790507,
+        -0.3926835129646751
+      ]
+    },
+    {
+      "id": "train-011",
+      "attempts": 214,
+      "rejected": 190,
+      "captures": 10,
+      "reason_counts": {
+        "endpoint_ik_unresolved_Arm14": 20,
+        "outer_link_length_bound": 97,
+        "endpoint_ik_unresolved_Arm10": 67,
+        "setup_transit_incomplete": 2,
+        "endpoints_not_settled": 1,
+        "board_bucket_proxy_overlap": 2,
+        "setup_motion_not_quiet": 1
+      },
+      "bucket_xy_m": [
+        0.9587934297960894,
+        -0.436166428255612
+      ]
+    },
+    {
+      "id": "train-012",
+      "attempts": 214,
+      "rejected": 199,
+      "captures": 0,
+      "reason_counts": {
+        "setup_transit_incomplete": 2,
+        "outer_link_length_bound": 118,
+        "endpoint_ik_unresolved_Arm10": 49,
+        "endpoint_ik_unresolved_Arm14": 27,
+        "board_table_proxy_overlap": 1,
+        "setup_motion_not_quiet": 2
+      },
+      "bucket_xy_m": [
+        1.1756345129286034,
+        -0.4438649930466994
+      ]
+    },
+    {
+      "id": "train-013",
+      "attempts": 214,
+      "rejected": 197,
+      "captures": 0,
+      "reason_counts": {
+        "setup_transit_incomplete": 2,
+        "outer_link_length_bound": 124,
+        "endpoint_ik_unresolved_Arm10": 39,
+        "endpoint_ik_unresolved_Arm14": 24,
+        "board_table_proxy_overlap": 1,
+        "setup_motion_not_quiet": 5,
+        "arm_table_proxy_overlap_Arm14": 1,
+        "board_bucket_proxy_overlap": 1
+      },
+      "bucket_xy_m": [
+        1.2663006107922157,
+        -0.40908662026139747
+      ]
+    },
+    {
+      "id": "train-014",
+      "attempts": 214,
+      "rejected": 196,
+      "captures": 0,
+      "reason_counts": {
+        "endpoint_ik_unresolved_Arm14": 13,
+        "outer_link_length_bound": 146,
+        "endpoint_ik_unresolved_Arm10": 36,
+        "board_bucket_proxy_overlap": 1
+      },
+      "bucket_xy_m": [
+        -0.09641712085313714,
+        -0.3354818094282453
+      ]
+    },
+    {
+      "id": "train-015",
+      "attempts": 214,
+      "rejected": 161,
+      "captures": 24,
+      "reason_counts": {
+        "endpoint_ik_unresolved_Arm14": 30,
+        "endpoint_ik_unresolved_Arm10": 28,
+        "outer_link_length_bound": 92,
+        "arm_table_proxy_overlap_Arm14": 3,
+        "setup_motion_not_quiet": 3,
+        "setup_transit_incomplete": 1,
+        "board_bucket_proxy_overlap": 4
+      },
+      "bucket_xy_m": [
+        0.22123588300183286,
+        -0.2787055969013994
+      ]
+    },
+    {
+      "id": "train-016",
+      "attempts": 214,
+      "rejected": 147,
+      "captures": 46,
+      "reason_counts": {
+        "endpoint_ik_unresolved_Arm14": 27,
+        "endpoint_ik_unresolved_Arm10": 44,
+        "outer_link_length_bound": 66,
+        "arm_table_proxy_overlap_Arm14": 2,
+        "board_bucket_proxy_overlap": 4,
+        "setup_motion_not_quiet": 3,
+        "setup_transit_incomplete": 1
+      },
+      "bucket_xy_m": [
+        0.35282748562397875,
+        -0.2981427635493973
+      ]
+    },
+    {
+      "id": "train-017",
+      "attempts": 214,
+      "rejected": 160,
+      "captures": 44,
+      "reason_counts": {
+        "endpoint_ik_unresolved_Arm10": 44,
+        "endpoint_ik_unresolved_Arm14": 29,
+        "board_bucket_proxy_overlap": 16,
+        "outer_link_length_bound": 70,
+        "setup_transit_incomplete": 1
+      },
+      "bucket_xy_m": [
+        0.7116579258978394,
+        -0.25102397186154574
+      ]
+    },
+    {
+      "id": "train-018",
+      "attempts": 214,
+      "rejected": 174,
+      "captures": 30,
+      "reason_counts": {
+        "setup_transit_incomplete": 17,
+        "endpoint_ik_unresolved_Arm10": 60,
+        "board_bucket_proxy_overlap": 9,
+        "setup_motion_not_quiet": 6,
+        "endpoint_ik_unresolved_Arm14": 25,
+        "outer_link_length_bound": 57
+      },
+      "bucket_xy_m": [
+        0.9354647476717223,
+        -0.17342919389097997
+      ]
+    },
+    {
+      "id": "train-019",
+      "attempts": 214,
+      "rejected": 205,
+      "captures": 0,
+      "reason_counts": {
+        "setup_transit_incomplete": 3,
+        "outer_link_length_bound": 102,
+        "endpoint_ik_unresolved_Arm10": 59,
+        "endpoint_ik_unresolved_Arm14": 33,
+        "board_table_proxy_overlap": 6,
+        "setup_motion_not_quiet": 1,
+        "board_bucket_proxy_overlap": 1
+      },
+      "bucket_xy_m": [
+        1.1361189684547073,
+        -0.26427200289935354
+      ]
+    },
+    {
+      "id": "train-020",
+      "attempts": 214,
+      "rejected": 206,
+      "captures": 0,
+      "reason_counts": {
+        "setup_motion_not_quiet": 5,
+        "outer_link_length_bound": 111,
+        "endpoint_ik_unresolved_Arm10": 59,
+        "endpoint_ik_unresolved_Arm14": 26,
+        "board_table_proxy_overlap": 1,
+        "setup_transit_incomplete": 4
+      },
+      "bucket_xy_m": [
+        1.187306999700336,
+        -0.2900908729853303
+      ]
+    },
+    {
+      "id": "train-021",
+      "attempts": 214,
+      "rejected": 156,
+      "captures": 0,
+      "reason_counts": {
+        "endpoint_ik_unresolved_Arm14": 21,
+        "outer_link_length_bound": 98,
+        "endpoint_ik_unresolved_Arm10": 32,
+        "arm_table_proxy_overlap_Arm14": 2,
+        "setup_motion_not_quiet": 2,
+        "board_bucket_proxy_overlap": 1
+      },
+      "bucket_xy_m": [
+        0.03362491485386297,
+        -0.09355988731772424
+      ]
+    },
+    {
+      "id": "train-022",
+      "attempts": 214,
+      "rejected": 166,
+      "captures": 20,
+      "reason_counts": {
+        "endpoint_ik_unresolved_Arm14": 26,
+        "endpoint_ik_unresolved_Arm10": 27,
+        "outer_link_length_bound": 107,
+        "setup_motion_not_quiet": 3,
+        "arm_table_proxy_overlap_Arm14": 2,
+        "board_bucket_proxy_overlap": 1
+      },
+      "bucket_xy_m": [
+        0.18677600678874234,
+        -0.09727222088738448
+      ]
+    },
+    {
+      "id": "train-023",
+      "attempts": 214,
+      "rejected": 183,
+      "captures": 26,
+      "reason_counts": {
+        "endpoint_ik_unresolved_Arm10": 42,
+        "endpoint_ik_unresolved_Arm14": 40,
+        "board_bucket_proxy_overlap": 27,
+        "outer_link_length_bound": 74
+      },
+      "bucket_xy_m": [
+        0.502342999898175,
+        0.009859395114421346
+      ]
+    },
+    {
+      "id": "train-024",
+      "attempts": 214,
+      "rejected": 175,
+      "captures": 33,
+      "reason_counts": {
+        "endpoint_ik_unresolved_Arm10": 40,
+        "outer_link_length_bound": 72,
+        "board_bucket_proxy_overlap": 20,
+        "endpoint_ik_unresolved_Arm14": 42,
+        "settling_correction_path_proxy": 1
+      },
+      "bucket_xy_m": [
+        0.5498145044477835,
+        -0.13393823994926515
+      ]
+    },
+    {
+      "id": "train-025",
+      "attempts": 214,
+      "rejected": 189,
+      "captures": 18,
+      "reason_counts": {
+        "endpoint_ik_unresolved_Arm14": 49,
+        "outer_link_length_bound": 75,
+        "board_bucket_proxy_overlap": 18,
+        "endpoint_ik_unresolved_Arm10": 47
+      },
+      "bucket_xy_m": [
+        0.7599278751119016,
+        -0.15061768297954345
+      ]
+    },
+    {
+      "id": "train-026",
+      "attempts": 214,
+      "rejected": 174,
+      "captures": 0,
+      "reason_counts": {
+        "setup_transit_incomplete": 4,
+        "endpoint_ik_unresolved_Arm10": 39,
+        "outer_link_length_bound": 80,
+        "endpoint_ik_unresolved_Arm14": 46,
+        "board_table_proxy_overlap": 1,
+        "setup_motion_not_quiet": 4
+      },
+      "bucket_xy_m": [
+        1.124732983468759,
+        0.003947869196370982
+      ]
+    },
+    {
+      "id": "train-027",
+      "attempts": 214,
+      "rejected": 212,
+      "captures": 0,
+      "reason_counts": {
+        "setup_transit_incomplete": 9,
+        "endpoint_ik_unresolved_Arm10": 61,
+        "outer_link_length_bound": 118,
+        "endpoint_ik_unresolved_Arm14": 20,
+        "board_table_proxy_overlap": 2,
+        "board_bucket_proxy_overlap": 1,
+        "setup_motion_not_quiet": 1
+      },
+      "bucket_xy_m": [
+        1.3144025443319314,
+        -0.06407132438428427
+      ]
+    },
+    {
+      "id": "train-028",
+      "attempts": 214,
+      "rejected": 182,
+      "captures": 0,
+      "reason_counts": {
+        "endpoint_ik_unresolved_Arm14": 17,
+        "outer_link_length_bound": 100,
+        "endpoint_ik_unresolved_Arm10": 45,
+        "setup_motion_not_quiet": 9,
+        "arm_table_proxy_overlap_Arm14": 9,
+        "setup_transit_incomplete": 1,
+        "endpoints_not_settled": 1
+      },
+      "bucket_xy_m": [
+        0.0007496721735887953,
+        0.09239633596553501
+      ]
+    },
+    {
+      "id": "train-029",
+      "attempts": 214,
+      "rejected": 128,
+      "captures": 45,
+      "reason_counts": {
+        "endpoint_ik_unresolved_Arm14": 19,
+        "outer_link_length_bound": 82,
+        "endpoint_ik_unresolved_Arm10": 21,
+        "setup_transit_incomplete": 1,
+        "setup_motion_not_quiet": 4,
+        "board_bucket_proxy_overlap": 1
+      },
+      "bucket_xy_m": [
+        0.20151456750629806,
+        0.09657061378145822
+      ]
+    },
+    {
+      "id": "train-030",
+      "attempts": 214,
+      "rejected": 149,
+      "captures": 47,
+      "reason_counts": {
+        "endpoint_ik_unresolved_Arm14": 36,
+        "endpoint_ik_unresolved_Arm10": 29,
+        "outer_link_length_bound": 73,
+        "setup_motion_not_quiet": 5,
+        "arm_table_proxy_overlap_Arm14": 1,
+        "board_bucket_proxy_overlap": 5
+      },
+      "bucket_xy_m": [
+        0.33719190029770035,
+        0.08953469658046576
+      ]
+    },
+    {
+      "id": "train-031",
+      "attempts": 214,
+      "rejected": 186,
+      "captures": 24,
+      "reason_counts": {
+        "endpoint_ik_unresolved_Arm14": 64,
+        "endpoint_ik_unresolved_Arm10": 32,
+        "board_bucket_proxy_overlap": 17,
+        "outer_link_length_bound": 73
+      },
+      "bucket_xy_m": [
+        0.7046485159903151,
+        0.024051819511534872
+      ]
+    },
+    {
+      "id": "train-032",
+      "attempts": 214,
+      "rejected": 184,
+      "captures": 22,
+      "reason_counts": {
+        "endpoint_ik_unresolved_Arm14": 77,
+        "endpoint_ik_unresolved_Arm10": 30,
+        "board_bucket_proxy_overlap": 16,
+        "outer_link_length_bound": 54,
+        "setup_transit_incomplete": 3,
+        "setup_motion_not_quiet": 3,
+        "endpoints_not_settled": 1
+      },
+      "bucket_xy_m": [
+        0.8371561484717711,
+        0.056887516164904964
+      ]
+    },
+    {
+      "id": "train-033",
+      "attempts": 214,
+      "rejected": 204,
+      "captures": 0,
+      "reason_counts": {
+        "setup_transit_incomplete": 5,
+        "endpoint_ik_unresolved_Arm14": 45,
+        "outer_link_length_bound": 90,
+        "endpoint_ik_unresolved_Arm10": 60,
+        "board_bucket_proxy_overlap": 2,
+        "setup_motion_not_quiet": 2
+      },
+      "bucket_xy_m": [
+        1.154090132935023,
+        0.11701158726208924
+      ]
+    },
+    {
+      "id": "train-034",
+      "attempts": 214,
+      "rejected": 200,
+      "captures": 0,
+      "reason_counts": {
+        "setup_transit_incomplete": 4,
+        "endpoint_ik_unresolved_Arm10": 51,
+        "outer_link_length_bound": 95,
+        "endpoint_ik_unresolved_Arm14": 46,
+        "board_bucket_proxy_overlap": 2,
+        "setup_motion_not_quiet": 1,
+        "endpoints_not_settled": 1
+      },
+      "bucket_xy_m": [
+        1.2286031978951766,
+        0.13210412637006153
+      ]
+    }
+  ],
+  "phases": [
+    {
+      "id": "global_domain_sobol",
+      "attempts": 1505,
+      "rejected": 1490,
+      "captures": 1,
+      "reason_counts": {
+        "outer_link_length_bound": 1395,
+        "endpoint_ik_unresolved_Arm14": 23,
+        "endpoint_ik_unresolved_Arm10": 46,
+        "setup_motion_not_quiet": 2,
+        "board_bucket_proxy_overlap": 20,
+        "arm_table_proxy_overlap_Arm14": 3,
+        "setup_transit_incomplete": 1
+      }
+    },
+    {
+      "id": "local_sobol_prior",
+      "attempts": 1120,
+      "rejected": 984,
+      "captures": 33,
+      "reason_counts": {
+        "outer_link_length_bound": 455,
+        "endpoint_ik_unresolved_Arm10": 299,
+        "endpoint_ik_unresolved_Arm14": 161,
+        "board_bucket_proxy_overlap": 31,
+        "setup_transit_incomplete": 12,
+        "arm_table_proxy_overlap_Arm14": 8,
+        "setup_motion_not_quiet": 15,
+        "board_table_proxy_overlap": 2,
+        "endpoints_not_settled": 1
+      }
+    },
+    {
+      "id": "shared_geometry_prior",
+      "attempts": 35,
+      "rejected": 28,
+      "captures": 4,
+      "reason_counts": {
+        "endpoint_ik_unresolved_Arm14": 16,
+        "setup_transit_incomplete": 9,
+        "endpoint_ik_unresolved_Arm10": 2,
+        "setup_motion_not_quiet": 1
+      }
+    },
+    {
+      "id": "signed_prior_axis",
+      "attempts": 350,
+      "rejected": 264,
+      "captures": 25,
+      "reason_counts": {
+        "endpoint_ik_unresolved_Arm14": 71,
+        "endpoint_ik_unresolved_Arm10": 119,
+        "outer_link_length_bound": 41,
+        "setup_transit_incomplete": 15,
+        "board_bucket_proxy_overlap": 2,
+        "board_table_proxy_overlap": 7,
+        "setup_motion_not_quiet": 9
+      }
+    },
+    {
+      "id": "train_best_refinement",
+      "attempts": 4480,
+      "rejected": 3597,
+      "captures": 428,
+      "reason_counts": {
+        "outer_link_length_bound": 1558,
+        "endpoint_ik_unresolved_Arm14": 761,
+        "board_bucket_proxy_overlap": 150,
+        "endpoint_ik_unresolved_Arm10": 1013,
+        "arm_table_proxy_overlap_Arm14": 22,
+        "setup_motion_not_quiet": 49,
+        "setup_transit_incomplete": 32,
+        "endpoints_not_settled": 5,
+        "board_table_proxy_overlap": 6,
+        "settling_correction_path_proxy": 1
+      }
+    }
+  ],
+  "parameter_bins": {
+    "radius_m": [
+      {
+        "lo": 0.28,
+        "hi": 0.45,
+        "attempts": 3326,
+        "rejected": 2573,
+        "reason_counts": {
+          "endpoint_ik_unresolved_Arm14": 567,
+          "endpoint_ik_unresolved_Arm10": 703,
+          "setup_transit_incomplete": 28,
+          "outer_link_length_bound": 1025,
+          "board_bucket_proxy_overlap": 203,
+          "setup_motion_not_quiet": 30,
+          "arm_table_proxy_overlap_Arm14": 13,
+          "endpoints_not_settled": 2,
+          "board_table_proxy_overlap": 1,
+          "settling_correction_path_proxy": 1
+        }
+      },
+      {
+        "lo": 0.45,
+        "hi": 0.6,
+        "attempts": 1784,
+        "rejected": 1547,
+        "reason_counts": {
+          "setup_transit_incomplete": 22,
+          "endpoint_ik_unresolved_Arm14": 216,
+          "setup_motion_not_quiet": 28,
+          "outer_link_length_bound": 819,
+          "endpoint_ik_unresolved_Arm10": 443,
+          "board_table_proxy_overlap": 7,
+          "arm_table_proxy_overlap_Arm14": 9,
+          "endpoints_not_settled": 3
+        }
+      },
+      {
+        "lo": 0.6,
+        "hi": 0.8,
+        "attempts": 1477,
+        "rejected": 1371,
+        "reason_counts": {
+          "setup_transit_incomplete": 19,
+          "endpoint_ik_unresolved_Arm14": 209,
+          "outer_link_length_bound": 851,
+          "endpoint_ik_unresolved_Arm10": 262,
+          "board_table_proxy_overlap": 6,
+          "setup_motion_not_quiet": 14,
+          "arm_table_proxy_overlap_Arm14": 9,
+          "endpoints_not_settled": 1
+        }
+      },
+      {
+        "lo": 0.8,
+        "hi": 1.0,
+        "attempts": 607,
+        "rejected": 578,
+        "reason_counts": {
+          "endpoint_ik_unresolved_Arm14": 40,
+          "outer_link_length_bound": 464,
+          "endpoint_ik_unresolved_Arm10": 67,
+          "arm_table_proxy_overlap_Arm14": 2,
+          "setup_motion_not_quiet": 4,
+          "board_table_proxy_overlap": 1
+        }
+      },
+      {
+        "lo": 1.0,
+        "hi": 1.2,
+        "attempts": 296,
+        "rejected": 294,
+        "reason_counts": {
+          "endpoint_ik_unresolved_Arm10": 4,
+          "outer_link_length_bound": 290
+        }
+      }
+    ],
+    "height_m": [
+      {
+        "lo": 0.14,
+        "hi": 0.25,
+        "attempts": 1035,
+        "rejected": 1017,
+        "reason_counts": {
+          "outer_link_length_bound": 544,
+          "endpoint_ik_unresolved_Arm14": 129,
+          "board_bucket_proxy_overlap": 181,
+          "endpoint_ik_unresolved_Arm10": 88,
+          "arm_table_proxy_overlap_Arm14": 33,
+          "setup_motion_not_quiet": 24,
+          "setup_transit_incomplete": 14,
+          "board_table_proxy_overlap": 2,
+          "endpoints_not_settled": 1,
+          "settling_correction_path_proxy": 1
+        }
+      },
+      {
+        "lo": 0.25,
+        "hi": 0.35,
+        "attempts": 2112,
+        "rejected": 1699,
+        "reason_counts": {
+          "board_bucket_proxy_overlap": 22,
+          "board_table_proxy_overlap": 13,
+          "endpoint_ik_unresolved_Arm14": 445,
+          "endpoint_ik_unresolved_Arm10": 347,
+          "outer_link_length_bound": 848,
+          "setup_motion_not_quiet": 10,
+          "setup_transit_incomplete": 11,
+          "endpoints_not_settled": 3
+        }
+      },
+      {
+        "lo": 0.35,
+        "hi": 0.45,
+        "attempts": 2488,
+        "rejected": 1983,
+        "reason_counts": {
+          "endpoint_ik_unresolved_Arm14": 352,
+          "setup_transit_incomplete": 42,
+          "endpoint_ik_unresolved_Arm10": 606,
+          "setup_motion_not_quiet": 30,
+          "outer_link_length_bound": 951,
+          "endpoints_not_settled": 2
+        }
+      },
+      {
+        "lo": 0.45,
+        "hi": 0.6,
+        "attempts": 1855,
+        "rejected": 1664,
+        "reason_counts": {
+          "outer_link_length_bound": 1106,
+          "endpoint_ik_unresolved_Arm10": 438,
+          "endpoint_ik_unresolved_Arm14": 106,
+          "setup_motion_not_quiet": 12,
+          "setup_transit_incomplete": 2
+        }
+      }
+    ],
+    "gap_m": [
+      {
+        "lo": 0.08,
+        "hi": 0.2,
+        "attempts": 2813,
+        "rejected": 2226,
+        "reason_counts": {
+          "endpoint_ik_unresolved_Arm14": 499,
+          "endpoint_ik_unresolved_Arm10": 496,
+          "setup_transit_incomplete": 33,
+          "setup_motion_not_quiet": 43,
+          "outer_link_length_bound": 1060,
+          "board_bucket_proxy_overlap": 82,
+          "arm_table_proxy_overlap_Arm14": 10,
+          "board_table_proxy_overlap": 1,
+          "endpoints_not_settled": 1,
+          "settling_correction_path_proxy": 1
+        }
+      },
+      {
+        "lo": 0.2,
+        "hi": 0.32,
+        "attempts": 2678,
+        "rejected": 2241,
+        "reason_counts": {
+          "endpoint_ik_unresolved_Arm14": 430,
+          "setup_transit_incomplete": 32,
+          "endpoint_ik_unresolved_Arm10": 586,
+          "setup_motion_not_quiet": 24,
+          "outer_link_length_bound": 1066,
+          "board_bucket_proxy_overlap": 76,
+          "board_table_proxy_overlap": 13,
+          "arm_table_proxy_overlap_Arm14": 10,
+          "endpoints_not_settled": 4
+        }
+      },
+      {
+        "lo": 0.32,
+        "hi": 0.44,
+        "attempts": 1355,
+        "rejected": 1271,
+        "reason_counts": {
+          "endpoint_ik_unresolved_Arm10": 337,
+          "outer_link_length_bound": 798,
+          "endpoint_ik_unresolved_Arm14": 87,
+          "board_bucket_proxy_overlap": 33,
+          "board_table_proxy_overlap": 1,
+          "arm_table_proxy_overlap_Arm14": 7,
+          "setup_motion_not_quiet": 4,
+          "setup_transit_incomplete": 4
+        }
+      },
+      {
+        "lo": 0.44,
+        "hi": 0.56,
+        "attempts": 644,
+        "rejected": 625,
+        "reason_counts": {
+          "outer_link_length_bound": 525,
+          "arm_table_proxy_overlap_Arm14": 6,
+          "endpoint_ik_unresolved_Arm14": 16,
+          "board_bucket_proxy_overlap": 12,
+          "endpoint_ik_unresolved_Arm10": 60,
+          "setup_motion_not_quiet": 5,
+          "endpoints_not_settled": 1
+        }
+      }
+    ],
+    "tilt_deg": [
+      {
+        "lo": 12.0,
+        "hi": 22.0,
+        "attempts": 1750,
+        "rejected": 1489,
+        "reason_counts": {
+          "endpoint_ik_unresolved_Arm10": 311,
+          "setup_motion_not_quiet": 10,
+          "endpoint_ik_unresolved_Arm14": 234,
+          "setup_transit_incomplete": 9,
+          "outer_link_length_bound": 867,
+          "board_bucket_proxy_overlap": 41,
+          "arm_table_proxy_overlap_Arm14": 12,
+          "endpoints_not_settled": 3,
+          "board_table_proxy_overlap": 1,
+          "settling_correction_path_proxy": 1
+        }
+      },
+      {
+        "lo": 22.0,
+        "hi": 32.0,
+        "attempts": 2499,
+        "rejected": 2035,
+        "reason_counts": {
+          "endpoint_ik_unresolved_Arm14": 379,
+          "setup_transit_incomplete": 33,
+          "endpoint_ik_unresolved_Arm10": 538,
+          "setup_motion_not_quiet": 27,
+          "outer_link_length_bound": 970,
+          "board_bucket_proxy_overlap": 64,
+          "board_table_proxy_overlap": 12,
+          "arm_table_proxy_overlap_Arm14": 11,
+          "endpoints_not_settled": 1
+        }
+      },
+      {
+        "lo": 32.0,
+        "hi": 42.0,
+        "attempts": 1868,
+        "rejected": 1589,
+        "reason_counts": {
+          "endpoint_ik_unresolved_Arm14": 287,
+          "setup_motion_not_quiet": 27,
+          "endpoint_ik_unresolved_Arm10": 365,
+          "setup_transit_incomplete": 14,
+          "outer_link_length_bound": 836,
+          "board_bucket_proxy_overlap": 53,
+          "arm_table_proxy_overlap_Arm14": 6,
+          "endpoints_not_settled": 1
+        }
+      },
+      {
+        "lo": 42.0,
+        "hi": 52.0,
+        "attempts": 1373,
+        "rejected": 1250,
+        "reason_counts": {
+          "endpoint_ik_unresolved_Arm10": 265,
+          "board_bucket_proxy_overlap": 45,
+          "outer_link_length_bound": 776,
+          "endpoint_ik_unresolved_Arm14": 132,
+          "setup_motion_not_quiet": 12,
+          "setup_transit_incomplete": 13,
+          "endpoints_not_settled": 1,
+          "arm_table_proxy_overlap_Arm14": 4,
+          "board_table_proxy_overlap": 2
+        }
+      }
+    ]
+  },
+  "gate_stats": {
+    "geometry_evaluated": 7490,
+    "geometry_accepted": 7302,
+    "outer_bound_evaluated": 7302,
+    "outer_bound_accepted": 3853,
+    "Arm10_ik_evaluated": 3853,
+    "Arm10_ik_solved": 2374,
+    "Arm14_ik_evaluated": 2374,
+    "Arm14_ik_solved": 1342,
+    "Arm14_not_evaluated_after_Arm10_failure": 1479
+  },
+  "outer_reach_overshoot_m": {
+    "Arm10": {
+      "n": 2098,
+      "minimum": 4.526395269277561e-05,
+      "median": 0.2288536466007266,
+      "p95": 1.0199375022024693,
+      "maximum": 1.6658061820550958
+    },
+    "Arm14": {
+      "n": 2018,
+      "minimum": 0.00017358201207651192,
+      "median": 0.202902265686012,
+      "p95": 1.022146347718282,
+      "maximum": 1.7252670530939587
+    }
+  },
+  "unresolved_ik_summary": {
+    "Arm14": {
+      "position_error_mm": {
+        "n": 1032,
+        "minimum": 0.1289332341415205,
+        "median": 32.611524535465605,
+        "p95": 103.76762389426364,
+        "maximum": 144.28806445276632
+      },
+      "orientation_error_deg": {
+        "n": 1032,
+        "minimum": 0.010635270668852266,
+        "median": 2.7825904248726725,
+        "p95": 8.059462907340698,
+        "maximum": 16.6267764246374
+      },
+      "residual": {
+        "n": 1032,
+        "minimum": 0.00013702997559567173,
+        "median": 0.03595699747374061,
+        "p95": 0.1090569687036944,
+        "maximum": 0.14958587988723968
+      },
+      "nfev_total": {
+        "n": 1032,
+        "minimum": 193.0,
+        "median": 375.5,
+        "p95": 491.44999999999993,
+        "maximum": 1463.0
+      },
+      "near_joint_limit": {
+        "n": 1032,
+        "minimum": 0.0,
+        "median": 0.0,
+        "p95": 1.0,
+        "maximum": 1.0
+      }
+    },
+    "Arm10": {
+      "position_error_mm": {
+        "n": 1479,
+        "minimum": 0.10783889277181426,
+        "median": 48.342530665910196,
+        "p95": 113.57752226804769,
+        "maximum": 151.15875706827345
+      },
+      "orientation_error_deg": {
+        "n": 1479,
+        "minimum": 0.006714571669953935,
+        "median": 3.3509500904828906,
+        "p95": 8.301805405254857,
+        "maximum": 9.342544744001493
+      },
+      "residual": {
+        "n": 1479,
+        "minimum": 0.00011174788842386651,
+        "median": 0.05062389479631979,
+        "p95": 0.11910613609732856,
+        "maximum": 0.15570844716015497
+      },
+      "nfev_total": {
+        "n": 1479,
+        "minimum": 253.0,
+        "median": 434.0,
+        "p95": 734.0999999999999,
+        "maximum": 1486.0
+      },
+      "near_joint_limit": {
+        "n": 1479,
+        "minimum": 0.0,
+        "median": 0.0,
+        "p95": 0.0,
+        "maximum": 1.0
+      }
+    }
+  },
+  "dependency_sha256": {
+    "continuous_feasibility.py": "4a7ce280ae65f1c08bad711abefab03c5cc949736bc47c8058b2798ac0acb5e4",
+    "expanded_pose_menu.py": "5bfbb470fbd395126880b77a8ca136768eda7d844d89afd924935bfb506e2ea5",
+    "feasibility_contract.py": "90164e35b74f8732aaa374bee89f7c428bbf2c5f040453eeb69bd8c9378d368f",
+    "prepare_assets.py": "d7517e4f1f350bd7f48e5c23e48fc4dc4c63882b6b18ce4502bc8c5fd1999d93",
+    "assets/dropper.urdf": "3f40e56e46b040fb3339c1235ea85872f46511c45db2d37f7661db94a470bae3",
+    "assets/board_arm.urdf": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340",
+    "contract.json": "291ca91848bddff8f812b59e790ac565657982a708dd9dcb7c7281136a87544f",
+    "experiment-binding.json": "a739902c75a2cd1496c4f85d85bb94378ec1aa6c1e1afd013f0974d9d7dc4457"
+  },
+  "audit_source_sha256": "687d82f42553efe5a03094451da13550ca029d97307f9136167ab5d5a5ec5fc9",
+  "scope": [
+    "Frozen-prefix TRAIN-only audit. No held-out shot files, rewards or predictions enter diagnosis or selection.",
+    "Primary recorded rejection reasons are mutually exclusive; gates short-circuit, so later checks may be unevaluated.",
+    "All active TRAIN requests, including rejects, remain in the original denominator. Inactive cells and evaluation requests are excluded.",
+    "Requested targets and numerical best-IK chains are reconstructions in a single workcell's Arm10-base frame, not screenshots or achieved simulator poses.",
+    "Outer spheres are necessary reach bounds, not feasible-workspace volumes. Inside the sphere does not certify joint-limited pose reachability.",
+    "No new IK optimization or ball-flight search; saved candidates and residuals are independently recomputed with FK only.",
+    "Arm14 endpoint IK constrains board center and normal, not the board's full in-plane twist/yaw; the requested rectangle is not a certified achieved rectangle pose.",
+    "This diagnostic does not change the running benchmark, guards, sampling, material assumptions or trial budget."
+  ],
+  "selection": "Deterministic median and extreme saved reach/IK failures plus median-stage proxy/transit/settling cases; no outcome-selected success substitution",
+  "derived_from": {
+    "audit_sha256": "d02c45ac9020ab0af0680b61c2f94c3557240d08d8fade116d6de7338cc5c883",
+    "probe_sha256": "b8ede44bcec3b9466654ef38a1ff7435068e90c3fc10740b58d208a1900077a2",
+    "diagnostic_producer_commit": "b65400ef4a6daada064153a7d6ed97ca25f518b0",
+    "raw_trial_inventory_count": 217,
+    "excluded": "Raw native arrays, individual trial JSON, numerical joint histories, media and host runtime configuration"
+  },
+  "solver_probe": {
+    "schema": "sircus-offline-endpoint-reprobe-v1",
+    "selection": {
+      "mode": "saved_arm_residual_stratification",
+      "maximum_cases": 10,
+      "failure_goal_per_arm": 4,
+      "near_residual_threshold": 0.001,
+      "failures_per_arm_stratum": 2,
+      "solved_controls_per_arm": 1,
+      "order": "Stable case_id order within each pre-probe stratum; fill missing failure strata within the same arm",
+      "candidate_count": 10,
+      "selection_sha256": "4155ef9d47e15a0e2fadf5693549fdca1afd66da2c93fb4aad0d4e4b4a0300f4"
+    },
+    "limits": {
+      "maximum_cases": 10,
+      "maximum_starts_per_case": 10,
+      "max_nfev_per_start": 1000,
+      "maximum_residual_evaluations": 100000,
+      "maximum_wall_s": 180.0,
+      "acceptance_residual": 0.0001,
+      "angular_residual_weight": 0.25
+    },
+    "selection_sha256": "4155ef9d47e15a0e2fadf5693549fdca1afd66da2c93fb4aad0d4e4b4a0300f4",
+    "wall_s": 2.9335565619985573,
+    "residual_evaluations": 23523,
+    "counts": {
+      "recovered_endpoint": 0,
+      "control_verified": 2,
+      "still_unresolved": 8,
+      "budget_exhausted": 0,
+      "not_run": 0
+    },
+    "native_trial_labels_changed": false,
+    "learner_feedback": false,
+    "simulator_started": false,
+    "scope": "CPU-only TRAIN diagnostic. A recovered endpoint is not a successful or collision-certified shot; an unresolved or unrun case is not proof of impossibility.",
+    "source": {
+      "input_sha256": "d02c45ac9020ab0af0680b61c2f94c3557240d08d8fade116d6de7338cc5c883",
+      "assets_sha256": {
+        "Arm10": "3f40e56e46b040fb3339c1235ea85872f46511c45db2d37f7661db94a470bae3",
+        "Arm14": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340"
+      },
+      "diagnostic_source_sha256": "cf4d33c8741cd7958aebbec146c757f71a62e37918c9c669b3a2de11d3a95781"
+    },
+    "cases": [
+      {
+        "case_id": "batch00010-train-017-Arm10",
+        "arm": "Arm10",
+        "status": "still_unresolved",
+        "saved_residual": 0.00011174788842386651,
+        "best_residual": 0.00011174788842386651,
+        "endpoint_verified": false
+      },
+      {
+        "case_id": "batch00201-train-030-Arm10",
+        "arm": "Arm10",
+        "status": "still_unresolved",
+        "saved_residual": 0.0008721251922584123,
+        "best_residual": 0.0008721251922583391,
+        "endpoint_verified": false
+      },
+      {
+        "case_id": "batch00016-train-013-Arm10",
+        "arm": "Arm10",
+        "status": "still_unresolved",
+        "saved_residual": 0.0011244331996967543,
+        "best_residual": 0.0011244331996967543,
+        "endpoint_verified": false
+      },
+      {
+        "case_id": "batch00098-train-028-Arm10",
+        "arm": "Arm10",
+        "status": "still_unresolved",
+        "saved_residual": 0.15570844716015497,
+        "best_residual": 0.15570844716015234,
+        "endpoint_verified": false
+      },
+      {
+        "case_id": "batch00116-train-015-Arm14",
+        "arm": "Arm14",
+        "status": "still_unresolved",
+        "saved_residual": 0.00013702997559567173,
+        "best_residual": 0.00013702997559566482,
+        "endpoint_verified": false
+      },
+      {
+        "case_id": "batch00189-train-012-Arm14",
+        "arm": "Arm14",
+        "status": "still_unresolved",
+        "saved_residual": 0.000998481004560157,
+        "best_residual": 0.000998481004560157,
+        "endpoint_verified": false
+      },
+      {
+        "case_id": "batch00061-train-025-Arm14",
+        "arm": "Arm14",
+        "status": "still_unresolved",
+        "saved_residual": 0.14958587988723968,
+        "best_residual": 0.14958587988720654,
+        "endpoint_verified": false
+      },
+      {
+        "case_id": "batch00169-train-004-Arm14",
+        "arm": "Arm14",
+        "status": "still_unresolved",
+        "saved_residual": 0.001002782577856461,
+        "best_residual": 0.0010027825778564426,
+        "endpoint_verified": false
+      },
+      {
+        "case_id": "batch00098-train-016-Arm10",
+        "arm": "Arm10",
+        "status": "control_verified",
+        "saved_residual": 4.217974340085538e-11,
+        "best_residual": 4.7398819802389234e-17,
+        "endpoint_verified": true
+      },
+      {
+        "case_id": "batch00128-train-030-Arm14",
+        "arm": "Arm14",
+        "status": "control_verified",
+        "saved_residual": 5.0438491851579565e-12,
+        "best_residual": 5.043838639849719e-12,
+        "endpoint_verified": true
+      }
+    ]
+  }
+}
