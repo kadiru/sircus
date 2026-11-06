@@ -59,6 +59,12 @@ This model is not activated in the legacy interactive solver.
 
 ## Fresh comparison in progress
 
+The full 252-decision evaluation plan is now frozen. Independent CPU planning
+verification passed **683,714 checks** over the forecasts, candidate ranking and
+ensemble geometry screens. [Planning-only proof summary](planning-summary.json)
+keeps native-outcome verification false. The job is queued behind the existing
+4090 owner; zero new native shots had run at this publication checkpoint.
+
 The [frozen protocol](../../sircus/mjlab/PHYSICS_ENSEMBLE.md) specifies 24 diagnostic
 validation and 60 TEST bucket positions at least 10 mm from 169 declared prior
 benchmark/diagnosis coordinates and each other. All 252 predictions must precede

@@ -1,0 +1,21 @@
+{
+  "version": "sircus-physics-ensemble-planning-preflight-v1",
+  "status": "passed",
+  "scope": "Frozen prediction and ensemble geometry-screen reconstruction only; baseline admission and all native outcomes remain unverified",
+  "full_study_audit": false,
+  "native_evaluation_verified": false,
+  "predictions_verified": true,
+  "contract_fingerprint": "90a7d5b7e3d1fb1e738a36a7cf30930116516da0d6d6435c06b98eb97be8c376",
+  "prediction_plan_sha256": "0b447847e3b6d75b7e58153389f57823f9e0e226274dfce852fbb0fe9346d4ae",
+  "rankings_sha256": "07c816adcd24174b27a351f48cba1fde3cc3ecd174ff6883b5996c6e5df83d5c",
+  "checkpoint_sha256": "0f8d00e59d7b9c07056a74b9f05f8a850ec46603b67a6f96489c90e31ebd40b4",
+  "training_proof_sha256": "c37fd21a5877252b70a5379358cff3e1962aabec0de28a93ab44eb9f4354617d",
+  "planned_requests": 264,
+  "predictions_verified_count": 252,
+  "query_layouts": 84,
+  "ensemble_geometry_admitted": 70,
+  "checks_count": 683714,
+  "cuda_initialized": false,
+  "planning_proof_sha256": "23ee33097a52a86b311539821eaf6a360094604267fbad0eff2a384604f734a8",
+  "scope_note": "70/84 ensemble geometry-screen admissions include validation and TEST; they are not native captures or baseline admission counts."
+}

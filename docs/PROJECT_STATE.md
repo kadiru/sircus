@@ -5,8 +5,9 @@
 - **Actual fit completed:** [checkpoint and training-only evidence](../baselines/mjlab-physics-ensemble-20261106/README.md).
   Five real 600-step models passed independent target/mask and fit reconstruction
   (126,235 checks). This is not the full native study audit; no fresh capture
-  comparison result is claimed. CPU shot planning and the 4090 queue continue
-  in the background. Existing Isaac owns the 4090 and is left untouched.
+  comparison result is claimed. All 252 evaluation decisions are now frozen;
+  independent planning-only checks passed 683,714 checks. The zero-shot native
+  stage is queued on the existing 4090 shared lock behind Isaac, left untouched.
 - [Protocol](../sircus/mjlab/PHYSICS_ENSEMBLE.md): fixed five-member state-based
   forward model, using only 1,024 current authenticated policy64 TRAIN requests.
   No historical bootstrap, control, validation, TEST or diagnosis labels enter fit.
