@@ -1,0 +1,36 @@
+<!-- Additive read-only fragment: place before #impact650Study; preserve old evidence. -->
+<!--POLICY64_STYLE-->
+<section id="policy64Study" class="policy64-panel" hidden>
+  <p class="policy64-eyebrow">FIXED 64 SUBSTEPS · LEARNED SHOT PARAMETERS · FRESH HOLDOUT SHOTS</p>
+  <h2>Train a policy. Freeze it. Test once per layout.</h2>
+  <p data-policy64="connection" class="policy64-small" role="status">Waiting for a read-only snapshot.</p>
+  <p data-policy64="status" class="policy64-status"></p>
+  <p data-policy64="scope" class="policy64-note"></p>
+  <p class="policy64-note">64-substep results only. The historical 128-substep capture failures remain unchanged. This study is not a new cross-timestep qualification or a claim of physical reliability.</p>
+  <p data-policy64="plan" class="policy64-small"></p>
+  <h3>Live study progress</h3>
+  <div data-policy64="progress" class="policy64-scroll" tabindex="0" role="region" aria-label="Training, validation and test progress"></div>
+  <p data-policy64="artifacts" class="policy64-small"></p>
+  <h3>Learning and fresh validation</h3>
+  <canvas data-policy64="curves" width="820" height="280" role="img" aria-label="Measured capture and clean results over training attempts"></canvas>
+  <div data-policy64="curve-table" class="policy64-scroll" tabindex="0" role="region" aria-label="Observed learning curve measurements"></div>
+  <p class="policy64-small">Curve points show actual reported measurements. Training data and fresh validation are separate; a change in validation capture rate is not a test result. No curve is filled in for missing checkpoints.</p>
+  <h3>Frozen-checkpoint comparison · 50 test bucket positions</h3>
+  <p data-policy64="result" class="policy64-note" role="status" data-state="unknown">Unverified.</p>
+  <div data-policy64="comparison" class="policy64-scroll" tabindex="0" role="region" aria-label="Matched prior, nearest-success, BC and PPO test results"></div>
+  <p class="policy64-small">Each method gets one nominal shot per test layout. Requested shots include endpoint rejections; native releases and invalid requests remain separate. Capture requires a board bounce, whole-ball entry and one continuous second inside. Rim-assisted captures count; clean captures are a separate subset. Controls and training attempts are not test successes.</p>
+  <p class="policy64-small">This is a warm-start ablation, not an equal-training-budget contest: nearest-success and BC share 6,144 historical TRAIN requests; PPO adds 1,024 fresh training requests. The prior uses 17 historical geometric hints. Fresh TEST layouts and per-method shot counts are matched; training exposure is not.</p>
+  <h3>Selected PPO checkpoint · tested positions</h3>
+  <canvas data-policy64="coverage" width="820" height="380" role="img" aria-label="Selected PPO results at the 50 prescribed test bucket positions"></canvas>
+  <p data-policy64="coverage-caption" class="policy64-small"></p>
+  <div data-policy64="coverage-table" class="policy64-scroll" tabindex="0" role="region" aria-label="Per-position selected PPO test outcomes"></div>
+  <p class="policy64-small">Position colors represent the saved trial outcome, not a continuous success map. Untested positions remain unknown. Fifty nominal test layouts do not establish all-table coverage, noise robustness or generalization beyond the evaluated positions.</p>
+  <h3>Actual saved native flight</h3>
+  <label class="policy64-small">Recorded trial <select data-policy64="trace-select" aria-label="Choose a policy study native trial"></select></label>
+  <canvas data-policy64="trace" width="820" height="280" role="img" aria-label="Saved native ball flight toward this trial's bucket"></canvas>
+  <p data-policy64="trace-caption" class="policy64-small"></p>
+  <p data-policy64="audit" class="policy64-note"></p>
+  <p class="policy64-small">The policies receive privileged simulator geometry. Geometry-only setup and endpoint IK may place the arms; test inference must not search simulated ball flights. The learned output chooses shot parameters with prescribed held endpoints. Grasping, arm transit, actuator tracking, perception and physical deployment are not validated. No noise or 128-substep gate is included.</p>
+  <p class="policy64-small">Earlier impact-point, tilt-30, XY650 and clean-650 studies retain their fingerprints and definitions. This panel reads evidence only; it does not train, start a solver, change controls or activate a policy.</p>
+</section>
+<!--POLICY64_SCRIPT-->

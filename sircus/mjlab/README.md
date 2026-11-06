@@ -1,5 +1,10 @@
 # Sircus in mjlab
 
+New [fixed-64 success-bootstrap/PPO study](POLICY64.md): historical TRAIN-only
+successes seed an actor, followed by 1,024 fresh PPO requests and frozen comparison
+at 50 new bucket positions. [Protocol and evidence boundaries](POLICY64.md) preserve
+all 128 results and separate current native code from historical labels. Native results pending.
+
 Latest diagnostic: the [bounded 650 mm impact-point study](IMPACT650.md) completed
 189 requests / 146 native releases in 544.3 worker-seconds. Discovery produced five
 rim captures and zero clean; all five selected recipes captured 3/3 at 64 but 0/3 at 128.

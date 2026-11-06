@@ -1,5 +1,29 @@
 # Project state
 
+## Fixed-64 success bootstrap and policy refinement — preparation, November 5, 2026
+
+- The user explicitly selected 64 substeps for simulation training/evaluation.
+  Preserve the completed 128 failures; new results have a different fixed-64 scope.
+- [Prespecified protocol](../sircus/mjlab/POLICY64.md): six audited historical
+  TRAIN logs supply 6,144 requests / 4,380 native / 2,439 captures / 842 clean across 35
+  layouts. One successful teacher per 22 resolved contexts bootstraps an actual
+  residual actor; all TRAIN outcomes fit the critic. No old VAL/TEST labels train it.
+- Fresh PPO: 1,024 requested shots / 32 updates, 12 fresh validation positions at four
+  prefixes, then 50 fresh test positions per prior/nearest/BC/selected-PPO baseline.
+  Every rejection counts; one frozen nominal decision per test layout, no flight
+  search or outcome fallback at inference. Geometry-only setup search is separate.
+- Current reset/clock native source differs from the historical label producer;
+  its source guard remains unchanged. A new explicit reference bridge binds old
+  geometry/assets to the newer independently audited impact runtime; fresh controls,
+  native options and dense rescoring validate all new outcomes. Pin SciPy 1.15.3 too.
+- CPU preflight verified source rows/decoding. Local headless regression passed;
+  pinned Ubuntu CPU passed 28 focused checks, including real Torch and full 1,284-request
+  mocked flow. Native learning pending; 4090 only, shared lock/two-hour worker limit.
+  No 4070/Isaac/service/hardware changes accompany source synchronization.
+- Separate read-only `#policy64Study` will show provisional learning curves and
+  byte-bound audited final comparisons. The existing interactive solver is not activated
+  with a new checkpoint merely by adding this panel.
+
 ## Impact-point 650 mm study — completed, November 5, 2026
 
 - [Frozen protocol](../sircus/mjlab/IMPACT650.md): three exact XY650 source families
