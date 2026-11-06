@@ -151,12 +151,16 @@ class SettledTransitShots(ContinuousShots):
         self.drive_ticks=step
         self.transit_joint_error_rad=np.maximum.reduce(list(errors.values())).tolist()
         self.transit_ready_after_drive=ready.tolist()
-        self.transit_history.append(dict(phase="restored_original_hold",step=self.steps,state=self._state()))
+        self.transit_history.append(dict(phase="restored_original_hold",step=self.steps,state=self._state(),
+            restored_gains={n:dict(effort=a.data.joint_effort_limits[:,original[n][0]].cpu().tolist(),
+                                  stiffness=a.data.joint_stiffness[:,original[n][0]].cpu().tolist(),
+                                  damping=a.data.joint_damping[:,original[n][0]].cpu().tolist()) for n,a in self.arms.items()}))
         self.assert_buckets_fixed()
 
     def _measure(self, board_targets, drop_targets, iteration, records):
         prev,prev_normal=self.board_poses()
         prev_drop=self.arms["Arm10"].data.body_pos_w[:,self.flange_idx].cpu().numpy().copy()-self.origins
+        start_step=self.steps
         for _ in range(60): self.tick()
         centers,normals=self.board_poses()
         drop=self.arms["Arm10"].data.body_pos_w[:,self.flange_idx].cpu().numpy().copy()-self.origins
@@ -165,11 +169,13 @@ class SettledTransitShots(ContinuousShots):
         metrics=[]
         for i in range(self.n):
             m=dict(pose_errors(board_targets[i],centers[i],normals[i]),
-                iteration=iteration,physics_step=self.steps,joint_speed_rad_s=float(speed[i]),
+                iteration=iteration,measurement_start_step=start_step,physics_step=self.steps,joint_speed_rad_s=float(speed[i]),
                 position_drift_mm=float(np.linalg.norm(centers[i]-prev[i])*1000),
                 normal_drift_deg=float(np.rad2deg(np.arccos(np.clip(normals[i]@prev_normal[i],-1,1)))),
                 dropper_position_error_mm=float(np.linalg.norm(drop[i]-drop_targets[i][:3,3])*1000),
                 dropper_drift_mm=float(np.linalg.norm(drop[i]-prev_drop[i])*1000),
+                previous_board_center_m=prev[i].tolist(),previous_board_normal=prev_normal[i].tolist(),
+                previous_dropper_flange_m=prev_drop[i].tolist(),
                 board_center_m=centers[i].tolist(),board_normal=normals[i].tolist(),
                 dropper_flange_m=drop[i].tolist(),arms={n:{k:v[i] for k,v in s.items()} for n,s in state.items()})
             metrics.append(m);records[i].append(m)
