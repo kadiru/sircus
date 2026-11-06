@@ -1,0 +1,2525 @@
+{
+  "candidate_counts": {
+    "attempts": 165,
+    "captures": 20,
+    "clean": 0,
+    "geometry_rejections": 43,
+    "invalid": 43,
+    "max_retention_s": 1.0,
+    "native_releases": 122,
+    "rim_assisted": 20,
+    "whole_entries": 20
+  },
+  "control_counts": {
+    "attempts": 24,
+    "captures": 12,
+    "clean": 12,
+    "geometry_rejections": 0,
+    "invalid": 0,
+    "max_retention_s": 1.0,
+    "native_releases": 24,
+    "rim_assisted": 0,
+    "whole_entries": 12
+  },
+  "control_gates": {
+    "controls_post": {
+      "negative_control": true,
+      "oracle_agreement": true,
+      "physics_valid": true,
+      "positive_control": true,
+      "status": "passed"
+    },
+    "controls_pre": {
+      "negative_control": true,
+      "oracle_agreement": true,
+      "physics_valid": true,
+      "positive_control": true,
+      "status": "passed"
+    }
+  },
+  "controls": [
+    {
+      "group_id": "positive-control",
+      "phase": "controls_pre",
+      "role": "positive_control",
+      "stats": {
+        "attempts": 3,
+        "captures": 3,
+        "clean": 3,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 0.9999999999999999,
+        "native_releases": 3,
+        "rim_assisted": 0,
+        "whole_entries": 3
+      },
+      "substeps": 64
+    },
+    {
+      "group_id": "positive-control",
+      "phase": "controls_pre",
+      "role": "positive_control",
+      "stats": {
+        "attempts": 3,
+        "captures": 3,
+        "clean": 3,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 1.0,
+        "native_releases": 3,
+        "rim_assisted": 0,
+        "whole_entries": 3
+      },
+      "substeps": 128
+    },
+    {
+      "group_id": "negative-control",
+      "phase": "controls_pre",
+      "role": "negative_control",
+      "stats": {
+        "attempts": 3,
+        "captures": 0,
+        "clean": 0,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 0.0,
+        "native_releases": 3,
+        "rim_assisted": 0,
+        "whole_entries": 0
+      },
+      "substeps": 64
+    },
+    {
+      "group_id": "negative-control",
+      "phase": "controls_pre",
+      "role": "negative_control",
+      "stats": {
+        "attempts": 3,
+        "captures": 0,
+        "clean": 0,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 0.0,
+        "native_releases": 3,
+        "rim_assisted": 0,
+        "whole_entries": 0
+      },
+      "substeps": 128
+    },
+    {
+      "group_id": "positive-control",
+      "phase": "controls_post",
+      "role": "positive_control",
+      "stats": {
+        "attempts": 3,
+        "captures": 3,
+        "clean": 3,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 0.9999999999999999,
+        "native_releases": 3,
+        "rim_assisted": 0,
+        "whole_entries": 3
+      },
+      "substeps": 64
+    },
+    {
+      "group_id": "positive-control",
+      "phase": "controls_post",
+      "role": "positive_control",
+      "stats": {
+        "attempts": 3,
+        "captures": 3,
+        "clean": 3,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 1.0,
+        "native_releases": 3,
+        "rim_assisted": 0,
+        "whole_entries": 3
+      },
+      "substeps": 128
+    },
+    {
+      "group_id": "negative-control",
+      "phase": "controls_post",
+      "role": "negative_control",
+      "stats": {
+        "attempts": 3,
+        "captures": 0,
+        "clean": 0,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 0.0,
+        "native_releases": 3,
+        "rim_assisted": 0,
+        "whole_entries": 0
+      },
+      "substeps": 64
+    },
+    {
+      "group_id": "negative-control",
+      "phase": "controls_post",
+      "role": "negative_control",
+      "stats": {
+        "attempts": 3,
+        "captures": 0,
+        "clean": 0,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 0.0,
+        "native_releases": 3,
+        "rim_assisted": 0,
+        "whole_entries": 0
+      },
+      "substeps": 128
+    }
+  ],
+  "counts": {
+    "attempts": 189,
+    "captures": 32,
+    "clean": 12,
+    "geometry_rejections": 43,
+    "invalid": 43,
+    "max_retention_s": 1.0,
+    "native_releases": 146,
+    "phase_counts": {
+      "coarse": 135,
+      "controls_post": 12,
+      "controls_pre": 12,
+      "verification": 30
+    },
+    "rim_assisted": 20,
+    "substep_counts": {
+      "128": 27,
+      "64": 162
+    },
+    "whole_entries": 32
+  },
+  "discovery_counts": {
+    "attempts": 135,
+    "captures": 5,
+    "clean": 0,
+    "geometry_rejections": 43,
+    "invalid": 43,
+    "max_retention_s": 1.0,
+    "native_releases": 92,
+    "rim_assisted": 5,
+    "whole_entries": 5
+  },
+  "gate": {
+    "capture_qualified_settings": 0,
+    "controls_post_passed": true,
+    "controls_pre_passed": true,
+    "more_ppo_started": false,
+    "qualified_settings": 0,
+    "status": "failed"
+  },
+  "parent_sources": [
+    {
+      "family_id": "family-00",
+      "historical_capture": true,
+      "historical_route_quality": 1,
+      "query_fingerprint": "3052ca5fae8fa57673d7fba1cff25070608a97b6675efb5ffc74f852634d78b9",
+      "record_id": "refinement-64-refine-s02-h1t0g2-r0",
+      "record_sha256": "0ef0d7418c8c0b1b2759e39b64bdc7afe197cc444f8a024237bf6c8850cd89dc"
+    },
+    {
+      "family_id": "family-01",
+      "historical_capture": true,
+      "historical_route_quality": 1,
+      "query_fingerprint": "4aa4339bd3cbb40b5dbb64fdd7006551177e9597a6c0df109666740fb6a3be17",
+      "record_id": "coarse-64-xy-grid-0043-r0",
+      "record_sha256": "0c1cc2a6fe21378fb95615f5c81de0007cb2703d3741b15eaebfe7f219ff70a8"
+    },
+    {
+      "family_id": "family-02",
+      "historical_capture": true,
+      "historical_route_quality": 1,
+      "query_fingerprint": "c6fe163152d188736332ac9c7132507614a5c91f3c5d85948e4e0008ad8fae1c",
+      "record_id": "coarse-64-xy-grid-0096-r0",
+      "record_sha256": "b7c369b7bfe946c3757784df1a15f7e987fe11f5d4bcd2ae04609a620323432e"
+    }
+  ],
+  "privacy": "Configured nominal geometry, diagnostic scalars, outcomes and hashes only; no measured crossing XY, raw contacts, sampled poses, joints, point trajectories, credentials or host paths.",
+  "provenance": {
+    "asset_sha256": {
+      "assets/board_arm.urdf": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340",
+      "assets/dropper.urdf": "3f40e56e46b040fb3339c1235ea85872f46511c45db2d37f7661db94a470bae3",
+      "assets/poses.json": "5847c2793606860a82cc74030c3fe529767318f189c5d48e3d66c0dc7b9f776a",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link1.stl": "4069840361c2693b5b1147da366d5ba8a49ff7ab2c52fed68e07e04e07786e3f",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link2.stl": "0e736a629e6000c3c912f5aaf76937f824f510ac8894db67bd0d7f1d6210fc52",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link3.stl": "f682201345117c4b021fd9db21bd9bef6824886c8324f046b7d5772d7c9fa426",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link4.stl": "7bf4ab507c07a2b26e6a8528decdfe32d71efffdf1dd391406f1ce2f9ff4caa7",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link5.stl": "103955f097086e0f5d46380ff89bc7ef669877bb65def38431a18fc5343e1ba0",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link6.stl": "86b95b77850f38ff1437284705a1c8c616e3da21faef72e4f06751fc741de3b3",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link_base.stl": "871d501d23e8164440656331ee0e005d859dbdb7fab1c3725bef423adac9cf0e"
+    },
+    "auditor_dependencies_sha256": {
+      "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+      "sircus/mjlab/bank_geometry.py": "5c0d6775582c5524a323f1e9344c35317e8352e9f1f813f5dd0794c05de743f5",
+      "sircus/mjlab/benchmark_contract.py": "720394dafbdde1b56507a0abd6b64f82b29843037bce56e559f671995b62c63c",
+      "sircus/mjlab/benchmark_verify.py": "3c66930551d675db092a2a23e43bdfe0e9587a4f3e739cb10dfd283a95ca961e",
+      "sircus/mjlab/calibrated_benchmark_contract.py": "7d0964249d0f18604d9f17ef9662b5cd7878500e674f30f4f6eb55ae766491be",
+      "sircus/mjlab/calibrated_benchmark_verify.py": "4f7af7da8789311769579ab87096d251e75455d4e146018c388c9a4a3812b5a9",
+      "sircus/mjlab/calibrated_score_oracle.py": "74ff1b43d342a28e7b4af6d3ec757f577aec076ac286535f4c16e053e31a00df",
+      "sircus/mjlab/clean650_verify.py": "cbdb74a7bc6eb72d65a29a802e9641f88570670a9b53ce552f6ae511daa35889",
+      "sircus/mjlab/contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407",
+      "sircus/mjlab/corrected_contract.py": "9800404859a7ae2b2934c26ca448be4a69ae90e481069da72732973b1d907ba2",
+      "sircus/mjlab/corrected_geometry.py": "50a4a353d94cceb1fbb0216a40588c997034a121e554f3f84f530d7d47c470be",
+      "sircus/mjlab/expand_geometry.py": "0b7982c3494b7cb7f799e073e3a7b788cca77617af0e9f509a4b7e273d926739",
+      "sircus/mjlab/expanded_actions.py": "d41817aa7ad4206139925256ab0cdf5288853e621d6b39824c10ad2d309679c3",
+      "sircus/mjlab/interface.py": "d09ba2a6b444bfd461485edc42ad732a2e590b7d7561cb15e0c16798a999263a",
+      "sircus/mjlab/learning_contract.py": "9f2c44b76297f4ef7009c1b0107be983d0511d5654cb68b8e344dd316ed1fda8",
+      "sircus/mjlab/learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+      "sircus/mjlab/learning_reach.py": "8eea1d565e9faefff0622a9e9a4666eb8d811ac086a8a6711caa8efa3029e9a4",
+      "sircus/mjlab/learning_search.py": "7e37412363aa5263f0d71b76fe8b79af003ed81e92706beeb9e0f3706512e40a",
+      "sircus/mjlab/learning_solve.py": "836ae6db1172f8a9b43de20dbe0132cd1bc2095fe52cc4f923ebbf739f1c41e5",
+      "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+      "sircus/mjlab/replay650_verify.py": "7e58a4c186229774690a2ea4409036aaeedc81a454535abbcf8b57b86d7fdef6",
+      "sircus/mjlab/stable_geometry.py": "2e00b5fc46d1b253b5c85b6823c781a37e26f5819b35586a8cc112b057ebaebf",
+      "sircus/mjlab/stable_ik.py": "efd52c5e837339662c99c196e1a3cf4b5b260eecb7888258779030c459944e07",
+      "sircus/mjlab/tilt650_verify.py": "d94bb6c58111edbbfbd22bcc3b3d3d54b4863c863466749b4901bd3b122dd326",
+      "sircus/mjlab/transit_audit.py": "4400285187eebf3b1c7073a78ab74c94cbead88d52ffc5366e0258d2376f8c96",
+      "sircus/mjlab/verify_capture_calibration.py": "98f905394c0e7f2b082d7b60b51baedd95fd6984b5265f6e7673c56b963f9afe",
+      "sircus/mjlab/xy650_verify.py": "010212fa1d452f7667a92fd7963ddc1c87e5938527610d6dfd0aae7411c8daeb"
+    },
+    "contract_fingerprint": "1c59ce4342e6064b52f43ab64856a2245019de574ae563c88894f179840a0f31",
+    "contract_sha256": "81a82474bb18c7d2543eaa6ea5885efbe49925f024620dc5d19bf8e2381d8201",
+    "evidence_manifest_sha256": "f418c5c262813e9751a503f22a9ff403d3f1ca09878b505872abbd752fd66ce4",
+    "evidence_sha256": {
+      "batches.json": "154d8e2537b6b143101aa1e9a7b9baa779a1e78bd9cd67aa0ef67f60ad5f4c80",
+      "calibration.json": "992d4e191fb678ff85e9e93c9099e311cac19efd47207e104f9887ecc7437358",
+      "contract.json": "81a82474bb18c7d2543eaa6ea5885efbe49925f024620dc5d19bf8e2381d8201",
+      "effective-options.json": "0355fd7e0a4001cd16f438bb6bdbdc64dce107c7f8c9710600883491c2e60760",
+      "final-control-gate.json": "031987e08dcb56afaa84a8d24be508f01464523f22469fdff6a4379f1f93f9c3",
+      "geometry.json": "c3e3c700b752ad15a54d2d5723dff95ee85432778887ac67edbd8e6d9756e160",
+      "groups.json": "79111556630f434af7e1e8450dcc5e2878e05032297b60be98b5741e11c009ff",
+      "initial-control-gate.json": "031987e08dcb56afaa84a8d24be508f01464523f22469fdff6a4379f1f93f9c3",
+      "initial-geometry.json": "8d17cfcaece70a0aa2796570254ca36d1148b25327bfba92a378de68b533b0d1",
+      "initial-groups.json": "d91c1640ad17a58f32a430ce228b00a6798c488f33f59a61422c2780e984d0b0",
+      "initial-plan.json": "a627f479f7481494fdb52d02e69e633ac26e870018d4b656fa2dcf15e4d7a896",
+      "native/128/effective-options.json": "39f1b1b5b6c11f43ead8774fb17471ddbef1b0652374397d6f4cd465fd66a3fc",
+      "native/128/native-0001.npz": "9bdea487fe1caf722a9b0254ba83906a6144979cee21e2a09e9b6cde1052a79d",
+      "native/128/native-0008.npz": "437248b02dad32358b5bd2ca9cf6d11906e3a81dd6b1cf168dfbfa358a00dfda",
+      "native/128/native-0010.npz": "1d419cc677dc23530ffc8c916d265258c451753ec29b4124321baed7868e9980",
+      "native/128/native-compiled-geometry.json": "921a79cc2b3cea32ae2d248c19afc05050a4126cf98c96836cb53512592490e8",
+      "native/64/effective-options.json": "5619448610aaa0d47a4f005a24c6094982d40c1ebd3d2c556b16fc43439e6ab0",
+      "native/64/native-0000.npz": "701bb45d4a76c94ac3cf40910d82edf418f4638d3e6f91fc5ccff94c1b815024",
+      "native/64/native-0002.npz": "679dabe27dd53ecb5b6d6b19c3f520e18eeddaf5166a5eac79c2f266c0039e05",
+      "native/64/native-0003.npz": "f6a26fae711c8f1202d961e3a4a56a7d0146211a125fbe95409c6a076dec2957",
+      "native/64/native-0004.npz": "218a9d7240dffac9e453cf5a498d09ae7acac86d802adc19f516da1627dba047",
+      "native/64/native-0005.npz": "25eb9950891397895a9e1a409033070ee479bdacb8fbc8deb356471248ba3f92",
+      "native/64/native-0006.npz": "771695b31642cfa51b3533b1ca6411e8665b62f43a156c3e8772e4f024937277",
+      "native/64/native-0007.npz": "bb9853baef21eb54aa9caec72ad1bf4c2f6c24755adc191c6f4849e9ed59e997",
+      "native/64/native-0009.npz": "fc0fe036dfb2e8ce44ea74ca2b6c2610cc577fa887bffe228fff9007f21a6b0a",
+      "native/64/native-compiled-geometry.json": "881bb920d4a2f7b0341cce1bec6e8af03bb52d0c2c76ceb23f887545b0d161b5",
+      "records.jsonl": "d398798e57267957e66af5ad51e7c9a31598aea3b4f35bf0803c6dcd79d0642d",
+      "source-selection.json": "d249a3d0580acbf9fe51c026a841bf592d992fa06b730135efb871102fcb6a30",
+      "verification-groups.json": "601f04ee0a8820ae90914430c24f20421326efac3c67f6c1707a2f059544e7ac",
+      "verification-plan.json": "3dabbc1b6326ac6f498dd953db261a8d615a0e1a5379daa498829005ecedd359",
+      "verification-selection.json": "a8767c3a1e7ddec9f4dd539e4e91de31990a4052b3cb3038cca988df9207c1e6",
+      "verification-stage.json": "20948e7530c1dd88a40a25a62b2bb3415081e67440b2acc7f080faaf23b82bb8",
+      "verification.json": "760c187a69245687f6927fe71afb88d777fe8c8e8d56da1a7913361e05f4427d"
+    },
+    "executed_source_sha256": {
+      "sircus/isaac/board_route.py": "6409889aed6b0fd6a288eb9494b954ec5c3233ec41fdcf146940fc23276fb2e9",
+      "sircus/isaac/entry_quality.py": "2f3d8b73c871a41afc3c8f333f5df1d54fa8751720855ffff517e729217db9d4",
+      "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+      "sircus/isaac/rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+      "sircus/mjlab/admission.py": "2dbc5776113f8afb0ea74e23d0c3a2542fd0223d94a6818aec8de4865d302d82",
+      "sircus/mjlab/audit_grid_study.py": "35c52ae32a36c272e21d67b8411267533df41dd9cbd8311b57a45dab693c272c",
+      "sircus/mjlab/bank_geometry.py": "5c0d6775582c5524a323f1e9344c35317e8352e9f1f813f5dd0794c05de743f5",
+      "sircus/mjlab/bank_policy.py": "0773471ab8327e822b7c6676b02c2beaf1185e90d72a3ab10fddaf8cd1595ae8",
+      "sircus/mjlab/bank_solve.py": "457166a796492f66e29b9a52dd944a57119f180f12c89a6aface4d5d2f1ad001",
+      "sircus/mjlab/bank_study.py": "7699faeff915a772f3e838983ff1c8dec7721f2d55c79a594e185cd9e08e7dcb",
+      "sircus/mjlab/benchmark_adapter.py": "85e3cee8b2714707772bb871f1a13f0f25bb8ce1f6c207a33c3f4efa946cf3c2",
+      "sircus/mjlab/benchmark_contract.py": "720394dafbdde1b56507a0abd6b64f82b29843037bce56e559f671995b62c63c",
+      "sircus/mjlab/benchmark_policy.py": "35cc605d17b7cdf02fcc1cf73b018bcefb98b172260a3a5ddc6856ac7d3779dc",
+      "sircus/mjlab/benchmark_resources.py": "4a535e1a1d91248d208dd44286c215439924a27e81b62ab7fce71284c94f14ba",
+      "sircus/mjlab/benchmark_run.py": "4c5c10efb2f42d8fa09198aa960796149b74f80915741b83f9463264409fd944",
+      "sircus/mjlab/benchmark_server.py": "211be73a1e0fde6eb61df2024a2dbf936f934a30d9604fa5c360bb29bcf95e6a",
+      "sircus/mjlab/benchmark_smoke.py": "7c7d89f9c8d4425d55a38a7732960cec4bdf8d615c025c273775b0e6bab132a1",
+      "sircus/mjlab/benchmark_study.py": "f097258e6d30d84b4f0b862172cf1a443e404148b74a60e93699e096129bf8ad",
+      "sircus/mjlab/benchmark_verify.py": "3c66930551d675db092a2a23e43bdfe0e9587a4f3e739cb10dfd283a95ca961e",
+      "sircus/mjlab/benchmark_wall_diagnostic.py": "aab5a0f93d79275b06a49af71eec796e0d1321b7d5a5e697e086506f3ecb0a5a",
+      "sircus/mjlab/calibrate.py": "e2da7c22355899f35e7f9f28e8a3ae35001e29cc2e10e7a490c470809bd548fb",
+      "sircus/mjlab/calibrated_adapter.py": "58789fcbb7549a6d7ff0513de3e2878651d1aa72e4022c8b17f269c71e1c35f1",
+      "sircus/mjlab/calibrated_admission.py": "37d43d8503c4e0a9835d8ae8fe6793ee09938bc746f1a513af3e4aa2b6f295a8",
+      "sircus/mjlab/calibrated_benchmark_contract.py": "7d0964249d0f18604d9f17ef9662b5cd7878500e674f30f4f6eb55ae766491be",
+      "sircus/mjlab/calibrated_benchmark_export.py": "e24bf7870fdf711ac58e1a0daf2e49bab5cdc99ddc36998b1e181deee4998893",
+      "sircus/mjlab/calibrated_benchmark_run.py": "cfd92d6dc988167fc2ed055bf7a2770a9f39f293224189c521a1d55bde1454a8",
+      "sircus/mjlab/calibrated_benchmark_server.py": "fbfa7e1c86f8ecb1000c0e1e13a4986f2755e3af9ccb0c9162e8fc12a1f49678",
+      "sircus/mjlab/calibrated_benchmark_smoke.py": "1312bf58912de62c239094fe51d4ee60dacdf795137a4b1951740488a78852a7",
+      "sircus/mjlab/calibrated_benchmark_study.py": "352a5a867fecfe3a6bc53821a61860075807d12c81cdc30e0900ecbc118c9c3e",
+      "sircus/mjlab/calibrated_benchmark_verify.py": "4f7af7da8789311769579ab87096d251e75455d4e146018c388c9a4a3812b5a9",
+      "sircus/mjlab/calibrated_env.py": "928a8a0d8cd3fcabbb541c3fe54a6ead14c8ee17a79016a5dd3e84517f6a963e",
+      "sircus/mjlab/calibrated_native_log.py": "c555bc762116a18da2802321ba40248a7d2bbe7b9590e176853547e8a4c8272c",
+      "sircus/mjlab/calibrated_score.py": "b90fb4886f2297534b81b399620c647952eb2e486217289c65548713977e3539",
+      "sircus/mjlab/calibrated_score_oracle.py": "74ff1b43d342a28e7b4af6d3ec757f577aec076ac286535f4c16e053e31a00df",
+      "sircus/mjlab/capture_calibration.py": "3d508db4b25ee7daef2a862353650645b2479cba645259fa9627c85c6cbb8499",
+      "sircus/mjlab/clean650_contract.py": "ca8182a5d5d8cbed444eabdbe278bc512ec7d83d7783f2c4e492576034e355ef",
+      "sircus/mjlab/clean650_geometry.py": "4b010d2e566fe99c90f5d87545c4b0e5117b432e07f6469d4d95ad108cb0f061",
+      "sircus/mjlab/clean650_native.py": "af2d1e2cb34a1f55bb49bc2b541155add339ec4c9aea8ac25eca004aef438da1",
+      "sircus/mjlab/clean650_pipeline.py": "75b3a1d8bb91ffc3737a01c6fa6861c3e05cb3325011796346b55b3cbf0bc25e",
+      "sircus/mjlab/clean650_study.py": "c0cb04387f00aa7bad2ff32ace6209bcfb244d00788ab295c78957eb256c2432",
+      "sircus/mjlab/clean650_verify.py": "cbdb74a7bc6eb72d65a29a802e9641f88570670a9b53ce552f6ae511daa35889",
+      "sircus/mjlab/combine_expansions.py": "08bd8381c2feb7f4616c6ab52178c335274601efe8111c0ea5a07327575efe93",
+      "sircus/mjlab/compare.py": "3df8ca25a182377f28a9babf8743a4bd4789c4ad4b66ac193f180eb4defa8017",
+      "sircus/mjlab/contact_confirm.py": "c80716c6a0353f5ba637c01d171114aee429b14c11b21f5400ec3dc9792fc1ac",
+      "sircus/mjlab/contact_env.py": "19fbc4f044ca3ab3a1621f68d369290f6952a451686a4db0194a508138caaed8",
+      "sircus/mjlab/contact_model.py": "b2d522d07dd2e3bffa724feb68593b3fef17033b5274587ef9d130e5c40aa24f",
+      "sircus/mjlab/contact_study.py": "fed3be5310ed6fdfd3e7e3631a9a58ab08508c304e929b16558f8c50ee305fd2",
+      "sircus/mjlab/contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407",
+      "sircus/mjlab/corrected_admission.py": "3d42913fc2a9599b0e5063bfc4ee0a03f003b4ba853338e407c8a3d82de3d64a",
+      "sircus/mjlab/corrected_contract.py": "9800404859a7ae2b2934c26ca448be4a69ae90e481069da72732973b1d907ba2",
+      "sircus/mjlab/corrected_geometry.py": "50a4a353d94cceb1fbb0216a40588c997034a121e554f3f84f530d7d47c470be",
+      "sircus/mjlab/corrected_grid.py": "ff312f08a595ff0ff877305cea591ea5d0b7c5f327e5fa9079e526e22d972596",
+      "sircus/mjlab/corrected_pipeline.py": "4b439b08a8988ccba53c4c5e83a5d7e32e2068d9bbf54a140f4237540c930ea9",
+      "sircus/mjlab/corrected_verify.py": "b16796dff78eb23310247492dee7da40d4f6d9cc7a3fc7d9024062d4dfd4e5b4",
+      "sircus/mjlab/curate_clean650.py": "1ccfde31a278b2983a4cffdc8bb0099c69e5f10557c22f98bcc7752169722f94",
+      "sircus/mjlab/curate_impact650.py": "14cfbf84cdb83ab78b188aa953fcf1426852bf7720ca666b3c303bf046cce727",
+      "sircus/mjlab/curate_replay650.py": "7eb4852f0606d32c5d6d7c96dcb6d974e24e46c71cfdf8fe1e2ff4a5567fb040",
+      "sircus/mjlab/curate_tilt650.py": "277b6ed0e47dbd9a103243ad7d7f30b0a258d66d00cb81ae6c9d47f68014ac2d",
+      "sircus/mjlab/curate_xy650.py": "bccbbded22733b6b670b2c2e4823305cca2dfe1ff55b26c1598dd7d4cfc0584c",
+      "sircus/mjlab/expand_bank.py": "c65110b9afa9c30658b99f0c11ae6e2aefbdf88442fc876dbc8b03e0888a320b",
+      "sircus/mjlab/expand_far.py": "374aa54f7b24c8f6f598f75ed33881050fb06fcc496a6a6466fe20625763e167",
+      "sircus/mjlab/expand_geometry.py": "0b7982c3494b7cb7f799e073e3a7b788cca77617af0e9f509a4b7e273d926739",
+      "sircus/mjlab/expand_refine.py": "bd55749d6fe0e16a2bf942efcca933a9bf2e579209760eecf89cfe1b6131f60a",
+      "sircus/mjlab/expanded_actions.py": "d41817aa7ad4206139925256ab0cdf5288853e621d6b39824c10ad2d309679c3",
+      "sircus/mjlab/expanded_env.py": "b0e9744d1e82b9e575126e0c6d58e524372b75287713cfdf14d010cb2812df8b",
+      "sircus/mjlab/expanded_study.py": "4a271fe5b1b0d3df20c2c53ce7ef0be87a1d0a681c980708a62df29a6d1bef06",
+      "sircus/mjlab/gpu_slot.py": "fcace6029058a9892296507358ee196b9b5296dc4287a07bedc786e3af4cad4a",
+      "sircus/mjlab/gravity_audit.py": "d4d250396c537b4701631d3e170c35fe40534607d57efaca7164edf4d5581339",
+      "sircus/mjlab/grid_diverse_study.py": "8eb5d56b2489d270de16845388318bb2c57f9aba1767bb9935ab4f9af1d1f28c",
+      "sircus/mjlab/grid_study.py": "e358b728cd450fb2cd6f7444bbc8d3f5c3cf968da5412372c5f523bbb12249fe",
+      "sircus/mjlab/grid_study_contract.py": "45b5c46a19d9db5bdead5b336dedd8222496a0fc3cf1f59d263fba745fbb0efe",
+      "sircus/mjlab/grid_study_server.py": "c53a5605229122e047b6e90d2a2e0db45c3d2b7283c4f373500c0ef8f2efbc3a",
+      "sircus/mjlab/impact650_contract.py": "6ba7c6dca28c50513bdb6485c9e4e7df26beb2fe3305ccb49820cb0c0c09d854",
+      "sircus/mjlab/impact650_geometry.py": "b3c584760a8287ccdc7b7f9c4e381d962963df751f49a4beb374c9c903129ebb",
+      "sircus/mjlab/impact650_native.py": "490d12a886eff415ad309868102b6295c4681c6e9b58f65a04e834c79d222f27",
+      "sircus/mjlab/impact650_pipeline.py": "dd08aad50d2651f9fe27bd43609a34c8b7529b8da009484ec690d4001df71615",
+      "sircus/mjlab/impact650_study.py": "ad9ba4e940f8feb55ca26047af261875dfb20cbfca3c850d814e2564f9368083",
+      "sircus/mjlab/impact650_verify.py": "89584050ab0cba98ab61e98fe923ed966a80baab56d1d8f7d2855408ca3ac699",
+      "sircus/mjlab/interface.py": "d09ba2a6b444bfd461485edc42ad732a2e590b7d7561cb15e0c16798a999263a",
+      "sircus/mjlab/isaac_pair.py": "4ab44904a2c966d6a8bf1567d4882a8bcfdf3c1dd3d2ea8d9e1bbeba6093d983",
+      "sircus/mjlab/learning_contract.py": "9f2c44b76297f4ef7009c1b0107be983d0511d5654cb68b8e344dd316ed1fda8",
+      "sircus/mjlab/learning_env.py": "58d2f58be0e1981a5efd09e872bdea7d8f608e1fa21b5c87986505a20a4a4f8c",
+      "sircus/mjlab/learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+      "sircus/mjlab/learning_interface.py": "73f9bfcdb95bacfb7bc904853c26b7233a635c566930c1e51040a9473af9a29a",
+      "sircus/mjlab/learning_policy.py": "5c37a248a0a44280f0f82fe3327973299ec6a4bbfccaaae9f750a898180c7792",
+      "sircus/mjlab/learning_reach.py": "8eea1d565e9faefff0622a9e9a4666eb8d811ac086a8a6711caa8efa3029e9a4",
+      "sircus/mjlab/learning_score.py": "e66b982c0e651c3a9f5855dd03efb87488cc924321aaf9cadb80d51bac2fe814",
+      "sircus/mjlab/learning_search.py": "7e37412363aa5263f0d71b76fe8b79af003ed81e92706beeb9e0f3706512e40a",
+      "sircus/mjlab/learning_solve.py": "836ae6db1172f8a9b43de20dbe0132cd1bc2095fe52cc4f923ebbf739f1c41e5",
+      "sircus/mjlab/learning_study.py": "1d9b358fe11007c7edfbeb607c6f769e9d4dae6e6832768e16cc0df98480f8df",
+      "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+      "sircus/mjlab/prepare_clean650_report.py": "dfa1fc9c1848034af78899d28888ffce083a8657b1951540cb35dd331c6368fd",
+      "sircus/mjlab/prepare_contact_report.py": "c90afae3b0d8b20ac0646c97427944d45a0d13419188ecba9348fa264b4461c9",
+      "sircus/mjlab/prepare_corrected_report.py": "d91849cad5fa36d7a701d0b8c832953717e33e6d3818bd1b5dc268bb49bd1a3c",
+      "sircus/mjlab/prepare_expanded_report.py": "a3fa99cae4b6327658b2471986acac8b5f1b1aa0cc5ced0fb0c0ec0bc37e3ecd",
+      "sircus/mjlab/prepare_impact650_report.py": "d0b879a176c67c5c8c778f3e32ae499863efe1e26d38cb4b31e7e62bd1f3562f",
+      "sircus/mjlab/prepare_interface.py": "3783ad300b73808fe9424a960b791afe7addbf28e8a4fab9b61be6ffaf1afbe8",
+      "sircus/mjlab/prepare_replay650_report.py": "1afee034e64473d7cf94a4ee87048cec2888a9a038e942f451cbe69684c77e67",
+      "sircus/mjlab/prepare_stable_report.py": "50ebf337210c94c60ecf081f1caf6cd8854f73646737000fcbe8dd1dd8a423c7",
+      "sircus/mjlab/prepare_tilt650_report.py": "881883b8808a33644f1fbe8ed3f518fb53d63153d9d2a04b77b4cce1ea270719",
+      "sircus/mjlab/prepare_window_report.py": "3d2fd46a0a12aea3d66d7f78301b9eeea9192f68c7955918a0806d20cfbc2bca",
+      "sircus/mjlab/prepare_xy650_report.py": "dadc44d475087e8bfdfd5f6e1de95ebb788034a024d5dac72c80e6700bbac02e",
+      "sircus/mjlab/render_replay.py": "27a562466bc45f5615a95f6c7824ee96bb60e1e51556cedae59bf6982f5a5f50",
+      "sircus/mjlab/repeat_diagnostic.py": "2a91c87c2234466dc1528464630f24856b7a3358f3a98862a1d7916ebac563e8",
+      "sircus/mjlab/replay650_contract.py": "a062e8a0bbff50b4bb41b95f0c742c7c7d8aa8c2db1c00e5c424df8e66eb9dd0",
+      "sircus/mjlab/replay650_geometry.py": "3147779dee45795597a0524301b86671897f843f8502acfedb34bf0bb11f5ea8",
+      "sircus/mjlab/replay650_pipeline.py": "b57d16ad6750303256a7802d707242c8b35dc8d3cef2ab8ab94c921fc34ab572",
+      "sircus/mjlab/replay650_study.py": "9e5a69bd247c5a96c7cafb77fbdbc88d5272682a31193edb91131635df1968c2",
+      "sircus/mjlab/replay650_verify.py": "7e58a4c186229774690a2ea4409036aaeedc81a454535abbcf8b57b86d7fdef6",
+      "sircus/mjlab/requirements.txt": "73b2a5642fb3558bf48da6ce3ee48c8645b9f37f26d28d9580f448928b43aa19",
+      "sircus/mjlab/run.py": "969db2710378345aad34a6f802e33d6ea62488d75e560b9da5738bc0748c3dee",
+      "sircus/mjlab/stable_geometry.py": "2e00b5fc46d1b253b5c85b6823c781a37e26f5819b35586a8cc112b057ebaebf",
+      "sircus/mjlab/stable_ik.py": "efd52c5e837339662c99c196e1a3cf4b5b260eecb7888258779030c459944e07",
+      "sircus/mjlab/stable_study.py": "c9fe1cc71103e1eda5dbd7f9869627c1b09555dca4242e376b7f239198a19ea9",
+      "sircus/mjlab/sweep_contract.py": "2460d8e807f06ad4bfe491491d011a448eaedea57ef4c7e727a1b10a54409a0a",
+      "sircus/mjlab/sweep_interface.py": "eb81a11b696c214055da890cb907ec0f531be43ead9c91e2887ee07c2d73a4c3",
+      "sircus/mjlab/sweep_server.py": "2f5563d8de4167680110c59f08f6160cf8ae41568164f96306ef6aea2bfa437a",
+      "sircus/mjlab/sweep_worker.py": "6150969a6f442e3b899d878671a4daf08cd90c61f0abf96494d418316e0e7a5b",
+      "sircus/mjlab/tilt650_contract.py": "b402ef850fa64be46078a910233649e0f586132334c8881896f6ba81df11eff7",
+      "sircus/mjlab/tilt650_pipeline.py": "6c922493584a41b443460c43c66f14d3855dfd3feeca9ced42564b590a9ccdcd",
+      "sircus/mjlab/tilt650_study.py": "e52ff864816743f906e20c1b469f715c5ed2c03115bf6f374cbbebe7effda5cc",
+      "sircus/mjlab/tilt650_verify.py": "d94bb6c58111edbbfbd22bcc3b3d3d54b4863c863466749b4901bd3b122dd326",
+      "sircus/mjlab/transit_audit.py": "4400285187eebf3b1c7073a78ab74c94cbead88d52ffc5366e0258d2376f8c96",
+      "sircus/mjlab/transit_detour.py": "700980ef138c281fec2e569d398c54fbfbf2647ac0cc7060e450875e2976e126",
+      "sircus/mjlab/verify_bank.py": "d8f3e0ce75533dd9aacc5018c2dacef2212de8f9e3d63fa50013e1080566fe9b",
+      "sircus/mjlab/verify_capture_calibration.py": "98f905394c0e7f2b082d7b60b51baedd95fd6984b5265f6e7673c56b963f9afe",
+      "sircus/mjlab/verify_combined.py": "c3de2bd00cdff61f5a848ae572a8e3caa3ec5b7ab84465d493d7c907b7b851e2",
+      "sircus/mjlab/verify_contact.py": "17f3b735b98006a9b948444b6262e09de8f6d544b7f0b2228e5bc14ab1d5a182",
+      "sircus/mjlab/verify_contact_confirm.py": "098956227ca8d05bce29ea591b9ade12518d82148526e1787cbfe611fd6a0486",
+      "sircus/mjlab/verify_expanded.py": "f08de30a4c7c9db94bcd9f483e42f925c69f213c60f37ef9dd57049aedfd618d",
+      "sircus/mjlab/verify_expansion.py": "541f2a6e8b58dcc6b07cbb94780474b49f5c785fc3012f92e327de97bc5ca8d1",
+      "sircus/mjlab/verify_far.py": "bd20cb8410657ae39562581b1a0157f3eaa4a4ba519aa1532bc051c6da1b5611",
+      "sircus/mjlab/verify_learning.py": "2ac3124e0a5443d7d572eefe9b73d7711f67a2cdffb9a1198da9fdfac202e874",
+      "sircus/mjlab/verify_refinement.py": "d979ecd5a29e33fc7351283455ace3ab58bc544efee305a5f77f5b6341af1d53",
+      "sircus/mjlab/verify_stable.py": "4cefb89c5cbcc81d1b25e7ace53e9493ce90c19904d7e8c39ca30726ddc1e29c",
+      "sircus/mjlab/window_confirmation.py": "f0023d8da28f433f48dee96fc9aa40e6f1aa19c0340f7a6a5cff34c0de8fdfc2",
+      "sircus/mjlab/window_contract.py": "89c2afb9e4c6665b54e02231d0dc39a4f43b02203ba18586a8526fa9bd22cd75",
+      "sircus/mjlab/window_geometry.py": "27d16ebae82a53a7f9b948cfc0a67bc25618dcd2b11462b6969ac62dbbb779cf",
+      "sircus/mjlab/window_learning.py": "458c90b2d19043463b6f4a9e6abf68166476a92208209ef61e66bc8de5a7fe78",
+      "sircus/mjlab/window_pipeline.py": "e783027066da8823255d3111548d09383bc3f5d86606c85a3f9e02f8e3e41456",
+      "sircus/mjlab/window_study.py": "5af400512287cb85a1ee58b15811fdb1dfe38034f54ba94cc6d8752310832a9d",
+      "sircus/mjlab/window_verify.py": "c1d9c65e7b8a48aed40c30d243aaf55cb9b99df8dc3e2cc2164848b7e68765d4",
+      "sircus/mjlab/xy650_contract.py": "3553a0a77db2f995c552e9fee167bf4d4e6a533eb82f1ec840f385b8b67cbf96",
+      "sircus/mjlab/xy650_metrics.py": "325fa030345970facee7c55d07102fd33c9812e422b89ba4718c3f22498e5512",
+      "sircus/mjlab/xy650_native.py": "1af13b25517c0e5fb028381380b777c474c7b4c68e657eb15104b9d0c3fd0b3a",
+      "sircus/mjlab/xy650_pipeline.py": "cd1bb813a707a51a18b22a66f641acec1454aa58a387618c1e4f074da4a8656a",
+      "sircus/mjlab/xy650_study.py": "24b9d999b405a44c45210e9dea05a078063c8baa8c06d3d4bc07070925871b73",
+      "sircus/mjlab/xy650_verify.py": "010212fa1d452f7667a92fd7963ddc1c87e5938527610d6dfd0aae7411c8daeb"
+    },
+    "independent_audit_checks": 54829,
+    "independent_audit_sha256": "ee7331edec9580fed7cdea0b9b28ab5a40cc6337034fa1f7e8b8d5cae17b4883",
+    "independent_audit_version": "sircus-impact650-independent-audit-v1",
+    "independent_auditor_sha256": "89584050ab0cba98ab61e98fe923ed966a80baab56d1d8f7d2855408ca3ac699",
+    "parent_contract_fingerprint": "7db7440c12005c39808ee4dfbf831d8b81000cda048a8d4eddc896d9b1d31137",
+    "parent_external_audit_sha256": "9a605b7b8fbb1cb99db966ae92f6488aab0895a5db4bc9116b05e5a7fdc0b439",
+    "parent_input_sha256": {
+      "contract.json": "0e12a7fc59de0924336b7a94b2889fdd11bd088b887700308bee789874eda394",
+      "evidence-manifest.json": "b3db37072ba3a82ae3e366018bff0c7e70fc718aa3bd6938c350165279ed260f",
+      "groups.json": "f54a417d753f8ae085bda5a899c9a17dcd0d1ade01d1ed4b7a20d19952a0efd0",
+      "initial-groups.json": "489f2b3cbab8c2b653985d870b79aacb25f050006547280225e8ba387dd67624",
+      "records.jsonl": "1b1060525ff90f2352bb4a7167e359d0f4d08e7d8a72792dd307acf9d4d4a5a4",
+      "report.json": "58a74180e8749b66ac4c93b55f4000034ec5c9729a278296ca65b00875c54c5c"
+    },
+    "physical_scene_fingerprint": "c6dc22893328aebf7d58a0c314cbd1643edc83a305e9efbc1fc80ba11988fff6",
+    "report_sha256": "fafd6f92d90b2829d6a1ba456ad7cc58ed74e584906099ad49bdf577ad674893",
+    "scene_fingerprint": "2b0b2736401c3084d2bf9ea4a32b71f385f1a08457c84050d5bb3c765c12a53f"
+  },
+  "scope": "Bounded impact-point DEVELOPMENT search; three fixed families, 135 coarse requests, at most 30 fresh matched nominal verification requests and 24 controls. Board-center distance is 650 mm; nominal center-plane drop-ray distance varies. No new PPO, noise, held-out generalization, grasp/transit, actuator, perception or physical validation.",
+  "settings": {
+    "coarse_requests": 135,
+    "control_requests": 24,
+    "distance_convention": "Board-center distance stays 650 mm; nominal drop-ray horizontal distance varies.",
+    "families": 3,
+    "forward_m": [
+      -0.04,
+      -0.03,
+      -0.02,
+      -0.01,
+      0.0,
+      0.01,
+      0.02,
+      0.03,
+      0.04
+    ],
+    "gap_convention": "Vertical ball-bottom clearance above nominal offset point on the board CENTER plane; not physical top face.",
+    "impact_rule": "sircus-board-center-plane-forward-lateral-impact-v1",
+    "lateral_m": [
+      -0.02,
+      -0.01,
+      0.0,
+      0.01,
+      0.02
+    ],
+    "max_drift_350ms_m": 0.005,
+    "max_requests": 189,
+    "minimum_clearance_m": 0.005,
+    "new_ppo": false,
+    "noise_study": false,
+    "nominal_only": true,
+    "repeats_per_resolution": 3,
+    "source_ids": [
+      "refinement-64-refine-s02-h1t0g2-r0",
+      "coarse-64-xy-grid-0043-r0",
+      "coarse-64-xy-grid-0096-r0"
+    ],
+    "substeps": [
+      64,
+      128
+    ],
+    "user_request_cap": 200,
+    "verification_requests": 30,
+    "verification_sources": 5,
+    "worker_wall_limit_s": 3600
+  },
+  "status": "completed_independently_audited",
+  "study_id": "impact650-v1",
+  "study_version": "sircus-impact650-study-v1",
+  "top_settings": [
+    {
+      "configuration": {
+        "board_height_m": 0.38,
+        "board_xy_m": [
+          0.4608757793012148,
+          -0.21789340145097458
+        ],
+        "bucket_xy_m": [
+          -0.0403065981299413,
+          -0.6317970430784121
+        ],
+        "distance_m": 0.65,
+        "eligible": true,
+        "family_id": "family-00",
+        "gap_m": 0.3918,
+        "id": "impact-f00-u4v2",
+        "impact_offset_m": [
+          0.0,
+          0.0
+        ],
+        "nominal_center_plane_point_m": [
+          0.4608757793012148,
+          -0.21789340145097458,
+          0.38
+        ],
+        "nominal_point_to_bucket_horizontal_m": 0.65,
+        "nominal_release_center_m": [
+          0.4608757793012148,
+          -0.21789340145097458,
+          0.8092999999999999
+        ],
+        "phase": "coarse",
+        "query_fingerprint": "834d7398b8a58a83570f363072e069a381cfedf7d8ddcb2bc4f8418aab99fbea",
+        "query_kind": "impact_grid",
+        "release_center_height_m": 0.8092999999999999,
+        "role": "discovery",
+        "seed_id": "refinement-64-refine-s02-h1t0g2-r0",
+        "source_query_fingerprint": "3052ca5fae8fa57673d7fba1cff25070608a97b6675efb5ffc74f852634d78b9",
+        "source_record_id": "refinement-64-refine-s02-h1t0g2-r0",
+        "source_record_sha256": "0ef0d7418c8c0b1b2759e39b64bdc7afe197cc444f8a024237bf6c8850cd89dc",
+        "tilt_deg": 27.5,
+        "translation_m": [
+          -0.01,
+          0.06
+        ]
+      },
+      "execution_fingerprint": "f02e947ddc0e66e24269b6643d82126e320f66e188c22121e11942634b9b58ba",
+      "first_flight": {
+        "available": true,
+        "closest_opening_distance_m": 0.11610729118349161,
+        "crossing_plane": "ball_center_at_rim",
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "cutoff_reason": "contact",
+        "end_index": 9249,
+        "end_time_s": 0.6021484375,
+        "first_crossing": null,
+        "mouth_clearance_m": null,
+        "reason": null,
+        "sample_count": 4923,
+        "start_index": 4327,
+        "start_time_s": 0.28170572916666664,
+        "version": "sircus-xy650-first-flight-aperture-v1"
+      },
+      "record_id": "coarse-64-impact-f00-u4v2-r0",
+      "stats": {
+        "attempts": 1,
+        "captures": 1,
+        "clean": 0,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 0.9999999999999998,
+        "native_releases": 1,
+        "rim_assisted": 1,
+        "whole_entries": 1
+      },
+      "substeps": 64
+    },
+    {
+      "configuration": {
+        "board_height_m": 0.38,
+        "board_xy_m": [
+          0.4608757793012148,
+          -0.21789340145097458
+        ],
+        "bucket_xy_m": [
+          -0.0403065981299413,
+          -0.6317970430784121
+        ],
+        "distance_m": 0.65,
+        "eligible": true,
+        "family_id": "family-00",
+        "gap_m": 0.3918,
+        "id": "impact-f00-u4v1",
+        "impact_offset_m": [
+          0.0,
+          -0.01
+        ],
+        "nominal_center_plane_point_m": [
+          0.454508030968485,
+          -0.2101829033366491,
+          0.38
+        ],
+        "nominal_point_to_bucket_horizontal_m": 0.6500769185258003,
+        "nominal_release_center_m": [
+          0.454508030968485,
+          -0.2101829033366491,
+          0.8092999999999999
+        ],
+        "phase": "coarse",
+        "query_fingerprint": "09c05321a18bb8d606ed818ab5dc65d3f31c602db1230d47c83d6b5ca0c5023c",
+        "query_kind": "impact_grid",
+        "release_center_height_m": 0.8092999999999999,
+        "role": "discovery",
+        "seed_id": "refinement-64-refine-s02-h1t0g2-r0",
+        "source_query_fingerprint": "3052ca5fae8fa57673d7fba1cff25070608a97b6675efb5ffc74f852634d78b9",
+        "source_record_id": "refinement-64-refine-s02-h1t0g2-r0",
+        "source_record_sha256": "0ef0d7418c8c0b1b2759e39b64bdc7afe197cc444f8a024237bf6c8850cd89dc",
+        "tilt_deg": 27.5,
+        "translation_m": [
+          -0.01,
+          0.06
+        ]
+      },
+      "execution_fingerprint": "1c4550354a1c061d9e85a922f8a640ac5be7022603a3900772815ffc54b45968",
+      "first_flight": {
+        "available": true,
+        "closest_opening_distance_m": 0.11617087330278787,
+        "crossing_plane": "ball_center_at_rim",
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "cutoff_reason": "contact",
+        "end_index": 9246,
+        "end_time_s": 0.601953125,
+        "first_crossing": null,
+        "mouth_clearance_m": null,
+        "reason": null,
+        "sample_count": 4920,
+        "start_index": 4327,
+        "start_time_s": 0.28170572916666664,
+        "version": "sircus-xy650-first-flight-aperture-v1"
+      },
+      "record_id": "coarse-64-impact-f00-u4v1-r0",
+      "stats": {
+        "attempts": 1,
+        "captures": 1,
+        "clean": 0,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 0.9999999999999998,
+        "native_releases": 1,
+        "rim_assisted": 1,
+        "whole_entries": 1
+      },
+      "substeps": 64
+    },
+    {
+      "configuration": {
+        "board_height_m": 0.38,
+        "board_xy_m": [
+          0.4608757793012148,
+          -0.21789340145097458
+        ],
+        "bucket_xy_m": [
+          -0.0403065981299413,
+          -0.6317970430784121
+        ],
+        "distance_m": 0.65,
+        "eligible": true,
+        "family_id": "family-01",
+        "gap_m": 0.41,
+        "id": "impact-f01-u4v1",
+        "impact_offset_m": [
+          0.0,
+          -0.01
+        ],
+        "nominal_center_plane_point_m": [
+          0.454508030968485,
+          -0.2101829033366491,
+          0.38
+        ],
+        "nominal_point_to_bucket_horizontal_m": 0.6500769185258003,
+        "nominal_release_center_m": [
+          0.454508030968485,
+          -0.2101829033366491,
+          0.8274999999999999
+        ],
+        "phase": "coarse",
+        "query_fingerprint": "a97dcd1cd4c6fbfd9cc18517e79b4ece4500856b6326c8bb713d28ed0b3b6be7",
+        "query_kind": "impact_grid",
+        "release_center_height_m": 0.8274999999999999,
+        "role": "discovery",
+        "seed_id": "coarse-64-xy-grid-0043-r0",
+        "source_query_fingerprint": "4aa4339bd3cbb40b5dbb64fdd7006551177e9597a6c0df109666740fb6a3be17",
+        "source_record_id": "coarse-64-xy-grid-0043-r0",
+        "source_record_sha256": "0c1cc2a6fe21378fb95615f5c81de0007cb2703d3741b15eaebfe7f219ff70a8",
+        "tilt_deg": 30.0,
+        "translation_m": [
+          -0.01,
+          0.06
+        ]
+      },
+      "execution_fingerprint": "82cd0861da030958e95b2e6a2356a9ce7e23041a459f4ae9b5e7fa8714b1fde1",
+      "first_flight": {
+        "available": true,
+        "closest_opening_distance_m": 0.11794103333584745,
+        "crossing_plane": "ball_center_at_rim",
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "cutoff_reason": "contact",
+        "end_index": 9005,
+        "end_time_s": 0.5862630208333334,
+        "first_crossing": null,
+        "mouth_clearance_m": null,
+        "reason": null,
+        "sample_count": 4584,
+        "start_index": 4422,
+        "start_time_s": 0.287890625,
+        "version": "sircus-xy650-first-flight-aperture-v1"
+      },
+      "record_id": "coarse-64-impact-f01-u4v1-r0",
+      "stats": {
+        "attempts": 1,
+        "captures": 1,
+        "clean": 0,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 0.9999999999999998,
+        "native_releases": 1,
+        "rim_assisted": 1,
+        "whole_entries": 1
+      },
+      "substeps": 64
+    },
+    {
+      "configuration": {
+        "board_height_m": 0.38,
+        "board_xy_m": [
+          0.4608757793012148,
+          -0.21789340145097458
+        ],
+        "bucket_xy_m": [
+          -0.0403065981299413,
+          -0.6317970430784121
+        ],
+        "distance_m": 0.65,
+        "eligible": true,
+        "family_id": "family-01",
+        "gap_m": 0.41,
+        "id": "impact-f01-u4v2",
+        "impact_offset_m": [
+          0.0,
+          0.0
+        ],
+        "nominal_center_plane_point_m": [
+          0.4608757793012148,
+          -0.21789340145097458,
+          0.38
+        ],
+        "nominal_point_to_bucket_horizontal_m": 0.65,
+        "nominal_release_center_m": [
+          0.4608757793012148,
+          -0.21789340145097458,
+          0.8274999999999999
+        ],
+        "phase": "coarse",
+        "query_fingerprint": "6fefbc17455360bf06c2988b5a215014f96fb5fb318a61562f6eeabe71f65187",
+        "query_kind": "impact_grid",
+        "release_center_height_m": 0.8274999999999999,
+        "role": "discovery",
+        "seed_id": "coarse-64-xy-grid-0043-r0",
+        "source_query_fingerprint": "4aa4339bd3cbb40b5dbb64fdd7006551177e9597a6c0df109666740fb6a3be17",
+        "source_record_id": "coarse-64-xy-grid-0043-r0",
+        "source_record_sha256": "0c1cc2a6fe21378fb95615f5c81de0007cb2703d3741b15eaebfe7f219ff70a8",
+        "tilt_deg": 30.0,
+        "translation_m": [
+          -0.01,
+          0.06
+        ]
+      },
+      "execution_fingerprint": "d7d4620c9ae24c63e659d2cd7d28e875c46536539b830b5fc208c5b4c2f79ec5",
+      "first_flight": {
+        "available": true,
+        "closest_opening_distance_m": 0.1179651772850835,
+        "crossing_plane": "ball_center_at_rim",
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "cutoff_reason": "contact",
+        "end_index": 9007,
+        "end_time_s": 0.5863932291666667,
+        "first_crossing": null,
+        "mouth_clearance_m": null,
+        "reason": null,
+        "sample_count": 4586,
+        "start_index": 4422,
+        "start_time_s": 0.287890625,
+        "version": "sircus-xy650-first-flight-aperture-v1"
+      },
+      "record_id": "coarse-64-impact-f01-u4v2-r0",
+      "stats": {
+        "attempts": 1,
+        "captures": 1,
+        "clean": 0,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 1.0,
+        "native_releases": 1,
+        "rim_assisted": 1,
+        "whole_entries": 1
+      },
+      "substeps": 64
+    },
+    {
+      "configuration": {
+        "board_height_m": 0.38,
+        "board_xy_m": [
+          0.4708757793012148,
+          -0.23789340145097457
+        ],
+        "bucket_xy_m": [
+          -0.030306598129941298,
+          -0.6517970430784121
+        ],
+        "distance_m": 0.65,
+        "eligible": true,
+        "family_id": "family-02",
+        "gap_m": 0.39,
+        "id": "impact-f02-u4v2",
+        "impact_offset_m": [
+          0.0,
+          0.0
+        ],
+        "nominal_center_plane_point_m": [
+          0.4708757793012148,
+          -0.23789340145097457,
+          0.38
+        ],
+        "nominal_point_to_bucket_horizontal_m": 0.65,
+        "nominal_release_center_m": [
+          0.4708757793012148,
+          -0.23789340145097457,
+          0.8075
+        ],
+        "phase": "coarse",
+        "query_fingerprint": "62b8f11801079e8745191d4173e008ef7917d4be1cdc1911666d08850906fefa",
+        "query_kind": "impact_grid",
+        "release_center_height_m": 0.8075,
+        "role": "discovery",
+        "seed_id": "coarse-64-xy-grid-0096-r0",
+        "source_query_fingerprint": "c6fe163152d188736332ac9c7132507614a5c91f3c5d85948e4e0008ad8fae1c",
+        "source_record_id": "coarse-64-xy-grid-0096-r0",
+        "source_record_sha256": "b7c369b7bfe946c3757784df1a15f7e987fe11f5d4bcd2ae04609a620323432e",
+        "tilt_deg": 30.0,
+        "translation_m": [
+          0.0,
+          0.04
+        ]
+      },
+      "execution_fingerprint": "329b7f768c6013565776ee2257b1832d7a1427919b58f7fcbc143abe546c7571",
+      "first_flight": {
+        "available": true,
+        "closest_opening_distance_m": 0.11929185268387235,
+        "crossing_plane": "ball_center_at_rim",
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "cutoff_reason": "contact",
+        "end_index": 8936,
+        "end_time_s": 0.5817708333333333,
+        "first_crossing": null,
+        "mouth_clearance_m": null,
+        "reason": null,
+        "sample_count": 4626,
+        "start_index": 4311,
+        "start_time_s": 0.2806640625,
+        "version": "sircus-xy650-first-flight-aperture-v1"
+      },
+      "record_id": "coarse-64-impact-f02-u4v2-r0",
+      "stats": {
+        "attempts": 1,
+        "captures": 1,
+        "clean": 0,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 1.0,
+        "native_releases": 1,
+        "rim_assisted": 1,
+        "whole_entries": 1
+      },
+      "substeps": 64
+    },
+    {
+      "configuration": {
+        "board_height_m": 0.38,
+        "board_xy_m": [
+          0.4608757793012148,
+          -0.21789340145097458
+        ],
+        "bucket_xy_m": [
+          -0.0403065981299413,
+          -0.6317970430784121
+        ],
+        "distance_m": 0.65,
+        "eligible": true,
+        "family_id": "family-00",
+        "gap_m": 0.3918,
+        "id": "impact-f00-u8v2",
+        "impact_offset_m": [
+          0.04,
+          0.0
+        ],
+        "nominal_center_plane_point_m": [
+          0.433518597874787,
+          -0.24048644846731018,
+          0.36153005547059863
+        ],
+        "nominal_point_to_bucket_horizontal_m": 0.6145195666728712,
+        "nominal_release_center_m": [
+          0.433518597874787,
+          -0.24048644846731018,
+          0.7908300554705986
+        ],
+        "phase": "coarse",
+        "query_fingerprint": "66540c453952f2f1a23925739a329c25e18ec934e00fc0988950859d7eb6a2bd",
+        "query_kind": "impact_grid",
+        "release_center_height_m": 0.7908300554705986,
+        "role": "discovery",
+        "seed_id": "refinement-64-refine-s02-h1t0g2-r0",
+        "source_query_fingerprint": "3052ca5fae8fa57673d7fba1cff25070608a97b6675efb5ffc74f852634d78b9",
+        "source_record_id": "refinement-64-refine-s02-h1t0g2-r0",
+        "source_record_sha256": "0ef0d7418c8c0b1b2759e39b64bdc7afe197cc444f8a024237bf6c8850cd89dc",
+        "tilt_deg": 27.5,
+        "translation_m": [
+          -0.01,
+          0.06
+        ]
+      },
+      "execution_fingerprint": "51f150111e94a39f6cb9681b17b6345c51adbbcbdededba261447c8a4b1f4d47",
+      "first_flight": {
+        "available": true,
+        "closest_opening_distance_m": 0.08947148694770217,
+        "crossing_plane": "ball_center_at_rim",
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "cutoff_reason": "contact",
+        "end_index": 9068,
+        "end_time_s": 0.5903645833333333,
+        "first_crossing": null,
+        "mouth_clearance_m": null,
+        "reason": null,
+        "sample_count": 4742,
+        "start_index": 4327,
+        "start_time_s": 0.28170572916666664,
+        "version": "sircus-xy650-first-flight-aperture-v1"
+      },
+      "record_id": "coarse-64-impact-f00-u8v2-r0",
+      "stats": {
+        "attempts": 1,
+        "captures": 0,
+        "clean": 0,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 0.0,
+        "native_releases": 1,
+        "rim_assisted": 0,
+        "whole_entries": 0
+      },
+      "substeps": 64
+    },
+    {
+      "configuration": {
+        "board_height_m": 0.38,
+        "board_xy_m": [
+          0.4608757793012148,
+          -0.21789340145097458
+        ],
+        "bucket_xy_m": [
+          -0.0403065981299413,
+          -0.6317970430784121
+        ],
+        "distance_m": 0.65,
+        "eligible": true,
+        "family_id": "family-00",
+        "gap_m": 0.3918,
+        "id": "impact-f00-u8v1",
+        "impact_offset_m": [
+          0.04,
+          -0.01
+        ],
+        "nominal_center_plane_point_m": [
+          0.42715084954205723,
+          -0.2327759503529847,
+          0.36153005547059863
+        ],
+        "nominal_point_to_bucket_horizontal_m": 0.6146009256613705,
+        "nominal_release_center_m": [
+          0.42715084954205723,
+          -0.2327759503529847,
+          0.7908300554705986
+        ],
+        "phase": "coarse",
+        "query_fingerprint": "d8f67b9c647e28c60a775264232f86f10b47c2d1ada15ab0ec72c11481fcf640",
+        "query_kind": "impact_grid",
+        "release_center_height_m": 0.7908300554705986,
+        "role": "discovery",
+        "seed_id": "refinement-64-refine-s02-h1t0g2-r0",
+        "source_query_fingerprint": "3052ca5fae8fa57673d7fba1cff25070608a97b6675efb5ffc74f852634d78b9",
+        "source_record_id": "refinement-64-refine-s02-h1t0g2-r0",
+        "source_record_sha256": "0ef0d7418c8c0b1b2759e39b64bdc7afe197cc444f8a024237bf6c8850cd89dc",
+        "tilt_deg": 27.5,
+        "translation_m": [
+          -0.01,
+          0.06
+        ]
+      },
+      "execution_fingerprint": "cf174d38257a494fe04dbb72742eb0327b57c51042fcb2e9d6aa4044bdbec85e",
+      "first_flight": {
+        "available": true,
+        "closest_opening_distance_m": 0.08983443061692614,
+        "crossing_plane": "ball_center_at_rim",
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "cutoff_reason": "contact",
+        "end_index": 9065,
+        "end_time_s": 0.5901692708333334,
+        "first_crossing": null,
+        "mouth_clearance_m": null,
+        "reason": null,
+        "sample_count": 4739,
+        "start_index": 4327,
+        "start_time_s": 0.28170572916666664,
+        "version": "sircus-xy650-first-flight-aperture-v1"
+      },
+      "record_id": "coarse-64-impact-f00-u8v1-r0",
+      "stats": {
+        "attempts": 1,
+        "captures": 0,
+        "clean": 0,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 0.0,
+        "native_releases": 1,
+        "rim_assisted": 0,
+        "whole_entries": 0
+      },
+      "substeps": 64
+    },
+    {
+      "configuration": {
+        "board_height_m": 0.38,
+        "board_xy_m": [
+          0.4608757793012148,
+          -0.21789340145097458
+        ],
+        "bucket_xy_m": [
+          -0.0403065981299413,
+          -0.6317970430784121
+        ],
+        "distance_m": 0.65,
+        "eligible": true,
+        "family_id": "family-00",
+        "gap_m": 0.3918,
+        "id": "impact-f00-u8v3",
+        "impact_offset_m": [
+          0.04,
+          0.01
+        ],
+        "nominal_center_plane_point_m": [
+          0.4398863462075168,
+          -0.24819694658163566,
+          0.36153005547059863
+        ],
+        "nominal_point_to_bucket_horizontal_m": 0.6146009256613704,
+        "nominal_release_center_m": [
+          0.4398863462075168,
+          -0.24819694658163566,
+          0.7908300554705986
+        ],
+        "phase": "coarse",
+        "query_fingerprint": "b8b179588e2fa6354b56d7e3987b7f0b28d9ba80e17b2db19a44d3773566e818",
+        "query_kind": "impact_grid",
+        "release_center_height_m": 0.7908300554705986,
+        "role": "discovery",
+        "seed_id": "refinement-64-refine-s02-h1t0g2-r0",
+        "source_query_fingerprint": "3052ca5fae8fa57673d7fba1cff25070608a97b6675efb5ffc74f852634d78b9",
+        "source_record_id": "refinement-64-refine-s02-h1t0g2-r0",
+        "source_record_sha256": "0ef0d7418c8c0b1b2759e39b64bdc7afe197cc444f8a024237bf6c8850cd89dc",
+        "tilt_deg": 27.5,
+        "translation_m": [
+          -0.01,
+          0.06
+        ]
+      },
+      "execution_fingerprint": "7f92f1b03143ea3c1606c60604170bf24adf03335ae1f68a158736bd3b81729d",
+      "first_flight": {
+        "available": true,
+        "closest_opening_distance_m": 0.09125754846274954,
+        "crossing_plane": "ball_center_at_rim",
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "cutoff_reason": "contact",
+        "end_index": 9069,
+        "end_time_s": 0.5904296875,
+        "first_crossing": null,
+        "mouth_clearance_m": null,
+        "reason": null,
+        "sample_count": 4743,
+        "start_index": 4327,
+        "start_time_s": 0.28170572916666664,
+        "version": "sircus-xy650-first-flight-aperture-v1"
+      },
+      "record_id": "coarse-64-impact-f00-u8v3-r0",
+      "stats": {
+        "attempts": 1,
+        "captures": 0,
+        "clean": 0,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 0.0,
+        "native_releases": 1,
+        "rim_assisted": 0,
+        "whole_entries": 0
+      },
+      "substeps": 64
+    },
+    {
+      "configuration": {
+        "board_height_m": 0.38,
+        "board_xy_m": [
+          0.4608757793012148,
+          -0.21789340145097458
+        ],
+        "bucket_xy_m": [
+          -0.0403065981299413,
+          -0.6317970430784121
+        ],
+        "distance_m": 0.65,
+        "eligible": true,
+        "family_id": "family-00",
+        "gap_m": 0.3918,
+        "id": "impact-f00-u8v0",
+        "impact_offset_m": [
+          0.04,
+          -0.02
+        ],
+        "nominal_center_plane_point_m": [
+          0.4207831012093274,
+          -0.22506545223865923,
+          0.36153005547059863
+        ],
+        "nominal_point_to_bucket_horizontal_m": 0.6148449380321946,
+        "nominal_release_center_m": [
+          0.4207831012093274,
+          -0.22506545223865923,
+          0.7908300554705986
+        ],
+        "phase": "coarse",
+        "query_fingerprint": "2e81762f497417d8e21ed30e17a534f0566ec9602af9a1c9e488813f4cda110f",
+        "query_kind": "impact_grid",
+        "release_center_height_m": 0.7908300554705986,
+        "role": "discovery",
+        "seed_id": "refinement-64-refine-s02-h1t0g2-r0",
+        "source_query_fingerprint": "3052ca5fae8fa57673d7fba1cff25070608a97b6675efb5ffc74f852634d78b9",
+        "source_record_id": "refinement-64-refine-s02-h1t0g2-r0",
+        "source_record_sha256": "0ef0d7418c8c0b1b2759e39b64bdc7afe197cc444f8a024237bf6c8850cd89dc",
+        "tilt_deg": 27.5,
+        "translation_m": [
+          -0.01,
+          0.06
+        ]
+      },
+      "execution_fingerprint": "8687eaf0079f0cb7c57f3545c74f265ba626292049634aff3619d294183ff77b",
+      "first_flight": {
+        "available": true,
+        "closest_opening_distance_m": 0.09213893068922739,
+        "crossing_plane": "ball_center_at_rim",
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "cutoff_reason": "contact",
+        "end_index": 9061,
+        "end_time_s": 0.5899088541666666,
+        "first_crossing": null,
+        "mouth_clearance_m": null,
+        "reason": null,
+        "sample_count": 4735,
+        "start_index": 4327,
+        "start_time_s": 0.28170572916666664,
+        "version": "sircus-xy650-first-flight-aperture-v1"
+      },
+      "record_id": "coarse-64-impact-f00-u8v0-r0",
+      "stats": {
+        "attempts": 1,
+        "captures": 0,
+        "clean": 0,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 0.0,
+        "native_releases": 1,
+        "rim_assisted": 0,
+        "whole_entries": 0
+      },
+      "substeps": 64
+    },
+    {
+      "configuration": {
+        "board_height_m": 0.38,
+        "board_xy_m": [
+          0.4608757793012148,
+          -0.21789340145097458
+        ],
+        "bucket_xy_m": [
+          -0.0403065981299413,
+          -0.6317970430784121
+        ],
+        "distance_m": 0.65,
+        "eligible": true,
+        "family_id": "family-00",
+        "gap_m": 0.3918,
+        "id": "impact-f00-u8v4",
+        "impact_offset_m": [
+          0.04,
+          0.02
+        ],
+        "nominal_center_plane_point_m": [
+          0.44625409454024667,
+          -0.25590744469596116,
+          0.36153005547059863
+        ],
+        "nominal_point_to_bucket_horizontal_m": 0.6148449380321948,
+        "nominal_release_center_m": [
+          0.44625409454024667,
+          -0.25590744469596116,
+          0.7908300554705986
+        ],
+        "phase": "coarse",
+        "query_fingerprint": "ce2eecb626a7641433705cfe1aeec16700c35f0ed3c8e5444a272b73c42e041d",
+        "query_kind": "impact_grid",
+        "release_center_height_m": 0.7908300554705986,
+        "role": "discovery",
+        "seed_id": "refinement-64-refine-s02-h1t0g2-r0",
+        "source_query_fingerprint": "3052ca5fae8fa57673d7fba1cff25070608a97b6675efb5ffc74f852634d78b9",
+        "source_record_id": "refinement-64-refine-s02-h1t0g2-r0",
+        "source_record_sha256": "0ef0d7418c8c0b1b2759e39b64bdc7afe197cc444f8a024237bf6c8850cd89dc",
+        "tilt_deg": 27.5,
+        "translation_m": [
+          -0.01,
+          0.06
+        ]
+      },
+      "execution_fingerprint": "eceb6696b01296729d303717a1b909c785aa264327b9fce7b2f48c80e6e46f71",
+      "first_flight": {
+        "available": true,
+        "closest_opening_distance_m": 0.09448313022808622,
+        "crossing_plane": "ball_center_at_rim",
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "cutoff_reason": "contact",
+        "end_index": 9071,
+        "end_time_s": 0.5905598958333333,
+        "first_crossing": null,
+        "mouth_clearance_m": null,
+        "reason": null,
+        "sample_count": 4745,
+        "start_index": 4327,
+        "start_time_s": 0.28170572916666664,
+        "version": "sircus-xy650-first-flight-aperture-v1"
+      },
+      "record_id": "coarse-64-impact-f00-u8v4-r0",
+      "stats": {
+        "attempts": 1,
+        "captures": 0,
+        "clean": 0,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 0.0,
+        "native_releases": 1,
+        "rim_assisted": 0,
+        "whole_entries": 0
+      },
+      "substeps": 64
+    }
+  ],
+  "verification": [
+    {
+      "by_substeps": {
+        "128": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "geometry_rejections": 0,
+          "invalid": 0,
+          "max_retention_s": 0.0,
+          "native_releases": 3,
+          "rim_assisted": 0,
+          "whole_entries": 0
+        },
+        "64": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "geometry_rejections": 0,
+          "invalid": 0,
+          "max_retention_s": 0.9999999999999998,
+          "native_releases": 3,
+          "rim_assisted": 3,
+          "whole_entries": 3
+        }
+      },
+      "configuration": {
+        "board_height_m": 0.38,
+        "board_xy_m": [
+          0.4608757793012148,
+          -0.21789340145097458
+        ],
+        "bucket_xy_m": [
+          -0.0403065981299413,
+          -0.6317970430784121
+        ],
+        "distance_m": 0.65,
+        "eligible": true,
+        "family_id": "family-00",
+        "gap_m": 0.3918,
+        "id": "impact-verify-00",
+        "impact_offset_m": [
+          0.0,
+          0.0
+        ],
+        "nominal_center_plane_point_m": [
+          0.4608757793012148,
+          -0.21789340145097458,
+          0.38
+        ],
+        "nominal_point_to_bucket_horizontal_m": 0.65,
+        "nominal_release_center_m": [
+          0.4608757793012148,
+          -0.21789340145097458,
+          0.8092999999999999
+        ],
+        "phase": "verification",
+        "query_fingerprint": "a5107c5381400c7e29efe31fd2c3a41efc588e538e5de1118367c5fc08e7ce4c",
+        "query_kind": "nominal_verification",
+        "release_center_height_m": 0.8092999999999999,
+        "role": "verification",
+        "seed_id": "refinement-64-refine-s02-h1t0g2-r0",
+        "source_query_fingerprint": "834d7398b8a58a83570f363072e069a381cfedf7d8ddcb2bc4f8418aab99fbea",
+        "source_record_id": "coarse-64-impact-f00-u4v2-r0",
+        "source_record_sha256": "69dbe078c17e57ed0b0447f66423dbcae8e9eb8bca18b506267d7790cfcecaad",
+        "tilt_deg": 27.5,
+        "translation_m": [
+          -0.01,
+          0.06
+        ]
+      },
+      "executions": [
+        {
+          "execution_fingerprint": "87fe8b6668ca2092dca9565c0f954baf982220ed9879be73a139004d09d3daa5",
+          "first_flight": {
+            "available": true,
+            "closest_opening_distance_m": 0.11610729118349161,
+            "crossing_plane": "ball_center_at_rim",
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "cutoff_reason": "contact",
+            "end_index": 9249,
+            "end_time_s": 0.6021484375,
+            "first_crossing": null,
+            "mouth_clearance_m": null,
+            "reason": null,
+            "sample_count": 4923,
+            "start_index": 4327,
+            "start_time_s": 0.28170572916666664,
+            "version": "sircus-xy650-first-flight-aperture-v1"
+          },
+          "id": "verification-64-impact-verify-00-r0",
+          "repeat_index": 0,
+          "substeps": 64
+        },
+        {
+          "execution_fingerprint": "4cf988b89473e797844efb0813618f88a03cbcb6ab539fed13d8ca9f2c38c11b",
+          "first_flight": {
+            "available": true,
+            "closest_opening_distance_m": 0.11610729118349161,
+            "crossing_plane": "ball_center_at_rim",
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "cutoff_reason": "contact",
+            "end_index": 9249,
+            "end_time_s": 0.6021484375,
+            "first_crossing": null,
+            "mouth_clearance_m": null,
+            "reason": null,
+            "sample_count": 4923,
+            "start_index": 4327,
+            "start_time_s": 0.28170572916666664,
+            "version": "sircus-xy650-first-flight-aperture-v1"
+          },
+          "id": "verification-64-impact-verify-00-r1",
+          "repeat_index": 1,
+          "substeps": 64
+        },
+        {
+          "execution_fingerprint": "6137576813abdbf3b1406ca7a89f4dd1f5fe25dcfdd7d0461dbd349cdceca17c",
+          "first_flight": {
+            "available": true,
+            "closest_opening_distance_m": 0.11610729118349161,
+            "crossing_plane": "ball_center_at_rim",
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "cutoff_reason": "contact",
+            "end_index": 9249,
+            "end_time_s": 0.6021484375,
+            "first_crossing": null,
+            "mouth_clearance_m": null,
+            "reason": null,
+            "sample_count": 4923,
+            "start_index": 4327,
+            "start_time_s": 0.28170572916666664,
+            "version": "sircus-xy650-first-flight-aperture-v1"
+          },
+          "id": "verification-64-impact-verify-00-r2",
+          "repeat_index": 2,
+          "substeps": 64
+        },
+        {
+          "execution_fingerprint": "b1843f0294fe5d14d8b8409b7b89cf37bd95810d73d8cd93f0ab3cf37c4bd426",
+          "first_flight": {
+            "available": true,
+            "closest_opening_distance_m": 0.11566666830021055,
+            "crossing_plane": "ball_center_at_rim",
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "cutoff_reason": "contact",
+            "end_index": 18502,
+            "end_time_s": 0.6022786458333333,
+            "first_crossing": null,
+            "mouth_clearance_m": null,
+            "reason": null,
+            "sample_count": 9850,
+            "start_index": 8653,
+            "start_time_s": 0.28167317708333334,
+            "version": "sircus-xy650-first-flight-aperture-v1"
+          },
+          "id": "verification-128-impact-verify-00-r0",
+          "repeat_index": 0,
+          "substeps": 128
+        },
+        {
+          "execution_fingerprint": "6b16cfdde5ac0199c6b0b47f407ffa9ef8a9bea84acfa34fde1743a2e6a9e296",
+          "first_flight": {
+            "available": true,
+            "closest_opening_distance_m": 0.11566665899635276,
+            "crossing_plane": "ball_center_at_rim",
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "cutoff_reason": "contact",
+            "end_index": 18502,
+            "end_time_s": 0.6022786458333333,
+            "first_crossing": null,
+            "mouth_clearance_m": null,
+            "reason": null,
+            "sample_count": 9850,
+            "start_index": 8653,
+            "start_time_s": 0.28167317708333334,
+            "version": "sircus-xy650-first-flight-aperture-v1"
+          },
+          "id": "verification-128-impact-verify-00-r1",
+          "repeat_index": 1,
+          "substeps": 128
+        },
+        {
+          "execution_fingerprint": "a3c2a2631410bfded9e16954297baab97f04f9030cfa9d1247a42e15da6aec3b",
+          "first_flight": {
+            "available": true,
+            "closest_opening_distance_m": 0.11566665899635276,
+            "crossing_plane": "ball_center_at_rim",
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "cutoff_reason": "contact",
+            "end_index": 18502,
+            "end_time_s": 0.6022786458333333,
+            "first_crossing": null,
+            "mouth_clearance_m": null,
+            "reason": null,
+            "sample_count": 9850,
+            "start_index": 8653,
+            "start_time_s": 0.28167317708333334,
+            "version": "sircus-xy650-first-flight-aperture-v1"
+          },
+          "id": "verification-128-impact-verify-00-r2",
+          "repeat_index": 2,
+          "substeps": 128
+        }
+      ],
+      "qualification": {
+        "capture_both": false,
+        "capture_qualified": false,
+        "clean_both": false,
+        "clean_qualified": false,
+        "max_drift_m": 8.647200718204053e-05,
+        "oracle_agreement": true,
+        "physics_valid": true,
+        "qualified": false,
+        "source_capture": true,
+        "status": "failed"
+      },
+      "sensitivity": {
+        "capture_agreement": 0,
+        "nominal_position_delta_350ms_max_m": 8.647200718204053e-05,
+        "paired_attempts": 3
+      },
+      "source_route_quality": 1
+    },
+    {
+      "by_substeps": {
+        "128": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "geometry_rejections": 0,
+          "invalid": 0,
+          "max_retention_s": 0.0,
+          "native_releases": 3,
+          "rim_assisted": 0,
+          "whole_entries": 0
+        },
+        "64": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "geometry_rejections": 0,
+          "invalid": 0,
+          "max_retention_s": 1.0,
+          "native_releases": 3,
+          "rim_assisted": 3,
+          "whole_entries": 3
+        }
+      },
+      "configuration": {
+        "board_height_m": 0.38,
+        "board_xy_m": [
+          0.4608757793012148,
+          -0.21789340145097458
+        ],
+        "bucket_xy_m": [
+          -0.0403065981299413,
+          -0.6317970430784121
+        ],
+        "distance_m": 0.65,
+        "eligible": true,
+        "family_id": "family-01",
+        "gap_m": 0.41,
+        "id": "impact-verify-01",
+        "impact_offset_m": [
+          0.0,
+          -0.01
+        ],
+        "nominal_center_plane_point_m": [
+          0.454508030968485,
+          -0.2101829033366491,
+          0.38
+        ],
+        "nominal_point_to_bucket_horizontal_m": 0.6500769185258003,
+        "nominal_release_center_m": [
+          0.454508030968485,
+          -0.2101829033366491,
+          0.8274999999999999
+        ],
+        "phase": "verification",
+        "query_fingerprint": "0fc80aa8c03ef03e1d58ad3887da7f1aa1357dc213d149cf041827e79a4c554e",
+        "query_kind": "nominal_verification",
+        "release_center_height_m": 0.8274999999999999,
+        "role": "verification",
+        "seed_id": "coarse-64-xy-grid-0043-r0",
+        "source_query_fingerprint": "a97dcd1cd4c6fbfd9cc18517e79b4ece4500856b6326c8bb713d28ed0b3b6be7",
+        "source_record_id": "coarse-64-impact-f01-u4v1-r0",
+        "source_record_sha256": "ac7f64741efe60631473fce21ad81abad3ab9d4ded5edfd2f8add021786f2df5",
+        "tilt_deg": 30.0,
+        "translation_m": [
+          -0.01,
+          0.06
+        ]
+      },
+      "executions": [
+        {
+          "execution_fingerprint": "c25ba794760dd592289fe39535b9ceab3f41f88f2ab17a1babd42af71332c731",
+          "first_flight": {
+            "available": true,
+            "closest_opening_distance_m": 0.11794103333584745,
+            "crossing_plane": "ball_center_at_rim",
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "cutoff_reason": "contact",
+            "end_index": 9005,
+            "end_time_s": 0.5862630208333334,
+            "first_crossing": null,
+            "mouth_clearance_m": null,
+            "reason": null,
+            "sample_count": 4584,
+            "start_index": 4422,
+            "start_time_s": 0.287890625,
+            "version": "sircus-xy650-first-flight-aperture-v1"
+          },
+          "id": "verification-64-impact-verify-01-r0",
+          "repeat_index": 0,
+          "substeps": 64
+        },
+        {
+          "execution_fingerprint": "8284898e72d07e4c87f05e9188f983c06dbd6d2b4e977d5142bcc98ac9a99ddd",
+          "first_flight": {
+            "available": true,
+            "closest_opening_distance_m": 0.11794108212771845,
+            "crossing_plane": "ball_center_at_rim",
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "cutoff_reason": "contact",
+            "end_index": 9005,
+            "end_time_s": 0.5862630208333334,
+            "first_crossing": null,
+            "mouth_clearance_m": null,
+            "reason": null,
+            "sample_count": 4584,
+            "start_index": 4422,
+            "start_time_s": 0.287890625,
+            "version": "sircus-xy650-first-flight-aperture-v1"
+          },
+          "id": "verification-64-impact-verify-01-r1",
+          "repeat_index": 1,
+          "substeps": 64
+        },
+        {
+          "execution_fingerprint": "36e65d35049e15c736efeb1ddac02664af9f2e5e2b3ba6d6055fde9560cebed9",
+          "first_flight": {
+            "available": true,
+            "closest_opening_distance_m": 0.11794103333584745,
+            "crossing_plane": "ball_center_at_rim",
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "cutoff_reason": "contact",
+            "end_index": 9005,
+            "end_time_s": 0.5862630208333334,
+            "first_crossing": null,
+            "mouth_clearance_m": null,
+            "reason": null,
+            "sample_count": 4584,
+            "start_index": 4422,
+            "start_time_s": 0.287890625,
+            "version": "sircus-xy650-first-flight-aperture-v1"
+          },
+          "id": "verification-64-impact-verify-01-r2",
+          "repeat_index": 2,
+          "substeps": 64
+        },
+        {
+          "execution_fingerprint": "a95fa9a64be713725e529384bbeee5dca9d82ee4e3610d84f72b8d860e5a11d3",
+          "first_flight": {
+            "available": true,
+            "closest_opening_distance_m": 0.1108993573958825,
+            "crossing_plane": "ball_center_at_rim",
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "cutoff_reason": "contact",
+            "end_index": 18071,
+            "end_time_s": 0.5882486979166667,
+            "first_crossing": null,
+            "mouth_clearance_m": null,
+            "reason": null,
+            "sample_count": 9230,
+            "start_index": 8842,
+            "start_time_s": 0.28782552083333335,
+            "version": "sircus-xy650-first-flight-aperture-v1"
+          },
+          "id": "verification-128-impact-verify-01-r0",
+          "repeat_index": 0,
+          "substeps": 128
+        },
+        {
+          "execution_fingerprint": "d95be72c3f9e4f8bcc6c3f4b949ec38e1aa7070fb7e687aaeff4174854e97ae6",
+          "first_flight": {
+            "available": true,
+            "closest_opening_distance_m": 0.1108993573958825,
+            "crossing_plane": "ball_center_at_rim",
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "cutoff_reason": "contact",
+            "end_index": 18071,
+            "end_time_s": 0.5882486979166667,
+            "first_crossing": null,
+            "mouth_clearance_m": null,
+            "reason": null,
+            "sample_count": 9230,
+            "start_index": 8842,
+            "start_time_s": 0.28782552083333335,
+            "version": "sircus-xy650-first-flight-aperture-v1"
+          },
+          "id": "verification-128-impact-verify-01-r1",
+          "repeat_index": 1,
+          "substeps": 128
+        },
+        {
+          "execution_fingerprint": "e97ee6bc3fbbd69878cfdde12ccaf004d118526840024b702ac8b7c4585172ce",
+          "first_flight": {
+            "available": true,
+            "closest_opening_distance_m": 0.1108993573958825,
+            "crossing_plane": "ball_center_at_rim",
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "cutoff_reason": "contact",
+            "end_index": 18071,
+            "end_time_s": 0.5882486979166667,
+            "first_crossing": null,
+            "mouth_clearance_m": null,
+            "reason": null,
+            "sample_count": 9230,
+            "start_index": 8842,
+            "start_time_s": 0.28782552083333335,
+            "version": "sircus-xy650-first-flight-aperture-v1"
+          },
+          "id": "verification-128-impact-verify-01-r2",
+          "repeat_index": 2,
+          "substeps": 128
+        }
+      ],
+      "qualification": {
+        "capture_both": false,
+        "capture_qualified": false,
+        "clean_both": false,
+        "clean_qualified": false,
+        "max_drift_m": 0.0015730086537594017,
+        "oracle_agreement": true,
+        "physics_valid": true,
+        "qualified": false,
+        "source_capture": true,
+        "status": "failed"
+      },
+      "sensitivity": {
+        "capture_agreement": 0,
+        "nominal_position_delta_350ms_max_m": 0.0015730086537594017,
+        "paired_attempts": 3
+      },
+      "source_route_quality": 1
+    },
+    {
+      "by_substeps": {
+        "128": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "geometry_rejections": 0,
+          "invalid": 0,
+          "max_retention_s": 0.0,
+          "native_releases": 3,
+          "rim_assisted": 0,
+          "whole_entries": 0
+        },
+        "64": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "geometry_rejections": 0,
+          "invalid": 0,
+          "max_retention_s": 1.0,
+          "native_releases": 3,
+          "rim_assisted": 3,
+          "whole_entries": 3
+        }
+      },
+      "configuration": {
+        "board_height_m": 0.38,
+        "board_xy_m": [
+          0.4708757793012148,
+          -0.23789340145097457
+        ],
+        "bucket_xy_m": [
+          -0.030306598129941298,
+          -0.6517970430784121
+        ],
+        "distance_m": 0.65,
+        "eligible": true,
+        "family_id": "family-02",
+        "gap_m": 0.39,
+        "id": "impact-verify-02",
+        "impact_offset_m": [
+          0.0,
+          0.0
+        ],
+        "nominal_center_plane_point_m": [
+          0.4708757793012148,
+          -0.23789340145097457,
+          0.38
+        ],
+        "nominal_point_to_bucket_horizontal_m": 0.65,
+        "nominal_release_center_m": [
+          0.4708757793012148,
+          -0.23789340145097457,
+          0.8075
+        ],
+        "phase": "verification",
+        "query_fingerprint": "45c7b99704a194f3d51dc30fff1136d6f483ffb50e6d87ea67e5ee9f7235b8fa",
+        "query_kind": "nominal_verification",
+        "release_center_height_m": 0.8075,
+        "role": "verification",
+        "seed_id": "coarse-64-xy-grid-0096-r0",
+        "source_query_fingerprint": "62b8f11801079e8745191d4173e008ef7917d4be1cdc1911666d08850906fefa",
+        "source_record_id": "coarse-64-impact-f02-u4v2-r0",
+        "source_record_sha256": "9f5f36a9f90a3849a60f36d5f0e0c487869a877d73805ced571a5fd3334c95d8",
+        "tilt_deg": 30.0,
+        "translation_m": [
+          0.0,
+          0.04
+        ]
+      },
+      "executions": [
+        {
+          "execution_fingerprint": "139b17605c4785e9d429506493170834e8edcd267c817b662627d8b2a47e01a0",
+          "first_flight": {
+            "available": true,
+            "closest_opening_distance_m": 0.11929180528459037,
+            "crossing_plane": "ball_center_at_rim",
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "cutoff_reason": "contact",
+            "end_index": 8936,
+            "end_time_s": 0.5817708333333333,
+            "first_crossing": null,
+            "mouth_clearance_m": null,
+            "reason": null,
+            "sample_count": 4626,
+            "start_index": 4311,
+            "start_time_s": 0.2806640625,
+            "version": "sircus-xy650-first-flight-aperture-v1"
+          },
+          "id": "verification-64-impact-verify-02-r0",
+          "repeat_index": 0,
+          "substeps": 64
+        },
+        {
+          "execution_fingerprint": "9618425f36684a243ffa4f9e4aff22906b5f4db50879b98a211ec1c691edc608",
+          "first_flight": {
+            "available": true,
+            "closest_opening_distance_m": 0.11929184406580574,
+            "crossing_plane": "ball_center_at_rim",
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "cutoff_reason": "contact",
+            "end_index": 8936,
+            "end_time_s": 0.5817708333333333,
+            "first_crossing": null,
+            "mouth_clearance_m": null,
+            "reason": null,
+            "sample_count": 4626,
+            "start_index": 4311,
+            "start_time_s": 0.2806640625,
+            "version": "sircus-xy650-first-flight-aperture-v1"
+          },
+          "id": "verification-64-impact-verify-02-r1",
+          "repeat_index": 1,
+          "substeps": 64
+        },
+        {
+          "execution_fingerprint": "abe0ce517fb15a72cd9e200469dedef77ce8653b995d01fd86be2bb3f3dc4097",
+          "first_flight": {
+            "available": true,
+            "closest_opening_distance_m": 0.11929185268387235,
+            "crossing_plane": "ball_center_at_rim",
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "cutoff_reason": "contact",
+            "end_index": 8936,
+            "end_time_s": 0.5817708333333333,
+            "first_crossing": null,
+            "mouth_clearance_m": null,
+            "reason": null,
+            "sample_count": 4626,
+            "start_index": 4311,
+            "start_time_s": 0.2806640625,
+            "version": "sircus-xy650-first-flight-aperture-v1"
+          },
+          "id": "verification-64-impact-verify-02-r2",
+          "repeat_index": 2,
+          "substeps": 64
+        },
+        {
+          "execution_fingerprint": "4ca2bd3cdb2ddcdc541f12d26995b35e5aa5ac19051453f96b09c47769cde119",
+          "first_flight": {
+            "available": true,
+            "closest_opening_distance_m": 0.12450500977151,
+            "crossing_plane": "ball_center_at_rim",
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "cutoff_reason": "contact",
+            "end_index": 17835,
+            "end_time_s": 0.58056640625,
+            "first_crossing": null,
+            "mouth_clearance_m": null,
+            "reason": null,
+            "sample_count": 9215,
+            "start_index": 8621,
+            "start_time_s": 0.2806315104166667,
+            "version": "sircus-xy650-first-flight-aperture-v1"
+          },
+          "id": "verification-128-impact-verify-02-r0",
+          "repeat_index": 0,
+          "substeps": 128
+        },
+        {
+          "execution_fingerprint": "75c367c3d16ddc032e31baf46e25059cb8672fde871d8dc3282d74f9cffa4b92",
+          "first_flight": {
+            "available": true,
+            "closest_opening_distance_m": 0.12450500977151,
+            "crossing_plane": "ball_center_at_rim",
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "cutoff_reason": "contact",
+            "end_index": 17835,
+            "end_time_s": 0.58056640625,
+            "first_crossing": null,
+            "mouth_clearance_m": null,
+            "reason": null,
+            "sample_count": 9215,
+            "start_index": 8621,
+            "start_time_s": 0.2806315104166667,
+            "version": "sircus-xy650-first-flight-aperture-v1"
+          },
+          "id": "verification-128-impact-verify-02-r1",
+          "repeat_index": 1,
+          "substeps": 128
+        },
+        {
+          "execution_fingerprint": "7f4355dcbbc320544206eae9f8ac54bcbb167910cdf23446190489b9f9321a07",
+          "first_flight": {
+            "available": true,
+            "closest_opening_distance_m": 0.12450499481555163,
+            "crossing_plane": "ball_center_at_rim",
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "cutoff_reason": "contact",
+            "end_index": 17835,
+            "end_time_s": 0.58056640625,
+            "first_crossing": null,
+            "mouth_clearance_m": null,
+            "reason": null,
+            "sample_count": 9215,
+            "start_index": 8621,
+            "start_time_s": 0.2806315104166667,
+            "version": "sircus-xy650-first-flight-aperture-v1"
+          },
+          "id": "verification-128-impact-verify-02-r2",
+          "repeat_index": 2,
+          "substeps": 128
+        }
+      ],
+      "qualification": {
+        "capture_both": false,
+        "capture_qualified": false,
+        "clean_both": false,
+        "clean_qualified": false,
+        "max_drift_m": 0.0016993119747417222,
+        "oracle_agreement": true,
+        "physics_valid": true,
+        "qualified": false,
+        "source_capture": true,
+        "status": "failed"
+      },
+      "sensitivity": {
+        "capture_agreement": 0,
+        "nominal_position_delta_350ms_max_m": 0.0016993119747417222,
+        "paired_attempts": 3
+      },
+      "source_route_quality": 1
+    },
+    {
+      "by_substeps": {
+        "128": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "geometry_rejections": 0,
+          "invalid": 0,
+          "max_retention_s": 0.0,
+          "native_releases": 3,
+          "rim_assisted": 0,
+          "whole_entries": 0
+        },
+        "64": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "geometry_rejections": 0,
+          "invalid": 0,
+          "max_retention_s": 0.9999999999999998,
+          "native_releases": 3,
+          "rim_assisted": 3,
+          "whole_entries": 3
+        }
+      },
+      "configuration": {
+        "board_height_m": 0.38,
+        "board_xy_m": [
+          0.4608757793012148,
+          -0.21789340145097458
+        ],
+        "bucket_xy_m": [
+          -0.0403065981299413,
+          -0.6317970430784121
+        ],
+        "distance_m": 0.65,
+        "eligible": true,
+        "family_id": "family-00",
+        "gap_m": 0.3918,
+        "id": "impact-verify-03",
+        "impact_offset_m": [
+          0.0,
+          -0.01
+        ],
+        "nominal_center_plane_point_m": [
+          0.454508030968485,
+          -0.2101829033366491,
+          0.38
+        ],
+        "nominal_point_to_bucket_horizontal_m": 0.6500769185258003,
+        "nominal_release_center_m": [
+          0.454508030968485,
+          -0.2101829033366491,
+          0.8092999999999999
+        ],
+        "phase": "verification",
+        "query_fingerprint": "4c8a524d878105609011e6fd069224fa292d2e8d38ea4f2b51e0fe120d23da43",
+        "query_kind": "nominal_verification",
+        "release_center_height_m": 0.8092999999999999,
+        "role": "verification",
+        "seed_id": "refinement-64-refine-s02-h1t0g2-r0",
+        "source_query_fingerprint": "09c05321a18bb8d606ed818ab5dc65d3f31c602db1230d47c83d6b5ca0c5023c",
+        "source_record_id": "coarse-64-impact-f00-u4v1-r0",
+        "source_record_sha256": "f2cd67cf71d597bbf00140a39b519e716b48f40917ae2285a500812f38888e02",
+        "tilt_deg": 27.5,
+        "translation_m": [
+          -0.01,
+          0.06
+        ]
+      },
+      "executions": [
+        {
+          "execution_fingerprint": "83816477188059c2f3abfe7a1b5ef89a2a57914bab7dfdcab4820fbd3bae68cc",
+          "first_flight": {
+            "available": true,
+            "closest_opening_distance_m": 0.11617087330278787,
+            "crossing_plane": "ball_center_at_rim",
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "cutoff_reason": "contact",
+            "end_index": 9246,
+            "end_time_s": 0.601953125,
+            "first_crossing": null,
+            "mouth_clearance_m": null,
+            "reason": null,
+            "sample_count": 4920,
+            "start_index": 4327,
+            "start_time_s": 0.28170572916666664,
+            "version": "sircus-xy650-first-flight-aperture-v1"
+          },
+          "id": "verification-64-impact-verify-03-r0",
+          "repeat_index": 0,
+          "substeps": 64
+        },
+        {
+          "execution_fingerprint": "eb2ddee125b0ee8cad5b89147af59f4cb5dae0d0b35baf0e4509a3ea22723a74",
+          "first_flight": {
+            "available": true,
+            "closest_opening_distance_m": 0.11617087330278787,
+            "crossing_plane": "ball_center_at_rim",
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "cutoff_reason": "contact",
+            "end_index": 9246,
+            "end_time_s": 0.601953125,
+            "first_crossing": null,
+            "mouth_clearance_m": null,
+            "reason": null,
+            "sample_count": 4920,
+            "start_index": 4327,
+            "start_time_s": 0.28170572916666664,
+            "version": "sircus-xy650-first-flight-aperture-v1"
+          },
+          "id": "verification-64-impact-verify-03-r1",
+          "repeat_index": 1,
+          "substeps": 64
+        },
+        {
+          "execution_fingerprint": "3dea297ff962c568725807b6c21db5e6ad6b750f65f4c701a4e4f4a552865e22",
+          "first_flight": {
+            "available": true,
+            "closest_opening_distance_m": 0.11617086408706034,
+            "crossing_plane": "ball_center_at_rim",
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "cutoff_reason": "contact",
+            "end_index": 9246,
+            "end_time_s": 0.601953125,
+            "first_crossing": null,
+            "mouth_clearance_m": null,
+            "reason": null,
+            "sample_count": 4920,
+            "start_index": 4327,
+            "start_time_s": 0.28170572916666664,
+            "version": "sircus-xy650-first-flight-aperture-v1"
+          },
+          "id": "verification-64-impact-verify-03-r2",
+          "repeat_index": 2,
+          "substeps": 64
+        },
+        {
+          "execution_fingerprint": "e85f823d506207b4ed3afe6a906e297111bad2ae0250518a9aa8354a9cf625e9",
+          "first_flight": {
+            "available": true,
+            "closest_opening_distance_m": 0.11564066110836947,
+            "crossing_plane": "ball_center_at_rim",
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "cutoff_reason": "contact",
+            "end_index": 18496,
+            "end_time_s": 0.6020833333333333,
+            "first_crossing": null,
+            "mouth_clearance_m": null,
+            "reason": null,
+            "sample_count": 9844,
+            "start_index": 8653,
+            "start_time_s": 0.28167317708333334,
+            "version": "sircus-xy650-first-flight-aperture-v1"
+          },
+          "id": "verification-128-impact-verify-03-r0",
+          "repeat_index": 0,
+          "substeps": 128
+        },
+        {
+          "execution_fingerprint": "3c74a00eb704e94754dbbe03ddd0f1063d7aa33d6f4989836376b2b3c78f5d20",
+          "first_flight": {
+            "available": true,
+            "closest_opening_distance_m": 0.11564067042363538,
+            "crossing_plane": "ball_center_at_rim",
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "cutoff_reason": "contact",
+            "end_index": 18496,
+            "end_time_s": 0.6020833333333333,
+            "first_crossing": null,
+            "mouth_clearance_m": null,
+            "reason": null,
+            "sample_count": 9844,
+            "start_index": 8653,
+            "start_time_s": 0.28167317708333334,
+            "version": "sircus-xy650-first-flight-aperture-v1"
+          },
+          "id": "verification-128-impact-verify-03-r1",
+          "repeat_index": 1,
+          "substeps": 128
+        },
+        {
+          "execution_fingerprint": "bfd345b6a3eee50f18383b215bb1efb178dd566f053fb897aa1dee0d95e20696",
+          "first_flight": {
+            "available": true,
+            "closest_opening_distance_m": 0.11564066110836947,
+            "crossing_plane": "ball_center_at_rim",
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "cutoff_reason": "contact",
+            "end_index": 18496,
+            "end_time_s": 0.6020833333333333,
+            "first_crossing": null,
+            "mouth_clearance_m": null,
+            "reason": null,
+            "sample_count": 9844,
+            "start_index": 8653,
+            "start_time_s": 0.28167317708333334,
+            "version": "sircus-xy650-first-flight-aperture-v1"
+          },
+          "id": "verification-128-impact-verify-03-r2",
+          "repeat_index": 2,
+          "substeps": 128
+        }
+      ],
+      "qualification": {
+        "capture_both": false,
+        "capture_qualified": false,
+        "clean_both": false,
+        "clean_qualified": false,
+        "max_drift_m": 0.00010425598254573838,
+        "oracle_agreement": true,
+        "physics_valid": true,
+        "qualified": false,
+        "source_capture": true,
+        "status": "failed"
+      },
+      "sensitivity": {
+        "capture_agreement": 0,
+        "nominal_position_delta_350ms_max_m": 0.00010425598254573838,
+        "paired_attempts": 3
+      },
+      "source_route_quality": 1
+    },
+    {
+      "by_substeps": {
+        "128": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "geometry_rejections": 0,
+          "invalid": 0,
+          "max_retention_s": 0.0,
+          "native_releases": 3,
+          "rim_assisted": 0,
+          "whole_entries": 0
+        },
+        "64": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "geometry_rejections": 0,
+          "invalid": 0,
+          "max_retention_s": 1.0,
+          "native_releases": 3,
+          "rim_assisted": 3,
+          "whole_entries": 3
+        }
+      },
+      "configuration": {
+        "board_height_m": 0.38,
+        "board_xy_m": [
+          0.4608757793012148,
+          -0.21789340145097458
+        ],
+        "bucket_xy_m": [
+          -0.0403065981299413,
+          -0.6317970430784121
+        ],
+        "distance_m": 0.65,
+        "eligible": true,
+        "family_id": "family-01",
+        "gap_m": 0.41,
+        "id": "impact-verify-04",
+        "impact_offset_m": [
+          0.0,
+          0.0
+        ],
+        "nominal_center_plane_point_m": [
+          0.4608757793012148,
+          -0.21789340145097458,
+          0.38
+        ],
+        "nominal_point_to_bucket_horizontal_m": 0.65,
+        "nominal_release_center_m": [
+          0.4608757793012148,
+          -0.21789340145097458,
+          0.8274999999999999
+        ],
+        "phase": "verification",
+        "query_fingerprint": "d575e61943ffce7dd3d1369c3e56704a1d0807a0311472ed6b055d49bd31698d",
+        "query_kind": "nominal_verification",
+        "release_center_height_m": 0.8274999999999999,
+        "role": "verification",
+        "seed_id": "coarse-64-xy-grid-0043-r0",
+        "source_query_fingerprint": "6fefbc17455360bf06c2988b5a215014f96fb5fb318a61562f6eeabe71f65187",
+        "source_record_id": "coarse-64-impact-f01-u4v2-r0",
+        "source_record_sha256": "64e934d3802db8731fb0e732b70163412a0dd78b8a73687f90baa03ef101bc64",
+        "tilt_deg": 30.0,
+        "translation_m": [
+          -0.01,
+          0.06
+        ]
+      },
+      "executions": [
+        {
+          "execution_fingerprint": "51515fc30caac4ec70613c97423726d6532b79799642d1c1314958064f0a3689",
+          "first_flight": {
+            "available": true,
+            "closest_opening_distance_m": 0.11796521729516485,
+            "crossing_plane": "ball_center_at_rim",
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "cutoff_reason": "contact",
+            "end_index": 9007,
+            "end_time_s": 0.5863932291666667,
+            "first_crossing": null,
+            "mouth_clearance_m": null,
+            "reason": null,
+            "sample_count": 4586,
+            "start_index": 4422,
+            "start_time_s": 0.287890625,
+            "version": "sircus-xy650-first-flight-aperture-v1"
+          },
+          "id": "verification-64-impact-verify-04-r0",
+          "repeat_index": 0,
+          "substeps": 64
+        },
+        {
+          "execution_fingerprint": "1b384f4302d0c1a9588562a3f3464321b19cb116696641d7122a2ce2d5c326c7",
+          "first_flight": {
+            "available": true,
+            "closest_opening_distance_m": 0.1179651772850835,
+            "crossing_plane": "ball_center_at_rim",
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "cutoff_reason": "contact",
+            "end_index": 9007,
+            "end_time_s": 0.5863932291666667,
+            "first_crossing": null,
+            "mouth_clearance_m": null,
+            "reason": null,
+            "sample_count": 4586,
+            "start_index": 4422,
+            "start_time_s": 0.287890625,
+            "version": "sircus-xy650-first-flight-aperture-v1"
+          },
+          "id": "verification-64-impact-verify-04-r1",
+          "repeat_index": 1,
+          "substeps": 64
+        },
+        {
+          "execution_fingerprint": "da5399423837d8a0953971bb04282bdbafcb7444a5e9e8dfb912865b6fa77572",
+          "first_flight": {
+            "available": true,
+            "closest_opening_distance_m": 0.1179651772850835,
+            "crossing_plane": "ball_center_at_rim",
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "cutoff_reason": "contact",
+            "end_index": 9007,
+            "end_time_s": 0.5863932291666667,
+            "first_crossing": null,
+            "mouth_clearance_m": null,
+            "reason": null,
+            "sample_count": 4586,
+            "start_index": 4422,
+            "start_time_s": 0.287890625,
+            "version": "sircus-xy650-first-flight-aperture-v1"
+          },
+          "id": "verification-64-impact-verify-04-r2",
+          "repeat_index": 2,
+          "substeps": 64
+        },
+        {
+          "execution_fingerprint": "a4efe9e52040826d8b944253e5c1feef53be0fa68284193dd6a3ab90f91ea68f",
+          "first_flight": {
+            "available": true,
+            "closest_opening_distance_m": 0.11096697547839585,
+            "crossing_plane": "ball_center_at_rim",
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "cutoff_reason": "contact",
+            "end_index": 18076,
+            "end_time_s": 0.5884114583333333,
+            "first_crossing": null,
+            "mouth_clearance_m": null,
+            "reason": null,
+            "sample_count": 9235,
+            "start_index": 8842,
+            "start_time_s": 0.28782552083333335,
+            "version": "sircus-xy650-first-flight-aperture-v1"
+          },
+          "id": "verification-128-impact-verify-04-r0",
+          "repeat_index": 0,
+          "substeps": 128
+        },
+        {
+          "execution_fingerprint": "13f35a0bf877569531620debf47ba3446e31fcc18e824ea5852de510542d313d",
+          "first_flight": {
+            "available": true,
+            "closest_opening_distance_m": 0.11096700545243061,
+            "crossing_plane": "ball_center_at_rim",
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "cutoff_reason": "contact",
+            "end_index": 18076,
+            "end_time_s": 0.5884114583333333,
+            "first_crossing": null,
+            "mouth_clearance_m": null,
+            "reason": null,
+            "sample_count": 9235,
+            "start_index": 8842,
+            "start_time_s": 0.28782552083333335,
+            "version": "sircus-xy650-first-flight-aperture-v1"
+          },
+          "id": "verification-128-impact-verify-04-r1",
+          "repeat_index": 1,
+          "substeps": 128
+        },
+        {
+          "execution_fingerprint": "1805fd72b0b7d3b95412c2d9ffe637ada52acfc4c0777366d590daf67456a70c",
+          "first_flight": {
+            "available": true,
+            "closest_opening_distance_m": 0.11096700545243061,
+            "crossing_plane": "ball_center_at_rim",
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "cutoff_reason": "contact",
+            "end_index": 18076,
+            "end_time_s": 0.5884114583333333,
+            "first_crossing": null,
+            "mouth_clearance_m": null,
+            "reason": null,
+            "sample_count": 9235,
+            "start_index": 8842,
+            "start_time_s": 0.28782552083333335,
+            "version": "sircus-xy650-first-flight-aperture-v1"
+          },
+          "id": "verification-128-impact-verify-04-r2",
+          "repeat_index": 2,
+          "substeps": 128
+        }
+      ],
+      "qualification": {
+        "capture_both": false,
+        "capture_qualified": false,
+        "clean_both": false,
+        "clean_qualified": false,
+        "max_drift_m": 0.0015768399813789542,
+        "oracle_agreement": true,
+        "physics_valid": true,
+        "qualified": false,
+        "source_capture": true,
+        "status": "failed"
+      },
+      "sensitivity": {
+        "capture_agreement": 0,
+        "nominal_position_delta_350ms_max_m": 0.0015768399813789542,
+        "paired_attempts": 3
+      },
+      "source_route_quality": 1
+    }
+  ],
+  "verification_counts": {
+    "attempts": 30,
+    "captures": 15,
+    "clean": 0,
+    "geometry_rejections": 0,
+    "invalid": 0,
+    "max_retention_s": 1.0,
+    "native_releases": 30,
+    "rim_assisted": 15,
+    "whole_entries": 15
+  },
+  "version": "sircus-impact650-curation-v1",
+  "worker_elapsed_s": 544.2776092109998
+}

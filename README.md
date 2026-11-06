@@ -1,6 +1,8 @@
 # Sircus — Simple Circus
 
-**Current mjlab checkpoint:** [completed matched sweep/PPO benchmark](baselines/mjlab-sweep-rl-benchmark-20261103/README.md). Frozen formal test scores are sweep **67/216 (31.0%)**, PPO **58/216 (26.9%)**. The 1 µm wall-overlap rule is contact-sensitive, so these labels do not establish an ordinary capture or adaptation winner. The earlier [35-position planner](baselines/mjlab-grid35-expanded-20261103/README.md) retains 17 selected recipes, 12 unresolved targets and 6 clearance blockers; its historical definitions/results remain unchanged.
+**Latest mjlab diagnostic:** the [bounded impact-point study](baselines/mjlab-impact650-20261105/README.md) completed 189 requests / 146 native releases in 9.1 worker-minutes. Five selected settings captured 15/15 at 64 and 0/15 at 128; none qualified. Controls and all 54,829 independent audit checks passed. No new PPO or noise run was started.
+
+**Existing policy benchmark, historical definitions:** [completed matched sweep/PPO benchmark](baselines/mjlab-sweep-rl-benchmark-20261103/README.md). Frozen formal test scores are sweep **67/216 (31.0%)**, PPO **58/216 (26.9%)**. The 1 µm wall-overlap rule is contact-sensitive, so these labels do not establish an ordinary capture or adaptation winner. The earlier [35-position planner](baselines/mjlab-grid35-expanded-20261103/README.md) retains 17 selected recipes, 12 unresolved targets and 6 clearance blockers; its historical definitions/results remain unchanged.
 
 Two UFACTORY850 arms learn to bounce a ball from a suction-mounted board into a bucket. Arm10 picks/releases; arm14 positions the board. This private repository is the shared source for Mac physical work and Ubuntu simulation work.
 
@@ -13,13 +15,16 @@ The current goal is a simulation showcase with an interactively placed bucket an
 - **Bounded impact-point study:** [protocol and 189-request plan](sircus/mjlab/IMPACT650.md).
   Three fixed source families, real off-center releases, matched 64/128 checks.
   Board centers stay 650 mm from buckets; nominal impact flight distance varies.
-  Results pending; maximum 200 requests and one acquired-slot worker-hour.
+  [Completed audited results](baselines/mjlab-impact650-20261105/README.md): 135 coarse
+  requests / 92 native releases, five rim captures and zero clean. All five selected
+  settings captured 3/3 at 64 and 0/3 at 128. Both control gates and 54,829 independent
+  checks passed; 189 total requests and 544.3 worker-seconds. No candidate qualified.
 
 - **Remaining 30° verification:** [bounded 54-request protocol](sircus/mjlab/TILT650.md).
   [Completed audited results](baselines/mjlab-tilt30-650-20261105/README.md): all five
   exact recipes captured 3/3 at 64 and 0/3 at 128; no recipe qualified. All 54
   native releases and 14,410 independent checks passed validity/accounting.
-  Contact analysis motivates a bounded impact-point study before more PPO.
+  Its subsequent bounded impact-point study is reported separately above.
 
 - **Translated XY650 development search:** [bounded protocol](sircus/mjlab/XY650.md).
   Board and bucket move together at fixed 650 mm distance/bearing; fresh strict

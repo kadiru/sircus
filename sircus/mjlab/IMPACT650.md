@@ -1,5 +1,9 @@
 # Bounded 650 mm board-center impact-point experiment
 
+Completed: [audited results and exact settings](../../baselines/mjlab-impact650-20261105/README.md).
+The 189-request study found no 64/128-qualified recipe; both control gates and
+all 54,829 independent checks passed. The protocol below is preserved as executed.
+
 This study changes where the vertical drop ray intersects the board's nominal
 center plane. It keeps the three seed boards, bucket positions, board-arm joints,
 tilts and drop gaps fixed. New dropper endpoints move the actual released ball;
