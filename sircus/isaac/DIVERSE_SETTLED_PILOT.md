@@ -1,7 +1,28 @@
 # Diverse-region PPO and measured driven setup
 
-This opt-in follow-up keeps the broad and single-local-box pilots frozen. Native
-results are pending the fixed-request setup check and short matched pilot.
+This opt-in follow-up keeps the broad and single-local-box pilots frozen.
+The direct final-source setup check passed; the matched PPO pilot is running.
+New learned-policy and held-out results remain pending.
+
+## Verified setup checkpoint
+
+Producer `40dd24ffdfeec0cd521fdfbf409c31c68c69a2d7` replayed the same 100
+saved training requests: admission improved **48 to 80**, with **32 repairs and
+zero regressions**. The independent CPU audit checked 33,950 measurement windows,
+43 corrections, original holding gains and all eight dropper/six board-arm DOFs.
+Remaining failures were eight unsupported requests, two board-arm IK failures,
+five moving endpoints and five incomplete transits. All remained withheld.
+This check released zero task balls and made zero PPO updates; startup contact
+probes are separate. It is not capture-rate or held-out evaluation evidence.
+
+The setup summary SHA256 is
+`a49de1e750599953611de58aa6217f3f4649a9a87b4aa7b9321d000212040a20`;
+independent audit SHA256 is
+`39b88834a3c622cf9f0d970e57b90d261def84143a82e106d4c657d676bacfe5`.
+The final pilot uses the same immutable producer/archive, with 1,600 attempted
+training shots, 16 updates and the unchanged 25/5/5 split. At this checkpoint
+its geometry/initial checks are underway; no new completed learning result is
+claimed. Raw native traces and media remain outside Git.
 
 ## Two changes, measured separately from learning
 
