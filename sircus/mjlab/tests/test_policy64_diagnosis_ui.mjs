@@ -51,6 +51,12 @@ test('pending native proof and failed/partial evidence cannot overwrite original
  assert.ok(d.get('source').textContent.includes('parent audit and bytes verified'));assert.equal(d.get('result').attrs['data-state'],'unknown');assert.equal(d.get('native-status').attrs['data-state'],'unknown');assert.ok(d.get('native-status').textContent.includes('12 / 96'));assert.equal(d.rows('counts')[1][3],'18 / 50');
  raw.audit={status:'failed'};ui.renderPolicy64Diagnosis(d.root,raw);assert.equal(d.get('result').attrs['data-state'],'failed');assert.ok(d.get('result').textContent.includes('unverified'));
 });
+test('flight display keeps an observed prefix through terminal events and never alters raw traces',()=>{
+ const trace={position_m:[[0,0,.6],[0,0,.3],[0,0,.15],[0,0,-.21],[3,0,-19],[4,0,.2]],sample_dt_s:.1},before=JSON.stringify(trace);
+ const fall=ui.diagnosisFlightWindow(trace,{capture:false});assert.equal(fall.points.length,4);assert.equal(fall.rawSamples,6);assert.equal(fall.points.at(-1)[2],-.21);assert.ok(fall.cutoff.includes('fall cutoff'));
+ const capture=ui.diagnosisFlightWindow(trace,{capture:true,capture_time_s:.15});assert.equal(capture.points.length,2);assert.ok(capture.cutoff.includes('capture time'));
+ assert.equal(JSON.stringify(trace),before);assert.equal(ui.diagnosisFlightWindow({...trace,position_m:trace.position_m.slice(0,3)},{capture:false}).cutoff,'recorded horizon');
+});
 test('fragment and script preserve old panels, compatibility and read-only boundary',()=>{
  const html=readFileSync(new URL('../web/policy64-diagnosis.html',import.meta.url),'utf8'),css=readFileSync(new URL('../web/policy64-diagnosis.css',import.meta.url),'utf8');
  for(const term of ['id="policy64Diagnosis"','<!--POLICY64_DIAGNOSIS_STYLE-->','<!--POLICY64_DIAGNOSIS_SCRIPT-->','Finite IK failure','does not prove a pose unreachable','not a new trial','compatibility guards','original 50 paired TEST'])assert.ok(html.includes(term),term);
