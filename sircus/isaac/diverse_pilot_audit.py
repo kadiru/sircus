@@ -241,8 +241,29 @@ def independent_feedback_ready(metric):
     """Quiet readbacks alone never establish readiness to correct steady bias."""
     lag = max(abs(p-t) for state in metric["arms"].values()
               for p, t in zip(state["position_rad"], state["target_rad"]))
-    return (metric["joint_speed_rad_s"] <= .005 and metric["position_drift_mm"] <= .1
+    return (metric["joint_speed_rad_s"] <= .005 and all_articulation_speed(metric) <= .005 and metric["position_drift_mm"] <= .1
         and metric["normal_drift_deg"] <= .05 and metric["dropper_drift_mm"] <= .1 and lag <= .02)
+
+
+def all_articulation_speed(metric):
+    """Legacy numeric gate covers six rotary joints AND dropper fingers.
+
+    The historical scalar name is joint_speed_rad_s. Prismatic finger channels
+    retain their native m/s values under that same legacy numeric threshold.
+    """
+    names, velocities = metric.get("articulation_joint_names", {}), metric.get("all_articulation_joint_velocity", {})
+    require(set(names) == set(velocities) == {"Arm10", "Arm14"}, "Missing all-articulation velocity/name readbacks")
+    robot_names = ["joint"+str(i) for i in range(1, 7)]
+    require(isinstance(names["Arm10"], list) and len(names["Arm10"]) == 8 and names["Arm10"][:6] == robot_names
+        and set(names["Arm10"][6:]) == {"finger_left_joint", "finger_right_joint"}
+        and names["Arm14"] == robot_names, "Articulation joint inventory/order changed")
+    maximum = 0.
+    for arm, count in (("Arm10", 8), ("Arm14", 6)):
+        values = finite(velocities[arm], (count,), "full articulation velocity")
+        robot = finite(metric.get("arms", {}).get(arm, {}).get("velocity_rad_s"), (6,), "six-joint FK velocity")
+        require(np.array_equal(values[:6], robot), "Robot FK velocities differ from full articulation readback")
+        maximum = max(maximum, float(np.abs(values).max()))
+    return maximum
 
 
 def verify_settling_history(trial, scene, cells, study):
@@ -316,13 +337,11 @@ def verify_settling_history(trial, scene, cells, study):
             for key, value in pose.items():
                 require(abs(metric.get(key, math.inf)-value) <= 1e-3, "Measured settling pose metric differs: "+key)
             require(set(metric.get("arms", {})) == {"Arm10", "Arm14"}, "Incomplete settling joint state")
-            max_speed = 0.
             for state in metric["arms"].values():
                 require(set(state) == {"position_rad", "velocity_rad_s", "target_rad"}, "Settling arm columns changed")
                 for key in state:
                     values = finite(state[key], (6,), "settling "+key)
-                    if key == "velocity_rad_s":
-                        max_speed = max(max_speed, float(np.abs(values).max()))
+            max_speed = all_articulation_speed(metric)
             require(abs(metric.get("joint_speed_rad_s", math.inf)-max_speed) <= 1e-7, "Measured joint-speed gate differs from readback")
             for key in ("previous_board_center_m", "previous_board_normal", "previous_dropper_flange_m"):
                 finite(metric.get(key), (3,), key)
@@ -344,7 +363,8 @@ def verify_settling_history(trial, scene, cells, study):
                     "Measured stabilization hold outside declared initial/correction bound")
         require(row.get("settled") == history[-1], "Release row does not use final measured stability window")
         if not row["invalid"]:
-            require(accepted(history[-1]) and history[-1]["dropper_position_error_mm"] <= 2,
+            require(accepted(history[-1]) and all_articulation_speed(history[-1]) <= .005
+                    and history[-1]["dropper_position_error_mm"] <= 2,
                     "Admitted release violates original measured gate")
         per_cell = [c for c in corrections if c.get("cell_id") == cell["id"]]
         require(len(per_cell) <= 3 and len({c["iteration"] for c in per_cell}) == len(per_cell), "Excessive or repeated bias corrections")
@@ -353,7 +373,8 @@ def verify_settling_history(trial, scene, cells, study):
             require(metric in history and metric["iteration"] == correction.get("iteration")
                 and metric == [m for m in history if m["iteration"] == correction["iteration"]][-1],
                 "Correction not bound to final prior measured window")
-            require(metric["joint_speed_rad_s"] <= .005 and metric["position_drift_mm"] <= .1
+            require(metric["joint_speed_rad_s"] <= .005 and all_articulation_speed(metric) <= .005
+                and metric["position_drift_mm"] <= .1
                 and metric["normal_drift_deg"] <= .05 and metric["dropper_drift_mm"] <= .1,
                 "Correction attempted before measured motion was quiet")
             lag = max(abs(p-t) for state in metric["arms"].values() for p, t in zip(state["position_rad"], state["target_rad"]))
@@ -372,11 +393,11 @@ def verify_settling_history(trial, scene, cells, study):
                     and all(fit.get("solved") is True for fit in correction["fits"].values()),
                     "Applied correction lacks solved arm targets")
     require(all(c.get("cell_id") in by_id for c in corrections), "Unknown correction workcell")
-    # V4 native and setup-only rows both retain initial qualification/path
+    # Native and setup-only rows both retain initial qualification/path
     # admission, allowing complete reconstruction of the common wait barrier.
     complete_eligibility = (isinstance(trial.get("enabled"), list) and len(trial["enabled"]) == 35
         and all("qualification" in row and "path_proxy" in row for row in trial["rows"]))
-    require(complete_eligibility, "V4 audit requires complete initial qualification/path eligibility records")
+    require(complete_eligibility, "Audit requires complete initial qualification/path eligibility records")
     require(all(isinstance(row["qualification"], dict) and type(row["qualification"].get("accepted")) is bool
         and (not row["qualification"]["accepted"] or isinstance(row["path_proxy"], dict)
              and type(row["path_proxy"].get("accepted")) is bool) for row in trial["rows"]),
@@ -395,7 +416,7 @@ def verify_settling_history(trial, scene, cells, study):
                                     and c.get("invalid") is not None for c in corrections)
                 if use and not prior_failure:
                     metric = records[i][indices[-1]]
-                    require((accepted(metric) and metric["dropper_position_error_mm"] <= 2)
+                    require((accepted(metric) and all_articulation_speed(metric) <= .005 and metric["dropper_position_error_mm"] <= 2)
                         or independent_feedback_ready(metric),
                         "Stabilization exited early before release or joint-lag-aware feedback readiness")
                     eligible_checks += 1
@@ -403,6 +424,7 @@ def verify_settling_history(trial, scene, cells, study):
             "Release preceded final stability measurement")
     return dict(measured_windows=windows, bias_corrections=len(corrections), original_holding_gains_restored=True,
                 quiet_before_every_correction_verified=True,
+                full_articulation_velocity_gate_verified=True,
                 early_exit=dict(short_global_windows=short_windows, eligible_cell_stage_checks=eligible_checks,
                     complete_initial_qualification_path_eligibility_logged=complete_eligibility,
                     readiness="Release-ready OR quiet plus maximum arm joint lag <=0.02 rad",
@@ -896,7 +918,7 @@ def audit_setup_check(run, original_run):
             "Setup-check requests, membership or status vector changed")
         require(all(isinstance(record.get(key), list) and len(record[key]) == 35
                     for key in ("qualifications", "path_checks", "path_reasons")),
-                "V4 setup-check missing initial qualification/path eligibility readbacks")
+                "Setup-check missing initial qualification/path eligibility readbacks")
         histories = record.get("settling_history", [])
         require(len(histories) == 35 and all(isinstance(h, list) and h for h in histories),
                 "Setup-check missing measured histories")
