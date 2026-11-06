@@ -17,8 +17,10 @@ FK-verified legal full turns/null wrist spin, freshly checks the requested
 endpoint and path proxy, and drives toward the target without an endpoint state
 reset. A bounded eight-second tail precedes a one-second ramp back to the
 original holding gains/caps. The independent 250 ms stability window can repeat
-for up to eight seconds before feedback. Moving or grossly unfinished poses
-fail closed; only quiet Cartesian bias is corrected, independently for each arm.
+for up to 40 seconds initially, then eight seconds after each of at most three
+feedback iterations (64 seconds total). Moving or grossly unfinished poses stay
+pending through those bounded waits, fail closed at the deadline, and never
+receive bias feedback. Only quiet Cartesian bias is corrected for each arm.
 Every correction is freshly solved, verified and path-proxy checked.
 
 Original release thresholds remain: board position 2 mm, normal 0.5 degrees,
@@ -33,6 +35,14 @@ held-out outcome to select these requests. Save every target, measured state,
 gain transition, stability window and correction. Compare setup admission, not
 capture performance, against their original saved outcomes.
 
+The first audited 100-request check with eight-second windows admitted 62 versus
+48 originally, but 26 targets still had measurable board drift. Traces localized
+the slow convergence predominantly to board-base yaw; reported joint velocity
+understated the observed finite-difference motion. The longer bounded window
+preserves the original impact holding gains and independent drift guard. Rerun
+the same fixed requests to verify it before the PPO pilot. This is controller
+calibration from setup-only traces, not tuning on ball capture or held-out scores.
+
 The new proposal support retains **every** geometry-map anchor passing the
 original canonical-home path proxy, rather than selecting one anchor and
 shrinking its box. Fixed residual half-widths are 7.5 degrees bearing, 40 mm
@@ -41,6 +51,16 @@ with the original global domain during preparation. No successful-shot labels,
 rewards, outcome-based pruning, runtime projection or rejected-sample retries
 choose the regions. An anchor's endpoint/path qualification does not certify
 its box interior; every sampled request still receives native checks.
+
+Each of the 33 locally supported contexts also gets one explicitly unqualified
+**global-exploration escape** spanning the entire original action domain. Its
+first mapped anchor supplies an IK warm start only. This preserves all original
+in-bound shot possibilities at these contexts without using any previous
+capture outcomes to select them. The actor can learn to avoid the escape's
+reach/IK penalties. The two contexts without a map anchor remain unresolved
+and their attempted requests are still counted as rejects. There are 153 local
+regions and 33 global domains, not 186 certified feasible regions. Neither local
+nor global interiors have a feasibility certificate.
 
 ## Policy and comparison
 

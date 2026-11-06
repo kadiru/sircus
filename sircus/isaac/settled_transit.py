@@ -12,7 +12,7 @@ from scipy.spatial.transform import Rotation
 from continuous_pilot import ContinuousShots
 from settling_contract import accepted, correction, pose_errors
 
-VERSION = "sircus-driven-settlement-v2"
+VERSION = "sircus-driven-settlement-v3"
 
 
 def protocol():
@@ -20,7 +20,8 @@ def protocol():
                 transit_stiffness=6000., transit_damping=180.,
                 transit_effort="Original URDF joint caps", transit_tail_max_s=8.,
                 gain_restore_ramp_s=1., holding_gains="Original native gains/caps restored before measurement and release",
-                stabilization_max_s=8., minimum_hold_s=1.75, measurement_window_s=.25,
+                initial_stabilization_max_s=40., correction_stabilization_max_s=8.,
+                total_stabilization_max_s=64., minimum_hold_s=1.75, measurement_window_s=.25,
                 corrections_max=3, correction_joint_lag_limit_rad=.02,
                 release_position_mm=2., release_normal_deg=.5,
                 release_joint_velocity_rad_s=.005, release_board_drift_mm=.1,
@@ -184,7 +185,11 @@ class SettledTransitShots(ContinuousShots):
     def _wait_stable(self, board_targets, drop_targets, iteration, records, eligible):
         # Steady Cartesian bias can be corrected only after motion is quiet;
         # drift alone extends the wait rather than changing the target.
-        for window in range(round(8/.25)):
+        # The fixed-request audit found a slow board-base yaw convergence, often
+        # understated by joint velocities. Give actual pose drift time to decay
+        # under the ORIGINAL holding drives before considering bias feedback.
+        maximum=40. if iteration==0 else 8.
+        for window in range(round(maximum/.25)):
             metrics,centers,normals=self._measure(board_targets,drop_targets,iteration,records)
             if (window+1)*.25 >= 1.75 and all(release_ready(metrics[i]) or quiet(metrics[i]) for i in np.flatnonzero(eligible)):
                 break
@@ -240,13 +245,18 @@ class SettledTransitShots(ContinuousShots):
             bad=[i for i in range(self.n) if invalid[i] is None and not release_ready(metrics[i])]
             if not bad:break
             if iteration==3:
-                for i in bad:invalid[i]="endpoints_not_settled"
+                for i in bad:
+                    lag=max(max(abs(p-t) for p,t in zip(s["position_rad"],s["target_rad"])) for s in metrics[i]["arms"].values())
+                    invalid[i]=("setup_motion_not_quiet" if not quiet(metrics[i]) else
+                                "setup_transit_incomplete" if lag>.02 else "endpoints_not_settled")
                 break
             for i in bad:
                 m=metrics[i]
                 lag=max(max(abs(p-t) for p,t in zip(s["position_rad"],s["target_rad"])) for s in m["arms"].values())
-                if not quiet(m):invalid[i]="setup_motion_not_quiet";continue
-                if lag>.02:invalid[i]="setup_transit_incomplete";continue
+                # Other cells' correction waits may finish this one's motion.
+                # Keep it pending until the finite final window, without ever
+                # correcting a moving or grossly unfinished endpoint.
+                if not quiet(m) or lag>.02:continue
                 # Never apply board feedback when only the dropper is offset.
                 commands={}
                 if m["position_error_mm"]>2 or m["normal_error_deg"]>.5:

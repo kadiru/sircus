@@ -21,11 +21,15 @@ from continuous_feasibility import (
 )
 from feasibility_guided_support import _home, _links, _values, anchor_score, require, signed
 
-SCHEMA = "sircus-diverse-shot-support-v1"
+SCHEMA_V1 = "sircus-diverse-shot-support-v1"
+SCHEMA = "sircus-diverse-shot-support-v2"
 HALF_WIDTH = np.array([math.radians(7.5), .040, .040, .080, math.radians(8)])
+GLOBAL_QUALIFICATION_SCOPE = "Full original action domain is unqualified. First geometry anchor supplies only an IK warm start; every requested action still needs fresh IK/path/settlement gates."
 SCOPE = (
     "Geometry-only union of all canonical-home-path-qualified map anchors and fixed "
-    "continuous residual boxes. No capture labels, reward selection, projection, "
+    "continuous residual boxes plus one full-domain exploration region per supported cell. "
+    "The full domain is unqualified; its first local anchor is a warm start only. "
+    "No capture labels, reward selection, projection, "
     "resampling or probe-based shrinkage. Geometry assists known held-out coordinates; "
     "not globally unseen-context inference or collision-certified region interiors."
 )
@@ -62,16 +66,25 @@ def _cell_support(job):
     regions = []
     for region_id, (score, proposal, option, path) in enumerate(sorted(retained, key=lambda v: v[:2])):
         center = _values(option["action"])
-        regions.append(dict(id=region_id, proposal=proposal,
+        regions.append(dict(id=region_id, kind="local_geometry", proposal=proposal, interior_qualified=False,
             anchor_action=decode_action(cell, center, option["action"]["id"]),
             anchor_ik={name: dict(q=copy.deepcopy(option["ik"][name]["q"])) for name in home},
             anchor_score=score, anchor_path=path,
             low=np.maximum(LOW, center-HALF_WIDTH).tolist(),
             high=np.minimum(HIGH, center+HALF_WIDTH).tolist(),
             qualification_scope="Anchor only: map endpoint IK/FK and canonical-home path proxy; interior unqualified"))
+    local_count = len(regions)
+    local_coverage = _coverage(regions)
+    if regions:
+        first = regions[0]
+        regions.append(dict(id=local_count, kind="global_exploration", proposal=-1, interior_qualified=False,
+            anchor_action=copy.deepcopy(first["anchor_action"]), anchor_ik=copy.deepcopy(first["anchor_ik"]),
+            low=LOW.tolist(), high=HIGH.tolist(),
+            qualification_scope=GLOBAL_QUALIFICATION_SCOPE))
     return dict(cell_id=cell["id"], cell_index=index, bucket_xy_m=copy.deepcopy(cell["bucket_xy_m"]),
         status="supported" if regions else "unresolved", map_candidates=len(options),
-        region_count=len(regions), regions=regions, anchor_checks=checks,
+        region_count=len(regions), local_region_count=local_count, global_region_count=int(bool(local_count)),
+        regions=regions, anchor_checks=checks, local_coverage=local_coverage,
         reason=None if regions else "no_map_anchor_with_home_path_proxy", coverage=_coverage(regions))
 
 
@@ -118,20 +131,24 @@ def build_support(feasibility, source_spec, assets, workers=8, progress=None):
         canonical_home_joint_rad={k: v.tolist() for k, v in _home(assets).items()},
         action_names=list(ACTION_NAMES), global_low=LOW.tolist(), global_high=HIGH.tolist(),
         fixed_half_width=HALF_WIDTH.tolist(), anchor_path_samples=16,
-        selection="Every map candidate passing unchanged canonical-home path proxy; no region pruning",
+        selection="Every map candidate passing unchanged canonical-home path proxy plus one unqualified original-domain escape region per supported context; no outcome-dependent pruning",
         region_order="Geometry-prior score, then map proposal index; no reward/outcome input",
         seed_source="Selected geometry anchor is a warm start only; fresh native solves mandatory",
-        cells=rows, region_count=len(regions), supported_cells=sum(r["status"] == "supported" for r in rows),
+        cells=rows, region_count=len(regions), local_region_count=sum(r["local_region_count"] for r in rows),
+        global_region_count=sum(r["global_region_count"] for r in rows),
+        supported_cells=sum(r["status"] == "supported" for r in rows),
         max_regions_per_cell=max((r["region_count"] for r in rows), default=0),
-        coverage=_coverage(regions), elapsed_s=time.monotonic()-started, scope=SCOPE)
+        coverage=_coverage(regions), local_coverage=_coverage([r for r in regions if r["kind"] == "local_geometry"]),
+        elapsed_s=time.monotonic()-started, scope=SCOPE)
     result["fingerprint"] = canonical_hash(result)
     return validate_support(result, cells)
 
 
 def validate_support(support, cells=None):
     signed(support, "Diverse support")
-    require(support.get("schema") == SCHEMA and support.get("policy_geometry_only") is True,
+    require(support.get("schema") in (SCHEMA, SCHEMA_V1) and support.get("policy_geometry_only") is True,
             "Unsupported diverse proposal contract")
+    v2 = support["schema"] == SCHEMA
     for key in ("source_fingerprint", "feasibility_fingerprint"):
         require(isinstance(support.get(key), str) and re.fullmatch(r"[0-9a-f]{64}", support[key]),
                 "Invalid diverse source identity")
@@ -151,13 +168,27 @@ def validate_support(support, cells=None):
                 and row["region_count"] == len(regions), "Invalid diverse support status/count")
         require([r["id"] for r in regions] == list(range(len(regions))), "Noncanonical diverse region IDs")
         require(len({r["proposal"] for r in regions}) == len(regions), "Duplicate geometry region")
+        locals_ = regions[:-1] if v2 and regions else regions
+        if v2:
+            require(row.get("local_region_count") == len(locals_)
+                    and row.get("global_region_count") == int(bool(regions))
+                    and row.get("local_coverage") == _coverage(locals_), "Diverse local/global counts changed")
+            if regions:
+                require(bool(locals_) and all(r.get("kind") == "local_geometry" and r["proposal"] >= 0 for r in locals_)
+                        and regions[-1].get("kind") == "global_exploration" and regions[-1]["proposal"] == -1
+                        and regions[-1]["anchor_action"] == locals_[0]["anchor_action"]
+                        and regions[-1]["anchor_ik"] == locals_[0]["anchor_ik"]
+                        and regions[-1].get("qualification_scope") == GLOBAL_QUALIFICATION_SCOPE,
+                        "Global exploration escape region changed")
+            require(all(r.get("interior_qualified") is False for r in regions), "Exploration interior cannot be labeled qualified")
         for region in regions:
             low, high = np.asarray(region["low"]), np.asarray(region["high"])
             center = _values(region["anchor_action"])
             require(low.shape == high.shape == (5,) and np.isfinite(low).all() and np.isfinite(high).all()
                     and (high > low).all() and (low >= LOW).all() and (high <= HIGH).all(), "Invalid diverse box")
-            require(np.array_equal(low, np.maximum(LOW, center-HALF_WIDTH))
-                    and np.array_equal(high, np.minimum(HIGH, center+HALF_WIDTH)), "Diverse box widths changed")
+            is_global = v2 and region.get("kind") == "global_exploration"
+            require(np.array_equal(low, LOW if is_global else np.maximum(LOW, center-HALF_WIDTH))
+                    and np.array_equal(high, HIGH if is_global else np.minimum(HIGH, center+HALF_WIDTH)), "Diverse box widths changed")
             require(isinstance(region.get("anchor_ik"), dict)
                     and set(region["anchor_ik"]) == {"Arm10", "Arm14"}, "Region missing IK warm starts")
             for name in ("Arm10", "Arm14"):
@@ -174,6 +205,11 @@ def validate_support(support, cells=None):
             and support["supported_cells"] == sum(bool(r["regions"]) for r in rows)
             and support["max_regions_per_cell"] == max((len(r["regions"]) for r in rows), default=0)
             and support["coverage"] == _coverage(regions), "Diverse aggregate coverage changed")
+    if v2:
+        require(support.get("local_region_count") == sum(r["local_region_count"] for r in rows)
+                and support.get("global_region_count") == support["supported_cells"]
+                and support.get("local_coverage") == _coverage([r for r in regions if r["kind"] == "local_geometry"]),
+                "Diverse aggregate local/global coverage changed")
     return support
 
 

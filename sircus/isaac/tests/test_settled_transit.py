@@ -94,7 +94,14 @@ class GateTests(unittest.TestCase):
         calls.clear()
         env._measure = lambda *a: (calls.append(None) or ([metric(position_drift_mm=.2)], None, None))
         env._wait_stable(None, None, 0, records, np.array([True]))
+        self.assertEqual(len(calls), 160)
+        calls.clear()
+        env._wait_stable(None, None, 1, records, np.array([True]))
         self.assertEqual(len(calls), 32)
+        spec=controller.protocol()
+        self.assertEqual(spec["initial_stabilization_max_s"],40.)
+        self.assertEqual(spec["correction_stabilization_max_s"],8.)
+        self.assertEqual(spec["total_stabilization_max_s"],64.)
     def test_setup_does_not_write_endpoint_state_or_reset_articulations(self):
         tree = ast.parse(Path(controller.__file__).read_text())
         cls = next(n for n in tree.body if isinstance(n, ast.ClassDef) and n.name == "SettledTransitShots")
@@ -117,13 +124,35 @@ class FeedbackSelectionTests(unittest.TestCase):
         fit = dict(accepted=True, ik={n:dict(q=[.01]*6) for n in env.arms})
         endpoints = {n:np.eye(4) for n in env.arms}
         with mock.patch("feasibility_contract.dynamic_cell", side_effect=lambda c,a:c.copy()), mock.patch("expanded_pose_menu.endpoint_targets", return_value=endpoints), mock.patch("continuous_feasibility.qualify_action", return_value=fit), mock.patch("continuous_feasibility.approximate_path_check", return_value=dict(accepted=True,reasons=[])) as proxy:
-            result = env.prepare([{}])
+            result = env.prepare([{} for _ in range(env.n)])
         return result, proxy
     def test_moving_or_grossly_lagging_arm_does_not_receive_bias_correction(self):
         for m, reason in [(metric(position_error_mm=3.,position_drift_mm=.2), "setup_motion_not_quiet"), (metric(position_error_mm=3., arms={n:dict(position_rad=[0.]*6,target_rad=[.03]*6) for n in ("Arm10","Arm14")}), "setup_transit_incomplete")]:
             with self.subTest(reason=reason):
-                env = self.env([m, metric()]); result, _ = self.run_prepare(env)
+                env = self.env([m]*4); result, _ = self.run_prepare(env)
                 self.assertEqual(result[-1], [reason]); env._ik.assert_not_called()
+    def test_pending_motion_recovers_during_other_cells_feedback_without_early_bias(self):
+        env=self.env([metric()]);env.n=2;env.active_mask=np.array([True,True])
+        env.base_cells=[dict(id="pending"),dict(id="other")]
+        for a in env.arms.values():a.data.joint_pos=Array(np.zeros((2,6)))
+        windows=[
+            [metric(position_error_mm=3.,position_drift_mm=.2),metric(position_error_mm=3.)],
+            [metric(position_error_mm=3.),metric()],
+            [metric(),metric()],
+        ]
+        call=[0]
+        def wait(*args):
+            i=call[0];call[0]+=1
+            # Iteration0 corrects only the other quiet cell. Pending cell must
+            # survive, then receive its first correction after it becomes quiet.
+            self.assertEqual(env._ik.call_count,[0,1,2][i])
+            return windows[i],np.tile([1.,0.,.1],(2,1)),np.tile([0.,0.,1.],(2,1))
+        env._wait_stable=mock.Mock(side_effect=wait)
+        result,_=self.run_prepare(env)
+        self.assertEqual(result[-1],[None,None])
+        self.assertEqual([(x["cell_id"],x["iteration"]) for x in env.correction_history],[("other",0),("pending",1)])
+        self.assertEqual(env._wait_stable.call_count,3)
+
     def test_only_offset_dropper_is_corrected_and_proxy_checks_other_actual_goal(self):
         env = self.env([metric(dropper_position_error_mm=3.), metric()])
         result, proxy = self.run_prepare(env)

@@ -18,8 +18,9 @@ from feasibility_guided_report import canonical_digest, compact_counts, layout_i
 
 SCHEMA = "sircus-diverse-settled-comparison-v1"
 STUDY_SCHEMA = "sircus-native-diverse-settled-pilot-v1"
-SUPPORT_SCHEMA = "sircus-diverse-shot-support-v1"
-DECODER = "geometry-only region choice + local affine residual-v1"
+SUPPORT_SCHEMA = "sircus-diverse-shot-support-v2"
+DECODER = "geometry-only region choice + affine residual-v2"
+GLOBAL_QUALIFICATION_SCOPE = "Full original action domain is unqualified. First geometry anchor supplies only an IK warm start; every requested action still needs fresh IK/path/settlement gates."
 BASELINE_RESULT_SHA256 = "cf7e05910a22269330fc3ec89c10ed080ef0c5c67f3528b31c07e1b3735ca614"
 GUIDED_RESULT_SHA256 = "cd90e6ec9c1e1bc3729ca5113b67d98c6ebf680f0964cec68065acb1f98138ca"
 METHODS = ("broad", "guided", "diverse")
@@ -81,7 +82,8 @@ def compact_support(raw):
               "anchor_rank", "anchor_path_samples", "probe_solver", "seed_source", "elapsed_s",
               "probe_requests", "probe_accepted", "supported_cells", "total_regions", "scope",
               "selection", "max_regions", "max_regions_per_cell", "fixed_half_width", "region_order",
-              "coverage", "candidate_requests", "region_count", "policy_decoder")
+              "coverage", "local_coverage", "local_region_count", "global_region_count",
+              "candidate_requests", "region_count", "policy_decoder")
     out = {k: copy.deepcopy(raw[k]) for k in fields if k in raw}
     out.update(source_support_fingerprint=fingerprint, compact_receipt=True,
         omission_scope="Original IK joints, probe actions and geometry/path readbacks remain outside the report. Omitted fields are SHA256-bound. Region definitions are not capture witnesses or certified feasible interiors.")
@@ -92,17 +94,38 @@ def compact_support(raw):
                 and (cell["status"] == "supported") == bool(regions),
                 "Diverse support status/region count disagree")
         require(len({r["id"] for r in regions}) == len(regions), "Duplicate geometry region IDs")
+        locals_ = [r for r in regions if r.get("kind") == "local_geometry"]
+        globals_ = [r for r in regions if r.get("kind") == "global_exploration"]
+        require(len(locals_)+len(globals_) == len(regions)
+                and len(globals_) == int(bool(regions)) and bool(locals_) == bool(regions)
+                and cell.get("local_region_count") == len(locals_)
+                and cell.get("global_region_count") == len(globals_),
+                "Local anchor regions and unqualified global domains must be counted separately")
+        require(all(type(r.get("proposal")) is int and r["proposal"] >= 0 for r in locals_),
+                "A local geometry anchor cannot be an unqualified global domain")
+        if globals_:
+            escape=globals_[0]
+            require(regions[-1] is escape and escape.get("proposal") == -1
+                    and escape["low"] == raw["global_low"] and escape["high"] == raw["global_high"]
+                    and escape.get("anchor_action") == locals_[0].get("anchor_action")
+                    and escape.get("qualification_scope") == GLOBAL_QUALIFICATION_SCOPE,
+                    "Global exploration must remain the unqualified full original domain")
         row = {k: copy.deepcopy(cell[k]) for k in ("cell_id", "cell_index", "bucket_xy_m", "status",
-               "reason", "map_candidates", "candidate_regions", "rejected_regions", "coverage") if k in cell}
+               "reason", "map_candidates", "candidate_regions", "rejected_regions", "coverage",
+               "local_coverage", "local_region_count", "global_region_count") if k in cell}
         row["regions"] = []
         for region in regions:
             low, high = region["low"], region["high"]
             require(len(low) == len(high) == 5 and all(type(x) in (int, float) and math.isfinite(x)
                     for x in low+high) and all(a < b for a,b in zip(low,high)),
                     "Invalid diverse region bounds")
-            keep = {k: copy.deepcopy(region[k]) for k in ("id", "proposal", "low", "high", "anchor_action",
+            require(region.get("interior_qualified") is False,
+                    "Neither local interiors nor global exploration may be labeled qualified")
+            keep = {k: copy.deepcopy(region[k]) for k in ("id", "kind", "proposal", "low", "high", "anchor_action",
                     "probe_acceptance", "qualification_target_met", "selected_width_scale", "anchor_score",
-                    "requests", "accepted", "map_proposal", "qualification_scope") if k in region}
+                    "requests", "accepted", "map_proposal", "qualification_scope", "interior_qualified") if k in region}
+            keep["qualification_state"] = ("qualified_anchor_unqualified_local_interior"
+                if region["kind"] == "local_geometry" else "unqualified_global_exploration")
             omitted = {k:v for k,v in region.items() if k not in keep}
             keep.update(omitted_fields=sorted(omitted), omitted_fields_sha256=canonical_digest(omitted))
             row["regions"].append(keep)
@@ -112,7 +135,13 @@ def compact_support(raw):
         rows.append(row)
     out["cells"] = rows
     out["retained_region_count"] = sum(c["region_count"] for c in rows)
+    out["retained_local_region_count"] = sum(c["local_region_count"] for c in rows)
+    out["retained_global_region_count"] = sum(c["global_region_count"] for c in rows)
     out["retained_supported_cells"] = sum(c["status"] == "supported" for c in rows)
+    require(raw.get("local_region_count") == out["retained_local_region_count"]
+            and raw.get("global_region_count") == out["retained_global_region_count"]
+            and raw.get("region_count") == out["retained_region_count"],
+            "Diverse local/global aggregate counts changed")
     return out
 
 
@@ -153,7 +182,7 @@ def comparison(diverse, broad, guided, *, baseline_report_sha256=None,
         require(diverse["scoring"] == previous["scoring"], "Scoring definition changed")
     methods = dict(broad=method(broad,"Broad continuous domain"),
                    guided=method(guided,"One local geometry region"),
-                   diverse=method(diverse,"Diverse regions + measured settling"))
+                   diverse=method(diverse,"Local + global regions, measured settling"))
     differences = {}
     for split in SPLITS:
         row = {}
@@ -173,7 +202,7 @@ def comparison(diverse, broad, guided, *, baseline_report_sha256=None,
             cost_scope="Geometry preprocessing is additional to the matched native shot budget. Native elapsed includes setup, filming and evaluation; this is not a matched headless compute benchmark."),
         settling_protocol=copy.deepcopy(diverse["study"]["settling_protocol"]),
         scientific_scope="Single-seed method comparison on inherited 25/5/5 coordinates, held out from optimizer reward updates, not globally unseen layouts. Geometry at held-out coordinates assists decoding. Identical nominal repeats measure numerical repeatability, not independent scene robustness. Proposal support, hybrid policy and native setup controller change together; this does not isolate PPO or certify table-wide performance.",
-        action_scope="A categorical choice among geometry-qualified regions and a continuous residual select the shot. Requested actions still receive fresh IK/FK/path proxies and measured native release gates. Region bounds do not certify every interior action; unresolved sites are not proven impossible. Arm travel and initialized ball release remain scripted, not learned motor/grasp control.",
+        action_scope="A categorical choice selects a local region around a qualified geometry anchor or a full original-domain exploration region; a continuous residual selects the requested shot inside it. All region interiors are unqualified. Requested actions still receive fresh IK/FK/path proxies and measured native release gates. Global exploration is not an extra qualified anchor, and unresolved sites are not proven impossible. Arm travel and initialized ball release remain scripted, not learned motor/grasp control.",
         inference_scope="Frozen deterministic inference uses its own saved checkpoint without per-scene capture search or held-out outcome selection.")
 
 
@@ -231,7 +260,10 @@ def region_usage(run, support):
     require(not missing or missing == batches, "Partially missing region-choice logs")
     return dict(status="not_logged" if missing else "logged",batches=batches,logged_training_attempts=attempts,
         cells=[dict(cell_id=c["id"],split=c["split"],available_regions=len(known[c["id"]]["regions"]),
-            attempted_region_counts=dict(choices[c["id"]]),sampled_regions=len(choices[c["id"]]) if known[c["id"]]["status"] == "supported" else 0)
+            attempted_region_counts=dict(choices[c["id"]]),sampled_regions=len(choices[c["id"]]) if known[c["id"]]["status"] == "supported" else 0,
+            sampled_local_regions=sum(str(r["id"]) in choices[c["id"]] for r in known[c["id"]]["regions"] if r["kind"] == "local_geometry"),
+            local_region_attempts=sum(choices[c["id"]][str(r["id"])] for r in known[c["id"]]["regions"] if r["kind"] == "local_geometry"),
+            global_exploration_attempts=sum(choices[c["id"]][str(r["id"])] for r in known[c["id"]]["regions"] if r["kind"] == "global_exploration"))
             for c in cells],
         scope="Active training categorical requests only, including rejected shots. These are region selections, not executed pose coverage or capture evidence. Evaluation and geometry coverage excluded.")
 
