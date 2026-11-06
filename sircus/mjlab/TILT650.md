@@ -88,3 +88,12 @@ traces require a matching full independent audit before qualification is shown.
 Raw joint arrays, observed poses, dense flight caches, logs and host paths stay
 outside Git. This validates held articulated endpoints only, not pickup,
 arm transit, actuator tracking, perception, physical deployment or generalization.
+
+## Completed result
+
+[Audited results and scalar contact diagnosis](../../baselines/mjlab-tilt30-650-20261105/README.md):
+54/54 native releases, no rejects/invalids. Candidate captures are 15/15 at 64
+and 0/15 at 128; all candidate captures are rim-assisted, with zero clean. Both
+control gates passed; independent audit passed 14,410 checks. No recipe qualified.
+The next recommended impact-point study is a separate decision, capped at
+200 requests and one worker-hour; it has not been launched.

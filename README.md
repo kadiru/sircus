@@ -11,8 +11,10 @@ The current goal is a simulation showcase with an interactively placed bucket an
 ## Start here
 
 - **Remaining 30° verification:** [bounded 54-request protocol](sircus/mjlab/TILT650.md).
-  Five exact previously unverified XY650 captures receive matched 64/128 repeats
-  with separate fresh capture and clean gates. No adaptive search, noise or PPO.
+  [Completed audited results](baselines/mjlab-tilt30-650-20261105/README.md): all five
+  exact recipes captured 3/3 at 64 and 0/3 at 128; no recipe qualified. All 54
+  native releases and 14,410 independent checks passed validity/accounting.
+  Contact analysis motivates a bounded impact-point study before more PPO.
 
 - **Translated XY650 development search:** [bounded protocol](sircus/mjlab/XY650.md).
   Board and bucket move together at fixed 650 mm distance/bearing; fresh strict
