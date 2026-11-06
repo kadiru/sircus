@@ -1,5 +1,13 @@
 # Sircus in mjlab
 
+Latest diagnostic: the [bounded 650 mm impact-point study](IMPACT650.md) completed
+189 requests / 146 native releases in 544.3 worker-seconds. Discovery produced five
+rim captures and zero clean; all five selected recipes captured 3/3 at 64 but 0/3 at 128.
+No recipe qualified. Both control gates and 54,829 independent checks passed.
+[Audited geometry/results](../../baselines/mjlab-impact650-20261105/README.md) and
+[read-only UI](http://127.0.0.1:18781/#impact650Study) remain separate from historical
+policy benchmarks. No new PPO/noise or physical work was started.
+
 The [matched current-ball sweep/PPO benchmark](SWEEP_RL_BENCHMARK.md) completed
 all six workers. Each method/seed spent 1,024 TRAIN requests from the same
 17-recipe prior; frozen formal test scores are sweep **67/216 (31.0%)** and PPO
