@@ -78,6 +78,13 @@ not a newly observed flag. Such a receipt is not a resimulation, a new producer
 measurement or a feasibility certificate for future actions. Each newly sampled
 PPO action still passes the full native admission checks.
 
+The minimum-distance check retains an earlier rejection cause instead of
+overwriting it. Every otherwise eligible request below the exact limit is still
+rejected. This changes reason precedence for already-invalid requests, not
+admission or motion. Ordinary unresolved PPO accounting uses an in-bounds
+global midpoint, not a zero-radius physical shot; the regression also covers
+under-limit inactive, unsupported, home, IK and motion-failure cases.
+
 The new proposal support retains **every** geometry-map anchor passing the
 original canonical-home path proxy, rather than selecting one anchor and
 shrinking its box. Fixed residual half-widths are 7.5 degrees bearing, 40 mm

@@ -28,7 +28,7 @@ class SettledTransitShots(ContinuousShots):
   return np.asarray(releases),normals,records,invalid
 '''
 HOME_GUARD = '   elif not self.home_readback["path_eligible"][i]:reason="common_home_path_proxy_rejected"\n'
-DISTANCE_GUARD = '  for i,cell in enumerate(self.spec["cells"]):\n   if cell["distance_m"] < .28:\n    invalid[i]="board_bucket_separation"\n'
+DISTANCE_GUARD = '  for i,cell in enumerate(self.spec["cells"]):\n   if invalid[i] is None and cell["distance_m"] < .28:\n    invalid[i]="board_bucket_separation"\n'
 NEW_CONTROLLER = OLD_CONTROLLER.replace('   if reason:', HOME_GUARD+'   if reason:').replace('  return np.asarray', DISTANCE_GUARD+'  return np.asarray')
 HOME_SOURCE = '''class ContinuousShots:
  def home(self):
