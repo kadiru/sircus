@@ -12,7 +12,7 @@ from scipy.spatial.transform import Rotation
 from continuous_pilot import ContinuousShots
 from settling_contract import accepted, correction, pose_errors
 
-VERSION = "sircus-driven-settlement-v4"
+VERSION = "sircus-driven-settlement-v5"
 
 
 def protocol():
@@ -27,6 +27,7 @@ def protocol():
                 release_position_mm=2., release_normal_deg=.5,
                 release_joint_velocity_rad_s=.005, release_board_drift_mm=.1,
                 release_normal_drift_deg=.05,
+                velocity_gate_scope="Legacy numeric maximum over ALL articulation DOFs, including both simulated gripper fingers; revolute rad/s and prismatic native m/s. Six-axis FK/lag state stays separate.",
                 scope="Bounded driven setup and steady-bias feedback for both arms; no selected-endpoint joint-state reset. Readiness and release are distinct. Original score/impact holding drives unchanged.")
 
 
@@ -101,7 +102,7 @@ class SettledTransitShots(ContinuousShots):
     def _joint_status(self, targets):
         errors = {n: (a.data.joint_pos[:, :6]-targets[n][:, :6]).abs().amax(dim=1).cpu().numpy()
                   for n,a in self.arms.items()}
-        speeds = {n: a.data.joint_vel[:, :6].abs().amax(dim=1).cpu().numpy()
+        speeds = {n: a.data.joint_vel.abs().amax(dim=1).cpu().numpy()
                   for n,a in self.arms.items()}
         return errors, speeds
 
@@ -172,7 +173,10 @@ class SettledTransitShots(ContinuousShots):
         for _ in range(60): self.tick()
         centers,normals=self.board_poses()
         drop=self.arms["Arm10"].data.body_pos_w[:,self.flange_idx].cpu().numpy().copy()-self.origins
-        speed=np.maximum.reduce([a.data.joint_vel[:,:6].abs().amax(dim=1).cpu().numpy() for a in self.arms.values()])
+        # Match the historical gate over every native DOF, including the
+        # simulated prismatic fingers, rather than only the six FK axes.
+        all_velocity={n:a.data.joint_vel.cpu().numpy().copy() for n,a in self.arms.items()}
+        speed=np.maximum.reduce([np.abs(v).max(axis=1) for v in all_velocity.values()])
         state=self._state()
         metrics=[]
         for i in range(self.n):
@@ -184,6 +188,8 @@ class SettledTransitShots(ContinuousShots):
                 dropper_drift_mm=float(np.linalg.norm(drop[i]-prev_drop[i])*1000),
                 previous_board_center_m=prev[i].tolist(),previous_board_normal=prev_normal[i].tolist(),
                 previous_dropper_flange_m=prev_drop[i].tolist(),
+                all_articulation_joint_velocity={n:v[i].tolist() for n,v in all_velocity.items()},
+                articulation_joint_names={n:list(a.joint_names) for n,a in self.arms.items()},
                 board_center_m=centers[i].tolist(),board_normal=normals[i].tolist(),
                 dropper_flange_m=drop[i].tolist(),arms={n:{k:v[i] for k,v in s.items()} for n,s in state.items()})
             metrics.append(m);records[i].append(m)
@@ -211,7 +217,9 @@ class SettledTransitShots(ContinuousShots):
         self.spec["cells"]=[dynamic_cell(c,a) for c,a in zip(self.base_cells,actions)]
         self.path_reasons=[None]*self.n;self.path_checks=[None]*self.n
         self.qualifications=[];invalid=[None]*self.n
-        q={n:a.data.joint_pos.clone() for n,a in self.arms.items()}
+        # Keep the original open-finger targets at active sites. The approach
+        # routine replaces every inactive target with its actual parked state.
+        q={n:a.data.default_joint_pos.clone() for n,a in self.arms.items()}
         board_targets=[];drop_targets=[];releases=[]
         base=matrix([self.cfg["arms"]["base_spacing_m"],0,0],[0,0,np.pi])
         mount=matrix([0,0,self.cfg["board"]["tool_offset_m"]],[0,0,self.cfg["board"]["mount_yaw_rad"]])

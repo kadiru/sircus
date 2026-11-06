@@ -16,6 +16,8 @@ from continuous_policy import torch
 class Array:
     def __init__(self, value): self.value = np.asarray(value, dtype=float)
     def clone(self): return Array(self.value.copy())
+    def abs(self): return Array(np.abs(self.value))
+    def amax(self, dim): return Array(self.value.max(axis=dim))
     def cpu(self): return self
     def numpy(self): return self.value
     def tolist(self): return self.value.tolist()
@@ -25,7 +27,7 @@ class Array:
 class Arm:
     joint_names = [f"joint{i+1}" for i in range(6)]
     def __init__(self):
-        self.data = types.SimpleNamespace(joint_pos=Array(np.zeros((1, 6))))
+        self.data = types.SimpleNamespace(joint_pos=Array(np.zeros((1, 6))),default_joint_pos=Array(np.zeros((1,6))))
         self.commands = []
     def set_joint_position_target(self, value): self.commands.append(value.value.copy())
 
@@ -131,6 +133,39 @@ class GateTests(unittest.TestCase):
         attrs = [n.func.attr for n in ast.walk(cls) if isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute)]
         for forbidden in ["write_joint_state_to_sim", "write_root_state_to_sim", "reset"]: self.assertNotIn(forbidden, attrs)
 
+class AllArticulationVelocityTests(unittest.TestCase):
+    def test_fast_finger_prevents_release_and_feedback_while_six_arm_axes_are_quiet(self):
+        env=controller.SettledTransitShots();env.n=1;env.steps=10;env.dt=1/240
+        env.origins=np.zeros((1,3));env.flange_idx=0;env.arms={}
+        for name,count in [("Arm10",8),("Arm14",6)]:
+            velocity=np.zeros((1,count))
+            if name=="Arm10":velocity[0,7]=.02
+            env.arms[name]=types.SimpleNamespace(
+                joint_names=[f"joint{i+1}" for i in range(6)]+(["finger_left_joint","finger_right_joint"] if count==8 else []),
+                data=types.SimpleNamespace(joint_pos=Array(np.zeros((1,count))),
+                    joint_vel=Array(velocity),joint_pos_target=Array(np.zeros((1,count))),
+                    body_pos_w=Array(np.zeros((1,1,3)))))
+        env.tick=lambda:setattr(env,"steps",env.steps+1)
+        env.board_poses=lambda:(np.zeros((1,3)),np.array([[0.,0.,1.]]))
+        records=[[]]
+        metrics,_,_=env._measure([np.eye(4)],[np.eye(4)],0,records)
+        m=metrics[0]
+        self.assertAlmostEqual(m["joint_speed_rad_s"],.02)
+        self.assertFalse(controller.release_ready(m))
+        self.assertFalse(controller.quiet(m))
+        self.assertFalse(controller.feedback_ready(m))
+        # Geometry/FK/lag intentionally remain six arm coordinates, while the
+        # release speed gate must include the two separate gripper coordinates.
+        self.assertEqual(len(m["arms"]["Arm10"]["position_rad"]),6)
+        self.assertEqual(len(m["arms"]["Arm10"]["velocity_rad_s"]),6)
+        self.assertEqual(m["measurement_start_step"],10)
+        self.assertEqual(m["physics_step"],70)
+        self.assertEqual(len(m["all_articulation_joint_velocity"]["Arm10"]),8)
+        self.assertEqual(len(m["all_articulation_joint_velocity"]["Arm14"]),6)
+        self.assertEqual(m["all_articulation_joint_velocity"]["Arm10"][-1],.02)
+        self.assertEqual(m["articulation_joint_names"]["Arm10"][-2:],["finger_left_joint","finger_right_joint"])
+
+
 class FeedbackSelectionTests(unittest.TestCase):
     def env(self, metrics):
         env = controller.SettledTransitShots(); env.n = 1
@@ -157,7 +192,9 @@ class FeedbackSelectionTests(unittest.TestCase):
     def test_pending_motion_recovers_during_other_cells_feedback_without_early_bias(self):
         env=self.env([metric()]);env.n=2;env.active_mask=np.array([True,True])
         env.base_cells=[dict(id="pending"),dict(id="other")]
-        for a in env.arms.values():a.data.joint_pos=Array(np.zeros((2,6)))
+        for a in env.arms.values():
+            a.data.joint_pos=Array(np.zeros((2,6)))
+            a.data.default_joint_pos=Array(np.zeros((2,6)))
         windows=[
             [metric(position_error_mm=3.,position_drift_mm=.2),metric(position_error_mm=3.)],
             [metric(position_error_mm=3.),metric()],
@@ -175,6 +212,21 @@ class FeedbackSelectionTests(unittest.TestCase):
         self.assertEqual(result[-1],[None,None])
         self.assertEqual([(x["cell_id"],x["iteration"]) for x in env.correction_history],[("other",0),("pending",1)])
         self.assertEqual(env._wait_stable.call_count,3)
+
+    def test_active_tool_targets_use_configured_default_not_measured_home_drift(self):
+        env=self.env([metric()])
+        a=env.arms["Arm10"]
+        a.joint_names=a.joint_names+["finger_left_joint","finger_right_joint"]
+        a.data.joint_pos=Array([[0.]*6+[.021,.022]])
+        a.data.default_joint_pos=Array([[0.]*6+[.025,.025]])
+        captured=[]
+        env.approach_endpoints=lambda goals:captured.append(goals["Arm10"].value.copy())
+        result,_=self.run_prepare(env)
+        self.assertEqual(result[-1],[None])
+        self.assertEqual(len(captured),1)
+        np.testing.assert_allclose(captured[0][0,:6],[.01]*6)
+        np.testing.assert_allclose(captured[0][0,6:],[.025,.025])
+        np.testing.assert_allclose(a.data.joint_pos.value[0,6:],[.021,.022])
 
     def test_only_offset_dropper_is_corrected_and_proxy_checks_other_actual_goal(self):
         env = self.env([metric(dropper_position_error_mm=3.), metric()])
@@ -194,6 +246,7 @@ class DriveRestorationTests(unittest.TestCase):
             def __init__(self):
                 self.data = types.SimpleNamespace(
                     joint_pos=torch.tensor([[.1]*6,[.2]*6]),
+                    default_joint_pos=torch.tensor([[.1]*6,[.2]*6]),
                     joint_vel=torch.zeros((2,6)),
                     joint_pos_target=torch.tensor([[.1]*6,[.2]*6]),
                     joint_effort_limits=torch.full((2,6),100.),
@@ -239,6 +292,28 @@ class DriveRestorationTests(unittest.TestCase):
             self.assertTrue(torch.allclose(a.commands[-1][0],torch.full((6,),.4)))
             # Includes strictly intermediate stiffness values during restoration.
             self.assertTrue(any(bool(((g>1500)&(g<6000)).all()) for g in a.gains))
+    def test_eight_dof_active_tool_defaults_and_inactive_entire_pose_are_preserved(self):
+        env=self.env();a=env.arms["Arm10"]
+        a.joint_names=a.joint_names+["finger_left_joint","finger_right_joint"]
+        a.data.joint_pos=torch.tensor([[.1]*6+[.021,.022],[.2]*6+[.031,.032]])
+        a.data.joint_pos_target=a.data.joint_pos.clone()
+        a.data.joint_vel=torch.zeros((2,8))
+        a.data.default_joint_pos=torch.tensor([[0.]*6+[.025,.025],[0.]*6+[.025,.025]])
+        for key,extra in [("joint_effort_limits",30.),("joint_stiffness",1000.),("joint_damping",50.)]:
+            setattr(a.data,key,torch.cat([getattr(a.data,key),torch.full((2,2),extra)],dim=1))
+        targets={n:torch.tensor([[.4]*6,[8.]*6]) for n in env.arms}
+        targets["Arm10"]=torch.tensor([[.4]*6+[.025,.025],[8.]*6+[.025,.025]])
+        expected_inactive=a.data.joint_pos[1].clone()
+        env.approach_endpoints(targets)
+        self.assertTrue(all(torch.allclose(x[1],expected_inactive) for x in a.commands))
+        torch.testing.assert_close(a.commands[-1][0,6:],torch.tensor([.025,.025]))
+        a.data.joint_vel[0,7]=-.02
+        _,speeds=env._joint_status(targets)
+        self.assertAlmostEqual(float(speeds["Arm10"][0]),.02)
+
+        for key,expected in [("joint_effort_limits",30.),("joint_stiffness",1000.),("joint_damping",50.)]:
+            torch.testing.assert_close(getattr(a.data,key)[:,6:],torch.full((2,2),expected))
+
     def test_tick_failure_restores_original_drives_before_propagation(self):
         env=self.env(raises=True)
         with self.assertRaisesRegex(RuntimeError,"injected simulator failure"):

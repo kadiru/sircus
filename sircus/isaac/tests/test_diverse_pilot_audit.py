@@ -168,7 +168,10 @@ def settling_fixture():
             dropper_position_error_mm=0., joint_speed_rad_s=0., position_drift_mm=0.,
             normal_drift_deg=0., dropper_drift_mm=0., board_center_m=board[:3, 3].tolist(),
             board_normal=board[:3, 2].tolist(), dropper_flange_m=target["Arm10"][:3, 3].tolist(),
-            arms={name: {key: [0.]*6 for key in states[name]} for name in states})
+            arms={name: {key: [0.]*6 for key in states[name]} for name in states},
+            articulation_joint_names=dict(Arm10=['joint'+str(j) for j in range(1,7)]+['finger_right_joint','finger_left_joint'],
+                                          Arm14=['joint'+str(j) for j in range(1,7)]),
+            all_articulation_joint_velocity=dict(Arm10=[0.]*8,Arm14=[0.]*6))
         # acos of a numerically unit normal need not be exactly zero.
         m["normal_error_deg"] = float(np.rad2deg(np.arccos(np.clip(board[:3, 2]@board[:3, 2], -1, 1))))
         m["normal_drift_deg"] = m["normal_error_deg"]
@@ -188,6 +191,7 @@ class SettlingAuditTests(unittest.TestCase):
         value = audit.verify_settling_history(trial, spec["scene"], spec["cells"], study)
         self.assertEqual(value["measured_windows"], 245)
         self.assertTrue(value["original_holding_gains_restored"])
+        self.assertTrue(value['full_articulation_velocity_gate_verified'])
         self.assertTrue(value['early_exit']['complete_initial_qualification_path_eligibility_logged'])
         self.assertEqual(value['early_exit']['eligible_cell_stage_checks'],35)
 
@@ -233,6 +237,25 @@ class SettlingAuditTests(unittest.TestCase):
         m['arms']['Arm10']['position_rad'][0]=.02
         self.assertTrue(audit.independent_feedback_ready(m))
 
+    def test_fast_finger_blocks_release_while_six_robot_joints_are_quiet(self):
+        trial,spec,study=settling_fixture()
+        for metric in trial['settling_history'][0]:
+            metric['all_articulation_joint_velocity']['Arm10'][6]=.01
+            metric['joint_speed_rad_s']=.01
+        self.assertEqual(audit.all_articulation_speed(trial['settling_history'][0][-1]),np.float32(.01))
+        self.assertFalse(audit.independent_feedback_ready(trial['settling_history'][0][-1]))
+        with self.assertRaisesRegex(ValueError,'original measured gate'):
+            audit.verify_settling_history(trial,spec['scene'],spec['cells'],study)
+
+    def test_finger_omission_or_mismatched_legacy_speed_is_rejected(self):
+        for key in ('omission','misnamed','false_speed','robot_mismatch'):
+            trial,spec,study=settling_fixture();metric=trial['settling_history'][0][0]
+            if key=='omission':metric['all_articulation_joint_velocity']['Arm10']=metric['all_articulation_joint_velocity']['Arm10'][:6]
+            elif key=='misnamed':metric['articulation_joint_names']['Arm10'][6]='unknown_finger'
+            elif key=='false_speed':metric['all_articulation_joint_velocity']['Arm10'][6]=.01
+            else:metric['all_articulation_joint_velocity']['Arm14'][0]=.001
+            with self.subTest(key=key),self.assertRaises(ValueError):
+                audit.verify_settling_history(trial,spec['scene'],spec['cells'],study)
     def test_global_window_clock_is_common_and_finite(self):
         trial,spec,study=settling_fixture()
         trial['settling_history'][1].pop()
