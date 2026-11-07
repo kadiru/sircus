@@ -1,8 +1,10 @@
 # Offline learned physics ensemble — fixed64 pilot
 
-The [trained checkpoint and independent training-only checks](../../baselines/mjlab-physics-ensemble-20261106/README.md)
-are saved separately. Fresh native comparison remains pending; training loss
-does not establish a held-out capture rate.
+The [checkpoint and completed native comparison](../../baselines/mjlab-physics-ensemble-20261106/README.md)
+are saved separately. All 264 prespecified fixed64 requests completed, and the
+independent CPU audit passed **897,304 checks**. The earlier training-only and
+planning-only proofs retain their narrower scope; training loss is not a capture
+rate.
 
 This is a small state-based forward model, not a video world-action model or a
 new PPO run. It learns from the authenticated **1,024 current policy64 TRAIN
@@ -30,7 +32,37 @@ workload is never stopped, signalled or reconfigured; the queue expires after
 24 hours. The 4070 stays untouched. Acquired native execution is capped at two
 hours and an eight-GiB free-storage reserve.
 
-## Fresh evaluation
+## Completed results
+
+On the same 60 fresh TEST bucket layouts, all requested slots remain in the
+denominator:
+
+| Method | Captures | Clean captures | Setup rejects | Admitted flight misses |
+|---|---:|---:|---:|---:|
+| Saved BC | 23/60 | 3 | 16 | 21 |
+| Saved PPO | 26/60 | 5 | 15 | 19 |
+| Ensemble-ranked | 24/60 | 3 | 11 | 25 |
+
+All 264 requests produced 204 native releases and 60 setup rejects, with zero
+physics-invalid outcomes. Positive and native-miss controls passed before and
+after. The aggregate 113 captures include validation and controls, so they are
+not a TEST success rate. Acquired native execution took 1,028.1 seconds (17.1
+minutes), excluding CPU preparation, queueing and the later audit.
+
+The ensemble improved admission but did not demonstrate better capture
+performance on this single nominal cohort. All 25 ensemble flight misses lacked
+whole-ball entry. Across the 138 native TEST flights from all three methods,
+first-flight opening-distance prediction MAE was 65.2 mm. Across all 180 TEST
+requests, 100 uncalibrated capture scores were at least 0.9, but only 53 captured;
+ensemble agreement therefore does not establish reliability. The unequal
+candidate/geometry inference budgets and inherited BC/PPO expertise preclude an
+equal-compute or cold-start superiority claim.
+
+Next, inspect bounded high-score misses against the measured rebound/aperture
+traces before another training run. If these 60 TEST layouts inform changes,
+they become development data; future changed selectors need new frozen holdouts.
+
+## Frozen evaluation protocol
 
 Freeze 24 validation and 60 TEST bucket coordinates in X100–1240 mm,
 Y−650–250 mm using seeds 20261603/20261604. Each is at least 10 mm from all

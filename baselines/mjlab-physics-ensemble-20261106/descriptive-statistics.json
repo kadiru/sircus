@@ -1,0 +1,107 @@
+{
+  "version": "sircus-physics-ensemble-descriptive-statistics-v1",
+  "scope": "Post-hoc descriptive intervals from original audited outcomes; single policy study/one nominal shot per layout, not seed/noise reliability",
+  "test_comparison": [
+    {
+      "method": "bc",
+      "counts": {
+        "requested": 60,
+        "native_releases": 44,
+        "captures": 23,
+        "clean": 3,
+        "rejected": 16,
+        "native_misses": 21,
+        "invalid": 0
+      },
+      "capture_ci95": [
+        0.27088272374082023,
+        0.5098240417590008
+      ],
+      "ci95_method": "Wilson score95%; denominator60 requested layouts"
+    },
+    {
+      "method": "ppo",
+      "counts": {
+        "requested": 60,
+        "native_releases": 45,
+        "captures": 26,
+        "clean": 5,
+        "rejected": 15,
+        "native_misses": 19,
+        "invalid": 0
+      },
+      "capture_ci95": [
+        0.3157239680468677,
+        0.5589656122387444
+      ],
+      "ci95_method": "Wilson score95%; denominator60 requested layouts"
+    },
+    {
+      "method": "ensemble",
+      "counts": {
+        "requested": 60,
+        "native_releases": 49,
+        "captures": 24,
+        "clean": 3,
+        "rejected": 11,
+        "native_misses": 25,
+        "invalid": 0
+      },
+      "capture_ci95": [
+        0.2856949053488255,
+        0.5263394650795924
+      ],
+      "ci95_method": "Wilson score95%; denominator60 requested layouts"
+    }
+  ],
+  "paired_differences": [
+    {
+      "a": "bc",
+      "b": "ppo",
+      "a_only": 2,
+      "b_only": 5,
+      "shared": 21,
+      "neither": 32,
+      "delta_rate": -0.05,
+      "ci95": [
+        -0.13333333333333336,
+        0.033333333333333326
+      ],
+      "interval_method": "Paired-layout percentile95%;10000 shared resamples; seed20261651; delta=a-b",
+      "exact_mcnemar_p": 0.453125
+    },
+    {
+      "a": "bc",
+      "b": "ensemble",
+      "a_only": 4,
+      "b_only": 5,
+      "shared": 19,
+      "neither": 32,
+      "delta_rate": -0.016666666666666666,
+      "ci95": [
+        -0.1166666666666667,
+        0.08333333333333337
+      ],
+      "interval_method": "Paired-layout percentile95%;10000 shared resamples; seed20261651; delta=a-b",
+      "exact_mcnemar_p": 1.0
+    },
+    {
+      "a": "ppo",
+      "b": "ensemble",
+      "a_only": 4,
+      "b_only": 2,
+      "shared": 22,
+      "neither": 32,
+      "delta_rate": 0.03333333333333333,
+      "ci95": [
+        -0.04999999999999999,
+        0.1166666666666667
+      ],
+      "interval_method": "Paired-layout percentile95%;10000 shared resamples; seed20261651; delta=a-b",
+      "exact_mcnemar_p": 0.6875
+    }
+  ],
+  "same_layouts": 60,
+  "source_report_sha256": "9d76ed2225f5e9a659d5b8ef18839207553df87e14980cf0a290707de437b5a6",
+  "native_audit_sha256": "72e5cc9fd4c424896a0c41588b3eec0bd85317ce931cd76e90bd850474f87ebb"
+}
