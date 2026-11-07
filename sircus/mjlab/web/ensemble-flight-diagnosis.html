@@ -1,0 +1,41 @@
+<!-- Additive read-only diagnostic fragment; original comparison remains unchanged. -->
+<!--ENSEMBLE_FLIGHT_DIAGNOSIS_STYLE-->
+<section id="ensembleFlightDiagnosis" class="ensemble-flight-panel" hidden>
+  <p class="ensemble-flight-eyebrow">RECORDED FLIGHTS · POST-HOC DIAGNOSIS · NO MORE TRAINING</p>
+  <h2>Why did a promising shot miss?</h2>
+  <p data-ensemble-flight="connection" class="ensemble-flight-small" role="status">Waiting for a read-only snapshot.</p>
+  <p data-ensemble-flight="status" class="ensemble-flight-note" data-state="unknown" role="status"></p>
+  <p data-ensemble-flight="scope" class="ensemble-flight-small"></p>
+  <p class="ensemble-flight-small">A high model score is an uncalibrated prediction, not a measured probability of success. Ensemble disagreement is not a guaranteed confidence bound. These previously held-out positions are now diagnostic development data; changed models will need new held-out positions.</p>
+  <h3>The failure funnel</h3>
+  <div data-ensemble-flight="summary" class="ensemble-flight-scroll" tabindex="0" role="region" aria-label="Ensemble requested native capture and miss counts"></div>
+  <p data-ensemble-flight="funnel-details" class="ensemble-flight-note"></p>
+  <div data-ensemble-flight="calibration" class="ensemble-flight-scroll" tabindex="0" role="region" aria-label="Uncalibrated ensemble score bins versus actual captures"></div>
+  <p class="ensemble-flight-small">Score bins retain rejected requests. Native flight misses and setup rejects are separate; neither is counted as a capture. This is a description of the original study, not a new policy evaluation.</p>
+  <h3>Concrete recorded examples</h3>
+  <label class="ensemble-flight-small">Diagnostic case <select data-ensemble-flight="case-select" aria-label="Choose an ensemble flight diagnosis case"></select></label>
+  <p data-ensemble-flight="case-result" class="ensemble-flight-note"></p>
+  <div data-ensemble-flight="configuration" class="ensemble-flight-scroll" tabindex="0" role="region" aria-label="Exact bucket board height tilt and drop gap"></div>
+  <div data-ensemble-flight="prediction" class="ensemble-flight-scroll" tabindex="0" role="region" aria-label="Model scores and observed outcome"></div>
+  <div class="ensemble-flight-plots">
+    <div><h4>Flight towards the bucket</h4><canvas data-ensemble-flight="flight" width="760" height="330" role="img" aria-label="Actual ball height against distance towards bucket and separately labeled ballistic extrapolations"></canvas></div>
+    <div><h4>Where did it pass sideways?</h4><canvas data-ensemble-flight="lateral" width="760" height="330" role="img" aria-label="Actual and extrapolated ball flight in the board to bucket horizontal plane"></canvas></div>
+  </div>
+  <p data-ensemble-flight="flight-caption" class="ensemble-flight-small"></p>
+  <p class="ensemble-flight-small">Solid teal is saved native simulation. Dashed curves are explicitly labeled ballistic extrapolations from the observed rebound origin, using the supplied velocity and gravity with no subsequent contacts. They are not learned dense trajectories, new simulation runs or predictions of bucket collisions. Both views use the same board-to-bucket reference. The reported 175 mm bucket height remains provisional.</p>
+  <h3>What the model got wrong</h3>
+  <div data-ensemble-flight="errors" class="ensemble-flight-scroll" tabindex="0" role="region" aria-label="Predicted and measured rebound velocity and opening distance"></div>
+  <p data-ensemble-flight="crossing" class="ensemble-flight-note"></p>
+  <p data-ensemble-flight="diagnosis" class="ensemble-flight-small"></p>
+  <p data-ensemble-flight="training-support" class="ensemble-flight-small"></p>
+  <div data-ensemble-flight="references" class="ensemble-flight-scroll" tabindex="0" role="region" aria-label="Original saved BC PPO shots at this same bucket position"></div>
+  <p class="ensemble-flight-small">The original BC/PPO references may change several parameters together. They are observed contrasts, not proof that one parameter caused the different outcome. No new native counterfactual is implied.</p>
+  <h3>All native ensemble misses</h3>
+  <div data-ensemble-flight="misses" class="ensemble-flight-scroll" tabindex="0" role="region" aria-label="Every original native ensemble flight miss"></div>
+  <h3>Evidence and next step</h3>
+  <div data-ensemble-flight="findings" class="ensemble-flight-scroll" tabindex="0" role="region" aria-label="Diagnosis claims evidence and limitations"></div>
+  <ul data-ensemble-flight="next-steps" class="ensemble-flight-small"></ul>
+  <p data-ensemble-flight="audit" class="ensemble-flight-note"></p>
+  <p class="ensemble-flight-small">Fixed 64 substeps, privileged geometry and held endpoints. Noise, 128-substep qualification, driven arm transit, grasping and physical transfer remain outside this diagnosis. This read-only panel does not train, start a solver, activate a policy or change any service.</p>
+</section>
+<!--ENSEMBLE_FLIGHT_DIAGNOSIS_SCRIPT-->
