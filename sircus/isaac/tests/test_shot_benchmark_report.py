@@ -30,7 +30,7 @@ class BenchmarkReportTests(unittest.TestCase):
     def save_exp(self):self.write(self.root/'experiment.json',self.exp)
     def run_data(self,index=0,complete=False):
         p=self.exp['runs'][index];n=10000 if complete else 1000
-        raw=dict(schema=PROGRESS_SCHEMA,experiment_id=self.exp['experiment_id'],method=p['method'],seed=p['seed'],source=self.source,split_manifest_sha256=self.exp['split_manifest_sha256'],status='completed' if complete else 'running',train=dict(attempts=n,captures=n//10,clean=n//20,rejected=n//2,failures={'ik':n//2}),learning_curve=[dict(attempts=0,captures=0,clean=0,rejected=0,mean_reward=None,wall_s=0),dict(attempts=n,captures=n//10,clean=n//20,rejected=n//2,mean_reward=.2,wall_s=10)],checkpoints=[],resources={'headless':{'wall_s':10,'cpu_s':20,'peak_rss_mib':100,'peak_gpu_mib':None,'scope':'Synthetic fixture, not measurement'}},batches=[dict(setup_wall_s=4,score_wall_s=2,filming=False)])
+        raw=dict(schema=PROGRESS_SCHEMA,experiment_id=self.exp['experiment_id'],method=p['method'],seed=p['seed'],source=self.source,source_sha256={'shot_benchmark_audit.py':'e'*64},source_trial_sha256={},updates=0,split_manifest_sha256=self.exp['split_manifest_sha256'],status='completed' if complete else 'running',train=dict(attempts=n,captures=n//10,clean=n//20,rejected=n//2,failures={'ik':n//2}),learning_curve=[dict(attempts=0,captures=0,clean=0,rejected=0,mean_reward=None,wall_s=0),dict(attempts=n,captures=n//10,clean=n//20,rejected=n//2,mean_reward=.2,wall_s=10)],checkpoints=[],resources={'headless':{'wall_s':10,'cpu_s':20,'peak_rss_mib':100,'peak_gpu_mib':None,'scope':'Synthetic fixture, not measurement'}},batches=[dict(setup_wall_s=4,score_wall_s=2,filming=False)])
         def evaluation(split,cap,clean,rejected):
             return dict(attempts=len(self.splits[split]),captures=cap,clean=clean,rejected=rejected,failures={'ik':rejected},layouts=[dict(layout_id=p['id'],bucket_xy_m=p['bucket_xy_m'],requested=None,measured=None,outcome=dict(captured=i<cap,clean=i<clean,rejected=cap<=i<cap+rejected,reason=None)) for i,p in enumerate(self.splits[split])])
         for budget in MILESTONES if complete else [0,1000]:
@@ -39,6 +39,23 @@ class BenchmarkReportTests(unittest.TestCase):
             raw['checkpoints'].append(dict(training_attempts=budget,checkpoint_sha256=sha(cp),proof_sha256=sha(proof),checkpoint_file=cp.name,proof_file=proof.name,validation=evaluation('validation',7,3,10),test=evaluation('test',14,6,20) if budget==10000 else None))
         return raw
     def save_run(self,raw,index=0):self.write(self.root/self.exp['runs'][index]['path']/'progress.json',raw)
+    def save_audit(self,index=0):
+        plan=self.exp['runs'][index];folder=self.root/plan['path'];raw=json.loads((folder/'progress.json').read_text())
+        for name in ('result.json','experiment-binding.json','contract.json'):
+            self.write(folder/name,{'synthetic-fixture-only':name})
+        audit=dict(schema='sircus-shot-benchmark-independent-audit-v1',status='passed',smoke_only=False,
+            method=plan['method'],seed=plan['seed'],source=self.source,
+            experiment_sha256=sha(self.root/'experiment.json'),split_manifest_sha256=self.exp['split_manifest_sha256'],
+            source_progress_sha256=sha(folder/'progress.json'),source_result_sha256=sha(folder/'result.json'),
+            source_binding_sha256=sha(folder/'experiment-binding.json'),source_contract_sha256=sha(folder/'contract.json'),
+            source_sha256=raw['source_sha256'],audit_source_sha256=raw['source_sha256']['shot_benchmark_audit.py'],
+            source_trial_sha256=raw['source_trial_sha256'],paid_train_attempts=10000,evaluation_attempts=420,
+            updates=raw['updates'],native_steps=1,rescored_releases=1,frame_readbacks=1)
+        self.write(self.root/(plan['path']+'.audit.json'),audit)
+        return audit
+    def save_coordinator(self,status='failed',**extra):
+        self.write(self.root/'coordinator.json',dict(status=status,source_commit=self.source['commit'],
+            total_authorized_train_attempts=60000,updated_utc='2026-11-06T23:00:00Z',**extra))
     def test_missing_runs_are_pending_not_fabricated_zero_results(self):
         d=summarize(self.root);self.assertEqual(d['observed_train_attempts'],0)
         self.assertTrue(all(r['train'] is None and r['status']=='pending' and r['resources']['headless'] is None for r in d['runs']))
@@ -49,10 +66,57 @@ class BenchmarkReportTests(unittest.TestCase):
         self.assertEqual(r['batch_timing']['setup_wall_s'],4);self.assertIsNone(r['checkpoints'][0]['test'])
     def test_all_completed_requires_six_exact_budgets_and_frozen_checks(self):
         for i in range(6):self.save_run(self.run_data(i,True),i)
-        d=summarize(self.root);self.assertEqual(d['status'],'completed');self.assertEqual(d['observed_train_attempts'],60000)
+        d=summarize(self.root);self.assertEqual(d['status'],'awaiting_audit');self.assertEqual(d['observed_train_attempts'],60000)
+        for i in range(6):self.save_audit(i)
+        self.assertEqual(summarize(self.root)['status'],'completed')
         summary=next(s for s in d['method_summary'] if s['method']=='ppo' and s['split']=='test');self.assertEqual(summary['measured_seeds'],3);self.assertEqual(summary['mean_capture_rate'],.2);self.assertEqual(summary['seed_sd'],0)
         r=self.run_data(0,True);r['checkpoints'].pop(0);self.save_run(r)
         with self.assertRaisesRegex(ValueError,'checkpoints'):summarize(self.root)
+    def test_failed_queue_is_prominent_even_after_native_run_completed(self):
+        self.save_run(self.run_data(0,True));self.save_coordinator(error='Synthetic audit replay mismatch')
+        value=summarize(self.root)
+        self.assertEqual(value['status'],'attention_required');self.assertEqual(value['coordinator']['status'],'failed')
+        self.assertEqual(value['runs'][0]['status'],'completed');self.assertEqual(value['runs'][0]['independent_audit']['status'],'pending')
+        self.assertEqual(value['runs'][1]['status'],'pending');self.assertIn('audit replay',value['coordinator']['error'])
+    def test_coordinator_running_auditing_and_missing_are_distinct(self):
+        self.assertEqual(summarize(self.root)['coordinator']['status'],'unknown')
+        for status in ('running','auditing','launching'):
+            self.save_coordinator(status,method='ppo',seed=20261121)
+            d=summarize(self.root);self.assertEqual(d['coordinator']['status'],status);self.assertEqual(d['status'],'in_progress')
+        self.save_coordinator('running',method='ppo',seed=123)
+        with self.assertRaisesRegex(ValueError,'undeclared'):summarize(self.root)
+        self.save_coordinator('running');raw=json.loads((self.root/'coordinator.json').read_text());raw['source_commit']='f'*40;self.write(self.root/'coordinator.json',raw)
+        with self.assertRaisesRegex(ValueError,'source/budget'):summarize(self.root)
+    def test_audit_success_requires_all_current_native_bindings(self):
+        self.save_run(self.run_data(0,True));audit=self.save_audit();path=self.root/(self.exp['runs'][0]['path']+'.audit.json')
+        value=summarize(self.root)['runs'][0]['independent_audit'];self.assertEqual(value['status'],'passed');self.assertEqual(value['sha256'],sha(path))
+        for key,value in (('source_progress_sha256','0'*64),('experiment_sha256','0'*64),('method','ppo'),('smoke_only',True),('status','failed'),('audit_source_sha256','0'*64),('evaluation_attempts',70)):
+            changed=copy.deepcopy(audit);changed[key]=value;self.write(path,changed)
+            with self.assertRaises(ValueError,msg=key):summarize(self.root)
+        self.write(path,audit);self.write(path.parent/self.exp['runs'][0]['path']/'contract.json',{'changed':True})
+        with self.assertRaisesRegex(ValueError,'native input bytes'):summarize(self.root)
+    def test_only_bound_recovery_can_replace_failed_coordinator_status(self):
+        self.save_run(self.run_data(0,True));self.save_audit();self.save_coordinator(error='Original failure preserved')
+        audit_name=self.exp['runs'][0]['path']+'.audit.json'
+        launch=dict(schema='sircus-shot-benchmark-recovery-v1',source_commit=self.source['commit'],
+            source_archive_sha256=self.source['archive_sha256'],experiment_sha256=sha(self.root/'experiment.json'),
+            original_failed_status_sha256=sha(self.root/'coordinator.json'),
+            adopted_audit=dict(canonical_file=audit_name,canonical_sha256=sha(self.root/audit_name)))
+        launch_path=self.root/'control/recovery-launch.json';self.write(launch_path,launch)
+        recovery=dict(schema='sircus-shot-benchmark-recovery-coordinator-v1',source_commit=self.source['commit'],
+            experiment_sha256=sha(self.root/'experiment.json'),original_failed_status_sha256=sha(self.root/'coordinator.json'),
+            recovery_receipt_sha256=sha(launch_path),total_authorized_train_attempts=60000,status='running',method='ppo',seed=20261121)
+        self.write(self.root/'recovery-coordinator.json',recovery)
+        d=summarize(self.root);self.assertEqual(d['status'],'in_progress');self.assertEqual(d['coordinator']['origin'],'recovery-coordinator.json')
+        self.assertEqual(d['coordinator']['original_failure']['error'],'Original failure preserved')
+        self.write(self.root/'recovery-coordinator.json',dict(recovery,status='recovered'))
+        self.assertEqual(summarize(self.root)['coordinator']['status'],'recovered')
+        for key,value in (('source_commit','f'*40),('experiment_sha256','0'*64),('recovery_receipt_sha256','0'*64),('schema','other')):
+            bad=dict(recovery);bad[key]=value;self.write(self.root/'recovery-coordinator.json',bad)
+            d=summarize(self.root);self.assertEqual(d['status'],'attention_required');self.assertEqual(d['coordinator']['origin'],'coordinator.json');self.assertTrue(d['coordinator']['recovery_error'])
+        self.write(self.root/'recovery-coordinator.json',dict(recovery,status='failed',error='New synthetic failure'))
+        d=summarize(self.root);self.assertEqual(d['status'],'attention_required');self.assertEqual(d['coordinator']['error'],'New synthetic failure')
+        launch_path.unlink();d=summarize(self.root);self.assertEqual(d['status'],'attention_required');self.assertEqual(d['coordinator']['origin'],'coordinator.json')
     def test_completed_missing_layout_or_proof_is_rejected(self):
         r=self.run_data(0,True);r['checkpoints'][-1]['test'].pop('layouts');self.save_run(r)
         with self.assertRaisesRegex(ValueError,'per-layout'):summarize(self.root)

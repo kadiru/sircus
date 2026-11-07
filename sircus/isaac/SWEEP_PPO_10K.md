@@ -170,3 +170,59 @@ Observed interim first-seed sweep validation captures were 3/35 at initializatio
 6/35 after 1,000 requests and 8/35 after 2,500. No production run had finished at
 this check, PPO was queued, and final TEST remained unopened; no sweep/PPO winner
 can be concluded. These checks do not tune the ongoing study.
+
+## First completed sweep and audit-runtime recovery — November 6, 2026
+
+Sweep seed 20261121 completed all 10,000 paid TRAIN requests. It captured
+803 shots (240 clean), rejected 8,306 setups and released 1,694 balls. The
+prescribed final checkpoint predicts directly at unknown coordinates; no
+held-out shot search or validation-based checkpoint selection was used.
+
+| Paid TRAIN requests | Frozen validation captures / 35 | Clean | Rejected |
+|---|---:|---:|---:|
+| 0 | 3 | 0 | 29 |
+| 1,000 | 6 | 4 | 13 |
+| 2,500 | 8 | 5 | 13 |
+| 5,000 | 11 | 6 | 11 |
+| 10,000 | 9 | 6 | 13 |
+
+The final, separately opened TEST captured **23/70 (32.9%)**, with 15 clean
+captures and 19 rejected setups. Frozen final TRAIN was 20/35. This is one
+sweep seed, not an across-method or three-seed conclusion. The 5,000-request
+validation peak does not replace the final artifact. Full TRAIN method wall
+was 15,428.5 seconds; evaluation and the later audit are separate costs.
+
+The original coordinator stopped before PPO because its host CPU audit used
+NumPy 1.26.4, while the native producer used 1.26.0. An inverse-transform
+rounding difference of 2.78e-17 changed a byte-derived proposal ID even though
+the decoded physical action was identical. The unchanged original auditor
+passed in the exact producer runtime with CUDA disabled: 301 trials, 10,000
+TRAIN plus 420 evaluation requests, 1,985 rescored releases and 294 checkpoint
+artifacts. No comparison, numerical tolerance, source hash or scoring guard
+was weakened. The audit took 314.42 seconds on one CPU thread.
+
+Passed original audit SHA256:
+`e126486453c9b50886dcf2c910d266cdc2cb44019934b9f43475d296a7ced1cc`.
+Its separate launch receipt SHA256:
+`f058aab4a1ce8358907dfd9b68b45e733c13565ae83d7e7f2ee97040a6f3c369`.
+Raw evidence, logs, runtime provenance and videos remain outside Git.
+
+`shot_benchmark_recover.py` is an external recovery coordinator, not a native
+producer patch. It verifies the original archive and completed evidence,
+adopts the passed audit byte-for-byte, preserves the failed coordinator/log,
+and permits only the five untouched paths in the original protocol order.
+Original shared GPU locking, sixteen-hour native bounds, six-GiB storage floor,
+eight-day experiment deadline, samples, physics, rewards and layouts remain
+unchanged. Any partial next run or failed native/audit stops recovery; it never
+repeats paid trials. Future audits use the original wrapper in the existing
+producer container, CPU-only. It performs no container or service restart.
+
+The report now displays the saved coordinator state and a separately bound
+independent-audit status for each run. A stopped queue cannot appear healthy
+merely because a native result says completed. Recovery status is accepted only
+with its original-source/experiment/failed-status/adopted-audit receipt bindings.
+These are saved status receipts, not process-liveness checks; an operator
+status investigation must still inspect actual processes. The static page and
+CPU publication can be updated independently of the GET-only reader and native
+simulation. PPO results remain pending until actually observed; the live
+interface, not this historical checkpoint, shows the current attempt count.
