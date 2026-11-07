@@ -8,7 +8,7 @@ from unittest.mock import patch
 import numpy as np
 from sircus.mjlab import gap_coverage_study as study
 from sircus.mjlab import physics_ensemble_study as old
-from sircus.mjlab.prepare_gap_coverage_report import compact,prepare
+from sircus.mjlab.prepare_gap_coverage_report import compact,prepare,ACTOR_COMPARISON_REVISION
 
 class FrozenStudyTests(unittest.TestCase):
     def test_split_repeatability_excludes_used_positions(self):
@@ -83,10 +83,24 @@ class PublisherTests(unittest.TestCase):
         gates={k:dict(status='passed',counts=counts(6,6,3,3)) for k in ('pre','post')}
         groups=[c['counts'] for c in comparisons]+[g['counts'] for g in gates.values()]
         aggregate={k:sum(c[k] for c in groups) for k in groups[0]}
-        self.raw.update(status='completed',phase='completed',counts=aggregate,comparisons=comparisons,control_gates=gates)
+        positions=[]
+        for comparison in comparisons:
+            method=comparison['method'];count=comparison['counts']
+            for i in range(50):
+                captured=i<count['captures'];native=i<count['native_releases']
+                positions.append(dict(context_id=f'gap-coverage-test-{i:02d}',method=method,
+                    record_id=f'gap-coverage-{method}-gap-coverage-test-{i:02d}',bucket_xy_m=[.1+.01*i,-.2],
+                    values=[.5,-.2,.3,28.,.2],capture=captured,native_release=native,
+                    clean=i<count['clean'],whole_ball_entry=captured,retention_s=1.1 if captured else 0.))
+        self.raw.update(status='completed',phase='completed',counts=aggregate,comparisons=comparisons,
+                        control_gates=gates,test_positions=positions)
         study.atomic(self.study/'report.json',self.raw);study.atomic(self.study/'evidence-manifest.json',{})
-        proof=dict(version='sircus-gap-coverage-audit-v1',status='passed',checks_count=1,
-            checks=[dict(passed=True,label='Complete fixture evidence')],failures=[],
+        labels=[f'gap-coverage-test-{i:02d}/{method}/{name}' for i in range(50) for method in ('bc','ppo')
+            for name in ('independent actor forward','independent actor residual','saved tanh derivation',
+                         'saved action derivation','normalized independent action')]
+        proof=dict(version='sircus-gap-coverage-audit-v2',actor_comparison_revision=copy.deepcopy(ACTOR_COMPARISON_REVISION),
+            status='passed',checks_count=len(labels),checks=[dict(passed=True,label=label) for label in labels],failures=[],
+            auditor_sha256=study.sha(Path(study.__file__).with_name('gap_coverage_verify.py')),
             report_sha256=study.sha(self.study/'report.json'),evidence_manifest_sha256=study.sha(self.study/'evidence-manifest.json'),
             contract_fingerprint=self.spec['fingerprint'],requested_trials=112,native_releases=aggregate['native_releases'],
             training_requests=0,comparisons=copy.deepcopy(comparisons),control_gates=copy.deepcopy(gates),
@@ -98,7 +112,8 @@ class PublisherTests(unittest.TestCase):
         self.assertEqual(compact(self.study,audit)['status'],'verified')
         for key,bad in [('checks_count',0),('report_sha256','bad'),('requested_trials',111),('training_requests',1),
                         ('native_source_sha256',{}),('native_releases',106),('control_gates',{}),
-                        ('checks',[dict(passed=True)]),('checks',[dict(passed=True,label='')])]:
+                        ('checks',[dict(passed=True)]),('checks',[dict(passed=True,label='')]),
+                        ('actor_comparison_revision',{}),('version','sircus-gap-coverage-audit-v1'),('auditor_sha256','bad')]:
             changed=dict(proof);changed[key]=bad;study.atomic(audit,changed)
             with self.subTest(key=key),self.assertRaises(ValueError):compact(self.study,audit)
 
@@ -130,6 +145,59 @@ class PublisherTests(unittest.TestCase):
                 comparisons=copy.deepcopy(raw['comparisons']),control_gates=copy.deepcopy(raw['control_gates']))
             study.atomic(audit,changed)
             with self.subTest(kind=kind),self.assertRaises(ValueError):compact(self.study,audit)
+
+    def test_paired_rows_are_copied_exactly_only_after_successful_audit(self):
+        proof=self.completed_fixture();audit=self.root/'audit-v2.json'
+        self.assertNotIn('test_positions',compact(self.study))
+        study.atomic(audit,dict(version='sircus-gap-coverage-audit-v1',status='failed',failures=['retained failure']))
+        self.assertNotIn('test_positions',compact(self.study,audit))
+        study.atomic(audit,proof)
+        result=compact(self.study,audit)
+        self.assertEqual(result['test_positions'],self.raw['test_positions'])
+        self.assertEqual(len(result['test_positions']),100)
+        result['test_positions'][0]['values'][0]=999
+        self.assertNotEqual(self.raw['test_positions'][0]['values'][0],999)
+
+    def test_numerical_revision_and_tolerances_are_explicit_and_bound(self):
+        from sircus.mjlab.gap_coverage_verify import ACTOR_COMPARISON_REVISION as independent_contract
+        self.assertEqual(ACTOR_COMPARISON_REVISION,independent_contract)
+        proof=self.completed_fixture();audit=self.root/'audit.json'
+        for key,bad in [('action_scales',[.04,.04,.05,10.,.12]),('independent_latent_atol',1e-5),
+                        ('normalized_action_atol',1e-5),('saved_tanh_atol',2e-6),('saved_action_atol',2e-6)]:
+            changed=copy.deepcopy(proof);changed['actor_comparison_revision'][key]=bad
+            study.atomic(audit,changed)
+            with self.subTest(key=key),self.assertRaises(ValueError):compact(self.study,audit)
+
+    def test_each_actor_derivation_is_required_at_every_layout(self):
+        proof=self.completed_fixture();audit=self.root/'audit.json'
+        self.assertEqual(len(proof['checks']),500)
+        for index in (0,19,49):
+            for method in ('bc','ppo'):
+                for name in ('independent actor forward','independent actor residual','saved tanh derivation',
+                             'saved action derivation','normalized independent action'):
+                    label=f'gap-coverage-test-{index:02d}/{method}/{name}'
+                    changed=copy.deepcopy(proof)
+                    changed['checks']=[c for c in changed['checks'] if c['label']!=label]
+                    changed['checks_count']=len(changed['checks'])
+                    study.atomic(audit,changed)
+                    with self.subTest(label=label),self.assertRaises(ValueError):compact(self.study,audit)
+
+    def test_duplicate_label_cannot_replace_a_missing_actor_check(self):
+        proof=self.completed_fixture();proof['checks'][-1]=copy.deepcopy(proof['checks'][0])
+        audit=self.root/'audit.json';study.atomic(audit,proof)
+        with self.assertRaises(ValueError):compact(self.study,audit)
+
+    def test_metadata_only_v2_relabel_cannot_publish_verified(self):
+        proof=self.completed_fixture();proof.update(checks=[dict(passed=True,label='metadata only')],checks_count=1)
+        audit=self.root/'audit.json';study.atomic(audit,proof)
+        with self.assertRaises(ValueError):compact(self.study,audit)
+
+    def test_original_failed_v1_proof_remains_failed(self):
+        self.completed_fixture();audit=self.root/'audit-v1.json'
+        proof=dict(version='sircus-gap-coverage-audit-v1',status='failed',failures=['original mixed-unit comparison'])
+        study.atomic(audit,proof);before=audit.read_bytes()
+        self.assertIs(compact(self.study,audit)['audit']['passed'],False)
+        self.assertEqual(audit.read_bytes(),before)
 
     def test_empty_proof_and_protocol_changes_refused(self):
         audit=self.root/'audit.json';study.atomic(audit,dict(status='passed',version='sircus-gap-coverage-audit-v1',checks=[]))

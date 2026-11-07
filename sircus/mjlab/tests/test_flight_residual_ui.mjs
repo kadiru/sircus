@@ -15,6 +15,7 @@ function fixture() {
   return {version:ui.VERSION,status:'completed',source:{verified:true,report_sha256:ui.SOURCE_REPORT_SHA256,audit_sha256:ui.SOURCE_AUDIT_SHA256,contract_fingerprint:ui.SOURCE_FINGERPRINT,original_native_audit_checks:485047,original_total_requests:132,original_native_releases:101,native_requests_added:0},audit:{version:ui.AUDIT_VERSION,status:'passed',full_checks_verified:true,source_sha256:'f'.repeat(64),source_report_sha256:ui.SOURCE_REPORT_SHA256,source_audit_sha256:ui.SOURCE_AUDIT_SHA256,checks_count:80},summary:{requested:30,native_releases:26,captures:17,native_misses:9,rejected:4,no_entry_failures:8,bucket_retention_but_route_failures:1,all_bank_margins_negative_in_misses:9,cutoff_contact_counts:{bucket:8,robot:1},rejection_reason_counts:{unresolved:4}},comparisons:ui.METHODS.map((method,i)=>({method,counts:counts([14,14,13,17][i])})),requests,cases:[example(),requests[20],requests[29]],findings:[{statement:'Every proposal missed the ideal opening forecast',evidence:'Frozen candidate bank',status:'observed model output, not measured capture'}],next_steps:['Test a bounded gap-coverage correction on fresh positions.']};
 }
 function correction() {return{version:'sircus-gap-coverage-study-v1',status:'completed',protocol:{test_layouts:50,methods:['consistent','gap_coverage'],maximum_fresh_requests:112,substeps:64},comparisons:['consistent','gap_coverage'].map(method=>({method,counts:{requested:50,native_releases:40,captures:20,clean:5,rejected:10,native_misses:20,invalid:0}})),report_sha256:h,audit:{passed:true,report_sha256:h,checks_count:100}};}
+function pairedCorrection(){const r=correction();r.test_positions=[];r.comparisons.forEach((row,m)=>{row.counts={requested:50,native_releases:42,captures:24,clean:m?11:13,rejected:8,native_misses:18,invalid:0};for(let i=0;i<50;i++)r.test_positions.push({method:row.method,context_id:`paired-${i}`,record_id:`${row.method}-${i}`,bucket_xy_m:[.1+i*.01,-.2],values:[.3,-.2,.38,28,.12+(m&&i<19?.01:0)],capture:m?(i<23||i===24):i<24,native_release:i<42,clean:i<(m?11:13)});});return r;}
 function dom() {const nodes=new Map(),drawCalls=[],ctx=new Proxy({fillText:(...args)=>drawCalls.push(args)},{get:(o,k)=>o[k]??(()=>{})});let doc;const element=tag=>({tagName:tag,ownerDocument:doc,children:[],attrs:{},hidden:false,textContent:'',value:'',width:760,height:330,append(...items){this.children.push(...items);},replaceChildren(...items){this.children=items;},setAttribute(k,v){this.attrs[k]=v;},getContext(){return ctx;}});doc={createElement:element};const root=element('section');root.querySelector=selector=>{const key=selector.match(/="([^"]+)"/)[1];if(!nodes.has(key))nodes.set(key,element(['flight','lateral'].includes(key)?'canvas':'div'));return nodes.get(key);};const get=name=>root.querySelector(`[data-flight-residual="${name}"]`),tableRows=name=>get(name).children[0]?.children[1]?.children.map(r=>r.children.map(c=>c.textContent))??[];return{root,get,tableRows,drawCalls};}
 const flush=()=>new Promise(resolve=>setImmediate(resolve));
 
@@ -59,6 +60,36 @@ test('correction progress reports prepared layouts, queue wait and requests with
  for(const requested of [undefined,null,-1,113,NaN,'20']){ui.renderFlightResidualDiagnosis(d.root,fixture(),{...r,status:'running',counts:{requested}});assert.ok(d.get('correction-status').textContent.includes('unknown / 112'));}
  for(const wait_s of [undefined,null,-1,Infinity,'25']){ui.renderFlightResidualDiagnosis(d.root,fixture(),{...r,status:'queued',planned_layouts:50,queue:{wait_s}});assert.ok(d.get('correction-status').textContent.includes('waiting for RTX 4090'));assert.ok(!d.get('correction-status').textContent.includes('s elapsed'));}
  ui.renderFlightResidualDiagnosis(d.root,fixture(),r);assert.ok(d.tableRows('prediction')[0][0].includes('uncalibrated diagnostic'));assert.ok(d.get('selection').textContent.includes('diagnostic only, not a calibrated selector probability'));
+});
+
+test('completed native comparison distinguishes audit failure and reports clean captures without a winner claim',()=>{
+ const d=dom(),r=correction();r.comparisons.forEach((row,i)=>{row.counts={requested:50,native_releases:42,captures:24,clean:i?11:13,rejected:8,native_misses:18,invalid:0};});
+ r.audit.passed=false;ui.renderFlightResidualDiagnosis(d.root,fixture(),r);
+ assert.equal(d.get('correction-status').attrs['data-state'],'failed');assert.ok(d.get('correction-status').textContent.includes('Native comparison completed, but its audit failed'));assert.ok(d.get('correction-status').textContent.includes('unverified'));assert.ok(!d.get('correction-status').textContent.includes('run failed'));assert.ok(!d.get('correction-status').textContent.includes('No observed capture gain'));
+ assert.deepEqual(d.tableRows('correction'),[['Original flight-consistent rank','24 / 50','48.0%','13','8','18'],['Expanded gap proposals','24 / 50','48.0%','11','8','18']]);
+ r.audit.passed=true;ui.renderFlightResidualDiagnosis(d.root,fixture(),r);assert.equal(d.get('correction-status').attrs['data-state'],'passed');assert.ok(d.get('correction-status').textContent.includes('No observed capture gain: both methods captured 24 / 50 (48.0%)'));assert.ok(d.get('correction-status').textContent.includes('does not establish a winner or generalization'));
+ r.audit.report_sha256='c'.repeat(64);ui.renderFlightResidualDiagnosis(d.root,fixture(),r);assert.equal(d.get('correction-status').attrs['data-state'],'unknown');assert.ok(!d.get('correction-status').textContent.includes('No observed capture gain'));
+ r.status='failed';ui.renderFlightResidualDiagnosis(d.root,fixture(),r);assert.ok(d.get('correction-status').textContent.includes('run failed'));assert.ok(!d.get('correction-status').textContent.includes('Native comparison completed'));
+ const unequal=correction();unequal.comparisons[1].counts.captures=21;unequal.comparisons[1].counts.native_misses=19;ui.renderFlightResidualDiagnosis(d.root,fixture(),unequal);assert.equal(d.get('correction-status').attrs['data-state'],'passed');assert.ok(!d.get('correction-status').textContent.includes('No observed capture gain'));
+});
+
+test('paired gains and losses require bound proof and fifty matching unique layouts per method',()=>{
+ const r=pairedCorrection(),before=JSON.stringify(r),d=dom();
+ assert.deepEqual(ui.gapCoveragePaired(r),{both_capture:23,both_no_capture:25,gained_capture:1,lost_capture:1,changed_actions:19,positions:50});
+ r.test_positions.reverse();assert.equal(ui.gapCoveragePaired(r).changed_actions,19);r.test_positions.reverse();
+ ui.renderFlightResidualDiagnosis(d.root,fixture(),r);assert.ok(d.get('correction-status').textContent.includes('23 captured by both; 25 without capture by either'));assert.ok(d.get('correction-status').textContent.includes('gained 1 capture(s) and lost 1; 19 / 50 selected configurations changed'));assert.equal(JSON.stringify(r),before);
+ for(const mutate of [
+   v=>delete v.test_positions,v=>v.test_positions.pop(),v=>v.test_positions[0]=null,
+   v=>v.audit.passed=false,v=>v.audit.report_sha256='b'.repeat(64),v=>v.status='running',
+   v=>v.test_positions[0].method='gap_coverage',v=>v.test_positions[0].context_id='',
+   v=>v.test_positions[1].context_id=v.test_positions[0].context_id,v=>v.test_positions[50].context_id='unmatched',
+   v=>v.test_positions[50].bucket_xy_m[0]+=.001,v=>v.test_positions[0].bucket_xy_m[0]=NaN,
+   v=>v.test_positions[0].values[0]=Infinity,v=>v.test_positions[0].values.pop(),
+   v=>v.test_positions[0].record_id='',v=>v.test_positions[50].record_id=v.test_positions[0].record_id,
+   v=>v.test_positions[0].capture=false,v=>v.test_positions[0].capture='true',
+   v=>v.test_positions[0].native_release=false,v=>v.test_positions[42].native_release=true,
+   v=>v.test_positions[0].clean=false,v=>v.test_positions[49].clean=true,
+ ]){const malformed=pairedCorrection();mutate(malformed);assert.equal(ui.gapCoveragePaired(malformed),null);ui.renderFlightResidualDiagnosis(d.root,fixture(),malformed);assert.ok(!d.get('correction-status').textContent.includes('Paired positions:'));}
 });
 
 test('fragment is responsive, scoped, accessible and only consumes read-only snapshots',()=>{

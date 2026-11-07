@@ -1,5 +1,27 @@
 # Project state
 
+## Fifty-position wider-gap comparison completed — November 7, 2026
+
+- [Audited result and provenance](../baselines/mjlab-gap-coverage-20261107/README.md):
+  both frozen selectors captured **24/50 (48%)**. Clean captures: original 13,
+  wider-gap 11. Each had eight setup rejects and eighteen native misses; no
+  invalid physics. Paired result: 23 shared captures, 25 neither, one gain, one loss.
+  Nineteen selected actions changed. There is no observed capture improvement.
+- All 112 requests/96 native releases completed, including 12 passing controls.
+  Independent CPU v2 audit passed 1,441,075 checks. The original v1 failure was
+  a 0.0000021046-degree float32 reconstruction difference against a mixed-unit
+  tolerance. The repaired audit uses normalized action units and strict saved
+  action identities; original source, results, scoring and failed proof remain
+  unchanged. No new native shots or fitting occurred during recovery.
+- Existing `#flightResidualDiagnosis` UI now shows verified captures, clean
+  captures and paired outcomes. The interactive solver was not switched;
+  services, 4070 and Isaac workloads were not restarted or modified.
+- Work boundary: this 112-request mjlab candidate test is separate from the
+  Isaac chat's 60,000-TRAIN-request, three-seed sweep/PPO benchmark. Same overall
+  task, different experiment/engine; no directly comparable winner claim.
+  Keep original selection as baseline. Further changes require a new bounded
+  test; these 50 results become development evidence if used for tuning.
+
 ## Flight residual diagnosis and gap-coverage comparison — November 7, 2026
 
 - The completed 30-position comparison is now authenticated: **132 total
@@ -343,7 +365,7 @@
 - Strict5mm endpoints and calibrated dense scoring remain unchanged; held endpoints
   do not validate arm transit or actuator motion. Finite IK failures do not prove
   the requested poses physically unreachable, nor does this sweep prove650mm impossible.
-- Additive read-only `clean650_study` UI key; existing services,4070 and Isaac
+- Additive read-only `clean650_study` UI key; existing services, 4070 and Isaac
   configuration are preserved.
 - Draft [PR69](https://github.com/kadiru/sircus/pull/69) remains stacked on PR65;
   all source and curated results are separate from raw runtime observations.

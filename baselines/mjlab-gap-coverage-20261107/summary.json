@@ -1,0 +1,2299 @@
+{
+  "version": "sircus-gap-coverage-curated-v1",
+  "source_study": "sircus-gap-coverage-study-v1",
+  "status": "verified",
+  "scope": "Frozen-model paired proposal ablation at 50 fresh bucket positions, fixed64 only. Only slots08/09 change from BC gap plus/minus36mm to anchor gap plus/minus120mm. All14 other proposals,16-candidate/top4-geometry budgets, model weights and flight ranking remain fixed. No fitting, native flight search, noise,128 convergence, driven transit or physical validation. Negative aperture remains a proxy; original capture and route scoring is unchanged.",
+  "protocol": {
+    "substeps": 64,
+    "methods": [
+      "consistent",
+      "gap_coverage"
+    ],
+    "test_layouts": 50,
+    "test_seed": 20261801,
+    "maximum_fresh_requests": 112,
+    "control_requests": 12,
+    "new_train_requests": 0,
+    "minimum_split_distance_m": 0.01,
+    "no_test_flight_search": true,
+    "candidates": 16,
+    "maximum_geometry_checks": 4,
+    "noise": false,
+    "model_weights_unchanged": true,
+    "no_hard_aperture_veto": true,
+    "post_bounce_robot_clearance_added": false,
+    "changed_candidate_indices": [
+      8,
+      9
+    ],
+    "gap_residual_endpoints": [
+      -1,
+      1
+    ],
+    "unchanged_candidate_count": 14
+  },
+  "counts": {
+    "requested": 112,
+    "native_releases": 96,
+    "captures": 54,
+    "clean": 30,
+    "rejected": 16,
+    "native_misses": 42,
+    "invalid": 0
+  },
+  "comparisons": [
+    {
+      "method": "consistent",
+      "counts": {
+        "requested": 50,
+        "native_releases": 42,
+        "captures": 24,
+        "clean": 13,
+        "rejected": 8,
+        "native_misses": 18,
+        "invalid": 0
+      }
+    },
+    {
+      "method": "gap_coverage",
+      "counts": {
+        "requested": 50,
+        "native_releases": 42,
+        "captures": 24,
+        "clean": 11,
+        "rejected": 8,
+        "native_misses": 18,
+        "invalid": 0
+      }
+    }
+  ],
+  "paired": {
+    "both_capture": 23,
+    "neither_capture": 25,
+    "wider_only": 1,
+    "original_only": 1,
+    "changed_selected_actions": 19
+  },
+  "control_gates": {
+    "pre": {
+      "status": "passed",
+      "counts": {
+        "requested": 6,
+        "native_releases": 6,
+        "captures": 3,
+        "clean": 3,
+        "rejected": 0,
+        "native_misses": 3,
+        "invalid": 0
+      }
+    },
+    "post": {
+      "status": "passed",
+      "counts": {
+        "requested": 6,
+        "native_releases": 6,
+        "captures": 3,
+        "clean": 3,
+        "rejected": 0,
+        "native_misses": 3,
+        "invalid": 0
+      }
+    }
+  },
+  "test_positions": [
+    {
+      "context_id": "gap-coverage-test-00",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-00",
+      "bucket_xy_m": [
+        1.1032511603876254,
+        -0.25992993941159515
+      ],
+      "values": [
+        0.5984723252141665,
+        -0.12744458484233778,
+        0.30859579688622,
+        17.139112690251217,
+        0.27710405695169416
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-01",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-01",
+      "bucket_xy_m": [
+        0.8739813483414972,
+        -0.22403230165589544
+      ],
+      "values": [
+        0.6092080943298298,
+        -0.23518889995605333,
+        0.4367036291860869,
+        28.54522019561394,
+        0.12064344662800627
+      ],
+      "capture": false,
+      "native_release": false,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-02",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-02",
+      "bucket_xy_m": [
+        0.48797653917672534,
+        -0.4657069478675012
+      ],
+      "values": [
+        0.6367258942307054,
+        -0.36495442979394294,
+        0.2837018037232784,
+        25.352921768549677,
+        0.09330496689086067
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": true,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-03",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-03",
+      "bucket_xy_m": [
+        1.0722535098161912,
+        -0.2664621587898951
+      ],
+      "values": [
+        0.6038036600392316,
+        -0.13652719564043606,
+        0.30251159209290457,
+        16.61151963114701,
+        0.27710405695169416
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-04",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-04",
+      "bucket_xy_m": [
+        0.10480808981799854,
+        -0.38122617424410665
+      ],
+      "values": [
+        0.5335913633179432,
+        -0.31193139797771885,
+        0.3336538503372702,
+        35.186676214870005,
+        0.3379026190070164
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": true,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-05",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-05",
+      "bucket_xy_m": [
+        0.7517415696493237,
+        0.1901231804327994
+      ],
+      "values": [
+        0.5842174887657166,
+        -0.037267498672008514,
+        0.40906500816345215,
+        32.749881784770345,
+        0.1353410311538266
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-06",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-06",
+      "bucket_xy_m": [
+        0.12318055041158596,
+        -0.10138278903388831
+      ],
+      "values": [
+        0.5452180693389206,
+        -0.25083739112269415,
+        0.3390258745288591,
+        38.94057243769086,
+        0.3484190426467516
+      ],
+      "capture": false,
+      "native_release": false,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-07",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-07",
+      "bucket_xy_m": [
+        0.6662729874892876,
+        -0.5303306320046536
+      ],
+      "values": [
+        0.5999137797492021,
+        -0.18192171657083095,
+        0.3160641760215236,
+        21.902664856116562,
+        0.18833974887879273
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-08",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-08",
+      "bucket_xy_m": [
+        0.2650725394107199,
+        0.018695711460441466
+      ],
+      "values": [
+        0.4564572568232274,
+        0.043503062029479386,
+        0.25719570138698583,
+        31.576187311409853,
+        0.1124966859808415
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": true,
+      "whole_ball_entry": true,
+      "retention_s": 0.9999999999999999
+    },
+    {
+      "context_id": "gap-coverage-test-09",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-09",
+      "bucket_xy_m": [
+        0.5689918531776986,
+        -0.0213327129911709
+      ],
+      "values": [
+        0.6587073691295687,
+        -0.2590144122290938,
+        0.26928252928937796,
+        30.132979559274037,
+        0.14968432777314106
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": true,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-10",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-10",
+      "bucket_xy_m": [
+        0.5757667317581199,
+        0.11381266938513945
+      ],
+      "values": [
+        0.6329437494277954,
+        -0.04944964498281479,
+        0.27414825558662415,
+        27.534005060312847,
+        0.0963651221865184
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": true,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-11",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-11",
+      "bucket_xy_m": [
+        1.0241558975486285,
+        0.09036542590832963
+      ],
+      "values": [
+        0.5987078616407978,
+        -0.12599181234863316,
+        0.32097594369997,
+        15.872914118356471,
+        0.27584312810845757
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-12",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-12",
+      "bucket_xy_m": [
+        0.5940475694734566,
+        0.18147144563578665
+      ],
+      "values": [
+        0.5815305065074827,
+        -0.04395769518541269,
+        0.3861135000777966,
+        39.51184693961984,
+        0.06954829995286349
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-13",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-13",
+      "bucket_xy_m": [
+        0.4060733970197069,
+        0.14788850413598675
+      ],
+      "values": [
+        0.5928109884262085,
+        0.12268856912851334,
+        0.27414843440055847,
+        27.534005060312847,
+        0.0963651221865184
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-14",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-14",
+      "bucket_xy_m": [
+        0.6323409107390838,
+        -0.47216744495368024
+      ],
+      "values": [
+        0.5882501812678874,
+        -0.1746779556774237,
+        0.32389948444053185,
+        24.90852070495476,
+        0.17854751793114187
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": true,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-15",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-15",
+      "bucket_xy_m": [
+        1.158752498351589,
+        -0.1716549153509178
+      ],
+      "values": [
+        0.5991964072410011,
+        -0.1264124573968174,
+        0.2957288106819482,
+        17.217983974006867,
+        0.27107506845275653
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-16",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-16",
+      "bucket_xy_m": [
+        0.6466616378141233,
+        0.08773222594643171
+      ],
+      "values": [
+        0.6544939531949985,
+        -0.24318887666996644,
+        0.2787940926369579,
+        28.000908016659892,
+        0.16216158541146292
+      ],
+      "capture": false,
+      "native_release": false,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-17",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-17",
+      "bucket_xy_m": [
+        0.37734036290030293,
+        0.009748157751481523
+      ],
+      "values": [
+        0.6259803579235617,
+        -0.03797760960260981,
+        0.2841926881144679,
+        33.832077428040584,
+        0.08870094295583911
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-18",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-18",
+      "bucket_xy_m": [
+        0.2745696386617016,
+        0.1048672003436587
+      ],
+      "values": [
+        0.45691473204926314,
+        0.04616495078745968,
+        0.2604389214420748,
+        31.233353189523676,
+        0.11516983028314098
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": true,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-19",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-19",
+      "bucket_xy_m": [
+        0.32039017917379375,
+        0.08805498570377046
+      ],
+      "values": [
+        0.46927415017349516,
+        0.04611162528213762,
+        0.26193988141308433,
+        30.27369737189867,
+        0.09036724404901725
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": true,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-20",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-20",
+      "bucket_xy_m": [
+        0.7380121007836565,
+        0.10585349495320018
+      ],
+      "values": [
+        0.6582878104562284,
+        -0.20144636792839118,
+        0.4265887750083277,
+        39.72877477744073,
+        0.09550266185909315
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-21",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-21",
+      "bucket_xy_m": [
+        0.7894557911678854,
+        -0.4749294591779244
+      ],
+      "values": [
+        0.6327063844801998,
+        -0.24900673902646422,
+        0.4008404382313435,
+        34.48459140995611,
+        0.13136047765303913
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-22",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-22",
+      "bucket_xy_m": [
+        1.0771840838745113,
+        -0.10073710517072454
+      ],
+      "values": [
+        0.6191947986729303,
+        -0.13464299383986933,
+        0.29763353194499675,
+        16.4027265950098,
+        0.2503362494000265
+      ],
+      "capture": false,
+      "native_release": false,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-23",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-23",
+      "bucket_xy_m": [
+        0.26107098682470486,
+        -0.40528652998039183
+      ],
+      "values": [
+        0.6225025133041806,
+        -0.39730570276111954,
+        0.2729126080019507,
+        33.001336411780144,
+        0.2530962659278588
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": true,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-24",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-24",
+      "bucket_xy_m": [
+        0.6358062864530419,
+        0.15743999075812642
+      ],
+      "values": [
+        0.5906381123932191,
+        -0.052928025468399795,
+        0.39187073349650436,
+        36.801638210588905,
+        0.06864420340753004
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-25",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-25",
+      "bucket_xy_m": [
+        0.5605709954841056,
+        -0.33093507123027105
+      ],
+      "values": [
+        0.602736183255513,
+        -0.1630774775073951,
+        0.3163091945004029,
+        26.934575544120506,
+        0.09370017162437784
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-26",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-26",
+      "bucket_xy_m": [
+        0.6108146088009813,
+        0.23960537398491843
+      ],
+      "values": [
+        0.5836305608090382,
+        -0.03452063872179173,
+        0.40316348377395583,
+        38.31565942626164,
+        0.10714539512147359
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-27",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-27",
+      "bucket_xy_m": [
+        1.157233758822269,
+        -0.20585135490066092
+      ],
+      "values": [
+        0.5986063527753693,
+        -0.12658013420219716,
+        0.2941929723240676,
+        17.20408104726287,
+        0.27157833099144885
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-28",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-28",
+      "bucket_xy_m": [
+        0.956763427216752,
+        -0.3641581666268791
+      ],
+      "values": [
+        0.6384017610031776,
+        -0.21467507875948502,
+        0.3811121298854778,
+        29.6931170039333,
+        0.2292560090028536
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 0.9999999999999999
+    },
+    {
+      "context_id": "gap-coverage-test-29",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-29",
+      "bucket_xy_m": [
+        0.8558903513491765,
+        -0.22804050613740862
+      ],
+      "values": [
+        0.6211328249842394,
+        -0.2392282602366767,
+        0.4383844315636068,
+        29.041488676534897,
+        0.07597258137410581
+      ],
+      "capture": false,
+      "native_release": false,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-30",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-30",
+      "bucket_xy_m": [
+        0.15654471692396643,
+        -0.0638444162606343
+      ],
+      "values": [
+        0.5411589867660316,
+        -0.2358905822172892,
+        0.3409821582070938,
+        38.69426210397081,
+        0.3159570013928215
+      ],
+      "capture": false,
+      "native_release": false,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-31",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-31",
+      "bucket_xy_m": [
+        0.3289817572491518,
+        0.208270039585846
+      ],
+      "values": [
+        0.5747412619757392,
+        -0.09837539654023401,
+        0.3280543514462511,
+        36.03880958077269,
+        0.31321309908379175
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-32",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-32",
+      "bucket_xy_m": [
+        1.0982163809204621,
+        0.023908639628968165
+      ],
+      "values": [
+        0.6003230994043208,
+        -0.12594815155010777,
+        0.3114019973414127,
+        17.758386377746604,
+        0.25929841905913786
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-33",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-33",
+      "bucket_xy_m": [
+        1.082365987908413,
+        -0.5846277644037123
+      ],
+      "values": [
+        0.6268691201888756,
+        -0.20872116046688016,
+        0.3720275187974207,
+        26.055021567599788,
+        0.25534103115382656
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-34",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-34",
+      "bucket_xy_m": [
+        0.7961319526840317,
+        -0.34273379400157883
+      ],
+      "values": [
+        0.6406241069637774,
+        -0.244094457840217,
+        0.39851786508905485,
+        35.65286384857162,
+        0.05854981366852101
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-35",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-35",
+      "bucket_xy_m": [
+        0.48980497694276803,
+        -0.40891850658332674
+      ],
+      "values": [
+        0.6413131269194354,
+        -0.35468731829953776,
+        0.2660454492001946,
+        24.76053848747594,
+        0.0760873475853788
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-36",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-36",
+      "bucket_xy_m": [
+        1.0650121596960314,
+        -0.44462532427186874
+      ],
+      "values": [
+        0.6430034959852962,
+        -0.20633118660055766,
+        0.37708471542559435,
+        27.498137647207333,
+        0.253473856907984
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-37",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-37",
+      "bucket_xy_m": [
+        1.22970321135342,
+        0.2113391764223297
+      ],
+      "values": [
+        0.6150895369447207,
+        -0.15970799483229306,
+        0.35466771756639837,
+        21.389695219458652,
+        0.21817574425274197
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-38",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-38",
+      "bucket_xy_m": [
+        0.17094915298503316,
+        0.1463472817193262
+      ],
+      "values": [
+        0.4906418727984584,
+        0.038047848567889286,
+        0.3310950705026521,
+        28.186199667202562,
+        0.26533010421770953
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-39",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-39",
+      "bucket_xy_m": [
+        1.0485342047362711,
+        -0.014276532051885948
+      ],
+      "values": [
+        0.6233927721209263,
+        -0.20084337034605387,
+        0.43611495494447394,
+        24.95649748941875,
+        0.19959789202732375
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-40",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-40",
+      "bucket_xy_m": [
+        0.1415932648349397,
+        0.14472865628637333
+      ],
+      "values": [
+        0.48961076464282693,
+        0.03738285592502779,
+        0.3301462095354133,
+        31.651070192758752,
+        0.29156054954429755
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-41",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-41",
+      "bucket_xy_m": [
+        0.7707169664401237,
+        -0.10452327725253041
+      ],
+      "values": [
+        0.6106835737153091,
+        -0.25419758520556185,
+        0.4626073201572355,
+        32.182088769860414,
+        0.03694841892713417
+      ],
+      "capture": false,
+      "native_release": false,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-42",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-42",
+      "bucket_xy_m": [
+        0.25064309952021135,
+        -0.6336994447501265
+      ],
+      "values": [
+        0.5249709470801854,
+        -0.2300113092457952,
+        0.28351378912413877,
+        29.830531703593135,
+        0.38693909064991666
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": true,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-43",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-43",
+      "bucket_xy_m": [
+        0.8540315048524785,
+        -0.09101519168691374
+      ],
+      "values": [
+        0.6224771358559744,
+        -0.2259436673176619,
+        0.4426077526857092,
+        31.54428343205599,
+        0.10593072286234857
+      ],
+      "capture": false,
+      "native_release": false,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-44",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-44",
+      "bucket_xy_m": [
+        0.4313351336404472,
+        -0.5592027980900491
+      ],
+      "values": [
+        0.6115598006717088,
+        -0.4285541748897874,
+        0.266472066871877,
+        36.01698389617411,
+        0.15204339990063448
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": true,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-45",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-45",
+      "bucket_xy_m": [
+        0.9297596494896797,
+        0.11181260182885111
+      ],
+      "values": [
+        0.5950048948037625,
+        -0.12431160271167754,
+        0.3304843650327153,
+        20.333581977063822,
+        0.24206526575120735
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-46",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-46",
+      "bucket_xy_m": [
+        0.9687788173355978,
+        -0.4723533194300469
+      ],
+      "values": [
+        0.6326288618249304,
+        -0.21959348454703387,
+        0.3796700204098485,
+        28.54400812937845,
+        0.23477501412237275
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 0.9999999999999999
+    },
+    {
+      "context_id": "gap-coverage-test-47",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-47",
+      "bucket_xy_m": [
+        0.3187389568946217,
+        -0.5154733224895597
+      ],
+      "values": [
+        0.609956699902088,
+        -0.3996743385510171,
+        0.2731187836500757,
+        31.870132572897315,
+        0.23759021714402542
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": true,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-48",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-48",
+      "bucket_xy_m": [
+        0.5140772767848966,
+        0.044774900453494304
+      ],
+      "values": [
+        0.6396399957144138,
+        -0.04799788546950415,
+        0.26871011609934814,
+        32.449122272723095,
+        0.0560957832867815
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-49",
+      "method": "consistent",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-49",
+      "bucket_xy_m": [
+        0.26428693956009863,
+        0.1443116436962556
+      ],
+      "values": [
+        0.5827152266820796,
+        -0.10427499655612503,
+        0.3220203211884805,
+        37.79692097723787,
+        0.3167850436298598
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": true,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-00",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-00",
+      "bucket_xy_m": [
+        1.1032511603876254,
+        -0.25992993941159515
+      ],
+      "values": [
+        0.5984723252141665,
+        -0.12744458484233778,
+        0.30859579688622,
+        17.139112690251217,
+        0.27710405695169416
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-01",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-01",
+      "bucket_xy_m": [
+        0.8739813483414972,
+        -0.22403230165589544
+      ],
+      "values": [
+        0.6092080943298298,
+        -0.23518889995605333,
+        0.4367036291860869,
+        28.54522019561394,
+        0.12064344662800627
+      ],
+      "capture": false,
+      "native_release": false,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-02",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-02",
+      "bucket_xy_m": [
+        0.48797653917672534,
+        -0.4657069478675012
+      ],
+      "values": [
+        0.6367258942307054,
+        -0.36495442979394294,
+        0.2837018037232784,
+        25.352921768549677,
+        0.09330496689086067
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": true,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-03",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-03",
+      "bucket_xy_m": [
+        1.0722535098161912,
+        -0.2664621587898951
+      ],
+      "values": [
+        0.6038036600392316,
+        -0.13652719564043606,
+        0.30251159209290457,
+        16.61151963114701,
+        0.27710405695169416
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-04",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-04",
+      "bucket_xy_m": [
+        0.10480808981799854,
+        -0.38122617424410665
+      ],
+      "values": [
+        0.5335913633179432,
+        -0.31193139797771885,
+        0.3336538503372702,
+        35.186676214870005,
+        0.3379026190070164
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": true,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-05",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-05",
+      "bucket_xy_m": [
+        0.7517415696493237,
+        0.1901231804327994
+      ],
+      "values": [
+        0.5842174887657166,
+        -0.037267498672008514,
+        0.40906500816345215,
+        32.749881784770345,
+        0.1353410311538266
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-06",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-06",
+      "bucket_xy_m": [
+        0.12318055041158596,
+        -0.10138278903388831
+      ],
+      "values": [
+        0.5452180693389206,
+        -0.25083739112269415,
+        0.3390258745288591,
+        38.94057243769086,
+        0.3484190426467516
+      ],
+      "capture": false,
+      "native_release": false,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-07",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-07",
+      "bucket_xy_m": [
+        0.6662729874892876,
+        -0.5303306320046536
+      ],
+      "values": [
+        0.5860655633405749,
+        -0.17454694697137324,
+        0.32344665682734125,
+        23.46552008556145,
+        0.27710405695169416
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-08",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-08",
+      "bucket_xy_m": [
+        0.2650725394107199,
+        0.018695711460441466
+      ],
+      "values": [
+        0.4561353992974365,
+        0.04381548491165298,
+        0.24748179645852109,
+        31.990166664911428,
+        0.10841701909008986
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": true,
+      "whole_ball_entry": true,
+      "retention_s": 0.9999999999999999
+    },
+    {
+      "context_id": "gap-coverage-test-09",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-09",
+      "bucket_xy_m": [
+        0.5689918531776986,
+        -0.0213327129911709
+      ],
+      "values": [
+        0.6587073691295687,
+        -0.2590144122290938,
+        0.26928252928937796,
+        30.132979559274037,
+        0.21636512218651838
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-10",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-10",
+      "bucket_xy_m": [
+        0.5757667317581199,
+        0.11381266938513945
+      ],
+      "values": [
+        0.6329437494277954,
+        -0.04944964498281479,
+        0.27414825558662415,
+        27.534005060312847,
+        0.0963651221865184
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": true,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-11",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-11",
+      "bucket_xy_m": [
+        1.0241558975486285,
+        0.09036542590832963
+      ],
+      "values": [
+        0.5987078616407978,
+        -0.12599181234863316,
+        0.32097594369997,
+        15.872914118356471,
+        0.27710405695169416
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-12",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-12",
+      "bucket_xy_m": [
+        0.5940475694734566,
+        0.18147144563578665
+      ],
+      "values": [
+        0.5815305065074827,
+        -0.04395769518541269,
+        0.3861135000777966,
+        39.51184693961984,
+        0.06954829995286349
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-13",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-13",
+      "bucket_xy_m": [
+        0.4060733970197069,
+        0.14788850413598675
+      ],
+      "values": [
+        0.5928109884262085,
+        0.12268856912851334,
+        0.27414843440055847,
+        27.534005060312847,
+        0.0963651221865184
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-14",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-14",
+      "bucket_xy_m": [
+        0.6323409107390838,
+        -0.47216744495368024
+      ],
+      "values": [
+        0.5840626854469005,
+        -0.1863400409302462,
+        0.313984581758193,
+        27.59262111361895,
+        0.1682931065703913
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": true,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-15",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-15",
+      "bucket_xy_m": [
+        1.158752498351589,
+        -0.1716549153509178
+      ],
+      "values": [
+        0.5991964072410011,
+        -0.1264124573968174,
+        0.2957288106819482,
+        17.217983974006867,
+        0.27107506845275653
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-16",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-16",
+      "bucket_xy_m": [
+        0.6466616378141233,
+        0.08773222594643171
+      ],
+      "values": [
+        0.6544939531949985,
+        -0.24318887666996644,
+        0.2787940926369579,
+        28.000908016659892,
+        0.21636512218651838
+      ],
+      "capture": false,
+      "native_release": false,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-17",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-17",
+      "bucket_xy_m": [
+        0.37734036290030293,
+        0.009748157751481523
+      ],
+      "values": [
+        0.6326698540490825,
+        -0.044466859439711785,
+        0.2672915138448386,
+        33.33390638367041,
+        0.21636512218651838
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 0.9999999999999999
+    },
+    {
+      "context_id": "gap-coverage-test-18",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-18",
+      "bucket_xy_m": [
+        0.2745696386617016,
+        0.1048672003436587
+      ],
+      "values": [
+        0.4565251287405239,
+        0.04660952929655649,
+        0.2506639581598591,
+        31.673866149230935,
+        0.1101343541977284
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": true,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-19",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-19",
+      "bucket_xy_m": [
+        0.32039017917379375,
+        0.08805498570377046
+      ],
+      "values": [
+        0.46927415017349516,
+        0.04611162528213762,
+        0.26193988141308433,
+        30.27369737189867,
+        0.09036724404901725
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": true,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-20",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-20",
+      "bucket_xy_m": [
+        0.7380121007836565,
+        0.10585349495320018
+      ],
+      "values": [
+        0.6582878104562284,
+        -0.20144636792839118,
+        0.4265887750083277,
+        39.72877477744073,
+        0.09550266185909315
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-21",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-21",
+      "bucket_xy_m": [
+        0.7894557911678854,
+        -0.4749294591779244
+      ],
+      "values": [
+        0.6389034726351687,
+        -0.25013200204277347,
+        0.3976570941536664,
+        36.85970043606725,
+        0.11014019120674406
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-22",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-22",
+      "bucket_xy_m": [
+        1.0771840838745113,
+        -0.10073710517072454
+      ],
+      "values": [
+        0.6191947986729303,
+        -0.13464299383986933,
+        0.29763353194499675,
+        16.4027265950098,
+        0.2503362494000265
+      ],
+      "capture": false,
+      "native_release": false,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-23",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-23",
+      "bucket_xy_m": [
+        0.26107098682470486,
+        -0.40528652998039183
+      ],
+      "values": [
+        0.6095642911650713,
+        -0.39104530631377615,
+        0.28017237510945275,
+        30.985786510313666,
+        0.22131049893004465
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-24",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-24",
+      "bucket_xy_m": [
+        0.6358062864530419,
+        0.15743999075812642
+      ],
+      "values": [
+        0.5906381123932191,
+        -0.052928025468399795,
+        0.39187073349650436,
+        36.801638210588905,
+        0.06864420340753004
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-25",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-25",
+      "bucket_xy_m": [
+        0.5605709954841056,
+        -0.33093507123027105
+      ],
+      "values": [
+        0.602736183255513,
+        -0.1630774775073951,
+        0.3163091945004029,
+        26.934575544120506,
+        0.09370017162437784
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-26",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-26",
+      "bucket_xy_m": [
+        0.6108146088009813,
+        0.23960537398491843
+      ],
+      "values": [
+        0.5836305608090382,
+        -0.03452063872179173,
+        0.40316348377395583,
+        38.31565942626164,
+        0.10714539512147359
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-27",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-27",
+      "bucket_xy_m": [
+        1.157233758822269,
+        -0.20585135490066092
+      ],
+      "values": [
+        0.5986063527753693,
+        -0.12658013420219716,
+        0.2941929723240676,
+        17.20408104726287,
+        0.27157833099144885
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-28",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-28",
+      "bucket_xy_m": [
+        0.956763427216752,
+        -0.3641581666268791
+      ],
+      "values": [
+        0.6384017610031776,
+        -0.21467507875948502,
+        0.3811121298854778,
+        29.6931170039333,
+        0.25534103115382656
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 0.9999999999999999
+    },
+    {
+      "context_id": "gap-coverage-test-29",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-29",
+      "bucket_xy_m": [
+        0.8558903513491765,
+        -0.22804050613740862
+      ],
+      "values": [
+        0.6167064479024313,
+        -0.23115835383088063,
+        0.43629823322948047,
+        26.659280632211477,
+        0.09215756961797042
+      ],
+      "capture": false,
+      "native_release": false,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-30",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-30",
+      "bucket_xy_m": [
+        0.15654471692396643,
+        -0.0638444162606343
+      ],
+      "values": [
+        0.5316381454467773,
+        -0.23353539407253265,
+        0.3401139974594116,
+        32.12817684891195,
+        0.3115504318858502
+      ],
+      "capture": false,
+      "native_release": false,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-31",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-31",
+      "bucket_xy_m": [
+        0.3289817572491518,
+        0.208270039585846
+      ],
+      "values": [
+        0.5834024099130972,
+        -0.08862118381245868,
+        0.3141461581930945,
+        37.414919434903226,
+        0.32493244067308685
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": true,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-32",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-32",
+      "bucket_xy_m": [
+        1.0982163809204621,
+        0.023908639628968165
+      ],
+      "values": [
+        0.6003230994043208,
+        -0.12594815155010777,
+        0.3114019973414127,
+        17.758386377746604,
+        0.25929841905913786
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-33",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-33",
+      "bucket_xy_m": [
+        1.082365987908413,
+        -0.5846277644037123
+      ],
+      "values": [
+        0.6268691201888756,
+        -0.20872116046688016,
+        0.3720275187974207,
+        26.055021567599788,
+        0.25534103115382656
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-34",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-34",
+      "bucket_xy_m": [
+        0.7961319526840317,
+        -0.34273379400157883
+      ],
+      "values": [
+        0.6438846413269833,
+        -0.23429513761238566,
+        0.40364418654621126,
+        33.67382934154696,
+        0.06572075013991001
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-35",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-35",
+      "bucket_xy_m": [
+        0.48980497694276803,
+        -0.40891850658332674
+      ],
+      "values": [
+        0.6413131269194354,
+        -0.35468731829953776,
+        0.2660454492001946,
+        24.76053848747594,
+        0.0760873475853788
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-36",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-36",
+      "bucket_xy_m": [
+        1.0650121596960314,
+        -0.44462532427186874
+      ],
+      "values": [
+        0.6430034959852962,
+        -0.20633118660055766,
+        0.37708471542559435,
+        27.498137647207333,
+        0.253473856907984
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-37",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-37",
+      "bucket_xy_m": [
+        1.22970321135342,
+        0.2113391764223297
+      ],
+      "values": [
+        0.6150895369447207,
+        -0.15970799483229306,
+        0.35466771756639837,
+        21.389695219458652,
+        0.21817574425274197
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-38",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-38",
+      "bucket_xy_m": [
+        0.17094915298503316,
+        0.1463472817193262
+      ],
+      "values": [
+        0.4903027845741849,
+        0.04856128217817242,
+        0.3298882779863959,
+        29.202732189088525,
+        0.28486905542799895
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-39",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-39",
+      "bucket_xy_m": [
+        1.0485342047362711,
+        -0.014276532051885948
+      ],
+      "values": [
+        0.6233927721209263,
+        -0.20084337034605387,
+        0.43611495494447394,
+        24.95649748941875,
+        0.19959789202732375
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-40",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-40",
+      "bucket_xy_m": [
+        0.1415932648349397,
+        0.14472865628637333
+      ],
+      "values": [
+        0.48961076464282693,
+        0.03738285592502779,
+        0.3301462095354133,
+        31.651070192758752,
+        0.29156054954429755
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-41",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-41",
+      "bucket_xy_m": [
+        0.7707169664401237,
+        -0.10452327725253041
+      ],
+      "values": [
+        0.6106835737153091,
+        -0.25419758520556185,
+        0.4626073201572355,
+        32.182088769860414,
+        0.03694841892713417
+      ],
+      "capture": false,
+      "native_release": false,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-42",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-42",
+      "bucket_xy_m": [
+        0.25064309952021135,
+        -0.6336994447501265
+      ],
+      "values": [
+        0.535865068435669,
+        -0.23588967323303223,
+        0.2819211184978485,
+        29.1559664461903,
+        0.36537494722226627
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 0.9999999999999999
+    },
+    {
+      "context_id": "gap-coverage-test-43",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-43",
+      "bucket_xy_m": [
+        0.8540315048524785,
+        -0.09101519168691374
+      ],
+      "values": [
+        0.6224771358559744,
+        -0.2259436673176619,
+        0.4426077526857092,
+        31.54428343205599,
+        0.10593072286234857
+      ],
+      "capture": false,
+      "native_release": false,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-44",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-44",
+      "bucket_xy_m": [
+        0.4313351336404472,
+        -0.5592027980900491
+      ],
+      "values": [
+        0.6115598006717088,
+        -0.4285541748897874,
+        0.266472066871877,
+        36.01698389617411,
+        0.15204339990063448
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": true,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-45",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-45",
+      "bucket_xy_m": [
+        0.9297596494896797,
+        0.11181260182885111
+      ],
+      "values": [
+        0.5963852343319163,
+        -0.1266297197972914,
+        0.32465084175170356,
+        17.578712112667013,
+        0.27710405695169416
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": false,
+      "retention_s": 0.0
+    },
+    {
+      "context_id": "gap-coverage-test-46",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-46",
+      "bucket_xy_m": [
+        0.9687788173355978,
+        -0.4723533194300469
+      ],
+      "values": [
+        0.6326288618249304,
+        -0.21959348454703387,
+        0.3796700204098485,
+        28.54400812937845,
+        0.25534103115382656
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-47",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-47",
+      "bucket_xy_m": [
+        0.3187389568946217,
+        -0.5154733224895597
+      ],
+      "values": [
+        0.609956699902088,
+        -0.3996743385510171,
+        0.2731187836500757,
+        31.870132572897315,
+        0.23759021714402542
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": true,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-48",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-48",
+      "bucket_xy_m": [
+        0.5140772767848966,
+        0.044774900453494304
+      ],
+      "values": [
+        0.6396399957144138,
+        -0.04799788546950415,
+        0.26871011609934814,
+        32.449122272723095,
+        0.0560957832867815
+      ],
+      "capture": false,
+      "native_release": true,
+      "clean": false,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    },
+    {
+      "context_id": "gap-coverage-test-49",
+      "method": "gap_coverage",
+      "record_id": "gap-coverage-gap_coverage-gap-coverage-test-49",
+      "bucket_xy_m": [
+        0.26428693956009863,
+        0.1443116436962556
+      ],
+      "values": [
+        0.5827152266820796,
+        -0.10427499655612503,
+        0.3220203211884805,
+        37.79692097723787,
+        0.3167850436298598
+      ],
+      "capture": true,
+      "native_release": true,
+      "clean": true,
+      "whole_ball_entry": true,
+      "retention_s": 1.0
+    }
+  ],
+  "contract_fingerprint": "efaa6a9dfbd5711ce84b000b7fbb6a74a2e63a5df79c930c6410fabcd20f27c4",
+  "artifacts": {
+    "ensemble": {
+      "path": "model/ensemble.pt",
+      "sha256": "0f8d00e59d7b9c07056a74b9f05f8a850ec46603b67a6f96489c90e31ebd40b4"
+    },
+    "bc": {
+      "path": "model/bc.pt",
+      "sha256": "1b201dc48101078ed641b614b89115440aa9725cea567fb2327ba71b9679b51d"
+    },
+    "ppo": {
+      "path": "model/ppo.pt",
+      "sha256": "d42f683e0fd79dd0ee6e01c042abc9df9d49273622a7d50a1026733dea64dcd0"
+    },
+    "consistent": {
+      "path": "model/ensemble.pt",
+      "sha256": "0f8d00e59d7b9c07056a74b9f05f8a850ec46603b67a6f96489c90e31ebd40b4"
+    },
+    "gap_coverage": {
+      "path": "model/ensemble.pt",
+      "sha256": "0f8d00e59d7b9c07056a74b9f05f8a850ec46603b67a6f96489c90e31ebd40b4"
+    }
+  },
+  "source_sha256": {
+    "sircus/mjlab/gap_coverage_study.py": "015fe76ae8d4e0463c3bd3db5a36252889b1fe9a7de1425f550f1f3069eb30bc",
+    "sircus/mjlab/gap_coverage_candidates.py": "fb1d54a59b7346590cdcc3ea61de42e6ce2ba8c147089e1ce86a53a6badafa0c",
+    "sircus/mjlab/gap_coverage_verify.py": "bf6195748957922fee5f81ee882fb29d2b58094c14fc85a8cb80c8f4ae101c5b",
+    "sircus/mjlab/gap_coverage_pipeline.py": "812bf5bee61f8473d114e0e76b98d4cb1db57d272efe81625b7f8bec1209bf10",
+    "sircus/mjlab/prepare_gap_coverage_report.py": "37472d768f8df57da932e519c4599fb5d3d1ddabc5d0b9022507736f18912d23",
+    "sircus/mjlab/consistent_flight_study.py": "8446a6dbcf07ecfddc0eba936b1178a20a71b590428b5fd1499b818dfc67f286",
+    "sircus/mjlab/consistent_flight_selector.py": "646a904aa397289aed95f203f6ed260dcca0210fcef3cb4101917096fe136920",
+    "sircus/mjlab/consistent_flight_verify.py": "f9631eefd0b3c4080c71c943c34e3efc50ab1975278a70b07b97fc9ef694acf9",
+    "sircus/mjlab/consistent_flight_diagnosis.py": "2dc9b98b2982571db0707218a74b56d3525880bc09fb3c5fa8ca7008bdb8d8ef",
+    "sircus/mjlab/ensemble_flight_diagnosis.py": "1b481a6b94102eb19c811ba5df53f4f9e8d4c68f602674fe59bd30f9ca3b5be3",
+    "sircus/mjlab/curate_physics_ensemble.py": "edbf99044fb9bab6b1e1601b0e807244ac03d8667f47c29e296aa7c8606d7d47",
+    "sircus/mjlab/physics_ensemble_contract.py": "4a625a1e19c2f60667464b2187f995c3d256a419f8f7a9849c4f7105e922a669",
+    "sircus/mjlab/physics_ensemble_model.py": "6690288ce22496b9fa43cdef20057c7c79fd7cef379796c5acdcfca5cde3292a",
+    "sircus/mjlab/physics_ensemble_study.py": "9ec41c8a0a5fd8cabfc63b61ad29bdd6fbf74f390f05c414e3039ad265d25c1a",
+    "sircus/mjlab/physics_ensemble_verify.py": "5feab02454843765abe590b843bc85744db58f27496d7b72f4571aecf4577ad1"
+  },
+  "audit": {
+    "version": "sircus-gap-coverage-audit-v2",
+    "status": "passed",
+    "checks_count": 1441075,
+    "requested_trials": 112,
+    "native_releases": 96,
+    "training_requests": 0,
+    "actor_comparison_revision": {
+      "version": "sircus-gap-coverage-actor-comparison-v2",
+      "supersedes_auditor_version": "sircus-gap-coverage-audit-v1",
+      "action_scales": [
+        0.04,
+        0.04,
+        0.05,
+        8.0,
+        0.12
+      ],
+      "action_units": [
+        "m",
+        "m",
+        "m",
+        "degrees",
+        "m"
+      ],
+      "independent_latent_atol": 2e-06,
+      "independent_residual_atol": 2e-06,
+      "normalized_action_atol": 2e-06,
+      "saved_tanh_atol": 1e-12,
+      "saved_action_atol": 1e-12,
+      "scope": "Unit-consistent CPU actor audit only; models, commands, native outcomes and scoring unchanged"
+    },
+    "auditor_sha256": "afb06acd8560e6ab833618f09f5d0b177e686373cd3f65bca4e926210209e23a",
+    "elapsed_s": 14.487445663980907
+  },
+  "provenance": {
+    "original_report_sha256": "110b8b7f48f9f0cc153e0dc0c9341ed78bb04d861090abef592bfc98f2f5bf1b",
+    "original_manifest_sha256": "7af5b7087d3ae24b47a2949e5a5cf2cd6c9a783411387186b0926fd2ae9e091e",
+    "prediction_plan_sha256": "023c57193d242ef75933fcf8e94cd138dd2299a08d2b11cb64afaee41cc2e4e2",
+    "v2_audit_sha256": "5c6bb8965ef264f9744c0f72c6da5c5bb4904d724938519eb21f45952d1c925a",
+    "original_failed_audit_sha256": "64fe78cf0f8e0991f1551be7162e805d64811545b2223ed28074766216a4a8ab",
+    "original_failed_audit": {
+      "version": "sircus-gap-coverage-audit-v1",
+      "status": "failed",
+      "failures": [
+        "EvidenceError: gap-coverage-test-19/frozen actor proposal/bc"
+      ]
+    }
+  },
+  "limitations": [
+    "Same frozen models and ranker; only two gap proposals changed. Fifty fresh paired bucket positions, one nominal request per method.",
+    "Ballistic aperture proxy does not simulate rim collisions or one-second retention; actual native scoring remains authoritative.",
+    "Equal sixteen-candidate and top-four geometry budgets; native wall time may differ. No retraining or full-table generalization claim.",
+    "Fixed64 only; earlier128 failures remain. No driven arm transit, grasp, noise or physical validation."
+  ]
+}

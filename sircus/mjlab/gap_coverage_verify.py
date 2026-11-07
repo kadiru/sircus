@@ -3,7 +3,9 @@
 Old held-out outcomes are development history, never new counterfactual labels.
 This auditor verifies the original source audits, regenerated forecasts, exact
 new requested actions, native setup proofs and dense capture scoring. It does
-not fit a model or execute a native shot.
+not fit a model or execute a native shot. Version 2 changes only actor-number
+comparison units and verifies saved nonlinear/action derivations separately;
+the original producer source, evidence and any failed v1 audit stay immutable.
 """
 from __future__ import annotations
 
@@ -26,12 +28,45 @@ from . import policy64_verify as policy
 from . import replay650_verify as replay
 from .benchmark_verify import EvidenceError, contained, digest, read, sha
 
-VERSION = "sircus-gap-coverage-audit-v1"
+VERSION = "sircus-gap-coverage-audit-v2"
 STUDY_VERSION = "sircus-gap-coverage-study-v1"
 METHODS = ("consistent", "gap_coverage")
 MAX_REQUESTS = 112
 SEED = 20261801
 AuditChecks = replay.AuditChecks
+
+
+ACTOR_COMPARISON_REVISION = dict(
+    version="sircus-gap-coverage-actor-comparison-v2",
+    supersedes_auditor_version="sircus-gap-coverage-audit-v1",
+    action_scales=[.04, .04, .05, 8., .12],
+    action_units=["m", "m", "m", "degrees", "m"],
+    independent_latent_atol=2e-6, independent_residual_atol=2e-6,
+    normalized_action_atol=2e-6, saved_tanh_atol=1e-12, saved_action_atol=1e-12,
+    scope="Unit-consistent CPU actor audit only; models, commands, native outcomes and scoring unchanged")
+
+
+def actor_proposal_checks(recorded, mean, anchor, checks, label):
+    """Separate float32 forward rounding from the exact saved action derivation.
+
+    NumPy and Torch may differ by a few float32 ulps. Their independent means
+    and residuals keep the original 2e-6 tolerance. The action comparison is
+    normalized by the declared five scales, avoiding an inconsistent absolute
+    bound shared by meters and degrees. Saved nonlinear/scaling identities
+    receive a separate strict 1e-12 check and cannot hide action substitution.
+    """
+    scale = np.asarray(ACTOR_COMPARISON_REVISION["action_scales"])
+    center = np.asarray(anchor["values"], dtype=float)
+    mean = np.asarray(mean, dtype=float)
+    residual = np.tanh(mean)
+    checks.numeric(recorded["latent_mean"], mean, label+"/independent actor forward", 2e-6)
+    checks.numeric(recorded["normalized_residual"], residual, label+"/independent actor residual", 2e-6)
+    saved_mean = np.asarray(recorded["latent_mean"], dtype=float)
+    saved_residual = np.asarray(recorded["normalized_residual"], dtype=float)
+    saved_action = np.asarray(recorded["values"], dtype=float)
+    checks.numeric(saved_residual, np.tanh(saved_mean), label+"/saved tanh derivation", 1e-12)
+    checks.numeric(saved_action, center+saved_residual*scale, label+"/saved action derivation", 1e-12)
+    checks.numeric((saved_action-center)/scale, residual, label+"/normalized independent action", 2e-6)
 
 
 def expected_splits(old_spec):
@@ -196,11 +231,7 @@ def _forecasts(study, packet, spec, train_rows, checks):
         for method in ("bc", "ppo"):
             recorded = log["actor_values"][method]
             mean = old.common.network_forward(actors[method], observation)
-            residual = np.tanh(mean.astype(float))
-            action = np.asarray(anchor["values"])+residual*np.asarray([.04, .04, .05, 8., .12])
-            checks.numeric(recorded["latent_mean"], mean, ident+"/independent actor forward/"+method, 2e-6)
-            checks.numeric(recorded["normalized_residual"], residual, ident+"/actor residual/"+method, 2e-6)
-            checks.numeric(recorded["values"], action, ident+"/frozen actor proposal/"+method, 2e-6)
+            actor_proposal_checks(recorded, mean, anchor, checks, ident+"/"+method)
             # The independent float32 forward can differ by a few ulps; byte-bound
             # recorded actor values reproduce the producer's literal candidate bank.
             actor_values[method] = recorded["values"]
@@ -380,6 +411,7 @@ def audit(study, source, native_source, assets, *, ensemble_study, ensemble_audi
                           for r in rows if r["role"] == "test"]
     checks.equal(report["test_positions"], expected_positions, "Every UI result is the same measured TEST request; no predicted captures")
     return dict(version=VERSION, status="passed", failures=[], checks=checks.entries, checks_count=checks.count,
+                actor_comparison_revision=copy.deepcopy(ACTOR_COMPARISON_REVISION),
                 contract_fingerprint=fp, report_sha256=sha(study/"report.json"), evidence_manifest_sha256=sha(study/"evidence-manifest.json"),
                 auditor_sha256=sha(Path(__file__)), producer_source_sha256=spec["source_sha256"], native_source_sha256=spec["native_source_sha256"],
                 original_ensemble_report_sha256=original.REPORT_SHA, original_ensemble_audit_sha256=original.AUDIT_SHA,

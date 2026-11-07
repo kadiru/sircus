@@ -114,17 +114,38 @@ export function gapCoverageReady(raw) {
   const p=raw?.protocol,a=raw?.audit,c=rows(raw?.comparisons);
   return raw?.version==='sircus-gap-coverage-study-v1' && ['completed','verified'].includes(raw.status) && p?.test_layouts===50 && p.maximum_fresh_requests===112 && p.substeps===64 && JSON.stringify(p.methods)===JSON.stringify(['consistent','gap_coverage']) && hash(raw.report_sha256) && a?.passed===true && a.report_sha256===raw.report_sha256 && integer(a.checks_count) && a.checks_count>0 && c.length===2 && new Set(c.map(r=>r?.method)).size===2 && c.every(r=>['consistent','gap_coverage'].includes(r?.method)&&validCounts(r?.counts)&&r.counts.requested===50);
 }
+export function gapCoveragePaired(raw) {
+  if(!gapCoverageReady(raw))return null;
+  const positions=rows(raw.test_positions),methods=['consistent','gap_coverage'];
+  if(positions.length!==100 || !positions.every(r=>r&&methods.includes(r.method)&&typeof r.context_id==='string'&&r.context_id.length>0&&typeof r.record_id==='string'&&r.record_id.length>0&&vector(r.bucket_xy_m,2)&&vector(r.values,5)&&typeof r.capture==='boolean'&&typeof r.native_release==='boolean'&&typeof r.clean==='boolean'&&(!r.capture||r.native_release)&&(!r.clean||r.capture)) || new Set(positions.map(r=>r.record_id)).size!==100)return null;
+  const groups=methods.map(method=>positions.filter(r=>r.method===method));
+  if(!groups.every((group,i)=>{const c=raw.comparisons.find(r=>r.method===methods[i]).counts;return group.length===50&&new Set(group.map(r=>r.context_id)).size===50&&group.filter(r=>r.capture).length===c.captures&&group.filter(r=>r.native_release).length===c.native_releases&&group.filter(r=>r.clean).length===c.clean;}))return null;
+  const baseline=new Map(groups[0].map(r=>[r.context_id,r])),result={both_capture:0,both_no_capture:0,gained_capture:0,lost_capture:0,changed_actions:0,positions:50};
+  for(const expanded of groups[1]){const original=baseline.get(expanded.context_id);if(!original||!expanded.bucket_xy_m.every((v,i)=>v===original.bucket_xy_m[i]))return null;
+    result[original.capture?(expanded.capture?'both_capture':'lost_capture'):(expanded.capture?'gained_capture':'both_no_capture')]++;
+    if(expanded.values.some((v,i)=>v!==original.values[i]))result.changed_actions++;
+  }
+  return result;
+}
 function renderGapCoverage(root,raw) {
   const ready=gapCoverageReady(raw),known=raw?.version==='sircus-gap-coverage-study-v1',failed=known&&(raw.status==='failed'||raw.audit?.passed===false);
+  const comparison=method=>known?rows(raw.comparisons).find(r=>r?.method===method)?.counts||{}:{};
+  const baseline=comparison('consistent'),expanded=comparison('gap_coverage');
+  const interpretation=ready&&baseline.captures===expanded.captures?` No observed capture gain: both methods captured ${count(baseline.captures)} / ${count(baseline.requested)} (${pct(baseline.captures/baseline.requested)}). This single comparison does not establish a winner or generalization.`:'';
+  const paired=gapCoveragePaired(raw),pairedText=paired?` Paired positions: ${paired.both_capture} captured by both; ${paired.both_no_capture} without capture by either. Expanded gap proposals gained ${paired.gained_capture} capture(s) and lost ${paired.lost_capture}; ${paired.changed_actions} / ${paired.positions} selected configurations changed.`:'';
   const progress=(value,total)=>`${integer(value)&&value<=total?value:'unknown'} / ${total}`;
   const wait=finite(raw?.queue?.wait_s)&&raw.queue.wait_s>=0?` (${fmt(raw.queue.wait_s,0)} s elapsed)`:'';
   const detail=raw?.status==='preparing'?`preparing ${progress(raw.planned_layouts,50)} layouts`
     :raw?.status==='queued'?`${progress(raw.planned_layouts,50)} layouts prepared; waiting for RTX 4090${wait}`
     :raw?.status==='running'?`running ${progress(raw.counts?.requested,112)} requests`
     :raw?.status||'unknown';
-  const state=ready?'Fresh gap-coverage comparison completed and independently verified.':failed?'Gap-coverage run or audit failed; results remain provisional.':known?`Gap-coverage comparison: ${detail}; results are provisional until the matching audit passes.`:'The gap-coverage correction has no published native result yet.';
+  const state=ready?`Fresh gap-coverage comparison completed and independently verified.${interpretation}${pairedText}`
+    :known&&raw.status==='completed'&&raw.audit?.passed===false?'Native comparison completed, but its audit failed; results remain unverified.'
+    :known&&raw.status==='failed'?'Gap-coverage run failed; results remain provisional.'
+    :failed?'Gap-coverage audit failed; results remain unverified.'
+    :known?`Gap-coverage comparison: ${detail}; results are provisional until the matching audit passes.`:'The gap-coverage correction has no published native result yet.';
   text(root,'correction-status',state);at(root,'correction-status')?.setAttribute('data-state',ready?'passed':failed?'failed':'unknown');
-  table(root,'correction',['Frozen method','Captures / requested','Capture rate','Setup rejects','Native misses'],['consistent','gap_coverage'].map(method=>{const c=known?rows(raw.comparisons).find(r=>r?.method===method)?.counts||{}:{};return[method==='consistent'?'Original flight-consistent rank':'Expanded gap proposals',`${count(c.captures)} / ${count(c.requested)}`,integer(c.requested)&&c.requested>0&&integer(c.captures)?pct(c.captures/c.requested):'unknown',count(c.rejected),count(c.native_misses)];}));
+  table(root,'correction',['Frozen method','Captures / requested','Capture rate','Clean','Setup rejects','Native misses'],['consistent','gap_coverage'].map(method=>{const c=comparison(method);return[method==='consistent'?'Original flight-consistent rank':'Expanded gap proposals',`${count(c.captures)} / ${count(c.requested)}`,integer(c.requested)&&c.requested>0&&integer(c.captures)?pct(c.captures/c.requested):'unknown',count(c.clean),count(c.rejected),count(c.native_misses)];}));
 }
 export function startFlightResidualDiagnosis(root,{fetchReport=async()=>{const r=await fetch('/api/study',{cache:'no-store'});if(!r.ok)throw Error(`HTTP ${r.status}`);return r.json();},schedule=setTimeout,cancel=clearTimeout}={}) {
   let stopped=false,timer;
