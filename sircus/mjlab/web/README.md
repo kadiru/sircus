@@ -348,3 +348,14 @@ provisional progress separately from completed, independently audited results.
 The new 50-position comparison cannot change the existing interactive solver.
 See [diagnosis](../FLIGHT_RESIDUAL_DIAGNOSIS.md) and
 [comparison protocol](../GAP_COVERAGE.md).
+
+## Fifty-position diagnosis panel
+
+`gap-flight-diagnosis.{html,css,js}` adds read-only `#gapFlightDiagnosis`.
+Insert the fragment and its stylesheet/module ahead of `#flightResidualDiagnosis`
+in an existing viewer; preserve all older sections. It only GETs `/api/study`.
+`prepare_gap_flight_report` publishes byte-verified derived diagnosis under
+`gap_flight_diagnosis` and the separate correction lifecycle under
+`gap_flight_correction`. Completed correction counts are hidden until the native
+audit, request plan and full manifest match. Failure/timeout status stays explicit.
+No solver, policy, robot control or service restart is involved.

@@ -1,5 +1,25 @@
 # Project state
 
+## Fifty-position failure diagnosis and queued gap correction — November 7, 2026
+
+- [Diagnosis and exact examples](MJLAB_GAP_FLIGHT_DIAGNOSIS_20261107.md): original
+  18 native misses split into first subsequent contacts with robot 9, bucket 6,
+  table 3. Four entered and retained for one second but failed the complete route
+  after robot contact. Original labels remain unchanged. Eight setup rejections:
+  finite IK 3, fixed-base obstruction 2, endpoint self-clearance 2, action bounds 1.
+- CPU reconstruction passed 702 checks against the original 1,441,075-check proof.
+  New read-only `#gapFlightDiagnosis` UI contains all 50 original requests, paired
+  outcomes, measured first flights and separately labeled model projections.
+- One correction is frozen and **queued, not completed**: raise release gap by
+  60 mm only for cases 12/24/48; three original and three changed repeats per case,
+  plus 12 matched pre/post controls = 30 requests. CPU plan/source preflight passed
+  6,810 checks. The same 64-step physics, strict admission and scoring remain.
+  Queue waits for the shared 4090 slot, capped at 24 h waiting and one acquired
+  GPU-hour. Existing 4070 and Isaac work remain untouched; no fitting was launched.
+- These diagnosed layouts are now development data. Changed gap affects energy
+  as well as clearance. No improvement claim until the new independent native
+  audit passes; no policy activation, noise,128 or full-motion claim.
+
 ## Fifty-position wider-gap comparison completed — November 7, 2026
 
 - [Audited result and provenance](../baselines/mjlab-gap-coverage-20261107/README.md):
