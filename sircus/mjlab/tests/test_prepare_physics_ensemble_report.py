@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from sircus.mjlab import prepare_physics_ensemble_report as p
 
@@ -65,6 +66,30 @@ class PhysicsEnsemblePublisherTests(unittest.TestCase):
             with self.assertRaises(ValueError):p.prepare(self.base,self.study,out,self.audit)
         self.base.write_text('[]')
         with self.assertRaises(ValueError):self.prepare()
+
+    def test_posthoc_intervals_require_bound_complete_consistent_cohorts(self):
+        self.raw['test_positions']=[];self.raw['test_comparison']=[]
+        for method,captures in (('bc',20),('ppo',22),('ensemble',21)):
+            self.raw['test_comparison'].append(dict(method=method,counts=dict(requested=60,native_releases=60,captures=captures,
+                clean=0,rejected=0,native_misses=60-captures,invalid=0)))
+            for i in range(60):
+                self.raw['test_positions'].append(dict(context_id=f'fresh-{i:02d}',method=method,bucket_xy_m=[.1+i*.01,-.3],
+                    values=[.5,-.2,.3,30.,.3],actual=dict(native_release=True,capture=i<captures,clean=False,invalid=None,invalid_physics=False)))
+        self.write();source=(self.study/'report.json').read_bytes();value=self.prepare()
+        self.assertEqual(value['derived_statistics']['status'],'computed');self.assertEqual(len(value['paired_differences']),3)
+        ci=value['test_comparison'][0]['capture_ci95'];self.assertLess(ci[0],20/60);self.assertGreater(ci[1],20/60)
+        self.assertEqual(value['derived_statistics']['source_report_sha256'],p.sha(source));self.assertEqual((self.study/'report.json').read_bytes(),source)
+        self.raw['test_comparison'][0]['counts']['captures']+=1;self.write()
+        self.assertEqual(self.prepare()['derived_statistics']['status'],'unavailable')
+        self.raw['status']='queued';self.write();self.assertNotIn('derived_statistics',self.prepare())
+
+    def test_optional_statistics_dependency_does_not_hide_audited_results(self):
+        self.write()
+        with patch.dict('sys.modules',{'sircus.mjlab.physics_ensemble_statistics':None}):
+            value=self.prepare()
+        self.assertTrue(value['audit']['full_checks_verified'])
+        self.assertEqual(value['derived_statistics']['status'],'unavailable')
+        self.assertEqual(value['test_comparison'][0]['counts']['captures'],25)
 
 
 if __name__=='__main__':unittest.main()
