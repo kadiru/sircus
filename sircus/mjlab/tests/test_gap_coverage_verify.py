@@ -189,6 +189,49 @@ class IndependentCandidateChecks(unittest.TestCase):
         self.assertEqual((self.banks,self.original,self.anchor),before)
 
 
+class ActorComparisonRevisionTests(unittest.TestCase):
+    def case19(self):
+        # Actual case19 tilt scalars expose float32 rounding amplified by the
+        # eight-degree scale; the other coordinates are generic test constants.
+        anchor=dict(values=[.5,-.2,.3,27.534005060312847,.2])
+        saved=np.array([0.,0.,0.,.35687845945358276,0.])
+        independent=np.array([0.,0.,0.,.35687875747680664,0.],dtype=np.float32)
+        residual=np.tanh(saved)
+        values=np.array(anchor['values'])+residual*np.array([.04,.04,.05,8.,.12])
+        return dict(latent_mean=saved.tolist(),normalized_residual=residual.tolist(),values=values.tolist()),independent,anchor
+
+    def test_case19_float32_difference_is_a_unit_error_not_changed_action(self):
+        recorded,mean,anchor=self.case19()
+        old_action=np.array(anchor['values'])+np.tanh(mean.astype(float))*np.array([.04,.04,.05,8.,.12])
+        delta=abs(recorded['values'][3]-old_action[3])
+        self.assertAlmostEqual(delta,2.1045684910347973e-6,places=15)
+        with self.assertRaises(audit.EvidenceError):
+            audit.AuditChecks().numeric(recorded['values'],old_action,'old mixed-unit comparison',2e-6)
+        audit.actor_proposal_checks(recorded,mean,anchor,audit.AuditChecks(),'case19')
+        self.assertEqual(audit.VERSION,'sircus-gap-coverage-audit-v2')
+        self.assertEqual(audit.ACTOR_COMPARISON_REVISION['independent_latent_atol'],2e-6)
+        self.assertEqual(audit.ACTOR_COMPARISON_REVISION['normalized_action_atol'],2e-6)
+
+    def test_even_small_action_corruption_fails_exact_saved_derivation(self):
+        for index in range(5):
+            recorded,mean,anchor=self.case19();recorded['values'][index]+=1e-8
+            with self.subTest(index=index),self.assertRaises(audit.EvidenceError):
+                audit.actor_proposal_checks(recorded,mean,anchor,audit.AuditChecks(),'tampered action')
+
+    def test_small_residual_corruption_fails_tanh_identity(self):
+        recorded,mean,anchor=self.case19();recorded['normalized_residual'][4]+=1e-8
+        recorded['values']=(np.array(anchor['values'])+np.array(recorded['normalized_residual'])*np.array([.04,.04,.05,8.,.12])).tolist()
+        with self.assertRaises(audit.EvidenceError):
+            audit.actor_proposal_checks(recorded,mean,anchor,audit.AuditChecks(),'tampered residual')
+
+    def test_coherent_changed_actor_still_fails_original_independent_bound(self):
+        recorded,mean,anchor=self.case19();recorded['latent_mean'][4]+=3e-6
+        recorded['normalized_residual']=np.tanh(recorded['latent_mean']).tolist()
+        recorded['values']=(np.array(anchor['values'])+np.array(recorded['normalized_residual'])*np.array([.04,.04,.05,8.,.12])).tolist()
+        with self.assertRaises(audit.EvidenceError):
+            audit.actor_proposal_checks(recorded,mean,anchor,audit.AuditChecks(),'changed actor')
+
+
 class ForecastLedgerChecks(unittest.TestCase):
     """Exercise the two-bank audit wiring without Torch, native setup or GPUs."""
     def setUp(self):

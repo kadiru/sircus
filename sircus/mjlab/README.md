@@ -5,8 +5,10 @@ flight-consistent selector comparison: 17/30 complete captures, nine native
 misses and four setup rejections. Eight misses never entered; one was retained
 after a disallowed robot contact. All nine failed layouts had negative predicted
 opening margins across their 16 proposals. A [paired gap-coverage ablation](GAP_COVERAGE.md)
-compares unchanged versus two wider gap proposals at 50 fresh layouts, with no
-model fitting or automatic policy switch. Results remain pending until audited.
+compared unchanged versus two wider gap proposals at 50 fresh layouts, with no
+model fitting or automatic policy switch. Both captured **24/50 (48%)**;
+clean captures were 13 original versus 11 wider-gap. The separate v2 audit passed
+**1,441,075 checks**. [Results and preserved audit history](../../baselines/mjlab-gap-coverage-20261107/README.md).
 UI: `#flightResidualDiagnosis`.
 
 Latest: [PPO versus imitation diagnosis](POLICY64_DIAGNOSIS.md), with
