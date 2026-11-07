@@ -1,0 +1,10 @@
+{
+  "version": "sircus-ensemble-flight-diagnosis-publication-v1",
+  "implementation_commit": "164191306b3ae96e29de39d4149b419d1e1cf414",
+  "diagnosis_sha256": "561945e7752794fa6a13f3c8ccc1313e68bc230959996fece4232cd9f0442879",
+  "runtime_archive_sha256": "eeaaa6672c5c004d98fde22adf5ee2564df8a51e1d8ea3f128dceb79a3b594b9",
+  "raw_traces_in_git": false,
+  "full_diagnostic_trace_location": "Ubuntu local derived evidence; excluded from repository",
+  "summary_sha256": "6c4804108f1a0bfa21fcb218aa3220869352cbd4d6f5b06b4b03bf50ea22ad21",
+  "checks_sha256": "384d73ca462f0114eb9bcba46757c11b0a116e549c00f518a8e10cfa306c691b"
+}

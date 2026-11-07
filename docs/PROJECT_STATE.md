@@ -1,5 +1,34 @@
 # Project state
 
+## Ensemble flight diagnosis — November 6, 2026
+
+- [Recorded-flight results and exact cases](../baselines/mjlab-ensemble-flight-diagnosis-20261106/README.md),
+  [method](../sircus/mjlab/ENSEMBLE_FLIGHT_DIAGNOSIS.md). CPU reconstruction of the
+  original fixed64 study, with no new native requests or training. Original
+  897,304-check native audit and original scores remain unchanged.
+- All 25 native ensemble misses had board bounce but no whole-ball entry and
+  zero retention. First subsequent free-flight contact: bucket 16, robot three,
+  table six. Contact channel alone does not identify rim contact or final score.
+- Scores ≥90%: 18 captures / 36 requested, with 13 flight misses and five rejects.
+  Scores ≥99%: 4 / 13. Member agreement is not calibrated confidence.
+- Case29: direct closest-opening head predicted 8.4 mm, measured 107.9 mm.
+  Its model-velocity ballistic endpoint error was about 16.97 mm versus about
+  0.07 mm with measured velocity; these conditional curves share an observed
+  rebound origin and are distinct from direct distance-head predictions.
+- Case36: successful BC board XY/height/tilt unchanged, gap raised exactly 36 mm;
+  the ensemble missed. Original single-shot contrast, not repeatability proof.
+  Capture, distance and velocity heads are independently supervised without a
+  ballistic consistency constraint; this is an improvement hypothesis, not a
+  proven sole cause. Nearest-TRAIN distances remain descriptive.
+- The read-only `#ensembleFlightDiagnosis` panel shows six recorded examples,
+  scalar/velocity errors, conditional curves and every native ensemble miss.
+  Missing pre-contact rim crossing is unknown, not a fabricated clearance.
+- The 4090 was occupied by another workload and was not interrupted. No changes
+  to Isaac, the 4070, service processes, interactive solver, old results, scoring
+  or provisional geometry. No new 128/noise/hardware work.
+- Next: bounded physics-consistent flight/aperture ranking on these development
+  cases before more training; changed selectors require new frozen holdouts.
+
 ## Learned physics ensemble — completed, November 6, 2026
 
 - [Checkpoint, results and evidence](../baselines/mjlab-physics-ensemble-20261106/README.md),
