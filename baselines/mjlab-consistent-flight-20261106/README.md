@@ -13,7 +13,7 @@ These are **post-hoc development diagnostics**, not fresh test results. All
 Model-only reranking changes the top candidate in 64 of the 84 original
 VAL/TEST banks; those different candidates have unknown outcomes.
 
-| Original native outcomes | Requests | Negative predicted opening margin |
+| Original request outcomes | Requests | Negative predicted opening margin |
 |---|---:|---:|
 | Captured | 24 | 13 |
 | Flight missed | 25 | 25 |
@@ -50,7 +50,8 @@ literal candidate with a −0.984 mm drop gap. Its evidence is preserved. The
 fix retains that candidate unchanged, records unavailable nominal flight data
 and ranks it last. It does not clamp the gap, fabricate a flight or claim a
 native rejection. The corrected isolated run uses source
-`efdacccd4fb587312f272d68307e607a406ca4ff`.
+`efdacccd4fb587312f272d68307e607a406ca4ff` in the `consistent-flight-v2`
+study/output namespace. The `consistent-flight-v1` attempt remains historical.
 
 At this development checkpoint, fresh native results remain pending. Consult
 the UI and live worker state for progress. The exclusive 4090 queue expires
