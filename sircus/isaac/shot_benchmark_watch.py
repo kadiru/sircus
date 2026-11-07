@@ -42,8 +42,9 @@ def watch(root, output, *, poll_s=300, duration_s=8*86400):
                     else:
                         seen[item["path"]]=current
             value=publish(root,output,media=True)
-            coordinator=read(root/"coordinator.json") if (root/"coordinator.json").exists() else None
-            complete=coordinator is not None and coordinator.get("status")=="completed" and not media_errors
+            coordinator=value.get("coordinator")
+            complete=(value.get("status")=="completed" and coordinator is not None
+                and coordinator.get("status")=="completed" and not media_errors)
             atomic(status,dict(status="completed" if complete else "watching_with_media_errors" if media_errors else "watching",pid=os.getpid(),
                 experiment_sha256=expected,elapsed_s=time.monotonic()-started,
                 observed_train_attempts=value["observed_train_attempts"],report_sha256=sha(output/"report.json"),

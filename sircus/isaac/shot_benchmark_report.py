@@ -109,6 +109,114 @@ def source_identity(raw):
     return value
 
 
+def independent_audit(root, plan, experiment, progress, progress_sha):
+    """Expose a bound auditor receipt, never infer audit success from native exit.
+
+    This publisher does not rerun the independent audit. It verifies that a
+    saved passed receipt names these exact immutable native inputs and the
+    original recorded auditor bytes before displaying its result.
+    """
+    name = plan['path']+'.audit.json'
+    path = safe_path(root, name, exists=False)
+    if not path.exists():
+        return dict(status='pending', receipt=None, sha256=None,
+                    scope='No independent passed audit receipt has been published.')
+    raw, receipt_sha = read_snapshot(path)
+    require(raw.get('schema') == 'sircus-shot-benchmark-independent-audit-v1'
+            and raw.get('status') == 'passed' and raw.get('smoke_only') is False,
+            'Independent audit is not a passed production receipt')
+    require(raw.get('method') == plan['method'] and raw.get('seed') == plan['seed']
+            and source_identity(raw.get('source')) == experiment['source']
+            and raw.get('experiment_sha256') == experiment['_experiment_sha256']
+            and raw.get('split_manifest_sha256') == experiment['split_manifest_sha256'],
+            'Independent audit belongs to another experiment/run/source')
+    require(progress.get('status') == 'completed'
+            and raw.get('source_progress_sha256') == progress_sha,
+            'Independent audit does not bind current completed native progress')
+    runroot = safe_path(root, plan['path']+'/progress.json').parent
+    for key, file in (('source_result_sha256','result.json'),
+                      ('source_binding_sha256','experiment-binding.json'),
+                      ('source_contract_sha256','contract.json')):
+        require(digest(raw.get(key), key) == sha(safe_path(runroot, file)),
+                'Independent audit native input bytes changed: '+file)
+    recorded = progress.get('source_sha256')
+    require(isinstance(recorded, dict) and raw.get('source_sha256') == recorded
+            and digest(raw.get('audit_source_sha256'), 'Auditor digest')
+                == recorded.get('shot_benchmark_audit.py'),
+            'Independent audit source differs from pinned native auditor')
+    require(raw.get('source_trial_sha256') == progress.get('source_trial_sha256')
+            and raw.get('paid_train_attempts') == 10000
+            and raw.get('evaluation_attempts') == 420
+            and raw.get('updates') == progress.get('updates'),
+            'Independent audit trial/budget/update bindings changed')
+    return dict(status='passed', receipt=name, sha256=receipt_sha,
+        paid_train_attempts=10000, evaluation_attempts=420,
+        native_steps=integer(raw['native_steps'], 'Audited native steps'),
+        rescored_releases=integer(raw['rescored_releases'], 'Audited releases'),
+        frame_readbacks=integer(raw['frame_readbacks'], 'Audited camera frames'),
+        audit_source_sha256=raw['audit_source_sha256'],
+        scope='Saved independent audit passed for the bound native inputs; publication verifies receipt bindings, not a new rescore.')
+
+
+def coordinator_snapshot(root, experiment):
+    """Read bounded coordinator receipts; a receipt is not a PID liveness test."""
+    path = safe_path(root, 'coordinator.json', exists=False)
+    if not path.exists():
+        return dict(status='unknown', origin=None, updated_utc=None, error=None,
+                    scope='No coordinator receipt supplied; process liveness has not been tested by this publisher.')
+    raw, receipt_sha = read_snapshot(path)
+    states = ('recovered','launching','running','auditing','completed','failed')
+    require(raw.get('status') in states, 'Unknown coordinator state')
+    require(raw.get('source_commit') == experiment['source']['commit']
+            and raw.get('total_authorized_train_attempts') == 60000,
+            'Coordinator source/budget differs from frozen experiment')
+    method, seed = raw.get('method'), raw.get('seed')
+    require((method is None and seed is None) or (method,seed) in
+            {(p['method'],p['seed']) for p in experiment['runs']},
+            'Coordinator refers to an undeclared run')
+    original = dict(status=raw['status'], origin='coordinator.json', sha256=receipt_sha,
+        method=method, seed=seed, updated_utc=raw.get('updated_utc'),
+        error=str(raw['error'])[:8192] if raw.get('error') else None,
+        scope='Last saved coordinator receipt; publisher does not test process liveness or launch jobs.')
+    recovery_path = safe_path(root, 'recovery-coordinator.json', exists=False)
+    if not recovery_path.exists():
+        return original
+    try:
+        recovery, recovery_sha = read_snapshot(recovery_path)
+        launch_path = safe_path(root, 'control/recovery-launch.json')
+        launch, launch_sha = read_snapshot(launch_path)
+        require(launch.get('schema') == 'sircus-shot-benchmark-recovery-v1'
+                and launch.get('source_commit') == experiment['source']['commit']
+                and launch.get('source_archive_sha256') == experiment['source']['archive_sha256']
+                and launch.get('experiment_sha256') == experiment['_experiment_sha256']
+                and launch.get('original_failed_status_sha256') == receipt_sha
+                and original['status'] == 'failed', 'Recovery launch is not bound to this failed coordinator/source')
+        adopted = launch.get('adopted_audit', {})
+        canonical = adopted.get('canonical_file')
+        require(canonical in {p['path']+'.audit.json' for p in experiment['runs']}
+                and adopted.get('canonical_sha256') == sha(safe_path(root, canonical)),
+                'Recovery adopted audit receipt changed')
+        require(recovery.get('schema') == 'sircus-shot-benchmark-recovery-coordinator-v1'
+                and recovery.get('source_commit') == experiment['source']['commit']
+                and recovery.get('experiment_sha256') == experiment['_experiment_sha256']
+                and recovery.get('original_failed_status_sha256') == receipt_sha
+                and recovery.get('recovery_receipt_sha256') == launch_sha
+                and recovery.get('total_authorized_train_attempts') == 60000
+                and recovery.get('status') in states, 'Recovery status source/launch/budget binding changed')
+        method, seed = recovery.get('method'), recovery.get('seed')
+        require((method is None and seed is None) or (method,seed) in
+                {(p['method'],p['seed']) for p in experiment['runs']}, 'Recovery refers to an undeclared run')
+        return dict(status=recovery['status'], origin='recovery-coordinator.json', sha256=recovery_sha,
+            recovery_receipt_sha256=launch_sha, method=method, seed=seed,
+            updated_utc=recovery.get('updated_utc'),
+            error=str(recovery['error'])[:8192] if recovery.get('error') else None,
+            original_failure=original, scope=original['scope'])
+    except (ValueError, KeyError, TypeError) as exc:
+        # An unbound/malformed recovery must never make a failed queue appear
+        # healthy or suppress valid original native curves and footage.
+        return dict(original, recovery_error=str(exc))
+
+
 def resources(raw):
     """Unknown measurements remain null; headless and rendering never combine."""
     raw = raw or {}
@@ -191,7 +299,9 @@ def load_run(root, plan, experiment):
     common = dict(method=plan['method'], seed=plan['seed'], path=plan['path'])
     if not path.exists():
         return dict(common, status='pending', train=None, learning_curve=[], checkpoints=[],
-                    resources=resources(None), training_wall_s=None, algorithm_overhead=None, batch_timing=None, videos=[], evidence={}, error=None)
+                    resources=resources(None), training_wall_s=None, algorithm_overhead=None, batch_timing=None, videos=[], evidence={}, error=None,
+                    independent_audit=dict(status='pending',receipt=None,sha256=None,
+                        scope='No native progress or independent passed audit receipt has been published.'))
     raw, progress_sha = read_snapshot(path)
     require(raw.get('schema') == PROGRESS_SCHEMA and raw.get('experiment_id') == experiment['experiment_id'], 'Progress belongs to another experiment')
     require(raw.get('method') == plan['method'] and raw.get('seed') == plan['seed'], 'Run method/seed changed')
@@ -266,10 +376,14 @@ def load_run(root, plan, experiment):
     overhead = raw.get('algorithm_overhead')
     if overhead is not None:
         overhead = {k: None if overhead.get(k) is None else finite(overhead[k],k) for k in ('proposal_wall_s','update_wall_s','checkpoint_wall_s')} | {'scope':str(raw['algorithm_overhead'].get('scope','Checkpoint overhead may include all stages, not only TRAIN'))}
+    audit = independent_audit(root,plan,experiment,raw,progress_sha)
+    if audit['sha256'] is not None:
+        evidence['independent_audit'] = audit['sha256']
     return dict(common, status=status, train=train, learning_curve=curve, checkpoints=checkpoints,
         training_wall_s=training_wall, algorithm_overhead=overhead,
         resources=resources(raw.get('resources')), batch_timing=timing_batches(raw.get('batches')),
-        videos=videos, evidence=evidence, error=str(raw['error']) if raw.get('error') else None)
+        videos=videos, evidence=evidence, independent_audit=audit,
+        error=str(raw['error']) if raw.get('error') else None)
 
 
 def method_summaries(runs):
@@ -329,7 +443,15 @@ def summarize(root):
     require(len(plans) == 6 and {(p['method'],p['seed']) for p in plans} == expected, 'Six explicit method/seed run paths required')
     require(len({p['path'] for p in plans}) == 6, 'Run paths must be distinct')
     runs = [load_run(root,p,experiment) for p in plans]
-    return dict(schema=SCHEMA, experiment_id=experiment['experiment_id'], status='completed' if all(r['status']=='completed' for r in runs) else 'attention_required' if any(r['status'] in ('failed','cancelled') for r in runs) else 'in_progress',
+    coordinator = coordinator_snapshot(root,experiment)
+    native_complete = all(r['status']=='completed' for r in runs)
+    audited_complete = all(r['independent_audit']['status']=='passed' for r in runs)
+    status = ('attention_required' if coordinator['status']=='failed'
+        or coordinator.get('recovery_error') or any(r['status'] in ('failed','cancelled') for r in runs)
+        else 'completed' if native_complete and audited_complete
+        else 'awaiting_audit' if native_complete else 'in_progress')
+    return dict(schema=SCHEMA, experiment_id=experiment['experiment_id'], status=status,
+        coordinator=coordinator,
         source=experiment['source'], protocol=experiment.get('protocol'), reward=experiment.get('reward'), split_manifest_sha256=experiment['split_manifest_sha256'],
         seeds=seeds, methods=list(METHODS), train_budget_per_run=10000, authorized_train_attempts=60000,
         observed_train_attempts=sum(r['train']['attempts'] for r in runs if r['train'] is not None),
