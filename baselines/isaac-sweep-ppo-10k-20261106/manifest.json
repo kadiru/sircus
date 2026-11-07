@@ -3,7 +3,10 @@
   "files": {
     "first-pair.json": "df2e7bef136abd489c47630d8b352cd6f853f399c82c73698a840a52c8887300",
     "ppo-seed20261121.pt": "f936e3dec1fc700a74b2838fabc7fd7cac2163c6b37cfec04dc751fa0aa48fbd",
-    "sweep-seed20261121.json": "9a1577f7b4d4ccda842ffcc86486612e6561be8b0b198543269f1c96010aa8bb"
+    "sweep-seed20261121.json": "9a1577f7b4d4ccda842ffcc86486612e6561be8b0b198543269f1c96010aa8bb",
+    "second-ppo.json": "003673f742fc4554cb4cc0485f76bf1f698bad538adde0e55b93e226f0e23083",
+    "ppo-seed20261122.pt": "57d7658e9ed2f72ad09cf4e8523ab497ccbe0708364f1b8ec4a4c5c1aef1fe9f"
   },
-  "scope": "Exact audited final model bytes and compact derived first-pair results; raw observations/media/audits remain outside Git."
+  "scope": "Exact audited final model bytes and compact derived first-pair results; raw observations/media/audits remain outside Git.",
+  "addendum_scope": "Additive second-PPO final model and compact results; the original first-pair artifacts and checksums are unchanged."
 }
