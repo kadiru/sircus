@@ -1,5 +1,14 @@
 # Sircus in mjlab
 
+Latest: [flight-miss diagnosis](FLIGHT_RESIDUAL_DIAGNOSIS.md) of the completed
+flight-consistent selector comparison: 17/30 complete captures, nine native
+misses and four setup rejections. Eight misses never entered; one was retained
+after a disallowed robot contact. All nine failed layouts had negative predicted
+opening margins across their 16 proposals. A [paired gap-coverage ablation](GAP_COVERAGE.md)
+compares unchanged versus two wider gap proposals at 50 fresh layouts, with no
+model fitting or automatic policy switch. Results remain pending until audited.
+UI: `#flightResidualDiagnosis`.
+
 Latest: [PPO versus imitation diagnosis](POLICY64_DIAGNOSIS.md), with
 [audited paired examples and 96-slot intervention results](../../baselines/mjlab-policy64-diagnosis-20261106/README.md).
 Five of seven lost captures were setup rejections; board-height-only restoration

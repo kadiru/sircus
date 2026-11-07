@@ -1,5 +1,38 @@
 # Project state
 
+## Flight residual diagnosis and gap-coverage comparison — November 7, 2026
+
+- The completed 30-position comparison is now authenticated: **132 total
+  requests, 116 native releases, 485,047 independent native checks passed**.
+  On the same 30 TEST layouts, consistent-flight selection captured **17/30**
+  (six clean), versus imitation 14/30, PPO 14/30 and old ensemble selection 13/30.
+  These are one-shot paired results, not repeatability or all-table coverage.
+- [Scalar results and provenance](../baselines/mjlab-flight-residual-20261107/README.md),
+  [diagnosis method](../sircus/mjlab/FLIGHT_RESIDUAL_DIAGNOSIS.md). New CPU diagnosis
+  passed **802 binding/reconstruction checks**, with zero new native shots or
+  fitting. All 30 requests and four paired methods remain accounted for.
+- The consistent selector had four setup rejects and nine native route failures.
+  Eight never achieved whole-ball entry. Case20 entered and retained for one
+  second but had robot contact, so the unchanged complete-route rule rejected it.
+  First-flight cutoffs were bucket five, table three and robot one; contact channel
+  alone does not identify a rim hit. Three rejects were finite IK failures and one
+  failed strict endpoint clearance/pose admission; these do not prove impossibility.
+- All sixteen model proposals had negative aperture margins at each of the nine
+  failed native layouts. This suggests testing candidate coverage, not that a
+  negative margin proves failure. Nominal-versus-measured rebound-origin differences
+  were only about 1.03–1.71 mm for those misses; causal attribution remains open.
+- [Next bounded comparison](../sircus/mjlab/GAP_COVERAGE.md): 50 newly frozen layouts,
+  seed `20261801`, two methods and **112 requested slots including 12 controls**.
+  Only candidate slots08/09 change from imitation-gap ±36 mm to anchor-gap ±120 mm;
+  fourteen other proposals, model weights, ranking, native64 physics, scoring and
+  the 16-candidate/top-four geometry budget stay fixed. No fresh results are
+  published yet. The previous 30 TEST positions are now development data.
+- The new worker waits for the existing 4090 lock and foreign workload; queue
+  expires after 24 hours and acquired work is capped at one hour. Isaac and the
+  4070 remain separate. Live queue/results belong in `#flightResidualDiagnosis`,
+  including its nested gap-coverage section; no service restart, hardware action, interactive solver
+  activation, 128-substep, noise or perception validation accompanies this work.
+
 ## Frozen flight-consistent selector — November 6, 2026
 
 - [Development checkpoint](../baselines/mjlab-consistent-flight-20261106/README.md):

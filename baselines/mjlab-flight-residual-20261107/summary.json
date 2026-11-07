@@ -1,0 +1,2166 @@
+{
+  "version": "sircus-consistent-flight-diagnosis-curation-v1",
+  "status": "completed",
+  "scope": "CPU diagnosis of original fixed64 requests, not a new native test or fit. These former TEST positions are now development data. Original audited capture labels remain unchanged. Predictions and nominal origins are separate from observed rebounds; conditional ballistic curves stop at first contact. No 128-substep, noise, perception, driven-transit or physical validation.",
+  "source": {
+    "verified": true,
+    "report_sha256": "62e0f18d2fcaaa4ffb69aae4c583651bce4b54bd984e628c943ccd8dadb39b38",
+    "audit_sha256": "43a5c6e2dc0e204e3b646b9da7a74ca09e53a420e3869834d12da255e2029952",
+    "manifest_sha256": "3ad88c8ccaf304e04fdc6c068d761f6bbd4d9702a47ee76e541077e8bec1a1f3",
+    "contract_fingerprint": "5da3a40113e40e580c85ef6b74f501f2005ad684c6e54eae315d092f6020cc70",
+    "original_total_requests": 132,
+    "original_native_releases": 116,
+    "original_native_audit_checks": 485047,
+    "native_requests_added": 0,
+    "records_sha256": "b7ec28eac8be8dcb8561ae7495d54b70e69694c5b86df652e261ad0e0c7d9ab3",
+    "rankings_sha256": "5e44ff2f12cf5a61b7b94280af541019ed02978f2dec349818e8f8abfa266ff0"
+  },
+  "derived_audit": {
+    "version": "sircus-consistent-flight-diagnosis-checks-v1",
+    "status": "passed",
+    "checks_count": 802,
+    "full_checks_verified": true,
+    "source_sha256": "78c920879b3132251f77e8a859a95ccaa2441676585a777c713ae905890dd43e",
+    "source_report_sha256": "62e0f18d2fcaaa4ffb69aae4c583651bce4b54bd984e628c943ccd8dadb39b38",
+    "source_audit_sha256": "43a5c6e2dc0e204e3b646b9da7a74ca09e53a420e3869834d12da255e2029952",
+    "scope": "Derived evidence-binding/reconstruction checks; original full native audit remains separate"
+  },
+  "source_artifact_sha256": {
+    "diagnosis.json": "eb6138daa12905af67fc2aa9470059e18e9da5867ca347c644bde5cf3f6140e3",
+    "summary.json": "700e2464cfb55722b68eb34d9412efda2c6cee0b08dfde083c43041c2f30bb4d",
+    "checks.json": "78c920879b3132251f77e8a859a95ccaa2441676585a777c713ae905890dd43e"
+  },
+  "diagnosis_implementation_sha256": "2dc9b98b2982571db0707218a74b56d3525880bc09fb3c5fa8ca7008bdb8d8ef",
+  "raw_observations_in_git": false,
+  "curation": {
+    "kind": "Scalar request/outcome/diagnostic extraction; no saved trajectories, raw contacts, model weights or local paths",
+    "new_native_requests": 0,
+    "new_training_requests": 0
+  },
+  "summary": {
+    "requested": 30,
+    "native_releases": 26,
+    "captures": 17,
+    "clean": 6,
+    "rejected": 4,
+    "native_misses": 9,
+    "invalid": 0,
+    "all_native_misses_no_entry": false,
+    "native_first_flight_unknown": 0,
+    "no_entry_failures": 8,
+    "bucket_retention_but_route_failures": 1,
+    "all_bank_margins_negative_in_misses": 9,
+    "cutoff_contact_counts": {
+      "bucket": 5,
+      "table": 3,
+      "robot": 1
+    },
+    "rejection_reason_counts": {
+      "finite_ik_unresolved": 3,
+      "strict_endpoint_clearance_or_pose_rejected": 1
+    },
+    "native_miss_contexts": [
+      "consistent-flight-test-01",
+      "consistent-flight-test-07",
+      "consistent-flight-test-14",
+      "consistent-flight-test-15",
+      "consistent-flight-test-16",
+      "consistent-flight-test-18",
+      "consistent-flight-test-19",
+      "consistent-flight-test-20",
+      "consistent-flight-test-29"
+    ],
+    "rejected_contexts": [
+      "consistent-flight-test-02",
+      "consistent-flight-test-03",
+      "consistent-flight-test-13",
+      "consistent-flight-test-23"
+    ]
+  },
+  "comparisons": [
+    {
+      "method": "bc",
+      "counts": {
+        "requested": 30,
+        "native_releases": 26,
+        "captures": 14,
+        "clean": 5,
+        "rejected": 4,
+        "native_misses": 12,
+        "invalid": 0
+      }
+    },
+    {
+      "method": "ppo",
+      "counts": {
+        "requested": 30,
+        "native_releases": 26,
+        "captures": 14,
+        "clean": 2,
+        "rejected": 4,
+        "native_misses": 12,
+        "invalid": 0
+      }
+    },
+    {
+      "method": "ensemble",
+      "counts": {
+        "requested": 30,
+        "native_releases": 26,
+        "captures": 13,
+        "clean": 3,
+        "rejected": 4,
+        "native_misses": 13,
+        "invalid": 0
+      }
+    },
+    {
+      "method": "consistent",
+      "counts": {
+        "requested": 30,
+        "native_releases": 26,
+        "captures": 17,
+        "clean": 6,
+        "rejected": 4,
+        "native_misses": 9,
+        "invalid": 0
+      }
+    }
+  ],
+  "paired": {
+    "bc": {
+      "wins": [
+        "consistent-flight-test-00",
+        "consistent-flight-test-12",
+        "consistent-flight-test-26"
+      ],
+      "losses": [],
+      "both_capture": [
+        "consistent-flight-test-04",
+        "consistent-flight-test-05",
+        "consistent-flight-test-06",
+        "consistent-flight-test-08",
+        "consistent-flight-test-09",
+        "consistent-flight-test-10",
+        "consistent-flight-test-11",
+        "consistent-flight-test-17",
+        "consistent-flight-test-21",
+        "consistent-flight-test-22",
+        "consistent-flight-test-24",
+        "consistent-flight-test-25",
+        "consistent-flight-test-27",
+        "consistent-flight-test-28"
+      ],
+      "both_fail": [
+        "consistent-flight-test-01",
+        "consistent-flight-test-02",
+        "consistent-flight-test-03",
+        "consistent-flight-test-07",
+        "consistent-flight-test-13",
+        "consistent-flight-test-14",
+        "consistent-flight-test-15",
+        "consistent-flight-test-16",
+        "consistent-flight-test-18",
+        "consistent-flight-test-19",
+        "consistent-flight-test-20",
+        "consistent-flight-test-23",
+        "consistent-flight-test-29"
+      ]
+    },
+    "ppo": {
+      "wins": [
+        "consistent-flight-test-05",
+        "consistent-flight-test-12",
+        "consistent-flight-test-27"
+      ],
+      "losses": [],
+      "both_capture": [
+        "consistent-flight-test-00",
+        "consistent-flight-test-04",
+        "consistent-flight-test-06",
+        "consistent-flight-test-08",
+        "consistent-flight-test-09",
+        "consistent-flight-test-10",
+        "consistent-flight-test-11",
+        "consistent-flight-test-17",
+        "consistent-flight-test-21",
+        "consistent-flight-test-22",
+        "consistent-flight-test-24",
+        "consistent-flight-test-25",
+        "consistent-flight-test-26",
+        "consistent-flight-test-28"
+      ],
+      "both_fail": [
+        "consistent-flight-test-01",
+        "consistent-flight-test-02",
+        "consistent-flight-test-03",
+        "consistent-flight-test-07",
+        "consistent-flight-test-13",
+        "consistent-flight-test-14",
+        "consistent-flight-test-15",
+        "consistent-flight-test-16",
+        "consistent-flight-test-18",
+        "consistent-flight-test-19",
+        "consistent-flight-test-20",
+        "consistent-flight-test-23",
+        "consistent-flight-test-29"
+      ]
+    },
+    "ensemble": {
+      "wins": [
+        "consistent-flight-test-05",
+        "consistent-flight-test-06",
+        "consistent-flight-test-24",
+        "consistent-flight-test-27"
+      ],
+      "losses": [],
+      "both_capture": [
+        "consistent-flight-test-00",
+        "consistent-flight-test-04",
+        "consistent-flight-test-08",
+        "consistent-flight-test-09",
+        "consistent-flight-test-10",
+        "consistent-flight-test-11",
+        "consistent-flight-test-12",
+        "consistent-flight-test-17",
+        "consistent-flight-test-21",
+        "consistent-flight-test-22",
+        "consistent-flight-test-25",
+        "consistent-flight-test-26",
+        "consistent-flight-test-28"
+      ],
+      "both_fail": [
+        "consistent-flight-test-01",
+        "consistent-flight-test-02",
+        "consistent-flight-test-03",
+        "consistent-flight-test-07",
+        "consistent-flight-test-13",
+        "consistent-flight-test-14",
+        "consistent-flight-test-15",
+        "consistent-flight-test-16",
+        "consistent-flight-test-18",
+        "consistent-flight-test-19",
+        "consistent-flight-test-20",
+        "consistent-flight-test-23",
+        "consistent-flight-test-29"
+      ]
+    }
+  },
+  "requests": [
+    {
+      "record_id": "consistent-flight-consistent-consistent-flight-test-00",
+      "record_sha256": "861711f8cb5d21eed3dd3cf0b1cc0508bff706035b7da6bf6b64430b6651231f",
+      "context_id": "consistent-flight-test-00",
+      "requested_configuration": {
+        "board_x_m": 0.5946555197825695,
+        "board_y_m": -0.13405485377859402,
+        "board_height_m": 0.29679141434203293,
+        "board_tilt_deg": 16.38944957796042,
+        "nominal_plane_gap_m": 0.27710405695169416,
+        "bucket_x_m": 0.945595445200345,
+        "bucket_y_m": -0.27751189070321697,
+        "board_bucket_distance_m": 0.37912893940640624
+      },
+      "observed": {
+        "native_release": true,
+        "capture": true,
+        "bucket_capture": true,
+        "whole_entry": true,
+        "retention_s": 1.0,
+        "board_bounce": true,
+        "invalid_physics": false,
+        "first_flight_available": true,
+        "missing_reason": null,
+        "external_contact_steps": 0,
+        "aperture_distance_m": 0.08313369602961782,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "velocity_head_endpoint_error_mm": 25.60440427892855,
+        "observed_velocity_ballistic_error_mm": 0.11302506933967761,
+        "nominal_forecast_endpoint_error_mm": 24.697681990708862,
+        "nominal_vs_observed_origin_distance_mm": 1.0929810677818779
+      },
+      "prediction": {
+        "capture_score": 0.03613835296643877,
+        "disagreement": 0.016083283337175545,
+        "aperture_distance_m": 0.11525566408587566,
+        "proxy_aperture_margin_m": -0.02692630006785105
+      },
+      "candidate_coverage": {
+        "candidates": 16,
+        "available_aperture_margins": 16,
+        "all_candidate_margins_available": true,
+        "best_proxy_margin_m": -0.02692630006785105,
+        "nonnegative_proxy_candidates": 0,
+        "all_available_margins_negative": true,
+        "gap_min_m": 0.15499816041425474,
+        "gap_max_m": 0.27710405695169416,
+        "anchor_gap_m": 0.1571040569516942
+      },
+      "selection": {
+        "selected_candidate_id": "candidate-09",
+        "rank": 1,
+        "geometry_checks": 1,
+        "all_geometry_checks_rejected": false,
+        "geometry_reason": null,
+        "context_reason": null,
+        "connection_reason": null
+      },
+      "diagnosis": "Whole-ball entry and one-second capture observed"
+    },
+    {
+      "record_id": "consistent-flight-consistent-consistent-flight-test-01",
+      "record_sha256": "0d41ab3e12a4ee2fe474abebadb79f074c773ed3b8cb7805bd54f03d52d13f73",
+      "context_id": "consistent-flight-test-01",
+      "requested_configuration": {
+        "board_x_m": 0.6329436302185059,
+        "board_y_m": -0.2744496464729309,
+        "board_height_m": 0.27414828538894653,
+        "board_tilt_deg": 27.534005060312847,
+        "nominal_plane_gap_m": 0.0963651221865184,
+        "bucket_x_m": 0.38966764833638123,
+        "bucket_y_m": -0.10805228492416741,
+        "board_bucket_distance_m": 0.2947393514464971
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "bucket_capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "board_bounce": true,
+        "invalid_physics": false,
+        "first_flight_available": true,
+        "missing_reason": null,
+        "external_contact_steps": 11887,
+        "aperture_distance_m": 0.13306026001940116,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "velocity_head_endpoint_error_mm": 6.305447143694997,
+        "observed_velocity_ballistic_error_mm": 0.06644238202480293,
+        "nominal_forecast_endpoint_error_mm": 5.316218366293051,
+        "nominal_vs_observed_origin_distance_mm": 1.0347305326061758
+      },
+      "prediction": {
+        "capture_score": 0.9234549884607203,
+        "disagreement": 0.030276670273511993,
+        "aperture_distance_m": 0.013294090102385423,
+        "proxy_aperture_margin_m": -0.09395456176209213
+      },
+      "candidate_coverage": {
+        "candidates": 16,
+        "available_aperture_margins": 16,
+        "all_candidate_margins_available": true,
+        "best_proxy_margin_m": -0.09395456176209213,
+        "nonnegative_proxy_candidates": 0,
+        "all_available_margins_negative": true,
+        "gap_min_m": 0.04152354869065994,
+        "gap_max_m": 0.11380811430677792,
+        "anchor_gap_m": 0.0963651221865184
+      },
+      "selection": {
+        "selected_candidate_id": "candidate-02",
+        "rank": 1,
+        "geometry_checks": 1,
+        "all_geometry_checks_rejected": false,
+        "geometry_reason": null,
+        "context_reason": null,
+        "connection_reason": null
+      },
+      "diagnosis": "No whole entry; first free flight ends at bucket contact before an observed descending center-at-rim crossing"
+    },
+    {
+      "record_id": "consistent-flight-consistent-consistent-flight-test-02",
+      "record_sha256": "4fc9441b6e5c2fd32db5dab22c15ea6a46eb6c658cf3669ad77f6153a463e684",
+      "context_id": "consistent-flight-test-02",
+      "requested_configuration": {
+        "board_x_m": 0.5534102511986347,
+        "board_y_m": -0.050281926418126954,
+        "board_height_m": 0.4466053545024623,
+        "board_tilt_deg": 26.676000957246806,
+        "nominal_plane_gap_m": 0.16858448174399737,
+        "bucket_x_m": 0.8449353956435474,
+        "bucket_y_m": -0.013503165421572483,
+        "board_bucket_distance_m": 0.29383598674101996
+      },
+      "observed": {
+        "native_release": false,
+        "capture": false,
+        "bucket_capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "board_bounce": false,
+        "invalid_physics": false,
+        "first_flight_available": false,
+        "missing_reason": "setup_rejected_no_native_flight",
+        "external_contact_steps": 0,
+        "aperture_distance_m": null,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": null,
+        "velocity_head_endpoint_error_mm": null,
+        "observed_velocity_ballistic_error_mm": null,
+        "nominal_forecast_endpoint_error_mm": null,
+        "nominal_vs_observed_origin_distance_mm": null
+      },
+      "prediction": {
+        "capture_score": 0.17419798062608965,
+        "disagreement": 0.039416367641576626,
+        "aperture_distance_m": 0.04891777741876395,
+        "proxy_aperture_margin_m": 0.0028025019740558488
+      },
+      "candidate_coverage": {
+        "candidates": 16,
+        "available_aperture_margins": 16,
+        "all_candidate_margins_available": true,
+        "best_proxy_margin_m": 0.0028025019740558488,
+        "nonnegative_proxy_candidates": 3,
+        "all_available_margins_negative": false,
+        "gap_min_m": 0.08789331946043422,
+        "gap_max_m": 0.20458448174399738,
+        "anchor_gap_m": 0.1353410311538266
+      },
+      "selection": {
+        "selected_candidate_id": "candidate-10",
+        "rank": 1,
+        "geometry_checks": 4,
+        "all_geometry_checks_rejected": true,
+        "geometry_reason": "finite_ik_unresolved",
+        "context_reason": null,
+        "connection_reason": "finite_ik_unresolved"
+      },
+      "diagnosis": "Setup rejected; no native ball flight"
+    },
+    {
+      "record_id": "consistent-flight-consistent-consistent-flight-test-03",
+      "record_sha256": "a7c9c2fce21bd8c6c4239874a233b8f4b7bd6087272352fd9ce8e5c592ecbf45",
+      "context_id": "consistent-flight-test-03",
+      "requested_configuration": {
+        "board_x_m": 0.5956727662540297,
+        "board_y_m": -0.13740016416359022,
+        "board_height_m": 0.3179837895147267,
+        "board_tilt_deg": 22.461264175467388,
+        "nominal_plane_gap_m": 0.09550435338858572,
+        "bucket_x_m": 0.7524615062537595,
+        "bucket_y_m": -0.013612495864085972,
+        "board_bucket_distance_m": 0.19976510159117128
+      },
+      "observed": {
+        "native_release": false,
+        "capture": false,
+        "bucket_capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "board_bounce": false,
+        "invalid_physics": false,
+        "first_flight_available": false,
+        "missing_reason": "setup_rejected_no_native_flight",
+        "external_contact_steps": 0,
+        "aperture_distance_m": null,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": null,
+        "velocity_head_endpoint_error_mm": null,
+        "observed_velocity_ballistic_error_mm": null,
+        "nominal_forecast_endpoint_error_mm": null,
+        "nominal_vs_observed_origin_distance_mm": null
+      },
+      "prediction": {
+        "capture_score": 0.8591680010435943,
+        "disagreement": 0.05213452984199694,
+        "aperture_distance_m": 0.03852288119439238,
+        "proxy_aperture_margin_m": 0.02700427026570184
+      },
+      "candidate_coverage": {
+        "candidates": 16,
+        "available_aperture_margins": 16,
+        "all_candidate_margins_available": true,
+        "best_proxy_margin_m": 0.02700427026570184,
+        "nonnegative_proxy_candidates": 11,
+        "all_available_margins_negative": false,
+        "gap_min_m": 0.09550435338858572,
+        "gap_max_m": 0.16750435338858571,
+        "anchor_gap_m": 0.1571040569516942
+      },
+      "selection": {
+        "selected_candidate_id": "candidate-08",
+        "rank": 1,
+        "geometry_checks": 4,
+        "all_geometry_checks_rejected": true,
+        "geometry_reason": "finite_ik_unresolved",
+        "context_reason": null,
+        "connection_reason": "finite_ik_unresolved"
+      },
+      "diagnosis": "Setup rejected; no native ball flight"
+    },
+    {
+      "record_id": "consistent-flight-consistent-consistent-flight-test-04",
+      "record_sha256": "628f88cb0d6a41d0c19156939f47523c553d67a092da5c1f1535a8ca8dfb1fa5",
+      "context_id": "consistent-flight-test-04",
+      "requested_configuration": {
+        "board_x_m": 0.5858356817143828,
+        "board_y_m": -0.3567811948545684,
+        "board_height_m": 0.26967505461004293,
+        "board_tilt_deg": 32.73356059680501,
+        "nominal_plane_gap_m": 0.2430453078044145,
+        "bucket_x_m": 0.2963305800105747,
+        "bucket_y_m": -0.2708170898035872,
+        "board_bucket_distance_m": 0.3019983961377087
+      },
+      "observed": {
+        "native_release": true,
+        "capture": true,
+        "bucket_capture": true,
+        "whole_entry": true,
+        "retention_s": 1.0,
+        "board_bounce": true,
+        "invalid_physics": false,
+        "first_flight_available": true,
+        "missing_reason": null,
+        "external_contact_steps": 0,
+        "aperture_distance_m": 0.014338215949071281,
+        "mouth_clearance_m": 0.031947842155669516,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "velocity_head_endpoint_error_mm": 20.54384343009574,
+        "observed_velocity_ballistic_error_mm": 0.08734904519594304,
+        "nominal_forecast_endpoint_error_mm": 20.46791965035414,
+        "nominal_vs_observed_origin_distance_mm": 1.9372697139086903
+      },
+      "prediction": {
+        "capture_score": 0.9967983543777474,
+        "disagreement": 0.0008766891982436607,
+        "aperture_distance_m": 0.008403358595846386,
+        "proxy_aperture_margin_m": 0.0077360710879126535
+      },
+      "candidate_coverage": {
+        "candidates": 16,
+        "available_aperture_margins": 16,
+        "all_candidate_margins_available": true,
+        "best_proxy_margin_m": 0.0077360710879126535,
+        "nonnegative_proxy_candidates": 4,
+        "all_available_margins_negative": false,
+        "gap_min_m": 0.2070453078044145,
+        "gap_max_m": 0.2790453078044145,
+        "anchor_gap_m": 0.26155952009868144
+      },
+      "selection": {
+        "selected_candidate_id": "candidate-10",
+        "rank": 1,
+        "geometry_checks": 1,
+        "all_geometry_checks_rejected": false,
+        "geometry_reason": null,
+        "context_reason": null,
+        "connection_reason": null
+      },
+      "diagnosis": "Whole-ball entry and one-second capture observed"
+    },
+    {
+      "record_id": "consistent-flight-consistent-consistent-flight-test-05",
+      "record_sha256": "6daaa66f9b8e9ec466d288b2723ba2a2fe9711b3075df2244b83dad88578418b",
+      "context_id": "consistent-flight-test-05",
+      "requested_configuration": {
+        "board_x_m": 0.5877115761230314,
+        "board_y_m": -0.17677228019452515,
+        "board_height_m": 0.3267501571280747,
+        "board_tilt_deg": 25.961667458839933,
+        "nominal_plane_gap_m": 0.16928505401818425,
+        "bucket_x_m": 0.5810934449257052,
+        "bucket_y_m": -0.509871196063322,
+        "board_bucket_distance_m": 0.3331646551084205
+      },
+      "observed": {
+        "native_release": true,
+        "capture": true,
+        "bucket_capture": true,
+        "whole_entry": true,
+        "retention_s": 1.0,
+        "board_bounce": true,
+        "invalid_physics": false,
+        "first_flight_available": true,
+        "missing_reason": null,
+        "external_contact_steps": 0,
+        "aperture_distance_m": 0.04069005927231549,
+        "mouth_clearance_m": 0.00526643854420495,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "velocity_head_endpoint_error_mm": 35.298863306265204,
+        "observed_velocity_ballistic_error_mm": 0.11787656807538632,
+        "nominal_forecast_endpoint_error_mm": 36.08831641806122,
+        "nominal_vs_observed_origin_distance_mm": 1.3171996389502694
+      },
+      "prediction": {
+        "capture_score": 0.9677620137170748,
+        "disagreement": 0.013284367981130606,
+        "aperture_distance_m": 0.012055197873246274,
+        "proxy_aperture_margin_m": -0.05643020838196202
+      },
+      "candidate_coverage": {
+        "candidates": 16,
+        "available_aperture_margins": 16,
+        "all_candidate_margins_available": true,
+        "best_proxy_margin_m": -0.05643020838196202,
+        "nonnegative_proxy_candidates": 0,
+        "all_available_margins_negative": true,
+        "gap_min_m": 0.09728505401818424,
+        "gap_max_m": 0.17061256307640632,
+        "anchor_gap_m": 0.1571040569516942
+      },
+      "selection": {
+        "selected_candidate_id": "candidate-09",
+        "rank": 1,
+        "geometry_checks": 1,
+        "all_geometry_checks_rejected": false,
+        "geometry_reason": null,
+        "context_reason": null,
+        "connection_reason": null
+      },
+      "diagnosis": "Whole-ball entry and one-second capture observed"
+    },
+    {
+      "record_id": "consistent-flight-consistent-consistent-flight-test-06",
+      "record_sha256": "bf390361f4e06b3f227015c11dac73670df76da561339f3a0d208194b084f99d",
+      "context_id": "consistent-flight-test-06",
+      "requested_configuration": {
+        "board_x_m": 0.6384206688639744,
+        "board_y_m": -0.06393815344769951,
+        "board_height_m": 0.26225307218533667,
+        "board_tilt_deg": 25.995288554958087,
+        "nominal_plane_gap_m": 0.11886797801043086,
+        "bucket_x_m": 0.5983744104243619,
+        "bucket_y_m": -0.23725714328298897,
+        "board_bucket_distance_m": 0.17788528621709387
+      },
+      "observed": {
+        "native_release": true,
+        "capture": true,
+        "bucket_capture": true,
+        "whole_entry": true,
+        "retention_s": 1.0,
+        "board_bounce": true,
+        "invalid_physics": false,
+        "first_flight_available": true,
+        "missing_reason": null,
+        "external_contact_steps": 0,
+        "aperture_distance_m": 0.016909865789928133,
+        "mouth_clearance_m": 0.03168757823495639,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "velocity_head_endpoint_error_mm": 31.173680511351833,
+        "observed_velocity_ballistic_error_mm": 0.09886210697128878,
+        "nominal_forecast_endpoint_error_mm": 32.27575038740134,
+        "nominal_vs_observed_origin_distance_mm": 1.1089811831519194
+      },
+      "prediction": {
+        "capture_score": 0.9326045112500687,
+        "disagreement": 0.05322105924566537,
+        "aperture_distance_m": 0.015547042212629484,
+        "proxy_aperture_margin_m": 0.01940878934207993
+      },
+      "candidate_coverage": {
+        "candidates": 16,
+        "available_aperture_margins": 16,
+        "all_candidate_margins_available": true,
+        "best_proxy_margin_m": 0.01940878934207993,
+        "nonnegative_proxy_candidates": 11,
+        "all_available_margins_negative": false,
+        "gap_min_m": 0.052431699488871567,
+        "gap_max_m": 0.15659125051789874,
+        "anchor_gap_m": 0.0963651221865184
+      },
+      "selection": {
+        "selected_candidate_id": "candidate-00",
+        "rank": 1,
+        "geometry_checks": 1,
+        "all_geometry_checks_rejected": false,
+        "geometry_reason": null,
+        "context_reason": null,
+        "connection_reason": null
+      },
+      "diagnosis": "Whole-ball entry and one-second capture observed"
+    },
+    {
+      "record_id": "consistent-flight-consistent-consistent-flight-test-07",
+      "record_sha256": "0a12d98aaae35f39bb75420e48f4fed55f1b0aa03e22a4debc293a64a2df199f",
+      "context_id": "consistent-flight-test-07",
+      "requested_configuration": {
+        "board_x_m": 0.6030411939221777,
+        "board_y_m": -0.12431160271167754,
+        "board_height_m": 0.3000912302888922,
+        "board_tilt_deg": 16.037776309346764,
+        "nominal_plane_gap_m": 0.2732214789217685,
+        "bucket_x_m": 1.1568197656736396,
+        "bucket_y_m": -0.2781676483766339,
+        "board_bucket_distance_m": 0.5747541990440316
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "bucket_capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "board_bounce": true,
+        "invalid_physics": false,
+        "first_flight_available": true,
+        "missing_reason": null,
+        "external_contact_steps": 34580,
+        "aperture_distance_m": 0.24027177320351828,
+        "mouth_clearance_m": -0.20694752330354363,
+        "cutoff_contact_channels": [
+          "table"
+        ],
+        "velocity_head_endpoint_error_mm": 10.158687837026955,
+        "observed_velocity_ballistic_error_mm": 0.20772267333172997,
+        "nominal_forecast_endpoint_error_mm": 9.560112936636001,
+        "nominal_vs_observed_origin_distance_mm": 1.0480711004587997
+      },
+      "prediction": {
+        "capture_score": 0.0004979059676981877,
+        "disagreement": 0.00014236952549308328,
+        "aperture_distance_m": 0.25949463897893776,
+        "proxy_aperture_margin_m": -0.23697556271536746
+      },
+      "candidate_coverage": {
+        "candidates": 16,
+        "available_aperture_margins": 16,
+        "all_candidate_margins_available": true,
+        "best_proxy_margin_m": -0.23144783827860543,
+        "nonnegative_proxy_candidates": 0,
+        "all_available_margins_negative": true,
+        "gap_min_m": 0.1571040569516942,
+        "gap_max_m": 0.27710405695169416,
+        "anchor_gap_m": 0.1571040569516942
+      },
+      "selection": {
+        "selected_candidate_id": "candidate-13",
+        "rank": 2,
+        "geometry_checks": 2,
+        "all_geometry_checks_rejected": false,
+        "geometry_reason": null,
+        "context_reason": null,
+        "connection_reason": null
+      },
+      "diagnosis": "No whole entry; pre-contact center-at-rim clearance -206.9 mm"
+    },
+    {
+      "record_id": "consistent-flight-consistent-consistent-flight-test-08",
+      "record_sha256": "3f5ad051937492350d557d828386577c138c54db52cbbce8c63cd489eec74974",
+      "context_id": "consistent-flight-test-08",
+      "requested_configuration": {
+        "board_x_m": 0.6612240270819613,
+        "board_y_m": -0.2783009510494995,
+        "board_height_m": 0.2740531610943713,
+        "board_tilt_deg": 32.02329342678042,
+        "nominal_plane_gap_m": 0.1336795949066149,
+        "bucket_x_m": 0.5284408378787468,
+        "bucket_y_m": -0.1201531741646572,
+        "board_bucket_distance_m": 0.20649962389455942
+      },
+      "observed": {
+        "native_release": true,
+        "capture": true,
+        "bucket_capture": true,
+        "whole_entry": true,
+        "retention_s": 1.0,
+        "board_bounce": true,
+        "invalid_physics": false,
+        "first_flight_available": true,
+        "missing_reason": null,
+        "external_contact_steps": 0,
+        "aperture_distance_m": 0.007851215985041791,
+        "mouth_clearance_m": 0.04167482633688487,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "velocity_head_endpoint_error_mm": 11.917698627566482,
+        "observed_velocity_ballistic_error_mm": 0.10657030866929776,
+        "nominal_forecast_endpoint_error_mm": 12.033386702954202,
+        "nominal_vs_observed_origin_distance_mm": 1.3595576408253602
+      },
+      "prediction": {
+        "capture_score": 0.9915141751715607,
+        "disagreement": 0.0021845095595927153,
+        "aperture_distance_m": 0.005333327026728724,
+        "proxy_aperture_margin_m": 0.02044664072096626
+      },
+      "candidate_coverage": {
+        "candidates": 16,
+        "available_aperture_margins": 16,
+        "all_candidate_margins_available": true,
+        "best_proxy_margin_m": 0.02044664072096626,
+        "nonnegative_proxy_candidates": 11,
+        "all_available_margins_negative": false,
+        "gap_min_m": 0.07891762347432418,
+        "gap_max_m": 0.15561720494775894,
+        "anchor_gap_m": 0.0963651221865184
+      },
+      "selection": {
+        "selected_candidate_id": "candidate-12",
+        "rank": 1,
+        "geometry_checks": 1,
+        "all_geometry_checks_rejected": false,
+        "geometry_reason": null,
+        "context_reason": null,
+        "connection_reason": null
+      },
+      "diagnosis": "Whole-ball entry and one-second capture observed"
+    },
+    {
+      "record_id": "consistent-flight-consistent-consistent-flight-test-09",
+      "record_sha256": "a2b2131b11d7f35027ec56eb62d2f4bb4e9d57b358929181cf9142683e52ad04",
+      "context_id": "consistent-flight-test-09",
+      "requested_configuration": {
+        "board_x_m": 0.6604248565824941,
+        "board_y_m": -0.274184133603452,
+        "board_height_m": 0.2669950453374403,
+        "board_tilt_deg": 31.463212717980163,
+        "nominal_plane_gap_m": 0.14148442961649213,
+        "bucket_x_m": 0.5145014567514307,
+        "bucket_y_m": -0.08049566914022932,
+        "board_bucket_distance_m": 0.2425053811451974
+      },
+      "observed": {
+        "native_release": true,
+        "capture": true,
+        "bucket_capture": true,
+        "whole_entry": true,
+        "retention_s": 0.9999999999999999,
+        "board_bounce": true,
+        "invalid_physics": false,
+        "first_flight_available": true,
+        "missing_reason": null,
+        "external_contact_steps": 0,
+        "aperture_distance_m": 0.015301941764408158,
+        "mouth_clearance_m": 0.03277368910198595,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "velocity_head_endpoint_error_mm": 17.80649937838244,
+        "observed_velocity_ballistic_error_mm": 0.1057030431262732,
+        "nominal_forecast_endpoint_error_mm": 17.854591521813262,
+        "nominal_vs_observed_origin_distance_mm": 1.4113544179531048
+      },
+      "prediction": {
+        "capture_score": 0.9929951435964945,
+        "disagreement": 0.0018059869966039093,
+        "aperture_distance_m": 0.005674798452613677,
+        "proxy_aperture_margin_m": -0.013191741600909183
+      },
+      "candidate_coverage": {
+        "candidates": 16,
+        "available_aperture_margins": 16,
+        "all_candidate_margins_available": true,
+        "best_proxy_margin_m": -0.013191741600909183,
+        "nonnegative_proxy_candidates": 0,
+        "all_available_margins_negative": true,
+        "gap_min_m": 0.06390891893897341,
+        "gap_max_m": 0.14148442961649213,
+        "anchor_gap_m": 0.0963651221865184
+      },
+      "selection": {
+        "selected_candidate_id": "candidate-09",
+        "rank": 1,
+        "geometry_checks": 1,
+        "all_geometry_checks_rejected": false,
+        "geometry_reason": null,
+        "context_reason": null,
+        "connection_reason": null
+      },
+      "diagnosis": "Whole-ball entry and one-second capture observed"
+    },
+    {
+      "record_id": "consistent-flight-consistent-consistent-flight-test-10",
+      "record_sha256": "72794a7d0154bd7bec4e0ed0974da6d00ce712c9ec6d02a69ba6593f6b2e905a",
+      "context_id": "consistent-flight-test-10",
+      "requested_configuration": {
+        "board_x_m": 0.6215445580862949,
+        "board_y_m": -0.34218288471471847,
+        "board_height_m": 0.3899904816143602,
+        "board_tilt_deg": 29.910200383540808,
+        "nominal_plane_gap_m": 0.18891789304681203,
+        "bucket_x_m": 0.8198874437147802,
+        "bucket_y_m": -0.6251705154981544,
+        "board_bucket_distance_m": 0.3455747378728032
+      },
+      "observed": {
+        "native_release": true,
+        "capture": true,
+        "bucket_capture": true,
+        "whole_entry": true,
+        "retention_s": 1.0,
+        "board_bounce": true,
+        "invalid_physics": false,
+        "first_flight_available": true,
+        "missing_reason": null,
+        "external_contact_steps": 0,
+        "aperture_distance_m": 0.006515498500795553,
+        "mouth_clearance_m": 0.04352538358436831,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "velocity_head_endpoint_error_mm": 7.1304485460059555,
+        "observed_velocity_ballistic_error_mm": 0.12479000265334697,
+        "nominal_forecast_endpoint_error_mm": 8.163355843208267,
+        "nominal_vs_observed_origin_distance_mm": 1.5967104661053897
+      },
+      "prediction": {
+        "capture_score": 0.9829754331566278,
+        "disagreement": 0.0050827356352373424,
+        "aperture_distance_m": 0.03470604659755705,
+        "proxy_aperture_margin_m": 0.02176678814778068
+      },
+      "candidate_coverage": {
+        "candidates": 16,
+        "available_aperture_margins": 16,
+        "all_candidate_margins_available": true,
+        "best_proxy_margin_m": 0.02176678814778068,
+        "nonnegative_proxy_candidates": 14,
+        "all_available_margins_negative": false,
+        "gap_min_m": 0.1353410311538266,
+        "gap_max_m": 0.21208836163592526,
+        "anchor_gap_m": 0.1353410311538266
+      },
+      "selection": {
+        "selected_candidate_id": "candidate-14",
+        "rank": 1,
+        "geometry_checks": 1,
+        "all_geometry_checks_rejected": false,
+        "geometry_reason": null,
+        "context_reason": null,
+        "connection_reason": null
+      },
+      "diagnosis": "Whole-ball entry and one-second capture observed"
+    },
+    {
+      "record_id": "consistent-flight-consistent-consistent-flight-test-11",
+      "record_sha256": "a081052a364d7e1403c9c9a8e62f71c12e6af774bdd21cbec718416d7ffa5eb6",
+      "context_id": "consistent-flight-test-11",
+      "requested_configuration": {
+        "board_x_m": 0.5953295819071176,
+        "board_y_m": -0.03750216112409781,
+        "board_height_m": 0.3834613789409742,
+        "board_tilt_deg": 38.773495917879146,
+        "nominal_plane_gap_m": 0.09545285978116427,
+        "bucket_x_m": 0.5836204064693311,
+        "bucket_y_m": 0.22057885775794894,
+        "board_bucket_distance_m": 0.25834650587269076
+      },
+      "observed": {
+        "native_release": true,
+        "capture": true,
+        "bucket_capture": true,
+        "whole_entry": true,
+        "retention_s": 1.0,
+        "board_bounce": true,
+        "invalid_physics": false,
+        "first_flight_available": true,
+        "missing_reason": null,
+        "external_contact_steps": 0,
+        "aperture_distance_m": 0.03792828521000672,
+        "mouth_clearance_m": 0.009941932219015494,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "velocity_head_endpoint_error_mm": 49.58727503448055,
+        "observed_velocity_ballistic_error_mm": 0.11317941176736782,
+        "nominal_forecast_endpoint_error_mm": 48.40735178360287,
+        "nominal_vs_observed_origin_distance_mm": 1.3302162240880235
+      },
+      "prediction": {
+        "capture_score": 0.8710512125909876,
+        "disagreement": 0.029107773605161563,
+        "aperture_distance_m": 0.014192866372609558,
+        "proxy_aperture_margin_m": 0.0179197362991253
+      },
+      "candidate_coverage": {
+        "candidates": 16,
+        "available_aperture_margins": 16,
+        "all_candidate_margins_available": true,
+        "best_proxy_margin_m": 0.0179197362991253,
+        "nonnegative_proxy_candidates": 9,
+        "all_available_margins_negative": false,
+        "gap_min_m": 0.05945285978116428,
+        "gap_max_m": 0.13744544935306371,
+        "anchor_gap_m": 0.1353410311538266
+      },
+      "selection": {
+        "selected_candidate_id": "candidate-04",
+        "rank": 1,
+        "geometry_checks": 1,
+        "all_geometry_checks_rejected": false,
+        "geometry_reason": null,
+        "context_reason": null,
+        "connection_reason": null
+      },
+      "diagnosis": "Whole-ball entry and one-second capture observed"
+    },
+    {
+      "record_id": "consistent-flight-consistent-consistent-flight-test-12",
+      "record_sha256": "38a8311e42ad281fbd61da13186dd912626f3daea35ff500b753a23eee0cafda",
+      "context_id": "consistent-flight-test-12",
+      "requested_configuration": {
+        "board_x_m": 0.6578500005975325,
+        "board_y_m": -0.26006654186863354,
+        "board_height_m": 0.27084408902423546,
+        "board_tilt_deg": 31.6377685435549,
+        "nominal_plane_gap_m": 0.1311456638634062,
+        "bucket_x_m": 0.5185200675325718,
+        "bucket_y_m": 0.001963993480042059,
+        "board_bucket_distance_m": 0.2967706719050923
+      },
+      "observed": {
+        "native_release": true,
+        "capture": true,
+        "bucket_capture": true,
+        "whole_entry": true,
+        "retention_s": 1.0,
+        "board_bounce": true,
+        "invalid_physics": false,
+        "first_flight_available": true,
+        "missing_reason": null,
+        "external_contact_steps": 0,
+        "aperture_distance_m": 0.1143763492597048,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "velocity_head_endpoint_error_mm": 8.455592299019013,
+        "observed_velocity_ballistic_error_mm": 0.0679931588542362,
+        "nominal_forecast_endpoint_error_mm": 7.367033398473708,
+        "nominal_vs_observed_origin_distance_mm": 1.337922739220762
+      },
+      "prediction": {
+        "capture_score": 0.9887106510774377,
+        "disagreement": 0.003586792776972557,
+        "aperture_distance_m": 0.008963999617846755,
+        "proxy_aperture_margin_m": -0.06602878008303353
+      },
+      "candidate_coverage": {
+        "candidates": 16,
+        "available_aperture_margins": 16,
+        "all_candidate_margins_available": true,
+        "best_proxy_margin_m": -0.06602878008303353,
+        "nonnegative_proxy_candidates": 0,
+        "all_available_margins_negative": true,
+        "gap_min_m": 0.0591456638634062,
+        "gap_max_m": 0.1311456638634062,
+        "anchor_gap_m": 0.0963651221865184
+      },
+      "selection": {
+        "selected_candidate_id": "candidate-09",
+        "rank": 1,
+        "geometry_checks": 1,
+        "all_geometry_checks_rejected": false,
+        "geometry_reason": null,
+        "context_reason": null,
+        "connection_reason": null
+      },
+      "diagnosis": "Whole-ball entry and one-second capture observed"
+    },
+    {
+      "record_id": "consistent-flight-consistent-consistent-flight-test-13",
+      "record_sha256": "995e195d1447b9878a8a13cea678de36f36b9939408107096bcab9aad9f8d9b6",
+      "context_id": "consistent-flight-test-13",
+      "requested_configuration": {
+        "board_x_m": 0.6220472120017628,
+        "board_y_m": -0.22817501271226448,
+        "board_height_m": 0.42444242219100553,
+        "board_tilt_deg": 28.476231488228773,
+        "nominal_plane_gap_m": 0.11481762703697163,
+        "bucket_x_m": 0.8696453329505436,
+        "bucket_y_m": -0.1434993966165632,
+        "board_bucket_distance_m": 0.2616768798701055
+      },
+      "observed": {
+        "native_release": false,
+        "capture": false,
+        "bucket_capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "board_bounce": false,
+        "invalid_physics": false,
+        "first_flight_available": false,
+        "missing_reason": "setup_rejected_no_native_flight",
+        "external_contact_steps": 0,
+        "aperture_distance_m": null,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": null,
+        "velocity_head_endpoint_error_mm": null,
+        "observed_velocity_ballistic_error_mm": null,
+        "nominal_forecast_endpoint_error_mm": null,
+        "nominal_vs_observed_origin_distance_mm": null
+      },
+      "prediction": {
+        "capture_score": 0.08590238705655666,
+        "disagreement": 0.042627367955556834,
+        "aperture_distance_m": 0.04824925647913144,
+        "proxy_aperture_margin_m": 0.002328165971503253
+      },
+      "candidate_coverage": {
+        "candidates": 16,
+        "available_aperture_margins": 16,
+        "all_candidate_margins_available": true,
+        "best_proxy_margin_m": 0.002328165971503253,
+        "nonnegative_proxy_candidates": 1,
+        "all_available_margins_negative": false,
+        "gap_min_m": 0.07881762703697162,
+        "gap_max_m": 0.15081762703697163,
+        "anchor_gap_m": 0.1353410311538266
+      },
+      "selection": {
+        "selected_candidate_id": "candidate-04",
+        "rank": 1,
+        "geometry_checks": 4,
+        "all_geometry_checks_rejected": true,
+        "geometry_reason": "finite_ik_unresolved",
+        "context_reason": null,
+        "connection_reason": "finite_ik_unresolved"
+      },
+      "diagnosis": "Setup rejected; no native ball flight"
+    },
+    {
+      "record_id": "consistent-flight-consistent-consistent-flight-test-14",
+      "record_sha256": "9d8420de97394c53241023f7b7548b8c621a328abb812239a2379a72f137ebd0",
+      "context_id": "consistent-flight-test-14",
+      "requested_configuration": {
+        "board_x_m": 0.6375012267279018,
+        "board_y_m": -0.20530541817698392,
+        "board_height_m": 0.3753746219809082,
+        "board_tilt_deg": 26.95391011119808,
+        "nominal_plane_gap_m": 0.25534103115382656,
+        "bucket_x_m": 1.1358154688765618,
+        "bucket_y_m": -0.5354729356694199,
+        "board_bucket_distance_m": 0.5977689131556704
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "bucket_capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "board_bounce": true,
+        "invalid_physics": false,
+        "first_flight_available": true,
+        "missing_reason": null,
+        "external_contact_steps": 21722,
+        "aperture_distance_m": 0.15899085219144876,
+        "mouth_clearance_m": -0.12970630540252526,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "velocity_head_endpoint_error_mm": 27.28392571979993,
+        "observed_velocity_ballistic_error_mm": 0.13169095384955112,
+        "nominal_forecast_endpoint_error_mm": 28.065613145390433,
+        "nominal_vs_observed_origin_distance_mm": 1.6784070806477112
+      },
+      "prediction": {
+        "capture_score": 0.029172647640404493,
+        "disagreement": 0.011119465923188005,
+        "aperture_distance_m": 0.18306706276118584,
+        "proxy_aperture_margin_m": -0.18227462459592708
+      },
+      "candidate_coverage": {
+        "candidates": 16,
+        "available_aperture_margins": 16,
+        "all_candidate_margins_available": true,
+        "best_proxy_margin_m": -0.18227462459592708,
+        "nonnegative_proxy_candidates": 0,
+        "all_available_margins_negative": true,
+        "gap_min_m": 0.1353410311538266,
+        "gap_max_m": 0.25534103115382656,
+        "anchor_gap_m": 0.1353410311538266
+      },
+      "selection": {
+        "selected_candidate_id": "candidate-12",
+        "rank": 1,
+        "geometry_checks": 1,
+        "all_geometry_checks_rejected": false,
+        "geometry_reason": null,
+        "context_reason": null,
+        "connection_reason": null
+      },
+      "diagnosis": "No whole entry; pre-contact center-at-rim clearance -129.7 mm"
+    },
+    {
+      "record_id": "consistent-flight-consistent-consistent-flight-test-15",
+      "record_sha256": "af964f87195fe3441e3e7d15691b56f6568db7a103dd201109b43d98b044c0ec",
+      "context_id": "consistent-flight-test-15",
+      "requested_configuration": {
+        "board_x_m": 0.6270271179676099,
+        "board_y_m": -0.21090026362890935,
+        "board_height_m": 0.38748729419571964,
+        "board_tilt_deg": 26.710649912172777,
+        "nominal_plane_gap_m": 0.25534103115382656,
+        "bucket_x_m": 1.1207437758575365,
+        "bucket_y_m": -0.6248329475569212,
+        "board_bucket_distance_m": 0.6442797568617582
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "bucket_capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "board_bounce": true,
+        "invalid_physics": false,
+        "first_flight_available": true,
+        "missing_reason": null,
+        "external_contact_steps": 23577,
+        "aperture_distance_m": 0.20465950170014785,
+        "mouth_clearance_m": -0.1792420050034053,
+        "cutoff_contact_channels": [
+          "table"
+        ],
+        "velocity_head_endpoint_error_mm": 13.093715836210118,
+        "observed_velocity_ballistic_error_mm": 0.20292771770871332,
+        "nominal_forecast_endpoint_error_mm": 11.552045797707708,
+        "nominal_vs_observed_origin_distance_mm": 1.6249476718326015
+      },
+      "prediction": {
+        "capture_score": 0.03390958764189081,
+        "disagreement": 0.01463069049901321,
+        "aperture_distance_m": 0.18956872145787385,
+        "proxy_aperture_margin_m": -0.2040975369760795
+      },
+      "candidate_coverage": {
+        "candidates": 16,
+        "available_aperture_margins": 16,
+        "all_candidate_margins_available": true,
+        "best_proxy_margin_m": -0.2040975369760795,
+        "nonnegative_proxy_candidates": 0,
+        "all_available_margins_negative": true,
+        "gap_min_m": 0.1353410311538266,
+        "gap_max_m": 0.25534103115382656,
+        "anchor_gap_m": 0.1353410311538266
+      },
+      "selection": {
+        "selected_candidate_id": "candidate-13",
+        "rank": 1,
+        "geometry_checks": 1,
+        "all_geometry_checks_rejected": false,
+        "geometry_reason": null,
+        "context_reason": null,
+        "connection_reason": null
+      },
+      "diagnosis": "No whole entry; pre-contact center-at-rim clearance -179.2 mm"
+    },
+    {
+      "record_id": "consistent-flight-consistent-consistent-flight-test-16",
+      "record_sha256": "8d4fda7cf809a1b9d9b1460b5f03da673f01d6731dfa0f2b72cfab314cacebc2",
+      "context_id": "consistent-flight-test-16",
+      "requested_configuration": {
+        "board_x_m": 0.5994003586038422,
+        "board_y_m": -0.12431160271167754,
+        "board_height_m": 0.333070285978568,
+        "board_tilt_deg": 17.735178410768132,
+        "nominal_plane_gap_m": 0.25954136275717815,
+        "bucket_x_m": 0.9953715721716453,
+        "bucket_y_m": 0.14190765271707728,
+        "board_bucket_distance_m": 0.4771434731141141
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "bucket_capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "board_bounce": true,
+        "invalid_physics": false,
+        "first_flight_available": true,
+        "missing_reason": null,
+        "external_contact_steps": 36072,
+        "aperture_distance_m": 0.14045358501457933,
+        "mouth_clearance_m": -0.10035723700809634,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "velocity_head_endpoint_error_mm": 20.743437125317367,
+        "observed_velocity_ballistic_error_mm": 0.16070187804433606,
+        "nominal_forecast_endpoint_error_mm": 20.57831238014444,
+        "nominal_vs_observed_origin_distance_mm": 1.1071598924620702
+      },
+      "prediction": {
+        "capture_score": 0.04981693300150414,
+        "disagreement": 0.016908172511851144,
+        "aperture_distance_m": 0.1714323066702287,
+        "proxy_aperture_margin_m": -0.14018072618908417
+      },
+      "candidate_coverage": {
+        "candidates": 16,
+        "available_aperture_margins": 16,
+        "all_candidate_margins_available": true,
+        "best_proxy_margin_m": -0.14018072618908417,
+        "nonnegative_proxy_candidates": 0,
+        "all_available_margins_negative": true,
+        "gap_min_m": 0.1571040569516942,
+        "gap_max_m": 0.26279401916889555,
+        "anchor_gap_m": 0.1571040569516942
+      },
+      "selection": {
+        "selected_candidate_id": "candidate-14",
+        "rank": 1,
+        "geometry_checks": 1,
+        "all_geometry_checks_rejected": false,
+        "geometry_reason": null,
+        "context_reason": null,
+        "connection_reason": null
+      },
+      "diagnosis": "No whole entry; pre-contact center-at-rim clearance -100.4 mm"
+    },
+    {
+      "record_id": "consistent-flight-consistent-consistent-flight-test-17",
+      "record_sha256": "08eb95cf9eefb64329c65c0cc7c5a27cd036f15a7c9d16632ea3dea002f8d90d",
+      "context_id": "consistent-flight-test-17",
+      "requested_configuration": {
+        "board_x_m": 0.6234096328834273,
+        "board_y_m": -0.4292204919151085,
+        "board_height_m": 0.2663594297234692,
+        "board_tilt_deg": 38.38306071682457,
+        "nominal_plane_gap_m": 0.15830844679299216,
+        "bucket_x_m": 0.45751204768046727,
+        "bucket_y_m": -0.5968936424766818,
+        "board_bucket_distance_m": 0.23587347073254633
+      },
+      "observed": {
+        "native_release": true,
+        "capture": true,
+        "bucket_capture": true,
+        "whole_entry": true,
+        "retention_s": 1.0,
+        "board_bounce": true,
+        "invalid_physics": false,
+        "first_flight_available": true,
+        "missing_reason": null,
+        "external_contact_steps": 0,
+        "aperture_distance_m": 0.012983559458177835,
+        "mouth_clearance_m": 0.03480899125285076,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "velocity_head_endpoint_error_mm": 22.64902718463207,
+        "observed_velocity_ballistic_error_mm": 0.11071668147467818,
+        "nominal_forecast_endpoint_error_mm": 22.174952342425453,
+        "nominal_vs_observed_origin_distance_mm": 1.751514922361963
+      },
+      "prediction": {
+        "capture_score": 0.9964374545388879,
+        "disagreement": 0.0016814518148439402,
+        "aperture_distance_m": 0.022856161088839606,
+        "proxy_aperture_margin_m": 0.002630450413946557
+      },
+      "candidate_coverage": {
+        "candidates": 16,
+        "available_aperture_margins": 16,
+        "all_candidate_margins_available": true,
+        "best_proxy_margin_m": 0.002630450413946557,
+        "nonnegative_proxy_candidates": 3,
+        "all_available_margins_negative": false,
+        "gap_min_m": 0.12008186380601406,
+        "gap_max_m": 0.19484428737039663,
+        "anchor_gap_m": 0.19484428737039663
+      },
+      "selection": {
+        "selected_candidate_id": "candidate-11",
+        "rank": 1,
+        "geometry_checks": 1,
+        "all_geometry_checks_rejected": false,
+        "geometry_reason": null,
+        "context_reason": null,
+        "connection_reason": null
+      },
+      "diagnosis": "Whole-ball entry and one-second capture observed"
+    },
+    {
+      "record_id": "consistent-flight-consistent-consistent-flight-test-18",
+      "record_sha256": "4f2612781d0a6d73ab8de196c94082630166107ddae474306abc92874b47461b",
+      "context_id": "consistent-flight-test-18",
+      "requested_configuration": {
+        "board_x_m": 0.6336650565537686,
+        "board_y_m": -0.20583975476484628,
+        "board_height_m": 0.3855413749093606,
+        "board_tilt_deg": 25.3155921013416,
+        "nominal_plane_gap_m": 0.25534103115382656,
+        "bucket_x_m": 1.111644536844532,
+        "bucket_y_m": -0.6107596599705402,
+        "board_bucket_distance_m": 0.6264379563937807
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "bucket_capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "board_bounce": true,
+        "invalid_physics": false,
+        "first_flight_available": true,
+        "missing_reason": null,
+        "external_contact_steps": 24481,
+        "aperture_distance_m": 0.1913363659869072,
+        "mouth_clearance_m": -0.16286748177595317,
+        "cutoff_contact_channels": [
+          "table"
+        ],
+        "velocity_head_endpoint_error_mm": 24.52281386008771,
+        "observed_velocity_ballistic_error_mm": 0.13693283887933583,
+        "nominal_forecast_endpoint_error_mm": 23.293924777539313,
+        "nominal_vs_observed_origin_distance_mm": 1.5645743837073118
+      },
+      "prediction": {
+        "capture_score": 0.028177658487843482,
+        "disagreement": 0.011637684540373793,
+        "aperture_distance_m": 0.1883117965904551,
+        "proxy_aperture_margin_m": -0.19003726065511065
+      },
+      "candidate_coverage": {
+        "candidates": 16,
+        "available_aperture_margins": 16,
+        "all_candidate_margins_available": true,
+        "best_proxy_margin_m": -0.19003726065511065,
+        "nonnegative_proxy_candidates": 0,
+        "all_available_margins_negative": true,
+        "gap_min_m": 0.1353410311538266,
+        "gap_max_m": 0.25534103115382656,
+        "anchor_gap_m": 0.1353410311538266
+      },
+      "selection": {
+        "selected_candidate_id": "candidate-15",
+        "rank": 1,
+        "geometry_checks": 1,
+        "all_geometry_checks_rejected": false,
+        "geometry_reason": null,
+        "context_reason": null,
+        "connection_reason": null
+      },
+      "diagnosis": "No whole entry; pre-contact center-at-rim clearance -162.9 mm"
+    },
+    {
+      "record_id": "consistent-flight-consistent-consistent-flight-test-19",
+      "record_sha256": "40e2acd50f04c89f31a76084e34cc05bcd14c6233bc0ba315cd1ffd986c2b6ae",
+      "context_id": "consistent-flight-test-19",
+      "requested_configuration": {
+        "board_x_m": 0.6448880727558667,
+        "board_y_m": -0.19947104496390097,
+        "board_height_m": 0.4162085961032891,
+        "board_tilt_deg": 34.09463187923789,
+        "nominal_plane_gap_m": 0.14814577601632378,
+        "bucket_x_m": 0.8573540453199188,
+        "bucket_y_m": 0.19830891297969822,
+        "board_bucket_distance_m": 0.4509663894784179
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "bucket_capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "board_bounce": true,
+        "invalid_physics": false,
+        "first_flight_available": true,
+        "missing_reason": null,
+        "external_contact_steps": 26677,
+        "aperture_distance_m": 0.13675083220274975,
+        "mouth_clearance_m": -0.09217664220853986,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "velocity_head_endpoint_error_mm": 15.688088274134637,
+        "observed_velocity_ballistic_error_mm": 0.1084425442980162,
+        "nominal_forecast_endpoint_error_mm": 14.359589069537478,
+        "nominal_vs_observed_origin_distance_mm": 1.5741141595241834
+      },
+      "prediction": {
+        "capture_score": 0.6003392435359534,
+        "disagreement": 0.11664858484400856,
+        "aperture_distance_m": 0.03822073283261832,
+        "proxy_aperture_margin_m": -0.11942525094678885
+      },
+      "candidate_coverage": {
+        "candidates": 16,
+        "available_aperture_margins": 16,
+        "all_candidate_margins_available": true,
+        "best_proxy_margin_m": -0.11942525094678885,
+        "nonnegative_proxy_candidates": 0,
+        "all_available_margins_negative": true,
+        "gap_min_m": 0.07614577601632377,
+        "gap_max_m": 0.19641271845487437,
+        "anchor_gap_m": 0.1353410311538266
+      },
+      "selection": {
+        "selected_candidate_id": "candidate-09",
+        "rank": 1,
+        "geometry_checks": 1,
+        "all_geometry_checks_rejected": false,
+        "geometry_reason": null,
+        "context_reason": null,
+        "connection_reason": null
+      },
+      "diagnosis": "No whole entry; pre-contact center-at-rim clearance -92.2 mm"
+    },
+    {
+      "record_id": "consistent-flight-consistent-consistent-flight-test-20",
+      "record_sha256": "796f38c465e2b878ab74a1ea24a573e200bcf25c65b35bd379611c8d82664966",
+      "context_id": "consistent-flight-test-20",
+      "requested_configuration": {
+        "board_x_m": 0.5932682913072532,
+        "board_y_m": -0.04395152336205802,
+        "board_height_m": 0.4016370523099181,
+        "board_tilt_deg": 37.27725877942764,
+        "nominal_plane_gap_m": 0.08168749791773477,
+        "bucket_x_m": 0.6788439088178282,
+        "bucket_y_m": 0.11211150309244122,
+        "board_bucket_distance_m": 0.1779855458694721
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "bucket_capture": true,
+        "whole_entry": true,
+        "retention_s": 1.0,
+        "board_bounce": true,
+        "invalid_physics": false,
+        "first_flight_available": true,
+        "missing_reason": null,
+        "external_contact_steps": 53,
+        "aperture_distance_m": 0.31351378526942514,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": [
+          "robot"
+        ],
+        "velocity_head_endpoint_error_mm": 2.041619115365167,
+        "observed_velocity_ballistic_error_mm": 0.010169387130528292,
+        "nominal_forecast_endpoint_error_mm": 1.113428673154966,
+        "nominal_vs_observed_origin_distance_mm": 1.195487305114574
+      },
+      "prediction": {
+        "capture_score": 0.6864305390043473,
+        "disagreement": 0.05720934076370718,
+        "aperture_distance_m": 0.013305654120623667,
+        "proxy_aperture_margin_m": -0.034087055768645826
+      },
+      "candidate_coverage": {
+        "candidates": 16,
+        "available_aperture_margins": 16,
+        "all_candidate_margins_available": true,
+        "best_proxy_margin_m": -0.034087055768645826,
+        "nonnegative_proxy_candidates": 0,
+        "all_available_margins_negative": true,
+        "gap_min_m": 0.08168749791773477,
+        "gap_max_m": 0.15368749791773478,
+        "anchor_gap_m": 0.1353410311538266
+      },
+      "selection": {
+        "selected_candidate_id": "candidate-08",
+        "rank": 1,
+        "geometry_checks": 1,
+        "all_geometry_checks_rejected": false,
+        "geometry_reason": null,
+        "context_reason": null,
+        "connection_reason": null
+      },
+      "diagnosis": "Whole-ball entry and one-second bucket retention observed, but complete board-route scoring failed; external table/floor/robot/unattributed contacts are disallowed by the unchanged route contract"
+    },
+    {
+      "record_id": "consistent-flight-consistent-consistent-flight-test-21",
+      "record_sha256": "42ce402eff64581b311dc3bc6bd3f11940a263f773f103f76efe19528edbf94f",
+      "context_id": "consistent-flight-test-21",
+      "requested_configuration": {
+        "board_x_m": 0.5982773349972497,
+        "board_y_m": -0.04489091479875175,
+        "board_height_m": 0.39077526399755397,
+        "board_tilt_deg": 35.95071216330024,
+        "nominal_plane_gap_m": 0.10174112979283728,
+        "bucket_x_m": 0.6687005326979389,
+        "bucket_y_m": 0.16973338921118242,
+        "board_bucket_distance_m": 0.22588275420257078
+      },
+      "observed": {
+        "native_release": true,
+        "capture": true,
+        "bucket_capture": true,
+        "whole_entry": true,
+        "retention_s": 1.0,
+        "board_bounce": true,
+        "invalid_physics": false,
+        "first_flight_available": true,
+        "missing_reason": null,
+        "external_contact_steps": 0,
+        "aperture_distance_m": 0.008241011177535625,
+        "mouth_clearance_m": 0.04197288449315897,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "velocity_head_endpoint_error_mm": 20.95118848610685,
+        "observed_velocity_ballistic_error_mm": 0.16104890034846353,
+        "nominal_forecast_endpoint_error_mm": 19.682987079524416,
+        "nominal_vs_observed_origin_distance_mm": 1.3100888824177637
+      },
+      "prediction": {
+        "capture_score": 0.8558250304260785,
+        "disagreement": 0.03065825421691256,
+        "aperture_distance_m": 0.01331918982187232,
+        "proxy_aperture_margin_m": -0.0005745591302230291
+      },
+      "candidate_coverage": {
+        "candidates": 16,
+        "available_aperture_margins": 16,
+        "all_candidate_margins_available": true,
+        "best_proxy_margin_m": -0.0005745591302230291,
+        "nonnegative_proxy_candidates": 0,
+        "all_available_margins_negative": true,
+        "gap_min_m": 0.08383378286275439,
+        "gap_max_m": 0.15701744453452424,
+        "anchor_gap_m": 0.1353410311538266
+      },
+      "selection": {
+        "selected_candidate_id": "candidate-12",
+        "rank": 1,
+        "geometry_checks": 1,
+        "all_geometry_checks_rejected": false,
+        "geometry_reason": null,
+        "context_reason": null,
+        "connection_reason": null
+      },
+      "diagnosis": "Whole-ball entry and one-second capture observed"
+    },
+    {
+      "record_id": "consistent-flight-consistent-consistent-flight-test-22",
+      "record_sha256": "76bc05b1522f75e79f6510f6d524c973c36a2fd54e2da9c206450bad4eef0788",
+      "context_id": "consistent-flight-test-22",
+      "requested_configuration": {
+        "board_x_m": 0.5308684390802784,
+        "board_y_m": -0.3007799826212314,
+        "board_height_m": 0.35482350383165007,
+        "board_tilt_deg": 35.13704626787132,
+        "nominal_plane_gap_m": 0.31662917872069474,
+        "bucket_x_m": 0.11766612901417607,
+        "bucket_y_m": -0.3690995369816899,
+        "board_bucket_distance_m": 0.4188122617020364
+      },
+      "observed": {
+        "native_release": true,
+        "capture": true,
+        "bucket_capture": true,
+        "whole_entry": true,
+        "retention_s": 1.0,
+        "board_bounce": true,
+        "invalid_physics": false,
+        "first_flight_available": true,
+        "missing_reason": null,
+        "external_contact_steps": 0,
+        "aperture_distance_m": 0.020752605448678737,
+        "mouth_clearance_m": 0.024181902404859644,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "velocity_head_endpoint_error_mm": 22.38225675577115,
+        "observed_velocity_ballistic_error_mm": 0.10046829502135575,
+        "nominal_forecast_endpoint_error_mm": 23.480569503436765,
+        "nominal_vs_observed_origin_distance_mm": 2.3769306407036384
+      },
+      "prediction": {
+        "capture_score": 0.9696844213790115,
+        "disagreement": 0.009361783014722205,
+        "aperture_distance_m": 0.025047604334450572,
+        "proxy_aperture_margin_m": 0.014681405209031662
+      },
+      "candidate_coverage": {
+        "candidates": 16,
+        "available_aperture_margins": 16,
+        "all_candidate_margins_available": true,
+        "best_proxy_margin_m": 0.014681405209031662,
+        "nonnegative_proxy_candidates": 12,
+        "all_available_margins_negative": false,
+        "gap_min_m": 0.28062917872069476,
+        "gap_max_m": 0.3526291787206947,
+        "anchor_gap_m": 0.31342370391110463
+      },
+      "selection": {
+        "selected_candidate_id": "candidate-05",
+        "rank": 1,
+        "geometry_checks": 1,
+        "all_geometry_checks_rejected": false,
+        "geometry_reason": null,
+        "context_reason": null,
+        "connection_reason": null
+      },
+      "diagnosis": "Whole-ball entry and one-second capture observed"
+    },
+    {
+      "record_id": "consistent-flight-consistent-consistent-flight-test-23",
+      "record_sha256": "7b3ab41392c33869766c6a71f7ab84cb45b432cc32f640a8e0c718e6d9a046b8",
+      "context_id": "consistent-flight-test-23",
+      "requested_configuration": {
+        "board_x_m": 0.6574929128392515,
+        "board_y_m": -0.2500332407339006,
+        "board_height_m": 0.272081014072178,
+        "board_tilt_deg": 27.717208550515796,
+        "nominal_plane_gap_m": 0.1703158182107613,
+        "bucket_x_m": 0.6432869599085388,
+        "bucket_y_m": 0.005310302700781255,
+        "board_bucket_distance_m": 0.2557384098496917
+      },
+      "observed": {
+        "native_release": false,
+        "capture": false,
+        "bucket_capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "board_bounce": false,
+        "invalid_physics": false,
+        "first_flight_available": false,
+        "missing_reason": "setup_rejected_no_native_flight",
+        "external_contact_steps": 0,
+        "aperture_distance_m": null,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": null,
+        "velocity_head_endpoint_error_mm": null,
+        "observed_velocity_ballistic_error_mm": null,
+        "nominal_forecast_endpoint_error_mm": null,
+        "nominal_vs_observed_origin_distance_mm": null
+      },
+      "prediction": {
+        "capture_score": 0.9960424335233139,
+        "disagreement": 0.0011189918305653873,
+        "aperture_distance_m": 0.007080568537554395,
+        "proxy_aperture_margin_m": -0.007411300595558057
+      },
+      "candidate_coverage": {
+        "candidates": 16,
+        "available_aperture_margins": 16,
+        "all_candidate_margins_available": true,
+        "best_proxy_margin_m": -0.007411300595558057,
+        "nonnegative_proxy_candidates": 0,
+        "all_available_margins_negative": true,
+        "gap_min_m": 0.04891741049312602,
+        "gap_max_m": 0.1703158182107613,
+        "anchor_gap_m": 0.0963651221865184
+      },
+      "selection": {
+        "selected_candidate_id": "candidate-09",
+        "rank": 1,
+        "geometry_checks": 4,
+        "all_geometry_checks_rejected": true,
+        "geometry_reason": "strict_endpoint_clearance_or_pose_rejected",
+        "context_reason": null,
+        "connection_reason": "strict_endpoint_clearance_or_pose_rejected"
+      },
+      "diagnosis": "Setup rejected; no native ball flight"
+    },
+    {
+      "record_id": "consistent-flight-consistent-consistent-flight-test-24",
+      "record_sha256": "3da955d47eab2c792a93af9ef4e4f71571e13fa4395723131fb0d9177d9b510f",
+      "context_id": "consistent-flight-test-24",
+      "requested_configuration": {
+        "board_x_m": 0.625116516465436,
+        "board_y_m": -0.05468060771093315,
+        "board_height_m": 0.2733558418515719,
+        "board_tilt_deg": 24.50014280766562,
+        "nominal_plane_gap_m": 0.11337698105912414,
+        "bucket_x_m": 0.5926698085992197,
+        "bucket_y_m": -0.21703083541484147,
+        "board_bucket_distance_m": 0.16556082050674448
+      },
+      "observed": {
+        "native_release": true,
+        "capture": true,
+        "bucket_capture": true,
+        "whole_entry": true,
+        "retention_s": 1.0,
+        "board_bounce": true,
+        "invalid_physics": false,
+        "first_flight_available": true,
+        "missing_reason": null,
+        "external_contact_steps": 0,
+        "aperture_distance_m": 0.024313952369035625,
+        "mouth_clearance_m": 0.023869117687938687,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "velocity_head_endpoint_error_mm": 31.038697419600588,
+        "observed_velocity_ballistic_error_mm": 0.09663277792134257,
+        "nominal_forecast_endpoint_error_mm": 32.058679911773744,
+        "nominal_vs_observed_origin_distance_mm": 1.0221847788233431
+      },
+      "prediction": {
+        "capture_score": 0.9368293544087921,
+        "disagreement": 0.046913482455080605,
+        "aperture_distance_m": 0.0146813409617981,
+        "proxy_aperture_margin_m": 0.01657207299871473
+      },
+      "candidate_coverage": {
+        "candidates": 16,
+        "available_aperture_margins": 16,
+        "all_candidate_margins_available": true,
+        "best_proxy_margin_m": 0.020589239616822623,
+        "nonnegative_proxy_candidates": 12,
+        "all_available_margins_negative": false,
+        "gap_min_m": 0.052431699488871567,
+        "gap_max_m": 0.15212198490734474,
+        "anchor_gap_m": 0.0963651221865184
+      },
+      "selection": {
+        "selected_candidate_id": "candidate-15",
+        "rank": 2,
+        "geometry_checks": 2,
+        "all_geometry_checks_rejected": false,
+        "geometry_reason": null,
+        "context_reason": null,
+        "connection_reason": null
+      },
+      "diagnosis": "Whole-ball entry and one-second capture observed"
+    },
+    {
+      "record_id": "consistent-flight-consistent-consistent-flight-test-25",
+      "record_sha256": "5816b83ffd3839340ff78aae09cf00d69054d1cc8364a19c8de1c95cdcc9fb61",
+      "context_id": "consistent-flight-test-25",
+      "requested_configuration": {
+        "board_x_m": 0.6238777529291953,
+        "board_y_m": -0.3324504832092843,
+        "board_height_m": 0.40587126610342394,
+        "board_tilt_deg": 34.03458874787501,
+        "nominal_plane_gap_m": 0.12319865795165381,
+        "bucket_x_m": 0.6143477280443573,
+        "bucket_y_m": -0.5899423447925412,
+        "board_bucket_distance_m": 0.25766815898732376
+      },
+      "observed": {
+        "native_release": true,
+        "capture": true,
+        "bucket_capture": true,
+        "whole_entry": true,
+        "retention_s": 1.0,
+        "board_bounce": true,
+        "invalid_physics": false,
+        "first_flight_available": true,
+        "missing_reason": null,
+        "external_contact_steps": 0,
+        "aperture_distance_m": 0.010844232967938726,
+        "mouth_clearance_m": 0.03904489817722646,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "velocity_head_endpoint_error_mm": 10.627082843534861,
+        "observed_velocity_ballistic_error_mm": 0.10651425888478298,
+        "nominal_forecast_endpoint_error_mm": 10.76203768672814,
+        "nominal_vs_observed_origin_distance_mm": 1.4150769276516222
+      },
+      "prediction": {
+        "capture_score": 0.9878390539996611,
+        "disagreement": 0.008879914359615278,
+        "aperture_distance_m": 0.010725819580025628,
+        "proxy_aperture_margin_m": 0.023482122422254857
+      },
+      "candidate_coverage": {
+        "candidates": 16,
+        "available_aperture_margins": 16,
+        "all_candidate_margins_available": true,
+        "best_proxy_margin_m": 0.023482122422254857,
+        "nonnegative_proxy_candidates": 13,
+        "all_available_margins_negative": false,
+        "gap_min_m": 0.08719865795165381,
+        "gap_max_m": 0.1591986579516538,
+        "anchor_gap_m": 0.1353410311538266
+      },
+      "selection": {
+        "selected_candidate_id": "candidate-04",
+        "rank": 1,
+        "geometry_checks": 1,
+        "all_geometry_checks_rejected": false,
+        "geometry_reason": null,
+        "context_reason": null,
+        "connection_reason": null
+      },
+      "diagnosis": "Whole-ball entry and one-second capture observed"
+    },
+    {
+      "record_id": "consistent-flight-consistent-consistent-flight-test-26",
+      "record_sha256": "abf5a1f3e32935ed972003ca978512cd425d2ffb99c22143cdf11f82acef82a6",
+      "context_id": "consistent-flight-test-26",
+      "requested_configuration": {
+        "board_x_m": 0.6309016980296142,
+        "board_y_m": -0.01933938996416188,
+        "board_height_m": 0.2858061509785856,
+        "board_tilt_deg": 30.84787638237475,
+        "nominal_plane_gap_m": 0.11329257047082283,
+        "bucket_x_m": 0.45671088019994555,
+        "bucket_y_m": 0.11473753945936938,
+        "board_bucket_distance_m": 0.2198159776263122
+      },
+      "observed": {
+        "native_release": true,
+        "capture": true,
+        "bucket_capture": true,
+        "whole_entry": true,
+        "retention_s": 1.0,
+        "board_bounce": true,
+        "invalid_physics": false,
+        "first_flight_available": true,
+        "missing_reason": null,
+        "external_contact_steps": 0,
+        "aperture_distance_m": 0.014450606273078277,
+        "mouth_clearance_m": 0.034571397179216486,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "velocity_head_endpoint_error_mm": 6.20527883424347,
+        "observed_velocity_ballistic_error_mm": 0.10030334192278786,
+        "nominal_forecast_endpoint_error_mm": 6.6614667818301605,
+        "nominal_vs_observed_origin_distance_mm": 1.2275639705635235
+      },
+      "prediction": {
+        "capture_score": 0.9789454673417838,
+        "disagreement": 0.002650656740106917,
+        "aperture_distance_m": 0.015345050437068514,
+        "proxy_aperture_margin_m": 0.004530081848666899
+      },
+      "candidate_coverage": {
+        "candidates": 16,
+        "available_aperture_margins": 16,
+        "all_candidate_margins_available": true,
+        "best_proxy_margin_m": 0.004530081848666899,
+        "nonnegative_proxy_candidates": 1,
+        "all_available_margins_negative": false,
+        "gap_min_m": 0.03645506857445772,
+        "gap_max_m": 0.11388273687036143,
+        "anchor_gap_m": 0.0963651221865184
+      },
+      "selection": {
+        "selected_candidate_id": "candidate-14",
+        "rank": 1,
+        "geometry_checks": 1,
+        "all_geometry_checks_rejected": false,
+        "geometry_reason": null,
+        "context_reason": null,
+        "connection_reason": null
+      },
+      "diagnosis": "Whole-ball entry and one-second capture observed"
+    },
+    {
+      "record_id": "consistent-flight-consistent-consistent-flight-test-27",
+      "record_sha256": "f32ca03d0b30183e93d8be8c23a71628f987208de633ce73ae905104d70479f6",
+      "context_id": "consistent-flight-test-27",
+      "requested_configuration": {
+        "board_x_m": 0.6467369723833569,
+        "board_y_m": -0.20512440317584685,
+        "board_height_m": 0.4071929632677621,
+        "board_tilt_deg": 34.687242307266295,
+        "nominal_plane_gap_m": 0.1398583282087301,
+        "bucket_x_m": 0.8415472581675838,
+        "bucket_y_m": 0.06880753851887123,
+        "board_bucket_distance_m": 0.3361394890933979
+      },
+      "observed": {
+        "native_release": true,
+        "capture": true,
+        "bucket_capture": true,
+        "whole_entry": true,
+        "retention_s": 1.0,
+        "board_bounce": true,
+        "invalid_physics": false,
+        "first_flight_available": true,
+        "missing_reason": null,
+        "external_contact_steps": 0,
+        "aperture_distance_m": 0.040874995489537956,
+        "mouth_clearance_m": 0.0058833264530049195,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "velocity_head_endpoint_error_mm": 6.458685431941312,
+        "observed_velocity_ballistic_error_mm": 0.12155385916717167,
+        "nominal_forecast_endpoint_error_mm": 5.068921257539159,
+        "nominal_vs_observed_origin_distance_mm": 1.5357479818406936
+      },
+      "prediction": {
+        "capture_score": 0.5497907740921811,
+        "disagreement": 0.11598654540611027,
+        "aperture_distance_m": 0.029727360995420615,
+        "proxy_aperture_margin_m": -0.032621582476439696
+      },
+      "candidate_coverage": {
+        "candidates": 16,
+        "available_aperture_margins": 16,
+        "all_candidate_margins_available": true,
+        "best_proxy_margin_m": -0.032621582476439696,
+        "nonnegative_proxy_candidates": 0,
+        "all_available_margins_negative": true,
+        "gap_min_m": 0.0678583282087301,
+        "gap_max_m": 0.1398583282087301,
+        "anchor_gap_m": 0.1353410311538266
+      },
+      "selection": {
+        "selected_candidate_id": "candidate-09",
+        "rank": 1,
+        "geometry_checks": 1,
+        "all_geometry_checks_rejected": false,
+        "geometry_reason": null,
+        "context_reason": null,
+        "connection_reason": null
+      },
+      "diagnosis": "Whole-ball entry and one-second capture observed"
+    },
+    {
+      "record_id": "consistent-flight-consistent-consistent-flight-test-28",
+      "record_sha256": "724ad50eea2901731a516260709867ea15756973864fe18f83cb2ad580922c00",
+      "context_id": "consistent-flight-test-28",
+      "requested_configuration": {
+        "board_x_m": 0.6402465114043626,
+        "board_y_m": -0.2339225184230303,
+        "board_height_m": 0.39267447201156597,
+        "board_tilt_deg": 33.740493257883195,
+        "nominal_plane_gap_m": 0.0889802361496867,
+        "bucket_x_m": 0.8547422082419702,
+        "bucket_y_m": -0.33642191643445857,
+        "board_bucket_distance_m": 0.23772784976640002
+      },
+      "observed": {
+        "native_release": true,
+        "capture": true,
+        "bucket_capture": true,
+        "whole_entry": true,
+        "retention_s": 1.0,
+        "board_bounce": true,
+        "invalid_physics": false,
+        "first_flight_available": true,
+        "missing_reason": null,
+        "external_contact_steps": 0,
+        "aperture_distance_m": 0.01814157757173041,
+        "mouth_clearance_m": 0.03154437062521156,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "velocity_head_endpoint_error_mm": 30.77978166901449,
+        "observed_velocity_ballistic_error_mm": 0.13731046740371908,
+        "nominal_forecast_endpoint_error_mm": 30.129998360289264,
+        "nominal_vs_observed_origin_distance_mm": 1.1583177406144034
+      },
+      "prediction": {
+        "capture_score": 0.5821877605611285,
+        "disagreement": 0.11075476670283656,
+        "aperture_distance_m": 0.03952740115688319,
+        "proxy_aperture_margin_m": 0.016037763780511874
+      },
+      "candidate_coverage": {
+        "candidates": 16,
+        "available_aperture_margins": 16,
+        "all_candidate_margins_available": true,
+        "best_proxy_margin_m": 0.016037763780511874,
+        "nonnegative_proxy_candidates": 4,
+        "all_available_margins_negative": false,
+        "gap_min_m": 0.0889802361496867,
+        "gap_max_m": 0.16098023614968668,
+        "anchor_gap_m": 0.1353410311538266
+      },
+      "selection": {
+        "selected_candidate_id": "candidate-08",
+        "rank": 1,
+        "geometry_checks": 1,
+        "all_geometry_checks_rejected": false,
+        "geometry_reason": null,
+        "context_reason": null,
+        "connection_reason": null
+      },
+      "diagnosis": "Whole-ball entry and one-second capture observed"
+    },
+    {
+      "record_id": "consistent-flight-consistent-consistent-flight-test-29",
+      "record_sha256": "27b1f73c01281f1beff7a8bdb33a87f078711e1a36eb92d93a771bd377d860a4",
+      "context_id": "consistent-flight-test-29",
+      "requested_configuration": {
+        "board_x_m": 0.6479233714278039,
+        "board_y_m": -0.20469188301262756,
+        "board_height_m": 0.3691344438145419,
+        "board_tilt_deg": 26.96690514183487,
+        "nominal_plane_gap_m": 0.25534103115382656,
+        "bucket_x_m": 1.1353823298247834,
+        "bucket_y_m": -0.4345239996834588,
+        "board_bucket_distance_m": 0.5389239630735145
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "bucket_capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "board_bounce": true,
+        "invalid_physics": false,
+        "first_flight_available": true,
+        "missing_reason": null,
+        "external_contact_steps": 37335,
+        "aperture_distance_m": 0.13392964426168263,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "velocity_head_endpoint_error_mm": 45.63164580928383,
+        "observed_velocity_ballistic_error_mm": 0.13725933723884856,
+        "nominal_forecast_endpoint_error_mm": 46.863264958607644,
+        "nominal_vs_observed_origin_distance_mm": 1.7050782564313183
+      },
+      "prediction": {
+        "capture_score": 0.034095255335772935,
+        "disagreement": 0.012459025395928707,
+        "aperture_distance_m": 0.16915369088177146,
+        "proxy_aperture_margin_m": -0.1472893171606099
+      },
+      "candidate_coverage": {
+        "candidates": 16,
+        "available_aperture_margins": 16,
+        "all_candidate_margins_available": true,
+        "best_proxy_margin_m": -0.1472893171606099,
+        "nonnegative_proxy_candidates": 0,
+        "all_available_margins_negative": true,
+        "gap_min_m": 0.1353410311538266,
+        "gap_max_m": 0.25534103115382656,
+        "anchor_gap_m": 0.1353410311538266
+      },
+      "selection": {
+        "selected_candidate_id": "candidate-15",
+        "rank": 1,
+        "geometry_checks": 1,
+        "all_geometry_checks_rejected": false,
+        "geometry_reason": null,
+        "context_reason": null,
+        "connection_reason": null
+      },
+      "diagnosis": "No whole entry; first free flight ends at bucket contact before an observed descending center-at-rim crossing"
+    }
+  ],
+  "example_context_ids": [
+    "consistent-flight-test-01",
+    "consistent-flight-test-20",
+    "consistent-flight-test-19",
+    "consistent-flight-test-02"
+  ],
+  "findings": [
+    {
+      "status": "observed",
+      "statement": "New selector captured 17/30; 9 native misses and 4 setup rejects remain.",
+      "evidence": "Original frozen comparison and native audit; no changed success definition"
+    },
+    {
+      "status": "observed",
+      "statement": "Contact-limited first-flight cutoff channels: {\"bucket\": 5, \"robot\": 1, \"table\": 3}",
+      "evidence": "Byte-bound dense force samples; a bucket contact is not automatically a rim hit"
+    },
+    {
+      "status": "limitation",
+      "statement": "Nominal board tangent and measured post-contact rebound origin differ. Their diagnostic difference is not itself proof of cause.",
+      "evidence": "Requested geometry and independently sampled dense state remain separate"
+    },
+    {
+      "status": "limitation",
+      "statement": "One nominal request per method and layout; paired differences do not establish repeatability or a reliable method winner.",
+      "evidence": "Original30-position protocol; no added repetitions"
+    }
+  ],
+  "next_steps": [
+    "Use these former TEST examples only for diagnosis and targeted development.",
+    "Freeze one correction and its bounded matched diagnostic tests before new native outcomes.",
+    "Evaluate a changed selector on new held-out bucket positions before claiming generalization."
+  ]
+}
