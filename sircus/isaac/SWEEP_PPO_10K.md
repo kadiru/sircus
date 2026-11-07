@@ -226,3 +226,23 @@ status investigation must still inspect actual processes. The static page and
 CPU publication can be updated independently of the GET-only reader and native
 simulation. PPO results remain pending until actually observed; the live
 interface, not this historical checkpoint, shows the current attempt count.
+
+Recovery was activated from committed external source
+`e835f652b5991e270c3cd30a345db7d49fa73b0b` (archive SHA256
+`93556582c323c81a66b3d69f6859bfb7bb95cf3bb51292385d7f05bf1c0dac80`).
+All 113 focused checks passed on Ubuntu CPU without skips, followed by a
+read-only adoption preflight against the actual completed evidence. The native
+PPO seed 20261121 process was verified on the 4090, initially performing frozen
+evaluation; its held-out performance is not established by startup. The original
+4070 process remained present and unchanged. The original failed coordinator
+files remain intact, with a new separately bound recovery status/launch receipt.
+No sweep TRAIN requests were repeated.
+
+Only the separate finite CPU publisher was replaced to load the new report
+code. The existing Mac mirror and GET/HEAD-only reader kept their original
+processes; HTML/JS were updated with a backup and checksum manifest, preserving
+the frozen reach-audit overlay. All four sweep chapters were present and the
+latest 81.33-second native chapter played successfully in the browser. The code
+checkpoint passed GitHub's mock/simulation workflow. Draft PR #81 is stacked on
+#80; neither was merged. Local deployment receipts are under the ignored
+`<repository>/.runtime/shot-benchmark-20261106/control/status-recovery-e835f65/`.
