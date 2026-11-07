@@ -99,6 +99,31 @@ def full_audit_verified(raw,audit):
         and type(count) is int and count>0 and count==len(checks) and all(isinstance(c,dict) and c.get('passed') is True for c in checks))
 
 
+def describe_verified_outcomes(value,raw,report_sha256):
+    """Display-only post-hoc statistics; never mutate the audited source report."""
+    if not value.get('audit',{}).get('full_checks_verified'):return
+    try:
+        from .physics_ensemble_statistics import describe
+        stats=describe(raw.get('test_positions',[]))
+        expected={row['method']:row for row in stats['test_comparison']}
+        observed={row['method']:row for row in value.get('test_comparison',[])}
+        if set(expected)!=set(observed):raise ValueError('Complete matched cohorts required')
+        for method,row in expected.items():
+            saved=observed[method]['counts'];actual=row['counts']
+            if saved.get('requested',saved.get('attempts'))!=actual['requested']:raise ValueError('Requested denominator differs')
+            if any(saved.get(k)!=actual[k] for k in ('native_releases','captures','clean','rejected','native_misses','invalid')):
+                raise ValueError('Source counts differ from paired observations')
+    except (ImportError,ValueError,KeyError,TypeError):
+        value['derived_statistics']=dict(status='unavailable',scope='Complete, consistent matched TEST outcomes required for post-hoc intervals.')
+        return
+    for method,row in expected.items():
+        observed[method].update(capture_ci95=row['capture_ci95'],ci95_method=row['ci95_method'])
+    value['paired_differences']=copy.deepcopy(stats['paired_differences'])
+    value['derived_statistics']=dict(version=stats['version'],status='computed',scope=stats['scope'],source_report_sha256=report_sha256)
+    value['scope']=(value.get('scope','')+' Display intervals are post-hoc descriptions of the same audited outcomes; '
+                    'they do not establish independent-seed or noise reliability.').strip()
+
+
 def prepare(base_display,study,output,audit_path=None):
     base_display,study,output=map(Path,(base_display,study,output))
     audit_path=Path(audit_path) if audit_path is not None else study.with_name(study.name+'-audit.json')
@@ -123,6 +148,7 @@ def prepare(base_display,study,output,audit_path=None):
         if audit_bytes is not None:value['audit']['source_sha256']=sha(audit_bytes)
         if audit.get('status')=='passed' and not value['audit']['full_checks_verified']:
             value['audit']['verification_reason']='Exact completed evidence, full strictly passed v1 checklist and matching report/manifest bytes are required.'
+        describe_verified_outcomes(value,raw,sha(report_bytes))
         value['display_updated_utc']=datetime.datetime.now(datetime.timezone.utc).isoformat()
     result=copy.deepcopy(base);result[KEY]=value
     payload=json.dumps(result,indent=2,allow_nan=False)+'\n';output.parent.mkdir(parents=True,exist_ok=True)
