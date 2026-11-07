@@ -31,6 +31,14 @@ SCOPE = (
 )
 
 
+class UnsupportedShotGeometry(ValueError):
+    """Finite requested action lies outside the nominal flight construction.
+
+    This is neither malformed evidence nor a native admission decision.  The
+    literal candidate stays in the ledger without fabricated flight metrics.
+    """
+
+
 def _vector(value, size, name):
     result = np.asarray(value, dtype=float)
     if result.shape != (size,) or not np.isfinite(result).all():
@@ -71,8 +79,12 @@ def nominal_origin(values, bucket_xy, geom):
     delta = bucket-action[:2]
     distance = float(np.linalg.norm(delta))
     tilt, gap = float(action[3]), float(action[4])
-    if distance <= 1e-8 or not 0 <= tilt < 90 or gap <= 0:
-        raise ValueError('Separated board/bucket, 0<=tilt<90 and positive gap required')
+    if distance <= 1e-8:
+        raise UnsupportedShotGeometry('board_bucket_heading_undefined')
+    if not 0 <= tilt < 90:
+        raise UnsupportedShotGeometry('tilt_outside_nominal_0_to_90_degrees')
+    if gap <= 0:
+        raise UnsupportedShotGeometry('nonpositive_drop_gap')
     radius = float(geom['ball_radius_m'])
     size = _vector(geom['board_size_m'], 3, 'board dimensions')
     theta = math.radians(tilt); sine, cosine = math.sin(theta), math.cos(theta)
@@ -172,10 +184,26 @@ def predict_candidate(scene, calibration, bucket_xy, values, frozen_prediction,
                       *, gravity=(0., 0., -9.81), prepared_geometry=None):
     """Read only the five raw velocity heads; never consume measured outcomes."""
     geom = prepared_geometry or geometry(scene, calibration, gravity=gravity)
-    launch = nominal_origin(values, bucket_xy, geom)
     raw = np.asarray(frozen_prediction.get('member_raw_output'), dtype=float)
     if raw.shape != (MEMBERS, 9) or not np.isfinite(raw).all():
         raise ValueError('Exact five frozen finite nine-output members required')
+    original = float(frozen_prediction.get('ranking_score', float('nan')))
+    if not math.isfinite(original):
+        raise ValueError('Finite frozen original ranking score required')
+    try:
+        launch = nominal_origin(values, bucket_xy, geom)
+    except UnsupportedShotGeometry as error:
+        # Old literal candidate banks include finite but inadmissible actions.
+        # Preserve them verbatim; do not clamp gaps/tilts or invent a rebound.
+        reason = str(error)
+        return dict(version=VERSION,
+            launch=dict(supported_planar_contact=False, origin_m=None,
+                provenance='requested_geometry_nominal_sphere_plane_tangent_not_observed',
+                missing_reason=reason),
+            members=[], complete_rim_band_members=0, nominal_clear_aperture_members=0,
+            worst_clearance_m=None, mean_clearance_m=None, minimum_apex_margin_m=None,
+            original_ranking_score=original, scope=SCOPE,
+            missing_reason=reason, new_native_queries=0, uses_observed_rebound=False)
     d = np.asarray(launch['forward_xy']); side = np.array([-d[1], d[0]])
     members = []
     for index, velocity in enumerate(raw[:, 6:9]):
@@ -185,9 +213,6 @@ def predict_candidate(scene, calibration, bucket_xy, values, frozen_prediction,
         members.append(result)
     available = [r['conservative_rim_band_clearance_m'] for r in members
                  if r['full_downward_rim_band_available']]
-    original = float(frozen_prediction.get('ranking_score', float('nan')))
-    if not math.isfinite(original):
-        raise ValueError('Finite frozen original ranking score required')
     return dict(version=VERSION, launch=launch, members=members,
         complete_rim_band_members=len(available),
         nominal_clear_aperture_members=sum(r['nominal_clear_aperture'] for r in members),
