@@ -1,0 +1,2410 @@
+{
+  "version": "sircus-ensemble-flight-diagnosis-checks-v1",
+  "status": "passed",
+  "checks_count": 600,
+  "checks": [
+    {
+      "label": "Exact original 60 ensemble requests and25 native misses",
+      "passed": true
+    },
+    {
+      "label": "Dense cache is bound: native-0004.npz",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-00/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-00/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-00/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-00/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-00/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-00/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-00/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-00/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-00/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-00/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-29/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-29/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-29/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-29/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-29/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-29/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-29/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-29/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-29/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-29/held board center error",
+      "passed": true
+    },
+    {
+      "label": "Dense cache is bound: native-0005.npz",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-36/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-36/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-36/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-36/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-36/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-36/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-36/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-36/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-36/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-36/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-40/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-40/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-40/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-40/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-40/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-40/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-40/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-40/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-40/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-40/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-49/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-49/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-49/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-49/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-49/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-49/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-49/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-49/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-49/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-bc-physics-ensemble-test-49/held board center error",
+      "passed": true
+    },
+    {
+      "label": "Dense cache is bound: native-0006.npz",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-00/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-00/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-00/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-00/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-00/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-00/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-00/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-00/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-00/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-00/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-29/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-29/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-29/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-29/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-29/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-29/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-29/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-29/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-29/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-29/held board center error",
+      "passed": true
+    },
+    {
+      "label": "Dense cache is bound: native-0007.npz",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-36/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-36/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-36/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-36/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-36/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-36/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-36/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-36/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-36/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-36/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-40/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-40/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-40/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-40/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-40/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-40/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-40/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-40/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-40/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-40/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-49/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-49/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-49/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-49/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-49/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-49/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-49/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-49/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-49/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ppo-physics-ensemble-test-49/held board center error",
+      "passed": true
+    },
+    {
+      "label": "Dense cache is bound: native-0008.npz",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-00/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-00/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-00/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-00/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-00/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-00/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-00/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-00/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-00/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-00/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-02/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-02/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-02/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-02/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-02/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-02/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-02/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-02/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-02/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-02/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-03/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-03/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-03/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-03/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-03/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-03/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-03/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-03/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-03/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-03/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-04/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-04/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-04/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-04/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-04/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-04/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-04/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-04/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-04/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-04/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-06/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-06/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-06/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-06/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-06/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-06/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-06/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-06/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-06/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-06/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-07/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-07/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-07/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-07/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-07/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-07/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-07/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-07/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-07/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-07/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-08/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-08/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-08/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-08/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-08/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-08/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-08/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-08/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-08/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-08/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-11/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-11/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-11/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-11/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-11/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-11/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-11/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-11/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-11/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-11/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-12/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-12/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-12/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-12/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-12/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-12/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-12/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-12/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-12/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-12/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-14/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-14/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-14/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-14/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-14/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-14/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-14/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-14/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-14/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-14/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-15/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-15/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-15/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-15/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-15/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-15/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-15/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-15/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-15/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-15/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-16/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-16/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-16/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-16/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-16/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-16/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-16/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-16/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-16/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-16/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-20/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-20/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-20/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-20/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-20/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-20/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-20/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-20/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-20/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-20/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-21/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-21/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-21/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-21/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-21/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-21/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-21/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-21/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-21/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-21/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-22/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-22/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-22/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-22/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-22/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-22/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-22/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-22/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-22/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-22/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-23/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-23/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-23/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-23/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-23/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-23/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-23/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-23/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-23/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-23/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-24/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-24/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-24/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-24/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-24/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-24/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-24/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-24/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-24/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-24/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-25/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-25/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-25/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-25/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-25/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-25/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-25/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-25/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-25/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-25/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-26/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-26/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-26/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-26/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-26/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-26/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-26/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-26/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-26/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-26/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-28/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-28/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-28/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-28/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-28/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-28/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-28/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-28/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-28/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-28/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-29/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-29/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-29/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-29/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-29/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-29/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-29/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-29/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-29/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-29/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-30/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-30/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-30/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-30/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-30/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-30/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-30/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-30/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-30/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-30/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-31/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-31/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-31/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-31/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-31/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-31/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-31/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-31/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-31/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-31/held board center error",
+      "passed": true
+    },
+    {
+      "label": "Dense cache is bound: native-0009.npz",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-32/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-32/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-32/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-32/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-32/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-32/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-32/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-32/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-32/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-32/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-33/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-33/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-33/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-33/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-33/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-33/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-33/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-33/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-33/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-33/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-35/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-35/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-35/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-35/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-35/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-35/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-35/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-35/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-35/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-35/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-36/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-36/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-36/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-36/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-36/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-36/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-36/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-36/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-36/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-36/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-37/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-37/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-37/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-37/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-37/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-37/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-37/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-37/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-37/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-37/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-38/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-38/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-38/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-38/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-38/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-38/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-38/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-38/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-38/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-38/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-39/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-39/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-39/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-39/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-39/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-39/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-39/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-39/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-39/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-39/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-40/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-40/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-40/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-40/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-40/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-40/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-40/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-40/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-40/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-40/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-41/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-41/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-41/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-41/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-41/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-41/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-41/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-41/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-41/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-41/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-42/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-42/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-42/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-42/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-42/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-42/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-42/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-42/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-42/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-42/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-43/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-43/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-43/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-43/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-43/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-43/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-43/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-43/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-43/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-43/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-45/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-45/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-45/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-45/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-45/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-45/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-45/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-45/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-45/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-45/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-46/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-46/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-46/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-46/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-46/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-46/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-46/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-46/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-46/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-46/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-47/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-47/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-47/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-47/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-47/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-47/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-47/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-47/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-47/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-47/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-48/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-48/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-48/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-48/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-48/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-48/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-48/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-48/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-48/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-48/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-49/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-49/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-49/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-49/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-49/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-49/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-49/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-49/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-49/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-49/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-50/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-50/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-50/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-50/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-50/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-50/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-50/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-50/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-50/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-50/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-51/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-51/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-51/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-51/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-51/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-51/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-51/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-51/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-51/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-51/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-52/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-52/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-52/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-52/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-52/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-52/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-52/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-52/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-52/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-52/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-53/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-53/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-53/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-53/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-53/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-53/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-53/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-53/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-53/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-53/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-54/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-54/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-54/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-54/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-54/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-54/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-54/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-54/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-54/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-54/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-55/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-55/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-55/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-55/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-55/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-55/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-55/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-55/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-55/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-55/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-56/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-56/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-56/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-56/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-56/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-56/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-56/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-56/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-56/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-56/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-57/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-57/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-57/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-57/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-57/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-57/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-57/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-57/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-57/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-57/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-58/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-58/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-58/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-58/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-58/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-58/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-58/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-58/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-58/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-58/held board center error",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-59/cache column",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-59/first flight availability",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-59/independent start_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-59/independent end_index",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-59/independent cutoff_contact_channels",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-59/independent closest_opening_distance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-59/independent mouth_clearance_m",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-59/measured rebound exists",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-59/bound measured velocity",
+      "passed": true
+    },
+    {
+      "label": "physics-ensemble-test-ensemble-physics-ensemble-test-59/held board center error",
+      "passed": true
+    },
+    {
+      "label": "All25 native misses failed entry, not retention",
+      "passed": true
+    },
+    {
+      "label": "Exact original high-score requested denominators and outcomes",
+      "passed": true
+    },
+    {
+      "label": "Case36 exact one-coordinate36mm gap contrast",
+      "passed": true
+    }
+  ],
+  "source_report_sha256": "9d76ed2225f5e9a659d5b8ef18839207553df87e14980cf0a290707de437b5a6",
+  "source_audit_sha256": "72e5cc9fd4c424896a0c41588b3eec0bd85317ce931cd76e90bd850474f87ebb",
+  "diagnosis_source_sha256": "1b481a6b94102eb19c811ba5df53f4f9e8d4c68f602674fe59bd30f9ca3b5be3"
+}

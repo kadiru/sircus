@@ -1,0 +1,3931 @@
+{
+  "version": "sircus-ensemble-flight-diagnosis-v1",
+  "status": "completed",
+  "scope": "Post-hoc diagnosis of original fixed64 outcomes; no new training or native requests. All predictions precede original outcomes. These TEST layouts are now development evidence, not new held-out evaluation. Scores and member spread are uncalibrated. Conditional ballistic curves use the observed rebound origin and gravity, with no contacts; they are not full learned rollouts or capture predictions. Old results unchanged.",
+  "source": {
+    "report_sha256": "9d76ed2225f5e9a659d5b8ef18839207553df87e14980cf0a290707de437b5a6",
+    "audit_sha256": "72e5cc9fd4c424896a0c41588b3eec0bd85317ce931cd76e90bd850474f87ebb",
+    "contract_fingerprint": "90a7d5b7e3d1fb1e738a36a7cf30930116516da0d6d6435c06b98eb97be8c376",
+    "verified": true,
+    "original_native_audit_checks": 897304,
+    "native_requests_added": 0,
+    "records_sha256": "d3dbb7b32e9b611a32eb93fb81b202f41ab74a403f4da7521f1ddc75bb2ad2b1",
+    "targets_sha256": "5f76e7dd9a10737a1992a22d56b8e92dcb8893015913df85acd8c43b6efd5fc6"
+  },
+  "summary": {
+    "requested": 60,
+    "native_releases": 49,
+    "captures": 24,
+    "rejected": 11,
+    "native_misses": 25,
+    "high_score_threshold": 0.9,
+    "high_score_requests": 36,
+    "high_score_captures": 18,
+    "high_score_native_misses": 13,
+    "score99_requests": 13,
+    "score99_captures": 4,
+    "score99_mean": 0.9954254387038793,
+    "all_native_misses_no_entry": true,
+    "cutoff_contact_counts": {
+      "bucket": 16,
+      "robot": 3,
+      "table": 6
+    }
+  },
+  "calibration_bins": [
+    {
+      "low": 0.0,
+      "high": 0.5,
+      "requested": 10,
+      "captures": 0,
+      "native_misses": 5,
+      "rejected": 5,
+      "mean_score": 0.14737529429983448
+    },
+    {
+      "low": 0.5,
+      "high": 0.9,
+      "requested": 14,
+      "captures": 6,
+      "native_misses": 7,
+      "rejected": 1,
+      "mean_score": 0.7301635089212405
+    },
+    {
+      "low": 0.9,
+      "high": 0.99,
+      "requested": 23,
+      "captures": 14,
+      "native_misses": 8,
+      "rejected": 1,
+      "mean_score": 0.9632874852229449
+    },
+    {
+      "low": 0.99,
+      "high": 1.0,
+      "requested": 13,
+      "captures": 4,
+      "native_misses": 5,
+      "rejected": 4,
+      "mean_score": 0.9954254387038793
+    }
+  ],
+  "cases": [
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-29",
+      "context_id": "physics-ensemble-test-29",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-29",
+      "record_sha256": "8a6cf7390e555ba274ed19d51d6d59572ec1bb19f995829907d5b7a81acdd01e",
+      "method": "ensemble",
+      "values": [
+        0.5915048718452454,
+        -0.3435669541358948,
+        0.2680986523628235,
+        31.519844899807353,
+        0.26155952009868144
+      ],
+      "bucket_xy_m": [
+        0.24865959966325096,
+        -0.14062195174676895
+      ],
+      "board_bucket_distance_m": 0.3984087783323406,
+      "prediction": {
+        "capture_score": 0.9965375342835813,
+        "disagreement": 0.0013587488973848267,
+        "aperture_distance_m": 0.008416128199827955,
+        "rebound_velocity_m_s": [
+          1.4631611108779907,
+          0.008608399331569672,
+          0.4604408204555511
+        ],
+        "ranking_score": 0.9957770406492437,
+        "member_capture_scores": [
+          0.9942474428133022,
+          0.9982018265473857,
+          0.9959472417388304,
+          0.9973992731695734,
+          0.9968918871488146
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 0.00021900144899933142,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 5.0575566116468485e-05
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          1.4488400350014263,
+          0.00473952126183208,
+          0.5425857901573181
+        ],
+        "velocity_error_m_s": [
+          0.014321075876564393,
+          0.0038688780697375916,
+          -0.08214496970176699
+        ],
+        "aperture_distance_m": 0.10788363103981838,
+        "rim_crossing": null,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "rebound_time_s": 0.22858072916666666,
+        "cutoff_time_s": 0.4326171875,
+        "cutoff_position_m": [
+          0.33524084091186523,
+          -0.1930031031370163,
+          0.22040028870105743
+        ],
+        "first_flight_samples": 3135,
+        "velocity_head_endpoint_error_mm": 16.972622866989727,
+        "observed_velocity_ballistic_error_mm": 0.07040405185054692
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.15255978129602416,
+        "nearest_train_id": "policy64-train-00988",
+        "nearest_train_capture": true,
+        "nearest_capture_distance": 0.15255978129602416,
+        "nearest_capture_train_id": "policy64-train-00988",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; first free flight ends at bucket contact before an observed descending center-at-rim crossing",
+      "references": [
+        {
+          "id": "physics-ensemble-test-bc-physics-ensemble-test-29",
+          "context_id": "physics-ensemble-test-29",
+          "record_id": "physics-ensemble-test-bc-physics-ensemble-test-29",
+          "record_sha256": "9f80e46d4309dcd84e3f8aafe037032e7a474e37ca13ac694d35d6f50dd5eef4",
+          "method": "bc",
+          "values": [
+            0.5957205750918005,
+            -0.34611543601935385,
+            0.27207214401510676,
+            35.04900934255513,
+            0.22668651770602946
+          ],
+          "bucket_xy_m": [
+            0.24865959966325096,
+            -0.14062195174676895
+          ],
+          "board_bucket_distance_m": 0.403334715520377,
+          "prediction": {
+            "capture_score": 0.9930275233376691,
+            "disagreement": 0.0041182842190663725,
+            "aperture_distance_m": 0.016475889157357558,
+            "rebound_velocity_m_s": [
+              1.44941086769104,
+              0.01091858297586441,
+              0.29645795822143556
+            ],
+            "ranking_score": 0.9911741578250346,
+            "member_capture_scores": [
+              0.9859673150336552,
+              0.996387075829534,
+              0.9907857285049635,
+              0.9967009546121445,
+              0.9952965427080478
+            ]
+          },
+          "observed": {
+            "native_release": true,
+            "capture": false,
+            "whole_entry": false,
+            "retention_s": 0.0,
+            "invalid_physics": false,
+            "board_bounce": true,
+            "pose_gate": {
+              "board_position_error_mm": 0.00021191202613869155,
+              "board_normal_error_deg": 0.0,
+              "dropper_error_mm": 0.00018319487179716695
+            },
+            "max_board_drift_mm": 0.0,
+            "bucket_collider_error_m": 0.0,
+            "rebound_velocity_m_s": [
+              1.4191182824948319,
+              0.003825062413080227,
+              0.3353666663169861
+            ],
+            "velocity_error_m_s": [
+              0.030292585196208144,
+              0.007093520562784183,
+              -0.038908708095550526
+            ],
+            "aperture_distance_m": 0.1322319582122437,
+            "rim_crossing": null,
+            "mouth_clearance_m": null,
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "rebound_time_s": 0.21139322916666667,
+            "cutoff_time_s": 0.4025390625,
+            "cutoff_position_m": [
+              0.3605306148529053,
+              -0.20773562788963318,
+              0.2045852094888687
+            ],
+            "first_flight_samples": 2937,
+            "velocity_head_endpoint_error_mm": 9.4680112770785,
+            "observed_velocity_ballistic_error_mm": 0.06403385969177604
+          },
+          "training_support": {
+            "nearest_normalized_distance": 0.1610023305281325,
+            "nearest_train_id": "policy64-train-00044",
+            "nearest_train_capture": true,
+            "nearest_capture_distance": 0.1610023305281325,
+            "nearest_capture_train_id": "policy64-train-00044",
+            "outside_training_feature_range": [],
+            "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+          },
+          "diagnosis": "No whole entry; first free flight ends at bucket contact before an observed descending center-at-rim crossing"
+        },
+        {
+          "id": "physics-ensemble-test-ppo-physics-ensemble-test-29",
+          "context_id": "physics-ensemble-test-29",
+          "record_id": "physics-ensemble-test-ppo-physics-ensemble-test-29",
+          "record_sha256": "fa3f2fc51916a1f80ea792b50d63f9d5b8b10e8f6b27bc3e1545a3ed23273149",
+          "method": "ppo",
+          "values": [
+            0.5952167765005699,
+            -0.34191214353626803,
+            0.2641616063189387,
+            33.77337889543518,
+            0.23985772668300556
+          ],
+          "bucket_xy_m": [
+            0.24865959966325096,
+            -0.14062195174676895
+          ],
+          "board_bucket_distance_m": 0.40077377425189153,
+          "prediction": {
+            "capture_score": 0.9954461550852333,
+            "disagreement": 0.0021609231133648886,
+            "aperture_distance_m": 0.014034635119424238,
+            "rebound_velocity_m_s": [
+              1.4596491813659669,
+              0.010514995455741883,
+              0.36230990290641785
+            ],
+            "ranking_score": 0.9942041925509209,
+            "member_capture_scores": [
+              0.991808272409892,
+              0.9976947950763413,
+              0.9942694572235005,
+              0.9971654326121626,
+              0.9962928181042696
+            ]
+          },
+          "observed": {
+            "native_release": true,
+            "capture": false,
+            "whole_entry": false,
+            "retention_s": 0.0,
+            "invalid_physics": false,
+            "board_bounce": true,
+            "pose_gate": {
+              "board_position_error_mm": 0.00011156121778000946,
+              "board_normal_error_deg": 0.013036237541498033,
+              "dropper_error_mm": 5.266778587341598e-05
+            },
+            "max_board_drift_mm": 0.0,
+            "bucket_collider_error_m": 0.0,
+            "rebound_velocity_m_s": [
+              1.455295203527194,
+              0.00422728866684885,
+              0.4321064352989197
+            ],
+            "velocity_error_m_s": [
+              0.004353977838772893,
+              0.006287706788893033,
+              -0.06979653239250183
+            ],
+            "aperture_distance_m": 0.12463330883354864,
+            "rim_crossing": null,
+            "mouth_clearance_m": null,
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "rebound_time_s": 0.21803385416666665,
+            "cutoff_time_s": 0.409375,
+            "cutoff_position_m": [
+              0.3525991439819336,
+              -0.20192858576774597,
+              0.21416936814785004
+            ],
+            "first_flight_samples": 2940,
+            "velocity_head_endpoint_error_mm": 13.372627796004469,
+            "observed_velocity_ballistic_error_mm": 0.06985301327424227
+          },
+          "training_support": {
+            "nearest_normalized_distance": 0.1541004370745552,
+            "nearest_train_id": "policy64-train-00257",
+            "nearest_train_capture": true,
+            "nearest_capture_distance": 0.1541004370745552,
+            "nearest_capture_train_id": "policy64-train-00257",
+            "outside_training_feature_range": [],
+            "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+          },
+          "diagnosis": "No whole entry; first free flight ends at bucket contact before an observed descending center-at-rim crossing"
+        }
+      ],
+      "bucket_rim_z_m": 0.18300000141316475
+    },
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-49",
+      "context_id": "physics-ensemble-test-49",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-49",
+      "record_sha256": "a643cd12478e19155f59c85e84663d7a15d7387037f41c59eab3babec16bd1f9",
+      "method": "ensemble",
+      "values": [
+        0.6029990697897623,
+        -0.35905005418880953,
+        0.2621080394408044,
+        33.12450830471614,
+        0.26483942315651077
+      ],
+      "bucket_xy_m": [
+        0.2211061220464374,
+        -0.2580644204614333
+      ],
+      "board_bucket_distance_m": 0.3950193941509779,
+      "prediction": {
+        "capture_score": 0.9949515310432385,
+        "disagreement": 0.0013224373191668968,
+        "aperture_distance_m": 0.01579812885698486,
+        "rebound_velocity_m_s": [
+          1.5085628271102904,
+          0.01195743279531598,
+          0.4253224015235901
+        ],
+        "ranking_score": 0.9938310152705976,
+        "member_capture_scores": [
+          0.9953518255425464,
+          0.9973126941013618,
+          0.9945122588121851,
+          0.9940350229302649,
+          0.9935458538298345
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 0.00016538314082762252,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 8.690657583437286e-05
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          1.5004269246400705,
+          0.006927099911779144,
+          0.46646803617477417
+        ],
+        "velocity_error_m_s": [
+          0.008135902470219891,
+          0.005030332883536836,
+          -0.04114563465118409
+        ],
+        "aperture_distance_m": 0.11366457788153159,
+        "rim_crossing": null,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "rebound_time_s": 0.2296875,
+        "cutoff_time_s": 0.4201171875,
+        "cutoff_position_m": [
+          0.3247847855091095,
+          -0.2868815064430237,
+          0.21960528194904327
+        ],
+        "first_flight_samples": 2926,
+        "velocity_head_endpoint_error_mm": 7.9844224593202915,
+        "observed_velocity_ballistic_error_mm": 0.06664962240197242
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.17976118008478123,
+        "nearest_train_id": "policy64-train-00500",
+        "nearest_train_capture": true,
+        "nearest_capture_distance": 0.17976118008478123,
+        "nearest_capture_train_id": "policy64-train-00500",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; first free flight ends at bucket contact before an observed descending center-at-rim crossing",
+      "references": [
+        {
+          "id": "physics-ensemble-test-bc-physics-ensemble-test-49",
+          "context_id": "physics-ensemble-test-49",
+          "record_id": "physics-ensemble-test-bc-physics-ensemble-test-49",
+          "record_sha256": "a1b5e26eea31ae23a20c0cc03edba921cb2160cd6086f677933bea9a32139753",
+          "method": "bc",
+          "values": [
+            0.5971335288512059,
+            -0.35703786950119665,
+            0.27105519186834515,
+            34.73613032950237,
+            0.23024562114781247
+          ],
+          "bucket_xy_m": [
+            0.2211061220464374,
+            -0.2580644204614333
+          ],
+          "board_bucket_distance_m": 0.3888346104491541,
+          "prediction": {
+            "capture_score": 0.9945369690284892,
+            "disagreement": 0.001463413246443807,
+            "aperture_distance_m": 0.020961915477676445,
+            "rebound_velocity_m_s": [
+              1.43746657371521,
+              0.012463037669658662,
+              0.325013667345047
+            ],
+            "ranking_score": 0.9931230199429943,
+            "member_capture_scores": [
+              0.9925146910599356,
+              0.9967729232991357,
+              0.9948388860890948,
+              0.9951142531209283,
+              0.9934440915733513
+            ]
+          },
+          "observed": {
+            "native_release": true,
+            "capture": false,
+            "whole_entry": false,
+            "retention_s": 0.0,
+            "invalid_physics": false,
+            "board_bounce": true,
+            "pose_gate": {
+              "board_position_error_mm": 0.000200217079111903,
+              "board_normal_error_deg": 0.0,
+              "dropper_error_mm": 7.529233906742985e-05
+            },
+            "max_board_drift_mm": 0.0,
+            "bucket_collider_error_m": 0.0,
+            "rebound_velocity_m_s": [
+              1.4289110122819935,
+              0.006076793874566888,
+              0.35780614614486694
+            ],
+            "velocity_error_m_s": [
+              0.008555561433216452,
+              0.0063862437950917735,
+              -0.032792478799819946
+            ],
+            "aperture_distance_m": 0.1244865606980452,
+            "rim_crossing": null,
+            "mouth_clearance_m": null,
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "rebound_time_s": 0.21315104166666665,
+            "cutoff_time_s": 0.39986979166666664,
+            "cutoff_position_m": [
+              0.33734065294265747,
+              -0.2898135483264923,
+              0.2142798751592636
+            ],
+            "first_flight_samples": 2869,
+            "velocity_head_endpoint_error_mm": 6.387066766242931,
+            "observed_velocity_ballistic_error_mm": 0.06522309850519298
+          },
+          "training_support": {
+            "nearest_normalized_distance": 0.18220783016955638,
+            "nearest_train_id": "policy64-train-00044",
+            "nearest_train_capture": true,
+            "nearest_capture_distance": 0.18220783016955638,
+            "nearest_capture_train_id": "policy64-train-00044",
+            "outside_training_feature_range": [],
+            "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+          },
+          "diagnosis": "No whole entry; first free flight ends at bucket contact before an observed descending center-at-rim crossing"
+        },
+        {
+          "id": "physics-ensemble-test-ppo-physics-ensemble-test-49",
+          "context_id": "physics-ensemble-test-49",
+          "record_id": "physics-ensemble-test-ppo-physics-ensemble-test-49",
+          "record_sha256": "f64c6a7aa0c90dbff9e3732376ed1276fcb09ff2983323119fe6068fc22a79da",
+          "method": "ppo",
+          "values": [
+            0.5956872731236418,
+            -0.35171159648618905,
+            0.26356904494510724,
+            33.46714958471998,
+            0.2431616017954575
+          ],
+          "bucket_xy_m": [
+            0.2211061220464374,
+            -0.2580644204614333
+          ],
+          "board_bucket_distance_m": 0.38610987078775255,
+          "prediction": {
+            "capture_score": 0.9947452228484088,
+            "disagreement": 0.0012282192920277674,
+            "aperture_distance_m": 0.018560155979859723,
+            "rebound_velocity_m_s": [
+              1.447668194770813,
+              0.011913858354091644,
+              0.389930260181427
+            ],
+            "ranking_score": 0.9935101602264089,
+            "member_capture_scores": [
+              0.9941564690022535,
+              0.9970705313215427,
+              0.9946850394547956,
+              0.9943430362357744,
+              0.9934710382276783
+            ]
+          },
+          "observed": {
+            "native_release": true,
+            "capture": false,
+            "whole_entry": false,
+            "retention_s": 0.0,
+            "invalid_physics": false,
+            "board_bounce": true,
+            "pose_gate": {
+              "board_position_error_mm": 9.040384581824366e-05,
+              "board_normal_error_deg": 0.0,
+              "dropper_error_mm": 9.928070364639062e-05
+            },
+            "max_board_drift_mm": 0.0,
+            "bucket_collider_error_m": 0.0,
+            "rebound_velocity_m_s": [
+              1.458307224275288,
+              0.0070197612739993365,
+              0.4487585127353668
+            ],
+            "velocity_error_m_s": [
+              -0.010639029504474928,
+              0.004894097080092308,
+              -0.05882825255393981
+            ],
+            "aperture_distance_m": 0.1144044896060938,
+            "rim_crossing": null,
+            "mouth_clearance_m": null,
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "rebound_time_s": 0.21966145833333334,
+            "cutoff_time_s": 0.408984375,
+            "cutoff_position_m": [
+              0.32598042488098145,
+              -0.28563785552978516,
+              0.21946194767951965
+            ],
+            "first_flight_samples": 2909,
+            "velocity_head_endpoint_error_mm": 11.295094352758607,
+            "observed_velocity_ballistic_error_mm": 0.06873638909459288
+          },
+          "training_support": {
+            "nearest_normalized_distance": 0.177664781949028,
+            "nearest_train_id": "policy64-train-00257",
+            "nearest_train_capture": true,
+            "nearest_capture_distance": 0.177664781949028,
+            "nearest_capture_train_id": "policy64-train-00257",
+            "outside_training_feature_range": [],
+            "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+          },
+          "diagnosis": "No whole entry; first free flight ends at bucket contact before an observed descending center-at-rim crossing"
+        }
+      ],
+      "bucket_rim_z_m": 0.18300000141316475
+    },
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-00",
+      "context_id": "physics-ensemble-test-00",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-00",
+      "record_sha256": "aa6f3cd510d70718571662caadbfe13d5e00c76cfedbc2d991d131d3bf70c9a6",
+      "method": "ensemble",
+      "values": [
+        0.6115702894597901,
+        -0.4305179718202512,
+        0.2671056293048834,
+        36.64761477926166,
+        0.15244992155237552
+      ],
+      "bucket_xy_m": [
+        0.39910839482990035,
+        -0.6236045398282628
+      ],
+      "board_bucket_distance_m": 0.287093154594175,
+      "prediction": {
+        "capture_score": 0.9947010225280412,
+        "disagreement": 0.0020059062847061567,
+        "aperture_distance_m": 0.029451734809266338,
+        "rebound_velocity_m_s": [
+          1.2802982568740844,
+          0.0133101774379611,
+          0.24685780107975006
+        ],
+        "ranking_score": 0.9927269592164013,
+        "member_capture_scores": [
+          0.9931038791094557,
+          0.9969023468208115,
+          0.9973904863824581,
+          0.9932335611827873,
+          0.9928748391446929
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 0.0001503452891036354,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 7.928105573759296e-05
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          1.1810296274470082,
+          0.009936287011399814,
+          0.20706941187381744
+        ],
+        "velocity_error_m_s": [
+          0.09926862942707615,
+          0.003373890426561287,
+          0.03978838920593261
+        ],
+        "aperture_distance_m": 0.1014648911560423,
+        "rim_crossing": null,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "rebound_time_s": 0.17083333333333334,
+        "cutoff_time_s": 0.3330078125,
+        "cutoff_position_m": [
+          0.47000443935394287,
+          -0.5614179968833923,
+          0.22043940424919128
+        ],
+        "first_flight_samples": 2492,
+        "velocity_head_endpoint_error_mm": 17.386561345704827,
+        "observed_velocity_ballistic_error_mm": 0.06587691079247493
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.16028111590009225,
+        "nearest_train_id": "policy64-train-00241",
+        "nearest_train_capture": true,
+        "nearest_capture_distance": 0.16028111590009225,
+        "nearest_capture_train_id": "policy64-train-00241",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; first free flight ends at bucket contact before an observed descending center-at-rim crossing",
+      "references": [
+        {
+          "id": "physics-ensemble-test-bc-physics-ensemble-test-00",
+          "context_id": "physics-ensemble-test-00",
+          "record_id": "physics-ensemble-test-bc-physics-ensemble-test-00",
+          "record_sha256": "b49fba8ba89f7ae53a31f36ef367bada1ca88af343251e49625f624e3d24f6f4",
+          "method": "bc",
+          "values": [
+            0.6115702894597901,
+            -0.4305179718202512,
+            0.2671056293048834,
+            39.447614779261656,
+            0.15244992155237552
+          ],
+          "bucket_xy_m": [
+            0.39910839482990035,
+            -0.6236045398282628
+          ],
+          "board_bucket_distance_m": 0.287093154594175,
+          "prediction": {
+            "capture_score": 0.9935056174587761,
+            "disagreement": 0.002737352984333844,
+            "aperture_distance_m": 0.03531204349174192,
+            "rebound_velocity_m_s": [
+              1.341134262084961,
+              0.015170258283615113,
+              0.15401560664176941
+            ],
+            "ranking_score": 0.9910556770381055,
+            "member_capture_scores": [
+              0.9905353387059967,
+              0.9963571515499788,
+              0.997122219877745,
+              0.9925673632248464,
+              0.990946013935313
+            ]
+          },
+          "observed": {
+            "native_release": true,
+            "capture": false,
+            "whole_entry": false,
+            "retention_s": 0.0,
+            "invalid_physics": false,
+            "board_bounce": true,
+            "pose_gate": {
+              "board_position_error_mm": 0.0001741363499767984,
+              "board_normal_error_deg": 0.0,
+              "dropper_error_mm": 7.928105573759296e-05
+            },
+            "max_board_drift_mm": 0.0,
+            "bucket_collider_error_m": 0.0,
+            "rebound_velocity_m_s": [
+              1.2035430237458349,
+              0.009829407855628025,
+              0.09134270995855331
+            ],
+            "velocity_error_m_s": [
+              0.137591238339126,
+              0.005340850427987088,
+              0.0626728966832161
+            ],
+            "aperture_distance_m": 0.11085514130672,
+            "rim_crossing": null,
+            "mouth_clearance_m": null,
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "rebound_time_s": 0.16966145833333332,
+            "cutoff_time_s": 0.3203125,
+            "cutoff_position_m": [
+              0.47738170623779297,
+              -0.5544403195381165,
+              0.2201276421546936
+            ],
+            "first_flight_samples": 2315,
+            "velocity_head_endpoint_error_mm": 22.793752703119804,
+            "observed_velocity_ballistic_error_mm": 0.06274603960970453
+          },
+          "training_support": {
+            "nearest_normalized_distance": 0.16045612302378492,
+            "nearest_train_id": "policy64-train-00041",
+            "nearest_train_capture": true,
+            "nearest_capture_distance": 0.16045612302378492,
+            "nearest_capture_train_id": "policy64-train-00041",
+            "outside_training_feature_range": [
+              3
+            ],
+            "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+          },
+          "diagnosis": "No whole entry; first free flight ends at bucket contact before an observed descending center-at-rim crossing"
+        },
+        {
+          "id": "physics-ensemble-test-ppo-physics-ensemble-test-00",
+          "context_id": "physics-ensemble-test-00",
+          "record_id": "physics-ensemble-test-ppo-physics-ensemble-test-00",
+          "record_sha256": "f4c95852bea17d29c716e1736fb44fb70b0b927a2ba6088069d8b687f92fea4f",
+          "method": "ppo",
+          "values": [
+            0.6088793333084483,
+            -0.4254759103158905,
+            0.2641210880348908,
+            38.02375377611546,
+            0.1648116299181749
+          ],
+          "bucket_xy_m": [
+            0.39910839482990035,
+            -0.6236045398282628
+          ],
+          "board_bucket_distance_m": 0.2885460109975906,
+          "prediction": {
+            "capture_score": 0.9928294573788763,
+            "disagreement": 0.0027867367418018883,
+            "aperture_distance_m": 0.03164088948341574,
+            "rebound_velocity_m_s": [
+              1.3462956428527832,
+              0.013710097968578338,
+              0.21775558590888977
+            ],
+            "ranking_score": 0.9905507287192551,
+            "member_capture_scores": [
+              0.9900356572863332,
+              0.9959467654454374,
+              0.9964519383398536,
+              0.991303003587805,
+              0.9904099222349522
+            ]
+          },
+          "observed": {
+            "native_release": true,
+            "capture": false,
+            "whole_entry": false,
+            "retention_s": 0.0,
+            "invalid_physics": false,
+            "board_bounce": true,
+            "pose_gate": {
+              "board_position_error_mm": 0.00012718952342816105,
+              "board_normal_error_deg": 0.0,
+              "dropper_error_mm": 7.01748632550674e-05
+            },
+            "max_board_drift_mm": 0.0,
+            "bucket_collider_error_m": 0.0,
+            "rebound_velocity_m_s": [
+              1.247177754776886,
+              0.010311394266879992,
+              0.158518448472023
+            ],
+            "velocity_error_m_s": [
+              0.09911788807589716,
+              0.0033987037016983464,
+              0.05923713743686676
+            ],
+            "aperture_distance_m": 0.10111257871763217,
+            "rim_crossing": null,
+            "mouth_clearance_m": null,
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "rebound_time_s": 0.17760416666666667,
+            "cutoff_time_s": 0.3325520833333333,
+            "cutoff_position_m": [
+              0.46846452355384827,
+              -0.5602986812591553,
+              0.22049465775489807
+            ],
+            "first_flight_samples": 2381,
+            "velocity_head_endpoint_error_mm": 17.88829041564279,
+            "observed_velocity_ballistic_error_mm": 0.06660115058931472
+          },
+          "training_support": {
+            "nearest_normalized_distance": 0.15410994870711398,
+            "nearest_train_id": "policy64-train-00103",
+            "nearest_train_capture": true,
+            "nearest_capture_distance": 0.15410994870711398,
+            "nearest_capture_train_id": "policy64-train-00103",
+            "outside_training_feature_range": [],
+            "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+          },
+          "diagnosis": "No whole entry; first free flight ends at bucket contact before an observed descending center-at-rim crossing"
+        }
+      ],
+      "bucket_rim_z_m": 0.18300000141316475
+    },
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-36",
+      "context_id": "physics-ensemble-test-36",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-36",
+      "record_sha256": "c05b324fbebd67ad3144ba2b57dab70d60a365321dba2b30a042abe744bd6332",
+      "method": "ensemble",
+      "values": [
+        0.6244859898581979,
+        -0.33194516812467234,
+        0.4130120283134495,
+        31.013585635150804,
+        0.18464493908143198
+      ],
+      "bucket_xy_m": [
+        0.7294347476929788,
+        -0.5830930420394174
+      ],
+      "board_bucket_distance_m": 0.2721938580184353,
+      "prediction": {
+        "capture_score": 0.987520109282469,
+        "disagreement": 0.005119253904995511,
+        "aperture_distance_m": 0.014463129088268361,
+        "rebound_velocity_m_s": [
+          1.1335189819335938,
+          -0.006506122648715973,
+          0.427664315700531
+        ],
+        "ranking_score": 0.9855171393518067,
+        "member_capture_scores": [
+          0.990638623723898,
+          0.9827869316040059,
+          0.9918346273367572,
+          0.992360740225229,
+          0.9799796235224552
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 0.00021247219872764275,
+          "board_normal_error_deg": 0.009013805033544778,
+          "dropper_error_mm": 8.224112593433272e-05
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          1.2197599259314267,
+          -0.0001624647224509057,
+          0.4664413332939148
+        ],
+        "velocity_error_m_s": [
+          -0.08624094399783289,
+          -0.006343657926265067,
+          -0.03877701759338381
+        ],
+        "aperture_distance_m": 0.07251031087031977,
+        "rim_crossing": null,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "rebound_time_s": 0.19095052083333333,
+        "cutoff_time_s": 0.46725260416666664,
+        "cutoff_position_m": [
+          0.755016565322876,
+          -0.6441214680671692,
+          0.21311134099960327
+        ],
+        "first_flight_samples": 4245,
+        "velocity_head_endpoint_error_mm": 26.178506268559836,
+        "observed_velocity_ballistic_error_mm": 0.15309493429740995
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.20116544345630766,
+        "nearest_train_id": "policy64-train-00540",
+        "nearest_train_capture": true,
+        "nearest_capture_distance": 0.20116544345630766,
+        "nearest_capture_train_id": "policy64-train-00540",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; first free flight ends at bucket contact before an observed descending center-at-rim crossing",
+      "references": [
+        {
+          "id": "physics-ensemble-test-bc-physics-ensemble-test-36",
+          "context_id": "physics-ensemble-test-36",
+          "record_id": "physics-ensemble-test-bc-physics-ensemble-test-36",
+          "record_sha256": "75593060df3f6e875372ff8ff59a2b3ee6484e9e3e4b420bf33731ce77646910",
+          "method": "bc",
+          "values": [
+            0.6244859898581979,
+            -0.33194516812467234,
+            0.4130120283134495,
+            31.013585635150804,
+            0.14864493908143198
+          ],
+          "bucket_xy_m": [
+            0.7294347476929788,
+            -0.5830930420394174
+          ],
+          "board_bucket_distance_m": 0.2721938580184353,
+          "prediction": {
+            "capture_score": 0.9771169871016487,
+            "disagreement": 0.011980430458474937,
+            "aperture_distance_m": 0.01827499486215665,
+            "rebound_velocity_m_s": [
+              1.053721284866333,
+              -0.004227681457996369,
+              0.3983189404010773
+            ],
+            "ranking_score": 0.9732081297439221,
+            "member_capture_scores": [
+              0.9833336453640608,
+              0.9641844087347559,
+              0.9836788087950125,
+              0.9925022982854442,
+              0.9618857743289702
+            ]
+          },
+          "observed": {
+            "native_release": true,
+            "capture": true,
+            "whole_entry": true,
+            "retention_s": 1.0,
+            "invalid_physics": false,
+            "board_bounce": true,
+            "pose_gate": {
+              "board_position_error_mm": 0.00021247219872764275,
+              "board_normal_error_deg": 0.009013805033544778,
+              "dropper_error_mm": 9.204033763069396e-05
+            },
+            "max_board_drift_mm": 0.0,
+            "bucket_collider_error_m": 0.0,
+            "rebound_velocity_m_s": [
+              1.0894428985450242,
+              -0.00012167796440998302,
+              0.4171501696109772
+            ],
+            "velocity_error_m_s": [
+              -0.03572161367869109,
+              -0.004106003493586386,
+              -0.01883122920989988
+            ],
+            "aperture_distance_m": 0.034244105652230544,
+            "rim_crossing": {
+              "time_s": 0.45386763505987116,
+              "interval_index": 6971,
+              "fraction": 0.4068745196203277,
+              "xy_m": [
+                0.7440441105010811,
+                -0.6179495899809923
+              ]
+            },
+            "mouth_clearance_m": 0.013137145761182169,
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "rebound_time_s": 0.17044270833333333,
+            "cutoff_time_s": 0.46412760416666665,
+            "cutoff_position_m": [
+              0.7483556270599365,
+              -0.6282634139060974,
+              0.15823246538639069
+            ],
+            "first_flight_samples": 4512,
+            "velocity_head_endpoint_error_mm": 11.909714547766807,
+            "observed_velocity_ballistic_error_mm": 0.13145062042226635
+          },
+          "training_support": {
+            "nearest_normalized_distance": 0.1832856431290436,
+            "nearest_train_id": "policy64-train-00940",
+            "nearest_train_capture": true,
+            "nearest_capture_distance": 0.1832856431290436,
+            "nearest_capture_train_id": "policy64-train-00940",
+            "outside_training_feature_range": [],
+            "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+          },
+          "diagnosis": "Whole-ball entry and one-second capture observed"
+        },
+        {
+          "id": "physics-ensemble-test-ppo-physics-ensemble-test-36",
+          "context_id": "physics-ensemble-test-36",
+          "record_id": "physics-ensemble-test-ppo-physics-ensemble-test-36",
+          "record_sha256": "5b87a3ce71109c3c2e85400938cbe456cb9d3eb0c184cf6e78c18a7948c50e31",
+          "method": "ppo",
+          "values": [
+            0.6205689330165141,
+            -0.32823732273261114,
+            0.4078953564017431,
+            30.377134208210194,
+            0.15931103794974744
+          ],
+          "bucket_xy_m": [
+            0.7294347476929788,
+            -0.5830930420394174
+          ],
+          "board_bucket_distance_m": 0.2771339085506499,
+          "prediction": {
+            "capture_score": 0.9827532657116341,
+            "disagreement": 0.008356275375267829,
+            "aperture_distance_m": 0.017799650315383466,
+            "rebound_velocity_m_s": [
+              1.0706845760345458,
+              -0.005122572183609009,
+              0.43440969586372374
+            ],
+            "ranking_score": 0.9797742143520479,
+            "member_capture_scores": [
+              0.9876623308157106,
+              0.9739645177725683,
+              0.9880174955107291,
+              0.9925282048403591,
+              0.9715937796188033
+            ]
+          },
+          "observed": {
+            "native_release": true,
+            "capture": true,
+            "whole_entry": true,
+            "retention_s": 0.9999999999999999,
+            "invalid_physics": false,
+            "board_bounce": true,
+            "pose_gate": {
+              "board_position_error_mm": 0.00010309407675795226,
+              "board_normal_error_deg": 0.0,
+              "dropper_error_mm": 0.0001282676537109163
+            },
+            "max_board_drift_mm": 0.0,
+            "bucket_collider_error_m": 0.0,
+            "rebound_velocity_m_s": [
+              1.118733810963916,
+              -0.00028484629129671424,
+              0.4596604108810425
+            ],
+            "velocity_error_m_s": [
+              -0.04804923492937019,
+              -0.0048377258923122946,
+              -0.025250715017318737
+            ],
+            "aperture_distance_m": 0.03996427621541772,
+            "rim_crossing": {
+              "time_s": 0.4632150025653663,
+              "interval_index": 7114,
+              "fraction": 0.9824394040264203,
+              "xy_m": [
+                0.7468452793904503,
+                -0.6239364899331407
+              ]
+            },
+            "mouth_clearance_m": 0.006527398285808068,
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "rebound_time_s": 0.176953125,
+            "cutoff_time_s": 0.4681640625,
+            "cutoff_position_m": [
+              0.7490201592445374,
+              -0.6290293335914612,
+              0.17125457525253296
+            ],
+            "first_flight_samples": 4474,
+            "velocity_head_endpoint_error_mm": 15.886309713550709,
+            "observed_velocity_ballistic_error_mm": 0.12886715000050633
+          },
+          "training_support": {
+            "nearest_normalized_distance": 0.18811842523162509,
+            "nearest_train_id": "policy64-train-00794",
+            "nearest_train_capture": true,
+            "nearest_capture_distance": 0.18811842523162509,
+            "nearest_capture_train_id": "policy64-train-00794",
+            "outside_training_feature_range": [],
+            "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+          },
+          "diagnosis": "Whole-ball entry and one-second capture observed"
+        }
+      ],
+      "bucket_rim_z_m": 0.18300000141316475
+    },
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-35",
+      "context_id": "physics-ensemble-test-35",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-35",
+      "record_sha256": "58b53b64d5df054aea6fe90d61e131f0f9794f21f68b27d46295cdabf00a8485",
+      "method": "ensemble",
+      "values": [
+        0.6444648685384132,
+        -0.2715833910358414,
+        0.2841673839908147,
+        23.89626057378869,
+        0.19398446657504428
+      ],
+      "bucket_xy_m": [
+        0.691160217464675,
+        -0.10237614744627299
+      ],
+      "board_bucket_distance_m": 0.17553218193403988,
+      "prediction": {
+        "capture_score": 0.9931200334659358,
+        "disagreement": 0.0021097403753243833,
+        "aperture_distance_m": 0.008646468933589415,
+        "rebound_velocity_m_s": [
+          0.9618834614753723,
+          -0.003762093186378479,
+          0.7280681133270264
+        ],
+        "ranking_score": 0.9921602749254252,
+        "member_capture_scores": [
+          0.9909945533181331,
+          0.9940698674924532,
+          0.9915124185416399,
+          0.9967895440284775,
+          0.992233783948976
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 0.000146745236334963,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 0.0001179789733436803
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          1.042745386536025,
+          -0.004983399108230813,
+          0.7868549227714539
+        ],
+        "velocity_error_m_s": [
+          -0.0808619250606527,
+          0.0012213059218523338,
+          -0.05878680944442749
+        ],
+        "aperture_distance_m": 0.09117484204899987,
+        "rim_crossing": null,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "rebound_time_s": 0.1974609375,
+        "cutoff_time_s": 0.44576822916666664,
+        "cutoff_position_m": [
+          0.714792013168335,
+          -0.021219145506620407,
+          0.22020532190799713
+        ],
+        "first_flight_samples": 3815,
+        "velocity_head_endpoint_error_mm": 24.77146294091759,
+        "observed_velocity_ballistic_error_mm": 0.09532988755049461
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.4800995838505028,
+        "nearest_train_id": "policy64-train-00842",
+        "nearest_train_capture": true,
+        "nearest_capture_distance": 0.4800995838505028,
+        "nearest_capture_train_id": "policy64-train-00842",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; first free flight ends at bucket contact before an observed descending center-at-rim crossing",
+      "references": [
+        {
+          "id": "physics-ensemble-test-bc-physics-ensemble-test-35",
+          "context_id": "physics-ensemble-test-35",
+          "record_id": "physics-ensemble-test-bc-physics-ensemble-test-35",
+          "record_sha256": "8f6e38d0d832655877bdf7bdb7e2e0a1b49a71493fe736f1c5de5e681550aa1d",
+          "method": "bc",
+          "values": [
+            0.651178584850344,
+            -0.259954041967081,
+            0.28715474365528326,
+            22.937069015027898,
+            0.16123073589057726
+          ],
+          "bucket_xy_m": [
+            0.691160217464675,
+            -0.10237614744627299
+          ],
+          "board_bucket_distance_m": 0.16257098076876522,
+          "prediction": {
+            "capture_score": 0.9873273277567443,
+            "disagreement": 0.004262282228611357,
+            "aperture_distance_m": 0.012905604195381393,
+            "rebound_velocity_m_s": [
+              0.8660334348678589,
+              -0.0011717930436134338,
+              0.7294727206230164
+            ],
+            "ranking_score": 0.9856164769898224,
+            "member_capture_scores": [
+              0.9846388679378262,
+              0.9852367868175397,
+              0.9832311423860113,
+              0.9951615273897145,
+              0.9883683142526294
+            ]
+          },
+          "observed": {
+            "native_release": false,
+            "capture": false,
+            "whole_entry": false,
+            "retention_s": 0.0,
+            "invalid_physics": false,
+            "board_bounce": false,
+            "pose_gate": null,
+            "max_board_drift_mm": null,
+            "bucket_collider_error_m": null
+          },
+          "training_support": {
+            "nearest_normalized_distance": 0.4335251576362164,
+            "nearest_train_id": "policy64-train-00842",
+            "nearest_train_capture": true,
+            "nearest_capture_distance": 0.4335251576362164,
+            "nearest_capture_train_id": "policy64-train-00842",
+            "outside_training_feature_range": [],
+            "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+          }
+        },
+        {
+          "id": "physics-ensemble-test-ppo-physics-ensemble-test-35",
+          "context_id": "physics-ensemble-test-35",
+          "record_id": "physics-ensemble-test-ppo-physics-ensemble-test-35",
+          "record_sha256": "2b3938ce623d7a320b45a1d5c6b416add30b989861d286e8843ea12fc1b1d4b4",
+          "method": "ppo",
+          "values": [
+            0.6524422811532997,
+            -0.2598636627219064,
+            0.2797058735182932,
+            23.017461454515963,
+            0.17116197471715972
+          ],
+          "bucket_xy_m": [
+            0.691160217464675,
+            -0.10237614744627299
+          ],
+          "board_bucket_distance_m": 0.16217705158222784,
+          "prediction": {
+            "capture_score": 0.9910041800289863,
+            "disagreement": 0.0027654810395288274,
+            "aperture_distance_m": 0.012215070659900809,
+            "rebound_velocity_m_s": [
+              0.8904807806015015,
+              -0.0019597262144088745,
+              0.7433067083358764
+            ],
+            "ranking_score": 0.9897020562361091,
+            "member_capture_scores": [
+              0.9886121267577602,
+              0.990926702788449,
+              0.9886754587422795,
+              0.9961940900772429,
+              0.9906125217791995
+            ]
+          },
+          "observed": {
+            "native_release": false,
+            "capture": false,
+            "whole_entry": false,
+            "retention_s": 0.0,
+            "invalid_physics": false,
+            "board_bounce": false,
+            "pose_gate": null,
+            "max_board_drift_mm": null,
+            "bucket_collider_error_m": null
+          },
+          "training_support": {
+            "nearest_normalized_distance": 0.44858963995150963,
+            "nearest_train_id": "policy64-train-00842",
+            "nearest_train_capture": true,
+            "nearest_capture_distance": 0.44858963995150963,
+            "nearest_capture_train_id": "policy64-train-00842",
+            "outside_training_feature_range": [],
+            "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+          }
+        }
+      ],
+      "bucket_rim_z_m": 0.18300000141316475
+    },
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-40",
+      "context_id": "physics-ensemble-test-40",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-40",
+      "record_sha256": "413bc924404b6b70e030da74c5cb677c32cc4b6c8dbae51b80786280392d9426",
+      "method": "ensemble",
+      "values": [
+        0.5980294929071579,
+        -0.17499226598173734,
+        0.32163746284432904,
+        29.073763728003907,
+        0.15063267618546464
+      ],
+      "bucket_xy_m": [
+        0.5770810389221384,
+        -0.33403917333178607
+      ],
+      "board_bucket_distance_m": 0.16042056121949413,
+      "prediction": {
+        "capture_score": 0.9868905612008568,
+        "disagreement": 0.005193145230962139,
+        "aperture_distance_m": 0.005062846813185738,
+        "rebound_velocity_m_s": [
+          0.9091032385826111,
+          -0.009648656472563744,
+          0.46166288256645205
+        ],
+        "ranking_score": 0.985339132552457,
+        "member_capture_scores": [
+          0.9835971281407914,
+          0.989470629858497,
+          0.9944680274075512,
+          0.987722568837648,
+          0.9791944517597964
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 4.8692709940696726e-05,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 0.00010517928906917131
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          1.0631597276072584,
+          0.0035765165602510696,
+          0.5019599199295044
+        ],
+        "velocity_error_m_s": [
+          -0.1540564890246473,
+          -0.013225173032814813,
+          -0.040297037363052346
+        ],
+        "aperture_distance_m": 0.09339935117891025,
+        "rim_crossing": null,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "rebound_time_s": 0.17220052083333334,
+        "cutoff_time_s": 0.4034505208333333,
+        "cutoff_position_m": [
+          0.5665473937988281,
+          -0.4200349748134613,
+          0.22038483619689941
+        ],
+        "first_flight_samples": 3553,
+        "velocity_head_endpoint_error_mm": 36.955567731337716,
+        "observed_velocity_ballistic_error_mm": 0.0921152927481928
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.2932112409259538,
+        "nearest_train_id": "policy64-train-00143",
+        "nearest_train_capture": true,
+        "nearest_capture_distance": 0.2932112409259538,
+        "nearest_capture_train_id": "policy64-train-00143",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; first free flight ends at bucket contact before an observed descending center-at-rim crossing",
+      "references": [
+        {
+          "id": "physics-ensemble-test-bc-physics-ensemble-test-40",
+          "context_id": "physics-ensemble-test-40",
+          "record_id": "physics-ensemble-test-bc-physics-ensemble-test-40",
+          "record_sha256": "79583a768a60420e620f0a4e8a25d0e01be154ea0fb93a961bac69967e34a0f7",
+          "method": "bc",
+          "values": [
+            0.5937422093701176,
+            -0.17365859863281052,
+            0.3224935549736238,
+            26.96205026519035,
+            0.11690193594729026
+          ],
+          "bucket_xy_m": [
+            0.5770810389221384,
+            -0.33403917333178607
+          ],
+          "board_bucket_distance_m": 0.16124367690384106,
+          "prediction": {
+            "capture_score": 0.9796737748333545,
+            "disagreement": 0.008615467049052859,
+            "aperture_distance_m": 0.007262910362658822,
+            "rebound_velocity_m_s": [
+              0.7867068767547607,
+              -0.007369343936443329,
+              0.5002581894397735
+            ],
+            "ranking_score": 0.9771567625529582,
+            "member_capture_scores": [
+              0.9827112202978486,
+              0.971693963677675,
+              0.9898134818773686,
+              0.9866120864844158,
+              0.967538121829465
+            ]
+          },
+          "observed": {
+            "native_release": true,
+            "capture": true,
+            "whole_entry": true,
+            "retention_s": 1.0,
+            "invalid_physics": false,
+            "board_bounce": true,
+            "pose_gate": {
+              "board_position_error_mm": 3.11553234391658e-05,
+              "board_normal_error_deg": 0.0,
+              "dropper_error_mm": 3.291284532976222e-05
+            },
+            "max_board_drift_mm": 0.0,
+            "bucket_collider_error_m": 0.0,
+            "rebound_velocity_m_s": [
+              0.8819717676123715,
+              0.0027189041029505867,
+              0.49576014280319214
+            ],
+            "velocity_error_m_s": [
+              -0.0952648908576108,
+              -0.010088248039393916,
+              0.0044980466365813765
+            ],
+            "aperture_distance_m": 0.055073070826763465,
+            "rim_crossing": null,
+            "mouth_clearance_m": null,
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "rebound_time_s": 0.15123697916666667,
+            "cutoff_time_s": 0.3942057291666667,
+            "cutoff_position_m": [
+              0.5720703601837158,
+              -0.3878187835216522,
+              0.19761183857917786
+            ],
+            "first_flight_samples": 3733,
+            "velocity_head_endpoint_error_mm": 23.305603363535056,
+            "observed_velocity_ballistic_error_mm": 0.12125903587746394
+          },
+          "training_support": {
+            "nearest_normalized_distance": 0.2824109344712545,
+            "nearest_train_id": "policy64-train-00202",
+            "nearest_train_capture": true,
+            "nearest_capture_distance": 0.2824109344712545,
+            "nearest_capture_train_id": "policy64-train-00202",
+            "outside_training_feature_range": [],
+            "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+          },
+          "diagnosis": "Whole-ball entry and one-second capture observed"
+        },
+        {
+          "id": "physics-ensemble-test-ppo-physics-ensemble-test-40",
+          "context_id": "physics-ensemble-test-40",
+          "record_id": "physics-ensemble-test-ppo-physics-ensemble-test-40",
+          "record_sha256": "08d7e9e732642a95d105c25488fe48a66df0ca70ae3c5f859d6380d040d7ef67",
+          "method": "ppo",
+          "values": [
+            0.5914112824001485,
+            -0.16985434891231557,
+            0.3162058044904922,
+            26.867241789957394,
+            0.1303353560031072
+          ],
+          "bucket_xy_m": [
+            0.5770810389221384,
+            -0.33403917333178607
+          ],
+          "board_bucket_distance_m": 0.1648090181021397,
+          "prediction": {
+            "capture_score": 0.9841406809904744,
+            "disagreement": 0.005697714743572971,
+            "aperture_distance_m": 0.006403490280015992,
+            "rebound_velocity_m_s": [
+              0.8209284543991089,
+              -0.008489969372749328,
+              0.5243519127368927
+            ],
+            "ranking_score": 0.9823960777905804,
+            "member_capture_scores": [
+              0.9831125749313044,
+              0.9830961280155569,
+              0.9924000147473345,
+              0.9870813144336006,
+              0.9750133728245751
+            ]
+          },
+          "observed": {
+            "native_release": true,
+            "capture": true,
+            "whole_entry": true,
+            "retention_s": 1.0,
+            "invalid_physics": false,
+            "board_bounce": true,
+            "pose_gate": {
+              "board_position_error_mm": 6.0272862385899516e-05,
+              "board_normal_error_deg": 0.0,
+              "dropper_error_mm": 0.00010810715504688828
+            },
+            "max_board_drift_mm": 0.0,
+            "bucket_collider_error_m": 0.0,
+            "rebound_velocity_m_s": [
+              0.9313677821002371,
+              0.0026824737395400033,
+              0.5267449021339417
+            ],
+            "velocity_error_m_s": [
+              -0.11043932770112819,
+              -0.011172443112289331,
+              -0.002392989397048906
+            ],
+            "aperture_distance_m": 0.06288199565914103,
+            "rim_crossing": null,
+            "mouth_clearance_m": null,
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "rebound_time_s": 0.16022135416666666,
+            "cutoff_time_s": 0.3992838541666667,
+            "cutoff_position_m": [
+              0.5724999904632568,
+              -0.392756849527359,
+              0.2059984654188156
+            ],
+            "first_flight_samples": 3673,
+            "velocity_head_endpoint_error_mm": 26.514957328316907,
+            "observed_velocity_ballistic_error_mm": 0.13025920063546556
+          },
+          "training_support": {
+            "nearest_normalized_distance": 0.2719154581921125,
+            "nearest_train_id": "policy64-train-00202",
+            "nearest_train_capture": true,
+            "nearest_capture_distance": 0.2719154581921125,
+            "nearest_capture_train_id": "policy64-train-00202",
+            "outside_training_feature_range": [],
+            "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+          },
+          "diagnosis": "Whole-ball entry and one-second capture observed"
+        }
+      ],
+      "bucket_rim_z_m": 0.18300000141316475
+    }
+  ],
+  "misses": [
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-00",
+      "context_id": "physics-ensemble-test-00",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-00",
+      "record_sha256": "aa6f3cd510d70718571662caadbfe13d5e00c76cfedbc2d991d131d3bf70c9a6",
+      "method": "ensemble",
+      "values": [
+        0.6115702894597901,
+        -0.4305179718202512,
+        0.2671056293048834,
+        36.64761477926166,
+        0.15244992155237552
+      ],
+      "bucket_xy_m": [
+        0.39910839482990035,
+        -0.6236045398282628
+      ],
+      "board_bucket_distance_m": 0.287093154594175,
+      "prediction": {
+        "capture_score": 0.9947010225280412,
+        "disagreement": 0.0020059062847061567,
+        "aperture_distance_m": 0.029451734809266338,
+        "rebound_velocity_m_s": [
+          1.2802982568740844,
+          0.0133101774379611,
+          0.24685780107975006
+        ],
+        "ranking_score": 0.9927269592164013,
+        "member_capture_scores": [
+          0.9931038791094557,
+          0.9969023468208115,
+          0.9973904863824581,
+          0.9932335611827873,
+          0.9928748391446929
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 0.0001503452891036354,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 7.928105573759296e-05
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          1.1810296274470082,
+          0.009936287011399814,
+          0.20706941187381744
+        ],
+        "velocity_error_m_s": [
+          0.09926862942707615,
+          0.003373890426561287,
+          0.03978838920593261
+        ],
+        "aperture_distance_m": 0.1014648911560423,
+        "rim_crossing": null,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "rebound_time_s": 0.17083333333333334,
+        "cutoff_time_s": 0.3330078125,
+        "cutoff_position_m": [
+          0.47000443935394287,
+          -0.5614179968833923,
+          0.22043940424919128
+        ],
+        "first_flight_samples": 2492,
+        "velocity_head_endpoint_error_mm": 17.386561345704827,
+        "observed_velocity_ballistic_error_mm": 0.06587691079247493
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.16028111590009225,
+        "nearest_train_id": "policy64-train-00241",
+        "nearest_train_capture": true,
+        "nearest_capture_distance": 0.16028111590009225,
+        "nearest_capture_train_id": "policy64-train-00241",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; first free flight ends at bucket contact before an observed descending center-at-rim crossing"
+    },
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-02",
+      "context_id": "physics-ensemble-test-02",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-02",
+      "record_sha256": "b39cb5bf4c1a960128e4935630e13588e50b209721fff048a279a22e8ac3f704",
+      "method": "ensemble",
+      "values": [
+        0.45527348746779644,
+        0.04448230710746947,
+        0.24807526500796398,
+        33.000663208764934,
+        0.09154975118290659
+      ],
+      "bucket_xy_m": [
+        0.19147592313406153,
+        0.07906585366523589
+      ],
+      "board_bucket_distance_m": 0.2660548376574352,
+      "prediction": {
+        "capture_score": 0.6897589418278114,
+        "disagreement": 0.027808305717420923,
+        "aperture_distance_m": 0.03874819607898056,
+        "rebound_velocity_m_s": [
+          0.8832793474197388,
+          0.017344905994832516,
+          0.2712550163269043
+        ],
+        "ranking_score": 0.6808694555945071,
+        "member_capture_scores": [
+          0.6922464013150594,
+          0.7376638281460769,
+          0.6515190712478811,
+          0.6875111972264448,
+          0.6798542112035948
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 9.259392963061133e-05,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 2.290870058920259e-05
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          0.8520127515389486,
+          0.007041496742907827,
+          0.26431795954704285
+        ],
+        "velocity_error_m_s": [
+          0.03126659588079017,
+          0.010303409251924689,
+          0.00693705677986145
+        ],
+        "aperture_distance_m": 0.12957086314920557,
+        "rim_crossing": null,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "rebound_time_s": 0.1306640625,
+        "cutoff_time_s": 0.2928385416666667,
+        "cutoff_position_m": [
+          0.3171975016593933,
+          0.06142256781458855,
+          0.20891153812408447
+        ],
+        "first_flight_samples": 2492
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.21247925745499208,
+        "nearest_train_id": "policy64-train-00637",
+        "nearest_train_capture": true,
+        "nearest_capture_distance": 0.21247925745499208,
+        "nearest_capture_train_id": "policy64-train-00637",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; first free flight ends at bucket contact before an observed descending center-at-rim crossing"
+    },
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-08",
+      "context_id": "physics-ensemble-test-08",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-08",
+      "record_sha256": "b165395ce6d9c01d9c97061eaeaba1bb8f5352a309c6207c5d8650a1ac2a46ae",
+      "method": "ensemble",
+      "values": [
+        0.6406317485398312,
+        -0.071184573062446,
+        0.25637830342301726,
+        27.72988350916306,
+        0.06846677598285311
+      ],
+      "bucket_xy_m": [
+        0.55685989474771,
+        -0.2788547194408742
+      ],
+      "board_bucket_distance_m": 0.22392992918456953,
+      "prediction": {
+        "capture_score": 0.9533403354093517,
+        "disagreement": 0.033569641276206416,
+        "aperture_distance_m": 0.020356793860650542,
+        "rebound_velocity_m_s": [
+          0.6811988592147827,
+          -0.003818541392683983,
+          0.4592199206352234
+        ],
+        "ranking_score": 0.9439300853972676,
+        "member_capture_scores": [
+          0.8908414610036502,
+          0.9840436906262449,
+          0.9734573416796063,
+          0.9716878087727213,
+          0.9466713749645356
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 1.699183784110873e-05,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 9.351510112986477e-05
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          0.6746980786028808,
+          0.0032018985861873017,
+          0.35805264115333557
+        ],
+        "velocity_error_m_s": [
+          0.006500780611901957,
+          -0.007020439978871284,
+          0.1011672794818878
+        ],
+        "aperture_distance_m": 0.24809045998889268,
+        "rim_crossing": null,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": [
+          "robot"
+        ],
+        "rebound_time_s": 0.11315104166666666,
+        "cutoff_time_s": 0.12311197916666666,
+        "cutoff_position_m": [
+          0.6378780007362366,
+          -0.07811897248029709,
+          0.30420273542404175
+        ],
+        "first_flight_samples": 154
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.5606043996790535,
+        "nearest_train_id": "policy64-train-00303",
+        "nearest_train_capture": true,
+        "nearest_capture_distance": 0.5606043996790535,
+        "nearest_capture_train_id": "policy64-train-00303",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; first free flight ends at robot contact before an observed descending center-at-rim crossing"
+    },
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-11",
+      "context_id": "physics-ensemble-test-11",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-11",
+      "record_sha256": "ac7c918dbd04597a185d514acec943b713d1a14e25672c7eb53ce06dc409a53c",
+      "method": "ensemble",
+      "values": [
+        0.6303814027108621,
+        -0.2556165547275584,
+        0.39636711055430107,
+        31.867078158686777,
+        0.11040249980274117
+      ],
+      "bucket_xy_m": [
+        0.8886056438614897,
+        -0.6288194306775234
+      ],
+      "board_bucket_distance_m": 0.45382832143349366,
+      "prediction": {
+        "capture_score": 0.9234025321203682,
+        "disagreement": 0.031775820616366524,
+        "aperture_distance_m": 0.0730068320154967,
+        "rebound_velocity_m_s": [
+          1.0940368175506592,
+          -0.0013903234153985976,
+          0.41477503776550295
+        ],
+        "ranking_score": 0.9118082353655017,
+        "member_capture_scores": [
+          0.9529065384719382,
+          0.8947614253675416,
+          0.9400721489464834,
+          0.9528863967912299,
+          0.8763861510246476
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 0.00012728978172759243,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 0.00010359093558169895
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          0.9421453696619876,
+          -0.00258838909623349,
+          0.32828909158706665
+        ],
+        "velocity_error_m_s": [
+          0.1518914478886716,
+          0.0011980656808348923,
+          0.0864859461784363
+        ],
+        "aperture_distance_m": 0.18841200714464829,
+        "rim_crossing": {
+          "time_s": 0.41115237897446383,
+          "interval_index": 6315,
+          "fraction": 0.30054104776475965,
+          "xy_m": [
+            0.7729261049885062,
+            -0.4629553770308795
+          ]
+        },
+        "mouth_clearance_m": -0.15124008066951428,
+        "cutoff_contact_channels": [
+          "table"
+        ],
+        "rebound_time_s": 0.14518229166666666,
+        "cutoff_time_s": 0.46803385416666665,
+        "cutoff_position_m": [
+          0.8032867312431335,
+          -0.5071162581443787,
+          0.037365347146987915
+        ],
+        "first_flight_samples": 4960
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.3338093917760698,
+        "nearest_train_id": "policy64-train-00334",
+        "nearest_train_capture": false,
+        "nearest_capture_distance": 0.3369457091951983,
+        "nearest_capture_train_id": "policy64-train-00785",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; pre-contact center-at-rim clearance -151.2 mm"
+    },
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-12",
+      "context_id": "physics-ensemble-test-12",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-12",
+      "record_sha256": "aa476197106bbc385fac35d0bd9ea1778b5339a2dbe9d1defc7b1f5e3b827b03",
+      "method": "ensemble",
+      "values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.40906503796577454,
+        32.749881784770345,
+        0.1353410311538266
+      ],
+      "bucket_xy_m": [
+        1.0244330150153635,
+        -0.6379902831523109
+      ],
+      "board_bucket_distance_m": 0.565118367983927,
+      "prediction": {
+        "capture_score": 0.6218886686389314,
+        "disagreement": 0.09833475472171073,
+        "aperture_distance_m": 0.1291866733485721,
+        "rebound_velocity_m_s": [
+          1.2235079765319825,
+          -0.0015862036496400833,
+          0.43459460139274597
+        ],
+        "ranking_score": 0.5908456462910752,
+        "member_capture_scores": [
+          0.7431437337239608,
+          0.5112725280485816,
+          0.656882712113064,
+          0.6969091194019036,
+          0.5012352499071471
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 0.0001341104507446289,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 6.9538703620952e-05
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          1.067790043105765,
+          -0.005176426979163096,
+          0.33905690908432007
+        ],
+        "velocity_error_m_s": [
+          0.15571793342621754,
+          0.003590223329523012,
+          0.0955376923084259
+        ],
+        "aperture_distance_m": 0.25107944806756777,
+        "rim_crossing": {
+          "time_s": 0.4345293024394697,
+          "interval_index": 6674,
+          "fraction": 0.370085470254417,
+          "xy_m": [
+            0.831856764534608,
+            -0.44501159496797277
+          ]
+        },
+        "mouth_clearance_m": -0.22142067805410956,
+        "cutoff_contact_channels": [
+          "table"
+        ],
+        "rebound_time_s": 0.16165364583333333,
+        "cutoff_time_s": 0.49029947916666666,
+        "cutoff_position_m": [
+          0.8734699487686157,
+          -0.4875949025154114,
+          0.037336841225624084
+        ],
+        "first_flight_samples": 5049
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.3518157684950031,
+        "nearest_train_id": "policy64-train-00630",
+        "nearest_train_capture": false,
+        "nearest_capture_distance": 0.4289689065692406,
+        "nearest_capture_train_id": "policy64-train-00785",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; pre-contact center-at-rim clearance -221.4 mm"
+    },
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-14",
+      "context_id": "physics-ensemble-test-14",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-14",
+      "record_sha256": "afd633566531a773baf39252da232cdc99aac4a3f86641f1895ebaa8cb890d4b",
+      "method": "ensemble",
+      "values": [
+        0.6439942662014496,
+        -0.19871626508667414,
+        0.41877350551120135,
+        34.06702324686592,
+        0.14939266313103225
+      ],
+      "bucket_xy_m": [
+        0.8596681107714171,
+        0.23026919671126567
+      ],
+      "board_bucket_distance_m": 0.48014969922471284,
+      "prediction": {
+        "capture_score": 0.6236506693557741,
+        "disagreement": 0.11602353606415823,
+        "aperture_distance_m": 0.04007968400900181,
+        "rebound_velocity_m_s": [
+          1.208942174911499,
+          0.008253769297152758,
+          0.29443120360374453
+        ],
+        "ranking_score": 0.5926408011392844,
+        "member_capture_scores": [
+          0.40864473746185487,
+          0.7062430366860046,
+          0.5929074804608581,
+          0.7064635399826621,
+          0.7039945521874905
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 0.00013747911828866055,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 0.00012743999258860278
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          1.127559683588207,
+          -0.006542442982667651,
+          0.31161078810691833
+        ],
+        "velocity_error_m_s": [
+          0.08138249132329212,
+          0.01479621227982041,
+          -0.017179584503173806
+        ],
+        "aperture_distance_m": 0.15476872412708056,
+        "rim_crossing": {
+          "time_s": 0.4440672334381075,
+          "interval_index": 6820,
+          "fraction": 0.8727056093308101,
+          "xy_m": [
+            0.7851000258410707,
+            0.07773932618746979
+          ]
+        },
+        "mouth_clearance_m": -0.11887393590869258,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "rebound_time_s": 0.16998697916666666,
+        "cutoff_time_s": 0.48268229166666665,
+        "cutoff_position_m": [
+          0.8048977851867676,
+          0.11652614176273346,
+          0.08387666195631027
+        ],
+        "first_flight_samples": 4804
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.39802864666036697,
+        "nearest_train_id": "policy64-train-00608",
+        "nearest_train_capture": true,
+        "nearest_capture_distance": 0.39802864666036697,
+        "nearest_capture_train_id": "policy64-train-00608",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; pre-contact center-at-rim clearance -118.9 mm"
+    },
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-15",
+      "context_id": "physics-ensemble-test-15",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-15",
+      "record_sha256": "6abe3fe1cde9ab345bb12a5e4f85622fee4f2d2fece4deaec2c6bb96e569b179",
+      "method": "ensemble",
+      "values": [
+        0.5869013680911298,
+        -0.1743017339606038,
+        0.323286581890719,
+        23.86699083592656,
+        0.11722595736111577
+      ],
+      "bucket_xy_m": [
+        0.6593682369827303,
+        -0.5050560547487976
+      ],
+      "board_bucket_distance_m": 0.33859986386147856,
+      "prediction": {
+        "capture_score": 0.9645069475492504,
+        "disagreement": 0.01124436239567243,
+        "aperture_distance_m": 0.024757391191347948,
+        "rebound_velocity_m_s": [
+          0.8276970744132995,
+          -0.009134289622306824,
+          0.6600321173667908
+        ],
+        "ranking_score": 0.9604579873907648,
+        "member_capture_scores": [
+          0.9551458000035796,
+          0.9778049828328104,
+          0.9735310014556545,
+          0.96808339100516,
+          0.947969562449047
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 0.00012653485626538228,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 9.632892409498359e-05
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          0.8109136898191185,
+          -0.0003100289869250872,
+          0.5842229723930359
+        ],
+        "velocity_error_m_s": [
+          0.01678338459418105,
+          -0.008824260635381737,
+          0.0758091449737549
+        ],
+        "aperture_distance_m": 0.13398382317781588,
+        "rim_crossing": null,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "rebound_time_s": 0.15227864583333334,
+        "cutoff_time_s": 0.4049479166666667,
+        "cutoff_position_m": [
+          0.6308176517486572,
+          -0.3753884732723236,
+          0.2009679526090622
+        ],
+        "first_flight_samples": 3882
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.19620049728421615,
+        "nearest_train_id": "policy64-train-00043",
+        "nearest_train_capture": true,
+        "nearest_capture_distance": 0.19620049728421615,
+        "nearest_capture_train_id": "policy64-train-00043",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; first free flight ends at bucket contact before an observed descending center-at-rim crossing"
+    },
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-16",
+      "context_id": "physics-ensemble-test-16",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-16",
+      "record_sha256": "0e27ddd1a02692f16c7862d586c18637a8373c557c26483faaa9c1ab7d6442bd",
+      "method": "ensemble",
+      "values": [
+        0.661224328257263,
+        -0.29183671507422804,
+        0.26586619210715723,
+        32.994095888465075,
+        0.128358294078845
+      ],
+      "bucket_xy_m": [
+        0.4251929947419354,
+        -0.16491735123218854
+      ],
+      "board_bucket_distance_m": 0.2679912597811574,
+      "prediction": {
+        "capture_score": 0.987954422207444,
+        "disagreement": 0.0031908024447781552,
+        "aperture_distance_m": 0.012798368692465537,
+        "rebound_velocity_m_s": [
+          1.0266653776168824,
+          0.006685907207429409,
+          0.2760691463947296
+        ],
+        "ranking_score": 0.9865168031616262,
+        "member_capture_scores": [
+          0.9861786706557067,
+          0.9864369017182767,
+          0.9855277957256025,
+          0.9942204545243105,
+          0.9874082884133228
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 0.00015957947144546274,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 0.0001210002736816875
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          1.0243216558716215,
+          0.004009950045413324,
+          0.32300567626953125
+        ],
+        "velocity_error_m_s": [
+          0.002343721745260874,
+          0.002675957162016085,
+          -0.046936529874801625
+        ],
+        "aperture_distance_m": 0.09634268147199701,
+        "rim_crossing": null,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "rebound_time_s": 0.15703125,
+        "cutoff_time_s": 0.33098958333333334,
+        "cutoff_position_m": [
+          0.503054678440094,
+          -0.20754525065422058,
+          0.22044773399829865
+        ],
+        "first_flight_samples": 2673
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.13035606071312306,
+        "nearest_train_id": "policy64-train-00566",
+        "nearest_train_capture": true,
+        "nearest_capture_distance": 0.13035606071312306,
+        "nearest_capture_train_id": "policy64-train-00566",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; first free flight ends at bucket contact before an observed descending center-at-rim crossing"
+    },
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-21",
+      "context_id": "physics-ensemble-test-21",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-21",
+      "record_sha256": "c4e100e1c926dd2266810112f33c292411526c885085c5b22010a8fc67d4d195",
+      "method": "ensemble",
+      "values": [
+        0.5974010488450489,
+        -0.3579342127281825,
+        0.2708985710304866,
+        31.9434288341625,
+        0.230971044337213
+      ],
+      "bucket_xy_m": [
+        0.21888480325541895,
+        -0.2697230698986402
+      ],
+      "board_bucket_distance_m": 0.388658917168464,
+      "prediction": {
+        "capture_score": 0.9945472504006843,
+        "disagreement": 0.0012500453547169023,
+        "aperture_distance_m": 0.017112304909377637,
+        "rebound_velocity_m_s": [
+          1.36920063495636,
+          0.011344448383897542,
+          0.42335274815559387
+        ],
+        "ranking_score": 0.9933791238165361,
+        "member_capture_scores": [
+          0.9927838419422793,
+          0.9964169785255532,
+          0.994894463964432,
+          0.9950219717889831,
+          0.9936189957821729
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 9.433557676871681e-05,
+          "board_normal_error_deg": 0.006191007245697765,
+          "dropper_error_mm": 7.715555827590558e-05
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          1.3832124522443738,
+          0.007069474986016511,
+          0.5063084363937378
+        ],
+        "velocity_error_m_s": [
+          -0.014011817288013928,
+          0.0042749733978810316,
+          -0.08295568823814392
+        ],
+        "aperture_distance_m": 0.11418958876673764,
+        "rim_crossing": null,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "rebound_time_s": 0.2142578125,
+        "cutoff_time_s": 0.41595052083333334,
+        "cutoff_position_m": [
+          0.3239263892173767,
+          -0.2956477701663971,
+          0.21951626241207123
+        ],
+        "first_flight_samples": 3099
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.20023092378932877,
+        "nearest_train_id": "policy64-train-00288",
+        "nearest_train_capture": true,
+        "nearest_capture_distance": 0.20023092378932877,
+        "nearest_capture_train_id": "policy64-train-00288",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; first free flight ends at bucket contact before an observed descending center-at-rim crossing"
+    },
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-23",
+      "context_id": "physics-ensemble-test-23",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-23",
+      "record_sha256": "f7134edc92b3fbe38d336383466ed3d08a29d2634a7711cafd97a03b6fd3cf8a",
+      "method": "ensemble",
+      "values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.40906503796577454,
+        32.749881784770345,
+        0.1353410311538266
+      ],
+      "bucket_xy_m": [
+        0.7702619365503842,
+        0.09263901591389845
+      ],
+      "board_bucket_distance_m": 0.3581673457529434,
+      "prediction": {
+        "capture_score": 0.5045966764124522,
+        "disagreement": 0.13668688777404825,
+        "aperture_distance_m": 0.020613700552095448,
+        "rebound_velocity_m_s": [
+          1.061356544494629,
+          0.0008441312238574028,
+          0.29348103404045106
+        ],
+        "ranking_score": 0.4693942694413354,
+        "member_capture_scores": [
+          0.2845724469649305,
+          0.5500670143262448,
+          0.41502370477554307,
+          0.6325676698028138,
+          0.6407525461927288
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 6.143906154658885e-05,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 6.9538703620952e-05
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          1.0543591370585614,
+          -0.004284225243751272,
+          0.34861427545547485
+        ],
+        "velocity_error_m_s": [
+          0.006997407436067471,
+          0.005128356467608675,
+          -0.05513324141502379
+        ],
+        "aperture_distance_m": 0.09326906214930343,
+        "rim_crossing": null,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "rebound_time_s": 0.16165364583333333,
+        "cutoff_time_s": 0.419140625,
+        "cutoff_position_m": [
+          0.7372745871543884,
+          0.013768154196441174,
+          0.2202872633934021
+        ],
+        "first_flight_samples": 3956
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.4761417548468348,
+        "nearest_train_id": "policy64-train-00610",
+        "nearest_train_capture": true,
+        "nearest_capture_distance": 0.4761417548468348,
+        "nearest_capture_train_id": "policy64-train-00610",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; first free flight ends at bucket contact before an observed descending center-at-rim crossing"
+    },
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-26",
+      "context_id": "physics-ensemble-test-26",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-26",
+      "record_sha256": "746875627c044b960537d50127a7966df36e4a440817baba017e423fd8211446",
+      "method": "ensemble",
+      "values": [
+        0.6119402647018433,
+        -0.16431160271167755,
+        0.33102089166641235,
+        21.937971137003245,
+        0.1571040569516942
+      ],
+      "bucket_xy_m": [
+        1.0678811147347413,
+        0.0026430917540114507
+      ],
+      "board_bucket_distance_m": 0.48554704070033544,
+      "prediction": {
+        "capture_score": 0.11337525835204545,
+        "disagreement": 0.0443975949882632,
+        "aperture_distance_m": 0.17852009452307366,
+        "rebound_velocity_m_s": [
+          0.8929898738861084,
+          -0.003698800504207611,
+          0.8759354710578918
+        ],
+        "ranking_score": 0.09334985487882598,
+        "member_capture_scores": [
+          0.0957732481809813,
+          0.13293426257816982,
+          0.04274724433099754,
+          0.17785356133094124,
+          0.11756797533913729
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 0.00019371509552001953,
+          "board_normal_error_deg": 0.009217375723721156,
+          "dropper_error_mm": 0.00012849233437128827
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          0.8758247708225158,
+          -0.00977878185043013,
+          0.75718092918396
+        ],
+        "velocity_error_m_s": [
+          0.017165103063592646,
+          0.0060799813462225185,
+          0.11875454187393186
+        ],
+        "aperture_distance_m": 0.27880117647064,
+        "rim_crossing": null,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": [
+          "robot"
+        ],
+        "rebound_time_s": 0.1775390625,
+        "cutoff_time_s": 0.42506510416666665,
+        "cutoff_position_m": [
+          0.8172370791435242,
+          -0.09172194451093674,
+          0.2604784071445465
+        ],
+        "first_flight_samples": 3803
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.38421874325444727,
+        "nearest_train_id": "policy64-train-00311",
+        "nearest_train_capture": false,
+        "nearest_capture_distance": 0.7184586947441861,
+        "nearest_capture_train_id": "policy64-train-00906",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; first free flight ends at robot contact before an observed descending center-at-rim crossing"
+    },
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-29",
+      "context_id": "physics-ensemble-test-29",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-29",
+      "record_sha256": "8a6cf7390e555ba274ed19d51d6d59572ec1bb19f995829907d5b7a81acdd01e",
+      "method": "ensemble",
+      "values": [
+        0.5915048718452454,
+        -0.3435669541358948,
+        0.2680986523628235,
+        31.519844899807353,
+        0.26155952009868144
+      ],
+      "bucket_xy_m": [
+        0.24865959966325096,
+        -0.14062195174676895
+      ],
+      "board_bucket_distance_m": 0.3984087783323406,
+      "prediction": {
+        "capture_score": 0.9965375342835813,
+        "disagreement": 0.0013587488973848267,
+        "aperture_distance_m": 0.008416128199827955,
+        "rebound_velocity_m_s": [
+          1.4631611108779907,
+          0.008608399331569672,
+          0.4604408204555511
+        ],
+        "ranking_score": 0.9957770406492437,
+        "member_capture_scores": [
+          0.9942474428133022,
+          0.9982018265473857,
+          0.9959472417388304,
+          0.9973992731695734,
+          0.9968918871488146
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 0.00021900144899933142,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 5.0575566116468485e-05
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          1.4488400350014263,
+          0.00473952126183208,
+          0.5425857901573181
+        ],
+        "velocity_error_m_s": [
+          0.014321075876564393,
+          0.0038688780697375916,
+          -0.08214496970176699
+        ],
+        "aperture_distance_m": 0.10788363103981838,
+        "rim_crossing": null,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "rebound_time_s": 0.22858072916666666,
+        "cutoff_time_s": 0.4326171875,
+        "cutoff_position_m": [
+          0.33524084091186523,
+          -0.1930031031370163,
+          0.22040028870105743
+        ],
+        "first_flight_samples": 3135,
+        "velocity_head_endpoint_error_mm": 16.972622866989727,
+        "observed_velocity_ballistic_error_mm": 0.07040405185054692
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.15255978129602416,
+        "nearest_train_id": "policy64-train-00988",
+        "nearest_train_capture": true,
+        "nearest_capture_distance": 0.15255978129602416,
+        "nearest_capture_train_id": "policy64-train-00988",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; first free flight ends at bucket contact before an observed descending center-at-rim crossing"
+    },
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-30",
+      "context_id": "physics-ensemble-test-30",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-30",
+      "record_sha256": "8253647278e81f190b807adfb321e9f26e9fe6e1aba38156376aabb6b70abdd0",
+      "method": "ensemble",
+      "values": [
+        0.6119402647018433,
+        -0.16431160271167755,
+        0.33102089166641235,
+        21.937971137003245,
+        0.1571040569516942
+      ],
+      "bucket_xy_m": [
+        1.0517380106326641,
+        0.22909985354737905
+      ],
+      "board_bucket_distance_m": 0.5900801905179519,
+      "prediction": {
+        "capture_score": 0.30495978522841527,
+        "disagreement": 0.11953653139950607,
+        "aperture_distance_m": 0.1973500938613046,
+        "rebound_velocity_m_s": [
+          0.9622852206230164,
+          0.012315072864294053,
+          0.880185604095459
+        ],
+        "ranking_score": 0.2652081476854735,
+        "member_capture_scores": [
+          0.24325298751050436,
+          0.31407526428733884,
+          0.11236088311014292,
+          0.44170819156689617,
+          0.413401599667194
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 0.00013075715880680268,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 0.00012849233437128827
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          0.8730678200755544,
+          -0.007362902748032751,
+          0.7579971551895142
+        ],
+        "velocity_error_m_s": [
+          0.08921740054746197,
+          0.019677975612326804,
+          0.12218844890594482
+        ],
+        "aperture_distance_m": 0.3150500406265505,
+        "rim_crossing": {
+          "time_s": 0.46651976292157454,
+          "interval_index": 7165,
+          "fraction": 0.7435584753850275,
+          "xy_m": [
+            0.8020779721658454,
+            0.0029249928664208625
+          ]
+        },
+        "mouth_clearance_m": -0.2859822403218666,
+        "cutoff_contact_channels": [
+          "table"
+        ],
+        "rebound_time_s": 0.1775390625,
+        "cutoff_time_s": 0.527734375,
+        "cutoff_position_m": [
+          0.8422052264213562,
+          0.03822088986635208,
+          0.03745746985077858
+        ],
+        "first_flight_samples": 5380
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.3072845123676398,
+        "nearest_train_id": "policy64-train-00527",
+        "nearest_train_capture": false,
+        "nearest_capture_distance": 0.6552336990020153,
+        "nearest_capture_train_id": "policy64-train-00430",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; pre-contact center-at-rim clearance -286.0 mm"
+    },
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-32",
+      "context_id": "physics-ensemble-test-32",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-32",
+      "record_sha256": "2c2280e2ee7dd6e34a40a5f512f60ce08b4a31d823109286d29b3692a5b684e8",
+      "method": "ensemble",
+      "values": [
+        0.6329437494277954,
+        -0.04944964498281479,
+        0.27414825558662415,
+        27.534005060312847,
+        0.0963651221865184
+      ],
+      "bucket_xy_m": [
+        0.3391435871901014,
+        -0.037551748435836974
+      ],
+      "board_bucket_distance_m": 0.29404097550024877,
+      "prediction": {
+        "capture_score": 0.9266692946239596,
+        "disagreement": 0.013122663192623087,
+        "aperture_distance_m": 0.02012517915912815,
+        "rebound_velocity_m_s": [
+          0.7572182536125183,
+          0.008643281273543834,
+          0.4364559888839722
+        ],
+        "ranking_score": 0.9223823698678475,
+        "member_capture_scores": [
+          0.9451053446674907,
+          0.9159149191042173,
+          0.9356428172808609,
+          0.9279919552754733,
+          0.908691436791756
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 0.00010543295516136964,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 0.0001468084016700622
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          0.7979142694497497,
+          0.007535301082512658,
+          0.43524807691574097
+        ],
+        "velocity_error_m_s": [
+          -0.04069601583723148,
+          0.0011079801910311767,
+          0.0012079119682312234
+        ],
+        "aperture_distance_m": 0.13247383778571242,
+        "rim_crossing": null,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "rebound_time_s": 0.13639322916666666,
+        "cutoff_time_s": 0.33990885416666666,
+        "cutoff_position_m": [
+          0.4697467088699341,
+          -0.044380590319633484,
+          0.20410709083080292
+        ],
+        "first_flight_samples": 3127
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.30188936204143296,
+        "nearest_train_id": "policy64-train-00328",
+        "nearest_train_capture": true,
+        "nearest_capture_distance": 0.30188936204143296,
+        "nearest_capture_train_id": "policy64-train-00328",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; first free flight ends at bucket contact before an observed descending center-at-rim crossing"
+    },
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-35",
+      "context_id": "physics-ensemble-test-35",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-35",
+      "record_sha256": "58b53b64d5df054aea6fe90d61e131f0f9794f21f68b27d46295cdabf00a8485",
+      "method": "ensemble",
+      "values": [
+        0.6444648685384132,
+        -0.2715833910358414,
+        0.2841673839908147,
+        23.89626057378869,
+        0.19398446657504428
+      ],
+      "bucket_xy_m": [
+        0.691160217464675,
+        -0.10237614744627299
+      ],
+      "board_bucket_distance_m": 0.17553218193403988,
+      "prediction": {
+        "capture_score": 0.9931200334659358,
+        "disagreement": 0.0021097403753243833,
+        "aperture_distance_m": 0.008646468933589415,
+        "rebound_velocity_m_s": [
+          0.9618834614753723,
+          -0.003762093186378479,
+          0.7280681133270264
+        ],
+        "ranking_score": 0.9921602749254252,
+        "member_capture_scores": [
+          0.9909945533181331,
+          0.9940698674924532,
+          0.9915124185416399,
+          0.9967895440284775,
+          0.992233783948976
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 0.000146745236334963,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 0.0001179789733436803
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          1.042745386536025,
+          -0.004983399108230813,
+          0.7868549227714539
+        ],
+        "velocity_error_m_s": [
+          -0.0808619250606527,
+          0.0012213059218523338,
+          -0.05878680944442749
+        ],
+        "aperture_distance_m": 0.09117484204899987,
+        "rim_crossing": null,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "rebound_time_s": 0.1974609375,
+        "cutoff_time_s": 0.44576822916666664,
+        "cutoff_position_m": [
+          0.714792013168335,
+          -0.021219145506620407,
+          0.22020532190799713
+        ],
+        "first_flight_samples": 3815,
+        "velocity_head_endpoint_error_mm": 24.77146294091759,
+        "observed_velocity_ballistic_error_mm": 0.09532988755049461
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.4800995838505028,
+        "nearest_train_id": "policy64-train-00842",
+        "nearest_train_capture": true,
+        "nearest_capture_distance": 0.4800995838505028,
+        "nearest_capture_train_id": "policy64-train-00842",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; first free flight ends at bucket contact before an observed descending center-at-rim crossing"
+    },
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-36",
+      "context_id": "physics-ensemble-test-36",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-36",
+      "record_sha256": "c05b324fbebd67ad3144ba2b57dab70d60a365321dba2b30a042abe744bd6332",
+      "method": "ensemble",
+      "values": [
+        0.6244859898581979,
+        -0.33194516812467234,
+        0.4130120283134495,
+        31.013585635150804,
+        0.18464493908143198
+      ],
+      "bucket_xy_m": [
+        0.7294347476929788,
+        -0.5830930420394174
+      ],
+      "board_bucket_distance_m": 0.2721938580184353,
+      "prediction": {
+        "capture_score": 0.987520109282469,
+        "disagreement": 0.005119253904995511,
+        "aperture_distance_m": 0.014463129088268361,
+        "rebound_velocity_m_s": [
+          1.1335189819335938,
+          -0.006506122648715973,
+          0.427664315700531
+        ],
+        "ranking_score": 0.9855171393518067,
+        "member_capture_scores": [
+          0.990638623723898,
+          0.9827869316040059,
+          0.9918346273367572,
+          0.992360740225229,
+          0.9799796235224552
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 0.00021247219872764275,
+          "board_normal_error_deg": 0.009013805033544778,
+          "dropper_error_mm": 8.224112593433272e-05
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          1.2197599259314267,
+          -0.0001624647224509057,
+          0.4664413332939148
+        ],
+        "velocity_error_m_s": [
+          -0.08624094399783289,
+          -0.006343657926265067,
+          -0.03877701759338381
+        ],
+        "aperture_distance_m": 0.07251031087031977,
+        "rim_crossing": null,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "rebound_time_s": 0.19095052083333333,
+        "cutoff_time_s": 0.46725260416666664,
+        "cutoff_position_m": [
+          0.755016565322876,
+          -0.6441214680671692,
+          0.21311134099960327
+        ],
+        "first_flight_samples": 4245,
+        "velocity_head_endpoint_error_mm": 26.178506268559836,
+        "observed_velocity_ballistic_error_mm": 0.15309493429740995
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.20116544345630766,
+        "nearest_train_id": "policy64-train-00540",
+        "nearest_train_capture": true,
+        "nearest_capture_distance": 0.20116544345630766,
+        "nearest_capture_train_id": "policy64-train-00540",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; first free flight ends at bucket contact before an observed descending center-at-rim crossing"
+    },
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-40",
+      "context_id": "physics-ensemble-test-40",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-40",
+      "record_sha256": "413bc924404b6b70e030da74c5cb677c32cc4b6c8dbae51b80786280392d9426",
+      "method": "ensemble",
+      "values": [
+        0.5980294929071579,
+        -0.17499226598173734,
+        0.32163746284432904,
+        29.073763728003907,
+        0.15063267618546464
+      ],
+      "bucket_xy_m": [
+        0.5770810389221384,
+        -0.33403917333178607
+      ],
+      "board_bucket_distance_m": 0.16042056121949413,
+      "prediction": {
+        "capture_score": 0.9868905612008568,
+        "disagreement": 0.005193145230962139,
+        "aperture_distance_m": 0.005062846813185738,
+        "rebound_velocity_m_s": [
+          0.9091032385826111,
+          -0.009648656472563744,
+          0.46166288256645205
+        ],
+        "ranking_score": 0.985339132552457,
+        "member_capture_scores": [
+          0.9835971281407914,
+          0.989470629858497,
+          0.9944680274075512,
+          0.987722568837648,
+          0.9791944517597964
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 4.8692709940696726e-05,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 0.00010517928906917131
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          1.0631597276072584,
+          0.0035765165602510696,
+          0.5019599199295044
+        ],
+        "velocity_error_m_s": [
+          -0.1540564890246473,
+          -0.013225173032814813,
+          -0.040297037363052346
+        ],
+        "aperture_distance_m": 0.09339935117891025,
+        "rim_crossing": null,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "rebound_time_s": 0.17220052083333334,
+        "cutoff_time_s": 0.4034505208333333,
+        "cutoff_position_m": [
+          0.5665473937988281,
+          -0.4200349748134613,
+          0.22038483619689941
+        ],
+        "first_flight_samples": 3553,
+        "velocity_head_endpoint_error_mm": 36.955567731337716,
+        "observed_velocity_ballistic_error_mm": 0.0921152927481928
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.2932112409259538,
+        "nearest_train_id": "policy64-train-00143",
+        "nearest_train_capture": true,
+        "nearest_capture_distance": 0.2932112409259538,
+        "nearest_capture_train_id": "policy64-train-00143",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; first free flight ends at bucket contact before an observed descending center-at-rim crossing"
+    },
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-42",
+      "context_id": "physics-ensemble-test-42",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-42",
+      "record_sha256": "3e79c437414753ef96e039f3b1b608d4f14e56ab70828de4e171b0f2af633a80",
+      "method": "ensemble",
+      "values": [
+        0.6543167349138449,
+        -0.24877294760943305,
+        0.4111089602460038,
+        38.332503671611406,
+        0.12978479148626232
+      ],
+      "bucket_xy_m": [
+        0.7981287448331554,
+        -0.2993455363192319
+      ],
+      "board_bucket_distance_m": 0.15244500951438963,
+      "prediction": {
+        "capture_score": 0.7905600312398043,
+        "disagreement": 0.050298250880022266,
+        "aperture_distance_m": 0.017007180113419118,
+        "rebound_velocity_m_s": [
+          1.0618147373199462,
+          -0.005450781807303429,
+          0.10912569388747215
+        ],
+        "ranking_score": 0.7771351095141278,
+        "member_capture_scores": [
+          0.7820832404315554,
+          0.7847885001305791,
+          0.7464963243296783,
+          0.8864342854180789,
+          0.7529978058891299
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 0.00016661287379753797,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 0.00014006478960668005
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          1.0911509627421951,
+          -0.009198267319926179,
+          0.11851666122674942
+        ],
+        "velocity_error_m_s": [
+          -0.029336225422248896,
+          0.00374748551262275,
+          -0.009390967339277273
+        ],
+        "aperture_distance_m": 0.10969704973966024,
+        "rim_crossing": null,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "rebound_time_s": 0.155859375,
+        "cutoff_time_s": 0.38984375,
+        "cutoff_position_m": [
+          0.8956281542778015,
+          -0.33595553040504456,
+          0.22019129991531372
+        ],
+        "first_flight_samples": 3595
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.3459441493762662,
+        "nearest_train_id": "policy64-train-00162",
+        "nearest_train_capture": true,
+        "nearest_capture_distance": 0.3459441493762662,
+        "nearest_capture_train_id": "policy64-train-00162",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; first free flight ends at bucket contact before an observed descending center-at-rim crossing"
+    },
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-45",
+      "context_id": "physics-ensemble-test-45",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-45",
+      "record_sha256": "19d91ad788899863fa80fddc724c2ce36d83b5cd43d9e8d28999deb113725788",
+      "method": "ensemble",
+      "values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.40906503796577454,
+        32.749881784770345,
+        0.1353410311538266
+      ],
+      "bucket_xy_m": [
+        0.9598952762596658,
+        -0.6014935235038598
+      ],
+      "board_bucket_distance_m": 0.494222590049324,
+      "prediction": {
+        "capture_score": 0.8008884784759498,
+        "disagreement": 0.06454403721640048,
+        "aperture_distance_m": 0.09337361830301862,
+        "rebound_velocity_m_s": [
+          1.1723019123077392,
+          -0.00297103226184845,
+          0.4116081357002258
+        ],
+        "ranking_score": 0.7800837882566988,
+        "member_capture_scores": [
+          0.865713464269237,
+          0.7476977544617038,
+          0.8361585219185929,
+          0.8531137627538216,
+          0.701758888976394
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 0.0001884864366154897,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 6.9538703620952e-05
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          1.0679827510872046,
+          -0.0046876342522962355,
+          0.3388088345527649
+        ],
+        "velocity_error_m_s": [
+          0.10431916122053453,
+          0.0017166019904477857,
+          0.07279930114746092
+        ],
+        "aperture_distance_m": 0.18521190153949443,
+        "rim_crossing": {
+          "time_s": 0.4345001975314853,
+          "interval_index": 6673,
+          "fraction": 0.923034083614207,
+          "xy_m": [
+            0.8233072691928924,
+            -0.4531407242437274
+          ]
+        },
+        "mouth_clearance_m": -0.15075567308631435,
+        "cutoff_contact_channels": [
+          "table"
+        ],
+        "rebound_time_s": 0.16165364583333333,
+        "cutoff_time_s": 0.490234375,
+        "cutoff_position_m": [
+          0.8631587028503418,
+          -0.4973548948764801,
+          0.03744278848171234
+        ],
+        "first_flight_samples": 5048
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.3751137513115704,
+        "nearest_train_id": "policy64-train-00334",
+        "nearest_train_capture": false,
+        "nearest_capture_distance": 0.3773796005580424,
+        "nearest_capture_train_id": "policy64-train-00785",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; pre-contact center-at-rim clearance -150.8 mm"
+    },
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-49",
+      "context_id": "physics-ensemble-test-49",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-49",
+      "record_sha256": "a643cd12478e19155f59c85e84663d7a15d7387037f41c59eab3babec16bd1f9",
+      "method": "ensemble",
+      "values": [
+        0.6029990697897623,
+        -0.35905005418880953,
+        0.2621080394408044,
+        33.12450830471614,
+        0.26483942315651077
+      ],
+      "bucket_xy_m": [
+        0.2211061220464374,
+        -0.2580644204614333
+      ],
+      "board_bucket_distance_m": 0.3950193941509779,
+      "prediction": {
+        "capture_score": 0.9949515310432385,
+        "disagreement": 0.0013224373191668968,
+        "aperture_distance_m": 0.01579812885698486,
+        "rebound_velocity_m_s": [
+          1.5085628271102904,
+          0.01195743279531598,
+          0.4253224015235901
+        ],
+        "ranking_score": 0.9938310152705976,
+        "member_capture_scores": [
+          0.9953518255425464,
+          0.9973126941013618,
+          0.9945122588121851,
+          0.9940350229302649,
+          0.9935458538298345
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 0.00016538314082762252,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 8.690657583437286e-05
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          1.5004269246400705,
+          0.006927099911779144,
+          0.46646803617477417
+        ],
+        "velocity_error_m_s": [
+          0.008135902470219891,
+          0.005030332883536836,
+          -0.04114563465118409
+        ],
+        "aperture_distance_m": 0.11366457788153159,
+        "rim_crossing": null,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "rebound_time_s": 0.2296875,
+        "cutoff_time_s": 0.4201171875,
+        "cutoff_position_m": [
+          0.3247847855091095,
+          -0.2868815064430237,
+          0.21960528194904327
+        ],
+        "first_flight_samples": 2926,
+        "velocity_head_endpoint_error_mm": 7.9844224593202915,
+        "observed_velocity_ballistic_error_mm": 0.06664962240197242
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.17976118008478123,
+        "nearest_train_id": "policy64-train-00500",
+        "nearest_train_capture": true,
+        "nearest_capture_distance": 0.17976118008478123,
+        "nearest_capture_train_id": "policy64-train-00500",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; first free flight ends at bucket contact before an observed descending center-at-rim crossing"
+    },
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-50",
+      "context_id": "physics-ensemble-test-50",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-50",
+      "record_sha256": "a0740c48115004ada476ad95b78a8ef7afe1d3a0854d0419184a7a9e872047b2",
+      "method": "ensemble",
+      "values": [
+        0.6514328071497015,
+        -0.1986012988984595,
+        0.3956420566151838,
+        35.71096161318881,
+        0.10300713644651006
+      ],
+      "bucket_xy_m": [
+        0.7487001851131144,
+        0.12108199546362697
+      ],
+      "board_bucket_distance_m": 0.3341531856949352,
+      "prediction": {
+        "capture_score": 0.6555050287014248,
+        "disagreement": 0.103882808471233,
+        "aperture_distance_m": 0.01945967497013513,
+        "rebound_velocity_m_s": [
+          1.045387291908264,
+          0.0015629038214683532,
+          0.16561643034219742
+        ],
+        "ranking_score": 0.6285613428351098,
+        "member_capture_scores": [
+          0.48312044721500336,
+          0.6408875562321162,
+          0.6270652438616701,
+          0.765640562995318,
+          0.7608113332030161
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 0.00014807714252811402,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 8.04745107775391e-05
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          0.9456097192902125,
+          0.007119352485698782,
+          0.1919606328010559
+        ],
+        "velocity_error_m_s": [
+          0.09977757261805154,
+          -0.005556448664230429,
+          -0.02634420245885849
+        ],
+        "aperture_distance_m": 0.11670064482279142,
+        "rim_crossing": null,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "rebound_time_s": 0.13828125,
+        "cutoff_time_s": 0.373046875,
+        "cutoff_position_m": [
+          0.7147158980369568,
+          0.015316573902964592,
+          0.2187461107969284
+        ],
+        "first_flight_samples": 3607
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.4949997456823636,
+        "nearest_train_id": "policy64-train-00298",
+        "nearest_train_capture": true,
+        "nearest_capture_distance": 0.4949997456823636,
+        "nearest_capture_train_id": "policy64-train-00298",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; first free flight ends at bucket contact before an observed descending center-at-rim crossing"
+    },
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-51",
+      "context_id": "physics-ensemble-test-51",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-51",
+      "record_sha256": "39dc005fe1e7bedfe1f5ee97a84413a028ab23b43d708d813951f773644bd802",
+      "method": "ensemble",
+      "values": [
+        0.6238138327985132,
+        -0.4017681287383497,
+        0.27353850223706727,
+        33.63279579260639,
+        0.18640112752458438
+      ],
+      "bucket_xy_m": [
+        0.22976083546463963,
+        -0.5244079221938126
+      ],
+      "board_bucket_distance_m": 0.41269635768517315,
+      "prediction": {
+        "capture_score": 0.9857034270285279,
+        "disagreement": 0.002026557313682459,
+        "aperture_distance_m": 0.03793469601641682,
+        "rebound_velocity_m_s": [
+          1.3120028495788574,
+          0.01577628720551729,
+          0.3582978665828705
+        ],
+        "ranking_score": 0.9833000528992863,
+        "member_capture_scores": [
+          0.9862303338070132,
+          0.9870480855470605,
+          0.9876860670037425,
+          0.9856592244205529,
+          0.98189342436427
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 0.00010668140835880438,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 0.00010403808412420501
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          1.2584986914855005,
+          0.01011401859058425,
+          0.3599189817905426
+        ],
+        "velocity_error_m_s": [
+          0.053504158093356846,
+          0.00566226861493304,
+          -0.001621115207672108
+        ],
+        "aperture_distance_m": 0.13683888345742942,
+        "rim_crossing": {
+          "time_s": 0.39930926856158966,
+          "interval_index": 6133,
+          "fraction": 0.39036510601702606,
+          "xy_m": [
+            0.37307220769382854,
+            -0.48203000801679025
+          ]
+        },
+        "mouth_clearance_m": -0.09842010429357168,
+        "cutoff_contact_channels": [
+          "bucket"
+        ],
+        "rebound_time_s": 0.1912109375,
+        "cutoff_time_s": 0.41041666666666665,
+        "cutoff_position_m": [
+          0.3597608208656311,
+          -0.4862908720970154,
+          0.16371336579322815
+        ],
+        "first_flight_samples": 3368
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.2672648804881304,
+        "nearest_train_id": "policy64-train-00144",
+        "nearest_train_capture": true,
+        "nearest_capture_distance": 0.2672648804881304,
+        "nearest_capture_train_id": "policy64-train-00144",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; pre-contact center-at-rim clearance -98.4 mm"
+    },
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-52",
+      "context_id": "physics-ensemble-test-52",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-52",
+      "record_sha256": "9ef60b4cb425e87c737c09eb8688e107fd685ab904e388ad9a5c178be03eb91d",
+      "method": "ensemble",
+      "values": [
+        0.6119402647018433,
+        -0.16431160271167755,
+        0.33102089166641235,
+        21.937971137003245,
+        0.1571040569516942
+      ],
+      "bucket_xy_m": [
+        1.0360014579775125,
+        -0.3066906626876156
+      ],
+      "board_bucket_distance_m": 0.4473250410630018,
+      "prediction": {
+        "capture_score": 0.12147329072854755,
+        "disagreement": 0.03226914417666351,
+        "aperture_distance_m": 0.1474523993180695,
+        "rebound_velocity_m_s": [
+          0.9237422466278076,
+          -0.008685118705034255,
+          0.8698932647705078
+        ],
+        "ranking_score": 0.1060333847184782,
+        "member_capture_scores": [
+          0.12157085260984825,
+          0.1507182792819564,
+          0.08691708003260322,
+          0.16372533892729707,
+          0.08443490279103286
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 0.0001228781230931777,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 0.00012849233437128827
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          0.8831728419960023,
+          -0.009871785740589223,
+          0.7535229921340942
+        ],
+        "velocity_error_m_s": [
+          0.04056940463180525,
+          0.0011866670355549676,
+          0.11637027263641353
+        ],
+        "aperture_distance_m": 0.17814202177460872,
+        "rim_crossing": {
+          "time_s": 0.4658967491929389,
+          "interval_index": 7156,
+          "fraction": 0.17406760354124856,
+          "xy_m": [
+            0.8533428058377996,
+            -0.24838042097969196
+          ]
+        },
+        "mouth_clearance_m": -0.1407318979576544,
+        "cutoff_contact_channels": [
+          "table"
+        ],
+        "rebound_time_s": 0.1775390625,
+        "cutoff_time_s": 0.5271484375,
+        "cutoff_position_m": [
+          0.9044294953346252,
+          -0.2661837935447693,
+          0.037458471953868866
+        ],
+        "first_flight_samples": 5371
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.4242668884591789,
+        "nearest_train_id": "policy64-train-01015",
+        "nearest_train_capture": false,
+        "nearest_capture_distance": 0.42858843261830903,
+        "nearest_capture_train_id": "policy64-train-00896",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; pre-contact center-at-rim clearance -140.7 mm"
+    },
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-54",
+      "context_id": "physics-ensemble-test-54",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-54",
+      "record_sha256": "301d93db7f118d1f3bc7efc8219eb956d0937ef8f4eefdb3055bb52512af20e1",
+      "method": "ensemble",
+      "values": [
+        0.6119402647018433,
+        -0.16431160271167755,
+        0.33102089166641235,
+        21.937971137003245,
+        0.1571040569516942
+      ],
+      "bucket_xy_m": [
+        1.077933787405151,
+        0.06510537830398233
+      ],
+      "board_bucket_distance_m": 0.5194055394196117,
+      "prediction": {
+        "capture_score": 0.11243872935973656,
+        "disagreement": 0.045758555731622304,
+        "aperture_distance_m": 0.1930013221441938,
+        "rebound_velocity_m_s": [
+          0.9032582998275757,
+          -0.0005844064056873321,
+          0.880016815662384
+        ],
+        "ranking_score": 0.0913490243196213,
+        "member_capture_scores": [
+          0.0932033621749685,
+          0.12353008613253642,
+          0.03844650092502088,
+          0.17725741543685164,
+          0.12975628212930532
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 0.00016924465733171324,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 0.00012849233437128827
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          0.874927020125128,
+          -0.00917812467907586,
+          0.7574774026870728
+        ],
+        "velocity_error_m_s": [
+          0.028331279702447643,
+          0.008593718273388529,
+          0.12253941297531123
+        ],
+        "aperture_distance_m": 0.3091328316008324,
+        "rim_crossing": null,
+        "mouth_clearance_m": null,
+        "cutoff_contact_channels": [
+          "robot"
+        ],
+        "rebound_time_s": 0.1775390625,
+        "cutoff_time_s": 0.4270833333333333,
+        "cutoff_position_m": [
+          0.8097257018089294,
+          -0.06953413039445877,
+          0.2571601867675781
+        ],
+        "first_flight_samples": 3834
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.3930855005460442,
+        "nearest_train_id": "policy64-train-00311",
+        "nearest_train_capture": false,
+        "nearest_capture_distance": 0.7393173120625935,
+        "nearest_capture_train_id": "policy64-train-00906",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; first free flight ends at robot contact before an observed descending center-at-rim crossing"
+    },
+    {
+      "id": "physics-ensemble-test-ensemble-physics-ensemble-test-56",
+      "context_id": "physics-ensemble-test-56",
+      "record_id": "physics-ensemble-test-ensemble-physics-ensemble-test-56",
+      "record_sha256": "2ea38eb4f6db5cd9e973fd433f312064b1c0c2cf0df1eb430db936bd35504778",
+      "method": "ensemble",
+      "values": [
+        0.6119402647018433,
+        -0.16431160271167755,
+        0.33102089166641235,
+        21.937971137003245,
+        0.1571040569516942
+      ],
+      "bucket_xy_m": [
+        1.1867626896041263,
+        0.23169633517296562
+      ],
+      "board_bucket_distance_m": 0.6980280130755415,
+      "prediction": {
+        "capture_score": 0.02028862594015408,
+        "disagreement": 0.012153981562454067,
+        "aperture_distance_m": 0.3218249689995679,
+        "rebound_velocity_m_s": [
+          0.9395392894744873,
+          0.008471598289906979,
+          0.9220899701118469
+        ],
+        "ranking_score": 0.0011588820995621675,
+        "member_capture_scores": [
+          0.019454770680908468,
+          0.010898324659018799,
+          0.0037392082270590247,
+          0.030723472979186605,
+          0.03662735315459751
+        ]
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "invalid_physics": false,
+        "board_bounce": true,
+        "pose_gate": {
+          "board_position_error_mm": 6.664001874625056e-05,
+          "board_normal_error_deg": 0.013451071628850184,
+          "dropper_error_mm": 0.00012849233437128827
+        },
+        "max_board_drift_mm": 0.0,
+        "bucket_collider_error_m": 0.0,
+        "rebound_velocity_m_s": [
+          0.8739043029398246,
+          -0.008239239292616718,
+          0.7578883171081543
+        ],
+        "velocity_error_m_s": [
+          0.06563498653466271,
+          0.016710837582523695,
+          0.1642016530036926
+        ],
+        "aperture_distance_m": 0.41702395392001435,
+        "rim_crossing": {
+          "time_s": 0.46650434950611014,
+          "interval_index": 7165,
+          "fraction": 0.5068084138518206,
+          "xy_m": [
+            0.8219832113656614,
+            -0.02249075776076027
+          ]
+        },
+        "mouth_clearance_m": -0.3935193017368138,
+        "cutoff_contact_channels": [
+          "table"
+        ],
+        "rebound_time_s": 0.1775390625,
+        "cutoff_time_s": 0.527734375,
+        "cutoff_position_m": [
+          0.8663249015808105,
+          0.007450925186276436,
+          0.03741879761219025
+        ],
+        "first_flight_samples": 5380
+      },
+      "training_support": {
+        "nearest_normalized_distance": 0.38920480836998317,
+        "nearest_train_id": "policy64-train-00527",
+        "nearest_train_capture": false,
+        "nearest_capture_distance": 0.8026901100433304,
+        "nearest_capture_train_id": "policy64-train-00430",
+        "outside_training_feature_range": [],
+        "scope": "Seven-dimensional Euclidean proximity in fixed model normalization; not a reliability bound or causal explanation"
+      },
+      "diagnosis": "No whole entry; pre-contact center-at-rim clearance -393.5 mm"
+    }
+  ],
+  "findings": [
+    {
+      "status": "observed",
+      "statement": "All25 ensemble native misses had zero whole-ball entry and zero retention.",
+      "evidence": "Original independently audited labels; not a new scoring definition"
+    },
+    {
+      "status": "observed",
+      "statement": "Only 4 of 13 ensemble requests scored at least99% actually captured.",
+      "evidence": "All60 requested ensemble outcomes; rejected setups remain in denominator"
+    },
+    {
+      "status": "observed",
+      "statement": "The first post-board free flight ended at bucket contact in16 misses, robot contact in3, and table contact in6.",
+      "evidence": "Independent dense force-channel scan; contact cutoff is not by itself proof of rim contact or final capture status"
+    },
+    {
+      "status": "paired_observation",
+      "statement": "Case36 kept board XY/height/tilt identical to successful BC, raised drop gap36mm, and missed.",
+      "evidence": "One original nominal shot per action; does not prove a repeatable parameter window"
+    },
+    {
+      "status": "implementation",
+      "statement": "Capture, opening-distance and rebound-velocity heads are independently supervised; ranking does not enforce ballistic consistency.",
+      "evidence": "Frozen model loss and ranking source; not proof this alone caused a particular miss"
+    },
+    {
+      "status": "limitation",
+      "statement": "Small member disagreement is not calibrated confidence; shared training support can create correlated errors.",
+      "evidence": "Five shared-architecture bootstrap members; nearestTRAIN proximity is descriptive, not proof of cause"
+    }
+  ],
+  "next_steps": [
+    "Inspect rebound velocity and aperture ranking on these development cases before another fit.",
+    "Compare a physically constrained flight score with the independent capture head; keep any resulting tuning separate from this frozen evaluation.",
+    "Any changed selector needs new frozen held-out bucket positions. Noise and128-substep testing remain outside this task."
+  ],
+  "geometry": {
+    "ball_radius_m": 0.0375,
+    "inner_top_diameter_m": 0.177,
+    "rim_z_m": 0.18300000141316475,
+    "board_size_m": [
+      0.2,
+      0.3,
+      0.005
+    ],
+    "bucket_height_status": "unresolved: overall height or interior depth"
+  },
+  "processing": {
+    "cuda_used": false,
+    "training": false,
+    "new_native_requests": 0,
+    "source_sha256": "1b481a6b94102eb19c811ba5df53f4f9e8d4c68f602674fe59bd30f9ca3b5be3",
+    "consumed_cache_sha256": {
+      "native-0004.npz": "121b46e917ee3043d2024646d88da13c334393d04b11b666753f65fbc514675a",
+      "native-0005.npz": "68dbe0b0df9f5039f8f9e58eb3827853f90e701188ebf25966db1aee3d798a82",
+      "native-0006.npz": "84236d9b851b7a883a0df6c95c36a0f6ff50e0ff7e7e1f8e555ac6fe2c1efbaf",
+      "native-0007.npz": "96ca751f52ef3adf35198190ea7d2da4d39cf60000fe2b1bfa3222a30417a17d",
+      "native-0008.npz": "2e5000796f9a3fe265cbf560d20e557b01989ac050b2cafd09bf3bc9c983f949",
+      "native-0009.npz": "404811573f7b6f0ba03f8a84a6252a0e19dedda179270f3202bc81f2d40dd5a1"
+    }
+  },
+  "audit": {
+    "version": "sircus-ensemble-flight-diagnosis-checks-v1",
+    "status": "passed",
+    "full_checks_verified": true,
+    "checks_count": 600,
+    "source_sha256": "384d73ca462f0114eb9bcba46757c11b0a116e549c00f518a8e10cfa306c691b",
+    "scope": "Derived diagnostic reconstruction checks; original native labels retain their separate897304-check full audit"
+  }
+}
