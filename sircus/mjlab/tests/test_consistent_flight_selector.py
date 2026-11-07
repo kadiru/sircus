@@ -194,6 +194,70 @@ class ConsistentFlightTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             flight.rank(self.scene, self.calibration, dict(bucket_xy_m=[.9, -.2]), items, [prediction()]*16)
 
+    def test_finite_unsupported_actions_remain_without_fabricated_flights(self):
+        examples = [
+            ([.5, -.2, .3, 30., -.01], [.9, -.2], 'nonpositive_drop_gap'),
+            ([.5, -.2, .3, 30., 0.], [.9, -.2], 'nonpositive_drop_gap'),
+            ([.5, -.2, .3, -1., .2], [.9, -.2], 'tilt_outside_nominal_0_to_90_degrees'),
+            ([.5, -.2, .3, 90., .2], [.9, -.2], 'tilt_outside_nominal_0_to_90_degrees'),
+            ([.5, -.2, .3, 30., .2], [.5, -.2], 'board_bucket_heading_undefined')]
+        for values, bucket, reason in examples:
+            before = copy.deepcopy((values, bucket))
+            with self.subTest(reason=reason, values=values):
+                out = flight.predict_candidate(self.scene, self.calibration, bucket, values, prediction())
+                self.assertEqual(out['members'], [])
+                self.assertEqual(out['complete_rim_band_members'], 0)
+                self.assertEqual(out['nominal_clear_aperture_members'], 0)
+                self.assertFalse(out['launch']['supported_planar_contact'])
+                self.assertIsNone(out['launch']['origin_m'])
+                self.assertEqual(out['missing_reason'], reason)
+                self.assertEqual(out['launch']['missing_reason'], reason)
+                self.assertTrue(all(out[k] is None for k in (
+                    'worst_clearance_m', 'mean_clearance_m', 'minimum_apex_margin_m')))
+                self.assertEqual((values, bucket), before)
+                self.assertNotIn('native_rejected', out)
+                json.dumps(out, allow_nan=False)
+
+    def test_rank_keeps_unsupported_candidate_identity_at_bottom_without_clipping(self):
+        items = [dict(id=f'candidate-{i:02d}', values=[.5, -.2, .3, 30., .2]) for i in range(16)]
+        items[0]['values'][4] = -.01
+        items[1]['values'][3] = 90.
+        preds = [prediction() for _ in items]
+        preds[0]['ranking_score'] = 2.
+        preds[1]['ranking_score'] = 1.
+        before = copy.deepcopy((items, preds))
+        out = flight.rank(self.scene, self.calibration, dict(bucket_xy_m=[.9, -.2]), items, preds)
+        self.assertEqual(out['order'][-2:], [0, 1])
+        self.assertEqual(set(out['order']), set(range(16)))
+        self.assertEqual(out['diagnostics'][0]['candidate_id'], 'candidate-00')
+        self.assertEqual(out['diagnostics'][0]['missing_reason'], 'nonpositive_drop_gap')
+        self.assertEqual(out['diagnostics'][1]['candidate_id'], 'candidate-01')
+        self.assertEqual((items, preds), before)
+
+    def test_original_literal_candidate_with_minus_point_984_mm_gap_is_preserved(self):
+        # Frozen old proposal, not an observed flight and not a modified action.
+        values = [0.6343106041379774, -0.041399632707767114, 0.25271312949501057,
+                  34.56318103656823, -0.000983542560295661]
+        before = values.copy()
+        out = flight.predict_candidate(self.scene, self.calibration,
+            [values[0]+.29519209695938314, values[1]], values, prediction())
+        self.assertEqual(out['missing_reason'], 'nonpositive_drop_gap')
+        self.assertEqual(out['members'], [])
+        self.assertEqual(out['complete_rim_band_members'], 0)
+        self.assertIsNone(out['worst_clearance_m'])
+        self.assertEqual(values, before)
+
+    def test_unsupported_geometry_does_not_hide_malformed_evidence(self):
+        invalid = [.5, -.2, .3, 30., -.01]
+        for raw in (dict(member_raw_output=[]), prediction(score=float('nan'))):
+            with self.assertRaises(ValueError):
+                flight.predict_candidate(self.scene, self.calibration, [.9, -.2], invalid, raw)
+        for values in ([.5, -.2, .3, 30.], [.5, -.2, float('nan'), 30., -.01]):
+            with self.assertRaises(ValueError):
+                flight.predict_candidate(self.scene, self.calibration, [.9, -.2], values, prediction())
+        with self.assertRaises(ValueError):
+            flight.predict_candidate(self.scene, self.calibration, [float('nan'), -.2], invalid, prediction())
+
     def test_import_does_not_load_torch_mujoco_warp_or_initialize_cuda(self):
         code = ('import sys; from sircus.mjlab import consistent_flight_selector; '
                 'assert not any(x in sys.modules for x in ("torch","warp","mujoco","mjlab"))')
