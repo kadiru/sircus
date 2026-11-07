@@ -2,6 +2,15 @@
 
 ## Frozen flight-consistent selector — November 6, 2026
 
+- [Development checkpoint](../baselines/mjlab-consistent-flight-20261106/README.md):
+  all 25 old native misses have a negative predicted opening margin, but so do
+  13 of 24 captures. This conservative proxy ranks candidates; it is not a
+  capture classifier. Case 29: old score 99.654%, new margin −71.5 mm, recorded miss.
+- Corrected preparation retains an old −0.984 mm gap candidate as unsupported
+  without changing it. The failed CPU-only attempt is preserved. Corrected
+  source `efdacccd4fb587312f272d68307e607a406ca4ff` passed 42 focused Python tests
+  locally and on pinned Ubuntu, six UI tests and GitHub CI. Fresh native results
+  remain pending; no model has been activated by this work.
 - [Bounded protocol](../sircus/mjlab/CONSISTENT_FLIGHT.md): same frozen models and
   sixteen candidates; rank nominal whole-sphere aperture geometry from predicted
   rebound velocities. Strict setup/path admission and actual capture scoring are

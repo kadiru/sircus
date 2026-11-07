@@ -1,0 +1,184 @@
+{
+  "version": "sircus-consistent-flight-development-snapshot-v1",
+  "status": "development_only_fresh_native_results_pending",
+  "source_commit": "efdacccd4fb587312f272d68307e607a406ca4ff",
+  "new_training_requests": 0,
+  "new_native_requests": 0,
+  "old_contexts": 84,
+  "changed_model_only_top_candidates": 64,
+  "groups": {
+    "all_old_commands": {
+      "captures": {
+        "requested": 24,
+        "negative_proxy_margin": 13,
+        "missing_proxy_margin": 0
+      },
+      "flight_misses": {
+        "requested": 25,
+        "negative_proxy_margin": 25,
+        "missing_proxy_margin": 0
+      },
+      "setup_rejects": {
+        "requested": 11,
+        "negative_proxy_margin": 9,
+        "missing_proxy_margin": 0
+      }
+    },
+    "score_at_least_99_percent": {
+      "captures": {
+        "requested": 4,
+        "negative_proxy_margin": 1,
+        "missing_proxy_margin": 0
+      },
+      "flight_misses": {
+        "requested": 5,
+        "negative_proxy_margin": 5,
+        "missing_proxy_margin": 0
+      },
+      "setup_rejects": {
+        "requested": 4,
+        "negative_proxy_margin": 3,
+        "missing_proxy_margin": 0
+      }
+    }
+  },
+  "examples": [
+    {
+      "id": "physics-ensemble-test-00",
+      "values": [
+        0.6115702894597901,
+        -0.4305179718202512,
+        0.2671056293048834,
+        36.64761477926166,
+        0.15244992155237552
+      ],
+      "bucket_xy_m": [
+        0.39910839482990035,
+        -0.6236045398282628
+      ],
+      "prediction_capture_score": 0.9947010225280412,
+      "observed_capture": false,
+      "observed_native_release": true,
+      "proxy_margin_m": -0.04408261134202308,
+      "complete_rim_band_members": 5
+    },
+    {
+      "id": "physics-ensemble-test-21",
+      "values": [
+        0.5974010488450489,
+        -0.3579342127281825,
+        0.2708985710304866,
+        31.9434288341625,
+        0.230971044337213
+      ],
+      "bucket_xy_m": [
+        0.21888480325541895,
+        -0.2697230698986402
+      ],
+      "prediction_capture_score": 0.9945472504006843,
+      "observed_capture": false,
+      "observed_native_release": true,
+      "proxy_margin_m": -0.08251809402400945,
+      "complete_rim_band_members": 5
+    },
+    {
+      "id": "physics-ensemble-test-29",
+      "values": [
+        0.5915048718452454,
+        -0.3435669541358948,
+        0.2680986523628235,
+        31.519844899807353,
+        0.26155952009868144
+      ],
+      "bucket_xy_m": [
+        0.24865959966325096,
+        -0.14062195174676895
+      ],
+      "prediction_capture_score": 0.9965375342835813,
+      "observed_capture": false,
+      "observed_native_release": true,
+      "proxy_margin_m": -0.07152422322308333,
+      "complete_rim_band_members": 5
+    },
+    {
+      "id": "physics-ensemble-test-35",
+      "values": [
+        0.6444648685384132,
+        -0.2715833910358414,
+        0.2841673839908147,
+        23.89626057378869,
+        0.19398446657504428
+      ],
+      "bucket_xy_m": [
+        0.691160217464675,
+        -0.10237614744627299
+      ],
+      "prediction_capture_score": 0.9931200334659358,
+      "observed_capture": false,
+      "observed_native_release": true,
+      "proxy_margin_m": -0.06277925058149947,
+      "complete_rim_band_members": 5
+    },
+    {
+      "id": "physics-ensemble-test-39",
+      "values": [
+        0.6143126636989734,
+        -0.4050159403344417,
+        0.2722600963705045,
+        29.941009827136156,
+        0.2158020721416762
+      ],
+      "bucket_xy_m": [
+        0.3606859044806544,
+        -0.3364629288077374
+      ],
+      "prediction_capture_score": 0.9981074711708866,
+      "observed_capture": true,
+      "observed_native_release": true,
+      "proxy_margin_m": 0.005076962172716526,
+      "complete_rim_band_members": 5
+    },
+    {
+      "id": "physics-ensemble-test-49",
+      "values": [
+        0.6029990697897623,
+        -0.35905005418880953,
+        0.2621080394408044,
+        33.12450830471614,
+        0.26483942315651077
+      ],
+      "bucket_xy_m": [
+        0.2211061220464374,
+        -0.2580644204614333
+      ],
+      "prediction_capture_score": 0.9949515310432385,
+      "observed_capture": false,
+      "observed_native_release": true,
+      "proxy_margin_m": -0.07068414368818296,
+      "complete_rim_band_members": 5
+    },
+    {
+      "id": "physics-ensemble-test-55",
+      "values": [
+        0.6332578154838487,
+        -0.37560690265554236,
+        0.27023394961490066,
+        21.505507969999684,
+        0.1549512965653703
+      ],
+      "bucket_xy_m": [
+        0.5674569946929994,
+        -0.5134909819961802
+      ],
+      "prediction_capture_score": 0.9977393327915373,
+      "observed_capture": true,
+      "observed_native_release": true,
+      "proxy_margin_m": -0.06573964445990305,
+      "complete_rim_band_members": 5
+    }
+  ],
+  "source_report_sha256": "9d76ed2225f5e9a659d5b8ef18839207553df87e14980cf0a290707de437b5a6",
+  "source_audit_sha256": "72e5cc9fd4c424896a0c41588b3eec0bd85317ce931cd76e90bd850474f87ebb",
+  "development_sha256": "ee179f88a0a2ca38656a511e3e93bc40133b402f54f4a5db9b843c9922201759",
+  "fresh_contract_fingerprint": "5da3a40113e40e580c85ef6b74f501f2005ad684c6e54eae315d092f6020cc70"
+}
