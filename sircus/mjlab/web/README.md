@@ -329,3 +329,22 @@ trials never increase the new-work counters. The ordinary **Find posture** route
 remains a separate explicit lookup/search; the study does not silently deploy its
 new recipes into that catalogue. The scene shows one selected workcell, rather
 than 35 live simultaneous workcells or an Isaac viewport.
+
+
+## Flight-residual diagnosis panel
+
+`flight-residual-diagnosis.html`, `.css` and `.js` are an additive, read-only
+section at `#flightResidualDiagnosis`. The viewer reads
+`consistent_flight_diagnosis` and optional `gap_coverage_study` from the existing
+`/api/study` response. The diagnosis distinguishes complete captures from late
+container entry with a disallowed robot route, native misses and setup rejection.
+Measured first-flight traces and conditional ballistic predictions have separate
+legends. The original 30 evaluation layouts are now development data.
+
+`prepare_flight_residual_report` authenticates the original frozen comparison,
+its native audit and the derived CPU diagnosis before adding the section's data
+to a separate display file. `prepare_gap_coverage_report` publishes queued and
+provisional progress separately from completed, independently audited results.
+The new 50-position comparison cannot change the existing interactive solver.
+See [diagnosis](../FLIGHT_RESIDUAL_DIAGNOSIS.md) and
+[comparison protocol](../GAP_COVERAGE.md).
