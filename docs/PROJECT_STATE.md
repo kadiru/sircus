@@ -1,5 +1,19 @@
 # Project state
 
+## Frozen flight-consistent selector — November 6, 2026
+
+- [Bounded protocol](../sircus/mjlab/CONSISTENT_FLIGHT.md): same frozen models and
+  sixteen candidates; rank nominal whole-sphere aperture geometry from predicted
+  rebound velocities. Strict setup/path admission and actual capture scoring are
+  unchanged. Ballistic plausibility does not establish capture or robot clearance.
+- Prepare 30 fresh paired bucket layouts × four selectors plus 12 controls,
+  132 requested slots, no fitting. All decisions freeze before outcomes.
+  Original ensemble TEST is now development evidence; no counterfactual capture
+  claims are drawn from changed candidate ranks.
+- Execution uses only the exclusive 4090 slot when free, bounded queue/time/storage;
+  no 4070/Isaac interruption, hardware action, restart or interactive solver change.
+  Live status belongs in the UI, not inferred from this source checkpoint.
+
 ## Ensemble flight diagnosis — November 6, 2026
 
 - [Recorded-flight results and exact cases](../baselines/mjlab-ensemble-flight-diagnosis-20261106/README.md),

@@ -1,0 +1,32 @@
+<!-- Additive read-only selector comparison; never activates a solver. -->
+<!--CONSISTENT_FLIGHT_STUDY_STYLE-->
+<section id="consistentFlightStudy" class="consistent-flight-panel" hidden>
+  <p class="consistent-flight-eyebrow">FROZEN MODELS · GEOMETRY-CONSISTENT SELECTION · FIXED 64 SUBSTEPS</p>
+  <h2>Does the predicted flight reach the opening?</h2>
+  <p data-consistent-flight="connection" class="consistent-flight-small" role="status">Waiting for a read-only snapshot.</p>
+  <p data-consistent-flight="status" class="consistent-flight-note" data-state="unknown" role="status"></p>
+  <p data-consistent-flight="scope" class="consistent-flight-small"></p>
+  <div class="consistent-flight-cards">
+    <div><span>Fresh bucket positions</span><strong data-consistent-flight="positions">unknown</strong></div>
+    <div><span>Requested trials</span><strong data-consistent-flight="progress">unknown</strong></div>
+    <div><span>New training</span><strong data-consistent-flight="training">unknown</strong></div>
+  </div>
+  <p data-consistent-flight="queue" class="consistent-flight-small"></p>
+  <h3>Same new positions, four fixed methods</h3>
+  <div data-consistent-flight="comparison" class="consistent-flight-scroll" tabindex="0" role="region" aria-label="Fresh fixed model comparison results"></div>
+  <p class="consistent-flight-small">Capture requires the measured board bounce, whole-ball entry and one continuous second inside. Rejected setups remain in the denominator. A projected opening margin does not establish capture or retention. Missing results stay unknown.</p>
+  <h3>Why change the selector?</h3>
+  <p class="consistent-flight-small">These original test shots are now development examples. The new rule checks predicted velocity against the bucket opening; it does not refit the model. A different selected shot has an unknown outcome until it is simulated. Negative conservative rim-band margin can still permit a rim-assisted capture.</p>
+  <div data-consistent-flight="development-summary" class="consistent-flight-scroll" tabindex="0" role="region" aria-label="Original development observations and prediction diagnostics"></div>
+  <label class="consistent-flight-small">Recorded example <select data-consistent-flight="case-select" aria-label="Choose a consistent flight development example"></select></label>
+  <p data-consistent-flight="case-result" class="consistent-flight-note"></p>
+  <div data-consistent-flight="case-details" class="consistent-flight-scroll" tabindex="0" role="region" aria-label="Recorded shot and new flight proxy"></div>
+  <p data-consistent-flight="case-note" class="consistent-flight-small"></p>
+  <p class="consistent-flight-small">The margin shown is the worst available member's conservative clearance while the full ball passes through the rim plane. It differs from the earlier predicted closest 3D opening distance and from clearance at the instant the ball center crosses the rim. None predicts later retention.</p>
+  <h3>Evidence and next step</h3>
+  <ul data-consistent-flight="findings" class="consistent-flight-small"></ul>
+  <ul data-consistent-flight="next-steps" class="consistent-flight-small"></ul>
+  <details><summary>Provenance and verification</summary><p data-consistent-flight="audit" class="consistent-flight-small"></p><div data-consistent-flight="provenance" class="consistent-flight-small"></div></details>
+  <p class="consistent-flight-small">Simulation only, privileged geometry and held arm endpoints. This panel does not start training, launch shots or change the interactive solver. Driven arm movement, physical transfer, noise and 128-substep qualification remain separate. The reported 175 mm bucket height remains provisional.</p>
+</section>
+<!--CONSISTENT_FLIGHT_STUDY_SCRIPT-->

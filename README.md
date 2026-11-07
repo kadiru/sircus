@@ -1,5 +1,9 @@
 # Sircus — Simple Circus
 
+**Next bounded selector comparison:** [frozen velocity + aperture ranking](sircus/mjlab/CONSISTENT_FLIGHT.md),
+30 fresh bucket positions, four selectors, 132 total requests including controls.
+No new fit or scoring change; queued/native results are separately audited.
+
 **Ensemble flight diagnosis:** [concrete recorded misses and prediction errors](baselines/mjlab-ensemble-flight-diagnosis-20261106/README.md).
 Only 4/13 ensemble requests scored at least 99% captured. All 25 native misses
 failed whole-ball entry; the UI separates observed flights, independent model
