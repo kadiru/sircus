@@ -1,5 +1,12 @@
 # Sircus — Simple Circus
 
+**Ensemble flight diagnosis:** [concrete recorded misses and prediction errors](baselines/mjlab-ensemble-flight-diagnosis-20261106/README.md).
+Only 4/13 ensemble requests scored at least 99% captured. All 25 native misses
+failed whole-ball entry; the UI separates observed flights, independent model
+heads and conditional ballistic diagnostics. Case 36 changed only drop gap by
+36 mm relative to a successful BC shot and missed. CPU analysis only: no new
+training or native shots; the occupied 4090, Isaac and 4070 were left untouched.
+
 **Physics-ensemble comparison completed:** [checkpoint, results and audit](baselines/mjlab-physics-ensemble-20261106/README.md).
 All 264 fixed64 requests completed; the independent audit passed 897,304 checks.
 On the same 60 fresh TEST bucket positions, BC captured 23/60, PPO 26/60 and

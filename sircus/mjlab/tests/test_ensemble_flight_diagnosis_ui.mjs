@@ -34,7 +34,7 @@ test('case renderer preserves exact poses, distinguishes measured quantities fro
 
 test('missing traces forecasts and outcome measurements stay unknown rather than fabricated',()=>{
  const raw=fixture(),d=dom();delete raw.cases[0].trace;delete raw.cases[0].observed.whole_entry;delete raw.cases[0].observed.rim_crossing;delete raw.cases[0].observed.mouth_clearance_m;ui.renderEnsembleFlightDiagnosis(d.root,raw);
- assert.ok(d.get('flight-caption').textContent.includes('No finite, identity-matched'));assert.ok(d.get('case-result').textContent.includes('whole-ball entry unknown'));assert.ok(d.get('crossing').textContent.includes('none / unavailable'));assert.ok(d.get('crossing').textContent.includes('(necessary only) unknown mm'));
+ assert.ok(d.get('flight-caption').textContent.includes('No finite, identity-matched'));assert.ok(d.get('case-result').textContent.includes('whole-ball entry unknown'));assert.ok(d.get('crossing').textContent.includes('none / unavailable'));assert.ok(d.get('crossing').textContent.includes('(diagnostic only) unknown mm'));
  const noForecast=fixture();noForecast.cases[0].forecasts=[];ui.renderEnsembleFlightDiagnosis(d.root,noForecast);assert.ok(d.get('flight-caption').textContent.includes('none is invented'));
  raw.cases=[];ui.renderEnsembleFlightDiagnosis(d.root,raw);assert.ok(d.get('case-result').textContent.includes('No diagnostic'));assert.equal(d.get('case-select').disabled,true);
  raw.audit.status='failed';ui.renderEnsembleFlightDiagnosis(d.root,raw);assert.equal(d.get('status').attrs['data-state'],'failed');ui.renderEnsembleFlightDiagnosis(d.root,null);assert.equal(d.root.hidden,true);
@@ -43,7 +43,7 @@ test('missing traces forecasts and outcome measurements stay unknown rather than
 test('HTML and source retain post-hoc scopes and provide read-only accessible plots and tables',()=>{
  const html=readFileSync(new URL('../web/ensemble-flight-diagnosis.html',import.meta.url),'utf8'),css=readFileSync(new URL('../web/ensemble-flight-diagnosis.css',import.meta.url),'utf8');
  for(const phrase of ['id="ensembleFlightDiagnosis"','<!--ENSEMBLE_FLIGHT_DIAGNOSIS_STYLE-->','<!--ENSEMBLE_FLIGHT_DIAGNOSIS_SCRIPT-->','uncalibrated prediction','now diagnostic development data','ballistic extrapolations','not learned dense trajectories','No new native counterfactual','All native ensemble misses','175 mm bucket height remains provisional','Fixed 64 substeps'])assert.ok(html.includes(phrase),phrase);
- assert.ok(css.includes('overflow-x:auto'));for(const bad of ['/api/solve','/api/control','/api/predict','activatePolicy','startTraining','</script'])assert.ok(!source.includes(bad),bad);
+ assert.ok(css.includes('overflow-x:auto'));assert.match(css,/\.ensemble-flight-panel\{[^}]*min-width:0;[^}]*grid-column:1\/-1;[^}]*width:100%;[^}]*max-width:100%;[^}]*box-sizing:border-box;[^}]*overflow-wrap:anywhere;/);assert.match(css,/\.ensemble-flight-scroll\{[^}]*min-width:0;[^}]*max-width:100%;[^}]*overflow-x:auto/);assert.ok(css.includes('.ensemble-flight-plots>div{min-width:0;max-width:100%}'));for(const bad of ['/api/solve','/api/control','/api/predict','activatePolicy','startTraining','</script'])assert.ok(!source.includes(bad),bad);
 });
 
 test('poller only reads snapshots, exposes stale data and stops without mutating other report keys',async()=>{
