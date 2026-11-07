@@ -47,6 +47,20 @@ test('separate gap correction needs its own complete bound native audit',()=>{
  const d=dom();ui.renderFlightResidualDiagnosis(d.root,fixture(),correction());assert.equal(d.get('correction-status').attrs['data-state'],'passed');const pending=correction();pending.status='queued';pending.comparisons=[];delete pending.audit;ui.renderFlightResidualDiagnosis(d.root,fixture(),pending);assert.equal(d.get('correction-status').attrs['data-state'],'unknown');assert.ok(d.get('correction-status').textContent.includes('provisional'));assert.ok(d.tableRows('correction').every(r=>r[1]==='unknown / unknown'));
 });
 
+test('correction progress reports prepared layouts, queue wait and requests without implying verification',()=>{
+ const d=dom(),r=correction();delete r.audit;r.comparisons=[];
+ for(const [status,fields,expected] of [
+   ['preparing',{planned_layouts:19},'preparing 19 / 50 layouts'],
+   ['queued',{planned_layouts:50,queue:{reason:'Existing work active',wait_s:125}},'50 / 50 layouts prepared; waiting for RTX 4090 (125 s elapsed)'],
+   ['running',{counts:{requested:23}},'running 23 / 112 requests'],
+   ['running',{counts:{requested:112}},'running 112 / 112 requests'],
+ ]){const pending={...r,status,...fields};ui.renderFlightResidualDiagnosis(d.root,fixture(),pending);assert.ok(d.get('correction-status').textContent.includes(expected));assert.ok(d.get('correction-status').textContent.includes('provisional until the matching audit passes'));assert.equal(d.get('correction-status').attrs['data-state'],'unknown');}
+ for(const planned_layouts of [undefined,null,-1,51,NaN,'50']){ui.renderFlightResidualDiagnosis(d.root,fixture(),{...r,status:'preparing',planned_layouts});assert.ok(d.get('correction-status').textContent.includes('unknown / 50'));}
+ for(const requested of [undefined,null,-1,113,NaN,'20']){ui.renderFlightResidualDiagnosis(d.root,fixture(),{...r,status:'running',counts:{requested}});assert.ok(d.get('correction-status').textContent.includes('unknown / 112'));}
+ for(const wait_s of [undefined,null,-1,Infinity,'25']){ui.renderFlightResidualDiagnosis(d.root,fixture(),{...r,status:'queued',planned_layouts:50,queue:{wait_s}});assert.ok(d.get('correction-status').textContent.includes('waiting for RTX 4090'));assert.ok(!d.get('correction-status').textContent.includes('s elapsed'));}
+ ui.renderFlightResidualDiagnosis(d.root,fixture(),r);assert.ok(d.tableRows('prediction')[0][0].includes('uncalibrated diagnostic'));assert.ok(d.get('selection').textContent.includes('diagnostic only, not a calibrated selector probability'));
+});
+
 test('fragment is responsive, scoped, accessible and only consumes read-only snapshots',()=>{
  const html=readFileSync(new URL('../web/flight-residual-diagnosis.html',import.meta.url),'utf8'),css=readFileSync(new URL('../web/flight-residual-diagnosis.css',import.meta.url),'utf8');
  for(const s of ['id="flightResidualDiagnosis"','<!--FLIGHT_RESIDUAL_DIAGNOSIS_STYLE-->','<!--FLIGHT_RESIDUAL_DIAGNOSIS_SCRIPT-->','whole-ball entry','no native flight','not a new evaluation','conditional ballistic','different quantities','development data','fresh held-out','175 mm bucket height remains provisional','other 14 proposals'])assert.ok(html.includes(s),s);

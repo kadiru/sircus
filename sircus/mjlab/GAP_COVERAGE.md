@@ -65,3 +65,14 @@ authenticated parent, original ensemble and consistent-flight studies/audits,
 frozen native source/assets, existing GPU lock, existing display and a new output
 namespace. Raw records, checkpoints copied for execution, logs and runtime state
 remain outside Git.
+
+
+## Execution checkpoint
+
+The frozen runtime subset at `fb86eea5fb19635194656694d3437380beb16339`
+passed 65 focused CPU tests in Ubuntu's pinned environment. The full local
+repository suite passed with optional dependency skips; the follow-up publisher
+guards passed 40 focused checks and GitHub CI passed. The bounded pipeline was
+started in a new namespace on November 7, 2026. CPU preparation precedes GPU
+acquisition; source publishing and a running supervisor do not establish completed
+shots or a performance improvement. Use the live panel for current status.
