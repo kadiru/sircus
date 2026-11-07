@@ -1,5 +1,66 @@
 # Project state
 
+## Fifty-position wider-gap comparison completed — November 7, 2026
+
+- [Audited result and provenance](../baselines/mjlab-gap-coverage-20261107/README.md):
+  both frozen selectors captured **24/50 (48%)**. Clean captures: original 13,
+  wider-gap 11. Each had eight setup rejects and eighteen native misses; no
+  invalid physics. Paired result: 23 shared captures, 25 neither, one gain, one loss.
+  Nineteen selected actions changed. There is no observed capture improvement.
+- All 112 requests/96 native releases completed, including 12 passing controls.
+  Independent CPU v2 audit passed 1,441,075 checks. The original v1 failure was
+  a 0.0000021046-degree float32 reconstruction difference against a mixed-unit
+  tolerance. The repaired audit uses normalized action units and strict saved
+  action identities; original source, results, scoring and failed proof remain
+  unchanged. No new native shots or fitting occurred during recovery.
+- Existing `#flightResidualDiagnosis` UI now shows verified captures, clean
+  captures and paired outcomes. The interactive solver was not switched;
+  services, 4070 and Isaac workloads were not restarted or modified.
+- Work boundary: this 112-request mjlab candidate test is separate from the
+  Isaac chat's 60,000-TRAIN-request, three-seed sweep/PPO benchmark. Same overall
+  task, different experiment/engine; no directly comparable winner claim.
+  Keep original selection as baseline. Further changes require a new bounded
+  test; these 50 results become development evidence if used for tuning.
+
+## Flight residual diagnosis and gap-coverage comparison — November 7, 2026
+
+- The completed 30-position comparison is now authenticated: **132 total
+  requests, 116 native releases, 485,047 independent native checks passed**.
+  On the same 30 TEST layouts, consistent-flight selection captured **17/30**
+  (six clean), versus imitation 14/30, PPO 14/30 and old ensemble selection 13/30.
+  These are one-shot paired results, not repeatability or all-table coverage.
+- [Scalar results and provenance](../baselines/mjlab-flight-residual-20261107/README.md),
+  [diagnosis method](../sircus/mjlab/FLIGHT_RESIDUAL_DIAGNOSIS.md). New CPU diagnosis
+  passed **802 binding/reconstruction checks**, with zero new native shots or
+  fitting. All 30 requests and four paired methods remain accounted for.
+- The consistent selector had four setup rejects and nine native route failures.
+  Eight never achieved whole-ball entry. Case20 entered and retained for one
+  second but had robot contact, so the unchanged complete-route rule rejected it.
+  First-flight cutoffs were bucket five, table three and robot one; contact channel
+  alone does not identify a rim hit. Three rejects were finite IK failures and one
+  failed strict endpoint clearance/pose admission; these do not prove impossibility.
+- All sixteen model proposals had negative aperture margins at each of the nine
+  failed native layouts. This suggests testing candidate coverage, not that a
+  negative margin proves failure. Nominal-versus-measured rebound-origin differences
+  were only about 1.03–1.71 mm for those misses; causal attribution remains open.
+- [Next bounded comparison](../sircus/mjlab/GAP_COVERAGE.md): 50 newly frozen layouts,
+  seed `20261801`, two methods and **112 requested slots including 12 controls**.
+  Only candidate slots08/09 change from imitation-gap ±36 mm to anchor-gap ±120 mm;
+  fourteen other proposals, model weights, ranking, native64 physics, scoring and
+  the 16-candidate/top-four geometry budget stay fixed. No fresh results are
+  published yet. The previous 30 TEST positions are now development data.
+- The new worker waits for the existing 4090 lock and foreign workload; queue
+  expires after 24 hours and acquired work is capped at one hour. Isaac and the
+  4070 remain separate. Live queue/results belong in `#flightResidualDiagnosis`,
+  including its nested gap-coverage section; no service restart, hardware action, interactive solver
+  activation, 128-substep, noise or perception validation accompanies this work.
+
+- Execution snapshot `fb86eea5fb19635194656694d3437380beb16339` passed 65
+  focused CPU tests in the pinned Ubuntu environment and GitHub CI. Its bounded
+  pipeline was started in a new namespace on November 7; CPU planning precedes
+  the exclusive-GPU queue. This is a launch checkpoint, not a completed result.
+  The existing viewer reads progress without a service restart.
+
 ## Frozen flight-consistent selector — November 6, 2026
 
 - [Development checkpoint](../baselines/mjlab-consistent-flight-20261106/README.md):
@@ -304,7 +365,7 @@
 - Strict5mm endpoints and calibrated dense scoring remain unchanged; held endpoints
   do not validate arm transit or actuator motion. Finite IK failures do not prove
   the requested poses physically unreachable, nor does this sweep prove650mm impossible.
-- Additive read-only `clean650_study` UI key; existing services,4070 and Isaac
+- Additive read-only `clean650_study` UI key; existing services, 4070 and Isaac
   configuration are preserved.
 - Draft [PR69](https://github.com/kadiru/sircus/pull/69) remains stacked on PR65;
   all source and curated results are separate from raw runtime observations.

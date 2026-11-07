@@ -1,0 +1,49 @@
+<!-- Additive read-only diagnostic; immutable comparison remains unchanged. -->
+<!--FLIGHT_RESIDUAL_DIAGNOSIS_STYLE-->
+<section id="flightResidualDiagnosis" class="flight-residual-panel" hidden>
+  <p class="flight-residual-eyebrow">FROZEN COMPARISON · RECORDED FAILURES · BEFORE MORE TRAINING</p>
+  <h2>What still prevents a capture?</h2>
+  <p data-flight-residual="connection" class="flight-residual-small" role="status">Waiting for a read-only snapshot.</p>
+  <p data-flight-residual="status" class="flight-residual-note" data-state="unknown" role="status"></p>
+  <p data-flight-residual="scope" class="flight-residual-small"></p>
+  <h3>The completed comparison</h3>
+  <p data-flight-residual="comparison-total" class="flight-residual-small"></p>
+  <div data-flight-residual="comparison" class="flight-residual-scroll" tabindex="0" role="region" aria-label="Original paired comparison of four frozen selectors"></div>
+  <p class="flight-residual-small">Capture means an observed board bounce, whole-ball entry and one continuous second inside, with no disallowed robot, table or floor contact. Setup rejects stay in the denominator. These are the original paired outcomes, not a new evaluation. A small numerical lead does not establish a reliable winner.</p>
+  <div class="flight-residual-cards">
+    <div><span>Flight-consistent captures</span><strong data-flight-residual="captures">unknown</strong></div>
+    <div><span>Native flight misses</span><strong data-flight-residual="misses">unknown</strong></div>
+    <div><span>Setup rejections</span><strong data-flight-residual="rejects">unknown</strong></div>
+  </div>
+  <h3>Where the remaining requests failed</h3>
+  <p data-flight-residual="funnel" class="flight-residual-small"></p>
+  <div data-flight-residual="failures" class="flight-residual-scroll" tabindex="0" role="region" aria-label="Every residual native miss and setup rejection"></div>
+  <p class="flight-residual-small">The first-flight cutoff identifies the next measured contact channel, not the final cause of failure. A bucket contact alone does not distinguish rim from wall. Rejected setups have no native flight; missing measurements remain unknown.</p>
+  <h3>A concrete recorded example</h3>
+  <label class="flight-residual-small">Example <select data-flight-residual="case-select" aria-label="Choose a residual flight diagnosis example"></select></label>
+  <p data-flight-residual="case-result" class="flight-residual-note"></p>
+  <div data-flight-residual="configuration" class="flight-residual-scroll" tabindex="0" role="region" aria-label="Recorded bucket and board configuration"></div>
+  <div data-flight-residual="prediction" class="flight-residual-scroll" tabindex="0" role="region" aria-label="Predicted and observed rebound quantities"></div>
+  <div class="flight-residual-plots">
+    <div><h4>Flight towards the bucket</h4><canvas data-flight-residual="flight" width="760" height="330" role="img" aria-label="Recorded ball height against forward distance with labeled conditional forecasts"></canvas></div>
+    <div><h4>Sideways motion</h4><canvas data-flight-residual="lateral" width="760" height="330" role="img" aria-label="Recorded and conditional ball flight projected into the table plane"></canvas></div>
+  </div>
+  <p data-flight-residual="flight-caption" class="flight-residual-small"></p>
+  <p class="flight-residual-small">Solid teal is saved native simulation. Dashed curves are conditional ballistic calculations, not new simulator runs or full learned trajectories. Predicted rim-band clearance and observed center-at-rim clearance are different quantities; neither alone proves retention. The 175 mm bucket height remains provisional.</p>
+  <p data-flight-residual="selection" class="flight-residual-small"></p>
+  <p data-flight-residual="candidate-coverage" class="flight-residual-small"></p>
+  <p data-flight-residual="diagnosis" class="flight-residual-note"></p>
+  <h4>Other frozen methods at this bucket position</h4>
+  <div data-flight-residual="references" class="flight-residual-scroll" tabindex="0" role="region" aria-label="Paired original method outcomes and actions"></div>
+  <p class="flight-residual-small">These are original observed contrasts. Different actions can change several parameters together; the comparison does not prove one parameter caused a capture or miss.</p>
+  <h3>One correction: cover more drop gaps</h3>
+  <p class="flight-residual-small">This comparison changes two gap candidates while keeping the 16-candidate budget, the other 14 proposals, frozen models and scoring fixed. It evaluates 50 fresh paired positions; the original 30 positions above are development data.</p>
+  <p data-flight-residual="correction-status" class="flight-residual-note" role="status"></p>
+  <div data-flight-residual="correction" class="flight-residual-scroll" tabindex="0" role="region" aria-label="Separate fresh gap coverage comparison"></div>
+  <h3>Evidence and next correction</h3>
+  <div data-flight-residual="findings" class="flight-residual-scroll" tabindex="0" role="region" aria-label="Observed findings and separate hypotheses"></div>
+  <ul data-flight-residual="next-steps" class="flight-residual-small"></ul>
+  <details><summary>Source and diagnostic verification</summary><p data-flight-residual="audit" class="flight-residual-small"></p></details>
+  <p class="flight-residual-small">These test layouts are now development data. A changed selector needs a fresh held-out evaluation. This panel performs no training, launches no shots and changes no policy. Fixed 64 substeps, privileged geometry and held endpoints only; driven transit, perception, noise, 128-substep qualification and physical transfer remain separate.</p>
+</section>
+<!--FLIGHT_RESIDUAL_DIAGNOSIS_SCRIPT-->
