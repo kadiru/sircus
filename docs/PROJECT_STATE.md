@@ -33,6 +33,12 @@
   including its nested gap-coverage section; no service restart, hardware action, interactive solver
   activation, 128-substep, noise or perception validation accompanies this work.
 
+- Execution snapshot `fb86eea5fb19635194656694d3437380beb16339` passed 65
+  focused CPU tests in the pinned Ubuntu environment and GitHub CI. Its bounded
+  pipeline was started in a new namespace on November 7; CPU planning precedes
+  the exclusive-GPU queue. This is a launch checkpoint, not a completed result.
+  The existing viewer reads progress without a service restart.
+
 ## Frozen flight-consistent selector — November 6, 2026
 
 - [Development checkpoint](../baselines/mjlab-consistent-flight-20261106/README.md):

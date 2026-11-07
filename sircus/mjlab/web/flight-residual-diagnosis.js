@@ -78,7 +78,7 @@ function drawCase(root,c) {
   text(root,'case-result',`${c.context_id||c.id||'unknown'} · ${outcome(o)} · whole-ball entry ${truth(o.whole_entry)} · retention ${fmt(o.retention_s,3)} s.`);
   table(root,'configuration',['Bucket X / Y mm','Board X / Y mm','Board height mm','Tilt °','Drop gap mm'],[[vector(c.bucket_xy_m,2)?c.bucket_xy_m.map(mm).join(' / '):'unknown',vector(v,5)?v.slice(0,2).map(mm).join(' / '):'unknown',mm(v?.[2]),fmt(v?.[3],3),mm(v?.[4])]]);
   table(root,'prediction',['Quantity','Prediction / nominal geometry','Recorded observation'],[
-    ['Capture score (uncalibrated)',pct(p.capture_score),outcome(o)],
+    ['Capture head score (uncalibrated diagnostic)',pct(p.capture_score),outcome(o)],
     ...['Forward rebound m/s','Lateral rebound m/s','Vertical rebound m/s'].map((name,i)=>[name,fmt(p.rebound_velocity_m_s?.[i],4),fmt(o.rebound_velocity_m_s?.[i],4)]),
     ['Conservative whole-ball rim-band margin mm',mm(p.proxy_aperture_margin_m),'Different from center-at-rim margin'],
     ['Center-at-rim clearance mm','Different from rim-band margin',mm(o.mouth_clearance_m)],
@@ -89,7 +89,7 @@ function drawCase(root,c) {
     plot(root,'flight',[...series.map(s=>({...s,points:s.points.map(p=>[p[0],p[2]])})),...marker],true);plot(root,'lateral',series.map(s=>({...s,points:s.points.map(p=>[p[0],p[1]])})),false);
     text(root,'flight-caption',`Solid teal: ${view.actual.length} saved first-flight samples, ${fmt(view.times[0],4)}–${fmt(view.times.at(-1),4)} s. ${view.forecasts.map((f,i)=>`Dashed ${labels[i%labels.length]}: ${f.label}; ${f.basis}.`).join(' ')||'No matching conditional forecast was supplied.'} Native record ${c.record_id}; cache ${c.trace.native_cache_sha256}. These projections do not reconstruct later collisions or retention.`);
   }else{plot(root,'flight',[],true);plot(root,'lateral',[],false);text(root,'flight-caption','No identity-matched finite native trace is available for this request. No flight is invented.');}
-  const s=c.selection||{};text(root,'selection',`Candidate ${s.selected_candidate_id||'unknown'} · rank ${count(s.rank)} · geometry checks ${count(s.geometry_checks)}. Geometry reason: ${s.geometry_reason||'none supplied'}. Context reason: ${s.context_reason||'none supplied'}.`);
+  const s=c.selection||{};text(root,'selection',`Candidate ${s.selected_candidate_id||'unknown'} · rank ${count(s.rank)} · geometry checks ${count(s.geometry_checks)}. Geometry reason: ${s.geometry_reason||'none supplied'}. Context reason: ${s.context_reason||'none supplied'}. The capture head is diagnostic only, not a calibrated selector probability.`);
   const bank=c.candidate_coverage||{};text(root,'candidate-coverage',`Frozen proposal bank: ${count(bank.candidates)} candidates; ${count(bank.nonnegative_proxy_candidates)} predicted nonnegative rim-band margins. Best model margin ${mm(bank.best_proxy_margin_m)} mm. Drop gaps span ${mm(bank.gap_min_m)}–${mm(bank.gap_max_m)} mm; anchor ${mm(bank.anchor_gap_m)} mm. This describes model proposals, not measured feasibility or untried-shot success.`);
   text(root,'diagnosis',typeof c.diagnosis==='string'?c.diagnosis:'No diagnostic interpretation supplied.');
   table(root,'references',['Frozen method','Board X / Y / height mm / tilt / gap mm','Observed outcome','Whole-ball entry','Retention s'],rows(c.references).map(r=>[names[r?.method]||r?.method||'unknown',shot(r?.values),outcome(r?.observed),truth(r?.observed?.whole_entry),fmt(r?.observed?.retention_s,3)]));
@@ -116,7 +116,13 @@ export function gapCoverageReady(raw) {
 }
 function renderGapCoverage(root,raw) {
   const ready=gapCoverageReady(raw),known=raw?.version==='sircus-gap-coverage-study-v1',failed=known&&(raw.status==='failed'||raw.audit?.passed===false);
-  const state=ready?'Fresh gap-coverage comparison completed and independently verified.':failed?'Gap-coverage run or audit failed; results remain provisional.':known?`Gap-coverage comparison: ${raw.status||'unknown'}; results are provisional until the matching audit passes.`:'The gap-coverage correction has no published native result yet.';
+  const progress=(value,total)=>`${integer(value)&&value<=total?value:'unknown'} / ${total}`;
+  const wait=finite(raw?.queue?.wait_s)&&raw.queue.wait_s>=0?` (${fmt(raw.queue.wait_s,0)} s elapsed)`:'';
+  const detail=raw?.status==='preparing'?`preparing ${progress(raw.planned_layouts,50)} layouts`
+    :raw?.status==='queued'?`${progress(raw.planned_layouts,50)} layouts prepared; waiting for RTX 4090${wait}`
+    :raw?.status==='running'?`running ${progress(raw.counts?.requested,112)} requests`
+    :raw?.status||'unknown';
+  const state=ready?'Fresh gap-coverage comparison completed and independently verified.':failed?'Gap-coverage run or audit failed; results remain provisional.':known?`Gap-coverage comparison: ${detail}; results are provisional until the matching audit passes.`:'The gap-coverage correction has no published native result yet.';
   text(root,'correction-status',state);at(root,'correction-status')?.setAttribute('data-state',ready?'passed':failed?'failed':'unknown');
   table(root,'correction',['Frozen method','Captures / requested','Capture rate','Setup rejects','Native misses'],['consistent','gap_coverage'].map(method=>{const c=known?rows(raw.comparisons).find(r=>r?.method===method)?.counts||{}:{};return[method==='consistent'?'Original flight-consistent rank':'Expanded gap proposals',`${count(c.captures)} / ${count(c.requested)}`,integer(c.requested)&&c.requested>0&&integer(c.captures)?pct(c.captures/c.requested):'unknown',count(c.rejected),count(c.native_misses)];}));
 }
