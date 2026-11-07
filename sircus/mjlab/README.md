@@ -1,5 +1,13 @@
 # Sircus in mjlab
 
+Latest: [50-position failure diagnosis](../../docs/MJLAB_GAP_FLIGHT_DIAGNOSIS_20261107.md)
+separates 18 flight failures (robot9 / bucket6 / table3 first subsequent contacts)
+from eight setup rejections. Four retained balls failed the complete route after
+robot contact. The new `#gapFlightDiagnosis` panel shows concrete examples and
+all50 requests. A prespecified +60mm release-gap correction for three early robot
+contacts is queued for the4090:30 total requests with matched repeats and controls,
+no new training. Original24/50 results remain unchanged; correction outcomes pending.
+
 Latest: [flight-miss diagnosis](FLIGHT_RESIDUAL_DIAGNOSIS.md) of the completed
 flight-consistent selector comparison: 17/30 complete captures, nine native
 misses and four setup rejections. Eight misses never entered; one was retained
