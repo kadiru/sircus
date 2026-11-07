@@ -106,3 +106,73 @@ TRAIN wall or treat them as a second total. RSS is a process-lifetime high-water
 measurement; GPU occupancy includes the simulator/rendering context and is not
 policy-only memory. Recording and subsequent independent audits are identified
 separately. See the [frozen protocol](../../sircus/isaac/SWEEP_PPO_10K.md).
+
+## Second PPO seed addendum — November 7, 2026
+
+The second PPO run, seed **20261122**, completed its prescribed 10,000 TRAIN
+requests and passed the unchanged original independent auditor. This addendum
+preserves the first-pair JSON and both earlier model files byte-for-byte. Three
+of six production runs are now complete and audited; the remaining runs retain
+their original budgets, source, split, reward and evaluation protocol. This is
+still an interim benchmark, with no method winner or model promotion.
+
+| Final metric | PPO seed 20261121 | PPO seed 20261122 |
+|---|---:|---:|
+| Paid TRAIN requests, including rejects | 10,000 | 10,000 |
+| TRAIN captures | 1,535 | 1,534 |
+| TRAIN clean captures | 439 | 485 |
+| TRAIN rejected setups | 6,549 | 6,344 |
+| Optimizer updates | 73 | 73 |
+| Frozen validation captures / 35 | 11 | 12 |
+| Frozen validation clean captures / 35 | 4 | 5 |
+| Frozen TEST captures / 70 | 28 (40.0%) | 28 (40.0%) |
+| Frozen TEST clean captures / 70 | 10 (14.3%) | 7 (10.0%) |
+| Frozen TEST rejected setups | 18 | 17 |
+| Full TRAIN method wall, seconds | 21,545.1 | 22,663.2 |
+| Lifetime peak process RSS, MiB | 7,408.9 | 7,448.7 |
+| Sampled whole-device occupied GPU memory, MiB | 6,216.1 | 6,217.4 |
+
+Both PPO seeds captured at 28 of the same 70 prescribed TEST coordinates, with
+different clean-capture counts. Equal aggregate counts do not establish equal
+per-position behavior. These repeated seeds are not 140 independently sampled
+TEST positions. The second paired sweep is still outstanding at this checkpoint;
+the first sweep's 23/70 TEST result remains an interim reference.
+
+| TRAIN requests before assessment | PPO seed 20261122 VAL / 35 |
+|---:|---:|
+| 0 | 3 |
+| 1,000 | 4 |
+| 2,500 | 5 |
+| 5,000 | 8 |
+| 10,000 | 12 |
+
+New files:
+
+- `second-ppo.json`: all 289 aggregate learning-curve points, five frozen
+  assessments, phase-separated resources, original source/scoring identities,
+  the independent audit bindings and four prescheduled native video receipts.
+  It supplements `first-pair.json`; it does not replace or relabel it.
+- `ppo-seed20261122.pt`: exact final actor/critic and training-state checkpoint,
+  136,545 bytes. SHA256:
+  `57d7658e9ed2f72ad09cf4e8523ab497ccbe0708364f1b8ec4a4c5c1aef1fe9f`.
+- `manifest.json`: additive checksums for those two files; all existing model
+  and result checksums remain unchanged.
+
+The canonical second-PPO audit SHA256 is
+`cec9cff0a6de59b07dd35de3342ee00bc4106d4801edc0237c570e006aedc1c8`.
+It verified 10,000 paid TRAIN requests, 420 separate assessment requests,
+73 updates, 3,889 released trajectories and 414 camera readbacks. Maximum CPU
+likelihood error was 5.90e-6. The packaged checkpoint matches both the audit and
+the final frozen assessment. Full raw audits, observations and video files stay
+outside Git; the existing read-only interface exposes the video chapters.
+
+CPU-only loading through the original guarded loader passed with seed 20261122,
+73 updates and 10,000 attempted shots. All policy weights and a test inference
+were finite on CPU; incompatible study, geometry and action-domain fingerprints
+were rejected. CUDA remained uninitialized, and this check spent zero physics
+trials. The first-pair load command above can also load the new checkpoint by
+using `second-ppo.json` and `ppo-seed20261122.pt`, then checking seed 20261122.
+
+All capture, geometry, privileged-input, scripted-motion and resource-scope
+limitations above continue to apply. New-ball adaptation, perception and
+physical deployment remain outside this frozen benchmark.

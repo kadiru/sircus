@@ -6,6 +6,58 @@ stage, driven setup controller, full articulation release gates and qualified
 one-second capture definition. Only the experiment, terminal miss feedback and
 learning/search methods change. No physical hardware or Viam is involved.
 
+## Second PPO completion checkpoint — November 7, 2026
+
+Both PPO seeds below completed exactly 10,000 paid TRAIN requests, 73 updates
+and 420 separate frozen evaluation requests, and passed the unchanged original
+independent audit in the producer runtime. Each uses its prescribed final
+checkpoint; validation did not select it and TEST used no shot search or retries.
+
+| Frozen evaluation | PPO seed 20261121 | PPO seed 20261122 |
+|---|---:|---:|
+| Validation captures at 0 / 1k / 2.5k / 5k / 10k TRAIN, each /35 | 3 / 5 / 7 / 10 / 11 | 3 / 4 / 5 / 8 / 12 |
+| Final unseen TEST captures /70 | 28 (40%) | 28 (40%) |
+| Final TEST clean captures /70 | 10 | 7 |
+| Final TEST rejected setups /70 | 18 | 17 |
+| Paid TRAIN rejected setups /10,000 | 6,549 | 6,344 |
+| Full TRAIN wall, excluding evaluation | 5.985 h | 6.295 h |
+| Native elapsed, including evaluation/recording | 6.287 h | 6.560 h |
+| Lifetime peak process RSS | 7,408.9 MiB | 7,448.7 MiB |
+| Sampled occupied GPU memory, headless episodes | 6,216.1 MiB | 6,217.4 MiB |
+
+The policies share 26 successful TEST positions, with two additional captures
+unique to each seed. Both runs use the same 70 TEST coordinates; these are two
+training-seed repeats, not 140
+independent layouts. Their descriptive TEST capture-rate seed SD is zero; that
+does not establish certainty or broad robustness. Clean captures differ. The
+first sweep seed captured 23/70, with 15 clean; two sweep seeds and one PPO seed
+still remain, so the paired three-seed benchmark is not complete.
+
+Episode-only headless/render intervals include evaluation and exclude outside
+learner/proposal/checkpoint calls; they are not additive to full TRAIN wall.
+RSS is a process lifetime high-water mark and GPU usage is sampled whole-device
+occupancy, not isolated phase peaks or policy memory. Full scoped measurements,
+aggregate curves and exact final models are in the
+[compact evidence package](../../baselines/isaac-sweep-ppo-10k-20261106/README.md).
+
+Second-PPO original audit SHA256:
+`cec9cff0a6de59b07dd35de3342ee00bc4106d4801edc0237c570e006aedc1c8`.
+Final checkpoint SHA256:
+`57d7658e9ed2f72ad09cf4e8523ab497ccbe0708364f1b8ec4a4c5c1aef1fe9f`.
+
+All four prescheduled second-PPO TRAIN movie chapters are published. The final
+9,975-request chapter is 83.37 seconds, with seven actual releases, seven board
+bounces and four captures. Its foreground request was rejected by Arm10 IK;
+the actual drops occur elsewhere in the farm. Playback is native simulation
+with scripted joint travel and initialized release, not learned motor control
+or held-out evaluation. The original camera and silver-gray look are unchanged.
+
+At the 16:59 UTC check, the finite queue had advanced to sweep seed 20261122
+on the 4090. No native job was restarted, no paid sample repeated and no
+experiment/source/scoring/geometry/split/budget changed. Three of six runs are
+complete and audited. The existing reader/mirror and the 4070 workload remain
+untouched. Current progress continues on the read-only localhost:18797 interface.
+
 ## Paid budgets and generalization
 
 Each method receives exactly 10,000 TRAIN requests for each of three seeds
