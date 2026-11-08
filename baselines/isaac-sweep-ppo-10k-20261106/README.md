@@ -176,3 +176,67 @@ using `second-ppo.json` and `ppo-seed20261122.pt`, then checking seed 20261122.
 All capture, geometry, privileged-input, scripted-motion and resource-scope
 limitations above continue to apply. New-ball adaptation, perception and
 physical deployment remain outside this frozen benchmark.
+
+## Later sweep seeds addendum — November 7, 2026
+
+Sweep seeds **20261122 and 20261123** completed exactly 10,000 paid TRAIN
+requests and 420 separate evaluation requests each, and passed the unchanged
+original independent auditor. Five of six runs are now complete and audited.
+Final PPO seed 20261123 is still training on the 4090; this is an interim
+package, with no complete three-seed method comparison or model promotion.
+The historical first-pair and second-PPO summaries and models are unchanged.
+
+| Final metric | Sweep seed 20261122 | Sweep seed 20261123 |
+|---|---:|---:|
+| TRAIN captures / clean | 717 / 201 | 646 / 222 |
+| TRAIN rejected setups /10,000 | 8,355 | 8,535 |
+| Frozen validation captures /35 | 11 | 14 |
+| Frozen validation clean captures /35 | 7 | 9 |
+| Frozen TEST captures /70 | 22 (31.4%) | 25 (35.7%) |
+| Frozen TEST clean captures /70 | 12 (17.1%) | 18 (25.7%) |
+| Frozen TEST rejected setups | 29 | 20 |
+| Full TRAIN method wall, seconds | 17,994.1 | 16,456.5 |
+| Lifetime peak process RSS, MiB | 6,989.5 | 6,962.8 |
+| Sampled whole-device GPU occupancy, MiB | 6,221.4 | 6,189.4 |
+
+The first sweep remains 23/70 with 15 clean captures. All three runs share the
+same 70 TEST coordinates; they are not 210 independently sampled positions.
+The prescribed final artifacts were assessed once per site, without shot
+search, retries or validation-based selection. Remaining-budget accounting in
+the JSON refers to the final PPO run's original 10,000-request budget, including
+its concurrent partial progress. The live reader shows actual observed requests.
+
+New files:
+
+- `later-sweeps.json`: 289 aggregate learning-curve points and five frozen
+  assessments per added run, scoped compute measurements, original audit
+  bindings and all eight prescheduled video receipts. It binds both earlier
+  summary hashes and contains no per-layout observations or media.
+- `sweep-seed20261122.json`: exact final sweep state, 31,821 bytes; SHA256
+  `475729036456835e12a2bf1bd703a666507ef353b5d9d1f435b8c4c6608adf2c`.
+- `sweep-seed20261123.json`: exact final sweep state, 31,716 bytes; SHA256
+  `8bed1e9549e31d2ad9af02c774f2763a261de28f1a258f432109129cd0fd0415`.
+- `manifest.json`: three additive checksum entries; all earlier file mappings
+  remain unchanged.
+
+Original passed audit SHA256 values:
+
+- Seed 20261122:
+  `9dc2f11c781c9c9eac260096695ab957e6f20b3001e4e97e5023e51a080d0cf0`.
+- Seed 20261123:
+  `57138d0f28c13a42fff0b10cfad611168ba534b1a0b37fb0ac1ce05d786b1212`.
+
+The exact downloaded model bytes match the final frozen assessments and the
+original audits. CPU-only checks load both through `GuidedSweep.load`, verify
+10,000 issued/observed requests and no pending proposals, and query TRAIN and
+unseen coordinates without mutating their frozen state. Protocol, action-domain
+and TRAIN-membership guards remain enforced. Geometry compatibility is bound
+externally through the package's original source/audit fingerprints; the sweep
+loader has no separate geometry-fingerprint argument. These checks spend no
+physics trials and leave the simulator and current PPO process untouched.
+
+All scheduled footage is retained, including seed 20261122's all-rejected 5k
+chapter. The final third-sweep TRAIN chapter includes four captures elsewhere
+in the farm; the foreground request failed board-arm IK. Video execution is
+separate from frozen held-out performance. Original privileged-input,
+scripted-motion, material, geometry and resource-scope limitations apply.

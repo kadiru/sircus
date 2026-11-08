@@ -6,6 +6,54 @@ stage, driven setup controller, full articulation release gates and qualified
 one-second capture definition. Only the experiment, terminal miss feedback and
 learning/search methods change. No physical hardware or Viam is involved.
 
+## Later sweep completion checkpoint — November 7, 2026
+
+All three sweep runs have completed and passed their original independent
+audits. The additive [later sweep evidence](../../baselines/isaac-sweep-ppo-10k-20261106/README.md#later-sweep-seeds-addendum--november-7-2026)
+packages the exact seed-20261122/23 final models, all 289 aggregate learning-curve
+points per run, five prescribed frozen assessments and all eight video receipts.
+Earlier first-pair and second-PPO evidence remains byte-identical.
+
+| Final metric | Sweep seed 20261122 | Sweep seed 20261123 |
+|---|---:|---:|
+| Paid TRAIN requests, including rejects | 10,000 | 10,000 |
+| TRAIN captures / clean | 717 / 201 | 646 / 222 |
+| TRAIN rejected setups | 8,355 | 8,535 |
+| Frozen validation captures at 0 / 1k / 2.5k / 5k / 10k, each /35 | 3 / 8 / 7 / 9 / 11 | 3 / 9 / 10 / 12 / 14 |
+| Final unseen TEST captures /70 | 22 (31.4%) | 25 (35.7%) |
+| Final TEST clean captures /70 | 12 | 18 |
+| Final TEST rejected setups /70 | 29 | 20 |
+| Full TRAIN wall, excluding evaluation | 4.998 h | 4.571 h |
+| Lifetime peak process RSS | 6,989.5 MiB | 6,962.8 MiB |
+| Sampled occupied GPU memory, headless episodes | 6,221.4 MiB | 6,189.4 MiB |
+
+The first sweep remains 23/70, with 15 clean captures. All seeds use the same
+70 prescribed TEST coordinates; these are repeated training seeds, not 210
+independent positions. The two completed PPO seeds remain 28/70 each, with
+10 and 7 clean. Final PPO seed 20261123 is still training on the 4090, so the
+paired three-seed comparison is incomplete. Validation never selects a model;
+each result uses the prescribed final 10,000-request artifact without held-out
+physics search, retries or adaptation.
+
+Five audited runs account for 50,000 completed paid TRAIN requests. The final
+PPO run retains its original 10,000-request budget, including its concurrent
+partial progress; 10,000 is not a count of requests still unspent. Live counts,
+scoped compute measurements and video chapters remain on localhost:18797.
+The native source/archive, experiment, physics, rewards, release guards,
+materials, geometry, camera and splits are unchanged. No native job was restarted
+or paid shot repeated to create this repository package.
+
+The 9,975-TRAIN third-sweep movie is 81.97 seconds and includes four releases,
+four board bounces and four captures elsewhere in the farm; the foreground
+request was rejected by board-arm IK. Seed 20261122's 5k chapter has five
+rejected active requests and no release. Both remain included with their
+original labels. These are prescheduled native TRAIN chapters with scripted
+travel and initialized release, not held-out scores or learned motor control.
+
+Resource scopes below apply unchanged: episode-only phases include evaluation,
+TRAIN wall excludes it, and process/device memory is not policy-only memory.
+New-ball properties, perception and Cosmos remain outside this benchmark.
+
 ## Second PPO completion checkpoint — November 7, 2026
 
 Both PPO seeds below completed exactly 10,000 paid TRAIN requests, 73 updates
