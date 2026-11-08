@@ -1,5 +1,10 @@
 # Sircus — Simple Circus
 
+**Current mjlab experiment:** [arm-clearance selection comparison](sircus/mjlab/ARM_CLEARANCE.md).
+Two frozen selectors, 50 new bucket positions and 112 total requests including
+controls, at fixed 64 substeps. CPU development checks distinguish predicted
+clearance from measured contact; new native results require their own audit.
+
 **Next bounded selector comparison:** [frozen velocity + aperture ranking](sircus/mjlab/CONSISTENT_FLIGHT.md),
 30 fresh bucket positions, four selectors, 132 total requests including controls.
 No new fit or scoring change; queued/native results are separately audited.

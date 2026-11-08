@@ -1,5 +1,26 @@
 # Project state
 
+## Frozen arm-clearance comparison — November 8, 2026
+
+- [Protocol and reproduction](../sircus/mjlab/ARM_CLEARANCE.md): compare the
+  current consistent-flight selector with a post-bounce arm-clearance filter
+  on 50 new paired bucket positions. Both retain the original 16 candidates,
+  ranking, frozen model weights and at most four endpoint geometry checks.
+  The new rule may abstain; those requests remain in the denominator.
+- Five predicted ballistic paths are checked against both arms at the admitted
+  endpoint joints. The fixed rule adds a 2 mm margin to ball radius, bounds the
+  distance between samples, and rejects missing or overlong flight horizons.
+  This is conditional predicted clearance, not a native collision guarantee.
+- CPU development checks rejected the three known original robot-contact shots
+  and accepted their +60 mm corrections. The unchanged top-four proposal sets
+  offered one clear alternative and two abstentions. No native shots or fitting
+  were added by these checks, and the rule was not tuned on the new test set.
+- The new native comparison is pending: 100 test requests plus 12 controls,
+  unchanged 64-substep physics and scoring. No new capture improvement is claimed
+  before its independent audit. The 4090 is the only authorized GPU; 4070 and
+  Isaac processes, source, services and evidence remain separate and unchanged.
+
+
 ## Fifty-position failure diagnosis and completed gap correction — November 7, 2026
 
 - [Diagnosis and exact examples](MJLAB_GAP_FLIGHT_DIAGNOSIS_20261107.md): original
