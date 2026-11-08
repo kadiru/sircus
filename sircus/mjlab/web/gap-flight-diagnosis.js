@@ -140,11 +140,48 @@ export function renderGapFlightDiagnosis(root,raw,correction) {
 export const CORRECTION_KEY = 'gap_flight_correction';
 export const CORRECTION_VERSION = 'sircus-gap-flight-correction-v1';
 export const CORRECTION_AUDIT_VERSION = 'sircus-gap-flight-correction-checks-v1';
+export const CORRECTION_CONTACT_VERSION = 'sircus-gap-flight-contact-results-v1';
 export function targetedCorrectionReady(raw) {
   const p=raw?.protocol,a=raw?.audit,c=rows(raw?.comparisons);
   if(raw?.version!==CORRECTION_VERSION||raw.status!=='passed'||p?.substeps!==64||!integer(p.contexts)||p.contexts===0||!integer(p.repeats)||p.repeats===0||!integer(p.maximum_requests)||p.maximum_requests<2*p.contexts*p.repeats)return false;
   if(!['plan_sha256','report_sha256','manifest_sha256'].every(k=>hash(raw[k])&&a?.[k]===raw[k])||a?.version!==CORRECTION_AUDIT_VERSION||a.passed!==true||a.full_checks_verified!==true||!integer(a.checks_count)||a.checks_count===0)return false;
   return c.length===2&&new Set(c.map(r=>r?.method)).size===2&&c.every(r=>['original','corrected'].includes(r?.method)&&validCounts(r?.counts)&&r.counts.requested===p.contexts*p.repeats);
+}
+const contactCountFields=['robot_contact_trials_before_terminal','robot_contact_trials_after_terminal'];
+const contactCountsValid=(value,total)=>value&&typeof value==='object'&&!Array.isArray(value)&&Object.entries(value).every(([channel,n])=>channel.length>0&&integer(n)&&n<=total);
+export function targetedContactReady(raw) {
+  if(!targetedCorrectionReady(raw))return false;
+  const proof=raw.contact_provenance,groups=rows(raw.contact_comparison),cases=rows(raw.case_comparison),p=raw.protocol;
+  if(proof?.version!==CORRECTION_CONTACT_VERSION||proof.verified!==true||proof.full_checks_verified!==true||!integer(proof.derived_checks_count)||proof.derived_checks_count===0||proof.checks_count!==raw.audit.checks_count||!hash(proof.source_sha256)||!hash(proof.audit_sha256)||proof.audit_sha256!==raw.audit.source_sha256||proof.force_threshold_N!==.01||!['plan_sha256','report_sha256','manifest_sha256'].every(k=>proof[k]===raw[k]))return false;
+  if(groups.length!==2||new Set(groups.map(g=>g?.method)).size!==2||cases.length!==p.contexts||new Set(cases.map(c=>c?.context_id)).size!==p.contexts)return false;
+  for(const group of groups){
+    const result=raw.comparisons.find(c=>c.method===group?.method)?.counts;
+    if(!result||!['requested','native_releases','captures','clean'].every(k=>group[k]===result[k])||![...contactCountFields,'robot_contact_trials_post_rebound'].every(k=>integer(group[k])&&group[k]<=group.native_releases)||!['robot_contact_intervals_before_terminal','robot_contact_intervals_after_terminal'].every(k=>integer(group[k]))||!(group.peak_robot_force_N_before_terminal===null||finite(group.peak_robot_force_N_before_terminal)&&group.peak_robot_force_N_before_terminal>=0)||!contactCountsValid(group.first_post_bounce_contact_counts,group.native_releases))return false;
+  }
+  for(const c of cases){
+    if(typeof c?.context_id!=='string'||!c.context_id.length||!vector(c.bucket_xy_m,2)||!vector(c.board_xyz_m,3)||!finite(c.board_tilt_deg)||!finite(c.board_bucket_distance_mm)||c.board_bucket_distance_mm<=0)return false;
+    for(const method of ['original','corrected']){const value=c[method];
+      if(!value||value.requested!==p.repeats||!integer(value.native_releases)||value.native_releases>value.requested||!integer(value.captures)||value.captures>value.native_releases||!integer(value.clean)||value.clean>value.captures||!finite(value.gap_mm)||value.gap_mm<=0||!finite(value.release_ball_center_z_mm)||!contactCountFields.every(k=>integer(value[k])&&value[k]<=value.native_releases)||!contactCountsValid(value.first_post_bounce_contact_counts,value.native_releases)||!['first_contact_delay_ms','retention_s'].every(k=>Array.isArray(value[k])&&value[k].length===value.native_releases&&value[k].every(v=>v===null||finite(v)&&v>=0)))return false;
+    }
+  }
+  for(const g of groups){
+    if(!['requested','native_releases','captures','clean',...contactCountFields].every(k=>cases.reduce((n,c)=>n+c[g.method][k],0)===g[k]))return false;
+    const totals={};for(const c of cases)for(const [channel,n] of Object.entries(c[g.method].first_post_bounce_contact_counts))totals[channel]=(totals[channel]||0)+n;
+    if(![...new Set([...Object.keys(totals),...Object.keys(g.first_post_bounce_contact_counts)])].every(k=>totals[k]===g.first_post_bounce_contact_counts[k]))return false;
+  }
+  return true;
+}
+function renderCorrectionContacts(root,raw) {
+  const ready=targetedContactReady(raw),groups=ready?raw.contact_comparison:[],cases=ready?raw.case_comparison:[];
+  const channels=value=>value&&Object.keys(value).length?Object.entries(value).map(([k,n])=>`${k}: ${count(n)}`).join(' · '):'none recorded';
+  const label=method=>method==='original'?'Original matched replay':'Release gap correction';
+  const sampleValues=value=>Array.isArray(value)?value.map(v=>fmt(v,3)).join(' / '):'unknown';
+  const original=groups.find(g=>g.method==='original'),corrected=groups.find(g=>g.method==='corrected');
+  text(root,'correction-contact-status',ready?`Verified robot contact after rebound: original ${original.robot_contact_trials_post_rebound} / ${original.native_releases} trials → corrected ${corrected.robot_contact_trials_post_rebound} / ${corrected.native_releases}. Corrected captures: ${corrected.captures} / ${corrected.requested}; clean captures: ${corrected.clean} / ${corrected.requested}. Contact evidence uses force > ${raw.contact_provenance.force_threshold_N} N and starts at the first board rebound. Counts before the scoring terminal are separate from the later recorded tail; post-terminal contacts do not retroactively change a completed score.`:'Contact measurements are unknown until the matching native audit and contact derivation are verified.');
+  at(root,'correction-contact-status')?.setAttribute('data-state',ready?'passed':'unknown');
+  table(root,'correction-contacts',['Method','Robot-contact trials before scoring terminal','After scoring terminal','Post-rebound robot-contact trials','First post-bounce contact','Peak pre-terminal robot force, N'],['original','corrected'].map(method=>{const g=groups.find(x=>x.method===method);return[label(method),g?`${g.robot_contact_trials_before_terminal} / ${g.native_releases}`:'unknown',g?`${g.robot_contact_trials_after_terminal} / ${g.native_releases}`:'unknown',g?`${g.robot_contact_trials_post_rebound} / ${g.native_releases}`:'unknown',g?channels(g.first_post_bounce_contact_counts):'unknown',g?fmt(g.peak_robot_force_N_before_terminal,3):'unknown'];}));
+  table(root,'correction-cases',['Context','Bucket X / Y, mm','Board height / tilt / bucket distance','Method','Drop gap, mm','Release ball-center Z, mm','Captures / repeats','Clean','Robot contacts before / after terminal','First contact delay, ms (each repeat)','Retention, s (each repeat)'],cases.flatMap(c=>['original','corrected'].map(method=>{const v=c[method];return[c.context_id,c.bucket_xy_m.map(mm).join(' / '),`${mm(c.board_xyz_m[2])} mm / ${fmt(c.board_tilt_deg,2)}° / ${fmt(c.board_bucket_distance_mm,1)} mm`,label(method),fmt(v.gap_mm,3),fmt(v.release_ball_center_z_mm,3),`${v.captures} / ${v.requested}`,count(v.clean),`${v.robot_contact_trials_before_terminal} / ${v.robot_contact_trials_after_terminal}`,sampleValues(v.first_contact_delay_ms),sampleValues(v.retention_s)];})));
+  text(root,'correction-results-scope',ready?`${raw.contact_provenance.scope||'Bound contact measurements from matched native records.'} ${raw.protocol.contexts} development positions × ${raw.protocol.repeats} repeats per method at fixed ${raw.protocol.substeps} substeps. These repeats are not new held-out positions, a newly trained policy or a guarantee of generalization. Missing values stay unknown.`:'Original capture totals above remain separate from unavailable contact details. No missing contact count is treated as zero.');
 }
 function renderTargetedCorrection(root,raw) {
   const known=raw?.version===CORRECTION_VERSION,ready=targetedCorrectionReady(raw),p=known?raw.protocol||{}:{},failed=known&&(raw.status==='failed'||raw.audit?.passed===false);
@@ -157,9 +194,10 @@ function renderTargetedCorrection(root,raw) {
   }else if(known&&raw.status==='queued'&&typeof raw.queue?.reason==='string')status+=` Queue reason: ${raw.queue.reason}`;
   text(root,'correction-status',status);at(root,'correction-status')?.setAttribute('data-state',ready?'passed':failed?'failed':'unknown');
   table(root,'correction',['Method','Captures / requested','Clean','Setup rejects','Native misses','Invalid'],ready?['original','corrected'].map(method=>{const c=raw.comparisons.find(r=>r.method===method).counts;return[method==='original'?'Original matched replay':'One targeted correction',`${c.captures} / ${c.requested}`,count(c.clean),count(c.rejected),count(c.native_misses),count(c.invalid)];}):[]);
+  renderCorrectionContacts(root,raw);
 }
 export function startGapFlightDiagnosis(root,{fetchReport=async()=>{const r=await fetch('/api/study',{cache:'no-store'});if(!r.ok)throw Error(`HTTP ${r.status}`);return r.json();},schedule=setTimeout,cancel=clearTimeout}={}) {
   let stopped=false,timer;
-  const poll=async()=>{try{const report=await fetchReport();if(stopped)return;renderGapFlightDiagnosis(root,report?.[KEY],report?.[CORRECTION_KEY]);text(root,'connection','Read-only evidence · refresh every 5 seconds.');}catch(error){if(stopped)return;text(root,'connection',`Snapshot unavailable: ${error.message||error}. Previous findings may be stale.`);text(root,'status','Connection unavailable; previous displayed findings are stale and unverified.');at(root,'status')?.setAttribute('data-state','unknown');text(root,'correction-status','Connection unavailable; previous correction results are stale and unverified.');at(root,'correction-status')?.setAttribute('data-state','unknown');}if(!stopped)timer=schedule(poll,5000);};void poll();return()=>{stopped=true;if(timer!==undefined)cancel(timer);};
+  const poll=async()=>{try{const report=await fetchReport();if(stopped)return;renderGapFlightDiagnosis(root,report?.[KEY],report?.[CORRECTION_KEY]);text(root,'connection','Read-only evidence · refresh every 5 seconds.');}catch(error){if(stopped)return;text(root,'connection',`Snapshot unavailable: ${error.message||error}. Previous findings may be stale.`);text(root,'status','Connection unavailable; previous displayed findings are stale and unverified.');at(root,'status')?.setAttribute('data-state','unknown');text(root,'correction-status','Connection unavailable; previous correction results are stale and unverified.');at(root,'correction-status')?.setAttribute('data-state','unknown');text(root,'correction-contact-status','Connection unavailable; previous contact evidence is stale and unverified.');at(root,'correction-contact-status')?.setAttribute('data-state','unknown');}if(!stopped)timer=schedule(poll,5000);};void poll();return()=>{stopped=true;if(timer!==undefined)cancel(timer);};
 }
 if(typeof document!=='undefined'){const mount=()=>{const root=document.getElementById('gapFlightDiagnosis');if(root){const stop=startGapFlightDiagnosis(root);globalThis.addEventListener?.('pagehide',stop,{once:true});}};if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});else mount();}

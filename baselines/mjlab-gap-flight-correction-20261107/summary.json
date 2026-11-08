@@ -1,0 +1,499 @@
+{
+  "version": "sircus-gap-flight-correction-curated-v1",
+  "source_study": "sircus-gap-flight-correction-v1",
+  "status": "verified",
+  "scope": "Synthetic fixed64 post-hoc development intervention on three diagnosed failures. Exact paired repeats; not training, fresh held-out evaluation or a policy update.",
+  "protocol": {
+    "contexts": 3,
+    "context_ids": [
+      "12",
+      "24",
+      "48"
+    ],
+    "repeats": 3,
+    "maximum_requests": 30,
+    "substeps": 64,
+    "gap_delta_mm": 60
+  },
+  "requested_counts": {
+    "total": 30,
+    "diagnostic": 18,
+    "matched_controls": 12,
+    "native_releases": 30,
+    "rejected": 0,
+    "invalid_physics": 0
+  },
+  "comparisons": [
+    {
+      "method": "original",
+      "counts": {
+        "requested": 9,
+        "native_releases": 9,
+        "captures": 0,
+        "clean": 0,
+        "rejected": 0,
+        "native_misses": 9,
+        "invalid": 0
+      }
+    },
+    {
+      "method": "corrected",
+      "counts": {
+        "requested": 9,
+        "native_releases": 9,
+        "captures": 9,
+        "clean": 0,
+        "rejected": 0,
+        "native_misses": 0,
+        "invalid": 0
+      }
+    }
+  ],
+  "contact_comparison": [
+    {
+      "method": "original",
+      "requested": 9,
+      "native_releases": 9,
+      "captures": 0,
+      "clean": 0,
+      "contact_observations": 9,
+      "contact_unknown": 0,
+      "first_post_bounce_contact_counts": {
+        "robot": 9
+      },
+      "first_contact_delay_ms": [
+        6.8359375,
+        6.8359375,
+        6.8359375,
+        7.291666666666669,
+        7.291666666666669,
+        7.291666666666669,
+        8.463541666666671,
+        8.463541666666671,
+        8.463541666666671
+      ],
+      "retention_s": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.9999999999999999,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "robot_contact_trials_before_terminal": 9,
+      "robot_contact_intervals_before_terminal": 2991,
+      "robot_contact_trials_after_terminal": 0,
+      "robot_contact_intervals_after_terminal": 0,
+      "robot_contact_trials_post_rebound": 9,
+      "robot_contact_intervals_post_rebound": 2991,
+      "peak_robot_force_N_before_terminal": 445.5086975097656,
+      "peak_robot_force_N_after_terminal": 0.0,
+      "rim_band_contact_trials": 9,
+      "bucket_contact_before_entry_trials": 9,
+      "exited_after_entry_trials": 0,
+      "route_quality_counts": {
+        "0": 9
+      }
+    },
+    {
+      "method": "corrected",
+      "requested": 9,
+      "native_releases": 9,
+      "captures": 9,
+      "clean": 0,
+      "contact_observations": 9,
+      "contact_unknown": 0,
+      "first_post_bounce_contact_counts": {
+        "bucket": 9
+      },
+      "first_contact_delay_ms": [
+        250.32552083333331,
+        250.32552083333331,
+        250.32552083333331,
+        248.17708333333334,
+        248.17708333333334,
+        248.17708333333334,
+        212.10937500000003,
+        212.10937500000003,
+        212.10937500000003
+      ],
+      "retention_s": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "robot_contact_trials_before_terminal": 0,
+      "robot_contact_intervals_before_terminal": 0,
+      "robot_contact_trials_after_terminal": 0,
+      "robot_contact_intervals_after_terminal": 0,
+      "robot_contact_trials_post_rebound": 0,
+      "robot_contact_intervals_post_rebound": 0,
+      "peak_robot_force_N_before_terminal": 0.0,
+      "peak_robot_force_N_after_terminal": 0.0,
+      "rim_band_contact_trials": 9,
+      "bucket_contact_before_entry_trials": 9,
+      "exited_after_entry_trials": 6,
+      "route_quality_counts": {
+        "1": 9
+      }
+    }
+  ],
+  "case_comparison": [
+    {
+      "context_id": "gap-coverage-test-12",
+      "bucket_xy_m": [
+        0.5940475694734566,
+        0.18147144563578665
+      ],
+      "board_xyz_m": [
+        0.5815305065074827,
+        -0.04395769518541269,
+        0.3861135000777966
+      ],
+      "board_tilt_deg": 39.51184693961984,
+      "board_bucket_distance_mm": 225.7763813968996,
+      "original": {
+        "gap_mm": 69.54829995286349,
+        "release_ball_center_z_mm": 493.16180003066006,
+        "requested": 3,
+        "native_releases": 3,
+        "captures": 0,
+        "clean": 0,
+        "contact_observations": 3,
+        "contact_unknown": 0,
+        "first_post_bounce_contact_counts": {
+          "robot": 3
+        },
+        "first_contact_delay_ms": [
+          6.8359375,
+          6.8359375,
+          6.8359375
+        ],
+        "retention_s": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "robot_contact_trials_before_terminal": 3,
+        "robot_contact_intervals_before_terminal": 1704,
+        "robot_contact_trials_after_terminal": 0,
+        "robot_contact_intervals_after_terminal": 0,
+        "robot_contact_trials_post_rebound": 3,
+        "robot_contact_intervals_post_rebound": 1704,
+        "peak_robot_force_N_before_terminal": 445.5086975097656,
+        "peak_robot_force_N_after_terminal": 0.0,
+        "rim_band_contact_trials": 3,
+        "bucket_contact_before_entry_trials": 3,
+        "exited_after_entry_trials": 0,
+        "route_quality_counts": {
+          "0": 3
+        }
+      },
+      "corrected": {
+        "gap_mm": 129.5482999528635,
+        "release_ball_center_z_mm": 553.1618000306601,
+        "requested": 3,
+        "native_releases": 3,
+        "captures": 3,
+        "clean": 0,
+        "contact_observations": 3,
+        "contact_unknown": 0,
+        "first_post_bounce_contact_counts": {
+          "bucket": 3
+        },
+        "first_contact_delay_ms": [
+          250.32552083333331,
+          250.32552083333331,
+          250.32552083333331
+        ],
+        "retention_s": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "robot_contact_trials_before_terminal": 0,
+        "robot_contact_intervals_before_terminal": 0,
+        "robot_contact_trials_after_terminal": 0,
+        "robot_contact_intervals_after_terminal": 0,
+        "robot_contact_trials_post_rebound": 0,
+        "robot_contact_intervals_post_rebound": 0,
+        "peak_robot_force_N_before_terminal": 0.0,
+        "peak_robot_force_N_after_terminal": 0.0,
+        "rim_band_contact_trials": 3,
+        "bucket_contact_before_entry_trials": 3,
+        "exited_after_entry_trials": 3,
+        "route_quality_counts": {
+          "1": 3
+        }
+      }
+    },
+    {
+      "context_id": "gap-coverage-test-24",
+      "bucket_xy_m": [
+        0.6358062864530419,
+        0.15743999075812642
+      ],
+      "board_xyz_m": [
+        0.5906381123932191,
+        -0.052928025468399795,
+        0.39187073349650436
+      ],
+      "board_tilt_deg": 36.801638210588905,
+      "board_bucket_distance_mm": 215.16241818445542,
+      "original": {
+        "gap_mm": 68.64420340753004,
+        "release_ball_center_z_mm": 498.01493690403436,
+        "requested": 3,
+        "native_releases": 3,
+        "captures": 0,
+        "clean": 0,
+        "contact_observations": 3,
+        "contact_unknown": 0,
+        "first_post_bounce_contact_counts": {
+          "robot": 3
+        },
+        "first_contact_delay_ms": [
+          7.291666666666669,
+          7.291666666666669,
+          7.291666666666669
+        ],
+        "retention_s": [
+          1.0,
+          1.0,
+          0.9999999999999999
+        ],
+        "robot_contact_trials_before_terminal": 3,
+        "robot_contact_intervals_before_terminal": 828,
+        "robot_contact_trials_after_terminal": 0,
+        "robot_contact_intervals_after_terminal": 0,
+        "robot_contact_trials_post_rebound": 3,
+        "robot_contact_intervals_post_rebound": 828,
+        "peak_robot_force_N_before_terminal": 89.44800567626953,
+        "peak_robot_force_N_after_terminal": 0.0,
+        "rim_band_contact_trials": 3,
+        "bucket_contact_before_entry_trials": 3,
+        "exited_after_entry_trials": 0,
+        "route_quality_counts": {
+          "0": 3
+        }
+      },
+      "corrected": {
+        "gap_mm": 128.64420340753003,
+        "release_ball_center_z_mm": 558.0149369040344,
+        "requested": 3,
+        "native_releases": 3,
+        "captures": 3,
+        "clean": 0,
+        "contact_observations": 3,
+        "contact_unknown": 0,
+        "first_post_bounce_contact_counts": {
+          "bucket": 3
+        },
+        "first_contact_delay_ms": [
+          248.17708333333334,
+          248.17708333333334,
+          248.17708333333334
+        ],
+        "retention_s": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "robot_contact_trials_before_terminal": 0,
+        "robot_contact_intervals_before_terminal": 0,
+        "robot_contact_trials_after_terminal": 0,
+        "robot_contact_intervals_after_terminal": 0,
+        "robot_contact_trials_post_rebound": 0,
+        "robot_contact_intervals_post_rebound": 0,
+        "peak_robot_force_N_before_terminal": 0.0,
+        "peak_robot_force_N_after_terminal": 0.0,
+        "rim_band_contact_trials": 3,
+        "bucket_contact_before_entry_trials": 3,
+        "exited_after_entry_trials": 3,
+        "route_quality_counts": {
+          "1": 3
+        }
+      }
+    },
+    {
+      "context_id": "gap-coverage-test-48",
+      "bucket_xy_m": [
+        0.5140772767848966,
+        0.044774900453494304
+      ],
+      "board_xyz_m": [
+        0.6396399957144138,
+        -0.04799788546950415,
+        0.26871011609934814
+      ],
+      "board_tilt_deg": 32.449122272723095,
+      "board_bucket_distance_mm": 156.11785994205607,
+      "original": {
+        "gap_mm": 56.0957832867815,
+        "release_ball_center_z_mm": 362.3058993861296,
+        "requested": 3,
+        "native_releases": 3,
+        "captures": 0,
+        "clean": 0,
+        "contact_observations": 3,
+        "contact_unknown": 0,
+        "first_post_bounce_contact_counts": {
+          "robot": 3
+        },
+        "first_contact_delay_ms": [
+          8.463541666666671,
+          8.463541666666671,
+          8.463541666666671
+        ],
+        "retention_s": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "robot_contact_trials_before_terminal": 3,
+        "robot_contact_intervals_before_terminal": 459,
+        "robot_contact_trials_after_terminal": 0,
+        "robot_contact_intervals_after_terminal": 0,
+        "robot_contact_trials_post_rebound": 3,
+        "robot_contact_intervals_post_rebound": 459,
+        "peak_robot_force_N_before_terminal": 43.33168411254883,
+        "peak_robot_force_N_after_terminal": 0.0,
+        "rim_band_contact_trials": 3,
+        "bucket_contact_before_entry_trials": 3,
+        "exited_after_entry_trials": 0,
+        "route_quality_counts": {
+          "0": 3
+        }
+      },
+      "corrected": {
+        "gap_mm": 116.0957832867815,
+        "release_ball_center_z_mm": 422.3058993861296,
+        "requested": 3,
+        "native_releases": 3,
+        "captures": 3,
+        "clean": 0,
+        "contact_observations": 3,
+        "contact_unknown": 0,
+        "first_post_bounce_contact_counts": {
+          "bucket": 3
+        },
+        "first_contact_delay_ms": [
+          212.10937500000003,
+          212.10937500000003,
+          212.10937500000003
+        ],
+        "retention_s": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "robot_contact_trials_before_terminal": 0,
+        "robot_contact_intervals_before_terminal": 0,
+        "robot_contact_trials_after_terminal": 0,
+        "robot_contact_intervals_after_terminal": 0,
+        "robot_contact_trials_post_rebound": 0,
+        "robot_contact_intervals_post_rebound": 0,
+        "peak_robot_force_N_before_terminal": 0.0,
+        "peak_robot_force_N_after_terminal": 0.0,
+        "rim_band_contact_trials": 3,
+        "bucket_contact_before_entry_trials": 3,
+        "exited_after_entry_trials": 0,
+        "route_quality_counts": {
+          "1": 3
+        }
+      }
+    }
+  ],
+  "control_summary": {
+    "requested": 12,
+    "source": "unchanged matched controls",
+    "gates": {
+      "pre": {
+        "status": "passed",
+        "counts": {
+          "attempts": 6,
+          "native_releases": 6,
+          "captures": 3,
+          "clean": 3,
+          "rejected": 0,
+          "invalid_physics": 0
+        }
+      },
+      "post": {
+        "status": "passed",
+        "counts": {
+          "attempts": 6,
+          "native_releases": 6,
+          "captures": 3,
+          "clean": 3,
+          "rejected": 0,
+          "invalid_physics": 0
+        }
+      }
+    }
+  },
+  "native_audit": {
+    "version": "sircus-gap-flight-correction-checks-v1",
+    "passed": true,
+    "full_checks_verified": true,
+    "checks_count": 46625,
+    "plan_sha256": "e67ac0c9f0b237a28c4a773bd0b12bc335ba236d914fdce0d96bf1cfafdd2bb9",
+    "report_sha256": "bbb6eef1afb44888e8a02dd469d4da28516f33a7ee999f044b7c538063267bb0",
+    "manifest_sha256": "5942a99c48e7cae2b63b176d5af5bb019243588cafff8f25d2e64b6938e487f4",
+    "source_sha256": "e6e31c3efbd8d8ce5d6800bde93ec6af0fdc078dde8516882739f6f85f7eb5c4"
+  },
+  "contact_provenance": {
+    "version": "sircus-gap-flight-contact-results-v1",
+    "verified": true,
+    "full_checks_verified": true,
+    "checks_count": 46625,
+    "derived_checks_count": 771,
+    "plan_sha256": "e67ac0c9f0b237a28c4a773bd0b12bc335ba236d914fdce0d96bf1cfafdd2bb9",
+    "report_sha256": "bbb6eef1afb44888e8a02dd469d4da28516f33a7ee999f044b7c538063267bb0",
+    "manifest_sha256": "5942a99c48e7cae2b63b176d5af5bb019243588cafff8f25d2e64b6938e487f4",
+    "audit_sha256": "e6e31c3efbd8d8ce5d6800bde93ec6af0fdc078dde8516882739f6f85f7eb5c4",
+    "source_sha256": "5f059dfa98c939a3d801520cae94ae5fe2cfe14a1b4d2bfd5836e63648540861",
+    "helper_sources_sha256": {
+      "sircus/mjlab/calibrated_score.py": "b90fb4886f2297534b81b399620c647952eb2e486217289c65548713977e3539",
+      "sircus/mjlab/calibrated_score_oracle.py": "74ff1b43d342a28e7b4af6d3ec757f577aec076ac286535f4c16e053e31a00df",
+      "sircus/mjlab/xy650_verify.py": "010212fa1d452f7667a92fd7963ddc1c87e5938527610d6dfd0aae7411c8daeb",
+      "sircus/mjlab/prepare_gap_flight_report.py": "0b7184b5d93ad523e270d086fd4e6c2067dbb98b0f815fe03d5bc0c0db0335b8"
+    },
+    "records_sha256": "f5e430875c464b2cf181a842d2bb084276a6f5f15020b80e12d70780c75d555f",
+    "force_threshold_N": 0.01,
+    "force_channel": "robot",
+    "force_channel_index": 4,
+    "trace_horizon_s": 4.0,
+    "substeps": 64,
+    "scope": "Audited fixed64 development repeats on three selected previous failures. Robot force is an aggregate channel, not a measured link identity. Contact is force>0.01N. Before-terminal means after the first board rebound and before the unchanged scorer terminates; the tail is separately inspected through the full4s native recording. Gap changes clearance and impact energy. No fresh holdout, noise,128-step, driven-arm-motion or physical validation.",
+    "derived_artifact_sha256": "31aeaef7f8ae9a39e284bbf5d865866f316f2aaf763cb5bb239b8a9c1401a792",
+    "calibration_identity_status": "Unchanged simulated scoring calibration verified by the bound derivative; configuration omitted."
+  },
+  "timing": {
+    "worker_wall_s": 225.928,
+    "scope": "Observed worker wall time including overhead; not isolated GPU-compute time."
+  },
+  "findings": [
+    "Original diagnostic complete capture 0/9 versus corrected 9/9; each of three cases changes 0/3 to 3/3.",
+    "All corrected captures have recorded rim-band and pre-entry bucket contact; none are clean. Scorer entry class is assisted_or_marginal_capture.",
+    "All originals retain for one second but fail the complete route. Robot contacts after board rebound occur in 9/9 originals and 0/9 corrected shots.",
+    "Corrected cases 12/24 temporarily exit after entry before a later continuous one-second retention; case 48 does not exit.",
+    "All 12 matched controls behave as expected: six clean positives and six negative misses."
+  ],
+  "limitations": [
+    "Only three post-hoc selected development contexts, with exact repeats and no noise; no fresh held-out generalization claim.",
+    "Release gap changes clearance and impact energy simultaneously; this is not an isolated clearance-only causal test.",
+    "Fixed64 physics and held endpoints; no 128 convergence, driven transit, grasp, perception or physical validation.",
+    "Robot force is an aggregate channel; exact robot-link identity is not a native measurement.",
+    "No new training or policy activation. Original 50-position comparison remains 24/50. The 4070 and Isaac setup were untouched."
+  ]
+}
