@@ -4,9 +4,14 @@ Latest: [50-position failure diagnosis](../../docs/MJLAB_GAP_FLIGHT_DIAGNOSIS_20
 separates 18 flight failures (robot9 / bucket6 / table3 first subsequent contacts)
 from eight setup rejections. Four retained balls failed the complete route after
 robot contact. The new `#gapFlightDiagnosis` panel shows concrete examples and
-all50 requests. A prespecified +60mm release-gap correction for three early robot
-contacts is queued for the4090:30 total requests with matched repeats and controls,
-no new training. Original24/50 results remain unchanged; correction outcomes pending.
+all 50 requests. The [prespecified +60 mm gap correction](../../baselines/mjlab-gap-flight-correction-20261107/README.md)
+completed all 30 native requests: original **0/9** complete captures versus
+corrected **9/9**, all with recorded rim-band/bucket contact and none clean;
+all 12 controls behaved as expected. Robot
+contact after board rebound fell from 9/9 to 0/9. Independent audit passed 46,625
+checks. These three post-hoc development cases do not change the original 24/50
+result or establish generalization. No new training or policy activation;
+the 4070 and Isaac remain untouched.
 
 Latest: [flight-miss diagnosis](FLIGHT_RESIDUAL_DIAGNOSIS.md) of the completed
 flight-consistent selector comparison: 17/30 complete captures, nine native
