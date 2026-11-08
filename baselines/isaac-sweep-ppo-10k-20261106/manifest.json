@@ -5,8 +5,12 @@
     "ppo-seed20261121.pt": "f936e3dec1fc700a74b2838fabc7fd7cac2163c6b37cfec04dc751fa0aa48fbd",
     "sweep-seed20261121.json": "9a1577f7b4d4ccda842ffcc86486612e6561be8b0b198543269f1c96010aa8bb",
     "second-ppo.json": "003673f742fc4554cb4cc0485f76bf1f698bad538adde0e55b93e226f0e23083",
-    "ppo-seed20261122.pt": "57d7658e9ed2f72ad09cf4e8523ab497ccbe0708364f1b8ec4a4c5c1aef1fe9f"
+    "ppo-seed20261122.pt": "57d7658e9ed2f72ad09cf4e8523ab497ccbe0708364f1b8ec4a4c5c1aef1fe9f",
+    "later-sweeps.json": "598fde03b990f93032a41741b9a0f736ad2886e2a4133d3f8150516994f727f6",
+    "sweep-seed20261122.json": "475729036456835e12a2bf1bd703a666507ef353b5d9d1f435b8c4c6608adf2c",
+    "sweep-seed20261123.json": "8bed1e9549e31d2ad9af02c774f2763a261de28f1a258f432109129cd0fd0415"
   },
   "scope": "Exact audited final model bytes and compact derived first-pair results; raw observations/media/audits remain outside Git.",
-  "addendum_scope": "Additive second-PPO final model and compact results; the original first-pair artifacts and checksums are unchanged."
+  "addendum_scope": "Additive second-PPO final model and compact results; the original first-pair artifacts and checksums are unchanged.",
+  "later_sweeps_addendum_scope": "Additive audited sweep22/23 final models and aggregate results. Earlier first-pair/second-PPO files and checksums are unchanged; final PPO remains in progress."
 }
