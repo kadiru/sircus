@@ -1,5 +1,21 @@
 # Project state
 
+## Finger-clearance and horizon diagnosis — November 8, 2026
+
+- [Frozen protocol](../sircus/mjlab/CLEARANCE_DIAGNOSIS.md): authenticated CPU
+  diagnosis found a conservative corner-bound error in prior case 07, while
+  cases 04 and 39 remain below the unchanged 2 mm margin. All five remaining
+  robot-contact cases occurred after the original predicted horizon; secondary
+  bucket/table contact makes simple ballistic extension insufficient.
+- One bounded correction is prepared: refine only the geometric lower bound,
+  preserving the horizon, models, candidates, ranking, safety margin, scorer
+  and native 64-substep setup. Six previously observed development layouts,
+  two gates and three exact repeats plus 12 controls give 48 requested slots.
+  Native correction results are pending; no training or policy promotion.
+- The additive `#clearanceDiagnosis` UI requires independently bound diagnosis
+  and native proofs before displaying verified results. Existing policies,
+  historical evidence, 4070 workload and Isaac remain unchanged.
+
 ## Completed frozen arm-clearance comparison — November 8, 2026
 
 - [Protocol and reproduction](../sircus/mjlab/ARM_CLEARANCE.md): compare the
