@@ -1,0 +1,1098 @@
+{
+  "version": "sircus-clearance-diagnosis-sanitized-result-v1",
+  "producer_commit": "885483630af588a7cec7cfbc2cd3b092e42d6763",
+  "display": {
+    "version": "sircus-clearance-diagnosis-display-v1",
+    "status": "verified",
+    "diagnosis": {
+      "status": "verified",
+      "report_sha256": "3921f8dbd1bb013421d10dd1d883d52d15408c1e54b069a610b323dcda5fbf25",
+      "source_audit_sha256": "d3f91a2243483c0aa5deede9e5bf1f5770646c3845fdcab7766730d13420d2bf",
+      "audit": {
+        "passed": true,
+        "full_checks_verified": true,
+        "checks_count": 180,
+        "source_sha256": "b5245361cd704dc0fe0a0e1485d85a40c191970b65487af2526dc3c0f5076d52",
+        "report_sha256": "3921f8dbd1bb013421d10dd1d883d52d15408c1e54b069a610b323dcda5fbf25",
+        "source_audit_sha256": "d3f91a2243483c0aa5deede9e5bf1f5770646c3845fdcab7766730d13420d2bf"
+      },
+      "finger_cases": [
+        {
+          "context_id": "arm-clearance-test-04",
+          "bucket_xy_m": [
+            0.7841928953256213,
+            -0.42254890641459064
+          ],
+          "native_capture": true,
+          "native_robot_contact": false,
+          "old_lower_bound_m": -0.010805051479658713,
+          "corrected_lower_bound_m": -0.002963016854318158,
+          "closest_geom": "Arm10/finger_left/collision/0",
+          "observed_first_flight_sample_clearance_m": 0.0016911456882007306,
+          "observed_distance_scope": "CPU collision-distance reconstruction at admitted held joints for every saved first-flight ball center; not measured continuous clearance",
+          "diagnosis": "Tighter distance alone remains below the unchanged safety margin; predicted flight and close observed geometry also matter."
+        },
+        {
+          "context_id": "arm-clearance-test-07",
+          "bucket_xy_m": [
+            0.4396064159567318,
+            0.15170083202365525
+          ],
+          "native_capture": true,
+          "native_robot_contact": false,
+          "old_lower_bound_m": -0.0036318244262072406,
+          "corrected_lower_bound_m": 0.004541002654106842,
+          "closest_geom": "Arm10/finger_right/collision/0",
+          "observed_first_flight_sample_clearance_m": 0.017086482120323834,
+          "observed_distance_scope": "CPU collision-distance reconstruction at admitted held joints for every saved first-flight ball center; not measured continuous clearance",
+          "diagnosis": "Conservative face-only corner bound rejects a geometrically clear predicted path."
+        },
+        {
+          "context_id": "arm-clearance-test-39",
+          "bucket_xy_m": [
+            0.6092969331721003,
+            -0.19856162632612512
+          ],
+          "native_capture": true,
+          "native_robot_contact": false,
+          "old_lower_bound_m": -0.007474388681402735,
+          "corrected_lower_bound_m": -0.00732149546435731,
+          "closest_geom": "Arm10/finger_left/collision/0",
+          "observed_first_flight_sample_clearance_m": 2.0396196691988e-05,
+          "observed_distance_scope": "CPU collision-distance reconstruction at admitted held joints for every saved first-flight ball center; not measured continuous clearance",
+          "diagnosis": "Tighter distance alone remains below the unchanged safety margin; predicted flight and close observed geometry also matter."
+        }
+      ],
+      "horizon_cases": [
+        {
+          "context_id": "arm-clearance-test-01",
+          "guard_end_min_s": 0.3214883893985023,
+          "guard_end_max_s": 0.32692286913653756,
+          "first_contact_delay_s": 0.3348958333333334,
+          "first_contact_channels": [
+            "robot"
+          ],
+          "robot_contact_delay_s": 0.3348958333333334,
+          "diagnosis": "Recorded robot contact occurs after all five frozen nominal horizons; extending a ballistic projection does not model intervening contact."
+        },
+        {
+          "context_id": "arm-clearance-test-20",
+          "guard_end_min_s": 0.3091593376733564,
+          "guard_end_max_s": 0.31735925552619126,
+          "first_contact_delay_s": 0.3277343749999999,
+          "first_contact_channels": [
+            "bucket"
+          ],
+          "robot_contact_delay_s": 0.35872395833333326,
+          "diagnosis": "Recorded robot contact occurs after all five frozen nominal horizons; extending a ballistic projection does not model intervening contact."
+        },
+        {
+          "context_id": "arm-clearance-test-22",
+          "guard_end_min_s": 0.3246296539551284,
+          "guard_end_max_s": 0.3335444094734787,
+          "first_contact_delay_s": 0.4135416666666667,
+          "first_contact_channels": [
+            "table"
+          ],
+          "robot_contact_delay_s": 1.5975260416666666,
+          "diagnosis": "Recorded robot contact occurs after all five frozen nominal horizons; extending a ballistic projection does not model intervening contact."
+        },
+        {
+          "context_id": "arm-clearance-test-41",
+          "guard_end_min_s": 0.33072426673995725,
+          "guard_end_max_s": 0.3357391497207798,
+          "first_contact_delay_s": 0.4156901041666667,
+          "first_contact_channels": [
+            "table"
+          ],
+          "robot_contact_delay_s": 1.8827473958333334,
+          "diagnosis": "Recorded robot contact occurs after all five frozen nominal horizons; extending a ballistic projection does not model intervening contact."
+        },
+        {
+          "context_id": "arm-clearance-test-44",
+          "guard_end_min_s": 0.16287054251964062,
+          "guard_end_max_s": 0.1704723254721132,
+          "first_contact_delay_s": 0.17571614583333336,
+          "first_contact_channels": [
+            "bucket"
+          ],
+          "robot_contact_delay_s": 1.4367838541666667,
+          "diagnosis": "Recorded robot contact occurs after all five frozen nominal horizons; extending a ballistic projection does not model intervening contact."
+        }
+      ],
+      "finger_summary": "Predicted bounds subtract ball radius and between-sample motion allowance; acceptance requires a bound of at least +2 mm. Saved-path sample clearance uses held joints and does not establish continuous clearance. The native outcomes here are from the prior study.",
+      "horizon_summary": "Times are measured from rebound. The original guard ends at predicted rim entry; later contacts are outside that window. This replay changes only the geometric bound, not the horizon.",
+      "scope": "Post-hoc CPU diagnosis of prior fixed64 development evidence. Recorded outcomes unchanged. Geometry queries do not step physics. The correction preserves all collision geometry, the 2 mm margin, five predictions and existing time horizons."
+    },
+    "correction": {
+      "status": "verified",
+      "description": "Replace only the geometric distance bound; retain the original flight horizon and all other settings.",
+      "protocol": {
+        "methods": [
+          "original",
+          "corrected"
+        ],
+        "substeps": 64,
+        "new_training_requests": 0,
+        "requests_per_method": 18,
+        "maximum_requests": 48,
+        "evaluation_scope": "development_replay"
+      },
+      "progress_requests": 48,
+      "comparisons": [
+        {
+          "method": "original",
+          "label": "Frozen clearance gate",
+          "counts": {
+            "requested": 18,
+            "native_releases": 6,
+            "captures": 0,
+            "clean": 0,
+            "rejected": 12,
+            "native_misses": 6,
+            "invalid": 0
+          }
+        },
+        {
+          "method": "corrected",
+          "label": "Corrected distance bound",
+          "counts": {
+            "requested": 18,
+            "native_releases": 9,
+            "captures": 6,
+            "clean": 3,
+            "rejected": 9,
+            "native_misses": 3,
+            "invalid": 0
+          }
+        }
+      ],
+      "rows": [
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-00-original-r0",
+          "context_id": "arm-clearance-test-00",
+          "repeat": 0,
+          "method": "original",
+          "bucket_xy_m": [
+            1.1102036468911343,
+            -0.011764945942014826
+          ],
+          "values": [
+            0.6030386262387395,
+            -0.12431160271167754,
+            0.31460115246096887,
+            16.423169004553138,
+            0.27187661477911074
+          ],
+          "native_release": false,
+          "capture": false,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": true,
+          "robot_contact_before_terminal": null,
+          "robot_contact_after_terminal": null
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-00-original-r1",
+          "context_id": "arm-clearance-test-00",
+          "repeat": 1,
+          "method": "original",
+          "bucket_xy_m": [
+            1.1102036468911343,
+            -0.011764945942014826
+          ],
+          "values": [
+            0.6030386262387395,
+            -0.12431160271167754,
+            0.31460115246096887,
+            16.423169004553138,
+            0.27187661477911074
+          ],
+          "native_release": false,
+          "capture": false,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": true,
+          "robot_contact_before_terminal": null,
+          "robot_contact_after_terminal": null
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-00-original-r2",
+          "context_id": "arm-clearance-test-00",
+          "repeat": 2,
+          "method": "original",
+          "bucket_xy_m": [
+            1.1102036468911343,
+            -0.011764945942014826
+          ],
+          "values": [
+            0.6030386262387395,
+            -0.12431160271167754,
+            0.31460115246096887,
+            16.423169004553138,
+            0.27187661477911074
+          ],
+          "native_release": false,
+          "capture": false,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": true,
+          "robot_contact_before_terminal": null,
+          "robot_contact_after_terminal": null
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-00-corrected-r0",
+          "context_id": "arm-clearance-test-00",
+          "repeat": 0,
+          "method": "corrected",
+          "bucket_xy_m": [
+            1.1102036468911343,
+            -0.011764945942014826
+          ],
+          "values": [
+            0.6030386262387395,
+            -0.12431160271167754,
+            0.31460115246096887,
+            16.423169004553138,
+            0.27187661477911074
+          ],
+          "native_release": false,
+          "capture": false,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": true,
+          "robot_contact_before_terminal": null,
+          "robot_contact_after_terminal": null
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-00-corrected-r1",
+          "context_id": "arm-clearance-test-00",
+          "repeat": 1,
+          "method": "corrected",
+          "bucket_xy_m": [
+            1.1102036468911343,
+            -0.011764945942014826
+          ],
+          "values": [
+            0.6030386262387395,
+            -0.12431160271167754,
+            0.31460115246096887,
+            16.423169004553138,
+            0.27187661477911074
+          ],
+          "native_release": false,
+          "capture": false,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": true,
+          "robot_contact_before_terminal": null,
+          "robot_contact_after_terminal": null
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-00-corrected-r2",
+          "context_id": "arm-clearance-test-00",
+          "repeat": 2,
+          "method": "corrected",
+          "bucket_xy_m": [
+            1.1102036468911343,
+            -0.011764945942014826
+          ],
+          "values": [
+            0.6030386262387395,
+            -0.12431160271167754,
+            0.31460115246096887,
+            16.423169004553138,
+            0.27187661477911074
+          ],
+          "native_release": false,
+          "capture": false,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": true,
+          "robot_contact_before_terminal": null,
+          "robot_contact_after_terminal": null
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-01-original-r0",
+          "context_id": "arm-clearance-test-01",
+          "repeat": 0,
+          "method": "original",
+          "bucket_xy_m": [
+            1.1225584467111969,
+            0.12872583343430677
+          ],
+          "values": [
+            0.6087761793388727,
+            -0.13140148248579472,
+            0.32753782617132593,
+            17.628544567926383,
+            0.27710405695169416
+          ],
+          "native_release": true,
+          "capture": false,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": false,
+          "robot_contact_before_terminal": true,
+          "robot_contact_after_terminal": false
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-01-original-r1",
+          "context_id": "arm-clearance-test-01",
+          "repeat": 1,
+          "method": "original",
+          "bucket_xy_m": [
+            1.1225584467111969,
+            0.12872583343430677
+          ],
+          "values": [
+            0.6087761793388727,
+            -0.13140148248579472,
+            0.32753782617132593,
+            17.628544567926383,
+            0.27710405695169416
+          ],
+          "native_release": true,
+          "capture": false,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": false,
+          "robot_contact_before_terminal": true,
+          "robot_contact_after_terminal": false
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-01-original-r2",
+          "context_id": "arm-clearance-test-01",
+          "repeat": 2,
+          "method": "original",
+          "bucket_xy_m": [
+            1.1225584467111969,
+            0.12872583343430677
+          ],
+          "values": [
+            0.6087761793388727,
+            -0.13140148248579472,
+            0.32753782617132593,
+            17.628544567926383,
+            0.27710405695169416
+          ],
+          "native_release": true,
+          "capture": false,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": false,
+          "robot_contact_before_terminal": true,
+          "robot_contact_after_terminal": false
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-01-corrected-r0",
+          "context_id": "arm-clearance-test-01",
+          "repeat": 0,
+          "method": "corrected",
+          "bucket_xy_m": [
+            1.1225584467111969,
+            0.12872583343430677
+          ],
+          "values": [
+            0.6087761793388727,
+            -0.13140148248579472,
+            0.32753782617132593,
+            17.628544567926383,
+            0.27710405695169416
+          ],
+          "native_release": true,
+          "capture": false,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": false,
+          "robot_contact_before_terminal": true,
+          "robot_contact_after_terminal": false
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-01-corrected-r1",
+          "context_id": "arm-clearance-test-01",
+          "repeat": 1,
+          "method": "corrected",
+          "bucket_xy_m": [
+            1.1225584467111969,
+            0.12872583343430677
+          ],
+          "values": [
+            0.6087761793388727,
+            -0.13140148248579472,
+            0.32753782617132593,
+            17.628544567926383,
+            0.27710405695169416
+          ],
+          "native_release": true,
+          "capture": false,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": false,
+          "robot_contact_before_terminal": true,
+          "robot_contact_after_terminal": false
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-01-corrected-r2",
+          "context_id": "arm-clearance-test-01",
+          "repeat": 2,
+          "method": "corrected",
+          "bucket_xy_m": [
+            1.1225584467111969,
+            0.12872583343430677
+          ],
+          "values": [
+            0.6087761793388727,
+            -0.13140148248579472,
+            0.32753782617132593,
+            17.628544567926383,
+            0.27710405695169416
+          ],
+          "native_release": true,
+          "capture": false,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": false,
+          "robot_contact_before_terminal": true,
+          "robot_contact_after_terminal": false
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-04-original-r0",
+          "context_id": "arm-clearance-test-04",
+          "repeat": 0,
+          "method": "original",
+          "bucket_xy_m": [
+            0.7841928953256213,
+            -0.42254890641459064
+          ],
+          "values": [
+            0.6243746020910369,
+            -0.25035336166570976,
+            0.3876724914583163,
+            36.2093489931229,
+            0.08558087022024974
+          ],
+          "native_release": false,
+          "capture": false,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": true,
+          "robot_contact_before_terminal": null,
+          "robot_contact_after_terminal": null
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-04-original-r1",
+          "context_id": "arm-clearance-test-04",
+          "repeat": 1,
+          "method": "original",
+          "bucket_xy_m": [
+            0.7841928953256213,
+            -0.42254890641459064
+          ],
+          "values": [
+            0.6243746020910369,
+            -0.25035336166570976,
+            0.3876724914583163,
+            36.2093489931229,
+            0.08558087022024974
+          ],
+          "native_release": false,
+          "capture": false,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": true,
+          "robot_contact_before_terminal": null,
+          "robot_contact_after_terminal": null
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-04-original-r2",
+          "context_id": "arm-clearance-test-04",
+          "repeat": 2,
+          "method": "original",
+          "bucket_xy_m": [
+            0.7841928953256213,
+            -0.42254890641459064
+          ],
+          "values": [
+            0.6243746020910369,
+            -0.25035336166570976,
+            0.3876724914583163,
+            36.2093489931229,
+            0.08558087022024974
+          ],
+          "native_release": false,
+          "capture": false,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": true,
+          "robot_contact_before_terminal": null,
+          "robot_contact_after_terminal": null
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-04-corrected-r0",
+          "context_id": "arm-clearance-test-04",
+          "repeat": 0,
+          "method": "corrected",
+          "bucket_xy_m": [
+            0.7841928953256213,
+            -0.42254890641459064
+          ],
+          "values": [
+            0.6243746020910369,
+            -0.25035336166570976,
+            0.3876724914583163,
+            36.2093489931229,
+            0.08558087022024974
+          ],
+          "native_release": false,
+          "capture": false,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": true,
+          "robot_contact_before_terminal": null,
+          "robot_contact_after_terminal": null
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-04-corrected-r1",
+          "context_id": "arm-clearance-test-04",
+          "repeat": 1,
+          "method": "corrected",
+          "bucket_xy_m": [
+            0.7841928953256213,
+            -0.42254890641459064
+          ],
+          "values": [
+            0.6243746020910369,
+            -0.25035336166570976,
+            0.3876724914583163,
+            36.2093489931229,
+            0.08558087022024974
+          ],
+          "native_release": false,
+          "capture": false,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": true,
+          "robot_contact_before_terminal": null,
+          "robot_contact_after_terminal": null
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-04-corrected-r2",
+          "context_id": "arm-clearance-test-04",
+          "repeat": 2,
+          "method": "corrected",
+          "bucket_xy_m": [
+            0.7841928953256213,
+            -0.42254890641459064
+          ],
+          "values": [
+            0.6243746020910369,
+            -0.25035336166570976,
+            0.3876724914583163,
+            36.2093489931229,
+            0.08558087022024974
+          ],
+          "native_release": false,
+          "capture": false,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": true,
+          "robot_contact_before_terminal": null,
+          "robot_contact_after_terminal": null
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-07-original-r0",
+          "context_id": "arm-clearance-test-07",
+          "repeat": 0,
+          "method": "original",
+          "bucket_xy_m": [
+            0.4396064159567318,
+            0.15170083202365525
+          ],
+          "values": [
+            0.5923851194967497,
+            0.1014976261473961,
+            0.269285257631701,
+            27.267259527965393,
+            0.09913141018734513
+          ],
+          "native_release": false,
+          "capture": false,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": true,
+          "robot_contact_before_terminal": null,
+          "robot_contact_after_terminal": null
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-07-original-r1",
+          "context_id": "arm-clearance-test-07",
+          "repeat": 1,
+          "method": "original",
+          "bucket_xy_m": [
+            0.4396064159567318,
+            0.15170083202365525
+          ],
+          "values": [
+            0.5923851194967497,
+            0.1014976261473961,
+            0.269285257631701,
+            27.267259527965393,
+            0.09913141018734513
+          ],
+          "native_release": false,
+          "capture": false,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": true,
+          "robot_contact_before_terminal": null,
+          "robot_contact_after_terminal": null
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-07-original-r2",
+          "context_id": "arm-clearance-test-07",
+          "repeat": 2,
+          "method": "original",
+          "bucket_xy_m": [
+            0.4396064159567318,
+            0.15170083202365525
+          ],
+          "values": [
+            0.5923851194967497,
+            0.1014976261473961,
+            0.269285257631701,
+            27.267259527965393,
+            0.09913141018734513
+          ],
+          "native_release": false,
+          "capture": false,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": true,
+          "robot_contact_before_terminal": null,
+          "robot_contact_after_terminal": null
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-07-corrected-r0",
+          "context_id": "arm-clearance-test-07",
+          "repeat": 0,
+          "method": "corrected",
+          "bucket_xy_m": [
+            0.4396064159567318,
+            0.15170083202365525
+          ],
+          "values": [
+            0.5923851194967497,
+            0.1014976261473961,
+            0.269285257631701,
+            27.267259527965393,
+            0.09913141018734513
+          ],
+          "native_release": true,
+          "capture": true,
+          "clean": true,
+          "invalid": false,
+          "clearance_rejected": false,
+          "robot_contact_before_terminal": false,
+          "robot_contact_after_terminal": false
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-07-corrected-r1",
+          "context_id": "arm-clearance-test-07",
+          "repeat": 1,
+          "method": "corrected",
+          "bucket_xy_m": [
+            0.4396064159567318,
+            0.15170083202365525
+          ],
+          "values": [
+            0.5923851194967497,
+            0.1014976261473961,
+            0.269285257631701,
+            27.267259527965393,
+            0.09913141018734513
+          ],
+          "native_release": true,
+          "capture": true,
+          "clean": true,
+          "invalid": false,
+          "clearance_rejected": false,
+          "robot_contact_before_terminal": false,
+          "robot_contact_after_terminal": false
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-07-corrected-r2",
+          "context_id": "arm-clearance-test-07",
+          "repeat": 2,
+          "method": "corrected",
+          "bucket_xy_m": [
+            0.4396064159567318,
+            0.15170083202365525
+          ],
+          "values": [
+            0.5923851194967497,
+            0.1014976261473961,
+            0.269285257631701,
+            27.267259527965393,
+            0.09913141018734513
+          ],
+          "native_release": true,
+          "capture": true,
+          "clean": true,
+          "invalid": false,
+          "clearance_rejected": false,
+          "robot_contact_before_terminal": false,
+          "robot_contact_after_terminal": false
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-39-original-r0",
+          "context_id": "arm-clearance-test-39",
+          "repeat": 0,
+          "method": "original",
+          "bucket_xy_m": [
+            0.6092969331721003,
+            -0.19856162632612512
+          ],
+          "values": [
+            0.6329437494277954,
+            -0.04944964498281479,
+            0.27414825558662415,
+            27.534005060312847,
+            0.0963651221865184
+          ],
+          "native_release": false,
+          "capture": false,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": true,
+          "robot_contact_before_terminal": null,
+          "robot_contact_after_terminal": null
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-39-original-r1",
+          "context_id": "arm-clearance-test-39",
+          "repeat": 1,
+          "method": "original",
+          "bucket_xy_m": [
+            0.6092969331721003,
+            -0.19856162632612512
+          ],
+          "values": [
+            0.6329437494277954,
+            -0.04944964498281479,
+            0.27414825558662415,
+            27.534005060312847,
+            0.0963651221865184
+          ],
+          "native_release": false,
+          "capture": false,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": true,
+          "robot_contact_before_terminal": null,
+          "robot_contact_after_terminal": null
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-39-original-r2",
+          "context_id": "arm-clearance-test-39",
+          "repeat": 2,
+          "method": "original",
+          "bucket_xy_m": [
+            0.6092969331721003,
+            -0.19856162632612512
+          ],
+          "values": [
+            0.6329437494277954,
+            -0.04944964498281479,
+            0.27414825558662415,
+            27.534005060312847,
+            0.0963651221865184
+          ],
+          "native_release": false,
+          "capture": false,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": true,
+          "robot_contact_before_terminal": null,
+          "robot_contact_after_terminal": null
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-39-corrected-r0",
+          "context_id": "arm-clearance-test-39",
+          "repeat": 0,
+          "method": "corrected",
+          "bucket_xy_m": [
+            0.6092969331721003,
+            -0.19856162632612512
+          ],
+          "values": [
+            0.6329437494277954,
+            -0.04944964498281479,
+            0.27414825558662415,
+            27.534005060312847,
+            0.0963651221865184
+          ],
+          "native_release": false,
+          "capture": false,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": true,
+          "robot_contact_before_terminal": null,
+          "robot_contact_after_terminal": null
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-39-corrected-r1",
+          "context_id": "arm-clearance-test-39",
+          "repeat": 1,
+          "method": "corrected",
+          "bucket_xy_m": [
+            0.6092969331721003,
+            -0.19856162632612512
+          ],
+          "values": [
+            0.6329437494277954,
+            -0.04944964498281479,
+            0.27414825558662415,
+            27.534005060312847,
+            0.0963651221865184
+          ],
+          "native_release": false,
+          "capture": false,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": true,
+          "robot_contact_before_terminal": null,
+          "robot_contact_after_terminal": null
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-39-corrected-r2",
+          "context_id": "arm-clearance-test-39",
+          "repeat": 2,
+          "method": "corrected",
+          "bucket_xy_m": [
+            0.6092969331721003,
+            -0.19856162632612512
+          ],
+          "values": [
+            0.6329437494277954,
+            -0.04944964498281479,
+            0.27414825558662415,
+            27.534005060312847,
+            0.0963651221865184
+          ],
+          "native_release": false,
+          "capture": false,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": true,
+          "robot_contact_before_terminal": null,
+          "robot_contact_after_terminal": null
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-44-original-r0",
+          "context_id": "arm-clearance-test-44",
+          "repeat": 0,
+          "method": "original",
+          "bucket_xy_m": [
+            0.43080985762942925,
+            -0.1028568350114929
+          ],
+          "values": [
+            0.6603058364867147,
+            -0.284380776241612,
+            0.2675204210868649,
+            33.1176037592912,
+            0.12228655247048306
+          ],
+          "native_release": true,
+          "capture": false,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": false,
+          "robot_contact_before_terminal": true,
+          "robot_contact_after_terminal": false
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-44-original-r1",
+          "context_id": "arm-clearance-test-44",
+          "repeat": 1,
+          "method": "original",
+          "bucket_xy_m": [
+            0.43080985762942925,
+            -0.1028568350114929
+          ],
+          "values": [
+            0.6603058364867147,
+            -0.284380776241612,
+            0.2675204210868649,
+            33.1176037592912,
+            0.12228655247048306
+          ],
+          "native_release": true,
+          "capture": false,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": false,
+          "robot_contact_before_terminal": true,
+          "robot_contact_after_terminal": false
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-44-original-r2",
+          "context_id": "arm-clearance-test-44",
+          "repeat": 2,
+          "method": "original",
+          "bucket_xy_m": [
+            0.43080985762942925,
+            -0.1028568350114929
+          ],
+          "values": [
+            0.6603058364867147,
+            -0.284380776241612,
+            0.2675204210868649,
+            33.1176037592912,
+            0.12228655247048306
+          ],
+          "native_release": true,
+          "capture": false,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": false,
+          "robot_contact_before_terminal": true,
+          "robot_contact_after_terminal": false
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-44-corrected-r0",
+          "context_id": "arm-clearance-test-44",
+          "repeat": 0,
+          "method": "corrected",
+          "bucket_xy_m": [
+            0.43080985762942925,
+            -0.1028568350114929
+          ],
+          "values": [
+            0.6329436302185059,
+            -0.2744496464729309,
+            0.27414828538894653,
+            27.534005060312847,
+            0.0963651221865184
+          ],
+          "native_release": true,
+          "capture": true,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": false,
+          "robot_contact_before_terminal": false,
+          "robot_contact_after_terminal": false
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-44-corrected-r1",
+          "context_id": "arm-clearance-test-44",
+          "repeat": 1,
+          "method": "corrected",
+          "bucket_xy_m": [
+            0.43080985762942925,
+            -0.1028568350114929
+          ],
+          "values": [
+            0.6329436302185059,
+            -0.2744496464729309,
+            0.27414828538894653,
+            27.534005060312847,
+            0.0963651221865184
+          ],
+          "native_release": true,
+          "capture": true,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": false,
+          "robot_contact_before_terminal": false,
+          "robot_contact_after_terminal": false
+        },
+        {
+          "record_id": "clearance-fix-diagnostic-arm-clearance-test-44-corrected-r2",
+          "context_id": "arm-clearance-test-44",
+          "repeat": 2,
+          "method": "corrected",
+          "bucket_xy_m": [
+            0.43080985762942925,
+            -0.1028568350114929
+          ],
+          "values": [
+            0.6329436302185059,
+            -0.2744496464729309,
+            0.27414828538894653,
+            27.534005060312847,
+            0.0963651221865184
+          ],
+          "native_release": true,
+          "capture": true,
+          "clean": false,
+          "invalid": false,
+          "clearance_rejected": false,
+          "robot_contact_before_terminal": false,
+          "robot_contact_after_terminal": false
+        }
+      ],
+      "audit": {
+        "passed": true,
+        "full_checks_verified": true,
+        "checks_count": 65467,
+        "source_sha256": "7f21dcd9af89d19ee4c7b82caf1a2680009ca42b5b37992d426dc3540e846e35",
+        "report_sha256": "80e9bdc4a656d329a54da5a9fb3e4c14be350be959528c0d8b03580b1d073843",
+        "manifest_sha256": "354afcd2f6f2e8442cf7ff1d06e246b12d49e0e0be256bbfb558ac23083b3e19",
+        "plan_sha256": "4a5746f16209e4fe4b09056c4f4f03f5025e801418f356914bfa3948ffee82dc",
+        "contract_fingerprint": "4264c09ba60793f031843a4ee94e6fcf9a85d1a9aaa8c87d91687a55aa0ee7a8"
+      },
+      "report_sha256": "80e9bdc4a656d329a54da5a9fb3e4c14be350be959528c0d8b03580b1d073843",
+      "manifest_sha256": "354afcd2f6f2e8442cf7ff1d06e246b12d49e0e0be256bbfb558ac23083b3e19",
+      "plan_sha256": "4a5746f16209e4fe4b09056c4f4f03f5025e801418f356914bfa3948ffee82dc",
+      "contract_fingerprint": "4264c09ba60793f031843a4ee94e6fcf9a85d1a9aaa8c87d91687a55aa0ee7a8",
+      "counts": {
+        "requested": 48,
+        "native_releases": 27,
+        "captures": 12,
+        "clean": 9,
+        "rejected": 21,
+        "native_misses": 15,
+        "invalid": 0
+      },
+      "control_gates": {
+        "pre": {
+          "status": "passed",
+          "counts": {
+            "requested": 6,
+            "native_releases": 6,
+            "captures": 3,
+            "clean": 3,
+            "rejected": 0,
+            "native_misses": 3,
+            "invalid": 0
+          }
+        },
+        "post": {
+          "status": "passed",
+          "counts": {
+            "requested": 6,
+            "native_releases": 6,
+            "captures": 3,
+            "clean": 3,
+            "rejected": 0,
+            "native_misses": 3,
+            "invalid": 0
+          }
+        }
+      }
+    },
+    "recommendation": "The candidate recovered 6 captures in this targeted development replay. A new frozen held-out comparison is still required before promotion.",
+    "scope": "Previously observed layouts are development evidence. Synthetic fixed64 physics, held endpoints and privileged geometry; predictions are conditional bounds, not physical or full-path validation. No new model training or active selector change."
+  },
+  "source_provenance": {
+    "archive_sha256": "0441a0110a86d5ec00593b768bf04f1b34df695c6f602d9a015194ba87086420",
+    "sidecar_sha256": "02481c25e1afd24ad53bb8e75f57146acc6abe4c894cc44a49cf59d597c17292",
+    "tracked_files_matched": 1093,
+    "cpu_imported_native_dependencies_matched": 34,
+    "immutable_native_files_matched": 155,
+    "mismatches": 0
+  },
+  "note": "Scalar derivative summary; original traces, native evidence, source snapshots and full audits remain outside Git. Explanatory display text may be clarified without changing source outcomes."
+}

@@ -78,7 +78,7 @@ def diagnosis_compact(report_path,audit_path=None):
         require(row.get('first_contact_channels') is None or isinstance(row['first_contact_channels'],list) and all(isinstance(v,str) for v in row['first_contact_channels']),'Known contact channels or unknown required')
     result.update(status='verified',finger_cases=[{k:copy.deepcopy(r.get(k)) for k in finger_keys} for r in fingers],
         horizon_cases=[{k:copy.deepcopy(r.get(k)) for k in horizon_keys} for r in horizons],
-        finger_summary='Predicted bounds include the unchanged 2 mm guard. The saved-path column reconstructs geometric clearance at saved ball centers and held joints; it is not measured continuous clearance and does not subtract that guard.',horizon_summary='Times are measured from rebound. The original guard ends at predicted rim entry; later contacts are outside that window. This replay changes only the geometric bound, not the horizon.',scope=raw.get('scope'),
+        finger_summary='Predicted bounds subtract the ball radius and between-sample motion allowance; a bound of at least +2 mm is required to pass. The saved-path column reconstructs geometric clearance at saved ball centers and held joints, without that allowance. It is not measured continuous clearance. Native outcomes in this table come from the prior study.',horizon_summary='Times are measured from rebound. The original guard ends at predicted rim entry; later contacts are outside that window. This replay changes only the geometric bound, not the horizon.',scope=raw.get('scope'),
         audit=dict(passed=True,full_checks_verified=True,checks_count=checks,source_sha256=sha(audit_path),
             report_sha256=result['report_sha256'],source_audit_sha256=result['source_audit_sha256']))
     return result
