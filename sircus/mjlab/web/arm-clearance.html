@@ -1,0 +1,34 @@
+<!-- Additive, read-only comparison; preserve all older result sections. -->
+<!--ARM_CLEARANCE_STYLE-->
+<section id="armClearanceStudy" class="arm-clearance-panel" hidden>
+  <p class="arm-clearance-eyebrow">50 NEW BUCKET POSITIONS · FROZEN SELECTION RULE · FIXED 64</p>
+  <h2>Does arm clearance improve the shot?</h2>
+  <p data-arm-clearance="connection" class="arm-clearance-small" role="status">Waiting for a saved snapshot.</p>
+  <p data-arm-clearance="status" class="arm-clearance-note" data-state="unknown" role="status"></p>
+  <p data-arm-clearance="progress" class="arm-clearance-small"></p>
+  <div class="arm-clearance-cards">
+    <div><span>Current selector captures</span><strong data-arm-clearance="original">unknown</strong></div>
+    <div><span>With arm clearance</span><strong data-arm-clearance="clearance">unknown</strong></div>
+    <div><span>Paired gain / loss</span><strong data-arm-clearance="paired">unknown</strong></div>
+  </div>
+  <div data-arm-clearance="comparison" class="arm-clearance-scroll" tabindex="0" role="region" aria-label="Verified comparison on the same fifty bucket positions"></div>
+  <p class="arm-clearance-small">Capture requires a board bounce, whole-ball entry and one continuous second inside without a disallowed robot, table or floor contact. Setup rejections remain in the 50-request denominator. Clean entries and captures with bucket contact are separate.</p>
+  <h3>Predicted clearance versus measured contact</h3>
+  <p data-arm-clearance="contact-status" class="arm-clearance-small"></p>
+  <div data-arm-clearance="contacts" class="arm-clearance-scroll" tabindex="0" role="region" aria-label="Measured robot contact counts separated from setup rejection"></div>
+  <p class="arm-clearance-small">A predicted path clear of the arms is a selection check, not a guarantee of the actual ball path. Robot contact uses the saved native force channel; missing observations stay unknown. Contact after the scorer terminates is displayed separately.</p>
+  <h3>Inspect a paired example</h3>
+  <label class="arm-clearance-small">Bucket position <select data-arm-clearance="case-select" aria-label="Choose a paired arm-clearance example"></select></label>
+  <p data-arm-clearance="case-status" class="arm-clearance-note"></p>
+  <div data-arm-clearance="case" class="arm-clearance-scroll" tabindex="0" role="region" aria-label="Exact selected shots and observed results at one bucket position"></div>
+  <details><summary>All 50 paired bucket positions</summary>
+    <div data-arm-clearance="all-positions" class="arm-clearance-scroll" tabindex="0" role="region" aria-label="Every new position including failed and rejected requests"></div>
+  </details>
+  <h3>What was frozen?</h3>
+  <p data-arm-clearance="protocol" class="arm-clearance-small"></p>
+  <p data-arm-clearance="rule" class="arm-clearance-small"></p>
+  <p data-arm-clearance="scope" class="arm-clearance-small"></p>
+  <details><summary>Evidence and verification</summary><p data-arm-clearance="audit" class="arm-clearance-small"></p></details>
+  <p class="arm-clearance-small">Simulation only: held arm endpoints, provisional bucket geometry and privileged scene state. No new training, driven-arm transit, noise qualification, 128-substep convergence or physical validation. This panel does not activate a policy or launch a simulator.</p>
+</section>
+<!--ARM_CLEARANCE_SCRIPT-->
