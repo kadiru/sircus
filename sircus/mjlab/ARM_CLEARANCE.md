@@ -5,6 +5,14 @@ The current flight-consistent selector and the new clearance selector use the
 same frozen learned ensemble, imitation/PPO proposal sources, 16-candidate bank,
 flight ranking and at most four endpoint-geometry visits. No model is trained.
 
+**Completed result:** [audited scalar evidence and examples](../../baselines/mjlab-arm-clearance-20261108/README.md).
+Captures fell from **20/50 to 16/50**, with zero paired gains and four losses.
+Robot-contact trials fell from 12/44 releases to 5/32, but the rule withheld
+12 requests, including three baseline captures. Another changed shot lost a
+capture. All 112 slots and both matched control groups passed the independent
+1,461,935-check audit. The rule remains an evaluated candidate; the interactive
+selector was not changed.
+
 The earlier +60 mm intervention improved three diagnosed cases from 0/9 to 9/9
 captures, with post-bounce robot contacts falling from 9/9 to 0/9. Those cases
 are development evidence. Their results are not counted in this comparison,
@@ -122,3 +130,11 @@ transit, perception or physical validation is established. Native performance
 may decrease if the conservative gate rejects useful shots. Compare captures
 and paired changes together with contacts and abstention rates before deciding
 whether to continue, revise the rule on development data, or train again.
+
+For this completed comparison, do **not** promote the candidate as a capture
+improvement. Among the 32 pairs executed by both methods, zero robot contacts
+were removed and one was added; the aggregate reduction came from abstention.
+Review the rejected successful shots and remaining flight-model/secondary-contact
+errors before generating better candidates and freezing another test. Preserve
+the rule and this result; do not tune against these 50 positions and call a rerun
+fresh evaluation.

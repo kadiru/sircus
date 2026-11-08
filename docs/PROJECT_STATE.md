@@ -1,6 +1,6 @@
 # Project state
 
-## Frozen arm-clearance comparison — November 8, 2026
+## Completed frozen arm-clearance comparison — November 8, 2026
 
 - [Protocol and reproduction](../sircus/mjlab/ARM_CLEARANCE.md): compare the
   current consistent-flight selector with a post-bounce arm-clearance filter
@@ -15,10 +15,30 @@
   and accepted their +60 mm corrections. The unchanged top-four proposal sets
   offered one clear alternative and two abstentions. No native shots or fitting
   were added by these checks, and the rule was not tuned on the new test set.
-- The new native comparison is pending: 100 test requests plus 12 controls,
-  unchanged 64-substep physics and scoring. No new capture improvement is claimed
-  before its independent audit. The 4090 is the only authorized GPU; 4070 and
-  Isaac processes, source, services and evidence remain separate and unchanged.
+- [Audited results](../baselines/mjlab-arm-clearance-20261108/README.md): current
+  selector **20/50 captures (6 clean)**; clearance selector **16/50 (4 clean)**.
+  Paired result: zero gains, four losses, 16 shared captures and 30 shared
+  failures. Both had six ordinary setup rejections; the new rule additionally
+  withheld 12 requests. All 50 positions remain in each denominator.
+- Measured post-rebound robot-contact trials were **12/44 native releases**
+  versus **5/32**. Eight former contact shots were withheld; among the 32 pairs
+  that both released, no contact was removed and one was added. A lower total
+  contact count therefore does not establish improved executed trajectories.
+- Captures at cases 04, 07 and 39 were lost to abstention. At case 44 the rule
+  selected a different shot: predicted clearance 25.77 mm, but the native shot
+  missed after bucket then robot contact. Of five remaining robot-contact
+  shots, only case 01 hit the robot first; others first hit bucket or table.
+  The gate ends at the descending rim band and does not certify later retention.
+- All **112 slots** completed; both matched control gates passed, with zero
+  invalid physics. Independent verification passed **1,461,935 checks** and the
+  read-only `#armClearanceStudy` UI shows counts and all 50 paired examples.
+  Frozen producer commit: `84d2ffb14c9e21c5509dc38d0ec1ace2f288f2a3`.
+- Do not promote this rule or start another PPO run on these results. Next:
+  diagnose conservative rejections of captures and the remaining flight-model
+  errors, then improve the available candidate shots on development data before
+  freezing another fresh comparison. These 50 positions are now observed test
+  evidence, not an unused test set. No active policy was changed or retrained.
+  The worker released the 4090; the 4070 and Isaac were left untouched.
 
 
 ## Fifty-position failure diagnosis and completed gap correction — November 7, 2026
