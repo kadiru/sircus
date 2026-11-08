@@ -4,6 +4,12 @@ This development experiment follows the completed [50-position clearance
 comparison](ARM_CLEARANCE.md). It does not retrain a model or activate a selector.
 The original results, geometry, scoring and source evidence remain immutable.
 
+**Completed:** [audited results and exact successful settings](../../baselines/mjlab-clearance-diagnosis-20261108/README.md).
+The refined gate captured 6/18 versus 0/18 for the old clearance gate on six
+diagnosed layouts with three repeats. Cases 07 and 44 recovered; the unchanged
+horizon still fails case 01. This is not a fresh held-out comparison against
+the active selector, which remains unchanged.
+
 ## Findings from saved native evidence
 
 The face-only geometric lower bound was unnecessarily pessimistic around some
