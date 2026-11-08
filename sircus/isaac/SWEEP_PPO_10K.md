@@ -6,6 +6,63 @@ stage, driven setup controller, full articulation release gates and qualified
 one-second capture definition. Only the experiment, terminal miss feedback and
 learning/search methods change. No physical hardware or Viam is involved.
 
+## Final audited comparison — November 8, 2026
+
+All six production runs completed exactly 10,000 paid TRAIN requests each,
+including every rejection, and passed the unchanged original independent
+auditor. The finite recovery coordinator completed at 10:30 UTC. The final
+models, all 289 aggregate curve points per run, five frozen checkpoints,
+phase-scoped compute and 24 prescheduled native video receipts are preserved
+in the [final additive package](../../baselines/isaac-sweep-ppo-10k-20261106/README.md).
+The historical partial summaries and earlier model bytes remain unchanged.
+
+| Final result, seeds 20261121 / 22 / 23 | Sweep | PPO |
+|---|---:|---:|
+| Unseen TEST captures, each /70 | 23 / 22 / 25 | 28 / 28 / 28 |
+| Unseen TEST clean captures, each /70 | 15 / 12 / 18 | 10 / 7 / 14 |
+| Unseen TEST rejected requests, each /70 | 19 / 29 / 20 | 18 / 17 / 42 |
+| TEST mean capture ± seed sample SD | 33.3% ± 2.2 pp | 40.0% ± 0.0 pp |
+| TEST mean clean capture ± seed sample SD | 21.4% ± 4.3 pp | 14.8% ± 5.0 pp |
+| Final validation captures, each /35 | 9 / 11 / 14 | 11 / 12 / 11 |
+| Final validation mean capture | 32.4% | 32.4% |
+| Exploratory TRAIN mean capture | 7.22% | 15.09% |
+| Paid TRAIN mean rejection rate | 83.99% | 65.57% |
+| Mean full TRAIN wall, excluding evaluation | 4.618 h | 6.389 h |
+
+PPO gained 5, 6 and 3 TEST captures in the paired seeds, while sweep gained
+5, 5 and 4 clean captures. PPO used approximately 38.3% more mean TRAIN wall
+time. This establishes a capture/clean-entry/cost tradeoff in this experiment,
+not one method dominating all outcomes. All seeds share the same 35 validation
+and 70 TEST positions. Seed SD is descriptive; zero SD in PPO's aggregate TEST
+capture counts is not zero uncertainty or proof of equal per-position behavior.
+The third PPO seed's 42/70 TEST rejections show substantial admission variation.
+
+Exploratory TRAIN successes above include changing proposals and repeated TRAIN
+positions. Separate final frozen direct predictions on the 35 known TRAIN
+positions captured 20 / 20 / 21 for sweep and 13 / 13 / 14 for PPO; those are
+diagnostics, not held-out generalization. Validation curves never selected a
+model. Every final result uses the prespecified 10,000-request artifact, with
+no held-out physics search, retry, adaptation or free replacement. Each run's
+420 separate assessment requests include frozen TRAIN diagnostics, validation
+and final TEST; they are outside its 10,000 paid training requests.
+
+Full resource records separate measured TRAIN wall from episode-only headless
+and rendered intervals, which include evaluation. RSS remains a process-lifetime
+high-water mark and GPU occupancy a sampled device measurement, not policy-only
+memory or isolated phase peaks. Geometry preparation wall time was not measured
+and remains unknown. Video publication and independent audits are separate work;
+no energy or monetary-cost measurement is inferred.
+
+The original archive/experiment, source, physics, scoring, materials, rewards,
+geometry, camera, splits, run order and release guards remained fixed. Privileged
+geometry and scripted arm travel/loading/initialized release remain limitations;
+this is neither perception-driven control nor learned joint motion or physical
+validation. All scheduled video outcomes, including all-rejected setup-only
+chapters, are retained. No model promotion or ball-property, perception or Cosmos
+experiment follows this completed benchmark.
+
+The following dated checkpoints are preserved as historical progress reports.
+
 ## Later sweep completion checkpoint — November 7, 2026
 
 All three sweep runs have completed and passed their original independent

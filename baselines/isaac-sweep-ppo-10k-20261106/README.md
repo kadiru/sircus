@@ -1,4 +1,124 @@
-# Sweep versus PPO: first paired seed
+# Sweep versus PPO: completed three-seed benchmark
+
+All **six native production runs and six original independent audits passed**.
+Each run spent exactly 10,000 paid TRAIN requests, including all rejects:
+60,000 total. Another 420 frozen assessment requests per run are accounted for
+separately. The unchanged finite coordinator completed on November 8, 2026,
+at 10:30 UTC. This final addendum preserves every historical summary and model
+byte; it does not relabel the interim results below.
+
+| Final unseen TEST result, each /70 | Seed 20261121 | Seed 20261122 | Seed 20261123 |
+|---|---:|---:|---:|
+| Sweep captures (clean) | 23 (15) | 22 (12) | 25 (18) |
+| PPO captures (clean) | 28 (10) | 28 (7) | 28 (14) |
+| Sweep rejected requests | 19 | 29 | 20 |
+| PPO rejected requests | 18 | 17 | 42 |
+
+| Rate or cost | Sweep mean ± sample SD | PPO mean ± sample SD |
+|---|---:|---:|
+| Final unseen TEST capture | 33.33% ± 2.18 pp | 40.00% ± 0.00 pp |
+| Final unseen TEST clean capture | 21.43% ± 4.29 pp | 14.76% ± 5.02 pp |
+| Final unseen TEST rejection | 32.38% ± 7.87 pp | 36.67% ± 20.22 pp |
+| Final validation capture | 32.38% ± 7.19 pp | 32.38% ± 1.65 pp |
+| Final validation clean capture | 20.95% ± 4.36 pp | 12.38% ± 1.65 pp |
+| Exploratory TRAIN capture | 7.22% ± 0.79 pp | 15.09% ± 0.44 pp |
+| Paid TRAIN rejection | 83.99% ± 1.21 pp | 65.57% ± 2.18 pp |
+| Full TRAIN method wall | 4.618 ± 0.359 h | 6.389 ± 0.458 h |
+
+PPO gained **5, 6 and 3** TEST captures in the paired seeds; sweep gained
+**5, 5 and 4** clean captures. The paired PPO-minus-sweep TEST capture difference
+was +6.67 percentage points on average, with sample SD 2.18 pp. The clean-capture
+difference was −6.67 pp, with sample SD 0.82 pp. PPO used 38.3% more mean TRAIN
+wall time. These are capture/clean-entry/cost tradeoffs, not a single method
+dominating every outcome or a model-promotion decision.
+
+All methods and seeds use the **same 35 validation and 70 unseen TEST positions**.
+They are three repeated training seeds, not 210 independently sampled TEST
+positions. Means, ranges and seed sample SD are descriptive, not confidence
+intervals. PPO's equal aggregate 28/70 counts do not establish equal per-position
+behavior or zero uncertainty; its third seed rejected 42/70 TEST requests.
+Capture includes rim-assisted success; every clean rate above uses **all requested
+positions** as its denominator, not only released or captured shots.
+
+Exploratory TRAIN counts reflect changing proposals and repeated positions.
+Separate final frozen direct predictions on the 35 known TRAIN positions captured
+20 / 20 / 21 for sweep and 13 / 13 / 14 for PPO. Those are training diagnostics,
+not held-out results. The 420 assessment requests per run comprise 175 frozen
+TRAIN diagnostics, 175 validation requests and 70 final TEST requests. No final
+model was chosen from validation, and no held-out physics search, retry,
+adaptation or free replacement was used.
+
+| Frozen validation captures /35 | 0 TRAIN | 1,000 | 2,500 | 5,000 | 10,000 |
+|---|---:|---:|---:|---:|---:|
+| Sweep 20261121 | 3 | 6 | 8 | 11 | 9 |
+| Sweep 20261122 | 3 | 8 | 7 | 9 | 11 |
+| Sweep 20261123 | 3 | 9 | 10 | 12 | 14 |
+| PPO 20261121 | 3 | 5 | 7 | 10 | 11 |
+| PPO 20261122 | 3 | 4 | 5 | 8 | 12 |
+| PPO 20261123 | 3 | 5 | 9 | 8 | 11 |
+
+## Actual compute and memory
+
+| Run | Full TRAIN wall h | Headless episode h | Rendered episode min | Peak process RSS MiB | Sampled GPU MiB headless / render |
+|---|---:|---:|---:|---:|---:|
+| Sweep 20261121 | 4.286 | 4.385 | 11.31 | 7,072.2 | 6,188.1 / 6,169.3 |
+| Sweep 20261122 | 4.998 | 5.143 | 11.13 | 6,989.5 | 6,221.4 / 6,201.3 |
+| Sweep 20261123 | 4.571 | 4.735 | 8.14 | 6,962.8 | 6,189.4 / 6,169.3 |
+| PPO 20261121 | 5.985 | 6.132 | 9.19 | 7,408.9 | 6,216.1 / 6,199.3 |
+| PPO 20261122 | 6.295 | 6.408 | 8.98 | 7,448.7 | 6,217.4 / 6,199.3 |
+| PPO 20261123 | 6.886 | 6.974 | 12.90 | 7,631.6 | 6,217.4 / 6,199.3 |
+
+TRAIN wall includes proposal/inference, before-batch checkpointing, native
+execution, serialization and updates, excluding evaluation. Episode-only
+headless/render intervals **include evaluation** and exclude outside learner,
+proposal and checkpoint calls; they are not additive to TRAIN wall. Exact
+phase-separated CPU seconds, wall seconds, setup/scoring intervals and measured
+algorithm overheads are in `final-comparison.json` and the interface. Memory is
+process-lifetime RSS high-water and sampled whole-device GPU occupancy, not
+policy-only memory, aggregate worker usage or isolated phase peaks. Geometry
+preparation wall time remains unknown. Subsequent audits/video publication are
+separate work; no energy or monetary cost was measured.
+
+## Final artifacts, interface and limits
+
+- `final-comparison.json`: completed six-run aggregate curves and frozen results,
+  paired descriptive statistics, scoped resources and all audit/checkpoint/video
+  bindings. Frozen TRAIN diagnostics remain separate from validation and TEST.
+- `ppo-seed20261123.pt`: exact final actor/critic and training-state checkpoint,
+  136,545 bytes; SHA256
+  `f4fa02cfff64f5bf3f07fe5b280375fe5bb7a75c0c3efbe46d2c3f2b28481f0f`.
+- `manifest.json`: additive final entries. Every earlier file and checksum is
+  preserved, including the three historical partial-result summaries and all
+  five previously packaged final models.
+
+The final PPO audit SHA256 is
+`74daeb252612041503a91ad74c1f6227d24bbc458b7408523714e3b919ff5d2b`.
+Its prescribed final frozen proof SHA256 is
+`ae966e48f890607dd6b23eb7d1625d51d5c899a0317d3d67400f376151f47a41`.
+All six exact models match their original audits and final frozen assessments.
+CPU-only guarded loading verifies the final PPO's 73 updates and 10,000 attempted
+shots, finite policy weights/inference and fingerprint rejection without
+initializing CUDA or spending any new physics trials.
+
+The read-only [interface](http://127.0.0.1:18797/#frozen) exposes complete learning
+curves, all six audit identities, frozen assessments, compute and 24 prescheduled
+native TRAIN movie chapters. Videos keep the exact selected camera, scene and
+normal timing; they are execution evidence, not held-out scores. All-rejected
+setup-only chapters remain included and labeled. Scripted joint travel, loading
+and initialized release are not learned motor control. After the earlier Mac
+reader and mirror exited, the user explicitly approved relaunching only the
+frozen GET-only reader. The complete local report needs no mirror restart; no
+native job or other service was restarted.
+
+The original archive/experiment, source, physics, scoring, materials, rewards,
+geometry, camera, splits, run order and release gates stayed unchanged. Privileged
+geometry inputs, provisional bucket/material/mount assumptions, only three seeds
+and the shared finite position set limit the conclusion. No perception-driven
+control, grasp learning, physical validation, new ball properties or Cosmos
+development follows this benchmark. No model is promoted. Raw observations,
+media, full audits, host calibration and runtime files remain outside Git.
+
+## Historical first paired seed
 
 This is an **interim checkpoint**, not the finished three-seed benchmark. Both
 seed-20261121 runs completed their prescribed 10,000 TRAIN requests and passed
