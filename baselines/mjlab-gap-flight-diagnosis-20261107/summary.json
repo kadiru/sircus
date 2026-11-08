@@ -1,0 +1,581 @@
+{
+  "version": "sircus-gap-flight-diagnosis-curated-v1",
+  "source_diagnosis": "sircus-gap-flight-diagnosis-v1",
+  "status": "verified_cpu_diagnosis",
+  "scope": "Synthetic fixed64 CPU diagnosis of original 50-position comparison; no new training or native outcomes. Former test positions are now development examples.",
+  "action_values_order": [
+    "board_x_m",
+    "board_y_m",
+    "board_height_m",
+    "board_tilt_degrees_from_horizontal",
+    "release_gap_m"
+  ],
+  "source": {
+    "verified": true,
+    "report_sha256": "110b8b7f48f9f0cc153e0dc0c9341ed78bb04d861090abef592bfc98f2f5bf1b",
+    "audit_sha256": "5c6bb8965ef264f9744c0f72c6da5c5bb4904d724938519eb21f45952d1c925a",
+    "manifest_sha256": "7af5b7087d3ae24b47a2949e5a5cf2cd6c9a783411387186b0926fd2ae9e091e",
+    "contract_fingerprint": "efaa6a9dfbd5711ce84b000b7fbb6a74a2e63a5df79c930c6410fabcd20f27c4",
+    "original_total_requests": 112,
+    "original_native_releases": 96,
+    "original_native_audit_checks": 1441075,
+    "native_requests_added": 0,
+    "records_sha256": "520bcfb8107dcb2326e4bd6a61dfd3d9f81ebbd9ed4c282e4175a39b5ade773a",
+    "rankings_sha256": "a8015590585fa4339d3942a9195168967b26382572c134e3715c06294b599c0e"
+  },
+  "derived_audit": {
+    "version": "sircus-gap-flight-diagnosis-checks-v1",
+    "status": "passed",
+    "checks_count": 702,
+    "full_checks_verified": true,
+    "source_sha256": "65d32e7f7453402c347d1ddc3e8466ddf61720bc6be258b52e8b1c93c9fe919f",
+    "source_report_sha256": "110b8b7f48f9f0cc153e0dc0c9341ed78bb04d861090abef592bfc98f2f5bf1b",
+    "source_audit_sha256": "5c6bb8965ef264f9744c0f72c6da5c5bb4904d724938519eb21f45952d1c925a",
+    "scope": "Derived binding/reconstruction checks; original native audit remains separate"
+  },
+  "derived_artifact_sha256": {
+    "diagnosis.json": "a72046be483b0c704a5c0168ce5d7fc5b871ad1d8d0897372b243cb11406249f",
+    "summary.json": "838efda370d8d5548d6a6979049ee66dae0949b22043b47b7cf7042b3d713f27",
+    "checks.json": "65d32e7f7453402c347d1ddc3e8466ddf61720bc6be258b52e8b1c93c9fe919f"
+  },
+  "diagnosis_source_sha256": "2bcd429016d8f5fc96e93e0ad87b02008242e7cb26e6fad1ba59a6541c3ff5fd",
+  "helper_sources_sha256": {
+    "sircus/mjlab/consistent_flight_diagnosis.py": "2dc9b98b2982571db0707218a74b56d3525880bc09fb3c5fa8ca7008bdb8d8ef",
+    "sircus/mjlab/consistent_flight_selector.py": "646a904aa397289aed95f203f6ed260dcca0210fcef3cb4101917096fe136920",
+    "sircus/mjlab/ensemble_flight_diagnosis.py": "1b481a6b94102eb19c811ba5df53f4f9e8d4c68f602674fe59bd30f9ca3b5be3",
+    "sircus/mjlab/curate_physics_ensemble.py": "edbf99044fb9bab6b1e1601b0e807244ac03d8667f47c29e296aa7c8606d7d47",
+    "sircus/mjlab/curate_xy650.py": "bccbbded22733b6b670b2c2e4823305cca2dfe1ff55b26c1598dd7d4cfc0584c",
+    "sircus/mjlab/xy650_verify.py": "010212fa1d452f7667a92fd7963ddc1c87e5938527610d6dfd0aae7411c8daeb",
+    "sircus/mjlab/calibrated_score_oracle.py": "74ff1b43d342a28e7b4af6d3ec757f577aec076ac286535f4c16e053e31a00df"
+  },
+  "summary": {
+    "requested": 50,
+    "native_releases": 42,
+    "captures": 24,
+    "clean": 13,
+    "rejected": 8,
+    "native_misses": 18,
+    "invalid": 0,
+    "native_first_flight_unknown": 0,
+    "no_entry_failures": 14,
+    "bucket_retention_but_route_failures": 4,
+    "cutoff_contact_counts": {
+      "table": 3,
+      "bucket": 6,
+      "robot": 9
+    },
+    "early_robot_contact_ms_threshold": 50.0,
+    "early_robot_contact_count": 5,
+    "observed_precontact_rim_crossings": 5,
+    "observed_precontact_short_crossings": 5,
+    "observed_precontact_long_crossings": 0,
+    "no_precontact_rim_crossing": 13,
+    "rejection_reason_counts": {
+      "finite_ik_unresolved": 3,
+      "fixed_base_clearance_rejected": 2,
+      "strict_endpoint_clearance_or_pose_rejected": 2,
+      "action_bounds_rejected": 1
+    }
+  },
+  "comparisons": [
+    {
+      "method": "consistent",
+      "counts": {
+        "requested": 50,
+        "native_releases": 42,
+        "captures": 24,
+        "clean": 13,
+        "rejected": 8,
+        "native_misses": 18,
+        "invalid": 0
+      }
+    },
+    {
+      "method": "gap_coverage",
+      "counts": {
+        "requested": 50,
+        "native_releases": 42,
+        "captures": 24,
+        "clean": 11,
+        "rejected": 8,
+        "native_misses": 18,
+        "invalid": 0
+      }
+    }
+  ],
+  "paired": {
+    "both_capture": 23,
+    "both_fail": 25,
+    "original_only": [
+      "gap-coverage-test-38"
+    ],
+    "wider_only": [
+      "gap-coverage-test-07"
+    ]
+  },
+  "examples": [
+    {
+      "context_id": "gap-coverage-test-48",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-48",
+      "record_sha256": "719aa52c996d3a77b303a7bf24403c88c6bb65fd1c3cc67a849c88b2910f00f1",
+      "bucket_xy_m": [
+        0.5140772767848966,
+        0.044774900453494304
+      ],
+      "values": [
+        0.6396399957144138,
+        -0.04799788546950415,
+        0.26871011609934814,
+        32.449122272723095,
+        0.0560957832867815
+      ],
+      "board_bucket_distance_m": 0.15611785994205607,
+      "prediction": {
+        "capture_score": 0.9651653098788258,
+        "rebound_velocity_m_s": [
+          0.7930627465248108,
+          0.008347925916314124,
+          0.2613268494606018
+        ],
+        "proxy_aperture_margin_m": 0.01830584111624437
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "bucket_capture": true,
+        "whole_entry": true,
+        "retention_s": 1.0,
+        "cutoff_contact_channels": [
+          "robot"
+        ],
+        "rebound_to_contact_ms": 8.463541666666671,
+        "early_robot_contact": true,
+        "rebound_velocity_m_s": [
+          0.641896584705707,
+          0.0032753340870969594,
+          0.21775566041469574
+        ],
+        "velocity_error_m_s": [
+          0.1511661618191038,
+          0.005072591829217165,
+          0.04357118904590607
+        ],
+        "rim_forward_error_mm": null,
+        "rim_lateral_error_mm": null,
+        "mouth_clearance_m": null
+      },
+      "setup": {
+        "reason": null,
+        "valid_ik_branches": [
+          9,
+          6
+        ],
+        "endpoint_pair_attempts": 7,
+        "home_minimum_clearance_m": 0.006085006839541591,
+        "home_closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "first_endpoint_example": {
+          "branch10": 0,
+          "branch14": 0,
+          "board_position_error_m": 6.013144597520735e-10,
+          "dropper_position_error_m": 3.3241666918741357e-09,
+          "board_normal_error_deg": 1.4787793334710982e-06,
+          "minimum_clearance_m": 0.007499999627618159,
+          "closest_pair": [
+            "Arm10/gripper_proxy/collision/0",
+            "ball/geom"
+          ]
+        }
+      }
+    },
+    {
+      "context_id": "gap-coverage-test-27",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-27",
+      "record_sha256": "25f93ebaadbd11a8e362c54ec0e91cdef193ec43ce0cd3769c631ea1198da9ea",
+      "bucket_xy_m": [
+        1.157233758822269,
+        -0.20585135490066092
+      ],
+      "values": [
+        0.5986063527753693,
+        -0.12658013420219716,
+        0.2941929723240676,
+        17.20408104726287,
+        0.27157833099144885
+      ],
+      "board_bucket_distance_m": 0.5642238077374192,
+      "prediction": {
+        "capture_score": 0.0007086718842322894,
+        "rebound_velocity_m_s": [
+          0.9115986347198486,
+          -0.018919194862246514,
+          1.1951544761657715
+        ],
+        "proxy_aperture_margin_m": -0.2353636695736953
+      },
+      "observed": {
+        "native_release": true,
+        "capture": false,
+        "bucket_capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "cutoff_contact_channels": [
+          "table"
+        ],
+        "rebound_to_contact_ms": 396.67968749999994,
+        "early_robot_contact": false,
+        "rebound_velocity_m_s": [
+          0.9577831287679472,
+          -0.014942941214921346,
+          1.194179892539978
+        ],
+        "velocity_error_m_s": [
+          -0.04618449404809866,
+          -0.003976253647325168,
+          0.0009745836257935014
+        ],
+        "rim_forward_error_mm": -241.49633156829847,
+        "rim_lateral_error_mm": -5.094139831266359,
+        "mouth_clearance_m": -0.1905660530268562
+      },
+      "setup": {
+        "reason": null,
+        "valid_ik_branches": [
+          12,
+          8
+        ],
+        "endpoint_pair_attempts": 9,
+        "home_minimum_clearance_m": 0.006085006839541591,
+        "home_closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "first_endpoint_example": {
+          "branch10": 0,
+          "branch14": 0,
+          "board_position_error_m": 2.8217266523017923e-09,
+          "dropper_position_error_m": 5.991695504272271e-11,
+          "board_normal_error_deg": 1.2074182697257333e-06,
+          "minimum_clearance_m": 0.007499999993994311,
+          "closest_pair": [
+            "Arm10/gripper_proxy/collision/0",
+            "ball/geom"
+          ]
+        }
+      }
+    },
+    {
+      "context_id": "gap-coverage-test-16",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-16",
+      "record_sha256": "04803f920938f96befa73d9f76a7e08eb1057e2360120976901884aaa450f111",
+      "bucket_xy_m": [
+        0.6466616378141233,
+        0.08773222594643171
+      ],
+      "values": [
+        0.6544939531949985,
+        -0.24318887666996644,
+        0.2787940926369579,
+        28.000908016659892,
+        0.16216158541146292
+      ],
+      "board_bucket_distance_m": 0.33101377814386856,
+      "prediction": {
+        "capture_score": 0.995178784129705,
+        "rebound_velocity_m_s": [
+          1.038507604598999,
+          0.005456859990954399,
+          0.5272782206535339
+        ],
+        "proxy_aperture_margin_m": -0.07614101017685815
+      },
+      "observed": {
+        "native_release": false,
+        "capture": false,
+        "bucket_capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "cutoff_contact_channels": null,
+        "rebound_to_contact_ms": null,
+        "early_robot_contact": null,
+        "rebound_velocity_m_s": null,
+        "velocity_error_m_s": null,
+        "rim_forward_error_mm": null,
+        "rim_lateral_error_mm": null,
+        "mouth_clearance_m": null
+      },
+      "setup": {
+        "reason": "strict_endpoint_clearance_or_pose_rejected",
+        "valid_ik_branches": [
+          9,
+          9
+        ],
+        "endpoint_pair_attempts": 9,
+        "home_minimum_clearance_m": 0.006085006839541591,
+        "home_closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "first_endpoint_example": {
+          "branch10": 0,
+          "branch14": 0,
+          "board_position_error_m": 1.5046107509604405e-09,
+          "dropper_position_error_m": 9.76851709794508e-11,
+          "board_normal_error_deg": 2.091309789151873e-06,
+          "minimum_clearance_m": 0.0014191635293716097,
+          "closest_pair": [
+            "Arm14/link4/collision/0",
+            "Arm14/link6/collision/0"
+          ]
+        }
+      }
+    },
+    {
+      "context_id": "gap-coverage-test-01",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-01",
+      "record_sha256": "75cb01658888ce21d53339d0fa80ab29a6d8dc5b15ed2362d83a9f6562a9378c",
+      "bucket_xy_m": [
+        0.8739813483414972,
+        -0.22403230165589544
+      ],
+      "values": [
+        0.6092080943298298,
+        -0.23518889995605333,
+        0.4367036291860869,
+        28.54522019561394,
+        0.12064344662800627
+      ],
+      "board_bucket_distance_m": 0.265008199355337,
+      "prediction": {
+        "capture_score": 0.07134613211857613,
+        "rebound_velocity_m_s": [
+          0.9277430176734924,
+          -7.7739916741848e-05,
+          0.4586081922054291
+        ],
+        "proxy_aperture_margin_m": -0.0016011980040313775
+      },
+      "observed": {
+        "native_release": false,
+        "capture": false,
+        "bucket_capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "cutoff_contact_channels": null,
+        "rebound_to_contact_ms": null,
+        "early_robot_contact": null,
+        "rebound_velocity_m_s": null,
+        "velocity_error_m_s": null,
+        "rim_forward_error_mm": null,
+        "rim_lateral_error_mm": null,
+        "mouth_clearance_m": null
+      },
+      "setup": {
+        "reason": "finite_ik_unresolved",
+        "valid_ik_branches": [
+          10,
+          0
+        ],
+        "endpoint_pair_attempts": 0,
+        "home_minimum_clearance_m": 0.006085006839541591,
+        "home_closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ]
+      }
+    },
+    {
+      "context_id": "gap-coverage-test-06",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-06",
+      "record_sha256": "b078aff72d4a8d44ed745d16ba46f4cec76d0a8ff1789270f99185c8a6713f3c",
+      "bucket_xy_m": [
+        0.12318055041158596,
+        -0.10138278903388831
+      ],
+      "values": [
+        0.5452180693389206,
+        -0.25083739112269415,
+        0.3390258745288591,
+        38.94057243769086,
+        0.3484190426467516
+      ],
+      "board_bucket_distance_m": 0.44771904747046853,
+      "prediction": {
+        "capture_score": 0.989771430346077,
+        "rebound_velocity_m_s": [
+          1.8731478452682495,
+          0.006643105112016201,
+          0.26452497839927674
+        ],
+        "proxy_aperture_margin_m": -0.001829655471842842
+      },
+      "observed": {
+        "native_release": false,
+        "capture": false,
+        "bucket_capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "cutoff_contact_channels": null,
+        "rebound_to_contact_ms": null,
+        "early_robot_contact": null,
+        "rebound_velocity_m_s": null,
+        "velocity_error_m_s": null,
+        "rim_forward_error_mm": null,
+        "rim_lateral_error_mm": null,
+        "mouth_clearance_m": null
+      },
+      "setup": {
+        "reason": "fixed_base_clearance_rejected",
+        "valid_ik_branches": null,
+        "endpoint_pair_attempts": 0,
+        "home_minimum_clearance_m": 0.0,
+        "home_closest_pair": [
+          "Arm10/link_base/collision/0",
+          "bucket/wall20"
+        ]
+      }
+    },
+    {
+      "context_id": "gap-coverage-test-41",
+      "record_id": "gap-coverage-consistent-gap-coverage-test-41",
+      "record_sha256": "a718493fc41cb83a3baae2d451a6f10abb1fc3df4e24129c44d4a38fa01939d5",
+      "bucket_xy_m": [
+        0.7707169664401237,
+        -0.10452327725253041
+      ],
+      "values": [
+        0.6106835737153091,
+        -0.25419758520556185,
+        0.4626073201572355,
+        32.182088769860414,
+        0.03694841892713417
+      ],
+      "board_bucket_distance_m": 0.21911888382390415,
+      "prediction": {
+        "capture_score": 0.01327850354022434,
+        "rebound_velocity_m_s": [
+          0.7492351531982422,
+          0.007838490977883339,
+          0.21776369214057922
+        ],
+        "proxy_aperture_margin_m": -0.015009782229769376
+      },
+      "observed": {
+        "native_release": false,
+        "capture": false,
+        "bucket_capture": false,
+        "whole_entry": false,
+        "retention_s": 0.0,
+        "cutoff_contact_channels": null,
+        "rebound_to_contact_ms": null,
+        "early_robot_contact": null,
+        "rebound_velocity_m_s": null,
+        "velocity_error_m_s": null,
+        "rim_forward_error_mm": null,
+        "rim_lateral_error_mm": null,
+        "mouth_clearance_m": null
+      },
+      "setup": {
+        "reason": "action_bounds_rejected",
+        "valid_ik_branches": null,
+        "endpoint_pair_attempts": 0,
+        "home_minimum_clearance_m": 0.006085006839541591,
+        "home_closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ]
+      }
+    }
+  ],
+  "targeted_correction": {
+    "status": "queued_pending_4090",
+    "version": "sircus-gap-flight-correction-v1",
+    "substeps": 64,
+    "maximum_requests": 30,
+    "repeats_per_variant_per_context": 3,
+    "matched_control_requests": 12,
+    "changed_coordinate": "release_gap_m",
+    "delta_m": 0.06,
+    "training": false,
+    "native_results": null,
+    "contexts": [
+      {
+        "context_id": "gap-coverage-test-12",
+        "original_record_sha256": "51b654d17e4b3d84620fa777034ad9a6c2b6a9fa8898426999f48a3943d4979c",
+        "bucket_xy_m": [
+          0.5940475694734566,
+          0.18147144563578665
+        ],
+        "board_xyz_m": [
+          0.5815305065074827,
+          -0.04395769518541269,
+          0.3861135000777966
+        ],
+        "board_tilt_deg": 39.51184693961984,
+        "original_gap_m": 0.06954829995286349,
+        "corrected_gap_m": 0.1295482999528635
+      },
+      {
+        "context_id": "gap-coverage-test-24",
+        "original_record_sha256": "b491a85b4a5741662145a1eb01c7efdec18eeec2c1032667dcdb960d53f4f44f",
+        "bucket_xy_m": [
+          0.6358062864530419,
+          0.15743999075812642
+        ],
+        "board_xyz_m": [
+          0.5906381123932191,
+          -0.052928025468399795,
+          0.39187073349650436
+        ],
+        "board_tilt_deg": 36.801638210588905,
+        "original_gap_m": 0.06864420340753004,
+        "corrected_gap_m": 0.12864420340753002
+      },
+      {
+        "context_id": "gap-coverage-test-48",
+        "original_record_sha256": "719aa52c996d3a77b303a7bf24403c88c6bb65fd1c3cc67a849c88b2910f00f1",
+        "bucket_xy_m": [
+          0.5140772767848966,
+          0.044774900453494304
+        ],
+        "board_xyz_m": [
+          0.6396399957144138,
+          -0.04799788546950415,
+          0.26871011609934814
+        ],
+        "board_tilt_deg": 32.449122272723095,
+        "original_gap_m": 0.0560957832867815,
+        "corrected_gap_m": 0.1160957832867815
+      }
+    ],
+    "scope": "Three original immediate robot-contact misses; same bucket and board XYZ/tilt, original/corrected exact repeats with pre/post controls. Increased gap changes impact energy too; benefit is unproven."
+  },
+  "limitations": [
+    "Dense logger identifies aggregate robot contact, not the exact link; original link identity remains unknown.",
+    "First-flight curves stop before the first subsequent contact response. Thirteen native misses have no measured pre-contact rim crossing; no extrapolated crossing is labeled observed.",
+    "Capture requires the unchanged complete board route plus whole-ball entry and continuous one-second retention. Four retained balls fail that route.",
+    "Finite IK search failure is not proof of unreachability. Setup rejects remain in the 50-request denominator.",
+    "Predicted capture scores are model outputs, not calibrated probabilities or evidence of success.",
+    "One original nominal request per method/layout. No repeatability, fresh held-out improvement, driven transit, 128-substep convergence, noise, perception or physical validation claimed."
+  ],
+  "correction_freeze": {
+    "status": "queued",
+    "contract_fingerprint": "3b1d642c5c8446f9770d75f9db73ffb9d2f900a56d1eb02624d7f7443e1cdeed",
+    "contract_sha256": "f0cae4f86161e334e6cd725bfb1fa287564cbd55f1491dce2b1483aa3d1e0aea",
+    "plan_sha256": "e67ac0c9f0b237a28c4a773bd0b12bc335ba236d914fdce0d96bf1cfafdd2bb9",
+    "source_sha256": {
+      "sircus/mjlab/gap_flight_correction.py": "f4f23a7fad6276dfba420baf932f38c93c17e42e444642827ac71243475afc7f",
+      "sircus/mjlab/gap_flight_correction_verify.py": "268632f386ee0e25b2a449124b8e81f7f8ed05ab20e750d823008f0381cf7141",
+      "sircus/mjlab/policy64_diagnosis_native.py": "d8b119330106c356e919efc5a61150705a450c5ea7a2097b013e273806cf4ed4",
+      "sircus/mjlab/gap_flight_diagnosis.py": "2bcd429016d8f5fc96e93e0ad87b02008242e7cb26e6fad1ba59a6541c3ff5fd",
+      "sircus/mjlab/gap_flight_pipeline.py": "bbb386e57cde337c41c1a9ea0bf3be8ad709c0745e37e99b435d06415a5b8116",
+      "sircus/mjlab/prepare_gap_flight_report.py": "0b7184b5d93ad523e270d086fd4e6c2067dbb98b0f815fe03d5bc0c0db0335b8"
+    },
+    "requested": 30,
+    "native_releases": 0
+  },
+  "source_base_commit": "35085595a29c87fe7d25c81144aaf3cb860d6583",
+  "task_branch": "codex/macbook-gap-flight-diagnosis"
+}

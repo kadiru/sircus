@@ -1,5 +1,35 @@
 # Project state
 
+## Fifty-position failure diagnosis and completed gap correction — November 7, 2026
+
+- [Diagnosis and exact examples](MJLAB_GAP_FLIGHT_DIAGNOSIS_20261107.md): original
+  18 native misses split into first subsequent contacts with robot 9, bucket 6,
+  table 3. Four entered and retained for one second but failed the complete route
+  after robot contact. Original labels remain unchanged. Eight setup rejections:
+  finite IK 3, fixed-base obstruction 2, endpoint self-clearance 2, action bounds 1.
+- CPU reconstruction passed 702 checks against the original 1,441,075-check proof.
+  New read-only `#gapFlightDiagnosis` UI contains all 50 original requests, paired
+  outcomes, measured first flights and separately labeled model projections.
+- [The targeted +60 mm gap test completed](../baselines/mjlab-gap-flight-correction-20261107/README.md):
+  all 30 requests released, with no setup rejects or invalid physics. For cases
+  12/24/48, original settings captured **0/9 complete routes**, corrected settings
+  **9/9**, all with recorded rim-band/bucket contact and none clean. Each case
+  changed from 0/3 to 3/3.
+  All 12 matched controls behaved as expected. Independent native audit passed
+  **46,625 checks**; worker wall time was 225.928 s, not isolated GPU compute time.
+- All nine original diagnostic repetitions retained the ball for one second but
+  failed the route. Post-board-rebound robot contact occurred in 9/9 originals
+  and 0/9 corrected shots; corrected shots had no robot contact anywhere in the
+  four-second trace. Contact evidence remains separate from success labels.
+- These are three post-hoc development cases and exact repeats, not fresh
+  held-out positions or noise trials. Increased gap changes impact energy as
+  well as clearance, so the test does not isolate the causal contribution of
+  clearance. Fixed64 and held endpoints only; no driven arm transit, 128-step
+  convergence, policy activation or training. The 4070 and Isaac remain untouched.
+- Next: preserve this diagnostic result and evaluate a frozen, clearance-aware
+  selection change on fresh held-out bucket positions before more training or
+  claiming that the original 50-position capture rate improved.
+
 ## Fifty-position wider-gap comparison completed — November 7, 2026
 
 - [Audited result and provenance](../baselines/mjlab-gap-coverage-20261107/README.md):

@@ -348,3 +348,24 @@ provisional progress separately from completed, independently audited results.
 The new 50-position comparison cannot change the existing interactive solver.
 See [diagnosis](../FLIGHT_RESIDUAL_DIAGNOSIS.md) and
 [comparison protocol](../GAP_COVERAGE.md).
+
+## Fifty-position diagnosis panel
+
+`gap-flight-diagnosis.{html,css,js}` adds read-only `#gapFlightDiagnosis`.
+Insert the fragment and its stylesheet/module ahead of `#flightResidualDiagnosis`
+in an existing viewer; preserve all older sections. It only GETs `/api/study`.
+`prepare_gap_flight_report` publishes byte-verified derived diagnosis under
+`gap_flight_diagnosis` and the separate correction lifecycle under
+`gap_flight_correction`. Completed correction counts are hidden until the native
+audit, request plan and full manifest match. Failure/timeout status stays explicit.
+No solver, policy, robot control or service restart is involved.
+
+The first correction is now independently verified: 30/30 native releases,
+original 0/9 versus +60 mm gap 9/9 complete captures, all nine with recorded
+rim-band/bucket contact and none clean, and all 12 controls as expected.
+Each of cases 12/24/48 changes from 0/3 to 3/3.
+The panel keeps native robot-contact measurements separate from scoring:
+post-board-rebound contact is 9/9 original versus 0/9 corrected. Original retained
+balls remain route failures. These are exact repeats on diagnosed development
+layouts, not fresh generalization or noise evidence. See the
+[completed correction baseline](../../../baselines/mjlab-gap-flight-correction-20261107/README.md).

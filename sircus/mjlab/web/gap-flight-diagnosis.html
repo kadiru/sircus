@@ -1,0 +1,64 @@
+<!-- Additive inspection of the completed 50-position comparison. -->
+<!--GAP_FLIGHT_DIAGNOSIS_STYLE-->
+<section id="gapFlightDiagnosis" class="gap-flight-panel" hidden>
+  <p class="gap-flight-eyebrow">50 POSITIONS · RECORDED FAILURES · ONE TARGETED CORRECTION</p>
+  <h2>Why did these shots fail?</h2>
+  <p data-gap-flight="connection" class="gap-flight-small" role="status">Waiting for a read-only snapshot.</p>
+  <p data-gap-flight="status" class="gap-flight-note" data-state="unknown" role="status"></p>
+  <p data-gap-flight="scope" class="gap-flight-small"></p>
+  <h3>The completed 50-position comparison</h3>
+  <p data-gap-flight="comparison-total" class="gap-flight-small"></p>
+  <div data-gap-flight="comparison" class="gap-flight-scroll" tabindex="0" role="region" aria-label="Original paired comparison of two frozen selectors"></div>
+  <p class="gap-flight-small">Capture requires an observed board bounce, whole-ball entry and one continuous second inside, with no disallowed robot, table or floor contact. Setup rejections remain in the denominator. These are saved original outcomes, not new evaluation results.</p>
+  <div class="gap-flight-cards">
+    <div><span>Original selector captures</span><strong data-gap-flight="captures">unknown</strong></div>
+    <div><span>Native flight misses</span><strong data-gap-flight="misses">unknown</strong></div>
+    <div><span>Setup rejections</span><strong data-gap-flight="rejects">unknown</strong></div>
+  </div>
+  <h3>Where requests failed</h3>
+  <p data-gap-flight="funnel" class="gap-flight-small"></p>
+  <details><summary>Inspect every flight miss and setup rejection</summary>
+    <div data-gap-flight="failures" class="gap-flight-scroll" tabindex="0" role="region" aria-label="Every original selector flight miss and setup rejection"></div>
+  </details>
+  <p class="gap-flight-small">A first-flight cutoff names the next measured contact channel, not a proven cause of failure. Bucket contact alone does not distinguish rim from wall. Rejected setups have no native flight; missing measurements remain unknown.</p>
+  <details><summary>All 50 original-selector requests and shot settings</summary>
+    <div data-gap-flight="all-requests" class="gap-flight-scroll" tabindex="0" role="region" aria-label="All original selector requests including successful shots"></div>
+    <p class="gap-flight-small">Positions and heights are in the simulation frame, in millimeters. Tilt is in degrees. The release gap and board height are separate action parameters. These layouts are now development data.</p>
+  </details>
+  <h3>Inspect a concrete example</h3>
+  <label class="gap-flight-small">Recorded request <select data-gap-flight="case-select" aria-label="Choose a 50-position diagnosis example"></select></label>
+  <p data-gap-flight="case-result" class="gap-flight-note"></p>
+  <div data-gap-flight="configuration" class="gap-flight-scroll" tabindex="0" role="region" aria-label="Recorded bucket and board configuration"></div>
+  <div data-gap-flight="prediction" class="gap-flight-scroll" tabindex="0" role="region" aria-label="Predictions kept separate from observed rebound quantities"></div>
+  <div class="gap-flight-plots">
+    <div><h4>Flight towards the bucket</h4><canvas data-gap-flight="flight" width="760" height="330" role="img" aria-label="Recorded ball height against forward distance with labeled conditional forecasts"></canvas></div>
+    <div><h4>Sideways motion</h4><canvas data-gap-flight="lateral" width="760" height="330" role="img" aria-label="Recorded and conditional ball flight projected into the table plane"></canvas></div>
+  </div>
+  <p data-gap-flight="flight-caption" class="gap-flight-small"></p>
+  <p class="gap-flight-small">Solid teal is saved native simulation. Dashed lines are conditional ballistic calculations, not new simulator trials or full learned trajectories. Predicted whole-ball rim-band margin and observed ball-center clearance are different quantities. Neither alone proves retention. Bucket dimensions remain provisional.</p>
+  <p data-gap-flight="selection" class="gap-flight-small"></p>
+  <p data-gap-flight="candidate-coverage" class="gap-flight-small"></p>
+  <p data-gap-flight="diagnosis" class="gap-flight-note"></p>
+  <div data-gap-flight="setup-proof" class="gap-flight-scroll" tabindex="0" role="region" aria-label="Recorded setup rejection proof"></div>
+  <div data-gap-flight="endpoint-examples" class="gap-flight-scroll" tabindex="0" role="region" aria-label="Saved endpoint solver examples"></div>
+  <p data-gap-flight="setup-scope" class="gap-flight-small"></p>
+  <h4>The other frozen selector at this same position</h4>
+  <div data-gap-flight="references" class="gap-flight-scroll" tabindex="0" role="region" aria-label="Paired saved selector outcome and action"></div>
+  <p class="gap-flight-small">Several action parameters may differ together. This observed contrast does not establish which parameter caused the outcome.</p>
+  <h3>One targeted correction</h3>
+  <p data-gap-flight="correction-protocol" class="gap-flight-small"></p>
+  <p data-gap-flight="correction-status" class="gap-flight-note" data-state="unknown" role="status">No new correction results have been published.</p>
+  <div data-gap-flight="correction" class="gap-flight-scroll" tabindex="0" role="region" aria-label="Separate targeted correction results"></div>
+  <h4>Did robot contact change?</h4>
+  <p data-gap-flight="correction-contact-status" class="gap-flight-small" role="status">Contact measurements have not been verified in this snapshot.</p>
+  <div data-gap-flight="correction-contacts" class="gap-flight-scroll" tabindex="0" role="region" aria-label="Independently verified original and corrected contact counts"></div>
+  <h4>Each tested bucket position</h4>
+  <div data-gap-flight="correction-cases" class="gap-flight-scroll" tabindex="0" role="region" aria-label="Matched original and corrected repetitions and release gaps"></div>
+  <p data-gap-flight="correction-results-scope" class="gap-flight-small"></p>
+  <h3>Evidence and next step</h3>
+  <div data-gap-flight="findings" class="gap-flight-scroll" tabindex="0" role="region" aria-label="Observed findings and separate hypotheses"></div>
+  <ul data-gap-flight="next-steps" class="gap-flight-small"></ul>
+  <details><summary>Source and diagnostic verification</summary><p data-gap-flight="audit" class="gap-flight-small"></p></details>
+  <p class="gap-flight-small">This panel only reads saved evidence. Fixed 64 substeps, simulator geometry and held arm endpoints; no new training, driven transit, physical validation or noise qualification is implied. Correction results on these development layouts do not establish generalization.</p>
+</section>
+<!--GAP_FLIGHT_DIAGNOSIS_SCRIPT-->
