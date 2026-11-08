@@ -40,6 +40,18 @@ test('contact counts need exact native observations and keep missing distinct fr
  for(const s of ['before_terminal','post_rebound','after_terminal'])r.test_positions[0]['robot_contact_'+s]=null;r.contact_comparisons[0].observed_native--;r.contact_comparisons[0].missing_native++;assert.equal(ui.clearanceContactsReady(r),true);ui.renderArmClearance(d.root,r);assert.ok(d.get('contact-status').textContent.includes('1 native observations unknown'));
 });
 
+test('contact summary separates unexecuted clearance abstentions from other setup failures',()=>{
+ const r=fixture(),d=dom();ui.renderArmClearance(d.root,r);
+ const summary=d.get('contact-status').textContent;
+ assert.ok(summary.includes('8 other setup rejections, 0 clearance abstentions.'));
+ assert.ok(summary.includes('8 other setup rejections, 2 clearance abstentions.'));
+ assert.ok(!summary.includes('10 setup rejects'));
+ const corrected=d.tableRows('comparison')[1];
+ assert.deepEqual(corrected.slice(3,5),['8','2']);
+ assert.ok(summary.includes('4/40 observed native shots'));
+ assert.ok(summary.includes('(4/50 requested)'));
+});
+
 test('pending queue and failed audit cannot expose successes or a winner',()=>{
  for(const status of ['preparing','prepared','pending','queued','running','completed','awaiting_audit','failed','audit_failed']){const r=fixture(),d=dom();r.status=status;r.queue={reason:'Existing GPU workload left untouched.'};ui.renderArmClearance(d.root,r);assert.equal(d.get('original').textContent,'unknown');assert.equal(d.tableRows('comparison').length,0);assert.equal(d.tableRows('all-positions').length,0);assert.ok(d.get('status').textContent.includes('No verified improvement'));assert.equal(d.get('case-select').disabled,true);}
  const d=dom();ui.renderArmClearance(d.root,null);assert.equal(d.root.hidden,true);
@@ -50,6 +62,20 @@ test('fragment stays responsive accessible and unable to control the simulator',
  for(const text of ['id="armClearanceStudy"','<!--ARM_CLEARANCE_STYLE-->','<!--ARM_CLEARANCE_SCRIPT-->','All 50 paired','whole-ball entry','Setup rejections','predicted path','Simulation only'])assert.ok(html.includes(text),text);
  assert.match(css,/\.arm-clearance-panel\{[^}]*min-width:0;[^}]*grid-column:1\/-1;[^}]*width:100%;[^}]*max-width:100%;/);assert.ok(css.includes('overflow-x:auto'));
  for(const value of ['/api/solve','/api/control','/api/predict','activatePolicy','startTraining','innerHTML','</script'])assert.ok(!source.includes(value),value);
+});
+
+test('the matching fragment scrolls only after first reveal and never steals later scroll',()=>{
+ const original=Object.getOwnPropertyDescriptor(globalThis,'location');
+ const location={hash:'#armClearanceStudy'};Object.defineProperty(globalThis,'location',{value:location,configurable:true});
+ try{
+  const d=dom(),calls=[];d.root.hidden=true;d.root.scrollIntoView=options=>calls.push({options,hidden:d.root.hidden,status:d.get('status').textContent});
+  ui.renderArmClearance(d.root,null);assert.equal(calls.length,0);
+  ui.renderArmClearance(d.root,fixture());assert.equal(calls.length,1);assert.deepEqual(calls[0].options,{block:'start'});assert.equal(calls[0].hidden,false);assert.ok(calls[0].status.startsWith('Verified'));
+  ui.renderArmClearance(d.root,fixture());ui.renderArmClearance(d.root,null);ui.renderArmClearance(d.root,fixture());assert.equal(calls.length,1);
+  const other=dom(),otherCalls=[];other.root.scrollIntoView=options=>otherCalls.push(options);location.hash='#gapFlightDiagnosis';ui.renderArmClearance(other.root,fixture());assert.equal(otherCalls.length,0);
+  location.hash='#armClearanceStudy';ui.renderArmClearance(other.root,fixture());assert.equal(otherCalls.length,0);
+  const pending=dom(),pendingCalls=[];pending.root.scrollIntoView=options=>pendingCalls.push(options);const raw=fixture();raw.status='queued';ui.renderArmClearance(pending.root,raw);ui.renderArmClearance(pending.root,fixture());assert.equal(pendingCalls.length,1);
+ }finally{if(original)Object.defineProperty(globalThis,'location',original);else delete globalThis.location;}
 });
 
 test('polling marks stale evidence and cancels after disposal without mutating other data',async()=>{

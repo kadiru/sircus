@@ -1,0 +1,499 @@
+{
+  "version": "sircus-arm-clearance-results-summary-v1",
+  "status": "verified",
+  "source": {
+    "compact_sha256": "f7422889bd84f698f2b1795d0c9f4cc845720d24021a05c037b34fe7f3e15305",
+    "report_sha256": "fbc071332ad74302f9c3438196daaf9da036b72c3ee28059539ca234d9e09f38",
+    "plan_sha256": "60dbe5078e0e1fbc4de2aa523a6210ce2099c3886edd44b471d979a00670e781",
+    "manifest_sha256": "8ced80c8e20ade204baa0795a66e940987ee32989e1dfe29b0715a92e27e4602",
+    "contract_fingerprint": "0f870a40c2d768e9d77780be00155a611420ae1cc1d9611cbb0e4e0630cdb2e1",
+    "rule_sha256": "ecc86f1c701437ca9da10988ddda8ba33a6c4c84f5d523c57bfa09dfc737503e",
+    "audit_sha256": "d3f91a2243483c0aa5deede9e5bf1f5770646c3845fdcab7766730d13420d2bf",
+    "auditor_sha256": "172d7ea453a28962fab5c4b8c86087b95da4008ba00a90da7589a2710142221a",
+    "checks_count": 1461935,
+    "producer_commit": "84d2ffb",
+    "compact_bytes": 79382
+  },
+  "protocol": {
+    "substeps": 64,
+    "methods": [
+      "consistent",
+      "arm_clearance"
+    ],
+    "test_layouts": 50,
+    "test_seed": 20261808,
+    "maximum_fresh_requests": 112,
+    "control_requests": 12,
+    "new_train_requests": 0,
+    "minimum_split_distance_m": 0.01,
+    "no_test_flight_search": true,
+    "candidates": 16,
+    "maximum_geometry_checks": 4,
+    "noise": false,
+    "model_weights_unchanged": true,
+    "no_hard_aperture_veto": true,
+    "post_bounce_robot_clearance_added": true,
+    "changed_candidate_indices": [],
+    "unchanged_candidate_count": 16,
+    "clearance_rejection_is_abstention": true,
+    "clearance_margin_m": 0.002,
+    "clearance_horizon_s": 1.5,
+    "clearance_members": 5
+  },
+  "counts": {
+    "consistent": {
+      "requested": 50,
+      "native_releases": 44,
+      "captures": 20,
+      "clean": 6,
+      "rejected": 6,
+      "native_misses": 24,
+      "invalid": 0
+    },
+    "arm_clearance": {
+      "requested": 50,
+      "native_releases": 32,
+      "captures": 16,
+      "clean": 4,
+      "rejected": 18,
+      "native_misses": 16,
+      "invalid": 0
+    }
+  },
+  "contacts": {
+    "consistent": {
+      "requested": 50,
+      "native_releases": 44,
+      "observed_native": 44,
+      "missing_native": 0,
+      "robot_contact_trials_before_terminal": 12,
+      "robot_contact_trials_post_rebound": 12,
+      "robot_contact_trials_after_terminal": 0
+    },
+    "arm_clearance": {
+      "requested": 50,
+      "native_releases": 32,
+      "observed_native": 32,
+      "missing_native": 0,
+      "robot_contact_trials_before_terminal": 5,
+      "robot_contact_trials_post_rebound": 5,
+      "robot_contact_trials_after_terminal": 0
+    }
+  },
+  "clearance_abstentions": {
+    "consistent": 0,
+    "arm_clearance": 12
+  },
+  "other_setup_rejections": {
+    "consistent": 6,
+    "arm_clearance": 6
+  },
+  "paired": {
+    "gain": 0,
+    "loss": 4,
+    "both_capture": 16,
+    "neither_capture": 30,
+    "changed_selected_actions": 5,
+    "capture_losses_to_clearance_abstention": 3,
+    "both_native_contact_observed": 32,
+    "robot_contact_removed_in_native_pair": 0,
+    "robot_contact_added_in_native_pair": 1
+  },
+  "controls": {
+    "pre": {
+      "status": "passed",
+      "counts": {
+        "requested": 6,
+        "native_releases": 6,
+        "captures": 3,
+        "clean": 3,
+        "rejected": 0,
+        "native_misses": 3,
+        "invalid": 0
+      }
+    },
+    "post": {
+      "status": "passed",
+      "counts": {
+        "requested": 6,
+        "native_releases": 6,
+        "captures": 3,
+        "clean": 3,
+        "rejected": 0,
+        "native_misses": 3,
+        "invalid": 0
+      }
+    }
+  },
+  "examples": [
+    {
+      "label": "capture lost",
+      "context_id": "arm-clearance-test-04",
+      "bucket_xy_m": [
+        0.7841928953256213,
+        -0.42254890641459064
+      ],
+      "before": {
+        "record_id": "arm-clearance-consistent-arm-clearance-test-04",
+        "values": [
+          0.6243746020910369,
+          -0.25035336166570976,
+          0.3876724914583163,
+          36.2093489931229,
+          0.08558087022024974
+        ],
+        "native_release": true,
+        "capture": true,
+        "clean": false,
+        "invalid": false,
+        "clearance_rejected": false,
+        "predicted_clearance_min_m": null,
+        "predicted_clearance_closest_geom": null,
+        "robot_contact_before_terminal": false,
+        "robot_contact_post_rebound": false,
+        "robot_contact_after_terminal": false,
+        "first_post_bounce_contact_channels": [
+          "bucket"
+        ],
+        "first_contact_delay_ms": 297.9166666666667,
+        "retention_s": 1.0
+      },
+      "after": {
+        "record_id": "arm-clearance-arm_clearance-arm-clearance-test-04",
+        "values": [
+          0.6243746020910369,
+          -0.25035336166570976,
+          0.3876724914583163,
+          36.2093489931229,
+          0.08558087022024974
+        ],
+        "native_release": false,
+        "capture": false,
+        "clean": false,
+        "invalid": false,
+        "clearance_rejected": true,
+        "predicted_clearance_min_m": -0.010805051479658713,
+        "predicted_clearance_closest_geom": null,
+        "robot_contact_before_terminal": null,
+        "robot_contact_post_rebound": null,
+        "robot_contact_after_terminal": null,
+        "first_post_bounce_contact_channels": null,
+        "first_contact_delay_ms": null,
+        "retention_s": null
+      }
+    },
+    {
+      "label": "capture lost",
+      "context_id": "arm-clearance-test-07",
+      "bucket_xy_m": [
+        0.4396064159567318,
+        0.15170083202365525
+      ],
+      "before": {
+        "record_id": "arm-clearance-consistent-arm-clearance-test-07",
+        "values": [
+          0.5923851194967497,
+          0.1014976261473961,
+          0.269285257631701,
+          27.267259527965393,
+          0.09913141018734513
+        ],
+        "native_release": true,
+        "capture": true,
+        "clean": true,
+        "invalid": false,
+        "clearance_rejected": false,
+        "predicted_clearance_min_m": null,
+        "predicted_clearance_closest_geom": null,
+        "robot_contact_before_terminal": false,
+        "robot_contact_post_rebound": false,
+        "robot_contact_after_terminal": false,
+        "first_post_bounce_contact_channels": [
+          "bucket"
+        ],
+        "first_contact_delay_ms": 255.33854166666663,
+        "retention_s": 0.9999999999999999
+      },
+      "after": {
+        "record_id": "arm-clearance-arm_clearance-arm-clearance-test-07",
+        "values": [
+          0.5923851194967497,
+          0.1014976261473961,
+          0.269285257631701,
+          27.267259527965393,
+          0.09913141018734513
+        ],
+        "native_release": false,
+        "capture": false,
+        "clean": false,
+        "invalid": false,
+        "clearance_rejected": true,
+        "predicted_clearance_min_m": -0.0036318244262072406,
+        "predicted_clearance_closest_geom": null,
+        "robot_contact_before_terminal": null,
+        "robot_contact_post_rebound": null,
+        "robot_contact_after_terminal": null,
+        "first_post_bounce_contact_channels": null,
+        "first_contact_delay_ms": null,
+        "retention_s": null
+      }
+    },
+    {
+      "label": "clearance abstention",
+      "context_id": "arm-clearance-test-00",
+      "bucket_xy_m": [
+        1.1102036468911343,
+        -0.011764945942014826
+      ],
+      "before": {
+        "record_id": "arm-clearance-consistent-arm-clearance-test-00",
+        "values": [
+          0.6030386262387395,
+          -0.12431160271167754,
+          0.31460115246096887,
+          16.423169004553138,
+          0.27187661477911074
+        ],
+        "native_release": true,
+        "capture": false,
+        "clean": false,
+        "invalid": false,
+        "clearance_rejected": false,
+        "predicted_clearance_min_m": null,
+        "predicted_clearance_closest_geom": null,
+        "robot_contact_before_terminal": true,
+        "robot_contact_post_rebound": true,
+        "robot_contact_after_terminal": false,
+        "first_post_bounce_contact_channels": [
+          "robot"
+        ],
+        "first_contact_delay_ms": 273.6328125,
+        "retention_s": 0.0
+      },
+      "after": {
+        "record_id": "arm-clearance-arm_clearance-arm-clearance-test-00",
+        "values": [
+          0.6030386262387395,
+          -0.12431160271167754,
+          0.31460115246096887,
+          16.423169004553138,
+          0.27187661477911074
+        ],
+        "native_release": false,
+        "capture": false,
+        "clean": false,
+        "invalid": false,
+        "clearance_rejected": true,
+        "predicted_clearance_min_m": -0.07518568976033865,
+        "predicted_clearance_closest_geom": null,
+        "robot_contact_before_terminal": null,
+        "robot_contact_post_rebound": null,
+        "robot_contact_after_terminal": null,
+        "first_post_bounce_contact_channels": null,
+        "first_contact_delay_ms": null,
+        "retention_s": null
+      }
+    },
+    {
+      "label": "clean capture rejected",
+      "context_id": "arm-clearance-test-39",
+      "bucket_xy_m": [
+        0.6092969331721003,
+        -0.19856162632612512
+      ],
+      "before": {
+        "record_id": "arm-clearance-consistent-arm-clearance-test-39",
+        "values": [
+          0.6329437494277954,
+          -0.04944964498281479,
+          0.27414825558662415,
+          27.534005060312847,
+          0.0963651221865184
+        ],
+        "native_release": true,
+        "capture": true,
+        "clean": true,
+        "invalid": false,
+        "clearance_rejected": false,
+        "predicted_clearance_min_m": null,
+        "predicted_clearance_closest_geom": null,
+        "robot_contact_before_terminal": false,
+        "robot_contact_post_rebound": false,
+        "robot_contact_after_terminal": false,
+        "first_post_bounce_contact_channels": [
+          "bucket"
+        ],
+        "first_contact_delay_ms": 244.33593750000003,
+        "retention_s": 1.0
+      },
+      "after": {
+        "record_id": "arm-clearance-arm_clearance-arm-clearance-test-39",
+        "values": [
+          0.6329437494277954,
+          -0.04944964498281479,
+          0.27414825558662415,
+          27.534005060312847,
+          0.0963651221865184
+        ],
+        "native_release": false,
+        "capture": false,
+        "clean": false,
+        "invalid": false,
+        "clearance_rejected": true,
+        "predicted_clearance_min_m": -0.007474388681402735,
+        "predicted_clearance_closest_geom": null,
+        "robot_contact_before_terminal": null,
+        "robot_contact_post_rebound": null,
+        "robot_contact_after_terminal": null,
+        "first_post_bounce_contact_channels": null,
+        "first_contact_delay_ms": null,
+        "retention_s": null
+      }
+    },
+    {
+      "label": "alternative loses capture and adds robot contact",
+      "context_id": "arm-clearance-test-44",
+      "bucket_xy_m": [
+        0.43080985762942925,
+        -0.1028568350114929
+      ],
+      "before": {
+        "record_id": "arm-clearance-consistent-arm-clearance-test-44",
+        "values": [
+          0.6329436302185059,
+          -0.2744496464729309,
+          0.27414828538894653,
+          27.534005060312847,
+          0.0963651221865184
+        ],
+        "native_release": true,
+        "capture": true,
+        "clean": false,
+        "invalid": false,
+        "clearance_rejected": false,
+        "predicted_clearance_min_m": null,
+        "predicted_clearance_closest_geom": null,
+        "robot_contact_before_terminal": false,
+        "robot_contact_post_rebound": false,
+        "robot_contact_after_terminal": false,
+        "first_post_bounce_contact_channels": [
+          "bucket"
+        ],
+        "first_contact_delay_ms": 193.9453125,
+        "retention_s": 1.0
+      },
+      "after": {
+        "record_id": "arm-clearance-arm_clearance-arm-clearance-test-44",
+        "values": [
+          0.6603058364867147,
+          -0.284380776241612,
+          0.2675204210868649,
+          33.1176037592912,
+          0.12228655247048306
+        ],
+        "native_release": true,
+        "capture": false,
+        "clean": false,
+        "invalid": false,
+        "clearance_rejected": false,
+        "predicted_clearance_min_m": 0.025772182473842765,
+        "predicted_clearance_closest_geom": null,
+        "robot_contact_before_terminal": true,
+        "robot_contact_post_rebound": true,
+        "robot_contact_after_terminal": false,
+        "first_post_bounce_contact_channels": [
+          "bucket"
+        ],
+        "first_contact_delay_ms": 175.71614583333337,
+        "retention_s": 0.0
+      }
+    },
+    {
+      "label": "predicted clear, observed robot contact",
+      "context_id": "arm-clearance-test-01",
+      "bucket_xy_m": [
+        1.1225584467111969,
+        0.12872583343430677
+      ],
+      "before": {
+        "record_id": "arm-clearance-consistent-arm-clearance-test-01",
+        "values": [
+          0.6087761793388727,
+          -0.13140148248579472,
+          0.32753782617132593,
+          17.628544567926383,
+          0.27710405695169416
+        ],
+        "native_release": true,
+        "capture": false,
+        "clean": false,
+        "invalid": false,
+        "clearance_rejected": false,
+        "predicted_clearance_min_m": null,
+        "predicted_clearance_closest_geom": null,
+        "robot_contact_before_terminal": true,
+        "robot_contact_post_rebound": true,
+        "robot_contact_after_terminal": false,
+        "first_post_bounce_contact_channels": [
+          "robot"
+        ],
+        "first_contact_delay_ms": 334.89583333333337,
+        "retention_s": 0.0
+      },
+      "after": {
+        "record_id": "arm-clearance-arm_clearance-arm-clearance-test-01",
+        "values": [
+          0.6087761793388727,
+          -0.13140148248579472,
+          0.32753782617132593,
+          17.628544567926383,
+          0.27710405695169416
+        ],
+        "native_release": true,
+        "capture": false,
+        "clean": false,
+        "invalid": false,
+        "clearance_rejected": false,
+        "predicted_clearance_min_m": 0.012051544733831918,
+        "predicted_clearance_closest_geom": null,
+        "robot_contact_before_terminal": true,
+        "robot_contact_post_rebound": true,
+        "robot_contact_after_terminal": false,
+        "first_post_bounce_contact_channels": [
+          "robot"
+        ],
+        "first_contact_delay_ms": 334.89583333333337,
+        "retention_s": 0.0
+      }
+    }
+  ],
+  "scope": "Frozen-model paired arm-clearance filter at 50 fresh bucket positions, fixed64 only. All16 proposals, top4-geometry budgets, model weights and flight ranking remain fixed. Each admitted candidate must also pass the frozen predicted post-rebound arm-clearance rule. If no checked candidate passes, the new selector abstains; the request stays in the denominator. No fitting, native flight search, noise,128 convergence, driven transit or physical validation. Negative aperture remains a proxy; original capture and route scoring is unchanged.",
+  "rule": {
+    "version": "sircus-post-bounce-arm-clearance-v1",
+    "extra_sphere_margin_m": 0.002,
+    "maximum_sample_spacing_s": 0.002,
+    "maximum_horizon_s": 1.5,
+    "start": "requested_sphere_plane_tangent",
+    "end": "first_descending_rim_band_start",
+    "members_required": 5,
+    "missing_or_overlong_horizon": "reject",
+    "between_sample_bound": "max_endpoint_speed_times_half_actual_spacing",
+    "collision_geometry": "compiled_convex_mesh_hulls_and_enclosing_primitive_boxes",
+    "excluded_collision_geometry": "Arm14/impact_board/collision/0",
+    "incoming_drop_checked": false,
+    "native_flight_queries": 0,
+    "changes_candidate_bank": false,
+    "maximum_candidate_geometry_visits": 4
+  },
+  "recommendation": {
+    "promote_rule": false,
+    "more_training_started": false,
+    "reason": "Capture fell from 20/50 to 16/50; no paired gains. Three captures were lost through clearance abstention, and the remaining paired loss selected an alternative with observed robot contact.",
+    "next_diagnosis": [
+      "Check conservative finger clearance bounds on baseline contact-free captures 04, 07 and 39.",
+      "Check the predicted rim-band horizon versus later actual contact on 01 and 44.",
+      "Do not change the frozen rule or train until the diagnosis is tested separately."
+    ]
+  },
+  "contact_denominator_note": "Post-rebound contacts: 12/44 native releases (12/50 requested) versus 5/32 (5/50 requested). Abstentions have no measured contact outcome."
+}
