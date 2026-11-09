@@ -12,6 +12,10 @@ with three empty positions retained. Preparation and independent audit took
 without skips, including genuine native class resolution without initialization.
 This is geometry/code verification, not a new capture result.
 
+The subsequent [native audit and bounded launch contract](CANDIDATE_NATIVE_GATES.md)
+adds synthetic-tested evidence verification and a mock-only supervisor. It does
+not activate this adapter or supply a production launch/assessment entry point.
+
 ## Frozen fresh geometry
 
 [Coordinate discovery](candidate_fresh_history.py) reads only `bucket_xy_m`
