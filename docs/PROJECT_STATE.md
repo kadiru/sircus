@@ -1,5 +1,20 @@
 # Project state
 
+## Table-assisted scoring and historical rescoring — November 8, 2026
+
+- The user authorized version 3 scoring/rewards that allow board → table →
+  bucket captures, with the same measured board rebound, whole-ball entry and
+  one continuous second retained. Only table contact is removed from the old
+  forbidden-contact rule; rim assistance, retention resets, physics validity,
+  floor/robot/unattributed exclusions and numerical reward weights are unchanged.
+- [Contract](../sircus/mjlab/SCORING_TABLE_ASSISTED.md): separate production and
+  independent-oracle modules preserve the original v2 source and labels. An
+  opt-in environment adapter scores the same native rollout once under v3 and
+  retains its v2 labels. Future training must bind a new experiment contract.
+- Re-score saved calibrated mjlab traces on CPU and publish derivative results
+  before retraining. Do not interpret increased scores as improved trajectories
+  or a newly learned policy. Leave the 4070 and Isaac workload unchanged.
+
 ## Table-assisted task clarification and recorded replay — November 8, 2026
 
 - The user explicitly accepts board → table → bucket captures with one second

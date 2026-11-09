@@ -1,5 +1,10 @@
 # Sircus — Simple Circus
 
+**Table-assisted task definition:** [version 3 scoring and reward](sircus/mjlab/SCORING_TABLE_ASSISTED.md)
+accept board → table → bucket captures after one continuous second inside.
+Historical v2 labels remain intact; CPU rescoring is separate from policy
+training, and no new policy is activated by this change.
+
 **Latest completed mjlab comparison:** [arm-clearance results](baselines/mjlab-arm-clearance-20261108/README.md)
 and [frozen protocol](sircus/mjlab/ARM_CLEARANCE.md). On 50 new paired bucket
 positions at fixed64, captures fell from **20/50 to 16/50**. Robot-contact trials
