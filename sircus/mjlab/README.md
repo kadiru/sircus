@@ -1,6 +1,16 @@
 # Sircus in mjlab
 
-Latest: [Case 00 tilt/drop-gap results](../../baselines/mjlab-case00-tilt-gap-20261109/README.md).
+Latest: [bounded seven-hour coverage training](COVERAGE_TRAINING7H.md).
+Fresh search on105 TRAIN positions, imitation and two PPO seeds, validation on35
+positions, then four frozen policies on70 new TEST positions. Up to2,757 native
+requests with a seven-hour pipeline deadline,64 substeps and unchanged v3 scoring.
+All methods share19 geometric starting poses, including two audited Case00 poses
+reclassified as development evidence. The previous policies retain their weights.
+Live progress and subsequently audited results: `#coverageTraining7h`.
+This is a new experiment, not evidence of improved capture until it completes.
+
+
+Earlier: [Case 00 tilt/drop-gap results](../../baselines/mjlab-case00-tilt-gap-20261109/README.md).
 70 proposals / 42 admitted / two discovery captures. At board height 460 mm,
 **26° and 32° tilt with 251.819 mm gap each captured 3/3 fresh repeats**;
 both used rim assistance without robot contact. The original 28° setting
