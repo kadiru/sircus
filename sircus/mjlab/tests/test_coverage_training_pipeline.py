@@ -15,7 +15,7 @@ class PipelineTests(unittest.TestCase):
         return ['pipeline']+[v for key in (*P.INPUT_KEYS,'output','gpu-lock')
             for v in ('--'+key,str(root/('study' if key=='output' else key)))]
 
-    def invoke(self,root,*,worker_code=0,audit_code=0,video_code=0,timeout_video=False):
+    def invoke(self,root,*,worker_code=0,audit_code=0,video_code=0,timeout_video=False,absolute_deadline=None):
         calls=[]
         def supervise(command,**kwargs):
             calls.append(('worker',command,kwargs));return worker_code
@@ -27,7 +27,8 @@ class PipelineTests(unittest.TestCase):
                 self.assertEqual(live['status'],'cpu_video');self.assertNotIn('finished_unix_s',live)
             if stage=='video' and timeout_video:raise subprocess.TimeoutExpired(command,kwargs['timeout'])
             return SimpleNamespace(returncode=video_code if stage=='video' else audit_code)
-        with patch.object(P.sys,'argv',self.argv(root)),patch.object(P,'supervise',side_effect=supervise),\
+        argv=self.argv(root)+([] if absolute_deadline is None else ['--absolute-deadline-unix',str(absolute_deadline)])
+        with patch.object(P.sys,'argv',argv),patch.object(P,'supervise',side_effect=supervise),\
              patch.object(P.subprocess,'run',side_effect=run),patch.object(P.time,'monotonic',return_value=100.),\
              patch.object(P.time,'time',return_value=1000.),patch('builtins.print'):
             if worker_code or audit_code:
@@ -50,6 +51,17 @@ class PipelineTests(unittest.TestCase):
             self.assertEqual(calls[-1][2]['env']['LIBGL_ALWAYS_SOFTWARE'],'1')
             self.assertEqual(state['status'],'completed');self.assertEqual(state['video_status'],'completed')
             self.assertEqual(state['started_unix_s'],1000.);self.assertEqual(state['global_deadline_unix_s'],26200.)
+
+    def test_retry_keeps_original_absolute_deadline(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            calls,state=self.invoke(Path(tmp),absolute_deadline=25000.)
+            self.assertEqual(state['global_deadline_unix_s'],25000.)
+            self.assertEqual(state['global_limit_s'],24000.)
+            self.assertEqual(calls[0][2]['absolute_deadline'],24100.)
+            self.assertEqual(calls[0][1][calls[0][1].index('--global-deadline-unix')+1],'25000.0')
+        with tempfile.TemporaryDirectory() as tmp,patch.object(P.subprocess,'Popen') as launch:
+            with self.assertRaisesRegex(ValueError,'Future bounded'):self.invoke(Path(tmp),absolute_deadline=999.)
+            launch.assert_not_called()
 
     def test_worker_or_audit_failure_skips_later_phases(self):
         for worker_code,audit_code,phases in ((1,0,['worker']),(0,1,['worker','audit'])):

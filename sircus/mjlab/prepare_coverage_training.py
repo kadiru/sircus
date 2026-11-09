@@ -20,8 +20,8 @@ import time
 from .prepare_table_training import atomic_bytes, take, sha
 from .prepare_height_tilt_replay import event_list, MAX_VIDEO_BYTES
 
-VERSION = 'sircus-coverage-training7h-v1'
-AUDIT = 'sircus-coverage-training7h-audit-v1'
+VERSION = 'sircus-coverage-training7h-v2'
+AUDIT = 'sircus-coverage-training7h-audit-v2'
 KEY = 'coverage_training7h'
 START = '<!--COVERAGE_TRAINING7H_START-->'
 END = '<!--COVERAGE_TRAINING7H_END-->'
@@ -31,7 +31,7 @@ STATS = ('attempts','native_releases','captures','direct_captures','table_assist
          'clean','mean_reward','invalid','invalid_physics')
 LAYOUT = ('context_id','bucket_xy_m','grid_cell','origin','split')
 MAX_SNAPSHOT_BYTES = 512*1024
-VIDEO = 'sircus-coverage-training7h-recorded-video-v1'
+VIDEO = 'sircus-coverage-training7h-recorded-video-v2'
 
 
 def require(condition, message):
@@ -45,6 +45,29 @@ def read(path):
 
 def finite(value):
     return isinstance(value,(int,float)) and not isinstance(value,bool) and math.isfinite(value)
+
+
+def failure_summary(raw,pipeline):
+    """Explain declared failure gates without forwarding potentially private exceptions."""
+    gates=raw.get('control_gates',{})
+    for key,label in (('pre','Startup'),('post','Final')):
+        gate=gates.get(key,{})
+        if gate.get('status')=='failed':
+            def observed(name):
+                value=gate.get(name)
+                return str(value) if type(value) is int and 0<=value<=3 else 'unknown'
+            note=(f"{label} control gate failed: direct captures {observed('direct_captures')}/3; "
+                  f"table-assisted captures {observed('table_assisted_captures')}/3; "
+                  f"negative-control captures {observed('negative_captures')}/3 (expected 0).")
+            if raw.get('search_requests')==0 and raw.get('train_requests')==0:
+                note+=' TRAIN search and PPO did not start.'
+            note+=' The saved control evidence is retained; this is not a policy score.'
+            return dict(code=key+'_control_gate_failed',message=note)
+    if pipeline.get('status') in ('audit_failed','audit_deferred'):
+        return dict(code='independent_audit_incomplete',message='Independent audit did not complete successfully; reported results remain unverified and saved.')
+    if str(raw.get('error','')).startswith('TimeoutError:') or pipeline.get('status') in ('timeout','timed_out'):
+        return dict(code='bounded_deadline',message='The bounded execution deadline stopped the study; partial evidence is saved and no completed comparison is claimed.')
+    return dict(code='worker_stopped',message='The worker stopped before a verified comparison; partial evidence is saved. Its detailed error remains in the local log.')
 
 
 def digest(value):
@@ -129,11 +152,14 @@ def compact(study, audit_path=None, pipeline=None):
     """Whitelist only display facts. Native arrays, local paths and errors stay private."""
     study=Path(study);path=study/'report.json';pipeline=pipeline or {}
     if not path.is_file():
-        return dict(version=VERSION,status=pipeline.get('status','preparing'),phase='Waiting for input verification / GPU slot',
+        pending=dict(version=VERSION,status=pipeline.get('status','preparing'),phase='Waiting for input verification / GPU slot',
                     counts={},stage_counts=[],layouts={},curves=[],test_comparison=[],test_positions=[],
                     clock=dict(started_unix_s=pipeline.get('started_unix_s'),deadline_unix_s=pipeline.get('global_deadline_unix_s'),limit_s=pipeline.get('global_limit_s')),
                     video_status='waiting_for_audit',
                     audit=dict(status='pending',full_checks_verified=False,native_checks_verified=False))
+        if pipeline.get('status') in ('failed','audit_failed','audit_deferred','timeout','timed_out'):
+            pending.update(status='stopped',failure=failure_summary({},pipeline))
+        return pending
     raw=read(path)
     require(raw.get('version')==VERSION,'Explicit coverage training study required')
     out=take(raw,('version','status','phase','scope','contract_fingerprint','train_requests','updates','elapsed_s',
@@ -145,7 +171,10 @@ def compact(study, audit_path=None, pipeline=None):
     budget_path=study.with_name(study.name+'-budget.json')
     if budget_path.is_file():
         budget=read(budget_path)
-        out['clock'].update(worker_acquired_unix_s=budget.get('acquired_unix_s'),worker_limit_s=budget.get('limit_s'))
+        effective=budget.get('effective_worker_limit_s')
+        out['clock'].update(worker_acquired_unix_s=budget.get('acquired_unix_s'),
+            worker_limit_s=effective if finite(effective) else budget.get('limit_s'),
+            worker_configured_limit_s=budget.get('limit_s'))
     out['protocol']=take(raw.get('protocol'),('substeps','train_layouts','historical_train_layouts','new_train_layouts',
         'validation_layouts','test_layouts','grid_rows','grid_columns','bucket_bounds_m','maximum_fresh_requests',
         'global_limit_s','seeds','bc_seed','noise','search_requests','train_requests','train_requests_per_seed',
@@ -173,7 +202,8 @@ def compact(study, audit_path=None, pipeline=None):
     out['test_positions']=[take(r,LAYOUT+('method','capture','table_assisted_capture','direct_capture','native_release',
         'robot_contact','robot_contact_steps','invalid_physics','values','record_id','clean'))
         for r in raw.get('test_positions',[]) if r.get('method') in METHODS]
-    out['control_gates']={k:take(v,('status','positive_captures','negative_captures','direct_captures','table_assisted_captures'))
+    out['control_gates']={k:dict(take(v,('status','positive_captures','negative_captures','direct_captures','table_assisted_captures')),
+                                counts=take(v.get('counts'),STATS))
                           for k,v in raw.get('control_gates',{}).items() if k in ('pre','post')}
     audit_path=Path(audit_path) if audit_path else study.with_name(study.name+'-audit.json')
     out['audit']=proof(path,raw,audit_path)
@@ -183,7 +213,7 @@ def compact(study, audit_path=None, pipeline=None):
         out['video']=video_summary(manifest,movie,out);out['video_status']='ready'
     if raw.get('status') in ('failed','timeout','timed_out','stopped') or pipeline.get('status') in ('failed','audit_failed','audit_deferred','timeout','timed_out'):
         out['status']='stopped'
-        out['error']='Study stopped; partial evidence remains saved. No completed-policy claim is made.'
+        out['failure']=failure_summary(raw,pipeline)
     require(len(json.dumps(out,allow_nan=False).encode())<=MAX_SNAPSHOT_BYTES,'Compact snapshot exceeds bounded sidecar size')
     return out
 
@@ -280,7 +310,7 @@ def watch(study, *, snapshot_path, target_html, receipt, display=None, audit_pat
             errors+=1;state={};value={}
         elapsed=monotonic()-started
         if status=='watching' and elapsed>=max_seconds:status='publication_timeout'
-        record=dict(version='sircus-coverage-training7h-publication-watch-v1',status=status,updates=updates,read_or_publication_errors=errors,elapsed_s=elapsed,
+        record=dict(version='sircus-coverage-training7h-publication-watch-v2',status=status,updates=updates,read_or_publication_errors=errors,elapsed_s=elapsed,
                     pipeline_status=state.get('status'),audit_status=value.get('audit',{}).get('status'),
                     source_sha256=sha(__file__))
         atomic_bytes(receipt,(json.dumps(record,indent=2,allow_nan=False)+'\n').encode())

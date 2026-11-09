@@ -19,9 +19,9 @@ from .saved_shot_video import (SOURCE_MODULES, build_held_scene, contained, dige
                               vector, verify_assets)
 from .height_tilt_video import CONTACTS, first_events, cameras
 from .bouncer_clearance_video import frame_plan, stage
-STUDY_VERSION='sircus-coverage-training7h-v1'
-AUDIT='sircus-coverage-training7h-audit-v1'
-VERSION='sircus-coverage-training7h-recorded-video-v1'
+STUDY_VERSION='sircus-coverage-training7h-v2'
+AUDIT='sircus-coverage-training7h-audit-v2'
+VERSION='sircus-coverage-training7h-recorded-video-v2'
 
 FPS = 30
 

@@ -94,11 +94,45 @@ class PublicationTests(unittest.TestCase):
         self.assertEqual(value['clock']['deadline_unix_s'],26200.)
         self.assertEqual(value['audit']['status'],'pending')
 
+    def test_effective_worker_budget_does_not_reset_original_deadline(self):
+        write(self.study.with_name(self.study.name+'-budget.json'),dict(acquired_unix_s=2000.,limit_s=19800,effective_worker_limit_s=7200))
+        value=self.snapshot_value()
+        self.assertEqual(value['clock']['worker_limit_s'],7200)
+        self.assertEqual(value['clock']['worker_configured_limit_s'],19800)
+        self.assertEqual(value['clock']['deadline_unix_s'],26200.)
+
+    def test_failed_startup_controls_show_specific_counts_without_private_error(self):
+        self.raw.update(status='failed',phase='control_failed',search_requests=0,train_requests=0,
+            counts=counts(9,3),error='RuntimeError: /home/private/credentials-or-log')
+        self.raw['control_gates']={'pre':dict(status='failed',direct_captures=3,
+            table_assisted_captures=0,negative_captures=0,counts=counts(9,3))}
+        write(self.report,self.raw);self.state['status']='failed'
+        value=self.snapshot_value()
+        self.assertEqual(value['status'],'stopped')
+        self.assertEqual(value['failure']['code'],'pre_control_gate_failed')
+        message=value['failure']['message']
+        self.assertIn('direct captures 3/3',message)
+        self.assertIn('table-assisted captures 0/3',message)
+        self.assertIn('negative-control captures 0/3',message)
+        self.assertIn('TRAIN search and PPO did not start',message)
+        self.assertNotIn('robot contact',message)
+        self.assertNotIn('/home/private',json.dumps(value))
+        self.assertEqual(value['control_gates']['pre']['counts']['attempts'],9)
+
+    def test_pending_failed_pipeline_stays_stopped_not_preparing(self):
+        self.report.unlink();self.state.update(status='failed',error='/home/private/log')
+        value=self.snapshot_value()
+        self.assertEqual(value['status'],'stopped')
+        self.assertIn('worker stopped',value['failure']['message'])
+        self.assertNotIn('/home/private',json.dumps(value))
+
     def test_additive_idempotent_html_and_cas_keep_unrelated_work(self):
         value=self.snapshot_value();value['phase']='</script><script>bad()</script>'
         result=P.embed_html(self.original,value)
         self.assertTrue(result.startswith(self.original.split('</body>')[0]))
         self.assertNotIn('<script>bad()',result)
+        self.assertIn('Attempt v1 stopped after nine startup controls',result)
+        self.assertIn('original seven-hour deadline is preserved',result)
         self.assertEqual(P.embed_html(result,value),result)
         with self.assertRaisesRegex(ValueError,'changed'):P.install(self.html,value,'0'*64)
         self.assertEqual(self.html.read_text(),self.original)

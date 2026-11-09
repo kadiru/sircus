@@ -40,7 +40,8 @@ def main():
     parser.add_argument('--training-cut',type=float,default=16200)
     parser.add_argument('--search-limit',type=float,default=7200)
     parser.add_argument('--queue-timeout',type=float,default=1800)
-    parser.add_argument('--global-limit',type=float,default=25200);a=parser.parse_args()
+    parser.add_argument('--global-limit',type=float,default=25200)
+    parser.add_argument('--absolute-deadline-unix',type=float,default=None);a=parser.parse_args()
     if not (60<=a.search_limit<=7200 and a.search_limit<=a.training_cut<=16200
             and a.training_cut<a.wall_time_limit<=19800 and a.wall_time_limit<a.global_limit<=25200):
         raise ValueError('Finite ordered search/training/worker/global caps required')
@@ -49,9 +50,12 @@ def main():
         if a.output.with_suffix(suffix).exists():raise ValueError('Fresh pipeline namespace required')
     if a.output.with_name(a.output.name+'-budget.json').exists():raise ValueError('Fresh worker budget namespace required')
     source=Path(__file__).resolve().parents[2];a.output.parent.mkdir(parents=True,exist_ok=True)
-    started=time.monotonic();deadline=started+a.global_limit
+    started=time.monotonic();started_unix=time.time()
+    deadline_unix=min(started_unix+a.global_limit,a.absolute_deadline_unix) if a.absolute_deadline_unix is not None else started_unix+a.global_limit
+    if not started_unix<deadline_unix<=started_unix+25200:raise ValueError('Future bounded original absolute deadline required')
+    actual_window=deadline_unix-started_unix;deadline=started+actual_window
     state=dict(status='starting',source=str(source),output=str(a.output),pipeline_pid=os.getpid(),
-        started_unix_s=time.time(),global_limit_s=a.global_limit,global_deadline_unix_s=time.time()+a.global_limit)
+        started_unix_s=started_unix,global_limit_s=actual_window,global_deadline_unix_s=deadline_unix)
     statepath=a.output.with_suffix('.pipeline.json');atomic(statepath,state)
     command=[sys.executable,'-u','-m','sircus.mjlab.coverage_training_study',
              '--global-deadline-unix',str(state['global_deadline_unix_s'])]

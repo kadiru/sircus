@@ -1,7 +1,8 @@
 # Project state
 
-## Seven-hour coverage training prepared — November 9, 2026
+## Seven-hour coverage training startup correction — November 9, 2026
 
+- Initial producer `bd9c06f` stopped after nine startup controls and zero TRAIN requests: direct3/3, table-assisted0/3, negative3/3 expected misses. Expanded geometry changed the table control wrist branch. v2 preserves original control proofs/joints separately from the19-pose learning bank; no scoring/physics relaxation. Original hard deadline07:59PST November9 remains in force. Failed v1 evidence is preserved; draft PR #102 stays open.
 - [Frozen protocol](../sircus/mjlab/COVERAGE_TRAINING7H.md): 105 TRAIN positions (35 historical +70 fresh),35 fresh validation and70 fresh TEST positions, stratified across35 table cells. Coordinates are frozen before feasibility/outcomes and separated from historical layouts. Up to1,260 guided TRAIN search requests feed fresh imitation; two independent PPO seeds each receive up to512 requests.
 - Validation selects a checkpoint before TEST, with initial imitation eligible. Four frozen methods are evaluated once at every TEST position: current imitation/PPO and new imitation/selected model. All use the same19-pose geometry bank; the two inspected Case00 successes are explicitly development priors. The prior changed, so current-weight scores are new evaluations, not historical-score reproduction.
 - Maximum2,757 requests includes175 validation,280 TEST and18 bracketing controls. Seven-hour absolute pipeline limit includes queueing, CPU audit and optional saved-trajectory video; native worker cap5.5h, search cap2h and training cutoff4.5h reserve evaluation time. Partial budgets are reported honestly; completion requires all TEST/control rows and independent audit.

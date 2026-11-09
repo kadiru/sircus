@@ -8,6 +8,7 @@ from __future__ import annotations
 import copy
 import hashlib
 import json
+import json
 from pathlib import Path
 import numpy as np
 from . import table_training_contract as old
@@ -16,8 +17,8 @@ from .learning_contract import digest
 from .corrected_contract import sha
 from .table_assisted_score import reward, VERSION as SCORING_VERSION, ROUTE_VERSION, REWARD_VERSION
 
-VERSION='sircus-coverage-training7h-v1'
-AUDIT_VERSION='sircus-coverage-training7h-audit-v1'
+VERSION='sircus-coverage-training7h-v2'
+AUDIT_VERSION='sircus-coverage-training7h-audit-v2'
 BC_SEED=2026110901
 SEEDS=(2026110902,2026110903)
 TRAIN_SEED,VALIDATION_SEED,TEST_SEED=2026110911,2026110912,2026110913
@@ -33,7 +34,7 @@ collect_exclusions=old.collect_exclusions
 
 
 def protocol():
-    return dict(substeps=64,bc_seed=BC_SEED,seeds=list(SEEDS),train_seed=TRAIN_SEED,
+    return dict(control_prior='Exact authenticated original17 control branches; expanded19 shared only by search and policies',substeps=64,bc_seed=BC_SEED,seeds=list(SEEDS),train_seed=TRAIN_SEED,
         validation_seed=VALIDATION_SEED,test_seed=TEST_SEED,train_layouts=105,
         historical_train_layouts=35,new_train_layouts=70,validation_layouts=35,test_layouts=70,
         grid_columns=7,grid_rows=5,bucket_bounds_m=[[.1,-.65],[1.24,.25]],
@@ -101,6 +102,17 @@ def load_inputs(a,root):
     old_prior=current_read('prior.json');controls=current_read('controls.json')
     require(len(old_prior['records'])==17 and len(controls)==3,'Expected17 frozen geometric sources and3 controls')
     current_read('calibration.json');current_read('setup-home.json');current_read('verification.json')
+    require(sha(current/'rows.jsonl')==manifest['rows.jsonl'],'Current original control rows changed')
+    original_rows=[json.loads(line) for line in (current/'rows.jsonl').read_text().splitlines() if line.strip()]
+    control_replays=[]
+    for role in ('direct_control','table_control','negative_control'):
+        matched=[r for r in original_rows if r.get('phase')=='controls_pre' and r.get('role')==role and r.get('repeat')==0]
+        require(len(matched)==1 and matched[0].get('native_release') is True,'Exact admitted original control required')
+        r=matched[0]
+        for key in ('context_resolution','connection'):
+            name='native/'+r[key+'_file'];require(sha(contained(current,name))==r[key+'_sha256']==manifest[name],'Original control proof changed')
+        cache='native/'+r['native_cache_file'];require(sha(contained(current,cache))==r['native_cache_sha256']==manifest[cache],'Original control native data changed')
+        control_replays.append(copy.deepcopy(r))
     calibration=read(current/'calibration.json');home=read(current/'setup-home.json')
     require(parent['identity']['scene_sha256']==case_spec['identity']['scene_sha256']
         and parent['identity']['asset_sha256']==case_spec['identity']['asset_sha256'],'Case00 geometry differs from current training scene')
@@ -125,11 +137,11 @@ def load_inputs(a,root):
     prior=copy.deepcopy(old_prior);prior['records']+=sources
     prior.update(records_sha256=digest(prior['records']),recipes=19,version='sircus-coverage-expanded-geometric-prior-v1',
         development_source_ids=list(wanted),scope='17 original sources plus2 explicitly reclassified Case00 development sources; shared geometry only, no new TEST outcomes')
-    bindings=dict(current=current_binding,case00=case_binding,current_artifacts=copy.deepcopy(old_artifacts),
+    bindings=dict(current=current_binding,case00=case_binding,current_rows_sha256=manifest['rows.jsonl'],control_replays_sha256={r['role']:digest(r) for r in control_replays},current_artifacts=copy.deepcopy(old_artifacts),
         prior_sha256=digest(prior),development_source_sha256={r['source_id']:r['source_record_sha256'] for r in sources},
         current_files_sha256={name:manifest[name] for name in ('prior.json','controls.json','calibration.json','setup-home.json','verification.json')})
     return dict(parent=parent,prior=prior,old_prior=old_prior,old_artifacts=old_artifacts,
-        controls=controls,calibration=calibration,home=home,bindings=bindings,train_splits=parent['splits'])
+        controls=controls,control_replays=control_replays,calibration=calibration,home=home,bindings=bindings,train_splits=parent['splits'])
 
 
 def make_splits(train_splits,excluded):

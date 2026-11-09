@@ -22,8 +22,8 @@ from . import table_training_verify as native
 from . import table_assisted_score_oracle as oracle
 from .benchmark_verify import EvidenceError, contained, digest, read, sha
 
-VERSION = 'sircus-coverage-training7h-audit-v1'
-STUDY_VERSION = 'sircus-coverage-training7h-v1'
+VERSION = 'sircus-coverage-training7h-audit-v2'
+STUDY_VERSION = 'sircus-coverage-training7h-v2'
 BC_SEED = 2026110901
 SEEDS = (2026110902, 2026110903)
 METHODS = ('current_bc', 'current_ppo', 'bc', 'selected_ppo')
@@ -35,7 +35,8 @@ statistics = native.statistics
 
 
 def protocol_checks(protocol, checks):
-    expected=dict(substeps=64,bc_seed=BC_SEED,seeds=list(SEEDS),train_seed=2026110911,
+    expected=dict(control_prior='Exact authenticated original17 control branches; expanded19 shared only by search and policies',
+        substeps=64,bc_seed=BC_SEED,seeds=list(SEEDS),train_seed=2026110911,
         validation_seed=2026110912,test_seed=2026110913,train_layouts=105,
         historical_train_layouts=35,new_train_layouts=70,validation_layouts=35,test_layouts=70,
         grid_columns=7,grid_rows=5,bucket_bounds_m=[[.1,-.65],[1.24,.25]],
@@ -146,6 +147,16 @@ def audit_inputs(study,source,current,current_audit,case,case_audit,spec,checks)
     case_spec,_,case_manifest,case_binding,case_bound=authenticate_parent(case,case_audit,
         read(source/'baselines/mjlab-case00-tilt-gap-20261109/summary.json'),checks,'case00')
     original=read(bound('prior.json'));controls=read(bound('controls.json'))
+    parent_rows=common.lines(bound('rows.jsonl'));control_replays=[]
+    for role in CONTROL_ROLES:
+        cohort=[r for r in parent_rows if r.get('phase')=='controls_pre' and r.get('role')==role and r.get('repeat')==0]
+        checks.equal(len(cohort),1,'One exact previously executed control/'+role)
+        r=cohort[0]
+        checks.require(r.get('native_release') is True and r.get('invalid_physics') is False and not r.get('invalid'),role+'/valid original native control')
+        for key in ('context_resolution','connection','native_cache'):
+            relative='native/'+r[key+'_file']
+            checks.equal(sha(bound(relative)),r[key+'_sha256'],role+'/original control proof or trace/'+key)
+        control_replays.append(r)
     checks.equal(len(original['records']),17,'Original17 geometry recipes unchanged')
     checks.equal(len(controls),3,'Original direct/table/miss controls')
     for name in ('calibration.json','setup-home.json','verification.json'):
@@ -171,6 +182,10 @@ def audit_inputs(study,source,current,current_audit,case,case_audit,spec,checks)
     checks.equal(read(study/'old-prior.json'),original,'Preserved historical17-source prior')
     checks.equal((spec['prior_sha256'],spec['old_prior_sha256']),(digest(prior),digest(original)),'Both prior identities separately bound')
     bindings=spec['source_bindings'];checks.equal(read(study/'source-bindings.json'),bindings,'Frozen source binding sidecar')
+    checks.equal(bindings['current_rows_sha256'],manifest['rows.jsonl'],'Original successful control row source bytes')
+    checks.equal(bindings['control_replays_sha256'],{r['role']:digest(r) for r in control_replays},'Every exact original control row authenticated')
+    checks.equal(read(study/'control-replays.json'),control_replays,'Exact original control replay sidecar')
+    checks.equal(sha(study/'control-replays.json'),spec['control_replays_sha256'],'Frozen original control replay bytes')
     checks.equal(bindings['current'],current_binding,'Exact current lineage')
     checks.equal(bindings['case00'],case_binding,'Exact inspected development lineage')
     checks.equal(bindings['prior_sha256'],digest(prior),'Common prior source binding')
@@ -190,7 +205,7 @@ def audit_inputs(study,source,current,current_audit,case,case_audit,spec,checks)
                                 historical_relative_path=previous_artifact['path'])
         checks.equal(bindings['current_artifacts'][method],expected_binding,method+'/full historical source binding')
     checks.equal(read(study/'old-artifacts.json'),spec['old_artifacts'],'Current model declarations')
-    return parent,prior,controls
+    return parent,prior,controls,original,control_replays
 
 
 def search_proposal(context,round_index,best=None):
@@ -521,8 +536,8 @@ def audit_budget(directory,report,checks):
     budget,pipeline=read(budget_path),read(pipeline_path)
     for key,value in dict(limit_s=19800,training_cut_s=16200,search_limit_s=7200,audit_reserve_s=3600).items():
         checks.equal(budget[key],value,'Launch budget cap/'+key)
-    checks.equal(pipeline['global_limit_s'],25200,'Absolute seven-hour pipeline cap')
-    checks.numeric(pipeline['global_deadline_unix_s']-pipeline['started_unix_s'],25200,'Absolute supervisor deadline interval',.05)
+    checks.require(0<pipeline['global_limit_s']<=25200,'Absolute pipeline window is no longer than seven hours')
+    checks.numeric(pipeline['global_deadline_unix_s']-pipeline['started_unix_s'],pipeline['global_limit_s'],'Actual remaining supervisor deadline interval',.05)
     checks.equal(budget['global_deadline_unix_s'],pipeline['global_deadline_unix_s'],'Worker binds supervisor absolute deadline')
     checks.require(pipeline['started_unix_s']<=budget['acquired_unix_s'],'GPU acquired after own pipeline starts')
     remaining=budget['global_deadline_unix_s']-budget['acquired_unix_s']-3600
@@ -587,21 +602,64 @@ def audit_boundaries(directory,rows,checks):
     checks.require(boundaries[3]['acquired_elapsed_s']<=first_test['acquired_start_s'],'All four prediction packets frozen before first TEST simulation')
 
 
-def audit_controls(rows,sources,checks):
+def audit_controls(rows,sources,replays,checks):
     result={}
     for phase,key in (('controls_pre','pre'),('controls_post','post')):
         group=[r for r in rows if r['phase']==phase]
         checks.equal(len(group),9,phase+'/exactly nine controls')
         for index,(source,role) in enumerate(zip(sources,CONTROL_ROLES)):
+            original=replays[index]
             for repeat in range(3):
                 row=group[index*3+repeat];label=f'coverage-{phase}-{role}-r{repeat}'
                 checks.equal(row['id'],label,label+'/literal identity')
                 checks.equal((row['role'],row['method'],row['repeat']),(role,'control',repeat),label+'/control role')
                 checks.equal((row['control_source_id'],row['control_source_sha256']),(source['id'],digest(source)),label+'/original control provenance')
                 checks.equal((row['values'],row['bucket_xy_m']),(source['values'],source['bucket_xy_m']),label+'/unchanged control action and layout')
+                checks.equal((row['source_record_id'],row['source_record_sha256'],row['variant']),
+                    (original['id'],digest(original),'control_exact'),label+'/matched original native control')
+                checks.equal(row['adapter_directory'],'native-controls',label+'/control-only original17 geometry namespace')
+                for field in ('source_hint','effective_source_hint','source_teacher_id','context_resolution_file',
+                    'context_resolution_sha256','context_home_sha256','context_layout_eligible','context_anchor_admitted',
+                    'context_hard_reject','observation','connection_file','connection_sha256','q10','q14'):
+                    checks.equal(row[field],original[field],label+'/original exact control branch and proof/'+field)
+                for joint in ('q10','q14'):
+                    checks.equal(row['native_initial_'+joint],np.asarray(original[joint],dtype=np.float32).astype(float).tolist(),
+                        label+'/actual native reset on original branch/'+joint)
         result[key]=native.control_gate(group)
         checks.equal(result[key]['status'],'passed',phase+'/direct, table-assisted and negative controls all pass')
     return result
+
+
+class _NativeNamespace:
+    """Read-only path view for the historical checker's literal native/ prefix.
+
+    This redirects no evidence bytes and writes no files. It lets the same
+    independent proof checker verify each explicit resolver namespace.
+    """
+    def __init__(self,path):self.path=Path(path)
+    def __truediv__(self,name):
+        if name!='native':raise EvidenceError('Unexpected evidence namespace access')
+        return self.path
+
+
+def audit_native_namespaces(study,rows,prior,old_prior,home,spec,calibration,assets,checks):
+    setup={};native_count=0
+    for namespace,control,bank in (('native',False,prior),('native-controls',True,old_prior)):
+        cohort=[r for r in rows if r['phase'].startswith('controls_') is control]
+        checks.require(bool(cohort),namespace+'/nonempty expected evidence namespace')
+        for row in cohort:checks.equal(row['adapter_directory'],namespace,row['id']+'/explicit resolver bank namespace')
+        path=study/namespace
+        setup[namespace]=calibrated.check_setup_evidence(_NativeNamespace(path),cohort,bank,home,checks)
+        old.audit_native_options(path,spec['scene'],calibration,assets,checks)
+        for row in cohort:
+            if row.get('native_release'):
+                checks.equal((row['effective_options_file'],row['effective_options_sha256']),
+                    ('effective-options.json',sha(path/'effective-options.json')),row['id']+'/fixed64 namespace option identity')
+        traces=native.rescore_rows(path,cohort,spec['scene'],calibration,spec['identity']['trace_schema'],assets,checks)
+        native_count+=len(traces)
+    for name in ('effective-options.json','native-compiled-geometry.json'):
+        checks.equal(read(study/'native'/name),read(study/'native-controls'/name),'Controls and policies use identical physics/'+name)
+    return setup,native_count
 
 
 def audit(study,source,assets,*,current_study,current_audit,case00_study,case00_audit,reference,history_root=None):
@@ -623,7 +681,7 @@ def audit(study,source,assets,*,current_study,current_audit,case00_study,case00_
     replay.check_source_files(source,spec['source_sha256'],checks,'Frozen actual producer source')
     checks.equal(sha(Path(__file__)),spec['source_sha256']['sircus/mjlab/coverage_training_verify.py'],'Same frozen independent audit implementation')
     checks.equal(sha(Path(oracle.__file__)),spec['source_sha256']['sircus/mjlab/table_assisted_score_oracle.py'],'Same independent v3 oracle implementation')
-    parent,prior,controls=audit_inputs(study,source,current_study,current_audit,case00_study,case00_audit,spec,checks)
+    parent,prior,controls,old_prior,control_replays=audit_inputs(study,source,current_study,current_audit,case00_study,case00_audit,spec,checks)
     old.audit_runtime_reference(source,reference,spec,parent,assets,checks)
     inventory=audit_inventory(study,source,history_root,parent['splits'],spec,checks)
     calibration=replay.check_calibration(study,spec['identity']['calibration'],checks)
@@ -633,16 +691,10 @@ def audit(study,source,assets,*,current_study,current_audit,case00_study,case00_
     budget=audit_budget(study,report,checks)
     requests=audit_request_packets(study,rows,checks)
     audit_boundaries(study,rows,checks)
-    setup=calibrated.check_setup_evidence(study,rows,prior,spec['identity']['setup']['home'],checks)
-    old.audit_native_options(study/'native',spec['scene'],calibration,assets,checks)
-    for row in rows:
-        if row.get('native_release'):
-            checks.equal((row['effective_options_file'],row['effective_options_sha256']),
-                ('effective-options.json',sha(study/'native/effective-options.json')),row['id']+'/fixed64 native option identity')
-    traces=native.rescore_rows(study/'native',rows,spec['scene'],calibration,spec['identity']['trace_schema'],assets,checks)
+    setup,native_count=audit_native_namespaces(study,rows,prior,old_prior,spec['identity']['setup']['home'],spec,calibration,assets,checks)
     milestones,fit,bootstrap_summary=audit_training(study,rows,report,spec,checks)
     selected,comparisons=audit_predictions(study,rows,report,spec,milestones,checks)
-    control_gates=audit_controls(rows,controls,checks)
+    control_gates=audit_controls(rows,controls,control_replays,checks)
     checks.equal(report['control_gates'],control_gates,'Complete before/after control gates')
     checks.equal(report['counts'],statistics(rows),'Full denominator includes rejected setup requests')
     checks.equal(report['stage_counts'],{p:statistics([r for r in rows if r['phase']==p]) for p in
@@ -652,7 +704,7 @@ def audit(study,source,assets,*,current_study,current_audit,case00_study,case00_
     return dict(version=VERSION,status='passed',full_checks_verified=True,native_checks_verified=True,checks_count=checks.count,
         checks=checks.entries,failures=[],contract_fingerprint=fp,report_sha256=sha(study/'report.json'),
         evidence_manifest_sha256=sha(study/'evidence-manifest.json'),auditor_sha256=sha(Path(__file__)),
-        producer_source_sha256=spec['source_sha256'],requested_trials=len(rows),native_releases=len(traces),
+        producer_source_sha256=spec['source_sha256'],requested_trials=len(rows),native_releases=native_count,
         bootstrap_summary=bootstrap_summary,bootstrap_replay=fit,selected=selected,test_comparison=comparisons,
         control_gates=control_gates,setup_evidence=setup,coordinate_inventory=inventory,request_accounting=accounting,
         request_packets=requests,budget=budget,elapsed_s=time.monotonic()-started,maximum_numeric_error=checks.numeric_error,
