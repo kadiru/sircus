@@ -191,18 +191,48 @@ class WatchdogTests(unittest.TestCase):
         record=dict(pid=900,start_token="boot:1",cookie=self.session,ppid=777,sid=900,state="R")
         ops=subject.LinuxProcessOps()
         with patch.object(ops,"identity",side_effect=[record,dict(record,start_token="boot:2")]), \
-             patch.object(subject.os,"pidfd_open",return_value=44,create=True) as opened, \
+             patch.object(subject,"pidfd_open",return_value=44) as opened, \
              patch.object(subject.os,"close") as closed, \
-             patch.object(subject.signal,"pidfd_send_signal",create=True) as signal_call:
+             patch.object(subject,"pidfd_send_signal") as signal_call:
             self.assertEqual(ops.signal_owned(record,signal.SIGTERM,self.session),"ownership_mismatch")
         opened.assert_called_once_with(900,0);closed.assert_called_once_with(44);signal_call.assert_not_called()
+
+    def test_self_pidfd_capability_is_checked_before_subreaper_or_application_start(self):
+        import ctypes
+        ops=subject.LinuxProcessOps();order=[]
+        capability=dict(status="passed",self_only=True,signal=0,descriptor_closed=True)
+        library=unittest.mock.Mock()
+        library.prctl.side_effect=lambda *args:order.append("subreaper") or 0
+        with patch.object(subject,"capability_preflight",side_effect=lambda:order.append("capability") or capability), \
+             patch.object(ctypes,"CDLL",return_value=library),patch.object(Path,"exists",return_value=False), \
+             patch.object(subject.subprocess,"Popen") as started:
+            ops.prepare()
+        self.assertEqual(order,["capability","subreaper"])
+        self.assertEqual(ops.pidfd_capability,capability);started.assert_not_called()
+
+    def test_failed_pidfd_capability_prevents_subreaper_and_application_start(self):
+        import ctypes
+        ops=subject.LinuxProcessOps()
+        with patch.object(subject,"capability_preflight",side_effect=OSError("mock unsupported pidfd")), \
+             patch.object(ctypes,"CDLL") as library,patch.object(subject.subprocess,"Popen") as started:
+            with self.assertRaises(OSError):ops.prepare()
+        library.assert_not_called();started.assert_not_called()
+
+    def test_pidfd_signal_refuses_lost_ancestry_after_open_and_closes_descriptor(self):
+        record=dict(pid=900,start_token="boot:1",cookie=self.session,ppid=777,sid=900,state="R")
+        ops=subject.LinuxProcessOps()
+        with patch.object(ops,"identity",return_value=record),patch.object(ops,"owned",return_value=[]), \
+             patch.object(subject,"pidfd_open",return_value=44),patch.object(subject.os,"close") as closed, \
+             patch.object(subject,"pidfd_send_signal") as sent:
+            self.assertEqual(ops.signal_owned(record,signal.SIGTERM,self.session),"ownership_mismatch")
+        closed.assert_called_once_with(44);sent.assert_not_called()
 
     def test_pidfd_signal_does_not_use_killpg_or_pid_signal(self):
         record=dict(pid=900,start_token="boot:1",cookie=self.session,ppid=777,sid=900,state="R")
         ops=subject.LinuxProcessOps()
         with patch.object(ops,"identity",return_value=record),patch.object(ops,"owned",return_value=[record]), \
-             patch.object(subject.os,"pidfd_open",return_value=44,create=True),patch.object(subject.os,"close"), \
-             patch.object(subject.signal,"pidfd_send_signal",create=True) as sent,patch.object(subject.os,"kill") as kill, \
+             patch.object(subject,"pidfd_open",return_value=44),patch.object(subject.os,"close"), \
+             patch.object(subject,"pidfd_send_signal") as sent,patch.object(subject.os,"kill") as kill, \
              patch.object(subject.os,"killpg") as group:
             self.assertEqual(ops.signal_owned(record,signal.SIGTERM,self.session),"signalled")
         sent.assert_called_once_with(44,signal.SIGTERM,None,0);kill.assert_not_called();group.assert_not_called()
@@ -235,8 +265,8 @@ class WatchdogTests(unittest.TestCase):
         value=dict(pid=900,start_token="boot:1",session=self.session)
         record=dict(pid=900,start_token="boot:1",cookie=self.session)
         with patch.object(subject,"inspect_watchdog",side_effect=[record,dict(record,start_token="boot:2")]), \
-             patch.object(subject.os,"pidfd_open",return_value=45,create=True),patch.object(subject.os,"close"), \
-             patch.object(subject.signal,"pidfd_send_signal",create=True) as sent:
+             patch.object(subject,"pidfd_open",return_value=45),patch.object(subject.os,"close"), \
+             patch.object(subject,"pidfd_send_signal") as sent:
             self.assertEqual(subject.stop_watchdog(value)["status"],"ownership_mismatch")
         sent.assert_not_called()
 

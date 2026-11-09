@@ -39,6 +39,22 @@ ownership or cleanup preserves evidence and retains the shared-lock lease rather
 than permitting another launch. The original two-hour queue, three-hour absolute
 application cap, per-phase limits and 6 GiB storage floor remain fixed.
 
+The [pidfd adapter](candidate_continuation_pidfd.py) prefers CPython's bindings.
+For the reviewed 64-bit Linux x86_64 ABI only, a bundled Python missing those
+bindings uses the same kernel pidfd operations through typed libc syscalls
+434/424, verified against the Ubuntu installed headers. Kernel/API errors still
+fail closed; there is no numeric-PID or process-group signalling fallback. All
+existing identity/start/session/ancestry rechecks stay around the pinned fd.
+An explicit capability preflight opens only the checking process, sends signal
+zero and closes the descriptor before subreaper setup or any application start.
+This preflight never authorizes starting or retrying an application.
+
+The first authorized launch stopped before native-child creation because its
+older source required the missing CPython bindings. Its failed-no-retry history
+is preserved in the [launch evidence](../../baselines/isaac-candidate-live-pilot-20261109/README.md).
+The compatibility fix passed 60 mock cases and its self-only capability probe in
+the existing container; it has not run another simulator or training attempt.
+
 ## Reviewed inputs and one native application
 
 The manifest schema is `sircus-candidate-continuation-production-inputs-v1`.

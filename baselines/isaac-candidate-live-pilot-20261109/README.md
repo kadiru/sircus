@@ -32,6 +32,14 @@ operations succeeded. Installed Ubuntu x86_64 headers define `pidfd_open` as
 syscall 434 and `pidfd_send_signal` as 424. This establishes a Python binding
 gap; it does not authorize another application attempt or relax ownership checks.
 
+The future-only compatibility adapter now prefers CPython bindings and, only on
+the verified 64-bit Linux x86_64 ABI, provides the same pidfd operations through
+typed libc syscalls. PID/start/session/ancestry checks and fd cleanup remain
+unchanged. All 60 focused mock cases passed (13 adapter, 23 watchdog, 24 runtime),
+and independent review passed. A separate exact-module self-only capability
+probe also passed inside the existing container, with no application start,
+training or retry. The failed executing source snapshot was not modified.
+
 [Compact evidence](verification.json) contains aggregate facts and artifact
 digests only. Raw logs, runtime plans/configuration, positions, native data and
 process receipts remain in private runtime storage. The interface adds a

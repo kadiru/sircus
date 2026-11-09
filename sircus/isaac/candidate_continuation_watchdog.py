@@ -19,6 +19,7 @@ import time
 
 from candidate_continuation_journal import write_new_json
 from candidate_continuation_ledger import canonical_hash
+from candidate_continuation_pidfd import capability_preflight, pidfd_open, pidfd_send_signal
 from candidate_continuation_launcher import (ChildIdentity, CONTAINER, GPU_UUID,
     NATIVE_SECONDS, PHASES, PHASE_LIMITS, DiagnosticLedger, MIN_FREE_BYTES)
 
@@ -130,11 +131,12 @@ class LinuxProcessOps:
     def free_bytes(self,path): return shutil.disk_usage(path).free
 
     def prepare(self):
+        # Check the actual pidfd kernel path using only our own process and
+        # signal zero; close its fd before subreaper setup or any app start.
+        self.pidfd_capability = capability_preflight()
         # Adopt orphaned grandchildren so that failed native workers cannot
         # outlive this watchdog merely by losing their immediate parent.
         import ctypes
-        require(hasattr(os,"pidfd_open") and hasattr(signal,"pidfd_send_signal"),
-                "Linux pidfd support is required for production ownership")
         require(ctypes.CDLL(None,use_errno=True).prctl(36,1,0,0,0) == 0,
                 "Owned-child subreaper setup failed")
         offsets = Path("/proc/self/timens_offsets")
@@ -190,7 +192,7 @@ class LinuxProcessOps:
             return "already_exited"
         if not same_process(current,record):
             return "ownership_mismatch"
-        try:descriptor = os.pidfd_open(record["pid"],0)
+        try:descriptor = pidfd_open(record["pid"],0)
         except ProcessLookupError:return "already_exited"
         try:
             # Opening a pidfd pins one process identity. Recheck the start tick
@@ -200,7 +202,7 @@ class LinuxProcessOps:
             owned = self.owned(record["pid"],session)
             if not any(r["pid"] == record["pid"] and r["start_token"] == record["start_token"] for r in owned):
                 return "ownership_mismatch"
-            signal.pidfd_send_signal(descriptor,signum,None,0)
+            pidfd_send_signal(descriptor,signum,None,0)
             return "signalled"
         except ProcessLookupError:
             return "already_exited"
@@ -407,12 +409,12 @@ def stop_watchdog(value):
     current = inspect_watchdog(value["pid"],value["session"])
     if current is None: return dict(status="ownership_mismatch")
     if current["start_token"] != value["start_token"]: return dict(status="ownership_mismatch")
-    try:descriptor = os.pidfd_open(value["pid"],0)
+    try:descriptor = pidfd_open(value["pid"],0)
     except ProcessLookupError:return dict(status="already_exited")
     try:
         if not same_process(inspect_watchdog(value["pid"],value["session"]),current):
             return dict(status="ownership_mismatch")
-        signal.pidfd_send_signal(descriptor,signal.SIGTERM,None,0)
+        pidfd_send_signal(descriptor,signal.SIGTERM,None,0)
         return dict(status="stop_requested")
     except ProcessLookupError:
         return dict(status="already_exited")

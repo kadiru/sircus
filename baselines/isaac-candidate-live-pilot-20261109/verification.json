@@ -34,6 +34,16 @@
   "self_only_kernel_pidfd_check": "passed: own-process fd, signal zero, fd closed",
   "post_failure_gpu_compute_owners": 0,
   "post_failure_scene_lock_free": true,
+  "future_compatibility_fix": {
+    "module_sha256": "4d46e3b26f26397e3fdf933304036364e83aadea29a1b487e10f2235a61b0616",
+    "focused_mock_cases_passed": 60,
+    "independent_review": "passed",
+    "actual_container_self_only_capability_probe": "passed",
+    "native_application_starts": 0,
+    "training_steps": 0,
+    "new_shots": 0,
+    "retry": false
+  },
   "frozen_benchmark_unchanged": true,
   "scope": "Aggregate startup evidence only; no new learning, physics, capture performance, held-out results, phase costs or videos."
 }
