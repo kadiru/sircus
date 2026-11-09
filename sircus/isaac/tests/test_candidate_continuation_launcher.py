@@ -172,7 +172,7 @@ class LauncherTests(unittest.TestCase):
             self.plan.session = "2"*32
         value = self.plan.to_dict()
         self.assertFalse(value["execution_authorized"])
-        self.assertFalse(value["production_backend_implemented"])
+        self.assertTrue(value["production_backend_implemented"])
         for field, changed in (("native_timeout_s", 10801), ("gpu_uuid", "GPU-4070"),
                 ("max_application_starts", 2), ("execution_authorized", True)):
             bad = copy.deepcopy(value)

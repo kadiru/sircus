@@ -1,5 +1,10 @@
 # Independent native audit and bounded launch contract
 
+The subsequent [production runtime and final assessment integration](CANDIDATE_PRODUCTION_ASSESSMENT.md)
+implements the deferred backend/watchdog and 420-request audit wiring with mocks
+only. The original verification below remains evidence for its earlier source;
+no simulator, training or new native shots followed from either implementation.
+
 This adds read-only native TRAIN verification and a mock-only one-start
 supervisor to the [candidate continuation](CANDIDATE_CONTINUATION_PLAN.md).
 No simulator, training, diagnostic release or new shot was started. The frozen
