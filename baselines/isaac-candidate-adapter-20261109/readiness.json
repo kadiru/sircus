@@ -1,0 +1,242 @@
+{
+  "schema": "sircus-candidate-adapter-readiness-v1",
+  "status": "passed",
+  "probability_law": "categorical-normalized-fixed-latent-normal-density-v1",
+  "input_sha256": "34309dc187a7c230293556971b0d61e183cb1647b4332d163be6ba56ab576afa",
+  "input_fingerprint": "edcedd975a968a30f2080ad21046ed395ea13578a6e301d4a6a1edf0ccf64d75",
+  "source_sha256": {
+    "candidate_continuation_policy.py": "26ca2b72f51bc46f7d69caa45d3043afc057571934e6521a8a324f22db609f1d",
+    "candidate_continuation_losses.py": "e93ca0e8c078eb2d22370971058d57a7190c2359255ad7d676a1bacfd8bfa571",
+    "candidate_continuation_ledger.py": "a151d90377c74702bc9a290c2a4e5fc1b6f0287f0529b478871047a825cf0e0f",
+    "candidate_continuation_inputs.py": "9f6c28d4cb2f79b1fccff3e93b2c7731bd025561f235a06db0801db72b41feee",
+    "candidate_continuation_readiness.py": "36817e7c39eccc5cf13c731a7eff18ea00f09e754358d153f5d25430b3455d16",
+    "continuous_policy.py": "66fb4815ed76275d778b46c8cb8fba86a21bf175557e7c64460cecbbe4373613",
+    "candidate_selector.py": "8d904ddbe803cf02605a35d6db779e800a05cc6bc6f5d70e9bb9a95e8a0d4af7",
+    "continuous_feasibility.py": "4a7ce280ae65f1c08bad711abefab03c5cc949736bc47c8058b2798ac0acb5e4",
+    "feasible_candidates.py": "3e79a82149d21516464b54680920f1a73507b8ea5b551ade80435fb51c8eb018",
+    "cylinder_farm.py": "8920147ba63bc7572e010b86d50c84ea634336e89f1a4cc014e6460c395e4e8a"
+  },
+  "parent_checkpoint_sha256": "57d7658e9ed2f72ad09cf4e8523ab497ccbe0708364f1b8ec4a4c5c1aef1fe9f",
+  "parent_weight_hash_before": "ea9a69ec063e3d71cda2b92f1da64939f644244d4b4dbd70b500be132632e549",
+  "parent_weight_hash_after": "ea9a69ec063e3d71cda2b92f1da64939f644244d4b4dbd70b500be132632e549",
+  "parent_actor_hash_before": "f5f68f96ebb18b16a70fe1c523b94301eb192869a959d006149287969a7953f0",
+  "parent_actor_hash_after": "f5f68f96ebb18b16a70fe1c523b94301eb192869a959d006149287969a7953f0",
+  "inherited": {
+    "seed": 20261122,
+    "requested_train_shots": 10000,
+    "optimizer_updates": 73
+  },
+  "contexts": 35,
+  "qualified_candidates": 1814,
+  "demonstration_records": 1534,
+  "success_contexts": 21,
+  "contexts_without_success": 14,
+  "clean_demonstrations": 485,
+  "choices_matching_frozen_selector": 35,
+  "selected": [
+    {
+      "context_id": "train-000",
+      "candidate_id": "6ccaaaf568475ce7ce943137c5a8077898541450cfa1905109a436d343c98cee",
+      "support_fingerprint": "de82ce2b4ae538c1a5806d041bb4a9f7f9cf9ed008cf9b8cb8a052e4d6d7afe7"
+    },
+    {
+      "context_id": "train-001",
+      "candidate_id": "13110297a889f1d50bb1839fb9a4ac06acf67297ea0fee8e112ed180255c5a98",
+      "support_fingerprint": "f86d6f1d78a2fee77c1b02a199f17509da8cc3922024b6f23dfb2f919709c20e"
+    },
+    {
+      "context_id": "train-002",
+      "candidate_id": "f28b4937a409532bc981a6b86e2e3c90c3e0a4a7ce58c0faf14aeae40560b00a",
+      "support_fingerprint": "d03a5fa629dd6e12d74a45a1ed2eb2e0c00e02b8af961edb71ca2a4208666fe6"
+    },
+    {
+      "context_id": "train-003",
+      "candidate_id": "e463dda8569e21fb0a4990183161059a0656842f942e6af84c183da282af1d5a",
+      "support_fingerprint": "82b48bca169b3430b67a0efa7c980b08194a40898497f32fe15bb783619f2f9d"
+    },
+    {
+      "context_id": "train-004",
+      "candidate_id": "e050292e6f05df456bd1b62fe692da83400b754faaf82089caf1ad67543a8c9f",
+      "support_fingerprint": "656c452f4853edc5f22e0fd85310f634c470da91a4d79d2f38007e5da96c587e"
+    },
+    {
+      "context_id": "train-005",
+      "candidate_id": "7d5e14d08580d2c2f4838f247907f5bfc9c49b8fd812e1ace39790cff5f3b101",
+      "support_fingerprint": "b52788ac6cb5131a8fca08207235ddbe9a42f7153e9fb1189bba18c047275b90"
+    },
+    {
+      "context_id": "train-006",
+      "candidate_id": "b5b7c3296791a5f9e829ca56299d3de5630a9c7c4b7b3aec99d25a0b0d4aec1f",
+      "support_fingerprint": "c0151611b7e399ff9e0d70fc11c7ac5e89279647c8ce53876744d5f6750ef3a5"
+    },
+    {
+      "context_id": "train-007",
+      "candidate_id": "87d9b3eae9865166e7c21d3d6d9e952db17fd520b9c3629a8bbfa7308b6b8c58",
+      "support_fingerprint": "f848596cfdaaf76041ab91d64b3d5f00adb3e559da98f3a1316df0764046aaef"
+    },
+    {
+      "context_id": "train-008",
+      "candidate_id": "b3a865abb3e8c2093f4df304b2c2cdfdf5b23f4c0a8949724131300c7b906747",
+      "support_fingerprint": "3e9f73a9f0d89b07668c406d28ef3ab191a8a13ef07fbb0b5fcf5860c1c91ea8"
+    },
+    {
+      "context_id": "train-009",
+      "candidate_id": "0b408d74a9b579ab9fcbfe8f2882b2e5c1bb7b216e3d45e12d4904a10c9631cb",
+      "support_fingerprint": "b6d8811e49cc1ed6bbc8892673bc032aab100e4c43dbba0e6484b4ba3e4b35a6"
+    },
+    {
+      "context_id": "train-010",
+      "candidate_id": "b746ce7a9c3b73da2ed2b004570594721a5be4ef642740ee6987ef23613ff1de",
+      "support_fingerprint": "0eb9b6f13203ce28177652ea19f05c32df222d3e05c412a5da6403cee71cf2d0"
+    },
+    {
+      "context_id": "train-011",
+      "candidate_id": "e28d05f471f622a7a036e07ffce07a69d732e2469bbb49780a0ae26c8e4a7e6e",
+      "support_fingerprint": "d9ea3d3fe5eba9fd5e4cbb166215973e54a65c98309859ecb8005cd10491a544"
+    },
+    {
+      "context_id": "train-012",
+      "candidate_id": "43aafd1ad9d31e17fa0165b7417316efa8e0cb9724912f527fd07b498979575f",
+      "support_fingerprint": "1b650331c087832b8b896d581d773c79c629627c8588fa8dd418e0231abff3e9"
+    },
+    {
+      "context_id": "train-013",
+      "candidate_id": "01e0825430e4829701944d76fc81ff24864042ec6060a29e57734bac4d2124d1",
+      "support_fingerprint": "0449eead37300bb9f49f40f5465a36236ad27ca69a2630f2f11b36e79de692dd"
+    },
+    {
+      "context_id": "train-014",
+      "candidate_id": "684cd93437431b4c51bdbe405129f81a6a76db4be85830eef3a8c93883abb032",
+      "support_fingerprint": "80c0320325748476a3444f193a5f59b59a8f726cee6e4f3804e3c3eb7e403724"
+    },
+    {
+      "context_id": "train-015",
+      "candidate_id": "88df715097b8fabd6f110aed7005cefc83b2a077dcfcd8b83e841d4bd194ad39",
+      "support_fingerprint": "996a3e69bc8306592585553f229f66a808f988ee4422d25602d1480dd6cc8d5f"
+    },
+    {
+      "context_id": "train-016",
+      "candidate_id": "603adaf37e6f72e5e35443540c95b4c30d8ca962436ab51d2067c1fe6a63fcb4",
+      "support_fingerprint": "3ae75d598b1357f6a28c783247d83629d4712dadbe3594697f1ee8226933fd6d"
+    },
+    {
+      "context_id": "train-017",
+      "candidate_id": "5cd2bb52a7e4cee72d3bea75429eb11e17d446c627c10a9b122b08b7032ae9cc",
+      "support_fingerprint": "f4bfc606d93038bc78f42003653a7b2412e6d41046d317bd41cd58249ae1978d"
+    },
+    {
+      "context_id": "train-018",
+      "candidate_id": "f39c573728652c02c8c3ff221e9384138886e0fc741a2899cacedfac403724aa",
+      "support_fingerprint": "086af026d3e0e97f2127dbadc8d7772742f7ddb7c857a3a794bf79cd4717639f"
+    },
+    {
+      "context_id": "train-019",
+      "candidate_id": "21c523885fefd03c75a92848925f1460a76d225395098b92ac913fabfeecca32",
+      "support_fingerprint": "9c4e2bcd007c46f77e932b83b309a25ffe50e4b757958ff5bbc81eb0791491a1"
+    },
+    {
+      "context_id": "train-020",
+      "candidate_id": "3ccc5eaec2e716e890f69ce0f6e301608ba2f0314cb52de288fcbdc53a89a2c4",
+      "support_fingerprint": "aa0e892addf4c226e86ff639ef95e0a5f5e72b5a5221ad15ca54ed2806f6d108"
+    },
+    {
+      "context_id": "train-021",
+      "candidate_id": "67e17c538f22af9c3f2539f495ae04853f8282225347193d3ea8d2cdf4e558ac",
+      "support_fingerprint": "440422afd428832c56068001b01cc4e4f38d14d80fecc65d56bc1442b40341f4"
+    },
+    {
+      "context_id": "train-022",
+      "candidate_id": "280e7184fd99f484dcdc4caf7c1c46010db4914e327f40bb1d7d45e1b7bb6730",
+      "support_fingerprint": "a98e83c379b18dcc473eaf0ed6297f21df05a3bdc8f4066481985a663b260f90"
+    },
+    {
+      "context_id": "train-023",
+      "candidate_id": "f4bd4fe17ef033709ec3dc5fe4035a5da264103e6c6c1ddb4aa3024d95178027",
+      "support_fingerprint": "afa1ee5c37cdfc57816aabbe67f5c24bac326262e4e85d88db3fa35e2fe892c1"
+    },
+    {
+      "context_id": "train-024",
+      "candidate_id": "f81fb45643d151ee6a0616d57fc23afd2aa9b0c11ee73bcb5d02f3eea4259b24",
+      "support_fingerprint": "a567229494841418dfecaf9cf3e5332d9f7bdf88b3f4f91443f0eabd5f9aa680"
+    },
+    {
+      "context_id": "train-025",
+      "candidate_id": "2ad506de3b9fca5799b0456fc1899146b804d2b1cd03b7356bc4b219fa4dae9a",
+      "support_fingerprint": "a47e8844ba7ea2394a8adc1907b7a50058c8026580ede11ebfffa7268856afce"
+    },
+    {
+      "context_id": "train-026",
+      "candidate_id": "e8c086dec1d9715894cfaa0e5176fd378fbc746aac39f7767d2e1c20c737cf7e",
+      "support_fingerprint": "57fdd938c58737af95498fb650f9cdd8c729bc38fb6be1706c00b1bde79e87a3"
+    },
+    {
+      "context_id": "train-027",
+      "candidate_id": "c55d91da10ccee1222de8ab71e660c8a72dbf03048ac59e391f1d981397867ca",
+      "support_fingerprint": "83d45032f754c1342393f6e6282a9f1a55b859234eed1efee258d8cd0c74f601"
+    },
+    {
+      "context_id": "train-028",
+      "candidate_id": "56e243d653334b124be6c01b5019b06bf8be52104131d9344f04fea5a2544462",
+      "support_fingerprint": "da58495f981082f184e5f2c6fcf9d376688309cb905321ef64b93a702e15ee75"
+    },
+    {
+      "context_id": "train-029",
+      "candidate_id": "827e639db21fe746683819bb4fe64738f8af191cbd4f811b3f92ca8cd8c46587",
+      "support_fingerprint": "1390e2b7e5e2adab6fd063fdfb93e07c8fb10c49bb04b19f51c182d7cec08d5d"
+    },
+    {
+      "context_id": "train-030",
+      "candidate_id": "a830f0a5b9a6010313a56792f8b3523b2474dda5e6a059af1a708fa4e7ef9310",
+      "support_fingerprint": "a84982b2435ce40d24136b1d2ff65daf9d1733807adf472a8a7b64ed94c745c8"
+    },
+    {
+      "context_id": "train-031",
+      "candidate_id": "62d9cc807edc3304e38c30e8ea755ea90d42dcb521c1fbec4ea7ad8e9685ad3a",
+      "support_fingerprint": "4c136a8d1fd66ccd444f51b771051bcd1572690fc4d468060c4a7ed0f76ce763"
+    },
+    {
+      "context_id": "train-032",
+      "candidate_id": "6980d0306ca4a6f54616c539d12142b00021db773773fbb0e6253cb7cb766c13",
+      "support_fingerprint": "b271692d3ed5bb9a09e3e882c0d6a29a7c93990a66e61bf56fd661b633a91fc4"
+    },
+    {
+      "context_id": "train-033",
+      "candidate_id": "47011065f4f3edc6a5c9a7c832df19ef528dbe95397b728077f13e8277212144",
+      "support_fingerprint": "6300019b809edc6e99d8b0583fd39a2d673d0604b0e27dfafa4af82930e73c00"
+    },
+    {
+      "context_id": "train-034",
+      "candidate_id": "63062bac76459a734e83c07d34517cce11b43d75ed02161764fb120c296c4727",
+      "support_fingerprint": "886d981dbe1e25247edb2805d7bad7e465468e33714edc6b82a2e4e3d6d840b1"
+    }
+  ],
+  "max_log_probability_error": 9.946641046809646e-06,
+  "max_parent_mean_error": 2.384185791015625e-07,
+  "max_normalization_error": 3.3306690738754696e-16,
+  "tolerances": {
+    "log_probability": 0.0001,
+    "parent_mean": 3e-06
+  },
+  "teacher_weighted_nll_before_updates": 5.453212064366584,
+  "identity_forward_kl": 0.0,
+  "optimizer_updates": 0,
+  "optimizer_steps": 0,
+  "backward_calls_on_parent": 0,
+  "native_requests": 0,
+  "task_ball_releases": 0,
+  "held_out_shot_files_read": 0,
+  "global_cpu_rng_unchanged": true,
+  "gradients_created": false,
+  "training_authorized": false,
+  "release_authorized": false,
+  "wall_s": 0.1880439100204967,
+  "runtime": {
+    "python": "3.10.12",
+    "torch": "2.7.0+cu126",
+    "numpy": "1.26.4",
+    "device": "cpu",
+    "cuda_visible_devices": ""
+  },
+  "scope": "CPU forward-only compatibility on existing TRAIN inputs; no optimizer, backward, physics, new shot or capture measurement.",
+  "fingerprint": "43868c718e73996f5bb8414aad36a402ce0de1ece28ad028ba6d00120758410f"
+}
