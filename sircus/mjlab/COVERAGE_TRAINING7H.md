@@ -14,6 +14,23 @@ used 27 teachers, and the corresponding PPO comparison captured15/50 versus
 established solution. This experiment first collects new TRAIN outcomes and
 then compares refreshed imitation with two short PPO seeds.
 
+## Startup correction and version boundary
+
+The first v1 launch stopped after nine startup controls, before any search or
+training. The three direct controls captured, but all three table-assisted
+controls missed. Adding the Case00 geometry changed the selected IK wrist branch
+for that control; its requested board/drop values were unchanged. The three
+negative controls still missed as expected. All failed-attempt evidence remains.
+
+Version v2 replays the three controls from their authenticated original17-source
+geometry/connection proofs and exact recorded joint branches. It does not search
+for a replacement positive control or relax scoring. Controls use a separate
+native evidence namespace, sharing the same pinned physics environment; search
+and all four policies continue to use the expanded19 bank. This is a corrected
+control protocol, not a relabeling of the first launch. The retry retains the
+original November9,07:59PST absolute deadline. The first nine requests are
+reported separately from the new experiment's maximum2,757.
+
 ## Frozen data and layout contract
 
 - The unchanged v3 scoring accepts board → bucket and board → table → bucket,

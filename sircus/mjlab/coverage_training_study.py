@@ -27,6 +27,7 @@ from .learning_contract import digest
 from .learning_policy import update, weight_hash
 from .policy64_model import initialized, bootstrap
 from .table_training_native import Engine
+from .table_correction_native import MatchedEngine, META as CONTROL_META
 from .table_training_study import control_gate
 from .sweep_worker import atomic
 
@@ -48,6 +49,20 @@ def select_checkpoint(curves):
     return min(curves,key=lambda p:(-p['validation']['captures'],-p['validation']['mean_reward'],p['samples'],p['seed']))
 
 
+def share_native_environment(primary, controls):
+    """Two proof namespaces, one unchanged lazily allocated physics environment."""
+    adapters=(primary.adapter,controls.engine.adapter)
+    if any(adapter.env is not None for adapter in adapters):
+        raise ValueError('Share the native factory before either environment is allocated')
+    factory=primary.adapter.environment_factory
+    if not callable(factory):raise ValueError('Pinned v3 environment factory required')
+    allocated=[]
+    def shared():
+        if not allocated:allocated.append(factory())
+        return allocated[0]
+    for adapter in adapters:adapter.environment_factory=shared
+
+
 def run(a):
     root=Path(__file__).resolve().parents[2]
     started=time.monotonic();acquired=getattr(a,'acquired_monotonic',started)
@@ -65,7 +80,7 @@ def run(a):
     for name in ('bootstrap','checkpoints','behavior','after','buffers','predictions','requests'):(a.output/name).mkdir()
     for name in ('calibration.json','verification.json','setup-home.json'):shutil.copyfile(a.current_study/name,a.output/name)
     atomic(a.output/'prior.json',prior);atomic(a.output/'old-prior.json',loaded['old_prior'])
-    atomic(a.output/'controls.json',controls);atomic(a.output/'splits.json',splits);atomic(a.output/'exclusions.json',excluded)
+    atomic(a.output/'controls.json',controls);atomic(a.output/'control-replays.json',loaded['control_replays']);atomic(a.output/'splits.json',splits);atomic(a.output/'exclusions.json',excluded)
     atomic(a.output/'historical-coordinate-bindings.json',exclusion)
     atomic(a.output/'source-bindings.json',loaded['bindings'])
     current_artifacts={}
@@ -83,7 +98,7 @@ def run(a):
         runtime_reference=ref['runtime_reference'],packages=dict(parent['packages'],scipy=importlib.metadata.version('scipy')),
         splits=splits,exclusions=excluded,source_bindings=loaded['bindings'],source_sha256=source_manifest(root),
         prior_sha256=digest(prior),old_prior_sha256=digest(loaded['old_prior']),old_artifacts=current_artifacts,
-        controls_sha256=sha(a.output/'controls.json'),historical_coordinate_bindings_sha256=sha(a.output/'historical-coordinate-bindings.json'),
+        controls_sha256=sha(a.output/'controls.json'),control_replays_sha256=sha(a.output/'control-replays.json'),historical_coordinate_bindings_sha256=sha(a.output/'historical-coordinate-bindings.json'),
         evidence_kind='native_fixed64_expanded_prior_fresh_train_search_imitation_ppo',
         created_utc=datetime.datetime.now(datetime.timezone.utc).isoformat())
     spec['fingerprint']=digest(spec);atomic(a.output/'contract.json',spec)
@@ -113,22 +128,25 @@ def run(a):
             rows_sha256=sha(a.output/'rows.jsonl') if (a.output/'rows.jsonl').exists() else None)])
     publish('setup')
     engine=Engine(ref,a.assets,a.output/'native',prior=prior,calibration=loaded['calibration'],home=loaded['home'])
+    control_engine=MatchedEngine(ref,a.assets,a.output/'native-controls',parent=a.current_study,
+        sources=loaded['control_replays'],prior=loaded['old_prior'],calibration=loaded['calibration'],home=loaded['home'])
+    share_native_environment(engine,control_engine)
     def limits(requests=0):
         if len(rows)+requests>MAX_REQUESTS:raise RuntimeError('Would exceed frozen2757-request maximum')
         if elapsed()>a.wall_time_limit-30:raise TimeoutError('Own finite acquired-slot budget exceeded')
         if shutil.disk_usage(a.output).free<8*1024**3:raise RuntimeError('8GiB reserve reached; all evidence retained')
         if foreign_processes():raise RuntimeError('Foreign4090 workload appeared; leaving it untouched')
     request_number=0
-    def execute(requests,phase):
+    def execute(requests,phase,*,executor=None,adapter_directory='native'):
         nonlocal request_number
         result=[]
         for index in range(0,len(requests),32):
             chunk=requests[index:index+32];limits(len(chunk))
             packet=f'requests/batch-{request_number:05d}.json';request_number+=1
             atomic(a.output/packet,dict(phase=phase,rows=chunk,pre_outcome=True))
-            began=elapsed();observed,timing=engine.evaluate(chunk,phase);finished=elapsed()
+            began=elapsed();observed,timing=(executor or engine).evaluate(chunk,phase);finished=elapsed()
             if [r['id'] for r in observed]!=[r['id'] for r in chunk]:raise RuntimeError('Native order/count changed')
-            for row in observed:row.update(learning_reward=C.reward(row),request_packet=packet,request_packet_sha256=sha(a.output/packet))
+            for row in observed:row.update(learning_reward=C.reward(row),request_packet=packet,request_packet_sha256=sha(a.output/packet),adapter_directory=adapter_directory)
             append(a.output/'rows.jsonl',observed);rows.extend(observed);result.extend(observed)
             append(a.output/'timing.jsonl',[dict(phase=phase,**timing,acquired_start_s=began,acquired_end_s=finished,
                 request_packet=packet,request_packet_sha256=sha(a.output/packet))]);publish(phase)
@@ -137,15 +155,19 @@ def run(a):
         limits();return engine.resolve(context)
     def control_block(phase):
         requests=[]
-        for source,role in zip(controls,('direct_control','table_control','negative_control')):
-            context=dict(id='control-'+role,split='control',bucket_xy_m=source['bucket_xy_m'])
-            anchor,meta,_=resolved(context);obs=observation(context['bucket_xy_m'],anchor).tolist()
+        for original,source,role in zip(controls,loaded['control_replays'],('direct_control','table_control','negative_control')):
+            if source['role']!=role or source['values']!=original['values'] or source['bucket_xy_m']!=original['bucket_xy_m']:
+                raise ValueError('Exact original control replay inputs changed')
             for repeat in range(3):
-                requests.append(dict(id=f'coverage-{phase}-{role}-r{repeat}',phase=phase,role=role,method='control',
-                    context_id=context['id'],bucket_xy_m=context['bucket_xy_m'],values=source['values'],command_values=source['values'],
-                    observation=obs,source_teacher_id=anchor['id'],**meta,control_source_id=source['id'],
-                    control_source_sha256=digest(source),repeat=repeat,perturbation_mixed_units=[0.]*5))
-        gate=control_gate(execute(requests,phase));report['control_gates']['pre' if phase=='controls_pre' else 'post']=gate
+                metadata={key:copy.deepcopy(source[key]) for key in CONTROL_META}
+                requests.append(dict(metadata,id=f'coverage-{phase}-{role}-r{repeat}',phase=phase,role=role,method='control',
+                    context_id=source['context_id'],bucket_xy_m=copy.deepcopy(source['bucket_xy_m']),
+                    values=copy.deepcopy(source['values']),command_values=copy.deepcopy(source['values']),
+                    source_record_id=source['id'],source_record_sha256=digest(source),variant='control_exact',
+                    adapter_directory='native-controls',control_source_id=original['id'],control_source_sha256=digest(original),
+                    repeat=repeat,perturbation_mixed_units=[0.]*5))
+        gate=control_gate(execute(requests,phase,executor=control_engine,adapter_directory='native-controls'))
+        report['control_gates']['pre' if phase=='controls_pre' else 'post']=gate
         if gate['status']!='passed':publish('control_failed');raise RuntimeError('Matching64 v3 control block failed: '+phase)
         boundary(phase+'-complete')
     control_block('controls_pre')

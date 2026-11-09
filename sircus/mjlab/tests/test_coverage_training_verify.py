@@ -200,6 +200,52 @@ class CoverageAudit(unittest.TestCase):
         self.assertEqual(A.statistics(data)['attempts'],4)
         self.assertEqual(A.statistics(data)['captures'],2)
 
+    def test_matched_controls_reject_wrist_branch_change(self):
+        sources=[];replays=[];rows=[]
+        fields=('source_hint','effective_source_hint','source_teacher_id','context_resolution_file',
+                'context_resolution_sha256','context_home_sha256','context_layout_eligible','context_anchor_admitted',
+                'context_hard_reject','observation','connection_file','connection_sha256')
+        for i,role in enumerate(A.CONTROL_ROLES):
+            source=dict(id='teacher-'+role,values=[.4,-.2,.3,28.,.25],bucket_xy_m=[.8,-.2]);sources.append(source)
+            replay=dict(source,id='parent-'+role,q10=[.1]*6,q14=[0.,0.,0.,3.279484,1.9104921,-4.1933761])
+            replay.update({f:None for f in fields});replays.append(replay)
+        for phase in ('controls_pre','controls_post'):
+            for source,replay,role in zip(sources,replays,A.CONTROL_ROLES):
+                for repeat in range(3):
+                    rows.append(dict(replay,id=f'coverage-{phase}-{role}-r{repeat}',phase=phase,role=role,method='control',repeat=repeat,
+                        control_source_id=source['id'],control_source_sha256=A.digest(source),source_record_id=replay['id'],
+                        source_record_sha256=A.digest(replay),variant='control_exact',adapter_directory='native-controls',
+                        native_initial_q10=np.asarray(replay['q10'],np.float32).astype(float).tolist(),
+                        native_initial_q14=np.asarray(replay['q14'],np.float32).astype(float).tolist()))
+        with patch.object(A.native,'control_gate',return_value=dict(status='passed')):
+            A.audit_controls(rows,sources,replays,Checks())
+            changed=copy.deepcopy(rows);changed[3]['q14'][3]=.1378813
+            with self.assertRaises(EvidenceError):A.audit_controls(changed,sources,replays,Checks())
+            changed=copy.deepcopy(rows);changed[3]['adapter_directory']='native'
+            with self.assertRaises(EvidenceError):A.audit_controls(changed,sources,replays,Checks())
+
+    def test_namespace_routing_keeps_policies19_and_matched_controls17(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            study=Path(tmp)
+            for name in ('native','native-controls'):
+                (study/name).mkdir()
+                for file in ('effective-options.json','native-compiled-geometry.json'):(study/name/file).write_text('{}')
+            rows=[dict(id='policy',phase='test',adapter_directory='native',native_release=True,effective_options_file='effective-options.json',
+                       effective_options_sha256=A.sha(study/'native/effective-options.json')),
+                  dict(id='control',phase='controls_pre',adapter_directory='native-controls',native_release=True,effective_options_file='effective-options.json',
+                       effective_options_sha256=A.sha(study/'native-controls/effective-options.json'))]
+            bank19=dict(records=list(range(19)));bank17=dict(records=list(range(17)))
+            with patch.object(A.calibrated,'check_setup_evidence',return_value={}) as setup,patch.object(A.old,'audit_native_options'),\
+                 patch.object(A.native,'rescore_rows',side_effect=lambda path,group,*args:{r['id']:{} for r in group}):
+                result,count=A.audit_native_namespaces(study,rows,bank19,bank17,{},dict(scene={},identity=dict(trace_schema={})),{},study,Checks())
+                self.assertEqual(count,2)
+                self.assertEqual(set(result),{'native','native-controls'})
+                self.assertEqual(setup.call_args_list[0].args[2],bank19)
+                self.assertEqual(setup.call_args_list[1].args[2],bank17)
+                self.assertEqual(setup.call_args_list[1].args[0]/'native',study/'native-controls')
+                bad=copy.deepcopy(rows);bad[0]['adapter_directory']='native-controls'
+                with self.assertRaises(EvidenceError):A.audit_native_namespaces(study,bad,bank19,bank17,{},dict(scene={},identity=dict(trace_schema={})),{},study,Checks())
+
     def test_inference_packet_rejects_online_search_or_changed_coordinates(self):
         context=dict(id='test-0',bucket_xy_m=[.5,-.2]);record=dict(sha256='a'*64,samples=0,seed=A.BC_SEED)
         prediction=dict(context_id=context['id'],bucket_xy_m=context['bucket_xy_m'],method='bc',samples=0,seed=A.BC_SEED,

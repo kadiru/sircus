@@ -38,6 +38,12 @@ class RunnerTests(unittest.TestCase):
                              reference=directory/'reference.json',assets=directory/'assets',
                              output=directory/'study',wall_time_limit=19800,training_cut=16200,search_limit=7200,acquired_monotonic=0.)
         clock=SimpleNamespace(now=0.)
+        replay_meta=dict(source_hint=copy.deepcopy(source),effective_source_hint=copy.deepcopy(source),
+            source_teacher_id=source['id'],context_resolution_file='fixture.json',context_resolution_sha256='c'*64,
+            context_home_sha256='d'*64,context_layout_eligible=True,context_anchor_admitted=True,context_hard_reject=False)
+        control_replays=[dict(original,**replay_meta,id='controls_pre-'+role+'-r0',role=role,
+            context_id='control-'+role,phase='controls_pre',repeat=0)
+            for original,role in zip((positive,table,negative),('direct_control','table_control','negative_control'))]
 
         import torch
         old_artifacts={}
@@ -51,6 +57,7 @@ class RunnerTests(unittest.TestCase):
             instances=[]
             def __init__(self,*a,**kw):
                 self.prior=kw["prior"];self.calls=[];self.resolved=[];self.directory=Path(a[2]);self.directory.mkdir()
+                self.adapter=SimpleNamespace(env=None,environment_factory=lambda:object())
                 self.instances.append(self)
             def resolve(self,context):
                 self.resolved.append(copy.deepcopy(context))
@@ -90,17 +97,30 @@ class RunnerTests(unittest.TestCase):
                 if clock_jump is not None:clock.now=clock_jump(self.calls,clock.now)
                 return result,dict(requested=len(requests),native_releases=len(requests),wall_s=.001)
 
+        class FakeMatchedEngine:
+            def __init__(self,*a,**kw):
+                self.sources={r['id']:r for r in kw.pop('sources')};kw.pop('parent')
+                self.engine=FakeEngine(*a,**kw)
+            def evaluate(self,requests,phase):
+                for request in requests:
+                    original=self.sources[request['source_record_id']]
+                    if request['variant']!='control_exact' or request['source_record_sha256']!=worker.digest(original):
+                        raise AssertionError('Controls must bind exact original replay')
+                    if any(request[k]!=original[k] for k in worker.CONTROL_META):
+                        raise AssertionError('Control cannot use expanded-prior geometry resolution')
+                return self.engine.evaluate(requests,phase)
+
         historical=json.loads((root/'baselines/mjlab-sweep-rl-benchmark-20261103/splits.json').read_text())
         exclusion=[c['bucket_xy_m'] for groups in (parent_splits,historical) for group in groups.values() for c in group]
         patches=[patch.object(worker.C,'load_inputs',return_value=dict(parent=parent,prior={'records':[dict(source,id=f'prior-{i}') for i in range(19)]},
                     old_prior={'records':[dict(source,id=f'prior-{i}') for i in range(17)]},train_splits=parent_splits,
-                    bindings={'mock':'binding'},controls=[positive,table,negative],old_artifacts=old_artifacts,
+                    bindings={'mock':'binding'},controls=[positive,table,negative],control_replays=control_replays,old_artifacts=old_artifacts,
                     calibration=parent['identity']['calibration'],home=parent['identity']['setup']['home'])),
                  patch.object(worker.C,'collect_exclusions',return_value=dict(coordinates=exclusion,files_sha256={},scope='mock')),
                  patch.object(worker,'load_runtime_reference',return_value=dict(scene=scene,asset_hashes=assets,
                      runtime_reference=dict(version='mock-current-reference',source_sha256={'fixture.py':'f'*64}))),
                  patch.object(worker,'source_manifest',return_value={'fixture.py':'f'*64}),
-                 patch.object(worker,'Engine',FakeEngine),patch.object(worker.time,'monotonic',side_effect=lambda:clock.now),patch.object(worker,'foreign_processes',return_value=[]),
+                 patch.object(worker,'Engine',FakeEngine),patch.object(worker,'MatchedEngine',FakeMatchedEngine),patch.object(worker.time,'monotonic',side_effect=lambda:clock.now),patch.object(worker,'foreign_processes',return_value=[]),
                  patch.object(worker.shutil,'disk_usage',return_value=SimpleNamespace(free=100*1024**3)),
                  patch.object(worker,'bootstrap',return_value=dict(mock=True)),
                  patch.object(worker,'update',return_value=dict(mock_update=True)),patch('builtins.print')]
@@ -124,7 +144,10 @@ class RunnerTests(unittest.TestCase):
             expected=dict(search=1260,train=1024,validation=175,test=280,controls_pre=9,controls_post=9)
             self.assertEqual({p:sum(r['phase']==p for r in rows) for p in expected},expected)
             self.assertEqual(report['updates'],32);self.assertTrue(report['training_budget_complete'])
-            self.assertEqual(len(engine.instances),1);self.assertEqual(len(engine.instances[0].prior['records']),19)
+            self.assertEqual(len(engine.instances),2);self.assertEqual([len(e.prior['records']) for e in engine.instances],[19,17])
+            self.assertIs(engine.instances[0].adapter.environment_factory,engine.instances[1].adapter.environment_factory)
+            self.assertIs(engine.instances[0].adapter.environment_factory(),engine.instances[1].adapter.environment_factory())
+            self.assertTrue(all(r['adapter_directory']==('native-controls' if r['phase'].startswith('controls_') else 'native') for r in rows))
             self.assertEqual(report['search_completed_rounds'],12);self.assertEqual(report['search_partial_round_requests'],0)
             train=json.loads((args.output/'splits.json').read_text())['train']
             search=[r for r in rows if r['phase']=='search']
@@ -162,7 +185,7 @@ class RunnerTests(unittest.TestCase):
             boundaries=[json.loads(x) for x in (args.output/'phase-boundaries.jsonl').read_text().splitlines()]
             freeze=next(x for x in boundaries if x['phase']=='test-plan-frozen')
             self.assertEqual(freeze['rows_count'],2468)
-            self.assertEqual(engine.instances[0].calls[-1][1],'controls_post')
+            self.assertEqual(engine.instances[1].calls[-1][1],'controls_post')
 
     def test_failed_initial_controls_never_search_train_or_test(self):
         from contextlib import ExitStack
@@ -171,7 +194,8 @@ class RunnerTests(unittest.TestCase):
             with ExitStack() as stack:
                 for item in patches:stack.enter_context(item)
                 with self.assertRaisesRegex(RuntimeError,'v3 control block failed'):worker.run(args)
-            self.assertEqual([phase for _,phase in engine.instances[0].calls],['controls_pre'])
+            self.assertEqual(engine.instances[0].calls,[])
+            self.assertEqual([phase for _,phase in engine.instances[1].calls],['controls_pre'])
             self.assertFalse((args.output/'bootstrap/dataset.json').exists())
             self.assertFalse((args.output/'test-plan.json').exists())
 
