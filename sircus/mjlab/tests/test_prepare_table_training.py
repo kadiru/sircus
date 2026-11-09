@@ -39,5 +39,14 @@ class PublicationTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             value=P.compact(Path(tmp)/'not-created',pipeline={'status':'running'})
             self.assertEqual(value['train_requests'],0);self.assertNotEqual(value['status'],'completed')
+    def test_snapshot_watcher_preserves_existing_html_and_failed_status(self):
+        from sircus.mjlab.table_training_publish_watch import refresh
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);html=root/'index.html';pipeline=root/'pipeline.json';study=root/'study'
+            html.write_text('<html><body><video src="historical.mp4"></video></body></html>')
+            pipeline.write_text(json.dumps({'status':'failed'}))
+            state=refresh(study,html,pipeline)
+            self.assertEqual(state['status'],'failed');self.assertIn('historical.mp4',html.read_text())
+            self.assertIn('"status": "failed"',html.read_text());self.assertEqual(html.read_text().count(P.START),1)
 
 if __name__=='__main__':unittest.main()
