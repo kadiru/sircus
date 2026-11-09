@@ -1,5 +1,12 @@
 # A confirmed historical table-assisted capture
 
+**Task clarification from the user:** board → table → bucket captures are
+acceptable when the ball stays inside for one continuous second. The old
+table-contact exclusion was an implementation choice, not a user requirement.
+The historical labels below describe that old scorer, not rejection of this
+trajectory under the intended task. Future reward/scorer changes must be versioned;
+the old benchmark records and trained model weights are not silently changed.
+
 One saved PPO training attempt did bounce **board → table → bucket/rim → inside
 the bucket**, then remain fully inside for one continuous second. This is an
 observed simulation trajectory, not proof that the final policy learned to
@@ -49,6 +56,30 @@ No Isaac evidence was scanned and no new GPU simulation was run.
 
 The [sanitized evidence summary](../baselines/mjlab-clearance-horizon-20261108/table-assisted-example.json)
 records source checksums, relative evidence paths, dimensions and timings.
-Raw trajectories and host paths remain outside Git. Whether table-assisted
-routes should earn task-success credit is a separate, undecided objective
-change; this audit changes neither scoring nor the matched horizon experiment.
+Raw trajectories and host paths remain outside Git. The user subsequently
+confirmed that this table-assisted route should count toward the task. This
+historical audit itself changes neither scoring nor the matched horizon experiment.
+
+
+## Saved-trajectory video
+
+There was no pre-existing movie. The dense native archive retained 61,441
+ball-center samples over four seconds, so a new **15-second MuJoCo-rendered
+playback** was made from that exact data: normal speed, then a quarter-speed
+close-up. It displays the original table, bucket, board and robot geometry.
+The arms remain at their saved endpoint joint poses, matching this experiment's
+held-arm protocol. Ball spin was not recorded; no arm motion or new trajectory
+is invented. The video adds zero physics steps and does not rerun the policy.
+
+`python -m sircus.mjlab.saved_shot_video --help` describes the renderer inputs.
+It verifies original contract, scene, model source, collision assets, metadata
+and native archive hashes, then requires CPU software OpenGL. Neither GPU is
+used. The source-to-frame map is retained in the local movie sidecar; the
+[sanitized video summary](../baselines/mjlab-clearance-horizon-20261108/table-assisted-video-summary.json)
+records its checksum, 450 frames at 1280×720/30 fps, backend and original labels.
+The MP4 is local runtime media, excluded from Git, and embedded in the existing
+interface's historical-example card without restarting its server.
+
+Validation: six renderer integrity/timeline tests and seven evidence-panel tests
+pass; the actual replay verified saved geometry and used llvmpipe. The video
+contains this one verified historical attempt, not a new reliability result.
