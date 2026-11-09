@@ -1,0 +1,279 @@
+{
+  "version": "sircus-clearance-horizon-display-v1",
+  "status": "verified",
+  "audit": {
+    "passed": true,
+    "full_checks_verified": true,
+    "checks_count": 44237,
+    "source_sha256": "820ea2f5a5085ac1b0a89141638633032af174ef5ae806d930cb355c1064895d",
+    "report_sha256": "526df056c959160581ea8c64d29285a16c835d4c93d3bbde298eaeefd41d61dd",
+    "manifest_sha256": "423cb9a56056ed57e84153f7f2053af71e3c27a8525e2eb9b5fc2f57b52a7f98",
+    "plan_sha256": "6bf91a80841b54e4027bc0d536b01b2d7dea5773c456344736e22666bfc1f247",
+    "contract_fingerprint": "91a60c1aa6911249295a87dd23161b4586c13c1d024005dcfdaa5699da839d8f"
+  },
+  "comparisons": [
+    {
+      "method": "short_window",
+      "label": "Shorter rim window",
+      "counts": {
+        "requested": 3,
+        "native_releases": 3,
+        "captures": 0,
+        "clean": 0,
+        "rejected": 0,
+        "native_misses": 3,
+        "invalid": 0
+      }
+    },
+    {
+      "method": "long_window",
+      "label": "Longer table window",
+      "counts": {
+        "requested": 3,
+        "native_releases": 0,
+        "captures": 0,
+        "clean": 0,
+        "rejected": 3,
+        "native_misses": 0,
+        "invalid": 0
+      }
+    }
+  ],
+  "rows": [
+    {
+      "record_id": "horizon-window-diagnostic-arm-clearance-test-01-short_window-r0",
+      "context_id": "arm-clearance-test-01",
+      "repeat": 0,
+      "method": "short_window",
+      "bucket_xy_m": [
+        1.1225584467111969,
+        0.12872583343430677
+      ],
+      "values": [
+        0.6087761793388727,
+        -0.13140148248579472,
+        0.32753782617132593,
+        17.628544567926383,
+        0.27710405695169416
+      ],
+      "native_release": true,
+      "capture": false,
+      "clean": false,
+      "invalid": false,
+      "clearance_rejected": false,
+      "robot_contact_before_terminal": true,
+      "robot_contact_after_terminal": false,
+      "table_contact_before_terminal": true,
+      "table_contact_after_terminal": false,
+      "bucket_retained": false
+    },
+    {
+      "record_id": "horizon-window-diagnostic-arm-clearance-test-01-short_window-r1",
+      "context_id": "arm-clearance-test-01",
+      "repeat": 1,
+      "method": "short_window",
+      "bucket_xy_m": [
+        1.1225584467111969,
+        0.12872583343430677
+      ],
+      "values": [
+        0.6087761793388727,
+        -0.13140148248579472,
+        0.32753782617132593,
+        17.628544567926383,
+        0.27710405695169416
+      ],
+      "native_release": true,
+      "capture": false,
+      "clean": false,
+      "invalid": false,
+      "clearance_rejected": false,
+      "robot_contact_before_terminal": true,
+      "robot_contact_after_terminal": false,
+      "table_contact_before_terminal": true,
+      "table_contact_after_terminal": false,
+      "bucket_retained": false
+    },
+    {
+      "record_id": "horizon-window-diagnostic-arm-clearance-test-01-short_window-r2",
+      "context_id": "arm-clearance-test-01",
+      "repeat": 2,
+      "method": "short_window",
+      "bucket_xy_m": [
+        1.1225584467111969,
+        0.12872583343430677
+      ],
+      "values": [
+        0.6087761793388727,
+        -0.13140148248579472,
+        0.32753782617132593,
+        17.628544567926383,
+        0.27710405695169416
+      ],
+      "native_release": true,
+      "capture": false,
+      "clean": false,
+      "invalid": false,
+      "clearance_rejected": false,
+      "robot_contact_before_terminal": true,
+      "robot_contact_after_terminal": false,
+      "table_contact_before_terminal": true,
+      "table_contact_after_terminal": false,
+      "bucket_retained": false
+    },
+    {
+      "record_id": "horizon-window-diagnostic-arm-clearance-test-01-long_window-r0",
+      "context_id": "arm-clearance-test-01",
+      "repeat": 0,
+      "method": "long_window",
+      "bucket_xy_m": [
+        1.1225584467111969,
+        0.12872583343430677
+      ],
+      "values": [
+        0.6087761793388727,
+        -0.13140148248579472,
+        0.32753782617132593,
+        17.628544567926383,
+        0.27710405695169416
+      ],
+      "native_release": false,
+      "capture": false,
+      "clean": false,
+      "invalid": false,
+      "clearance_rejected": true,
+      "robot_contact_before_terminal": null,
+      "robot_contact_after_terminal": null,
+      "table_contact_before_terminal": null,
+      "table_contact_after_terminal": null,
+      "bucket_retained": null
+    },
+    {
+      "record_id": "horizon-window-diagnostic-arm-clearance-test-01-long_window-r1",
+      "context_id": "arm-clearance-test-01",
+      "repeat": 1,
+      "method": "long_window",
+      "bucket_xy_m": [
+        1.1225584467111969,
+        0.12872583343430677
+      ],
+      "values": [
+        0.6087761793388727,
+        -0.13140148248579472,
+        0.32753782617132593,
+        17.628544567926383,
+        0.27710405695169416
+      ],
+      "native_release": false,
+      "capture": false,
+      "clean": false,
+      "invalid": false,
+      "clearance_rejected": true,
+      "robot_contact_before_terminal": null,
+      "robot_contact_after_terminal": null,
+      "table_contact_before_terminal": null,
+      "table_contact_after_terminal": null,
+      "bucket_retained": null
+    },
+    {
+      "record_id": "horizon-window-diagnostic-arm-clearance-test-01-long_window-r2",
+      "context_id": "arm-clearance-test-01",
+      "repeat": 2,
+      "method": "long_window",
+      "bucket_xy_m": [
+        1.1225584467111969,
+        0.12872583343430677
+      ],
+      "values": [
+        0.6087761793388727,
+        -0.13140148248579472,
+        0.32753782617132593,
+        17.628544567926383,
+        0.27710405695169416
+      ],
+      "native_release": false,
+      "capture": false,
+      "clean": false,
+      "invalid": false,
+      "clearance_rejected": true,
+      "robot_contact_before_terminal": null,
+      "robot_contact_after_terminal": null,
+      "table_contact_before_terminal": null,
+      "table_contact_after_terminal": null,
+      "bucket_retained": null
+    }
+  ],
+  "windows": [
+    {
+      "method": "short_window",
+      "passed": true,
+      "horizon_min_s": 0.3214883893985023,
+      "horizon_max_s": 0.32692286913653756,
+      "minimum_clearance_lower_bound_m": 0.012051544733831918,
+      "required_clearance_m": 0.002
+    },
+    {
+      "method": "long_window",
+      "passed": false,
+      "horizon_min_s": 0.3973442493998802,
+      "horizon_max_s": 0.40226548975386767,
+      "minimum_clearance_lower_bound_m": -0.03606779590488203,
+      "required_clearance_m": 0.002
+    }
+  ],
+  "recommendation": "The longer window did not improve strict capture at this known layout. Withholding a shot is not a capture or an observed collision-free flight. Keep the existing selector unchanged.",
+  "scope": "One previously evaluated layout is now development evidence. Synthetic fixed64 physics, held endpoints and privileged geometry. Conditional predictions are not physical or full-path validation. Strict scoring is unchanged.",
+  "description": "Only the predicted clearance horizon extends; same shot, five paths, held geometry, +2 mm margin, physics and strict scoring.",
+  "protocol": {
+    "methods": [
+      "short_window",
+      "long_window"
+    ],
+    "context_id": "arm-clearance-test-01",
+    "substeps": 64,
+    "new_training_requests": 0,
+    "requests_per_method": 3,
+    "maximum_requests": 18,
+    "evaluation_scope": "development_replay"
+  },
+  "progress_requests": 18,
+  "report_sha256": "526df056c959160581ea8c64d29285a16c835d4c93d3bbde298eaeefd41d61dd",
+  "manifest_sha256": "423cb9a56056ed57e84153f7f2053af71e3c27a8525e2eb9b5fc2f57b52a7f98",
+  "plan_sha256": "6bf91a80841b54e4027bc0d536b01b2d7dea5773c456344736e22666bfc1f247",
+  "contract_fingerprint": "91a60c1aa6911249295a87dd23161b4586c13c1d024005dcfdaa5699da839d8f",
+  "counts": {
+    "requested": 18,
+    "native_releases": 15,
+    "captures": 6,
+    "clean": 6,
+    "rejected": 3,
+    "native_misses": 9,
+    "invalid": 0
+  },
+  "control_gates": {
+    "pre": {
+      "status": "passed",
+      "counts": {
+        "requested": 6,
+        "native_releases": 6,
+        "captures": 3,
+        "clean": 3,
+        "rejected": 0,
+        "native_misses": 3,
+        "invalid": 0
+      }
+    },
+    "post": {
+      "status": "passed",
+      "counts": {
+        "requested": 6,
+        "native_releases": 6,
+        "captures": 3,
+        "clean": 3,
+        "rejected": 0,
+        "native_misses": 3,
+        "invalid": 0
+      }
+    }
+  }
+}

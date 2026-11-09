@@ -40,6 +40,15 @@ test('scope is read-only and explains case, horizon and unchanged scoring',()=>{
  const html=readFileSync(new URL('../web/clearance-horizon.html',import.meta.url),'utf8'),css=readFileSync(new URL('../web/clearance-horizon.css',import.meta.url),'utf8');for(const value of ['id="clearanceHorizon"','<!--CLEARANCE_HORIZON_STYLE-->','<!--CLEARANCE_HORIZON_SCRIPT-->','numbered bucket layout','look for a robot collision','board → table → bucket','not relabeled as strict success','one second'])assert.ok(html.includes(value),value);assert.ok(css.includes('overflow-x:auto'));assert.ok(css.includes('grid-column:1/-1'));for(const value of ['/api/solve','/api/control','startTraining','activatePolicy','innerHTML','</script'])assert.ok(!source.includes(value),value);
 });
 
+test('historical table-assisted example stays separately labelled and matches sanitized evidence',()=>{
+ const html=readFileSync(new URL('../web/clearance-horizon.html',import.meta.url),'utf8');
+ const evidence=JSON.parse(readFileSync(new URL('../../../baselines/mjlab-clearance-horizon-20261108/table-assisted-example.json',import.meta.url),'utf8'));
+ assert.equal(evidence.status,'verified_historical_example');assert.equal(evidence.shot.phase,'train');assert.equal(evidence.shot.method,'ppo');assert.equal(evidence.shot.substeps,64);
+ for(const value of [evidence.events.board_impact.start_s,evidence.events.table_bounce.start_s,evidence.events.first_bucket_contact_s,evidence.events.whole_ball_entry_s,evidence.events.capture_s])assert.ok(html.includes(value.toFixed(3)+' s'));
+ assert.equal(evidence.original_score.success,true);assert.equal(evidence.original_score.route_success,false);assert.equal(evidence.events.robot_floor_or_unattributed_contacts_before_capture,false);
+ for(const value of ['Separate historical evidence — not part of the 18-slot horizon test','one verified historical rollout','not evidence that the final policy learned','bucket retained: yes; strict route success: no','MJLAB_TABLE_ASSISTED_EXAMPLE_20261108.md'])assert.ok(html.includes(value),value);
+});
+
 test('polling marks failed reads stale and stops without simulator commands',async()=>{
  const d=dom(),scheduled=[],cancelled=[];let reads=0;const stop=ui.startClearanceHorizon(d.root,{fetchReport:async()=>{if(++reads===1)return{[ui.KEY]:fixture()};throw Error('offline');},schedule:(fn,ms)=>{scheduled.push({fn,ms});return scheduled.length;},cancel:id=>cancelled.push(id)});await new Promise(r=>setImmediate(r));assert.equal(scheduled[0].ms,5000);await scheduled[0].fn();assert.ok(d.get('status').textContent.includes('stale'));stop();assert.deepEqual(cancelled,[2]);
 });
