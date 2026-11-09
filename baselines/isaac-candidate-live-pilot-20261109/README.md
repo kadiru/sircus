@@ -90,3 +90,35 @@ check scripts. Two loopback-binding tests initially failed under the sandbox;
 both passed with the required socket permission. All remaining checks passed.
 Any further application attempt requires separate authorization; v1 and v2 remain
 closed.
+
+## Separately authorized v3 attempt
+
+V3 used source `03d31ff85a3201bce6a2bd7339e80c13a354a308`. Startup ownership and
+effort checks passed, and **62 actor-imitation updates / 7,926 presentations of
+existing examples** were committed. No PPO update or TRAIN/assessment request
+occurred. The watchdog stopped its owned child after 64.923 seconds on a timestamp
+check. Additional in-flight optimizer work is unknown; no final checkpoint is
+committed or present in the observed checkpoint inventory. This partial history
+cannot be resumed or promoted as a usable trained model.
+
+A deterministic regression reproduced the race: the writer can publish a valid
+receipt while the watchdog hashes source/reads progress, after the watchdog's
+earlier clock sample. The corrected guard samples after reading the frozen event
+list, and again after validation. It retains event-based phase starts, finite
+nondecreasing clocks, original phase/absolute caps and exact future-timestamp
+rejection, with no epsilon. All 68 focused cases and independent review passed.
+
+This run's existing startup traces also passed the original CPU-only reader:
+nine cohorts, 315 initialized trajectories and 1,584 physics steps, taking
+4.327 seconds wall / 4.327 CPU-seconds. Full learning/native-TRAIN/assessment
+audits did not run. The original checkpoint and all source/input bytes verified
+unchanged after termination. [Compact v3 evidence](attempt-v3.json) keeps those
+component checks separate from policy performance.
+
+The viewer shows recorded counters separately from committed updates and unknown
+in-flight work. Its optional TRAIN curve uses completed requested slots,
+including rejections, with unresolved charged slots separate; it remains
+unaudited exploration. The v3 curve is empty because no task was requested.
+Current full repository checks passed (1,147 Isaac cases with 121 optional skips,
+56 Node cases, 34 physical mocks, five simulation cases and nine two-arm scripts).
+V1, v2 and v3 remain closed and preserved; no automatic retry was performed.

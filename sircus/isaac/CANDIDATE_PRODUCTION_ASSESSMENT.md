@@ -3,7 +3,7 @@
 This completes the source wiring following the
 [native audit / bounded launch contract](CANDIDATE_NATIVE_GATES.md). The initial
 implementation was tested with mocks. Later authorized launch attempts reached
-simulator startup but stopped before training; the
+simulator startup and partial actor imitation but stopped before task requests; the
 [preserved evidence](../../baselines/isaac-candidate-live-pilot-20261109/README.md)
 distinguishes those attempts from a completed audited pilot. No improved policy
 performance is established. The completed benchmark and its checkpoints/bank
@@ -35,6 +35,13 @@ startup schedule and absolute/phase deadlines using append-only session-bound
 progress receipts. Host polling preserves phase boundaries even when many fast
 imitation receipts arrive between polls.
 
+The watchdog bounds each already-read progress list with a fresh monotonic clock
+sample after the read, then rechecks clock/deadlines after validation. This avoids
+calling a concurrently published receipt "future" against a stale pre-read time.
+Actual receipt timestamps still set phase starts; no tolerance or deadline was
+added. Truly future/reversed stamps, delayed transitions and time spent reading
+or validating beyond a phase/absolute cap still stop the owned application.
+
 Private container receipts remain `0600`. The host reads only the two fixed
 runtime receipts and complete progress metadata through the existing container's
 read-only snapshot action. Each response binds a fresh request nonce, exact
@@ -65,7 +72,7 @@ The first authorized launch stopped before native-child creation because its
 older source required the missing CPython bindings. Its failed-no-retry history
 is preserved in the [launch evidence](../../baselines/isaac-candidate-live-pilot-20261109/README.md).
 The compatibility fix passed 60 mock cases and its self-only capability probe in
-the existing container; it has not run another simulator or training attempt.
+the existing container before the separately authorized v2/v3 attempts.
 
 ## Reviewed inputs and one native application
 

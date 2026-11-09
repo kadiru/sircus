@@ -138,3 +138,89 @@ test('removing optional continuation hides its panel and clears old final claims
   }finally{delete globalThis.document;}
   for(const id of ['continuation','continuationNav','continuationStatus','continuationProgress','continuationResults','continuationCompute','continuationEvidence'])assert.ok(html.includes(`id="${id}"`));
 });
+
+function trainMonitoringFixture(){
+  return {audited:false,totals:{requested:40,terminal:35,unresolved:5,captures:10,clean_captures:4,released:30,rejected:5},
+    latest_terminal_prefix:{terminal:25,captures:8,clean_captures:3,released:23,rejected:2,event_seq:12,event_fingerprint:'d'.repeat(64)},
+    curve:[{terminal:10,captures:2,clean_captures:1,released:7,rejected:3},{terminal:35,captures:10,clean_captures:4,released:30,rejected:5}]};
+}
+const descendants=node=>[node,...node.children.flatMap(descendants)];
+
+test('exploratory TRAIN counts and curve use completed requests including rejections',()=>{
+  const nodes=dom();try{
+    const continuation=continuationFixture();continuation.status='running';continuation.phase='train';continuation.train_monitoring=trainMonitoringFixture();
+    panel.renderContinuation(continuation);
+    const node=nodes.get('continuationTrainMonitoring'),content=text(node);
+    assert.equal(node.className,'case-box');assert.match(content,/Unaudited exploration.*Frozen held-out performance remains gated/);
+    assert.match(content,/Charged requests.*Completed TRAIN requests.*Unresolved charged requests/);
+    assert.match(content,/40 35 5 10 \/ 35 · 28.6% 4 \/ 35 · 11.4% 30 5/);
+    assert.match(content,/including rejections.*Unresolved charged requests remain separate/);
+    assert.match(content,/Latest recorded terminal prefix:\s+25 requests · 8 captures · 3 clean · 23 released · 2 rejected/);
+    const svg=descendants(node).find(child=>child.tag==='svg');assert.ok(svg);assert.match(svg.attributes['aria-label'],/Unaudited cumulative TRAIN.*including rejections/);
+    const curves=svg.children.filter(child=>child.tag==='polyline');assert.equal(curves.length,2);
+    for(const curve of curves){const points=curve.attributes.points.split(' ').map(point=>point.split(',').map(Number));assert.equal(points.length,2);assert.equal(points.at(-1)[0],595);assert.ok(points.flat().every(Number.isFinite));}
+    assert.match(content,/Completed TRAIN requests \(including rejections\)/);
+    assert.match(text(nodes.get('continuationResults')),/pending audit/);assert.doesNotMatch(text(nodes.get('continuationResults')),/12 \/ 70/);
+  }finally{delete globalThis.document;}
+});
+
+test('missing optional TRAIN monitoring hides the panel and clears stale exploration',()=>{
+  const nodes=dom();try{
+    const continuation=continuationFixture();continuation.status='running';continuation.train_monitoring=trainMonitoringFixture();
+    panel.render({...fixture(),continuation});assert.equal(nodes.get('continuationTrainMonitoring').className,'case-box');
+    delete continuation.train_monitoring;panel.render({...fixture(),continuation});
+    assert.equal(nodes.get('continuationTrainMonitoring').className,'case-box hidden');assert.equal(text(nodes.get('continuationTrainMonitoring')),'');
+    assert.match(text(nodes.get('metrics')),/13 \/ 35.*16 \/ 35/);
+    continuation.train_monitoring=trainMonitoringFixture();panel.renderContinuation(continuation);panel.renderContinuation(undefined);
+    assert.equal(text(nodes.get('continuationTrainMonitoring')),'');assert.equal(nodes.get('continuationTrainMonitoring').className,'case-box hidden');
+  }finally{delete globalThis.document;}
+  assert.match(html,/id="continuationTrainMonitoring" class="case-box hidden"/);
+});
+
+test('stopped imitation shows committed versus reported receipts and unknown in-flight work',()=>{
+  const nodes=dom();try{
+    const continuation=continuationFixture();continuation.status='failed';continuation.phase='imitation';
+    continuation.learning={imitation_steps:63,ppo_updates:0,optimizer_steps:63,
+      committed_update_counters:{imitation_steps:62,ppo_updates:0,optimizer_steps:62},unreceipted_optimizer_work_possible:true};
+    continuation.train_monitoring={audited:false,totals:{requested:0,terminal:0,unresolved:0,captures:0,clean_captures:0,released:0,rejected:0},latest_terminal_prefix:null,curve:[]};
+    panel.renderContinuation(continuation);
+    assert.match(text(nodes.get('continuationProgress')),/Recorded\/committed update receipts:\s+Imitation steps 62.*Latest reported counters:\s+Imitation steps 63/);
+    assert.match(text(nodes.get('continuationProgress')),/Additional in-flight optimizer work is unknown\. No final checkpoint is committed in these receipts/);
+    assert.doesNotMatch(text(nodes.get('continuationEvidence')),/Saved final checkpoint SHA256/);
+    assert.match(nodes.get('continuationTitle').textContent,/stopped/);assert.match(text(nodes.get('continuationResults')),/not audited/);
+    const monitor=nodes.get('continuationTrainMonitoring');assert.match(text(monitor),/Stopped attempt.*pilot did not complete/);
+    assert.match(text(monitor),/0 \/ 0 · rate unavailable/);assert.match(text(monitor),/No completed TRAIN requests yet/);
+    assert.equal(descendants(monitor).filter(child=>child.tag==='svg').length,0);
+  }finally{delete globalThis.document;}
+});
+
+test('unknown charged counts stay unknown and optional curve can be absent',()=>{
+  const nodes=dom();try{
+    const continuation=continuationFixture();continuation.status='running';const monitoring=trainMonitoringFixture();
+    monitoring.totals.requested=null;monitoring.totals.unresolved=null;delete monitoring.curve;continuation.train_monitoring=monitoring;
+    panel.renderContinuation(continuation);const monitor=nodes.get('continuationTrainMonitoring');
+    assert.match(text(monitor),/unknown 35 unknown 10 \/ 35/);assert.match(text(monitor),/Cumulative TRAIN curve unavailable/);
+    assert.equal(descendants(monitor).filter(child=>child.tag==='svg').length,0);
+  }finally{delete globalThis.document;}
+});
+
+test('inconsistent TRAIN totals or claims cannot produce exploration metrics',()=>{
+  for(const change of [m=>m.audited=true,m=>m.totals.requested=34,m=>m.totals.unresolved=6,m=>m.totals.rejected=6,m=>m.totals.captures=31,m=>m.totals.clean_captures=11,m=>m.totals.terminal=NaN]){
+    const continuation=continuationFixture();continuation.train_monitoring=trainMonitoringFixture();change(continuation.train_monitoring);
+    assert.equal(panel.continuationTrainMonitoring(continuation),null);
+  }
+  const continuation=continuationFixture();continuation.train_monitoring=trainMonitoringFixture();
+  continuation.train_monitoring.curve.push({...continuation.train_monitoring.curve[1]});
+  assert.deepEqual(panel.continuationTrainMonitoring(continuation).curve,[]);
+});
+
+test('saved checkpoint identity supports the journal helper without implying an audit',()=>{
+  const nodes=dom();try{
+    const continuation=continuationFixture();continuation.status='audit_pending';delete continuation.final_checkpoint_sha256;
+    continuation.final_checkpoint={status:'saved_audit_pending',sha256:'e'.repeat(64)};
+    panel.renderContinuation(continuation);assert.match(text(nodes.get('continuationEvidence')),/Saved final checkpoint SHA256: e{64}/);
+    assert.match(text(nodes.get('continuationResults')),/pending audit/);
+    continuation.final_checkpoint.status='not_confirmed';panel.renderContinuation(continuation);
+    assert.doesNotMatch(text(nodes.get('continuationEvidence')),/Saved final checkpoint SHA256/);
+  }finally{delete globalThis.document;}
+});
