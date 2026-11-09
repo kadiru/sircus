@@ -63,6 +63,26 @@ export function continuationComputeRows(value){
   });
 }
 
+// Failed producer receipts are useful cost evidence, but never a substitute
+// for the separate final-comparison or independently audited compute gates.
+export function continuationStoppedResources(value){
+  const stopped=value?.stopped_resources,record=x=>x!==null&&typeof x==='object'&&!Array.isArray(x)
+    &&[Object.prototype,null].includes(Object.getPrototypeOf(x));
+  if(value?.schema!==CONTINUATION_SCHEMA||!['failed','incomplete_no_retry'].includes(value.status)
+    ||!record(stopped)||typeof stopped.producer_receipt_sha256!=='string'||!/^[a-f0-9]{64}$/i.test(stopped.producer_receipt_sha256)
+    ||typeof stopped.scope!=='string'||!stopped.scope.trim()||!record(stopped.phases)||!Object.keys(stopped.phases).length)return null;
+  if(Object.entries(stopped.phases).some(([phase,row])=>!Object.hasOwn(PHASE_LABELS,phase)||!record(row)
+    ||(row.device!==undefined&&row.device!==null&&!record(row.device))))return null;
+  const phases=Object.entries(PHASE_LABELS).filter(([phase])=>phase!=='audit'||Object.hasOwn(stopped.phases,phase));
+  return {producer_receipt_sha256:stopped.producer_receipt_sha256,scope:stopped.scope,
+    rows:phases.map(([phase,label])=>{
+      const row=stopped.phases[phase]??{},device=row.device??{};
+      return [phase==='assessment'?'Partial frozen assessment':label,seconds(row.wall_s),seconds(row.aggregate_cpu_s),
+        memory(row.lifetime_peak_rss_mib),memory(row.largest_child_lifetime_peak_rss_mib),
+        memory(device.sampled_whole_device_occupied_mib),memory(device.torch_peak_allocated_mib),memory(device.torch_peak_reserved_mib)];
+    })};
+}
+
 export function continuationTrainMonitoring(value){
   const monitoring=value?.train_monitoring,totals=monitoring?.totals;
   const valid=row=>row&&['terminal','captures','clean_captures','released','rejected'].every(key=>count(row[key])!==null)
@@ -205,12 +225,26 @@ function renderTrainMonitoring(value){
   const chart=Object.assign(el('div'),{className:'chart'});chart.appendChild(svg);node.appendChild(chart);
 }
 
+function renderStoppedResources(value){
+  const node=clear('continuationStoppedResources'),resources=continuationStoppedResources(value);
+  node.className=resources?'case-box':'case-box hidden';
+  if(!resources)return;
+  node.appendChild(el('h3','Stopped-run resource measurements'));
+  node.appendChild(Object.assign(el('p','Producer receipts for an incomplete attempt; full assessment and audit did not finish; not independently remeasured.'),{className:'scope'}));
+  const wrapper=Object.assign(el('div'),{className:'table-wrap'});
+  wrapper.appendChild(table(['Phase','Wall','Aggregate CPU','Lifetime RSS high-water','Largest child RSS high-water','Sampled whole-device occupancy','Torch CUDA allocated peak','Torch CUDA reserved peak'],resources.rows));
+  node.appendChild(wrapper);
+  node.appendChild(Object.assign(el('p',resources.scope),{className:'compute-note'}));
+  node.appendChild(Object.assign(el('p','Producer receipt SHA256: '+resources.producer_receipt_sha256),{className:'hash'}));
+}
+
 export function renderContinuation(value){
   const section=document.getElementById('continuation'),nav=document.getElementById('continuationNav');
   if(!section||!nav)return;
   section.className=value===undefined?'card hidden':'card';nav.className=value===undefined?'hidden':'';
   for(const id of ['continuationProgress','continuationResults','continuationCompute','continuationEvidence','continuationPaired'])clear(id);
   renderTrainMonitoring(value);
+  renderStoppedResources(value);
   if(value===undefined)return;
   const view=continuationStatus(value),card=document.getElementById('continuationStatus');card.className='status '+view.state;
   document.getElementById('continuationBadge').textContent=view.badge;document.getElementById('continuationTitle').textContent=view.title;document.getElementById('continuationDetail').textContent=view.detail;

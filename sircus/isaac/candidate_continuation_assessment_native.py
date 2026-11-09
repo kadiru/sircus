@@ -100,9 +100,13 @@ class GuardedAssessmentProducer:
             for i,(row,choice) in enumerate(zip(rows,choices)):
                 row["native_invalid"]=row["invalid"]
                 if not choice["enabled"]:
-                    require(row["invalid"]=="inactive_split" and env.preflight_records[i] is None
+                    # The unchanged ParallelShots boundary labels disabled rows
+                    # after prepare(), while qualification retains inactive_split.
+                    require(row["invalid"]=="no_selected_setting" and env.preflight_records[i] is None
                         and env.qualifications[i]==dict(accepted=False,reason="inactive_split")
-                        and row["route_success"] is False and row["success"] is False,
+                        and env.path_checks[i] is None and env.path_reasons[i] is None
+                        and row["route_success"] is False and row["success"] is False
+                        and row["route_quality"] == 0 and features[i] is None,
                         "Empty bank slot was executed or fabricated a guard decline")
                     row["invalid"]=choice["decline_reason"]
                 if not row["invalid"]:
