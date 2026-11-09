@@ -1,5 +1,13 @@
 # Project state
 
+## Completed height/tilt admission search — November 8, 2026
+
+- [Audited evidence and all 120 grid entries](../baselines/mjlab-table-height-tilt-20261108/README.md): cases 00/01/18/26 tested board heights 320/360/400/440/460/480 mm and tilts 16/20/24/28/32°. Bucket XY, board XY, drop gap, orientation convention, IK/clearance checks, native64 physics and v3 scoring stayed fixed. This is development search on inspected layouts, not a new policy evaluation.
+- **58/120 setups admitted**, split 13/14/17/14 by case. The 62 declines were finite IK failures: 52 board-only, eight dropper-only and two both. All 24 requests at 32° lacked board-arm branches. At 28°, case 00 admitted 460 mm; case 01 admitted 440/460 mm; case 18 admitted 460/480 mm; case 26 admitted none. These finite searches do not prove impossibility outside the tested solutions.
+- **0/58 discovery captures and zero whole-ball entries**, despite a board bounce in all 58. Robot contact occurred in 42 shots (9/2/17/14 by case). Original repeats were 0/12 captures with six robot-contact shots. No successful candidate qualified for the conditional repeat stage. All 18 bracketing controls behaved as expected; no invalid physics. Total: **150 requested configurations/repeats, 88 native releases**.
+- Frozen producer `380ac3e73b8d6b08504a31ad3797e5088b78af4e`; independent audit passed **36,371 checks**. CPU admission took 101.2 s and native phase 218.9 s of wall time, not isolated GPU compute. Full source/scene/admission/trace bindings remain in the local evidence; compact counts, grid and hashes are committed.
+- The additive `#tableHeightTiltStudy` UI displays exact settings, failed IK searches, native misses and controls. No successful posture is installed. The finite 4090 worker exited; the existing 4070 job and viewer retained their PIDs/start times. No Isaac change, service restart, hardware action, new PPO or policy promotion. Next: identify the ball-path obstruction and test an admitted geometry/clearance change before further training; retain table-assisted success.
+
 ## Table-assisted failure diagnosis and tilt correction — November 8, 2026
 
 - [Evidence and exact configurations](../baselines/mjlab-table-training-diagnosis-20261108/README.md): all 31 new-PPO released misses lacked whole-ball entry. First contact after board rebound was table 16 / bucket 8 / robot 7; 13 had forbidden contact at some point. Table contact remains allowed and is not itself a failure. Source/accounting diagnosis passed 143 checks, inheriting the original independent 823,442-check native audit.

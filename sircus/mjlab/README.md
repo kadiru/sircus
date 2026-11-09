@@ -1,6 +1,14 @@
 # Sircus in mjlab
 
-Latest: [table-assisted PPO failure diagnosis and tilt-only correction](../../baselines/mjlab-table-training-diagnosis-20261108/README.md).
+Latest: [joint height/tilt admission search and native64 drops](../../baselines/mjlab-table-height-tilt-20261108/README.md).
+Of 120 fixed-grid candidates for cases 00/01/18/26, 58 passed the unchanged
+admission checks. All 58 bounced the board but none entered or captured; 42
+had robot contact. All 18 controls and 36,371 independent checks passed.
+No candidate qualified for fresh repeats. The read-only `#tableHeightTiltStudy`
+panel preserves every declined candidate and exact admitted configuration.
+[Frozen protocol](TABLE_HEIGHT_TILT.md). No new training or policy activation.
+
+Earlier: [table-assisted PPO failure diagnosis and tilt-only correction](../../baselines/mjlab-table-training-diagnosis-20261108/README.md).
 All 31 released misses lacked whole-ball entry; first post-board contacts were
 table 16 / bucket 8 / robot 7. Four setup declines split into two finite IK searches
 and two fixed-base clearance checks. The bounded 42-request test captured 0/12
