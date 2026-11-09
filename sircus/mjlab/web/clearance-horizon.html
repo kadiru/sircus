@@ -1,0 +1,26 @@
+<!-- Additive, read-only evidence. No simulator or policy commands. -->
+<!--CLEARANCE_HORIZON_STYLE-->
+<section id="clearanceHorizon" class="clearance-horizon-panel" hidden>
+  <p class="clearance-horizon-eyebrow">ONE SAVED LAYOUT · TWO PREDICTION WINDOWS · FIXED 64 SUBSTEPS</p>
+  <h2>Case 01: look farther ahead before releasing</h2>
+  <p data-clearance-horizon="connection" class="clearance-horizon-small" role="status">Waiting for a saved snapshot.</p>
+  <p data-clearance-horizon="status" class="clearance-horizon-note" role="status"></p>
+  <p class="clearance-horizon-small"><strong>Case 01</strong> is one numbered bucket layout from the saved 50-position comparison. It is now a development case, not an unseen test. Other diagnosed layouts were 00, 04, 07, 39 and 44; this experiment repeats only 01.</p>
+  <p class="clearance-horizon-small"><strong>Horizon</strong> means how far into the predicted flight we look for a robot collision. The shorter window stops at descending rim height; the longer window continues toward table height. Looking farther ahead does not make the ball fly longer or change the simulation timestep.</p>
+  <h3>What changed?</h3>
+  <p data-clearance-horizon="description" class="clearance-horizon-small"></p>
+  <p data-clearance-horizon="progress" class="clearance-horizon-small"></p>
+  <div data-clearance-horizon="windows" class="clearance-horizon-scroll" tabindex="0" role="region" aria-label="Predicted window duration and clearance decision"></div>
+  <p class="clearance-horizon-small">Window durations start at predicted board rebound. Clearance is a conservative prediction over held arm endpoints, not a measured continuous distance. After another contact, the original free-flight forecast no longer describes the new trajectory.</p>
+  <h3>Matched native replay</h3>
+  <div data-clearance-horizon="comparison" class="clearance-horizon-scroll" tabindex="0" role="region" aria-label="Verified case 01 outcomes for both prediction windows"></div>
+  <p data-clearance-horizon="paired" class="clearance-horizon-small"></p>
+  <p data-clearance-horizon="recommendation" class="clearance-horizon-note"></p>
+  <details><summary>Exact settings and every requested repeat</summary><div data-clearance-horizon="trials" class="clearance-horizon-scroll" tabindex="0" role="region" aria-label="Case 01 shot settings, observed outcomes and unknown abstentions"></div></details>
+  <h3>Bucket capture and route are different questions</h3>
+  <p class="clearance-horizon-small">The current strict score requires a board bounce and whole-ball bucket entry retained continuously for one second, with no table, floor or robot contact on that scoring route. Rim-assisted bucket capture can count. A board → table → bucket shot is a possible different objective; it is not relabeled as strict success here. Any bucket retention and table/robot contacts are reported separately below when observed.</p>
+  <div data-clearance-horizon="contacts" class="clearance-horizon-scroll" tabindex="0" role="region" aria-label="Separate bucket retention and contact diagnostics"></div>
+  <details><summary>Controls, evidence and limits</summary><div data-clearance-horizon="controls" class="clearance-horizon-scroll" tabindex="0" role="region" aria-label="Matched controls before and after replay"></div><p data-clearance-horizon="audit" class="clearance-horizon-small"></p><p data-clearance-horizon="scope" class="clearance-horizon-small"></p></details>
+  <p class="clearance-horizon-small">Simulation only. Same shot selection, clearance margin, reward and scoring contract; no new model training or selector activation. The RTX 4070 and Isaac setup are outside this experiment. No driven-arm transit, noise study or physical validation.</p>
+</section>
+<!--CLEARANCE_HORIZON_SCRIPT-->

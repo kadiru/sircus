@@ -1,5 +1,17 @@
 # Project state
 
+## Case 01 horizon-only replay — November 8, 2026
+
+- [Frozen protocol](../sircus/mjlab/CLEARANCE_HORIZON.md): same candidate, joints,
+  forecasts, refined bound, 2 mm margin, native64 dynamics and strict scorer.
+  Extend only the clearance window from descending rim-band start to predicted
+  table-tangent height. Three repeats each plus 12 controls: 18 requested slots.
+- CPU preparation changes the window from 321–327 ms to 397–402 ms and refuses
+  the known problematic shot. That is an abstention, not an improved trajectory.
+  Native results must pass the separate evidence audit before publication.
+- No training, noise, alternative candidates, policy activation, 4070 or Isaac
+  changes. Bucket retention remains separate from the strict route score.
+
 ## Finger-clearance and horizon diagnosis — November 8, 2026
 
 - [Frozen protocol](../sircus/mjlab/CLEARANCE_DIAGNOSIS.md): authenticated CPU
