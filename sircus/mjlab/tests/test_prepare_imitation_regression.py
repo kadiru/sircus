@@ -112,6 +112,28 @@ class PublisherTests(unittest.TestCase):
         write(meta,raw);movie.write_bytes(movie.read_bytes()+b'extra')
         with self.assertRaisesRegex(ValueError,'checksum'):P.movie_summary(meta,movie,s)
 
+    def test_queue_phase_reflects_actual_pipeline_without_inventing_results(self):
+        (self.study/'report.json').unlink();write(self.pipeline,dict(status='waiting_for_4090'))
+        s=self.compact();self.assertEqual(s['correction']['status'],'waiting_for_4090');self.assertEqual(s['correction']['counts'],{'attempts':0});self.assertIn('no new shots',s['correction']['phase']);self.assertEqual(len(s['diagnosis']['losses']),6)
+
+    def test_historical_movies_bind_parent_while_correction_is_pending(self):
+        s,meta,movie,raw=self.movie_fixture();s['correction']=dict(status='waiting_for_4090',audit={'status':'pending'})
+        pair=s['diagnosis']['losses'][0];frames=[];clips=[]
+        for i,(method,variant) in enumerate((('current_bc','current_exact'),('corrected_bc','corrected_exact'))):
+            q=pair[method];q['record_sha256']=P.digest(q)
+            clip=dict(record_id=q['record_id'],context_id=q['context_id'],variant=variant,label='Historical original',start_s=i,end_s=i+1,values=q['values'],bucket_xy_m=q['bucket_xy_m'],capture=q['capture'],native_release=q['native_release'],no_flight=not q['native_release'],record_sha256=q['record_sha256'],events={})
+            if q['native_release']:q['trace']={'native_cache_sha256':'c'*64};clip['native_cache_sha256']='c'*64
+            clips.append(clip);frames.append(dict(frame=i,video_time_s=i,clip_index=i,record_id=q['record_id'],source_tick=0 if q['native_release'] else None,source_time_s=0. if q['native_release'] else None,segment='normal' if q['native_release'] else 'no_flight'))
+        raw.update(version=P.HISTORY_VIDEO,source=P.take(s['diagnosis']['source'],('report_sha256','audit_sha256','contract_fingerprint')),frames=frames,frames_sha256=P.digest(frames),clips=clips,duration_s=2)
+        write(meta,raw);self.assertEqual(len(P.movie_summary(meta,movie,s,historical=True)['clips']),2)
+        with self.assertRaisesRegex(ValueError,'Audited correction'):P.movie_summary(meta,movie,s)
+        write(self.snapshot,s);self.html.write_text(P.embed_html(self.html.read_text(),s))
+        P.publish_movies(self.snapshot,self.html,[(meta,movie)],expected_html_sha256=P.sha(self.html),historical=True)
+        h=self.html.read_text();self.assertIn('Original historical TEST pair; not a new correction result.',h);self.assertIn(P.HISTORY_START,h);self.assertNotIn(P.VIDEO_START,h)
+        refreshed=P.embed_html(h,s);self.assertIn(P.HISTORY_START,refreshed);self.assertIn('data:video/mp4;base64,',refreshed);self.assertIn('old.mp4',refreshed)
+        raw['source']['report_sha256']='f'*64;write(meta,raw)
+        with self.assertRaisesRegex(ValueError,'another report'):P.movie_summary(meta,movie,s,historical=True)
+
     def test_inline_movies_are_escaped_and_preserve_old_video(self):
         s,meta,movie,_=self.movie_fixture();write(self.snapshot,s);self.html.write_text(P.embed_html(self.html.read_text(),s))
         before=self.html.read_text();out=P.publish_movies(self.snapshot,self.html,[(meta,movie)],expected_html_sha256=P.sha(self.html));h=self.html.read_text()
