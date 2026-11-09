@@ -12,10 +12,10 @@
 <body>
 <main>
   <header>
-    <div class="eyebrow">Sircus · Native TRAIN comparison</div>
+    <div class="eyebrow">Sircus · Historical native TRAIN comparison</div>
     <h1>Frozen weights.<br>Two shot selectors.</h1>
     <p class="lede">Seed 20261122 chooses either its original shot or one from the checked candidate bank. Each method requests the same 35 known TRAIN positions. No learning or held-out evaluation is part of this comparison.</p>
-    <nav aria-label="Comparison sections"><a href="#overview">Results</a><a href="#compute">Compute</a><a href="#cases">Paired positions</a><a href="http://127.0.0.1:18797/#frozen" target="_blank" rel="noopener">Original frozen benchmark ↗</a></nav>
+    <nav aria-label="Comparison sections"><a href="#overview">Historical results</a><a href="#compute">Compute</a><a href="#cases">Paired positions</a><a id="continuationNav" class="hidden" href="#continuation">Continuation pilot</a><a href="http://127.0.0.1:18797/#frozen" target="_blank" rel="noopener">Original frozen benchmark ↗</a></nav>
   </header>
   <section id="overview" aria-labelledby="statusTitle">
     <div id="statusCard" class="card status"><div><span id="statusBadge" class="badge">Loading</span><div id="statusTitle" class="status-title">Reading comparison evidence…</div><p id="statusDetail" class="muted">Results appear after native execution and an independent audit.</p><p id="progress" class="muted"></p></div><button id="refresh" type="button">Refresh</button></div>
@@ -28,6 +28,15 @@
   <section id="compute" class="card"><h2>Measured compute cost</h2><div id="computeTable" class="table-wrap"></div><div id="sharedCompute"></div><p id="computeScope" class="compute-note"></p></section>
   <section id="cases" class="card"><h2>Paired positions</h2><p class="muted">Compare the exact chosen settings and the native outcome at each requested TRAIN position.</p><div id="caseList"></div><div id="caseDetail"></div></section>
   <section class="card"><details><summary>Evidence, audit and scope</summary><div id="sourceIdentity"></div><ul id="scopeList"></ul></details></section>
+  <section id="continuation" class="card hidden" aria-labelledby="continuationTitle">
+    <div class="eyebrow">Separate bounded continuation · seed 20261122</div>
+    <div id="continuationStatus" class="status"><div><span id="continuationBadge" class="badge">Loading</span><h2 id="continuationTitle">Continuation pilot</h2><p id="continuationDetail" class="muted"></p></div></div>
+    <div id="continuationProgress"></div>
+    <h3>Final frozen assessment</h3><div id="continuationResults" class="table-wrap"></div><div id="continuationPaired"></div>
+    <p class="scope">The primary result is final frozen TEST captures / 70 requested positions. Rejections and empty candidate supports remain failures. No held-out search, retries or validation-based checkpoint selection.</p>
+    <h3>Phase-separated compute</h3><div id="continuationCompute" class="table-wrap"></div>
+    <details><summary>Continuation evidence and limits</summary><div id="continuationEvidence"></div></details>
+  </section>
   <footer>GET-only local viewer. The original benchmark, its checkpoints and its 18797 reader stay separate.</footer>
 </main>
 <script type="module" src="/candidate_comparison_panel.js"></script>

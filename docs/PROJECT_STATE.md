@@ -1,5 +1,12 @@
 # Project state
 
+## Candidate continuation launch stopped before native startup — November 9, 2026
+
+- [Preserved launch evidence](../baselines/isaac-candidate-live-pilot-20261109/README.md): the 4090 was idle; the user specifically allowed starting its existing stopped container. Archive/input/asset and CPU-only production-input/dependency preflights passed. The sole launch attempt then failed because the container Python lacks both CPython pidfd bindings; the required ownership guard refused startup before native-child creation.
+- Zero simulator starts, diagnostic trajectories, optimizer steps, TRAIN/assessment requests, releases or new checkpoints were observed. The launcher's one start-intent count is not an actual simulator start. Its `native_failed_no_retry` receipt and all evidence are preserved; independent audits did not run and no model was promoted. Subsequent inspection found only the container's existing sleep command, no GPU compute owner and the scene lock free.
+- A separate self-only kernel check passed pidfd open / signal-zero / close through the verified Linux x86_64 syscall interface. A future compatibility fix must preserve the same fd-based ownership checks. This failed attempt cannot be automatically retried. CPU-only native simulation remains unsupported; the original frozen benchmark/model/bank are unchanged.
+- The comparison viewer gains an additive continuation panel with its own audit gate. It preserves the historical 70-request comparison, shows the stopped attempt with zero counters, and cannot inherit that historical audit or display unaudited final performance.
+
 ## Candidate continuation launch preparation — November 9, 2026
 
 - The user authorized the bounded continuation pilot when the 4090 is available, with CPU as a fallback if supported. Read-only host checks found the dedicated 4090 idle, the original scene lock free and 15.35 GiB available. The dedicated Isaac container was stopped (exit 137, not reported as OOM); no container or application was started.
