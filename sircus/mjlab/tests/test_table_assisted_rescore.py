@@ -58,7 +58,8 @@ class SavedRescoreTests(unittest.TestCase):
         original=(self.study/"records.jsonl").read_bytes()
         result=self.execute();t=result["totals"]
         self.assertEqual(result["status"],"verified")
-        self.assertEqual(result["metadata"],dict(files=2,rows=6,duplicate_rows=2,unique_requests=4))
+        self.assertEqual(result["metadata"],dict(files=2,rows=6,duplicate_rows=2,unique_requests=4,
+            ignored_derived_files=0,ignored_derived_rows=0))
         self.assertEqual({k:t[k] for k in ("requested","scorable_native","rejected","unscorable","old_captures","new_captures","new_table_assisted_captures","losses")},
             dict(requested=4,scorable_native=2,rejected=1,unscorable=1,old_captures=1,new_captures=2,new_table_assisted_captures=1,losses=0))
         self.assertEqual({g["substeps"] for g in result["groups"]},{64,128})
@@ -136,6 +137,34 @@ class SavedRescoreTests(unittest.TestCase):
         result=self.execute()
         self.assertEqual(result["totals"]["scorable_native"],2)
         self.assertEqual(result["totals"]["new_captures"],2)
+
+    def test_known_derivative_is_bound_but_not_counted_as_original_trials(self):
+        derivative=self.root/"previous-rescore";derivative.mkdir()
+        (derivative/"contract.json").write_text(json.dumps(dict(version=rescore.VERSION)))
+        (derivative/"records.jsonl").write_text('{"id":"derivative-1"}\n\n{"id":"derivative-2"}\n')
+        indexed=rescore.index(self.root)
+        self.assertEqual(indexed["metadata"],dict(files=2,rows=6,duplicate_rows=2,unique_requests=4,
+            ignored_derived_files=1,ignored_derived_rows=2))
+        self.assertEqual(indexed["inputs"]["previous-rescore/records.jsonl"],rescore.sha(derivative/"records.jsonl"))
+        self.assertEqual(indexed["inputs"]["previous-rescore/contract.json"],rescore.sha(derivative/"contract.json"))
+        self.assertFalse(any(r["id"].startswith("derivative") for r in indexed["rows"]))
+
+    def test_only_exact_derivative_version_is_ignored(self):
+        other=self.root/"other";other.mkdir()
+        (other/"contract.json").write_text(json.dumps(dict(version="some-legacy-study")))
+        (other/"records.jsonl").write_text('{"id":"legacy-is-still-inventory"}\n')
+        indexed=rescore.index(self.root)
+        self.assertEqual(indexed["metadata"]["ignored_derived_files"],0)
+        self.assertTrue(any(r["id"]=="legacy-is-still-inventory" and r["status"]=="unscorable" for r in indexed["rows"]))
+
+    def test_all_derivative_root_fails_without_creating_a_comparison(self):
+        only=Path(self.tmp.name)/"derived-root";only.mkdir()
+        (only/"contract.json").write_text(json.dumps(dict(version=rescore.VERSION)))
+        (only/"records.jsonl").write_text('{"id":"derived"}\n')
+        out=Path(self.tmp.name)/"no-comparison"
+        with self.assertRaisesRegex(rescore.EvidenceError,"No original historical shot indexes"):
+            rescore.run(only,out,workers=1)
+        self.assertFalse(out.exists())
 
 
 if __name__=="__main__":unittest.main()

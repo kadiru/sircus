@@ -1,6 +1,7 @@
 import copy
 import hashlib
 import json
+import re
 from pathlib import Path
 import tempfile
 import unittest
@@ -46,6 +47,12 @@ class TableScoringPublisherTests(unittest.TestCase):
         rendered=P.embed_html(old,snapshot);self.assertIn(old.split('</body>')[0],rendered);self.assertIn('old.mp4',rendered);self.assertNotIn('</script><script>unsafe',rendered);self.assertIn('\\u003c/script',rendered)
         twice=P.embed_html(rendered,snapshot);self.assertEqual(twice,rendered);self.assertEqual(twice.count(P.START),1)
         with self.assertRaises(ValueError):P.embed_html(old+P.START,snapshot)
+    def test_embedded_script_is_classic_scoped_and_keeps_module_source_exports(self):
+        block=P.render_block(P.compact(self.study));script=re.search(r'<script>([\s\S]+?)</script>',block).group(1)
+        self.assertTrue(script.startswith("(function(){'use strict';"));self.assertTrue(script.endswith('})();'))
+        self.assertNotRegex(script,r'(?m)^\s*(?:export|import)\b');self.assertNotIn('type="module"',block)
+        source=Path(P.__file__).with_name('web').joinpath('table-assisted-scoring.js').read_text()
+        self.assertIn('export function renderTableAssistedScoring',source)
     def test_install_requires_exact_original_and_preserves_source_files(self):
         before={p.name:p.read_bytes() for p in self.study.iterdir()};oldhash=P.sha(self.html);P.install(self.html,self.study,oldhash)
         self.assertIn(P.START,self.html.read_text());self.assertIn('old.mp4',self.html.read_text());self.assertEqual(before,{p.name:p.read_bytes() for p in self.study.iterdir()})

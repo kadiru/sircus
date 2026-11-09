@@ -11,9 +11,19 @@
   independent-oracle modules preserve the original v2 source and labels. An
   opt-in environment adapter scores the same native rollout once under v3 and
   retains its v2 labels. Future training must bind a new experiment contract.
-- Re-score saved calibrated mjlab traces on CPU and publish derivative results
-  before retraining. Do not interpret increased scores as improved trajectories
-  or a newly learned policy. Leave the 4070 and Isaac workload unchanged.
+- [Completed CPU audit](../baselines/mjlab-table-assisted-scoring-20261108/README.md):
+  8,037 native trajectories from 17 compatible studies; accepted captures
+  **4,409 → 4,532** (+123), zero lost captures, 64,883 checks passed. Original
+  observations and labels are untouched. 3,018 compatible requests remain
+  rejected/withheld; 71,155 unsupported historical index entries stay excluded.
+- New `#tableAssistedScoring` panel shows before/after counts, reward examples
+  and separate study/method/phase/substep groups. Its data is a verified embedded
+  snapshot; publishing it requires no server restart. The historical movie stays.
+- Current policy64 TEST counts remain imitation **20/50** and PPO **18/50**.
+  The extra credits do not establish a better policy. No new physics, model
+  training, policy activation, 4070/Isaac changes or hardware operations occurred.
+- Producer `8eb5452418238eece6fb531ec0e446c496d55ee2` is frozen. Future root-wide
+  indexing excludes known derivative reports instead of counting them as trials.
 
 ## Table-assisted task clarification and recorded replay — November 8, 2026
 

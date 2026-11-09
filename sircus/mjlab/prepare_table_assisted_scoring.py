@@ -110,8 +110,14 @@ def render_block(snapshot):
     assets=Path(__file__).with_name('web')
     html=(assets/'table-assisted-scoring.html').read_text();css=(assets/'table-assisted-scoring.css').read_text();js=(assets/'table-assisted-scoring.js').read_text()
     require('</style' not in css.lower() and '</script' not in js.lower(),'Unexpected inline closing tag')
+    # This self-contained panel must not queue behind the host page's deferred
+    # module dependency graph. Strip only our explicit top-level declarations;
+    # retain the source module's exports for direct unit testing.
+    classic=re.sub(r'^export (?=(?:const|function|class)\b)','',js,flags=re.M)
+    require(re.search(r'^\s*(?:export|import)\b',classic,re.M) is None,'Embedded panel must be dependency-free')
+    script="(function(){'use strict';\n"+classic+"\n})();"
     encoded=json.dumps(snapshot,allow_nan=False,separators=(',',':')).replace('<','\\u003c').replace('>','\\u003e').replace('&','\\u0026')
-    return f'{START}\n<style>{css}</style>\n{html}\n<script type="application/json" id="table-assisted-scoring-snapshot">{encoded}</script>\n<script type="module">{js}</script>\n{END}'
+    return f'{START}\n<style>{css}</style>\n{html}\n<script type="application/json" id="table-assisted-scoring-snapshot">{encoded}</script>\n<script>{script}</script>\n{END}'
 
 
 def embed_html(original,snapshot):
