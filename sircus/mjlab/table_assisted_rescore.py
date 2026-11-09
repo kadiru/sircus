@@ -26,6 +26,9 @@ grouping = table_assisted_groups.grouping
 
 VERSION = "sircus-table-assisted-saved-rescore-v1"
 AUDIT_VERSION = "sircus-table-assisted-saved-rescore-audit-v1"
+# Added after the initial saved-shot run frozen at producer 8eb5452. Its original
+# source hash and outcomes remain historical; this only changes future indexing.
+INDEX_POLICY_VERSION = "sircus-table-assisted-original-index-v2"
 OLD_FIELDS = ("scoring_version", "route_version", "reward_version", "success",
     "route_success", "complete_success", "board_bounce", "whole_ball_entry",
     "max_retention_s", "invalid_physics", "reward", "external_contact_steps",
@@ -156,8 +159,29 @@ def index(root, sources=(), scene_contracts=()):
         if isinstance(c.get("scene"), dict):
             scene_catalog[digest(c["scene"])] = (c["scene"], cp)
     contexts = {}; rows = []; native_ids = {}; record_ids = {}; duplicates = 0; total = 0
+    ignored_files = 0; ignored_rows = 0; original_files = 0; derivative_directories = {}
     for file in files:
         inputs[str(file.relative_to(root))] = sha(file)
+        if file.parent not in derivative_directories:
+            directory = file.parent; derivative = None
+            while directory.is_relative_to(root):
+                cp = directory/"contract.json"
+                if cp.exists():
+                    if read(cp).get("version") == VERSION:
+                        derivative = cp
+                    break
+                if directory == root: break
+                directory = directory.parent
+            derivative_directories[file.parent] = derivative
+        derivative = derivative_directories[file.parent]
+        if derivative is not None:
+            # A prior derivative is neither a trial nor a failed/unknown trial.
+            # Bind the ignored bytes because they still determine inventory counts.
+            inputs[str(derivative.relative_to(root))] = sha(derivative)
+            ignored_files += 1
+            with file.open() as stream: ignored_rows += sum(bool(line.strip()) for line in stream)
+            continue
+        original_files += 1
         if file.parent not in contexts:
             try: contexts[file.parent] = context(root, file, scene_catalog, inputs)
             except (Unscorable, ValueError, OSError) as exc:
@@ -228,8 +252,10 @@ def index(root, sources=(), scene_contracts=()):
                         item.update(status="unscorable" if isinstance(exc, Unscorable) else "evidence_error", reason=str(exc))
                 item["native_identity"] = native_key; rows.append(item); record_ids[identity] = item
                 if native_key: native_ids[native_key] = item
-    return dict(root=root, rows=rows, inputs=inputs, metadata=dict(files=len(files), rows=total,
-        duplicate_rows=duplicates, unique_requests=len(rows)), sources=list(sources), scene_contracts=list(scene_contracts))
+    require(original_files > 0, f"No original historical shot indexes found; ignored {ignored_files} known derivative files ({ignored_rows} rows)")
+    return dict(root=root, rows=rows, inputs=inputs, metadata=dict(files=original_files, rows=total,
+        duplicate_rows=duplicates, unique_requests=len(rows), ignored_derived_files=ignored_files,
+        ignored_derived_rows=ignored_rows), sources=list(sources), scene_contracts=list(scene_contracts))
 
 
 def events(trace, scored):
@@ -339,7 +365,7 @@ def run(root, output, *, sources=(), scene_contracts=(), workers=2, index_only=F
                 samples[reason].append(dict(id=row["id"], source=row["source"],
                     native_cache_file=row["original"].get("native_cache_file"),
                     native_cache_sha256=row["original"].get("native_cache_sha256"), source_study=row["source_study"]))
-        summary = dict(version=VERSION, status="index_only", metadata=data["metadata"],
+        summary = dict(version=VERSION, index_policy_version=INDEX_POLICY_VERSION, status="index_only", metadata=data["metadata"],
             by_status=dict(collections.Counter(r["status"] for r in rows)),
             reasons=dict(collections.Counter(r.get("reason") for r in rows if r.get("reason"))),
             pending_archives=len({r["native_file"] for r in rows if r["status"]=="pending_native"}),
@@ -397,7 +423,7 @@ def run(root, output, *, sources=(), scene_contracts=(), workers=2, index_only=F
     from . import table_assisted_score_oracle as new_oracle
     from . import calibrated_score_oracle as old_oracle
     source_files = [Path(m.__file__) for m in (old, old_oracle, new, new_oracle, table_assisted_groups)] + [Path(__file__)]
-    contract = dict(version=VERSION, sources=data["sources"], scene_contracts=data["scene_contracts"],
+    contract = dict(version=VERSION, index_policy_version=INDEX_POLICY_VERSION, sources=data["sources"], scene_contracts=data["scene_contracts"],
         old_scoring_version=old.VERSION, new_scoring_version=new.VERSION, cpu_workers=workers,
         source_sha256={p.name:sha(p) for p in source_files}, no_new_native_steps=True, no_training=True,
         new_trials=0, new_training_requests=0,
@@ -406,7 +432,8 @@ def run(root, output, *, sources=(), scene_contracts=(), workers=2, index_only=F
     (output/"contract.json").write_text(json.dumps(contract,indent=2)+"\n")
     manifest = dict(inputs=data["inputs"], artifacts={name:sha(output/name) for name in ("records.jsonl", "contract.json")})
     (output/"manifest.json").write_text(json.dumps(manifest,indent=2)+"\n")
-    summary = dict(version=VERSION, status="verified" if not totals["evidence_errors"] else "completed_with_errors",
+    summary = dict(version=VERSION, index_policy_version=INDEX_POLICY_VERSION,
+        status="verified" if not totals["evidence_errors"] else "completed_with_errors",
         comparison_available=bool(totals["scorable_native"]),
         comparison_denominator=totals["scorable_native"]+totals["rejected"],
         denominator_scope="Scorable compatible native attempts plus explicit compatible nonrelease rejections; incompatible/unknown evidence stays separate. Not a fresh policy-accuracy evaluation.",

@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
+import {execFileSync} from 'node:child_process';
+import {runInNewContext} from 'node:vm';
 const source=readFileSync(new URL('../web/table-assisted-scoring.js',import.meta.url),'utf8');
 const ui=await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
 const H='a'.repeat(64),J='b'.repeat(64);
@@ -12,7 +14,7 @@ function fixture(){
 function dom(){const nodes=new Map();let doc;const element=tag=>({tagName:tag,ownerDocument:doc,children:[],attrs:{},textContent:'',append(...items){this.children.push(...items);},replaceChildren(...items){this.children=items;},setAttribute(k,v){this.attrs[k]=v;}});doc={createElement:element};const root=element('section');root.querySelector=s=>{const key=s.match(/="([^"]+)"/)[1];if(!nodes.has(key))nodes.set(key,element('div'));return nodes.get(key);};const get=name=>root.querySelector(`[data-table-scoring="${name}"]`);return{root,get,rows:name=>get(name).children[0]?.children[1]?.children.map(r=>r.children.map(c=>c.textContent))??[]};}
 
 test('verified same-shot counts preserve invalid, rejection and excluded denominators',()=>{
- const raw=fixture(),d=dom();assert.equal(ui.scoringReady(raw),true);ui.renderTableAssistedScoring(d.root,raw);assert.deepEqual(d.rows('overview')[0],['6','2','4','2','1']);assert.equal(d.rows('groups')[0][3],'64');assert.equal(d.rows('groups')[0][9],'2');assert.equal(d.rows('groups')[0][10],'1');assert.ok(d.get('denominator').textContent.includes('2 rejected/withheld'));assert.ok(d.get('recommendation').textContent.includes('trajectories and model weights are unchanged'));
+ const raw=fixture(),d=dom();assert.equal(ui.scoringReady(raw),true);ui.renderTableAssistedScoring(d.root,raw);assert.deepEqual(d.rows('overview')[0],['6','2','4','2','1']);assert.equal(d.rows('groups')[0][3],'64');assert.equal(d.rows('groups')[0][9],'2');assert.equal(d.rows('groups')[0][10],'1');assert.ok(d.get('denominator').textContent.includes('2 rejected/withheld'));assert.ok(d.get('denominator').textContent.includes('index entries, not known unique trials'));assert.ok(d.rows('coverage')[0].length>0);assert.ok(d.get('recommendation').textContent.includes('trajectories and model weights are unchanged'));assert.ok(d.get('phase-summary').textContent.includes('train: +2'));assert.ok(d.get('phase-summary').textContent.includes('not new learned-policy gains'));
 });
 test('partial proof, broken accounting or relabeled examples never publish improvement',()=>{
  for(const change of [r=>r.status='running',r=>r.audit.full_checks_verified=false,r=>r.audit.summary_sha256=J,r=>r.new_trials=1,r=>r.new_training_requests=1,r=>r.totals.invalid_native=0,r=>r.totals.proof_errors=1,r=>r.totals.metadata_rows=11,r=>r.groups[0].substeps='64',r=>r.groups[0].reward_count=5,r=>r.examples[0].old_capture=true,r=>r.examples[0].native_row=-1,r=>r.examples[0].capture_s=NaN]){const raw=fixture();change(raw);assert.equal(ui.scoringReady(raw),false);const d=dom();ui.renderTableAssistedScoring(d.root,raw);assert.equal(d.rows('overview').length,0);assert.equal(d.rows('groups').length,0);assert.equal(d.rows('examples').length,0);}
@@ -37,6 +39,12 @@ test('six examples stay visible while the remaining sample is expandable',()=>{
 test('embedded mount fails closed on broken JSON and sends no network or motion calls',()=>{
  const d=dom(),doc={getElementById:id=>id==='tableAssistedScoring'?d.root:id===ui.SNAPSHOT_ID?{textContent:'not json'}:null};ui.mountTableAssistedScoring(doc);assert.ok(d.get('status').textContent.includes('failed'));doc.getElementById=id=>id==='tableAssistedScoring'?d.root:id===ui.SNAPSHOT_ID?{textContent:JSON.stringify(fixture())}:null;ui.mountTableAssistedScoring(doc);assert.equal(d.rows('overview').length,1);
  for(const value of ['fetch(','XMLHttpRequest','/api/','innerHTML','</script','activatePolicy','startTraining'])assert.ok(!source.includes(value),value);
+});
+test('actual prepared classic script mounts synchronously while host modules remain pending',()=>{
+ const raw=fixture();
+ const block=execFileSync('python3',['-c','import json,sys; from sircus.mjlab import prepare_table_assisted_scoring as p; print(p.render_block(json.load(sys.stdin)))'],{cwd:new URL('../../../',import.meta.url),input:JSON.stringify(raw),encoding:'utf8'});
+ const script=block.match(/<script>([\s\S]+?)<\/script>/)[1];assert.ok(!block.includes('type="module"'));assert.ok(!/^\s*(export|import)\b/m.test(script));
+ for(const readyState of ['loading','interactive']){const d=dom(),doc={readyState,getElementById:id=>id==='tableAssistedScoring'?d.root:id===ui.SNAPSHOT_ID?{textContent:JSON.stringify(raw)}:null,addEventListener:()=>assert.fail('Must not wait for host DOMContentLoaded')},context={document:doc};runInNewContext(script,context);assert.equal(d.rows('overview').length,1);assert.ok(d.get('status').textContent.includes('Verified retrospective'));assert.equal(context.VERSION,undefined);assert.equal(context.renderTableAssistedScoring,undefined);}
 });
 test('panel explains retrospective scope and responsive display',()=>{
  const html=readFileSync(new URL('../web/table-assisted-scoring.html',import.meta.url),'utf8'),css=readFileSync(new URL('../web/table-assisted-scoring.css',import.meta.url),'utf8');for(const value of ['id="tableAssistedScoring"','Historical results keep their original definitions','not proof of a causal bounce','rejected or withheld','No simulation shots','read-only'])assert.ok(html.toLowerCase().includes(value.toLowerCase()),value);assert.ok(css.includes('overflow-x:auto'));assert.ok(css.includes('grid-column:1/-1'));
