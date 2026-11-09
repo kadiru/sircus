@@ -118,10 +118,11 @@ off. The ledger is explicitly versioned to v2 to also end native batches at
 changes source bindings, so the historical readiness export above remains a
 receipt for its original source snapshot.
 
-Fresh split/support preparation, actual native integration, diagnostic/GPU
-supervision, full native guard/scoring audit and final assessment still require
-integration and review. The existing continuous PPO updater and old two-cohort
-native runner are not shortcuts for those components.
+[Fresh split/support preparation and the native guard adapter](CANDIDATE_FRESH_GUARDS.md)
+are now independently geometry-audited and CPU/mock tested. No simulator or
+shot ran. Diagnostic/GPU supervision, full native guard/scoring audit and final
+assessment remain execution gates. The existing continuous PPO updater and old
+two-cohort native runner are not shortcuts for those components.
 No held-out positions or outcomes are read by this adapter check. No packages
 are installed into existing Mac or Ubuntu environments for this task.
 

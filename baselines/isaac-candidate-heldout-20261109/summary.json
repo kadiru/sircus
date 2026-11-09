@@ -1,0 +1,125 @@
+{
+  "schema": "sircus-candidate-fresh-preparation-v1",
+  "status": "passed",
+  "counts": {
+    "validation": 35,
+    "test": 70,
+    "raw_proposals": 8505,
+    "unique_candidates": 8505,
+    "admitted": 847,
+    "supported_contexts": 102,
+    "empty_contexts": 3
+  },
+  "exclusion_counts": {
+    "discovered_history": 683,
+    "original_benchmark": 140,
+    "excluded_union": 788,
+    "shared_history_original": 35
+  },
+  "exclusion_reasons": {
+    "arm_table_proxy_overlap_Arm14": 10,
+    "board_bucket_proxy_overlap": 76,
+    "endpoint_ik_unresolved_Arm10": 611,
+    "endpoint_ik_unresolved_Arm14": 504,
+    "outer_link_length_bound": 6457
+  },
+  "split_audit": {
+    "schema": "sircus-candidate-fresh-heldout-layout-audit-v1",
+    "status": "passed",
+    "split_fingerprint": "829fbb0aa4eece4bf9b57e46cc078372425558b201f327669bf4fbc5bee5b375",
+    "input_bindings": {
+      "history_receipt_fingerprint": "e9d984ea29d5e615711cccb47ec8e2f1153a5ef8a18720b7cceee586713066ca",
+      "history_coordinates_sha256": "f7fa1c9949906937c0ea84e1364a49f63beb0b9ee26ed8039e186fd327ad52ab",
+      "original_split_fingerprint": "b9c724402c220cce164d99744a05d6483bee1efb0630f3d8522ce8d950f953f0",
+      "original_coordinates_sha256": "b63a438f9f8becf809a2a64b4ab133df1999c2086f340cca26aca85e7fbad612",
+      "excluded_coordinates_sha256": "ad145a398310f04ed24fdad51e49559029c2011eef3950a920f24acc67b83566"
+    },
+    "exclusion_counts": {
+      "discovered_history": 683,
+      "original_benchmark": 140,
+      "excluded_union": 788,
+      "shared_history_original": 35
+    },
+    "validation_positions": 35,
+    "test_positions": 70,
+    "new_train_positions": 0,
+    "draws": 429,
+    "rejected_draws": 324,
+    "exact_draw_replay": true,
+    "minimum_exclusion_distance_m": 0.025056586218748313,
+    "minimum_new_pair_distance_m": 0.025460047330147357,
+    "outcome_files_read": 0,
+    "optimizer_steps": 0,
+    "native_requests": 0,
+    "scope": "Novel relative to the supplied discovered coordinate history and all 140 original benchmark positions; not a claim about undiscovered or unpublished history. Outcome-held-out geometry preparation only.",
+    "execution_authorized": false,
+    "release_authorized": false,
+    "fingerprint": "0fdf461bd5968b032ca504a681515685c5ed6e3f0a9aae4419ea194252bf5109"
+  },
+  "audit_fingerprint": "92052d7c0eb3ad305d75b849493b44d2abe3b1e69b8badb40f780c214631e668",
+  "artifact_sha256": {
+    "input-bindings.json": "6a168a6bfa5af616948b27363bc4a40a28a32eb8dddb7fd0572cdb739463d21f",
+    "split-manifest.json": "da2aaba4a45364833b369e836fdfb8efb42010f0defd8cae0d0107c8018d1202",
+    "split-audit.json": "1ae16c8156d2de7699561305204245f5fea4956c2b38b41f43b44f744b6cc694",
+    "parent-predictions.json": "49dc5b5230e5f813d71bb6235320b30fc7de95cf7303d3ec6f0655af19a23690",
+    "plan.json": "c282d903e97a14bbbb62fcfcfc1a4d4591a0c5d8ec8bda63ddcff1860fd1d2f1",
+    "qualification.json": "7950e5b7f85116ef2816bd6325930b15041e1acdf0aa75a2e9a7ba55bd71329b",
+    "audit.json": "757a12257d1ce30e323725b905ecb650f3ebc90bc6823b9e9a51b048eee19fa8"
+  },
+  "parent_checkpoint_sha256_before": "57d7658e9ed2f72ad09cf4e8523ab497ccbe0708364f1b8ec4a4c5c1aef1fe9f",
+  "parent_checkpoint_sha256_after": "57d7658e9ed2f72ad09cf4e8523ab497ccbe0708364f1b8ec4a4c5c1aef1fe9f",
+  "input_sha256": {
+    "board_arm.urdf": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340",
+    "dropper.urdf": "3f40e56e46b040fb3339c1235ea85872f46511c45db2d37f7661db94a470bae3",
+    "history-discovery.json": "f2b25914da0a90dba8e90c18dc5f7b0d1774debae53337c412e44d97c00ab734",
+    "history-receipt.json": "d50122bf25e6e112c5f22cfe3f44dd74d0212aad07d5fbb2fdc1d50ac7d2c9c7",
+    "original-splits.json": "f46c690d80bd2079b27c8d3c72267c39acf1cee61fb4625f37994bff92292785",
+    "poses.json": "5847c2793606860a82cc74030c3fe529767318f189c5d48e3d66c0dc7b9f776a",
+    "scene.json": "27ebf306e5a24a2702f13fa88e100cb107520c56688c15e9a8868350d4b5bf97"
+  },
+  "canonical_starts_sha256": "836f50147625a3da21b3f27f544e8e04a83dc7b6af2053f2fdd1767438e4cb49",
+  "cost": {
+    "total_wall_s": 146.56771408295026,
+    "total_aggregate_cpu_s": 456.261236313,
+    "geometry": {
+      "status": "qualified",
+      "completed": 8505,
+      "total": 8505,
+      "admitted": 847,
+      "wall_s": 102.76677357900189,
+      "aggregate_cpu_s": 412.347156561,
+      "workers": 4,
+      "monitor_poll_s": 0.05,
+      "cpu_scope": "Parent process plus all running/reaped owned children; no GPU work"
+    },
+    "audit": {
+      "wall_s": 38.777325952018145,
+      "worker_compute_cpu_s": 36.897919432,
+      "aggregate_cpu_s": 38.89108648000001
+    },
+    "parent_lifetime_peak_rss_mib": 984.81640625,
+    "child_max_lifetime_peak_rss_mib": 1047.0234375,
+    "memory_scope": "Linux process high-water RSS; child value is the largest individual child across qualification/audit, not summed or isolated-phase memory; no GPU context."
+  },
+  "runtime": {
+    "python": "3.10.12",
+    "numpy": "1.26.4",
+    "scipy": "1.15.3",
+    "torch": "2.7.0+cu126",
+    "device": "cpu",
+    "cuda_visible_devices": ""
+  },
+  "limits": {
+    "max_cpu_workers": 4,
+    "max_wall_s": 1800,
+    "max_aggregate_cpu_s": 7200,
+    "min_storage_gib": 6
+  },
+  "optimizer_updates": 0,
+  "native_shots": 0,
+  "new_task_ball_releases": 0,
+  "held_out_outcome_files_read": 0,
+  "release_authorized": false,
+  "scope": "Outcome-blind fresh geometry and finite candidate qualification only; empty contexts remain failures. No training, simulation shot or performance measurement.",
+  "fingerprint": "b14e5dfdad4c255e74f42e9a1f3f1e263df8f07dd4080907fa92c6408babdae5"
+}
