@@ -1,12 +1,15 @@
 # Project state
 
-## Bounded coverage recovery — November 9, 2026
+## Completed bounded coverage recovery — November 9, 2026
 
-- [Protocol](../sircus/mjlab/COVERAGE_RECOVERY.md) and [handoff](MJLAB_COVERAGE_RECOVERY_20261109.md): frozen producer `5224093` launched at 09:15:43 PST. Nine startup controls passed (six expected captures, three expected misses); recovery search/comparison are still pending.
+- [Audited results](../baselines/mjlab-coverage-recovery-20261109/README.md), [protocol](../sircus/mjlab/COVERAGE_RECOVERY.md) and [handoff](MJLAB_COVERAGE_RECOVERY_20261109.md): all **970 requests** completed in **96.8 worker minutes**, with both control gates and **283,251 independent checks** passing. Frozen producer `5224093` remains unchanged.
+- Search completed 624 proposals, with 83 captures across **24/39 development layouts**; all 24 selected recipes passed **2/2 fresh repeats (48/48)**. Actor-only imitation used 68 original plus 24 new teachers. No additional PPO ran.
+- On the same **70 fresh TEST positions**, recovery imitation captured **37/70**, parent imitation **34/70**, parent selected PPO **34/70**, and earlier PPO **31/70**. Recovery still has **16 setup declines and 17 released misses**. Three baseline invalid-physics attempts (two parent imitation, one parent PPO) stay in the denominator and are separately reported; they are not ordinary valid-flight misses. Recovery gained eight/lost five against parent imitation, nine/lost six against parent PPO, and eight/lost two against earlier PPO. None of these gains overlaps an invalid baseline attempt.
 - The parent's selected PPO had 22 setup declines and 20 released misses. Thirteen declines lacked a finite IK solution, four failed endpoint checks, three failed fixed-base clearance, and two were out of action bounds. Eighteen released misses never achieved whole-ball entry; two retained for one second but had robot contact. Table rebounds remain allowed.
-- Search targets 39 non-fixed-base failures within unchanged residual support, then requires two successful fresh repeats before adding a teacher to the parent imitation actor. The three blocked layouts remain reported. Former TEST failures are explicitly development data now; their historical report is untouched.
+- The three fixed-base blockers remain reported. Former TEST failures are explicitly development data now; their historical report is untouched. Nominal 2/2 repetition is not noise robustness, and extra teacher exposure prevents an equal-training-budget algorithm claim.
 - Four frozen models share the same geometric prior on 70 new stratified TEST positions: recovery imitation, parent imitation, parent selected PPO and strongest earlier PPO. All requests, including declines, count. No per-position outcome optimization during TEST, extra PPO, noise, 128-step qualification, hardware action or policy promotion.
-- Use only the 4090 with its shared lease and fixed64/v3 physics/scoring, an acquired-slot cap of two hours and a separate three-hour pipeline deadline. The 4070 fountain and Isaac setup are unchanged. Raw evidence remains outside Git; the UI receives an additive read-only panel without restarting the viewer.
+- Only the 4090 and unchanged native64/v3 physics/scoring were used. Worker, supervisor and finite publisher exited within their caps; the 4070 fountain, viewer and Isaac setup were left untouched. Raw evidence remains outside Git. The additive `#coverageRecovery` panel does not activate a selector or restart a service.
+- No automatic promotion or further experiment. The remaining issue is useful unseen-position coverage, not reproducing the 24 confirmed development recipes; inspect remaining failures and lost captures before another training decision.
 
 ## Completed seven-hour-budget coverage training — November 9, 2026
 

@@ -1,13 +1,18 @@
 # Sircus — Simple Circus
 
-**Current mjlab follow-up:** [bounded recovery search and imitation](sircus/mjlab/COVERAGE_RECOVERY.md).
-Running a maximum of 1,000 requests on the 4090: alternate shots for 39 inspected
-failure cases, two fresh confirmations per selected capture, actor-only imitation
-and a four-model comparison on 70 new positions. The three fixed-base blockers
-remain explicit. Results are pending independent verification; the prior study
-below remains the latest completed training result.
+**Latest mjlab training:** [audited recovery search and imitation](baselines/mjlab-coverage-recovery-20261109/README.md).
+All 970 requests finished in 96.8 worker minutes. Search recovered 24/39
+development failures; all 24 recipes captured both fresh repeats (48/48).
+Imitation trained on 68 previous plus 24 confirmed demonstrations. On the same
+70 new bucket positions, recovery imitation captured **37/70 (52.9%)**, parent
+imitation and parent PPO **34/70 (48.6%)** each, and earlier PPO **31/70 (44.3%)**.
+Three baseline attempts exceeded the validated physics domain and remain counted
+as unsuccessful requests. The independent audit passed 283,251 checks. This is
+a modest sample improvement, not all-table reliability or equal-training-budget
+algorithm superiority. No new PPO or policy promotion; 4070 and Isaac unchanged.
+[Frozen protocol](sircus/mjlab/COVERAGE_RECOVERY.md) · [handoff](docs/MJLAB_COVERAGE_RECOVERY_20261109.md).
 
-**Latest mjlab training:** [seven-hour-budget, 70-position comparison](baselines/mjlab-coverage-training-20261109/README.md).
+**Previous mjlab training:** [seven-hour-budget, 70-position comparison](baselines/mjlab-coverage-training-20261109/README.md).
 All 2,757 planned requests completed in 235.1 worker minutes. New imitation and
 selected new PPO each captured **28/70 (40%)** on unseen bucket positions;
 PPO gained one capture and lost one, with no net improvement. Previous PPO
