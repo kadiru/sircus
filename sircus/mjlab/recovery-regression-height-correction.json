@@ -1,0 +1,14 @@
+{
+  "parameter": "board_height_m",
+  "parameter_index": 2,
+  "mode": "restore_matched_parent_coordinate",
+  "contexts": [
+    "recovery-test-r0-c5-n1",
+    "recovery-test-r0-c6-n1",
+    "recovery-test-r1-c1-n1",
+    "recovery-test-r2-c4-n0",
+    "recovery-test-r3-c1-n0"
+  ],
+  "diagnosis_sha256": "511e9f82004af0d603628e25adf8fab71284faa8f11de9307b4c8a611d049ab7",
+  "description": "Restore only recovery-BC board height to the matched parent-BC height in all five inspected capture losses. Three losses became setup declines; height restoration tests admission sensitivity. The two contact-free released misses also changed drop gap, which remains untouched: no flight improvement is presumed. Fixed drop gap means derived absolute release-center height changes by the same height delta. This is one shot-parameter intervention, not an isolated bouncer-arm movement."
+}
