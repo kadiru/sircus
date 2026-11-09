@@ -1,6 +1,16 @@
 # Sircus — Simple Circus
 
-**Latest mjlab experiment:** [four-case height/tilt admission and drop results](baselines/mjlab-table-height-tilt-20261108/README.md).
+**Latest mjlab experiment:** [Case 00 tilt/drop-gap sweep](baselines/mjlab-case00-tilt-gap-20261109/README.md).
+Of 70 fixed-grid proposals, 42 passed setup admission and two captured:
+**26° and 32° tilt, both at 251.819 mm drop gap and 460 mm board height**.
+Each captured **3/3 fresh nominal repeats**, with rim assistance and no robot
+contact. The unchanged 28° setting captured 0/3. All 18 controls and
+27,547 independent checks passed. The `#case00TiltGapStudy` UI contains the
+complete matrix and saved-trajectory before/after replay. This is a local
+fixed-scene search, not a newly trained policy or a proven robust window.
+No PPO, 4070 workload or Isaac changes.
+
+**Earlier mjlab experiment:** [four-case height/tilt admission and drop results](baselines/mjlab-table-height-tilt-20261108/README.md).
 The fixed 120-candidate grid found **58 admitted setups**, but their native64
 drops produced **0 captures**: all bounced the board, none entered the bucket,
 and 42 contacted a robot. The 12 unchanged original repeats also missed.

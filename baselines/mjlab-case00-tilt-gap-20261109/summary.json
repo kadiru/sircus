@@ -1,0 +1,4163 @@
+{
+  "version": "sircus-case00-tilt-gap-study-v1",
+  "status": "completed",
+  "phase": "completed",
+  "contract_fingerprint": "151710711047521544f20624a312882d16ff6ff7a1b6d782fcad784ff7550856",
+  "cpu_elapsed_s": 69.85908991395263,
+  "native_elapsed_s": 258.78568929602625,
+  "native_requested": 69,
+  "requested_configurations": 97,
+  "training": false,
+  "noise": false,
+  "posthoc_development": true,
+  "admission_matrix_sha256": "782a6ea8521693386772198f532b93692facd97ac47d7269232bca35b3b6c489",
+  "parent_bindings": {
+    "report_sha256": "a284d8e785a3d5aec8a45f92877377f63812c38767d6738fe1b6669a69b399a4",
+    "audit_sha256": "7de9a6222d65aca1f1ac884566459bb30b250348f6c0175abc78177965b5e175",
+    "manifest_sha256": "4106361f6e1f2bcaa9ad4013d2a9b8c8a4169ed988ce7eb959f1865fec842a66",
+    "rows_sha256": "3130eca766b6269b760bbdf28b0fed0a23db7f8593a7b787c5bcb1a20acebdeb",
+    "contract_sha256": "80e60df8ea886af749b8fe3b328a43ccc6747af10e875b0416d1857987b7c2a8",
+    "contract_fingerprint": "51d508b341bba79e002c0a953e74d81317e3b4873533f71e2548626bc9475b21"
+  },
+  "grid_protocol": {
+    "contexts": [
+      "table-training-test-00"
+    ],
+    "tilts_deg": [
+      20.0,
+      22.0,
+      24.0,
+      26.0,
+      28.0,
+      30.0,
+      32.0
+    ],
+    "gap_offsets_m": [
+      -0.06,
+      -0.04,
+      -0.02,
+      -0.01,
+      0.0,
+      0.01,
+      0.02,
+      0.04,
+      0.06,
+      0.08
+    ],
+    "fixed_parameters": [
+      "bucket_xy_m",
+      "board_x_m",
+      "board_y_m",
+      "board_height_m"
+    ],
+    "changed_parameters": [
+      "tilt_deg",
+      "drop_gap_m"
+    ],
+    "candidates_per_case": 70,
+    "total_candidates": 70,
+    "substeps": 64,
+    "nominal_repeats": 3,
+    "selection_rule": "all valid native discovery captures, in frozen grid-index order",
+    "selection_requires_capture": true,
+    "selection_maximum": 70,
+    "selection_frozen_before_repeats": true,
+    "source_record_ids": [
+      "bouncer-clearance-table-training-test-00-g14"
+    ],
+    "heading": "unchanged bucket-facing orientation convention",
+    "alternative_same_pose_joint_branches": false
+  },
+  "budget": {
+    "maximum_requested": 301,
+    "candidate_proposals": 70,
+    "original_requests": 3,
+    "control_requests": 18,
+    "maximum_selected_repeat_requests": 210,
+    "cpu_admission_limit_s": 3600,
+    "native_acquired_limit_s": 3600
+  },
+  "admission_summary": {
+    "proposals": 70,
+    "completed": 70,
+    "admitted": 42,
+    "declined": 28,
+    "unattempted": 0
+  },
+  "discovery_summary": {
+    "proposals": 70,
+    "admitted": 42,
+    "attempts": 42,
+    "native_releases": 42,
+    "captures": 2,
+    "setup_rejections": 0,
+    "native_misses": 40,
+    "robot_contact_shots": 19,
+    "forbidden_contact_shots": 19,
+    "invalid_physics": 0,
+    "direct_captures": 2,
+    "table_assisted_captures": 0
+  },
+  "counts": {
+    "attempts": 69,
+    "native_releases": 69,
+    "captures": 20,
+    "setup_rejections": 0,
+    "native_misses": 49,
+    "robot_contact_shots": 25,
+    "forbidden_contact_shots": 25,
+    "invalid_physics": 0,
+    "direct_captures": 14,
+    "table_assisted_captures": 6
+  },
+  "cases": [
+    {
+      "context_id": "table-training-test-00",
+      "source_record_id": "bouncer-clearance-table-training-test-00-g14",
+      "source_record_sha256": "8f8cd373be624759fca4ac05c3093cef49903d80a28e3d5662007b155d1e0747",
+      "bucket_xy_m": [
+        1.1095395651982425,
+        -0.22146373203137287
+      ],
+      "baseline_values": [
+        0.5979922029820652,
+        -0.023557257454087432,
+        0.46,
+        28.0,
+        0.25181883224993984
+      ],
+      "grid": [
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g00",
+          "grid_index": 0,
+          "case_grid_index": 0,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            20.0,
+            0.19181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              8,
+              13
+            ],
+            "connection_sha256": "03ac9f4731574a060429a41dc46c73f2d6d7a95a76142bd84084d65d8a706e08",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g00",
+            "record_sha256": "0379f95df6bb65d17b88a0a9f3fad4c47b616598eb17b6f55534f7ad5dbf655e",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 28,
+            "forbidden_contact_steps": 28,
+            "reward": -0.18380709264273565,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g01",
+          "grid_index": 1,
+          "case_grid_index": 1,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            20.0,
+            0.21181883224993983
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              8,
+              13
+            ],
+            "connection_sha256": "563189fe30a25f5d857afee12cc5e6724f6382df48f98f90ab109b9a71860ffe",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g01",
+            "record_sha256": "6f6d5605f550acc1b2a2bbca429fcbf43aa5bfd1526bedcfe09b2d0ee392236b",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 28,
+            "forbidden_contact_steps": 28,
+            "reward": -0.20225224893411808,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g02",
+          "grid_index": 2,
+          "case_grid_index": 2,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            20.0,
+            0.23181883224993985
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              10,
+              13
+            ],
+            "connection_sha256": "45e9bdbbaf88b302bcaf54bf1a953d79ea505c84fd2d63696b03bb76bc431e74",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g02",
+            "record_sha256": "1fc650716a2f9ac848b0f2b7995c3d1dcd1be2e5bc8f6c8062ff6cfa2adbfed3",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 28,
+            "forbidden_contact_steps": 28,
+            "reward": -0.19418032925400908,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g03",
+          "grid_index": 3,
+          "case_grid_index": 3,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            20.0,
+            0.24181883224993983
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              7,
+              13
+            ],
+            "connection_sha256": "0bbac2f9ca8dfee5c12d300104ef949f64327ea5b9ec4972025d20d95c67177c",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g03",
+            "record_sha256": "78c611bf44b290177182ae81997f1be3fd61b6a385b560efdb1d516a15d67ae6",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 27,
+            "forbidden_contact_steps": 27,
+            "reward": -0.18383859182098106,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g04",
+          "grid_index": 4,
+          "case_grid_index": 4,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            20.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              10,
+              13
+            ],
+            "connection_sha256": "bb27311623fb54541dca12c1098b9149525f271cee1d284ee4a1a8d6fde8ad1c",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g04",
+            "record_sha256": "118f20a38fb1a2ee0ec77915cb0da0c62f6742e8de645031104c16174af073ca",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 27,
+            "forbidden_contact_steps": 27,
+            "reward": -0.18556630189672335,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g05",
+          "grid_index": 5,
+          "case_grid_index": 5,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            20.0,
+            0.26181883224993985
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              7,
+              13
+            ],
+            "connection_sha256": "060a6818433482d93f50c49f937c071c26576e1063aaa8f3b6f5b6224cde24b7",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g05",
+            "record_sha256": "114dc73d56110fc546050d2fdae27ec9c990f3b367ca65e5926c59a06f4ab6a2",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 0,
+            "forbidden_contact_steps": 0,
+            "reward": 0.30316170083510446,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g06",
+          "grid_index": 6,
+          "case_grid_index": 6,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            20.0,
+            0.27181883224993986
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "strict_endpoint_clearance_or_pose_rejected",
+            "valid_ik_branches": [
+              8,
+              13
+            ],
+            "connection_sha256": "062d7e10cc983a94d5d83e3d7828db162b1ffa33060a3cc007dbee5b35756742",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g07",
+          "grid_index": 7,
+          "case_grid_index": 7,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            20.0,
+            0.2918188322499398
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              13
+            ],
+            "connection_sha256": "7e00656d125295a7531f6cf03e8daffb7852181cb805afe5eea7ca327f34e07c",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g08",
+          "grid_index": 8,
+          "case_grid_index": 8,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            20.0,
+            0.31181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              13
+            ],
+            "connection_sha256": "5237e080a6aa2b4735707983b46408b44c685b126f1f22e0477a612899d8f058",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g09",
+          "grid_index": 9,
+          "case_grid_index": 9,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            20.0,
+            0.33181883224993985
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              13
+            ],
+            "connection_sha256": "9c158528e38c04e7ff0f85cca4eeca18b48cf693b1eb7c1520072bd1979866e8",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g10",
+          "grid_index": 10,
+          "case_grid_index": 10,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            22.0,
+            0.19181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              8,
+              12
+            ],
+            "connection_sha256": "754b63c37d318f20da81ec645b61a7ba599a8ad7bcfbd3132f53e6c8d8698673",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g10",
+            "record_sha256": "a239ca21ce25020daf0093cc4e34436edd3a8b4e1e076087bdfb41586c834d5f",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 28,
+            "forbidden_contact_steps": 28,
+            "reward": -0.19074336657089652,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g11",
+          "grid_index": 11,
+          "case_grid_index": 11,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            22.0,
+            0.21181883224993983
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              8,
+              12
+            ],
+            "connection_sha256": "00200599cd561adf10cb318eae7246ee92ae0fb8426c7c56a7a5d625b07bddd3",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g11",
+            "record_sha256": "60b7edc1e3a0b5ab53866c9bcc413d0389cb63fc2bf19f707ea9d948f4339fde",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 28,
+            "forbidden_contact_steps": 28,
+            "reward": -0.20756967139018861,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g12",
+          "grid_index": 12,
+          "case_grid_index": 12,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            22.0,
+            0.23181883224993985
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              10,
+              12
+            ],
+            "connection_sha256": "1c52fd1e55c9400d2f93bc4c7dec188c11c95696fcafa088dc7a036c141e505f",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g12",
+            "record_sha256": "08c8379484b953001d68c79168f7e7d72efd76d2133f225b5e1d228ffb98f73f",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 27,
+            "forbidden_contact_steps": 27,
+            "reward": -0.18387579313072,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g13",
+          "grid_index": 13,
+          "case_grid_index": 13,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            22.0,
+            0.24181883224993983
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              7,
+              12
+            ],
+            "connection_sha256": "101de635c71bf73e4624525a362e5194dd45e02a10789ef0c370f3c81f8526a8",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g13",
+            "record_sha256": "68f1862e401ea091d659ca00aaa0b9e4a8907107741eae2c329146cd2b341bde",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 27,
+            "forbidden_contact_steps": 27,
+            "reward": -0.18927361925788916,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g14",
+          "grid_index": 14,
+          "case_grid_index": 14,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            22.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              10,
+              12
+            ],
+            "connection_sha256": "cee2addc918f0e5d0a2e469f73d95f7803fd0efce00d6eb7aa03abcf5cdcb2d9",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g14",
+            "record_sha256": "6f5efd5f69af661f9a293db677d2e33b1739f34f99003ebea39c56673c6f21ae",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 0,
+            "forbidden_contact_steps": 0,
+            "reward": 0.3017083934106085,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g15",
+          "grid_index": 15,
+          "case_grid_index": 15,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            22.0,
+            0.26181883224993985
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              7,
+              12
+            ],
+            "connection_sha256": "c92efa9be258f0fe7e66b9171855cc6a5a5ce1cc67d1cf069c9e14ed451c2ca5",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g15",
+            "record_sha256": "8f0cd5ee6a8578116228f4df1da0a3ca122d09e41f3dedc3ae12063d8d5b967b",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 0,
+            "forbidden_contact_steps": 0,
+            "reward": 0.30398908864683893,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g16",
+          "grid_index": 16,
+          "case_grid_index": 16,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            22.0,
+            0.27181883224993986
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "strict_endpoint_clearance_or_pose_rejected",
+            "valid_ik_branches": [
+              8,
+              12
+            ],
+            "connection_sha256": "d75bd4bb325be06e2602c993f6208c5e37ea9fdb22dd94d64851964f471fda76",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g17",
+          "grid_index": 17,
+          "case_grid_index": 17,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            22.0,
+            0.2918188322499398
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              12
+            ],
+            "connection_sha256": "d2f6146750ca3d58488de9b8fceda3919f7983e95b7ccb67e8f3df1d4c195f39",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g18",
+          "grid_index": 18,
+          "case_grid_index": 18,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            22.0,
+            0.31181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              12
+            ],
+            "connection_sha256": "adbee86230d97cc48c94da2f82a16e1bac66e9ba5f1a8e8c47f6d1ad37502ec8",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g19",
+          "grid_index": 19,
+          "case_grid_index": 19,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            22.0,
+            0.33181883224993985
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              12
+            ],
+            "connection_sha256": "db5b5641e984a73bb8edf38ac0c24b432de4c2517132cb09d80ed0b1bf4e67e1",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g20",
+          "grid_index": 20,
+          "case_grid_index": 20,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            24.0,
+            0.19181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              8,
+              11
+            ],
+            "connection_sha256": "3571ea88c5d7f4df40b0b18045624a6afbbe2a6eb99c899fe6ca12e3bf58dbb6",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g20",
+            "record_sha256": "c022bf19861ac74a55b21853393ee47452b49f3053eb29e76968e042f6ed9384",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 28,
+            "forbidden_contact_steps": 28,
+            "reward": -0.2069558474220327,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g21",
+          "grid_index": 21,
+          "case_grid_index": 21,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            24.0,
+            0.21181883224993983
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              8,
+              11
+            ],
+            "connection_sha256": "901320aed8c00a9821dbf50a93fe35283c1fbfef96f2fb438c4030ea559845b1",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g21",
+            "record_sha256": "50f265f034955fefeb42c3f5ee745310f36dcd88aff0e3bf6711f664028451eb",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 28,
+            "forbidden_contact_steps": 28,
+            "reward": -0.1887663600556987,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g22",
+          "grid_index": 22,
+          "case_grid_index": 22,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            24.0,
+            0.23181883224993985
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              10,
+              11
+            ],
+            "connection_sha256": "e9b27c37b41c512538ab466198d9dd0e116e2d6f907501a7e3eba542754e90ab",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g22",
+            "record_sha256": "6538b469391f35dbd5a08768130e6cc39a50f3e21da88228ba3e6cfc2b911dd8",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 0,
+            "forbidden_contact_steps": 0,
+            "reward": 0.30158504011263876,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g23",
+          "grid_index": 23,
+          "case_grid_index": 23,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            24.0,
+            0.24181883224993983
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              7,
+              11
+            ],
+            "connection_sha256": "2d8ac9b71182f5462b1de4c71c6cf8dc1bec893dec2fc85fe18c89fb55c6918c",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g23",
+            "record_sha256": "0ddf1b3883ef65c869bad7161193adee20585deaaaf23ac11c2e6df76fe5ce79",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 0,
+            "forbidden_contact_steps": 0,
+            "reward": 0.3028833031063396,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g24",
+          "grid_index": 24,
+          "case_grid_index": 24,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            24.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              10,
+              11
+            ],
+            "connection_sha256": "4bd6b04cf43d374eeaf0a0dd028496b0c62233d2c6f2d85ebf9bf506dd212088",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g24",
+            "record_sha256": "c028ee2dd9e15d21fa3d9c57c6df707d23646f98cb22e0c22508893973d6e07a",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 0,
+            "forbidden_contact_steps": 0,
+            "reward": 0.3097972133795634,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g25",
+          "grid_index": 25,
+          "case_grid_index": 25,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            24.0,
+            0.26181883224993985
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              7,
+              11
+            ],
+            "connection_sha256": "e107162cdb8670890a8cc5aa94e22c7d62f08afcbecd694669cc0f3e07353a50",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g25",
+            "record_sha256": "0dd3a3881f0e35589674216965a69870e5a37964fefd91f7883e8332c768f295",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 0,
+            "forbidden_contact_steps": 0,
+            "reward": 0.31526643231501406,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g26",
+          "grid_index": 26,
+          "case_grid_index": 26,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            24.0,
+            0.27181883224993986
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "strict_endpoint_clearance_or_pose_rejected",
+            "valid_ik_branches": [
+              8,
+              11
+            ],
+            "connection_sha256": "b3f03f8348c62cd53db7fa6b991abb90055b775efbcd97a7ef093c1a34a82921",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g27",
+          "grid_index": 27,
+          "case_grid_index": 27,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            24.0,
+            0.2918188322499398
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              11
+            ],
+            "connection_sha256": "a99bb64df36ceef82d47fa661e84dc9e0de530cc7f43297cf26f688eb471020e",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g28",
+          "grid_index": 28,
+          "case_grid_index": 28,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            24.0,
+            0.31181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              11
+            ],
+            "connection_sha256": "b530ca74ecbf930b3972217065073d4bc9ed398235fada75808089ad13954f89",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g29",
+          "grid_index": 29,
+          "case_grid_index": 29,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            24.0,
+            0.33181883224993985
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              11
+            ],
+            "connection_sha256": "310623912cbcce86527e980c25f4dc840f9b49821235f26893142c55601cd020",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g30",
+          "grid_index": 30,
+          "case_grid_index": 30,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            26.0,
+            0.19181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              8,
+              7
+            ],
+            "connection_sha256": "5b0bba9343298fa7f22f9b915faefdfb0c5948a42a162d13b16b1cffd6e34c15",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g30",
+            "record_sha256": "cf3a047440347148ff537f18698239dd71230eb628f7a8a745a3944b8f0fbed0",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 28,
+            "forbidden_contact_steps": 28,
+            "reward": -0.19621711113868467,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g31",
+          "grid_index": 31,
+          "case_grid_index": 31,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            26.0,
+            0.21181883224993983
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              8,
+              7
+            ],
+            "connection_sha256": "4923cbb32b14175b91af4e39d855b1a90036d579f5d8dc1fc8b2e73ed9d5b71c",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g31",
+            "record_sha256": "0535167c1b010f8feeb19f13aaf72524f68be7edb6c352f873b2b0945d15bb63",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 27,
+            "forbidden_contact_steps": 27,
+            "reward": -0.18813234158982656,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g32",
+          "grid_index": 32,
+          "case_grid_index": 32,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            26.0,
+            0.23181883224993985
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              10,
+              7
+            ],
+            "connection_sha256": "76050f2b44f624cbd56ac92e824849c241260abb071dc97c4331d7d55d8d0244",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g32",
+            "record_sha256": "57cda9c46312d4eb3727de45dfefbaca5a77f8a100fe6b5e814e9fb11c617c93",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 0,
+            "forbidden_contact_steps": 0,
+            "reward": 0.30161175193659395,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g33",
+          "grid_index": 33,
+          "case_grid_index": 33,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            26.0,
+            0.24181883224993983
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              7,
+              7
+            ],
+            "connection_sha256": "f939f0557883ebf51877ed74057e8abe1192cb5010207e4e4b501c6dfaadcd70",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g33",
+            "record_sha256": "535f2621c899f60950820ed6d674f636d234727342d16930f3be3cedc341ab0b",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 0,
+            "forbidden_contact_steps": 0,
+            "reward": 0.30767745248554323,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g34",
+          "grid_index": 34,
+          "case_grid_index": 34,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            26.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": true,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              10,
+              7
+            ],
+            "connection_sha256": "71fe3df670c5121d854acc84ef6a453c5ef0a8a63a841afd4d9e8ab6e5c1b629",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g34",
+            "record_sha256": "89d11e4fe1a275a3a364b2db039bdf19b9c7e3d311eaa6619e1bbfb0f2a78bbb",
+            "native_release": true,
+            "captured": true,
+            "route_quality": 1,
+            "direct_capture": true,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 0,
+            "forbidden_contact_steps": 0,
+            "reward": 4.11971031322755,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g35",
+          "grid_index": 35,
+          "case_grid_index": 35,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            26.0,
+            0.26181883224993985
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              7,
+              7
+            ],
+            "connection_sha256": "cc4274dcdb193beb4b6a5cb1912b56d78391702b1537d69c7570088053036ea9",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g35",
+            "record_sha256": "d32c9ce73f102af8026a5164a963517f25c6c5c8fdbf43bf519816385c764a9d",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 0,
+            "forbidden_contact_steps": 0,
+            "reward": 0.3232667819711502,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g36",
+          "grid_index": 36,
+          "case_grid_index": 36,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            26.0,
+            0.27181883224993986
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "strict_endpoint_clearance_or_pose_rejected",
+            "valid_ik_branches": [
+              8,
+              7
+            ],
+            "connection_sha256": "b0711fd6e059b854072611beba0d4b3cf7c30f0d4629a91cf85987dca761c0c3",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g37",
+          "grid_index": 37,
+          "case_grid_index": 37,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            26.0,
+            0.2918188322499398
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              7
+            ],
+            "connection_sha256": "c4cbcd9035c9a511cc44234d7adc19a4e4af12f88010093ec20ef2e68174a494",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g38",
+          "grid_index": 38,
+          "case_grid_index": 38,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            26.0,
+            0.31181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              7
+            ],
+            "connection_sha256": "43f8529aa757bf00643722f7a695e4ded3fb41f0549d40be6eac269e3290fa3a",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g39",
+          "grid_index": 39,
+          "case_grid_index": 39,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            26.0,
+            0.33181883224993985
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              7
+            ],
+            "connection_sha256": "90c29dfac1827ff5473b2942741fe8b5ab93343963723d08cc2987e8a6cdddef",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g40",
+          "grid_index": 40,
+          "case_grid_index": 40,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            28.0,
+            0.19181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              8,
+              6
+            ],
+            "connection_sha256": "2d29e3a1b5b73d96af9918ab92a368c56213204d75050397653b5b1f06138b21",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g40",
+            "record_sha256": "46c819eecdc96b715ca1c73ff4d010769c81f7aedac8c8ffbd76a62bad84738a",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 28,
+            "forbidden_contact_steps": 28,
+            "reward": -0.19335108556074232,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g41",
+          "grid_index": 41,
+          "case_grid_index": 41,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            28.0,
+            0.21181883224993983
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              8,
+              6
+            ],
+            "connection_sha256": "da57987bcd01e539d8f5db15abb6b356506d9dece2b7a2ff3008edd55d359187",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g41",
+            "record_sha256": "a0279d7fdea90f84d05439abbc3e4c66a77e307b7bbfd919b1852f3853185cc3",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 0,
+            "forbidden_contact_steps": 0,
+            "reward": 0.3032925772778018,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g42",
+          "grid_index": 42,
+          "case_grid_index": 42,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            28.0,
+            0.23181883224993985
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              10,
+              6
+            ],
+            "connection_sha256": "dba72ca606fb9b7963c6cf1fa51737233bd73aca227566c6d12b9047a17c11c3",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g42",
+            "record_sha256": "5901f6c5f3453817a60206d1922bb0c6abadf1edfd38078de619b6a371b34370",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 0,
+            "forbidden_contact_steps": 0,
+            "reward": 0.3060041060740984,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g43",
+          "grid_index": 43,
+          "case_grid_index": 43,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            28.0,
+            0.24181883224993983
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              7,
+              6
+            ],
+            "connection_sha256": "77df2adbc2a6160ea6bb9aa6e36f1679e02011c38a057e5259d4c9229f2162d0",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g43",
+            "record_sha256": "9b185b2a90ad3205c80ce966cc0d4032c8d429a4bd72e77329f85e008d7be77e",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 0,
+            "forbidden_contact_steps": 0,
+            "reward": 0.30868474649144695,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g44",
+          "grid_index": 44,
+          "case_grid_index": 44,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            28.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              10,
+              6
+            ],
+            "connection_sha256": "560635aced119f2f570ae05ca37d52c7605b87fd555e01679650daa4b013a565",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g44",
+            "record_sha256": "3e555d76b5dc63cd242521bf6fd8197babb46241cba8327254d70cdc7c36f447",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 0,
+            "forbidden_contact_steps": 0,
+            "reward": 0.3603587383012081,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g45",
+          "grid_index": 45,
+          "case_grid_index": 45,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            28.0,
+            0.26181883224993985
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              7,
+              6
+            ],
+            "connection_sha256": "7e99ef6d3f6f3e96e80f5c1c8b5315950e8ed58b287535bf2185ca5d64f7d1c9",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g45",
+            "record_sha256": "067f2f499ad99cfbff3dac7b0108e70002181e262aae490f50ef1aa4c01d8278",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 0,
+            "forbidden_contact_steps": 0,
+            "reward": 0.3219697737388935,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g46",
+          "grid_index": 46,
+          "case_grid_index": 46,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            28.0,
+            0.27181883224993986
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "strict_endpoint_clearance_or_pose_rejected",
+            "valid_ik_branches": [
+              8,
+              6
+            ],
+            "connection_sha256": "54db9d8abe2a750dc7a13124f968ecd6150a98d69c3ca21b310a3be67dd5fb8f",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g47",
+          "grid_index": 47,
+          "case_grid_index": 47,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            28.0,
+            0.2918188322499398
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              6
+            ],
+            "connection_sha256": "258811e395ee27fba9ea6bc206dad282f0697286b04f20ca62e9ddf9e4a8b282",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g48",
+          "grid_index": 48,
+          "case_grid_index": 48,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            28.0,
+            0.31181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              6
+            ],
+            "connection_sha256": "f92b335ae1766c49155bba95988c803dffc330913725b60e513ed1953067821d",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g49",
+          "grid_index": 49,
+          "case_grid_index": 49,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            28.0,
+            0.33181883224993985
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              6
+            ],
+            "connection_sha256": "70208833e8469b82301efed86fa38a2cc6f021a6304a9bd163d219d61b6336ac",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g50",
+          "grid_index": 50,
+          "case_grid_index": 50,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            30.0,
+            0.19181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              8,
+              8
+            ],
+            "connection_sha256": "8bdb8485c48c413dec99c6ee12e8ca2a63465c58b791ec1704204947c86933db",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g50",
+            "record_sha256": "dfdcaae801285c56358800a7b59d0b3fbb0c046a827cd887de83b4156e09de82",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 27,
+            "forbidden_contact_steps": 27,
+            "reward": -0.18603408653222386,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g51",
+          "grid_index": 51,
+          "case_grid_index": 51,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            30.0,
+            0.21181883224993983
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              8,
+              8
+            ],
+            "connection_sha256": "e02d0b7a2c29e2d4f998076b81f7d45bafafef7ae9dd2d13e94484a87f31a9d5",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g51",
+            "record_sha256": "43783dd8bc75bb49287673e26447c971352b5a888fa16dac6c8e2d65d3182e79",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 0,
+            "forbidden_contact_steps": 0,
+            "reward": 0.3028763323661572,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g52",
+          "grid_index": 52,
+          "case_grid_index": 52,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            30.0,
+            0.23181883224993985
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              10,
+              8
+            ],
+            "connection_sha256": "b2bd0b45015654240fba51931bbd400e1cba70db7c8f3c21cbc38054b3f80ea7",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g52",
+            "record_sha256": "12c2e1d30dae50185a8d80806ea72b3bf49aed7880bf94edc7348e102421ac4c",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 0,
+            "forbidden_contact_steps": 0,
+            "reward": 0.30422451687920415,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g53",
+          "grid_index": 53,
+          "case_grid_index": 53,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            30.0,
+            0.24181883224993983
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              7,
+              8
+            ],
+            "connection_sha256": "4b2b804eba9a8c8f8917de97b2c22a8c3231bc85f1f18d55f64bc68590fea593",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g53",
+            "record_sha256": "c27d07e6555c0a9a5602c6397e133a9e86292f196d648f58914989d1c5b7c57e",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 27,
+            "forbidden_contact_steps": 27,
+            "reward": -0.18722162832665457,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g54",
+          "grid_index": 54,
+          "case_grid_index": 54,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            30.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              10,
+              8
+            ],
+            "connection_sha256": "46775c78db02e74a014c356f1d6b3a5a49f6d0e208bde26233015fa362dc7d46",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g54",
+            "record_sha256": "a0d8deb7ad924bcc52c8d402577aaf09f0cba655f0bff0f005cc766dc56ca835",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 0,
+            "forbidden_contact_steps": 0,
+            "reward": 0.3215533010185191,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g55",
+          "grid_index": 55,
+          "case_grid_index": 55,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            30.0,
+            0.26181883224993985
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              7,
+              8
+            ],
+            "connection_sha256": "1f01513601f55be865808628c6cb11ca62e660681e9278edf905b0ffa8d9cace",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g55",
+            "record_sha256": "ed41f2fb0f92b048fc2a736f14ef7293a2230259332c94854cfa9b44c0e5294c",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 0,
+            "forbidden_contact_steps": 0,
+            "reward": 0.32496210892890126,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g56",
+          "grid_index": 56,
+          "case_grid_index": 56,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            30.0,
+            0.27181883224993986
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "strict_endpoint_clearance_or_pose_rejected",
+            "valid_ik_branches": [
+              8,
+              8
+            ],
+            "connection_sha256": "25e5e45374e6175364d74b4c88b9209f574ae75b4e376608377212a97bed1cab",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g57",
+          "grid_index": 57,
+          "case_grid_index": 57,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            30.0,
+            0.2918188322499398
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              8
+            ],
+            "connection_sha256": "9c088bfc791eb90dea47ede90d4badc9b4de503ea2f3ce2410e7ec4080325b50",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g58",
+          "grid_index": 58,
+          "case_grid_index": 58,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            30.0,
+            0.31181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              8
+            ],
+            "connection_sha256": "8a98ae3b280b15e1c43008c9d4ddf3c5b4541d9c2e6dfb9196b78f6bfa68d354",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g59",
+          "grid_index": 59,
+          "case_grid_index": 59,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            30.0,
+            0.33181883224993985
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              8
+            ],
+            "connection_sha256": "9a821cf5999694878830c224210bfc79176a32f53d9c78cfeaee0b0457deb0c9",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g60",
+          "grid_index": 60,
+          "case_grid_index": 60,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            32.0,
+            0.19181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              8,
+              7
+            ],
+            "connection_sha256": "f5839cc1b0e99db048ade337c7bb628c4fd4e653cdd3f4963f91712d3e3398d2",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g60",
+            "record_sha256": "474f75c040a3fb66448d6853bf2b881581e14f84a29e09ac19ddb6e302225be7",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 27,
+            "forbidden_contact_steps": 27,
+            "reward": -0.18514412320032891,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g61",
+          "grid_index": 61,
+          "case_grid_index": 61,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            32.0,
+            0.21181883224993983
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              8,
+              7
+            ],
+            "connection_sha256": "f97b4ca3c18ec57edc99b7908a3b23add661d5a9ca0634ab03d9090e1f674489",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g61",
+            "record_sha256": "29f048f5b695d240d7cb8696e61de9609bfab975ac7aff3e27bea0d6897b20e8",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 27,
+            "forbidden_contact_steps": 27,
+            "reward": -0.192783660538012,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g62",
+          "grid_index": 62,
+          "case_grid_index": 62,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            32.0,
+            0.23181883224993985
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              10,
+              7
+            ],
+            "connection_sha256": "69ed0c3f73de5ed08f2e8ab99963ec5f979fa54ef3eab0e3817202115c1fb28a",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g62",
+            "record_sha256": "0526ec95bcb2eedde88fc595810282e61275affd4630cc85480681eb75e0fef8",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 0,
+            "forbidden_contact_steps": 0,
+            "reward": 0.3047658246031551,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g63",
+          "grid_index": 63,
+          "case_grid_index": 63,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            32.0,
+            0.24181883224993983
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              7,
+              7
+            ],
+            "connection_sha256": "fc00d11dc2c5c2cf01c5bf8ec3a78af05cd80176025609bedb2b7d6996c6f03f",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g63",
+            "record_sha256": "7a3f3cd69532d049369b92a8c79da28893261fbcb45ff1e5a4b2afc1edbba08f",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 27,
+            "forbidden_contact_steps": 27,
+            "reward": -0.18778387714004718,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g64",
+          "grid_index": 64,
+          "case_grid_index": 64,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            32.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": true,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              10,
+              7
+            ],
+            "connection_sha256": "12beb204aa17dc7503119a5c09d7cf6d1304ef1002366267b168bced705e5dc3",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g64",
+            "record_sha256": "116c8b462f0cdaba52a1a8b78fcdceabea8bdfaafe07f205cb0fe0613da4ce24",
+            "native_release": true,
+            "captured": true,
+            "route_quality": 1,
+            "direct_capture": true,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 0,
+            "forbidden_contact_steps": 0,
+            "reward": 4.17566725294197,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g65",
+          "grid_index": 65,
+          "case_grid_index": 65,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            32.0,
+            0.26181883224993985
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              7,
+              7
+            ],
+            "connection_sha256": "e65c8a9033b8349e143ab2a480d44fbb2eb1135ded58423a96ed8ab808ed1305",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "case00-tilt-gap-table-training-test-00-g65",
+            "record_sha256": "f53b7b7d2359b95eaf26111cff6062735f2f09b65b08a16ff23a577e8e846c57",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 0,
+            "forbidden_contact_steps": 0,
+            "reward": 0.3344582585204704,
+            "invalid": null
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g66",
+          "grid_index": 66,
+          "case_grid_index": 66,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            32.0,
+            0.27181883224993986
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "strict_endpoint_clearance_or_pose_rejected",
+            "valid_ik_branches": [
+              8,
+              7
+            ],
+            "connection_sha256": "57721a1cb5207fa06b37f3fd6da81fb78866a7d62d540c0f56b6bcae031bb61f",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g67",
+          "grid_index": 67,
+          "case_grid_index": 67,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            32.0,
+            0.2918188322499398
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              7
+            ],
+            "connection_sha256": "627c602bf5bd564172ee66dfaaf3ff20eb4ca1bdd19aa83c3d350d9a872e436c",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g68",
+          "grid_index": 68,
+          "case_grid_index": 68,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            32.0,
+            0.31181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              7
+            ],
+            "connection_sha256": "c09e698aa3ea327e240b12a56f6dc9f92665aeaaa7df418702c3606e04cf5a93",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g69",
+          "grid_index": 69,
+          "case_grid_index": 69,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            32.0,
+            0.33181883224993985
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              7
+            ],
+            "connection_sha256": "22f1a5e649fadfe7d2cf06ea71270353dd287169a24846b8929d3b8e4491d957",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        }
+      ],
+      "selection": [
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g34",
+          "grid_index": 34,
+          "case_grid_index": 34,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            26.0,
+            0.25181883224993984
+          ],
+          "row_sha256": "89d11e4fe1a275a3a364b2db039bdf19b9c7e3d311eaa6619e1bbfb0f2a78bbb",
+          "connection_sha256": "71fe3df670c5121d854acc84ef6a453c5ef0a8a63a841afd4d9e8ab6e5c1b629",
+          "route_quality": 1,
+          "learning_reward": 4.11971031322755,
+          "capture": true,
+          "diagnostic_robot_contact_steps": 0
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g64",
+          "grid_index": 64,
+          "case_grid_index": 64,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            32.0,
+            0.25181883224993984
+          ],
+          "row_sha256": "116c8b462f0cdaba52a1a8b78fcdceabea8bdfaafe07f205cb0fe0613da4ce24",
+          "connection_sha256": "12beb204aa17dc7503119a5c09d7cf6d1304ef1002366267b168bced705e5dc3",
+          "route_quality": 1,
+          "learning_reward": 4.17566725294197,
+          "capture": true,
+          "diagnostic_robot_contact_steps": 0
+        }
+      ],
+      "candidate_repeats": [
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g34",
+          "grid_index": 34,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            26.0,
+            0.25181883224993984
+          ],
+          "discovery_record_sha256": "89d11e4fe1a275a3a364b2db039bdf19b9c7e3d311eaa6619e1bbfb0f2a78bbb",
+          "summary": {
+            "attempts": 3,
+            "native_releases": 3,
+            "captures": 3,
+            "setup_rejections": 0,
+            "native_misses": 0,
+            "robot_contact_shots": 0,
+            "forbidden_contact_shots": 0,
+            "invalid_physics": 0,
+            "direct_captures": 3,
+            "table_assisted_captures": 0
+          }
+        },
+        {
+          "candidate_id": "case00-tilt-gap-table-training-test-00-g64",
+          "grid_index": 64,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            32.0,
+            0.25181883224993984
+          ],
+          "discovery_record_sha256": "116c8b462f0cdaba52a1a8b78fcdceabea8bdfaafe07f205cb0fe0613da4ce24",
+          "summary": {
+            "attempts": 3,
+            "native_releases": 3,
+            "captures": 3,
+            "setup_rejections": 0,
+            "native_misses": 0,
+            "robot_contact_shots": 0,
+            "forbidden_contact_shots": 0,
+            "invalid_physics": 0,
+            "direct_captures": 3,
+            "table_assisted_captures": 0
+          }
+        }
+      ],
+      "repeats": {
+        "baseline": {
+          "attempts": 3,
+          "native_releases": 3,
+          "captures": 0,
+          "setup_rejections": 0,
+          "native_misses": 3,
+          "robot_contact_shots": 0,
+          "forbidden_contact_shots": 0,
+          "invalid_physics": 0,
+          "direct_captures": 0,
+          "table_assisted_captures": 0
+        },
+        "selected": {
+          "attempts": 6,
+          "native_releases": 6,
+          "captures": 6,
+          "setup_rejections": 0,
+          "native_misses": 0,
+          "robot_contact_shots": 0,
+          "forbidden_contact_shots": 0,
+          "invalid_physics": 0,
+          "direct_captures": 6,
+          "table_assisted_captures": 0
+        }
+      }
+    }
+  ],
+  "repeats": {
+    "baseline": {
+      "attempts": 3,
+      "native_releases": 3,
+      "captures": 0,
+      "setup_rejections": 0,
+      "native_misses": 3,
+      "robot_contact_shots": 0,
+      "forbidden_contact_shots": 0,
+      "invalid_physics": 0,
+      "direct_captures": 0,
+      "table_assisted_captures": 0
+    },
+    "selected": {
+      "attempts": 6,
+      "native_releases": 6,
+      "captures": 6,
+      "setup_rejections": 0,
+      "native_misses": 0,
+      "robot_contact_shots": 0,
+      "forbidden_contact_shots": 0,
+      "invalid_physics": 0,
+      "direct_captures": 6,
+      "table_assisted_captures": 0
+    }
+  },
+  "control_gates": {
+    "pre": {
+      "status": "passed",
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0,
+      "counts": {
+        "attempts": 9,
+        "native_releases": 9,
+        "captures": 6,
+        "setup_rejections": 0,
+        "native_misses": 3,
+        "forbidden_contact_shots": 3,
+        "invalid_physics": 0,
+        "direct_captures": 3,
+        "table_assisted_captures": 3
+      }
+    },
+    "post": {
+      "status": "passed",
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0,
+      "counts": {
+        "attempts": 9,
+        "native_releases": 9,
+        "captures": 6,
+        "setup_rejections": 0,
+        "native_misses": 3,
+        "forbidden_contact_shots": 3,
+        "invalid_physics": 0,
+        "direct_captures": 3,
+        "table_assisted_captures": 3
+      }
+    }
+  },
+  "audit": {
+    "status": "passed",
+    "full_checks_verified": true,
+    "version": "sircus-case00-tilt-gap-audit-v1",
+    "checks_count": 27547,
+    "report_sha256": "f17a0cfaa661524ea329cdca8f6ceee529af4ce9c38bdf56c7d1ab6ce5c1dadc",
+    "contract_fingerprint": "151710711047521544f20624a312882d16ff6ff7a1b6d782fcad784ff7550856",
+    "proof_sha256": "73bf2ff91b2e0824eaaeee10a0e9df84512800f2b4d5435776f96de5dc074a87"
+  },
+  "contact_diagnostics": [
+    {
+      "record_id": "case00-tilt-gap-controls_pre-control-direct_control-r0",
+      "physics_steps": 22335,
+      "scoring_terminal_s": 1.4541015625,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.484375,
+      "first_board_contact_s": 0.21458333333333332,
+      "first_bucket_contact_s": 0.484375,
+      "first_table_contact_s": null,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-controls_pre-control-direct_control-r1",
+      "physics_steps": 22335,
+      "scoring_terminal_s": 1.4541015625,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.484375,
+      "first_board_contact_s": 0.21458333333333332,
+      "first_bucket_contact_s": 0.484375,
+      "first_table_contact_s": null,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-controls_pre-control-direct_control-r2",
+      "physics_steps": 22335,
+      "scoring_terminal_s": 1.4541015625,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.484375,
+      "first_board_contact_s": 0.21458333333333332,
+      "first_bucket_contact_s": 0.484375,
+      "first_table_contact_s": null,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-controls_pre-control-table_control-r0",
+      "physics_steps": 32012,
+      "scoring_terminal_s": 2.084114583333333,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.6184244791666667,
+      "first_board_contact_s": 0.21399739583333333,
+      "first_bucket_contact_s": 0.8002604166666667,
+      "first_table_contact_s": 0.6184244791666667,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-controls_pre-control-table_control-r1",
+      "physics_steps": 32012,
+      "scoring_terminal_s": 2.084114583333333,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.6184244791666667,
+      "first_board_contact_s": 0.21399739583333333,
+      "first_bucket_contact_s": 0.8002604166666667,
+      "first_table_contact_s": 0.6184244791666667,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-controls_pre-control-table_control-r2",
+      "physics_steps": 32010,
+      "scoring_terminal_s": 2.083984375,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.6184244791666667,
+      "first_board_contact_s": 0.21399739583333333,
+      "first_bucket_contact_s": 0.8002604166666667,
+      "first_table_contact_s": 0.6184244791666667,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-controls_pre-control-negative_control-r0",
+      "physics_steps": 47860,
+      "scoring_terminal_s": 3.1158854166666665,
+      "capture": false,
+      "robot_contact_steps": 29,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 29,
+      "first_bucket_or_table_contact_s": 0.6354817708333333,
+      "first_board_contact_s": 0.23020833333333332,
+      "first_bucket_contact_s": 0.6370442708333334,
+      "first_table_contact_s": 0.6354817708333333,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 0.8497395833333333,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-controls_pre-control-negative_control-r1",
+      "physics_steps": 47859,
+      "scoring_terminal_s": 3.1158203125,
+      "capture": false,
+      "robot_contact_steps": 29,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 29,
+      "first_bucket_or_table_contact_s": 0.6354817708333333,
+      "first_board_contact_s": 0.23020833333333332,
+      "first_bucket_contact_s": 0.6370442708333334,
+      "first_table_contact_s": 0.6354817708333333,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 0.8497395833333333,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-controls_pre-control-negative_control-r2",
+      "physics_steps": 47860,
+      "scoring_terminal_s": 3.1158854166666665,
+      "capture": false,
+      "robot_contact_steps": 29,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 29,
+      "first_bucket_or_table_contact_s": 0.6354817708333333,
+      "first_board_contact_s": 0.23020833333333332,
+      "first_bucket_contact_s": 0.6370442708333334,
+      "first_table_contact_s": 0.6354817708333333,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 0.8497395833333333,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-baseline-table-training-test-00-r0",
+      "physics_steps": 26549,
+      "scoring_terminal_s": 1.7284505208333334,
+      "capture": false,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5494140625,
+      "first_board_contact_s": 0.223046875,
+      "first_bucket_contact_s": 0.5494140625,
+      "first_table_contact_s": 1.3399088541666666,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-baseline-table-training-test-00-r1",
+      "physics_steps": 26733,
+      "scoring_terminal_s": 1.7404296875,
+      "capture": false,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5494140625,
+      "first_board_contact_s": 0.223046875,
+      "first_bucket_contact_s": 0.5494140625,
+      "first_table_contact_s": 1.3548828125,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-baseline-table-training-test-00-r2",
+      "physics_steps": 26706,
+      "scoring_terminal_s": 1.7386718749999999,
+      "capture": false,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5494140625,
+      "first_board_contact_s": 0.223046875,
+      "first_bucket_contact_s": 0.5494140625,
+      "first_table_contact_s": 1.3520182291666667,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g00",
+      "physics_steps": 61440,
+      "scoring_terminal_s": 4.0,
+      "capture": false,
+      "robot_contact_steps": 28,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 28,
+      "first_bucket_or_table_contact_s": 0.6110026041666666,
+      "first_board_contact_s": 0.1951171875,
+      "first_bucket_contact_s": 0.6603515625,
+      "first_table_contact_s": 0.6110026041666666,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 3.2118489583333334,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g01",
+      "physics_steps": 61440,
+      "scoring_terminal_s": 4.0,
+      "capture": false,
+      "robot_contact_steps": 28,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 28,
+      "first_bucket_or_table_contact_s": 0.6305338541666666,
+      "first_board_contact_s": 0.20533854166666665,
+      "first_bucket_contact_s": 0.6463541666666667,
+      "first_table_contact_s": 0.6305338541666666,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 2.8844401041666665,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g02",
+      "physics_steps": 61440,
+      "scoring_terminal_s": 4.0,
+      "capture": false,
+      "robot_contact_steps": 28,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 28,
+      "first_bucket_or_table_contact_s": 0.6324869791666666,
+      "first_board_contact_s": 0.2150390625,
+      "first_bucket_contact_s": 0.6324869791666666,
+      "first_table_contact_s": 0.64765625,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 3.8668619791666665,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g03",
+      "physics_steps": 61440,
+      "scoring_terminal_s": 4.0,
+      "capture": false,
+      "robot_contact_steps": 27,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 27,
+      "first_bucket_or_table_contact_s": 0.6233072916666667,
+      "first_board_contact_s": 0.2197265625,
+      "first_bucket_contact_s": 0.6233072916666667,
+      "first_table_contact_s": 0.6567708333333333,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 3.367317708333333,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g04",
+      "physics_steps": 61440,
+      "scoring_terminal_s": 4.0,
+      "capture": false,
+      "robot_contact_steps": 27,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 27,
+      "first_bucket_or_table_contact_s": 0.620703125,
+      "first_board_contact_s": 0.22428385416666666,
+      "first_bucket_contact_s": 0.620703125,
+      "first_table_contact_s": 0.6622395833333333,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 3.1438802083333335,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g05",
+      "physics_steps": 37974,
+      "scoring_terminal_s": 2.472265625,
+      "capture": false,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.6151692708333333,
+      "first_board_contact_s": 0.22877604166666665,
+      "first_bucket_contact_s": 0.6151692708333333,
+      "first_table_contact_s": 0.6748046875,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g10",
+      "physics_steps": 61440,
+      "scoring_terminal_s": 4.0,
+      "capture": false,
+      "robot_contact_steps": 28,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 28,
+      "first_bucket_or_table_contact_s": 0.6004557291666667,
+      "first_board_contact_s": 0.19479166666666667,
+      "first_bucket_contact_s": 0.6305989583333333,
+      "first_table_contact_s": 0.6004557291666667,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 2.9598958333333334,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g11",
+      "physics_steps": 61440,
+      "scoring_terminal_s": 4.0,
+      "capture": false,
+      "robot_contact_steps": 28,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 28,
+      "first_bucket_or_table_contact_s": 0.61796875,
+      "first_board_contact_s": 0.20501302083333334,
+      "first_bucket_contact_s": 0.6196614583333333,
+      "first_table_contact_s": 0.61796875,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 2.7272135416666665,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g12",
+      "physics_steps": 61440,
+      "scoring_terminal_s": 4.0,
+      "capture": false,
+      "robot_contact_steps": 27,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 27,
+      "first_bucket_or_table_contact_s": 0.6022135416666666,
+      "first_board_contact_s": 0.21471354166666667,
+      "first_bucket_contact_s": 0.6022135416666666,
+      "first_table_contact_s": 0.6352864583333333,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 3.0747395833333333,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g13",
+      "physics_steps": 61440,
+      "scoring_terminal_s": 4.0,
+      "capture": false,
+      "robot_contact_steps": 27,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 27,
+      "first_bucket_or_table_contact_s": 0.5953125,
+      "first_board_contact_s": 0.21940104166666666,
+      "first_bucket_contact_s": 0.5953125,
+      "first_table_contact_s": 0.6435546875,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 2.8736328125,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g14",
+      "physics_steps": 24758,
+      "scoring_terminal_s": 1.6118489583333333,
+      "capture": false,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5921223958333334,
+      "first_board_contact_s": 0.2240234375,
+      "first_bucket_contact_s": 0.5921223958333334,
+      "first_table_contact_s": 0.7084635416666667,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g15",
+      "physics_steps": 24973,
+      "scoring_terminal_s": 1.6258463541666666,
+      "capture": false,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5952473958333333,
+      "first_board_contact_s": 0.228515625,
+      "first_bucket_contact_s": 0.5952473958333333,
+      "first_table_contact_s": 0.8202473958333333,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g20",
+      "physics_steps": 61440,
+      "scoring_terminal_s": 4.0,
+      "capture": false,
+      "robot_contact_steps": 28,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 28,
+      "first_bucket_or_table_contact_s": 0.5918619791666666,
+      "first_board_contact_s": 0.19446614583333333,
+      "first_bucket_contact_s": 0.6031901041666666,
+      "first_table_contact_s": 0.5918619791666666,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 2.6659505208333334,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g21",
+      "physics_steps": 61440,
+      "scoring_terminal_s": 4.0,
+      "capture": false,
+      "robot_contact_steps": 28,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 28,
+      "first_bucket_or_table_contact_s": 0.5868489583333333,
+      "first_board_contact_s": 0.2046875,
+      "first_bucket_contact_s": 0.5868489583333333,
+      "first_table_contact_s": 0.6098307291666667,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 2.986197916666667,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g22",
+      "physics_steps": 25101,
+      "scoring_terminal_s": 1.6341796874999999,
+      "capture": false,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5698567708333333,
+      "first_board_contact_s": 0.214453125,
+      "first_bucket_contact_s": 0.5698567708333333,
+      "first_table_contact_s": 0.6634765625,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g23",
+      "physics_steps": 23864,
+      "scoring_terminal_s": 1.5536458333333334,
+      "capture": false,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5724609375,
+      "first_board_contact_s": 0.219140625,
+      "first_bucket_contact_s": 0.5724609375,
+      "first_table_contact_s": 0.7541666666666667,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g24",
+      "physics_steps": 35619,
+      "scoring_terminal_s": 2.3189453125,
+      "capture": false,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5772786458333333,
+      "first_board_contact_s": 0.22376302083333333,
+      "first_bucket_contact_s": 0.5772786458333333,
+      "first_table_contact_s": 0.968359375,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g25",
+      "physics_steps": 61440,
+      "scoring_terminal_s": 4.0,
+      "capture": false,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.581640625,
+      "first_board_contact_s": 0.22825520833333332,
+      "first_bucket_contact_s": 0.581640625,
+      "first_table_contact_s": 1.0325520833333333,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g30",
+      "physics_steps": 61440,
+      "scoring_terminal_s": 4.0,
+      "capture": false,
+      "robot_contact_steps": 28,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 28,
+      "first_bucket_or_table_contact_s": 0.5720052083333333,
+      "first_board_contact_s": 0.194140625,
+      "first_bucket_contact_s": 0.5720052083333333,
+      "first_table_contact_s": 0.5865234375,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 3.0422526041666664,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g31",
+      "physics_steps": 61440,
+      "scoring_terminal_s": 4.0,
+      "capture": false,
+      "robot_contact_steps": 27,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 27,
+      "first_bucket_or_table_contact_s": 0.55625,
+      "first_board_contact_s": 0.20436197916666665,
+      "first_bucket_contact_s": 0.55625,
+      "first_table_contact_s": 0.6040364583333333,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 2.6923828125,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g32",
+      "physics_steps": 24657,
+      "scoring_terminal_s": 1.6052734375,
+      "capture": false,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5544921875,
+      "first_board_contact_s": 0.2140625,
+      "first_bucket_contact_s": 0.5544921875,
+      "first_table_contact_s": 0.65859375,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g33",
+      "physics_steps": 29077,
+      "scoring_terminal_s": 1.8930338541666667,
+      "capture": false,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5582682291666666,
+      "first_board_contact_s": 0.21881510416666666,
+      "first_bucket_contact_s": 0.5582682291666666,
+      "first_table_contact_s": 0.9151692708333333,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g34",
+      "physics_steps": 35522,
+      "scoring_terminal_s": 2.312630208333333,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5638020833333334,
+      "first_board_contact_s": 0.22343749999999998,
+      "first_bucket_contact_s": 0.5638020833333334,
+      "first_table_contact_s": null,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g35",
+      "physics_steps": 26399,
+      "scoring_terminal_s": 1.7186848958333334,
+      "capture": false,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5681640625,
+      "first_board_contact_s": 0.2279296875,
+      "first_bucket_contact_s": 0.5681640625,
+      "first_table_contact_s": 1.015234375,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g40",
+      "physics_steps": 61440,
+      "scoring_terminal_s": 4.0,
+      "capture": false,
+      "robot_contact_steps": 28,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 28,
+      "first_bucket_or_table_contact_s": 0.5563802083333333,
+      "first_board_contact_s": 0.19368489583333334,
+      "first_bucket_contact_s": 0.5563802083333333,
+      "first_table_contact_s": 0.5746744791666667,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 2.7516276041666665,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g41",
+      "physics_steps": 34966,
+      "scoring_terminal_s": 2.2764322916666666,
+      "capture": false,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5369791666666667,
+      "first_board_contact_s": 0.20397135416666667,
+      "first_bucket_contact_s": 0.5369791666666667,
+      "first_table_contact_s": 0.5991536458333333,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g42",
+      "physics_steps": 25900,
+      "scoring_terminal_s": 1.6861979166666667,
+      "capture": false,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.541015625,
+      "first_board_contact_s": 0.21373697916666667,
+      "first_bucket_contact_s": 0.541015625,
+      "first_table_contact_s": 0.8563802083333333,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g43",
+      "physics_steps": 32714,
+      "scoring_terminal_s": 2.1298177083333334,
+      "capture": false,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5444661458333333,
+      "first_board_contact_s": 0.21842447916666666,
+      "first_bucket_contact_s": 0.5444661458333333,
+      "first_table_contact_s": 0.9287760416666666,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g44",
+      "physics_steps": 26682,
+      "scoring_terminal_s": 1.737109375,
+      "capture": false,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5494140625,
+      "first_board_contact_s": 0.223046875,
+      "first_bucket_contact_s": 0.5494140625,
+      "first_table_contact_s": 1.351953125,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g45",
+      "physics_steps": 26234,
+      "scoring_terminal_s": 1.7079427083333334,
+      "capture": false,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5532552083333333,
+      "first_board_contact_s": 0.2275390625,
+      "first_bucket_contact_s": 0.5532552083333333,
+      "first_table_contact_s": 1.0091145833333333,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g50",
+      "physics_steps": 59393,
+      "scoring_terminal_s": 3.8667317708333333,
+      "capture": false,
+      "robot_contact_steps": 27,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 27,
+      "first_bucket_or_table_contact_s": 0.5382161458333333,
+      "first_board_contact_s": 0.19322916666666667,
+      "first_bucket_contact_s": 0.5382161458333333,
+      "first_table_contact_s": 0.5658203125,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 2.5641276041666665,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g51",
+      "physics_steps": 31704,
+      "scoring_terminal_s": 2.0640625,
+      "capture": false,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.52421875,
+      "first_board_contact_s": 0.203515625,
+      "first_bucket_contact_s": 0.52421875,
+      "first_table_contact_s": 0.5899739583333333,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g52",
+      "physics_steps": 24079,
+      "scoring_terminal_s": 1.5676432291666667,
+      "capture": false,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5279947916666666,
+      "first_board_contact_s": 0.21328125,
+      "first_bucket_contact_s": 0.5279947916666666,
+      "first_table_contact_s": 0.7834635416666667,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g53",
+      "physics_steps": 61440,
+      "scoring_terminal_s": 4.0,
+      "capture": false,
+      "robot_contact_steps": 27,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 27,
+      "first_bucket_or_table_contact_s": 0.5324869791666667,
+      "first_board_contact_s": 0.21803385416666665,
+      "first_bucket_contact_s": 0.5324869791666667,
+      "first_table_contact_s": 0.9751953125,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 3.598046875,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g54",
+      "physics_steps": 26093,
+      "scoring_terminal_s": 1.6987630208333333,
+      "capture": false,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5373697916666667,
+      "first_board_contact_s": 0.22265625,
+      "first_bucket_contact_s": 0.5373697916666667,
+      "first_table_contact_s": 0.9913411458333333,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g55",
+      "physics_steps": 21848,
+      "scoring_terminal_s": 1.4223958333333333,
+      "capture": false,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5407552083333333,
+      "first_board_contact_s": 0.2271484375,
+      "first_bucket_contact_s": 0.5407552083333333,
+      "first_table_contact_s": 0.9791015625,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g60",
+      "physics_steps": 56515,
+      "scoring_terminal_s": 3.6793619791666665,
+      "capture": false,
+      "robot_contact_steps": 27,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 27,
+      "first_bucket_or_table_contact_s": 0.52578125,
+      "first_board_contact_s": 0.19270833333333334,
+      "first_bucket_contact_s": 0.52578125,
+      "first_table_contact_s": 0.5552734375,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 2.4779947916666667,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g61",
+      "physics_steps": 53683,
+      "scoring_terminal_s": 3.494986979166667,
+      "capture": false,
+      "robot_contact_steps": 27,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 27,
+      "first_bucket_or_table_contact_s": 0.5153645833333333,
+      "first_board_contact_s": 0.20299479166666667,
+      "first_bucket_contact_s": 0.5153645833333333,
+      "first_table_contact_s": 0.5697916666666667,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 2.3669921875,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g62",
+      "physics_steps": 25415,
+      "scoring_terminal_s": 1.6546223958333333,
+      "capture": false,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5162760416666666,
+      "first_board_contact_s": 0.21282552083333334,
+      "first_bucket_contact_s": 0.5162760416666666,
+      "first_table_contact_s": 0.7972005208333334,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g63",
+      "physics_steps": 61440,
+      "scoring_terminal_s": 4.0,
+      "capture": false,
+      "robot_contact_steps": 27,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 27,
+      "first_bucket_or_table_contact_s": 0.5203776041666667,
+      "first_board_contact_s": 0.21757812499999998,
+      "first_bucket_contact_s": 0.5203776041666667,
+      "first_table_contact_s": 0.968359375,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 3.1018229166666664,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g64",
+      "physics_steps": 33654,
+      "scoring_terminal_s": 2.191015625,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5244791666666666,
+      "first_board_contact_s": 0.22220052083333333,
+      "first_bucket_contact_s": 0.5244791666666666,
+      "first_table_contact_s": null,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-table-training-test-00-g65",
+      "physics_steps": 21243,
+      "scoring_terminal_s": 1.3830078125,
+      "capture": false,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.530859375,
+      "first_board_contact_s": 0.2267578125,
+      "first_bucket_contact_s": 0.530859375,
+      "first_table_contact_s": 0.9475911458333334,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-selected-g34-r0",
+      "physics_steps": 35492,
+      "scoring_terminal_s": 2.310677083333333,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5638020833333334,
+      "first_board_contact_s": 0.22343749999999998,
+      "first_bucket_contact_s": 0.5638020833333334,
+      "first_table_contact_s": null,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-selected-g34-r1",
+      "physics_steps": 35522,
+      "scoring_terminal_s": 2.312630208333333,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5638020833333334,
+      "first_board_contact_s": 0.22343749999999998,
+      "first_bucket_contact_s": 0.5638020833333334,
+      "first_table_contact_s": null,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-selected-g34-r2",
+      "physics_steps": 35522,
+      "scoring_terminal_s": 2.312630208333333,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5638020833333334,
+      "first_board_contact_s": 0.22343749999999998,
+      "first_bucket_contact_s": 0.5638020833333334,
+      "first_table_contact_s": null,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-selected-g64-r0",
+      "physics_steps": 33654,
+      "scoring_terminal_s": 2.191015625,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5244791666666666,
+      "first_board_contact_s": 0.22220052083333333,
+      "first_bucket_contact_s": 0.5244791666666666,
+      "first_table_contact_s": null,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-selected-g64-r1",
+      "physics_steps": 33654,
+      "scoring_terminal_s": 2.191015625,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5244791666666666,
+      "first_board_contact_s": 0.22220052083333333,
+      "first_bucket_contact_s": 0.5244791666666666,
+      "first_table_contact_s": null,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-selected-g64-r2",
+      "physics_steps": 33655,
+      "scoring_terminal_s": 2.1910807291666665,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5244791666666666,
+      "first_board_contact_s": 0.22220052083333333,
+      "first_bucket_contact_s": 0.5244791666666666,
+      "first_table_contact_s": null,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-controls_post-control-direct_control-r0",
+      "physics_steps": 22335,
+      "scoring_terminal_s": 1.4541015625,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.484375,
+      "first_board_contact_s": 0.21458333333333332,
+      "first_bucket_contact_s": 0.484375,
+      "first_table_contact_s": null,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-controls_post-control-direct_control-r1",
+      "physics_steps": 22335,
+      "scoring_terminal_s": 1.4541015625,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.484375,
+      "first_board_contact_s": 0.21458333333333332,
+      "first_bucket_contact_s": 0.484375,
+      "first_table_contact_s": null,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-controls_post-control-direct_control-r2",
+      "physics_steps": 22335,
+      "scoring_terminal_s": 1.4541015625,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.484375,
+      "first_board_contact_s": 0.21458333333333332,
+      "first_bucket_contact_s": 0.484375,
+      "first_table_contact_s": null,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-controls_post-control-table_control-r0",
+      "physics_steps": 32012,
+      "scoring_terminal_s": 2.084114583333333,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.6184244791666667,
+      "first_board_contact_s": 0.21399739583333333,
+      "first_bucket_contact_s": 0.8002604166666667,
+      "first_table_contact_s": 0.6184244791666667,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-controls_post-control-table_control-r1",
+      "physics_steps": 32012,
+      "scoring_terminal_s": 2.084114583333333,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.6184244791666667,
+      "first_board_contact_s": 0.21399739583333333,
+      "first_bucket_contact_s": 0.8002604166666667,
+      "first_table_contact_s": 0.6184244791666667,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-controls_post-control-table_control-r2",
+      "physics_steps": 32010,
+      "scoring_terminal_s": 2.083984375,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.6184244791666667,
+      "first_board_contact_s": 0.21399739583333333,
+      "first_bucket_contact_s": 0.8002604166666667,
+      "first_table_contact_s": 0.6184244791666667,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-controls_post-control-negative_control-r0",
+      "physics_steps": 47860,
+      "scoring_terminal_s": 3.1158854166666665,
+      "capture": false,
+      "robot_contact_steps": 29,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 29,
+      "first_bucket_or_table_contact_s": 0.6354817708333333,
+      "first_board_contact_s": 0.23020833333333332,
+      "first_bucket_contact_s": 0.6370442708333334,
+      "first_table_contact_s": 0.6354817708333333,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 0.8497395833333333,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-controls_post-control-negative_control-r1",
+      "physics_steps": 47867,
+      "scoring_terminal_s": 3.116341145833333,
+      "capture": false,
+      "robot_contact_steps": 29,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 29,
+      "first_bucket_or_table_contact_s": 0.6354817708333333,
+      "first_board_contact_s": 0.23020833333333332,
+      "first_bucket_contact_s": 0.6370442708333334,
+      "first_table_contact_s": 0.6354817708333333,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 0.8497395833333333,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "case00-tilt-gap-controls_post-control-negative_control-r2",
+      "physics_steps": 47859,
+      "scoring_terminal_s": 3.1158203125,
+      "capture": false,
+      "robot_contact_steps": 29,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 29,
+      "first_bucket_or_table_contact_s": 0.6354817708333333,
+      "first_board_contact_s": 0.23020833333333332,
+      "first_bucket_contact_s": 0.6370442708333334,
+      "first_table_contact_s": 0.6354817708333333,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 0.8497395833333333,
+      "first_unattributed_contact_s": null
+    }
+  ],
+  "video": {
+    "version": "sircus-case00-tilt-gap-recorded-video-v1",
+    "status": "completed",
+    "output_sha256": "b3b163c75b5a8bd0081a68bc7186134379e07feb704a5946485c3e1d1398c67f",
+    "video_bytes": 1418436,
+    "width": 1280,
+    "height": 720,
+    "fps": 30,
+    "duration_s": 34.833333333333336,
+    "frames_sha256": "3f413a1f4dcfb5f6bb1832057f5eccc0640a9dbf6ea8842ed809d0ff2b15a581",
+    "native_steps_added": 0,
+    "held_arm_poses": true,
+    "sampled_ball_centers_only": true,
+    "source": {
+      "report_sha256": "f17a0cfaa661524ea329cdca8f6ceee529af4ce9c38bdf56c7d1ab6ce5c1dadc",
+      "audit_sha256": "73bf2ff91b2e0824eaaeee10a0e9df84512800f2b4d5435776f96de5dc074a87",
+      "contract_fingerprint": "151710711047521544f20624a312882d16ff6ff7a1b6d782fcad784ff7550856"
+    },
+    "manifest_sha256": "463508a0f786f9b5bbf2d2eed66748a5f25a3bfe62d7af0290c73adb90f05370",
+    "frame_count": 1045,
+    "clips": [
+      {
+        "record_id": "case00-tilt-gap-baseline-table-training-test-00-r0",
+        "context_id": "table-training-test-00",
+        "label": "Before: 28 deg / rim hit, no capture",
+        "start_s": 0.0,
+        "end_s": 9.866666666666667,
+        "values": [
+          0.5979922029820652,
+          -0.023557257454087432,
+          0.46,
+          28.0,
+          0.25181883224993984
+        ],
+        "bucket_xy_m": [
+          1.1095395651982425,
+          -0.22146373203137287
+        ],
+        "capture": false,
+        "whole_ball_entry": false,
+        "record_sha256": "6d715f059ff1cf25993b1d31cc3c33f40611f8e58db7e992c1d007c7673d4033",
+        "native_cache_sha256": "1d088e06470cbba470e45da0594dfb5a250c27fc34c43046e876f602cce3d217",
+        "source_interval_s": [
+          0.0,
+          1.7284505208333334
+        ],
+        "slow_source_interval_s": [
+          0.0,
+          1.7284505208333334
+        ],
+        "events": [
+          {
+            "label": "board",
+            "time_s": 0.223046875
+          },
+          {
+            "label": "bucket",
+            "time_s": 0.5494140625
+          },
+          {
+            "label": "table",
+            "time_s": 1.3399088541666666
+          }
+        ]
+      },
+      {
+        "record_id": "case00-tilt-gap-selected-g34-r0",
+        "context_id": "table-training-test-00",
+        "label": "26 deg / fresh repeat: rim-assisted capture",
+        "start_s": 9.866666666666667,
+        "end_s": 22.666666666666668,
+        "values": [
+          0.5979922029820652,
+          -0.023557257454087432,
+          0.46,
+          26.0,
+          0.25181883224993984
+        ],
+        "bucket_xy_m": [
+          1.1095395651982425,
+          -0.22146373203137287
+        ],
+        "capture": true,
+        "whole_ball_entry": true,
+        "record_sha256": "39ad95b2374f9f46e5667e6c25a4ea318461a6496a77a03df8527d1c70c821ae",
+        "native_cache_sha256": "7784d29cef6a74671dcfc015fbbfcd6c3a339f7aaf90f6c739eea6c08c15c31e",
+        "source_interval_s": [
+          0.0,
+          2.310677083333333
+        ],
+        "slow_source_interval_s": [
+          0.0,
+          2.310677083333333
+        ],
+        "events": [
+          {
+            "label": "board",
+            "time_s": 0.22343749999999998
+          },
+          {
+            "label": "bucket",
+            "time_s": 0.5638020833333334
+          },
+          {
+            "label": "whole_ball_entry",
+            "time_s": 1.3106770833333332
+          },
+          {
+            "label": "capture",
+            "time_s": 2.310677083333333
+          }
+        ]
+      },
+      {
+        "record_id": "case00-tilt-gap-selected-g64-r0",
+        "context_id": "table-training-test-00",
+        "label": "32 deg / fresh repeat: rim-assisted capture",
+        "start_s": 22.666666666666668,
+        "end_s": 34.833333333333336,
+        "values": [
+          0.5979922029820652,
+          -0.023557257454087432,
+          0.46,
+          32.0,
+          0.25181883224993984
+        ],
+        "bucket_xy_m": [
+          1.1095395651982425,
+          -0.22146373203137287
+        ],
+        "capture": true,
+        "whole_ball_entry": true,
+        "record_sha256": "3f2bbffad9af319287c0bc28226d0852253be7bc2be51336f7c0ac3f3ac298b4",
+        "native_cache_sha256": "7784d29cef6a74671dcfc015fbbfcd6c3a339f7aaf90f6c739eea6c08c15c31e",
+        "source_interval_s": [
+          0.0,
+          2.191015625
+        ],
+        "slow_source_interval_s": [
+          0.0,
+          2.191015625
+        ],
+        "events": [
+          {
+            "label": "board",
+            "time_s": 0.22220052083333333
+          },
+          {
+            "label": "bucket",
+            "time_s": 0.5244791666666666
+          },
+          {
+            "label": "whole_ball_entry",
+            "time_s": 0.9449869791666666
+          },
+          {
+            "label": "capture",
+            "time_s": 2.191015625
+          }
+        ]
+      }
+    ]
+  }
+}
