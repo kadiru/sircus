@@ -1,0 +1,37 @@
+<section id="coverageTraining7h" class="coverage-training-panel">
+  <p class="coverage-training-eyebrow">MJLAB · NATIVE 64 SUBSTEPS · BOUNDED COVERAGE STUDY</p>
+  <h2>More bucket positions, then a frozen policy comparison</h2>
+  <p data-coverage-training="status" class="coverage-training-note" role="status">Waiting for the saved study report.</p>
+  <div class="coverage-training-cards" data-coverage-training="progress"></div>
+  <p data-coverage-training="deadline" class="coverage-training-small"></p>
+  <p class="coverage-training-small">105 TRAIN layouts (35 existing + 70 new), 35 validation layouts and 70 untouched TEST layouts cover a 7 × 5 table grid. Bucket coordinates are disjoint across splits. Counts describe sampled layouts, not every reachable point or every shot posture.</p>
+  <h3>Actual progress and request budgets</h3>
+  <div class="coverage-training-scroll" data-coverage-training="stages"></div>
+  <h3>Build new demonstrations across the table</h3>
+  <p class="coverage-training-small" data-coverage-training="bootstrap"></p>
+  <p class="coverage-training-small">Search successes and failures both remain evidence. A successful demonstration at one sampled position is not a learned-policy score. Each cell below shows observed coverage of its actual TRAIN layouts: two newly sampled positions plus any existing positions in that cell.</p>
+  <div data-coverage-training="train-map" class="coverage-training-maps"></div>
+  <p class="coverage-training-small">Map columns run left to right in +X; rows run bottom to top in +Y. Hover a cell for exact sampled layout details.</p>
+  <h3>Two PPO seeds · validation during learning</h3>
+  <p class="coverage-training-small">Validation chooses a frozen checkpoint before TEST. Step-zero imitation remains eligible; PPO is not assumed to improve it.</p>
+  <div data-coverage-training="curve-chart" class="coverage-training-chart"></div>
+  <div class="coverage-training-scroll" data-coverage-training="seed-progress"></div>
+  <div class="coverage-training-scroll" data-coverage-training="curves"></div>
+  <p class="coverage-training-note" data-coverage-training="selected">No model selected yet.</p>
+  <h3>Four frozen methods on the same 70 new TEST positions</h3>
+  <p class="coverage-training-small">One decision per model and bucket position. Rejected setups remain in the requested-shot denominator. No retries, optimization or learning on TEST. Partial results show only the actual requests completed so far.</p>
+  <div class="coverage-training-scroll" data-coverage-training="comparison"></div>
+  <div data-coverage-training="test-maps" class="coverage-training-maps"></div>
+  <p class="coverage-training-small">Each TEST grid cell contains two distinct bucket positions. C = capture, M = released miss, R = setup rejected, X = invalid, — = not observed. Direct and table-assisted captures require a board bounce and one continuous second fully inside. Colors never interpolate untested locations.</p>
+  <details><summary>Exact bucket coordinates and model outcomes</summary><div class="coverage-training-scroll" data-coverage-training="positions"></div></details>
+  <h3>Recorded frozen-policy comparison</h3>
+  <p class="coverage-training-small" data-coverage-training="video-status">Video waits for completed, independently audited evaluation.</p>
+  <div data-coverage-training="video"></div>
+  <div class="coverage-training-media-controls" data-coverage-training="video-controls"></div>
+  <details><summary>Controls, evidence and limits</summary>
+    <p class="coverage-training-small" data-coverage-training="controls"></p>
+    <p class="coverage-training-small" data-coverage-training="proof"></p>
+    <p class="coverage-training-small">These are simulation shots from held arm endpoints. This study does not learn pickup, connecting arm motion or real perception. No resulting checkpoint is automatically installed in the interactive selector. Historical scoring/results remain unchanged; the 4070 workload and Isaac setup are outside this job.</p>
+  </details>
+  <p class="coverage-training-small" data-coverage-training="connection">Read-only progress checks every 30 seconds while visible. Updates may take several seconds because the existing page also contains recorded videos.</p>
+</section>

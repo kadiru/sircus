@@ -1,5 +1,13 @@
 # Project state
 
+## Seven-hour coverage training prepared — November 9, 2026
+
+- [Frozen protocol](../sircus/mjlab/COVERAGE_TRAINING7H.md): 105 TRAIN positions (35 historical +70 fresh),35 fresh validation and70 fresh TEST positions, stratified across35 table cells. Coordinates are frozen before feasibility/outcomes and separated from historical layouts. Up to1,260 guided TRAIN search requests feed fresh imitation; two independent PPO seeds each receive up to512 requests.
+- Validation selects a checkpoint before TEST, with initial imitation eligible. Four frozen methods are evaluated once at every TEST position: current imitation/PPO and new imitation/selected model. All use the same19-pose geometry bank; the two inspected Case00 successes are explicitly development priors. The prior changed, so current-weight scores are new evaluations, not historical-score reproduction.
+- Maximum2,757 requests includes175 validation,280 TEST and18 bracketing controls. Seven-hour absolute pipeline limit includes queueing, CPU audit and optional saved-trajectory video; native worker cap5.5h, search cap2h and training cutoff4.5h reserve evaluation time. Partial budgets are reported honestly; completion requires all TEST/control rows and independent audit.
+- Native64/v3 scoring, IK/admission and physics remain unchanged; table-assisted retention counts. No noise/128 claim, physical execution, transit-policy training or automatic policy activation. Only4090 may run;4070 and Isaac remain untouched. UI `#coverageTraining7h` reports actual progress without restarting the existing viewer. Launch identity/deadline are recorded separately when started.
+
+
 ## Completed Case 00 tilt/gap search — November 9, 2026
 
 - [Exact successful settings and evidence](MJLAB_CASE00_TILT_GAP_20261109.md): fixed board center **(597.992, −23.557, 460) mm**, bucket **(1109.540, −221.464) mm**, gap **251.819 mm**; changing tilt to **26° or 32°** produced one discovery capture and **3/3 fresh captures each**. Original 28° baseline remained 0/3. Release-ball center Z is 749.319 mm; horizontal bucket distance 548.496 mm.
