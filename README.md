@@ -1,5 +1,14 @@
 # Sircus — Simple Circus
 
+**Latest mjlab training:** [seven-hour-budget, 70-position comparison](baselines/mjlab-coverage-training-20261109/README.md).
+All 2,757 planned requests completed in 235.1 worker minutes. New imitation and
+selected new PPO each captured **28/70 (40%)** on unseen bucket positions;
+PPO gained one capture and lost one, with no net improvement. Previous PPO
+weights captured 31/70 under the same expanded prior. The independent audit
+and publication follow-up are recorded with the compact results. No policy
+was promoted; the 4070 and Isaac setup remain unchanged.
+
+
 **Latest mjlab experiment:** [Case 00 tilt/drop-gap sweep](baselines/mjlab-case00-tilt-gap-20261109/README.md).
 Of 70 fixed-grid proposals, 42 passed setup admission and two captured:
 **26° and 32° tilt, both at 251.819 mm drop gap and 460 mm board height**.

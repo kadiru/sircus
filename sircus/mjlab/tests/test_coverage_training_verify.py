@@ -51,6 +51,29 @@ def sequence(search=1260,per_seed=512):
 
 
 class CoverageAudit(unittest.TestCase):
+    def test_corrected_auditor_binds_original_source_and_preserved_failure(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);study=root/'study';study.mkdir();source=root/'source'
+            relative='sircus/mjlab/coverage_training_verify.py';original=source/relative
+            original.parent.mkdir(parents=True);original.write_text('original auditor')
+            corrected=root/'corrected.py';corrected.write_text('corrected auditor')
+            failed=root/'study-audit.json'
+            failed.write_text(json.dumps(dict(version=A.VERSION,status='failed',failures=[A.ORIGINAL_FAILURE])))
+            spec=dict(source_sha256={relative:A.sha(original)})
+            with patch.object(A,'ORIGINAL_AUDITOR_SHA256',A.sha(original)),patch.object(A,'ORIGINAL_FAILED_AUDIT_SHA256',A.sha(failed)):
+                binding=A.audit_implementation(study,source,spec,Checks(),auditor=corrected)
+                self.assertEqual(binding['revision'],A.AUDIT_REVISION)
+                self.assertEqual(binding['original_auditor_sha256'],A.sha(original))
+                self.assertEqual(binding['auditor_sha256'],A.sha(corrected))
+                self.assertEqual(binding['original_failed_audit_sha256'],A.sha(failed))
+                binding=A.audit_implementation(study,source,spec,Checks(),auditor=original)
+                self.assertEqual(binding['revision'],'same-frozen-implementation')
+                original.write_text('changed producer source')
+                with self.assertRaises(EvidenceError):A.audit_implementation(study,source,spec,Checks(),auditor=corrected)
+                original.write_text('original auditor');failed.write_text('{}')
+                with self.assertRaises(EvidenceError):A.audit_implementation(study,source,spec,Checks(),auditor=corrected)
+            with self.assertRaises(EvidenceError):A.audit_implementation(study,source,spec,Checks(),auditor=corrected)
+
     def test_literal_protocol_detects_changed_budgets_or_scoring(self):
         A.protocol_checks(C.protocol(),Checks())
         for key,value in [('substeps',128),('test_layouts',50),('seeds',[A.SEEDS[0]]),('noise',True),
@@ -261,6 +284,38 @@ class CoverageAudit(unittest.TestCase):
             changed=copy.deepcopy(packet);changed['rows'][0]['ball_flight_search_at_inference']=True
             with self.assertRaises(EvidenceError):A.audit_packet(changed,[dict(row,ball_flight_search_at_inference=True)],[context],record,dict(policy={}),Checks())
             with self.assertRaises(EvidenceError):A.audit_packet(packet,[row],[dict(context,bucket_xy_m=[.6,-.2])],record,dict(policy={}),Checks())
+
+    def test_inference_tolerance_uses_normalized_units_and_exact_recorded_transform(self):
+        context=dict(id='test-0',bucket_xy_m=[.5,-.2]);record=dict(sha256='a'*64,samples=0,seed=A.BC_SEED)
+        # Recorded validation example: the 0.298 microunit float32 forward-pass
+        # difference becomes 2.158 microdegrees after the literal 8-degree scale.
+        saved=np.asarray([-.5997753143310547,.3789214491844177,.2539147734642029,.3185509145259857,.1562941074371338])
+        independent=np.asarray([-.5997751355171204,.3789214789867401,.25391483306884766,.3185512125492096,.15629428625106812])
+        anchor=np.asarray([.4,-.2,.3,28.,.25]);residual=np.tanh(saved)
+        self.assertGreater(abs((np.tanh(independent)[3]-residual[3])*A.RESIDUAL[3]),2e-6)
+        prediction=dict(context_id=context['id'],bucket_xy_m=context['bucket_xy_m'],method='bc',samples=0,seed=A.BC_SEED,
+            artifact_sha256=record['sha256'],source_training_ids=[],observation=[0.]*9,latent_mean=saved.tolist(),
+            normalized_residual=residual.tolist(),command_values=(anchor+residual*A.RESIDUAL).tolist(),
+            effective_source_hint=dict(values=anchor.tolist()),ball_flight_search_at_inference=False,
+            geometry_search_at_inference=True,selection_or_learning=False)
+        packet=dict(role='test',method='bc',samples=0,seed=A.BC_SEED,artifact=record,rows=[prediction],
+                    selection_or_learning=False,one_prediction_per_layout=True)
+        def result(p):
+            value=p['rows'][0]
+            return dict(value,id=f'coverage-test-bc-seed{A.BC_SEED}-0000-test-0',role='test',phase='test',
+                        values=value['command_values'],frozen_artifact_sha256=record['sha256'])
+        with patch.object(A.common,'network_forward',return_value=independent):
+            A.audit_packet(packet,[result(packet)],[context],record,dict(policy={}),Checks())
+            # Even a sub-tolerance physical-command substitution fails the
+            # exact recorded transform, including in the metre-valued axes.
+            for axis in range(5):
+                changed=copy.deepcopy(packet);changed['rows'][0]['command_values'][axis]+=1e-7
+                with self.assertRaises(EvidenceError):A.audit_packet(changed,[result(changed)],[context],record,dict(policy={}),Checks())
+            changed=copy.deepcopy(packet);changed['rows'][0]['normalized_residual'][0]+=1e-7
+            with self.assertRaises(EvidenceError):A.audit_packet(changed,[result(changed)],[context],record,dict(policy={}),Checks())
+        too_far=independent.copy();too_far[3]+=3e-6
+        with patch.object(A.common,'network_forward',return_value=too_far):
+            with self.assertRaises(EvidenceError):A.audit_packet(packet,[result(packet)],[context],record,dict(policy={}),Checks())
 
     @unittest.skipUnless(importlib.util.find_spec('torch'),'Pinned CPU Torch needed for exact gradient replay')
     def test_seeded_bootstrap_replays_actual_gradient_updates(self):

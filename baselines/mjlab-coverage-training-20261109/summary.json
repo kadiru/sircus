@@ -1,0 +1,456 @@
+{
+  "version": "sircus-coverage-training7h-results-v1",
+  "verification_status": "passed",
+  "source_producer_commit": "1952dd5993f3d3dd0fdb52ea4eff2dbc72d36862",
+  "report_sha256": "1d9f91dce8aa264120eaefdb532b3dc9b4fc4122b27939de387d8d1e723b0c21",
+  "contract_fingerprint": "ea0e2cab154c6725b477dc84683f9c8eedee3f0dbfb1cd1ffa7ab166785c1eb7",
+  "scope": "Privileged-geometry held-endpoint shot selection at fixed64 with unchanged v3 scoring. Shared explicit19-recipe geometry bank:17 original plus2 audited Case00 development poses. Fresh TRAIN search fits imitation and critic; two PPO seeds start from the same fitted model. One frozen decision per untouched TEST layout and method, all setup declines counted. No learned grasp/transit, no perception/noise/128 qualification, no policy promotion.",
+  "worker_elapsed_s": 14107.932693067007,
+  "stage_counts": {
+    "controls_pre": {
+      "attempts": 9,
+      "captures": 6,
+      "native_releases": 9,
+      "invalid": 0,
+      "clean": 3,
+      "mean_reward": 2.830173258156842,
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "setup_rejections": 0,
+      "native_misses": 3,
+      "forbidden_contact_shots": 3,
+      "invalid_physics": 0
+    },
+    "search": {
+      "attempts": 1260,
+      "captures": 532,
+      "native_releases": 1032,
+      "invalid": 235,
+      "clean": 175,
+      "mean_reward": 1.6374731571025996,
+      "direct_captures": 528,
+      "table_assisted_captures": 4,
+      "setup_rejections": 228,
+      "native_misses": 500,
+      "forbidden_contact_shots": 274,
+      "invalid_physics": 7
+    },
+    "train": {
+      "attempts": 1024,
+      "captures": 584,
+      "native_releases": 808,
+      "invalid": 221,
+      "clean": 215,
+      "mean_reward": 2.2673721769856594,
+      "direct_captures": 558,
+      "table_assisted_captures": 26,
+      "setup_rejections": 216,
+      "native_misses": 224,
+      "forbidden_contact_shots": 92,
+      "invalid_physics": 5
+    },
+    "validation": {
+      "attempts": 175,
+      "captures": 112,
+      "native_releases": 134,
+      "invalid": 41,
+      "clean": 37,
+      "mean_reward": 2.541757633589918,
+      "direct_captures": 106,
+      "table_assisted_captures": 6,
+      "setup_rejections": 41,
+      "native_misses": 22,
+      "forbidden_contact_shots": 4,
+      "invalid_physics": 0
+    },
+    "test": {
+      "attempts": 280,
+      "captures": 115,
+      "native_releases": 183,
+      "invalid": 97,
+      "clean": 33,
+      "mean_reward": 1.453018602091613,
+      "direct_captures": 113,
+      "table_assisted_captures": 2,
+      "setup_rejections": 97,
+      "native_misses": 68,
+      "forbidden_contact_shots": 23,
+      "invalid_physics": 0
+    },
+    "controls_post": {
+      "attempts": 9,
+      "captures": 6,
+      "native_releases": 9,
+      "invalid": 0,
+      "clean": 3,
+      "mean_reward": 2.830200891923513,
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "setup_rejections": 0,
+      "native_misses": 3,
+      "forbidden_contact_shots": 3,
+      "invalid_physics": 0
+    }
+  },
+  "bootstrap_summary": {
+    "requests": 1260,
+    "captures": 532,
+    "native_releases": 1032,
+    "teacher_count": 68,
+    "successful_layouts": 68,
+    "layouts_requested": 105,
+    "source_scope": "Fresh TRAIN search outcomes only; no historical or held-out outcomes in new actor/critic fitting"
+  },
+  "per_seed": {
+    "2026110902": {
+      "samples": 512,
+      "updates": 16,
+      "artifacts": {
+        "256": {
+          "path": "checkpoints/seed2026110902-milestone-0256.pt",
+          "sha256": "1446408b48a439f38ea668e0e7721a2a93565551bdc146ab67568a9389bdd5ef",
+          "weight_sha256": "343871482a50847cc364c6d6ede23b2674c931f11c7099b20110e0195a90b1ea",
+          "samples": 256,
+          "seed": 2026110902
+        },
+        "512": {
+          "path": "checkpoints/seed2026110902-milestone-0512.pt",
+          "sha256": "aed551d8f42a48d42ec8f3c75e403b7a639bbcdd95124045b381ce569fe9c327",
+          "weight_sha256": "37c9d2134321bc4c100e4927e5ff97358bf3d6eae29a0c7dd98ebd8e16b6db6b",
+          "samples": 512,
+          "seed": 2026110902
+        }
+      }
+    },
+    "2026110903": {
+      "samples": 512,
+      "updates": 16,
+      "artifacts": {
+        "256": {
+          "path": "checkpoints/seed2026110903-milestone-0256.pt",
+          "sha256": "ff0c3d8932823956c7ea13b2a1b18529f511d04fd5db97befd22ef5e63502089",
+          "weight_sha256": "5b1576a35afe10a45d669de8a91b574ce7635e4f38d12b3ec5e5dd1a1887f8d9",
+          "samples": 256,
+          "seed": 2026110903
+        },
+        "512": {
+          "path": "checkpoints/seed2026110903-milestone-0512.pt",
+          "sha256": "dc522d40b8eb72d02f53bcd2b663e82487f9551eda259ad04a3634505d254756",
+          "weight_sha256": "979c7a9d4bc2067efbaca980862a5297024e8dacd448cea61ee673d8cf863893",
+          "samples": 512,
+          "seed": 2026110903
+        }
+      }
+    }
+  },
+  "validation": [
+    {
+      "method": "bc",
+      "seed": 2026110901,
+      "samples": 0,
+      "validation": {
+        "attempts": 35,
+        "captures": 22,
+        "native_releases": 28,
+        "invalid": 7,
+        "clean": 6,
+        "mean_reward": 2.5339472845074495,
+        "direct_captures": 22,
+        "table_assisted_captures": 0,
+        "setup_rejections": 7,
+        "native_misses": 6,
+        "forbidden_contact_shots": 1,
+        "invalid_physics": 0
+      },
+      "artifact": {
+        "path": "checkpoints/bc.pt",
+        "sha256": "bed50ea26a2aeddaf8d76335746d6bf3bf19dfdb952af1f965674f2346553443",
+        "weight_sha256": "c0ca78294e05de0d454c5b0817b978b7517361b7879ea216572893229b4d0af8",
+        "samples": 0,
+        "seed": 2026110901
+      }
+    },
+    {
+      "method": "ppo",
+      "seed": 2026110902,
+      "samples": 256,
+      "validation": {
+        "attempts": 35,
+        "captures": 22,
+        "native_releases": 27,
+        "invalid": 8,
+        "clean": 8,
+        "mean_reward": 2.5095261509758466,
+        "direct_captures": 20,
+        "table_assisted_captures": 2,
+        "setup_rejections": 8,
+        "native_misses": 5,
+        "forbidden_contact_shots": 1,
+        "invalid_physics": 0
+      },
+      "artifact": {
+        "path": "checkpoints/seed2026110902-milestone-0256.pt",
+        "sha256": "1446408b48a439f38ea668e0e7721a2a93565551bdc146ab67568a9389bdd5ef",
+        "weight_sha256": "343871482a50847cc364c6d6ede23b2674c931f11c7099b20110e0195a90b1ea",
+        "samples": 256,
+        "seed": 2026110902
+      }
+    },
+    {
+      "method": "ppo",
+      "seed": 2026110903,
+      "samples": 256,
+      "validation": {
+        "attempts": 35,
+        "captures": 24,
+        "native_releases": 27,
+        "invalid": 8,
+        "clean": 8,
+        "mean_reward": 2.7260631040922956,
+        "direct_captures": 23,
+        "table_assisted_captures": 1,
+        "setup_rejections": 8,
+        "native_misses": 3,
+        "forbidden_contact_shots": 1,
+        "invalid_physics": 0
+      },
+      "artifact": {
+        "path": "checkpoints/seed2026110903-milestone-0256.pt",
+        "sha256": "ff0c3d8932823956c7ea13b2a1b18529f511d04fd5db97befd22ef5e63502089",
+        "weight_sha256": "5b1576a35afe10a45d669de8a91b574ce7635e4f38d12b3ec5e5dd1a1887f8d9",
+        "samples": 256,
+        "seed": 2026110903
+      }
+    },
+    {
+      "method": "ppo",
+      "seed": 2026110902,
+      "samples": 512,
+      "validation": {
+        "attempts": 35,
+        "captures": 19,
+        "native_releases": 25,
+        "invalid": 10,
+        "clean": 8,
+        "mean_reward": 2.101955817114128,
+        "direct_captures": 18,
+        "table_assisted_captures": 1,
+        "setup_rejections": 10,
+        "native_misses": 6,
+        "forbidden_contact_shots": 1,
+        "invalid_physics": 0
+      },
+      "artifact": {
+        "path": "checkpoints/seed2026110902-milestone-0512.pt",
+        "sha256": "aed551d8f42a48d42ec8f3c75e403b7a639bbcdd95124045b381ce569fe9c327",
+        "weight_sha256": "37c9d2134321bc4c100e4927e5ff97358bf3d6eae29a0c7dd98ebd8e16b6db6b",
+        "samples": 512,
+        "seed": 2026110902
+      }
+    },
+    {
+      "method": "ppo",
+      "seed": 2026110903,
+      "samples": 512,
+      "validation": {
+        "attempts": 35,
+        "captures": 25,
+        "native_releases": 27,
+        "invalid": 8,
+        "clean": 7,
+        "mean_reward": 2.8372958112598696,
+        "direct_captures": 23,
+        "table_assisted_captures": 2,
+        "setup_rejections": 8,
+        "native_misses": 2,
+        "forbidden_contact_shots": 0,
+        "invalid_physics": 0
+      },
+      "artifact": {
+        "path": "checkpoints/seed2026110903-milestone-0512.pt",
+        "sha256": "dc522d40b8eb72d02f53bcd2b663e82487f9551eda259ad04a3634505d254756",
+        "weight_sha256": "979c7a9d4bc2067efbaca980862a5297024e8dacd448cea61ee673d8cf863893",
+        "samples": 512,
+        "seed": 2026110903
+      }
+    }
+  ],
+  "selected": {
+    "path": "checkpoints/seed2026110903-milestone-0512.pt",
+    "sha256": "dc522d40b8eb72d02f53bcd2b663e82487f9551eda259ad04a3634505d254756",
+    "weight_sha256": "979c7a9d4bc2067efbaca980862a5297024e8dacd448cea61ee673d8cf863893",
+    "samples": 512,
+    "seed": 2026110903
+  },
+  "test_comparison": [
+    {
+      "method": "current_bc",
+      "counts": {
+        "attempts": 70,
+        "captures": 28,
+        "native_releases": 44,
+        "invalid": 26,
+        "clean": 8,
+        "mean_reward": 1.379076256842039,
+        "direct_captures": 27,
+        "table_assisted_captures": 1,
+        "setup_rejections": 26,
+        "native_misses": 16,
+        "forbidden_contact_shots": 6,
+        "invalid_physics": 0
+      },
+      "samples": 0,
+      "seed": null,
+      "artifact_sha256": "320d055c3b4cb94ca260c549441068409512a43ef37639c72b8f6895c671f92e"
+    },
+    {
+      "method": "current_ppo",
+      "counts": {
+        "attempts": 70,
+        "captures": 31,
+        "native_releases": 43,
+        "invalid": 27,
+        "clean": 9,
+        "mean_reward": 1.5241796187880723,
+        "direct_captures": 30,
+        "table_assisted_captures": 1,
+        "setup_rejections": 27,
+        "native_misses": 12,
+        "forbidden_contact_shots": 6,
+        "invalid_physics": 0
+      },
+      "samples": 512,
+      "seed": null,
+      "artifact_sha256": "9d3a6f549af8247b84fe39c6d9a2b2785020198145ffb4c205e8644994b8826e"
+    },
+    {
+      "method": "bc",
+      "counts": {
+        "attempts": 70,
+        "captures": 28,
+        "native_releases": 48,
+        "invalid": 22,
+        "clean": 8,
+        "mean_reward": 1.456333200185943,
+        "direct_captures": 28,
+        "table_assisted_captures": 0,
+        "setup_rejections": 22,
+        "native_misses": 20,
+        "forbidden_contact_shots": 5,
+        "invalid_physics": 0
+      },
+      "samples": 0,
+      "seed": 2026110901,
+      "artifact_sha256": "bed50ea26a2aeddaf8d76335746d6bf3bf19dfdb952af1f965674f2346553443"
+    },
+    {
+      "method": "selected_ppo",
+      "counts": {
+        "attempts": 70,
+        "captures": 28,
+        "native_releases": 48,
+        "invalid": 22,
+        "clean": 8,
+        "mean_reward": 1.4524853325503981,
+        "direct_captures": 28,
+        "table_assisted_captures": 0,
+        "setup_rejections": 22,
+        "native_misses": 20,
+        "forbidden_contact_shots": 6,
+        "invalid_physics": 0
+      },
+      "samples": 512,
+      "seed": 2026110903,
+      "artifact_sha256": "dc522d40b8eb72d02f53bcd2b663e82487f9551eda259ad04a3634505d254756"
+    }
+  ],
+  "paired_selected_vs": {
+    "bc": {
+      "both_capture": 27,
+      "selected_only": 1,
+      "reference_only": 1,
+      "neither_capture": 41
+    },
+    "current_bc": {
+      "both_capture": 21,
+      "selected_only": 7,
+      "reference_only": 7,
+      "neither_capture": 35
+    },
+    "current_ppo": {
+      "both_capture": 23,
+      "selected_only": 5,
+      "reference_only": 8,
+      "neither_capture": 34
+    }
+  },
+  "controls": {
+    "pre": {
+      "status": "passed",
+      "counts": {
+        "attempts": 9,
+        "captures": 6,
+        "native_releases": 9,
+        "invalid": 0,
+        "clean": 3,
+        "mean_reward": 2.830173258156842,
+        "direct_captures": 3,
+        "table_assisted_captures": 3,
+        "setup_rejections": 0,
+        "native_misses": 3,
+        "forbidden_contact_shots": 3,
+        "invalid_physics": 0
+      },
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    },
+    "post": {
+      "status": "passed",
+      "counts": {
+        "attempts": 9,
+        "captures": 6,
+        "native_releases": 9,
+        "invalid": 0,
+        "clean": 3,
+        "mean_reward": 2.830200891923513,
+        "direct_captures": 3,
+        "table_assisted_captures": 3,
+        "setup_rejections": 0,
+        "native_misses": 3,
+        "forbidden_contact_shots": 3,
+        "invalid_physics": 0
+      },
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    }
+  },
+  "budget_reasons": [],
+  "limits": [
+    "One deterministic prediction and nominal trial per TEST layout and method, no per-scene outcome search.",
+    "Both new policies trained on 68 captured teachers across 105 TRAIN layouts; sampled coverage is not all-table feasibility.",
+    "Same expanded19 geometry prior for all methods; previous model weights unchanged but historical scores are not reproduced.",
+    "Fixed64 simulation only; no perception, noise, timestep convergence, learned grasp/transit or physical validation."
+  ],
+  "audit": {
+    "version": "sircus-coverage-training7h-audit-v2",
+    "revision": "normalized-command-units-v1",
+    "checks_count": 857507,
+    "full_checks_verified": true,
+    "native_checks_verified": true,
+    "proof_sha256": "ac54eeede0a1670e802dac028ef6b0a7a9d6b34f4561e558cc53698a8ec5594a",
+    "auditor_sha256": "80e63a5c8ecc83afefd0882594a1c82d77ebae0de4d76c82ef217fc6474c5177",
+    "original_auditor_sha256": "bc3e52d45d945b3c6b0e6f879c2ffd8e7676a3e44f349843d91419ea48b82b13",
+    "original_failed_audit_sha256": "08b9e2b029862524cdcbe28ccb2932a0376269b0588f2cf1643ee78828eacb35",
+    "corrected_audit_elapsed_s": 189.78276904200902,
+    "original_failure": "Mixed-unit physical-command tolerance disagreed with accepted normalized float32 policy output.",
+    "correction": "Independent normalized actor tolerance unchanged at2e-6; recorded tanh/command algebra checked at1e-12. No policy, data, physics or scoring changes.",
+    "prediction_packets": 455,
+    "max_independent_latent_difference": 6.556510925292969e-07,
+    "max_independent_normalized_residual_difference": 5.33839e-07,
+    "max_tilt_difference_degrees": 2.38374e-06,
+    "max_position_gap_difference_m": 4.290889e-08,
+    "max_recorded_transform_error": 0
+  }
+}
