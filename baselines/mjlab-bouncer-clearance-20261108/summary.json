@@ -1,0 +1,3493 @@
+{
+  "version": "sircus-bouncer-clearance-study-v1",
+  "status": "completed",
+  "phase": "completed",
+  "contract_fingerprint": "51d508b341bba79e002c0a953e74d81317e3b4873533f71e2548626bc9475b21",
+  "cpu_elapsed_s": 34.496225479000714,
+  "native_elapsed_s": 208.2735574170365,
+  "native_requested": 39,
+  "requested_configurations": 105,
+  "training": false,
+  "noise": false,
+  "posthoc_development": true,
+  "admission_matrix_sha256": "6c09766a5d890cf10e2ebf41eb3f8fd0c9196c497967b86fb0d5a7c0ac0bf142",
+  "parent_bindings": {
+    "report_sha256": "a93d348dd055fde3ec1e9dc660c278fdc3e5f38742bce93abd71da03f0d066c7",
+    "audit_sha256": "38f0553a0cf8ca3948f8b9624d55e05ce07b2d9c1c0b9934c22d7e0f8e8bbe00",
+    "manifest_sha256": "4792ea3d9aa4f8409a919b6984eab1bb1f8eb872328272b74eab1b912599297e",
+    "rows_sha256": "2103e92a2ffc611e30e85c89fc85eb23ef05b89ad0a47cfa8c1a57cd4b6293e0",
+    "contract_sha256": "bcbdd965f6edea89c704e9b10b079bc9040b6864d5c0b96bb976c03ebaa8db6f",
+    "contract_fingerprint": "4e348fd03faf9b54083e11ef1e9bf594c8c90b5bd3b2707f20f0606a6b26016a"
+  },
+  "grid_protocol": {
+    "contexts": [
+      "table-training-test-00",
+      "table-training-test-18",
+      "table-training-test-26"
+    ],
+    "xy_offsets_m": [
+      -0.12,
+      -0.06,
+      0.0,
+      0.06,
+      0.12
+    ],
+    "fixed_parameters": [
+      "bucket_xy_m",
+      "board_height_m",
+      "tilt_deg",
+      "drop_gap_m"
+    ],
+    "changed_parameters": [
+      "board_x_m",
+      "board_y_m"
+    ],
+    "candidates_per_case": 25,
+    "total_candidates": 75,
+    "substeps": 64,
+    "nominal_repeats": 3,
+    "selection_order": [
+      "capture_desc",
+      "route_quality_desc",
+      "v3_reward_desc",
+      "grid_index_asc"
+    ],
+    "selection_requires_capture": false,
+    "selection_requires_zero_robot_contact_before_scoring_terminal": true,
+    "selection_requires_board_bounce": true,
+    "source_record_ids": [
+      "height-tilt-table-training-test-00-g23",
+      "height-tilt-table-training-test-18-g23",
+      "height-tilt-table-training-test-26-g27"
+    ],
+    "heading": "unchanged bucket-facing orientation convention",
+    "alternative_same_pose_joint_branches": false
+  },
+  "budget": {
+    "maximum_requested": 111,
+    "candidate_proposals": 75,
+    "original_requests": 9,
+    "control_requests": 18,
+    "maximum_selected_repeat_requests": 9,
+    "cpu_admission_limit_s": 3600,
+    "native_acquired_limit_s": 3600
+  },
+  "admission_summary": {
+    "proposals": 75,
+    "completed": 75,
+    "admitted": 9,
+    "declined": 66,
+    "unattempted": 0
+  },
+  "discovery_summary": {
+    "proposals": 75,
+    "admitted": 9,
+    "attempts": 9,
+    "native_releases": 9,
+    "captures": 0,
+    "setup_rejections": 0,
+    "native_misses": 9,
+    "robot_contact_shots": 7,
+    "forbidden_contact_shots": 7,
+    "invalid_physics": 0,
+    "direct_captures": 0,
+    "table_assisted_captures": 0
+  },
+  "counts": {
+    "attempts": 39,
+    "native_releases": 39,
+    "captures": 12,
+    "setup_rejections": 0,
+    "native_misses": 27,
+    "robot_contact_shots": 22,
+    "forbidden_contact_shots": 22,
+    "invalid_physics": 0,
+    "direct_captures": 6,
+    "table_assisted_captures": 6
+  },
+  "cases": [
+    {
+      "context_id": "table-training-test-00",
+      "source_record_id": "height-tilt-table-training-test-00-g23",
+      "source_record_sha256": "9d59e5b17a2cfba7484d39696cf41e4df08636d9a8c2b78a26111bf6f051eb8a",
+      "bucket_xy_m": [
+        1.1095395651982425,
+        -0.22146373203137287
+      ],
+      "baseline_values": [
+        0.5979922029820652,
+        -0.14355725745408743,
+        0.46,
+        28.0,
+        0.25181883224993984
+      ],
+      "grid": [
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-00-g00",
+          "grid_index": 0,
+          "case_grid_index": 0,
+          "values": [
+            0.47799220298206524,
+            -0.2635572574540874,
+            0.46,
+            28.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              11,
+              0
+            ],
+            "connection_sha256": "a3f0f74eddee988b6df99dc071411e9f044048cc44bc2d65c65d6f2022d6b0e3",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-00-g01",
+          "grid_index": 1,
+          "case_grid_index": 1,
+          "values": [
+            0.47799220298206524,
+            -0.20355725745408743,
+            0.46,
+            28.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              8,
+              0
+            ],
+            "connection_sha256": "df96337c80e28fac4eb825f197dfe23f3459a7a53f8869213ca56ee67ed77d94",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-00-g02",
+          "grid_index": 2,
+          "case_grid_index": 2,
+          "values": [
+            0.47799220298206524,
+            -0.14355725745408743,
+            0.46,
+            28.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              7,
+              0
+            ],
+            "connection_sha256": "366448661152924f417200f56835b94717173d06c6115392989b767de5828bf7",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-00-g03",
+          "grid_index": 3,
+          "case_grid_index": 3,
+          "values": [
+            0.47799220298206524,
+            -0.08355725745408743,
+            0.46,
+            28.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              8,
+              0
+            ],
+            "connection_sha256": "c2e08bdad6f9ccce4c1cae015b97cd0bf445c09759fe4fbb84029d6f4c8ffd98",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-00-g04",
+          "grid_index": 4,
+          "case_grid_index": 4,
+          "values": [
+            0.47799220298206524,
+            -0.023557257454087432,
+            0.46,
+            28.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              8,
+              0
+            ],
+            "connection_sha256": "7fcc439168d1be8869de8995f8d9a9c4d298707d5746144ce5e75afa3fdfe4f4",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-00-g05",
+          "grid_index": 5,
+          "case_grid_index": 5,
+          "values": [
+            0.5379922029820652,
+            -0.2635572574540874,
+            0.46,
+            28.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              5,
+              0
+            ],
+            "connection_sha256": "440c4483fc87173562645d4852df3d03dcc28cd6e2d85f99d7356d0f017ff2ea",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-00-g06",
+          "grid_index": 6,
+          "case_grid_index": 6,
+          "values": [
+            0.5379922029820652,
+            -0.20355725745408743,
+            0.46,
+            28.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              8,
+              0
+            ],
+            "connection_sha256": "d35cbcd5114c4e33661429aa192d91f9c79f9df9b2364ddbd01848b4a8a6f789",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-00-g07",
+          "grid_index": 7,
+          "case_grid_index": 7,
+          "values": [
+            0.5379922029820652,
+            -0.14355725745408743,
+            0.46,
+            28.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              8,
+              0
+            ],
+            "connection_sha256": "cabeaf2187674c814b2218faf3b063b4c741779e57dc8db781c31823b1a31497",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-00-g08",
+          "grid_index": 8,
+          "case_grid_index": 8,
+          "values": [
+            0.5379922029820652,
+            -0.08355725745408743,
+            0.46,
+            28.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              7,
+              0
+            ],
+            "connection_sha256": "ae8b8cf8dd3d527563183404f66507840e5e94ecc84e6ac62c4371266baafd27",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-00-g09",
+          "grid_index": 9,
+          "case_grid_index": 9,
+          "values": [
+            0.5379922029820652,
+            -0.023557257454087432,
+            0.46,
+            28.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              4,
+              0
+            ],
+            "connection_sha256": "0bae165f8325c51805dfa5583c091bacddfe4b31d499cdfb5176b005e4646388",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-00-g10",
+          "grid_index": 10,
+          "case_grid_index": 10,
+          "values": [
+            0.5979922029820652,
+            -0.2635572574540874,
+            0.46,
+            28.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              0
+            ],
+            "connection_sha256": "64a9e6171f43cb655884bcb2511a3838ee2f1ed8097b54b942dba0c1dbb3da23",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-00-g11",
+          "grid_index": 11,
+          "case_grid_index": 11,
+          "values": [
+            0.5979922029820652,
+            -0.20355725745408743,
+            0.46,
+            28.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              0
+            ],
+            "connection_sha256": "9fbadf58f2ff44166e091e2cf2d71b4debe8aef4a72e40c1061dfb10fec02af8",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-00-g12",
+          "grid_index": 12,
+          "case_grid_index": 12,
+          "values": [
+            0.5979922029820652,
+            -0.14355725745408743,
+            0.46,
+            28.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              9,
+              8
+            ],
+            "connection_sha256": "0eedbe698cf7c3d6505b9558435b72ed1def372270d4f61e3fc1745d00210c85",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "bouncer-clearance-table-training-test-00-g12",
+            "record_sha256": "a67894b0d2b13f1bb0923ece4205e41d215afa7035a4b627d071e13ba74294fd",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 27,
+            "forbidden_contact_steps": 27,
+            "reward": -0.1935235531317035
+          }
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-00-g13",
+          "grid_index": 13,
+          "case_grid_index": 13,
+          "values": [
+            0.5979922029820652,
+            -0.08355725745408743,
+            0.46,
+            28.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              8,
+              6
+            ],
+            "connection_sha256": "10fe79a7a8f878e5546c2ea16708224d7c770ec4db1a077c268bad89fc7ac455",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "bouncer-clearance-table-training-test-00-g13",
+            "record_sha256": "5adeca27f6b650ca0ebe8cda0911284405f2f1a62e3e8faf61936ed2ba49a858",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 0,
+            "forbidden_contact_steps": 0,
+            "reward": 0.3381581913318642
+          }
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-00-g14",
+          "grid_index": 14,
+          "case_grid_index": 14,
+          "values": [
+            0.5979922029820652,
+            -0.023557257454087432,
+            0.46,
+            28.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": true,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              10,
+              6
+            ],
+            "connection_sha256": "560635aced119f2f570ae05ca37d52c7605b87fd555e01679650daa4b013a565",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": {
+            "record_id": "bouncer-clearance-table-training-test-00-g14",
+            "record_sha256": "8f8cd373be624759fca4ac05c3093cef49903d80a28e3d5662007b155d1e0747",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 0,
+            "forbidden_contact_steps": 0,
+            "reward": 0.36035871667701325
+          }
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-00-g15",
+          "grid_index": 15,
+          "case_grid_index": 15,
+          "values": [
+            0.6579922029820653,
+            -0.2635572574540874,
+            0.46,
+            28.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              7
+            ],
+            "connection_sha256": "4846dd9efe3888042208bdec52b2c63efdfae406f8f6330692d770500f59d51c",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-00-g16",
+          "grid_index": 16,
+          "case_grid_index": 16,
+          "values": [
+            0.6579922029820653,
+            -0.20355725745408743,
+            0.46,
+            28.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              10
+            ],
+            "connection_sha256": "42dcddc407bc04085182652fc422df683c310ca7b9c8a848b7a3006a273c4d39",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-00-g17",
+          "grid_index": 17,
+          "case_grid_index": 17,
+          "values": [
+            0.6579922029820653,
+            -0.14355725745408743,
+            0.46,
+            28.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              10
+            ],
+            "connection_sha256": "46afff5c6d813589d1cc89addc9dd67fc28a78dbcb246bfb2a00a15e4b5311ac",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-00-g18",
+          "grid_index": 18,
+          "case_grid_index": 18,
+          "values": [
+            0.6579922029820653,
+            -0.08355725745408743,
+            0.46,
+            28.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              14
+            ],
+            "connection_sha256": "97be3a0e06c226dc74e26b70e34e6a0aab3df240bf5e3327937f1ab0dfffdbdd",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-00-g19",
+          "grid_index": 19,
+          "case_grid_index": 19,
+          "values": [
+            0.6579922029820653,
+            -0.023557257454087432,
+            0.46,
+            28.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              6
+            ],
+            "connection_sha256": "7a861796c257de9f0a9acfcfa0cd0a76dec1a0d8eb5e7aaca7bd61c7ea64665e",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-00-g20",
+          "grid_index": 20,
+          "case_grid_index": 20,
+          "values": [
+            0.7179922029820652,
+            -0.2635572574540874,
+            0.46,
+            28.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              3
+            ],
+            "connection_sha256": "abf22c6867ae83eeb2faf9fbb419bb342bdfbe3af6b27f090d4f235d816c55d6",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-00-g21",
+          "grid_index": 21,
+          "case_grid_index": 21,
+          "values": [
+            0.7179922029820652,
+            -0.20355725745408743,
+            0.46,
+            28.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              5
+            ],
+            "connection_sha256": "71a9acb58ba839ab6fd4063c93258092cf251233ae57ded0a9512bd0ac9f21f8",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-00-g22",
+          "grid_index": 22,
+          "case_grid_index": 22,
+          "values": [
+            0.7179922029820652,
+            -0.14355725745408743,
+            0.46,
+            28.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              4
+            ],
+            "connection_sha256": "ec3c015c13c64be35136f6ba42f7750bc990c9b6c0c9c733a201940a978ecc25",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-00-g23",
+          "grid_index": 23,
+          "case_grid_index": 23,
+          "values": [
+            0.7179922029820652,
+            -0.08355725745408743,
+            0.46,
+            28.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              1
+            ],
+            "connection_sha256": "368ef75ebce7af09b1355d4c97bac898ead9bc5f31dd509995148a3bf6baf8c5",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-00-g24",
+          "grid_index": 24,
+          "case_grid_index": 24,
+          "values": [
+            0.7179922029820652,
+            -0.023557257454087432,
+            0.46,
+            28.0,
+            0.25181883224993984
+          ],
+          "bucket_xy_m": [
+            1.1095395651982425,
+            -0.22146373203137287
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              0
+            ],
+            "connection_sha256": "d2109503371c40fe1513a2927bc035366542db442dc8121aabd3ab86dbbfbe9e",
+            "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+          },
+          "discovery": null
+        }
+      ],
+      "selection": {
+        "candidate_id": "bouncer-clearance-table-training-test-00-g14",
+        "grid_index": 14,
+        "case_grid_index": 14,
+        "values": [
+          0.5979922029820652,
+          -0.023557257454087432,
+          0.46,
+          28.0,
+          0.25181883224993984
+        ],
+        "row_sha256": "8f8cd373be624759fca4ac05c3093cef49903d80a28e3d5662007b155d1e0747",
+        "connection_sha256": "560635aced119f2f570ae05ca37d52c7605b87fd555e01679650daa4b013a565",
+        "route_quality": 0,
+        "learning_reward": 0.36035871667701325,
+        "capture": false,
+        "diagnostic_robot_contact_steps": 0
+      },
+      "repeats": {
+        "baseline": {
+          "attempts": 3,
+          "native_releases": 3,
+          "captures": 0,
+          "setup_rejections": 0,
+          "native_misses": 3,
+          "robot_contact_shots": 3,
+          "forbidden_contact_shots": 3,
+          "invalid_physics": 0,
+          "direct_captures": 0,
+          "table_assisted_captures": 0
+        },
+        "selected": {
+          "attempts": 3,
+          "native_releases": 3,
+          "captures": 0,
+          "setup_rejections": 0,
+          "native_misses": 3,
+          "robot_contact_shots": 0,
+          "forbidden_contact_shots": 0,
+          "invalid_physics": 0,
+          "direct_captures": 0,
+          "table_assisted_captures": 0
+        }
+      }
+    },
+    {
+      "context_id": "table-training-test-18",
+      "source_record_id": "height-tilt-table-training-test-18-g23",
+      "source_record_sha256": "fdd0a766ccbca46001e3c8c84e654cd872cd34d02d2f06d13eb6da8121f47277",
+      "bucket_xy_m": [
+        1.1017174430367884,
+        0.18144998858420858
+      ],
+      "baseline_values": [
+        0.5935771676513939,
+        -0.12502900630424774,
+        0.46,
+        28.0,
+        0.24020015485303045
+      ],
+      "grid": [
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-18-g00",
+          "grid_index": 25,
+          "case_grid_index": 0,
+          "values": [
+            0.4735771676513939,
+            -0.24502900630424773,
+            0.46,
+            28.0,
+            0.24020015485303045
+          ],
+          "bucket_xy_m": [
+            1.1017174430367884,
+            0.18144998858420858
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              8,
+              0
+            ],
+            "connection_sha256": "bdf84f1f6c1f791bb1e70dddd1bfb234de603654241cc58372f0946ba9113919",
+            "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-18-g01",
+          "grid_index": 26,
+          "case_grid_index": 1,
+          "values": [
+            0.4735771676513939,
+            -0.18502900630424773,
+            0.46,
+            28.0,
+            0.24020015485303045
+          ],
+          "bucket_xy_m": [
+            1.1017174430367884,
+            0.18144998858420858
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              6,
+              0
+            ],
+            "connection_sha256": "c79fc5bff229ff215b26f95882f15b034024c051dc99338db5948f41286cb7fa",
+            "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-18-g02",
+          "grid_index": 27,
+          "case_grid_index": 2,
+          "values": [
+            0.4735771676513939,
+            -0.12502900630424774,
+            0.46,
+            28.0,
+            0.24020015485303045
+          ],
+          "bucket_xy_m": [
+            1.1017174430367884,
+            0.18144998858420858
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              5,
+              0
+            ],
+            "connection_sha256": "a35b71667efc61514ccd22cdc060ec4d709b9b2b204d0093ea1234ed4244d4b8",
+            "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-18-g03",
+          "grid_index": 28,
+          "case_grid_index": 3,
+          "values": [
+            0.4735771676513939,
+            -0.06502900630424774,
+            0.46,
+            28.0,
+            0.24020015485303045
+          ],
+          "bucket_xy_m": [
+            1.1017174430367884,
+            0.18144998858420858
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              7,
+              0
+            ],
+            "connection_sha256": "7a729169b906871cb5a0eb583059c0bbd799132e6ec9cfc763d27335d50bbd78",
+            "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-18-g04",
+          "grid_index": 29,
+          "case_grid_index": 4,
+          "values": [
+            0.4735771676513939,
+            -0.005029006304247741,
+            0.46,
+            28.0,
+            0.24020015485303045
+          ],
+          "bucket_xy_m": [
+            1.1017174430367884,
+            0.18144998858420858
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              5,
+              0
+            ],
+            "connection_sha256": "7042700251b5ce03386ad9d6666a01dd4075c2ce436d0342f9129114b853ae9b",
+            "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-18-g05",
+          "grid_index": 30,
+          "case_grid_index": 5,
+          "values": [
+            0.5335771676513938,
+            -0.24502900630424773,
+            0.46,
+            28.0,
+            0.24020015485303045
+          ],
+          "bucket_xy_m": [
+            1.1017174430367884,
+            0.18144998858420858
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              9,
+              0
+            ],
+            "connection_sha256": "08bc0f07baba54ef106e0be217812ac145ce1b8ac37c8d48f2552289f41d4d54",
+            "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-18-g06",
+          "grid_index": 31,
+          "case_grid_index": 6,
+          "values": [
+            0.5335771676513938,
+            -0.18502900630424773,
+            0.46,
+            28.0,
+            0.24020015485303045
+          ],
+          "bucket_xy_m": [
+            1.1017174430367884,
+            0.18144998858420858
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              5,
+              0
+            ],
+            "connection_sha256": "e2169ca0639fea0554bf1eea109eacaea1b73e445207a35da90180a771da7d7f",
+            "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-18-g07",
+          "grid_index": 32,
+          "case_grid_index": 7,
+          "values": [
+            0.5335771676513938,
+            -0.12502900630424774,
+            0.46,
+            28.0,
+            0.24020015485303045
+          ],
+          "bucket_xy_m": [
+            1.1017174430367884,
+            0.18144998858420858
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              9,
+              0
+            ],
+            "connection_sha256": "e5bb5e68536a1b80f3f01d5b97185c64d929a3daf024378d03b88b7e1d84ce6c",
+            "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-18-g08",
+          "grid_index": 33,
+          "case_grid_index": 8,
+          "values": [
+            0.5335771676513938,
+            -0.06502900630424774,
+            0.46,
+            28.0,
+            0.24020015485303045
+          ],
+          "bucket_xy_m": [
+            1.1017174430367884,
+            0.18144998858420858
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              11,
+              0
+            ],
+            "connection_sha256": "a712502f1895c9916619be9579dedf8a425c979981fd35eadcbb563501ce52cd",
+            "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-18-g09",
+          "grid_index": 34,
+          "case_grid_index": 9,
+          "values": [
+            0.5335771676513938,
+            -0.005029006304247741,
+            0.46,
+            28.0,
+            0.24020015485303045
+          ],
+          "bucket_xy_m": [
+            1.1017174430367884,
+            0.18144998858420858
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              7,
+              0
+            ],
+            "connection_sha256": "97f8ec6f51a510cb0ce357a55639c20392c95ac2d778cc405ff19b725030e259",
+            "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-18-g10",
+          "grid_index": 35,
+          "case_grid_index": 10,
+          "values": [
+            0.5935771676513939,
+            -0.24502900630424773,
+            0.46,
+            28.0,
+            0.24020015485303045
+          ],
+          "bucket_xy_m": [
+            1.1017174430367884,
+            0.18144998858420858
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              0
+            ],
+            "connection_sha256": "d2ec7c8361f267c367fcd3df91fa1cce92693509c30099678c4066089f6b5cdb",
+            "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-18-g11",
+          "grid_index": 36,
+          "case_grid_index": 11,
+          "values": [
+            0.5935771676513939,
+            -0.18502900630424773,
+            0.46,
+            28.0,
+            0.24020015485303045
+          ],
+          "bucket_xy_m": [
+            1.1017174430367884,
+            0.18144998858420858
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              5,
+              0
+            ],
+            "connection_sha256": "61462cbdd30936417e005f9ab60135ef166a671e6d298fdec7267330294b1350",
+            "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-18-g12",
+          "grid_index": 37,
+          "case_grid_index": 12,
+          "values": [
+            0.5935771676513939,
+            -0.12502900630424774,
+            0.46,
+            28.0,
+            0.24020015485303045
+          ],
+          "bucket_xy_m": [
+            1.1017174430367884,
+            0.18144998858420858
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              9,
+              7
+            ],
+            "connection_sha256": "6076f2f2e89562400b02458b7998435e443ba6f16a79ca6f21778a97bfb75341",
+            "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+          },
+          "discovery": {
+            "record_id": "bouncer-clearance-table-training-test-18-g12",
+            "record_sha256": "a00896923f25c23577f9258bc49a7cd07eb475b9a53a45dbd4d56c571ed9a736",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 26,
+            "forbidden_contact_steps": 26,
+            "reward": -0.28830785778615975
+          }
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-18-g13",
+          "grid_index": 38,
+          "case_grid_index": 13,
+          "values": [
+            0.5935771676513939,
+            -0.06502900630424774,
+            0.46,
+            28.0,
+            0.24020015485303045
+          ],
+          "bucket_xy_m": [
+            1.1017174430367884,
+            0.18144998858420858
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              7,
+              7
+            ],
+            "connection_sha256": "ec0fc77185ee3cfe81d125e3663044e6a7bed7a80ec0aa4315994cd94324335f",
+            "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+          },
+          "discovery": {
+            "record_id": "bouncer-clearance-table-training-test-18-g13",
+            "record_sha256": "755e26f776d2c04cc9af4431839c72f0c1422d79af70260bd89648ca2d408b30",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 27,
+            "forbidden_contact_steps": 27,
+            "reward": -0.30756770445822096
+          }
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-18-g14",
+          "grid_index": 39,
+          "case_grid_index": 14,
+          "values": [
+            0.5935771676513939,
+            -0.005029006304247741,
+            0.46,
+            28.0,
+            0.24020015485303045
+          ],
+          "bucket_xy_m": [
+            1.1017174430367884,
+            0.18144998858420858
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              8,
+              6
+            ],
+            "connection_sha256": "418b55dfe22ea5194ceb1e0e6114ed0984f4e55e995dccb10feac35ed84f1eea",
+            "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+          },
+          "discovery": {
+            "record_id": "bouncer-clearance-table-training-test-18-g14",
+            "record_sha256": "8c3a76e3bd960579ad896522762b81699d7150193003044427ac9aa34238c4e8",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 27,
+            "forbidden_contact_steps": 27,
+            "reward": -0.32277200594838446
+          }
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-18-g15",
+          "grid_index": 40,
+          "case_grid_index": 15,
+          "values": [
+            0.653577167651394,
+            -0.24502900630424773,
+            0.46,
+            28.0,
+            0.24020015485303045
+          ],
+          "bucket_xy_m": [
+            1.1017174430367884,
+            0.18144998858420858
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              4
+            ],
+            "connection_sha256": "ce9f067f8b86fc777dc861e9e1d062ca8cb5e500adad3b29159a845561584929",
+            "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-18-g16",
+          "grid_index": 41,
+          "case_grid_index": 16,
+          "values": [
+            0.653577167651394,
+            -0.18502900630424773,
+            0.46,
+            28.0,
+            0.24020015485303045
+          ],
+          "bucket_xy_m": [
+            1.1017174430367884,
+            0.18144998858420858
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              14
+            ],
+            "connection_sha256": "7804a6615f2fd6ca0d6315efe88af359dffbe9af77d45769a6b5225b6b0037eb",
+            "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-18-g17",
+          "grid_index": 42,
+          "case_grid_index": 17,
+          "values": [
+            0.653577167651394,
+            -0.12502900630424774,
+            0.46,
+            28.0,
+            0.24020015485303045
+          ],
+          "bucket_xy_m": [
+            1.1017174430367884,
+            0.18144998858420858
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              11
+            ],
+            "connection_sha256": "076ee37dbed8db103b7e849fe931eded8ba33759e3a3c917b4088cfb5bdcd260",
+            "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-18-g18",
+          "grid_index": 43,
+          "case_grid_index": 18,
+          "values": [
+            0.653577167651394,
+            -0.06502900630424774,
+            0.46,
+            28.0,
+            0.24020015485303045
+          ],
+          "bucket_xy_m": [
+            1.1017174430367884,
+            0.18144998858420858
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              8
+            ],
+            "connection_sha256": "deb559afffcc124c9f82fbc95765f3440c551c32d29cc8b89ee5c9e4ba5d65c8",
+            "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-18-g19",
+          "grid_index": 44,
+          "case_grid_index": 19,
+          "values": [
+            0.653577167651394,
+            -0.005029006304247741,
+            0.46,
+            28.0,
+            0.24020015485303045
+          ],
+          "bucket_xy_m": [
+            1.1017174430367884,
+            0.18144998858420858
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              10
+            ],
+            "connection_sha256": "d3099dacd696959611f08ed758e0e8ae12c86762b89277f959fa2dfc46f0a614",
+            "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-18-g20",
+          "grid_index": 45,
+          "case_grid_index": 20,
+          "values": [
+            0.7135771676513939,
+            -0.24502900630424773,
+            0.46,
+            28.0,
+            0.24020015485303045
+          ],
+          "bucket_xy_m": [
+            1.1017174430367884,
+            0.18144998858420858
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              3
+            ],
+            "connection_sha256": "08b03c2440ad062569fb315537114641d9bdedac21a821405951d69321d6c8bb",
+            "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-18-g21",
+          "grid_index": 46,
+          "case_grid_index": 21,
+          "values": [
+            0.7135771676513939,
+            -0.18502900630424773,
+            0.46,
+            28.0,
+            0.24020015485303045
+          ],
+          "bucket_xy_m": [
+            1.1017174430367884,
+            0.18144998858420858
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              6
+            ],
+            "connection_sha256": "751938c6de766b7a253b92c2594835be78f5c0c338116663622cb9337d2cb1a1",
+            "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-18-g22",
+          "grid_index": 47,
+          "case_grid_index": 22,
+          "values": [
+            0.7135771676513939,
+            -0.12502900630424774,
+            0.46,
+            28.0,
+            0.24020015485303045
+          ],
+          "bucket_xy_m": [
+            1.1017174430367884,
+            0.18144998858420858
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              3
+            ],
+            "connection_sha256": "1fa6d82abe1c6b34849f1709a021ded1cef82084dc4cacac8756a86cf225a163",
+            "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-18-g23",
+          "grid_index": 48,
+          "case_grid_index": 23,
+          "values": [
+            0.7135771676513939,
+            -0.06502900630424774,
+            0.46,
+            28.0,
+            0.24020015485303045
+          ],
+          "bucket_xy_m": [
+            1.1017174430367884,
+            0.18144998858420858
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              2
+            ],
+            "connection_sha256": "446f3570bba5d2e2c205284bf134bf5d9620abb8777f22d398a9c5aa4a472187",
+            "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-18-g24",
+          "grid_index": 49,
+          "case_grid_index": 24,
+          "values": [
+            0.7135771676513939,
+            -0.005029006304247741,
+            0.46,
+            28.0,
+            0.24020015485303045
+          ],
+          "bucket_xy_m": [
+            1.1017174430367884,
+            0.18144998858420858
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              5
+            ],
+            "connection_sha256": "d1150054c6c742c671aeffc9dc78925325f85036510b7cbb6b864c35ffabeae2",
+            "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+          },
+          "discovery": null
+        }
+      ],
+      "selection": null,
+      "repeats": {
+        "baseline": {
+          "attempts": 3,
+          "native_releases": 3,
+          "captures": 0,
+          "setup_rejections": 0,
+          "native_misses": 3,
+          "robot_contact_shots": 3,
+          "forbidden_contact_shots": 3,
+          "invalid_physics": 0,
+          "direct_captures": 0,
+          "table_assisted_captures": 0
+        },
+        "selected": {
+          "attempts": 0,
+          "native_releases": 0,
+          "captures": 0,
+          "setup_rejections": 0,
+          "native_misses": 0,
+          "robot_contact_shots": 0,
+          "forbidden_contact_shots": 0,
+          "invalid_physics": 0,
+          "direct_captures": 0,
+          "table_assisted_captures": 0
+        }
+      }
+    },
+    {
+      "context_id": "table-training-test-26",
+      "source_record_id": "height-tilt-table-training-test-26-g27",
+      "source_record_sha256": "dfb4abf9b4b4b12c1d3991d63c2a213e782fe30260eb43be82a365c816d19160",
+      "bucket_xy_m": [
+        1.1882909668094044,
+        0.16886367629024868
+      ],
+      "baseline_values": [
+        0.5902669906634894,
+        -0.12563148157535847,
+        0.48,
+        24.0,
+        0.24283309653050505
+      ],
+      "grid": [
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-26-g00",
+          "grid_index": 50,
+          "case_grid_index": 0,
+          "values": [
+            0.4702669906634894,
+            -0.24563148157535847,
+            0.48,
+            24.0,
+            0.24283309653050505
+          ],
+          "bucket_xy_m": [
+            1.1882909668094044,
+            0.16886367629024868
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              10,
+              0
+            ],
+            "connection_sha256": "fe1bc8f88fee37f4987046f82874f21c2874b33dd7ce78773088dc2c2c91e75b",
+            "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-26-g01",
+          "grid_index": 51,
+          "case_grid_index": 1,
+          "values": [
+            0.4702669906634894,
+            -0.18563148157535847,
+            0.48,
+            24.0,
+            0.24283309653050505
+          ],
+          "bucket_xy_m": [
+            1.1882909668094044,
+            0.16886367629024868
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              7,
+              0
+            ],
+            "connection_sha256": "0d1bcb268e122fbafc117b0bc4c2894630095a1655d3b9253e76c7631140d2d3",
+            "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-26-g02",
+          "grid_index": 52,
+          "case_grid_index": 2,
+          "values": [
+            0.4702669906634894,
+            -0.12563148157535847,
+            0.48,
+            24.0,
+            0.24283309653050505
+          ],
+          "bucket_xy_m": [
+            1.1882909668094044,
+            0.16886367629024868
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              7,
+              0
+            ],
+            "connection_sha256": "5161d400919d594ea7f9145657b824f86bb101b09d08b721f1443078a8cc2608",
+            "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-26-g03",
+          "grid_index": 53,
+          "case_grid_index": 3,
+          "values": [
+            0.4702669906634894,
+            -0.06563148157535847,
+            0.48,
+            24.0,
+            0.24283309653050505
+          ],
+          "bucket_xy_m": [
+            1.1882909668094044,
+            0.16886367629024868
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              9,
+              0
+            ],
+            "connection_sha256": "da87fa2a9bb3fc2714a7c0d8f26a88b06290e77ad94396fd0006949237bca54e",
+            "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-26-g04",
+          "grid_index": 54,
+          "case_grid_index": 4,
+          "values": [
+            0.4702669906634894,
+            -0.005631481575358477,
+            0.48,
+            24.0,
+            0.24283309653050505
+          ],
+          "bucket_xy_m": [
+            1.1882909668094044,
+            0.16886367629024868
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              9,
+              0
+            ],
+            "connection_sha256": "2bcb0bf0bd105089c9d863e29fe11c5b45a045546ad77b3493b90a6894f08f1c",
+            "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-26-g05",
+          "grid_index": 55,
+          "case_grid_index": 5,
+          "values": [
+            0.5302669906634894,
+            -0.24563148157535847,
+            0.48,
+            24.0,
+            0.24283309653050505
+          ],
+          "bucket_xy_m": [
+            1.1882909668094044,
+            0.16886367629024868
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              9,
+              0
+            ],
+            "connection_sha256": "09896401da0a0842d06f3b215ba85a6d0a643d4073117cbf8942541dab43f2b1",
+            "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-26-g06",
+          "grid_index": 56,
+          "case_grid_index": 6,
+          "values": [
+            0.5302669906634894,
+            -0.18563148157535847,
+            0.48,
+            24.0,
+            0.24283309653050505
+          ],
+          "bucket_xy_m": [
+            1.1882909668094044,
+            0.16886367629024868
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              11,
+              0
+            ],
+            "connection_sha256": "236223ef469d2519a139d7fc841984d2a4849ba38aa0f89e67ef14ae1a21dd0f",
+            "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-26-g07",
+          "grid_index": 57,
+          "case_grid_index": 7,
+          "values": [
+            0.5302669906634894,
+            -0.12563148157535847,
+            0.48,
+            24.0,
+            0.24283309653050505
+          ],
+          "bucket_xy_m": [
+            1.1882909668094044,
+            0.16886367629024868
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              7,
+              0
+            ],
+            "connection_sha256": "a67874e1802a0a926f1d6854d5ded0a69c31653634862bb4f6d0a05f9b2b2e32",
+            "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-26-g08",
+          "grid_index": 58,
+          "case_grid_index": 8,
+          "values": [
+            0.5302669906634894,
+            -0.06563148157535847,
+            0.48,
+            24.0,
+            0.24283309653050505
+          ],
+          "bucket_xy_m": [
+            1.1882909668094044,
+            0.16886367629024868
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              6,
+              0
+            ],
+            "connection_sha256": "87a78792ad6f5eca6653ea5f114ba33668f001b1674a7fe33e3c89a9c4440210",
+            "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-26-g09",
+          "grid_index": 59,
+          "case_grid_index": 9,
+          "values": [
+            0.5302669906634894,
+            -0.005631481575358477,
+            0.48,
+            24.0,
+            0.24283309653050505
+          ],
+          "bucket_xy_m": [
+            1.1882909668094044,
+            0.16886367629024868
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              8,
+              0
+            ],
+            "connection_sha256": "6ada6f7f70aca4cfb92546569fb4d3a053b71b9ebdf7c1e00ac085be2cfcf108",
+            "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-26-g10",
+          "grid_index": 60,
+          "case_grid_index": 10,
+          "values": [
+            0.5902669906634894,
+            -0.24563148157535847,
+            0.48,
+            24.0,
+            0.24283309653050505
+          ],
+          "bucket_xy_m": [
+            1.1882909668094044,
+            0.16886367629024868
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              0
+            ],
+            "connection_sha256": "0df5b1907743e63eb2e8c0eec41808ec1af2b0bc30f1ca84b85177cc2312cbc7",
+            "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-26-g11",
+          "grid_index": 61,
+          "case_grid_index": 11,
+          "values": [
+            0.5902669906634894,
+            -0.18563148157535847,
+            0.48,
+            24.0,
+            0.24283309653050505
+          ],
+          "bucket_xy_m": [
+            1.1882909668094044,
+            0.16886367629024868
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              0
+            ],
+            "connection_sha256": "347698e8361a675ce0d0103f11c97edb7ba38d3d4031860969db58f5ccddfd6b",
+            "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-26-g12",
+          "grid_index": 62,
+          "case_grid_index": 12,
+          "values": [
+            0.5902669906634894,
+            -0.12563148157535847,
+            0.48,
+            24.0,
+            0.24283309653050505
+          ],
+          "bucket_xy_m": [
+            1.1882909668094044,
+            0.16886367629024868
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              7,
+              5
+            ],
+            "connection_sha256": "5b4b058107d706f27dbebe9e2829bf87cd3ba5f530ff1d362384acb5a69bb4ae",
+            "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+          },
+          "discovery": {
+            "record_id": "bouncer-clearance-table-training-test-26-g12",
+            "record_sha256": "150068e1bf671abcae63ecebfc5b4747d3bd040c943f8b34d859dda15e16ecfc",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 26,
+            "forbidden_contact_steps": 26,
+            "reward": -0.3394484351465471
+          }
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-26-g13",
+          "grid_index": 63,
+          "case_grid_index": 13,
+          "values": [
+            0.5902669906634894,
+            -0.06563148157535847,
+            0.48,
+            24.0,
+            0.24283309653050505
+          ],
+          "bucket_xy_m": [
+            1.1882909668094044,
+            0.16886367629024868
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              11,
+              4
+            ],
+            "connection_sha256": "195ea0f403829ea34c8e021479103b3f4b17ea9ca3eed2baae38af5730f0b202",
+            "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+          },
+          "discovery": {
+            "record_id": "bouncer-clearance-table-training-test-26-g13",
+            "record_sha256": "6d6f45a20ebf9692cfaee8f8e24eda578443816727b8cb35280bc38610f2afb1",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 26,
+            "forbidden_contact_steps": 26,
+            "reward": -0.33950509206958857
+          }
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-26-g14",
+          "grid_index": 64,
+          "case_grid_index": 14,
+          "values": [
+            0.5902669906634894,
+            -0.005631481575358477,
+            0.48,
+            24.0,
+            0.24283309653050505
+          ],
+          "bucket_xy_m": [
+            1.1882909668094044,
+            0.16886367629024868
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": true,
+            "reason": null,
+            "valid_ik_branches": [
+              6,
+              7
+            ],
+            "connection_sha256": "973c8a25fb6e2d129a8c50bbf7f9b06d1b74c6e7eed8d1311af3a4a493490dfe",
+            "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+          },
+          "discovery": {
+            "record_id": "bouncer-clearance-table-training-test-26-g14",
+            "record_sha256": "8d17c3424ac4808675d6023d5a6fd14bd6e58f1a8cfbfc2bb921e338617b97d2",
+            "native_release": true,
+            "captured": false,
+            "route_quality": 0,
+            "direct_capture": false,
+            "table_assisted_capture": false,
+            "invalid_physics": false,
+            "robot_contact_steps": 26,
+            "forbidden_contact_steps": 26,
+            "reward": -0.33883998132620546
+          }
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-26-g15",
+          "grid_index": 65,
+          "case_grid_index": 15,
+          "values": [
+            0.6502669906634895,
+            -0.24563148157535847,
+            0.48,
+            24.0,
+            0.24283309653050505
+          ],
+          "bucket_xy_m": [
+            1.1882909668094044,
+            0.16886367629024868
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              9
+            ],
+            "connection_sha256": "f2503d8a94104b4282d76c69cba28c57fee57bb696ade997cea584fbac0eb982",
+            "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-26-g16",
+          "grid_index": 66,
+          "case_grid_index": 16,
+          "values": [
+            0.6502669906634895,
+            -0.18563148157535847,
+            0.48,
+            24.0,
+            0.24283309653050505
+          ],
+          "bucket_xy_m": [
+            1.1882909668094044,
+            0.16886367629024868
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              13
+            ],
+            "connection_sha256": "3f6718727ef478e73501f8ffe1d93866d112ddd7f8dc946b87f57adc5f361325",
+            "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-26-g17",
+          "grid_index": 67,
+          "case_grid_index": 17,
+          "values": [
+            0.6502669906634895,
+            -0.12563148157535847,
+            0.48,
+            24.0,
+            0.24283309653050505
+          ],
+          "bucket_xy_m": [
+            1.1882909668094044,
+            0.16886367629024868
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              9
+            ],
+            "connection_sha256": "46fb6e665a13f51953ae835edcbddfed3b7945f1f8092a670ed53fca5a6fd0bb",
+            "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-26-g18",
+          "grid_index": 68,
+          "case_grid_index": 18,
+          "values": [
+            0.6502669906634895,
+            -0.06563148157535847,
+            0.48,
+            24.0,
+            0.24283309653050505
+          ],
+          "bucket_xy_m": [
+            1.1882909668094044,
+            0.16886367629024868
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              11
+            ],
+            "connection_sha256": "836c39c4d408e03c97f0e528d26b0cc0cd04e52d77f45966940769733d9e1502",
+            "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-26-g19",
+          "grid_index": 69,
+          "case_grid_index": 19,
+          "values": [
+            0.6502669906634895,
+            -0.005631481575358477,
+            0.48,
+            24.0,
+            0.24283309653050505
+          ],
+          "bucket_xy_m": [
+            1.1882909668094044,
+            0.16886367629024868
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              10
+            ],
+            "connection_sha256": "07daa0884cd8bd2c3c9fef8716b7fdf6e49e3bd758ad475cb6431a1758531f37",
+            "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-26-g20",
+          "grid_index": 70,
+          "case_grid_index": 20,
+          "values": [
+            0.7102669906634894,
+            -0.24563148157535847,
+            0.48,
+            24.0,
+            0.24283309653050505
+          ],
+          "bucket_xy_m": [
+            1.1882909668094044,
+            0.16886367629024868
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              8
+            ],
+            "connection_sha256": "fbb7c0e6796397e4aba75bf3d9709d268e31a405f43d56101bec0e5191a7a66d",
+            "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-26-g21",
+          "grid_index": 71,
+          "case_grid_index": 21,
+          "values": [
+            0.7102669906634894,
+            -0.18563148157535847,
+            0.48,
+            24.0,
+            0.24283309653050505
+          ],
+          "bucket_xy_m": [
+            1.1882909668094044,
+            0.16886367629024868
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              4
+            ],
+            "connection_sha256": "a3fec43c9e8e948a4a61a494fd51b5e169a23c027c49e823d2b7fa0216ddad84",
+            "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-26-g22",
+          "grid_index": 72,
+          "case_grid_index": 22,
+          "values": [
+            0.7102669906634894,
+            -0.12563148157535847,
+            0.48,
+            24.0,
+            0.24283309653050505
+          ],
+          "bucket_xy_m": [
+            1.1882909668094044,
+            0.16886367629024868
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              2
+            ],
+            "connection_sha256": "bb776287e497e208f044c954ba954c6c33c0270f25cf501db2471d9d0f54a683",
+            "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-26-g23",
+          "grid_index": 73,
+          "case_grid_index": 23,
+          "values": [
+            0.7102669906634894,
+            -0.06563148157535847,
+            0.48,
+            24.0,
+            0.24283309653050505
+          ],
+          "bucket_xy_m": [
+            1.1882909668094044,
+            0.16886367629024868
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              3
+            ],
+            "connection_sha256": "fdb444b652bf3b976395db5f706d06bcdfc2157b04cb6af2f8345b743dec1a4c",
+            "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+          },
+          "discovery": null
+        },
+        {
+          "candidate_id": "bouncer-clearance-table-training-test-26-g24",
+          "grid_index": 74,
+          "case_grid_index": 24,
+          "values": [
+            0.7102669906634894,
+            -0.005631481575358477,
+            0.48,
+            24.0,
+            0.24283309653050505
+          ],
+          "bucket_xy_m": [
+            1.1882909668094044,
+            0.16886367629024868
+          ],
+          "selected": false,
+          "admission": {
+            "status": "completed",
+            "passed": false,
+            "reason": "finite_ik_unresolved",
+            "valid_ik_branches": [
+              0,
+              3
+            ],
+            "connection_sha256": "8b653c770aa46a45dacc13b2efb3d19e9bbfd823ec43d09bc893e1bd2819aae8",
+            "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+          },
+          "discovery": null
+        }
+      ],
+      "selection": null,
+      "repeats": {
+        "baseline": {
+          "attempts": 3,
+          "native_releases": 3,
+          "captures": 0,
+          "setup_rejections": 0,
+          "native_misses": 3,
+          "robot_contact_shots": 3,
+          "forbidden_contact_shots": 3,
+          "invalid_physics": 0,
+          "direct_captures": 0,
+          "table_assisted_captures": 0
+        },
+        "selected": {
+          "attempts": 0,
+          "native_releases": 0,
+          "captures": 0,
+          "setup_rejections": 0,
+          "native_misses": 0,
+          "robot_contact_shots": 0,
+          "forbidden_contact_shots": 0,
+          "invalid_physics": 0,
+          "direct_captures": 0,
+          "table_assisted_captures": 0
+        }
+      }
+    }
+  ],
+  "repeats": {
+    "baseline": {
+      "attempts": 9,
+      "native_releases": 9,
+      "captures": 0,
+      "setup_rejections": 0,
+      "native_misses": 9,
+      "robot_contact_shots": 9,
+      "forbidden_contact_shots": 9,
+      "invalid_physics": 0,
+      "direct_captures": 0,
+      "table_assisted_captures": 0
+    },
+    "selected": {
+      "attempts": 3,
+      "native_releases": 3,
+      "captures": 0,
+      "setup_rejections": 0,
+      "native_misses": 3,
+      "robot_contact_shots": 0,
+      "forbidden_contact_shots": 0,
+      "invalid_physics": 0,
+      "direct_captures": 0,
+      "table_assisted_captures": 0
+    }
+  },
+  "control_gates": {
+    "pre": {
+      "status": "passed",
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0,
+      "counts": {
+        "attempts": 9,
+        "native_releases": 9,
+        "captures": 6,
+        "setup_rejections": 0,
+        "native_misses": 3,
+        "forbidden_contact_shots": 3,
+        "invalid_physics": 0,
+        "direct_captures": 3,
+        "table_assisted_captures": 3
+      }
+    },
+    "post": {
+      "status": "passed",
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0,
+      "counts": {
+        "attempts": 9,
+        "native_releases": 9,
+        "captures": 6,
+        "setup_rejections": 0,
+        "native_misses": 3,
+        "forbidden_contact_shots": 3,
+        "invalid_physics": 0,
+        "direct_captures": 3,
+        "table_assisted_captures": 3
+      }
+    }
+  },
+  "audit": {
+    "status": "passed",
+    "full_checks_verified": true,
+    "version": "sircus-bouncer-clearance-audit-v1",
+    "checks_count": 17380,
+    "report_sha256": "a284d8e785a3d5aec8a45f92877377f63812c38767d6738fe1b6669a69b399a4",
+    "contract_fingerprint": "51d508b341bba79e002c0a953e74d81317e3b4873533f71e2548626bc9475b21",
+    "proof_sha256": "7de9a6222d65aca1f1ac884566459bb30b250348f6c0175abc78177965b5e175"
+  },
+  "contact_diagnostics": [
+    {
+      "record_id": "bouncer-clearance-controls_pre-control-direct_control-r0",
+      "physics_steps": 22335,
+      "scoring_terminal_s": 1.4541015625,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.484375,
+      "first_board_contact_s": 0.21458333333333332,
+      "first_bucket_contact_s": 0.484375,
+      "first_table_contact_s": null,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-controls_pre-control-direct_control-r1",
+      "physics_steps": 22335,
+      "scoring_terminal_s": 1.4541015625,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.484375,
+      "first_board_contact_s": 0.21458333333333332,
+      "first_bucket_contact_s": 0.484375,
+      "first_table_contact_s": null,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-controls_pre-control-direct_control-r2",
+      "physics_steps": 22335,
+      "scoring_terminal_s": 1.4541015625,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.484375,
+      "first_board_contact_s": 0.21458333333333332,
+      "first_bucket_contact_s": 0.484375,
+      "first_table_contact_s": null,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-controls_pre-control-table_control-r0",
+      "physics_steps": 32012,
+      "scoring_terminal_s": 2.084114583333333,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.6184244791666667,
+      "first_board_contact_s": 0.21399739583333333,
+      "first_bucket_contact_s": 0.8002604166666667,
+      "first_table_contact_s": 0.6184244791666667,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-controls_pre-control-table_control-r1",
+      "physics_steps": 32012,
+      "scoring_terminal_s": 2.084114583333333,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.6184244791666667,
+      "first_board_contact_s": 0.21399739583333333,
+      "first_bucket_contact_s": 0.8002604166666667,
+      "first_table_contact_s": 0.6184244791666667,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-controls_pre-control-table_control-r2",
+      "physics_steps": 32012,
+      "scoring_terminal_s": 2.084114583333333,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.6184244791666667,
+      "first_board_contact_s": 0.21399739583333333,
+      "first_bucket_contact_s": 0.8002604166666667,
+      "first_table_contact_s": 0.6184244791666667,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-controls_pre-control-negative_control-r0",
+      "physics_steps": 47860,
+      "scoring_terminal_s": 3.1158854166666665,
+      "capture": false,
+      "robot_contact_steps": 29,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 29,
+      "first_bucket_or_table_contact_s": 0.6354817708333333,
+      "first_board_contact_s": 0.23020833333333332,
+      "first_bucket_contact_s": 0.6370442708333334,
+      "first_table_contact_s": 0.6354817708333333,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 0.8497395833333333,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-controls_pre-control-negative_control-r1",
+      "physics_steps": 47864,
+      "scoring_terminal_s": 3.1161458333333334,
+      "capture": false,
+      "robot_contact_steps": 29,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 29,
+      "first_bucket_or_table_contact_s": 0.6354817708333333,
+      "first_board_contact_s": 0.23020833333333332,
+      "first_bucket_contact_s": 0.6370442708333334,
+      "first_table_contact_s": 0.6354817708333333,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 0.8497395833333333,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-controls_pre-control-negative_control-r2",
+      "physics_steps": 47859,
+      "scoring_terminal_s": 3.1158203125,
+      "capture": false,
+      "robot_contact_steps": 29,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 29,
+      "first_bucket_or_table_contact_s": 0.6354817708333333,
+      "first_board_contact_s": 0.23020833333333332,
+      "first_bucket_contact_s": 0.6370442708333334,
+      "first_table_contact_s": 0.6354817708333333,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 0.8497395833333333,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-baseline-table-training-test-00-r0",
+      "physics_steps": 17643,
+      "scoring_terminal_s": 1.1486328125,
+      "capture": false,
+      "robot_contact_steps": 27,
+      "robot_contact_steps_before_first_bucket_or_table": 27,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5686197916666667,
+      "first_board_contact_s": 0.223046875,
+      "first_bucket_contact_s": 0.5686197916666667,
+      "first_table_contact_s": 0.7736979166666667,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 0.47630208333333335,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-baseline-table-training-test-00-r1",
+      "physics_steps": 17643,
+      "scoring_terminal_s": 1.1486328125,
+      "capture": false,
+      "robot_contact_steps": 27,
+      "robot_contact_steps_before_first_bucket_or_table": 27,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5686197916666667,
+      "first_board_contact_s": 0.223046875,
+      "first_bucket_contact_s": 0.5686197916666667,
+      "first_table_contact_s": 0.7736979166666667,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 0.47630208333333335,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-baseline-table-training-test-00-r2",
+      "physics_steps": 17643,
+      "scoring_terminal_s": 1.1486328125,
+      "capture": false,
+      "robot_contact_steps": 27,
+      "robot_contact_steps_before_first_bucket_or_table": 27,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5686197916666667,
+      "first_board_contact_s": 0.223046875,
+      "first_bucket_contact_s": 0.5686197916666667,
+      "first_table_contact_s": 0.7736979166666667,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 0.47630208333333335,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-baseline-table-training-test-18-r0",
+      "physics_steps": 17156,
+      "scoring_terminal_s": 1.1169270833333333,
+      "capture": false,
+      "robot_contact_steps": 26,
+      "robot_contact_steps_before_first_bucket_or_table": 26,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.6561197916666667,
+      "first_board_contact_s": 0.21764322916666667,
+      "first_bucket_contact_s": null,
+      "first_table_contact_s": 0.6561197916666667,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 0.46783854166666666,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-baseline-table-training-test-18-r1",
+      "physics_steps": 17156,
+      "scoring_terminal_s": 1.1169270833333333,
+      "capture": false,
+      "robot_contact_steps": 26,
+      "robot_contact_steps_before_first_bucket_or_table": 26,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.6561197916666667,
+      "first_board_contact_s": 0.21764322916666667,
+      "first_bucket_contact_s": null,
+      "first_table_contact_s": 0.6561197916666667,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 0.46783854166666666,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-baseline-table-training-test-18-r2",
+      "physics_steps": 17156,
+      "scoring_terminal_s": 1.1169270833333333,
+      "capture": false,
+      "robot_contact_steps": 26,
+      "robot_contact_steps_before_first_bucket_or_table": 26,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.6561197916666667,
+      "first_board_contact_s": 0.21764322916666667,
+      "first_bucket_contact_s": null,
+      "first_table_contact_s": 0.6561197916666667,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 0.46783854166666666,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-baseline-table-training-test-26-r0",
+      "physics_steps": 19022,
+      "scoring_terminal_s": 1.2384114583333332,
+      "capture": false,
+      "robot_contact_steps": 26,
+      "robot_contact_steps_before_first_bucket_or_table": 26,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.7712239583333333,
+      "first_board_contact_s": 0.21959635416666667,
+      "first_bucket_contact_s": null,
+      "first_table_contact_s": 0.7712239583333333,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 0.47506510416666664,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-baseline-table-training-test-26-r1",
+      "physics_steps": 19022,
+      "scoring_terminal_s": 1.2384114583333332,
+      "capture": false,
+      "robot_contact_steps": 26,
+      "robot_contact_steps_before_first_bucket_or_table": 26,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.7712239583333333,
+      "first_board_contact_s": 0.21959635416666667,
+      "first_bucket_contact_s": null,
+      "first_table_contact_s": 0.7712239583333333,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 0.47506510416666664,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-baseline-table-training-test-26-r2",
+      "physics_steps": 19022,
+      "scoring_terminal_s": 1.2384114583333332,
+      "capture": false,
+      "robot_contact_steps": 26,
+      "robot_contact_steps_before_first_bucket_or_table": 26,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.7712239583333333,
+      "first_board_contact_s": 0.21959635416666667,
+      "first_bucket_contact_s": null,
+      "first_table_contact_s": 0.7712239583333333,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 0.47506510416666664,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-table-training-test-00-g12",
+      "physics_steps": 17643,
+      "scoring_terminal_s": 1.1486328125,
+      "capture": false,
+      "robot_contact_steps": 27,
+      "robot_contact_steps_before_first_bucket_or_table": 27,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5686197916666667,
+      "first_board_contact_s": 0.223046875,
+      "first_bucket_contact_s": 0.5686197916666667,
+      "first_table_contact_s": 0.7736979166666667,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 0.47630208333333335,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-table-training-test-00-g13",
+      "physics_steps": 21507,
+      "scoring_terminal_s": 1.4001953125,
+      "capture": false,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5488932291666666,
+      "first_board_contact_s": 0.223046875,
+      "first_bucket_contact_s": 0.5488932291666666,
+      "first_table_contact_s": 0.9639322916666666,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-table-training-test-00-g14",
+      "physics_steps": 26679,
+      "scoring_terminal_s": 1.7369140625,
+      "capture": false,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5494140625,
+      "first_board_contact_s": 0.223046875,
+      "first_bucket_contact_s": 0.5494140625,
+      "first_table_contact_s": 1.351953125,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-table-training-test-18-g12",
+      "physics_steps": 17156,
+      "scoring_terminal_s": 1.1169270833333333,
+      "capture": false,
+      "robot_contact_steps": 26,
+      "robot_contact_steps_before_first_bucket_or_table": 26,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.6561197916666667,
+      "first_board_contact_s": 0.21764322916666667,
+      "first_bucket_contact_s": null,
+      "first_table_contact_s": 0.6561197916666667,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 0.46783854166666666,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-table-training-test-18-g13",
+      "physics_steps": 16504,
+      "scoring_terminal_s": 1.0744791666666667,
+      "capture": false,
+      "robot_contact_steps": 27,
+      "robot_contact_steps_before_first_bucket_or_table": 27,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.6682942708333334,
+      "first_board_contact_s": 0.21764322916666667,
+      "first_bucket_contact_s": null,
+      "first_table_contact_s": 0.6682942708333334,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 0.4482421875,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-table-training-test-18-g14",
+      "physics_steps": 11964,
+      "scoring_terminal_s": 0.77890625,
+      "capture": false,
+      "robot_contact_steps": 27,
+      "robot_contact_steps_before_first_bucket_or_table": 27,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": null,
+      "first_board_contact_s": 0.21764322916666667,
+      "first_bucket_contact_s": null,
+      "first_table_contact_s": null,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 0.4410807291666667,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-table-training-test-26-g12",
+      "physics_steps": 19022,
+      "scoring_terminal_s": 1.2384114583333332,
+      "capture": false,
+      "robot_contact_steps": 26,
+      "robot_contact_steps_before_first_bucket_or_table": 26,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.7712239583333333,
+      "first_board_contact_s": 0.21959635416666667,
+      "first_bucket_contact_s": null,
+      "first_table_contact_s": 0.7712239583333333,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 0.47506510416666664,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-table-training-test-26-g13",
+      "physics_steps": 19307,
+      "scoring_terminal_s": 1.2569661458333332,
+      "capture": false,
+      "robot_contact_steps": 26,
+      "robot_contact_steps_before_first_bucket_or_table": 26,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.7766276041666667,
+      "first_board_contact_s": 0.21959635416666667,
+      "first_bucket_contact_s": null,
+      "first_table_contact_s": 0.7766276041666667,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 0.46484375,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-table-training-test-26-g14",
+      "physics_steps": 19467,
+      "scoring_terminal_s": 1.2673828125,
+      "capture": false,
+      "robot_contact_steps": 26,
+      "robot_contact_steps_before_first_bucket_or_table": 26,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.7895833333333333,
+      "first_board_contact_s": 0.21959635416666667,
+      "first_bucket_contact_s": null,
+      "first_table_contact_s": 0.7895833333333333,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 0.4609375,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-selected-table-training-test-00-r0",
+      "physics_steps": 26678,
+      "scoring_terminal_s": 1.7368489583333333,
+      "capture": false,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5494140625,
+      "first_board_contact_s": 0.223046875,
+      "first_bucket_contact_s": 0.5494140625,
+      "first_table_contact_s": 1.351953125,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-selected-table-training-test-00-r1",
+      "physics_steps": 26739,
+      "scoring_terminal_s": 1.7408203125,
+      "capture": false,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5494140625,
+      "first_board_contact_s": 0.223046875,
+      "first_bucket_contact_s": 0.5494140625,
+      "first_table_contact_s": 1.3518229166666667,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-selected-table-training-test-00-r2",
+      "physics_steps": 26500,
+      "scoring_terminal_s": 1.7252604166666667,
+      "capture": false,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.5494140625,
+      "first_board_contact_s": 0.223046875,
+      "first_bucket_contact_s": 0.5494140625,
+      "first_table_contact_s": 1.3399088541666666,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-controls_post-control-direct_control-r0",
+      "physics_steps": 22335,
+      "scoring_terminal_s": 1.4541015625,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.484375,
+      "first_board_contact_s": 0.21458333333333332,
+      "first_bucket_contact_s": 0.484375,
+      "first_table_contact_s": null,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-controls_post-control-direct_control-r1",
+      "physics_steps": 22335,
+      "scoring_terminal_s": 1.4541015625,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.484375,
+      "first_board_contact_s": 0.21458333333333332,
+      "first_bucket_contact_s": 0.484375,
+      "first_table_contact_s": null,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-controls_post-control-direct_control-r2",
+      "physics_steps": 22335,
+      "scoring_terminal_s": 1.4541015625,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.484375,
+      "first_board_contact_s": 0.21458333333333332,
+      "first_bucket_contact_s": 0.484375,
+      "first_table_contact_s": null,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-controls_post-control-table_control-r0",
+      "physics_steps": 32012,
+      "scoring_terminal_s": 2.084114583333333,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.6184244791666667,
+      "first_board_contact_s": 0.21399739583333333,
+      "first_bucket_contact_s": 0.8002604166666667,
+      "first_table_contact_s": 0.6184244791666667,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-controls_post-control-table_control-r1",
+      "physics_steps": 32013,
+      "scoring_terminal_s": 2.0841796875,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.6184244791666667,
+      "first_board_contact_s": 0.21399739583333333,
+      "first_bucket_contact_s": 0.8002604166666667,
+      "first_table_contact_s": 0.6184244791666667,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-controls_post-control-table_control-r2",
+      "physics_steps": 32012,
+      "scoring_terminal_s": 2.084114583333333,
+      "capture": true,
+      "robot_contact_steps": 0,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 0,
+      "first_bucket_or_table_contact_s": 0.6184244791666667,
+      "first_board_contact_s": 0.21399739583333333,
+      "first_bucket_contact_s": 0.8002604166666667,
+      "first_table_contact_s": 0.6184244791666667,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": null,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-controls_post-control-negative_control-r0",
+      "physics_steps": 47860,
+      "scoring_terminal_s": 3.1158854166666665,
+      "capture": false,
+      "robot_contact_steps": 29,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 29,
+      "first_bucket_or_table_contact_s": 0.6354817708333333,
+      "first_board_contact_s": 0.23020833333333332,
+      "first_bucket_contact_s": 0.6370442708333334,
+      "first_table_contact_s": 0.6354817708333333,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 0.8497395833333333,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-controls_post-control-negative_control-r1",
+      "physics_steps": 47862,
+      "scoring_terminal_s": 3.116015625,
+      "capture": false,
+      "robot_contact_steps": 29,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 29,
+      "first_bucket_or_table_contact_s": 0.6354817708333333,
+      "first_board_contact_s": 0.23020833333333332,
+      "first_bucket_contact_s": 0.6370442708333334,
+      "first_table_contact_s": 0.6354817708333333,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 0.8497395833333333,
+      "first_unattributed_contact_s": null
+    },
+    {
+      "record_id": "bouncer-clearance-controls_post-control-negative_control-r2",
+      "physics_steps": 47861,
+      "scoring_terminal_s": 3.115950520833333,
+      "capture": false,
+      "robot_contact_steps": 29,
+      "robot_contact_steps_before_first_bucket_or_table": 0,
+      "robot_contact_steps_from_first_bucket_or_table": 29,
+      "first_bucket_or_table_contact_s": 0.6354817708333333,
+      "first_board_contact_s": 0.23020833333333332,
+      "first_bucket_contact_s": 0.6370442708333334,
+      "first_table_contact_s": 0.6354817708333333,
+      "first_floor_contact_s": null,
+      "first_robot_contact_s": 0.8497395833333333,
+      "first_unattributed_contact_s": null
+    }
+  ],
+  "video": {
+    "version": "sircus-bouncer-clearance-recorded-video-v1",
+    "status": "completed",
+    "output_sha256": "4ed1a411c0f3cc2b2aa88802c2931d18d9cf05a0f7de81a16ef26a9fd41cb52b",
+    "video_bytes": 2016061,
+    "width": 1280,
+    "height": 720,
+    "fps": 30,
+    "duration_s": 43.4,
+    "frames_sha256": "d7b7920a4673d081b95396ecd3d9a42dbb30c89fc7c17bf18c27f67c7038b87f",
+    "native_steps_added": 0,
+    "held_arm_poses": true,
+    "sampled_ball_centers_only": true,
+    "source": {
+      "report_sha256": "a284d8e785a3d5aec8a45f92877377f63812c38767d6738fe1b6669a69b399a4",
+      "audit_sha256": "7de9a6222d65aca1f1ac884566459bb30b250348f6c0175abc78177965b5e175",
+      "contract_fingerprint": "51d508b341bba79e002c0a953e74d81317e3b4873533f71e2548626bc9475b21"
+    },
+    "manifest_sha256": "3398453f158ed704cf57a9883845c70d96adbca72ef631c5c4f0f316ce9db627",
+    "frame_count": 1302,
+    "clips": [
+      {
+        "record_id": "bouncer-clearance-baseline-table-training-test-00-r0",
+        "context_id": "table-training-test-00",
+        "label": "Case 00 / original pose / robot contact",
+        "start_s": 0.0,
+        "end_s": 7.666666666666667,
+        "values": [
+          0.5979922029820652,
+          -0.14355725745408743,
+          0.46,
+          28.0,
+          0.25181883224993984
+        ],
+        "bucket_xy_m": [
+          1.1095395651982425,
+          -0.22146373203137287
+        ],
+        "capture": false,
+        "whole_ball_entry": false,
+        "record_sha256": "ea9d4e5d174802a95f1cdcd25634148b48cdaefb47b75b724a477a48741a06bc",
+        "native_cache_sha256": "c1713ca3d02306015ba9300c8845d824a74193f6ae58f264fdf52aceaa4788e1",
+        "source_interval_s": [
+          0.0,
+          1.1486328125
+        ],
+        "slow_source_interval_s": [
+          0.0,
+          1.1486328125
+        ],
+        "events": [
+          {
+            "label": "board",
+            "time_s": 0.223046875
+          },
+          {
+            "label": "robot",
+            "time_s": 0.47630208333333335
+          },
+          {
+            "label": "bucket",
+            "time_s": 0.5686197916666667
+          },
+          {
+            "label": "table",
+            "time_s": 0.7736979166666667
+          }
+        ]
+      },
+      {
+        "record_id": "bouncer-clearance-selected-table-training-test-00-r0",
+        "context_id": "table-training-test-00",
+        "label": "Case 00 / board shifted +120 mm Y / clear but misses",
+        "start_s": 7.666666666666667,
+        "end_s": 17.6,
+        "values": [
+          0.5979922029820652,
+          -0.023557257454087432,
+          0.46,
+          28.0,
+          0.25181883224993984
+        ],
+        "bucket_xy_m": [
+          1.1095395651982425,
+          -0.22146373203137287
+        ],
+        "capture": false,
+        "whole_ball_entry": false,
+        "record_sha256": "159156aca12a8bfb671918aa4dcc40dd85b12e0bf0449e9b3bdf1fbca6ce7ca6",
+        "native_cache_sha256": "7bafe981c984f3e2958a86c80149c76146d8ba9d1b90d94553f592acadbef6d3",
+        "source_interval_s": [
+          0.0,
+          1.7368489583333333
+        ],
+        "slow_source_interval_s": [
+          0.0,
+          1.7368489583333333
+        ],
+        "events": [
+          {
+            "label": "board",
+            "time_s": 0.223046875
+          },
+          {
+            "label": "bucket",
+            "time_s": 0.5494140625
+          },
+          {
+            "label": "table",
+            "time_s": 1.351953125
+          }
+        ]
+      },
+      {
+        "record_id": "bouncer-clearance-table-training-test-18-g14",
+        "context_id": "table-training-test-18",
+        "label": "Case 18 / +120 mm Y / robot still blocks rebound",
+        "start_s": 17.6,
+        "end_s": 23.433333333333334,
+        "values": [
+          0.5935771676513939,
+          -0.005029006304247741,
+          0.46,
+          28.0,
+          0.24020015485303045
+        ],
+        "bucket_xy_m": [
+          1.1017174430367884,
+          0.18144998858420858
+        ],
+        "capture": false,
+        "whole_ball_entry": false,
+        "record_sha256": "8c3a76e3bd960579ad896522762b81699d7150193003044427ac9aa34238c4e8",
+        "native_cache_sha256": "97a84e1b043f4234ae685f5447f164a5372c631af41d15fbcfd917387cceb7b4",
+        "source_interval_s": [
+          0.0,
+          0.77890625
+        ],
+        "slow_source_interval_s": [
+          0.0,
+          0.77890625
+        ],
+        "events": [
+          {
+            "label": "board",
+            "time_s": 0.21764322916666667
+          },
+          {
+            "label": "robot",
+            "time_s": 0.4410807291666667
+          }
+        ]
+      },
+      {
+        "record_id": "bouncer-clearance-table-training-test-26-g14",
+        "context_id": "table-training-test-26",
+        "label": "Case 26 / +120 mm Y / robot still blocks rebound",
+        "start_s": 23.433333333333334,
+        "end_s": 31.733333333333334,
+        "values": [
+          0.5902669906634894,
+          -0.005631481575358477,
+          0.48,
+          24.0,
+          0.24283309653050505
+        ],
+        "bucket_xy_m": [
+          1.1882909668094044,
+          0.16886367629024868
+        ],
+        "capture": false,
+        "whole_ball_entry": false,
+        "record_sha256": "8d17c3424ac4808675d6023d5a6fd14bd6e58f1a8cfbfc2bb921e338617b97d2",
+        "native_cache_sha256": "97a84e1b043f4234ae685f5447f164a5372c631af41d15fbcfd917387cceb7b4",
+        "source_interval_s": [
+          0.0,
+          1.2673828125
+        ],
+        "slow_source_interval_s": [
+          0.0,
+          1.2673828125
+        ],
+        "events": [
+          {
+            "label": "board",
+            "time_s": 0.21959635416666667
+          },
+          {
+            "label": "robot",
+            "time_s": 0.4609375
+          },
+          {
+            "label": "table",
+            "time_s": 0.7895833333333333
+          }
+        ]
+      },
+      {
+        "record_id": "bouncer-clearance-controls_pre-control-table_control-r0",
+        "context_id": "control-table_control",
+        "label": "Positive control / table-assisted capture",
+        "start_s": 31.733333333333334,
+        "end_s": 43.4,
+        "values": [
+          0.5941020257486411,
+          -0.1250784559468693,
+          0.3392937994318979,
+          16.013746844601016,
+          0.22875969364684953
+        ],
+        "bucket_xy_m": [
+          1.0499999999999998,
+          0.25
+        ],
+        "capture": true,
+        "whole_ball_entry": true,
+        "record_sha256": "bf3893bcdde8e9ef87c880282ee0a057d4b1aec98297b31d47bf8869d5d19775",
+        "native_cache_sha256": "58a4147c5eaee3ec6f4257cd92fd84f118e71f1511188b0d5dddbae2a02acfa0",
+        "source_interval_s": [
+          0.0,
+          2.084114583333333
+        ],
+        "slow_source_interval_s": [
+          0.0,
+          2.084114583333333
+        ],
+        "events": [
+          {
+            "label": "board",
+            "time_s": 0.21399739583333333
+          },
+          {
+            "label": "table",
+            "time_s": 0.6184244791666667
+          },
+          {
+            "label": "bucket",
+            "time_s": 0.8002604166666667
+          },
+          {
+            "label": "whole_ball_entry",
+            "time_s": 1.0841145833333332
+          },
+          {
+            "label": "capture",
+            "time_s": 2.084114583333333
+          }
+        ]
+      }
+    ]
+  }
+}
