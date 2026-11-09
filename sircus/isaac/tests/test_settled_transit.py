@@ -182,7 +182,8 @@ class FeedbackSelectionTests(unittest.TestCase):
     def run_prepare(self, env):
         fit = dict(accepted=True, ik={n:dict(q=[.01]*6) for n in env.arms})
         endpoints = {n:np.eye(4) for n in env.arms}
-        with mock.patch("feasibility_contract.dynamic_cell", side_effect=lambda c,a:c.copy()), mock.patch("expanded_pose_menu.endpoint_targets", return_value=endpoints), mock.patch("continuous_feasibility.qualify_action", return_value=fit), mock.patch("continuous_feasibility.approximate_path_check", return_value=dict(accepted=True,reasons=[])) as proxy:
+        prepared=dict(qualification=fit,path=dict(accepted=True,reasons=[]))
+        with mock.patch("feasibility_contract.dynamic_cell", side_effect=lambda c,a:c.copy()), mock.patch("expanded_pose_menu.endpoint_targets", return_value=endpoints), mock.patch("joint_feasibility.preflight", return_value=prepared), mock.patch("continuous_feasibility.approximate_path_check", return_value=dict(accepted=True,reasons=[])) as proxy:
             result = env.prepare([{} for _ in range(env.n)])
         return result, proxy
     def test_blocked_home_skips_ik_and_marks_all_arm_targets_for_actual_pose_holding(self):
@@ -190,7 +191,7 @@ class FeedbackSelectionTests(unittest.TestCase):
         recorded=[]
         env.approach_endpoints=lambda goals:recorded.append(env.preparation_enabled.copy())
         endpoints={n:np.eye(4) for n in env.arms}
-        with mock.patch("feasibility_contract.dynamic_cell",side_effect=lambda c,a:c.copy()), mock.patch("expanded_pose_menu.endpoint_targets",return_value=endpoints), mock.patch("continuous_feasibility.qualify_action") as qualify, mock.patch("continuous_feasibility.approximate_path_check") as path:
+        with mock.patch("feasibility_contract.dynamic_cell",side_effect=lambda c,a:c.copy()), mock.patch("expanded_pose_menu.endpoint_targets",return_value=endpoints), mock.patch("joint_feasibility.preflight") as qualify, mock.patch("continuous_feasibility.approximate_path_check") as path:
             result=env.prepare([{}])
         self.assertEqual(result[-1],["common_home_path_proxy_rejected"])
         self.assertEqual(env.qualifications,[dict(accepted=False,reason="common_home_path_proxy_rejected")])
@@ -205,7 +206,7 @@ class FeedbackSelectionTests(unittest.TestCase):
                 env.base_cells=[dict(id="cell",bucket_xy_m=[0.,0.],distance_m=.4)]
                 action=dict(board_x_m=float(distance),board_y_m=0.,radius_m=.28)
                 fit=dict(accepted=True,ik={n:dict(q=[.01]*6) for n in env.arms})
-                with mock.patch("expanded_pose_menu.endpoint_targets",return_value={n:np.eye(4) for n in env.arms}), mock.patch("continuous_feasibility.qualify_action",return_value=fit), mock.patch("continuous_feasibility.approximate_path_check",return_value=dict(accepted=True,reasons=[])):
+                with mock.patch("expanded_pose_menu.endpoint_targets",return_value={n:np.eye(4) for n in env.arms}), mock.patch("joint_feasibility.preflight",return_value=dict(qualification=fit,path=dict(accepted=True,reasons=[]))):
                     result=env.prepare([action])
                 self.assertEqual(result[-1],[expected])
                 self.assertEqual(env.spec["cells"][0]["distance_m"],distance)
@@ -222,10 +223,40 @@ class FeedbackSelectionTests(unittest.TestCase):
                 elif reason=="common_home_path_proxy_rejected":env.home_readback["path_eligible"]=[False]
                 fit=(dict(accepted=False,reason=reason) if reason.startswith("endpoint_ik") else
                      dict(accepted=True,ik={n:dict(q=[.01]*6) for n in env.arms}))
-                with mock.patch("feasibility_contract.dynamic_cell",side_effect=lambda c,a:c.copy()), mock.patch("expanded_pose_menu.endpoint_targets",return_value={n:np.eye(4) for n in env.arms}), mock.patch("continuous_feasibility.qualify_action",return_value=fit), mock.patch("continuous_feasibility.approximate_path_check",return_value=dict(accepted=True,reasons=[])):
+                with mock.patch("feasibility_contract.dynamic_cell",side_effect=lambda c,a:c.copy()), mock.patch("expanded_pose_menu.endpoint_targets",return_value={n:np.eye(4) for n in env.arms}), mock.patch("joint_feasibility.preflight",return_value=dict(qualification=fit,path=dict(accepted=True,reasons=[]))), mock.patch("continuous_feasibility.approximate_path_check",return_value=dict(accepted=True,reasons=[])):
                     result=env.prepare([{}])
                 self.assertEqual(result[-1],[reason])
                 env._ik.assert_not_called()
+
+    def test_preflight_consumes_actual_state_and_path_decline_holds_both_arms(self):
+        env=self.env([metric()])
+        env.arms["Arm10"].data.joint_pos=Array([[.012]*6])
+        env.arms["Arm14"].data.joint_pos=Array([[.023]*6])
+        fit=dict(accepted=True,reason=None,ik={n:dict(q=[.1]*6) for n in env.arms})
+        prepared=dict(qualification=fit,path=dict(accepted=False,reasons=["inter_arm_proxy_overlap"]),
+                      accepted=False,release_authorized=False)
+        captured=[]
+        env.approach_endpoints=lambda q:captured.append(env.preparation_enabled.copy())
+        action={"id":"unchanged"}
+        with mock.patch("feasibility_contract.dynamic_cell",side_effect=lambda c,a:c.copy()), \
+             mock.patch("expanded_pose_menu.endpoint_targets",return_value={n:np.eye(4) for n in env.arms}), \
+             mock.patch("joint_feasibility.preflight",return_value=prepared) as check:
+            result=env.prepare([action])
+        self.assertEqual(result[-1],["inter_arm_proxy_overlap"])
+        self.assertIs(check.call_args.args[2],action)
+        np.testing.assert_array_equal(check.call_args.args[4]["Arm10"],[.012]*6)
+        np.testing.assert_array_equal(check.call_args.args[4]["Arm14"],[.023]*6)
+        np.testing.assert_array_equal(captured[0],[False])
+        self.assertIs(env.preflight_records[0],prepared)
+        env._ik.assert_not_called()
+
+    def test_preflight_admission_does_not_bypass_measured_release_guards(self):
+        env=self.env([metric(position_error_mm=3.,position_drift_mm=.2)]*4)
+        result,_=self.run_prepare(env)
+        self.assertEqual(result[-1],["setup_motion_not_quiet"])
+        self.assertEqual(env._wait_stable.call_count,4)
+        self.assertTrue(env.preparation_enabled[0])
+        self.assertIsNotNone(env.preflight_records[0])
 
     def test_moving_or_grossly_lagging_arm_does_not_receive_bias_correction(self):
         for m, reason in [(metric(position_error_mm=3.,position_drift_mm=.2), "setup_motion_not_quiet"), (metric(position_error_mm=3., arms={n:dict(position_rad=[0.]*6,target_rad=[.03]*6) for n in ("Arm10","Arm14")}), "setup_transit_incomplete")]:

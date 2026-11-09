@@ -1,0 +1,399 @@
+{
+  "schema": "sircus-joint-feasibility-reanalysis-summary-v1",
+  "status": "passed",
+  "source": {
+    "commit": "df8de16709852880239b8234869bdc65c6f7e957",
+    "archive_sha256": "6dcaa4199bb2df890579fe2fde245f1a48b33deae5869c70399cce4cf8712905",
+    "geometry_fingerprint": "63362ef37a93881f769b39d1ee7456335f1cc7bf5db04ffa7e548ce9697455bf",
+    "camera_sha256": "a7967c072b8f949318b43a510235d503c81c21e05f433670a0ce92a7af385ede",
+    "scoring_version": "sircus-isaac-fixed-shot-v5+board-route"
+  },
+  "experiment_sha256": "77afe173a07917dd87ce43f37809a9ac6ef99beebd7e8e35f703c0e5cf1e3a26",
+  "split_manifest_sha256": "f46c690d80bd2079b27c8d3c72267c39acf1cee61fb4625f37994bff92292785",
+  "published_comparison_sha256": "0f5c374d6706b1842d3e33b87624f008e44b505b99102ace4c23fe0fbb9f7d3b",
+  "geometry_receipt_sha256": "fa6d2798242c3d4e7276bef89824dc4f9930feef777c008b2123f60c65cbc376",
+  "assets_sha256": {
+    "Arm10": "3f40e56e46b040fb3339c1235ea85872f46511c45db2d37f7661db94a470bae3",
+    "Arm14": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340"
+  },
+  "diagnostic_source_sha256": {
+    "joint_feasibility_analysis.py": "19d32e9bf9971778f875c3674688a3eba239977e4be2296c0461f54a52f48d9f",
+    "joint_feasibility.py": "7fdf85de0d86fbb3bba161fd280d9e2939983e8d81687a42cdf40c5921803b70"
+  },
+  "scope": [
+    "Exact saved final-checkpoint requests and actual recorded home starts; no actor changes or action replacement.",
+    "Saved finite IK answers are replayed, not solved again; independent FK and geometry/path proxy checks are recomputed.",
+    "Native release, capture and clean labels remain original audited observations, not predictions for alternative actions.",
+    "TEST is retrospective descriptive analysis only; no TEST outcome selects candidates, settings or checkpoints.",
+    "All requested positions remain in the overall denominator. Conditional release success is reported separately.",
+    "No native simulation, optimizer update, inference-time search, release permission or physical validation."
+  ],
+  "requests": 420,
+  "shadow_wall_s": 6.7581428330158815,
+  "new_native_shots": 0,
+  "optimizer_updates": 0,
+  "changed_policy_actions": 0,
+  "simulator_started": false,
+  "release_authorized": false,
+  "derived_from": {
+    "raw_shadow_sha256": "2a8290eef568f7df74e0c35e53d09c23a2cf77263c185f34bf679dbcb71e14f9",
+    "raw_shadow_fingerprint": "309247cd9fb3c13e9a27331c57e948abdd7d3b6d3c9cfefeefb0cc61f523b930",
+    "scope": "Detailed source-bound decisions remain outside Git; this compact summary contains no raw native observations."
+  },
+  "runs": [
+    {
+      "seed": 20261121,
+      "method": "ppo",
+      "checkpoint_sha256": "f936e3dec1fc700a74b2838fabc7fd7cac2163c6b37cfec04dc751fa0aa48fbd",
+      "original_audit_sha256": "fee6a8e53a5aa982ac1bfd8bfc369813f5b7747737e896b7d4dcd1d36c09149d",
+      "source_progress_sha256": "79b81777d26bdf4d92dc209d9f9c497fe77a69d84dea54bc14e2c1652f65afc1",
+      "source_contract_sha256": "291ca91848bddff8f812b59e790ac565657982a708dd9dcb7c7281136a87544f",
+      "proof_sha256": "31213d92e325084fdfef827a745b36e4c164a4d27c4edd3ba00f5cd8f6c6a803",
+      "trial_sha256": {
+        "trials/eval-train-00297.json.gz": "3bfcb4b6ccce40e256d3e2e5f29ce48729f1ef63dea0c8b8e72c53ff65bcaed7",
+        "trials/eval-validation-00298.json.gz": "81925246d00fb4863b66ef5c167435ab5c2bde01160c151083f4be84764d2c25",
+        "trials/eval-test-00299.json.gz": "6c8acc79dac5d22cd2a3045b70ee16129fab68c756f73fc64ac75b6b5ff7f66a",
+        "trials/eval-test-00300.json.gz": "a9d274d2c9788acbbf84ffd79163ac4201310d47bf498ee8d14b26c714fe5227"
+      },
+      "splits": {
+        "train": {
+          "requests": 35,
+          "preflight_admitted": 29,
+          "preflight_declined": 6,
+          "execution_declined_after_preflight": 0,
+          "released": 29,
+          "released_failures": 16,
+          "captures": 13,
+          "clean": 5,
+          "preflight_admission_rate": 0.8285714285714286,
+          "release_rate": 0.8285714285714286,
+          "capture_rate": 0.37142857142857144,
+          "clean_rate": 0.14285714285714285,
+          "capture_given_release": 0.4482758620689655,
+          "release_given_preflight": 1.0,
+          "preflight_reasons": {
+            "endpoint_ik_unresolved_Arm10": 2,
+            "endpoint_ik_unresolved_Arm14": 1,
+            "outer_link_length_bound": 3
+          },
+          "native_rejection_reasons": {
+            "endpoint_ik_unresolved_Arm10": 2,
+            "endpoint_ik_unresolved_Arm14": 1,
+            "outer_link_length_bound": 3
+          },
+          "parity_requests": 35
+        },
+        "validation": {
+          "requests": 35,
+          "preflight_admitted": 26,
+          "preflight_declined": 9,
+          "execution_declined_after_preflight": 2,
+          "released": 24,
+          "released_failures": 13,
+          "captures": 11,
+          "clean": 4,
+          "preflight_admission_rate": 0.7428571428571429,
+          "release_rate": 0.6857142857142857,
+          "capture_rate": 0.3142857142857143,
+          "clean_rate": 0.11428571428571428,
+          "capture_given_release": 0.4583333333333333,
+          "release_given_preflight": 0.9230769230769231,
+          "preflight_reasons": {
+            "endpoint_ik_unresolved_Arm10": 5,
+            "endpoint_ik_unresolved_Arm14": 3,
+            "outer_link_length_bound": 1
+          },
+          "native_rejection_reasons": {
+            "endpoint_ik_unresolved_Arm10": 5,
+            "endpoint_ik_unresolved_Arm14": 3,
+            "outer_link_length_bound": 1,
+            "setup_transit_incomplete": 2
+          },
+          "parity_requests": 35
+        },
+        "test": {
+          "requests": 70,
+          "preflight_admitted": 53,
+          "preflight_declined": 17,
+          "execution_declined_after_preflight": 1,
+          "released": 52,
+          "released_failures": 24,
+          "captures": 28,
+          "clean": 10,
+          "preflight_admission_rate": 0.7571428571428571,
+          "release_rate": 0.7428571428571429,
+          "capture_rate": 0.4,
+          "clean_rate": 0.14285714285714285,
+          "capture_given_release": 0.5384615384615384,
+          "release_given_preflight": 0.9811320754716981,
+          "preflight_reasons": {
+            "endpoint_ik_unresolved_Arm10": 1,
+            "endpoint_ik_unresolved_Arm14": 12,
+            "outer_link_length_bound": 4
+          },
+          "native_rejection_reasons": {
+            "endpoint_ik_unresolved_Arm10": 1,
+            "endpoint_ik_unresolved_Arm14": 12,
+            "outer_link_length_bound": 4,
+            "setup_transit_incomplete": 1
+          },
+          "parity_requests": 70
+        }
+      },
+      "shadow_wall_s": 2.6317337079672143,
+      "original_training_requests": 10000,
+      "original_training_rejected": 6549
+    },
+    {
+      "seed": 20261122,
+      "method": "ppo",
+      "checkpoint_sha256": "57d7658e9ed2f72ad09cf4e8523ab497ccbe0708364f1b8ec4a4c5c1aef1fe9f",
+      "original_audit_sha256": "cec9cff0a6de59b07dd35de3342ee00bc4106d4801edc0237c570e006aedc1c8",
+      "source_progress_sha256": "ed015c8219bbb160d72ca0759328c5ec7e48981cc71c33a2052300855ac60ff9",
+      "source_contract_sha256": "291ca91848bddff8f812b59e790ac565657982a708dd9dcb7c7281136a87544f",
+      "proof_sha256": "242ef8b13b0ed0b3a1c59fb20a805ffb28cf3517b15c9528b02f97b072c42b31",
+      "trial_sha256": {
+        "trials/eval-train-00297.json.gz": "fb1990fa62245971e0f9f144dc7132278763a4f85eaeb2a5a3489978a2d0b771",
+        "trials/eval-validation-00298.json.gz": "d8792c330999da880dcfced63f31016fe7bb8eb99eed1782142ad32d6c26dc7c",
+        "trials/eval-test-00299.json.gz": "e694b3a4e2065c2c646dd38c3e6179744e2c3c7105af12eec90a88bc019f22ec",
+        "trials/eval-test-00300.json.gz": "3712a3205d1697e4db0a4b0cf1b2854d1d7c7f89789ea1bacf34317f2b39b59d"
+      },
+      "splits": {
+        "train": {
+          "requests": 35,
+          "preflight_admitted": 28,
+          "preflight_declined": 7,
+          "execution_declined_after_preflight": 0,
+          "released": 28,
+          "released_failures": 15,
+          "captures": 13,
+          "clean": 4,
+          "preflight_admission_rate": 0.8,
+          "release_rate": 0.8,
+          "capture_rate": 0.37142857142857144,
+          "clean_rate": 0.11428571428571428,
+          "capture_given_release": 0.4642857142857143,
+          "release_given_preflight": 1.0,
+          "preflight_reasons": {
+            "endpoint_ik_unresolved_Arm10": 2,
+            "endpoint_ik_unresolved_Arm14": 3,
+            "outer_link_length_bound": 2
+          },
+          "native_rejection_reasons": {
+            "endpoint_ik_unresolved_Arm10": 2,
+            "endpoint_ik_unresolved_Arm14": 3,
+            "outer_link_length_bound": 2
+          },
+          "parity_requests": 35
+        },
+        "validation": {
+          "requests": 35,
+          "preflight_admitted": 26,
+          "preflight_declined": 9,
+          "execution_declined_after_preflight": 0,
+          "released": 26,
+          "released_failures": 14,
+          "captures": 12,
+          "clean": 5,
+          "preflight_admission_rate": 0.7428571428571429,
+          "release_rate": 0.7428571428571429,
+          "capture_rate": 0.34285714285714286,
+          "clean_rate": 0.14285714285714285,
+          "capture_given_release": 0.46153846153846156,
+          "release_given_preflight": 1.0,
+          "preflight_reasons": {
+            "endpoint_ik_unresolved_Arm10": 5,
+            "endpoint_ik_unresolved_Arm14": 4
+          },
+          "native_rejection_reasons": {
+            "endpoint_ik_unresolved_Arm10": 5,
+            "endpoint_ik_unresolved_Arm14": 4
+          },
+          "parity_requests": 35
+        },
+        "test": {
+          "requests": 70,
+          "preflight_admitted": 53,
+          "preflight_declined": 17,
+          "execution_declined_after_preflight": 0,
+          "released": 53,
+          "released_failures": 25,
+          "captures": 28,
+          "clean": 7,
+          "preflight_admission_rate": 0.7571428571428571,
+          "release_rate": 0.7571428571428571,
+          "capture_rate": 0.4,
+          "clean_rate": 0.1,
+          "capture_given_release": 0.5283018867924528,
+          "release_given_preflight": 1.0,
+          "preflight_reasons": {
+            "endpoint_ik_unresolved_Arm10": 1,
+            "endpoint_ik_unresolved_Arm14": 12,
+            "outer_link_length_bound": 4
+          },
+          "native_rejection_reasons": {
+            "endpoint_ik_unresolved_Arm10": 1,
+            "endpoint_ik_unresolved_Arm14": 12,
+            "outer_link_length_bound": 4
+          },
+          "parity_requests": 70
+        }
+      },
+      "shadow_wall_s": 2.2105079580796883,
+      "original_training_requests": 10000,
+      "original_training_rejected": 6344
+    },
+    {
+      "seed": 20261123,
+      "method": "ppo",
+      "checkpoint_sha256": "f4fa02cfff64f5bf3f07fe5b280375fe5bb7a75c0c3efbe46d2c3f2b28481f0f",
+      "original_audit_sha256": "74daeb252612041503a91ad74c1f6227d24bbc458b7408523714e3b919ff5d2b",
+      "source_progress_sha256": "5228bf3ecf2b0e40de483c0f53b0f9e787d21408b5ee4dbcf521d9226df7b7fb",
+      "source_contract_sha256": "291ca91848bddff8f812b59e790ac565657982a708dd9dcb7c7281136a87544f",
+      "proof_sha256": "ae966e48f890607dd6b23eb7d1625d51d5c899a0317d3d67400f376151f47a41",
+      "trial_sha256": {
+        "trials/eval-train-00297.json.gz": "415a0c05fbb2dc530a66241fd31ab22bee1afac2bbbb3dfac0906636f7a627e5",
+        "trials/eval-validation-00298.json.gz": "a277ea64a822687bd8c7e28d03a0878fb537e6959415eccf2a800232d5afa7e6",
+        "trials/eval-test-00299.json.gz": "6e1bf7024e4ff6b8e6eb518d77c7cb54623d0aca0c638a15ee37d08a2ec0000d",
+        "trials/eval-test-00300.json.gz": "273bd2bfcc8c99413a791b39372baebaf4484f9e27b458cbb11642ff8f3e79b9"
+      },
+      "splits": {
+        "train": {
+          "requests": 35,
+          "preflight_admitted": 16,
+          "preflight_declined": 19,
+          "execution_declined_after_preflight": 0,
+          "released": 16,
+          "released_failures": 2,
+          "captures": 14,
+          "clean": 9,
+          "preflight_admission_rate": 0.45714285714285713,
+          "release_rate": 0.45714285714285713,
+          "capture_rate": 0.4,
+          "clean_rate": 0.2571428571428571,
+          "capture_given_release": 0.875,
+          "release_given_preflight": 1.0,
+          "preflight_reasons": {
+            "board_table_proxy_overlap": 1,
+            "endpoint_ik_unresolved_Arm10": 5,
+            "endpoint_ik_unresolved_Arm14": 13
+          },
+          "native_rejection_reasons": {
+            "board_table_proxy_overlap": 1,
+            "endpoint_ik_unresolved_Arm10": 5,
+            "endpoint_ik_unresolved_Arm14": 13
+          },
+          "parity_requests": 35
+        },
+        "validation": {
+          "requests": 35,
+          "preflight_admitted": 14,
+          "preflight_declined": 21,
+          "execution_declined_after_preflight": 1,
+          "released": 13,
+          "released_failures": 2,
+          "captures": 11,
+          "clean": 4,
+          "preflight_admission_rate": 0.4,
+          "release_rate": 0.37142857142857144,
+          "capture_rate": 0.3142857142857143,
+          "clean_rate": 0.11428571428571428,
+          "capture_given_release": 0.8461538461538461,
+          "release_given_preflight": 0.9285714285714286,
+          "preflight_reasons": {
+            "board_table_proxy_overlap": 1,
+            "endpoint_ik_unresolved_Arm10": 7,
+            "endpoint_ik_unresolved_Arm14": 13
+          },
+          "native_rejection_reasons": {
+            "board_table_proxy_overlap": 1,
+            "endpoint_ik_unresolved_Arm10": 7,
+            "endpoint_ik_unresolved_Arm14": 13,
+            "setup_transit_incomplete": 1
+          },
+          "parity_requests": 35
+        },
+        "test": {
+          "requests": 70,
+          "preflight_admitted": 29,
+          "preflight_declined": 41,
+          "execution_declined_after_preflight": 1,
+          "released": 28,
+          "released_failures": 0,
+          "captures": 28,
+          "clean": 14,
+          "preflight_admission_rate": 0.4142857142857143,
+          "release_rate": 0.4,
+          "capture_rate": 0.4,
+          "clean_rate": 0.2,
+          "capture_given_release": 1.0,
+          "release_given_preflight": 0.9655172413793104,
+          "preflight_reasons": {
+            "endpoint_ik_unresolved_Arm10": 9,
+            "endpoint_ik_unresolved_Arm14": 30,
+            "outer_link_length_bound": 2
+          },
+          "native_rejection_reasons": {
+            "endpoint_ik_unresolved_Arm10": 9,
+            "endpoint_ik_unresolved_Arm14": 30,
+            "outer_link_length_bound": 2,
+            "setup_motion_not_quiet": 1
+          },
+          "parity_requests": 70
+        }
+      },
+      "shadow_wall_s": 1.8443257909966633,
+      "original_training_requests": 10000,
+      "original_training_rejected": 6779
+    }
+  ],
+  "fresh_train_solver_check": {
+    "schema": "sircus-joint-feasibility-fresh-train-ik-check-v1",
+    "scope": "First ten final known-TRAIN requests, new CPU endpoint solves only; no ball flight, no validation/TEST selection, no optimizer updates.",
+    "seed": 20261122,
+    "requests": 10,
+    "parity": 10,
+    "admitted": 8,
+    "slots": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "reasons": [
+      "endpoint_ik_unresolved_Arm14",
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      "outer_link_length_bound",
+      null,
+      null
+    ],
+    "source_trial_sha256": "fb1990fa62245971e0f9f144dc7132278763a4f85eaeb2a5a3489978a2d0b771",
+    "wall_s": 0.8811934590339661,
+    "receipt_sha256": "c0295aeddb0cc0ab3e1a298c385710a5f80e0c19d1e23d25837cbbecc646b627",
+    "receipt_fingerprint": "1f04baf768062fc9e8b3468aa05b10404ff5233abc3d46cd961dfd51b68d7b72",
+    "new_native_shots": 0
+  },
+  "unchanged_policy_scope": "Retrospective decomposition, not an improved-policy evaluation. Final checkpoint/action/score/budget bytes are preserved; zero training updates or new native shots.",
+  "layer_dependency_sha256": {
+    "joint_feasibility.py": "7fdf85de0d86fbb3bba161fd280d9e2939983e8d81687a42cdf40c5921803b70",
+    "settled_transit.py": "08e37329978f3acbe4476ebaf5513cfa28539985c806daa4a071596d381dd0a7",
+    "continuous_feasibility.py": "4a7ce280ae65f1c08bad711abefab03c5cc949736bc47c8058b2798ac0acb5e4",
+    "expanded_pose_menu.py": "5bfbb470fbd395126880b77a8ca136768eda7d844d89afd924935bfb506e2ea5",
+    "expanded_pose_native.py": "b5092c3003419c04f569fe4475064a0ea92f907efe5a96cbcbb0872898690d37",
+    "feasibility_contract.py": "90164e35b74f8732aaa374bee89f7c428bbf2c5f040453eeb69bd8c9378d368f",
+    "prepare_assets.py": "d7517e4f1f350bd7f48e5c23e48fc4dc4c63882b6b18ce4502bc8c5fd1999d93",
+    "robust_ik.py": "c3e5ce8673042c2fefbb784e825b34b30bb334a1ea3f9896cf0de0f975c71ee9"
+  },
+  "fingerprint": "2393dd1601139cf303cde0b3870718a41457709a0854ca79ab1b02a5e773f26f"
+}
