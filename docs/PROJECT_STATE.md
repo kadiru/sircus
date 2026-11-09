@@ -1,5 +1,14 @@
 # Project state
 
+## Recovery regression diagnosis completed — November 9, 2026
+
+- [Audited correction](../baselines/mjlab-recovery-regression-20261109/README.md) and [handoff](MJLAB_RECOVERY_REGRESSION_20261109.md): all **63 requests / 48 native releases** finished in 221.1 worker seconds; all 18 controls and **22,266 independent checks** passed. No physics-invalid attempts. Producer `a95e303` is frozen; draft PR #109 stacks on #106.
+- On the five selected capture losses, exact parent recipes repeated **15/15 captures**, recovery recipes **0/15**, and restoring only parent board-height parameter **3/15**. Only `r3-c1-n0` recovered, with 3/3 clean direct captures after height 241.129→280.424 mm. Fixed drop gap means absolute release height moves by the same amount. Two flight regressions still miss and two finite IK cases still decline.
+- The nine old refusal slots reuse original decisions; the six corrected refusal slots reuse two new strict proofs. They are not independent repeated IK searches. No diagnostic robot contact; the six robot-contact misses are intentional negative controls. Every request remains in the denominator.
+- CPU diagnosis accounts for all 16 setup declines and 17 released misses; all 17 missed whole-ball entry, seven had forbidden contact. Detailed settings, actual saved trajectories and separate correction outcomes appear in `#recoveryRegression`. The original 70-position result remains 37/70 versus 34/70; this posthoc correction is not a new policy score or generalization claim.
+- No new PPO, policy activation, scoring/guard changes, service restart or hardware work. The 4090 worker exited; 4070 and Isaac remain outside the task. Next: retain the verified parent recipes and test a separate drop-gap hypothesis for the two contact-free flight regressions before more learning.
+- The panel's 60.13-second 3D replay shows the two historical parent/recovery flight pairs and a representative robot-contact miss, using saved ball samples and held joints. All 1,804 frames decoded; Chrome playback and corrected sample replay were verified. Actual corrected traces are separate from the historical movie. All 57 existing report keys/bytes and historical HTML/CSS outside this panel were preserved; no restart.
+
 ## Completed bounded coverage recovery — November 9, 2026
 
 - [Audited results](../baselines/mjlab-coverage-recovery-20261109/README.md), [protocol](../sircus/mjlab/COVERAGE_RECOVERY.md) and [handoff](MJLAB_COVERAGE_RECOVERY_20261109.md): all **970 requests** completed in **96.8 worker minutes**, with both control gates and **283,251 independent checks** passing. Frozen producer `5224093` remains unchanged.

@@ -1,0 +1,555 @@
+{
+  "version": "sircus-recovery-regression-result-summary-v1",
+  "status": "completed",
+  "scope": "Posthoc development correction on five selected capture losses; not a trained-policy result or new held-out evaluation. Fixed64 held-endpoint shots only.",
+  "provenance": {
+    "producer_commit": "a95e3033730e6b76d5452178c176101e1aa2b09d",
+    "parent_report_sha256": "6a255223820656059fe16a5de2944ba2593f7ac3603b287f4955979cd4677504",
+    "diagnosis_sha256": "511e9f82004af0d603628e25adf8fab71284faa8f11de9307b4c8a611d049ab7",
+    "report_sha256": "a6f2d560e9bbd0e721f4b3aaaab651a11de967a6bdb221906208876865582931",
+    "independent_audit_sha256": "81d45d57ea47c0ad558102a0cd8377fbd08caff0ce1952ae8b0ae1d57641f50a",
+    "contract_fingerprint": "74d500fea9c941f4101ad47176b8daaa3cabaabba12e45bd6514e34fd42e1778",
+    "evidence_manifest_sha256": "1f2105249f67098740c0d8be2e4302220d20e224694eefa70b0ee8133ce27d3f",
+    "checks_count": 22266,
+    "full_checks_verified": true,
+    "native_checks_verified": true,
+    "final_runtime_receipt_sha256": "b27fb903e960bbff5db3d6fa6ba26ac6edb8df63292db9063129bf9b45b2b8b3"
+  },
+  "protocol": {
+    "substeps": 64,
+    "maximum_requests": 63,
+    "repeats": 3,
+    "diagnostic_requests": 45,
+    "control_requests": 18,
+    "maximum_acquired_s": 3600,
+    "maximum_queue_s": 900,
+    "maximum_pipeline_s": 6300,
+    "audit_reserve_s": 1800,
+    "storage_reserve_bytes": 8589934592,
+    "training": false,
+    "noise": false,
+    "posthoc_development": true,
+    "variants": [
+      "parent_exact",
+      "recovery_exact",
+      "corrected"
+    ],
+    "contexts": [
+      "recovery-test-r0-c5-n1",
+      "recovery-test-r0-c6-n1",
+      "recovery-test-r1-c1-n1",
+      "recovery-test-r2-c4-n0",
+      "recovery-test-r3-c1-n0"
+    ],
+    "changed_parameter": "board_height_m",
+    "parameter_index": 2,
+    "mode": "restore_matched_parent_coordinate",
+    "old_refusals": "Cached authenticated parent refusals count as requests; no fresh IK or placeholder-joint release.",
+    "correction": "One strict changed-action proof per case, reused unchanged across three nominal requests.",
+    "derived_release": "Fixed drop gap means release-center height changes by the same board-height delta; absolute release Z is not held fixed.",
+    "selection": "All63 slots frozen before outcomes; no search, retries, winner selection or policy promotion.",
+    "controls": "Original17 direct/table/miss before and after; parent captures are diagnostic outcomes, not a hard gate."
+  },
+  "rule": {
+    "parameter": "board_height_m",
+    "parameter_index": 2,
+    "mode": "restore_matched_parent_coordinate",
+    "contexts": [
+      "recovery-test-r0-c5-n1",
+      "recovery-test-r0-c6-n1",
+      "recovery-test-r1-c1-n1",
+      "recovery-test-r2-c4-n0",
+      "recovery-test-r3-c1-n0"
+    ],
+    "diagnosis_sha256": "511e9f82004af0d603628e25adf8fab71284faa8f11de9307b4c8a611d049ab7",
+    "description": "Restore only recovery-BC board height to the matched parent-BC height in all five inspected capture losses. Three losses became setup declines; height restoration tests admission sensitivity. The two contact-free released misses also changed drop gap, which remains untouched: no flight improvement is presumed. Fixed drop gap means derived absolute release-center height changes by the same height delta. This is one shot-parameter intervention, not an isolated bouncer-arm movement."
+  },
+  "counts": {
+    "attempts": 63,
+    "captures": 30,
+    "native_releases": 48,
+    "setup_rejections": 15,
+    "native_misses": 18,
+    "invalid_physics": 0,
+    "direct_captures": 18,
+    "table_assisted_captures": 12,
+    "clean": 9,
+    "robot_contact_shots": 6,
+    "cached_refusal_requests": 9
+  },
+  "counts_by_variant": {
+    "parent_exact": {
+      "attempts": 15,
+      "captures": 15,
+      "native_releases": 15,
+      "setup_rejections": 0,
+      "native_misses": 0,
+      "invalid_physics": 0,
+      "direct_captures": 9,
+      "table_assisted_captures": 6,
+      "clean": 0,
+      "robot_contact_shots": 0,
+      "cached_refusal_requests": 0
+    },
+    "recovery_exact": {
+      "attempts": 15,
+      "captures": 0,
+      "native_releases": 6,
+      "setup_rejections": 9,
+      "native_misses": 6,
+      "invalid_physics": 0,
+      "direct_captures": 0,
+      "table_assisted_captures": 0,
+      "clean": 0,
+      "robot_contact_shots": 0,
+      "cached_refusal_requests": 9
+    },
+    "corrected": {
+      "attempts": 15,
+      "captures": 3,
+      "native_releases": 9,
+      "setup_rejections": 6,
+      "native_misses": 6,
+      "invalid_physics": 0,
+      "direct_captures": 3,
+      "table_assisted_captures": 0,
+      "clean": 3,
+      "robot_contact_shots": 0,
+      "cached_refusal_requests": 0
+    }
+  },
+  "control_gates": {
+    "pre": {
+      "status": "passed",
+      "counts": {
+        "attempts": 9,
+        "captures": 6,
+        "native_releases": 9,
+        "invalid": 0,
+        "clean": 3,
+        "mean_reward": 2.830224355402141,
+        "direct_captures": 3,
+        "table_assisted_captures": 3,
+        "setup_rejections": 0,
+        "native_misses": 3,
+        "forbidden_contact_shots": 3,
+        "invalid_physics": 0
+      },
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    },
+    "post": {
+      "status": "passed",
+      "counts": {
+        "attempts": 9,
+        "captures": 6,
+        "native_releases": 9,
+        "invalid": 0,
+        "clean": 3,
+        "mean_reward": 2.830224352583496,
+        "direct_captures": 3,
+        "table_assisted_captures": 3,
+        "setup_rejections": 0,
+        "native_misses": 3,
+        "forbidden_contact_shots": 3,
+        "invalid_physics": 0
+      },
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    }
+  },
+  "cases": [
+    {
+      "context_id": "recovery-test-r0-c5-n1",
+      "bucket_xy_m": [
+        1.0532821972317188,
+        -0.6192877290708148
+      ],
+      "parent_values": [
+        0.6423936910071795,
+        -0.19696818129175686,
+        0.42882192610008596,
+        31.74276726405379,
+        0.10343122140848612
+      ],
+      "recovery_values": [
+        0.6481643483015345,
+        -0.1966980652002992,
+        0.4248992377460701,
+        31.477651850899182,
+        0.13399849772597527
+      ],
+      "corrected_values": [
+        0.6481643483015345,
+        -0.1966980652002992,
+        0.42882192610008596,
+        31.477651850899182,
+        0.13399849772597527
+      ],
+      "variants": {
+        "parent_exact": {
+          "attempts": 3,
+          "captures": 3,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "direct_captures": 0,
+          "table_assisted_captures": 3,
+          "clean": 0,
+          "robot_contact_shots": 0,
+          "cached_refusal_requests": 0
+        },
+        "recovery_exact": {
+          "attempts": 3,
+          "captures": 0,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 3,
+          "invalid_physics": 0,
+          "direct_captures": 0,
+          "table_assisted_captures": 0,
+          "clean": 0,
+          "robot_contact_shots": 0,
+          "cached_refusal_requests": 0
+        },
+        "corrected": {
+          "attempts": 3,
+          "captures": 0,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 3,
+          "invalid_physics": 0,
+          "direct_captures": 0,
+          "table_assisted_captures": 0,
+          "clean": 0,
+          "robot_contact_shots": 0,
+          "cached_refusal_requests": 0
+        }
+      },
+      "corrected_connection_sha256": "7b18a54cb4071c1ebef94e105a6172666e24a4021c73e746a6fe010f523445d7",
+      "corrected_admission_reason": null,
+      "corrected_first_native_cache_sha256": "86cad9b41f1edebde974a6f966d407a503d1e056426160c58973c85bcf7d4d5f",
+      "requested_release_center_z_m": 0.6003204238260612
+    },
+    {
+      "context_id": "recovery-test-r0-c6-n1",
+      "bucket_xy_m": [
+        1.124874941626022,
+        -0.5931986953664748
+      ],
+      "parent_values": [
+        0.6511098958504349,
+        -0.19868905327524075,
+        0.4330840858270651,
+        30.835568330652933,
+        0.10993224529525081
+      ],
+      "recovery_values": [
+        0.652624209743943,
+        -0.19822855800548922,
+        0.4432451770935588,
+        30.54564382422724,
+        0.1476775358189461
+      ],
+      "corrected_values": [
+        0.652624209743943,
+        -0.19822855800548922,
+        0.4330840858270651,
+        30.54564382422724,
+        0.1476775358189461
+      ],
+      "variants": {
+        "parent_exact": {
+          "attempts": 3,
+          "captures": 3,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "direct_captures": 0,
+          "table_assisted_captures": 3,
+          "clean": 0,
+          "robot_contact_shots": 0,
+          "cached_refusal_requests": 0
+        },
+        "recovery_exact": {
+          "attempts": 3,
+          "captures": 0,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 3,
+          "invalid_physics": 0,
+          "direct_captures": 0,
+          "table_assisted_captures": 0,
+          "clean": 0,
+          "robot_contact_shots": 0,
+          "cached_refusal_requests": 0
+        },
+        "corrected": {
+          "attempts": 3,
+          "captures": 0,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 3,
+          "invalid_physics": 0,
+          "direct_captures": 0,
+          "table_assisted_captures": 0,
+          "clean": 0,
+          "robot_contact_shots": 0,
+          "cached_refusal_requests": 0
+        }
+      },
+      "corrected_connection_sha256": "af874a8082b739b90f005370ec0c2bfb67bf11f398391608c02518f3804cc11f",
+      "corrected_admission_reason": null,
+      "corrected_first_native_cache_sha256": "86cad9b41f1edebde974a6f966d407a503d1e056426160c58973c85bcf7d4d5f",
+      "requested_release_center_z_m": 0.6182616216460112
+    },
+    {
+      "context_id": "recovery-test-r1-c1-n1",
+      "bucket_xy_m": [
+        0.37808349751740966,
+        -0.43814751388568507
+      ],
+      "parent_values": [
+        0.6354208507773215,
+        -0.3928478259242271,
+        0.2821621006239574,
+        31.622137576704997,
+        0.2112402545682202
+      ],
+      "recovery_values": [
+        0.6413132134896747,
+        -0.41637288978939857,
+        0.2578337762327255,
+        32.19563352799576,
+        0.23693153444604603
+      ],
+      "corrected_values": [
+        0.6413132134896747,
+        -0.41637288978939857,
+        0.2821621006239574,
+        32.19563352799576,
+        0.23693153444604603
+      ],
+      "variants": {
+        "parent_exact": {
+          "attempts": 3,
+          "captures": 3,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "direct_captures": 3,
+          "table_assisted_captures": 0,
+          "clean": 0,
+          "robot_contact_shots": 0,
+          "cached_refusal_requests": 0
+        },
+        "recovery_exact": {
+          "attempts": 3,
+          "captures": 0,
+          "native_releases": 0,
+          "setup_rejections": 3,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "direct_captures": 0,
+          "table_assisted_captures": 0,
+          "clean": 0,
+          "robot_contact_shots": 0,
+          "cached_refusal_requests": 3
+        },
+        "corrected": {
+          "attempts": 3,
+          "captures": 0,
+          "native_releases": 0,
+          "setup_rejections": 3,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "direct_captures": 0,
+          "table_assisted_captures": 0,
+          "clean": 0,
+          "robot_contact_shots": 0,
+          "cached_refusal_requests": 0
+        }
+      },
+      "corrected_connection_sha256": "14d6eee594a23a626788c618121b654e005017edf407ea8b2fcbeac50730afbc",
+      "corrected_admission_reason": "finite_ik_unresolved",
+      "corrected_first_native_cache_sha256": null,
+      "requested_release_center_z_m": 0.5565936350700035,
+      "corrected_valid_ik_branches_dropper_board": [
+        0,
+        8
+      ],
+      "corrected_minimum_proof_clearance_m": null
+    },
+    {
+      "context_id": "recovery-test-r2-c4-n0",
+      "bucket_xy_m": [
+        0.8983060633856379,
+        -0.24416666833902845
+      ],
+      "parent_values": [
+        0.5793425910769604,
+        -0.05966102020726748,
+        0.4607055799518638,
+        24.096035731929092,
+        0.21219981871621818
+      ],
+      "recovery_values": [
+        0.5656497500163832,
+        -0.062265897289356005,
+        0.4783027474252996,
+        25.631120689705778,
+        0.18223217071817022
+      ],
+      "corrected_values": [
+        0.5656497500163832,
+        -0.062265897289356005,
+        0.4607055799518638,
+        25.631120689705778,
+        0.18223217071817022
+      ],
+      "variants": {
+        "parent_exact": {
+          "attempts": 3,
+          "captures": 3,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "direct_captures": 3,
+          "table_assisted_captures": 0,
+          "clean": 0,
+          "robot_contact_shots": 0,
+          "cached_refusal_requests": 0
+        },
+        "recovery_exact": {
+          "attempts": 3,
+          "captures": 0,
+          "native_releases": 0,
+          "setup_rejections": 3,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "direct_captures": 0,
+          "table_assisted_captures": 0,
+          "clean": 0,
+          "robot_contact_shots": 0,
+          "cached_refusal_requests": 3
+        },
+        "corrected": {
+          "attempts": 3,
+          "captures": 0,
+          "native_releases": 0,
+          "setup_rejections": 3,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "direct_captures": 0,
+          "table_assisted_captures": 0,
+          "clean": 0,
+          "robot_contact_shots": 0,
+          "cached_refusal_requests": 0
+        }
+      },
+      "corrected_connection_sha256": "3b7c29163c27ff746742f970fb798051aa8e13eb26bb6c46c7ec893075af5b0f",
+      "corrected_admission_reason": "finite_ik_unresolved",
+      "corrected_first_native_cache_sha256": null,
+      "requested_release_center_z_m": 0.680437750670034,
+      "corrected_valid_ik_branches_dropper_board": [
+        6,
+        0
+      ],
+      "corrected_minimum_proof_clearance_m": null
+    },
+    {
+      "context_id": "recovery-test-r3-c1-n0",
+      "bucket_xy_m": [
+        0.33921258610632277,
+        -0.030948513932831045
+      ],
+      "parent_values": [
+        0.6187721973647593,
+        -0.012944117054320775,
+        0.2804242748271688,
+        29.199764274956387,
+        0.0655825816724418
+      ],
+      "recovery_values": [
+        0.6130874716489696,
+        -0.014842174275851744,
+        0.24112904780445696,
+        26.792298426137677,
+        0.17376046515080312
+      ],
+      "corrected_values": [
+        0.6130874716489696,
+        -0.014842174275851744,
+        0.2804242748271688,
+        26.792298426137677,
+        0.17376046515080312
+      ],
+      "variants": {
+        "parent_exact": {
+          "attempts": 3,
+          "captures": 3,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "direct_captures": 3,
+          "table_assisted_captures": 0,
+          "clean": 0,
+          "robot_contact_shots": 0,
+          "cached_refusal_requests": 0
+        },
+        "recovery_exact": {
+          "attempts": 3,
+          "captures": 0,
+          "native_releases": 0,
+          "setup_rejections": 3,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "direct_captures": 0,
+          "table_assisted_captures": 0,
+          "clean": 0,
+          "robot_contact_shots": 0,
+          "cached_refusal_requests": 3
+        },
+        "corrected": {
+          "attempts": 3,
+          "captures": 3,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "direct_captures": 3,
+          "table_assisted_captures": 0,
+          "clean": 3,
+          "robot_contact_shots": 0,
+          "cached_refusal_requests": 0
+        }
+      },
+      "corrected_connection_sha256": "5844dc944e92a5e29abb9a117a5e6e1584f36297f503bf2d96eea8852de87bb0",
+      "corrected_admission_reason": null,
+      "corrected_first_native_cache_sha256": "6659707912e3e843ff614b407175b930c949c536e3fd8c46d5b314020344576a",
+      "requested_release_center_z_m": 0.4916847399779719
+    }
+  ],
+  "worker_elapsed_s": 221.09184153203387,
+  "historical_70_position_scores_unchanged": {
+    "recovery_bc": 37,
+    "parent_bc": 34,
+    "parent_ppo": 34,
+    "previous_ppo": 31
+  },
+  "interpretation": [
+    "One of five regression contexts recovered: r3-c1-n0 captured3/3 after restoring board height; two flights still missed and two setups still declined.",
+    "Exact parent recipes recaptured15/15. This confirms reusable settings at these inspected scenes, not a new generalization score.",
+    "Nine old refused slots reuse authenticated admission; six corrected refused slots reflect two distinct fresh strict proofs, reused across nominal requests.",
+    "No diagnostic robot/forbidden contact or invalid physics. Six robot-contact misses belong to the deliberately negative formal controls.",
+    "No new model fitting, policy activation, score/admission changes, noise or128 qualification."
+  ],
+  "next_step": "Preserve the verified successful recipes. Test one separately frozen drop-gap correction for the two contact-free flight regressions; retain full successful recipes as controls for the two unresolved IK cases before more learning."
+}
