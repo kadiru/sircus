@@ -1,0 +1,27 @@
+{
+  "mode": "matched_parent_coordinate_blocks_and_interpolation",
+  "contexts": [
+    "recovery-test-r1-c1-n1",
+    "recovery-test-r2-c4-n0"
+  ],
+  "coordinate_groups": {
+    "parent_xy": [
+      0,
+      1
+    ],
+    "parent_height_gap": [
+      2,
+      4
+    ],
+    "parent_tilt": [
+      3
+    ]
+  },
+  "blend_fractions": {
+    "blend25": 0.25,
+    "blend50": 0.5,
+    "blend75": 0.75
+  },
+  "diagnosis_sha256": "511e9f82004af0d603628e25adf8fab71284faa8f11de9307b4c8a611d049ab7",
+  "description": "At two captured parent layouts, recovery actions were rejected by finite IK. Test fixed parent-coordinate blocks and 25/50/75 percent interpolation toward each full captured parent recipe. Parent branches and original refusals remain exact; novel actions retain all strict admission checks. Three nominal requests per recipe test admitted flights without outcome selection or changes to solver tolerances. This is a local feasibility experiment, not an IK algorithm fix or new policy evaluation."
+}
