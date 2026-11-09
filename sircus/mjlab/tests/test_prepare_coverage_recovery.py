@@ -51,6 +51,16 @@ class RecoveryPublicationTests(unittest.TestCase):
         self.raw['fit']=dict(status='no_confirmed_new_teacher',parent_teacher_count=68,new_teacher_count=0,actor_steps=0);write(self.report,self.raw)
         self.assertFalse(self.compact()['training_summary']['trained'])
 
+    def test_producer_reason_string_and_invalid_counts_reach_ui_without_rescoring(self):
+        self.raw['test_comparison']=[dict(method='parent_bc',counts=dict(counts(32,9,4),invalid_physics=1))]
+        self.raw['stage_counts']['test']=dict(counts(32,9,4),invalid_physics=1)
+        self.raw['test_positions']=[dict(context_id='fresh-0',bucket_xy_m=[.2,.1],method='parent_bc',capture=False,native_release=True,invalid='native_physics_outside_calibrated_domain',record_id='invalid-example')]
+        write(self.report,self.raw);out=self.compact()
+        self.assertEqual(out['test_positions'][0]['invalid'],'native_physics_outside_calibrated_domain')
+        self.assertNotIn('invalid_physics',out['test_positions'][0])
+        self.assertEqual(out['test_comparison'][0]['counts'],self.raw['test_comparison'][0]['counts'])
+        self.assertEqual(next(r for r in out['stage_counts'] if r['stage']=='test')['counts'],self.raw['stage_counts']['test'])
+
     def test_changed_split_contract_and_diagnosis_rejected(self):
         split=copy.deepcopy(self.splits);split['test'][0]['bucket_xy_m'][0]+=.1;write(self.study/'splits.json',split)
         with self.assertRaisesRegex(ValueError,'split file'):self.compact()
