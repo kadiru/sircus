@@ -66,17 +66,17 @@ class ReplayPublisherTests(unittest.TestCase):
         self.movie.write_bytes(self.movie.read_bytes()+b'changed')
         with self.assertRaises(ValueError):
             self.compact()
+        self.raw.update(video_bytes=self.movie.stat().st_size,output_sha256=P.sha(self.movie))
+        self.raw['frames'][0]['source_tick']=999
+        self.save()
+        with self.assertRaisesRegex(ValueError,'frame-map checksum'):
+            self.compact()
 
     def test_category_mapping_is_rendered_in_actual_time_order(self):
         self.raw['clips'][0]['events']={'board':.2,'bucket':.6,'table':.7,'robot':.4,'floor':None}
         self.save()
         self.assertEqual([event['label'] for event in self.compact()['clips'][0]['events']],
                          ['board','robot','bucket','table'])
-        self.raw.update(video_bytes=self.movie.stat().st_size,output_sha256=P.sha(self.movie))
-        self.raw['frames'][0]['source_tick']=999
-        self.save()
-        with self.assertRaisesRegex(ValueError,'frame-map checksum'):
-            self.compact()
 
     def test_stale_audit_or_different_report_binding_is_rejected(self):
         original=self.report.read_bytes()

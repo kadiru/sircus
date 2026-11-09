@@ -1,0 +1,379 @@
+{
+  "version": "sircus-height-tilt-recorded-video-v1",
+  "status": "completed",
+  "output_sha256": "111398a797f977d9039d3ce081025594221c6ae3d092ee4040ebcce1d06785e2",
+  "video_bytes": 1898113,
+  "duration_s": 47.63333333333333,
+  "fps": 30,
+  "width": 1280,
+  "height": 720,
+  "frames_sha256": "8cc4737e236607808ff00fb63f86eda1e942a5903600d194d7f8066633dee34e",
+  "native_steps_added": 0,
+  "held_arm_poses": true,
+  "sampled_ball_centers_only": true,
+  "source": {
+    "report_sha256": "a93d348dd055fde3ec1e9dc660c278fdc3e5f38742bce93abd71da03f0d066c7",
+    "audit_sha256": "38f0553a0cf8ca3948f8b9624d55e05ce07b2d9c1c0b9934c22d7e0f8e8bbe00",
+    "contract_fingerprint": "4e348fd03faf9b54083e11ef1e9bf594c8c90b5bd3b2707f20f0606a6b26016a"
+  },
+  "frame_count": 1429,
+  "manifest_sha256": "34a24d626336db1512f748a6c731a4c4fc5eb2a03bb9ebeca7ca65f7b59b3112",
+  "clips": [
+    {
+      "record_id": "height-tilt-table-training-test-00-g23",
+      "record_sha256": "9d59e5b17a2cfba7484d39696cf41e4df08636d9a8c2b78a26111bf6f051eb8a",
+      "native_cache_sha256": "acc3657360f82ce97f6e4ff4f2b974fb74ce2df0001aa9dafc57ba6deeabb34f",
+      "context_id": "table-training-test-00",
+      "label": "Case 00 / board, robot, bucket / no entry",
+      "start_s": 0.0,
+      "end_s": 7.8,
+      "values": [
+        0.5979922029820652,
+        -0.14355725745408743,
+        0.46,
+        28.0,
+        0.25181883224993984
+      ],
+      "capture": false,
+      "whole_ball_entry": false,
+      "source_interval_s": [
+        0.0,
+        1.1509765625
+      ],
+      "events": [
+        {
+          "label": "board",
+          "time_s": 0.223046875
+        },
+        {
+          "label": "robot",
+          "time_s": 0.47630208333333335
+        },
+        {
+          "label": "bucket",
+          "time_s": 0.5686197916666667
+        },
+        {
+          "label": "table",
+          "time_s": 0.7736979166666667
+        }
+      ]
+    },
+    {
+      "record_id": "height-tilt-table-training-test-18-g23",
+      "record_sha256": "fdd0a766ccbca46001e3c8c84e654cd872cd34d02d2f06d13eb6da8121f47277",
+      "native_cache_sha256": "05357e3f7ccedc5a8e445e359b4e176ff8c1207f84b87a7511d793bfc792630a",
+      "context_id": "table-training-test-18",
+      "label": "Case 18 / board, robot, table / no entry",
+      "start_s": 7.8,
+      "end_s": 15.433333333333334,
+      "values": [
+        0.5935771676513939,
+        -0.12502900630424774,
+        0.46,
+        28.0,
+        0.24020015485303045
+      ],
+      "capture": false,
+      "whole_ball_entry": false,
+      "source_interval_s": [
+        0.0,
+        1.1169270833333333
+      ],
+      "events": [
+        {
+          "label": "board",
+          "time_s": 0.21764322916666667
+        },
+        {
+          "label": "robot",
+          "time_s": 0.46783854166666666
+        },
+        {
+          "label": "table",
+          "time_s": 0.6561197916666667
+        }
+      ]
+    },
+    {
+      "record_id": "height-tilt-table-training-test-01-g17",
+      "record_sha256": "c5aeaf56b32e78e007c38fa5a6a152aee5bc8d6ac7bc442e3b05cee3776b3922",
+      "native_cache_sha256": "acc3657360f82ce97f6e4ff4f2b974fb74ce2df0001aa9dafc57ba6deeabb34f",
+      "context_id": "table-training-test-01",
+      "label": "Case 01 / no robot contact / no entry",
+      "start_s": 15.433333333333334,
+      "end_s": 35.86666666666667,
+      "values": [
+        0.6019516960614099,
+        -0.15293569618645803,
+        0.44,
+        24.0,
+        0.2398330372344851
+      ],
+      "capture": false,
+      "whole_ball_entry": false,
+      "source_interval_s": [
+        0.0,
+        3.8216145833333335
+      ],
+      "events": [
+        {
+          "label": "board",
+          "time_s": 0.21822916666666667
+        },
+        {
+          "label": "bucket",
+          "time_s": 0.5955729166666667
+        },
+        {
+          "label": "table",
+          "time_s": 0.6277994791666667
+        }
+      ]
+    },
+    {
+      "record_id": "height-tilt-controls_pre-control-table_control-r0",
+      "record_sha256": "1a4ad14d0c282e1ff688d811f17ca42b38efb40e9b2d6c04640f8fc381f1d848",
+      "native_cache_sha256": "c0973e057dbc5b900d5ea97479dc06eb30536bbd06e1d16a30d3c1ceddde4ac9",
+      "context_id": "control-table_control",
+      "label": "Positive control / table-assisted capture",
+      "start_s": 35.86666666666667,
+      "end_s": 47.63333333333333,
+      "values": [
+        0.5941020257486411,
+        -0.1250784559468693,
+        0.3392937994318979,
+        16.013746844601016,
+        0.22875969364684953
+      ],
+      "capture": true,
+      "whole_ball_entry": true,
+      "source_interval_s": [
+        0.0,
+        2.084114583333333
+      ],
+      "events": [
+        {
+          "label": "board",
+          "time_s": 0.21399739583333333
+        },
+        {
+          "label": "table",
+          "time_s": 0.6184244791666667
+        },
+        {
+          "label": "bucket",
+          "time_s": 0.8002604166666667
+        },
+        {
+          "label": "whole_ball_entry",
+          "time_s": 1.0841145833333332
+        },
+        {
+          "label": "capture",
+          "time_s": 2.084114583333333
+        }
+      ]
+    }
+  ],
+  "producer_commit": "d597b862fea426c1fdccd76431f2242ebade8a49",
+  "backend": {
+    "renderer": "llvmpipe (LLVM 15.0.7, 256 bits)",
+    "vendor": "Mesa",
+    "software_only": true,
+    "cuda_visible_devices": "",
+    "backend": "egl"
+  },
+  "packages": {
+    "mujoco": "3.11.0",
+    "numpy": "1.26.4",
+    "Pillow": "12.3.0",
+    "imageio": "2.38.0"
+  },
+  "renderer_source_sha256": "606d815e30ed20ffeae0e8b522b21847795b7650ba32ca5fa2e2855e6b52fc6d",
+  "helper_source_sha256": {
+    "sircus/mjlab/saved_shot_video.py": "1d1e76e41fca3a150c10450bbcc2b21329cfb53e916d7dbd6b3e8bdb19943f43"
+  },
+  "full_model_xml_sha256": {
+    "height-tilt-table-training-test-00-g23": "9f80c8616425d4f9afdb683cfa90593235bd95cd3e10c54d8cb60f3ee338a11f",
+    "height-tilt-table-training-test-18-g23": "9f80c8616425d4f9afdb683cfa90593235bd95cd3e10c54d8cb60f3ee338a11f",
+    "height-tilt-table-training-test-01-g17": "9f80c8616425d4f9afdb683cfa90593235bd95cd3e10c54d8cb60f3ee338a11f",
+    "height-tilt-controls_pre-control-table_control-r0": "9f80c8616425d4f9afdb683cfa90593235bd95cd3e10c54d8cb60f3ee338a11f"
+  },
+  "asset_sha256": {
+    "assets/board_arm.urdf": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340",
+    "assets/dropper.urdf": "3f40e56e46b040fb3339c1235ea85872f46511c45db2d37f7661db94a470bae3",
+    "assets/poses.json": "5847c2793606860a82cc74030c3fe529767318f189c5d48e3d66c0dc7b9f776a",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link1.stl": "4069840361c2693b5b1147da366d5ba8a49ff7ab2c52fed68e07e04e07786e3f",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link2.stl": "0e736a629e6000c3c912f5aaf76937f824f510ac8894db67bd0d7f1d6210fc52",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link3.stl": "f682201345117c4b021fd9db21bd9bef6824886c8324f046b7d5772d7c9fa426",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link4.stl": "7bf4ab507c07a2b26e6a8528decdfe32d71efffdf1dd391406f1ce2f9ff4caa7",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link5.stl": "103955f097086e0f5d46380ff89bc7ef669877bb65def38431a18fc5343e1ba0",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link6.stl": "86b95b77850f38ff1437284705a1c8c616e3da21faef72e4f06751fc741de3b3",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link_base.stl": "871d501d23e8164440656331ee0e005d859dbdb7fab1c3725bef423adac9cf0e"
+  },
+  "model_source_sha256": {
+    "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+    "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d"
+  },
+  "scene_sha256": "9a50295d9908be8634c2df1c0b460ec6011710cf8e14ce33cbc67a75749ff1c8",
+  "cameras": {
+    "height-tilt-table-training-test-00-g23": {
+      "overview": {
+        "lookat": [
+          0.65,
+          -0.3,
+          0.4
+        ],
+        "distance": 2.6,
+        "azimuth": -78.65935244468405,
+        "elevation": -28.0
+      },
+      "close": {
+        "lookat": [
+          0.8537658436857759,
+          -0.1825105359690327,
+          0.4
+        ],
+        "distance": 1.85,
+        "azimuth": 81.34064755531595,
+        "elevation": -23
+      },
+      "reverse": {
+        "lookat": [
+          0.8537658436857759,
+          -0.1825105359690327,
+          0.34499989449977875
+        ],
+        "distance": 1.65,
+        "azimuth": 81.34064755531595,
+        "elevation": -18.0
+      }
+    },
+    "height-tilt-table-training-test-18-g23": {
+      "overview": {
+        "lookat": [
+          0.65,
+          -0.3,
+          0.4
+        ],
+        "distance": 2.6,
+        "azimuth": -38.90419370204877,
+        "elevation": -28.0
+      },
+      "close": {
+        "lookat": [
+          0.8476472649811475,
+          0.028210420956456705,
+          0.4
+        ],
+        "distance": 1.85,
+        "azimuth": -58.90419370204877,
+        "elevation": -23
+      },
+      "reverse": {
+        "lookat": [
+          0.8476472649811475,
+          0.028210420956456705,
+          0.3449999839067459
+        ],
+        "distance": 1.65,
+        "azimuth": 121.09580629795123,
+        "elevation": -18.0
+      }
+    },
+    "height-tilt-table-training-test-01-g17": {
+      "overview": {
+        "lookat": [
+          0.65,
+          -0.3,
+          0.4
+        ],
+        "distance": 2.6,
+        "azimuth": -77.94355252307999,
+        "elevation": -28.0
+      },
+      "close": {
+        "lookat": [
+          0.8877152364635825,
+          -0.1928101496328425,
+          0.4
+        ],
+        "distance": 1.85,
+        "azimuth": -97.94355252307999,
+        "elevation": -23
+      },
+      "reverse": {
+        "lookat": [
+          0.8877152364635825,
+          -0.1928101496328425,
+          0.3299999535083771
+        ],
+        "distance": 1.65,
+        "azimuth": 82.05644747692001,
+        "elevation": -18.0
+      }
+    },
+    "height-tilt-controls_pre-control-table_control-r0": {
+      "overview": {
+        "lookat": [
+          0.65,
+          -0.3,
+          0.4
+        ],
+        "distance": 2.6,
+        "azimuth": -30.555033752384873,
+        "elevation": -28.0
+      },
+      "close": {
+        "lookat": [
+          0.8220509827136993,
+          0.062460772693157196,
+          0.25
+        ],
+        "distance": 1.6,
+        "azimuth": -50.55503375238487,
+        "elevation": -60
+      },
+      "reverse": {
+        "lookat": [
+          0.8220509827136993,
+          0.062460772693157196,
+          0.3
+        ],
+        "distance": 1.65,
+        "azimuth": 129.44496624761513,
+        "elevation": -18.0
+      }
+    }
+  },
+  "camera_overrides_sha256": "7d5c88d300b06b255c26b3c96f0ae22f852233dc50edcc1e521ce37de06c5949",
+  "native_dt_s": 6.510416666666667e-05,
+  "ball_spin_recorded": false,
+  "interpolation": false,
+  "historical_labels_unchanged": true,
+  "contact_threshold_N": 0.01,
+  "contact_force_order": [
+    "board",
+    "bucket",
+    "table",
+    "floor",
+    "robot",
+    "unattributed"
+  ],
+  "scope": "Three inspected development misses and one positive control; recorded native64 replay, not policy validation.",
+  "verification": {
+    "unit_tests_passed": 35,
+    "mp4_decode_passed": true,
+    "codec": "h264",
+    "width": 1280,
+    "height": 720,
+    "fps": "30/1",
+    "decoded_frame_count": 1429,
+    "browser_playback_verified": true,
+    "chapter_navigation_verified": true,
+    "speed_control_verified": true,
+    "server_restarted": false,
+    "gpu_used_for_rendering": false
+  }
+}
