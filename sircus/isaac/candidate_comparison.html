@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sircus · Frozen policy and candidate bank</title>
+  <style>
+    :root{color-scheme:light;--ink:#182b32;--muted:#5e7075;--paper:#f4f3ee;--card:#fff;--line:#d9e1df;--parent:#4b6c8b;--bank:#087e78;--accent:#e0a843;--warn:#805b17}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{max-width:1180px;margin:auto;padding:28px 24px 60px}a{color:#086c75;text-underline-offset:3px}header{padding:24px 0 20px;border-bottom:1px solid var(--line)}.eyebrow{font-size:12px;letter-spacing:.12em;font-weight:750;color:var(--muted);text-transform:uppercase}h1{font-size:clamp(29px,4vw,45px);line-height:1.1;letter-spacing:-.04em;margin:12px 0}h2{font-size:24px;letter-spacing:-.025em;margin:0 0 14px}h3{font-size:17px;margin:0 0 9px}p{margin:9px 0}.lede{max-width:880px;color:var(--muted)}nav{display:flex;gap:22px;flex-wrap:wrap;margin-top:20px;font-size:14px}section{margin-top:26px}.card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:22px}.status{border-left:5px solid var(--accent);display:flex;gap:20px;align-items:flex-start;justify-content:space-between}.status.passed{border-left-color:var(--bank)}.status.failed{border-left-color:#a94343}.badge{display:inline-block;border-radius:5px;padding:3px 9px;background:#fff1cf;color:var(--warn);font-size:12px;letter-spacing:.06em;font-weight:750;text-transform:uppercase}.passed .badge{background:#ddf2ec;color:#136658}.failed .badge{background:#f8e3e3;color:#8a3030}.status-title{font-size:21px;font-weight:720;margin-top:8px}.muted,.scope{color:var(--muted);font-size:14px}.scope{border-top:1px solid var(--line);padding-top:14px;margin-top:15px}.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.metric .metric-label{color:var(--muted);font-size:13px;margin-bottom:12px}.metric .pair-value{font-size:25px;font-weight:750;line-height:1.3}.parent{color:var(--parent)}.bank{color:var(--bank)}.pair-value small{font-size:13px;font-weight:500}.split{display:grid;grid-template-columns:1.2fr 1fr;gap:18px}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:14px}th,td{padding:11px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}td:first-child{font-weight:600}tbody tr:last-child td{border-bottom:0}.chart svg{width:100%;display:block}.legend{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:13px;margin:4px 0 15px}.dot{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:7px}.dot.parent{background:var(--parent)}.dot.bank{background:var(--bank)}.pending{padding:24px 0;color:var(--muted)}.compute-note{margin-top:14px;color:var(--muted);font-size:13px}button,select{font:inherit;border:1px solid var(--line);background:white;color:var(--ink);border-radius:7px;padding:8px 12px}button{font-size:13px;cursor:pointer;white-space:nowrap}button:hover{border-color:var(--bank)}label{display:block;font-size:14px;margin:9px 0 6px}select{width:100%;max-width:620px}details summary{cursor:pointer;font-weight:650}details[open] summary{margin-bottom:14px}.case-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:18px}.case-box{background:#f6f8f7;border:1px solid var(--line);border-radius:10px;padding:17px}.case-box h3{margin-bottom:12px}ul{padding-left:21px}.hash{font:12px/1.5 ui-monospace,SFMono-Regular,monospace;overflow-wrap:anywhere}footer{margin-top:28px;color:var(--muted);font-size:13px}.error{color:#8a3030}.hidden{display:none}@media(max-width:760px){main{padding:18px 15px 40px}.metrics,.split,.case-grid{grid-template-columns:1fr}.card{padding:18px}.status{gap:10px}nav{gap:15px}.metric .pair-value{font-size:23px}}
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="eyebrow">Sircus · Native TRAIN comparison</div>
+    <h1>Frozen weights.<br>Two shot selectors.</h1>
+    <p class="lede">Seed 20261122 chooses either its original shot or one from the checked candidate bank. Each method requests the same 35 known TRAIN positions. No learning or held-out evaluation is part of this comparison.</p>
+    <nav aria-label="Comparison sections"><a href="#overview">Results</a><a href="#compute">Compute</a><a href="#cases">Paired positions</a><a href="http://127.0.0.1:18797/#frozen" target="_blank" rel="noopener">Original frozen benchmark ↗</a></nav>
+  </header>
+  <section id="overview" aria-labelledby="statusTitle">
+    <div id="statusCard" class="card status"><div><span id="statusBadge" class="badge">Loading</span><div id="statusTitle" class="status-title">Reading comparison evidence…</div><p id="statusDetail" class="muted">Results appear after native execution and an independent audit.</p><p id="progress" class="muted"></p></div><button id="refresh" type="button">Refresh</button></div>
+  </section>
+  <section id="metrics" class="metrics" aria-label="Captures, clean captures and rejected requests"></section>
+  <section class="split">
+    <div class="card"><h2>Requested-position results</h2><div class="legend"><span><span class="dot parent"></span>Original seed 22</span><span><span class="dot bank"></span>Candidate-bank selector</span></div><div id="rateChart" class="chart"></div><p class="scope">Rates use every requested position, including setup rejections. A candidate passing preflight is not a guaranteed release or capture.</p></div>
+    <div class="card"><h2>Paired comparison</h2><div id="paired"></div><p class="scope">The bank includes historical successful TRAIN actions. These are familiar positions, so this comparison does not measure unseen-position generalization.</p></div>
+  </section>
+  <section id="compute" class="card"><h2>Measured compute cost</h2><div id="computeTable" class="table-wrap"></div><div id="sharedCompute"></div><p id="computeScope" class="compute-note"></p></section>
+  <section id="cases" class="card"><h2>Paired positions</h2><p class="muted">Compare the exact chosen settings and the native outcome at each requested TRAIN position.</p><div id="caseList"></div><div id="caseDetail"></div></section>
+  <section class="card"><details><summary>Evidence, audit and scope</summary><div id="sourceIdentity"></div><ul id="scopeList"></ul></details></section>
+  <footer>GET-only local viewer. The original benchmark, its checkpoints and its 18797 reader stay separate.</footer>
+</main>
+<script type="module" src="/candidate_comparison_panel.js"></script>
+</body>
+</html>
