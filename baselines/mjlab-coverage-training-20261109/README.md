@@ -88,3 +88,12 @@ preserved; the correction adds no native requests or training.
 
 Corrected audit SHA-256:
 `ac54eeede0a1670e802dac028ef6b0a7a9d6b34f4561e558cc53698a8ec5594a`.
+
+## Recorded comparison
+
+The UI includes a **39.27-second, 1280×720 replay** of the two changed outcomes:
+imitation miss → PPO capture at the gained position, then imitation capture →
+PPO miss at the lost position. It uses saved native ball centers and held arm
+poses, rendered on CPU with no new physics or invented arm transit. All 1,178
+frames passed full MP4 decoding. This selected comparison is illustrative;
+the complete 70-position table above remains the performance measure.

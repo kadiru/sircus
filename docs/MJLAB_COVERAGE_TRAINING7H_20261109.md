@@ -53,10 +53,11 @@ on CPU before native execution. GitHub CI passed for producer `1952dd5`.
 The running 4070 fountain process and existing viewer retained their original
 PIDs/start times. No Isaac setup, physical hardware or service restart was used.
 
-Next review: confirm full request accounting and audit; compare capture rates,
-setup declines and flight misses for current BC/PPO and new BC/validation-selected
-model across all 70 TEST positions. Report any truncated budget or failure before
-claiming improvement. Saved video clips illustrate examples, not aggregate success.
+Completed review: full request accounting and the corrected audit passed; the
+compact results compare all four models on all 70 TEST positions. No budget was
+truncated, and PPO did not improve over new imitation. Saved video clips illustrate
+examples, not aggregate success. Future work should diagnose the remaining failures
+before starting another training run.
 
 ## Verification follow-up
 
@@ -72,7 +73,10 @@ the original auditor source and failed proof by exact hashes. The original
 pipeline state, failed audits, source, records and checkpoints remain unchanged.
 The full correction passed 857,507 checks in 189.8 CPU seconds; all bootstrap/PPO
 weight, loss and sample replays had zero discrepancy. All 455 saved action
-transforms were exact. Nineteen pinned CPU unit tests and 17 JS tests passed.
+transforms were exact. Nineteen pinned CPU unit tests and 17 focused JS tests passed. The full repository
+regression suite also passed with the project Python environment (expected
+dependency-related skips); the first attempt used system Python without Viam
+and was rerun with the existing project virtual environment.
 
 Additional Ubuntu paths (relative to `sircus-mjlab`):
 
@@ -90,3 +94,13 @@ failed states remain evidence. Read-only follow-up should use the corrected proo
 and publication receipt, rather than interpreting the original stopped publisher
 as a still-running training task. No new GPU requests, model fitting, hardware
 access, Isaac edits or service restarts were added by verification/publication.
+
+A separate CPU-rendering follow-up completed the planned recorded comparison:
+`output/coverage-training7h-v2-video/replay.mp4` and `replay.json`. Four clips show
+new imitation/PPO at the one gained and one lost position. The 39.27-second
+movie passed complete decoding (1,178 frames); the software renderer verified
+llvmpipe. Failed backend probes are retained; no simulator steps were added.
+The final media publication receipt is
+`output/coverage-training7h-v2-followup-media-20261109.publication-receipt.json`.
+The original viewer and 4070 fountain kept their original process identities;
+the 4090 is idle. GitHub CI passed for the numerical-results commit `f2586f6`.
