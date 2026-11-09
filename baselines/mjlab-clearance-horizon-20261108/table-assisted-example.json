@@ -1,0 +1,139 @@
+{
+  "version": "sircus-table-assisted-history-example-v1",
+  "status": "verified_historical_example",
+  "evidence_kind": "recorded_native_mujoco_simulation_reaudited_cpu_only",
+  "scope": "One historical PPO TRAIN attempt. Existing native evidence was rescored without simulation reruns, learning, parameter changes or relabeling. This is not a reliability estimate or evidence that the final policy learned this route.",
+  "shot": {
+    "id": "ppo-20261411-train-00221",
+    "phase": "train",
+    "method": "ppo",
+    "seed": 20261411,
+    "substeps": 64,
+    "board_center_m": [
+      0.6386922055307486,
+      -0.2293311920114247,
+      0.4012509305443303
+    ],
+    "settled_board_center_m": [
+      0.6386922597885132,
+      -0.22933129966259003,
+      0.4012508690357208
+    ],
+    "board_tilt_deg": 34.61385130067211,
+    "drop_gap_m": 0.10313801115743688,
+    "release_ball_center_m": [
+      0.6386922055307486,
+      -0.2293311920114247,
+      0.5418889417017672
+    ],
+    "bucket_xy_m": [
+      1.0499999999999998,
+      -0.65
+    ],
+    "horizontal_board_to_bucket_distance_m": 0.5883335344901637,
+    "units": "positions in metres; board tilt measured from horizontal"
+  },
+  "events": {
+    "clock": "seconds_after_release_from_canonical_native_ticks",
+    "board_impact": {
+      "start_s": 0.13697916666666665,
+      "end_s": 0.13880208333333333,
+      "incoming_vertical_velocity_m_s": -1.343785047531128,
+      "outgoing_vertical_velocity_m_s": 0.22704225778579712
+    },
+    "table_bounce": {
+      "start_s": 0.4525390625,
+      "end_s": 0.4542317708333333,
+      "incoming_vertical_velocity_m_s": -2.8508594036102295,
+      "outgoing_vertical_velocity_m_s": 1.8505405187606812
+    },
+    "first_bucket_contact_s": 0.6546223958333334,
+    "whole_ball_entry_s": 1.1456380208333332,
+    "capture_s": 2.145638020833333,
+    "continuous_retention_s": 1.0,
+    "board_contact_runs_before_capture": 1,
+    "table_contact_runs_before_capture": 1,
+    "bucket_contacts_before_entry": true,
+    "robot_floor_or_unattributed_contacts_before_capture": false,
+    "contact_threshold_N": 0.01,
+    "route_description": "board -> table -> bucket/rim assistance -> whole-ball entry -> one continuous second retained"
+  },
+  "original_score": {
+    "success": true,
+    "complete_success": false,
+    "route_success": false,
+    "board_bounce": true,
+    "whole_ball_entry": true,
+    "max_retention_s": 1.0,
+    "invalid_physics": false,
+    "reward": 0.025282141534440417,
+    "external_contact_steps": 26,
+    "scoring_version": "sircus-calibrated-native-capture-v2",
+    "route_version": "sircus-calibrated-board-route-v2",
+    "reward_version": "sircus-calibrated-shot-reward-v2",
+    "calibration_fingerprint": "ab0d2b5b0bcb9122b0ca3e996501d33a6ebe1069e57aebd11d7643a597f55a20"
+  },
+  "interpretation": {
+    "actual_table_rebound": true,
+    "raw_capture_confirmed": true,
+    "existing_route_excluded_table_contact": true,
+    "original_labels_unchanged": true,
+    "final_policy_reliability_established": false,
+    "future_objective_decided": false,
+    "next_objective_note": "Whether table-assisted routes should earn task-success credit is a separate future objective decision. This historical audit does not modify the current scorer, reward or matched horizon experiment."
+  },
+  "verification": {
+    "independent_scorers_agree": true,
+    "native_archive_sha256_matches_saved_metadata": true,
+    "native_record_id_matches_archive_row": true,
+    "scene_fingerprint_matches_original_contract": true,
+    "board_then_table_then_whole_entry_order_verified": true,
+    "downward_to_upward_table_velocity_reversal_verified": true,
+    "continuous_retention_recomputed_s": 1.0,
+    "compared_fields": [
+      "success",
+      "route_success",
+      "complete_success",
+      "board_bounce",
+      "whole_ball_entry",
+      "max_retention_s",
+      "invalid_physics",
+      "whole_ball_entry_time_s",
+      "capture_time_s",
+      "reward"
+    ],
+    "native_steps_added": 0,
+    "gpu_work_added": false
+  },
+  "metadata_scan": {
+    "scope": "Only records.jsonl and shots.jsonl indexes under the saved mjlab output tree. No Isaac evidence was scanned. Known cache identities were deduplicated; entries lacking cache identity are not claimed unique physical trials. Candidate counts do not establish contact order or successful routes.",
+    "files": 102,
+    "rows": 82953,
+    "known_cache_duplicates_removed": 625,
+    "deduplicated_index_entries": 82328,
+    "candidate_entries_retained_with_board_and_table_contacts": 3311,
+    "candidate_entries_explicit_invalid_physics_false": 123,
+    "fully_trajectory_verified_examples": 1
+  },
+  "provenance": {
+    "native_archive": {
+      "relative_output_path": "calibrated-benchmark-v2/runs/ppo-seed20261411/native/native-0008.npz",
+      "sha256": "25c3ca2aa3feaae6990fcf7f90663b64ab5d3dacdb74e7f9a5c3ef1b02ef657b",
+      "row": 21
+    },
+    "metadata": {
+      "relative_output_path": "calibrated-benchmark-v2/runs/ppo-seed20261411/native/shots.jsonl",
+      "sha256": "0d49ec4f86c7a9167303f96c61eaf2ace2d24bcf748a88560eca8932fb15336b",
+      "line": 258
+    },
+    "original_contract_sha256": "43b802883b7406d39858286ebe4792099455f84f54314dad3b6e2918ec693ae0",
+    "original_calibration_file_sha256": "992d4e191fb678ff85e9e93c9099e311cac19efd47207e104f9887ecc7437358",
+    "scorer_source_sha256": {
+      "calibrated_score.py": "b90fb4886f2297534b81b399620c647952eb2e486217289c65548713977e3539",
+      "calibrated_score_oracle.py": "74ff1b43d342a28e7b4af6d3ec757f577aec076ac286535f4c16e053e31a00df"
+    },
+    "derivative_proof_sha256": "3f7fb224e5577604a51827259636755e126a1d132f26e39d8d6cf247766e3f16",
+    "derivative_metadata_summary_sha256": "7570060d42765e4aff232efca8efae400b8a7010341a8e435651c673c754f2de",
+    "derivative_candidate_index_sha256": "ca822c07b4dc5819a1cd09e4e12588379cebac003ce3e32267ffb332cbf189c9"
+  }
+}

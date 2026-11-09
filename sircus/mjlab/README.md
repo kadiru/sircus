@@ -1,5 +1,10 @@
 # Sircus in mjlab
 
+Latest: [case 01 horizon-only replay](CLEARANCE_HORIZON.md) extends one predicted
+clearance window while keeping the exact shot, joints, forecasts and native64
+scoring unchanged. Three repeats per method plus 12 controls; no training or
+policy promotion. Refused shots have no observed flight. UI: `#clearanceHorizon`.
+
 Latest: [50-position failure diagnosis](../../docs/MJLAB_GAP_FLIGHT_DIAGNOSIS_20261107.md)
 separates 18 flight failures (robot9 / bucket6 / table3 first subsequent contacts)
 from eight setup rejections. Four retained balls failed the complete route after
