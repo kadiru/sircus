@@ -1,5 +1,12 @@
 # Project state
 
+## Continuation v3 stopped during partial imitation — November 9, 2026
+
+- The user authorized prepared v3 from `03d31ff`. Startup and native ownership/cap checks passed, then 62 actor-imitation updates / 7,926 existing-example presentations were committed to the journal. A possible additional in-flight step is unrecorded, so actual optimizer work is not known exactly. PPO updates, TRAIN/assessment requests and releases were zero; no final checkpoint was committed or observed. The original seed-22 checkpoint remains byte-identical.
+- The watchdog stopped its owned child after 64.923 seconds on a phase timestamp guard. A deterministic real-file reader/writer regression reproduced the stale-clock race: progress can be published after the loop's clock sample but before its read. The fix resamples after reading and validating receipts while preserving event-based phase starts, all original deadlines and exact rejection of truly future timestamps. All 68 focused cases and independent review passed; no native retry was performed.
+- The original CPU startup-only auditor passed this run's nine cohorts / 315 trajectories / 1,584 steps (4.327 s wall / 4.327 CPU-seconds). This is separate from the incomplete learning/native-TRAIN/assessment audits. The recorded post-failure check found no GPU owner or owned process and the scene lock free; all prior attempts and the frozen benchmark/model/bank remain unchanged. [Compact v3 evidence](../baselines/isaac-candidate-live-pilot-20261109/attempt-v3.json) preserves the unknown in-flight work and absence of a usable final model.
+- The interface now separates recorded/committed update counters and possible unreceipted work, with optional unaudited exploratory TRAIN counts/curves. Final held-out metrics still require the continuation's own complete audit. Full repository checks passed: 1,147 Isaac cases (121 optional skips), 56 Node cases and the remaining required mock/numerical stages. A further application attempt requires separate authorization under the unchanged one-start/no-retry rule.
+
 ## Fresh continuation v2 stopped during initialization — November 9, 2026
 
 - The user separately authorized the prepared v2 attempt from source `50085bf`. It made one simulator start and recorded nine finite startup cohorts / 315 diagnostic trajectories / 1,584 physics steps, then stopped with zero optimizer steps, TRAIN/assessment requests, releases or new checkpoints. Both attempts and the frozen benchmark/model/bank remain unchanged; no model was promoted.

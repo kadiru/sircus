@@ -413,6 +413,13 @@ def run_guarded(payload, ops=None):
                             "Native source bytes changed during application")
                 last_resource_check = now
             events = read_progress(output,session)
+            # Source checks and the real reader can overlap publication. Bound
+            # this frozen event list by a clock sampled after its read, rather
+            # than misclassifying a newly published receipt against stale time.
+            observed_now = ops.monotonic()
+            require(math.isfinite(observed_now) and observed_now >= last_time, "Watchdog monotonic clock changed")
+            last_time = observed_now
+            require(observed_now <= payload["absolute_deadline"], "Independent absolute native wall limit exceeded")
             for event in events[consumed:]:
                 snapshot = event["snapshot"]
                 require(type(snapshot) is dict and snapshot.get("phase") in PHASES,
@@ -420,7 +427,7 @@ def run_guarded(payload, ops=None):
                 next_phase = PHASES.index(snapshot["phase"])
                 require(next_phase in (phase,phase+1), "Watchdog phase order changed")
                 stamp = event["monotonic_s"]
-                require(start <= stamp <= now and stamp-phase_start <= dict(PHASE_LIMITS)[PHASES[phase]],
+                require(start <= stamp <= observed_now and stamp-phase_start <= dict(PHASE_LIMITS)[PHASES[phase]],
                         "Delayed or future phase receipt cannot extend a deadline")
                 if next_phase != phase:
                     if next_phase == PHASES.index("assessment"):
@@ -449,6 +456,11 @@ def run_guarded(payload, ops=None):
                         "Watchdog saw TRAIN work after checkpoint freeze")
                 counters = {k:snapshot[k] for k in counters}
             consumed = len(events)
+            # Receipt validation time counts toward the same original caps.
+            now = ops.monotonic()
+            require(math.isfinite(now) and now >= last_time, "Watchdog monotonic clock changed")
+            last_time = now
+            require(now <= payload["absolute_deadline"], "Independent absolute native wall limit exceeded")
             require(now-phase_start <= dict(PHASE_LIMITS)[PHASES[phase]], "Independent phase wall limit exceeded")
             code = ops.poll(pid)
             if code is not None:

@@ -99,6 +99,111 @@ class WatchdogTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,"retry"):self.run_guarded()
         self.assertEqual(len(self.ops.started),1)
 
+    def test_event_published_during_real_progress_read_is_not_falsely_future(self):
+        self.ops.snapshots=None
+        start=self.ops.start;writer=[]
+        def started(command,environment):
+            pid=start(command,environment)
+            writer.append(subject.ProgressWriter(self.root/"out",self.session,clock=self.ops.monotonic))
+            writer[0].publish(successful_progress()[0])
+            return pid
+        self.ops.start=started
+        original_iterdir=Path.iterdir;interleaved=[]
+        def iterdir(path):
+            if path==self.root/"out/runtime-progress" and not interleaved:
+                # The real reader has started after the watchdog's old clock
+                # sample. A concurrent writer publishes valid signed events.
+                self.ops.t+=.025;interleaved.append(self.ops.t)
+                for snapshot in successful_progress()[1:]:writer[0].publish(snapshot)
+                self.ops.exit_code=0
+            return original_iterdir(path)
+        with patch.object(Path,"iterdir",iterdir):result=self.run_guarded()
+        self.assertEqual(interleaved,[10.025])
+        self.assertEqual(result["status"],"complete_audit_receipts_required",result["reason"])
+        self.assertEqual(result["progress_events"],8);self.assertFalse(self.ops.signalled)
+
+    def staged_event_history(self,snapshots,stamps,observed_time):
+        """Publish real signed fixtures with event and reader clocks separated."""
+        self.ops.snapshots=None;start=self.ops.start
+        def started(command,environment):
+            pid=start(command,environment);ticks=iter(stamps)
+            writer=subject.ProgressWriter(self.root/"out",self.session,clock=lambda:next(ticks))
+            for snapshot in snapshots:writer.publish(snapshot)
+            self.ops.t=observed_time;self.ops.exit_code=0
+            return pid
+        self.ops.start=started
+
+    def test_event_newer_than_fresh_post_read_clock_is_still_rejected(self):
+        self.staged_event_history(successful_progress(),[10.025]*8,10.)
+        result=self.run_guarded()
+        self.assertEqual(result["status"],"failed_no_retry");self.assertIn("future phase receipt",result["reason"])
+        self.assertEqual(result["progress_events"],0);self.assertEqual(result["termination"],"stopped")
+
+    def test_delayed_phase_transition_cannot_extend_original_phase_cap(self):
+        self.staged_event_history(successful_progress()[:2],[10.,610.025],611.)
+        result=self.run_guarded()
+        self.assertEqual(result["status"],"failed_no_retry");self.assertIn("Delayed or future phase receipt",result["reason"])
+        self.assertEqual(result["phase"],"initialization");self.assertEqual(result["termination"],"stopped")
+
+    def test_compliant_transition_observed_later_keeps_its_actual_event_time(self):
+        self.staged_event_history(successful_progress(),[10.]+[609.5]*7,611.)
+        result=self.run_guarded()
+        self.assertEqual(result["status"],"complete_audit_receipts_required",result["reason"])
+        self.assertFalse(self.ops.signalled)
+
+    def test_late_observation_does_not_reset_new_phase_start_to_read_time(self):
+        self.staged_event_history(successful_progress()[:2],[10.,11.],612.)
+        result=self.run_guarded()
+        self.assertEqual(result["status"],"failed_no_retry");self.assertIn("phase wall limit",result["reason"])
+        self.assertEqual(result["phase"],"imitation");self.assertEqual(result["termination"],"stopped")
+
+    def test_reversed_event_clock_is_still_rejected(self):
+        self.staged_event_history(successful_progress()[:2],[10.,9.],10.)
+        result=self.run_guarded()
+        self.assertEqual(result["status"],"failed_no_retry");self.assertIn("progress clock moved backwards",result["reason"])
+        self.assertEqual(result["termination"],"stopped")
+
+    def assert_clock_failure(self,label,clock_values):
+        out=self.root/label;out.mkdir()
+        payload=subject.signed(dict({k:v for k,v in self.payload.items() if k!="fingerprint"},output="/workspace/"+label))
+        ops=FakeOps(self.root,self.session);ops.snapshots=None
+        with patch.object(ops,"monotonic",side_effect=clock_values):result=subject.run_guarded(payload,ops)
+        self.assertEqual(result["status"],"failed_no_retry");self.assertIn("monotonic clock changed",result["reason"])
+        self.assertEqual(result["termination"],"stopped");self.assertEqual(len(ops.started),1)
+
+    def test_post_read_clock_must_remain_finite_and_non_decreasing(self):
+        for label,bad in (("backwards",9.),("nonfinite-inf",float("inf")),("nonfinite-nan",float("nan"))):
+            with self.subTest(clock=label):self.assert_clock_failure("read-"+label,[10.,10.,bad,10.])
+
+    def test_post_validation_clock_must_remain_finite_and_non_decreasing(self):
+        for label,bad in (("backwards",9.),("nonfinite-inf",float("inf")),("nonfinite-nan",float("nan"))):
+            with self.subTest(clock=label):self.assert_clock_failure("validation-"+label,[10.,10.,10.,bad,10.])
+
+    def test_progress_io_crossing_absolute_deadline_is_rejected_before_event_processing(self):
+        original=subject.read_progress
+        def read(output,session):
+            events=original(output,session);self.ops.t=10810.025;return events
+        with patch.object(subject,"read_progress",side_effect=read):result=self.run_guarded()
+        self.assertEqual(result["status"],"failed_no_retry");self.assertIn("absolute native wall limit",result["reason"])
+        self.assertEqual(result["progress_events"],0);self.assertEqual(result["termination"],"stopped")
+
+    def validation_crosses_deadline(self,target):
+        original=subject.DiagnosticLedger.observe
+        def observe(ledger,records,resets):
+            result=original(ledger,records,resets);self.ops.t=target;return result
+        with patch.object(subject.DiagnosticLedger,"observe",observe):return self.run_guarded()
+
+    def test_validation_time_crossing_absolute_deadline_is_rejected_before_exit_acceptance(self):
+        result=self.validation_crosses_deadline(10810.025)
+        self.assertEqual(result["status"],"failed_no_retry");self.assertIn("absolute native wall limit",result["reason"])
+        self.assertEqual(result["progress_events"],8);self.assertEqual(result["termination"],"stopped")
+
+    def test_validation_time_crossing_current_phase_deadline_is_rejected_before_exit_acceptance(self):
+        result=self.validation_crosses_deadline(610.025)
+        self.assertEqual(result["status"],"failed_no_retry");self.assertIn("phase wall limit",result["reason"])
+        self.assertEqual(result["phase"],"audit");self.assertEqual(result["progress_events"],8)
+        self.assertEqual(result["termination"],"stopped")
+
     def test_independent_phase_timer_stops_a_child_that_never_reports_or_returns(self):
         self.ops.snapshots=None;self.ops.on_sleep=lambda ops:setattr(ops,"t",611.)
         result=self.run_guarded()

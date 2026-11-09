@@ -63,6 +63,28 @@ export function continuationComputeRows(value){
   });
 }
 
+export function continuationTrainMonitoring(value){
+  const monitoring=value?.train_monitoring,totals=monitoring?.totals;
+  const valid=row=>row&&['terminal','captures','clean_captures','released','rejected'].every(key=>count(row[key])!==null)
+    &&row.terminal<=1750&&row.released+row.rejected===row.terminal&&row.clean_captures<=row.captures&&row.captures<=row.released;
+  if(value?.schema!==CONTINUATION_SCHEMA||monitoring?.audited!==false||!valid(totals))return null;
+  if(totals.requested!==null&&(count(totals.requested)===null||totals.requested>1750||totals.requested<totals.terminal))return null;
+  if(totals.unresolved!==null&&(count(totals.unresolved)===null||totals.requested===null||totals.unresolved!==totals.requested-totals.terminal))return null;
+  let curve=[];
+  if(Array.isArray(monitoring.curve)&&monitoring.curve.length<=1751){
+    let previous=null;
+    const consistent=monitoring.curve.every(row=>{
+      const accepted=valid(row)&&row.terminal>0&&row.terminal<=totals.terminal
+        &&['captures','clean_captures','released','rejected'].every(key=>row[key]<=totals[key])
+        &&(!previous||(row.terminal>previous.terminal&&['captures','clean_captures','released','rejected'].every(key=>row[key]>=previous[key])));
+      previous=row;return accepted;
+    });
+    if(consistent)curve=monitoring.curve;
+  }
+  const prefix=valid(monitoring.latest_terminal_prefix)&&monitoring.latest_terminal_prefix.terminal<=totals.terminal?monitoring.latest_terminal_prefix:null;
+  return {totals,curve,prefix};
+}
+
 export function methodData(report,key){
   const raw=Array.isArray(report?.methods)?report.methods.find(x=>x.method===key):report?.methods?.[key];
   const value=raw??{};
@@ -151,11 +173,44 @@ function renderCases(report){const node=clear('caseList');if(!resultsAudited(rep
 
 function renderSources(report){const node=clear('sourceIdentity');line(node,'Audit:',txt(report.audit?.status)||'pending');if(report.audit?.sha256)node.appendChild(Object.assign(el('p','Audit SHA256: '+txt(report.audit.sha256)),{className:'hash'}));const source=report.source_binding??{};for(const [label,key] of [['Parent checkpoint SHA256','checkpoint_sha256'],['Candidate bank SHA256','candidate_bank_sha256'],['Frozen comparison plan SHA256','plan_sha256']])if(source[key])node.appendChild(Object.assign(el('p',label+': '+txt(source[key])),{className:'hash'}));const scopes=clear('scopeList');const lines=Array.isArray(report.scope)?report.scope:[txt(report.scope)].filter(Boolean);for(const text of lines)scopes.appendChild(el('li',String(text)));if(!lines.length)scopes.appendChild(el('li','Known TRAIN positions; frozen model weights; no optimizer updates or held-out generalization claim.'));}
 
+function renderTrainMonitoring(value){
+  const node=clear('continuationTrainMonitoring'),monitoring=continuationTrainMonitoring(value);
+  node.className=monitoring?'case-box':'case-box hidden';
+  if(!monitoring)return;
+  const {totals,curve,prefix}=monitoring,rate=n=>totals.terminal?`${integer(n)} / ${integer(totals.terminal)} · ${fixed(100*n/totals.terminal,1)}%`:`${integer(n)} / 0 · rate unavailable`;
+  node.appendChild(el('h3','Exploratory TRAIN monitoring'));
+  node.appendChild(Object.assign(el('p','Unaudited exploration on TRAIN positions. Frozen held-out performance remains gated by all independent audits.'),{className:'scope'}));
+  if(['failed','incomplete_no_retry'].includes(value.status))node.appendChild(el('p','Stopped attempt: these are preserved TRAIN journal counts. The pilot did not complete.'));
+  const wrapper=Object.assign(el('div'),{className:'table-wrap'});
+  wrapper.appendChild(table(['Charged requests','Completed TRAIN requests','Unresolved charged requests','Captures / completed','Clean captures / completed','Released','Rejected'],[[integer(totals.requested),integer(totals.terminal),integer(totals.unresolved),rate(totals.captures),rate(totals.clean_captures),integer(totals.released),integer(totals.rejected)]]));
+  node.appendChild(wrapper);
+  node.appendChild(Object.assign(el('p','Rates divide by completed TRAIN requests, including rejections. Unresolved charged requests remain separate until a terminal outcome is recorded.'),{className:'compute-note'}));
+  if(prefix)line(node,'Latest recorded terminal prefix:',`${integer(prefix.terminal)} requests · ${integer(prefix.captures)} captures · ${integer(prefix.clean_captures)} clean · ${integer(prefix.released)} released · ${integer(prefix.rejected)} rejected.`);
+  if(!curve.length){pending(node,totals.terminal?'Cumulative TRAIN curve unavailable.':'No completed TRAIN requests yet; capture rates are unavailable.');return;}
+  const ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg');
+  svg.setAttribute('viewBox','0 0 620 240');svg.setAttribute('role','img');svg.setAttribute('aria-label','Unaudited cumulative TRAIN capture and clean-capture rates across completed TRAIN requests, including rejections');
+  const add=(name,attrs,text)=>{const n=document.createElementNS(ns,name);for(const [key,v] of Object.entries(attrs))n.setAttribute(key,String(v));if(text!==undefined)n.textContent=String(text);svg.appendChild(n);return n;};
+  const left=50,right=595,top=22,bottom=172,maxX=totals.terminal;
+  for(const percentage of [0,50,100]){const y=bottom-(bottom-top)*percentage/100;add('line',{x1:left,x2:right,y1:y,y2:y,stroke:'#dce4e1'});add('text',{x:left-8,y:y+4,'text-anchor':'end',fill:'#5e7075','font-size':12},percentage+'%');}
+  add('line',{x1:left,x2:left,y1:top,y2:bottom,stroke:'#90a19c'});
+  add('text',{x:left,y:bottom+19,fill:'#5e7075','font-size':12},'0');
+  add('text',{x:right,y:bottom+19,'text-anchor':'end',fill:'#5e7075','font-size':12},integer(maxX));
+  add('text',{x:(left+right)/2,y:225,'text-anchor':'middle',fill:'#5e7075','font-size':13},'Completed TRAIN requests (including rejections)');
+  for(const [key,label,color,dash] of [['captures','Capture','#087e78',''],['clean_captures','Clean capture','#946e29','5 3']]){
+    const points=curve.map(row=>`${left+(right-left)*row.terminal/maxX},${bottom-(bottom-top)*row[key]/row.terminal}`).join(' ');
+    add('polyline',{points,fill:'none',stroke:color,'stroke-width':2.5,'stroke-dasharray':dash});
+    const last=curve[curve.length-1];add('circle',{cx:left+(right-left)*last.terminal/maxX,cy:bottom-(bottom-top)*last[key]/last.terminal,r:3,fill:color});
+    const x=key==='captures'?left:left+150;add('text',{x,y:12,fill:color,'font-size':12},label+(dash?' (dashed)':''));
+  }
+  const chart=Object.assign(el('div'),{className:'chart'});chart.appendChild(svg);node.appendChild(chart);
+}
+
 export function renderContinuation(value){
   const section=document.getElementById('continuation'),nav=document.getElementById('continuationNav');
   if(!section||!nav)return;
   section.className=value===undefined?'card hidden':'card';nav.className=value===undefined?'hidden':'';
   for(const id of ['continuationProgress','continuationResults','continuationCompute','continuationEvidence','continuationPaired'])clear(id);
+  renderTrainMonitoring(value);
   if(value===undefined)return;
   const view=continuationStatus(value),card=document.getElementById('continuationStatus');card.className='status '+view.state;
   document.getElementById('continuationBadge').textContent=view.badge;document.getElementById('continuationTitle').textContent=view.title;document.getElementById('continuationDetail').textContent=view.detail;
@@ -165,7 +220,13 @@ export function renderContinuation(value){
   line(progress,'Native TRAIN releases:',`${integer(counters.train_releases)} / 1,400 maximum`);
   line(progress,'Charged frozen-assessment requests:',`${integer(counters.assessment_requests)} / 420 planned`);
   line(progress,'Frozen-assessment releases:',`${integer(counters.assessment_releases)} / 420 maximum`);
-  if(value?.learning){const learning=value.learning;line(progress,'Learning receipts:',`Imitation steps ${integer(learning.imitation_steps)} / 240 maximum · PPO updates ${integer(learning.ppo_updates)} / 13 maximum · optimizer steps ${integer(learning.optimizer_steps)}.`);}
+  if(value?.learning){
+    const learning=value.learning,committed=learning.committed_update_counters??learning;
+    const description=row=>`Imitation steps ${integer(row.imitation_steps)} / 240 maximum · PPO updates ${integer(row.ppo_updates)} / 13 maximum · optimizer steps ${integer(row.optimizer_steps)}.`;
+    line(progress,'Recorded/committed update receipts:',description(committed));
+    if(learning.committed_update_counters)line(progress,'Latest reported counters:',description(learning));
+    if(learning.unreceipted_optimizer_work_possible===true)progress.appendChild(el('p','Additional in-flight optimizer work is unknown. No final checkpoint is committed in these receipts.'));
+  }
   progress.appendChild(Object.assign(el('p','Charged requests include reservations and rejections; they are not a count of completed releases. TRAIN stops at the first request or release cap. Assessment uses 35 TRAIN + 35 fresh validation + 70 fresh TEST positions per method. One application attempt, no automatic retry; 3-hour application limit and 6 GiB storage floor.'),{className:'compute-note'}));
   const results=clear('continuationResults');results.appendChild(table(['Split','Method','Captures / requests','Clean / requests','Rejected / requests','Released / requests'],continuationRows(value)));
   const paired=clear('continuationPaired');
@@ -179,7 +240,8 @@ export function renderContinuation(value){
   const compute=clear('continuationCompute');compute.appendChild(table(['Phase','Wall','Aggregate CPU','Lifetime RSS high-water','Largest child RSS high-water','Sampled device occupancy','Torch CUDA allocated peak','Torch CUDA reserved peak'],continuationComputeRows(value)));
   compute.appendChild(Object.assign(el('p',txt(value?.resources?.scope)||'Phase timings are separate. CPU includes the application and waited/reaped children; audit-child cost overlaps the application audit phase. RSS is lifetime high-water, not isolated phase memory. Device occupancy includes PhysX/renderer; Torch peaks are not model-only memory. Missing measurements stay unknown.'),{className:'compute-note'}));
   const evidence=clear('continuationEvidence');line(evidence,'Continuation audit:',txt(value?.audit?.status)||'not supplied');
-  if(value?.final_checkpoint_sha256)evidence.appendChild(Object.assign(el('p','Saved final checkpoint SHA256: '+txt(value.final_checkpoint_sha256)),{className:'hash'}));
+  const finalSha=value?.final_checkpoint_sha256??(value?.final_checkpoint?.status==='saved_audit_pending'?value.final_checkpoint.sha256:undefined);
+  if(finalSha&&value?.learning?.unreceipted_optimizer_work_possible!==true)evidence.appendChild(Object.assign(el('p','Saved final checkpoint SHA256: '+txt(finalSha)),{className:'hash'}));
   evidence.appendChild(el('p','No automatic model promotion. This is extra-budget continuation of one seed; it is not a new equal-cost three-seed benchmark. The original frozen benchmark and the historical 70-request comparison remain separate.'));
   evidence.appendChild(el('p','No trial videos are recorded by this continuation protocol. Physics traces support the audits; existing benchmark videos remain in the original frozen interface.'));
 }
