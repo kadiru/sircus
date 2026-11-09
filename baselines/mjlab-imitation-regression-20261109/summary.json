@@ -1,0 +1,754 @@
+{
+  "version": "sircus-imitation-regression-not-run-summary-v1",
+  "status": "diagnosed_correction_not_run",
+  "producer_commit": "b962af9f43de2379234b38a4c277283336ebcfca",
+  "ui_commit": "6f489d185d717803756547e1688d048324cd9b62",
+  "historical_source": {
+    "report_sha256": "1fde3f7de5b5c2912a133c858105388a704a80ab0e2cb39e8d79c0c7a189bf14",
+    "audit_sha256": "ea4992828178d9e62ba41c63579ecc3876cb5bffaacf6b590c828d45876a7f63",
+    "rows_sha256": "f9d48dd328e203b76d7f6be41c01e436ea938701821e902bbbd7945df7248843",
+    "manifest_sha256": "e65451629a36e3c486c3c7dbedd5f2de67de97fac46f6d4631eb3c38c68f3957",
+    "contract_fingerprint": "297b367fa2702d688084bc2e74dd30a83c6cf4312ba078938def5f9b223adce4",
+    "checks_count": 55633,
+    "full_checks_verified": true,
+    "native_checks_verified": true
+  },
+  "historical_summary": {
+    "requested": 70,
+    "current_bc_captures": 40,
+    "corrected_bc_captures": 38,
+    "gains": 4,
+    "losses": 6,
+    "setup_rejections": 3,
+    "flight_misses": 3,
+    "failure_groups": {
+      "setup_finite_ik_dropper": 1,
+      "setup_finite_ik_board": 2,
+      "no_whole_ball_entry": 2,
+      "retained_with_forbidden_contact": 1
+    },
+    "forbidden_contact_misses": 2
+  },
+  "diagnosis_audit_checks": 1230,
+  "preflight_checks": 197,
+  "planned_slots": 72,
+  "executed_slots": 0,
+  "worker_started": false,
+  "queue_elapsed_s": 900.8974730609916,
+  "blocker": "4090 occupied by a protected Isaac workload; bounded queue expired before acquisition",
+  "correction": {
+    "status": "not_run",
+    "phase": "4090 queue expired; no new shots ran",
+    "counts": {
+      "attempts": 0,
+      "native_releases": 0,
+      "setup_rejections": 0,
+      "invalid_physics": 0
+    },
+    "cases": [],
+    "audit": {
+      "status": "pending"
+    },
+    "failure_status": "failed"
+  },
+  "rule": {
+    "mode": "blend50",
+    "alpha": 0.5,
+    "coordinates": [
+      "board_x_m",
+      "board_y_m",
+      "board_height_m",
+      "tilt_deg",
+      "nominal_drop_gap_m"
+    ],
+    "matched_requests_per_case_variant": 3,
+    "diagnostic_slots": 54,
+    "formal_control_slots": 18
+  },
+  "losses": [
+    {
+      "context_id": "corrected-imitation-test-r0-c0-n0",
+      "bucket_xy_m": [
+        0.1403984330191976,
+        -0.6084267562361859
+      ],
+      "delta_values": [
+        0.012105795557676435,
+        -0.00592535410219916,
+        0.003591202616365363,
+        -1.0021424656162168,
+        0.01456637931452226
+      ],
+      "delta_release_height_m": 0.018157581930887623,
+      "current_bc": {
+        "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r0-c0-n0",
+        "record_sha256": "2089afabc6216612388cea3b0961531f7943892d07cd16eac86b4f273c8b0402",
+        "values": [
+          0.5425010495427265,
+          -0.24307496520873226,
+          0.29643700669978756,
+          25.18010883566994,
+          0.42413011722995236
+        ],
+        "native_release": true,
+        "capture": true,
+        "invalid": null,
+        "invalid_physics": false,
+        "whole_ball_entry": true,
+        "max_retention_s": 1.0,
+        "forbidden_contact_steps": 0,
+        "table_contact_steps": 0,
+        "board_bounce": true,
+        "setup_proof": {
+          "valid_ik_branches": [
+            7,
+            10
+          ],
+          "required_clearance_m": 0.005,
+          "connection_sha256": "cf191e79bf004da8aaf7a6095da613e35b7bfe0e6f6cee81f67ffa3a1888423c",
+          "resolution_sha256": "5e6d377f9250b91171fa4d793ab772bcf7bd7bbef16a52ac216c04179aaae489",
+          "reason": null,
+          "layout_eligible": true,
+          "anchor_admitted": true,
+          "endpoint_pair_attempts": 10,
+          "admitted_branches": [
+            {
+              "branch10": 0,
+              "branch14": 0
+            }
+          ],
+          "home_minimum_clearance_m": 0.006085006839541591,
+          "home_closest_pair": [
+            "Arm10/link4/collision/0",
+            "Arm10/link6/collision/0"
+          ],
+          "proof_minimum_clearance_m": 0.005088411311788499,
+          "endpoint_examples": []
+        }
+      },
+      "corrected_bc": {
+        "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r0-c0-n0",
+        "record_sha256": "4633d6d1b9ff9b607b6a2a9b45cdab1bc358aa525a6d5c1d6634901bf81afb44",
+        "values": [
+          0.5546068451004029,
+          -0.24900031931093142,
+          0.3000282093161529,
+          24.177966370053724,
+          0.4386964965444746
+        ],
+        "native_release": false,
+        "capture": false,
+        "invalid": "finite_ik_unresolved",
+        "invalid_physics": false,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "forbidden_contact_steps": null,
+        "table_contact_steps": null,
+        "board_bounce": false,
+        "setup_proof": {
+          "valid_ik_branches": [
+            0,
+            14
+          ],
+          "required_clearance_m": 0.005,
+          "connection_sha256": "780480c4ab73fc9308555fa81bbd867a0d48e0a7ea59c842a57ee4afc835ebd2",
+          "resolution_sha256": "5e6d377f9250b91171fa4d793ab772bcf7bd7bbef16a52ac216c04179aaae489",
+          "reason": "finite_ik_unresolved",
+          "layout_eligible": true,
+          "anchor_admitted": true,
+          "endpoint_pair_attempts": 0,
+          "admitted_branches": [],
+          "home_minimum_clearance_m": 0.006085006839541591,
+          "home_closest_pair": [
+            "Arm10/link4/collision/0",
+            "Arm10/link6/collision/0"
+          ],
+          "proof_minimum_clearance_m": null,
+          "endpoint_examples": []
+        }
+      },
+      "proposed_midpoint_values": [
+        0.5485539473215647,
+        -0.24603764225983182,
+        0.29823260800797025,
+        24.679037602861833,
+        0.43141330688721347
+      ]
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c1-n0",
+      "bucket_xy_m": [
+        0.343413491132878,
+        -0.5790425730848242
+      ],
+      "delta_values": [
+        -0.01054940977393537,
+        4.780139604082523e-05,
+        0.0008600410227100341,
+        1.274257995041495,
+        -0.013153514035713798
+      ],
+      "delta_release_height_m": -0.012293473013003764,
+      "current_bc": {
+        "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r0-c1-n0",
+        "record_sha256": "4296afc965cb3900331f95e21b098b82df91e0e75d77219b9b7a47deca144d7e",
+        "values": [
+          0.5113470187648796,
+          -0.22355561463014872,
+          0.26832562306563784,
+          32.71792736735478,
+          0.28703251070475216
+        ],
+        "native_release": true,
+        "capture": true,
+        "invalid": null,
+        "invalid_physics": false,
+        "whole_ball_entry": true,
+        "max_retention_s": 1.0,
+        "forbidden_contact_steps": 0,
+        "table_contact_steps": 0,
+        "board_bounce": true,
+        "setup_proof": {
+          "valid_ik_branches": [
+            10,
+            13
+          ],
+          "required_clearance_m": 0.005,
+          "connection_sha256": "a069ec9e1c188545838de2bef443deb50ec2848775de024ba4c15580012c51e1",
+          "resolution_sha256": "1d2e2e4ff9fc3298fb0c47fe81639830da13da64abd3bdad0ba74cc900cacd0e",
+          "reason": null,
+          "layout_eligible": true,
+          "anchor_admitted": true,
+          "endpoint_pair_attempts": 9,
+          "admitted_branches": [
+            {
+              "branch10": 0,
+              "branch14": 0
+            }
+          ],
+          "home_minimum_clearance_m": 0.006085006839541591,
+          "home_closest_pair": [
+            "Arm10/link4/collision/0",
+            "Arm10/link6/collision/0"
+          ],
+          "proof_minimum_clearance_m": 0.005181615743463208,
+          "endpoint_examples": []
+        }
+      },
+      "corrected_bc": {
+        "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r0-c1-n0",
+        "record_sha256": "a2e20a6fe3d32080ab479401a835307bf2775eb5093a46c1fe765f5bf7a05a8e",
+        "values": [
+          0.5007976089909443,
+          -0.2235078132341079,
+          0.2691856640883479,
+          33.99218536239628,
+          0.27387899666903837
+        ],
+        "native_release": false,
+        "capture": false,
+        "invalid": "finite_ik_unresolved",
+        "invalid_physics": false,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "forbidden_contact_steps": null,
+        "table_contact_steps": null,
+        "board_bounce": false,
+        "setup_proof": {
+          "valid_ik_branches": [
+            8,
+            0
+          ],
+          "required_clearance_m": 0.005,
+          "connection_sha256": "eb6c404c38ad46223a3ddce933cc4b4960daee41b8e464267d2d75b41037b8d9",
+          "resolution_sha256": "1d2e2e4ff9fc3298fb0c47fe81639830da13da64abd3bdad0ba74cc900cacd0e",
+          "reason": "finite_ik_unresolved",
+          "layout_eligible": true,
+          "anchor_admitted": true,
+          "endpoint_pair_attempts": 0,
+          "admitted_branches": [],
+          "home_minimum_clearance_m": 0.006085006839541591,
+          "home_closest_pair": [
+            "Arm10/link4/collision/0",
+            "Arm10/link6/collision/0"
+          ],
+          "proof_minimum_clearance_m": null,
+          "endpoint_examples": []
+        }
+      },
+      "proposed_midpoint_values": [
+        0.506072313877912,
+        -0.2235317139321283,
+        0.2687556435769929,
+        33.35505636487553,
+        0.28045575368689524
+      ]
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c6-n1",
+      "bucket_xy_m": [
+        1.1070265259583456,
+        -0.53626584251982
+      ],
+      "delta_values": [
+        0.0016322536667097154,
+        0.005202458618744493,
+        -0.0016479283300511738,
+        -0.45846943365582504,
+        -0.02048902931517782
+      ],
+      "delta_release_height_m": -0.022136957645228994,
+      "current_bc": {
+        "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r0-c6-n1",
+        "record_sha256": "7d7b3270628a0c2e229b9fd025cad774dc72b78bb011cef65d13563f3fe7ace3",
+        "values": [
+          0.6520289466577917,
+          -0.20861493309273504,
+          0.45146626815383345,
+          30.789154900138175,
+          0.09613864355740137
+        ],
+        "native_release": true,
+        "capture": true,
+        "invalid": null,
+        "invalid_physics": false,
+        "whole_ball_entry": true,
+        "max_retention_s": 1.0,
+        "forbidden_contact_steps": 0,
+        "table_contact_steps": 27,
+        "board_bounce": true,
+        "setup_proof": {
+          "valid_ik_branches": [
+            13,
+            8
+          ],
+          "required_clearance_m": 0.005,
+          "connection_sha256": "025bcdbf858137808386559da2df106fcd5a758ba286dfb73532cf5b30ac5193",
+          "resolution_sha256": "867e75e67e63ebef430388f545559a2a2b2795fee9fcc433470cfcf5a1b020fc",
+          "reason": null,
+          "layout_eligible": true,
+          "anchor_admitted": true,
+          "endpoint_pair_attempts": 15,
+          "admitted_branches": [
+            {
+              "branch10": 0,
+              "branch14": 9
+            }
+          ],
+          "home_minimum_clearance_m": 0.006085006839541591,
+          "home_closest_pair": [
+            "Arm10/link4/collision/0",
+            "Arm10/link6/collision/0"
+          ],
+          "proof_minimum_clearance_m": 0.005006236835659039,
+          "endpoint_examples": []
+        }
+      },
+      "corrected_bc": {
+        "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r0-c6-n1",
+        "record_sha256": "7be908d4b86544a87b670600676ac97ad99bba9f8ccf551c969aaba9e5f52b8d",
+        "values": [
+          0.6536612003245014,
+          -0.20341247447399055,
+          0.4498183398237823,
+          30.33068546648235,
+          0.07564961424222355
+        ],
+        "native_release": true,
+        "capture": false,
+        "invalid": null,
+        "invalid_physics": false,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "forbidden_contact_steps": 61,
+        "table_contact_steps": 106,
+        "board_bounce": true,
+        "setup_proof": {
+          "valid_ik_branches": [
+            13,
+            11
+          ],
+          "required_clearance_m": 0.005,
+          "connection_sha256": "4a824f7894dcd00d19fabfb6d050268f0d92289652e0ae71ac87377e7977a992",
+          "resolution_sha256": "867e75e67e63ebef430388f545559a2a2b2795fee9fcc433470cfcf5a1b020fc",
+          "reason": null,
+          "layout_eligible": true,
+          "anchor_admitted": true,
+          "endpoint_pair_attempts": 18,
+          "admitted_branches": [
+            {
+              "branch10": 0,
+              "branch14": 4
+            }
+          ],
+          "home_minimum_clearance_m": 0.006085006839541591,
+          "home_closest_pair": [
+            "Arm10/link4/collision/0",
+            "Arm10/link6/collision/0"
+          ],
+          "proof_minimum_clearance_m": 0.005061077399989511,
+          "endpoint_examples": []
+        }
+      },
+      "proposed_midpoint_values": [
+        0.6528450734911465,
+        -0.2060137037833628,
+        0.4506423039888079,
+        30.55992018331026,
+        0.08589412889981246
+      ]
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c1-n0",
+      "bucket_xy_m": [
+        0.3166949301168258,
+        -0.45306994756354313
+      ],
+      "delta_values": [
+        0.005699078195475105,
+        -0.012969286362054744,
+        -0.004441877262804067,
+        0.6088801999244566,
+        0.0029126033937337537
+      ],
+      "delta_release_height_m": -0.0015292738690703134,
+      "current_bc": {
+        "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r1-c1-n0",
+        "record_sha256": "0468b30b4048175806119b01a994913bb3f94d9554ccdaa0f96bb4c9f717fb15",
+        "values": [
+          0.6413662741151497,
+          -0.3951689912105089,
+          0.25346446997201505,
+          32.06749754888823,
+          0.22067171326822696
+        ],
+        "native_release": true,
+        "capture": true,
+        "invalid": null,
+        "invalid_physics": false,
+        "whole_ball_entry": true,
+        "max_retention_s": 1.0,
+        "forbidden_contact_steps": 0,
+        "table_contact_steps": 0,
+        "board_bounce": true,
+        "setup_proof": {
+          "valid_ik_branches": [
+            11,
+            10
+          ],
+          "required_clearance_m": 0.005,
+          "connection_sha256": "f157a5fc7c21d1cf921cf417dec0133c04937222cfd303f7ddc9a29c5c1fa893",
+          "resolution_sha256": "32d8891ecef0d64d2487870c2bb3eaae28d2da33a0fb61d1405bf776df488601",
+          "reason": null,
+          "layout_eligible": true,
+          "anchor_admitted": true,
+          "endpoint_pair_attempts": 15,
+          "admitted_branches": [
+            {
+              "branch10": 0,
+              "branch14": 0
+            }
+          ],
+          "home_minimum_clearance_m": 0.006085006839541591,
+          "home_closest_pair": [
+            "Arm10/link4/collision/0",
+            "Arm10/link6/collision/0"
+          ],
+          "proof_minimum_clearance_m": 0.005027098711837763,
+          "endpoint_examples": []
+        }
+      },
+      "corrected_bc": {
+        "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r1-c1-n0",
+        "record_sha256": "3dcddbec51cd18e7365b6aa3a057c8bc4e7394f1d9b7efb5fd027c9a2068c40a",
+        "values": [
+          0.6470653523106248,
+          -0.40813827757256366,
+          0.24902259270921098,
+          32.67637774881268,
+          0.2235843166619607
+        ],
+        "native_release": true,
+        "capture": false,
+        "invalid": null,
+        "invalid_physics": false,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "forbidden_contact_steps": 0,
+        "table_contact_steps": 27,
+        "board_bounce": true,
+        "setup_proof": {
+          "valid_ik_branches": [
+            9,
+            11
+          ],
+          "required_clearance_m": 0.005,
+          "connection_sha256": "a54e613396d775a869fc517ab9ea793195d7c9f366c076bae54a81837f5e7769",
+          "resolution_sha256": "32d8891ecef0d64d2487870c2bb3eaae28d2da33a0fb61d1405bf776df488601",
+          "reason": null,
+          "layout_eligible": true,
+          "anchor_admitted": true,
+          "endpoint_pair_attempts": 6,
+          "admitted_branches": [
+            {
+              "branch10": 0,
+              "branch14": 0
+            }
+          ],
+          "home_minimum_clearance_m": 0.006085006839541591,
+          "home_closest_pair": [
+            "Arm10/link4/collision/0",
+            "Arm10/link6/collision/0"
+          ],
+          "proof_minimum_clearance_m": 0.005027098711837763,
+          "endpoint_examples": []
+        }
+      },
+      "proposed_midpoint_values": [
+        0.6442158132128872,
+        -0.4016536343915363,
+        0.251243531340613,
+        32.371937648850455,
+        0.22212801496509382
+      ]
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c2-n0",
+      "bucket_xy_m": [
+        0.4963906433102536,
+        -0.4146911716255921
+      ],
+      "delta_values": [
+        -0.0008446189130008053,
+        0.0011130830323574648,
+        0.0059824148712495084,
+        -0.1481513964282577,
+        -0.003044822167037456
+      ],
+      "delta_release_height_m": 0.0029375927042120525,
+      "current_bc": {
+        "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r1-c2-n0",
+        "record_sha256": "87316174f0f34c06190d3194609405ebfd9ef705bc085891d5af4f489c00fe5c",
+        "values": [
+          0.6475841779696394,
+          -0.3310148299806974,
+          0.2852925777438575,
+          27.440029100765784,
+          0.07888068705134793
+        ],
+        "native_release": true,
+        "capture": true,
+        "invalid": null,
+        "invalid_physics": false,
+        "whole_ball_entry": true,
+        "max_retention_s": 0.9999999999999999,
+        "forbidden_contact_steps": 0,
+        "table_contact_steps": 0,
+        "board_bounce": true,
+        "setup_proof": {
+          "valid_ik_branches": [
+            12,
+            5
+          ],
+          "required_clearance_m": 0.005,
+          "connection_sha256": "325d1b09526fdcdd3a438eabbea643f6f74655f00d81092112f0f77b6e4b2193",
+          "resolution_sha256": "a4248dac53ac553df21480895897464444d8dafdf658545c64a415f2b2d30290",
+          "reason": null,
+          "layout_eligible": true,
+          "anchor_admitted": true,
+          "endpoint_pair_attempts": 6,
+          "admitted_branches": [
+            {
+              "branch10": 0,
+              "branch14": 0
+            }
+          ],
+          "home_minimum_clearance_m": 0.006085006839541591,
+          "home_closest_pair": [
+            "Arm10/link4/collision/0",
+            "Arm10/link6/collision/0"
+          ],
+          "proof_minimum_clearance_m": 0.005047312834619122,
+          "endpoint_examples": []
+        }
+      },
+      "corrected_bc": {
+        "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r1-c2-n0",
+        "record_sha256": "85ff0eda7b84b8e0988e575d8e9b9f308fad22d046e58aa9649cc5457e7c16d0",
+        "values": [
+          0.6467395590566386,
+          -0.32990174694833996,
+          0.29127499261510703,
+          27.291877704337526,
+          0.07583586488431047
+        ],
+        "native_release": true,
+        "capture": false,
+        "invalid": null,
+        "invalid_physics": false,
+        "whole_ball_entry": true,
+        "max_retention_s": 1.0,
+        "forbidden_contact_steps": 62,
+        "table_contact_steps": 0,
+        "board_bounce": true,
+        "setup_proof": {
+          "valid_ik_branches": [
+            10,
+            5
+          ],
+          "required_clearance_m": 0.005,
+          "connection_sha256": "8b516e9b41ccd2908f429b6cfcec2212e7a56257407a42f11b1168f5441e7087",
+          "resolution_sha256": "a4248dac53ac553df21480895897464444d8dafdf658545c64a415f2b2d30290",
+          "reason": null,
+          "layout_eligible": true,
+          "anchor_admitted": true,
+          "endpoint_pair_attempts": 6,
+          "admitted_branches": [
+            {
+              "branch10": 0,
+              "branch14": 0
+            }
+          ],
+          "home_minimum_clearance_m": 0.006085006839541591,
+          "home_closest_pair": [
+            "Arm10/link4/collision/0",
+            "Arm10/link6/collision/0"
+          ],
+          "proof_minimum_clearance_m": 0.005047312834619122,
+          "endpoint_examples": []
+        }
+      },
+      "proposed_midpoint_values": [
+        0.6471618685131391,
+        -0.3304582884645187,
+        0.2882837851794823,
+        27.365953402551654,
+        0.07735827596782921
+      ]
+    },
+    {
+      "context_id": "corrected-imitation-test-r3-c0-n1",
+      "bucket_xy_m": [
+        0.2149745435724737,
+        -0.0705892543541563
+      ],
+      "delta_values": [
+        -0.008697071509036924,
+        0.0039214285353825346,
+        -0.006104278642403427,
+        0.18460170924241837,
+        0.023633369619008235
+      ],
+      "delta_release_height_m": 0.017529090976604808,
+      "current_bc": {
+        "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r3-c0-n1",
+        "record_sha256": "64fe95c2f9fa5ff293ddbbcbe687d1c884affb2acafd45c6684626f948aeebca",
+        "values": [
+          0.45869772292550504,
+          0.023587318322577044,
+          0.28951310141177933,
+          25.54912284037205,
+          0.11688812358941265
+        ],
+        "native_release": true,
+        "capture": true,
+        "invalid": null,
+        "invalid_physics": false,
+        "whole_ball_entry": true,
+        "max_retention_s": 1.0,
+        "forbidden_contact_steps": 0,
+        "table_contact_steps": 0,
+        "board_bounce": true,
+        "setup_proof": {
+          "valid_ik_branches": [
+            8,
+            12
+          ],
+          "required_clearance_m": 0.005,
+          "connection_sha256": "fea0e987d81612a1a9fb4e3f5376b0cbcaf7cd107b1fac337b7e8da43db65bdd",
+          "resolution_sha256": "b36f155755803b8a46b87546814258f9056ad7bb8b5092a690463df23c8c9925",
+          "reason": null,
+          "layout_eligible": true,
+          "anchor_admitted": true,
+          "endpoint_pair_attempts": 6,
+          "admitted_branches": [
+            {
+              "branch10": 0,
+              "branch14": 0
+            }
+          ],
+          "home_minimum_clearance_m": 0.006085006839541591,
+          "home_closest_pair": [
+            "Arm10/link4/collision/0",
+            "Arm10/link6/collision/0"
+          ],
+          "proof_minimum_clearance_m": 0.005003427852708797,
+          "endpoint_examples": []
+        }
+      },
+      "corrected_bc": {
+        "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r3-c0-n1",
+        "record_sha256": "60d723caa34dcb05500e25ea00dc91382f0250a77ff3725acd98705fd651204d",
+        "values": [
+          0.4500006514164681,
+          0.02750874685795958,
+          0.2834088227693759,
+          25.733724549614468,
+          0.1405214932084209
+        ],
+        "native_release": false,
+        "capture": false,
+        "invalid": "finite_ik_unresolved",
+        "invalid_physics": false,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "forbidden_contact_steps": null,
+        "table_contact_steps": null,
+        "board_bounce": false,
+        "setup_proof": {
+          "valid_ik_branches": [
+            6,
+            0
+          ],
+          "required_clearance_m": 0.005,
+          "connection_sha256": "1754b968f19c019aa6ff58e1369a4cb0ebbbc9c3cd00edcd45ad82ed4517219b",
+          "resolution_sha256": "b36f155755803b8a46b87546814258f9056ad7bb8b5092a690463df23c8c9925",
+          "reason": "finite_ik_unresolved",
+          "layout_eligible": true,
+          "anchor_admitted": true,
+          "endpoint_pair_attempts": 0,
+          "admitted_branches": [],
+          "home_minimum_clearance_m": 0.006085006839541591,
+          "home_closest_pair": [
+            "Arm10/link4/collision/0",
+            "Arm10/link6/collision/0"
+          ],
+          "proof_minimum_clearance_m": null,
+          "endpoint_examples": []
+        }
+      },
+      "proposed_midpoint_values": [
+        0.4543491871709866,
+        0.02554803259026831,
+        0.2864609620905776,
+        25.641423694993257,
+        0.12870480839891676
+      ]
+    }
+  ],
+  "verification": {
+    "immutable_reports_unchanged": true,
+    "protected_processes_unchanged": true,
+    "historical_videos": 6,
+    "full_video_decodes_passed": true,
+    "historical_only": true,
+    "new_physics_in_video_rendering": false
+  },
+  "limitations": [
+    "Inspected development cases, not a fresh held-out policy score",
+    "Midpoint effectiveness is unknown; no experiment ran",
+    "Finite IK refusal does not prove a pose impossible",
+    "Saved native ball samples and held endpoint joints; no arm transit in movies",
+    "No noise, timestep, real-world or all-table qualification"
+  ]
+}

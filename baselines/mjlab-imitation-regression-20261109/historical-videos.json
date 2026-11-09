@@ -1,0 +1,334 @@
+{
+  "version": "sircus-imitation-regression-movie-publication-v1",
+  "historical": true,
+  "videos": [
+    {
+      "context_id": "corrected-imitation-test-r0-c0-n0",
+      "version": "sircus-imitation-regression-historical-video-v1",
+      "output_sha256": "061dffa3ddeb50bc78e21408ed1bdd9ef88c9bd56dc4027842b218ddb0357ef9",
+      "video_bytes": 454121,
+      "fps": 30,
+      "duration_s": 13.533333333333333,
+      "width": 1280,
+      "height": 720,
+      "frames_sha256": "4f72923bb6659e95fdb6ad8ea7e0f3be75a1a04b14f7d2f02682e1cefb2f1b35",
+      "manifest_sha256": "64c70d34b512d67f2fb93a4711e98e8ad166d3048dd348257176ef463d786a25",
+      "source": {
+        "report_sha256": "1fde3f7de5b5c2912a133c858105388a704a80ab0e2cb39e8d79c0c7a189bf14",
+        "audit_sha256": "ea4992828178d9e62ba41c63579ecc3876cb5bffaacf6b590c828d45876a7f63",
+        "contract_fingerprint": "297b367fa2702d688084bc2e74dd30a83c6cf4312ba078938def5f9b223adce4"
+      },
+      "clips": [
+        {
+          "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r0-c0-n0",
+          "context_id": "corrected-imitation-test-r0-c0-n0",
+          "variant": "current_exact",
+          "label": "Historical current policy / capture / r0-c0-n0",
+          "start_s": 0.0,
+          "end_s": 10.533333333333333,
+          "capture": true,
+          "native_release": true,
+          "no_flight": false,
+          "record_sha256": "2089afabc6216612388cea3b0961531f7943892d07cd16eac86b4f273c8b0402",
+          "native_cache_sha256": "ffc9320c856afc3f65e45aa621da44834499eb5259d61cfe56e18b999395f134",
+          "events": {
+            "board": 0.29173177083333335,
+            "bucket": 0.6504557291666666,
+            "whole_ball_entry": 0.63515625,
+            "capture": 1.8610026041666667
+          }
+        },
+        {
+          "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r0-c0-n0",
+          "context_id": "corrected-imitation-test-r0-c0-n0",
+          "variant": "corrected_exact",
+          "label": "Historical corrected policy / failure / r0-c0-n0",
+          "start_s": 10.533333333333333,
+          "end_s": 13.533333333333333,
+          "capture": false,
+          "native_release": false,
+          "no_flight": true,
+          "reason": "finite_ik_unresolved",
+          "record_sha256": "4633d6d1b9ff9b607b6a2a9b45cdab1bc358aa525a6d5c1d6634901bf81afb44",
+          "events": {}
+        }
+      ]
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c1-n0",
+      "version": "sircus-imitation-regression-historical-video-v1",
+      "output_sha256": "09ad169d921620cfa5f74114d9d513b706ce32cc1d0fbfe7e9d1d0536f7deb98",
+      "video_bytes": 417779,
+      "fps": 30,
+      "duration_s": 11.966666666666667,
+      "width": 1280,
+      "height": 720,
+      "frames_sha256": "9531fb378c4d91213d2b041e4a456b462b60e221dcf4770275d80892190e0293",
+      "manifest_sha256": "ea4b72b8fb161b46a3515dcc5c8f52fad3a55657120e475073222c1de50cf68f",
+      "source": {
+        "report_sha256": "1fde3f7de5b5c2912a133c858105388a704a80ab0e2cb39e8d79c0c7a189bf14",
+        "audit_sha256": "ea4992828178d9e62ba41c63579ecc3876cb5bffaacf6b590c828d45876a7f63",
+        "contract_fingerprint": "297b367fa2702d688084bc2e74dd30a83c6cf4312ba078938def5f9b223adce4"
+      },
+      "clips": [
+        {
+          "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r0-c1-n0",
+          "context_id": "corrected-imitation-test-r0-c1-n0",
+          "variant": "current_exact",
+          "label": "Historical current policy / capture / r0-c1-n0",
+          "start_s": 0.0,
+          "end_s": 8.966666666666667,
+          "capture": true,
+          "native_release": true,
+          "no_flight": false,
+          "record_sha256": "4296afc965cb3900331f95e21b098b82df91e0e75d77219b9b7a47deca144d7e",
+          "native_cache_sha256": "ffc9320c856afc3f65e45aa621da44834499eb5259d61cfe56e18b999395f134",
+          "events": {
+            "board": 0.23763020833333334,
+            "bucket": 0.440625,
+            "whole_ball_entry": 0.5432291666666667,
+            "capture": 1.5432291666666667
+          }
+        },
+        {
+          "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r0-c1-n0",
+          "context_id": "corrected-imitation-test-r0-c1-n0",
+          "variant": "corrected_exact",
+          "label": "Historical corrected policy / failure / r0-c1-n0",
+          "start_s": 8.966666666666667,
+          "end_s": 11.966666666666667,
+          "capture": false,
+          "native_release": false,
+          "no_flight": true,
+          "reason": "finite_ik_unresolved",
+          "record_sha256": "a2e20a6fe3d32080ab479401a835307bf2775eb5093a46c1fe765f5bf7a05a8e",
+          "events": {}
+        }
+      ]
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c6-n1",
+      "version": "sircus-imitation-regression-historical-video-v1",
+      "output_sha256": "a9941884d2a654cc53dd392a72dc1249df6bfae1f5ab288a75edc025e44094ea",
+      "video_bytes": 889329,
+      "fps": 30,
+      "duration_s": 20.233333333333334,
+      "width": 1280,
+      "height": 720,
+      "frames_sha256": "1b7d6c50d9a1b8365a4169c881a339e7abe731b1b22812734414c299de249487",
+      "manifest_sha256": "46e4e15728287b0e2c268867198e63acbe3833248683a9f4f91cdf7063089624",
+      "source": {
+        "report_sha256": "1fde3f7de5b5c2912a133c858105388a704a80ab0e2cb39e8d79c0c7a189bf14",
+        "audit_sha256": "ea4992828178d9e62ba41c63579ecc3876cb5bffaacf6b590c828d45876a7f63",
+        "contract_fingerprint": "297b367fa2702d688084bc2e74dd30a83c6cf4312ba078938def5f9b223adce4"
+      },
+      "clips": [
+        {
+          "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r0-c6-n1",
+          "context_id": "corrected-imitation-test-r0-c6-n1",
+          "variant": "current_exact",
+          "label": "Historical current policy / capture / r0-c6-n1",
+          "start_s": 0.0,
+          "end_s": 10.5,
+          "capture": true,
+          "native_release": true,
+          "no_flight": false,
+          "record_sha256": "7d7b3270628a0c2e229b9fd025cad774dc72b78bb011cef65d13563f3fe7ace3",
+          "native_cache_sha256": "ffc9320c856afc3f65e45aa621da44834499eb5259d61cfe56e18b999395f134",
+          "events": {
+            "board": 0.13326822916666667,
+            "bucket": 0.712890625,
+            "table": 0.4796223958333333,
+            "whole_ball_entry": 0.8555338541666666,
+            "capture": 1.8555338541666666
+          }
+        },
+        {
+          "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r0-c6-n1",
+          "context_id": "corrected-imitation-test-r0-c6-n1",
+          "variant": "corrected_exact",
+          "label": "Historical corrected policy / failure / r0-c6-n1",
+          "start_s": 10.5,
+          "end_s": 20.233333333333334,
+          "capture": false,
+          "native_release": true,
+          "no_flight": false,
+          "record_sha256": "7be908d4b86544a87b670600676ac97ad99bba9f8ccf551c969aaba9e5f52b8d",
+          "native_cache_sha256": "de270d1d7ec7256ca08385800f46f65447476d7fbb805be5937a43c3a13d029f",
+          "events": {
+            "board": 0.11673177083333333,
+            "bucket": 0.6444661458333333,
+            "table": 0.5184895833333333,
+            "robot": 0.13932291666666666
+          }
+        }
+      ]
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c1-n0",
+      "version": "sircus-imitation-regression-historical-video-v1",
+      "output_sha256": "8943d05fd2915c214bfa6af7ca6961037e075fd2fdfc03bc32a700b005c11495",
+      "video_bytes": 643686,
+      "fps": 30,
+      "duration_s": 15.466666666666667,
+      "width": 1280,
+      "height": 720,
+      "frames_sha256": "112549a3013e9a36d7f6deaa3cc07758186c7d6471440cf4123057526e4db183",
+      "manifest_sha256": "84b7d9899b4b13cc8998b458e5732f2802442be3a1302aaabee944082e46d2cf",
+      "source": {
+        "report_sha256": "1fde3f7de5b5c2912a133c858105388a704a80ab0e2cb39e8d79c0c7a189bf14",
+        "audit_sha256": "ea4992828178d9e62ba41c63579ecc3876cb5bffaacf6b590c828d45876a7f63",
+        "contract_fingerprint": "297b367fa2702d688084bc2e74dd30a83c6cf4312ba078938def5f9b223adce4"
+      },
+      "clips": [
+        {
+          "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r1-c1-n0",
+          "context_id": "corrected-imitation-test-r1-c1-n0",
+          "variant": "current_exact",
+          "label": "Historical current policy / capture / r1-c1-n0",
+          "start_s": 0.0,
+          "end_s": 8.5,
+          "capture": true,
+          "native_release": true,
+          "no_flight": false,
+          "record_sha256": "0468b30b4048175806119b01a994913bb3f94d9554ccdaa0f96bb4c9f717fb15",
+          "native_cache_sha256": "ffc9320c856afc3f65e45aa621da44834499eb5259d61cfe56e18b999395f134",
+          "events": {
+            "board": 0.207421875,
+            "bucket": 0.4025390625,
+            "whole_ball_entry": 0.45240885416666665,
+            "capture": 1.4524088541666667
+          }
+        },
+        {
+          "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r1-c1-n0",
+          "context_id": "corrected-imitation-test-r1-c1-n0",
+          "variant": "corrected_exact",
+          "label": "Historical corrected policy / failure / r1-c1-n0",
+          "start_s": 8.5,
+          "end_s": 15.466666666666667,
+          "capture": false,
+          "native_release": true,
+          "no_flight": false,
+          "record_sha256": "3dcddbec51cd18e7365b6aa3a057c8bc4e7394f1d9b7efb5fd027c9a2068c40a",
+          "native_cache_sha256": "de270d1d7ec7256ca08385800f46f65447476d7fbb805be5937a43c3a13d029f",
+          "events": {
+            "board": 0.20865885416666666,
+            "bucket": 0.38873697916666666,
+            "table": 0.7681640625
+          }
+        }
+      ]
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c2-n0",
+      "version": "sircus-imitation-regression-historical-video-v1",
+      "output_sha256": "1fde09f89816ef7abd6a8ffcbb8cf24925732ae052272184df4b5664a6462ace",
+      "video_bytes": 747451,
+      "fps": 30,
+      "duration_s": 17.2,
+      "width": 1280,
+      "height": 720,
+      "frames_sha256": "a14c4f88ad3685bfcdc53985b6a322868c42a15367af7db983d7a6709aabbb80",
+      "manifest_sha256": "3cb4a78c38af08f26892ecfc671fbd29174fb54465a0c6c8f982a3c438391bd2",
+      "source": {
+        "report_sha256": "1fde3f7de5b5c2912a133c858105388a704a80ab0e2cb39e8d79c0c7a189bf14",
+        "audit_sha256": "ea4992828178d9e62ba41c63579ecc3876cb5bffaacf6b590c828d45876a7f63",
+        "contract_fingerprint": "297b367fa2702d688084bc2e74dd30a83c6cf4312ba078938def5f9b223adce4"
+      },
+      "clips": [
+        {
+          "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r1-c2-n0",
+          "context_id": "corrected-imitation-test-r1-c2-n0",
+          "variant": "current_exact",
+          "label": "Historical current policy / capture / r1-c2-n0",
+          "start_s": 0.0,
+          "end_s": 8.2,
+          "capture": true,
+          "native_release": true,
+          "no_flight": false,
+          "record_sha256": "87316174f0f34c06190d3194609405ebfd9ef705bc085891d5af4f489c00fe5c",
+          "native_cache_sha256": "ffc9320c856afc3f65e45aa621da44834499eb5259d61cfe56e18b999395f134",
+          "events": {
+            "board": 0.12057291666666667,
+            "bucket": 0.3834635416666667,
+            "whole_ball_entry": 0.3951171875,
+            "capture": 1.3951171875
+          }
+        },
+        {
+          "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r1-c2-n0",
+          "context_id": "corrected-imitation-test-r1-c2-n0",
+          "variant": "corrected_exact",
+          "label": "Historical corrected policy / failure / r1-c2-n0",
+          "start_s": 8.2,
+          "end_s": 17.2,
+          "capture": false,
+          "native_release": true,
+          "no_flight": false,
+          "record_sha256": "85ff0eda7b84b8e0988e575d8e9b9f308fad22d046e58aa9649cc5457e7c16d0",
+          "native_cache_sha256": "de270d1d7ec7256ca08385800f46f65447476d7fbb805be5937a43c3a13d029f",
+          "events": {
+            "board": 0.11803385416666666,
+            "bucket": 0.3746744791666667,
+            "robot": 0.14680989583333334,
+            "whole_ball_entry": 0.41549479166666664,
+            "capture": 1.4154947916666667
+          }
+        }
+      ]
+    },
+    {
+      "context_id": "corrected-imitation-test-r3-c0-n1",
+      "version": "sircus-imitation-regression-historical-video-v1",
+      "output_sha256": "2dc94a03fd542e3dcd38e34e13c4b3de30cec22f06816aa4f1cd50063b947b7d",
+      "video_bytes": 423220,
+      "fps": 30,
+      "duration_s": 11.766666666666667,
+      "width": 1280,
+      "height": 720,
+      "frames_sha256": "5e334a84318f0364fbb9f48bf2c2c62e2b88cd97217604e27efbf61149845906",
+      "manifest_sha256": "0b596331e21a9d3d35957187ac46f94bc7ea0532767808b9fee0b9efae6ab1e4",
+      "source": {
+        "report_sha256": "1fde3f7de5b5c2912a133c858105388a704a80ab0e2cb39e8d79c0c7a189bf14",
+        "audit_sha256": "ea4992828178d9e62ba41c63579ecc3876cb5bffaacf6b590c828d45876a7f63",
+        "contract_fingerprint": "297b367fa2702d688084bc2e74dd30a83c6cf4312ba078938def5f9b223adce4"
+      },
+      "clips": [
+        {
+          "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r3-c0-n1",
+          "context_id": "corrected-imitation-test-r3-c0-n1",
+          "variant": "current_exact",
+          "label": "Historical current policy / capture / r3-c0-n1",
+          "start_s": 0.0,
+          "end_s": 8.766666666666667,
+          "capture": true,
+          "native_release": true,
+          "no_flight": false,
+          "record_sha256": "64fe95c2f9fa5ff293ddbbcbe687d1c884affb2acafd45c6684626f948aeebca",
+          "native_cache_sha256": "50b75f468fcab7713fecda089d3ac47f41a2a4c8de959ff63235b53ddefcde36",
+          "events": {
+            "board": 0.1498046875,
+            "bucket": 0.37265625,
+            "whole_ball_entry": 0.503125,
+            "capture": 1.503125
+          }
+        },
+        {
+          "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r3-c0-n1",
+          "context_id": "corrected-imitation-test-r3-c0-n1",
+          "variant": "corrected_exact",
+          "label": "Historical corrected policy / failure / r3-c0-n1",
+          "start_s": 8.766666666666667,
+          "end_s": 11.766666666666667,
+          "capture": false,
+          "native_release": false,
+          "no_flight": true,
+          "reason": "finite_ik_unresolved",
+          "record_sha256": "60d723caa34dcb05500e25ea00dc91382f0250a77ff3725acd98705fd651204d",
+          "events": {}
+        }
+      ]
+    }
+  ]
+}

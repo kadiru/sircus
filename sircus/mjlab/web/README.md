@@ -369,3 +369,13 @@ post-board-rebound contact is 9/9 original versus 0/9 corrected. Original retain
 balls remain route failures. These are exact repeats on diagnosed development
 layouts, not fresh generalization or noise evidence. See the
 [completed correction baseline](../../../baselines/mjlab-gap-flight-correction-20261107/README.md).
+
+
+## Six imitation regression diagnosis
+
+`#imitationRegression` is an additive read-only panel published by
+`prepare_imitation_regression`. It separates audited historical pairs/movies
+from fresh correction outcomes, preserves prior panels and the backend report,
+and marks an expired unstarted GPU queue as **not run** with zero requests.
+The six movies replay saved native samples; held joints and refusal cards do
+not claim arm-transit validation. [Current evidence](../../../baselines/mjlab-imitation-regression-20261109/README.md).
