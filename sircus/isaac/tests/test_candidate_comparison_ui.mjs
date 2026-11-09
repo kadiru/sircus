@@ -155,7 +155,7 @@ test('exploratory TRAIN counts and curve use completed requests including reject
     assert.match(content,/Charged requests.*Completed TRAIN requests.*Unresolved charged requests/);
     assert.match(content,/40 35 5 10 \/ 35 · 28.6% 4 \/ 35 · 11.4% 30 5/);
     assert.match(content,/including rejections.*Unresolved charged requests remain separate/);
-    assert.match(content,/Latest recorded terminal prefix:\s+25 requests · 8 captures · 3 clean · 23 released · 2 rejected/);
+    assert.match(content,/Latest recorded batch outcomes:\s+25 requests · 8 captures · 3 clean · 23 released · 2 rejected/);
     const svg=descendants(node).find(child=>child.tag==='svg');assert.ok(svg);assert.match(svg.attributes['aria-label'],/Unaudited cumulative TRAIN.*including rejections/);
     const curves=svg.children.filter(child=>child.tag==='polyline');assert.equal(curves.length,2);
     for(const curve of curves){const points=curve.attributes.points.split(' ').map(point=>point.split(',').map(Number));assert.equal(points.length,2);assert.equal(points.at(-1)[0],595);assert.ok(points.flat().every(Number.isFinite));}

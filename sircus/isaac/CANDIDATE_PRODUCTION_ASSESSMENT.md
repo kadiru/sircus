@@ -178,6 +178,23 @@ continuation, not uncertainty over independent training seeds. Historical 13/16
 TRAIN witnesses are retention references, separate from newly paired controls.
 Every complete/failed report retains `model_promoted=False`.
 
+The separate [read-only final publisher](candidate_continuation_report.py)
+requires external hashes for the closed application, combined audit, host launch
+result and pinned manifest, plus the expected session and producer source. It
+joins all four passed audit components, exact final checkpoint bytes, complete
+request ledgers and the final TRAIN journal before constructing a continuation
+report. It recounts comparison denominators and derives the complete exploratory
+TRAIN curve; it does not load a model, rerun physics or write a file. The host's
+`native_complete_independent_audit_required` status alone cannot establish an
+audit pass.
+
+Its additive update preserves the historical 70-request report root and nested
+prior attempts. It refuses to replace another active session. Stop the finite
+TRAIN-only publisher before atomically publishing the final audited child through
+the existing GET-only reader; no reader restart is needed. Final checkpoints
+remain separate saved artifacts, and this continuation protocol records no new
+trial videos. Existing frozen benchmark videos remain in their original reader.
+
 Entry phase timers separate initialization, imitation, TRAIN, assessment and
 audit. CPU is self plus waited/reaped-child deltas; active unreaped child CPU is
 not included until reaped. Host supervisor/watchdog overhead is separate. RSS is

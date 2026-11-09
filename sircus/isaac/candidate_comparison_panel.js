@@ -185,7 +185,7 @@ function renderTrainMonitoring(value){
   wrapper.appendChild(table(['Charged requests','Completed TRAIN requests','Unresolved charged requests','Captures / completed','Clean captures / completed','Released','Rejected'],[[integer(totals.requested),integer(totals.terminal),integer(totals.unresolved),rate(totals.captures),rate(totals.clean_captures),integer(totals.released),integer(totals.rejected)]]));
   node.appendChild(wrapper);
   node.appendChild(Object.assign(el('p','Rates divide by completed TRAIN requests, including rejections. Unresolved charged requests remain separate until a terminal outcome is recorded.'),{className:'compute-note'}));
-  if(prefix)line(node,'Latest recorded terminal prefix:',`${integer(prefix.terminal)} requests · ${integer(prefix.captures)} captures · ${integer(prefix.clean_captures)} clean · ${integer(prefix.released)} released · ${integer(prefix.rejected)} rejected.`);
+  if(prefix)line(node,'Latest recorded batch outcomes:',`${integer(prefix.terminal)} requests · ${integer(prefix.captures)} captures · ${integer(prefix.clean_captures)} clean · ${integer(prefix.released)} released · ${integer(prefix.rejected)} rejected.`);
   if(!curve.length){pending(node,totals.terminal?'Cumulative TRAIN curve unavailable.':'No completed TRAIN requests yet; capture rates are unavailable.');return;}
   const ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg');
   svg.setAttribute('viewBox','0 0 620 240');svg.setAttribute('role','img');svg.setAttribute('aria-label','Unaudited cumulative TRAIN capture and clean-capture rates across completed TRAIN requests, including rejections');
