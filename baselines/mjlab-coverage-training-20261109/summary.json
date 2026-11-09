@@ -452,5 +452,41 @@
     "max_tilt_difference_degrees": 2.38374e-06,
     "max_position_gap_difference_m": 4.290889e-08,
     "max_recorded_transform_error": 0
+  },
+  "recorded_replay": {
+    "status": "completed",
+    "duration_s": 39.266667,
+    "frames": 1178,
+    "fps": 30,
+    "resolution": [
+      1280,
+      720
+    ],
+    "output_sha256": "86dd8e73c9c99314770a94546cac634c88a291384d185f2a8694b370b695e582",
+    "manifest_sha256": "88943c7690c0363060d543a65633c32e88e7d6a1836ea1381741b9b8f4bf3535",
+    "native_steps_added": 0,
+    "scope": "Saved native ball centers and held arm endpoints; CPU llvmpipe rendering. Posthoc paired gain/loss examples, not new trials or learned arm transit.",
+    "clips": [
+      {
+        "start_s": 0,
+        "end_s": 8.2,
+        "label": "New imitation miss at PPO gain position"
+      },
+      {
+        "start_s": 8.2,
+        "end_s": 19.2,
+        "label": "Selected PPO capture at same position"
+      },
+      {
+        "start_s": 19.2,
+        "end_s": 30.8,
+        "label": "New imitation capture at PPO loss position"
+      },
+      {
+        "start_s": 30.8,
+        "end_s": 39.266667,
+        "label": "Selected PPO miss at same position"
+      }
+    ]
   }
 }

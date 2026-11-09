@@ -9,7 +9,7 @@ positions, then four frozen policies on70 new TEST positions. Up to2,757 native
 requests with a seven-hour pipeline deadline,64 substeps and unchanged v3 scoring.
 All methods share19 geometric starting poses, including two audited Case00 poses
 reclassified as development evidence. The previous policies retain their weights.
-Live progress and subsequently audited results: `#coverageTraining7h`.
+Audited results and all 70 position outcomes: `#coverageTraining7h`.
 This is a new experiment, not evidence of improved capture until it completes.
 
 
