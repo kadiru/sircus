@@ -1,5 +1,12 @@
 # Seed 22 continuation: proposed experiment, training off
 
+Implementation status, November 9: the [candidate adapter and pure losses / ledger](CANDIDATE_ADAPTER.md)
+now pass [53 CPU no-update tests and actual-parent initialization checks](../../baselines/isaac-candidate-adapter-20261109/README.md).
+The checklist below records the proposal's original gates. The optimizer/update
+loop, checkpoint writer, fresh split/support preparation, native integration,
+operational supervisor and independent training auditor remain deferred.
+No training or new native shot is authorized or launched by this implementation.
+
 Prepared November 8, 2026 (America/Los_Angeles). **This is a reviewable proposal,
 not a launch authorization or an implemented trainer. No imitation, PPO update,
 new native request, or new held-out evaluation belongs to this planning task.**

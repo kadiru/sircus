@@ -1,0 +1,55 @@
+name: Candidate adapter CPU checks
+on:
+  push:
+    paths:
+      - '.github/workflows/candidate-adapter.yml'
+      - 'sircus/isaac/candidate_continuation*.py'
+      - 'sircus/isaac/tests/test_candidate_continuation*.py'
+      - 'sircus/isaac/continuous_policy.py'
+      - 'sircus/isaac/continuous_feasibility.py'
+      - 'sircus/isaac/candidate_selector.py'
+      - 'sircus/isaac/feasible_candidates.py'
+      - 'sircus/isaac/cylinder_farm.py'
+      - 'baselines/isaac-feasible-candidates-20261109/summary.json'
+  pull_request:
+    paths:
+      - '.github/workflows/candidate-adapter.yml'
+      - 'sircus/isaac/candidate_continuation*.py'
+      - 'sircus/isaac/tests/test_candidate_continuation*.py'
+      - 'sircus/isaac/continuous_policy.py'
+      - 'sircus/isaac/continuous_feasibility.py'
+      - 'sircus/isaac/candidate_selector.py'
+      - 'sircus/isaac/feasible_candidates.py'
+      - 'sircus/isaac/cylinder_farm.py'
+      - 'baselines/isaac-feasible-candidates-20261109/summary.json'
+permissions:
+  contents: read
+jobs:
+  cpu:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      CUDA_VISIBLE_DEVICES: ''
+      PYTHONDONTWRITEBYTECODE: '1'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: .github/workflows/candidate-adapter.yml
+      - run: python -m pip install numpy==1.26.4 scipy==1.15.3
+      - run: python -m pip install torch==2.7.0 --index-url https://download.pytorch.org/whl/cpu
+      - name: Require real CPU tensor coverage
+        run: |
+          python - <<'PY'
+          import torch, unittest
+          assert torch.__version__.startswith('2.7.0')
+          suite = unittest.defaultTestLoader.discover('sircus/isaac/tests', pattern='test_candidate_continuation*.py')
+          result = unittest.TextTestRunner(verbosity=2).run(suite)
+          assert result.testsRun > 0 and not result.skipped, 'CPU adapter cases must run, not skip'
+          assert result.wasSuccessful()
+          PY
