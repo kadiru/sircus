@@ -1,5 +1,14 @@
 # Project state
 
+## Completed bouncer-clearance XY search — November 8, 2026
+
+- [Exact configurations and interpretation](MJLAB_BOUNCER_CLEARANCE_20261108.md): 75 frozen XY proposals across cases 00/18/26 produced **9 admitted setups and 66 finite IK declines**. Only ΔX=0 and ΔY=0/+60/+120 mm admitted in each case. Board height, tilt, gap and bucket XY stayed fixed; moving board XY changed heading and horizontal bucket distance. All failed proposals remain evidence; finite IK failure does not prove impossibility.
+- **0/9 discovery captures, zero entries, 7 robot-contact shots**. Case 00's +60/+120 mm Y alternatives cleared the robot. The selected +120 mm Y setting stayed contact-free in **3/3 fresh repeats**, compared with robot contact in **3/3 original repeats**, but still captured **0/3** and never entered. Cases 18/26 remained colliding; no colliding substitute was repeated.
+- Case 00 selected: board center **(597.992, −23.557, 460) mm**, bucket **(1109.540, −221.464) mm**, tilt 28°, gap 251.819 mm. Original board Y was −143.557 mm; horizontal distance changed 517.446→548.496 mm. This is a contact-free miss, not a successful recipe. Table contact remains allowed.
+- All 18 direct/table/miss controls passed; total **105 requested configurations/repeats, 39 native drops**. Independent audit passed **17,380 checks** with no invalid physics. CPU admission 34.5 s; native wall time 208.3 s. Frozen producer `a6fe6af7afce0ecfe667bbe7efbfdd9f8f39b437`; draft PR #98 remains stacked on #97. [Compact results](../baselines/mjlab-bouncer-clearance-20261108/README.md) feed `#bouncerClearanceStudy`.
+- The panel includes a **43.4-second recorded native64 replay**: matched original/clear Case 00, unresolved shifted 18/26 and a table-assisted control. Actual saved ball positions and held arm joints, identical Case 00 cameras, no new physics or invented motion. CPU-only rendering; all 1,302 frames passed complete MP4 decoding. Existing UI was updated without restart; other panels/report keys preserved. Chrome verified counts, chapters, playback and speed controls.
+- Failures are expected search data, not grounds for suppressing all exploration. No PPO, new hard refusal rule or policy promotion. Next: bounded tilt/gap search around the cleared case 00 family and a separately audited branch/posture alternative for 18/26 before another policy comparison. Native64/v3 physics and scoring stayed fixed; the 4070 and Isaac were left untouched.
+
 ## Recorded height/tilt failure replay — November 8, 2026
 
 - [Video interpretation and evidence](MJLAB_HEIGHT_TILT_REPLAY_20261108.md): a 47.63-second, 1280×720/30 fps MuJoCo replay shows three saved misses and a table-assisted positive control. Actual ball samples, held endpoint joints, original geometry, 1×/¼× views and exact contact freezes; zero new physics steps. No unrecorded arm transit or ball spin is invented.
