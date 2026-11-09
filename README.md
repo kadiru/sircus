@@ -1,5 +1,14 @@
 # Sircus — Simple Circus
 
+
+**Latest mjlab diagnosis:** [six regression cases and historical videos](baselines/mjlab-imitation-regression-20261109/README.md).
+Three IK refusals, two ball–robot collisions and one rim miss; all preserved in
+`#imitationRegression`. The diagnosis passed 1,230 checks. A frozen midpoint
+correction is prepared with 72 matched/control slots at 64 substeps, but **0 ran**:
+the bounded queue expired while a protected Isaac workload occupied the 4090.
+No correction improvement is claimed; successful recipes and models are intact.
+4070/Isaac untouched. [Handoff](docs/MJLAB_IMITATION_REGRESSION_20261109.md).
+
 **Latest mjlab policy comparison:** [corrected imitation: 38/70 versus current 40/70](baselines/mjlab-corrected-imitation-20261109/README.md).
 The frozen 64-substep comparison on 70 new positions gained four captures and
 lost six. Refitting retained 92 teachers and added five corrections with 800
