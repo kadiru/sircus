@@ -1,6 +1,13 @@
 # Sircus in mjlab
 
-Latest: [completed seven-hour-budget comparison](../../baselines/mjlab-coverage-training-20261109/README.md).
+Latest: [bucket-facing gripper rotation results](../../baselines/mjlab-gripper-yaw-20261109/README.md).
+On two inspected collision cases, yaw reduced robot-contact shots from 6/6 to
+0/6 and improved capture from 0/6 to 3/6. The nearer case captured 3/3; the
+farther case still missed. All 36 requests and 18 controls completed; 18,330
+independent checks passed. Matched videos and exact poses: `#gripperYaw`.
+[Protocol](GRIPPER_YAW.md). No new policy score or default behavior change.
+
+Earlier: [completed seven-hour-budget comparison](../../baselines/mjlab-coverage-training-20261109/README.md).
 New imitation and selected PPO both captured 28/70 (40%); no net PPO gain.
 All 2,757 requests completed in 235.1 worker minutes. No policy promotion.
 [Protocol](COVERAGE_TRAINING7H.md).
