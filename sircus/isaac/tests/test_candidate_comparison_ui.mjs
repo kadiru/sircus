@@ -71,3 +71,70 @@ test('report fetch is GET-only and compatible page exposes all result sections',
   for(const id of ['statusCard','metrics','rateChart','paired','computeTable','sharedCompute','caseList','caseDetail','sourceIdentity'])assert.ok(html.includes(`id="${id}"`));
   assert.match(html,/TRAIN positions/);assert.match(html,/No learning or held-out evaluation/);assert.match(html,/127.0.0.1:18797/);
 });
+
+// Fabricated values below exercise publication behavior, not measured pilot outcomes.
+function continuationFixture(){
+  const methods={};
+  for(const method of ['parent','candidate_bank','continued']){
+    methods[method]={};for(const [split,requested] of [['train',35],['validation',35],['test',70]]){
+      methods[method][split]={requested,released:requested-2,rejected:2,captures:12,clean_captures:5};
+    }
+  }
+  return {schema:'sircus-candidate-continuation-published-v1',status:'completed_audited',phase:'audit',
+    audit:{status:'passed',all_components_passed:true,synthetic:false},model_promoted:false,
+    counters:{train_requests:1450,train_releases:1400,assessment_requests:420,assessment_releases:402},
+    comparison:{methods,test_pairs:{continued_minus_candidate_bank:{captured:{gains:3,losses:2},clean:{gains:1,losses:0}}}},
+    resources:{phases:{initialization:{wall_s:20,aggregate_cpu_s:30,lifetime_peak_rss_mib:6000,largest_child_lifetime_peak_rss_mib:0,device:null},train:{wall_s:120,aggregate_cpu_s:400,lifetime_peak_rss_mib:6500,largest_child_lifetime_peak_rss_mib:0,device:{sampled_whole_device_occupied_mib:6200,torch_peak_allocated_mib:.3,torch_peak_reserved_mib:2}}}},
+    final_checkpoint_sha256:'c'.repeat(64)};
+}
+
+test('continuation requires its own passed nonsynthetic audit and exact three-method final grid',()=>{
+  assert.equal(panel.continuationAudited(continuationFixture()),true);
+  for(const mutate of [c=>c.schema='legacy',c=>c.status='running',c=>c.audit.status='not_run',c=>c.audit.all_components_passed=false,c=>c.audit.synthetic=true,c=>c.model_promoted=true,c=>c.counters.assessment_requests=419,c=>c.counters.assessment_releases=401,c=>c.counters.train_requests=1399,c=>c.counters.train_releases=1300,c=>c.counters.train_requests=1751,c=>c.comparison.methods.continued.test.requested=69,c=>c.comparison.methods.parent.validation.released=34,c=>c.comparison.methods.candidate_bank.train.clean_captures=13,c=>delete c.comparison.methods.continued]){
+    const continuation=continuationFixture();mutate(continuation);assert.equal(panel.continuationAudited(continuation),false);assert.equal(panel.continuationRows(continuation)[0][2],'pending audit');
+  }
+  const requestCap=continuationFixture();requestCap.counters.train_requests=1750;requestCap.counters.train_releases=1350;assert.equal(panel.continuationAudited(requestCap),true);
+});
+
+test('native completion and failed zero-activity attempt never inherit historical passed audit',()=>{
+  const nodes=dom();try{
+    const report=fixture();report.continuation={schema:'sircus-candidate-continuation-published-v1',status:'failed',phase:'initialization',error:'Linux pidfd support required <script>text only</script>',audit:{status:'not_run',synthetic:false},model_promoted:false,progress:{train_requests:0,train_releases:0,assessment_requests:0,assessment_releases:0}};
+    panel.render(report);
+    assert.match(nodes.get('statusTitle').textContent,/Both frozen methods completed/);
+    assert.match(nodes.get('continuationTitle').textContent,/stopped/);assert.match(nodes.get('continuationDetail').textContent,/Linux pidfd.*<script>text only<\/script>/);
+    assert.match(text(nodes.get('continuationProgress')),/0 \/ 1,750 maximum.*0 \/ 1,400 maximum.*0 \/ 420 planned/);
+    assert.match(text(nodes.get('continuationEvidence')),/not_run.*No automatic model promotion.*No trial videos/);
+    assert.doesNotMatch(text(nodes.get('continuationEvidence')),/Saved final checkpoint SHA256/);
+    assert.match(text(nodes.get('continuationResults')),/not audited/);assert.match(text(nodes.get('continuationCompute')),/not audited/);assert.match(text(nodes.get('continuationPaired')),/stopped attempt/);
+    report.continuation.status='native_complete';panel.render(report);assert.match(nodes.get('continuationTitle').textContent,/audit pending/);assert.match(text(nodes.get('continuationResults')),/pending audit/);
+  }finally{delete globalThis.document;}
+});
+
+test('running continuation shows charged limits and learning receipts without final results',()=>{
+  const nodes=dom();try{
+    const continuation=continuationFixture();continuation.status='running';continuation.phase='train';continuation.learning={imitation_steps:240,ppo_updates:2,optimizer_steps:248};
+    panel.renderContinuation(continuation);
+    assert.match(nodes.get('continuationTitle').textContent,/in progress/);assert.match(text(nodes.get('continuationProgress')),/Native TRAIN.*Imitation steps 240 \/ 240 maximum.*PPO updates 2 \/ 13 maximum/);
+    assert.match(text(nodes.get('continuationProgress')),/include reservations and rejections/);assert.match(text(nodes.get('continuationResults')),/pending audit/);assert.doesNotMatch(text(nodes.get('continuationResults')),/12 \/ 70/);
+  }finally{delete globalThis.document;}
+});
+
+test('audited continuation displays all three split denominators and scoped memory',()=>{
+  const nodes=dom();try{
+    panel.renderContinuation(continuationFixture());
+    assert.match(nodes.get('continuationTitle').textContent,/completed/);assert.equal(panel.continuationRows(continuationFixture()).length,9);
+    assert.match(text(nodes.get('continuationResults')),/TRAIN.*Original seed 22.*12 \/ 35.*Frozen bank selector.*Continued seed 22.*Fresh validation.*Fresh TEST.*12 \/ 70/);
+    assert.match(text(nodes.get('continuationPaired')),/Capture gains 3, losses 2.*not uncertainty across independent training seeds/);
+    const compute=text(nodes.get('continuationCompute'));assert.match(compute,/20.00 s.*30.00 s.*6,000.0 MiB/);assert.match(compute,/120.00 s.*400.00 s.*6,500.0 MiB.*6,200.0 MiB.*0.3 MiB.*2.0 MiB/);assert.match(compute,/unknown/);assert.match(compute,/not isolated phase memory/);
+    assert.match(text(nodes.get('continuationEvidence')),/Saved final checkpoint SHA256: c{64}/);
+  }finally{delete globalThis.document;}
+});
+
+test('removing optional continuation hides its panel and clears old final claims',()=>{
+  const nodes=dom();try{
+    panel.render({...fixture(),continuation:continuationFixture()});assert.equal(nodes.get('continuation').className,'card');
+    panel.render(fixture());assert.equal(nodes.get('continuation').className,'card hidden');assert.equal(nodes.get('continuationNav').className,'hidden');assert.equal(text(nodes.get('continuationResults')),'');assert.equal(text(nodes.get('continuationEvidence')),'');
+    assert.match(text(nodes.get('metrics')),/13 \/ 35.*16 \/ 35/);
+  }finally{delete globalThis.document;}
+  for(const id of ['continuation','continuationNav','continuationStatus','continuationProgress','continuationResults','continuationCompute','continuationEvidence'])assert.ok(html.includes(`id="${id}"`));
+});

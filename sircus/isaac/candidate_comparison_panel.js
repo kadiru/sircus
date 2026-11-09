@@ -16,6 +16,53 @@ const integer=x=>count(x)===null?'unknown':x.toLocaleString('en-US');
 const seconds=x=>number(x)===null||x<0?'unknown':`${fixed(x)} s`;
 const memory=x=>number(x)===null||x<0?'unknown':`${fixed(x,1)} MiB`;
 
+// Optional additive publication. The historical 70-request report stays at the
+// root; this panel never treats its earlier audit as a continuation audit.
+const CONTINUATION_SCHEMA='sircus-candidate-continuation-published-v1';
+const CONTINUATION_METHODS=['parent','candidate_bank','continued'];
+const CONTINUATION_LABELS={parent:'Original seed 22',candidate_bank:'Frozen bank selector',continued:'Continued seed 22'};
+const SPLITS=[['train','TRAIN',35],['validation','Fresh validation',35],['test','Fresh TEST',70]];
+const PHASE_LABELS={initialization:'Initialization',imitation:'Imitation',train:'Native TRAIN',assessment:'Frozen assessment',audit:'Independent audit'};
+
+export function continuationAudited(value){
+  if(value?.schema!==CONTINUATION_SCHEMA||value.status!=='completed_audited'||value.audit?.status!=='passed'||value.audit.all_components_passed!==true||value.audit.synthetic!==false||value.model_promoted!==false)return false;
+  const counters=value.counters??value.progress??{};
+  if(count(counters.train_requests)===null||counters.train_requests>1750||count(counters.train_releases)===null||counters.train_releases>1400||counters.train_releases>counters.train_requests||(counters.train_requests!==1750&&counters.train_releases!==1400)||counters.assessment_requests!==420)return false;
+  let releases=0;
+  for(const method of CONTINUATION_METHODS)for(const [split,,requested] of SPLITS){
+    const row=value.comparison?.methods?.[method]?.[split];
+    if(!row||row.requested!==requested||['released','rejected','captures','clean_captures'].some(key=>count(row[key])===null)||row.released+row.rejected!==requested||row.clean_captures>row.captures||row.captures>row.released)return false;
+    releases+=row.released;
+  }
+  return counters.assessment_releases===releases;
+}
+
+export function continuationStatus(value){
+  if(value?.schema!==CONTINUATION_SCHEMA)return {state:'failed',badge:'Unavailable',title:'Continuation evidence unavailable',detail:'A compatible continuation publication has not been supplied.'};
+  if(continuationAudited(value))return {state:'passed',badge:'Audit passed',title:'Bounded continuation completed',detail:'Learning, native TRAIN, startup and the final 420-request assessment passed the independent audit. The model has not been promoted.'};
+  if(value.status==='completed_audited')return {state:'failed',badge:'Evidence incomplete',title:'Continuation results are not verified',detail:'The supplied audit or final counts are incomplete or inconsistent. Performance results remain hidden.'};
+  if(['failed','incomplete_no_retry'].includes(value.status))return {state:'failed',badge:'Stopped',title:'Continuation stopped; evidence preserved',detail:txt(value.error)||'The bounded application did not complete its required audits. There is no automatic retry or model promotion.'};
+  if(['native_complete','audit_pending'].includes(value.status))return {state:'audit_pending',badge:'Audit pending',title:'Native execution finished; audit pending',detail:'Native completion does not establish a passed audit. Final capture, rejection and cost comparisons remain pending.'};
+  if(value.status==='running')return {state:'running',badge:'Running',title:'Bounded seed-22 continuation in progress',detail:'The existing policy is being continued under fixed limits. Final assessment outcomes remain hidden until all independent audits pass.'};
+  return {state:'failed',badge:'Unavailable',title:'Continuation status unavailable',detail:'An unrecognized execution state cannot establish completion.'};
+}
+
+export function continuationRows(value){
+  const audited=continuationAudited(value),unverified=['failed','incomplete_no_retry'].includes(value?.status)?'not audited':'pending audit';
+  return SPLITS.flatMap(([split,label,requested])=>CONTINUATION_METHODS.map(method=>{
+    const row=value?.comparison?.methods?.[method]?.[split];
+    return [label,CONTINUATION_LABELS[method],...(!audited?Array(4).fill(unverified):[`${row.captures} / ${requested} · ${fixed(100*row.captures/requested,1)}%`,`${row.clean_captures} / ${requested}`,`${row.rejected} / ${requested}`,`${row.released} / ${requested}`])];
+  }));
+}
+
+export function continuationComputeRows(value){
+  const unverified=['failed','incomplete_no_retry'].includes(value?.status)?'not audited':'pending audit';
+  return Object.entries(PHASE_LABELS).map(([phase,label])=>{
+    const row=value?.resources?.phases?.[phase]??{},device=row.device??{};
+    return [label,...(!continuationAudited(value)?Array(7).fill(unverified):[seconds(row.wall_s),seconds(row.aggregate_cpu_s),memory(row.lifetime_peak_rss_mib),memory(row.largest_child_lifetime_peak_rss_mib),memory(device.sampled_whole_device_occupied_mib),memory(device.torch_peak_allocated_mib),memory(device.torch_peak_reserved_mib)])];
+  });
+}
+
 export function methodData(report,key){
   const raw=Array.isArray(report?.methods)?report.methods.find(x=>x.method===key):report?.methods?.[key];
   const value=raw??{};
@@ -104,6 +151,39 @@ function renderCases(report){const node=clear('caseList');if(!resultsAudited(rep
 
 function renderSources(report){const node=clear('sourceIdentity');line(node,'Audit:',txt(report.audit?.status)||'pending');if(report.audit?.sha256)node.appendChild(Object.assign(el('p','Audit SHA256: '+txt(report.audit.sha256)),{className:'hash'}));const source=report.source_binding??{};for(const [label,key] of [['Parent checkpoint SHA256','checkpoint_sha256'],['Candidate bank SHA256','candidate_bank_sha256'],['Frozen comparison plan SHA256','plan_sha256']])if(source[key])node.appendChild(Object.assign(el('p',label+': '+txt(source[key])),{className:'hash'}));const scopes=clear('scopeList');const lines=Array.isArray(report.scope)?report.scope:[txt(report.scope)].filter(Boolean);for(const text of lines)scopes.appendChild(el('li',String(text)));if(!lines.length)scopes.appendChild(el('li','Known TRAIN positions; frozen model weights; no optimizer updates or held-out generalization claim.'));}
 
+export function renderContinuation(value){
+  const section=document.getElementById('continuation'),nav=document.getElementById('continuationNav');
+  if(!section||!nav)return;
+  section.className=value===undefined?'card hidden':'card';nav.className=value===undefined?'hidden':'';
+  for(const id of ['continuationProgress','continuationResults','continuationCompute','continuationEvidence','continuationPaired'])clear(id);
+  if(value===undefined)return;
+  const view=continuationStatus(value),card=document.getElementById('continuationStatus');card.className='status '+view.state;
+  document.getElementById('continuationBadge').textContent=view.badge;document.getElementById('continuationTitle').textContent=view.title;document.getElementById('continuationDetail').textContent=view.detail;
+  const progress=clear('continuationProgress'),counters=value?.counters??value?.progress??{},phase=value?.phase??value?.progress?.phase;
+  line(progress,'Current phase:',PHASE_LABELS[phase]??'unknown');
+  line(progress,'Charged native TRAIN requests:',`${integer(counters.train_requests)} / 1,750 maximum`);
+  line(progress,'Native TRAIN releases:',`${integer(counters.train_releases)} / 1,400 maximum`);
+  line(progress,'Charged frozen-assessment requests:',`${integer(counters.assessment_requests)} / 420 planned`);
+  line(progress,'Frozen-assessment releases:',`${integer(counters.assessment_releases)} / 420 maximum`);
+  if(value?.learning){const learning=value.learning;line(progress,'Learning receipts:',`Imitation steps ${integer(learning.imitation_steps)} / 240 maximum · PPO updates ${integer(learning.ppo_updates)} / 13 maximum · optimizer steps ${integer(learning.optimizer_steps)}.`);}
+  progress.appendChild(Object.assign(el('p','Charged requests include reservations and rejections; they are not a count of completed releases. TRAIN stops at the first request or release cap. Assessment uses 35 TRAIN + 35 fresh validation + 70 fresh TEST positions per method. One application attempt, no automatic retry; 3-hour application limit and 6 GiB storage floor.'),{className:'compute-note'}));
+  const results=clear('continuationResults');results.appendChild(table(['Split','Method','Captures / requests','Clean / requests','Rejected / requests','Released / requests'],continuationRows(value)));
+  const paired=clear('continuationPaired');
+  if(continuationAudited(value)){
+    for(const control of ['candidate_bank','parent']){
+      const pair=value.comparison.test_pairs?.['continued_minus_'+control];
+      if(pair)line(paired,`Fresh TEST vs ${CONTINUATION_LABELS[control]}:`,`Capture gains ${integer(pair.captured?.gains)}, losses ${integer(pair.captured?.losses)}; clean-capture gains ${integer(pair.clean?.gains)}, losses ${integer(pair.clean?.losses)}.`);
+    }
+    paired.appendChild(Object.assign(el('p','Paired comparisons use the same 70 fresh TEST positions. Position-wise bootstrap intervals describe this grid and one continuation, not uncertainty across independent training seeds. Historical TRAIN references remain separate from these newly measured controls.'),{className:'compute-note'}));
+  }else pending(paired,['failed','incomplete_no_retry'].includes(value?.status)?'No audited final paired comparison is available for this stopped attempt.':'Final paired outcomes remain pending a complete independent audit.');
+  const compute=clear('continuationCompute');compute.appendChild(table(['Phase','Wall','Aggregate CPU','Lifetime RSS high-water','Largest child RSS high-water','Sampled device occupancy','Torch CUDA allocated peak','Torch CUDA reserved peak'],continuationComputeRows(value)));
+  compute.appendChild(Object.assign(el('p',txt(value?.resources?.scope)||'Phase timings are separate. CPU includes the application and waited/reaped children; audit-child cost overlaps the application audit phase. RSS is lifetime high-water, not isolated phase memory. Device occupancy includes PhysX/renderer; Torch peaks are not model-only memory. Missing measurements stay unknown.'),{className:'compute-note'}));
+  const evidence=clear('continuationEvidence');line(evidence,'Continuation audit:',txt(value?.audit?.status)||'not supplied');
+  if(value?.final_checkpoint_sha256)evidence.appendChild(Object.assign(el('p','Saved final checkpoint SHA256: '+txt(value.final_checkpoint_sha256)),{className:'hash'}));
+  evidence.appendChild(el('p','No automatic model promotion. This is extra-budget continuation of one seed; it is not a new equal-cost three-seed benchmark. The original frozen benchmark and the historical 70-request comparison remain separate.'));
+  evidence.appendChild(el('p','No trial videos are recorded by this continuation protocol. Physics traces support the audits; existing benchmark videos remain in the original frozen interface.'));
+}
+
 export function render(report){
   const view=statusView(report),card=document.getElementById('statusCard');card.className='card status '+view.state;document.getElementById('statusBadge').textContent=view.badge;document.getElementById('statusTitle').textContent=view.title;document.getElementById('statusDetail').textContent=view.detail;
   const completed=METHOD_KEYS.reduce((sum,key)=>sum+(methodData(report,key).requests??0),0);document.getElementById('progress').textContent=`Native requests recorded: ${completed} / 70 · Optimizer updates: 0`;
@@ -111,10 +191,10 @@ export function render(report){
   const compute=clear('computeTable');compute.appendChild(table(['Method','Native wall','Setup + settling','Score phase','Process CPU','Selection'],computeRows(report)));compute.appendChild(el('h3','Memory measurements'));compute.appendChild(table(['Method','Peak process RSS','Sampled device occupancy','Torch CUDA allocated peak','Torch CUDA reserved peak'],memoryRows(report)));compute.appendChild(Object.assign(el('p','Device occupancy is a whole-GPU sample, not a peak or model-only memory. Torch allocations cover Torch tensors and omit most simulator memory.'),{className:'compute-note'}));
   const shared=clear('sharedCompute');if(resultsAudited(report)){const prep=report.preprocessing??report.preparation??{};const init=field(report.compute??{},'initialization_shared_wall_s')??report.initialization_shared_wall_s;line(shared,'Shared native initialization:',seconds(init));line(shared,'Inherited candidate-bank geometry preparation:',seconds(field(prep,'candidate_bank_wall_s','geometry_wall_s')));if(number(prep.candidate_bank_audit_wall_s)!==null)line(shared,'Inherited bank preparation + audit:',seconds(prep.candidate_bank_audit_wall_s));}
   document.getElementById('computeScope').textContent=txt(report.resource_scope)||'Unknown measurements stay unknown. Shared initialization and inherited bank preparation are separate from per-method execution; do not add overlapping intervals. Device occupancy is not model memory.';
-  renderCases(report);renderSources(report);
+  renderCases(report);renderSources(report);renderContinuation(report?.continuation);
 }
 
 export async function loadReport(fetcher=globalThis.fetch){const response=await fetcher('/report.json',{cache:'no-store'});if(!response.ok)throw new Error('Report HTTP '+response.status);const report=await response.json();render(report);return report;}
 let loading=false;
-async function refresh(){if(loading)return;loading=true;try{await loadReport();}catch(error){document.getElementById('statusCard').className='card status failed';document.getElementById('statusBadge').textContent='Unavailable';document.getElementById('statusTitle').textContent='Could not read comparison evidence';document.getElementById('statusDetail').textContent=String(error.message||error);for(const id of ['metrics','rateChart','paired','computeTable','sharedCompute','caseList','caseDetail','sourceIdentity','scopeList','computeScope'])clear(id);document.getElementById('progress').textContent='No current result claim is shown.';}finally{loading=false;}}
+async function refresh(){if(loading)return;loading=true;try{await loadReport();}catch(error){document.getElementById('statusCard').className='card status failed';document.getElementById('statusBadge').textContent='Unavailable';document.getElementById('statusTitle').textContent='Could not read comparison evidence';document.getElementById('statusDetail').textContent=String(error.message||error);for(const id of ['metrics','rateChart','paired','computeTable','sharedCompute','caseList','caseDetail','sourceIdentity','scopeList','computeScope'])clear(id);renderContinuation(undefined);document.getElementById('progress').textContent='No current result claim is shown.';}finally{loading=false;}}
 if(typeof document!=='undefined'){document.getElementById('refresh')?.addEventListener('click',refresh);refresh();setInterval(refresh,10000);}
