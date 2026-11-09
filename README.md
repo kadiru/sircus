@@ -1,5 +1,17 @@
 # Sircus — Simple Circus
 
+**Latest mjlab feasibility result:** [both remaining IK cases recovered locally](baselines/mjlab-regression-ik-20261109/README.md).
+At fixed 64 substeps, restoring parent board X/Y captured **3/3 in each case**;
+exact parent recipes retained **6/6**. Nine of twelve new configurations captured
+all three repeats. All **33 admitted diagnostic drops captured**; 15 of 48
+diagnostic requests declined setup, including six cached original refusals.
+The 66-slot study, 18 controls and **25,329 independent checks** passed.
+The `#regressionIK` panel shows all settings and saved first-repeat traces.
+All five inspected lost captures now have local corrections across the recent
+studies, but the original **37/70** policy score is unchanged. No solver change,
+retraining, promotion, service restart, 4070 or Isaac change.
+[Handoff](docs/MJLAB_REGRESSION_IK_20261109.md).
+
 **Latest mjlab correction:** [two flight losses recovered by restoring drop gap](baselines/mjlab-regression-drop-gap-20261109/README.md).
 At fixed 64 substeps, the unchanged recovery recipes captured **0/6**; restoring
 only their matched parent gaps captured **6/6**, with **3/3 per case**. Exact
