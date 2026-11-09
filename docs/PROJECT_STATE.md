@@ -1,5 +1,14 @@
 # Project state
 
+## Corrected imitation evaluated on 70 new positions — November 9, 2026
+
+- [Audited results](../baselines/mjlab-corrected-imitation-20261109/README.md), [protocol](../sircus/mjlab/CORRECTED_IMITATION.md) and [handoff](MJLAB_CORRECTED_IMITATION_20261109.md): corrected imitation captured **38/70 (54.3%)**, current imitation **40/70 (57.1%)** on the same fresh positions. Four gains, six losses, 34 shared captures and 26 shared failures. No sample improvement or policy promotion; this small paired test does not establish significant general worsening.
+- Candidate retained all 92 teachers, added five previously confirmed corrections and took 800 actor-only Adam steps at 0.001. Current weights stayed unchanged. Both models and all 140 commands froze before any TEST outcome. The study measures the combined extra data and fitting steps. No PPO or TEST search/retries.
+- Seed `2026110941`: two new positions per 7 × 5 grid cell, at least 5 mm from inventoried history/training and each other. Corrected/current setup declines: **23/19**; released misses: **9/11**; table-assisted captures: **3/2**; invalid physics: **0/0**. Every request counts. The older **37/70** score remains historical and used different positions.
+- All **158 requests** completed; 18 pre/post controls and **55,633 independent checks** passed. Worker **1,387.39 s**, pipeline **1,414.47 s** elapsed. Frozen producer/UI `fecbe4d61bd92c912e0b4d80b1fdd7be3a2bcb48`; draft PR #112 stacks on #111. Native64/v3 physics/scoring, geometry prior and original control namespaces stayed fixed.
+- The audit-gated, visually verified `#correctedImitation` panel shows all 70 paired positions, teacher lineage, exact corrections, checkpoint hashes and controls. Its 75,337-byte snapshot preserves all 57 existing report keys/bytes and historical panels. Only the Mac SSH tunnel was restored; no service restarted. Final isolation confirmed the 4090 worker exited and protected 4070/viewer process identities and historical report hashes stayed unchanged; Isaac untouched.
+- Next: diagnose the six regressions (three finite IK declines and three released misses) against their successful current-policy recipes. Keep the existing policy and all successful recipes. No claims of all-table coverage, moving-arm transit, perception, physical validation, noise/timestep robustness or statistically established worsening; no further experiment was launched.
+
 ## Two remaining IK declines recovered with feasible alternatives — November 9, 2026
 
 - [Audited results](../baselines/mjlab-regression-ik-20261109/README.md), [protocol](../sircus/mjlab/REGRESSION_IK.md) and [handoff](MJLAB_REGRESSION_IK_20261109.md): all **66 slots** finished in **203.8 worker seconds**; 18 formal controls and **25,329 independent checks** passed. Frozen producer/UI `2ec2c0b`; draft PR #111 stacks on #110. No IK algorithm, admission tolerance, physics or scoring change.
