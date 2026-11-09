@@ -5,7 +5,10 @@ learning, file writes, native simulation or physical work.
 """
 
 from candidate_continuation_ledger import canonical_hash, PROTOCOL_SHA256 as ACCOUNTING_SHA256
-from candidate_continuation_policy import PROBABILITY_LAW
+
+# Keep process supervision importable with the host's standard-library Python.
+# The policy's identical label is checked independently in the policy tests.
+PROBABILITY_LAW = "categorical-normalized-fixed-latent-normal-density-v1"
 
 SCHEMA = "sircus-candidate-continuation-learning-protocol-v1"
 CHECKPOINT_SCHEMA = "sircus-candidate-continuation-checkpoint-v1"

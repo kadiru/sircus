@@ -1,5 +1,12 @@
 # Project state
 
+## Candidate continuation launch preparation — November 9, 2026
+
+- The user authorized the bounded continuation pilot when the 4090 is available, with CPU as a fallback if supported. Read-only host checks found the dedicated 4090 idle, the original scene lock free and 15.35 GiB available. The dedicated Isaac container was stopped (exit 137, not reported as OOM); no container or application was started.
+- CPU remains the declared neural-update and independent-audit path. The current native physics/rendering implementation requires the fixed 4090; a complete CPU pilot is not supported by this protocol.
+- Removed an unintended policy/NumPy import from the standard-library process-supervision contract. The learning protocol SHA remains `68d59f401efc411c9fd5590ac70819d7793d7d223d74d084e85b9b29c2f7ae2c`; policy source, TRAIN export, frozen benchmark and learning rules are unchanged. An isolated `python -B -S` regression checks contract/journal/launcher/watchdog/runtime imports without NumPy, SciPy, Torch or Isaac, and a separate test checks the duplicate probability-law label against the policy.
+- Container startup remains outside the launcher's capabilities and subject to the approved plan's no-container-restart boundary. This preparation does not establish live native validation or improved model performance.
+
 ## Production runtime and final assessment integration — November 9, 2026
 
 - [Implementation and limits](../sircus/isaac/CANDIDATE_PRODUCTION_ASSESSMENT.md), [compact software verification](../baselines/isaac-candidate-runtime-assessment-20261109/README.md): real production backend/watchdog source and one-app entry wiring, tested only with fake host/process/model components and synthetic arrays. Explicit future invocation is required; no live validation or execution occurred.
