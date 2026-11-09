@@ -1,0 +1,33 @@
+<section class="gripper-yaw" id="gripperYaw" aria-labelledby="gripperYawTitle">
+  <p class="gy-eyebrow">MJLAB · TWO COLLISION CASES · NATIVE 64 SUBSTEPS</p>
+  <h2 id="gripperYawTitle">Does turning the gripper clear the rebound?</h2>
+  <p class="gy-note" data-gripper-yaw="status">Waiting for saved study evidence.</p>
+  <p>Only the dropper’s downward wrist rotation changes relative to each failed original. Board X/Y/height, tilt, drop gap, bucket, board-arm joints, ball state and scoring stay fixed. The successful current-policy recipe is a separate reference, not a yaw-only comparison.</p>
+  <div class="gy-cards" data-gripper-yaw="counts"></div>
+  <p class="gy-note" data-gripper-yaw="takeaway"></p>
+  <h3>Original collisions</h3>
+  <div class="gy-scroll" data-gripper-yaw="original-rejections"></div>
+  <p class="gy-small">Robot contact is an aggregate measured channel. A ball retained after forbidden robot contact is not an accepted capture. Table and rim assistance remain allowed.</p>
+  <h3>One frozen rotation rule</h3>
+  <p data-gripper-yaw="correction"></p>
+  <div class="gy-scroll" data-gripper-yaw="settings"></div>
+  <h3>Matched repeats and controls</h3>
+  <div class="gy-scroll" data-gripper-yaw="comparison"></div>
+  <p class="gy-small" data-gripper-yaw="controls"></p>
+  <p class="gy-small">Three nominal repeats do not establish noise robustness or a new held-out policy score. Every rejected setup and invalid simulation stays in its request denominator. Finite IK refusal does not prove impossibility.</p>
+  <details open><summary>Verify rotation and unchanged geometry</summary><p class="gy-small">Yaw evidence comes from the recorded native initial joint state. Board joints and release location are compared with each row’s source recipe; the bucket-facing source is the failed original. Refused setups have no measured flight pose.</p><div class="gy-scroll" data-gripper-yaw="realization"></div></details>
+  <h3>Matched recorded drops</h3>
+  <p>Each movie uses repeat zero: successful reference, unchanged failed original, then bucket-facing gripper. Setup refusals use a no-flight card. These are actual saved native samples with held endpoint joints, not an animation of learned arm transit.</p>
+  <div data-gripper-yaw="movies"></div>
+  <h3>Inspect saved samples and contacts</h3>
+  <label>Saved request <select data-gripper-yaw="case-choice" aria-label="Gripper yaw saved request"></select></label>
+  <p class="gy-note" data-gripper-yaw="case-summary"></p>
+  <p class="gy-small" data-gripper-yaw="case-setup"></p>
+  <div class="gy-scroll" data-gripper-yaw="case-events"></div>
+  <div data-gripper-yaw="case-trace"></div>
+  <div class="gy-playback"><button type="button" data-gripper-yaw="play">Play saved samples</button><button type="button" data-gripper-yaw="pause">Pause</button><label>Recorded sample <input type="range" min="0" max="0" value="0" step="1" data-gripper-yaw="scrub" aria-label="Gripper yaw native sample"></label><span data-gripper-yaw="sample-time"></span></div>
+  <p class="gy-small">Capture requires a board bounce, whole-ball entry and one continuous second retained. Table/rim rebounds are allowed; robot/floor/unattributed contacts invalidate the route. Direct does not mean rim-free.</p>
+  <p class="gy-small" data-gripper-yaw="proof"></p>
+  <p class="gy-small">No model fitting, policy activation, relaxed guards, noise or 128-substep qualification. Original recipes and results remain intact. The 4070 workload and Isaac setup are unchanged.</p>
+  <p class="gy-small" data-gripper-yaw="connection">Read-only saved results.</p>
+</section>

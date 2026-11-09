@@ -1,6 +1,15 @@
 # Project state
 
 
+## Bucket-facing gripper yaw removes both selected collisions — November 9, 2026
+
+- [Audited results](../baselines/mjlab-gripper-yaw-20261109/README.md), [protocol](../sircus/mjlab/GRIPPER_YAW.md) and [handoff](MJLAB_GRIPPER_YAW_20261109.md): rotating only the dropper's commanded orientation reduced robot-contact shots **6/6 → 0/6** and improved captures **0/6 → 3/6**. Successful current-policy references stayed **6/6**. Two inspected development layouts, three nominal repeats of three frozen variants each; no new policy score.
+- Nearer case `r1-c2-n0` (172.610 mm board–bucket distance) recovered **3/3** at yaw **−150.5791°**. Farther `r0-c6-n1` (562.434 mm) remained **0/3**, but cleared the robot at **−36.2855°**. Board X/Y/height, tilt, gap, bucket, original board joints and release centers stayed fixed versus each corrected recipe. Only dropper orientation and the required dropper joints changed; new full-rotation proofs passed.
+- All **36 requests / 36 native releases** completed in **315.254865 worker seconds**, with zero setup declines or invalid physics. All 18 bracketing controls and **18,330 independent checks** passed. Frozen producer/UI `26ba197bc1f85150f6b76f52c27ed0173f9b5c0c`; draft PR #114. Physics/scoring remain native64/v3; no policy fitting, promotion, shared IK default change, service restart or hardware command. 4070 and Isaac remain outside the task.
+- Audit checks include unchanged board branch and model FK of observed float32 reset joints, with new yaw errors below 8.3 × 10⁻⁸ rad in first repeats. Arms remain held at admitted endpoints during flight; this does not validate moving-arm transit, real grasp/release, noise robustness or all-table generalization. Historical **40/70 current versus 38/70 corrected imitation** scores and all successful recipes remain unchanged.
+- Two saved-native comparison movies (33.067 s / 25.867 s, 1,768 frames) fully decoded and passed Chrome playback in `#gripperYaw`. CPU rendering; UI-only provenance fix `ba79932` preserves frozen native source. Seven historical report hashes, 57 display keys/bytes, unrelated HTML/CSS and protected viewer/4070 process identities stayed unchanged; the 4090 worker exited. Next: inspect the farther layout's now-clear miss before another intervention or training decision. No extra experiment launched. The earlier midpoint trial remains historical **0/72 executed**; this yaw study is a separate authorized test.
+
+
 ## Six imitation regressions diagnosed; correction blocked by GPU occupancy — November 9, 2026
 
 - [Diagnosis and provenance](../baselines/mjlab-imitation-regression-20261109/README.md), [protocol](../sircus/mjlab/IMITATION_REGRESSION.md) and [handoff](MJLAB_IMITATION_REGRESSION_20261109.md): three finite IK refusals, two robot-contact routes, one rim miss. The 1,230-check diagnosis passed. Historical current/corrected scores stay **40/70 versus 38/70**; successful recipes and checkpoints remain intact.

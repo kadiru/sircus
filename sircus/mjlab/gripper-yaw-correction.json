@@ -1,0 +1,11 @@
+{
+  "mode": "bucket_facing_gripper_yaw",
+  "contexts": [
+    "corrected-imitation-test-r0-c6-n1",
+    "corrected-imitation-test-r1-c2-n0"
+  ],
+  "diagnosis_sha256": "e16f551802c6c378e7911a0bca2470e4302babb075f8ef570df189839a7bd428",
+  "description": "Rotate only dropper wrist passage toward bucket for two corrected-policy robot-contact misses; retain fixed board branch and all shot coordinates.",
+  "rotation": "Rz(atan2(bucket_y-board_y,bucket_x-board_x)) @ diag(1,-1,-1)",
+  "preserve_board_joints": true
+}

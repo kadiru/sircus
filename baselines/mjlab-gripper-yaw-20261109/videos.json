@@ -1,0 +1,197 @@
+{
+  "version": "sircus-gripper-yaw-movie-publication-v1",
+  "historical": false,
+  "videos": [
+    {
+      "context_id": "corrected-imitation-test-r0-c6-n1",
+      "version": "sircus-gripper-yaw-recorded-video-v1",
+      "output_sha256": "f249137fb3a45e47ee52d8b5a91cfd052ece0b215c95d98cf842bfceb9f5e2aa",
+      "video_bytes": 1373121,
+      "fps": 30,
+      "duration_s": 33.06666666666667,
+      "width": 1280,
+      "height": 720,
+      "frames_sha256": "8966f30ff8be2ed8d83cba7828387d590a6c66cbc2bb2786ddd251fd919fd526",
+      "manifest_sha256": "0bd9c83188098207118d6dd0ac9681de63d312b770dd7f4239645ace89160931",
+      "source": {
+        "report_sha256": "2cd3644a19653efc157fe697557ebc861e40ab6b97ceeb3faeb48aaf04b923fa",
+        "audit_sha256": "4f044f4c3b4dc3ffd79dcb65f42214ceb3f597d129afb0c79728697137b9ec21",
+        "contract_fingerprint": "e31c8db6e8b9a2b16f7213b3440396cccf83004e64988575f694b2b007cbf683"
+      },
+      "clips": [
+        {
+          "record_id": "gripper-yaw-diagnostic-corrected-imitation-test-r0-c6-n1-current_exact-r0",
+          "context_id": "corrected-imitation-test-r0-c6-n1",
+          "variant": "current_exact",
+          "label": "Current policy / unchanged recipe / r0-c6-n1",
+          "start_s": 0.0,
+          "end_s": 10.5,
+          "capture": true,
+          "native_release": true,
+          "no_flight": false,
+          "record_sha256": "1960c61eaa5b136c01e3fd84d619a61b64733bf3d9cf39e057f41abbf4559b78",
+          "native_cache_sha256": "06d9cd0c497b21a537ea34d846b05dbc5038c81bee31a8b44a309d2300d2021d",
+          "events": {
+            "board": 0.13326822916666667,
+            "bucket": 0.712890625,
+            "table": 0.4796223958333333,
+            "whole_ball_entry": 0.8555338541666666,
+            "capture": 1.8555338541666666
+          }
+        },
+        {
+          "record_id": "gripper-yaw-diagnostic-corrected-imitation-test-r0-c6-n1-corrected_exact-r0",
+          "context_id": "corrected-imitation-test-r0-c6-n1",
+          "variant": "corrected_exact",
+          "label": "Corrected policy / unchanged recipe / r0-c6-n1",
+          "start_s": 10.5,
+          "end_s": 19.866666666666667,
+          "capture": false,
+          "native_release": true,
+          "no_flight": false,
+          "record_sha256": "fcc7a4767c98b3d550df0244b28c695fe49665b5a26a41fadd06a7d262d9b6e1",
+          "native_cache_sha256": "06d9cd0c497b21a537ea34d846b05dbc5038c81bee31a8b44a309d2300d2021d",
+          "events": {
+            "board": 0.11673177083333333,
+            "bucket": 0.6466796875,
+            "table": 0.5184895833333333,
+            "robot": 0.13932291666666666
+          }
+        },
+        {
+          "record_id": "gripper-yaw-diagnostic-corrected-imitation-test-r0-c6-n1-bucket_facing-r0",
+          "context_id": "corrected-imitation-test-r0-c6-n1",
+          "variant": "bucket_facing",
+          "label": "Bucket-facing gripper / first repeat / r0-c6-n1",
+          "start_s": 19.866666666666667,
+          "end_s": 33.06666666666667,
+          "capture": false,
+          "native_release": true,
+          "no_flight": false,
+          "record_sha256": "771d193fd77643c026a5bde2e554eded263f61603d187b81f5c01a3c30de5b35",
+          "native_cache_sha256": "b354b53cead05f3d36b2c326bf79c0a53cdecec32a55165b3fff1e3f262c1407",
+          "events": {
+            "board": 0.11673177083333333,
+            "bucket": 0.7302083333333333,
+            "table": 0.45807291666666666
+          }
+        }
+      ]
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c2-n0",
+      "version": "sircus-gripper-yaw-recorded-video-v1",
+      "output_sha256": "8dd0cca71585d38f3c1624500928080d1bf352a12b3a6e8d5195f036a76ab71f",
+      "video_bytes": 1138697,
+      "fps": 30,
+      "duration_s": 25.866666666666667,
+      "width": 1280,
+      "height": 720,
+      "frames_sha256": "7ded47a1a7617a69dbf651cd51c7d5709f9189fe43e2a87306f026b1850833cc",
+      "manifest_sha256": "3db759ae5991ed310e312fca4efe2140c35a04609b61c15ab8fa0c2c551eae84",
+      "source": {
+        "report_sha256": "2cd3644a19653efc157fe697557ebc861e40ab6b97ceeb3faeb48aaf04b923fa",
+        "audit_sha256": "4f044f4c3b4dc3ffd79dcb65f42214ceb3f597d129afb0c79728697137b9ec21",
+        "contract_fingerprint": "e31c8db6e8b9a2b16f7213b3440396cccf83004e64988575f694b2b007cbf683"
+      },
+      "clips": [
+        {
+          "record_id": "gripper-yaw-diagnostic-corrected-imitation-test-r1-c2-n0-current_exact-r0",
+          "context_id": "corrected-imitation-test-r1-c2-n0",
+          "variant": "current_exact",
+          "label": "Current policy / unchanged recipe / r1-c2-n0",
+          "start_s": 0.0,
+          "end_s": 8.2,
+          "capture": true,
+          "native_release": true,
+          "no_flight": false,
+          "record_sha256": "a8f89ec3048b93d6cffb37619e5f7c16313a951c8a01a364efe6ef11fdc4450b",
+          "native_cache_sha256": "6062c0693aa46626ea62c62da1ae1a39c49a2b10b634042d9a7cd0e012cc5046",
+          "events": {
+            "board": 0.12057291666666667,
+            "bucket": 0.3834635416666667,
+            "whole_ball_entry": 0.3951171875,
+            "capture": 1.3951171875
+          }
+        },
+        {
+          "record_id": "gripper-yaw-diagnostic-corrected-imitation-test-r1-c2-n0-corrected_exact-r0",
+          "context_id": "corrected-imitation-test-r1-c2-n0",
+          "variant": "corrected_exact",
+          "label": "Corrected policy / unchanged recipe / r1-c2-n0",
+          "start_s": 8.2,
+          "end_s": 17.2,
+          "capture": false,
+          "native_release": true,
+          "no_flight": false,
+          "record_sha256": "19231646e75f6c6d3a559e4dc105e7425e2313050f475f9bf227fbb25c18e4c4",
+          "native_cache_sha256": "6062c0693aa46626ea62c62da1ae1a39c49a2b10b634042d9a7cd0e012cc5046",
+          "events": {
+            "board": 0.11803385416666666,
+            "bucket": 0.3746744791666667,
+            "robot": 0.14680989583333334,
+            "whole_ball_entry": 0.41549479166666664,
+            "capture": 1.4154947916666667
+          }
+        },
+        {
+          "record_id": "gripper-yaw-diagnostic-corrected-imitation-test-r1-c2-n0-bucket_facing-r0",
+          "context_id": "corrected-imitation-test-r1-c2-n0",
+          "variant": "bucket_facing",
+          "label": "Bucket-facing gripper / first repeat / r1-c2-n0",
+          "start_s": 17.2,
+          "end_s": 25.866666666666667,
+          "capture": true,
+          "native_release": true,
+          "no_flight": false,
+          "record_sha256": "eb96bbf52bee59886e7bcb1532c2effd8f02e8fd2502d7dee12ced8eb75607f5",
+          "native_cache_sha256": "1434231fe831ad279f7aea3d30472874b2152f89a01b0756e4585e3b3a1f5c89",
+          "events": {
+            "board": 0.11803385416666666,
+            "bucket": 0.38092447916666666,
+            "whole_ball_entry": 0.4916015625,
+            "capture": 1.4916015625
+          }
+        }
+      ]
+    }
+  ],
+  "validation": [
+    {
+      "case": "r0-c6-n1",
+      "full_decode": true,
+      "frames": 992,
+      "duration_s": 33.066667,
+      "width": 1280,
+      "height": 720,
+      "backend": {
+        "renderer": "llvmpipe (LLVM 15.0.7, 256 bits)",
+        "vendor": "Mesa",
+        "software_only": true,
+        "cuda_visible_devices": "",
+        "backend": "egl"
+      },
+      "output_sha256": "f249137fb3a45e47ee52d8b5a91cfd052ece0b215c95d98cf842bfceb9f5e2aa",
+      "manifest_sha256": "0bd9c83188098207118d6dd0ac9681de63d312b770dd7f4239645ace89160931"
+    },
+    {
+      "case": "r1-c2-n0",
+      "full_decode": true,
+      "frames": 776,
+      "duration_s": 25.866667,
+      "width": 1280,
+      "height": 720,
+      "backend": {
+        "renderer": "llvmpipe (LLVM 15.0.7, 256 bits)",
+        "vendor": "Mesa",
+        "software_only": true,
+        "cuda_visible_devices": "",
+        "backend": "egl"
+      },
+      "output_sha256": "8dd0cca71585d38f3c1624500928080d1bf352a12b3a6e8d5195f036a76ab71f",
+      "manifest_sha256": "3db759ae5991ed310e312fca4efe2140c35a04609b61c15ab8fa0c2c551eae84"
+    }
+  ],
+  "browser_playback_verified": true,
+  "ui_commit": "ba79932d85bda5bf2fd0e57cd32751da2799ac5e"
+}
