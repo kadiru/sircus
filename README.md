@@ -1,6 +1,15 @@
 # Sircus — Simple Circus
 
-**Latest mjlab diagnosis:** [31 flight misses, four setup declines and the tilt-only test](baselines/mjlab-table-training-diagnosis-20261108/README.md).
+**Latest mjlab experiment:** [four-case height/tilt admission and drop results](baselines/mjlab-table-height-tilt-20261108/README.md).
+The fixed 120-candidate grid found **58 admitted setups**, but their native64
+drops produced **0 captures**: all bounced the board, none entered the bucket,
+and 42 contacted a robot. The 12 unchanged original repeats also missed.
+All 18 controls and 36,371 independent checks passed. Exact settings, all
+declines and separate flight outcomes are in `#tableHeightTiltStudy`.
+No capture qualified for fresh repeats. Next: investigate ball-path clearance
+and admitted shot geometry before more PPO. No policy, 4070 or Isaac changes.
+
+**Earlier mjlab diagnosis:** [31 flight misses, four setup declines and the tilt-only test](baselines/mjlab-table-training-diagnosis-20261108/README.md).
 The 42-request correction test completed with controls and independent audit:
 original shots captured **0/12**; changing only tilt to 32° captured **0/12**
 because all 12 changed requests failed board-arm IK admission. No corrected

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {VERSION,AUDIT,CASES,HEIGHTS,TILTS,PARENT,studyReady,cellState,validCounts} from '../web/table-height-tilt.js';
+import {VERSION,AUDIT,CASES,HEIGHTS,TILTS,PARENT,studyReady,cellState,validCounts,fallbackInterpretation} from '../web/table-height-tilt.js';
 const h=x=>x.repeat(64);
 const counts=(attempts=3,captures=0)=>({attempts,native_releases:attempts,captures,setup_rejections:0,native_misses:attempts-captures,robot_contact_shots:0,forbidden_contact_shots:0,invalid_physics:0});
 function study(){
@@ -23,3 +23,15 @@ test('admission rejection and unattempted cells have no fabricated flight',()=>{
 test('setup rejects remain in nominal request denominator',()=>{const c=counts();c.native_releases=0;c.native_misses=0;c.setup_rejections=3;assert.equal(validCounts(c),true);c.attempts=0;assert.equal(validCounts(c),false);});
 test('control failures and counts cannot pass final gate',()=>{const s=study();s.control_gates.post.negative_captures=1;assert.equal(studyReady(s),false);s.control_gates.post.negative_captures=0;s.control_gates.pre.counts.attempts=8;assert.equal(studyReady(s),false);});
 test('panel is separate, read-only and stops final polling',()=>{const code=fs.readFileSync(new URL('../web/table-height-tilt.js',import.meta.url),'utf8');assert.equal(code.includes('/api/solve'),false);assert.equal(code.includes("method:'POST'"),false);assert.ok(code.includes('if(busy||finished)return'));const html=fs.readFileSync(new URL('../web/table-height-tilt.html',import.meta.url),'utf8');assert.ok(html.includes('id="tableHeightTiltStudy"'));assert.equal(html.includes('id="tableTrainingDiagnosis"'),false);assert.ok(html.includes('No selected posture is automatically installed'));});
+
+test('verified fallback reports actual discovery contacts and no-capture repeat decision',()=>{
+ const summary=JSON.parse(fs.readFileSync(new URL('../../../baselines/mjlab-table-height-tilt-20261108/summary.json',import.meta.url),'utf8')).study;
+ assert.equal(studyReady(summary),true);
+ const text=fallbackInterpretation(summary);
+ assert.ok(text.includes('0/58 released shots'));
+ assert.ok(text.includes('42/58 had recorded robot contact'));
+ assert.ok(text.includes('no selected-shot repeats were run'));
+ assert.ok(text.includes('do not change the original 50-position policy score'));
+ summary.audit.full_checks_verified=false;
+ assert.equal(fallbackInterpretation(summary),'Interpretation waits for verified results.');
+});

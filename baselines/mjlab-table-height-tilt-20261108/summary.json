@@ -1,0 +1,4587 @@
+{
+  "producer_commit": "380ac3e73b8d6b08504a31ad3797e5088b78af4e",
+  "provenance": {
+    "report_sha256": "a93d348dd055fde3ec1e9dc660c278fdc3e5f38742bce93abd71da03f0d066c7",
+    "audit_sha256": "38f0553a0cf8ca3948f8b9624d55e05ce07b2d9c1c0b9934c22d7e0f8e8bbe00",
+    "rows_sha256": "2103e92a2ffc611e30e85c89fc85eb23ef05b89ad0a47cfa8c1a57cd4b6293e0",
+    "contract_sha256": "bcbdd965f6edea89c704e9b10b079bc9040b6864d5c0b96bb976c03ebaa8db6f",
+    "contract_fingerprint": "4e348fd03faf9b54083e11ef1e9bf594c8c90b5bd3b2707f20f0606a6b26016a",
+    "admission_matrix_sha256": "51fd1978fdff54fbcedbdabdcb79364876d2b44685cfb85044c61a3582ae6489",
+    "evidence_manifest_sha256": "4792ea3d9aa4f8409a919b6984eab1bb1f8eb872328272b74eab1b912599297e"
+  },
+  "execution": {
+    "requested_configurations": 150,
+    "native_releases": 88,
+    "cpu_admission_s": 101.16850524500478,
+    "native_phase_s": 218.86343692505034
+  },
+  "case_discovery_counts": [
+    {
+      "context_id": "table-training-test-00",
+      "native_releases": 13,
+      "board_bounces": 13,
+      "whole_ball_entries": 0,
+      "captures": 0,
+      "robot_contact_shots": 9,
+      "forbidden_contact_shots": 9,
+      "invalid_physics": 0
+    },
+    {
+      "context_id": "table-training-test-01",
+      "native_releases": 14,
+      "board_bounces": 14,
+      "whole_ball_entries": 0,
+      "captures": 0,
+      "robot_contact_shots": 2,
+      "forbidden_contact_shots": 2,
+      "invalid_physics": 0
+    },
+    {
+      "context_id": "table-training-test-18",
+      "native_releases": 17,
+      "board_bounces": 17,
+      "whole_ball_entries": 0,
+      "captures": 0,
+      "robot_contact_shots": 17,
+      "forbidden_contact_shots": 17,
+      "invalid_physics": 0
+    },
+    {
+      "context_id": "table-training-test-26",
+      "native_releases": 14,
+      "board_bounces": 14,
+      "whole_ball_entries": 0,
+      "captures": 0,
+      "robot_contact_shots": 14,
+      "forbidden_contact_shots": 14,
+      "invalid_physics": 0
+    }
+  ],
+  "study": {
+    "version": "sircus-table-height-tilt-study-v1",
+    "status": "completed",
+    "phase": "completed",
+    "contract_fingerprint": "4e348fd03faf9b54083e11ef1e9bf594c8c90b5bd3b2707f20f0606a6b26016a",
+    "cpu_elapsed_s": 101.16850524500478,
+    "native_elapsed_s": 218.86343692505034,
+    "native_requested": 88,
+    "requested_configurations": 150,
+    "training": false,
+    "noise": false,
+    "posthoc_development": true,
+    "admission_matrix_sha256": "51fd1978fdff54fbcedbdabdcb79364876d2b44685cfb85044c61a3582ae6489",
+    "parent_bindings": {
+      "report_sha256": "4605bcb801351ae91ad16b71a033ceb3866027db621f9d84227f23b1ef257e95",
+      "audit_sha256": "6e50d87ddb7b2d4b37debbc2a5ac96507ff40bc236223277121acd385b8ec91b",
+      "manifest_sha256": "2273074994968214755d92ff51a7caffd11a0872ab2c22a130d51a095c372714",
+      "rows_sha256": "ddb1ecd67b71951fe5d1152a496c1bbf5b01e4174b38a7f7b8af7b813f4817e3",
+      "contract_sha256": "04c8e8dfb753cfb594f1db7055f21b2f6ebe35de1ac6ff4ffc01140d16d4e120",
+      "contract_fingerprint": "20f198caec28ff0402e8f7d2f7d2d1de65434b294f964a3ea35cde36bc3a1114"
+    },
+    "grid_protocol": {
+      "heights_m": [
+        0.32,
+        0.36,
+        0.4,
+        0.44,
+        0.46,
+        0.48
+      ],
+      "tilts_deg": [
+        16.0,
+        20.0,
+        24.0,
+        28.0,
+        32.0
+      ],
+      "contexts": [
+        "table-training-test-00",
+        "table-training-test-01",
+        "table-training-test-18",
+        "table-training-test-26"
+      ],
+      "fixed_parameters": [
+        "bucket_xy_m",
+        "board_x_m",
+        "board_y_m",
+        "drop_gap_m"
+      ],
+      "candidates_per_case": 30,
+      "total_candidates": 120,
+      "substeps": 64,
+      "nominal_repeats": 3
+    },
+    "budget": {
+      "maximum_requested": 162,
+      "candidate_proposals": 120,
+      "original_requests": 12,
+      "control_requests": 18,
+      "maximum_selected_repeat_requests": 12,
+      "cpu_admission_limit_s": 3600,
+      "native_acquired_limit_s": 3600,
+      "maximum_queue_s": 7200
+    },
+    "admission_summary": {
+      "proposals": 120,
+      "completed": 120,
+      "admitted": 58,
+      "declined": 62,
+      "unattempted": 0
+    },
+    "discovery_summary": {
+      "proposals": 120,
+      "admitted": 58,
+      "attempts": 58,
+      "native_releases": 58,
+      "captures": 0,
+      "setup_rejections": 0,
+      "native_misses": 58,
+      "robot_contact_shots": 42,
+      "forbidden_contact_shots": 42,
+      "invalid_physics": 0,
+      "direct_captures": 0,
+      "table_assisted_captures": 0
+    },
+    "counts": {
+      "attempts": 88,
+      "native_releases": 88,
+      "captures": 12,
+      "setup_rejections": 0,
+      "native_misses": 76,
+      "robot_contact_shots": 54,
+      "forbidden_contact_shots": 54,
+      "invalid_physics": 0,
+      "direct_captures": 6,
+      "table_assisted_captures": 6
+    },
+    "cases": [
+      {
+        "context_id": "table-training-test-00",
+        "source_record_id": "test-ppo-0512-table-training-test-00",
+        "source_record_sha256": "d60b5109c2b54f0760f077d3f9caa23a5f77b9cf8d7bb20ff3173a11d75b30fc",
+        "bucket_xy_m": [
+          1.1095395651982425,
+          -0.22146373203137287
+        ],
+        "baseline_values": [
+          0.5979922029820652,
+          -0.14355725745408743,
+          0.34059414666616605,
+          17.947739751994906,
+          0.25181883224993984
+        ],
+        "grid": [
+          {
+            "candidate_id": "height-tilt-table-training-test-00-g00",
+            "grid_index": 0,
+            "case_grid_index": 0,
+            "values": [
+              0.5979922029820652,
+              -0.14355725745408743,
+              0.32,
+              16.0,
+              0.25181883224993984
+            ],
+            "bucket_xy_m": [
+              1.1095395651982425,
+              -0.22146373203137287
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                8,
+                8
+              ],
+              "connection_sha256": "734eb62b36fa8aba2a61a6673bcccd73840a831e742813f5452cda642e38fae2",
+              "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-00-g00",
+              "record_sha256": "f024838c0bd1309010132905f86d7c64408b4d60266990e1519e99a3c515a5b3",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 56,
+              "forbidden_contact_steps": 56,
+              "reward": -0.18675187369176138
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-00-g01",
+            "grid_index": 1,
+            "case_grid_index": 1,
+            "values": [
+              0.5979922029820652,
+              -0.14355725745408743,
+              0.32,
+              20.0,
+              0.25181883224993984
+            ],
+            "bucket_xy_m": [
+              1.1095395651982425,
+              -0.22146373203137287
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                8,
+                0
+              ],
+              "connection_sha256": "b80723c3d4b82d38a04444b37ee1b9df312c1c2cc9fbdf878d095eccdcd97202",
+              "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-00-g02",
+            "grid_index": 2,
+            "case_grid_index": 2,
+            "values": [
+              0.5979922029820652,
+              -0.14355725745408743,
+              0.32,
+              24.0,
+              0.25181883224993984
+            ],
+            "bucket_xy_m": [
+              1.1095395651982425,
+              -0.22146373203137287
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                8,
+                0
+              ],
+              "connection_sha256": "8863ece24d9c2c82d4fe68397bd116b802a13a7d92f45af9aecd198edcd086ff",
+              "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-00-g03",
+            "grid_index": 3,
+            "case_grid_index": 3,
+            "values": [
+              0.5979922029820652,
+              -0.14355725745408743,
+              0.32,
+              28.0,
+              0.25181883224993984
+            ],
+            "bucket_xy_m": [
+              1.1095395651982425,
+              -0.22146373203137287
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                8,
+                0
+              ],
+              "connection_sha256": "930aa251682de72d2d5842a4346ae588601e27e7e856ef92c256b80282fe3026",
+              "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-00-g04",
+            "grid_index": 4,
+            "case_grid_index": 4,
+            "values": [
+              0.5979922029820652,
+              -0.14355725745408743,
+              0.32,
+              32.0,
+              0.25181883224993984
+            ],
+            "bucket_xy_m": [
+              1.1095395651982425,
+              -0.22146373203137287
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                8,
+                0
+              ],
+              "connection_sha256": "c8b54a74b105aaceb12118950da8931532213cb13858cf4d46288de3d17c3bc5",
+              "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-00-g05",
+            "grid_index": 5,
+            "case_grid_index": 5,
+            "values": [
+              0.5979922029820652,
+              -0.14355725745408743,
+              0.36,
+              16.0,
+              0.25181883224993984
+            ],
+            "bucket_xy_m": [
+              1.1095395651982425,
+              -0.22146373203137287
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                8,
+                8
+              ],
+              "connection_sha256": "c88720718493fa8a09117b2d27834a53c391b321e6f8eb63427112b0b64b14fd",
+              "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-00-g05",
+              "record_sha256": "c0db9b6715e94bf931f934b81444c18d7554950e7e2655ee7b8c31f717f67e97",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 0,
+              "forbidden_contact_steps": 0,
+              "reward": 0.30818610821150094
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-00-g06",
+            "grid_index": 6,
+            "case_grid_index": 6,
+            "values": [
+              0.5979922029820652,
+              -0.14355725745408743,
+              0.36,
+              20.0,
+              0.25181883224993984
+            ],
+            "bucket_xy_m": [
+              1.1095395651982425,
+              -0.22146373203137287
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                8,
+                9
+              ],
+              "connection_sha256": "1cb10be10e670a80df6f20238b4bf5b1adcdba4e011560cb1eb9ed25cbe76771",
+              "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-00-g06",
+              "record_sha256": "451201784e4575948433e5c49a86d139a21e87b3a9620c007333476cf0fdf9b1",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 27,
+              "forbidden_contact_steps": 27,
+              "reward": -0.18453904346037842
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-00-g07",
+            "grid_index": 7,
+            "case_grid_index": 7,
+            "values": [
+              0.5979922029820652,
+              -0.14355725745408743,
+              0.36,
+              24.0,
+              0.25181883224993984
+            ],
+            "bucket_xy_m": [
+              1.1095395651982425,
+              -0.22146373203137287
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                8,
+                0
+              ],
+              "connection_sha256": "1a3d2ff689cc8c452c2f0dd50af3f9cb96fef60013993dd90096dc7894f0e4a8",
+              "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-00-g08",
+            "grid_index": 8,
+            "case_grid_index": 8,
+            "values": [
+              0.5979922029820652,
+              -0.14355725745408743,
+              0.36,
+              28.0,
+              0.25181883224993984
+            ],
+            "bucket_xy_m": [
+              1.1095395651982425,
+              -0.22146373203137287
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                8,
+                0
+              ],
+              "connection_sha256": "c33825f6276475e1f78b193d61514248bcd907d2ee3ef3fba730076cdcc89255",
+              "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-00-g09",
+            "grid_index": 9,
+            "case_grid_index": 9,
+            "values": [
+              0.5979922029820652,
+              -0.14355725745408743,
+              0.36,
+              32.0,
+              0.25181883224993984
+            ],
+            "bucket_xy_m": [
+              1.1095395651982425,
+              -0.22146373203137287
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                8,
+                0
+              ],
+              "connection_sha256": "3866158a7f34a4f104470f90b5d8582c59f68e7d9fdaa2ab4986e3a6075d40a2",
+              "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-00-g10",
+            "grid_index": 10,
+            "case_grid_index": 10,
+            "values": [
+              0.5979922029820652,
+              -0.14355725745408743,
+              0.4,
+              16.0,
+              0.25181883224993984
+            ],
+            "bucket_xy_m": [
+              1.1095395651982425,
+              -0.22146373203137287
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                10,
+                15
+              ],
+              "connection_sha256": "85f92d03209557650628efab036205847139293be4d9ffa8d295593af22965c9",
+              "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-00-g10",
+              "record_sha256": "d8aaecd3b0ea29156a77ab396a06fc9ae2a93040bdb3ef506c18a0db8ff4e5f1",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 0,
+              "forbidden_contact_steps": 0,
+              "reward": 0.29967499997185787
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-00-g11",
+            "grid_index": 11,
+            "case_grid_index": 11,
+            "values": [
+              0.5979922029820652,
+              -0.14355725745408743,
+              0.4,
+              20.0,
+              0.25181883224993984
+            ],
+            "bucket_xy_m": [
+              1.1095395651982425,
+              -0.22146373203137287
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                10,
+                7
+              ],
+              "connection_sha256": "caac83805cc084639670b7e3d38afcc8e1d7bcf233374911653efc44baf64d95",
+              "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-00-g11",
+              "record_sha256": "4e6ddf9e82892360e699e8a7f64788c611653a107dd38dd37f3282b17f789932",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 28,
+              "forbidden_contact_steps": 28,
+              "reward": -0.1924375108120937
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-00-g12",
+            "grid_index": 12,
+            "case_grid_index": 12,
+            "values": [
+              0.5979922029820652,
+              -0.14355725745408743,
+              0.4,
+              24.0,
+              0.25181883224993984
+            ],
+            "bucket_xy_m": [
+              1.1095395651982425,
+              -0.22146373203137287
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                10,
+                7
+              ],
+              "connection_sha256": "062551eb78b4cdd0ed0c47c1d806a20c7ce0968a498e7922110d60d653a041b4",
+              "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-00-g12",
+              "record_sha256": "c1450c691aa57b59cd183f1c7d1a3d190ee7f7b2b1606ee6964445839c7a8ed7",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 19,
+              "forbidden_contact_steps": 19,
+              "reward": -0.19553934983428223
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-00-g13",
+            "grid_index": 13,
+            "case_grid_index": 13,
+            "values": [
+              0.5979922029820652,
+              -0.14355725745408743,
+              0.4,
+              28.0,
+              0.25181883224993984
+            ],
+            "bucket_xy_m": [
+              1.1095395651982425,
+              -0.22146373203137287
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                10,
+                0
+              ],
+              "connection_sha256": "ea0d35fc6438d46de668a7ab1810d4a7130980eebd44086b9cafae345dbba4d2",
+              "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-00-g14",
+            "grid_index": 14,
+            "case_grid_index": 14,
+            "values": [
+              0.5979922029820652,
+              -0.14355725745408743,
+              0.4,
+              32.0,
+              0.25181883224993984
+            ],
+            "bucket_xy_m": [
+              1.1095395651982425,
+              -0.22146373203137287
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                10,
+                0
+              ],
+              "connection_sha256": "1cf265147349dc180b7d43eacdab0d8bcd6338141cacda93ed62f14c766b1146",
+              "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-00-g15",
+            "grid_index": 15,
+            "case_grid_index": 15,
+            "values": [
+              0.5979922029820652,
+              -0.14355725745408743,
+              0.44,
+              16.0,
+              0.25181883224993984
+            ],
+            "bucket_xy_m": [
+              1.1095395651982425,
+              -0.22146373203137287
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                8,
+                15
+              ],
+              "connection_sha256": "a24bed258831891586393c071e3efa509957a33f7c6a43bd317244ae13f9a296",
+              "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-00-g15",
+              "record_sha256": "332942dad297bc0e208b55de8528637db6c752bd198d728f92ef4d7d112cc2dd",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 0,
+              "forbidden_contact_steps": 0,
+              "reward": 0.29026825842931514
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-00-g16",
+            "grid_index": 16,
+            "case_grid_index": 16,
+            "values": [
+              0.5979922029820652,
+              -0.14355725745408743,
+              0.44,
+              20.0,
+              0.25181883224993984
+            ],
+            "bucket_xy_m": [
+              1.1095395651982425,
+              -0.22146373203137287
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                8,
+                16
+              ],
+              "connection_sha256": "22d266ff4e9270a3294aa1867760334160f8582c6ea300406dcb96afee451215",
+              "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-00-g16",
+              "record_sha256": "aa857f1a0991f1f3e5226f97945a441fd8494133b874b067a53b2946d9a99da3",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 26,
+              "forbidden_contact_steps": 26,
+              "reward": -0.19786089250299732
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-00-g17",
+            "grid_index": 17,
+            "case_grid_index": 17,
+            "values": [
+              0.5979922029820652,
+              -0.14355725745408743,
+              0.44,
+              24.0,
+              0.25181883224993984
+            ],
+            "bucket_xy_m": [
+              1.1095395651982425,
+              -0.22146373203137287
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                8,
+                6
+              ],
+              "connection_sha256": "f24ed920e26af101deb7e0c02cc2ca2ea93b85be2d2f28cccc423f7e87bef1bf",
+              "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-00-g17",
+              "record_sha256": "e953543b63eb404be640ce62a27f007c575f2c2911cd2e83ef12fde227ca6392",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 24,
+              "forbidden_contact_steps": 24,
+              "reward": -0.19361028542628222
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-00-g18",
+            "grid_index": 18,
+            "case_grid_index": 18,
+            "values": [
+              0.5979922029820652,
+              -0.14355725745408743,
+              0.44,
+              28.0,
+              0.25181883224993984
+            ],
+            "bucket_xy_m": [
+              1.1095395651982425,
+              -0.22146373203137287
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                8,
+                0
+              ],
+              "connection_sha256": "a3afb1a5e534099f6175e38eb2bd015c478c33813ea77c624cb73482d38ff4cb",
+              "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-00-g19",
+            "grid_index": 19,
+            "case_grid_index": 19,
+            "values": [
+              0.5979922029820652,
+              -0.14355725745408743,
+              0.44,
+              32.0,
+              0.25181883224993984
+            ],
+            "bucket_xy_m": [
+              1.1095395651982425,
+              -0.22146373203137287
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                8,
+                0
+              ],
+              "connection_sha256": "ba89c92746c2d15a33d19290416169a96190b19a16c8fe162ba802fe3f1055b2",
+              "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-00-g20",
+            "grid_index": 20,
+            "case_grid_index": 20,
+            "values": [
+              0.5979922029820652,
+              -0.14355725745408743,
+              0.46,
+              16.0,
+              0.25181883224993984
+            ],
+            "bucket_xy_m": [
+              1.1095395651982425,
+              -0.22146373203137287
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                9,
+                14
+              ],
+              "connection_sha256": "a742d27f3ad31c3ae6c3e6363b64e1f219cb608d0fa0b87e6d6b9e6d27dd120a",
+              "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-00-g20",
+              "record_sha256": "21819b15f783b0e949bf7f65f2a5d5eda6d78fa038dc177a70d6ac504281d782",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 0,
+              "forbidden_contact_steps": 0,
+              "reward": 0.29680023373305064
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-00-g21",
+            "grid_index": 21,
+            "case_grid_index": 21,
+            "values": [
+              0.5979922029820652,
+              -0.14355725745408743,
+              0.46,
+              20.0,
+              0.25181883224993984
+            ],
+            "bucket_xy_m": [
+              1.1095395651982425,
+              -0.22146373203137287
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                9,
+                12
+              ],
+              "connection_sha256": "b50a6650a8b9a76494da78030d3cc895903594f49a227c171baee884bf3b92cf",
+              "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-00-g21",
+              "record_sha256": "8564b76fa07c3bfdbbc7a2935c557d3c3c5b06240b712197fcc6e7fedffdc10e",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 27,
+              "forbidden_contact_steps": 27,
+              "reward": -0.19517424178410814
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-00-g22",
+            "grid_index": 22,
+            "case_grid_index": 22,
+            "values": [
+              0.5979922029820652,
+              -0.14355725745408743,
+              0.46,
+              24.0,
+              0.25181883224993984
+            ],
+            "bucket_xy_m": [
+              1.1095395651982425,
+              -0.22146373203137287
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                9,
+                9
+              ],
+              "connection_sha256": "6479055740df103c1b35c9bd2db9951b7fed8a0594497b4e5558a77456616d83",
+              "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-00-g22",
+              "record_sha256": "903b7c6cdf23515752c3eea1a48fb926b72b6103eabdfbb208fccdc98cb9a2b3",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 25,
+              "forbidden_contact_steps": 25,
+              "reward": -0.19382368122435
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-00-g23",
+            "grid_index": 23,
+            "case_grid_index": 23,
+            "values": [
+              0.5979922029820652,
+              -0.14355725745408743,
+              0.46,
+              28.0,
+              0.25181883224993984
+            ],
+            "bucket_xy_m": [
+              1.1095395651982425,
+              -0.22146373203137287
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                9,
+                8
+              ],
+              "connection_sha256": "0eedbe698cf7c3d6505b9558435b72ed1def372270d4f61e3fc1745d00210c85",
+              "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-00-g23",
+              "record_sha256": "9d59e5b17a2cfba7484d39696cf41e4df08636d9a8c2b78a26111bf6f051eb8a",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 27,
+              "forbidden_contact_steps": 27,
+              "reward": -0.19352380949624126
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-00-g24",
+            "grid_index": 24,
+            "case_grid_index": 24,
+            "values": [
+              0.5979922029820652,
+              -0.14355725745408743,
+              0.46,
+              32.0,
+              0.25181883224993984
+            ],
+            "bucket_xy_m": [
+              1.1095395651982425,
+              -0.22146373203137287
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                9,
+                0
+              ],
+              "connection_sha256": "ec01846104f7ad1746cf9dd2123962dc363e5c746c7cadebd48808d781ce78f3",
+              "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-00-g25",
+            "grid_index": 25,
+            "case_grid_index": 25,
+            "values": [
+              0.5979922029820652,
+              -0.14355725745408743,
+              0.48,
+              16.0,
+              0.25181883224993984
+            ],
+            "bucket_xy_m": [
+              1.1095395651982425,
+              -0.22146373203137287
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                0,
+                13
+              ],
+              "connection_sha256": "0bdb75b75365eed2e360a40bf3d87606be4b774cc7013e10d678780e253d7ff1",
+              "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-00-g26",
+            "grid_index": 26,
+            "case_grid_index": 26,
+            "values": [
+              0.5979922029820652,
+              -0.14355725745408743,
+              0.48,
+              20.0,
+              0.25181883224993984
+            ],
+            "bucket_xy_m": [
+              1.1095395651982425,
+              -0.22146373203137287
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                0,
+                10
+              ],
+              "connection_sha256": "be53346d958682d24e223bc33bb3ac191ac8ca714d35283cbbe2d84d4b90acfd",
+              "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-00-g27",
+            "grid_index": 27,
+            "case_grid_index": 27,
+            "values": [
+              0.5979922029820652,
+              -0.14355725745408743,
+              0.48,
+              24.0,
+              0.25181883224993984
+            ],
+            "bucket_xy_m": [
+              1.1095395651982425,
+              -0.22146373203137287
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                0,
+                10
+              ],
+              "connection_sha256": "1e3c31229ae7eeebed08e5feccad117f0d329768610d6975a0b56c16b2e7847a",
+              "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-00-g28",
+            "grid_index": 28,
+            "case_grid_index": 28,
+            "values": [
+              0.5979922029820652,
+              -0.14355725745408743,
+              0.48,
+              28.0,
+              0.25181883224993984
+            ],
+            "bucket_xy_m": [
+              1.1095395651982425,
+              -0.22146373203137287
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                0,
+                9
+              ],
+              "connection_sha256": "1b6a42eef17413a388df3946c691adbfdb47ce35eb57e3b2b6041ee0ffd454de",
+              "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-00-g29",
+            "grid_index": 29,
+            "case_grid_index": 29,
+            "values": [
+              0.5979922029820652,
+              -0.14355725745408743,
+              0.48,
+              32.0,
+              0.25181883224993984
+            ],
+            "bucket_xy_m": [
+              1.1095395651982425,
+              -0.22146373203137287
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                0,
+                0
+              ],
+              "connection_sha256": "64bdc541428381452587d9b4352b374ef76505bff39bfd9b219171edb94f4c3a",
+              "resolution_sha256": "be5dbc9bd722143370051c79850e2349eaadaf553ce1065fdb078af12a6685f9"
+            },
+            "discovery": null
+          }
+        ],
+        "selection": null,
+        "repeats": {
+          "baseline": {
+            "attempts": 3,
+            "native_releases": 3,
+            "captures": 0,
+            "setup_rejections": 0,
+            "native_misses": 3,
+            "robot_contact_shots": 0,
+            "forbidden_contact_shots": 0,
+            "invalid_physics": 0,
+            "direct_captures": 0,
+            "table_assisted_captures": 0
+          },
+          "selected": {
+            "attempts": 0,
+            "native_releases": 0,
+            "captures": 0,
+            "setup_rejections": 0,
+            "native_misses": 0,
+            "robot_contact_shots": 0,
+            "forbidden_contact_shots": 0,
+            "invalid_physics": 0,
+            "direct_captures": 0,
+            "table_assisted_captures": 0
+          }
+        }
+      },
+      {
+        "context_id": "table-training-test-01",
+        "source_record_id": "test-ppo-0512-table-training-test-01",
+        "source_record_sha256": "11228408d0ae273d423ec9316ef1685dd0a2afbdd1e303fa0dbcefce9dc5c768",
+        "bucket_xy_m": [
+          1.1734788738060713,
+          -0.2326845559337758
+        ],
+        "baseline_values": [
+          0.6019516960614099,
+          -0.15293569618645803,
+          0.35414563633786705,
+          18.556934489120785,
+          0.2398330372344851
+        ],
+        "grid": [
+          {
+            "candidate_id": "height-tilt-table-training-test-01-g00",
+            "grid_index": 30,
+            "case_grid_index": 0,
+            "values": [
+              0.6019516960614099,
+              -0.15293569618645803,
+              0.32,
+              16.0,
+              0.2398330372344851
+            ],
+            "bucket_xy_m": [
+              1.1734788738060713,
+              -0.2326845559337758
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                6,
+                11
+              ],
+              "connection_sha256": "b7cf8e797e2659056500f9c15c83332b4e7527014992ca62ad007010af6b1757",
+              "resolution_sha256": "07ae83961ccc722cfaabefcbe0cc8a53a179622471081eada9ad925a4221a838"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-01-g00",
+              "record_sha256": "5ce58b165a3b99028e81c4529fb743e9fde264c00b68321e1a9e1f4701e8b615",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 0,
+              "forbidden_contact_steps": 0,
+              "reward": 0.3010094776046213
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-01-g01",
+            "grid_index": 31,
+            "case_grid_index": 1,
+            "values": [
+              0.6019516960614099,
+              -0.15293569618645803,
+              0.32,
+              20.0,
+              0.2398330372344851
+            ],
+            "bucket_xy_m": [
+              1.1734788738060713,
+              -0.2326845559337758
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                6,
+                0
+              ],
+              "connection_sha256": "abe14f25fd9c92ff20f421b03912bb2f744541a8eefc0b7d9f2c66aaf5d339b3",
+              "resolution_sha256": "07ae83961ccc722cfaabefcbe0cc8a53a179622471081eada9ad925a4221a838"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-01-g02",
+            "grid_index": 32,
+            "case_grid_index": 2,
+            "values": [
+              0.6019516960614099,
+              -0.15293569618645803,
+              0.32,
+              24.0,
+              0.2398330372344851
+            ],
+            "bucket_xy_m": [
+              1.1734788738060713,
+              -0.2326845559337758
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                6,
+                0
+              ],
+              "connection_sha256": "826026153fc13f0cb64da01d34c729ad2fcaedf078fdfdc9075bea91173da4a7",
+              "resolution_sha256": "07ae83961ccc722cfaabefcbe0cc8a53a179622471081eada9ad925a4221a838"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-01-g03",
+            "grid_index": 33,
+            "case_grid_index": 3,
+            "values": [
+              0.6019516960614099,
+              -0.15293569618645803,
+              0.32,
+              28.0,
+              0.2398330372344851
+            ],
+            "bucket_xy_m": [
+              1.1734788738060713,
+              -0.2326845559337758
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                6,
+                0
+              ],
+              "connection_sha256": "6b9b1a64bb1e4a45f74cca1a718b02b76471f3b38d79b4c3604c810d825738a5",
+              "resolution_sha256": "07ae83961ccc722cfaabefcbe0cc8a53a179622471081eada9ad925a4221a838"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-01-g04",
+            "grid_index": 34,
+            "case_grid_index": 4,
+            "values": [
+              0.6019516960614099,
+              -0.15293569618645803,
+              0.32,
+              32.0,
+              0.2398330372344851
+            ],
+            "bucket_xy_m": [
+              1.1734788738060713,
+              -0.2326845559337758
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                6,
+                0
+              ],
+              "connection_sha256": "e6b94721f82f7bc3395e891d1ad566e38db2b7a95570745fa660cbd8a3203d1a",
+              "resolution_sha256": "07ae83961ccc722cfaabefcbe0cc8a53a179622471081eada9ad925a4221a838"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-01-g05",
+            "grid_index": 35,
+            "case_grid_index": 5,
+            "values": [
+              0.6019516960614099,
+              -0.15293569618645803,
+              0.36,
+              16.0,
+              0.2398330372344851
+            ],
+            "bucket_xy_m": [
+              1.1734788738060713,
+              -0.2326845559337758
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                8,
+                11
+              ],
+              "connection_sha256": "bad9ecf5fe4d81428d4202c9d42ca2057e5911883c5bdc867a94856b9a513eaa",
+              "resolution_sha256": "07ae83961ccc722cfaabefcbe0cc8a53a179622471081eada9ad925a4221a838"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-01-g05",
+              "record_sha256": "17c5e9b8337ef151d2eba6a2c2e44950949d1a1c045354ce05947437606113d7",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 0,
+              "forbidden_contact_steps": 0,
+              "reward": 0.3006048151642752
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-01-g06",
+            "grid_index": 36,
+            "case_grid_index": 6,
+            "values": [
+              0.6019516960614099,
+              -0.15293569618645803,
+              0.36,
+              20.0,
+              0.2398330372344851
+            ],
+            "bucket_xy_m": [
+              1.1734788738060713,
+              -0.2326845559337758
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                8,
+                12
+              ],
+              "connection_sha256": "61cf3d8b83716767c7cb0adbc1c7536f592aa948bfb7154933d0cc162bf958ec",
+              "resolution_sha256": "07ae83961ccc722cfaabefcbe0cc8a53a179622471081eada9ad925a4221a838"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-01-g06",
+              "record_sha256": "b8e51b2427ade461ebf10f3f5992c5e712c8a60975fbef78c1cb8b54d2851e2a",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 0,
+              "forbidden_contact_steps": 0,
+              "reward": 0.3151926983782437
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-01-g07",
+            "grid_index": 37,
+            "case_grid_index": 7,
+            "values": [
+              0.6019516960614099,
+              -0.15293569618645803,
+              0.36,
+              24.0,
+              0.2398330372344851
+            ],
+            "bucket_xy_m": [
+              1.1734788738060713,
+              -0.2326845559337758
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                8,
+                0
+              ],
+              "connection_sha256": "d7d118259258c1b3bfc88655ff7899e45c5c24b82ad2aece6152817295a6ba2f",
+              "resolution_sha256": "07ae83961ccc722cfaabefcbe0cc8a53a179622471081eada9ad925a4221a838"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-01-g08",
+            "grid_index": 38,
+            "case_grid_index": 8,
+            "values": [
+              0.6019516960614099,
+              -0.15293569618645803,
+              0.36,
+              28.0,
+              0.2398330372344851
+            ],
+            "bucket_xy_m": [
+              1.1734788738060713,
+              -0.2326845559337758
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                8,
+                0
+              ],
+              "connection_sha256": "557407f0a21837805f10243f1c8b522810703b40875cfc3032484f4a37e0012a",
+              "resolution_sha256": "07ae83961ccc722cfaabefcbe0cc8a53a179622471081eada9ad925a4221a838"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-01-g09",
+            "grid_index": 39,
+            "case_grid_index": 9,
+            "values": [
+              0.6019516960614099,
+              -0.15293569618645803,
+              0.36,
+              32.0,
+              0.2398330372344851
+            ],
+            "bucket_xy_m": [
+              1.1734788738060713,
+              -0.2326845559337758
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                8,
+                0
+              ],
+              "connection_sha256": "7a216f6392c5148129dde3588cc50160c35b964de52c1e536c098375cb6bfbca",
+              "resolution_sha256": "07ae83961ccc722cfaabefcbe0cc8a53a179622471081eada9ad925a4221a838"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-01-g10",
+            "grid_index": 40,
+            "case_grid_index": 10,
+            "values": [
+              0.6019516960614099,
+              -0.15293569618645803,
+              0.4,
+              16.0,
+              0.2398330372344851
+            ],
+            "bucket_xy_m": [
+              1.1734788738060713,
+              -0.2326845559337758
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                9,
+                11
+              ],
+              "connection_sha256": "49802b8858b03e5bd7da8cc81b8d51253fd055bd0841bcdf2047d23559adb50f",
+              "resolution_sha256": "07ae83961ccc722cfaabefcbe0cc8a53a179622471081eada9ad925a4221a838"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-01-g10",
+              "record_sha256": "039c857ec0ccd1eff1778aac78bd99c2dc0ccfb1ce9baadc8d4972235ea5ae38",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 0,
+              "forbidden_contact_steps": 0,
+              "reward": 0.3009969037664358
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-01-g11",
+            "grid_index": 41,
+            "case_grid_index": 11,
+            "values": [
+              0.6019516960614099,
+              -0.15293569618645803,
+              0.4,
+              20.0,
+              0.2398330372344851
+            ],
+            "bucket_xy_m": [
+              1.1734788738060713,
+              -0.2326845559337758
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                9,
+                9
+              ],
+              "connection_sha256": "4a455a2352eb43ea0019aa28453a44ea0cf42f037a6dd3d13b8de3c5b1901c01",
+              "resolution_sha256": "07ae83961ccc722cfaabefcbe0cc8a53a179622471081eada9ad925a4221a838"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-01-g11",
+              "record_sha256": "7e29a0443d8dfa0bb784611f4cdd5937958ca2a92d9636583bcb0c48d2fd38ad",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 0,
+              "forbidden_contact_steps": 0,
+              "reward": 0.3116138364687103
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-01-g12",
+            "grid_index": 42,
+            "case_grid_index": 12,
+            "values": [
+              0.6019516960614099,
+              -0.15293569618645803,
+              0.4,
+              24.0,
+              0.2398330372344851
+            ],
+            "bucket_xy_m": [
+              1.1734788738060713,
+              -0.2326845559337758
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                9,
+                7
+              ],
+              "connection_sha256": "e50505e447a68a03457e4737cdd52472a624e4007b80f1edf23ce0ca24046a43",
+              "resolution_sha256": "07ae83961ccc722cfaabefcbe0cc8a53a179622471081eada9ad925a4221a838"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-01-g12",
+              "record_sha256": "faa835fac853705cd5ea8dae219c84f890cb074aa071acce8712c940864bc482",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 0,
+              "forbidden_contact_steps": 0,
+              "reward": 0.2993731866267397
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-01-g13",
+            "grid_index": 43,
+            "case_grid_index": 13,
+            "values": [
+              0.6019516960614099,
+              -0.15293569618645803,
+              0.4,
+              28.0,
+              0.2398330372344851
+            ],
+            "bucket_xy_m": [
+              1.1734788738060713,
+              -0.2326845559337758
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                9,
+                0
+              ],
+              "connection_sha256": "ec13784ef5d892d4dc46834b335e6c05c54f8394adc1eef643d3cd6428c5436c",
+              "resolution_sha256": "07ae83961ccc722cfaabefcbe0cc8a53a179622471081eada9ad925a4221a838"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-01-g14",
+            "grid_index": 44,
+            "case_grid_index": 14,
+            "values": [
+              0.6019516960614099,
+              -0.15293569618645803,
+              0.4,
+              32.0,
+              0.2398330372344851
+            ],
+            "bucket_xy_m": [
+              1.1734788738060713,
+              -0.2326845559337758
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                9,
+                0
+              ],
+              "connection_sha256": "dc4b8162c7b18ba1f044ba6b51ff5c2fa7a38401547899fa7e4fcce4088e790c",
+              "resolution_sha256": "07ae83961ccc722cfaabefcbe0cc8a53a179622471081eada9ad925a4221a838"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-01-g15",
+            "grid_index": 45,
+            "case_grid_index": 15,
+            "values": [
+              0.6019516960614099,
+              -0.15293569618645803,
+              0.44,
+              16.0,
+              0.2398330372344851
+            ],
+            "bucket_xy_m": [
+              1.1734788738060713,
+              -0.2326845559337758
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                8,
+                12
+              ],
+              "connection_sha256": "749328cb2418529268f6763508cf88e4da31e49940fba4c3f0dad8716bf5283b",
+              "resolution_sha256": "07ae83961ccc722cfaabefcbe0cc8a53a179622471081eada9ad925a4221a838"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-01-g15",
+              "record_sha256": "c45ab614596acade844bc5439bd61b73d8e80b5c661abd334c9d4196fa7e1039",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 0,
+              "forbidden_contact_steps": 0,
+              "reward": 0.30300987105243565
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-01-g16",
+            "grid_index": 46,
+            "case_grid_index": 16,
+            "values": [
+              0.6019516960614099,
+              -0.15293569618645803,
+              0.44,
+              20.0,
+              0.2398330372344851
+            ],
+            "bucket_xy_m": [
+              1.1734788738060713,
+              -0.2326845559337758
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                8,
+                12
+              ],
+              "connection_sha256": "ad4f9d2c3692fd21e908150871a1eafa14e9a65d47c58043f9a0a5cd80423e6d",
+              "resolution_sha256": "07ae83961ccc722cfaabefcbe0cc8a53a179622471081eada9ad925a4221a838"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-01-g16",
+              "record_sha256": "25890942c48ddd56c03a4affd6cd4323887b96005675e7e8f3a24632aefe51cf",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 0,
+              "forbidden_contact_steps": 0,
+              "reward": 0.3049050106793845
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-01-g17",
+            "grid_index": 47,
+            "case_grid_index": 17,
+            "values": [
+              0.6019516960614099,
+              -0.15293569618645803,
+              0.44,
+              24.0,
+              0.2398330372344851
+            ],
+            "bucket_xy_m": [
+              1.1734788738060713,
+              -0.2326845559337758
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                8,
+                5
+              ],
+              "connection_sha256": "486b395a96d6697d071de47165835ea5749c4ce686eba2e6774739ede6d95e8f",
+              "resolution_sha256": "07ae83961ccc722cfaabefcbe0cc8a53a179622471081eada9ad925a4221a838"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-01-g17",
+              "record_sha256": "c5aeaf56b32e78e007c38fa5a6a152aee5bc8d6ac7bc442e3b05cee3776b3922",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 0,
+              "forbidden_contact_steps": 0,
+              "reward": 0.3156575142262077
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-01-g18",
+            "grid_index": 48,
+            "case_grid_index": 18,
+            "values": [
+              0.6019516960614099,
+              -0.15293569618645803,
+              0.44,
+              28.0,
+              0.2398330372344851
+            ],
+            "bucket_xy_m": [
+              1.1734788738060713,
+              -0.2326845559337758
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                8,
+                9
+              ],
+              "connection_sha256": "ef96ad6aee2c4cb03dda843715ff97bfada9490ef02cb435d5bed3d52e7a2cff",
+              "resolution_sha256": "07ae83961ccc722cfaabefcbe0cc8a53a179622471081eada9ad925a4221a838"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-01-g18",
+              "record_sha256": "0e5fe10b6697c2b3e84b7b5ffd0cffea3f02eeba6b87754eeef35ee2644d6ffc",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 26,
+              "forbidden_contact_steps": 26,
+              "reward": -0.24959651538320782
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-01-g19",
+            "grid_index": 49,
+            "case_grid_index": 19,
+            "values": [
+              0.6019516960614099,
+              -0.15293569618645803,
+              0.44,
+              32.0,
+              0.2398330372344851
+            ],
+            "bucket_xy_m": [
+              1.1734788738060713,
+              -0.2326845559337758
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                8,
+                0
+              ],
+              "connection_sha256": "9c37f4b91f752ae864128f16392f8db9817124ddf64cd716c3a52cb38f3d3fe7",
+              "resolution_sha256": "07ae83961ccc722cfaabefcbe0cc8a53a179622471081eada9ad925a4221a838"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-01-g20",
+            "grid_index": 50,
+            "case_grid_index": 20,
+            "values": [
+              0.6019516960614099,
+              -0.15293569618645803,
+              0.46,
+              16.0,
+              0.2398330372344851
+            ],
+            "bucket_xy_m": [
+              1.1734788738060713,
+              -0.2326845559337758
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                9,
+                12
+              ],
+              "connection_sha256": "acc381ba8020f9604873bbd1386d5daf2ddced40b508a1b66cff7d9f05e8b72b",
+              "resolution_sha256": "07ae83961ccc722cfaabefcbe0cc8a53a179622471081eada9ad925a4221a838"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-01-g20",
+              "record_sha256": "6c2e58a38b115f24abb90df50cee9ea3b9e79320ce1616538df78251845c3c8e",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 0,
+              "forbidden_contact_steps": 0,
+              "reward": 0.30417331627578126
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-01-g21",
+            "grid_index": 51,
+            "case_grid_index": 21,
+            "values": [
+              0.6019516960614099,
+              -0.15293569618645803,
+              0.46,
+              20.0,
+              0.2398330372344851
+            ],
+            "bucket_xy_m": [
+              1.1734788738060713,
+              -0.2326845559337758
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                9,
+                12
+              ],
+              "connection_sha256": "5129228282749e4999d8a2b7daee4360c04cf89370be36f8320df3f882fb8e12",
+              "resolution_sha256": "07ae83961ccc722cfaabefcbe0cc8a53a179622471081eada9ad925a4221a838"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-01-g21",
+              "record_sha256": "e169072c3fade0a3bc9263b63a0885264bba4d0651c509a3604f2a80935c6c07",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 0,
+              "forbidden_contact_steps": 0,
+              "reward": 0.300267723620009
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-01-g22",
+            "grid_index": 52,
+            "case_grid_index": 22,
+            "values": [
+              0.6019516960614099,
+              -0.15293569618645803,
+              0.46,
+              24.0,
+              0.2398330372344851
+            ],
+            "bucket_xy_m": [
+              1.1734788738060713,
+              -0.2326845559337758
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                9,
+                6
+              ],
+              "connection_sha256": "fd718f5b8315aba031ef3c467c1de37cf27417676e33ad98b0503f0a11951efd",
+              "resolution_sha256": "07ae83961ccc722cfaabefcbe0cc8a53a179622471081eada9ad925a4221a838"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-01-g22",
+              "record_sha256": "e5ece8c0780e3da9b07e37903d0204b4ea247d91c91f96004d03a39f7fbfa4f1",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 0,
+              "forbidden_contact_steps": 0,
+              "reward": 0.31467728799336814
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-01-g23",
+            "grid_index": 53,
+            "case_grid_index": 23,
+            "values": [
+              0.6019516960614099,
+              -0.15293569618645803,
+              0.46,
+              28.0,
+              0.2398330372344851
+            ],
+            "bucket_xy_m": [
+              1.1734788738060713,
+              -0.2326845559337758
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                9,
+                9
+              ],
+              "connection_sha256": "210bbf2256837d83325bfdfd0b5754caf00c092fca1c3656ba036abd836e3e3f",
+              "resolution_sha256": "07ae83961ccc722cfaabefcbe0cc8a53a179622471081eada9ad925a4221a838"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-01-g23",
+              "record_sha256": "8f936618d139cd6c66d0e0864905fc96013746db8164446139afc7de3848f9ba",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 27,
+              "forbidden_contact_steps": 27,
+              "reward": -0.2513430783926753
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-01-g24",
+            "grid_index": 54,
+            "case_grid_index": 24,
+            "values": [
+              0.6019516960614099,
+              -0.15293569618645803,
+              0.46,
+              32.0,
+              0.2398330372344851
+            ],
+            "bucket_xy_m": [
+              1.1734788738060713,
+              -0.2326845559337758
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                9,
+                0
+              ],
+              "connection_sha256": "d018c9c6887b29a97413a44a6f3c339e5d6a939b39a00e855f16606d4892825d",
+              "resolution_sha256": "07ae83961ccc722cfaabefcbe0cc8a53a179622471081eada9ad925a4221a838"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-01-g25",
+            "grid_index": 55,
+            "case_grid_index": 25,
+            "values": [
+              0.6019516960614099,
+              -0.15293569618645803,
+              0.48,
+              16.0,
+              0.2398330372344851
+            ],
+            "bucket_xy_m": [
+              1.1734788738060713,
+              -0.2326845559337758
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                0,
+                13
+              ],
+              "connection_sha256": "c03ac9ef69b17eaa2e3348b4de59ac7812dcba701224cfdd47225e4fbb6df6e1",
+              "resolution_sha256": "07ae83961ccc722cfaabefcbe0cc8a53a179622471081eada9ad925a4221a838"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-01-g26",
+            "grid_index": 56,
+            "case_grid_index": 26,
+            "values": [
+              0.6019516960614099,
+              -0.15293569618645803,
+              0.48,
+              20.0,
+              0.2398330372344851
+            ],
+            "bucket_xy_m": [
+              1.1734788738060713,
+              -0.2326845559337758
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                0,
+                12
+              ],
+              "connection_sha256": "c090e5b22df21ed9de3953cfcc46cd3d31a345f47217abad737ed082989fdc98",
+              "resolution_sha256": "07ae83961ccc722cfaabefcbe0cc8a53a179622471081eada9ad925a4221a838"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-01-g27",
+            "grid_index": 57,
+            "case_grid_index": 27,
+            "values": [
+              0.6019516960614099,
+              -0.15293569618645803,
+              0.48,
+              24.0,
+              0.2398330372344851
+            ],
+            "bucket_xy_m": [
+              1.1734788738060713,
+              -0.2326845559337758
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                0,
+                5
+              ],
+              "connection_sha256": "e4098d1ce4f619d091ee3e395f1100386eedc66cabb14044ca0775e689c14392",
+              "resolution_sha256": "07ae83961ccc722cfaabefcbe0cc8a53a179622471081eada9ad925a4221a838"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-01-g28",
+            "grid_index": 58,
+            "case_grid_index": 28,
+            "values": [
+              0.6019516960614099,
+              -0.15293569618645803,
+              0.48,
+              28.0,
+              0.2398330372344851
+            ],
+            "bucket_xy_m": [
+              1.1734788738060713,
+              -0.2326845559337758
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                0,
+                6
+              ],
+              "connection_sha256": "1d32328c8ec29157f981a99f96e83d45f7ce78053bd238c1dc7c55949a6a8764",
+              "resolution_sha256": "07ae83961ccc722cfaabefcbe0cc8a53a179622471081eada9ad925a4221a838"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-01-g29",
+            "grid_index": 59,
+            "case_grid_index": 29,
+            "values": [
+              0.6019516960614099,
+              -0.15293569618645803,
+              0.48,
+              32.0,
+              0.2398330372344851
+            ],
+            "bucket_xy_m": [
+              1.1734788738060713,
+              -0.2326845559337758
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                0,
+                0
+              ],
+              "connection_sha256": "8705e78fed369c8637dffef90c3ebb54f9d91c0dc5402172c38dbc41118f9e29",
+              "resolution_sha256": "07ae83961ccc722cfaabefcbe0cc8a53a179622471081eada9ad925a4221a838"
+            },
+            "discovery": null
+          }
+        ],
+        "selection": null,
+        "repeats": {
+          "baseline": {
+            "attempts": 3,
+            "native_releases": 3,
+            "captures": 0,
+            "setup_rejections": 0,
+            "native_misses": 3,
+            "robot_contact_shots": 0,
+            "forbidden_contact_shots": 0,
+            "invalid_physics": 0,
+            "direct_captures": 0,
+            "table_assisted_captures": 0
+          },
+          "selected": {
+            "attempts": 0,
+            "native_releases": 0,
+            "captures": 0,
+            "setup_rejections": 0,
+            "native_misses": 0,
+            "robot_contact_shots": 0,
+            "forbidden_contact_shots": 0,
+            "invalid_physics": 0,
+            "direct_captures": 0,
+            "table_assisted_captures": 0
+          }
+        }
+      },
+      {
+        "context_id": "table-training-test-18",
+        "source_record_id": "test-ppo-0512-table-training-test-18",
+        "source_record_sha256": "4d5e80fe695b3503b829a06ca578c1f02a2da2ed13de6ddf31500765cf351e1a",
+        "bucket_xy_m": [
+          1.1017174430367884,
+          0.18144998858420858
+        ],
+        "baseline_values": [
+          0.5935771676513939,
+          -0.12502900630424774,
+          0.3390685872881324,
+          16.202936341745332,
+          0.24020015485303045
+        ],
+        "grid": [
+          {
+            "candidate_id": "height-tilt-table-training-test-18-g00",
+            "grid_index": 60,
+            "case_grid_index": 0,
+            "values": [
+              0.5935771676513939,
+              -0.12502900630424774,
+              0.32,
+              16.0,
+              0.24020015485303045
+            ],
+            "bucket_xy_m": [
+              1.1017174430367884,
+              0.18144998858420858
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                10,
+                4
+              ],
+              "connection_sha256": "1a3cd0d7c5b955b7a290f6102fa10f2b78c09c4767c2b7bfe7231f040d65386c",
+              "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-18-g00",
+              "record_sha256": "4768ae4c4ab66ed09863cf6c589514101de29492a5b54e26cafa56e871771ec4",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 25,
+              "forbidden_contact_steps": 25,
+              "reward": -0.28208509151153505
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-18-g01",
+            "grid_index": 61,
+            "case_grid_index": 1,
+            "values": [
+              0.5935771676513939,
+              -0.12502900630424774,
+              0.32,
+              20.0,
+              0.24020015485303045
+            ],
+            "bucket_xy_m": [
+              1.1017174430367884,
+              0.18144998858420858
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                10,
+                0
+              ],
+              "connection_sha256": "ab2fe623f7f553e13743ded6bd448fbe8ad34f5f6c36bb80a3937677f92b18c5",
+              "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-18-g02",
+            "grid_index": 62,
+            "case_grid_index": 2,
+            "values": [
+              0.5935771676513939,
+              -0.12502900630424774,
+              0.32,
+              24.0,
+              0.24020015485303045
+            ],
+            "bucket_xy_m": [
+              1.1017174430367884,
+              0.18144998858420858
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                10,
+                0
+              ],
+              "connection_sha256": "04269e404455ae37fad329833150609019bd04af844acec05957b36de71c7fb8",
+              "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-18-g03",
+            "grid_index": 63,
+            "case_grid_index": 3,
+            "values": [
+              0.5935771676513939,
+              -0.12502900630424774,
+              0.32,
+              28.0,
+              0.24020015485303045
+            ],
+            "bucket_xy_m": [
+              1.1017174430367884,
+              0.18144998858420858
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                10,
+                0
+              ],
+              "connection_sha256": "adca2c05ad6dd924ef624ecb43fc7ad83c4943e5c3a518d3fa6b9ccbc0e81e9a",
+              "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-18-g04",
+            "grid_index": 64,
+            "case_grid_index": 4,
+            "values": [
+              0.5935771676513939,
+              -0.12502900630424774,
+              0.32,
+              32.0,
+              0.24020015485303045
+            ],
+            "bucket_xy_m": [
+              1.1017174430367884,
+              0.18144998858420858
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                10,
+                0
+              ],
+              "connection_sha256": "5091d18f7abadce0a3ee89a72710991901575fa4f7847c578fe5f58a5326a240",
+              "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-18-g05",
+            "grid_index": 65,
+            "case_grid_index": 5,
+            "values": [
+              0.5935771676513939,
+              -0.12502900630424774,
+              0.36,
+              16.0,
+              0.24020015485303045
+            ],
+            "bucket_xy_m": [
+              1.1017174430367884,
+              0.18144998858420858
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                11,
+                7
+              ],
+              "connection_sha256": "468a27439610b77f8a6450dc2a44a403d86245d30a6a37a9a648d070c0f8b841",
+              "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-18-g05",
+              "record_sha256": "e39470dc916817e1878dd7a82b8a10d48049eabf4f184819e77ae0f89be0d97b",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 26,
+              "forbidden_contact_steps": 26,
+              "reward": -0.283852576735844
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-18-g06",
+            "grid_index": 66,
+            "case_grid_index": 6,
+            "values": [
+              0.5935771676513939,
+              -0.12502900630424774,
+              0.36,
+              20.0,
+              0.24020015485303045
+            ],
+            "bucket_xy_m": [
+              1.1017174430367884,
+              0.18144998858420858
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                11,
+                4
+              ],
+              "connection_sha256": "ba6c6538dfa3993817af8a6a4653940ecdcbd03ba2f3664a8ed5b1de51721d5b",
+              "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-18-g06",
+              "record_sha256": "4c9ccc7b3f085bd0ccac60728c55ec363b5e1ca5c7cd20fc4de671d5e06f1ee0",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 26,
+              "forbidden_contact_steps": 26,
+              "reward": -0.3003191601302099
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-18-g07",
+            "grid_index": 67,
+            "case_grid_index": 7,
+            "values": [
+              0.5935771676513939,
+              -0.12502900630424774,
+              0.36,
+              24.0,
+              0.24020015485303045
+            ],
+            "bucket_xy_m": [
+              1.1017174430367884,
+              0.18144998858420858
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                11,
+                0
+              ],
+              "connection_sha256": "25832f6ee6827efe1b8e69e529f1deb9c6ff18ee5be2c83b120ee356ebe54e8f",
+              "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-18-g08",
+            "grid_index": 68,
+            "case_grid_index": 8,
+            "values": [
+              0.5935771676513939,
+              -0.12502900630424774,
+              0.36,
+              28.0,
+              0.24020015485303045
+            ],
+            "bucket_xy_m": [
+              1.1017174430367884,
+              0.18144998858420858
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                11,
+                0
+              ],
+              "connection_sha256": "a848cac7e6179ae7d748c7237247c1106fe86ab19228b14bd1c459be093631df",
+              "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-18-g09",
+            "grid_index": 69,
+            "case_grid_index": 9,
+            "values": [
+              0.5935771676513939,
+              -0.12502900630424774,
+              0.36,
+              32.0,
+              0.24020015485303045
+            ],
+            "bucket_xy_m": [
+              1.1017174430367884,
+              0.18144998858420858
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                11,
+                0
+              ],
+              "connection_sha256": "038496a14ad6583a3eac8ef4fbd2fee70d40e3f6bfd27369b3cdc7bc4e9b90b5",
+              "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-18-g10",
+            "grid_index": 70,
+            "case_grid_index": 10,
+            "values": [
+              0.5935771676513939,
+              -0.12502900630424774,
+              0.4,
+              16.0,
+              0.24020015485303045
+            ],
+            "bucket_xy_m": [
+              1.1017174430367884,
+              0.18144998858420858
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                9,
+                14
+              ],
+              "connection_sha256": "4f0fe54997df883489b1e37db2f83dc878646324388250a1da8b397160bc0ac4",
+              "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-18-g10",
+              "record_sha256": "8f87cc849332e85873b431eb6aeffd331aa53da1e4c6a7e74a0d7f1d1aeb97cd",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 26,
+              "forbidden_contact_steps": 26,
+              "reward": -0.2843691877364246
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-18-g11",
+            "grid_index": 71,
+            "case_grid_index": 11,
+            "values": [
+              0.5935771676513939,
+              -0.12502900630424774,
+              0.4,
+              20.0,
+              0.24020015485303045
+            ],
+            "bucket_xy_m": [
+              1.1017174430367884,
+              0.18144998858420858
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                9,
+                7
+              ],
+              "connection_sha256": "7e35a3cc0871997db98a5d9a6f180ddfa8f7822f7861a8c63ae3dc5d99f714cb",
+              "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-18-g11",
+              "record_sha256": "77b2e65bfc86a3e19ea34dcd28f5c20265300ac4d1f68ffc7dee64bc02c5398d",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 27,
+              "forbidden_contact_steps": 27,
+              "reward": -0.3013802732688317
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-18-g12",
+            "grid_index": 72,
+            "case_grid_index": 12,
+            "values": [
+              0.5935771676513939,
+              -0.12502900630424774,
+              0.4,
+              24.0,
+              0.24020015485303045
+            ],
+            "bucket_xy_m": [
+              1.1017174430367884,
+              0.18144998858420858
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                9,
+                10
+              ],
+              "connection_sha256": "eeb0305da4be32c8c460a606066da3aecf77f871e9c46881e52cb40d3058abc5",
+              "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-18-g12",
+              "record_sha256": "d5e265ab27e53e3462397fa247ef031c4157067d524a99f7eda8971e1d77bdd1",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 27,
+              "forbidden_contact_steps": 27,
+              "reward": -0.2964557385956211
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-18-g13",
+            "grid_index": 73,
+            "case_grid_index": 13,
+            "values": [
+              0.5935771676513939,
+              -0.12502900630424774,
+              0.4,
+              28.0,
+              0.24020015485303045
+            ],
+            "bucket_xy_m": [
+              1.1017174430367884,
+              0.18144998858420858
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                9,
+                0
+              ],
+              "connection_sha256": "04f4b24c665892a7a555fd29075e08dfa31538060614c7a71afd95b18fd35ead",
+              "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-18-g14",
+            "grid_index": 74,
+            "case_grid_index": 14,
+            "values": [
+              0.5935771676513939,
+              -0.12502900630424774,
+              0.4,
+              32.0,
+              0.24020015485303045
+            ],
+            "bucket_xy_m": [
+              1.1017174430367884,
+              0.18144998858420858
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                9,
+                0
+              ],
+              "connection_sha256": "e14d4c6a19cc10f0b82e0733f2b7aafd96a7b2ea950f7bcd91e718b86ec5b89e",
+              "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-18-g15",
+            "grid_index": 75,
+            "case_grid_index": 15,
+            "values": [
+              0.5935771676513939,
+              -0.12502900630424774,
+              0.44,
+              16.0,
+              0.24020015485303045
+            ],
+            "bucket_xy_m": [
+              1.1017174430367884,
+              0.18144998858420858
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                5,
+                10
+              ],
+              "connection_sha256": "0d1908e67c6896e166ca6dde14d819475e9e60ff68008f79bd8843b0d12c2f7b",
+              "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-18-g15",
+              "record_sha256": "ebe750851c3402aeb09dc15d6e2a3a800c7de280a253bdb6e8a9c93fa2ba3710",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 25,
+              "forbidden_contact_steps": 25,
+              "reward": -0.28017546175095553
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-18-g16",
+            "grid_index": 76,
+            "case_grid_index": 16,
+            "values": [
+              0.5935771676513939,
+              -0.12502900630424774,
+              0.44,
+              20.0,
+              0.24020015485303045
+            ],
+            "bucket_xy_m": [
+              1.1017174430367884,
+              0.18144998858420858
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                5,
+                12
+              ],
+              "connection_sha256": "c874d5fca8916cf40a2362956506e2e669fa3ef95e6b826cb2a4780f5d23f0bd",
+              "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-18-g16",
+              "record_sha256": "2d6f102e526440bd4f70dddd249aa7ccef0311916c7116ef26466136c95c02d3",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 26,
+              "forbidden_contact_steps": 26,
+              "reward": -0.2983821019951655
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-18-g17",
+            "grid_index": 77,
+            "case_grid_index": 17,
+            "values": [
+              0.5935771676513939,
+              -0.12502900630424774,
+              0.44,
+              24.0,
+              0.24020015485303045
+            ],
+            "bucket_xy_m": [
+              1.1017174430367884,
+              0.18144998858420858
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                5,
+                5
+              ],
+              "connection_sha256": "eff08c21ea8f58563576ed1ca5888f247d6c6cac60ebe441e05f9f1b6ee17ffe",
+              "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-18-g17",
+              "record_sha256": "d99c7918e100581177f738985f5008659eefad841496620ddacbaf0ab0411d15",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 27,
+              "forbidden_contact_steps": 27,
+              "reward": -0.2988530001077805
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-18-g18",
+            "grid_index": 78,
+            "case_grid_index": 18,
+            "values": [
+              0.5935771676513939,
+              -0.12502900630424774,
+              0.44,
+              28.0,
+              0.24020015485303045
+            ],
+            "bucket_xy_m": [
+              1.1017174430367884,
+              0.18144998858420858
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                5,
+                0
+              ],
+              "connection_sha256": "c50194840c5fea446c97afac65de8b668ac453fd5b074e575b197746a606ecb5",
+              "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-18-g19",
+            "grid_index": 79,
+            "case_grid_index": 19,
+            "values": [
+              0.5935771676513939,
+              -0.12502900630424774,
+              0.44,
+              32.0,
+              0.24020015485303045
+            ],
+            "bucket_xy_m": [
+              1.1017174430367884,
+              0.18144998858420858
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                5,
+                0
+              ],
+              "connection_sha256": "b11081d02eec7c514bf457cfc33150a22d6d409c481fead504aefa929ee1c53f",
+              "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-18-g20",
+            "grid_index": 80,
+            "case_grid_index": 20,
+            "values": [
+              0.5935771676513939,
+              -0.12502900630424774,
+              0.46,
+              16.0,
+              0.24020015485303045
+            ],
+            "bucket_xy_m": [
+              1.1017174430367884,
+              0.18144998858420858
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                9,
+                15
+              ],
+              "connection_sha256": "92ce086980e20db88ada66bb92f751ab61c099982a38da481bf6806466fdd792",
+              "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-18-g20",
+              "record_sha256": "5224e3cc7d0ce038164bac967f14e38e6628b606fc3df3b6a95c45089a1ba810",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 23,
+              "forbidden_contact_steps": 23,
+              "reward": -0.2700035413174534
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-18-g21",
+            "grid_index": 81,
+            "case_grid_index": 21,
+            "values": [
+              0.5935771676513939,
+              -0.12502900630424774,
+              0.46,
+              20.0,
+              0.24020015485303045
+            ],
+            "bucket_xy_m": [
+              1.1017174430367884,
+              0.18144998858420858
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                9,
+                10
+              ],
+              "connection_sha256": "b3bde1c9cfd602b61d62226c7e0dc53e76a823d8c253ef1c19ce0864c3f792bf",
+              "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-18-g21",
+              "record_sha256": "1ce59a8ed7047c4c562f9f6432a4f87e627a26209d659cedd4a3384a03c5f44f",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 27,
+              "forbidden_contact_steps": 27,
+              "reward": -0.2937101005770554
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-18-g22",
+            "grid_index": 82,
+            "case_grid_index": 22,
+            "values": [
+              0.5935771676513939,
+              -0.12502900630424774,
+              0.46,
+              24.0,
+              0.24020015485303045
+            ],
+            "bucket_xy_m": [
+              1.1017174430367884,
+              0.18144998858420858
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                9,
+                7
+              ],
+              "connection_sha256": "91dac84e84963f80c8e5ce39226e60b32603da659c0873f18153dd7632ce74e1",
+              "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-18-g22",
+              "record_sha256": "32c19545d83cc02b066fbde0a910264024ba7f289a4c3e318c3d090f8faaa71c",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 26,
+              "forbidden_contact_steps": 26,
+              "reward": -0.2981762430562981
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-18-g23",
+            "grid_index": 83,
+            "case_grid_index": 23,
+            "values": [
+              0.5935771676513939,
+              -0.12502900630424774,
+              0.46,
+              28.0,
+              0.24020015485303045
+            ],
+            "bucket_xy_m": [
+              1.1017174430367884,
+              0.18144998858420858
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                9,
+                7
+              ],
+              "connection_sha256": "6076f2f2e89562400b02458b7998435e443ba6f16a79ca6f21778a97bfb75341",
+              "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-18-g23",
+              "record_sha256": "fdd0a766ccbca46001e3c8c84e654cd872cd34d02d2f06d13eb6da8121f47277",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 26,
+              "forbidden_contact_steps": 26,
+              "reward": -0.2883078491591121
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-18-g24",
+            "grid_index": 84,
+            "case_grid_index": 24,
+            "values": [
+              0.5935771676513939,
+              -0.12502900630424774,
+              0.46,
+              32.0,
+              0.24020015485303045
+            ],
+            "bucket_xy_m": [
+              1.1017174430367884,
+              0.18144998858420858
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                9,
+                0
+              ],
+              "connection_sha256": "257cc8901422b396f5d92e7146d08c3d96a6f2b9324e5745230daf0bb378d825",
+              "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-18-g25",
+            "grid_index": 85,
+            "case_grid_index": 25,
+            "values": [
+              0.5935771676513939,
+              -0.12502900630424774,
+              0.48,
+              16.0,
+              0.24020015485303045
+            ],
+            "bucket_xy_m": [
+              1.1017174430367884,
+              0.18144998858420858
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                9,
+                14
+              ],
+              "connection_sha256": "d39dd9de33e07c2b68c1df78af50a353c89219835165dd1be504e6bc6c790079",
+              "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-18-g25",
+              "record_sha256": "653115c9f2f9e89e0a27dece05e0999a84821b5eac77d0ae2432b6a96b8e25e0",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 21,
+              "forbidden_contact_steps": 21,
+              "reward": -0.2501358970817648
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-18-g26",
+            "grid_index": 86,
+            "case_grid_index": 26,
+            "values": [
+              0.5935771676513939,
+              -0.12502900630424774,
+              0.48,
+              20.0,
+              0.24020015485303045
+            ],
+            "bucket_xy_m": [
+              1.1017174430367884,
+              0.18144998858420858
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                9,
+                13
+              ],
+              "connection_sha256": "5b2514ee7a94743ab1f48d33d07d88f6cbdba8d506396811903d03870fc764c6",
+              "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-18-g26",
+              "record_sha256": "dd879d8098dffd9a23c95d43d18c1be616fe164b9a839ab1942b63f0507a4d0f",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 27,
+              "forbidden_contact_steps": 27,
+              "reward": -0.2901728705358029
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-18-g27",
+            "grid_index": 87,
+            "case_grid_index": 27,
+            "values": [
+              0.5935771676513939,
+              -0.12502900630424774,
+              0.48,
+              24.0,
+              0.24020015485303045
+            ],
+            "bucket_xy_m": [
+              1.1017174430367884,
+              0.18144998858420858
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                9,
+                7
+              ],
+              "connection_sha256": "67cccb7f0b1817a3ed19b4635ef51b6d43c53dea138cb7455bfe08d9d224ed1f",
+              "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-18-g27",
+              "record_sha256": "7617ffce28463f31726d07ad0d4e42a064c33f01c96668b40daae886756e3a67",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 27,
+              "forbidden_contact_steps": 27,
+              "reward": -0.2958284395946267
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-18-g28",
+            "grid_index": 88,
+            "case_grid_index": 28,
+            "values": [
+              0.5935771676513939,
+              -0.12502900630424774,
+              0.48,
+              28.0,
+              0.24020015485303045
+            ],
+            "bucket_xy_m": [
+              1.1017174430367884,
+              0.18144998858420858
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                9,
+                6
+              ],
+              "connection_sha256": "4f9e1510713a04ce6ca011d1b08e28f3c9afe86fcab3ec0cceacd6046db8df14",
+              "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-18-g28",
+              "record_sha256": "8d5907d035b0265f100af52d59d32c747a13aa52a06971c1f9b4e035ff44902d",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 27,
+              "forbidden_contact_steps": 27,
+              "reward": -0.28945493804357025
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-18-g29",
+            "grid_index": 89,
+            "case_grid_index": 29,
+            "values": [
+              0.5935771676513939,
+              -0.12502900630424774,
+              0.48,
+              32.0,
+              0.24020015485303045
+            ],
+            "bucket_xy_m": [
+              1.1017174430367884,
+              0.18144998858420858
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                9,
+                0
+              ],
+              "connection_sha256": "5cd7ad1ef1ec841e51fb46d7a2ea60eed49b904260916aa4abf5897759a7e402",
+              "resolution_sha256": "f28f6eef0b065130ea94974f1c2c9502f20b85ec2fb1de876d058fd24117daa1"
+            },
+            "discovery": null
+          }
+        ],
+        "selection": null,
+        "repeats": {
+          "baseline": {
+            "attempts": 3,
+            "native_releases": 3,
+            "captures": 0,
+            "setup_rejections": 0,
+            "native_misses": 3,
+            "robot_contact_shots": 3,
+            "forbidden_contact_shots": 3,
+            "invalid_physics": 0,
+            "direct_captures": 0,
+            "table_assisted_captures": 0
+          },
+          "selected": {
+            "attempts": 0,
+            "native_releases": 0,
+            "captures": 0,
+            "setup_rejections": 0,
+            "native_misses": 0,
+            "robot_contact_shots": 0,
+            "forbidden_contact_shots": 0,
+            "invalid_physics": 0,
+            "direct_captures": 0,
+            "table_assisted_captures": 0
+          }
+        }
+      },
+      {
+        "context_id": "table-training-test-26",
+        "source_record_id": "test-ppo-0512-table-training-test-26",
+        "source_record_sha256": "59a0bca55c46d71e02f8b4c872927331fb96ead5c289f807ab7c5d618456ba21",
+        "bucket_xy_m": [
+          1.1882909668094044,
+          0.16886367629024868
+        ],
+        "baseline_values": [
+          0.5902669906634894,
+          -0.12563148157535847,
+          0.35235138386857384,
+          15.83363737672645,
+          0.24283309653050505
+        ],
+        "grid": [
+          {
+            "candidate_id": "height-tilt-table-training-test-26-g00",
+            "grid_index": 90,
+            "case_grid_index": 0,
+            "values": [
+              0.5902669906634894,
+              -0.12563148157535847,
+              0.32,
+              16.0,
+              0.24283309653050505
+            ],
+            "bucket_xy_m": [
+              1.1882909668094044,
+              0.16886367629024868
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                10,
+                6
+              ],
+              "connection_sha256": "cf7b9e665120bde505447ea0b19f1fdb796aac44c07326f37663d4046f3069f2",
+              "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-26-g00",
+              "record_sha256": "816da9a75ef81d3793586ef93cec466f336e911c76714c3f263c0702a2a95ab0",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 27,
+              "forbidden_contact_steps": 27,
+              "reward": -0.3351658949739774
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-26-g01",
+            "grid_index": 91,
+            "case_grid_index": 1,
+            "values": [
+              0.5902669906634894,
+              -0.12563148157535847,
+              0.32,
+              20.0,
+              0.24283309653050505
+            ],
+            "bucket_xy_m": [
+              1.1882909668094044,
+              0.16886367629024868
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                10,
+                0
+              ],
+              "connection_sha256": "14d2f631c9e8000ed5cf8223855925da8fb6fbe0d541bca6b2ee4c94ed2769b1",
+              "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-26-g02",
+            "grid_index": 92,
+            "case_grid_index": 2,
+            "values": [
+              0.5902669906634894,
+              -0.12563148157535847,
+              0.32,
+              24.0,
+              0.24283309653050505
+            ],
+            "bucket_xy_m": [
+              1.1882909668094044,
+              0.16886367629024868
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                10,
+                0
+              ],
+              "connection_sha256": "f4aab7c967d880d2ba9960bf2cc301ec2c8e97b2198f5f3b476e117edbac3d47",
+              "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-26-g03",
+            "grid_index": 93,
+            "case_grid_index": 3,
+            "values": [
+              0.5902669906634894,
+              -0.12563148157535847,
+              0.32,
+              28.0,
+              0.24283309653050505
+            ],
+            "bucket_xy_m": [
+              1.1882909668094044,
+              0.16886367629024868
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                10,
+                0
+              ],
+              "connection_sha256": "72b05cc3525d234265e2a5fd287810a8644d7c831a7a6101e3f667eb53abf252",
+              "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-26-g04",
+            "grid_index": 94,
+            "case_grid_index": 4,
+            "values": [
+              0.5902669906634894,
+              -0.12563148157535847,
+              0.32,
+              32.0,
+              0.24283309653050505
+            ],
+            "bucket_xy_m": [
+              1.1882909668094044,
+              0.16886367629024868
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                10,
+                0
+              ],
+              "connection_sha256": "0c23f8d8680e0dc767cd028f7324cd1738703132d298a2da73637f993830a59d",
+              "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-26-g05",
+            "grid_index": 95,
+            "case_grid_index": 5,
+            "values": [
+              0.5902669906634894,
+              -0.12563148157535847,
+              0.36,
+              16.0,
+              0.24283309653050505
+            ],
+            "bucket_xy_m": [
+              1.1882909668094044,
+              0.16886367629024868
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                10,
+                4
+              ],
+              "connection_sha256": "cbc75ab91374680fae12f5d48f6fab7e5f9bc04d2cfe4a04bc60c547e594c8dd",
+              "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-26-g05",
+              "record_sha256": "e16e8c0dbd539f0aa408d0d97b068611831e5b64e65d446a2429a9cd978613f9",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 27,
+              "forbidden_contact_steps": 27,
+              "reward": -0.3377801743631025
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-26-g06",
+            "grid_index": 96,
+            "case_grid_index": 6,
+            "values": [
+              0.5902669906634894,
+              -0.12563148157535847,
+              0.36,
+              20.0,
+              0.24283309653050505
+            ],
+            "bucket_xy_m": [
+              1.1882909668094044,
+              0.16886367629024868
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                10,
+                7
+              ],
+              "connection_sha256": "88ebc5ef34d8d683f233c4d4e495e29ef46897fca6bf1ba988522197c31dca18",
+              "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-26-g06",
+              "record_sha256": "a86b9edea99f08c6ef0e8eee8a86fbed5d86a977b1fa88c877d1481808d3d13a",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 27,
+              "forbidden_contact_steps": 27,
+              "reward": -0.33465715635370774
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-26-g07",
+            "grid_index": 97,
+            "case_grid_index": 7,
+            "values": [
+              0.5902669906634894,
+              -0.12563148157535847,
+              0.36,
+              24.0,
+              0.24283309653050505
+            ],
+            "bucket_xy_m": [
+              1.1882909668094044,
+              0.16886367629024868
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                10,
+                0
+              ],
+              "connection_sha256": "2d77a96b09ea25f770729502a5e369618edd00ee1adcaf3743a649f21f71d1d3",
+              "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-26-g08",
+            "grid_index": 98,
+            "case_grid_index": 8,
+            "values": [
+              0.5902669906634894,
+              -0.12563148157535847,
+              0.36,
+              28.0,
+              0.24283309653050505
+            ],
+            "bucket_xy_m": [
+              1.1882909668094044,
+              0.16886367629024868
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                10,
+                0
+              ],
+              "connection_sha256": "367af570dadb821ee524b32ad4d5d66219ba5c621723b64c4b5e341935644c34",
+              "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-26-g09",
+            "grid_index": 99,
+            "case_grid_index": 9,
+            "values": [
+              0.5902669906634894,
+              -0.12563148157535847,
+              0.36,
+              32.0,
+              0.24283309653050505
+            ],
+            "bucket_xy_m": [
+              1.1882909668094044,
+              0.16886367629024868
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                10,
+                0
+              ],
+              "connection_sha256": "9db4d3b398b98591aef958511e12150f27593468dfc8182929badf0f178c9c91",
+              "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-26-g10",
+            "grid_index": 100,
+            "case_grid_index": 10,
+            "values": [
+              0.5902669906634894,
+              -0.12563148157535847,
+              0.4,
+              16.0,
+              0.24283309653050505
+            ],
+            "bucket_xy_m": [
+              1.1882909668094044,
+              0.16886367629024868
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                7,
+                16
+              ],
+              "connection_sha256": "0fb3f49fdcdaf7e23611f588d2a6fcc7ed481b029cc29d4df4ce4185fa321f95",
+              "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-26-g10",
+              "record_sha256": "3d095a2579e2ee908c1da0222067c84c8dfc2da9037180fa3bc278a4d9333f81",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 27,
+              "forbidden_contact_steps": 27,
+              "reward": -0.3393213553371508
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-26-g11",
+            "grid_index": 101,
+            "case_grid_index": 11,
+            "values": [
+              0.5902669906634894,
+              -0.12563148157535847,
+              0.4,
+              20.0,
+              0.24283309653050505
+            ],
+            "bucket_xy_m": [
+              1.1882909668094044,
+              0.16886367629024868
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                7,
+                4
+              ],
+              "connection_sha256": "26a0832885e10105ec55aae2b62c1e20fdce89586ff3a7f3e4e37c9380e8edf5",
+              "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-26-g11",
+              "record_sha256": "3e0dc8ad1d3b51b00e6e2619fa91653dbd9be6c983c9d871aa018b648a77907d",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 27,
+              "forbidden_contact_steps": 27,
+              "reward": -0.3379373481000777
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-26-g12",
+            "grid_index": 102,
+            "case_grid_index": 12,
+            "values": [
+              0.5902669906634894,
+              -0.12563148157535847,
+              0.4,
+              24.0,
+              0.24283309653050505
+            ],
+            "bucket_xy_m": [
+              1.1882909668094044,
+              0.16886367629024868
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                7,
+                0
+              ],
+              "connection_sha256": "ac26d495759878792102f811fac7a297ac1262d10a6a5e1e3ee5595efd80dd9e",
+              "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-26-g13",
+            "grid_index": 103,
+            "case_grid_index": 13,
+            "values": [
+              0.5902669906634894,
+              -0.12563148157535847,
+              0.4,
+              28.0,
+              0.24283309653050505
+            ],
+            "bucket_xy_m": [
+              1.1882909668094044,
+              0.16886367629024868
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                7,
+                0
+              ],
+              "connection_sha256": "a47afdccaaf0ee4b02b02b16f7e5672ca9594afc8b0c9d0f1f1ed0d154aa10bf",
+              "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-26-g14",
+            "grid_index": 104,
+            "case_grid_index": 14,
+            "values": [
+              0.5902669906634894,
+              -0.12563148157535847,
+              0.4,
+              32.0,
+              0.24283309653050505
+            ],
+            "bucket_xy_m": [
+              1.1882909668094044,
+              0.16886367629024868
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                7,
+                0
+              ],
+              "connection_sha256": "5db33888ae03b89651dfa4add92d6f4d24c83a8ea6564f1e9822550d1e1e3a10",
+              "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-26-g15",
+            "grid_index": 105,
+            "case_grid_index": 15,
+            "values": [
+              0.5902669906634894,
+              -0.12563148157535847,
+              0.44,
+              16.0,
+              0.24283309653050505
+            ],
+            "bucket_xy_m": [
+              1.1882909668094044,
+              0.16886367629024868
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                5,
+                11
+              ],
+              "connection_sha256": "cc33bc239ae09276f5422b390300f7f1d0e2c047585ebe7fec01d74509dd0e55",
+              "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-26-g15",
+              "record_sha256": "e2f06828a661c80a3f0c565c5771c3b2005e23ff37c0739b1294cde65b98d115",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 27,
+              "forbidden_contact_steps": 27,
+              "reward": -0.3404838293120106
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-26-g16",
+            "grid_index": 106,
+            "case_grid_index": 16,
+            "values": [
+              0.5902669906634894,
+              -0.12563148157535847,
+              0.44,
+              20.0,
+              0.24283309653050505
+            ],
+            "bucket_xy_m": [
+              1.1882909668094044,
+              0.16886367629024868
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                5,
+                5
+              ],
+              "connection_sha256": "2bc1e93bc0d990d5de53b8e64df1fc3c99333215939a81e2d080102fbe947ada",
+              "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-26-g16",
+              "record_sha256": "da780f8ed6a26bd482ee272fe7252e6376cf1211693494dbc7d5c6743e812ec1",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 27,
+              "forbidden_contact_steps": 27,
+              "reward": -0.3396127329960331
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-26-g17",
+            "grid_index": 107,
+            "case_grid_index": 17,
+            "values": [
+              0.5902669906634894,
+              -0.12563148157535847,
+              0.44,
+              24.0,
+              0.24283309653050505
+            ],
+            "bucket_xy_m": [
+              1.1882909668094044,
+              0.16886367629024868
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                5,
+                8
+              ],
+              "connection_sha256": "5205edc8f99b2c4226b3d7863772b4c7f206a15c2ef4aea707a0175e17877c99",
+              "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-26-g17",
+              "record_sha256": "c39c840d8d79193f12b0ef8b43445e151737428896aa8d978243c4870e701624",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 27,
+              "forbidden_contact_steps": 27,
+              "reward": -0.3376501964945675
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-26-g18",
+            "grid_index": 108,
+            "case_grid_index": 18,
+            "values": [
+              0.5902669906634894,
+              -0.12563148157535847,
+              0.44,
+              28.0,
+              0.24283309653050505
+            ],
+            "bucket_xy_m": [
+              1.1882909668094044,
+              0.16886367629024868
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                5,
+                0
+              ],
+              "connection_sha256": "055d92b1338cdbe6aaaf57856d8af2757920f86f9f4c224244a8bd501fb3319d",
+              "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-26-g19",
+            "grid_index": 109,
+            "case_grid_index": 19,
+            "values": [
+              0.5902669906634894,
+              -0.12563148157535847,
+              0.44,
+              32.0,
+              0.24283309653050505
+            ],
+            "bucket_xy_m": [
+              1.1882909668094044,
+              0.16886367629024868
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                5,
+                0
+              ],
+              "connection_sha256": "cd428f2dc27c6924306f88a8d81c30f2aa5e282196d50e3ee5b7db2105d83cc7",
+              "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-26-g20",
+            "grid_index": 110,
+            "case_grid_index": 20,
+            "values": [
+              0.5902669906634894,
+              -0.12563148157535847,
+              0.46,
+              16.0,
+              0.24283309653050505
+            ],
+            "bucket_xy_m": [
+              1.1882909668094044,
+              0.16886367629024868
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                9,
+                12
+              ],
+              "connection_sha256": "e9c75195bc930e54575d82c0d4e2142f396f7bc7d9410f31258474ae7bbb061e",
+              "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-26-g20",
+              "record_sha256": "bd7f710f3c345c3cd6886b6ad90bae80dc155c54ffc6e04f01372fe8fbb03f9f",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 27,
+              "forbidden_contact_steps": 27,
+              "reward": -0.34097510467045955
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-26-g21",
+            "grid_index": 111,
+            "case_grid_index": 21,
+            "values": [
+              0.5902669906634894,
+              -0.12563148157535847,
+              0.46,
+              20.0,
+              0.24283309653050505
+            ],
+            "bucket_xy_m": [
+              1.1882909668094044,
+              0.16886367629024868
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                9,
+                14
+              ],
+              "connection_sha256": "4696a360049ace3b91d7cb68920bf49e54ca85a6e57d1ab36a59d857f15ddfe0",
+              "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-26-g21",
+              "record_sha256": "4e0347c8a3751e5e82a01bd62bb2db295ed955782ffbef54509d70b8b02a4aee",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 26,
+              "forbidden_contact_steps": 26,
+              "reward": -0.34024597169143356
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-26-g22",
+            "grid_index": 112,
+            "case_grid_index": 22,
+            "values": [
+              0.5902669906634894,
+              -0.12563148157535847,
+              0.46,
+              24.0,
+              0.24283309653050505
+            ],
+            "bucket_xy_m": [
+              1.1882909668094044,
+              0.16886367629024868
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                9,
+                7
+              ],
+              "connection_sha256": "1faaf5355ed3e5106bf0cb3f26f4656bd60942f625039c04047b2a5d3f880124",
+              "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-26-g22",
+              "record_sha256": "527877e4ce4cede65b04f6121655f2c881e42f6c2f487b83368432779f14cb1a",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 26,
+              "forbidden_contact_steps": 26,
+              "reward": -0.33868153401266793
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-26-g23",
+            "grid_index": 113,
+            "case_grid_index": 23,
+            "values": [
+              0.5902669906634894,
+              -0.12563148157535847,
+              0.46,
+              28.0,
+              0.24283309653050505
+            ],
+            "bucket_xy_m": [
+              1.1882909668094044,
+              0.16886367629024868
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                9,
+                0
+              ],
+              "connection_sha256": "a9b92f7ae743b19234b1178b052968a11dff87d8d896eb8d841fb65b92980c0d",
+              "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-26-g24",
+            "grid_index": 114,
+            "case_grid_index": 24,
+            "values": [
+              0.5902669906634894,
+              -0.12563148157535847,
+              0.46,
+              32.0,
+              0.24283309653050505
+            ],
+            "bucket_xy_m": [
+              1.1882909668094044,
+              0.16886367629024868
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                9,
+                0
+              ],
+              "connection_sha256": "8b3c3e09784608d36554f711a25981db7aa9c14dd4bdd1754a011dc7ade341f8",
+              "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-26-g25",
+            "grid_index": 115,
+            "case_grid_index": 25,
+            "values": [
+              0.5902669906634894,
+              -0.12563148157535847,
+              0.48,
+              16.0,
+              0.24283309653050505
+            ],
+            "bucket_xy_m": [
+              1.1882909668094044,
+              0.16886367629024868
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                7,
+                9
+              ],
+              "connection_sha256": "f1120cd1f436a36b50fc96db4469b2f9f2e8958ca697a4b35c5f7a373bb51f0c",
+              "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-26-g25",
+              "record_sha256": "79659e0e0621736fb3dd97c0874ad42be51830035ca8ceed7361a6b1b4bffbb9",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 27,
+              "forbidden_contact_steps": 27,
+              "reward": -0.3414217477457032
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-26-g26",
+            "grid_index": 116,
+            "case_grid_index": 26,
+            "values": [
+              0.5902669906634894,
+              -0.12563148157535847,
+              0.48,
+              20.0,
+              0.24283309653050505
+            ],
+            "bucket_xy_m": [
+              1.1882909668094044,
+              0.16886367629024868
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                7,
+                12
+              ],
+              "connection_sha256": "ec075a435d434325ca723e49ce5bf4234fbcddea70c6d8cc89dfd233feb9e524",
+              "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-26-g26",
+              "record_sha256": "a22aead182fbb322b2fea17240a36ebdffff890e540aad1a3602eff0eef8c32a",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 27,
+              "forbidden_contact_steps": 27,
+              "reward": -0.3407876929172954
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-26-g27",
+            "grid_index": 117,
+            "case_grid_index": 27,
+            "values": [
+              0.5902669906634894,
+              -0.12563148157535847,
+              0.48,
+              24.0,
+              0.24283309653050505
+            ],
+            "bucket_xy_m": [
+              1.1882909668094044,
+              0.16886367629024868
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": true,
+              "reason": null,
+              "valid_ik_branches": [
+                7,
+                5
+              ],
+              "connection_sha256": "5b4b058107d706f27dbebe9e2829bf87cd3ba5f530ff1d362384acb5a69bb4ae",
+              "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+            },
+            "discovery": {
+              "record_id": "height-tilt-table-training-test-26-g27",
+              "record_sha256": "dfb4abf9b4b4b12c1d3991d63c2a213e782fe30260eb43be82a365c816d19160",
+              "native_release": true,
+              "captured": false,
+              "route_quality": 0,
+              "direct_capture": false,
+              "table_assisted_capture": false,
+              "invalid_physics": false,
+              "robot_contact_steps": 26,
+              "forbidden_contact_steps": 26,
+              "reward": -0.3394484351465471
+            }
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-26-g28",
+            "grid_index": 118,
+            "case_grid_index": 28,
+            "values": [
+              0.5902669906634894,
+              -0.12563148157535847,
+              0.48,
+              28.0,
+              0.24283309653050505
+            ],
+            "bucket_xy_m": [
+              1.1882909668094044,
+              0.16886367629024868
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                7,
+                0
+              ],
+              "connection_sha256": "30713cdd003c754e5c9604fb3c180a5b7311abd3d03bc9c93e8da76a2deb1a72",
+              "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+            },
+            "discovery": null
+          },
+          {
+            "candidate_id": "height-tilt-table-training-test-26-g29",
+            "grid_index": 119,
+            "case_grid_index": 29,
+            "values": [
+              0.5902669906634894,
+              -0.12563148157535847,
+              0.48,
+              32.0,
+              0.24283309653050505
+            ],
+            "bucket_xy_m": [
+              1.1882909668094044,
+              0.16886367629024868
+            ],
+            "selected": false,
+            "admission": {
+              "status": "completed",
+              "passed": false,
+              "reason": "finite_ik_unresolved",
+              "valid_ik_branches": [
+                7,
+                0
+              ],
+              "connection_sha256": "edb8205474c1c7c833c1415ad5a87f2e7925a9900ab8bed4c03a7887356f1659",
+              "resolution_sha256": "e2a682cf8e6c3eef39b51c7f4b7ac10075addb7bb4e49bb4d6a2d56bbcd77f5c"
+            },
+            "discovery": null
+          }
+        ],
+        "selection": null,
+        "repeats": {
+          "baseline": {
+            "attempts": 3,
+            "native_releases": 3,
+            "captures": 0,
+            "setup_rejections": 0,
+            "native_misses": 3,
+            "robot_contact_shots": 3,
+            "forbidden_contact_shots": 3,
+            "invalid_physics": 0,
+            "direct_captures": 0,
+            "table_assisted_captures": 0
+          },
+          "selected": {
+            "attempts": 0,
+            "native_releases": 0,
+            "captures": 0,
+            "setup_rejections": 0,
+            "native_misses": 0,
+            "robot_contact_shots": 0,
+            "forbidden_contact_shots": 0,
+            "invalid_physics": 0,
+            "direct_captures": 0,
+            "table_assisted_captures": 0
+          }
+        }
+      }
+    ],
+    "repeats": {
+      "baseline": {
+        "attempts": 12,
+        "native_releases": 12,
+        "captures": 0,
+        "setup_rejections": 0,
+        "native_misses": 12,
+        "robot_contact_shots": 6,
+        "forbidden_contact_shots": 6,
+        "invalid_physics": 0,
+        "direct_captures": 0,
+        "table_assisted_captures": 0
+      },
+      "selected": {
+        "attempts": 0,
+        "native_releases": 0,
+        "captures": 0,
+        "setup_rejections": 0,
+        "native_misses": 0,
+        "robot_contact_shots": 0,
+        "forbidden_contact_shots": 0,
+        "invalid_physics": 0,
+        "direct_captures": 0,
+        "table_assisted_captures": 0
+      }
+    },
+    "control_gates": {
+      "pre": {
+        "status": "passed",
+        "direct_captures": 3,
+        "table_assisted_captures": 3,
+        "negative_captures": 0,
+        "counts": {
+          "attempts": 9,
+          "native_releases": 9,
+          "captures": 6,
+          "setup_rejections": 0,
+          "native_misses": 3,
+          "forbidden_contact_shots": 3,
+          "invalid_physics": 0,
+          "direct_captures": 3,
+          "table_assisted_captures": 3
+        }
+      },
+      "post": {
+        "status": "passed",
+        "direct_captures": 3,
+        "table_assisted_captures": 3,
+        "negative_captures": 0,
+        "counts": {
+          "attempts": 9,
+          "native_releases": 9,
+          "captures": 6,
+          "setup_rejections": 0,
+          "native_misses": 3,
+          "forbidden_contact_shots": 3,
+          "invalid_physics": 0,
+          "direct_captures": 3,
+          "table_assisted_captures": 3
+        }
+      }
+    },
+    "audit": {
+      "status": "passed",
+      "full_checks_verified": true,
+      "version": "sircus-table-height-tilt-audit-v1",
+      "checks_count": 36371,
+      "report_sha256": "a93d348dd055fde3ec1e9dc660c278fdc3e5f38742bce93abd71da03f0d066c7",
+      "contract_fingerprint": "4e348fd03faf9b54083e11ef1e9bf594c8c90b5bd3b2707f20f0606a6b26016a",
+      "proof_sha256": "38f0553a0cf8ca3948f8b9624d55e05ce07b2d9c1c0b9934c22d7e0f8e8bbe00"
+    }
+  }
+}

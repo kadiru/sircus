@@ -68,3 +68,18 @@ Report exact successful height/tilt/gap combinations and repeat outcomes, or
 state clearly if no successful setting is found. A positive result here is a
 development recipe, not policy generalization. No PPO, active-policy replacement,
 noise test, 4070 work, Isaac change or physical operation is part of this task.
+
+## Completed result
+
+[The frozen experiment](../../baselines/mjlab-table-height-tilt-20261108/README.md)
+finished all 120 admission checks: 58 admitted and 62 finite IK declines.
+Every admitted shot bounced the board, but none achieved whole-ball entry or
+capture; 42 had robot contact. The original shots again captured 0/12. No
+discovery capture qualified for the conditional three-repeat stage. All 18
+controls passed, and the independent audit passed 36,371 checks across 88
+native releases and the full 150-request accounting.
+
+The 460 mm row found a reachable 28° posture for case 00 that the adjacent
+440/480 mm rows did not admit. Reachable endpoints alone did not solve the
+flight. Keep the current policies unchanged and investigate ball clearance
+and alternative admitted geometry before more PPO.
