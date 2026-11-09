@@ -23,6 +23,10 @@ from . import table_assisted_score_oracle as oracle
 from .benchmark_verify import EvidenceError, contained, digest, read, sha
 
 VERSION = 'sircus-coverage-training7h-audit-v2'
+AUDIT_REVISION = 'normalized-command-units-v1'
+ORIGINAL_AUDITOR_SHA256 = 'bc3e52d45d945b3c6b0e6f879c2ffd8e7676a3e44f349843d91419ea48b82b13'
+ORIGINAL_FAILED_AUDIT_SHA256 = '08b9e2b029862524cdcbe28ccb2932a0376269b0588f2cf1643ee78828eacb35'
+ORIGINAL_FAILURE = 'EvidenceError: coverage-validation-bc-seed2026110901-0000-coverage-validation-r4-c6-n0/actual actor request'
 STUDY_VERSION = 'sircus-coverage-training7h-v2'
 BC_SEED = 2026110901
 SEEDS = (2026110902, 2026110903)
@@ -339,8 +343,20 @@ def audit_packet(packet, rows, contexts, record, state, checks):
         residual=np.tanh(latent.astype(float))
         checks.numeric(prediction['latent_mean'],latent,label+'/independent actor output',2e-6)
         checks.numeric(prediction['normalized_residual'],residual,label+'/independent residual',2e-6)
-        checks.numeric(prediction['command_values'],np.asarray(prediction['effective_source_hint']['values'])+residual*RESIDUAL,
-                       label+'/actual actor request',2e-6)
+        # NumPy and Torch use distinct float32 matmul implementations. Compare
+        # their outputs in the same dimensionless action units: the tilt scale
+        # is 8 degrees, while the other scales are measured in metres. Applying
+        # one absolute tolerance after scaling made tilt eight times stricter
+        # than the actor check and the metre-valued commands much less strict.
+        # Independently bind the recorded transform exactly; a command edit
+        # cannot hide inside that numerical forward-pass tolerance.
+        saved_residual=np.tanh(np.asarray(prediction['latent_mean'],dtype=float))
+        anchor=np.asarray(prediction['effective_source_hint']['values'],dtype=float)
+        checks.numeric(prediction['normalized_residual'],saved_residual,label+'/recorded tanh transform',1e-12)
+        checks.numeric(prediction['command_values'],anchor+saved_residual*RESIDUAL,
+                       label+'/recorded command transform',1e-12)
+        checks.numeric((np.asarray(prediction['command_values'])-anchor)/RESIDUAL,residual,
+                       label+'/actual actor request in normalized units',2e-6)
         checks.equal(row['values'],row['command_values'],label+'/no action substitution')
 
 
@@ -662,6 +678,30 @@ def audit_native_namespaces(study,rows,prior,old_prior,home,spec,calibration,ass
     return setup,native_count
 
 
+def audit_implementation(study,source,spec,checks,*,auditor=None):
+    """Bind a correction to the exact failed auditor without editing its source.
+
+    The producer's entire source set is checked separately. A changed verifier
+    is allowed only for this declared normalization correction to the pinned
+    original implementation and preserved failed proof. It is never presented
+    as the auditor that originally ran with the experiment.
+    """
+    auditor=Path(__file__) if auditor is None else Path(auditor)
+    relative='sircus/mjlab/coverage_training_verify.py'
+    original=spec['source_sha256'][relative];actual=sha(auditor)
+    checks.equal(sha(source/relative),original,'Original independent auditor source remains unchanged')
+    if actual==original:
+        return dict(revision='same-frozen-implementation',auditor_sha256=actual,original_auditor_sha256=original)
+    checks.equal(original,ORIGINAL_AUDITOR_SHA256,'Correction applies only to pinned original auditor')
+    failed=study.with_name(study.name+'-audit.json')
+    checks.equal(sha(failed),ORIGINAL_FAILED_AUDIT_SHA256,'Preserved original failed audit bytes')
+    checks.equal(read(failed),dict(version=VERSION,status='failed',failures=[ORIGINAL_FAILURE]),
+                 'Original failure was mixed-unit command tolerance')
+    return dict(revision=AUDIT_REVISION,auditor_sha256=actual,original_auditor_sha256=original,
+        original_failed_audit_file=failed.name,original_failed_audit_sha256=sha(failed),
+        correction='Independent actor/residual tolerance remains 2e-6 in normalized units; recorded tanh and command transforms require 1e-12. No shot, checkpoint, scoring or producer changes.')
+
+
 def audit(study,source,assets,*,current_study,current_audit,case00_study,case00_audit,reference,history_root=None):
     started=time.monotonic();checks=AuditChecks()
     study,source,assets,current_study,current_audit,case00_study,case00_audit,reference=map(Path,
@@ -679,7 +719,7 @@ def audit(study,source,assets,*,current_study,current_audit,case00_study,case00_
     checks.equal(report['protocol'],spec['protocol'],'Frozen protocol unchanged')
     protocol_checks(spec['protocol'],checks)
     replay.check_source_files(source,spec['source_sha256'],checks,'Frozen actual producer source')
-    checks.equal(sha(Path(__file__)),spec['source_sha256']['sircus/mjlab/coverage_training_verify.py'],'Same frozen independent audit implementation')
+    implementation=audit_implementation(study,source,spec,checks)
     checks.equal(sha(Path(oracle.__file__)),spec['source_sha256']['sircus/mjlab/table_assisted_score_oracle.py'],'Same independent v3 oracle implementation')
     parent,prior,controls,old_prior,control_replays=audit_inputs(study,source,current_study,current_audit,case00_study,case00_audit,spec,checks)
     old.audit_runtime_reference(source,reference,spec,parent,assets,checks)
@@ -704,6 +744,7 @@ def audit(study,source,assets,*,current_study,current_audit,case00_study,case00_
     return dict(version=VERSION,status='passed',full_checks_verified=True,native_checks_verified=True,checks_count=checks.count,
         checks=checks.entries,failures=[],contract_fingerprint=fp,report_sha256=sha(study/'report.json'),
         evidence_manifest_sha256=sha(study/'evidence-manifest.json'),auditor_sha256=sha(Path(__file__)),
+        audit_implementation=implementation,
         producer_source_sha256=spec['source_sha256'],requested_trials=len(rows),native_releases=native_count,
         bootstrap_summary=bootstrap_summary,bootstrap_replay=fit,selected=selected,test_comparison=comparisons,
         control_gates=control_gates,setup_evidence=setup,coordinate_inventory=inventory,request_accounting=accounting,

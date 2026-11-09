@@ -1,6 +1,9 @@
 # Sircus in mjlab
 
-Latest: [bounded seven-hour coverage training](COVERAGE_TRAINING7H.md).
+Latest: [completed seven-hour-budget comparison](../../baselines/mjlab-coverage-training-20261109/README.md).
+New imitation and selected PPO both captured 28/70 (40%); no net PPO gain.
+All 2,757 requests completed in 235.1 worker minutes. No policy promotion.
+[Protocol](COVERAGE_TRAINING7H.md).
 Fresh search on105 TRAIN positions, imitation and two PPO seeds, validation on35
 positions, then four frozen policies on70 new TEST positions. Up to2,757 native
 requests with a seven-hour pipeline deadline,64 substeps and unchanged v3 scoring.
