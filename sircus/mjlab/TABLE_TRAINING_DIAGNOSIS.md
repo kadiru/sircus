@@ -13,7 +13,7 @@ native archives by their recorded hashes. Inspect all 35 failures, retaining
 setup declines separately from executed ball flights. A first post-board contact
 is an observed force event; it is not necessarily the cause of a later miss.
 All 31 released misses bounced on the board, but none achieved whole-ball entry.
-First subsequent contacts partition them into table (17), bucket (7) and robot (7).
+First subsequent contacts partition them into table (16), bucket (8) and robot (7).
 Thirteen misses had forbidden contact at some point; that count differs from
 seven robot-first contacts because later collisions also matter.
 
@@ -82,3 +82,12 @@ Do not add these post-hoc repeats to the original 50-position policy score.
 The read-only `#tableTrainingDiagnosis` panel shows diagnosis and correction
 results separately. A successful correction here still needs fresh positions
 before it becomes a policy-selection rule.
+
+## Completed outcome
+
+[The 42-request test](../../baselines/mjlab-table-training-diagnosis-20261108/README.md)
+passed both control gates and 12,557 independent audit checks. Original shots
+captured 0/12, with six robot-contact shots. All 12 requests changed to 32° failed
+the finite board-arm IK search before release. No corrected flight was observed,
+so the experiment does not establish a contact or capture improvement. Retain the
+existing policy and find admitted joint height/tilt combinations before more PPO.
