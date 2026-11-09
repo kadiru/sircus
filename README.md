@@ -1,5 +1,14 @@
 # Sircus — Simple Circus
 
+**Latest completed mjlab training:** [table-assisted 50-position comparison](baselines/mjlab-table-assisted-training-20261108/README.md).
+On the same fresh bucket positions at fixed 64 substeps, old imitation captured
+**9/50**, old PPO **8/50**, new imitation **14/50**, and new PPO **15/50**.
+The complete 766-request study passed its independent audit; both new policies
+made six captures with table contact. Most of the observed gain is already in
+new imitation; PPO adds only one capture. This is one seed and one shot per
+position, with different training exposure from the old models. No policy was
+promoted. Final counts and all 50 matched outcomes are in `#tableTraining`.
+
 **Table-assisted task definition:** [version 3 scoring and reward](sircus/mjlab/SCORING_TABLE_ASSISTED.md)
 accept board → table → bucket captures after one continuous second inside.
 Historical v2 labels remain intact; CPU rescoring is separate from policy
@@ -7,7 +16,7 @@ training, and no new policy is activated by this change.
 [Completed saved-shot audit](baselines/mjlab-table-assisted-scoring-20261108/README.md):
 8,037 native trajectories; accepted captures **4,409 → 4,532** (+123).
 
-**Latest completed mjlab comparison:** [arm-clearance results](baselines/mjlab-arm-clearance-20261108/README.md)
+**Earlier completed selector comparison:** [arm-clearance results](baselines/mjlab-arm-clearance-20261108/README.md)
 and [frozen protocol](sircus/mjlab/ARM_CLEARANCE.md). On 50 new paired bucket
 positions at fixed64, captures fell from **20/50 to 16/50**. Robot-contact trials
 fell from 12/44 releases to 5/32, largely because the gate withheld 12 shots.
