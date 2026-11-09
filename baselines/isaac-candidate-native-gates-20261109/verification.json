@@ -1,0 +1,52 @@
+{
+  "assessment_dispatch_or_audit_implemented": false,
+  "execution_authorized": false,
+  "focused_tests": {
+    "cases_by_file": {
+      "test_candidate_continuation_launcher.py": 35,
+      "test_candidate_continuation_native_audit.py": 13,
+      "test_candidate_continuation_native_guards.py": 15,
+      "test_candidate_continuation_native_score.py": 14
+    },
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 77,
+    "wall_s": 36.6656920829555
+  },
+  "frozen_benchmark_changed": false,
+  "learning_checkpoint_audit_separate": true,
+  "local_environment": {
+    "numpy": "2.5.4",
+    "python": "3.12.14",
+    "scipy": "1.18.1",
+    "torch_required_for_new_cases": false
+  },
+  "production_backend_implemented": false,
+  "release_authorized": false,
+  "schema": "sircus-candidate-native-gates-software-verification-v1",
+  "scope": "Generated numerical arrays, mock ledger evidence and fake process/clock/storage/GPU responses only. No native execution, real policy learning, performance measurement, checkpoint promotion or physical validation. Native TRAIN audit and mock launcher are separate components; production watchdog/entrypoint, phase resource receipts and final-only assessment remain deferred.",
+  "source_sha256": {
+    "sircus/isaac/candidate_continuation_launcher.py": "106996b74d74bd38a3848e09d57c7c94a8d985dbbbd0bbaf9b35a85d6e689134",
+    "sircus/isaac/candidate_continuation_native_audit.py": "53d40cc616d9c14bcb57704ecaa95ad285a09b5545007c01add3928e5ae69747",
+    "sircus/isaac/candidate_continuation_native_guards.py": "8a240f23f44f80d51b0c0b464148b5ceba22ee2fa86b8e244efb1b14cf162d59",
+    "sircus/isaac/candidate_continuation_native_score.py": "41da561f203d4423d3c801261c29a90e846a888ea0484e90f280a8eec58a5e39",
+    "sircus/isaac/tests/test_candidate_continuation_launcher.py": "5e8586e77e1f67349a6a0414c58e2d0703217fbc92061a14e3e858fdde20b375",
+    "sircus/isaac/tests/test_candidate_continuation_native_audit.py": "883e1c62c4c69a3abbcc1983d00f6c93dcd8f428ac8f32b2da1c015d3f282f2f",
+    "sircus/isaac/tests/test_candidate_continuation_native_guards.py": "8845cdffa3d504f4fc3e594726449b6bcd112e23823d02cf4ccfda04d6263783",
+    "sircus/isaac/tests/test_candidate_continuation_native_score.py": "9585f4a6a5ceb5ed8f74d50c96791ad906f835fe9c2574d4edb1ff2d9a6f3190"
+  },
+  "startup_schedule_receipt_cross_audit_implemented": false,
+  "status": "mock_verified",
+  "synthetic": true,
+  "task_execution": {
+    "hardware_operations": 0,
+    "held_out_outcome_files_read": 0,
+    "new_diagnostic_trajectories": 0,
+    "new_task_requests": 0,
+    "real_optimizer_steps": 0,
+    "service_operations": 0,
+    "simulator_starts": 0,
+    "ssh_calls": 0
+  }
+}
