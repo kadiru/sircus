@@ -51,6 +51,16 @@ class AuditTests(unittest.TestCase):
         with self.assertRaisesRegex(EvidenceError, 'Held-out'):
             audit.best_teachers([table])
 
+    def test_native_physics_rejection_normalization_never_clears_failure(self):
+        score = dict(invalid='uncalibrated_contact_dynamics', invalid_physics=True, route_success=False, reward=-1.)
+        native = dict(score, id='invalid', invalid='native_physics_outside_calibrated_domain')
+        audit.check_native_score(native, score, Checks())
+        native['invalid'] = None
+        with self.assertRaisesRegex(EvidenceError, 'preserves'):
+            audit.check_native_score(native, score, Checks())
+        score = dict(invalid=None, invalid_physics=False, route_success=True, reward=4.5)
+        audit.check_native_score(dict(score, id='valid'), score, Checks())
+
     def test_split_seed_and_full_exclusion_regeneration(self):
         parent = {'train': [dict(id=f'train-{i}', bucket_xy_m=[.2 + i * .01, -.4]) for i in range(35)]}
         exclusions = [r['bucket_xy_m'] for r in parent['train']] + [[.7, -.5]]

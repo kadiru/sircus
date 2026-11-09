@@ -169,13 +169,22 @@ def rescore_rows(directory, rows, scene, calibration, trace_spec, assets, checks
             index = row['native_cache_row']
             trace = {key: value[:, index] if value.ndim >= 2 and key != 'time_s' else value for key, value in arrays.items()}
             score = oracle.score_trace(scene, row['bucket_xy_m'], row['board_normal'], calibration, trace)
-            for key, value in score.items():
-                checks.require(key in row, row['id'] + '/complete oracle field/' + key)
-                if isinstance(value, (float, np.floating)):
-                    checks.numeric(row[key], value, row['id'] + '/independent dense v3 score/' + key, 1e-8)
-                else:
-                    checks.equal(row[key], value, row['id'] + '/independent dense v3 score/' + key)
+            check_native_score(row, score, checks)
     return traces
+
+
+def check_native_score(row, score, checks):
+    for key, value in score.items():
+        checks.require(key in row, row['id'] + '/complete oracle field/' + key)
+        if key == 'invalid':
+            # The unchanged adapter turns a native scorer's physics reason into
+            # its explicit execution-level reason. It never clears invalidity.
+            checks.equal(row[key], 'native_physics_outside_calibrated_domain' if score['invalid_physics'] else None,
+                         row['id'] + '/adapter preserves oracle physics rejection')
+        elif isinstance(value, (float, np.floating)):
+            checks.numeric(row[key], value, row['id'] + '/independent dense v3 score/' + key, 1e-8)
+        else:
+            checks.equal(row[key], value, row['id'] + '/independent dense v3 score/' + key)
 
 
 def control_gate(rows):
