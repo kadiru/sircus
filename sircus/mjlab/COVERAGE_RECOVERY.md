@@ -7,6 +7,12 @@ The purpose is to find additional executable, repeatable demonstrations and
 measure whether imitation improves on fresh bucket positions. No additional
 PPO optimization or automatic interactive-policy promotion is authorized here.
 
+Completed result: [audited recovery and fresh 70-position comparison](../../baselines/mjlab-coverage-recovery-20261109/README.md).
+All 970 requests finished within the limits below; 24 recovered layouts passed
+48/48 confirmation drops. Recovery imitation captured 37/70 new positions,
+versus 34/70 for each parent model and 31/70 for the earlier PPO weights.
+The protocol below remains the frozen design, not a post-result revision.
+
 ## What the parent study showed
 
 New imitation and selected PPO each captured 28/70 on identical unseen layouts.

@@ -1,9 +1,41 @@
 # Coverage recovery handoff — November 9, 2026
 
-Status: running. The nine startup controls passed with six expected captures
-and three expected misses. Search and final comparison are not yet complete.
+Status: completed and independently audited. All 970 requests finished in
+5,807.50 worker seconds (96.8 minutes), with both control gates passing and
+283,251 independent checks. No budget cutoff or extension occurred.
 [Protocol](../sircus/mjlab/COVERAGE_RECOVERY.md) specifies a maximum of 1,000
 requests, a two-hour acquired 4090 slot, and a separate three-hour pipeline cap.
+
+## Result
+
+[Compact evidence and all 70 paired positions](../baselines/mjlab-coverage-recovery-20261109/README.md)
+preserve the complete comparison and exact recovered recipes.
+
+| Frozen model | Captures / 70 fresh positions |
+| --- | ---: |
+| Recovery imitation | 37 (52.9%) |
+| Parent imitation | 34 (48.6%) |
+| Parent selected PPO | 34 (48.6%) |
+| Earlier PPO weights | 31 (44.3%) |
+
+The 624-proposal search found 83 captures across 24 of 39 development cases.
+All 24 selected recipes passed both fresh confirmation drops (48/48), giving
+92 total teachers for 800 actor-only imitation updates. Training loss decreased
+from 0.046363 to 0.002881; that fit loss is not the capture metric.
+Recovery still declined 16 setups and missed 17 released shots on fresh TEST.
+Three baseline attempts exceeded the validated physics domain (two parent
+imitation, one parent PPO); they remain unsuccessful requests. Recovery gained
+eight/lost five captures against parent imitation, nine/lost six against parent
+PPO, and eight/lost two against earlier PPO. None of these gained captures
+overlaps an invalid baseline attempt. No outcome was retried or removed.
+The gain is modest and sample-specific, not all-table reliability.
+
+Final report SHA-256:
+`6a255223820656059fe16a5de2944ba2593f7ac3603b287f4955979cd4677504`.
+Matching independent proof SHA-256:
+`e2ba653792b37d302425ba4af6cb22460c3d5b426274b3c1b3cbce270a857a9b`.
+Contract fingerprint:
+`f54c341eba5258b427e4e1eb05a1b2e93bf76518d9f94a2fe8cf6bad744f6082`.
 
 ## Immutable parent
 
@@ -66,8 +98,10 @@ No merge or policy promotion is requested.
 
 Launched at **09:15:43 PST** on November 9. The worker has a maximum two-hour
 acquired slot; the pipeline has a three-hour absolute deadline. Check live state
-rather than inferring completion from elapsed time. The supervisor automatically
-runs the independent CPU audit after a successful complete worker result.
+rather than inferring completion from elapsed time. The supervisor completed the
+independent CPU audit after the full worker result. Worker, supervisor and
+finite publisher have exited; the final publisher recorded 191 updates and no
+errors. No new native run or selector activation is pending.
 
 Paths relative to the Ubuntu `sircus-mjlab` workspace:
 
@@ -75,7 +109,7 @@ Paths relative to the Ubuntu `sircus-mjlab` workspace:
 - Evidence and models: `output/coverage-recovery-v1/`.
 - Supervisor state/log: `output/coverage-recovery-v1.pipeline.json` / `.pipeline.log`.
 - Worker budget: `output/coverage-recovery-v1-budget.json`.
-- Matching independent proof when complete: `output/coverage-recovery-v1-audit.json`.
+- Passed independent proof: `output/coverage-recovery-v1-audit.json`.
 - Launch receipt: `launch-receipts/coverage-recovery-v1.json`.
 - Read-only UI snapshot: `coverage-recovery-v1-snapshot.json`.
 - Publication receipt/log: `coverage-recovery-v1-publication-receipt.json` / `.log`.
@@ -85,8 +119,26 @@ Paths relative to the Ubuntu `sircus-mjlab` workspace:
 
 The additive [recovery UI](http://127.0.0.1:18781/#coverageRecovery) preserves
 historical panels and refreshes saved state without restarting the viewer.
-A finite publisher stops after terminal pipeline state or its own deadline.
+The finite publisher stopped after terminal pipeline state.
 Do not start a duplicate study, overwrite its evidence, or edit frozen source.
+
+Final presentation-only revision `26e4ef43b7b3b049e5a89ff21bf0878cb5a4085e`
+labels invalid-physics attempts separately without changing scores or denominators.
+After the finite publisher exited, a one-shot publication from a separate source
+directory preserved the frozen producer, all evidence, the HTML outside this
+panel, and all 56 unrelated display keys. Receipt:
+`verification/coverage-recovery-v1-ui-invalid-physics-v1/receipt.json`
+(SHA-256 `07f35478668bd6c06d47b9e168930be6233d2c78b25f57c8aa974bd35200cb13`).
+Final HTML SHA-256:
+`e9655a79183bffa5fbd75bec60c3064a0cc24026df4ef58c750b199fcd6a7a89`.
+All 280 TEST outcomes, 24 confirmed teachers and three paired comparisons were
+verified against the passed proof. Focused final checks passed 16 JavaScript and
+13 Python tests; GitHub Actions passed for the UI source revision. No service
+was restarted and no model was activated.
+Chrome verified the completed status, all four 70-position result rows and the
+three paired gain/loss comparisons. Reloading the large historical page was
+slow; its embedded final snapshot rendered correctly without requiring a live
+poll. The final comparison screenshot remains a local handoff artifact.
 
 Validation before launch: full repository suite passed, including 1,648 mjlab
 checks (expected dependency skips) and 281 JavaScript checks. Focused publication
