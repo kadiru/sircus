@@ -1,5 +1,25 @@
 # Project state
 
+## TRAIN candidate bank and preservation check — November 9, 2026
+
+- [Candidate-list contract](../sircus/isaac/CANDIDATE_BANK.md): exact seed-22
+  parent choice, 16 learned-distribution samples and 64 broad Sobol proposals per
+  original TRAIN position, plus every successful paid TRAIN action. All 4,369
+  exact proposals/provenance aliases are retained before geometry qualification.
+- [Independent survival audit](../baselines/isaac-feasible-candidates-20261109/README.md):
+  1,814 qualified candidates at 35/35 TRAIN positions; **all 1,534 historical
+  captures, including all 485 clean, survive**. No successful TRAIN exclusion.
+  The 2,555 other declines are 2,166 necessary outer-bound violations, 361
+  unresolved arm IK cases and 28 clearance-proxy overlaps.
+- Original 289 paid TRAIN packet hashes/10,000 slots and final model bytes
+  verified. Known-TRAIN parent predictions only; no held-out shot files used.
+  Successful historical IK is independently checked and warm-starts the unchanged
+  robust solver; coupled geometry/path gates remain mandatory. Qualification
+  does not reproduce capture or authorize release.
+- No optimizer updates, native shots, model changes, service restart or frozen
+  benchmark edits. Full bank/raw evidence stay outside Git; compact counts/hashes
+  are pushed separately. Board-goal interface and training remain deferred.
+
 ## Coupled-arm feasibility and current PPO reanalysis — November 8, 2026
 
 - [Shared geometry layer](../sircus/isaac/JOINT_FEASIBILITY.md) exposes exact-action
