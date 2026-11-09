@@ -4,6 +4,7 @@ import copy
 import json
 from pathlib import Path
 import sys
+import subprocess
 from types import SimpleNamespace
 import unittest
 from unittest.mock import Mock, patch
@@ -56,7 +57,7 @@ class CandidateSupervisorTests(unittest.TestCase):
 
     def make_plan(self):
         with patch.object(wrapper,"_BASE_MAKE_PLAN",side_effect=self.mocked_base), \
-             patch.object(wrapper,"validate_comparison"):
+             patch.object(selector,"validate_comparison"):
             return wrapper.make_plan(self.args,"owned")
 
     def test_external_comparison_and_parent_bytes_are_both_frozen_inputs(self):
@@ -99,7 +100,7 @@ class CandidateSupervisorTests(unittest.TestCase):
         original_planner=supervisor.make_plan
         previous_deadlines=supervisor.WAIT_SECONDS,supervisor.NATIVE_SECONDS
         with patch.object(wrapper,"_BASE_MAKE_PLAN",side_effect=base), \
-             patch.object(wrapper,"validate_comparison"), \
+             patch.object(selector,"validate_comparison"), \
              patch.object(supervisor,"parse_args",return_value=self.args), \
              patch.object(supervisor,"require_running_container"), \
              patch.object(supervisor,"wait_for_slot",side_effect=queue), \
@@ -116,7 +117,7 @@ class CandidateSupervisorTests(unittest.TestCase):
         def base(*args):calls.append(None);return copy.deepcopy(self.base)
         child=Mock();child.wait.return_value=0;child.pid=4321
         with patch.object(wrapper,"_BASE_MAKE_PLAN",side_effect=base), \
-             patch.object(wrapper,"validate_comparison"), \
+             patch.object(selector,"validate_comparison"), \
              patch.object(supervisor,"parse_args",return_value=self.args), \
              patch.object(supervisor,"require_running_container"), \
              patch.object(supervisor,"wait_for_slot"), \
@@ -125,6 +126,23 @@ class CandidateSupervisorTests(unittest.TestCase):
             self.assertEqual(wrapper.main(),0)
         self.assertEqual(len(calls),2)
         self.assertEqual(launch.call_args.args[0],["never-executed"])
+
+    def test_minimal_python_helper_routes_need_no_numpy_scipy_or_torch(self):
+        for option, name in (("--container-exec", "container_exec"),
+                             ("--container-terminate", "container_terminate")):
+            script = (
+                "import sys; sys.path.insert(0,%r); "
+                "import candidate_comparison_supervisor as w; "
+                "assert not any(x in sys.modules for x in ('numpy','scipy','torch','candidate_selector')); "
+                "setattr(w.supervisor,%r,lambda raw: print('owned-helper:'+raw)); "
+                "sys.argv=['candidate_comparison_supervisor.py',%r,'{}']; "
+                "w.main(); "
+                "assert not any(x in sys.modules for x in ('numpy','scipy','torch','candidate_selector'))"
+            ) % (str(SOURCE), name, option)
+            with self.subTest(option=option):
+                result=subprocess.run([sys.executable,"-S","-c",script],check=True,
+                                      capture_output=True,text=True)
+                self.assertEqual(result.stdout.strip(),"owned-helper:{}")
 
 
 if __name__=="__main__":unittest.main()
