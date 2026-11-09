@@ -1,5 +1,15 @@
 # Sircus — Simple Circus
 
+**Latest mjlab correction:** [two flight losses recovered by restoring drop gap](baselines/mjlab-regression-drop-gap-20261109/README.md).
+At fixed 64 substeps, the unchanged recovery recipes captured **0/6**; restoring
+only their matched parent gaps captured **6/6**, with **3/3 per case**. Exact
+parent recipes retained **6/6**. All corrected captures used table rebounds;
+the actual board poses and joint vectors stayed unchanged. The 36-shot study,
+18 formal controls and 16,072 independent checks passed. This is selected
+posthoc development evidence, not a new policy score: the original **37/70**
+remains unchanged. [Handoff](docs/MJLAB_REGRESSION_DROP_GAP_20261109.md); no retraining
+or policy activation, and the 4070 and Isaac setup remain untouched.
+
 **Latest mjlab diagnosis:** [five lost captures and one height correction](baselines/mjlab-recovery-regression-20261109/README.md).
 Across three requests per selected loss, exact parent recipes captured **15/15**,
 exact recovery recipes **0/15**, and restoring only parent board height **3/15**.
