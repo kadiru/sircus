@@ -1,0 +1,547 @@
+{
+  "version": "sircus-height-tilt-video-contact-evidence-v1",
+  "study": "table-height-tilt-v1",
+  "source_commit": "380ac3e73b8d6b08504a31ad3797e5088b78af4e",
+  "purpose": "Identify illustrative recorded misses and one positive control; no new trial or training result.",
+  "method": {
+    "runtime": "CPU MuJoCo 3.11.0",
+    "gpu_visibility": "CUDA_VISIBLE_DEVICES empty; no GPU imports or rendering",
+    "physics_stepping": false,
+    "geometry_procedure": "Compile original full model with build_scene(solref=(0.004,0.15), contact_friction=0.35); assign recorded native_initial_q10/q14, open fingers float32(0.025), original bucket mocap, and recorded ball-center sample; mj_forward computes geometry/contact only. No mj_step, no resimulation, no new forces measured. Check board center/normal within 2e-6 of recorded native pose and bucket within 1e-6. At adjacent samples inspect ball contact pairs and mj_geomDistance to robot collision geoms.",
+    "native_contact_evidence": "Original forces_N aggregate channels (board,bucket,table,floor,robot,unattributed); threshold strictly >0.01N before physics_steps. Native robot link IDs were not recorded.",
+    "time_convention": "time_s[k] is pre-integration sample for contact force interval[k,k+1]; ball position[k+1] is post-integration. Native dt=1/15360s at 64 substeps.",
+    "link_claim_scope": "Named robot link is a CPU geometric reconstruction, corroborated by aggregate recorded robot force at the same tick; not an original logged link identity.",
+    "arm_motion_scope": "The native experiment held endpoint joints. Replays should not invent arm transitions or ball spin."
+  },
+  "verification": {
+    "audit_status": "passed",
+    "checks_count": 36371,
+    "full_checks_verified": true,
+    "native_checks_verified": true,
+    "audit_sha256": "38f0553a0cf8ca3948f8b9624d55e05ce07b2d9c1c0b9934c22d7e0f8e8bbe00",
+    "report_sha256": "a93d348dd055fde3ec1e9dc660c278fdc3e5f38742bce93abd71da03f0d066c7",
+    "contract_sha256": "bcbdd965f6edea89c704e9b10b079bc9040b6864d5c0b96bb976c03ebaa8db6f",
+    "rows_sha256": "2103e92a2ffc611e30e85c89fc85eb23ef05b89ad0a47cfa8c1a57cd4b6293e0",
+    "contract_fingerprint": "4e348fd03faf9b54083e11ef1e9bf594c8c90b5bd3b2707f20f0606a6b26016a",
+    "model_source_sha256": {
+      "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+      "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d"
+    },
+    "collision_asset_sha256": {
+      "assets/board_arm.urdf": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340",
+      "assets/dropper.urdf": "3f40e56e46b040fb3339c1235ea85872f46511c45db2d37f7661db94a470bae3",
+      "assets/poses.json": "5847c2793606860a82cc74030c3fe529767318f189c5d48e3d66c0dc7b9f776a",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link1.stl": "4069840361c2693b5b1147da366d5ba8a49ff7ab2c52fed68e07e04e07786e3f",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link2.stl": "0e736a629e6000c3c912f5aaf76937f824f510ac8894db67bd0d7f1d6210fc52",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link3.stl": "f682201345117c4b021fd9db21bd9bef6824886c8324f046b7d5772d7c9fa426",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link4.stl": "7bf4ab507c07a2b26e6a8528decdfe32d71efffdf1dd391406f1ce2f9ff4caa7",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link5.stl": "103955f097086e0f5d46380ff89bc7ef669877bb65def38431a18fc5343e1ba0",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link6.stl": "86b95b77850f38ff1437284705a1c8c616e3da21faef72e4f06751fc741de3b3",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link_base.stl": "871d501d23e8164440656331ee0e005d859dbdb7fab1c3725bef423adac9cf0e"
+    }
+  },
+  "examples": [
+    {
+      "id": "height-tilt-table-training-test-00-g23",
+      "role": "discovery miss",
+      "native_cache_file": "native-0002.npz",
+      "native_cache_row": 12,
+      "native_cache_sha256": "acc3657360f82ce97f6e4ff4f2b974fb74ce2df0001aa9dafc57ba6deeabb34f",
+      "row_sha256": "9d59e5b17a2cfba7484d39696cf41e4df08636d9a8c2b78a26111bf6f051eb8a",
+      "requested_configuration": {
+        "board_xy_m": [
+          0.5979922029820652,
+          -0.14355725745408743
+        ],
+        "board_height_m": 0.46,
+        "tilt_from_horizontal_deg": 28.0,
+        "drop_gap_m": 0.25181883224993984,
+        "bucket_xy_m": [
+          1.1095395651982425,
+          -0.22146373203137287
+        ]
+      },
+      "scoring_terminal_time_s": 1.1509765625,
+      "scoring_terminal_tick": 17679,
+      "archive_end_time_s": 4.0,
+      "whole_ball_entry": false,
+      "whole_ball_entry_time_s": null,
+      "capture": false,
+      "capture_time_s": null,
+      "max_retention_s": 0.0,
+      "closest_opening_distance_m": 0.13940450848466635,
+      "recorded_first_contact_events": {
+        "board": {
+          "tick": 3426,
+          "time_s": 0.223046875,
+          "ball_center_m": [
+            0.5979921817779541,
+            -0.14355725049972534,
+            0.5052199363708496
+          ],
+          "interval_count": 27,
+          "peak_N": 544.5637817382812
+        },
+        "bucket": {
+          "tick": 8734,
+          "time_s": 0.5686197916666667,
+          "ball_center_m": [
+            1.014335036277771,
+            -0.2983156740665436,
+            0.21298818290233612
+          ],
+          "interval_count": 26,
+          "peak_N": 504.0462341308594
+        },
+        "table": {
+          "tick": 11884,
+          "time_s": 0.7736979166666667,
+          "ball_center_m": [
+            0.9295965433120728,
+            -0.7107298970222473,
+            0.03740358725190163
+          ],
+          "interval_count": 26,
+          "peak_N": 537.3658447265625
+        },
+        "robot": {
+          "tick": 7316,
+          "time_s": 0.47630208333333335,
+          "ball_center_m": [
+            0.9332258105278015,
+            -0.1981794387102127,
+            0.37396854162216187
+          ],
+          "interval_count": 27,
+          "peak_N": 176.9487762451172
+        }
+      },
+      "compiled_model_xml_sha256": "9f80c8616425d4f9afdb683cfa90593235bd95cd3e10c54d8cb60f3ee338a11f",
+      "reconstructed_contact_samples": [
+        {
+          "delta_tick": -1,
+          "time_s": 0.4762369791666667,
+          "recorded_category": "robot",
+          "recorded_force_N": 0.0,
+          "reconstructed_ball_contacts": [],
+          "nearest_robot_geoms_within_50mm": [
+            {
+              "geom": "Arm14/link2/collision/0",
+              "body": "Arm14/link2",
+              "signed_distance_mm": 0.0012225937250504026
+            }
+          ]
+        },
+        {
+          "delta_tick": 0,
+          "time_s": 0.47630208333333335,
+          "recorded_category": "robot",
+          "recorded_force_N": 115.4742660522461,
+          "reconstructed_ball_contacts": [
+            {
+              "geom": "Arm14/link2/collision/0",
+              "body": "Arm14/link2",
+              "signed_distance_mm": -0.039503488533897124,
+              "position_m": [
+                0.94523118424815,
+                -0.16371654132336494,
+                0.36542753964055885
+              ]
+            }
+          ],
+          "nearest_robot_geoms_within_50mm": [
+            {
+              "geom": "Arm14/link2/collision/0",
+              "body": "Arm14/link2",
+              "signed_distance_mm": -0.039503488533897124
+            }
+          ]
+        },
+        {
+          "delta_tick": 1,
+          "time_s": 0.4763671875,
+          "recorded_category": "robot",
+          "recorded_force_N": 128.9610137939453,
+          "reconstructed_ball_contacts": [
+            {
+              "geom": "Arm14/link2/collision/0",
+              "body": "Arm14/link2",
+              "signed_distance_mm": -0.07787100513052814,
+              "position_m": [
+                0.9453105125205452,
+                -0.1637502292420247,
+                0.36531893063276877
+              ]
+            }
+          ],
+          "nearest_robot_geoms_within_50mm": [
+            {
+              "geom": "Arm14/link2/collision/0",
+              "body": "Arm14/link2",
+              "signed_distance_mm": -0.07787100513052814
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "height-tilt-table-training-test-18-g23",
+      "role": "discovery miss",
+      "native_cache_file": "native-0003.npz",
+      "native_cache_row": 7,
+      "native_cache_sha256": "05357e3f7ccedc5a8e445e359b4e176ff8c1207f84b87a7511d793bfc792630a",
+      "row_sha256": "fdd0a766ccbca46001e3c8c84e654cd872cd34d02d2f06d13eb6da8121f47277",
+      "requested_configuration": {
+        "board_xy_m": [
+          0.5935771676513939,
+          -0.12502900630424774
+        ],
+        "board_height_m": 0.46,
+        "tilt_from_horizontal_deg": 28.0,
+        "drop_gap_m": 0.24020015485303045,
+        "bucket_xy_m": [
+          1.1017174430367884,
+          0.18144998858420858
+        ]
+      },
+      "scoring_terminal_time_s": 1.1169270833333333,
+      "scoring_terminal_tick": 17156,
+      "archive_end_time_s": 4.0,
+      "whole_ball_entry": false,
+      "whole_ball_entry_time_s": null,
+      "capture": false,
+      "capture_time_s": null,
+      "max_retention_s": 0.0,
+      "closest_opening_distance_m": 0.2510941668599783,
+      "recorded_first_contact_events": {
+        "board": {
+          "tick": 3343,
+          "time_s": 0.21764322916666667,
+          "ball_center_m": [
+            0.5935771465301514,
+            -0.12502901256084442,
+            0.5052838921546936
+          ],
+          "interval_count": 27,
+          "peak_N": 522.776123046875
+        },
+        "table": {
+          "tick": 10078,
+          "time_s": 0.6561197916666667,
+          "ball_center_m": [
+            0.8525776267051697,
+            0.3280599117279053,
+            0.03743807598948479
+          ],
+          "interval_count": 26,
+          "peak_N": 768.7985229492188
+        },
+        "robot": {
+          "tick": 7186,
+          "time_s": 0.46783854166666666,
+          "ball_center_m": [
+            0.8717327117919922,
+            0.039680689573287964,
+            0.37231355905532837
+          ],
+          "interval_count": 26,
+          "peak_N": 302.1188659667969
+        }
+      },
+      "compiled_model_xml_sha256": "9f80c8616425d4f9afdb683cfa90593235bd95cd3e10c54d8cb60f3ee338a11f",
+      "reconstructed_contact_samples": [
+        {
+          "delta_tick": -1,
+          "time_s": 0.4677734375,
+          "recorded_category": "robot",
+          "recorded_force_N": 0.0,
+          "reconstructed_ball_contacts": [],
+          "nearest_robot_geoms_within_50mm": [
+            {
+              "geom": "Arm14/link3/collision/0",
+              "body": "Arm14/link3",
+              "signed_distance_mm": 0.010324201862255133
+            }
+          ]
+        },
+        {
+          "delta_tick": 0,
+          "time_s": 0.46783854166666666,
+          "recorded_category": "robot",
+          "recorded_force_N": 156.47561645507812,
+          "reconstructed_ball_contacts": [
+            {
+              "geom": "Arm14/link3/collision/0",
+              "body": "Arm14/link3",
+              "signed_distance_mm": -0.05974619343188797,
+              "position_m": [
+                0.8973245263456512,
+                0.016952313617998635,
+                0.3570659243392694
+              ]
+            }
+          ],
+          "nearest_robot_geoms_within_50mm": [
+            {
+              "geom": "Arm14/link3/collision/0",
+              "body": "Arm14/link3",
+              "signed_distance_mm": -0.05974619343188797
+            }
+          ]
+        },
+        {
+          "delta_tick": 1,
+          "time_s": 0.4679036458333333,
+          "recorded_category": "robot",
+          "recorded_force_N": 180.93040466308594,
+          "reconstructed_ball_contacts": [
+            {
+              "geom": "Arm14/link3/collision/0",
+              "body": "Arm14/link3",
+              "signed_distance_mm": -0.12622259428975852,
+              "position_m": [
+                0.8973396756347778,
+                0.016934332624617306,
+                0.3570364041770915
+              ]
+            }
+          ],
+          "nearest_robot_geoms_within_50mm": [
+            {
+              "geom": "Arm14/link3/collision/0",
+              "body": "Arm14/link3",
+              "signed_distance_mm": -0.12622259428975852
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "height-tilt-table-training-test-01-g17",
+      "role": "discovery miss",
+      "native_cache_file": "native-0002.npz",
+      "native_cache_row": 21,
+      "native_cache_sha256": "acc3657360f82ce97f6e4ff4f2b974fb74ce2df0001aa9dafc57ba6deeabb34f",
+      "row_sha256": "c5aeaf56b32e78e007c38fa5a6a152aee5bc8d6ac7bc442e3b05cee3776b3922",
+      "requested_configuration": {
+        "board_xy_m": [
+          0.6019516960614099,
+          -0.15293569618645803
+        ],
+        "board_height_m": 0.44,
+        "tilt_from_horizontal_deg": 24.0,
+        "drop_gap_m": 0.2398330372344851,
+        "bucket_xy_m": [
+          1.1734788738060713,
+          -0.2326845559337758
+        ]
+      },
+      "scoring_terminal_time_s": 3.8216145833333335,
+      "scoring_terminal_tick": 58700,
+      "archive_end_time_s": 4.0,
+      "whole_ball_entry": false,
+      "whole_ball_entry_time_s": null,
+      "capture": false,
+      "capture_time_s": null,
+      "max_retention_s": 0.0,
+      "closest_opening_distance_m": 0.13256227303671198,
+      "recorded_first_contact_events": {
+        "board": {
+          "tick": 3352,
+          "time_s": 0.21822916666666667,
+          "ball_center_m": [
+            0.6019517183303833,
+            -0.1529356986284256,
+            0.4836637079715729
+          ],
+          "interval_count": 27,
+          "peak_N": 557.7643432617188
+        },
+        "bucket": {
+          "tick": 9148,
+          "time_s": 0.5955729166666667,
+          "ball_center_m": [
+            1.0433197021484375,
+            -0.219574436545372,
+            0.12269310653209686
+          ],
+          "interval_count": 29,
+          "peak_N": 229.70225524902344
+        },
+        "table": {
+          "tick": 9643,
+          "time_s": 0.6277994791666667,
+          "ball_center_m": [
+            1.0352298021316528,
+            -0.2204815298318863,
+            0.0374612957239151
+          ],
+          "interval_count": 28932,
+          "peak_N": 792.62646484375
+        }
+      },
+      "compiled_model_xml_sha256": "9f80c8616425d4f9afdb683cfa90593235bd95cd3e10c54d8cb60f3ee338a11f",
+      "reconstructed_contact_samples": [
+        {
+          "delta_tick": -1,
+          "time_s": 0.5955078125,
+          "recorded_category": "bucket",
+          "recorded_force_N": 0.0,
+          "reconstructed_ball_contacts": [],
+          "nearest_robot_geoms_within_50mm": []
+        },
+        {
+          "delta_tick": 0,
+          "time_s": 0.5955729166666667,
+          "recorded_category": "bucket",
+          "recorded_force_N": 153.13888549804688,
+          "reconstructed_ball_contacts": [
+            {
+              "geom": "bucket/wall30",
+              "body": "bucket",
+              "signed_distance_mm": -0.007064247694268944,
+              "position_m": [
+                1.0803628692641465,
+                -0.22351345723481886,
+                0.126967798244155
+              ]
+            },
+            {
+              "geom": "bucket/wall31",
+              "body": "bucket",
+              "signed_distance_mm": -0.007064287727363838,
+              "position_m": [
+                1.0803628692357976,
+                -0.22351345727676644,
+                0.12696779827558308
+              ]
+            }
+          ],
+          "nearest_robot_geoms_within_50mm": []
+        },
+        {
+          "delta_tick": 1,
+          "time_s": 0.5956380208333333,
+          "recorded_category": "bucket",
+          "recorded_force_N": 169.1228485107422,
+          "reconstructed_ball_contacts": [
+            {
+              "geom": "bucket/wall30",
+              "body": "bucket",
+              "signed_distance_mm": -0.05983281955148495,
+              "position_m": [
+                1.0804103742013584,
+                -0.22351833767889426,
+                0.1267830738180108
+              ]
+            },
+            {
+              "geom": "bucket/wall31",
+              "body": "bucket",
+              "signed_distance_mm": -0.059832859417581485,
+              "position_m": [
+                1.080410374173138,
+                -0.22351833772047516,
+                0.12678307384943305
+              ]
+            }
+          ],
+          "nearest_robot_geoms_within_50mm": []
+        }
+      ]
+    },
+    {
+      "id": "height-tilt-controls_pre-control-table_control-r0",
+      "role": "positive control",
+      "native_cache_file": "native-0000.npz",
+      "native_cache_row": 3,
+      "native_cache_sha256": "c0973e057dbc5b900d5ea97479dc06eb30536bbd06e1d16a30d3c1ceddde4ac9",
+      "row_sha256": "1a4ad14d0c282e1ff688d811f17ca42b38efb40e9b2d6c04640f8fc381f1d848",
+      "requested_configuration": {
+        "board_xy_m": [
+          0.5941020257486411,
+          -0.1250784559468693
+        ],
+        "board_height_m": 0.3392937994318979,
+        "tilt_from_horizontal_deg": 16.013746844601016,
+        "drop_gap_m": 0.22875969364684953,
+        "bucket_xy_m": [
+          1.0499999999999998,
+          0.25
+        ]
+      },
+      "scoring_terminal_time_s": 2.084114583333333,
+      "scoring_terminal_tick": 32012,
+      "archive_end_time_s": 4.0,
+      "whole_ball_entry": true,
+      "whole_ball_entry_time_s": 1.0841145833333332,
+      "capture": true,
+      "capture_time_s": 2.084114583333333,
+      "max_retention_s": 1.0,
+      "closest_opening_distance_m": 0.026308062402871486,
+      "recorded_first_contact_events": {
+        "board": {
+          "tick": 3287,
+          "time_s": 0.21399739583333333,
+          "ball_center_m": [
+            0.5941020250320435,
+            -0.1250784546136856,
+            0.3808576166629791
+          ],
+          "interval_count": 27,
+          "peak_N": 566.7896118164062
+        },
+        "bucket": {
+          "tick": 12292,
+          "time_s": 0.8002604166666667,
+          "ball_center_m": [
+            0.9501453638076782,
+            0.17556598782539368,
+            0.21124501526355743
+          ],
+          "interval_count": 4384,
+          "peak_N": 527.4994506835938
+        },
+        "table": {
+          "tick": 9499,
+          "time_s": 0.6184244791666667,
+          "ball_center_m": [
+            0.8483801484107971,
+            0.09053447842597961,
+            0.037343766540288925
+          ],
+          "interval_count": 26,
+          "peak_N": 817.9970092773438
+        }
+      },
+      "compiled_model_xml_sha256": "9f80c8616425d4f9afdb683cfa90593235bd95cd3e10c54d8cb60f3ee338a11f"
+    }
+  ],
+  "findings": [
+    {
+      "example": "height-tilt-table-training-test-00-g23",
+      "recorded_fact": "Board -> robot -> bucket -> table; zero whole-ball entry.",
+      "reconstructed_localization": "First robot contact matches Arm14/link2/collision/0; previous sample has positive separation."
+    },
+    {
+      "example": "height-tilt-table-training-test-18-g23",
+      "recorded_fact": "Board -> robot -> table; zero whole-ball entry.",
+      "reconstructed_localization": "First robot contact matches Arm14/link3/collision/0; previous sample has positive separation."
+    },
+    {
+      "example": "height-tilt-table-training-test-01-g17",
+      "recorded_fact": "No recorded robot contact; bucket contact at ball-center Z=0.122693m, followed by table contact; zero whole-ball entry.",
+      "interpretation": "An unobstructed robot corridor alone does not ensure entry; this trace reaches the outside of the bucket too low."
+    },
+    {
+      "example": "height-tilt-controls_pre-control-table_control-r0",
+      "recorded_fact": "Board -> table -> bucket; whole-ball entry at1.084114583s, continuous one-second retention completed at2.084114583s. This is a pre-existing control, not a newly discovered successful grid shot."
+    }
+  ],
+  "camera_recommendations": [
+    "Use a low oblique side view of board-to-bucket corridor with Arm14 link2/link3 retained in frame; hold near recorded first robot-contact tick for cases00/18.",
+    "For case01, frame the bucket side wall and rim so the too-low approach is visible.",
+    "Show full one-second inside interval on control; mark it explicitly positive control.",
+    "Do not crop or relabel aggregate robot contact as a dropper-finger collision."
+  ]
+}
