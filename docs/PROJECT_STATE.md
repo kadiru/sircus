@@ -1,5 +1,13 @@
 # Project state
 
+## Bounded coverage recovery — November 9, 2026
+
+- [Protocol](../sircus/mjlab/COVERAGE_RECOVERY.md) and [handoff](MJLAB_COVERAGE_RECOVERY_20261109.md): implementation/preflight for a maximum 1,000-request follow-up. No new native result is claimed yet.
+- The parent's selected PPO had 22 setup declines and 20 released misses. Thirteen declines lacked a finite IK solution, four failed endpoint checks, three failed fixed-base clearance, and two were out of action bounds. Eighteen released misses never achieved whole-ball entry; two retained for one second but had robot contact. Table rebounds remain allowed.
+- Search targets 39 non-fixed-base failures within unchanged residual support, then requires two successful fresh repeats before adding a teacher to the parent imitation actor. The three blocked layouts remain reported. Former TEST failures are explicitly development data now; their historical report is untouched.
+- Four frozen models share the same geometric prior on 70 new stratified TEST positions: recovery imitation, parent imitation, parent selected PPO and strongest earlier PPO. All requests, including declines, count. No per-position outcome optimization during TEST, extra PPO, noise, 128-step qualification, hardware action or policy promotion.
+- Use only the 4090 with its shared lease and fixed64/v3 physics/scoring, an acquired-slot cap of two hours and a separate three-hour pipeline deadline. The 4070 fountain and Isaac setup are unchanged. Raw evidence remains outside Git; the UI receives an additive read-only panel without restarting the viewer.
+
 ## Completed seven-hour-budget coverage training — November 9, 2026
 
 - [Audited results and all 70 paired positions](../baselines/mjlab-coverage-training-20261109/README.md): new imitation **28/70 (40%)**, selected new PPO **28/70 (40%)**; 27 shared captures, one gain, one loss, 41 shared failures. Previous weights scored imitation 28/70 and PPO 31/70 under the same expanded 19-pose prior. No net new-PPO improvement and no policy promotion.

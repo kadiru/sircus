@@ -1,0 +1,33 @@
+<section id="coverageRecovery" class="coverage-recovery-panel">
+  <p class="coverage-recovery-eyebrow">MJLAB · FAILURE RECOVERY · NATIVE 64 SUBSTEPS</p>
+  <h2>Recover failed shots, then test on new bucket positions</h2>
+  <p class="coverage-recovery-note" data-coverage-recovery="status" role="status">Waiting for saved recovery evidence.</p>
+  <p class="coverage-recovery-small">The earlier 70-position TEST has been inspected and is now DEVELOPMENT data. Recovery search may use its failures. The new comparison uses 70 different, frozen bucket positions; no historical score is presented as a score on those new positions.</p>
+  <h3>What failed in the previous selected PPO policy</h3>
+  <div class="coverage-recovery-cards" data-coverage-recovery="parent-counts"></div>
+  <p class="coverage-recovery-small" data-coverage-recovery="parent-summary"></p>
+  <div class="coverage-recovery-scroll" data-coverage-recovery="reasons"></div>
+  <p class="coverage-recovery-small">Table rebounds are allowed. Robot, floor and unattributed contacts still invalidate a capture. Setup declines are unflown requests: finite IK failure does not prove a pose impossible, and a conservative clearance bound below 5 mm does not prove physical penetration.</p>
+  <h3>Concrete recorded examples</h3>
+  <label>Previous failed position <select aria-label="Previous failed position" data-coverage-recovery="case-choice"></select></label>
+  <p class="coverage-recovery-note" data-coverage-recovery="case-summary"></p>
+  <div class="coverage-recovery-scroll" data-coverage-recovery="case-events"></div>
+  <div data-coverage-recovery="case-trace" class="coverage-recovery-trace"></div>
+  <details><summary>All previous failed requests and exact settings</summary><div class="coverage-recovery-scroll" data-coverage-recovery="parent-cases"></div></details>
+  <h3>Bounded recovery search and confirmation</h3>
+  <p class="coverage-recovery-small" data-coverage-recovery="plan"></p>
+  <div class="coverage-recovery-cards" data-coverage-recovery="progress"></div>
+  <p class="coverage-recovery-small" data-coverage-recovery="clock"></p>
+  <div class="coverage-recovery-scroll" data-coverage-recovery="stages"></div>
+  <p class="coverage-recovery-small" data-coverage-recovery="training"></p>
+  <div class="coverage-recovery-scroll" data-coverage-recovery="recoveries"></div>
+  <h3>Four frozen models · the same 70 new positions</h3>
+  <p class="coverage-recovery-small">One decision and at most one native drop per model and position. All setup declines stay in the denominator. No TEST retries, flight search or fitting. Shared geometry-only admission remains an explicit inference step.</p>
+  <p class="coverage-recovery-note" data-coverage-recovery="takeaway">No new comparison is claimed before complete evidence is available.</p>
+  <div class="coverage-recovery-scroll" data-coverage-recovery="comparison"></div>
+  <div class="coverage-recovery-scroll" data-coverage-recovery="paired"></div>
+  <details><summary>All fresh TEST coordinates and outcomes</summary><div class="coverage-recovery-scroll" data-coverage-recovery="test-cases"></div></details>
+  <p class="coverage-recovery-small" data-coverage-recovery="proof"></p>
+  <p class="coverage-recovery-small">Held-endpoint simulation only: no learned grasp, arm transit or perception. No new PPO, noise or 128-substep experiment. No model is automatically promoted; the 4070 workload and Isaac setup are outside this study.</p>
+  <p class="coverage-recovery-small" data-coverage-recovery="connection">Read-only saved results; no simulation controls.</p>
+</section>
