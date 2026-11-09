@@ -1,5 +1,12 @@
 # Project state
 
+## Recorded height/tilt failure replay — November 8, 2026
+
+- [Video interpretation and evidence](MJLAB_HEIGHT_TILT_REPLAY_20261108.md): a 47.63-second, 1280×720/30 fps MuJoCo replay shows three saved misses and a table-assisted positive control. Actual ball samples, held endpoint joints, original geometry, 1×/¼× views and exact contact freezes; zero new physics steps. No unrecorded arm transit or ball spin is invented.
+- Cases 00 g23 and 18 g23 first hit the bouncer at 0.476/0.468 s. CPU reconstruction identifies link 2/link 3; the original native force logs record aggregate robot contact only. Case 01 g17 has no robot contact but strikes the exterior bucket wall below the rim at 0.596 s. The positive control completes one-second retention at 2.084 s. Discovery remains 0/58 captures.
+- `#heightTiltReplay` adds playback, chapter buttons, speed control, exact event times and an MP4 download. Media/frame hashes bind to the completed 36,371-check audit. Full movie/trace artifacts stay outside Git; compact provenance and contact evidence are committed. CPU llvmpipe rendered the movie without either GPU; no Isaac changes or server restart.
+- Validation: 35 relevant unit tests, complete MP4 decode, 1,429-frame/duration checks and Chrome playback/chapter/speed verification. The existing in-app browser automation was unavailable; Chrome verified the same live interface. Next: test an admitted rebound path clear of the bouncer itself, then correct the unobstructed short flight before more training. No new corrective experiment or policy promotion was performed here.
+
 ## Completed height/tilt admission search — November 8, 2026
 
 - [Audited evidence and all 120 grid entries](../baselines/mjlab-table-height-tilt-20261108/README.md): cases 00/01/18/26 tested board heights 320/360/400/440/460/480 mm and tilts 16/20/24/28/32°. Bucket XY, board XY, drop gap, orientation convention, IK/clearance checks, native64 physics and v3 scoring stayed fixed. This is development search on inspected layouts, not a new policy evaluation.
