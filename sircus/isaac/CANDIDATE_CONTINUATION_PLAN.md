@@ -1,11 +1,13 @@
 # Seed 22 continuation: proposed experiment, training off
 
 Implementation status, November 9: the [candidate adapter and pure losses / ledger](CANDIDATE_ADAPTER.md)
-now pass [53 CPU no-update tests and actual-parent initialization checks](../../baselines/isaac-candidate-adapter-20261109/README.md).
-The checklist below records the proposal's original gates. The optimizer/update
-loop, checkpoint writer, fresh split/support preparation, native integration,
-operational supervisor and independent training auditor remain deferred.
-No training or new native shot is authorized or launched by this implementation.
+passed [53 CPU no-update tests and actual-parent initialization checks](../../baselines/isaac-candidate-adapter-20261109/README.md).
+The subsequent [bounded TRAIN driver](CANDIDATE_RUNNER.md) implements optimizer
+loops, new checkpoints, durable accounting and structural learning/saved-state
+verification, tested on fabricated policies. The checklist below records the
+proposal's original gates. Fresh split/support preparation, actual native
+integration/supervision, full native guard/scoring audit and final assessment
+remain deferred. Real training and new native shots remain off.
 
 Prepared November 8, 2026 (America/Los_Angeles). **This is a reviewable proposal,
 not a launch authorization or an implemented trainer. No imitation, PPO update,
@@ -180,6 +182,12 @@ whichever comes first. Limit the next active native batch to the minimum of
 35, remaining request allowance and remaining release allowance, so simultaneous
 releases cannot overshoot. Record both counters and per-context exposure; a
 completed request-cap run below 1,400 releases reports that target shortfall.
+
+The implemented v2 ledger additionally ends active TRAIN batches at each
+140-request PPO buffer boundary. This matters when repeated smaller batches
+near the release cap are rejected: they cannot spill stale selections across
+an update or force an early partial update. It preserves the same request and
+release caps, logical context order and native guard requirements.
 
 Proposed PPO settings are the inherited reward and defaults: fresh Adam at
 `3e-4`, clip `0.2`, 4 epochs per update, value coefficient `0.5`, entropy
