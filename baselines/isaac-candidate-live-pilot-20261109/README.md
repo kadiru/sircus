@@ -1,5 +1,77 @@
 # Bounded continuation launch attempts — November 9, 2026
 
+## Latest v4 outcome: saved trained checkpoint, incomplete assessment
+
+The separately authorized v4 used immutable source `9a49a0d`. It completed the
+first stopping cap: **1,400 releases from 1,470 charged TRAIN requests**, including
+70 rejects. Recorded exploratory outcomes were **804 captures / 225 clean**;
+their denominator is all 1,470 requests. Imitation reused the existing examples
+for 240 steps / 30,680 presentations, then PPO committed 11 updates / 44 optimizer
+steps over all 1,470 new requests. These are extra-budget updates to one seed,
+not an equal-cost multi-seed comparison.
+
+The final checkpoint was saved and frozen before assessment, with SHA
+`15020a948d295fe5e7258a732145b89aa61fda2c385a0d6966a9e4cc7e81bd41`
+(186,571 bytes). The original checkpoint/learning reader passed its saved bytes,
+journal/ledger and learning-counter checks; a private Mac backup has the same
+SHA. The original startup reader also passed nine cohorts / 315 trajectories /
+1,584 physics steps. Neither component pass is a completed pilot audit.
+
+Assessment stopped in the first validation-bank cohort. Its empty-support ball
+remained parked in all 960 preserved physics samples, but the native wrapper's
+`no_selected_setting` row label differed from the adapter's expected
+`inactive_split`. The mock had fabricated the latter label. The new regression
+executes the unchanged original batch body with fake physics; it reproduced the
+old failure and checks the strict correction without new shots or relaxed guards.
+
+There are **140 charged assessment requests: 105 terminal and 35 unresolved**.
+Only 96 releases / nine declines were committed; the fourth cohort performed
+uncommitted physical work. No final capture counts are inferred from that cohort
+and **no TEST request was reached**. No batch is refunded, replaced or resumed.
+The model is not promoted, and no held-out improvement claim is possible.
+
+The original native TRAIN reader also rejected a first-cause label: 35 unpaid
+padded slots in the last 34-request / one-request cohorts have the same native
+outer-label distinction. No active-row first-cause label mismatch was found in
+the saved metadata. That original failed reader remains failed and preserved.
+A separate strict revised CPU reader from `c0bd3d6` passed all 43 native TRAIN
+batches, independently confirming **804 captures / 225 clean and 70 rejections**.
+It verifies raw packet/reservation/physics joins and exact inactive padding
+invariants before mapping only the 35 unpaid labels in a private guard copy.
+Paid rows, saved packets, original guard and scorer remain unchanged. Its native
+receipt SHA is `2fa58d3a95502143bfe9304627eeab42ba1b2944852ae9551e5fce68617eb204`.
+The repeated learning/checkpoint and startup checks passed as well. No simulator,
+optimizer, new request or held-out outcome reading occurred in this CPU check;
+its 281.80-second reader loop / 469.21 process-CPU seconds exclude imports/input
+validation, and its 1,394.1 MiB RSS is process-lifetime high-water. These checks
+certify completed TRAIN components only, not the missing assessment/combined
+audit. [Compact v4 evidence](attempt-v4.json) records each status and the untouched
+source/checkpoint/input identities.
+
+| Producer phase | Wall seconds | Aggregate CPU seconds | Lifetime RSS high-water, MiB |
+| --- | ---: | ---: | ---: |
+| Initialization | 24.56 | 46.92 | 6,888.3 |
+| Imitation | 33.10 | 47.62 | 6,888.3 |
+| TRAIN | 3,862.30 | 8,282.63 | 7,226.8 |
+| Partial assessment | 296.26 | 635.50 | 7,346.3 |
+
+These producer costs describe a stopped attempt, not completed per-method
+assessment. RSS is process-lifetime high-water; sampled device occupancy was
+6,189.4 MiB and includes PhysX/renderer. Torch GPU allocation peaked at 0.279 MiB;
+the neural updater uses CPU. Host supervisor/watchdog and separate CPU reader
+costs are excluded; earlier attempt/preparation costs are not erased or added
+as if they were non-overlapping phases. No new videos were recorded by protocol.
+
+The finite publisher exited, owned native job exited and scene lock released.
+The existing GET-only viewer shows the TRAIN curve, precise partial accounting
+and stopped producer costs without restarting its server. All prior attempts,
+raw evidence, original seed-22 model/bank and frozen benchmark remain unchanged.
+No additional training, simulation start, assessment or retry is authorized by
+this report. A future evaluation can reuse the saved model; it requires its own
+reviewed bounds and treatment of the incomplete assessment.
+
+## First authorized attempt: before simulator startup
+
 The first authorized seed-22 continuation attempt stopped before the simulator was
 started. No training, task shots, startup diagnostic trajectories, held-out
 requests or new checkpoints were produced. The original frozen benchmark,
