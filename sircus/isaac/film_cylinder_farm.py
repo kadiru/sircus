@@ -10,6 +10,7 @@ import time
 import traceback
 from pathlib import Path
 
+SCRIPT_STARTED = time.monotonic()
 from isaaclab.app import AppLauncher
 
 p = argparse.ArgumentParser()
@@ -78,8 +79,20 @@ p.add_argument("--shot-benchmark-plan", type=Path, help="Separate versioned swee
 p.add_argument("--shot-benchmark-method", choices=("sweep", "ppo"))
 p.add_argument("--shot-benchmark-seed", type=int)
 p.add_argument("--shot-benchmark-smoke", action="store_true")
+p.add_argument("--candidate-comparison-plan", type=Path,
+               help="Separate frozen-parent versus candidate-bank TRAIN-only comparison; no optimizer")
 AppLauncher.add_app_launcher_args(p)
 args = p.parse_args()
+if args.candidate_comparison_plan is not None:
+    if (args.continuous_source is None or args.continuous_camera_json is None
+            or args.appearance != "silver" or args.shot_benchmark_plan is not None
+            or args.shot_benchmark_method is not None or args.shot_benchmark_seed is not None
+            or args.shot_benchmark_smoke or args.diverse_settled_support is not None
+            or args.feasibility_guided_support is not None or args.settling_check_source is not None
+            or args.continuous_feasibility is not None or args.continuous_batches != 64):
+        p.error("Candidate comparison requires its frozen TRAIN plan, continuous source/camera and no training/support/benchmark mode")
+    from candidate_selector import validate_comparison
+    validate_comparison(json.loads(args.candidate_comparison_plan.read_text()))
 if args.shot_benchmark_plan is not None:
     if (args.continuous_source is None or args.shot_benchmark_method is None
             or args.shot_benchmark_seed is None or args.diverse_settled_support is not None
@@ -193,8 +206,9 @@ if (
     args.camera_right_m != 0 or args.camera_z_m is not None
 ) and args.camera_option is None:
     p.error("Camera adjustments require --camera-option")
-if shutil.disk_usage(args.output.parent).free < 3 * 1024**3:
-    p.error("Less than 3 GiB free for filming")
+storage_floor_gib = 6 if args.candidate_comparison_plan is not None else 3
+if shutil.disk_usage(args.output.parent).free < storage_floor_gib * 1024**3:
+    p.error(f"Less than {storage_floor_gib} GiB free for native evidence")
 args.output.mkdir(exist_ok=False)
 app = AppLauncher(args).app
 
@@ -512,7 +526,7 @@ def main():
 
         if continuous:
             from continuous_pilot import ContinuousShots
-            if args.shot_benchmark_plan is not None:
+            if args.shot_benchmark_plan is not None or args.candidate_comparison_plan is not None:
                 from shot_benchmark_native import BenchmarkShots
                 ContinuousShots = BenchmarkShots
             elif args.diverse_settled_support is not None:
@@ -651,6 +665,11 @@ def main():
     if continuous:
         from continuous_pilot import run_study
 
+        if args.candidate_comparison_plan is not None:
+            from candidate_native_runner import run_comparison
+            run_comparison(env, presentation_bundle, args.candidate_comparison_plan,
+                           process_started=SCRIPT_STARTED)
+            return
         if args.shot_benchmark_plan is not None:
             from shot_benchmark_native import run_benchmark
             run_benchmark(env, presentation_bundle, args.shot_benchmark_plan,
