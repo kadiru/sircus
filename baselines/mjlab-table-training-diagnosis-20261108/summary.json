@@ -1,0 +1,212 @@
+{
+  "version": "sircus-table-training-diagnosis-v1",
+  "status": "completed",
+  "contract_fingerprint": "20f198caec28ff0402e8f7d2f7d2d1de65434b294f964a3ea35cde36bc3a1114",
+  "source": {
+    "report_sha256": "4605bcb801351ae91ad16b71a033ceb3866027db621f9d84227f23b1ef257e95",
+    "audit_sha256": "6e50d87ddb7b2d4b37debbc2a5ac96507ff40bc236223277121acd385b8ec91b",
+    "rows_sha256": "ddb1ecd67b71951fe5d1152a496c1bbf5b01e4174b38a7f7b8af7b813f4817e3",
+    "contract_fingerprint": "20f198caec28ff0402e8f7d2f7d2d1de65434b294f964a3ea35cde36bc3a1114",
+    "diagnosis_source_sha256": "084c596fd36c9da6e7582ad46dc9516d356bc217f47168a3be5c87f7d745bea7",
+    "parent_audit_checks": 823442,
+    "producer_commit": "b11e8b9772268d79a14a5bcb0b8d9761789da379",
+    "evidence_manifest_sha256": "2273074994968214755d92ff51a7caffd11a0872ab2c22a130d51a095c372714",
+    "calibration_sha256": "992d4e191fb678ff85e9e93c9099e311cac19efd47207e104f9887ecc7437358",
+    "contract_sha256": "04c8e8dfb753cfb594f1db7055f21b2f6ebe35de1ac6ff4ffc01140d16d4e120",
+    "producer_commit_role": "Original table-training producer, not the later diagnostic producer"
+  },
+  "summary": {
+    "requested": 50,
+    "captures": 15,
+    "flight_misses": 31,
+    "setup_rejections": 4,
+    "forbidden_contact_misses": 13,
+    "no_forbidden_contact_misses": 18
+  },
+  "scene": {
+    "board_size_m": [
+      0.2,
+      0.3,
+      0.005
+    ],
+    "bucket_base_z_m": 0.0,
+    "bucket_height_m": 0.183,
+    "bucket_inner_radius_m": 0.0885,
+    "bucket_outer_radius_m": 0.1,
+    "ball_radius_m": 0.0375,
+    "geometry_basis": "Configured simulator geometry; measured board dimensions, provisional ball and bucket depth; not a reconstructed camera image"
+  },
+  "groups": [
+    {
+      "label": "bucket_first_miss",
+      "count": 8,
+      "description": "First board rebound meets bucket before capture; contact alone does not prove a rim hit or entry."
+    },
+    {
+      "label": "robot_first_miss",
+      "count": 7,
+      "description": "First board rebound hits robot; later table/bucket motion is already deflected."
+    },
+    {
+      "label": "setup_finite_ik_unresolved",
+      "count": 2,
+      "description": "No admitted branch found within finite exact-action search; not proof of unreachable pose."
+    },
+    {
+      "label": "setup_fixed_base_clearance_rejected",
+      "count": 2,
+      "description": "Bucket/fixed-base clearance could not meet the unchanged conservative margin."
+    },
+    {
+      "label": "table_first_miss",
+      "count": 16,
+      "description": "First board rebound meets table; table contact is permitted. Later flight/entry still failed."
+    }
+  ],
+  "limitations": [
+    "Former TEST positions are posthoc development cases, not a fresh evaluation.",
+    "First-flight crossing stops before first subsequent contact. It does not describe table-assisted later flight.",
+    "Force channel presence does not identify causal failure or prove an individual bucket/rim contact.",
+    "Saved endpoint shots do not validate driven arm transit; no new training or native trials in this diagnosis."
+  ],
+  "scope": "Posthoc diagnosis of completed new PPO TEST outcomes; these positions are now development evidence.",
+  "diagnostic_evidence": {
+    "report_sha256": "4ccc5208b5b48bff74504e6103dca5c86f0ec59b22d47f5d7b8918352d9f4544",
+    "audit_sha256": "1c479d2433e5dd6e72a0a3635e179a9e7bd84c3e6661fc30c3735b6d0598713b",
+    "checks_count": 143,
+    "status": "passed",
+    "scope": "Source identity, accounting, exact proof binding and saved-trace checks. Not an independent native resimulation or independent scorer rerun.",
+    "producer_commit": "fe7f9b3032b836cd00fb2383065c9b9428ecf56b"
+  },
+  "parent_independent_native_audit": {
+    "status": "passed",
+    "checks_count": 823442,
+    "audit_sha256": "6e50d87ddb7b2d4b37debbc2a5ac96507ff40bc236223277121acd385b8ec91b",
+    "report_sha256": "4605bcb801351ae91ad16b71a033ceb3866027db621f9d84227f23b1ef257e95",
+    "scope": "Original complete native physics/geometry/scoring audit; its exact bytes are authenticated by the diagnostic producer."
+  },
+  "correction": {
+    "status": "completed_and_independently_audited",
+    "rule": {
+      "rule": "Select first two sorted failures per first post-board contact class (table,bucket,robot), original tilt<22deg and board-bucket distance>=450mm; change only tilt to32deg",
+      "classes": [
+        "table",
+        "bucket",
+        "robot"
+      ],
+      "empty_eligible_classes": [
+        "bucket"
+      ],
+      "case_ids": [
+        "table-training-test-00",
+        "table-training-test-01",
+        "table-training-test-18",
+        "table-training-test-26"
+      ],
+      "matched_repeats": 3,
+      "controls": 18,
+      "total_requests": 42,
+      "posthoc_development": true,
+      "training": false,
+      "assumption": "Hypothesis from the shallow far failure family versus successful ~32deg table-contact family, not causal proof or a learned policy improvement"
+    },
+    "compact_file": "correction.json",
+    "compact_sha256": "c1b13b7c982fbff49524620c8377d924bfc6e9c8ad5e8307727e3bca86b2532d",
+    "counts_by_variant": {
+      "baseline": {
+        "attempts": 12,
+        "captures": 0,
+        "native_releases": 12,
+        "invalid": 0,
+        "clean": 0,
+        "mean_reward": -0.006181911256677525,
+        "direct_captures": 0,
+        "table_assisted_captures": 0,
+        "setup_rejections": 0,
+        "native_misses": 12,
+        "forbidden_contact_shots": 6,
+        "invalid_physics": 0,
+        "robot_contact_shots": 6
+      },
+      "corrected": {
+        "attempts": 12,
+        "captures": 0,
+        "native_releases": 0,
+        "invalid": 12,
+        "clean": 0,
+        "mean_reward": -1.0,
+        "direct_captures": 0,
+        "table_assisted_captures": 0,
+        "setup_rejections": 12,
+        "native_misses": 0,
+        "forbidden_contact_shots": 0,
+        "invalid_physics": 0,
+        "robot_contact_shots": 0
+      }
+    },
+    "requested_trials": 42,
+    "native_releases": 30,
+    "controls": {
+      "pre": {
+        "status": "passed",
+        "counts": {
+          "attempts": 9,
+          "captures": 6,
+          "native_releases": 9,
+          "invalid": 0,
+          "clean": 3,
+          "mean_reward": 2.8302011359153068,
+          "direct_captures": 3,
+          "table_assisted_captures": 3,
+          "setup_rejections": 0,
+          "native_misses": 3,
+          "forbidden_contact_shots": 3,
+          "invalid_physics": 0
+        },
+        "direct_captures": 3,
+        "table_assisted_captures": 3,
+        "negative_captures": 0
+      },
+      "post": {
+        "status": "passed",
+        "counts": {
+          "attempts": 9,
+          "captures": 6,
+          "native_releases": 9,
+          "invalid": 0,
+          "clean": 3,
+          "mean_reward": 2.8302008881657423,
+          "direct_captures": 3,
+          "table_assisted_captures": 3,
+          "setup_rejections": 0,
+          "native_misses": 3,
+          "forbidden_contact_shots": 3,
+          "invalid_physics": 0
+        },
+        "direct_captures": 3,
+        "table_assisted_captures": 3,
+        "negative_captures": 0
+      }
+    },
+    "audit": {
+      "version": "sircus-table-training-correction-audit-v1",
+      "status": "passed",
+      "full_checks_verified": true,
+      "checks_count": 12557,
+      "failures": [],
+      "elapsed_s": 3.0292814130079933
+    },
+    "provenance": {
+      "frozen_producer_commit": "fe7f9b3",
+      "contract_fingerprint": "5f14af705ae2b06f484253a3cc778f63820554fd9533107754887d043cc01ecf",
+      "report_sha256": "471b8c0a10862c460b43a12dea8f8e597cec29bc2116f9545c285697ddd95217",
+      "audit_sha256": "2454c4c88f39ce37cf38fe0ea929cca53922da5e5b18ec00d327ac07cf5f7573",
+      "manifest_sha256": "9293d44ba24a10bb777b50aec06cdce4caa6b740f545997aa0e627e47b4225e9",
+      "rows_sha256": "0686f881544b92e6d54ad4d4ec5fb5b24cc47d9c548f8c575f3eb50c425a441c",
+      "contract_sha256": "97a86d5f6012de16b636f9379ef2f71c6924e067d55fbd6fa9a4aacddfe5a297"
+    },
+    "elapsed_s": 431.8335945800063,
+    "interpretation": "Tilt32 alone did not improve capture: every corrected request was declined before flight because the finite IK search found no board-arm branch. Zero corrected robot contacts reflects zero corrected releases, not improved clearance. Finite search failure does not prove all configurations at those buckets are infeasible.",
+    "next_step": "Find jointly admitted height/tilt configurations before more PPO; do not promote a tilt-only correction."
+  }
+}

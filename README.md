@@ -1,5 +1,13 @@
 # Sircus — Simple Circus
 
+**Latest mjlab diagnosis:** [31 flight misses, four setup declines and the tilt-only test](baselines/mjlab-table-training-diagnosis-20261108/README.md).
+The 42-request correction test completed with controls and independent audit:
+original shots captured **0/12**; changing only tilt to 32° captured **0/12**
+because all 12 changed requests failed board-arm IK admission. No corrected
+flight was executed, so this did not demonstrate improved contact behavior.
+Recorded trajectories and setup proof details are in `#tableTrainingDiagnosis`.
+No new training or policy activation; the 4070 and Isaac remain untouched.
+
 **Latest completed mjlab training:** [table-assisted 50-position comparison](baselines/mjlab-table-assisted-training-20261108/README.md).
 On the same fresh bucket positions at fixed 64 substeps, old imitation captured
 **9/50**, old PPO **8/50**, new imitation **14/50**, and new PPO **15/50**.

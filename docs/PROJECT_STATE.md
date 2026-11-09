@@ -1,5 +1,13 @@
 # Project state
 
+## Table-assisted failure diagnosis and tilt correction — November 8, 2026
+
+- [Evidence and exact configurations](../baselines/mjlab-table-training-diagnosis-20261108/README.md): all 31 new-PPO released misses lacked whole-ball entry. First contact after board rebound was table 16 / bucket 8 / robot 7; 13 had forbidden contact at some point. Table contact remains allowed and is not itself a failure. Source/accounting diagnosis passed 143 checks, inheriting the original independent 823,442-check native audit.
+- Original setup declines: cases 06/36 found 9/6 dropper IK branches but no board-arm branch; cases 14/46 could not meet fixed-base/bucket clearance. Finite search failure is not proof of unreachable geometry, and a zero conservative clearance lower bound is not proof of penetration. No admission checks were relaxed.
+- Frozen producer `fe7f9b3` tested only tilt 32° for shallow far-shot cases 00/01/18/26, three original and three changed requests each, with 18 bracketing controls. **42/42 requests completed in 431.8 worker-seconds**; independent audit passed **12,557 checks**. Original: 0/12 captures, 12 releases, 6 robot-contact shots. Changed: 0/12 captures, 0 releases, 12 `finite_ik_unresolved` declines; valid board branches remained zero in all four cases. Both control gates passed and no physics invalids occurred.
+- This is a failed tilt-only correction, not evidence that robot contacts were fixed. Original joint branches, 64-substep physics, v3 scoring and all historical results remain unchanged. Former TEST layouts are now posthoc development evidence; no new model or generalization result. Next: find jointly admitted height/tilt combinations before another PPO run.
+- The read-only `#tableTrainingDiagnosis` panel shows all 35 failures, actual saved trajectories/contact times, setup proof details and separate correction results. Raw observations stay outside Git. The finite 4090 worker exited; existing 4070 workload and viewer start time were unchanged. No Isaac changes, service restart, hardware or policy activation.
+
 ## Table-assisted short training completed — November 8, 2026
 
 - [Verified results and evidence identities](../baselines/mjlab-table-assisted-training-20261108/README.md): on the same 50 fresh TEST bucket positions, old imitation **9/50 (18%)**, old PPO **8/50 (16%)**, new imitation **14/50 (28%)**, selected new PPO **15/50 (30%)**. Each model made one frozen prediction per position. Setup rejections remain in the denominator.
