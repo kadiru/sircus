@@ -69,3 +69,10 @@ python -m sircus.mjlab.horizon_window_pipeline
 UI: `#clearanceHorizon`. Compare requested slots, native releases, abstentions,
 strict captures, bucket retention and measured robot contacts. Refusal of a bad
 shot is not evidence of a better executed trajectory or improved capture rate.
+
+## Completed result
+
+[Audited scalar evidence](../../baselines/mjlab-clearance-horizon-20261108/README.md):
+short window released and missed 3/3 with robot contact; long window withheld
+3/3, with no native observations. All 12 controls passed and there was no invalid
+physics. Independent audit passed 44,237 checks. The current selector is unchanged.

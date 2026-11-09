@@ -2,8 +2,13 @@
 
 Latest: [case 01 horizon-only replay](CLEARANCE_HORIZON.md) extends one predicted
 clearance window while keeping the exact shot, joints, forecasts and native64
-scoring unchanged. Three repeats per method plus 12 controls; no training or
-policy promotion. Refused shots have no observed flight. UI: `#clearanceHorizon`.
+scoring unchanged. [Completed results](../../baselines/mjlab-clearance-horizon-20261108/README.md):
+short window missed 3/3 with robot contact; long window withheld all three. All
+12 controls and 44,237 independent audit checks passed. This improves detection
+of a known bad candidate, not capture. No training or policy promotion. A separate
+[historical example](../../docs/MJLAB_TABLE_ASSISTED_EXAMPLE_20261108.md) confirms
+board → table → bucket retention, excluded by the unchanged strict scorer.
+UI: `#clearanceHorizon`.
 
 Latest: [50-position failure diagnosis](../../docs/MJLAB_GAP_FLIGHT_DIAGNOSIS_20261107.md)
 separates 18 flight failures (robot9 / bucket6 / table3 first subsequent contacts)
