@@ -21,6 +21,8 @@ STUDY='sircus-recovery-regression-correction-v1'
 AUDIT='sircus-recovery-regression-correction-audit-v1'
 START='<!--RECOVERY_REGRESSION_START-->'
 END='<!--RECOVERY_REGRESSION_END-->'
+VIDEO_START='<!--RECOVERY_REGRESSION_VIDEO_START-->'
+VIDEO_END='<!--RECOVERY_REGRESSION_VIDEO_END-->'
 CSS_START='/*SIRCUS_RECOVERY_REGRESSION_SNAPSHOT_START\n'
 CSS_END='\nSIRCUS_RECOVERY_REGRESSION_SNAPSHOT_END*/'
 MAX_SNAPSHOT_BYTES=256*1024
@@ -179,6 +181,11 @@ def embed_css(original,snapshot):
 
 def embed_html(original,snapshot):
     web=Path(__file__).with_name('web');html=(web/'recovery-regression.html').read_text();css=(web/'recovery-regression.css').read_text();js=(web/'recovery-regression.js').read_text()
+    require(original.count(VIDEO_START)==original.count(VIDEO_END) and original.count(VIDEO_START)<=1,'Ambiguous regression video markers')
+    if VIDEO_START in original:
+        require(START in original and original.index(START)<original.index(VIDEO_START)<original.index(VIDEO_END)<original.index(END),'Video must remain inside its own panel')
+        video=original[original.index(VIDEO_START):original.index(VIDEO_END)+len(VIDEO_END)]
+        html=html.replace('<h3>Recorded examples</h3>','<h3>Recorded examples</h3>'+video)
     js=re.sub(r'^export (?=(?:const|function|class)\b)','',js,flags=re.M)
     require(not re.search(r'^\s*(?:import|export)\b',js,re.M) and '</script' not in js.lower() and '</style' not in css.lower(),'Self-contained panel required')
     block=f'{START}\n<style>{css}</style>\n{html}\n<script type="application/json" id="recovery-regression-snapshot">{encoded(snapshot)}</script>\n<script>(function(){{\n{js}\n}})();</script>\n{END}'
