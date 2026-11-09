@@ -1,0 +1,3943 @@
+{
+  "version": "sircus-corrected-imitation-v1",
+  "status": "completed",
+  "contract_fingerprint": "297b367fa2702d688084bc2e74dd30a83c6cf4312ba078938def5f9b223adce4",
+  "report_sha256": "1fde3f7de5b5c2912a133c858105388a704a80ab0e2cb39e8d79c0c7a189bf14",
+  "elapsed_s": 1387.3910702090361,
+  "scope": "Actor-only imitation refit using unchanged92 prior teachers plus five audited corrected development recipes, one recipe per context, not repeated labels. Current recovery BC and corrected BC are frozen before140 predictions on70 new stratified bucket positions at native64/v3. Same19 geometry prior; original17 controls. No PPO, flight search at inference, noise,128, learned transit/perception or policy activation.",
+  "protocol": {
+    "substeps": 64,
+    "test_layouts": 70,
+    "test_requests": 140,
+    "control_requests": 18,
+    "maximum_requests": 158,
+    "base_teacher_count": 92,
+    "correction_teacher_count": 5,
+    "teacher_count": 97,
+    "actor_steps": 800,
+    "critic_steps": 0,
+    "actor_lr": 0.001,
+    "test_seed": 2026110941,
+    "minimum_split_distance_m": 0.005
+  },
+  "counts": {
+    "attempts": 158,
+    "native_releases": 116,
+    "captures": 90,
+    "setup_rejections": 42,
+    "native_misses": 26,
+    "invalid_physics": 0,
+    "direct_captures": 79,
+    "table_assisted_captures": 11,
+    "forbidden_contact_shots": 12
+  },
+  "control_gates": {
+    "pre": {
+      "status": "passed",
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    },
+    "post": {
+      "status": "passed",
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    }
+  },
+  "audit": {
+    "status": "passed",
+    "full_checks_verified": true,
+    "native_checks_verified": true,
+    "proof_sha256": "ea4992828178d9e62ba41c63579ecc3876cb5bffaacf6b590c828d45876a7f63",
+    "report_sha256": "1fde3f7de5b5c2912a133c858105388a704a80ab0e2cb39e8d79c0c7a189bf14",
+    "contract_fingerprint": "297b367fa2702d688084bc2e74dd30a83c6cf4312ba078938def5f9b223adce4",
+    "checks_count": 55633
+  },
+  "fit": {
+    "status": "actor_updated",
+    "actor_steps": 800,
+    "critic_steps": 0,
+    "parent_teacher_count": 92,
+    "new_teacher_count": 5,
+    "before": "af319655875b021635e8e1778b1e10f4ebaba24291160504fb88a4c6a101b10c",
+    "after": "c98bb7e663ce1638eb841793199bf4e8ddeeee84b60063a471c7aaf358fb6bec",
+    "initial_actor_loss": 0.00535240164026618,
+    "final_actor_loss": 0.0010246889432892203,
+    "critic_before_sha256": "1454b658e3df3072d04c9cd79656a039890730d747a432cacc17a4745086d301",
+    "critic_after_sha256": "1454b658e3df3072d04c9cd79656a039890730d747a432cacc17a4745086d301"
+  },
+  "artifacts": {
+    "current_bc": {
+      "sha256": "688acc7981522c3281dff47edd19edaf46f084f113455e50f14d7e5cabc3b9e9",
+      "weight_sha256": "af319655875b021635e8e1778b1e10f4ebaba24291160504fb88a4c6a101b10c",
+      "samples": 92,
+      "seed": 2026110901
+    },
+    "corrected_bc": {
+      "sha256": "986408887edb9b443f01120201660cc55943310dace81a102652dfc5006acd5b",
+      "weight_sha256": "c98bb7e663ce1638eb841793199bf4e8ddeeee84b60063a471c7aaf358fb6bec",
+      "samples": 97,
+      "seed": 2026110901
+    }
+  },
+  "teacher_corrections": [
+    {
+      "context_id": "recovery-test-r3-c1-n0",
+      "bucket_xy_m": [
+        0.33921258610632277,
+        -0.030948513932831045
+      ],
+      "values": [
+        0.6130874716489696,
+        -0.014842174275851744,
+        0.2804242748271688,
+        26.792298426137677,
+        0.17376046515080312
+      ],
+      "source_study": "height",
+      "source_record_id": "regression-diagnostic-recovery-test-r3-c1-n0-corrected-r0",
+      "source_record_sha256": "a93ed5cf2a4dec7e3b64f1e1c41cc64eb242f69cfa00787fde00733e2e6925a5",
+      "source_report_sha256": "a6f2d560e9bbd0e721f4b3aaaab651a11de967a6bdb221906208876865582931",
+      "confirmation_captures": 3,
+      "confirmation_requests": 3
+    },
+    {
+      "context_id": "recovery-test-r0-c5-n1",
+      "bucket_xy_m": [
+        1.0532821972317188,
+        -0.6192877290708148
+      ],
+      "values": [
+        0.6481643483015345,
+        -0.1966980652002992,
+        0.4248992377460701,
+        31.477651850899182,
+        0.10343122140848612
+      ],
+      "source_study": "gap",
+      "source_record_id": "drop-gap-diagnostic-recovery-test-r0-c5-n1-corrected-r0",
+      "source_record_sha256": "690686a347822db74ccd9f0520c50efa919eeb19764fed151de0464e5844702c",
+      "source_report_sha256": "dc18617048d35a60665974d9733e9efb3d66e5682a55c61ed3139bcbda64fd35",
+      "confirmation_captures": 3,
+      "confirmation_requests": 3
+    },
+    {
+      "context_id": "recovery-test-r0-c6-n1",
+      "bucket_xy_m": [
+        1.124874941626022,
+        -0.5931986953664748
+      ],
+      "values": [
+        0.652624209743943,
+        -0.19822855800548922,
+        0.4432451770935588,
+        30.54564382422724,
+        0.10993224529525081
+      ],
+      "source_study": "gap",
+      "source_record_id": "drop-gap-diagnostic-recovery-test-r0-c6-n1-corrected-r0",
+      "source_record_sha256": "2ab0779e14d0a703b43c8bca90421c538d76c163816fe850bc9f4ad58cb46eda",
+      "source_report_sha256": "dc18617048d35a60665974d9733e9efb3d66e5682a55c61ed3139bcbda64fd35",
+      "confirmation_captures": 3,
+      "confirmation_requests": 3
+    },
+    {
+      "context_id": "recovery-test-r1-c1-n1",
+      "bucket_xy_m": [
+        0.37808349751740966,
+        -0.43814751388568507
+      ],
+      "values": [
+        0.6354208507773215,
+        -0.3928478259242271,
+        0.2578337762327255,
+        32.19563352799576,
+        0.23693153444604603
+      ],
+      "source_study": "ik",
+      "source_record_id": "ik-diagnostic-recovery-test-r1-c1-n1-parent_xy-r0",
+      "source_record_sha256": "ec209d43629cfb2a94f2fbd98d70e61a469350ebda5416814b51b889900860ce",
+      "source_report_sha256": "8199b13d944f507e78664a8c78734e92ab56e3db14025d7a93eefd4730a6ecd2",
+      "confirmation_captures": 3,
+      "confirmation_requests": 3
+    },
+    {
+      "context_id": "recovery-test-r2-c4-n0",
+      "bucket_xy_m": [
+        0.8983060633856379,
+        -0.24416666833902845
+      ],
+      "values": [
+        0.5793425910769604,
+        -0.05966102020726748,
+        0.4783027474252996,
+        25.631120689705778,
+        0.18223217071817022
+      ],
+      "source_study": "ik",
+      "source_record_id": "ik-diagnostic-recovery-test-r2-c4-n0-parent_xy-r0",
+      "source_record_sha256": "cd9e43e981dcc4724db76464fd22cf99ee1eda101f88fe87a1b18552a8533a81",
+      "source_report_sha256": "8199b13d944f507e78664a8c78734e92ab56e3db14025d7a93eefd4730a6ecd2",
+      "confirmation_captures": 3,
+      "confirmation_requests": 3
+    }
+  ],
+  "test_layouts": [
+    {
+      "id": "corrected-imitation-test-r0-c0-n0",
+      "bucket_xy_m": [
+        0.1403984330191976,
+        -0.6084267562361859
+      ],
+      "grid_cell": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r0-c0-n1",
+      "bucket_xy_m": [
+        0.17446732768319143,
+        -0.4837875098297003
+      ],
+      "grid_cell": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r0-c1-n0",
+      "bucket_xy_m": [
+        0.343413491132878,
+        -0.5790425730848242
+      ],
+      "grid_cell": [
+        1,
+        0
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r0-c1-n1",
+      "bucket_xy_m": [
+        0.2961353087198996,
+        -0.6254964937930994
+      ],
+      "grid_cell": [
+        1,
+        0
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r0-c2-n0",
+      "bucket_xy_m": [
+        0.579098930474636,
+        -0.5052745420742442
+      ],
+      "grid_cell": [
+        2,
+        0
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r0-c2-n1",
+      "bucket_xy_m": [
+        0.5752304824021818,
+        -0.574128713688073
+      ],
+      "grid_cell": [
+        2,
+        0
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r0-c3-n0",
+      "bucket_xy_m": [
+        0.6009792439944639,
+        -0.49251418051968165
+      ],
+      "grid_cell": [
+        3,
+        0
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r0-c3-n1",
+      "bucket_xy_m": [
+        0.6613536482404727,
+        -0.5650670949340606
+      ],
+      "grid_cell": [
+        3,
+        0
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r0-c4-n0",
+      "bucket_xy_m": [
+        0.7828676390487157,
+        -0.5279087420810072
+      ],
+      "grid_cell": [
+        4,
+        0
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r0-c4-n1",
+      "bucket_xy_m": [
+        0.8213266358364841,
+        -0.5013944597973181
+      ],
+      "grid_cell": [
+        4,
+        0
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r0-c5-n0",
+      "bucket_xy_m": [
+        0.9900962663308237,
+        -0.5419111480516252
+      ],
+      "grid_cell": [
+        5,
+        0
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r0-c5-n1",
+      "bucket_xy_m": [
+        1.0171754780437854,
+        -0.5300669694245524
+      ],
+      "grid_cell": [
+        5,
+        0
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r0-c6-n0",
+      "bucket_xy_m": [
+        1.088540843072445,
+        -0.639605606714779
+      ],
+      "grid_cell": [
+        6,
+        0
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r0-c6-n1",
+      "bucket_xy_m": [
+        1.1070265259583456,
+        -0.53626584251982
+      ],
+      "grid_cell": [
+        6,
+        0
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r1-c0-n0",
+      "bucket_xy_m": [
+        0.23400573677166592,
+        -0.39101301829888274
+      ],
+      "grid_cell": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r1-c0-n1",
+      "bucket_xy_m": [
+        0.21752183874358252,
+        -0.4281864079159312
+      ],
+      "grid_cell": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r1-c1-n0",
+      "bucket_xy_m": [
+        0.3166949301168258,
+        -0.45306994756354313
+      ],
+      "grid_cell": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r1-c1-n1",
+      "bucket_xy_m": [
+        0.414865603008882,
+        -0.38276989301864833
+      ],
+      "grid_cell": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r1-c2-n0",
+      "bucket_xy_m": [
+        0.4963906433102536,
+        -0.4146911716255921
+      ],
+      "grid_cell": [
+        2,
+        1
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r1-c2-n1",
+      "bucket_xy_m": [
+        0.5121807396628214,
+        -0.43289350016826444
+      ],
+      "grid_cell": [
+        2,
+        1
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r1-c3-n0",
+      "bucket_xy_m": [
+        0.7172592532265265,
+        -0.3770820253874457
+      ],
+      "grid_cell": [
+        3,
+        1
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r1-c3-n1",
+      "bucket_xy_m": [
+        0.6519978265977481,
+        -0.31484356746876113
+      ],
+      "grid_cell": [
+        3,
+        1
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r1-c4-n0",
+      "bucket_xy_m": [
+        0.7681250208417449,
+        -0.44181293485900475
+      ],
+      "grid_cell": [
+        4,
+        1
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r1-c4-n1",
+      "bucket_xy_m": [
+        0.8250038453984634,
+        -0.31826602320579217
+      ],
+      "grid_cell": [
+        4,
+        1
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r1-c5-n0",
+      "bucket_xy_m": [
+        1.0505814805847806,
+        -0.4455502223095084
+      ],
+      "grid_cell": [
+        5,
+        1
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r1-c5-n1",
+      "bucket_xy_m": [
+        0.9904678873594172,
+        -0.44499795411489873
+      ],
+      "grid_cell": [
+        5,
+        1
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r1-c6-n0",
+      "bucket_xy_m": [
+        1.1022700221118258,
+        -0.4007239370666307
+      ],
+      "grid_cell": [
+        6,
+        1
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r1-c6-n1",
+      "bucket_xy_m": [
+        1.1172771942284274,
+        -0.36051141899201283
+      ],
+      "grid_cell": [
+        6,
+        1
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r2-c0-n0",
+      "bucket_xy_m": [
+        0.1116680797250408,
+        -0.2631283111260168
+      ],
+      "grid_cell": [
+        0,
+        2
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r2-c0-n1",
+      "bucket_xy_m": [
+        0.1257434072837276,
+        -0.2364459167005829
+      ],
+      "grid_cell": [
+        0,
+        2
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r2-c1-n0",
+      "bucket_xy_m": [
+        0.40235538652974023,
+        -0.22095674668131654
+      ],
+      "grid_cell": [
+        1,
+        2
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r2-c1-n1",
+      "bucket_xy_m": [
+        0.4086712493758702,
+        -0.22293629152680722
+      ],
+      "grid_cell": [
+        1,
+        2
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r2-c2-n0",
+      "bucket_xy_m": [
+        0.5510871964658376,
+        -0.17889892152347364
+      ],
+      "grid_cell": [
+        2,
+        2
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r2-c2-n1",
+      "bucket_xy_m": [
+        0.5117812037468279,
+        -0.1983665129822555
+      ],
+      "grid_cell": [
+        2,
+        2
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r2-c3-n0",
+      "bucket_xy_m": [
+        0.6999109555927711,
+        -0.12299308786836971
+      ],
+      "grid_cell": [
+        3,
+        2
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r2-c3-n1",
+      "bucket_xy_m": [
+        0.7287675263750139,
+        -0.23473638874103525
+      ],
+      "grid_cell": [
+        3,
+        2
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r2-c4-n0",
+      "bucket_xy_m": [
+        0.8564037991256062,
+        -0.12685723489148126
+      ],
+      "grid_cell": [
+        4,
+        2
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r2-c4-n1",
+      "bucket_xy_m": [
+        0.8656706880663085,
+        -0.1765342305538355
+      ],
+      "grid_cell": [
+        4,
+        2
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r2-c5-n0",
+      "bucket_xy_m": [
+        1.000988712760624,
+        -0.2338754697717123
+      ],
+      "grid_cell": [
+        5,
+        2
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r2-c5-n1",
+      "bucket_xy_m": [
+        0.9389259553315557,
+        -0.23628205090778548
+      ],
+      "grid_cell": [
+        5,
+        2
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r2-c6-n0",
+      "bucket_xy_m": [
+        1.2176657556305122,
+        -0.1614750329279605
+      ],
+      "grid_cell": [
+        6,
+        2
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r2-c6-n1",
+      "bucket_xy_m": [
+        1.1275666229609969,
+        -0.26238218914497974
+      ],
+      "grid_cell": [
+        6,
+        2
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r3-c0-n0",
+      "bucket_xy_m": [
+        0.13521489347499863,
+        0.035732870828134145
+      ],
+      "grid_cell": [
+        0,
+        3
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r3-c0-n1",
+      "bucket_xy_m": [
+        0.2149745435724737,
+        -0.0705892543541563
+      ],
+      "grid_cell": [
+        0,
+        3
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r3-c1-n0",
+      "bucket_xy_m": [
+        0.3535151209006966,
+        -0.07293465515877418
+      ],
+      "grid_cell": [
+        1,
+        3
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r3-c1-n1",
+      "bucket_xy_m": [
+        0.37817450342915526,
+        -0.02290419906563157
+      ],
+      "grid_cell": [
+        1,
+        3
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r3-c2-n0",
+      "bucket_xy_m": [
+        0.5039926450456815,
+        -0.041645382737043435
+      ],
+      "grid_cell": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r3-c2-n1",
+      "bucket_xy_m": [
+        0.5602032088450389,
+        0.05509918961454452
+      ],
+      "grid_cell": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r3-c3-n0",
+      "bucket_xy_m": [
+        0.6017250445852194,
+        -0.10059885840192218
+      ],
+      "grid_cell": [
+        3,
+        3
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r3-c3-n1",
+      "bucket_xy_m": [
+        0.6533515700350485,
+        -0.04024112861641915
+      ],
+      "grid_cell": [
+        3,
+        3
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r3-c4-n0",
+      "bucket_xy_m": [
+        0.7654192820601873,
+        -0.07935275086030746
+      ],
+      "grid_cell": [
+        4,
+        3
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r3-c4-n1",
+      "bucket_xy_m": [
+        0.7817384734467582,
+        -0.05630012144285179
+      ],
+      "grid_cell": [
+        4,
+        3
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r3-c5-n0",
+      "bucket_xy_m": [
+        0.966511359851722,
+        -0.08040540193067625
+      ],
+      "grid_cell": [
+        5,
+        3
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r3-c5-n1",
+      "bucket_xy_m": [
+        1.047073875046212,
+        -0.00318658300333996
+      ],
+      "grid_cell": [
+        5,
+        3
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r3-c6-n0",
+      "bucket_xy_m": [
+        1.104204154576516,
+        -0.05570539174162581
+      ],
+      "grid_cell": [
+        6,
+        3
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r3-c6-n1",
+      "bucket_xy_m": [
+        1.2099407105472817,
+        -0.08418441838929891
+      ],
+      "grid_cell": [
+        6,
+        3
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r4-c0-n0",
+      "bucket_xy_m": [
+        0.14060922287453897,
+        0.17309272702412415
+      ],
+      "grid_cell": [
+        0,
+        4
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r4-c0-n1",
+      "bucket_xy_m": [
+        0.24000495282636383,
+        0.22548797435806267
+      ],
+      "grid_cell": [
+        0,
+        4
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r4-c1-n0",
+      "bucket_xy_m": [
+        0.29342256686153156,
+        0.20245783725554567
+      ],
+      "grid_cell": [
+        1,
+        4
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r4-c1-n1",
+      "bucket_xy_m": [
+        0.331621867362089,
+        0.1712035044194341
+      ],
+      "grid_cell": [
+        1,
+        4
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r4-c2-n0",
+      "bucket_xy_m": [
+        0.5403291612617418,
+        0.1301353410313637
+      ],
+      "grid_cell": [
+        2,
+        4
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r4-c2-n1",
+      "bucket_xy_m": [
+        0.5023512816508172,
+        0.1466785798877568
+      ],
+      "grid_cell": [
+        2,
+        4
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r4-c3-n0",
+      "bucket_xy_m": [
+        0.6790571852946236,
+        0.14484921785458416
+      ],
+      "grid_cell": [
+        3,
+        4
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r4-c3-n1",
+      "bucket_xy_m": [
+        0.7167913318827657,
+        0.16682155243853658
+      ],
+      "grid_cell": [
+        3,
+        4
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r4-c4-n0",
+      "bucket_xy_m": [
+        0.8314084331306507,
+        0.0812304987367688
+      ],
+      "grid_cell": [
+        4,
+        4
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r4-c4-n1",
+      "bucket_xy_m": [
+        0.7901725265510572,
+        0.21197689869966474
+      ],
+      "grid_cell": [
+        4,
+        4
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r4-c5-n0",
+      "bucket_xy_m": [
+        0.9631834322746544,
+        0.2345293826481497
+      ],
+      "grid_cell": [
+        5,
+        4
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r4-c5-n1",
+      "bucket_xy_m": [
+        0.9281871782951937,
+        0.18249894133714917
+      ],
+      "grid_cell": [
+        5,
+        4
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r4-c6-n0",
+      "bucket_xy_m": [
+        1.1138561657382773,
+        0.20143657922126756
+      ],
+      "grid_cell": [
+        6,
+        4
+      ]
+    },
+    {
+      "id": "corrected-imitation-test-r4-c6-n1",
+      "bucket_xy_m": [
+        1.1817746393254067,
+        0.1064509710928172
+      ],
+      "grid_cell": [
+        6,
+        4
+      ]
+    }
+  ],
+  "test_comparison": [
+    {
+      "method": "corrected_bc",
+      "counts": {
+        "attempts": 70,
+        "native_releases": 47,
+        "captures": 38,
+        "setup_rejections": 23,
+        "native_misses": 9,
+        "invalid_physics": 0,
+        "direct_captures": 35,
+        "table_assisted_captures": 3,
+        "forbidden_contact_shots": 3
+      },
+      "artifact_sha256": "986408887edb9b443f01120201660cc55943310dace81a102652dfc5006acd5b"
+    },
+    {
+      "method": "current_bc",
+      "counts": {
+        "attempts": 70,
+        "native_releases": 51,
+        "captures": 40,
+        "setup_rejections": 19,
+        "native_misses": 11,
+        "invalid_physics": 0,
+        "direct_captures": 38,
+        "table_assisted_captures": 2,
+        "forbidden_contact_shots": 3
+      },
+      "artifact_sha256": "688acc7981522c3281dff47edd19edaf46f084f113455e50f14d7e5cabc3b9e9"
+    }
+  ],
+  "test_positions": [
+    {
+      "context_id": "corrected-imitation-test-r0-c0-n0",
+      "bucket_xy_m": [
+        0.1403984330191976,
+        -0.6084267562361859
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.5546068451004029,
+        -0.24900031931093142,
+        0.3000282093161529,
+        24.177966370053724,
+        0.4386964965444746
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r0-c0-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c0-n1",
+      "bucket_xy_m": [
+        0.17446732768319143,
+        -0.4837875098297003
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.5357142959814081,
+        -0.24177209154111495,
+        0.34955073186341434,
+        32.98381036631201,
+        0.28161895641301143
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r0-c0-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c1-n0",
+      "bucket_xy_m": [
+        0.343413491132878,
+        -0.5790425730848242
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.5007976089909443,
+        -0.2235078132341079,
+        0.2691856640883479,
+        33.99218536239628,
+        0.27387899666903837
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r0-c1-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c1-n1",
+      "bucket_xy_m": [
+        0.2961353087198996,
+        -0.6254964937930994
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.5280031051665952,
+        -0.23412034750648036,
+        0.2696438393358189,
+        30.247066412518404,
+        0.34797828254976554
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r0-c1-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c2-n0",
+      "bucket_xy_m": [
+        0.579098930474636,
+        -0.5052745420742442
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6263853849835408,
+        -0.17752933727650796,
+        0.3364724640027798,
+        23.392339638766654,
+        0.1740037937014728
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r0-c2-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c2-n1",
+      "bucket_xy_m": [
+        0.5752304824021818,
+        -0.574128713688073
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6163477171580501,
+        -0.3476436347482807,
+        0.3915656389342971,
+        32.74481682115266,
+        0.10050101316257261
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r0-c2-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c3-n0",
+      "bucket_xy_m": [
+        0.6009792439944639,
+        -0.49251418051968165
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6251038745137419,
+        -0.17188193950215158,
+        0.33950270484962186,
+        23.201113099555716,
+        0.17631721879962753
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r0-c3-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c3-n1",
+      "bucket_xy_m": [
+        0.6613536482404727,
+        -0.5650670949340606
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6180035968127221,
+        -0.36380932695542745,
+        0.38911561236996134,
+        31.975876569422702,
+        0.10835507999754428
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r0-c3-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c4-n0",
+      "bucket_xy_m": [
+        0.7828676390487157,
+        -0.5279087420810072
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6375919240883199,
+        -0.23023708855739294,
+        0.40246010685407196,
+        33.7285171654738,
+        0.18343997583777127
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r0-c4-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c4-n1",
+      "bucket_xy_m": [
+        0.8213266358364841,
+        -0.5013944597973181
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6219195968363178,
+        -0.22678113199717245,
+        0.414382971373507,
+        34.04828114014789,
+        0.16395002284719937
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r0-c4-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c5-n0",
+      "bucket_xy_m": [
+        0.9900962663308237,
+        -0.5419111480516252
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6482111557241417,
+        -0.20792452682971677,
+        0.4425885543748796,
+        30.044083141082393,
+        0.1233006904802392
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r0-c5-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c5-n1",
+      "bucket_xy_m": [
+        1.0171754780437854,
+        -0.5300669694245524
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6485478920929304,
+        -0.21723285979712795,
+        0.4500779459196316,
+        29.708140140661186,
+        0.11799616880419936
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r0-c5-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c6-n0",
+      "bucket_xy_m": [
+        1.088540843072445,
+        -0.639605606714779
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6502280963092673,
+        -0.19678222739236345,
+        0.4272761574495638,
+        31.45810485527493,
+        0.11649259863380106
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r0-c6-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c6-n1",
+      "bucket_xy_m": [
+        1.1070265259583456,
+        -0.53626584251982
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6536612003245014,
+        -0.20341247447399055,
+        0.4498183398237823,
+        30.33068546648235,
+        0.07564961424222355
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r0-c6-n1",
+      "forbidden_contact_steps": 61
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c0-n0",
+      "bucket_xy_m": [
+        0.23400573677166592,
+        -0.39101301829888274
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6339374883610946,
+        -0.382339667378696,
+        0.266712918909456,
+        30.14563520923136,
+        0.2886371866083827
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r1-c0-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c0-n1",
+      "bucket_xy_m": [
+        0.21752183874358252,
+        -0.4281864079159312
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.642116286606942,
+        -0.37323841526710033,
+        0.27244977894524036,
+        31.289518499573205,
+        0.3192722753070461
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r1-c0-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c1-n0",
+      "bucket_xy_m": [
+        0.3166949301168258,
+        -0.45306994756354313
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6470653523106248,
+        -0.40813827757256366,
+        0.24902259270921098,
+        32.67637774881268,
+        0.2235843166619607
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r1-c1-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c1-n1",
+      "bucket_xy_m": [
+        0.414865603008882,
+        -0.38276989301864833
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6534650277606967,
+        -0.33083662324794955,
+        0.26327961958148727,
+        27.005225160591866,
+        0.142360895078465
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r1-c1-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c2-n0",
+      "bucket_xy_m": [
+        0.4963906433102536,
+        -0.4146911716255921
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6467395590566386,
+        -0.32990174694833996,
+        0.29127499261510703,
+        27.291877704337526,
+        0.07583586488431047
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r1-c2-n0",
+      "forbidden_contact_steps": 62
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c2-n1",
+      "bucket_xy_m": [
+        0.5121807396628214,
+        -0.43289350016826444
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6123564812816735,
+        -0.2004877922070648,
+        0.3036991401828802,
+        18.875529065782654,
+        0.2322984361625519
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r1-c2-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c3-n0",
+      "bucket_xy_m": [
+        0.7172592532265265,
+        -0.3770820253874457
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.5978007620183445,
+        -0.16517814591831767,
+        0.2962342785820026,
+        23.12899072124016,
+        0.13440593270369186
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r1-c3-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c3-n1",
+      "bucket_xy_m": [
+        0.6519978265977481,
+        -0.31484356746876113
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6050009978612035,
+        -0.19002458865377259,
+        0.33668197695346264,
+        20.769914157552424,
+        0.09361392114238533
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "board_bucket_distance_constraint_rejected",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r1-c3-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c4-n0",
+      "bucket_xy_m": [
+        0.7681250208417449,
+        -0.44181293485900475
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6146841677174707,
+        -0.2444695899354614,
+        0.40241322600723,
+        36.02720212686,
+        0.055306852615940094
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r1-c4-n0",
+      "forbidden_contact_steps": 267
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c4-n1",
+      "bucket_xy_m": [
+        0.8250038453984634,
+        -0.31826602320579217
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6461001184567035,
+        -0.22176968467462854,
+        0.3983225513127496,
+        30.47426594272147,
+        0.1207746859013907
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r1-c4-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c5-n0",
+      "bucket_xy_m": [
+        1.0505814805847806,
+        -0.4455502223095084
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6412935479022557,
+        -0.2426250003135269,
+        0.4462006439415836,
+        32.63882067169656,
+        0.11806989389080069
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r1-c5-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c5-n1",
+      "bucket_xy_m": [
+        0.9904678873594172,
+        -0.44499795411489873
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6451201226972691,
+        -0.2533190456661169,
+        0.4486645862005981,
+        31.94285840422676,
+        0.13488114944715549
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r1-c5-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c6-n0",
+      "bucket_xy_m": [
+        1.1022700221118258,
+        -0.4007239370666307
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6152450893488545,
+        0.016311928132571617,
+        0.4730551881618739,
+        24.71435445161083,
+        0.1533497998640806
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r1-c6-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c6-n1",
+      "bucket_xy_m": [
+        1.1172771942284274,
+        -0.36051141899201283
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.604515248298936,
+        0.016161814005820542,
+        0.44614583829925153,
+        25.94381257895297,
+        0.1434507697997912
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r1-c6-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r2-c0-n0",
+      "bucket_xy_m": [
+        0.1116680797250408,
+        -0.2631283111260168
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.5454481311342085,
+        -0.2324467074643001,
+        0.3048583438672547,
+        33.512068324278346,
+        0.30724082155043275
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r2-c0-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r2-c0-n1",
+      "bucket_xy_m": [
+        0.1257434072837276,
+        -0.2364459167005829
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.5577375787659269,
+        -0.2264635289199625,
+        0.31392557613764394,
+        32.61286586822706,
+        0.32485520169927007
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r2-c0-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r2-c1-n0",
+      "bucket_xy_m": [
+        0.40235538652974023,
+        -0.22095674668131654
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6106367534543019,
+        -0.24866144160118525,
+        0.2562114410201855,
+        29.395384783706113,
+        0.16319255730962476
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r2-c1-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r2-c1-n1",
+      "bucket_xy_m": [
+        0.4086712493758702,
+        -0.22293629152680722
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6129694367076126,
+        -0.249501033308552,
+        0.25937033213800403,
+        29.054613945086093,
+        0.1548651646087304
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r2-c1-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r2-c2-n0",
+      "bucket_xy_m": [
+        0.5510871964658376,
+        -0.17889892152347364
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6660159816180029,
+        -0.011001090205073394,
+        0.2288998339689956,
+        25.114555953487987,
+        0.18834711672821133
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "strict_endpoint_clearance_or_pose_rejected",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r2-c2-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r2-c2-n1",
+      "bucket_xy_m": [
+        0.5117812037468279,
+        -0.1983665129822555
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.651450750718582,
+        -0.009641721130427668,
+        0.25651988360152295,
+        24.661751405690143,
+        0.17653588016782995
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r2-c2-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r2-c3-n0",
+      "bucket_xy_m": [
+        0.6999109555927711,
+        -0.12299308786836971
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6606050302651206,
+        -0.2654749545742604,
+        0.32893020141183793,
+        25.009159827317596,
+        0.15854050825864388
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "board_bucket_distance_constraint_rejected",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r2-c3-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r2-c3-n1",
+      "bucket_xy_m": [
+        0.7287675263750139,
+        -0.23473638874103525
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.5596790682237994,
+        -0.06148856979491228,
+        0.5097572408173704,
+        18.72829871356846,
+        0.30706474442784176
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r2-c3-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r2-c4-n0",
+      "bucket_xy_m": [
+        0.8564037991256062,
+        -0.12685723489148126
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.569062540472523,
+        -0.017910421128801892,
+        0.425132392397197,
+        20.822495796962393,
+        0.1995298658559982
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "strict_endpoint_clearance_or_pose_rejected",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r2-c4-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r2-c4-n1",
+      "bucket_xy_m": [
+        0.8656706880663085,
+        -0.1765342305538355
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.5736715268525223,
+        -0.05949940040326231,
+        0.4877364299808514,
+        22.8452583764732,
+        0.16885749672875544
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r2-c4-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r2-c5-n0",
+      "bucket_xy_m": [
+        1.000988712760624,
+        -0.2338754697717123
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.5864649124081097,
+        -0.0377230037119634,
+        0.4568036249490485,
+        25.475148341902234,
+        0.222824673913384
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r2-c5-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r2-c5-n1",
+      "bucket_xy_m": [
+        0.9389259553315557,
+        -0.23628205090778548
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.5890819425149469,
+        -0.05737888859759628,
+        0.45180569615097366,
+        24.564864440265744,
+        0.21379993833421249
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r2-c5-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r2-c6-n0",
+      "bucket_xy_m": [
+        1.2176657556305122,
+        -0.1614750329279605
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.5945172215557557,
+        -0.00959771930730008,
+        0.4802222370534082,
+        28.12705832042081,
+        0.32762995351397317
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r2-c6-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r2-c6-n1",
+      "bucket_xy_m": [
+        1.1275666229609969,
+        -0.26238218914497974
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.5854979190039744,
+        -0.011559656559658548,
+        0.4555767304039198,
+        27.173754903573116,
+        0.1423866532877513
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r2-c6-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r3-c0-n0",
+      "bucket_xy_m": [
+        0.13521489347499863,
+        0.035732870828134145
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.4402294616458269,
+        0.0019843765909647575,
+        0.24402952109885717,
+        26.10576805822636,
+        0.12125221195649781
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "fixed_base_clearance_rejected",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r3-c0-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r3-c0-n1",
+      "bucket_xy_m": [
+        0.2149745435724737,
+        -0.0705892543541563
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.4500006514164681,
+        0.02750874685795958,
+        0.2834088227693759,
+        25.733724549614468,
+        0.1405214932084209
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r3-c0-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r3-c1-n0",
+      "bucket_xy_m": [
+        0.3535151209006966,
+        -0.07293465515877418
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6246206737457825,
+        -0.3110894760621055,
+        0.288656273211755,
+        34.4038242339182,
+        0.23475447672159605
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r3-c1-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r3-c1-n1",
+      "bucket_xy_m": [
+        0.37817450342915526,
+        -0.02290419906563157
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6179479103801354,
+        -0.011737254733912239,
+        0.28961963859785744,
+        27.680689001323408,
+        0.12615385019761238
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r3-c1-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r3-c2-n0",
+      "bucket_xy_m": [
+        0.5039926450456815,
+        -0.041645382737043435
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6334141733242644,
+        -0.2617174533282997,
+        0.29613650981012146,
+        29.063637745489547,
+        0.11205640384329618
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r3-c2-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r3-c2-n1",
+      "bucket_xy_m": [
+        0.5602032088450389,
+        0.05509918961454452
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6551830344913491,
+        -0.23530678270005279,
+        0.3140395444162174,
+        32.20977416515077,
+        0.15370988726185877
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r3-c2-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r3-c3-n0",
+      "bucket_xy_m": [
+        0.6017250445852194,
+        -0.10059885840192218
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6489982275332977,
+        -0.2889866142973914,
+        0.282486785661645,
+        27.49992142330664,
+        0.13518943894643373
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r3-c3-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r3-c3-n1",
+      "bucket_xy_m": [
+        0.6533515700350485,
+        -0.04024112861641915
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6300733991668024,
+        -0.28046655988596086,
+        0.2716615643155193,
+        28.27997912690881,
+        0.10499899628655762
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r3-c3-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r3-c4-n0",
+      "bucket_xy_m": [
+        0.7654192820601873,
+        -0.07935275086030746
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.5600925090414979,
+        -0.05272800561668706,
+        0.46663029953802637,
+        18.567165618085127,
+        0.232204069749401
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r3-c4-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r3-c4-n1",
+      "bucket_xy_m": [
+        0.7817384734467582,
+        -0.05630012144285179
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.5598818314208387,
+        -0.047719921646683365,
+        0.425197426619315,
+        18.63124915514534,
+        0.20726625883256714
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r3-c4-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r3-c5-n0",
+      "bucket_xy_m": [
+        0.966511359851722,
+        -0.08040540193067625
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6166034840083713,
+        0.01599657580345875,
+        0.43677335554725094,
+        25.57639653503873,
+        0.31456860548962967
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r3-c5-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r3-c5-n1",
+      "bucket_xy_m": [
+        1.047073875046212,
+        -0.00318658300333996
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6068069021363541,
+        0.014661376892337652,
+        0.4204218579198663,
+        22.237730579099658,
+        0.33087494326916544
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r3-c5-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r3-c6-n0",
+      "bucket_xy_m": [
+        1.104204154576516,
+        -0.05570539174162581
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6245474336388561,
+        0.012638501456906648,
+        0.4346924168699175,
+        28.34290001817447,
+        0.3577997004722276
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r3-c6-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r3-c6-n1",
+      "bucket_xy_m": [
+        1.2099407105472817,
+        -0.08418441838929891
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.5968012577588856,
+        0.010222659554720362,
+        0.48994359936657017,
+        30.136747947990674,
+        0.3519844360381161
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "fixed_base_clearance_rejected",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r3-c6-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r4-c0-n0",
+      "bucket_xy_m": [
+        0.14060922287453897,
+        0.17309272702412415
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.4889525422331862,
+        0.06309229087673046,
+        0.3288171209823231,
+        35.939754765525066,
+        0.2600578805882449
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r4-c0-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r4-c0-n1",
+      "bucket_xy_m": [
+        0.24000495282636383,
+        0.22548797435806267
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.5781766848529318,
+        -0.06099313471385673,
+        0.3541730097772257,
+        33.49274377650514,
+        0.2859239437520518
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r4-c0-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r4-c1-n0",
+      "bucket_xy_m": [
+        0.29342256686153156,
+        0.20245783725554567
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.5754791478839306,
+        -0.05440566471477015,
+        0.3409577907006901,
+        35.475192803784786,
+        0.24463859882107147
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r4-c1-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r4-c1-n1",
+      "bucket_xy_m": [
+        0.331621867362089,
+        0.1712035044194341
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.5748839111276576,
+        -0.06137534689270392,
+        0.3206638886885637,
+        34.05578907761153,
+        0.24442373339427453
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r4-c1-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r4-c2-n0",
+      "bucket_xy_m": [
+        0.5403291612617418,
+        0.1301353410313637
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6577655314786574,
+        -0.038994403760161646,
+        0.3152671775694376,
+        33.46988662441412,
+        0.10648428813698065
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r4-c2-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r4-c2-n1",
+      "bucket_xy_m": [
+        0.5023512816508172,
+        0.1466785798877568
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.6623803456117079,
+        -0.048729876047012906,
+        0.316404134663146,
+        32.24717134168194,
+        0.09679347853449895
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r4-c2-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r4-c3-n0",
+      "bucket_xy_m": [
+        0.6790571852946236,
+        0.14484921785458416
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.574245149478709,
+        -0.042414427866388694,
+        0.39942314257994194,
+        34.23434240442349,
+        0.09893840185022859
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r4-c3-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r4-c3-n1",
+      "bucket_xy_m": [
+        0.7167913318827657,
+        0.16682155243853658
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.5721008336266846,
+        -0.0399717938234649,
+        0.39448366920004135,
+        34.485438195154316,
+        0.11313842251722332
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r4-c3-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r4-c4-n0",
+      "bucket_xy_m": [
+        0.8314084331306507,
+        0.0812304987367688
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.5668649924476157,
+        0.004562542368588551,
+        0.4314041484568142,
+        19.283072632022993,
+        0.21582822965053533
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "strict_endpoint_clearance_or_pose_rejected",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r4-c4-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r4-c4-n1",
+      "bucket_xy_m": [
+        0.7901725265510572,
+        0.21197689869966474
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.5930186648973115,
+        -0.03860644440330641,
+        0.4071816385050093,
+        34.0074852295544,
+        0.1364688601290557
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r4-c4-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r4-c5-n0",
+      "bucket_xy_m": [
+        0.9631834322746544,
+        0.2345293826481497
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.5706077153823472,
+        -0.0214537073522908,
+        0.4738024959627331,
+        24.012565101140606,
+        0.2132399802073312
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r4-c5-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r4-c5-n1",
+      "bucket_xy_m": [
+        0.9281871782951937,
+        0.18249894133714917
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.5673573054973852,
+        0.004024781649094679,
+        0.4769986983580084,
+        22.1493369847191,
+        0.2266650310587617
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r4-c5-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r4-c6-n0",
+      "bucket_xy_m": [
+        1.1138561657382773,
+        0.20143657922126756
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.5964307357274578,
+        0.0002661077073555333,
+        0.4512766205060429,
+        25.39878723967243,
+        0.30451451960103815
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r4-c6-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r4-c6-n1",
+      "bucket_xy_m": [
+        1.1817746393254067,
+        0.1064509710928172
+      ],
+      "method": "corrected_bc",
+      "values": [
+        0.5965019762687127,
+        -0.004752905967164853,
+        0.4338583603388311,
+        22.450073060037923,
+        0.3565559911050608
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r4-c6-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c0-n0",
+      "bucket_xy_m": [
+        0.1403984330191976,
+        -0.6084267562361859
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5425010495427265,
+        -0.24307496520873226,
+        0.29643700669978756,
+        25.18010883566994,
+        0.42413011722995236
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r0-c0-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c0-n1",
+      "bucket_xy_m": [
+        0.17446732768319143,
+        -0.4837875098297003
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5318236536725828,
+        -0.24579892969632655,
+        0.34516250791187675,
+        32.8523795419384,
+        0.2761837830968676
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r0-c0-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c1-n0",
+      "bucket_xy_m": [
+        0.343413491132878,
+        -0.5790425730848242
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5113470187648796,
+        -0.22355561463014872,
+        0.26832562306563784,
+        32.71792736735478,
+        0.28703251070475216
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r0-c1-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c1-n1",
+      "bucket_xy_m": [
+        0.2961353087198996,
+        -0.6254964937930994
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5302151179472843,
+        -0.23682319540230914,
+        0.2718668567561688,
+        29.676195424463703,
+        0.34924928369484964
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r0-c1-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c2-n0",
+      "bucket_xy_m": [
+        0.579098930474636,
+        -0.5052745420742442
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6250211642145279,
+        -0.17827254997205466,
+        0.32276628490504544,
+        21.63678564283929,
+        0.2023357114424028
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r0-c2-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c2-n1",
+      "bucket_xy_m": [
+        0.5752304824021818,
+        -0.574128713688073
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6214606987858903,
+        -0.3429008233854723,
+        0.384009856051012,
+        32.100424102811246,
+        0.10561647699034551
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r0-c2-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c3-n0",
+      "bucket_xy_m": [
+        0.6009792439944639,
+        -0.49251418051968165
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6248421894636462,
+        -0.17549321393431433,
+        0.32809657807642817,
+        21.79264385230734,
+        0.19656416417320788
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r0-c3-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c3-n1",
+      "bucket_xy_m": [
+        0.6613536482404727,
+        -0.5650670949340606
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6151908487941431,
+        -0.35999880363840714,
+        0.39395123885594585,
+        32.62118312570759,
+        0.11055406975573474
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r0-c3-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c4-n0",
+      "bucket_xy_m": [
+        0.7828676390487157,
+        -0.5279087420810072
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6356152920918504,
+        -0.23349033681942863,
+        0.40343469021021355,
+        34.09205659117413,
+        0.1796569786691945
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r0-c4-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c4-n1",
+      "bucket_xy_m": [
+        0.8213266358364841,
+        -0.5013944597973181
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6225436226706815,
+        -0.225066637840069,
+        0.41336401028045,
+        33.91515445518741,
+        0.1652544803348
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r0-c4-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c5-n0",
+      "bucket_xy_m": [
+        0.9900962663308237,
+        -0.5419111480516252
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6469427958299255,
+        -0.20625187537190265,
+        0.4421753337824787,
+        30.90842123037389,
+        0.13181844607212156
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r0-c5-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c5-n1",
+      "bucket_xy_m": [
+        1.0171754780437854,
+        -0.5300669694245524
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6484890992459325,
+        -0.21739977674742747,
+        0.4500087133793348,
+        30.564970824215703,
+        0.13082655970262158
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r0-c5-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c6-n0",
+      "bucket_xy_m": [
+        1.088540843072445,
+        -0.639605606714779
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6502272384365725,
+        -0.19652559738419498,
+        0.42747311559936196,
+        31.345436543312083,
+        0.15031118269189997
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r0-c6-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r0-c6-n1",
+      "bucket_xy_m": [
+        1.1070265259583456,
+        -0.53626584251982
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6520289466577917,
+        -0.20861493309273504,
+        0.45146626815383345,
+        30.789154900138175,
+        0.09613864355740137
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r0-c6-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c0-n0",
+      "bucket_xy_m": [
+        0.23400573677166592,
+        -0.39101301829888274
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6334171741754063,
+        -0.3700231071141061,
+        0.265540367613865,
+        30.231519903213844,
+        0.27935991594290294
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r1-c0-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c0-n1",
+      "bucket_xy_m": [
+        0.21752183874358252,
+        -0.4281864079159312
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6338804711007143,
+        -0.36737168174395846,
+        0.26430501703507864,
+        30.578739808867972,
+        0.28913135023988273
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r1-c0-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c1-n0",
+      "bucket_xy_m": [
+        0.3166949301168258,
+        -0.45306994756354313
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6413662741151497,
+        -0.3951689912105089,
+        0.25346446997201505,
+        32.06749754888823,
+        0.22067171326822696
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r1-c1-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c1-n1",
+      "bucket_xy_m": [
+        0.414865603008882,
+        -0.38276989301864833
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6531075338437771,
+        -0.33218606975485376,
+        0.2633655198284403,
+        27.0584573726657,
+        0.1314328975405062
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r1-c1-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c2-n0",
+      "bucket_xy_m": [
+        0.4963906433102536,
+        -0.4146911716255921
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6475841779696394,
+        -0.3310148299806974,
+        0.2852925777438575,
+        27.440029100765784,
+        0.07888068705134793
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r1-c2-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c2-n1",
+      "bucket_xy_m": [
+        0.5121807396628214,
+        -0.43289350016826444
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6139652826338876,
+        -0.1954140446862532,
+        0.30660585120033557,
+        18.44488902090122,
+        0.2365503219056625
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r1-c2-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c3-n0",
+      "bucket_xy_m": [
+        0.7172592532265265,
+        -0.3770820253874457
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5984165493045571,
+        -0.16389080393039773,
+        0.29562402879037536,
+        22.125342241828697,
+        0.14297761890468041
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r1-c3-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c3-n1",
+      "bucket_xy_m": [
+        0.6519978265977481,
+        -0.31484356746876113
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6031528655796038,
+        -0.18188856704988945,
+        0.3484357609513352,
+        21.97998204160987,
+        0.08998753198288587
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "board_bucket_distance_constraint_rejected",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r1-c3-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c4-n0",
+      "bucket_xy_m": [
+        0.7681250208417449,
+        -0.44181293485900475
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6121974479443263,
+        -0.24135692251378052,
+        0.4143173763182438,
+        35.83510665582545,
+        0.06070650449771206
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r1-c4-n0",
+      "forbidden_contact_steps": 77
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c4-n1",
+      "bucket_xy_m": [
+        0.8250038453984634,
+        -0.31826602320579217
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6449518191678049,
+        -0.22423272336445746,
+        0.3983838787840959,
+        30.812076660515523,
+        0.12311415372879289
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r1-c4-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c5-n0",
+      "bucket_xy_m": [
+        1.0505814805847806,
+        -0.4455502223095084
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6442062332399899,
+        -0.24835662759969915,
+        0.4448330981429036,
+        32.91059102982152,
+        0.12731539592519128
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r1-c5-n0",
+      "forbidden_contact_steps": 28
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c5-n1",
+      "bucket_xy_m": [
+        0.9904678873594172,
+        -0.44499795411489873
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6484166401594254,
+        -0.25349004805611874,
+        0.4479037401229127,
+        32.720520698387645,
+        0.13894409196667049
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "strict_endpoint_clearance_or_pose_rejected",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r1-c5-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c6-n0",
+      "bucket_xy_m": [
+        1.1022700221118258,
+        -0.4007239370666307
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6168484190793972,
+        0.016101172558953797,
+        0.46753692982236805,
+        24.655820313502648,
+        0.15640113769927175
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r1-c6-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c6-n1",
+      "bucket_xy_m": [
+        1.1172771942284274,
+        -0.36051141899201283
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6043452948812013,
+        0.016071160202660667,
+        0.4496063832056259,
+        25.953118771539543,
+        0.15151493316999493
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "strict_endpoint_clearance_or_pose_rejected",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r1-c6-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r2-c0-n0",
+      "bucket_xy_m": [
+        0.1116680797250408,
+        -0.2631283111260168
+      ],
+      "method": "current_bc",
+      "values": [
+        0.536914270007533,
+        -0.22616199489244765,
+        0.32157943488084484,
+        33.149418658209235,
+        0.28987602701587006
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r2-c0-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r2-c0-n1",
+      "bucket_xy_m": [
+        0.1257434072837276,
+        -0.2364459167005829
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5467666365831586,
+        -0.22754657530198913,
+        0.3267748810739772,
+        33.39559260627831,
+        0.28419174606445957
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r2-c0-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r2-c1-n0",
+      "bucket_xy_m": [
+        0.40235538652974023,
+        -0.22095674668131654
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6238189212644065,
+        -0.2451058325327986,
+        0.2620561098252045,
+        27.36670208238191,
+        0.15402311671332652
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r2-c1-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r2-c1-n1",
+      "bucket_xy_m": [
+        0.4086712493758702,
+        -0.22293629152680722
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6270892309897848,
+        -0.2455851300277039,
+        0.26439432526539725,
+        27.129936479192605,
+        0.1473371938321465
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r2-c1-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r2-c2-n0",
+      "bucket_xy_m": [
+        0.5510871964658376,
+        -0.17889892152347364
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6680627406683909,
+        -0.011010588483208232,
+        0.22984937446078968,
+        23.7228978555407,
+        0.19019559444646747
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "strict_endpoint_clearance_or_pose_rejected",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r2-c2-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r2-c2-n1",
+      "bucket_xy_m": [
+        0.5117812037468279,
+        -0.1983665129822555
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6637456873559302,
+        -0.010053287997049895,
+        0.2467039325217056,
+        23.127243570956875,
+        0.1880231060639301
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "strict_endpoint_clearance_or_pose_rejected",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r2-c2-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r2-c3-n0",
+      "bucket_xy_m": [
+        0.6999109555927711,
+        -0.12299308786836971
+      ],
+      "method": "current_bc",
+      "values": [
+        0.663367131108702,
+        -0.2971610412699189,
+        0.3015130158897035,
+        22.808611352210505,
+        0.17815496641332212
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "strict_endpoint_clearance_or_pose_rejected",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r2-c3-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r2-c3-n1",
+      "bucket_xy_m": [
+        0.7287675263750139,
+        -0.23473638874103525
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5588759331050842,
+        -0.06279111155428951,
+        0.5094842684402462,
+        18.41733313560117,
+        0.24904360831896488
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r2-c3-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r2-c4-n0",
+      "bucket_xy_m": [
+        0.8564037991256062,
+        -0.12685723489148126
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5681528651460642,
+        -0.025862514948539743,
+        0.4316397175711961,
+        20.854295312442122,
+        0.1966765919843471
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "strict_endpoint_clearance_or_pose_rejected",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r2-c4-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r2-c4-n1",
+      "bucket_xy_m": [
+        0.8656706880663085,
+        -0.1765342305538355
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5666741393387826,
+        -0.05987462734686138,
+        0.4828934800525846,
+        21.705280107903224,
+        0.17887353666278583
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r2-c4-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r2-c5-n0",
+      "bucket_xy_m": [
+        1.000988712760624,
+        -0.2338754697717123
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5825680636102781,
+        -0.044233263548348584,
+        0.450235610838138,
+        26.452756109917072,
+        0.25021444394738834
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r2-c5-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r2-c5-n1",
+      "bucket_xy_m": [
+        0.9389259553315557,
+        -0.23628205090778548
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5775228754049964,
+        -0.060338876077886384,
+        0.4481231939319524,
+        25.804745626042042,
+        0.21070284101256728
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r2-c5-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r2-c6-n0",
+      "bucket_xy_m": [
+        1.2176657556305122,
+        -0.1614750329279605
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6038674387891251,
+        -0.013634344320825862,
+        0.48118618482330155,
+        27.332015909575247,
+        0.29269179602772966
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r2-c6-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r2-c6-n1",
+      "bucket_xy_m": [
+        1.1275666229609969,
+        -0.26238218914497974
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5828357457965316,
+        -0.009748131722774793,
+        0.4535595550845911,
+        27.060883528436662,
+        0.1471883785358305
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r2-c6-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r3-c0-n0",
+      "bucket_xy_m": [
+        0.13521489347499863,
+        0.035732870828134145
+      ],
+      "method": "current_bc",
+      "values": [
+        0.4493946363506809,
+        0.008603926737862252,
+        0.25094881462586777,
+        25.431875521498863,
+        0.12317855807732546
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "fixed_base_clearance_rejected",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r3-c0-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r3-c0-n1",
+      "bucket_xy_m": [
+        0.2149745435724737,
+        -0.0705892543541563
+      ],
+      "method": "current_bc",
+      "values": [
+        0.45869772292550504,
+        0.023587318322577044,
+        0.28951310141177933,
+        25.54912284037205,
+        0.11688812358941265
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r3-c0-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r3-c1-n0",
+      "bucket_xy_m": [
+        0.3535151209006966,
+        -0.07293465515877418
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6207829837869172,
+        -0.32530916505038143,
+        0.27000096680370556,
+        33.717329057188245,
+        0.25015767945876294
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r3-c1-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r3-c1-n1",
+      "bucket_xy_m": [
+        0.37817450342915526,
+        -0.02290419906563157
+      ],
+      "method": "current_bc",
+      "values": [
+        0.618904624860223,
+        -0.012620754289138739,
+        0.2670830712410806,
+        28.049128078987856,
+        0.1295881301803481
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r3-c1-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r3-c2-n0",
+      "bucket_xy_m": [
+        0.5039926450456815,
+        -0.041645382737043435
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6336984198801188,
+        -0.26611702839818524,
+        0.2919580133892976,
+        28.63252977096154,
+        0.11603499775548201
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r3-c2-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r3-c2-n1",
+      "bucket_xy_m": [
+        0.5602032088450389,
+        0.05509918961454452
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6534528643716707,
+        -0.23553971725054657,
+        0.31315163499431903,
+        32.646824364567976,
+        0.14481196791889112
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r3-c2-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r3-c3-n0",
+      "bucket_xy_m": [
+        0.6017250445852194,
+        -0.10059885840192218
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6530083234173562,
+        -0.2879154885193754,
+        0.28224812051033243,
+        27.618416916229638,
+        0.13774255351164327
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r3-c3-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r3-c3-n1",
+      "bucket_xy_m": [
+        0.6533515700350485,
+        -0.04024112861641915
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6306889469202254,
+        -0.2781981914180627,
+        0.2780074521802758,
+        29.067613957955576,
+        0.10622974363485409
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r3-c3-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r3-c4-n0",
+      "bucket_xy_m": [
+        0.7654192820601873,
+        -0.07935275086030746
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5594997594326167,
+        -0.04107495327894052,
+        0.44428739313340543,
+        18.33007374703442,
+        0.20641310567089038
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r3-c4-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r3-c4-n1",
+      "bucket_xy_m": [
+        0.7817384734467582,
+        -0.05630012144285179
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5611098278633667,
+        -0.029389794790602712,
+        0.4181825912707387,
+        18.381808493861012,
+        0.21552944806620408
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r3-c4-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r3-c5-n0",
+      "bucket_xy_m": [
+        0.966511359851722,
+        -0.08040540193067625
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6055614645091355,
+        0.015710444308894476,
+        0.4402607695021386,
+        26.74782673888781,
+        0.2922622801442416
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r3-c5-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r3-c5-n1",
+      "bucket_xy_m": [
+        1.047073875046212,
+        -0.00318658300333996
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5892694797348818,
+        0.014550000768565045,
+        0.42182009815041,
+        24.30298659381809,
+        0.3084886937393441
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r3-c5-n1",
+      "forbidden_contact_steps": 53
+    },
+    {
+      "context_id": "corrected-imitation-test-r3-c6-n0",
+      "bucket_xy_m": [
+        1.104204154576516,
+        -0.05570539174162581
+      ],
+      "method": "current_bc",
+      "values": [
+        0.612909677260036,
+        0.012730144461915775,
+        0.4339418913617022,
+        30.13329753758637,
+        0.35018505153760876
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r3-c6-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r3-c6-n1",
+      "bucket_xy_m": [
+        1.2099407105472817,
+        -0.08418441838929891
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6044204644018666,
+        0.009141451059259967,
+        0.4826565716701392,
+        30.63879236815511,
+        0.3472051455505442
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "fixed_base_clearance_rejected",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r3-c6-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r4-c0-n0",
+      "bucket_xy_m": [
+        0.14060922287453897,
+        0.17309272702412415
+      ],
+      "method": "current_bc",
+      "values": [
+        0.48501091423165943,
+        0.04906651542080708,
+        0.32726707823223555,
+        34.58806334081878,
+        0.2657943202486324
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r4-c0-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r4-c0-n1",
+      "bucket_xy_m": [
+        0.24000495282636383,
+        0.22548797435806267
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5753570499185864,
+        -0.06356498235915348,
+        0.3545877101838762,
+        34.06216709683541,
+        0.2768432872228782
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r4-c0-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r4-c1-n0",
+      "bucket_xy_m": [
+        0.29342256686153156,
+        0.20245783725554567
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5762193855514894,
+        -0.06144964437707146,
+        0.33327834803495543,
+        33.969010834661994,
+        0.2586807308731202
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r4-c1-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r4-c1-n1",
+      "bucket_xy_m": [
+        0.331621867362089,
+        0.1712035044194341
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5742858696208983,
+        -0.07024529171819481,
+        0.3142014703237569,
+        32.648423751665916,
+        0.2565403103176007
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r4-c1-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r4-c2-n0",
+      "bucket_xy_m": [
+        0.5403291612617418,
+        0.1301353410313637
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6562767561799894,
+        -0.040209847276588204,
+        0.3141679197119483,
+        32.968163070053485,
+        0.10158412542648736
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r4-c2-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r4-c2-n1",
+      "bucket_xy_m": [
+        0.5023512816508172,
+        0.1466785798877568
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6608172292907791,
+        -0.043128927764922775,
+        0.3137216000795086,
+        32.47119578383075,
+        0.10215120552908664
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r4-c2-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r4-c3-n0",
+      "bucket_xy_m": [
+        0.6790571852946236,
+        0.14484921785458416
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5755807850738923,
+        -0.04377237205107229,
+        0.4045809400617514,
+        34.892710302729085,
+        0.10617963881984407
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r4-c3-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r4-c3-n1",
+      "bucket_xy_m": [
+        0.7167913318827657,
+        0.16682155243853658
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5717145797952926,
+        -0.043022763547513235,
+        0.40056715182335084,
+        34.878888845922674,
+        0.11468977906848152
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r4-c3-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r4-c4-n0",
+      "bucket_xy_m": [
+        0.8314084331306507,
+        0.0812304987367688
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5678324134507525,
+        0.009966596843085665,
+        0.42613577562641475,
+        19.108911323327984,
+        0.22279751325083913
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "strict_endpoint_clearance_or_pose_rejected",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r4-c4-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r4-c4-n1",
+      "bucket_xy_m": [
+        0.7901725265510572,
+        0.21197689869966474
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5920309373069824,
+        -0.03731325758487624,
+        0.409767638317044,
+        34.047994911877126,
+        0.13164274894125616
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r4-c4-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r4-c5-n0",
+      "bucket_xy_m": [
+        0.9631834322746544,
+        0.2345293826481497
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5762523052157813,
+        -0.013647636016077588,
+        0.4585790445948121,
+        24.991797237475655,
+        0.21829864383368608
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r4-c5-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r4-c5-n1",
+      "bucket_xy_m": [
+        0.9281871782951937,
+        0.18249894133714917
+      ],
+      "method": "current_bc",
+      "values": [
+        0.568473930825106,
+        0.008012793490995089,
+        0.4574194054452039,
+        22.751065309114274,
+        0.223357050463281
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r4-c5-n1",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r4-c6-n0",
+      "bucket_xy_m": [
+        1.1138561657382773,
+        0.20143657922126756
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5682848246858926,
+        -0.0031374730317418054,
+        0.46523562041342587,
+        24.31680516510431,
+        0.3037705495483881
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r4-c6-n0",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "corrected-imitation-test-r4-c6-n1",
+      "bucket_xy_m": [
+        1.1817746393254067,
+        0.1064509710928172
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5771414217473516,
+        0.0028381579610188834,
+        0.4392138009725974,
+        23.664299198677192,
+        0.3503544672383856
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "invalid_physics": false,
+      "record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r4-c6-n1",
+      "forbidden_contact_steps": 0
+    }
+  ],
+  "paired": {
+    "gains": 4,
+    "losses": 6,
+    "shared_captures": 34,
+    "shared_failures": 26,
+    "net_captures": -2,
+    "positions": 70
+  },
+  "interpretation": "Frozen paired comparison on70 new inventoried-disjoint positions; one request per policy per position. All declines count. No automatic promotion, all-table reliability or physical validation.",
+  "producer_commit": "fecbe4d61bd92c912e0b4d80b1fdd7be3a2bcb48",
+  "ui_commit": "fecbe4d61bd92c912e0b4d80b1fdd7be3a2bcb48"
+}
