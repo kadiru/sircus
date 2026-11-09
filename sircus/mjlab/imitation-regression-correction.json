@@ -1,0 +1,21 @@
+{
+  "mode": "matched_current_action_midpoint",
+  "contexts": [
+    "corrected-imitation-test-r0-c0-n0",
+    "corrected-imitation-test-r0-c1-n0",
+    "corrected-imitation-test-r0-c6-n1",
+    "corrected-imitation-test-r1-c1-n0",
+    "corrected-imitation-test-r1-c2-n0",
+    "corrected-imitation-test-r3-c0-n1"
+  ],
+  "interpolation_alpha": 0.5,
+  "parameter_indices": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "diagnosis_sha256": "e16f551802c6c378e7911a0bca2470e4302babb075f8ef570df189839a7bd428",
+  "description": "For each of six inspected corrected-imitation regressions, move all five action coordinates exactly halfway toward its matched successful current-imitation recipe. One frozen joint intervention; no coordinate search or causal isolation, tuning, training, altered admission or policy promotion."
+}

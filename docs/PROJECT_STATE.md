@@ -1,5 +1,14 @@
 # Project state
 
+
+## Six imitation regressions diagnosed; correction blocked by GPU occupancy — November 9, 2026
+
+- [Diagnosis and provenance](../baselines/mjlab-imitation-regression-20261109/README.md), [protocol](../sircus/mjlab/IMITATION_REGRESSION.md) and [handoff](MJLAB_IMITATION_REGRESSION_20261109.md): three finite IK refusals, two robot-contact routes, one rim miss. The 1,230-check diagnosis passed. Historical current/corrected scores stay **40/70 versus 38/70**; successful recipes and checkpoints remain intact.
+- One frozen 50% interpolation of all five shot coordinates toward each successful current recipe; 54 matched diagnostic slots plus 18 controls at 64 substeps. **0/72 ran:** the 900-second GPU queue expired before acquisition because a protected Isaac job occupied the 4090. This is not a correction failure or completed native experiment. Producer `b962af9`, UI `6f489d1`; draft PR #113 stacks on #112.
+- The additive `#imitationRegression` UI shows exact historical differences and six historical success/failure movies (2,705 frames, all fully decoded). CPU software rendering replays saved native centers with held endpoint joints and explicit refusal cards. Browser playback verified. No new correction movie/outcome is claimed.
+- Source tests/CI and 197 actual-plan preflight checks passed. Seven inventoried report hashes, all 57 display-report keys/bytes and unrelated HTML/CSS remain unchanged; protected fountain/viewer process identities preserved. No model fitting/promotion, hardware work, service restart, 4070 or Isaac change.
+- Next: a new bounded launch of the unchanged 72-slot protocol when the 4090 is free, then independent audit and actual matched-results publication. No automatic retry remains. These inspected positions are development data, not fresh generalization evidence.
+
 ## Corrected imitation evaluated on 70 new positions — November 9, 2026
 
 - [Audited results](../baselines/mjlab-corrected-imitation-20261109/README.md), [protocol](../sircus/mjlab/CORRECTED_IMITATION.md) and [handoff](MJLAB_CORRECTED_IMITATION_20261109.md): corrected imitation captured **38/70 (54.3%)**, current imitation **40/70 (57.1%)** on the same fresh positions. Four gains, six losses, 34 shared captures and 26 shared failures. No sample improvement or policy promotion; this small paired test does not establish significant general worsening.

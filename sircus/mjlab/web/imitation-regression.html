@@ -1,0 +1,38 @@
+<section id="imitationRegression" class="imitation-regression">
+  <p class="ir-eyebrow">MJLAB · SIX REGRESSIONS · NATIVE 64 SUBSTEPS</p>
+  <h2>Why did six successful positions regress?</h2>
+  <p class="ir-note" data-imitation-regression="status" role="status">Waiting for saved comparison.</p>
+  <p>These six inspected development positions were successful with current imitation and failed after refitting. Their original frozen comparison stays 40/70 versus 38/70. No policy is retrained or promoted here.</p>
+  <div class="ir-cards" data-imitation-regression="counts"></div>
+  <p class="ir-note" data-imitation-regression="takeaway"></p>
+  <h3>Original failures and what changed</h3>
+  <div class="ir-scroll" data-imitation-regression="original-rejections"></div>
+  <p class="ir-small">A setup decline has no observed flight. Finite IK failure does not prove a pose impossible. Retention after robot contact is shown explicitly, but is not an accepted capture. Table and rim assistance remain allowed.</p>
+  <p class="ir-small">Command differences below are corrected minus current, before the new intervention.</p>
+  <div class="ir-scroll" data-imitation-regression="deltas"></div>
+  <h3>One frozen correction, with both original recipes preserved</h3>
+  <p data-imitation-regression="correction"></p>
+  <div class="ir-scroll" data-imitation-regression="settings"></div>
+  <h3>Matched repeats and controls</h3>
+  <div class="ir-scroll" data-imitation-regression="comparison"></div>
+  <p class="ir-small" data-imitation-regression="controls"></p>
+  <p class="ir-small">Three nominal requests are not noise robustness or a new held-out policy score. Every setup rejection and invalid simulation stays in its request denominator.</p>
+  <details><summary>Fresh setup proofs and measured postures</summary><p class="ir-small">Measurements are compared with the exact current recipe. Rejected requests have no measured flight posture.</p><div class="ir-scroll" data-imitation-regression="realization"></div></details>
+  <h3>Historical test pairs</h3>
+  <p>Original saved current-policy capture and corrected-policy failure for each inspected position. These videos diagnose the prior 70-position comparison; they are not outcomes of the new halfway correction.</p>
+  <div data-imitation-regression="historical-movies"></div>
+  <h3>New matched correction recordings</h3>
+  <p>Each video shows repeat zero of exact current, exact corrected and the halfway correction. Rejected setups have a “no flight” card. These are saved native simulation samples, with held endpoint joints; no arm transit is invented.</p>
+  <div data-imitation-regression="movies"></div>
+  <h3>Inspect saved samples and contact times</h3>
+  <label>Saved request <select data-imitation-regression="case-choice" aria-label="Regression saved request"></select></label>
+  <p class="ir-note" data-imitation-regression="case-summary"></p>
+  <p class="ir-small" data-imitation-regression="case-setup"></p>
+  <div class="ir-scroll" data-imitation-regression="case-events"></div>
+  <div data-imitation-regression="case-trace"></div>
+  <div class="ir-playback"><button type="button" data-imitation-regression="play">Play saved samples</button><button type="button" data-imitation-regression="pause">Pause</button><label>Recorded sample <input type="range" min="0" max="0" value="0" step="1" data-imitation-regression="scrub" aria-label="Regression native sample"></label><span data-imitation-regression="sample-time"></span></div>
+  <p class="ir-small">Actual ball centers in X/Y and X/Z projections. Dense native evidence determines scoring: board bounce, whole-ball entry and one continuous second inside; robot/floor/unattributed contacts invalidate the route. Direct includes possible rim assistance.</p>
+  <p class="ir-small" data-imitation-regression="proof"></p>
+  <p class="ir-small">No relaxed guards, model fitting, policy activation, noise or 128-substep qualification. Successful recipes, the 4070 workload and Isaac setup stay unchanged.</p>
+  <p class="ir-small" data-imitation-regression="connection">Read-only saved results.</p>
+</section>
