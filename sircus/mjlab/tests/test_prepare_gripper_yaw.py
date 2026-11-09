@@ -87,6 +87,58 @@ class PublisherTests(unittest.TestCase):
             self.assertEqual({r['trace']['native_cache_sha256'] for r in actual if r['variant']=='bucket_facing'},{manifest['native-yaw/same-name.npz']})
         finally:self.patcher.start()
 
+    def test_real_archive_summary_binds_actual_video_producer(self):
+        """Exercise the producer boundary: no mocked or hand-filled display trace."""
+        import numpy as np
+        from sircus.mjlab.gripper_yaw_video import frame_plan
+        self.patcher.stop()
+        try:
+            rows=[];bundles=[];times=np.arange(1537)/15360
+            for adapter,variants in (('native',P.VARIANTS[:2]),('native-yaw',P.VARIANTS[2:])):
+                folder=self.study/adapter;folder.mkdir();members=[]
+                for context in P.CASES:
+                    for variant in variants:
+                        r=row(context+'-'+variant,True,False,phase='diagnostic',variant=variant,
+                            adapter_directory=adapter,native_cache_file='native-0000.npz',native_cache_row=len(members),
+                            physics_steps=1536,native_initial_ball_center_m=[0.,0.,0.],
+                            native_initial_q10=[0.]*6,native_initial_q14=[0.]*6,whole_ball_entry=False)
+                        r['context_id']=context;members.append(r)
+                path=folder/'native-0000.npz'
+                np.savez(path,time_s=times,position_m=np.zeros((len(times),len(members),3)),
+                    forces_N=np.zeros((len(times),len(members),6)),record_ids=np.asarray([r['id'] for r in members]))
+                self.manifest[adapter+'/'+path.name]=P.sha(path)
+                for r in members:
+                    r['native_cache_sha256']=P.sha(path)
+                    if r['context_id']==P.CASES[0]:
+                        bundles.append(dict(row=r,label=r['variant'],record_sha256=P.digest(r),
+                            cache_sha256=P.sha(path),time_s=times,events={},scored_until_s=float(times[-1])))
+                rows.extend(members)
+            self.study.joinpath('rows.jsonl').write_text(''.join(json.dumps(r)+'\n' for r in rows))
+            self.manifest['rows.jsonl']=P.sha(self.study/'rows.jsonl')
+            write(self.study/'evidence-manifest.json',self.manifest)
+            write(self.study/'report.json',self.report);self.proof()
+            snapshot=self.compact()
+            for actual in snapshot['correction']['recordings']:
+                original=next(r for r in rows if r['id']==actual['id'])
+                self.assertEqual(actual['trace']['native_cache_sha256'],original['native_cache_sha256'])
+                self.assertEqual(actual['trace']['native_cache_row'],original['native_cache_row'])
+                self.assertEqual(actual['trace']['record_id'],original['id'])
+            frames,clips=frame_plan(bundles,fps=10)
+            movie=self.root/'producer.mp4';movie.write_bytes(b'0000ftyp0000recorded-fixture')
+            manifest=self.root/'producer.json';r=snapshot['correction']
+            raw=dict(version=P.VIDEO,status='completed',source=dict(report_sha256=r['report_sha256'],
+                audit_sha256=r['audit']['proof_sha256'],contract_fingerprint=r['contract_fingerprint']),
+                native_steps_added=0,held_arm_poses=True,sampled_ball_centers_only=True,interpolation=False,
+                backend=dict(software_only=True,cuda_visible_devices=''),video_bytes=movie.stat().st_size,
+                output_sha256=P.sha(movie),fps=10,duration_s=len(frames)/10,frames=frames,
+                frames_sha256=P.digest(frames),clips=clips)
+            write(manifest,raw)
+            self.assertEqual(P.movie_summary(manifest,movie,snapshot)['context_id'],P.CASES[0])
+            for field,value in (('native_cache_sha256','0'*64),('native_cache_row',999)):
+                changed=copy.deepcopy(raw);changed['clips'][0][field]=value;write(manifest,changed)
+                with self.assertRaisesRegex(ValueError,'exact native'):P.movie_summary(manifest,movie,snapshot)
+        finally:self.patcher.start()
+
     def test_new_outcomes_hidden_until_exact_native_audit(self):
         for field in ('native_checks_verified','full_checks_verified'):
             self.proof();a=P.read(self.audit);a[field]=False;write(self.audit,a);s=self.compact()

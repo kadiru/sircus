@@ -60,7 +60,7 @@ def compact_row(row):
         for event in out['events']:
             if event.get('time_s') in times:event['ball_center_m']=positions[times.index(event['time_s'])]
         indices=sorted(indices)
-        out['trace']=take(trace,('native_cache_sha256','record_id'))
+        out['trace']=take(trace,('native_cache_sha256','native_cache_row','record_id'))
         out['trace'].update(time_s=[times[i] for i in indices],position_m=[positions[i] for i in indices],
             sample_basis='Subset of authenticated native samples, including endpoints and first-event neighbors; no interpolation')
     setup=row.get('setup_proof',row.get('setup'))
@@ -127,8 +127,14 @@ def comparison_recordings(study,raw):
             times=np.asarray(archive['time_s'],dtype=float);positions=archive['position_m'];forces=archive['forces_N'];ids=archive['record_ids']
             for row,item in members:
                 column=row['native_cache_row']
+                require(type(column) is int and 0<=column<len(ids),'Exact native archive column required')
                 require(str(ids[column])==row['id'] and row['native_cache_sha256']==manifest[adapter+'/'+name],'Exact correction recording identity required')
                 trace=summarize_flight(row,times,positions[:,column],forces[:,column])
+                # summarize_flight returns the archive hash beside its trace.
+                # Bind the display trace explicitly after checking archive and
+                # column identity, so recorded movies retain the same evidence.
+                trace['trace'].update(native_cache_sha256=manifest[adapter+'/'+name],
+                    native_cache_row=column,record_id=row['id'])
                 item.update(compact_row(dict(row,**trace)))
     _RECORDINGS_CACHE.clear();_RECORDINGS_CACHE[identity]=out
     return out
@@ -276,6 +282,7 @@ def movie_summary(manifest_path,movie_path,snapshot,*,historical=False):
             require(c.get('no_flight') is True and not c.get('native_cache_sha256') and all(f.get('source_tick') is None and f.get('source_time_s') is None and f.get('segment')=='no_flight' for f in part),'No invented samples for unflown request')
         else:
             require(c.get('no_flight') is False and c.get('native_cache_sha256')==q.get('trace',{}).get('native_cache_sha256'),'Clip must use exact native trace')
+            require(q['trace'].get('record_id')==q['id'] and c.get('native_cache_row')==q['trace'].get('native_cache_row'),'Clip must use exact native archive column')
             require(all(type(f.get('source_tick')) is int and f['source_tick']>=0 and isinstance(f.get('source_time_s'),(int,float)) and abs(f['source_time_s']-f['source_tick']/15360)<1e-10 for f in part),'Frames must use actual native64 sample ticks')
     require(end==duration and all(f.get('frame')==i and abs(f.get('video_time_s',-1)-i/fps)<1e-9 for i,f in enumerate(frames)),'Complete frame sequence required')
     return dict(context_id=next(iter(contexts)),**take(raw,('version','output_sha256','video_bytes','fps','duration_s','width','height','frames_sha256')),manifest_sha256=sha(manifest_path),source=expected,clips=[take(c,('record_id','context_id','variant','label','start_s','end_s','capture','native_release','no_flight','reason','record_sha256','native_cache_sha256','events')) for c in clips])
