@@ -1,5 +1,23 @@
 # Project state
 
+## Coupled-arm feasibility and current PPO reanalysis — November 8, 2026
+
+- [Shared geometry layer](../sircus/isaac/JOINT_FEASIBILITY.md) exposes exact-action
+  preflight, finite candidate support and state-bound validation. Driven setup
+  delegates its initial admission to the layer; original motion/correction and
+  measured release guards remain unchanged. No policy projection or resampling.
+- [Saved-policy decomposition](../baselines/isaac-joint-feasibility-20261108/README.md):
+  420/420 final PPO requests matched original admission; ten fixed known-TRAIN
+  fresh CPU solver checks also matched. Zero new native shots or optimizer updates.
+  Seed 22 remains 28/70 TEST captures, seven clean: 17 preflight declines, 53
+  releases and 25 released failures. Overall capture is 40%; conditional on release
+  it is 52.8%. Filtering does not improve the original score.
+- Frozen benchmark source/evidence/model bytes and existing services are unchanged.
+  Source is implemented and pure/mock tested; no new native execution/physical
+  validation is claimed. Board-goal inputs, network changes and new training remain
+  deferred for discussion. The existing PPO can still propose invalid actions;
+  adopting feasible support in training needs an explicit new distribution contract.
+
 ## Fresh-layout sweep/PPO benchmark — November 6, 2026
 
 - **Final three-seed comparison completed — November 8, 2026:** all six native runs finished exactly 10,000 paid TRAIN requests each, including every rejection, and passed the unchanged original independent audits. All 2,520 separate frozen assessment requests are accounted for. Final TEST captures (clean) were sweep 23 (15), 22 (12), 25 (18) versus PPO 28 (10), 28 (7), 28 (14), each out of the same 70 unseen positions. Mean capture was 33.3% versus 40.0%; clean capture was 21.4% versus 14.8%. Final validation capture means tied at 32.4%. PPO's final seed rejected 42/70 TEST requests; its identical 28/70 capture count does not imply equal per-position behavior or zero uncertainty. Mean TRAIN wall was 4.618 versus 6.389 hours. [The final additive package](../baselines/isaac-sweep-ppo-10k-20261106/README.md) preserves historical partial summaries/models and adds the last exact checkpoint, full six-run aggregate curves, paired descriptive statistics, scoped resource measurements and audit/video bindings. The read-only interface has six passed audits and all 24 prescheduled chapters. Frozen direct inference used the prescribed final models without held-out search, retries or validation-based selection. The finite coordinator, native job and publisher exited naturally. After the Mac viewer processes exited, the user explicitly approved relaunching only the frozen GET-only benchmark reader on port 18797; the completed files require no mirror restart. Native jobs, the 4070 workload, other services, hardware and the experiment were untouched. No model promotion or ball-property/perception/Cosmos development is authorized by this completion.

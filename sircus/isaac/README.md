@@ -5,6 +5,12 @@ a wrist-attached board, an open tapered bucket, a ball, and an ideal RGB-D camer
 This checkpoint builds and validates a scene. It does **not** train an RL policy,
 validate grasping, or inherit numerical scores from the earlier simulator.
 
+The [coupled-arm feasibility layer](JOINT_FEASIBILITY.md) now exposes reusable
+geometry admission before native rollouts and shares it with driven setup.
+Its [current-policy reanalysis](../../baselines/isaac-joint-feasibility-20261108/README.md)
+preserves the completed benchmark: 420/420 saved admission decisions matched,
+with no model changes or new shots.
+
 The separate opt-in [fixed-scene RL task](RL_FIXED_SCENE.md) now trains shot
 parameters on this scene. `run.sh start` remains the stationary foundation;
 `run.sh train` explicitly replaces it with a bounded training run.

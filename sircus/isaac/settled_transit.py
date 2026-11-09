@@ -209,13 +209,14 @@ class SettledTransitShots(ContinuousShots):
         return metrics,centers,normals
 
     def prepare(self, actions):
-        from continuous_feasibility import qualify_action, approximate_path_check
+        from continuous_feasibility import approximate_path_check
         from expanded_pose_menu import endpoint_targets
         from feasibility_contract import dynamic_cell
+        from joint_feasibility import preflight
         from prepare_assets import matrix
-        from robust_ik import solve
         self.spec["cells"]=[dynamic_cell(c,a) for c,a in zip(self.base_cells,actions)]
         self.path_reasons=[None]*self.n;self.path_checks=[None]*self.n
+        self.preflight_records=[None]*self.n
         self.qualifications=[];invalid=[None]*self.n
         # Keep the original open-finger targets at active sites. The approach
         # routine replaces every inactive target with its actual parked state.
@@ -239,13 +240,15 @@ class SettledTransitShots(ContinuousShots):
             seeds={n:seeds[i][n]["q"] for n in self.arms} if seeds is not None and seeds[i] is not None else actual
             if self.trial_mode=="coverage" and self.coverage_fits[i] is not None:
                 seeds={n:self.coverage_fits[i][n]["q"] for n in self.arms}
-            def fresh(target,links,seed,normal_only):
-                name="Arm14" if normal_only else "Arm10"
-                return equivalent_fit(target,solve(target,links,seed,normal_only),links,actual[name],normal_only)
-            fit=qualify_action(self.cfg,self.base_cells[i],action,self.continuous_links,seeds,solver=fresh)
+            # The reusable CPU layer changes neither the action nor the solver,
+            # endpoint tolerances, joint representation or path proxy. It also
+            # accepts finite candidate lists before a native rollout is started.
+            prepared=preflight(self.cfg,self.base_cells[i],action,self.continuous_links,actual,seeds=seeds)
+            self.preflight_records[i]=prepared
+            fit=prepared["qualification"]
             self.qualifications.append(fit)
             if not fit["accepted"]:invalid[i]=fit["reason"];continue
-            check=approximate_path_check(self.cfg,self.continuous_links,actual,{n:fit["ik"][n]["q"] for n in self.arms},cell=self.base_cells[i],samples=16)
+            check=prepared["path"]
             self.path_checks[i]=check
             if not check["accepted"]:
                 self.path_reasons[i]=check["reasons"][0];invalid[i]=self.path_reasons[i];continue
