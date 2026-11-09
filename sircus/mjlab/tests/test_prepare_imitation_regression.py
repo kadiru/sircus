@@ -116,6 +116,16 @@ class PublisherTests(unittest.TestCase):
         (self.study/'report.json').unlink();write(self.pipeline,dict(status='waiting_for_4090'))
         s=self.compact();self.assertEqual(s['correction']['status'],'waiting_for_4090');self.assertEqual(s['correction']['counts'],{'attempts':0});self.assertIn('no new shots',s['correction']['phase']);self.assertEqual(len(s['diagnosis']['losses']),6)
 
+    def test_expired_queue_is_not_run_with_failure_retained_and_zero_requests(self):
+        (self.study/'report.json').unlink()
+        write(self.pipeline,dict(status='failed',worker_started=False,finished_unix_s=123))
+        s=self.compact();c=s['correction']
+        self.assertEqual(c['status'],'not_run');self.assertEqual(c['phase'],'4090 queue expired; no new shots ran');self.assertEqual(c['counts']['attempts'],0)
+        self.assertEqual(c['failure_status'],'failed');self.assertEqual(c['audit']['status'],'pending');self.assertEqual(s['publication']['pipeline_status'],'failed');self.assertTrue(s['publication']['terminal'])
+        self.assertEqual(c['cases'],[]);self.assertNotIn('recordings',c)
+        write(self.pipeline,dict(status='failed',worker_started=True,finished_unix_s=123))
+        self.assertEqual(self.compact()['correction']['status'],'failed')
+
     def test_historical_movies_bind_parent_while_correction_is_pending(self):
         s,meta,movie,raw=self.movie_fixture();s['correction']=dict(status='waiting_for_4090',audit={'status':'pending'})
         pair=s['diagnosis']['losses'][0];frames=[];clips=[]
