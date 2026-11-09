@@ -21,6 +21,11 @@ checkpoints, passed audits and mock tests do not grant execution permission.
 The fixed process chain is host supervisor → existing-container
 [independent watchdog](candidate_continuation_watchdog.py) → one
 [application entry](candidate_continuation_entry.py) → separate CPU audit child.
+Host and watchdog imports require only Python's standard library; the learning
+contract repeats the policy's fixed probability-law label, checked for equality
+by tests, without importing NumPy or Torch. The native child still verifies its
+full bound dependency versions before app startup. This bootstrap separation
+does not alter the learning protocol hash or provide a CPU simulation fallback.
 The watchdog has its own process and clock: a blocked native callback cannot
 prevent enforcement. It checks phase order, charged counters, source/storage,
 startup schedule and absolute/phase deadlines using append-only session-bound

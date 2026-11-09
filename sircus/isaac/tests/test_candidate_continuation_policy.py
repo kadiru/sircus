@@ -27,6 +27,10 @@ def choice(identifier, latent):
 
 
 class FixedSupportTests(unittest.TestCase):
+    def test_stdlib_contract_and_policy_use_identical_probability_law(self):
+        from candidate_continuation_contract import PROBABILITY_LAW
+        self.assertEqual(PROBABILITY_LAW, candidate.PROBABILITY_LAW)
+
     def test_parent_uses_exact_original_latent_and_others_use_affine_inverse(self):
         # Saved float32 tanh actions need not invert to the original latent.
         parent = action([0, .2, 0, 0, 0])

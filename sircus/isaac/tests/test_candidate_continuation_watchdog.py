@@ -1,10 +1,11 @@
-"""Fake process/procfs tests; never starts or signals an OS process."""
+"""Fake process/procfs tests plus an inert standard-library import probe."""
 
 import copy
 import hashlib
 import json
 from pathlib import Path
 import signal
+import subprocess
 import sys
 import tempfile
 import types
@@ -53,6 +54,25 @@ class FakeOps:
 
 
 class WatchdogTests(unittest.TestCase):
+    def test_supervision_bootstrap_needs_no_site_packages(self):
+        from candidate_continuation_contract import PROTOCOL_SHA256
+        source = str(Path(__file__).resolve().parents[1])
+        probe = "\n".join((
+            "import sys",
+            "sys.path.insert(0, sys.argv[1])",
+            "import candidate_continuation_contract as contract",
+            "import candidate_continuation_launcher",
+            "import candidate_continuation_journal",
+            "import candidate_continuation_watchdog",
+            "import candidate_continuation_runtime",
+            "assert not {'numpy', 'scipy', 'torch', 'isaaclab', 'isaacsim'} & sys.modules.keys()",
+            "assert contract.PROTOCOL_SHA256 == '68d59f401efc411c9fd5590ac70819d7793d7d223d74d084e85b9b29c2f7ae2c'",
+            "print(contract.PROTOCOL_SHA256)",
+        ))
+        result = subprocess.run([sys.executable, "-B", "-S", "-c", probe, source],
+            check=True, capture_output=True, text=True, timeout=10)
+        self.assertEqual(result.stdout.strip(), PROTOCOL_SHA256)
+
     def setUp(self):
         self.temporary=tempfile.TemporaryDirectory();self.addCleanup(self.temporary.cleanup)
         self.root=Path(self.temporary.name).resolve();(self.root/"out").mkdir();(self.root/"source/sircus/isaac").mkdir(parents=True)
