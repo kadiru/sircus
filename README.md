@@ -1,5 +1,14 @@
 # Sircus — Simple Circus
 
+**Latest mjlab policy comparison:** [corrected imitation: 38/70 versus current 40/70](baselines/mjlab-corrected-imitation-20261109/README.md).
+The frozen 64-substep comparison on 70 new positions gained four captures and
+lost six. Refitting retained 92 teachers and added five corrections with 800
+actor-only steps; both models and all 140 predictions froze before TEST.
+All 158 requests completed; 18 controls and **55,633 independent checks** passed.
+Results are in `#correctedImitation`; keep the current policy and diagnose the
+six regressions before more training. No promotion or service restart;
+4070 and Isaac unchanged. [Handoff](docs/MJLAB_CORRECTED_IMITATION_20261109.md).
+
 **Latest mjlab feasibility result:** [both remaining IK cases recovered locally](baselines/mjlab-regression-ik-20261109/README.md).
 At fixed 64 substeps, restoring parent board X/Y captured **3/3 in each case**;
 exact parent recipes retained **6/6**. Nine of twelve new configurations captured
