@@ -111,3 +111,36 @@ captures,3/3 expected misses. Imitation fitting then began. This is a launch
 checkpoint, not a completed PPO or held-out result. The existing4070 process and
 viewer retained their original process/start identities. The separate publication
 source can advance without changing the frozen producer or its final auditor.
+
+
+## Completed comparison — November 8
+
+All 766 requests completed and the independent audit passed 823,442 checks.
+Both control gates passed all nine prescribed outcomes. The selected PPO model
+is the 512-request checkpoint; validation capture counts at 0/256/512 were
+5/12, 5/12 and 6/12. Worker elapsed time was 76.4 minutes.
+
+| Frozen model | Capture / all requests | Direct | With table contact | Setup rejected | Released misses |
+|---|---:|---:|---:|---:|---:|
+| Old imitation | 9/50 (18%) | 9 | 0 | 6 | 35 |
+| Old PPO | 8/50 (16%) | 8 | 0 | 5 | 37 |
+| New imitation | 14/50 (28%) | 8 | 6 | 4 | 32 |
+| New PPO | 15/50 (30%) | 9 | 6 | 4 | 31 |
+
+The new PPO gained 12 percentage points over old imitation and 14 over old PPO
+on this matched split. Its one-capture gain over new imitation is inconclusive.
+Both new policies made six captures with preterminal table contact; this label
+records contact presence, not an independent causal reconstruction of the route.
+All TEST shots had valid physics. Four invalid-physics requests elsewhere in
+the study remain recorded; they were not removed to improve the denominator.
+
+See the [compact result baseline](../../baselines/mjlab-table-assisted-training-20261108/README.md)
+for hashes, matched outcomes, paired uncertainty and limitations. The UI shows
+all 50 positions under “Inspect each bucket position.” Old checkpoints were
+rerun on this new split; do not compare these counts with historical TEST counts
+from a different set of positions. The interactive selector remains unchanged.
+
+Before more training, inspect the new PPO's 31 released misses and four setup
+rejections. Repeat evaluation on fresh layouts/seeds before claiming a robust
+gain. The successful table-contact cases cluster in one far-table region; this
+study does not establish coverage of arbitrary table positions.

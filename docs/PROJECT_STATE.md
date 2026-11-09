@@ -1,12 +1,13 @@
 # Project state
 
-## Table-assisted short training launched — November 8, 2026
+## Table-assisted short training completed — November 8, 2026
 
-- Reviewed the parallel Isaac coupled-arm feasibility work at `fcdefe6` (PR #91). It preserves original admission, rather than fixing IK or improving policy capture. mjlab already has exact-action two-arm admission; no Isaac controller/scorer was transplanted.
-- [New explicit v3 training protocol](../sircus/mjlab/TABLE_ASSISTED_TRAINING.md) combines 7,168 historical TRAIN requests, including 115 newly credited table-assisted captures, with a bounded 512-request PPO pilot. One teacher per context avoids averaging incompatible shot modes; actual selected teacher changes are reported.
-- Frozen producer `b11e8b9` launched on4090 after49 Ubuntu CPU/Torch tests and579,197 independent actual-input checks passed. Initial native controls passed:3/3 direct captures,3/3 table-assisted captures and3/3 expected misses. Imitation fitting began; PPO/TEST completion is not yet claimed.
-- The planned frozen comparison is old imitation/PPO versus new imitation/PPO at50 new bucket positions separated from1,037 inventoried historical coordinates. Rejections remain in the denominator. Maximum766 requests including controls/validation; two-hour acquired-slot cap. The actor now uses27 selected teachers, including5 table-assisted examples, versus22 previously.
-- 4070 and Isaac workloads, historical evidence and existing services remain outside this task. Read-only progress is additive at `#tableTraining`; no model promotion or full-table success is claimed.
+- [Verified results and evidence identities](../baselines/mjlab-table-assisted-training-20261108/README.md): on the same 50 fresh TEST bucket positions, old imitation **9/50 (18%)**, old PPO **8/50 (16%)**, new imitation **14/50 (28%)**, selected new PPO **15/50 (30%)**. Each model made one frozen prediction per position. Setup rejections remain in the denominator.
+- New PPO recorded nine direct captures and six captures with table contact, four setup rejections and 31 released misses. New imitation already achieved 14 captures; PPO's additional one capture does not establish a meaningful incremental advantage. Revised demonstrations, rewards and historical exposure changed together, so this is not a reward-only or equal-budget causal comparison.
+- All **766** requested shots completed: 512 TRAIN / 16 PPO updates, 36 validation, 200 TEST and 18 controls. Validation captures were 5/12 → 5/12 → 6/12; the 512-request checkpoint was selected before TEST. All controls passed; the final audit passed **823,442** checks. No TEST invalid physics. Worker elapsed time was 76.4 minutes, not isolated GPU compute time.
+- Frozen producer `b11e8b9`; protocol, physics and exact-action two-arm admission stayed unchanged. Historical results retain their original definitions. The other Isaac chat's feasibility work (`fcdefe6`, PR #91) was reviewed; no controller/scorer was transplanted.
+- Final audit-bound results are visible in the existing read-only `#tableTraining` panel. The missing Mac loopback SSH forwarding connection was restored; no Ubuntu viewer, robot service or GPU job was restarted. The 4090 study exited normally; the 4070 and Isaac workloads were untouched. No interactive-policy promotion.
+- Next decision: diagnose the 31 released misses (13 with forbidden contacts, 18 without) and four setup rejections (two finite IK unresolved, two fixed-base clearance). Six table-contact captures cluster in one far-table region; this is not all-table coverage or repeatability validation. Replicate on fresh layouts/seeds before a longer run or promotion.
 
 ## Table-assisted scoring and historical rescoring — November 8, 2026
 
