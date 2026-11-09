@@ -51,5 +51,38 @@ and physical hardware are outside this task's mutation scope.
 
 ## Results
 
-Pending source freeze, actual-input preflight and native execution. No new
-capture or clearance improvement is claimed by this protocol document.
+[Audited summary](../baselines/mjlab-gripper-yaw-20261109/README.md): **36/36
+native releases**, zero setup declines or invalid physics. Worker elapsed
+**315.254865 s**. All 18 formal controls and **18,330 independent checks** passed.
+Frozen producer/UI `26ba197bc1f85150f6b76f52c27ed0173f9b5c0c`;
+[draft PR #114](https://github.com/kadiru/sircus/pull/114).
+
+| Case | Horizontal board–bucket distance | Corrected original | Bucket-facing yaw | Successful reference |
+| --- | ---: | --- | --- | --- |
+| `r0-c6-n1` | 562.434 mm | 0/3 capture; 3/3 robot contact | 0/3 capture; 0/3 robot contact | 3/3 capture |
+| `r1-c2-n0` | 172.610 mm | 0/3 capture; 3/3 robot contact | 3/3 capture; 0/3 robot contact | 3/3 capture |
+
+Thus robot-contact shots fell **6/6 → 0/6** and captures rose **0/6 → 3/6**.
+The nearer recipe recovered; the farther recipe remains a contact-free miss.
+The new captures were direct board-to-bucket routes; direct does not establish
+rim-free entry. Original successful references remained 6/6. Controls contain
+six intentional robot-contact misses, distinct from these diagnostic counts.
+
+The audit verified exact preservation of corrected source board joints, all
+five shot coordinates, bucket and ball release centers. Both new orientations
+had observed-reset FK rotation error below 8.3 × 10⁻⁸ rad in their first repeats.
+Strict endpoint clearance and separate full-orientation proof keys passed.
+The evidence validates native held-endpoint flights at 64 substeps, not motion
+execution or a new learned policy. Historical policy scores remain 40/70 current
+versus 38/70 corrected imitation; no model was retrained or promoted.
+
+Two audited comparison movies are published in `#gripperYaw`: 33.067 s and
+25.867 s (1,768 frames total), CPU software rendered from actual native samples.
+Both fully decoded and passed Chrome playback checks. The UI-only publication
+fix is `ba79932`; native source and video bytes remain frozen. All seven checked
+historical report hashes, all 57 display keys/bytes, unrelated HTML/CSS, and
+protected viewer/4070 process identities were preserved. The 4090 worker exited.
+
+The next useful question is why the farther, now-clear trajectory still misses; no further
+experiment is automatically authorized by this report. Successful recipes and
+all historical evidence remain intact.

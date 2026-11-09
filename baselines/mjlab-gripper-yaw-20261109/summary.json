@@ -1,0 +1,769 @@
+{
+  "version": "sircus-gripper-yaw-v1",
+  "status": "completed",
+  "contract_fingerprint": "e31c8db6e8b9a2b16f7213b3440396cccf83004e64988575f694b2b007cbf683",
+  "report_sha256": "2cd3644a19653efc157fe697557ebc861e40ab6b97ceeb3faeb48aaf04b923fa",
+  "expected_requests": 36,
+  "elapsed_s": 315.2548654040438,
+  "training": false,
+  "posthoc_development": true,
+  "rule": {
+    "mode": "bucket_facing_gripper_yaw",
+    "description": "Rotate only dropper wrist passage toward bucket for two corrected-policy robot-contact misses; retain fixed board branch and all shot coordinates.",
+    "contexts": [
+      "corrected-imitation-test-r0-c6-n1",
+      "corrected-imitation-test-r1-c2-n0"
+    ],
+    "rotation": "Rz(atan2(bucket_y-board_y,bucket_x-board_x)) @ diag(1,-1,-1)",
+    "preserve_board_joints": true,
+    "diagnosis_sha256": "e16f551802c6c378e7911a0bca2470e4302babb075f8ef570df189839a7bd428"
+  },
+  "counts": {
+    "attempts": 36,
+    "captures": 21,
+    "native_releases": 36,
+    "setup_rejections": 0,
+    "native_misses": 15,
+    "invalid_physics": 0,
+    "robot_contact_shots": 12,
+    "direct_captures": 12,
+    "table_assisted_captures": 9,
+    "cached_refusal_requests": 0
+  },
+  "counts_by_variant": {
+    "current_exact": {
+      "attempts": 6,
+      "captures": 6,
+      "native_releases": 6,
+      "setup_rejections": 0,
+      "native_misses": 0,
+      "invalid_physics": 0,
+      "robot_contact_shots": 0,
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "cached_refusal_requests": 0
+    },
+    "corrected_exact": {
+      "attempts": 6,
+      "captures": 0,
+      "native_releases": 6,
+      "setup_rejections": 0,
+      "native_misses": 6,
+      "invalid_physics": 0,
+      "robot_contact_shots": 6,
+      "direct_captures": 0,
+      "table_assisted_captures": 0,
+      "cached_refusal_requests": 0
+    },
+    "bucket_facing": {
+      "attempts": 6,
+      "captures": 3,
+      "native_releases": 6,
+      "setup_rejections": 0,
+      "native_misses": 3,
+      "invalid_physics": 0,
+      "robot_contact_shots": 0,
+      "direct_captures": 3,
+      "table_assisted_captures": 0,
+      "cached_refusal_requests": 0
+    }
+  },
+  "cases": [
+    {
+      "context_id": "corrected-imitation-test-r0-c6-n1",
+      "bucket_xy_m": [
+        1.1070265259583456,
+        -0.53626584251982
+      ],
+      "current_values": [
+        0.6520289466577917,
+        -0.20861493309273504,
+        0.45146626815383345,
+        30.789154900138175,
+        0.09613864355740137
+      ],
+      "corrected_values": [
+        0.6536612003245014,
+        -0.20341247447399055,
+        0.4498183398237823,
+        30.33068546648235,
+        0.07564961424222355
+      ],
+      "variant_values": {
+        "current_exact": [
+          0.6520289466577917,
+          -0.20861493309273504,
+          0.45146626815383345,
+          30.789154900138175,
+          0.09613864355740137
+        ],
+        "corrected_exact": [
+          0.6536612003245014,
+          -0.20341247447399055,
+          0.4498183398237823,
+          30.33068546648235,
+          0.07564961424222355
+        ],
+        "bucket_facing": [
+          0.6536612003245014,
+          -0.20341247447399055,
+          0.4498183398237823,
+          30.33068546648235,
+          0.07564961424222355
+        ]
+      },
+      "original_yaw_rad": 0.0,
+      "target_yaw_rad": -0.6333015029116008,
+      "variants": {
+        "current_exact": {
+          "attempts": 3,
+          "captures": 3,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "robot_contact_shots": 0,
+          "direct_captures": 0,
+          "table_assisted_captures": 3,
+          "cached_refusal_requests": 0
+        },
+        "corrected_exact": {
+          "attempts": 3,
+          "captures": 0,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 3,
+          "invalid_physics": 0,
+          "robot_contact_shots": 3,
+          "direct_captures": 0,
+          "table_assisted_captures": 0,
+          "cached_refusal_requests": 0
+        },
+        "bucket_facing": {
+          "attempts": 3,
+          "captures": 0,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 3,
+          "invalid_physics": 0,
+          "robot_contact_shots": 0,
+          "direct_captures": 0,
+          "table_assisted_captures": 0,
+          "cached_refusal_requests": 0
+        }
+      }
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c2-n0",
+      "bucket_xy_m": [
+        0.4963906433102536,
+        -0.4146911716255921
+      ],
+      "current_values": [
+        0.6475841779696394,
+        -0.3310148299806974,
+        0.2852925777438575,
+        27.440029100765784,
+        0.07888068705134793
+      ],
+      "corrected_values": [
+        0.6467395590566386,
+        -0.32990174694833996,
+        0.29127499261510703,
+        27.291877704337526,
+        0.07583586488431047
+      ],
+      "variant_values": {
+        "current_exact": [
+          0.6475841779696394,
+          -0.3310148299806974,
+          0.2852925777438575,
+          27.440029100765784,
+          0.07888068705134793
+        ],
+        "corrected_exact": [
+          0.6467395590566386,
+          -0.32990174694833996,
+          0.29127499261510703,
+          27.291877704337526,
+          0.07583586488431047
+        ],
+        "bucket_facing": [
+          0.6467395590566386,
+          -0.32990174694833996,
+          0.29127499261510703,
+          27.291877704337526,
+          0.07583586488431047
+        ]
+      },
+      "original_yaw_rad": 0.0,
+      "target_yaw_rad": -2.628101616763456,
+      "variants": {
+        "current_exact": {
+          "attempts": 3,
+          "captures": 3,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "robot_contact_shots": 0,
+          "direct_captures": 3,
+          "table_assisted_captures": 0,
+          "cached_refusal_requests": 0
+        },
+        "corrected_exact": {
+          "attempts": 3,
+          "captures": 0,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 3,
+          "invalid_physics": 0,
+          "robot_contact_shots": 3,
+          "direct_captures": 0,
+          "table_assisted_captures": 0,
+          "cached_refusal_requests": 0
+        },
+        "bucket_facing": {
+          "attempts": 3,
+          "captures": 3,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "robot_contact_shots": 0,
+          "direct_captures": 3,
+          "table_assisted_captures": 0,
+          "cached_refusal_requests": 0
+        }
+      }
+    }
+  ],
+  "control_gates": {
+    "pre": {
+      "status": "passed",
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    },
+    "post": {
+      "status": "passed",
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    }
+  },
+  "audit": {
+    "status": "passed",
+    "full_checks_verified": true,
+    "native_checks_verified": true,
+    "report_sha256": "2cd3644a19653efc157fe697557ebc861e40ab6b97ceeb3faeb48aaf04b923fa",
+    "contract_fingerprint": "e31c8db6e8b9a2b16f7213b3440396cccf83004e64988575f694b2b007cbf683",
+    "proof_sha256": "4f044f4c3b4dc3ffd79dcb65f42214ceb3f597d129afb0c79728697137b9ec21",
+    "checks_count": 18330
+  },
+  "scope": "Two selected development positions, fixed 64 substeps, three frozen variants and three nominal requests each; only gripper yaw changes versus corrected original, no new policy score, noise qualification or policy activation.",
+  "first_repeat_realizations": [
+    {
+      "id": "gripper-yaw-diagnostic-corrected-imitation-test-r0-c6-n1-current_exact-r0",
+      "context_id": "corrected-imitation-test-r0-c6-n1",
+      "variant": "current_exact",
+      "repeat": 0,
+      "native_release": true,
+      "capture": true,
+      "realization_comparison": {
+        "source_record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r0-c6-n1",
+        "q10_equal_to_source": true,
+        "q14_equal_to_source": true,
+        "q10_max_abs_delta_rad": 0.0,
+        "q14_max_abs_delta_rad": 0.0,
+        "board_center_delta_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "board_normal_angle_deg": 1.2074182697257333e-06
+      },
+      "yaw_evidence": {
+        "requested_yaw_rad": 0.0,
+        "requested_rotation_matrix": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -1.0
+          ]
+        ],
+        "measured_initial_rotation_matrix": [
+          [
+            0.999999999999998,
+            1.1035810138251903e-08,
+            5.6791333050538935e-08
+          ],
+          [
+            1.1035811170154092e-08,
+            -0.9999999999999993,
+            -1.8170064296850697e-08
+          ],
+          [
+            5.679133285001754e-08,
+            1.8170064923589096e-08,
+            -0.9999999999999978
+          ]
+        ],
+        "measured_initial_yaw_rad": 1.1035811170154114e-08,
+        "rotation_error_rad": 6.063988673310952e-08,
+        "board_q14_unchanged": true,
+        "board_native_initial_q14_unchanged": true,
+        "release_unchanged": true,
+        "basis": "URDF/native geometry FK of observed native_initial_q10 (float32); held endpoint"
+      }
+    },
+    {
+      "id": "gripper-yaw-diagnostic-corrected-imitation-test-r0-c6-n1-corrected_exact-r0",
+      "context_id": "corrected-imitation-test-r0-c6-n1",
+      "variant": "corrected_exact",
+      "repeat": 0,
+      "native_release": true,
+      "capture": false,
+      "realization_comparison": {
+        "source_record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r0-c6-n1",
+        "q10_equal_to_source": true,
+        "q14_equal_to_source": true,
+        "q10_max_abs_delta_rad": 0.0,
+        "q14_max_abs_delta_rad": 0.0,
+        "board_center_delta_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "board_normal_angle_deg": 1.2074182697257333e-06
+      },
+      "yaw_evidence": {
+        "requested_yaw_rad": 0.0,
+        "requested_rotation_matrix": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -1.0
+          ]
+        ],
+        "measured_initial_rotation_matrix": [
+          [
+            0.9999999999999972,
+            -2.0975920615541198e-08,
+            -5.6889747120214765e-08
+          ],
+          [
+            -2.0975919608389265e-08,
+            -0.9999999999999986,
+            1.7703576030427182e-08
+          ],
+          [
+            -5.688974749156355e-08,
+            -1.770357483711239e-08,
+            -0.9999999999999972
+          ]
+        ],
+        "measured_initial_yaw_rad": -2.097591960838932e-08,
+        "rotation_error_rad": 6.31652527598098e-08,
+        "board_q14_unchanged": true,
+        "board_native_initial_q14_unchanged": true,
+        "release_unchanged": true,
+        "basis": "URDF/native geometry FK of observed native_initial_q10 (float32); held endpoint"
+      }
+    },
+    {
+      "id": "gripper-yaw-diagnostic-corrected-imitation-test-r0-c6-n1-bucket_facing-r0",
+      "context_id": "corrected-imitation-test-r0-c6-n1",
+      "variant": "bucket_facing",
+      "repeat": 0,
+      "native_release": true,
+      "capture": false,
+      "realization_comparison": {
+        "source_record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r0-c6-n1",
+        "q10_equal_to_source": false,
+        "q14_equal_to_source": true,
+        "q10_max_abs_delta_rad": 0.6333015028762208,
+        "q14_max_abs_delta_rad": 0.0,
+        "board_center_delta_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "board_normal_angle_deg": 1.2074182697257333e-06
+      },
+      "yaw_evidence": {
+        "requested_yaw_rad": -0.6333015029116008,
+        "requested_rotation_matrix": [
+          [
+            0.8060780449977598,
+            -0.591809247454439,
+            0.0
+          ],
+          [
+            -0.591809247454439,
+            -0.8060780449977598,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -1.0
+          ]
+        ],
+        "measured_initial_rotation_matrix": [
+          [
+            0.8060780363731141,
+            -0.591809259201696,
+            -5.6884019821591755e-08
+          ],
+          [
+            -0.591809259201696,
+            -0.8060780363731159,
+            1.7721980328772545e-08
+          ],
+          [
+            -5.634099104875602e-08,
+            1.9379190526970896e-08,
+            -0.9999999999999978
+          ]
+        ],
+        "measured_initial_yaw_rad": -0.6333015174849519,
+        "rotation_error_rad": 6.133712451859348e-08,
+        "board_q14_unchanged": true,
+        "board_native_initial_q14_unchanged": true,
+        "release_unchanged": true,
+        "basis": "URDF/native geometry FK of observed native_initial_q10 (float32); held endpoint"
+      }
+    },
+    {
+      "id": "gripper-yaw-diagnostic-corrected-imitation-test-r1-c2-n0-current_exact-r0",
+      "context_id": "corrected-imitation-test-r1-c2-n0",
+      "variant": "current_exact",
+      "repeat": 0,
+      "native_release": true,
+      "capture": true,
+      "realization_comparison": {
+        "source_record_id": "corrected-imitation-test-current_bc-corrected-imitation-test-r1-c2-n0",
+        "q10_equal_to_source": true,
+        "q14_equal_to_source": true,
+        "q10_max_abs_delta_rad": 0.0,
+        "q14_max_abs_delta_rad": 0.0,
+        "board_center_delta_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "board_normal_angle_deg": 0.0
+      },
+      "yaw_evidence": {
+        "requested_yaw_rad": 0.0,
+        "requested_rotation_matrix": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -1.0
+          ]
+        ],
+        "measured_initial_rotation_matrix": [
+          [
+            0.9999999999999998,
+            -1.1844123626314618e-08,
+            2.2673997314648068e-11
+          ],
+          [
+            -1.1844123626314347e-08,
+            -0.9999999999999998,
+            -1.1922419620978238e-11
+          ],
+          [
+            2.267399745585868e-11,
+            1.192241935242461e-11,
+            -0.9999999999999998
+          ]
+        ],
+        "measured_initial_yaw_rad": -1.1844123626314349e-08,
+        "rotation_error_rad": 1.1844151330072783e-08,
+        "board_q14_unchanged": true,
+        "board_native_initial_q14_unchanged": true,
+        "release_unchanged": true,
+        "basis": "URDF/native geometry FK of observed native_initial_q10 (float32); held endpoint"
+      }
+    },
+    {
+      "id": "gripper-yaw-diagnostic-corrected-imitation-test-r1-c2-n0-corrected_exact-r0",
+      "context_id": "corrected-imitation-test-r1-c2-n0",
+      "variant": "corrected_exact",
+      "repeat": 0,
+      "native_release": true,
+      "capture": false,
+      "realization_comparison": {
+        "source_record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r1-c2-n0",
+        "q10_equal_to_source": true,
+        "q14_equal_to_source": true,
+        "q10_max_abs_delta_rad": 0.0,
+        "q14_max_abs_delta_rad": 0.0,
+        "board_center_delta_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "board_normal_angle_deg": 0.0
+      },
+      "yaw_evidence": {
+        "requested_yaw_rad": 0.0,
+        "requested_rotation_matrix": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -1.0
+          ]
+        ],
+        "measured_initial_rotation_matrix": [
+          [
+            0.9999999999999978,
+            -2.814214581589983e-09,
+            5.311877202622769e-08
+          ],
+          [
+            -2.8142131423016167e-09,
+            -0.9999999999999987,
+            -2.7095663441093107e-08
+          ],
+          [
+            5.311877210248068e-08,
+            2.7095663291605523e-08,
+            -0.9999999999999973
+          ]
+        ],
+        "measured_initial_yaw_rad": -2.814213142301623e-09,
+        "rotation_error_rad": 5.969672284596631e-08,
+        "board_q14_unchanged": true,
+        "board_native_initial_q14_unchanged": true,
+        "release_unchanged": true,
+        "basis": "URDF/native geometry FK of observed native_initial_q10 (float32); held endpoint"
+      }
+    },
+    {
+      "id": "gripper-yaw-diagnostic-corrected-imitation-test-r1-c2-n0-bucket_facing-r0",
+      "context_id": "corrected-imitation-test-r1-c2-n0",
+      "variant": "bucket_facing",
+      "repeat": 0,
+      "native_release": true,
+      "capture": true,
+      "realization_comparison": {
+        "source_record_id": "corrected-imitation-test-corrected_bc-corrected-imitation-test-r1-c2-n0",
+        "q10_equal_to_source": false,
+        "q14_equal_to_source": true,
+        "q10_max_abs_delta_rad": 2.6281016167652496,
+        "q14_max_abs_delta_rad": 0.0,
+        "board_center_delta_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "board_normal_angle_deg": 0.0
+      },
+      "yaw_evidence": {
+        "requested_yaw_rad": -2.628101616763456,
+        "requested_rotation_matrix": [
+          [
+            -0.8710349481499985,
+            -0.49122104912282544,
+            0.0
+          ],
+          [
+            -0.49122104912282544,
+            0.8710349481499985,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -0.9999999999999999
+          ]
+        ],
+        "measured_initial_rotation_matrix": [
+          [
+            -0.8710349204173146,
+            -0.4912210982985136,
+            5.311821315056339e-08
+          ],
+          [
+            -0.4912210982985154,
+            0.8710349204173147,
+            -2.7096759456037278e-08
+          ],
+          [
+            -3.2957318623985704e-08,
+            -4.9695010719830985e-08,
+            -0.9999999999999973
+          ]
+        ],
+        "measured_initial_yaw_rad": -2.6281015603068334,
+        "rotation_error_rad": 8.211655796494052e-08,
+        "board_q14_unchanged": true,
+        "board_native_initial_q14_unchanged": true,
+        "release_unchanged": true,
+        "basis": "URDF/native geometry FK of observed native_initial_q10 (float32); held endpoint"
+      }
+    }
+  ],
+  "first_repeat_admissions": [
+    {
+      "id": "gripper-yaw-diagnostic-corrected-imitation-test-r0-c6-n1-current_exact-r0",
+      "context_id": "corrected-imitation-test-r0-c6-n1",
+      "variant": "current_exact",
+      "repeat": 0,
+      "native_release": true,
+      "invalid": null,
+      "admission_mode": "exact_parent_branch",
+      "setup_proof": {
+        "valid_ik_branches": [
+          13,
+          8
+        ],
+        "reason": null,
+        "endpoint_pair_attempts": 15,
+        "required_clearance_m": 0.005
+      }
+    },
+    {
+      "id": "gripper-yaw-diagnostic-corrected-imitation-test-r0-c6-n1-corrected_exact-r0",
+      "context_id": "corrected-imitation-test-r0-c6-n1",
+      "variant": "corrected_exact",
+      "repeat": 0,
+      "native_release": true,
+      "invalid": null,
+      "admission_mode": "exact_parent_branch",
+      "setup_proof": {
+        "valid_ik_branches": [
+          13,
+          11
+        ],
+        "reason": null,
+        "endpoint_pair_attempts": 18,
+        "required_clearance_m": 0.005
+      }
+    },
+    {
+      "id": "gripper-yaw-diagnostic-corrected-imitation-test-r0-c6-n1-bucket_facing-r0",
+      "context_id": "corrected-imitation-test-r0-c6-n1",
+      "variant": "bucket_facing",
+      "repeat": 0,
+      "native_release": true,
+      "invalid": null,
+      "admission_mode": "fixed_board_yaw_strict_proof",
+      "setup_proof": {
+        "valid_ik_branches": [
+          13,
+          1
+        ],
+        "reason": null,
+        "endpoint_pair_attempts": 9,
+        "required_clearance_m": 0.005
+      }
+    },
+    {
+      "id": "gripper-yaw-diagnostic-corrected-imitation-test-r1-c2-n0-current_exact-r0",
+      "context_id": "corrected-imitation-test-r1-c2-n0",
+      "variant": "current_exact",
+      "repeat": 0,
+      "native_release": true,
+      "invalid": null,
+      "admission_mode": "exact_parent_branch",
+      "setup_proof": {
+        "valid_ik_branches": [
+          12,
+          5
+        ],
+        "reason": null,
+        "endpoint_pair_attempts": 6,
+        "required_clearance_m": 0.005
+      }
+    },
+    {
+      "id": "gripper-yaw-diagnostic-corrected-imitation-test-r1-c2-n0-corrected_exact-r0",
+      "context_id": "corrected-imitation-test-r1-c2-n0",
+      "variant": "corrected_exact",
+      "repeat": 0,
+      "native_release": true,
+      "invalid": null,
+      "admission_mode": "exact_parent_branch",
+      "setup_proof": {
+        "valid_ik_branches": [
+          10,
+          5
+        ],
+        "reason": null,
+        "endpoint_pair_attempts": 6,
+        "required_clearance_m": 0.005
+      }
+    },
+    {
+      "id": "gripper-yaw-diagnostic-corrected-imitation-test-r1-c2-n0-bucket_facing-r0",
+      "context_id": "corrected-imitation-test-r1-c2-n0",
+      "variant": "bucket_facing",
+      "repeat": 0,
+      "native_release": true,
+      "invalid": null,
+      "admission_mode": "fixed_board_yaw_strict_proof",
+      "setup_proof": {
+        "valid_ik_branches": [
+          15,
+          1
+        ],
+        "reason": null,
+        "endpoint_pair_attempts": 6,
+        "required_clearance_m": 0.005
+      }
+    }
+  ],
+  "historical_source": {
+    "report_sha256": "1fde3f7de5b5c2912a133c858105388a704a80ab0e2cb39e8d79c0c7a189bf14",
+    "audit_sha256": "ea4992828178d9e62ba41c63579ecc3876cb5bffaacf6b590c828d45876a7f63",
+    "rows_sha256": "f9d48dd328e203b76d7f6be41c01e436ea938701821e902bbbd7945df7248843",
+    "contract_fingerprint": "297b367fa2702d688084bc2e74dd30a83c6cf4312ba078938def5f9b223adce4"
+  },
+  "producer_commit": "26ba197bc1f85150f6b76f52c27ed0173f9b5c0c",
+  "ui_commit": "ba79932d85bda5bf2fd0e57cd32751da2799ac5e"
+}
