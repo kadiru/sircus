@@ -1,0 +1,31 @@
+<section id="tableHeightTiltStudy" class="tht-panel">
+  <p class="tht-eyebrow">JOINT HEIGHT + TILT SEARCH · FIXED 64 SUBSTEPS · NO NEW PPO</p>
+  <h2>Find a posture both arms can actually reach</h2>
+  <p data-tht="status" class="tht-note" role="status">Waiting for audited study evidence.</p>
+  <p class="tht-small">The previous tilt-only change could not find a board-arm IK solution. This bounded study varies board height and tilt together on four already-observed development layouts. Bucket position, board XY, drop gap, scoring and admission guards stay fixed.</p>
+  <p data-tht="progress" class="tht-small"></p>
+  <div data-tht="summary" class="tht-cards"></div>
+  <p data-tht="protocol" class="tht-small"></p>
+  <h3>Admission map → observed flight</h3>
+  <label class="tht-small">Development layout <select data-tht="caseSelect" aria-label="Choose height and tilt study layout"></select></label>
+  <p data-tht="caseDescription" class="tht-small"></p>
+  <div class="tht-legend" aria-label="Height and tilt matrix legend">
+    <span><i class="tht-ik"></i>IK unresolved</span><span><i class="tht-rejected"></i>Other admission rejection</span><span><i class="tht-admitted"></i>Admitted, no flight</span><span><i class="tht-miss"></i>Released, missed</span><span><i class="tht-capture"></i>Captured</span><span><i class="tht-pending"></i>Not attempted / unverified</span>
+  </div>
+  <div data-tht="matrix" class="tht-scroll tht-matrix" aria-label="Board height by tilt results"></div>
+  <p class="tht-small">Select a cell for its exact request and evidence. A finite IK search failure does not prove the pose is impossible. Admission is a geometric check; an admitted but unexecuted configuration has no measured flight outcome.</p>
+  <div data-tht="cellDetails" class="tht-note" aria-live="polite">No verified grid cell selected.</div>
+  <div data-tht="cellMetrics" class="tht-scroll" aria-label="Selected configuration details"></div>
+  <p data-tht="cellProof" class="tht-small"></p>
+  <h3>Discovery and matched nominal repeats</h3>
+  <p data-tht="comparisonStatus" class="tht-note"></p>
+  <div data-tht="phaseCounts" class="tht-scroll" aria-label="Phase-specific request accounting"></div>
+  <div data-tht="comparison" class="tht-scroll" aria-label="Original versus selected repeat comparison"></div>
+  <div data-tht="selected" class="tht-scroll" aria-label="Exact original and selected shot settings"></div>
+  <p class="tht-small">Discovery trials choose the candidate; later repeats test the frozen selection. Exact nominal repeats are not fresh bucket layouts, noise robustness or generalization. Rejected requests stay in the denominator. No selected posture is automatically installed in the interactive policy.</p>
+  <h3>Controls and evidence</h3>
+  <div data-tht="controls" class="tht-scroll" aria-label="Bracketing control outcomes"></div>
+  <p data-tht="interpretation" class="tht-note"></p>
+  <details><summary>Source identity and limits</summary><p data-tht="proof" class="tht-small"></p><p class="tht-small">Simulator geometry and held arm endpoints only. This study does not test grasping, driven arm transit, physical robots, all-table coverage or 128-substep consistency. The previous diagnosis and historical scoring remain unchanged. The 4070 and Isaac are outside this work.</p></details>
+  <p data-tht="connection" class="tht-small">Read-only evidence snapshot.</p>
+</section>
