@@ -1,5 +1,14 @@
 # Project state
 
+## Two flight losses recovered by drop-gap restoration — November 9, 2026
+
+- [Audited results](../baselines/mjlab-regression-drop-gap-20261109/README.md) and [handoff](MJLAB_REGRESSION_DROP_GAP_20261109.md): all **36 requests / 36 native releases** completed in **170.2 worker seconds**, with 18 formal controls and **16,072 independent checks** passing. No setup declines, cached refusals or invalid physics occurred. Frozen producer `1e37070`; draft PR #110 stacks on #109.
+- Exact parent recipes captured **6/6**; original recovery recipes **0/6**; restoring only parent drop gap on the original recovery action **6/6**, or **3/3 for each case**. Gaps decreased **133.998 → 103.431 mm** (`r0-c5-n1`) and **147.678 → 109.932 mm** (`r0-c6-n1`). Other requested coordinates stayed fixed; the earlier height correction was not combined with this intervention.
+- All corrected captures used **board → table → bucket** routes, with whole-ball entry followed by one continuous second retained. Fresh admission selected unchanged board-arm joint vectors and identical measured board centers/normals. Dropper joints changed to achieve the lower release. Diagnostic shots had no robot contact; the six formal negative controls did and remained misses.
+- The additive `#regressionDropGap` panel shows exact settings, all variant outcomes, native first-repeat traces, posture comparisons and controls/audit. Its 62,097-byte snapshot preserved all 57 prior report keys/bytes and historical HTML/CSS, including the previous movie, without restarting a service or activating a selector.
+- Original **37/70** recovery-imitation performance is unchanged. These inspected positions are development data; 3/3 nominal repeats are not noise robustness or all-table generalization. Parent recipes and historical evidence remain intact. No new PPO/model fitting, 128-substep trial, hardware work, 4070 workload change or Isaac change.
+- Combined with the earlier height correction, three of five inspected lost captures now have local corrections; two finite IK declines remain. Retain the validated recipes, then make a separate training/selector decision and evaluate on fresh positions before claiming policy improvement. No further experiment is automatically launched.
+
 ## Recovery regression diagnosis completed — November 9, 2026
 
 - [Audited correction](../baselines/mjlab-recovery-regression-20261109/README.md) and [handoff](MJLAB_RECOVERY_REGRESSION_20261109.md): all **63 requests / 48 native releases** finished in 221.1 worker seconds; all 18 controls and **22,266 independent checks** passed. No physics-invalid attempts. Producer `a95e303` is frozen; draft PR #109 stacks on #106.
