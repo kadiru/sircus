@@ -224,3 +224,68 @@ test('saved checkpoint identity supports the journal helper without implying an 
     assert.doesNotMatch(text(nodes.get('continuationEvidence')),/Saved final checkpoint SHA256/);
   }finally{delete globalThis.document;}
 });
+
+function stoppedResourceFixture(){
+  const continuation=continuationFixture();continuation.status='incomplete_no_retry';continuation.phase='assessment';
+  continuation.stopped_resources={producer_receipt_sha256:'f'.repeat(64),
+    phases:{initialization:{wall_s:20,aggregate_cpu_s:30,lifetime_peak_rss_mib:6000,largest_child_lifetime_peak_rss_mib:0,device:null},
+      imitation:{wall_s:40,aggregate_cpu_s:45,lifetime_peak_rss_mib:6100,largest_child_lifetime_peak_rss_mib:0},
+      train:{wall_s:120,aggregate_cpu_s:400,lifetime_peak_rss_mib:6500,largest_child_lifetime_peak_rss_mib:12,device:{sampled_whole_device_occupied_mib:6200,torch_peak_allocated_mib:.3,torch_peak_reserved_mib:2}},
+      assessment:{wall_s:8,aggregate_cpu_s:7,lifetime_peak_rss_mib:6500,largest_child_lifetime_peak_rss_mib:12,device:null}},
+    scope:'Non-overlapping producer phase wall and aggregate CPU. RSS is lifetime high-water, not a summed phase peak. Whole-device occupancy includes renderer/PhysX; Torch peaks are not model-only memory. Audit cost was not measured.'};
+  return continuation;
+}
+
+test('stopped producer costs show four scoped phases without unlocking final results or audited compute',()=>{
+  const nodes=dom();try{
+    const continuation=stoppedResourceFixture();panel.render({...fixture(),continuation});
+    const node=nodes.get('continuationStoppedResources'),content=text(node);
+    assert.equal(node.className,'case-box');assert.match(content,/Stopped-run resource measurements/);
+    assert.match(content,/Producer receipts for an incomplete attempt; full assessment and audit did not finish; not independently remeasured/);
+    assert.match(content,/Initialization.*20.00 s.*30.00 s.*6,000.0 MiB.*0.0 MiB/);
+    assert.match(content,/Imitation.*40.00 s.*45.00 s.*Native TRAIN.*120.00 s.*400.00 s/);
+    assert.match(content,/6,500.0 MiB.*12.0 MiB.*6,200.0 MiB.*0.3 MiB.*2.0 MiB/);
+    assert.match(content,/Partial frozen assessment.*8.00 s.*7.00 s.*unknown/);
+    assert.match(content,/not a summed phase peak.*not model-only memory.*Audit cost was not measured/);
+    assert.match(content,/Producer receipt SHA256: f{64}/);
+    assert.equal(panel.continuationStoppedResources(continuation).rows.length,4);
+    assert.equal(panel.continuationAudited(continuation),false);
+    assert.equal(panel.continuationRows(continuation).length,9);
+    assert.ok(panel.continuationRows(continuation).every(row=>row.slice(2).every(value=>value==='not audited')));
+    assert.ok(panel.continuationComputeRows(continuation).every(row=>row.slice(1).every(value=>value==='not audited')));
+    assert.match(text(nodes.get('continuationResults')),/not audited/);assert.match(text(nodes.get('continuationCompute')),/not audited/);
+    assert.doesNotMatch(text(nodes.get('continuationResults')),/12 \/ 70/);
+    assert.match(text(nodes.get('metrics')),/13 \/ 35.*16 \/ 35/);
+  }finally{delete globalThis.document;}
+  assert.match(html,/id="continuationStoppedResources" class="case-box hidden"/);
+});
+
+test('stopped resource measurements reject negative nonfinite and nonnumeric values without inventing zero',()=>{
+  const continuation=stoppedResourceFixture(),row=continuation.stopped_resources.phases.train;
+  Object.assign(row,{wall_s:-1,aggregate_cpu_s:NaN,lifetime_peak_rss_mib:Infinity,largest_child_lifetime_peak_rss_mib:'12',
+    device:{sampled_whole_device_occupied_mib:-2,torch_peak_allocated_mib:true,torch_peak_reserved_mib:null}});
+  assert.deepEqual(panel.continuationStoppedResources(continuation).rows[2],['Native TRAIN',...Array(7).fill('unknown')]);
+  delete continuation.stopped_resources.phases.imitation;
+  assert.deepEqual(panel.continuationStoppedResources(continuation).rows[1],['Imitation',...Array(7).fill('unknown')]);
+  continuation.stopped_resources.phases.audit={wall_s:0,aggregate_cpu_s:0};
+  const audit=panel.continuationStoppedResources(continuation).rows[4];
+  assert.deepEqual(audit,['Independent audit','0.00 s','0.00 s',...Array(5).fill('unknown')]);
+});
+
+test('absent running completed or malformed stopped-resource payload hides and clears previous costs',()=>{
+  const mutations=[c=>delete c.stopped_resources,c=>c.status='running',c=>c.status='completed_audited',
+    c=>c.schema='legacy',c=>c.stopped_resources.producer_receipt_sha256='not a hash',c=>c.stopped_resources.scope=null,
+    c=>c.stopped_resources.phases=[],c=>c.stopped_resources.phases={},c=>c.stopped_resources.phases.train=null,
+    c=>c.stopped_resources.phases.train.device=[],c=>c.stopped_resources.phases.unrecognized={wall_s:1}];
+  const nodes=dom();try{
+    for(const mutate of mutations){
+      panel.renderContinuation(stoppedResourceFixture());assert.equal(nodes.get('continuationStoppedResources').className,'case-box');
+      const continuation=stoppedResourceFixture();mutate(continuation);panel.renderContinuation(continuation);
+      assert.equal(panel.continuationStoppedResources(continuation),null);
+      assert.equal(nodes.get('continuationStoppedResources').className,'case-box hidden');
+      assert.equal(text(nodes.get('continuationStoppedResources')),'');
+    }
+    panel.renderContinuation(stoppedResourceFixture());panel.renderContinuation(undefined);
+    assert.equal(nodes.get('continuationStoppedResources').className,'case-box hidden');assert.equal(text(nodes.get('continuationStoppedResources')),'');
+  }finally{delete globalThis.document;}
+});

@@ -228,17 +228,41 @@ class AssessmentNumericsTests(unittest.TestCase):
         choices[4].update(enabled=False,decline_reason="no_qualified_candidate_support")
         packet["enabled"][4] = False;packet["decline_reasons"][4] = "no_qualified_candidate_support"
         packet["preflight_records"][4] = None
-        packet["rows"][4].update(invalid="no_qualified_candidate_support",native_invalid="inactive_split",
+        packet["rows"][4].update(invalid="no_qualified_candidate_support",native_invalid="no_selected_setting",
             qualification=dict(accepted=False,reason="inactive_split"),path_proxy=None,path_rejection=None)
         before = copy.deepcopy(packet)
-        with tempfile.TemporaryDirectory() as folder, patch('robust_ik.solve',side_effect=AssertionError('No solver call')):
+        with tempfile.TemporaryDirectory() as folder, patch('robust_ik.solve',side_effect=AssertionError('No solver call')), \
+                patch.object(subject,"verify_guards",wraps=subject.verify_guards) as guards, \
+                patch.object(subject,"verify_score",wraps=subject.verify_score) as scores:
             result = subject.verify_assessment_packet(folder,packet,scene=scene,cells=cells,links=links,choices=choices)
         self.assertEqual(result["scores"]["requests"],35);self.assertEqual(result["scores"]["rejections"],35)
         self.assertEqual(result["scores"]["terminal_results"][4]["decline_reason"],"no_qualified_candidate_support")
         self.assertEqual(packet,before)
-        packet["rows"][4]["native_invalid"] = "some_other_rejection"
-        with self.assertRaisesRegex(ValueError,"Empty-support"):subject.verify_assessment_packet(
-            Path("/unused"),packet,scene=scene,cells=cells,links=links,choices=choices)
+        self.assertEqual(guards.call_args.args[0]["rows"][4]["invalid"],"inactive_split")
+        self.assertEqual(scores.call_args.args[1]["rows"][4]["invalid"],"no_qualified_candidate_support")
+        self.assertEqual(packet["rows"][4]["native_invalid"],"no_selected_setting")
+        changes=[("wrong raw mirror",lambda p:p["rows"][4].update(native_invalid="inactive_split")),
+            ("semantic relabel",lambda p:p["rows"][4].update(invalid="other")),
+            ("fabricated preflight",lambda p:p["preflight_records"].__setitem__(4,dict(accepted=False))),
+            ("accepted qualification",lambda p:p["rows"][4].update(qualification=dict(accepted=True))),
+            ("path check",lambda p:p["rows"][4].update(path_proxy=dict(accepted=True))),
+            ("path decline",lambda p:p["rows"][4].update(path_rejection="other")),
+            ("success",lambda p:p["rows"][4].update(success=True)),
+            ("capture",lambda p:p["rows"][4].update(route_success=True)),
+            ("quality",lambda p:p["rows"][4].update(route_quality=2)),
+            ("reward",lambda p:p["rewards"].__setitem__(4,0.)),
+            ("reward features",lambda p:p["reward_features"].__setitem__(4,{}))]
+        for label,change in changes:
+            altered=copy.deepcopy(before);change(altered);saved=copy.deepcopy(altered)
+            with self.subTest(change=label),self.assertRaisesRegex(ValueError,"Empty-support"):
+                subject.verify_assessment_packet(Path("/unused"),altered,scene=scene,cells=cells,links=links,choices=choices)
+            self.assertEqual(altered,saved)
+        altered=copy.deepcopy(before);altered["enabled"][4]=True
+        with self.assertRaisesRegex(ValueError,"slot/decline/seed mapping"):
+            subject.verify_assessment_packet(Path("/unused"),altered,scene=scene,cells=cells,links=links,choices=choices)
+        altered=copy.deepcopy(before);altered["rows"][0]["native_invalid"]="no_selected_setting"
+        with self.assertRaisesRegex(ValueError,"enabled request"):
+            subject.verify_assessment_packet(Path("/unused"),altered,scene=scene,cells=cells,links=links,choices=choices)
 
     def test_position_paired_bootstrap_and_train_history_are_descriptive(self):
         ids={s:[dict(id=f"{s}-{i:03d}",split=s,bucket_xy_m=[.5+i*.001,-.1]) for i in range(n)]
