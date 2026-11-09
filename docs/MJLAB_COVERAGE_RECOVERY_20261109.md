@@ -1,6 +1,7 @@
 # Coverage recovery handoff — November 9, 2026
 
-Status: implementation and preflight. No new result is claimed by this document.
+Status: running. The nine startup controls passed with six expected captures
+and three expected misses. Search and final comparison are not yet complete.
 [Protocol](../sircus/mjlab/COVERAGE_RECOVERY.md) specifies a maximum of 1,000
 requests, a two-hour acquired 4090 slot, and a separate three-hour pipeline cap.
 
@@ -54,3 +55,47 @@ Source synchronization does not deploy a different interactive selector. No
 hardware access, Isaac code/config change, 4070 work or service restart is part
 of this task. A later agent must check source, actual running state, pipeline
 status and matching audit before reporting any new numerical result.
+
+## Frozen launch and follow-up
+
+Frozen producer commit: `522409306b836e39d2108be91c5d57fcf1fd484b`.
+Source archive SHA-256:
+`69917c81ef5c9b0cb0130a552b47981caee096ecd7b972acd33c51f362b6cbaa`.
+Draft [PR #106](https://github.com/kadiru/sircus/pull/106) is stacked on #102.
+No merge or policy promotion is requested.
+
+Launched at **09:15:43 PST** on November 9. The worker has a maximum two-hour
+acquired slot; the pipeline has a three-hour absolute deadline. Check live state
+rather than inferring completion from elapsed time. The supervisor automatically
+runs the independent CPU audit after a successful complete worker result.
+
+Paths relative to the Ubuntu `sircus-mjlab` workspace:
+
+- Frozen source: `studies/coverage-recovery-v1/`.
+- Evidence and models: `output/coverage-recovery-v1/`.
+- Supervisor state/log: `output/coverage-recovery-v1.pipeline.json` / `.pipeline.log`.
+- Worker budget: `output/coverage-recovery-v1-budget.json`.
+- Matching independent proof when complete: `output/coverage-recovery-v1-audit.json`.
+- Launch receipt: `launch-receipts/coverage-recovery-v1.json`.
+- Read-only UI snapshot: `coverage-recovery-v1-snapshot.json`.
+- Publication receipt/log: `coverage-recovery-v1-publication-receipt.json` / `.log`.
+- Publication launch and pre-update backups: `launch-receipts/coverage-recovery-v1-publication.json`
+  and `launch-receipts/coverage-recovery-v1-ui-before/`.
+- Saved parent diagnosis: `coverage-recovery-v1-parent-diagnosis.json`.
+
+The additive [recovery UI](http://127.0.0.1:18781/#coverageRecovery) preserves
+historical panels and refreshes saved state without restarting the viewer.
+A finite publisher stops after terminal pipeline state or its own deadline.
+Do not start a duplicate study, overwrite its evidence, or edit frozen source.
+
+Validation before launch: full repository suite passed, including 1,648 mjlab
+checks (expected dependency skips) and 281 JavaScript checks. Focused publication
+checks passed 12 Python and 14 JavaScript tests. Pinned Ubuntu CPU checks passed
+17 producer/controller tests, 10 independent-auditor tests, 1,553 actual-parent
+checks and 160 actual-model checks. Saved setup/control hydration verified 55
+parent connections plus three controls without initializing CUDA.
+
+The 4070 fountain's PID changed externally during preparation. This task did not
+signal or restart it; the launch receipt records the current process identity.
+The original mjlab viewer remained running. Neither change in a historical PID
+nor a source push should be interpreted as deployment by this task.

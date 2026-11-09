@@ -2,7 +2,7 @@
 
 ## Bounded coverage recovery — November 9, 2026
 
-- [Protocol](../sircus/mjlab/COVERAGE_RECOVERY.md) and [handoff](MJLAB_COVERAGE_RECOVERY_20261109.md): implementation/preflight for a maximum 1,000-request follow-up. No new native result is claimed yet.
+- [Protocol](../sircus/mjlab/COVERAGE_RECOVERY.md) and [handoff](MJLAB_COVERAGE_RECOVERY_20261109.md): frozen producer `5224093` launched at 09:15:43 PST. Nine startup controls passed (six expected captures, three expected misses); recovery search/comparison are still pending.
 - The parent's selected PPO had 22 setup declines and 20 released misses. Thirteen declines lacked a finite IK solution, four failed endpoint checks, three failed fixed-base clearance, and two were out of action bounds. Eighteen released misses never achieved whole-ball entry; two retained for one second but had robot contact. Table rebounds remain allowed.
 - Search targets 39 non-fixed-base failures within unchanged residual support, then requires two successful fresh repeats before adding a teacher to the parent imitation actor. The three blocked layouts remain reported. Former TEST failures are explicitly development data now; their historical report is untouched.
 - Four frozen models share the same geometric prior on 70 new stratified TEST positions: recovery imitation, parent imitation, parent selected PPO and strongest earlier PPO. All requests, including declines, count. No per-position outcome optimization during TEST, extra PPO, noise, 128-step qualification, hardware action or policy promotion.
