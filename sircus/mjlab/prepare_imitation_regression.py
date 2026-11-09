@@ -176,6 +176,9 @@ def compact(study,diagnosis_path,*,audit_path=None,pipeline_path=None,now=None):
         correction['phase']='Waiting for the exclusive 4090 slot; no new shots started' if state['status']=='waiting_for_4090' else 'Initializing the frozen correction study; no saved new outcomes yet'
         correction['counts']={'attempts':0}
     if state.get('status') in ('failed','audit_failed','audit_deferred','timeout','timed_out','stopped'):correction['status']=state['status']
+    if not path.is_file() and state.get('status')=='failed' and state.get('worker_started') is False:
+        correction.update(status='not_run',phase='4090 queue expired; no new shots ran',failure_status='failed',
+            counts={'attempts':0,'native_releases':0,'setup_rejections':0,'invalid_physics':0})
     terminal=state.get('status') in ('completed','failed','audit_failed','audit_deferred','timeout','timed_out','stopped') and isinstance(state.get('finished_unix_s'),(int,float))
     out=dict(version=VERSION,diagnosis=diagnosis,correction=correction,publication=dict(updated_unix_s=time.time() if now is None else now,terminal=terminal,pipeline_status=state.get('status')))
     require(len(json.dumps(out,allow_nan=False,separators=(',',':')).encode())<=MAX_SNAPSHOT_BYTES,'Compact regression snapshot exceeds 256 KiB')
@@ -338,7 +341,7 @@ def watch(study,diagnosis_path,*,receipt,max_seconds=3600,monotonic=time.monoton
             # subsequent refresh still uses immediate byte-compare replacement.
             options.pop('expected_html_sha256',None);options.pop('expected_css_sha256',None)
             if value['publication']['terminal'] and (value['correction']['audit']['status']=='passed'
-                or value['correction']['status'] in ('failed','audit_failed','audit_deferred','timeout','timed_out','stopped')):status='finished'
+                or value['correction']['status'] in ('not_run','failed','audit_failed','audit_deferred','timeout','timed_out','stopped')):status='finished'
         except (OSError,ValueError,RuntimeError,json.JSONDecodeError):
             errors+=1
             if updates==0:raise
