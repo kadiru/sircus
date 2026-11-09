@@ -1,0 +1,39 @@
+{
+  "schema": "sircus-candidate-bank-publication-check-v1",
+  "status": "passed",
+  "summary_sha256": "218d771ebafa282bab6cd206b7694260cb8699afefc5079b6a603cdcb43d0de8",
+  "audit_sha256": "495931cd89d3b2ec707179f5186b7aea2b960d74628264514e648d07fd5740a3",
+  "runtime": {
+    "python": "3.12.14",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "workers": 4,
+    "cuda_visible_devices": ""
+  },
+  "source_bytes_match": true,
+  "known_train_successes_retained": 1534,
+  "known_clean_train_successes_retained": 485,
+  "known_train_successes_excluded": 0,
+  "qualified_candidates": 1814,
+  "unique_candidates": 4369,
+  "train_positions_supported": 35,
+  "held_out_shot_files_read": 0,
+  "new_native_shots": 0,
+  "optimizer_updates": 0,
+  "checks": {
+    "original_paid_train_packets_hash_verified": 289,
+    "original_paid_train_requests_verified": 10000,
+    "independently_rechecked_candidate_attempts": 4369,
+    "independently_regenerated_proposal_aliases": 2835,
+    "python_regression_cases": 708,
+    "environment_dependent_skips": 75,
+    "js_checks": 38,
+    "full_mock_numerical_suite_passed": true
+  },
+  "frozen_after_check": {
+    "status": "passed",
+    "original_experiment_splits_checkpoint_progress_audit_hashes_unchanged": 5,
+    "original_producer_source_files_unchanged": 6,
+    "read_only": true
+  }
+}

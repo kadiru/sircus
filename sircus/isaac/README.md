@@ -11,6 +11,11 @@ Its [current-policy reanalysis](../../baselines/isaac-joint-feasibility-20261108
 preserves the completed benchmark: 420/420 saved admission decisions matched,
 with no model changes or new shots.
 
+The separate [TRAIN candidate bank](CANDIDATE_BANK.md) prepares 4,369 exact
+proposals and admits 1,814, retaining all 1,534 historical seed-22 TRAIN captures
+(485 clean). [Preservation audit](../../baselines/isaac-feasible-candidates-20261109/README.md):
+35/35 TRAIN positions supported; no training, new shots or frozen-benchmark changes.
+
 The separate opt-in [fixed-scene RL task](RL_FIXED_SCENE.md) now trains shot
 parameters on this scene. `run.sh start` remains the stationary foundation;
 `run.sh train` explicitly replaces it with a bounded training run.
