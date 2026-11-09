@@ -1,0 +1,1109 @@
+{
+  "version": "sircus-regression-ik-feasibility-v1",
+  "status": "completed",
+  "contract_fingerprint": "f80dc7fa8f0b535bf5d03040076e9bc0199f4781b2be3dd3ce7c8333f913c8d2",
+  "report_sha256": "8199b13d944f507e78664a8c78734e92ab56e3db14025d7a93eefd4730a6ecd2",
+  "expected_requests": 66,
+  "elapsed_s": 203.77698403398972,
+  "training": false,
+  "posthoc_development": true,
+  "rule": {
+    "mode": "matched_parent_coordinate_blocks_and_interpolation",
+    "description": "At two captured parent layouts, recovery actions were rejected by finite IK. Test fixed parent-coordinate blocks and 25/50/75 percent interpolation toward each full captured parent recipe. Parent branches and original refusals remain exact; novel actions retain all strict admission checks. Three nominal requests per recipe test admitted flights without outcome selection or changes to solver tolerances. This is a local feasibility experiment, not an IK algorithm fix or new policy evaluation.",
+    "contexts": [
+      "recovery-test-r1-c1-n1",
+      "recovery-test-r2-c4-n0"
+    ],
+    "coordinate_groups": {
+      "parent_xy": [
+        0,
+        1
+      ],
+      "parent_height_gap": [
+        2,
+        4
+      ],
+      "parent_tilt": [
+        3
+      ]
+    },
+    "blend_fractions": {
+      "blend25": 0.25,
+      "blend50": 0.5,
+      "blend75": 0.75
+    },
+    "diagnosis_sha256": "511e9f82004af0d603628e25adf8fab71284faa8f11de9307b4c8a611d049ab7"
+  },
+  "counts": {
+    "attempts": 66,
+    "captures": 45,
+    "native_releases": 51,
+    "setup_rejections": 15,
+    "native_misses": 6,
+    "invalid_physics": 0,
+    "robot_contact_shots": 6,
+    "direct_captures": 39,
+    "table_assisted_captures": 6,
+    "cached_refusal_requests": 6
+  },
+  "counts_by_variant": {
+    "parent_exact": {
+      "attempts": 6,
+      "captures": 6,
+      "native_releases": 6,
+      "setup_rejections": 0,
+      "native_misses": 0,
+      "invalid_physics": 0,
+      "robot_contact_shots": 0,
+      "direct_captures": 6,
+      "table_assisted_captures": 0,
+      "cached_refusal_requests": 0
+    },
+    "recovery_exact": {
+      "attempts": 6,
+      "captures": 0,
+      "native_releases": 0,
+      "setup_rejections": 6,
+      "native_misses": 0,
+      "invalid_physics": 0,
+      "robot_contact_shots": 0,
+      "direct_captures": 0,
+      "table_assisted_captures": 0,
+      "cached_refusal_requests": 6
+    },
+    "parent_xy": {
+      "attempts": 6,
+      "captures": 6,
+      "native_releases": 6,
+      "setup_rejections": 0,
+      "native_misses": 0,
+      "invalid_physics": 0,
+      "robot_contact_shots": 0,
+      "direct_captures": 6,
+      "table_assisted_captures": 0,
+      "cached_refusal_requests": 0
+    },
+    "parent_height_gap": {
+      "attempts": 6,
+      "captures": 3,
+      "native_releases": 3,
+      "setup_rejections": 3,
+      "native_misses": 0,
+      "invalid_physics": 0,
+      "robot_contact_shots": 0,
+      "direct_captures": 3,
+      "table_assisted_captures": 0,
+      "cached_refusal_requests": 0
+    },
+    "parent_tilt": {
+      "attempts": 6,
+      "captures": 0,
+      "native_releases": 0,
+      "setup_rejections": 6,
+      "native_misses": 0,
+      "invalid_physics": 0,
+      "robot_contact_shots": 0,
+      "direct_captures": 0,
+      "table_assisted_captures": 0,
+      "cached_refusal_requests": 0
+    },
+    "blend25": {
+      "attempts": 6,
+      "captures": 6,
+      "native_releases": 6,
+      "setup_rejections": 0,
+      "native_misses": 0,
+      "invalid_physics": 0,
+      "robot_contact_shots": 0,
+      "direct_captures": 6,
+      "table_assisted_captures": 0,
+      "cached_refusal_requests": 0
+    },
+    "blend50": {
+      "attempts": 6,
+      "captures": 6,
+      "native_releases": 6,
+      "setup_rejections": 0,
+      "native_misses": 0,
+      "invalid_physics": 0,
+      "robot_contact_shots": 0,
+      "direct_captures": 6,
+      "table_assisted_captures": 0,
+      "cached_refusal_requests": 0
+    },
+    "blend75": {
+      "attempts": 6,
+      "captures": 6,
+      "native_releases": 6,
+      "setup_rejections": 0,
+      "native_misses": 0,
+      "invalid_physics": 0,
+      "robot_contact_shots": 0,
+      "direct_captures": 6,
+      "table_assisted_captures": 0,
+      "cached_refusal_requests": 0
+    }
+  },
+  "cases": [
+    {
+      "context_id": "recovery-test-r1-c1-n1",
+      "bucket_xy_m": [
+        0.37808349751740966,
+        -0.43814751388568507
+      ],
+      "parent_values": [
+        0.6354208507773215,
+        -0.3928478259242271,
+        0.2821621006239574,
+        31.622137576704997,
+        0.2112402545682202
+      ],
+      "recovery_values": [
+        0.6413132134896747,
+        -0.41637288978939857,
+        0.2578337762327255,
+        32.19563352799576,
+        0.23693153444604603
+      ],
+      "variant_values": {
+        "parent_exact": [
+          0.6354208507773215,
+          -0.3928478259242271,
+          0.2821621006239574,
+          31.622137576704997,
+          0.2112402545682202
+        ],
+        "recovery_exact": [
+          0.6413132134896747,
+          -0.41637288978939857,
+          0.2578337762327255,
+          32.19563352799576,
+          0.23693153444604603
+        ],
+        "parent_xy": [
+          0.6354208507773215,
+          -0.3928478259242271,
+          0.2578337762327255,
+          32.19563352799576,
+          0.23693153444604603
+        ],
+        "parent_height_gap": [
+          0.6413132134896747,
+          -0.41637288978939857,
+          0.2821621006239574,
+          32.19563352799576,
+          0.2112402545682202
+        ],
+        "parent_tilt": [
+          0.6413132134896747,
+          -0.41637288978939857,
+          0.2578337762327255,
+          31.622137576704997,
+          0.23693153444604603
+        ],
+        "blend25": [
+          0.6398401228115864,
+          -0.4104916238231057,
+          0.26391585733053347,
+          32.05225954017307,
+          0.23050871447658958
+        ],
+        "blend50": [
+          0.6383670321334981,
+          -0.4046103578568129,
+          0.26999793842834147,
+          31.908885552350377,
+          0.22408589450713312
+        ],
+        "blend75": [
+          0.6368939414554098,
+          -0.39872909189051997,
+          0.27608001952614947,
+          31.76551156452769,
+          0.21766307453767667
+        ]
+      },
+      "variants": {
+        "parent_exact": {
+          "attempts": 3,
+          "captures": 3,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "robot_contact_shots": 0,
+          "direct_captures": 3,
+          "table_assisted_captures": 0,
+          "cached_refusal_requests": 0
+        },
+        "recovery_exact": {
+          "attempts": 3,
+          "captures": 0,
+          "native_releases": 0,
+          "setup_rejections": 3,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "robot_contact_shots": 0,
+          "direct_captures": 0,
+          "table_assisted_captures": 0,
+          "cached_refusal_requests": 3
+        },
+        "parent_xy": {
+          "attempts": 3,
+          "captures": 3,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "robot_contact_shots": 0,
+          "direct_captures": 3,
+          "table_assisted_captures": 0,
+          "cached_refusal_requests": 0
+        },
+        "parent_height_gap": {
+          "attempts": 3,
+          "captures": 3,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "robot_contact_shots": 0,
+          "direct_captures": 3,
+          "table_assisted_captures": 0,
+          "cached_refusal_requests": 0
+        },
+        "parent_tilt": {
+          "attempts": 3,
+          "captures": 0,
+          "native_releases": 0,
+          "setup_rejections": 3,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "robot_contact_shots": 0,
+          "direct_captures": 0,
+          "table_assisted_captures": 0,
+          "cached_refusal_requests": 0
+        },
+        "blend25": {
+          "attempts": 3,
+          "captures": 3,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "robot_contact_shots": 0,
+          "direct_captures": 3,
+          "table_assisted_captures": 0,
+          "cached_refusal_requests": 0
+        },
+        "blend50": {
+          "attempts": 3,
+          "captures": 3,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "robot_contact_shots": 0,
+          "direct_captures": 3,
+          "table_assisted_captures": 0,
+          "cached_refusal_requests": 0
+        },
+        "blend75": {
+          "attempts": 3,
+          "captures": 3,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "robot_contact_shots": 0,
+          "direct_captures": 3,
+          "table_assisted_captures": 0,
+          "cached_refusal_requests": 0
+        }
+      }
+    },
+    {
+      "context_id": "recovery-test-r2-c4-n0",
+      "bucket_xy_m": [
+        0.8983060633856379,
+        -0.24416666833902845
+      ],
+      "parent_values": [
+        0.5793425910769604,
+        -0.05966102020726748,
+        0.4607055799518638,
+        24.096035731929092,
+        0.21219981871621818
+      ],
+      "recovery_values": [
+        0.5656497500163832,
+        -0.062265897289356005,
+        0.4783027474252996,
+        25.631120689705778,
+        0.18223217071817022
+      ],
+      "variant_values": {
+        "parent_exact": [
+          0.5793425910769604,
+          -0.05966102020726748,
+          0.4607055799518638,
+          24.096035731929092,
+          0.21219981871621818
+        ],
+        "recovery_exact": [
+          0.5656497500163832,
+          -0.062265897289356005,
+          0.4783027474252996,
+          25.631120689705778,
+          0.18223217071817022
+        ],
+        "parent_xy": [
+          0.5793425910769604,
+          -0.05966102020726748,
+          0.4783027474252996,
+          25.631120689705778,
+          0.18223217071817022
+        ],
+        "parent_height_gap": [
+          0.5656497500163832,
+          -0.062265897289356005,
+          0.4607055799518638,
+          25.631120689705778,
+          0.21219981871621818
+        ],
+        "parent_tilt": [
+          0.5656497500163832,
+          -0.062265897289356005,
+          0.4783027474252996,
+          24.096035731929092,
+          0.18223217071817022
+        ],
+        "blend25": [
+          0.5690729602815274,
+          -0.06161467801883387,
+          0.47390345555694063,
+          25.247349450261606,
+          0.1897240827176822
+        ],
+        "blend50": [
+          0.5724961705466718,
+          -0.060963458748311744,
+          0.4695041636885817,
+          24.863578210817437,
+          0.1972159947171942
+        ],
+        "blend75": [
+          0.5759193808118162,
+          -0.06031223947778962,
+          0.46510487182022275,
+          24.479806971373264,
+          0.2047079067167062
+        ]
+      },
+      "variants": {
+        "parent_exact": {
+          "attempts": 3,
+          "captures": 3,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "robot_contact_shots": 0,
+          "direct_captures": 3,
+          "table_assisted_captures": 0,
+          "cached_refusal_requests": 0
+        },
+        "recovery_exact": {
+          "attempts": 3,
+          "captures": 0,
+          "native_releases": 0,
+          "setup_rejections": 3,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "robot_contact_shots": 0,
+          "direct_captures": 0,
+          "table_assisted_captures": 0,
+          "cached_refusal_requests": 3
+        },
+        "parent_xy": {
+          "attempts": 3,
+          "captures": 3,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "robot_contact_shots": 0,
+          "direct_captures": 3,
+          "table_assisted_captures": 0,
+          "cached_refusal_requests": 0
+        },
+        "parent_height_gap": {
+          "attempts": 3,
+          "captures": 0,
+          "native_releases": 0,
+          "setup_rejections": 3,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "robot_contact_shots": 0,
+          "direct_captures": 0,
+          "table_assisted_captures": 0,
+          "cached_refusal_requests": 0
+        },
+        "parent_tilt": {
+          "attempts": 3,
+          "captures": 0,
+          "native_releases": 0,
+          "setup_rejections": 3,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "robot_contact_shots": 0,
+          "direct_captures": 0,
+          "table_assisted_captures": 0,
+          "cached_refusal_requests": 0
+        },
+        "blend25": {
+          "attempts": 3,
+          "captures": 3,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "robot_contact_shots": 0,
+          "direct_captures": 3,
+          "table_assisted_captures": 0,
+          "cached_refusal_requests": 0
+        },
+        "blend50": {
+          "attempts": 3,
+          "captures": 3,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "robot_contact_shots": 0,
+          "direct_captures": 3,
+          "table_assisted_captures": 0,
+          "cached_refusal_requests": 0
+        },
+        "blend75": {
+          "attempts": 3,
+          "captures": 3,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "robot_contact_shots": 0,
+          "direct_captures": 3,
+          "table_assisted_captures": 0,
+          "cached_refusal_requests": 0
+        }
+      }
+    }
+  ],
+  "control_gates": {
+    "pre": {
+      "status": "passed",
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    },
+    "post": {
+      "status": "passed",
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    }
+  },
+  "audit": {
+    "status": "passed",
+    "full_checks_verified": true,
+    "native_checks_verified": true,
+    "report_sha256": "8199b13d944f507e78664a8c78734e92ab56e3db14025d7a93eefd4730a6ecd2",
+    "contract_fingerprint": "f80dc7fa8f0b535bf5d03040076e9bc0199f4781b2be3dd3ce7c8333f913c8d2",
+    "proof_sha256": "b5b65c8292147458cc79650638c42d17c63a71b302b228bff57b998234068d60",
+    "checks_count": 25329
+  },
+  "scope": "Two selected development positions, fixed 64 substeps, eight frozen variants and three nominal requests each; no new policy score, noise qualification or policy activation.",
+  "first_repeat_realizations": [
+    {
+      "id": "ik-diagnostic-recovery-test-r1-c1-n1-parent_exact-r0",
+      "context_id": "recovery-test-r1-c1-n1",
+      "variant": "parent_exact",
+      "repeat": 0,
+      "native_release": true,
+      "capture": true,
+      "realization_comparison": {
+        "basis": "matched_successful_parent",
+        "source_record_id": "recovery-test-parent_bc-recovery-test-r1-c1-n1",
+        "q10_equal_to_source": true,
+        "q14_equal_to_source": true,
+        "q10_max_abs_delta_rad": 0.0,
+        "q14_max_abs_delta_rad": 0.0,
+        "board_center_delta_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "board_normal_angle_deg": 8.537736462515939e-07
+      }
+    },
+    {
+      "id": "ik-diagnostic-recovery-test-r1-c1-n1-recovery_exact-r0",
+      "context_id": "recovery-test-r1-c1-n1",
+      "variant": "recovery_exact",
+      "repeat": 0,
+      "native_release": false,
+      "capture": false
+    },
+    {
+      "id": "ik-diagnostic-recovery-test-r1-c1-n1-parent_xy-r0",
+      "context_id": "recovery-test-r1-c1-n1",
+      "variant": "parent_xy",
+      "repeat": 0,
+      "native_release": true,
+      "capture": true,
+      "realization_comparison": {
+        "basis": "matched_successful_parent",
+        "source_record_id": "recovery-test-parent_bc-recovery-test-r1-c1-n1",
+        "q10_equal_to_source": false,
+        "q14_equal_to_source": false,
+        "q10_max_abs_delta_rad": 0.007243218998294942,
+        "q14_max_abs_delta_rad": 0.04880652841412103,
+        "board_center_delta_m": [
+          -5.960464477539063e-08,
+          -5.960464477539063e-08,
+          -0.02432835102081299
+        ],
+        "board_normal_angle_deg": 0.5734925030694795
+      }
+    },
+    {
+      "id": "ik-diagnostic-recovery-test-r1-c1-n1-parent_height_gap-r0",
+      "context_id": "recovery-test-r1-c1-n1",
+      "variant": "parent_height_gap",
+      "repeat": 0,
+      "native_release": true,
+      "capture": true,
+      "realization_comparison": {
+        "basis": "matched_successful_parent",
+        "source_record_id": "recovery-test-parent_bc-recovery-test-r1-c1-n1",
+        "q10_equal_to_source": false,
+        "q14_equal_to_source": false,
+        "q10_max_abs_delta_rad": 0.38981879544096243,
+        "q14_max_abs_delta_rad": 0.12953340081025155,
+        "board_center_delta_m": [
+          0.00589221715927124,
+          -0.02352502942085266,
+          0.0
+        ],
+        "board_normal_angle_deg": 2.8353516617303742
+      }
+    },
+    {
+      "id": "ik-diagnostic-recovery-test-r1-c1-n1-parent_tilt-r0",
+      "context_id": "recovery-test-r1-c1-n1",
+      "variant": "parent_tilt",
+      "repeat": 0,
+      "native_release": false,
+      "capture": false
+    },
+    {
+      "id": "ik-diagnostic-recovery-test-r1-c1-n1-blend25-r0",
+      "context_id": "recovery-test-r1-c1-n1",
+      "variant": "blend25",
+      "repeat": 0,
+      "native_release": true,
+      "capture": true,
+      "realization_comparison": {
+        "basis": "matched_successful_parent",
+        "source_record_id": "recovery-test-parent_bc-recovery-test-r1-c1-n1",
+        "q10_equal_to_source": false,
+        "q14_equal_to_source": false,
+        "q10_max_abs_delta_rad": 0.20656755956682638,
+        "q14_max_abs_delta_rad": 0.09533787723837284,
+        "board_center_delta_m": [
+          0.004419147968292236,
+          -0.01764380931854248,
+          -0.01824614405632019
+        ],
+        "board_normal_angle_deg": 2.12850277768374
+      }
+    },
+    {
+      "id": "ik-diagnostic-recovery-test-r1-c1-n1-blend50-r0",
+      "context_id": "recovery-test-r1-c1-n1",
+      "variant": "blend50",
+      "repeat": 0,
+      "native_release": true,
+      "capture": true,
+      "realization_comparison": {
+        "basis": "matched_successful_parent",
+        "source_record_id": "recovery-test-parent_bc-recovery-test-r1-c1-n1",
+        "q10_equal_to_source": false,
+        "q14_equal_to_source": false,
+        "q10_max_abs_delta_rad": 0.11925708840426807,
+        "q14_max_abs_delta_rad": 0.06353689604172597,
+        "board_center_delta_m": [
+          0.002946019172668457,
+          -0.011762470006942749,
+          -0.012164056301116943
+        ],
+        "board_normal_angle_deg": 1.4198205516531945
+      }
+    },
+    {
+      "id": "ik-diagnostic-recovery-test-r1-c1-n1-blend75-r0",
+      "context_id": "recovery-test-r1-c1-n1",
+      "variant": "blend75",
+      "repeat": 0,
+      "native_release": true,
+      "capture": true,
+      "realization_comparison": {
+        "basis": "matched_successful_parent",
+        "source_record_id": "recovery-test-parent_bc-recovery-test-r1-c1-n1",
+        "q10_equal_to_source": false,
+        "q14_equal_to_source": false,
+        "q10_max_abs_delta_rad": 0.054163734330877844,
+        "q14_max_abs_delta_rad": 0.03176117838744208,
+        "board_center_delta_m": [
+          0.0014729499816894531,
+          -0.005881309509277344,
+          -0.006082028150558472
+        ],
+        "board_normal_angle_deg": 0.710065562995419
+      }
+    },
+    {
+      "id": "ik-diagnostic-recovery-test-r2-c4-n0-parent_exact-r0",
+      "context_id": "recovery-test-r2-c4-n0",
+      "variant": "parent_exact",
+      "repeat": 0,
+      "native_release": true,
+      "capture": true,
+      "realization_comparison": {
+        "basis": "matched_successful_parent",
+        "source_record_id": "recovery-test-parent_bc-recovery-test-r2-c4-n0",
+        "q10_equal_to_source": true,
+        "q14_equal_to_source": true,
+        "q10_max_abs_delta_rad": 0.0,
+        "q14_max_abs_delta_rad": 0.0,
+        "board_center_delta_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "board_normal_angle_deg": 1.2074182697257333e-06
+      }
+    },
+    {
+      "id": "ik-diagnostic-recovery-test-r2-c4-n0-recovery_exact-r0",
+      "context_id": "recovery-test-r2-c4-n0",
+      "variant": "recovery_exact",
+      "repeat": 0,
+      "native_release": false,
+      "capture": false
+    },
+    {
+      "id": "ik-diagnostic-recovery-test-r2-c4-n0-parent_xy-r0",
+      "context_id": "recovery-test-r2-c4-n0",
+      "variant": "parent_xy",
+      "repeat": 0,
+      "native_release": true,
+      "capture": true,
+      "realization_comparison": {
+        "basis": "matched_successful_parent",
+        "source_record_id": "recovery-test-parent_bc-recovery-test-r2-c4-n0",
+        "q10_equal_to_source": false,
+        "q14_equal_to_source": false,
+        "q10_max_abs_delta_rad": 0.054453568511487305,
+        "q14_max_abs_delta_rad": 0.03382479167104746,
+        "board_center_delta_m": [
+          5.960464477539063e-08,
+          -2.2351741790771484e-08,
+          0.017597287893295288
+        ],
+        "board_normal_angle_deg": 1.5350833675222457
+      }
+    },
+    {
+      "id": "ik-diagnostic-recovery-test-r2-c4-n0-parent_height_gap-r0",
+      "context_id": "recovery-test-r2-c4-n0",
+      "variant": "parent_height_gap",
+      "repeat": 0,
+      "native_release": false,
+      "capture": false
+    },
+    {
+      "id": "ik-diagnostic-recovery-test-r2-c4-n0-parent_tilt-r0",
+      "context_id": "recovery-test-r2-c4-n0",
+      "variant": "parent_tilt",
+      "repeat": 0,
+      "native_release": false,
+      "capture": false
+    },
+    {
+      "id": "ik-diagnostic-recovery-test-r2-c4-n0-blend25-r0",
+      "context_id": "recovery-test-r2-c4-n0",
+      "variant": "blend25",
+      "repeat": 0,
+      "native_release": true,
+      "capture": true,
+      "realization_comparison": {
+        "basis": "matched_successful_parent",
+        "source_record_id": "recovery-test-parent_bc-recovery-test-r2-c4-n0",
+        "q10_equal_to_source": false,
+        "q14_equal_to_source": false,
+        "q10_max_abs_delta_rad": 0.08782856058879429,
+        "q14_max_abs_delta_rad": 0.34884496274873555,
+        "board_center_delta_m": [
+          -0.010227024555206299,
+          -0.001953188329935074,
+          0.013203740119934082
+        ],
+        "board_normal_angle_deg": 1.2268968811621548
+      }
+    },
+    {
+      "id": "ik-diagnostic-recovery-test-r2-c4-n0-blend50-r0",
+      "context_id": "recovery-test-r2-c4-n0",
+      "variant": "blend50",
+      "repeat": 0,
+      "native_release": true,
+      "capture": true,
+      "realization_comparison": {
+        "basis": "matched_successful_parent",
+        "source_record_id": "recovery-test-parent_bc-recovery-test-r2-c4-n0",
+        "q10_equal_to_source": false,
+        "q14_equal_to_source": false,
+        "q10_max_abs_delta_rad": 0.05960991808596283,
+        "q14_max_abs_delta_rad": 0.14771955187492125,
+        "board_center_delta_m": [
+          -0.006846427917480469,
+          -0.0013024285435676575,
+          0.008798658847808838
+        ],
+        "board_normal_angle_deg": 0.8202651137493773
+      }
+    },
+    {
+      "id": "ik-diagnostic-recovery-test-r2-c4-n0-blend75-r0",
+      "context_id": "recovery-test-r2-c4-n0",
+      "variant": "blend75",
+      "repeat": 0,
+      "native_release": true,
+      "capture": true,
+      "realization_comparison": {
+        "basis": "matched_successful_parent",
+        "source_record_id": "recovery-test-parent_bc-recovery-test-r2-c4-n0",
+        "q10_equal_to_source": false,
+        "q14_equal_to_source": false,
+        "q10_max_abs_delta_rad": 0.03037517983483351,
+        "q14_max_abs_delta_rad": 0.06390885914063871,
+        "board_center_delta_m": [
+          -0.0034230947494506836,
+          -0.0006511509418487549,
+          0.0043992698192596436
+        ],
+        "board_normal_angle_deg": 0.41011735465157934
+      }
+    }
+  ],
+  "first_repeat_admissions": [
+    {
+      "id": "ik-diagnostic-recovery-test-r1-c1-n1-parent_exact-r0",
+      "context_id": "recovery-test-r1-c1-n1",
+      "variant": "parent_exact",
+      "repeat": 0,
+      "native_release": true,
+      "invalid": null,
+      "admission_mode": "exact_parent_branch",
+      "setup_proof": {
+        "valid_ik_branches": [
+          10,
+          7
+        ],
+        "reason": null,
+        "endpoint_pair_attempts": 6,
+        "required_clearance_m": 0.005
+      }
+    },
+    {
+      "id": "ik-diagnostic-recovery-test-r1-c1-n1-recovery_exact-r0",
+      "context_id": "recovery-test-r1-c1-n1",
+      "variant": "recovery_exact",
+      "repeat": 0,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "admission_mode": "cached_parent_refusal",
+      "setup_proof": {
+        "valid_ik_branches": [
+          0,
+          9
+        ],
+        "reason": "finite_ik_unresolved",
+        "endpoint_pair_attempts": 0,
+        "required_clearance_m": 0.005
+      }
+    },
+    {
+      "id": "ik-diagnostic-recovery-test-r1-c1-n1-parent_xy-r0",
+      "context_id": "recovery-test-r1-c1-n1",
+      "variant": "parent_xy",
+      "repeat": 0,
+      "native_release": true,
+      "invalid": null,
+      "admission_mode": "new_action_strict_proof",
+      "setup_proof": {
+        "valid_ik_branches": [
+          10,
+          8
+        ],
+        "reason": null,
+        "endpoint_pair_attempts": 6,
+        "required_clearance_m": 0.005
+      }
+    },
+    {
+      "id": "ik-diagnostic-recovery-test-r1-c1-n1-parent_height_gap-r0",
+      "context_id": "recovery-test-r1-c1-n1",
+      "variant": "parent_height_gap",
+      "repeat": 0,
+      "native_release": true,
+      "invalid": null,
+      "admission_mode": "new_action_strict_proof",
+      "setup_proof": {
+        "valid_ik_branches": [
+          9,
+          8
+        ],
+        "reason": null,
+        "endpoint_pair_attempts": 10,
+        "required_clearance_m": 0.005
+      }
+    },
+    {
+      "id": "ik-diagnostic-recovery-test-r1-c1-n1-parent_tilt-r0",
+      "context_id": "recovery-test-r1-c1-n1",
+      "variant": "parent_tilt",
+      "repeat": 0,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "admission_mode": "new_action_strict_proof",
+      "setup_proof": {
+        "valid_ik_branches": [
+          0,
+          8
+        ],
+        "reason": "finite_ik_unresolved",
+        "endpoint_pair_attempts": 0,
+        "required_clearance_m": 0.005
+      }
+    },
+    {
+      "id": "ik-diagnostic-recovery-test-r1-c1-n1-blend25-r0",
+      "context_id": "recovery-test-r1-c1-n1",
+      "variant": "blend25",
+      "repeat": 0,
+      "native_release": true,
+      "invalid": null,
+      "admission_mode": "new_action_strict_proof",
+      "setup_proof": {
+        "valid_ik_branches": [
+          11,
+          11
+        ],
+        "reason": null,
+        "endpoint_pair_attempts": 6,
+        "required_clearance_m": 0.005
+      }
+    },
+    {
+      "id": "ik-diagnostic-recovery-test-r1-c1-n1-blend50-r0",
+      "context_id": "recovery-test-r1-c1-n1",
+      "variant": "blend50",
+      "repeat": 0,
+      "native_release": true,
+      "invalid": null,
+      "admission_mode": "new_action_strict_proof",
+      "setup_proof": {
+        "valid_ik_branches": [
+          11,
+          10
+        ],
+        "reason": null,
+        "endpoint_pair_attempts": 6,
+        "required_clearance_m": 0.005
+      }
+    },
+    {
+      "id": "ik-diagnostic-recovery-test-r1-c1-n1-blend75-r0",
+      "context_id": "recovery-test-r1-c1-n1",
+      "variant": "blend75",
+      "repeat": 0,
+      "native_release": true,
+      "invalid": null,
+      "admission_mode": "new_action_strict_proof",
+      "setup_proof": {
+        "valid_ik_branches": [
+          9,
+          9
+        ],
+        "reason": null,
+        "endpoint_pair_attempts": 11,
+        "required_clearance_m": 0.005
+      }
+    },
+    {
+      "id": "ik-diagnostic-recovery-test-r2-c4-n0-parent_exact-r0",
+      "context_id": "recovery-test-r2-c4-n0",
+      "variant": "parent_exact",
+      "repeat": 0,
+      "native_release": true,
+      "invalid": null,
+      "admission_mode": "exact_parent_branch",
+      "setup_proof": {
+        "valid_ik_branches": [
+          6,
+          7
+        ],
+        "reason": null,
+        "endpoint_pair_attempts": 6,
+        "required_clearance_m": 0.005
+      }
+    },
+    {
+      "id": "ik-diagnostic-recovery-test-r2-c4-n0-recovery_exact-r0",
+      "context_id": "recovery-test-r2-c4-n0",
+      "variant": "recovery_exact",
+      "repeat": 0,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "admission_mode": "cached_parent_refusal",
+      "setup_proof": {
+        "valid_ik_branches": [
+          8,
+          0
+        ],
+        "reason": "finite_ik_unresolved",
+        "endpoint_pair_attempts": 0,
+        "required_clearance_m": 0.005
+      }
+    },
+    {
+      "id": "ik-diagnostic-recovery-test-r2-c4-n0-parent_xy-r0",
+      "context_id": "recovery-test-r2-c4-n0",
+      "variant": "parent_xy",
+      "repeat": 0,
+      "native_release": true,
+      "invalid": null,
+      "admission_mode": "new_action_strict_proof",
+      "setup_proof": {
+        "valid_ik_branches": [
+          7,
+          7
+        ],
+        "reason": null,
+        "endpoint_pair_attempts": 6,
+        "required_clearance_m": 0.005
+      }
+    },
+    {
+      "id": "ik-diagnostic-recovery-test-r2-c4-n0-parent_height_gap-r0",
+      "context_id": "recovery-test-r2-c4-n0",
+      "variant": "parent_height_gap",
+      "repeat": 0,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "admission_mode": "new_action_strict_proof",
+      "setup_proof": {
+        "valid_ik_branches": [
+          7,
+          0
+        ],
+        "reason": "finite_ik_unresolved",
+        "endpoint_pair_attempts": 0,
+        "required_clearance_m": 0.005
+      }
+    },
+    {
+      "id": "ik-diagnostic-recovery-test-r2-c4-n0-parent_tilt-r0",
+      "context_id": "recovery-test-r2-c4-n0",
+      "variant": "parent_tilt",
+      "repeat": 0,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "admission_mode": "new_action_strict_proof",
+      "setup_proof": {
+        "valid_ik_branches": [
+          8,
+          0
+        ],
+        "reason": "finite_ik_unresolved",
+        "endpoint_pair_attempts": 0,
+        "required_clearance_m": 0.005
+      }
+    },
+    {
+      "id": "ik-diagnostic-recovery-test-r2-c4-n0-blend25-r0",
+      "context_id": "recovery-test-r2-c4-n0",
+      "variant": "blend25",
+      "repeat": 0,
+      "native_release": true,
+      "invalid": null,
+      "admission_mode": "new_action_strict_proof",
+      "setup_proof": {
+        "valid_ik_branches": [
+          8,
+          7
+        ],
+        "reason": null,
+        "endpoint_pair_attempts": 6,
+        "required_clearance_m": 0.005
+      }
+    },
+    {
+      "id": "ik-diagnostic-recovery-test-r2-c4-n0-blend50-r0",
+      "context_id": "recovery-test-r2-c4-n0",
+      "variant": "blend50",
+      "repeat": 0,
+      "native_release": true,
+      "invalid": null,
+      "admission_mode": "new_action_strict_proof",
+      "setup_proof": {
+        "valid_ik_branches": [
+          6,
+          10
+        ],
+        "reason": null,
+        "endpoint_pair_attempts": 6,
+        "required_clearance_m": 0.005
+      }
+    },
+    {
+      "id": "ik-diagnostic-recovery-test-r2-c4-n0-blend75-r0",
+      "context_id": "recovery-test-r2-c4-n0",
+      "variant": "blend75",
+      "repeat": 0,
+      "native_release": true,
+      "invalid": null,
+      "admission_mode": "new_action_strict_proof",
+      "setup_proof": {
+        "valid_ik_branches": [
+          7,
+          6
+        ],
+        "reason": null,
+        "endpoint_pair_attempts": 6,
+        "required_clearance_m": 0.005
+      }
+    }
+  ],
+  "historical_source": {
+    "report_sha256": "6a255223820656059fe16a5de2944ba2593f7ac3603b287f4955979cd4677504",
+    "audit_sha256": "e2ba653792b37d302425ba4af6cb22460c3d5b426274b3c1b3cbce270a857a9b",
+    "rows_sha256": "3fba67b7cbb1a1a8769ef773bab3245233e6704641e2f98a037076a11112985b",
+    "contract_fingerprint": "f54c341eba5258b427e4e1eb05a1b2e93bf76518d9f94a2fe8cf6bad744f6082"
+  },
+  "producer_commit": "2ec2c0baae8c9413d121d5c0b71c841b8108986a",
+  "ui_commit": "2ec2c0baae8c9413d121d5c0b71c841b8108986a"
+}
