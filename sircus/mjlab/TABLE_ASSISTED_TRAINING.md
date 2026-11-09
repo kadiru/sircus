@@ -89,8 +89,25 @@ process are untouched. The environment factory alone does not acquire a lease.
 `table_training_verify` checks source/data/model bindings, optimizer membership,
 frozen predictions and dense native scoring. The read-only `#tableTraining`
 panel labels all interim counts provisional until the audit is bound to the
-completed report. It updates through the existing GET-only study endpoint,
-without activating a new solver or restarting the viewer.
+completed report. A separate finite CPU publisher embeds the small snapshot in
+the existing HTML; the browser refreshes that snapshot every30 seconds. This
+avoids repeatedly downloading the large historical study report. The frozen
+training source is not edited, and no solver or viewer process is restarted.
 
 Generated observations, weights, runtime configs and logs remain outside Git.
 Only reviewed source, documentation and compact verified results are published.
+
+## Launch checkpoint — November 8
+
+Producer `b11e8b9772268d79a14a5bcb0b8d9761789da379` was launched in a new evidence
+namespace after49 Ubuntu CPU/Torch tests passed and579,197 independent checks
+of the actual historical input join passed. The new actor uses27 teachers,
+including five table-assisted examples, versus22 original teachers. Sixteen
+teacher identities changed; all115 newly credited TRAIN rewards enter critic
+fitting. The coordinate inventory contains1,037 distinct historical positions.
+
+The initial nine native controls passed:3/3 direct captures,3/3 table-assisted
+captures,3/3 expected misses. Imitation fitting then began. This is a launch
+checkpoint, not a completed PPO or held-out result. The existing4070 process and
+viewer retained their original process/start identities. The separate publication
+source can advance without changing the frozen producer or its final auditor.
