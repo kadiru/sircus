@@ -1,7 +1,7 @@
 # Sircus — Simple Circus
 
 **Current mjlab follow-up:** [bounded recovery search and imitation](sircus/mjlab/COVERAGE_RECOVERY.md).
-Preparing a maximum of 1,000 requests on the 4090: alternate shots for 39 inspected
+Running a maximum of 1,000 requests on the 4090: alternate shots for 39 inspected
 failure cases, two fresh confirmations per selected capture, actor-only imitation
 and a four-model comparison on 70 new positions. The three fixed-base blockers
 remain explicit. Results are pending independent verification; the prior study
