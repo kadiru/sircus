@@ -1,5 +1,12 @@
 # Sircus — Simple Circus
 
+**Current mjlab follow-up:** [bounded recovery search and imitation](sircus/mjlab/COVERAGE_RECOVERY.md).
+Preparing a maximum of 1,000 requests on the 4090: alternate shots for 39 inspected
+failure cases, two fresh confirmations per selected capture, actor-only imitation
+and a four-model comparison on 70 new positions. The three fixed-base blockers
+remain explicit. Results are pending independent verification; the prior study
+below remains the latest completed training result.
+
 **Latest mjlab training:** [seven-hour-budget, 70-position comparison](baselines/mjlab-coverage-training-20261109/README.md).
 All 2,757 planned requests completed in 235.1 worker minutes. New imitation and
 selected new PPO each captured **28/70 (40%)** on unseen bucket positions;
