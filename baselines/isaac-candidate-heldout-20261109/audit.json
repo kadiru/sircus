@@ -1,0 +1,44 @@
+{
+  "schema": "sircus-candidate-fresh-heldout-bank-v1-audit",
+  "status": "passed",
+  "plan_fingerprint": "3fa5aa5f6183129391bfda0979513ff2030a7b527c6a1f3b7ee24145db1978e8",
+  "qualification_fingerprint": "84e001ebfecce83f59160403b3638a25ef0dc6ba0cec06e9e0eb38f0204d57f1",
+  "split_fingerprint": "829fbb0aa4eece4bf9b57e46cc078372425558b201f327669bf4fbc5bee5b375",
+  "input_bindings": {
+    "parent_checkpoint_sha256": "57d7658e9ed2f72ad09cf4e8523ab497ccbe0708364f1b8ec4a4c5c1aef1fe9f",
+    "parent_prediction_sha256": "49dc5b5230e5f813d71bb6235320b30fc7de95cf7303d3ec6f0655af19a23690",
+    "fresh_split_manifest_sha256": "da2aaba4a45364833b369e836fdfb8efb42010f0defd8cae0d0107c8018d1202",
+    "history_receipt_sha256": "d50122bf25e6e112c5f22cfe3f44dd74d0212aad07d5fbb2fdc1d50ac7d2c9c7",
+    "original_split_manifest_sha256": "f46c690d80bd2079b27c8d3c72267c39acf1cee61fb4625f37994bff92292785",
+    "scene_file_sha256": "27ebf306e5a24a2702f13fa88e100cb107520c56688c15e9a8868350d4b5bf97",
+    "poses_sha256": "5847c2793606860a82cc74030c3fe529767318f189c5d48e3d66c0dc7b9f776a",
+    "arm10_asset_sha256": "3f40e56e46b040fb3339c1235ea85872f46511c45db2d37f7661db94a470bae3",
+    "arm14_asset_sha256": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340"
+  },
+  "raw_proposals": 8505,
+  "unique_candidates": 8505,
+  "admitted": 847,
+  "declined": 7658,
+  "supported_contexts": 102,
+  "empty_contexts": [
+    "fresh-validation-024",
+    "fresh-test-024",
+    "fresh-test-058"
+  ],
+  "exclusion_reasons": {
+    "arm_table_proxy_overlap_Arm14": 10,
+    "board_bucket_proxy_overlap": 76,
+    "endpoint_ik_unresolved_Arm10": 611,
+    "endpoint_ik_unresolved_Arm14": 504,
+    "outer_link_length_bound": 6457
+  },
+  "one_preflight_per_unique_proposal": true,
+  "proposal_sources_reconstructed": true,
+  "synthetic_test_only": false,
+  "native_shots": 0,
+  "optimizer_updates": 0,
+  "outcome_files_read": 0,
+  "release_authorized": false,
+  "scope": "Independent proposal reconstruction and recorded FK/path gate verification only; no IK search, physics/capture certificate or impossibility proof.",
+  "fingerprint": "92052d7c0eb3ad305d75b849493b44d2abe3b1e69b8badb40f780c214631e668"
+}

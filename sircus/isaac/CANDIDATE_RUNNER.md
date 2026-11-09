@@ -106,9 +106,11 @@ forward-only compatibility process. No imitation/PPO step on it, new shot,
 held-out evaluation, package installation into existing environments, service
 restart or physical action belongs to this implementation task.
 
-Before any real learning, finish outcome-blind fresh split/support preparation
-and its independent audit, connect the unchanged native guards and full trace
-receipts, implement the one-start diagnostic/GPU/time supervisor, extend the
-native scoring/guard audit, and review the final-only 420-request assessment.
+The subsequent [fresh preparation and native guard adapter](CANDIDATE_FRESH_GUARDS.md)
+complete outcome-blind split/support preparation and its independent audit, and
+wire exact reserved TRAIN actions to the unchanged native guards/full traces.
+This was CPU/mock tested without native shots. Before any real learning,
+implement the one-start diagnostic/GPU/time supervisor, extend the full native
+scoring/guard audit, and review the final-only 420-request assessment.
 The [proposed continuation plan](CANDIDATE_CONTINUATION_PLAN.md) still governs
 those gates. No learning or native performance improvement is claimed here.
