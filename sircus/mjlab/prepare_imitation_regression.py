@@ -73,6 +73,9 @@ VARIANTS=('current_exact','corrected_exact','blend50')
 VIDEO='sircus-imitation-regression-recorded-video-v1'
 VIDEO_START='<!--IMITATION_REGRESSION_VIDEOS_START-->'
 VIDEO_END='<!--IMITATION_REGRESSION_VIDEOS_END-->'
+HISTORY_VIDEO='sircus-imitation-regression-historical-video-v1'
+HISTORY_START='<!--IMITATION_REGRESSION_HISTORY_START-->'
+HISTORY_END='<!--IMITATION_REGRESSION_HISTORY_END-->'
 
 
 def checked_diagnosis(path):
@@ -168,6 +171,10 @@ def compact(study,diagnosis_path,*,audit_path=None,pipeline_path=None,now=None):
         else:
             correction['counts']=take(correction['counts'],('attempts',))
             correction['cases']=[];correction['counts_by_variant']={}
+    if not path.is_file() and state.get('status') in ('waiting_for_4090','starting','running'):
+        correction['status']=state['status']
+        correction['phase']='Waiting for the exclusive 4090 slot; no new shots started' if state['status']=='waiting_for_4090' else 'Initializing the frozen correction study; no saved new outcomes yet'
+        correction['counts']={'attempts':0}
     if state.get('status') in ('failed','audit_failed','audit_deferred','timeout','timed_out','stopped'):correction['status']=state['status']
     terminal=state.get('status') in ('completed','failed','audit_failed','audit_deferred','timeout','timed_out','stopped') and isinstance(state.get('finished_unix_s'),(int,float))
     out=dict(version=VERSION,diagnosis=diagnosis,correction=correction,publication=dict(updated_unix_s=time.time() if now is None else now,terminal=terminal,pipeline_status=state.get('status')))
@@ -214,11 +221,12 @@ def embed_html(original,snapshot):
     web=Path(__file__).with_name('web');html=(web/'imitation-regression.html').read_text();css=(web/'imitation-regression.css').read_text();js=(web/'imitation-regression.js').read_text()
     js=re.sub(r'^export (?=(?:const|function|class)\b)','',js,flags=re.M)
     require(not re.search(r'^\s*(?:import|export)\b',js,re.M) and '</script' not in js.lower() and '</style' not in css.lower(),'Self-contained panel required')
-    require(original.count(VIDEO_START)==original.count(VIDEO_END) and original.count(VIDEO_START)<=1,'Ambiguous recorded movie markers')
-    if VIDEO_START in original:
-        require(START in original and original.index(START)<original.index(VIDEO_START)<original.index(VIDEO_END)<original.index(END),'Movies must remain inside their own panel')
-        video=original[original.index(VIDEO_START):original.index(VIDEO_END)+len(VIDEO_END)]
-        html=html.replace('<div data-imitation-regression="movies"></div>',video)
+    for begin,end,placeholder in ((VIDEO_START,VIDEO_END,'movies'),(HISTORY_START,HISTORY_END,'historical-movies')):
+        require(original.count(begin)==original.count(end) and original.count(begin)<=1,'Ambiguous recorded movie markers')
+        if begin in original:
+            require(START in original and original.index(START)<original.index(begin)<original.index(end)<original.index(END),'Movies must remain inside their own panel')
+            video=original[original.index(begin):original.index(end)+len(end)]
+            html=html.replace(f'<div data-imitation-regression="{placeholder}"></div>',video)
     block=f'{START}\n<style>{css}</style>\n{html}\n<script type="application/json" id="imitation-regression-snapshot">{encoded(snapshot)}</script>\n<script>(function(){{\n{js}\n}})();</script>\n{END}'
     return replace_block(original,START,END,block)
 
@@ -246,25 +254,35 @@ def refresh(study,diagnosis_path,*,snapshot_path,target_html,target_css,audit_pa
     return out
 
 
-def movie_summary(manifest_path,movie_path,snapshot):
+def movie_summary(manifest_path,movie_path,snapshot,*,historical=False):
     """Bind each first-repeat movie to exact audited records, never a later winner."""
-    raw=read(manifest_path);r=snapshot['correction'];audit=r['audit']
-    require(r.get('status')=='completed' and audit.get('status')=='passed' and audit.get('full_checks_verified') is True and audit.get('native_checks_verified') is True,'Audited correction required for movies')
-    require(raw.get('version')==VIDEO and raw.get('status')=='completed','Completed recorded comparison required')
+    raw=read(manifest_path)
+    if historical:
+        diagnosis=snapshot.get('diagnosis',{});source=diagnosis.get('source',{})
+        require(diagnosis.get('status')=='completed' and source.get('full_checks_verified') is True and source.get('native_checks_verified') is True and source.get('checks_count')==55633,'Audited historical diagnosis required')
+        require(tuple(c.get('context_id') for c in diagnosis.get('losses',[]))==CASES,'Exact six historical pairs required')
+        expected=take(source,('report_sha256','audit_sha256','contract_fingerprint'))
+        available={r['record_id']:dict(r,id=r['record_id'],variant=v) for c in diagnosis['losses'] for m,v in (('current_bc','current_exact'),('corrected_bc','corrected_exact')) for r in (c[m],)}
+        version=HISTORY_VIDEO;variants=VARIANTS[:2]
+    else:
+        r=snapshot['correction'];audit=r['audit']
+        require(r.get('status')=='completed' and audit.get('status')=='passed' and audit.get('full_checks_verified') is True and audit.get('native_checks_verified') is True,'Audited correction required for movies')
+        expected=dict(report_sha256=r['report_sha256'],audit_sha256=audit['proof_sha256'],contract_fingerprint=r['contract_fingerprint'])
+        available={q['id']:q for q in r.get('recordings',[])};version=VIDEO;variants=VARIANTS
+    require(raw.get('version')==version and raw.get('status')=='completed','Completed recorded comparison required')
     require(raw.get('native_steps_added')==0 and raw.get('held_arm_poses') is True and raw.get('sampled_ball_centers_only') is True and raw.get('interpolation') is False,'Recorded held poses without new physics or interpolation required')
     require(raw.get('backend',{}).get('software_only') is True and raw['backend'].get('cuda_visible_devices')=='','CPU software render required')
-    expected=dict(report_sha256=r['report_sha256'],audit_sha256=audit['proof_sha256'],contract_fingerprint=r['contract_fingerprint'])
     require(all(raw.get('source',{}).get(k)==v for k,v in expected.items()),'Movie belongs to another report or audit')
     size=Path(movie_path).stat().st_size
     require(0<size<=32*1024*1024 and raw.get('video_bytes')==size and sha(movie_path)==raw.get('output_sha256'),'Movie bytes or checksum differ')
     with Path(movie_path).open('rb') as stream:require(stream.read(12)[4:8]==b'ftyp','MP4 required')
     frames=raw.get('frames',[]);fps=raw.get('fps');duration=raw.get('duration_s')
     require(type(fps) is int and 1<=fps<=60 and isinstance(duration,(int,float)) and math.isfinite(duration) and 0<duration<=120 and frames and abs(len(frames)/fps-duration)<1e-9 and digest(frames)==raw.get('frames_sha256'),'Verified bounded movie timeline required')
-    clips=raw.get('clips',[]);require(len(clips)==3 and tuple(c.get('variant') for c in clips)==VARIANTS,'Exactly three ordered matched clips required')
+    clips=raw.get('clips',[]);require(len(clips)==len(variants) and tuple(c.get('variant') for c in clips)==variants,'Exact ordered recorded variants required')
     contexts={c.get('context_id') for c in clips};require(len(contexts)==1 and next(iter(contexts)) in CASES,'One known case per movie required')
-    available={q['id']:q for q in r.get('recordings',[])};end=0.
+    end=0.
     for index,c in enumerate(clips):
-        q=available.get(c.get('record_id'));require(q and q.get('repeat')==0,'Exact representative repeat zero required')
+        q=available.get(c.get('record_id'));require(q and (historical or q.get('repeat')==0),'Exact representative recorded request required')
         require(c.get('record_sha256')==q.get('record_sha256') and c.get('values')==q.get('values') and c.get('bucket_xy_m')==q.get('bucket_xy_m') and c.get('capture')==q.get('capture') and c.get('native_release')==q.get('native_release'),'Movie clip differs from audited row')
         require(c.get('context_id')==q.get('context_id') and c.get('variant')==q.get('variant'),'Movie grouping differs')
         require(c.get('start_s')==end and isinstance(c.get('end_s'),(int,float)) and end<c['end_s']<=duration,'Contiguous ordered clips required');end=c['end_s']
@@ -279,31 +297,33 @@ def movie_summary(manifest_path,movie_path,snapshot):
     return dict(context_id=next(iter(contexts)),**take(raw,('version','output_sha256','video_bytes','fps','duration_s','width','height','frames_sha256')),manifest_sha256=sha(manifest_path),source=expected,clips=[take(c,('record_id','context_id','variant','label','start_s','end_s','capture','native_release','no_flight','reason','record_sha256','native_cache_sha256','events')) for c in clips])
 
 
-def publish_movies(snapshot_path,target_html,media_pairs,*,expected_html_sha256):
+def publish_movies(snapshot_path,target_html,media_pairs,*,expected_html_sha256,historical=False):
     """Inline verified media into this panel only; historical movies survive."""
     require(1<=len(media_pairs)<=6,'One to six case movies required')
     snapshot=read(snapshot_path);require(snapshot.get('version')==VERSION,'Matching saved panel required')
     html_path=Path(target_html);old=html_path.read_bytes();require(sha(html_path)==expected_html_sha256,'HTML changed; preserve concurrent work')
     require(html_path.resolve()!=Path(snapshot_path).resolve(),'Distinct movie publication target required')
-    summaries=[movie_summary(meta,movie,snapshot) for meta,movie in media_pairs]
+    summaries=[movie_summary(meta,movie,snapshot,historical=historical) for meta,movie in media_pairs]
     require(len({m['context_id'] for m in summaries})==len(summaries),'Duplicate case movie')
     require(sum(m['video_bytes'] for m in summaries)<=64*1024*1024,'Combined inline movies exceed64MiB')
     esc=html_module.escape;cards=[]
+    start_marker,end_marker=(HISTORY_START,HISTORY_END) if historical else (VIDEO_START,VIDEO_END)
+    placeholder='<div data-imitation-regression="historical-movies"></div>' if historical else '<div data-imitation-regression="movies"></div>'
+    clip_scope='Original historical TEST pair; not a new correction result.' if historical else 'First repeat of each variant, regardless of outcome.'
     for (meta,movie),m in zip(media_pairs,summaries):
         data=base64.b64encode(Path(movie).read_bytes()).decode('ascii')
         chapters=''.join(f'<li>{esc(c["label"])}: {c["start_s"]:.1f}–{c["end_s"]:.1f}s · {"No flight" if c["no_flight"] else "Capture" if c["capture"] else "Route rejected / miss"}</li>' for c in m['clips'])
-        cards.append(f'<article class="ir-movie"><h4>{esc(m["context_id"].replace("corrected-imitation-test-","Case "))}</h4><video controls playsinline preload="none" aria-label="{esc(m["context_id"])} recorded comparison"><source src="data:video/mp4;base64,{data}" type="video/mp4"></video><ol>{chapters}</ol><p class="ir-small">Saved native samples; held endpoint joints; no new physics or invented motion. First repeat of each variant, regardless of outcome. MP4 SHA-256 {esc(m["output_sha256"])}</p></article>')
-    block=VIDEO_START+'\n'+''.join(cards)+'\n'+VIDEO_END
+        cards.append(f'<article class="ir-movie"><h4>{esc(m["context_id"].replace("corrected-imitation-test-","Case "))}</h4><video controls playsinline preload="none" aria-label="{esc(m["context_id"])} recorded comparison"><source src="data:video/mp4;base64,{data}" type="video/mp4"></video><ol>{chapters}</ol><p class="ir-small">Saved native samples; held endpoint joints; no new physics or invented motion. {clip_scope} MP4 SHA-256 {esc(m["output_sha256"])}</p></article>')
+    block=start_marker+'\n'+''.join(cards)+'\n'+end_marker
     original=old.decode()
-    if VIDEO_START in original:
-        require(START in original and original.index(START)<original.index(VIDEO_START)<original.index(VIDEO_END)<original.index(END),'Existing media must belong to this panel')
-        new=replace_block(original,VIDEO_START,VIDEO_END,block)
+    if start_marker in original:
+        require(START in original and original.index(START)<original.index(start_marker)<original.index(end_marker)<original.index(END),'Existing media must belong to this panel')
+        new=replace_block(original,start_marker,end_marker,block)
     else:
-        placeholder='<div data-imitation-regression="movies"></div>'
         require(original.count(placeholder)==1 and original.index(START)<original.index(placeholder)<original.index(END),'Unique own-panel movie placeholder required')
         new=original.replace(placeholder,block)
     atomic_bytes(html_path,new.encode(),old)
-    return dict(version='sircus-imitation-regression-movie-publication-v1',videos=summaries,html_sha256=sha(html_path),historical_content_preserved=True)
+    return dict(version='sircus-imitation-regression-movie-publication-v1',historical=historical,videos=summaries,html_sha256=sha(html_path),historical_content_preserved=True)
 
 
 def watch(study,diagnosis_path,*,receipt,max_seconds=3600,monotonic=time.monotonic,sleep=time.sleep,**options):
