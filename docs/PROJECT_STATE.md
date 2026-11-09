@@ -1,5 +1,11 @@
 # Project state
 
+## Frozen seed 22 candidate selector native comparison — November 9, 2026
+
+- [Audited result](../baselines/isaac-candidate-native-20261109/README.md): exactly 70 new TRAIN-only requests, zero optimizer updates. Same 35 positions: original 13 captures / 4 clean / 7 rejections; candidate selector 16 / 5 / 0. Three paired capture gains, zero losses. All 28 preserved actions retained identical observed outcomes; seven choices changed.
+- Native wall 55.136 s versus 67.472 s; shared initialization 14.543 s. CPU/preparation, setup/scoring and memory scopes are reported separately. Full-rate independent audit passed 63 released requests; original benchmark/checkpoint/bank/18797 report hashes stayed unchanged.
+- Separate GET-only 18802 viewer shows results and 35 paired settings. Native job exited; 4090 released, 4070 / foreign jobs untouched. Initial launcher-only failure consumed zero requests and remains preserved. No training, checkpoint promotion or held-out generalization claim.
+
 ## TRAIN candidate bank and preservation check — November 9, 2026
 
 - [Candidate-list contract](../sircus/isaac/CANDIDATE_BANK.md): exact seed-22

@@ -6,8 +6,8 @@ const source=fs.readFileSync(new URL('../candidate_comparison_panel.js',import.m
 const html=fs.readFileSync(new URL('../candidate_comparison.html',import.meta.url),'utf8');
 const panel=await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
 const fixture=()=>({schema:'sircus-candidate-native-comparison-report-v1',status:'passed',audit:{status:'passed',sha256:'a'.repeat(64)},source_binding:{checkpoint_sha256:'b'.repeat(64)},methods:{
-  parent:{requests:35,planned_requests:35,captures:13,clean:4,rejected:7,released:28,compute:{wall_s:102.5,cpu_s:97.2,peak_rss_mib:7448.7,cuda_peak_allocated_mib:950,cuda_peak_reserved_mib:1200,geometry_s:2.1,selection_s:0.05}},
-  bank:{requests:35,planned_requests:35,captures:16,clean:5,rejected:2,released:33,compute:{wall_s:108,cpu_s:105,peak_rss_mib:7455,cuda_peak_allocated_mib:970,cuda_peak_reserved_mib:1200,geometry_s:2.5,selection_s:0.1}}},
+  parent:{requests:35,planned_requests:35,captures:13,clean:4,rejected:7,released:28,compute:{wall_s:102.5,setup_wall_s:95,score_wall_s:7.5,cpu_s:97.2,peak_rss_mib:7448.7,sampled_device_occupied_mib:6189.4,cuda_peak_allocated_mib:.3,cuda_peak_reserved_mib:2,selection_s:0}},
+  bank:{requests:35,planned_requests:35,captures:16,clean:5,rejected:2,released:33,compute:{wall_s:108,setup_wall_s:100,score_wall_s:8,cpu_s:105,peak_rss_mib:7455,sampled_device_occupied_mib:6200,cuda_peak_allocated_mib:.4,cuda_peak_reserved_mib:2,selection_s:7.265}}},
   paired:{gains:4,losses:1,changed_actions:7},compute:{initialization_shared_wall_s:55},preprocessing:{candidate_bank_wall_s:45.7,candidate_bank_audit_wall_s:117},
   cases:[{cell_id:'train-000',bucket_xy_m:[.2,-.1],action_changed:true,parent:{capture:false,clean:false,rejection:'endpoint_ik_unresolved_Arm14',action:{board_x_m:.4,board_y_m:-.2,height_m:.35,gap_m:.24,tilt_deg:29}},bank:{capture:true,clean:true,rejection:null,action:{board_x_m:.41,board_y_m:-.2,height_m:.35,gap_m:.24,tilt_deg:29}}}],
   scope:['Synthetic test fixture only. No measured performance.']});
@@ -42,8 +42,10 @@ test('requested position denominators survive rejection accounting',()=>{
 
 test('phase-separated resource values keep missing measurements unknown',()=>{
   const report=fixture();delete report.methods.bank.compute.peak_rss_mib;report.methods.bank.compute.cpu_s=-1;
-  const rows=panel.computeRows(report);assert.equal(rows[0][1],'102.50 s');assert.equal(rows[0][3],'7,448.7 MiB');assert.equal(rows[1][2],'unknown');assert.equal(rows[1][3],'unknown');
+  const rows=panel.computeRows(report);assert.deepEqual(rows[0],['Original seed 22','102.50 s','95.00 s','7.50 s','97.20 s','0.00 s']);assert.equal(rows[1][4],'unknown');assert.equal(rows[1][5],'7.27 s');
+  const memory=panel.memoryRows(report);assert.equal(memory[0][1],'7,448.7 MiB');assert.equal(memory[0][2],'6,189.4 MiB');assert.equal(memory[0][3],'0.3 MiB');assert.equal(memory[1][1],'unknown');
   assert.equal(panel.computeRows({...report,status:'audit_pending'})[0][1],'pending audit');
+  assert.equal(panel.memoryRows({...report,status:'audit_pending'})[0][2],'pending audit');
 });
 
 test('DOM renders audited results and exact paired settings safely',()=>{
@@ -51,6 +53,7 @@ test('DOM renders audited results and exact paired settings safely',()=>{
     assert.match(nodes.get('statusTitle').textContent,/completed/);assert.match(text(nodes.get('metrics')),/13 \/ 35.*16 \/ 35/);assert.equal(nodes.get('rateChart').children[0].tag,'svg');
     assert.match(text(nodes.get('caseDetail')),/<script>never executable<\/script>/);assert.match(text(nodes.get('caseDetail')),/Captured · clean/);assert.match(text(nodes.get('caseDetail')),/350.00 mm/);
     assert.match(text(nodes.get('sharedCompute')),/55.00 s.*45.70 s.*117.00 s/);assert.match(text(nodes.get('sourceIdentity')),/Audit:\s+passed/);
+    assert.match(text(nodes.get('computeTable')),/Setup \+ settling.*Score phase/);assert.match(text(nodes.get('computeTable')),/Sampled device occupancy.*Torch CUDA allocated peak/);assert.match(text(nodes.get('computeTable')),/6,189.4 MiB.*0.3 MiB/);assert.match(text(nodes.get('computeTable')),/omit most simulator memory/);
   }finally{delete globalThis.document;}
 });
 

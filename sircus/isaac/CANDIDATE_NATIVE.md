@@ -1,5 +1,7 @@
 # Frozen seed-22 candidate selector: native TRAIN comparison
 
+[Completed audited results](../../baselines/isaac-candidate-native-20261109/README.md): captures 13→16, clean 4→5, rejections 7→0 across 35 known TRAIN positions; no training.
+
 This separate experiment compares the unchanged seed-20261122 preferred shot
 against a finite, TRAIN-informed candidate selector. It makes exactly 70 new
 requests: the same 35 original TRAIN bucket positions once per method, original
@@ -34,8 +36,8 @@ A separate CPU-only audit verifies the fixed request ledger, actions, seeds,
 source/model/scene identities, original startup controls, geometry/FK/path
 checks, live transit/settling history and full-rate release/flight scoring.
 Native completion is distinguished from a passed audit. The separate GET-only
-viewer on localhost18802 exposes final outcomes only after this audit passes;
-the frozen benchmark reader on localhost18797 stays unchanged.
+viewer on localhost 18802 exposes final outcomes only after this audit passes;
+the frozen benchmark reader on localhost 18797 stays unchanged.
 
 Report captures, clean captures, rejections and paired gains/losses over all
 35 requests per cohort. Native wall/CPU include canonical home, setup, flight

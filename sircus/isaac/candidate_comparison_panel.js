@@ -47,7 +47,12 @@ export function methodRows(report){
 
 export function computeRows(report){
   const audited=resultsAudited(report);
-  return METHOD_KEYS.map(key=>{const c=methodData(report,key).compute;return [LABELS[key],...(!audited?Array(7).fill('pending audit'):[seconds(field(c,'wall_s','native_wall_s')),seconds(field(c,'cpu_s','process_cpu_s')),memory(c.peak_rss_mib),memory(c.cuda_peak_allocated_mib),memory(c.cuda_peak_reserved_mib),seconds(field(c,'geometry_s','preflight_wall_s')),seconds(field(c,'selection_s','selection_wall_s'))])];});
+  return METHOD_KEYS.map(key=>{const c=methodData(report,key).compute;return [LABELS[key],...(!audited?Array(5).fill('pending audit'):[seconds(field(c,'wall_s','native_wall_s')),seconds(c.setup_wall_s),seconds(c.score_wall_s),seconds(field(c,'cpu_s','process_cpu_s')),seconds(field(c,'selection_s','selection_wall_s'))])];});
+}
+
+export function memoryRows(report){
+  const audited=resultsAudited(report);
+  return METHOD_KEYS.map(key=>{const c=methodData(report,key).compute;return [LABELS[key],...(!audited?Array(4).fill('pending audit'):[memory(c.peak_rss_mib),memory(c.sampled_device_occupied_mib),memory(c.cuda_peak_allocated_mib),memory(c.cuda_peak_reserved_mib)])];});
 }
 
 export function pairedText(report){
@@ -103,7 +108,7 @@ export function render(report){
   const view=statusView(report),card=document.getElementById('statusCard');card.className='card status '+view.state;document.getElementById('statusBadge').textContent=view.badge;document.getElementById('statusTitle').textContent=view.title;document.getElementById('statusDetail').textContent=view.detail;
   const completed=METHOD_KEYS.reduce((sum,key)=>sum+(methodData(report,key).requests??0),0);document.getElementById('progress').textContent=`Native requests recorded: ${completed} / 70 · Optimizer updates: 0`;
   renderMetrics(report);renderChart(report);const pair=clear('paired');pair.appendChild(el('p',pairedText(report)));pair.appendChild(table(['Method','Captures','Clean','Rejected','Released'],methodRows(report)));
-  clear('computeTable').appendChild(table(['Method','Native wall','Process CPU','Peak RSS','CUDA allocated peak','CUDA reserved peak','Geometry checks','Selection'],computeRows(report)));
+  const compute=clear('computeTable');compute.appendChild(table(['Method','Native wall','Setup + settling','Score phase','Process CPU','Selection'],computeRows(report)));compute.appendChild(el('h3','Memory measurements'));compute.appendChild(table(['Method','Peak process RSS','Sampled device occupancy','Torch CUDA allocated peak','Torch CUDA reserved peak'],memoryRows(report)));compute.appendChild(Object.assign(el('p','Device occupancy is a whole-GPU sample, not a peak or model-only memory. Torch allocations cover Torch tensors and omit most simulator memory.'),{className:'compute-note'}));
   const shared=clear('sharedCompute');if(resultsAudited(report)){const prep=report.preprocessing??report.preparation??{};const init=field(report.compute??{},'initialization_shared_wall_s')??report.initialization_shared_wall_s;line(shared,'Shared native initialization:',seconds(init));line(shared,'Inherited candidate-bank geometry preparation:',seconds(field(prep,'candidate_bank_wall_s','geometry_wall_s')));if(number(prep.candidate_bank_audit_wall_s)!==null)line(shared,'Inherited bank preparation + audit:',seconds(prep.candidate_bank_audit_wall_s));}
   document.getElementById('computeScope').textContent=txt(report.resource_scope)||'Unknown measurements stay unknown. Shared initialization and inherited bank preparation are separate from per-method execution; do not add overlapping intervals. Device occupancy is not model memory.';
   renderCases(report);renderSources(report);
