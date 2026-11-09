@@ -4,7 +4,32 @@ The completed recovery comparison remains **37/70 captures versus parent
 imitation 34/70**, with eight gains and five losses. The five losses comprise
 **three setup rejections and two released misses**. This inspection makes the
 original TEST positions development data; it does not change their historical
-score. The focused correction is **pending**.
+score. The focused correction is **completed and independently audited**.
+
+[Correction results](summary.json): all 63 requested slots completed in
+221.1 worker seconds, with 48 actual releases and 22,266 independent checks.
+Both formal control blocks passed. There were no physics-invalid attempts.
+
+| Selected loss cases, three requests each | Captures / requests | Releases | Setup declines |
+| --- | ---: | ---: | ---: |
+| Exact parent recipes | 15/15 | 15 | 0 |
+| Exact recovery recipes | 0/15 | 6 | 9 |
+| Restore parent board height only | 3/15 | 9 | 6 |
+
+**Only `r3-c1-n0` recovered, with 3/3 direct, clean captures.** Its board height
+changed from 241.129 to 280.424 mm. The unchanged recovery coordinates were
+board X/Y 613.087/−14.842 mm, tilt 26.792°, gap 173.760 mm, and bucket X/Y
+339.213/−30.949 mm. Requested release-center Z became 491.685 mm. The two
+released regressions still missed 3/3 each; the two remaining IK cases still
+declined. All diagnostic flights were free of robot contact. Six deliberately
+negative control flights had robot contact and remained misses, as expected.
+
+This recovered **one development case**, not a new policy score of 38/70.
+The nine old refused slots are cached decisions; the six corrected refusals
+reuse two newly checked actions. They are not independent repeated IK searches.
+No weights or active policy changed. Next: test the two flight losses' drop-gap
+hypothesis separately, while retaining the verified complete parent recipes
+as controls for the unresolved setup cases.
 
 [Compact evidence](diagnosis-summary.json) records all 33 recovery failures,
 the five exact paired recipes, saved admission/flight facts and source hashes.
@@ -52,10 +77,18 @@ recovery parameters and bucket position. It tests admission sensitivity and may
 leave the two flight misses unresolved. With gap unchanged, absolute release Z
 also shifts by the height delta; this is one shot-parameter intervention, not
 isolated physical board movement. No gap compensation or second correction is
-included. The planned comparison has three nominal requests per case for exact
+included. The completed comparison had three nominal requests per case for exact
 parent, exact recovery and corrected actions, plus 18 controls: 63 total slots.
 Historical refusals remain cached refused requests, with no placeholder flight.
 
 No new training, selector activation, 4070/Isaac change, service restart or
 hardware action is part of this diagnosis. Fixed64 held-endpoint simulation
 does not validate arm transit, noise robustness or generalization.
+
+The live `#recoveryRegression` panel includes all five paired cases, all 33
+failure categories, corrected first-repeat traces and a **60.13-second recorded
+3D replay** of the two historical flight regressions plus a representative
+robot-contact miss. The movie uses saved ball samples and held joints; it does
+not invent arm movement or show a newly trained policy. Its 1,804 frames passed
+decoding and browser playback. [Compact media provenance](video-summary.json)
+records source/clip hashes and verified CPU rendering; raw media stays local.
