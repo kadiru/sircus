@@ -2,12 +2,32 @@
 
 This completes the source wiring following the
 [native audit / bounded launch contract](CANDIDATE_NATIVE_GATES.md). The initial
-implementation was tested with mocks. Later authorized launch attempts reached
-simulator startup and partial actor imitation but stopped before task requests; the
+implementation was tested with mocks. V1–v3 stopped before task requests; v4
+completed TRAIN and saved its checkpoint, then stopped during assessment. The
 [preserved evidence](../../baselines/isaac-candidate-live-pilot-20261109/README.md)
 distinguishes those attempts from a completed audited pilot. No improved policy
 performance is established. The completed benchmark and its checkpoints/bank
 remain unchanged.
+
+The original native batch labels a disabled row `no_selected_setting`, while its
+preparation qualification stays `inactive_split`. Empty-support assessment
+requests retain their charged semantic decline `no_qualified_candidate_support`.
+The adapter now requires the exact native label and all no-execution invariants;
+the auditor normalizes only its private guard copy after strict raw checks.
+Saved packets, original batch code, release/IK/scoring thresholds and failed
+attempts are never rewritten. Regressions exercise the original batch body with
+fake physics, including all 420 synthetic slots and six empty-support declines.
+
+Unpaid TRAIN padding has the same raw-label distinction. The TRAIN reader
+requires exact padding identities, null request/choice/IK/preflight/path/reward
+fields, inactive qualification, false success flags and an empty trajectory
+before adapting only its copied guard view. The original generic guard and
+scorer still run; active rows and saved packets are unchanged. A corrected
+post-hoc reader has its own recorded source identity, preserves the original
+reader failure, and cannot complete or promote an interrupted assessment. The
+separate `c0bd3d6` CPU reader passed all 43 V4 TRAIN batches: 1,470 requests,
+1,400 releases, 70 rejections, 804 captures and 225 clean captures. This completed
+TRAIN component check is not an assessment or combined audit.
 
 ## Process and ownership boundary
 
@@ -209,5 +229,5 @@ remain separate from new work. Unmeasured device values stay null.
 records mock/synthetic checks and source hashes, not model performance. Before
 any actual execution, the source snapshot, manifest, current dependency versions,
 GPU/lock ownership, storage and untouched output must pass their implemented
-checks under a separately authorized invocation. No live validation or launch is
-authorized or implied by this implementation task.
+checks under a separately authorized invocation. Source checks and passed
+component readers grant no permission to retry or resume a closed application.
