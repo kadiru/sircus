@@ -1,0 +1,83 @@
+{
+  "execution_authorized": false,
+  "focused_tests": {
+    "cases_by_file": {
+      "test_candidate_continuation_application.py": 10,
+      "test_candidate_continuation_assessment.py": 17,
+      "test_candidate_continuation_assessment_audit.py": 13,
+      "test_candidate_continuation_entry.py": 19,
+      "test_candidate_continuation_launcher.py": 35,
+      "test_candidate_continuation_production.py": 12,
+      "test_candidate_continuation_runtime.py": 24,
+      "test_candidate_continuation_scene.py": 15,
+      "test_candidate_continuation_watchdog.py": 19
+    },
+    "errors": 0,
+    "failures": 0,
+    "new_cases": 129,
+    "regression_launcher_cases": 35,
+    "skipped": 0,
+    "tests": 164,
+    "wall_s": 46.69377920799889
+  },
+  "frozen_benchmark_changed": false,
+  "implementation": {
+    "final_only_assessment": true,
+    "independent_combined_audit": true,
+    "independent_watchdog": true,
+    "live_validated": false,
+    "one_app_orchestration": true,
+    "production_backend": true
+  },
+  "local_environment": {
+    "numpy": "2.5.4",
+    "python": "3.12.14",
+    "scipy": "1.18.1",
+    "torch_required_for_new_cases": false
+  },
+  "local_repository_regression": {
+    "command": "scripts/test.sh",
+    "isaac_cases": 1103,
+    "optional_dependency_skips": 121,
+    "scope": "All other project mock/numerical checks passed too; temporary loopback HTTP test sockets allowed. No existing service touched. CPU tensor cases are covered separately in pinned CI.",
+    "status": "passed"
+  },
+  "model_promoted": false,
+  "release_authorized": false,
+  "schema": "sircus-candidate-runtime-assessment-software-verification-v1",
+  "scope": "Fake host/process/procfs/clocks/storage/GPU/model components and generated arrays only; original numerical startup/guard/scorer bodies are composed on synthetic evidence. No live validation, native performance measurement, real-parent learning, shots, host service change or checkpoint promotion. Runtime/configs/raw traces/observations stay outside Git.",
+  "source_sha256": {
+    "sircus/isaac/candidate_continuation_application.py": "17a362e397e9863c593071c54eae1ce6d6d8d7a6224448b6f988d612b33ddc66",
+    "sircus/isaac/candidate_continuation_assessment.py": "07136af15824a1c48c99973e641ca7934118d2279fbf3fa940bbcc21ec6185a0",
+    "sircus/isaac/candidate_continuation_assessment_audit.py": "56db7b4d781577157df5f847b15a0a9d81993381601c5cb0f16623a33e5f0af3",
+    "sircus/isaac/candidate_continuation_assessment_native.py": "aa3094650549b69b09f637f8d9653106d7fda2d5dedb1c137198cc2b90874e0d",
+    "sircus/isaac/candidate_continuation_entry.py": "041b24eb06baa3e50e3ba6d1556911cde058b03bf51c7a8eb5db36b63b370dea",
+    "sircus/isaac/candidate_continuation_launcher.py": "3167a539f911106ddd679e201b41e40316cf0c1b3235c08b040e00a37d2df73f",
+    "sircus/isaac/candidate_continuation_production.py": "5c75dc76122442dda950d0f27f040d42a734bc3331ad78812c64ce786548e0ea",
+    "sircus/isaac/candidate_continuation_runtime.py": "eb9c81469c764dfbd1020007a035abc1c212ec4465855728e9066e0bbcc6ffee",
+    "sircus/isaac/candidate_continuation_scene.py": "8ea99078528fb92d175ad0703fc0127a8b356338b0754b8ae9ac45d8b88c683f",
+    "sircus/isaac/candidate_continuation_watchdog.py": "bcce8e6647a94ec9a641bc0f5154c8b5b3330f27fb8944ed4f174c0d20c9069a",
+    "sircus/isaac/tests/test_candidate_continuation_application.py": "8143fb6d12f272f70c1531341889410030d2c80d33837f53a939e7ecdb8910cb",
+    "sircus/isaac/tests/test_candidate_continuation_assessment.py": "3f336446a05ee3282c25b7d0f0ebe4dfdca148081bde707b766ff9fe77cd6531",
+    "sircus/isaac/tests/test_candidate_continuation_assessment_audit.py": "b44f179504a3e8318abfe227b818cde8d2af1621636738c1ec7208e14a120e1c",
+    "sircus/isaac/tests/test_candidate_continuation_entry.py": "19d6e4ef1aea317f682068fc0640b1d427aad0ab36f4e91f314a2c5bdd82fd44",
+    "sircus/isaac/tests/test_candidate_continuation_launcher.py": "d2109c86e194244f1662f44ef966ffafa5f4bbe57c18078c6acb756c9877ab57",
+    "sircus/isaac/tests/test_candidate_continuation_production.py": "5a7bea89014f6394826c3efd154ccf8858fe26f6278caa778c07b9de97a37a8c",
+    "sircus/isaac/tests/test_candidate_continuation_runtime.py": "39fd0c5d8d6c6a4b291a943bdb8392b1545bbff2d8998eeb824a223c24ab74b7",
+    "sircus/isaac/tests/test_candidate_continuation_scene.py": "5961fe90908a91debbe1a2bfa02da9120394acba766a7815c0c03a26527f97e4",
+    "sircus/isaac/tests/test_candidate_continuation_watchdog.py": "8e175842c5f8b0628a75ed2c8871768f9268f055493ea86fb32ef1303e1cc8a3"
+  },
+  "status": "mock_verified",
+  "synthetic": true,
+  "task_execution": {
+    "existing_service_changes": 0,
+    "hardware_operations": 0,
+    "held_out_outcome_files_read": 0,
+    "new_native_diagnostic_trajectories": 0,
+    "new_native_task_requests": 0,
+    "real_docker_gpu_lock_process_signal_backend_operations": 0,
+    "real_optimizer_steps": 0,
+    "simulator_starts": 0,
+    "ssh_calls": 0
+  }
+}
