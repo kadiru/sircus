@@ -1,0 +1,38 @@
+{
+  "schema": "sircus-feasible-candidates-audit-v1",
+  "status": "passed",
+  "plan_fingerprint": "ade50c58a07590d0b4ba37b2a889f6937756ba6d836bc22248fa48284bcc71bc",
+  "qualification_fingerprint": "6f9df926dfa3beb60af2d6e0904bd75929e7c23a4a67e6365cf1099b6baafe2d",
+  "contexts": 35,
+  "raw_source_requests": 4369,
+  "source_requests": {
+    "parent": 35,
+    "nearby": 560,
+    "global": 2240,
+    "historical_train_success": 1534
+  },
+  "unique_candidates": 4369,
+  "admitted": 1814,
+  "declined": 2555,
+  "reasons": {
+    "endpoint_ik_unresolved_Arm14": 164,
+    "outer_link_length_bound": 2166,
+    "endpoint_ik_unresolved_Arm10": 197,
+    "board_bucket_proxy_overlap": 24,
+    "arm_table_proxy_overlap_Arm14": 4
+  },
+  "independently_rechecked_attempts": 4369,
+  "regenerated_parent_and_sample_aliases": 2835,
+  "successful_train_shots": 1534,
+  "successful_train_survive": 1534,
+  "successful_train_excluded": 0,
+  "exclusions": [],
+  "clean_train_shots": 485,
+  "clean_train_survive": 485,
+  "new_native_shots": 0,
+  "optimizer_updates": 0,
+  "release_authorized": false,
+  "audit_source_sha256": "cffaf8494d6e9f06e1af9ff30603e1c511b8a1fab5ff79e704b4cdfe6963c545",
+  "scope": "TRAIN-informed proposal union; geometry-only admission independently rechecked. Historical captures are not re-executed or guaranteed by admission.",
+  "fingerprint": "0205b9b25fc0a50d1077b7398c05f2364f886167abbc269246fd606aeeeb468a"
+}

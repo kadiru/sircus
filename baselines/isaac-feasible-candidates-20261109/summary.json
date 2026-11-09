@@ -1,0 +1,616 @@
+{
+  "schema": "sircus-seed22-train-candidate-bank-v1",
+  "status": "passed",
+  "seed": 20261122,
+  "scope": "Finite TRAIN-context proposal union: exact frozen-parent choices, parent Gaussian samples, broad Sobol samples and all recorded successful paid TRAIN actions. History informs proposal inclusion, not geometry gates. No held-out outcomes, flight prediction/ranking, action projection, training, native motion or release. Qualified means inherited endpoint/FK/capsule and sampled-path checks only.",
+  "input_bindings": {
+    "train_evidence_sha256": "6053ff58e026bb288f9a9f18fd6700ee32ba613af771318d006def753e580233",
+    "parent_scale_sha256": "d267fea1e18362be9417a2326180ce877cc03411a97ee0f28f4ef500349368ae",
+    "parent_training_trial_sha256": "fb1990fa62245971e0f9f144dc7132278763a4f85eaeb2a5a3489978a2d0b771",
+    "original": {
+      "audit_sha256": "cec9cff0a6de59b07dd35de3342ee00bc4106d4801edc0237c570e006aedc1c8",
+      "progress_sha256": "ed015c8219bbb160d72ca0759328c5ec7e48981cc71c33a2052300855ac60ff9",
+      "experiment_sha256": "77afe173a07917dd87ce43f37809a9ac6ef99beebd7e8e35f703c0e5cf1e3a26",
+      "split_manifest_sha256": "f46c690d80bd2079b27c8d3c72267c39acf1cee61fb4625f37994bff92292785",
+      "checkpoint_sha256": "57d7658e9ed2f72ad09cf4e8523ab497ccbe0708364f1b8ec4a4c5c1aef1fe9f",
+      "binding_sha256": "a739902c75a2cd1496c4f85d85bb94378ec1aa6c1e1afd013f0974d9d7dc4457",
+      "contract_sha256": "291ca91848bddff8f812b59e790ac565657982a708dd9dcb7c7281136a87544f"
+    },
+    "original_geometry_receipt_sha256": "fa6d2798242c3d4e7276bef89824dc4f9930feef777c008b2123f60c65cbc376",
+    "assets_sha256": {
+      "Arm10": "3f40e56e46b040fb3339c1235ea85872f46511c45db2d37f7661db94a470bae3",
+      "Arm14": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340"
+    },
+    "parent_mean_source": "Exact final frozen known-TRAIN GPU predictions; no actor inference or held-out shot files",
+    "common_start_source": "First paid TRAIN measured home at each original TRAIN position",
+    "parent_scale_source": "CPU-only read of unchanged final checkpoint"
+  },
+  "generation_protocol": {
+    "random_seed": 20261124,
+    "nearby_per_cell": 16,
+    "global_per_cell": 64,
+    "action_names": [
+      "bearing_offset_rad",
+      "radius_m",
+      "height_m",
+      "gap_m",
+      "tilt_rad"
+    ],
+    "low": [
+      -3.141592653589793,
+      0.28,
+      0.14,
+      0.08,
+      0.20943951023931956
+    ],
+    "high": [
+      3.141592653589793,
+      1.2,
+      0.6,
+      0.56,
+      0.9075712110370514
+    ],
+    "nearby_sampling": "Independent NumPy Gaussian latent draws using saved parent means/scales; exact tanh/affine decode",
+    "global_sampling": "Scrambled five-dimensional Sobol over the unchanged original action domain",
+    "deduplication": "Exact cell and physical-five-vector identity only; all source aliases retained",
+    "witness_policy": "Fresh original robust IK seeded by each preserved successful witness, until first admission; no action change"
+  },
+  "raw_candidates": 4369,
+  "unique_candidates": 4369,
+  "admitted": 1814,
+  "declined": 2555,
+  "source_survival": {
+    "parent": {
+      "requested_aliases": 35,
+      "admitted_aliases": 28,
+      "declined_aliases": 7,
+      "unique_candidates": 35,
+      "exclusion_reasons": {
+        "endpoint_ik_unresolved_Arm10": 2,
+        "endpoint_ik_unresolved_Arm14": 3,
+        "outer_link_length_bound": 2
+      }
+    },
+    "nearby": {
+      "requested_aliases": 560,
+      "admitted_aliases": 232,
+      "declined_aliases": 328,
+      "unique_candidates": 560,
+      "exclusion_reasons": {
+        "endpoint_ik_unresolved_Arm10": 123,
+        "endpoint_ik_unresolved_Arm14": 116,
+        "outer_link_length_bound": 89
+      }
+    },
+    "global": {
+      "requested_aliases": 2240,
+      "admitted_aliases": 20,
+      "declined_aliases": 2220,
+      "unique_candidates": 2240,
+      "exclusion_reasons": {
+        "arm_table_proxy_overlap_Arm14": 4,
+        "board_bucket_proxy_overlap": 24,
+        "endpoint_ik_unresolved_Arm10": 72,
+        "endpoint_ik_unresolved_Arm14": 45,
+        "outer_link_length_bound": 2075
+      }
+    },
+    "historical_train_success": {
+      "requested_aliases": 1534,
+      "admitted_aliases": 1534,
+      "declined_aliases": 0,
+      "unique_candidates": 1534,
+      "exclusion_reasons": {}
+    }
+  },
+  "per_cell": [
+    {
+      "cell_id": "train-000",
+      "requests": 81,
+      "admitted": 2,
+      "declined": 79,
+      "status": "supported",
+      "reasons": {
+        "board_bucket_proxy_overlap": 1,
+        "endpoint_ik_unresolved_Arm10": 5,
+        "endpoint_ik_unresolved_Arm14": 4,
+        "outer_link_length_bound": 69
+      }
+    },
+    {
+      "cell_id": "train-001",
+      "requests": 110,
+      "admitted": 37,
+      "declined": 73,
+      "status": "supported",
+      "reasons": {
+        "endpoint_ik_unresolved_Arm10": 7,
+        "endpoint_ik_unresolved_Arm14": 5,
+        "outer_link_length_bound": 61
+      }
+    },
+    {
+      "cell_id": "train-002",
+      "requests": 101,
+      "admitted": 32,
+      "declined": 69,
+      "status": "supported",
+      "reasons": {
+        "endpoint_ik_unresolved_Arm10": 6,
+        "endpoint_ik_unresolved_Arm14": 1,
+        "outer_link_length_bound": 62
+      }
+    },
+    {
+      "cell_id": "train-003",
+      "requests": 117,
+      "admitted": 43,
+      "declined": 74,
+      "status": "supported",
+      "reasons": {
+        "board_bucket_proxy_overlap": 1,
+        "endpoint_ik_unresolved_Arm10": 5,
+        "endpoint_ik_unresolved_Arm14": 8,
+        "outer_link_length_bound": 60
+      }
+    },
+    {
+      "cell_id": "train-004",
+      "requests": 105,
+      "admitted": 33,
+      "declined": 72,
+      "status": "supported",
+      "reasons": {
+        "board_bucket_proxy_overlap": 1,
+        "endpoint_ik_unresolved_Arm10": 7,
+        "endpoint_ik_unresolved_Arm14": 5,
+        "outer_link_length_bound": 59
+      }
+    },
+    {
+      "cell_id": "train-005",
+      "requests": 81,
+      "admitted": 4,
+      "declined": 77,
+      "status": "supported",
+      "reasons": {
+        "endpoint_ik_unresolved_Arm10": 5,
+        "endpoint_ik_unresolved_Arm14": 6,
+        "outer_link_length_bound": 66
+      }
+    },
+    {
+      "cell_id": "train-006",
+      "requests": 81,
+      "admitted": 6,
+      "declined": 75,
+      "status": "supported",
+      "reasons": {
+        "board_bucket_proxy_overlap": 1,
+        "endpoint_ik_unresolved_Arm10": 8,
+        "endpoint_ik_unresolved_Arm14": 5,
+        "outer_link_length_bound": 61
+      }
+    },
+    {
+      "cell_id": "train-007",
+      "requests": 81,
+      "admitted": 1,
+      "declined": 80,
+      "status": "supported",
+      "reasons": {
+        "board_bucket_proxy_overlap": 1,
+        "endpoint_ik_unresolved_Arm14": 3,
+        "outer_link_length_bound": 76
+      }
+    },
+    {
+      "cell_id": "train-008",
+      "requests": 178,
+      "admitted": 110,
+      "declined": 68,
+      "status": "supported",
+      "reasons": {
+        "endpoint_ik_unresolved_Arm10": 4,
+        "endpoint_ik_unresolved_Arm14": 4,
+        "outer_link_length_bound": 60
+      }
+    },
+    {
+      "cell_id": "train-009",
+      "requests": 199,
+      "admitted": 132,
+      "declined": 67,
+      "status": "supported",
+      "reasons": {
+        "arm_table_proxy_overlap_Arm14": 1,
+        "board_bucket_proxy_overlap": 1,
+        "endpoint_ik_unresolved_Arm10": 3,
+        "endpoint_ik_unresolved_Arm14": 3,
+        "outer_link_length_bound": 59
+      }
+    },
+    {
+      "cell_id": "train-010",
+      "requests": 188,
+      "admitted": 116,
+      "declined": 72,
+      "status": "supported",
+      "reasons": {
+        "board_bucket_proxy_overlap": 1,
+        "endpoint_ik_unresolved_Arm10": 8,
+        "endpoint_ik_unresolved_Arm14": 3,
+        "outer_link_length_bound": 60
+      }
+    },
+    {
+      "cell_id": "train-011",
+      "requests": 97,
+      "admitted": 23,
+      "declined": 74,
+      "status": "supported",
+      "reasons": {
+        "board_bucket_proxy_overlap": 1,
+        "endpoint_ik_unresolved_Arm10": 5,
+        "endpoint_ik_unresolved_Arm14": 5,
+        "outer_link_length_bound": 63
+      }
+    },
+    {
+      "cell_id": "train-012",
+      "requests": 81,
+      "admitted": 5,
+      "declined": 76,
+      "status": "supported",
+      "reasons": {
+        "board_bucket_proxy_overlap": 1,
+        "endpoint_ik_unresolved_Arm10": 9,
+        "endpoint_ik_unresolved_Arm14": 4,
+        "outer_link_length_bound": 62
+      }
+    },
+    {
+      "cell_id": "train-013",
+      "requests": 81,
+      "admitted": 4,
+      "declined": 77,
+      "status": "supported",
+      "reasons": {
+        "board_bucket_proxy_overlap": 1,
+        "endpoint_ik_unresolved_Arm10": 9,
+        "endpoint_ik_unresolved_Arm14": 5,
+        "outer_link_length_bound": 62
+      }
+    },
+    {
+      "cell_id": "train-014",
+      "requests": 81,
+      "admitted": 2,
+      "declined": 79,
+      "status": "supported",
+      "reasons": {
+        "arm_table_proxy_overlap_Arm14": 1,
+        "board_bucket_proxy_overlap": 1,
+        "endpoint_ik_unresolved_Arm10": 1,
+        "endpoint_ik_unresolved_Arm14": 3,
+        "outer_link_length_bound": 73
+      }
+    },
+    {
+      "cell_id": "train-015",
+      "requests": 228,
+      "admitted": 163,
+      "declined": 65,
+      "status": "supported",
+      "reasons": {
+        "endpoint_ik_unresolved_Arm10": 4,
+        "endpoint_ik_unresolved_Arm14": 2,
+        "outer_link_length_bound": 59
+      }
+    },
+    {
+      "cell_id": "train-016",
+      "requests": 234,
+      "admitted": 165,
+      "declined": 69,
+      "status": "supported",
+      "reasons": {
+        "endpoint_ik_unresolved_Arm10": 6,
+        "endpoint_ik_unresolved_Arm14": 4,
+        "outer_link_length_bound": 59
+      }
+    },
+    {
+      "cell_id": "train-017",
+      "requests": 201,
+      "admitted": 131,
+      "declined": 70,
+      "status": "supported",
+      "reasons": {
+        "board_bucket_proxy_overlap": 1,
+        "endpoint_ik_unresolved_Arm10": 1,
+        "endpoint_ik_unresolved_Arm14": 6,
+        "outer_link_length_bound": 62
+      }
+    },
+    {
+      "cell_id": "train-018",
+      "requests": 114,
+      "admitted": 45,
+      "declined": 69,
+      "status": "supported",
+      "reasons": {
+        "board_bucket_proxy_overlap": 1,
+        "endpoint_ik_unresolved_Arm10": 8,
+        "endpoint_ik_unresolved_Arm14": 2,
+        "outer_link_length_bound": 58
+      }
+    },
+    {
+      "cell_id": "train-019",
+      "requests": 83,
+      "admitted": 10,
+      "declined": 73,
+      "status": "supported",
+      "reasons": {
+        "board_bucket_proxy_overlap": 2,
+        "endpoint_ik_unresolved_Arm10": 10,
+        "endpoint_ik_unresolved_Arm14": 4,
+        "outer_link_length_bound": 57
+      }
+    },
+    {
+      "cell_id": "train-020",
+      "requests": 81,
+      "admitted": 8,
+      "declined": 73,
+      "status": "supported",
+      "reasons": {
+        "arm_table_proxy_overlap_Arm14": 1,
+        "board_bucket_proxy_overlap": 1,
+        "endpoint_ik_unresolved_Arm10": 7,
+        "endpoint_ik_unresolved_Arm14": 3,
+        "outer_link_length_bound": 61
+      }
+    },
+    {
+      "cell_id": "train-021",
+      "requests": 81,
+      "admitted": 10,
+      "declined": 71,
+      "status": "supported",
+      "reasons": {
+        "endpoint_ik_unresolved_Arm10": 2,
+        "endpoint_ik_unresolved_Arm14": 7,
+        "outer_link_length_bound": 62
+      }
+    },
+    {
+      "cell_id": "train-022",
+      "requests": 239,
+      "admitted": 176,
+      "declined": 63,
+      "status": "supported",
+      "reasons": {
+        "board_bucket_proxy_overlap": 1,
+        "endpoint_ik_unresolved_Arm10": 3,
+        "endpoint_ik_unresolved_Arm14": 2,
+        "outer_link_length_bound": 57
+      }
+    },
+    {
+      "cell_id": "train-023",
+      "requests": 130,
+      "admitted": 51,
+      "declined": 79,
+      "status": "supported",
+      "reasons": {
+        "board_bucket_proxy_overlap": 1,
+        "endpoint_ik_unresolved_Arm10": 18,
+        "outer_link_length_bound": 60
+      }
+    },
+    {
+      "cell_id": "train-024",
+      "requests": 83,
+      "admitted": 2,
+      "declined": 81,
+      "status": "supported",
+      "reasons": {
+        "endpoint_ik_unresolved_Arm10": 19,
+        "outer_link_length_bound": 62
+      }
+    },
+    {
+      "cell_id": "train-025",
+      "requests": 105,
+      "admitted": 25,
+      "declined": 80,
+      "status": "supported",
+      "reasons": {
+        "endpoint_ik_unresolved_Arm10": 1,
+        "endpoint_ik_unresolved_Arm14": 18,
+        "outer_link_length_bound": 61
+      }
+    },
+    {
+      "cell_id": "train-026",
+      "requests": 81,
+      "admitted": 11,
+      "declined": 70,
+      "status": "supported",
+      "reasons": {
+        "board_bucket_proxy_overlap": 1,
+        "endpoint_ik_unresolved_Arm10": 4,
+        "endpoint_ik_unresolved_Arm14": 5,
+        "outer_link_length_bound": 60
+      }
+    },
+    {
+      "cell_id": "train-027",
+      "requests": 81,
+      "admitted": 8,
+      "declined": 73,
+      "status": "supported",
+      "reasons": {
+        "board_bucket_proxy_overlap": 1,
+        "endpoint_ik_unresolved_Arm10": 5,
+        "endpoint_ik_unresolved_Arm14": 5,
+        "outer_link_length_bound": 62
+      }
+    },
+    {
+      "cell_id": "train-028",
+      "requests": 81,
+      "admitted": 1,
+      "declined": 80,
+      "status": "supported",
+      "reasons": {
+        "board_bucket_proxy_overlap": 1,
+        "endpoint_ik_unresolved_Arm10": 1,
+        "endpoint_ik_unresolved_Arm14": 14,
+        "outer_link_length_bound": 64
+      }
+    },
+    {
+      "cell_id": "train-029",
+      "requests": 197,
+      "admitted": 131,
+      "declined": 66,
+      "status": "supported",
+      "reasons": {
+        "arm_table_proxy_overlap_Arm14": 1,
+        "endpoint_ik_unresolved_Arm10": 2,
+        "endpoint_ik_unresolved_Arm14": 4,
+        "outer_link_length_bound": 59
+      }
+    },
+    {
+      "cell_id": "train-030",
+      "requests": 223,
+      "admitted": 156,
+      "declined": 67,
+      "status": "supported",
+      "reasons": {
+        "endpoint_ik_unresolved_Arm10": 1,
+        "endpoint_ik_unresolved_Arm14": 3,
+        "outer_link_length_bound": 63
+      }
+    },
+    {
+      "cell_id": "train-031",
+      "requests": 139,
+      "admitted": 62,
+      "declined": 77,
+      "status": "supported",
+      "reasons": {
+        "board_bucket_proxy_overlap": 1,
+        "endpoint_ik_unresolved_Arm10": 7,
+        "endpoint_ik_unresolved_Arm14": 6,
+        "outer_link_length_bound": 63
+      }
+    },
+    {
+      "cell_id": "train-032",
+      "requests": 164,
+      "admitted": 94,
+      "declined": 70,
+      "status": "supported",
+      "reasons": {
+        "endpoint_ik_unresolved_Arm10": 3,
+        "endpoint_ik_unresolved_Arm14": 6,
+        "outer_link_length_bound": 61
+      }
+    },
+    {
+      "cell_id": "train-033",
+      "requests": 81,
+      "admitted": 7,
+      "declined": 74,
+      "status": "supported",
+      "reasons": {
+        "board_bucket_proxy_overlap": 1,
+        "endpoint_ik_unresolved_Arm10": 7,
+        "endpoint_ik_unresolved_Arm14": 6,
+        "outer_link_length_bound": 60
+      }
+    },
+    {
+      "cell_id": "train-034",
+      "requests": 81,
+      "admitted": 8,
+      "declined": 73,
+      "status": "supported",
+      "reasons": {
+        "board_bucket_proxy_overlap": 1,
+        "endpoint_ik_unresolved_Arm10": 6,
+        "endpoint_ik_unresolved_Arm14": 3,
+        "outer_link_length_bound": 63
+      }
+    }
+  ],
+  "historical_successes": {
+    "requested": 1534,
+    "included_exactly": 1534,
+    "qualified": 1534,
+    "excluded": 0,
+    "reasons": {}
+  },
+  "clean_historical_successes": {
+    "requested": 485,
+    "qualified": 485,
+    "excluded": 0
+  },
+  "historical_exclusions": [],
+  "supported_train_positions": 35,
+  "train_positions": 35,
+  "paid_train_packets_verified": 289,
+  "original_paid_train_requests": 10000,
+  "original_training_counters": {
+    "attempts": 10000,
+    "captures": 1534,
+    "clean": 485,
+    "rejected": 6344,
+    "failures": {
+      "arm_table_proxy_overlap_Arm14": 4,
+      "board_bucket_proxy_overlap": 27,
+      "board_table_proxy_overlap": 41,
+      "captured": 1534,
+      "endpoint_ik_unresolved_Arm10": 2186,
+      "endpoint_ik_unresolved_Arm14": 2479,
+      "endpoints_not_settled": 13,
+      "external_contact": 2078,
+      "outer_link_length_bound": 1259,
+      "released_miss": 44,
+      "setup_motion_not_quiet": 147,
+      "setup_transit_incomplete": 188
+    }
+  },
+  "artifacts_sha256": {
+    "plan.json": "edea789cf2643b18e05ad4dbe7ed3c395458fb89ed410e9073a6c7cc84f17dba",
+    "qualification.json": "9ba70b0d7db79bd1f63a2d4e6aaabea520bf58837e85d53047eaa05e4f47defe",
+    "audit.json": "495931cd89d3b2ec707179f5186b7aea2b960d74628264514e648d07fd5740a3",
+    "generation-input-bindings.json": "86c12bbfc78814c4c75b2a486652d92a1ec6a5897310c9bd9a6db695b8c093d7",
+    "successful-train-retention.csv": "13b2c80b050ec50cebadb3221f333b8d2b82a679fc3469999f357e645c9f065e"
+  },
+  "producer_source_sha256": {
+    "candidate_bank.py": "cc558a50bc2af03c98b65f52480b3227096e213ac3c7966e57eba1598e889e5b",
+    "candidate_train_evidence.py": "c82f6469619f787ee452f0e4591d9903490891e6bb6ab46568b0606509479563",
+    "feasible_candidates.py": "3e79a82149d21516464b54680920f1a73507b8ea5b551ade80435fb51c8eb018",
+    "feasible_candidates_audit.py": "cffaf8494d6e9f06e1af9ff30603e1c511b8a1fab5ff79e704b4cdfe6963c545"
+  },
+  "geometry_wall_s": 45.69955845805816,
+  "audit_and_geometry_wall_s": 117.0031843330944,
+  "optimizer_updates": 0,
+  "new_native_shots": 0,
+  "held_out_shot_files_read": 0,
+  "release_authorized": false,
+  "limits": [
+    "TRAIN success demonstrations inform proposal inclusion; geometry gates alone decide qualification.",
+    "Only finite exact candidates are qualified; no box interior or exhaustive reachability claim.",
+    "Historical IK witnesses warm-start fresh unchanged robust IK; all candidates use the same endpoint/path gates.",
+    "Common starts differ from original episode starts; capture/settlement are not replayed or guaranteed.",
+    "No native flight, policy choice, optimizer update or frozen benchmark change."
+  ],
+  "fingerprint": "88d0b48517954ea210b594516c300a5c13bac989e880a9ebb8d96e6f9eb7345f"
+}
