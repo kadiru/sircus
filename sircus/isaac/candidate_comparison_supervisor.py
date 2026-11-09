@@ -12,7 +12,6 @@ import subprocess
 import sys
 
 import shot_benchmark_supervisor as supervisor
-from candidate_selector import validate_comparison
 
 QUEUE_SECONDS = 7200
 NATIVE_SECONDS = 1800
@@ -34,6 +33,11 @@ def _mapped_input(root, value):
 
 def make_plan(args, session=None):
     """Extend inherited pre/post-queue hashing to the plan and parent model."""
+    # The PID/session helper also runs under the container's minimal Python.
+    # NumPy/SciPy are needed only by host-side plan validation, never by the
+    # --container-exec or --container-terminate ownership routes.
+    from candidate_selector import validate_comparison
+
     plan = _BASE_MAKE_PLAN(args, session)
     values = json.loads(args.native_args_json.read_text())
     paths = []
