@@ -6,6 +6,7 @@ Two UFACTORY850 arms learn to bounce a ball from a suction-mounted board into a 
 
 ## Start here
 
+- [Bounded candidate-learning runner — implemented, real training off](sircus/isaac/CANDIDATE_RUNNER.md) — 103 CPU cases passed, including a full fabricated-policy learning/checkpoint audit. The actual seed-22 model still reproduces 35/35 selector choices without updates. New-only durable receipts and separate counters are implemented; native integration and full physics/guard audit remain deferred.
 - [Seed-22 candidate adapter — implemented, training off](sircus/isaac/CANDIDATE_ADAPTER.md) — 53 CPU tests passed; unchanged saved weights reproduce the frozen selector's choices at all 35 TRAIN positions. All 1,534 historical successful actions map to the fixed bank. No optimizer steps or new shots; training/native integration remains deferred.
 - [Proposed seed-22 continuation plan — training off](sircus/isaac/CANDIDATE_CONTINUATION_PLAN.md) — reuse saved weights, imitate existing successful TRAIN shots, then a separately authorized bounded PPO pilot. Proposed task limits distinguish 1,400 releases from 1,750 requested slots; fresh three-method assessment stays separate. No trainer or experiment is started by this plan.
 - [Frozen seed 22 + feasible candidate bank: audited native TRAIN comparison](baselines/isaac-candidate-native-20261109/README.md) — same 35 TRAIN positions per method: captures 13→16, clean 4→5, rejections 7→0; 70 new requests and zero optimizer updates. Separate read-only 18802 viewer; completed benchmark remains unchanged.

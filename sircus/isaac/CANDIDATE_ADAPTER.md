@@ -62,7 +62,8 @@ so requests cannot be omitted before reaching this objective.
 The ledger charges a request at reservation and a release only when its
 terminal receipt says a release occurred. Missing/partial outcomes stay in the
 consumed denominator. Batch capacity is the minimum of 35, remaining requests
-and remaining releases; inactive padding never consumes a sample. Assessment
+and remaining releases; v2 also stops at TRAIN PPO buffer boundaries. Inactive
+padding never consumes a sample. Assessment
 cannot begin until a TRAIN stopping cap and a frozen final checkpoint are
 recorded, and its three-method rotation and 420-request schedule are fixed.
 A ledger default has explicit unbound source placeholders; neither completed
@@ -109,11 +110,18 @@ not measure a new capture rate. The previous native comparison remains
 
 ## Still deferred
 
-The training loop and optimizer, new continuation-checkpoint writer, fresh
-split/support preparation, atomic native producer, wall/storage/GPU supervisor,
-independent training/update auditor and final native assessment remain to be
-integrated and reviewed. In particular, the existing continuous PPO updater
-and old two-cohort native runner are not shortcuts for those components.
+The subsequent [bounded TRAIN driver and saved-state audit](CANDIDATE_RUNNER.md)
+implement the new optimizer loops, continuation-checkpoint schema and durable
+software journal. They are tested on fabricated policies; real training stays
+off. The ledger is explicitly versioned to v2 to also end native batches at
+140-request PPO boundaries, keeping all request/release caps unchanged. This
+changes source bindings, so the historical readiness export above remains a
+receipt for its original source snapshot.
+
+Fresh split/support preparation, actual native integration, diagnostic/GPU
+supervision, full native guard/scoring audit and final assessment still require
+integration and review. The existing continuous PPO updater and old two-cohort
+native runner are not shortcuts for those components.
 No held-out positions or outcomes are read by this adapter check. No packages
 are installed into existing Mac or Ubuntu environments for this task.
 
