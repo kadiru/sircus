@@ -21,7 +21,7 @@ import numpy as np
 from candidate_continuation_application import load_manifest,read,sha,require
 from candidate_continuation_journal import write_new_json
 from candidate_continuation_ledger import Ledger,SourceBindings,canonical_hash
-from candidate_continuation_native import make_binding,guard_sources,source_fingerprint,_frozen_identity
+from candidate_continuation_native import make_binding,guard_sources,source_fingerprint,_frozen_identity,validate_transit_limits
 from continuous_feasibility import canonical_hash as geometry_hash
 
 ROLES=("scene","poses","camera","dropper_urdf","board_urdf","parent_checkpoint",
@@ -231,6 +231,15 @@ class ProductionComponents:
         verify_dependencies(m["expected_runtime"])
         from presentation_recording import load_source
         load_source(i["mapped"](m["source_run"]),p["camera"])
+        # Exercise the original implicit-dtype tensor representation on CPU
+        # before the expensive app startup; the actual GPU construction below
+        # remains unchanged and is checked again by the native producer.
+        from continuous_policy import torch
+        cap_urdf_bytes=p["dropper_urdf"].read_bytes()
+        cap_urdf=ET.fromstring(cap_urdf_bytes)
+        cpu_caps=torch.tensor([float(cap_urdf.find(f".//joint[@name='joint{k+1}']/limit").get("effort"))
+            for k in range(6)],device="cpu")
+        validate_transit_limits(cpu_caps,cap_urdf_bytes)
         # All source/input checks precede the sole AppLauncher construction.
         from isaaclab.app import AppLauncher
         import argparse

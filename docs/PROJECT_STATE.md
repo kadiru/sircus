@@ -1,5 +1,13 @@
 # Project state
 
+## Fresh continuation v2 stopped during initialization — November 9, 2026
+
+- The user separately authorized the prepared v2 attempt from source `50085bf`. It made one simulator start and recorded nine finite startup cohorts / 315 diagnostic trajectories / 1,584 physics steps, then stopped with zero optimizer steps, TRAIN/assessment requests, releases or new checkpoints. Both attempts and the frozen benchmark/model/bank remain unchanged; no model was promoted.
+- The host could not read the container's root-only ownership receipt. Separately, a native effort-cap comparison incorrectly compared the original float32 runtime representation with float64 URDF numbers. Actual cap construction/controller values were unchanged. The native child and watchdog had already exited when inspected; no GPU compute owner or scene-lock holder remained. Failure receipts are preserved without retry.
+- The original CPU-only startup auditor passed the already-recorded placements, clocks, contacts and cost joins (4.280 s wall / 4.262 CPU-seconds), without new simulation. Full learning/native-TRAIN/assessment audits did not run. [Compact v2 evidence and scoped startup-failure costs](../baselines/isaac-candidate-live-pilot-20261109/attempt-v2.json) do not establish task performance or improved learning.
+- The strict representation fix retains exact original float32 bits, rejects one-ULP/dtype/nonfinite/shape changes, and checks the original CPU construction before AppLauncher. The host now uses a fixed, read-only container metadata route without changing private file permissions or ownership guards; exact payload/session/output/nonce/owner/progress-chain checks remain mandatory. Focused cap/production tests and 57 transport/watchdog cases passed independent review. No further application attempt is authorized by these source fixes.
+- Actual checking processes also passed the corrected CPU cap guard and read-only transport against v2's 12 root-only metadata files; their `0600` modes/ownership remained unchanged. No application or learning ran in those checks. Repository checks passed with 121 optional Isaac dependency skips; two sandbox-blocked loopback cases passed their permission-enabled recheck.
+
 ## Candidate continuation launch stopped before native startup — November 9, 2026
 
 - [Preserved launch evidence](../baselines/isaac-candidate-live-pilot-20261109/README.md): the 4090 was idle; the user specifically allowed starting its existing stopped container. Archive/input/asset and CPU-only production-input/dependency preflights passed. The sole launch attempt then failed because the container Python lacks both CPython pidfd bindings; the required ownership guard refused startup before native-child creation.

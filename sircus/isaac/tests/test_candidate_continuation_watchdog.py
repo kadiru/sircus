@@ -2,6 +2,7 @@
 
 import copy
 import hashlib
+import io
 import json
 from pathlib import Path
 import signal
@@ -269,6 +270,84 @@ class WatchdogTests(unittest.TestCase):
              patch.object(subject,"pidfd_send_signal") as sent:
             self.assertEqual(subject.stop_watchdog(value)["status"],"ownership_mismatch")
         sent.assert_not_called()
+
+    def metadata_fixture(self):
+        # FakeOps fabricates one full history; every process boundary is fake.
+        self.run_guarded()
+        path=self.root/"out/watchdog-input.json";subject.write_new_json(path,self.payload)
+        return dict(expected_payload_sha256=subject.sha(path),payload_fingerprint=self.payload["fingerprint"],
+            session=self.session,nonce="a"*32,local_path=self.ops.local_path)
+
+    def test_metadata_route_exports_only_bound_0600_receipts_and_complete_progress_read_only(self):
+        args=self.metadata_fixture();before_started=len(self.ops.started);before_signals=len(self.ops.signalled)
+        secret=self.root/"out/learning";secret.mkdir();(secret/"final.pt").write_bytes(b"private model must not be opened")
+        allowed={self.root/"out/watchdog-input.json",self.root/"out/runtime-owner.json",self.root/"out/runtime-exit.json",
+            *(self.root/"out/runtime-progress").glob("event-*.json")}
+        original=Path.read_bytes;read=[]
+        def guarded(path):
+            self.assertIn(path,allowed);read.append(path);return original(path)
+        with patch.object(Path,"read_bytes",guarded),patch.object(subject.subprocess,"Popen") as start, \
+                patch.object(subject,"pidfd_open") as opened,patch.object(subject,"pidfd_send_signal") as sent:
+            value=subject.metadata_snapshot("/workspace/out/watchdog-input.json",**args)
+        self.assertEqual(set(value["receipts"]),set(subject.RECEIPT_NAMES));self.assertEqual(value["nonce"],"a"*32)
+        self.assertEqual(len(value["progress"]),len(self.ops.snapshots));self.assertEqual(value["progress"][-1]["snapshot"]["assessment_requests"],420)
+        self.assertEqual(value["receipts"]["runtime-exit.json"]["exit_code"],0)
+        for path in allowed:self.assertEqual(path.stat().st_mode & 0o777,0o600)
+        start.assert_not_called();opened.assert_not_called();sent.assert_not_called()
+        self.assertEqual(len(self.ops.started),before_started);self.assertEqual(len(self.ops.signalled),before_signals)
+        self.assertNotIn("private model",json.dumps(value));self.assertNotIn(secret/"final.pt",read)
+
+    def test_metadata_payload_hash_fingerprint_session_nonce_and_target_cannot_rebind(self):
+        args=self.metadata_fixture()
+        for key,value in (("expected_payload_sha256","0"*64),("payload_fingerprint","0"*64),
+                ("session","2"*32),("nonce","not-a-nonce")):
+            with self.subTest(field=key),self.assertRaises(ValueError):
+                subject.metadata_snapshot("/workspace/out/watchdog-input.json",**dict(args,**{key:value}))
+        for target in ("/workspace/out/../out/watchdog-input.json","/workspace/out/./watchdog-input.json",
+                "/etc/watchdog-input.json","/workspace/out/learning/final.pt","/workspace/out//watchdog-input.json"):
+            with self.subTest(path=target),self.assertRaises(ValueError):subject.metadata_snapshot(target,**args)
+        (self.root/"other").mkdir();subject.write_new_json(self.root/"other/watchdog-input.json",self.payload)
+        with self.assertRaisesRegex(ValueError,"bound payload/session/output"):
+            subject.metadata_snapshot("/workspace/other/watchdog-input.json",**args)
+
+    def test_metadata_rejects_linked_payload_receipts_and_progress_directory(self):
+        args=self.metadata_fixture()
+        for relative in ("watchdog-input.json","runtime-owner.json","runtime-exit.json","runtime-progress"):
+            target=self.root/"out"/relative;saved=target.with_name(target.name+"-saved")
+            target.rename(saved);target.symlink_to(saved,target_is_directory=saved.is_dir())
+            with self.subTest(path=relative),self.assertRaisesRegex(ValueError,"Linked|noncanonical"):
+                subject.metadata_snapshot("/workspace/out/watchdog-input.json",**args)
+            target.unlink();saved.rename(target)
+        (self.root/"out/runtime-exit.json").unlink();(self.root/"out/runtime-exit.json").symlink_to("missing")
+        with self.assertRaisesRegex(ValueError,"Linked|noncanonical"):
+            subject.metadata_snapshot("/workspace/out/watchdog-input.json",**args)
+
+    def test_metadata_rejects_foreign_rehashed_receipt_payload_and_progress(self):
+        args=self.metadata_fixture();owner_path=self.root/"out/runtime-owner.json";original=owner_path.read_bytes()
+        for key,value in (("session","2"*32),("payload_sha256","b"*64)):
+            owner=json.loads(original);owner[key]=value;owner.pop("fingerprint");owner_path.write_text(json.dumps(subject.signed(owner)))
+            with self.subTest(field=key),self.assertRaisesRegex(ValueError,"receipt session/fingerprint/payload"):
+                subject.metadata_snapshot("/workspace/out/watchdog-input.json",**args)
+        owner_path.write_bytes(original)
+        path=self.root/"out/runtime-progress/event-000000.json";event=json.loads(path.read_bytes())
+        event["session"]="2"*32;event.pop("fingerprint");path.write_text(json.dumps(subject.signed(event)))
+        with self.assertRaisesRegex(ValueError,"progress session/chain"):
+            subject.metadata_snapshot("/workspace/out/watchdog-input.json",**args)
+
+    def test_snapshot_cli_is_cookie_bound_read_only_and_cannot_dispatch_an_application(self):
+        argv=["watchdog","--snapshot","/workspace/out/watchdog-input.json","--session",self.session,
+            "--expected-payload-sha256","a"*64,"--payload-fingerprint","b"*64,"--nonce","c"*32]
+        with patch.object(sys,"argv",argv),patch.dict(subject.os.environ,{subject.COOKIE:self.session}), \
+                patch.object(subject,"metadata_snapshot",return_value={"synthetic":"metadata only"}) as read, \
+                patch.object(subject,"run_guarded") as run,patch.object(sys,"stdout",io.StringIO()) as output:
+            self.assertEqual(subject.main(),0)
+        run.assert_not_called();self.assertEqual(json.loads(output.getvalue()),{"synthetic":"metadata only"})
+        read.assert_called_once_with("/workspace/out/watchdog-input.json",expected_payload_sha256="a"*64,
+            payload_fingerprint="b"*64,session=self.session,nonce="c"*32)
+        with patch.object(sys,"argv",argv),patch.dict(subject.os.environ,{subject.COOKIE:"2"*32}), \
+                patch.object(subject,"metadata_snapshot") as read,patch.object(subject,"run_guarded") as run:
+            with self.assertRaisesRegex(ValueError,"session cookie"):subject.main()
+        read.assert_not_called();run.assert_not_called()
 
     def test_proc_stat_parser_handles_parenthesized_names_and_start_ticks(self):
         proc=self.root/"proc";(proc/"900").mkdir(parents=True);(proc/"sys/kernel/random").mkdir(parents=True)

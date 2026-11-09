@@ -16,13 +16,14 @@ import shutil
 import subprocess
 import sys
 import time
+import uuid
 
 from candidate_continuation_contract import PROTOCOL_SHA256
 from candidate_continuation_journal import write_new_json
 from candidate_continuation_ledger import canonical_hash
 from candidate_continuation_launcher import LaunchPlan, ChildIdentity, GPU_UUID, CONTAINER, NATIVE_SECONDS
-from candidate_continuation_watchdog import (SCHEMA, COOKIE, read_progress, sha,
-    signed, strict_json, same_process)
+from candidate_continuation_watchdog import (SCHEMA, COOKIE, RECEIPT_NAMES, sha,
+    signed, strict_json, same_process, verify_metadata_snapshot)
 from shot_benchmark_supervisor import verify_archive
 
 SPEC_SCHEMA = "sircus-candidate-production-runtime-spec-v1"
@@ -179,6 +180,8 @@ class ProductionRuntime:
         self.progress_cursor = 0
         self.last_snapshot = None
         self.payload_sha256,self.native_owner = None,None
+        self.payload_raw_sha256,self.payload_path = None,None
+        self.progress_fingerprints = []
         self.lock_lease = None
 
     def _authorized(self): require(self.execution_authorized,"Explicit production execution authorization is missing")
@@ -212,16 +215,35 @@ class ProductionRuntime:
         return dict(gpu_uuid=GPU_UUID,container=CONTAINER,container_running=value["State"].get("Running") is True,
             container_gpu_uuids=devices,compute_pids=sorted(pids))
 
-    def _exec(self,args):
+    def _exec(self,args,*,read_only=False):
         return ["docker","exec","-u","0","--env",COOKIE+"="+self.plan.session,
-            CONTAINER,"/workspace/venv/bin/python",
+            CONTAINER,"/workspace/venv/bin/python",*(["-B"] if read_only else []),
             self.spec.container_path(Path(self.spec.source_host)/"sircus/isaac/candidate_continuation_watchdog.py"),*args]
 
-    def _receipt(self,name):
-        path = Path(self.plan.output)/name
-        if not path.exists(): return None
-        require(path.is_file() and not path.is_symlink(),"Linked runtime receipt")
-        value = strict_json(path.read_bytes())
+    def _metadata(self):
+        """No host read of root-owned receipts or progress; use fixed metadata IPC."""
+        self._authorized()
+        require(self.plan is not None and self.payload_path is not None and self.payload_raw_sha256 is not None,
+                "Runtime metadata requires the exact written watchdog input")
+        nonce = uuid.uuid4().hex
+        value = strict_json(self.ops.run(self._exec(["--snapshot",self.spec.container_path(self.payload_path),
+            "--expected-payload-sha256",self.payload_raw_sha256,"--payload-fingerprint",self.payload_sha256,
+            "--session",self.plan.session,"--nonce",nonce],read_only=True)))
+        verify_metadata_snapshot(value,session=self.plan.session,nonce=nonce,payload_raw_sha256=self.payload_raw_sha256,
+            payload_fingerprint=self.payload_sha256,output=self.spec.container_path(self.plan.output))
+        fingerprints = [event["fingerprint"] for event in value["progress"]]
+        require(fingerprints[:len(self.progress_fingerprints)] == self.progress_fingerprints,
+                "Published runtime progress history was shortened or replaced")
+        self.progress_fingerprints = fingerprints
+        if self.owner is not None:
+            require(self._receipt("runtime-owner.json",value) is not None,"Runtime owner receipt disappeared")
+        return value
+
+    def _receipt(self,name,metadata=None):
+        require(name in RECEIPT_NAMES,"Only fixed runtime receipts may be read")
+        metadata = self._metadata() if metadata is None else metadata
+        value = metadata["receipts"][name]
+        if value is None:return None
         require(value.get("schema") == SCHEMA and value.get("session") == self.plan.session
             and value.get("fingerprint") == canonical_hash({k:v for k,v in value.items() if k != "fingerprint"}),
             "Runtime receipt session/fingerprint changed")
@@ -233,7 +255,7 @@ class ProductionRuntime:
                 and value.get("native_owner") == self.native_owner,
                 "Runtime owner receipt changed after start")
         if name == "runtime-exit.json":
-            claimed = self._receipt("runtime-owner.json")
+            claimed = self._receipt("runtime-owner.json",metadata)
             require(claimed is not None and same_process(value.get("owner"),claimed.get("owner"))
                 and value.get("native_owner") == claimed.get("native_owner")
                 and value.get("payload_sha256") == claimed.get("payload_sha256")
@@ -260,6 +282,7 @@ class ProductionRuntime:
         self.payload_sha256 = payload["fingerprint"]
         path = Path(plan.output)/"watchdog-input.json"
         write_new_json(path,payload)
+        self.payload_path,self.payload_raw_sha256 = path,sha(path)
         self.attempted_start = True
         command = self._exec(["--execute",self.spec.container_path(path)])
         # Cookie is propagated to the watchdog itself and its one native child.
@@ -297,7 +320,8 @@ class ProductionRuntime:
 
     def poll(self,owner):
         self._authorized(); require(owner == self.owner,"Unowned production poll")
-        events = read_progress(self.plan.output,self.plan.session)
+        metadata = self._metadata()
+        events = metadata["progress"]
         if not events:
             return dict(phase="initialization",diagnostics=[],parking_resets=0,train_requests=0,
                 train_releases=0,assessment_requests=0,assessment_releases=0,running=True,exit_code=None,audit_cpu_only=False)
@@ -314,7 +338,7 @@ class ProductionRuntime:
             self.last_snapshot = snapshot
         else:
             snapshot = dict(self.last_snapshot)
-        done,transport = self._receipt("runtime-exit.json"),self.child.poll()
+        done,transport = self._receipt("runtime-exit.json",metadata),self.child.poll()
         if done is None or transport is None or (done["exit_code"] == 0 and transport == 0
                 and self.progress_cursor < len(events)):
             snapshot.update(running=True,exit_code=None)

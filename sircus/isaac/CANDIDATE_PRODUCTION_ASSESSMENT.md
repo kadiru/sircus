@@ -1,10 +1,13 @@
 # Production runtime and final assessment integration
 
 This completes the source wiring following the
-[native audit / bounded launch contract](CANDIDATE_NATIVE_GATES.md). It is
-**mock-tested production code, not a live-validated run**. This task started no
-simulator, real training, native task/diagnostic shots, GPU or hardware operation.
-The completed benchmark, its checkpoints/bank, and existing readers are unchanged.
+[native audit / bounded launch contract](CANDIDATE_NATIVE_GATES.md). The initial
+implementation was tested with mocks. Later authorized launch attempts reached
+simulator startup but stopped before training; the
+[preserved evidence](../../baselines/isaac-candidate-live-pilot-20261109/README.md)
+distinguishes those attempts from a completed audited pilot. No improved policy
+performance is established. The completed benchmark and its checkpoints/bank
+remain unchanged.
 
 ## Process and ownership boundary
 
@@ -31,6 +34,15 @@ prevent enforcement. It checks phase order, charged counters, source/storage,
 startup schedule and absolute/phase deadlines using append-only session-bound
 progress receipts. Host polling preserves phase boundaries even when many fast
 imitation receipts arrive between polls.
+
+Private container receipts remain `0600`. The host reads only the two fixed
+runtime receipts and complete progress metadata through the existing container's
+read-only snapshot action. Each response binds a fresh request nonce, exact
+watchdog-input bytes/fingerprint, session and output; the host rechecks every
+receipt/progress fingerprint, owner join and already-observed history prefix.
+Canonical paths, symlinks and the fixed file allowlist are checked on the read
+side. This path imports no application/model code and cannot start or stop work,
+change permissions or read arbitrary evidence. Direct host reads are not used.
 
 The watchdog uses Linux pidfds and PID/start-token/session/lineage checks to stop
 only its owned child and descendants. It does not signal a process group or a
@@ -82,6 +94,11 @@ binding created **after** actual startup control bytes exist; no future startup
 hash or observation is guessed.
 
 The entry validates inputs and source metadata before its sole `AppLauncher`.
+It also checks the original CPU `torch.tensor` representation of the six URDF
+effort limits. Both this preflight and the producer require the exact original
+float32 dtype, shape, finite values and bits; a one-ULP change fails. The actual
+GPU limit construction and controller remain unchanged. This avoids mistaking
+the original float32 representation for changed float64 limit values.
 It compiles only the unchanged film source's definitions and scene-construction
 prefix, ending at its origins-equality gate. It never executes that file's
 top-level app launcher or old training/filming main loop. Original scene,
