@@ -1,0 +1,42 @@
+{
+  "schema": "sircus-candidate-native-publication-check-v1",
+  "status": "passed",
+  "summary_sha256": "038b1bbe674404a33cd4501cf058b78a7a4869689947b1e795959ca1b7b88404",
+  "audit_sha256": "c07b22ace0d8347a304868e191cab0d999531ceeb43196b2854dda6ed12366cc",
+  "producer_commit": "5edcc89ed9c5f6f7b645fe9f070cd35722a92bf3",
+  "producer_archive_sha256": "d510dbd443597911c408af3c8ecaf503a32dd0d9e617b6ca4c1aa83260802bb6",
+  "comparison_plan_sha256": "701105db369716c17bb4f2d530dce27967db61bdf0f68be64a98dcdd9311838e",
+  "candidate_bank_files_unchanged": 4,
+  "original_benchmark_evidence_source_files_unchanged": 13,
+  "frozen_reader_report_sha256": "ebc1bb130c1e2a4bdac6bf6fc37ace0f61d189fa3d75d8d3c19b3bbf3cd23fbd",
+  "free_gib_after": 38.694786071777344,
+  "native_requests": 70,
+  "optimizer_updates": 0,
+  "held_out_shot_files_read": 0,
+  "rescored_releases": 63,
+  "full_rate_time_steps": 1920,
+  "ci_run_id": 42569551897,
+  "ci_conclusion": "success",
+  "checks": {
+    "full_repository_mock_numerical_suite_passed": true,
+    "isaac_cases_in_full_run": 742,
+    "environment_skips": 75,
+    "focused_candidate_python_cases_after_hardening": 63,
+    "focused_ui_js_checks": 7,
+    "old_train35_saved_geometry_parity": {
+      "admitted": 28,
+      "declined": 7
+    }
+  },
+  "ui": {
+    "url": "http://127.0.0.1:18802/",
+    "status": "passed",
+    "paired_positions": 35,
+    "results_verified": true,
+    "report_sha256": "a113afeb2dd12a7e4f8c3a2a79b5f85f9a4db9257bfe041ca3aee0ae4e244b28",
+    "javascript_sha256": "8f84b52d84cccc812e58ee50a1feb5cc82074937bdf9639ce911c637b667d04f",
+    "desktop_visual_and_dom_verified": true,
+    "page_overflow": false
+  },
+  "scope": "Compact receipts only; native physics arrays, trial packets, runtime plans, logs and browser images remain outside Git."
+}

@@ -1,0 +1,165 @@
+{
+  "schema": "sircus-candidate-native-published-summary-v1",
+  "status": "passed",
+  "audit": {
+    "status": "passed",
+    "sha256": "c07b22ace0d8347a304868e191cab0d999531ceeb43196b2854dda6ed12366cc",
+    "rescored_releases": 63,
+    "full_rate_steps": 1920
+  },
+  "source_binding": {
+    "checkpoint_sha256": "57d7658e9ed2f72ad09cf4e8523ab497ccbe0708364f1b8ec4a4c5c1aef1fe9f",
+    "candidate_bank_sha256": "9ba70b0d7db79bd1f63a2d4e6aaabea520bf58837e85d53047eaa05e4f47defe",
+    "plan_sha256": "701105db369716c17bb4f2d530dce27967db61bdf0f68be64a98dcdd9311838e",
+    "comparison_fingerprint": "f4646aeeb3c553d6e4c6b6a162aa7db81ab2d6909dc799e01c2719e109940420",
+    "original_source": {
+      "commit": "df8de16709852880239b8234869bdc65c6f7e957",
+      "archive_sha256": "6dcaa4199bb2df890579fe2fde245f1a48b33deae5869c70399cce4cf8712905",
+      "geometry_fingerprint": "63362ef37a93881f769b39d1ee7456335f1cc7bf5db04ffa7e548ce9697455bf",
+      "camera_sha256": "a7967c072b8f949318b43a510235d503c81c21e05f433670a0ce92a7af385ede",
+      "scoring_version": "sircus-isaac-fixed-shot-v5+board-route"
+    },
+    "producer_commit": "5edcc89ed9c5f6f7b645fe9f070cd35722a92bf3",
+    "producer_archive_sha256": "d510dbd443597911c408af3c8ecaf503a32dd0d9e617b6ca4c1aa83260802bb6"
+  },
+  "methods": {
+    "parent": {
+      "requests": 35,
+      "planned_requests": 35,
+      "captures": 13,
+      "clean": 4,
+      "rejected": 7,
+      "released": 28,
+      "rejection_reasons": {
+        "endpoint_ik_unresolved_Arm14": 3,
+        "outer_link_length_bound": 2,
+        "endpoint_ik_unresolved_Arm10": 2
+      },
+      "outcome_breakdown": {
+        "endpoint_ik_unresolved_Arm14": 3,
+        "captured": 13,
+        "external_contact": 15,
+        "outer_link_length_bound": 2,
+        "endpoint_ik_unresolved_Arm10": 2
+      },
+      "compute": {
+        "wall_s": 55.13625801698072,
+        "cpu_s": 123.442247293,
+        "peak_rss_mib": 6069.73046875,
+        "cuda_peak_allocated_mib": 0.27880859375,
+        "cuda_peak_reserved_mib": 2.0,
+        "sampled_device_occupied_mib": 6189.4375,
+        "setup_wall_s": 44.29494477796834,
+        "score_wall_s": 4.870269666076638,
+        "geometry_s": null,
+        "selection_s": 0.0
+      }
+    },
+    "bank": {
+      "requests": 35,
+      "planned_requests": 35,
+      "captures": 16,
+      "clean": 5,
+      "rejected": 0,
+      "released": 35,
+      "rejection_reasons": {},
+      "outcome_breakdown": {
+        "external_contact": 19,
+        "captured": 16
+      },
+      "compute": {
+        "wall_s": 67.47163523599738,
+        "cpu_s": 148.66133122499997,
+        "peak_rss_mib": 6141.046875,
+        "cuda_peak_allocated_mib": 0.27880859375,
+        "cuda_peak_reserved_mib": 2.0,
+        "sampled_device_occupied_mib": 6189.4375,
+        "setup_wall_s": 56.15214127005311,
+        "score_wall_s": 5.115666720957961,
+        "geometry_s": null,
+        "selection_s": 7.265121167059988
+      }
+    }
+  },
+  "paired": {
+    "gains": 3,
+    "losses": 0,
+    "unchanged": 32,
+    "changed_actions": 7
+  },
+  "optimizer_updates": 0,
+  "preprocessing": {
+    "candidate_bank_wall_s": 45.699558458,
+    "candidate_bank_audit_wall_s": 117.003184333,
+    "bank_load_verify_wall_s": 0.8461787499254569,
+    "selection_wall_s": 7.265121167059988,
+    "optimizer_updates": 0
+  },
+  "compute": {
+    "initialization_shared_wall_s": 14.542651281983126,
+    "comparison_wall_s": 122.61029183596838,
+    "independent_cpu_audit_wall_s": 4.80387481697835
+  },
+  "scope": [
+    "35 known TRAIN positions requested once per frozen method; every rejection stays in the denominator.",
+    "The candidate bank includes historical successful TRAIN shots. This is a TRAIN-informed selector comparison, not unseen-position generalization.",
+    "Frozen seed-22 weights; no optimizer update, held-out search, inference-time ball-flight search or benchmark change.",
+    "Unchanged parent actions use identical native IK seeding in both cohorts; changed bank actions can use prepared IK warm starts.",
+    "Scripted driven transit and initialized release; no learned motor control, collision certificate or physical validation.",
+    "First launcher attempt exited before native process, output directory or PID receipt creation because of a helper-only NumPy import; that evidence and snapshot are preserved. The repaired snapshot consumed the sole70requests; actions,seeds and choices stayed identical."
+  ],
+  "resource_scope": "Native cohort wall/CPU include canonical home, setup, flight and serialization. RSS is process-lifetime high-water, not an isolated phase peak. Torch CUDA peaks include persistent scene tensors; sampled device occupancy includes PhysX/renderer and is not isolated model memory. Initialization/control probes are shared and separate. CPU bank preprocessing and selection are separate preparation costs.",
+  "reselected_positions": [
+    {
+      "cell_id": "train-000",
+      "action_changed": true,
+      "parent_capture": false,
+      "bank_capture": false,
+      "bank_clean": false
+    },
+    {
+      "cell_id": "train-007",
+      "action_changed": true,
+      "parent_capture": false,
+      "bank_capture": false,
+      "bank_clean": false
+    },
+    {
+      "cell_id": "train-014",
+      "action_changed": true,
+      "parent_capture": false,
+      "bank_capture": false,
+      "bank_clean": false
+    },
+    {
+      "cell_id": "train-023",
+      "action_changed": true,
+      "parent_capture": false,
+      "bank_capture": true,
+      "bank_clean": true
+    },
+    {
+      "cell_id": "train-024",
+      "action_changed": true,
+      "parent_capture": false,
+      "bank_capture": true,
+      "bank_clean": false
+    },
+    {
+      "cell_id": "train-025",
+      "action_changed": true,
+      "parent_capture": false,
+      "bank_capture": true,
+      "bank_clean": false
+    },
+    {
+      "cell_id": "train-028",
+      "action_changed": true,
+      "parent_capture": false,
+      "bank_capture": false,
+      "bank_clean": false
+    }
+  ],
+  "preserved_actions": 28,
+  "all_preserved_outcomes_agree": true
+}
