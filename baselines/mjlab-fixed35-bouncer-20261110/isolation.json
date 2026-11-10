@@ -1,0 +1,15 @@
+{
+  "version": "sircus-fixed35-bouncer-isolation-v1",
+  "status": "passed",
+  "protected_files": 117,
+  "all_protected_hashes_unchanged": true,
+  "service_inventory_unchanged": true,
+  "owned_4090_worker_exited": true,
+  "gpu_compute_after_empty": true,
+  "source_and_native_evidence_immutable": true,
+  "ui_updated": false,
+  "services_restarted": false,
+  "hardware_commands": false,
+  "isaac_changed": false,
+  "gpu4070_used": false
+}
