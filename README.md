@@ -1,6 +1,17 @@
 # Sircus — Simple Circus
 
-**Latest mjlab result:** [35 fixed bucket positions, no perturbations](baselines/mjlab-fixed35-imitation-20261109/README.md).
+**Latest mjlab recovery:** [29/35 fixed locations now have confirmed recipes](baselines/mjlab-fixed35-recovery-20261109/README.md).
+Five of the 11 failures recovered, each with **3/3 fresh native64 captures**;
+all **24/24 unchanged successful recipes** captured again. Four locations
+exhausted 80 candidates each; two retain fixed-base clearance blockers.
+All 441 requests, 18 controls and **141,041 independent checks** completed.
+Three invalid-physics attempts remain excluded from capture evidence.
+This is recipe search, not a new policy score: the frozen policy stays **24/35**.
+Results are in `#fixed35Recovery`; no training, promotion, bucket perturbations,
+service restart, 4070 or Isaac change.
+[Handoff](docs/MJLAB_FIXED35_RECOVERY_20261109.md) · [draft PR #120](https://github.com/kadiru/sircus/pull/120).
+
+**Previous mjlab policy result:** [35 fixed bucket positions, no perturbations](baselines/mjlab-fixed35-imitation-20261109/README.md).
 Current imitation captured **24/35 (68.6%)**, the refit **23/35 (65.7%)**;
 both used bucket-facing gripper yaw. One gain, two losses, 22 shared captures.
 The refit had six setup declines and six released noncaptures, including one

@@ -1,0 +1,3253 @@
+{
+  "version": "sircus-fixed35-recovery-v1",
+  "status": "completed",
+  "contract_fingerprint": "a7b58fc50ce6d7b28b0d2a2ab045f4031bc77d3c70145c01a670ec134a003bf5",
+  "report_sha256": "2d62f6b43b54210b83c7323b5e46f0ccdf0817f36b67fbe43e1aa7618fb099d9",
+  "elapsed_s": 4105.748702302983,
+  "scope": "Bounded posthoc recipe search on nine current-policy failures from the historical fixed 7x5 grid. Two fixed-base clearance blockers remain explicitly blocked; 24 successful current recipes are replayed without changing their joints. Bucket-facing yaw, native64/v3, whole-ball one-second capture including table/rim assistance. Three fresh nominal repeats confirm a discovered recipe. No policy fitting, PPO, new positions, bucket perturbations, noise, 128-step qualification, learned transit, hardware or policy promotion.",
+  "protocol": {
+    "substeps": 64,
+    "failure_layouts": 11,
+    "total_layouts": 35,
+    "preserve_layouts": 24,
+    "confirmation_repeats": 3,
+    "maximum_requests": 843,
+    "bucket_perturbations": false,
+    "training": false
+  },
+  "raw_protocol": {
+    "substeps": 64,
+    "methods": [
+      "preserved_current",
+      "recovery_search",
+      "recovery_repeat"
+    ],
+    "grid_positions": 35,
+    "parent_captures": 24,
+    "development_failures": 11,
+    "fixed_base_skips": 2,
+    "search_layouts": 9,
+    "proposals_per_layout": 80,
+    "search_requests": 720,
+    "repeat_per_selected": 3,
+    "candidates_per_layout": 3,
+    "repeat_requests_max": 81,
+    "preserved_requests": 24,
+    "control_requests": 18,
+    "maximum_requests": 843,
+    "noise": false,
+    "bucket_perturbations": false,
+    "training": false,
+    "actor_steps": 0,
+    "critic_steps": 0,
+    "worker_limit_s": 7200,
+    "search_limit_s": 5400,
+    "queue_limit_s": 900,
+    "global_limit_s": 9900,
+    "audit_reserve_s": 1800,
+    "storage_reserve_bytes": 8589934592,
+    "rotation": "Rz(atan2(bucket_y-board_y,bucket_x-board_x)) @ diag(1,-1,-1)",
+    "bounds": {
+      "low": [
+        0.3,
+        -0.5,
+        0.12,
+        8.0,
+        0.05
+      ],
+      "high": [
+        1.04,
+        0.35,
+        0.6,
+        60.0,
+        0.65
+      ]
+    },
+    "evaluation_scope": "historical fixed-grid recipe development; not held out and not a new policy score",
+    "search_order": "80 frozen proposals per case, round-robin one per active case; no flight-dependent numeric changes",
+    "confirmation": "Immediately repeat each captured discovery three times; stop a case after 3/3 or three failed confirmation groups",
+    "timing": "Stop starting search rounds after 5400 acquired seconds; finish selected repeats and final controls within 7200 seconds",
+    "preservation": "All24 current captured recipes replay once with authenticated unchanged action and joint branch",
+    "scope": "Bounded posthoc recipe search on nine current-policy failures from the historical fixed 7x5 grid. Two fixed-base clearance blockers remain explicitly blocked; 24 successful current recipes are replayed without changing their joints. Bucket-facing yaw, native64/v3, whole-ball one-second capture including table/rim assistance. Three fresh nominal repeats confirm a discovered recipe. No policy fitting, PPO, new positions, bucket perturbations, noise, 128-step qualification, learned transit, hardware or policy promotion."
+  },
+  "counts": {
+    "attempts": 441,
+    "native_releases": 203,
+    "captures": 56,
+    "setup_rejections": 238,
+    "native_misses": 147,
+    "invalid_physics": 3
+  },
+  "expected_requests": 441,
+  "request_cap": 843,
+  "completion_reason": "finite_candidate_or_confirmation_caps",
+  "budget_truncated": false,
+  "control_gates": {
+    "pre": {
+      "status": "passed",
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    },
+    "post": {
+      "status": "passed",
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    }
+  },
+  "audit": {
+    "status": "passed",
+    "full_checks_verified": true,
+    "native_checks_verified": true,
+    "report_sha256": "2d62f6b43b54210b83c7323b5e46f0ccdf0817f36b67fbe43e1aa7618fb099d9",
+    "contract_fingerprint": "a7b58fc50ce6d7b28b0d2a2ab045f4031bc77d3c70145c01a670ec134a003bf5",
+    "proof_sha256": "460e0e5496b54e9426fb170d64b9c0687813eb28e3b7310d3e8f212eda211569",
+    "checks_count": 141041
+  },
+  "cases": [
+    {
+      "context_id": "fixed35-dev-grid-00-00",
+      "bucket_xy_m": [
+        0.1,
+        -0.65
+      ],
+      "parent": {
+        "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-00-00",
+        "context_id": "fixed35-dev-grid-00-00",
+        "phase": "test",
+        "method": "current_bc",
+        "bucket_xy_m": [
+          0.1,
+          -0.65
+        ],
+        "values": [
+          0.5339046624012481,
+          -0.23117300996578177,
+          0.3069841111810501,
+          26.08788262271784,
+          0.4187685080376257
+        ],
+        "native_release": true,
+        "invalid": null,
+        "invalid_physics": false,
+        "forbidden_contact_steps": 0,
+        "table_contact_steps": 0,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "board_bounce": true,
+        "native_initial_ball_center_m": [
+          0.5339046716690063,
+          -0.23117300868034363,
+          0.7632526159286499
+        ],
+        "capture": false,
+        "record_sha256": "54b752201625d151764ea5b2c08574ee5a459c47345a169198ef562550eabb15"
+      },
+      "blocked": false,
+      "search": {
+        "attempts": 7,
+        "native_releases": 7,
+        "captures": 1,
+        "setup_rejections": 0,
+        "native_misses": 6,
+        "invalid_physics": 0
+      },
+      "confirmation_groups": [
+        {
+          "selected": {
+            "id": "fixed35-recovery-search-p06-fixed35-dev-grid-00-00",
+            "context_id": "fixed35-dev-grid-00-00",
+            "phase": "search",
+            "method": "recovery_search",
+            "bucket_xy_m": [
+              0.1,
+              -0.65
+            ],
+            "values": [
+              0.5339046624012481,
+              -0.23117300996578177,
+              0.3069841111810501,
+              26.08788262271784,
+              0.3987685080376257
+            ],
+            "native_release": true,
+            "invalid": null,
+            "invalid_physics": false,
+            "forbidden_contact_steps": 0,
+            "table_contact_steps": 0,
+            "whole_ball_entry": true,
+            "max_retention_s": 0.9999999999999998,
+            "board_bounce": true,
+            "native_initial_ball_center_m": [
+              0.5339046716690063,
+              -0.23117300868034363,
+              0.7432526350021362
+            ],
+            "capture": true,
+            "record_sha256": "cf0af1be61b6ccf9c2fb56505682617685310747661aa98a846c0a23c33fe272"
+          },
+          "repeats": [
+            {
+              "id": "fixed35-recovery-repeat-c0-r0-fixed35-dev-grid-00-00",
+              "context_id": "fixed35-dev-grid-00-00",
+              "phase": "repeat",
+              "method": "recovery_repeat",
+              "bucket_xy_m": [
+                0.1,
+                -0.65
+              ],
+              "values": [
+                0.5339046624012481,
+                -0.23117300996578177,
+                0.3069841111810501,
+                26.08788262271784,
+                0.3987685080376257
+              ],
+              "native_release": true,
+              "invalid": null,
+              "invalid_physics": false,
+              "repeat": 0,
+              "confirmation_index": 0,
+              "selected_from_id": "fixed35-recovery-search-p06-fixed35-dev-grid-00-00",
+              "selected_from_sha256": "cf0af1be61b6ccf9c2fb56505682617685310747661aa98a846c0a23c33fe272",
+              "forbidden_contact_steps": 0,
+              "table_contact_steps": 0,
+              "whole_ball_entry": true,
+              "max_retention_s": 0.9999999999999998,
+              "board_bounce": true,
+              "native_initial_ball_center_m": [
+                0.5339046716690063,
+                -0.23117300868034363,
+                0.7432526350021362
+              ],
+              "capture": true,
+              "record_sha256": "c15c5a9ede8a458973617d72fc862ad203daa1865701e7302a154d045adc1066"
+            },
+            {
+              "id": "fixed35-recovery-repeat-c0-r1-fixed35-dev-grid-00-00",
+              "context_id": "fixed35-dev-grid-00-00",
+              "phase": "repeat",
+              "method": "recovery_repeat",
+              "bucket_xy_m": [
+                0.1,
+                -0.65
+              ],
+              "values": [
+                0.5339046624012481,
+                -0.23117300996578177,
+                0.3069841111810501,
+                26.08788262271784,
+                0.3987685080376257
+              ],
+              "native_release": true,
+              "invalid": null,
+              "invalid_physics": false,
+              "repeat": 1,
+              "confirmation_index": 0,
+              "selected_from_id": "fixed35-recovery-search-p06-fixed35-dev-grid-00-00",
+              "selected_from_sha256": "cf0af1be61b6ccf9c2fb56505682617685310747661aa98a846c0a23c33fe272",
+              "forbidden_contact_steps": 0,
+              "table_contact_steps": 0,
+              "whole_ball_entry": true,
+              "max_retention_s": 1.0,
+              "board_bounce": true,
+              "native_initial_ball_center_m": [
+                0.5339046716690063,
+                -0.23117300868034363,
+                0.7432526350021362
+              ],
+              "capture": true,
+              "record_sha256": "6784f5e524571445b0c6ded74be010cc6e3dd4d50f6ee93c83a7ea0b90bf91de"
+            },
+            {
+              "id": "fixed35-recovery-repeat-c0-r2-fixed35-dev-grid-00-00",
+              "context_id": "fixed35-dev-grid-00-00",
+              "phase": "repeat",
+              "method": "recovery_repeat",
+              "bucket_xy_m": [
+                0.1,
+                -0.65
+              ],
+              "values": [
+                0.5339046624012481,
+                -0.23117300996578177,
+                0.3069841111810501,
+                26.08788262271784,
+                0.3987685080376257
+              ],
+              "native_release": true,
+              "invalid": null,
+              "invalid_physics": false,
+              "repeat": 2,
+              "confirmation_index": 0,
+              "selected_from_id": "fixed35-recovery-search-p06-fixed35-dev-grid-00-00",
+              "selected_from_sha256": "cf0af1be61b6ccf9c2fb56505682617685310747661aa98a846c0a23c33fe272",
+              "forbidden_contact_steps": 0,
+              "table_contact_steps": 0,
+              "whole_ball_entry": true,
+              "max_retention_s": 1.0,
+              "board_bounce": true,
+              "native_initial_ball_center_m": [
+                0.5339046716690063,
+                -0.23117300868034363,
+                0.7432526350021362
+              ],
+              "capture": true,
+              "record_sha256": "d7d03fcbf64e8935fb2173d9b093780213425ae6d011085c25a9235c4a825467"
+            }
+          ]
+        }
+      ],
+      "confirmed_recipe": {
+        "id": "fixed35-recovery-search-p06-fixed35-dev-grid-00-00",
+        "context_id": "fixed35-dev-grid-00-00",
+        "phase": "search",
+        "method": "recovery_search",
+        "bucket_xy_m": [
+          0.1,
+          -0.65
+        ],
+        "values": [
+          0.5339046624012481,
+          -0.23117300996578177,
+          0.3069841111810501,
+          26.08788262271784,
+          0.3987685080376257
+        ],
+        "native_release": true,
+        "invalid": null,
+        "invalid_physics": false,
+        "forbidden_contact_steps": 0,
+        "table_contact_steps": 0,
+        "whole_ball_entry": true,
+        "max_retention_s": 0.9999999999999998,
+        "board_bounce": true,
+        "native_initial_ball_center_m": [
+          0.5339046716690063,
+          -0.23117300868034363,
+          0.7432526350021362
+        ],
+        "capture": true,
+        "record_sha256": "cf0af1be61b6ccf9c2fb56505682617685310747661aa98a846c0a23c33fe272"
+      },
+      "diagnosis": {
+        "category": "bucket_contact_without_entry",
+        "first_contacts_s": {
+          "board": 0.28977864583333335,
+          "bucket": 0.5908203125,
+          "table": null,
+          "floor": 1.1897786458333333,
+          "robot": null,
+          "unattributed": null
+        },
+        "closest_xy": {
+          "time_s": 0.667578125,
+          "distance_m": 0.0058071591627727485,
+          "ball_center_z_m": 0.2922402620315552
+        },
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "rim_band_contact": true,
+        "parent_row_sha256": "54b752201625d151764ea5b2c08574ee5a459c47345a169198ef562550eabb15"
+      },
+      "search_status": "confirmed"
+    },
+    {
+      "context_id": "fixed35-dev-grid-01-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.42500000000000004
+      ],
+      "parent": {
+        "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-01-05",
+        "context_id": "fixed35-dev-grid-01-05",
+        "phase": "test",
+        "method": "current_bc",
+        "bucket_xy_m": [
+          1.0499999999999998,
+          -0.42500000000000004
+        ],
+        "values": [
+          0.6429213065465369,
+          -0.24817303601653476,
+          0.425011106370531,
+          33.66779617586808,
+          0.13574285954283338
+        ],
+        "native_release": true,
+        "invalid": null,
+        "invalid_physics": false,
+        "forbidden_contact_steps": 28,
+        "table_contact_steps": 36366,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "board_bounce": true,
+        "native_initial_ball_center_m": [
+          0.6429213285446167,
+          -0.2481730431318283,
+          0.5982539653778076
+        ],
+        "capture": false,
+        "record_sha256": "f3df8c328b31ee12fb7c35d90791c593d9ebafbb7f03d43c1c3ce821cc549115"
+      },
+      "blocked": false,
+      "search": {
+        "attempts": 80,
+        "native_releases": 46,
+        "captures": 0,
+        "setup_rejections": 34,
+        "native_misses": 46,
+        "invalid_physics": 0
+      },
+      "confirmation_groups": [],
+      "confirmed_recipe": null,
+      "diagnosis": {
+        "category": "bucket_contact_without_entry",
+        "first_contacts_s": {
+          "board": 0.15983072916666666,
+          "bucket": 0.4497395833333333,
+          "table": 0.4979166666666667,
+          "floor": null,
+          "robot": 2.8762369791666664,
+          "unattributed": null
+        },
+        "closest_xy": {
+          "time_s": 0.45078124999999997,
+          "distance_m": 0.13394208424337567,
+          "ball_center_z_m": 0.15335136651992798
+        },
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "rim_band_contact": true,
+        "parent_row_sha256": "f3df8c328b31ee12fb7c35d90791c593d9ebafbb7f03d43c1c3ce821cc549115"
+      },
+      "search_status": "search_exhausted"
+    },
+    {
+      "context_id": "fixed35-dev-grid-01-06",
+      "bucket_xy_m": [
+        1.24,
+        -0.42500000000000004
+      ],
+      "parent": {
+        "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-01-06",
+        "context_id": "fixed35-dev-grid-01-06",
+        "phase": "test",
+        "method": "current_bc",
+        "bucket_xy_m": [
+          1.24,
+          -0.42500000000000004
+        ],
+        "values": [
+          0.5979592483264831,
+          0.016294983071146414,
+          0.45913831559360047,
+          26.127778778591715,
+          0.2521585734588267
+        ],
+        "native_release": true,
+        "invalid": null,
+        "invalid_physics": false,
+        "forbidden_contact_steps": 0,
+        "table_contact_steps": 31864,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "board_bounce": true,
+        "native_initial_ball_center_m": [
+          0.5979592204093933,
+          0.01629498228430748,
+          0.7487968802452087
+        ],
+        "capture": false,
+        "record_sha256": "a231efe8cf1a1f351ce61feb32324386ca12548b6c3e8a1bafb29764538911ac"
+      },
+      "blocked": false,
+      "search": {
+        "attempts": 2,
+        "native_releases": 2,
+        "captures": 1,
+        "setup_rejections": 0,
+        "native_misses": 1,
+        "invalid_physics": 0
+      },
+      "confirmation_groups": [
+        {
+          "selected": {
+            "id": "fixed35-recovery-search-p01-fixed35-dev-grid-01-06",
+            "context_id": "fixed35-dev-grid-01-06",
+            "phase": "search",
+            "method": "recovery_search",
+            "bucket_xy_m": [
+              1.24,
+              -0.42500000000000004
+            ],
+            "values": [
+              0.5979265395841318,
+              0.016159196939541348,
+              0.45939471879074284,
+              26.036104016759726,
+              0.252212878630347
+            ],
+            "native_release": true,
+            "invalid": null,
+            "invalid_physics": false,
+            "forbidden_contact_steps": 0,
+            "table_contact_steps": 27,
+            "whole_ball_entry": true,
+            "max_retention_s": 0.9999999999999998,
+            "board_bounce": true,
+            "native_initial_ball_center_m": [
+              0.5979265570640564,
+              0.016159197315573692,
+              0.7491075992584229
+            ],
+            "capture": true,
+            "record_sha256": "c3eb044ea76932116f87645cc1ac459bf480965e6f5dada7839cd1caa205631d"
+          },
+          "repeats": [
+            {
+              "id": "fixed35-recovery-repeat-c0-r0-fixed35-dev-grid-01-06",
+              "context_id": "fixed35-dev-grid-01-06",
+              "phase": "repeat",
+              "method": "recovery_repeat",
+              "bucket_xy_m": [
+                1.24,
+                -0.42500000000000004
+              ],
+              "values": [
+                0.5979265395841318,
+                0.016159196939541348,
+                0.45939471879074284,
+                26.036104016759726,
+                0.252212878630347
+              ],
+              "native_release": true,
+              "invalid": null,
+              "invalid_physics": false,
+              "repeat": 0,
+              "confirmation_index": 0,
+              "selected_from_id": "fixed35-recovery-search-p01-fixed35-dev-grid-01-06",
+              "selected_from_sha256": "c3eb044ea76932116f87645cc1ac459bf480965e6f5dada7839cd1caa205631d",
+              "forbidden_contact_steps": 0,
+              "table_contact_steps": 27,
+              "whole_ball_entry": true,
+              "max_retention_s": 0.9999999999999998,
+              "board_bounce": true,
+              "native_initial_ball_center_m": [
+                0.5979265570640564,
+                0.016159197315573692,
+                0.7491075992584229
+              ],
+              "capture": true,
+              "record_sha256": "786abe05eccb12548f20cf4ffd6996b2321206558be1f62802328609161cdde9"
+            },
+            {
+              "id": "fixed35-recovery-repeat-c0-r1-fixed35-dev-grid-01-06",
+              "context_id": "fixed35-dev-grid-01-06",
+              "phase": "repeat",
+              "method": "recovery_repeat",
+              "bucket_xy_m": [
+                1.24,
+                -0.42500000000000004
+              ],
+              "values": [
+                0.5979265395841318,
+                0.016159196939541348,
+                0.45939471879074284,
+                26.036104016759726,
+                0.252212878630347
+              ],
+              "native_release": true,
+              "invalid": null,
+              "invalid_physics": false,
+              "repeat": 1,
+              "confirmation_index": 0,
+              "selected_from_id": "fixed35-recovery-search-p01-fixed35-dev-grid-01-06",
+              "selected_from_sha256": "c3eb044ea76932116f87645cc1ac459bf480965e6f5dada7839cd1caa205631d",
+              "forbidden_contact_steps": 0,
+              "table_contact_steps": 27,
+              "whole_ball_entry": true,
+              "max_retention_s": 0.9999999999999998,
+              "board_bounce": true,
+              "native_initial_ball_center_m": [
+                0.5979265570640564,
+                0.016159197315573692,
+                0.7491075992584229
+              ],
+              "capture": true,
+              "record_sha256": "5084882ad83d50ddfef74c911d5396b6793180edfe4c9ea774a240df1e3f5ee3"
+            },
+            {
+              "id": "fixed35-recovery-repeat-c0-r2-fixed35-dev-grid-01-06",
+              "context_id": "fixed35-dev-grid-01-06",
+              "phase": "repeat",
+              "method": "recovery_repeat",
+              "bucket_xy_m": [
+                1.24,
+                -0.42500000000000004
+              ],
+              "values": [
+                0.5979265395841318,
+                0.016159196939541348,
+                0.45939471879074284,
+                26.036104016759726,
+                0.252212878630347
+              ],
+              "native_release": true,
+              "invalid": null,
+              "invalid_physics": false,
+              "repeat": 2,
+              "confirmation_index": 0,
+              "selected_from_id": "fixed35-recovery-search-p01-fixed35-dev-grid-01-06",
+              "selected_from_sha256": "c3eb044ea76932116f87645cc1ac459bf480965e6f5dada7839cd1caa205631d",
+              "forbidden_contact_steps": 0,
+              "table_contact_steps": 27,
+              "whole_ball_entry": true,
+              "max_retention_s": 0.9999999999999998,
+              "board_bounce": true,
+              "native_initial_ball_center_m": [
+                0.5979265570640564,
+                0.016159197315573692,
+                0.7491075992584229
+              ],
+              "capture": true,
+              "record_sha256": "1561b0b0ecb665ba05b8c3c02dc39a414411335c16da1e7a80a3771fc33abdb0"
+            }
+          ]
+        }
+      ],
+      "confirmed_recipe": {
+        "id": "fixed35-recovery-search-p01-fixed35-dev-grid-01-06",
+        "context_id": "fixed35-dev-grid-01-06",
+        "phase": "search",
+        "method": "recovery_search",
+        "bucket_xy_m": [
+          1.24,
+          -0.42500000000000004
+        ],
+        "values": [
+          0.5979265395841318,
+          0.016159196939541348,
+          0.45939471879074284,
+          26.036104016759726,
+          0.252212878630347
+        ],
+        "native_release": true,
+        "invalid": null,
+        "invalid_physics": false,
+        "forbidden_contact_steps": 0,
+        "table_contact_steps": 27,
+        "whole_ball_entry": true,
+        "max_retention_s": 0.9999999999999998,
+        "board_bounce": true,
+        "native_initial_ball_center_m": [
+          0.5979265570640564,
+          0.016159197315573692,
+          0.7491075992584229
+        ],
+        "capture": true,
+        "record_sha256": "c3eb044ea76932116f87645cc1ac459bf480965e6f5dada7839cd1caa205631d"
+      },
+      "diagnosis": {
+        "category": "bucket_contact_without_entry",
+        "first_contacts_s": {
+          "board": 0.2236328125,
+          "bucket": 0.7324869791666666,
+          "table": 0.6270833333333333,
+          "floor": null,
+          "robot": null,
+          "unattributed": null
+        },
+        "closest_xy": {
+          "time_s": 1.586328125,
+          "distance_m": 0.12205501198008947,
+          "ball_center_z_m": 0.04727145656943321
+        },
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "rim_band_contact": true,
+        "parent_row_sha256": "a231efe8cf1a1f351ce61feb32324386ca12548b6c3e8a1bafb29764538911ac"
+      },
+      "search_status": "confirmed"
+    },
+    {
+      "context_id": "fixed35-dev-grid-02-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.2
+      ],
+      "parent": {
+        "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-02-03",
+        "context_id": "fixed35-dev-grid-02-03",
+        "phase": "test",
+        "method": "current_bc",
+        "bucket_xy_m": [
+          0.6699999999999999,
+          -0.2
+        ],
+        "values": [
+          0.5591205725142644,
+          -0.0625444377683692,
+          0.5095821466070467,
+          18.096248532496396,
+          0.23504636251064462
+        ],
+        "native_release": true,
+        "invalid": null,
+        "invalid_physics": false,
+        "forbidden_contact_steps": 0,
+        "table_contact_steps": 79,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "board_bounce": true,
+        "native_initial_ball_center_m": [
+          0.5591205954551697,
+          -0.06254443526268005,
+          0.7821285128593445
+        ],
+        "capture": false,
+        "record_sha256": "d38b15e2f40230a9b809536a4681bb2c1891374d5dc2d63a1821eb28af42e874"
+      },
+      "blocked": false,
+      "search": {
+        "attempts": 42,
+        "native_releases": 24,
+        "captures": 1,
+        "setup_rejections": 18,
+        "native_misses": 23,
+        "invalid_physics": 3
+      },
+      "confirmation_groups": [
+        {
+          "selected": {
+            "id": "fixed35-recovery-search-p41-fixed35-dev-grid-02-03",
+            "context_id": "fixed35-dev-grid-02-03",
+            "phase": "search",
+            "method": "recovery_search",
+            "bucket_xy_m": [
+              0.6699999999999999,
+              -0.2
+            ],
+            "values": [
+              0.5591205725142644,
+              -0.0625444377683692,
+              0.5095821466070467,
+              10.096248532496396,
+              0.1950463625106446
+            ],
+            "native_release": true,
+            "invalid": null,
+            "invalid_physics": false,
+            "forbidden_contact_steps": 0,
+            "table_contact_steps": 0,
+            "whole_ball_entry": true,
+            "max_retention_s": 1.0,
+            "board_bounce": true,
+            "native_initial_ball_center_m": [
+              0.5591205954551697,
+              -0.06254443526268005,
+              0.7421284914016724
+            ],
+            "capture": true,
+            "record_sha256": "c3138bcdfe7fa9c7d5f2e45102d978b16a40699b16334dadbaef7d22a67fbae6"
+          },
+          "repeats": [
+            {
+              "id": "fixed35-recovery-repeat-c0-r0-fixed35-dev-grid-02-03",
+              "context_id": "fixed35-dev-grid-02-03",
+              "phase": "repeat",
+              "method": "recovery_repeat",
+              "bucket_xy_m": [
+                0.6699999999999999,
+                -0.2
+              ],
+              "values": [
+                0.5591205725142644,
+                -0.0625444377683692,
+                0.5095821466070467,
+                10.096248532496396,
+                0.1950463625106446
+              ],
+              "native_release": true,
+              "invalid": null,
+              "invalid_physics": false,
+              "repeat": 0,
+              "confirmation_index": 0,
+              "selected_from_id": "fixed35-recovery-search-p41-fixed35-dev-grid-02-03",
+              "selected_from_sha256": "c3138bcdfe7fa9c7d5f2e45102d978b16a40699b16334dadbaef7d22a67fbae6",
+              "forbidden_contact_steps": 0,
+              "table_contact_steps": 0,
+              "whole_ball_entry": true,
+              "max_retention_s": 1.0,
+              "board_bounce": true,
+              "native_initial_ball_center_m": [
+                0.5591205954551697,
+                -0.06254443526268005,
+                0.7421284914016724
+              ],
+              "capture": true,
+              "record_sha256": "17bf283b01ab1c29a9670acec84735d83daefb82738d0ce02178a6fa28cfdd6e"
+            },
+            {
+              "id": "fixed35-recovery-repeat-c0-r1-fixed35-dev-grid-02-03",
+              "context_id": "fixed35-dev-grid-02-03",
+              "phase": "repeat",
+              "method": "recovery_repeat",
+              "bucket_xy_m": [
+                0.6699999999999999,
+                -0.2
+              ],
+              "values": [
+                0.5591205725142644,
+                -0.0625444377683692,
+                0.5095821466070467,
+                10.096248532496396,
+                0.1950463625106446
+              ],
+              "native_release": true,
+              "invalid": null,
+              "invalid_physics": false,
+              "repeat": 1,
+              "confirmation_index": 0,
+              "selected_from_id": "fixed35-recovery-search-p41-fixed35-dev-grid-02-03",
+              "selected_from_sha256": "c3138bcdfe7fa9c7d5f2e45102d978b16a40699b16334dadbaef7d22a67fbae6",
+              "forbidden_contact_steps": 0,
+              "table_contact_steps": 0,
+              "whole_ball_entry": true,
+              "max_retention_s": 1.0,
+              "board_bounce": true,
+              "native_initial_ball_center_m": [
+                0.5591205954551697,
+                -0.06254443526268005,
+                0.7421284914016724
+              ],
+              "capture": true,
+              "record_sha256": "30558f13fb321c0394ea11289dac2513265680350d08ba8b2a79dc5a0bd5b98e"
+            },
+            {
+              "id": "fixed35-recovery-repeat-c0-r2-fixed35-dev-grid-02-03",
+              "context_id": "fixed35-dev-grid-02-03",
+              "phase": "repeat",
+              "method": "recovery_repeat",
+              "bucket_xy_m": [
+                0.6699999999999999,
+                -0.2
+              ],
+              "values": [
+                0.5591205725142644,
+                -0.0625444377683692,
+                0.5095821466070467,
+                10.096248532496396,
+                0.1950463625106446
+              ],
+              "native_release": true,
+              "invalid": null,
+              "invalid_physics": false,
+              "repeat": 2,
+              "confirmation_index": 0,
+              "selected_from_id": "fixed35-recovery-search-p41-fixed35-dev-grid-02-03",
+              "selected_from_sha256": "c3138bcdfe7fa9c7d5f2e45102d978b16a40699b16334dadbaef7d22a67fbae6",
+              "forbidden_contact_steps": 0,
+              "table_contact_steps": 0,
+              "whole_ball_entry": true,
+              "max_retention_s": 1.0,
+              "board_bounce": true,
+              "native_initial_ball_center_m": [
+                0.5591205954551697,
+                -0.06254443526268005,
+                0.7421284914016724
+              ],
+              "capture": true,
+              "record_sha256": "c8f65b3bfe6ecebaf801a4b7cc54c7aae91d8fccaaef5940be0f94e3a3c83e71"
+            }
+          ]
+        }
+      ],
+      "confirmed_recipe": {
+        "id": "fixed35-recovery-search-p41-fixed35-dev-grid-02-03",
+        "context_id": "fixed35-dev-grid-02-03",
+        "phase": "search",
+        "method": "recovery_search",
+        "bucket_xy_m": [
+          0.6699999999999999,
+          -0.2
+        ],
+        "values": [
+          0.5591205725142644,
+          -0.0625444377683692,
+          0.5095821466070467,
+          10.096248532496396,
+          0.1950463625106446
+        ],
+        "native_release": true,
+        "invalid": null,
+        "invalid_physics": false,
+        "forbidden_contact_steps": 0,
+        "table_contact_steps": 0,
+        "whole_ball_entry": true,
+        "max_retention_s": 1.0,
+        "board_bounce": true,
+        "native_initial_ball_center_m": [
+          0.5591205954551697,
+          -0.06254443526268005,
+          0.7421284914016724
+        ],
+        "capture": true,
+        "record_sha256": "c3138bcdfe7fa9c7d5f2e45102d978b16a40699b16334dadbaef7d22a67fbae6"
+      },
+      "diagnosis": {
+        "category": "no_bucket_contact",
+        "first_contacts_s": {
+          "board": 0.216796875,
+          "bucket": null,
+          "table": 0.6680338541666666,
+          "floor": 1.8947916666666667,
+          "robot": null,
+          "unattributed": null
+        },
+        "closest_xy": {
+          "time_s": 0.4069010416666667,
+          "distance_m": 0.0018330303470687121,
+          "ball_center_z_m": 0.5770990252494812
+        },
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "rim_band_contact": false,
+        "parent_row_sha256": "d38b15e2f40230a9b809536a4681bb2c1891374d5dc2d63a1821eb28af42e874"
+      },
+      "search_status": "confirmed"
+    },
+    {
+      "context_id": "fixed35-dev-grid-02-06",
+      "bucket_xy_m": [
+        1.24,
+        -0.2
+      ],
+      "parent": {
+        "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-02-06",
+        "context_id": "fixed35-dev-grid-02-06",
+        "phase": "test",
+        "method": "current_bc",
+        "bucket_xy_m": [
+          1.24,
+          -0.2
+        ],
+        "values": [
+          0.5972809378012257,
+          -0.015246220975644525,
+          0.4722152017627127,
+          27.237402878093004,
+          0.20259604854516874
+        ],
+        "native_release": true,
+        "invalid": null,
+        "invalid_physics": false,
+        "forbidden_contact_steps": 27,
+        "table_contact_steps": 33784,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "board_bounce": true,
+        "native_initial_ball_center_m": [
+          0.5972809195518494,
+          -0.015246220864355564,
+          0.7123112678527832
+        ],
+        "capture": false,
+        "record_sha256": "ea3da082d519d50cc21d10d2dd5418259ae519aaca4c0da35ae6795a45fc2e53"
+      },
+      "blocked": false,
+      "search": {
+        "attempts": 9,
+        "native_releases": 6,
+        "captures": 1,
+        "setup_rejections": 3,
+        "native_misses": 5,
+        "invalid_physics": 0
+      },
+      "confirmation_groups": [
+        {
+          "selected": {
+            "id": "fixed35-recovery-search-p08-fixed35-dev-grid-02-06",
+            "context_id": "fixed35-dev-grid-02-06",
+            "phase": "search",
+            "method": "recovery_search",
+            "bucket_xy_m": [
+              1.24,
+              -0.2
+            ],
+            "values": [
+              0.5972809378012257,
+              -0.015246220975644525,
+              0.4722152017627127,
+              27.237402878093004,
+              0.16259604854516874
+            ],
+            "native_release": true,
+            "invalid": null,
+            "invalid_physics": false,
+            "forbidden_contact_steps": 0,
+            "table_contact_steps": 27,
+            "whole_ball_entry": true,
+            "max_retention_s": 0.9999999999999999,
+            "board_bounce": true,
+            "native_initial_ball_center_m": [
+              0.5972809195518494,
+              -0.015246220864355564,
+              0.6723112463951111
+            ],
+            "capture": true,
+            "record_sha256": "7998f8cc97093938d94019564ccf623ca975d230417d6a7783af8f2056148517"
+          },
+          "repeats": [
+            {
+              "id": "fixed35-recovery-repeat-c0-r0-fixed35-dev-grid-02-06",
+              "context_id": "fixed35-dev-grid-02-06",
+              "phase": "repeat",
+              "method": "recovery_repeat",
+              "bucket_xy_m": [
+                1.24,
+                -0.2
+              ],
+              "values": [
+                0.5972809378012257,
+                -0.015246220975644525,
+                0.4722152017627127,
+                27.237402878093004,
+                0.16259604854516874
+              ],
+              "native_release": true,
+              "invalid": null,
+              "invalid_physics": false,
+              "repeat": 0,
+              "confirmation_index": 0,
+              "selected_from_id": "fixed35-recovery-search-p08-fixed35-dev-grid-02-06",
+              "selected_from_sha256": "7998f8cc97093938d94019564ccf623ca975d230417d6a7783af8f2056148517",
+              "forbidden_contact_steps": 0,
+              "table_contact_steps": 27,
+              "whole_ball_entry": true,
+              "max_retention_s": 0.9999999999999999,
+              "board_bounce": true,
+              "native_initial_ball_center_m": [
+                0.5972809195518494,
+                -0.015246220864355564,
+                0.6723112463951111
+              ],
+              "capture": true,
+              "record_sha256": "04d89ac682a9d3d63f8768862971cac19c7dc463a31205dfcb27ef6c5420154f"
+            },
+            {
+              "id": "fixed35-recovery-repeat-c0-r1-fixed35-dev-grid-02-06",
+              "context_id": "fixed35-dev-grid-02-06",
+              "phase": "repeat",
+              "method": "recovery_repeat",
+              "bucket_xy_m": [
+                1.24,
+                -0.2
+              ],
+              "values": [
+                0.5972809378012257,
+                -0.015246220975644525,
+                0.4722152017627127,
+                27.237402878093004,
+                0.16259604854516874
+              ],
+              "native_release": true,
+              "invalid": null,
+              "invalid_physics": false,
+              "repeat": 1,
+              "confirmation_index": 0,
+              "selected_from_id": "fixed35-recovery-search-p08-fixed35-dev-grid-02-06",
+              "selected_from_sha256": "7998f8cc97093938d94019564ccf623ca975d230417d6a7783af8f2056148517",
+              "forbidden_contact_steps": 0,
+              "table_contact_steps": 27,
+              "whole_ball_entry": true,
+              "max_retention_s": 0.9999999999999999,
+              "board_bounce": true,
+              "native_initial_ball_center_m": [
+                0.5972809195518494,
+                -0.015246220864355564,
+                0.6723112463951111
+              ],
+              "capture": true,
+              "record_sha256": "3c454497565af09f949d7f255030087cfdd082264f352659ce5d3c76c3313116"
+            },
+            {
+              "id": "fixed35-recovery-repeat-c0-r2-fixed35-dev-grid-02-06",
+              "context_id": "fixed35-dev-grid-02-06",
+              "phase": "repeat",
+              "method": "recovery_repeat",
+              "bucket_xy_m": [
+                1.24,
+                -0.2
+              ],
+              "values": [
+                0.5972809378012257,
+                -0.015246220975644525,
+                0.4722152017627127,
+                27.237402878093004,
+                0.16259604854516874
+              ],
+              "native_release": true,
+              "invalid": null,
+              "invalid_physics": false,
+              "repeat": 2,
+              "confirmation_index": 0,
+              "selected_from_id": "fixed35-recovery-search-p08-fixed35-dev-grid-02-06",
+              "selected_from_sha256": "7998f8cc97093938d94019564ccf623ca975d230417d6a7783af8f2056148517",
+              "forbidden_contact_steps": 0,
+              "table_contact_steps": 27,
+              "whole_ball_entry": true,
+              "max_retention_s": 0.9999999999999999,
+              "board_bounce": true,
+              "native_initial_ball_center_m": [
+                0.5972809195518494,
+                -0.015246220864355564,
+                0.6723112463951111
+              ],
+              "capture": true,
+              "record_sha256": "262cba525b611cb046f00a03e864fd922c45a1adcc525a3bbdd8c5206e60bc93"
+            }
+          ]
+        }
+      ],
+      "confirmed_recipe": {
+        "id": "fixed35-recovery-search-p08-fixed35-dev-grid-02-06",
+        "context_id": "fixed35-dev-grid-02-06",
+        "phase": "search",
+        "method": "recovery_search",
+        "bucket_xy_m": [
+          1.24,
+          -0.2
+        ],
+        "values": [
+          0.5972809378012257,
+          -0.015246220975644525,
+          0.4722152017627127,
+          27.237402878093004,
+          0.16259604854516874
+        ],
+        "native_release": true,
+        "invalid": null,
+        "invalid_physics": false,
+        "forbidden_contact_steps": 0,
+        "table_contact_steps": 27,
+        "whole_ball_entry": true,
+        "max_retention_s": 0.9999999999999999,
+        "board_bounce": true,
+        "native_initial_ball_center_m": [
+          0.5972809195518494,
+          -0.015246220864355564,
+          0.6723112463951111
+        ],
+        "capture": true,
+        "record_sha256": "7998f8cc97093938d94019564ccf623ca975d230417d6a7783af8f2056148517"
+      },
+      "diagnosis": {
+        "category": "bucket_contact_without_entry",
+        "first_contacts_s": {
+          "board": 0.19947916666666665,
+          "bucket": 0.6645833333333333,
+          "table": 0.5873697916666667,
+          "floor": null,
+          "robot": 2.8494140625,
+          "unattributed": null
+        },
+        "closest_xy": {
+          "time_s": 0.6652994791666667,
+          "distance_m": 0.13455069471619815,
+          "ball_center_z_m": 0.16103294491767883
+        },
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "rim_band_contact": true,
+        "parent_row_sha256": "ea3da082d519d50cc21d10d2dd5418259ae519aaca4c0da35ae6795a45fc2e53"
+      },
+      "search_status": "confirmed"
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-00",
+      "bucket_xy_m": [
+        0.1,
+        0.025000000000000022
+      ],
+      "parent": {
+        "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-03-00",
+        "context_id": "fixed35-dev-grid-03-00",
+        "phase": "test",
+        "method": "current_bc",
+        "bucket_xy_m": [
+          0.1,
+          0.025000000000000022
+        ],
+        "values": [
+          0.442241262262325,
+          0.011141264817337796,
+          0.2473142741515419,
+          26.06418882164494,
+          0.12930021038893857
+        ],
+        "native_release": false,
+        "invalid": "fixed_base_clearance_rejected",
+        "invalid_physics": false,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "board_bounce": false,
+        "capture": false,
+        "record_sha256": "dc5bf42a585bf35c563cb2ae78d8968deab8e7efe270f4a94018fb7fa3a77713"
+      },
+      "blocked": true,
+      "search": {
+        "attempts": 0,
+        "native_releases": 0,
+        "captures": 0,
+        "setup_rejections": 0,
+        "native_misses": 0,
+        "invalid_physics": 0
+      },
+      "confirmation_groups": [],
+      "confirmed_recipe": null,
+      "diagnosis": {
+        "category": "fixed_base_blocked",
+        "parent_row_sha256": "dc5bf42a585bf35c563cb2ae78d8968deab8e7efe270f4a94018fb7fa3a77713"
+      },
+      "search_status": "fixed_base_blocked"
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        0.025000000000000022
+      ],
+      "parent": {
+        "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-03-04",
+        "context_id": "fixed35-dev-grid-03-04",
+        "phase": "test",
+        "method": "current_bc",
+        "bucket_xy_m": [
+          0.8599999999999999,
+          0.025000000000000022
+        ],
+        "values": [
+          0.5793206122429684,
+          0.014357257326392897,
+          0.4240021960311493,
+          18.816517955773364,
+          0.23246834380058465
+        ],
+        "native_release": true,
+        "invalid": null,
+        "invalid_physics": false,
+        "forbidden_contact_steps": 79,
+        "table_contact_steps": 5628,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "board_bounce": true,
+        "native_initial_ball_center_m": [
+          0.5793206095695496,
+          0.014357257634401321,
+          0.6939705610275269
+        ],
+        "capture": false,
+        "record_sha256": "edc46b19d3b73d990f77772d3e2c1aa52407c3cd7b5e156378488b60b70a8a1a"
+      },
+      "blocked": false,
+      "search": {
+        "attempts": 80,
+        "native_releases": 31,
+        "captures": 0,
+        "setup_rejections": 49,
+        "native_misses": 31,
+        "invalid_physics": 0
+      },
+      "confirmation_groups": [],
+      "confirmed_recipe": null,
+      "diagnosis": {
+        "category": "robot_before_bucket",
+        "first_contacts_s": {
+          "board": 0.21549479166666666,
+          "bucket": null,
+          "table": 1.0541666666666667,
+          "floor": 2.7457682291666665,
+          "robot": 0.48658854166666665,
+          "unattributed": null
+        },
+        "closest_xy": {
+          "time_s": 0.4871744791666667,
+          "distance_m": 0.025800589044657807,
+          "ball_center_z_m": 0.3877454400062561
+        },
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "rim_band_contact": false,
+        "parent_row_sha256": "edc46b19d3b73d990f77772d3e2c1aa52407c3cd7b5e156378488b60b70a8a1a"
+      },
+      "search_status": "search_exhausted"
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        0.025000000000000022
+      ],
+      "parent": {
+        "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-03-05",
+        "context_id": "fixed35-dev-grid-03-05",
+        "phase": "test",
+        "method": "current_bc",
+        "bucket_xy_m": [
+          1.0499999999999998,
+          0.025000000000000022
+        ],
+        "values": [
+          0.584283129176886,
+          0.014537455605074141,
+          0.42297119453599974,
+          22.55230240129527,
+          0.3017540726528702
+        ],
+        "native_release": true,
+        "invalid": null,
+        "invalid_physics": false,
+        "forbidden_contact_steps": 109,
+        "table_contact_steps": 26,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "board_bounce": true,
+        "native_initial_ball_center_m": [
+          0.5842831134796143,
+          0.014537455514073372,
+          0.7622252702713013
+        ],
+        "capture": false,
+        "record_sha256": "64684b623731bb5bb3765ec659d72c4fc64e7ffecbf7b2965e3b46932376df3f"
+      },
+      "blocked": false,
+      "search": {
+        "attempts": 80,
+        "native_releases": 23,
+        "captures": 0,
+        "setup_rejections": 57,
+        "native_misses": 23,
+        "invalid_physics": 0
+      },
+      "confirmation_groups": [],
+      "confirmed_recipe": null,
+      "diagnosis": {
+        "category": "robot_before_bucket",
+        "first_contacts_s": {
+          "board": 0.245703125,
+          "bucket": null,
+          "table": 1.197265625,
+          "floor": 1.7743489583333334,
+          "robot": 0.490234375,
+          "unattributed": null
+        },
+        "closest_xy": {
+          "time_s": 0.4910807291666667,
+          "distance_m": 0.1579052530913978,
+          "ball_center_z_m": 0.4317646920681
+        },
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "rim_band_contact": false,
+        "parent_row_sha256": "64684b623731bb5bb3765ec659d72c4fc64e7ffecbf7b2965e3b46932376df3f"
+      },
+      "search_status": "search_exhausted"
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-06",
+      "bucket_xy_m": [
+        1.24,
+        0.025000000000000022
+      ],
+      "parent": {
+        "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-03-06",
+        "context_id": "fixed35-dev-grid-03-06",
+        "phase": "test",
+        "method": "current_bc",
+        "bucket_xy_m": [
+          1.24,
+          0.025000000000000022
+        ],
+        "values": [
+          0.5921689649421873,
+          0.007441155274754325,
+          0.4502213676553051,
+          30.401357510515172,
+          0.3548602264231911
+        ],
+        "native_release": false,
+        "invalid": "fixed_base_clearance_rejected",
+        "invalid_physics": false,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "board_bounce": false,
+        "capture": false,
+        "record_sha256": "323058f62da7a1705ababd7d5667b8730c4ba364d1ef23a9d4de38948bd5bac2"
+      },
+      "blocked": true,
+      "search": {
+        "attempts": 0,
+        "native_releases": 0,
+        "captures": 0,
+        "setup_rejections": 0,
+        "native_misses": 0,
+        "invalid_physics": 0
+      },
+      "confirmation_groups": [],
+      "confirmed_recipe": null,
+      "diagnosis": {
+        "category": "fixed_base_blocked",
+        "parent_row_sha256": "323058f62da7a1705ababd7d5667b8730c4ba364d1ef23a9d4de38948bd5bac2"
+      },
+      "search_status": "fixed_base_blocked"
+    },
+    {
+      "context_id": "fixed35-dev-grid-04-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        0.25
+      ],
+      "parent": {
+        "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-04-04",
+        "context_id": "fixed35-dev-grid-04-04",
+        "phase": "test",
+        "method": "current_bc",
+        "bucket_xy_m": [
+          0.8599999999999999,
+          0.25
+        ],
+        "values": [
+          0.6041155840588249,
+          -0.03694886538836507,
+          0.4086768767063135,
+          32.797118423429126,
+          0.13622960136718082
+        ],
+        "native_release": true,
+        "invalid": null,
+        "invalid_physics": false,
+        "forbidden_contact_steps": 0,
+        "table_contact_steps": 33790,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "board_bounce": true,
+        "native_initial_ball_center_m": [
+          0.6041156053543091,
+          -0.03694886714220047,
+          0.5824064612388611
+        ],
+        "capture": false,
+        "record_sha256": "305aae016347b1d959c27f10db0e1b353a12b5e7153a42a5a8d94abd29e8d514"
+      },
+      "blocked": false,
+      "search": {
+        "attempts": 4,
+        "native_releases": 3,
+        "captures": 1,
+        "setup_rejections": 1,
+        "native_misses": 2,
+        "invalid_physics": 0
+      },
+      "confirmation_groups": [
+        {
+          "selected": {
+            "id": "fixed35-recovery-search-p03-fixed35-dev-grid-04-04",
+            "context_id": "fixed35-dev-grid-04-04",
+            "phase": "search",
+            "method": "recovery_search",
+            "bucket_xy_m": [
+              0.8599999999999999,
+              0.25
+            ],
+            "values": [
+              0.5781171090699498,
+              -0.023455590477456312,
+              0.46000420236027745,
+              25.993018539532084,
+              0.2528264028510086
+            ],
+            "native_release": true,
+            "invalid": null,
+            "invalid_physics": false,
+            "forbidden_contact_steps": 0,
+            "table_contact_steps": 0,
+            "whole_ball_entry": true,
+            "max_retention_s": 1.0,
+            "board_bounce": true,
+            "native_initial_ball_center_m": [
+              0.5781171321868896,
+              -0.02345559000968933,
+              0.7503306269645691
+            ],
+            "capture": true,
+            "record_sha256": "23c5c27ac09fe9028561ec8e99ca2cfcd825994c351dc6280f21d9fc46699c91"
+          },
+          "repeats": [
+            {
+              "id": "fixed35-recovery-repeat-c0-r0-fixed35-dev-grid-04-04",
+              "context_id": "fixed35-dev-grid-04-04",
+              "phase": "repeat",
+              "method": "recovery_repeat",
+              "bucket_xy_m": [
+                0.8599999999999999,
+                0.25
+              ],
+              "values": [
+                0.5781171090699498,
+                -0.023455590477456312,
+                0.46000420236027745,
+                25.993018539532084,
+                0.2528264028510086
+              ],
+              "native_release": true,
+              "invalid": null,
+              "invalid_physics": false,
+              "repeat": 0,
+              "confirmation_index": 0,
+              "selected_from_id": "fixed35-recovery-search-p03-fixed35-dev-grid-04-04",
+              "selected_from_sha256": "23c5c27ac09fe9028561ec8e99ca2cfcd825994c351dc6280f21d9fc46699c91",
+              "forbidden_contact_steps": 0,
+              "table_contact_steps": 0,
+              "whole_ball_entry": true,
+              "max_retention_s": 1.0,
+              "board_bounce": true,
+              "native_initial_ball_center_m": [
+                0.5781171321868896,
+                -0.02345559000968933,
+                0.7503306269645691
+              ],
+              "capture": true,
+              "record_sha256": "38672c5545152d11586c5da1e0dfe4b9827f145846068a11dafebd364d508ada"
+            },
+            {
+              "id": "fixed35-recovery-repeat-c0-r1-fixed35-dev-grid-04-04",
+              "context_id": "fixed35-dev-grid-04-04",
+              "phase": "repeat",
+              "method": "recovery_repeat",
+              "bucket_xy_m": [
+                0.8599999999999999,
+                0.25
+              ],
+              "values": [
+                0.5781171090699498,
+                -0.023455590477456312,
+                0.46000420236027745,
+                25.993018539532084,
+                0.2528264028510086
+              ],
+              "native_release": true,
+              "invalid": null,
+              "invalid_physics": false,
+              "repeat": 1,
+              "confirmation_index": 0,
+              "selected_from_id": "fixed35-recovery-search-p03-fixed35-dev-grid-04-04",
+              "selected_from_sha256": "23c5c27ac09fe9028561ec8e99ca2cfcd825994c351dc6280f21d9fc46699c91",
+              "forbidden_contact_steps": 0,
+              "table_contact_steps": 0,
+              "whole_ball_entry": true,
+              "max_retention_s": 1.0,
+              "board_bounce": true,
+              "native_initial_ball_center_m": [
+                0.5781171321868896,
+                -0.02345559000968933,
+                0.7503306269645691
+              ],
+              "capture": true,
+              "record_sha256": "705c7a95602b7dcac4f12ace9a53e9fdf0b6d3a435b89fd25fbe7ea4a93950a0"
+            },
+            {
+              "id": "fixed35-recovery-repeat-c0-r2-fixed35-dev-grid-04-04",
+              "context_id": "fixed35-dev-grid-04-04",
+              "phase": "repeat",
+              "method": "recovery_repeat",
+              "bucket_xy_m": [
+                0.8599999999999999,
+                0.25
+              ],
+              "values": [
+                0.5781171090699498,
+                -0.023455590477456312,
+                0.46000420236027745,
+                25.993018539532084,
+                0.2528264028510086
+              ],
+              "native_release": true,
+              "invalid": null,
+              "invalid_physics": false,
+              "repeat": 2,
+              "confirmation_index": 0,
+              "selected_from_id": "fixed35-recovery-search-p03-fixed35-dev-grid-04-04",
+              "selected_from_sha256": "23c5c27ac09fe9028561ec8e99ca2cfcd825994c351dc6280f21d9fc46699c91",
+              "forbidden_contact_steps": 0,
+              "table_contact_steps": 0,
+              "whole_ball_entry": true,
+              "max_retention_s": 1.0,
+              "board_bounce": true,
+              "native_initial_ball_center_m": [
+                0.5781171321868896,
+                -0.02345559000968933,
+                0.7503306269645691
+              ],
+              "capture": true,
+              "record_sha256": "4894d2435dc4afbdcf6b9666bb84d53f0df954c2574d9279ec4fb3ed6ef8cfa6"
+            }
+          ]
+        }
+      ],
+      "confirmed_recipe": {
+        "id": "fixed35-recovery-search-p03-fixed35-dev-grid-04-04",
+        "context_id": "fixed35-dev-grid-04-04",
+        "phase": "search",
+        "method": "recovery_search",
+        "bucket_xy_m": [
+          0.8599999999999999,
+          0.25
+        ],
+        "values": [
+          0.5781171090699498,
+          -0.023455590477456312,
+          0.46000420236027745,
+          25.993018539532084,
+          0.2528264028510086
+        ],
+        "native_release": true,
+        "invalid": null,
+        "invalid_physics": false,
+        "forbidden_contact_steps": 0,
+        "table_contact_steps": 0,
+        "whole_ball_entry": true,
+        "max_retention_s": 1.0,
+        "board_bounce": true,
+        "native_initial_ball_center_m": [
+          0.5781171321868896,
+          -0.02345559000968933,
+          0.7503306269645691
+        ],
+        "capture": true,
+        "record_sha256": "23c5c27ac09fe9028561ec8e99ca2cfcd825994c351dc6280f21d9fc46699c91"
+      },
+      "diagnosis": {
+        "category": "bucket_contact_without_entry",
+        "first_contacts_s": {
+          "board": 0.16041666666666665,
+          "bucket": 0.4195963541666667,
+          "table": 0.8341145833333333,
+          "floor": null,
+          "robot": null,
+          "unattributed": null
+        },
+        "closest_xy": {
+          "time_s": 0.4205729166666667,
+          "distance_m": 0.11190867609533009,
+          "ball_center_z_m": 0.21739725768566132
+        },
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "rim_band_contact": true,
+        "parent_row_sha256": "305aae016347b1d959c27f10db0e1b353a12b5e7153a42a5a8d94abd29e8d514"
+      },
+      "search_status": "confirmed"
+    },
+    {
+      "context_id": "fixed35-dev-grid-04-06",
+      "bucket_xy_m": [
+        1.24,
+        0.25
+      ],
+      "parent": {
+        "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-04-06",
+        "context_id": "fixed35-dev-grid-04-06",
+        "phase": "test",
+        "method": "current_bc",
+        "bucket_xy_m": [
+          1.24,
+          0.25
+        ],
+        "values": [
+          0.5630638961518069,
+          -0.01962133824309124,
+          0.4652934413869423,
+          25.468211422606952,
+          0.32507641361952994
+        ],
+        "native_release": false,
+        "invalid": "finite_ik_unresolved",
+        "invalid_physics": false,
+        "whole_ball_entry": false,
+        "max_retention_s": 0.0,
+        "board_bounce": false,
+        "capture": false,
+        "record_sha256": "4296921640637d0bdd4c84ce16a2bf7e1556e619caa62ed5dba6ac4bc04c643e"
+      },
+      "blocked": false,
+      "search": {
+        "attempts": 80,
+        "native_releases": 4,
+        "captures": 0,
+        "setup_rejections": 76,
+        "native_misses": 4,
+        "invalid_physics": 0
+      },
+      "confirmation_groups": [],
+      "confirmed_recipe": null,
+      "diagnosis": {
+        "category": "finite_setup_unresolved",
+        "parent_row_sha256": "4296921640637d0bdd4c84ce16a2bf7e1556e619caa62ed5dba6ac4bc04c643e"
+      },
+      "search_status": "search_exhausted"
+    }
+  ],
+  "preserved_recipes": [
+    {
+      "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-00-01",
+      "context_id": "fixed35-dev-grid-00-01",
+      "phase": "test",
+      "method": "current_bc",
+      "bucket_xy_m": [
+        0.29,
+        -0.65
+      ],
+      "values": [
+        0.5351793598908061,
+        -0.23593820733430415,
+        0.2820069076117191,
+        29.23749041011882,
+        0.35286172432252216
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.5351793766021729,
+        -0.2359382063150406,
+        0.6723686456680298
+      ],
+      "capture": true,
+      "record_sha256": "634fd4de25f3084649dd3baaad1e59659fbfc5f2df6e702e7475aae9a21dc1cc"
+    },
+    {
+      "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-00-02",
+      "context_id": "fixed35-dev-grid-00-02",
+      "phase": "test",
+      "method": "current_bc",
+      "bucket_xy_m": [
+        0.48,
+        -0.65
+      ],
+      "values": [
+        0.6108645832023196,
+        -0.4045222885038059,
+        0.257489660126498,
+        36.7434436180182,
+        0.19179323941802848
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999999,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.6108645796775818,
+        -0.4045222997665405,
+        0.48678290843963623
+      ],
+      "capture": true,
+      "record_sha256": "14fe75337087b3a7f10ff55b104c81fd82867ff2a3397c57b214b5a3a27b99ee"
+    },
+    {
+      "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-00-03",
+      "context_id": "fixed35-dev-grid-00-03",
+      "phase": "test",
+      "method": "current_bc",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.65
+      ],
+      "values": [
+        0.6395794517700053,
+        -0.3519525305585856,
+        0.38392138218242616,
+        32.80661709422219,
+        0.1382801076748219
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.6395794749259949,
+        -0.35195252299308777,
+        0.5597015023231506
+      ],
+      "capture": true,
+      "record_sha256": "84b5ce1272b1cf5631b74ca0e657615bbe3804dcde13bd1fb30c2224744c8e93"
+    },
+    {
+      "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-00-04",
+      "context_id": "fixed35-dev-grid-00-04",
+      "phase": "test",
+      "method": "current_bc",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.65
+      ],
+      "values": [
+        0.6193642496890989,
+        -0.3522096570987152,
+        0.4092119989875616,
+        32.76166326014174,
+        0.13683034522416218
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.6193642616271973,
+        -0.3522096574306488,
+        0.5835423469543457
+      ],
+      "capture": true,
+      "record_sha256": "b17c2e611db585078315afc3a494095ab7d923a5a889ecb2ac43896a5c5f9f7f"
+    },
+    {
+      "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-00-05",
+      "context_id": "fixed35-dev-grid-00-05",
+      "phase": "test",
+      "method": "current_bc",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.65
+      ],
+      "values": [
+        0.6424143492297997,
+        -0.19648282875384931,
+        0.4238723631942919,
+        31.639380159586587,
+        0.12255280410759697
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 26,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.6424143314361572,
+        -0.1964828222990036,
+        0.583925187587738
+      ],
+      "capture": true,
+      "record_sha256": "73e5a8b1b07dd3bf37bbc72c6bad676b0a124c25f41c934e05f81f150acb05d1"
+    },
+    {
+      "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-00-06",
+      "context_id": "fixed35-dev-grid-00-06",
+      "phase": "test",
+      "method": "current_bc",
+      "bucket_xy_m": [
+        1.24,
+        -0.65
+      ],
+      "values": [
+        0.6518147568813372,
+        -0.19689737502725813,
+        0.4299812802965787,
+        30.642481533278573,
+        0.18220611818551888
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 26,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999999,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.6518147587776184,
+        -0.19689737260341644,
+        0.6496874094009399
+      ],
+      "capture": true,
+      "record_sha256": "d39c9eb7902ac19fd21f884222b0a2f2bb17ccde31d30f0e67ce64385201158e"
+    },
+    {
+      "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-01-00",
+      "context_id": "fixed35-dev-grid-01-00",
+      "phase": "test",
+      "method": "current_bc",
+      "bucket_xy_m": [
+        0.1,
+        -0.42500000000000004
+      ],
+      "values": [
+        0.5401341944228327,
+        -0.28068220496622026,
+        0.33746521571406396,
+        32.26735434569107,
+        0.31597231234702144
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.5401341915130615,
+        -0.28068220615386963,
+        0.6909375190734863
+      ],
+      "capture": true,
+      "record_sha256": "b780585aa19b22c453a964ba0b8db0869b7866b28204969cdb4569b1d9790e8c"
+    },
+    {
+      "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-01-01",
+      "context_id": "fixed35-dev-grid-01-01",
+      "phase": "test",
+      "method": "current_bc",
+      "bucket_xy_m": [
+        0.29,
+        -0.42500000000000004
+      ],
+      "values": [
+        0.6309465180929498,
+        -0.3765590623349647,
+        0.26925764944465574,
+        31.318592024542816,
+        0.22947493318688644
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.6309465169906616,
+        -0.3765590488910675,
+        0.536232590675354
+      ],
+      "capture": true,
+      "record_sha256": "691fbc15a9584653c6c56e8e0e7ee844dad31dc680598d162e997c59e330e1f8"
+    },
+    {
+      "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-01-02",
+      "context_id": "fixed35-dev-grid-01-02",
+      "phase": "test",
+      "method": "current_bc",
+      "bucket_xy_m": [
+        0.48,
+        -0.42500000000000004
+      ],
+      "values": [
+        0.6408611304346687,
+        -0.3309854890029077,
+        0.2745852778688143,
+        27.506108322085513,
+        0.09696767638333864
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.6408611536026001,
+        -0.33098548650741577,
+        0.4090529680252075
+      ],
+      "capture": true,
+      "record_sha256": "d98f3849e31445f798e92b59e6423b19296ecf0ed6bc60317efb9c1b7d6cea5d"
+    },
+    {
+      "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-01-03",
+      "context_id": "fixed35-dev-grid-01-03",
+      "phase": "test",
+      "method": "current_bc",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.42500000000000004
+      ],
+      "values": [
+        0.6138323952777521,
+        -0.16526751657701705,
+        0.33067961888440806,
+        22.284764308755534,
+        0.15689670731377792
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.613832414150238,
+        -0.16526751220226288,
+        0.5250763297080994
+      ],
+      "capture": true,
+      "record_sha256": "7bf69fde2bc91996705e442a3eade5fddb8feea7ee9bffbab35bbd5faa19da3a"
+    },
+    {
+      "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-01-04",
+      "context_id": "fixed35-dev-grid-01-04",
+      "phase": "test",
+      "method": "current_bc",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.42500000000000004
+      ],
+      "values": [
+        0.6275456492101656,
+        -0.23606943606783798,
+        0.4099643901337753,
+        32.90149048622205,
+        0.12552776617043523
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.6275456547737122,
+        -0.2360694408416748,
+        0.5729921460151672
+      ],
+      "capture": true,
+      "record_sha256": "ffab48b3a5d2e3d2e62da51202c1ec46943c43d0d5ee90e3909e9af615f4075e"
+    },
+    {
+      "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-02-00",
+      "context_id": "fixed35-dev-grid-02-00",
+      "phase": "test",
+      "method": "current_bc",
+      "bucket_xy_m": [
+        0.1,
+        -0.2
+      ],
+      "values": [
+        0.540595987457544,
+        -0.2394677699425168,
+        0.3345948402237091,
+        32.422363792920535,
+        0.307512306313147
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999999,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.5405960083007812,
+        -0.2394677698612213,
+        0.6796071529388428
+      ],
+      "capture": true,
+      "record_sha256": "51182be9d5ad76696463743fb5086e2cbce7b109a05f5fb649c495c0b4e43aab"
+    },
+    {
+      "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-02-01",
+      "context_id": "fixed35-dev-grid-02-01",
+      "phase": "test",
+      "method": "current_bc",
+      "bucket_xy_m": [
+        0.29,
+        -0.2
+      ],
+      "values": [
+        0.6121452780958598,
+        -0.34264657934936454,
+        0.2700191642909115,
+        31.646390293168977,
+        0.2570888412978671
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.6121453046798706,
+        -0.3426465690135956,
+        0.5646079778671265
+      ],
+      "capture": true,
+      "record_sha256": "87356ed9742eb6b05a1b919aa6f420f9a077509eccf253ac50790455fdf17e58"
+    },
+    {
+      "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-02-02",
+      "context_id": "fixed35-dev-grid-02-02",
+      "phase": "test",
+      "method": "current_bc",
+      "bucket_xy_m": [
+        0.48,
+        -0.2
+      ],
+      "values": [
+        0.6403456999706347,
+        -0.2735220157146365,
+        0.2744928829292632,
+        27.621659987423406,
+        0.09412745636855185
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.6403456926345825,
+        -0.2735220193862915,
+        0.40612033009529114
+      ],
+      "capture": true,
+      "record_sha256": "e51d2abd2a746c2e594bfdf6c7105486a752f76a319b6fa9c44d6dde23840cbb"
+    },
+    {
+      "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-02-04",
+      "context_id": "fixed35-dev-grid-02-04",
+      "phase": "test",
+      "method": "current_bc",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.2
+      ],
+      "values": [
+        0.5631851843716873,
+        -0.06175652144137391,
+        0.4976091239666261,
+        22.330081755597877,
+        0.17157482761651477
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.5631851553916931,
+        -0.061756521463394165,
+        0.7066839337348938
+      ],
+      "capture": true,
+      "record_sha256": "cacdb17262adc1f1c6ae329f1208a531f18711a7e7903c022c8cf682e4bbe368"
+    },
+    {
+      "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-02-05",
+      "context_id": "fixed35-dev-grid-02-05",
+      "phase": "test",
+      "method": "current_bc",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.2
+      ],
+      "values": [
+        0.5990279187790997,
+        -0.024662355473544357,
+        0.4602331838335254,
+        26.010087037701428,
+        0.25828216580106117
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999998,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.5990279316902161,
+        -0.024662354961037636,
+        0.7560153603553772
+      ],
+      "capture": true,
+      "record_sha256": "64b2c22469e2e627f9c0b4613135ac2e463f8b4bc9ba52d252ec640a1c668375"
+    },
+    {
+      "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-03-01",
+      "context_id": "fixed35-dev-grid-03-01",
+      "phase": "test",
+      "method": "current_bc",
+      "bucket_xy_m": [
+        0.29,
+        0.025000000000000022
+      ],
+      "values": [
+        0.45987639250811296,
+        0.014725297318946399,
+        0.2740447733636925,
+        27.43961192608302,
+        0.08387615215887058
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.4598763883113861,
+        0.014725297689437866,
+        0.39542093873023987
+      ],
+      "capture": true,
+      "record_sha256": "5782b679aa761078d42c617bf0915babf9b79701223bb1ec66b8f0cde7a13b71"
+    },
+    {
+      "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-03-02",
+      "context_id": "fixed35-dev-grid-03-02",
+      "phase": "test",
+      "method": "current_bc",
+      "bucket_xy_m": [
+        0.48,
+        0.025000000000000022
+      ],
+      "values": [
+        0.6331505990961195,
+        -0.04974026421930236,
+        0.27379131648763877,
+        27.35209184505424,
+        0.07900050974967088
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.633150577545166,
+        -0.0497402660548687,
+        0.39029183983802795
+      ],
+      "capture": true,
+      "record_sha256": "6c86abcc04c3eb69c5cb4a66fe4196ad3d58ae6101e12640c1f9d964dbdcb66b"
+    },
+    {
+      "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-03-03",
+      "context_id": "fixed35-dev-grid-03-03",
+      "phase": "test",
+      "method": "current_bc",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        0.025000000000000022
+      ],
+      "values": [
+        0.60548801367399,
+        -0.16845315548352482,
+        0.30144578384701326,
+        22.88715488693651,
+        0.14752847100715202
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999999,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.6054880023002625,
+        -0.1684531569480896,
+        0.48647424578666687
+      ],
+      "capture": true,
+      "record_sha256": "42d5f493c7276c125c05b73e6438f88dca8bab6a199e623172dced0c74baf936"
+    },
+    {
+      "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-04-00",
+      "context_id": "fixed35-dev-grid-04-00",
+      "phase": "test",
+      "method": "current_bc",
+      "bucket_xy_m": [
+        0.1,
+        0.25
+      ],
+      "values": [
+        0.4876267910056605,
+        0.047976992770760646,
+        0.3381780118334813,
+        33.28610782524288,
+        0.29164497349728646
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.4876267910003662,
+        0.04797699302434921,
+        0.6673229932785034
+      ],
+      "capture": true,
+      "record_sha256": "3baadce8e07682d120088afef4819908fd69ed34bc93a97ab331acac1826e02f"
+    },
+    {
+      "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-04-01",
+      "context_id": "fixed35-dev-grid-04-01",
+      "phase": "test",
+      "method": "current_bc",
+      "bucket_xy_m": [
+        0.29,
+        0.25
+      ],
+      "values": [
+        0.5718850871603405,
+        -0.07874353166067805,
+        0.34055561490730574,
+        32.24626369917453,
+        0.3025227040187788
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.5718851089477539,
+        -0.07874353229999542,
+        0.6805782914161682
+      ],
+      "capture": true,
+      "record_sha256": "9042ae2d57d7d654705dfd6833d63d448e8ccbc28b2f3e075480d8e16b0b0687"
+    },
+    {
+      "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-04-02",
+      "context_id": "fixed35-dev-grid-04-02",
+      "phase": "test",
+      "method": "current_bc",
+      "bucket_xy_m": [
+        0.48,
+        0.25
+      ],
+      "values": [
+        0.6128926773736967,
+        0.12251468514659879,
+        0.2737564080169633,
+        27.726683942395994,
+        0.09524858935243377
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.6128926873207092,
+        0.12251468747854233,
+        0.4065049886703491
+      ],
+      "capture": true,
+      "record_sha256": "e3f25c7fdad60a2c9f7bd865fc982c31f6eac459cd26e79d26e6e8650d33d1ae"
+    },
+    {
+      "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-04-03",
+      "context_id": "fixed35-dev-grid-04-03",
+      "phase": "test",
+      "method": "current_bc",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        0.25
+      ],
+      "values": [
+        0.5837560174474958,
+        -0.03693221773158261,
+        0.3833045328447023,
+        32.891104878056595,
+        0.13723556739558926
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999999,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.5837560296058655,
+        -0.036932218819856644,
+        0.5580400824546814
+      ],
+      "capture": true,
+      "record_sha256": "6215cf7bb862c2c0559972740d99993fc527fa40ef348ee8957e25f25de4cfa0"
+    },
+    {
+      "id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-04-05",
+      "context_id": "fixed35-dev-grid-04-05",
+      "phase": "test",
+      "method": "current_bc",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        0.25
+      ],
+      "values": [
+        0.5781171090699498,
+        -0.023455590477456312,
+        0.46000420236027745,
+        25.993018539532084,
+        0.2528264028510086
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.5781171321868896,
+        -0.02345559000968933,
+        0.7503306269645691
+      ],
+      "capture": true,
+      "record_sha256": "e63b30af8c66407e15cfee01ccd878005c6d66d2581d459ed3dae54dc4b31720"
+    }
+  ],
+  "preserved_replays": [
+    {
+      "id": "fixed35-recovery-preserved-fixed35-dev-grid-00-01",
+      "context_id": "fixed35-dev-grid-00-01",
+      "phase": "preserved",
+      "method": "preserved_current",
+      "bucket_xy_m": [
+        0.29,
+        -0.65
+      ],
+      "values": [
+        0.5351793598908061,
+        -0.23593820733430415,
+        0.2820069076117191,
+        29.23749041011882,
+        0.35286172432252216
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.5351793766021729,
+        -0.2359382063150406,
+        0.6723686456680298
+      ],
+      "capture": true,
+      "record_sha256": "7ef6000b414f7075ae1587bd040076f5fb05f101994f9254a93d33246a45089e"
+    },
+    {
+      "id": "fixed35-recovery-preserved-fixed35-dev-grid-00-02",
+      "context_id": "fixed35-dev-grid-00-02",
+      "phase": "preserved",
+      "method": "preserved_current",
+      "bucket_xy_m": [
+        0.48,
+        -0.65
+      ],
+      "values": [
+        0.6108645832023196,
+        -0.4045222885038059,
+        0.257489660126498,
+        36.7434436180182,
+        0.19179323941802848
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999999,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.6108645796775818,
+        -0.4045222997665405,
+        0.48678290843963623
+      ],
+      "capture": true,
+      "record_sha256": "718c13fe165b3fb7ffce57a0c8de532844ee5bf877dfe8d2c097848e25b901f2"
+    },
+    {
+      "id": "fixed35-recovery-preserved-fixed35-dev-grid-00-03",
+      "context_id": "fixed35-dev-grid-00-03",
+      "phase": "preserved",
+      "method": "preserved_current",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.65
+      ],
+      "values": [
+        0.6395794517700053,
+        -0.3519525305585856,
+        0.38392138218242616,
+        32.80661709422219,
+        0.1382801076748219
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.6395794749259949,
+        -0.35195252299308777,
+        0.5597015023231506
+      ],
+      "capture": true,
+      "record_sha256": "3a7bb216afe52534af6142f7fe419b6c3212b710ec463d37353fc0389906377e"
+    },
+    {
+      "id": "fixed35-recovery-preserved-fixed35-dev-grid-00-04",
+      "context_id": "fixed35-dev-grid-00-04",
+      "phase": "preserved",
+      "method": "preserved_current",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.65
+      ],
+      "values": [
+        0.6193642496890989,
+        -0.3522096570987152,
+        0.4092119989875616,
+        32.76166326014174,
+        0.13683034522416218
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.6193642616271973,
+        -0.3522096574306488,
+        0.5835423469543457
+      ],
+      "capture": true,
+      "record_sha256": "a45e62b775ba628349b73577b9b37c491db48c15fc765d72b33c943d07ee6142"
+    },
+    {
+      "id": "fixed35-recovery-preserved-fixed35-dev-grid-00-05",
+      "context_id": "fixed35-dev-grid-00-05",
+      "phase": "preserved",
+      "method": "preserved_current",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.65
+      ],
+      "values": [
+        0.6424143492297997,
+        -0.19648282875384931,
+        0.4238723631942919,
+        31.639380159586587,
+        0.12255280410759697
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 26,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.6424143314361572,
+        -0.1964828222990036,
+        0.583925187587738
+      ],
+      "capture": true,
+      "record_sha256": "599744f5dc898e47e400e007d493c6df7b0558e963de1c2a1df5064fc117d448"
+    },
+    {
+      "id": "fixed35-recovery-preserved-fixed35-dev-grid-00-06",
+      "context_id": "fixed35-dev-grid-00-06",
+      "phase": "preserved",
+      "method": "preserved_current",
+      "bucket_xy_m": [
+        1.24,
+        -0.65
+      ],
+      "values": [
+        0.6518147568813372,
+        -0.19689737502725813,
+        0.4299812802965787,
+        30.642481533278573,
+        0.18220611818551888
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 26,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999999,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.6518147587776184,
+        -0.19689737260341644,
+        0.6496874094009399
+      ],
+      "capture": true,
+      "record_sha256": "f98b09fd9215b252ad7dbf1c9816ba6dff140fd4eb41e608753a25637b164881"
+    },
+    {
+      "id": "fixed35-recovery-preserved-fixed35-dev-grid-01-00",
+      "context_id": "fixed35-dev-grid-01-00",
+      "phase": "preserved",
+      "method": "preserved_current",
+      "bucket_xy_m": [
+        0.1,
+        -0.42500000000000004
+      ],
+      "values": [
+        0.5401341944228327,
+        -0.28068220496622026,
+        0.33746521571406396,
+        32.26735434569107,
+        0.31597231234702144
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.5401341915130615,
+        -0.28068220615386963,
+        0.6909375190734863
+      ],
+      "capture": true,
+      "record_sha256": "7ee877693e5f5fee6607035242ba935728a31d1e15d453978840e18ae8e9de0e"
+    },
+    {
+      "id": "fixed35-recovery-preserved-fixed35-dev-grid-01-01",
+      "context_id": "fixed35-dev-grid-01-01",
+      "phase": "preserved",
+      "method": "preserved_current",
+      "bucket_xy_m": [
+        0.29,
+        -0.42500000000000004
+      ],
+      "values": [
+        0.6309465180929498,
+        -0.3765590623349647,
+        0.26925764944465574,
+        31.318592024542816,
+        0.22947493318688644
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.6309465169906616,
+        -0.3765590488910675,
+        0.536232590675354
+      ],
+      "capture": true,
+      "record_sha256": "2e7e8d126c0caf0a2bb1937c11b071c1cf23b3bbcda7e1dc0e02be12f019730b"
+    },
+    {
+      "id": "fixed35-recovery-preserved-fixed35-dev-grid-01-02",
+      "context_id": "fixed35-dev-grid-01-02",
+      "phase": "preserved",
+      "method": "preserved_current",
+      "bucket_xy_m": [
+        0.48,
+        -0.42500000000000004
+      ],
+      "values": [
+        0.6408611304346687,
+        -0.3309854890029077,
+        0.2745852778688143,
+        27.506108322085513,
+        0.09696767638333864
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.6408611536026001,
+        -0.33098548650741577,
+        0.4090529680252075
+      ],
+      "capture": true,
+      "record_sha256": "f9d75a97f1cd894d25fcda91f1f544b61d0b0ab04f6cbd6ec83f7be00ca95798"
+    },
+    {
+      "id": "fixed35-recovery-preserved-fixed35-dev-grid-01-03",
+      "context_id": "fixed35-dev-grid-01-03",
+      "phase": "preserved",
+      "method": "preserved_current",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.42500000000000004
+      ],
+      "values": [
+        0.6138323952777521,
+        -0.16526751657701705,
+        0.33067961888440806,
+        22.284764308755534,
+        0.15689670731377792
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.613832414150238,
+        -0.16526751220226288,
+        0.5250763297080994
+      ],
+      "capture": true,
+      "record_sha256": "57454ff69a5b486f1f55061f7113f429a428f037f2d96f8d49c7b7be98370424"
+    },
+    {
+      "id": "fixed35-recovery-preserved-fixed35-dev-grid-01-04",
+      "context_id": "fixed35-dev-grid-01-04",
+      "phase": "preserved",
+      "method": "preserved_current",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.42500000000000004
+      ],
+      "values": [
+        0.6275456492101656,
+        -0.23606943606783798,
+        0.4099643901337753,
+        32.90149048622205,
+        0.12552776617043523
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.6275456547737122,
+        -0.2360694408416748,
+        0.5729921460151672
+      ],
+      "capture": true,
+      "record_sha256": "186104d49f58e9e9cbd34cb2bc53f60c248e90ce6b0e6b7488efec8bc8bf6e50"
+    },
+    {
+      "id": "fixed35-recovery-preserved-fixed35-dev-grid-02-00",
+      "context_id": "fixed35-dev-grid-02-00",
+      "phase": "preserved",
+      "method": "preserved_current",
+      "bucket_xy_m": [
+        0.1,
+        -0.2
+      ],
+      "values": [
+        0.540595987457544,
+        -0.2394677699425168,
+        0.3345948402237091,
+        32.422363792920535,
+        0.307512306313147
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999999,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.5405960083007812,
+        -0.2394677698612213,
+        0.6796071529388428
+      ],
+      "capture": true,
+      "record_sha256": "4426a47e9eb6264bb56cb36ee74507df7c1298cb25be130f9a66bf28c7876b59"
+    },
+    {
+      "id": "fixed35-recovery-preserved-fixed35-dev-grid-02-01",
+      "context_id": "fixed35-dev-grid-02-01",
+      "phase": "preserved",
+      "method": "preserved_current",
+      "bucket_xy_m": [
+        0.29,
+        -0.2
+      ],
+      "values": [
+        0.6121452780958598,
+        -0.34264657934936454,
+        0.2700191642909115,
+        31.646390293168977,
+        0.2570888412978671
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.6121453046798706,
+        -0.3426465690135956,
+        0.5646079778671265
+      ],
+      "capture": true,
+      "record_sha256": "2306ba801a199110a3e66064ec44686d7cd85d785780a91f4b30ff6e58f12fca"
+    },
+    {
+      "id": "fixed35-recovery-preserved-fixed35-dev-grid-02-02",
+      "context_id": "fixed35-dev-grid-02-02",
+      "phase": "preserved",
+      "method": "preserved_current",
+      "bucket_xy_m": [
+        0.48,
+        -0.2
+      ],
+      "values": [
+        0.6403456999706347,
+        -0.2735220157146365,
+        0.2744928829292632,
+        27.621659987423406,
+        0.09412745636855185
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.6403456926345825,
+        -0.2735220193862915,
+        0.40612033009529114
+      ],
+      "capture": true,
+      "record_sha256": "93db1050e9d2eabece78f2a50fb0363c95e2c26ef5fe0382ce46fedbeab81c06"
+    },
+    {
+      "id": "fixed35-recovery-preserved-fixed35-dev-grid-02-04",
+      "context_id": "fixed35-dev-grid-02-04",
+      "phase": "preserved",
+      "method": "preserved_current",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.2
+      ],
+      "values": [
+        0.5631851843716873,
+        -0.06175652144137391,
+        0.4976091239666261,
+        22.330081755597877,
+        0.17157482761651477
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.5631851553916931,
+        -0.061756521463394165,
+        0.7066839337348938
+      ],
+      "capture": true,
+      "record_sha256": "81771fcffaa91524e9ac30f31d3b0e34a745573c72f0362c43f55f1ae877d74c"
+    },
+    {
+      "id": "fixed35-recovery-preserved-fixed35-dev-grid-02-05",
+      "context_id": "fixed35-dev-grid-02-05",
+      "phase": "preserved",
+      "method": "preserved_current",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.2
+      ],
+      "values": [
+        0.5990279187790997,
+        -0.024662355473544357,
+        0.4602331838335254,
+        26.010087037701428,
+        0.25828216580106117
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999998,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.5990279316902161,
+        -0.024662354961037636,
+        0.7560153603553772
+      ],
+      "capture": true,
+      "record_sha256": "c6ac57e55f379cfb98d99e9ee09915565b43966e61c76aaef038ca0cd8d52611"
+    },
+    {
+      "id": "fixed35-recovery-preserved-fixed35-dev-grid-03-01",
+      "context_id": "fixed35-dev-grid-03-01",
+      "phase": "preserved",
+      "method": "preserved_current",
+      "bucket_xy_m": [
+        0.29,
+        0.025000000000000022
+      ],
+      "values": [
+        0.45987639250811296,
+        0.014725297318946399,
+        0.2740447733636925,
+        27.43961192608302,
+        0.08387615215887058
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.4598763883113861,
+        0.014725297689437866,
+        0.39542093873023987
+      ],
+      "capture": true,
+      "record_sha256": "8885bc4dfd491fe9a06ccfeff31bedca0c04b5d02974244e68dae301c77bff20"
+    },
+    {
+      "id": "fixed35-recovery-preserved-fixed35-dev-grid-03-02",
+      "context_id": "fixed35-dev-grid-03-02",
+      "phase": "preserved",
+      "method": "preserved_current",
+      "bucket_xy_m": [
+        0.48,
+        0.025000000000000022
+      ],
+      "values": [
+        0.6331505990961195,
+        -0.04974026421930236,
+        0.27379131648763877,
+        27.35209184505424,
+        0.07900050974967088
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.633150577545166,
+        -0.0497402660548687,
+        0.39029183983802795
+      ],
+      "capture": true,
+      "record_sha256": "1c31ba4a641f4b930b0f280cae79038e8e4e1655372c41a8a351569f2b6de6ca"
+    },
+    {
+      "id": "fixed35-recovery-preserved-fixed35-dev-grid-03-03",
+      "context_id": "fixed35-dev-grid-03-03",
+      "phase": "preserved",
+      "method": "preserved_current",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        0.025000000000000022
+      ],
+      "values": [
+        0.60548801367399,
+        -0.16845315548352482,
+        0.30144578384701326,
+        22.88715488693651,
+        0.14752847100715202
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999999,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.6054880023002625,
+        -0.1684531569480896,
+        0.48647424578666687
+      ],
+      "capture": true,
+      "record_sha256": "8ff6be91cee3eeaf541fb1d4b433503753ca78eae8f8f5bfa9571f7bdf84468a"
+    },
+    {
+      "id": "fixed35-recovery-preserved-fixed35-dev-grid-04-00",
+      "context_id": "fixed35-dev-grid-04-00",
+      "phase": "preserved",
+      "method": "preserved_current",
+      "bucket_xy_m": [
+        0.1,
+        0.25
+      ],
+      "values": [
+        0.4876267910056605,
+        0.047976992770760646,
+        0.3381780118334813,
+        33.28610782524288,
+        0.29164497349728646
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.4876267910003662,
+        0.04797699302434921,
+        0.6673229932785034
+      ],
+      "capture": true,
+      "record_sha256": "c23cd6b8027b30e360b2216d991e1d017f3a244884568a53418ba91c27afd8e8"
+    },
+    {
+      "id": "fixed35-recovery-preserved-fixed35-dev-grid-04-01",
+      "context_id": "fixed35-dev-grid-04-01",
+      "phase": "preserved",
+      "method": "preserved_current",
+      "bucket_xy_m": [
+        0.29,
+        0.25
+      ],
+      "values": [
+        0.5718850871603405,
+        -0.07874353166067805,
+        0.34055561490730574,
+        32.24626369917453,
+        0.3025227040187788
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999999,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.5718851089477539,
+        -0.07874353229999542,
+        0.6805782914161682
+      ],
+      "capture": true,
+      "record_sha256": "df0ed4a59b6681ce2f70ef04a8dbe4f6a7290c865a49317c377096939342d17a"
+    },
+    {
+      "id": "fixed35-recovery-preserved-fixed35-dev-grid-04-02",
+      "context_id": "fixed35-dev-grid-04-02",
+      "phase": "preserved",
+      "method": "preserved_current",
+      "bucket_xy_m": [
+        0.48,
+        0.25
+      ],
+      "values": [
+        0.6128926773736967,
+        0.12251468514659879,
+        0.2737564080169633,
+        27.726683942395994,
+        0.09524858935243377
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 1.0,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.6128926873207092,
+        0.12251468747854233,
+        0.4065049886703491
+      ],
+      "capture": true,
+      "record_sha256": "bd6d1e59a03b5cae93bcc7cdbaff4e283e4a2be56fceb6f87bb69fd4998321f1"
+    },
+    {
+      "id": "fixed35-recovery-preserved-fixed35-dev-grid-04-03",
+      "context_id": "fixed35-dev-grid-04-03",
+      "phase": "preserved",
+      "method": "preserved_current",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        0.25
+      ],
+      "values": [
+        0.5837560174474958,
+        -0.03693221773158261,
+        0.3833045328447023,
+        32.891104878056595,
+        0.13723556739558926
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999999,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.5837560296058655,
+        -0.036932218819856644,
+        0.5580400824546814
+      ],
+      "capture": true,
+      "record_sha256": "4489d5f32d8daae0b7fab78ab75f7da9fe29a07c33c493c300bd97d8c09ed562"
+    },
+    {
+      "id": "fixed35-recovery-preserved-fixed35-dev-grid-04-05",
+      "context_id": "fixed35-dev-grid-04-05",
+      "phase": "preserved",
+      "method": "preserved_current",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        0.25
+      ],
+      "values": [
+        0.5781171090699498,
+        -0.023455590477456312,
+        0.46000420236027745,
+        25.993018539532084,
+        0.2528264028510086
+      ],
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "forbidden_contact_steps": 0,
+      "table_contact_steps": 0,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.9999999999999998,
+      "board_bounce": true,
+      "native_initial_ball_center_m": [
+        0.5781171321868896,
+        -0.02345559000968933,
+        0.7503306269645691
+      ],
+      "capture": true,
+      "record_sha256": "4f4e1c48a4fec670f974e932e646c357fab16227bab8685973712f2d3e30213f"
+    }
+  ],
+  "preserved_replay_counts": {
+    "attempts": 24,
+    "native_releases": 24,
+    "captures": 24,
+    "setup_rejections": 0,
+    "native_misses": 0,
+    "invalid_physics": 0
+  },
+  "confirmed_layouts": 5,
+  "interpretation": "Local search on11 historical fixed-grid failures;24 original successful recipes retained and replayed separately. Confirmed recipes require3fresh captures. Not a newly trained policy score or generalization test.",
+  "producer_commit": "7bcba3980a1baf24d6ac2505e35189b95daead64"
+}

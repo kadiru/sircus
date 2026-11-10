@@ -1,5 +1,15 @@
 # Project state
 
+## Fixed-grid failure recovery completed — November 9, 2026
+
+Five of the 11 original failures now have confirmed recipes, each with **3/3 fresh native64 captures**. All **24/24 unchanged parent recipes** captured again: **29/35 fixed grid positions have confirmed recipes**. This is development search on the original coordinates; the existing policy remains **24/35**, with no fitting, replacement or promotion. [Audited baseline](../baselines/mjlab-fixed35-recovery-20261109/README.md), [protocol](../sircus/mjlab/FIXED35_RECOVERY.md), [handoff](MJLAB_FIXED35_RECOVERY_20261109.md).
+
+- **441 requests**: 384 search, 15 fresh confirmations, 24 preserved replays and 18 controls. All control gates and **141,041 independent checks** passed. Worker 4,105.75 s; pipeline 4,135.29 s. Four searched cells exhausted 80 proposals each; the study was not time-truncated. Three invalid-physics attempts at grid 02-03 triggered `through_wall_after_entry` and remain failed, separately identified evidence.
+- Recovered grid cells: **00-00, 01-06, 02-03, 02-06 and 04-04**. Recipes at 01-06 and 02-06 used table assistance. All retain board bounce, whole-ball entry and one continuous second inside under unchanged v3 scoring. Exact values and original successes are preserved in the baseline, not automatically activated.
+- Unresolved: **01-05, 03-04, 03-05, 04-06**. The latter three are limited mainly by early robot obstruction and/or finite IK admission. At 01-05, recorded robot contacts followed bucket/table contact, so they do not establish the initial miss cause. Two other cells, **03-00 and 03-06**, remain below the existing fixed-base clearance bound; no bucket relocation or guard relaxation. None of these finite failures proves impossibility.
+- Frozen producer `7bcba3980a1baf24d6ac2505e35189b95daead64`; [draft PR #120](https://github.com/kadiru/sircus/pull/120), stacked on #119. Full local tests passed (2,235 Python tests with 100 skips; 390 JavaScript tests), source CI passed, and the completed UI was visually verified. Final isolation passed **31/31 checks**: the owned 4090 worker exited, the 4070 workload retained its process identity, historical reports/checkpoints and Isaac assets stayed intact. No service restart or physical action.
+- `#fixed35Recovery` displays all 11 cases, exact successful settings, fresh repeats, preserved recipes and the request ledger. No new PPO, noise/128-substep qualification, bucket perturbations, dynamic arm transit or grasp validation. Next decisions can use the six remaining cases' distinct limitations; no further experiment has been launched.
+
 ## Fixed 35-position imitation comparison completed — November 9, 2026
 
 - [Audited results](../baselines/mjlab-fixed35-imitation-20261109/README.md), [protocol](../sircus/mjlab/FIXED35_IMITATION.md) and [handoff](MJLAB_FIXED35_IMITATION_20261109.md): current imitation captured **24/35 (68.6%)**, refitted imitation **23/35 (65.7%)** on the same canonical 7×5 grid. One gain, two losses, 22 shared captures and ten shared failures. Keep the current policy; the refit did not improve this sample and was not promoted.
