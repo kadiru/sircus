@@ -19,6 +19,30 @@ controls: **843 requested slots at most**. Actual execution can finish earlier.
 Search starts no new rounds after 5,400 acquired seconds; the owned worker is
 bounded to 7,200 seconds, including the remaining repeats and controls.
 
+## Audited result — 9 November 2026
+
+The study completed **441 requests**: 384 search, 15 fresh confirmation,
+24 unchanged-parent preservation and 18 controls. Five discovered recipes
+captured **3/3 fresh repeats each**, and all **24/24 parent replays** captured.
+Verified recipe coverage is therefore **29/35 fixed locations**. The unchanged
+policy's historical score is still **24/35**; no policy fitting or promotion
+occurred.
+
+Four searchable locations exhausted their 80 proposals: grid 01-05, 03-04,
+03-05 and 04-06. Grid 03-00 and 03-06 remain fixed-base clearance blocked.
+There were three invalid-physics requests, all excluded from valid capture
+evidence. The study stopped at finite proposal caps, without time truncation.
+Worker time was 4,105.75 seconds and pipeline time 4,135.29 seconds.
+
+The independent bound audit passed **141,041 checks**; final isolation passed
+**31/31 checks**. All pre/post control gates passed. The owned 4090 worker exited,
+and the final check found the 4090 idle with the 4070 workload unchanged. Exact
+recipes, per-case failures and evidence hashes are in the
+[completed handoff](../../docs/MJLAB_FIXED35_RECOVERY_20261109.md) and
+[versioned summary](../../baselines/mjlab-fixed35-recovery-20261109/summary.json).
+Frozen producer: `7bcba3980a1baf24d6ac2505e35189b95daead64`,
+[draft PR #120](https://github.com/kadiru/sircus/pull/120), based on PR #119.
+
 ## Evidence and acceptance
 
 The parent checkpoint, 24 successful recipes, original scene and historical
