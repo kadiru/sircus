@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "name": "Every protected UI/historical/checkpoint/Isaac file unchanged",
+      "passed": true,
+      "files": 112
+    },
+    {
+      "name": "Existing service inventory unchanged",
+      "passed": true
+    },
+    {
+      "name": "No GPU compute process after completion",
+      "passed": true
+    },
+    {
+      "name": "No 4070 compute process before launch",
+      "passed": true
+    },
+    {
+      "name": "Storage reserve retained",
+      "passed": true
+    }
+  ],
+  "protected_files": 112,
+  "before_sha256": "b5f2c0e3a6931f96f09d12ee62116f3e3923692fe2afc6d37f629deb432e1e9e",
+  "after_sha256": "864cd5f0f71f1a468cf0da5ad3b741059eec502d5b0ea47d9d2676f5f4833668",
+  "ui_publication": false,
+  "training": false,
+  "services_restarted": false,
+  "raw_snapshots": "Retained locally, not published"
+}

@@ -1,6 +1,6 @@
 # Sircus — Simple Circus
 
-**Prepared follow-up:** [remaining six fixed-grid positions](sircus/mjlab/FIXED35_SIX.md), with alternative joint postures, exact collider checks and unchanged native64/v3 scoring. Preserve all 29 confirmed recipes; no retraining or UI publication in this task. New flight results are pending.
+**Latest completed search:** [30/35 fixed-grid locations have confirmed recipes](baselines/mjlab-fixed35-six-20261110/README.md). One new recipe passed 3/3 repeats; all 29 previous recipes recaptured. All 170,755 audit checks passed. The selected alternatives kept the bouncer posture fixed, so a separate targeted bouncer-branch follow-up is being prepared. No new training or UI publication; the policy remains 24/35.
 
 **Latest mjlab recovery:** [29/35 fixed locations now have confirmed recipes](baselines/mjlab-fixed35-recovery-20261109/README.md).
 Five of the 11 failures recovered, each with **3/3 fresh native64 captures**;

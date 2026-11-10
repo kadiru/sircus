@@ -1,8 +1,10 @@
 # Project state
 
-## Remaining six fixed-grid positions — prepared November 10, 2026
+## Remaining six fixed-grid positions — first pass completed November 10, 2026
 
-The [bounded alternative-pose study](../sircus/mjlab/FIXED35_SIX.md) preserves all 29 confirmed recipes and the existing policy (24/35). It freezes 96 numeric recipes and two distinct IK branch slots for each of four searchable cells; the other two receive an actual compiled-collider audit. Native64/v3 physics and scoring remain unchanged. Maximum 851 requests, 7,200-second worker and independent CPU audit. This is recipe development before retraining, with **no UI publication**, policy fitting, promotion, 4070/Isaac changes or service restart. Source is prepared; no completed new flight result is claimed by this entry.
+[Audited baseline](../baselines/mjlab-fixed35-six-20261110/README.md): 641 requests, 87 native releases, zero invalid physics. One new table-assisted recipe at 01-05 passed 3/3 repeats and all 29 prior recipes recaptured. **Recipe coverage 30/35; unchanged policy 24/35.** All 170,755 independent checks passed, without time truncation. All 112 protected files stayed unchanged. No UI publication, service restart, 4070 or Isaac change. Producer `e6a11db6b0c00c278874d04800b1b38e78080040`; draft PR #123.
+
+Three searched cells each exhausted 96 numeric poses × two branches, but only four poses/eight flights admitted per cell; zero captures. Two other cells have actual fixed-base overlap. Final review found a selection limitation: all selected second branches changed only dropper wrist posture; 18 endpoint-valid bouncer alternatives across 11 poses remained untested, including seven shoulder/elbow variants across four poses. A separate targeted replay is being prepared, preserving the completed first pass and all 30 recipes. No retraining started. [Workflow/handoff](MJLAB_FIXED35_SIX_20261110.md).
 
 ## Fixed-grid failure recovery completed — November 9, 2026
 
