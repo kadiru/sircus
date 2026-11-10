@@ -3,8 +3,10 @@
 The experiment was launched from frozen producer
 `e6a11db6b0c00c278874d04800b1b38e78080040` on the 4090.
 [Draft PR #123](https://github.com/kadiru/sircus/pull/123).
-The independent audit passed **170,755 checks**. A separate targeted bouncer-branch
-follow-up addresses the selection limitation found during final review.
+The independent audit passed **170,755 checks**. The separate targeted
+[bouncer-branch follow-up](MJLAB_FIXED35_BOUNCER_20261110.md) is also complete:
+0/15 alternate configurations captured, 30/30 prior recipes preserved, and
+35,407 V3 audit checks passed. Original first-pass evidence remains unchanged.
 
 The historical frozen policy remains **24/35**. The preceding recovery study
 established **29/35 locations with confirmed recipes**; that recipe collection
@@ -96,8 +98,9 @@ coverage claim follows from this bounded study.
 remaining cells changed only the dropper wrist. Eighteen endpoint-valid bouncer
 alternatives across 11 poses were left untested when the first two pair paths
 filled the slots. Seven variants across four poses change shoulder/elbow. A
-separate targeted follow-up must path-check and simulate them before claiming
-that alternate bouncer posture was thoroughly explored.
+separate targeted follow-up subsequently path-checked and simulated 15 selected
+alternatives. None captured; this still does not constitute exhaustive bouncer
+posture exploration.
 
 Exact recipe, case statistics, event examples and immutable evidence hashes are
 in the [completed baseline](../baselines/mjlab-fixed35-six-20261110/README.md).

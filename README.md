@@ -1,6 +1,6 @@
 # Sircus — Simple Circus
 
-**Latest completed search:** [30/35 fixed-grid locations have confirmed recipes](baselines/mjlab-fixed35-six-20261110/README.md). One new recipe passed 3/3 repeats; all 29 previous recipes recaptured. All 170,755 audit checks passed. The selected alternatives kept the bouncer posture fixed, so a separate targeted bouncer-branch follow-up is being prepared. No new training or UI publication; the policy remains 24/35.
+**Latest completed search:** [30/35 fixed-grid locations have confirmed recipes](baselines/mjlab-fixed35-six-20261110/README.md). One new recipe passed 3/3 repeats. The [bouncer-only follow-up](baselines/mjlab-fixed35-bouncer-20261110/README.md) preserved 30/30 recipes but captured 0/15 alternatives; its separate V3 audit passed 35,407 checks. Three searchable cells remain unresolved; two other cells overlap fixed robot bases. No new training or UI publication; the policy remains 24/35. [System workflow](docs/MJLAB_FIXED35_BOUNCER_20261110.md).
 
 **Latest mjlab recovery:** [29/35 fixed locations now have confirmed recipes](baselines/mjlab-fixed35-recovery-20261109/README.md).
 Five of the 11 failures recovered, each with **3/3 fresh native64 captures**;
