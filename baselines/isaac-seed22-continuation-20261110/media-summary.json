@@ -1,0 +1,187 @@
+{
+  "all_four_browser_playbacks_verified": true,
+  "clips": [
+    {
+      "additional_train_requests_before_clip": 0,
+      "audio_streams": 0,
+      "chapter_title": "TRAIN after 0 new requests \u00b7 6/35 catches, 1 clean, 11 rejected \u00b7 foreground: stopped before release",
+      "cohort_counts": {
+        "captures": 6,
+        "clean": 1,
+        "rejected": 11,
+        "released_no_capture": 18,
+        "requested": 35
+      },
+      "dimensions_px": [
+        1920,
+        1080
+      ],
+      "duration_s": 83.96666666666667,
+      "farm_slots": 35,
+      "foreground": {
+        "captured": false,
+        "clean": false,
+        "outcome": "rejected_before_release",
+        "rejected": true,
+        "requested": true
+      },
+      "fps": 30,
+      "frame_count": 2519,
+      "inactive_unpaid_farm_slots": 0,
+      "method": "train",
+      "movie_bytes": 8902647,
+      "movie_file": "continuation-train-00002-5f4e3ad5cc68.mp4",
+      "movie_hash_matches_cpu_probe_and_full_decode_receipt": true,
+      "movie_sha256": "54789261f5218ee114a204e68c0078e79d497df01c58454bcaf2aa446797a593",
+      "mp4_sample_tables_verified": true,
+      "original_v1_receipt_preserved": true,
+      "outcome_scope": "Fresh sampled TRAIN cohort at familiar training positions; not held-out inference",
+      "phase": "train",
+      "receipt_file": "continuation-train-00002-5f4e3ad5cc68.mp4.receipt.v2.json",
+      "receipt_sha256": "478fcba07c34701188b13235410cfeca60b44e6ecb17a09429f2638241c163e3",
+      "selected_camera_sha256": "a7967c072b8f949318b43a510235d503c81c21e05f433670a0ce92a7af385ede",
+      "source_frame_inventory_sha256": "5dd3605119738f549844a27de3cb089a597002d86290e2b0c57c98f27c38d589",
+      "source_packet_sha256": "5f4e3ad5cc68c5d078d1634e84c727d5099397c3e5dabc2278f23c3145f9f195"
+    },
+    {
+      "additional_train_requests_before_clip": 1000,
+      "audio_streams": 0,
+      "chapter_title": "TRAIN after 1,000 new requests \u00b7 4/15 catches, 2 clean, 5 rejected \u00b7 foreground: inactive, no requested attempt",
+      "cohort_counts": {
+        "captures": 4,
+        "clean": 2,
+        "rejected": 5,
+        "released_no_capture": 6,
+        "requested": 15
+      },
+      "dimensions_px": [
+        1920,
+        1080
+      ],
+      "duration_s": 84.23333333333333,
+      "farm_slots": 35,
+      "foreground": {
+        "captured": false,
+        "clean": false,
+        "outcome": "inactive_no_attempt",
+        "rejected": false,
+        "requested": false
+      },
+      "fps": 30,
+      "frame_count": 2527,
+      "inactive_unpaid_farm_slots": 20,
+      "method": "train",
+      "movie_bytes": 8344067,
+      "movie_file": "continuation-train-00032-372d1ed54357.mp4",
+      "movie_hash_matches_cpu_probe_and_full_decode_receipt": true,
+      "movie_sha256": "6e61854e979f36c9d0bddc765d6b3404e043210c414125235473d7bb46d64fa9",
+      "mp4_sample_tables_verified": true,
+      "original_v1_receipt_preserved": true,
+      "outcome_scope": "Fresh sampled TRAIN cohort at familiar training positions; not held-out inference",
+      "phase": "train",
+      "receipt_file": "continuation-train-00032-372d1ed54357.mp4.receipt.v2.json",
+      "receipt_sha256": "551e00f10f4e3b47939385251d6e80282b26c805c53f2c87bf6f57554bba38d4",
+      "selected_camera_sha256": "a7967c072b8f949318b43a510235d503c81c21e05f433670a0ce92a7af385ede",
+      "source_frame_inventory_sha256": "bca0bc23e31ce5768b2cf6787553dce4f81bb446495aa8ae64d8d1cbb1bffeef",
+      "source_packet_sha256": "372d1ed54357913fd32cbd0a0eb02d8e85a62d4eedc095f75cff6ba1078cfe5a"
+    },
+    {
+      "additional_train_requests_before_clip": 5000,
+      "audio_streams": 0,
+      "chapter_title": "TRAIN after 5,000 new requests \u00b7 2/5 catches, 0 clean, 0 rejected \u00b7 foreground: released, no catch",
+      "cohort_counts": {
+        "captures": 2,
+        "clean": 0,
+        "rejected": 0,
+        "released_no_capture": 3,
+        "requested": 5
+      },
+      "dimensions_px": [
+        1920,
+        1080
+      ],
+      "duration_s": 20.733333333333334,
+      "farm_slots": 35,
+      "foreground": {
+        "captured": false,
+        "clean": false,
+        "outcome": "released_no_capture",
+        "rejected": false,
+        "requested": true
+      },
+      "fps": 30,
+      "frame_count": 622,
+      "inactive_unpaid_farm_slots": 30,
+      "method": "train",
+      "movie_bytes": 2116776,
+      "movie_file": "continuation-train-00150-7bea30576be4.mp4",
+      "movie_hash_matches_cpu_probe_and_full_decode_receipt": true,
+      "movie_sha256": "3a281b0ac6eaac7219e98922c9a1ba0b9aa06d49e01fdcae88db49fe315c641d",
+      "mp4_sample_tables_verified": true,
+      "outcome_scope": "Fresh sampled TRAIN cohort at familiar training positions; not held-out inference",
+      "phase": "train",
+      "receipt_file": "continuation-train-00150-7bea30576be4.mp4.receipt.v2.json",
+      "receipt_sha256": "907a29add70825043f477a348abdfcebcc6335c0056172050a6304a2977abc63",
+      "selected_camera_sha256": "a7967c072b8f949318b43a510235d503c81c21e05f433670a0ce92a7af385ede",
+      "source_frame_inventory_sha256": "3553d91c397b62d69bce2ffe630317edf4ae993331111897d989c658a431b559",
+      "source_packet_sha256": "7bea30576be4bb4b1c2ee39751d00e42e95f4b869556f0b5ea01799827a0108e"
+    },
+    {
+      "additional_train_requests_before_clip": 8960,
+      "audio_streams": 0,
+      "chapter_title": "Final TEST \u00b7 filmed cohort 35 of 70 after 8,960 new requests \u00b7 13/35 catches, 4 clean, 12 rejected \u00b7 foreground: caught (clean)",
+      "cohort_counts": {
+        "captures": 13,
+        "clean": 4,
+        "rejected": 12,
+        "released_no_capture": 10,
+        "requested": 35
+      },
+      "complete_assessment_requested": 70,
+      "dimensions_px": [
+        1920,
+        1080
+      ],
+      "duration_s": 84.13333333333334,
+      "farm_slots": 35,
+      "filmed_cohort": "first 35 of 70",
+      "foreground": {
+        "captured": true,
+        "clean": true,
+        "outcome": "captured",
+        "rejected": false,
+        "requested": true
+      },
+      "fps": 30,
+      "frame_count": 2524,
+      "inactive_unpaid_farm_slots": 0,
+      "is_complete_final_assessment": false,
+      "method": "continued_geometry",
+      "movie_bytes": 8570724,
+      "movie_file": "continuation-continued_geometry-00269-eaf650a5e135.mp4",
+      "movie_hash_matches_cpu_probe_and_full_decode_receipt": true,
+      "movie_sha256": "0965877334b43c55ae46cab783a2bd644991d66dfa8ea104281736228f22ddc0",
+      "mp4_sample_tables_verified": true,
+      "phase": "test",
+      "receipt_file": "continuation-continued_geometry-00269-eaf650a5e135.mp4.receipt.v2.json",
+      "receipt_sha256": "c43f2adab91776a09e1818915f149181fa2c7af3a0785d0e88bc2a15e23e1b29",
+      "selected_camera_sha256": "a7967c072b8f949318b43a510235d503c81c21e05f433670a0ce92a7af385ede",
+      "source_frame_inventory_sha256": "a2c4ed0c231858e37b09ff05795ba69eab292d40d1383a631e433726bd9652b3",
+      "source_packet_sha256": "eaf650a5e135d043d43858f136602204e3d24f2b917d93b1980d8dd7490c8e92"
+    }
+  ],
+  "measurement_scope": "Video outcomes describe only the filmed paid cohort. Final TEST video covers first 35 of 70 and is not the complete 70-position result. Inactive unpaid farm cells are not rejected requests.",
+  "native_independent_audit_sha256": "b800b230cd5516257d80168c31edb56376fcb155f7e733c147d405ad038804ee",
+  "new_ppo_updates": 67,
+  "new_train_requests_completed": 8960,
+  "private_media_verification_sha256": "1428524176044479d5f1151315f2a0ff06e7eacc0f685975975aa666c749d235",
+  "protocol_fingerprint": "47dad0235944c0e3d0ba8c4f4cee5d461deb18829c547f85a9885aaf1e0dba50",
+  "publication_fingerprint": "fa78253d083e766ee9107ad89d9257a5abf6c8213a0480a803fee356859d69d6",
+  "publication_scope": "Allowlisted aggregate media identities and cohort counts. Raw frames, movies, joint/physics observations, coordinates and runtime configuration stay private; the final TEST clip covers first35of70, and the full70-position result is in publication-summary.json.",
+  "schema": "sircus-seed22-audited-media-publication-v1",
+  "source_commit": "77c57cf0921c694a3321a4d97faae3d7af345d27",
+  "status": "media_verified_native_run_independently_audited",
+  "synthetic": false,
+  "verification_scope": "Read-only local MP4 SHA256, ISO sample/duration/format tables, bound CPU ffprobe/full-decode receipts, original receipt preservation, source-frame inventory identities, paid masks and displayed labels. Browser playback and native independent run audit are separate. No re-encoding, source changes or new shots.",
+  "video_chapters": 4
+}

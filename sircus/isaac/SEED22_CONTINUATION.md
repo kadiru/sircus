@@ -1,7 +1,12 @@
 # Direct seed-22 continuation: 30,000 requests or eight hours
 
-This is a new, explicitly authorized continuation of the original continuous
-PPO model. Preparation and mock checks do not establish native performance.
+This explicitly authorized continuation of the original continuous PPO model
+completed and passed its independent native audit. The time budget stopped
+TRAIN at **8,960 additional requests and 67 updates**. On the same 70 new TEST
+positions, parent + checker caught **26**, continued + checker **28**; both
+had **eight clean captures**, while rejections increased **nine to 20**.
+This is a mixed single-continuation result. See the [audited comparison,
+complete scalar curves, costs and saved model identities](../../baselines/isaac-seed22-continuation-20261110/README.md).
 The completed six-run benchmark and the separate V4 hybrid remain historical.
 
 The starting checkpoint is original seed `20261122`, SHA256
@@ -91,3 +96,13 @@ Resources separate proposal, geometry, native episodes, updates, checkpoints,
 assessment and independent audit. Geometry time is already inside episode wall;
 sampled GPU occupancy and lifetime RSS are not policy-only or phase-local peaks.
 Prescheduled native TRAIN recordings are retained regardless of outcomes.
+
+The completed run charged 8,960 TRAIN plus 420 assessment requests, all terminal.
+Its native wall across all attempts was 28,773.736 seconds, inside the 28,800-second
+limit. After all results and the final model were saved, default Kit shutdown
+waited without exiting; an identity-verified graceful TERM request returned zero
+before the existing watchdog deadline. No producer, scoring or audit guard changed.
+The subsequent unchanged CPU auditor passed; a private standard-library `os.wait4`
+collector measured its resources because `/usr/bin/time` was absent. The native
+producer remains commit `77c57cf0921c694a3321a4d97faae3d7af345d27`; later report
+commits do not replace its frozen source or evidence.

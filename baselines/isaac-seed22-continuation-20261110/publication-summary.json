@@ -1,0 +1,2842 @@
+{
+  "caps": {
+    "additional_train_requests": 30000,
+    "assessment_requests": 525,
+    "native_wall_s": 28800
+  },
+  "final_test": {
+    "continued_geometry": {
+      "attempts": 70,
+      "captures": 28,
+      "clean": 8,
+      "rejected": 20,
+      "released_noncaptures": 22
+    },
+    "parent_geometry": {
+      "attempts": 70,
+      "captures": 26,
+      "clean": 8,
+      "rejected": 9,
+      "released_noncaptures": 35
+    },
+    "raw_parent": {
+      "attempts": 70,
+      "captures": 25,
+      "clean": 8,
+      "rejected": 14,
+      "released_noncaptures": 31
+    }
+  },
+  "identities": {
+    "audit_launch_sha256": "add9c6c1f45547910133e0928a952482e68d648be5e0f4c49135d16fbdeb3707",
+    "audit_observer_sha256": "0fc2965687e481f804332c878682963784aa7a6b8a46d5bbe00e4e762c728601",
+    "audit_process_exit_sha256": "c9e90fd631eb07d3d3da7c3876c7e62cd1c2efc80f090be0e3031ed8b32a63fd",
+    "audit_process_owner_sha256": "eb1f5e2cc071b8f62314b8a96e6d957dd3558c7ddb0ae0e85276eb9a4de0e5e2",
+    "audit_resource_collector_receipt_sha256": "51f229233795880a6bee61921da765bed0d35e1d074c2287b4165913585401b4",
+    "audit_resource_collector_sha256": "7d1e724820131954fed950993da0e400c4e783409a80f7790e8219208e71cc95",
+    "audit_resource_sha256": "c568cdfb6d92e722c20b1719ffbf59864efa1334adb394143ffae203bef60f51",
+    "auditor_source_sha256": "a8e748d7547d85540836bd8eba530b1145e8bfdbad56e192420ec96636adb54a",
+    "final_checkpoint_sha256": "79932bc9e0399584ed0ac6b80c95dbc35a5f159f6fe3178beba713d05fe4b7a6",
+    "final_weight_hash": "01c640ea787850f8e3f52ac64d7f7b568a6e209ce9594b08ed841dfce78b2f8a",
+    "geometry_layer_sha256": "c6489a44e268610470edd2a4c37bd4cfb1a78c89989883113f76996bd8fbad23",
+    "independent_audit_sha256": "b800b230cd5516257d80168c31edb56376fcb155f7e733c147d405ad038804ee",
+    "learning_curve_sha256": "01ee6c85efc319a2aca7e2478e3bf813a9be490584f24c68d0b0bdeda40e5a37",
+    "native_saved_inputs_sha256": "06cc8503c176384523ce2a71b9651390ae29f57313b53e028b5a4d554e0dec02",
+    "original_experiment_sha256": "77afe173a07917dd87ce43f37809a9ac6ef99beebd7e8e35f703c0e5cf1e3a26",
+    "original_split_sha256": "f46c690d80bd2079b27c8d3c72267c39acf1cee61fb4625f37994bff92292785",
+    "parent_checkpoint_sha256": "57d7658e9ed2f72ad09cf4e8523ab497ccbe0708364f1b8ec4a4c5c1aef1fe9f",
+    "producer_commit": "77c57cf0921c694a3321a4d97faae3d7af345d27",
+    "protocol_fingerprint": "47dad0235944c0e3d0ba8c4f4cee5d461deb18829c547f85a9885aaf1e0dba50",
+    "result_sha256": "2ac016b6e2d4ab1b4cd10c81c8777b86fd7ac55ef16d19aa26f4065365eff105",
+    "source_manifest_sha256": "d00ddab640115faacb499bb22bc056cc21a0b4cf27e6b5152ff2532f79eb4ce6",
+    "split_fingerprint": "bdcf59279356c7f0bc240130b692be34bf9316f7113b3d1fe32e570a2b0ab945",
+    "watchdog_exit_sha256": "6479ef84beded104b8bfcf9ba6f3c44445d1234e6d1a42ee95d72d8c075e90ec",
+    "watchdog_owner_sha256": "c8c2711516763f7f9227ef30e4fca8e0e73685bace05451879e0c12e932e0e5f"
+  },
+  "independent_audit_costs": {
+    "lifetime_peak_rss_kib": 1056468,
+    "resource_backend": "python_os_wait4",
+    "system_cpu_s": 529.483881,
+    "user_cpu_s": 1398.1291,
+    "wall_s": 1252.896714736009
+  },
+  "monitoring": [
+    {
+      "additional_train_requests": 0,
+      "method": "raw_parent",
+      "outcomes": {
+        "attempts": 35,
+        "captures": 13,
+        "clean": 4,
+        "rejected": 7,
+        "released_noncaptures": 15
+      }
+    },
+    {
+      "additional_train_requests": 0,
+      "method": "monitor",
+      "outcomes": {
+        "attempts": 35,
+        "captures": 16,
+        "clean": 5,
+        "rejected": 1,
+        "released_noncaptures": 18
+      }
+    },
+    {
+      "additional_train_requests": 1000,
+      "method": "monitor",
+      "outcomes": {
+        "attempts": 35,
+        "captures": 14,
+        "clean": 5,
+        "rejected": 3,
+        "released_noncaptures": 18
+      }
+    },
+    {
+      "additional_train_requests": 2000,
+      "method": "monitor",
+      "outcomes": {
+        "attempts": 35,
+        "captures": 17,
+        "clean": 6,
+        "rejected": 6,
+        "released_noncaptures": 12
+      }
+    },
+    {
+      "additional_train_requests": 5000,
+      "method": "monitor",
+      "outcomes": {
+        "attempts": 35,
+        "captures": 12,
+        "clean": 5,
+        "rejected": 6,
+        "released_noncaptures": 17
+      }
+    },
+    {
+      "additional_train_requests": 8960,
+      "method": "monitor-final",
+      "outcomes": {
+        "attempts": 35,
+        "captures": 20,
+        "clean": 5,
+        "rejected": 7,
+        "released_noncaptures": 8
+      }
+    }
+  ],
+  "native_lifetime_peak_rss_mib": 7416.54296875,
+  "native_timing": {
+    "all_attempts_native_wall_s": 28773.73641794396,
+    "last_native_result_elapsed_s": 28286.20239584497,
+    "prior_startup_wall_s": 4.024462187953759,
+    "v3_wall_limit_s": 28795.975537812046,
+    "v3_watchdog_wall_s": 28769.711955756007
+  },
+  "paired_final_test": {
+    "common_requested_positions": 70,
+    "comparisons": [
+      {
+        "captures": {
+          "gains": 1,
+          "losses": 0,
+          "net": 1,
+          "shared_failure": 44,
+          "shared_success": 25
+        },
+        "clean_captures": {
+          "gains": 0,
+          "losses": 0,
+          "net": 0,
+          "shared_failure": 62,
+          "shared_success": 8
+        },
+        "left": "raw_parent",
+        "meaning": "checker_effect",
+        "right": "parent_geometry"
+      },
+      {
+        "captures": {
+          "gains": 8,
+          "losses": 6,
+          "net": 2,
+          "shared_failure": 36,
+          "shared_success": 20
+        },
+        "clean_captures": {
+          "gains": 3,
+          "losses": 3,
+          "net": 0,
+          "shared_failure": 59,
+          "shared_success": 5
+        },
+        "left": "parent_geometry",
+        "meaning": "additional_learning",
+        "right": "continued_geometry"
+      },
+      {
+        "captures": {
+          "gains": 9,
+          "losses": 6,
+          "net": 3,
+          "shared_failure": 36,
+          "shared_success": 19
+        },
+        "clean_captures": {
+          "gains": 3,
+          "losses": 3,
+          "net": 0,
+          "shared_failure": 59,
+          "shared_success": 5
+        },
+        "left": "raw_parent",
+        "meaning": "combined_effect",
+        "right": "continued_geometry"
+      }
+    ]
+  },
+  "phase_costs": {
+    "assessment_episode_wall_s": 1042.36652330996,
+    "checkpoint_wall_s": 1.6137069641263224,
+    "geometry_process_cpu_s": 25031.637444104934,
+    "geometry_wall_s": 6692.594520970248,
+    "peak_sampled_gpu_used_mib": 6217.4375,
+    "proposal_wall_s": 0.5151130608282983,
+    "train_episode_wall_s": 27211.522917726426,
+    "update_wall_s": 1.030761442903895
+  },
+  "schema": "sircus-seed22-continuation-publication-summary-v1",
+  "scopes": {
+    "compute": "Geometry is nested in episode wall. GPU is sampled whole-device occupancy; RAM is lifetime peak. Independent audit CPU user/system and maximum RSS are measured with Linux os.wait4 for the actual audit command, including its waited-for descendants. Maximum RSS is a high-water maximum, not summed memory. Audit costs are separate from the native eight-hour budget.",
+    "final_test": "Three versions share the same 70 unseen requested positions, one attempt each. One continued training seed only.",
+    "monitoring": "Frozen direct predictions with checker on 35 separate positions; zero-new-request point is unchanged seed22, not further learning.",
+    "publication": "New allowlisted derivative, not a replacement for original signed native/audit evidence. No raw rows, coordinates, host configuration or media exported.",
+    "training": "Exploratory requests at the same 35 familiar TRAIN positions; rejects retained."
+  },
+  "seed": 20261122,
+  "status": "completed_independently_audited_aggregate",
+  "stop_reason": "time_budget_reserved_final_assessment",
+  "summary_fingerprint": "5a91ba94f5966430fa19eb23a67ba9b7073c50b33abf2f862f86b091c2097430",
+  "synthetic": false,
+  "train_curve": [
+    {
+      "additional_attempts": 35,
+      "attempts": 35,
+      "captures": 6,
+      "clean": 1,
+      "elapsed_s": 353.67152498901123,
+      "mean_reward": -0.30670617402028694,
+      "new_updates": 0,
+      "rejected": 11
+    },
+    {
+      "additional_attempts": 70,
+      "attempts": 70,
+      "captures": 18,
+      "clean": 4,
+      "elapsed_s": 471.59910247300286,
+      "mean_reward": -0.09705854855560087,
+      "new_updates": 0,
+      "rejected": 15
+    },
+    {
+      "additional_attempts": 105,
+      "attempts": 105,
+      "captures": 26,
+      "clean": 8,
+      "elapsed_s": 592.7845096290112,
+      "mean_reward": -0.11480035805237133,
+      "new_updates": 0,
+      "rejected": 23
+    },
+    {
+      "additional_attempts": 140,
+      "attempts": 140,
+      "captures": 36,
+      "clean": 8,
+      "elapsed_s": 701.5111558879726,
+      "mean_reward": -0.08656149436294382,
+      "new_updates": 1,
+      "rejected": 28
+    },
+    {
+      "additional_attempts": 175,
+      "attempts": 175,
+      "captures": 45,
+      "clean": 10,
+      "elapsed_s": 763.6961745150038,
+      "mean_reward": -0.0839881245958547,
+      "new_updates": 1,
+      "rejected": 34
+    },
+    {
+      "additional_attempts": 210,
+      "attempts": 210,
+      "captures": 57,
+      "clean": 12,
+      "elapsed_s": 878.1798487170017,
+      "mean_reward": -0.05551066334350756,
+      "new_updates": 1,
+      "rejected": 40
+    },
+    {
+      "additional_attempts": 245,
+      "attempts": 245,
+      "captures": 69,
+      "clean": 17,
+      "elapsed_s": 988.9584397299914,
+      "mean_reward": -0.045317499899115606,
+      "new_updates": 1,
+      "rejected": 52
+    },
+    {
+      "additional_attempts": 280,
+      "attempts": 280,
+      "captures": 78,
+      "clean": 20,
+      "elapsed_s": 1040.4420484729926,
+      "mean_reward": -0.05289527176117118,
+      "new_updates": 2,
+      "rejected": 60
+    },
+    {
+      "additional_attempts": 315,
+      "attempts": 315,
+      "captures": 88,
+      "clean": 22,
+      "elapsed_s": 1109.1850499749999,
+      "mean_reward": -0.05771228577081757,
+      "new_updates": 2,
+      "rejected": 71
+    },
+    {
+      "additional_attempts": 350,
+      "attempts": 350,
+      "captures": 101,
+      "clean": 26,
+      "elapsed_s": 1182.0692536340212,
+      "mean_reward": -0.0335907435982667,
+      "new_updates": 2,
+      "rejected": 75
+    },
+    {
+      "additional_attempts": 385,
+      "attempts": 385,
+      "captures": 109,
+      "clean": 28,
+      "elapsed_s": 1294.6029785620049,
+      "mean_reward": -0.04504182311216045,
+      "new_updates": 2,
+      "rejected": 83
+    },
+    {
+      "additional_attempts": 420,
+      "attempts": 420,
+      "captures": 120,
+      "clean": 31,
+      "elapsed_s": 1408.478677364008,
+      "mean_reward": -0.03853154661771995,
+      "new_updates": 3,
+      "rejected": 90
+    },
+    {
+      "additional_attempts": 455,
+      "attempts": 455,
+      "captures": 130,
+      "clean": 32,
+      "elapsed_s": 1490.4723006879794,
+      "mean_reward": -0.039718322238831406,
+      "new_updates": 3,
+      "rejected": 97
+    },
+    {
+      "additional_attempts": 490,
+      "attempts": 490,
+      "captures": 144,
+      "clean": 38,
+      "elapsed_s": 1566.2315856359783,
+      "mean_reward": -0.020725213220396634,
+      "new_updates": 3,
+      "rejected": 102
+    },
+    {
+      "additional_attempts": 525,
+      "attempts": 525,
+      "captures": 155,
+      "clean": 40,
+      "elapsed_s": 1675.521341587999,
+      "mean_reward": -0.01977735005437281,
+      "new_updates": 3,
+      "rejected": 110
+    },
+    {
+      "additional_attempts": 560,
+      "attempts": 560,
+      "captures": 163,
+      "clean": 43,
+      "elapsed_s": 1804.5418746210053,
+      "mean_reward": -0.030634838665560313,
+      "new_updates": 4,
+      "rejected": 121
+    },
+    {
+      "additional_attempts": 595,
+      "attempts": 595,
+      "captures": 172,
+      "clean": 46,
+      "elapsed_s": 1926.085877310019,
+      "mean_reward": -0.03440935000232018,
+      "new_updates": 4,
+      "rejected": 129
+    },
+    {
+      "additional_attempts": 630,
+      "attempts": 630,
+      "captures": 185,
+      "clean": 50,
+      "elapsed_s": 2039.343116654025,
+      "mean_reward": -0.02483613841941521,
+      "new_updates": 4,
+      "rejected": 136
+    },
+    {
+      "additional_attempts": 665,
+      "attempts": 665,
+      "captures": 193,
+      "clean": 53,
+      "elapsed_s": 2102.5374481470208,
+      "mean_reward": -0.03131023916000653,
+      "new_updates": 4,
+      "rejected": 143
+    },
+    {
+      "additional_attempts": 700,
+      "attempts": 700,
+      "captures": 206,
+      "clean": 59,
+      "elapsed_s": 2207.2399262890103,
+      "mean_reward": -0.02011812121168721,
+      "new_updates": 5,
+      "rejected": 148
+    },
+    {
+      "additional_attempts": 735,
+      "attempts": 735,
+      "captures": 213,
+      "clean": 61,
+      "elapsed_s": 2315.783396467974,
+      "mean_reward": -0.02994059342217024,
+      "new_updates": 5,
+      "rejected": 157
+    },
+    {
+      "additional_attempts": 770,
+      "attempts": 770,
+      "captures": 223,
+      "clean": 64,
+      "elapsed_s": 2432.494230322016,
+      "mean_reward": -0.03195698025784509,
+      "new_updates": 5,
+      "rejected": 167
+    },
+    {
+      "additional_attempts": 805,
+      "attempts": 805,
+      "captures": 237,
+      "clean": 66,
+      "elapsed_s": 2541.4627165169804,
+      "mean_reward": -0.026523880739120737,
+      "new_updates": 5,
+      "rejected": 181
+    },
+    {
+      "additional_attempts": 840,
+      "attempts": 840,
+      "captures": 250,
+      "clean": 70,
+      "elapsed_s": 2650.2485889759846,
+      "mean_reward": -0.018754168182324664,
+      "new_updates": 6,
+      "rejected": 186
+    },
+    {
+      "additional_attempts": 875,
+      "attempts": 875,
+      "captures": 259,
+      "clean": 73,
+      "elapsed_s": 2765.1451458350057,
+      "mean_reward": -0.02124247336318228,
+      "new_updates": 6,
+      "rejected": 193
+    },
+    {
+      "additional_attempts": 910,
+      "attempts": 910,
+      "captures": 268,
+      "clean": 77,
+      "elapsed_s": 2877.2365185319795,
+      "mean_reward": -0.023465719267437166,
+      "new_updates": 6,
+      "rejected": 200
+    },
+    {
+      "additional_attempts": 945,
+      "attempts": 945,
+      "captures": 279,
+      "clean": 82,
+      "elapsed_s": 2994.5163134200266,
+      "mean_reward": -0.02180084547224195,
+      "new_updates": 6,
+      "rejected": 209
+    },
+    {
+      "additional_attempts": 980,
+      "attempts": 980,
+      "captures": 290,
+      "clean": 87,
+      "elapsed_s": 3058.099228231993,
+      "mean_reward": -0.020497248963087765,
+      "new_updates": 7,
+      "rejected": 217
+    },
+    {
+      "additional_attempts": 1000,
+      "attempts": 1000,
+      "captures": 298,
+      "clean": 88,
+      "elapsed_s": 3101.0482810490066,
+      "mean_reward": -0.015995636653662753,
+      "new_updates": 8,
+      "rejected": 221
+    },
+    {
+      "additional_attempts": 1015,
+      "attempts": 1015,
+      "captures": 302,
+      "clean": 90,
+      "elapsed_s": 3366.7085887190187,
+      "mean_reward": -0.017712382061734807,
+      "new_updates": 8,
+      "rejected": 226
+    },
+    {
+      "additional_attempts": 1050,
+      "attempts": 1050,
+      "captures": 313,
+      "clean": 94,
+      "elapsed_s": 3476.374084145995,
+      "mean_reward": -0.01545694767178654,
+      "new_updates": 8,
+      "rejected": 231
+    },
+    {
+      "additional_attempts": 1085,
+      "attempts": 1085,
+      "captures": 324,
+      "clean": 96,
+      "elapsed_s": 3589.9040817050263,
+      "mean_reward": -0.015462925775959143,
+      "new_updates": 8,
+      "rejected": 241
+    },
+    {
+      "additional_attempts": 1120,
+      "attempts": 1120,
+      "captures": 339,
+      "clean": 101,
+      "elapsed_s": 3667.058630938991,
+      "mean_reward": -0.006012705557260616,
+      "new_updates": 9,
+      "rejected": 246
+    },
+    {
+      "additional_attempts": 1155,
+      "attempts": 1155,
+      "captures": 352,
+      "clean": 106,
+      "elapsed_s": 3779.589796671993,
+      "mean_reward": -0.0005903952100401105,
+      "new_updates": 9,
+      "rejected": 250
+    },
+    {
+      "additional_attempts": 1190,
+      "attempts": 1190,
+      "captures": 364,
+      "clean": 110,
+      "elapsed_s": 3848.0767010980053,
+      "mean_reward": 0.0031279158558388054,
+      "new_updates": 9,
+      "rejected": 255
+    },
+    {
+      "additional_attempts": 1225,
+      "attempts": 1225,
+      "captures": 374,
+      "clean": 112,
+      "elapsed_s": 3921.202136118023,
+      "mean_reward": 0.0036002196966660274,
+      "new_updates": 9,
+      "rejected": 259
+    },
+    {
+      "additional_attempts": 1260,
+      "attempts": 1260,
+      "captures": 383,
+      "clean": 113,
+      "elapsed_s": 4038.222278373025,
+      "mean_reward": -0.00035939947304986414,
+      "new_updates": 10,
+      "rejected": 269
+    },
+    {
+      "additional_attempts": 1295,
+      "attempts": 1295,
+      "captures": 395,
+      "clean": 116,
+      "elapsed_s": 4118.160669217003,
+      "mean_reward": 0.0014917274089001392,
+      "new_updates": 10,
+      "rejected": 276
+    },
+    {
+      "additional_attempts": 1330,
+      "attempts": 1330,
+      "captures": 404,
+      "clean": 119,
+      "elapsed_s": 4227.4519556830055,
+      "mean_reward": -0.0025141702385910324,
+      "new_updates": 10,
+      "rejected": 287
+    },
+    {
+      "additional_attempts": 1365,
+      "attempts": 1365,
+      "captures": 417,
+      "clean": 122,
+      "elapsed_s": 4332.063437633973,
+      "mean_reward": 0.0026061117343304996,
+      "new_updates": 10,
+      "rejected": 290
+    },
+    {
+      "additional_attempts": 1400,
+      "attempts": 1400,
+      "captures": 430,
+      "clean": 123,
+      "elapsed_s": 4439.37492358801,
+      "mean_reward": 0.005288001971651915,
+      "new_updates": 11,
+      "rejected": 298
+    },
+    {
+      "additional_attempts": 1435,
+      "attempts": 1435,
+      "captures": 440,
+      "clean": 125,
+      "elapsed_s": 4517.598236979975,
+      "mean_reward": 0.005809490458323884,
+      "new_updates": 11,
+      "rejected": 302
+    },
+    {
+      "additional_attempts": 1470,
+      "attempts": 1470,
+      "captures": 451,
+      "clean": 129,
+      "elapsed_s": 4633.362775554007,
+      "mean_reward": 0.005223609956223771,
+      "new_updates": 11,
+      "rejected": 312
+    },
+    {
+      "additional_attempts": 1505,
+      "attempts": 1505,
+      "captures": 461,
+      "clean": 132,
+      "elapsed_s": 4754.384938199015,
+      "mean_reward": 0.004047739946327405,
+      "new_updates": 11,
+      "rejected": 320
+    },
+    {
+      "additional_attempts": 1540,
+      "attempts": 1540,
+      "captures": 473,
+      "clean": 137,
+      "elapsed_s": 4829.093836050015,
+      "mean_reward": 0.006687343072842506,
+      "new_updates": 12,
+      "rejected": 325
+    },
+    {
+      "additional_attempts": 1575,
+      "attempts": 1575,
+      "captures": 481,
+      "clean": 142,
+      "elapsed_s": 4936.721363532997,
+      "mean_reward": 0.0029889155640405187,
+      "new_updates": 12,
+      "rejected": 334
+    },
+    {
+      "additional_attempts": 1610,
+      "attempts": 1610,
+      "captures": 493,
+      "clean": 147,
+      "elapsed_s": 5050.934059901978,
+      "mean_reward": 0.006135996001043606,
+      "new_updates": 12,
+      "rejected": 337
+    },
+    {
+      "additional_attempts": 1645,
+      "attempts": 1645,
+      "captures": 505,
+      "clean": 150,
+      "elapsed_s": 5162.539458302024,
+      "mean_reward": 0.0068445596179735856,
+      "new_updates": 12,
+      "rejected": 348
+    },
+    {
+      "additional_attempts": 1680,
+      "attempts": 1680,
+      "captures": 511,
+      "clean": 152,
+      "elapsed_s": 5288.943400349992,
+      "mean_reward": 0.0006997879754232092,
+      "new_updates": 13,
+      "rejected": 356
+    },
+    {
+      "additional_attempts": 1715,
+      "attempts": 1715,
+      "captures": 524,
+      "clean": 155,
+      "elapsed_s": 5401.7741745680105,
+      "mean_reward": 0.004067387032164594,
+      "new_updates": 13,
+      "rejected": 361
+    },
+    {
+      "additional_attempts": 1750,
+      "attempts": 1750,
+      "captures": 533,
+      "clean": 157,
+      "elapsed_s": 5476.628160885011,
+      "mean_reward": 0.0007580282421297377,
+      "new_updates": 13,
+      "rejected": 373
+    },
+    {
+      "additional_attempts": 1785,
+      "attempts": 1785,
+      "captures": 544,
+      "clean": 159,
+      "elapsed_s": 5593.624706240022,
+      "mean_reward": 0.000770758971607239,
+      "new_updates": 13,
+      "rejected": 382
+    },
+    {
+      "additional_attempts": 1820,
+      "attempts": 1820,
+      "captures": 554,
+      "clean": 161,
+      "elapsed_s": 5713.018831141002,
+      "mean_reward": -0.0009559778232719015,
+      "new_updates": 14,
+      "rejected": 392
+    },
+    {
+      "additional_attempts": 1855,
+      "attempts": 1855,
+      "captures": 565,
+      "clean": 161,
+      "elapsed_s": 5825.013846883026,
+      "mean_reward": -0.000883001706300879,
+      "new_updates": 14,
+      "rejected": 400
+    },
+    {
+      "additional_attempts": 1890,
+      "attempts": 1890,
+      "captures": 578,
+      "clean": 164,
+      "elapsed_s": 5894.732843797014,
+      "mean_reward": 0.0022483346360874256,
+      "new_updates": 14,
+      "rejected": 405
+    },
+    {
+      "additional_attempts": 1925,
+      "attempts": 1925,
+      "captures": 588,
+      "clean": 167,
+      "elapsed_s": 6014.125687106978,
+      "mean_reward": 0.0023661075874817404,
+      "new_updates": 14,
+      "rejected": 409
+    },
+    {
+      "additional_attempts": 1960,
+      "attempts": 1960,
+      "captures": 603,
+      "clean": 170,
+      "elapsed_s": 6087.076015705999,
+      "mean_reward": 0.007268967943638744,
+      "new_updates": 15,
+      "rejected": 415
+    },
+    {
+      "additional_attempts": 1995,
+      "attempts": 1995,
+      "captures": 616,
+      "clean": 174,
+      "elapsed_s": 6157.715658353991,
+      "mean_reward": 0.010219636023447987,
+      "new_updates": 15,
+      "rejected": 419
+    },
+    {
+      "additional_attempts": 2000,
+      "attempts": 2000,
+      "captures": 616,
+      "clean": 174,
+      "elapsed_s": 6189.999644403986,
+      "mean_reward": 0.008410148629533034,
+      "new_updates": 16,
+      "rejected": 421
+    },
+    {
+      "additional_attempts": 2030,
+      "attempts": 2030,
+      "captures": 626,
+      "clean": 174,
+      "elapsed_s": 6408.633266144025,
+      "mean_reward": 0.008296028647926895,
+      "new_updates": 16,
+      "rejected": 431
+    },
+    {
+      "additional_attempts": 2065,
+      "attempts": 2065,
+      "captures": 635,
+      "clean": 177,
+      "elapsed_s": 6532.637717947015,
+      "mean_reward": 0.0059872864558432074,
+      "new_updates": 16,
+      "rejected": 442
+    },
+    {
+      "additional_attempts": 2100,
+      "attempts": 2100,
+      "captures": 648,
+      "clean": 179,
+      "elapsed_s": 6641.60199512,
+      "mean_reward": 0.008317817602005676,
+      "new_updates": 16,
+      "rejected": 449
+    },
+    {
+      "additional_attempts": 2135,
+      "attempts": 2135,
+      "captures": 658,
+      "clean": 180,
+      "elapsed_s": 6750.486047860002,
+      "mean_reward": 0.007841267570459753,
+      "new_updates": 17,
+      "rejected": 455
+    },
+    {
+      "additional_attempts": 2170,
+      "attempts": 2170,
+      "captures": 671,
+      "clean": 181,
+      "elapsed_s": 6860.0659154910245,
+      "mean_reward": 0.00906151824240532,
+      "new_updates": 17,
+      "rejected": 466
+    },
+    {
+      "additional_attempts": 2205,
+      "attempts": 2205,
+      "captures": 681,
+      "clean": 182,
+      "elapsed_s": 6944.919153290975,
+      "mean_reward": 0.008024045929754482,
+      "new_updates": 17,
+      "rejected": 475
+    },
+    {
+      "additional_attempts": 2240,
+      "attempts": 2240,
+      "captures": 689,
+      "clean": 183,
+      "elapsed_s": 7016.2521018870175,
+      "mean_reward": 0.004802590025792591,
+      "new_updates": 17,
+      "rejected": 485
+    },
+    {
+      "additional_attempts": 2275,
+      "attempts": 2275,
+      "captures": 700,
+      "clean": 183,
+      "elapsed_s": 7127.603710968979,
+      "mean_reward": 0.004294033898773846,
+      "new_updates": 18,
+      "rejected": 495
+    },
+    {
+      "additional_attempts": 2310,
+      "attempts": 2310,
+      "captures": 713,
+      "clean": 184,
+      "elapsed_s": 7243.910071365011,
+      "mean_reward": 0.006275831445034891,
+      "new_updates": 18,
+      "rejected": 502
+    },
+    {
+      "additional_attempts": 2345,
+      "attempts": 2345,
+      "captures": 724,
+      "clean": 186,
+      "elapsed_s": 7351.323098500026,
+      "mean_reward": 0.006263372975140413,
+      "new_updates": 18,
+      "rejected": 511
+    },
+    {
+      "additional_attempts": 2380,
+      "attempts": 2380,
+      "captures": 738,
+      "clean": 188,
+      "elapsed_s": 7469.805662262021,
+      "mean_reward": 0.007834056359975784,
+      "new_updates": 18,
+      "rejected": 524
+    },
+    {
+      "additional_attempts": 2415,
+      "attempts": 2415,
+      "captures": 749,
+      "clean": 190,
+      "elapsed_s": 7583.173431379022,
+      "mean_reward": 0.007262511247687595,
+      "new_updates": 19,
+      "rejected": 535
+    },
+    {
+      "additional_attempts": 2450,
+      "attempts": 2450,
+      "captures": 759,
+      "clean": 191,
+      "elapsed_s": 7697.649368783983,
+      "mean_reward": 0.006159812694565497,
+      "new_updates": 19,
+      "rejected": 544
+    },
+    {
+      "additional_attempts": 2485,
+      "attempts": 2485,
+      "captures": 769,
+      "clean": 193,
+      "elapsed_s": 7769.29808037699,
+      "mean_reward": 0.005143508247152636,
+      "new_updates": 19,
+      "rejected": 553
+    },
+    {
+      "additional_attempts": 2520,
+      "attempts": 2520,
+      "captures": 782,
+      "clean": 195,
+      "elapsed_s": 7881.668879910023,
+      "mean_reward": 0.006784452348239037,
+      "new_updates": 19,
+      "rejected": 561
+    },
+    {
+      "additional_attempts": 2555,
+      "attempts": 2555,
+      "captures": 791,
+      "clean": 196,
+      "elapsed_s": 7936.158808115986,
+      "mean_reward": 0.0046534066584717725,
+      "new_updates": 20,
+      "rejected": 572
+    },
+    {
+      "additional_attempts": 2590,
+      "attempts": 2590,
+      "captures": 802,
+      "clean": 198,
+      "elapsed_s": 8051.322366648004,
+      "mean_reward": 0.00460506171445201,
+      "new_updates": 20,
+      "rejected": 581
+    },
+    {
+      "additional_attempts": 2625,
+      "attempts": 2625,
+      "captures": 810,
+      "clean": 199,
+      "elapsed_s": 8163.465728415991,
+      "mean_reward": 0.002269296475461642,
+      "new_updates": 20,
+      "rejected": 590
+    },
+    {
+      "additional_attempts": 2660,
+      "attempts": 2660,
+      "captures": 823,
+      "clean": 201,
+      "elapsed_s": 8230.311747108004,
+      "mean_reward": 0.004701292229016783,
+      "new_updates": 20,
+      "rejected": 594
+    },
+    {
+      "additional_attempts": 2695,
+      "attempts": 2695,
+      "captures": 830,
+      "clean": 204,
+      "elapsed_s": 8344.23328806099,
+      "mean_reward": 0.00041449977136167075,
+      "new_updates": 21,
+      "rejected": 611
+    },
+    {
+      "additional_attempts": 2730,
+      "attempts": 2730,
+      "captures": 844,
+      "clean": 205,
+      "elapsed_s": 8457.879512917018,
+      "mean_reward": 0.002435121581334606,
+      "new_updates": 21,
+      "rejected": 621
+    },
+    {
+      "additional_attempts": 2765,
+      "attempts": 2765,
+      "captures": 857,
+      "clean": 207,
+      "elapsed_s": 8567.592277368996,
+      "mean_reward": 0.004801672902306472,
+      "new_updates": 21,
+      "rejected": 625
+    },
+    {
+      "additional_attempts": 2800,
+      "attempts": 2800,
+      "captures": 867,
+      "clean": 210,
+      "elapsed_s": 8683.958275422978,
+      "mean_reward": 0.004225531643055012,
+      "new_updates": 21,
+      "rejected": 634
+    },
+    {
+      "additional_attempts": 2835,
+      "attempts": 2835,
+      "captures": 878,
+      "clean": 212,
+      "elapsed_s": 8756.425723153981,
+      "mean_reward": 0.0038885414653162483,
+      "new_updates": 22,
+      "rejected": 645
+    },
+    {
+      "additional_attempts": 2870,
+      "attempts": 2870,
+      "captures": 889,
+      "clean": 214,
+      "elapsed_s": 8867.033668535994,
+      "mean_reward": 0.003999023606441293,
+      "new_updates": 22,
+      "rejected": 654
+    },
+    {
+      "additional_attempts": 2905,
+      "attempts": 2905,
+      "captures": 901,
+      "clean": 218,
+      "elapsed_s": 8976.00249433401,
+      "mean_reward": 0.005643774938974203,
+      "new_updates": 22,
+      "rejected": 658
+    },
+    {
+      "additional_attempts": 2940,
+      "attempts": 2940,
+      "captures": 911,
+      "clean": 219,
+      "elapsed_s": 9029.478357033979,
+      "mean_reward": 0.00487290356175526,
+      "new_updates": 22,
+      "rejected": 667
+    },
+    {
+      "additional_attempts": 2975,
+      "attempts": 2975,
+      "captures": 925,
+      "clean": 219,
+      "elapsed_s": 9146.79803059902,
+      "mean_reward": 0.007116322534226452,
+      "new_updates": 23,
+      "rejected": 674
+    },
+    {
+      "additional_attempts": 3010,
+      "attempts": 3010,
+      "captures": 934,
+      "clean": 220,
+      "elapsed_s": 9255.736398971989,
+      "mean_reward": 0.0065434357327563445,
+      "new_updates": 23,
+      "rejected": 678
+    },
+    {
+      "additional_attempts": 3045,
+      "attempts": 3045,
+      "captures": 946,
+      "clean": 225,
+      "elapsed_s": 9367.898546568991,
+      "mean_reward": 0.0069838873265027366,
+      "new_updates": 23,
+      "rejected": 689
+    },
+    {
+      "additional_attempts": 3080,
+      "attempts": 3080,
+      "captures": 954,
+      "clean": 225,
+      "elapsed_s": 9482.19148887298,
+      "mean_reward": 0.003841336193743541,
+      "new_updates": 23,
+      "rejected": 706
+    },
+    {
+      "additional_attempts": 3115,
+      "attempts": 3115,
+      "captures": 963,
+      "clean": 227,
+      "elapsed_s": 9597.708508149022,
+      "mean_reward": 0.002072102297648154,
+      "new_updates": 24,
+      "rejected": 718
+    },
+    {
+      "additional_attempts": 3150,
+      "attempts": 3150,
+      "captures": 974,
+      "clean": 227,
+      "elapsed_s": 9708.574245191994,
+      "mean_reward": 0.001528488602457442,
+      "new_updates": 24,
+      "rejected": 730
+    },
+    {
+      "additional_attempts": 3185,
+      "attempts": 3185,
+      "captures": 986,
+      "clean": 230,
+      "elapsed_s": 9822.512552889995,
+      "mean_reward": 0.002093203642378738,
+      "new_updates": 24,
+      "rejected": 739
+    },
+    {
+      "additional_attempts": 3220,
+      "attempts": 3220,
+      "captures": 995,
+      "clean": 232,
+      "elapsed_s": 9932.80894201697,
+      "mean_reward": 0.00048434953659904614,
+      "new_updates": 24,
+      "rejected": 750
+    },
+    {
+      "additional_attempts": 3255,
+      "attempts": 3255,
+      "captures": 1006,
+      "clean": 236,
+      "elapsed_s": 10051.721758160973,
+      "mean_reward": 0.0005308119892207812,
+      "new_updates": 25,
+      "rejected": 759
+    },
+    {
+      "additional_attempts": 3290,
+      "attempts": 3290,
+      "captures": 1020,
+      "clean": 237,
+      "elapsed_s": 10173.445221241971,
+      "mean_reward": 0.002530512369159384,
+      "new_updates": 25,
+      "rejected": 766
+    },
+    {
+      "additional_attempts": 3325,
+      "attempts": 3325,
+      "captures": 1034,
+      "clean": 240,
+      "elapsed_s": 10279.60889661801,
+      "mean_reward": 0.004418126363765008,
+      "new_updates": 25,
+      "rejected": 774
+    },
+    {
+      "additional_attempts": 3360,
+      "attempts": 3360,
+      "captures": 1045,
+      "clean": 240,
+      "elapsed_s": 10387.628407309996,
+      "mean_reward": 0.004669192565592708,
+      "new_updates": 25,
+      "rejected": 781
+    },
+    {
+      "additional_attempts": 3395,
+      "attempts": 3395,
+      "captures": 1052,
+      "clean": 242,
+      "elapsed_s": 10502.802073246974,
+      "mean_reward": 0.001930082686645859,
+      "new_updates": 26,
+      "rejected": 792
+    },
+    {
+      "additional_attempts": 3430,
+      "attempts": 3430,
+      "captures": 1061,
+      "clean": 242,
+      "elapsed_s": 10571.265001168998,
+      "mean_reward": 0.0002722235848958616,
+      "new_updates": 26,
+      "rejected": 803
+    },
+    {
+      "additional_attempts": 3465,
+      "attempts": 3465,
+      "captures": 1071,
+      "clean": 243,
+      "elapsed_s": 10683.295002272993,
+      "mean_reward": -0.0005064266495095335,
+      "new_updates": 26,
+      "rejected": 813
+    },
+    {
+      "additional_attempts": 3500,
+      "attempts": 3500,
+      "captures": 1081,
+      "clean": 246,
+      "elapsed_s": 10811.611766092014,
+      "mean_reward": -0.0005186946817782884,
+      "new_updates": 26,
+      "rejected": 818
+    },
+    {
+      "additional_attempts": 3535,
+      "attempts": 3535,
+      "captures": 1090,
+      "clean": 246,
+      "elapsed_s": 10927.050171191979,
+      "mean_reward": -0.0013496294995893712,
+      "new_updates": 27,
+      "rejected": 825
+    },
+    {
+      "additional_attempts": 3570,
+      "attempts": 3570,
+      "captures": 1100,
+      "clean": 248,
+      "elapsed_s": 11048.008115909004,
+      "mean_reward": -0.0018934741196315736,
+      "new_updates": 27,
+      "rejected": 834
+    },
+    {
+      "additional_attempts": 3605,
+      "attempts": 3605,
+      "captures": 1113,
+      "clean": 253,
+      "elapsed_s": 11167.65441022598,
+      "mean_reward": -0.0007207967087849343,
+      "new_updates": 27,
+      "rejected": 843
+    },
+    {
+      "additional_attempts": 3640,
+      "attempts": 3640,
+      "captures": 1124,
+      "clean": 255,
+      "elapsed_s": 11282.701998297998,
+      "mean_reward": -0.0006941041648362117,
+      "new_updates": 27,
+      "rejected": 852
+    },
+    {
+      "additional_attempts": 3675,
+      "attempts": 3675,
+      "captures": 1135,
+      "clean": 256,
+      "elapsed_s": 11400.050265658996,
+      "mean_reward": -0.0014755371942803551,
+      "new_updates": 28,
+      "rejected": 867
+    },
+    {
+      "additional_attempts": 3710,
+      "attempts": 3710,
+      "captures": 1150,
+      "clean": 259,
+      "elapsed_s": 11518.445181016985,
+      "mean_reward": 0.0012234071823986593,
+      "new_updates": 28,
+      "rejected": 873
+    },
+    {
+      "additional_attempts": 3745,
+      "attempts": 3745,
+      "captures": 1159,
+      "clean": 260,
+      "elapsed_s": 11630.694735853991,
+      "mean_reward": 0.00011682857169386205,
+      "new_updates": 28,
+      "rejected": 882
+    },
+    {
+      "additional_attempts": 3780,
+      "attempts": 3780,
+      "captures": 1171,
+      "clean": 264,
+      "elapsed_s": 11741.196141763998,
+      "mean_reward": 0.0010043331186067777,
+      "new_updates": 28,
+      "rejected": 889
+    },
+    {
+      "additional_attempts": 3815,
+      "attempts": 3815,
+      "captures": 1185,
+      "clean": 264,
+      "elapsed_s": 11866.340625706012,
+      "mean_reward": 0.002677452253118543,
+      "new_updates": 29,
+      "rejected": 896
+    },
+    {
+      "additional_attempts": 3850,
+      "attempts": 3850,
+      "captures": 1199,
+      "clean": 268,
+      "elapsed_s": 11936.324205012002,
+      "mean_reward": 0.004662283925831902,
+      "new_updates": 29,
+      "rejected": 901
+    },
+    {
+      "additional_attempts": 3885,
+      "attempts": 3885,
+      "captures": 1207,
+      "clean": 269,
+      "elapsed_s": 12003.959258722025,
+      "mean_reward": 0.0031296505623050904,
+      "new_updates": 29,
+      "rejected": 909
+    },
+    {
+      "additional_attempts": 3920,
+      "attempts": 3920,
+      "captures": 1220,
+      "clean": 271,
+      "elapsed_s": 12114.692818131007,
+      "mean_reward": 0.004232248583310878,
+      "new_updates": 29,
+      "rejected": 917
+    },
+    {
+      "additional_attempts": 3955,
+      "attempts": 3955,
+      "captures": 1231,
+      "clean": 273,
+      "elapsed_s": 12227.872214666975,
+      "mean_reward": 0.004663833224714567,
+      "new_updates": 30,
+      "rejected": 923
+    },
+    {
+      "additional_attempts": 3990,
+      "attempts": 3990,
+      "captures": 1244,
+      "clean": 274,
+      "elapsed_s": 12298.57878491201,
+      "mean_reward": 0.006096371916412594,
+      "new_updates": 30,
+      "rejected": 928
+    },
+    {
+      "additional_attempts": 4025,
+      "attempts": 4025,
+      "captures": 1259,
+      "clean": 277,
+      "elapsed_s": 12411.136555514007,
+      "mean_reward": 0.00844957773899004,
+      "new_updates": 30,
+      "rejected": 933
+    },
+    {
+      "additional_attempts": 4060,
+      "attempts": 4060,
+      "captures": 1273,
+      "clean": 281,
+      "elapsed_s": 12531.386243816,
+      "mean_reward": 0.009879625499840596,
+      "new_updates": 30,
+      "rejected": 943
+    },
+    {
+      "additional_attempts": 4095,
+      "attempts": 4095,
+      "captures": 1285,
+      "clean": 283,
+      "elapsed_s": 12645.965293687012,
+      "mean_reward": 0.009893620405960427,
+      "new_updates": 31,
+      "rejected": 955
+    },
+    {
+      "additional_attempts": 4130,
+      "attempts": 4130,
+      "captures": 1296,
+      "clean": 285,
+      "elapsed_s": 12769.124178057013,
+      "mean_reward": 0.009621701217456455,
+      "new_updates": 31,
+      "rejected": 966
+    },
+    {
+      "additional_attempts": 4165,
+      "attempts": 4165,
+      "captures": 1308,
+      "clean": 285,
+      "elapsed_s": 12882.846853023977,
+      "mean_reward": 0.009999956961870261,
+      "new_updates": 31,
+      "rejected": 975
+    },
+    {
+      "additional_attempts": 4200,
+      "attempts": 4200,
+      "captures": 1318,
+      "clean": 288,
+      "elapsed_s": 12995.99226366001,
+      "mean_reward": 0.009096156097340845,
+      "new_updates": 31,
+      "rejected": 988
+    },
+    {
+      "additional_attempts": 4235,
+      "attempts": 4235,
+      "captures": 1331,
+      "clean": 291,
+      "elapsed_s": 13109.397455334023,
+      "mean_reward": 0.010478081366356586,
+      "new_updates": 32,
+      "rejected": 993
+    },
+    {
+      "additional_attempts": 4270,
+      "attempts": 4270,
+      "captures": 1342,
+      "clean": 292,
+      "elapsed_s": 13221.592177941988,
+      "mean_reward": 0.010269220900738034,
+      "new_updates": 32,
+      "rejected": 1003
+    },
+    {
+      "additional_attempts": 4305,
+      "attempts": 4305,
+      "captures": 1354,
+      "clean": 295,
+      "elapsed_s": 13336.252245111973,
+      "mean_reward": 0.01066763897636357,
+      "new_updates": 32,
+      "rejected": 1012
+    },
+    {
+      "additional_attempts": 4340,
+      "attempts": 4340,
+      "captures": 1366,
+      "clean": 298,
+      "elapsed_s": 13403.267555499973,
+      "mean_reward": 0.011224167392438403,
+      "new_updates": 32,
+      "rejected": 1020
+    },
+    {
+      "additional_attempts": 4375,
+      "attempts": 4375,
+      "captures": 1381,
+      "clean": 300,
+      "elapsed_s": 13517.812505863025,
+      "mean_reward": 0.013088499514511522,
+      "new_updates": 33,
+      "rejected": 1028
+    },
+    {
+      "additional_attempts": 4410,
+      "attempts": 4410,
+      "captures": 1393,
+      "clean": 301,
+      "elapsed_s": 13624.206106364029,
+      "mean_reward": 0.013585928752481281,
+      "new_updates": 33,
+      "rejected": 1035
+    },
+    {
+      "additional_attempts": 4445,
+      "attempts": 4445,
+      "captures": 1406,
+      "clean": 302,
+      "elapsed_s": 13707.826483079989,
+      "mean_reward": 0.014395061932917235,
+      "new_updates": 33,
+      "rejected": 1043
+    },
+    {
+      "additional_attempts": 4480,
+      "attempts": 4480,
+      "captures": 1416,
+      "clean": 304,
+      "elapsed_s": 13826.194425705005,
+      "mean_reward": 0.013511254361438142,
+      "new_updates": 33,
+      "rejected": 1054
+    },
+    {
+      "additional_attempts": 4515,
+      "attempts": 4515,
+      "captures": 1422,
+      "clean": 306,
+      "elapsed_s": 13940.607391458005,
+      "mean_reward": 0.011476738098779918,
+      "new_updates": 34,
+      "rejected": 1061
+    },
+    {
+      "additional_attempts": 4550,
+      "attempts": 4550,
+      "captures": 1428,
+      "clean": 307,
+      "elapsed_s": 14055.54564635898,
+      "mean_reward": 0.009130434956554901,
+      "new_updates": 34,
+      "rejected": 1071
+    },
+    {
+      "additional_attempts": 4585,
+      "attempts": 4585,
+      "captures": 1438,
+      "clean": 308,
+      "elapsed_s": 14150.592241515988,
+      "mean_reward": 0.008450383839389647,
+      "new_updates": 34,
+      "rejected": 1082
+    },
+    {
+      "additional_attempts": 4620,
+      "attempts": 4620,
+      "captures": 1449,
+      "clean": 310,
+      "elapsed_s": 14263.131189214997,
+      "mean_reward": 0.00850573956888125,
+      "new_updates": 34,
+      "rejected": 1090
+    },
+    {
+      "additional_attempts": 4655,
+      "attempts": 4655,
+      "captures": 1458,
+      "clean": 313,
+      "elapsed_s": 14373.93579195399,
+      "mean_reward": 0.00736504605711207,
+      "new_updates": 35,
+      "rejected": 1101
+    },
+    {
+      "additional_attempts": 4690,
+      "attempts": 4690,
+      "captures": 1471,
+      "clean": 317,
+      "elapsed_s": 14483.907053372997,
+      "mean_reward": 0.008174135361020065,
+      "new_updates": 35,
+      "rejected": 1110
+    },
+    {
+      "additional_attempts": 4725,
+      "attempts": 4725,
+      "captures": 1482,
+      "clean": 317,
+      "elapsed_s": 14540.632754797,
+      "mean_reward": 0.008457042073993224,
+      "new_updates": 35,
+      "rejected": 1116
+    },
+    {
+      "additional_attempts": 4760,
+      "attempts": 4760,
+      "captures": 1495,
+      "clean": 319,
+      "elapsed_s": 14617.352077258984,
+      "mean_reward": 0.009223997685013035,
+      "new_updates": 35,
+      "rejected": 1125
+    },
+    {
+      "additional_attempts": 4795,
+      "attempts": 4795,
+      "captures": 1506,
+      "clean": 320,
+      "elapsed_s": 14727.223359049007,
+      "mean_reward": 0.00919707094171388,
+      "new_updates": 36,
+      "rejected": 1133
+    },
+    {
+      "additional_attempts": 4830,
+      "attempts": 4830,
+      "captures": 1517,
+      "clean": 320,
+      "elapsed_s": 14842.46040189598,
+      "mean_reward": 0.009111841732708261,
+      "new_updates": 36,
+      "rejected": 1142
+    },
+    {
+      "additional_attempts": 4865,
+      "attempts": 4865,
+      "captures": 1530,
+      "clean": 323,
+      "elapsed_s": 14959.122553427005,
+      "mean_reward": 0.009812344709264429,
+      "new_updates": 36,
+      "rejected": 1151
+    },
+    {
+      "additional_attempts": 4900,
+      "attempts": 4900,
+      "captures": 1542,
+      "clean": 326,
+      "elapsed_s": 15042.687083409983,
+      "mean_reward": 0.010569797581631856,
+      "new_updates": 36,
+      "rejected": 1156
+    },
+    {
+      "additional_attempts": 4935,
+      "attempts": 4935,
+      "captures": 1550,
+      "clean": 328,
+      "elapsed_s": 15160.34269070701,
+      "mean_reward": 0.008626402539431333,
+      "new_updates": 37,
+      "rejected": 1172
+    },
+    {
+      "additional_attempts": 4970,
+      "attempts": 4970,
+      "captures": 1562,
+      "clean": 329,
+      "elapsed_s": 15275.086561175995,
+      "mean_reward": 0.009286282494005758,
+      "new_updates": 37,
+      "rejected": 1178
+    },
+    {
+      "additional_attempts": 5000,
+      "attempts": 5000,
+      "captures": 1569,
+      "clean": 329,
+      "elapsed_s": 15381.867787721974,
+      "mean_reward": 0.008171650947215732,
+      "new_updates": 38,
+      "rejected": 1187
+    },
+    {
+      "additional_attempts": 5005,
+      "attempts": 5005,
+      "captures": 1571,
+      "clean": 329,
+      "elapsed_s": 15549.823783716012,
+      "mean_reward": 0.008441517154515746,
+      "new_updates": 38,
+      "rejected": 1187
+    },
+    {
+      "additional_attempts": 5040,
+      "attempts": 5040,
+      "captures": 1582,
+      "clean": 334,
+      "elapsed_s": 15655.240984909004,
+      "mean_reward": 0.008648696517362069,
+      "new_updates": 38,
+      "rejected": 1194
+    },
+    {
+      "additional_attempts": 5075,
+      "attempts": 5075,
+      "captures": 1596,
+      "clean": 338,
+      "elapsed_s": 15768.869590606017,
+      "mean_reward": 0.010150502329038023,
+      "new_updates": 38,
+      "rejected": 1200
+    },
+    {
+      "additional_attempts": 5110,
+      "attempts": 5110,
+      "captures": 1607,
+      "clean": 340,
+      "elapsed_s": 15843.921163427993,
+      "mean_reward": 0.010078245231605791,
+      "new_updates": 39,
+      "rejected": 1209
+    },
+    {
+      "additional_attempts": 5145,
+      "attempts": 5145,
+      "captures": 1614,
+      "clean": 341,
+      "elapsed_s": 15958.565274629975,
+      "mean_reward": 0.008465601875412196,
+      "new_updates": 39,
+      "rejected": 1219
+    },
+    {
+      "additional_attempts": 5180,
+      "attempts": 5180,
+      "captures": 1625,
+      "clean": 342,
+      "elapsed_s": 16075.773799017014,
+      "mean_reward": 0.008320998336324527,
+      "new_updates": 39,
+      "rejected": 1229
+    },
+    {
+      "additional_attempts": 5215,
+      "attempts": 5215,
+      "captures": 1635,
+      "clean": 342,
+      "elapsed_s": 16184.82030984998,
+      "mean_reward": 0.007880396808775232,
+      "new_updates": 39,
+      "rejected": 1238
+    },
+    {
+      "additional_attempts": 5250,
+      "attempts": 5250,
+      "captures": 1648,
+      "clean": 345,
+      "elapsed_s": 16295.466094284027,
+      "mean_reward": 0.008902093796498624,
+      "new_updates": 40,
+      "rejected": 1245
+    },
+    {
+      "additional_attempts": 5285,
+      "attempts": 5285,
+      "captures": 1658,
+      "clean": 347,
+      "elapsed_s": 16410.872742471984,
+      "mean_reward": 0.008400704382906635,
+      "new_updates": 40,
+      "rejected": 1255
+    },
+    {
+      "additional_attempts": 5320,
+      "attempts": 5320,
+      "captures": 1672,
+      "clean": 351,
+      "elapsed_s": 16521.586736675003,
+      "mean_reward": 0.009487177035166633,
+      "new_updates": 40,
+      "rejected": 1264
+    },
+    {
+      "additional_attempts": 5355,
+      "attempts": 5355,
+      "captures": 1686,
+      "clean": 354,
+      "elapsed_s": 16640.66793815099,
+      "mean_reward": 0.010498737850731034,
+      "new_updates": 40,
+      "rejected": 1274
+    },
+    {
+      "additional_attempts": 5390,
+      "attempts": 5390,
+      "captures": 1693,
+      "clean": 355,
+      "elapsed_s": 16753.454445076,
+      "mean_reward": 0.009023143584770646,
+      "new_updates": 41,
+      "rejected": 1283
+    },
+    {
+      "additional_attempts": 5425,
+      "attempts": 5425,
+      "captures": 1703,
+      "clean": 356,
+      "elapsed_s": 16865.81513751397,
+      "mean_reward": 0.008377314360255014,
+      "new_updates": 41,
+      "rejected": 1295
+    },
+    {
+      "additional_attempts": 5460,
+      "attempts": 5460,
+      "captures": 1716,
+      "clean": 358,
+      "elapsed_s": 16980.982261278026,
+      "mean_reward": 0.009553314309248878,
+      "new_updates": 41,
+      "rejected": 1299
+    },
+    {
+      "additional_attempts": 5495,
+      "attempts": 5495,
+      "captures": 1728,
+      "clean": 360,
+      "elapsed_s": 17095.74307350599,
+      "mean_reward": 0.009673225087641006,
+      "new_updates": 41,
+      "rejected": 1310
+    },
+    {
+      "additional_attempts": 5530,
+      "attempts": 5530,
+      "captures": 1742,
+      "clean": 364,
+      "elapsed_s": 17210.073422627,
+      "mean_reward": 0.011009368958626507,
+      "new_updates": 42,
+      "rejected": 1315
+    },
+    {
+      "additional_attempts": 5565,
+      "attempts": 5565,
+      "captures": 1754,
+      "clean": 366,
+      "elapsed_s": 17326.02217743901,
+      "mean_reward": 0.01117733557050846,
+      "new_updates": 42,
+      "rejected": 1324
+    },
+    {
+      "additional_attempts": 5600,
+      "attempts": 5600,
+      "captures": 1765,
+      "clean": 367,
+      "elapsed_s": 17404.69992230198,
+      "mean_reward": 0.011049012439737159,
+      "new_updates": 42,
+      "rejected": 1333
+    },
+    {
+      "additional_attempts": 5635,
+      "attempts": 5635,
+      "captures": 1777,
+      "clean": 367,
+      "elapsed_s": 17522.022688357974,
+      "mean_reward": 0.01131286157425898,
+      "new_updates": 42,
+      "rejected": 1342
+    },
+    {
+      "additional_attempts": 5670,
+      "attempts": 5670,
+      "captures": 1783,
+      "clean": 369,
+      "elapsed_s": 17638.205285504984,
+      "mean_reward": 0.00957834931724361,
+      "new_updates": 43,
+      "rejected": 1350
+    },
+    {
+      "additional_attempts": 5705,
+      "attempts": 5705,
+      "captures": 1796,
+      "clean": 372,
+      "elapsed_s": 17752.200311173976,
+      "mean_reward": 0.010452022184915737,
+      "new_updates": 43,
+      "rejected": 1357
+    },
+    {
+      "additional_attempts": 5740,
+      "attempts": 5740,
+      "captures": 1807,
+      "clean": 372,
+      "elapsed_s": 17807.989679327,
+      "mean_reward": 0.01040068929064313,
+      "new_updates": 43,
+      "rejected": 1365
+    },
+    {
+      "additional_attempts": 5775,
+      "attempts": 5775,
+      "captures": 1822,
+      "clean": 374,
+      "elapsed_s": 17886.73242458701,
+      "mean_reward": 0.01198567961810361,
+      "new_updates": 43,
+      "rejected": 1371
+    },
+    {
+      "additional_attempts": 5810,
+      "attempts": 5810,
+      "captures": 1834,
+      "clean": 376,
+      "elapsed_s": 18002.065623513015,
+      "mean_reward": 0.01220802993860226,
+      "new_updates": 44,
+      "rejected": 1380
+    },
+    {
+      "additional_attempts": 5845,
+      "attempts": 5845,
+      "captures": 1846,
+      "clean": 377,
+      "elapsed_s": 18078.857719636988,
+      "mean_reward": 0.012608242442481491,
+      "new_updates": 44,
+      "rejected": 1387
+    },
+    {
+      "additional_attempts": 5880,
+      "attempts": 5880,
+      "captures": 1857,
+      "clean": 379,
+      "elapsed_s": 18190.369959376985,
+      "mean_reward": 0.012281269207033157,
+      "new_updates": 44,
+      "rejected": 1399
+    },
+    {
+      "additional_attempts": 5915,
+      "attempts": 5915,
+      "captures": 1869,
+      "clean": 381,
+      "elapsed_s": 18311.53500925901,
+      "mean_reward": 0.012395831606507821,
+      "new_updates": 44,
+      "rejected": 1409
+    },
+    {
+      "additional_attempts": 5950,
+      "attempts": 5950,
+      "captures": 1883,
+      "clean": 381,
+      "elapsed_s": 18443.26974735502,
+      "mean_reward": 0.013025654018353231,
+      "new_updates": 45,
+      "rejected": 1421
+    },
+    {
+      "additional_attempts": 5985,
+      "attempts": 5985,
+      "captures": 1896,
+      "clean": 383,
+      "elapsed_s": 18555.52788845799,
+      "mean_reward": 0.013626779975537129,
+      "new_updates": 45,
+      "rejected": 1429
+    },
+    {
+      "additional_attempts": 6020,
+      "attempts": 6020,
+      "captures": 1910,
+      "clean": 386,
+      "elapsed_s": 18633.74959152902,
+      "mean_reward": 0.01478143801614368,
+      "new_updates": 45,
+      "rejected": 1435
+    },
+    {
+      "additional_attempts": 6055,
+      "attempts": 6055,
+      "captures": 1922,
+      "clean": 388,
+      "elapsed_s": 18751.15398952097,
+      "mean_reward": 0.015236808716015049,
+      "new_updates": 45,
+      "rejected": 1441
+    },
+    {
+      "additional_attempts": 6090,
+      "attempts": 6090,
+      "captures": 1931,
+      "clean": 391,
+      "elapsed_s": 18870.47163835098,
+      "mean_reward": 0.015008479790421582,
+      "new_updates": 46,
+      "rejected": 1445
+    },
+    {
+      "additional_attempts": 6125,
+      "attempts": 6125,
+      "captures": 1944,
+      "clean": 392,
+      "elapsed_s": 18988.083175181993,
+      "mean_reward": 0.01567797931638218,
+      "new_updates": 46,
+      "rejected": 1451
+    },
+    {
+      "additional_attempts": 6160,
+      "attempts": 6160,
+      "captures": 1954,
+      "clean": 393,
+      "elapsed_s": 19053.898081257008,
+      "mean_reward": 0.015245713904803298,
+      "new_updates": 46,
+      "rejected": 1460
+    },
+    {
+      "additional_attempts": 6195,
+      "attempts": 6195,
+      "captures": 1967,
+      "clean": 394,
+      "elapsed_s": 19168.60161594901,
+      "mean_reward": 0.01546675934438582,
+      "new_updates": 46,
+      "rejected": 1473
+    },
+    {
+      "additional_attempts": 6230,
+      "attempts": 6230,
+      "captures": 1980,
+      "clean": 394,
+      "elapsed_s": 19281.217869808024,
+      "mean_reward": 0.016094010379215033,
+      "new_updates": 47,
+      "rejected": 1481
+    },
+    {
+      "additional_attempts": 6265,
+      "attempts": 6265,
+      "captures": 1990,
+      "clean": 397,
+      "elapsed_s": 19404.967176029983,
+      "mean_reward": 0.015436010730254733,
+      "new_updates": 47,
+      "rejected": 1494
+    },
+    {
+      "additional_attempts": 6300,
+      "attempts": 6300,
+      "captures": 2004,
+      "clean": 398,
+      "elapsed_s": 19520.060133213992,
+      "mean_reward": 0.01631529947297653,
+      "new_updates": 47,
+      "rejected": 1503
+    },
+    {
+      "additional_attempts": 6335,
+      "attempts": 6335,
+      "captures": 2015,
+      "clean": 398,
+      "elapsed_s": 19636.87636538298,
+      "mean_reward": 0.016048369560887548,
+      "new_updates": 47,
+      "rejected": 1515
+    },
+    {
+      "additional_attempts": 6370,
+      "attempts": 6370,
+      "captures": 2028,
+      "clean": 399,
+      "elapsed_s": 19703.36686654901,
+      "mean_reward": 0.01667412401064746,
+      "new_updates": 48,
+      "rejected": 1523
+    },
+    {
+      "additional_attempts": 6405,
+      "attempts": 6405,
+      "captures": 2040,
+      "clean": 400,
+      "elapsed_s": 19820.551845522015,
+      "mean_reward": 0.01687372429032973,
+      "new_updates": 48,
+      "rejected": 1533
+    },
+    {
+      "additional_attempts": 6440,
+      "attempts": 6440,
+      "captures": 2052,
+      "clean": 401,
+      "elapsed_s": 19899.105347922014,
+      "mean_reward": 0.01713586908346779,
+      "new_updates": 48,
+      "rejected": 1541
+    },
+    {
+      "additional_attempts": 6475,
+      "attempts": 6475,
+      "captures": 2065,
+      "clean": 403,
+      "elapsed_s": 19976.144430521992,
+      "mean_reward": 0.0178938079515236,
+      "new_updates": 48,
+      "rejected": 1547
+    },
+    {
+      "additional_attempts": 6510,
+      "attempts": 6510,
+      "captures": 2078,
+      "clean": 404,
+      "elapsed_s": 20097.559916891973,
+      "mean_reward": 0.018193523661380853,
+      "new_updates": 49,
+      "rejected": 1559
+    },
+    {
+      "additional_attempts": 6545,
+      "attempts": 6545,
+      "captures": 2085,
+      "clean": 405,
+      "elapsed_s": 20217.414965822012,
+      "mean_reward": 0.016621209364644365,
+      "new_updates": 49,
+      "rejected": 1572
+    },
+    {
+      "additional_attempts": 6580,
+      "attempts": 6580,
+      "captures": 2099,
+      "clean": 406,
+      "elapsed_s": 20329.058719135995,
+      "mean_reward": 0.017455127300755626,
+      "new_updates": 49,
+      "rejected": 1581
+    },
+    {
+      "additional_attempts": 6615,
+      "attempts": 6615,
+      "captures": 2115,
+      "clean": 406,
+      "elapsed_s": 20404.333546094014,
+      "mean_reward": 0.01867600333256133,
+      "new_updates": 49,
+      "rejected": 1592
+    },
+    {
+      "additional_attempts": 6650,
+      "attempts": 6650,
+      "captures": 2128,
+      "clean": 409,
+      "elapsed_s": 20476.16842772899,
+      "mean_reward": 0.019482515064911263,
+      "new_updates": 50,
+      "rejected": 1597
+    },
+    {
+      "additional_attempts": 6685,
+      "attempts": 6685,
+      "captures": 2141,
+      "clean": 412,
+      "elapsed_s": 20592.838810292014,
+      "mean_reward": 0.01979350226640248,
+      "new_updates": 50,
+      "rejected": 1608
+    },
+    {
+      "additional_attempts": 6720,
+      "attempts": 6720,
+      "captures": 2152,
+      "clean": 413,
+      "elapsed_s": 20707.23100083298,
+      "mean_reward": 0.01981342148874532,
+      "new_updates": 50,
+      "rejected": 1615
+    },
+    {
+      "additional_attempts": 6755,
+      "attempts": 6755,
+      "captures": 2162,
+      "clean": 413,
+      "elapsed_s": 20826.02448088501,
+      "mean_reward": 0.01948813583041612,
+      "new_updates": 50,
+      "rejected": 1622
+    },
+    {
+      "additional_attempts": 6790,
+      "attempts": 6790,
+      "captures": 2174,
+      "clean": 416,
+      "elapsed_s": 20939.397504161985,
+      "mean_reward": 0.019502342093001356,
+      "new_updates": 51,
+      "rejected": 1634
+    },
+    {
+      "additional_attempts": 6825,
+      "attempts": 6825,
+      "captures": 2183,
+      "clean": 416,
+      "elapsed_s": 21061.257784645015,
+      "mean_reward": 0.01885410786989836,
+      "new_updates": 51,
+      "rejected": 1644
+    },
+    {
+      "additional_attempts": 6860,
+      "attempts": 6860,
+      "captures": 2197,
+      "clean": 416,
+      "elapsed_s": 21175.50446782302,
+      "mean_reward": 0.019566687632860527,
+      "new_updates": 51,
+      "rejected": 1654
+    },
+    {
+      "additional_attempts": 6895,
+      "attempts": 6895,
+      "captures": 2207,
+      "clean": 419,
+      "elapsed_s": 21288.054218831996,
+      "mean_reward": 0.018931491676360147,
+      "new_updates": 51,
+      "rejected": 1668
+    },
+    {
+      "additional_attempts": 6930,
+      "attempts": 6930,
+      "captures": 2216,
+      "clean": 420,
+      "elapsed_s": 21362.071567565028,
+      "mean_reward": 0.018486997838965923,
+      "new_updates": 52,
+      "rejected": 1674
+    },
+    {
+      "additional_attempts": 6965,
+      "attempts": 6965,
+      "captures": 2227,
+      "clean": 421,
+      "elapsed_s": 21482.555260456982,
+      "mean_reward": 0.017864256036951052,
+      "new_updates": 52,
+      "rejected": 1690
+    },
+    {
+      "additional_attempts": 7000,
+      "attempts": 7000,
+      "captures": 2241,
+      "clean": 423,
+      "elapsed_s": 21594.742828770017,
+      "mean_reward": 0.018522021352606364,
+      "new_updates": 52,
+      "rejected": 1700
+    },
+    {
+      "additional_attempts": 7035,
+      "attempts": 7035,
+      "captures": 2253,
+      "clean": 424,
+      "elapsed_s": 21707.046791029978,
+      "mean_reward": 0.018597423007807923,
+      "new_updates": 52,
+      "rejected": 1711
+    },
+    {
+      "additional_attempts": 7070,
+      "attempts": 7070,
+      "captures": 2260,
+      "clean": 425,
+      "elapsed_s": 21821.090711921977,
+      "mean_reward": 0.017148823529809693,
+      "new_updates": 53,
+      "rejected": 1723
+    },
+    {
+      "additional_attempts": 7105,
+      "attempts": 7105,
+      "captures": 2274,
+      "clean": 426,
+      "elapsed_s": 21897.799416276976,
+      "mean_reward": 0.017908020618172017,
+      "new_updates": 53,
+      "rejected": 1731
+    },
+    {
+      "additional_attempts": 7140,
+      "attempts": 7140,
+      "captures": 2287,
+      "clean": 427,
+      "elapsed_s": 22012.164697034983,
+      "mean_reward": 0.018582890537523947,
+      "new_updates": 53,
+      "rejected": 1737
+    },
+    {
+      "additional_attempts": 7175,
+      "attempts": 7175,
+      "captures": 2294,
+      "clean": 429,
+      "elapsed_s": 22127.15332096099,
+      "mean_reward": 0.017000737256977975,
+      "new_updates": 53,
+      "rejected": 1752
+    },
+    {
+      "additional_attempts": 7210,
+      "attempts": 7210,
+      "captures": 2304,
+      "clean": 429,
+      "elapsed_s": 22241.892289459007,
+      "mean_reward": 0.016375976644889285,
+      "new_updates": 54,
+      "rejected": 1764
+    },
+    {
+      "additional_attempts": 7245,
+      "attempts": 7245,
+      "captures": 2313,
+      "clean": 429,
+      "elapsed_s": 22317.08462212002,
+      "mean_reward": 0.015921111697339587,
+      "new_updates": 54,
+      "rejected": 1770
+    },
+    {
+      "additional_attempts": 7280,
+      "attempts": 7280,
+      "captures": 2325,
+      "clean": 431,
+      "elapsed_s": 22443.297941797995,
+      "mean_reward": 0.015964373706698266,
+      "new_updates": 54,
+      "rejected": 1781
+    },
+    {
+      "additional_attempts": 7315,
+      "attempts": 7315,
+      "captures": 2334,
+      "clean": 431,
+      "elapsed_s": 22564.146840056987,
+      "mean_reward": 0.015391094728879125,
+      "new_updates": 54,
+      "rejected": 1789
+    },
+    {
+      "additional_attempts": 7350,
+      "attempts": 7350,
+      "captures": 2346,
+      "clean": 434,
+      "elapsed_s": 22686.485002257978,
+      "mean_reward": 0.015784633509510676,
+      "new_updates": 55,
+      "rejected": 1795
+    },
+    {
+      "additional_attempts": 7385,
+      "attempts": 7385,
+      "captures": 2359,
+      "clean": 435,
+      "elapsed_s": 22796.491736072,
+      "mean_reward": 0.01603616758997315,
+      "new_updates": 55,
+      "rejected": 1807
+    },
+    {
+      "additional_attempts": 7420,
+      "attempts": 7420,
+      "captures": 2372,
+      "clean": 435,
+      "elapsed_s": 22910.85514588299,
+      "mean_reward": 0.016534221129918862,
+      "new_updates": 55,
+      "rejected": 1815
+    },
+    {
+      "additional_attempts": 7455,
+      "attempts": 7455,
+      "captures": 2387,
+      "clean": 436,
+      "elapsed_s": 23028.06563826598,
+      "mean_reward": 0.017665355939396346,
+      "new_updates": 55,
+      "rejected": 1822
+    },
+    {
+      "additional_attempts": 7490,
+      "attempts": 7490,
+      "captures": 2398,
+      "clean": 436,
+      "elapsed_s": 23142.83227327402,
+      "mean_reward": 0.017481041321129525,
+      "new_updates": 56,
+      "rejected": 1832
+    },
+    {
+      "additional_attempts": 7525,
+      "attempts": 7525,
+      "captures": 2408,
+      "clean": 437,
+      "elapsed_s": 23266.193882675027,
+      "mean_reward": 0.016638462171436604,
+      "new_updates": 56,
+      "rejected": 1848
+    },
+    {
+      "additional_attempts": 7560,
+      "attempts": 7560,
+      "captures": 2418,
+      "clean": 437,
+      "elapsed_s": 23389.70484933001,
+      "mean_reward": 0.016507999758211083,
+      "new_updates": 56,
+      "rejected": 1854
+    },
+    {
+      "additional_attempts": 7595,
+      "attempts": 7595,
+      "captures": 2429,
+      "clean": 437,
+      "elapsed_s": 23511.177575750975,
+      "mean_reward": 0.016580322681777476,
+      "new_updates": 56,
+      "rejected": 1860
+    },
+    {
+      "additional_attempts": 7630,
+      "attempts": 7630,
+      "captures": 2441,
+      "clean": 437,
+      "elapsed_s": 23640.016152279975,
+      "mean_reward": 0.016629282306776946,
+      "new_updates": 57,
+      "rejected": 1871
+    },
+    {
+      "additional_attempts": 7665,
+      "attempts": 7665,
+      "captures": 2455,
+      "clean": 438,
+      "elapsed_s": 23718.475282737985,
+      "mean_reward": 0.017465374195375093,
+      "new_updates": 57,
+      "rejected": 1877
+    },
+    {
+      "additional_attempts": 7700,
+      "attempts": 7700,
+      "captures": 2463,
+      "clean": 438,
+      "elapsed_s": 23835.482657203975,
+      "mean_reward": 0.016578743993065796,
+      "new_updates": 57,
+      "rejected": 1887
+    },
+    {
+      "additional_attempts": 7735,
+      "attempts": 7735,
+      "captures": 2477,
+      "clean": 439,
+      "elapsed_s": 23948.754153374,
+      "mean_reward": 0.017329934937264823,
+      "new_updates": 57,
+      "rejected": 1895
+    },
+    {
+      "additional_attempts": 7770,
+      "attempts": 7770,
+      "captures": 2487,
+      "clean": 440,
+      "elapsed_s": 24069.406138931983,
+      "mean_reward": 0.017059104771310115,
+      "new_updates": 58,
+      "rejected": 1903
+    },
+    {
+      "additional_attempts": 7805,
+      "attempts": 7805,
+      "captures": 2498,
+      "clean": 440,
+      "elapsed_s": 24189.52013207198,
+      "mean_reward": 0.01709711095737259,
+      "new_updates": 58,
+      "rejected": 1911
+    },
+    {
+      "additional_attempts": 7840,
+      "attempts": 7840,
+      "captures": 2511,
+      "clean": 441,
+      "elapsed_s": 24272.354337495985,
+      "mean_reward": 0.017574076060574997,
+      "new_updates": 58,
+      "rejected": 1919
+    },
+    {
+      "additional_attempts": 7875,
+      "attempts": 7875,
+      "captures": 2522,
+      "clean": 441,
+      "elapsed_s": 24387.554153634002,
+      "mean_reward": 0.017473082741739296,
+      "new_updates": 58,
+      "rejected": 1928
+    },
+    {
+      "additional_attempts": 7910,
+      "attempts": 7910,
+      "captures": 2535,
+      "clean": 441,
+      "elapsed_s": 24447.019346441026,
+      "mean_reward": 0.017759037641824262,
+      "new_updates": 59,
+      "rejected": 1938
+    },
+    {
+      "additional_attempts": 7945,
+      "attempts": 7945,
+      "captures": 2544,
+      "clean": 441,
+      "elapsed_s": 24558.551913395,
+      "mean_reward": 0.01715476830378039,
+      "new_updates": 59,
+      "rejected": 1947
+    },
+    {
+      "additional_attempts": 7980,
+      "attempts": 7980,
+      "captures": 2556,
+      "clean": 442,
+      "elapsed_s": 24668.743099361018,
+      "mean_reward": 0.017268628744014983,
+      "new_updates": 59,
+      "rejected": 1957
+    },
+    {
+      "additional_attempts": 8015,
+      "attempts": 8015,
+      "captures": 2567,
+      "clean": 444,
+      "elapsed_s": 24744.207524486992,
+      "mean_reward": 0.016979875739361258,
+      "new_updates": 59,
+      "rejected": 1969
+    },
+    {
+      "additional_attempts": 8050,
+      "attempts": 8050,
+      "captures": 2580,
+      "clean": 445,
+      "elapsed_s": 24860.028619081015,
+      "mean_reward": 0.0175144682084406,
+      "new_updates": 60,
+      "rejected": 1976
+    },
+    {
+      "additional_attempts": 8085,
+      "attempts": 8085,
+      "captures": 2593,
+      "clean": 447,
+      "elapsed_s": 24930.545035437972,
+      "mean_reward": 0.017997482255845382,
+      "new_updates": 60,
+      "rejected": 1984
+    },
+    {
+      "additional_attempts": 8120,
+      "attempts": 8120,
+      "captures": 2605,
+      "clean": 447,
+      "elapsed_s": 25045.598951340013,
+      "mean_reward": 0.018330910906941826,
+      "new_updates": 60,
+      "rejected": 1990
+    },
+    {
+      "additional_attempts": 8155,
+      "attempts": 8155,
+      "captures": 2620,
+      "clean": 448,
+      "elapsed_s": 25160.54936351499,
+      "mean_reward": 0.019320137408474516,
+      "new_updates": 60,
+      "rejected": 1997
+    },
+    {
+      "additional_attempts": 8190,
+      "attempts": 8190,
+      "captures": 2630,
+      "clean": 451,
+      "elapsed_s": 25283.157058499986,
+      "mean_reward": 0.01900207706181085,
+      "new_updates": 61,
+      "rejected": 2006
+    },
+    {
+      "additional_attempts": 8225,
+      "attempts": 8225,
+      "captures": 2642,
+      "clean": 451,
+      "elapsed_s": 25391.041659850976,
+      "mean_reward": 0.019035925570232096,
+      "new_updates": 61,
+      "rejected": 2016
+    },
+    {
+      "additional_attempts": 8260,
+      "attempts": 8260,
+      "captures": 2653,
+      "clean": 451,
+      "elapsed_s": 25470.97146450501,
+      "mean_reward": 0.018849582000322242,
+      "new_updates": 61,
+      "rejected": 2026
+    },
+    {
+      "additional_attempts": 8295,
+      "attempts": 8295,
+      "captures": 2665,
+      "clean": 452,
+      "elapsed_s": 25586.066006697016,
+      "mean_reward": 0.019113860945838675,
+      "new_updates": 61,
+      "rejected": 2034
+    },
+    {
+      "additional_attempts": 8330,
+      "attempts": 8330,
+      "captures": 2673,
+      "clean": 452,
+      "elapsed_s": 25697.376941506984,
+      "mean_reward": 0.018307216322371863,
+      "new_updates": 62,
+      "rejected": 2044
+    },
+    {
+      "additional_attempts": 8365,
+      "attempts": 8365,
+      "captures": 2681,
+      "clean": 452,
+      "elapsed_s": 25809.912893533008,
+      "mean_reward": 0.017319652260493628,
+      "new_updates": 62,
+      "rejected": 2057
+    },
+    {
+      "additional_attempts": 8400,
+      "attempts": 8400,
+      "captures": 2690,
+      "clean": 452,
+      "elapsed_s": 25924.41847464902,
+      "mean_reward": 0.01666080121997461,
+      "new_updates": 62,
+      "rejected": 2067
+    },
+    {
+      "additional_attempts": 8435,
+      "attempts": 8435,
+      "captures": 2703,
+      "clean": 455,
+      "elapsed_s": 26048.796977134014,
+      "mean_reward": 0.017128126184731095,
+      "new_updates": 62,
+      "rejected": 2075
+    },
+    {
+      "additional_attempts": 8470,
+      "attempts": 8470,
+      "captures": 2715,
+      "clean": 457,
+      "elapsed_s": 26163.519041893014,
+      "mean_reward": 0.017274912995610278,
+      "new_updates": 63,
+      "rejected": 2084
+    },
+    {
+      "additional_attempts": 8505,
+      "attempts": 8505,
+      "captures": 2726,
+      "clean": 458,
+      "elapsed_s": 26286.575835231983,
+      "mean_reward": 0.017318197424025322,
+      "new_updates": 63,
+      "rejected": 2091
+    },
+    {
+      "additional_attempts": 8540,
+      "attempts": 8540,
+      "captures": 2739,
+      "clean": 460,
+      "elapsed_s": 26403.01312710502,
+      "mean_reward": 0.017701875262781698,
+      "new_updates": 63,
+      "rejected": 2100
+    },
+    {
+      "additional_attempts": 8575,
+      "attempts": 8575,
+      "captures": 2748,
+      "clean": 462,
+      "elapsed_s": 26519.17178583698,
+      "mean_reward": 0.01704330795381251,
+      "new_updates": 63,
+      "rejected": 2111
+    },
+    {
+      "additional_attempts": 8610,
+      "attempts": 8610,
+      "captures": 2759,
+      "clean": 463,
+      "elapsed_s": 26631.122695625003,
+      "mean_reward": 0.017069681696465493,
+      "new_updates": 64,
+      "rejected": 2118
+    },
+    {
+      "additional_attempts": 8645,
+      "attempts": 8645,
+      "captures": 2773,
+      "clean": 465,
+      "elapsed_s": 26685.35048541898,
+      "mean_reward": 0.017663225532256913,
+      "new_updates": 64,
+      "rejected": 2127
+    },
+    {
+      "additional_attempts": 8680,
+      "attempts": 8680,
+      "captures": 2787,
+      "clean": 469,
+      "elapsed_s": 26805.684861873975,
+      "mean_reward": 0.018284674959783084,
+      "new_updates": 64,
+      "rejected": 2135
+    },
+    {
+      "additional_attempts": 8715,
+      "attempts": 8715,
+      "captures": 2797,
+      "clean": 469,
+      "elapsed_s": 26928.1464501,
+      "mean_reward": 0.017739462683971096,
+      "new_updates": 64,
+      "rejected": 2147
+    },
+    {
+      "additional_attempts": 8750,
+      "attempts": 8750,
+      "captures": 2809,
+      "clean": 469,
+      "elapsed_s": 27005.850623344013,
+      "mean_reward": 0.01774730012819805,
+      "new_updates": 65,
+      "rejected": 2158
+    },
+    {
+      "additional_attempts": 8785,
+      "attempts": 8785,
+      "captures": 2822,
+      "clean": 472,
+      "elapsed_s": 27126.75420336402,
+      "mean_reward": 0.018283473876811836,
+      "new_updates": 65,
+      "rejected": 2164
+    },
+    {
+      "additional_attempts": 8820,
+      "attempts": 8820,
+      "captures": 2833,
+      "clean": 473,
+      "elapsed_s": 27247.36463163601,
+      "mean_reward": 0.018275347951425228,
+      "new_updates": 65,
+      "rejected": 2171
+    },
+    {
+      "additional_attempts": 8855,
+      "attempts": 8855,
+      "captures": 2841,
+      "clean": 473,
+      "elapsed_s": 27366.78030065098,
+      "mean_reward": 0.017546073132235974,
+      "new_updates": 65,
+      "rejected": 2179
+    },
+    {
+      "additional_attempts": 8890,
+      "attempts": 8890,
+      "captures": 2852,
+      "clean": 477,
+      "elapsed_s": 27449.144864831993,
+      "mean_reward": 0.01748176542938663,
+      "new_updates": 66,
+      "rejected": 2188
+    },
+    {
+      "additional_attempts": 8925,
+      "attempts": 8925,
+      "captures": 2866,
+      "clean": 481,
+      "elapsed_s": 27562.481965980027,
+      "mean_reward": 0.01818900191911633,
+      "new_updates": 66,
+      "rejected": 2195
+    },
+    {
+      "additional_attempts": 8960,
+      "attempts": 8960,
+      "captures": 2876,
+      "clean": 485,
+      "elapsed_s": 27619.091706498002,
+      "mean_reward": 0.018127840005137723,
+      "new_updates": 66,
+      "rejected": 2200
+    }
+  ],
+  "training": {
+    "additional_optimizer_steps": 268,
+    "additional_requests": 8960,
+    "additional_updates": 67,
+    "cumulative_requests": 18960,
+    "inherited_optimizer_steps": 292,
+    "inherited_requests": 10000,
+    "inherited_updates": 73,
+    "outcomes": {
+      "attempts": 8960,
+      "captures": 2876,
+      "clean": 485,
+      "rejected": 2200,
+      "released_noncaptures": 3884
+    },
+    "reason_counts": {
+      "captured": 2876,
+      "endpoints_not_settled": 3,
+      "external_contact": 3751,
+      "no_geometry_support": 1832,
+      "released_miss": 133,
+      "settling_correction_ik": 11,
+      "setup_motion_not_quiet": 137,
+      "setup_transit_incomplete": 217
+    }
+  }
+}
