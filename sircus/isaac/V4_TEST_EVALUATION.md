@@ -104,7 +104,11 @@ tests; only those two were rerun with loopback permission and passed. No code
 change was needed for those environment errors. The initial failure log remains
 preserved alongside the separate successful recheck logs.
 
-## Remaining production gate
+## Live validation gate
+
+The [production adapter, watchdog and independent readers](V4_PRODUCTION_EVALUATION.md)
+are now implemented and mock-tested in a separate task. The initial preparation
+evidence above remains historical and unchanged.
 
 No actual evaluation is authorized by this task. Before a later native run:
 
@@ -112,10 +116,11 @@ No actual evaluation is authorized by this task. Before a later native run:
    bindings. Use the pinned producer-container CPU forward path and independent
    selector reconstruction to reproduce the old frozen plan. Do not rewrite a
    checkpoint's old source identity to match new code.
-2. Wire and mock-test an evaluation-only production adapter and independent
-   watchdog with the bounds above. Do not call the old continuation initializer:
-   it creates a learning engine and runs imitation/PPO. A genuine new native
-   initialization must pass its startup diagnostics and the original shot guards.
+2. Package the reviewed evaluation-only adapter/watchdog under a fresh immutable
+   execution-source identity and verify its actual inputs. Do not call the old
+   continuation initializer: it creates a learning engine and runs imitation/PPO.
+   A genuine new native initialization must pass its startup diagnostics and the
+   original shot guards.
 3. Require separate independent native trace/scorer/startup/inference proofs for
    these 210 requests. The existing old 420-request completeness gate remains
    unchanged; the new result must have its own schema and cannot promote V4.
