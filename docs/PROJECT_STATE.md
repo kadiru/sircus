@@ -1,5 +1,11 @@
 # Project state
 
+## Saved V4 TEST-only evaluation prepared with mocks — November 9, 2026
+
+- A separate proposal fixes 210 requests on the 70 untouched TEST positions for original seed 22, its frozen bank selector and saved continued V4. All commands come from the original pre-frozen plan, with exact original IDs retained under new wrapper IDs. No TRAIN/validation repeats or old unresolved replacements are permitted; four empty-support declines remain failures.
+- The actual closed plan, nine-event journal and 25-file partial-assessment inventory passed read-only preparation checks with zero prior TEST exposure. The original 140 charged / 105 terminal / 35 unresolved assessment stays failed and incomplete. New evaluation source and original model producer source are kept separate; no old evidence or checkpoint is rewritten.
+- Only synthetic mock orchestration/accounting is enabled. Actual model forward reconstruction, evaluation-only production adapter/watchdog and independent native trace/startup/scorer proofs remain required before a separately authorized run. No simulator, training, inference or new shot ran in this task. See [bounds, tests and reviewed mjlab learnings](../sircus/isaac/V4_TEST_EVALUATION.md).
+
 ## Continuation v4 trained a saved model; assessment remains incomplete — November 9, 2026
 
 - The user authorized one prepared v4 application from immutable source `9a49a0d`. TRAIN stopped exactly at 1,400 releases: 1,470 requested/terminal slots, 70 rejections, 804 recorded captures and 225 clean captures. Actor imitation completed 240 steps / 30,680 existing-example presentations, followed by 11 PPO updates / 44 steps over all 1,470 requests. The saved final checkpoint SHA is `15020a948d295fe5e7258a732145b89aa61fda2c385a0d6966a9e4cc7e81bd41`; its private Mac backup is byte-identical. Original seed-22 weights, bank, source/input identities and frozen benchmark remain unchanged.
