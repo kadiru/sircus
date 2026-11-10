@@ -1,5 +1,11 @@
 # Project state
 
+## Direct seed-22 continuation authorized — November 9, 2026
+
+- The user authorized continuing the original continuous model for at most 30,000 additional TRAIN requests or eight native wall hours, first limit reached. Rejections remain paid. This supersedes the prior preparation-only boundary for this new experiment; it does not reopen the completed benchmark or V4.
+- [Protocol and evidence contract](../sircus/isaac/SEED22_CONTINUATION.md): restore exact parent weights and Adam state, retain original 35 TRAIN positions and all physics/scoring/controller guards, add the fixed continuous geometry wrapper without a bank, preserve proposal likelihood separately from adjusted execution, and measure increasing fresh shot experience against new monitoring/TEST positions.
+- Current status is preparation and mock verification, not a launched run or measured improvement. Independent pidfd watchdog, source/input protection and actual-input CPU preflight precede one 4090 start. A final native result still requires its independent audit. No hardware, 4070, service restart, perception or audio work is authorized by this task.
+
 ## Rejected TRAIN proposals: frozen continuous geometry check — November 10, 2026
 
 - [Separate offline analysis](../sircus/isaac/REJECTED_TRAIN_GEOMETRY.md) covers every original seed-22 rejected paid TRAIN proposal: 6,344 requests, including 5,996 geometry/path and 348 movement/settling declines. Fresh read-only collection verified all 289 original TRAIN packets / 10,000 slots, original passed audit and final checkpoint bytes. All 348 native-stage cases originally passed endpoint qualification, path proxy and home eligibility.

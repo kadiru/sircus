@@ -6,6 +6,7 @@ Two UFACTORY850 arms learn to bounce a ball from a suction-mounted board into a 
 
 ## Start here
 
+- [Direct seed-22 continuation — 30,000 additional requests or eight hours](sircus/isaac/SEED22_CONTINUATION.md) — authorized new continuous-PPO experiment, restored weights and optimizer, fixed geometry wrapper, fresh monitoring/TEST locations and independent audit. Preparation is not a native result; the earlier benchmark and V4 evidence remain separate.
 - [Frozen geometry layer on rejected seed-22 TRAIN proposals](sircus/isaac/REJECTED_TRAIN_GEOMETRY.md) — CPU-only check of all 6,344 original rejections, separating geometric repair from the 348 original movement/settling failures. Same continuous layer and limits; no bank, training, simulator or new task shots.
 - [Continuous seed-22 geometry layer — offline preservation check](sircus/isaac/CONTINUOUS_GEOMETRY_LAYER.md) — direct five-setting proposals, unchanged original admission gates and one bounded local continuous repair, with no candidate-library lookup. Separate from the V4 finite-choice experiment; no training, simulator or new task shot.
 - [V4 evaluation production wiring — mock-tested, not executed](sircus/isaac/V4_PRODUCTION_EVALUATION.md) — evaluation-only adapter, independent watchdog and CPU model/startup/physics readers for the fixed 210 TEST requests. No trainer, simulator startup or new shot in this task; actual-input preflight and execution authorization remain required.
