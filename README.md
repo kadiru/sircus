@@ -1,5 +1,10 @@
 # Sircus — Simple Circus
 
+**Current mjlab task:** [recovery search on the 11 fixed-grid failures](sircus/mjlab/FIXED35_RECOVERY.md).
+Keep the 24 successful recipes, search nine remaining layouts, and report the two
+fixed-base clearance blockers. New captures require three fresh native64 repeats.
+No policy fitting or bucket perturbations; results are pending independent audit.
+
 **Latest mjlab result:** [35 fixed bucket positions, no perturbations](baselines/mjlab-fixed35-imitation-20261109/README.md).
 Current imitation captured **24/35 (68.6%)**, the refit **23/35 (65.7%)**;
 both used bucket-facing gripper yaw. One gain, two losses, 22 shared captures.

@@ -1,0 +1,61 @@
+{
+  "version": "sircus-fixed35-recovery-v1",
+  "protocol": {
+    "substeps": 64,
+    "methods": [
+      "preserved_current",
+      "recovery_search",
+      "recovery_repeat"
+    ],
+    "grid_positions": 35,
+    "parent_captures": 24,
+    "development_failures": 11,
+    "fixed_base_skips": 2,
+    "search_layouts": 9,
+    "proposals_per_layout": 80,
+    "search_requests": 720,
+    "repeat_per_selected": 3,
+    "candidates_per_layout": 3,
+    "repeat_requests_max": 81,
+    "preserved_requests": 24,
+    "control_requests": 18,
+    "maximum_requests": 843,
+    "noise": false,
+    "bucket_perturbations": false,
+    "training": false,
+    "actor_steps": 0,
+    "critic_steps": 0,
+    "worker_limit_s": 7200,
+    "search_limit_s": 5400,
+    "queue_limit_s": 900,
+    "global_limit_s": 9900,
+    "audit_reserve_s": 1800,
+    "storage_reserve_bytes": 8589934592,
+    "rotation": "Rz(atan2(bucket_y-board_y,bucket_x-board_x)) @ diag(1,-1,-1)",
+    "bounds": {
+      "low": [
+        0.3,
+        -0.5,
+        0.12,
+        8.0,
+        0.05
+      ],
+      "high": [
+        1.04,
+        0.35,
+        0.6,
+        60.0,
+        0.65
+      ]
+    },
+    "evaluation_scope": "historical fixed-grid recipe development; not held out and not a new policy score",
+    "search_order": "80 frozen proposals per case, round-robin one per active case; no flight-dependent numeric changes",
+    "confirmation": "Immediately repeat each captured discovery three times; stop a case after 3/3 or three failed confirmation groups",
+    "timing": "Stop starting search rounds after 5400 acquired seconds; finish selected repeats and final controls within 7200 seconds",
+    "preservation": "All24 current captured recipes replay once with authenticated unchanged action and joint branch",
+    "scope": "Bounded posthoc recipe search on nine current-policy failures from the historical fixed 7x5 grid. Two fixed-base clearance blockers remain explicitly blocked; 24 successful current recipes are replayed without changing their joints. Bucket-facing yaw, native64/v3, whole-ball one-second capture including table/rim assistance. Three fresh nominal repeats confirm a discovered recipe. No policy fitting, PPO, new positions, bucket perturbations, noise, 128-step qualification, learned transit, hardware or policy promotion."
+  },
+  "candidate_rule": "fixed35_recovery_contract.proposals; literal80 proposals, all numeric values frozen before flights",
+  "parent_policy": "current_bc; historical24/35; no refit",
+  "confirmation": "Three fresh nominal repeats of identical bucket/action/connection/joints"
+}

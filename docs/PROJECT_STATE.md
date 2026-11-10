@@ -1,5 +1,11 @@
 # Project state
 
+## Fixed-grid failure recovery prepared — November 9, 2026
+
+The current imitation policy scored 24/35 on the original fixed grid. This follow-up searches only its 11 failures: eight flight misses, one finite IK failure and two fixed-base clearance blockers. The blocked bucket coordinates remain unchanged and visible; the other nine receive a finite continuous-parameter search. Each discovered recipe needs three fresh captures at native64/v3. All 24 historical successes receive exact-branch replays, with 18 original controls.
+
+No training, policy promotion, bucket jitter or changed scoring. The frozen plan caps at 843 requested slots and a two-hour worker, reserving time for independent CPU verification. The 4070 workload and Isaac installation remain outside the task. [Protocol](../sircus/mjlab/FIXED35_RECOVERY.md) and [handoff](MJLAB_FIXED35_RECOVERY_20261109.md). New results are pending.
+
 ## Fixed 35-position imitation comparison completed — November 9, 2026
 
 - [Audited results](../baselines/mjlab-fixed35-imitation-20261109/README.md), [protocol](../sircus/mjlab/FIXED35_IMITATION.md) and [handoff](MJLAB_FIXED35_IMITATION_20261109.md): current imitation captured **24/35 (68.6%)**, refitted imitation **23/35 (65.7%)** on the same canonical 7×5 grid. One gain, two losses, 22 shared captures and ten shared failures. Keep the current policy; the refit did not improve this sample and was not promoted.
