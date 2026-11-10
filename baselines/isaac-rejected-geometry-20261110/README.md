@@ -27,7 +27,7 @@ the original reasons or a proof that no solution exists anywhere:
 | Dropper arm IK unresolved | 445 |
 | Bouncer arm IK unresolved | 1,077 |
 | Board/table sampled-path proxy overlap | 181 |
-| Board/bucket endpoint proxy overlap | 105 |
+| Board/bucket clearance/path proxy overlap | 105 |
 | Bouncer arm/table endpoint proxy overlap | 5 |
 | Proposed adjustment outside necessary outer reach bound | 8 |
 | **Total** | **1,821** |
