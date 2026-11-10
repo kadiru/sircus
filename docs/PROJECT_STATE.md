@@ -1,5 +1,34 @@
 # Project state
 
+## Remaining six task completed; bouncer alternatives audited — November 10, 2026
+
+The first pass recovered 01-05, giving **30/35 confirmed recipes**. A targeted
+[saved-bouncer follow-up](../baselines/mjlab-fixed35-bouncer-20261110/README.md)
+then replayed all **30/30** and tested 15 alternatives across 03-04, 03-05 and
+04-06: **0/15 captures**, all 15 admitted. Thirteen hit a robot before any bucket
+contact; two missed after bucket contact and hit a robot later. No whole-ball
+entry or invalid physics. Cells 03-00 and 03-06 have fixed bucket/base overlap.
+These finite failures do not prove the other three layouts impossible.
+
+Native producer `ac872e8e39fa181b2e716ce04633bdd57e6a9018`, 63 requests,
+572.2384 worker seconds; 18 controls behaved as expected. Separate V3 auditor
+`2b795d64159fc3d9718e05744c08588e9fd15d0c` passed **35,407 checks**. Original
+V1/V2 audit failures remain recorded; V3 fixes only authenticated historical
+metadata handling and near-zero angular diagnostics, without changing evidence,
+physics, scoring or admission. All 117 protected files/services stayed unchanged.
+No UI publication, 4070/Isaac change, restart, hardware action or pending run.
+
+The learned policy is still **24/35**. This was recipe development, not training.
+Its nine input features produce five shot-parameter residuals, not an IK branch.
+Future training must retain/select the confirmed joint configuration as well as
+shot parameters. [Workflow and handoff](MJLAB_FIXED35_BOUNCER_20261110.md).
+
+## Remaining six fixed-grid positions — first pass completed November 10, 2026
+
+[Audited baseline](../baselines/mjlab-fixed35-six-20261110/README.md): 641 requests, 87 native releases, zero invalid physics. One new table-assisted recipe at 01-05 passed 3/3 repeats and all 29 prior recipes recaptured. **Recipe coverage 30/35; unchanged policy 24/35.** All 170,755 independent checks passed, without time truncation. All 112 protected files stayed unchanged. No UI publication, service restart, 4070 or Isaac change. Producer `e6a11db6b0c00c278874d04800b1b38e78080040`; draft PR #123.
+
+Three searched cells each exhausted 96 numeric poses × two branches, but only four poses/eight flights admitted per cell; zero captures. Two other cells have actual fixed-base overlap. Final review found a selection limitation: all selected second branches changed only dropper wrist posture; 18 endpoint-valid bouncer alternatives across 11 poses remained untested, including seven shoulder/elbow variants across four poses. The separate targeted replay is now completed above, preserving the first-pass evidence and all 30 recipes. No retraining started. [Workflow/handoff](MJLAB_FIXED35_SIX_20261110.md).
+
 ## Fixed-grid failure recovery completed — November 9, 2026
 
 Five of the 11 original failures now have confirmed recipes, each with **3/3 fresh native64 captures**. All **24/24 unchanged parent recipes** captured again: **29/35 fixed grid positions have confirmed recipes**. This is development search on the original coordinates; the existing policy remains **24/35**, with no fitting, replacement or promotion. [Audited baseline](../baselines/mjlab-fixed35-recovery-20261109/README.md), [protocol](../sircus/mjlab/FIXED35_RECOVERY.md), [handoff](MJLAB_FIXED35_RECOVERY_20261109.md).

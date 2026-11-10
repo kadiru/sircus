@@ -1,0 +1,1286 @@
+{
+  "version": "sircus-fixed35-bouncer-completed-summary-v1",
+  "status": "completed_with_separate_v3_audit",
+  "producer_commit": "ac872e8e39fa181b2e716ce04633bdd57e6a9018",
+  "auditor_commit": "2b795d64159fc3d9718e05744c08588e9fd15d0c",
+  "contract_fingerprint": "c5ca60ea01e5723565ddc84218e8b72dcfaab2eaf18cd5646c8122f34d8e352f",
+  "evidence_sha256": {
+    "report": "499a0353b1e3a0b439582e613ed41da666d11eea25c99f48060c42e98c771c0d",
+    "contract": "5dba4bbeac7438d8d2e7fdbc15a175679a209839415156f12861467cfbf29d34",
+    "manifest": "84a2a9f5094d537c889784555c01803117cca72403f03e66e25f22a68a303699",
+    "audit_v1": "507b893231da983d069202a123570be89ba05a235e01dd3302ffc089f033a098",
+    "audit_v3": "10b5aa88d44be0f7cf859017eb51cbac849e1a3b35d7ba00760a08d222fa5477"
+  },
+  "audit_version": "sircus-fixed35-bouncer-audit-v3",
+  "audit_checks": 35407,
+  "audit_elapsed_s": 11.1480662139993,
+  "worker_elapsed_s": 572.2384006809998,
+  "initial_pipeline_elapsed_s": 583.8384364760004,
+  "initial_pipeline_status": "audit_failed",
+  "initial_audit_failures_preserved": true,
+  "counts": {
+    "attempts": 63,
+    "captures": 42,
+    "native_releases": 63,
+    "invalid": 0,
+    "clean": 18,
+    "mean_reward": 2.802307216371583,
+    "direct_captures": 31,
+    "table_assisted_captures": 11,
+    "setup_rejections": 0,
+    "native_misses": 21,
+    "forbidden_contact_shots": 21,
+    "invalid_physics": 0
+  },
+  "stage_counts": {
+    "controls_pre": {
+      "attempts": 9,
+      "captures": 6,
+      "native_releases": 9,
+      "invalid": 0,
+      "clean": 3,
+      "mean_reward": 2.830224355402141,
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "setup_rejections": 0,
+      "native_misses": 3,
+      "forbidden_contact_shots": 3,
+      "invalid_physics": 0
+    },
+    "preserved": {
+      "attempts": 30,
+      "captures": 30,
+      "native_releases": 30,
+      "invalid": 0,
+      "clean": 12,
+      "mean_reward": 4.322835934404462,
+      "direct_captures": 25,
+      "table_assisted_captures": 5,
+      "setup_rejections": 0,
+      "native_misses": 0,
+      "forbidden_contact_shots": 0,
+      "invalid_physics": 0
+    },
+    "search": {
+      "attempts": 15,
+      "captures": 0,
+      "native_releases": 15,
+      "invalid": 0,
+      "clean": 0,
+      "mean_reward": -0.2722628210164383,
+      "direct_captures": 0,
+      "table_assisted_captures": 0,
+      "setup_rejections": 0,
+      "native_misses": 15,
+      "forbidden_contact_shots": 15,
+      "invalid_physics": 0
+    },
+    "repeat": {
+      "attempts": 0,
+      "captures": 0,
+      "native_releases": 0,
+      "invalid": 0,
+      "clean": 0,
+      "mean_reward": 0.0,
+      "direct_captures": 0,
+      "table_assisted_captures": 0,
+      "setup_rejections": 0,
+      "native_misses": 0,
+      "forbidden_contact_shots": 0,
+      "invalid_physics": 0
+    },
+    "controls_post": {
+      "attempts": 9,
+      "captures": 6,
+      "native_releases": 9,
+      "invalid": 0,
+      "clean": 3,
+      "mean_reward": 2.8302444128781286,
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "setup_rejections": 0,
+      "native_misses": 3,
+      "forbidden_contact_shots": 3,
+      "invalid_physics": 0
+    }
+  },
+  "control_gates": {
+    "pre": {
+      "status": "passed",
+      "counts": {
+        "attempts": 9,
+        "captures": 6,
+        "native_releases": 9,
+        "invalid": 0,
+        "clean": 3,
+        "mean_reward": 2.830224355402141,
+        "direct_captures": 3,
+        "table_assisted_captures": 3,
+        "setup_rejections": 0,
+        "native_misses": 3,
+        "forbidden_contact_shots": 3,
+        "invalid_physics": 0
+      },
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    },
+    "post": {
+      "status": "passed",
+      "counts": {
+        "attempts": 9,
+        "captures": 6,
+        "native_releases": 9,
+        "invalid": 0,
+        "clean": 3,
+        "mean_reward": 2.8302444128781286,
+        "direct_captures": 3,
+        "table_assisted_captures": 3,
+        "setup_rejections": 0,
+        "native_misses": 3,
+        "forbidden_contact_shots": 3,
+        "invalid_physics": 0
+      },
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    }
+  },
+  "preservation": {
+    "requests": 30,
+    "captures": 30,
+    "expected": 30,
+    "all_replayed": true,
+    "all_recaptured": true
+  },
+  "coverage": {
+    "historical_recipe_coverage": 30,
+    "historical_policy_captures": 24,
+    "new_confirmed_layouts": 0,
+    "fresh_preserved_captures": 30,
+    "fresh_total": 30,
+    "positions": 35,
+    "not_a_policy_score": true
+  },
+  "cases": [
+    {
+      "context_id": "fixed35-dev-grid-03-00",
+      "bucket_xy_m": [
+        0.1,
+        0.025000000000000022
+      ],
+      "parent_row_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-03-00",
+      "parent_row_sha256": "dc5bf42a585bf35c563cb2ae78d8968deab8e7efe270f4a94018fb7fa3a77713",
+      "status": "fixed_base_clearance_blocked",
+      "planned_search_requests": 0,
+      "search_requests": 0,
+      "search_captures": 0,
+      "search_counts": {
+        "attempts": 0,
+        "captures": 0,
+        "native_releases": 0,
+        "invalid": 0,
+        "clean": 0,
+        "mean_reward": 0.0,
+        "direct_captures": 0,
+        "table_assisted_captures": 0,
+        "setup_rejections": 0,
+        "native_misses": 0,
+        "forbidden_contact_shots": 0,
+        "invalid_physics": 0
+      },
+      "confirmation_groups": [],
+      "confirmed_recipe": null
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        0.025000000000000022
+      ],
+      "parent_row_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-03-04",
+      "parent_row_sha256": "edc46b19d3b73d990f77772d3e2c1aa52407c3cd7b5e156378488b60b70a8a1a",
+      "status": "search_exhausted",
+      "planned_search_requests": 3,
+      "search_requests": 3,
+      "search_captures": 0,
+      "search_counts": {
+        "attempts": 3,
+        "captures": 0,
+        "native_releases": 3,
+        "invalid": 0,
+        "clean": 0,
+        "mean_reward": -0.21751066399368849,
+        "direct_captures": 0,
+        "table_assisted_captures": 0,
+        "setup_rejections": 0,
+        "native_misses": 3,
+        "forbidden_contact_shots": 3,
+        "invalid_physics": 0
+      },
+      "confirmation_groups": [],
+      "confirmed_recipe": null
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        0.025000000000000022
+      ],
+      "parent_row_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-03-05",
+      "parent_row_sha256": "64684b623731bb5bb3765ec659d72c4fc64e7ffecbf7b2965e3b46932376df3f",
+      "status": "search_exhausted",
+      "planned_search_requests": 5,
+      "search_requests": 5,
+      "search_captures": 0,
+      "search_counts": {
+        "attempts": 5,
+        "captures": 0,
+        "native_releases": 5,
+        "invalid": 0,
+        "clean": 0,
+        "mean_reward": -0.30294323782622706,
+        "direct_captures": 0,
+        "table_assisted_captures": 0,
+        "setup_rejections": 0,
+        "native_misses": 5,
+        "forbidden_contact_shots": 5,
+        "invalid_physics": 0
+      },
+      "confirmation_groups": [],
+      "confirmed_recipe": null
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-06",
+      "bucket_xy_m": [
+        1.24,
+        0.025000000000000022
+      ],
+      "parent_row_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-03-06",
+      "parent_row_sha256": "323058f62da7a1705ababd7d5667b8730c4ba364d1ef23a9d4de38948bd5bac2",
+      "status": "fixed_base_clearance_blocked",
+      "planned_search_requests": 0,
+      "search_requests": 0,
+      "search_captures": 0,
+      "search_counts": {
+        "attempts": 0,
+        "captures": 0,
+        "native_releases": 0,
+        "invalid": 0,
+        "clean": 0,
+        "mean_reward": 0.0,
+        "direct_captures": 0,
+        "table_assisted_captures": 0,
+        "setup_rejections": 0,
+        "native_misses": 0,
+        "forbidden_contact_shots": 0,
+        "invalid_physics": 0
+      },
+      "confirmation_groups": [],
+      "confirmed_recipe": null
+    },
+    {
+      "context_id": "fixed35-dev-grid-04-06",
+      "bucket_xy_m": [
+        1.24,
+        0.25
+      ],
+      "parent_row_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-04-06",
+      "parent_row_sha256": "4296921640637d0bdd4c84ce16a2bf7e1556e619caa62ed5dba6ac4bc04c643e",
+      "status": "search_exhausted",
+      "planned_search_requests": 7,
+      "search_requests": 7,
+      "search_captures": 0,
+      "search_counts": {
+        "attempts": 7,
+        "captures": 0,
+        "native_releases": 7,
+        "invalid": 0,
+        "clean": 0,
+        "mean_reward": -0.2738134477334819,
+        "direct_captures": 0,
+        "table_assisted_captures": 0,
+        "setup_rejections": 0,
+        "native_misses": 7,
+        "forbidden_contact_shots": 7,
+        "invalid_physics": 0
+      },
+      "confirmation_groups": [],
+      "confirmed_recipe": null
+    }
+  ],
+  "training": false,
+  "ui_publication": false,
+  "contact_method": {
+    "force_threshold_N": 0.01,
+    "comparison": "strictly greater than threshold",
+    "time_convention": "first force interval index k uses time_s[k+1], in seconds after release",
+    "trace_prefix": "forces_N[:physics_steps]; score-terminal prefix rather than unbounded padded trace",
+    "force_channel_order": [
+      "board",
+      "bucket",
+      "table",
+      "floor",
+      "robot",
+      "unattributed"
+    ],
+    "missing_bucket_contact": "Counted in robot_before_first_bucket if robot contact exists; never interpreted as a bucket arrival.",
+    "robot_geometry_limit": "Saved contact_geom_ids identify bucket wall/base pairs, not individual robot links."
+  },
+  "contact_counts": {
+    "candidates": {
+      "attempts": 15,
+      "captures": 0,
+      "whole_ball_entries": 0,
+      "robot_contacts": 15,
+      "robot_before_first_bucket": 13,
+      "robot_after_first_bucket": 2,
+      "no_robot_contact": 0
+    },
+    "matched_parent_pairs": {
+      "attempts": 15,
+      "captures": 0,
+      "whole_ball_entries": 0,
+      "robot_contacts": 14,
+      "robot_before_first_bucket": 11,
+      "robot_after_first_bucket": 3,
+      "no_robot_contact": 1
+    },
+    "unique_matched_parents": {
+      "attempts": 11,
+      "captures": 0,
+      "whole_ball_entries": 0,
+      "robot_contacts": 10,
+      "robot_before_first_bucket": 8,
+      "robot_after_first_bucket": 2,
+      "no_robot_contact": 1
+    }
+  },
+  "contact_pairs": [
+    {
+      "context_id": "fixed35-dev-grid-03-04",
+      "values": [
+        0.5793206122429684,
+        0.014357257326392897,
+        0.4240021960311493,
+        18.816517955773364,
+        0.23246834380058465
+      ],
+      "candidate": {
+        "record_id": "fixed35-bouncer-search-p00-a0-fixed35-dev-grid-03-04",
+        "native_cache_file": "native-yaw/native-0001.npz",
+        "native_cache_sha256": "3f820425cda87233570c419a2c4c6f215dc40bce5a7a6ec53f8093d72db6df3b",
+        "native_cache_row": 0,
+        "physics_steps": 21037,
+        "first_contact_s": {
+          "board": 0.21549479166666666,
+          "bucket": null,
+          "table": 0.9460286458333333,
+          "floor": null,
+          "robot": 0.486328125,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": true,
+        "robot_after_bucket": false
+      },
+      "parent": {
+        "record_id": "fixed35-six-search-p00-b0-fixed35-dev-grid-03-04",
+        "native_cache_file": "native-yaw/native-0001.npz",
+        "native_cache_sha256": "06d10922759634162e865656d4fb25be2a99cd763f9f10f0facb93d52750a60b",
+        "native_cache_row": 1,
+        "physics_steps": 39461,
+        "first_contact_s": {
+          "board": 0.21549479166666666,
+          "bucket": null,
+          "table": 1.0541666666666667,
+          "floor": null,
+          "robot": 0.48658854166666665,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": true,
+        "robot_after_bucket": false
+      }
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-05",
+      "values": [
+        0.584283129176886,
+        0.014537455605074141,
+        0.42297119453599974,
+        22.55230240129527,
+        0.3017540726528702
+      ],
+      "candidate": {
+        "record_id": "fixed35-bouncer-search-p00-a0-fixed35-dev-grid-03-05",
+        "native_cache_file": "native-yaw/native-0001.npz",
+        "native_cache_sha256": "3f820425cda87233570c419a2c4c6f215dc40bce5a7a6ec53f8093d72db6df3b",
+        "native_cache_row": 1,
+        "physics_steps": 17986,
+        "first_contact_s": {
+          "board": 0.245703125,
+          "bucket": null,
+          "table": null,
+          "floor": null,
+          "robot": 0.4901041666666667,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": true,
+        "robot_after_bucket": false
+      },
+      "parent": {
+        "record_id": "fixed35-six-search-p00-b0-fixed35-dev-grid-03-05",
+        "native_cache_file": "native-yaw/native-0001.npz",
+        "native_cache_sha256": "06d10922759634162e865656d4fb25be2a99cd763f9f10f0facb93d52750a60b",
+        "native_cache_row": 2,
+        "physics_steps": 24818,
+        "first_contact_s": {
+          "board": 0.245703125,
+          "bucket": null,
+          "table": 1.197265625,
+          "floor": null,
+          "robot": 0.490234375,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": true,
+        "robot_after_bucket": false
+      }
+    },
+    {
+      "context_id": "fixed35-dev-grid-04-06",
+      "values": [
+        0.5781171090699498,
+        -0.023455590477456312,
+        0.46000420236027745,
+        25.993018539532084,
+        0.2528264028510086
+      ],
+      "candidate": {
+        "record_id": "fixed35-bouncer-search-p02-a0-fixed35-dev-grid-04-06",
+        "native_cache_file": "native-yaw/native-0001.npz",
+        "native_cache_sha256": "3f820425cda87233570c419a2c4c6f215dc40bce5a7a6ec53f8093d72db6df3b",
+        "native_cache_row": 2,
+        "physics_steps": 17422,
+        "first_contact_s": {
+          "board": 0.22395833333333334,
+          "bucket": null,
+          "table": 0.6535807291666667,
+          "floor": null,
+          "robot": 0.5061848958333334,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": true,
+        "robot_after_bucket": false
+      },
+      "parent": {
+        "record_id": "fixed35-six-search-p02-b0-fixed35-dev-grid-04-06",
+        "native_cache_file": "native-yaw/native-0005.npz",
+        "native_cache_sha256": "7b2d80cb0798fe34049f561aa75a007dfb7eda0c0c5fdb91d5e83975dd843979",
+        "native_cache_row": 1,
+        "physics_steps": 12131,
+        "first_contact_s": {
+          "board": 0.22395833333333334,
+          "bucket": null,
+          "table": null,
+          "floor": null,
+          "robot": 0.48951822916666665,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": true,
+        "robot_after_bucket": false
+      }
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-04",
+      "values": [
+        0.584163948491332,
+        0.013318633631946623,
+        0.4290051741220303,
+        19.181985593419725,
+        0.23739028471250512
+      ],
+      "candidate": {
+        "record_id": "fixed35-bouncer-search-p01-a0-fixed35-dev-grid-03-04",
+        "native_cache_file": "native-yaw/native-0002.npz",
+        "native_cache_sha256": "8aec726afc8566722be2a584418d6859ce0505bd511f01ae3ce4a81ea4075e4e",
+        "native_cache_row": 0,
+        "physics_steps": 21032,
+        "first_contact_s": {
+          "board": 0.2177734375,
+          "bucket": null,
+          "table": 0.9417317708333334,
+          "floor": null,
+          "robot": 0.481640625,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": true,
+        "robot_after_bucket": false
+      },
+      "parent": {
+        "record_id": "fixed35-six-search-p01-b0-fixed35-dev-grid-03-04",
+        "native_cache_file": "native-yaw/native-0003.npz",
+        "native_cache_sha256": "b7e39f5f4503206701af5c21ab8de69f3cea1d5448b6919cf986d6f932c2a62a",
+        "native_cache_row": 1,
+        "physics_steps": 29210,
+        "first_contact_s": {
+          "board": 0.2177734375,
+          "bucket": 0.9768229166666667,
+          "table": 1.0973307291666667,
+          "floor": null,
+          "robot": 0.4817708333333333,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": true,
+        "robot_after_bucket": false
+      }
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-05",
+      "values": [
+        0.5972809378012257,
+        -0.015246220975644525,
+        0.4722152017627127,
+        27.237402878093004,
+        0.16259604854516874
+      ],
+      "candidate": {
+        "record_id": "fixed35-bouncer-search-p05-a0-fixed35-dev-grid-03-05",
+        "native_cache_file": "native-yaw/native-0002.npz",
+        "native_cache_sha256": "8aec726afc8566722be2a584418d6859ce0505bd511f01ae3ce4a81ea4075e4e",
+        "native_cache_row": 1,
+        "physics_steps": 23578,
+        "first_contact_s": {
+          "board": 0.17786458333333333,
+          "bucket": null,
+          "table": 0.891015625,
+          "floor": null,
+          "robot": 0.3973307291666667,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": true,
+        "robot_after_bucket": false
+      },
+      "parent": {
+        "record_id": "fixed35-six-search-p05-b0-fixed35-dev-grid-03-05",
+        "native_cache_file": "native-yaw/native-0011.npz",
+        "native_cache_sha256": "dad78f1a42183626b7fe6040afe1b968e7c8a414a765b79e176935e7a2a4d3a6",
+        "native_cache_row": 2,
+        "physics_steps": 24753,
+        "first_contact_s": {
+          "board": 0.17786458333333333,
+          "bucket": null,
+          "table": 0.9107421875,
+          "floor": null,
+          "robot": 0.39739583333333334,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": true,
+        "robot_after_bucket": false
+      }
+    },
+    {
+      "context_id": "fixed35-dev-grid-04-06",
+      "values": [
+        0.5781171090699498,
+        -0.023455590477456312,
+        0.46000420236027745,
+        25.993018539532084,
+        0.2528264028510086
+      ],
+      "candidate": {
+        "record_id": "fixed35-bouncer-search-p02-a1-fixed35-dev-grid-04-06",
+        "native_cache_file": "native-yaw/native-0002.npz",
+        "native_cache_sha256": "8aec726afc8566722be2a584418d6859ce0505bd511f01ae3ce4a81ea4075e4e",
+        "native_cache_row": 2,
+        "physics_steps": 17522,
+        "first_contact_s": {
+          "board": 0.22395833333333334,
+          "bucket": null,
+          "table": 0.6688151041666667,
+          "floor": null,
+          "robot": 0.4940104166666667,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": true,
+        "robot_after_bucket": false
+      },
+      "parent": {
+        "record_id": "fixed35-six-search-p02-b0-fixed35-dev-grid-04-06",
+        "native_cache_file": "native-yaw/native-0005.npz",
+        "native_cache_sha256": "7b2d80cb0798fe34049f561aa75a007dfb7eda0c0c5fdb91d5e83975dd843979",
+        "native_cache_row": 1,
+        "physics_steps": 12131,
+        "first_contact_s": {
+          "board": 0.22395833333333334,
+          "bucket": null,
+          "table": null,
+          "floor": null,
+          "robot": 0.48951822916666665,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": true,
+        "robot_after_bucket": false
+      }
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-04",
+      "values": [
+        0.6120778946912911,
+        -0.2122117099223761,
+        0.36848000000000003,
+        21.801749271137023,
+        0.3034710743801653
+      ],
+      "candidate": {
+        "record_id": "fixed35-bouncer-search-p65-a0-fixed35-dev-grid-03-04",
+        "native_cache_file": "native-yaw/native-0003.npz",
+        "native_cache_sha256": "9d136ac77ba2ec44e2e6138b9a30d52f7eec47d47551510b2f46b08ee99c0d6a",
+        "native_cache_row": 0,
+        "physics_steps": 61440,
+        "first_contact_s": {
+          "board": 0.246484375,
+          "bucket": 0.5842447916666667,
+          "table": 1.252734375,
+          "floor": null,
+          "robot": 0.9700520833333334,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": false,
+        "robot_after_bucket": true
+      },
+      "parent": {
+        "record_id": "fixed35-six-search-p65-b0-fixed35-dev-grid-03-04",
+        "native_cache_file": "native-yaw/native-0017.npz",
+        "native_cache_sha256": "e9e809a4bb7ed8ffcebdb76b13ddc92ab094e73349d316886c166373aa620021",
+        "native_cache_row": 0,
+        "physics_steps": 26587,
+        "first_contact_s": {
+          "board": 0.246484375,
+          "bucket": 0.5857421875,
+          "table": 0.9910807291666667,
+          "floor": null,
+          "robot": 0.8898437499999999,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": false,
+        "robot_after_bucket": true
+      }
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-05",
+      "values": [
+        0.5792913007245597,
+        -0.016104384515806633,
+        0.37520000000000003,
+        18.979591836734695,
+        0.08859504132231405
+      ],
+      "candidate": {
+        "record_id": "fixed35-bouncer-search-p35-a0-fixed35-dev-grid-03-05",
+        "native_cache_file": "native-yaw/native-0003.npz",
+        "native_cache_sha256": "9d136ac77ba2ec44e2e6138b9a30d52f7eec47d47551510b2f46b08ee99c0d6a",
+        "native_cache_row": 1,
+        "physics_steps": 23063,
+        "first_contact_s": {
+          "board": 0.13079427083333334,
+          "bucket": null,
+          "table": 0.8849609374999999,
+          "floor": null,
+          "robot": 0.44772135416666664,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": true,
+        "robot_after_bucket": false
+      },
+      "parent": {
+        "record_id": "fixed35-six-search-p35-b0-fixed35-dev-grid-03-05",
+        "native_cache_file": "native-yaw/native-0015.npz",
+        "native_cache_sha256": "1e13eb8525b0a3a49b89ff48b61d89f84692b826c6d8d3c1d2cb6c5b3da4122a",
+        "native_cache_row": 0,
+        "physics_steps": 31250,
+        "first_contact_s": {
+          "board": 0.13079427083333334,
+          "bucket": null,
+          "table": 1.1844401041666666,
+          "floor": null,
+          "robot": 0.4477864583333333,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": true,
+        "robot_after_bucket": false
+      }
+    },
+    {
+      "context_id": "fixed35-dev-grid-04-06",
+      "values": [
+        0.5972809378012257,
+        -0.015246220975644525,
+        0.4722152017627127,
+        27.237402878093004,
+        0.16259604854516874
+      ],
+      "candidate": {
+        "record_id": "fixed35-bouncer-search-p03-a0-fixed35-dev-grid-04-06",
+        "native_cache_file": "native-yaw/native-0003.npz",
+        "native_cache_sha256": "9d136ac77ba2ec44e2e6138b9a30d52f7eec47d47551510b2f46b08ee99c0d6a",
+        "native_cache_row": 2,
+        "physics_steps": 15874,
+        "first_contact_s": {
+          "board": 0.17786458333333333,
+          "bucket": null,
+          "table": 0.6024739583333333,
+          "floor": null,
+          "robot": 0.4700520833333333,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": true,
+        "robot_after_bucket": false
+      },
+      "parent": {
+        "record_id": "fixed35-six-search-p03-b0-fixed35-dev-grid-04-06",
+        "native_cache_file": "native-yaw/native-0007.npz",
+        "native_cache_sha256": "5464d10b1816a01b740bb4f355e163d9576c1f156582481734b2031bc5b41748",
+        "native_cache_row": 1,
+        "physics_steps": 16331,
+        "first_contact_s": {
+          "board": 0.17786458333333333,
+          "bucket": null,
+          "table": 0.5830078125,
+          "floor": null,
+          "robot": 0.4186197916666667,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": true,
+        "robot_after_bucket": false
+      }
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-05",
+      "values": [
+        0.6374985984885491,
+        0.30866879344772646,
+        0.40208000000000005,
+        20.005830903790084,
+        0.15735537190082644
+      ],
+      "candidate": {
+        "record_id": "fixed35-bouncer-search-p65-a0-fixed35-dev-grid-03-05",
+        "native_cache_file": "native-yaw/native-0004.npz",
+        "native_cache_sha256": "fe73abfe8832ddd636e6e6db308edce98cc52b50f22dcea4c688e5477a5da267",
+        "native_cache_row": 0,
+        "physics_steps": 21184,
+        "first_contact_s": {
+          "board": 0.17623697916666667,
+          "bucket": null,
+          "table": 0.6167317708333333,
+          "floor": null,
+          "robot": 0.4776692708333333,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": true,
+        "robot_after_bucket": false
+      },
+      "parent": {
+        "record_id": "fixed35-six-search-p65-b0-fixed35-dev-grid-03-05",
+        "native_cache_file": "native-yaw/native-0017.npz",
+        "native_cache_sha256": "e9e809a4bb7ed8ffcebdb76b13ddc92ab094e73349d316886c166373aa620021",
+        "native_cache_row": 1,
+        "physics_steps": 22301,
+        "first_contact_s": {
+          "board": 0.17623697916666667,
+          "bucket": null,
+          "table": 0.6048177083333334,
+          "floor": null,
+          "robot": 0.46835937499999997,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": true,
+        "robot_after_bucket": false
+      }
+    },
+    {
+      "context_id": "fixed35-dev-grid-04-06",
+      "values": [
+        0.5972809378012257,
+        -0.015246220975644525,
+        0.4722152017627127,
+        27.237402878093004,
+        0.16259604854516874
+      ],
+      "candidate": {
+        "record_id": "fixed35-bouncer-search-p03-a1-fixed35-dev-grid-04-06",
+        "native_cache_file": "native-yaw/native-0004.npz",
+        "native_cache_sha256": "fe73abfe8832ddd636e6e6db308edce98cc52b50f22dcea4c688e5477a5da267",
+        "native_cache_row": 1,
+        "physics_steps": 16322,
+        "first_contact_s": {
+          "board": 0.17786458333333333,
+          "bucket": null,
+          "table": 0.5631510416666666,
+          "floor": null,
+          "robot": 0.42526041666666664,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": true,
+        "robot_after_bucket": false
+      },
+      "parent": {
+        "record_id": "fixed35-six-search-p03-b0-fixed35-dev-grid-04-06",
+        "native_cache_file": "native-yaw/native-0007.npz",
+        "native_cache_sha256": "5464d10b1816a01b740bb4f355e163d9576c1f156582481734b2031bc5b41748",
+        "native_cache_row": 1,
+        "physics_steps": 16331,
+        "first_contact_s": {
+          "board": 0.17786458333333333,
+          "bucket": null,
+          "table": 0.5830078125,
+          "floor": null,
+          "robot": 0.4186197916666667,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": true,
+        "robot_after_bucket": false
+      }
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-05",
+      "values": [
+        0.6374985984885491,
+        0.30866879344772646,
+        0.40208000000000005,
+        20.005830903790084,
+        0.15735537190082644
+      ],
+      "candidate": {
+        "record_id": "fixed35-bouncer-search-p65-a1-fixed35-dev-grid-03-05",
+        "native_cache_file": "native-yaw/native-0005.npz",
+        "native_cache_sha256": "96f6c19ac12fd574a09cadfaa9af2fbbcf08b1b6370d13e7defc3d00151b480c",
+        "native_cache_row": 0,
+        "physics_steps": 21738,
+        "first_contact_s": {
+          "board": 0.17623697916666667,
+          "bucket": null,
+          "table": 0.6428385416666667,
+          "floor": null,
+          "robot": 0.46458333333333335,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": true,
+        "robot_after_bucket": false
+      },
+      "parent": {
+        "record_id": "fixed35-six-search-p65-b0-fixed35-dev-grid-03-05",
+        "native_cache_file": "native-yaw/native-0017.npz",
+        "native_cache_sha256": "e9e809a4bb7ed8ffcebdb76b13ddc92ab094e73349d316886c166373aa620021",
+        "native_cache_row": 1,
+        "physics_steps": 22301,
+        "first_contact_s": {
+          "board": 0.17623697916666667,
+          "bucket": null,
+          "table": 0.6048177083333334,
+          "floor": null,
+          "robot": 0.46835937499999997,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": true,
+        "robot_after_bucket": false
+      }
+    },
+    {
+      "context_id": "fixed35-dev-grid-04-06",
+      "values": [
+        0.5990279187790997,
+        -0.024662355473544357,
+        0.4602331838335254,
+        26.010087037701428,
+        0.25828216580106117
+      ],
+      "candidate": {
+        "record_id": "fixed35-bouncer-search-p04-a0-fixed35-dev-grid-04-06",
+        "native_cache_file": "native-yaw/native-0005.npz",
+        "native_cache_sha256": "96f6c19ac12fd574a09cadfaa9af2fbbcf08b1b6370d13e7defc3d00151b480c",
+        "native_cache_row": 1,
+        "physics_steps": 17605,
+        "first_contact_s": {
+          "board": 0.22636718749999998,
+          "bucket": null,
+          "table": 0.6647135416666666,
+          "floor": null,
+          "robot": 0.4591796875,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": true,
+        "robot_after_bucket": false
+      },
+      "parent": {
+        "record_id": "fixed35-six-search-p04-b0-fixed35-dev-grid-04-06",
+        "native_cache_file": "native-yaw/native-0009.npz",
+        "native_cache_sha256": "55c9075412c9e0d95dcb87da50513dd31fd7f57e7f93f39f89d585832268b64c",
+        "native_cache_row": 1,
+        "physics_steps": 53525,
+        "first_contact_s": {
+          "board": 0.22636718749999998,
+          "bucket": 0.6755859375,
+          "table": 0.629296875,
+          "floor": null,
+          "robot": 0.8419921874999999,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": false,
+        "robot_after_bucket": true
+      }
+    },
+    {
+      "context_id": "fixed35-dev-grid-04-06",
+      "values": [
+        0.5990279187790997,
+        -0.024662355473544357,
+        0.4602331838335254,
+        26.010087037701428,
+        0.25828216580106117
+      ],
+      "candidate": {
+        "record_id": "fixed35-bouncer-search-p04-a1-fixed35-dev-grid-04-06",
+        "native_cache_file": "native-yaw/native-0006.npz",
+        "native_cache_sha256": "59e9752e7531e77735e4dc4929319b812e83401ec55974e24c821a878f8160b2",
+        "native_cache_row": 0,
+        "physics_steps": 61440,
+        "first_contact_s": {
+          "board": 0.22636718749999998,
+          "bucket": 0.6725911458333333,
+          "table": 0.6287109375,
+          "floor": null,
+          "robot": 2.5697916666666667,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": false,
+        "robot_after_bucket": true
+      },
+      "parent": {
+        "record_id": "fixed35-six-search-p04-b0-fixed35-dev-grid-04-06",
+        "native_cache_file": "native-yaw/native-0009.npz",
+        "native_cache_sha256": "55c9075412c9e0d95dcb87da50513dd31fd7f57e7f93f39f89d585832268b64c",
+        "native_cache_row": 1,
+        "physics_steps": 53525,
+        "first_contact_s": {
+          "board": 0.22636718749999998,
+          "bucket": 0.6755859375,
+          "table": 0.629296875,
+          "floor": null,
+          "robot": 0.8419921874999999,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": false,
+        "robot_after_bucket": true
+      }
+    },
+    {
+      "context_id": "fixed35-dev-grid-04-06",
+      "values": [
+        0.6408653195092645,
+        -0.11259513550172479,
+        0.328832,
+        30.1399416909621,
+        0.23510142749812174
+      ],
+      "candidate": {
+        "record_id": "fixed35-bouncer-search-p78-a0-fixed35-dev-grid-04-06",
+        "native_cache_file": "native-yaw/native-0007.npz",
+        "native_cache_sha256": "9847a887c1bf024ef27f8049763eae81cd5ee74c3b77174296e6379cdd2576a5",
+        "native_cache_row": 0,
+        "physics_steps": 15101,
+        "first_contact_s": {
+          "board": 0.21490885416666666,
+          "bucket": null,
+          "table": 0.5761067708333333,
+          "floor": null,
+          "robot": 0.47096354166666665,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": true,
+        "robot_after_bucket": false
+      },
+      "parent": {
+        "record_id": "fixed35-six-search-p78-b0-fixed35-dev-grid-04-06",
+        "native_cache_file": "native-yaw/native-0019.npz",
+        "native_cache_sha256": "832e0a7117756133586121d6f02fde0e8f03910ea7cd4ee1410a4603f1796fc4",
+        "native_cache_row": 0,
+        "physics_steps": 61440,
+        "first_contact_s": {
+          "board": 0.21490885416666666,
+          "bucket": 0.6399088541666667,
+          "table": 0.5470703125,
+          "floor": null,
+          "robot": null,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": false,
+        "robot_before_bucket": false,
+        "robot_after_bucket": false
+      }
+    }
+  ],
+  "contact_examples": [
+    {
+      "context_id": "fixed35-dev-grid-04-06",
+      "values": [
+        0.5972809378012257,
+        -0.015246220975644525,
+        0.4722152017627127,
+        27.237402878093004,
+        0.16259604854516874
+      ],
+      "candidate": {
+        "record_id": "fixed35-bouncer-search-p03-a0-fixed35-dev-grid-04-06",
+        "native_cache_file": "native-yaw/native-0003.npz",
+        "native_cache_sha256": "9d136ac77ba2ec44e2e6138b9a30d52f7eec47d47551510b2f46b08ee99c0d6a",
+        "native_cache_row": 2,
+        "physics_steps": 15874,
+        "first_contact_s": {
+          "board": 0.17786458333333333,
+          "bucket": null,
+          "table": 0.6024739583333333,
+          "floor": null,
+          "robot": 0.4700520833333333,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": true,
+        "robot_after_bucket": false
+      },
+      "parent": {
+        "record_id": "fixed35-six-search-p03-b0-fixed35-dev-grid-04-06",
+        "native_cache_file": "native-yaw/native-0007.npz",
+        "native_cache_sha256": "5464d10b1816a01b740bb4f355e163d9576c1f156582481734b2031bc5b41748",
+        "native_cache_row": 1,
+        "physics_steps": 16331,
+        "first_contact_s": {
+          "board": 0.17786458333333333,
+          "bucket": null,
+          "table": 0.5830078125,
+          "floor": null,
+          "robot": 0.4186197916666667,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": true,
+        "robot_after_bucket": false
+      },
+      "interpretation": "A proximal bouncer alternate delayed robot contact by 51.432 ms but did not prevent it; no bucket contact or entry."
+    },
+    {
+      "context_id": "fixed35-dev-grid-04-06",
+      "values": [
+        0.5990279187790997,
+        -0.024662355473544357,
+        0.4602331838335254,
+        26.010087037701428,
+        0.25828216580106117
+      ],
+      "candidate": {
+        "record_id": "fixed35-bouncer-search-p04-a1-fixed35-dev-grid-04-06",
+        "native_cache_file": "native-yaw/native-0006.npz",
+        "native_cache_sha256": "59e9752e7531e77735e4dc4929319b812e83401ec55974e24c821a878f8160b2",
+        "native_cache_row": 0,
+        "physics_steps": 61440,
+        "first_contact_s": {
+          "board": 0.22636718749999998,
+          "bucket": 0.6725911458333333,
+          "table": 0.6287109375,
+          "floor": null,
+          "robot": 2.5697916666666667,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": false,
+        "robot_after_bucket": true
+      },
+      "parent": {
+        "record_id": "fixed35-six-search-p04-b0-fixed35-dev-grid-04-06",
+        "native_cache_file": "native-yaw/native-0009.npz",
+        "native_cache_sha256": "55c9075412c9e0d95dcb87da50513dd31fd7f57e7f93f39f89d585832268b64c",
+        "native_cache_row": 1,
+        "physics_steps": 53525,
+        "first_contact_s": {
+          "board": 0.22636718749999998,
+          "bucket": 0.6755859375,
+          "table": 0.629296875,
+          "floor": null,
+          "robot": 0.8419921874999999,
+          "unattributed": null
+        },
+        "whole_ball_entry_time_s": null,
+        "max_retention_s": 0,
+        "capture": false,
+        "robot_contact": true,
+        "robot_before_bucket": false,
+        "robot_after_bucket": true
+      },
+      "interpretation": "The bucket miss precedes the later robot contact; the later contact does not explain the initial failure to enter."
+    }
+  ],
+  "audit_correction": {
+    "original_v1_failure": {
+      "version": "sircus-fixed35-bouncer-audit-v1",
+      "status": "failed",
+      "failures": [
+        "KeyError: 'ik_branch_slot'"
+      ]
+    },
+    "original_v1_sha256": "507b893231da983d069202a123570be89ba05a235e01dd3302ffc089f033a098",
+    "original_v2_failure": {
+      "version": "sircus-fixed35-bouncer-audit-v2",
+      "status": "failed",
+      "auditor_sha256": "f90c78912abb6e64a9d670d3e36f15357922b3b3e4d26814ea777e44aa9254b7",
+      "original_audit_failure_sha256": "507b893231da983d069202a123570be89ba05a235e01dd3302ffc089f033a098",
+      "failures": [
+        "EvidenceError: fixed35-bouncer-search-p00-a0-fixed35-dev-grid-03-04/independent complete5mm endpoint recheck"
+      ]
+    },
+    "original_v2_sha256": "2b808d6b115b293f18dd3b30e68d10e1026bbab595f927a62301fface6a4c524",
+    "adapter_sha256": "8043a7afb79be12a41b0539a4d3cb491c4e8511017714bec867d810515a37e2d",
+    "angle_roundoff_tolerance_deg": 2e-06,
+    "max_angle_difference_deg": 1.2074182697257333e-06,
+    "min_recomputed_clearance_m": 0.005057504858803897,
+    "physics_rerun": false,
+    "scoring_changed": false,
+    "admission_checks_relaxed": false
+  },
+  "limitations": [
+    "Historical35 fixed positions: finite saved-branch development, not a learned policy or held-out evaluation.",
+    "Two actual fixed-base/bucket intersections remain blocked under unchanged geometry.",
+    "30 previous recipes replay once; each discovered addition needs three fresh nominal confirmations.",
+    "At most two saved bouncer alternatives per12 previously released poses; no new IK or exhaustive feasibility claim.",
+    "Dropper joints, shot coordinates, bucket-facing behavior and native64/v3 scoring remain unchanged.",
+    "Held endpoints with sampled setup-path checks; no training, noise,128 qualification, hardware, deployment or UI publication.",
+    "The original v1 audit failed on omitted historical branch metadata; v2 supplies authenticated fields only in its audit copy and retains the original failure receipt.",
+    "V2 exact certificate equality failed solely on near-zero acos roundoff. V3 reproduces complete saved certificates exactly and tolerates at most2 microdegrees only in independently derived near-zero normal-angle diagnostics; clearance/acceptance gates are unchanged."
+  ]
+}

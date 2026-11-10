@@ -1,0 +1,1198 @@
+{
+  "status": "audited_read_only_analysis",
+  "report_sha256": "629360baed3cd23261c125679202b8d129ffb28b9cec0c1c8709d0ef19eeeb32",
+  "audit_sha256": "ef56098a64bbd640a0c2e72aeaea1d10e7da00f853f1b9bb4b373d06c85c28e7",
+  "audit_checks": 170755,
+  "contract_fingerprint": "adc1f18e13bdcaab2f7fb86bf63974bd762c9248b8a77c471f301d8184938c07",
+  "source_manifest_sha256": "3f4aca8085ed70ddc28683badf8ec3ef0a5614dd513bb2efab463adbdf9e97a6",
+  "source_files_sha256": {
+    "sircus/mjlab/fixed35_six_geometry.py": "c85df78dbab740ad937ca8ddbdbe38e7a3eed4af3c98220ea5eaf604af0b725c",
+    "sircus/mjlab/fixed35_six_native.py": "d9e6f2742ec54bff5dbafec4083cd15108d3d0072c491c2ecb8c81a663478513",
+    "sircus/mjlab/fixed35_six_study.py": "17a41a4b2bca820038add41488385ed426aa50a610f03dee1b6d36fc5c02b568",
+    "sircus/mjlab/fixed35_six_verify.py": "d93965877f458f045c810547daec1df0948aadc7a71af8c493f6571bb2e46afe"
+  },
+  "completion_reason": "finite_candidate_or_confirmation_caps",
+  "budget_truncated": false,
+  "elapsed_s": 1704.929967704,
+  "all_requests": {
+    "requests": 641,
+    "native_releases": 87,
+    "captures": 45,
+    "setup_declines": 554,
+    "released_noncaptures": 42,
+    "invalid_physics": 0
+  },
+  "preservation": {
+    "requests": 29,
+    "native_releases": 29,
+    "captures": 29,
+    "setup_declines": 0,
+    "released_noncaptures": 0,
+    "invalid_physics": 0
+  },
+  "preservation_failures": [],
+  "recipe_coverage": {
+    "historical_recipe_coverage": 29,
+    "historical_policy_captures": 24,
+    "new_confirmed_layouts": 1,
+    "fresh_preserved_captures": 29,
+    "fresh_total": 30,
+    "positions": 35,
+    "not_a_policy_score": true
+  },
+  "historical_policy_captures": 24,
+  "static_geometry": [
+    {
+      "context_id": "fixed35-dev-grid-03-00",
+      "bucket_xy_m": [
+        0.1,
+        0.025000000000000022
+      ],
+      "classification": "actual_fixed_base_overlap",
+      "certified_overlap_pairs": 24,
+      "minimum_validated_signed_distance_m": -0.07103522284899906
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-06",
+      "bucket_xy_m": [
+        1.24,
+        0.025000000000000022
+      ],
+      "classification": "actual_fixed_base_overlap",
+      "certified_overlap_pairs": 24,
+      "minimum_validated_signed_distance_m": -0.07357868676790692
+    },
+    {
+      "context_id": "fixed35-dev-grid-02-06",
+      "bucket_xy_m": [
+        1.24,
+        -0.2
+      ],
+      "classification": "proven_clearance",
+      "certified_overlap_pairs": 0,
+      "minimum_validated_signed_distance_m": 0.04742347593708138
+    }
+  ],
+  "cases": [
+    {
+      "context_id": "fixed35-dev-grid-01-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.42500000000000004
+      ],
+      "status": "confirmed",
+      "search": {
+        "requests": 15,
+        "native_releases": 13,
+        "captures": 1,
+        "setup_declines": 2,
+        "released_noncaptures": 12,
+        "invalid_physics": 0
+      },
+      "repeats": {
+        "requests": 3,
+        "native_releases": 3,
+        "captures": 3,
+        "setup_declines": 0,
+        "released_noncaptures": 0,
+        "invalid_physics": 0
+      },
+      "confirmation_groups": [
+        {
+          "confirmation_index": 0,
+          "selected_from_id": "fixed35-six-search-p07-b0-fixed35-dev-grid-01-05",
+          "selected_from_sha256": "ec59239c24292ffc4c0978c4487c92b8b1b0dbfa102c0102e723e0a0ff16a3d7",
+          "values": [
+            0.5631851843716873,
+            -0.06175652144137391,
+            0.4976091239666261,
+            22.330081755597877,
+            0.17157482761651477
+          ],
+          "bucket_xy_m": [
+            1.0499999999999998,
+            -0.42500000000000004
+          ],
+          "ik_branch_slot": 0,
+          "requests": 3,
+          "captures": 3,
+          "record_ids": [
+            "fixed35-six-repeat-c0-r0-fixed35-dev-grid-01-05",
+            "fixed35-six-repeat-c0-r1-fixed35-dev-grid-01-05",
+            "fixed35-six-repeat-c0-r2-fixed35-dev-grid-01-05"
+          ],
+          "status": "confirmed"
+        }
+      ],
+      "setup_decline_reasons": {
+        "finite_ik_unresolved": 2
+      },
+      "search_robot_contact_categories": {
+        "no_robot_contact_in_saved_horizon": 7,
+        "robot_after_or_coincident_with_bucket_or_table": 6
+      },
+      "search_entry_count": 1,
+      "search_table_contact_prefix_count": 13,
+      "concrete_examples": [
+        {
+          "selection": [
+            "closest_opening_recorded_miss"
+          ],
+          "id": "fixed35-six-search-p01-b0-fixed35-dev-grid-01-05",
+          "context_id": "fixed35-dev-grid-01-05",
+          "phase": "search",
+          "numeric_proposal_index": 1,
+          "ik_branch_slot": 0,
+          "bucket_xy_m": [
+            1.0499999999999998,
+            -0.42500000000000004
+          ],
+          "values": [
+            0.6376863386857523,
+            -0.24303316670437813,
+            0.4241492485169848,
+            33.52563220634383,
+            0.13544473158701587
+          ],
+          "invalid": null,
+          "invalid_physics": false,
+          "invalid_physics_reasons": [],
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "closest_opening_distance_m": 0.13257647405441325,
+          "minimum_mouth_clearance_mm": null,
+          "route_quality": 0,
+          "direct_capture": false,
+          "table_assisted_capture": false,
+          "parent_row_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-01-05",
+          "parent_row_sha256": "f3df8c328b31ee12fb7c35d90791c593d9ebafbb7f03d43c1c3ce821cc549115",
+          "row_sha256": "c3f5c4715fc3f955455681bd23ca0e76341721d85516f21551b703b81ea2246c",
+          "accepted_capture": false,
+          "first_contacts_full_horizon_s": {
+            "board": 0.15970052083333333,
+            "bucket": 0.45481770833333335,
+            "table": 0.4970703125,
+            "floor": null,
+            "robot": 2.796484375,
+            "unattributed": null
+          },
+          "first_contacts_scoring_prefix_s": {
+            "board": 0.15970052083333333,
+            "bucket": 0.45481770833333335,
+            "table": 0.4970703125,
+            "floor": null,
+            "robot": 2.796484375,
+            "unattributed": null
+          },
+          "first_contact_sequence": [
+            {
+              "surface": "board",
+              "time_s": 0.15970052083333333
+            },
+            {
+              "surface": "bucket",
+              "time_s": 0.45481770833333335
+            },
+            {
+              "surface": "table",
+              "time_s": 0.4970703125
+            },
+            {
+              "surface": "robot",
+              "time_s": 2.796484375
+            }
+          ],
+          "robot_contact_category": "robot_after_or_coincident_with_bucket_or_table",
+          "robot_after_containment_capture": false,
+          "scoring_terminal_s": 4.0,
+          "saved_horizon_s": 4.0,
+          "recorded_containment_capture_time_s": null,
+          "recorded_whole_ball_entry_time_s": null,
+          "accepted_v3_capture": false,
+          "table_contact_present_in_scoring_prefix": true,
+          "geometry": {
+            "connection_file": "fixed-yaw-connections/fccd498e31df34a127691c933f3730bb0ad856a82922f954a185460481f56761.json",
+            "connection_sha256": "56c4e65c938485e044fa2f0a8045cc7f796cca7f2f3409f55efed3e4d8a34713",
+            "minimum_sampled_path_clearance_m": 0.005025518653829719,
+            "minimum_endpoint_clearance_lower_bound_m": 0.0074999999776853565,
+            "branch_pool_file": "branch-pools/64bb908fce93d356567f098bf82f29799b482453417ecc19dcf41a29f77ce147.json",
+            "branch_pool_sha256": "6204284263ae5acd4822441417d756f72ddca1112b053eecb849d35083c17ab3",
+            "admitted_branches": 2,
+            "maximum_wrapped_branch_difference_rad": 3.1415868448080735,
+            "dropper_maximum_wrapped_difference_rad": 3.1415868448080735,
+            "bouncer_maximum_wrapped_difference_rad": 0.0
+          }
+        }
+      ],
+      "confirmed_recipe": {
+        "id": "fixed35-six-search-p07-b0-fixed35-dev-grid-01-05",
+        "context_id": "fixed35-dev-grid-01-05",
+        "phase": "search",
+        "numeric_proposal_index": 7,
+        "ik_branch_slot": 0,
+        "bucket_xy_m": [
+          1.0499999999999998,
+          -0.42500000000000004
+        ],
+        "values": [
+          0.5631851843716873,
+          -0.06175652144137391,
+          0.4976091239666261,
+          22.330081755597877,
+          0.17157482761651477
+        ],
+        "invalid": null,
+        "invalid_physics": false,
+        "invalid_physics_reasons": [],
+        "whole_ball_entry": true,
+        "max_retention_s": 1.0,
+        "closest_opening_distance_m": 0.003624244028858834,
+        "minimum_mouth_clearance_mm": -0.5554148478028667,
+        "route_quality": 1,
+        "direct_capture": false,
+        "table_assisted_capture": true,
+        "parent_row_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-01-05",
+        "parent_row_sha256": "f3df8c328b31ee12fb7c35d90791c593d9ebafbb7f03d43c1c3ce821cc549115",
+        "row_sha256": "ec59239c24292ffc4c0978c4487c92b8b1b0dbfa102c0102e723e0a0ff16a3d7",
+        "accepted_capture": true,
+        "first_contacts_full_horizon_s": {
+          "board": 0.18391927083333334,
+          "bucket": 0.9243489583333333,
+          "table": 0.594921875,
+          "floor": null,
+          "robot": null,
+          "unattributed": null
+        },
+        "first_contacts_scoring_prefix_s": {
+          "board": 0.18391927083333334,
+          "bucket": 0.9243489583333333,
+          "table": 0.594921875,
+          "floor": null,
+          "robot": null,
+          "unattributed": null
+        },
+        "first_contact_sequence": [
+          {
+            "surface": "board",
+            "time_s": 0.18391927083333334
+          },
+          {
+            "surface": "table",
+            "time_s": 0.594921875
+          },
+          {
+            "surface": "bucket",
+            "time_s": 0.9243489583333333
+          }
+        ],
+        "robot_contact_category": "no_robot_contact_in_saved_horizon",
+        "robot_after_containment_capture": false,
+        "scoring_terminal_s": 1.9877604166666667,
+        "saved_horizon_s": 4.0,
+        "recorded_containment_capture_time_s": 1.9877604166666667,
+        "recorded_whole_ball_entry_time_s": 0.9877604166666667,
+        "accepted_v3_capture": true,
+        "table_contact_present_in_scoring_prefix": true,
+        "geometry": {
+          "connection_file": "fixed-yaw-connections/99b2da37f9831091d1f0252be3fb3ba8c37e814e7f51c2a7838bcf2e3fad1891.json",
+          "connection_sha256": "62224bbb2e05f7ad4e3e7ea49db070dc4e50b8ea65d920d4581956f790b2fc4e",
+          "minimum_sampled_path_clearance_m": 0.00507863041414558,
+          "minimum_endpoint_clearance_lower_bound_m": 0.007499999664048129,
+          "branch_pool_file": "branch-pools/a114900221e0057435d954f4fdecb4c68cc78b0e623244769371220c52e6a9db.json",
+          "branch_pool_sha256": "3866474697010a6a270522f4edfac3bfacfb42ac4e21b7c3dd50fb1cf8eeb594",
+          "admitted_branches": 2,
+          "maximum_wrapped_branch_difference_rad": 3.141586185774244,
+          "dropper_maximum_wrapped_difference_rad": 3.141586185774244,
+          "bouncer_maximum_wrapped_difference_rad": 0.0
+        },
+        "board_center_m": [
+          0.5631851843716873,
+          -0.06175652144137391,
+          0.4976091239666261
+        ],
+        "board_tilt_deg": 22.330081755597877,
+        "drop_gap_m": 0.17157482761651477,
+        "requested_release_center_m": [
+          0.5631851843716873,
+          -0.06175652144137391,
+          0.7066839515831409
+        ],
+        "observed_initial_ball_center_m": [
+          0.5631851553916931,
+          -0.061756521463394165,
+          0.7066839337348938
+        ],
+        "q10": [
+          -0.10922656353616829,
+          -0.3855348796408933,
+          -1.9948898436083935,
+          2.852800186290868e-06,
+          -1.6093549564202705,
+          0.5318139075864843
+        ],
+        "q14": [
+          3.163927328906907,
+          1.4693271991111754,
+          -3.086284398607282,
+          -0.23895605403181733,
+          -1.722643323141535,
+          4.049607793145566
+        ],
+        "native_cache_file": "native-0013.npz",
+        "native_cache_row": 0,
+        "native_cache_sha256": "e4cfccf94d15247e670d4980b25358f7e0d7de71df42de2ce4e02ece30b8e2f4"
+      }
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-00",
+      "bucket_xy_m": [
+        0.1,
+        0.025000000000000022
+      ],
+      "status": "fixed_base_clearance_blocked",
+      "search": {
+        "requests": 0,
+        "native_releases": 0,
+        "captures": 0,
+        "setup_declines": 0,
+        "released_noncaptures": 0,
+        "invalid_physics": 0
+      },
+      "repeats": {
+        "requests": 0,
+        "native_releases": 0,
+        "captures": 0,
+        "setup_declines": 0,
+        "released_noncaptures": 0,
+        "invalid_physics": 0
+      },
+      "confirmation_groups": [],
+      "setup_decline_reasons": {},
+      "search_robot_contact_categories": {},
+      "search_entry_count": 0,
+      "search_table_contact_prefix_count": 0,
+      "concrete_examples": []
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        0.025000000000000022
+      ],
+      "status": "search_exhausted",
+      "search": {
+        "requests": 192,
+        "native_releases": 8,
+        "captures": 0,
+        "setup_declines": 184,
+        "released_noncaptures": 8,
+        "invalid_physics": 0
+      },
+      "repeats": {
+        "requests": 0,
+        "native_releases": 0,
+        "captures": 0,
+        "setup_declines": 0,
+        "released_noncaptures": 0,
+        "invalid_physics": 0
+      },
+      "confirmation_groups": [],
+      "setup_decline_reasons": {
+        "finite_ik_unresolved": 172,
+        "strict_endpoint_clearance_or_pose_rejected": 12
+      },
+      "search_robot_contact_categories": {
+        "robot_after_board_before_bucket_or_table": 6,
+        "robot_after_or_coincident_with_bucket_or_table": 2
+      },
+      "search_entry_count": 0,
+      "search_table_contact_prefix_count": 8,
+      "concrete_examples": [
+        {
+          "selection": [
+            "first_early_robot_contact_miss"
+          ],
+          "id": "fixed35-six-search-p00-b0-fixed35-dev-grid-03-04",
+          "context_id": "fixed35-dev-grid-03-04",
+          "phase": "search",
+          "numeric_proposal_index": 0,
+          "ik_branch_slot": 0,
+          "bucket_xy_m": [
+            0.8599999999999999,
+            0.025000000000000022
+          ],
+          "values": [
+            0.5793206122429684,
+            0.014357257326392897,
+            0.4240021960311493,
+            18.816517955773364,
+            0.23246834380058465
+          ],
+          "invalid": null,
+          "invalid_physics": false,
+          "invalid_physics_reasons": [],
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "closest_opening_distance_m": 0.1674458260943184,
+          "minimum_mouth_clearance_mm": null,
+          "route_quality": 0,
+          "direct_capture": false,
+          "table_assisted_capture": false,
+          "parent_row_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-03-04",
+          "parent_row_sha256": "edc46b19d3b73d990f77772d3e2c1aa52407c3cd7b5e156378488b60b70a8a1a",
+          "row_sha256": "1407bda17bdfd414e87a6534261b5c88742b4035552b159b20d53db9c4c5aa7e",
+          "accepted_capture": false,
+          "first_contacts_full_horizon_s": {
+            "board": 0.21549479166666666,
+            "bucket": null,
+            "table": 1.0541666666666667,
+            "floor": 2.7466796875,
+            "robot": 0.48658854166666665,
+            "unattributed": null
+          },
+          "first_contacts_scoring_prefix_s": {
+            "board": 0.21549479166666666,
+            "bucket": null,
+            "table": 1.0541666666666667,
+            "floor": null,
+            "robot": 0.48658854166666665,
+            "unattributed": null
+          },
+          "first_contact_sequence": [
+            {
+              "surface": "board",
+              "time_s": 0.21549479166666666
+            },
+            {
+              "surface": "robot",
+              "time_s": 0.48658854166666665
+            },
+            {
+              "surface": "table",
+              "time_s": 1.0541666666666667
+            },
+            {
+              "surface": "floor",
+              "time_s": 2.7466796875
+            }
+          ],
+          "robot_contact_category": "robot_after_board_before_bucket_or_table",
+          "robot_after_containment_capture": false,
+          "scoring_terminal_s": 2.569075520833333,
+          "saved_horizon_s": 4.0,
+          "recorded_containment_capture_time_s": null,
+          "recorded_whole_ball_entry_time_s": null,
+          "accepted_v3_capture": false,
+          "table_contact_present_in_scoring_prefix": true,
+          "geometry": {
+            "connection_file": "fixed-yaw-connections/4e00aa2b4ce6523759982f2f91fdfe7361979d5ae134270009dca0d1d1ce8a3d.json",
+            "connection_sha256": "b4dad166023f4a09bd1522032c8add6c41ff6c2d37c47d28d7699b393975ffef",
+            "minimum_sampled_path_clearance_m": 0.005113756467596486,
+            "minimum_endpoint_clearance_lower_bound_m": 0.007472303687395321,
+            "branch_pool_file": "branch-pools/09d6bda9c01d44a39e4377cfb9b097c7571f6e6dc753e5a34aab0bcfcb93b240.json",
+            "branch_pool_sha256": "63105e7a13cf298099f6d220b06243df9cdeba6df344e27bdc5594e64e9c3e00",
+            "admitted_branches": 2,
+            "maximum_wrapped_branch_difference_rad": 3.141586314625905,
+            "dropper_maximum_wrapped_difference_rad": 3.141586314625905,
+            "bouncer_maximum_wrapped_difference_rad": 0.0
+          }
+        },
+        {
+          "selection": [
+            "closest_opening_recorded_miss"
+          ],
+          "id": "fixed35-six-search-p65-b0-fixed35-dev-grid-03-04",
+          "context_id": "fixed35-dev-grid-03-04",
+          "phase": "search",
+          "numeric_proposal_index": 65,
+          "ik_branch_slot": 0,
+          "bucket_xy_m": [
+            0.8599999999999999,
+            0.025000000000000022
+          ],
+          "values": [
+            0.6120778946912911,
+            -0.2122117099223761,
+            0.36848000000000003,
+            21.801749271137023,
+            0.3034710743801653
+          ],
+          "invalid": null,
+          "invalid_physics": false,
+          "invalid_physics_reasons": [],
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "closest_opening_distance_m": 0.09810582531134668,
+          "minimum_mouth_clearance_mm": null,
+          "route_quality": 0,
+          "direct_capture": false,
+          "table_assisted_capture": false,
+          "parent_row_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-03-04",
+          "parent_row_sha256": "edc46b19d3b73d990f77772d3e2c1aa52407c3cd7b5e156378488b60b70a8a1a",
+          "row_sha256": "9ceb9b92b8edca71c14d376f2933d21180c627ca05148028f2b93e1de9ec4006",
+          "accepted_capture": false,
+          "first_contacts_full_horizon_s": {
+            "board": 0.246484375,
+            "bucket": 0.5857421875,
+            "table": 0.9910807291666667,
+            "floor": 1.9052083333333334,
+            "robot": 0.8898437499999999,
+            "unattributed": null
+          },
+          "first_contacts_scoring_prefix_s": {
+            "board": 0.246484375,
+            "bucket": 0.5857421875,
+            "table": 0.9910807291666667,
+            "floor": null,
+            "robot": 0.8898437499999999,
+            "unattributed": null
+          },
+          "first_contact_sequence": [
+            {
+              "surface": "board",
+              "time_s": 0.246484375
+            },
+            {
+              "surface": "bucket",
+              "time_s": 0.5857421875
+            },
+            {
+              "surface": "robot",
+              "time_s": 0.8898437499999999
+            },
+            {
+              "surface": "table",
+              "time_s": 0.9910807291666667
+            },
+            {
+              "surface": "floor",
+              "time_s": 1.9052083333333334
+            }
+          ],
+          "robot_contact_category": "robot_after_or_coincident_with_bucket_or_table",
+          "robot_after_containment_capture": false,
+          "scoring_terminal_s": 1.7309244791666667,
+          "saved_horizon_s": 4.0,
+          "recorded_containment_capture_time_s": null,
+          "recorded_whole_ball_entry_time_s": null,
+          "accepted_v3_capture": false,
+          "table_contact_present_in_scoring_prefix": true,
+          "geometry": {
+            "connection_file": "fixed-yaw-connections/0a899f4a6706705b6a7f5bcbc822f42157adb878b03d5468674b52dcd8b94936.json",
+            "connection_sha256": "22b07b767e61dccd74554515950ee40ddce9f6564d8643ce80f34071a01072e1",
+            "minimum_sampled_path_clearance_m": 0.00508741902931531,
+            "minimum_endpoint_clearance_lower_bound_m": 0.005624330871590866,
+            "branch_pool_file": "branch-pools/075fd5f11d121038f699740231ceb6c743b3162554a648b09664eeb211609ebe.json",
+            "branch_pool_sha256": "0c4c4fd9642e76c4548be28905d524fb21106596be0b24a81571fc3809e45239",
+            "admitted_branches": 2,
+            "maximum_wrapped_branch_difference_rad": 3.141584186158754,
+            "dropper_maximum_wrapped_difference_rad": 3.141584186158754,
+            "bouncer_maximum_wrapped_difference_rad": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        0.025000000000000022
+      ],
+      "status": "search_exhausted",
+      "search": {
+        "requests": 192,
+        "native_releases": 8,
+        "captures": 0,
+        "setup_declines": 184,
+        "released_noncaptures": 8,
+        "invalid_physics": 0
+      },
+      "repeats": {
+        "requests": 0,
+        "native_releases": 0,
+        "captures": 0,
+        "setup_declines": 0,
+        "released_noncaptures": 0,
+        "invalid_physics": 0
+      },
+      "confirmation_groups": [],
+      "setup_decline_reasons": {
+        "finite_ik_unresolved": 178,
+        "strict_endpoint_clearance_or_pose_rejected": 6
+      },
+      "search_robot_contact_categories": {
+        "robot_after_board_before_bucket_or_table": 8
+      },
+      "search_entry_count": 0,
+      "search_table_contact_prefix_count": 8,
+      "concrete_examples": [
+        {
+          "selection": [
+            "first_early_robot_contact_miss"
+          ],
+          "id": "fixed35-six-search-p00-b0-fixed35-dev-grid-03-05",
+          "context_id": "fixed35-dev-grid-03-05",
+          "phase": "search",
+          "numeric_proposal_index": 0,
+          "ik_branch_slot": 0,
+          "bucket_xy_m": [
+            1.0499999999999998,
+            0.025000000000000022
+          ],
+          "values": [
+            0.584283129176886,
+            0.014537455605074141,
+            0.42297119453599974,
+            22.55230240129527,
+            0.3017540726528702
+          ],
+          "invalid": null,
+          "invalid_physics": false,
+          "invalid_physics_reasons": [],
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "closest_opening_distance_m": 0.2767649744946705,
+          "minimum_mouth_clearance_mm": null,
+          "route_quality": 0,
+          "direct_capture": false,
+          "table_assisted_capture": false,
+          "parent_row_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-03-05",
+          "parent_row_sha256": "64684b623731bb5bb3765ec659d72c4fc64e7ffecbf7b2965e3b46932376df3f",
+          "row_sha256": "efed6dd0cd1b0b71310347427f584571c02943a33e3c540bc9c80e7f8fad60cd",
+          "accepted_capture": false,
+          "first_contacts_full_horizon_s": {
+            "board": 0.245703125,
+            "bucket": null,
+            "table": 1.197265625,
+            "floor": 1.7743489583333334,
+            "robot": 0.490234375,
+            "unattributed": null
+          },
+          "first_contacts_scoring_prefix_s": {
+            "board": 0.245703125,
+            "bucket": null,
+            "table": 1.197265625,
+            "floor": null,
+            "robot": 0.490234375,
+            "unattributed": null
+          },
+          "first_contact_sequence": [
+            {
+              "surface": "board",
+              "time_s": 0.245703125
+            },
+            {
+              "surface": "robot",
+              "time_s": 0.490234375
+            },
+            {
+              "surface": "table",
+              "time_s": 1.197265625
+            },
+            {
+              "surface": "floor",
+              "time_s": 1.7743489583333334
+            }
+          ],
+          "robot_contact_category": "robot_after_board_before_bucket_or_table",
+          "robot_after_containment_capture": false,
+          "scoring_terminal_s": 1.6157552083333333,
+          "saved_horizon_s": 4.0,
+          "recorded_containment_capture_time_s": null,
+          "recorded_whole_ball_entry_time_s": null,
+          "accepted_v3_capture": false,
+          "table_contact_present_in_scoring_prefix": true,
+          "geometry": {
+            "connection_file": "fixed-yaw-connections/814b772cdc875756d0b1e6682eccf21e674d24ed0c29a1b38b43e4ef0786ebc6.json",
+            "connection_sha256": "2f2e816c770a992e98348f009dc2cd39ec269bfc7d67fe4a955ff86c1542b16d",
+            "minimum_sampled_path_clearance_m": 0.0050237496509356605,
+            "minimum_endpoint_clearance_lower_bound_m": 0.006056876377192263,
+            "branch_pool_file": "branch-pools/3aed2b9ff09e3cc47765f44a6886c4e0900bad54a4159f8bce903a9afd2c8bf5.json",
+            "branch_pool_sha256": "c323a186532de05216b2e56c80c0c2455017bbad26571e4a213ccd89fda153b5",
+            "admitted_branches": 2,
+            "maximum_wrapped_branch_difference_rad": 3.1415841817352623,
+            "dropper_maximum_wrapped_difference_rad": 3.1415841817352623,
+            "bouncer_maximum_wrapped_difference_rad": 0.0
+          }
+        },
+        {
+          "selection": [
+            "closest_opening_recorded_miss"
+          ],
+          "id": "fixed35-six-search-p65-b0-fixed35-dev-grid-03-05",
+          "context_id": "fixed35-dev-grid-03-05",
+          "phase": "search",
+          "numeric_proposal_index": 65,
+          "ik_branch_slot": 0,
+          "bucket_xy_m": [
+            1.0499999999999998,
+            0.025000000000000022
+          ],
+          "values": [
+            0.6374985984885491,
+            0.30866879344772646,
+            0.40208000000000005,
+            20.005830903790084,
+            0.15735537190082644
+          ],
+          "invalid": null,
+          "invalid_physics": false,
+          "invalid_physics_reasons": [],
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "closest_opening_distance_m": 0.22461930595009813,
+          "minimum_mouth_clearance_mm": null,
+          "route_quality": 0,
+          "direct_capture": false,
+          "table_assisted_capture": false,
+          "parent_row_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-03-05",
+          "parent_row_sha256": "64684b623731bb5bb3765ec659d72c4fc64e7ffecbf7b2965e3b46932376df3f",
+          "row_sha256": "72dfc3694896b58d6ae16770fac3724ae54d9103c3499547cfaee7e36863ed8c",
+          "accepted_capture": false,
+          "first_contacts_full_horizon_s": {
+            "board": 0.17623697916666667,
+            "bucket": null,
+            "table": 0.6048177083333334,
+            "floor": 1.6293619791666667,
+            "robot": 0.46835937499999997,
+            "unattributed": null
+          },
+          "first_contacts_scoring_prefix_s": {
+            "board": 0.17623697916666667,
+            "bucket": null,
+            "table": 0.6048177083333334,
+            "floor": null,
+            "robot": 0.46835937499999997,
+            "unattributed": null
+          },
+          "first_contact_sequence": [
+            {
+              "surface": "board",
+              "time_s": 0.17623697916666667
+            },
+            {
+              "surface": "robot",
+              "time_s": 0.46835937499999997
+            },
+            {
+              "surface": "table",
+              "time_s": 0.6048177083333334
+            },
+            {
+              "surface": "floor",
+              "time_s": 1.6293619791666667
+            }
+          ],
+          "robot_contact_category": "robot_after_board_before_bucket_or_table",
+          "robot_after_containment_capture": false,
+          "scoring_terminal_s": 1.4518880208333333,
+          "saved_horizon_s": 4.0,
+          "recorded_containment_capture_time_s": null,
+          "recorded_whole_ball_entry_time_s": null,
+          "accepted_v3_capture": false,
+          "table_contact_present_in_scoring_prefix": true,
+          "geometry": {
+            "connection_file": "fixed-yaw-connections/ff11dd4fc1015caa537e6650b6bc0aa5170048de5a43ebbfe18b195ec436fa23.json",
+            "connection_sha256": "3ab5ec8b150fee000264d3d0c66022852d42f7b49b3bb34a6d5bf5edef48aadc",
+            "minimum_sampled_path_clearance_m": 0.00508673238385593,
+            "minimum_endpoint_clearance_lower_bound_m": 0.007499999998456519,
+            "branch_pool_file": "branch-pools/b3d68743ac18e51867c0e6046b40d99857a39d5501dd24ff12ab7093383e2a6e.json",
+            "branch_pool_sha256": "7dd2ae3779aaa64025dbba18ceb3c593e7d46229412df0642dba3a45f7db20cb",
+            "admitted_branches": 2,
+            "maximum_wrapped_branch_difference_rad": 3.1415862719971326,
+            "dropper_maximum_wrapped_difference_rad": 3.1415862719971326,
+            "bouncer_maximum_wrapped_difference_rad": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-06",
+      "bucket_xy_m": [
+        1.24,
+        0.025000000000000022
+      ],
+      "status": "fixed_base_clearance_blocked",
+      "search": {
+        "requests": 0,
+        "native_releases": 0,
+        "captures": 0,
+        "setup_declines": 0,
+        "released_noncaptures": 0,
+        "invalid_physics": 0
+      },
+      "repeats": {
+        "requests": 0,
+        "native_releases": 0,
+        "captures": 0,
+        "setup_declines": 0,
+        "released_noncaptures": 0,
+        "invalid_physics": 0
+      },
+      "confirmation_groups": [],
+      "setup_decline_reasons": {},
+      "search_robot_contact_categories": {},
+      "search_entry_count": 0,
+      "search_table_contact_prefix_count": 0,
+      "concrete_examples": []
+    },
+    {
+      "context_id": "fixed35-dev-grid-04-06",
+      "bucket_xy_m": [
+        1.24,
+        0.25
+      ],
+      "status": "search_exhausted",
+      "search": {
+        "requests": 192,
+        "native_releases": 8,
+        "captures": 0,
+        "setup_declines": 184,
+        "released_noncaptures": 8,
+        "invalid_physics": 0
+      },
+      "repeats": {
+        "requests": 0,
+        "native_releases": 0,
+        "captures": 0,
+        "setup_declines": 0,
+        "released_noncaptures": 0,
+        "invalid_physics": 0
+      },
+      "confirmation_groups": [],
+      "setup_decline_reasons": {
+        "finite_ik_unresolved": 178,
+        "strict_endpoint_clearance_or_pose_rejected": 6
+      },
+      "search_robot_contact_categories": {
+        "no_robot_contact_in_saved_horizon": 2,
+        "robot_after_board_before_bucket_or_table": 4,
+        "robot_after_or_coincident_with_bucket_or_table": 2
+      },
+      "search_entry_count": 0,
+      "search_table_contact_prefix_count": 6,
+      "concrete_examples": [
+        {
+          "selection": [
+            "first_early_robot_contact_miss"
+          ],
+          "id": "fixed35-six-search-p02-b0-fixed35-dev-grid-04-06",
+          "context_id": "fixed35-dev-grid-04-06",
+          "phase": "search",
+          "numeric_proposal_index": 2,
+          "ik_branch_slot": 0,
+          "bucket_xy_m": [
+            1.24,
+            0.25
+          ],
+          "values": [
+            0.5781171090699498,
+            -0.023455590477456312,
+            0.46000420236027745,
+            25.993018539532084,
+            0.2528264028510086
+          ],
+          "invalid": null,
+          "invalid_physics": false,
+          "invalid_physics_reasons": [],
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "closest_opening_distance_m": 0.37484721996536485,
+          "minimum_mouth_clearance_mm": null,
+          "route_quality": 0,
+          "direct_capture": false,
+          "table_assisted_capture": false,
+          "parent_row_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-04-06",
+          "parent_row_sha256": "4296921640637d0bdd4c84ce16a2bf7e1556e619caa62ed5dba6ac4bc04c643e",
+          "row_sha256": "18cb2c7af227283a8b2d42bf93178a57acec9e8637ad1319ddf7bfbdcc1d4dc9",
+          "accepted_capture": false,
+          "first_contacts_full_horizon_s": {
+            "board": 0.22395833333333334,
+            "bucket": null,
+            "table": null,
+            "floor": 0.9224609375,
+            "robot": 0.48951822916666665,
+            "unattributed": null
+          },
+          "first_contacts_scoring_prefix_s": {
+            "board": 0.22395833333333334,
+            "bucket": null,
+            "table": null,
+            "floor": null,
+            "robot": 0.48951822916666665,
+            "unattributed": null
+          },
+          "first_contact_sequence": [
+            {
+              "surface": "board",
+              "time_s": 0.22395833333333334
+            },
+            {
+              "surface": "robot",
+              "time_s": 0.48951822916666665
+            },
+            {
+              "surface": "floor",
+              "time_s": 0.9224609375
+            }
+          ],
+          "robot_contact_category": "robot_after_board_before_bucket_or_table",
+          "robot_after_containment_capture": false,
+          "scoring_terminal_s": 0.7897786458333333,
+          "saved_horizon_s": 4.0,
+          "recorded_containment_capture_time_s": null,
+          "recorded_whole_ball_entry_time_s": null,
+          "accepted_v3_capture": false,
+          "table_contact_present_in_scoring_prefix": false,
+          "geometry": {
+            "connection_file": "fixed-yaw-connections/360471169bfae42366d2bd549676fdf83adbf39dfe5b51234dfce0b741523542.json",
+            "connection_sha256": "b1330f4dad099005b767cbec094b00b150402c70c19b3ddb62d549742b85952b",
+            "minimum_sampled_path_clearance_m": 0.005001785649566104,
+            "minimum_endpoint_clearance_lower_bound_m": 0.005477405653850631,
+            "branch_pool_file": "branch-pools/2ee91e4f0b38f148147dd244f116855d879a3a045f3bd991491978973e9ff1f1.json",
+            "branch_pool_sha256": "4e5ca3b09d05b19d04a5b7510b030acb2580afc1988cefeedc72093ae2af3cf6",
+            "admitted_branches": 2,
+            "maximum_wrapped_branch_difference_rad": 3.1415848256794465,
+            "dropper_maximum_wrapped_difference_rad": 3.1415848256794465,
+            "bouncer_maximum_wrapped_difference_rad": 0.0
+          }
+        },
+        {
+          "selection": [
+            "closest_opening_recorded_miss"
+          ],
+          "id": "fixed35-six-search-p04-b0-fixed35-dev-grid-04-06",
+          "context_id": "fixed35-dev-grid-04-06",
+          "phase": "search",
+          "numeric_proposal_index": 4,
+          "ik_branch_slot": 0,
+          "bucket_xy_m": [
+            1.24,
+            0.25
+          ],
+          "values": [
+            0.5990279187790997,
+            -0.024662355473544357,
+            0.4602331838335254,
+            26.010087037701428,
+            0.25828216580106117
+          ],
+          "invalid": null,
+          "invalid_physics": false,
+          "invalid_physics_reasons": [],
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "closest_opening_distance_m": 0.1323661086718982,
+          "minimum_mouth_clearance_mm": null,
+          "route_quality": 0,
+          "direct_capture": false,
+          "table_assisted_capture": false,
+          "parent_row_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-04-06",
+          "parent_row_sha256": "4296921640637d0bdd4c84ce16a2bf7e1556e619caa62ed5dba6ac4bc04c643e",
+          "row_sha256": "b0a03ce956dde9262a22f0fed1de425eb37944123e0afed899ce90ffffb490f4",
+          "accepted_capture": false,
+          "first_contacts_full_horizon_s": {
+            "board": 0.22636718749999998,
+            "bucket": 0.6755859375,
+            "table": 0.629296875,
+            "floor": 3.6636067708333333,
+            "robot": 0.8419921874999999,
+            "unattributed": null
+          },
+          "first_contacts_scoring_prefix_s": {
+            "board": 0.22636718749999998,
+            "bucket": 0.6755859375,
+            "table": 0.629296875,
+            "floor": null,
+            "robot": 0.8419921874999999,
+            "unattributed": null
+          },
+          "first_contact_sequence": [
+            {
+              "surface": "board",
+              "time_s": 0.22636718749999998
+            },
+            {
+              "surface": "table",
+              "time_s": 0.629296875
+            },
+            {
+              "surface": "bucket",
+              "time_s": 0.6755859375
+            },
+            {
+              "surface": "robot",
+              "time_s": 0.8419921874999999
+            },
+            {
+              "surface": "floor",
+              "time_s": 3.6636067708333333
+            }
+          ],
+          "robot_contact_category": "robot_after_or_coincident_with_bucket_or_table",
+          "robot_after_containment_capture": false,
+          "scoring_terminal_s": 3.4847005208333335,
+          "saved_horizon_s": 4.0,
+          "recorded_containment_capture_time_s": null,
+          "recorded_whole_ball_entry_time_s": null,
+          "accepted_v3_capture": false,
+          "table_contact_present_in_scoring_prefix": true,
+          "geometry": {
+            "connection_file": "fixed-yaw-connections/fa0297a15d24a9362e0d5fd8c20a1854b7e7dc3e807c7c55985b6a2c8ff179ac.json",
+            "connection_sha256": "e6dff4914f795ebb869ff9a50eb1cde38054f8d6bacb5f113278e5872a342762",
+            "minimum_sampled_path_clearance_m": 0.005001785649566104,
+            "minimum_endpoint_clearance_lower_bound_m": 0.005010008144535172,
+            "branch_pool_file": "branch-pools/f1f67f4cfae43ff6ae12bc12535ef172028795656e40e096ecd1214eca32ff97.json",
+            "branch_pool_sha256": "c65e658921df6bebbfb079ec9f3fea3a269252d811f900d9fcde6e96764f0f36",
+            "admitted_branches": 2,
+            "maximum_wrapped_branch_difference_rad": 3.14158392067106,
+            "dropper_maximum_wrapped_difference_rad": 3.14158392067106,
+            "bouncer_maximum_wrapped_difference_rad": 0.0
+          }
+        }
+      ]
+    }
+  ],
+  "invalid_physics_examples": [],
+  "interpretation": {
+    "contact_force_threshold_N": 0.01,
+    "timing": "Force interval i is timestamped at time_s[i+1]. Scoring prefix is forces[:physics_steps]; the full saved horizon is reported separately.",
+    "early_late": "Contact ordering describes observed first events, not proof of causality. Late robot contacts can follow a bucket/table miss or occur after the scoring terminal.",
+    "capture": "Uses unchanged audited v3 route_success and invalid guards; containment capture_time_s alone does not imply an accepted route.",
+    "table": "Table-contact presence is not proof of a rebound velocity reversal or causal assistance.",
+    "scope": "Fixed-grid development search; no training, new policy score, scoring changes, UI publication or new simulation."
+  },
+  "version": "sircus-fixed35-six-portable-v1",
+  "producer_commit": "e6a11db6b0c00c278874d04800b1b38e78080040",
+  "stage_counts": {
+    "controls_pre": {
+      "attempts": 9,
+      "captures": 6,
+      "native_releases": 9,
+      "invalid": 0,
+      "clean": 3,
+      "mean_reward": 2.830198804195945,
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "setup_rejections": 0,
+      "native_misses": 3,
+      "forbidden_contact_shots": 3,
+      "invalid_physics": 0
+    },
+    "preserved": {
+      "attempts": 29,
+      "captures": 29,
+      "native_releases": 29,
+      "invalid": 0,
+      "clean": 12,
+      "mean_reward": 4.325848175569769,
+      "direct_captures": 25,
+      "table_assisted_captures": 4,
+      "setup_rejections": 0,
+      "native_misses": 0,
+      "forbidden_contact_shots": 0,
+      "invalid_physics": 0
+    },
+    "search": {
+      "attempts": 591,
+      "captures": 1,
+      "native_releases": 37,
+      "invalid": 554,
+      "clean": 0,
+      "mean_reward": -0.9375571200748979,
+      "direct_captures": 0,
+      "table_assisted_captures": 1,
+      "setup_rejections": 554,
+      "native_misses": 36,
+      "forbidden_contact_shots": 28,
+      "invalid_physics": 0
+    },
+    "repeat": {
+      "attempts": 3,
+      "captures": 3,
+      "native_releases": 3,
+      "invalid": 0,
+      "clean": 0,
+      "mean_reward": 4.235124741286607,
+      "direct_captures": 0,
+      "table_assisted_captures": 3,
+      "setup_rejections": 0,
+      "native_misses": 0,
+      "forbidden_contact_shots": 0,
+      "invalid_physics": 0
+    },
+    "controls_post": {
+      "attempts": 9,
+      "captures": 6,
+      "native_releases": 9,
+      "invalid": 0,
+      "clean": 3,
+      "mean_reward": 2.830224353992818,
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "setup_rejections": 0,
+      "native_misses": 3,
+      "forbidden_contact_shots": 3,
+      "invalid_physics": 0
+    }
+  },
+  "control_gates": {
+    "pre": {
+      "status": "passed",
+      "counts": {
+        "attempts": 9,
+        "captures": 6,
+        "native_releases": 9,
+        "invalid": 0,
+        "clean": 3,
+        "mean_reward": 2.830198804195945,
+        "direct_captures": 3,
+        "table_assisted_captures": 3,
+        "setup_rejections": 0,
+        "native_misses": 3,
+        "forbidden_contact_shots": 3,
+        "invalid_physics": 0
+      },
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    },
+    "post": {
+      "status": "passed",
+      "counts": {
+        "attempts": 9,
+        "captures": 6,
+        "native_releases": 9,
+        "invalid": 0,
+        "clean": 3,
+        "mean_reward": 2.830224353992818,
+        "direct_captures": 3,
+        "table_assisted_captures": 3,
+        "setup_rejections": 0,
+        "native_misses": 3,
+        "forbidden_contact_shots": 3,
+        "invalid_physics": 0
+      },
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    }
+  },
+  "pipeline_elapsed_s": 1724.411533099,
+  "audit_elapsed_s": 16.22703030799994,
+  "manifest_sha256": "ecb09810f8b34e812da00c0df50a645eebdb4df8596dad7aa9628066fb1ba46d",
+  "request_accounting": {
+    "total_requests": 641,
+    "preserved_requests": 29,
+    "control_requests": 18,
+    "search_rounds": 192,
+    "search_requests": 591,
+    "repeat_requests": 3,
+    "maximum_requests": 851,
+    "budget_truncated": false,
+    "stopped": {
+      "fixed35-dev-grid-01-05": "confirmed"
+    }
+  },
+  "branch_selection_limit": "Selected slot0/1 at all12admitted numeric poses of the3remaining cases kept the same bouncer joints;18distinct endpoint-valid bouncer alternatives across11poses were not path-tested. Subsequent targeted replay is separate evidence."
+}
