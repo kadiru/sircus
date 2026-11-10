@@ -1,5 +1,12 @@
 # Project state
 
+## Farther bucket-facing shot recovered by tilt/gap tuning — November 9, 2026
+
+- [Audited settings](../baselines/mjlab-yaw-tilt-gap-20261109/README.md), [protocol](../sircus/mjlab/YAW_TILT_GAP.md) and [handoff](MJLAB_YAW_TILT_GAP_20261109.md): fixed board center **(653.661, −203.412, 449.818) mm**, bucket distance **562.434 mm**, gripper yaw **−36.285503°**. A 49-point tilt/gap grid found ten captures; all ten passed **3/3 fresh repeats**. At the original 30.3307° tilt, increasing gap **75.650 → 95.650 mm** changed the rotated baseline **0/3 → 3/3**.
+- **106 requests / 92 native releases / 14 finite IK declines**, zero invalid physics. Discovery **10/49**, confirmations **30/30**, successful far/near references **6/6**. No discovery or confirmation robot contact. All 18 formal controls and **50,615 independent checks** passed; worker **2,000.63 s**. All 40 new captures recorded table contact; representative saved timings establish a table bounce before entry. Unchanged native64/v3 scoring permits table/rim assistance.
+- Frozen producer/UI **`c9d0248743790e862cd8053f1681f4ab24867e31`**, [draft PR #116](https://github.com/kadiru/sircus/pull/116), stacked on #114. Successful recipes, model weights, physics and historical **40/70 versus 38/70** policy scores remain unchanged. This is one inspected development layout with held endpoints, not a retrained policy, noise/timestep qualification, learned transit or physical validation.
+- `#yawTiltGap` passed deployed visual/scoped-DOM verification. Its **55.8 s / 1,674-frame** CPU-rendered saved-native comparison fully decoded and passed browser playback. All 11 inventoried files stayed unchanged outside owned HTML/CSS blocks; viewer identity stayed fixed and the 4090 worker exited. The 4070 fountain matched through the post-study check, then appeared under a new PID during publishing; this task issued no stop/restart or Isaac/4070 configuration change. Only the Mac SSH tunnel was restored. Raw traces/runtime configuration/media remain outside Git; no further experiment is launched.
+
 
 ## Bucket-facing gripper yaw removes both selected collisions — November 9, 2026
 
