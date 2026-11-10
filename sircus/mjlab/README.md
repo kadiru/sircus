@@ -1,6 +1,19 @@
 # Sircus in mjlab
 
-Latest: [bucket-facing gripper rotation results](../../baselines/mjlab-gripper-yaw-20261109/README.md).
+Latest: [farther bucket-facing shot tilt/drop-gap results](../../baselines/mjlab-yaw-tilt-gap-20261109/README.md).
+At fixed 562.434 mm distance and 449.818 mm board height, ten recipes captured
+all three fresh repeats. Keeping original 30.3307° tilt and adding 20 mm gap
+recovered 3/3; rotated baseline stayed 0/3. All 49 proposals, 30 confirmations,
+nine references and 18 controls are accounted for: 106 requests / 92 releases,
+14 finite IK declines, 50,615 checks passed. No new grid/repeat robot contact.
+[Protocol](YAW_TILT_GAP.md) · [handoff](../../docs/MJLAB_YAW_TILT_GAP_20261109.md).
+UI destination: `#yawTiltGap`; audited results and a 55.8-second recorded movie
+are verified, including full decode and browser playback. Historical files and
+the viewer are preserved; the handoff records an externally changed fountain
+process identity at the final check. Development tuning only; no policy retraining
+or promotion.
+
+Earlier: [bucket-facing gripper rotation results](../../baselines/mjlab-gripper-yaw-20261109/README.md).
 On two inspected collision cases, yaw reduced robot-contact shots from 6/6 to
 0/6 and improved capture from 0/6 to 3/6. The nearer case captured 3/3; the
 farther case still missed. All 36 requests and 18 controls completed; 18,330
