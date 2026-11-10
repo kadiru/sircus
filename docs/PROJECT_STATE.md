@@ -1,5 +1,12 @@
 # Project state
 
+## Rejected TRAIN proposals: frozen continuous geometry check — November 10, 2026
+
+- [Separate offline analysis](../sircus/isaac/REJECTED_TRAIN_GEOMETRY.md) covers every original seed-22 rejected paid TRAIN proposal: 6,344 requests, including 5,996 geometry/path and 348 movement/settling declines. Fresh read-only collection verified all 289 original TRAIN packets / 10,000 slots, original passed audit and final checkpoint bytes. All 348 native-stage cases originally passed endpoint qualification, path proxy and home eligibility.
+- The previously tested continuous geometry layer and its 24-function/512-residual/10%-span repair limits are frozen. Fresh IK uses actual recorded starts, with no historical endpoint-answer lookup, candidate bank, model load, training, simulator, new task shot or held-out shot outcome. Native motion/settling failures remain historical even when geometry passes.
+- Durable source/input/protocol-bound CPU records allow interrupted mathematical analysis to resume without redoing completed records; this does not resume a native experiment or alter any paid ledger. Completion requires all 6,344 cases and independent geometric evidence checks. The frozen benchmark, saved models, successful-action preservation evidence and V4 history remain unchanged.
+- Completed independent geometry audit: **4,175 adjusted/admitted, 348 unchanged/admitted, 1,821 unresolved**. All 348 unchanged settings are the old native movement/settling failures; no native retry proves those fixed. The remaining cases were 445 dropper IK, 1,077 bouncer IK, 291 clearance/path proxy and eight outer-bound declines. Fixed-budget local repair covered 69.6% of the 5,996 original geometry/path failures, with no capture or generalization measurement. Geometry invocation receipts total 23.35 minutes wall / 5,508.72 worker CPU-seconds on four workers, excluding audit and setup scopes. All 38 focused tests and full repository checks passed; all 445 protected original files matched. [Compact results, original-to-current matrix, costs and limits](../baselines/isaac-rejected-geometry-20261110/README.md).
+
 ## Continuous-policy geometry direction and preservation check — November 10, 2026
 
 - The user's intended comparison remains search-based sweep versus a neural policy that directly generates continuous shot settings. The later candidate-library V4 continuation is a separate finite-choice hybrid, not a promoted successor to original continuous seed 22. Further V4 evaluation is not the current next action.
