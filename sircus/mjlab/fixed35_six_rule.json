@@ -1,0 +1,72 @@
+{
+  "version": "sircus-fixed35-six-v1",
+  "protocol": {
+    "substeps": 64,
+    "methods": [
+      "preserved_recipe",
+      "six_search",
+      "six_repeat"
+    ],
+    "grid_positions": 35,
+    "preserved_recipes": 29,
+    "historical_policy_captures": 24,
+    "development_failures": 6,
+    "fixed_base_audits": 2,
+    "search_layouts": 4,
+    "numeric_proposals_per_layout": 96,
+    "branch_slots": [
+      0,
+      1
+    ],
+    "requests_per_layout": 192,
+    "search_requests": 768,
+    "repeat_per_selected": 3,
+    "candidates_per_layout": 3,
+    "repeat_requests_max": 36,
+    "preserved_requests": 29,
+    "control_requests": 18,
+    "maximum_requests": 851,
+    "noise": false,
+    "bucket_perturbations": false,
+    "training": false,
+    "actor_steps": 0,
+    "critic_steps": 0,
+    "ui_changes": false,
+    "worker_limit_s": 7200,
+    "search_limit_s": 5400,
+    "queue_limit_s": 900,
+    "global_limit_s": 9900,
+    "audit_reserve_s": 1800,
+    "storage_reserve_bytes": 8589934592,
+    "rotation": "Rz(atan2(bucket_y-board_y,bucket_x-board_x)) @ diag(1,-1,-1)",
+    "bounds": {
+      "low": [
+        0.3,
+        -0.5,
+        0.12,
+        8.0,
+        0.05
+      ],
+      "high": [
+        1.04,
+        0.35,
+        0.6,
+        60.0,
+        0.65
+      ]
+    },
+    "numeric_plan": {
+      "anchors": "Unique original, historical refit, and six nearest preserved recipes",
+      "local_polar": "Parent radius offsets -120,-60,+60,+120mm crossed with azimuth offsets -30,-15,+15,+30deg",
+      "coupled_polar": "Deterministic radical-inverse bases 2,3,5,7,11; radius180..900mm, parent azimuth +/-100deg, height140..560mm, tilt10..54deg, gap80..600mm",
+      "bounds": "Reject out-of-bounds proposals; never clip. Deduplicate exact five-number actions before branch expansion.",
+      "frozen": true
+    },
+    "search_order": "For each numeric proposal, branch slot0 then1; one request per active layout in each round. Stop a case after3/3 fresh confirmations or3 failed confirmation groups.",
+    "confirmation": "Replay the exact selected connection and both joint vectors three fresh times; no re-solving or numeric adjustment.",
+    "geometry": "Two blocked cells receive CPU geometry diagnostics only; no guard relaxation or automatic admission.",
+    "preservation": "Replay24 original successes and5 confirmed recovery recipes with source-bound unchanged action and joint branch.",
+    "evaluation_scope": "Historical fixed-grid recipe development, not held out or a new policy score",
+    "scope": "Bounded development search on four unresolved historical fixed-grid locations, with two fixed-base clearance cases receiving CPU geometry audit only. Twenty-nine successful recipes keep their exact actions and admitted joints. Ninety-six unique numeric proposals per searched location each offer two distinct IK branch slots; bucket positions, bucket-facing yaw and native64/v3 stay fixed. A discovered recipe needs three fresh nominal captures. No policy fitting, promotion, new positions, noise, 128-step qualification, transit learning, hardware or UI changes."
+  }
+}

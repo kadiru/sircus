@@ -1,5 +1,7 @@
 # Sircus — Simple Circus
 
+**Prepared follow-up:** [remaining six fixed-grid positions](sircus/mjlab/FIXED35_SIX.md), with alternative joint postures, exact collider checks and unchanged native64/v3 scoring. Preserve all 29 confirmed recipes; no retraining or UI publication in this task. New flight results are pending.
+
 **Latest mjlab recovery:** [29/35 fixed locations now have confirmed recipes](baselines/mjlab-fixed35-recovery-20261109/README.md).
 Five of the 11 failures recovered, each with **3/3 fresh native64 captures**;
 all **24/24 unchanged successful recipes** captured again. Four locations
