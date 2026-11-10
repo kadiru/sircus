@@ -1,0 +1,26 @@
+<section id="yawTiltGap" class="yaw-tilt-gap" aria-labelledby="yaw-tilt-gap-heading">
+  <p class="ytg-eyebrow">FIXED GRIPPER YAW · FARTHER SHOT · NATIVE64</p>
+  <h2 id="yaw-tilt-gap-heading">Tune the bounce after clearing the gripper</h2>
+  <p class="ytg-note" data-yaw-tilt-gap="status">Waiting for saved results.</p>
+  <p>Keep the board center, bucket and bucket-facing gripper orientation fixed. Search tilt and drop gap only; test each discovery capture with three fresh nominal repeats.</p>
+  <div class="ytg-cards" data-yaw-tilt-gap="counts"></div>
+  <p data-yaw-tilt-gap="fixed"></p>
+  <p class="ytg-note" data-yaw-tilt-gap="takeaway"></p>
+  <h3>Preserved recipes and matched references</h3>
+  <div class="ytg-scroll" data-yaw-tilt-gap="references"></div>
+  <p class="ytg-small">The previous successful far reference uses its original geometry and orientation. It is preserved as a reference, not counted as a successful tilt/gap correction. The near successful bucket-facing recipe is replayed unchanged.</p>
+  <h3>49 proposed tilt / drop-gap combinations</h3>
+  <p class="ytg-small">C = capture; M = released miss; R = robot-contact miss; D = setup declined; X = invalid physics. A single discovery capture is not a repeatability result. Refusals remain in the denominator and do not prove a pose impossible.</p>
+  <div class="ytg-scroll" data-yaw-tilt-gap="matrix"></div>
+  <h3>Fresh confirmation repeats</h3>
+  <div class="ytg-scroll" data-yaw-tilt-gap="repeats"></div>
+  <p class="ytg-small">All valid discovery captures are selected before confirmation. All three repeats count, including failures. These are deterministic nominal repeats, not noise or timestep qualification.</p>
+  <h3>Recorded simulator comparison</h3>
+  <p>Reference and rotated baseline first repeats, followed by the first up to three selected recipes in grid order at repeat zero. Repeat outcomes never choose the video examples. Arms are held at admitted endpoints; this does not show learned arm transit.</p>
+  <div data-yaw-tilt-gap="movies"></div>
+  <details><summary>Every search, reference and confirmation request</summary><div class="ytg-scroll" data-yaw-tilt-gap="requests"></div></details>
+  <p class="ytg-small" data-yaw-tilt-gap="controls"></p>
+  <p class="ytg-small" data-yaw-tilt-gap="proof"></p>
+  <p class="ytg-small">Capture requires a board bounce, whole-ball entry and one continuous second retained. Table and rim assistance are allowed; robot, floor and unattributed contacts invalidate capture. No model is retrained or promoted. Successful recipes and historical results remain intact.</p>
+  <p class="ytg-small" data-yaw-tilt-gap="connection">Read-only saved results.</p>
+</section>
