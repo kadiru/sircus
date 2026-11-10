@@ -1,5 +1,9 @@
 # Project state
 
+## Remaining six fixed-grid positions — prepared November 10, 2026
+
+The [bounded alternative-pose study](../sircus/mjlab/FIXED35_SIX.md) preserves all 29 confirmed recipes and the existing policy (24/35). It freezes 96 numeric recipes and two distinct IK branch slots for each of four searchable cells; the other two receive an actual compiled-collider audit. Native64/v3 physics and scoring remain unchanged. Maximum 851 requests, 7,200-second worker and independent CPU audit. This is recipe development before retraining, with **no UI publication**, policy fitting, promotion, 4070/Isaac changes or service restart. Source is prepared; no completed new flight result is claimed by this entry.
+
 ## Fixed-grid failure recovery completed — November 9, 2026
 
 Five of the 11 original failures now have confirmed recipes, each with **3/3 fresh native64 captures**. All **24/24 unchanged parent recipes** captured again: **29/35 fixed grid positions have confirmed recipes**. This is development search on the original coordinates; the existing policy remains **24/35**, with no fitting, replacement or promotion. [Audited baseline](../baselines/mjlab-fixed35-recovery-20261109/README.md), [protocol](../sircus/mjlab/FIXED35_RECOVERY.md), [handoff](MJLAB_FIXED35_RECOVERY_20261109.md).

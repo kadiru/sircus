@@ -1,5 +1,7 @@
 # Sircus in mjlab
 
+[Remaining-six protocol and learning workflow](FIXED35_SIX.md): bounded alternative-pose search, compiled-collider audit, preserved recipes and independent native64 verification. No UI publication or training in this follow-up.
+
 Latest: [farther bucket-facing shot tilt/drop-gap results](../../baselines/mjlab-yaw-tilt-gap-20261109/README.md).
 At fixed 562.434 mm distance and 449.818 mm board height, ten recipes captured
 all three fresh repeats. Keeping original 30.3307° tilt and adding 20 mm gap
