@@ -1,5 +1,15 @@
 # Sircus — Simple Circus
 
+**Latest mjlab result:** [35 fixed bucket positions, no perturbations](baselines/mjlab-fixed35-imitation-20261109/README.md).
+Current imitation captured **24/35 (68.6%)**, the refit **23/35 (65.7%)**;
+both used bucket-facing gripper yaw. One gain, two losses, 22 shared captures.
+The refit had six setup declines and six released noncaptures, including one
+invalid-physics attempt. All 18 controls and **40,692 independent checks** passed.
+This is historical-grid coverage, not unseen-position generalization or a yaw A/B test.
+Keep the current policy. Results are visible in `#fixed35Imitation`; no promotion,
+service restart, 4070 or Isaac change.
+[Handoff](docs/MJLAB_FIXED35_IMITATION_20261109.md) · [draft PR #119](https://github.com/kadiru/sircus/pull/119).
+
 
 **Latest mjlab diagnosis:** [six regression cases and historical videos](baselines/mjlab-imitation-regression-20261109/README.md).
 Three IK refusals, two ball–robot collisions and one rim miss; all preserved in
