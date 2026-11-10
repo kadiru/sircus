@@ -214,6 +214,22 @@ class AuditTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "pinned result"):
             subject.audit(f.root, f.manifest, "0" * 64, synthetic=True, checks=f.checks)
 
+    def test_reduced_deadline_matches_the_externally_bound_remaining_budget(self):
+        f = self.fixture
+        remaining = 28800 - 1.512317179
+        path = f.root / "watchdog-owner.json"
+        owner = subject.read(path)
+        owner["deadline_monotonic"] = owner["start_monotonic"] + remaining
+        from candidate_continuation_ledger import canonical_hash as compact_hash
+        owner["fingerprint"] = compact_hash({k: v for k, v in owner.items() if k != "fingerprint"})
+        write(path, owner)
+        checked = subject.verify_watchdog(f.root, f.result, wall_limit=remaining)
+        self.assertEqual(checked["native_wall_limit_s"], remaining)
+        with self.assertRaisesRegex(ValueError, "wall or request limits changed"):
+            subject.verify_watchdog(f.root, f.result)
+        with self.assertRaisesRegex(ValueError, "remaining native wall budget"):
+            subject.verify_watchdog(f.root, f.result, wall_limit=28801)
+
     def test_native_missing_or_extra_packet_fails(self):
         (self.fixture.native / "trials/extra-99999.json.gz").write_bytes(b"synthetic")
         with self.assertRaisesRegex(ValueError, "extra native trial"):

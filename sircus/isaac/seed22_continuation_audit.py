@@ -424,8 +424,10 @@ def verify_updates(train, updates, final_checkpoint, *, initial_checkpoint, stat
                 original_latent_probabilities_checked=True, cpu_bitwise_adam_replay=False)
 
 
-def verify_watchdog(output, result):
+def verify_watchdog(output, result, wall_limit=WALL_SECONDS):
     from candidate_continuation_ledger import canonical_hash as compact_hash
+    require(type(wall_limit) in (int, float) and math.isfinite(wall_limit)
+            and 0 < wall_limit <= WALL_SECONDS, "Invalid remaining native wall budget")
     owner = read(evidence(output, "watchdog-owner.json"))
     exit_record = read(evidence(output, "watchdog-exit.json"))
     for record in (owner, exit_record):
@@ -438,7 +440,8 @@ def verify_watchdog(output, result):
             and owner.get("gpu_uuid") == "GPU-ab1950b0-01dd-0fab-407f-2d17936b27f4"
             and owner.get("max_requests") == TRAIN_REQUEST_CAP
             and owner.get("storage_floor_bytes", 0) >= 6 * 1024**3
-            and owner.get("deadline_monotonic", 0) - owner.get("start_monotonic", 0) == WALL_SECONDS,
+            and math.isclose(owner.get("deadline_monotonic", 0) - owner.get("start_monotonic", 0),
+                             wall_limit, rel_tol=0, abs_tol=1e-6),
             "Watchdog GPU, shared lock, wall or request limits changed")
     require(exit_record.get("status") == "native_exit_zero_independent_audit_required"
             and exit_record.get("native_application_starts") == 1
@@ -447,10 +450,11 @@ def verify_watchdog(output, result):
             and exit_record.get("native_owner") == owner.get("native_owner")
             and exit_record.get("train_requested") == result["train_requested"]
             and exit_record.get("train_completed") == result["train_completed"]
-            and result["elapsed_s"] <= exit_record.get("wall_s", -1) <= WALL_SECONDS,
+            and result["elapsed_s"] <= exit_record.get("wall_s", -1) <= wall_limit,
             "Watchdog did not confirm a bounded clean native exit")
     return dict(owner_sha256=digest(output / "watchdog-owner.json"),
-                exit_sha256=digest(output / "watchdog-exit.json"), wall_s=exit_record["wall_s"])
+                exit_sha256=digest(output / "watchdog-exit.json"), wall_s=exit_record["wall_s"],
+                native_wall_limit_s=wall_limit)
 
 
 def _default_checks():
@@ -489,19 +493,23 @@ def audit(output, manifest, expected_result_sha256, *, synthetic=False, checks=N
     validate_protocol(protocol)
     require(result["protocol_fingerprint"] == protocol["fingerprint"], "Result protocol changed")
     verified = checks["inputs"](manifest)
+    wall_limit = WALL_SECONDS
+    if not synthetic:
+        from seed22_continuation import native_budget
+        wall_limit = native_budget(manifest)
     experiment, splits = verified["experiment"], verified["splits"]
     validate_splits(splits)
     require(read(evidence(output, "inputs.json")) == manifest
             and read(evidence(output, "splits.json")) == splits, "Saved inputs or fresh layouts changed")
     completed = result.get("train_completed")
     require(type(completed) is int and completed == result.get("train_requested") and 0 <= completed <= TRAIN_REQUEST_CAP
-            and type(result.get("elapsed_s")) in (int, float) and 0 <= result["elapsed_s"] <= WALL_SECONDS,
+            and type(result.get("elapsed_s")) in (int, float) and 0 <= result["elapsed_s"] <= wall_limit,
             "Completed request count or eight-hour wall bound changed")
     reason = result.get("stop_reason")
     require((reason == "request_cap" and completed == TRAIN_REQUEST_CAP)
             or (reason == "time_budget_reserved_final_assessment" and completed < TRAIN_REQUEST_CAP
-                and result["elapsed_s"] >= WALL_SECONDS - 1200), "Run stopped outside its prespecified bounds")
-    watchdog = verify_watchdog(output, result)
+                and result["elapsed_s"] >= wall_limit - 1200), "Run stopped outside its prespecified bounds")
+    watchdog = verify_watchdog(output, result, wall_limit=wall_limit)
     native = output / "native"
     require(native.is_dir() and not native.is_symlink() and not (native / "incomplete-last-physics.npz").exists(),
             "Native evidence missing or partial")
@@ -715,6 +723,7 @@ def audit(output, manifest, expected_result_sha256, *, synthetic=False, checks=N
         final_checkpoint=final_receipt, train=summary(train_rows, train_returns), learning=learning,
         assessments=recorded, final_test=comparison, trials=trial_audits, startup=startup,
         ledger=ledger.snapshot(), maximum_policy_logp_error=maximum_logp, watchdog=watchdog,
+        native_wall_seconds=wall_limit, previous_startup_wall_s=WALL_SECONDS-wall_limit,
         audit_source_sha256=digest(__file__), guard_adapters=verified.get("guard_adapters"), model_promoted=False,
         scope="Independent raw-request/seeded-schedule/parent/optimizer-counter/likelihood chain; geometry saved-fit FK and sampled paths; measured movement/settling/release gates and all full-rate 240Hz ball/contact scores. No CPU bitwise CUDA Adam replay, mesh-path safety certificate, physical validation or repeated training-seed uncertainty."))
 

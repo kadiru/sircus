@@ -6,6 +6,7 @@ helpers, inputs and fresh split are bound before the sole simulator start.
 import argparse
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import sys
@@ -22,6 +23,33 @@ def canonical(path):
     require(p.is_absolute() and str(p.resolve()) == str(p)
         and not any(x.is_symlink() for x in (p, *p.parents)), "Noncanonical or linked path")
     return p
+
+
+def validate_owner(owner, session, *, identity=None, self_pid=None):
+    """Bind Python through the original python.sh wrapper to its pinned parent.
+
+    The container's python.sh spawns Python rather than exec'ing it. Every hop
+    must belong to the same session/cookie and end at the exact watchdog-owned
+    PID/start token; an arbitrary same-cookie process is never sufficient.
+    """
+    from candidate_continuation_watchdog import proc_identity, same_process
+    identity = proc_identity if identity is None else identity
+    current = identity(os.getpid() if self_pid is None else self_pid)
+    anchor, watchdog = owner["native_owner"], owner["owner"]
+    require(anchor.get("cookie") == watchdog.get("cookie") == session, "Watchdog owner session mismatch")
+    require(same_process(identity(watchdog["pid"]), watchdog), "Watchdog identity changed")
+    visited = set()
+    for _ in range(16):
+        require(current is not None and current.get("pid") not in visited
+            and current.get("cookie") == session and current.get("sid") == anchor["sid"],
+            "Watchdog child ancestry/session mismatch")
+        visited.add(current["pid"])
+        if current["pid"] == anchor["pid"]:
+            require(same_process(current, anchor) and current["ppid"] == watchdog["pid"],
+                    "Watchdog owned wrapper identity changed")
+            return True
+        current = identity(current["ppid"])
+    raise ValueError("Watchdog child ancestry exceeded fixed depth")
 
 
 def require(value, message):
@@ -46,6 +74,26 @@ def read(path):
         return result
     return json.loads(Path(path).read_bytes(), object_pairs_hook=pairs,
         parse_constant=lambda _: (_ for _ in ()).throw(ValueError("Nonfinite JSON")))
+
+
+def native_budget(manifest):
+    """Deduct closed zero-request startup work from the same eight-hour budget."""
+    prior = 0.
+    for role, item in manifest["files"].items():
+        if not role.startswith("prior_attempt_exit"):
+            continue
+        require(digest(item["path"]) == item["sha256"], "Prior startup receipt changed")
+        receipt = read(item["path"])
+        require(receipt.get("status") == "stopped_no_retry" and receipt.get("lock_release_safe") is True
+            and receipt.get("train_requested") == receipt.get("train_completed") == 0,
+            "Only closed zero-request startup work may precede this fresh run")
+        wall = receipt.get("wall_s")
+        require(type(wall) in (int,float) and math.isfinite(wall) and wall >= 0, "Invalid prior startup cost")
+        prior += wall
+    duration = manifest.get("native_wall_seconds",28800.)
+    require(type(duration) in (int,float) and 0 < duration <= 28800
+        and math.isclose(duration,28800.-prior,rel_tol=0,abs_tol=1e-6), "Continuation would extend total native budget")
+    return duration
 
 
 def inputs(path, expected_sha256):
@@ -102,6 +150,7 @@ def inputs(path, expected_sha256):
     require(manifest["files"]["parent"]["sha256"] == PARENT_SHA, "Wrong parent checkpoint")
     require(manifest["runtime"] == dict(python="3.11.13", torch="2.7.0+cu128", numpy="1.26.0", scipy="1.15.3"),
             "Unreviewed runtime")
+    native_budget(manifest)
     return manifest, experiment, split
 
 
@@ -188,8 +237,9 @@ def main(argv=None):
         and owner["start_monotonic"] == float(os.environ["SIRCUS_CONTINUATION_STARTED_MONOTONIC"])
         and owner["deadline_monotonic"]-owner["start_monotonic"] <= 28800
         and owner["max_requests"] == 30000, "Watchdog owner/deadline mismatch")
-    require(owner["native_owner"]["pid"] == os.getpid() and owner["native_owner"]["ppid"] == os.getppid()
-        and owner["native_owner"]["cookie"] == args.session_id, "Watchdog child identity mismatch")
+    require(math.isclose(owner["deadline_monotonic"]-owner["start_monotonic"],native_budget(manifest),
+        rel_tol=0,abs_tol=1e-6), "Watchdog would change the remaining runtime budget")
+    validate_owner(owner,args.session_id)
     require(owner["shared_lock"] == "/workspace/scene.lock" and owner["gpu_uuid"] == GPU_UUID,
             "Watchdog shared lock or GPU mismatch")
     lock_stat = Path(owner["shared_lock"]).stat()
