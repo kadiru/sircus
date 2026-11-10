@@ -1,0 +1,30 @@
+<section id="fixed35Imitation" class="fixed35-imitation" aria-labelledby="fixed35-heading">
+  <p class="f35-eyebrow">MJLAB · 7 × 5 FIXED GRID · 64 SUBSTEPS</p>
+  <h2 id="fixed35-heading">Start with 35 bucket positions</h2>
+  <p class="f35-note" role="status" data-fixed35-imitation="status">Waiting for the saved study.</p>
+  <p>One fixed bucket location at each grid point. No placement jitter, noise or extra positions. Both frozen policies use bucket-facing gripper rotation; the comparison tests the imitation refit.</p>
+  <p class="f35-small"><strong>35 locations × 2 models = 70 policy attempts.</strong> Another 18 control attempts check the simulator: 88 total slots, still only 35 evaluated bucket locations.</p>
+  <div class="f35-cards" data-fixed35-imitation="counts"></div>
+  <p class="f35-note" data-fixed35-imitation="takeaway"></p>
+  <h3>Capture at each fixed position</h3>
+  <p class="f35-small">Each cell represents one bucket position, tested once by each model. C = capture · M = released miss · D = setup declined · X = invalid physics. Select a cell for its exact commands below.</p>
+  <div class="f35-scroll f35-grid" data-fixed35-imitation="map"></div>
+  <div class="f35-legend"><span data-state="both">Both capture</span><span data-state="gained">Refit only</span><span data-state="lost">Current only</span><span data-state="neither">Neither captures</span></div>
+  <p class="f35-small">These canonical grid locations were used in historical development. This measures fixed-grid coverage, not generalization to unseen or perturbed bucket positions.</p>
+  <h3>Frozen-policy comparison</h3>
+  <div class="f35-scroll" data-fixed35-imitation="comparison"></div>
+  <p class="f35-small">Every setup decline stays in the 35-attempt denominator. Invalid-physics attempts also appear among released misses; those columns overlap. Direct captures may touch the rim. Table-assisted captures are accepted.</p>
+  <div class="f35-cards" data-fixed35-imitation="paired"></div>
+  <details open><summary>All 35 coordinates and predicted shot settings</summary><div class="f35-scroll" data-fixed35-imitation="positions"></div></details>
+  <h3>What the model learned from</h3>
+  <p data-fixed35-imitation="training"></p>
+  <div class="f35-scroll" data-fixed35-imitation="teachers"></div>
+  <p class="f35-small">One teacher per distinct layout balances the corrections. The ten successful farther-shot alternatives and repeated drops are not treated as ten new layouts. Earlier successful recipes and checkpoint files remain intact. Historical teachers keep their original gripper-orientation provenance; their outcomes are not relabeled as validated bucket-facing shots.</p>
+  <p class="f35-small">The model outputs five continuous shot adjustments around the existing geometry anchors. It does not choose the best outcome after simulating several evaluation attempts. Exact arm feasibility and collision checks remain in place.</p>
+  <details><summary>Frozen checkpoints and evidence</summary><div class="f35-scroll" data-fixed35-imitation="artifacts"></div><div class="f35-scroll" data-fixed35-imitation="lineage"></div></details>
+  <p class="f35-small" data-fixed35-imitation="controls"></p>
+  <p class="f35-small" data-fixed35-imitation="proof"></p>
+  <p class="f35-small">Capture requires a board bounce, whole-ball entry and one continuous second inside. Table and rim assistance count; robot, floor and unattributed contacts invalidate capture. No automatic policy promotion. This is simulation with arms held at admitted endpoints, not learned transit, grasping or perception.</p>
+  <p class="f35-small">Both weight sets and all 70 predictions freeze before evaluation outcomes. No evaluation retries, ball-flight search, fitting or checkpoint selection. Bucket perturbations remain a later step; the 4070 workload and Isaac setup are outside this study.</p>
+  <p class="f35-small" data-fixed35-imitation="connection">Read-only saved results.</p>
+</section>

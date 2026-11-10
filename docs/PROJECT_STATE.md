@@ -1,5 +1,11 @@
 # Project state
 
+## Fixed 35-position imitation study prepared — November 9, 2026
+
+The next mjlab study uses the original **7×5 bucket grid, exactly 35 fixed locations**, with no bucket perturbations. Both preserved-current and refitted imitation actors use the same bucket-facing gripper yaw and existing full-pose IK/clearance checks. This is historical-grid coverage, not a held-out or all-table generalization test.
+
+The candidate fits 99 equally weighted layout examples (97 preserved historical action targets plus two confirmed yaw recipes), with 800 actor-only Adam steps. Both checkpoints and all 70 policy commands freeze before evaluation. The bounded native64/v3 run has 70 policy requests plus 18 exact controls; it does not promote a policy automatically. [Protocol](../sircus/mjlab/FIXED35_IMITATION.md) and [handoff](MJLAB_FIXED35_IMITATION_20261109.md). Results are pending; source synchronization does not restart services or modify Isaac/4070 work.
+
 ## Farther bucket-facing shot recovered by tilt/gap tuning — November 9, 2026
 
 - [Audited settings](../baselines/mjlab-yaw-tilt-gap-20261109/README.md), [protocol](../sircus/mjlab/YAW_TILT_GAP.md) and [handoff](MJLAB_YAW_TILT_GAP_20261109.md): fixed board center **(653.661, −203.412, 449.818) mm**, bucket distance **562.434 mm**, gripper yaw **−36.285503°**. A 49-point tilt/gap grid found ten captures; all ten passed **3/3 fresh repeats**. At the original 30.3307° tilt, increasing gap **75.650 → 95.650 mm** changed the rotated baseline **0/3 → 3/3**.
