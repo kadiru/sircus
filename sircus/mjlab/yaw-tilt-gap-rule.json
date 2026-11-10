@@ -1,0 +1,38 @@
+{
+  "version": "sircus-yaw-tilt-gap-v1",
+  "context": "corrected-imitation-test-r0-c6-n1",
+  "tilts_deg": [
+    24.0,
+    26.0,
+    28.0,
+    30.33068546648235,
+    32.0,
+    34.0,
+    36.0
+  ],
+  "gap_offsets_m": [
+    0.0,
+    0.02,
+    0.04,
+    0.06,
+    0.09,
+    0.12,
+    0.16
+  ],
+  "rotation": "Rz(atan2(bucket_y-board_y,bucket_x-board_x)) @ diag(1,-1,-1)",
+  "fixed": [
+    "bucket_xy_m",
+    "board_x_m",
+    "board_y_m",
+    "board_height_m",
+    "gripper_yaw"
+  ],
+  "changed": [
+    "tilt_deg",
+    "drop_gap_m"
+  ],
+  "selection": "all valid discovery captures in grid-index order, then three fresh nominal repeats",
+  "substeps": 64,
+  "noise": false,
+  "training": false
+}
