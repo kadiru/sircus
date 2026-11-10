@@ -1,0 +1,126 @@
+{
+  "version": "sircus-yaw-tilt-gap-recorded-video-v1",
+  "output_sha256": "5c2ffd2639722770eb074b344ae300562b42ded195996f44b5aece1827b37e6c",
+  "video_bytes": 2290022,
+  "fps": 30,
+  "duration_s": 55.8,
+  "width": 1280,
+  "height": 720,
+  "frames_sha256": "555767a1a0e6e948e3c28a2324f7aaa90e67957fcbcac82a475b6cf89bc8b79f",
+  "manifest_sha256": "74b03a25863f8ff0adea0f2ad4296bbd2cf92e017d2b16e0b566ec43b5f17b60",
+  "source": {
+    "report_sha256": "39847d03be006b64af49da3ab1a6a8cc319883c7b1a8d81f37660e1d67f66a92",
+    "audit_sha256": "918f9d6d5cfa5cad93ba6baec2b5e4f46051c253c8459e7c09cf7396be732746",
+    "contract_fingerprint": "f0b63420c08265bb17e2a3e5cd40342ca0c492598f55d6e1772bf786e586737e"
+  },
+  "clips": [
+    {
+      "record_id": "yaw-tilt-gap-references-far_success_reference-corrected-imitation-test-r0-c6-n1-r0",
+      "context_id": "corrected-imitation-test-r0-c6-n1",
+      "variant": "far_success_reference",
+      "label": "Preserved successful reference / original orientation",
+      "start_s": 0.0,
+      "end_s": 10.5,
+      "capture": true,
+      "native_release": true,
+      "no_flight": false,
+      "record_sha256": "630f3233d38e761c9bd3e2388d47bd683dd834206440126d8653f3f71344d001",
+      "native_cache_sha256": "14e220a84e03ffb11cd8fb396cb71dcb9c5b7294c7656ecef7e88fe819d79eb9",
+      "events": {
+        "board": 0.13326822916666667,
+        "bucket": 0.712890625,
+        "table": 0.4796223958333333,
+        "whole_ball_entry": 0.8555338541666666,
+        "capture": 1.8555338541666666
+      }
+    },
+    {
+      "record_id": "yaw-tilt-gap-references-far_rotated-corrected-imitation-test-r0-c6-n1-r0",
+      "context_id": "corrected-imitation-test-r0-c6-n1",
+      "variant": "far_rotated",
+      "label": "Bucket-facing baseline / unchanged tilt and gap",
+      "start_s": 10.5,
+      "end_s": 23.7,
+      "capture": false,
+      "native_release": true,
+      "no_flight": false,
+      "record_sha256": "bb460f71cffae21ede7e885c8632d8c8315733bd8c54a4b50e5afa450427e835",
+      "native_cache_sha256": "c65a148e27214260531bc23bca4d467d3e164c984d68d660619e5618098f27c0",
+      "events": {
+        "board": 0.11673177083333333,
+        "bucket": 0.7302083333333333,
+        "table": 0.45807291666666666
+      }
+    },
+    {
+      "record_id": "yaw-tilt-gap-selected-g02-r0",
+      "context_id": "corrected-imitation-test-r0-c6-n1",
+      "variant": "selected",
+      "label": "Grid 2 / fresh repeat zero",
+      "start_s": 23.7,
+      "end_s": 34.3,
+      "capture": true,
+      "native_release": true,
+      "no_flight": false,
+      "record_sha256": "26179f85252ea5faf2b2fef0d818f95111b5824047e36843c233ae6563907efd",
+      "native_cache_sha256": "83502fc9ac0aa0c0fea041b9ba2c2870fa697df932f3e0134b09d643269fd1f3",
+      "events": {
+        "board": 0.14934895833333334,
+        "bucket": 0.7814453125,
+        "table": 0.5235026041666666,
+        "whole_ball_entry": 0.8704427083333334,
+        "capture": 1.8704427083333333
+      }
+    },
+    {
+      "record_id": "yaw-tilt-gap-selected-g03-r0",
+      "context_id": "corrected-imitation-test-r0-c6-n1",
+      "variant": "selected",
+      "label": "Grid 3 / fresh repeat zero",
+      "start_s": 34.3,
+      "end_s": 44.93333333333333,
+      "capture": true,
+      "native_release": true,
+      "no_flight": false,
+      "record_sha256": "75892deea0cf2e1efccda73866e344fa1e5d3739cee8c823ab141cdb4c150c2b",
+      "native_cache_sha256": "83502fc9ac0aa0c0fea041b9ba2c2870fa697df932f3e0134b09d643269fd1f3",
+      "events": {
+        "board": 0.16236979166666665,
+        "bucket": 0.8971354166666666,
+        "table": 0.5401041666666666,
+        "whole_ball_entry": 0.8767578125,
+        "capture": 1.8767578125
+      }
+    },
+    {
+      "record_id": "yaw-tilt-gap-selected-g08-r0",
+      "context_id": "corrected-imitation-test-r0-c6-n1",
+      "variant": "selected",
+      "label": "Grid 8 / fresh repeat zero",
+      "start_s": 44.93333333333333,
+      "end_s": 55.8,
+      "capture": true,
+      "native_release": true,
+      "no_flight": false,
+      "record_sha256": "0a2e8bf74596aad290a7edb99e6cc4f9f9bc9fddc31a08267af269882657777f",
+      "native_cache_sha256": "83502fc9ac0aa0c0fea041b9ba2c2870fa697df932f3e0134b09d643269fd1f3",
+      "events": {
+        "board": 0.13444010416666666,
+        "bucket": 0.76171875,
+        "table": 0.4942708333333333,
+        "whole_ball_entry": 0.9331380208333333,
+        "capture": 1.9331380208333333
+      }
+    }
+  ],
+  "full_decode": true,
+  "browser_playback": {
+    "duration": 55.8,
+    "error": null,
+    "paused": false,
+    "readyState": 4,
+    "time": 23.7845,
+    "videoHeight": 720,
+    "videoWidth": 1280
+  }
+}

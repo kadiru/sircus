@@ -21,6 +21,12 @@ different tilts; new dropper joints realize the different release heights.
 The original strict endpoint, full-pose and sampled setup-path guards remain.
 Failed finite IK searches are recorded as setup rejections, not impossible poses.
 
+Nominal drop gap means ball-bottom Z minus board-center Z. The ball radius is
+37.5 mm, so ball-center release height is board-center height + gap + 37.5 mm.
+It is not the gripper flange height or clearance measured normal to the tilted
+board surface. Table-contact labels alone do not establish a causal table
+rebound; the saved trajectory and contact timings supply that evidence.
+
 ## Frozen search and confirmation
 
 The 49 candidates are the Cartesian product of:
