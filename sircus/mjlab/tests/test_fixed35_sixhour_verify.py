@@ -35,6 +35,21 @@ class RuleTests(unittest.TestCase):
                 with self.assertRaises(EvidenceError):
                     V.audit_endpoint(endpoint, {}, {}, 'assets', (), None, V.AuditChecks(), 'changed')
 
+    def test_corrected_comparator_is_scoped_and_original_restored_even_on_failure(self):
+        endpoint=dict(branch_rule=copy.deepcopy(V.SIXHOUR_RULE))
+        original=V.broad.compare_certificates
+        for fail in (False,True):
+            def inspect(*args):
+                self.assertIs(V.broad.compare_certificates,V.certificate.compare_certificates)
+                if fail:raise EvidenceError('unchanged strict check failed')
+                return 'checked'
+            with patch.object(V.broad,'audit_endpoint',side_effect=inspect):
+                if fail:
+                    with self.assertRaises(EvidenceError):
+                        V.audit_endpoint(endpoint,{}, {},'assets',(),None,V.AuditChecks(),'scope')
+                else:self.assertEqual(V.audit_endpoint(endpoint,{}, {},'assets',(),None,V.AuditChecks(),'scope'),'checked')
+            self.assertIs(V.broad.compare_certificates,original)
+
     def test_new_connection_cache_version_and_eighth_slot_are_explicit(self):
         pool = dict(pool_key='pool', bucket_xy_m=[1., 0.], values=[.6, 0., .2, 28., .1],
             endpoint_attempts={}, path_attempts=[{'passed': True}], timing={}, release_behavior={}, behavior_key='behavior',
@@ -90,6 +105,26 @@ class PoolTests(unittest.TestCase):
 
 
 class PlanTests(unittest.TestCase):
+    def test_corrected_parent_acceptance_is_in_both_producer_and_independent_bindings(self):
+        from types import SimpleNamespace
+        from sircus.mjlab import fixed35_sixhour_contract as C
+        identity=dict(scene_sha256='scene',asset_sha256={})
+        historical=dict(original='historical')
+        parent=dict(report=dict(status='completed',fresh_search_releases=V.broad.QUOTAS),
+            spec=dict(source_bindings=historical,identity=identity),rows=[],checks_count=12,
+            report_sha256='report',audit_sha256='audit',contract_fingerprint='contract',evidence_manifest_sha256='manifest',
+            parent_acceptance=dict(basis='independent_corrected_parent_audit',correction_sha256='correction'))
+        old=dict(parent=dict(identity=identity),bindings=historical,preserved=[])
+        addition=dict(id='confirmed',values=[.6,0,.3,28,.1])
+        args=SimpleNamespace(broad_study=Path('/test/broad'),broad_audit=Path('/test/audit'))
+        with patch.object(C.parent,'load_inputs',return_value=copy.deepcopy(old)), \
+             patch.object(V,'authenticate_broad',return_value=copy.deepcopy(parent)), \
+             patch.object(V,'confirmed_broad_recipes',return_value=[addition]):
+            produced=C.load_inputs(args,Path('/test/source'))['bindings']
+        independent=V.independent_source_bindings(parent,[addition])
+        self.assertEqual(independent,produced)
+        self.assertEqual(independent['broad']['parent_acceptance'],parent['parent_acceptance'])
+
     def fixture(self):
         from sircus.mjlab.tests.test_fixed35_sixhour_contract import ContractTests
         data,confirmed,kwargs,plan=ContractTests().plan(500)
