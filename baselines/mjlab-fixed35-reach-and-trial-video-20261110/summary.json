@@ -1,0 +1,450 @@
+{
+  "version": "sircus-fixed35-reach-and-trial-video-summary-v1",
+  "status": "completed_read_only_reach_diagnosis_and_verified_media",
+  "scope": {
+    "simulator": "MuJoCo/mjlab",
+    "substeps": 64,
+    "scoring": "sircus-table-assisted-native-capture-v3",
+    "case_ids": [
+      "fixed35-dev-grid-03-04",
+      "fixed35-dev-grid-03-05",
+      "fixed35-dev-grid-04-06"
+    ],
+    "reach_diagnosis_cohort": "fixed35-six-v1",
+    "native_experiments_added": 0,
+    "ik_searches_added": 0,
+    "physics_steps_added": 0,
+    "guards_modified": false,
+    "policy_updated": false
+  },
+  "diagnosis": {
+    "checks_passed": 3768,
+    "numeric_settings": 288,
+    "branch_requests": 576,
+    "outside_conservative_reach": 263,
+    "unresolved_ik_inside_bound": 1,
+    "endpoint_rejected_all_tested_branches_overlap": 10,
+    "endpoint_rejected_with_a_positive_clearance_branch": 2,
+    "admitted_numeric_settings": 12,
+    "native_releases": 24,
+    "path_only_rejections": 0,
+    "path_attempts": 24,
+    "paths_passed": 24,
+    "pair_cap_reached": 0,
+    "endpoint_candidate_cap_reached": 0,
+    "native_full_pose_rejections": 0,
+    "checked_endpoint_pairs": 277,
+    "endpoint_pair_reason_counts": {
+      "passed": 64,
+      "native_collision": 155,
+      "strict_clearance": 58
+    },
+    "per_cell": [
+      {
+        "context_id": "fixed35-dev-grid-03-04",
+        "bucket_xy_mm": [
+          860.0,
+          25.0
+        ],
+        "numeric_settings": 96,
+        "branch_requests": 192,
+        "outside_conservative_reach": 86,
+        "unresolved_ik_inside_bound": 0,
+        "endpoint_rejected": 6,
+        "admitted_numeric_settings": 4,
+        "native_releases": 8
+      },
+      {
+        "context_id": "fixed35-dev-grid-03-05",
+        "bucket_xy_mm": [
+          1050.0,
+          25.0
+        ],
+        "numeric_settings": 96,
+        "branch_requests": 192,
+        "outside_conservative_reach": 88,
+        "unresolved_ik_inside_bound": 1,
+        "endpoint_rejected": 3,
+        "admitted_numeric_settings": 4,
+        "native_releases": 8
+      },
+      {
+        "context_id": "fixed35-dev-grid-04-06",
+        "bucket_xy_mm": [
+          1240.0,
+          250.0
+        ],
+        "numeric_settings": 96,
+        "branch_requests": 192,
+        "outside_conservative_reach": 89,
+        "unresolved_ik_inside_bound": 0,
+        "endpoint_rejected": 3,
+        "admitted_numeric_settings": 4,
+        "native_releases": 8
+      }
+    ]
+  },
+  "reach_proof": {
+    "coordinate": "shoulder-to-wrist, in each arm base frame; not board center or ball center",
+    "formula": "390 + sqrt(150^2 + 426^2)",
+    "upper_bound_mm": 841.6370223974114,
+    "last_link_transverse_allowance_mm": 0.00033058845929745395,
+    "accepted_pose_error_allowance_mm": 0.13599999975975713,
+    "minimum_excess_before_accepted_pose_allowance_mm": 3.7732589070022846,
+    "criterion": "distance(requested flange center minus its rotated axial last-link offset, shoulder) exceeds upstream-link length sum plus transverse remainder plus position/orientation tolerance allowance",
+    "interpretation": "Violation proves that requested pose cannot be reached under the pinned kinematics. Satisfying the bound does not prove feasibility. The bucket position itself is not proven impossible.",
+    "joint_limit_or_collision_assumptions": "The bound ignores joint limits and obstacles, so including them cannot enlarge this outer reach sphere."
+  },
+  "thresholds": {
+    "ik_residual_norm_m": 0.0001,
+    "orientation_weight_m_per_rad": 0.25,
+    "implied_orientation_limit_rad": 0.0004,
+    "independent_native_position_m": 0.0001,
+    "independent_native_orientation_rad": 0.0004,
+    "strict_clearance_m": 0.005,
+    "historical_native_collision_penetration_m": -0.002,
+    "maximum_pair_count": 64,
+    "maximum_endpoint_candidates": 12,
+    "maximum_admitted_branches": 2,
+    "seeds": [
+      20261110,
+      20261111
+    ],
+    "starts_per_seed_including_hint": 33,
+    "iterations": 360,
+    "hard_workspace_hint_veto": false,
+    "path_sampling_rad": 0.008726646259971648
+  },
+  "examples": [
+    {
+      "description": "smallest certified reach violation",
+      "context_id": "fixed35-dev-grid-03-04",
+      "numeric_proposal_index": 3,
+      "status": "finite_ik_unresolved",
+      "bouncer_best_position_error_mm": 3.443396154532302,
+      "bouncer_best_orientation_error_deg": 0.24452101130968304,
+      "bouncer_requested_wrist_radius_mm": 845.410611892873
+    },
+    {
+      "description": "only IK failure not certified outside outer reach",
+      "context_id": "fixed35-dev-grid-03-05",
+      "numeric_proposal_index": 79,
+      "status": "finite_ik_unresolved",
+      "bouncer_best_position_error_mm": 81.4057572334271,
+      "bouncer_best_orientation_error_deg": 5.5784630483897955,
+      "bouncer_requested_wrist_radius_mm": 752.196211896579,
+      "board_height_mm": 153.44,
+      "board_tilt_deg": 22.82798833819242,
+      "drop_gap_mm": 165.9504132231405,
+      "joint_2_upper_limit_rad": 2.3038346,
+      "best_joint_2_rad": 2.3038345000000002,
+      "not_proven_unreachable": true
+    },
+    {
+      "description": "near 5 mm clearance threshold",
+      "context_id": "fixed35-dev-grid-03-05",
+      "numeric_proposal_index": 3,
+      "status": "strict_endpoint_clearance_or_pose_rejected",
+      "bouncer_best_position_error_mm": 2.4429830294609993e-11,
+      "bouncer_best_orientation_error_deg": 2.118580886246739e-12,
+      "bouncer_requested_wrist_radius_mm": 825.1687335952295,
+      "clearance_pair": [
+        "Arm14/link4",
+        "Arm14/link6"
+      ],
+      "measured_clearance_mm": 4.954945098706754,
+      "conservative_clearance_lower_bound_mm": 4.954861257224177,
+      "required_clearance_mm": 5
+    },
+    {
+      "description": "nearly touching bouncer links",
+      "context_id": "fixed35-dev-grid-03-05",
+      "numeric_proposal_index": 53,
+      "status": "strict_endpoint_clearance_or_pose_rejected",
+      "bouncer_best_position_error_mm": 1.4007439099647277e-11,
+      "bouncer_best_orientation_error_deg": 1.9972144780332696e-12,
+      "bouncer_requested_wrist_radius_mm": 812.5063042599311,
+      "clearance_pair": [
+        "Arm14/link4",
+        "Arm14/link6"
+      ],
+      "measured_clearance_mm": 0.18556920822356165,
+      "conservative_clearance_lower_bound_mm": 0.18524138668430024,
+      "required_clearance_mm": 5
+    },
+    {
+      "description": "bouncer link 3 overlaps table",
+      "context_id": "fixed35-dev-grid-04-06",
+      "numeric_proposal_index": 38,
+      "status": "strict_endpoint_clearance_or_pose_rejected",
+      "bouncer_best_position_error_mm": 6.437678252854833e-12,
+      "bouncer_best_orientation_error_deg": 5.247433676583079e-13,
+      "bouncer_requested_wrist_radius_mm": 777.8901382813982
+    }
+  ],
+  "media_inventory": {
+    "status": "completed_verified_saved_trace_replay",
+    "requests": 837,
+    "native_drop_clips": 100,
+    "setup_declines": 737,
+    "captures": 0,
+    "whole_ball_entries": 0,
+    "invalid_physics": 0,
+    "cohorts": [
+      {
+        "cohort": "fixed35-imitation-v1",
+        "requests": 6,
+        "native_releases": 3,
+        "native_releases_by_cell": {
+          "fixed35-dev-grid-03-04": 2,
+          "fixed35-dev-grid-03-05": 1
+        }
+      },
+      {
+        "cohort": "fixed35-recovery-v1",
+        "requests": 240,
+        "native_releases": 58,
+        "native_releases_by_cell": {
+          "fixed35-dev-grid-03-04": 31,
+          "fixed35-dev-grid-03-05": 23,
+          "fixed35-dev-grid-04-06": 4
+        }
+      },
+      {
+        "cohort": "fixed35-six-v1",
+        "requests": 576,
+        "native_releases": 24,
+        "native_releases_by_cell": {
+          "fixed35-dev-grid-03-04": 8,
+          "fixed35-dev-grid-03-05": 8,
+          "fixed35-dev-grid-04-06": 8
+        }
+      },
+      {
+        "cohort": "fixed35-bouncer-v1",
+        "requests": 15,
+        "native_releases": 15,
+        "native_releases_by_cell": {
+          "fixed35-dev-grid-03-04": 3,
+          "fixed35-dev-grid-03-05": 5,
+          "fixed35-dev-grid-04-06": 7
+        }
+      }
+    ],
+    "per_cell": [
+      {
+        "context_id": "fixed35-dev-grid-03-04",
+        "native_drop_clips": 44,
+        "requests": 277,
+        "setup_declines": 233
+      },
+      {
+        "context_id": "fixed35-dev-grid-03-05",
+        "native_drop_clips": 37,
+        "requests": 279,
+        "setup_declines": 242
+      },
+      {
+        "context_id": "fixed35-dev-grid-04-06",
+        "native_drop_clips": 19,
+        "requests": 281,
+        "setup_declines": 262
+      }
+    ],
+    "inventory_sha256": "28c9149f9a727402b44f28ebc23f941c202ef16d4fd87ed5aedb85bda9adb45f",
+    "expected_manifest_sha256": "f703f45fdb56b71fb5b0564d2fae2fa36f19ca60963e1290585a96aaf3a69f78",
+    "renderer_commit": "e05679a6386ba32224afec67855166aed8435162",
+    "rendered_outputs_verified": true,
+    "meaning": "100 archived native drops across four historical fixed-grid cohorts. Each scored flight is replayed from saved ball centers and held observed initial joints; no new simulation, invented arm transit, or declined-flight animation."
+  },
+  "provenance": {
+    "diagnosis_producer_commit": "e6a11db6b0c00c278874d04800b1b38e78080040",
+    "diagnosis_contract_fingerprint": "adc1f18e13bdcaab2f7fb86bf63974bd762c9248b8a77c471f301d8184938c07",
+    "diagnosis_evidence_sha256": {
+      "report_sha256": "629360baed3cd23261c125679202b8d129ffb28b9cec0c1c8709d0ef19eeeb32",
+      "audit_sha256": "ef56098a64bbd640a0c2e72aeaea1d10e7da00f853f1b9bb4b373d06c85c28e7",
+      "manifest_sha256": "ecb09810f8b34e812da00c0df50a645eebdb4df8596dad7aa9628066fb1ba46d",
+      "contract_fingerprint": "adc1f18e13bdcaab2f7fb86bf63974bd762c9248b8a77c471f301d8184938c07",
+      "rows_sha256": "1953c0ff8b9f62f4f4eb0937a68875e28142e5c7db4f6b710dfd12b27e273aa7",
+      "producer_source_sha256": {
+        "sircus/mjlab/fixed35_six_native.py": "d9e6f2742ec54bff5dbafec4083cd15108d3d0072c491c2ecb8c81a663478513",
+        "sircus/mjlab/stable_ik.py": "efd52c5e837339662c99c196e1a3cf4b5b260eecb7888258779030c459944e07",
+        "sircus/mjlab/learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+        "sircus/mjlab/stable_geometry.py": "2e00b5fc46d1b253b5c85b6823c781a37e26f5819b35586a8cc112b057ebaebf",
+        "sircus/mjlab/corrected_geometry.py": "50a4a353d94cceb1fbb0216a40588c997034a121e554f3f84f530d7d47c470be",
+        "sircus/mjlab/transit_audit.py": "4400285187eebf3b1c7073a78ab74c94cbead88d52ffc5366e0258d2376f8c96",
+        "sircus/mjlab/calibrated_admission.py": "37d43d8503c4e0a9835d8ae8fe6793ee09938bc746f1a513af3e4aa2b6f295a8",
+        "sircus/mjlab/expand_geometry.py": "0b7982c3494b7cb7f799e073e3a7b788cca77617af0e9f509a4b7e273d926739"
+      },
+      "assets_sha256": {
+        "dropper.urdf": "3f40e56e46b040fb3339c1235ea85872f46511c45db2d37f7661db94a470bae3",
+        "board_arm.urdf": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340"
+      }
+    },
+    "cohort_identities": {
+      "fixed35-imitation-v1": {
+        "report_sha256": "91640ad07e7b8e396c58d937dcf8a5652a07c3eb5f7ae2ea0bce27f40425a389",
+        "audit_sha256": "374eb3ff78b302168622c091aca645283f48d1bee33355a9ac4eec3794e116d6",
+        "contract_sha256": "2016963a7eac72c329feb81ce73a8c76277f57cc8c039b59d0fc61579fa9d4bd",
+        "manifest_sha256": "32ac08345c800f30adb9155e6cb4812d1701188ef39111b07c92298be0f41dda",
+        "rows_sha256": "170f7edcd67b85c47407efc9a1807900a4dc468d36b2dbb314c334c7b30d6101",
+        "scene_sha256": "9a50295d9908be8634c2df1c0b460ec6011710cf8e14ce33cbc67a75749ff1c8"
+      },
+      "fixed35-recovery-v1": {
+        "report_sha256": "2d62f6b43b54210b83c7323b5e46f0ccdf0817f36b67fbe43e1aa7618fb099d9",
+        "audit_sha256": "460e0e5496b54e9426fb170d64b9c0687813eb28e3b7310d3e8f212eda211569",
+        "contract_sha256": "0a17da38e591849bb9864ec3b4726a9f1337ac0e003953f2c15d03cb36921026",
+        "manifest_sha256": "071475e50e4377195d905421fc11afaadb4679b1d1f4ab37eea4f7e5107d7dfc",
+        "rows_sha256": "ee349fad4997e9006b5e6638c38f3b4b971cd16aff46a8f949ebd24a95468788",
+        "scene_sha256": "9a50295d9908be8634c2df1c0b460ec6011710cf8e14ce33cbc67a75749ff1c8"
+      },
+      "fixed35-six-v1": {
+        "report_sha256": "629360baed3cd23261c125679202b8d129ffb28b9cec0c1c8709d0ef19eeeb32",
+        "audit_sha256": "ef56098a64bbd640a0c2e72aeaea1d10e7da00f853f1b9bb4b373d06c85c28e7",
+        "contract_sha256": "0cd284fc4a5d38739a0843728a1b52c2e7defdeb962fd371a302fabbd8d3997b",
+        "manifest_sha256": "ecb09810f8b34e812da00c0df50a645eebdb4df8596dad7aa9628066fb1ba46d",
+        "rows_sha256": "1953c0ff8b9f62f4f4eb0937a68875e28142e5c7db4f6b710dfd12b27e273aa7",
+        "scene_sha256": "9a50295d9908be8634c2df1c0b460ec6011710cf8e14ce33cbc67a75749ff1c8"
+      },
+      "fixed35-bouncer-v1": {
+        "report_sha256": "499a0353b1e3a0b439582e613ed41da666d11eea25c99f48060c42e98c771c0d",
+        "audit_sha256": "10b5aa88d44be0f7cf859017eb51cbac849e1a3b35d7ba00760a08d222fa5477",
+        "contract_sha256": "5dba4bbeac7438d8d2e7fdbc15a175679a209839415156f12861467cfbf29d34",
+        "manifest_sha256": "84a2a9f5094d537c889784555c01803117cca72403f03e66e25f22a68a303699",
+        "rows_sha256": "aa065ace44d78b7a02582bf06e6d7fe21c5029ecfeda6fe001f5ed7991255201",
+        "scene_sha256": "9a50295d9908be8634c2df1c0b460ec6011710cf8e14ce33cbc67a75749ff1c8"
+      }
+    },
+    "private_analysis_sha256": "c2d37a8a838db7d02c2126ee4d7a3ba827f39c49c78526bc51270da81547379c"
+  },
+  "learning_boundary": {
+    "confirmed_recipe_positions": 30,
+    "fixed_positions": 35,
+    "unchanged_frozen_policy_captures": 24,
+    "new_recipe_or_policy_success": false,
+    "recommendation": "Propose board/release targets within both arms compatible reach regions, then retain collision and path checks. Investigate the one unresolved IK case and two positive-clearance cases separately; no relaxation or performance improvement has been tested."
+  },
+  "excluded_from_repository": [
+    "Raw trajectories and observations",
+    "Absolute host paths",
+    "Host calibration and runtime configuration",
+    "Credentials and raw logs",
+    "Generated media"
+  ],
+  "media_verification": {
+    "manifest_checks_passed": 61218,
+    "media_checks_passed": 440,
+    "manifest_qa_sha256": "3633a5ca0cac0a5462c4f8ea99e8f2799d59cd06b055b5d46c1b9435354fe1c3",
+    "media_qa_sha256": "8f99ea16a229c874ff3b27654608b2c95b6fdf0512e2f83cc3060f9a7d31af89",
+    "backend": "Mesa EGL llvmpipe CPU only",
+    "source_commit": "e05679a6386ba32224afec67855166aed8435162",
+    "nominal_combined_duration_s": 225.5,
+    "combined_container_duration_s": 225.500326,
+    "combined_frames": 5412,
+    "fps": 24,
+    "all_movies_fully_decoded": true,
+    "presentation_timestamps_strictly_increasing": true,
+    "contact_sheet_trials_visually_inspected": 100,
+    "outputs": [
+      {
+        "stem": "case-03-04",
+        "manifest_sha256": "1eb784ab7f6218dce72ab75d1161fae25c69add065392762637dc648b8e40dcf",
+        "movie_sha256": "801e6bb9d99a4d57844a1c4e014942600633bcf933983447655448bf5e119ce7",
+        "decoded_frames": 2416,
+        "codec": "h264",
+        "dimensions": [
+          1280,
+          720
+        ],
+        "fps": 24,
+        "duration_s": 100.66666666666667,
+        "container_duration_s": 100.666667,
+        "container_minus_nominal_s": 3.3333333249174757e-07,
+        "presentation_timestamps_strictly_increasing": true,
+        "minimum_frame_delta_s": 0.04166599999999221,
+        "maximum_frame_delta_s": 0.041667000000003895,
+        "full_decode_exit_code": 0,
+        "decode_stderr_empty": true,
+        "cameras_verified": 44,
+        "file": "case-03-04.mp4"
+      },
+      {
+        "stem": "case-03-05",
+        "manifest_sha256": "a8c26ad34395baa77cc149e090b40b6bab0a7013763197da2cc967e9e6621175",
+        "movie_sha256": "03b569e5dc6f1f63bb5f858ec34b157b8c2e8801cd372809c649249af1dd4179",
+        "decoded_frames": 1917,
+        "codec": "h264",
+        "dimensions": [
+          1280,
+          720
+        ],
+        "fps": 24,
+        "duration_s": 79.875,
+        "container_duration_s": 79.875,
+        "container_minus_nominal_s": 0.0,
+        "presentation_timestamps_strictly_increasing": true,
+        "minimum_frame_delta_s": 0.04166599999999221,
+        "maximum_frame_delta_s": 0.041667000000003895,
+        "full_decode_exit_code": 0,
+        "decode_stderr_empty": true,
+        "cameras_verified": 37,
+        "file": "case-03-05.mp4"
+      },
+      {
+        "stem": "case-04-06",
+        "manifest_sha256": "c4481f2869e4ca9a888df83594c6988c802e6cdf38729c3e17e7938a0156faa6",
+        "movie_sha256": "2409ae2107d526eb6cf51f2f56a46c2a4632850d3da37311bad2cc2889c84dd2",
+        "decoded_frames": 1079,
+        "codec": "h264",
+        "dimensions": [
+          1280,
+          720
+        ],
+        "fps": 24,
+        "duration_s": 44.958333333333336,
+        "container_duration_s": 44.958333,
+        "container_minus_nominal_s": -3.3333333249174757e-07,
+        "presentation_timestamps_strictly_increasing": true,
+        "minimum_frame_delta_s": 0.041665999999999315,
+        "maximum_frame_delta_s": 0.04166700000000034,
+        "full_decode_exit_code": 0,
+        "decode_stderr_empty": true,
+        "cameras_verified": 19,
+        "file": "case-04-06.mp4"
+      },
+      {
+        "stem": "all-100-trials",
+        "manifest_sha256": "ef459866931554c140d3b80389a4903425f04aff879a2ed15a34365679d98686",
+        "movie_sha256": "46d1a22e4342ff7823a46cf01104ade78e1eaad8685288a477103c392bddbc12",
+        "decoded_frames": 5412,
+        "codec": "h264",
+        "dimensions": [
+          1280,
+          720
+        ],
+        "fps": 24,
+        "duration_s": 225.5,
+        "container_duration_s": 225.500326,
+        "container_minus_nominal_s": 0.0003260000000011587,
+        "presentation_timestamps_strictly_increasing": true,
+        "minimum_frame_delta_s": 0.04166599999999221,
+        "maximum_frame_delta_s": 0.04199199999999337,
+        "full_decode_exit_code": 0,
+        "decode_stderr_empty": true,
+        "cameras_verified": 0,
+        "file": "all-100-trials.mp4"
+      }
+    ],
+    "combined_qa_receipt_sha256": "e2000e8125bd7ad825c52de5e5998975d482e0f07fd423a371626f8442375a28"
+  },
+  "preservation": {
+    "protected_file_count": 127,
+    "protected_file_changes": 0,
+    "existing_4070_compute_process_identity_unchanged": true,
+    "new_gpu_compute_processes": 0,
+    "training_runs_added": 0,
+    "dashboard_updated": false,
+    "services_restarted": false,
+    "original_results_unchanged": true
+  }
+}
