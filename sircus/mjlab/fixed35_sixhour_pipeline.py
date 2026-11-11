@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import subprocess
@@ -23,6 +24,10 @@ ACQUIRED_LIMIT_S = 21600
 QUEUE_LIMIT_S = 18000
 PARENT_VERSION = 'sircus-fixed35-broad1000-v1'
 PARENT_AUDIT_VERSION = 'sircus-fixed35-broad1000-audit-v1'
+CORRECTED_PARENT_AUDIT_VERSION = 'sircus-fixed35-broad1000-audit-v2'
+CORRECTION_VERSION = 'sircus-broad-certificate-roundoff-v1'
+TIMING_PARENT_AUDIT_VERSION = 'sircus-fixed35-broad1000-audit-v3'
+CORRECTED_PARENT_VERSIONS = (CORRECTED_PARENT_AUDIT_VERSION, TIMING_PARENT_AUDIT_VERSION)
 PARENT_QUOTAS = dict(zip(('fixed35-dev-grid-03-04', 'fixed35-dev-grid-03-05', 'fixed35-dev-grid-04-06'), (334, 333, 333)))
 
 
@@ -46,6 +51,116 @@ def exclusive_json(path, value):
         os.fsync(handle.fileno())
 
 
+def corrected_parent_binding(study, audit_path, spec, audit, pipeline):
+    """Explicit audit-only recovery; the failed supervisor is never rewritten."""
+    correction = audit.get('audit_correction', {})
+    pipeline_path = study.with_suffix('.pipeline.json')
+    original_path = study.with_name(study.name+'-audit.json')
+    source = Path(__file__).parent
+    identities = {
+        'original_auditor_source_sha256': source/'fixed35_broad_verify.py',
+        'adapter_source_sha256': source/'certificate_roundoff_verify.py',
+        'wrapper_source_sha256': source/'fixed35_broad_audit_v2.py',
+    }
+    if (audit.get('version') not in CORRECTED_PARENT_VERSIONS
+            or correction.get('version') != CORRECTION_VERSION
+            or correction.get('kind') != 'diagnostic_certificate_roundoff_only'
+            or correction.get('original_auditor_version') != PARENT_AUDIT_VERSION
+            or any(correction.get(k) is not False for k in ('physics_changed', 'scoring_changed', 'admission_changed'))
+            or (pipeline.get('status'), pipeline.get('study_exit_code'), pipeline.get('audit_exit_code')) != ('audit_failed', 0, 1)
+            or Path(correction.get('original_pipeline_file', '')).resolve() != pipeline_path.resolve()
+            or Path(correction.get('original_audit_file', '')).resolve() != original_path.resolve()
+            or audit_path.resolve() == original_path.resolve()
+            or correction.get('original_pipeline_sha256') != sha(pipeline_path)
+            or correction.get('original_audit_sha256') != sha(original_path)):
+        raise ValueError('Corrected parent audit must preserve and bind the original failed audit and pipeline')
+    if (type(audit.get('checks_count')) is not int or audit['checks_count'] <= 0
+            or audit['checks_count'] != len(audit.get('checks', []))
+            or not all(c.get('passed') is True for c in audit['checks'])):
+        raise ValueError('Corrected parent audit must retain every full independent check')
+    failure = read(original_path)
+    if (failure.get('version') != PARENT_AUDIT_VERSION or failure.get('status') != 'failed'
+            or not isinstance(failure.get('failures'), list) or not failure['failures']
+            or not any('v3 numeric exception restricted to near-zero normal angle' in str(f) for f in failure['failures'])
+            or correction.get('original_audit_failure') != failure):
+        raise ValueError('Original parent audit is not the recorded V1 failure')
+    if (correction.get('report_sha256') != sha(study/'report.json')
+            or correction.get('evidence_manifest_sha256') != sha(study/'evidence-manifest.json')
+            or correction.get('producer_source_sha256') != spec.get('source_sha256')
+            or correction.get('original_auditor_source_sha256') != spec['source_sha256'].get('sircus/mjlab/fixed35_broad_verify.py')
+            or any(correction.get(k) != sha(path) for k, path in identities.items())):
+        raise ValueError('Corrected parent audit must bind unchanged evidence and exact known auditor sources')
+    completed = correction.get('completed_unix_s')
+    if (not isinstance(completed, (int, float)) or not math.isfinite(completed)
+            or not isinstance(pipeline.get('finished_unix_s'), (int, float))
+            or not 0 < pipeline['finished_unix_s'] <= completed <= time.time()):
+        raise ValueError('Corrected full audit must finish after the failed pipeline and before acceptance')
+    receipt = dict(basis='independent_corrected_parent_audit', correction_version=CORRECTION_VERSION,
+        corrected_audit_version=audit['version'],
+        correction_sha256=digest(correction), original_audit_sha256=sha(original_path),
+        original_pipeline_sha256=sha(pipeline_path), completed_unix_s=completed,
+        auditor_sources_sha256={k:sha(path) for k,path in identities.items()})
+    if audit['version'] == TIMING_PARENT_AUDIT_VERSION:
+        receipt['timing_correction'] = corrected_timing_binding(study, spec, audit, pipeline)
+        receipt['completed_unix_s'] = receipt['timing_correction']['completed_unix_s']
+    return receipt
+
+
+def corrected_timing_binding(study, spec, audit, pipeline):
+    """The second correction authenticates this study's original clock only."""
+    c = audit['timing_audit_correction'];source = Path(__file__).parent
+    previous = study.with_name(study.name+'-audit-v2.json');failure = read(previous)
+    budgetpath = study.with_name(study.name+'-budget.json');budget = read(budgetpath)
+    report = read(study/'report.json')
+    identities = {'previous_auditor_source_sha256':source/'fixed35_broad_audit_v2.py',
+        'adapter_source_sha256':source/'packet_timing_verify.py','wrapper_source_sha256':source/'fixed35_broad_audit_v3.py'}
+    if (c.get('version') != 'sircus-broad-authenticated-worker-clock-v1'
+            or c.get('kind') != 'authenticated_original_worker_budget_only'
+            or c.get('previous_auditor_version') != CORRECTED_PARENT_AUDIT_VERSION
+            or c.get('adapter_version') != 'sircus-authenticated-packet-worker-clock-audit-v1'
+            or Path(c.get('previous_audit_file','')).resolve() != previous.resolve()
+            or c.get('previous_audit_sha256') != sha(previous) or c.get('previous_audit_failure') != failure
+            or failure.get('version') != CORRECTED_PARENT_AUDIT_VERSION or failure.get('status') != 'failed'
+            or failure.get('auditor_sha256') != sha(identities['previous_auditor_source_sha256'])
+            or failure.get('original_audit_failure_sha256') != audit['audit_correction']['original_audit_sha256']
+            or not any('Monotone native batch timings within wall budget' in str(x) for x in failure.get('failures',[]))
+            or any(c.get(k) != sha(path) for k,path in identities.items())
+            or any(c.get(k) is not False for k in ('physics_changed','scoring_changed','admission_changed','request_bytes_changed','timestamps_changed','physics_rerun'))):
+        raise ValueError('Timing correction must bind exact retained V2 clock failure and known sources')
+    expected = dict(worker_receipt_sha256=sha(budgetpath),effective_worker_limit_s=budget['effective_worker_limit_s'],
+        global_limit_s=pipeline['global_limit_s'],reported_elapsed_s=report['elapsed_s'],
+        report_sha256=sha(study/'report.json'),contract_sha256=sha(study/'contract.json'),budget_file=str(budgetpath.resolve()),
+        original_packet_auditor_sha256=sha(source/'coverage_training_verify.py'),obsolete_inherited_cap_s=19800)
+    if (c.get('original_budget') != expected
+            or c.get('report_sha256') != sha(study/'report.json')
+            or c.get('evidence_manifest_sha256') != sha(study/'evidence-manifest.json')
+            or c.get('producer_source_sha256') != spec['source_sha256']
+            or c.get('request_packets') != audit['request_packets']
+            or tuple(spec['protocol'].get(k) for k in ('worker_limit_s','search_limit_s','audit_reserve_s')) != (43200,36000,7200)
+            or (budget['limit_s'],budget['audit_reserve_s']) != (43200,7200)
+            or budget['gpu_uuid'] != GPU_UUID
+            or not 0 < pipeline['global_limit_s'] <= 51300
+            or abs(pipeline['global_deadline_unix_s']-pipeline['started_unix_s']-pipeline['global_limit_s']) > .05
+            or budget['global_deadline_unix_s'] != pipeline['global_deadline_unix_s']
+            or pipeline['started_unix_s'] > budget['acquired_unix_s']
+            or abs(budget['effective_worker_limit_s']-min(43200,budget['global_deadline_unix_s']-budget['acquired_unix_s']-7200)) > .1
+            or not 60 < budget['effective_worker_limit_s'] <= 43200
+            or not 0 <= report['elapsed_s'] < budget['effective_worker_limit_s']
+            or any(not isinstance(v,(int,float)) or not math.isfinite(v) for v in (report['elapsed_s'],budget['effective_worker_limit_s'],
+                budget['global_deadline_unix_s'],budget['acquired_unix_s'],pipeline['global_limit_s'],
+                pipeline['global_deadline_unix_s'],pipeline['started_unix_s']))
+            or any(report['deadlines'].get(k) != budget[k] for k in ('effective_worker_limit_s','global_deadline_unix_s'))
+            or (report['deadlines']['worker_limit_s'],report['deadlines']['search_limit_s']) != (43200,36000)):
+        raise ValueError('Timing correction must retain original authenticated worker budget and report')
+    completed = c.get('completed_unix_s')
+    if (not isinstance(completed,(int,float)) or not math.isfinite(completed)
+            or not audit['audit_correction']['completed_unix_s'] <= completed <= time.time()):
+        raise ValueError('Complete corrected packet audit must precede acceptance')
+    return dict(version=c['version'],correction_sha256=digest(c),previous_audit_sha256=sha(previous),
+        worker_receipt_sha256=sha(budgetpath),completed_unix_s=completed,
+        auditor_sources_sha256={k:sha(path) for k,path in identities.items()})
+
+
 def parent_ready(study, audit_path, expected_contract_sha):
     """None means still running; a final failed/incomplete parent refuses launch."""
     study, audit_path = Path(study), Path(audit_path)
@@ -62,9 +177,10 @@ def parent_ready(study, audit_path, expected_contract_sha):
         return None
     pipeline = read(pipeline_path)
     status = pipeline.get('status')
-    if status in ('failed', 'audit_failed', 'incomplete_audited'):
+    corrected = status == 'audit_failed' and audit_path.exists() and read(audit_path).get('version') in CORRECTED_PARENT_VERSIONS
+    if status in ('failed', 'audit_failed', 'incomplete_audited') and not corrected:
         raise ValueError('Parent pipeline ended without fully audited1000-drop completion: '+status)
-    if status != 'completed':
+    if status != 'completed' and not corrected:
         return None
     report_path, manifest_path = study/'report.json', study/'evidence-manifest.json'
     report, audit, manifest = read(report_path), read(audit_path), read(manifest_path)
@@ -73,7 +189,8 @@ def parent_ready(study, audit_path, expected_contract_sha):
             or report.get('phase') != 'completed' or report.get('fresh_search_releases') != PARENT_QUOTAS
             or report.get('gate', {}).get('search_quota_completed') is not True):
         raise ValueError('Parent report has not completed all1000 fresh search drops')
-    if (audit.get('version') != PARENT_AUDIT_VERSION or audit.get('status') != 'passed'
+    expected_audit_version = audit.get('version') if corrected else PARENT_AUDIT_VERSION
+    if (audit.get('version') != expected_audit_version or audit.get('status') != 'passed'
             or audit.get('failures') != [] or audit.get('full_checks_verified') is not True
             or audit.get('native_checks_verified') is not True
             or audit.get('report_sha256') != report_sha
@@ -83,7 +200,8 @@ def parent_ready(study, audit_path, expected_contract_sha):
             or report.get('evidence_sha256') != manifest
             or audit.get('producer_source_sha256') != spec.get('source_sha256')):
         raise ValueError('Parent full audit does not bind final report, source and evidence')
-    if (pipeline.get('report_sha256') != report_sha or pipeline.get('audit_sha256') != audit_sha
+    acceptance = corrected_parent_binding(study, audit_path, spec, audit, pipeline) if corrected else None
+    if ((not corrected and (pipeline.get('report_sha256') != report_sha or pipeline.get('audit_sha256') != audit_sha))
             or Path(pipeline['output']).resolve() != study.resolve()
             or not isinstance(pipeline.get('finished_unix_s'), (int, float))):
         raise ValueError('Parent completed pipeline does not bind these final files')
@@ -92,7 +210,7 @@ def parent_ready(study, audit_path, expected_contract_sha):
         report_sha256=report_sha, audit_sha256=audit_sha, evidence_manifest_sha256=sha(manifest_path),
         producer_source_manifest_sha256=digest(spec['source_sha256']),
         pipeline_file=str(pipeline_path.resolve()), pipeline_sha256=sha(pipeline_path),
-        completed_search_releases=PARENT_QUOTAS)
+        completed_search_releases=PARENT_QUOTAS, **({'parent_acceptance':acceptance} if corrected else {}))
 
 
 def wait_for_parent(study, audit, expected_contract, deadline, state, statepath):
