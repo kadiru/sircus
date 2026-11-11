@@ -8,6 +8,7 @@ from __future__ import annotations
 import argparse
 import copy
 import json
+import math
 from pathlib import Path
 import time
 
@@ -20,11 +21,104 @@ from . import fixed35_bouncer_verify as history
 from . import benchmark_verify as common
 from . import replay650_verify as replay
 from . import table_training_verify as native
+from . import certificate_roundoff_verify as certificate
 from .benchmark_verify import EvidenceError,contained,digest,read,sha
 
 VERSION='sircus-fixed35-sixhour-audit-v1'
 STUDY_VERSION='sircus-fixed35-sixhour-v1'
 AuditChecks=replay.AuditChecks
+
+
+def authenticate_corrected_parent(directory, audit, spec, proof, checks):
+    """Independently bind the audit-only correction and immutable failure history."""
+    correction=proof['audit_correction'];pipeline_path=directory.with_suffix('.pipeline.json')
+    original_path=directory.with_name(directory.name+'-audit.json');state=read(pipeline_path)
+    checks.require(proof['version'] in ('sircus-fixed35-broad1000-audit-v2','sircus-fixed35-broad1000-audit-v3'),
+        'Explicitly versioned corrected parent audit')
+    checks.equal((correction['version'],correction['kind']),
+        ('sircus-broad-certificate-roundoff-v1','diagnostic_certificate_roundoff_only'),
+        'Only explicitly versioned diagnostic comparison correction accepted')
+    checks.equal((state['status'],state['study_exit_code'],state['audit_exit_code']),('audit_failed',0,1),
+        'Completed native worker with original failed audit remains recorded')
+    checks.equal(Path(state['output']).resolve(),directory.resolve(),'Original failed supervisor belongs to this exact study')
+    checks.equal(Path(correction['original_pipeline_file']).resolve(),pipeline_path.resolve(),'Original supervisor path unchanged')
+    checks.equal(Path(correction['original_audit_file']).resolve(),original_path.resolve(),'Original canonical failure path unchanged')
+    checks.require(audit.resolve()!=original_path.resolve(),'Corrected audit is a distinct new artifact')
+    checks.equal(correction['original_pipeline_sha256'],sha(pipeline_path),'Failed parent supervisor bytes retained')
+    checks.equal(correction['original_audit_sha256'],sha(original_path),'Failed V1 audit bytes retained')
+    failure=read(original_path)
+    checks.equal((failure['version'],failure['status']),('sircus-fixed35-broad1000-audit-v1','failed'),'Authenticated original audit failure')
+    checks.require(isinstance(failure['failures'],list) and bool(failure['failures']),'Original failure detail retained')
+    checks.require(any('v3 numeric exception restricted to near-zero normal angle' in str(f) for f in failure['failures']),'Only the specific historical normal-angle diagnostic failure is corrected')
+    checks.equal(correction['original_audit_failure'],failure,'Corrected audit retains exact original failure content')
+    checks.equal(correction['original_auditor_version'],'sircus-fixed35-broad1000-audit-v1','Original audit identity retained')
+    for key in ('physics_changed','scoring_changed','admission_changed'):
+        checks.require(correction[key] is False,'Correction changes no experiment semantics/'+key)
+    checks.equal(correction['report_sha256'],sha(directory/'report.json'),'Correction binds unchanged final report')
+    checks.equal(correction['evidence_manifest_sha256'],sha(directory/'evidence-manifest.json'),'Correction binds unchanged full evidence')
+    checks.equal(correction['producer_source_sha256'],spec['source_sha256'],'Correction binds unchanged producer')
+    source=Path(__file__).parent
+    identities={'original_auditor_source_sha256':source/'fixed35_broad_verify.py',
+        'adapter_source_sha256':source/'certificate_roundoff_verify.py','wrapper_source_sha256':source/'fixed35_broad_audit_v2.py'}
+    for key,path in identities.items():checks.equal(correction[key],sha(path),'Known explicit corrected audit source/'+key)
+    checks.equal(correction['original_auditor_source_sha256'],spec['source_sha256']['sircus/mjlab/fixed35_broad_verify.py'],'Original frozen auditor unchanged')
+    completed=correction['completed_unix_s']
+    checks.require(isinstance(completed,(int,float)) and math.isfinite(completed) and
+        0<state['finished_unix_s']<=completed<=time.time(),'Full corrected audit finished after original failure before use')
+    receipt=dict(basis='independent_corrected_parent_audit',correction_version=correction['version'],
+        corrected_audit_version=proof['version'],correction_sha256=digest(correction),
+        original_audit_sha256=sha(original_path),original_pipeline_sha256=sha(pipeline_path),
+        completed_unix_s=completed,auditor_sources_sha256={k:sha(path) for k,path in identities.items()})
+    if proof['version']=='sircus-fixed35-broad1000-audit-v3':
+        receipt['timing_correction']=authenticate_corrected_timing(directory,spec,proof,checks)
+        receipt['completed_unix_s']=receipt['timing_correction']['completed_unix_s']
+    return receipt
+
+
+def authenticate_corrected_timing(directory,spec,proof,checks):
+    """Verify the clock-only V3 correction against the unchanged worker receipt."""
+    c=proof['timing_audit_correction'];source=Path(__file__).parent
+    previous=directory.with_name(directory.name+'-audit-v2.json');failure=read(previous)
+    identities={'previous_auditor_source_sha256':source/'fixed35_broad_audit_v2.py',
+        'adapter_source_sha256':source/'packet_timing_verify.py','wrapper_source_sha256':source/'fixed35_broad_audit_v3.py'}
+    checks.equal((c['version'],c['kind'],c['previous_auditor_version'],c['adapter_version']),
+        ('sircus-broad-authenticated-worker-clock-v1','authenticated_original_worker_budget_only',
+         'sircus-fixed35-broad1000-audit-v2','sircus-authenticated-packet-worker-clock-audit-v1'),
+        'Explicit original-budget-only correction identity')
+    checks.equal(Path(c['previous_audit_file']).resolve(),previous.resolve(),'Canonical retained V2 failure path')
+    checks.equal(c['previous_audit_sha256'],sha(previous),'V2 failed audit bytes retained')
+    checks.equal(c['previous_audit_failure'],failure,'Full V2 failure content retained')
+    checks.equal((failure['version'],failure['status']),('sircus-fixed35-broad1000-audit-v2','failed'),'V2 packet-clock failure retained')
+    checks.equal(failure['auditor_sha256'],sha(identities['previous_auditor_source_sha256']),'Exact V2 auditor identity')
+    checks.equal(failure['original_audit_failure_sha256'],proof['audit_correction']['original_audit_sha256'],'V2 retains same V1 failure')
+    checks.require(any('Monotone native batch timings within wall budget' in str(x) for x in failure['failures']),
+        'Only inherited packet-clock failure corrected')
+    for key,path in identities.items():checks.equal(c[key],sha(path),'Known clock correction source/'+key)
+    for key in ('physics_changed','scoring_changed','admission_changed','request_bytes_changed','timestamps_changed','physics_rerun'):
+        checks.require(c[key] is False,'No experiment or timing evidence changes/'+key)
+    report=read(directory/'report.json');budgetpath=directory.with_name(directory.name+'-budget.json')
+    budget=read(budgetpath);pipeline=read(directory.with_suffix('.pipeline.json'))
+    finite=(report['elapsed_s'],budget['effective_worker_limit_s'],budget['global_deadline_unix_s'],
+        budget['acquired_unix_s'],pipeline['global_limit_s'],pipeline['global_deadline_unix_s'],pipeline['started_unix_s'])
+    checks.require(all(isinstance(x,(int,float)) and math.isfinite(x) for x in finite) and report['elapsed_s']>=0,
+        'Original clock values finite and elapsed nonnegative')
+    checks.equal(tuple(spec['protocol'].get(k) for k in ('worker_limit_s','search_limit_s','audit_reserve_s')),
+        (43200,36000,7200),'Original frozen twelve-hour worker, ten-hour search and two-hour audit caps')
+    checked=broad.audit_budget(directory,report,checks)
+    expected=dict(**checked,reported_elapsed_s=report['elapsed_s'],report_sha256=sha(directory/'report.json'),
+        contract_sha256=sha(directory/'contract.json'),budget_file=str(budgetpath.resolve()),
+        original_packet_auditor_sha256=sha(source/'coverage_training_verify.py'),obsolete_inherited_cap_s=19800)
+    checks.equal(c['original_budget'],expected,'Full clock receipt independently authenticated from original files')
+    checks.equal(c['report_sha256'],sha(directory/'report.json'),'Clock correction binds unchanged report')
+    checks.equal(c['evidence_manifest_sha256'],sha(directory/'evidence-manifest.json'),'Clock correction binds unchanged evidence')
+    checks.equal(c['producer_source_sha256'],spec['source_sha256'],'Clock correction binds unchanged producer')
+    checks.equal(c['request_packets'],proof['request_packets'],'Complete packet accounting retained')
+    completed=c['completed_unix_s']
+    checks.require(isinstance(completed,(int,float)) and math.isfinite(completed) and
+        proof['audit_correction']['completed_unix_s']<=completed<=time.time(),'Full corrected clock audit completed before use')
+    return dict(version=c['version'],correction_sha256=digest(c),previous_audit_sha256=sha(previous),
+        worker_receipt_sha256=sha(budgetpath),completed_unix_s=completed,
+        auditor_sources_sha256={k:sha(path) for k,path in identities.items()})
 
 
 def authenticate_broad(directory,audit,checks,*,expected_binding=None):
@@ -34,7 +128,9 @@ def authenticate_broad(directory,audit,checks,*,expected_binding=None):
     proof=read(audit);manifest=read(directory/'evidence-manifest.json')
     unsigned=dict(spec);fp=unsigned.pop('fingerprint')
     checks.equal((digest(unsigned),report['contract_fingerprint'],proof['contract_fingerprint']),(fp,fp,fp),'Broad parent full contract identity')
-    checks.equal((spec['version'],report['version'],proof['version']),('sircus-fixed35-broad1000-v1','sircus-fixed35-broad1000-v1','sircus-fixed35-broad1000-audit-v1'),'Known native64 broad parent versions')
+    corrected=proof.get('version') in ('sircus-fixed35-broad1000-audit-v2','sircus-fixed35-broad1000-audit-v3')
+    audit_version=proof['version'] if corrected else 'sircus-fixed35-broad1000-audit-v1'
+    checks.equal((spec['version'],report['version'],proof['version']),('sircus-fixed35-broad1000-v1','sircus-fixed35-broad1000-v1',audit_version),'Known native64 broad parent versions')
     checks.equal((report['status'],report['phase']),('completed','completed'),'Fully completed broad parent before extension')
     checks.equal(report['fresh_search_releases'],broad.QUOTAS,'All1000 native parent discovery quotas complete')
     checks.equal(report['gate']['search_quota_completed'],True,'Parent quota gate passed')
@@ -51,6 +147,7 @@ def authenticate_broad(directory,audit,checks,*,expected_binding=None):
     checks.equal(report['gate']['preservation_passed'],True,'Parent original30 preserved')
     binding=dict(report_sha256=sha(directory/'report.json'),audit_sha256=sha(audit),contract_fingerprint=fp,
         evidence_manifest_sha256=sha(directory/'evidence-manifest.json'),checks_count=proof['checks_count'])
+    if corrected:binding['parent_acceptance']=authenticate_corrected_parent(directory,audit,spec,proof,checks)
     if expected_binding is not None:
         for key,value in binding.items():checks.equal(expected_binding[key],value,'Frozen parent source binding/'+key)
     consumed={}
@@ -112,7 +209,12 @@ def audit_endpoint(endpoint,anchor,scene,assets,chains,gate,checks,label):
     changes={k:(broad.BRANCH_RULE[k],SIXHOUR_RULE[k]) for k in SIXHOUR_RULE if broad.BRANCH_RULE[k]!=SIXHOUR_RULE[k]}
     checks.equal(changes,dict(version=(broad.BROAD_VERSION,SIXHOUR_VERSION),maximum_admitted_branches=(2,8)),label+'/only post-endpoint branch budget changed')
     view=copy.deepcopy(endpoint);view['branch_rule']=copy.deepcopy(broad.BRANCH_RULE)
-    return broad.audit_endpoint(view,anchor,scene,assets,chains,gate,checks,label)
+    # The prior broad comparator had a narrower near-zero-only diagnostic rule.
+    # Record and scope the new audit-only comparator; original files, finite IK,
+    # full certificate replay and all clearance/acceptance gates stay unchanged.
+    from unittest.mock import patch
+    with patch.object(broad,'compare_certificates',certificate.compare_certificates):
+        return broad.audit_endpoint(view,anchor,scene,assets,chains,gate,checks,label)
 
 
 def audit_pool(namespace,record,proposal,scene,assets,chains,gate,home,prior,checks):
@@ -262,7 +364,15 @@ def audit_budget(study,report,spec,parent,checks):
     parentpipeline=parent['directory'].with_suffix('.pipeline.json')
     checks.equal(sha(parentpipeline),binding['pipeline_sha256'],'Completed parent supervisor immutable')
     state=read(parentpipeline)
-    checks.equal((state['status'],state['report_sha256'],state['audit_sha256']),('completed',parent['report_sha256'],parent['audit_sha256']),'Actual completed parent supervisor bound report and audit')
+    if 'parent_acceptance' in parent:
+        acceptance=parent['parent_acceptance']
+        checks.equal(binding['parent_acceptance'],acceptance,'Launch explicitly binds corrected audit acceptance')
+        checks.equal((state['status'],state['study_exit_code'],state['audit_exit_code']),('audit_failed',0,1),'Original failed supervisor remains unchanged after independent correction')
+        checks.equal(sha(parentpipeline),acceptance['original_pipeline_sha256'],'Corrected audit binds same original supervisor')
+        checks.require(acceptance['completed_unix_s']<=launch['requested_unix_s'],'No extension before completed independent corrected audit')
+    else:
+        checks.require('parent_acceptance' not in binding,'Ordinary V1 acceptance cannot invent correction metadata')
+        checks.equal((state['status'],state['report_sha256'],state['audit_sha256']),('completed',parent['report_sha256'],parent['audit_sha256']),'Actual completed parent supervisor bound report and audit')
     checks.require(state['finished_unix_s']<=launch['requested_unix_s'],'No native extension launched before parent independent audit finished')
     return dict(worker_receipt_sha256=sha(budgetpath),queue_receipt_sha256=sha(queuepath),launch_receipt_sha256=sha(launchpath),
         effective_worker_limit_s=budget['effective_worker_limit_s'],acquired_total_limit_s=21600,
@@ -372,13 +482,19 @@ def command_key(row):
         q10=row.get('selected_q10',row.get('q10')),q14=row.get('selected_q14',row.get('q14'))))
 
 
+def independent_source_bindings(broad_parent,additions):
+    bindings=dict(historical=broad_parent['spec']['source_bindings'],
+        broad={k:broad_parent[k] for k in ('report_sha256','audit_sha256','contract_fingerprint','evidence_manifest_sha256','checks_count')},
+        confirmed_row_sha256={r['id']:digest(r) for r in additions})
+    if 'parent_acceptance' in broad_parent:bindings['broad']['parent_acceptance']=broad_parent['parent_acceptance']
+    return bindings
+
+
 def audit_inputs(study,original,older,parent,broad_parent,spec,checks):
     old=broad.audit_inputs(broad_parent['directory'],original,older,parent,broad_parent['spec'],checks)
     additions=confirmed_broad_recipes(broad_parent,checks)
     data=dict(old,preserved=old['preserved']+additions,broad_sources=additions,broad_rows=broad_parent['rows'],old_preserved_sources=old['preserved'])
-    bindings=dict(historical=broad_parent['spec']['source_bindings'],
-        broad={k:broad_parent[k] for k in ('report_sha256','audit_sha256','contract_fingerprint','evidence_manifest_sha256','checks_count')},
-        confirmed_row_sha256={r['id']:digest(r) for r in additions})
+    bindings=independent_source_bindings(broad_parent,additions)
     checks.equal(spec['source_bindings'],bindings,'Completed parent plus original history fully authenticated')
     checks.equal(read(study/'source-bindings.json'),bindings,'Saved source binding matches frozen contract')
     for name,key in (('parent-current','current'),('parent-refit','refit'),('preserved','preserved'),('cases','cases'),('blocked','blocked'),('numeric-sources','numeric_sources'),('broad-confirmed','broad_sources')):
@@ -463,7 +579,7 @@ def audit(study,source,assets,*,parent_study,parent_audit,original_study,origina
     checks.equal(spec['release_behavior'],'Rz(atan2(bucket_y-board_y,bucket_x-board_x)) @ diag(1,-1,-1)','Fixed bucket-facing drop behavior')
     checks.equal(report['scope'],spec['scope'],'Development scope retained')
     replay.check_source_files(source,spec['source_sha256'],checks,'Frozen extension source')
-    for module in (Path(__file__),Path(schedule.__file__),Path(broad.__file__),Path(broad.oracle.__file__)):
+    for module in (Path(__file__),Path(schedule.__file__),Path(broad.__file__),Path(broad.oracle.__file__),Path(certificate.__file__)):
         checks.equal(sha(module),spec['source_sha256']['sircus/mjlab/'+module.name],'Actual independent audit source/'+module.name)
     checks.equal(read(study/'rule.json'),dict(version=STUDY_VERSION,protocol=spec['protocol'],native_branch_rule=SIXHOUR_RULE),'Only explicit eight-branch native rule')
     original=recovery.authenticate_parent(original_study,original_audit,checks)
@@ -510,7 +626,11 @@ def audit(study,source,assets,*,parent_study,parent_audit,original_study,origina
         contract_fingerprint=fp,report_sha256=sha(study/'report.json'),evidence_manifest_sha256=sha(study/'evidence-manifest.json'),
         auditor_sha256=sha(Path(__file__)),producer_source_sha256=spec['source_sha256'],
         consumed_source_files_sha256=dict(original=original['consumed'],recovery=older['consumed'],six=parent['consumed'],broad=bparent['consumed']),
-        parent_broad_binding={k:bparent[k] for k in ('report_sha256','audit_sha256','contract_fingerprint','evidence_manifest_sha256','checks_count')},
+        parent_broad_binding={k:bparent[k] for k in ('report_sha256','audit_sha256','contract_fingerprint','evidence_manifest_sha256','checks_count','parent_acceptance') if k in bparent},
+        certificate_audit_adapter=dict(version=certificate.VERSION,source_sha256=sha(Path(certificate.__file__)),
+            angle_tolerance_deg=certificate.ANGLE_TOLERANCE_DEG,cosine_tolerance=certificate.COSINE_TOLERANCE,
+            target_tolerance=certificate.TARGET_TOLERANCE,complete_saved_certificate_exact=True,
+            nondiagnostic_fields_exact=True,admission_changed=False,physics_changed=False,scoring_changed=False),
         requested_trials=len(rows),native_releases=native_count,cases=cases,control_gates=gates,preservation=kept,
         preserved_geometry=preserved_geometry,static_geometry=static,setup_evidence=setup,preparation=preparation,flights=flights,
         request_accounting=accounting,request_packets=packets,budget=budget,elapsed_s=time.monotonic()-started,maximum_numeric_error=checks.numeric_error,

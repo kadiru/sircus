@@ -51,10 +51,12 @@ def load_inputs(a,root):
     for key in ('scene_sha256','asset_sha256'):
         require(b['spec']['identity'][key]==out['parent']['identity'][key],'Broad parent scene/assets differ')
     confirmed=confirmed_broad_recipes(b,checks)
+    broad_binding={k:b[k] for k in ('report_sha256','audit_sha256','contract_fingerprint','evidence_manifest_sha256','checks_count')}
+    if 'parent_acceptance' in b:broad_binding['parent_acceptance']=b['parent_acceptance']
     prior_preserved=list(out['preserved']);out['preserved']=prior_preserved+confirmed
     out.update(broad_sources=confirmed,broad_source_roots={r['id']:Path(a.broad_study)/'native-yaw' for r in confirmed},
         broad_rows=b['rows'],broad_parent=b,broad_authentication_checks=checks.entries,
-        bindings=dict(historical=out['bindings'],broad={k:b[k] for k in ('report_sha256','audit_sha256','contract_fingerprint','evidence_manifest_sha256','checks_count')},
+        bindings=dict(historical=out['bindings'],broad=broad_binding,
             confirmed_row_sha256={r['id']:digest(r) for r in confirmed}))
     return out
 
