@@ -17,6 +17,7 @@ from .corrected_grid import source_manifest
 from .corrected_imitation_study import mirror_control_proofs
 from .coverage_training_study import append, share_native_environment
 from .gpu_slot import foreign_processes, gpu_slot
+from .parallel_capture_grid_workers import load_resolution, open_workers, prepare_proposals
 from .policy64_contract import load_runtime_reference
 from .sweep_worker import atomic
 from .table_training_study import control_gate
@@ -24,6 +25,11 @@ from .table_training_study import control_gate
 VERSION = "parallel-capture-grid-v1"
 NATIVE_BATCH = 32
 STORAGE_RESERVE_BYTES = 8 * 1024**3
+SCHEDULER_FILES = {
+    "sircus/mjlab/parallel_capture_grid_study.py",
+    "sircus/mjlab/parallel_capture_grid_workers.py",
+    "sircus/mjlab/parallel_capture_grid_resume.py",
+}
 
 
 def take_packet(pending, order, limit):
@@ -37,9 +43,62 @@ def take_packet(pending, order, limit):
     return packet
 
 
+def frozen_plan(args, output, spec, binding, source):
+    from .parallel_capture_grid_plan import load_grid_plan
+
+    current_source = source_manifest(source)
+    if getattr(args, "resume", False):
+        contract = read(output / "contract.json")
+        if contract["fingerprint"] != digest({k: v for k, v in contract.items() if k != "fingerprint"}):
+            raise ValueError("Frozen grid contract fingerprint changed")
+        expected = dict(version=VERSION, target_per_cell=args.target_per_cell,
+                        native_batch=NATIVE_BATCH, generator_seed=args.seed,
+                        preparation_batch=args.prepare_batch, parent=binding,
+                        identity=spec["identity"], scene=spec["scene"])
+        if any(contract[key] != value for key, value in expected.items()):
+            raise ValueError("Continuation must keep the original study settings")
+        if any(sha(output / name) != contract[key] for name, key in (
+            ("plan.json", "plan_sha256"), ("historical-geometries.json", "history_sha256"),
+        )):
+            raise ValueError("Frozen grid plan or history changed")
+        original_source = contract["source_sha256"]
+        changed = {name for name in original_source.keys() | current_source.keys()
+                   if original_source.get(name) != current_source.get(name)}
+        if changed - SCHEDULER_FILES:
+            raise ValueError("Continuation changed source outside the CPU scheduler")
+        plan, history = read(output / "plan.json"), read(output / "historical-geometries.json")
+        if ({cell: data["bucket_xy_m"] for cell, data in plan.items()} != contract["cells"]
+                or set(history) != set(plan)):
+            raise ValueError("Frozen grid plan lost a bucket location")
+        return {cell: dict(data, excluded_geometry=history[cell]) for cell, data in plan.items()}, history
+
+    cells, source_bindings = load_grid_plan(args.history_root)
+    if len(cells) != 13:
+        raise ValueError(f"Expected the 13 underrepresented bucket locations, found {len(cells)}")
+    output.mkdir(parents=True, exist_ok=False)
+    for name in ("calibration.json", "verification.json"):
+        shutil.copyfile(args.parent_study / name, output / name)
+    historical = {cell: sorted(data["excluded_geometry"]) for cell, data in cells.items()}
+    plan = {cell: {key: value for key, value in data.items() if key != "excluded_geometry"}
+            for cell, data in cells.items()}
+    atomic(output / "historical-geometries.json", historical)
+    atomic(output / "plan.json", plan)
+    contract = dict(
+        version=VERSION, target_per_cell=args.target_per_cell, native_batch=NATIVE_BATCH,
+        cells={cell: data["bucket_xy_m"] for cell, data in cells.items()},
+        history_sha256=sha(output / "historical-geometries.json"),
+        plan_sha256=sha(output / "plan.json"), source_bindings=source_bindings,
+        generator_seed=args.seed, preparation_batch=args.prepare_batch,
+        parent=binding, identity=spec["identity"], scene=spec["scene"], source_sha256=current_source,
+    )
+    contract["fingerprint"] = digest(contract)
+    atomic(output / "contract.json", contract)
+    return cells, historical
+
+
 def run(args):
     from .cell1050_heading_native import HeadingEngine
-    from .parallel_capture_grid_plan import cell_candidates, load_grid_plan
+    from .parallel_capture_grid_plan import cell_candidates
     from .table_correction_native import MatchedEngine
 
     started = time.monotonic()
@@ -54,28 +113,8 @@ def run(args):
         raise ValueError("Scene, assets or pinned dependencies differ from the audited parent")
 
     print(json.dumps({"status": "loading_archived_shots"}), flush=True)
-    cells, source_bindings = load_grid_plan(args.history_root)
-    if len(cells) != 13:
-        raise ValueError(f"Expected the 13 underrepresented bucket locations, found {len(cells)}")
-    output.mkdir(parents=True, exist_ok=False)
-    for name in ("calibration.json", "verification.json"):
-        shutil.copyfile(parent / name, output / name)
-    historical = {cell: sorted(data["excluded_geometry"]) for cell, data in cells.items()}
-    plan = {cell: {key: value for key, value in data.items() if key != "excluded_geometry"}
-            for cell, data in cells.items()}
-    atomic(output / "historical-geometries.json", historical)
-    atomic(output / "plan.json", plan)
-    contract = dict(
-        version=VERSION, target_per_cell=args.target_per_cell, native_batch=NATIVE_BATCH,
-        cells={cell: data["bucket_xy_m"] for cell, data in cells.items()},
-        history_sha256=sha(output / "historical-geometries.json"),
-        plan_sha256=sha(output / "plan.json"), source_bindings=source_bindings,
-        generator_seed=args.seed, preparation_batch=args.prepare_batch,
-        parent=binding, identity=spec["identity"], scene=spec["scene"],
-        source_sha256=source_manifest(source),
-    )
-    contract["fingerprint"] = digest(contract)
-    atomic(output / "contract.json", contract)
+    cells, historical = frozen_plan(args, output, spec, binding, source)
+    cpu_workers = getattr(args, "cpu_workers", 1)
 
     summaries = {
         cell: dict(bucket_xy_m=data["bucket_xy_m"], prior_count=data["prior_count"],
@@ -93,9 +132,23 @@ def run(args):
     generators = {cell: iter(cell_candidates(data, seed=args.seed))
                   for cell, data in cells.items()}
     packets = 0
+    drafts = []
+    elapsed_before_resume = 0.0
+    if getattr(args, "resume", False):
+        from .parallel_capture_grid_resume import recover
+
+        packets, drafts = recover(output, report, summaries, outcomes, pending, order, generators,
+                                  seen, dry_preparations, geometry_key)
+        elapsed_before_resume = read(output / "report.json")["elapsed_s"]
+        append(output / "continuations.jsonl", [
+            dict(starting_releases=report["search_releases"], cpu_workers=cpu_workers,
+                 previous_report_sha256=sha(output / "report.json"),
+                 source_sha256=source_manifest(source))
+        ])
+    report["cpu_workers"] = cpu_workers
 
     def publish(phase):
-        report.update(phase=phase, elapsed_s=round(time.monotonic() - started, 3))
+        report.update(phase=phase, elapsed_s=round(elapsed_before_resume + time.monotonic() - started, 3))
         for cell, counts in outcomes.items():
             summaries[cell]["route_counts"] = dict(counts)
         atomic(output / "report.json", report)
@@ -138,12 +191,8 @@ def run(args):
             raise RuntimeError(f"{phase} failed")
         publish(phase)
 
-    def prepare(cell, buffer_per_cell):
+    def reserve(cell, count):
         summary = summaries[cell]
-        remaining = args.target_per_cell - summary["search_releases"] - len(pending[cell])
-        count = min(args.prepare_batch, buffer_per_cell - len(pending[cell]), remaining)
-        if count <= 0:
-            return
         proposals = []
         for _ in range(count):
             candidate = next(generators[cell])
@@ -161,9 +210,14 @@ def run(args):
         filename = output / "preparations" / f"batch-{proposals[0]['id']}.json"
         warm = dry_preparations[cell] < 2
         atomic(filename, dict(proposals=proposals, warm_start=warm))
-        admitted, records = engine.prepare(proposals, one_per_setting=warm)
+        return filename, proposals, warm
+
+    def register(job, result):
+        filename, proposals, warm = job
+        cell = proposals[0]["context_id"]
+        admitted, records = result
         atomic(filename, dict(proposals=proposals, records=records, admitted=admitted, warm_start=warm))
-        summary["preparation_declines"] += sum(not row["admitted_request_ids"] for row in records)
+        summaries[cell]["preparation_declines"] += sum(not row["admitted_request_ids"] for row in records)
         first_branches = {}
         for row in admitted:
             first_branches.setdefault(row["proposal_id"], row)
@@ -171,10 +225,12 @@ def run(args):
         dry_preparations[cell] = 0 if first_branches else dry_preparations[cell] + 1
         report["last_prepared_cell"] = cell
 
-    def release(limit):
-        packet = take_packet(pending, order, limit)
+    def release(packet):
+        packet_cells = {row["context_id"] for row in packet}
+        if cpu_workers > 1 or getattr(args, "resume", False):
+            for cell in packet_cells:
+                load_resolution(engine, cells[cell]["bucket_xy_m"])
         measured = execute(packet, "search")
-        packet_cells = {row["context_id"] for row in measured}
         report["search_packets"] += 1
         report["mixed_packets"] += int(len(packet_cells) > 1)
         report["max_cells_in_packet"] = max(report["max_cells_in_packet"], len(packet_cells))
@@ -185,11 +241,25 @@ def run(args):
         report["search_releases"] += len(measured)
         publish("search")
 
+    def next_jobs(reserved):
+        remaining = {cell: args.target_per_cell - summaries[cell]["search_releases"]
+                     - len(pending[cell]) - reserved[cell] for cell in order}
+        active = [cell for cell, count in remaining.items() if count > 0]
+        if not active:
+            return []
+        capacity = max(args.prepare_batch, math.ceil(NATIVE_BATCH / len(active)))
+        jobs = []
+        for cell in active:
+            count = min(args.prepare_batch, capacity - len(pending[cell]), remaining[cell])
+            if count > 0:
+                jobs.append(reserve(cell, count))
+        return jobs
+
     try:
         publish("initializing")
         calibration, home = read(parent / "calibration.json"), read(parent / "setup-home.json")
-        engine = HeadingEngine(ref, args.assets, output / "native-heading", prior=read(parent / "prior.json"),
-                               calibration=calibration, home=home, anchor_source=anchor,
+        engine_kwargs = dict(prior=read(parent / "prior.json"), calibration=calibration, home=home)
+        engine = HeadingEngine(ref, args.assets, output / "native-heading", **engine_kwargs, anchor_source=anchor,
                                anchor_directory=parent / "native-yaw")
         control_sources = read(parent / "control-replays.json")
         mirror = mirror_control_proofs(parent, output, control_sources)
@@ -199,26 +269,49 @@ def run(args):
         share_native_environment(engine, controls)
         expected_options = read(parent / "native-yaw/effective-options.json")
         expected_geometry = read(parent / "native-yaw/native-compiled-geometry.json")
-        run_controls("controls_pre")
+        if getattr(args, "resume", False):
+            for adapter in (engine.adapter, controls.engine.adapter):
+                adapter.packet = len(list(adapter.directory.glob("native-*.npz")))
+        if "controls_pre" not in report["controls"]:
+            run_controls("controls_pre")
 
         target = len(cells) * args.target_per_cell
-        while report["search_releases"] < target:
-            active = [
-                cell for cell in order
-                if summaries[cell]["search_releases"] + len(pending[cell]) < args.target_per_cell
-            ]
-            buffer_per_cell = max(args.prepare_batch, math.ceil(NATIVE_BATCH / len(active)))
-            for cell in active:
-                prepare(cell, buffer_per_cell)
-            ready = sum(map(len, pending.values()))
-            publish("preparing")
-            while ready >= NATIVE_BATCH:
-                release(NATIVE_BATCH)
-                ready -= NATIVE_BATCH
-            if ready and report["search_releases"] + ready == target:
-                release(ready)
+        if cpu_workers == 1:
+            jobs = drafts
+            while report["search_releases"] < target:
+                for job in jobs or next_jobs(Counter()):
+                    register(job, engine.prepare(job[1], one_per_setting=job[2]))
+                jobs = []
+                publish("preparing")
+                ready = sum(map(len, pending.values()))
+                while ready >= NATIVE_BATCH:
+                    release(take_packet(pending, order, NATIVE_BATCH))
+                    ready -= NATIVE_BATCH
+                if ready and report["search_releases"] + ready == target:
+                    release(take_packet(pending, order, ready))
+        else:
+            with open_workers(cpu_workers, ref, args.assets, output / "native-heading", engine_kwargs) as pool:
+                while report["search_releases"] < target:
+                    ready = sum(map(len, pending.values()))
+                    batch_sizes = [NATIVE_BATCH] * (ready // NATIVE_BATCH)
+                    if ready % NATIVE_BATCH and report["search_releases"] + ready == target:
+                        batch_sizes.append(ready % NATIVE_BATCH)
+                    selected = [take_packet(pending, order, size) for size in batch_sizes]
+                    reserved = Counter(row["context_id"] for packet in selected for row in packet)
+                    jobs = drafts or next_jobs(reserved)
+                    drafts = []
+                    futures = [(job, pool.submit(prepare_proposals, job[1], job[2])) for job in jobs]
+                    if not futures and not selected:
+                        raise RuntimeError("Grid scheduler has neither preparation work nor ready drops")
+                    for packet in selected:
+                        release(packet)
+                    for job, future in futures:
+                        register(job, future.result())
+                    if futures:
+                        publish("preparing")
 
-        run_controls("controls_post")
+        if "controls_post" not in report["controls"]:
+            run_controls("controls_post")
         if (sha(parent / "report.json") != binding["report"] or sha(args.parent_audit) != binding["audit"]
                 or sha(parent / "evidence-manifest.json") != binding["manifest"]):
             raise RuntimeError("Parent evidence changed during the study")
@@ -241,9 +334,14 @@ def main():
     parser.add_argument("--target-per-cell", type=int, default=1000)
     parser.add_argument("--prepare-batch", type=int, default=8)
     parser.add_argument("--seed", type=int, default=202611141050)
+    parser.add_argument("--cpu-workers", type=int, default=1)
+    parser.add_argument("--resume", action="store_true", help="Continue a stopped, intact evidence directory")
     args = parser.parse_args()
-    if args.output.exists() or not 1 <= args.target_per_cell <= 1000 or not 3 <= args.prepare_batch <= 32:
-        parser.error("Provide a fresh output directory, 1–1000 drops per location and 3–32 preparations per batch")
+    if args.output.exists() != args.resume or (args.resume and not args.output.is_dir()):
+        parser.error("Provide a fresh output directory or use --resume with a stopped study directory")
+    if (not 1 <= args.target_per_cell <= 1000 or not 3 <= args.prepare_batch <= 32
+            or not 1 <= args.cpu_workers <= 8):
+        parser.error("Use 1–1000 drops per location, 3–32 preparations per batch and 1–8 CPU workers")
     with gpu_slot(args.gpu_lock, timeout_s=900, notify=lambda value: print(json.dumps(value), flush=True)):
         run(args)
 

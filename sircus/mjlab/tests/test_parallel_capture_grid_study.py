@@ -1,6 +1,6 @@
 """Exercise mixed native packet scheduling without starting a simulator."""
 from collections import Counter, deque
-from contextlib import ExitStack
+from contextlib import ExitStack, contextmanager
 import importlib.util
 from itertools import count
 from pathlib import Path
@@ -22,6 +22,12 @@ class ParallelCaptureGridTests(unittest.TestCase):
         self.assertEqual(take_packet(pending, order, 3), [])
 
     def test_mixed_packets_fill_all_quotas_even_with_a_single_layout_tail(self):
+        self.check_mixed_packets_fill_all_quotas(cpu_workers=1)
+
+    def test_parallel_preparation_submits_next_wave_before_releasing_ready_packets(self):
+        self.check_mixed_packets_fill_all_quotas(cpu_workers=4)
+
+    def check_mixed_packets_fill_all_quotas(self, *, cpu_workers):
         from sircus.mjlab import cell1050_heading_native, parallel_capture_grid_plan
         from sircus.mjlab import parallel_capture_grid_study as study
         from sircus.mjlab import table_correction_native
@@ -39,6 +45,9 @@ class ParallelCaptureGridTests(unittest.TestCase):
         search_packets = []
         preparation_methods = []
         control_phases = []
+        outstanding_preparations = deque()
+        preparations_in_flight_at_release = []
+        opened_workers = []
         publications = 0
 
         def candidates(cell, *, seed):
@@ -56,6 +65,45 @@ class ParallelCaptureGridTests(unittest.TestCase):
                     raise AssertionError("Scheduler stalled with a partially filled packet")
             original_atomic(path, value)
 
+        def prepare_proposals(proposals, warm):
+            admitted, records = [], []
+            for row in proposals:
+                cell = row["context_id"]
+                position = int(row["id"].rsplit("-", 1)[-1])
+                requests = []
+                if cell == slow_cell:
+                    preparation_methods.append(warm)
+                if cell != slow_cell or position >= 120:
+                    branches = 1 if warm else 2
+                    requests = [
+                        dict(row, id=f"{row['id']}-b{slot}", proposal_id=row["id"])
+                        for slot in range(branches)
+                    ]
+                admitted.extend(requests)
+                records.append({
+                    "proposal_id": row["id"],
+                    "proposal_sha256": study.digest(row),
+                    "admitted_request_ids": [request["id"] for request in requests],
+                })
+            return admitted, records
+
+        def submit(function, *args):
+            self.assertIs(function, prepare_proposals)
+
+            def result():
+                self.assertIs(outstanding_preparations.popleft(), future)
+                return function(*args)
+
+            future = SimpleNamespace(result=result)
+            outstanding_preparations.append(future)
+            return future
+
+        @contextmanager
+        def open_workers(workers, ref, assets, directory, engine_kwargs):
+            opened_workers.append(workers)
+            yield SimpleNamespace(submit=submit)
+            self.assertFalse(outstanding_preparations)
+
         class Engine:
             def __init__(self, *args, **kwargs):
                 env = SimpleNamespace(effective_options={}, compiled_geometry={})
@@ -63,30 +111,14 @@ class ParallelCaptureGridTests(unittest.TestCase):
                 self.engine = self
 
             def prepare(self, proposals, *, one_per_setting):
-                admitted, records = [], []
-                for row in proposals:
-                    cell = row["context_id"]
-                    position = int(row["id"].rsplit("-", 1)[-1])
-                    requests = []
-                    if cell == slow_cell:
-                        preparation_methods.append(one_per_setting)
-                    if cell != slow_cell or position >= 120:
-                        branches = 1 if one_per_setting else 2
-                        requests = [
-                            dict(row, id=f"{row['id']}-b{slot}", proposal_id=row["id"])
-                            for slot in range(branches)
-                        ]
-                    admitted.extend(requests)
-                    records.append({
-                        "proposal_id": row["id"],
-                        "proposal_sha256": study.digest(row),
-                        "admitted_request_ids": [request["id"] for request in requests],
-                    })
-                return admitted, records
+                if cpu_workers != 1:
+                    raise AssertionError("Parallel preparation called the GPU process's prepare method")
+                return prepare_proposals(proposals, one_per_setting)
 
             def evaluate(self, requests, phase):
                 if phase == "search":
                     search_packets.append(requests)
+                    preparations_in_flight_at_release.append(len(outstanding_preparations))
                 else:
                     control_phases.append(phase)
                 return [dict(row, native_release=True) for row in requests], {}
@@ -119,6 +151,11 @@ class ParallelCaptureGridTests(unittest.TestCase):
                 reference=root / "reference", assets=root / "assets", history_root=root,
                 target_per_cell=quota, prepare_batch=8, seed=1,
             )
+            if cpu_workers > 1:
+                args.cpu_workers = cpu_workers
+                stack.enter_context(patch.object(study, "open_workers", open_workers))
+                stack.enter_context(patch.object(study, "prepare_proposals", prepare_proposals))
+                load_resolution = stack.enter_context(patch.object(study, "load_resolution"))
             original_atomic = study.atomic
             patches = (
                 patch.object(study, "parent_inputs", return_value=(spec, binding, {})),
@@ -144,6 +181,13 @@ class ParallelCaptureGridTests(unittest.TestCase):
             report = study.read(args.output / "report.json")
 
         self.assertEqual(report["status"], "completed")
+        if cpu_workers > 1:
+            self.assertEqual(opened_workers, [cpu_workers])
+            self.assertGreater(preparations_in_flight_at_release[0], 0)
+            self.assertEqual(
+                load_resolution.call_count,
+                sum(len({row["context_id"] for row in packet}) for packet in search_packets),
+            )
         self.assertEqual(control_phases, ["controls_pre", "controls_post"])
         self.assertEqual(report["search_releases"], 13 * quota)
         self.assertGreaterEqual(report["max_cells_in_packet"], 12)
