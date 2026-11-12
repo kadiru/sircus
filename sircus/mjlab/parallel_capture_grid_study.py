@@ -10,7 +10,7 @@ from pathlib import Path
 import shutil
 import time
 
-from .benchmark_verify import digest, read, sha
+from .benchmark_verify import contained, digest, read, sha
 from .cell1050_followup_plan import geometry_key
 from .cell1050_rebound_study import annotate, control_requests, parent_inputs
 from .corrected_grid import source_manifest
@@ -94,6 +94,24 @@ def frozen_plan(args, output, spec, binding, source):
     contract["fingerprint"] = digest(contract)
     atomic(output / "contract.json", contract)
     return cells, historical
+
+
+def control_mirror(parent, output, sources, resuming):
+    if not resuming:
+        return mirror_control_proofs(parent, output, sources)
+    mirror = output / "control-parent"
+    expected = {"effective-options.json", "native-compiled-geometry.json"}
+    for source in sources:
+        expected.update((source["context_resolution_file"], source["connection_file"]))
+    mirrored = read(mirror / "mirror.json")
+    original = read(parent / "evidence-manifest.json")
+    if set(mirrored) != expected or any(
+        fingerprint != original["control-parent/native/" + name]
+        or sha(contained(mirror / "native", name)) != fingerprint
+        for name, fingerprint in mirrored.items()
+    ):
+        raise ValueError("Saved control proofs differ from the audited parent")
+    return mirror
 
 
 def run(args):
@@ -262,7 +280,7 @@ def run(args):
         engine = HeadingEngine(ref, args.assets, output / "native-heading", **engine_kwargs, anchor_source=anchor,
                                anchor_directory=parent / "native-yaw")
         control_sources = read(parent / "control-replays.json")
-        mirror = mirror_control_proofs(parent, output, control_sources)
+        mirror = control_mirror(parent, output, control_sources, getattr(args, "resume", False))
         controls = MatchedEngine(ref, args.assets, output / "native-controls", parent=mirror,
                                  sources=control_sources, prior=read(parent / "old-prior.json"),
                                  calibration=calibration, home=home)
