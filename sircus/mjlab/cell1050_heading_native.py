@@ -106,13 +106,17 @@ class HeadingResolver:
         )
         return [failed, fallback]
 
-    def _branches(self, first, second, hint):
-        board_order = bouncer_order(second, hint["q14"])
-        dropper_order = sorted(
-            distinct_indices(first),
-            key=lambda i: (float(wrapped_difference(first["q"][i], hint["q10"]).max()),
-                           float(first["residual"][i]), i),
-        )
+    def _branches(self, first, second, hint, *, prefer_saved=False):
+        def nearest(pool, joints):
+            return sorted(
+                distinct_indices(pool),
+                key=lambda i: (float(wrapped_difference(pool["q"][i], joints).max()),
+                               float(pool["residual"][i]), i),
+            )
+
+        board_order = (nearest(second, hint["q14"]) if prefer_saved
+                       else bouncer_order(second, hint["q14"]))
+        dropper_order = nearest(first, hint["q10"])
         return [(i, j) for i in dropper_order for j in board_order]
 
     def _save_branch(self, proposal, anchor, targets, candidate, paths):
@@ -144,7 +148,7 @@ class HeadingResolver:
         self.connections[key] = record
         return record
 
-    def prepare_batch(self, proposals, anchor):
+    def prepare_batch(self, proposals, anchor, *, one_per_setting=False):
         """Run IK in batches, then certify only a finite number of branch paths."""
         verify_resolution(anchor, self.sources, self.home)
         self.base._check_resolution_bytes(anchor)
@@ -176,7 +180,8 @@ class HeadingResolver:
             result = arm.solve_candidates(
                 np.asarray([targets[key] for _, targets, _ in admitted_to_ik]), solver.initial[initial],
                 known=np.asarray([hint[role] for _, _, hint in admitted_to_ik]),
-                starts=BRANCH_RULE["starts_per_arm"], iterations=BRANCH_RULE["iterations"],
+                starts=1 if one_per_setting else BRANCH_RULE["starts_per_arm"],
+                iterations=80 if one_per_setting else BRANCH_RULE["iterations"],
                 normal_only=False,
             )
             pools.append({name: result[name].cpu().numpy() for name in ("q", "valid", "residual")})
@@ -185,7 +190,7 @@ class HeadingResolver:
         for row_index, (index, targets, hint) in enumerate(admitted_to_ik):
             proposal = proposals[index]
             first, second = ({key: value[row_index] for key, value in pool.items()} for pool in pools)
-            pairs = self._branches(first, second, hint)
+            pairs = self._branches(first, second, hint, prefer_saved=one_per_setting)
             connections = []
             reason = "strict_endpoint_clearance_or_pose_rejected" if pairs else "finite_ik_unresolved"
             rejected = {10: set(), 14: set()}
@@ -232,7 +237,7 @@ class HeadingResolver:
                     branch10=i, branch14=j, endpoint=endpoint, native_pose_errors=errors,
                 )
                 connections.append(self._save_branch(proposal, anchor, targets, candidate, paths))
-                if len(connections) >= BRANCH_RULE["maximum_admitted_branches"]:
+                if one_per_setting or len(connections) >= BRANCH_RULE["maximum_admitted_branches"]:
                     break
             prepared[index] = (connections, None if connections else reason)
         return prepared
@@ -333,7 +338,7 @@ class HeadingEngine(Engine):
         )
         self.prepared_ids = set()
 
-    def prepare(self, proposals):
+    def prepare(self, proposals, *, one_per_setting=False):
         if not proposals:
             return [], []
         if self.adapter.resolver.pending:
@@ -354,7 +359,8 @@ class HeadingEngine(Engine):
         anchor, _ = self.adapter.resolve_context(normalized[0])
         if any(item["bucket_xy_m"] != anchor["bucket_xy_m"] for item in normalized):
             raise ValueError("A heading preparation batch must use one fixed bucket")
-        results = self.adapter.resolver.prepare_batch(normalized, anchor)
+        results = (self.adapter.resolver.prepare_batch(normalized, anchor, one_per_setting=True)
+                   if one_per_setting else self.adapter.resolver.prepare_batch(normalized, anchor))
         requests, preparations = [], []
         for item, (connections, reason) in zip(normalized, results):
             admitted_ids = []
