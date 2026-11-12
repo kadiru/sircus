@@ -3,10 +3,12 @@ from __future__ import annotations
 
 import argparse
 from collections import Counter, defaultdict
+from contextlib import contextmanager
 import importlib.metadata
 import json
 from pathlib import Path
 import shutil
+import signal
 import time
 
 import numpy as np
@@ -27,6 +29,31 @@ ROUTES = ("standard_capture", "robot_assisted_capture")
 INPUTS = ("rows.jsonl", "contract.json", "calibration.json", "verification.json",
           "setup-home.json", "prior.json", "old-prior.json", "control-replays.json",
           "native-yaw/effective-options.json", "native-yaw/native-compiled-geometry.json")
+SEARCH_PACKET_RESERVE_S = 120
+
+
+class SearchPreparationExpired(Exception):
+    """Finish the study when the preparation time for the final packet expires."""
+
+
+@contextmanager
+def preparation_time_limit(seconds):
+    if seconds is None:
+        yield
+        return
+
+    def expire(_signal, _frame):
+        raise SearchPreparationExpired
+
+    if seconds <= 0:
+        raise SearchPreparationExpired
+    previous = signal.signal(signal.SIGALRM, expire)
+    try:
+        signal.setitimer(signal.ITIMER_REAL, seconds)
+        yield
+    finally:
+        signal.setitimer(signal.ITIMER_REAL, 0)
+        signal.signal(signal.SIGALRM, previous)
 
 
 def parent_inputs(parent, audit_path):
@@ -103,6 +130,32 @@ def run(args):
     history = load_history(parent.parent)
     seeds = load_seed_evidence(parent, history)
     history_keys = {command_key(row) for row in history}
+    continuation = None
+    if args.previous_study is not None:
+        from .cell1050_followup_plan import followup_candidates, geometry_key, load_followup_seeds
+
+        near_misses, continuation = load_followup_seeds(args.previous_study, args.previous_audit)
+        previous_manifest = read(args.previous_study / "evidence-manifest.json")
+        previous_keys = args.previous_study / "historical-commands.json"
+        if sha(previous_keys) != previous_manifest["historical-commands.json"]:
+            raise ValueError("The prior historical command inventory changed")
+        history_keys.update(read(previous_keys))
+        used_geometry = {geometry_key(row) for row in history}
+        with (args.previous_study / "rows.jsonl").open() as stream:
+            for row in map(json.loads, stream):
+                if row["phase"] in ("search", "repeat") and row["native_release"]:
+                    history_keys.add(command_key(row))
+                    used_geometry.add(geometry_key(row))
+        for path in sorted((args.previous_study / "preparations").glob("*.json")):
+            if sha(path) != previous_manifest[str(path.relative_to(args.previous_study))]:
+                raise ValueError(f"Prior preparation changed: {path.name}")
+            used_geometry.update(geometry_key(row) for row in read(path)["proposals"])
+        generator = iter(followup_candidates(
+            near_misses, seeds, seed=args.seed, exclude_geometry=used_geometry,
+        ))
+        seeds = dict(near_misses=near_misses, earlier_fallback=seeds)
+    else:
+        generator = iter(candidate_stream(seeds, seed=args.seed))
     output.mkdir(parents=True, exist_ok=False)
     for name in ("calibration.json", "verification.json"):
         shutil.copyfile(parent / name, output / name)
@@ -114,6 +167,8 @@ def run(args):
                     historical_commands_sha256=sha(output / "historical-commands.json"),
                     parent=binding, identity=spec["identity"], scene=spec["scene"],
                     source_sha256=source_manifest(root), preparation_batch=args.prepare_batch)
+    if continuation is not None:
+        contract.update(continuation=continuation, search_budget_s=args.search_seconds)
     contract["fingerprint"] = digest(contract)
     atomic(output / "contract.json", contract)
     report = dict(status="running", phase="initializing", target_releases=args.limit, search_releases=0,
@@ -125,11 +180,20 @@ def run(args):
     picks = defaultdict(list)
     pending = []
     packets = 0
+    search_started = deadline = None
+    release_reserve = SEARCH_PACKET_RESERVE_S
+
+    def remaining():
+        return deadline - time.monotonic() if deadline is not None else float("inf")
 
     def publish(phase):
         report.update(phase=phase, elapsed_s=round(time.monotonic() - started, 3),
                       route_counts=dict(outcomes), contact_counts=dict(contact_counts),
                       groups={group: dict(count) for group, count in group_counts.items()})
+        if continuation is not None:
+            report["search_budget_s"] = args.search_seconds
+            if search_started is not None and "stop_reason" not in report:
+                report["search_elapsed_s"] = round(time.monotonic() - search_started, 3)
         atomic(output / "report.json", report)
         print(json.dumps(report, allow_nan=False), flush=True)
 
@@ -179,7 +243,12 @@ def run(args):
         publish(phase)
 
     def flush():
+        nonlocal release_reserve
+        if remaining() < release_reserve:
+            return False
+        packet_started = time.monotonic()
         measured = execute(pending, "search")
+        release_reserve = max(release_reserve, 1.5 * (time.monotonic() - packet_started))
         report["search_releases"] += len(measured)
         for request, row in zip(pending, measured):
             experimental = row["experimental_route"]
@@ -199,12 +268,19 @@ def run(args):
                 picks[route].append(request.copy())
         pending.clear()
         publish("search")
+        return True
 
     try:
         publish("initializing")
         run_controls("controls_pre")
-        generator = iter(candidate_stream(seeds, seed=args.seed))
+        if continuation is not None:
+            search_started = time.monotonic()
+            deadline = search_started + args.search_seconds
+        stop_reason = None
         while report["search_releases"] + len(pending) < args.limit and report["attempts"] < args.max_preparations:
+            if remaining() <= release_reserve:
+                stop_reason = "time_limit"
+                break
             proposals = []
             for _ in range(min(args.prepare_batch, args.max_preparations - report["attempts"])):
                 item = next(generator, None)
@@ -212,14 +288,22 @@ def run(args):
                     break
                 index = report["attempts"]
                 report["attempts"] += 1
-                proposals.append(dict(item, id=f"cell1050-{index:05d}", phase="search",
+                prefix = "cell1050-followup" if continuation is not None else "cell1050"
+                proposals.append(dict(item, id=f"{prefix}-{index:05d}", phase="search",
                                       role="development", context_id=CONTEXT, method="heading_search"))
                 group_counts[item["group"]]["proposals"] += 1
             if not proposals:
                 break
             preparation = f"preparations/batch-{proposals[0]['id']}.json"
             atomic(output / preparation, dict(proposals=proposals))
-            admitted, records = engine.prepare(proposals)
+            try:
+                limit = remaining() - release_reserve if deadline is not None else None
+                with preparation_time_limit(limit):
+                    admitted, records = engine.prepare(proposals)
+            except SearchPreparationExpired:
+                report["interrupted_proposals"] = len(proposals)
+                stop_reason = "time_limit"
+                break
             report["admitted"] += len(admitted)
             admitted_ids = {row["id"] for row in admitted}
             report["preparation_declines"] += sum(
@@ -233,13 +317,23 @@ def run(args):
                     continue
                 history_keys.add(key)
                 pending.append(row)
-                if len(pending) == 32:
-                    flush()
+                if len(pending) == 32 and not flush():
+                    stop_reason = "time_limit"
+                    break
                 if report["search_releases"] + len(pending) == args.limit:
                     break
             publish("preparing")
-        if pending:
-            flush()
+            if stop_reason is not None:
+                break
+        if pending and not flush():
+            stop_reason = "time_limit"
+        if continuation is not None:
+            if report["search_releases"] == args.limit:
+                stop_reason = "release_limit"
+            report.update(stop_reason=stop_reason or "proposals_exhausted",
+                          search_elapsed_s=round(time.monotonic() - search_started, 3),
+                          prepared_not_released=len(pending))
+            publish("search_finished")
         repeat_plan = []
         for route in ROUTES:
             for shot in picks[route]:
@@ -266,7 +360,7 @@ def run(args):
             str(path.relative_to(output)): sha(path) for path in sorted(output.rglob("*"))
             if path.is_file() and path.name not in ("report.json", "evidence-manifest.json")
         })
-        complete = report["search_releases"] == args.limit
+        complete = report["search_releases"] == args.limit or stop_reason == "time_limit"
         report.update(status="completed" if complete else "incomplete",
                       evidence_manifest_sha256=sha(output / "evidence-manifest.json"))
         publish(report["status"])
@@ -287,10 +381,20 @@ def main():
     parser.add_argument("--max-preparations", type=int, default=16000)
     parser.add_argument("--prepare-batch", type=int, default=24)
     parser.add_argument("--seed", type=int, default=20261112)
+    parser.add_argument("--previous-study", type=Path)
+    parser.add_argument("--previous-audit", type=Path)
+    parser.add_argument("--search-seconds", type=int)
     args = parser.parse_args()
-    if args.output.exists() or not 1 <= args.limit <= 2000:
-        parser.error("Use a fresh output and a release count from 1 to 2000")
-    if not args.limit <= args.max_preparations <= 32000 or not 1 <= args.prepare_batch <= 64:
+    followup = args.previous_study is not None
+    if followup != (args.previous_audit is not None) or followup != (args.search_seconds is not None):
+        parser.error("Use the previous study, its audit and the search time budget together")
+    if followup and not SEARCH_PACKET_RESERVE_S < args.search_seconds <= 7 * 3600:
+        parser.error("Use a follow-up search budget over two minutes and at most seven hours")
+    max_releases = 10000 if followup else 2000
+    if args.output.exists() or not 1 <= args.limit <= max_releases:
+        parser.error(f"Use a fresh output and a release count from 1 to {max_releases}")
+    max_preparations = 40000 if followup else 32000
+    if not args.limit <= args.max_preparations <= max_preparations or not 1 <= args.prepare_batch <= 64:
         parser.error("Use a finite proposal budget and a preparation batch from 1 to 64")
     with gpu_slot(args.gpu_lock, timeout_s=900, notify=lambda value: print(json.dumps(value), flush=True)):
         run(args)

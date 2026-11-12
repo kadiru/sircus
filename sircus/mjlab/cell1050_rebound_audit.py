@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 from collections import Counter, defaultdict
 import json
+import math
 from pathlib import Path
 
 import numpy as np
@@ -60,7 +61,55 @@ def verify_heading(row, request, directory, scene, home, prior, resolutions, che
                    name + "/measured board position")
 
 
-def audit(study, parent, parent_audit, assets):
+def verify_search_stop(spec, report, releases, checks):
+    target = spec["target_releases"]
+    if "continuation" not in spec:
+        checks.equal(releases, target, "Exact number of fresh native search releases")
+        return {}
+
+    budget = spec["search_budget_s"]
+    search_elapsed = report["search_elapsed_s"]
+    reason = report["stop_reason"]
+    checks.require(type(target) is int and target > 0, "Positive finite release target")
+    checks.require(type(budget) in (int, float) and math.isfinite(budget) and budget > 0,
+                   "Positive finite search time budget")
+    checks.require(type(search_elapsed) in (int, float) and math.isfinite(search_elapsed)
+                   and 0 <= search_elapsed <= budget, "Search completed within its time budget")
+    checks.equal((report["target_releases"], report["search_releases"], report["search_budget_s"]),
+                 (target, releases, budget), "Completed report agrees with ledger and contract")
+    checks.require(type(report["attempts"]) is int and 0 <= report["attempts"] <= spec["candidate_limit"],
+                   "Preparation count remains inside the proposal budget")
+    checks.require(reason in ("release_limit", "time_limit"), "Declared valid search stop reason")
+    checks.require(releases == target if reason == "release_limit" else 0 <= releases < target,
+                   "Release count matches the declared stop reason")
+    return dict(stop_reason=reason, search_elapsed_s=search_elapsed, search_budget_s=budget)
+
+
+def verify_continuation(spec, previous, previous_audit, history, checks):
+    if "continuation" not in spec:
+        checks.require(previous is None and previous_audit is None,
+                       "Historical audit does not take continuation evidence")
+        return {}
+
+    from .cell1050_followup_plan import previous_inputs
+
+    checks.require(previous is not None and previous_audit is not None,
+                   "Continuation requires the previous study and its passed audit")
+    previous_spec, _, previous_rows, previous_manifest, binding = previous_inputs(previous, previous_audit)
+    checks.equal(spec["continuation"], binding, "Exact continuation evidence and audit hashes")
+    for field in ("scene", "identity", "parent"):
+        checks.equal(spec[field], previous_spec[field], "Unchanged continuation " + field)
+    previous_commands_file = previous / "historical-commands.json"
+    checks.equal(sha(previous_commands_file), previous_manifest["historical-commands.json"],
+                 "Verified previous historical command inventory")
+    previous_commands = set(read(previous_commands_file))
+    previous_commands.update(command_key(row) for row in previous_rows
+                             if row["phase"] in ("search", "repeat") and row["native_release"])
+    checks.require(previous_commands.issubset(history), "All previously used commands remain excluded")
+    return dict(continuation=binding)
+
+
+def audit(study, parent, parent_audit, assets, *, previous=None, previous_audit=None):
     checks = replay.AuditChecks()
     spec, report = read(study / "contract.json"), read(study / "report.json")
     parent_spec, binding, _ = parent_inputs(parent, parent_audit)
@@ -76,10 +125,13 @@ def audit(study, parent, parent_audit, assets):
     rows = replay.read_records(study / "rows.jsonl")
     search = [row for row in rows if row["phase"] == "search"]
     repeats = [row for row in rows if row["phase"] == "repeat"]
-    checks.equal(len(search), spec["target_releases"], "Exact number of fresh native search releases")
+    completion = verify_search_stop(spec, report, len(search), checks)
     checks.equal(len({row["id"] for row in rows}), len(rows), "Unique observed trial IDs")
-    history = set(read(study / "historical-commands.json"))
+    historical_commands = read(study / "historical-commands.json")
+    history = set(historical_commands)
+    checks.equal(len(history), len(historical_commands), "No duplicate frozen historical commands")
     checks.equal(len(history), spec["history_commands"], "Unique frozen historical command inventory")
+    continuation = verify_continuation(spec, previous, previous_audit, history, checks)
     packets = {}
     for path in sorted((study / "requests").glob("*.json")):
         packet = read(path)
@@ -110,7 +162,8 @@ def audit(study, parent, parent_audit, assets):
             checks.numeric(row["bucket_xy_m"], [1.05, .025], row["id"] + "/fixed bucket", 1e-12)
             verify_heading(row, request, directory, spec["scene"], home, prior, resolutions, checks)
 
-    for namespace in ("native-heading", "native-controls"):
+    namespaces = ("native-heading", "native-controls") if search or repeats else ("native-controls",)
+    for namespace in namespaces:
         audit_native_options(study / namespace, spec["scene"], calibration, assets, checks)
     control_rows = [row for row in rows if row["phase"].startswith("controls_")]
     rescore_rows(study / "native-controls", control_rows, spec["scene"], calibration,
@@ -168,18 +221,24 @@ def audit(study, parent, parent_audit, assets):
             confirmed.append(item)
     return dict(status="passed", checks_count=checks.count, search_releases=len(search),
                 total_releases=len(rows), route_counts=dict(counts), confirmed=confirmed,
-                report_sha256=sha(study / "report.json"), evidence_manifest_sha256=sha(study / "evidence-manifest.json"))
+                report_sha256=sha(study / "report.json"), evidence_manifest_sha256=sha(study / "evidence-manifest.json"),
+                **completion, **continuation)
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ("study", "parent-study", "parent-audit", "assets", "audit"):
         parser.add_argument("--" + name, required=True, type=Path)
+    parser.add_argument("--previous-study", type=Path)
+    parser.add_argument("--previous-audit", type=Path)
     args = parser.parse_args()
+    if (args.previous_study is None) != (args.previous_audit is None):
+        parser.error("Supply the previous study and previous audit together")
     if args.audit.exists() or args.audit.resolve().is_relative_to(args.study.resolve()):
         parser.error("Write a new audit outside the frozen evidence directory")
     try:
-        result = audit(args.study, args.parent_study, args.parent_audit, args.assets)
+        result = audit(args.study, args.parent_study, args.parent_audit, args.assets,
+                       previous=args.previous_study, previous_audit=args.previous_audit)
     except Exception as exc:
         result = dict(status="failed", error=f"{type(exc).__name__}: {exc}")
     atomic(args.audit, result)
