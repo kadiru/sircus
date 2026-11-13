@@ -15,7 +15,7 @@ from .calibrated_admission import verify_connection, verify_resolution
 from .cell1050_rebound_audit import verify_heading
 from .cell1050_rebound_study import control_requests, parent_inputs
 from .intergrid_dataset import _grid, load_dataset
-from .intergrid_layouts import MIN_SEPARATION_M, _placement_geometry
+from .intergrid_layouts import MIN_SEPARATION_M, NEAR_BASE_MAX_CLEARANCE_M, PERIMETER_STRIP_M, _placement_geometry
 from .intergrid_ranker import features, load_checkpoint, predict_scores
 from .intergrid_study import METHODS, VERSION, proposals_at, stable_captures
 from .parallel_capture_grid_audit import observed_rows, rescore_packet, verify_controls, verify_release
@@ -95,9 +95,12 @@ def verify_layouts(study, scene, assets, checks):
     artifact = read(study / "test-layouts.json")
     layouts, provenance = artifact["rows"], artifact["provenance"]
     canonical = {context: xy for context, xy in _grid().values()}
-    checks.equal(provenance["usable_grid"], canonical, "Held-out generator used the exact 33 training buckets")
+    checks.equal({"fixed35-" + key: xy for key, xy in provenance["usable_grid"].items()}, canonical,
+                 "Held-out generator used the exact 33 training buckets")
     checks.equal(digest(layouts), provenance["layouts_sha256"], "Exact frozen test placements")
-    checks.equal(provenance["minimum_separation_m"], MIN_SEPARATION_M, "Frozen five millimeter novelty distance")
+    checks.equal((provenance["minimum_separation_m"], provenance["grid_perimeter_strip_m"],
+                  provenance["near_base_max_clearance_m"]), (MIN_SEPARATION_M, PERIMETER_STRIP_M, NEAR_BASE_MAX_CLEARANCE_M),
+                 "Frozen novelty and placement thresholds")
     excluded = [tuple(xy) for xy in provenance["excluded_coordinates_m"]]
     checks.equal(excluded, sorted(set(excluded)), "Unique ordered historical exclusions")
     checks.equal(digest(excluded), provenance["excluded_coordinates_sha256"], "Exact historical coordinate exclusions")
@@ -133,6 +136,13 @@ def verify_layouts(study, scene, assets, checks):
         checks.require(0 <= ix < len(xs) - 1 and 0 <= iy < len(ys) - 1, identity + "/inside interpolation grid")
         checks.equal(layout["grid_cell"], [ix, iy], identity + "/exact grid rectangle")
         stratum = layout["stratum"]
+        grid_low, grid_high = np.asarray(provenance["grid_bounds_m"])
+        margin = float(np.minimum(np.asarray(xy) - grid_low, grid_high - np.asarray(xy)).min())
+        checks.numeric(layout["grid_perimeter_distance_m"], margin, identity + "/grid perimeter distance")
+        if stratum == "grid_perimeter":
+            checks.require(margin <= PERIMETER_STRIP_M, identity + "/near grid perimeter")
+        if stratum == "near_fixed_base":
+            checks.require(clearance <= NEAR_BASE_MAX_CLEARANCE_M, identity + "/near a fixed base")
         strata[stratum] += 1
         if stratum != "near_fixed_base":
             rectangles[ix, iy] += 1
