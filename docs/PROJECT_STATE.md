@@ -1,5 +1,21 @@
 # Project state
 
+## Matched bounce model refit — November 13, 2026
+
+- [Protocol and audited results](MJLAB_ROUTE_REFIT.md): retrained the pooled,
+  route-conditioned and specialist models with 291 new captures. Compared
+  both frozen generations on 50 fresh positions, one request per route per
+  model. The starting-shot library was held fixed.
+- Direct captures changed **35 → 35**, **34 → 34** and **33 → 34** out of 50.
+  Table captures changed **10 → 12**, **12 → 11** and **9 → 13**. With both
+  attempts available, the pooled refit had the best coverage (**41/50**).
+  The table specialist gained five positions and lost one, but its setup
+  failures increased from 18 to 25. This single split does not establish
+  a reliable gain.
+- All 600 requests, 444 test drops and 18 control drops were accounted for.
+  The CPU audit passed 114,690 checks. The study used only the 4090; 4070
+  and Isaac were untouched. No promotion. [Draft PR #128](https://github.com/kadiru/sircus/pull/128).
+
 ## Remaining six task completed; bouncer alternatives audited — November 10, 2026
 
 The first pass recovered 01-05, giving **30/35 confirmed recipes**. A targeted
