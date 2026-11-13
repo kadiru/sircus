@@ -49,9 +49,41 @@ python -m sircus.mjlab.intergrid_route_audit --help
 Use the pinned mjlab environment and expose only the 4090 by UUID for the
 study. Pose/path workers start while the study waits for an idle GPU and takes
 the existing cooperative lease. Those workers and the separate audit run
-without CUDA. Native
-rollouts use 64 substeps and repeat the same audited controls before and
+without CUDA. Native rollouts use 64 substeps and repeat the same audited controls before and
 after. The audit checks spatial separation, the candidate budgets, the
 checkpoint fit, the choices frozen before test, and the saved native
 physics evidence. Save raw traces and checkpoints in the output tree,
 outside Git.
+
+## Results: 50 new bucket positions
+
+The collection released 242 shots at 24 new positions. Both route types
+were attempted at every position. We recorded 134 direct captures across
+19 positions and 12 table-bounce captures across five positions. Both routes
+scored at two positions. The common fit used 8,935 verified captures across
+76 positions, counting earlier eligible training data.
+
+| Planner | Captures / 50 | Direct | Table bounce | Missed after release | No feasible setup |
+|---|---:|---:|---:|---:|---:|
+| Pooled | 35 | 31 | 4 | 12 | 3 |
+| Route-conditioned | 33 | 31 | 2 | 13 | 4 |
+| Two specialists | 34 | 30 | 4 | 12 | 4 |
+
+The specialists alone scored at (1187.5, −259.1) mm with a table rebound,
+where both other planners chose direct shots that missed. The pooled model
+beat the specialists at two other positions. The pooled model had the best
+total by one capture, too small a difference to establish an advantage.
+
+Only four test positions had all three planners choose a table shot.
+They scored on four, two and three of those positions, respectively.
+The next comparison should collect more paired captures and reserve new
+test positions where each model must try the same specified route. Keep
+the one-shot comparison with automatic route selection as a separate test.
+
+The Ubuntu evidence directory is `intergrid-route-policies-v1`.
+Report SHA-256:
+`2dba48c49cd976167bf2d290013899b776accfc92f3a84ddba4b0d5217f7adfb`.
+Both control gates and the independent CPU audit passed: 134,722 checks
+covering 242 collection releases, 139 test releases, and 18 controls.
+Audit SHA-256:
+`daa911eaddb220a3a51b0e6055feabe4f37d357f11995219795c939542b2ba4b`.
