@@ -72,3 +72,39 @@ The producer is `python -m sircus.mjlab.intergrid_paired_collection_study --help
 Reproduce the audit with
 `python -m sircus.mjlab.intergrid_paired_collection_audit --help`.
 The model, trajectories and raw rows remain in the Ubuntu archive.
+
+## New collection results
+
+The 4090 ran 346 drops from 352 proposed settings. Six direct proposals
+failed setup. Of the released shots, 137 of 170 direct attempts and 154 of
+176 table attempts captured by the requested route. All 11 positions
+produced new captures by both routes. These are local variations at proven
+positions and measure data yield under this collection strategy.
+
+| Bucket XY (mm) | Drops | Direct captures | Table captures |
+|---|---:|---:|---:|
+| 215.4, −551.8 | 32 | 16 | 16 |
+| 228.6, −612.8 | 32 | 13 | 15 |
+| 229.2, −561.8 | 32 | 16 | 15 |
+| 353.4, −580.4 | 32 | 9 | 14 |
+| 457.0, −608.9 | 32 | 16 | 13 |
+| 545.4, −632.3 | 32 | 16 | 15 |
+| 756.5, −608.2 | 32 | 16 | 14 |
+| 948.8, −286.0 | 32 | 12 | 12 |
+| 976.3, −286.8 | 28 | 12 | 12 |
+| 1050.0, −425.0 | 32 | 7 | 16 |
+| 1050.0, 250.0 | 30 | 4 | 12 |
+| **Total** | **346** | **137** | **154** |
+
+The training ledger holds 342 valid new releases, including 291 captures
+and 51 misses. Four trajectories failed the physics checks and remain in
+the raw ledger. The dataset is
+`intergrid-paired-collection-v1/new-training-dataset.jsonl` on Ubuntu.
+
+The independent CPU audit passed 62,087 checks, including both control
+sets, all releases, and reconstruction of the training ledger. The
+mjlab regression suite ran 2,269 tests with seven skipped.
+
+- Report SHA-256: `1ad93b9680d95624d5f5e5c1580ec367ae7ceb5445a4c1caf768af08ea2f5009`
+- Evidence manifest SHA-256: `f47674cf49bd6ee16c2ce0ab7865dc97aa6e743659103c32219dec1cf8a40bbf`
+- Training ledger SHA-256: `10b0b5e294c6af85ec0f5569a7f4298ad3b10a685c2fb4eba92dbd1ed56f9b5e`
