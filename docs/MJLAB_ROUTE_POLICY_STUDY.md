@@ -47,8 +47,9 @@ python -m sircus.mjlab.intergrid_route_audit --help
 ```
 
 Use the pinned mjlab environment and expose only the 4090 by UUID for the
-study. It waits for an idle GPU and takes the existing cooperative lease.
-Pose/path workers and the separate audit run without CUDA. Native
+study. Pose/path workers start while the study waits for an idle GPU and takes
+the existing cooperative lease. Those workers and the separate audit run
+without CUDA. Native
 rollouts use 64 substeps and repeat the same audited controls before and
 after. The audit checks spatial separation, the candidate budgets, the
 checkpoint fit, the choices frozen before test, and the saved native

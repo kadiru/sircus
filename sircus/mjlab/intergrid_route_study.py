@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 from collections import Counter, defaultdict
+from contextlib import ExitStack
 from itertools import combinations
 import math
 import importlib.metadata
@@ -257,7 +258,7 @@ def summarize(slots, observations):
                 paired={key: dict(value) for key, value in paired.items()})
 
 
-def run(args):
+def run(args, gpu_lifetime):
     from .cell1050_heading_native import HeadingEngine
     from .table_correction_native import MatchedEngine
 
@@ -367,13 +368,32 @@ def run(args):
         slots, packets, collected = [], {}, {}
         with open_workers(WORKERS, ref, args.assets, output / "native-heading", kwargs) as workers:
             futures = [workers.submit(prepare_proposals, proposals, True) for proposals in menu]
+            def save_preparation(layout, proposals, future):
+                identity = layout["id"]
+                if identity not in packets:
+                    admitted, records = future.result()
+                    packet = dict(proposals=proposals, admitted=admitted, records=records)
+                    atomic(output / "collection" / (identity + ".json"), packet)
+                    packets[identity] = packet
+                    report["collection_prepared"] = len(packets)
+                return packets[identity]["admitted"]
+
+            queue = list(zip(splits["train"], menu, futures, strict=True))
+
+            def while_waiting(status):
+                for layout, proposals, future in queue:
+                    if future.done():
+                        save_preparation(layout, proposals, future)
+                report["gpu_wait"] = status
+                publish("waiting_for_4090")
+
+            # CPU admission can proceed while an unrelated 4090 job finishes.
+            gpu_lifetime.enter_context(gpu_slot(args.gpu_lock, timeout_s=args.gpu_wait_s, poll_s=15,
+                                                notify=while_waiting))
+            report.pop("gpu_wait", None)
             run_controls("controls_pre")
-            for layout, proposals, future in zip(splits["train"], menu, futures, strict=True):
-                admitted, records = future.result()
-                packet = dict(proposals=proposals, admitted=admitted, records=records)
-                packets[layout["id"]] = packet
-                atomic(output / "collection" / (layout["id"] + ".json"), packet)
-                report["collection_prepared"] = report.get("collection_prepared", 0) + 1
+            for layout, proposals, future in queue:
+                admitted = save_preparation(layout, proposals, future)
                 requests.extend(admitted)
                 if len(requests) >= NATIVE_BATCH:
                     measured = execute(heading, requests[:NATIVE_BATCH], "train")
@@ -451,9 +471,8 @@ def main():
     args = parser.parse_args()
     if args.output.exists() or args.gpu_wait_s <= 0:
         parser.error("Provide a fresh output directory and a positive GPU wait bound")
-    with gpu_slot(args.gpu_lock, timeout_s=args.gpu_wait_s, poll_s=15,
-                  notify=lambda row: print(json.dumps(row), flush=True)):
-        run(args)
+    with ExitStack() as gpu_lifetime:
+        run(args, gpu_lifetime)
 
 
 if __name__ == "__main__":
