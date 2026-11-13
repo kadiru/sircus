@@ -35,8 +35,8 @@ def _grid_points(grid):
     return canonical, usable
 
 
-def sample_splits(excluded, geometry, grid=None, *, seed=SEED):
-    """Rebuild the 24 TRAIN and 50 TEST placements from frozen geometry and exclusions."""
+def sample_splits(excluded, geometry, grid=None, *, seed=SEED, include_train=True):
+    """Rebuild 50 TEST placements and, when requested, 24 disjoint TRAIN placements."""
     canonical, usable = _grid_points(grid)
     xs, ys = (np.unique(np.asarray(list(usable.values()))[:, axis]) for axis in range(2))
     lower, upper = np.array([xs[0], ys[0]]), np.array([xs[-1], ys[-1]])
@@ -96,8 +96,9 @@ def sample_splits(excluded, geometry, grid=None, *, seed=SEED):
             center = (corner + .25 * span, corner + .75 * span)
             perimeter = ix in (0, len(xs) - 2) or iy in (0, len(ys) - 2)
             rectangles.append((box, center, perimeter))
-    for box, center, _ in rectangles:
-        sample("train", *box, "rectangle_train", preferred=center)
+    if include_train:
+        for box, center, _ in rectangles:
+            sample("train", *box, "rectangle_train", preferred=center)
     for box, center, perimeter in rectangles:
         sample("test", *box, "rectangle_center", preferred=center)
         sample("test", *box, "grid_perimeter" if perimeter else "rectangle_interior")
@@ -106,7 +107,7 @@ def sample_splits(excluded, geometry, grid=None, *, seed=SEED):
     return splits
 
 
-def make_splits(history_root, grid=None, *, scene, assets, previous_layouts=(), seed=SEED):
+def make_splits(history_root, grid=None, *, scene, assets, previous_layouts=(), seed=SEED, include_train=True):
     """Freeze placement geometry and archived-coordinate separation before collection."""
     grid = None if grid is None else list(grid)
     root = Path(history_root).resolve()
@@ -129,7 +130,7 @@ def make_splits(history_root, grid=None, *, scene, assets, previous_layouts=(), 
     canonical, usable = _grid_points(grid)
     excluded = sorted(points | declared | set(canonical.values()))
     geometry = _placement_geometry(scene, assets)
-    splits = sample_splits(excluded, geometry, grid, seed=seed)
+    splits = sample_splits(excluded, geometry, grid, seed=seed, include_train=include_train)
     provenance = dict(
         version=VERSION, seed=seed, minimum_separation_m=MIN_SEPARATION_M,
         grid_perimeter_strip_m=PERIMETER_STRIP_M, near_base_max_clearance_m=NEAR_BASE_MAX_CLEARANCE_M,
@@ -138,8 +139,9 @@ def make_splits(history_root, grid=None, *, scene, assets, previous_layouts=(), 
         declared_previous_coordinates_m=[list(xy) for xy in sorted(declared)],
         excluded_coordinates_m=[list(xy) for xy in excluded],
         excluded_coordinates_sha256=digest(excluded), splits_sha256=digest(splits), geometry=geometry,
-        scope="Novelty against inventoried archives, declared prior layouts and canonical coordinates. "
-              "TEST also excludes the new TRAIN placements. Placement uses only geometry and coordinates.",
+        scope=("Novelty against inventoried archives, declared prior layouts and canonical coordinates. "
+               + ("TEST also excludes the new TRAIN placements. " if include_train else "")
+               + "Placement uses only geometry and coordinates."),
     )
     return splits, provenance
 
