@@ -48,7 +48,7 @@ controls before and after.
 - Frozen rule SHA-256 `3d22d455000dcb2269adc76f84fbb63da68952c17580a51dc24ce06ee751c134`
 - Replay screen report SHA-256 `3966dbc612cff546a0cbcc6257fa5473845e7f4342f98bfe95b47f5ed59f369b`
 
-## Fresh comparison preparation
+## Fresh comparison results
 
 The same candidate pool produced a certified setup for both methods at 47
 positions. The physics rule changed the selected command at 33 of those.
@@ -56,7 +56,26 @@ It kept the intended route at 24 and changed it at nine. The remaining 14
 positions used an identical command. A CPU check of the frozen choices and
 their setup proofs passed 2,525 assertions.
 
+| Frozen selector | Feasible setups | Captures | Direct captures | Table-assisted captures |
+|---|---:|---:|---:|---:|
+| Direct-first | 47/50 | 35/50 (70%) | 33 | 2 |
+| Predicted flight clearance | 47/50 | 41/50 (82%) | 31 | 10 |
+
+Both captured at 34 positions. The flight rule gained seven positions and
+lost one. Six gains came from choosing a different route. The other gain and
+the loss came from changing the shot within the same route. The 14 positions
+where both methods chose the same command agreed on capture outcome.
+This is one fresh split with one selection per method and position.
+
+The 4090 ran 94 matched drops and 18 controls with the pinned 64 substeps.
+Both sets of controls passed. The CPU audit reproduced all choices and
+capture counts in 35,166 checks. The Mac repository suite and the pinned
+Ubuntu mjlab suite passed. This experiment compared frozen selectors.
+
 - Frozen choices SHA-256 `2257ba8526b035ab588f5f6bd72e39abd1ba1870d9bf3c553b6d34d6cf6db304`
+- Native report SHA-256 `4de7c77fdf3caa138369d8400d001552c216af03048737444a32e4e2d157740e`
+- Native evidence manifest SHA-256 `fb3b06d1e0324a604e668c7b665f6baa36c9eb723831a7231feeaba27bb22ab4`
+- Native audit SHA-256 `48a246f179fcc45d05ee3ecf56c7eeafcff116dcba0cf0f669b9e64309a4df4b`
 
 ## Feasible setups for five earlier refusals
 

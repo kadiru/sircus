@@ -9,9 +9,12 @@
 - A wider CPU search found feasible setups at **5/5** old refusals.
   It certified 43 of 160 proposed poses and paths. These were setup
   checks, with no ball releases.
-- The matched 50-position comparison has frozen its choices. Each
-  method has a feasible shot at 47 positions. The CPU preflight passed
-  2,525 checks and the native study is queued for the shared 4090.
+- On the same 50 fresh positions, the frozen flight rule captured
+  **41/50 (82%)** versus **35/50 (70%)** for direct-first. Both found
+  feasible setups at 47 positions. The flight rule gained seven captures
+  and lost one. Changing routes accounted for six gains.
+- All 94 native drops and 18 controls ran on the 4090 at 64 substeps.
+  Both control blocks and the 35,166-check CPU audit passed.
   [Protocol and evidence](MJLAB_FLIGHT_RANKING.md) · [Draft PR #133](https://github.com/kadiru/sircus/pull/133).
 
 ## Candidate replays at missed positions — November 15, 2026
