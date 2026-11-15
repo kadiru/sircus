@@ -48,6 +48,16 @@ controls before and after.
 - Frozen rule SHA-256 `3d22d455000dcb2269adc76f84fbb63da68952c17580a51dc24ce06ee751c134`
 - Replay screen report SHA-256 `3966dbc612cff546a0cbcc6257fa5473845e7f4342f98bfe95b47f5ed59f369b`
 
+## Fresh comparison preparation
+
+The same candidate pool produced a certified setup for both methods at 47
+positions. The physics rule changed the selected command at 33 of those.
+It kept the intended route at 24 and changed it at nine. The remaining 14
+positions used an identical command. A CPU check of the frozen choices and
+their setup proofs passed 2,525 assertions.
+
+- Frozen choices SHA-256 `2257ba8526b035ab588f5f6bd72e39abd1ba1870d9bf3c553b6d34d6cf6db304`
+
 ## Feasible setups for five earlier refusals
 
 A CPU search applied the existing setup checks to 16 nearby-shot variations

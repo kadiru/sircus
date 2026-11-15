@@ -1,5 +1,19 @@
 # Project state
 
+## Ball flight ranking and pose recovery — November 15, 2026
+
+- A pre-release flight calculation chose captures at **9/16** of the
+  previously missed bucket positions. Random selection among the same
+  candidates would average **5.275/16**. The calculation uses held joint
+  poses, rim aperture and fitted board and table rebound velocities.
+- A wider CPU search found feasible setups at **5/5** old refusals.
+  It certified 43 of 160 proposed poses and paths. These were setup
+  checks, with no ball releases.
+- The matched 50-position comparison has frozen its choices. Each
+  method has a feasible shot at 47 positions. The CPU preflight passed
+  2,525 checks and the native study is queued for the shared 4090.
+  [Protocol and evidence](MJLAB_FLIGHT_RANKING.md) · [Draft PR #133](https://github.com/kadiru/sircus/pull/133).
+
 ## Candidate replays at missed positions — November 15, 2026
 
 - The exact selected shots repeated **0/16** captures. The 55 novel
