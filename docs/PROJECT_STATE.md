@@ -1,5 +1,20 @@
 # Project state
 
+## Candidate replays at missed positions — November 15, 2026
+
+- The exact selected shots repeated **0/16** captures. The 55 novel
+  alternatives captured 28 times and recovered **10/16 positions**.
+  Two direct-first replay controls matched their archived outcomes.
+  Three setups produced no candidates within geometry limits and two
+  failed arm reach or endpoint checks.
+- The prior ranker and the position-held-out logistic screen chose
+  captures at **3/16** and **4/16** of these difficult development
+  positions. Uniform candidate choice would average **5.275/16**.
+  Both screening scores fell below that expectation.
+  [Protocol and results](MJLAB_MISSED_SHOT_REPLAY.md).
+- All 73 test drops and 18 controls ran on the 4090. The independent CPU
+  audit passed 16,665 checks. [Draft PR #132](https://github.com/kadiru/sircus/pull/132).
+
 ## Route selection vs direct-first fallback — November 14, 2026
 
 - Both policies found a feasible shot at **95 of 100 fresh positions**.
