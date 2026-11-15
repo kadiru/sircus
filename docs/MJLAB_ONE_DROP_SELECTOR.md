@@ -35,3 +35,39 @@ Use the audited archives listed in the [library comparison](MJLAB_TABLE_SHOT_LIB
 and add `intergrid-table-library-v1` and its audit receipt. The new evidence
 lives in `intergrid-route-selector-v1` on Ubuntu. Keep raw evidence outside
 Git. Native simulation uses the 4090 and the existing shared lock.
+
+## Audited results
+
+| Planner | Feasible setups | Captures | Captures per drop |
+|---|---:|---:|---:|
+| Direct-only | 41/50 (82%) | 33/50 (66%) | 33/41 (80.5%) |
+| Route selector | 47/50 (94%) | 40/50 (80%) | 40/47 (85.1%) |
+
+The selector captured all 33 positions that direct-only captured and
+added seven. It chose direct 36 times and captured 31 of those drops.
+It chose table 11 times and captured nine. Five added captures came
+from six positions that admitted only table. The other two came from
+five positions where both routes passed setup and the selector chose
+table. Both planners scored identically on all 36 duplicated direct
+commands.
+
+The paired capture difference was 14 percentage points, with a
+two-sided exact paired p-value of 0.015625 on this 50-position split.
+The gate used 19 older positions where both routes released. At each
+new position, it used the five nearest of those 19. The selector could
+consider four direct plus four table starting shots, compared with
+four direct starting shots for direct-only. Both methods had the same
+one-drop limit. The result measures adding table candidates and choosing
+between feasible routes together.
+
+Both control sets passed. The independent CPU audit passed 34,460
+checks, accounting for all 100 attempts, 88 test drops and 18 controls.
+One direct-only release was invalid and counts as a failure. The mjlab
+suite ran 2,277 tests with seven skipped. Native simulation used the
+4090. The 4070 and Isaac were left alone.
+
+- Frozen producer `21cad439f6e4845b9c6def43df68c9b1ffd80746`
+- Frozen checkpoint SHA-256 `3b43cb74946ab4dd53f110ffe1d9e07bff5409bd40966f1f128eb72009da6161`
+- Report SHA-256 `391682a65763f7e7a95d20b1322bf15e205e30a9b05cc81157f6d6f416df806b`
+- Evidence manifest SHA-256 `fa404bf492da0f21994f5460c81f8ab7cabe8311cf388a2e076db1dac9c6fe9f`
+- Audit SHA-256 `80f491c47f76bc087f242dc62719c92519cc6c6bb3b08b0d3a26eb7743555fa3`
