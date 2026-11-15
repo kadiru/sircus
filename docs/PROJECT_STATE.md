@@ -1,5 +1,20 @@
 # Project state
 
+## Route selection vs direct-first fallback — November 14, 2026
+
+- Both policies found a feasible shot at **95 of 100 fresh positions**.
+  Direct-first fallback captured **76/100** and the route selector
+  captured **78/100**. Both used the same frozen specialist, expanded
+  table library and one-drop budget.
+- The selector chose table over direct nine times, gaining three
+  captures and losing one. All 86 pairs with identical commands
+  returned matching outcomes. The small number of differing outcomes
+  leaves the size of the advantage uncertain.
+  [Protocol and audited results](MJLAB_DIRECT_FIRST_COMPARISON.md).
+- The 4090 ran 190 test drops and 18 controls. Both control sets and
+  54,781 independent CPU checks passed. The 4070 and Isaac were left
+  alone. [Draft PR #131](https://github.com/kadiru/sircus/pull/131).
+
 ## One-drop route selection — November 14, 2026
 
 - On the same 50 fresh positions, allowing a pre-release choice between

@@ -36,3 +36,32 @@ Use the audited input archives listed in the
 verifier is `python -m sircus.mjlab.intergrid_route_fallback_audit --help`.
 Native simulation uses the 4090 via the existing shared lock. Keep the
 `intergrid-route-fallback-v1` evidence archive outside Git.
+
+## Audited results
+
+| Policy | Feasible setups | Captures across all positions | Captures where both routes were feasible |
+|---|---:|---:|---:|
+| Direct-first fallback | 95/100 | 76/100 (76%) | 29/42 |
+| Route selector | 95/100 | 78/100 (78%) | 31/42 |
+
+The selector chose table over a feasible direct shot at nine positions.
+Among these, both captured at four positions, only the selector captured
+at three, only direct-first captured at one, and both missed at one. All
+86 pairs that used an identical command had matching outcomes. Both
+policies failed setup at five positions. Each produced one invalid
+trajectory, counted as a failure.
+
+The selector gained two net captures. There were four differing capture
+outcomes, so this test leaves the size of the advantage uncertain. The
+two-sided exact paired p-value was 0.625.
+
+The 4090 ran 190 test drops and 18 controls. Both control sets and the
+independent CPU audit passed, with 54,781 audit checks. The mjlab
+regression suite ran 2,279 tests with seven skipped and zero failures.
+
+- Producer commit `bc87ebcb718be61b738d41b6f0ebfd6b228711a0`
+- Frozen checkpoint SHA-256 `3b43cb74946ab4dd53f110ffe1d9e07bff5409bd40966f1f128eb72009da6161`
+- Report SHA-256 `e6e0b18994ef9aa27da7f5039fe8efb307de455eab83aff46855cc08be26dc76`
+- Evidence manifest SHA-256 `ef5aa69daa75e9c5ff8bfcb07d085b912b7f67eb089a3c7b643417bcfa982fee`
+- Choices SHA-256 `2fbd85927dcc4254cb72d4164fe6252016f85783a58feba1541b156d4c001a6b`
+- Audit SHA-256 `0d2aefa62ff81bb2949c8f8f0fc68e85bf26b6aaa14137e6a9b187d0d64a3528`
