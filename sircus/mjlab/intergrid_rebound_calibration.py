@@ -10,10 +10,6 @@ import numpy as np
 
 from .benchmark_verify import contained, digest, read, sha
 from .calibrated_score import FORCE_NAMES, FORCE_THRESHOLD_N, REBOUND_NORMAL_SPEED_M_S, _trace
-from .intergrid_candidate_replay_plan import FLIGHT_MISSES, VERSION as REPLAY_VERSION, command_key
-from .intergrid_route_fallback_audit import VERSION as FALLBACK_AUDIT_VERSION
-from .intergrid_route_fallback_study import VERSION as FALLBACK_VERSION
-from .intergrid_route_refit_inputs import _audited_source
 
 
 VERSION = "sircus-intergrid-rebound-calibration-v1"
@@ -100,6 +96,11 @@ def _summarize(samples, surface, coefficient):
 
 def fit_rebound_calibration(fallback_study, fallback_audit, replay_plan):
     """Fit median effective rebound coefficients without using any replay shot."""
+    from .intergrid_candidate_replay_plan import FLIGHT_MISSES, VERSION as REPLAY_VERSION, command_key
+    from .intergrid_route_fallback_audit import VERSION as FALLBACK_AUDIT_VERSION
+    from .intergrid_route_fallback_study import VERSION as FALLBACK_VERSION
+    from .intergrid_route_refit_inputs import _audited_source
+
     study = Path(fallback_study)
     report, manifest, audit, binding, _ = _audited_source(
         study, Path(fallback_audit), FALLBACK_VERSION, ("rows.jsonl", "layouts.json"),
