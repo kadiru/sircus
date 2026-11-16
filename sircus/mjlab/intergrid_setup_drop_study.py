@@ -73,11 +73,19 @@ def summarize(plan, first, repeats):
 
 
 def run(args):
+    plan, binding = load_setup_drop_plan(args.setup_study, args.setup_audit, args.fallback_study, args.parent_study)
+    if sum(len(case["requests"]) for case in plan["cases"]) != 43:
+        raise ValueError("Expected exactly 43 archived admitted requests")
+    run_plan(args, plan, binding, args.setup_study, args.fallback_study / "training-prior.json",
+             version=VERSION, source_key="setup_source")
+
+
+def run_plan(args, plan, binding, proof_study, prior_source, *, version, source_key):
+    """Replay frozen prepared commands before scheduling repeats and controls."""
     from .cell1050_heading_native import HeadingEngine
     from .table_correction_native import MatchedEngine
 
     output, parent = args.output, args.parent_study
-    plan, binding = load_setup_drop_plan(args.setup_study, args.setup_audit, args.fallback_study, parent)
     spec, parent_binding, _ = parent_inputs(parent, args.parent_audit)
     source = Path(__file__).resolve().parents[2]
     ref = load_runtime_reference(args.reference, args.assets, source)
@@ -86,8 +94,8 @@ def run(args):
             or any(importlib.metadata.version(name) != pinned for name, pinned in spec["packages"].items())):
         raise ValueError("Scene, setup lineage, assets or dependencies differ from the audited controls")
     requests = [request for case in plan["cases"] for request in case["requests"]]
-    if len(requests) != 43 or len({request["id"] for request in requests}) != 43:
-        raise ValueError("Expected exactly 43 distinct archived admitted requests")
+    if not requests or len({request["id"] for request in requests}) != len(requests):
+        raise ValueError("Expected a nonempty plan of distinct admitted requests")
     output.mkdir(parents=True, exist_ok=False)
     report = dict(status="running", controls={}, test_requests=len(requests), test_releases=0,
                   repeat_requests=0, repeat_releases=0)
@@ -154,20 +162,21 @@ def run(args):
     try:
         atomic(output / "drop-plan.json", plan)
         prior = output / "training-prior.json"
-        shutil.copyfile(args.fallback_study / "training-prior.json", prior)
+        shutil.copyfile(prior_source, prior)
         if sha(prior) != binding["training_prior_sha256"]:
             raise ValueError("Geometry prior differs from audited setup search")
         contract = dict(
-            version=VERSION, parent=parent_binding, identity=spec["identity"], scene=spec["scene"],
-            setup_source=binding, physics_substeps=64, label_version=LABEL_VERSION,
+            version=version, parent=parent_binding, identity=spec["identity"], scene=spec["scene"],
+            physics_substeps=64, label_version=LABEL_VERSION,
             repeat_count=REPEAT_COUNT, source_sha256=source_manifest(source),
             frozen_inputs={name: sha(output / name) for name in ("drop-plan.json", "training-prior.json")},
         )
+        contract[source_key] = binding
         contract["fingerprint"] = digest(contract)
         atomic(output / "contract.json", contract)
         for name in ("calibration.json", "verification.json"):
             shutil.copyfile(parent / name, output / name)
-        report["setup_proofs"] = copy_setup_proofs(args.setup_study, output, binding["proof_manifest"], requests)
+        report["setup_proofs"] = copy_setup_proofs(proof_study, output, binding["proof_manifest"], requests)
         publish("drop_plan_frozen")
 
         def waiting(status):
