@@ -1,5 +1,11 @@
 # Project state
 
+## Location comparison startup closed; recorder composition repaired — November 17, 2026
+
+- [Closed attempt and repair](../baselines/isaac-seed22-comparison-startup-20261117/README.md): one authorized native application from `89b0afd` reached an empty startup diagnostic directory and zero TRAIN/assessment requests. The watchdog recorded `stopped_no_retry` / `Native exit lacks final progress` after identity-bound graceful closure, with safe lock release. No final child receipt or passed startup audit exists. Failed-start wall was 599.618 s under the watchdog and 603.374 s for the enclosing container.
+- A CPU mock reproduced the source-level conflict: the service replaced `env.tick` before the recorder required genuine inherited movement methods. This is diagnosed from source/mocks, not a saved native traceback. The service now passes a callback into the recorder, which checks it before every original tick and preserves the strict method guard and cleanup. The child writes its first failure before app closure. Physics, probe schedule, model, prepared positions and budgets are unchanged.
+- All 147 comparison and 17 recorder tests passed, including the real recorder plus independent reader over 1,488 synthetic ticks / 245 initialized trajectories. All original input/source hashes matched after closure. The original simulator container and 4070 work stayed untouched; a separate later job owns the 4090. Corrected actual-input CPU preflight and separate approval for a new one-start attempt remain required. No new model-performance result is claimed.
+
 ## Seed-22 original-versus-broader comparison: CPU preflight passed — November 17, 2026
 
 - [Actual-input verification and limits](../baselines/isaac-seed22-comparison-preflight-20261117/README.md): source `89b0afd` and a new private manifest bind 101 input files, 217 Python source files and 80 asset files. Original seed-22 weights and complete finite Adam state restored on CPU at 10,000 inherited requests / 73 PPO updates / 292 optimizer steps. All 35 original TRAIN predictions matched their saved readouts; maximum normalized error 1.78814e-7, within the existing 5e-6 tolerance.

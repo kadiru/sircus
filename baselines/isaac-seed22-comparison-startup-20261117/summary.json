@@ -1,0 +1,77 @@
+{
+  "diagnosis": {
+    "cause": "Service installed instance tick override before recorder required genuine inherited methods.",
+    "evidence_type": "source inspection plus CPU mock reproduction; no preserved native traceback",
+    "mock_error": "Startup instrumentation requires genuine inherited methods",
+    "old_mock_guard_calls": 0,
+    "old_mock_left_instance_tick_override": true,
+    "old_mock_startup_files": 0,
+    "old_mock_ticks": 0
+  },
+  "failed_manifest_sha256": "ccc719cc5e87182a3eb05ee9f066223b0327a2ed042a0a386ee96665586c2ba9",
+  "failed_source_commit": "89b0afd3399b5eb7e5fa335c4d7a16ffbd0994ab",
+  "limitations": [
+    "No new capture, clean-capture, rejection-rate or generalization result.",
+    "Corrected actual-input CPU preflight and a separately authorized new native start are still required.",
+    "One-start/no-retry guard consumed; no automatic retry performed.",
+    "The 4090 was subsequently occupied by an unrelated job; it was left untouched."
+  ],
+  "observed_native": {
+    "assessment_requests": 0,
+    "child_exit_receipt_present": false,
+    "child_failure_receipt_present": false,
+    "cleanup_method": "Single identity-checked pidfd SIGTERM to owned native Python; container and watchdog then exited.",
+    "container_exited": true,
+    "container_wall_seconds": 603.3740192110417,
+    "host_container_exit_code": 1,
+    "independent_audit_passed": false,
+    "lock_release_safe": true,
+    "native_child_exit_code": 0,
+    "native_child_start_attempts": 1,
+    "optimizer_steps": 0,
+    "startup_evidence_files": 0,
+    "synthetic": false,
+    "train_requests": 0,
+    "watchdog_reason": "Native exit lacks final progress",
+    "watchdog_status": "stopped_no_retry",
+    "watchdog_wall_seconds": 599.6177120170323
+  },
+  "prepared_comparison_fingerprint": "440cbcca29612820d3b36005010edd90fd4f8172646bd8ea95e57f154775f4e6",
+  "preservation": {
+    "failed_attempt_and_logs_retained": true,
+    "free_storage_gib_after": 15.250812530517578,
+    "input_files_verified_unchanged": 101,
+    "original_simulator_container_still_stopped": true,
+    "source_files_verified_unchanged": 217
+  },
+  "private_receipt_sha256": {
+    "after-close-verification.json": "7b5f87dd87f422059c94c6db67efb1ae87d4db34e4f54f01a16c86dd4d5b588a",
+    "closed-run-metadata/child-start.json": "c80a876a3ecbc02808b5d8bcbcbe3176c6a5c1a4be56079f49602300252f67e9",
+    "closed-run-metadata/comparison-progress.json": "41df1c3c70483fd27cad179f8eb8ba7e0db505b9a1cb6f2a68d41fed09de2e6a",
+    "closed-run-metadata/comparison-watchdog-exit.json": "1ec3426973be2fa7308e232f76519ceefe6e260c55744b7f52a8375b901ffe8e",
+    "closed-run-metadata/comparison-watchdog-owner.json": "988f5bf311af80cd21c65531e66baa6ed8d24e3f38bd38becb416bd0c8e4217d",
+    "closed-run-metadata/parent-preflight.json": "db097e771055d085798e79b0781ae0888e0b9b119dc05a8e01d50f5f25e6569e",
+    "closed-run-metadata/verification.json": "f2373495a0287681785f44a14a46eb53ac14d0ee2d99eb0ca95ddc550b376993",
+    "container-controls.json": "cce6253271ee3280ef478acbb17f4cadfae11ef76da35dff93cd07d8c93e6ce5",
+    "container-exit.json": "30fd0fd1c6c8ce7b7ac5909cbbb6d0f822103476aa32f11741ee6cf8ad2d7022",
+    "graceful-close-command.json": "88694450478a05f23f576615975da776b06c119916de13024e806bc90571acae",
+    "launch-intent.json": "0869577036399be1e0f775b94758351ab7bdccb7bd25711ced52f4490210324d"
+  },
+  "repair": {
+    "first_failure_saved_before_cleanup": true,
+    "guard_inside_recorder_before_original_tick": true,
+    "physics_scoring_rewards_geometry_schedules_budgets_unchanged": true,
+    "service_method_override_removed": true,
+    "strict_inherited_method_check_retained": true
+  },
+  "schema": "sircus-location-comparison-startup-repair-summary-v1",
+  "status": "native_attempt_closed_zero_requests_fix_mock_tested",
+  "validation": {
+    "comparison_tests_passed": 147,
+    "corrected_native_attempts": 0,
+    "real_recorder_mock_initialized_trajectories": 245,
+    "real_recorder_mock_ticks": 1488,
+    "recorder_tests_passed": 17,
+    "simulator_imports_in_mock": 0
+  }
+}

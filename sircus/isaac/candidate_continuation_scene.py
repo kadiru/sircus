@@ -102,9 +102,10 @@ class StartupRecorder:
     per-step contact forces permit independent schedule/cost/outcome checking.
     """
     def __init__(self, env, directory, *, publish=lambda records,parking:None,
-                 clock=time.monotonic, cpu=time.process_time):
+                 clock=time.monotonic, cpu=time.process_time, guard=None):
+        require(guard is None or callable(guard), "Startup guard must be callable")
         self.env,self.directory,self.publish = env,Path(directory),publish
-        self.clock,self.cpu = clock,cpu
+        self.clock,self.cpu,self.guard = clock,cpu,guard
         self.directory.mkdir()
         self.records,self.evidence,self.parking = [],[],[]
         self.current,self.kind = None,None
@@ -178,6 +179,8 @@ class StartupRecorder:
             self.current=dict(initialized_file=name,initialized_sha256=digest(self.directory/name),
                 start_step=env.steps,forces_N=[],wall_begin=self.clock(),cpu_begin=self.cpu())
         def tick():
+            if self.guard is not None:
+                require(self.guard() is True, "Startup guard failed")
             original_tick()
             if self.current is not None:
                 self.current["forces_N"].append(_plain(env.forces()))

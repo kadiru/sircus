@@ -208,5 +208,34 @@ class SceneStartupTests(unittest.TestCase):
         recorder=subject.StartupRecorder(env,self.root/"startup")
         with self.assertRaisesRegex(ValueError,"inherited methods"):recorder.run()
 
+    def test_guard_denial_precedes_first_tick_and_preserves_failure_evidence(self):
+        env=MockProbeEnv(self.root,self.scene,self.cells)
+        calls=[]
+        recorder=subject.StartupRecorder(env,self.root/"startup",
+            guard=lambda:calls.append(env.steps) or False)
+        with self.assertRaisesRegex(ValueError,"Startup guard failed"):recorder.run()
+        self.assertEqual(calls,[0]);self.assertEqual(env.steps,0)
+        self.assertNotIn("tick",vars(env));self.assertNotIn("set_balls",vars(env))
+        partial=json.loads((self.root/"startup/incomplete-current.json").read_text())
+        self.assertEqual(partial["forces_N"],[])
+        self.assertTrue((self.root/"startup/failure.json").exists())
+        self.assertFalse((self.root/"startup/receipt.json").exists())
+
+    def test_guard_exception_retains_only_completed_tick_samples_and_restores_methods(self):
+        env=MockProbeEnv(self.root,self.scene,self.cells)
+        calls=[]
+        def guard():
+            calls.append(env.steps)
+            if env.steps==4:raise RuntimeError("mock ownership loss")
+            return True
+        recorder=subject.StartupRecorder(env,self.root/"startup",guard=guard)
+        with self.assertRaisesRegex(RuntimeError,"mock ownership loss"):recorder.run()
+        self.assertEqual(calls,list(range(5)));self.assertEqual(env.steps,4)
+        self.assertNotIn("tick",vars(env));self.assertNotIn("set_balls",vars(env))
+        partial=json.loads((self.root/"startup/incomplete-current.json").read_text())
+        self.assertEqual(len(partial["forces_N"]),4)
+        self.assertIn("mock ownership loss",(self.root/"startup/failure.json").read_text())
+        self.assertFalse((self.root/"startup/receipt.json").exists())
+
 
 if __name__=="__main__":unittest.main()

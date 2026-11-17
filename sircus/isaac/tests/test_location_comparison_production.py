@@ -1,5 +1,6 @@
 """Fake application/process/policy only. No simulator, learning or new shots."""
 import copy
+import builtins
 import json
 from pathlib import Path
 import sys
@@ -126,6 +127,39 @@ class LifecycleTests(unittest.TestCase):
         self.assertEqual(self.services.calls,['preflight','launch','scene','startup','close'])
         self.assertIsNone(self.services.engine)
         self.assertFalse((self.output/'events').exists())
+    def test_first_failure_is_durable_before_close_raises(self):
+        self.services.fail = 'startup'
+        observed = []
+        def close():
+            observed.append(production.read(self.output/'child-failure.json'))
+            self.assertFalse((self.output/'child-exit.json').exists())
+            raise RuntimeError('synthetic close failure')
+        self.services.app.close = close
+        result = self.execute()
+        self.assertEqual(len(observed),1)
+        receipt = observed[0]
+        self.assertEqual(receipt['error'],'RuntimeError: synthetic startup failure')
+        self.assertTrue(receipt['recorded_before_cleanup'])
+        self.assertEqual(receipt['runtime_fingerprint'],self.manifest['fingerprint'])
+        self.assertEqual(receipt['comparison_fingerprint'],self.plan['fingerprint'])
+        self.assertEqual(result['status'],'incomplete_no_retry')
+        self.assertEqual(result['error'],receipt['error'])
+        self.assertFalse(result['app_closed'])
+        self.assertTrue(production.read(self.output/'comparison-progress.json')['running'])
+        self.assertFalse((self.output/'events').exists())
+    def test_failure_receipt_error_does_not_skip_native_close(self):
+        self.services.fail = 'startup'
+        original_write = production.write_new_json
+        def write(path,value):
+            if path.name=='child-failure.json':raise OSError('synthetic disk failure')
+            return original_write(path,value)
+        with mock.patch.object(production,'write_new_json',side_effect=write):
+            result = self.execute()
+        self.assertEqual(self.services.calls,['preflight','launch','scene','startup','close'])
+        self.assertTrue(result['error'].startswith('RuntimeError: synthetic startup failure;'))
+        self.assertIn('Failure receipt write failed: OSError: synthetic disk failure',result['error'])
+        self.assertTrue(result['app_closed'])
+        self.assertEqual(result['status'],'incomplete_no_retry')
     def test_close_failure_cannot_publish_finished(self):
         self.services.fail = 'close'
         # Fail runner immediately, so no full fabricated run is repeated here.
@@ -325,28 +359,75 @@ class OwnershipAndEnvelopeTests(unittest.TestCase):
 
 
 class NativeStartupRouteTests(unittest.TestCase):
-    def test_real_startup_entry_uses_observer_and_independent_reader_then_restores_tick(self):
-        calls = []
-        tick = lambda: calls.append('tick')
-        env = SimpleNamespace(tick=tick,cfg={},spec=dict(cells=[]),origins=[])
-        class Recorder:
-            def __init__(self,got,directory):
-                self.env = got
-            def run(self):
-                calls.append('recorder')
-                self.env.tick()
-                return dict(status='completed')
-        audit = mock.Mock(return_value=dict(status='passed'))
-        module = SimpleNamespace(StartupRecorder=Recorder,audit_startup=audit)
-        with mock.patch.dict(sys.modules,{'candidate_continuation_scene':module}):
-            value = production.NativeServices().startup(env,Path('/synthetic'),lambda:True)
-            self.assertEqual(value['status'],'passed')
-            self.assertEqual(calls,['recorder','tick'])
-            self.assertIs(env.tick,tick)
-            audit.assert_called_once()
-            with self.assertRaisesRegex(ValueError,'Startup guard'):
-                production.NativeServices().startup(env,Path('/synthetic'),lambda:False)
-            self.assertIs(env.tick,tick)
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name)
+        self.scene = json.loads((Path(__file__).resolve().parents[1]/'scene.json').read_text())
+        self.cells = [dict(id=f'train-{i:03d}',split='train',bucket_xy_m=[.6+i*.001,-.1]) for i in range(35)]
+
+    def environment(self, name='run'):
+        from test_candidate_continuation_scene import MockProbeEnv
+        output = self.root/name
+        native = output/'native'
+        native.mkdir(parents=True)
+        env = MockProbeEnv(native,self.scene,self.cells)
+        env.spec = dict(cells=self.cells)
+        return output,env
+
+    def test_real_recorder_and_auditor_compose_without_simulator_imports_or_extra_ticks(self):
+        output,env = self.environment()
+        checks = []
+        original_import = builtins.__import__
+        def no_simulator(name,*args,**kwargs):
+            if name.split('.')[0] in {'isaaclab','isaacsim','omni'}:
+                raise AssertionError('Unexpected simulator import: '+name)
+            return original_import(name,*args,**kwargs)
+        before = {name for name in sys.modules if name.split('.')[0] in {'isaaclab','isaacsim','omni'}}
+        with mock.patch('builtins.__import__',side_effect=no_simulator):
+            value = production.NativeServices().startup(env,output,lambda:checks.append(env.steps) or True)
+        self.assertEqual(value['status'],'passed')
+        self.assertEqual((value['cohorts'],value['initialized_trajectories'],value['physics_steps']),(7,245,1488))
+        self.assertEqual(checks,list(range(1488)))
+        self.assertEqual(env.steps,1488);self.assertEqual(env.placements,8)
+        self.assertNotIn('tick',vars(env));self.assertNotIn('set_balls',vars(env))
+        self.assertEqual(before,{name for name in sys.modules if name.split('.')[0] in {'isaaclab','isaacsim','omni'}})
+
+    def test_real_service_retains_rejection_of_preexisting_method_overrides(self):
+        for name in ('tick','set_balls'):
+            with self.subTest(method=name):
+                output,env = self.environment(name)
+                override = lambda:None
+                setattr(env,name,override)
+                guard = mock.Mock(return_value=True)
+                with self.assertRaisesRegex(ValueError,'inherited methods'):
+                    production.NativeServices().startup(env,output,guard)
+                self.assertIs(vars(env)[name],override)
+                self.assertEqual(env.steps,0);guard.assert_not_called()
+
+    def test_real_service_guard_denial_stops_before_tick_and_restores_methods(self):
+        output,env = self.environment()
+        guard = mock.Mock(return_value=False)
+        with self.assertRaisesRegex(ValueError,'Startup guard failed'):
+            production.NativeServices().startup(env,output,guard)
+        guard.assert_called_once_with()
+        self.assertEqual(env.steps,0)
+        self.assertNotIn('tick',vars(env));self.assertNotIn('set_balls',vars(env))
+        self.assertTrue((output/'native/startup/failure.json').exists())
+        self.assertFalse((output/'native/startup/receipt.json').exists())
+
+    def test_real_service_guard_exception_preserves_samples_and_restores_methods(self):
+        output,env = self.environment()
+        def guard():
+            if env.steps==4:raise RuntimeError('mock ownership loss')
+            return True
+        with self.assertRaisesRegex(RuntimeError,'mock ownership loss'):
+            production.NativeServices().startup(env,output,guard)
+        self.assertEqual(env.steps,4)
+        self.assertNotIn('tick',vars(env));self.assertNotIn('set_balls',vars(env))
+        partial = json.loads((output/'native/startup/incomplete-current.json').read_text())
+        self.assertEqual(len(partial['forces_N']),4)
+        self.assertFalse((output/'native/startup/receipt.json').exists())
 
 
 if __name__ == '__main__':
