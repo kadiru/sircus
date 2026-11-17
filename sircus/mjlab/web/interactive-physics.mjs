@@ -261,11 +261,17 @@ export function interactiveFastAcceptanceSummary(study) {
     && Object.values(paired).every(value => value !== null)
     && paired.both + paired.gained + paired.lost + paired.neither === total
     && paired.both + paired.gained === methods[0].captures && paired.both + paired.lost === methods[1].captures;
+  const complete = section.status === 'completed' && section.audit_status === 'passed' && accountingValid;
+  const active = !complete && Array.isArray(section.positions) ? section.positions.find(row =>
+    ['plan_intent', 'queued', 'planning', 'ready', 'drop_intent', 'running'].includes(row?.state)
+    && methods.some(method => method.id === row.planner)
+    && (typeof row.case === 'string' || Number.isInteger(row.case))
+    && typeof row.message === 'string' && row.message.trim()) : null;
+  const next = active ? `${active.case} · ${methods.find(method => method.id === active.planner).label}: ${active.message.trim()}`
+    : typeof section.next === 'string' ? section.next : '';
   return { status: section.status, audit: section.audit_status, methods, paired, total, completed, planned,
-    accounting_valid: accountingValid,
-    complete: section.status === 'completed' && section.audit_status === 'passed' && accountingValid,
-    scope: typeof section.scope === 'string' ? section.scope : '',
-    next: typeof section.next === 'string' ? section.next : '',
+    accounting_valid: accountingValid, complete,
+    scope: typeof section.scope === 'string' ? section.scope : '', next,
     error: typeof section.error === 'string' ? section.error : '' };
 }
 /** Capability-gated choice: older servers keep their exact original request shape. */

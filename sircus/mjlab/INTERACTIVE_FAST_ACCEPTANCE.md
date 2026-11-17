@@ -62,3 +62,22 @@ The additive display key is `interactive_fast_acceptance`:
 Final capture comparisons should display only after all 20 attempts finish and the audit passes.
 This small acceptance batch establishes UI behavior and observed timing/captures, not coverage
 of every tabletop position or statistically proven superiority.
+
+## Deployed acceptance run
+
+The November 17 integration uses the persistent Ubuntu runtime
+`~/sircus-mjlab/studies/interactive-fast-v1` and its `evidence/` directory.
+The prior `interactive-physics-v1` runtime and evidence remain intact.
+`~/sircus-mjlab/output/interactive-fast-deployment-v1` holds the exact original
+and new launch arguments, source revision, CPU smoke results, and runner log.
+The fresh comparison is `~/sircus-mjlab/output/interactive-fast-acceptance-v1`;
+its report is published to the existing display report's
+`interactive_fast_acceptance` section.
+
+The first launch waits up to 3,600 seconds before requesting a drop when a
+foreign 4090 process is present. If that wait expires, it saves the ready job
+and stops without releasing or replanning. Resume the same `run` command after
+the 4090 is free and the saved service job is still present. Do not restart the
+service or start a competing interactive plan while this acceptance run owns a
+pending job. Check actual process and report state; these paths are not proof
+that a run or service is currently alive.

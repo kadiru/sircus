@@ -141,3 +141,24 @@ test('planner selection precedes Plan and Drop while older modes keep it hidden'
   assert.match(app, /\$\('physicsPlannerControls'\).hidden = !physicsSelected\(\)/);
   assert.doesNotMatch(html, /live Plan shot button is unchanged|This study does not change the live Plan shot button/);
 });
+
+
+test('pending acceptance explains the active placement wait without exposing final scores', () => {
+  const report = fixture(), section = report.interactive_fast_acceptance;
+  section.status = 'running'; section.audit_status = 'pending';
+  section.next = 'Plan and drop each frozen placement once per method.';
+  section.positions = [
+    { case: 'case-00', planner: 'classic', state: 'completed', message: 'Old completed message' },
+    { case: 'case-01', planner: 'fast', state: 'ready', message: 'Checked shot ready; waiting for the 4090 before requesting its drop.' },
+    { case: 'case-02', planner: 'classic', state: 'pending' },
+  ];
+  const view = interactiveFastAcceptanceSummary(report), $ = render(report);
+  assert.equal(view.complete, false);
+  assert.equal(view.next, 'case-01 · Faster planner: Checked shot ready; waiting for the 4090 before requesting its drop.');
+  assert.match($('interactiveFastAcceptanceNext').text, /waiting for the 4090/);
+  assert.equal($('interactiveFastAcceptanceTable').children.length, 0);
+  section.positions[1].message = '';
+  assert.equal(interactiveFastAcceptanceSummary(report).next, section.next);
+  section.positions[1].message = 'Stale wait'; section.status = 'completed'; section.audit_status = 'passed';
+  assert.equal(interactiveFastAcceptanceSummary(report).next, section.next);
+});
