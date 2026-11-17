@@ -101,7 +101,18 @@ encoder or create playable media. Until a separately verified encoding is
 attached, the UI says that source frames are verified but no playable video is
 published.
 
-That encoding step must use the audited packet's ordered JPEG sequence, without
+`location_comparison_media.py` implements that separate, explicitly invoked
+postprocessing step. It requires an externally pinned completed publication and
+independent audit SHA, verifies every source packet and ordered JPEG again, and
+creates a new export outside native evidence. Installed CPU-only ffmpeg/ffprobe
+encode and verify all ten clips before a new report attaches any playable media.
+It records source and output identities, encoder versions, frame count, duration,
+dimensions, chapter labels and full-decode verification. It never installs tools,
+resumes a partial export or starts the simulator. Failed exports remain preserved.
+Ubuntu's existing ffmpeg 4.4.2 needs `-vsync 0`; the newer `-fps_mode` option is not
+available there. Actual native encoding and browser playback remain unverified.
+
+The encoding step uses the audited packet's ordered JPEG sequence, without
 rerendering or new shots, and preserve the model, phase, request milestone and
 active/parked-slot labels. Bind the resulting file back to the packet and frame
 sequence, verify its bytes/duration and attach a same-origin media descriptor:
@@ -169,7 +180,8 @@ publication; the server does not itself reproduce the independent physics audit.
 ```bash
 python3 -m unittest \
   sircus/isaac/tests/test_location_comparison_publication.py \
-  sircus/isaac/tests/test_location_comparison_server.py
+  sircus/isaac/tests/test_location_comparison_server.py \
+  sircus/isaac/tests/test_location_comparison_media.py
 node --test sircus/isaac/tests/test_location_comparison_panel.mjs
 python3 scripts/check-repository.py
 ```
@@ -185,3 +197,7 @@ The full repository suite passed with 1,692 Isaac cases (1,571 passed and 121
 optional dependency skips), 71 Node cases and all other required stages.
 Independent review found no remaining presentation/server integration blocker.
 Native outcome publication, actual encoding and browser playback remain pending.
+
+The later media helper passed 16 additional mocked encoder/probe cases and an
+independent source review. Together, the 41 publisher/server/media cases passed.
+These checks invoke no real encoder and do not establish native playback.
