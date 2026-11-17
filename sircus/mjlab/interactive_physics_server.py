@@ -198,7 +198,8 @@ def main():
     parser.add_argument("--study-report", type=Path, help="Display a historical study alongside the planner")
     parser.add_argument("--scene-json", type=Path)
     parser.add_argument("--solver", help="Optional existing simulation solver for the historical modes")
-    parser.add_argument("--gpu-wait-s", type=int, default=15, choices=range(0, 121), metavar="0–120")
+    parser.add_argument("--gpu-wait-s", type=int, default=15, metavar="SECONDS",
+                        help="Seconds to wait for the shared 4090, from 0 to 3600")
     parser.add_argument("--port", type=int, default=18781)
     args = parser.parse_args()
     planner = PhysicsPlanner(args, args.evidence_dir)

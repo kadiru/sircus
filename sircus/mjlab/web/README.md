@@ -25,6 +25,14 @@ Run fresh-placement verification against the loopback service with
 `python -m sircus.mjlab.interactive_physics_check --help`. It freezes ten
 coordinates before planning and checks identical planned and executed poses,
 trace provenance and rejection of duplicate drop requests.
+On a shared host, run the acceptance check against a separate loopback
+instance with a longer `--gpu-wait-s` and a checker `--timeout-s` that
+includes both the wait and the simulation.
+
+The live browser test dragged the bucket to (476.65, −568.66) mm, previewed
+both arms and replayed a direct 64-substep capture with one second of
+retention. CPU preview checks found a feasible setup at each of the ten
+fresh placements from the acceptance set.
 
 ## Historical planners and study viewer
 

@@ -266,8 +266,8 @@ class PhysicsPlanner:
         self.ui_scene = _ui_scene(self.scene, self.planning_bucket_bounds)
         self._gpu_lock = args.gpu_lock
         self._gpu_wait_s = getattr(args, "gpu_wait_s", 15)
-        if type(self._gpu_wait_s) is not int or not 0 <= self._gpu_wait_s <= 120:
-            raise ValueError("Interactive GPU wait must be between 0 and 120 seconds")
+        if type(self._gpu_wait_s) is not int or not 0 <= self._gpu_wait_s <= 3600:
+            raise ValueError("Interactive GPU wait must be between 0 and 3600 seconds")
         self._directory = Path(evidence_dir).resolve()
         self._preparation = self._directory / "preparation"
         self._engine = HeadingEngine(directory=self._preparation, **self._native)

@@ -247,7 +247,7 @@ def summarize(rows):
                 drop_wall_time=_latency([row["drop_s"] for row in rows if "drop_s" in row]))
 
 
-def check_position(client, row, seen, expected_provenance, save, timeout, interval, wait_for_gpu=None):
+def check_position(client, row, seen, expected_provenance, save, timeout, interval):
     """Plan once and send at most one drop request. A miss is final."""
     xy = row["bucket_xy_m"]
     started = time.monotonic()
@@ -269,19 +269,10 @@ def check_position(client, row, seen, expected_provenance, save, timeout, interv
     verify_preview(preview, xy)
     _require(all(preview["provenance"].get(key) == value for key, value in expected_provenance.items()),
              "The preview does not match the intended simulation-only native64 study")
-    path = f"/{quote(identity, safe='')}"
-    row["preview"] = preview
-    if wait_for_gpu is not None:
-        row["state"] = "waiting_for_4090"
-        save()
-        row["gpu_wait_s"] = wait_for_gpu()
-        ready = client.request(path)
-        _require(ready["state"] == "ready" and ready["preview"] == preview,
-                 "The planned shot changed before the 4090 became available")
-    row.update(state="drop_requested", drop_sent=True)
+    row.update(preview=preview, state="drop_requested", drop_sent=True)
     save()
     started = time.monotonic()
-    client.request(path + "/drop", body={}, expected=202)
+    client.request(f"/{quote(identity, safe='')}/drop", body={}, expected=202)
     terminal = _poll(client, identity, xy, RELEASING, {"completed"} | UNAVAILABLE, timeout, interval)
     row.update(state=terminal["state"], drop_s=time.monotonic() - started, message=terminal.get("message"))
     if terminal["state"] == "completed":
@@ -320,20 +311,12 @@ def run(args):
         report["summary"] = summarize(report["results"])
         _save(output / "report.json", report)
 
-    def wait_for_gpu():
-        from .gpu_slot import gpu_slot
-
-        started = time.monotonic()
-        with gpu_slot(args.gpu_lock, timeout_s=args.gpu_wait_s, poll_s=5):
-            return time.monotonic() - started
-
     seen = set()
     try:
         for placement in placements:
             row = dict(placement, state="pending")
             report["results"].append(row)
-            check_position(client, row, seen, expected_provenance, save, args.timeout_s, args.poll_s,
-                           wait_for_gpu if args.gpu_lock else None)
+            check_position(client, row, seen, expected_provenance, save, args.timeout_s, args.poll_s)
             if row["state"] == "completed" and not report["duplicate_drop_rejected"]:
                 verify_duplicate(client, row)
                 report["duplicate_drop_rejected"] = True
@@ -362,10 +345,8 @@ def main():
     parser.add_argument("--seed", type=int, default=SEED)
     parser.add_argument("--timeout-s", type=float, default=600.)
     parser.add_argument("--poll-s", type=float, default=.75)
-    parser.add_argument("--gpu-lock", type=Path, help="Wait for the 4090 before sending each drop request")
-    parser.add_argument("--gpu-wait-s", type=float, default=3600.)
     args = parser.parse_args()
-    if args.seed < 0 or not all(_finite(value) and value > 0 for value in (args.timeout_s, args.poll_s, args.gpu_wait_s)):
+    if args.seed < 0 or not all(_finite(value) and value > 0 for value in (args.timeout_s, args.poll_s)):
         parser.error("Require a nonnegative seed and positive finite timeouts")
     if args.output.exists() or args.output.resolve().is_relative_to(args.study.resolve()):
         parser.error("Choose a new output directory outside the historical study")
