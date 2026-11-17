@@ -59,11 +59,14 @@
   "failed_source_commit": "89b0afd3399b5eb7e5fa335c4d7a16ffbd0994ab",
   "limitations": [
     "No new capture, clean-capture, rejection-rate or generalization result.",
-    "Fresh one-start approval received and unused; latest recording repair still requires new actual-input CPU preflight and fresh ownership/resource checks.",
+    "Fresh one-start approval received and unused; revised source is CPU verified, with fresh idle-GPU, lock, storage and input checks still required.",
     "One-start/no-retry guard consumed; no automatic retry performed.",
     "The 4090 was subsequently occupied by an unrelated job; it was left untouched."
   ],
   "next_attempt": {
+    "current_manifest_fingerprint": "34df491e3798082da887f876485cde72d5d53d9fa0edb6b2177adfb6f2b31fb9",
+    "current_manifest_sha256": "9c43569393c3059c68f4b816e6deb4d6310fe6235ac7809e519247e8b506c01c",
+    "current_source_commit": "90ae3ff6a35c11ca5a51b5797f64ed0244455460",
     "fresh_gpu_lock_storage_and_hash_checks_required": true,
     "native_attempts": 0,
     "new_test_model_count": 2,
@@ -72,7 +75,7 @@
     "prepared_but_unstarted": true,
     "requires_separate_one_start_approval": false,
     "shared_phase_wall_hours": 1,
-    "source_repair_preflight_required": true,
+    "source_repair_preflight_required": false,
     "test_broad_positions_per_model": 70,
     "test_nearby_positions_per_model": 25,
     "total_logical_requests": 18520,
@@ -100,7 +103,7 @@
     "watchdog_wall_seconds": 599.6177120170323
   },
   "prelaunch_recording_repair": {
-    "actual_input_preflight_of_new_source": "pending",
+    "actual_input_preflight_of_new_source": "passed",
     "added_fields": [
       "split",
       "qualification",
@@ -115,7 +118,7 @@
     "independent_review_focused_tests_passed": 30,
     "native_attempts": 0,
     "policy_physics_rewards_guards_budgets_unchanged": true,
-    "private_launch_hold_active": true,
+    "private_launch_hold_active": false,
     "production_file_sha256": "7be21efc8bb5ea5e616eea6a7f309b2a9d6ef7aff21ba0d971ec0ba524635eaf",
     "regression_scope": "Original row constructors on fabricated arrays, followed by unchanged independent scoring, rejection and padding readers; no live simulation."
   },
@@ -140,6 +143,75 @@
     "graceful-close-command.json": "88694450478a05f23f576615975da776b06c119916de13024e806bc90571acae",
     "launch-intent.json": "0869577036399be1e0f775b94758351ab7bdccb7bd25711ced52f4490210324d"
   },
+  "recording_repair_cpu_preflight": {
+    "changed_production_python_files": [
+      "location_comparison_native.py"
+    ],
+    "cpu_system_seconds": 0.231847,
+    "cpu_user_seconds": 1.765838,
+    "cuda_initialized": false,
+    "gpu_devices": 0,
+    "input_files_verified_unchanged": 101,
+    "manifest_fingerprint": "34df491e3798082da887f876485cde72d5d53d9fa0edb6b2177adfb6f2b31fb9",
+    "manifest_sha256": "9c43569393c3059c68f4b816e6deb4d6310fe6235ac7809e519247e8b506c01c",
+    "measurement_scope": "CPU preflight process only; not training or simulator cost",
+    "optimizer_step_blocked": true,
+    "peak_rss_bytes": 702185472,
+    "postcheck": {
+      "checked_at": "2026-11-17T20:52:26.201052+00:00",
+      "free_storage_gib": 13.31707763671875,
+      "input_files": 101,
+      "prospective_outputs_absent": true,
+      "source_and_inputs_unchanged": true,
+      "source_commit": "90ae3ff6a35c11ca5a51b5797f64ed0244455460",
+      "source_files": 217,
+      "status": "passed"
+    },
+    "private_receipt_sha256": {
+      "cpu-attempt-1/cpu-container-cleanup.json": "fa0c34f346c36dd6cdbba1f00ed5f7b608f31a7611641db00fcbbc70f87e6efc",
+      "cpu-attempt-1/cpu-container-controls.json": "233fbf18d9f345a90b4af322e8cfa811af17d607af6233c5f79ddd38d08ee439",
+      "cpu-attempt-1/cpu-container.stderr.log": "3fd9c42d72eb6fc7accf0361bc5bf1cfb33971a2057ea7809484b211e03035c4",
+      "cpu-attempt-1/cpu-container.stdout.log": "c4476d545f217e2bf0978f13d00232b7722e51bb753ab9bbbb3a4a79a28535b4",
+      "cpu-attempt-1/cpu-host-exit.json": "97ca1a2900faf9b3d4436900e987d2471d586152d0963385cf5a6cd337df363b",
+      "cpu-attempt-1/cpu-host-start.json": "491d5d1454707dc61e3bbb3ddfce213db401a36e406cf22e9a1b0ea2d52e6444",
+      "host-input-after.json": "2333d960984eafa25f28e8232ffe881480cd0211aa14d58eb75914592f0405ca",
+      "host-input-before.json": "080613a7558ef1d1f14ae5b081aa6dccc315368c564b45edde3d64cc39b3d27c"
+    },
+    "producer_environment_mock_tests_passed": 60,
+    "prohibited_simulator_modules_loaded": 0,
+    "prospective_outputs_absent": true,
+    "result": {
+      "inherited_attempts": 10000,
+      "inherited_updates": 73,
+      "max_train_prediction_error": 1.7881393432617188e-07,
+      "optimizer_updates": 0,
+      "parent_sha256": "57d7658e9ed2f72ad09cf4e8523ab497ccbe0708364f1b8ec4a4c5c1aef1fe9f",
+      "simulator_starts": 0,
+      "status": "passed"
+    },
+    "runtime": {
+      "numpy": "1.26.0",
+      "python": "3.11.13",
+      "scipy": "1.15.3",
+      "torch": "2.7.0+cu128"
+    },
+    "saved_train_predictions_checked": 35,
+    "schema": "sircus-location-comparison-real-cpu-preflight-v1",
+    "source_archive_sha256": "01ab3a75f422374d9e9ed42f9a7ff52ff660a09db5d178b1c9db47dce4c8637a",
+    "source_commit": "90ae3ff6a35c11ca5a51b5797f64ed0244455460",
+    "source_files_verified_unchanged": 217,
+    "status": "passed",
+    "synthetic": false,
+    "wall_seconds": 1.9791856170631945
+  },
+  "recording_repair_repository_checks": {
+    "isaac_cases": 1667,
+    "isaac_optional_skips": 121,
+    "isaac_passed": 1546,
+    "log_sha256": "7004f0b028c71b23217ce1e56d25f6c0e8eeae7e521b36e3b72ad8122629011f",
+    "node_passed": 59,
+    "required_stages_passed": true
+  },
   "repair": {
     "first_failure_saved_before_cleanup": true,
     "guard_inside_recorder_before_original_tick": true,
@@ -148,7 +220,7 @@
     "strict_inherited_method_check_retained": true
   },
   "schema": "sircus-location-comparison-startup-repair-summary-v1",
-  "status": "fresh_attempt_approved_unstarted_recording_fix_mock_tested",
+  "status": "approved_fresh_attempt_cpu_verified_waiting_for_gpu",
   "validation": {
     "comparison_tests_passed": 147,
     "corrected_native_attempts": 0,

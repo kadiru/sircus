@@ -112,7 +112,19 @@ rejections, unpaid padding and a full all-rejected TRAIN batch. Padding retains
 `None` feedback features and `-1` rewards, as required by this comparison's reader.
 Independent review found no blocker; its 30 focused cases passed.
 
-An explicit private launch hold remains until the new source archive and manifest
-pass actual-input CPU preflight and the fresh ownership/resource checks. The
-prior `706c3ef` preflight above does not certify this later source change. No
-second native application, new model update or task shot has occurred.
+The later source `90ae3ff` passed a new actual-input CPU preflight: all 35 saved
+parent predictions still match (maximum error 1.78814e-7), all 101 input and 217
+source hashes match, and prospective native/audit outputs remain absent. Only
+`location_comparison_native.py` changed among the 217 production Python files.
+All 60 producer-environment recorder/production/native mock tests passed. The
+model preflight measured 1.979 s wall / 1.998 CPU-seconds / 669.7 MiB peak RSS;
+these are CPU-check costs only. Postcheck free storage was 13.317 GiB.
+
+Full repository checks passed again: 1,667 Isaac cases (1,546 passed, 121 optional
+dependency skips), 59 Node cases and the remaining required stages. Exact new
+archive, manifest and receipt hashes are retained in `summary.json`. The prior
+`706c3ef` preflight remains historical; the approved attempt now binds `90ae3ff`.
+The preparation hold can be released, with the same unused one-start approval;
+the launcher still requires a fresh idle-4090, source/input, scene-lock and
+storage check. No second native application, model update or task shot has
+occurred at this checkpoint.

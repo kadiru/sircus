@@ -1,10 +1,10 @@
 # Project state
 
-## Approved comparison held for recording compatibility repair — November 17, 2026
+## Approved comparison recording repair verified; GPU wait — November 17, 2026
 
 - The user approved one fresh corrected attempt when the 4090 is free. No new native start or task request has occurred; another project occupied the GPU during preparation.
 - Additional first-batch review found the bridge omitted the five raw-row metadata fields added by the original benchmark producer and consumed by the unchanged auditor. The bridge now attaches the original split, qualification, path rejection/proxy and scoring normal after the shot returns. Existing row content, policy, geometry, physics, rewards and budgets stay unchanged.
-- All 149 comparison tests passed; new regressions use the original row constructors over fabricated arrays and the unchanged independent scoring/rejection/padding readers. Independent review passed 30 focused cases. A private launch hold preserves the unused approval until the repaired source has a new archive/manifest, actual-input CPU preflight and current GPU/lock/storage checks. The earlier `706c3ef` CPU pass does not cover this later change. [Evidence and limits](../baselines/isaac-seed22-comparison-startup-20261117/README.md).
+- All 149 comparison tests passed; new regressions use the original row constructors over fabricated arrays and the unchanged independent scoring/rejection/padding readers. Independent review passed 30 focused cases. Source `90ae3ff` then passed its new actual-input CPU check and 60 producer-environment mocks; all 35 saved parent predictions and 101 input / 217 source hashes matched. CPU-check cost was 1.979 s wall / 1.998 CPU-seconds / 669.7 MiB peak RSS; 13.317 GiB storage remained free. Full checks passed: 1,667 Isaac cases (121 optional skips), 59 Node cases and remaining required stages. The original `706c3ef` evidence remains historical. The preparation hold can be released, while fresh GPU/lock/storage checks still gate the unused approved start. [Evidence and limits](../baselines/isaac-seed22-comparison-startup-20261117/README.md).
 
 ## Location comparison startup closed; recorder composition repaired — November 17, 2026
 

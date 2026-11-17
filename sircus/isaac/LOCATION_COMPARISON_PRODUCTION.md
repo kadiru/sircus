@@ -2,9 +2,10 @@
 
 Latest status: one fresh corrected attempt is approved but still unstarted. A
 further review caught missing original raw-row audit metadata while waiting for
-the GPU. The recording repair passed 149 comparison tests and independent review;
-its new source/input CPU preflight and fresh resource checks remain pending.
-The private launch hold stays active until those checks pass.
+the GPU. Source `90ae3ff` restores those fields and passed 149 comparison tests,
+independent review, new actual-input CPU preflight, 60 producer-environment mocks
+and full repository checks. Fresh GPU/lock/storage checks still gate the unused
+approved start; the preparation hold can now be released.
 
 Earlier, the [authorized native start closed before any task requests](../../baselines/isaac-seed22-comparison-startup-20261117/README.md).
 The startup guard/recorder composition is repaired in `706c3ef`, with actual-input
