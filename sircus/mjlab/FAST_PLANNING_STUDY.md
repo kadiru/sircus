@@ -84,3 +84,15 @@ planner default or restart its service. Native work is limited to one leased
 4090 GPU-hour and waits at most 12 hours for that lease. The 4070 and Isaac
 setup remain untouched. Raw observations, generated checkpoints, runtime
 settings and logs stay outside Git.
+
+## Storage interruption and complete retry
+
+The first CPU preparation stopped after 132 of 150 saved plans because the
+shared data disk fell below the existing 8 GiB reserve. It released no balls.
+Its evidence is preserved unchanged. A fresh full comparison uses the system
+disk, with the same frozen source, model inputs, seeds, methods and deadline.
+Replanning all 150 requests preserves each method's uninterrupted worker
+lifecycle; partial measurements from the interrupted run are not pooled into
+the final comparison. The retry receipt records the original report and layout
+hashes. No other workload or evidence was removed, and the storage reserve
+was not lowered.
