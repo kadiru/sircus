@@ -1,6 +1,6 @@
 # Location comparison: closed startup attempt and guarded-recorder repair
 
-The authorized comparison started one simulator application, then closed before
+The authorized comparison used its single simulator-start attempt, then closed before
 any TRAIN or assessment request. **No new training, evaluation or capture-rate
 result exists.** The original benchmark, model, prepared positions and budgets
 remain unchanged. The failed source was `89b0afd`; exact input and receipt
@@ -14,7 +14,7 @@ The original simulator container stayed stopped; historical experiments and
 source were mounted read-only. New outputs used a separate persistent parent,
 with the exact container-to-host mapping retained in private launch receipts.
 
-Startup created an empty diagnostic directory. The signed progress and watchdog
+Startup created an empty diagnostic directory. The hash-bound progress and watchdog
 receipts show **zero TRAIN requests, zero assessment requests and no pending paid
 reservation**. No learning loop or startup diagnostic record was reached. The
 application's close did not return normally. An identity-checked pidfd sent one
@@ -62,7 +62,33 @@ tick. Regression tests retain rejection of pre-existing method overrides,
 guard denial before motion, exception cleanup and failure-receipt ordering.
 These tests start no simulator and do not measure native performance.
 
-The fixed source still needs its new actual-input CPU preflight. A fresh native
+## Corrected source verified on CPU
+
+Fixed source `706c3ef` passed its actual-input CPU preflight in the unchanged
+producer image: Python 3.11.13, Torch 2.7.0+cu128, NumPy 1.26.0 and SciPy 1.15.3.
+The original seed-22 model and Adam state restored; all 35 saved TRAIN predictions
+matched, with maximum normalized error 1.78814e-7 against tolerance 5e-6.
+The CPU check took 2.603 s wall / 2.479 CPU-seconds and 669.3 MiB peak RSS.
+These are preflight-process costs, not simulation or training costs.
+
+The same isolated producer container then passed 44 recorder/production mock
+tests. It had no GPU or network access, read-only experiment mounts and zero
+simulator imports or actual learning steps in the model preflight. Afterward,
+all 101 input files and 217 source files still matched; prospective native/audit
+outputs were absent, and 15.030 GiB storage remained free. The original stopped
+simulator container was unchanged. Exact manifest/archive/receipt hashes are in
+[`summary.json`](summary.json); the prepared comparison fingerprint is unchanged.
+
+Full repository checks also passed: 1,665 Isaac cases (1,544 passed, 121 optional
+dependency skips), 59 Node cases and all remaining required stages. The focused
+164 tests above and the 44 producer-environment tests passed without skips. These
+checks verify software and input compatibility, not successful native startup.
+
+Corrected V2 launch files are staged separately but unstarted. A fresh native
 attempt requires separate approval: the [bounded launcher](../../sircus/isaac/LOCATION_COMPARISON_PRODUCTION.md)
-allows one child start and no automatic retry. No second simulator attempt has
-been started.
+allows one child start and no automatic retry. It retains 8,960 TRAIN requests
+and an eight-hour cap per copy, the shared one-hour phase cap, and the same fresh
+70 broad + 25 nearby TEST positions for parent and both final models. Before
+launch it must recheck source/input hashes, 4090 ownership, the scene lock and
+the 6 GiB storage floor. No second simulator attempt has been started; the
+unrelated 4090 workload stays untouched.

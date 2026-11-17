@@ -1,11 +1,13 @@
 # Location comparison: process ownership and independent audit
 
 Latest status: the [authorized native start closed before any task requests](../../baselines/isaac-seed22-comparison-startup-20261117/README.md).
-The startup guard/recorder composition is repaired and mock-tested. The failed
-attempt is preserved; corrected-source CPU preflight and a separately authorized
-fresh start are required. No comparison performance result exists yet.
+The startup guard/recorder composition is repaired in `706c3ef`, with actual-input
+CPU preflight, 164 focused tests, 44 producer-environment mocks and full repository
+checks passed. The failed attempt is preserved; a separately authorized fresh
+start and fresh GPU/resource checks remain required. No comparison performance
+result exists yet.
 
-Subsequent status: the [actual-input CPU preflight](../../baselines/isaac-seed22-comparison-preflight-20261117/README.md)
+Earlier status: the [actual-input CPU preflight](../../baselines/isaac-seed22-comparison-preflight-20261117/README.md)
 passed on November 17 using source `89b0afd`. It restored the original model and
 optimizer state and matched all 35 saved TRAIN predictions. No simulator,
 training or new shots ran; native execution is still a separate decision.
