@@ -1,12 +1,13 @@
 # Project state
 
-## Planning-speed comparison started — November 17, 2026
+## Planning-speed CPU comparison complete; drops queued — November 17, 2026
 
 - [Frozen protocol](../sircus/mjlab/FAST_PLANNING_STUDY.md): 50 fresh positions, three versions of the same learned selector: fresh worker, reused worker, and reused worker returning the first fully checked shot with at least 5 mm of predicted arm/rim margin. All retain the 30-second decision limit and existing arm checks.
 - All 150 choices freeze before any native test. Native tests use 64 substeps and one drop at most per method/position, bracketed by 18 matched controls. No training or live default promotion occurs.
 - Validation: 69 Python tests passed in Ubuntu's pinned CPU environment, 49 interface tests passed, and a two-position real-model smoke test confirmed exact original/fresh/reused command equivalence and worker reuse without native drops.
-- The first CPU attempt stopped at 132/150 saved plans when the shared data disk crossed its 8 GiB reserve; no native drops ran. All evidence is preserved. A full retry uses the system disk with unchanged methods and source, so interrupted worker lifetimes are not mixed into final timing results.
-- CPU profiling is running independently of GPU work. Native tests wait for the shared 4090 lease; the active 4070 and Isaac workloads are left alone. Results/progress appear at `#fastPlanningStudy`; final captures require a passed independent audit.
+- The first CPU attempt stopped during CPU preparation (132 plans reported; 133 files saved) when the shared data disk crossed its 8 GiB reserve; no native drops ran. All evidence is preserved. A full retry uses the system disk with unchanged methods and source, so interrupted worker lifetimes are not mixed into final timing results.
+- [CPU timing results](../sircus/mjlab/FAST_PLANNING_RESULTS.md): all 150 plans are frozen. Fresh/reused/early-return methods produced 39/39/40 checked shots; mean planning requests were 26.47/25.86/22.87 seconds. Arm pose/path checks consume about 99% of decision time. These are planning results, not capture outcomes.
+- All 118 selected native drops and 18 controls wait for the shared 4090 lease; the active 4070 and Isaac workloads are left alone. Results/progress appear at `#fastPlanningStudy`; final captures require a passed independent audit.
 
 ## Planning-budget comparison completed — November 17, 2026
 
