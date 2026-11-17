@@ -46,6 +46,17 @@
     "status": "passed",
     "wall_seconds": 2.6031895169289783
   },
+  "cpu_wrapper_ownership_reproduction": {
+    "all_exit_zero": true,
+    "exit_between_poll_and_identity_runs": 10,
+    "live_transient_empty_cookie_runs": 24,
+    "model_updates": 0,
+    "results_sha256": "b0b4c1893a430dc7a86e6ea2caccccc466c167e83919109a6d29e0a93932d2d7",
+    "runs": 30,
+    "scope": "Inert Python sleep children through the original wrapper, CPU-only producer container; no simulator or model imports.",
+    "simulator_starts": 0,
+    "task_requests": 0
+  },
   "diagnosis": {
     "cause": "Service installed instance tick override before recorder required genuine inherited methods.",
     "evidence_type": "source inspection plus CPU mock reproduction; no preserved native traceback",
@@ -59,21 +70,23 @@
   "failed_source_commit": "89b0afd3399b5eb7e5fa335c4d7a16ffbd0994ab",
   "limitations": [
     "No new capture, clean-capture, rejection-rate or generalization result.",
-    "Fresh one-start approval received and unused; revised source is CPU verified, with fresh idle-GPU, lock, storage and input checks still required.",
-    "One-start/no-retry guard consumed; no automatic retry performed.",
-    "The 4090 was subsequently occupied by an unrelated job; it was left untouched."
+    "Both native starts are closed and preserved; each used zero TRAIN/assessment requests.",
+    "The latest one-start approval was consumed. No automatic retry is authorized.",
+    "CPU wrapper reproduction demonstrates a transient identity-read race; the failed native receipt did not preserve its mismatching sample, so that instance is not independently proven."
   ],
   "next_attempt": {
-    "current_manifest_fingerprint": "34df491e3798082da887f876485cde72d5d53d9fa0edb6b2177adfb6f2b31fb9",
-    "current_manifest_sha256": "9c43569393c3059c68f4b816e6deb4d6310fe6235ac7809e519247e8b506c01c",
-    "current_source_commit": "90ae3ff6a35c11ca5a51b5797f64ed0244455460",
+    "current_manifest_fingerprint": "bd551805def36cd5e694ed06bc8bcf9795e12053a4460cf710f645f7647e021f",
+    "current_manifest_sha256": "7de349d890ca032d2f8802b987350de55ca5314a52fbcfab6fdfc7d6c8109a5b",
+    "current_source_commit": "300ab5c6d161b51577d37d2a70f7499fc3f782e9",
     "fresh_gpu_lock_storage_and_hash_checks_required": true,
     "native_attempts": 0,
     "new_test_model_count": 2,
-    "one_start_approval_received": true,
+    "one_start_approval_received": false,
     "parent_test_model_count": 1,
     "prepared_but_unstarted": true,
-    "requires_separate_one_start_approval": false,
+    "prior_approved_attempt_status": "closed_no_retry",
+    "private_launch_hold_active": true,
+    "requires_separate_one_start_approval": true,
     "shared_phase_wall_hours": 1,
     "source_repair_preflight_required": false,
     "test_broad_positions_per_model": 70,
@@ -102,6 +115,161 @@
     "watchdog_status": "stopped_no_retry",
     "watchdog_wall_seconds": 599.6177120170323
   },
+  "ownership_read_repair": {
+    "bounded_reread_attempts": 21,
+    "bounded_reread_seconds": 0.1,
+    "changed_production_python_files": [
+      "location_comparison_watchdog.py"
+    ],
+    "comparison_tests_passed": 174,
+    "confirmed_exit_rechecks_final_progress": true,
+    "empty_unreadable_identity_never_accepted": true,
+    "independent_review_blockers": 0,
+    "original_identity_and_pidfd_signal_helpers_unchanged": true,
+    "original_watchdog_tests_passed": 39,
+    "phase_deadline_storage_and_integrity_checked_during_rereads": true,
+    "source_archive_sha256": "25737c33b8e836757faa0db6bd6e8bd50714cb125cb7b707e5a2e93539f17439",
+    "source_commit": "300ab5c6d161b51577d37d2a70f7499fc3f782e9",
+    "strict_pid_start_cookie_parent_session_checks": true,
+    "watchdog_tests_passed": 56
+  },
+  "ownership_repair_cpu_preflight": {
+    "actual_inert_wrapper_checks": [
+      {
+        "absent_reads": 0,
+        "all_child_exits_zero": true,
+        "child_count": 30,
+        "empty_cookie_reads": 19,
+        "gpu_devices": 0,
+        "model_updates": 0,
+        "schema": "sircus-comparison-fixed-owned-wrapper-cpu-probe-v1",
+        "scope": "Original wrapper and repaired ownership observer with inert sleep children only",
+        "simulator_starts": 0,
+        "source_commit": "300ab5c6d161b51577d37d2a70f7499fc3f782e9",
+        "status": "passed",
+        "task_requests": 0,
+        "unreadable_reads": 14,
+        "wall_s": 8.55974099796731
+      },
+      {
+        "absent_reads": 19,
+        "all_child_exits_zero": true,
+        "child_count": 30,
+        "empty_cookie_reads": 18,
+        "gpu_devices": 0,
+        "model_updates": 0,
+        "schema": "sircus-comparison-fixed-owned-wrapper-cpu-probe-v1",
+        "scope": "Original wrapper and repaired ownership observer with inert sleep children only",
+        "simulator_starts": 0,
+        "source_commit": "300ab5c6d161b51577d37d2a70f7499fc3f782e9",
+        "status": "passed",
+        "task_requests": 0,
+        "unreadable_reads": 0,
+        "wall_s": 8.629329317016527
+      }
+    ],
+    "inputs_verified_unchanged": 101,
+    "model_preflight": {
+      "cpu_system_seconds": 0.229009,
+      "cpu_user_seconds": 1.7880699999999998,
+      "cuda_initialized": false,
+      "gpu_devices": 0,
+      "manifest_sha256": "7de349d890ca032d2f8802b987350de55ca5314a52fbcfab6fdfc7d6c8109a5b",
+      "measurement_scope": "CPU preflight process only; not training or simulator cost",
+      "optimizer_step_blocked": true,
+      "peak_rss_bytes": 702742528,
+      "prohibited_simulator_modules_loaded": 0,
+      "prospective_outputs_absent": true,
+      "result": {
+        "inherited_attempts": 10000,
+        "inherited_updates": 73,
+        "max_train_prediction_error": 1.7881393432617188e-07,
+        "optimizer_updates": 0,
+        "parent_sha256": "57d7658e9ed2f72ad09cf4e8523ab497ccbe0708364f1b8ec4a4c5c1aef1fe9f",
+        "simulator_starts": 0,
+        "status": "passed"
+      },
+      "runtime": {
+        "numpy": "1.26.0",
+        "python": "3.11.13",
+        "scipy": "1.15.3",
+        "torch": "2.7.0+cu128"
+      },
+      "schema": "sircus-location-comparison-real-cpu-preflight-v1",
+      "source_commit": "300ab5c6d161b51577d37d2a70f7499fc3f782e9",
+      "status": "passed",
+      "synthetic": false,
+      "wall_seconds": 1.9945446399506181
+    },
+    "postcheck": {
+      "checked_at": "2026-11-17T21:46:10.992053+00:00",
+      "free_gib": 12.01571273803711,
+      "input_files": 101,
+      "prospective_outputs_absent": true,
+      "root_empty_cookie_reads": 18,
+      "root_inert_children": 30,
+      "root_unreadable_reads": 0,
+      "source_and_inputs_unchanged": true,
+      "source_commit": "300ab5c6d161b51577d37d2a70f7499fc3f782e9",
+      "source_files": 217,
+      "status": "passed"
+    },
+    "prior_cpu_checks_preserved": [
+      {
+        "attempt": 1,
+        "reason": "Private probe checked 6GiB floor on 128MiB tmpfs; corrected to experiment filesystem. Model preflight and 60 mocks passed.",
+        "source_commit": "c1d6ec28ba2b6078c97be931ef79a9fdf12d5a35",
+        "status": "diagnostic_harness_failed"
+      },
+      {
+        "attempt": 2,
+        "reason": "Actual own-child environ read raised PermissionError; handled by final narrow bounded read logic. Model preflight and 60 mocks passed.",
+        "source_commit": "c1d6ec28ba2b6078c97be931ef79a9fdf12d5a35",
+        "status": "ownership_probe_failed"
+      }
+    ],
+    "private_receipt_sha256": {
+      "cpu-attempt-1/cpu-container-cleanup.json": "b3fd530856d061ea79e72a8d93752609823424b50f98a0e8caa7f5c7cf8ac4ee",
+      "cpu-attempt-1/cpu-container-controls.json": "5722ccddb38d60f524c44cb9f26c34ca044fc6606cf5ac528bf1275d281bddd2",
+      "cpu-attempt-1/cpu-container.stderr.log": "9370bf7d120de2588ae179b75239fc9e9f3b32f3d503064b404553b240a5bf9b",
+      "cpu-attempt-1/cpu-container.stdout.log": "22a1f3d369943df78bb54750ed0ed5c88cd37db4df0a9b8a526b9b31ee983766",
+      "cpu-attempt-1/cpu-host-exit.json": "141e87ab37e56f2a19405b3ecd6bc39b15b69944b3bc9474ca3298da873bc4d8",
+      "cpu-attempt-1/cpu-host-start.json": "d26e6d086faf37321bc28fbdbd100b2f45be7065f6102ff006cf8c0308ddb38c",
+      "cpu-root-wrapper/controls.json": "78cc4da27de29048fdf3227a23af6f3eb1396ad8c024e5b9d380b375e45d95c4",
+      "cpu-root-wrapper/exit.json": "4d09c09c0182ba85258f7218180e626ea2c3703e9d63860f4a4174249c410892",
+      "cpu-root-wrapper/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "cpu-root-wrapper/stdout.log": "b6df6e4344e42ef45bf53ea59d40961974ba2c3f9450d20e32a0f9a53dea87a0",
+      "host-input-after-root-check.json": "5ab57483185e6f9d481185ba96a3fd98b9caba3edc94cb8c5817e3b1b48e4316",
+      "host-input-after.json": "58ccd4b41adfa2cb4b4ea6ccf33702f35a3b4f70a1463e0874928a2dbdc49db3",
+      "host-input-before.json": "e7565d64c3b4424677980688c51cc2527acd255130b15e95bc977e714be1b548",
+      "manifest-v5.json": "7de349d890ca032d2f8802b987350de55ca5314a52fbcfab6fdfc7d6c8109a5b"
+    },
+    "producer_environment_mock_tests_passed": 116,
+    "sources_verified_unchanged": 217,
+    "total_inert_children_passed": 60
+  },
+  "ownership_repair_repository_checks": {
+    "affected_loopback_test_files_rechecked_cases": 4,
+    "affected_loopback_test_files_rechecked_passed": true,
+    "all_required_stages_completed": true,
+    "final_comparison_cases": 174,
+    "final_comparison_passed": true,
+    "final_followup_added_cases": 6,
+    "initial_repair_source": "c1d6ec28ba2b6078c97be931ef79a9fdf12d5a35",
+    "isaac_cases": 1686,
+    "log_sha256": {
+      "ownership-fix-loopback-recheck.log": "ed56c8422919a439456e740ba726f055d3703f6b3aa3ff72613062ea7f07cbf9",
+      "ownership-fix-node-recheck.log": "05ffb47e16f5a1f45863e85f9a6e6767ba384ed29d4c6ada29f6e6fb76ed627e",
+      "ownership-fix-numerical-recheck.log": "72e22c59c93f4ed0c636c7d8f59638b5b9710b2ab374b331664b616a2da42782",
+      "ownership-fix-repository-tests.log": "e35b284cd966ecc237669cb6d2aaf5d0d8cab9b46937c3c3feecadff277b0021"
+    },
+    "node_cases": 59,
+    "numerical_scripts": 9,
+    "optional_skips": 121,
+    "physical_mock_cases": 34,
+    "sandbox_loopback_errors": 2,
+    "simulation_mock_cases": 5
+  },
   "prelaunch_recording_repair": {
     "actual_input_preflight_of_new_source": "passed",
     "added_fields": [
@@ -115,6 +283,7 @@
     "comparison_tests_passed": 149,
     "existing_fresh_attempt_approval_unused": true,
     "existing_row_values_unchanged_in_regression": true,
+    "historical_scope": "Before the second native start on 2026-11-17; this approval was subsequently consumed. See next_attempt for current third-package status.",
     "independent_review_focused_tests_passed": 30,
     "native_attempts": 0,
     "policy_physics_rewards_guards_budgets_unchanged": true,
@@ -220,7 +389,34 @@
     "strict_inherited_method_check_retained": true
   },
   "schema": "sircus-location-comparison-startup-repair-summary-v1",
-  "status": "approved_fresh_attempt_cpu_verified_waiting_for_gpu",
+  "second_startup_failure": {
+    "assessment_requests": 0,
+    "child_start_receipt_present": false,
+    "cleanup": "Owned watchdog cleanup; termination stopped and shared lock released safely.",
+    "container_exit_code": 1,
+    "container_wall_seconds": 4.153862393926829,
+    "free_storage_gib_after": 12.29867935180664,
+    "input_files_verified_unchanged": 101,
+    "manifest_sha256": "9c43569393c3059c68f4b816e6deb4d6310fe6235ac7809e519247e8b506c01c",
+    "native_child_start_attempts": 1,
+    "optimizer_updates": 0,
+    "original_container_unchanged": true,
+    "private_receipt_sha256": {
+      "closed-inventory.json": "ee043a00dfce7cedad82ae3c4dceecff25c45a49117c8fcbb87c97f13c3c63e9",
+      "container-controls.json": "8500f61fb7f67ca810dfbc8eb1d06dbcace29d5a474085d595da9a0af4b733c6",
+      "container-exit.json": "463c6d5bb7232c6bdecbc950bf6f749c639c6f2b36be63a2436063e95ecc985a",
+      "native-output.tar": "590e928044b2bd26acaacc0a5d017522af0f7568da3d899755ee1cf8408622e2",
+      "post-failure-verification.json": "b40b72a2e7de9cb7114355aaf986480f0e3e23db685ce4723374e84e493ba950"
+    },
+    "simulator_initialization_evidence_present": false,
+    "source_commit": "90ae3ff6a35c11ca5a51b5797f64ed0244455460",
+    "source_files_verified_unchanged": 217,
+    "train_requests": 0,
+    "watchdog_reason": "Native child ownership changed",
+    "watchdog_status": "stopped_no_retry",
+    "watchdog_wall_seconds": 0.23305235197767615
+  },
+  "status": "ownership_repair_cpu_verified_fresh_start_requires_approval",
   "validation": {
     "comparison_tests_passed": 147,
     "corrected_native_attempts": 0,
@@ -230,6 +426,7 @@
     "full_repository_log_sha256": "bc0832a0fbfa634003902243ba93e257288d04b8696a8594ec645f43c0c6b8f9",
     "full_repository_node_passed": 59,
     "full_repository_required_stages_passed": true,
+    "historical_scope": "First recorder repair at source 706c3ef, before the corrected second native attempt. See ownership_read_repair and ownership_repair_repository_checks for final source validation.",
     "independent_code_review_blocking_findings": 0,
     "real_recorder_mock_initialized_trajectories": 245,
     "real_recorder_mock_ticks": 1488,
