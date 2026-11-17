@@ -1,5 +1,12 @@
 # Project state
 
+## Planning-budget comparison running — November 17, 2026
+
+- [Protocol and execution](../sircus/mjlab/PLANNING_BUDGET_STUDY.md): compare the frozen current planner and learned selector on **100 fresh bucket positions**, with the same **30-second decision limit**, at most one drop per planner per position, and 64 substeps. No retraining occurs.
+- Only fully checked choices received before the deadline can be used. Positions without a ready shot remain in the capture denominator. Worker startup and lifecycle time are reported separately from the decision limit; they exclude parent evidence verification and archive writes and are not total UI request latency.
+- Final results and independent audit are pending. The read-only `#planningBudgetStudy` panel shows preparation and native-drop progress without changing the live planner.
+- Native drops use the 4090 cooperatively. The 4070 and Isaac setup remain unchanged; no service restart or automatic planner promotion.
+
 ## Learned shot ordering completed — November 17, 2026
 
 - [Audited results](../sircus/mjlab/NEURAL_SHOT_RESULTS.md): the current planner captured **169/200 (84.5%)**, wider search **170/200 (85.0%)**, and the learned selector **173/200 (86.5%)** on the same 200 new bucket positions, one drop per planner at 64 substeps. All three admitted all 200 setups.

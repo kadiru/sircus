@@ -1,6 +1,8 @@
 # Sircus in mjlab
 
-Latest: [clearance-triggered wider search](../../baselines/mjlab-clearance-expansion-20261116/README.md) captured **42/50** fresh positions versus **40/50** for the current planner. It gained two captures and lost none; robot-contact shots fell from seven to six. All 100 drops, 18 controls and the 40,635-check audit completed. The UI shows results at `#clearanceExpansionStudy`; no model retraining or active-planner switch. [Protocol](CLEARANCE_EXPANSION.md).
+Running: [30-second planning-budget comparison](PLANNING_BUDGET_STUDY.md) on **100 fresh bucket positions**. The frozen current planner and learned selector each receive the same decision limit and at most one drop per position at 64 substeps. Startup and worker lifecycle time are reported separately; these do not measure total UI request latency. Final results and the independent audit are pending; progress appears in `#planningBudgetStudy`. No retraining, live-planner switch, service restart, 4070 or Isaac change.
+
+Earlier: [clearance-triggered wider search](../../baselines/mjlab-clearance-expansion-20261116/README.md) captured **42/50** fresh positions versus **40/50** for the current planner. It gained two captures and lost none; robot-contact shots fell from seven to six. All 100 drops, 18 controls and the 40,635-check audit completed. The UI shows results at `#clearanceExpansionStudy`; no model retraining or active-planner switch. [Protocol](CLEARANCE_EXPANSION.md).
 
 [Remaining-six protocol and learning workflow](FIXED35_SIX.md): bounded alternative-pose search, compiled-collider audit, preserved recipes and independent native64 verification. No UI publication or training in this follow-up.
 

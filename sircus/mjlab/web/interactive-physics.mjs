@@ -117,6 +117,52 @@ export function neuralShotSummary(study) {
     error: typeof section.error === 'string' ? section.error : '',
     gpu_seconds: seconds(section.gpu_lease_s), gpu_budget_seconds: seconds(section.gpu_cap_s) };
 }
+/** Planning deadlines are separate from native flight outcomes; audited totals only. */
+export function planningBudgetSummary(study) {
+  const section = study?.planning_budget_study;
+  if (!section || typeof section !== 'object' || Array.isArray(section)) return null;
+  const count = value => Number.isInteger(value) && value >= 0 ? value : null;
+  const seconds = value => Number.isFinite(value) && value >= 0 ? value : null;
+  const total = count(section.budgets?.positions), budget = seconds(section.budgets?.planning_s);
+  const progress = section.progress || {};
+  const prepared = count(progress.prepared), planned = count(progress.planned);
+  const releases = count(progress.completed_releases), plannedReleases = count(progress.planned_releases);
+  const labels = { current_planner: 'Current planner', neural_selector: 'Learned selector' };
+  const methods = Object.entries(labels).map(([id, label]) => {
+    const raw = section.comparison?.methods?.[id] || {};
+    const values = Object.fromEntries(['attempts', 'releases', 'captures', 'deadline_reached', 'no_candidate', 'robot_contacts'].map(key => [key, count(raw[key])]));
+    const timing = section.comparison?.latency?.[id] || {};
+    const median = seconds(timing.median_s), p90 = seconds(timing.p90_s), maximum = seconds(timing.max_s);
+    const lifecycle = section.comparison?.timing?.[id] || {};
+    const matchingRate = (value, numerator) => Number.isFinite(value) && total > 0 && numerator !== null
+      && Math.abs(value - numerator / total) < 1e-9;
+    return { id, label, ...values, median_s: median,
+      startup_median_s: seconds(lifecycle.startup?.median_s),
+      end_to_end_median_s: seconds(lifecycle.end_to_end?.median_s),
+      p90_s: p90 !== null && (median === null || p90 >= median) ? p90 : null,
+      max_s: maximum !== null && (p90 === null || maximum >= p90) && (median === null || maximum >= median) ? maximum : null,
+      valid: total > 0 && Object.values(values).every(value => value !== null)
+        && values.attempts === total && values.captures <= values.releases && values.releases <= total
+        && values.releases + values.no_candidate === total && values.deadline_reached <= total
+        && values.robot_contacts <= values.releases
+        && matchingRate(raw.capture_rate, values.captures) && matchingRate(raw.setup_rate, values.releases) };
+  });
+  const rawPair = section.comparison?.paired || {};
+  const paired = Object.fromEntries(['gained', 'lost', 'both', 'neither'].map(key => [key, count(rawPair[key])]));
+  const pairValid = total > 0 && Object.values(paired).every(value => value !== null)
+    && paired.gained + paired.lost + paired.both + paired.neither === total
+    && paired.both + paired.lost === methods[0].captures && paired.both + paired.gained === methods[1].captures;
+  const status = typeof section.status === 'string' ? section.status : 'unknown';
+  const audit = typeof section.audit_status === 'string' ? section.audit_status : null;
+  return { status, phase: typeof section.phase === 'string' ? section.phase : '', audit, total, budget,
+    prepared: prepared !== null && (planned === null || prepared <= planned) ? prepared : null,
+    planned: planned !== null && (total === null || planned === total * methods.length) ? planned : null,
+    releases, planned_releases: plannedReleases !== null && (releases === null || plannedReleases >= releases)
+      && (total === null || plannedReleases <= total * methods.length) ? plannedReleases : null,
+    methods, paired: pairValid ? paired : null,
+    complete: status === 'completed' && audit === 'passed' && budget > 0 && methods.every(row => row.valid) && pairValid,
+    next: typeof section.next === 'string' ? section.next : '', error: typeof section.error === 'string' ? section.error : '' };
+}
 export class InteractivePhysics {
   constructor({
     fetcher = (...args) => globalThis.fetch(...args),
