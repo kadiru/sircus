@@ -1,5 +1,10 @@
 # Project state
 
+## Third comparison attempt started — November 17, 2026
+
+- The user approved one prepared third attempt when the 4090 and shared scene lock were free. An intervening GPU claim blocked a pre-dispatch check without consuming the start. Both resources were then free, and the prepared source `300ab5c` started once at 22:15:51 UTC; 101 input files, 217 source files and four wrapper hashes passed before dispatch, with 11.166 GiB free. The original stopped service, foreign 4070 job, both failed attempts and frozen benchmark remain untouched.
+- At 22:19:05 UTC the owned container was running with its startup audit passed. The initial 35 monitoring requests were reserved but not yet terminal; TRAIN remained at zero and no failure receipt existed. This records startup and accounting, not completed native performance or a final independent audit pass. The same 8,960 requests/eight hours per copy, shared hour, 70 broad + 25 nearby TEST positions per model and 6 GiB storage floor remain. No automatic retry. [Launch and preserved failure evidence](../baselines/isaac-seed22-comparison-startup-20261117/README.md).
+
 ## Second comparison start closed; ownership-read race — November 17, 2026
 
 - The approved corrected attempt used one child start and stopped before any TRAIN or assessment request. Only watchdog owner/exit records exist; reason `Native child ownership changed`, wall 0.233 s, safe owned-process cleanup and shared-lock release. Both failed attempts remain preserved, with zero new learning or performance results. The approval is consumed; no automatic retry.

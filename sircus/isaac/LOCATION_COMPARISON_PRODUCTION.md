@@ -1,12 +1,18 @@
 # Location comparison: process ownership and independent audit
 
-Latest status: the approved second child start closed before any task requests,
+Latest dated status: the user approved one third attempt, which started from
+`300ab5c` at 22:15:51 UTC on November 17 after the 4090 and shared scene lock
+were free. Its startup audit passed; the dated observation has the initial 35
+monitoring requests in progress and zero TRAIN requests. No completed comparison
+performance is established.
+
+Earlier, the approved second child start closed before any task requests,
 with watchdog reason `Native child ownership changed`. Both starts are preserved.
 Final source `300ab5c` passed actual-input CPU preflight, 116 producer-environment
 mocks, 174 comparison tests and 60 actual inert-wrapper child checks. Its narrow
 100 ms identity reread retains strict ownership and all deadline/storage guards.
-The fresh third package remains behind an explicit HOLD: the previous one-start
-approval is consumed, and no automatic retry is permitted. No comparison
+The third package was prepared behind HOLD, then released only after the user
+approved its one-start exception. No automatic retry is permitted. No comparison
 performance result exists. [Evidence and limits](../../baselines/isaac-seed22-comparison-startup-20261117/README.md).
 
 Earlier, the [authorized native start closed before any task requests](../../baselines/isaac-seed22-comparison-startup-20261117/README.md).
