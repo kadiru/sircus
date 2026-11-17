@@ -102,6 +102,11 @@ duplicate examples, dropped rows, deadline/storage failures and crash prefixes.
 
 ## Remaining native boundary
 
+The subsequent [mock-tested production connection](LOCATION_COMPARISON_PRODUCTION.md)
+implements the owned entry, process watchdog and independent model/physics audit.
+Its actual-host inputs and native execution remain unvalidated and unstarted.
+The paragraph below records the boundary of this earlier runner checkpoint.
+
 This completes the requested mock-tested runner connection. It is **not yet a
 self-contained production launcher**. Before any native execution, a separately
 authorized outer entry must bind the new actual-input manifest, start/own the

@@ -71,10 +71,13 @@ class FakeDependencies:
 
     def update(self, handle, examples):
         self.updates.append(copy.deepcopy(examples))
+        before = sha(handle["version"])
         handle["version"] += 1
         handle["steps"] += 4
         handle["optimizer_rng"] += 4
-        return dict(samples=140, synthetic=True)
+        return dict(samples=140, synthetic=True, before=before, after=sha(handle["version"]),
+                    actor_before=before, actor_after=sha(handle["version"]),
+                    epochs=[dict(samples=140, loss=0.) for _ in range(4)])
 
     def save_checkpoint(self, handle, path, metadata):
         Path(path).write_text(json.dumps(dict(handle=handle, metadata=metadata)))
@@ -245,7 +248,7 @@ class BridgeTests(unittest.TestCase):
         self.assertEqual(self.env.tick, tick)
         self.assertFalse(self.env.capture_trial)
         folder = self.output/"comparison-native"
-        self.assertTrue((folder/"trial-00000-incomplete.npz").exists())
+        self.assertTrue((self.output/"native/trial-00000-incomplete.npz").exists())
         failure = json.loads(gzip.decompress((folder/"trial-00000-failure.json.gz").read_bytes()))
         self.assertEqual(failure["status"], "incomplete_no_retry")
         with self.assertRaises(ValueError):
@@ -262,6 +265,37 @@ class BridgeTests(unittest.TestCase):
             self.engine.propose("A", cells(), False)
         self.assertEqual(self.engine.state("A"), before)
         self.assertEqual(self.env.calls, [])
+
+    def test_every_learned_state_is_saved_before_sampling_without_changing_model(self):
+        before = self.engine.state("A")
+        context, packet, result, examples = self.dispatch()
+        receipt = packet["checkpoint"]
+        self.assertEqual(receipt["state"], before)
+        self.assertEqual(receipt["file"], "checkpoints/A-sampling-00073.pt")
+        self.assertTrue((self.output/receipt["file"]).is_file())
+        for start in range(35,140,35):
+            _, next_packet, _, more = self.dispatch(start)
+            self.assertEqual(next_packet["checkpoint"], receipt)
+            examples.extend(more)
+        self.engine.learn("A", examples)
+        before = self.engine.state("A")
+        _, next_packet, _, _ = self.dispatch(140)
+        self.assertEqual(next_packet["checkpoint"]["state"], before)
+        self.assertEqual(next_packet["checkpoint"]["file"], "checkpoints/A-sampling-00074.pt")
+
+    def test_terminal_receipt_requires_recorded_frame_bytes_to_exist_and_match(self):
+        original = self.env.shot_batch
+        def fake_frames(*args, **kwargs):
+            result = original(*args, **kwargs)
+            self.env.frames = [dict(frame=0,jpeg_sha256=hashlib.sha256(b"invented image").hexdigest())]
+            return result
+        self.env.shot_batch = fake_frames
+        # Deliberately claim a missing prescheduled frame. It cannot be reported
+        # as a completed batch even though fake physical rows were returned.
+        with self.assertRaisesRegex(ValueError,"frame bytes"):
+            self.dispatch()
+        self.assertFalse((self.output/"comparison-native/trial-00000.json.gz").exists())
+        self.assertTrue((self.output/"comparison-native/trial-00000-failure.json.gz").exists())
 
     def test_production_update_wrapper_isolates_entropy_rng_with_fake_torch_only(self):
         class State:
