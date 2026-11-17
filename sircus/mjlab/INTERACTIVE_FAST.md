@@ -34,6 +34,24 @@ The original planner remains available under the `classic` API identifier.
 An older server invocation without the verified fast-study inputs continues to
 serve only that planner. The updated browser also works with such a server.
 
+To enable both planners, retain the existing `interactive_physics_server`
+arguments and supply all six verified artifact paths:
+
+```text
+--fast-study /path/to/fast-planning-v2
+--fast-audit /path/to/fast-planning-v2-audit.json
+--neural-study /path/to/neural-selector-v1
+--neural-audit /path/to/neural-selector-v1-audit.json
+--budget-study /path/to/planning-budget-v1
+--budget-audit /path/to/planning-budget-v1-audit.json
+```
+
+This defaults to fast; `--default-planner classic` explicitly retains the old
+default. The service fails closed if a supplied model, source or audit differs.
+Use the pinned Ubuntu environment and preserve the archived source references
+listed in the fast study's contract. Deployment is a separate simulation-server
+action; fetching the branch alone changes no running service.
+
 ## Scope and limits
 
 - Inputs are simulator geometry, not camera or point-cloud estimates.

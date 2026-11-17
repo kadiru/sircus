@@ -5,7 +5,8 @@
 - [Operator flow and limits](../sircus/mjlab/INTERACTIVE_FAST.md): fast checked planning becomes the default only when its published study, model lineage and pinned source inputs verify. The original interactive planner remains an explicitly selectable fallback.
 - Repeated coordinates use fresh request/proof directories while clean CPU workers retain initialized kinematics. Changing bucket or planner invalidates the preview; the backend permits one native drop per preview and rejects stale or duplicate requests.
 - [Acceptance protocol](../sircus/mjlab/INTERACTIVE_FAST_ACCEPTANCE.md): ten new coordinates, four interior/four edge/two near bases, alternate planner order, at most one drop per method/position at 64 substeps. Report complete HTTP planning latency separately from GPU wait/drop; keep no-setup attempts in the denominator. Native comparison is pending.
-- The work is isolated from the existing simulation service until staging checks pass. The original runtime and evidence are preserved for rollback. No 4070 or Isaac setup change; native drops must wait for a free 4090 lease.
+- Deployed only the mjlab simulation UI after staging passed. Fast is the default; classic remains selectable. Real-model CPU checks confirmed repeated-coordinate worker reuse with new proofs, and browser checks confirmed drag → plan → both arm previews plus fallback invalidation. The original runtime and launch record are preserved for rollback.
+- Validation: 66 pinned-Ubuntu CPU tests and 433 Node tests passed; GitHub CI passed for the implementation checkpoint. The ten-position native comparison has started and waits cooperatively before drops when another job occupies the 4090. No 4070 or Isaac setup change.
 
 ## Planning-speed comparison complete — November 17, 2026
 

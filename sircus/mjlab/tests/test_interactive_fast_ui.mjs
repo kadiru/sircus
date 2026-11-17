@@ -131,3 +131,13 @@ test('busy UI locks bucket dragging, inputs, planner, clear-preview and recorded
   assert.match(sync, /\$\('physicsClear'\).disabled = pending \|\| physics\?\.busy === true/);
   assert.match(app, /clearResult\('Planner changed — plan again', true\)/);
 });
+
+
+test('planner selection precedes Plan and Drop while older modes keep it hidden', () => {
+  const html = readFileSync(new URL('../web/index.html', import.meta.url), 'utf8');
+  assert.ok(html.indexOf('id="physicsPlanner"') < html.indexOf('id="solve"'));
+  assert.ok(html.indexOf('id="solve"') < html.indexOf('id="physicsDrop"'));
+  assert.match(html, /id="physicsPlannerControls"[^>]*hidden/);
+  assert.match(app, /\$\('physicsPlannerControls'\).hidden = !physicsSelected\(\)/);
+  assert.doesNotMatch(html, /live Plan shot button is unchanged|This study does not change the live Plan shot button/);
+});

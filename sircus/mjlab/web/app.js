@@ -168,6 +168,7 @@ updateConstraintPreview();
 function updateMethodHelp() {
   const search = $('mode').value === 'search', planner = plannerReady(report);
   $('physicsControls').hidden = !physicsSelected();
+  $('physicsPlannerControls').hidden = !physicsSelected();
   $('positionConstraints').hidden = physicsSelected();
   $('methodHelp').textContent = physicsSelected() ? 'Plan both arm endpoints first, then explicitly run one native physics drop. Position locks belong to the historical modes.' : !search ? policyRouteLabel(report, $('boardLock').checked, $('dropLock').checked) : planner
     ? 'Sweep planner · corrected native MuJoCo · endpoint-held. Exact saved targets can replay recorded evidence; new targets require bounded search and fresh native verification. No solution within budget does not mean impossible.'
