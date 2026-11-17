@@ -355,6 +355,24 @@ class WatchdogTests(unittest.TestCase):
         self.assertFalse(result["lock_release_safe"])
         self.assertFalse(self.ops.signalled)
 
+    def test_persistent_permission_denial_does_not_weaken_cleanup_ownership(self):
+        original, reads = self.ops.identity, [0]
+        def identity(pid):
+            if pid == 888:
+                reads[0] += 1
+                if reads[0] > 1:
+                    raise PermissionError("synthetic unreadable environ")
+            return original(pid)
+        self.ops.identity = identity
+        result = self.run_watchdog()
+        self.assertEqual(result["status"], "stopped_no_retry")
+        self.assertEqual(result["native_owner"]["cookie"], SESSION)
+        self.assertIn("identity", result["reason"])
+        self.assertEqual(result["termination"], "termination_unconfirmed:PermissionError")
+        self.assertFalse(result["lock_release_safe"])
+        self.assertFalse(self.ops.signalled)
+        self.assertEqual(len(self.ops.started), 1)
+
     def test_live_missing_cookie_recovers_without_signal_or_second_start(self):
         self.transient_child_read(self.ops, 2)
         self.ops.on_sleep = self.finish_after_identity_retry
@@ -612,6 +630,67 @@ class ChildObservationTests(unittest.TestCase):
         self.assertEqual(current, self.owner)
         self.assertIsNone(code)
         self.assertEqual(self.checks, 3)
+
+    def test_unreadable_identity_then_confirmed_exit_uses_exact_child_status(self):
+        for error in (PermissionError, FileNotFoundError, ProcessLookupError):
+            with self.subTest(error=error.__name__):
+                self.ops.exit_code = None
+                def identity(pid):
+                    self.assertEqual(pid, 888)
+                    self.ops.exit_code = 7
+                    raise error("synthetic process read race")
+                self.ops.identity = identity
+                current, code = self.observe(owner=self.owner)
+                self.assertIsNone(current)
+                self.assertEqual(code, 7)
+                self.assertFalse(self.ops.signalled)
+
+    def test_unreadable_identity_recovers_only_with_strict_full_identity(self):
+        for error in (PermissionError, FileNotFoundError, ProcessLookupError):
+            for initial in (True, False):
+                with self.subTest(error=error.__name__, initial=initial):
+                    reads = [0]
+                    def identity(pid):
+                        reads[0] += 1
+                        if reads[0] == 1:
+                            raise error("synthetic process read race")
+                        return copy.deepcopy(self.owner)
+                    self.ops.identity = identity
+                    current, code = self.observe(owner=None if initial else self.owner)
+                    self.assertEqual(current, self.owner)
+                    self.assertIsNone(code)
+
+    def test_persistent_permission_denial_is_bounded_and_never_accepted(self):
+        def identity(pid):
+            raise PermissionError("synthetic unreadable environ")
+        self.ops.identity = identity
+        with self.assertRaisesRegex(ValueError,"identity (unavailable|read deadline)"):
+            self.observe(owner=self.owner)
+        self.assertLessEqual(self.checks, subject.IDENTITY_READ_MAX_ATTEMPTS)
+        self.assertLessEqual(self.ops.t-10., subject.IDENTITY_READ_MAX_S + 1e-9)
+        self.assertFalse(self.ops.signalled)
+
+    def test_identity_change_after_permission_denial_is_never_adopted(self):
+        for field, value in (("pid",889), ("start_token","reused:2"), ("ppid",666), ("sid",889), ("cookie","foreign")):
+            with self.subTest(field=field):
+                reads = [0]
+                def identity(pid):
+                    reads[0] += 1
+                    if reads[0] == 1:
+                        raise PermissionError("synthetic unreadable environ")
+                    return dict(self.owner, **{field:value})
+                self.ops.identity = identity
+                with self.assertRaisesRegex(ValueError,"ownership changed"):
+                    self.observe(owner=self.owner)
+                self.assertFalse(self.ops.signalled)
+
+    def test_other_identity_errors_are_not_swallowed_or_retried(self):
+        def identity(pid):
+            raise OSError("unrelated I/O failure")
+        self.ops.identity = identity
+        self.ops.sleep = lambda _:self.fail("Unrelated error must not be retried")
+        with self.assertRaisesRegex(OSError,"unrelated I/O failure"):
+            self.observe(owner=self.owner)
 
     def test_first_empty_cookie_pins_start_and_ancestry_before_recovery(self):
         for field, value in (("pid",889), ("start_token","reused:2"), ("ppid",666), ("sid",889), ("cookie","foreign")):

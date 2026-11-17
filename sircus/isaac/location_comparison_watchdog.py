@@ -217,7 +217,7 @@ def _observe_child(ops, pid, session, *, owner, check, label):
     """Read a complete live identity or a Popen-confirmed exit, never infer one.
 
     Linux exec can briefly expose an empty environ for the same live process.
-    Absent/empty-cookie or terminal-state reads are retried for at most
+    Unreadable/absent/empty-cookie or terminal-state reads are retried for at most
     100 ms / 21 reads; terminal states still need a confirmed Popen exit.
     The first available immutable identity is pinned even before its cookie
     becomes readable. Every retry retains the caller's bounds/integrity checks;
@@ -236,7 +236,12 @@ def _observe_child(ops, pid, session, *, owner, check, label):
         code = ops.poll(pid)
         if code is not None:
             return None, code
-        current = ops.identity(pid)
+        try:
+            current = ops.identity(pid)
+        except (PermissionError, FileNotFoundError, ProcessLookupError):
+            # /proc can disappear or deny environ access during exec/exit.
+            # An unreadable sample proves neither live ownership nor exit.
+            current = None
         if current is not None:
             require(type(current) is dict and current.get("pid") == pid
                     and type(current.get("start_token")) is str and bool(current["start_token"])
