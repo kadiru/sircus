@@ -1,5 +1,8 @@
 # Compare shot planners under the same 30-second limit
 
+Completed results: [75/100 captures for the learned selector versus 69/100 for
+the current planner](PLANNING_BUDGET_RESULTS.md), with the independent audit passed.
+
 The prior learned selector captured 173/200 versus the current planner's
 169/200, but its 90th-percentile planning time increased from 67 to 168 seconds.
 This experiment asks whether it retains a capture advantage when both planners
