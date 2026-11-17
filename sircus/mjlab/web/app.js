@@ -68,6 +68,8 @@ bucket.castShadow = bucket.receiveShadow = true; bucketGroup.add(bucket);
 const bucketBase = new THREE.Mesh(new THREE.CylinderGeometry(.079, .079, .008, 64), material(0xd39a3e));
 bucketBase.rotation.x = Math.PI / 2; bucketBase.position.z = .004; bucketGroup.add(bucketBase);
 let sceneSpec = {}, report = {}, pending = false, activeRequest = null, currentTrajectory = [], playTime = 0, playing = false, pathLine;
+let physics = null, physicsViewerResult, physicsProgress, physicsSceneActive = false, physicsViewKey = '';
+const physicsSelected = () => $('mode').value === 'physics' && physics?.available === true;
 let methodChosen = false, farmSignature = '', gridStudySignature = '', benchmarkSignature = '';
 let transitFrames = [], transitTime = 0, transitName = "";
 let bucketXY = [.65, -.4];
@@ -104,7 +106,14 @@ function setBucket(xy, updateInputs = true) {
   if (updateInputs) { $('bucketX').value = (xy[0] * 1000).toFixed(0); $('bucketY').value = (xy[1] * 1000).toFixed(0); }
 }
 setBucket(bucketXY); drawArms();
-function clearResult(message) {
+function clearResult(message, preservePhysics = false) {
+  if (!preservePhysics && physics?.available) physics.invalidate('Scene changed. Plan a new shot.');
+  if (physicsSceneActive) {
+    board.position.fromArray(sceneSpec.board?.center || [.65, 0, .4]);
+    board.rotation.set(0, 0, Math.PI / 2);
+    ball.position.fromArray(sceneSpec.release_center || [.65, 0, .6875]);
+    drawArms(); physicsSceneActive = false; physicsViewKey = '';
+  }
   $('sceneOutcome').textContent = message; $('sceneOutcome').className = 'scene-outcome';
   transitFrames = []; ball.visible = true;
   playing = false; currentTrajectory = []; $('play').disabled = true; $('timeline').disabled = true;
@@ -131,7 +140,7 @@ canvas.addEventListener('pointermove', event => {
   if (!dragging) return;
   pointerRay(event);
   if (raycaster.ray.intersectPlane(dragPlane, dragPoint)) {
-    const bounds = sceneSpec.bucket_bounds || { x: [-.13, 1.47], y: [-.775, .275] };
+    const bounds = (physicsSelected() && physics.capabilities.bucket_bounds) || sceneSpec.bucket_bounds || { x: [-.13, 1.47], y: [-.775, .275] };
     setBucket([THREE.MathUtils.clamp(dragPoint.x, ...bounds.x), THREE.MathUtils.clamp(dragPoint.y, ...bounds.y)]);
     clearResult('Bucket moved — ready for a new solve');
   }
@@ -141,31 +150,40 @@ function number(id) { const value = $(id).value.trim(); return value === '' ? Na
 function vector(prefix) { return ['X', 'Y', 'Z'].map(axis => number(prefix + axis)); }
 function updateConstraintPreview() {
   updateMethodHelp();
+  for (const id of ['boardLock', 'dropLock']) $(id).disabled = pending || physicsSelected();
   $('boardFields').classList.toggle('inactive', !$('boardLock').checked);
   $('dropFields').classList.toggle('inactive', !$('dropLock').checked);
-  for (const prefix of ['board', 'drop']) for (const axis of ['X', 'Y', 'Z']) $(prefix + axis).disabled = pending || !$(prefix + 'Lock').checked;
-  if ($('boardLock').checked && finiteVector(vector('board'), 3)) board.position.fromArray(vector('board'));
-  releaseMarker.visible = $('dropLock').checked;
+  for (const prefix of ['board', 'drop']) for (const axis of ['X', 'Y', 'Z']) $(prefix + axis).disabled = pending || physicsSelected() || !$(prefix + 'Lock').checked;
+  if (!physicsSelected() && $('boardLock').checked && finiteVector(vector('board'), 3)) board.position.fromArray(vector('board'));
+  releaseMarker.visible = !physicsSelected() && $('dropLock').checked;
   if (releaseMarker.visible && finiteVector(vector('drop'), 3)) releaseMarker.position.fromArray(vector('drop'));
 }
+for (const id of ['bucketX', 'bucketY']) $(id).addEventListener('input', () => { if (physics?.available) { const xy = [number('bucketX'), number('bucketY')]; if (finiteVector(xy, 2)) setBucket(xy, false); clearResult('Bucket edited — plan again'); } });
+for (const id of ['boardLock', 'dropLock', 'boardX', 'boardY', 'boardZ', 'dropX', 'dropY', 'dropZ']) $(id).addEventListener('input', () => { if (physics?.available) clearResult('Scene edited — plan again'); });
 for (const id of ['bucketX', 'bucketY']) $(id).addEventListener('change', () => { if (Number.isFinite(number('bucketX')) && Number.isFinite(number('bucketY'))) setBucket([number('bucketX'), number('bucketY')], false); clearResult('Bucket changed — ready for a new solve'); });
 for (const id of ['boardLock', 'dropLock', 'boardX', 'boardY', 'boardZ', 'dropX', 'dropY', 'dropZ']) $(id).addEventListener('change', () => { updateConstraintPreview(); clearResult('Arm constraints changed'); });
 updateConstraintPreview();
 function updateMethodHelp() {
   const search = $('mode').value === 'search', planner = plannerReady(report);
-  $('methodHelp').textContent = !search ? policyRouteLabel(report, $('boardLock').checked, $('dropLock').checked) : planner
+  $('physicsControls').hidden = !physicsSelected();
+  $('positionConstraints').hidden = physicsSelected();
+  $('methodHelp').textContent = physicsSelected() ? 'Plan both arm endpoints first, then explicitly run one native physics drop. Position locks belong to the historical modes.' : !search ? policyRouteLabel(report, $('boardLock').checked, $('dropLock').checked) : planner
     ? 'Sweep planner · corrected native MuJoCo · endpoint-held. Exact saved targets can replay recorded evidence; new targets require bounded search and fresh native verification. No solution within budget does not mean impossible.'
     : 'Explicit per-scene search. This is measured separately from frozen-policy performance.';
   $('searchBudgetFields').hidden = !(search && planner);
   $('policyOption').disabled = !studyReady(report);
   $('searchOption').disabled = !searchReady(report);
 }
-$('mode').onchange = () => { methodChosen = true; updateMethodHelp(); syncSolveButtons(); };
+$('mode').onchange = () => { methodChosen = true; if (physics?.available) clearResult('Method changed — ready for a new request'); updateConstraintPreview(); syncSolveButtons(); };
 function syncSolveButtons() {
-  const state = solveButtonState(report, pending, $('mode').value);
+  const state = physicsSelected() ? { disabled: pending || physics.busy, mainLabel: physics.busy ? 'Physics request in progress… ' : 'Plan shot ', topLabel: physics.busy ? 'Physics request in progress…' : 'Plan shot ↗' } : solveButtonState(report, pending || physics?.busy === true, $('mode').value);
   for (const id of ['solve', 'solveTop']) $(id).disabled = state.disabled;
   $('solve').firstChild.textContent = state.mainLabel;
   $('solveTop').textContent = state.topLabel;
+  const dropDisabled = pending || !physicsSelected() || !physics.canDrop;
+  for (const id of ['physicsDrop', 'physicsDropTop']) $(id).disabled = dropDisabled;
+  $('physicsDropTop').hidden = dropDisabled;
+  $('physicsClear').disabled = !physicsSelected() || ['idle', 'stale', 'unavailable'].includes(physics.snapshot.state);
 }
 function setPending(value) {
   pending = value; syncSolveButtons();
@@ -179,7 +197,7 @@ function addMetrics(pairs, target) {
   for (const [key, value] of pairs) { const dt = document.createElement('dt'), dd = document.createElement('dd'); dt.textContent = key; dd.textContent = String(value); dl.append(dt, dd); }
   target.replaceChildren(dl);
 }
-function applyResult(result, { recordedPlayback = false } = {}) {
+function applyResult(result, { recordedPlayback = false, physicsPreview = false, physicsResult = false } = {}) {
   const config = result.configuration || {}, b = config.board_center, n = config.board_normal;
   if (finiteVector(b, 3)) board.position.fromArray(b);
   if (finiteVector(config.board_quaternion_wxyz, 4)) {
@@ -214,9 +232,37 @@ function applyResult(result, { recordedPlayback = false } = {}) {
   if (finiteVector(b, 3)) pairs.push(['Board center Z', `${(b[2] * 1000).toFixed(0)} mm`]);
   if (finiteVector(release, 3)) pairs.push(['Release center Z', `${(release[2] * 1000).toFixed(0)} mm`]);
   for (const [key, label] of [['tilt_deg', 'Board tilt'], ['board_bounces', 'Board bounces'], ['retention_s', 'Retained'], ['quality', 'Entry quality'], ['attempts', 'Native attempts'], ['native_candidate_count', 'Native candidate count'], ['eligible_candidates', 'Eligible candidates']]) if (metrics[key] !== undefined) pairs.push([label, formatMetric(key, metrics[key])]);
+  if (physicsPreview || physicsResult) {
+    const outcome = ({ direct: 'Direct capture', table: 'Table-assisted capture', unclassified_capture: 'Capture · route unclassified', arm_assisted_capture: 'Robot-assisted capture', flight_miss: 'Miss', invalid_physics: 'Invalid physics' })[result.outcome] || 'Outcome unknown';
+    const label = physicsPreview ? 'Pose preview · no drop run yet' : `${outcome} · measured native simulation`;
+    $('sceneOutcome').textContent = label; $('resultTitle').textContent = label;
+    $('sceneOutcome').className = `scene-outcome ${physicsPreview ? 'preview' : success ? 'ready' : 'failed'}`;
+    $('resultDot').className = `status-dot ${physicsPreview ? '' : success ? 'ready' : 'failed'}`;
+    $('geometryLabel').textContent = 'Native FK · pale arm 10 drops · amber arm 14 holds board';
+    $('resultText').textContent = physicsPreview
+      ? 'Both planned arm poses, from native forward kinematics. Run one drop to measure the flight.'
+      : 'Replay of the measured simulator trajectory. Replay speed changes the display only.';
+    pairs.splice(0, pairs.length, ['Method', 'Physics planner · endpoint-held'], ['Plan', result.request_id?.slice(0, 12) || '—'], ['Candidate pool', result.candidate_pool || 'Unknown']);
+    if (Number.isFinite(config.tilt_deg)) pairs.push(['Board tilt', `${config.tilt_deg.toFixed(1)}°`]);
+    if (Number.isFinite(config.gap_m)) pairs.push(['Release gap', `${(config.gap_m * 1000).toFixed(1)} mm`]);
+    if (physicsPreview) pairs.push(['Prediction only', String(result.prediction?.predicted_route || result.route_intent || 'Unknown').replaceAll('_', ' ')]);
+    else {
+      pairs.push(['Observed outcome', outcome], ['Captured', result.capture === true ? 'Yes' : result.capture === false ? 'No' : 'Unknown']);
+      if (Number.isFinite(result.retention_s)) pairs.push(['Retained', `${result.retention_s.toFixed(2)} s`]);
+      if (Number.isInteger(result.provenance?.substeps)) pairs.push(['Native substeps', result.provenance.substeps]);
+    }
+  }
   addMetrics(pairs, $('metrics'));
 }
 async function requestSolve() {
+  if (physicsSelected()) {
+    if (pending || physics.busy) return;
+    // Drag/grid coordinates retain full precision; inputs are rounded for display.
+    const xy = finiteVector([number('bucketX'), number('bucketY')], 2) ? bucketXY.slice() : [NaN, NaN];
+    clearResult('Planning both arm poses', true);
+    await physics.plan(xy); return;
+  }
+  if (physics?.busy) return;
   if (!modeReady(report, $('mode').value) || pending) return;
   try {
     const budget = $('mode').value === 'search' && plannerReady(report) ? Number($('searchBudget').value) : undefined;
@@ -291,6 +337,7 @@ function gridQuality(value) {
 async function viewPlannerGridResult(row) {
   if (pending || !row.resultUrl || !row.xy) return;
   try {
+    clearResult('Loading recorded shot');
     setPending(true);
     const response = await fetch(row.resultUrl, { cache: 'no-store' });
     const data = await response.json();
@@ -961,7 +1008,7 @@ async function loadStatus() {
     const benchmarkView = !!sweepRlStudy(r) || typeof r.sweep_rl_error === 'string';
     document.title = benchmarkView ? 'Sircus · Sweep vs RL benchmark' : standalone ? 'Sircus · Sweep shot planner' : 'Sircus · mjlab learning lab';
     $('workspaceHeading').textContent = benchmarkView ? 'Sweep versus RL benchmark' : standalone ? 'Sweep shot planner' : 'Place a target. Find a posture.';
-    if (!methodChosen && plannerReady(r)) $('mode').value = 'search';
+    if (!methodChosen && !physicsSelected() && plannerReady(r)) $('mode').value = 'search';
     if (initial) {
       if (s.bucket?.xy) setBucket(s.bucket.xy);
       if (s.table?.size) { table.scale.set(...s.table.size.map((v, i) => v / [1.8, 1.25, .05][i])); table.position.fromArray(s.table.center); }
@@ -969,19 +1016,64 @@ async function loadStatus() {
       if (s.release_center) ['X', 'Y', 'Z'].forEach((axis, i) => { $('drop' + axis).value = s.release_center[i] * 1000; });
     }
     updateMethodHelp();
-    const ready = modeReady(r, $('mode').value), planner = plannerReady(r);
-    $('studyTitle').textContent = r.benchmark_read_only ? 'Read-only benchmark · simulation only' : planner ? 'Sweep planner ready · simulation only' : ready ? 'Studies complete · frozen evaluations ready' : r.bank_evaluation && r.bank_evaluation.status !== 'completed' ? `Bank study ${r.bank_evaluation.status ?? 'pending'}` : `Study ${String(r.status ?? 'unavailable').replaceAll('_', ' ')}`;
-    $('studyDetail').textContent = r.benchmark_read_only ? 'Read-only benchmark. The scene and recorded grid replays are historical; this page cannot launch training or new solves.' : planner ? 'Corrected native MuJoCo · endpoint-held. Learned inference stays separately gated.' : ready ? 'Manual simulation testing is now available.' : 'Manual solves remain locked until evaluation finishes.';
+    const ready = physicsSelected() || modeReady(r, $('mode').value), planner = plannerReady(r);
+    $('studyTitle').textContent = physicsSelected() ? 'Physics planner · simulation only' : r.benchmark_read_only ? 'Read-only benchmark · simulation only' : planner ? 'Sweep planner ready · simulation only' : ready ? 'Studies complete · frozen evaluations ready' : r.bank_evaluation && r.bank_evaluation.status !== 'completed' ? `Bank study ${r.bank_evaluation.status ?? 'pending'}` : `Study ${String(r.status ?? 'unavailable').replaceAll('_', ' ')}`;
+    $('studyDetail').textContent = physicsSelected() ? 'Plan both arm poses, then run one drop.' : r.benchmark_read_only ? 'Read-only benchmark. The scene and recorded grid replays are historical; this page cannot launch training or new solves.' : planner ? 'Corrected native MuJoCo · endpoint-held. Learned inference stays separately gated.' : ready ? 'Manual simulation testing is now available.' : 'Manual solves remain locked until evaluation finishes.';
     $('studyState').querySelector('.status-dot').className = `status-dot ${ready ? 'ready' : ''}`;
     syncSolveButtons();
     $('fingerprint').textContent = `Scene fingerprint: ${r.scene_fingerprint ?? r.contract_fingerprint ?? r.fingerprint ?? s.fingerprint ?? 'not reported'}`;
-    if (ready && $('resultTitle').textContent === 'Waiting for the learning study') { $('resultTitle').textContent = 'Ready to test a bucket position'; $('resultText').textContent = 'Choose a bucket position and optional arm locks, then solve.'; }
+    if (ready && !physicsSelected() && $('resultTitle').textContent === 'Waiting for the learning study') { $('resultTitle').textContent = 'Ready to test a bucket position'; $('resultText').textContent = 'Choose a bucket position and optional arm locks, then solve.'; }
     showPlannerFarm();
     showPlannerGridStudy();
     showSweepRlBenchmark();
     if (!standalone) showCoverage();
-  } catch (error) { $('studyTitle').textContent = 'Study connection unavailable'; $('studyDetail').textContent = error.message; for (const id of ['solve', 'solveTop']) $(id).disabled = true; }
+  } catch (error) { $('studyTitle').textContent = 'Study connection unavailable'; $('studyDetail').textContent = error.message; for (const id of ['solve', 'solveTop']) $(id).disabled = true; if (physicsSelected()) syncSolveButtons(); }
 }
+function updatePhysics(snapshot) {
+  if (physics.available) {
+    $('physicsOption').hidden = false; $('physicsOption').disabled = false;
+    if (!methodChosen) { $('mode').value = 'physics'; methodChosen = true; }
+  }
+  $('physicsStatus').textContent = snapshot.message || snapshot.progress?.message || ({ submitting: 'Submitting shot plan…', queued: 'Waiting to plan…', planning: 'Planning both arm poses…', submitting_drop: 'Starting one drop…', running: 'Running one simulated drop…', failed: 'Physics request failed. Plan again to retry.', stale: 'Scene changed. Plan a new shot.', idle: 'Place the bucket, then plan a shot.', ready: 'Preview ready. Run one drop when ready.', no_setup: 'No feasible setup found within this plan.', completed: 'Drop complete. Replay the measured flight, or plan another shot.', expired: 'Plan expired. Plan a new shot.' })[snapshot.state] || 'Physics status unavailable.';
+  $('physicsProgress').textContent = physicsProgress(snapshot);
+  if (physicsSelected()) {
+    if (snapshot.state === 'idle' && $('resultTitle').textContent === 'Waiting for the learning study') {
+      $('resultTitle').textContent = 'Ready to plan a shot';
+      $('resultText').textContent = 'Place the bucket, plan both arm poses, then run one simulated drop.';
+    }
+    const key = `${snapshot.id}:${snapshot.state}`;
+    if (key !== physicsViewKey && ['ready', 'completed'].includes(snapshot.state)) {
+      clearResult(snapshot.state === 'ready' ? 'Pose preview' : 'Measured drop', true);
+      applyResult(physicsViewerResult(snapshot.state === 'ready' ? snapshot.preview : snapshot.result, snapshot.id), { physicsPreview: snapshot.state === 'ready', physicsResult: snapshot.state === 'completed' });
+      physicsSceneActive = true; physicsViewKey = key;
+    } else if (!['ready', 'completed', 'stale', 'unavailable', 'idle'].includes(snapshot.state)) {
+      $('sceneOutcome').textContent = $('physicsStatus').textContent;
+      $('sceneOutcome').className = `scene-outcome ${['failed', 'expired', 'no_setup'].includes(snapshot.state) ? 'failed' : ''}`;
+    }
+  }
+  if (physicsSelected()) {
+    $('studyTitle').textContent = 'Physics planner · simulation only';
+    $('studyDetail').textContent = 'Plan both arm poses, then run one drop.';
+    $('studyState').querySelector('.status-dot').className = 'status-dot ready';
+  }
+  updateConstraintPreview(); syncSolveButtons();
+}
+async function initializePhysics() {
+  try {
+    // Older servers may serve this viewer but not the optional control module.
+    const response = await fetch('/api/interactive-physics', { cache: 'no-store' });
+    if (!response.ok || (await response.json()).enabled !== true) return;
+    const module = await import('/interactive-physics.mjs');
+    physicsViewerResult = module.physicsViewerResult; physicsProgress = module.physicsProgress;
+    physics = new module.InteractivePhysics({ onChange: updatePhysics });
+    await physics.initialize();
+  } catch { /* Historical viewing stays available without this optional API. */ }
+}
+for (const id of ['physicsDrop', 'physicsDropTop']) {
+  $(id).onclick = () => { if (!pending && physicsSelected()) void physics.drop(); };
+}
+$('physicsClear').onclick = () => clearResult('Preview cleared — plan a new shot');
+void initializePhysics();
 loadStatus(); setInterval(loadStatus, 5000);
 const resize = new ResizeObserver(() => { const r = canvas.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); camera.aspect = r.width / r.height; camera.updateProjectionMatrix(); }); resize.observe(canvas);
 let last = performance.now();

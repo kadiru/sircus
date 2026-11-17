@@ -1,5 +1,33 @@
 # mjlab shot interface
 
+## Interactive physics planner
+
+Drag the bucket or enter its X and Y coordinates. **Plan shot** checks joint
+poses and approach paths, then previews the dropper and board arm at their
+selected endpoints. **Run one drop** releases the ball in native mjlab at 64
+substeps. Use **Replay** or the timeline to inspect the measured flight.
+Moving the bucket clears the preview and requires a new plan.
+
+The default planner ranks shots by predicted ball clearance. It searches a
+wider set of candidates if the initial poses and paths all fail. In the
+[audited 50-position comparison](../../../docs/MJLAB_SYSTEM_PLANNER.md), the
+physics planner captured 44 times on the first drop. The interactive rollout
+holds both arms at the previewed endpoints.
+
+Launch `python -m sircus.mjlab.interactive_physics_server --help` in the pinned
+Ubuntu environment for the required archive, audit, scene and asset inputs.
+Use the audited `intergrid-system-v1` comparison as `--system-study`. The server
+listens on loopback, keeps preparation on CPU, and leases the RTX 4090 for
+each explicit drop in a separate process. Use an SSH local forward on another
+computer. Supply a writable `--evidence-dir` for local runtime artifacts.
+
+Run fresh-placement verification against the loopback service with
+`python -m sircus.mjlab.interactive_physics_check --help`. It freezes ten
+coordinates before planning and checks identical planned and executed poses,
+trace provenance and rejection of duplicate drop requests.
+
+## Historical planners and study viewer
+
 A separate localhost-only simulation interface. It does not import Viam clients,
 control physical hardware, start training, or change any existing dashboard.
 The user can drag the bucket in the table plane, optionally lock board-center
