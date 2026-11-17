@@ -1,5 +1,11 @@
 # Project state
 
+## Separate comparison results view prepared — November 17, 2026
+
+- Added an [audit-gated publisher and loopback GET/HEAD viewer](../sircus/isaac/LOCATION_COMPARISON_PUBLICATION.md) in a separate reporting checkout. It leaves pinned native source `90ae3ff`, the approved experiment, historical readers and existing services unchanged.
+- The view separates exploratory TRAIN batches, frozen monitoring, 70 broad TEST positions, 25 nearby TEST positions, measured phase/call costs, scoped memory samples, final checkpoints and exactly ten prescheduled recording cohorts. Outcomes require the externally pinned completed independent audit plus matching receipts, complete trace, checkpoint and frame bytes. No final-model TEST videos are implied; verified encoding/playback remains a later step using existing recorded frames only.
+- Full repository checks passed: 1,692 Isaac cases (121 optional skips), 71 Node cases and all remaining stages. Focused 25 publisher/server and 12 UI tests plus publisher/UI fixture integration passed. These are software checks with invented fixtures, not native performance. No reader was started and no actual media playback was verified in this preparation.
+
 ## Approved comparison recording repair verified; GPU wait — November 17, 2026
 
 - The user approved one fresh corrected attempt when the 4090 is free. No new native start or task request has occurred; another project occupied the GPU during preparation.
