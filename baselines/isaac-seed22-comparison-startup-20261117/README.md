@@ -1,6 +1,15 @@
-# Location comparison: two closed startup attempts
+# Location comparison: third start authorized and running
 
-Latest: the approved second start also closed before any TRAIN or assessment
+The user approved the prepared third attempt once the 4090 and shared scene lock
+were free. It started on November 17 at 22:15:51 UTC from source `300ab5c`, after
+source/input/storage/ownership checks. Its startup audit passed. At 22:19:05 the
+initial 35 monitoring requests were reserved but not yet terminal, with zero TRAIN
+requests and no failure receipt. This is a dated launch observation, not a final
+performance result.
+Both failed attempts and the original benchmark remain preserved. The same
+limits and one-start/no-retry rule remain active.
+
+Second attempt: the approved second start also closed before any TRAIN or assessment
 request. Its watchdog reported `Native child ownership changed` after 0.233 s;
 only the owner and exit receipts exist. The container exited, its owned processes
 stopped and the shared lock was released safely. Both failed attempts remain
@@ -187,4 +196,5 @@ It is prepared behind an explicit HOLD with zero starts and requests. The same
 8,960 TRAIN requests / eight-hour per-copy limits, 70 broad + 25 nearby TEST
 positions per model, shared-hour cap and 6 GiB floor remain. The two failed starts
 are closed; the [one-start/no-retry rule](../../sircus/isaac/LOCATION_COMPARISON_PRODUCTION.md)
-requires a fresh exception before this package can start.
+required a fresh exception before this package could start. The later approval
+and dispatch are recorded at the top of this report.

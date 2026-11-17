@@ -57,6 +57,57 @@
     "simulator_starts": 0,
     "task_requests": 0
   },
+  "current_attempt": {
+    "assessment_completed": 0,
+    "assessment_requested": 35,
+    "attempt": 3,
+    "final_audit": "not_started",
+    "final_broad_test_positions_per_model": 70,
+    "final_nearby_test_positions_per_model": 25,
+    "latest_observed_free_gib": 10.914,
+    "manifest_sha256": "7de349d890ca032d2f8802b987350de55ca5314a52fbcfab6fdfc7d6c8109a5b",
+    "native_child_start_attempts": 1,
+    "observed_at": "2026-11-17T22:19:05.184550+00:00",
+    "one_start_exception_received": true,
+    "prior_failed_attempts_preserved": 2,
+    "private_launch_hold_active": false,
+    "private_receipt_sha256": {
+      "container-controls.json": "cc0351bfed424f2d74bfed90cf6e9a120fd5e58ad4d749325e3121f6179dde69",
+      "container-started.json": "ad3fcad068541c9f36f88998eefbb8e7bfbf4b9c2f9cc04afa4450883f33d0ad",
+      "dispatch.json": "f80ce5373cb20f12d0fb9c48dc43609046727ce3c359b4c36c3ce319ce2a27d2",
+      "hold-release.json": "d61544ee945ee1478612c0ff7deb53755f58afbcb087785da2a7ede43c69f84f",
+      "observations/20261117T221905184641Z.json": "1fb39adc340b98de4d6b7accb22ea1aa4b9441e292d42ff91e91269f692f61ec",
+      "user-approval.json": "9f5156e14ba8e9f4ddd65ea9d5ce896bebdb91ad50698948779898e01da13a08"
+    },
+    "source_commit": "300ab5c6d161b51577d37d2a70f7499fc3f782e9",
+    "started_at": "2026-11-17T22:15:51.340372+00:00",
+    "startup_audit": "passed",
+    "startup_evidence": {
+      "cohorts": 9,
+      "initialized_trajectories": 315,
+      "physics_steps": 1584,
+      "placements_steps_contacts_recomputed": true,
+      "receipt_sha256": "3f5f056dce2afa955aae367618827edaff00d2e11690518408dfe3d8b7c509b7",
+      "scope": "Original finite diagnostic placements/clocks/contact gates and cost-source joins; separate from task requests.",
+      "startup_control_sha256": {
+        "probes.json": "5a543754ca1a606cd4a505c14690ee2a4217e623ae93f571aaf195f36653d0c4",
+        "rim-rays.json": "98df6ec0211b66ea15dd2480a63efd0f3a29c41a58f502a8d9f55c8461c98878"
+      },
+      "status": "passed"
+    },
+    "status": "native_running_initial_monitoring",
+    "storage_floor_gib": 6,
+    "train_completed": {
+      "broader": 0,
+      "original_usable": 0
+    },
+    "train_request_cap_per_copy": 8960,
+    "train_requested": {
+      "broader": 0,
+      "original_usable": 0
+    },
+    "train_wall_hours_per_copy": 8
+  },
   "diagnosis": {
     "cause": "Service installed instance tick override before recorder required genuine inherited methods.",
     "evidence_type": "source inspection plus CPU mock reproduction; no preserved native traceback",
@@ -72,13 +123,15 @@
     "No new capture, clean-capture, rejection-rate or generalization result.",
     "Both native starts are closed and preserved; each used zero TRAIN/assessment requests.",
     "The latest one-start approval was consumed. No automatic retry is authorized.",
-    "CPU wrapper reproduction demonstrates a transient identity-read race; the failed native receipt did not preserve its mismatching sample, so that instance is not independently proven."
+    "CPU wrapper reproduction demonstrates a transient identity-read race; the failed native receipt did not preserve its mismatching sample, so that instance is not independently proven.",
+    "The user approved one third start, now running in startup at the recorded observation. No comparison performance result exists; fresh runtime reads are required for current state."
   ],
   "next_attempt": {
     "current_manifest_fingerprint": "bd551805def36cd5e694ed06bc8bcf9795e12053a4460cf710f645f7647e021f",
     "current_manifest_sha256": "7de349d890ca032d2f8802b987350de55ca5314a52fbcfab6fdfc7d6c8109a5b",
     "current_source_commit": "300ab5c6d161b51577d37d2a70f7499fc3f782e9",
     "fresh_gpu_lock_storage_and_hash_checks_required": true,
+    "historical_scope": "Prepared third package before user approval and dispatch; superseded by current_attempt.",
     "native_attempts": 0,
     "new_test_model_count": 2,
     "one_start_approval_received": false,
@@ -416,7 +469,7 @@
     "watchdog_status": "stopped_no_retry",
     "watchdog_wall_seconds": 0.23305235197767615
   },
-  "status": "ownership_repair_cpu_verified_fresh_start_requires_approval",
+  "status": "third_attempt_running_startup_audit_passed",
   "validation": {
     "comparison_tests_passed": 147,
     "corrected_native_attempts": 0,
