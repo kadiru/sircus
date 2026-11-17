@@ -84,11 +84,35 @@ dependency skips), 59 Node cases and all remaining required stages. The focused
 164 tests above and the 44 producer-environment tests passed without skips. These
 checks verify software and input compatibility, not successful native startup.
 
-Corrected V2 launch files are staged separately but unstarted. A fresh native
-attempt requires separate approval: the [bounded launcher](../../sircus/isaac/LOCATION_COMPARISON_PRODUCTION.md)
+Corrected V2 launch files were staged separately but unstarted. At that checkpoint
+a fresh native attempt required separate approval: the [bounded launcher](../../sircus/isaac/LOCATION_COMPARISON_PRODUCTION.md)
 allows one child start and no automatic retry. It retains 8,960 TRAIN requests
 and an eight-hour cap per copy, the shared one-hour phase cap, and the same fresh
 70 broad + 25 nearby TEST positions for parent and both final models. Before
 launch it must recheck source/input hashes, 4090 ownership, the scene lock and
 the 6 GiB storage floor. No second simulator attempt has been started; the
 unrelated 4090 workload stays untouched.
+
+## Additional recording repair before the approved fresh attempt
+
+The user subsequently approved one corrected attempt when the 4090 is free.
+While waiting, an additional integration review found missing audit metadata:
+the comparison stored raw `shot_batch` rows without the five fields attached by
+the original producer. The unchanged auditor needs `split`, `qualification`,
+`path_rejection`, `path_proxy` and `scoring_board_normal`. This was found before
+the fresh attempt started; its one-start approval remains unused.
+
+The bridge now attaches those exact original fields after `shot_batch` and
+before feedback and durable recording. Existing scores, poses and actions stay
+identical; no policy, geometry, movement, physics, reward or budget changes.
+The 149 comparison tests passed. New regressions execute the original raw-row
+construction methods over fabricated arrays, then the unchanged independent
+scoring, rejection and padding readers. They cover released misses, geometric
+rejections, unpaid padding and a full all-rejected TRAIN batch. Padding retains
+`None` feedback features and `-1` rewards, as required by this comparison's reader.
+Independent review found no blocker; its 30 focused cases passed.
+
+An explicit private launch hold remains until the new source archive and manifest
+pass actual-input CPU preflight and the fresh ownership/resource checks. The
+prior `706c3ef` preflight above does not certify this later source change. No
+second native application, new model update or task shot has occurred.

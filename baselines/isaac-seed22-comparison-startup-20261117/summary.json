@@ -59,7 +59,7 @@
   "failed_source_commit": "89b0afd3399b5eb7e5fa335c4d7a16ffbd0994ab",
   "limitations": [
     "No new capture, clean-capture, rejection-rate or generalization result.",
-    "Corrected CPU preflight passed; a separately authorized new native start and fresh ownership/resource checks are still required.",
+    "Fresh one-start approval received and unused; latest recording repair still requires new actual-input CPU preflight and fresh ownership/resource checks.",
     "One-start/no-retry guard consumed; no automatic retry performed.",
     "The 4090 was subsequently occupied by an unrelated job; it was left untouched."
   ],
@@ -67,10 +67,12 @@
     "fresh_gpu_lock_storage_and_hash_checks_required": true,
     "native_attempts": 0,
     "new_test_model_count": 2,
+    "one_start_approval_received": true,
     "parent_test_model_count": 1,
     "prepared_but_unstarted": true,
-    "requires_separate_one_start_approval": true,
+    "requires_separate_one_start_approval": false,
     "shared_phase_wall_hours": 1,
+    "source_repair_preflight_required": true,
     "test_broad_positions_per_model": 70,
     "test_nearby_positions_per_model": 25,
     "total_logical_requests": 18520,
@@ -96,6 +98,26 @@
     "watchdog_reason": "Native exit lacks final progress",
     "watchdog_status": "stopped_no_retry",
     "watchdog_wall_seconds": 599.6177120170323
+  },
+  "prelaunch_recording_repair": {
+    "actual_input_preflight_of_new_source": "pending",
+    "added_fields": [
+      "split",
+      "qualification",
+      "path_rejection",
+      "path_proxy",
+      "scoring_board_normal"
+    ],
+    "cause": "Raw shot_batch rows lacked original producer audit metadata.",
+    "comparison_tests_passed": 149,
+    "existing_fresh_attempt_approval_unused": true,
+    "existing_row_values_unchanged_in_regression": true,
+    "independent_review_focused_tests_passed": 30,
+    "native_attempts": 0,
+    "policy_physics_rewards_guards_budgets_unchanged": true,
+    "private_launch_hold_active": true,
+    "production_file_sha256": "7be21efc8bb5ea5e616eea6a7f309b2a9d6ef7aff21ba0d971ec0ba524635eaf",
+    "regression_scope": "Original row constructors on fabricated arrays, followed by unchanged independent scoring, rejection and padding readers; no live simulation."
   },
   "prepared_comparison_fingerprint": "440cbcca29612820d3b36005010edd90fd4f8172646bd8ea95e57f154775f4e6",
   "preservation": {
@@ -126,7 +148,7 @@
     "strict_inherited_method_check_retained": true
   },
   "schema": "sircus-location-comparison-startup-repair-summary-v1",
-  "status": "native_attempt_closed_zero_requests_repair_cpu_verified",
+  "status": "fresh_attempt_approved_unstarted_recording_fix_mock_tested",
   "validation": {
     "comparison_tests_passed": 147,
     "corrected_native_attempts": 0,

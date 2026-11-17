@@ -1,5 +1,6 @@
-"""Invented native/policy bridge tests: no Torch, simulator, shots or learning."""
+"""Invented bridge evidence: no simulator, task shots or learned-model updates."""
 
+import ast
 import copy
 from contextlib import contextmanager, ExitStack
 import gzip
@@ -9,6 +10,7 @@ import math
 from pathlib import Path
 import sys
 import tempfile
+import time
 from types import SimpleNamespace
 import unittest
 from unittest import mock
@@ -151,6 +153,194 @@ class FakeEnvironment:
                      route_success=bool(enabled[i] and i % 3 == 0), route_quality=2 if i % 3 == 0 else 0)
                 for i in range(35)]
         return rows, dict(settling=[[]]*35, trajectory_m=[[]]*35)
+
+
+def original_raw_row_classes():
+    """Load only the two unchanged row-producing methods, never their runtimes.
+
+    Synthetic arrays drive their original scoring/row construction. Avoiding
+    module-level runtime imports keeps the original runtime constructors inert.
+    """
+    from board_route import BoardRoute
+    from entry_quality import EntryQuality
+    from rl_contract import ShotScore
+    namespace = dict(np=np, time=time, BoardRoute=BoardRoute,
+                     EntryQuality=EntryQuality, ShotScore=ShotScore)
+    source = Path(__file__).resolve().parents[1]
+    for filename, name in (("parallel_runtime.py", "ParallelShots"),
+                           ("feasibility_runtime.py", "FeasibilityShots")):
+        tree = ast.parse((source / filename).read_text())
+        original = next(node for node in tree.body if isinstance(node, ast.ClassDef) and node.name == name)
+        selected = copy.deepcopy(original)
+        selected.body = [node for node in selected.body if isinstance(node, ast.FunctionDef)
+                         and node.name == "shot_batch"]
+        exec(compile(ast.Module(body=[selected], type_ignores=[]), str(source / filename), "exec"), namespace)
+    tree = ast.parse((source / "presentation_recording.py").read_text())
+    save = next(node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name == "save_physics")
+    exec(compile(ast.Module(body=[save], type_ignores=[]), "original_save_physics", "exec"), namespace)
+    return namespace["FeasibilityShots"], namespace["save_physics"]
+
+
+class RawRowCompositionTests(unittest.TestCase):
+    """Actual raw row builders -> bridge -> unchanged CPU evidence readers."""
+
+    def setUp(self):
+        import continuous_feasibility
+        import continuous_policy
+        import shot_benchmark_reward
+        from feasibility_contract import dynamic_cell
+        original_rows, save_physics = original_raw_row_classes()
+
+        class Array(np.ndarray):
+            def cpu(self): return self
+            def numpy(self): return np.asarray(self)
+
+        def tensor(value): return np.asarray(value).view(Array)
+
+        class Environment(original_rows, FakeEnvironment):
+            all_rejected = False
+
+            def __init__(self):
+                FakeEnvironment.__init__(self)
+                self.cfg = json.loads((Path(__file__).resolve().parents[1] / "scene.json").read_text())
+                self.origins_t = tensor(self.origins)
+                self.arms = {name: SimpleNamespace(data=SimpleNamespace(joint_pos=tensor(np.zeros((35, 6)))))
+                             for name in ("Arm10", "Arm14")}
+                self.ball = SimpleNamespace(data=SimpleNamespace(root_pos_w=tensor(np.zeros((35, 3))),
+                    root_lin_vel_w=tensor(np.zeros((35, 3)))))
+
+            def shot_batch(self, *args, **kwargs):
+                rows, raw = original_rows.shot_batch(self, *args, **kwargs)
+                self.rows_before_enrichment = copy.deepcopy(rows)
+                return rows, raw
+
+            def prepare(self, actions):
+                self.proposed_actions = copy.deepcopy(actions)
+                self.spec["cells"] = [dynamic_cell(cell, action) for cell, action in zip(self.base_cells, actions)]
+                self.release_centers = np.tile([.67, -.1, .4], (35, 1))
+                self.release_normals = self.scoring_normals = np.tile([0., 0., 1.], (35, 1))
+                metric = dict(position_error_mm=0., normal_error_deg=0., joint_speed_rad_s=0.,
+                              position_drift_mm=0., normal_drift_deg=0., dropper_position_error_mm=0.)
+                self.qualifications, self.path_checks, reasons = [], [], []
+                for i, use in enumerate(self.active_mask):
+                    reason = ("inactive_split" if not use else "no_geometry_support"
+                              if self.all_rejected or i % 2 else None)
+                    self.qualifications.append(dict(accepted=reason is None, **({"reason":reason} if reason else {})))
+                    self.path_checks.append(None if reason else dict(accepted=True))
+                    reasons.append(reason)
+                self.path_reasons = [None] * 35
+                for name in ("geometry_records", "geometry_starts", "proposal_ik_seeds", "preflight_records"):
+                    setattr(self, name, [None] * 35)
+                self.transit_history, self.correction_history = [], []
+                self.geometry_enabled_this_batch = self.geometry_filter_synthetic = True
+                self.geometry_wall_s = self.geometry_process_cpu_s = 0.
+                return np.tile([0., 0., .3], (35, 1)), self.scoring_normals, [[copy.deepcopy(metric)] for _ in range(35)], reasons
+
+            def board_poses(self): return self.release_centers, self.release_normals
+
+            def set_balls(self, positions): self.ball.data.root_pos_w = tensor(positions + self.origins)
+
+            def forces(self): return np.zeros((35, 6))
+
+            def render(self):
+                if self.phase == "setup":
+                    self.release_step, self.phase = self.steps, "release"
+
+            def tick(self):
+                self.steps += 1
+                if not getattr(self, "capture_trial", False) or self.phase != "release":
+                    return
+                # Fabricated two-step falling miss; no simulator or flight model.
+                if len(self.physics_samples): self.ball.data.root_pos_w[:, 2] = -.3
+                self.physics_samples.append(dict(time_step=self.steps,
+                    position_m=self.ball.data.root_pos_w.copy(), velocity_m_s=np.zeros((35, 3)),
+                    forces_N=self.forces(), joint_position_rad=np.zeros((35, 2, 6)),
+                    joint_velocity_rad_s=np.zeros((35, 2, 6)),
+                    board_position_m=self.release_centers.copy(),
+                    board_quaternion_wxyz=np.tile([1., 0., 0., 0.], (35, 1))))
+
+        class Dependencies(FakeDependencies):
+            actions = native.ProductionDependencies.actions
+            features = native.ProductionDependencies.features
+            reward = native.ProductionDependencies.reward
+
+        self.temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temporary.cleanup)
+        self.output = Path(self.temporary.name)
+        self.env, self.deps = Environment(), Dependencies()
+        self.deps.np, self.deps.geometry = np, continuous_feasibility
+        self.deps.policy, self.deps.feedback = continuous_policy, shot_benchmark_reward
+        self.deps.save_physics = save_physics
+        self.engine = native.NativeEngine(self.env, dict(files=dict(parent=dict(sha256=native.PARENT_SHA))),
+            dict(source=dict(synthetic=True)), self.output, dict(fingerprint="c"*64),
+            guard=lambda:True, dependencies=self.deps)
+        self.addCleanup(self.engine.close)
+        self.engine.restore("A", 101, 102)
+
+    def dispatch(self, *, count=3, split="test"):
+        from location_comparison_verify import guard_view
+        context = cells(count=count, split=split)
+        proposal = self.engine.propose("A", context, deterministic=split != "train")
+        result = self.engine.execute(context, proposal)
+        packet = json.loads(gzip.decompress((self.output/result["evidence"]["file"]).read_bytes()))
+        return packet, guard_view(packet, "trial-00000"), result
+
+    def test_actual_raw_rows_feed_unchanged_release_rejection_padding_and_score_readers(self):
+        from candidate_continuation_native_guards import _verify_rejections
+        from seed22_continuation_audit import padding_guard_view
+        from shot_benchmark_audit import verify_native_trial
+        packet, view, result = self.dispatch()
+        self.assertEqual([row["outcome"] for row in result["rows"]], ["miss", "rejected", "miss"])
+        self.assertEqual([row["split"] for row in packet["raw_rows"]], ["test"] * 35)
+        self.assertEqual([row["cell_id"] for row in packet["raw_rows"]], [cell["id"] for cell in packet["cells"]])
+        self.assertEqual([row["id"] for row in packet["raw_rows"]], [f"trial-00000-{i}" for i in range(35)])
+        self.assertEqual([row["qualification"] for row in packet["raw_rows"]], packet["qualifications"])
+        self.assertEqual([row["path_proxy"] for row in packet["raw_rows"]], packet["path_checks"])
+        self.assertEqual([row["path_rejection"] for row in packet["raw_rows"]], packet["path_reasons"])
+        self.assertEqual([row["scoring_board_normal"] for row in packet["raw_rows"]], packet["scoring_normals"])
+        added = {"split", "qualification", "path_rejection", "path_proxy", "scoring_board_normal"}
+        for raw, enriched in zip(self.env.rows_before_enrichment, packet["raw_rows"]):
+            self.assertFalse(added & raw.keys())
+            self.assertEqual(set(enriched) - set(raw), added)
+            self.assertEqual({key:value for key, value in enriched.items() if key not in added}, raw)
+        self.assertEqual(packet["reward_features"][3:], [None] * 32)
+        self.assertEqual(packet["rewards"][3:], [-1.] * 32)
+        original = copy.deepcopy(view)
+        guarded, slots = padding_guard_view(view)
+        self.assertEqual(slots, list(range(3, 35)))
+        self.assertTrue(_verify_rejections(guarded, guarded["cells"])["first_cause_rejections_reconstructed"])
+        report = verify_native_trial(self.output/"native", view, self.env.cfg)
+        self.assertEqual((report["rescored_releases"], report["invalid_cells"], report["new_rewards_recomputed"]), (2, 33, 35))
+        self.assertEqual(view, original)
+        for index, key, value in ((0, "qualification", dict(accepted=False)),
+                                  (0, "path_rejection", "invented_rejection"),
+                                  (0, "scoring_board_normal", [1., 0., 0.]),
+                                  (0, "cell_id", "wrong-request"), (0, "success", True)):
+            changed = copy.deepcopy(view)
+            changed["rows"][index][key] = value
+            with self.subTest(key=key), self.assertRaises(ValueError):
+                verify_native_trial(self.output/"native", changed, self.env.cfg)
+        changed = copy.deepcopy(view)
+        changed["rows"][1]["qualification"]["reason"] = "different_first_cause"
+        with self.assertRaisesRegex(ValueError, "first cause"):
+            _verify_rejections(padding_guard_view(changed)[0], changed["cells"])
+
+    def test_all_rejected_full_train_batch_needs_no_physics_and_retains_paid_failures(self):
+        from candidate_continuation_native_guards import _verify_rejections
+        from seed22_continuation_audit import padding_guard_view
+        from shot_benchmark_audit import verify_native_trial
+        self.env.all_rejected = True
+        packet, view, result = self.dispatch(count=35, split="train")
+        self.assertIsNone(packet["physics"])
+        self.assertEqual(packet["reward_features"], [None] * 35)
+        self.assertEqual(packet["rewards"], [-1.] * 35)
+        self.assertEqual(len(result["rows"]), 35)
+        self.assertTrue(all(row["outcome"] == "rejected" for row in result["rows"]))
+        guarded, slots = padding_guard_view(view)
+        self.assertEqual(slots, [])
+        self.assertTrue(_verify_rejections(guarded, guarded["cells"])["first_cause_rejections_reconstructed"])
+        report = verify_native_trial(self.output/"native", view, self.env.cfg)
+        self.assertEqual((report["rescored_releases"], report["invalid_cells"], report["native_steps"]), (0, 35, 0))
 
 
 class BridgeTests(unittest.TestCase):

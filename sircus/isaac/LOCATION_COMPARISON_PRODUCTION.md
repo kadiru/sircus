@@ -1,6 +1,12 @@
 # Location comparison: process ownership and independent audit
 
-Latest status: the [authorized native start closed before any task requests](../../baselines/isaac-seed22-comparison-startup-20261117/README.md).
+Latest status: one fresh corrected attempt is approved but still unstarted. A
+further review caught missing original raw-row audit metadata while waiting for
+the GPU. The recording repair passed 149 comparison tests and independent review;
+its new source/input CPU preflight and fresh resource checks remain pending.
+The private launch hold stays active until those checks pass.
+
+Earlier, the [authorized native start closed before any task requests](../../baselines/isaac-seed22-comparison-startup-20261117/README.md).
 The startup guard/recorder composition is repaired in `706c3ef`, with actual-input
 CPU preflight, 164 focused tests, 44 producer-environment mocks and full repository
 checks passed. The failed attempt is preserved; a separately authorized fresh

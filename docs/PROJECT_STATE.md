@@ -1,5 +1,11 @@
 # Project state
 
+## Approved comparison held for recording compatibility repair — November 17, 2026
+
+- The user approved one fresh corrected attempt when the 4090 is free. No new native start or task request has occurred; another project occupied the GPU during preparation.
+- Additional first-batch review found the bridge omitted the five raw-row metadata fields added by the original benchmark producer and consumed by the unchanged auditor. The bridge now attaches the original split, qualification, path rejection/proxy and scoring normal after the shot returns. Existing row content, policy, geometry, physics, rewards and budgets stay unchanged.
+- All 149 comparison tests passed; new regressions use the original row constructors over fabricated arrays and the unchanged independent scoring/rejection/padding readers. Independent review passed 30 focused cases. A private launch hold preserves the unused approval until the repaired source has a new archive/manifest, actual-input CPU preflight and current GPU/lock/storage checks. The earlier `706c3ef` CPU pass does not cover this later change. [Evidence and limits](../baselines/isaac-seed22-comparison-startup-20261117/README.md).
+
 ## Location comparison startup closed; recorder composition repaired — November 17, 2026
 
 - [Closed attempt and repair](../baselines/isaac-seed22-comparison-startup-20261117/README.md): one authorized native application from `89b0afd` reached an empty startup diagnostic directory and zero TRAIN/assessment requests. The watchdog recorded `stopped_no_retry` / `Native exit lacks final progress` after identity-bound graceful closure, with safe lock release. No final child receipt or passed startup audit exists. Failed-start wall was 599.618 s under the watchdog and 603.374 s for the enclosing container.
