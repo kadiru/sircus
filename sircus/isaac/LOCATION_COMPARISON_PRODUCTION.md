@@ -1,8 +1,14 @@
 # Location comparison: process ownership and independent audit
 
-This adds the production connection for the [prepared comparison](LOCATION_COMPARISON.md)
-and its [runner](LOCATION_COMPARISON_RUNNER.md). **Only mocks and invented evidence
-were exercised. No simulator, real model, training job or new shot was started.**
+Subsequent status: the [actual-input CPU preflight](../../baselines/isaac-seed22-comparison-preflight-20261117/README.md)
+passed on November 17 using source `89b0afd`. It restored the original model and
+optimizer state and matched all 35 saved TRAIN predictions. No simulator,
+training or new shots ran; native execution is still a separate decision.
+
+The initial implementation added the production connection for the
+[prepared comparison](LOCATION_COMPARISON.md) and its
+[runner](LOCATION_COMPARISON_RUNNER.md). That implementation task exercised only
+mocks and invented evidence; the later real-model CPU check is recorded above.
 The original benchmark, prepared coordinates, parent checkpoint, original policy,
 physics, geometry/release guards and learning budgets remain unchanged.
 
@@ -85,10 +91,10 @@ catch rate.
 
 ## Execution stays off
 
-This task did not prepare or approve an actual machine-specific launch manifest.
-Before a real run, bind the final source checkout and every input file in a new
-manifest, verify the actual producer environment and CPU-only preflight, and
-check current GPU/lock/storage ownership. The session cookie must exist in the
+The later CPU preflight bound the final source and actual inputs in a new private
+manifest and verified the original producer's CPU environment. It did not approve
+a native launch. Before a real run, recheck those bindings and current
+GPU/lock/storage ownership. The session cookie must exist in the
 supervisor's process environment before interpreter startup; setting it later
 cannot stand in for `/proc` ownership. The child wrapper receives the verified
 source directory explicitly. The old continuation manifest is not reusable.
