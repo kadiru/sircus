@@ -29,6 +29,9 @@ AUDIT_SCHEMA = "sircus-location-comparison-audit-watchdog-v1"
 MAX_PROGRESS_BYTES = 65536
 AUDIT_WALL_S = 7200
 NATIVE_WALL_S = 2 * ARM_WALL_S + SHARED_WALL_S
+IDENTITY_READ_MAX_S = .10
+IDENTITY_READ_PAUSE_S = .005
+IDENTITY_READ_MAX_ATTEMPTS = 21
 _RETAINED_LOCKS = []
 
 
@@ -210,6 +213,64 @@ def _environment(session, runtime, comparison, start, deadline, owner_file, *, a
         "SIRCUS_COMPARISON_OWNER_FILE": str(owner_file)})
 
 
+def _observe_child(ops, pid, session, *, owner, check, label):
+    """Read a complete live identity or a Popen-confirmed exit, never infer one.
+
+    Linux exec can briefly expose an empty environ for the same live process.
+    Absent/empty-cookie or terminal-state reads are retried for at most
+    100 ms / 21 reads; terminal states still need a confirmed Popen exit.
+    The first available immutable identity is pinned even before its cookie
+    becomes readable. Every retry retains the caller's bounds/integrity checks;
+    no empty cookie, changed identity or inferred exit authorizes continuation.
+    """
+    started, previous = None, ops.monotonic()
+    require(_clock(previous), label + " identity clock failed")
+    anchor = owner
+    for attempt in range(IDENTITY_READ_MAX_ATTEMPTS):
+        check()
+        now = ops.monotonic()
+        require(_clock(now) and previous <= now
+                and (started is None or now-started <= IDENTITY_READ_MAX_S),
+                label + " identity read deadline/clock failed")
+        previous = now
+        code = ops.poll(pid)
+        if code is not None:
+            return None, code
+        current = ops.identity(pid)
+        if current is not None:
+            require(type(current) is dict and current.get("pid") == pid
+                    and type(current.get("start_token")) is str and bool(current["start_token"])
+                    and type(current.get("state")) is str and bool(current["state"])
+                    and current.get("ppid") == ops.own_pid() and current.get("sid") == pid,
+                    label + " ownership changed")
+            if anchor is None:
+                anchor = dict(current)
+            require(all(current.get(key) == anchor.get(key) for key in ("pid", "start_token", "ppid", "sid"))
+                    and current.get("cookie", "") in ("", session), label + " ownership changed")
+            if current.get("cookie") == session and current.get("state") not in ("Z", "X", "x"):
+                if started is not None:
+                    # The recovered /proc read itself may have blocked. Check
+                    # all bounds again before accepting its complete identity.
+                    check()
+                    recovered = ops.monotonic()
+                    require(_clock(recovered) and previous <= recovered
+                            and recovered-started <= IDENTITY_READ_MAX_S,
+                            label + " identity read deadline/clock failed")
+                require(owner is None or same_process(current, owner), label + " ownership changed")
+                return current, None
+        # A process may exit after the first poll but before its /proc read.
+        # Reap/status-check that exact Popen child instead of guessing from Z.
+        code = ops.poll(pid)
+        if code is not None:
+            return None, code
+        if started is None:
+            started = now
+        require(attempt + 1 < IDENTITY_READ_MAX_ATTEMPTS and now-started < IDENTITY_READ_MAX_S,
+                label + " identity unavailable after bounded reread")
+        ops.sleep(min(IDENTITY_READ_PAUSE_S, IDENTITY_READ_MAX_S-(now-started)))
+    raise AssertionError("Bounded identity loop exhausted")
+
+
 def supervise(command, *, plan, output, lock, session_id, runtime_fingerprint,
               integrity_check, ops=None, poll_s=.5, execute_approved=False):
     """One native child; a blocked call cannot pause the independent phase clock.
@@ -241,6 +302,21 @@ def supervise(command, *, plan, output, lock, session_id, runtime_fingerprint,
     owner = watchdog = progress = cleanup = error = reason = code = observer = None
     starts, process_starts, safe, created = 0, 0, True, False
     deadline = start + NATIVE_WALL_S if _clock(start) else 0
+    def check():
+        nonlocal progress
+        require(not lock.is_symlink() and (lock.stat().st_dev, lock.stat().st_ino) == lock_identity,
+                "Shared scene lock identity changed")
+        require(integrity_check() is True, "Actual input integrity check did not pass")
+        current = read_progress(output, session_id=session_id, runtime_fingerprint=runtime_fingerprint,
+                                comparison_fingerprint=comparison, previous=progress)
+        observer.check(None if current is None else current["snapshot"])
+        if current is not None:
+            _phase_accounting(progress, current)
+        progress = current
+        now = ops.monotonic()
+        require(_clock(now) and observer.last_time <= now < deadline,
+                "Independent absolute native deadline/clock failed")
+        require(same_process(ops.identity(ops.own_pid()), watchdog), "Watchdog ownership changed")
     try:
         require(_clock(start), "Invalid independent clock")
         output.mkdir(mode=0o700)
@@ -260,9 +336,8 @@ def supervise(command, *, plan, output, lock, session_id, runtime_fingerprint,
         starts = 1
         pid = ops.start(command, environment)
         process_starts = 1
-        owner = ops.identity(pid)
-        require(owner is not None and owner.get("cookie") == session_id
-                and owner.get("ppid") == ops.own_pid() and owner.get("sid") == pid,
+        owner, code = _observe_child(ops, pid, session_id, owner=None, check=check, label="Native child")
+        require(owner is not None and code is None,
                 "Owned child identity unavailable after sole start")
         write_new_json(output / "comparison-watchdog-owner.json", signed(dict(schema=SCHEMA,
             session_id=session_id, runtime_fingerprint=runtime_fingerprint, comparison_fingerprint=comparison,
@@ -271,26 +346,14 @@ def supervise(command, *, plan, output, lock, session_id, runtime_fingerprint,
             absolute_deadline_monotonic=deadline,
             phase_limits=dict(shared=SHARED_WALL_S, original_usable=ARM_WALL_S, broader=ARM_WALL_S))))
         while True:
-            require(not lock.is_symlink() and (lock.stat().st_dev, lock.stat().st_ino) == lock_identity,
-                    "Shared scene lock identity changed")
-            require(integrity_check() is True, "Actual input integrity check did not pass")
-            current = read_progress(output, session_id=session_id, runtime_fingerprint=runtime_fingerprint,
-                                    comparison_fingerprint=comparison, previous=progress)
-            observer.check(None if current is None else current["snapshot"])
-            if current is not None:
-                _phase_accounting(progress, current)
-            progress = current
-            now = ops.monotonic()
-            require(_clock(now) and observer.last_time <= now < deadline,
-                    "Independent absolute native deadline/clock failed")
-            require(same_process(ops.identity(ops.own_pid()), watchdog), "Watchdog ownership changed")
-            code = ops.poll(pid)
+            _, code = _observe_child(ops, pid, session_id, owner=owner, check=check, label="Native child")
             if code is not None:
+                # The terminal snapshot can be published between check/poll.
+                check()
                 require(type(code) is int and code == 0, "Native child exited unsuccessfully")
                 require(not ops.owned(pid, session_id), "Native child left owned workers alive")
                 _terminal(progress, assessment_cap)
                 break
-            require(same_process(ops.identity(pid), owner), "Native child ownership changed")
             ops.sleep(poll_s)
     except BaseException as failure:
         error, reason = type(failure).__name__, str(failure) or type(failure).__name__
@@ -368,6 +431,7 @@ def supervise_audit(command, *, output, native_exit, session_id, runtime_fingerp
         require(type(free) is int and free >= MIN_FREE_BYTES,
                 "Independent audit storage floor reached")
         require(integrity_check() is True, "Audit input integrity did not pass")
+        require(same_process(ops.identity(ops.own_pid()), watchdog), "Audit watchdog ownership changed")
     try:
         watchdog = ops.identity(ops.own_pid())
         require(watchdog is not None and watchdog.get("cookie") == session_id, "Audit watchdog cookie missing")
@@ -380,9 +444,8 @@ def supervise_audit(command, *, output, native_exit, session_id, runtime_fingerp
         starts = 1
         pid = ops.start(command, environment)
         process_starts = 1
-        owner = ops.identity(pid)
-        require(owner is not None and owner.get("cookie") == session_id
-                and owner.get("ppid") == ops.own_pid() and owner.get("sid") == pid,
+        owner, code = _observe_child(ops, pid, session_id, owner=None, check=check, label="Audit child")
+        require(owner is not None and code is None,
                 "Audit child identity unavailable after sole start")
         write_new_json(output / "comparison-audit-owner.json", signed(dict(schema=AUDIT_SCHEMA,
             session_id=session_id, runtime_fingerprint=runtime_fingerprint,
@@ -390,17 +453,15 @@ def supervise_audit(command, *, output, native_exit, session_id, runtime_fingerp
             owner=watchdog, native_owner=owner, command=command, start_monotonic=start,
             deadline_monotonic=deadline, cuda_visible_devices="")))
         while True:
-            check()
-            require(same_process(ops.identity(ops.own_pid()), watchdog), "Audit watchdog ownership changed")
-            code = ops.poll(pid)
+            _, code = _observe_child(ops, pid, session_id, owner=owner, check=check, label="Audit child")
             if code is not None:
+                check()
                 require(type(code) is int and code == 0, "Audit child exited unsuccessfully")
                 require(not ops.owned(pid, session_id), "Audit child left owned workers alive")
                 require(verify_report(output, native_exit["fingerprint"]) is True,
                         "Independent audit report did not verify")
                 check()
                 break
-            require(same_process(ops.identity(pid), owner), "Audit child ownership changed")
             ops.sleep(poll_s)
     except BaseException as failure:
         error, reason = type(failure).__name__, str(failure) or type(failure).__name__
