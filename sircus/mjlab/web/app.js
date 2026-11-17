@@ -68,7 +68,7 @@ bucket.castShadow = bucket.receiveShadow = true; bucketGroup.add(bucket);
 const bucketBase = new THREE.Mesh(new THREE.CylinderGeometry(.079, .079, .008, 64), material(0xd39a3e));
 bucketBase.rotation.x = Math.PI / 2; bucketBase.position.z = .004; bucketGroup.add(bucketBase);
 let sceneSpec = {}, report = {}, pending = false, activeRequest = null, currentTrajectory = [], playTime = 0, playing = false, pathLine;
-let physics = null, physicsViewerResult, physicsProgress, savedPhysicsRecordings, clearanceExpansionSummary, physicsSceneActive = false, physicsViewKey = '';
+let physics = null, physicsViewerResult, physicsProgress, savedPhysicsRecordings, clearanceExpansionSummary, neuralShotSummary, physicsSceneActive = false, physicsViewKey = '';
 let savedReplayRows = [], savedReplaySignature = '';
 const physicsSelected = () => $('mode').value === 'physics' && physics?.available === true;
 let methodChosen = false, farmSignature = '', gridStudySignature = '', benchmarkSignature = '';
@@ -1030,6 +1030,7 @@ async function loadStatus() {
     if (ready && !physicsSelected() && $('resultTitle').textContent === 'Waiting for the learning study') { $('resultTitle').textContent = 'Ready to test a bucket position'; $('resultText').textContent = 'Choose a bucket position and optional arm locks, then solve.'; }
     showSavedPhysicsReplays();
     showClearanceExpansion();
+    showNeuralShotStudy();
     showPlannerFarm();
     showPlannerGridStudy();
     showSweepRlBenchmark();
@@ -1051,6 +1052,67 @@ function showSavedPhysicsReplays() {
       ? report.interactive_recordings.title : 'Saved first-drop replays';
   }
   syncSolveButtons();
+}
+function showNeuralShotStudy() {
+  if (!neuralShotSummary) return;
+  const view = neuralShotSummary(report);
+  $('neuralShotStudy').hidden = !view;
+  if (!view) return;
+  const phases = { initialized: 'Study initialized · preparation has not finished',
+    preparing: 'Preparing candidate arm poses', preparing_collection: 'Preparing training and validation shots',
+    preparing_train: 'Preparing training shots', collection_prepared: 'Training and validation shots prepared',
+    train: 'Collecting training drops', training: 'Training the shot selector', fit: 'Training the shot selector',
+    validation: 'Collecting drops at separate validation positions', preparing_validation: 'Preparing validation shots',
+    waiting_for_4090: 'Waiting for the shared 4090', waiting_for_4090_collection: 'Waiting for the 4090 to collect training and validation drops',
+    waiting_for_4090_test: 'Waiting for the 4090 to test the frozen planners',
+    controls_pre: 'Checking simulator controls', collection_controls_pre: 'Checking controls before data collection',
+    collection_controls_post: 'Checking controls after data collection', collection_native_completed: 'Collection finished · preparing the model',
+    model_frozen: 'Model trained and frozen · final testing still pending',
+    preparing_test: 'Preparing the frozen comparison', preparing_baseline: 'Preparing current and wider-search test shots',
+    preparing_neural: 'Preparing learned-selector test shots', baseline_prepared: 'Current and wider-search test shots prepared',
+    neural_prepared: 'Learned-selector test shots prepared', test_frozen: 'All three planners’ test choices frozen',
+    choices_frozen: 'All test choices frozen', test: 'Testing one drop per planner and position',
+    test_baseline: 'Running current and wider-search test drops', test_neural: 'Running learned-selector test drops',
+    controls_post: 'Checking final simulator controls', test_controls_pre: 'Checking controls before final testing',
+    test_controls_post: 'Checking controls after final testing', test_native_completed: 'Test drops finished · checking saved measurements',
+    auditing: 'Verifying saved measurements', completed: 'Final drops finished; waiting for audited results' };
+  $('neuralShotStatus').textContent = view.complete ? 'Comparison complete · independent audit passed'
+    : view.status === 'failed' ? 'Study interrupted · completed evidence is preserved'
+    : phases[view.phase] || 'Study in progress · final comparison pending';
+  const number = value => value === null ? '—' : String(value);
+  $('neuralShotProgress').replaceChildren(...view.splits.map(row => {
+    const card = document.createElement('div'), title = document.createElement('strong'), positions = document.createElement('p'), drops = document.createElement('p');
+    title.textContent = row.label;
+    positions.textContent = row.id === 'test' && (row.baseline_prepared !== null || row.neural_prepared !== null)
+      ? `Positions prepared: existing planners ${number(row.baseline_prepared)} / ${number(row.positions)} · learned selector ${number(row.neural_prepared)} / ${number(row.positions)}`
+      : `Positions prepared: ${number(row.prepared)} / ${number(row.positions)}`;
+    drops.textContent = `Drops completed: ${number(row.released)}${row.planned === null ? '' : ` / ${row.planned} planned`}`;
+    card.append(title, positions, drops); return card;
+  }));
+  $('neuralShotBudget').textContent = view.gpu_seconds === null ? ''
+    : `4090 reserved time used: ${(view.gpu_seconds / 3600).toFixed(2)} hours${view.gpu_budget_seconds === null ? '' : ` / ${(view.gpu_budget_seconds / 3600).toFixed(1)} hour cap`}. Waiting for the GPU is separate.`;
+  $('neuralShotTable').replaceChildren();
+  if (view.complete) {
+    const table = document.createElement('table'), head = document.createElement('thead'), header = document.createElement('tr'), body = document.createElement('tbody');
+    for (const label of ['Planner', 'First-drop captures', 'Feasible setups', 'Robot contacts', 'Median plan time', '90th-percentile plan time']) {
+      const th = document.createElement('th'); th.scope = 'col'; th.textContent = label; header.append(th);
+    }
+    head.append(header);
+    const seconds = value => value === null ? '—' : `${value.toFixed(1)} s`;
+    for (const row of view.methods) {
+      const tr = document.createElement('tr');
+      const values = [row.label, `${row.captures} / ${view.total} (${(100 * row.captures / view.total).toFixed(1)}%)`,
+        `${row.admitted} / ${view.total}`, row.robot_contacts, seconds(row.median_s), seconds(row.p90_s)];
+      for (const value of values) { const td = document.createElement('td'); td.textContent = String(value); tr.append(td); }
+      body.append(tr);
+    }
+    table.append(head, body); $('neuralShotTable').append(table);
+  }
+  $('neuralShotResultNote').textContent = view.complete
+    ? 'All three planners used the same new bucket positions and at most one release per position. The 90th-percentile time means nine out of ten plans finished within that time.'
+    : 'Final capture and timing comparison appears after testing and the independent audit finish. No winning model has been selected.';
+  $('neuralShotNext').textContent = view.next;
+  $('neuralShotError').textContent = view.error;
 }
 function showClearanceExpansion() {
   if (!clearanceExpansionSummary) return;
@@ -1156,10 +1218,12 @@ async function initializePhysics() {
     physicsViewerResult = module.physicsViewerResult; physicsProgress = module.physicsProgress;
     savedPhysicsRecordings = module.savedPhysicsRecordings;
     clearanceExpansionSummary = module.clearanceExpansionSummary;
+    neuralShotSummary = module.neuralShotSummary;
     physics = new module.InteractivePhysics({ onChange: updatePhysics });
     await physics.initialize();
     showSavedPhysicsReplays();
     showClearanceExpansion();
+    showNeuralShotStudy();
   } catch { /* Historical viewing stays available without this optional API. */ }
 }
 for (const id of ['physicsDrop', 'physicsDropTop']) {

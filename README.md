@@ -1,5 +1,7 @@
 # Sircus — Simple Circus
 
+**Current mjlab work:** [learned shot ordering](sircus/mjlab/NEURAL_SHOT_STUDY.md) is preparing fresh data at 160 training and 40 validation positions, followed by a frozen three-planner comparison on 200 unseen positions. Results are pending. The previous wider-search comparison captured **42/50 versus 40/50**; the active interactive planner is unchanged. The older dated studies below retain their original definitions and results.
+
 **Latest completed search:** [30/35 fixed-grid locations have confirmed recipes](baselines/mjlab-fixed35-six-20261110/README.md). One new recipe passed 3/3 repeats. The [bouncer-only follow-up](baselines/mjlab-fixed35-bouncer-20261110/README.md) preserved 30/30 recipes but captured 0/15 alternatives; its separate V3 audit passed 35,407 checks. Three searchable cells remain unresolved; two other cells overlap fixed robot bases. No new training or UI publication; the policy remains 24/35. [System workflow](docs/MJLAB_FIXED35_BOUNCER_20261110.md).
 
 **Latest mjlab recovery:** [29/35 fixed locations now have confirmed recipes](baselines/mjlab-fixed35-recovery-20261109/README.md).

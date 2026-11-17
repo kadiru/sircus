@@ -1,5 +1,14 @@
 # Project state
 
+## Learned shot ordering study started — November 16, 2026
+
+- [Method and reproduction](../sircus/mjlab/NEURAL_SHOT_STUDY.md): a supervised neural network ranks proposed shots before expensive IK and path checks. It does not replace the exact checks or the final physics flight score.
+- Frozen new positions: **160 training, 40 validation, 200 final test**. Training can release at most 5,760 balls; validation 640. The final comparison gives each of the current planner, wider-search planner and learned selector one drop per position (at most 600 releases), at 64 substeps.
+- CPU preparation has started. Native collection waits cooperatively for the 4090; the two native stages are capped at seven GPU hours combined. No new capture result or trained checkpoint is claimed at launch.
+- The additive `#neuralShotStudy` panel reports actual preparation/drop counts and withholds final scores until the independent audit passes. The live planner and service process are unchanged; 4070 and Isaac workloads remain untouched.
+- Validation: 53 CPU Python tests and 28 interface tests passed. A nonlinear synthetic fit test caught underfitting; ReLU and lower weight decay corrected it before the experiment was frozen. Synthetic test performance is not a Sircus capture result.
+- Perception remains a later integration step. Historical Isaac RGB-D detection exists, but noise/lighting robustness is inadequate. This study uses simulator geometry; future camera estimates must be evaluated against separately retained ground truth.
+
 ## Wider search for poor flight clearance — November 16, 2026
 
 - On 50 fresh bucket positions at 64 substeps, conditional wider search captured **42/50**, versus **40/50** for the frozen current planner: two gained captures, none lost. Both found feasible setups at every position.
