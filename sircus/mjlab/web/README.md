@@ -34,6 +34,17 @@ both arms and replayed a direct 64-substep capture with one second of
 retention. CPU preview checks found a feasible setup at each of the ten
 fresh placements from the acceptance set.
 
+The loopback acceptance test passed on the 4090 at 64 substeps. Each of the
+ten fresh positions got one release using the previewed poses. Eight captured
+(six direct and two after a table bounce). The misses were at (975.3, −63.8)
+mm and (1196.9, −144.7) mm. The first plan also rejected a duplicate release
+request. Planning took 19.6 seconds at the median and 51.2 seconds at the
+slowest position. This sample spans the studied grid interior, edges and
+positions near the two bases.
+
+- Frozen placements SHA-256 `441b7cb37e21edf635708d55fc13079d6060df7fbfdf36d1e0269a4bbe61a964`
+- Completed acceptance report SHA-256 `0dc8ebaac13d60cc7e391c1d350a161c8e088cd2338441290e88790611130a13`
+
 ## Historical planners and study viewer
 
 A separate localhost-only simulation interface. It does not import Viam clients,
