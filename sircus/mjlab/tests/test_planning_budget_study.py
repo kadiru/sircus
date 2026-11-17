@@ -1,4 +1,5 @@
 """The budget comparison cannot silently replace its model or reuse old targets."""
+import importlib.util
 import json
 from pathlib import Path
 import tempfile
@@ -6,10 +7,13 @@ from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
 
-from sircus.mjlab.benchmark_verify import sha
-from sircus.mjlab.planning_budget_study import COPIED_INPUTS, audited_neural, fresh_layouts
+HAS_TORCH = importlib.util.find_spec("torch") is not None
+if HAS_TORCH:
+    from sircus.mjlab.benchmark_verify import sha
+    from sircus.mjlab.planning_budget_study import COPIED_INPUTS, audited_neural, fresh_layouts
 
 
+@unittest.skipUnless(HAS_TORCH, "Existing study runtime imports require PyTorch")
 class BudgetStudyTests(unittest.TestCase):
     def fixture(self, folder):
         root = Path(folder)
