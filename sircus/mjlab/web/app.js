@@ -1048,7 +1048,13 @@ function updatePhysics(snapshot) {
       physicsSceneActive = true; physicsViewKey = key;
     } else if (!['ready', 'completed', 'stale', 'unavailable', 'idle'].includes(snapshot.state)) {
       $('sceneOutcome').textContent = $('physicsStatus').textContent;
-      $('sceneOutcome').className = `scene-outcome ${['failed', 'expired', 'no_setup'].includes(snapshot.state) ? 'failed' : ''}`;
+      const stopped = ['failed', 'expired', 'no_setup'].includes(snapshot.state);
+      $('sceneOutcome').className = `scene-outcome ${stopped ? 'failed' : ''}`;
+      if (stopped) {
+        $('resultTitle').textContent = snapshot.state === 'no_setup' ? 'No feasible shot' : 'Simulation request unavailable';
+        $('resultText').textContent = $('physicsStatus').textContent;
+        $('resultDot').className = 'status-dot failed';
+      }
     }
   }
   if (physicsSelected()) {
