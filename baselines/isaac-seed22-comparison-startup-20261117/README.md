@@ -1,4 +1,23 @@
-# Location comparison: closed startup attempt and guarded-recorder repair
+# Location comparison: two closed startup attempts
+
+Latest: the approved second start also closed before any TRAIN or assessment
+request. Its watchdog reported `Native child ownership changed` after 0.233 s;
+only the owner and exit receipts exist. The container exited, its owned processes
+stopped and the shared lock was released safely. Both failed attempts remain
+preserved. The one-start approval is consumed; no automatic retry is permitted.
+
+A CPU-only test of the unchanged wrapper ran 30 inert Python children, all exiting
+zero. In 24 runs, Linux briefly returned an empty environment cookie for a live
+process during an exec transition; an immediate read recovered the exact same
+PID, start time, parent, session and cookie. Ten runs also demonstrated an exit
+between polling and the identity read. This reproduces watchdog race conditions,
+but the failed native receipt did not capture its mismatching snapshot, so its
+specific transient cannot be proved from that receipt alone. No simulator,
+model update or task request was part of these diagnostics. All 101 input and
+217 source files matched afterward. The bounded identity-read repair is now CPU
+verified; all process and experiment guards remain required. A fresh prepared start remains held for explicit approval.
+
+The following sections preserve the earlier attempt and preparation history.
 
 The authorized comparison used its single simulator-start attempt, then closed before
 any TRAIN or assessment request. **No new training, evaluation or capture-rate
@@ -100,7 +119,7 @@ While waiting, an additional integration review found missing audit metadata:
 the comparison stored raw `shot_batch` rows without the five fields attached by
 the original producer. The unchanged auditor needs `split`, `qualification`,
 `path_rejection`, `path_proxy` and `scoring_board_normal`. This was found before
-the fresh attempt started; its one-start approval remains unused.
+the fresh attempt started; its one-start approval was still unused at that checkpoint.
 
 The bridge now attaches those exact original fields after `shot_batch` and
 before feedback and durable recording. Existing scores, poses and actions stay
@@ -128,3 +147,44 @@ The preparation hold can be released, with the same unused one-start approval;
 the launcher still requires a fresh idle-4090, source/input, scene-lock and
 storage check. No second native application, model update or task shot has
 occurred at this checkpoint.
+
+## Ownership repair verified; third start held
+
+Final source `300ab5c` retries only incomplete or unreadable child-identity samples
+for at most 100 ms / 21 reads. It never accepts a blank cookie or unreadable
+identity as ownership. PID, start token, cookie, parent and session must all
+match; changed identities and persistent unreadability still fail closed.
+Deadline, storage and source checks remain active during rereads. A confirmed
+child exit now reads the final atomic progress again before assessing completion.
+Original identity and pidfd signaling helpers are unchanged.
+
+The actual producer-wrapper check passed **60 inert children**, 30 under the
+file-owner UID and 30 with the native container's root/capability setup, with
+GPU visibility disabled in both. The helper handled 37 empty-cookie reads,
+14 unreadable reads and 19 absent reads; all children exited zero. These are
+process-observation tests, not simulator starts or task shots. Earlier CPU checks
+remain preserved: one private probe mistakenly checked the small temporary
+filesystem; the next exposed the PermissionError case now covered by the fix.
+
+The final actual-input CPU preflight again matched all 35 saved parent predictions
+(maximum normalized error 1.78814e-7). It measured 1.995 s wall, 2.017 CPU-seconds
+and 670.2 MiB peak RSS. All 101 input and 217 source hashes matched afterward; only
+`location_comparison_watchdog.py` changed among production Python files relative
+to `90ae3ff`. The producer environment passed 116 mock tests. Local verification
+passed 174 comparison cases, including 56 watchdog cases, plus 39 unchanged
+original-watchdog cases and independent review.
+
+The broad repository run exercised 1,686 Isaac cases with 121 optional skips;
+two loopback tests were blocked only by sandbox binding. Their two files passed
+all four cases with loopback permission. The 34 physical mocks, five simulation
+mocks, 59 Node cases and nine remaining numerical scripts passed. The final
+unreadable-snapshot follow-up added six cases and passed the complete comparison
+suite. No native performance is established by these software checks.
+
+A fresh third package binds source `300ab5c` and manifest SHA
+`7de349d890ca032d2f8802b987350de55ca5314a52fbcfab6fdfc7d6c8109a5b`.
+It is prepared behind an explicit HOLD with zero starts and requests. The same
+8,960 TRAIN requests / eight-hour per-copy limits, 70 broad + 25 nearby TEST
+positions per model, shared-hour cap and 6 GiB floor remain. The two failed starts
+are closed; the [one-start/no-retry rule](../../sircus/isaac/LOCATION_COMPARISON_PRODUCTION.md)
+requires a fresh exception before this package can start.

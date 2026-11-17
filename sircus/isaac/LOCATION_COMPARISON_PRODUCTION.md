@@ -1,11 +1,13 @@
 # Location comparison: process ownership and independent audit
 
-Latest status: one fresh corrected attempt is approved but still unstarted. A
-further review caught missing original raw-row audit metadata while waiting for
-the GPU. Source `90ae3ff` restores those fields and passed 149 comparison tests,
-independent review, new actual-input CPU preflight, 60 producer-environment mocks
-and full repository checks. Fresh GPU/lock/storage checks still gate the unused
-approved start; the preparation hold can now be released.
+Latest status: the approved second child start closed before any task requests,
+with watchdog reason `Native child ownership changed`. Both starts are preserved.
+Final source `300ab5c` passed actual-input CPU preflight, 116 producer-environment
+mocks, 174 comparison tests and 60 actual inert-wrapper child checks. Its narrow
+100 ms identity reread retains strict ownership and all deadline/storage guards.
+The fresh third package remains behind an explicit HOLD: the previous one-start
+approval is consumed, and no automatic retry is permitted. No comparison
+performance result exists. [Evidence and limits](../../baselines/isaac-seed22-comparison-startup-20261117/README.md).
 
 Earlier, the [authorized native start closed before any task requests](../../baselines/isaac-seed22-comparison-startup-20261117/README.md).
 The startup guard/recorder composition is repaired in `706c3ef`, with actual-input
