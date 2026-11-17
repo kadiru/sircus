@@ -1,5 +1,12 @@
 # Project state
 
+## Fast planner integration — November 17, 2026
+
+- [Operator flow and limits](../sircus/mjlab/INTERACTIVE_FAST.md): fast checked planning becomes the default only when its published study, model lineage and pinned source inputs verify. The original interactive planner remains an explicitly selectable fallback.
+- Repeated coordinates use fresh request/proof directories while clean CPU workers retain initialized kinematics. Changing bucket or planner invalidates the preview; the backend permits one native drop per preview and rejects stale or duplicate requests.
+- [Acceptance protocol](../sircus/mjlab/INTERACTIVE_FAST_ACCEPTANCE.md): ten new coordinates, four interior/four edge/two near bases, alternate planner order, at most one drop per method/position at 64 substeps. Report complete HTTP planning latency separately from GPU wait/drop; keep no-setup attempts in the denominator. Native comparison is pending.
+- The work is isolated from the existing simulation service until staging checks pass. The original runtime and evidence are preserved for rollback. No 4070 or Isaac setup change; native drops must wait for a free 4090 lease.
+
 ## Planning-speed comparison complete — November 17, 2026
 
 - [Frozen protocol](../sircus/mjlab/FAST_PLANNING_STUDY.md): 50 fresh positions, three versions of the same learned selector: fresh worker, reused worker, and reused worker returning the first fully checked shot with at least 5 mm of predicted arm/rim margin. All retain the 30-second decision limit and existing arm checks.

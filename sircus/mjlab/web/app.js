@@ -68,7 +68,7 @@ bucket.castShadow = bucket.receiveShadow = true; bucketGroup.add(bucket);
 const bucketBase = new THREE.Mesh(new THREE.CylinderGeometry(.079, .079, .008, 64), material(0xd39a3e));
 bucketBase.rotation.x = Math.PI / 2; bucketBase.position.z = .004; bucketGroup.add(bucketBase);
 let sceneSpec = {}, report = {}, pending = false, activeRequest = null, currentTrajectory = [], playTime = 0, playing = false, pathLine;
-let physics = null, physicsViewerResult, physicsProgress, savedPhysicsRecordings, clearanceExpansionSummary, neuralShotSummary, planningBudgetSummary, fastPlanningSummary, physicsSceneActive = false, physicsViewKey = '';
+let physics = null, physicsViewerResult, physicsProgress, savedPhysicsRecordings, clearanceExpansionSummary, neuralShotSummary, planningBudgetSummary, fastPlanningSummary, interactiveFastAcceptanceSummary, physicsSceneActive = false, physicsViewKey = '';
 let savedReplayRows = [], savedReplaySignature = '';
 const physicsSelected = () => $('mode').value === 'physics' && physics?.available === true;
 let methodChosen = false, farmSignature = '', gridStudySignature = '', benchmarkSignature = '';
@@ -132,14 +132,14 @@ function pointerRay(event) {
   raycaster.setFromCamera(mouse, camera);
 }
 canvas.addEventListener('pointerdown', event => {
-  if (pending) return;
+  if (pending || physics?.busy) return;
   pointerRay(event);
   if (raycaster.intersectObjects(bucketGroup.children).length) {
     dragging = true; controls.enabled = false; canvas.setPointerCapture(event.pointerId); event.preventDefault();
   }
 });
 canvas.addEventListener('pointermove', event => {
-  if (!dragging) return;
+  if (!dragging || pending || physics?.busy) return;
   pointerRay(event);
   if (raycaster.ray.intersectPlane(dragPlane, dragPoint)) {
     const bounds = (physicsSelected() && physics.capabilities.bucket_bounds) || sceneSpec.bucket_bounds || { x: [-.13, 1.47], y: [-.775, .275] };
@@ -152,10 +152,10 @@ function number(id) { const value = $(id).value.trim(); return value === '' ? Na
 function vector(prefix) { return ['X', 'Y', 'Z'].map(axis => number(prefix + axis)); }
 function updateConstraintPreview() {
   updateMethodHelp();
-  for (const id of ['boardLock', 'dropLock']) $(id).disabled = pending || physicsSelected();
+  for (const id of ['boardLock', 'dropLock']) $(id).disabled = pending || physics?.busy === true || physicsSelected();
   $('boardFields').classList.toggle('inactive', !$('boardLock').checked);
   $('dropFields').classList.toggle('inactive', !$('dropLock').checked);
-  for (const prefix of ['board', 'drop']) for (const axis of ['X', 'Y', 'Z']) $(prefix + axis).disabled = pending || physicsSelected() || !$(prefix + 'Lock').checked;
+  for (const prefix of ['board', 'drop']) for (const axis of ['X', 'Y', 'Z']) $(prefix + axis).disabled = pending || physics?.busy === true || physicsSelected() || !$(prefix + 'Lock').checked;
   if (!physicsSelected() && $('boardLock').checked && finiteVector(vector('board'), 3)) board.position.fromArray(vector('board'));
   releaseMarker.visible = !physicsSelected() && $('dropLock').checked;
   if (releaseMarker.visible && finiteVector(vector('drop'), 3)) releaseMarker.position.fromArray(vector('drop'));
@@ -185,16 +185,21 @@ function syncSolveButtons() {
   const dropDisabled = pending || !physicsSelected() || !physics.canDrop;
   for (const id of ['physicsDrop', 'physicsDropTop']) $(id).disabled = dropDisabled;
   $('physicsDropTop').hidden = dropDisabled;
-  $('physicsClear').disabled = !physicsSelected() || ['idle', 'stale', 'unavailable'].includes(physics.snapshot.state);
+  $('physicsClear').disabled = pending || physics?.busy === true || !physicsSelected() || ['idle', 'stale', 'unavailable'].includes(physics.snapshot.state);
+  const blocked = pending || physics?.busy === true;
+  for (const id of ['bucketX', 'bucketY', 'mode', 'searchBudget']) $(id).disabled = blocked;
+  $('physicsPlanner').disabled = blocked || !physicsSelected() || physics.plannerOptions.choices.length < 2;
+  for (const button of $('plannerFarmGrid').children) button.disabled = blocked;
+  for (const button of $('plannerGridTable').querySelectorAll('button')) button.disabled = blocked;
   $('savedReplaySelect').disabled = pending || physics?.busy === true;
   $('savedReplayLoad').disabled = pending || physics?.busy === true || !savedReplayRows.length;
   for (const button of $('savedReplayMarkers').children) button.disabled = pending || physics?.busy === true;
 }
 function setPending(value) {
   pending = value; syncSolveButtons();
-  for (const id of ['bucketX', 'bucketY', 'boardLock', 'dropLock', 'mode', 'searchBudget']) $(id).disabled = value;
-  for (const button of $('plannerFarmGrid').children) button.disabled = value;
-  for (const button of $('plannerGridTable').querySelectorAll('button')) button.disabled = value;
+  for (const id of ['bucketX', 'bucketY', 'boardLock', 'dropLock', 'mode', 'searchBudget']) $(id).disabled = value || physics?.busy === true;
+  for (const button of $('plannerFarmGrid').children) button.disabled = value || physics?.busy === true;
+  for (const button of $('plannerGridTable').querySelectorAll('button')) button.disabled = value || physics?.busy === true;
   updateConstraintPreview();
 }
 function addMetrics(pairs, target) {
@@ -247,7 +252,9 @@ function applyResult(result, { recordedPlayback = false, physicsPreview = false,
     $('resultText').textContent = physicsPreview
       ? 'Both planned arm poses, from native forward kinematics. Run one drop to measure the flight.'
       : 'Replay of the measured simulator trajectory. Replay speed changes the display only.';
-    pairs.splice(0, pairs.length, ['Method', 'Physics planner · endpoint-held'], ['Plan', result.request_id?.slice(0, 12) || '—'], ['Candidate pool', result.candidate_pool || 'Unknown']);
+    const plannerLabel = result.planner === 'fast' ? 'Faster planner' : result.planner === 'classic' ? 'Original planner' : 'Physics planner';
+    pairs.splice(0, pairs.length, ['Method', `${plannerLabel} · endpoint-held`], ['Plan', result.request_id?.slice(0, 12) || '—'], ['Candidate pool', result.candidate_pool || 'Unknown']);
+    if (Number.isFinite(result.timing?.planning_wall_s) && result.timing.planning_wall_s >= 0) pairs.push(['Server planning time', `${result.timing.planning_wall_s.toFixed(1)} s`]);
     if (Number.isFinite(config.tilt_deg)) pairs.push(['Board tilt', `${config.tilt_deg.toFixed(1)}°`]);
     if (Number.isFinite(config.gap_m)) pairs.push(['Release gap', `${(config.gap_m * 1000).toFixed(1)} mm`]);
     if (physicsPreview) pairs.push(['Prediction only', String(result.prediction?.predicted_route || result.route_intent || 'Unknown').replaceAll('_', ' ')]);
@@ -313,7 +320,7 @@ function showPlannerFarm() {
       button.setAttribute('aria-label', button.title);
       button.dataset.bucketX = row.xy[0]; button.dataset.bucketY = row.xy[1];
       button.onclick = () => {
-        if (pending) return;
+        if (pending || physics?.busy) return;
         setBucket(row.xy.slice()); clearResult(`Farm target ${label} selected`); showPlannerFarm();
       };
       target.append(button);
@@ -321,7 +328,7 @@ function showPlannerFarm() {
   }
   for (const button of target.children) {
     const selected = Math.abs(Number(button.dataset.bucketX) - bucketXY[0]) < 1e-9 && Math.abs(Number(button.dataset.bucketY) - bucketXY[1]) < 1e-9;
-    button.setAttribute('aria-pressed', String(selected)); button.disabled = pending;
+    button.setAttribute('aria-pressed', String(selected)); button.disabled = pending || physics?.busy === true;
     button.style.borderColor = selected ? 'var(--teal)' : 'var(--line)';
   }
   $('plannerFarmSummary').textContent = report.planner_grid_study
@@ -416,7 +423,7 @@ function showPlannerGridStudy() {
     cell(`${searchCaptures}\n${row.search.rejected ?? '—'} geometry rejects${row.search.cpuCandidates !== null ? ` / ${row.search.cpuCandidates} proposals` : ''}`);
     if (row.resultUrl && row.xy) {
       const button = document.createElement('button'); button.type = 'button'; button.className = 'quiet'; button.textContent = 'View recorded shot';
-      button.setAttribute('aria-label', `View table ${row.label} recorded native shot`); button.disabled = pending;
+      button.setAttribute('aria-label', `View table ${row.label} recorded native shot`); button.disabled = pending || physics?.busy === true;
       button.onclick = () => viewPlannerGridResult(row); identity.append(button);
     } else {
       const unavailable = document.createElement('small'); unavailable.textContent = 'No saved trajectory'; identity.append(unavailable);
@@ -908,7 +915,7 @@ function showContactStudy() {
   $('transitPreviews').replaceChildren(...routes.filter(row => routePreview(row).length).map(row => {
     const button = document.createElement('button'); button.className = 'quiet'; button.textContent = `Preview ${row.id}`;
     button.onclick = () => {
-      if (pending) return;
+      if (pending || physics?.busy) return;
       clearResult('Sampled FK route · geometric audit only');
       transitFrames = routePreview(row); transitTime = transitFrames[0].time; transitName = row.id;
       if (Array.isArray(row.bucket_xy_m)) setBucket(row.bucket_xy_m);
@@ -1033,6 +1040,7 @@ async function loadStatus() {
     showNeuralShotStudy();
     showPlanningBudgetStudy();
     showFastPlanningStudy();
+    showInteractiveFastAcceptance();
     showPlannerFarm();
     showPlannerGridStudy();
     showSweepRlBenchmark();
@@ -1054,6 +1062,44 @@ function showSavedPhysicsReplays() {
       ? report.interactive_recordings.title : 'Saved first-drop replays';
   }
   syncSolveButtons();
+}
+function showInteractiveFastAcceptance() {
+  if (!interactiveFastAcceptanceSummary) return;
+  const view = interactiveFastAcceptanceSummary(report);
+  $('interactiveFastAcceptance').hidden = !view;
+  if (!view) return;
+  const value = n => n === null ? '—' : String(n);
+  const seconds = n => n === null ? '—' : `${n.toFixed(1)} s`;
+  $('interactiveFastAcceptanceStatus').textContent = view.complete ? 'Live comparison complete · saved results verified'
+    : view.status === 'failed' ? 'Live comparison interrupted · saved evidence preserved'
+    : view.status === 'completed' && view.audit === 'passed' && !view.accounting_valid ? 'Reported totals disagree · final results withheld'
+    : `Live comparison ${view.status || 'pending'} · ${value(view.completed)} / ${value(view.planned)} requests finished · final results pending`;
+  $('interactiveFastAcceptanceScope').textContent = view.scope || 'Same fresh bucket placements, one plan and at most one drop per planner. Native simulation at 64 substeps; arms held at planned endpoints.';
+  $('interactiveFastAcceptanceTable').replaceChildren();
+  $('interactiveFastAcceptancePair').textContent = '';
+  if (view.complete) {
+    const table = document.createElement('table'), head = document.createElement('thead'), row = document.createElement('tr'), body = document.createElement('tbody');
+    for (const label of ['Measurement', ...view.methods.map(method => method.label)]) {
+      const cell = document.createElement('th'); cell.scope = 'col'; cell.textContent = label; row.append(cell);
+    }
+    head.append(row);
+    for (const [label, getValue] of [
+      ['First-drop captures', method => `${method.captures} / ${method.positions}`],
+      ['Measured drops completed', method => `${method.releases} / ${method.positions}`],
+      ['No checked setup / failed requests', method => `${method.no_setup} / ${method.failed}`],
+      ['Mean wait for plan', method => seconds(method.planning.mean_s)],
+      ['90th-percentile wait for plan', method => seconds(method.planning.p90_s)],
+      ['Mean server planning time', method => seconds(method.backend_request.mean_s)],
+      ['Requests reusing a worker', method => value(method.worker_reused)],
+    ]) {
+      const tr = document.createElement('tr'), th = document.createElement('th'); th.scope = 'row'; th.textContent = label; tr.append(th);
+      for (const method of view.methods) { const td = document.createElement('td'); td.textContent = getValue(method); tr.append(td); }
+      body.append(tr);
+    }
+    table.append(head, body); $('interactiveFastAcceptanceTable').append(table);
+    $('interactiveFastAcceptancePair').textContent = `Faster versus original: ${view.paired.gained} gained captures, ${view.paired.lost} lost. Both captured at ${view.paired.both} placements. All ${view.total} placements remain in each capture denominator.`;
+  }
+  $('interactiveFastAcceptanceNext').textContent = view.error || view.next;
 }
 function showFastPlanningStudy() {
   if (!fastPlanningSummary) return;
@@ -1312,6 +1358,18 @@ function updatePhysics(snapshot) {
   }
   $('physicsStatus').textContent = snapshot.message || snapshot.progress?.message || ({ submitting: 'Submitting shot plan…', queued: 'Waiting to plan…', planning: 'Planning both arm poses…', submitting_drop: 'Starting one drop…', running: 'Running one simulated drop…', failed: 'Physics request failed. Plan again to retry.', stale: 'Scene changed. Plan a new shot.', idle: 'Place the bucket, then plan a shot.', ready: 'Preview ready. Run one drop when ready.', no_setup: 'No feasible setup found within this plan.', completed: 'Drop complete. Replay the measured flight, or plan another shot.', expired: 'Plan expired. Plan a new shot.' })[snapshot.state] || 'Physics status unavailable.';
   $('physicsProgress').textContent = physicsProgress(snapshot);
+  const options = physics.plannerOptions, select = $('physicsPlanner');
+  if ([...select.options].map(option => option.value).join(',') !== options.choices.map(option => option.id).join(',')) {
+    select.replaceChildren(...options.choices.map(choice => {
+      const option = document.createElement('option'); option.value = choice.id; option.textContent = choice.label; return option;
+    }));
+  }
+  select.value = physics.planner;
+  $('physicsPlannerHelp').textContent = physics.planner === 'fast'
+    ? 'Returns a checked shot early when possible. The ~30 s decision budget excludes worker startup, queue waits and result checks. No automatic fallback.'
+    : options.advertised ? 'Original wider search. It can take longer. It runs only when you select it and press Plan shot.'
+    : 'This server offers the original planner. Faster planning is not configured here.';
+
   if (physicsSelected()) {
     if (snapshot.state === 'idle' && $('resultTitle').textContent === 'Waiting for the learning study') {
       $('resultTitle').textContent = 'Ready to plan a shot';
@@ -1352,6 +1410,7 @@ async function initializePhysics() {
     neuralShotSummary = module.neuralShotSummary;
     planningBudgetSummary = module.planningBudgetSummary;
     fastPlanningSummary = module.fastPlanningSummary;
+    interactiveFastAcceptanceSummary = module.interactiveFastAcceptanceSummary;
     physics = new module.InteractivePhysics({ onChange: updatePhysics });
     await physics.initialize();
     showSavedPhysicsReplays();
@@ -1359,12 +1418,18 @@ async function initializePhysics() {
     showNeuralShotStudy();
     showPlanningBudgetStudy();
     showFastPlanningStudy();
+    showInteractiveFastAcceptance();
   } catch { /* Historical viewing stays available without this optional API. */ }
 }
 for (const id of ['physicsDrop', 'physicsDropTop']) {
   $(id).onclick = () => { if (!pending && physicsSelected()) void physics.drop(); };
 }
-$('physicsClear').onclick = () => clearResult('Preview cleared — plan a new shot');
+$('physicsClear').onclick = () => { if (!pending && !physics?.busy) clearResult('Preview cleared — plan a new shot'); };
+$('physicsPlanner').onchange = () => {
+  if (pending || !physics?.selectPlanner($('physicsPlanner').value)) { if (physics) $('physicsPlanner').value = physics.planner; return; }
+  clearResult('Planner changed — plan again', true);
+  syncSolveButtons();
+};
 void initializePhysics();
 loadStatus(); setInterval(loadStatus, 5000);
 const resize = new ResizeObserver(() => { const r = canvas.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); camera.aspect = r.width / r.height; camera.updateProjectionMatrix(); }); resize.observe(canvas);
