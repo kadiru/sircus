@@ -68,7 +68,7 @@ bucket.castShadow = bucket.receiveShadow = true; bucketGroup.add(bucket);
 const bucketBase = new THREE.Mesh(new THREE.CylinderGeometry(.079, .079, .008, 64), material(0xd39a3e));
 bucketBase.rotation.x = Math.PI / 2; bucketBase.position.z = .004; bucketGroup.add(bucketBase);
 let sceneSpec = {}, report = {}, pending = false, activeRequest = null, currentTrajectory = [], playTime = 0, playing = false, pathLine;
-let physics = null, physicsViewerResult, physicsProgress, savedPhysicsRecordings, clearanceExpansionSummary, neuralShotSummary, planningBudgetSummary, physicsSceneActive = false, physicsViewKey = '';
+let physics = null, physicsViewerResult, physicsProgress, savedPhysicsRecordings, clearanceExpansionSummary, neuralShotSummary, planningBudgetSummary, fastPlanningSummary, physicsSceneActive = false, physicsViewKey = '';
 let savedReplayRows = [], savedReplaySignature = '';
 const physicsSelected = () => $('mode').value === 'physics' && physics?.available === true;
 let methodChosen = false, farmSignature = '', gridStudySignature = '', benchmarkSignature = '';
@@ -1032,6 +1032,7 @@ async function loadStatus() {
     showClearanceExpansion();
     showNeuralShotStudy();
     showPlanningBudgetStudy();
+    showFastPlanningStudy();
     showPlannerFarm();
     showPlannerGridStudy();
     showSweepRlBenchmark();
@@ -1053,6 +1054,83 @@ function showSavedPhysicsReplays() {
       ? report.interactive_recordings.title : 'Saved first-drop replays';
   }
   syncSolveButtons();
+}
+function showFastPlanningStudy() {
+  if (!fastPlanningSummary) return;
+  const view = fastPlanningSummary(report);
+  $('fastPlanningStudy').hidden = !view;
+  if (!view) return;
+  const phases = { initialized: 'Comparison initialized', preparing: 'Preparing three independent plans per position',
+    preparing_test: 'Preparing three independent plans per position', prepared: 'Plans prepared · freezing choices',
+    choices_frozen: 'All three methods’ choices frozen', waiting_for_4090: 'Waiting for the shared 4090',
+    controls_pre: 'Checking simulator controls before drops', test: 'Testing one drop per method and position',
+    test_cold_30: 'Testing shots planned by fresh workers', test_warm_30: 'Testing shots planned by reused workers',
+    test_warm_early: 'Testing shots from the earlier-return rule',
+    controls_post: 'Checking final simulator controls', native_completed: 'Drops finished · checking saved measurements',
+    auditing: 'Verifying saved measurements', completed: 'Drops finished · awaiting audited results' };
+  $('fastPlanningStatus').textContent = view.complete ? 'Comparison complete · independent audit passed'
+    : view.status === 'failed' ? 'Comparison interrupted · completed evidence is preserved'
+    : view.status === 'completed' && view.audit === 'passed' && !view.accounting_valid ? 'Reported totals disagree · final results withheld'
+    : phases[view.phase] || 'Comparison in progress · final results pending';
+  const number = value => value === null ? '—' : String(value);
+  const seconds = value => value === null ? '—' : `${value.toFixed(1)} s`;
+  $('fastPlanningLimit').textContent = `${number(view.total)} fresh bucket positions · ${number(view.budget)}-second decision limit · same frozen learned selector · at most one drop per method and position.`;
+  const cards = [['Plans prepared', `${number(view.prepared)} / ${number(view.planned)}`, 'Three methods, same positions.'],
+    ['Native drops completed', `${number(view.releases)}${view.planned_releases === null ? '' : ` / ${view.planned_releases} planned`}`, 'No checked shot means no release.']];
+  $('fastPlanningProgress').replaceChildren(...cards.map(([label, value, detail]) => {
+    const card = document.createElement('div'), title = document.createElement('strong'), count = document.createElement('p'), note = document.createElement('p');
+    title.textContent = label; count.textContent = value; note.textContent = detail; card.append(title, count, note); return card;
+  }));
+  $('fastPlanningTable').replaceChildren(); $('fastPlanningProfiles').replaceChildren(); $('fastPlanningPaired').replaceChildren();
+  $('fastPlanningProfileDetails').hidden = !view.complete;
+  if (view.complete) {
+    const matrix = (target, rows) => {
+      const table = document.createElement('table'), head = document.createElement('thead'), header = document.createElement('tr'), body = document.createElement('tbody');
+      for (const label of ['Measurement', ...view.methods.map(row => row.label)]) {
+        const th = document.createElement('th'); th.scope = 'col'; th.textContent = label; header.append(th);
+      }
+      head.append(header);
+      for (const [label, getValue] of rows) {
+        const tr = document.createElement('tr'), th = document.createElement('th'); th.scope = 'row'; th.textContent = label; tr.append(th);
+        for (const method of view.methods) { const td = document.createElement('td'); td.textContent = String(getValue(method)); tr.append(td); }
+        body.append(tr);
+      }
+      table.append(head, body); $(target).append(table);
+    };
+    matrix('fastPlanningTable', [
+      ['First-drop captures', row => `${row.captures} / ${view.total} (${(100 * row.captures / view.total).toFixed(0)}%)`],
+      ['Checked shot ready', row => `${row.releases} / ${view.total}`],
+      ['No checked shot', row => row.no_candidate],
+      ['Deadline reached', row => row.deadline_reached],
+      ['Returned early', row => row.early_return],
+      ['Robot-contact shots', row => row.robot_contacts],
+      ['Mean decision time', row => seconds(row.decision.mean_s)],
+      ['Median decision time', row => seconds(row.decision.median_s)],
+      ['90th-percentile decision time', row => seconds(row.decision.p90_s)],
+      ['Mean measured planning request', row => seconds(row.request.mean_s)],
+      ['Median measured planning request', row => seconds(row.request.median_s)],
+      ['90th-percentile measured planning request', row => seconds(row.request.p90_s)],
+    ]);
+    matrix('fastPlanningProfiles', [
+      ...view.methods[0].stages.map(stage => [stage.label, row => {
+        const value = row.stages.find(item => item.id === stage.id);
+        return `${seconds(value.aggregate_s)}${value.fraction === null ? '' : ` · ${(value.fraction * 100).toFixed(0)}%`}`;
+      }]),
+      ['Median worker initialization', row => seconds(row.startup.median_s)],
+      ['Workers initialized', row => number(row.workers?.cold_starts ?? null)],
+      ['Requests reusing a worker', row => number(row.workers?.reused_requests ?? null)],
+      ['Replacement workers', row => number(row.workers?.restarts ?? null)],
+    ]);
+    for (const pair of view.paired.filter(row => row.valid)) {
+      const item = document.createElement('li');
+      item.textContent = `${pair.alternative} versus ${pair.base}: ${pair.gained} gained captures, ${pair.lost} lost; both captured at ${pair.both} positions.`;
+      $('fastPlanningPaired').append(item);
+    }
+  }
+  $('fastPlanningResultNote').textContent = view.complete
+    ? 'Captures use all tested positions as the denominator, including missing setups. Deadline counts can include ready shots. The 90th percentile means nine out of ten requests finished within that time. A dash means the measurement is unavailable.'
+    : 'Capture and timing comparisons appear only after all drops and the independent audit finish. Partial progress does not identify a winning method.';
+  $('fastPlanningNext').textContent = view.next; $('fastPlanningError').textContent = view.error;
 }
 function showPlanningBudgetStudy() {
   if (!planningBudgetSummary) return;
@@ -1273,12 +1351,14 @@ async function initializePhysics() {
     clearanceExpansionSummary = module.clearanceExpansionSummary;
     neuralShotSummary = module.neuralShotSummary;
     planningBudgetSummary = module.planningBudgetSummary;
+    fastPlanningSummary = module.fastPlanningSummary;
     physics = new module.InteractivePhysics({ onChange: updatePhysics });
     await physics.initialize();
     showSavedPhysicsReplays();
     showClearanceExpansion();
     showNeuralShotStudy();
     showPlanningBudgetStudy();
+    showFastPlanningStudy();
   } catch { /* Historical viewing stays available without this optional API. */ }
 }
 for (const id of ['physicsDrop', 'physicsDropTop']) {

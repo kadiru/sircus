@@ -1,5 +1,12 @@
 # Project state
 
+## Planning-speed comparison started — November 17, 2026
+
+- [Frozen protocol](../sircus/mjlab/FAST_PLANNING_STUDY.md): 50 fresh positions, three versions of the same learned selector: fresh worker, reused worker, and reused worker returning the first fully checked shot with at least 5 mm of predicted arm/rim margin. All retain the 30-second decision limit and existing arm checks.
+- All 150 choices freeze before any native test. Native tests use 64 substeps and one drop at most per method/position, bracketed by 18 matched controls. No training or live default promotion occurs.
+- Validation: 69 Python tests passed in Ubuntu's pinned CPU environment, 49 interface tests passed, and a two-position real-model smoke test confirmed exact original/fresh/reused command equivalence and worker reuse without native drops.
+- CPU profiling is running independently of GPU work. Native tests wait for the shared 4090 lease; the active 4070 and Isaac workloads are left alone. Results/progress appear at `#fastPlanningStudy`; final captures require a passed independent audit.
+
 ## Planning-budget comparison completed — November 17, 2026
 
 - [Audited results](../sircus/mjlab/PLANNING_BUDGET_RESULTS.md): at the same **100 fresh positions** and **30-second decision limit**, the frozen learned selector captured **75/100**, versus **69/100** for the current planner. Ten gains, four losses; 65 shared captures and 21 shared failures. No retraining occurred.
