@@ -24,6 +24,29 @@ export function physicsProgress(snapshot) {
   if (Number.isFinite(p.elapsed_s) && p.elapsed_s >= 0) parts.push(`Elapsed ${Math.floor(p.elapsed_s)} s`);
   return parts.join(' · ');
 }
+/** Read saved native results without planning, simulation, or reconstructing flight. */
+export function savedPhysicsRecordings(study) {
+  const section = study?.interactive_recordings;
+  if (section?.version !== 'sircus-interactive-recordings-v1' || !Array.isArray(section.recordings)) return [];
+  const ids = new Set();
+  return section.recordings.filter(row => {
+    const r = row?.result, trace = r?.trajectory;
+    if (typeof row?.id !== 'string' || !row.id || ids.has(row.id) || typeof row.label !== 'string'
+        || r?.status !== 'completed' || !vector(r.bucket_xy_m, 2)
+        || !hasNativePreview({ ...r, status: 'feasible' }) || typeof r.capture !== 'boolean'
+        || r.provenance?.substeps !== 64 || typeof r.provenance?.native_release_id !== 'string'
+        || !r.provenance.native_release_id || !/^[a-f0-9]{64}$/i.test(r.provenance?.native_cache_sha256 || '')
+        || r.scalar_score_audit_passed !== true || !Array.isArray(trace) || trace.length < 2
+        || !trace.every((p, i) => Number.isFinite(p.time) && p.time >= 0 && vector(p.ball, 3)
+          && (i === 0 || p.time > trace[i - 1].time))) return false;
+    ids.add(row.id); return true;
+  }).map(row => ({
+    ...row, explanation: typeof row.explanation === 'string' ? row.explanation : '',
+    markers: (Array.isArray(row.markers) ? row.markers : []).filter(marker =>
+      Number.isFinite(marker?.time) && typeof marker.label === 'string'
+      && marker.time >= row.result.trajectory[0].time && marker.time <= row.result.trajectory.at(-1).time),
+  }));
+}
 export class InteractivePhysics {
   constructor({
     fetcher = (...args) => globalThis.fetch(...args),

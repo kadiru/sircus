@@ -60,3 +60,4 @@
 .physics-drop-top{bottom:89px;background:var(--teal)}
 .physics-drop-top[hidden]{display:none}
 #searchBudgetFields[hidden]{display:none}
+.saved-physics-replays{padding:14px;margin:12px 0;border:1px solid var(--line);border-radius:8px;background:#eef1e9}.saved-physics-replays[hidden]{display:none}.saved-replay-controls{display:flex;align-items:center;flex-wrap:wrap;gap:9px}.saved-replay-controls>label{font-weight:700;font-size:12px}.saved-replay-controls>select{min-width:0;flex:1 1 240px;max-width:100%;font-size:12px}.saved-replay-controls>button{font-size:12px}.saved-replay-markers{display:flex;flex-wrap:wrap;gap:7px}.saved-replay-markers>button{font-size:11px;padding:6px 9px}.saved-physics-replays>.fine{margin:10px 0;line-height:1.5}

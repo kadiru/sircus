@@ -68,7 +68,8 @@ bucket.castShadow = bucket.receiveShadow = true; bucketGroup.add(bucket);
 const bucketBase = new THREE.Mesh(new THREE.CylinderGeometry(.079, .079, .008, 64), material(0xd39a3e));
 bucketBase.rotation.x = Math.PI / 2; bucketBase.position.z = .004; bucketGroup.add(bucketBase);
 let sceneSpec = {}, report = {}, pending = false, activeRequest = null, currentTrajectory = [], playTime = 0, playing = false, pathLine;
-let physics = null, physicsViewerResult, physicsProgress, physicsSceneActive = false, physicsViewKey = '';
+let physics = null, physicsViewerResult, physicsProgress, savedPhysicsRecordings, physicsSceneActive = false, physicsViewKey = '';
+let savedReplayRows = [], savedReplaySignature = '';
 const physicsSelected = () => $('mode').value === 'physics' && physics?.available === true;
 let methodChosen = false, farmSignature = '', gridStudySignature = '', benchmarkSignature = '';
 let transitFrames = [], transitTime = 0, transitName = "";
@@ -121,6 +122,7 @@ function clearResult(message, preservePhysics = false) {
   $('resultTitle').textContent = message;
   $('resultText').textContent = 'A new solve is required after changing the scene or arm constraints.';
   $('resultDot').className = 'status-dot'; $('metrics').replaceChildren();
+  $('savedReplayMarkers').replaceChildren();
 }
 const raycaster = new THREE.Raycaster(), mouse = new THREE.Vector2(), dragPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0), dragPoint = new THREE.Vector3();
 let dragging = false;
@@ -184,6 +186,9 @@ function syncSolveButtons() {
   for (const id of ['physicsDrop', 'physicsDropTop']) $(id).disabled = dropDisabled;
   $('physicsDropTop').hidden = dropDisabled;
   $('physicsClear').disabled = !physicsSelected() || ['idle', 'stale', 'unavailable'].includes(physics.snapshot.state);
+  $('savedReplaySelect').disabled = pending || physics?.busy === true;
+  $('savedReplayLoad').disabled = pending || physics?.busy === true || !savedReplayRows.length;
+  for (const button of $('savedReplayMarkers').children) button.disabled = pending || physics?.busy === true;
 }
 function setPending(value) {
   pending = value; syncSolveButtons();
@@ -1023,12 +1028,49 @@ async function loadStatus() {
     syncSolveButtons();
     $('fingerprint').textContent = `Scene fingerprint: ${r.scene_fingerprint ?? r.contract_fingerprint ?? r.fingerprint ?? s.fingerprint ?? 'not reported'}`;
     if (ready && !physicsSelected() && $('resultTitle').textContent === 'Waiting for the learning study') { $('resultTitle').textContent = 'Ready to test a bucket position'; $('resultText').textContent = 'Choose a bucket position and optional arm locks, then solve.'; }
+    showSavedPhysicsReplays();
     showPlannerFarm();
     showPlannerGridStudy();
     showSweepRlBenchmark();
     if (!standalone) showCoverage();
   } catch (error) { $('studyTitle').textContent = 'Study connection unavailable'; $('studyDetail').textContent = error.message; for (const id of ['solve', 'solveTop']) $(id).disabled = true; if (physicsSelected()) syncSolveButtons(); }
 }
+function showSavedPhysicsReplays() {
+  if (!savedPhysicsRecordings) return;
+  const rows = savedPhysicsRecordings(report), signature = JSON.stringify(rows);
+  $('savedPhysicsReplays').hidden = rows.length === 0;
+  if (signature !== savedReplaySignature) {
+    const previous = $('savedReplaySelect').value;
+    savedReplayRows = rows; savedReplaySignature = signature;
+    $('savedReplaySelect').replaceChildren(...rows.map(row => {
+      const option = document.createElement('option'); option.value = row.id; option.textContent = row.label; return option;
+    }));
+    if (rows.some(row => row.id === previous)) $('savedReplaySelect').value = previous;
+    $('savedReplayTitle').textContent = typeof report.interactive_recordings?.title === 'string'
+      ? report.interactive_recordings.title : 'Saved first-drop replays';
+  }
+  syncSolveButtons();
+}
+function replaySavedPhysics(row) {
+  if (pending || physics?.busy || !row || !physicsViewerResult) return;
+  clearResult('Loading saved native shot');
+  $('boardLock').checked = false; $('dropLock').checked = false;
+  setBucket(row.result.bucket_xy_m.slice());
+  $('speed').value = '0.25';
+  applyResult(physicsViewerResult(row.result, row.id), { recordedPlayback: true, physicsResult: true });
+  physicsSceneActive = true; physicsViewKey = `recorded:${row.id}`;
+  $('savedReplayExplanation').textContent = `${row.label}. ${row.explanation} Recorded at 64 substeps. Playback is ¼ speed.`;
+  $('resultText').textContent = row.explanation || 'Replay of the saved native simulator trajectory.';
+  const markers = row.markers.map(marker => {
+    const button = document.createElement('button'); button.type = 'button'; button.className = 'quiet';
+    button.textContent = `${marker.time.toFixed(3)} s · ${marker.label}`;
+    button.onclick = () => { if (!pending && !physics?.busy && physicsViewKey === `recorded:${row.id}`) { playTime = marker.time; playing = false; } };
+    return button;
+  });
+  $('savedReplayMarkers').replaceChildren(...markers);
+  syncSolveButtons();
+}
+$('savedReplayLoad').onclick = () => replaySavedPhysics(savedReplayRows.find(row => row.id === $('savedReplaySelect').value));
 function updatePhysics(snapshot) {
   if (physics.available) {
     $('physicsOption').hidden = false; $('physicsOption').disabled = false;
@@ -1071,8 +1113,10 @@ async function initializePhysics() {
     if (!response.ok || (await response.json()).enabled !== true) return;
     const module = await import('/interactive-physics.mjs');
     physicsViewerResult = module.physicsViewerResult; physicsProgress = module.physicsProgress;
+    savedPhysicsRecordings = module.savedPhysicsRecordings;
     physics = new module.InteractivePhysics({ onChange: updatePhysics });
     await physics.initialize();
+    showSavedPhysicsReplays();
   } catch { /* Historical viewing stays available without this optional API. */ }
 }
 for (const id of ['physicsDrop', 'physicsDropTop']) {

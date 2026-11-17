@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { InteractivePhysics, hasNativePreview, physicsViewerResult, physicsProgress } from '../web/interactive-physics.mjs';
+import { InteractivePhysics, hasNativePreview, physicsViewerResult, physicsProgress, savedPhysicsRecordings } from '../web/interactive-physics.mjs';
 const xy = [.6, -.4];
 const preview = () => ({ status: 'feasible', bucket_xy_m: xy, configuration: { board_center_m: [.6, 0, .4], board_normal: [0, 0, 1], board_quaternion_wxyz: [1, 0, 0, 0], release_center_m: [.6, 0, .7], q10: [0, 1], q14: [1, 0], link_positions10: [[0, 0, 0], [.6, 0, .7]], link_positions14: [[1.3, 0, 0], [.6, 0, .4]] }, prediction: { predicted_route: 'table' }, provenance: { native_cache_sha256: 'original' } });
 const response = (data, status = 200) => ({ ok: status >= 200 && status < 300, status, json: async () => data });
@@ -124,4 +124,55 @@ test('historical server does not require the new controller asset', () => {
 test('plan preserves exact grid and drag target coordinates despite rounded input display', () => {
   const js = readFileSync(new URL('../web/app.js', import.meta.url), 'utf8');
   assert.match(js, /const xy = finiteVector\(\[number\('bucketX'\), number\('bucketY'\)\], 2\) \? bucketXY.slice\(\)/);
+});
+
+function recording() {
+  return { id: 'case-04', label: 'Northeast miss', explanation: 'Missed the rim.', markers: [{ time: .4, label: 'Board contact' }], result: {
+    ...preview(), status: 'completed', capture: false, outcome: 'flight_miss', scalar_score_audit_passed: true,
+    provenance: { substeps: 64, native_release_id: 'native-04', native_cache_sha256: 'a'.repeat(64) },
+    trajectory: [{ time: 0, ball: [.6, 0, .7] }, { time: .5, ball: [.8, -.5, .1] }],
+  } };
+}
+const recordedReport = rows => ({ interactive_recordings: { version: 'sircus-interactive-recordings-v1', recordings: rows } });
+test('saved replays retain original missed outcome, trajectory, exact coordinates and provenance', () => {
+  const source = recording(), [row] = savedPhysicsRecordings(recordedReport([source]));
+  assert.equal(row.result, source.result);
+  assert.equal(row.result.capture, false);
+  assert.deepEqual(row.markers, [{ time: .4, label: 'Board contact' }]);
+  const rendered = physicsViewerResult(row.result, row.id);
+  assert.equal(rendered.trajectory, source.result.trajectory);
+  assert.equal(rendered.provenance, source.result.provenance);
+  assert.equal(rendered.success, false);
+});
+test('saved replays reject unaudited, malformed and unsupported native recordings', () => {
+  const corruptions = [
+    row => { row.result.status = 'feasible'; },
+    row => { row.result.bucket_xy_m = [NaN, 0]; },
+    row => { row.result.configuration.link_positions14 = []; },
+    row => { row.result.provenance.substeps = 128; },
+    row => { delete row.result.provenance.native_release_id; },
+    row => { row.result.provenance.native_cache_sha256 = 'unknown'; },
+    row => { row.result.scalar_score_audit_passed = false; },
+    row => { row.result.trajectory = []; },
+    row => { row.result.trajectory[1].time = 0; },
+    row => { row.result.trajectory[1].ball = [0, Infinity, 1]; },
+  ];
+  for (const corrupt of corruptions) { const row = recording(); corrupt(row); assert.deepEqual(savedPhysicsRecordings(recordedReport([row])), []); }
+  assert.deepEqual(savedPhysicsRecordings({}), []);
+  assert.deepEqual(savedPhysicsRecordings({ interactive_recordings: { version: 'unknown', recordings: [recording()] } }), []);
+});
+test('saved replay markers stay within the recorded interval and duplicate IDs cannot select another record', () => {
+  const row = recording(); row.markers.push({ time: 9, label: 'Outside' }, { time: NaN, label: 'Invalid' }, { time: .2, label: 42 });
+  const rows = savedPhysicsRecordings(recordedReport([row, recording()]));
+  assert.equal(rows.length, 1); assert.deepEqual(rows[0].markers, [{ time: .4, label: 'Board contact' }]);
+});
+test('saved replay blocks busy runs, clears the live plan, uses recorded poses and cannot submit a drop', () => {
+  const js = readFileSync(new URL('../web/app.js', import.meta.url), 'utf8');
+  const body = js.split('function replaySavedPhysics(row) {')[1].split("$('savedReplayLoad').onclick")[0];
+  assert.match(body, /if \(pending \|\| physics\?\.busy/);
+  assert.match(body, /clearResult\('Loading saved native shot'\)/);
+  assert.match(body, /setBucket\(row.result.bucket_xy_m.slice\(\)\)/);
+  assert.match(body, /applyResult\(physicsViewerResult\(row.result, row.id\)/);
+  assert.match(body, /\$\('speed'\).value = '0.25'/);
+  assert.doesNotMatch(body, /fetch\(|\.plan\(|\.drop\(|POST|requestSolve/);
 });
