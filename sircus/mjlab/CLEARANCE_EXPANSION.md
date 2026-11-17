@@ -1,5 +1,7 @@
 # Wider search when predicted flight clearance is poor
 
+Completed: [audited results](../../baselines/mjlab-clearance-expansion-20261116/README.md). Wider search captured 42/50 versus 40/50; two gains, no lost captures. Median planning time increased from 33.7 to 39.5 seconds. The active interactive planner remains unchanged.
+
 This experiment compares two frozen planners on 50 fresh bucket positions. It changes how candidate shots are searched, not the learned model, simulator, or capture definition.
 
 The current planner proposes direct and table-bounce shots from the existing learned model and saved shot libraries. It expands the geometry search only if no arm setup is feasible. The new planner also expands when the best feasible shot has a nonpositive predicted clearance score. That score is the smallest predicted margin to the robot, bucket opening, or board edge.
