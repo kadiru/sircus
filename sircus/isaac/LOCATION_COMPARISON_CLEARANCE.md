@@ -1,5 +1,9 @@
 # Saved-data clearance investigation
 
+The [completed saved-data diagnostic](../../baselines/isaac-comparison-clearance-diagnostic-20261118/README.md)
+found one scalar clearance disagreement and zero catch/clean-label changes across
+18,520 requests. It remains separate from the failed full audit.
+
 This diagnostic investigates the separate seed-22 location comparison whose
 CPU recovery audit stopped on `minimum_mouth_clearance_mm`. It is not another
 audit attempt, training run, simulator replay or replacement for the failed

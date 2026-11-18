@@ -238,6 +238,11 @@ class ClearanceDiagnosticTests(unittest.TestCase):
         self.assertEqual(len(result["grouped"]), 2)
         self.assertEqual(result["grouped"][0]["checkpoint_sha256"], "b" * 64)
 
+    def test_quaternion_check_preserves_zero_relative_tolerance(self):
+        self.data["board_quaternion_wxyz"][0, 0, 0] = 1.001005
+        with self.assertRaisesRegex(ValueError, "quaternion"):
+            self.run_core()
+
     def test_native_version_gate_and_explicit_cross_version_exception(self):
         with mock.patch.object(np, "__version__", "2.5.4"):
             with self.assertRaisesRegex(ValueError, "exact NumPy 1.26.0"):
@@ -251,6 +256,9 @@ class ClearanceDiagnosticTests(unittest.TestCase):
                 diagnostic.runtime_info()
         with mock.patch.object(np, "__version__", "1.26.0"):
             self.assertTrue(diagnostic.runtime_info()["numpy_matches_producer"])
+            with mock.patch.object(diagnostic.platform, "system", return_value="Linux"):
+                self.assertFalse(diagnostic.runtime_info()["runtime_matches_producer"])
+                self.assertFalse(diagnostic.runtime_info()["full_producer_runtime_verified"])
 
     def test_json_duplicate_and_nonfinite_rejected(self):
         for raw in (b'{"a":1,"a":2}', b'{"a":NaN}'):
