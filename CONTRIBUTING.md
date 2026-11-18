@@ -43,4 +43,4 @@ These checks reject obvious credentials and host/runtime artifacts. They supplem
 
 ## Sharing access
 
-Owner: kadiru. Each human contributor needs their own GitHub account granted access, and each agent's GitHub/CLI connection must be able to access this private repository. Never copy another user's token. Keep credentials in ignored .private directories and provision physical credentials only on the authorized Mac.
+Owner: kadiru. Anyone can read this public repository. Each contributor who pushes a branch here needs a GitHub account with write access. An agent pushing for a contributor needs an authorized GitHub connection. Never copy another user's token. Keep credentials in ignored .private directories and provision physical credentials only on the authorized Mac.

@@ -1,40 +1,49 @@
 # Sircus — Simple Circus
 
-Two UFACTORY850 arms learn to bounce a ball from a suction-mounted board into a bucket. Arm10 picks/releases; arm14 positions the board. This private repository is the shared source for Mac physical work and Ubuntu simulation work.
+Can two robot arms bounce a ball into a bucket after the bucket moves? One UFACTORY850 arm holds a tilted board. The other releases the ball above it. The planner chooses the board pose and drop height from the known scene geometry. A capture requires the whole ball to stay in the bucket for one continuous second after bouncing off the board.
 
-![Architecture](docs/sircus-architecture.png)
+![Saved MuJoCo replay with one arm holding the ball above the board and the second arm tilting the board toward the bucket](docs/images/two-arm-replay.webp)
+
+*An archived MuJoCo/mjlab simulation frame. Both arms hold their selected poses during the drop. [Replay provenance](https://github.com/kadiru/sircus/blob/fd950dc49fc5634f70e021f40619d4e8a8f21356/baselines/mjlab-yaw-tilt-gap-20261109/video.json).*
 
 ## Start here
 
-- **Ubuntu / Varun:** [setup, training and local dashboard](docs/UBUNTU_SETUP.md). Run `./setup-ubuntu.sh`, then `./start-local.sh`. In another terminal run `sircus/simulation/.venv/bin/python sircus/two-arm/local_dashboard.py`.
-- **Orientation/height experiment:** `sircus/simulation/.venv/bin/python sircus/two-arm/train_orientation_height.py --budget 32 --tests 10 --output experiments/run-001`. No server or hardware required. The search holds release XY, board center/yaw and bucket fixed; it optimizes roll, pitch and gap with endpoint IK checks. V2 uses [one-second capture scoring](docs/SCORING_CONTRACT.md). Native replay rejects these policies until a matching runtime adapter is integrated; endpoint IK alone does not validate a motion path.
-- **Scene-conditioned learning:** [study contract and commands](docs/SCENE_CONDITIONED_STUDY.md), [frozen checkpoint and synthetic results](baselines/scene-conditioned-20261030/README.md). A trained ridge model predicts roll/pitch/U/V/gap on disjoint layouts without search at inference. The opt-in dashboard panel previews numerical trajectories only; native v2 replay remains blocked.
-- **Mac / physical sfhack10:** [operator panel instructions](sircus/physical_trials/README.md). Physical control is explicit and separate; cloning/pulling never starts hardware or reloads a running dashboard.
-- **All contributors and agents:** [CONTRIBUTING.md](CONTRIBUTING.md), [AGENTS.md](AGENTS.md), and [current project summary](docs/PROJECT_STATE.md).
+| If you want to… | Start with… |
+| --- | --- |
+| Understand how a shot is chosen and what worked | [Illustrated one-drop planner guide](docs/ONE_DROP_PLANNER.md) |
+| Inspect the November showcase implementation | [mjlab planner](https://github.com/kadiru/sircus/blob/9b59b84b8820b40790ebe20f1a036c1ea8679282/sircus/mjlab/intergrid_system_plan.py) and [interactive replay and results](https://github.com/kadiru/sircus/blob/9b59b84b8820b40790ebe20f1a036c1ea8679282/sircus/mjlab/web/README.md) at the revision used in the showcase |
+| Run a small numerical experiment on `main` | [Ubuntu setup and fixed-scene experiment](docs/UBUNTU_SETUP.md) or the commands below |
+| Inspect a trained model without running the simulation | [October checkpoint, test scorecard and trajectory preview](baselines/scene-conditioned-20261030/README.md) |
+| Explore the physical setup | [Mac operator panel and mock adapter](sircus/physical_trials/README.md) and [stationary RGB-D capture](sircus/perception/CAPTURE_README.md) |
 
-## Implementation audit and next experiment
+## Run the CPU experiment on main
 
-Read the [Mac system audit, UI/API contracts, and learning integration plan](docs/audits/2026-10-29/README.md) before new development. These distinguish implemented capabilities from historical observations and proposed work; raw local evidence and credentials are excluded.
+With Python 3.12 on Ubuntu, run these commands from the repository root. This fixed-scene search tries board roll, pitch and release gap while holding the bucket and release XY fixed. It checks inverse kinematics at both arm endpoints and runs a numerical ball rollout. The experiment uses no GPU, Viam server or robot.
 
-## Source layout
+```bash
+./setup-ubuntu.sh
+sircus/simulation/.venv/bin/python sircus/two-arm/train_orientation_height.py \
+  --budget 4 --tests 2 --seed 42 --output experiments/first-shot
+```
 
-| Directory | Purpose |
-|---|---|
-| `sircus/two-arm/` | Shared measured/provisional scene, two-arm physics, kinematics, Viam module, trainers and fake-only guard |
-| `sircus/simulation/` | Browser dashboard, Python bridge, pinned dependencies, shared viewer assets |
-| `sircus/physical_trials/` | Mac operator panel backend and mock tests; credentials/calibration/records remain local |
-| `sircus/perception/` | Stationary RGB-D capture/inspection; calibration is incomplete |
-| `baselines/` | Small dated synthetic reference results; not current hardware evidence |
-| `docs/` | Setup, architecture, collaboration, credential templates and limits |
+Open `experiments/first-shot/summary.json` for the result. Give each run a fresh output directory. For the optional local viewer, follow the [Viam server and dashboard steps](docs/UBUNTU_SETUP.md). The dashboard can preview scene-conditioned numerical trajectories. Native replay of those v2 policies requires a matching runtime adapter.
 
-Python3.12 is the target. Run `scripts/test.sh` with the project venv available. Tests use mocks or local numerical models; they never command a physical robot. CI runs these checks on Ubuntu.
+## Where the code lives on main
 
-## What synchronization means
+| Area | What you will find |
+| --- | --- |
+| [Two-arm simulation](sircus/two-arm/) | [Scene geometry](sircus/two-arm/scene.json), [two-arm kinematics](sircus/two-arm/two_arm_kinematics.py), [ball rollout](sircus/two-arm/shot_rollout.py) and [capture scoring](sircus/two-arm/capture_scoring.py) |
+| [Dashboard and models](sircus/simulation/) | Browser viewer, Python bridge, Viam integration and pinned dependencies |
+| [Learning experiments](docs/SCENE_CONDITIONED_STUDY.md) | Training and evaluation commands, layout splits and comparisons with fixed actions and per-scene search |
+| [Reference results](baselines/) | Dated synthetic checkpoints, scorecards and experiment inputs |
+| [Physical operator](sircus/physical_trials/) and [perception](sircus/perception/) | Mac control panel, mock tests, stationary camera capture and alignment tools |
 
-GitHub contains **committed and pushed** changes. Agents must fetch before work, use their own branch/checkout, and push tested changes before handoff. `main` is the shared reviewed baseline; active work is on `codex/<owner>-<task>` branches. See `scripts/sync.sh`. There is no background auto-commit, auto-merge or live robot deployment.
+Hardware calibration is incomplete. The scene records provisional values, including whether the measured 175 mm bucket height describes its interior depth or overall height. Simulation capture rates apply to the specified layouts and scoring rules. [Measurements](sircus/measurements.json) · [Scoring contract](docs/SCORING_CONTRACT.md).
 
-Credentials, local calibration, observations, upload queues, virtual environments, generated configs, photos, and transfer archives are ignored. Share those separately when needed. An agent on another account needs repository access; a private Git URL alone does not grant it.
+## Development
 
-Bucket dimensions and provisional measurements are preserved in `sircus/two-arm/scene.json` and `sircus/measurements.json`. Simulation success does not establish hardware performance. The175mm bucket height interpretation is unresolved.
+Run `scripts/test.sh` for the mock and numerical checks after setup. Use [CONTRIBUTING.md](CONTRIBUTING.md) and [AGENTS.md](AGENTS.md) for the shared branch and review workflow. Pushing code and operating the robot are separate actions. Local credentials, calibration, raw observations and generated runtime files stay outside Git.
 
-Third-party licenses/provenance stay beside their model/viewer sources. No new license is granted for project-authored code by this private repository.
+[System architecture](docs/sircus-architecture.png) · [October integration checkpoint](docs/PROJECT_STATE.md) · [System audit and integration plan](docs/audits/2026-10-29/README.md)
+
+Third-party license and provenance files sit beside their models and viewer assets. No additional license is granted for project-authored code.
