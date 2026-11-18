@@ -1,10 +1,16 @@
 # Project state
 
+## Saved-data recovery audit failed — November 18, 2026
+
+- The one bounded CPU audit exited 1 after 943.763 seconds, with no OOM or forced termination. The unchanged scientific reader failed the saved-versus-reconstructed clearance consistency check for `minimum_mouth_clearance_mm`. No successful certificate, verified performance publication or model promotion followed. [Failure evidence and exact measurements](../baselines/isaac-comparison-recovery-failure-20261118/README.md).
+- All 25,059 sealed files, 101 inputs and 217 original source files still match after failure. The original failed shutdown remains preserved. No retraining, simulator start, new shot or audit retry occurred. The publication pipeline remains gated.
+- Static review suggests a possible live-tensor versus reconstructed-origin precision difference, but the failing trial/values and classification impact have not been established. The next step is a saved-data diagnosis; no tolerance change or result acceptance is justified by that hypothesis.
+
 ## CPU-only saved-data audit authorized — November 18, 2026
 
 - The user approved implementation, mock testing and a separate bounded CPU-only audit of the closed third comparison, with results/videos if verification passes. No retraining, optimizer steps, simulator start or new shots. [Implementation and boundaries](../sircus/isaac/LOCATION_COMPARISON_RECOVERY.md).
 - Recovery preserves the original failed shutdown and original audit rejection. A separately labeled report must retain the exact original scientific audit body and helper code, complete evidence membership, journal equality and all 18,520-request/144-checkpoint coverage. The original evidence is read-only; separate owner/exit receipts bind the CPU audit and its measurements.
-- A fresh read-only check confirmed the exact stopped native container plus all 101 input and 217 source files unchanged. Disk space then fell below the original 6 GiB floor. With explicit user approval, only regular downloaded APT package files were removed: 911,401,090 bytes, restoring 7,089,160,192 free bytes at the cleanup observation. Installed software, environments and evidence were preserved. Two utility startup failures are retained; neither executed its cleanup. The CPU audit has not yet run; its storage guard still applies.
+- A fresh read-only check confirmed the exact stopped native container plus all 101 input and 217 source files unchanged. Disk space then fell below the original 6 GiB floor. With explicit user approval, only regular downloaded APT package files were removed: 911,401,090 bytes, restoring 7,089,160,192 free bytes at the cleanup observation. Installed software, environments and evidence were preserved. Two utility startup failures are retained; neither executed its cleanup. At that preparation point the CPU audit had not yet run; its subsequent failure is recorded above. The storage guard remained active.
 
 - Validation: 1,803 Isaac cases completed with 121 optional skips; the two sandbox-blocked localhost cases passed in their four-test file reruns. All 34 physical mocks, five simulation mocks, 73 Node cases and nine numerical scripts passed. The independent outer watchdog now also passes 35 targeted mocks, including the actual Docker logging constraint discovered during cache cleanup. Original scientific source is unchanged.
 

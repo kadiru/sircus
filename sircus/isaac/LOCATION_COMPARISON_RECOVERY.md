@@ -9,6 +9,13 @@ recovery.
 
 ## Status and scope
 
+The actual bounded CPU attempt subsequently **failed** on the independent
+`minimum_mouth_clearance_mm` consistency check. See the
+[failure record](../../baselines/isaac-comparison-recovery-failure-20261118/README.md).
+The original shutdown failure remains visible; no result/video publication or
+audit retry followed. The preparation and boundary descriptions below remain
+historical implementation evidence, not a successful scientific certificate.
+
 Implementation and synthetic verification are separate from a passed native
 data audit. Actual execution must still satisfy the original **6 GiB disk floor**;
 the preparation check initially found storage below that floor. User-approved
@@ -129,7 +136,7 @@ mocks, five simulation mocks, 73 Node cases and nine numerical scripts passed.
 The independent outer watchdog additionally passed 35 targeted mock tests after
 requiring explicit Docker local-log compression disablement with its one-file
 limit. Source review found no remaining blocking issue. These checks verify
-software behavior with synthetic data; the actual saved-data audit is pending.
+software behavior with synthetic data; the actual saved-data audit subsequently failed as recorded above.
 
 CPU setup checks retained two failed mock containers before scientific work:
 a missing nested mount target under the read-only root, then Docker changing
