@@ -1,5 +1,13 @@
 # Project state
 
+## CPU-only saved-data audit authorized — November 18, 2026
+
+- The user approved implementation, mock testing and a separate bounded CPU-only audit of the closed third comparison, with results/videos if verification passes. No retraining, optimizer steps, simulator start or new shots. [Implementation and boundaries](../sircus/isaac/LOCATION_COMPARISON_RECOVERY.md).
+- Recovery preserves the original failed shutdown and original audit rejection. A separately labeled report must retain the exact original scientific audit body and helper code, complete evidence membership, journal equality and all 18,520-request/144-checkpoint coverage. The original evidence is read-only; separate owner/exit receipts bind the CPU audit and its measurements.
+- A fresh read-only check confirmed the exact stopped native container plus all 101 input and 217 source files unchanged. Disk space then fell below the original 6 GiB floor. With explicit user approval, only regular downloaded APT package files were removed: 911,401,090 bytes, restoring 7,089,160,192 free bytes at the cleanup observation. Installed software, environments and evidence were preserved. Two utility startup failures are retained; neither executed its cleanup. The CPU audit has not yet run; its storage guard still applies.
+
+- Validation: 1,803 Isaac cases completed with 121 optional skips; the two sandbox-blocked localhost cases passed in their four-test file reruns. All 34 physical mocks, five simulation mocks, 73 Node cases and nine numerical scripts passed. The independent outer watchdog now also passes 32 targeted mocks, including the actual Docker logging constraint discovered during cache cleanup. Original scientific source is unchanged.
+
 ## Third comparison stopped after recorded requests; final audit absent — November 18, 2026
 
 - At the 13:46:42 UTC terminal observation, the original watchdog had recorded `stopped_no_retry` / `independent watchdog wall deadline reached`, `termination=stopped` and `lock_release_safe=true`. The owned container had exited with code 1, PID zero and no OOM flag. Another project subsequently held the 4090 and shared scene lock; it was left untouched. [Failure evidence](../baselines/isaac-seed22-comparison-shutdown-20261118/README.md).

@@ -20,6 +20,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import location_comparison_media as media
 from location_comparison_publication import SCHEMA, digest
 from location_comparison_server import published_file
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from test_location_comparison_recovery_publication import recovery_presentation
 
 
 def write(path, value):
@@ -134,6 +136,25 @@ class EncoderTests(unittest.TestCase):
 
     def save_report(self):
         self.pin = write(self.report_path, self.report)
+
+    def test_recovery_encodes_same_ten_clips_preserving_failure_and_costs(self):
+        self.report = recovery_presentation(self.report); self.save_report()
+        original = copy.deepcopy(self.report)
+        result = self.encode()
+        self.assertEqual(result["status"], "data_verified_shutdown_incomplete")
+        self.assertEqual(result["audit"], original["audit"])
+        self.assertEqual(result["costs"], original["costs"])
+        self.assertEqual(len(result["videos"]), 10)
+        self.assertEqual(sum(v["phase"] == "train" for v in result["videos"]), 8)
+        self.assertTrue(all(v["model"] == "parent" for v in result["videos"] if v["phase"] != "train"))
+        self.assertEqual(len(self.calls), 32)
+        self.assertIsNotNone(published_file(self.destination, result["videos"][0]["media"]["url"]))
+
+    def test_recovery_missing_failure_pin_is_rejected_before_codec(self):
+        self.report = recovery_presentation(self.report)
+        self.report["audit"].pop("native_exit_sha256"); self.save_report()
+        with self.assertRaises(ValueError): self.encode()
+        self.assertEqual(self.calls, [])
 
     def test_exact_order_cpu_encoding_verified_attachment_and_unchanged_sources(self):
         before = {str(p.relative_to(self.native)): media._hash(p) for p in self.native.rglob("*") if p.is_file()}

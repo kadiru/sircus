@@ -27,10 +27,29 @@ export function validMetrics(row,expected=null){
     &&(expected===null||row.requests===expected);
 }
 
+export function recoveryVerified(report){
+  const audit=report?.audit,failure=report?.costs?.shutdown_failure;
+  return report?.schema===SCHEMA&&report.synthetic===false&&report.model_promoted===false
+    &&report.status==='data_verified_shutdown_incomplete'&&audit?.status===report.status
+    &&audit.complete===true&&audit.synthetic===false&&audit.original_audit_status==='not_passed'
+    &&audit.native_shutdown_status==='failed'&&audit.native_clean_shutdown===false
+    &&['manifest_fingerprint','comparison_fingerprint','audit_sha256','audit_exit_sha256','native_exit_sha256',
+      'native_exit_fingerprint','audit_exit_fingerprint','trace_sha256','recovery_request_fingerprint',
+      'inventory_sha256','retirement_proof_sha256'].every(k=>hash(audit[k]))
+    &&['session_id','recovery_session_id'].every(k=>typeof audit[k]==='string'&&/^[a-f0-9]{32}$/.test(audit[k]))
+    &&audit.session_id!==audit.recovery_session_id&&failure?.status==='failed'
+    &&failure.original_audit_status==='not_passed'&&failure.clean_shutdown===false
+    &&failure.reason==='independent watchdog wall deadline reached'&&failure.shared_phase_limit_s===3600
+    &&s(failure.scope).length>0&&['native_watchdog_wall_s','last_progress_shared_phase_s','after_last_progress_wall_s'].every(k=>n(failure[k])!==null)
+    &&failure.after_last_progress_wall_s<=failure.native_watchdog_wall_s
+    &&failure.native_watchdog_wall_s===report.costs.native_watchdog_wall_s;
+}
+
 export function resultsAudited(report){
-  if(report?.schema!==SCHEMA||report.synthetic!==false||report.status!=='completed_audited'
-    ||report.audit?.status!=='passed'||report.audit.complete!==true||report.audit.synthetic!==false
-    ||report.model_promoted!==false)return false;
+  const canonical=report?.schema===SCHEMA&&report.synthetic===false&&report.status==='completed_audited'
+    &&report.audit?.status==='passed'&&report.audit.complete===true&&report.audit.synthetic===false
+    &&report.model_promoted===false;
+  if(!canonical&&!recoveryVerified(report))return false;
   return COPIES.every(key=>validMetrics(report.train?.[key],8960))
     &&MODELS.every(key=>validMetrics(report.final_tests?.[key]?.test_broad,70)
       &&validMetrics(report.final_tests?.[key]?.test_local,25));
@@ -38,8 +57,9 @@ export function resultsAudited(report){
 
 export function statusView(report){
   if(report?.schema!==SCHEMA||report.synthetic!==false)return {state:'failed',badge:'Unavailable',title:'Native comparison evidence unavailable',detail:'A compatible native report has not been supplied. Synthetic fixtures are not performance results.'};
+  if(resultsAudited(report)&&recoveryVerified(report))return {state:'failed',badge:'Data verified · shutdown failed',title:'Data verified; simulator shutdown failed',detail:'Both copies and their saved results passed a separate CPU recovery audit. The original final audit remains not passed: the simulator did not close within its shutdown limit. The failure and its cost are preserved. No model has been promoted.'};
   if(resultsAudited(report))return {state:'passed',badge:'Audit passed',title:'The equal-budget comparison is complete',detail:'Both copies completed 8,960 new TRAIN requests. All three final models were independently checked on the same fresh test positions. No model has been promoted.'};
-  if(report.status==='completed_audited')return {state:'failed',badge:'Evidence inconsistent',title:'Final results cannot be verified',detail:'The audit or required counts are missing or inconsistent. Outcome comparisons remain hidden.'};
+  if(['completed_audited','data_verified_shutdown_incomplete'].includes(report.status))return {state:'failed',badge:'Evidence inconsistent',title:'Final results cannot be verified',detail:'The audit, preserved shutdown failure or required counts are missing or inconsistent. Outcome comparisons remain hidden.'};
   if(['stopped_no_retry','incomplete_no_retry','failed'].includes(report.status))return {state:'failed',badge:'Stopped · incomplete',title:'The attempt stopped; evidence is preserved',detail:s(report.reason)||s(report.error)||'The required comparison did not finish. Partial counts do not establish final performance, and no automatic retry is implied.'};
   if(report.status==='queued')return {state:'queued',badge:'Waiting',title:'Waiting for the 4090',detail:s(report.reason)||'Another workload owns the GPU. No training result is available for this attempt.'};
   if(report.status==='prepared')return {state:'prepared',badge:'Prepared',title:'The comparison is prepared',detail:'Both copies start from the saved seed-22 model. No new outcome is available yet.'};
@@ -163,9 +183,24 @@ function renderCompute(report){
   document.getElementById('computeScope').textContent=(s(report?.costs?.scope)||'Only measured scopes are shown. Geometry time is inside rollout time, not additional elapsed time. CPU and wall time are different measurements. Missing measurements stay unknown.')+' '+(s(report?.costs?.memory_scope)||'RSS is a lifetime high-water mark; GPU values are whole-device samples, not model memory or phase peaks.');
   if(!resultsAudited(report)){for(const node of [phase,operations,mem])pending(node);return;}
   const wall=report.costs?.observed_phase_wall_s??{};
-  phase.appendChild(table(['Measured scope · overlapping scopes must not be added','Observed elapsed wall'],[[LABELS.original_usable,seconds(wall.original_usable)],[LABELS.broader,seconds(wall.broader)],['Shared bounded phase',seconds(wall.shared)],['Entire native process watchdog',seconds(report.costs?.native_watchdog_wall_s)],['Separate independent audit watchdog',seconds(report.costs?.audit_watchdog_wall_s)]]));
+  phase.appendChild(table(['Measured scope · overlapping scopes must not be added','Observed elapsed wall'],[[LABELS.original_usable,seconds(wall.original_usable)],[LABELS.broader,seconds(wall.broader)],[recoveryVerified(report)?'Shared phase recorded before shutdown · stale':'Shared bounded phase',seconds(wall.shared)],['Entire native process watchdog',seconds(report.costs?.native_watchdog_wall_s)],[recoveryVerified(report)?'Separate CPU recovery audit watchdog':'Separate independent audit watchdog',seconds(report.costs?.audit_watchdog_wall_s)]]));
+  if(recoveryVerified(report)){
+    const failure=report.costs.shutdown_failure,audit=report.costs.recovery_audit??{};
+    note(phase,'Simulator shutdown failed; the original final audit remains not passed.','scope');
+    phase.appendChild(table(['Preserved shutdown-failure scope · overlaps totals above','Measured value'],[
+      ['Original native watchdog total, including failed shutdown',seconds(failure.native_watchdog_wall_s)],
+      ['Shared phase at last progress update · stale, not final',seconds(failure.last_progress_shared_phase_s)],
+      ['After last progress update, including shutdown wait',seconds(failure.after_last_progress_wall_s)],
+      ['Original shared-phase limit',seconds(failure.shared_phase_limit_s)]]));
+    note(phase,failure.scope,'small muted');
+    phase.appendChild(table(['Separate CPU recovery audit','Measured value'],[
+      ['Watchdog wall',seconds(audit.wall_s)],['Exact audit child user CPU',seconds(audit.cpu_user_s)],
+      ['Exact audit child system CPU',seconds(audit.cpu_system_s)],
+      ['Exact audit child lifetime peak RSS',memory(n(audit.peak_rss_bytes)===null?null:audit.peak_rss_bytes/1048576)]]));
+    note(phase,'Audit CPU and RSS cover the exact audit child, including reaped descendants. These are separate from training cost.','small muted');
+  }
   const rows=computeRows(report);if(rows.length)operations.appendChild(table(['Model','Operation / phase','Operation wall','Rollout CPU only','Proposal wall','Geometry wall · nested'],rows));else pending(operations,'No phase-operation measurements supplied.');
-  const memory=memoryRows(report);if(memory.length)mem.appendChild(table(['Model','Phase','Samples','Max recorded process lifetime RSS','Max sampled whole-device GPU usage'],memory));else pending(mem,'Memory measurements were not supplied.');
+  const memoryTable=memoryRows(report);if(memoryTable.length)mem.appendChild(table(['Model','Phase','Samples','Max recorded process lifetime RSS','Max sampled whole-device GPU usage'],memoryTable));else pending(mem,'Memory measurements were not supplied.');
 }
 
 function renderVideos(report){
@@ -180,7 +215,7 @@ function renderVideos(report){
   }
 }
 
-function renderEvidence(report){const node=clear('evidenceDetails');note(node,resultsAudited(report)?'Independent audit: passed; required comparison counts verified.':'No complete independently audited comparison is established by this publication.');note(node,'No model is automatically promoted. Both trained copies start from the same saved seed-22 weights and optimizer state. This is neural-network continuation with continuous geometry checks, without a shot-settings library.');if(resultsAudited(report)){for(const model of MODELS){const value=report.checkpoints?.[model];const identity=value?.sha256??value?.checkpoint_sha256;if(hash(identity))note(node,`${LABELS[model]} checkpoint SHA256: ${identity}`,'hash');}for(const key of ['comparison_fingerprint','manifest_fingerprint','audit_sha256','trace_sha256'])if(hash(report.audit?.[key]))note(node,`${key.replaceAll('_',' ')}: ${report.audit[key]}`,'hash');}note(node,'The historical six-run sweep/PPO benchmark is separate. The simulator uses known bucket coordinates; these results do not validate camera perception, physical robot execution or unrestricted arm motion.','scope');}
+function renderEvidence(report){const node=clear('evidenceDetails');note(node,resultsAudited(report)?(recoveryVerified(report)?'Separate saved-data recovery audit: passed. Original final audit: not passed. Simulator shutdown: failed. Required scientific checks and comparison counts verified.':'Independent audit: passed; required comparison counts verified.'):'No complete independently audited comparison is established by this publication.');note(node,'No model is automatically promoted. Both trained copies start from the same saved seed-22 weights and optimizer state. This is neural-network continuation with continuous geometry checks, without a shot-settings library.');if(resultsAudited(report)){for(const model of MODELS){const value=report.checkpoints?.[model];const identity=value?.sha256??value?.checkpoint_sha256;if(hash(identity))note(node,`${LABELS[model]} checkpoint SHA256: ${identity}`,'hash');}for(const key of ['comparison_fingerprint','manifest_fingerprint','audit_sha256','trace_sha256','audit_exit_sha256','native_exit_sha256','inventory_sha256','retirement_proof_sha256'])if(hash(report.audit?.[key]))note(node,`${key.replaceAll('_',' ')}: ${report.audit[key]}`,'hash');}note(node,'The historical six-run sweep/PPO benchmark is separate. The simulator uses known bucket coordinates; these results do not validate camera perception, physical robot execution or unrestricted arm motion.','scope');}
 
 let current=null;
 export function render(report){current=report;const view=statusView(report);document.getElementById('statusCard').className='card status '+view.state;document.getElementById('statusBadge').textContent=view.badge;document.getElementById('statusTitle').textContent=view.title;document.getElementById('statusDetail').textContent=view.detail;const time=s(report?.generated_at);document.getElementById('freshness').textContent=time&&Number.isFinite(Date.parse(time))?`Publication generated: ${new Date(time).toLocaleString()} · a dated report, not proof of a live process`:'Publication time unavailable.';renderModels(report);const metric=document.getElementById('curveMetric').value||'captures';renderCurves(report,metric);renderHeldout(report);renderCompute(report);renderVideos(report);renderEvidence(report);}

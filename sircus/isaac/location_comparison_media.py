@@ -30,7 +30,7 @@ import subprocess
 import time
 
 from candidate_continuation_journal import write_new_json, _sync_directory
-from location_comparison_publication import SCHEMA as REPORT_SCHEMA, digest, require
+from location_comparison_publication import SCHEMA as REPORT_SCHEMA, digest, require, recovery_publication_verified
 
 SCHEMA = "sircus-location-comparison-media-provenance-v1"
 FPS = 30
@@ -100,11 +100,12 @@ def _metrics(row, count):
 
 
 def _report_gate(report, expected_audit_sha256):
-    require(report.get("schema") == REPORT_SCHEMA and report.get("status") == "completed_audited"
+    recovered = recovery_publication_verified(report)
+    require(report.get("schema") == REPORT_SCHEMA and (report.get("status") == "completed_audited" or recovered)
         and report.get("synthetic") is False and report.get("model_promoted") is False,
         "Completed audited publication required")
     audit = report.get("audit", {})
-    require(audit.get("status") == "passed" and audit.get("complete") is True and audit.get("synthetic") is False
+    require((audit.get("status") == "passed" or recovered) and audit.get("complete") is True and audit.get("synthetic") is False
         and audit.get("audit_sha256") == _sha(expected_audit_sha256), "Independent audit pin differs")
     for key in ("manifest_fingerprint", "comparison_fingerprint", "native_exit_fingerprint",
                 "audit_exit_fingerprint", "trace_sha256"):
