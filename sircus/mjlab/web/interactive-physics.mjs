@@ -247,7 +247,7 @@ export function interactiveFastAcceptanceSummary(study) {
   const methods = Object.entries({ fast: 'Faster planner', classic: 'Original planner' }).map(([id, label]) => {
     const raw = section.comparison?.[id] || {};
     const values = Object.fromEntries(['positions', 'captures', 'releases', 'no_setup', 'failed', 'worker_reused'].map(key => [key, count(raw[key])]));
-    return { id, label, ...values,
+    return { id, label, ...values, planning_samples: count(raw.planning?.samples),
       planning: Object.fromEntries(['mean_s', 'median_s', 'p90_s', 'max_s'].map(key => [key, seconds(raw.planning?.[key])])),
       backend_request: Object.fromEntries(['mean_s', 'median_s', 'p90_s', 'max_s'].map(key => [key, seconds(raw.backend_request?.[key])])),
       valid: values.positions > 0 && ['captures', 'releases', 'no_setup', 'failed'].every(key => values[key] !== null)
@@ -271,6 +271,8 @@ export function interactiveFastAcceptanceSummary(study) {
     : typeof section.next === 'string' ? section.next : '';
   return { status: section.status, audit: section.audit_status, methods, paired, total, completed, planned,
     accounting_valid: accountingValid, complete,
+    gpu_wait_expired: section.status === 'failed' && typeof section.error === 'string'
+      && section.error.includes('4090 remains occupied; saved ready plan can resume without replanning'),
     scope: typeof section.scope === 'string' ? section.scope : '', next,
     error: typeof section.error === 'string' ? section.error : '' };
 }

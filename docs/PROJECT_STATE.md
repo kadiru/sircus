@@ -1,5 +1,11 @@
 # Project state
 
+## Live fast-planner comparison interrupted — November 17, 2026
+
+- The ten-position, twenty-attempt comparison stopped after its 3,600-second GPU wait expired. **0/20 requests completed and no native comparison drops ran.** The first fast plan took **16.079 seconds**; the original planner has no measured request in this batch.
+- A fresh read-only check confirmed the runner exited and the unrelated 4090 job remains active. There is no active automatic queue. Timing and capture differences therefore remain unknown; the UI now states this explicitly rather than presenting empty counts as capture results.
+- Keep the saved report, frozen placements and ready service job. Resume the same acceptance command after the 4090 becomes available, inspecting the saved job first. The 4070 and Isaac were untouched. No scoring, planner, training or native evidence changed in this status update.
+
 ## Fast planner integration — November 17, 2026
 
 - [Operator flow and limits](../sircus/mjlab/INTERACTIVE_FAST.md): fast checked planning becomes the default only when its published study, model lineage and pinned source inputs verify. The original interactive planner remains an explicitly selectable fallback.

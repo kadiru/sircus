@@ -162,3 +162,20 @@ test('pending acceptance explains the active placement wait without exposing fin
   section.positions[1].message = 'Stale wait'; section.status = 'completed'; section.audit_status = 'passed';
   assert.equal(interactiveFastAcceptanceSummary(report).next, section.next);
 });
+
+test('expired GPU wait shows stopped progress and measured timing without inventing captures', () => {
+  const report = fixture(), section = report.interactive_fast_acceptance;
+  section.status = 'failed'; section.audit_status = 'pending'; section.progress.completed = 0;
+  section.error = 'TimeoutError: 4090 remains occupied; saved ready plan can resume without replanning';
+  section.comparison.fast.planning = { samples: 1, mean_s: 16.079 };
+  section.comparison.classic.planning = { samples: 0 };
+  const $ = render(report);
+  assert.match($('interactiveFastAcceptanceStatus').text, /stopped.*0 \/ 20/);
+  assert.match($('interactiveFastAcceptanceNext').text, /no longer running/);
+  assert.match($('interactiveFastAcceptanceNext').text, /Faster planner: 1 measured plan, mean 16.1 s/);
+  assert.match($('interactiveFastAcceptanceNext').text, /Original planner: 0 measured plans/);
+  assert.match($('interactiveFastAcceptanceNext').text, /Capture and matched timing comparisons remain unavailable/);
+  assert.equal($('interactiveFastAcceptanceTable').children.length, 0);
+  section.status = 'running';
+  assert.equal(interactiveFastAcceptanceSummary(report).gpu_wait_expired, false);
+});

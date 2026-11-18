@@ -1072,7 +1072,7 @@ function showInteractiveFastAcceptance() {
   const value = n => n === null ? '—' : String(n);
   const seconds = n => n === null ? '—' : `${n.toFixed(1)} s`;
   $('interactiveFastAcceptanceStatus').textContent = view.complete ? 'Live comparison complete · saved results verified'
-    : view.status === 'failed' ? 'Live comparison interrupted · saved evidence preserved'
+    : view.status === 'failed' ? `Live comparison stopped · ${value(view.completed)} / ${value(view.planned)} requests finished · saved evidence preserved`
     : view.status === 'completed' && view.audit === 'passed' && !view.accounting_valid ? 'Reported totals disagree · final results withheld'
     : `Live comparison ${view.status || 'pending'} · ${value(view.completed)} / ${value(view.planned)} requests finished · final results pending`;
   $('interactiveFastAcceptanceScope').textContent = view.scope || 'Same fresh bucket placements, one plan and at most one drop per planner. Native simulation at 64 substeps; arms held at planned endpoints.';
@@ -1100,7 +1100,9 @@ function showInteractiveFastAcceptance() {
     table.append(head, body); $('interactiveFastAcceptanceTable').append(table);
     $('interactiveFastAcceptancePair').textContent = `Faster versus original: ${view.paired.gained} gained captures, ${view.paired.lost} lost. Both captured at ${view.paired.both} placements. All ${view.total} placements remain in each capture denominator.`;
   }
-  $('interactiveFastAcceptanceNext').textContent = view.error || view.next;
+  $('interactiveFastAcceptanceNext').textContent = view.gpu_wait_expired
+    ? `The GPU wait limit expired; this comparison is no longer running. ${view.methods.map(method => `${method.label}: ${value(method.planning_samples)} measured plan${method.planning_samples === 1 ? '' : 's'}${method.planning_samples > 0 ? `, mean ${seconds(method.planning.mean_s)}` : ''}`).join('; ')}. Capture and matched timing comparisons remain unavailable. Resume the saved test when the 4090 is free.`
+    : view.error || view.next;
 }
 function showFastPlanningStudy() {
   if (!fastPlanningSummary) return;
