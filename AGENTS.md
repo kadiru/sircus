@@ -3,7 +3,7 @@
 This repository is shared by Mac hardware and Ubuntu simulation contributors.
 
 - Start by reading README.md, CONTRIBUTING.md and docs/PROJECT_STATE.md. Fetch origin and inspect status before editing. Do not overwrite unrelated changes.
-- Use a separate checkout/worktree and `codex/<owner>-<task>` branch for concurrent work. The private GitHub repo is the source of truth for pushed code; frozen transfer archives are historical.
+- Use a separate checkout/worktree and `codex/<owner>-<task>` branch for concurrent work. The GitHub repo is the source of truth for pushed code; frozen transfer archives are historical.
 - At a completed task boundary, run relevant tests, review and commit only your changes, then push the task branch and report the commit. Do not force-push or merge someone else's work without authorization. If push is blocked, state what remains local.
 - Keep credentials, raw observations, host calibration, generated runtime configs, queues, virtualenvs and logs out of Git. Use explicit staging, never blind git add -A. Run scripts/check-repository.py before committing.
 - Default to mocks/fake-only local simulation. sfhack10 physical commands and deployment are separate from code synchronization. Never move arms, actuate tools, restart the physical dashboard, change Viam configs, or start the same cloud part on another host merely to test/pull code. Require task authorization for hardware work.

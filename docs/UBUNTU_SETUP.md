@@ -17,7 +17,7 @@ git clone https://github.com/kadiru/sircus.git
 cd sircus
 ```
 
-Authenticate with a GitHub account granted access. This repository is the source of truth; transfer archives are historical snapshots. Read CONTRIBUTING.md before making changes. Internet is needed for dependency installation. No GPU is required for the small search.
+You can clone this public repository without signing in. This repository is the source of truth; transfer archives are historical snapshots. Read CONTRIBUTING.md before making changes. Internet is needed for dependency installation. No GPU is required for the small search.
 
 ## 2. Set up Python (Ubuntu24.04 recommended)
 
