@@ -1,5 +1,12 @@
 # Project state
 
+## Third comparison stopped after recorded requests; final audit absent — November 18, 2026
+
+- At the 13:46:42 UTC terminal observation, the original watchdog had recorded `stopped_no_retry` / `independent watchdog wall deadline reached`, `termination=stopped` and `lock_release_safe=true`. The owned container had exited with code 1, PID zero and no OOM flag. Another project subsequently held the 4090 and shared scene lock; it was left untouched. [Failure evidence](../baselines/isaac-seed22-comparison-shutdown-20261118/README.md).
+- The last producer progress reports 8,960 requested/completed TRAIN slots for each copy, 600 requested/completed assessment slots, 539 reservations and no pending reservation. These are **unaudited accounting observations**, not independently verified model or performance results. The 33,055,615-byte final trace is preserved, but `child-exit.json` and the final audit are absent. The original clean-exit audit gate did not pass. No captures, clean captures, rejection rates or improvement claim is published.
+- Producer source remains `300ab5c`; all three attempt records and the historical benchmark remain preserved. Source inspection shows the producer writes its final completion receipts after `app.close()`, which can wait or terminate the interpreter. The precise blocked shutdown subcall is not established. The watchdog's 55,723.455 seconds includes failed shutdown; stale child phase times must not be presented as final closure costs.
+- [Proposed recovery plan](../sircus/isaac/LOCATION_COMPARISON_RECOVERY_PLAN.md): after explicit user agreement to the changed process-completion proof, a separate CPU-only reader could audit the saved data with all original scientific checks and a distinct failure-preserving status. It would have a two-hour bound, the same 6 GiB storage floor, read-only original evidence and zero simulator starts, optimizer steps or new shots. This is documentation only; no recovery auditor has been implemented or run and no old receipt will be fabricated or relabelled.
+
 ## Separate comparison results view prepared — November 17, 2026
 
 - Added an [audit-gated publisher and loopback GET/HEAD viewer](../sircus/isaac/LOCATION_COMPARISON_PUBLICATION.md) in a separate reporting checkout. It leaves the approved experiment, historical readers and existing services unchanged. Initial preparation used separately pinned native source `90ae3ff`; the later ownership repair is pinned at `300ab5c`, independently of this publication branch.

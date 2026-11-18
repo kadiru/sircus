@@ -1,4 +1,15 @@
-# Location comparison: third start authorized and running
+# Location comparison: preserved startup and repair history
+
+The third attempt subsequently stopped at the shared shutdown deadline on
+November 18. Its unaudited progress reports 8,960 TRAIN requests per copy and
+600 assessment requests terminal, with none pending, but the final child receipt
+and final audit are absent. **The original final audit did not pass.** See the
+[separate failure record](../isaac-seed22-comparison-shutdown-20261118/README.md)
+and [proposed CPU-only recovery audit](../../sircus/isaac/LOCATION_COMPARISON_RECOVERY_PLAN.md).
+The dated startup observations below remain historical evidence, not current
+runtime status or policy-performance results.
+
+## Third attempt's authorized startup — November 17
 
 The user approved the prepared third attempt once the 4090 and shared scene lock
 were free. It started on November 17 at 22:15:51 UTC from source `300ab5c`, after
@@ -7,7 +18,8 @@ initial 35 monitoring requests were reserved but not yet terminal, with zero TRA
 requests and no failure receipt. This is a dated launch observation, not a final
 performance result.
 Both failed attempts and the original benchmark remain preserved. The same
-limits and one-start/no-retry rule remain active.
+limits and one-start/no-retry rule applied to that attempt. Its later failed
+shutdown is recorded separately; no automatic retry follows it.
 
 Second attempt: the approved second start also closed before any TRAIN or assessment
 request. Its watchdog reported `Native child ownership changed` after 0.233 s;

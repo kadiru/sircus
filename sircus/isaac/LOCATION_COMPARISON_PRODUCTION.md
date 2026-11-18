@@ -1,10 +1,22 @@
 # Location comparison: process ownership and independent audit
 
-Latest dated status: the user approved one third attempt, which started from
+Latest dated status: on November 18 at the 13:46:42 UTC terminal observation,
+the third attempt had stopped at the independent shared-phase deadline. Its
+unaudited progress reports all 18,520 requests terminal and none pending, but
+the final child receipt is absent. The watchdog records `stopped_no_retry`,
+safe owned-process termination and safe lock release. The original final audit
+did not run, and no policy-performance comparison is claimed. See the
+[preserved failure](../../baselines/isaac-seed22-comparison-shutdown-20261118/README.md)
+and [proposed audit-only recovery](LOCATION_COMPARISON_RECOVERY_PLAN.md).
+The recovery proposal changes the process-completion proof, requires user
+agreement and has not been implemented or executed. It would not restart
+simulation or repeat any request.
+
+Historical launch status: the user approved one third attempt, which started from
 `300ab5c` at 22:15:51 UTC on November 17 after the 4090 and shared scene lock
 were free. Its startup audit passed; the dated observation has the initial 35
 monitoring requests in progress and zero TRAIN requests. No completed comparison
-performance is established.
+performance was established by that startup observation.
 
 Earlier, the approved second child start closed before any task requests,
 with watchdog reason `Native child ownership changed`. Both starts are preserved.
@@ -77,6 +89,15 @@ manifest, prepared comparison, session, trace bytes and child-exit evidence.
 An exit code, a `passed` string or synthetic fixture cannot substitute for this.
 
 ## What the independent reader checks
+
+The original path requires both a successful watchdog exit and a final child
+receipt proving application closure. Recorded terminal counters alone cannot
+satisfy it. In this third attempt, the final trace was saved before closure,
+while final progress and `child-exit.json` were scheduled after closure. The
+source and installed shutdown implementation explain why missing post-close
+receipts are possible, but do not prove the exact native call that blocked.
+Neither the original gate nor the failed evidence is changed by the recovery
+proposal.
 
 `location_comparison_verify.py` reads saved evidence without simulator steps or
 optimizer updates. It combines the accounting auditor with the unchanged original
