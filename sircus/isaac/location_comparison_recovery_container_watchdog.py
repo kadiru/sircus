@@ -35,6 +35,20 @@ def digest(value):
 def signed(value):return dict(value,fingerprint=digest(value))
 
 
+def configuration_fingerprint(record):
+    """Docker cgroup-v2 may render the enabled OOM killer as False or null.
+
+    This is the sole normalized inspect value. Every other config/host/mount
+    field, including list order, remains bound exactly as observed.
+    """
+    host=dict(record['HostConfig'])
+    require('OomKillDisable' in host and
+            (host['OomKillDisable'] is False or host['OomKillDisable'] is None),
+            'Recovery container must retain the OOM killer')
+    host['OomKillDisable']=False
+    return digest(dict(Config=record['Config'],HostConfig=host,Mounts=record['Mounts']))
+
+
 def canonical(value):
     path=Path(value)
     require(path.is_absolute() and path==path.resolve() and '..' not in path.parts
@@ -121,6 +135,8 @@ def validate_controls(record,expected_binds,expected_cap_add,expected_entrypoint
     require(type(host.get('Memory')) is int and host['Memory']==MEMORY_BYTES
             and host.get('MemorySwap')==MEMORY_BYTES and host.get('NanoCpus')==NANO_CPUS
             and type(host.get('PidsLimit')) is int and host['PidsLimit']==128
+            and 'OomKillDisable' in host
+            and (host['OomKillDisable'] is False or host['OomKillDisable'] is None)
             and caps(host.get('CapDrop'))==['ALL'] and caps(host.get('CapAdd'))==expected_cap_add
             and 'no-new-privileges' in host.get('SecurityOpt',[])
             and config.get('User')=='0:0','Recovery CPU/memory/privilege limits changed')
@@ -205,7 +221,7 @@ def supervise_container(container_id,*,name,image,session_id,label_key,output,st
         return now
     def controls_unchanged(record):
         validate_controls(record,binds,expected_cap_add,expected_entrypoint,expected_command)
-        require(digest(dict(Config=record['Config'],HostConfig=record['HostConfig'],Mounts=record['Mounts']))
+        require(configuration_fingerprint(record)
                 ==config_fingerprint,'Owned recovery container configuration changed')
     try:
         limits();record=owned();controls=validate_controls(record,binds,expected_cap_add,expected_entrypoint,expected_command)
@@ -214,7 +230,7 @@ def supervise_container(container_id,*,name,image,session_id,label_key,output,st
                 'Recovery container must be newly created; no retry/restart permitted')
         for source,_,rw in binds:
             if rw:require(Path(source).is_dir() and not any(Path(source).iterdir()),'Writable audit bind must be fresh and empty')
-        config_fingerprint=digest(dict(Config=record['Config'],HostConfig=record['HostConfig'],Mounts=record['Mounts']))
+        config_fingerprint=configuration_fingerprint(record)
         limits()
         write_new(output/'recovery-container-owner.json',signed(dict(schema=SCHEMA,
             container_id=container_id,name=name,image=image,session_id=session_id,label_key=label_key,

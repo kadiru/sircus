@@ -29,7 +29,8 @@ def record(binds):
         HostConfig=dict(Init=True,Runtime='runc',NetworkMode='none',ReadonlyRootfs=True,
             Privileged=False,PidMode='',Devices=[],DeviceRequests=[],AutoRemove=False,
             RestartPolicy=dict(Name='no',MaximumRetryCount=0),Memory=8*2**30,
-            MemorySwap=8*2**30,NanoCpus=4*10**9,PidsLimit=128,CapDrop=['ALL'],CapAdd=['DAC_OVERRIDE'],
+            MemorySwap=8*2**30,NanoCpus=4*10**9,PidsLimit=128,OomKillDisable=False,
+            CapDrop=['ALL'],CapAdd=['DAC_OVERRIDE'],
             SecurityOpt=['no-new-privileges'],LogConfig=dict(Type='local',Config={'max-size':'1m','max-file':'1','compress':'false'})),
         Mounts=[dict(Type='bind',Source=b['source'],Destination=b['destination'],RW=b['rw']) for b in binds],
         State=dict(Status='created',Running=False,Pid=0,ExitCode=0,OOMKilled=False,
@@ -259,6 +260,31 @@ class ContainerWatchdogTests(unittest.TestCase):
         self.ops.after_sleep=lambda ops:ops.record['HostConfig'].update(NanoCpus=8*10**9)
         result=self.run_container();self.assertEqual(self.ops.stopped,[IDENTIFIER])
         self.assertEqual(result['status'],'container_stopped_no_retry')
+    def test_cgroup_v2_false_to_null_oom_default_keeps_same_configuration(self):
+        initial=subject.configuration_fingerprint(self.ops.record)
+        self.ops.after_start=lambda ops:ops.record['HostConfig'].update(OomKillDisable=None)
+        result=self.run_container()
+        self.assertEqual(result['status'],'container_exit_zero_observed')
+        self.assertEqual(result['config_fingerprint'],initial)
+        self.assertEqual(subject.configuration_fingerprint(self.ops.record),initial)
+        self.assertFalse(self.ops.stopped+self.ops.killed)
+    def test_disabled_oom_killer_or_nonboolean_defaults_block_start(self):
+        for i,value in enumerate((True,0,'false')):
+            self.ops=FakeOps(record(self.binds));self.ops.record['HostConfig']['OomKillDisable']=value
+            result=self.run_container(output=self.root/f'oom-control-{i}')
+            self.assertEqual(result['container_start_attempts'],0)
+            self.assertFalse(self.ops.started)
+    def test_oom_default_is_the_only_configuration_fingerprint_normalization(self):
+        original=record(self.binds);before=copy.deepcopy(original)
+        fingerprint=subject.configuration_fingerprint(original)
+        self.assertEqual(original,before)
+        for edit in (lambda r:r['Mounts'].reverse(),
+                     lambda r:r['HostConfig'].update(CapAdd=['CAP_DAC_OVERRIDE']),
+                     lambda r:r['Config']['Env'].append('EXTRA=value')):
+            altered=copy.deepcopy(original);edit(altered)
+            self.assertNotEqual(subject.configuration_fingerprint(altered),fingerprint)
+        original['HostConfig'].pop('OomKillDisable')
+        with self.assertRaisesRegex(ValueError,'OOM killer'):subject.configuration_fingerprint(original)
     def test_nonzero_exit_or_oom_cannot_be_success(self):
         for i,(code,oom) in enumerate(((1,False),(0,True))):
             self.ops=FakeOps(record(self.binds));self.ops.exit_code=code;self.ops.record['State']['OOMKilled']=oom

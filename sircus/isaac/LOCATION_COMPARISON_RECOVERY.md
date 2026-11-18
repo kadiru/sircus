@@ -126,7 +126,15 @@ validation, and the CPU model checks do not replay CUDA Adam arithmetic bitwise.
 The repository run completed 1,803 Isaac cases with 121 optional skips. The two
 localhost sandbox errors passed in their four-test file reruns. All 34 physical
 mocks, five simulation mocks, 73 Node cases and nine numerical scripts passed.
-The independent outer watchdog additionally passed 32 targeted mock tests after
+The independent outer watchdog additionally passed 35 targeted mock tests after
 requiring explicit Docker local-log compression disablement with its one-file
 limit. Source review found no remaining blocking issue. These checks verify
 software behavior with synthetic data; the actual saved-data audit is pending.
+
+CPU setup checks retained two failed mock containers before scientific work:
+a missing nested mount target under the read-only root, then Docker changing
+`OomKillDisable` from `false` at creation to `null` after start. A harmless
+CPU `/bin/true` diagnostic established the latter as the sole inspect delta.
+The host watchdog normalizes only those two enabled-OOM-killer representations;
+all other configuration fields remain exact, and disabling the OOM killer is
+rejected. The fresh private launcher has ten passing mock tests.
