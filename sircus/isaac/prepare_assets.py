@@ -11,7 +11,6 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 import numpy as np
-import xacro
 from geometry import board_world_transform
 from scipy.optimize import least_squares
 from scipy.spatial.transform import Rotation
@@ -125,6 +124,8 @@ def fixed(root, name, parent, child, xyz, rpy="0 0 0"):
 
 
 def main():
+    import xacro
+
     p = argparse.ArgumentParser()
     p.add_argument("--upstream", default="/workspace/vendor/xarm_ros2/xarm_description")
     p.add_argument("--output", default="/workspace/assets")
