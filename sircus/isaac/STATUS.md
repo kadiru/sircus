@@ -89,3 +89,7 @@ smoke completed and exited cleanly. A lock prevents concurrent Sircus scene runs
 Bucket diameter measurements and unresolved175mm height interpretation are
 preserved. Table, placements, tool offsets, masses and contact parameters remain
 provisional. No old simulation score or policy is claimed valid in this backend.
+
+## Dense shot catalogue checkpoint
+
+See [completed settings and robustness results](../../baselines/isaac-shot-catalogue-20261031/README.md). Fixed400 mm distance;579 searched settings,240 initial confirmation trials,100 independent follow-up trials. Recommended starting point H400 mm/gap130 mm/tilt21° passed140/140 clean captures across the tested nominal and narrow perturbation conditions. Other settings were substantially less robust. Simulation search, not new RL or physical calibration. Finite4090 jobs completed; preview read-only;4070 and hardware untouched.
