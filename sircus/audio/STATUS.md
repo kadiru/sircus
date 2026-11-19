@@ -85,6 +85,36 @@ listening, real ODD/BLE, current native/Logic route and cross-computer checks
 listed in MACBOOK_INTEGRATION.md. No dashboard/controller observer, Viam change,
 physical deployment or robot command is part of this synchronization.
 
+## MacBook observer checkpoint — October 30, 2026
+
+The separate `codex/macbook-dashboard-audio` branch now contains optional FX,
+volume and connection/mute status controls plus physical-trial lifecycle
+observers. Main's reviewed PR #2 merge `6f00ac3faa4e34d508b005891e62d9911ead81cf`
+was merged into this task branch without replacing existing work. The Mini's
+published `df16dbe609adf3242af9300bc88725b85adfd455` audio branch is preserved;
+PR #1 remains draft. See [integration guide](../../docs/DASHBOARD_AUDIO_INTEGRATION.md).
+
+Fresh verification: 192 Python tests passed, including 42 physical-controller
+mock tests, 7 audio HTTP contract tests and a Python→Node→disposable fake HTTP
+round trip using the supplied client. Three Node suites and Scripter assertions
+passed; scoring/contact/orientation guards passed. Independent review checked
+that no audio readiness/acknowledgment gates motion or Stop, and that IDs,
+operator-action provenance and unknown outcomes are preserved.
+
+Browser QA against an isolated offline dashboard and silent fake endpoint
+verified initial OFF, connected status, enable, volume and mute; the final fake
+state was FX off at 30% volume. It found a WebKit timer receiver bug, now fixed
+and regression-tested. No sound played. The temporary dashboard, worker and fake
+endpoint were stopped. This is not deployment, listening, real-Mini reachability,
+ODD/BLE, Logic, acoustic mute or hardware acceptance.
+
+Fixes include ordered per-browser control intents, preservation of pending mute
+across Stop/volume, late-event retirement, bounded queues and conservative mute
+uncertainty after ambiguous transport. Credentials stay backend-only, with an
+empty template in source. Actual private-LAN listener and credential provisioning
+remain a coordinated follow-up. Simulation audio is not attached; the legacy
+trace converter has not been promoted to the new one-second scorer. The learning
+draft remains separate and v2 native replay stays blocked.
 
 ## Control-ordering correction — October 30, 2026
 
@@ -105,3 +135,22 @@ observations, duplicate/reused sequences, bounded capacity, native error/reconne
 service-instance epochs, old-service rejection, and pending-enable cancellation.
 No real service, audio playback, ODD/BLE, Logic, Viam or robot was used. PR #1
 remains draft pending the documented listening and integration acceptance work.
+
+
+## Combined dashboard correction — October 30, 2026
+
+PR #3 is now merged on main at `a376ad67968f6445d39a51c2a29325a204bb582a`.
+The integration branch retains both study and audio routes/styles/tests. A Mini
+FX-off observation clears dashboard opt-in and queued cues; external Mini FX-on
+withdraws a previous mute acknowledgement while local opt-in stays off. The
+requested state is propagated through worker, backend and UI. Stale/in-flight
+polls cannot undo newer controls, and settled failures no longer show pending.
+The new ordered Mini controls and supplied client are included in this branch.
+Audio PRs #1 and #4 remain drafts and neither runtime has been deployed.
+
+Final combined verification passed 220 Python tests, all audio/study Node suites,
+Scripter and orientation-contract assertions, including the unchanged published
+checkpoint's numerical reproduction and the real Python-to-Node-to-fake-HTTP
+remote-status regression. Independent reviews and repository scans passed.
+These are silent mock/numerical checks; listening, ODD/BLE and private-LAN
+commissioning are still outstanding. No existing service was restarted.

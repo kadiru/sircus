@@ -1,7 +1,9 @@
 # Optional MacBook backend → Mac Mini audio
 
-The implemented service defaults to **127.0.0.1:8766, FX off**. No MacBook dashboard
-hook or cross-host deployment is installed. Use saved-trace rehearsal first;
+The implemented service defaults to **127.0.0.1:8766, FX off**. The MacBook observer
+now exists on its integration task branch; [its guide](../../../../docs/DASHBOARD_AUDIO_INTEGRATION.md)
+describes the source-only attachment. No physical-dashboard or cross-host
+deployment has been performed. Use saved-trace rehearsal first;
 [the local API](../README.md) and [event schema](../../EVENT_CONTRACT.md) are shared.
 
 ## Explicit private-LAN opt-in

@@ -35,7 +35,12 @@ labels retain their provenance; unsure/unlabelled records end silently. Conversi
 does not add contacts omitted by the model or invent pickup/flight timings.
 The built-in whole-sequence demonstration is separately labelled synthetic.
 
-## Future live attachment (not installed)
+## Optional dashboard attachment (source only)
+
+The MacBook integration task branch now provides a backend observer and FX/volume/
+status controls; see [the dashboard integration guide](../../docs/DASHBOARD_AUDIO_INTEGRATION.md).
+The running physical dashboard has not been deployed or restarted. Ghost Booth's
+base draft PR remains separate, with listening and cross-computer checks pending.
 
 Use the optional server-side client and private-LAN instructions in
 [booth/integration/HANDOFF.md](booth/integration/HANDOFF.md). Localhost is the
@@ -54,8 +59,10 @@ replacement, navigation, pause, speed change or scrub.
 | `simulation/web/physical.js` | Later operator audio proxy; audio failures must never block physical controls. |
 | ODD CoreMIDI | Ghost Booth already selects one physical input and filters configured impact notes. This does not identify contact objects or capture/miss. |
 
-No robot/controller/viewer hooks, cloud identity reuse, Viam configuration change,
-physical sensing validation or dashboard deployment is included in this change.
+The standalone audio contribution introduced no robot/controller/viewer hooks.
+The separate dashboard observer observes operator-requested command timing and
+saved human labels only; it adds no cloud identity reuse, Viam configuration
+change, physical sensing validation or automatic deployment.
 The six-cue procedural Logic route remains available in [LEGACY_MIDI.md](LEGACY_MIDI.md)
 for advanced diagnostics; use Ghost Booth for the unified event sound library.
 

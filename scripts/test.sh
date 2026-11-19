@@ -8,6 +8,7 @@ command -v "$TEST_PYTHON" >/dev/null || TEST_PYTHON=python3
 "$TEST_PYTHON" -m unittest discover -s sircus/audio/booth/tests -p 'test_*.py' -q
 "$TEST_PYTHON" -m unittest discover -s sircus/physical_trials -p 'test_*.py' -q
 "$TEST_PYTHON" -m unittest discover -s sircus/simulation/tests -p 'test_*.py' -q
+
 node --test sircus/audio/booth/tests/test_*.mjs sircus/simulation/tests/test_*.mjs
 node sircus/audio/tests/logic-sfx.test.cjs
 cd sircus/two-arm
