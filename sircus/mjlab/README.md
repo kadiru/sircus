@@ -1,5 +1,12 @@
 # Sircus in mjlab
 
+Current development diagnostic: [logged impact poses and short-miss sweep](IMPACT_POSE_SWEEP.md),
+with [45-request results and exact settings](../../baselines/mjlab-impact-pose-sweep-20261104/README.md).
+All27 native throws still fell short;18 higher requests were finite IK rejects.
+Independent pose/data verification passed; strict cross-run numerical
+equivalence remains failed and documented. The completed calibrated-v2 benchmark
+and historical studies below retain their original definitions and evidence.
+
 The [matched current-ball sweep/PPO benchmark](SWEEP_RL_BENCHMARK.md) completed
 all six workers. Each method/seed spent 1,024 TRAIN requests from the same
 17-recipe prior; frozen formal test scores are sweep **67/216 (31.0%)** and PPO

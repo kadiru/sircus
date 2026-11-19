@@ -4,6 +4,7 @@ import { contactStudy, contactGroups, contactConfigurations, transitRoutes, rout
 import { correctedGridProgress, correctedTrainingReadiness } from '/state.mjs';
 import { plannerReady, plannerOnly, searchReady, modeReady, plannerFarmRows, plannerGridRows, plannerGridSummary, plannerGridProgress, plannerGridCsv } from '/state.mjs';
 import { sweepRlStudy, sweepRlSummary, sweepRlProgress, sweepRlCompletedWorkers, sweepRlPoints, sweepRlCurves, sweepRlFinalRows, sweepRlFinalAggregate, sweepRlStatusLabel, sweepRlCsv, sweepRlAdmissionRows, sweepRlHistory, historicalPlannerIsPreV2 } from '/state.mjs';
+import { impactPoseSweepState, impactPoseSweepLayouts, impactPoseSweepSummary, impactPoseSweepCells, impactPoseReplayMatches, impactPoseHistory } from '/state.mjs';
 import { validationFailureAuditState, validationFailureCells, validationFailureSummary, validationFailureRepresentatives, validationFailureReplayMatches, validationFailureShouldScroll, validationPoseNumber } from '/state.mjs';
 import { studyReady, buildRequest, methodLabel, coverageRows, finiteVector, friendlyError, coverageSummary, comparisonRows, learningPoints, inStudiedRegion, BOARD_BODY_SIZE, bankComparisonRows, policyRouteLabel, poseInputValues, bankCoverageRows, bankCoverageStatus, formatMetric, solveButtonState, expansionTargetRows, expansionProgress, expandedComparisonRows, stableIkProgress, stableIkTargets, stableIkAuditRows, stableIkControlRows } from '/state.mjs';
 
@@ -71,6 +72,8 @@ bucketBase.rotation.x = Math.PI / 2; bucketBase.position.z = .004; bucketGroup.a
 let sceneSpec = {}, report = {}, pending = false, activeRequest = null, currentTrajectory = [], playTime = 0, playing = false, pathLine;
 let methodChosen = false, farmSignature = '', gridStudySignature = '', benchmarkSignature = '';
 let validationFailureSignature = '', validationSelectedLayout = '', validationReplayGeneration = 0, validationAuditScrolled = false;
+let impactPoseSignature = '', impactPoseSelectedTrial = '', impactPoseReplayGeneration = 0, impactPoseScrolled = false;
+let currentPoseHistory = [], currentPoseIndex = -1;
 let transitFrames = [], transitTime = 0, transitName = "";
 let bucketXY = [.65, -.4];
 const armGroups = [new THREE.Group(), new THREE.Group()]; armGroups.forEach(g => world.add(g));
@@ -108,7 +111,7 @@ function setBucket(xy, updateInputs = true) {
 setBucket(bucketXY); drawArms();
 function clearResult(message) {
   $('sceneOutcome').textContent = message; $('sceneOutcome').className = 'scene-outcome';
-  transitFrames = []; ball.visible = true;
+  transitFrames = []; currentPoseHistory = []; currentPoseIndex = -1; ball.visible = true;
   playing = false; currentTrajectory = []; $('play').disabled = true; $('timeline').disabled = true;
   if (pathLine) { world.remove(pathLine); pathLine.geometry.dispose(); pathLine.material.dispose(); pathLine = null; }
   $('resultTitle').textContent = message;
@@ -203,6 +206,8 @@ function applyResult(result, { recordedPlayback = false } = {}) {
     pathLine = new THREE.Line(geometry, new THREE.LineBasicMaterial({ color: 0xf8a7b9, transparent: true, opacity: .48 })); world.add(pathLine);
     $('play').disabled = false; $('timeline').disabled = false; playTime = currentTrajectory[0].time; playing = true;
   }
+  currentPoseHistory = impactPoseHistory(result.pose_history, currentTrajectory.at(-1)?.time) ? result.pose_history : [];
+  currentPoseIndex = -1;
   const success = result.success === true;
   const recorded = recordedPlayback || ['catalogue', 'catalog_lookup', 'cached', 'dataset_lookup'].includes(result.method) || result.provenance?.cache_hit === true;
   const busy = result.status_native === 'busy';
@@ -559,6 +564,140 @@ function showValidationFailureAudit() {
 }
 $('validationFailureMethod').onchange = showValidationFailureAudit;
 $('validationFailureCheckpoint').onchange = showValidationFailureAudit;
+function impactPoseOutcome(trial) {
+  return !trial ? 'Unknown' : !trial.nativeRelease ? `Setup rejected${trial.reason ? ` · ${trial.reason}` : ''}` : trial.success ? 'Capture' : 'Miss';
+}
+const impactMillimetres = value => Number.isFinite(value) ? (value * 1000).toFixed(3) : 'Unknown';
+const impactVector = value => finiteVector(value,3) ? value.map(impactMillimetres).join(', ') : 'Unknown';
+function showImpactPoseTrial(layout, trial) {
+  impactPoseSelectedTrial = trial?.id ?? '';
+  $('impactPoseTrialIdentity').textContent = trial ? `${trial.id} · ${trial.phase} · ${impactPoseOutcome(trial)}` : 'No complete trial evidence for this square.';
+  const closest=value=>Number.isFinite(value?.closestOpeningDistanceMm)?`${value.closestOpeningDistanceMm.toFixed(3)} mm`:'Unknown';
+  expansionTable($('impactPoseTrialSettings'), ['Requested setting / recorded outcome','Value'], trial ? [
+    ['Board center XYZ · mm',impactVector(trial.board)], ['Bucket center XY · mm',trial.xy.map(impactMillimetres).join(', ')],
+    ['Board tilt from horizontal · degrees',trial.tilt.toFixed(6)], ['Ball-bottom gap above board center plane · mm',impactMillimetres(trial.gap)],
+    ['Ball release center XYZ · mm',impactVector(trial.release)],
+    ['Recorded outcome category',trial.category.replaceAll('_',' ')],
+    ['Observed crossing region / reason',`${trial.missRegion} / ${trial.missRegionReason.replaceAll('_',' ')}`],
+    ['Geometric crossing region · contact-altered observation',trial.geometricMissRegion??'Not recorded'],
+    ['Closest scored whole-entry target-center distance',closest(trial)],
+    ['Fresh original-setting outcome',layout.baseline?`${impactPoseOutcome(layout.baseline)} · region ${layout.baseline.missRegion} · closest ${closest(layout.baseline)}`:'Unknown'],
+    ['Archived source shot · separate observation',`${layout.sourceCategory.replaceAll('_',' ')} · region ${layout.sourceMissRegion}`],
+    ['Metric scope','Crossing labels describe observed geometry, not speed or tilt causes. Closest distance is the scorer’s minimum post-rebound 3D distance to bucket XY at rim-minus-ball-radius height, capped at 2,000 mm; it is not crossing error.'],
+
+  ] : [['Missing','No settings or zero counts inferred']]);
+  const pose=trial?.pose;
+  const number=value=>Number.isFinite(value)?value.toFixed(6):'Unknown';
+  const joints=value=>finiteVector(value,6)?value.map(number).join(', '):'Not recorded';
+  const normal=value=>finiteVector(value,3)?value.map(number).join(', '):'Not recorded';
+  expansionTable($('impactPosePoseChecks'), ['Recorded quantity','Observation'], pose ? [
+    ['Logging status',pose.status ?? 'Unknown'],
+    ['Native joint observations / uniform FK · Hz',`${pose.native_joint_hz ?? 'Unknown'} / ${pose.fk_uniform_hz ?? 'Unknown'}`],
+    ['Dense first-impact FK window · milliseconds either side',Number.isFinite(pose.dense_impact_window_s)?(pose.dense_impact_window_s*1000).toFixed(1):'Unknown'],
+    ['Initial ball-center release error · mm',number(pose.initial_ball_release_error_mm)],
+    ['Initial CPU FK versus native board error · mm / degrees',`${number(pose.initial_fk_vs_native_board_error_mm)} / ${number(pose.initial_fk_vs_native_normal_error_deg)}`],
+    ['First board-impact interval',pose.first_impact_interval ? `${number(pose.first_impact_interval.start_s)} – ${number(pose.first_impact_interval.end_s)} s` : 'No measured impact interval'],
+    ['Collision pre-step board center · mm',impactVector(pose.held_pre_step_board_pose?.board_center_m)],
+    ['Collision pre-step board normal · unit',normal(pose.held_pre_step_board_pose?.board_normal)],
+    ['Post-impact board center · mm',impactVector(pose.impact_after?.board_center_m)],
+    ['Post-impact board normal · unit',normal(pose.impact_after?.board_normal)],
+    ['Post-impact dropper flange center · mm',impactVector(pose.impact_after?.flange10_center_m)],
+    ['Max sampled post-integration board drift · mm / normal degrees',`${number(pose.maximum_postintegration_board_drift_mm)} / ${number(pose.maximum_postintegration_board_normal_error_deg)}`],
+    ['Arm 10 / arm 14 max joint excursion · radians',`${number(pose.arm10_maximum_integrated_joint_excursion_rad)} / ${number(pose.arm14_maximum_integrated_joint_excursion_rad)}`],
+    ['Arm 10 / arm 14 peak joint speed · rad/s',`${number(pose.arm10_peak_joint_velocity_rad_s)} / ${number(pose.arm14_peak_joint_velocity_rad_s)}`],
+    ['Arm 10 post-impact joints · radians',joints(pose.impact_after?.q10_rad)],
+    ['Arm 14 post-impact joints · radians',joints(pose.impact_after?.q14_rad)],
+    ['Arm 10 post-impact velocity · rad/s',joints(pose.impact_after?.qvel10_rad_s)],
+    ['Arm 14 post-impact velocity · rad/s',joints(pose.impact_after?.qvel14_rad_s)],
+    ['Settling / compliance',`${String(pose.settling_status??'Unknown').replaceAll('_',' ')}; ${String(pose.compliance_status??'Unknown').replaceAll('_',' ')}`],
+  ] : [['Pose history','Not available: no native release or missing recorded evidence']]);
+  $('impactPoseReplay').disabled=pending||!trial?.resultUrl;
+  $('impactPoseReplay').onclick=trial?.resultUrl ? ()=>viewImpactPoseReplay(trial,impactPoseSweepState(report).study.fingerprint) : null;
+  $('impactPoseReplayStatus').textContent='';
+}
+function drawImpactPoseHeatmap(layout) {
+  const cells=impactPoseSweepCells(layout),target=$('impactPoseHeatmap');
+  if(!cells.length){target.textContent='Missing or inconsistent sweep cells; no outcome inferred.';return;}
+  const tilts=[...new Set(cells.map(c=>c.tilt))],gaps=[...new Set(cells.map(c=>c.gap))],w=660,h=290,left=90,top=25,right=20,bottom=60;
+  const cw=(w-left-right)/gaps.length,ch=(h-top-bottom)/tilts.length;
+  const svg=makeSvg('svg',{viewBox:`0 0 ${w} ${h}`,role:'img','aria-label':'Requested height and tilt sweep outcomes; keyboard focus or select each square'});
+  cells.forEach(cell=>{
+    const gi=gaps.indexOf(cell.gap),ti=tilts.indexOf(cell.tilt),x=left+gi*cw,y=top+(tilts.length-1-ti)*ch;
+    const trial=cell.trial,selected=trial?.id===impactPoseSelectedTrial,best=trial?.id===layout.selected?.id;
+    const label=cell.status==='captured'?'Capture':cell.status==='missed'?'Miss':cell.status==='rejected'?'× Rejected':'?';
+    const proximity=Number.isFinite(trial?.closestOpeningDistanceMm)?`${trial.closestOpeningDistanceMm.toFixed(3)} mm`:'unknown';
+    const text=`Tilt ${cell.tilt.toFixed(3)} degrees; drop gap ${(cell.gap*1000).toFixed(1)} mm; ${impactPoseOutcome(trial)}; observed region ${trial?.missRegion??'unknown'}; geometric crossing ${trial?.geometricMissRegion??'unknown'}; closest scored target distance ${proximity}; fresh original setting ${impactPoseOutcome(layout.baseline)}`;
+    const group=makeSvg('g',{tabindex:0,role:'button','aria-label':text,class:'impact-pose-target'});
+    group.append(makeSvg('rect',{x:x+3,y:y+3,width:cw-6,height:ch-6,rx:5,
+      fill:({captured:'#8ac5b0',missed:'#efbcac',rejected:'#d9dcd7',unknown:'#e0e4dc'})[cell.status],
+      stroke:best?'#b18126':selected?'#173c3d':trial?.baseline?'#4e6b7b':'#c4d1c5','stroke-width':best||selected?3:trial?.baseline?2:1}));
+    const t=makeSvg('text',{x:x+cw/2,y:y+ch/2+4,'text-anchor':'middle',class:'impact-pose-result'});t.textContent=label;
+    const title=makeSvg('title');title.textContent=`${text}${trial?.baseline?' · original setting':''}${best?' · search selected':''}`;
+    group.append(t,title);
+    const select=()=>{showImpactPoseTrial(layout,trial);drawImpactPoseHeatmap(layout);};
+    group.onclick=select;group.onkeydown=event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();select();}};svg.append(group);
+  });
+  gaps.forEach((gap,i)=>{const t=makeSvg('text',{x:left+(i+.5)*cw,y:h-bottom+20,'text-anchor':'middle'});t.textContent=(gap*1000).toFixed(1);svg.append(t);});
+  tilts.forEach((tilt,i)=>{const t=makeSvg('text',{x:left-12,y:top+(tilts.length-i-.5)*ch+4,'text-anchor':'end'});t.textContent=tilt.toFixed(2)+'°';svg.append(t);});
+  const xLabel=makeSvg('text',{x:(left+w-right)/2,y:h-9,'text-anchor':'middle'});xLabel.textContent='Requested ball-bottom gap above board center plane · mm';svg.append(xLabel);
+  const yLabel=makeSvg('text',{x:18,y:h/2,transform:`rotate(-90 18 ${h/2})`,'text-anchor':'middle'});yLabel.textContent='Board tilt from horizontal';svg.append(yLabel);
+  target.replaceChildren(svg);
+}
+async function viewImpactPoseReplay(trial,fingerprint) {
+  if(pending||!trial.resultUrl||!impactPoseSweepState(report).ready)return;
+  const generation=++impactPoseReplayGeneration;
+  try {
+    setPending(true);$('impactPoseReplay').disabled=true;
+    $('impactPoseReplayStatus').textContent='Loading recorded, hash-bound native trajectory and poses; no new shot is running.';
+    const response=await fetch(trial.resultUrl,{method:'GET',cache:'no-store'}),data=await response.json();
+    if(generation!==impactPoseReplayGeneration||impactPoseSweepState(report).study?.fingerprint!==fingerprint)return;
+    if(!response.ok)throw Error(data.error||`HTTP ${response.status}`);
+    const result=data.result??data;
+    if(!impactPoseReplayMatches(result,trial))throw Error('Recorded sweep row, bucket, outcome or pose history is inconsistent.');
+    $('boardLock').checked=false;$('dropLock').checked=false;
+    setBucket(trial.xy.slice());clearResult('Loading recorded controlled sweep');applyResult(result,{recordedPlayback:true});
+    $('sceneOutcome').textContent=`Recorded controlled sweep · ${impactPoseOutcome(trial)}`;
+    $('resultTitle').textContent='Recorded controlled shot · no new simulation';
+    $('resultText').textContent=`${trial.contextId} · ${trial.method} source posture · ${trial.phase}. ${currentPoseHistory.length?'Observed integrated FK board/arm samples are synchronized with the recorded ball trajectory.':'Initial arm geometry only; time-varying pose replay was not provided.'} Endpoints were reset before every step; no compliant-arm or grasp/release claim.`;
+    $('geometryLabel').textContent=currentPoseHistory.length?'Recorded post-integration board/arm FK · simplified links':'Recorded initial FK · recorded ball samples';
+    $('impactPoseReplayStatus').textContent=`Showing ${trial.id}. Exact source row, replay bytes and source benchmark are checked by the read-only server.`;
+    $('world').scrollIntoView({behavior:'smooth',block:'start'});
+  } catch(error) {
+    if(generation===impactPoseReplayGeneration)$('impactPoseReplayStatus').textContent=`Replay unavailable: ${friendlyError(error.message)}`;
+  } finally {setPending(false);$('impactPoseReplay').disabled=!trial.resultUrl;}
+}
+function showImpactPoseSweep() {
+  const state=impactPoseSweepState(report),section=$('impactPoseSweep');
+  section.hidden=!state.present&&location.hash!=='#impactPoseSweep';
+  if(!state.ready) {
+    impactPoseSignature='';impactPoseReplayGeneration++;
+    $('impactPoseStatus').textContent=state.reason;
+    for(const id of ['impactPoseSummary','impactPoseHeatmap','impactPoseTrialCounts','impactPoseConfirmation','impactPoseTrialSettings','impactPosePoseChecks'])$(id).replaceChildren();
+    $('impactPoseLayout').disabled=true;$('impactPoseReplay').disabled=true;
+    for(const id of ['impactPoseSource','impactPoseTrialIdentity','impactPoseReplayStatus'])$(id).textContent='';
+    return;
+  }
+  const layouts=impactPoseSweepLayouts(report),summary=impactPoseSweepSummary(report),select=$('impactPoseLayout');
+  if(!layouts.some(l=>l.id===select.value)) {
+    select.replaceChildren(...layouts.map(layout=>{const o=document.createElement('option');o.value=layout.id;o.textContent=`${layout.contextId} · ${layout.method}`;return o;}));
+    select.value=layouts[0]?.id??'';
+  }
+  select.disabled=false;
+  const signature=JSON.stringify([state.study.fingerprint,select.value]);if(signature===impactPoseSignature)return;
+  impactPoseSignature=signature;impactPoseReplayGeneration++;
+  const layout=layouts.find(l=>l.id===select.value),fraction=c=>c?`${c.captures} / ${c.attempts}`:'Unknown';
+  $('impactPoseStatus').textContent='Completed native development sweep · passed independent audit · frozen benchmark unchanged';
+  addMetrics([['Bucket positions / source postures',`${summary.positions} / ${summary.postures}`],['Sweep captures / requests',fraction(summary.sweep)],
+    ['Separate confirmation captures / requests',fraction(summary.confirmation)],['All native releases / setup rejects',summary.counts?`${summary.counts.nativeReleases} / ${summary.counts.setupRejected}`:'Unknown']],$('impactPoseSummary'));
+  $('impactPoseSource').textContent=`${layout.contextId} · ${layout.method} source posture · bucket X/Y ${layout.xy.map(impactMillimetres).join(', ')} mm. Original validation row: ${layout.sourceRowId}.`;
+  addMetrics([['This posture: sweep captures / requests',fraction(layout.sweepCounts)],['This posture: native / rejected',layout.sweepCounts?`${layout.sweepCounts.nativeReleases} / ${layout.sweepCounts.setupRejected}`:'Unknown']],$('impactPoseTrialCounts'));
+  const s=layout.selected,c=layout.confirmationCounts;
+  expansionTable($('impactPoseConfirmation'),['Selection','Board XYZ · mm','Tilt','Gap / release center Z · mm','Separate captures / requests'],s?[[s.id,impactVector(s.board),s.tilt.toFixed(3)+'°',`${impactMillimetres(s.gap)} / ${impactMillimetres(s.release[2])}`,fraction(c)]]:[['Unresolved','No valid selection','Unknown','Unknown',fraction(c)]]);
+  const trial=layout.trials.find(t=>t.id===impactPoseSelectedTrial)??layout.selected??layout.sweep.find(t=>t.baseline)??layout.sweep[0];
+  showImpactPoseTrial(layout,trial);drawImpactPoseHeatmap(layout);
+  if(location.hash==='#impactPoseSweep'&&!impactPoseScrolled){impactPoseScrolled=true;section.scrollIntoView({block:'start'});}
+}
+$('impactPoseLayout').onchange=showImpactPoseSweep;
 const benchmarkLegacyNotes = Object.fromEntries(['benchmarkMetricNote', 'benchmarkResourceNote', 'benchmarkQueryNote'].map(id => [id, $(id).textContent]));
 function showSweepRlBenchmark() {
   if (typeof report.sweep_rl_error === 'string') {
@@ -1100,8 +1239,9 @@ async function loadStatus() {
     $('historicalStudies').hidden = standalone;
     const benchmarkView = !!sweepRlStudy(r) || typeof r.sweep_rl_error === 'string';
     const validationView = location.hash === '#validationFailureAudit';
-    document.title = validationView ? 'Sircus · Validation failure audit' : benchmarkView ? 'Sircus · Sweep vs RL benchmark' : standalone ? 'Sircus · Sweep shot planner' : 'Sircus · mjlab learning lab';
-    $('workspaceHeading').textContent = validationView ? 'Validation failure audit' : benchmarkView ? 'Sweep versus RL benchmark' : standalone ? 'Sweep shot planner' : 'Place a target. Find a posture.';
+    const impactView = location.hash === '#impactPoseSweep';
+    document.title = impactView ? 'Sircus · Impact pose sweep' : validationView ? 'Sircus · Validation failure audit' : benchmarkView ? 'Sircus · Sweep vs RL benchmark' : standalone ? 'Sircus · Sweep shot planner' : 'Sircus · mjlab learning lab';
+    $('workspaceHeading').textContent = impactView ? 'Height, tilt and impact poses' : validationView ? 'Validation failure audit' : benchmarkView ? 'Sweep versus RL benchmark' : standalone ? 'Sweep shot planner' : 'Place a target. Find a posture.';
     if (!methodChosen && plannerReady(r)) $('mode').value = 'search';
     if (initial) {
       if (s.bucket?.xy) setBucket(s.bucket.xy);
@@ -1121,6 +1261,7 @@ async function loadStatus() {
     showPlannerGridStudy();
     showSweepRlBenchmark();
     showValidationFailureAudit();
+    showImpactPoseSweep();
     if (!standalone) showCoverage();
   } catch (error) { $('studyTitle').textContent = 'Study connection unavailable'; $('studyDetail').textContent = error.message; for (const id of ['solve', 'solveTop']) $(id).disabled = true; }
 }
@@ -1136,6 +1277,14 @@ function animate(now) {
     let i = 0; while (i < currentTrajectory.length - 2 && currentTrajectory[i + 1].time < playTime) i++;
     const a = currentTrajectory[i], b = currentTrajectory[Math.min(i + 1, currentTrajectory.length - 1)], f = b.time === a.time ? 0 : THREE.MathUtils.clamp((playTime - a.time) / (b.time - a.time), 0, 1);
     ball.position.fromArray(a.ball).lerp(new THREE.Vector3(...b.ball), f);
+    if (currentPoseHistory.length) {
+      let k = 0; while (k < currentPoseHistory.length - 1 && currentPoseHistory[k + 1].time <= playTime) k++;
+      if (k !== currentPoseIndex) {
+        currentPoseIndex = k; const pose = currentPoseHistory[k];
+        board.position.fromArray(pose.board_center); const q = pose.board_quaternion_wxyz; board.quaternion.set(q[1], q[2], q[3], q[0]).normalize();
+        drawArms(pose); $('geometryLabel').textContent = `Recorded integrated FK at ${pose.time.toFixed(5)} s · held-endpoint simulation`;
+      }
+    }
     $('timeline').value = end === start ? 0 : (playTime - start) / (end - start) * 1000;
     $('replayTime').textContent = `${playTime.toFixed(2)} s`; $('play').textContent = playing ? 'Ⅱ Pause' : '▶ Replay';
   }

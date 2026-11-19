@@ -1,0 +1,1223 @@
+{
+  "version": "sircus-impact-pose-sweep-v1",
+  "role": "validation_diagnostic",
+  "synthetic_fixture": false,
+  "source": {
+    "contract_fingerprint": "f96e6c9e0878564ef88c626cc2cbc46cc48a83f803a16300b3d1945d3fd62f11",
+    "report_sha256": "8d59cf3d44d6657aa8cddd5a22270e39f044357c51ebf690ae0ba940ccf44ba7",
+    "audit_sha256": "8df7b8f3b48cfc9c1c41f33f02ea0b68ca828909e2c8774d3cbabc0f1a45f530",
+    "study_manifest_sha256": "970f2b079c5d00491e95b3f58bfd1180e58fd366d116e0ab4e44731073f9ccb4",
+    "source_sha256": {
+      "sircus/mjlab/contact_env.py": "04655f30a1b216c037573a0b5e177e6209097026f930fc6efc6dfef289abc3da",
+      "sircus/mjlab/contact_model.py": "b2d522d07dd2e3bffa724feb68593b3fef17033b5274587ef9d130e5c40aa24f",
+      "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+      "sircus/mjlab/contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407",
+      "sircus/mjlab/learning_score.py": "e66b982c0e651c3a9f5855dd03efb87488cc924321aaf9cadb80d51bac2fe814",
+      "sircus/mjlab/corrected_geometry.py": "50a4a353d94cceb1fbb0216a40588c997034a121e554f3f84f530d7d47c470be",
+      "sircus/mjlab/stable_geometry.py": "2e00b5fc46d1b253b5c85b6823c781a37e26f5819b35586a8cc112b057ebaebf",
+      "sircus/mjlab/stable_ik.py": "efd52c5e837339662c99c196e1a3cf4b5b260eecb7888258779030c459944e07",
+      "sircus/mjlab/expanded_actions.py": "d41817aa7ad4206139925256ab0cdf5288853e621d6b39824c10ad2d309679c3",
+      "sircus/mjlab/bank_geometry.py": "5c0d6775582c5524a323f1e9344c35317e8352e9f1f813f5dd0794c05de743f5",
+      "sircus/mjlab/bank_study.py": "7699faeff915a772f3e838983ff1c8dec7721f2d55c79a594e185cd9e08e7dcb",
+      "sircus/mjlab/transit_audit.py": "4400285187eebf3b1c7073a78ab74c94cbead88d52ffc5366e0258d2376f8c96",
+      "sircus/mjlab/admission.py": "2dbc5776113f8afb0ea74e23d0c3a2542fd0223d94a6818aec8de4865d302d82",
+      "sircus/mjlab/learning_env.py": "58d2f58be0e1981a5efd09e872bdea7d8f608e1fa21b5c87986505a20a4a4f8c",
+      "sircus/mjlab/learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+      "sircus/mjlab/learning_reach.py": "8eea1d565e9faefff0622a9e9a4666eb8d811ac086a8a6711caa8efa3029e9a4",
+      "sircus/mjlab/learning_contract.py": "9f2c44b76297f4ef7009c1b0107be983d0511d5654cb68b8e344dd316ed1fda8",
+      "sircus/mjlab/run.py": "969db2710378345aad34a6f802e33d6ea62488d75e560b9da5738bc0748c3dee",
+      "sircus/mjlab/corrected_contract.py": "9800404859a7ae2b2934c26ca448be4a69ae90e481069da72732973b1d907ba2",
+      "sircus/mjlab/corrected_admission.py": "3d42913fc2a9599b0e5063bfc4ee0a03f003b4ba853338e407c8a3d82de3d64a",
+      "sircus/mjlab/gpu_slot.py": "fcace6029058a9892296507358ee196b9b5296dc4287a07bedc786e3af4cad4a",
+      "sircus/mjlab/expand_geometry.py": "0b7982c3494b7cb7f799e073e3a7b788cca77617af0e9f509a4b7e273d926739",
+      "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+      "sircus/isaac/rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+      "sircus/isaac/entry_quality.py": "2f3d8b73c871a41afc3c8f333f5df1d54fa8751720855ffff517e729217db9d4",
+      "sircus/isaac/board_route.py": "6409889aed6b0fd6a288eb9494b954ec5c3233ec41fdcf146940fc23276fb2e9",
+      "sircus/mjlab/sweep_worker.py": "6150969a6f442e3b899d878671a4daf08cd90c61f0abf96494d418316e0e7a5b",
+      "sircus/mjlab/sweep_contract.py": "2460d8e807f06ad4bfe491491d011a448eaedea57ef4c7e727a1b10a54409a0a",
+      "sircus/mjlab/calibrated_benchmark_contract.py": "7d0964249d0f18604d9f17ef9662b5cd7878500e674f30f4f6eb55ae766491be",
+      "sircus/mjlab/calibrated_benchmark_run.py": "cfd92d6dc988167fc2ed055bf7a2770a9f39f293224189c521a1d55bde1454a8",
+      "sircus/mjlab/calibrated_benchmark_study.py": "352a5a867fecfe3a6bc53821a61860075807d12c81cdc30e0900ecbc118c9c3e",
+      "sircus/mjlab/calibrated_benchmark_smoke.py": "1312bf58912de62c239094fe51d4ee60dacdf795137a4b1951740488a78852a7",
+      "sircus/mjlab/calibrated_adapter.py": "58789fcbb7549a6d7ff0513de3e2878651d1aa72e4022c8b17f269c71e1c35f1",
+      "sircus/mjlab/calibrated_admission.py": "37d43d8503c4e0a9835d8ae8fe6793ee09938bc746f1a513af3e4aa2b6f295a8",
+      "sircus/mjlab/calibrated_env.py": "04818b0590936a471c5ea48f5cebd110e62975b7a4159d652349b69f53a256a5",
+      "sircus/mjlab/calibrated_score.py": "b90fb4886f2297534b81b399620c647952eb2e486217289c65548713977e3539",
+      "sircus/mjlab/calibrated_score_oracle.py": "74ff1b43d342a28e7b4af6d3ec757f577aec076ac286535f4c16e053e31a00df",
+      "sircus/mjlab/calibrated_native_log.py": "c555bc762116a18da2802321ba40248a7d2bbe7b9590e176853547e8a4c8272c",
+      "sircus/mjlab/capture_calibration.py": "3d508db4b25ee7daef2a862353650645b2479cba645259fa9627c85c6cbb8499",
+      "sircus/mjlab/benchmark_adapter.py": "85e3cee8b2714707772bb871f1a13f0f25bb8ce1f6c207a33c3f4efa946cf3c2",
+      "sircus/mjlab/benchmark_contract.py": "720394dafbdde1b56507a0abd6b64f82b29843037bce56e559f671995b62c63c",
+      "sircus/mjlab/benchmark_policy.py": "35cc605d17b7cdf02fcc1cf73b018bcefb98b172260a3a5ddc6856ac7d3779dc",
+      "sircus/mjlab/benchmark_resources.py": "4a535e1a1d91248d208dd44286c215439924a27e81b62ab7fce71284c94f14ba",
+      "sircus/mjlab/learning_policy.py": "5c37a248a0a44280f0f82fe3327973299ec6a4bbfccaaae9f750a898180c7792"
+    },
+    "auditor_sha256": "4f7af7da8789311769579ab87096d251e75455d4e146018c388c9a4a3812b5a9",
+    "auditor_dependencies": {
+      "sircus/mjlab/benchmark_verify.py": "3c66930551d675db092a2a23e43bdfe0e9587a4f3e739cb10dfd283a95ca961e",
+      "sircus/mjlab/verify_capture_calibration.py": "98f905394c0e7f2b082d7b60b51baedd95fd6984b5265f6e7673c56b963f9afe"
+    },
+    "full_audit_checks": 1204473,
+    "original_role": "validation",
+    "benchmark_report_sha256": "8d59cf3d44d6657aa8cddd5a22270e39f044357c51ebf690ae0ba940ccf44ba7",
+    "benchmark_manifest_sha256": "970f2b079c5d00491e95b3f58bfd1180e58fd366d116e0ab4e44731073f9ccb4",
+    "benchmark_audit_sha256": "8df7b8f3b48cfc9c1c41f33f02ea0b68ca828909e2c8774d3cbabc0f1a45f530",
+    "validation_report_sha256": "5904953c31553affab867ed462c5d75e7302a8b48b8008fb085b6ab280e6e09c",
+    "prior_sha256": "4249664d7163df92af3c77886224d98519c394ab4457ebc3229957bfb6d3e0f4"
+  },
+  "source_code_sha256": {
+    "sircus/mjlab/impact_pose_sweep.py": "72ac550e0b2033ad8865772c64aa75bb3622ffc9ea67f36dbcdecdf368f64094",
+    "sircus/mjlab/impact_pose_env.py": "a4efd090a244e651f8841d0a7d52b6ad862bfcf4d8646a8eb6e5f11f774bfd0e"
+  },
+  "protocol": {
+    "gap_offsets_m": [
+      0.0,
+      0.06,
+      0.12,
+      0.18
+    ],
+    "tilt_offsets_deg": [
+      -4.0,
+      0.0,
+      4.0
+    ],
+    "confirmation_repeats": 3,
+    "maximum_distinct_bucket_positions": 2,
+    "source_postures": 3,
+    "distinct_bucket_positions": 2,
+    "sweep_requests": 36,
+    "confirmation_requests": 9,
+    "selection_rule": "native non-invalid only; capture, route quality, retention, observed opening proximity, stable ID; if none admitted repeat baseline as rejection",
+    "confirmation_rule": "Three newly executed nominal repeats of selected posture; not robust, perturbed or independent layout evaluation",
+    "baseline_rule": "Exactly one gap=0/tilt=0 request per source posture; fresh execution compared descriptively with original short miss",
+    "ball_radius_m": 0.0375,
+    "requested_gap_definition": "ball bottom above board CENTRE plane, not gap to tilted top surface",
+    "requested_release_z_formula": "board_center_z + gap + ball_radius",
+    "action_bounds": {
+      "low": [
+        0.3,
+        -0.5,
+        0.12,
+        8.0,
+        0.05
+      ],
+      "high": [
+        1.04,
+        0.35,
+        0.6,
+        60.0,
+        0.65
+      ],
+      "version": "sircus-expanded-shot-actions-v1"
+    },
+    "invalid_request_policy": "No clipping/projection/substitution; geometry rejections remain in requested denominators",
+    "scoring": {
+      "version": "sircus-articulated-passive-contact-15360hz-v1",
+      "board_mode": "articulated",
+      "gravity_mode": "passive_only",
+      "substeps": 64,
+      "native_dt_s": 6.510416666666667e-05,
+      "scoring_dt_s": 0.004166666666666667,
+      "horizon_s": 4.0,
+      "solref": [
+        0.004,
+        0.15
+      ],
+      "contact_friction": 0.35,
+      "solver": "newton",
+      "solver_iterations": 100,
+      "solver_tolerance": 1e-08,
+      "cone": "pyramidal",
+      "integrator": "implicitfast",
+      "arm_control": "Prescribed joint endpoints reset before each native step; no learned grasp/transit/actuator dynamics",
+      "scorer": "Unchanged board rebound + whole sphere entry + continuous1s retention; external assistance disqualifies route; bucket rim assistance counts"
+    },
+    "scope": "Validation-selected short-miss development search. Fixed bucket and board XYZ; only board tilt and vertical ball-bottom gap above board CENTRE plane vary. Prescribed joint endpoints and spawned free-flight ball, not grasp/release or compliant arm control. No final TEST or benchmark replacement."
+  },
+  "layouts": [
+    {
+      "id": "calibrated-validation-03-sweep",
+      "context_id": "calibrated-validation-03",
+      "source_method": "sweep",
+      "source_row_id": "sweep-20261411-validation-0000-calibrated-validation-03-r0",
+      "source_seed": 20261411,
+      "source_samples": 0,
+      "bucket_xy_m": [
+        1.1096434643829722,
+        -0.5808825398577193
+      ],
+      "baseline_values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.40906503796577454,
+        32.749881784770345,
+        0.1353410311538266
+      ],
+      "source_row_sha256": "5adcbc1ea08df2348828d34b9bac95ca2e1517992e0854b782237ef2f5b7619b",
+      "source_rows_file": "runs/sweep-seed20261411/rows.jsonl",
+      "source_rows_sha256": "4ef8971a5e293e226eca50adf7d11a974da8e6f1d5748dc40b374ed0a5a3de3a",
+      "source_native_file": "runs/sweep-seed20261411/native/native-0000.npz",
+      "source_native_sha256": "75376f7c9d10a82e311f2cd64c6d8451d4b94b33e399f4331f3de98a7fe8114d",
+      "source_category": "no_whole_ball_entry",
+      "source_miss_region": {
+        "region": "short",
+        "geometric_region": "short",
+        "reason": "observed_target_height_crossing",
+        "crossing": {
+          "time_s": 0.45013947646750285,
+          "ball_center_m": [
+            0.8774400949478149,
+            -0.41716188192367554,
+            0.14550000429153442
+          ],
+          "along_bucket_axis_m": -0.28411075023234067,
+          "lateral_m": -0.001984997182074455,
+          "nominal_allowed_along_interval_m": [
+            -0.04788956634248834,
+            0.04786601920696236
+          ],
+          "later_contacts_do_not_change_this_observation": true
+        },
+        "scope": "Observed descending ball-center crossing at rim minus radius; nominal compiled whole-sphere XY clearance, not a cause attribution",
+        "plane_center_z_m": 0.1455
+      },
+      "source_pose": {
+        "q10": [
+          -0.3595176095403901,
+          -0.6207473219092251,
+          -2.043814164834147,
+          3.4212254215868407e-06,
+          -1.423066842603557,
+          -0.3595174331272476
+        ],
+        "q14": [
+          3.359869265981254,
+          1.470868580285607,
+          -3.250073318209392,
+          -0.4479228245948186,
+          -1.94819789405874,
+          3.784180124806623
+        ],
+        "native_initial_q10": [
+          -0.3595176041126251,
+          -0.6207473278045654,
+          -2.043814182281494,
+          3.421225528654759e-06,
+          -1.4230668544769287,
+          -0.3595174252986908
+        ],
+        "native_initial_q14": [
+          3.3598692417144775,
+          1.4708685874938965,
+          -3.2500734329223633,
+          -0.44792282581329346,
+          -1.948197841644287,
+          3.784180164337158
+        ],
+        "board_center_m": [
+          0.6274268627166748,
+          -0.23581498861312866,
+          0.40906500816345215
+        ],
+        "board_normal": [
+          0.43993669748306274,
+          -0.3148128390312195,
+          0.8410403728485107
+        ],
+        "board_quaternion_wxyz": [
+          -0.2931917905807495,
+          -0.2684357762336731,
+          0.08615176379680634,
+          -0.9135419130325317
+        ],
+        "native_initial_ball_center_m": [
+          0.6274269819259644,
+          -0.23581497371196747,
+          0.5819060802459717
+        ],
+        "release_ball_center_m": [
+          0.6274269819259644,
+          -0.23581497371196747,
+          0.5819060691196012
+        ]
+      },
+      "source_route_success": false
+    },
+    {
+      "id": "calibrated-validation-05-ppo",
+      "context_id": "calibrated-validation-05",
+      "source_method": "ppo",
+      "source_row_id": "ppo-20261411-validation-1024-calibrated-validation-05-r0",
+      "source_seed": 20261411,
+      "source_samples": 1024,
+      "bucket_xy_m": [
+        1.0065530961319848,
+        -0.600042764920928
+      ],
+      "baseline_values": [
+        0.6190372392835043,
+        -0.23363119040310731,
+        0.4175087946496074,
+        32.74398242357362,
+        0.12815367845336997
+      ],
+      "source_row_sha256": "0405a38c36bf9da4ff1be6a0326f5058f33ef4191089478bb562f2e159fdfd0b",
+      "source_rows_file": "runs/ppo-seed20261411/rows.jsonl",
+      "source_rows_sha256": "634a4de458fd6c02e2f83028ffacddf36238bdf591d672e5b5d6419716021276",
+      "source_native_file": "runs/ppo-seed20261411/native/native-0038.npz",
+      "source_native_sha256": "ec0f5fc02cea274d3d2d7ba7f4a442f0457e77cbbc54eb7d0ad5196e722e0e35",
+      "source_category": "no_whole_ball_entry",
+      "source_miss_region": {
+        "region": "short",
+        "geometric_region": "short",
+        "reason": "observed_target_height_crossing",
+        "crossing": {
+          "time_s": 0.44623555052768954,
+          "ball_center_m": [
+            0.8343465924263,
+            -0.4395102262496948,
+            0.14550000429153442
+          ],
+          "along_bucket_axis_m": -0.23542088656639887,
+          "lateral_m": -0.0016679505561506686,
+          "nominal_allowed_along_interval_m": [
+            -0.04786834044349836,
+            0.047906669356499135
+          ],
+          "later_contacts_do_not_change_this_observation": true
+        },
+        "scope": "Observed descending ball-center crossing at rim minus radius; nominal compiled whole-sphere XY clearance, not a cause attribution",
+        "plane_center_z_m": 0.1455
+      },
+      "source_pose": {
+        "q10": [
+          -0.3608890221808518,
+          -0.5907012448666022,
+          -2.001570717261672,
+          3.644763395353958e-06,
+          -1.410869470533017,
+          -0.36088909050827644
+        ],
+        "q14": [
+          3.3443606687274356,
+          1.437197780132106,
+          -3.2946166324022776,
+          -0.4879645137673772,
+          -1.9032971172860076,
+          3.6640245265979896
+        ],
+        "native_initial_q10": [
+          -0.3608890175819397,
+          -0.5907012224197388,
+          -2.001570701599121,
+          3.6447634101932636e-06,
+          -1.4108694791793823,
+          -0.3608890771865845
+        ],
+        "native_initial_q14": [
+          3.344360589981079,
+          1.4371978044509888,
+          -3.29461669921875,
+          -0.4879645109176636,
+          -1.9032970666885376,
+          3.664024591445923
+        ],
+        "board_center_m": [
+          0.6190371513366699,
+          -0.23363114893436432,
+          0.4175087809562683
+        ],
+        "board_normal": [
+          0.39301639795303345,
+          -0.3716127574443817,
+          0.8410959243774414
+        ],
+        "board_quaternion_wxyz": [
+          -0.35472744703292847,
+          -0.26190000772476196,
+          0.10421369969844818,
+          -0.8914687037467957
+        ],
+        "native_initial_ball_center_m": [
+          0.6190372109413147,
+          -0.2336311936378479,
+          0.5831624865531921
+        ],
+        "release_ball_center_m": [
+          0.6190372392835043,
+          -0.23363119040310731,
+          0.5831624731029774
+        ]
+      },
+      "source_route_success": false
+    },
+    {
+      "id": "calibrated-validation-05-sweep",
+      "context_id": "calibrated-validation-05",
+      "source_method": "sweep",
+      "source_row_id": "sweep-20261411-validation-0000-calibrated-validation-05-r0",
+      "source_seed": 20261411,
+      "source_samples": 0,
+      "bucket_xy_m": [
+        1.0065530961319848,
+        -0.600042764920928
+      ],
+      "baseline_values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.40906503796577454,
+        32.749881784770345,
+        0.1353410311538266
+      ],
+      "source_row_sha256": "5ad3051e611e3462bc7a3a0b23f6c17da8bd355f3651158bf4dbf53da3f7a9b6",
+      "source_rows_file": "runs/sweep-seed20261411/rows.jsonl",
+      "source_rows_sha256": "4ef8971a5e293e226eca50adf7d11a974da8e6f1d5748dc40b374ed0a5a3de3a",
+      "source_native_file": "runs/sweep-seed20261411/native/native-0000.npz",
+      "source_native_sha256": "75376f7c9d10a82e311f2cd64c6d8451d4b94b33e399f4331f3de98a7fe8114d",
+      "source_category": "no_whole_ball_entry",
+      "source_miss_region": {
+        "region": "short",
+        "geometric_region": "short",
+        "reason": "observed_target_height_crossing",
+        "crossing": {
+          "time_s": 0.45006200654619677,
+          "ball_center_m": [
+            0.8492774367332458,
+            -0.4510447680950165,
+            0.14550000429153442
+          ],
+          "along_bucket_axis_m": -0.21664198299984544,
+          "lateral_m": -0.0015123820076923256,
+          "nominal_allowed_along_interval_m": [
+            -0.047869146633169844,
+            0.04790282243109318
+          ],
+          "later_contacts_do_not_change_this_observation": true
+        },
+        "scope": "Observed descending ball-center crossing at rim minus radius; nominal compiled whole-sphere XY clearance, not a cause attribution",
+        "plane_center_z_m": 0.1455
+      },
+      "source_pose": {
+        "q10": [
+          -0.3595176095403901,
+          -0.6207473219092251,
+          -2.043814164834147,
+          3.4212254215868407e-06,
+          -1.423066842603557,
+          -0.3595174331272476
+        ],
+        "q14": [
+          3.3485417034157066,
+          1.4130789637302246,
+          -3.3610196210053993,
+          -0.4987161965526315,
+          -1.9348531246879923,
+          3.631335158454548
+        ],
+        "native_initial_q10": [
+          -0.3595176041126251,
+          -0.6207473278045654,
+          -2.043814182281494,
+          3.421225528654759e-06,
+          -1.4230668544769287,
+          -0.3595174252986908
+        ],
+        "native_initial_q14": [
+          3.348541736602783,
+          1.4130789041519165,
+          -3.3610196113586426,
+          -0.49871620535850525,
+          -1.9348530769348145,
+          3.6313352584838867
+        ],
+        "board_center_m": [
+          0.6274269223213196,
+          -0.23581504821777344,
+          0.40906503796577454
+        ],
+        "board_normal": [
+          0.3901136517524719,
+          -0.3747834861278534,
+          0.8410402536392212
+        ],
+        "board_quaternion_wxyz": [
+          -0.3582609295845032,
+          -0.2615296542644501,
+          0.10527167469263077,
+          -0.8900389075279236
+        ],
+        "native_initial_ball_center_m": [
+          0.6274269819259644,
+          -0.23581497371196747,
+          0.5819060802459717
+        ],
+        "release_ball_center_m": [
+          0.6274269819259644,
+          -0.23581497371196747,
+          0.5819060691196012
+        ]
+      },
+      "source_route_success": false
+    }
+  ],
+  "requests": [
+    {
+      "id": "impact-calibrated-validation-03-sweep-g0-t0",
+      "case_id": "calibrated-validation-03-sweep",
+      "context_id": "calibrated-validation-03",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.1096434643829722,
+        -0.5808825398577193
+      ],
+      "values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.40906503796577454,
+        28.749881784770345,
+        0.1353410311538266
+      ],
+      "gap_offset_m": 0.0,
+      "tilt_offset_deg": -4.0,
+      "source_row_id": "sweep-20261411-validation-0000-calibrated-validation-03-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-03-sweep-g0-t1",
+      "case_id": "calibrated-validation-03-sweep",
+      "context_id": "calibrated-validation-03",
+      "phase": "sweep",
+      "baseline": true,
+      "bucket_xy_m": [
+        1.1096434643829722,
+        -0.5808825398577193
+      ],
+      "values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.40906503796577454,
+        32.749881784770345,
+        0.1353410311538266
+      ],
+      "gap_offset_m": 0.0,
+      "tilt_offset_deg": 0.0,
+      "source_row_id": "sweep-20261411-validation-0000-calibrated-validation-03-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-03-sweep-g0-t2",
+      "case_id": "calibrated-validation-03-sweep",
+      "context_id": "calibrated-validation-03",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.1096434643829722,
+        -0.5808825398577193
+      ],
+      "values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.40906503796577454,
+        36.749881784770345,
+        0.1353410311538266
+      ],
+      "gap_offset_m": 0.0,
+      "tilt_offset_deg": 4.0,
+      "source_row_id": "sweep-20261411-validation-0000-calibrated-validation-03-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-03-sweep-g1-t0",
+      "case_id": "calibrated-validation-03-sweep",
+      "context_id": "calibrated-validation-03",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.1096434643829722,
+        -0.5808825398577193
+      ],
+      "values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.40906503796577454,
+        28.749881784770345,
+        0.1953410311538266
+      ],
+      "gap_offset_m": 0.06,
+      "tilt_offset_deg": -4.0,
+      "source_row_id": "sweep-20261411-validation-0000-calibrated-validation-03-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-03-sweep-g1-t1",
+      "case_id": "calibrated-validation-03-sweep",
+      "context_id": "calibrated-validation-03",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.1096434643829722,
+        -0.5808825398577193
+      ],
+      "values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.40906503796577454,
+        32.749881784770345,
+        0.1953410311538266
+      ],
+      "gap_offset_m": 0.06,
+      "tilt_offset_deg": 0.0,
+      "source_row_id": "sweep-20261411-validation-0000-calibrated-validation-03-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-03-sweep-g1-t2",
+      "case_id": "calibrated-validation-03-sweep",
+      "context_id": "calibrated-validation-03",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.1096434643829722,
+        -0.5808825398577193
+      ],
+      "values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.40906503796577454,
+        36.749881784770345,
+        0.1953410311538266
+      ],
+      "gap_offset_m": 0.06,
+      "tilt_offset_deg": 4.0,
+      "source_row_id": "sweep-20261411-validation-0000-calibrated-validation-03-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-03-sweep-g2-t0",
+      "case_id": "calibrated-validation-03-sweep",
+      "context_id": "calibrated-validation-03",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.1096434643829722,
+        -0.5808825398577193
+      ],
+      "values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.40906503796577454,
+        28.749881784770345,
+        0.25534103115382656
+      ],
+      "gap_offset_m": 0.12,
+      "tilt_offset_deg": -4.0,
+      "source_row_id": "sweep-20261411-validation-0000-calibrated-validation-03-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-03-sweep-g2-t1",
+      "case_id": "calibrated-validation-03-sweep",
+      "context_id": "calibrated-validation-03",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.1096434643829722,
+        -0.5808825398577193
+      ],
+      "values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.40906503796577454,
+        32.749881784770345,
+        0.25534103115382656
+      ],
+      "gap_offset_m": 0.12,
+      "tilt_offset_deg": 0.0,
+      "source_row_id": "sweep-20261411-validation-0000-calibrated-validation-03-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-03-sweep-g2-t2",
+      "case_id": "calibrated-validation-03-sweep",
+      "context_id": "calibrated-validation-03",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.1096434643829722,
+        -0.5808825398577193
+      ],
+      "values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.40906503796577454,
+        36.749881784770345,
+        0.25534103115382656
+      ],
+      "gap_offset_m": 0.12,
+      "tilt_offset_deg": 4.0,
+      "source_row_id": "sweep-20261411-validation-0000-calibrated-validation-03-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-03-sweep-g3-t0",
+      "case_id": "calibrated-validation-03-sweep",
+      "context_id": "calibrated-validation-03",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.1096434643829722,
+        -0.5808825398577193
+      ],
+      "values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.40906503796577454,
+        28.749881784770345,
+        0.3153410311538266
+      ],
+      "gap_offset_m": 0.18,
+      "tilt_offset_deg": -4.0,
+      "source_row_id": "sweep-20261411-validation-0000-calibrated-validation-03-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-03-sweep-g3-t1",
+      "case_id": "calibrated-validation-03-sweep",
+      "context_id": "calibrated-validation-03",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.1096434643829722,
+        -0.5808825398577193
+      ],
+      "values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.40906503796577454,
+        32.749881784770345,
+        0.3153410311538266
+      ],
+      "gap_offset_m": 0.18,
+      "tilt_offset_deg": 0.0,
+      "source_row_id": "sweep-20261411-validation-0000-calibrated-validation-03-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-03-sweep-g3-t2",
+      "case_id": "calibrated-validation-03-sweep",
+      "context_id": "calibrated-validation-03",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.1096434643829722,
+        -0.5808825398577193
+      ],
+      "values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.40906503796577454,
+        36.749881784770345,
+        0.3153410311538266
+      ],
+      "gap_offset_m": 0.18,
+      "tilt_offset_deg": 4.0,
+      "source_row_id": "sweep-20261411-validation-0000-calibrated-validation-03-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-05-ppo-g0-t0",
+      "case_id": "calibrated-validation-05-ppo",
+      "context_id": "calibrated-validation-05",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.0065530961319848,
+        -0.600042764920928
+      ],
+      "values": [
+        0.6190372392835043,
+        -0.23363119040310731,
+        0.4175087946496074,
+        28.74398242357362,
+        0.12815367845336997
+      ],
+      "gap_offset_m": 0.0,
+      "tilt_offset_deg": -4.0,
+      "source_row_id": "ppo-20261411-validation-1024-calibrated-validation-05-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-05-ppo-g0-t1",
+      "case_id": "calibrated-validation-05-ppo",
+      "context_id": "calibrated-validation-05",
+      "phase": "sweep",
+      "baseline": true,
+      "bucket_xy_m": [
+        1.0065530961319848,
+        -0.600042764920928
+      ],
+      "values": [
+        0.6190372392835043,
+        -0.23363119040310731,
+        0.4175087946496074,
+        32.74398242357362,
+        0.12815367845336997
+      ],
+      "gap_offset_m": 0.0,
+      "tilt_offset_deg": 0.0,
+      "source_row_id": "ppo-20261411-validation-1024-calibrated-validation-05-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-05-ppo-g0-t2",
+      "case_id": "calibrated-validation-05-ppo",
+      "context_id": "calibrated-validation-05",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.0065530961319848,
+        -0.600042764920928
+      ],
+      "values": [
+        0.6190372392835043,
+        -0.23363119040310731,
+        0.4175087946496074,
+        36.74398242357362,
+        0.12815367845336997
+      ],
+      "gap_offset_m": 0.0,
+      "tilt_offset_deg": 4.0,
+      "source_row_id": "ppo-20261411-validation-1024-calibrated-validation-05-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-05-ppo-g1-t0",
+      "case_id": "calibrated-validation-05-ppo",
+      "context_id": "calibrated-validation-05",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.0065530961319848,
+        -0.600042764920928
+      ],
+      "values": [
+        0.6190372392835043,
+        -0.23363119040310731,
+        0.4175087946496074,
+        28.74398242357362,
+        0.18815367845336997
+      ],
+      "gap_offset_m": 0.06,
+      "tilt_offset_deg": -4.0,
+      "source_row_id": "ppo-20261411-validation-1024-calibrated-validation-05-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-05-ppo-g1-t1",
+      "case_id": "calibrated-validation-05-ppo",
+      "context_id": "calibrated-validation-05",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.0065530961319848,
+        -0.600042764920928
+      ],
+      "values": [
+        0.6190372392835043,
+        -0.23363119040310731,
+        0.4175087946496074,
+        32.74398242357362,
+        0.18815367845336997
+      ],
+      "gap_offset_m": 0.06,
+      "tilt_offset_deg": 0.0,
+      "source_row_id": "ppo-20261411-validation-1024-calibrated-validation-05-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-05-ppo-g1-t2",
+      "case_id": "calibrated-validation-05-ppo",
+      "context_id": "calibrated-validation-05",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.0065530961319848,
+        -0.600042764920928
+      ],
+      "values": [
+        0.6190372392835043,
+        -0.23363119040310731,
+        0.4175087946496074,
+        36.74398242357362,
+        0.18815367845336997
+      ],
+      "gap_offset_m": 0.06,
+      "tilt_offset_deg": 4.0,
+      "source_row_id": "ppo-20261411-validation-1024-calibrated-validation-05-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-05-ppo-g2-t0",
+      "case_id": "calibrated-validation-05-ppo",
+      "context_id": "calibrated-validation-05",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.0065530961319848,
+        -0.600042764920928
+      ],
+      "values": [
+        0.6190372392835043,
+        -0.23363119040310731,
+        0.4175087946496074,
+        28.74398242357362,
+        0.24815367845336997
+      ],
+      "gap_offset_m": 0.12,
+      "tilt_offset_deg": -4.0,
+      "source_row_id": "ppo-20261411-validation-1024-calibrated-validation-05-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-05-ppo-g2-t1",
+      "case_id": "calibrated-validation-05-ppo",
+      "context_id": "calibrated-validation-05",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.0065530961319848,
+        -0.600042764920928
+      ],
+      "values": [
+        0.6190372392835043,
+        -0.23363119040310731,
+        0.4175087946496074,
+        32.74398242357362,
+        0.24815367845336997
+      ],
+      "gap_offset_m": 0.12,
+      "tilt_offset_deg": 0.0,
+      "source_row_id": "ppo-20261411-validation-1024-calibrated-validation-05-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-05-ppo-g2-t2",
+      "case_id": "calibrated-validation-05-ppo",
+      "context_id": "calibrated-validation-05",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.0065530961319848,
+        -0.600042764920928
+      ],
+      "values": [
+        0.6190372392835043,
+        -0.23363119040310731,
+        0.4175087946496074,
+        36.74398242357362,
+        0.24815367845336997
+      ],
+      "gap_offset_m": 0.12,
+      "tilt_offset_deg": 4.0,
+      "source_row_id": "ppo-20261411-validation-1024-calibrated-validation-05-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-05-ppo-g3-t0",
+      "case_id": "calibrated-validation-05-ppo",
+      "context_id": "calibrated-validation-05",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.0065530961319848,
+        -0.600042764920928
+      ],
+      "values": [
+        0.6190372392835043,
+        -0.23363119040310731,
+        0.4175087946496074,
+        28.74398242357362,
+        0.30815367845336994
+      ],
+      "gap_offset_m": 0.18,
+      "tilt_offset_deg": -4.0,
+      "source_row_id": "ppo-20261411-validation-1024-calibrated-validation-05-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-05-ppo-g3-t1",
+      "case_id": "calibrated-validation-05-ppo",
+      "context_id": "calibrated-validation-05",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.0065530961319848,
+        -0.600042764920928
+      ],
+      "values": [
+        0.6190372392835043,
+        -0.23363119040310731,
+        0.4175087946496074,
+        32.74398242357362,
+        0.30815367845336994
+      ],
+      "gap_offset_m": 0.18,
+      "tilt_offset_deg": 0.0,
+      "source_row_id": "ppo-20261411-validation-1024-calibrated-validation-05-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-05-ppo-g3-t2",
+      "case_id": "calibrated-validation-05-ppo",
+      "context_id": "calibrated-validation-05",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.0065530961319848,
+        -0.600042764920928
+      ],
+      "values": [
+        0.6190372392835043,
+        -0.23363119040310731,
+        0.4175087946496074,
+        36.74398242357362,
+        0.30815367845336994
+      ],
+      "gap_offset_m": 0.18,
+      "tilt_offset_deg": 4.0,
+      "source_row_id": "ppo-20261411-validation-1024-calibrated-validation-05-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-05-sweep-g0-t0",
+      "case_id": "calibrated-validation-05-sweep",
+      "context_id": "calibrated-validation-05",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.0065530961319848,
+        -0.600042764920928
+      ],
+      "values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.40906503796577454,
+        28.749881784770345,
+        0.1353410311538266
+      ],
+      "gap_offset_m": 0.0,
+      "tilt_offset_deg": -4.0,
+      "source_row_id": "sweep-20261411-validation-0000-calibrated-validation-05-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-05-sweep-g0-t1",
+      "case_id": "calibrated-validation-05-sweep",
+      "context_id": "calibrated-validation-05",
+      "phase": "sweep",
+      "baseline": true,
+      "bucket_xy_m": [
+        1.0065530961319848,
+        -0.600042764920928
+      ],
+      "values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.40906503796577454,
+        32.749881784770345,
+        0.1353410311538266
+      ],
+      "gap_offset_m": 0.0,
+      "tilt_offset_deg": 0.0,
+      "source_row_id": "sweep-20261411-validation-0000-calibrated-validation-05-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-05-sweep-g0-t2",
+      "case_id": "calibrated-validation-05-sweep",
+      "context_id": "calibrated-validation-05",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.0065530961319848,
+        -0.600042764920928
+      ],
+      "values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.40906503796577454,
+        36.749881784770345,
+        0.1353410311538266
+      ],
+      "gap_offset_m": 0.0,
+      "tilt_offset_deg": 4.0,
+      "source_row_id": "sweep-20261411-validation-0000-calibrated-validation-05-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-05-sweep-g1-t0",
+      "case_id": "calibrated-validation-05-sweep",
+      "context_id": "calibrated-validation-05",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.0065530961319848,
+        -0.600042764920928
+      ],
+      "values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.40906503796577454,
+        28.749881784770345,
+        0.1953410311538266
+      ],
+      "gap_offset_m": 0.06,
+      "tilt_offset_deg": -4.0,
+      "source_row_id": "sweep-20261411-validation-0000-calibrated-validation-05-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-05-sweep-g1-t1",
+      "case_id": "calibrated-validation-05-sweep",
+      "context_id": "calibrated-validation-05",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.0065530961319848,
+        -0.600042764920928
+      ],
+      "values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.40906503796577454,
+        32.749881784770345,
+        0.1953410311538266
+      ],
+      "gap_offset_m": 0.06,
+      "tilt_offset_deg": 0.0,
+      "source_row_id": "sweep-20261411-validation-0000-calibrated-validation-05-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-05-sweep-g1-t2",
+      "case_id": "calibrated-validation-05-sweep",
+      "context_id": "calibrated-validation-05",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.0065530961319848,
+        -0.600042764920928
+      ],
+      "values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.40906503796577454,
+        36.749881784770345,
+        0.1953410311538266
+      ],
+      "gap_offset_m": 0.06,
+      "tilt_offset_deg": 4.0,
+      "source_row_id": "sweep-20261411-validation-0000-calibrated-validation-05-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-05-sweep-g2-t0",
+      "case_id": "calibrated-validation-05-sweep",
+      "context_id": "calibrated-validation-05",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.0065530961319848,
+        -0.600042764920928
+      ],
+      "values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.40906503796577454,
+        28.749881784770345,
+        0.25534103115382656
+      ],
+      "gap_offset_m": 0.12,
+      "tilt_offset_deg": -4.0,
+      "source_row_id": "sweep-20261411-validation-0000-calibrated-validation-05-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-05-sweep-g2-t1",
+      "case_id": "calibrated-validation-05-sweep",
+      "context_id": "calibrated-validation-05",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.0065530961319848,
+        -0.600042764920928
+      ],
+      "values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.40906503796577454,
+        32.749881784770345,
+        0.25534103115382656
+      ],
+      "gap_offset_m": 0.12,
+      "tilt_offset_deg": 0.0,
+      "source_row_id": "sweep-20261411-validation-0000-calibrated-validation-05-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-05-sweep-g2-t2",
+      "case_id": "calibrated-validation-05-sweep",
+      "context_id": "calibrated-validation-05",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.0065530961319848,
+        -0.600042764920928
+      ],
+      "values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.40906503796577454,
+        36.749881784770345,
+        0.25534103115382656
+      ],
+      "gap_offset_m": 0.12,
+      "tilt_offset_deg": 4.0,
+      "source_row_id": "sweep-20261411-validation-0000-calibrated-validation-05-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-05-sweep-g3-t0",
+      "case_id": "calibrated-validation-05-sweep",
+      "context_id": "calibrated-validation-05",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.0065530961319848,
+        -0.600042764920928
+      ],
+      "values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.40906503796577454,
+        28.749881784770345,
+        0.3153410311538266
+      ],
+      "gap_offset_m": 0.18,
+      "tilt_offset_deg": -4.0,
+      "source_row_id": "sweep-20261411-validation-0000-calibrated-validation-05-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-05-sweep-g3-t1",
+      "case_id": "calibrated-validation-05-sweep",
+      "context_id": "calibrated-validation-05",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.0065530961319848,
+        -0.600042764920928
+      ],
+      "values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.40906503796577454,
+        32.749881784770345,
+        0.3153410311538266
+      ],
+      "gap_offset_m": 0.18,
+      "tilt_offset_deg": 0.0,
+      "source_row_id": "sweep-20261411-validation-0000-calibrated-validation-05-r0"
+    },
+    {
+      "id": "impact-calibrated-validation-05-sweep-g3-t2",
+      "case_id": "calibrated-validation-05-sweep",
+      "context_id": "calibrated-validation-05",
+      "phase": "sweep",
+      "baseline": false,
+      "bucket_xy_m": [
+        1.0065530961319848,
+        -0.600042764920928
+      ],
+      "values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.40906503796577454,
+        36.749881784770345,
+        0.3153410311538266
+      ],
+      "gap_offset_m": 0.18,
+      "tilt_offset_deg": 4.0,
+      "source_row_id": "sweep-20261411-validation-0000-calibrated-validation-05-r0"
+    }
+  ],
+  "fingerprint": "69f017755905b5748e2369b759a6181bca674ac9cda5d56399f6c2970c134217"
+}

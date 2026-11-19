@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "recorded_replay_gets": 27,
+  "rejected_without_trajectory_404": 18,
+  "post_status": 405,
+  "summary": {
+    "requests": 45,
+    "native_releases": 27,
+    "captures": 0,
+    "sweep": {
+      "attempts": 36,
+      "native_releases": 18,
+      "captures": 0
+    },
+    "confirmation": {
+      "attempts": 9,
+      "native_releases": 9,
+      "captures": 0
+    }
+  },
+  "report_sha256": "b143eaa2a369f0a7ad4fdd1dcb325cac21cfdceb4f51b133ba4bc1fdd2ae7535",
+  "audit_sha256": "13f4c3ccb2cac553058fd06c4e845ae81d01c4185434c2ef3dc448e40bafbff4",
+  "original_benchmark_hashes": {
+    "report.json": "8d59cf3d44d6657aa8cddd5a22270e39f044357c51ebf690ae0ba940ccf44ba7",
+    "manifest.json": "970f2b079c5d00491e95b3f58bfd1180e58fd366d116e0ab4e44731073f9ccb4",
+    "audit_sha256": "8df7b8f3b48cfc9c1c41f33f02ea0b68ca828909e2c8774d3cbabc0f1a45f530"
+  },
+  "scope": "Live read-only GET identity/time/FK-history checks; no new physics, training or hardware. Original benchmark metadata bytes unchanged."
+}
