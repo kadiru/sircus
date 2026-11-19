@@ -1,5 +1,12 @@
 # Project state
 
+## Simulation-only mjlab comparison — November 2, 2026
+
+- The [isolated mjlab port](../sircus/mjlab/README.md) compiles both UF850s, the attached board, 64 bucket-wall segments, table and ball. Native geometry and 32 URDF kinematics checks passed. The bucket uses a mocap pose with actual collision-transform checks after a static-cache issue was found.
+- [Fresh paired evidence](../baselines/mjlab-comparison-20261102/README.md) replays 24 identical configurations three times per engine, with fixed joint endpoints, 1920 Hz physics and the original 240 Hz scorer. All 72 starts and board bounces passed per engine. Isaac scored 24 captures (14 clean); the final mjlab batch scored 41 (5 clean). An earlier mjlab batch scored 43. Rim behavior and numerical repeatability differ, so these diagnostic counts do not establish policy improvement or arbitrary-table generalization.
+- The final mjlab runner took 17.41 seconds versus Isaac's 80.11 seconds, including Python scoring and reads. A separate matched mjlab batch took 12.35 seconds. Physics-kernel and RL-training speed were not measured. Contact calibration used disjoint flat drops, still with material restitution variation. Original Isaac setup and the 4070 workload were preserved.
+- The user clarified that deployment is entirely simulated. Next is an interactive bucket/arm-constraint interface with batched feasibility search, then a policy conditioned on constraint masks and values. Physical UF850/Viam deployment adapters are outside the current goal. Full trajectories and comparison media are stored outside Git.
+
 ## Compact dark-floor Isaac recording — November 2, 2026
 
 - The [new film](../sircus/isaac/DARK_FARM_FILM.md) shows 35 tables and 70 arms at 2.50 × 2.10 m spacing, with a continuous black floor and 9 mm charcoal seams. Seven close-ups show seven measured board bounces, two qualified captures and three real floor arrivals. Four consecutive attempts at one front-row table use different configurations and include measured joint movement.

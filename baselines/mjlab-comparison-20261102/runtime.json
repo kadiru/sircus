@@ -1,0 +1,9 @@
+{
+  "mjlab": "1.6.0",
+  "mujoco": "3.11.0",
+  "mujoco-warp": "3.11.0",
+  "torch": "2.7.0",
+  "numpy": "1.26.4",
+  "warp-lang": "1.14.0",
+  "ml-dtypes": "0.5.4"
+}

@@ -1,0 +1,102 @@
+{
+  "version": "sircus-mujoco-normal-substep-calibration-v1",
+  "scope": "CPU normal drops on a 5 mm flat board; selected using train heights only, no bucket results",
+  "target_restitution": 0.65,
+  "plate_thickness_m": 0.005,
+  "ball_radius_m": 0.0375,
+  "contact_friction": 0.35,
+  "solimp": [
+    0.95,
+    0.99,
+    0.001,
+    0.5,
+    2
+  ],
+  "train_gaps_m": [
+    0.1,
+    0.3,
+    0.6
+  ],
+  "heldout_gaps_m": [
+    0.2,
+    0.4
+  ],
+  "penetration_limit_mm": 2,
+  "selection": "Lowest train velocity restitution MSE subject to <=2mm train penetration and no escape",
+  "mujoco_version": "3.11.0",
+  "selected": {
+    "physics_dt_s": 0.0005208333333333333,
+    "timeconst_s": 0.004,
+    "damping_ratio": 0.15,
+    "train": [
+      {
+        "gap_m": 0.1,
+        "restitution_velocity": 0.6159067878777893,
+        "restitution_height": 0.6175354089883213,
+        "rebound_height_m": 0.038134998135437324,
+        "incoming_m_s": 1.3999687499999964,
+        "outgoing_m_s": 0.8622502559417816,
+        "peak_penetration_mm": 0.6230577018855945,
+        "contact_steps": 3,
+        "peak_contact_force_N": 409.4126823082396,
+        "escaped_through_board": false
+      },
+      {
+        "gap_m": 0.3,
+        "restitution_velocity": 0.6644618944607501,
+        "restitution_height": 0.6665846545766635,
+        "rebound_height_m": 0.13330053051512694,
+        "incoming_m_s": 2.426953124999991,
+        "outgoing_m_s": 1.6126178712049317,
+        "peak_penetration_mm": 1.1454552983889075,
+        "contact_steps": 3,
+        "peak_contact_force_N": 709.49071760321,
+        "escaped_through_board": false
+      },
+      {
+        "gap_m": 0.6,
+        "restitution_velocity": 0.7371888785062269,
+        "restitution_height": 0.7394656361116695,
+        "rebound_height_m": 0.3280856561940216,
+        "incoming_m_s": 3.4334999999999853,
+        "outgoing_m_s": 2.5311380143511193,
+        "peak_penetration_mm": 1.7566406249984734,
+        "contact_steps": 3,
+        "peak_contact_force_N": 1321.2038383325046,
+        "escaped_through_board": false
+      }
+    ],
+    "heldout": [
+      {
+        "gap_m": 0.2,
+        "restitution_velocity": 0.686874360314539,
+        "restitution_height": 0.6900166784643932,
+        "rebound_height_m": 0.09522460331180677,
+        "incoming_m_s": 1.9824374999999932,
+        "outgoing_m_s": 1.361685489676049,
+        "peak_penetration_mm": 0.970761619143369,
+        "contact_steps": 3,
+        "peak_contact_force_N": 655.7868734375476,
+        "escaped_through_board": false
+      },
+      {
+        "gap_m": 0.4,
+        "restitution_velocity": 0.6038986873245691,
+        "restitution_height": 0.6062014815184109,
+        "rebound_height_m": 0.1469920944780465,
+        "incoming_m_s": 2.799937499999989,
+        "outgoing_m_s": 1.6908785808408289,
+        "peak_penetration_mm": 1.180815996469048,
+        "contact_steps": 4,
+        "peak_contact_force_N": 826.3835632495434,
+        "escaped_through_board": false
+      }
+    ],
+    "train_mse": 0.002991131346459176,
+    "max_train_penetration_mm": 1.7566406249984734,
+    "any_train_escape": false
+  },
+  "source_sha256": "e2da7c22355899f35e7f9f28e8a3ae35001e29cc2e10e7a490c470809bd548fb",
+  "full_report_sha256": "0134a8c1ee562a79a6c74c59c67a1dedbdf9056e575161e5ea6dff9610eea88b",
+  "full_report_file": "substep-flat-calibration-fine-v1.json"
+}
