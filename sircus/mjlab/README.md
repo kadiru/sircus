@@ -1,5 +1,14 @@
 # Sircus in mjlab
 
+Latest: [table-assisted PPO failure diagnosis and tilt-only correction](../../baselines/mjlab-table-training-diagnosis-20261108/README.md).
+All 31 released misses lacked whole-ball entry; first post-board contacts were
+table 16 / bucket 8 / robot 7. Four setup declines split into two finite IK searches
+and two fixed-base clearance checks. The bounded 42-request test captured 0/12
+original requests and 0/12 changed requests: all 32° corrections were rejected
+by board-arm IK. Both control gates and 12,557 independent checks passed.
+UI: `#tableTrainingDiagnosis`. Next is admitted height/tilt configurations,
+not another PPO run or a relaxed clearance rule. [Protocol](TABLE_TRAINING_DIAGNOSIS.md).
+
 Latest task definition: [table-assisted scoring v3](SCORING_TABLE_ASSISTED.md)
 permits table contact and awards the normal capture bonus after one continuous
 second inside. The old calibrated containment kernel and physics guards are

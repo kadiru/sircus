@@ -1,0 +1,31 @@
+<section id="tableTrainingDiagnosis" class="ttd-panel">
+  <p class="ttd-eyebrow">RECORDED FAILURES · FIXED 64 SUBSTEPS · NO NEW TRAINING</p>
+  <h2>Where the 35 unsuccessful shots broke down</h2>
+  <p data-ttd="status" class="ttd-note" role="status">Waiting for verified diagnosis evidence.</p>
+  <div data-ttd="summary" class="ttd-cards"></div>
+  <p class="ttd-small">The original frozen policy captured 15 of 50 positions. This inspection retains the other 35 requests: a setup rejection has no observed flight. Table contact is allowed by v3; it is not itself a failure. Robot, floor and unattributed contacts remain excluded.</p>
+  <div data-ttd="groups" class="ttd-scroll" aria-label="Failure groups"></div>
+  <p data-ttd="interpretation" class="ttd-note"></p>
+  <h3>Concrete recorded examples</h3>
+  <label class="ttd-small">Recorded request <select data-ttd="caseSelect" aria-label="Choose a table-training example"></select></label>
+  <p data-ttd="caseDescription" class="ttd-small"></p>
+  <div data-ttd="caseMetrics" class="ttd-scroll" aria-label="Selected failure configuration"></div>
+  <p data-ttd="setupProof" class="ttd-small"></p>
+  <div data-ttd="events" class="ttd-scroll" aria-label="Observed contact chronology"></div>
+  <p class="ttd-small">Teal: recorded ball samples. Purple: configured board center. Gold dashed line: bucket XY center; dashed outline: configured bucket envelope, if supplied. Coral numbered rings: observed contact times, located on the nearest saved sample.</p>
+  <div class="ttd-plots">
+    <figure><canvas data-ttd="sidePlot" width="760" height="350" role="img" aria-label="Recorded ball trajectory projected along board to bucket and height"></canvas><figcaption>Side projection: board-to-bucket direction versus ball-center height.</figcaption></figure>
+    <figure><canvas data-ttd="topPlot" width="760" height="350" role="img" aria-label="Recorded ball trajectory projected along board to bucket and lateral displacement"></canvas><figcaption>Top projection: the same samples, including sideways drift.</figcaption></figure>
+  </div>
+  <p data-ttd="traceProvenance" class="ttd-small"></p>
+  <details><summary>Inspect all 35 unsuccessful requests</summary><div data-ttd="cases" class="ttd-scroll" aria-label="All failed table-training requests"></div></details>
+  <h3>One targeted correction · separate development test</h3>
+  <p data-ttd="correctionStatus" class="ttd-note">No correction results yet.</p>
+  <p data-ttd="correctionDescription" class="ttd-small"></p>
+  <div data-ttd="correction" class="ttd-scroll" aria-label="Matched targeted correction results"></div>
+  <div data-ttd="correctionCases" class="ttd-scroll" aria-label="Per-case matched repeats"></div>
+  <p data-ttd="correctionControls" class="ttd-small"></p>
+  <p class="ttd-small">These cases were chosen after the original TEST results were inspected. Any correction is post-hoc development evidence, not a new held-out policy score. A withheld or rejected shot cannot be counted as a contact-free executed shot. No policy is automatically activated.</p>
+  <details><summary>Evidence, interpretation and limits</summary><p data-ttd="proof" class="ttd-small"></p><p class="ttd-small">Contact timestamps identify observed force intervals; table-contact presence does not independently prove a causal rebound route. Projected traces are actual saved samples, not new simulation or a collision reconstruction. One training seed and one nominal shot per original layout; 30 of 50 layouts lie at X &gt; 1 m. Privileged geometry and held arm endpoints do not validate grasping or arm transit. The 4070 and Isaac remain outside this work.</p></details>
+  <p data-ttd="connection" class="ttd-small">Read-only evidence snapshot.</p>
+</section>
