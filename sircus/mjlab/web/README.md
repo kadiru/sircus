@@ -1,5 +1,90 @@
 # mjlab shot interface
 
+## Interactive physics planner
+
+Drag the bucket or enter its X and Y coordinates. **Plan shot** checks joint
+poses and approach paths, then previews the dropper and board arm at their
+selected endpoints. **Run one drop** releases the ball in native mjlab at 64
+substeps. Use **Replay** or the timeline to inspect the measured flight.
+Moving the bucket clears the preview and requires a new plan.
+
+The default planner ranks shots by predicted ball clearance. It searches a
+wider set of candidates if the initial poses and paths all fail. In the
+[audited 50-position comparison](../../../docs/MJLAB_SYSTEM_PLANNER.md), the
+physics planner captured 44 times on the first drop. The interactive rollout
+holds both arms at the previewed endpoints.
+
+Launch `python -m sircus.mjlab.interactive_physics_server --help` in the pinned
+Ubuntu environment for the required archive, audit, scene and asset inputs.
+Use the audited `intergrid-system-v1` comparison as `--system-study`. The server
+listens on loopback, keeps preparation on CPU, and leases the RTX 4090 for
+each explicit drop in a separate process. Use an SSH local forward on another
+computer. Supply a writable `--evidence-dir` for local runtime artifacts.
+
+Run fresh-placement verification against the loopback service with
+`python -m sircus.mjlab.interactive_physics_check --help`. It freezes ten
+coordinates before planning and checks identical planned and executed poses,
+trace provenance and rejection of duplicate drop requests.
+On a shared host, run the acceptance check against a separate loopback
+instance with a longer `--gpu-wait-s` and a checker `--timeout-s` that
+includes both the wait and the simulation.
+
+The live browser test dragged the bucket to (476.65, −568.66) mm, previewed
+both arms and replayed a direct 64-substep capture with one second of
+retention. CPU preview checks found a feasible setup at each of the ten
+fresh placements from the acceptance set.
+
+The loopback acceptance test passed on the 4090 at 64 substeps. Each of the
+ten fresh positions got one release using the previewed poses. Eight captured
+(six direct and two after a table bounce). The misses were at (975.3, −63.8)
+mm and (1196.9, −144.7) mm. The first plan also rejected a duplicate release
+request. Planning took 19.6 seconds at the median and 51.2 seconds at the
+slowest position. This sample spans the studied grid interior, edges and
+positions near the two bases.
+
+- Frozen placements SHA-256 `441b7cb37e21edf635708d55fc13079d6060df7fbfdf36d1e0269a4bbe61a964`
+- Completed acceptance report SHA-256 `0dc8ebaac13d60cc7e391c1d350a161c8e088cd2338441290e88790611130a13`
+
+### Replay and diagnosis of the two misses
+
+The **First-drop misses** selector below the canvas plays the original saved
+trajectories at quarter speed. Timestamp buttons pause at the board bounce,
+robot collision and table bounce. Playback invalidates any live preview so that
+its Drop button cannot execute a different scene. Playback does not call the
+planner or start a native simulation.
+
+| Bucket XY, mm | Board height / tilt / release gap | Recorded contacts after release |
+|---|---|---|
+| 975.3, −63.8 | 550.9 mm / 20.69° / 140.0 mm | Board 0.166 s → robot 0.444 s → table 0.632 s |
+| 1196.9, −144.7 | 480.6 mm / 20.90° / 177.8 mm | Board 0.188 s → robot 0.486 s → table 0.627 s |
+
+Neither ball touched or entered the bucket. Both robot strikes deflected the
+ball sideways. Dense native force traces establish the contact times; CPU
+geometry reconstruction identifies the board arm's `Arm14/link3/collision/0`
+as the uniquely overlapping arm geometry at contact. The native trace records
+aggregate robot force, so the individual link attribution is reconstructed.
+
+Both selections already had negative predicted arm-clearance bounds (−20.1 mm
+and −11.4 mm). The current wider search runs only when no candidate passes the
+arm setup checks. A reachable setup can still have a blocked ball trajectory.
+The proposed next experiment is to also expand candidates when the best
+predicted flight score is nonpositive, checking other board-arm joint branches
+and nearby shot settings. This change has not been tested or deployed. Negative
+prediction bounds are not measurements of collision penetration.
+
+To publish recorded shots, add an `interactive_recordings` object to the local
+display report. Its version is `sircus-interactive-recordings-v1`; `recordings`
+contains `{id, label, explanation, result, markers}` entries. `result` is the
+unchanged saved native public result including source hashes, exact poses,
+trajectory, audited outcome and scoring version. Each marker contains `time`
+in seconds after release and `label`. Verify each result against the original
+acceptance report and its hashed native trace before publishing. Keep these
+runtime observations outside Git. The existing server reads the display report
+and web assets without restarting; historical fields and source studies remain
+unchanged.
+
+## Historical planners and study viewer
+
 A separate localhost-only simulation interface. It does not import Viam clients,
 control physical hardware, start training, or change any existing dashboard.
 The user can drag the bucket in the table plane, optionally lock board-center
