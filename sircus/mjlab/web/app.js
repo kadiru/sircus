@@ -348,6 +348,113 @@ function showExpansion() {
   drawChart($('expansionCaptureChart'), points, 'captures');
   drawChart($('expansionRewardChart'), points, 'reward', true);
 }
+// BEGIN READ-ONLY DISTANCE STUDY
+function distanceStudyView(value) {
+  if(!value||typeof value!=='object')return null;
+  const rows=(value.distances??[]).filter(r=>r&&typeof r.id==='string'&&Number.isFinite(r.distance_m));
+  return {raw:value,distances:rows,rays:[...new Set(rows.map(r=>r.ray_id??'Unreported ray'))],contexts:(value.contexts??[]).filter(r=>r&&typeof r.id==='string'),recipes:(value.selected_recipes??[]).filter(r=>r&&typeof r.id==='string')};
+}
+function distanceAuditReady(study) {
+  return study?.version==='sircus-bucket-distance-development-v1'&&study.status==='completed'&&
+    typeof study.contract_fingerprint==='string'&&study.contract_fingerprint.length>0&&study.audit?.status==='passed'&&study.audit.contract_fingerprint===study.contract_fingerprint;
+}
+function distanceRepeatCheck(study,recipe) {
+  const unknown=()=>({verified:false,perfect:null,thresholds:null,qualified:null,label:'Unverified'});
+  if(!distanceAuditReady(study))return unknown();
+  const valid=(s,n)=>s&&s.attempts===n&&Number.isInteger(s.captures)&&0<=s.captures&&s.captures<=n&&Number.isInteger(s.native_releases)&&s.captures<=s.native_releases&&s.native_releases<=n;
+  const rows=['32','64','128'].map(step=>({nominal:recipe.nominal_by_substeps?.[step],fresh:recipe.fresh_by_substeps?.[step],total:recipe.by_substeps?.[step]}));
+  if(!rows.every(r=>valid(r.nominal,3)&&valid(r.fresh,30)&&valid(r.total,33)&&r.total.captures===r.nominal.captures+r.fresh.captures&&r.total.native_releases===r.nominal.native_releases+r.fresh.native_releases))return unknown();
+  const thresholds=rows.every(r=>r.nominal.captures===3&&r.fresh.captures>=27),perfect=rows.every(r=>r.total.captures===33),fine=recipe.sensitivity?.paired_engineering_gate,all=recipe.sensitivity?.all_resolution_repeat_gate;
+  const qualified=typeof fine==='boolean'&&typeof all==='boolean'&&all===(thresholds&&fine)?all:null;
+  return {verified:true,thresholds,perfect,qualified,label:perfect?'Perfect 33/33 each':thresholds?'Meets repeat threshold':'Below repeat threshold'};
+}
+function distanceSearchSummary(view,row) {
+  const contexts=view.contexts.filter(c=>c.distance_id===row.id),total=contexts.length||row.requested_contexts;
+  const sum=key=>contexts.length&&contexts.every(c=>Number.isInteger(c[key])&&c[key]>=0)?contexts.reduce((n,c)=>n+c[key],0):null;
+  return {total:Number.isInteger(total)?total:null,resolved:contexts.filter(c=>c.board_admitted===true).length,
+    unknown:contexts.filter(c=>typeof c.board_admitted!=='boolean').length,geometry:sum('geometry_requests'),eligible:sum('eligible'),
+    requests:sum('search_attempts'),native:sum('search_native_releases'),captures:sum('search_captures')};
+}
+function distanceFootprint(study,row) {
+  const bounds=study.settings?.table_bounds_xy_m,xy=row.bucket_xy_m,
+    radius=study.settings?.bucket_outer_radius_m??(Number.isFinite(study.settings?.bucket_outer_top_diameter_m)?study.settings.bucket_outer_top_diameter_m/2:null);
+  if(!finiteVector(xy,2)||!Array.isArray(bounds)||bounds.length!==2||!bounds.every(b=>finiteVector(b,2)&&b[0]<b[1])||!Number.isFinite(radius)||radius<=0)
+    return {known:false,onTable:null,margin:null};
+  const margin=Math.min(xy[0]-radius-bounds[0][0],bounds[0][1]-xy[0]-radius,xy[1]-radius-bounds[1][0],bounds[1][1]-xy[1]-radius);
+  const required=study.settings?.table_bucket_margin_m;
+  return {known:true,onTable:margin>=-1e-12,admitted:Number.isFinite(required)&&required>=0?margin>=required-1e-12:null,requiredMargin:required,margin,radius,bounds};
+}
+function distanceTrajectoryView(study,trace) {
+  if(!trace)return null;
+  const row=(study.distances??[]).find(r=>r.id===trace.distance_id),context=(study.contexts??[]).find(r=>r.id===trace.context_id),recipe=(study.selected_recipes??[]).find(r=>r.id===(trace.recipe_id??trace.method));
+  const linked=row??(study.distances??[]).find(r=>r.id===(context?.distance_id??recipe?.distance_id));
+  const buckets=[trace.bucket_xy_m,context?.bucket_xy_m,recipe?.bucket_xy_m,linked?.bucket_xy_m].filter(v=>v!==undefined);
+  if(!buckets.length||!buckets.every(v=>finiteVector(v,2)&&v.every((n,i)=>Math.abs(n-buckets[0][i])<=1e-8)))return null;
+  const board=trace.board_xy_m??context?.board_xy_m??recipe?.board_xy_m??study.settings?.board_xy_m;
+  const value=windowTrajectoryView({settings:{board_xy_m:board,bucket_xy_m:buckets[0]}},trace);
+  if(!value||[trace.distance_m,linked?.distance_m].some(d=>d!==undefined&&(!Number.isFinite(d)||Math.abs(d-value.distance)>1e-6)))return null;
+  return {...value,bucket:buckets[0],board,ray:trace.ray_id??linked?.ray_id??'Unreported ray',distanceId:trace.distance_id??linked?.id??'Unreported distance'};
+}
+function distanceConfiguredBoardHeight(study,trace,view) {
+  const same=(a,b)=>finiteVector(a,2)&&finiteVector(b,2)&&a.every((n,i)=>Math.abs(n-b[i])<=1e-8);
+  const context=(study.contexts??[]).find(r=>r.id===trace.context_id),recipe=(study.selected_recipes??[]).find(r=>r.id===(trace.recipe_id??trace.method));
+  const rows=[context,recipe].filter(r=>r&&r.distance_id===view.distanceId&&same(r.bucket_xy_m,view.bucket)&&same(r.board_xy_m,view.board)&&Number.isFinite(r.board_height_m));
+  if(!rows.length||!rows.every(r=>Math.abs(r.board_height_m-rows[0].board_height_m)<=1e-8))return null;
+  return rows[0].board_height_m;
+}
+function drawDistanceLayout(study,rows) {
+  const points=rows.filter(r=>finiteVector(r.bucket_xy_m,2)),board=study.settings?.board_xy_m,bounds=study.settings?.table_bounds_xy_m;
+  const table=Array.isArray(bounds)&&bounds.length===2&&bounds.every(b=>finiteVector(b,2)&&b[0]<b[1]);
+  const xs=points.map(r=>r.bucket_xy_m[0]),ys=points.map(r=>r.bucket_xy_m[1]);if(finiteVector(board,2)){xs.push(board[0]);ys.push(board[1]);}
+  if(table){xs.push(...bounds[0]);ys.push(...bounds[1]);}
+  const {c,x,y}=windowPlot($('distanceLayout'),Math.min(0,...xs)-.15,Math.max(.1,...xs)+.15,Math.min(0,...ys)-.15,Math.max(.1,...ys)+.15,'World X (m)','World Y (m)');
+  if(table){c.fillStyle='#dfe7d8';c.fillRect(x(bounds[0][0]),y(bounds[1][1]),x(bounds[0][1])-x(bounds[0][0]),y(bounds[1][0])-y(bounds[1][1]));c.strokeStyle='#81978a';c.strokeRect(x(bounds[0][0]),y(bounds[1][1]),x(bounds[0][1])-x(bounds[0][0]),y(bounds[1][0])-y(bounds[1][1]));}
+  const rays=[...new Set(rows.map(r=>r.ray_id))],colors=['#128b8c','#ec7657','#7d69a1'];
+  for(const row of points){const xy=row.bucket_xy_m,color=colors[Math.max(0,rays.indexOf(row.ray_id))%colors.length],foot=distanceFootprint(study,row);c.strokeStyle=color;c.fillStyle=color;
+    if(foot.known){c.globalAlpha=.35;c.beginPath();c.ellipse(x(xy[0]),y(xy[1]),Math.abs(x(xy[0]+foot.radius)-x(xy[0])),Math.abs(y(xy[1]+foot.radius)-y(xy[1])),0,0,2*Math.PI);c.stroke();c.globalAlpha=1;}
+    c.beginPath();c.arc(x(xy[0]),y(xy[1]),3,0,2*Math.PI);c.fill();c.font='9px sans-serif';c.fillText((row.distance_m*1000).toFixed(0),x(xy[0])+5,y(xy[1])-5);
+  }
+  if(finiteVector(board,2)){c.fillStyle='#183f3e';c.fillRect(x(board[0])-4,y(board[1])-4,8,8);c.fillText('Board XY',x(board[0])+9,y(board[1])+4);}
+  $('distanceLayoutCaption').textContent=`Bucket labels are board-center horizontal distances in mm. ${table?'Shaded rectangle: configured table footprint.':'Table bounds unavailable; footprint status remains unknown.'} Teal/coral distinguish separate rays, not success rates. Circles show configured outer bucket footprints when dimensions are available.`;
+}
+function drawDistanceTrace(study,index) {
+  const trace=study.trace_examples?.[index],view=distanceTrajectoryView(study,trace),canvas=$('distanceTrace');
+  if(!view){const {c}=windowPlot(canvas,0,1,0,1,'Distance along this board → bucket axis (m)','Ball-center height above table (m)');c.fillText('No unambiguous saved native trace available',65,110);$('distanceTraceCaption').textContent='A distance-specific bucket association and actual saved positions are required; no ideal flight is generated.';return;}
+  const boardHeight=distanceConfiguredBoardHeight(study,trace,view),xs=view.points.map(p=>p[0]),zs=view.points.map(p=>p[1]),
+    xlow=Math.min(-.1,...xs),xhigh=Math.max(view.distance+.15,...xs),zlow=Math.min(0,...zs,boardHeight??0),zhigh=Math.max(.3,...zs,boardHeight??0)+.05,
+    {c,x,y}=windowPlot(canvas,xlow,xhigh,zlow,zhigh,'Distance along this board → bucket axis (m)','Ball-center height above table (m)');
+  c.strokeStyle='#81978a';c.fillStyle='#496f67';c.lineWidth=1;c.setLineDash([5,4]);c.textAlign='left';
+  c.beginPath();c.moveTo(x(view.distance),y(zlow));c.lineTo(x(view.distance),y(zhigh));c.stroke();
+  c.fillText(`Bucket center axis (${(view.distance*1000).toFixed(1)} mm)`,Math.min(x(view.distance)+6,canvas.width-190),42);
+  c.beginPath();c.moveTo(x(xlow),y(0));c.lineTo(x(xhigh),y(0));c.stroke();c.fillText('Tabletop reference (z = 0)',x(xlow)+6,y(0)-6);c.setLineDash([]);
+  if(boardHeight!==null){c.fillStyle='#b88a30';c.beginPath();c.arc(x(0),y(boardHeight),4,0,2*Math.PI);c.fill();c.fillText('Configured board center',x(0)+8,y(boardHeight)-7);}
+  c.strokeStyle=trace.route_success===true?'#128b8c':'#ec7657';c.lineWidth=2;c.beginPath();view.points.forEach((p,i)=>{if(i)c.lineTo(x(p[0]),y(p[1]));else c.moveTo(x(p[0]),y(p[1]));});c.stroke();
+  $('distanceTraceCaption').textContent=`${trace.record_id??'Native record'} · ${view.ray} · ${view.distanceId} · ${(view.distance*1000).toFixed(1)} mm · bucket XY ${view.bucket.map(v=>(v*1000).toFixed(1)).join(' / ')} mm · ${trace.substeps??'?'} substeps · ${trace.route_success===true?'capture':trace.route_success===false?'miss':'unknown outcome'} · ${view.points.length} saved samples · max off-plane ${(view.lateral*1000).toFixed(1)} mm. ${boardHeight===null?'Configured board-center height unknown; marker omitted.':'Board-center marker is configured geometry, not a native observation.'} ${distanceAuditReady(study)?'Completed matching audit.':'Evidence audit unverified.'} ${trace.selection_scope??''}`;
+}
+function showDistanceStudy() {
+  const view=distanceStudyView(report.distance_evaluation);$('distanceStudy').hidden=!view;if(!view)return;
+  const study=view.raw,mm=v=>Number.isFinite(v)?(v*1000).toFixed(1):'—',ratio=(k,n)=>Number.isInteger(k)&&Number.isInteger(n)&&0<=k&&k<=n?`${k} / ${n}`:'unknown';
+  $('distanceStatus').textContent=`${study.version??'Distance study'} · ${study.status??'pending'} · ${study.phase??'pending'}${study.reason?' · '+study.reason:''}${study.error?' · '+study.error:''}${study.queue?.reason?' · '+study.queue.reason:''}${Number.isFinite(study.queue?.wait_s)?' · '+Math.floor(study.queue.wait_s/60)+' min queued':''}`;
+  $('distanceScope').textContent=`${study.scope??'Finite development distance search.'} ${study.active_policy??'Existing solver remains unchanged.'}`;
+  const metrics=[['Declared bucket positions',view.distances.length],['Evidence audit',study.audit?.status??'pending'],['Maximum requested-attempt budget',study.max_requests??'unknown']];
+  for(const [key,value]of Object.entries(study.counts??{}))if(typeof value==='number')metrics.push([key.replaceAll('_',' '),value]);addMetrics(metrics,$('distanceSummary'));
+  drawDistanceLayout(study,view.distances);const rays=$('distanceRays');rays.replaceChildren();
+  for(const ray of view.rays){const box=document.createElement('article'),title=document.createElement('h3'),table=document.createElement('div'),note=document.createElement('p'),meta=(study.settings?.rays??[]).find(r=>r.id===ray);box.className='distance-ray';table.className='table-wrap';title.textContent=meta?.label??ray;
+    const rows=view.distances.filter(r=>(r.ray_id??'Unreported ray')===ray).sort((a,b)=>a.distance_m-b.distance_m);
+    expansionTable(table,['Distance mm','Bucket X / Y mm','Table footprint','Board IK/all','Pair/all search','Native/all search','Captures/all search'],rows.map(row=>{const s=distanceSearchSummary(view,row),foot=distanceFootprint(study,row);return[mm(row.distance_m),finiteVector(row.bucket_xy_m,2)?row.bucket_xy_m.map(mm).join(' / '):'unknown',foot.known?(foot.onTable?(foot.admitted===false?'Below table margin':`On table · ${mm(foot.margin)} mm edge`):'Outside table'):'unknown',`${ratio(s.resolved,s.total)}${s.unknown?' · '+s.unknown+' unknown':''}`,ratio(s.eligible,s.geometry),ratio(s.native,s.requests),ratio(s.captures,s.requests)];}));
+    note.className='fine';note.textContent='Search denominators include requested/rejected configurations; native releases and captured flights are separate. Repeats and controls are excluded from this search table. Unresolved does not establish impossibility.';box.append(title,table,note);rays.append(box);
+  }
+  const checked=view.recipes.map(recipe=>({recipe,check:distanceRepeatCheck(study,recipe)})),qualified=checked.filter(r=>r.check.qualified===true),perfect=checked.filter(r=>r.check.perfect===true);
+  $('distanceConclusion').textContent=distanceAuditReady(study)?`${qualified.length} / ${checked.length} selected recipes pass the predeclared all-resolution repeat gate; ${perfect.length} / ${checked.length} captured 33/33 at each resolution. This is finite development evidence, not bucket-position generalization.`:'Repeatability qualification awaits a completed study with a matching passed audit.';
+  expansionTable($('distanceRecipes'),['Recipe / ray','Distance / bucket XY mm','Board H mm / tilt °','Gap / release mm','32/64/128 check'],checked.map(({recipe:r,check})=>[`${r.id} · ${r.ray_id??'unknown ray'}`,`${mm(r.distance_m)} / ${finiteVector(r.bucket_xy_m,2)?r.bucket_xy_m.map(mm).join(' / '):'unknown'}`,`${mm(r.board_height_m)} / ${Number.isFinite(r.tilt_deg)?r.tilt_deg.toFixed(2):'—'}°`,`${mm(r.gap_m)} / ${mm(r.release_center_height_m)}`,check.label]));
+  const repeated=[];for(const r of view.recipes)for(const step of ['32','64','128']){const all=windowStatistics(r.by_substeps?.[step]);repeated.push([r.id,step,windowStatistics(r.nominal_by_substeps?.[step]).fraction,windowStatistics(r.fresh_by_substeps?.[step]).fraction,all.fraction,all.released===null?'unknown':ratio(all.released,all.requests),all.clean===null?'unknown':ratio(all.clean,all.requests)]);}
+  expansionTable($('distanceRepeats'),['Recipe','Substeps','Nominal','Perturbed','Captures/all','Native/all','Clean/all'],repeated);
+  expansionTable($('distanceSensitivity'),['Recipe','64↔128 agreement','64↔128 Δ350 ms mm','64↔128 gate','All-resolution repeat gate'],checked.map(({recipe:r,check})=>{const s=r.sensitivity??{};return[r.id,neighborhoodAgreement(s.capture_agreement_64_128,s.paired_attempts),mm(s.nominal_position_delta_350ms_max_m),!distanceAuditReady(study)?'Unverified':s.paired_engineering_gate===true?'Passed':s.paired_engineering_gate===false?'Failed':'unknown',check.qualified===true?'Passed':check.qualified===false?'Failed':'Unverified'];}));
+  const select=$('distanceTraceSelect'),previous=select.value,traces=study.trace_examples??[];select.replaceChildren();traces.forEach((trace,i)=>{const option=document.createElement('option');option.value=String(i);option.textContent=`${trace.ray_id??'?'} · ${trace.distance_id??'?'} · ${trace.substeps??'?'} steps · ${trace.route_success===true?'capture':trace.route_success===false?'miss':'unknown'}`;select.append(option);});select.disabled=!traces.length;if(traces.length)select.value=String(Math.min(Number(previous)||0,traces.length-1));select.onchange=()=>drawDistanceTrace(study,Number(select.value)||0);drawDistanceTrace(study,Number(select.value)||0);
+  $('distanceAudit').textContent=`Audit: ${study.audit?.status??'pending'}${Number.isInteger(study.audit?.checks_count)?' · '+study.audit.checks_count+' checks':''}. Contract: ${study.contract_fingerprint??'pending'}. ${study.audit?.reason??''}`;
+}
+// END READ-ONLY DISTANCE STUDY
+
 // BEGIN READ-ONLY HEIGHT TILT STUDY
 function neighborhoodView(value) {
   if(!value||typeof value!=='object')return null;
@@ -832,7 +939,7 @@ function showCoverage() {
   if (evaluation.layouts !== undefined) pairs.push(['Frozen test layouts', evaluation.layouts]);
   if (pairs.length) addMetrics(pairs, $('studySummary'));
   else $('studySummary').textContent = report.summary ?? 'Study metrics will appear when published. Unresolved cells remain visible.';
-  showComparison(); showBankComparison(); showExpansion(); showStableIk(); showContactStudy(); showCorrectedGrid(); showWindowStudy(); showHeightTiltStudy();
+  showComparison(); showBankComparison(); showExpansion(); showStableIk(); showContactStudy(); showCorrectedGrid(); showWindowStudy(); showHeightTiltStudy(); showDistanceStudy();
 }
 async function loadStatus() {
   try {

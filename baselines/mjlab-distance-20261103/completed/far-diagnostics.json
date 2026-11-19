@@ -1,0 +1,962 @@
+{
+  "version": "sircus-posthoc-far-contact-explanation-v1",
+  "created_at": "2026-11-03T12:48:02.014911+00:00",
+  "scope": "Post-hoc explanatory analysis of saved DEVELOPMENT trials only. No new shot, policy, success definition, qualification gate or impossibility claim.",
+  "raw_study_relative_path": "output/distance-v1",
+  "source_relative_path": "studies/distance-v1",
+  "contract_fingerprint": "6d94edc505db7201f603456116303cd14acd9dde26e364ea295b1739c78f8499",
+  "source_artifacts_sha256": {
+    "contract.json": "422f1abf49dff3ec8266fd7c7acaa2989f77324052896305bc1de955f153a9f9",
+    "report.json": "f6b193a796e13c7fd7e4a508b06f22fffa672343caf7e70a0f077459aad8b995",
+    "records.jsonl": "b1adeebd1dabcbbc5badf6514ba4167c2d9d21ae5bdff2eda3b589432b75721a",
+    "evidence-manifest.json": "1dff8bcfa02f0b6e111808d25db8024b73b6c70343921e3b9692fc0b009ce7b7",
+    "audit-distance.json": "0466f04a60d69be62a371ba94b2e25328adeb3d84fa489cbace0e07368796348",
+    "native-0018.npz": "60fde3c56c960734b77e53691f2170f6448038ca8e33de2e4e4faf7cfcf2a92e",
+    "native-0019.npz": "27460ccc06cd613a8447b60b1d74a7e482d6255271dce41c4af5384c6ab64c53",
+    "native-0020.npz": "f9ad71bbc8bfefadf7a204c3a2cb0ceade98bd109fd2014d82bb403447c8830d",
+    "native-0021.npz": "f6f5f4247e59a9e9e496749dcdb9ecf84c4887457f8a678ef7d8375dc952ed20",
+    "native-0022.npz": "aa79b827755d2f625a1d766202f83e455a716b19fc5f0c8b403107f19f7b2e3e",
+    "native-0023.npz": "0d75519daa0cc0af07a921f5397f02e95f37505b2fcc78ada28c8bb356108112",
+    "native-0024.npz": "1896d1fbadf93b50c9f815c783db0960e56f4147ccca878594fa32a8485a7989",
+    "native-0025.npz": "534fec563973038380ccec5dee901db414c91e9147526a0532d7c4535e6cc115",
+    "native-0026.npz": "f0f9ce77e438302ebdecd29fb8566f62e50db5d3743510b652587140d0124f9e",
+    "native-0031.npz": "72c950b945c7413c336d332118a98584ddabcc5f852ab023aa2a535b871a7fc3",
+    "native-0032.npz": "78c062f127d673033bbbdb83add0c882defca380ede40627f6c90dd329496e36",
+    "native-0034.npz": "b6d3803853e80c13a03f85e6ea35c14297b1882ff4307a5fd428630c81381b50",
+    "native-0035.npz": "9400dd50be1324cacd4487746bcd874753cacec13260531b4af7de70bd47787b",
+    "native-0036.npz": "bdc9c0c596e46f002d25855224906dee8d443f2a1712252ac45d97f26170cf63",
+    "native-0037.npz": "a448861b12ef73533c38a6b9e8241c6e61407ee8a7061f58150b1063f95f1429",
+    "native-0038.npz": "92a389f16b447f36fdb5d0043fdbfb38f2ec25a7d9304faa297a234909d41514",
+    "native-0039.npz": "ecbba0dfef34d8aad0752bf44718c4b2134042cfcbf84b05ff15737645adfb9f",
+    "native-0040.npz": "3e0299b6ce6f07ed0e26848b8e3f6d66713535aff114a8a3dd1cf1943d5ad051",
+    "native-0041.npz": "9fdd111df2ff9fa9c51e92a509329854f918bf5093da62188f1a306da6fd504c",
+    "native-0042.npz": "1a39fc931fde0e6f2906c41f91e33ef3b5c0db96f9269ef89afe1c5d68fe4bf9",
+    "native-0043.npz": "95768df93cb47d6b54948d08221e6c09a01b195801c6768116f762e9090ae11f",
+    "native-0044.npz": "7afb5a35eb35ae8865e1e52e72b0c4a8511e4ec3774f87480575e71370c25cf9",
+    "native-0045.npz": "3ec76fee8e64fe56af8ec327901515ca1fe320ed7abfcee638b87161f67b1112",
+    "native-0046.npz": "498dcb034156c9b045503f356cba945ca52b22e78911c4f8ea1fcd96e41e39a4",
+    "native-0047.npz": "9daef8461b7d6b964b2bd14d207fd8aa805ac227d02fd2c7090f767545075360",
+    "native-0048.npz": "e7a6324afb72c39393acd85043f2d3b54ba6fce97ffbc51773c71eb040746ead",
+    "native-0050.npz": "cbbf55369f3338b8e1849aa183100105efe608b37afae519af783eff3a0f0658",
+    "native-0051.npz": "e96b6d1d5e2f3bd57f09cbfa4da71fc6c624948af3bfb791affd90809af733c5"
+  },
+  "relevant_source_sha256": {
+    "sircus/mjlab/contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407",
+    "sircus/mjlab/contact_env.py": "04655f30a1b216c037573a0b5e177e6209097026f930fc6efc6dfef289abc3da",
+    "sircus/isaac/rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+    "sircus/isaac/entry_quality.py": "2f3d8b73c871a41afc3c8f333f5df1d54fa8751720855ffff517e729217db9d4",
+    "sircus/isaac/board_route.py": "6409889aed6b0fd6a288eb9494b954ec5c3233ec41fdcf146940fc23276fb2e9"
+  },
+  "collector_sha256": "f1dd366440a6a13bff929e6c033c0f015a672661d7035d9a34c5c08aeab5d585",
+  "independent_audit_status": "passed",
+  "timing_scope": "240Hz saved end-of-interval samples; forces are maxima over native substeps, so times resolve4.17ms intervals, not exact impact instants. Plane crossings interpolate adjacent saved samples before ANY nonboard contact.",
+  "plane_scope": "Center-at-rim axis-band diagnostics are not whole-sphere capture tests; lateral position, taper, rim contact and1s retention still matter. Contact-influenced later trajectories are not unassisted first flights.",
+  "bucket_guard_scope": "Recorded runtime guard compares every bucket collision geom transform after mocap reset/forward against requested bucket XY+local geom offsets, threshold1e-5m. This is camera-independent runtime-guard evidence, not an independent GPU transform remeasurement.",
+  "retention_scope": "Historical retained capture permits external assistance; strict route requires board rebound and no table/floor/robot/unattributed assistance. Partial_vertical_exit_flag detects the scorer's vertical exit flag, not every possible lateral partial exit.",
+  "supported_far_targets": [
+    {
+      "distance_id": "corner-d01",
+      "ray_id": "corner",
+      "distance_m": 0.65,
+      "bucket_xy_m": [
+        -0.030306598129941298,
+        -0.6917970430784122
+      ],
+      "board_xy_m": [
+        0.4708757793012148,
+        -0.2778934014509746
+      ],
+      "phase_counts": {
+        "coarse": {
+          "requests": 136,
+          "native_releases": 52,
+          "geometry_rejection_reasons": {
+            "strict_clearance_reject": 4,
+            "workspace_prior_reject": 80
+          },
+          "strict_route_captures": 0,
+          "whole_ball_entries": 0,
+          "retained_historical_captures": 0,
+          "entered_without_one_second": 0,
+          "partial_vertical_exit_flags": 0,
+          "first_external_category_counts": {
+            "table": 52
+          },
+          "first_external_order_counts": {
+            "after_board_before_bucket_contact": 27,
+            "after_bucket_contact_before_whole_entry": 25
+          },
+          "observed_center_at_rim_axis_classes": {
+            "short_of_axis_band": 48,
+            "contact_before_crossing_or_no_crossing": 4
+          }
+        },
+        "far_extension": {
+          "requests": 336,
+          "native_releases": 46,
+          "geometry_rejection_reasons": {
+            "workspace_prior_reject": 289,
+            "strict_clearance_reject": 1
+          },
+          "strict_route_captures": 0,
+          "whole_ball_entries": 12,
+          "retained_historical_captures": 10,
+          "entered_without_one_second": 2,
+          "partial_vertical_exit_flags": 0,
+          "first_external_category_counts": {
+            "table": 46
+          },
+          "first_external_order_counts": {
+            "after_board_before_bucket_contact": 33,
+            "after_bucket_contact_before_whole_entry": 13
+          },
+          "observed_center_at_rim_axis_classes": {
+            "short_of_axis_band": 43,
+            "contact_before_crossing_or_no_crossing": 3
+          }
+        }
+      },
+      "total_requests": 472,
+      "total_native_releases": 98,
+      "recorded_bucket_guard_max_error_m": 0.0,
+      "examples": [
+        {
+          "selection_reason": "retained_after_external_assistance",
+          "record_id": "distance-shot-001999",
+          "phase": "far_extension",
+          "distance_id": "corner-d01",
+          "board_height_m": 0.48,
+          "tilt_deg": 24.0,
+          "drop_gap_m": 0.16,
+          "ball_release_center_height_m": 0.6775,
+          "board_xy_m": [
+            0.4708757793012148,
+            -0.2778934014509746
+          ],
+          "bucket_xy_m": [
+            -0.030306598129941298,
+            -0.6917970430784122
+          ],
+          "cache_file": "native-0032.npz",
+          "cache_row": 1,
+          "retained_historical_capture": true,
+          "strict_route_capture": false,
+          "whole_entry": true,
+          "maximum_retention_s": 0.9999999999999977,
+          "partial_vertical_exit_flag": false,
+          "board_bounce": true,
+          "first_board_contact_s": 0.17916666666666667,
+          "first_bucket_contact_s": 0.95,
+          "first_whole_entry_s": 0.9375,
+          "first_retention_success_s": 2.3375,
+          "first_external_contact_s": 0.575,
+          "first_external_categories": [
+            "table"
+          ],
+          "first_external_order": "after_board_before_bucket_contact",
+          "external_contact_steps": 1,
+          "unassisted_descending_plane_crossings": {
+            "center_at_rim": {
+              "time_s": 0.5230476878671954,
+              "along_m": 0.3310375706320444,
+              "along_error_m": -0.3189624293679556,
+              "lateral_m": 0.004174200549514534,
+              "axis_band_class": "short_of_axis_band"
+            },
+            "whole_ball_below_rim": {
+              "time_s": 0.5367176225520269,
+              "along_m": 0.34414543795146535,
+              "along_error_m": -0.3058545620485347,
+              "lateral_m": 0.004337588986189328,
+              "axis_band_class": "short_of_axis_band"
+            }
+          },
+          "closest_mouth_center_before_any_nonboard_contact_m": 0.290983974646031,
+          "recorded_bucket_collider_error_m": 0.0
+        },
+        {
+          "selection_reason": "closest_unassisted_descending_center_plane",
+          "record_id": "distance-shot-001185",
+          "phase": "coarse",
+          "distance_id": "corner-d01",
+          "board_height_m": 0.3773878458850598,
+          "tilt_deg": 32.154791124080255,
+          "drop_gap_m": 0.35121875,
+          "ball_release_center_height_m": 0.7661065958850598,
+          "board_xy_m": [
+            0.4708757793012148,
+            -0.2778934014509746
+          ],
+          "bucket_xy_m": [
+            -0.030306598129941298,
+            -0.6917970430784122
+          ],
+          "cache_file": "native-0019.npz",
+          "cache_row": 5,
+          "retained_historical_capture": false,
+          "strict_route_capture": false,
+          "whole_entry": false,
+          "maximum_retention_s": 0.0,
+          "partial_vertical_exit_flag": false,
+          "board_bounce": true,
+          "first_board_contact_s": 0.26666666666666666,
+          "first_bucket_contact_s": 0.5625,
+          "first_whole_entry_s": null,
+          "first_retention_success_s": null,
+          "first_external_contact_s": 0.625,
+          "first_external_categories": [
+            "table"
+          ],
+          "first_external_order": "after_bucket_contact_before_whole_entry",
+          "external_contact_steps": 311,
+          "unassisted_descending_plane_crossings": {
+            "center_at_rim": {
+              "time_s": 0.5582338758127199,
+              "along_m": 0.5116130883828249,
+              "along_error_m": -0.1383869116171751,
+              "lateral_m": 0.004955269364423309,
+              "axis_band_class": "short_of_axis_band"
+            }
+          },
+          "closest_mouth_center_before_any_nonboard_contact_m": 0.14323822542573786,
+          "recorded_bucket_collider_error_m": 0.0
+        },
+        {
+          "selection_reason": "entry_without_one_second",
+          "record_id": "distance-shot-002139",
+          "phase": "far_extension",
+          "distance_id": "corner-d01",
+          "board_height_m": 0.39999999999999997,
+          "tilt_deg": 28.154791124080255,
+          "drop_gap_m": 0.16,
+          "ball_release_center_height_m": 0.5974999999999999,
+          "board_xy_m": [
+            0.4708757793012148,
+            -0.2778934014509746
+          ],
+          "bucket_xy_m": [
+            -0.030306598129941298,
+            -0.6917970430784122
+          ],
+          "cache_file": "native-0034.npz",
+          "cache_row": 1,
+          "retained_historical_capture": false,
+          "strict_route_capture": false,
+          "whole_entry": true,
+          "maximum_retention_s": 0.5583333333333326,
+          "partial_vertical_exit_flag": false,
+          "board_bounce": true,
+          "first_board_contact_s": 0.17916666666666667,
+          "first_bucket_contact_s": 0.6875,
+          "first_whole_entry_s": 0.9083333333333333,
+          "first_retention_success_s": null,
+          "first_external_contact_s": 0.5291666666666667,
+          "first_external_categories": [
+            "table"
+          ],
+          "first_external_order": "after_board_before_bucket_contact",
+          "external_contact_steps": 2,
+          "unassisted_descending_plane_crossings": {
+            "center_at_rim": {
+              "time_s": 0.47177902626239193,
+              "along_m": 0.31499214464299563,
+              "along_error_m": -0.3350078553570044,
+              "lateral_m": 0.003385494397507516,
+              "axis_band_class": "short_of_axis_band"
+            },
+            "whole_ball_below_rim": {
+              "time_s": 0.4873559438679551,
+              "along_m": 0.33162864026807126,
+              "along_error_m": -0.31837135973192876,
+              "lateral_m": 0.003564194575259416,
+              "axis_band_class": "short_of_axis_band"
+            }
+          },
+          "closest_mouth_center_before_any_nonboard_contact_m": 0.2957917659753091,
+          "recorded_bucket_collider_error_m": 0.0
+        }
+      ]
+    },
+    {
+      "distance_id": "corner-d02",
+      "ray_id": "corner",
+      "distance_m": 0.7,
+      "bucket_xy_m": [
+        -0.06885908870156865,
+        -0.7236357847420611
+      ],
+      "board_xy_m": [
+        0.4708757793012148,
+        -0.2778934014509746
+      ],
+      "phase_counts": {
+        "coarse": {
+          "requests": 136,
+          "native_releases": 52,
+          "geometry_rejection_reasons": {
+            "strict_clearance_reject": 4,
+            "workspace_prior_reject": 80
+          },
+          "strict_route_captures": 0,
+          "whole_ball_entries": 2,
+          "retained_historical_captures": 2,
+          "entered_without_one_second": 0,
+          "partial_vertical_exit_flags": 0,
+          "first_external_category_counts": {
+            "table": 52
+          },
+          "first_external_order_counts": {
+            "after_board_before_bucket_contact": 41,
+            "after_bucket_contact_before_whole_entry": 11
+          },
+          "observed_center_at_rim_axis_classes": {
+            "short_of_axis_band": 52
+          }
+        },
+        "far_extension": {
+          "requests": 336,
+          "native_releases": 46,
+          "geometry_rejection_reasons": {
+            "workspace_prior_reject": 289,
+            "strict_clearance_reject": 1
+          },
+          "strict_route_captures": 0,
+          "whole_ball_entries": 13,
+          "retained_historical_captures": 12,
+          "entered_without_one_second": 1,
+          "partial_vertical_exit_flags": 0,
+          "first_external_category_counts": {
+            "table": 46
+          },
+          "first_external_order_counts": {
+            "after_board_before_bucket_contact": 41,
+            "after_bucket_contact_before_whole_entry": 5
+          },
+          "observed_center_at_rim_axis_classes": {
+            "short_of_axis_band": 46
+          }
+        }
+      },
+      "total_requests": 472,
+      "total_native_releases": 98,
+      "recorded_bucket_guard_max_error_m": 0.0,
+      "examples": [
+        {
+          "selection_reason": "retained_after_external_assistance",
+          "record_id": "distance-shot-001299",
+          "phase": "coarse",
+          "distance_id": "corner-d02",
+          "board_height_m": 0.48,
+          "tilt_deg": 28.0,
+          "drop_gap_m": 0.18578125,
+          "ball_release_center_height_m": 0.70328125,
+          "board_xy_m": [
+            0.4708757793012148,
+            -0.2778934014509746
+          ],
+          "bucket_xy_m": [
+            -0.06885908870156865,
+            -0.7236357847420611
+          ],
+          "cache_file": "native-0020.npz",
+          "cache_row": 20,
+          "retained_historical_capture": true,
+          "strict_route_capture": false,
+          "whole_entry": true,
+          "maximum_retention_s": 0.9999999999999977,
+          "partial_vertical_exit_flag": false,
+          "board_bounce": true,
+          "first_board_contact_s": 0.19166666666666668,
+          "first_bucket_contact_s": 0.8791666666666667,
+          "first_whole_entry_s": 0.9958333333333333,
+          "first_retention_success_s": 1.9916666666666667,
+          "first_external_contact_s": 0.5791666666666667,
+          "first_external_categories": [
+            "table"
+          ],
+          "first_external_order": "after_board_before_bucket_contact",
+          "external_contact_steps": 1,
+          "unassisted_descending_plane_crossings": {
+            "center_at_rim": {
+              "time_s": 0.5255600319232203,
+              "along_m": 0.3861917195402125,
+              "along_error_m": -0.3138082804597875,
+              "lateral_m": 0.00420884700362173,
+              "axis_band_class": "short_of_axis_band"
+            },
+            "whole_ball_below_rim": {
+              "time_s": 0.5393075617727896,
+              "along_m": 0.4020732844105208,
+              "along_error_m": -0.29792671558947914,
+              "lateral_m": 0.004380331578934082,
+              "axis_band_class": "short_of_axis_band"
+            }
+          },
+          "closest_mouth_center_before_any_nonboard_contact_m": 0.27757610198149063,
+          "recorded_bucket_collider_error_m": 0.0
+        },
+        {
+          "selection_reason": "closest_unassisted_descending_center_plane",
+          "record_id": "distance-shot-001323",
+          "phase": "coarse",
+          "distance_id": "corner-d02",
+          "board_height_m": 0.3773878458850598,
+          "tilt_deg": 32.154791124080255,
+          "drop_gap_m": 0.39121875,
+          "ball_release_center_height_m": 0.8061065958850598,
+          "board_xy_m": [
+            0.4708757793012148,
+            -0.2778934014509746
+          ],
+          "bucket_xy_m": [
+            -0.06885908870156865,
+            -0.7236357847420611
+          ],
+          "cache_file": "native-0021.npz",
+          "cache_row": 8,
+          "retained_historical_capture": false,
+          "strict_route_capture": false,
+          "whole_entry": false,
+          "maximum_retention_s": 0.0,
+          "partial_vertical_exit_flag": false,
+          "board_bounce": true,
+          "first_board_contact_s": 0.2791666666666667,
+          "first_bucket_contact_s": 0.5916666666666667,
+          "first_whole_entry_s": null,
+          "first_retention_success_s": null,
+          "first_external_contact_s": 0.6375,
+          "first_external_categories": [
+            "table"
+          ],
+          "first_external_order": "after_bucket_contact_before_whole_entry",
+          "external_contact_steps": 350,
+          "unassisted_descending_plane_crossings": {
+            "center_at_rim": {
+              "time_s": 0.5739381352435323,
+              "along_m": 0.535176303935955,
+              "along_error_m": -0.164823696064045,
+              "lateral_m": 0.005256511495955574,
+              "axis_band_class": "short_of_axis_band"
+            }
+          },
+          "closest_mouth_center_before_any_nonboard_contact_m": 0.1403991440346007,
+          "recorded_bucket_collider_error_m": 0.0
+        },
+        {
+          "selection_reason": "entry_without_one_second",
+          "record_id": "distance-shot-002588",
+          "phase": "far_extension",
+          "distance_id": "corner-d02",
+          "board_height_m": 0.52,
+          "tilt_deg": 24.154791124080255,
+          "drop_gap_m": 0.2,
+          "ball_release_center_height_m": 0.7575,
+          "board_xy_m": [
+            0.4708757793012148,
+            -0.2778934014509746
+          ],
+          "bucket_xy_m": [
+            -0.06885908870156865,
+            -0.7236357847420611
+          ],
+          "cache_file": "native-0041.npz",
+          "cache_row": 2,
+          "retained_historical_capture": false,
+          "strict_route_capture": false,
+          "whole_entry": true,
+          "maximum_retention_s": 0.529166666666666,
+          "partial_vertical_exit_flag": false,
+          "board_bounce": true,
+          "first_board_contact_s": 0.2,
+          "first_bucket_contact_s": 0.9458333333333333,
+          "first_whole_entry_s": 1.1791666666666667,
+          "first_retention_success_s": null,
+          "first_external_contact_s": 0.6208333333333333,
+          "first_external_categories": [
+            "table"
+          ],
+          "first_external_order": "after_board_before_bucket_contact",
+          "external_contact_steps": 1,
+          "unassisted_descending_plane_crossings": {
+            "center_at_rim": {
+              "time_s": 0.5700112807009338,
+              "along_m": 0.40112702417548696,
+              "along_error_m": -0.298872975824513,
+              "lateral_m": 0.004901060889305364,
+              "axis_band_class": "short_of_axis_band"
+            },
+            "whole_ball_below_rim": {
+              "time_s": 0.5829231603158256,
+              "along_m": 0.4151017533286986,
+              "along_error_m": -0.28489824667130137,
+              "lateral_m": 0.005073110939922548,
+              "axis_band_class": "short_of_axis_band"
+            }
+          },
+          "closest_mouth_center_before_any_nonboard_contact_m": 0.26917835834080145,
+          "recorded_bucket_collider_error_m": 0.0
+        }
+      ]
+    },
+    {
+      "distance_id": "corner-d03",
+      "ray_id": "corner",
+      "distance_m": 0.75,
+      "bucket_xy_m": [
+        -0.107411579273196,
+        -0.7554745264057101
+      ],
+      "board_xy_m": [
+        0.4708757793012148,
+        -0.2778934014509746
+      ],
+      "phase_counts": {
+        "coarse": {
+          "requests": 136,
+          "native_releases": 52,
+          "geometry_rejection_reasons": {
+            "strict_clearance_reject": 4,
+            "workspace_prior_reject": 80
+          },
+          "strict_route_captures": 0,
+          "whole_ball_entries": 8,
+          "retained_historical_captures": 6,
+          "entered_without_one_second": 2,
+          "partial_vertical_exit_flags": 0,
+          "first_external_category_counts": {
+            "table": 52
+          },
+          "first_external_order_counts": {
+            "after_board_before_bucket_contact": 50,
+            "after_bucket_contact_before_whole_entry": 2
+          },
+          "observed_center_at_rim_axis_classes": {
+            "short_of_axis_band": 52
+          }
+        },
+        "far_extension": {
+          "requests": 336,
+          "native_releases": 46,
+          "geometry_rejection_reasons": {
+            "workspace_prior_reject": 289,
+            "strict_clearance_reject": 1
+          },
+          "strict_route_captures": 0,
+          "whole_ball_entries": 18,
+          "retained_historical_captures": 16,
+          "entered_without_one_second": 2,
+          "partial_vertical_exit_flags": 0,
+          "first_external_category_counts": {
+            "table": 46
+          },
+          "first_external_order_counts": {
+            "after_board_before_bucket_contact": 46
+          },
+          "observed_center_at_rim_axis_classes": {
+            "short_of_axis_band": 46
+          }
+        }
+      },
+      "total_requests": 472,
+      "total_native_releases": 98,
+      "recorded_bucket_guard_max_error_m": 0.0,
+      "examples": [
+        {
+          "selection_reason": "retained_after_external_assistance",
+          "record_id": "distance-shot-001435",
+          "phase": "coarse",
+          "distance_id": "corner-d03",
+          "board_height_m": 0.48,
+          "tilt_deg": 28.0,
+          "drop_gap_m": 0.18578125,
+          "ball_release_center_height_m": 0.70328125,
+          "board_xy_m": [
+            0.4708757793012148,
+            -0.2778934014509746
+          ],
+          "bucket_xy_m": [
+            -0.107411579273196,
+            -0.7554745264057101
+          ],
+          "cache_file": "native-0023.npz",
+          "cache_row": 0,
+          "retained_historical_capture": true,
+          "strict_route_capture": false,
+          "whole_entry": true,
+          "maximum_retention_s": 0.9999999999999977,
+          "partial_vertical_exit_flag": false,
+          "board_bounce": true,
+          "first_board_contact_s": 0.19166666666666668,
+          "first_bucket_contact_s": 0.925,
+          "first_whole_entry_s": 0.925,
+          "first_retention_success_s": 1.9208333333333334,
+          "first_external_contact_s": 0.5791666666666667,
+          "first_external_categories": [
+            "table"
+          ],
+          "first_external_order": "after_board_before_bucket_contact",
+          "external_contact_steps": 1,
+          "unassisted_descending_plane_crossings": {
+            "center_at_rim": {
+              "time_s": 0.5255600319232203,
+              "along_m": 0.3861917195402124,
+              "along_error_m": -0.3638082804597876,
+              "lateral_m": 0.004208847003621757,
+              "axis_band_class": "short_of_axis_band"
+            },
+            "whole_ball_below_rim": {
+              "time_s": 0.5393075617727896,
+              "along_m": 0.40207328441052076,
+              "along_error_m": -0.34792671558947924,
+              "lateral_m": 0.00438033157893411,
+              "axis_band_class": "short_of_axis_band"
+            }
+          },
+          "closest_mouth_center_before_any_nonboard_contact_m": 0.3245202163797632,
+          "recorded_bucket_collider_error_m": 0.0
+        },
+        {
+          "selection_reason": "closest_unassisted_descending_center_plane",
+          "record_id": "distance-shot-001459",
+          "phase": "coarse",
+          "distance_id": "corner-d03",
+          "board_height_m": 0.3773878458850598,
+          "tilt_deg": 32.154791124080255,
+          "drop_gap_m": 0.39121875,
+          "ball_release_center_height_m": 0.8061065958850598,
+          "board_xy_m": [
+            0.4708757793012148,
+            -0.2778934014509746
+          ],
+          "bucket_xy_m": [
+            -0.107411579273196,
+            -0.7554745264057101
+          ],
+          "cache_file": "native-0023.npz",
+          "cache_row": 13,
+          "retained_historical_capture": false,
+          "strict_route_capture": false,
+          "whole_entry": false,
+          "maximum_retention_s": 0.0,
+          "partial_vertical_exit_flag": false,
+          "board_bounce": true,
+          "first_board_contact_s": 0.2791666666666667,
+          "first_bucket_contact_s": 0.625,
+          "first_whole_entry_s": null,
+          "first_retention_success_s": null,
+          "first_external_contact_s": 0.6333333333333333,
+          "first_external_categories": [
+            "table"
+          ],
+          "first_external_order": "after_bucket_contact_before_whole_entry",
+          "external_contact_steps": 394,
+          "unassisted_descending_plane_crossings": {
+            "center_at_rim": {
+              "time_s": 0.5739381352435323,
+              "along_m": 0.5351763039359548,
+              "along_error_m": -0.21482369606404517,
+              "lateral_m": 0.005256511495955629,
+              "axis_band_class": "short_of_axis_band"
+            },
+            "whole_ball_below_rim": {
+              "time_s": 0.5899866935920464,
+              "along_m": 0.5643586333818651,
+              "along_error_m": -0.1856413666181349,
+              "lateral_m": 0.005547415898346009,
+              "axis_band_class": "short_of_axis_band"
+            }
+          },
+          "closest_mouth_center_before_any_nonboard_contact_m": 0.15193606336303395,
+          "recorded_bucket_collider_error_m": 0.0
+        },
+        {
+          "selection_reason": "entry_without_one_second",
+          "record_id": "distance-shot-002826",
+          "phase": "far_extension",
+          "distance_id": "corner-d03",
+          "board_height_m": 0.48,
+          "tilt_deg": 28.154791124080255,
+          "drop_gap_m": 0.2,
+          "ball_release_center_height_m": 0.7174999999999999,
+          "board_xy_m": [
+            0.4708757793012148,
+            -0.2778934014509746
+          ],
+          "bucket_xy_m": [
+            -0.107411579273196,
+            -0.7554745264057101
+          ],
+          "cache_file": "native-0045.npz",
+          "cache_row": 2,
+          "retained_historical_capture": false,
+          "strict_route_capture": false,
+          "whole_entry": true,
+          "maximum_retention_s": 0.9249999999999979,
+          "partial_vertical_exit_flag": false,
+          "board_bounce": true,
+          "first_board_contact_s": 0.2,
+          "first_bucket_contact_s": 0.9041666666666667,
+          "first_whole_entry_s": 0.9458333333333333,
+          "first_retention_success_s": null,
+          "first_external_contact_s": 0.5875,
+          "first_external_categories": [
+            "table"
+          ],
+          "first_external_order": "after_board_before_bucket_contact",
+          "external_contact_steps": 1,
+          "unassisted_descending_plane_crossings": {
+            "center_at_rim": {
+              "time_s": 0.5347947392045964,
+              "along_m": 0.4041213406234638,
+              "along_error_m": -0.3458786593765362,
+              "lateral_m": 0.004320265634881276,
+              "axis_band_class": "short_of_axis_band"
+            },
+            "whole_ball_below_rim": {
+              "time_s": 0.5485295056136017,
+              "along_m": 0.4206353682839444,
+              "along_error_m": -0.3293646317160556,
+              "lateral_m": 0.004495244674440901,
+              "axis_band_class": "short_of_axis_band"
+            }
+          },
+          "closest_mouth_center_before_any_nonboard_contact_m": 0.30554993417318693,
+          "recorded_bucket_collider_error_m": 0.0
+        }
+      ]
+    },
+    {
+      "distance_id": "corner-d04",
+      "ray_id": "corner",
+      "distance_m": 0.77,
+      "bucket_xy_m": [
+        -0.12283257550184701,
+        -0.7682100230711698
+      ],
+      "board_xy_m": [
+        0.4708757793012148,
+        -0.2778934014509746
+      ],
+      "phase_counts": {
+        "coarse": {
+          "requests": 136,
+          "native_releases": 52,
+          "geometry_rejection_reasons": {
+            "strict_clearance_reject": 4,
+            "workspace_prior_reject": 80
+          },
+          "strict_route_captures": 0,
+          "whole_ball_entries": 11,
+          "retained_historical_captures": 8,
+          "entered_without_one_second": 3,
+          "partial_vertical_exit_flags": 0,
+          "first_external_category_counts": {
+            "table": 52
+          },
+          "first_external_order_counts": {
+            "after_board_before_bucket_contact": 52
+          },
+          "observed_center_at_rim_axis_classes": {
+            "short_of_axis_band": 52
+          }
+        },
+        "far_extension": {
+          "requests": 336,
+          "native_releases": 46,
+          "geometry_rejection_reasons": {
+            "workspace_prior_reject": 289,
+            "strict_clearance_reject": 1
+          },
+          "strict_route_captures": 0,
+          "whole_ball_entries": 17,
+          "retained_historical_captures": 16,
+          "entered_without_one_second": 1,
+          "partial_vertical_exit_flags": 0,
+          "first_external_category_counts": {
+            "table": 46
+          },
+          "first_external_order_counts": {
+            "after_board_before_bucket_contact": 46
+          },
+          "observed_center_at_rim_axis_classes": {
+            "short_of_axis_band": 46
+          }
+        }
+      },
+      "total_requests": 472,
+      "total_native_releases": 98,
+      "recorded_bucket_guard_max_error_m": 0.0,
+      "examples": [
+        {
+          "selection_reason": "retained_after_external_assistance",
+          "record_id": "distance-shot-001554",
+          "phase": "coarse",
+          "distance_id": "corner-d04",
+          "board_height_m": 0.4373878458850598,
+          "tilt_deg": 40.154791124080255,
+          "drop_gap_m": 0.22121874999999996,
+          "ball_release_center_height_m": 0.6961065958850597,
+          "board_xy_m": [
+            0.4708757793012148,
+            -0.2778934014509746
+          ],
+          "bucket_xy_m": [
+            -0.12283257550184701,
+            -0.7682100230711698
+          ],
+          "cache_file": "native-0024.npz",
+          "cache_row": 20,
+          "retained_historical_capture": true,
+          "strict_route_capture": false,
+          "whole_entry": true,
+          "maximum_retention_s": 0.9999999999999977,
+          "partial_vertical_exit_flag": false,
+          "board_bounce": true,
+          "first_board_contact_s": 0.20833333333333334,
+          "first_bucket_contact_s": 0.6625,
+          "first_whole_entry_s": 1.1833333333333333,
+          "first_retention_success_s": 2.6041666666666665,
+          "first_external_contact_s": 0.5208333333333334,
+          "first_external_categories": [
+            "table"
+          ],
+          "first_external_order": "after_board_before_bucket_contact",
+          "external_contact_steps": 1,
+          "unassisted_descending_plane_crossings": {
+            "center_at_rim": {
+              "time_s": 0.4643708459021242,
+              "along_m": 0.38336861053689186,
+              "along_error_m": -0.38663138946310815,
+              "lateral_m": 0.003367026029795245,
+              "axis_band_class": "short_of_axis_band"
+            },
+            "whole_ball_below_rim": {
+              "time_s": 0.4792507882892127,
+              "along_m": 0.40543006634395873,
+              "along_error_m": -0.3645699336560413,
+              "lateral_m": 0.003557628933783863,
+              "axis_band_class": "short_of_axis_band"
+            }
+          },
+          "closest_mouth_center_before_any_nonboard_contact_m": 0.32612847453305,
+          "recorded_bucket_collider_error_m": 0.0
+        },
+        {
+          "selection_reason": "closest_unassisted_descending_center_plane",
+          "record_id": "distance-shot-001595",
+          "phase": "coarse",
+          "distance_id": "corner-d04",
+          "board_height_m": 0.3773878458850598,
+          "tilt_deg": 32.154791124080255,
+          "drop_gap_m": 0.39121875,
+          "ball_release_center_height_m": 0.8061065958850598,
+          "board_xy_m": [
+            0.4708757793012148,
+            -0.2778934014509746
+          ],
+          "bucket_xy_m": [
+            -0.12283257550184701,
+            -0.7682100230711698
+          ],
+          "cache_file": "native-0025.npz",
+          "cache_row": 13,
+          "retained_historical_capture": false,
+          "strict_route_capture": false,
+          "whole_entry": false,
+          "maximum_retention_s": 0.0,
+          "partial_vertical_exit_flag": false,
+          "board_bounce": true,
+          "first_board_contact_s": 0.2791666666666667,
+          "first_bucket_contact_s": 0.6375,
+          "first_whole_entry_s": null,
+          "first_retention_success_s": null,
+          "first_external_contact_s": 0.6333333333333333,
+          "first_external_categories": [
+            "table"
+          ],
+          "first_external_order": "after_board_before_bucket_contact",
+          "external_contact_steps": 466,
+          "unassisted_descending_plane_crossings": {
+            "center_at_rim": {
+              "time_s": 0.5739381352435323,
+              "along_m": 0.5351763039359548,
+              "along_error_m": -0.23482369606404518,
+              "lateral_m": 0.005256511495955574,
+              "axis_band_class": "short_of_axis_band"
+            },
+            "whole_ball_below_rim": {
+              "time_s": 0.5899866935920464,
+              "along_m": 0.5643586333818651,
+              "along_error_m": -0.20564136661813492,
+              "lateral_m": 0.005547415898346009,
+              "axis_band_class": "short_of_axis_band"
+            }
+          },
+          "closest_mouth_center_before_any_nonboard_contact_m": 0.16850776984598692,
+          "recorded_bucket_collider_error_m": 0.0
+        },
+        {
+          "selection_reason": "entry_without_one_second",
+          "record_id": "distance-shot-003008",
+          "phase": "far_extension",
+          "distance_id": "corner-d04",
+          "board_height_m": 0.48,
+          "tilt_deg": 24.0,
+          "drop_gap_m": 0.2,
+          "ball_release_center_height_m": 0.7174999999999999,
+          "board_xy_m": [
+            0.4708757793012148,
+            -0.2778934014509746
+          ],
+          "bucket_xy_m": [
+            -0.12283257550184701,
+            -0.7682100230711698
+          ],
+          "cache_file": "native-0047.npz",
+          "cache_row": 8,
+          "retained_historical_capture": false,
+          "strict_route_capture": false,
+          "whole_entry": true,
+          "maximum_retention_s": 0.8958333333333314,
+          "partial_vertical_exit_flag": false,
+          "board_bounce": true,
+          "first_board_contact_s": 0.2,
+          "first_bucket_contact_s": 1.0041666666666667,
+          "first_whole_entry_s": 0.9583333333333334,
+          "first_retention_success_s": null,
+          "first_external_contact_s": 0.6041666666666666,
+          "first_external_categories": [
+            "table"
+          ],
+          "first_external_order": "after_board_before_bucket_contact",
+          "external_contact_steps": 2,
+          "unassisted_descending_plane_crossings": {
+            "center_at_rim": {
+              "time_s": 0.5546115588099496,
+              "along_m": 0.38004837665446806,
+              "along_error_m": -0.38995162334553196,
+              "lateral_m": 0.00471342298721622,
+              "axis_band_class": "short_of_axis_band"
+            },
+            "whole_ball_below_rim": {
+              "time_s": 0.5681745564017855,
+              "along_m": 0.3945585240530103,
+              "along_error_m": -0.37544147594698973,
+              "lateral_m": 0.004889026009162356,
+              "axis_band_class": "short_of_axis_band"
+            }
+          },
+          "closest_mouth_center_before_any_nonboard_contact_m": 0.3544134386272714,
+          "recorded_bucket_collider_error_m": 0.0
+        }
+      ]
+    }
+  ],
+  "curation": {
+    "original_diagnostic_sha256": "9f6c02d2622ce1c5a5292fbfdbba4eefb64bda0dc5863956e50d210124b3a97b",
+    "omitted_fields": [
+      "supported_far_targets.examples.first_external_events"
+    ],
+    "purpose": "Keep derived metrics/contact times and exact synthetic shot settings; omit raw sampled ball states/forces."
+  }
+}

@@ -1,0 +1,265 @@
+{
+  "version": "sircus-distance-final-curation-v1",
+  "status": "completed_independently_audited",
+  "contract_fingerprint": "6d94edc505db7201f603456116303cd14acd9dde26e364ea295b1739c78f8499",
+  "parent_contract_fingerprint": "12b2952c68b38d6bb392e3256d140cb7445ea97c73b090a6a39c5dfc4a4aa680",
+  "scope": "Seeded DEVELOPMENT search along two separately labeled bucket rays; privileged geometry and prescribed held endpoints. No new RL, unseen-layout policy evaluation, continuous success interval, transit/actuator or physical claim.",
+  "fixed_board_xy_m": [
+    0.4708757793012148,
+    -0.2778934014509746
+  ],
+  "bearing_series": [
+    {
+      "id": "original",
+      "label": "Original bucket direction",
+      "unit_xy": [
+        -0.6516633881984327,
+        -0.7585082916367748
+      ],
+      "heading_deg": -130.66713192865276,
+      "distances_m": [
+        0.35,
+        0.45,
+        0.47282574126472343,
+        0.55,
+        0.6,
+        0.64,
+        0.65
+      ]
+    },
+    {
+      "id": "corner",
+      "label": "Diagonal toward supported table corner",
+      "unit_xy": [
+        -0.7710498114325478,
+        -0.6367748332729808
+      ],
+      "heading_deg": -140.44825482032886,
+      "distances_m": [
+        0.55,
+        0.65,
+        0.7,
+        0.75,
+        0.77,
+        0.8,
+        0.95
+      ]
+    }
+  ],
+  "counts": {
+    "requests": 3891,
+    "native_releases": 1387,
+    "geometry_rejections": 2504,
+    "captures": 589,
+    "clean_captures": 0,
+    "rim_assisted_captures": 589,
+    "capture_rate_per_request": 0.15137496787458238,
+    "capture_rate_per_native_release": 0.4246575342465753,
+    "rejection_reasons": {
+      "bucket_outer_footprint_off_table": 408,
+      "strict_clearance_reject": 60,
+      "workspace_prior_reject": 2036
+    }
+  },
+  "contexts": 208,
+  "board_admitted_contexts": 124,
+  "by_phase": {
+    "coarse": {
+      "requests": 1904,
+      "native_releases": 572,
+      "geometry_rejections": 1332,
+      "captures": 95,
+      "clean_captures": 0,
+      "rim_assisted_captures": 95,
+      "capture_rate_per_request": 0.04989495798319328,
+      "capture_rate_per_native_release": 0.1660839160839161,
+      "rejection_reasons": {
+        "bucket_outer_footprint_off_table": 408,
+        "strict_clearance_reject": 44,
+        "workspace_prior_reject": 880
+      }
+    },
+    "controls": {
+      "requests": 24,
+      "native_releases": 24,
+      "geometry_rejections": 0,
+      "captures": 24,
+      "clean_captures": 0,
+      "rim_assisted_captures": 24,
+      "capture_rate_per_request": 1.0,
+      "capture_rate_per_native_release": 1.0,
+      "rejection_reasons": {}
+    },
+    "far_extension": {
+      "requests": 1344,
+      "native_releases": 184,
+      "geometry_rejections": 1160,
+      "captures": 0,
+      "clean_captures": 0,
+      "rim_assisted_captures": 0,
+      "capture_rate_per_request": 0.0,
+      "capture_rate_per_native_release": 0.0,
+      "rejection_reasons": {
+        "strict_clearance_reject": 4,
+        "workspace_prior_reject": 1156
+      }
+    },
+    "fresh": {
+      "requests": 450,
+      "native_releases": 450,
+      "geometry_rejections": 0,
+      "captures": 371,
+      "clean_captures": 0,
+      "rim_assisted_captures": 371,
+      "capture_rate_per_request": 0.8244444444444444,
+      "capture_rate_per_native_release": 0.8244444444444444,
+      "rejection_reasons": {}
+    },
+    "nominal": {
+      "requests": 45,
+      "native_releases": 45,
+      "geometry_rejections": 0,
+      "captures": 39,
+      "clean_captures": 0,
+      "rim_assisted_captures": 39,
+      "capture_rate_per_request": 0.8666666666666667,
+      "capture_rate_per_native_release": 0.8666666666666667,
+      "rejection_reasons": {}
+    },
+    "refinement": {
+      "requests": 124,
+      "native_releases": 112,
+      "geometry_rejections": 12,
+      "captures": 60,
+      "clean_captures": 0,
+      "rim_assisted_captures": 60,
+      "capture_rate_per_request": 0.4838709677419355,
+      "capture_rate_per_native_release": 0.5357142857142857,
+      "rejection_reasons": {
+        "strict_clearance_reject": 12
+      }
+    }
+  },
+  "development_by_ray": {
+    "original": {
+      "requests": 1064,
+      "native_releases": 414,
+      "geometry_rejections": 650,
+      "captures": 146,
+      "clean_captures": 0,
+      "rim_assisted_captures": 146,
+      "capture_rate_per_request": 0.13721804511278196,
+      "capture_rate_per_native_release": 0.3526570048309179,
+      "rejection_reasons": {
+        "bucket_outer_footprint_off_table": 136,
+        "strict_clearance_reject": 34,
+        "workspace_prior_reject": 480
+      }
+    },
+    "corner": {
+      "requests": 2308,
+      "native_releases": 454,
+      "geometry_rejections": 1854,
+      "captures": 9,
+      "clean_captures": 0,
+      "rim_assisted_captures": 9,
+      "capture_rate_per_request": 0.00389948006932409,
+      "capture_rate_per_native_release": 0.019823788546255508,
+      "rejection_reasons": {
+        "bucket_outer_footprint_off_table": 272,
+        "strict_clearance_reject": 26,
+        "workspace_prior_reject": 1556
+      }
+    }
+  },
+  "repeatability_by_substeps": {
+    "32": {
+      "requests": 165,
+      "native_releases": 165,
+      "geometry_rejections": 0,
+      "captures": 134,
+      "clean_captures": 0,
+      "rim_assisted_captures": 134,
+      "capture_rate_per_request": 0.8121212121212121,
+      "capture_rate_per_native_release": 0.8121212121212121,
+      "rejection_reasons": {}
+    },
+    "64": {
+      "requests": 165,
+      "native_releases": 165,
+      "geometry_rejections": 0,
+      "captures": 137,
+      "clean_captures": 0,
+      "rim_assisted_captures": 137,
+      "capture_rate_per_request": 0.8303030303030303,
+      "capture_rate_per_native_release": 0.8303030303030303,
+      "rejection_reasons": {}
+    },
+    "128": {
+      "requests": 165,
+      "native_releases": 165,
+      "geometry_rejections": 0,
+      "captures": 139,
+      "clean_captures": 0,
+      "rim_assisted_captures": 139,
+      "capture_rate_per_request": 0.8424242424242424,
+      "capture_rate_per_native_release": 0.8424242424242424,
+      "rejection_reasons": {}
+    }
+  },
+  "exact_controls": {
+    "requests": 24,
+    "native_releases": 24,
+    "geometry_rejections": 0,
+    "captures": 24,
+    "clean_captures": 0,
+    "rim_assisted_captures": 24,
+    "capture_rate_per_request": 1.0,
+    "capture_rate_per_native_release": 1.0,
+    "rejection_reasons": {},
+    "source_arrays_preserved": true,
+    "distinct_source_seeds": 8
+  },
+  "paired_repeats": {
+    "paired_timesteps": [
+      32,
+      64,
+      128
+    ],
+    "exact_same_requests_and_joints": true,
+    "independence_note": "The same perturbed configurations are repeated at three resolutions; their counts are paired, not independent layouts.",
+    "paired_repeat_ids": 165,
+    "distinct_requested_scene_action_vectors": 155,
+    "distinctness_scope": "Unique values (board XY/H/tilt/gap) and bucket XY; three nominal repeat IDs per recipe share one input geometry."
+  },
+  "selected_recipes": 5,
+  "fine_pair_qualified_recipes": 3,
+  "all_resolution_qualified_recipes": 2,
+  "target_coverage": {
+    "requested": 14,
+    "supported": 11,
+    "with_observed_search_capture": 5,
+    "with_fine_pair_qualified_recipe": 3,
+    "with_all_resolution_qualified_recipe": 2
+  },
+  "maximum_qualified_distance_m_by_ray": {
+    "original": {
+      "fine_pair": 0.55,
+      "all_resolution": 0.47282574126472343
+    },
+    "corner": {
+      "fine_pair": null,
+      "all_resolution": null
+    }
+  },
+  "audit": {
+    "status": "passed",
+    "checks_count": 9962,
+    "records": 3891,
+    "independently_rescored_throws": 1387,
+    "failures": []
+  },
+  "endpoint_note": "Board admission, strict paired endpoint eligibility, native ball release and captured ball are distinct counts. No arm transit was tested.",
+  "sampled_gap_note": "Recipe sampled-run widths describe adjacent tested capture samples only. Untested points and the Cartesian product of successful extrema are not certified.",
+  "bucket_height_status": "unresolved: overall height or interior depth"
+}

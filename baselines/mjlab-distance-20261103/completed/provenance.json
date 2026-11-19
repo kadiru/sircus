@@ -1,0 +1,1799 @@
+{
+  "version": "sircus-distance-final-curation-v1",
+  "contract_fingerprint": "6d94edc505db7201f603456116303cd14acd9dde26e364ea295b1739c78f8499",
+  "raw_evidence_reference": "sircus-mjlab/output/distance-v1",
+  "path_scope": "Historical path relative to simulation-host home; no liveness or deployment assertion",
+  "input_file_sha256": {
+    "contract.json": "422f1abf49dff3ec8266fd7c7acaa2989f77324052896305bc1de955f153a9f9",
+    "report.json": "f6b193a796e13c7fd7e4a508b06f22fffa672343caf7e70a0f077459aad8b995",
+    "audit-distance.json": "0466f04a60d69be62a371ba94b2e25328adeb3d84fa489cbace0e07368796348",
+    "effective-options.json": "b817cd2d55df29964cb363d77d29a0a18e54fd359522ec5f5fbac57696cf1177",
+    "evidence-manifest.json": "1dff8bcfa02f0b6e111808d25db8024b73b6c70343921e3b9692fc0b009ce7b7",
+    "records.jsonl": "b1adeebd1dabcbbc5badf6514ba4167c2d9d21ae5bdff2eda3b589432b75721a",
+    "recipes.json": "dad04b43c46872deade8153658ae96656cf150e3f40a3f2b3b41a440318e3714",
+    "prepared-contexts.json": "a92aa1c09e2db49b4f8f0f8bcea3242095db0b7ddd868dda17bdb85e3edd74bf",
+    "frozen-repeat-plan.json": "c900380c9d981f7b0c046c36ca4879b60e9708ea090e0059e5161a8132926d92",
+    "repeat-geometry.json": "502974e04b2c6a759b2b9f8b107de5e9de8e9692365a9d705bfc08ccfe941a4b"
+  },
+  "evidence_sha256": {
+    "batches.json": "6939916f27e31e4b242fc31f830194925bc35f9f93340db955962741939ee2a3",
+    "coarse-plan.json": "a9384aa52b6d80b71f4075e6a76a203e5675164a71788e5f87f4a0922f06c57a",
+    "contract.json": "422f1abf49dff3ec8266fd7c7acaa2989f77324052896305bc1de955f153a9f9",
+    "control-plan.json": "32da4cae236245a7df5c394c155706c77c7d8ae52fb46f30cd32c42d7fa808df",
+    "declared-contexts.json": "482e357a07e1396811d127532feb89eb761d777d9939ae759061eb86c44b437c",
+    "effective-options.json": "b817cd2d55df29964cb363d77d29a0a18e54fd359522ec5f5fbac57696cf1177",
+    "extension-contexts.json": "469eb89665624e99f75b54d9a3faf7c41cbed900133028f44b616c3e5db8248f",
+    "extension-plan.json": "8d865a167413a7a90bbf1f690d5bee21e82879a4b59402f61c4304c407f65b31",
+    "frozen-repeat-plan.json": "c900380c9d981f7b0c046c36ca4879b60e9708ea090e0059e5161a8132926d92",
+    "geometry-0000.json": "271d8bf5a9ffdc5f96a606af9ef29e79afaff939a667a0435f69808bd1f3d3e7",
+    "geometry-0001.json": "f8e4a109f30c02d12855c9b46e169bec4df4ecd1a056a2595017f9e954ca257d",
+    "geometry-0002.json": "28d8611be4950351008b9182c60da2480da3f0510ea97c35f8a616e93ec8c4be",
+    "geometry-0003.json": "17ec24b68d395419af6d64eb01e64f0afbc81b74622bc54c599bdaa9514407db",
+    "geometry-0004.json": "dd9a8bf1f10775af83f11e9d8875c41fd6078084405bf85248ad8455aa55e5df",
+    "geometry-0005.json": "162e4376dc2258f6711cc57f8301f9b77dded3e0d6c7591960fe4936eaa48e2e",
+    "geometry-0006.json": "11f384f338307e5d6990ae5610699c24313e4a977f3cce6f9171d9ad0e071ed4",
+    "geometry-0007.json": "560ea4bf7a3bd218e02abc7a0948bb1548479fb885d7bcdfde8e04d53f844c1b",
+    "geometry-0008.json": "bf2ec3bd09e86cd26050caa35d419a0b54a58233b22981ad36b964793939056b",
+    "geometry-0009.json": "88e79be15268d1ff60226fc4978212e9dc3180624c9dfe985674bf98dcb98a2e",
+    "geometry-0010.json": "fd8d95dd6898a0b1d2ee502907e57cf715f00f08d6a7580f544f1a7ff61012da",
+    "geometry-0011.json": "3ea433413151ad679d17ebb716242126e4cc1101f1874aa7f4a3470fe3fe13dc",
+    "geometry-0012.json": "6e09d3b588fd01de50d61648ac5a44b1a49560e1c0a5563676b467b3675379e7",
+    "geometry-0013.json": "2167ea4989769491c1db573336a149f73272c79e24321e5ead8fe5eda11cc50b",
+    "geometry-0014.json": "680d28242adccc7acf717b1d151ee1b4c06a5149fc532d0f70d7ded912aa6b95",
+    "geometry-0015.json": "6bab7ce6aa6a14ed8eaa9b2568fa6450841fac6c424a3ff1ef5383a2595ba165",
+    "geometry-0016.json": "bda3a1b855f6195266d85c3e005bb031b1274328b514f461296ad46c8cec8420",
+    "geometry-0017.json": "a33789c98e934d0f4531aeae471f7408525f414d1d0809a567e2a9f3c08cd500",
+    "geometry-0018.json": "2fede191e2a8688785bd67520cbdb38a95c8724fc40f4988ab980f09a38b0514",
+    "geometry-0019.json": "f578a4bc402910f0ddb528d068165f34c88a35943365d10efc124db4400e33c1",
+    "geometry-0020.json": "aa859e3f9894785db953301f3e008c2f1cc703c6646a9cd28e370f5dcc95f1ad",
+    "geometry-0021.json": "c64ff0af24adf9350656f88904687d58fcd27ef2fa01904c84bf12b3fed496bb",
+    "geometry-0022.json": "6be227256950ad5af5e5687b40d1e8e4ff258349e6a9091b7f02add54b3c6e6b",
+    "geometry-0023.json": "6c6d602c8ecba703606606da83974e17eb459ef22ac302afa3d607f38abd2084",
+    "geometry-0024.json": "37688af5fe2484c3ddd9fe4f7ddbf19504160d45f83720c36b0c49b18dc5cee3",
+    "geometry-0025.json": "87fcca02bc39377bf0df78330aea89198e855984c3331f2340918802e9185109",
+    "geometry-0026.json": "92c273018dda1d03300225f432aa34bb88a648c4835b876005134c9a5561991b",
+    "geometry-0027.json": "3b23ff3d29756e876c77d6c5d966eab586faeb467967ccaef129a3e5a47716a8",
+    "geometry-0028.json": "0b3ba6e8072513291651e6a57a2a637a06b19b30283ad44faff2b5c65b096ee9",
+    "geometry-0029.json": "25cd0e14ffde8041a6a9f2331055c2117621794f08125cdf577edeafe9f66a0b",
+    "geometry-0030.json": "e5bfabcc8dd4587a9e9841d73a651dd705d4d1f56f77420300ee0ca9faff57ff",
+    "geometry-0031.json": "467e30d848a1d2010454691b5722df715a4c00d4854328415f0f04d9771a1022",
+    "geometry-0032.json": "42546922e9bdb22ae6a80d5ef36582f176654835bfe53d07570277d7a9f15458",
+    "geometry-0033.json": "d72e699239b1e3d1b4e37dbdbb2fcf7d51a67a0a7ae1c0bb9ed001419b3d8b41",
+    "geometry-0034.json": "d0e68c3709cad4d52734b45930f73ac6c7b3207e7431eb2c17c4fed7b9d258e2",
+    "geometry-0035.json": "0ec0160bd77c0294cc0de3d4a1fbcb0e3f73c3f4b54c65a3e0827f93ef309ec6",
+    "geometry-0036.json": "2384d584aaa0d79602a436f83b02c125e63cb2ada6ee96e9d094da9360b0d519",
+    "geometry-0037.json": "fb911d4b27c90f11909362bf904905e6227f58ee60b02ad0214a37a5b04179a8",
+    "geometry-0038.json": "130fae78bfabc70e5d7103cc3acf5cab9a18ec104d5eb3cffe50dc3a27225b29",
+    "geometry-0039.json": "bbeaddd4d3bdc5a5751b45101aa74dcba416741f8cd6c13d1fe60fbec0db4a45",
+    "geometry-0040.json": "3ee80335b01800d472e7f7a070fe71a1634ef09945e6ec1064008c9cc5933865",
+    "geometry-0041.json": "cfa9f41aa42de2f46089279e8eff33881e968f3340f4b8ea80d720394e7bbab8",
+    "geometry-0042.json": "68f7fcba1ae710d57cf2503eea7a4ff2fe03e1002fdce0fe4debf30c58911660",
+    "geometry-0043.json": "0f6935c192cfece0b04e2efbfafb10c7002e63cadd15140cdf3fe2443f0385ae",
+    "geometry-0044.json": "a41c8cd91935cce3559a15b086eaea44a3885ac7e1ee4e29f9e858a60848cae3",
+    "geometry-0045.json": "076d6c7dae9a8e2019335c2f5e2f265203459ccfc69cd903dea4574958011953",
+    "geometry-0046.json": "e03e8c1f329efcadc39d81af725ab0e7892a0db360d5aef5c87581c2e435dc68",
+    "geometry-0047.json": "d53efe76ab69c369a1c40070b26843461e8f5d7689cd87221c215b6920318110",
+    "geometry-0048.json": "547ab26f46ff7166d5b24989519e645aa819302fa9bc005296218965e27885ab",
+    "geometry-0049.json": "c21e5eaf88fd718a944b64f99b22ce16f316dc6b5b4440976611bf6b779f08b4",
+    "geometry-0050.json": "495b64909efadc4d2d0a1a7ea79fea71836f389c0cbb1353ffc5d69ebf18ad9e",
+    "geometry-0051.json": "f8d330f4dcdba6e0572a6a56f91c1107c8537008933fabdc4f5fd66f92c90806",
+    "geometry-0052.json": "90925e2c2b259d47b3fad8fd417ccd7c291999290cf9a1edc1dceee97ce1409a",
+    "geometry-0053.json": "cdd91eb783a1d7f867bcb416db8624f57323fff86481b72fa5a5c495d16ec00a",
+    "geometry-0054.json": "b2341a7b589c549c5b7c3f25a2f7c856a2e2a60f5335d5aa910f3552702cbab3",
+    "geometry-0055.json": "09430cdac3a31dfb6c1bca2a6cb4055ded96636e6449d079fd53acafb359bbec",
+    "geometry-0056.json": "4e22f7bcda852784c2e3465096a1eb193d0735d04b4b89b106b7426b65cc3e90",
+    "geometry-0057.json": "df6059f6d584add5734980a4b4725d470394f4a09d89b35c42159895ebf2b6ba",
+    "geometry-0058.json": "c9f74e6492c28111921623045b24a06cae62abb2ee2db1db6a446dd389ad6da0",
+    "geometry-0059.json": "2d51ed09ae8c7315c065cefc7e185ca3eee55232af2b6881e18a3426c9c4f1c4",
+    "geometry-0060.json": "e2385d5a46526d8b52d1c17322f3a7297a8007280a8719371cf24c4fd1a0d741",
+    "geometry-0061.json": "401bf10274e5f1fe687f1359b4d5fd270770c697e1fdc331fd2680f024e5de2a",
+    "geometry-0062.json": "fba0ceb99778e2b553aedad7314e67f274705b26b1694cda2c52647d6b0e80a3",
+    "native-0000.npz": "a4ec7167c3fd029a00a8d2898b8261fb4ec9cbb63b5a4e694f81feadc84c6716",
+    "native-0001.npz": "d3bb347c36e9b2659883db0d48ae7e1791d28a5f44fdaaeade3b9cc2b08fcfe3",
+    "native-0002.npz": "18ec5fc41a172043666731169a89ad5da4ce92ff6af9a4b22e8ccf67a0584549",
+    "native-0003.npz": "fc42f67ef1fc1383334384f630afe29016f0dd263d65448a21e2d45111b3b643",
+    "native-0004.npz": "b83b8b77b4fee887b8f866347bca193ad430632b57bf742f1295e341e9189bc4",
+    "native-0005.npz": "d872d1ad8ea3e8a6ca94397cf3ac6ca90a07a2a210b18341240ae6757c485daa",
+    "native-0006.npz": "d541ca93ff811b37506e2cc39d32cae3ad87daf8ba9a285c820386259c72cf83",
+    "native-0007.npz": "8a8619423eaeb981495190de5b815235683135f8d6c040d0326aadd3edb7d97c",
+    "native-0008.npz": "36dba84fccdd8fb60f98b068db8b622430e3c742061bd0ce52f7d9ed775699d6",
+    "native-0009.npz": "f294896cdf4621c112a4a9df418c26f20cd5651449cc8ac9d8e7e7a9f3f9a104",
+    "native-0010.npz": "65fb45f40186e3ea76cd091103ea915499d091f17cb3b240e13f599a57287a85",
+    "native-0011.npz": "9daabf0359aa0ffe41c46f1e80615bf3849fb908a65e1cbd5a2abb272a068f78",
+    "native-0012.npz": "5fcb2b3ffcbc0a9acb7d891d4b7d4c401331416e8d7271d261a8f2cd88620b5c",
+    "native-0013.npz": "27197fddcdcc7514c634f747c270650abd026a579407af37415e1c246bce63a1",
+    "native-0015.npz": "1dcc48e81963372bb70e1949a3650fdf84bf0ab6f82e6929d8f6e0c006dd2d25",
+    "native-0016.npz": "a3a30003aa2f867013c80c239427b9a992a692e516a156aa2cb5bb1c434d239d",
+    "native-0017.npz": "8520a0b491d74ec8ffee24050f2904ffc589f98af5d6078a00259f3619f0d9f2",
+    "native-0018.npz": "60fde3c56c960734b77e53691f2170f6448038ca8e33de2e4e4faf7cfcf2a92e",
+    "native-0019.npz": "27460ccc06cd613a8447b60b1d74a7e482d6255271dce41c4af5384c6ab64c53",
+    "native-0020.npz": "f9ad71bbc8bfefadf7a204c3a2cb0ceade98bd109fd2014d82bb403447c8830d",
+    "native-0021.npz": "f6f5f4247e59a9e9e496749dcdb9ecf84c4887457f8a678ef7d8375dc952ed20",
+    "native-0022.npz": "aa79b827755d2f625a1d766202f83e455a716b19fc5f0c8b403107f19f7b2e3e",
+    "native-0023.npz": "0d75519daa0cc0af07a921f5397f02e95f37505b2fcc78ada28c8bb356108112",
+    "native-0024.npz": "1896d1fbadf93b50c9f815c783db0960e56f4147ccca878594fa32a8485a7989",
+    "native-0025.npz": "534fec563973038380ccec5dee901db414c91e9147526a0532d7c4535e6cc115",
+    "native-0026.npz": "f0f9ce77e438302ebdecd29fb8566f62e50db5d3743510b652587140d0124f9e",
+    "native-0031.npz": "72c950b945c7413c336d332118a98584ddabcc5f852ab023aa2a535b871a7fc3",
+    "native-0032.npz": "78c062f127d673033bbbdb83add0c882defca380ede40627f6c90dd329496e36",
+    "native-0034.npz": "b6d3803853e80c13a03f85e6ea35c14297b1882ff4307a5fd428630c81381b50",
+    "native-0035.npz": "9400dd50be1324cacd4487746bcd874753cacec13260531b4af7de70bd47787b",
+    "native-0036.npz": "bdc9c0c596e46f002d25855224906dee8d443f2a1712252ac45d97f26170cf63",
+    "native-0037.npz": "a448861b12ef73533c38a6b9e8241c6e61407ee8a7061f58150b1063f95f1429",
+    "native-0038.npz": "92a389f16b447f36fdb5d0043fdbfb38f2ec25a7d9304faa297a234909d41514",
+    "native-0039.npz": "ecbba0dfef34d8aad0752bf44718c4b2134042cfcbf84b05ff15737645adfb9f",
+    "native-0040.npz": "3e0299b6ce6f07ed0e26848b8e3f6d66713535aff114a8a3dd1cf1943d5ad051",
+    "native-0041.npz": "9fdd111df2ff9fa9c51e92a509329854f918bf5093da62188f1a306da6fd504c",
+    "native-0042.npz": "1a39fc931fde0e6f2906c41f91e33ef3b5c0db96f9269ef89afe1c5d68fe4bf9",
+    "native-0043.npz": "95768df93cb47d6b54948d08221e6c09a01b195801c6768116f762e9090ae11f",
+    "native-0044.npz": "7afb5a35eb35ae8865e1e52e72b0c4a8511e4ec3774f87480575e71370c25cf9",
+    "native-0045.npz": "3ec76fee8e64fe56af8ec327901515ca1fe320ed7abfcee638b87161f67b1112",
+    "native-0046.npz": "498dcb034156c9b045503f356cba945ca52b22e78911c4f8ea1fcd96e41e39a4",
+    "native-0047.npz": "9daef8461b7d6b964b2bd14d207fd8aa805ac227d02fd2c7090f767545075360",
+    "native-0048.npz": "e7a6324afb72c39393acd85043f2d3b54ba6fce97ffbc51773c71eb040746ead",
+    "native-0050.npz": "cbbf55369f3338b8e1849aa183100105efe608b37afae519af783eff3a0f0658",
+    "native-0051.npz": "e96b6d1d5e2f3bd57f09cbfa4da71fc6c624948af3bfb791affd90809af733c5",
+    "native-0052.npz": "19f5656afe8c1c9f1f7393d6a63d7dc4bed4b5848f6e64b875a2cae7f3a31ef2",
+    "native-0053.npz": "bbbe81533593138a7349c6a6ae6dd6713900bf89338a2458ecff21d098bbf5ee",
+    "native-0054.npz": "249a3b1121480e1e598f4f6e07745700dbb2e106f199d60aa0ddb537df902ff3",
+    "native-0055.npz": "1f689a2ce4cc7e3f03be08a847c296a9a84a4df17aab9db99c765e5eed0569e1",
+    "native-0056.npz": "765ed42a4d5e17530f507df44bd6f6b0727c46829f12386e8f0b095edbd8fcef",
+    "native-0057.npz": "0c4215720f344f4d6f520648bba7f65220fc54e172f9390b799cca74b6822d3e",
+    "native-0058.npz": "0113cace8cfddf724836b9ad362454e474299c88b2bb03166d77200396c47526",
+    "native-0059.npz": "92c6981c5e36f180e8b892eba9a50b8ff38b0c967a6b8e754dafc8dd3b596e04",
+    "native-0060.npz": "43b7bfdcbcd835132a74713489c4651da46e08081e11b5716a3652b60de0a93a",
+    "native-0061.npz": "19fc2b04ffede8f1f090399c14c2786ecb384bcc2f70a55458d059aa5adfb97c",
+    "native-0062.npz": "4c0ba0759d7bee103b06f372720eb33fd3d66aab8b356c26094ff1394f44fa7b",
+    "plan-0000.json": "008aeb3549dc50f89899cf148ece6fc9541d2eaef3f14d65969b0371d0deb701",
+    "plan-0001.json": "20a5eac33fe10e23874d4e62508d4691c1db31197f2f71c3254a203b70094a10",
+    "plan-0002.json": "3fc9b0a1e3b67d2df3d789d864554c93e875001e926ea2f130e345c63c4e6ee7",
+    "plan-0003.json": "bd3b73cdf50b7805736996d8a642863fb88cce67f9217ff9e3d63fe84580f689",
+    "plan-0004.json": "2737e3103019f5a0704e7ba6c947c85461fd9708765e1a2ae0fbbc3091ec86e8",
+    "plan-0005.json": "26cd859ec9dcfbfe29866204d1b7108b60f5f8eb268a56861deb56063d19f6fe",
+    "plan-0006.json": "b083ae82507ebcde14a0a84dc5b870ea021b2f6ffb6305be272cc362ea9bd3ca",
+    "plan-0007.json": "c2f6241cbd9cafc5dfe0ef7d8c0461c7eff1bc9933f60d1d74fb5fd7176fcafe",
+    "plan-0008.json": "fd11a3c68be3cd6b2f3322bc19ee51167627ebb7879710b6ee7308f3886b5d14",
+    "plan-0009.json": "42c869bc4cd6f79e05bdaa85ece7a6096c285e83396156bb662219c86c006e51",
+    "plan-0010.json": "54aed365d9dbe2f2e847d6e6ccd477e418eb9339f4505cfb400d4549e550f3fe",
+    "plan-0011.json": "ae3e09673eda13c2e5b9df39c3e4db21fa9f84a7e45dba23a720f53915880e82",
+    "plan-0012.json": "bc5b4c5db8fc30ed07df75c2abc8c9734229954e8200c820f7b2dc72538ec9ce",
+    "plan-0013.json": "62fa6bd904809453d127781a4ddf39f80ec06c8823becac81a3571405d88797e",
+    "plan-0014.json": "ee110442d5d0618d0135c749253015da0b65d61dd8b2c650ae8b2363c2318cbe",
+    "plan-0015.json": "75d9906ad6cb62b0f0e5b104a048ef2c04387c76f188f4b1dda97340b27e1440",
+    "plan-0016.json": "d4b2fd450c458e931b31ec031d4a4cb02ea3b190174ab23f4560d23db6da5e42",
+    "plan-0017.json": "a445652b5dec53623f9d56de0db856d981d06fc90b0e7bcae8397c1cbc75e08b",
+    "plan-0018.json": "cf5d3ab76d9a3b15e8be14e0a0add2cf937f15d8dc8e5740ae713c629aaa4f7e",
+    "plan-0019.json": "7cbf1f8f25842e943896625c6a680b9b59a45efb602e99a85e08043058085708",
+    "plan-0020.json": "84bba6fed0ba3e7b28ea068f33ce944d47b87585ccbce7368f485bdb0c9e8f95",
+    "plan-0021.json": "87ec6ffc3a997ccaf535cc422bba7751a69dbf8cb1aadaeebf304157bd58e735",
+    "plan-0022.json": "41fed491ee4e95791e7b09d950ac40d86bc5fc8f331236650c9821a0ed07fc14",
+    "plan-0023.json": "e4b886cabf075f126f11035073aa518a4977f049dd19e266aa04f6e4278a83b3",
+    "plan-0024.json": "3c41371a4ac1bf8b3fef9ec57bee1d37908a43a539d2bc065c439469c6f8d4c5",
+    "plan-0025.json": "f084d21b974e56a94138f0e5bfe819b657821b29fdc5d4893801e0ef91c86691",
+    "plan-0026.json": "4a6370032fbc1732fb642db7a5749c08642003dab401e7dbbd2cc5a3e26fd770",
+    "plan-0027.json": "5b06f2aa7d3429b6056867c2e041ced6aa15554e68b7d26871e8007143279519",
+    "plan-0028.json": "16e768d00e5f3d0e2605ad0497dd30aa8796068a0a0247c8025401923346a9e2",
+    "plan-0029.json": "069079b86b1bdb86598b3498848f81972451c6dd01c6fbb1a2a17f9fab77bcb8",
+    "plan-0030.json": "7f471c46b5ecaac14339cae2de3feedb1388e821e1bf7dcfe57a4e94d64b48de",
+    "plan-0031.json": "d6f87eafce701fda2ab851dbb512a16d45335987d153b1a57ae8913519d1c9d3",
+    "plan-0032.json": "2822e5e9a7c9a777f488fc9b02674747a20aeeb8f7b8c1f25c8473c5b3a5f02f",
+    "plan-0033.json": "c2e1760baa0954a27917941948c1c3c59c182da0100aa408264f002cb97fb0ba",
+    "plan-0034.json": "a2a749a48f389a40359cf9cd0835712ee068e43d9034273225ad44243c2af962",
+    "plan-0035.json": "0d8c3978a891d60a43e41fd96705916ce743168726027d55effdcf64398c8869",
+    "plan-0036.json": "a568e3a0b767b6932d235673eebd665b4e8111f0a322e4cba80a0aecce8b7597",
+    "plan-0037.json": "d5d108422cbaff92fa74434f310be6a91e90eaa6687b4428700ccb68c6e52c15",
+    "plan-0038.json": "798abd63ba5e879a8518bd18a86127740b6de6bd4cbc3ea3daafde7ef2358b2c",
+    "plan-0039.json": "95f9e3a790ed44c50eeef4b92883c2e2ecdabc990f90bd245ab559dda538783f",
+    "plan-0040.json": "dd3611affc82087a24186faf9a148d799563ab438f8a72b1e49ddb6c1b93e48a",
+    "plan-0041.json": "a16821a4c8dbd810f8959534d785e4e07a20fa7d25caa749eaf443b74c52ce02",
+    "plan-0042.json": "862155f838eefa7a2e4437758e8c46dbdeb17683ef6fae64c571f3f4e9f33c63",
+    "plan-0043.json": "d162d03b4febc39ea476fba7293a0a100a4ee93e553636a7038dbf1367946647",
+    "plan-0044.json": "f2b6502cbc1444adc851b4af8014b4aa6414ae9b36176ac75c904aa2f2e7fa25",
+    "plan-0045.json": "16cc5082efa3c0bdbaddd643cdc23aa263e3b25559f57db3edab0bc4b0eb3928",
+    "plan-0046.json": "cefec630540184443c9c931434be808d781ec220e2ba9b8475f66df7326ffa6f",
+    "plan-0047.json": "a8078cd1ef77c50565cc7fa7043ba17719ffdcc320ecad33e261ef7d7111f781",
+    "plan-0048.json": "a89c3c8c2287f7ac5177f031b9f579baf76c0762dc5f2bcf8ed807e9732ee585",
+    "plan-0049.json": "8705dcf7b8a5e58dbf1cf5a300fd3bf74a8fc641b9684c1cfc81a1854ee9063f",
+    "plan-0050.json": "c4f85d060fcbced8739d178ec00bd75fec913522ec72ad121a2ed1bf6a9a86ed",
+    "plan-0051.json": "cb0d1a9154217ba12acb5b0193812c6a4380e9cb040906e5e7b02b09d694a119",
+    "plan-0052.json": "bf9c03bcdc3cd129b91b7a3bc61c3f551baf2dbec20c92572494ab7b52947f55",
+    "plan-0053.json": "ad0f9e98b39daa711acdf900ae06237f0c33b8311d3cd41d8c6a9d02c2be7272",
+    "plan-0054.json": "ac1f88b5b5b49109f4935138d891fc8dea249bfa9e681143bda403c51e2f73e8",
+    "plan-0055.json": "749dc02c37fd1bf69ca7126b75acd865895d66b28fef08bfb07f0bde8b941fd8",
+    "plan-0056.json": "1e9bde68c238f26982bed7cc8b1093194e9b1f2906a9048478104bb4cfd918f9",
+    "plan-0057.json": "458c8a1bb648fc0d631bd99e92b4ae43417a249bfb97b0aa5c353f30c8bcba87",
+    "plan-0058.json": "69365a3eb2119e5e5dd46b95aab33c4361be9f261aa3db4f26bd083496748412",
+    "plan-0059.json": "1e417491dd3d92538ae2e505c7dd47ee301c3cda9b849b8c70919316fa094996",
+    "plan-0060.json": "2a9f67d7252d4c6640c33cf2479b39aeeee144844c4da2c9ef39b38b12f9e52b",
+    "plan-0061.json": "d9e10bc53607a376c7edc8888ce35c46b36b7ed67571bd1bed2258ed1f1b70bd",
+    "plan-0062.json": "bb7c09f4deb9b174f834e3e88c72e8cc80cdc74be480b51925170fac0463aa33",
+    "prepared-contexts.json": "a92aa1c09e2db49b4f8f0f8bcea3242095db0b7ddd868dda17bdb85e3edd74bf",
+    "recipes.json": "dad04b43c46872deade8153658ae96656cf150e3f40a3f2b3b41a440318e3714",
+    "records.jsonl": "b1adeebd1dabcbbc5badf6514ba4167c2d9d21ae5bdff2eda3b589432b75721a",
+    "refinement-plan.json": "5534883d19dd188f74ba6c8cf5daed812424965434f9d56b82bbd07968568528",
+    "repeat-geometry.json": "502974e04b2c6a759b2b9f8b107de5e9de8e9692365a9d705bfc08ccfe941a4b",
+    "scene.json": "a7eaa516f1177c65bd79402c94e842161e31dd8702cb3e1068e9145edd5376d9"
+  },
+  "source_sha256": {
+    "sircus/isaac/board_route.py": "6409889aed6b0fd6a288eb9494b954ec5c3233ec41fdcf146940fc23276fb2e9",
+    "sircus/isaac/entry_quality.py": "2f3d8b73c871a41afc3c8f333f5df1d54fa8751720855ffff517e729217db9d4",
+    "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+    "sircus/isaac/rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+    "sircus/mjlab/admission.py": "2dbc5776113f8afb0ea74e23d0c3a2542fd0223d94a6818aec8de4865d302d82",
+    "sircus/mjlab/bank_geometry.py": "5c0d6775582c5524a323f1e9344c35317e8352e9f1f813f5dd0794c05de743f5",
+    "sircus/mjlab/bank_policy.py": "0773471ab8327e822b7c6676b02c2beaf1185e90d72a3ab10fddaf8cd1595ae8",
+    "sircus/mjlab/bank_solve.py": "457166a796492f66e29b9a52dd944a57119f180f12c89a6aface4d5d2f1ad001",
+    "sircus/mjlab/bank_study.py": "7699faeff915a772f3e838983ff1c8dec7721f2d55c79a594e185cd9e08e7dcb",
+    "sircus/mjlab/calibrate.py": "e2da7c22355899f35e7f9f28e8a3ae35001e29cc2e10e7a490c470809bd548fb",
+    "sircus/mjlab/combine_expansions.py": "08bd8381c2feb7f4616c6ab52178c335274601efe8111c0ea5a07327575efe93",
+    "sircus/mjlab/compare.py": "3df8ca25a182377f28a9babf8743a4bd4789c4ad4b66ac193f180eb4defa8017",
+    "sircus/mjlab/contact_confirm.py": "c80716c6a0353f5ba637c01d171114aee429b14c11b21f5400ec3dc9792fc1ac",
+    "sircus/mjlab/contact_env.py": "04655f30a1b216c037573a0b5e177e6209097026f930fc6efc6dfef289abc3da",
+    "sircus/mjlab/contact_model.py": "b2d522d07dd2e3bffa724feb68593b3fef17033b5274587ef9d130e5c40aa24f",
+    "sircus/mjlab/contact_study.py": "fed3be5310ed6fdfd3e7e3631a9a58ab08508c304e929b16558f8c50ee305fd2",
+    "sircus/mjlab/contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407",
+    "sircus/mjlab/corrected_admission.py": "3d42913fc2a9599b0e5063bfc4ee0a03f003b4ba853338e407c8a3d82de3d64a",
+    "sircus/mjlab/corrected_contract.py": "9800404859a7ae2b2934c26ca448be4a69ae90e481069da72732973b1d907ba2",
+    "sircus/mjlab/corrected_geometry.py": "50a4a353d94cceb1fbb0216a40588c997034a121e554f3f84f530d7d47c470be",
+    "sircus/mjlab/corrected_grid.py": "ff312f08a595ff0ff877305cea591ea5d0b7c5f327e5fa9079e526e22d972596",
+    "sircus/mjlab/corrected_pipeline.py": "4b439b08a8988ccba53c4c5e83a5d7e32e2068d9bbf54a140f4237540c930ea9",
+    "sircus/mjlab/corrected_verify.py": "b16796dff78eb23310247492dee7da40d4f6d9cc7a3fc7d9024062d4dfd4e5b4",
+    "sircus/mjlab/distance_contract.py": "6241fa7c2bf29dd0ae39b3503d3fb8247e164dbe8c2334308f395eac18152094",
+    "sircus/mjlab/distance_geometry.py": "bc7276a7104680c32220dfc589cd46793beffab6166d64da0956e4bc2ed8e507",
+    "sircus/mjlab/distance_pipeline.py": "c6927a02277974ada37ca55af804b53f501f5ed2ad068b0aa39402d10ca51d6f",
+    "sircus/mjlab/distance_study.py": "71d5d0d30dcd6e38c2e93eb4dcd9555740bab84e3e42a0ec13fc3c0af859981f",
+    "sircus/mjlab/distance_verify.py": "43d86ecd13affa8693028a427239b459b3a09922d50be8d29554a558b12ccd5f",
+    "sircus/mjlab/expand_bank.py": "c65110b9afa9c30658b99f0c11ae6e2aefbdf88442fc876dbc8b03e0888a320b",
+    "sircus/mjlab/expand_far.py": "374aa54f7b24c8f6f598f75ed33881050fb06fcc496a6a6466fe20625763e167",
+    "sircus/mjlab/expand_geometry.py": "0b7982c3494b7cb7f799e073e3a7b788cca77617af0e9f509a4b7e273d926739",
+    "sircus/mjlab/expand_refine.py": "bd55749d6fe0e16a2bf942efcca933a9bf2e579209760eecf89cfe1b6131f60a",
+    "sircus/mjlab/expanded_actions.py": "d41817aa7ad4206139925256ab0cdf5288853e621d6b39824c10ad2d309679c3",
+    "sircus/mjlab/expanded_env.py": "b0e9744d1e82b9e575126e0c6d58e524372b75287713cfdf14d010cb2812df8b",
+    "sircus/mjlab/expanded_study.py": "4a271fe5b1b0d3df20c2c53ce7ef0be87a1d0a681c980708a62df29a6d1bef06",
+    "sircus/mjlab/gpu_slot.py": "fcace6029058a9892296507358ee196b9b5296dc4287a07bedc786e3af4cad4a",
+    "sircus/mjlab/gravity_audit.py": "d4d250396c537b4701631d3e170c35fe40534607d57efaca7164edf4d5581339",
+    "sircus/mjlab/interface.py": "00ae4d29643f12ff143c356422384e7daa047889e3790cceb7732325a5b5a6ea",
+    "sircus/mjlab/isaac_pair.py": "4ab44904a2c966d6a8bf1567d4882a8bcfdf3c1dd3d2ea8d9e1bbeba6093d983",
+    "sircus/mjlab/learning_contract.py": "9f2c44b76297f4ef7009c1b0107be983d0511d5654cb68b8e344dd316ed1fda8",
+    "sircus/mjlab/learning_env.py": "58d2f58be0e1981a5efd09e872bdea7d8f608e1fa21b5c87986505a20a4a4f8c",
+    "sircus/mjlab/learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+    "sircus/mjlab/learning_interface.py": "73f9bfcdb95bacfb7bc904853c26b7233a635c566930c1e51040a9473af9a29a",
+    "sircus/mjlab/learning_policy.py": "5c37a248a0a44280f0f82fe3327973299ec6a4bbfccaaae9f750a898180c7792",
+    "sircus/mjlab/learning_reach.py": "8eea1d565e9faefff0622a9e9a4666eb8d811ac086a8a6711caa8efa3029e9a4",
+    "sircus/mjlab/learning_score.py": "e66b982c0e651c3a9f5855dd03efb87488cc924321aaf9cadb80d51bac2fe814",
+    "sircus/mjlab/learning_search.py": "7e37412363aa5263f0d71b76fe8b79af003ed81e92706beeb9e0f3706512e40a",
+    "sircus/mjlab/learning_solve.py": "836ae6db1172f8a9b43de20dbe0132cd1bc2095fe52cc4f923ebbf739f1c41e5",
+    "sircus/mjlab/learning_study.py": "1d9b358fe11007c7edfbeb607c6f769e9d4dae6e6832768e16cc0df98480f8df",
+    "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+    "sircus/mjlab/neighborhood_contract.py": "7685b667c402875674a0998a631eafc21338fc20d81f537feddbab212ebc113a",
+    "sircus/mjlab/neighborhood_geometry.py": "036bd12f0a57c8494f98b480f828190e9e4bdb24b8dbc869c46111917be2c2cc",
+    "sircus/mjlab/neighborhood_pipeline.py": "6fd4fa57dd064a7cbdf28be518f8855bda6cb203a823daa680e8768b4940deb0",
+    "sircus/mjlab/neighborhood_queue_display.py": "fb64b6e1d1a6cb0f2aef45755abff07302359529d3e5fc103bb7e35cefaa32d6",
+    "sircus/mjlab/neighborhood_study.py": "6d6ea53470c7870d2a72bb9193a887a5b0eff84aef3bbeb1f4d80a992f36ebbf",
+    "sircus/mjlab/neighborhood_verify.py": "31c2e1f13d6b3d782c0a7bea8005b169f0b218ea5a59a8a931fca3be144d8755",
+    "sircus/mjlab/prepare_contact_report.py": "c90afae3b0d8b20ac0646c97427944d45a0d13419188ecba9348fa264b4461c9",
+    "sircus/mjlab/prepare_corrected_report.py": "d91849cad5fa36d7a701d0b8c832953717e33e6d3818bd1b5dc268bb49bd1a3c",
+    "sircus/mjlab/prepare_distance_report.py": "7fb5088df5103de9155af365ecc85021c45d9e1aacdffa725fbbdad64ac29578",
+    "sircus/mjlab/prepare_expanded_report.py": "a3fa99cae4b6327658b2471986acac8b5f1b1aa0cc5ced0fb0c0ec0bc37e3ecd",
+    "sircus/mjlab/prepare_interface.py": "3783ad300b73808fe9424a960b791afe7addbf28e8a4fab9b61be6ffaf1afbe8",
+    "sircus/mjlab/prepare_neighborhood_report.py": "43eaf48670551d60e50b96d08d58188af4448ae354a27d2cc59a956ce1cc345c",
+    "sircus/mjlab/prepare_stable_report.py": "50ebf337210c94c60ecf081f1caf6cd8854f73646737000fcbe8dd1dd8a423c7",
+    "sircus/mjlab/prepare_window_report.py": "3d2fd46a0a12aea3d66d7f78301b9eeea9192f68c7955918a0806d20cfbc2bca",
+    "sircus/mjlab/render_replay.py": "27a562466bc45f5615a95f6c7824ee96bb60e1e51556cedae59bf6982f5a5f50",
+    "sircus/mjlab/repeat_diagnostic.py": "2a91c87c2234466dc1528464630f24856b7a3358f3a98862a1d7916ebac563e8",
+    "sircus/mjlab/requirements.txt": "7c1952bf096917a04387df1c4942bad66c2614cb61f09a55fbe64aa76d087a13",
+    "sircus/mjlab/run.py": "969db2710378345aad34a6f802e33d6ea62488d75e560b9da5738bc0748c3dee",
+    "sircus/mjlab/stable_geometry.py": "2e00b5fc46d1b253b5c85b6823c781a37e26f5819b35586a8cc112b057ebaebf",
+    "sircus/mjlab/stable_ik.py": "efd52c5e837339662c99c196e1a3cf4b5b260eecb7888258779030c459944e07",
+    "sircus/mjlab/stable_study.py": "c9fe1cc71103e1eda5dbd7f9869627c1b09555dca4242e376b7f239198a19ea9",
+    "sircus/mjlab/timestep_env.py": "6efe3593d51960fbae2dc01e641198d6da9dba31869b7c77708cc8b6cf7578cd",
+    "sircus/mjlab/transit_audit.py": "4400285187eebf3b1c7073a78ab74c94cbead88d52ffc5366e0258d2376f8c96",
+    "sircus/mjlab/transit_detour.py": "700980ef138c281fec2e569d398c54fbfbf2647ac0cc7060e450875e2976e126",
+    "sircus/mjlab/verify_bank.py": "d8f3e0ce75533dd9aacc5018c2dacef2212de8f9e3d63fa50013e1080566fe9b",
+    "sircus/mjlab/verify_combined.py": "c3de2bd00cdff61f5a848ae572a8e3caa3ec5b7ab84465d493d7c907b7b851e2",
+    "sircus/mjlab/verify_contact.py": "17f3b735b98006a9b948444b6262e09de8f6d544b7f0b2228e5bc14ab1d5a182",
+    "sircus/mjlab/verify_contact_confirm.py": "098956227ca8d05bce29ea591b9ade12518d82148526e1787cbfe611fd6a0486",
+    "sircus/mjlab/verify_expanded.py": "f08de30a4c7c9db94bcd9f483e42f925c69f213c60f37ef9dd57049aedfd618d",
+    "sircus/mjlab/verify_expansion.py": "541f2a6e8b58dcc6b07cbb94780474b49f5c785fc3012f92e327de97bc5ca8d1",
+    "sircus/mjlab/verify_far.py": "bd20cb8410657ae39562581b1a0157f3eaa4a4ba519aa1532bc051c6da1b5611",
+    "sircus/mjlab/verify_learning.py": "2ac3124e0a5443d7d572eefe9b73d7711f67a2cdffb9a1198da9fdfac202e874",
+    "sircus/mjlab/verify_refinement.py": "d979ecd5a29e33fc7351283455ace3ab58bc544efee305a5f77f5b6341af1d53",
+    "sircus/mjlab/verify_stable.py": "4cefb89c5cbcc81d1b25e7ace53e9493ce90c19904d7e8c39ca30726ddc1e29c",
+    "sircus/mjlab/window_confirmation.py": "f0023d8da28f433f48dee96fc9aa40e6f1aa19c0340f7a6a5cff34c0de8fdfc2",
+    "sircus/mjlab/window_contract.py": "89c2afb9e4c6665b54e02231d0dc39a4f43b02203ba18586a8526fa9bd22cd75",
+    "sircus/mjlab/window_geometry.py": "27d16ebae82a53a7f9b948cfc0a67bc25618dcd2b11462b6969ac62dbbb779cf",
+    "sircus/mjlab/window_learning.py": "458c90b2d19043463b6f4a9e6abf68166476a92208209ef61e66bc8de5a7fe78",
+    "sircus/mjlab/window_pipeline.py": "e783027066da8823255d3111548d09383bc3f5d86606c85a3f9e02f8e3e41456",
+    "sircus/mjlab/window_study.py": "5af400512287cb85a1ee58b15811fdb1dfe38034f54ba94cc6d8752310832a9d",
+    "sircus/mjlab/window_verify.py": "c1d9c65e7b8a48aed40c30d243aaf55cb9b99df8dc3e2cc2164848b7e68765d4"
+  },
+  "asset_sha256": {
+    "assets/board_arm.urdf": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340",
+    "assets/dropper.urdf": "3f40e56e46b040fb3339c1235ea85872f46511c45db2d37f7661db94a470bae3",
+    "assets/poses.json": "5847c2793606860a82cc74030c3fe529767318f189c5d48e3d66c0dc7b9f776a",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link1.stl": "4069840361c2693b5b1147da366d5ba8a49ff7ab2c52fed68e07e04e07786e3f",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link2.stl": "0e736a629e6000c3c912f5aaf76937f824f510ac8894db67bd0d7f1d6210fc52",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link3.stl": "f682201345117c4b021fd9db21bd9bef6824886c8324f046b7d5772d7c9fa426",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link4.stl": "7bf4ab507c07a2b26e6a8528decdfe32d71efffdf1dd391406f1ce2f9ff4caa7",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link5.stl": "103955f097086e0f5d46380ff89bc7ef669877bb65def38431a18fc5343e1ba0",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link6.stl": "86b95b77850f38ff1437284705a1c8c616e3da21faef72e4f06751fc741de3b3",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link_base.stl": "871d501d23e8164440656331ee0e005d859dbdb7fab1c3725bef423adac9cf0e"
+  },
+  "packages": {
+    "mjlab": "1.6.0",
+    "mujoco": "3.11.0",
+    "mujoco-warp": "3.11.0",
+    "torch": "2.7.0",
+    "warp-lang": "1.14.0",
+    "numpy": "1.26.4",
+    "scipy": "1.15.3",
+    "ml-dtypes": "0.5.4"
+  },
+  "full_scene_sha256": "08984872d9b68722f41b51f5e0421b061f83eeb7bcc370bcba1e8fee1086d130",
+  "camera_configuration_omitted_from_geometry_snapshot": true,
+  "effective_native_options": {
+    "64": {
+      "version": "sircus-articulated-passive-timestep-sensitivity-v2-64",
+      "substeps": 64,
+      "timestep_s": 6.510416666666667e-05,
+      "solver": 2,
+      "integrator": 3,
+      "cone": 0,
+      "iterations": 100,
+      "tolerance": 1e-08,
+      "gravity": [
+        0.0,
+        0.0,
+        -9.81
+      ],
+      "native_solver_tolerance": 1e-08,
+      "warp_solver_tolerance": 1e-06,
+      "tolerance_conversion": "MuJoCo Warp3.11 put_model clamps native tolerance with max(tolerance,1e-6) before float32 storage",
+      "board_mode": "articulated",
+      "gravity_mode": "passive_only",
+      "scoring_dt_s": 0.004166666666666667,
+      "warp": {
+        "timestep_s": [
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05,
+          6.510417006211355e-05
+        ],
+        "tolerance": [
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07
+        ],
+        "gravity": [
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ]
+        ],
+        "solver": 2,
+        "integrator": 3,
+        "cone": 0,
+        "iterations": 100,
+        "dtypes": {
+          "timestep": "float32",
+          "tolerance": "float32",
+          "gravity": "float32"
+        },
+        "precision": "Stored float32 values; checked in every expanded world"
+      }
+    },
+    "32": {
+      "version": "sircus-articulated-passive-timestep-sensitivity-v2-32",
+      "substeps": 32,
+      "timestep_s": 0.00013020833333333333,
+      "solver": 2,
+      "integrator": 3,
+      "cone": 0,
+      "iterations": 100,
+      "tolerance": 1e-08,
+      "gravity": [
+        0.0,
+        0.0,
+        -9.81
+      ],
+      "native_solver_tolerance": 1e-08,
+      "warp_solver_tolerance": 1e-06,
+      "tolerance_conversion": "MuJoCo Warp3.11 put_model clamps native tolerance with max(tolerance,1e-6) before float32 storage",
+      "board_mode": "articulated",
+      "gravity_mode": "passive_only",
+      "scoring_dt_s": 0.004166666666666667,
+      "warp": {
+        "timestep_s": [
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271,
+          0.0001302083401242271
+        ],
+        "tolerance": [
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07
+        ],
+        "gravity": [
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ]
+        ],
+        "solver": 2,
+        "integrator": 3,
+        "cone": 0,
+        "iterations": 100,
+        "dtypes": {
+          "timestep": "float32",
+          "tolerance": "float32",
+          "gravity": "float32"
+        },
+        "precision": "Stored float32 values; checked in every expanded world"
+      }
+    },
+    "128": {
+      "version": "sircus-articulated-passive-timestep-sensitivity-v2-128",
+      "substeps": 128,
+      "timestep_s": 3.255208333333333e-05,
+      "solver": 2,
+      "integrator": 3,
+      "cone": 0,
+      "iterations": 100,
+      "tolerance": 1e-08,
+      "gravity": [
+        0.0,
+        0.0,
+        -9.81
+      ],
+      "native_solver_tolerance": 1e-08,
+      "warp_solver_tolerance": 1e-06,
+      "tolerance_conversion": "MuJoCo Warp3.11 put_model clamps native tolerance with max(tolerance,1e-6) before float32 storage",
+      "board_mode": "articulated",
+      "gravity_mode": "passive_only",
+      "scoring_dt_s": 0.004166666666666667,
+      "warp": {
+        "timestep_s": [
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05,
+          3.255208503105678e-05
+        ],
+        "tolerance": [
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07,
+          9.999999974752427e-07
+        ],
+        "gravity": [
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ],
+          [
+            0.0,
+            0.0,
+            -9.8100004196167
+          ]
+        ],
+        "solver": 2,
+        "integrator": 3,
+        "cone": 0,
+        "iterations": 100,
+        "dtypes": {
+          "timestep": "float32",
+          "tolerance": "float32",
+          "gravity": "float32"
+        },
+        "precision": "Stored float32 values; checked in every expanded world"
+      }
+    }
+  },
+  "created_utc": "2026-11-03T12:06:44.097847+00:00",
+  "curation_script_sha256": "d102d038c94842d3fc31e609c6eb4cd4627ac2eb1ea1c563ad42c819228624d9"
+}
