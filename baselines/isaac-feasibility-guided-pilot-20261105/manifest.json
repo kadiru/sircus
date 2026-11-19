@@ -1,0 +1,121 @@
+{
+  "auditor_commit": "6fe65ffef3bb595949b2a17fe0140d1b89798bbc",
+  "decoder_fingerprint": "a28e915cbbbd90d4a32bc3ec5ead07a303faad879d1a835e99d433306d1aefeb",
+  "external_media": {
+    "action-trials.mp4": "54474bf7f2e8784f426a0567c68bb4b9b6564a6abf4a1ed0c078e826dfcaea97",
+    "trials.mp4": "ded879e79c8a5070ae49d7a724f58c56307914778f274802508f542a142e6a9d"
+  },
+  "files": {
+    "README.md": {
+      "bytes": 10554,
+      "sha256": "1832ddc9881051e2387002b6009d7a4b9b0b15bd9ca7cd89c93dbd1b80c3004f"
+    },
+    "camera-binding.json": {
+      "bytes": 2055,
+      "sha256": "fac63122f45262b4aff83dd78068ebd5c8e9f765315570bf84944068375c01ad"
+    },
+    "checkpoint-audit.json": {
+      "bytes": 63790,
+      "sha256": "02cb3cdb7ae2b140ade029aee9d4b81f23da6be076766347c6dc545a49d63a41"
+    },
+    "comparison.json": {
+      "bytes": 3469,
+      "sha256": "10a24a7d11fce7b92c7bd8736e3089bb74635430b03b9728539e30c9c7d2d287"
+    },
+    "contract.json": {
+      "bytes": 13572,
+      "sha256": "291ca91848bddff8f812b59e790ac565657982a708dd9dcb7c7281136a87544f"
+    },
+    "decoder-export-audit.json": {
+      "bytes": 10645,
+      "sha256": "491e4bdca2970b490dbba7954c72d8979895449cf79287cc6499d345afbc300c"
+    },
+    "decoder.json": {
+      "bytes": 33231,
+      "sha256": "11446d9728f7cb1743015cafd5d40c7df350d60666e808f07ba8f271d612421c"
+    },
+    "failure-summary.json": {
+      "bytes": 113001,
+      "sha256": "fff8b4e690df591ebd3e55ff943c4977008b926fc085eb42a5fb62c2b74409c4"
+    },
+    "feasibility-audit.json": {
+      "bytes": 1202,
+      "sha256": "207f8f92815472a445ed968608280a6b74c4f6791f971a4fb85c52c8a5a6075c"
+    },
+    "film.json": {
+      "bytes": 154286,
+      "sha256": "7e2f9f62ad5521dea83b6f49ab2bc51bbe0a87ff1cc104b806c6d3c488a91b44"
+    },
+    "learning-curve.json": {
+      "bytes": 20268,
+      "sha256": "8bd4b8a501ef6527251cc6a8cba9d22d94e94945a3820d6bbbee64ffd0a25c30"
+    },
+    "native-audit.json": {
+      "bytes": 39573,
+      "sha256": "3d140a7f022496d72ff8f8db797e4be86dfc79d2c900a548410e3683d0408d05"
+    },
+    "policy-final.pt": {
+      "bytes": 130537,
+      "sha256": "4c74f05bb0458e7467538a4b4110603c35843013998f7d853f1dff03a4b3fc7e"
+    },
+    "policy-initial.pt": {
+      "bytes": 44545,
+      "sha256": "d6357f50a7f4c261bb732bf44702210deb349a94640586b9f600e7007131cb80"
+    },
+    "portable-roundtrip.json": {
+      "bytes": 1140,
+      "sha256": "231923886c7d67ae6fe408423fec7b7ee2c1edcd1ba58974b7857062f167f867"
+    },
+    "probes.json": {
+      "bytes": 10323,
+      "sha256": "e23bbea11738453b30d8369da6a2cf9caa17250630bb2c09b127562cc2a89ecc"
+    },
+    "requested-settings.csv": {
+      "bytes": 15263,
+      "sha256": "4a807d005440ff003ababa98209c7d5a392fc7995f01062eab41f55b65f53c53"
+    },
+    "rim-rays.json": {
+      "bytes": 5817,
+      "sha256": "98df6ec0211b66ea15dd2480a63efd0f3a29c41a58f502a8d9f55c8461c98878"
+    },
+    "selected-camera.json": {
+      "bytes": 530,
+      "sha256": "a7967c072b8f949318b43a510235d503c81c21e05f433670a0ce92a7af385ede"
+    },
+    "study.json": {
+      "bytes": 30701,
+      "sha256": "44e6d04af8ccdb16328f9059d20dc485cab43dce68a4d1fa8531be9fa944e348"
+    },
+    "summary.json": {
+      "bytes": 82177,
+      "sha256": "2779ed8e39b8a72114e2f445bd0d53800aafa38484db8f3fbee5c303b5243941"
+    },
+    "support-audit.json": {
+      "bytes": 727,
+      "sha256": "8a5109bde67845cb75b54ceb8d58ab4844f1969da26557db5bc4ea0d27b04452"
+    },
+    "support-cost.json": {
+      "bytes": 991,
+      "sha256": "13aa1b7d8f13b55574b7604d916bbd9146c0d71b37b84209c8f30572d2cef529"
+    },
+    "support-definitions.json": {
+      "bytes": 95388,
+      "sha256": "03994ae3afe7b0433e03f93ac83a28046ce0d64e6fbbdb81e33312b750f2ca40"
+    },
+    "support-exclusion.json": {
+      "bytes": 11944,
+      "sha256": "70abec80e1daebc016bf7bf18eb80975fca3b3591e1e5fbef6e36e3b9c0c831f"
+    }
+  },
+  "full_csv_sha256": "9a81b99caefb39993c19a3f22decc5cd070b923a6a39b57d832d6f100f2396cc",
+  "full_report_sha256": "f0e698bf012d7ad5ec134c5440f73418a0555367f841ec7f431eae1be0a53993",
+  "geometry_fingerprint": "63362ef37a93881f769b39d1ee7456335f1cc7bf5db04ffa7e548ce9697455bf",
+  "native_result_sha256": "cd90e6ec9c1e1bc3729ca5113b67d98c6ebf680f0964cec68065acb1f98138ca",
+  "original_support_fingerprint": "2533099bc2e69239a088b8ce816e33c48708f3d64397badae055d25ae263589e",
+  "portable_exporter_commit": "ae6a1dba589397ea6aad7c38b91d25df26ad900e",
+  "producer_commit": "2dabb21e87457f39b34616101ec224209dad710e",
+  "report_exporter_commit": "3f148011a17aa20567d32a5a733ff9cc028a3558",
+  "schema": "sircus-guided-pilot-compact-manifest-v1",
+  "scope": "Compact derived simulation evidence and portable CPU policies. Excludes raw observations/probe histories, credentials, local runtime configs, logs, and media. Manifest excludes itself.",
+  "study_fingerprint": "73ece4e2fa28827ef495fed8c960e341c96a46c55a92487ee75cf45071d8ba6f"
+}

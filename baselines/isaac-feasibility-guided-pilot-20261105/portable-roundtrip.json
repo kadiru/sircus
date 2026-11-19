@@ -1,0 +1,23 @@
+{
+  "decoder_fingerprint": "a28e915cbbbd90d4a32bc3ec5ead07a303faad879d1a835e99d433306d1aefeb",
+  "decoder_sha256": "11446d9728f7cb1743015cafd5d40c7df350d60666e808f07ba8f271d612421c",
+  "export_receipt_sha256": "491e4bdca2970b490dbba7954c72d8979895449cf79287cc6499d345afbc300c",
+  "schema": "sircus-guided-portable-full-roundtrip-v1",
+  "scope": "CPU-only full-run decoder/checkpoint extraction proof; unresolved contexts decoded solely for accounting. Not a substitute for independent native outcome or policy-membership audits.",
+  "source_result_sha256": "cd90e6ec9c1e1bc3729ca5113b67d98c6ebf680f0964cec68065acb1f98138ca",
+  "stages": {
+    "final": {
+      "contexts": 35,
+      "normalized_mean_actions_bit_identical": true,
+      "physical_mean_actions_bit_identical": true,
+      "weight_hash": "113ff6d36f8ec5e33ff8d4b1e413e6ff7fd3eb3684fa63f4a24656ef8cffd45d"
+    },
+    "initial": {
+      "contexts": 35,
+      "normalized_mean_actions_bit_identical": true,
+      "physical_mean_actions_bit_identical": true,
+      "weight_hash": "4eff092d6a4c027a9612295c5ebfbd09164c0810035d1376bc480c8e52c47048"
+    }
+  },
+  "status": "passed"
+}

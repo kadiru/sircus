@@ -1,0 +1,135 @@
+{
+  "guided": {
+    "frozen": {
+      "final": {
+        "test": {
+          "attempts": 40,
+          "captures": 8,
+          "clean": 0,
+          "invalid": 8,
+          "mean_reward": -0.17269461988680374,
+          "single_bounce": 8
+        },
+        "train": {
+          "attempts": 200,
+          "captures": 8,
+          "clean": 0,
+          "invalid": 64,
+          "mean_reward": -0.5751192061501134,
+          "single_bounce": 8
+        },
+        "validation": {
+          "attempts": 40,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 8,
+          "mean_reward": -0.6,
+          "single_bounce": 0
+        }
+      },
+      "initial": {
+        "test": {
+          "attempts": 40,
+          "captures": 8,
+          "clean": 0,
+          "invalid": 8,
+          "mean_reward": -0.17457234196058943,
+          "single_bounce": 8
+        },
+        "train": {
+          "attempts": 200,
+          "captures": 7,
+          "clean": 0,
+          "invalid": 72,
+          "mean_reward": -0.6066795613924004,
+          "single_bounce": 7
+        },
+        "validation": {
+          "attempts": 40,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 8,
+          "mean_reward": -0.6,
+          "single_bounce": 0
+        }
+      }
+    },
+    "training": {
+      "attempts": 1600,
+      "captures": 23,
+      "clean": 0,
+      "invalid": 879,
+      "mean_reward": -0.7443074354380852,
+      "single_bounce": 22
+    }
+  },
+  "guided_result_sha256": "cd90e6ec9c1e1bc3729ca5113b67d98c6ebf680f0964cec68065acb1f98138ca",
+  "original": {
+    "frozen": {
+      "final": {
+        "test": {
+          "attempts": 40,
+          "captures": 8,
+          "clean": 0,
+          "invalid": 16,
+          "mean_reward": -0.2719744834729455,
+          "single_bounce": 8
+        },
+        "train": {
+          "attempts": 200,
+          "captures": 32,
+          "clean": 0,
+          "invalid": 64,
+          "mean_reward": -0.3196393971992192,
+          "single_bounce": 32
+        },
+        "validation": {
+          "attempts": 40,
+          "captures": 8,
+          "clean": 8,
+          "invalid": 32,
+          "mean_reward": -0.45162703025892076,
+          "single_bounce": 8
+        }
+      },
+      "initial": {
+        "test": {
+          "attempts": 40,
+          "captures": 8,
+          "clean": 0,
+          "invalid": 24,
+          "mean_reward": -0.3729826772058698,
+          "single_bounce": 8
+        },
+        "train": {
+          "attempts": 200,
+          "captures": 8,
+          "clean": 0,
+          "invalid": 152,
+          "mean_reward": -0.7678205642935797,
+          "single_bounce": 8
+        },
+        "validation": {
+          "attempts": 40,
+          "captures": 8,
+          "clean": 8,
+          "invalid": 32,
+          "mean_reward": -0.45488387522170487,
+          "single_bounce": 8
+        }
+      }
+    },
+    "training": {
+      "attempts": 1600,
+      "captures": 62,
+      "clean": 25,
+      "invalid": 1214,
+      "mean_reward": -0.7907575241181888,
+      "single_bounce": 62
+    }
+  },
+  "original_result_sha256": "cf7e05910a22269330fc3ec89c10ed080ef0c5c67f3528b31c07e1b3735ca614",
+  "schema": "sircus-feasibility-guided-comparison-v1",
+  "scope": "Matched one-seed nominal-layout comparison; geometry-informed action support changes the proposal distribution. Include geometry precompute cost. No new-layout/noise robustness or physical validation claim.",
+  "status": "completed"
+}

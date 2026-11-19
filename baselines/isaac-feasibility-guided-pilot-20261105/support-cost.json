@@ -1,0 +1,22 @@
+{
+  "cpu_percent": 540,
+  "cuda_visible_devices": "",
+  "exit_code": 0,
+  "hard_timeout_s": 300,
+  "maximum_resident_set_kib": 223128,
+  "measurement": "GNU /usr/bin/time -v stdout, manually transcribed immediately after the completed CPU-only precompute",
+  "memory_scope": "GNU time maximum RSS; not the aggregate simultaneous eight-worker RSS peak, and not GPU memory",
+  "probe_accepted": 693,
+  "probe_requests": 1040,
+  "producer_commit": "2dabb21e87457f39b34616101ec224209dad710e",
+  "schema": "sircus-guided-support-cpu-cost-v1",
+  "scope": "Geometry-map support preprocessing only; no capture outcomes or native episodes, excludes the earlier global Sobol map cost",
+  "status": "completed",
+  "support_fingerprint": "2533099bc2e69239a088b8ce816e33c48708f3d64397badae055d25ae263589e",
+  "support_sha256": "c55bef7798e700d5a1faedc00fba910c934099199b1e7f93882490b6f3a153eb",
+  "supported_cells": 33,
+  "system_cpu_s": 0.29,
+  "user_cpu_s": 116.31,
+  "wall_s": 21.58,
+  "workers": 8
+}
