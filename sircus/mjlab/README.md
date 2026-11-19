@@ -1,5 +1,10 @@
 # Sircus in mjlab
 
+The [interactive learning interface](web/README.md) and [two completed learning
+studies](../../baselines/mjlab-learning-20261102/README.md) extend this contact
+comparison. Bucket dragging, positional locks, frozen prediction, explicit search
+and native trajectory verification are available. [Method and limits](LEARNING.md).
+
 This comparison runs the two-arm bounce task with mjlab's MuJoCo Warp backend and scores the recorded ball/contact traces using the existing Isaac-independent Python scoring code. The starting scene and selected shots come from the completed Isaac cylinder-farm study. This is a contact-model and endpoint replay comparison. The existing Isaac setup provides the reference implementation.
 
 ## Runtime
