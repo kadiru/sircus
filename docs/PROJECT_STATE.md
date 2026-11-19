@@ -1,5 +1,34 @@
 # Project state
 
+## XY650 translated-plane study — November 5, 2026
+
+- [Frozen protocol](../sircus/mjlab/XY650.md): translate board and bucket together
+  by nine ΔX−10/0/+10 mm, ΔY 40/60/80 mm offsets, retaining 650 mm distance/bearing.
+  243 H/T/G queries +9 translated old references +1 original =253 coarse;
+  unique top 3 ×27 local refinements, top 5 ×3 repeats at 64/128 and 24 controls:
+  maximum 388 requests. No noise or PPO.
+- New first-flight-only ranking excludes positions after subsequent contacts.
+  Center-plane aperture diagnostics remain separate from calibrated whole-ball
+  entry and one-second capture. Original scorers, materials and results remain.
+- CPU-only planning preflight admitted 105/253 targets, minimum 5.212 mm clearance;
+  this is not evidence of a ball flight or successful recipe.
+- [Completed native results](../baselines/mjlab-xy650-20261105/README.md): 388 requests,
+  228 native, 160 geometry rejects. Discovery 334/174 produced 24 rim captures, 0 clean.
+  Five selected settings each 3/3 rim at 64 and 0/3 at 128; 0 qualified. All 12 clean
+  all-phase captures belong to positive controls. Both control gates passed.
+- Original checker failed on a pre-calibration ancestor schema. Its failed proof,
+  logs, native source and observations remain unchanged. Separately frozen
+  audit v2 passed 80,138 checks against original evidence, with explicit calibration
+  ancestry intact; publisher/exporter use the new external proof. No physics rerun.
+- Unselected 30° coarse captures have UNKNOWN 128 outcomes. Frozen refinement
+  chose distinct XY targets in the same H/T/G family; future studies should
+  consider family diversity, impact offsets or tool yaw before more PPO.
+- New scene/query/execution identities, complete requested denominators and an
+  independent full audit gate the additive `xy650_study` UI. 4070/Isaac remain
+  separate; existing services are not restarted. Raw observations stay outside Git.
+- Draft [PR #70](https://github.com/kadiru/sircus/pull/70) is stacked on PR #69.
+  The finite 4090 workers have exited; no policy or noise study was started.
+
 ## Clean650 development sweep — November 4, 2026
 
 - [Frozen bounded protocol](../sircus/mjlab/CLEAN650.md):360 H/tilt/gap grid

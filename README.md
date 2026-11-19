@@ -10,6 +10,14 @@ The current goal is a simulation showcase with an interactively placed bucket an
 
 ## Start here
 
+- **Translated XY650 development search:** [bounded protocol](sircus/mjlab/XY650.md).
+  Board and bucket move together at fixed 650 mm distance/bearing; fresh strict
+  endpoints, first-flight-only ranking and matched 64/128 qualification. This
+  follows three fixed-XY searches with no qualified clean 650 recipe. The
+  [completed translated study](baselines/mjlab-xy650-20261105/README.md) found 24
+  rim-assisted discovery captures but 0 clean; five selected settings failed at 128
+  after 3/3 rim at 64. Corrected audit v2 passed 80,138 checks. No noise or new PPO.
+
 - **Sweep versus RL benchmark:** [matched current-ball protocol](sircus/mjlab/SWEEP_RL_BENCHMARK.md).
   All six workers completed: 1,024 spent TRAIN requests per method/seed, 6,144 TRAIN
   + 864 validation + 432 test requests, using the same 17-recipe historical prior.

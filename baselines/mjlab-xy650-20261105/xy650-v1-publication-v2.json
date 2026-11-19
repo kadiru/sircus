@@ -1,0 +1,11 @@
+{
+  "publication_commit": "ae28d42d352d40a61cc1cc5fc11e637063d612c3",
+  "index_before_sha256": "82de439527349d8bf25ac1f761899dd0c677568cce68f3c19ec018ffe6e9b89d",
+  "index_after_sha256": "52171a1b15c4eb0913a3885984ad20ad7c77245c27353e73976088542c0e1fc3",
+  "old_display_fields_preserved": true,
+  "audit_v2_sha256": "9a605b7b8fbb1cb99db966ae92f6488aab0895a5db4bc9116b05e5a7fdc0b439",
+  "original_failed_audit_sha256": "d41c5b9a306ffc569a823093b9fdd517791d24f75b4adfa99fc3839407966d6a",
+  "report_sha256": "58a74180e8749b66ac4c93b55f4000034ec5c9729a278296ca65b00875c54c5c",
+  "manifest_sha256": "b3db37072ba3a82ae3e366018bff0c7e70fc718aa3bd6938c350165279ed260f",
+  "services_restarted": false
+}
