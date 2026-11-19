@@ -36,12 +36,21 @@ p.add_argument(
     action="store_true",
     help="Render ten fixed silver camera options",
 )
+p.add_argument("--camera-option", type=int, choices=range(1, 11))
+p.add_argument("--camera-right-m", type=float, default=0.0)
+p.add_argument("--camera-z-m", type=float)
 AppLauncher.add_app_launcher_args(p)
 args = p.parse_args()
 if not args.enable_cameras:
     p.error("--enable_cameras is required")
 if args.camera_previews and (not args.dark_replay or args.appearance != "silver"):
     p.error("--camera-previews requires --dark-replay and --appearance silver")
+if args.camera_option is not None and not args.camera_previews:
+    p.error("--camera-option requires --camera-previews")
+if (
+    args.camera_right_m != 0 or args.camera_z_m is not None
+) and args.camera_option is None:
+    p.error("Camera adjustments require --camera-option")
 if shutil.disk_usage(args.output.parent).free < 3 * 1024**3:
     p.error("Less than 3 GiB free for filming")
 args.output.mkdir(exist_ok=False)

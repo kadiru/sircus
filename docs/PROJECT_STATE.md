@@ -4,7 +4,7 @@
 
 - [Ten native silver-gray previews](../baselines/isaac-camera-options-20261102/README.md) compare fixed views of the same 35-table scene. Whole source cases `r1c2` and `r1c7` exchange origins so a previously demonstrated case occupies the right-front corner; all targets/objects stay with their source cases. This does not solve the old rightmost target.
 - Native image/readback, source/transfer hashes and frozen-state checks passed; all ten final renders were visually inspected. The selected lighting is preserved and exposed sky is gray. 141 Isaac tests passed with one Torch-dependent skip; gallery layout/navigation checks passed. The finite 4090 job exited; 4070 and existing services were untouched.
-- Camera selection is pending before the [next one-minute orbit and fixed close-up film](../sircus/isaac/CAMERA_OPTIONS.md). These stills add no training updates, rollouts, new performance claims or physical validation.
+- View 06 was selected and [revised by shifting 0.30 m camera-right and raising Z to 2.0 m](../baselines/isaac-view06-z2-20261102/README.md), with its aim unchanged. The native still passed source/image hash and camera readback checks; 143 Isaac tests passed with one Torch-dependent skip. It waited for the existing learning run's GPU lock and did not interrupt either GPU workload. Review of this still precedes the [next one-minute orbit and fixed close-up film](../sircus/isaac/CAMERA_OPTIONS.md). These stills add no training updates, rollouts, new performance claims or physical validation.
 
 ## Silver-gray fixed-camera Isaac recording — November 2, 2026
 
