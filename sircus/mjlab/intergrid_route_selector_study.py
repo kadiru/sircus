@@ -30,9 +30,18 @@ VERSION = "sircus-intergrid-route-selector-study-v1"
 SPLIT_SEED = 2026112101
 POSITIONS = 50
 WORKERS = 8
+SOURCE_NAMES = ("model", "paired", "matched", "refit", "library")
 
 
 def run(args):
+    run_comparison(args, version=VERSION, split_seeds=(SPLIT_SEED,), positions=POSITIONS,
+                   methods=METHODS, load_inputs=load_selector_inputs, make_layouts=fresh_layouts,
+                   select=select_requests, summarize_outcomes=summarize)
+
+
+def run_comparison(args, *, version, split_seeds, positions, methods, load_inputs, make_layouts,
+                   select, summarize_outcomes, extra_source_names=()):
+    """Run matched one-drop methods using the same candidate and native evaluation pipeline."""
     from .cell1050_heading_native import HeadingEngine
     from .table_correction_native import MatchedEngine
 
@@ -42,21 +51,20 @@ def run(args):
     ref = load_runtime_reference(args.reference, args.assets, source)
     if (digest(ref["scene"]) != spec["identity"]["scene_sha256"]
             or ref["asset_hashes"] != spec["identity"]["asset_sha256"]
-            or any(importlib.metadata.version(name) != version for name, version in spec["packages"].items())):
+            or any(importlib.metadata.version(name) != pinned for name, pinned in spec["packages"].items())):
         raise ValueError("Scene, assets or dependencies differ from the audited controls")
-    checkpoint, original_rows, new_rows, previous, binding, route_history = load_selector_inputs(
-        args.history_root, args.model_study, args.model_audit, args.paired_study, args.paired_audit,
-        args.matched_study, args.matched_audit, args.refit_study, args.refit_audit,
-        args.library_study, args.library_audit)
+    sources = [getattr(args, f"{name}_{kind}") for name in (*SOURCE_NAMES, *extra_source_names)
+               for kind in ("study", "audit")]
+    checkpoint, original_rows, new_rows, previous, binding, route_history = load_inputs(args.history_root, *sources)
     refit_contract = read(args.refit_study / "contract.json")
     if (refit_contract["parent"] != parent_binding or refit_contract["identity"] != spec["identity"]
             or refit_contract["physics_substeps"] != 64 or refit_contract["label_version"] != LABEL_VERSION):
         raise ValueError("Frozen specialist uses a different simulation contract")
     prior = read(args.model_study / "training-prior.json")
-    layouts, provenance = fresh_layouts(args.history_root, parent / "grid.json", ref["scene"], args.assets,
-                                       previous, SPLIT_SEED)
-    if len(layouts) != POSITIONS or len({tuple(row["bucket_xy_m"]) for row in layouts}) != POSITIONS:
-        raise ValueError("Expected 50 distinct test positions")
+    layouts, provenance = make_layouts(args.history_root, parent / "grid.json", ref["scene"], args.assets,
+                                      previous, split_seeds[0])
+    if len(layouts) != positions or len({tuple(row["bucket_xy_m"]) for row in layouts}) != positions:
+        raise ValueError(f"Expected {positions} distinct test positions")
     output.mkdir(parents=True, exist_ok=False)
     report = dict(status="running", controls={}, test_prepared=0, test_releases=0)
     packet_number = 0
@@ -116,13 +124,15 @@ def run(args):
         if checkpoint_sha256 != binding["refit_study"]["checkpoint_sha256"]:
             raise ValueError("Frozen specialist checkpoint changed during copy")
         report["checkpoint_sha256"] = checkpoint_sha256
-        contract = dict(version=VERSION, parent=parent_binding, identity=spec["identity"], scene=spec["scene"],
-                        **binding, test_positions=POSITIONS, methods=list(METHODS), routes=list(ROUTES),
+        contract = dict(version=version, parent=parent_binding, identity=spec["identity"], scene=spec["scene"],
+                        **binding, test_positions=positions, methods=list(methods), routes=list(ROUTES),
                         attempts_per_method_per_position=1, candidate_budget_per_route=PER_ROUTE_TEST,
-                        physics_substeps=64, label_version=LABEL_VERSION, split_seed=SPLIT_SEED,
+                        physics_substeps=64, label_version=LABEL_VERSION, split_seed=split_seeds[0],
                         source_sha256=source_manifest(source),
                         frozen_inputs={name: sha(output / name) for name in (
                             "layouts.json", "training-prior.json", "route-models.json", "route-history.json")})
+        if len(split_seeds) > 1:
+            contract["split_seeds"] = list(split_seeds)
         contract["fingerprint"] = digest(contract)
         atomic(output / "contract.json", contract)
         setup, calibration = read(parent / "setup-home.json"), read(parent / "calibration.json")
@@ -150,12 +160,12 @@ def run(args):
                 admitted, records = future.result()
                 atomic(output / "test" / (layout["id"] + ".json"),
                        dict(proposals=proposals, admitted=admitted, records=records))
-                prepared[layout["id"]] = select_requests(layout, proposals, admitted, route_history)
+                prepared[layout["id"]] = select(layout, proposals, admitted, route_history)
                 report["test_prepared"] = len(prepared)
                 if len(prepared) % 5 == 0:
                     publish("preparing_test")
         slots = [slot for layout in layouts for slot in prepared[layout["id"]]]
-        if len(slots) != POSITIONS * len(METHODS):
+        if len(slots) != positions * len(methods):
             raise RuntimeError("The frozen comparison is missing an attempt slot")
         atomic(output / "choices.json", dict(checkpoint_sha256=checkpoint_sha256, slots=slots))
         report["choices_sha256"] = sha(output / "choices.json")
@@ -182,7 +192,7 @@ def run(args):
                 observations.update((row["id"], row) for row in execute(heading, batch, "test"))
                 report["test_releases"] = len(observations)
                 publish("testing")
-            report["comparison"] = summarize(layouts, slots, observations)
+            report["comparison"] = summarize_outcomes(layouts, slots, observations)
             run_controls("controls_post")
         atomic(output / "evidence-manifest.json", {
             str(path.relative_to(output)): sha(path) for path in sorted(output.rglob("*"))
@@ -196,17 +206,22 @@ def run(args):
         raise
 
 
-def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    for name in ("history-root", "model-study", "model-audit", "parent-study", "parent-audit",
-                 "reference", "assets", "gpu-lock", "output", "paired-study", "paired-audit",
-                 "matched-study", "matched-audit", "refit-study", "refit-audit", "library-study", "library-audit"):
+def parse_study_args(description, extra_source_names=()):
+    parser = argparse.ArgumentParser(description=description)
+    for name in ("history-root", "parent-study", "parent-audit", "reference", "assets", "gpu-lock", "output"):
         parser.add_argument("--" + name, type=Path, required=True)
+    for source in (*SOURCE_NAMES, *extra_source_names):
+        for kind in ("study", "audit"):
+            parser.add_argument(f"--{source}-{kind}", type=Path, required=True)
     parser.add_argument("--gpu-wait-s", type=int, default=7 * 3600)
     args = parser.parse_args()
     if args.output.exists() or args.gpu_wait_s <= 0:
         parser.error("Provide a fresh output directory and a positive GPU wait bound")
-    run(args)
+    return args
+
+
+def main():
+    run(parse_study_args(__doc__))
 
 
 if __name__ == "__main__":
