@@ -1,4 +1,41 @@
-# Current checkpoint — spatial grid completed, 2026-11-01 UTC
+# Current checkpoint — parallel world completed, 2026-11-01 UTC
+
+Run `parallel-world-20261101T205548Z-n32` used one isolated RTX 4090 PhysX scene
+with 32 tables, 64 arms and distinct fixed table-local bucket positions. It finished
+1, 090 attempts in 197.3 s: 64 controls, 896 searches and 130 fresh confirmations.
+Thirteen targets had selected settings; six passed 10/10 perturbed repeats each.
+Confirmation 107/130 captured, all single-board-bounce; 17 dropper IK rejects and 6
+released misses. No setting was found beyond 440 mm. This is parameter search,
+not new RL training or physical validation.
+
+All 32 fixed-target checks, five per-cell contact probes and the deliberate
+foreign-cell isolation test passed. All 1, 090 raw/compact rows, three artifact
+hashes and 48 source hashes matched. One-/four-cell reference runs completed;
+one borderline control changes outcome in 32 cells, so strict clone equivalence
+is not established. Geometry/provisional height status and older baselines are
+preserved. See [full evidence](../../baselines/isaac-parallel-world-20261101/README.md)
+and [method](PARALLEL_WORLD.md).
+
+Execution source: `~/sircus-isaac/studies/parallel-world-v4`.
+Raw outputs: `~/sircus-isaac/output/parallel-world-20261101T205548Z-n32`.
+One-cell reference: `parallel-world-20261101T205913Z-n1`.
+Four-cell smoke: `parallel-world-20261101T205442Z-n4` (v3; same physics, before
+render-history flush). Earlier v1/v2 camera dtype failures remain documented in
+local logs; they are not successful trials.
+
+The finite 4090 processes exited. At final inspection 4070 PID 976650 remained
+unchanged; no 4090 compute process remained. Read-only preview PID 2262680 serves
+port 18860 from `~/sircus-isaac/studies/parallel-viewer-v1/preview.py`, forwarded to
+Mac 18780. `/parallel-world.html` shows verified JSON/CSV, actual world renders and
+a 121-frame, 30 fps video. These are point-in-time process observations, not permission
+to signal these PIDs without checking. No hardware/Viam/audio services were changed.
+
+Next: feasibility-aware batched policy adapter and disjoint spatial evaluation;
+retain the full trajectory/pickup and perception boundaries.
+
+---
+
+# Historical checkpoint — spatial grid completed, 2026-11-01 UTC
 
 RTX4090 run `bucket-grid-20261101T193317Z` completed 689 parameter attempts in
 21.5 minutes. Three near cells passed 30/30 fresh perturbed shots each; two middle
