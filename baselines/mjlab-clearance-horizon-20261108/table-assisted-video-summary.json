@@ -1,0 +1,104 @@
+{
+  "version": "sircus-recorded-table-assisted-video-v1",
+  "status": "completed",
+  "shot_id": "ppo-20261411-train-00221",
+  "input_sha256": {
+    "contract": "43b802883b7406d39858286ebe4792099455f84f54314dad3b6e2918ec693ae0",
+    "calibration": "992d4e191fb678ff85e9e93c9099e311cac19efd47207e104f9887ecc7437358",
+    "metadata": "0d49ec4f86c7a9167303f96c61eaf2ace2d24bcf748a88560eca8932fb15336b",
+    "cache": "25c3ca2aa3feaae6990fcf7f90663b64ab5d3dacdb74e7f9a5c3ef1b02ef657b",
+    "evidence": "c07c7c4ff5af3759dc2e69852ec464bcc4440b793612dc525200aa5b0987047e",
+    "scene_file": "d359db50681b48847daa2df94c45befb96d91f53aae25543a62ca041c8d4d046"
+  },
+  "asset_sha256": {
+    "assets/board_arm.urdf": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340",
+    "assets/dropper.urdf": "3f40e56e46b040fb3339c1235ea85872f46511c45db2d37f7661db94a470bae3",
+    "assets/poses.json": "5847c2793606860a82cc74030c3fe529767318f189c5d48e3d66c0dc7b9f776a",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link1.stl": "4069840361c2693b5b1147da366d5ba8a49ff7ab2c52fed68e07e04e07786e3f",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link2.stl": "0e736a629e6000c3c912f5aaf76937f824f510ac8894db67bd0d7f1d6210fc52",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link3.stl": "f682201345117c4b021fd9db21bd9bef6824886c8324f046b7d5772d7c9fa426",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link4.stl": "7bf4ab507c07a2b26e6a8528decdfe32d71efffdf1dd391406f1ce2f9ff4caa7",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link5.stl": "103955f097086e0f5d46380ff89bc7ef669877bb65def38431a18fc5343e1ba0",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link6.stl": "86b95b77850f38ff1437284705a1c8c616e3da21faef72e4f06751fc741de3b3",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link_base.stl": "871d501d23e8164440656331ee0e005d859dbdb7fab1c3725bef423adac9cf0e"
+  },
+  "scene_sha256": "9a50295d9908be8634c2df1c0b460ec6011710cf8e14ce33cbc67a75749ff1c8",
+  "model_source_sha256": {
+    "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+    "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d"
+  },
+  "renderer_source_sha256": "1d1e76e41fca3a150c10450bbcc2b21329cfb53e916d7dbd6b3e8bdb19943f43",
+  "full_model_xml_sha256": "9f80c8616425d4f9afdb683cfa90593235bd95cd3e10c54d8cb60f3ee338a11f",
+  "backend": {
+    "renderer": "llvmpipe (LLVM 15.0.7, 256 bits)",
+    "vendor": "Mesa",
+    "software_only": true,
+    "cuda_visible_devices": "",
+    "backend": "egl"
+  },
+  "packages": {
+    "mujoco": "3.11.0",
+    "numpy": "1.26.4",
+    "Pillow": "12.3.0",
+    "imageio": "2.38.0"
+  },
+  "width": 1280,
+  "height": 720,
+  "fps": 30,
+  "cameras": {
+    "overview": {
+      "lookat": [
+        0.65,
+        -0.3,
+        0.31
+      ],
+      "distance": 2.7,
+      "azimuth": -115.64463469164468,
+      "elevation": -32.0
+    },
+    "close": {
+      "lookat": [
+        0.8443461298942565,
+        -0.439665649831295,
+        0.25
+      ],
+      "distance": 1.55,
+      "azimuth": -135.64463469164468,
+      "elevation": -30.0
+    }
+  },
+  "native_dt_s": 6.510416666666667e-05,
+  "native_steps_added": 0,
+  "held_arm_poses": true,
+  "sampled_ball_centers_only": true,
+  "ball_spin_recorded": false,
+  "source_interval_s": [
+    0.0,
+    2.5
+  ],
+  "original_score": {
+    "success": true,
+    "complete_success": false,
+    "route_success": false,
+    "board_bounce": true,
+    "whole_ball_entry": true,
+    "max_retention_s": 1.0,
+    "invalid_physics": false,
+    "reward": 0.025282141534440417,
+    "external_contact_steps": 26,
+    "scoring_version": "sircus-calibrated-native-capture-v2",
+    "route_version": "sircus-calibrated-board-route-v2",
+    "reward_version": "sircus-calibrated-shot-reward-v2",
+    "calibration_fingerprint": "ab0d2b5b0bcb9122b0ca3e996501d33a6ebe1069e57aebd11d7643a597f55a20"
+  },
+  "intended_task_success": true,
+  "intended_task_success_basis": "User accepts table-assisted whole-ball bucket capture retained for one continuous second",
+  "historical_labels_unchanged": true,
+  "policy_reliability_established": false,
+  "frames_sha256": "617e5c84dad63afa97c78340a33f1e9994ca686930f1094ff00c48f28acea391",
+  "output_sha256": "f301cb17459efd7432f383cda74f41d61ab9c4e3541513fe5b2f0899c9e3e53c",
+  "scope": "Visual replay of one recorded native training attempt, with static saved joint poses; no new rollout, training, scoring relabel or synthesized trajectory.",
+  "duration_s": 15,
+  "frames": 450,
+  "video_bytes": 541310
+}

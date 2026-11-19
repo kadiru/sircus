@@ -1,5 +1,17 @@
 # Project state
 
+## Table-assisted task clarification and recorded replay — November 8, 2026
+
+- The user explicitly accepts board → table → bucket captures with one second
+  of retention. The old table-contact exclusion was an implementation choice,
+  not a user requirement. Historical scorer/reward labels remain for traceability;
+  this clarification does not claim a newly trained policy or silently change
+  the existing runtime scorer. Future training must use a versioned definition
+  that gives this route credit.
+- The exact historical PPO shot has a saved 15,360 Hz ball trajectory and held
+  arm endpoints. It can be rendered without rerunning physics or inventing arm
+  motion. The replay is recorded simulation data, not generated imagery.
+
 ## Completed case 01 horizon-only replay — November 8, 2026
 
 - [Frozen protocol](../sircus/mjlab/CLEARANCE_HORIZON.md): same candidate, joints,
