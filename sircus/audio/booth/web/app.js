@@ -1,8 +1,11 @@
 'use strict';
 import {FXControls} from '/fx-controls.mjs';
+import {BoostControls} from '/boost-controls.mjs';
 const fxControls=new FXControls({request:(path,body)=>act(path,body),clientId:crypto.randomUUID()});
 let fxPending=0;
 const $=id=>document.getElementById(id);
+const SHOW_INPUT='__four_ball_show__';
+const boostControls=new BoostControls({request:(path,body)=>act(path,body),onChange:paintBoost});
 const titles={boing:'Haunted BOING',bone_low:'Low bone clack',bone_high:'High bone clack',eerie_bell:'Eerie bell',pinball:'Ghost pinball',transport:'Energy hum',release:'Falling whistle',capture:'Spooky victory',miss:'Oops, a ghost'};
 let state=null,sounds=[],events=[],assignments=null,selected='impact',snapshot='',applied='',cursor=0,lines=[],mappingDirty=false,polling=false;
 const clone=x=>JSON.parse(JSON.stringify(x));
@@ -36,22 +39,28 @@ async function applyProfile(){
   if(JSON.stringify(assignments)!==applied){await act('profile',{action:'apply',assignments});applied=JSON.stringify(assignments);noteDirty();}
 }
 function paintStatus(){
+  boostControls.observe(state);
   if(!fxPending)$('fx').checked=state.fx_enabled;
   $('badge').textContent=fxPending?'FX CHANGE PENDING':state.fx_enabled?'FX LIVE':'FX OFF';$('badge').className=state.fx_enabled?'live':'';
   if(document.activeElement!==$('volume'))$('volume').value=Math.round(state.volume*100);$('volval').textContent=Math.round(state.volume*100)+'%';$('mode').value=state.mode;$('meter').style.width=Math.min(100,state.audio_meter_peak*100)+'%';
-  const key=JSON.stringify(state.inputs);if($('input').dataset.key!==key){$('input').replaceChildren(new Option('No MIDI input · use previews',''));for(const p of state.inputs){const option=new Option(p.name+(p.online?'':' · offline')+' · ID '+p.id,p.id);option.disabled=!p.online;$('input').append(option);}$('input').dataset.key=key;}$('input').value=state.selected_input??'';
-  $('connection').textContent=(state.audio_ready?'Mac audio ready':'Audio unavailable')+' · '+(state.connected?'Selected ball connected':'No ball selected / connected')+(state.last_midi_age_s===null?'':' · Last MIDI '+state.last_midi_age_s+'s ago')+(state.recording?' · Recording MIDI':'');
-  $('trial').textContent=(state.domain==='simulation'?'Synthetic replay. Click “Return to live ball” to resume taps.':state.domain==='recorded_midi'||state.playback_source==='events'?'Recorded trace selected. Click “Return to live ball” to resume taps.':state.armed?'Live trial armed.':'Live ball ready; '+(state.mode==='free'?'every tap uses Bounce / impact.':'click Release / arm live trial before taps.'))+(state.loop_event?' Loop: '+state.loop_event+'.':'');
+  const show=state.show_audio?.configured===true,bound=state.show_audio?.bound_ball_count??0,connected=state.show_audio?.connected_ball_count??0;
+  const key=JSON.stringify({inputs:state.inputs,show,bound,connected});if($('input').dataset.key!==key){$('input').replaceChildren(new Option('No MIDI input · use previews',''));if(show){const option=new Option(`Four-ball show · ${connected}/${bound} connected`,SHOW_INPUT);option.disabled=true;$('input').append(option);}for(const p of state.inputs){const option=new Option(p.name+(p.online?'':' · offline')+' · ID '+p.id,p.id);option.disabled=!p.online;$('input').append(option);}$('input').dataset.key=key;}$('input').value=show?SHOW_INPUT:state.selected_input??'';
+  $('connection').textContent=(state.audio_ready?'Mac audio ready':'Audio unavailable')+' · '+(show?`Four-ball show · ${bound} bound · ${connected} connected`:(state.connected?'Selected ball connected':'No ball selected / connected'))+(state.last_midi_age_s===null?'':' · Last MIDI '+state.last_midi_age_s+'s ago')+(state.recording?' · Recording MIDI':'');
+  $('trial').textContent=(show?'Four-ball show: mapped live impacts sound only within each ball’s bounded release window. ':'')+(state.domain==='simulation'?'Synthetic replay. Click “Return to live ball” to resume taps.':state.domain==='recorded_midi'||state.playback_source==='events'?'Recorded trace selected. Click “Return to live ball” to resume taps.':show?'Use the dashboard’s ball-specific release cues to open those windows.':state.armed?'Live trial armed.':'Live ball ready; '+(state.mode==='free'?'every tap uses Bounce / impact.':'click Release / arm live trial before taps.'))+(state.loop_event?' Loop: '+state.loop_event+'.':'');
   for(const button of document.querySelectorAll('[data-play]'))button.disabled=!state.fx_enabled;
   $('replay').disabled=!state.fx_enabled;
   if(!mappingDirty){$('note').value=state.mapping.impact_note;$('channel').value=state.mapping.channel;$('dedup').value=state.mapping.exact_duplicate_ms;}
   if(state.last_error)fail(state.last_error);
 }
+function paintBoost(){
+  const boost=boostControls.view();$('boost').checked=boost.checked;$('boost').disabled=boost.disabled;
+  $('boost-status').textContent=boost.text;$('boost-error').textContent=boost.error;$('boost-error').hidden=!boost.error;
+}
 async function refresh(){
-  if(polling||fxPending)return;polling=true;
-  const sequence=fxControls.sequence;
-  try{const current=await request('status');if(sequence!==fxControls.sequence)return;state=current;if($('error').textContent.startsWith('Bridge disconnected:'))$('error').textContent='';events=state.events;if(!assignments)setProfile(state.profile);paintStatus();const m=await request('monitor?after='+cursor);cursor=m.seq;for(const e of m.events)lines.push(JSON.stringify(e));lines=lines.slice(-100);$('monitor').textContent=lines.join('\n');$('monitor').scrollTop=$('monitor').scrollHeight;}
-  catch(error){$('badge').textContent='DISCONNECTED';$('fx').checked=false;for(const b of document.querySelectorAll('[data-play]'))b.disabled=true;fail('Bridge disconnected: '+error.message);}
+  if(polling||fxPending||boostControls.localPending)return;polling=true;
+  const sequence=fxControls.sequence,boostSequence=boostControls.sequence;
+  try{const current=await request('status');if(sequence!==fxControls.sequence||boostSequence!==boostControls.sequence)return;state=current;if($('error').textContent.startsWith('Bridge disconnected:'))$('error').textContent='';events=state.events;if(!assignments)setProfile(state.profile);paintStatus();const m=await request('monitor?after='+cursor);cursor=m.seq;for(const e of m.events)lines.push(JSON.stringify(e));lines=lines.slice(-100);$('monitor').textContent=lines.join('\n');$('monitor').scrollTop=$('monitor').scrollHeight;}
+  catch(error){$('badge').textContent='DISCONNECTED';$('fx').checked=false;boostControls.disconnect();for(const b of document.querySelectorAll('[data-play]'))b.disabled=true;fail('Bridge disconnected: '+error.message);}
   finally{polling=false;}
 }
 async function changeFX(panic=false){
@@ -62,7 +71,8 @@ async function changeFX(panic=false){
 }
 bind('fx',()=>changeFX(),'change');bind('panic',()=>changeFX(true));bind('stop',()=>act('stop',{}));
 bind('volume',()=>{$('volval').textContent=$('volume').value+'%';},'input');bind('volume',()=>act('volume',{volume:Number($('volume').value)/100}),'change');
-bind('input',async()=>{await act('input',{id:$('input').value===''?null:Number($('input').value)});await refresh();},'change');bind('mode',()=>act('mode',{mode:$('mode').value}),'change');
+bind('boost',async()=>{try{await boostControls.setBoost($('boost').checked);}finally{await refresh();}},'change');
+bind('input',async()=>{const value=$('input').value;if(value===SHOW_INPUT)return;await act('input',{id:value===''?null:Number(value)});await refresh();},'change');bind('mode',()=>act('mode',{mode:$('mode').value}),'change');
 bind('load',async()=>setProfile(await act('profile',{action:'load',name:$('profile').value})));
 bind('save',async()=>setProfile(await act('profile',{action:'save',name:$('profile-name').value.trim(),assignments})));
 bind('apply-profile',applyProfile);bind('none',()=>{assignments[selected].sounds=[];renderEditor();noteDirty();});
