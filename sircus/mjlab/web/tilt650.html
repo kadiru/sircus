@@ -1,0 +1,32 @@
+<!-- Additive read-only fragment: keep the original XY650 and clean650 panels. -->
+<!--TILT650_STYLE-->
+<section id="tilt650Study" class="tilt650-panel" hidden>
+  <p class="tilt650-eyebrow">650 MM · FIVE PRESELECTED 30° SETTINGS · NOMINAL VERIFICATION</p>
+  <h2>Does the 30° family repeat at both timesteps?</h2>
+  <p data-tilt650="connection" class="tilt650-small" role="status">Waiting for a read-only snapshot.</p>
+  <p data-tilt650="status" class="tilt650-status"></p>
+  <p data-tilt650="scope" class="tilt650-note"></p>
+  <p data-tilt650="plan" class="tilt650-note"></p>
+  <div data-tilt650="summary" class="tilt650-scroll" tabindex="0" role="region" aria-label="Tilt-30 study all-phase totals"></div>
+  <p class="tilt650-small">All-phase totals include controls. Controls are not target-setting successes. Requested shots include any geometry rejection; native releases, clean captures and rim-contact captures are counted separately. This panel verifies five previously unselected coarse captures from XY650; it does not search a new fine grid.</p>
+  <h3>Requested work by phase</h3>
+  <div data-tilt650="phases" class="tilt650-scroll" tabindex="0" role="region" aria-label="Control and verification request counts"></div>
+  <p data-tilt650="plan-detail" class="tilt650-small"></p>
+  <h3>Matched controls before and after verification</h3>
+  <div data-tilt650="controls" class="tilt650-scroll" tabindex="0" role="region" aria-label="Initial and final matched positive and negative controls"></div>
+  <h3>Five fixed candidate settings</h3>
+  <div data-tilt650="settings" class="tilt650-scroll" tabindex="0" role="region" aria-label="Source setting geometry and heights"></div>
+  <p class="tilt650-small">ΔX/ΔY is the shared board-and-bucket translation from the original scene, retaining 650 mm separation and bearing. Board XY and bucket XY are configured world coordinates. Release height is the ball center above tabletop; gap is ball-bottom clearance above the board-center plane. Parent discovery captures were rim-assisted; fresh capture and fresh clean qualification are distinct.</p>
+  <h3>64 / 128 substeps · three nominal repeats each</h3>
+  <p data-tilt650="result" class="tilt650-note" role="status" data-state="unknown">Unverified.</p>
+  <div data-tilt650="verification" class="tilt650-scroll" tabindex="0" role="region" aria-label="Matched capture and clean qualification"></div>
+  <p class="tilt650-small">Capture qualification requires three captures at each resolution, passed before/after controls, valid physics, independent scoring agreement and ≤5 mm paired displacement at 350 ms. Clean qualification additionally requires every capture to be clean. Whole-ball entry and one continuous second retained define capture; rim-assisted captures still count. Three identical nominal repeats are not noise robustness.</p>
+  <h3>Actual saved native flight</h3>
+  <label class="tilt650-small">Recorded trial <select data-tilt650="trace-select" aria-label="Choose a tilt-30 verification trial"></select></label>
+  <canvas data-tilt650="trace" width="820" height="280" role="img" aria-label="Actual saved native ball flight toward this trial's bucket"></canvas>
+  <p data-tilt650="trace-caption" class="tilt650-small"></p>
+  <p data-tilt650="audit" class="tilt650-note"></p>
+  <p class="tilt650-small">This is a bounded 54-request diagnostic follow-up. If no candidate captures at both timesteps, stop blind grid expansion and diagnose contacts and outgoing ball velocity before another search. An impact-point study is a possible later decision, not an automatic next run. Noise and further PPO remain deferred. Prescribed held endpoints do not validate grasping, arm transit, actuator tracking or physical deployment. Bucket height remains reported 175 mm, with overall height versus interior depth unconfirmed.</p>
+  <p class="tilt650-small">Earlier XY650, clean-650 profiles and calibrated replay retain their original fingerprints and definitions. This panel reads evidence only; it does not change controls or activate a policy.</p>
+</section>
+<!--TILT650_SCRIPT-->

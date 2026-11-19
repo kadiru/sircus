@@ -1,0 +1,1297 @@
+{
+  "version": "sircus-tilt30-650-posthoc-contact-diagnostic-v1",
+  "scope": "POSTHOC CPU-only descriptive analysis of first nominal matched64/128 saved native traces. Not a new shot, qualified evidence, independent audit, perception validation or causal counterfactual. Existing capture labels and historical evidence unchanged.",
+  "created_utc": "2026-11-06T02:07:09.399318+00:00",
+  "source_contract_fingerprint": "b6a56fc0e1ca045ce7fb5067d4b5e74502404780dee433162b740f6342ab8fd2",
+  "source_contract_sha256": "904c125e7b4e22b531bf6adaf3fa274d79408e57dc019a4a847eec61c2b75eae",
+  "analysis_code_sha256": "6be07ce06e509c2ba265d247d9e4024024510cb72b070b6f9a919e8490cd5d96",
+  "analysis_code": "def analyze(position,velocity,force,times,normal,board_xy,bucket_xy,rim,radius,score_stop):\n import numpy as np\n names=(\"board\",\"bucket\",\"table\",\"floor\",\"robot\",\"unattributed\")\n axis=np.asarray(bucket_xy)-board_xy;axis=axis/np.linalg.norm(axis);side=np.array([-axis[1],axis[0]])\n board=force[:,0]>.01;last=np.maximum.accumulate(np.where(board,times[1:],-np.inf))\n rebound=(~board)&(times[1:]-last<=.05+1e-12)&((velocity[1:]@np.asarray(normal))>.05)\n ids=np.flatnonzero(rebound);start=int(ids[0])+1 if len(ids) else None\n if start is None:return {\"available\":False,\"reason\":\"no_board_rebound\"}\n bucket=np.flatnonzero((force[:,1]>.01)&(np.arange(len(force))>=start));hit=int(bucket[0]) if len(bucket) else None\n def velocities(index):\n  return dict(forward_m_s=float(velocity[index,:2]@axis),lateral_m_s=float(velocity[index,:2]@side),vertical_m_s=float(velocity[index,2]),speed_m_s=float(np.linalg.norm(velocity[index])))\n def relative_state(index):\n  delta=position[index,:2]-bucket_xy\n  return dict(longitudinal_relative_bucket_mm=float(delta@axis*1000),lateral_relative_bucket_mm=float(delta@side*1000),radial_distance_mm=float(np.linalg.norm(delta)*1000),center_height_over_rim_mm=float((position[index,2]-rim)*1000),ball_bottom_height_over_rim_mm=float((position[index,2]-radius-rim)*1000),velocity=velocities(index))\n result=dict(available=True,rebound_state_index=start,rebound_time_s=float(times[start]),outgoing_velocity=velocities(start),first_bucket_force_interval=hit)\n stop=min(int(score_stop),len(force));events={}\n for k,name in enumerate(names):\n  active=np.flatnonzero(force[:stop,k]>.01)\n  events[name]=dict(active_force_intervals=int(len(active)),first_active_time_s=float(times[active[0]]) if len(active) else None)\n result[\"contact_channels_through_original_score_terminal\"]=events\n result[\"original_score_terminal_time_s\"]=float(times[stop])\n if hit is not None:\n  after=min(int(np.searchsorted(times,times[hit]+.02)),len(position)-1)\n  end=min(after,len(force));duration=np.diff(times)[hit:end]\n  result.update(first_bucket_contact_time_s=float(times[hit]),first_bucket_force_N=float(force[hit,1]),first_bucket_channels=[names[i] for i in np.flatnonzero(force[hit]>.01)],pre_contact=relative_state(hit),post_first_interval=relative_state(hit+1),after20ms=relative_state(after),after20ms_time_s=float(times[after]),rim_band_at_first_contact=bool(max(position[hit,2],position[hit+1,2])+radius>=rim-.002),bucket_force_norm_integral_first20ms_N_s=float((force[hit:end,1]*duration).sum()),peak_bucket_force_first20ms_N=float(force[hit:end,1].max()) if end>hit else None)\n return result\n",
+  "method": {
+    "rebound": "Exact calibrated scorer rule: first contact-free force interval within50ms of board force>.01N and end-state outward normal velocity>.05m/s; rebound state is interval+1.",
+    "bucket": "First bucket force interval>.01N at/after rebound; pre-contactstate p[k], poststate p[k+1].",
+    "axes": "Longitudinal along board-to-bucket axis, negative is short/near side; lateral is perpendicular. No raw worldXY or joint arrays are exported.",
+    "after20ms": "First sampled state at least20ms after first bucket contact. Force integral uses force norms times native interval duration, not vector impulse.",
+    "contacts": "Channel counts/times stop at each original scoring terminal; unequal64/128 horizons must not be interpreted as equal-duration event-rate comparisons.",
+    "qualification": "First nominal only; root independent audit/repeatability gates remain authoritative. Contact forces are uncalibrated simulation observations, not real material measurements.",
+    "postrim_crossing": "First measured descending ball-center rim-plane crossing after first rim contact and before next non-bucket/non-board external contact. It may include subsequent bucket contact and is not a free-flight/clean-entry metric."
+  },
+  "pairs": [
+    {
+      "parent_source_record_id": "coarse-64-xy-grid-0043-r0",
+      "exact_requested_targets_and_q_match": true,
+      "by_substeps": {
+        "64": {
+          "available": true,
+          "rebound_state_index": 4422,
+          "rebound_time_s": 0.287890625,
+          "outgoing_velocity": {
+            "forward_m_s": 1.7939858993981568,
+            "lateral_m_s": 0.01752545014978435,
+            "vertical_m_s": 0.7718526124954224,
+            "speed_m_s": 1.9530614614486694
+          },
+          "first_bucket_force_interval": 9007,
+          "contact_channels_through_original_score_terminal": {
+            "board": {
+              "active_force_intervals": 28,
+              "first_active_time_s": 0.2860026041666667
+            },
+            "bucket": {
+              "active_force_intervals": 5519,
+              "first_active_time_s": 0.5863932291666667
+            },
+            "table": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            },
+            "floor": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            },
+            "robot": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            },
+            "unattributed": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            }
+          },
+          "original_score_terminal_time_s": 2.2837239583333333,
+          "first_bucket_contact_time_s": 0.5863932291666667,
+          "first_bucket_force_N": 310.99664306640625,
+          "first_bucket_channels": [
+            "bucket"
+          ],
+          "pre_contact": {
+            "longitudinal_relative_bucket_mm": -112.46924627452343,
+            "lateral_relative_bucket_mm": 5.280525402616205,
+            "radial_distance_mm": 112.5931405818626,
+            "center_height_over_rim_mm": 35.193291204633105,
+            "ball_bottom_height_over_rim_mm": -2.3067087953669017,
+            "velocity": {
+              "forward_m_s": 1.7939858993981568,
+              "lateral_m_s": 0.01752545014978435,
+              "vertical_m_s": -2.1565375328063965,
+              "speed_m_s": 2.8052356243133545
+            }
+          },
+          "post_first_interval": {
+            "longitudinal_relative_bucket_mm": -112.35489289202832,
+            "lateral_relative_bucket_mm": 5.281710267071263,
+            "radial_distance_mm": 112.4789687902785,
+            "center_height_over_rim_mm": 35.05897213763176,
+            "ball_bottom_height_over_rim_mm": -2.4410278623682444,
+            "velocity": {
+              "forward_m_s": 1.7566520420755194,
+              "lateral_m_s": 0.018462298181341374,
+              "vertical_m_s": -2.063080072402954,
+              "speed_m_s": 2.7096986770629883
+            }
+          },
+          "after20ms": {
+            "longitudinal_relative_bucket_mm": -104.55315848578972,
+            "lateral_relative_bucket_mm": 6.745807349093899,
+            "radial_distance_mm": 104.77055343055966,
+            "center_height_over_rim_mm": 68.64937831705986,
+            "ball_bottom_height_over_rim_mm": 31.149378317059856,
+            "velocity": {
+              "forward_m_s": 0.34448703852532386,
+              "lateral_m_s": 0.07474712995590904,
+              "vertical_m_s": 1.7134509086608887,
+              "speed_m_s": 1.7493349313735962
+            }
+          },
+          "after20ms_time_s": 0.6064453125,
+          "rim_band_at_first_contact": true,
+          "bucket_force_norm_integral_first20ms_N_s": 0.86361475723484,
+          "peak_bucket_force_first20ms_N": 750.2481079101562,
+          "record_id": "verification-64-tilt30-00-r0",
+          "parent_source_record_id": "coarse-64-xy-grid-0043-r0",
+          "substeps": 64,
+          "repeat_index": 0,
+          "record_sha256": "2910e3179e1233ab6441ad2ab141da03bd9bae3cbe615d2f77c67e615e78f10c",
+          "cache_sha256": "96297a7c57696e3740f1bc1ac220f29172844ee80ab8e011c26cd678130f528b",
+          "query_fingerprint": "03c5288d04f2407f14ef1598d940fe24ee23f7e64c44e834fc973b75e2965d45",
+          "execution_fingerprint": "361591f171218ba972958ecb2374596d9f23f20d0759ef855b8a4927cfd73f7a",
+          "original_labels": {
+            "route_success": true,
+            "route_quality": 1,
+            "whole_ball_entry": true,
+            "whole_ball_entry_time_s": 1.0102864583333333,
+            "first_mouth_passage_time_s": 1.0102864583333333,
+            "rim_band_contact": true,
+            "max_retention_s": 1.0,
+            "invalid": null,
+            "invalid_physics": false,
+            "external_contact_steps": 0
+          },
+          "postrim_observation": {
+            "external_cutoff_time_s": null,
+            "first_descending_center_crossing": {
+              "time_s": 0.991997067743212,
+              "longitudinal_relative_bucket_mm": 28.36358542016195,
+              "lateral_relative_bucket_mm": 35.68801207190869,
+              "radial_distance_mm": 45.58648027136471
+            }
+          },
+          "pose_gate_scalar_errors": {
+            "board_position_error_mm": 0.0001560110918354877,
+            "board_normal_error_deg": 0.0,
+            "dropper_error_mm": 4.121415309682581e-05
+          }
+        },
+        "128": {
+          "available": true,
+          "rebound_state_index": 8842,
+          "rebound_time_s": 0.28782552083333335,
+          "outgoing_velocity": {
+            "forward_m_s": 1.8090886245503635,
+            "lateral_m_s": 0.01746553408573115,
+            "vertical_m_s": 0.7937082052230835,
+            "speed_m_s": 1.975621223449707
+          },
+          "first_bucket_force_interval": 18076,
+          "contact_channels_through_original_score_terminal": {
+            "board": {
+              "active_force_intervals": 54,
+              "first_active_time_s": 0.28603515625
+            },
+            "bucket": {
+              "active_force_intervals": 53,
+              "first_active_time_s": 0.5884114583333333
+            },
+            "table": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            },
+            "floor": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            },
+            "robot": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            },
+            "unattributed": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            }
+          },
+          "original_score_terminal_time_s": 1.08818359375,
+          "first_bucket_contact_time_s": 0.5884114583333333,
+          "first_bucket_force_N": 244.73558044433594,
+          "first_bucket_channels": [
+            "bucket"
+          ],
+          "pre_contact": {
+            "longitudinal_relative_bucket_mm": -104.41222887701633,
+            "lateral_relative_bucket_mm": 5.268960387136465,
+            "radial_distance_mm": 104.54508827595706,
+            "center_height_over_rim_mm": 37.20199753588616,
+            "ball_bottom_height_over_rim_mm": -0.2980024641138501,
+            "velocity": {
+              "forward_m_s": 1.8090886245503635,
+              "lateral_m_s": 0.01746553408573115,
+              "vertical_m_s": -2.1551308631896973,
+              "speed_m_s": 2.813839912414551
+            }
+          },
+          "post_first_interval": {
+            "longitudinal_relative_bucket_mm": -104.35364874391006,
+            "lateral_relative_bucket_mm": 5.269514677721368,
+            "radial_distance_mm": 104.48661058291671,
+            "center_height_over_rim_mm": 37.133094566525806,
+            "ball_bottom_height_over_rim_mm": -0.3669054334742017,
+            "velocity": {
+              "forward_m_s": 1.7999199771033754,
+              "lateral_m_s": 0.01741215566590759,
+              "vertical_m_s": -2.116685152053833,
+              "speed_m_s": 2.7785556316375732
+            }
+          },
+          "after20ms": {
+            "longitudinal_relative_bucket_mm": -78.25510945524726,
+            "lateral_relative_bucket_mm": 5.774400842893823,
+            "radial_distance_mm": 78.4678651483978,
+            "center_height_over_rim_mm": 64.84198262041984,
+            "ball_bottom_height_over_rim_mm": 27.34198262041984,
+            "velocity": {
+              "forward_m_s": 1.2888794973552187,
+              "lateral_m_s": 0.025382530168520323,
+              "vertical_m_s": 1.4198380708694458,
+              "speed_m_s": 1.9177577495574951
+            }
+          },
+          "after20ms_time_s": 0.6084309895833333,
+          "rim_band_at_first_contact": true,
+          "bucket_force_norm_integral_first20ms_N_s": 0.7616992999275739,
+          "peak_bucket_force_first20ms_N": 661.312744140625,
+          "record_id": "verification-128-tilt30-00-r0",
+          "parent_source_record_id": "coarse-64-xy-grid-0043-r0",
+          "substeps": 128,
+          "repeat_index": 0,
+          "record_sha256": "bfb6990f057bed014faf55c277064557031f6f36d6cb5ed4530acbb618ef5b60",
+          "cache_sha256": "6d3e83834b64561db6aa140b69e2472df5b49d65a14953535df66a45aaff1f00",
+          "query_fingerprint": "03c5288d04f2407f14ef1598d940fe24ee23f7e64c44e834fc973b75e2965d45",
+          "execution_fingerprint": "43a9812bb26a919e9a0bb3542f00f65802a42d5149c4aced4ea2205ad98d89a4",
+          "original_labels": {
+            "route_success": false,
+            "route_quality": 0,
+            "whole_ball_entry": false,
+            "whole_ball_entry_time_s": null,
+            "first_mouth_passage_time_s": null,
+            "rim_band_contact": true,
+            "max_retention_s": 0.0,
+            "invalid": null,
+            "invalid_physics": false,
+            "external_contact_steps": 0
+          },
+          "postrim_observation": {
+            "external_cutoff_time_s": 1.2241536458333333,
+            "first_descending_center_crossing": {
+              "time_s": 0.9379654248812324,
+              "longitudinal_relative_bucket_mm": 346.526583568195,
+              "lateral_relative_bucket_mm": 14.163343991750676,
+              "radial_distance_mm": 346.8159071214495
+            }
+          },
+          "pose_gate_scalar_errors": {
+            "board_position_error_mm": 0.0001560110918354877,
+            "board_normal_error_deg": 0.0,
+            "dropper_error_mm": 4.121415309682581e-05
+          }
+        }
+      },
+      "delta128_minus64": {
+        "outgoing_forward_m_s": 0.015102725152206675,
+        "outgoing_vertical_m_s": 0.021855592727661133,
+        "first_bucket_longitudinal_mm": 8.057017397507096,
+        "first_bucket_bottom_height_mm": 2.0087063312530518
+      },
+      "actual_native_initial_joints_bitwise_equal": true
+    },
+    {
+      "parent_source_record_id": "coarse-64-xy-grid-0070-r0",
+      "exact_requested_targets_and_q_match": true,
+      "by_substeps": {
+        "64": {
+          "available": true,
+          "rebound_state_index": 4422,
+          "rebound_time_s": 0.287890625,
+          "outgoing_velocity": {
+            "forward_m_s": 1.7943440702349491,
+            "lateral_m_s": 0.017135807082391485,
+            "vertical_m_s": 0.7716827988624573,
+            "speed_m_s": 1.9533199071884155
+          },
+          "first_bucket_force_interval": 9006,
+          "contact_channels_through_original_score_terminal": {
+            "board": {
+              "active_force_intervals": 28,
+              "first_active_time_s": 0.2860026041666667
+            },
+            "bucket": {
+              "active_force_intervals": 5287,
+              "first_active_time_s": 0.586328125
+            },
+            "table": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            },
+            "floor": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            },
+            "robot": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            },
+            "unattributed": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            }
+          },
+          "original_score_terminal_time_s": 2.2903645833333335,
+          "first_bucket_contact_time_s": 0.586328125,
+          "first_bucket_force_N": 269.93255615234375,
+          "first_bucket_channels": [
+            "bucket"
+          ],
+          "pre_contact": {
+            "longitudinal_relative_bucket_mm": -112.45302955193785,
+            "lateral_relative_bucket_mm": 5.113942477136195,
+            "radial_distance_mm": 112.56925096609848,
+            "center_height_over_rim_mm": 35.28326441592156,
+            "ball_bottom_height_over_rim_mm": -2.2167355840784495,
+            "velocity": {
+              "forward_m_s": 1.7943440702349491,
+              "lateral_m_s": 0.017135807082391485,
+              "vertical_m_s": -2.1560685634613037,
+              "speed_m_s": 2.8051018714904785
+            }
+          },
+          "post_first_interval": {
+            "longitudinal_relative_bucket_mm": -112.33834974878523,
+            "lateral_relative_bucket_mm": 5.11508967537954,
+            "radial_distance_mm": 112.45474185941458,
+            "center_height_over_rim_mm": 35.14815558737694,
+            "ball_bottom_height_over_rim_mm": -2.351844412623066,
+            "velocity": {
+              "forward_m_s": 1.7616317919023647,
+              "lateral_m_s": 0.017843237970231796,
+              "vertical_m_s": -2.0751583576202393,
+              "speed_m_s": 2.7221217155456543
+            }
+          },
+          "after20ms": {
+            "longitudinal_relative_bucket_mm": -104.18698366360596,
+            "lateral_relative_bucket_mm": 6.5446922578202,
+            "radial_distance_mm": 104.392339573697,
+            "center_height_over_rim_mm": 68.18183948344169,
+            "ball_bottom_height_over_rim_mm": 30.681839483441692,
+            "velocity": {
+              "forward_m_s": 0.36144145426536833,
+              "lateral_m_s": 0.0736510272160796,
+              "vertical_m_s": 1.6893209218978882,
+              "speed_m_s": 1.729123830795288
+            }
+          },
+          "after20ms_time_s": 0.6063802083333333,
+          "rim_band_at_first_contact": true,
+          "bucket_force_norm_integral_first20ms_N_s": 0.8578656258682404,
+          "peak_bucket_force_first20ms_N": 739.6400756835938,
+          "record_id": "verification-64-tilt30-01-r0",
+          "parent_source_record_id": "coarse-64-xy-grid-0070-r0",
+          "substeps": 64,
+          "repeat_index": 0,
+          "record_sha256": "c20a6aa0525cc9de476f8bf458bbd41198fae47a23671dd26b2ed109a4124534",
+          "cache_sha256": "96297a7c57696e3740f1bc1ac220f29172844ee80ab8e011c26cd678130f528b",
+          "query_fingerprint": "7470d424e5a2d58fadcd3b91505658c3c7dffe4c45eb36ceade83cfdc60bf467",
+          "execution_fingerprint": "a9d90d27004fbd48ff8dc3e61a5b68602f5f7872b1c63511398c16f46ad6cb68",
+          "original_labels": {
+            "route_success": true,
+            "route_quality": 1,
+            "whole_ball_entry": true,
+            "whole_ball_entry_time_s": 1.0068359375,
+            "first_mouth_passage_time_s": 1.0068359375,
+            "rim_band_contact": true,
+            "max_retention_s": 1.0,
+            "invalid": null,
+            "invalid_physics": false,
+            "external_contact_steps": 0
+          },
+          "postrim_observation": {
+            "external_cutoff_time_s": null,
+            "first_descending_center_crossing": {
+              "time_s": 0.9872124672234596,
+              "longitudinal_relative_bucket_mm": 33.36983742875208,
+              "lateral_relative_bucket_mm": 34.4788335754786,
+              "radial_distance_mm": 47.982663689575354
+            }
+          },
+          "pose_gate_scalar_errors": {
+            "board_position_error_mm": 9.624185093469131e-05,
+            "board_normal_error_deg": 0.01416073703873136,
+            "dropper_error_mm": 1.5301648211072398e-05
+          }
+        },
+        "128": {
+          "available": true,
+          "rebound_state_index": 8842,
+          "rebound_time_s": 0.28782552083333335,
+          "outgoing_velocity": {
+            "forward_m_s": 1.8093739606663053,
+            "lateral_m_s": 0.017085794785914543,
+            "vertical_m_s": 0.7934384942054749,
+            "speed_m_s": 1.9757709503173828
+          },
+          "first_bucket_force_interval": 18075,
+          "contact_channels_through_original_score_terminal": {
+            "board": {
+              "active_force_intervals": 54,
+              "first_active_time_s": 0.28603515625
+            },
+            "bucket": {
+              "active_force_intervals": 52,
+              "first_active_time_s": 0.58837890625
+            },
+            "table": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            },
+            "floor": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            },
+            "robot": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            },
+            "unattributed": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            }
+          },
+          "original_score_terminal_time_s": 1.0885091145833332,
+          "first_bucket_contact_time_s": 0.58837890625,
+          "first_bucket_force_N": 257.75225830078125,
+          "first_bucket_channels": [
+            "bucket"
+          ],
+          "pre_contact": {
+            "longitudinal_relative_bucket_mm": -104.30079772077616,
+            "lateral_relative_bucket_mm": 5.148279719970769,
+            "radial_distance_mm": 104.42777977753491,
+            "center_height_over_rim_mm": 37.19116439169823,
+            "ball_bottom_height_over_rim_mm": -0.30883560830177736,
+            "velocity": {
+              "forward_m_s": 1.8093739606663053,
+              "lateral_m_s": 0.017085794785914543,
+              "vertical_m_s": -2.155081033706665,
+              "speed_m_s": 2.8139829635620117
+            }
+          },
+          "post_first_interval": {
+            "longitudinal_relative_bucket_mm": -104.24220897051676,
+            "lateral_relative_bucket_mm": 5.148826894042342,
+            "radial_distance_mm": 104.36928930215869,
+            "center_height_over_rim_mm": 37.12233592814385,
+            "ball_bottom_height_over_rim_mm": -0.3776640718561597,
+            "velocity": {
+              "forward_m_s": 1.8000228785423285,
+              "lateral_m_s": 0.017044398832280372,
+              "vertical_m_s": -2.114504098892212,
+              "speed_m_s": 2.776958703994751
+            }
+          },
+          "after20ms": {
+            "longitudinal_relative_bucket_mm": -77.95420004374462,
+            "lateral_relative_bucket_mm": 5.632364791040789,
+            "radial_distance_mm": 78.15741063776045,
+            "center_height_over_rim_mm": 64.90510393923698,
+            "ball_bottom_height_over_rim_mm": 27.40510393923698,
+            "velocity": {
+              "forward_m_s": 1.2993064900746765,
+              "lateral_m_s": 0.024735286852950344,
+              "vertical_m_s": 1.422041416168213,
+              "speed_m_s": 1.9263983964920044
+            }
+          },
+          "after20ms_time_s": 0.6083984375,
+          "rim_band_at_first_contact": true,
+          "bucket_force_norm_integral_first20ms_N_s": 0.7618408401186259,
+          "peak_bucket_force_first20ms_N": 663.6142578125,
+          "record_id": "verification-128-tilt30-01-r0",
+          "parent_source_record_id": "coarse-64-xy-grid-0070-r0",
+          "substeps": 128,
+          "repeat_index": 0,
+          "record_sha256": "b4d26364719629591913efa5c02691bb9ee07b52135cbf6dca26e3d8731300cd",
+          "cache_sha256": "6d3e83834b64561db6aa140b69e2472df5b49d65a14953535df66a45aaff1f00",
+          "query_fingerprint": "7470d424e5a2d58fadcd3b91505658c3c7dffe4c45eb36ceade83cfdc60bf467",
+          "execution_fingerprint": "25e996ce24d724980cd699bb815366c1c94dcca6e122a498159c007d3b93d930",
+          "original_labels": {
+            "route_success": false,
+            "route_quality": 0,
+            "whole_ball_entry": false,
+            "whole_ball_entry_time_s": null,
+            "first_mouth_passage_time_s": null,
+            "rim_band_contact": true,
+            "max_retention_s": 0.0,
+            "invalid": null,
+            "invalid_physics": false,
+            "external_contact_steps": 0
+          },
+          "postrim_observation": {
+            "external_cutoff_time_s": 1.2244140625,
+            "first_descending_center_crossing": {
+              "time_s": 0.9383681167997001,
+              "longitudinal_relative_bucket_mm": 350.6626086247777,
+              "lateral_relative_bucket_mm": 13.679262369090338,
+              "radial_distance_mm": 350.9293195310082
+            }
+          },
+          "pose_gate_scalar_errors": {
+            "board_position_error_mm": 9.624185093469131e-05,
+            "board_normal_error_deg": 0.01416073703873136,
+            "dropper_error_mm": 1.5301648211072398e-05
+          }
+        }
+      },
+      "delta128_minus64": {
+        "outgoing_forward_m_s": 0.015029890431356163,
+        "outgoing_vertical_m_s": 0.021755695343017578,
+        "first_bucket_longitudinal_mm": 8.152231831161686,
+        "first_bucket_bottom_height_mm": 1.9078999757766721
+      },
+      "actual_native_initial_joints_bitwise_equal": true
+    },
+    {
+      "parent_source_record_id": "coarse-64-xy-grid-0096-r0",
+      "exact_requested_targets_and_q_match": true,
+      "by_substeps": {
+        "64": {
+          "available": true,
+          "rebound_state_index": 4311,
+          "rebound_time_s": 0.2806640625,
+          "outgoing_velocity": {
+            "forward_m_s": 1.7733266029572303,
+            "lateral_m_s": 0.01745785975493641,
+            "vertical_m_s": 0.7882424592971802,
+            "speed_m_s": 1.9407004117965698
+          },
+          "first_bucket_force_interval": 8936,
+          "contact_channels_through_original_score_terminal": {
+            "board": {
+              "active_force_intervals": 27,
+              "first_active_time_s": 0.2788411458333333
+            },
+            "bucket": {
+              "active_force_intervals": 4543,
+              "first_active_time_s": 0.5817708333333333
+            },
+            "table": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            },
+            "floor": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            },
+            "robot": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            },
+            "unattributed": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            }
+          },
+          "original_score_terminal_time_s": 2.5384765625,
+          "first_bucket_contact_time_s": 0.5817708333333333,
+          "first_bucket_force_N": 353.387939453125,
+          "first_bucket_channels": [
+            "bucket"
+          ],
+          "pre_contact": {
+            "longitudinal_relative_bucket_mm": -114.07470921440272,
+            "lateral_relative_bucket_mm": 5.246151479305988,
+            "radial_distance_mm": 114.19527743166246,
+            "center_height_over_rim_mm": 34.495991366567004,
+            "ball_bottom_height_over_rim_mm": -3.0040086334330027,
+            "velocity": {
+              "forward_m_s": 1.7733266029572303,
+              "lateral_m_s": 0.01745785975493641,
+              "vertical_m_s": -2.1656949520111084,
+              "speed_m_s": 2.799147367477417
+            }
+          },
+          "post_first_interval": {
+            "longitudinal_relative_bucket_mm": -113.96226100803088,
+            "lateral_relative_bucket_mm": 5.2473636770311165,
+            "radial_distance_mm": 114.08300381573751,
+            "center_height_over_rim_mm": 34.3618213111776,
+            "ball_bottom_height_over_rim_mm": -3.138178688822407,
+            "velocity": {
+              "forward_m_s": 1.7274064144473136,
+              "lateral_m_s": 0.018853612919599194,
+              "vertical_m_s": -2.060868263244629,
+              "speed_m_s": 2.689138650894165
+            }
+          },
+          "after20ms": {
+            "longitudinal_relative_bucket_mm": -110.82869838051757,
+            "lateral_relative_bucket_mm": 6.92764089529712,
+            "radial_distance_mm": 111.04500255794463,
+            "center_height_over_rim_mm": 68.3608024293798,
+            "ball_bottom_height_over_rim_mm": 30.860802429379802,
+            "velocity": {
+              "forward_m_s": 0.10570427519893846,
+              "lateral_m_s": 0.08631159926830376,
+              "vertical_m_s": 1.730880856513977,
+              "speed_m_s": 1.7362521886825562
+            }
+          },
+          "after20ms_time_s": 0.6018229166666667,
+          "rim_band_at_first_contact": true,
+          "bucket_force_norm_integral_first20ms_N_s": 0.8841542550673058,
+          "peak_bucket_force_first20ms_N": 773.7438354492188,
+          "record_id": "verification-64-tilt30-02-r0",
+          "parent_source_record_id": "coarse-64-xy-grid-0096-r0",
+          "substeps": 64,
+          "repeat_index": 0,
+          "record_sha256": "5438f1e654128ee36f6d00b79569d276870974ecc7ab9e7ce22186c10cd1c67d",
+          "cache_sha256": "96297a7c57696e3740f1bc1ac220f29172844ee80ab8e011c26cd678130f528b",
+          "query_fingerprint": "9e4b2d4bdde836c91501b0e459cfe94644a5a4e8ffd028235deb88d6b3af7586",
+          "execution_fingerprint": "f90d4e9c87251bc6778705f30acff1911d3edd0e0fceff49ae1a838199d3e470",
+          "original_labels": {
+            "route_success": true,
+            "route_quality": 1,
+            "whole_ball_entry": true,
+            "whole_ball_entry_time_s": 1.5384765625,
+            "first_mouth_passage_time_s": 1.5384765625,
+            "rim_band_contact": true,
+            "max_retention_s": 1.0,
+            "invalid": null,
+            "invalid_physics": false,
+            "external_contact_steps": 0
+          },
+          "postrim_observation": {
+            "external_cutoff_time_s": null,
+            "first_descending_center_crossing": {
+              "time_s": 1.5035009371752914,
+              "longitudinal_relative_bucket_mm": 14.977996437245258,
+              "lateral_relative_bucket_mm": -19.00031133237999,
+              "radial_distance_mm": 24.194053153647058
+            }
+          },
+          "pose_gate_scalar_errors": {
+            "board_position_error_mm": 0.00018132730088873527,
+            "board_normal_error_deg": 0.0,
+            "dropper_error_mm": 8.81162908670296e-05
+          }
+        },
+        "128": {
+          "available": true,
+          "rebound_state_index": 8621,
+          "rebound_time_s": 0.2806315104166667,
+          "outgoing_velocity": {
+            "forward_m_s": 1.7596017927490366,
+            "lateral_m_s": 0.017090080905311944,
+            "vertical_m_s": 0.7689818739891052,
+            "speed_m_s": 1.9203706979751587
+          },
+          "first_bucket_force_interval": 17835,
+          "contact_channels_through_original_score_terminal": {
+            "board": {
+              "active_force_intervals": 55,
+              "first_active_time_s": 0.27880859375
+            },
+            "bucket": {
+              "active_force_intervals": 52,
+              "first_active_time_s": 0.58056640625
+            },
+            "table": {
+              "active_force_intervals": 61051,
+              "first_active_time_s": 1.0107421875
+            },
+            "floor": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            },
+            "robot": {
+              "active_force_intervals": 55,
+              "first_active_time_s": 3.39296875
+            },
+            "unattributed": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            }
+          },
+          "original_score_terminal_time_s": 4.0,
+          "first_bucket_contact_time_s": 0.58056640625,
+          "first_bucket_force_N": 313.25958251953125,
+          "first_bucket_channels": [
+            "bucket"
+          ],
+          "pre_contact": {
+            "longitudinal_relative_bucket_mm": -120.41382058500119,
+            "lateral_relative_bucket_mm": 5.101492780564349,
+            "radial_distance_mm": 120.5218379235357,
+            "center_height_over_rim_mm": 31.24074329680382,
+            "ball_bottom_height_over_rim_mm": -6.259256703196186,
+            "velocity": {
+              "forward_m_s": 1.7596017927490366,
+              "lateral_m_s": 0.017090080905311944,
+              "vertical_m_s": -2.1734628677368164,
+              "speed_m_s": 2.7965033054351807
+            }
+          },
+          "post_first_interval": {
+            "longitudinal_relative_bucket_mm": -120.3574232181412,
+            "lateral_relative_bucket_mm": 5.102071743722174,
+            "radial_distance_mm": 120.46551564571845,
+            "center_height_over_rim_mm": 31.171393292607654,
+            "ball_bottom_height_over_rim_mm": -6.328606707392353,
+            "velocity": {
+              "forward_m_s": 1.7327997425242962,
+              "lateral_m_s": 0.018016837098087657,
+              "vertical_m_s": -2.130417823791504,
+              "speed_m_s": 2.74619722366333
+            }
+          },
+          "after20ms": {
+            "longitudinal_relative_bucket_mm": -132.74590153411114,
+            "lateral_relative_bucket_mm": 7.591308646563988,
+            "radial_distance_mm": 132.9627855494587,
+            "center_height_over_rim_mm": 60.618963735761035,
+            "ball_bottom_height_over_rim_mm": 23.118963735761028,
+            "velocity": {
+              "forward_m_s": -0.7044229580254181,
+              "lateral_m_s": 0.12858524036776464,
+              "vertical_m_s": 1.5095182657241821,
+              "speed_m_s": 1.6707457304000854
+            }
+          },
+          "after20ms_time_s": 0.6005859375,
+          "rim_band_at_first_contact": true,
+          "bucket_force_norm_integral_first20ms_N_s": 0.9194585857292008,
+          "peak_bucket_force_first20ms_N": 794.1248168945312,
+          "record_id": "verification-128-tilt30-02-r0",
+          "parent_source_record_id": "coarse-64-xy-grid-0096-r0",
+          "substeps": 128,
+          "repeat_index": 0,
+          "record_sha256": "074f42b08f47f8de330719d7feff6bd2b27850b176ca611f78bf5614ef044bdd",
+          "cache_sha256": "6d3e83834b64561db6aa140b69e2472df5b49d65a14953535df66a45aaff1f00",
+          "query_fingerprint": "9e4b2d4bdde836c91501b0e459cfe94644a5a4e8ffd028235deb88d6b3af7586",
+          "execution_fingerprint": "c5016bbd80690d484c888d465febdc640a8494ea9e3ca7718fd42a14a4e4d5eb",
+          "original_labels": {
+            "route_success": false,
+            "route_quality": 0,
+            "whole_ball_entry": false,
+            "whole_ball_entry_time_s": null,
+            "first_mouth_passage_time_s": null,
+            "rim_band_contact": true,
+            "max_retention_s": 0.0,
+            "invalid": null,
+            "invalid_physics": false,
+            "external_contact_steps": 61106
+          },
+          "postrim_observation": {
+            "external_cutoff_time_s": 1.0107421875,
+            "first_descending_center_crossing": {
+              "time_s": 0.9442480900310294,
+              "longitudinal_relative_bucket_mm": -374.88909145520563,
+              "lateral_relative_bucket_mm": 51.688629927573004,
+              "radial_distance_mm": 378.43565550288616
+            }
+          },
+          "pose_gate_scalar_errors": {
+            "board_position_error_mm": 0.00018132730088873527,
+            "board_normal_error_deg": 0.0,
+            "dropper_error_mm": 8.81162908670296e-05
+          }
+        }
+      },
+      "delta128_minus64": {
+        "outgoing_forward_m_s": -0.013724810208193716,
+        "outgoing_vertical_m_s": -0.01926058530807495,
+        "first_bucket_longitudinal_mm": -6.339111370598474,
+        "first_bucket_bottom_height_mm": -3.2552480697631836
+      },
+      "actual_native_initial_joints_bitwise_equal": true
+    },
+    {
+      "parent_source_record_id": "coarse-64-xy-grid-0151-r0",
+      "exact_requested_targets_and_q_match": true,
+      "by_substeps": {
+        "64": {
+          "available": true,
+          "rebound_state_index": 4422,
+          "rebound_time_s": 0.287890625,
+          "outgoing_velocity": {
+            "forward_m_s": 1.7939342296160967,
+            "lateral_m_s": 0.01690949830129418,
+            "vertical_m_s": 0.7716975212097168,
+            "speed_m_s": 1.9529472589492798
+          },
+          "first_bucket_force_interval": 9007,
+          "contact_channels_through_original_score_terminal": {
+            "board": {
+              "active_force_intervals": 28,
+              "first_active_time_s": 0.2860026041666667
+            },
+            "bucket": {
+              "active_force_intervals": 5726,
+              "first_active_time_s": 0.5863932291666667
+            },
+            "table": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            },
+            "floor": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            },
+            "robot": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            },
+            "unattributed": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            }
+          },
+          "original_score_terminal_time_s": 2.298697916666667,
+          "first_bucket_contact_time_s": 0.5863932291666667,
+          "first_bucket_force_N": 332.5148620605469,
+          "first_bucket_channels": [
+            "bucket"
+          ],
+          "pre_contact": {
+            "longitudinal_relative_bucket_mm": -112.4879014762033,
+            "lateral_relative_bucket_mm": 5.085228000296219,
+            "radial_distance_mm": 112.60278647677869,
+            "center_height_over_rim_mm": 35.147857564153064,
+            "ball_bottom_height_over_rim_mm": -2.352142435846943,
+            "velocity": {
+              "forward_m_s": 1.7939342296160967,
+              "lateral_m_s": 0.01690949830129418,
+              "vertical_m_s": -2.1566925048828125,
+              "speed_m_s": 2.8053178787231445
+            }
+          },
+          "post_first_interval": {
+            "longitudinal_relative_bucket_mm": -112.37370730233074,
+            "lateral_relative_bucket_mm": 5.086389741413192,
+            "radial_distance_mm": 112.48876145407353,
+            "center_height_over_rim_mm": 35.01395572966515,
+            "ball_bottom_height_over_rim_mm": -2.486044270334858,
+            "velocity": {
+              "forward_m_s": 1.7541698920301083,
+              "lateral_m_s": 0.017985922849308666,
+              "vertical_m_s": -2.0566649436950684,
+              "speed_m_s": 2.703202962875366
+            }
+          },
+          "after20ms": {
+            "longitudinal_relative_bucket_mm": -104.75119474725457,
+            "lateral_relative_bucket_mm": 6.548065871750983,
+            "radial_distance_mm": 104.95565714928397,
+            "center_height_over_rim_mm": 68.89757205790458,
+            "ball_bottom_height_over_rim_mm": 31.397572057904583,
+            "velocity": {
+              "forward_m_s": 0.33628114395489866,
+              "lateral_m_s": 0.07484817353004,
+              "vertical_m_s": 1.726181149482727,
+              "speed_m_s": 1.7602239847183228
+            }
+          },
+          "after20ms_time_s": 0.6064453125,
+          "rim_band_at_first_contact": true,
+          "bucket_force_norm_integral_first20ms_N_s": 0.8665999393289157,
+          "peak_bucket_force_first20ms_N": 755.7491455078125,
+          "record_id": "verification-64-tilt30-03-r0",
+          "parent_source_record_id": "coarse-64-xy-grid-0151-r0",
+          "substeps": 64,
+          "repeat_index": 0,
+          "record_sha256": "721c8c72b7baacbbb3085823522efc7b9b2fe749f11e62e1d7c850dc4f36fab7",
+          "cache_sha256": "96297a7c57696e3740f1bc1ac220f29172844ee80ab8e011c26cd678130f528b",
+          "query_fingerprint": "7c6166a6e06603910cf09016ee803f560cc399d753a177539b7f048cbcf860ce",
+          "execution_fingerprint": "6ca05b5d08ebd424a704299576ba7f7967ba22adb0fe2a9f593ade4e9f4c0de0",
+          "original_labels": {
+            "route_success": true,
+            "route_quality": 1,
+            "whole_ball_entry": true,
+            "whole_ball_entry_time_s": 1.0119791666666667,
+            "first_mouth_passage_time_s": 1.0119791666666667,
+            "rim_band_contact": true,
+            "max_retention_s": 1.0,
+            "invalid": null,
+            "invalid_physics": false,
+            "external_contact_steps": 0
+          },
+          "postrim_observation": {
+            "external_cutoff_time_s": null,
+            "first_descending_center_crossing": {
+              "time_s": 0.9944894019780162,
+              "longitudinal_relative_bucket_mm": 25.75474145094969,
+              "lateral_relative_bucket_mm": 35.61336853589067,
+              "radial_distance_mm": 43.95018459208601
+            }
+          },
+          "pose_gate_scalar_errors": {
+            "board_position_error_mm": 0.00010689046382701234,
+            "board_normal_error_deg": 0.0,
+            "dropper_error_mm": 0.0001546362942647277
+          }
+        },
+        "128": {
+          "available": true,
+          "rebound_state_index": 8842,
+          "rebound_time_s": 0.28782552083333335,
+          "outgoing_velocity": {
+            "forward_m_s": 1.8089603504956067,
+            "lateral_m_s": 0.016869711003190457,
+            "vertical_m_s": 0.793462872505188,
+            "speed_m_s": 1.9754000902175903
+          },
+          "first_bucket_force_interval": 18075,
+          "contact_channels_through_original_score_terminal": {
+            "board": {
+              "active_force_intervals": 54,
+              "first_active_time_s": 0.28603515625
+            },
+            "bucket": {
+              "active_force_intervals": 52,
+              "first_active_time_s": 0.58837890625
+            },
+            "table": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            },
+            "floor": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            },
+            "robot": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            },
+            "unattributed": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            }
+          },
+          "original_score_terminal_time_s": 1.08837890625,
+          "first_bucket_contact_time_s": 0.58837890625,
+          "first_bucket_force_N": 245.07931518554688,
+          "first_bucket_channels": [
+            "bucket"
+          ],
+          "pre_contact": {
+            "longitudinal_relative_bucket_mm": -104.44792797622694,
+            "lateral_relative_bucket_mm": 4.988713317521806,
+            "radial_distance_mm": 104.56699727491227,
+            "center_height_over_rim_mm": 37.198853390874255,
+            "ball_bottom_height_over_rim_mm": -0.301146609125752,
+            "velocity": {
+              "forward_m_s": 1.8089603504956067,
+              "lateral_m_s": 0.016869711003190457,
+              "vertical_m_s": -2.1550567150115967,
+              "speed_m_s": 2.813697099685669
+            }
+          },
+          "post_first_interval": {
+            "longitudinal_relative_bucket_mm": -104.38934209835192,
+            "lateral_relative_bucket_mm": 4.989262863764492,
+            "radial_distance_mm": 104.50850437955032,
+            "center_height_over_rim_mm": 37.129950421513904,
+            "ball_bottom_height_over_rim_mm": -0.37004957848610354,
+            "velocity": {
+              "forward_m_s": 1.7997678584309866,
+              "lateral_m_s": 0.016823965459667245,
+              "vertical_m_s": -2.1165599822998047,
+              "speed_m_s": 2.778357982635498
+            }
+          },
+          "after20ms": {
+            "longitudinal_relative_bucket_mm": -78.33859555649342,
+            "lateral_relative_bucket_mm": 5.487236935310509,
+            "radial_distance_mm": 78.53053751852259,
+            "center_height_over_rim_mm": 64.86770202464042,
+            "ball_bottom_height_over_rim_mm": 27.367702024640423,
+            "velocity": {
+              "forward_m_s": 1.2865735701580792,
+              "lateral_m_s": 0.025199007078127944,
+              "vertical_m_s": 1.4213037490844727,
+              "speed_m_s": 1.917292594909668
+            }
+          },
+          "after20ms_time_s": 0.6083984375,
+          "rim_band_at_first_contact": true,
+          "bucket_force_norm_integral_first20ms_N_s": 0.7620339497923845,
+          "peak_bucket_force_first20ms_N": 661.6357421875,
+          "record_id": "verification-128-tilt30-03-r0",
+          "parent_source_record_id": "coarse-64-xy-grid-0151-r0",
+          "substeps": 128,
+          "repeat_index": 0,
+          "record_sha256": "c43177d880786506e8d793c8bd12757b60f7d73b2314e410241f49ed7827dbd7",
+          "cache_sha256": "6d3e83834b64561db6aa140b69e2472df5b49d65a14953535df66a45aaff1f00",
+          "query_fingerprint": "7c6166a6e06603910cf09016ee803f560cc399d753a177539b7f048cbcf860ce",
+          "execution_fingerprint": "510917c8e7345acff8cd5ca000d64d7bfee12da131f75bba50b6103e4503c084",
+          "original_labels": {
+            "route_success": false,
+            "route_quality": 0,
+            "whole_ball_entry": false,
+            "whole_ball_entry_time_s": null,
+            "first_mouth_passage_time_s": null,
+            "rim_band_contact": true,
+            "max_retention_s": 0.0,
+            "invalid": null,
+            "invalid_physics": false,
+            "external_contact_steps": 0
+          },
+          "postrim_observation": {
+            "external_cutoff_time_s": 1.22431640625,
+            "first_descending_center_crossing": {
+              "time_s": 0.9382134341985102,
+              "longitudinal_relative_bucket_mm": 345.97576304854596,
+              "lateral_relative_bucket_mm": 13.784705462520586,
+              "radial_distance_mm": 346.25026602403074
+            }
+          },
+          "pose_gate_scalar_errors": {
+            "board_position_error_mm": 0.00010689046382701234,
+            "board_normal_error_deg": 0.0,
+            "dropper_error_mm": 0.0001546362942647277
+          }
+        }
+      },
+      "delta128_minus64": {
+        "outgoing_forward_m_s": 0.015026120879509941,
+        "outgoing_vertical_m_s": 0.02176535129547119,
+        "first_bucket_longitudinal_mm": 8.03997349997637,
+        "first_bucket_bottom_height_mm": 2.0509958267211914
+      },
+      "actual_native_initial_joints_bitwise_equal": true
+    },
+    {
+      "parent_source_record_id": "coarse-64-xy-grid-0177-r0",
+      "exact_requested_targets_and_q_match": true,
+      "by_substeps": {
+        "64": {
+          "available": true,
+          "rebound_state_index": 4311,
+          "rebound_time_s": 0.2806640625,
+          "outgoing_velocity": {
+            "forward_m_s": 1.773047257531746,
+            "lateral_m_s": 0.017253650386834463,
+            "vertical_m_s": 0.7883567810058594,
+            "speed_m_s": 1.9404898881912231
+          },
+          "first_bucket_force_interval": 8936,
+          "contact_channels_through_original_score_terminal": {
+            "board": {
+              "active_force_intervals": 27,
+              "first_active_time_s": 0.2788411458333333
+            },
+            "bucket": {
+              "active_force_intervals": 3567,
+              "first_active_time_s": 0.5817708333333333
+            },
+            "table": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            },
+            "floor": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            },
+            "robot": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            },
+            "unattributed": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            }
+          },
+          "original_score_terminal_time_s": 2.429296875,
+          "first_bucket_contact_time_s": 0.5817708333333333,
+          "first_bucket_force_N": 310.0324401855469,
+          "first_bucket_channels": [
+            "bucket"
+          ],
+          "pre_contact": {
+            "longitudinal_relative_bucket_mm": -114.20256300364129,
+            "lateral_relative_bucket_mm": 5.2186239153758915,
+            "radial_distance_mm": 114.32173648161051,
+            "center_height_over_rim_mm": 34.53097929305016,
+            "ball_bottom_height_over_rim_mm": -2.9690207069498484,
+            "velocity": {
+              "forward_m_s": 1.773047257531746,
+              "lateral_m_s": 0.017253650386834463,
+              "vertical_m_s": -2.1655807495117188,
+              "speed_m_s": 2.7988810539245605
+            }
+          },
+          "post_first_interval": {
+            "longitudinal_relative_bucket_mm": -114.08979124899635,
+            "lateral_relative_bucket_mm": 5.219800819060434,
+            "radial_distance_mm": 114.20913618371443,
+            "center_height_over_rim_mm": 34.395959871472705,
+            "ball_bottom_height_over_rim_mm": -3.104040128527302,
+            "velocity": {
+              "forward_m_s": 1.7323561183210927,
+              "lateral_m_s": 0.018384442923476185,
+              "vertical_m_s": -2.073869228363037,
+              "speed_m_s": 2.702282190322876
+            }
+          },
+          "after20ms": {
+            "longitudinal_relative_bucket_mm": -110.92231708574815,
+            "lateral_relative_bucket_mm": 6.900674245309969,
+            "radial_distance_mm": 111.13676139203959,
+            "center_height_over_rim_mm": 67.8078501397985,
+            "ball_bottom_height_over_rim_mm": 30.307850139798504,
+            "velocity": {
+              "forward_m_s": 0.10526877978862997,
+              "lateral_m_s": 0.08618434129153782,
+              "vertical_m_s": 1.705399990081787,
+              "speed_m_s": 1.7108180522918701
+            }
+          },
+          "after20ms_time_s": 0.6018229166666667,
+          "rim_band_at_first_contact": true,
+          "bucket_force_norm_integral_first20ms_N_s": 0.8794191271066657,
+          "peak_bucket_force_first20ms_N": 762.23974609375,
+          "record_id": "verification-64-tilt30-04-r0",
+          "parent_source_record_id": "coarse-64-xy-grid-0177-r0",
+          "substeps": 64,
+          "repeat_index": 0,
+          "record_sha256": "de48c452b42eaa1925eb83444e4cc6eda5dba1dd62b668f33a762829b3d4572f",
+          "cache_sha256": "96297a7c57696e3740f1bc1ac220f29172844ee80ab8e011c26cd678130f528b",
+          "query_fingerprint": "9ae8631d9bd4e1bbba9b2788e9a4e27d69c671924d9d2bb8c2b7a62d6af3d78e",
+          "execution_fingerprint": "1d2e95a562ad86f59b428afc9b48a96708290ce2f72efab46796ca2e1aaba714",
+          "original_labels": {
+            "route_success": true,
+            "route_quality": 1,
+            "whole_ball_entry": true,
+            "whole_ball_entry_time_s": 1.429296875,
+            "first_mouth_passage_time_s": 1.429296875,
+            "rim_band_contact": true,
+            "max_retention_s": 1.0,
+            "invalid": null,
+            "invalid_physics": false,
+            "external_contact_steps": 0
+          },
+          "postrim_observation": {
+            "external_cutoff_time_s": null,
+            "first_descending_center_crossing": {
+              "time_s": 1.3999438784370706,
+              "longitudinal_relative_bucket_mm": 44.19513529723375,
+              "lateral_relative_bucket_mm": -24.949314762040235,
+              "radial_distance_mm": 50.751140785564175
+            }
+          },
+          "pose_gate_scalar_errors": {
+            "board_position_error_mm": 0.00020728841974770773,
+            "board_normal_error_deg": 0.0,
+            "dropper_error_mm": 8.651706158245928e-05
+          }
+        },
+        "128": {
+          "available": true,
+          "rebound_state_index": 8621,
+          "rebound_time_s": 0.2806315104166667,
+          "outgoing_velocity": {
+            "forward_m_s": 1.759321589046737,
+            "lateral_m_s": 0.01687977766416182,
+            "vertical_m_s": 0.7690924406051636,
+            "speed_m_s": 1.9201563596725464
+          },
+          "first_bucket_force_interval": 17835,
+          "contact_channels_through_original_score_terminal": {
+            "board": {
+              "active_force_intervals": 55,
+              "first_active_time_s": 0.27880859375
+            },
+            "bucket": {
+              "active_force_intervals": 53,
+              "first_active_time_s": 0.58056640625
+            },
+            "table": {
+              "active_force_intervals": 59831,
+              "first_active_time_s": 1.0096028645833333
+            },
+            "floor": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            },
+            "robot": {
+              "active_force_intervals": 55,
+              "first_active_time_s": 3.4076171875
+            },
+            "unattributed": {
+              "active_force_intervals": 0,
+              "first_active_time_s": null
+            }
+          },
+          "original_score_terminal_time_s": 4.0,
+          "first_bucket_contact_time_s": 0.58056640625,
+          "first_bucket_force_N": 297.9761962890625,
+          "first_bucket_channels": [
+            "bucket"
+          ],
+          "pre_contact": {
+            "longitudinal_relative_bucket_mm": -120.41401798104854,
+            "lateral_relative_bucket_mm": 5.101191981536739,
+            "radial_distance_mm": 120.52202241073114,
+            "center_height_over_rim_mm": 31.274673240842212,
+            "ball_bottom_height_over_rim_mm": -6.225326759157795,
+            "velocity": {
+              "forward_m_s": 1.759321589046737,
+              "lateral_m_s": 0.01687977766416182,
+              "vertical_m_s": -2.1733524799346924,
+              "speed_m_s": 2.7962400913238525
+            }
+          },
+          "post_first_interval": {
+            "longitudinal_relative_bucket_mm": -120.35759189034472,
+            "lateral_relative_bucket_mm": 5.10174722298349,
+            "radial_distance_mm": 120.46567042261456,
+            "center_height_over_rim_mm": 31.20526363200127,
+            "ball_bottom_height_over_rim_mm": -6.294736367998738,
+            "velocity": {
+              "forward_m_s": 1.7339083612850699,
+              "lateral_m_s": 0.01773501140347733,
+              "vertical_m_s": -2.132373809814453,
+              "speed_m_s": 2.7484123706817627
+            }
+          },
+          "after20ms": {
+            "longitudinal_relative_bucket_mm": -132.58947991156734,
+            "lateral_relative_bucket_mm": 7.569037544701756,
+            "radial_distance_mm": 132.80534820771723,
+            "center_height_over_rim_mm": 60.49273599928795,
+            "ball_bottom_height_over_rim_mm": 22.992735999287945,
+            "velocity": {
+              "forward_m_s": -0.6969914283983061,
+              "lateral_m_s": 0.1279395398375014,
+              "vertical_m_s": 1.5027834177017212,
+              "speed_m_s": 1.661482334136963
+            }
+          },
+          "after20ms_time_s": 0.6005859375,
+          "rim_band_at_first_contact": true,
+          "bucket_force_norm_integral_first20ms_N_s": 0.9174760126120716,
+          "peak_bucket_force_first20ms_N": 789.8477172851562,
+          "record_id": "verification-128-tilt30-04-r0",
+          "parent_source_record_id": "coarse-64-xy-grid-0177-r0",
+          "substeps": 128,
+          "repeat_index": 0,
+          "record_sha256": "9580c871650c7f122b59b83ad2d636a699ace38123d797082c65959de12cb925",
+          "cache_sha256": "6d3e83834b64561db6aa140b69e2472df5b49d65a14953535df66a45aaff1f00",
+          "query_fingerprint": "9ae8631d9bd4e1bbba9b2788e9a4e27d69c671924d9d2bb8c2b7a62d6af3d78e",
+          "execution_fingerprint": "fdc69fb3e74ab6bd7a621c6777a0d35fa0f3eb4662f34bcc28123b162e4ccef1",
+          "original_labels": {
+            "route_success": false,
+            "route_quality": 0,
+            "whole_ball_entry": false,
+            "whole_ball_entry_time_s": null,
+            "first_mouth_passage_time_s": null,
+            "rim_band_contact": true,
+            "max_retention_s": 0.0,
+            "invalid": null,
+            "invalid_physics": false,
+            "external_contact_steps": 59886
+          },
+          "postrim_observation": {
+            "external_cutoff_time_s": 1.0096028645833333,
+            "first_descending_center_crossing": {
+              "time_s": 0.9429376974250869,
+              "longitudinal_relative_bucket_mm": -371.3269035012236,
+              "lateral_relative_bucket_mm": 51.229413589082505,
+              "radial_distance_mm": 374.8441303801999
+            }
+          },
+          "pose_gate_scalar_errors": {
+            "board_position_error_mm": 0.00020728841974770773,
+            "board_normal_error_deg": 0.0,
+            "dropper_error_mm": 8.651706158245928e-05
+          }
+        }
+      },
+      "delta128_minus64": {
+        "outgoing_forward_m_s": -0.01372566848500889,
+        "outgoing_vertical_m_s": -0.0192643404006958,
+        "first_bucket_longitudinal_mm": -6.211454977407257,
+        "first_bucket_bottom_height_mm": -3.2563060522079468
+      },
+      "actual_native_initial_joints_bitwise_equal": true
+    }
+  ],
+  "postrim_analysis_code": "def postrim(position,force,times,board_xy,bucket_xy,rim,first_bucket_interval):\n import numpy as np\n axis=np.asarray(bucket_xy)-board_xy;axis=axis/np.linalg.norm(axis);side=np.array([-axis[1],axis[0]])\n external=np.flatnonzero((force[:,2:]>.01).any(axis=1)&(np.arange(len(force))>=first_bucket_interval))\n end=int(external[0]) if len(external) else len(position)-1\n candidates=np.arange(first_bucket_interval,end)\n cross=candidates[(position[candidates,2]>rim)&(position[candidates+1,2]<=rim)]\n value=dict(external_cutoff_time_s=float(times[end]) if len(external) else None,first_descending_center_crossing=None)\n if len(cross):\n  k=int(cross[0]);fraction=float((position[k,2]-rim)/(position[k,2]-position[k+1,2]));point=position[k]+fraction*(position[k+1]-position[k]);delta=point[:2]-bucket_xy\n  value[\"first_descending_center_crossing\"]=dict(time_s=float(times[k]+fraction*(times[k+1]-times[k])),longitudinal_relative_bucket_mm=float(delta@axis*1000),lateral_relative_bucket_mm=float(delta@side*1000),radial_distance_mm=float(np.linalg.norm(delta)*1000))\n return value\n",
+  "postrim_analysis_code_sha256": "0858f00dcf34d53dedfb28aabf62e637a85cc726017f947467ab31363cc88bf2"
+}

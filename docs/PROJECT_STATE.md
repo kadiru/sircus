@@ -1,5 +1,32 @@
 # Project state
 
+## Remaining 30° recipes — completed verification, November 5, 2026
+
+- [Frozen protocol](../sircus/mjlab/TILT650.md): five exact previously unverified
+  30° coarse captures from the completed XY650 parent, preserving each selected
+  joint pair and original geometry/calibration. Three repeats at 64 and 128,
+  plus original before/after controls: maximum 54 requests, no adaptive search.
+- Historical parent captures remain rim-assisted. Fresh capture qualification
+  and fresh clean qualification are separate; neither is a noise-reliability or
+  learned-policy result. Initial controls must pass before candidate execution.
+- [Completed results](../baselines/mjlab-tilt30-650-20261105/README.md): 54/54 native,
+  zero rejects/invalids; targets 15/15 rim captures at 64, 0/15 at 128 with no
+  whole entry. All 12 clean captures are controls. Both control gates pass;
+  independent audit passes 14,410 checks. No recipe qualifies at either tier.
+- Recent calibrated 650 mm studies now total 1,312 requests / 663 native releases.
+  Discovery remains 1,042 / 393, 32 rim captures, zero clean. This run adds only
+  verification. Its worker elapsed was 447.3 s; timing was not isolated from
+  another 4090 workload, which was not interrupted.
+- Posthoc saved-trace analysis shows identical starting joints but different
+  near-rim responses: 410 mm-gap shots go long at 128; 390 mm shots rebound
+  short. Stop fine-grid expansion. Recommend one separately specified impact-
+  point study capped at 200 requests / one worker-hour, then decide whether
+  to learn from stable recipes or change geometry/contact modeling. Not started.
+  Further PPO and noise remain deferred.
+- Viewer restored after reboot; only the new bounded 4090 worker is authorized.
+  No 4070 workload, Isaac service, hardware or historical evidence is changed.
+  The finite native/audit workers have finished; draft PR #73 is stacked on #70.
+
 ## XY650 translated-plane study — November 5, 2026
 
 - [Frozen protocol](../sircus/mjlab/XY650.md): translate board and bucket together
