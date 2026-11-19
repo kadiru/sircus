@@ -1,5 +1,37 @@
 # Project state
 
+## Impact-point 650 mm study — completed, November 5, 2026
+
+- [Frozen protocol](../sircus/mjlab/IMPACT650.md): three exact XY650 source families
+  receive 9 forward × 5 lateral surface-tangent offsets. Their board-arm joints,
+  H/T/G and buckets are fixed; nonzero offsets solve only the dropper endpoint.
+- Nominal ray point P lies on the board center plane. Gap is vertical ball-bottom
+  clearance above P, preserving old releases at zero offset. Native dynamics
+  must use the actual shifted release and matching dropper FK; P is not an
+  observed finite-ball surface contact. Board centers remain 650 mm away, but
+  nominal P-to-bucket horizontal distance varies and is displayed separately.
+- Maximum 189 requests: 135 coarse64 + 24 controls + up to 30 matched64/128
+  nominal verification requests. Rejects remain counted, no hidden resampling.
+  At most one acquired-slot worker-hour; noise and PPO remain deferred.
+- [Completed audited results](../baselines/mjlab-impact650-20261105/README.md): 189
+  requests / 146 native releases in 544.3 worker-seconds. Coarse 135/92: 43 endpoint
+  rejects, 5 rim-assisted captures, 0 clean. Three captures are zero-offset historical
+  replays; two add -10 mm lateral offset. No nonzero-forward setting captured.
+- Five selected targets each captured 3/3 at 64 and 0/3 at 128, with no whole entry
+  at 128. All thirty repeats pass physics/oracle checks and ≤5 mm early paired drift,
+  but no setting passes capture or clean qualification. Controls pass before/after;
+  independent offset-aware audit passes 54,829 checks. All 12 clean captures in
+  all-phase totals are positive controls, not 650 mm candidate successes.
+- Six recent calibrated 650 mm studies total 1,501 requests / 809 native releases.
+  Discovery 1,177/485 has 37 rim captures, 0 clean; these include historical repeats,
+  not unique state-space coverage. This finite study is development search, not
+  new RL, noise robustness, arm transit or held-out generalization.
+- Source/output identities and old evidence remain separate; read-only panel
+  `#impact650Study` shows verified outcomes and actual saved flights. The finite
+  worker/auditor exited; existing viewer was not restarted. 4070 and Isaac were
+  not changed. Stop the prescribed search here; inspect flight/rim-contact evidence
+  before specifying a new experiment. More PPO/noise remain deferred.
+
 ## Remaining 30° recipes — completed verification, November 5, 2026
 
 - [Frozen protocol](../sircus/mjlab/TILT650.md): five exact previously unverified
