@@ -1,5 +1,31 @@
 # Project state
 
+## Completed case 01 horizon-only replay — November 8, 2026
+
+- [Frozen protocol](../sircus/mjlab/CLEARANCE_HORIZON.md): same candidate, joints,
+  forecasts, refined bound, 2 mm margin, native64 dynamics and strict scorer.
+  Extend only the clearance window from descending rim-band start to predicted
+  table-tangent height. Three repeats each plus 12 controls: 18 requested slots.
+- [Audited results](../baselines/mjlab-clearance-horizon-20261108/README.md): short
+  window **0/3 captures, 3/3 robot-contact releases**; longer window **0/3 captures,
+  zero releases, three abstentions**. Unexecuted contacts remain unknown. All
+  12 matched controls behaved as expected; no invalid physics. All 18 requested
+  slots passed the independent **44,237-check** audit.
+- The window extends from 321–327 ms to 397–402 ms; the predicted clearance lower
+  bound changes from +12.05 mm to −36.07 mm. Withholding this shot does not show
+  improved executed trajectories or successful alternative selection.
+- Frozen producer `ccfe3d9063693078ea1658359a207c42a8eda970`; draft PR #88 remains
+  stacked on #87. Worker wall time 127.696331 s, pipeline 142.651 s; neither is
+  isolated GPU compute time. The 4090 was released; the same 4070 PID 2016772
+  remained at completion. No Isaac or service restart.
+- No training, noise, alternative candidates or policy promotion. Keep the
+  existing selector unchanged. Next: clarify the task objective, explore
+  alternative admitted shots for case 01, then freeze a rule for a finite fresh
+  held-out comparison. A [historical PPO training attempt](MJLAB_TABLE_ASSISTED_EXAMPLE_20261108.md)
+  did complete board → table → bucket/rim → one-second retention; its original
+  strict route/reward labels remain unchanged. Bucket retention and strict
+  route success remain distinct.
+
 ## Finger-clearance and horizon diagnosis — November 8, 2026
 
 - [Frozen protocol](../sircus/mjlab/CLEARANCE_DIAGNOSIS.md): authenticated CPU
