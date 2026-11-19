@@ -1,5 +1,25 @@
 # Project state
 
+## MacBook four-ball audio commissioning — October 30, 2026
+
+- `codex/macbook-ball-commissioning` builds on hardware-demo `ef27aca`.
+  Native Ghost Booth now services the main run loop, fixing observed stale
+  CoreMIDI discovery after Bluetooth pairing. A read-only A/B experiment isolated
+  the issue, and live Green hot-plug was verified after the audio-only restart.
+- Pink/boing, Purple/squeak, Green/spring and Gray/plop each produced measured
+  MIDI input and user-confirmed sound. All four also passed one combined,
+  explicitly armed 30-second manual audio test with separate ball/trial routing.
+  This supersedes the earlier unassigned-binding/listening status for this Mac.
+- Actual endpoint bindings, generic voice assignments and evidence were saved
+  only in ignored host-local configuration/data. Ghost Booth remains running on
+  loopback with FX muted; the temporary observation collector has stopped.
+  Logic Pro and the Mac mini were not required for this test.
+- Full regression: 422 Python and 106 Node tests passed, plus Scripter and
+  orientation-contract assertions. No robot connection or actuation, Viam
+  reconfiguration, physical-dashboard startup, or simulator restart occurred.
+  Robot-cycle timing and physical capture/miss/surface classification remain
+  separate commissioning work. See [audio evidence and limits](../sircus/audio/STATUS.md#macbook-ble-hot-plug-discovery-correction--october-30-2026).
+
 ## MacBook hardware-demo preparation — October 30, 2026
 
 - `codex/macbook-hardware-demo-ready` builds on demo-reel `d28ade95`.

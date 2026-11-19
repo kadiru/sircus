@@ -164,3 +164,69 @@ loop for carry plus the two-second settle. Native MIDI streams and active voice
 cancellation are scoped by input/trial. See `docs/SHOW_RUNBOOK.md` from repository
 root. The existing catalog/audition baselines remain; drum_roll is an additional
 original asset. No real listening, BLE or cross-computer commissioning is claimed.
+
+
+## MacBook BLE hot-plug discovery correction — October 30, 2026
+
+Live commissioning found that Ghost Booth's native audio and one-second meter
+were running, with successful CoreMIDI client/port creation, while newly paired
+ODD Balls remained absent from its input list. Fresh read-only CoreMIDI enumeration
+saw the online hardware endpoints with nonzero entities; neither endpoint
+matched the Booth's exclusions. This ruled out the filtering code and OS pairing.
+
+Two otherwise identical, bounded read-only diagnostic clients ran concurrently,
+with no MIDI ports, source connections, audio engine or playback. On a subsequent
+ball connection, the client using `RunLoop.main.run()` received 21 topology
+notifications and updated from two to three sources. The `dispatchMain()` client
+received none and retained its old two-source snapshot despite continued polling.
+The running Booth also retained an empty input list while its meter advanced.
+
+Native.swift now services the main run loop instead of entering `dispatchMain()`.
+The existing main dispatch queue still serializes controls, input decoding,
+reconciliation, playback and watchdog logic. No input is automatically selected
+and FX still starts off. The diagnostic endpoint identities/logs remain local,
+outside Git. This A/B evidence establishes a topology-discovery defect on this
+Mac; subsequent live commissioning is recorded separately below.
+
+
+The patched full native source compiled successfully without executing the audio
+helper. Twenty targeted tests passed: pure Swift MIDI decoding and voice ownership,
+mocked multi-ball routing/readiness, and ordered FX controls. The pure Swift tests
+used an explicit writable compiler module cache; they initialize no MIDI or audio
+backend. No source-text assertion was added as a substitute for the observed
+runtime A/B experiment.
+
+With the user's authorization, only Ghost Booth was restarted with the patched
+helper. Pink and Purple appeared, then Green connected while Booth was running
+and appeared without another restart. Gray was subsequently discovered and all
+four endpoints were simultaneously connected. Gray's initial discovery delay
+does not establish a device-count limit or a known Bluetooth root cause.
+
+Each color was identified through isolated activation and positive hardware
+NoteOn input, then individually confirmed audible by the user. The ignored host
+show configuration saves the measured endpoint/channel/note bindings and these
+generic `sounds.unknown` assignments:
+
+| Ball | Verified voice |
+| --- | --- |
+| Pink | `cartoon_boing` |
+| Purple | `cartoon_squeak` |
+| Green | `cartoon_spring` |
+| Gray | `cartoon_plop` |
+
+A separate 30-second manual test armed all four ball/trial routes together.
+Recorded sound requests retained the correct ball/trial identities: Pink 37,
+Purple 28, Green 27 and Gray 46, with the matching voices above. These are sound
+request counts, not independent physical-bounce counts. The user confirmed all
+four sounded correct. The arming events were explicitly labeled operator audio
+test requests using the release routing gate, never observed robot releases;
+the impacts came from live MIDI. Raw events and endpoint IDs remain host-local.
+
+The test ended with all commissioning trials canceled and FX muted. Booth remains
+running on loopback; the bounded observation collector was stopped. Full
+regression passed 422 Python tests and 106 Node tests, plus Scripter and fixed-scene
+orientation-contract smoke assertions. No robot SDK connection, robot/tool action,
+Viam configuration, physical-dashboard deployment, or simulator restart occurred.
+Robot-cycle timing, surface classification, capture/miss sensing and private-LAN
+operation remain unverified. The service's full physical-commissioning flag is
+not promoted by this audio-only test.
