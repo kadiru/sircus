@@ -1,0 +1,27 @@
+<section id="recoveryRegression" class="recovery-regression">
+  <p class="rr-eyebrow">MJLAB · RECOVERY REGRESSIONS · NATIVE 64 SUBSTEPS</p>
+  <h2>Five lost captures: exact settings, saved flights and one correction</h2>
+  <p class="rr-note" data-recovery-regression="status" role="status">Waiting for saved diagnosis.</p>
+  <p>These 70 former TEST positions are now development evidence. The earlier recovery result remains 37/70 versus parent imitation 34/70, with eight gains and five losses. This targeted follow-up cannot establish a new policy score or generalization.</p>
+  <div class="rr-cards" data-recovery-regression="counts"></div>
+  <h3>Every lost capture, paired at the same bucket position</h3>
+  <div class="rr-scroll" data-recovery-regression="losses"></div>
+  <h3>Recorded examples</h3>
+  <label>Saved request <select data-recovery-regression="case-choice" aria-label="Recovery regression saved request"></select></label>
+  <p class="rr-note" data-recovery-regression="case-summary"></p>
+  <p class="rr-small" data-recovery-regression="case-setup"></p>
+  <div class="rr-scroll" data-recovery-regression="case-events"></div>
+  <div data-recovery-regression="case-trace"></div>
+  <div class="rr-playback"><button type="button" data-recovery-regression="play">Play saved samples</button><button type="button" data-recovery-regression="pause">Pause</button><label>Recorded sample <input type="range" min="0" max="0" value="0" step="1" data-recovery-regression="scrub" aria-label="Saved native sample"></label><span data-recovery-regression="sample-time"></span></div>
+  <p class="rr-small">Replay uses actual saved ball centers. Two projections omit one coordinate each; held arm endpoints and the path between them are not animated. No invented flight is shown for a setup decline. Native dense evidence determines scoring; the compact replay is for inspection.</p>
+  <details><summary>All 33 unsuccessful recovery requests: 16 setup declines and 17 released misses</summary><div class="rr-scroll" data-recovery-regression="failures"></div></details>
+  <p class="rr-small">Table contact is allowed. Robot, floor and unattributed contacts disqualify a capture. Invalid physics is separate from an ordinary flight miss. Finite IK failure does not prove a pose unreachable; a conservative clearance bound below 5 mm does not establish physical penetration.</p>
+  <h3>One frozen correction and matched controls</h3>
+  <p class="rr-small">Restore only the board-height action coordinate (index 2) to its matched parent value. The other four action coordinates remain fixed. Because the drop gap stays fixed, the absolute ball-release height shifts by the same amount as board height. This is not a change to the board alone.</p>
+  <p class="rr-note" data-recovery-regression="correction"></p>
+  <div class="rr-scroll" data-recovery-regression="comparison"></div>
+  <p class="rr-small" data-recovery-regression="controls"></p>
+  <p class="rr-small" data-recovery-regression="proof"></p>
+  <p class="rr-small">Diagnostic development repeats only. No policy promotion, new PPO, 128-substep claim, physical validation or learned grasp/transit/perception. The 4070 workload and Isaac setup remain outside this study.</p>
+  <p class="rr-small" data-recovery-regression="connection">Read-only saved results.</p>
+</section>

@@ -1,0 +1,2171 @@
+{
+  "version": "sircus-recovery-regression-compact-v1",
+  "status": "diagnosis_completed_correction_pending",
+  "scope": "Posthoc development diagnosis of the original recovery TEST positions. Historical scores remain unchanged. Contacts are observations, not causal proof. Fixed64 held endpoints only; no new training, native rollout, noise, driven transit or physical validation.",
+  "source": {
+    "report_sha256": "6a255223820656059fe16a5de2944ba2593f7ac3603b287f4955979cd4677504",
+    "audit_sha256": "e2ba653792b37d302425ba4af6cb22460c3d5b426274b3c1b3cbce270a857a9b",
+    "rows_sha256": "3fba67b7cbb1a1a8769ef773bab3245233e6704641e2f98a037076a11112985b",
+    "manifest_sha256": "809d0aa053d14b7c5d2bca7a558b55c0d68bcb0ac1e6a4d5751d18759c784235",
+    "contract_fingerprint": "f54c341eba5258b427e4e1eb05a1b2e93bf76518d9f94a2fe8cf6bad744f6082",
+    "full_checks_verified": true,
+    "native_checks_verified": true,
+    "checks_count": 283251,
+    "producer_commit": "522409306b836e39d2108be91c5d57fcf1fd484b",
+    "diagnosis_source_sha256": "21daab0f6378900b24b4e9082bcc072afc3b0f44a52262a342d281b7e987dc5a",
+    "helper_source_sha256": {
+      "xy650_verify.py": "010212fa1d452f7667a92fd7963ddc1c87e5938527610d6dfd0aae7411c8daeb",
+      "table_assisted_score_oracle.py": "090fa68ee5763e369637bf0eb5dbaadba5a02992737af91a1a637bdad26f9121",
+      "table_training_verify.py": "1f99a95232e0994dbe52004209aae0dfb52a584c90f024fce28d2af85a80b2aa"
+    }
+  },
+  "diagnosis": {
+    "report_sha256": "511e9f82004af0d603628e25adf8fab71284faa8f11de9307b4c8a611d049ab7",
+    "audit_sha256": "911101291f8119611f05b071980d408c658984074557976ef153ddf8acbd97a6",
+    "fingerprint": "a76f553b05dfb30bd1af35eed199fd026b7912803b6f44bab0e4b0727baf8c8b",
+    "checks_count": 3103,
+    "status": "passed"
+  },
+  "summary": {
+    "requested": 70,
+    "parent_bc_captures": 34,
+    "recovery_bc_captures": 37,
+    "gains": 8,
+    "losses": 5,
+    "setup_rejections": 16,
+    "flight_misses": 17,
+    "failure_groups": {
+      "no_whole_ball_entry": 17,
+      "setup_finite_ik_dropper": 5,
+      "setup_finite_ik_board": 5,
+      "setup_fixed_base_clearance_rejected": 2,
+      "setup_strict_endpoint_clearance_or_pose_rejected": 2,
+      "setup_action_bounds_rejected": 1,
+      "setup_finite_ik_both_arms": 1
+    },
+    "first_post_board_contact_groups": {
+      "bucket": 6,
+      "table": 6,
+      "robot": 5
+    },
+    "forbidden_contact_misses": 7
+  },
+  "parameter_order": [
+    "board_x_m",
+    "board_y_m",
+    "board_height_m",
+    "board_tilt_deg",
+    "nominal_plane_gap_m"
+  ],
+  "geometry": {
+    "ball_radius_m": 0.0375,
+    "rim_z_m": 0.183,
+    "scope": "Configured simulator dimensions; provisional ball and bucket depth, no physical calibration."
+  },
+  "losses": [
+    {
+      "context_id": "recovery-test-r0-c5-n1",
+      "bucket_xy_m": [
+        1.0532821972317188,
+        -0.6192877290708148
+      ],
+      "parent_bc": {
+        "record_id": "recovery-test-parent_bc-recovery-test-r0-c5-n1",
+        "record_sha256": "7dc43ebc832029c31831dd4f0edab3ea927210a0dfd9fca99b5530f811917049",
+        "values": [
+          0.6423936910071795,
+          -0.19696818129175686,
+          0.42882192610008596,
+          31.74276726405379,
+          0.10343122140848612
+        ],
+        "native_release": true,
+        "capture": true,
+        "group": "capture_with_table_contact",
+        "release_ball_center_z_m": 0.5697531475085721,
+        "setup": {
+          "reason": null,
+          "group": "admitted",
+          "valid_ik_branches_dropper_board": [
+            10,
+            10
+          ],
+          "endpoint_pairs_checked": 13,
+          "admitted_branches": [
+            {
+              "branch10": 0,
+              "branch14": 6
+            }
+          ],
+          "collision_pair_count": 2,
+          "collision_pair_examples": [
+            [
+              "Arm10/link4/collision/0",
+              "Arm10/link6/collision/0"
+            ],
+            [
+              "Arm14/link4/collision/0",
+              "Arm14/link6/collision/0"
+            ]
+          ],
+          "home_minimum_clearance_m": 0.006085006839541591,
+          "home_closest_pair": [
+            "Arm10/link4/collision/0",
+            "Arm10/link6/collision/0"
+          ],
+          "connection_sha256": "e94dca4e7b7877592ea5d0aa1e1f759ab73238c6d1173bbfe231bdfdffee709c",
+          "resolution_sha256": "fc95a9f424e04a2e8c49af1e14d9f7081bbda7f2cf6ee35f45fe980317226af7"
+        },
+        "observed": {
+          "first_contact_times_s": {
+            "board": 0.13834635416666666,
+            "table": 0.47408854166666664,
+            "bucket": 0.7026041666666667,
+            "robot": null,
+            "floor": null,
+            "unattributed": null
+          },
+          "whole_ball_entry": true,
+          "whole_ball_entry_time_s": 0.8767578125,
+          "capture_time_s": 1.8767578125,
+          "max_retention_s": 1.0,
+          "retention_resets": 0,
+          "rim_band_contact": true,
+          "entry_class": "assisted_or_marginal_capture",
+          "table_contact_steps": 26,
+          "forbidden_contact_steps": 0,
+          "pose_gate": {
+            "board_position_error_mm": 0.00013472397043205484,
+            "board_normal_error_deg": 0.021385086866283227,
+            "dropper_error_mm": 4.627784262436043e-05
+          },
+          "first_flight": {
+            "start_time_s": 0.140234375,
+            "end_time_s": 0.47408854166666664,
+            "cutoff_contact_channels": [
+              "table"
+            ],
+            "mouth_clearance_m": -0.2873817876420155,
+            "forward_error_m": -0.3384422839373134,
+            "lateral_error_m": 0.001260509641165225,
+            "first_rim_plane_crossing_time_s": 0.41980574796705394
+          },
+          "first_bucket_contact_ball_center_z_m": 0.21972520649433136,
+          "first_bucket_contact_radial_offset_m": 0.10733425815295251
+        },
+        "native_cache_sha256": "3b5990794988eb65323d2cbf6f6cb5aa56877280c11da8a8040f159229ce5213"
+      },
+      "recovery_bc": {
+        "record_id": "recovery-test-recovery_bc-recovery-test-r0-c5-n1",
+        "record_sha256": "96af9a6adeb372008b0d4497c16f6619eb9ea68b755396ce2775c8ae4f2ca2bd",
+        "values": [
+          0.6481643483015345,
+          -0.1966980652002992,
+          0.4248992377460701,
+          31.477651850899182,
+          0.13399849772597527
+        ],
+        "native_release": true,
+        "capture": false,
+        "group": "no_whole_ball_entry",
+        "release_ball_center_z_m": 0.5963977354720453,
+        "setup": {
+          "reason": null,
+          "group": "admitted",
+          "valid_ik_branches_dropper_board": [
+            14,
+            9
+          ],
+          "endpoint_pairs_checked": 16,
+          "admitted_branches": [
+            {
+              "branch10": 0,
+              "branch14": 8
+            }
+          ],
+          "collision_pair_count": 2,
+          "collision_pair_examples": [
+            [
+              "Arm10/link4/collision/0",
+              "Arm10/link6/collision/0"
+            ],
+            [
+              "Arm14/link4/collision/0",
+              "Arm14/link6/collision/0"
+            ]
+          ],
+          "home_minimum_clearance_m": 0.006085006839541591,
+          "home_closest_pair": [
+            "Arm10/link4/collision/0",
+            "Arm10/link6/collision/0"
+          ],
+          "connection_sha256": "7994c9f167431e53002994f9ec7c86bfacbc9aad1bf3d9dcaa27baa12a4d1221",
+          "resolution_sha256": "fc95a9f424e04a2e8c49af1e14d9f7081bbda7f2cf6ee35f45fe980317226af7"
+        },
+        "observed": {
+          "first_contact_times_s": {
+            "board": 0.159375,
+            "table": 0.5008463541666667,
+            "bucket": 0.6091145833333333,
+            "robot": null,
+            "floor": null,
+            "unattributed": null
+          },
+          "whole_ball_entry": false,
+          "whole_ball_entry_time_s": null,
+          "capture_time_s": null,
+          "max_retention_s": 0.0,
+          "retention_resets": 0,
+          "rim_band_contact": true,
+          "entry_class": "miss",
+          "table_contact_steps": 35681,
+          "forbidden_contact_steps": 0,
+          "pose_gate": {
+            "board_position_error_mm": 0.00013105751710454426,
+            "board_normal_error_deg": 0.0,
+            "dropper_error_mm": 7.785585799551541e-05
+          },
+          "first_flight": {
+            "start_time_s": 0.16126302083333333,
+            "end_time_s": 0.5008463541666667,
+            "cutoff_contact_channels": [
+              "table"
+            ],
+            "mouth_clearance_m": -0.24133517237761373,
+            "forward_error_m": -0.29232062763574984,
+            "lateral_error_m": 0.0007999106297331138,
+            "first_rim_plane_crossing_time_s": 0.4464224363157061
+          },
+          "first_bucket_contact_ball_center_z_m": 0.18557000160217285,
+          "first_bucket_contact_radial_offset_m": 0.13731756291064182
+        },
+        "native_cache_sha256": "b81af4d84afe02d24876aac22676fe166734616a6f3e14d4172f217f57cd2271"
+      },
+      "delta_values_recovery_minus_parent": [
+        0.005770657294354997,
+        0.0002701160914576617,
+        -0.00392268835401588,
+        -0.2651154131546072,
+        0.03056727631748915
+      ],
+      "delta_requested_release_height_m": 0.02664458796347327,
+      "same_geometry_anchor": true
+    },
+    {
+      "context_id": "recovery-test-r0-c6-n1",
+      "bucket_xy_m": [
+        1.124874941626022,
+        -0.5931986953664748
+      ],
+      "parent_bc": {
+        "record_id": "recovery-test-parent_bc-recovery-test-r0-c6-n1",
+        "record_sha256": "9657de9184ab41355b3d597718da8b3f5ba7c5862913ec9eb98311ce549a0d64",
+        "values": [
+          0.6511098958504349,
+          -0.19868905327524075,
+          0.4330840858270651,
+          30.835568330652933,
+          0.10993224529525081
+        ],
+        "native_release": true,
+        "capture": true,
+        "group": "capture_with_table_contact",
+        "release_ball_center_z_m": 0.5805163311223159,
+        "setup": {
+          "reason": null,
+          "group": "admitted",
+          "valid_ik_branches_dropper_board": [
+            10,
+            11
+          ],
+          "endpoint_pairs_checked": 15,
+          "admitted_branches": [
+            {
+              "branch10": 0,
+              "branch14": 4
+            }
+          ],
+          "collision_pair_count": 2,
+          "collision_pair_examples": [
+            [
+              "Arm10/link4/collision/0",
+              "Arm10/link6/collision/0"
+            ],
+            [
+              "Arm14/link4/collision/0",
+              "Arm14/link6/collision/0"
+            ]
+          ],
+          "home_minimum_clearance_m": 0.006085006839541591,
+          "home_closest_pair": [
+            "Arm10/link4/collision/0",
+            "Arm10/link6/collision/0"
+          ],
+          "connection_sha256": "a1c42f9034fc7a5c85d8d466fd81816ea89beb3c689d77c533ac45bcb4c702b7",
+          "resolution_sha256": "02374a1799a2d9c16c8f110d32a6539eeadcc1bbdd10452366aabb1aba700a82"
+        },
+        "observed": {
+          "first_contact_times_s": {
+            "board": 0.143359375,
+            "table": 0.4845703125,
+            "bucket": 0.7215494791666667,
+            "robot": null,
+            "floor": null,
+            "unattributed": null
+          },
+          "whole_ball_entry": true,
+          "whole_ball_entry_time_s": 0.9669270833333333,
+          "capture_time_s": 1.9669270833333332,
+          "max_retention_s": 0.9999999999999999,
+          "retention_resets": 0,
+          "rim_band_contact": true,
+          "entry_class": "assisted_or_marginal_capture",
+          "table_contact_steps": 26,
+          "forbidden_contact_steps": 0,
+          "pose_gate": {
+            "board_position_error_mm": 0.00011134981420613442,
+            "board_normal_error_deg": 0.0,
+            "dropper_error_mm": 9.139933045652385e-05
+          },
+          "first_flight": {
+            "start_time_s": 0.14524739583333332,
+            "end_time_s": 0.4845703125,
+            "cutoff_contact_channels": [
+              "table"
+            ],
+            "mouth_clearance_m": -0.30565499947966845,
+            "forward_error_m": -0.3568061736487636,
+            "lateral_error_m": 0.0013349843382101378,
+            "first_rim_plane_crossing_time_s": 0.4306751819490834
+          },
+          "first_bucket_contact_ball_center_z_m": 0.21695688366889954,
+          "first_bucket_contact_radial_offset_m": 0.11576532311517365
+        },
+        "native_cache_sha256": "3b5990794988eb65323d2cbf6f6cb5aa56877280c11da8a8040f159229ce5213"
+      },
+      "recovery_bc": {
+        "record_id": "recovery-test-recovery_bc-recovery-test-r0-c6-n1",
+        "record_sha256": "6b858d81d767c4257e957dc7474847020ee450fb59642a55094673f19e542dd6",
+        "values": [
+          0.652624209743943,
+          -0.19822855800548922,
+          0.4432451770935588,
+          30.54564382422724,
+          0.1476775358189461
+        ],
+        "native_release": true,
+        "capture": false,
+        "group": "no_whole_ball_entry",
+        "release_ball_center_z_m": 0.628422712912505,
+        "setup": {
+          "reason": null,
+          "group": "admitted",
+          "valid_ik_branches_dropper_board": [
+            8,
+            11
+          ],
+          "endpoint_pairs_checked": 11,
+          "admitted_branches": [
+            {
+              "branch10": 0,
+              "branch14": 6
+            }
+          ],
+          "collision_pair_count": 2,
+          "collision_pair_examples": [
+            [
+              "Arm10/link4/collision/0",
+              "Arm10/link6/collision/0"
+            ],
+            [
+              "Arm14/link4/collision/0",
+              "Arm14/link6/collision/0"
+            ]
+          ],
+          "home_minimum_clearance_m": 0.006085006839541591,
+          "home_closest_pair": [
+            "Arm10/link4/collision/0",
+            "Arm10/link6/collision/0"
+          ],
+          "connection_sha256": "faeb6eec18ee965810b1c9c92f47a116e1afe60ea866f7dc2cbe6f6a36f6ee5e",
+          "resolution_sha256": "02374a1799a2d9c16c8f110d32a6539eeadcc1bbdd10452366aabb1aba700a82"
+        },
+        "observed": {
+          "first_contact_times_s": {
+            "board": 0.1681640625,
+            "table": 0.521875,
+            "bucket": 0.6325520833333333,
+            "robot": null,
+            "floor": null,
+            "unattributed": null
+          },
+          "whole_ball_entry": false,
+          "whole_ball_entry_time_s": null,
+          "capture_time_s": null,
+          "max_retention_s": 0.0,
+          "retention_resets": 0,
+          "rim_band_contact": true,
+          "entry_class": "miss",
+          "table_contact_steps": 33998,
+          "forbidden_contact_steps": 0,
+          "pose_gate": {
+            "board_position_error_mm": 8.89466718082587e-05,
+            "board_normal_error_deg": 0.005887381019317803,
+            "dropper_error_mm": 0.00012199870552773519
+          },
+          "first_flight": {
+            "start_time_s": 0.17005208333333333,
+            "end_time_s": 0.521875,
+            "cutoff_contact_channels": [
+              "table"
+            ],
+            "mouth_clearance_m": -0.24633027604241997,
+            "forward_error_m": -0.29738888916381956,
+            "lateral_error_m": 0.0017642022835213378,
+            "first_rim_plane_crossing_time_s": 0.4689077797095013
+          },
+          "first_bucket_contact_ball_center_z_m": 0.19224730134010315,
+          "first_bucket_contact_radial_offset_m": 0.13623299630328042
+        },
+        "native_cache_sha256": "b81af4d84afe02d24876aac22676fe166734616a6f3e14d4172f217f57cd2271"
+      },
+      "delta_values_recovery_minus_parent": [
+        0.0015143138935080902,
+        0.0004604952697515319,
+        0.010161091266493727,
+        -0.2899245064256917,
+        0.037745290523695296
+      ],
+      "delta_requested_release_height_m": 0.04790638179018902,
+      "same_geometry_anchor": true
+    },
+    {
+      "context_id": "recovery-test-r1-c1-n1",
+      "bucket_xy_m": [
+        0.37808349751740966,
+        -0.43814751388568507
+      ],
+      "parent_bc": {
+        "record_id": "recovery-test-parent_bc-recovery-test-r1-c1-n1",
+        "record_sha256": "82e29e381b52f7f040cbd901770dd71b8494069b8b7a4aaf1906df8bf4fabe91",
+        "values": [
+          0.6354208507773215,
+          -0.3928478259242271,
+          0.2821621006239574,
+          31.622137576704997,
+          0.2112402545682202
+        ],
+        "native_release": true,
+        "capture": true,
+        "group": "direct_capture",
+        "release_ball_center_z_m": 0.5309023551921777,
+        "setup": {
+          "reason": null,
+          "group": "admitted",
+          "valid_ik_branches_dropper_board": [
+            10,
+            7
+          ],
+          "endpoint_pairs_checked": 6,
+          "admitted_branches": [
+            {
+              "branch10": 0,
+              "branch14": 0
+            }
+          ],
+          "collision_pair_count": 0,
+          "collision_pair_examples": [],
+          "home_minimum_clearance_m": 0.006085006839541591,
+          "home_closest_pair": [
+            "Arm10/link4/collision/0",
+            "Arm10/link6/collision/0"
+          ],
+          "connection_sha256": "676287e32ea6c2afdbfd69ba4cf886c85c305c6de5aefd3b9adfe9253718359c",
+          "resolution_sha256": "fed2d3dbbcd37a65edc2a3103eec09f8037b4ffa318318b4831589110551fb9a"
+        },
+        "observed": {
+          "first_contact_times_s": {
+            "board": 0.20279947916666666,
+            "table": null,
+            "bucket": 0.4415364583333333,
+            "robot": null,
+            "floor": null,
+            "unattributed": null
+          },
+          "whole_ball_entry": true,
+          "whole_ball_entry_time_s": 0.4571614583333333,
+          "capture_time_s": 1.4571614583333332,
+          "max_retention_s": 0.9999999999999999,
+          "retention_resets": 0,
+          "rim_band_contact": true,
+          "entry_class": "assisted_or_marginal_capture",
+          "table_contact_steps": 0,
+          "forbidden_contact_steps": 0,
+          "pose_gate": {
+            "board_position_error_mm": 9.11137011101733e-05,
+            "board_normal_error_deg": 0.01080884866102033,
+            "dropper_error_mm": 6.37442292431953e-05
+          },
+          "first_flight": {
+            "start_time_s": 0.2046875,
+            "end_time_s": 0.4415364583333333,
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "mouth_clearance_m": 0.012748988781147517,
+            "forward_error_m": 0.0380712841423808,
+            "lateral_error_m": 0.0023837533745966113,
+            "first_rim_plane_crossing_time_s": 0.4327622992819368
+          },
+          "first_bucket_contact_ball_center_z_m": 0.16722117364406586,
+          "first_bucket_contact_radial_offset_m": 0.0495926922942443
+        },
+        "native_cache_sha256": "3b5990794988eb65323d2cbf6f6cb5aa56877280c11da8a8040f159229ce5213"
+      },
+      "recovery_bc": {
+        "record_id": "recovery-test-recovery_bc-recovery-test-r1-c1-n1",
+        "record_sha256": "ebd6287831323e987dd5772c277d130fd75b98f5b425a7b7a9648f5bde3a846f",
+        "values": [
+          0.6413132134896747,
+          -0.41637288978939857,
+          0.2578337762327255,
+          32.19563352799576,
+          0.23693153444604603
+        ],
+        "native_release": false,
+        "capture": false,
+        "group": "setup_finite_ik_dropper",
+        "release_ball_center_z_m": null,
+        "setup": {
+          "reason": "finite_ik_unresolved",
+          "group": "finite_ik_dropper",
+          "valid_ik_branches_dropper_board": [
+            0,
+            9
+          ],
+          "endpoint_pairs_checked": 0,
+          "admitted_branches": [],
+          "collision_pair_count": 0,
+          "collision_pair_examples": [],
+          "home_minimum_clearance_m": 0.006085006839541591,
+          "home_closest_pair": [
+            "Arm10/link4/collision/0",
+            "Arm10/link6/collision/0"
+          ],
+          "connection_sha256": "a510c403907fd2cc7c747dee84fd1f15c5d1378f1bb1f257b43917b2a4aa628e",
+          "resolution_sha256": "fed2d3dbbcd37a65edc2a3103eec09f8037b4ffa318318b4831589110551fb9a"
+        },
+        "observed": null,
+        "native_cache_sha256": null
+      },
+      "delta_values_recovery_minus_parent": [
+        0.005892362712353272,
+        -0.023525063865171447,
+        -0.024328324391231892,
+        0.5734959512907629,
+        0.025691279877825823
+      ],
+      "delta_requested_release_height_m": 0.0013629554865939308,
+      "same_geometry_anchor": true
+    },
+    {
+      "context_id": "recovery-test-r2-c4-n0",
+      "bucket_xy_m": [
+        0.8983060633856379,
+        -0.24416666833902845
+      ],
+      "parent_bc": {
+        "record_id": "recovery-test-parent_bc-recovery-test-r2-c4-n0",
+        "record_sha256": "5aa78a2dabf41840742006bc0df06d2386d6d1f543afbc17d512e466d5ecd4dd",
+        "values": [
+          0.5793425910769604,
+          -0.05966102020726748,
+          0.4607055799518638,
+          24.096035731929092,
+          0.21219981871621818
+        ],
+        "native_release": true,
+        "capture": true,
+        "group": "direct_capture",
+        "release_ball_center_z_m": 0.7104053986680819,
+        "setup": {
+          "reason": null,
+          "group": "admitted",
+          "valid_ik_branches_dropper_board": [
+            6,
+            7
+          ],
+          "endpoint_pairs_checked": 6,
+          "admitted_branches": [
+            {
+              "branch10": 0,
+              "branch14": 0
+            }
+          ],
+          "collision_pair_count": 0,
+          "collision_pair_examples": [],
+          "home_minimum_clearance_m": 0.006085006839541591,
+          "home_closest_pair": [
+            "Arm10/link4/collision/0",
+            "Arm10/link6/collision/0"
+          ],
+          "connection_sha256": "6acc26f3e603a9eacfd086f79f09cc683d1c117a6d9f87b1f5483f8dcc5f516e",
+          "resolution_sha256": "bc4c27d89ac6df69d3590d3a834cf3010af14a4256620051d8436e71a658a0a0"
+        },
+        "observed": {
+          "first_contact_times_s": {
+            "board": 0.20488281249999998,
+            "table": null,
+            "bucket": 0.577734375,
+            "robot": null,
+            "floor": null,
+            "unattributed": null
+          },
+          "whole_ball_entry": true,
+          "whole_ball_entry_time_s": 0.5725260416666667,
+          "capture_time_s": 1.8838541666666666,
+          "max_retention_s": 1.0,
+          "retention_resets": 1,
+          "rim_band_contact": true,
+          "entry_class": "assisted_or_marginal_capture",
+          "table_contact_steps": 0,
+          "forbidden_contact_steps": 0,
+          "pose_gate": {
+            "board_position_error_mm": 0.00017217643428453,
+            "board_normal_error_deg": 0.0,
+            "dropper_error_mm": 9.67492036725905e-05
+          },
+          "first_flight": {
+            "start_time_s": 0.20670572916666666,
+            "end_time_s": 0.577734375,
+            "cutoff_contact_channels": [
+              "bucket"
+            ],
+            "mouth_clearance_m": 0.025250476354493297,
+            "forward_error_m": 0.025311898216774927,
+            "lateral_error_m": -0.004265716058200825,
+            "first_rim_plane_crossing_time_s": 0.5586518652451877
+          },
+          "first_bucket_contact_ball_center_z_m": 0.13087089359760284,
+          "first_bucket_contact_radial_offset_m": 0.04681373424724476
+        },
+        "native_cache_sha256": "746ecf5091dfc78958b02e4206fb8e10f01855e639678173a1cce446d10fb9d0"
+      },
+      "recovery_bc": {
+        "record_id": "recovery-test-recovery_bc-recovery-test-r2-c4-n0",
+        "record_sha256": "cc3b560cc8d1de2eb9e371257dda3a43931cf69163107d287438f7a373189237",
+        "values": [
+          0.5656497500163832,
+          -0.062265897289356005,
+          0.4783027474252996,
+          25.631120689705778,
+          0.18223217071817022
+        ],
+        "native_release": false,
+        "capture": false,
+        "group": "setup_finite_ik_board",
+        "release_ball_center_z_m": null,
+        "setup": {
+          "reason": "finite_ik_unresolved",
+          "group": "finite_ik_board",
+          "valid_ik_branches_dropper_board": [
+            8,
+            0
+          ],
+          "endpoint_pairs_checked": 0,
+          "admitted_branches": [],
+          "collision_pair_count": 0,
+          "collision_pair_examples": [],
+          "home_minimum_clearance_m": 0.006085006839541591,
+          "home_closest_pair": [
+            "Arm10/link4/collision/0",
+            "Arm10/link6/collision/0"
+          ],
+          "connection_sha256": "b61bf811bb4346107642bad63d1e7c3a5859f85b0c3764e642a02387f94df429",
+          "resolution_sha256": "bc4c27d89ac6df69d3590d3a834cf3010af14a4256620051d8436e71a658a0a0"
+        },
+        "observed": null,
+        "native_cache_sha256": null
+      },
+      "delta_values_recovery_minus_parent": [
+        -0.013692841060577221,
+        -0.002604877082088522,
+        0.017597167473435815,
+        1.5350849577766859,
+        -0.029967647998047964
+      ],
+      "delta_requested_release_height_m": -0.012370480524612149,
+      "same_geometry_anchor": true
+    },
+    {
+      "context_id": "recovery-test-r3-c1-n0",
+      "bucket_xy_m": [
+        0.33921258610632277,
+        -0.030948513932831045
+      ],
+      "parent_bc": {
+        "record_id": "recovery-test-parent_bc-recovery-test-r3-c1-n0",
+        "record_sha256": "30aa094333b1dc4dfc5c40ddebdde6b3a784cef76848a223ad9f345065f1e95e",
+        "values": [
+          0.6187721973647593,
+          -0.012944117054320775,
+          0.2804242748271688,
+          29.199764274956387,
+          0.0655825816724418
+        ],
+        "native_release": true,
+        "capture": true,
+        "group": "direct_capture",
+        "release_ball_center_z_m": 0.3835068564996106,
+        "setup": {
+          "reason": null,
+          "group": "admitted",
+          "valid_ik_branches_dropper_board": [
+            6,
+            3
+          ],
+          "endpoint_pairs_checked": 3,
+          "admitted_branches": [
+            {
+              "branch10": 0,
+              "branch14": 0
+            }
+          ],
+          "collision_pair_count": 0,
+          "collision_pair_examples": [],
+          "home_minimum_clearance_m": 0.006085006839541591,
+          "home_closest_pair": [
+            "Arm10/link4/collision/0",
+            "Arm10/link6/collision/0"
+          ],
+          "connection_sha256": "1f66ef56f4c4b7b91d2864370932d740b5c44b4eb0d71cecf33f063c49db9619",
+          "resolution_sha256": "83572f953e911839ace3a2607ebd6e5472fbbe94d5efb04fc2801e630d13bc2b"
+        },
+        "observed": {
+          "first_contact_times_s": {
+            "board": 0.10807291666666667,
+            "table": null,
+            "bucket": 0.3431640625,
+            "robot": null,
+            "floor": null,
+            "unattributed": null
+          },
+          "whole_ball_entry": true,
+          "whole_ball_entry_time_s": 0.6409505208333334,
+          "capture_time_s": 1.6409505208333333,
+          "max_retention_s": 0.9999999999999999,
+          "retention_resets": 0,
+          "rim_band_contact": true,
+          "entry_class": "assisted_or_marginal_capture",
+          "table_contact_steps": 0,
+          "forbidden_contact_steps": 0,
+          "pose_gate": {
+            "board_position_error_mm": 0.00017675855400981955,
+            "board_normal_error_deg": 0.0,
+            "dropper_error_mm": 8.026086810708065e-05
+          },
+          "first_flight": {
+            "start_time_s": 0.10989583333333333,
+            "end_time_s": 0.2521484375,
+            "cutoff_contact_channels": [
+              "board"
+            ],
+            "mouth_clearance_m": null,
+            "forward_error_m": null,
+            "lateral_error_m": null,
+            "first_rim_plane_crossing_time_s": null
+          },
+          "first_bucket_contact_ball_center_z_m": 0.2203531116247177,
+          "first_bucket_contact_radial_offset_m": 0.08563777959363537
+        },
+        "native_cache_sha256": "746ecf5091dfc78958b02e4206fb8e10f01855e639678173a1cce446d10fb9d0"
+      },
+      "recovery_bc": {
+        "record_id": "recovery-test-recovery_bc-recovery-test-r3-c1-n0",
+        "record_sha256": "2b1f9b0006ae7e6f16cb6560c64ac592054af5dfb5339115f7f9a7f228d6f9d2",
+        "values": [
+          0.6130874716489696,
+          -0.014842174275851744,
+          0.24112904780445696,
+          26.792298426137677,
+          0.17376046515080312
+        ],
+        "native_release": false,
+        "capture": false,
+        "group": "setup_strict_endpoint_clearance_or_pose_rejected",
+        "release_ball_center_z_m": null,
+        "setup": {
+          "reason": "strict_endpoint_clearance_or_pose_rejected",
+          "group": "strict_endpoint_clearance_or_pose_rejected",
+          "valid_ik_branches_dropper_board": [
+            12,
+            6
+          ],
+          "endpoint_pairs_checked": 6,
+          "admitted_branches": [],
+          "collision_pair_count": 1,
+          "collision_pair_examples": [
+            [
+              "table",
+              "Arm14/link5/collision/0"
+            ]
+          ],
+          "home_minimum_clearance_m": 0.006085006839541591,
+          "home_closest_pair": [
+            "Arm10/link4/collision/0",
+            "Arm10/link6/collision/0"
+          ],
+          "connection_sha256": "4168cb2a342b60b4ae07766daeb9e1fe6a904d1315692aa732e7f8c35ad97634",
+          "resolution_sha256": "83572f953e911839ace3a2607ebd6e5472fbbe94d5efb04fc2801e630d13bc2b"
+        },
+        "observed": null,
+        "native_cache_sha256": null
+      },
+      "delta_values_recovery_minus_parent": [
+        -0.005684725715789707,
+        -0.0018980572215309688,
+        -0.03929522702271185,
+        -2.4074658488187097,
+        0.10817788347836133
+      ],
+      "delta_requested_release_height_m": 0.06888265645564948,
+      "same_geometry_anchor": true
+    }
+  ],
+  "all_33_recovery_failures": [
+    {
+      "context_id": "recovery-test-r0-c3-n1",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r0-c3-n1",
+      "record_sha256": "4ff1edc989d72446622918257eb953494ee7eab5fc84211853e3d87028e69437",
+      "group": "no_whole_ball_entry",
+      "native_release": true,
+      "capture": false,
+      "observed": {
+        "first_contact_times_s": {
+          "board": 0.17884114583333333,
+          "table": 0.9724609375,
+          "bucket": 0.4475911458333333,
+          "robot": null,
+          "floor": null,
+          "unattributed": null
+        },
+        "whole_ball_entry": false,
+        "whole_ball_entry_time_s": null,
+        "capture_time_s": null,
+        "max_retention_s": 0.0,
+        "retention_resets": 0,
+        "rim_band_contact": true,
+        "entry_class": "miss",
+        "table_contact_steps": 26,
+        "forbidden_contact_steps": 0,
+        "pose_gate": {
+          "board_position_error_mm": 0.00013828598520426613,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 0.00012014624886274466
+        },
+        "first_flight": {
+          "start_time_s": 0.1806640625,
+          "end_time_s": 0.4475911458333333,
+          "cutoff_contact_channels": [
+            "bucket"
+          ],
+          "mouth_clearance_m": null,
+          "forward_error_m": null,
+          "lateral_error_m": null,
+          "first_rim_plane_crossing_time_s": null
+        },
+        "first_bucket_contact_ball_center_z_m": 0.22042931616306305,
+        "first_bucket_contact_radial_offset_m": 0.09426097354525244
+      },
+      "native_cache_sha256": "b81af4d84afe02d24876aac22676fe166734616a6f3e14d4172f217f57cd2271"
+    },
+    {
+      "context_id": "recovery-test-r0-c4-n1",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r0-c4-n1",
+      "record_sha256": "1ffd349907dee04d36b26d93059ffc3755b967bcc41d7127d63582782aed6120",
+      "group": "no_whole_ball_entry",
+      "native_release": true,
+      "capture": false,
+      "observed": {
+        "first_contact_times_s": {
+          "board": 0.18704427083333333,
+          "table": 0.7849609375,
+          "bucket": 0.44869791666666664,
+          "robot": 0.8520833333333333,
+          "floor": null,
+          "unattributed": null
+        },
+        "whole_ball_entry": false,
+        "whole_ball_entry_time_s": null,
+        "capture_time_s": null,
+        "max_retention_s": 0.0,
+        "retention_resets": 0,
+        "rim_band_contact": true,
+        "entry_class": "miss",
+        "table_contact_steps": 7141,
+        "forbidden_contact_steps": 28,
+        "pose_gate": {
+          "board_position_error_mm": 0.00014495284613536713,
+          "board_normal_error_deg": 0.019424385478975337,
+          "dropper_error_mm": 4.769127970702874e-05
+        },
+        "first_flight": {
+          "start_time_s": 0.1888671875,
+          "end_time_s": 0.44869791666666664,
+          "cutoff_contact_channels": [
+            "bucket"
+          ],
+          "mouth_clearance_m": null,
+          "forward_error_m": null,
+          "lateral_error_m": null,
+          "first_rim_plane_crossing_time_s": null
+        },
+        "first_bucket_contact_ball_center_z_m": 0.21289420127868652,
+        "first_bucket_contact_radial_offset_m": 0.12250833067829474
+      },
+      "native_cache_sha256": "b81af4d84afe02d24876aac22676fe166734616a6f3e14d4172f217f57cd2271"
+    },
+    {
+      "context_id": "recovery-test-r0-c5-n0",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r0-c5-n0",
+      "record_sha256": "91fe86d9de006c7b05d8bfd15566edb533093946c22b9dcbc637268c071fdc15",
+      "group": "no_whole_ball_entry",
+      "native_release": true,
+      "capture": false,
+      "observed": {
+        "first_contact_times_s": {
+          "board": 0.1505859375,
+          "table": 0.48606770833333335,
+          "bucket": 0.5299479166666666,
+          "robot": null,
+          "floor": null,
+          "unattributed": null
+        },
+        "whole_ball_entry": false,
+        "whole_ball_entry_time_s": null,
+        "capture_time_s": null,
+        "max_retention_s": 0.0,
+        "retention_resets": 0,
+        "rim_band_contact": false,
+        "entry_class": "miss",
+        "table_contact_steps": 35181,
+        "forbidden_contact_steps": 0,
+        "pose_gate": {
+          "board_position_error_mm": 0.00017275074873341687,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 9.764333023661552e-05
+        },
+        "first_flight": {
+          "start_time_s": 0.15247395833333333,
+          "end_time_s": 0.48606770833333335,
+          "cutoff_contact_channels": [
+            "table"
+          ],
+          "mouth_clearance_m": -0.17028825280582488,
+          "forward_error_m": -0.22126860892010425,
+          "lateral_error_m": 0.001239805935428065,
+          "first_rim_plane_crossing_time_s": 0.43152895185682544
+        },
+        "first_bucket_contact_ball_center_z_m": 0.10772697627544403,
+        "first_bucket_contact_radial_offset_m": 0.12904107370372175
+      },
+      "native_cache_sha256": "b81af4d84afe02d24876aac22676fe166734616a6f3e14d4172f217f57cd2271"
+    },
+    {
+      "context_id": "recovery-test-r0-c5-n1",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r0-c5-n1",
+      "record_sha256": "96af9a6adeb372008b0d4497c16f6619eb9ea68b755396ce2775c8ae4f2ca2bd",
+      "group": "no_whole_ball_entry",
+      "native_release": true,
+      "capture": false,
+      "observed": {
+        "first_contact_times_s": {
+          "board": 0.159375,
+          "table": 0.5008463541666667,
+          "bucket": 0.6091145833333333,
+          "robot": null,
+          "floor": null,
+          "unattributed": null
+        },
+        "whole_ball_entry": false,
+        "whole_ball_entry_time_s": null,
+        "capture_time_s": null,
+        "max_retention_s": 0.0,
+        "retention_resets": 0,
+        "rim_band_contact": true,
+        "entry_class": "miss",
+        "table_contact_steps": 35681,
+        "forbidden_contact_steps": 0,
+        "pose_gate": {
+          "board_position_error_mm": 0.00013105751710454426,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 7.785585799551541e-05
+        },
+        "first_flight": {
+          "start_time_s": 0.16126302083333333,
+          "end_time_s": 0.5008463541666667,
+          "cutoff_contact_channels": [
+            "table"
+          ],
+          "mouth_clearance_m": -0.24133517237761373,
+          "forward_error_m": -0.29232062763574984,
+          "lateral_error_m": 0.0007999106297331138,
+          "first_rim_plane_crossing_time_s": 0.4464224363157061
+        },
+        "first_bucket_contact_ball_center_z_m": 0.18557000160217285,
+        "first_bucket_contact_radial_offset_m": 0.13731756291064182
+      },
+      "native_cache_sha256": "b81af4d84afe02d24876aac22676fe166734616a6f3e14d4172f217f57cd2271"
+    },
+    {
+      "context_id": "recovery-test-r0-c6-n1",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r0-c6-n1",
+      "record_sha256": "6b858d81d767c4257e957dc7474847020ee450fb59642a55094673f19e542dd6",
+      "group": "no_whole_ball_entry",
+      "native_release": true,
+      "capture": false,
+      "observed": {
+        "first_contact_times_s": {
+          "board": 0.1681640625,
+          "table": 0.521875,
+          "bucket": 0.6325520833333333,
+          "robot": null,
+          "floor": null,
+          "unattributed": null
+        },
+        "whole_ball_entry": false,
+        "whole_ball_entry_time_s": null,
+        "capture_time_s": null,
+        "max_retention_s": 0.0,
+        "retention_resets": 0,
+        "rim_band_contact": true,
+        "entry_class": "miss",
+        "table_contact_steps": 33998,
+        "forbidden_contact_steps": 0,
+        "pose_gate": {
+          "board_position_error_mm": 8.89466718082587e-05,
+          "board_normal_error_deg": 0.005887381019317803,
+          "dropper_error_mm": 0.00012199870552773519
+        },
+        "first_flight": {
+          "start_time_s": 0.17005208333333333,
+          "end_time_s": 0.521875,
+          "cutoff_contact_channels": [
+            "table"
+          ],
+          "mouth_clearance_m": -0.24633027604241997,
+          "forward_error_m": -0.29738888916381956,
+          "lateral_error_m": 0.0017642022835213378,
+          "first_rim_plane_crossing_time_s": 0.4689077797095013
+        },
+        "first_bucket_contact_ball_center_z_m": 0.19224730134010315,
+        "first_bucket_contact_radial_offset_m": 0.13623299630328042
+      },
+      "native_cache_sha256": "b81af4d84afe02d24876aac22676fe166734616a6f3e14d4172f217f57cd2271"
+    },
+    {
+      "context_id": "recovery-test-r1-c0-n0",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r1-c0-n0",
+      "record_sha256": "49aa5c9f0735b47aa38445ceaaf7b54b01d1c464854629f3c46d367acdd5ef75",
+      "group": "setup_finite_ik_dropper",
+      "native_release": false,
+      "capture": false,
+      "setup": {
+        "reason": "finite_ik_unresolved",
+        "group": "finite_ik_dropper",
+        "valid_ik_branches_dropper_board": [
+          0,
+          3
+        ],
+        "endpoint_pairs_checked": 0,
+        "admitted_branches": [],
+        "collision_pair_count": 0,
+        "collision_pair_examples": [],
+        "home_minimum_clearance_m": 0.006085006839541591,
+        "home_closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "connection_sha256": "7ae396a619605128213466d958ca44cc5e4d69a99b3a9c826bb62afe005b11ab",
+        "resolution_sha256": "88ef58d59d3072825164f903a1049df8fa8c4a230b4d5239662421da3afc68cf"
+      }
+    },
+    {
+      "context_id": "recovery-test-r1-c1-n1",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r1-c1-n1",
+      "record_sha256": "ebd6287831323e987dd5772c277d130fd75b98f5b425a7b7a9648f5bde3a846f",
+      "group": "setup_finite_ik_dropper",
+      "native_release": false,
+      "capture": false,
+      "setup": {
+        "reason": "finite_ik_unresolved",
+        "group": "finite_ik_dropper",
+        "valid_ik_branches_dropper_board": [
+          0,
+          9
+        ],
+        "endpoint_pairs_checked": 0,
+        "admitted_branches": [],
+        "collision_pair_count": 0,
+        "collision_pair_examples": [],
+        "home_minimum_clearance_m": 0.006085006839541591,
+        "home_closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "connection_sha256": "a510c403907fd2cc7c747dee84fd1f15c5d1378f1bb1f257b43917b2a4aa628e",
+        "resolution_sha256": "fed2d3dbbcd37a65edc2a3103eec09f8037b4ffa318318b4831589110551fb9a"
+      }
+    },
+    {
+      "context_id": "recovery-test-r1-c5-n0",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r1-c5-n0",
+      "record_sha256": "3575c4f2eb8939dc84e71c999632e92bbd8aebfd1a4c0f8f2c51028ccd9f00c6",
+      "group": "no_whole_ball_entry",
+      "native_release": true,
+      "capture": false,
+      "observed": {
+        "first_contact_times_s": {
+          "board": 0.17701822916666665,
+          "table": 0.5643229166666667,
+          "bucket": 0.6525390625,
+          "robot": null,
+          "floor": null,
+          "unattributed": null
+        },
+        "whole_ball_entry": false,
+        "whole_ball_entry_time_s": null,
+        "capture_time_s": null,
+        "max_retention_s": 0.0,
+        "retention_resets": 0,
+        "rim_band_contact": true,
+        "entry_class": "miss",
+        "table_contact_steps": 29055,
+        "forbidden_contact_steps": 0,
+        "pose_gate": {
+          "board_position_error_mm": 0.00011917165685260426,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 9.509781588720528e-05
+        },
+        "first_flight": {
+          "start_time_s": 0.17884114583333333,
+          "end_time_s": 0.5643229166666667,
+          "cutoff_contact_channels": [
+            "table"
+          ],
+          "mouth_clearance_m": -0.2136569832290328,
+          "forward_error_m": -0.2645910011862389,
+          "lateral_error_m": -0.0036177375900086906,
+          "first_rim_plane_crossing_time_s": 0.5136012523546032
+        },
+        "first_bucket_contact_ball_center_z_m": 0.17244580388069153,
+        "first_bucket_contact_radial_offset_m": 0.13649577602677804
+      },
+      "native_cache_sha256": "b81af4d84afe02d24876aac22676fe166734616a6f3e14d4172f217f57cd2271"
+    },
+    {
+      "context_id": "recovery-test-r1-c5-n1",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r1-c5-n1",
+      "record_sha256": "71106f426ec1f4503bbfb98549dd066f2eb2823eea7ca5ea1ec9625370ae526f",
+      "group": "no_whole_ball_entry",
+      "native_release": true,
+      "capture": false,
+      "observed": {
+        "first_contact_times_s": {
+          "board": 0.20520833333333333,
+          "table": 0.6567057291666667,
+          "bucket": 0.53515625,
+          "robot": null,
+          "floor": null,
+          "unattributed": null
+        },
+        "whole_ball_entry": false,
+        "whole_ball_entry_time_s": null,
+        "capture_time_s": null,
+        "max_retention_s": 0.0,
+        "retention_resets": 0,
+        "rim_band_contact": true,
+        "entry_class": "miss",
+        "table_contact_steps": 160,
+        "forbidden_contact_steps": 0,
+        "pose_gate": {
+          "board_position_error_mm": 0.00016888917440634383,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 6.998847289438913e-05
+        },
+        "first_flight": {
+          "start_time_s": 0.20703125,
+          "end_time_s": 0.53515625,
+          "cutoff_contact_channels": [
+            "bucket"
+          ],
+          "mouth_clearance_m": null,
+          "forward_error_m": null,
+          "lateral_error_m": null,
+          "first_rim_plane_crossing_time_s": null
+        },
+        "first_bucket_contact_ball_center_z_m": 0.19976890087127686,
+        "first_bucket_contact_radial_offset_m": 0.13352936384707198
+      },
+      "native_cache_sha256": "b81af4d84afe02d24876aac22676fe166734616a6f3e14d4172f217f57cd2271"
+    },
+    {
+      "context_id": "recovery-test-r2-c3-n0",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r2-c3-n0",
+      "record_sha256": "d2533ef8e63ee939a885c5f2569b71548a12ada11a80bda105ce74222731f088",
+      "group": "setup_finite_ik_dropper",
+      "native_release": false,
+      "capture": false,
+      "setup": {
+        "reason": "finite_ik_unresolved",
+        "group": "finite_ik_dropper",
+        "valid_ik_branches_dropper_board": [
+          0,
+          9
+        ],
+        "endpoint_pairs_checked": 0,
+        "admitted_branches": [],
+        "collision_pair_count": 0,
+        "collision_pair_examples": [],
+        "home_minimum_clearance_m": 0.006085006839541591,
+        "home_closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "connection_sha256": "a57db0657dc8122ca10b244b236d6cbf70ec6d04d1b68f4ee48f1cceb4cb358b",
+        "resolution_sha256": "7e7046d5c2508e1406b52294bb8fdafe8c693e355d3f891014f8bf01fed2f9b2"
+      }
+    },
+    {
+      "context_id": "recovery-test-r2-c3-n1",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r2-c3-n1",
+      "record_sha256": "9245c98318bc94edf454a46b7b0d283ca5bddeebebd13c6c3a3bb5b0c6ccdb1d",
+      "group": "no_whole_ball_entry",
+      "native_release": true,
+      "capture": false,
+      "observed": {
+        "first_contact_times_s": {
+          "board": 0.216796875,
+          "table": 0.6708333333333333,
+          "bucket": null,
+          "robot": null,
+          "floor": null,
+          "unattributed": null
+        },
+        "whole_ball_entry": false,
+        "whole_ball_entry_time_s": null,
+        "capture_time_s": null,
+        "max_retention_s": 0.0,
+        "retention_resets": 0,
+        "rim_band_contact": false,
+        "entry_class": "miss",
+        "table_contact_steps": 78,
+        "forbidden_contact_steps": 0,
+        "pose_gate": {
+          "board_position_error_mm": 0.0001292218604741017,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 0.0002559648519869182
+        },
+        "first_flight": {
+          "start_time_s": 0.21861979166666667,
+          "end_time_s": 0.6708333333333333,
+          "cutoff_contact_channels": [
+            "table"
+          ],
+          "mouth_clearance_m": -0.1403999343333621,
+          "forward_error_m": 0.19128425228826185,
+          "lateral_error_m": -0.004170039125076852,
+          "first_rim_plane_crossing_time_s": 0.6242371782337458
+        }
+      },
+      "native_cache_sha256": "00fa7c3c9740f4a44db9037f5822bdc733424fb2f0c514cc89dd9839a1cf1b79"
+    },
+    {
+      "context_id": "recovery-test-r2-c4-n0",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r2-c4-n0",
+      "record_sha256": "cc3b560cc8d1de2eb9e371257dda3a43931cf69163107d287438f7a373189237",
+      "group": "setup_finite_ik_board",
+      "native_release": false,
+      "capture": false,
+      "setup": {
+        "reason": "finite_ik_unresolved",
+        "group": "finite_ik_board",
+        "valid_ik_branches_dropper_board": [
+          8,
+          0
+        ],
+        "endpoint_pairs_checked": 0,
+        "admitted_branches": [],
+        "collision_pair_count": 0,
+        "collision_pair_examples": [],
+        "home_minimum_clearance_m": 0.006085006839541591,
+        "home_closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "connection_sha256": "b61bf811bb4346107642bad63d1e7c3a5859f85b0c3764e642a02387f94df429",
+        "resolution_sha256": "bc4c27d89ac6df69d3590d3a834cf3010af14a4256620051d8436e71a658a0a0"
+      }
+    },
+    {
+      "context_id": "recovery-test-r2-c5-n1",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r2-c5-n1",
+      "record_sha256": "4e8770d8ed3e832e1884059dcfa926cb5c15866a5a39b5cb95e0c55c230dd49e",
+      "group": "no_whole_ball_entry",
+      "native_release": true,
+      "capture": false,
+      "observed": {
+        "first_contact_times_s": {
+          "board": 0.2095703125,
+          "table": 0.9814453125,
+          "bucket": 0.5379557291666667,
+          "robot": null,
+          "floor": null,
+          "unattributed": null
+        },
+        "whole_ball_entry": false,
+        "whole_ball_entry_time_s": null,
+        "capture_time_s": null,
+        "max_retention_s": 0.0,
+        "retention_resets": 0,
+        "rim_band_contact": true,
+        "entry_class": "miss",
+        "table_contact_steps": 30867,
+        "forbidden_contact_steps": 0,
+        "pose_gate": {
+          "board_position_error_mm": 0.00018574927112026735,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 8.985524567640884e-05
+        },
+        "first_flight": {
+          "start_time_s": 0.21139322916666667,
+          "end_time_s": 0.5379557291666667,
+          "cutoff_contact_channels": [
+            "bucket"
+          ],
+          "mouth_clearance_m": null,
+          "forward_error_m": null,
+          "lateral_error_m": null,
+          "first_rim_plane_crossing_time_s": null
+        },
+        "first_bucket_contact_ball_center_z_m": 0.21777600049972534,
+        "first_bucket_contact_radial_offset_m": 0.1135242335099607
+      },
+      "native_cache_sha256": "00fa7c3c9740f4a44db9037f5822bdc733424fb2f0c514cc89dd9839a1cf1b79"
+    },
+    {
+      "context_id": "recovery-test-r2-c6-n0",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r2-c6-n0",
+      "record_sha256": "615a58ecfcf703b27f9f856b94b7ee0a49d4b6c19bd810300fb968aacff94925",
+      "group": "no_whole_ball_entry",
+      "native_release": true,
+      "capture": false,
+      "observed": {
+        "first_contact_times_s": {
+          "board": 0.2158203125,
+          "table": 0.6785807291666667,
+          "bucket": null,
+          "robot": 0.517578125,
+          "floor": null,
+          "unattributed": null
+        },
+        "whole_ball_entry": false,
+        "whole_ball_entry_time_s": null,
+        "capture_time_s": null,
+        "max_retention_s": 0.0,
+        "retention_resets": 0,
+        "rim_band_contact": false,
+        "entry_class": "miss",
+        "table_contact_steps": 26,
+        "forbidden_contact_steps": 26,
+        "pose_gate": {
+          "board_position_error_mm": 0.00014700438081823952,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 6.0989401039247155e-05
+        },
+        "first_flight": {
+          "start_time_s": 0.21770833333333334,
+          "end_time_s": 0.517578125,
+          "cutoff_contact_channels": [
+            "robot"
+          ],
+          "mouth_clearance_m": null,
+          "forward_error_m": null,
+          "lateral_error_m": null,
+          "first_rim_plane_crossing_time_s": null
+        }
+      },
+      "native_cache_sha256": "00fa7c3c9740f4a44db9037f5822bdc733424fb2f0c514cc89dd9839a1cf1b79"
+    },
+    {
+      "context_id": "recovery-test-r2-c6-n1",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r2-c6-n1",
+      "record_sha256": "67e2e33ca64274365b64c9459a5e0b2871280df26ecc6a9c700577f4df584b33",
+      "group": "no_whole_ball_entry",
+      "native_release": true,
+      "capture": false,
+      "observed": {
+        "first_contact_times_s": {
+          "board": 0.18776041666666665,
+          "table": 0.5723307291666666,
+          "bucket": 0.6070963541666666,
+          "robot": 2.5615885416666666,
+          "floor": null,
+          "unattributed": null
+        },
+        "whole_ball_entry": false,
+        "whole_ball_entry_time_s": null,
+        "capture_time_s": null,
+        "max_retention_s": 0.0,
+        "retention_resets": 0,
+        "rim_band_contact": false,
+        "entry_class": "miss",
+        "table_contact_steps": 35449,
+        "forbidden_contact_steps": 27,
+        "pose_gate": {
+          "board_position_error_mm": 0.00014068791290714153,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 5.76002888985994e-05
+        },
+        "first_flight": {
+          "start_time_s": 0.18958333333333333,
+          "end_time_s": 0.5723307291666666,
+          "cutoff_contact_channels": [
+            "table"
+          ],
+          "mouth_clearance_m": -0.16730802970573638,
+          "forward_error_m": -0.21824998366048304,
+          "lateral_error_m": -0.0037591851923510083,
+          "first_rim_plane_crossing_time_s": 0.5210377067187645
+        },
+        "first_bucket_contact_ball_center_z_m": 0.09859048575162888,
+        "first_bucket_contact_radial_offset_m": 0.12799541529248737
+      },
+      "native_cache_sha256": "00fa7c3c9740f4a44db9037f5822bdc733424fb2f0c514cc89dd9839a1cf1b79"
+    },
+    {
+      "context_id": "recovery-test-r3-c0-n1",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r3-c0-n1",
+      "record_sha256": "6829e0355decaa4436901164335c5da862c349b47301ada0649318161cd065a6",
+      "group": "setup_fixed_base_clearance_rejected",
+      "native_release": false,
+      "capture": false,
+      "setup": {
+        "reason": "fixed_base_clearance_rejected",
+        "group": "fixed_base_clearance_rejected",
+        "valid_ik_branches_dropper_board": null,
+        "endpoint_pairs_checked": 0,
+        "admitted_branches": [],
+        "collision_pair_count": 0,
+        "collision_pair_examples": [],
+        "home_minimum_clearance_m": 0.0,
+        "home_closest_pair": [
+          "Arm10/link_base/collision/0",
+          "bucket/wall22"
+        ],
+        "connection_sha256": "02e0c435b25945e0d8ee202046e3f86ea6b8ad9ee79fb951e42358466fb7ade2",
+        "resolution_sha256": "1a1d63280d85195daf05c2b03013111453ebf2c7be38e3b7477ab22c4b21612f"
+      }
+    },
+    {
+      "context_id": "recovery-test-r3-c1-n0",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r3-c1-n0",
+      "record_sha256": "2b1f9b0006ae7e6f16cb6560c64ac592054af5dfb5339115f7f9a7f228d6f9d2",
+      "group": "setup_strict_endpoint_clearance_or_pose_rejected",
+      "native_release": false,
+      "capture": false,
+      "setup": {
+        "reason": "strict_endpoint_clearance_or_pose_rejected",
+        "group": "strict_endpoint_clearance_or_pose_rejected",
+        "valid_ik_branches_dropper_board": [
+          12,
+          6
+        ],
+        "endpoint_pairs_checked": 6,
+        "admitted_branches": [],
+        "collision_pair_count": 1,
+        "collision_pair_examples": [
+          [
+            "table",
+            "Arm14/link5/collision/0"
+          ]
+        ],
+        "home_minimum_clearance_m": 0.006085006839541591,
+        "home_closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "connection_sha256": "4168cb2a342b60b4ae07766daeb9e1fe6a904d1315692aa732e7f8c35ad97634",
+        "resolution_sha256": "83572f953e911839ace3a2607ebd6e5472fbbe94d5efb04fc2801e630d13bc2b"
+      }
+    },
+    {
+      "context_id": "recovery-test-r3-c3-n0",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r3-c3-n0",
+      "record_sha256": "75124b346daac0fba3569f0ff2e6237bd56ecc3ac18dab45d4de8dccd51f0e37",
+      "group": "setup_action_bounds_rejected",
+      "native_release": false,
+      "capture": false,
+      "setup": {
+        "reason": "action_bounds_rejected",
+        "group": "action_bounds_rejected",
+        "valid_ik_branches_dropper_board": null,
+        "endpoint_pairs_checked": 0,
+        "admitted_branches": [],
+        "collision_pair_count": 0,
+        "collision_pair_examples": [],
+        "home_minimum_clearance_m": 0.006085006839541591,
+        "home_closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "connection_sha256": "60553a886279aad8b51976b8bfd9b06cc5fbbbf0dc77a9d7e130b3c7098343ca",
+        "resolution_sha256": "11d530d8385b9823a23dd84196a7c856bb7959b801ccfaacba32b65b2227cec1"
+      }
+    },
+    {
+      "context_id": "recovery-test-r3-c4-n0",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r3-c4-n0",
+      "record_sha256": "bc0b9e81797646a594136ec6e0844d57a8a86ab8d5789355ae5774b6d8157bf7",
+      "group": "no_whole_ball_entry",
+      "native_release": true,
+      "capture": false,
+      "observed": {
+        "first_contact_times_s": {
+          "board": 0.21614583333333334,
+          "table": 0.8100260416666667,
+          "bucket": null,
+          "robot": 0.4868489583333333,
+          "floor": null,
+          "unattributed": null
+        },
+        "whole_ball_entry": false,
+        "whole_ball_entry_time_s": null,
+        "capture_time_s": null,
+        "max_retention_s": 0.0,
+        "retention_resets": 0,
+        "rim_band_contact": false,
+        "entry_class": "miss",
+        "table_contact_steps": 2041,
+        "forbidden_contact_steps": 27,
+        "pose_gate": {
+          "board_position_error_mm": 7.205628331689276e-05,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 7.663509989050196e-05
+        },
+        "first_flight": {
+          "start_time_s": 0.21796875,
+          "end_time_s": 0.4868489583333333,
+          "cutoff_contact_channels": [
+            "robot"
+          ],
+          "mouth_clearance_m": null,
+          "forward_error_m": null,
+          "lateral_error_m": null,
+          "first_rim_plane_crossing_time_s": null
+        }
+      },
+      "native_cache_sha256": "00fa7c3c9740f4a44db9037f5822bdc733424fb2f0c514cc89dd9839a1cf1b79"
+    },
+    {
+      "context_id": "recovery-test-r3-c4-n1",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r3-c4-n1",
+      "record_sha256": "8b781453f255d4984a348477eb2d9ee7379c003bfc8af46a741f3994e334d665",
+      "group": "no_whole_ball_entry",
+      "native_release": true,
+      "capture": false,
+      "observed": {
+        "first_contact_times_s": {
+          "board": 0.22161458333333334,
+          "table": 0.9645182291666666,
+          "bucket": null,
+          "robot": 0.4912109375,
+          "floor": null,
+          "unattributed": null
+        },
+        "whole_ball_entry": false,
+        "whole_ball_entry_time_s": null,
+        "capture_time_s": null,
+        "max_retention_s": 0.0,
+        "retention_resets": 0,
+        "rim_band_contact": false,
+        "entry_class": "miss",
+        "table_contact_steps": 26,
+        "forbidden_contact_steps": 54,
+        "pose_gate": {
+          "board_position_error_mm": 0.00012400981040653882,
+          "board_normal_error_deg": 0.008882435145811223,
+          "dropper_error_mm": 5.7988222011011965e-05
+        },
+        "first_flight": {
+          "start_time_s": 0.22343749999999998,
+          "end_time_s": 0.4912109375,
+          "cutoff_contact_channels": [
+            "robot"
+          ],
+          "mouth_clearance_m": null,
+          "forward_error_m": null,
+          "lateral_error_m": null,
+          "first_rim_plane_crossing_time_s": null
+        }
+      },
+      "native_cache_sha256": "00fa7c3c9740f4a44db9037f5822bdc733424fb2f0c514cc89dd9839a1cf1b79"
+    },
+    {
+      "context_id": "recovery-test-r3-c5-n0",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r3-c5-n0",
+      "record_sha256": "8cccbb0104cbb2d0a5a30eee3a40a06e887070483c1376926d0417e14dbbc485",
+      "group": "setup_finite_ik_dropper",
+      "native_release": false,
+      "capture": false,
+      "setup": {
+        "reason": "finite_ik_unresolved",
+        "group": "finite_ik_dropper",
+        "valid_ik_branches_dropper_board": [
+          0,
+          8
+        ],
+        "endpoint_pairs_checked": 0,
+        "admitted_branches": [],
+        "collision_pair_count": 0,
+        "collision_pair_examples": [],
+        "home_minimum_clearance_m": 0.006085006839541591,
+        "home_closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "connection_sha256": "c5c429d85835f4794bb267711af036f078bb1a71cf576c0d99dfdcb0d8900d8b",
+        "resolution_sha256": "896ad687dff0fe13c470d25e1a3d38841958a41d8682283c256ad31e3bcc95c5"
+      }
+    },
+    {
+      "context_id": "recovery-test-r3-c5-n1",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r3-c5-n1",
+      "record_sha256": "3b15898a9b532db31718b1d50e8ef34ab7f44d7cdc4638936cf5a5e3915a092b",
+      "group": "no_whole_ball_entry",
+      "native_release": true,
+      "capture": false,
+      "observed": {
+        "first_contact_times_s": {
+          "board": 0.24225260416666666,
+          "table": 1.2263020833333333,
+          "bucket": null,
+          "robot": 0.4876953125,
+          "floor": null,
+          "unattributed": null
+        },
+        "whole_ball_entry": false,
+        "whole_ball_entry_time_s": null,
+        "capture_time_s": null,
+        "max_retention_s": 0.0,
+        "retention_resets": 0,
+        "rim_band_contact": false,
+        "entry_class": "miss",
+        "table_contact_steps": 12537,
+        "forbidden_contact_steps": 137,
+        "pose_gate": {
+          "board_position_error_mm": 0.0001442804806639449,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 0.00012781240522722026
+        },
+        "first_flight": {
+          "start_time_s": 0.24407552083333334,
+          "end_time_s": 0.4876953125,
+          "cutoff_contact_channels": [
+            "robot"
+          ],
+          "mouth_clearance_m": null,
+          "forward_error_m": null,
+          "lateral_error_m": null,
+          "first_rim_plane_crossing_time_s": null
+        }
+      },
+      "native_cache_sha256": "00fa7c3c9740f4a44db9037f5822bdc733424fb2f0c514cc89dd9839a1cf1b79"
+    },
+    {
+      "context_id": "recovery-test-r3-c6-n0",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r3-c6-n0",
+      "record_sha256": "c06e5d5aac0b8d45445103da687a0111c8cdede5109e7fe90dab4d5795d71fd1",
+      "group": "setup_finite_ik_dropper",
+      "native_release": false,
+      "capture": false,
+      "setup": {
+        "reason": "finite_ik_unresolved",
+        "group": "finite_ik_dropper",
+        "valid_ik_branches_dropper_board": [
+          0,
+          6
+        ],
+        "endpoint_pairs_checked": 0,
+        "admitted_branches": [],
+        "collision_pair_count": 0,
+        "collision_pair_examples": [],
+        "home_minimum_clearance_m": 0.006085006839541591,
+        "home_closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "connection_sha256": "293078cd644d2e92fc5bed681946ea758f571856478d8ff6b28382001b442fd4",
+        "resolution_sha256": "8dc1795abcf6564372c80f8253e99f5bfc647f3353725a2c220ecebf2015f8b9"
+      }
+    },
+    {
+      "context_id": "recovery-test-r3-c6-n1",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r3-c6-n1",
+      "record_sha256": "cea2a045de6c8dcdf53b9211d93f1f3728cbee2aa9b69fe3c3f5e9befe501212",
+      "group": "setup_fixed_base_clearance_rejected",
+      "native_release": false,
+      "capture": false,
+      "setup": {
+        "reason": "fixed_base_clearance_rejected",
+        "group": "fixed_base_clearance_rejected",
+        "valid_ik_branches_dropper_board": null,
+        "endpoint_pairs_checked": 0,
+        "admitted_branches": [],
+        "collision_pair_count": 0,
+        "collision_pair_examples": [],
+        "home_minimum_clearance_m": 0.0,
+        "home_closest_pair": [
+          "Arm14/link_base/collision/0",
+          "bucket/wall00"
+        ],
+        "connection_sha256": "abc6fcd7d74e530ace728aaa3cb08d39c68657449cb53e0716f606c4e4fc42fc",
+        "resolution_sha256": "dd656ce7fdf85fdb88c0e393f11d0b0aed80cc40b01838fadf7c9c56255781d4"
+      }
+    },
+    {
+      "context_id": "recovery-test-r4-c0-n0",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r4-c0-n0",
+      "record_sha256": "28b93c7df1e2023626c6e2f2c62a6d268db37e883db03f1d1e8b44d45710fdb5",
+      "group": "setup_finite_ik_board",
+      "native_release": false,
+      "capture": false,
+      "setup": {
+        "reason": "finite_ik_unresolved",
+        "group": "finite_ik_board",
+        "valid_ik_branches_dropper_board": [
+          6,
+          0
+        ],
+        "endpoint_pairs_checked": 0,
+        "admitted_branches": [],
+        "collision_pair_count": 0,
+        "collision_pair_examples": [],
+        "home_minimum_clearance_m": 0.006085006839541591,
+        "home_closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "connection_sha256": "400549bf5d8ea0db94a9903fd52fad399c98a09e1a0c302e3771e80aec5434d2",
+        "resolution_sha256": "921564332d7e04b253b0925da383004d820e03564db7234d6cac9fd901d5a733"
+      }
+    },
+    {
+      "context_id": "recovery-test-r4-c0-n1",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r4-c0-n1",
+      "record_sha256": "8fe6890f487aa311ce9ca67e3df6d1d42cc7d538ebf0ee459b970e2d18c708f0",
+      "group": "setup_finite_ik_board",
+      "native_release": false,
+      "capture": false,
+      "setup": {
+        "reason": "finite_ik_unresolved",
+        "group": "finite_ik_board",
+        "valid_ik_branches_dropper_board": [
+          9,
+          0
+        ],
+        "endpoint_pairs_checked": 0,
+        "admitted_branches": [],
+        "collision_pair_count": 0,
+        "collision_pair_examples": [],
+        "home_minimum_clearance_m": 0.006085006839541591,
+        "home_closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "connection_sha256": "70dd633a67ed60e98cb62ad745e09da5582792e2a388d18e2091a3791a3d57bd",
+        "resolution_sha256": "600febad641cfc65494cdb7ff5d42ca83eb6aa4e41f7ee61799847d68e07bc82"
+      }
+    },
+    {
+      "context_id": "recovery-test-r4-c2-n0",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r4-c2-n0",
+      "record_sha256": "ec715986d085a3a29b05f4c6b990e5fb3a4a740417293dd770e4c3fb0112ccc7",
+      "group": "no_whole_ball_entry",
+      "native_release": true,
+      "capture": false,
+      "observed": {
+        "first_contact_times_s": {
+          "board": 0.14680989583333334,
+          "table": 0.8595703124999999,
+          "bucket": 0.35130208333333335,
+          "robot": null,
+          "floor": null,
+          "unattributed": null
+        },
+        "whole_ball_entry": false,
+        "whole_ball_entry_time_s": null,
+        "capture_time_s": null,
+        "max_retention_s": 0.0,
+        "retention_resets": 0,
+        "rim_band_contact": true,
+        "entry_class": "miss",
+        "table_contact_steps": 26,
+        "forbidden_contact_steps": 0,
+        "pose_gate": {
+          "board_position_error_mm": 0.00015514446381134406,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 0.00013393795974313765
+        },
+        "first_flight": {
+          "start_time_s": 0.14869791666666665,
+          "end_time_s": 0.35130208333333335,
+          "cutoff_contact_channels": [
+            "bucket"
+          ],
+          "mouth_clearance_m": null,
+          "forward_error_m": null,
+          "lateral_error_m": null,
+          "first_rim_plane_crossing_time_s": null
+        },
+        "first_bucket_contact_ball_center_z_m": 0.2204471081495285,
+        "first_bucket_contact_radial_offset_m": 0.09750173725247725
+      },
+      "native_cache_sha256": "00fa7c3c9740f4a44db9037f5822bdc733424fb2f0c514cc89dd9839a1cf1b79"
+    },
+    {
+      "context_id": "recovery-test-r4-c4-n0",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r4-c4-n0",
+      "record_sha256": "2ac441e04020bcb2b3e6a1d2cff48709e6d2bbbb7b5b6096006349017273b010",
+      "group": "setup_strict_endpoint_clearance_or_pose_rejected",
+      "native_release": false,
+      "capture": false,
+      "setup": {
+        "reason": "strict_endpoint_clearance_or_pose_rejected",
+        "group": "strict_endpoint_clearance_or_pose_rejected",
+        "valid_ik_branches_dropper_board": [
+          7,
+          8
+        ],
+        "endpoint_pairs_checked": 8,
+        "admitted_branches": [],
+        "collision_pair_count": 27,
+        "collision_pair_examples": [
+          [
+            "Arm14/link3/collision/0",
+            "bucket/wall37"
+          ],
+          [
+            "Arm14/link3/collision/0",
+            "bucket/wall38"
+          ],
+          [
+            "Arm14/link3/collision/0",
+            "bucket/wall39"
+          ]
+        ],
+        "home_minimum_clearance_m": 0.006085006839541591,
+        "home_closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "connection_sha256": "611c6189054eec012cba105ce269cd9f1d61923da000723d7d1cd8509b544119",
+        "resolution_sha256": "f5192ebf6fdc5c16e76f3eb26d9d9c45ebaaf094f3b853fa78615e0087b78c36"
+      }
+    },
+    {
+      "context_id": "recovery-test-r4-c4-n1",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r4-c4-n1",
+      "record_sha256": "46e7276c1311d0a0d2cd0d913c6919cc66f238b7baf9ad98c9e5501690393a69",
+      "group": "no_whole_ball_entry",
+      "native_release": true,
+      "capture": false,
+      "observed": {
+        "first_contact_times_s": {
+          "board": 0.22161458333333334,
+          "table": 0.80625,
+          "bucket": 0.582421875,
+          "robot": null,
+          "floor": null,
+          "unattributed": null
+        },
+        "whole_ball_entry": false,
+        "whole_ball_entry_time_s": null,
+        "capture_time_s": null,
+        "max_retention_s": 0.0,
+        "retention_resets": 0,
+        "rim_band_contact": true,
+        "entry_class": "miss",
+        "table_contact_steps": 26,
+        "forbidden_contact_steps": 0,
+        "pose_gate": {
+          "board_position_error_mm": 0.00010747468972395477,
+          "board_normal_error_deg": 0.018643730982052055,
+          "dropper_error_mm": 6.561016029132687e-05
+        },
+        "first_flight": {
+          "start_time_s": 0.22343749999999998,
+          "end_time_s": 0.582421875,
+          "cutoff_contact_channels": [
+            "bucket"
+          ],
+          "mouth_clearance_m": null,
+          "forward_error_m": null,
+          "lateral_error_m": null,
+          "first_rim_plane_crossing_time_s": null
+        },
+        "first_bucket_contact_ball_center_z_m": 0.2171798050403595,
+        "first_bucket_contact_radial_offset_m": 0.11517402510944437
+      },
+      "native_cache_sha256": "8f2f2b1c9c17cb2f526538b586a909de6bb02b0fba2c26c6ed722f0e14fe75fa"
+    },
+    {
+      "context_id": "recovery-test-r4-c5-n0",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r4-c5-n0",
+      "record_sha256": "9b4971432f101bd3ddb7972806f4d86ca13ab33055376d9a4e2ba4f537e88e50",
+      "group": "no_whole_ball_entry",
+      "native_release": true,
+      "capture": false,
+      "observed": {
+        "first_contact_times_s": {
+          "board": 0.23346354166666666,
+          "table": 0.859375,
+          "bucket": null,
+          "robot": 0.5102213541666667,
+          "floor": null,
+          "unattributed": null
+        },
+        "whole_ball_entry": false,
+        "whole_ball_entry_time_s": null,
+        "capture_time_s": null,
+        "max_retention_s": 0.0,
+        "retention_resets": 0,
+        "rim_band_contact": false,
+        "entry_class": "miss",
+        "table_contact_steps": 26,
+        "forbidden_contact_steps": 26,
+        "pose_gate": {
+          "board_position_error_mm": 0.00014278189813478578,
+          "board_normal_error_deg": 0.0,
+          "dropper_error_mm": 8.774069409554816e-05
+        },
+        "first_flight": {
+          "start_time_s": 0.23528645833333334,
+          "end_time_s": 0.5102213541666667,
+          "cutoff_contact_channels": [
+            "robot"
+          ],
+          "mouth_clearance_m": null,
+          "forward_error_m": null,
+          "lateral_error_m": null,
+          "first_rim_plane_crossing_time_s": null
+        }
+      },
+      "native_cache_sha256": "8f2f2b1c9c17cb2f526538b586a909de6bb02b0fba2c26c6ed722f0e14fe75fa"
+    },
+    {
+      "context_id": "recovery-test-r4-c5-n1",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r4-c5-n1",
+      "record_sha256": "f4fa49200e96b691870f874668cbdd521fc2228343dec543f952650854d675f9",
+      "group": "setup_finite_ik_board",
+      "native_release": false,
+      "capture": false,
+      "setup": {
+        "reason": "finite_ik_unresolved",
+        "group": "finite_ik_board",
+        "valid_ik_branches_dropper_board": [
+          8,
+          0
+        ],
+        "endpoint_pairs_checked": 0,
+        "admitted_branches": [],
+        "collision_pair_count": 0,
+        "collision_pair_examples": [],
+        "home_minimum_clearance_m": 0.006085006839541591,
+        "home_closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "connection_sha256": "3b07034e9c3a7c451eae3a6450c4b7f8b12c3354c693a615f395bd5da55b15e2",
+        "resolution_sha256": "a6b7ba221965f926a2d96aae581686fdd1818dc6b3a027d82852ee0ca5e022e0"
+      }
+    },
+    {
+      "context_id": "recovery-test-r4-c6-n0",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r4-c6-n0",
+      "record_sha256": "74a686bd026008c93098d9a8dd147afd772ed49e6ae8b1a21d06c9a1d1871b03",
+      "group": "setup_finite_ik_both_arms",
+      "native_release": false,
+      "capture": false,
+      "setup": {
+        "reason": "finite_ik_unresolved",
+        "group": "finite_ik_both_arms",
+        "valid_ik_branches_dropper_board": [
+          0,
+          0
+        ],
+        "endpoint_pairs_checked": 0,
+        "admitted_branches": [],
+        "collision_pair_count": 0,
+        "collision_pair_examples": [],
+        "home_minimum_clearance_m": 0.006085006839541591,
+        "home_closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "connection_sha256": "c8cf9580559f5094457a4d19295cdb88c8ba802b2caceb9878ba2ec93553a203",
+        "resolution_sha256": "33ccfd58e6da78c6742b4cdd267649e1940c532173fb0e49245806c6e575b60f"
+      }
+    },
+    {
+      "context_id": "recovery-test-r4-c6-n1",
+      "record_id": "recovery-test-recovery_bc-recovery-test-r4-c6-n1",
+      "record_sha256": "7a07c74baaa62d535175366fc9c922fe9ef1bcc5f7b6f264a4327415badaa6d2",
+      "group": "setup_finite_ik_board",
+      "native_release": false,
+      "capture": false,
+      "setup": {
+        "reason": "finite_ik_unresolved",
+        "group": "finite_ik_board",
+        "valid_ik_branches_dropper_board": [
+          10,
+          0
+        ],
+        "endpoint_pairs_checked": 0,
+        "admitted_branches": [],
+        "collision_pair_count": 0,
+        "collision_pair_examples": [],
+        "home_minimum_clearance_m": 0.006085006839541591,
+        "home_closest_pair": [
+          "Arm10/link4/collision/0",
+          "Arm10/link6/collision/0"
+        ],
+        "connection_sha256": "0e736c65775cb194f86d260b4fb485226ec805e0fc3a6b2ecaaf7f30b40cfcf8",
+        "resolution_sha256": "ff73ca41be4bcd3ace0e6893b3b72f1a82203d2a6896d31d7e070dc3d6ab8c9e"
+      }
+    }
+  ],
+  "focused_correction": {
+    "status": "pending",
+    "parameter": "board_height_m",
+    "parameter_index": 2,
+    "mode": "restore_matched_parent_coordinate",
+    "context_ids": [
+      "recovery-test-r0-c5-n1",
+      "recovery-test-r0-c6-n1",
+      "recovery-test-r1-c1-n1",
+      "recovery-test-r2-c4-n0",
+      "recovery-test-r3-c1-n0"
+    ],
+    "settings": [
+      {
+        "context_id": "recovery-test-r0-c5-n1",
+        "parent_record_sha256": "7dc43ebc832029c31831dd4f0edab3ea927210a0dfd9fca99b5530f811917049",
+        "recovery_record_sha256": "96af9a6adeb372008b0d4497c16f6619eb9ea68b755396ce2775c8ae4f2ca2bd",
+        "original_values": [
+          0.6481643483015345,
+          -0.1966980652002992,
+          0.4248992377460701,
+          31.477651850899182,
+          0.13399849772597527
+        ],
+        "corrected_values": [
+          0.6481643483015345,
+          -0.1966980652002992,
+          0.42882192610008596,
+          31.477651850899182,
+          0.13399849772597527
+        ]
+      },
+      {
+        "context_id": "recovery-test-r0-c6-n1",
+        "parent_record_sha256": "9657de9184ab41355b3d597718da8b3f5ba7c5862913ec9eb98311ce549a0d64",
+        "recovery_record_sha256": "6b858d81d767c4257e957dc7474847020ee450fb59642a55094673f19e542dd6",
+        "original_values": [
+          0.652624209743943,
+          -0.19822855800548922,
+          0.4432451770935588,
+          30.54564382422724,
+          0.1476775358189461
+        ],
+        "corrected_values": [
+          0.652624209743943,
+          -0.19822855800548922,
+          0.4330840858270651,
+          30.54564382422724,
+          0.1476775358189461
+        ]
+      },
+      {
+        "context_id": "recovery-test-r1-c1-n1",
+        "parent_record_sha256": "82e29e381b52f7f040cbd901770dd71b8494069b8b7a4aaf1906df8bf4fabe91",
+        "recovery_record_sha256": "ebd6287831323e987dd5772c277d130fd75b98f5b425a7b7a9648f5bde3a846f",
+        "original_values": [
+          0.6413132134896747,
+          -0.41637288978939857,
+          0.2578337762327255,
+          32.19563352799576,
+          0.23693153444604603
+        ],
+        "corrected_values": [
+          0.6413132134896747,
+          -0.41637288978939857,
+          0.2821621006239574,
+          32.19563352799576,
+          0.23693153444604603
+        ]
+      },
+      {
+        "context_id": "recovery-test-r2-c4-n0",
+        "parent_record_sha256": "5aa78a2dabf41840742006bc0df06d2386d6d1f543afbc17d512e466d5ecd4dd",
+        "recovery_record_sha256": "cc3b560cc8d1de2eb9e371257dda3a43931cf69163107d287438f7a373189237",
+        "original_values": [
+          0.5656497500163832,
+          -0.062265897289356005,
+          0.4783027474252996,
+          25.631120689705778,
+          0.18223217071817022
+        ],
+        "corrected_values": [
+          0.5656497500163832,
+          -0.062265897289356005,
+          0.4607055799518638,
+          25.631120689705778,
+          0.18223217071817022
+        ]
+      },
+      {
+        "context_id": "recovery-test-r3-c1-n0",
+        "parent_record_sha256": "30aa094333b1dc4dfc5c40ddebdde6b3a784cef76848a223ad9f345065f1e95e",
+        "recovery_record_sha256": "2b1f9b0006ae7e6f16cb6560c64ac592054af5dfb5339115f7f9a7f228d6f9d2",
+        "original_values": [
+          0.6130874716489696,
+          -0.014842174275851744,
+          0.24112904780445696,
+          26.792298426137677,
+          0.17376046515080312
+        ],
+        "corrected_values": [
+          0.6130874716489696,
+          -0.014842174275851744,
+          0.2804242748271688,
+          26.792298426137677,
+          0.17376046515080312
+        ]
+      }
+    ],
+    "rule": "For all five losses, restore only board height to the matched parent-BC value; retain the other four recovery-BC coordinates and bucket.",
+    "coupled_geometry": "With nominal gap unchanged, restoring board_height also shifts derived absolute release Z by the same height delta. This is one shot-parameter change, not an isolated physical board displacement; no gap compensation.",
+    "rationale": "Three losses became setup rejects, including a low board/table branch collision and a missing board IK branch. Height restoration tests admission sensitivity; it need not fix either released miss. Their larger gaps remain a separate hypothesis, not a second intervention.",
+    "posthoc_development": true,
+    "new_training": false,
+    "additional_coordinate_search": false
+  },
+  "limitations": [
+    "Posthoc development diagnosis of the original recovery TEST positions. Historical scores remain unchanged. Contacts are observations, not causal proof. Fixed64 held endpoints only; no new training, native rollout, noise, driven transit or physical validation.",
+    "A changed parameter and changed outcome are associated; one-coordinate intervention remains a hypothesis.",
+    "Finite IK counts and rejected branch pairs do not prove no feasible solution exists.",
+    "Table/bucket force channels are permitted and do not alone identify rim contact or causal assistance.",
+    "Every inspected TEST position is now development data; no future result here establishes generalization."
+  ]
+}

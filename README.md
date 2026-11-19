@@ -1,5 +1,13 @@
 # Sircus — Simple Circus
 
+**Latest mjlab diagnosis:** [five lost captures and one height correction](baselines/mjlab-recovery-regression-20261109/README.md).
+Across three requests per selected loss, exact parent recipes captured **15/15**,
+exact recovery recipes **0/15**, and restoring only parent board height **3/15**.
+One of five cases recovered; two IK declines and two flight misses remain.
+All 63 slots, 18 controls and 22,266 independent checks passed. This is posthoc
+development evidence, not a new policy score. [Protocol](sircus/mjlab/RECOVERY_REGRESSION.md)
+and [handoff](docs/MJLAB_RECOVERY_REGRESSION_20261109.md); no new training or promotion.
+
 **Latest mjlab training:** [audited recovery search and imitation](baselines/mjlab-coverage-recovery-20261109/README.md).
 All 970 requests finished in 96.8 worker minutes. Search recovered 24/39
 development failures; all 24 recipes captured both fresh repeats (48/48).

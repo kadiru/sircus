@@ -1,0 +1,198 @@
+{
+  "version": "sircus-recovery-regression-video-summary-v1",
+  "status": "completed",
+  "producer_commit": "a95e3033730e6b76d5452178c176101e1aa2b09d",
+  "ui_commit": "699e411bb7e44ae3772a37e3fe840ac9a869b61d",
+  "movie": {
+    "duration_s": 60.13333333333333,
+    "fps": 30,
+    "width": 960,
+    "height": 540,
+    "video_bytes": 2045244,
+    "output_sha256": "11019d0cc909467b7e424bafb6b3badec450df507d2fd922ac433ebec3ff8329",
+    "native_dt_s": 6.510416666666667e-05,
+    "native_steps_added": 0,
+    "held_arm_poses": true,
+    "sampled_ball_centers_only": true,
+    "interpolation": false,
+    "ball_spin_recorded": false,
+    "historical_labels_unchanged": true,
+    "contact_threshold_N": 0.01,
+    "contact_force_order": [
+      "board",
+      "bucket",
+      "table",
+      "floor",
+      "robot",
+      "unattributed"
+    ],
+    "frames": 1804
+  },
+  "backend": {
+    "renderer": "llvmpipe (LLVM 15.0.7, 256 bits)",
+    "vendor": "Mesa",
+    "software_only": true,
+    "cuda_visible_devices": "",
+    "backend": "egl"
+  },
+  "packages": {
+    "mujoco": "3.11.0",
+    "numpy": "1.26.4",
+    "Pillow": "12.3.0",
+    "imageio": "2.38.0"
+  },
+  "source": {
+    "report_sha256": "6a255223820656059fe16a5de2944ba2593f7ac3603b287f4955979cd4677504",
+    "audit_sha256": "e2ba653792b37d302425ba4af6cb22460c3d5b426274b3c1b3cbce270a857a9b",
+    "contract_fingerprint": "f54c341eba5258b427e4e1eb05a1b2e93bf76518d9f94a2fe8cf6bad744f6082"
+  },
+  "scene_sha256": "9a50295d9908be8634c2df1c0b460ec6011710cf8e14ce33cbc67a75749ff1c8",
+  "renderer_source_sha256": "ed1eadd2129e4352f55cc6111b16ec4e89551dcddbd6b16bbb3e6e392c8323e5",
+  "helper_source_sha256": {
+    "sircus/mjlab/saved_shot_video.py": "1d1e76e41fca3a150c10450bbcc2b21329cfb53e916d7dbd6b3e8bdb19943f43",
+    "sircus/mjlab/height_tilt_video.py": "606d815e30ed20ffeae0e8b522b21847795b7650ba32ca5fa2e2855e6b52fc6d",
+    "sircus/mjlab/bouncer_clearance_video.py": "97d4b4be8a8da435bd9ce341a250863c0656275eba8f47268d35ca11431493e1"
+  },
+  "camera_overrides_sha256": "31997cdcd8e7db6aae34646cca8f9b60de20da5c3d70e37286d07b46abf2a295",
+  "manifest_sha256": "cbbc08910685d6502c803e49cd7fbddf23cb86eef60702cb662f57f52f89c96c",
+  "decoded_frames": 1804,
+  "decode_passed": true,
+  "render_receipt_sha256": "d13acab2fec9ca7789f723d549759b9e03a32fd4a4dbebafb4bb007ccba1f62c",
+  "clips": [
+    {
+      "record_id": "recovery-test-parent_bc-recovery-test-r0-c5-n1",
+      "context_id": "recovery-test-r0-c5-n1",
+      "label": "Parent capture / r0-c5-n1",
+      "start_s": 0.0,
+      "end_s": 10.633333333333333,
+      "capture": true,
+      "whole_ball_entry": true,
+      "source_interval_s": [
+        0.0,
+        1.8767578125
+      ],
+      "slow_source_interval_s": [
+        0.0,
+        1.8767578125
+      ],
+      "record_sha256": "7dc43ebc832029c31831dd4f0edab3ea927210a0dfd9fca99b5530f811917049",
+      "native_cache_sha256": "3b5990794988eb65323d2cbf6f6cb5aa56877280c11da8a8040f159229ce5213"
+    },
+    {
+      "record_id": "recovery-test-recovery_bc-recovery-test-r0-c5-n1",
+      "context_id": "recovery-test-r0-c5-n1",
+      "label": "Recovery miss / r0-c5-n1",
+      "start_s": 10.633333333333333,
+      "end_s": 23.833333333333332,
+      "capture": false,
+      "whole_ball_entry": false,
+      "source_interval_s": [
+        0.0,
+        4.0
+      ],
+      "slow_source_interval_s": [
+        0.0,
+        2.0
+      ],
+      "record_sha256": "96af9a6adeb372008b0d4497c16f6619eb9ea68b755396ce2775c8ae4f2ca2bd",
+      "native_cache_sha256": "b81af4d84afe02d24876aac22676fe166734616a6f3e14d4172f217f57cd2271"
+    },
+    {
+      "record_id": "recovery-test-parent_bc-recovery-test-r0-c6-n1",
+      "context_id": "recovery-test-r0-c6-n1",
+      "label": "Parent capture / r0-c6-n1",
+      "start_s": 23.833333333333332,
+      "end_s": 34.93333333333333,
+      "capture": true,
+      "whole_ball_entry": true,
+      "source_interval_s": [
+        0.0,
+        1.9669270833333332
+      ],
+      "slow_source_interval_s": [
+        0.0,
+        1.9669270833333332
+      ],
+      "record_sha256": "9657de9184ab41355b3d597718da8b3f5ba7c5862913ec9eb98311ce549a0d64",
+      "native_cache_sha256": "3b5990794988eb65323d2cbf6f6cb5aa56877280c11da8a8040f159229ce5213"
+    },
+    {
+      "record_id": "recovery-test-recovery_bc-recovery-test-r0-c6-n1",
+      "context_id": "recovery-test-r0-c6-n1",
+      "label": "Recovery miss / r0-c6-n1",
+      "start_s": 34.93333333333333,
+      "end_s": 48.13333333333333,
+      "capture": false,
+      "whole_ball_entry": false,
+      "source_interval_s": [
+        0.0,
+        4.0
+      ],
+      "slow_source_interval_s": [
+        0.0,
+        2.0
+      ],
+      "record_sha256": "6b858d81d767c4257e957dc7474847020ee450fb59642a55094673f19e542dd6",
+      "native_cache_sha256": "b81af4d84afe02d24876aac22676fe166734616a6f3e14d4172f217f57cd2271"
+    },
+    {
+      "record_id": "recovery-test-recovery_bc-recovery-test-r0-c4-n1",
+      "context_id": "recovery-test-r0-c4-n1",
+      "label": "Representative recovery miss / forbidden contact / r0-c4-n1",
+      "start_s": 48.13333333333333,
+      "end_s": 60.13333333333333,
+      "capture": false,
+      "whole_ball_entry": false,
+      "source_interval_s": [
+        0.0,
+        2.089583333333333
+      ],
+      "slow_source_interval_s": [
+        0.0,
+        2.0
+      ],
+      "record_sha256": "1ffd349907dee04d36b26d93059ffc3755b967bcc41d7127d63582782aed6120",
+      "native_cache_sha256": "b81af4d84afe02d24876aac22676fe166734616a6f3e14d4172f217f57cd2271"
+    }
+  ],
+  "publication": {
+    "ui_url": "http://127.0.0.1:18781/#recoveryRegression",
+    "html_sha256": "ebcaf91e41b8155a1f2c9090773f160a98b91bd7e381b37232345e0fbe838ccc",
+    "html_bytes": 15362321,
+    "historical_html_outside_panel_preserved": true,
+    "historical_css_outside_snapshot_preserved": true,
+    "display_sha256": "a9a6ad9b1e336ca5587d0efd96b2d20b5567d90e9edafc3049e22e6e1b1828f9",
+    "display_keys_preserved": 57,
+    "snapshot_sha256": "ccf1071fef301a631b4d8a464183e24918d313c35ac3e451c46052edf4bd75c1",
+    "snapshot_bytes": 228766,
+    "css_sha256": "6c4ae29139238dffdf870b2e1c9aff73d847f961f6b7d7ff03aa54c038774c42",
+    "css_unchanged": true,
+    "services_restarted": 0,
+    "viewer_pid": 6671,
+    "http_exact_bytes_verified": true,
+    "inline_video_sha256": "11019d0cc909467b7e424bafb6b3badec450df507d2fd922ac433ebec3ff8329"
+  },
+  "publication_receipt_sha256": "ad9fed770b77a4911d1129dac85c97514cba22f49581d0c4c09fd9a474929105",
+  "retained_failed_attempts": [
+    {
+      "namespace": "verification/recovery-regression-v1-video",
+      "reason": "OSMesa shared library was unavailable; preview failed before frames."
+    },
+    {
+      "namespace": "verification/recovery-regression-v1-video-v2",
+      "reason": "Default EGL selected NVIDIA; the mandatory software renderer guard rejected it before frames."
+    }
+  ],
+  "final_environment": {
+    "CUDA_VISIBLE_DEVICES": "",
+    "MUJOCO_GL": "egl",
+    "PYOPENGL_PLATFORM": "egl",
+    "LIBGL_ALWAYS_SOFTWARE": "1",
+    "MESA_LOADER_DRIVER_OVERRIDE": "llvmpipe",
+    "GALLIUM_DRIVER": "llvmpipe",
+    "EGL_PLATFORM": "surfaceless",
+    "mesa_vendor_file": "/usr/share/glvnd/egl_vendor.d/50_mesa.json",
+    "mesa_vendor_sha256": "cd3881df4227c13ca7f9cfe6c78820f21d5f7a00a41b299214f6f827e63be369"
+  },
+  "scope": "Posthoc inspection of two lost-flight parent/recovery pairs plus one representative forbidden-contact miss. All clips replay original saved native ball centers and held joint poses; no new physics or arm transit. Corrected first repeats are separately available as actual sampled replay in the UI. Historical scores and the active policy remain unchanged."
+}
