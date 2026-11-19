@@ -281,19 +281,11 @@ class NativeServices:
 
     def startup(self, env, output, guard):
         from candidate_continuation_scene import StartupRecorder, audit_startup
-        original_tick = env.tick
-        def tick():
-            require(guard() is True, 'Startup guard failed')
-            return original_tick()
-        env.tick = tick
-        try:
-            result = StartupRecorder(env,output/'native/startup').run()
-            require(result['status'] == 'completed', 'Startup checks incomplete')
-            checked = audit_startup(output/'native/startup',scene=env.cfg,cells=env.spec['cells'],origins=env.origins)
-            require(checked['status'] == 'passed', 'Independent startup verification failed')
-            return checked
-        finally:
-            env.tick = original_tick
+        result = StartupRecorder(env,output/'native/startup',guard=guard).run()
+        require(result['status'] == 'completed', 'Startup checks incomplete')
+        checked = audit_startup(output/'native/startup',scene=env.cfg,cells=env.spec['cells'],origins=env.origins)
+        require(checked['status'] == 'passed', 'Independent startup verification failed')
+        return checked
 
     def make_engine(self, env, manifest, experiment, output, plan, guard):
         from location_comparison_native import NativeEngine
@@ -379,6 +371,16 @@ def execute_child(manifest, experiment, plan, output, session, *, started_monoto
         require(trace['events'][-1]['payload']['status'] == 'complete_audit_pending', 'Comparison incomplete; no retry')
     except BaseException as exception:
         error = type(exception).__name__+': '+str(exception)
+        # Preserve the first failure before native close, which can block or
+        # terminate the interpreter before a final child-exit receipt exists.
+        try:
+            write_new_json(output/'child-failure.json',dict(
+                schema='sircus-location-comparison-child-failure-v1',
+                status='incomplete_no_retry',synthetic=synthetic,session_id=session,
+                runtime_fingerprint=manifest['fingerprint'],comparison_fingerprint=plan['fingerprint'],
+                error=error,recorded_before_cleanup=True))
+        except BaseException as receipt_error:
+            error += '; Failure receipt write failed: '+type(receipt_error).__name__+': '+str(receipt_error)
     finally:
         try:
             if engine is not None:

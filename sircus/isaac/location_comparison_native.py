@@ -430,6 +430,12 @@ class NativeEngine:
                     and bool(env.geometry_filter_synthetic) is self.synthetic,
                     "Geometry layer bypassed or synthetic filter entered production")
             env.assert_buckets_fixed()
+            # shot_batch returns scores/poses; the original benchmark producer
+            # attaches the unchanged admission evidence before reward/audit.
+            for i, row in enumerate(rows):
+                row.update(split=native_cells[i]["split"], qualification=env.qualifications[i],
+                    path_rejection=env.path_reasons[i], path_proxy=env.path_checks[i],
+                    scoring_board_normal=env.scoring_normals[i].tolist())
             features = self.deps.features(env, native_cells, rows)
             returns = [self.deps.reward(row, feature) for row, feature in zip(rows, features)]
             # The original recorder owns image creation. Bind and sync its

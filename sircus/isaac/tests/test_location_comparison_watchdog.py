@@ -300,6 +300,141 @@ class WatchdogTests(unittest.TestCase):
         self.assertIn("final progress", result["reason"])
         self.assertEqual(result["status"], "stopped_no_retry")
 
+    def transient_child_read(self, ops, read_number, *, absent=False):
+        original = ops.identity
+        count = [0]
+        def identity(pid):
+            value = original(pid)
+            if pid == 888:
+                count[0] += 1
+                if count[0] == read_number:
+                    return None if absent else dict(value, cookie="")
+            return value
+        ops.identity = identity
+
+    def finish_after_identity_retry(self, ops):
+        if ops.t < 10.1:
+            return
+        ops.write(snapshot(ops.t, phase=3, assessment=600), running=False,
+                  status="runner_complete_pending_audit")
+        ops.exit_code = 0
+
+    def test_initial_empty_cookie_is_reread_before_owner_receipt(self):
+        self.transient_child_read(self.ops, 1)
+        self.ops.on_sleep = self.finish_after_identity_retry
+        result = self.run_watchdog()
+        self.assertEqual(result["status"], "native_exit_zero_independent_audit_required")
+        self.assertEqual(result["native_owner"]["cookie"], SESSION)
+        self.assertEqual(len(self.ops.started), 1)
+        self.assertFalse(self.ops.signalled)
+
+    def test_initial_persistent_empty_cookie_retains_unconfirmed_cleanup_and_lock(self):
+        original = self.ops.identity
+        self.ops.identity = lambda pid:dict(original(pid),cookie="") if pid == 888 else original(pid)
+        result = self.run_watchdog()
+        self.assertEqual(result["status"], "stopped_no_retry")
+        self.assertIsNone(result["native_owner"])
+        self.assertEqual(result["termination"], "unknown_child_identity")
+        self.assertFalse(result["lock_release_safe"])
+        self.assertFalse(self.ops.signalled)
+        self.assertEqual(len(self.ops.started), 1)
+        self.assertFalse((self.root/"out/comparison-watchdog-owner.json").exists())
+
+    def test_initial_empty_cookie_cannot_adopt_reused_start_token(self):
+        original, reads = self.ops.identity, [0]
+        def identity(pid):
+            value = original(pid)
+            if pid == 888:
+                reads[0] += 1
+                return dict(value,cookie="") if reads[0] == 1 else dict(value,start_token="reused:999")
+            return value
+        self.ops.identity = identity
+        result = self.run_watchdog()
+        self.assertIn("ownership changed", result["reason"])
+        self.assertEqual(result["termination"], "unknown_child_identity")
+        self.assertFalse(result["lock_release_safe"])
+        self.assertFalse(self.ops.signalled)
+
+    def test_persistent_permission_denial_does_not_weaken_cleanup_ownership(self):
+        original, reads = self.ops.identity, [0]
+        def identity(pid):
+            if pid == 888:
+                reads[0] += 1
+                if reads[0] > 1:
+                    raise PermissionError("synthetic unreadable environ")
+            return original(pid)
+        self.ops.identity = identity
+        result = self.run_watchdog()
+        self.assertEqual(result["status"], "stopped_no_retry")
+        self.assertEqual(result["native_owner"]["cookie"], SESSION)
+        self.assertIn("identity", result["reason"])
+        self.assertEqual(result["termination"], "termination_unconfirmed:PermissionError")
+        self.assertFalse(result["lock_release_safe"])
+        self.assertFalse(self.ops.signalled)
+        self.assertEqual(len(self.ops.started), 1)
+
+    def test_live_missing_cookie_recovers_without_signal_or_second_start(self):
+        self.transient_child_read(self.ops, 2)
+        self.ops.on_sleep = self.finish_after_identity_retry
+        result = self.run_watchdog()
+        self.assertEqual(result["status"], "native_exit_zero_independent_audit_required")
+        self.assertEqual(len(self.ops.started), 1)
+        self.assertFalse(self.ops.signalled)
+
+    def test_exit_between_poll_and_identity_reads_fresh_final_progress(self):
+        original_poll = self.ops.poll
+        polls = [0]
+        def poll(pid):
+            polls[0] += 1
+            if polls[0] == 2:
+                # Initial owner is already pinned. The child finishes after
+                # progress was read and the first poll reported it still live.
+                self.ops.write(snapshot(self.ops.t, phase=3, assessment=600), running=False,
+                               status="runner_complete_pending_audit")
+                self.ops.exit_code = 0
+                self.ops.records[888].update(state="Z", cookie="")
+                return None
+            return original_poll(pid)
+        self.ops.poll = poll
+        result = self.run_watchdog()
+        self.assertEqual(result["status"], "native_exit_zero_independent_audit_required")
+        self.assertEqual(result["final_snapshot"]["assessment_completed"], 600)
+        self.assertFalse(self.ops.signalled)
+
+    def test_progress_published_inside_successful_poll_is_not_stale_at_terminal_check(self):
+        original_poll = self.ops.poll
+        polls = [0]
+        def poll(pid):
+            polls[0] += 1
+            if polls[0] == 2:
+                self.ops.write(snapshot(self.ops.t, phase=3, assessment=600), running=False,
+                               status="runner_complete_pending_audit")
+                self.ops.exit_code = 0
+            return original_poll(pid)
+        self.ops.poll = poll
+        self.assertEqual(self.run_watchdog()["status"], "native_exit_zero_independent_audit_required")
+
+    def test_storage_loss_during_identity_reread_stops_without_continuing(self):
+        self.transient_child_read(self.ops, 2)
+        self.ops.on_sleep = lambda ops: setattr(ops, "free", subject.MIN_FREE_BYTES - 1)
+        result = self.run_watchdog()
+        self.assertIn("storage", result["reason"])
+        self.assertEqual(result["status"], "stopped_no_retry")
+
+    def test_integrity_loss_during_identity_reread_stops_without_continuing(self):
+        self.transient_child_read(self.ops, 2)
+        self.ops.on_sleep = lambda ops: setattr(ops, "changed", True)
+        result = self.run_watchdog(integrity_check=lambda:not getattr(self.ops,"changed",False))
+        self.assertIn("integrity", result["reason"])
+        self.assertEqual(result["status"], "stopped_no_retry")
+
+    def test_phase_deadline_during_identity_reread_is_not_extended(self):
+        self.transient_child_read(self.ops, 2)
+        self.ops.on_sleep = lambda ops: setattr(ops, "t", 3610.)
+        result = self.run_watchdog()
+        self.assertIn("deadline", result["reason"])
+        self.assertEqual(result["status"], "stopped_no_retry")
+
     def test_existing_output_preserved_and_cannot_retry(self):
         self.finish()
         self.run_watchdog()
@@ -442,6 +577,185 @@ class WatchdogTests(unittest.TestCase):
         self.assertIn("ownership changed", audit["reason"])
         self.assertFalse(ops.signalled)
         self.assertFalse(audit["cleanup_safe"])
+
+    def test_audit_initial_empty_cookie_reread_keeps_report_gate(self):
+        native = self.finished_native()
+        ops = FakeOps(self.root, audit=True)
+        self.transient_child_read(ops, 1)
+        ops.on_sleep = lambda x: setattr(x, "exit_code", 0) if x.t >= 10.1 else None
+        result = self.audit(native, ops, verify_report=lambda *args:False)
+        self.assertIn("report did not verify", result["reason"])
+        self.assertEqual(result["native_owner"]["cookie"], SESSION)
+        self.assertEqual(len(ops.started), 1)
+
+    def test_audit_exit_during_identity_read_uses_actual_exit_status(self):
+        native = self.finished_native()
+        ops = FakeOps(self.root, audit=True)
+        original_identity = ops.identity
+        reads = [0]
+        def identity(pid):
+            if pid == 888:
+                reads[0] += 1
+                if reads[0] == 2:
+                    ops.exit_code = 9
+                    ops.records[888].update(state="Z", cookie="")
+            return original_identity(pid)
+        ops.identity = identity
+        result = self.audit(native, ops)
+        self.assertEqual(result["exit_code"], 9)
+        self.assertIn("exited unsuccessfully", result["reason"])
+        self.assertFalse(ops.signalled)
+
+
+class ChildObservationTests(unittest.TestCase):
+    """Only synthetic process snapshots; no process start or signaling."""
+
+    def setUp(self):
+        self.ops = FakeOps(Path("/unused"))
+        self.owner = dict(pid=888, start_token="boot:88", cookie=SESSION, ppid=777, sid=888, state="R")
+        self.ops.records[888] = copy.deepcopy(self.owner)
+        self.ops.running = True
+        self.checks = 0
+
+    def check(self):
+        self.checks += 1
+
+    def observe(self, owner=None, check=None):
+        return subject._observe_child(self.ops,888,SESSION,owner=owner,check=check or self.check,label="Test child")
+
+    def test_missing_initial_snapshot_then_full_identity(self):
+        values = [None, copy.deepcopy(self.owner)]
+        self.ops.identity = lambda pid: values.pop(0)
+        current, code = self.observe()
+        self.assertEqual(current, self.owner)
+        self.assertIsNone(code)
+        self.assertEqual(self.checks, 3)
+
+    def test_unreadable_identity_then_confirmed_exit_uses_exact_child_status(self):
+        for error in (PermissionError, FileNotFoundError, ProcessLookupError):
+            with self.subTest(error=error.__name__):
+                self.ops.exit_code = None
+                def identity(pid):
+                    self.assertEqual(pid, 888)
+                    self.ops.exit_code = 7
+                    raise error("synthetic process read race")
+                self.ops.identity = identity
+                current, code = self.observe(owner=self.owner)
+                self.assertIsNone(current)
+                self.assertEqual(code, 7)
+                self.assertFalse(self.ops.signalled)
+
+    def test_unreadable_identity_recovers_only_with_strict_full_identity(self):
+        for error in (PermissionError, FileNotFoundError, ProcessLookupError):
+            for initial in (True, False):
+                with self.subTest(error=error.__name__, initial=initial):
+                    reads = [0]
+                    def identity(pid):
+                        reads[0] += 1
+                        if reads[0] == 1:
+                            raise error("synthetic process read race")
+                        return copy.deepcopy(self.owner)
+                    self.ops.identity = identity
+                    current, code = self.observe(owner=None if initial else self.owner)
+                    self.assertEqual(current, self.owner)
+                    self.assertIsNone(code)
+
+    def test_persistent_permission_denial_is_bounded_and_never_accepted(self):
+        def identity(pid):
+            raise PermissionError("synthetic unreadable environ")
+        self.ops.identity = identity
+        with self.assertRaisesRegex(ValueError,"identity (unavailable|read deadline)"):
+            self.observe(owner=self.owner)
+        self.assertLessEqual(self.checks, subject.IDENTITY_READ_MAX_ATTEMPTS)
+        self.assertLessEqual(self.ops.t-10., subject.IDENTITY_READ_MAX_S + 1e-9)
+        self.assertFalse(self.ops.signalled)
+
+    def test_identity_change_after_permission_denial_is_never_adopted(self):
+        for field, value in (("pid",889), ("start_token","reused:2"), ("ppid",666), ("sid",889), ("cookie","foreign")):
+            with self.subTest(field=field):
+                reads = [0]
+                def identity(pid):
+                    reads[0] += 1
+                    if reads[0] == 1:
+                        raise PermissionError("synthetic unreadable environ")
+                    return dict(self.owner, **{field:value})
+                self.ops.identity = identity
+                with self.assertRaisesRegex(ValueError,"ownership changed"):
+                    self.observe(owner=self.owner)
+                self.assertFalse(self.ops.signalled)
+
+    def test_other_identity_errors_are_not_swallowed_or_retried(self):
+        def identity(pid):
+            raise OSError("unrelated I/O failure")
+        self.ops.identity = identity
+        self.ops.sleep = lambda _:self.fail("Unrelated error must not be retried")
+        with self.assertRaisesRegex(OSError,"unrelated I/O failure"):
+            self.observe(owner=self.owner)
+
+    def test_first_empty_cookie_pins_start_and_ancestry_before_recovery(self):
+        for field, value in (("pid",889), ("start_token","reused:2"), ("ppid",666), ("sid",889), ("cookie","foreign")):
+            with self.subTest(field=field):
+                values = [dict(self.owner,cookie=""), dict(self.owner, **{field:value})]
+                self.ops.identity = lambda pid: values.pop(0)
+                with self.assertRaisesRegex(ValueError,"ownership changed"):
+                    self.observe()
+
+    def test_nonempty_wrong_cookie_never_waits_or_passes(self):
+        self.ops.records[888]["cookie"] = "foreign"
+        self.ops.sleep = lambda _:self.fail("Wrong cookie must not be retried")
+        with self.assertRaisesRegex(ValueError,"ownership changed"):
+            self.observe(owner=self.owner)
+
+    def test_persistent_missing_or_empty_identity_is_bounded(self):
+        for value in (None, dict(self.owner,cookie="")):
+            with self.subTest(value=value):
+                self.ops.t, self.checks = 10., 0
+                self.ops.identity = lambda pid:copy.deepcopy(value)
+                with self.assertRaisesRegex(ValueError,"identity (unavailable|read deadline)"):
+                    self.observe(owner=self.owner)
+                self.assertLessEqual(self.checks, subject.IDENTITY_READ_MAX_ATTEMPTS)
+                self.assertLessEqual(self.ops.t-10., subject.IDENTITY_READ_MAX_S + 1e-9)
+
+    def test_frozen_clock_still_has_finite_read_bound(self):
+        self.ops.identity = lambda pid:None
+        self.ops.sleep = lambda _:None
+        with self.assertRaisesRegex(ValueError,"bounded reread"):
+            self.observe(owner=self.owner)
+        self.assertEqual(self.checks, subject.IDENTITY_READ_MAX_ATTEMPTS)
+
+    def test_slow_full_identity_check_does_not_trigger_transient_retry_limit(self):
+        def check():
+            self.ops.t += 1.
+        current, code = self.observe(owner=self.owner, check=check)
+        self.assertEqual(current, self.owner)
+        self.assertIsNone(code)
+
+    def test_recovered_identity_read_cannot_cross_retry_deadline(self):
+        reads = [0]
+        def identity(pid):
+            reads[0] += 1
+            if reads[0] == 1:
+                return dict(self.owner,cookie="")
+            self.ops.t += .2
+            return copy.deepcopy(self.owner)
+        self.ops.identity = identity
+        with self.assertRaisesRegex(ValueError,"identity read deadline"):
+            self.observe(owner=self.owner)
+
+    def test_recovery_rechecks_bounds_after_the_identity_read(self):
+        reads = [0]
+        def identity(pid):
+            reads[0] += 1
+            if reads[0] == 1:
+                return dict(self.owner,cookie="")
+            self.ops.free = subject.MIN_FREE_BYTES - 1
+            return copy.deepcopy(self.owner)
+        self.ops.identity = identity
+        def check():
+            if self.ops.free < subject.MIN_FREE_BYTES:
+                raise ValueError("storage floor")
+        with self.assertRaisesRegex(ValueError,"storage floor"):
+            self.observe(owner=self.owner,check=check)
 
 
 if __name__ == "__main__":

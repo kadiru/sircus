@@ -1,0 +1,131 @@
+{
+  "attempt": 3,
+  "closed_trace_metadata": {
+    "bytes": 33055615,
+    "event_counts": {
+      "checkpoint": 13,
+      "proposal": 539,
+      "reserve": 539,
+      "terminal": 539,
+      "update": 128
+    },
+    "finish_reason": null,
+    "finish_status": "complete_audit_pending",
+    "last_event": "finish",
+    "metadata_receipt_sha256": "b053f19e942a1d1753d054844abd4c87816b7559a20c9600f0744b21947387b0",
+    "scope": "Read-only trace structure/count/hash metadata, not a scientific audit.",
+    "sha256": "5910b73e3e7c671781e356ebb4910630d91bc5303f5b5fbf0403ea9c5aff176a"
+  },
+  "comparison_fingerprint": "440cbcca29612820d3b36005010edd90fd4f8172646bd8ea95e57f154775f4e6",
+  "container": {
+    "exit_code": 1,
+    "oom_killed": false,
+    "pid": 0,
+    "status": "exited"
+  },
+  "frozen_checkpoint_bytes": {
+    "broader_final": {
+      "bytes": 136446,
+      "sha256": "941b0ac40275dc9365bff59b9ede01f9ce1f7785bbe9c2ad95005890207dc576"
+    },
+    "original_usable_final": {
+      "bytes": 136446,
+      "sha256": "3d9efd092e82775066420c724113c74d07e3a1b9e103e76698d8a04be8bea25f"
+    },
+    "parent_initial": {
+      "bytes": 136446,
+      "sha256": "c903f6339960c4b51f9e7465b0843a662e7b293820fdffd9a7534773c8a84dc5"
+    }
+  },
+  "frozen_checkpoint_scope": "File hashes match sealed inventory; model contents and predictions have not passed the final independent audit.",
+  "inventory_observed_at": "2026-11-18T13:48:34Z",
+  "last_child_progress": {
+    "assessment_completed": 600,
+    "assessment_requested": 600,
+    "pending": null,
+    "phase_elapsed_seconds": {
+      "broader": 26464.56867203198,
+      "original_usable": 25658.69403082307,
+      "shared": 1419.758102386957
+    },
+    "reservations": 539,
+    "scope": "Unaudited accounting metadata; shared elapsed is stale and excludes later blocked shutdown. Group phases include their monitoring/orchestration.",
+    "total_completed": 18520,
+    "total_requested": 18520,
+    "train_completed": {
+      "broader": 8960,
+      "original_usable": 8960
+    },
+    "train_requested": {
+      "broader": 8960,
+      "original_usable": 8960
+    }
+  },
+  "limitations": [
+    "Complete recorded counters and hashes are not a passed model/physics audit.",
+    "No capture, clean-capture, rejection-rate, learning-curve or generalization result is claimed.",
+    "Original clean shutdown failed and cannot be relabelled by a later recovery audit.",
+    "No recovery implementation, audit execution, media encoding or new experiment is authorized by this documentation."
+  ],
+  "manifest_fingerprint": "bd551805def36cd5e694ed06bc8bcf9795e12053a4460cf710f645f7647e021f",
+  "manifest_sha256": "7de349d890ca032d2f8802b987350de55ca5314a52fbcfab6fdfc7d6c8109a5b",
+  "original_final_audit": {
+    "child_exit_receipt_present": false,
+    "passed": false,
+    "reason": "Original clean-exit gate requires a final child receipt and successful watchdog exit; neither condition is met.",
+    "started": false
+  },
+  "performance_results_published": false,
+  "preservation": {
+    "earlier_attempts_retained": true,
+    "historical_benchmark_unchanged": true,
+    "no_model_promotion": true,
+    "no_native_retry": true,
+    "original_failed_receipts_retained": true,
+    "other_gpu_lock_owner_left_untouched": true,
+    "resource_scope": "Original owned cleanup completed; another project subsequently held the 4090/shared lock. Not a current-free-resource claim."
+  },
+  "proposed_recovery": {
+    "executed": false,
+    "implemented": false,
+    "maximum_cpu_audit_wall_seconds": 7200,
+    "minimum_free_storage_bytes": 6442450944,
+    "new_shot_requests": 0,
+    "optimizer_updates": 0,
+    "plan": "../../sircus/isaac/LOCATION_COMPARISON_RECOVERY_PLAN.md",
+    "process_completion_proof_changes": true,
+    "proposed_distinct_status": "data_verified_shutdown_incomplete",
+    "scientific_checks_must_remain_unchanged": true,
+    "simulator_starts": 0,
+    "status": "documentation_only_pending_user_agreement"
+  },
+  "schema": "sircus-location-comparison-shutdown-summary-v1",
+  "sealed_inventory": {
+    "file_count": 25059,
+    "input_files_verified_unchanged_before_after": 101,
+    "original_service_unchanged": true,
+    "receipt_sha256": "feb925f5bb05a4417ccc76d4e6efa448cbe2160cfccb52b007dbe3ab14311294",
+    "scope": "Byte identity and inventory verification only; not independent physics/model verification.",
+    "source_files_verified_unchanged_before_after": 217,
+    "total_bytes": 4330228832
+  },
+  "shutdown_diagnosis": {
+    "exact_blocked_subcall_established": false,
+    "source_finding": "Trace is persisted before app.close; final progress and child-exit are written afterward. Installed shutdown can wait or terminate the interpreter."
+  },
+  "source_archive_sha256": "25737c33b8e836757faa0db6bd6e8bd50714cb125cb7b707e5a2e93539f17439",
+  "source_commit": "300ab5c6d161b51577d37d2a70f7499fc3f782e9",
+  "status": "stopped_no_retry_final_audit_not_run",
+  "synthetic": false,
+  "terminal_observed_at": "2026-11-18T13:46:42Z",
+  "watchdog": {
+    "exit_file_sha256": "c5e54df4c434cc9c5b47a2ac89e46110c4f2b11d342d062787df9e99bfd649ff",
+    "lock_release_safe": true,
+    "native_child_start_attempts": 1,
+    "reason": "independent watchdog wall deadline reached",
+    "status": "stopped_no_retry",
+    "termination": "stopped",
+    "wall_scope": "Native watchdog lifecycle, including startup and failed shutdown; not pure training time.",
+    "wall_seconds": 55723.454789611045
+  }
+}
