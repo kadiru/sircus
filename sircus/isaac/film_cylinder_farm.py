@@ -25,7 +25,7 @@ p.add_argument(
 )
 p.add_argument(
     "--recording-plan",
-    choices=("fixed-station-v1", "dark-tour-v1"),
+    choices=("fixed-station-v1", "dark-tour-v1", "chosen-farm-v1"),
     default="fixed-station-v1",
     help="Camera/release plan for --dark-replay",
 )
@@ -40,6 +40,7 @@ p.add_argument("--camera-option", type=int, choices=range(1, 11))
 p.add_argument("--camera-right-m", type=float, default=0.0)
 p.add_argument("--camera-z-m", type=float)
 p.add_argument("--scout-snapshot", action="store_true")
+p.add_argument("--camera-json", type=Path)
 AppLauncher.add_app_launcher_args(p)
 args = p.parse_args()
 if not args.enable_cameras:
@@ -50,6 +51,12 @@ if args.camera_option is not None and not args.camera_previews:
     p.error("--camera-option requires --camera-previews")
 if args.scout_snapshot and not args.camera_previews:
     p.error("--scout-snapshot requires --camera-previews")
+if args.recording_plan == "chosen-farm-v1" and args.camera_json is None:
+    p.error("chosen-farm-v1 requires --camera-json")
+if args.camera_json is not None and (
+    not args.dark_replay or args.appearance != "silver"
+):
+    p.error("--camera-json requires --dark-replay and --appearance silver")
 if (
     args.camera_right_m != 0 or args.camera_z_m is not None
 ) and args.camera_option is None:
@@ -272,6 +279,12 @@ def main():
     cfg = json.loads(Path(__file__).with_name("scene.json").read_text())
     poses = json.loads((Path(args.assets) / "poses.json").read_text())
     spec = specification(cfg, len(SHOTS))
+    saved_camera = None
+    if args.camera_json is not None:
+        from saved_camera import load_camera
+
+        saved_camera = load_camera(args.camera_json, spec["fingerprint"])
+        shutil.copyfile(args.camera_json, dest / "selected-camera.json")
     atomic(
         dest / ("source-contract.json" if args.dark_replay else "contract.json"), spec
     )
@@ -311,7 +324,7 @@ def main():
             from dark_stage import configure_stage, stage_settings
         configure_stage(scfg, cfg)
         layout = dark_stage.origins
-        if args.camera_previews:
+        if args.camera_previews or args.recording_plan == "chosen-farm-v1":
             from camera_options import preview_origins
             from camera_preview import configure_backdrop
 
@@ -350,12 +363,17 @@ def main():
         raise ValueError("Isaac workcell origins disagree with the 5 by 7 layout")
     if args.dark_replay:
         env.stage_metadata = stage_settings()
-        if args.camera_previews:
+        env.saved_camera = saved_camera
+        if args.camera_previews or args.recording_plan == "chosen-farm-v1":
             env.stage_metadata["camera_backdrop"] = preview_backdrop
         if args.preview_only or args.camera_previews:
             from recording_plans import recording_plan
 
-            shots, view_pose = recording_plan(args.recording_plan)
+            shots, view_pose = (
+                recording_plan(args.recording_plan, saved_camera)
+                if args.recording_plan == "chosen-farm-v1"
+                else recording_plan(args.recording_plan)
+            )
             source_clip = json.loads((args.dark_replay / "clip-06.json").read_text())[
                 "rollout"
             ]
