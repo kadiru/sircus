@@ -143,7 +143,7 @@ button{padding:9px 13px;border:1px solid #667c8d;border-radius:6px;background:#2
 #large{display:block;max-width:94vw;width:1440px;max-height:75vh;object-fit:contain;background:#101010}#details{white-space:pre-line;color:#c3d0dc;margin:14px 20px 20px;line-height:1.6}
 @media(max-width:600px){body{padding:16px}h1{font-size:27px}.toolbar{flex-wrap:wrap}.toolbar strong{width:100%;flex:auto}}
 </style>
-<header><h1>Choose the Sircus farm’s look</h1><p>20 native Isaac Sim previews. Select a card to inspect the full render, then give the combination’s number.</p>
+<header><h1>Choose the Sircus farm’s look</h1><p>TOTAL native Isaac Sim previews. Select a card to inspect the full render, then give the combination’s number.</p>
 <p><a href="summary.jpg">Open all 20 comparisons</a> · <a href="group-01-05.jpg">01–05</a> · <a href="group-06-10.jpg">06–10</a> · <a href="group-11-15.jpg">11–15</a> · <a href="group-16-20.jpg">16–20</a></p></header>
 <main>CARDS</main>
 <dialog id="viewer"><div class="toolbar"><button id="prev" aria-label="Previous render">←</button><strong id="title"></strong><button id="view" aria-pressed="false">Full farm</button><button id="next" aria-label="Next render">→</button><button id="close">Close</button></div><img id="large" alt=""><p id="details"></p></dialog>
@@ -182,16 +182,18 @@ document.addEventListener('keydown', event => {
 </script></html>
 """
     (directory / "index.html").write_text(
-        content.replace("CARDS", "\n".join(cards)).replace("ENTRIES", data)
+        content.replace("CARDS", "\n".join(cards))
+        .replace("ENTRIES", data)
+        .replace("TOTAL", str(len(variants)))
     )
 
 
 def generate(directory):
     variants = json.loads((directory / "manifest.json").read_text())["variants"]
-    if len(variants) != 20 or sorted(int(v["id"]) for v in variants) != list(
-        range(1, 21)
+    if len(variants) not in (10, 20) or sorted(int(v["id"]) for v in variants) != list(
+        range(1, len(variants) + 1)
     ):
-        raise ValueError("Expected numbered variants 1 through 20")
+        raise ValueError("Expected ten or twenty consecutively numbered variants")
     variants = sorted(variants, key=lambda item: int(item["id"]))
     for variant in variants:
         with Image.open(directory / f"look-{int(variant['id']):02}.jpg") as image:
@@ -201,7 +203,7 @@ def generate(directory):
             with Image.open(overview) as image:
                 image.verify()
     sheet(directory, variants, "summary.jpg", columns=5, width=480)
-    for first in range(0, 20, 5):
+    for first in range(0, len(variants), 5):
         sheet(
             directory,
             variants[first : first + 5],
