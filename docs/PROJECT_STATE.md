@@ -1,5 +1,16 @@
 # Project state
 
+## Drop tests at five previously blocked positions — November 15, 2026
+
+- At 64 substeps, **27 of 43** archived setups captured. All 27 captured
+  on each of three fresh repeats (**81/81**), confirming shots at **4/5**
+  bucket positions.
+- At the remaining position, **(1028.9, −19.0) mm**, all four shots hit a
+  robot after the board rebound and none entered the bucket fully.
+- All 124 study drops and 18 controls ran on the 4090. Both control blocks
+  and the 23,673-check CPU audit passed.
+  [Results and reproduction](MJLAB_SETUP_DROP_RECOVERY.md).
+
 ## Ball flight ranking and pose recovery — November 15, 2026
 
 - A pre-release flight calculation chose captures at **9/16** of the
