@@ -1,0 +1,43 @@
+{
+  "substeps": 64,
+  "methods": [
+    "fixed35_bc",
+    "current_bc"
+  ],
+  "test_layouts": 35,
+  "test_requests": 70,
+  "control_requests": 18,
+  "maximum_requests": 88,
+  "base_teacher_count": 97,
+  "correction_teacher_count": 2,
+  "new_teacher_count": 2,
+  "teacher_count": 99,
+  "actor_steps": 800,
+  "critic_steps": 0,
+  "actor_lr": 0.001,
+  "noise": false,
+  "bucket_perturbations": false,
+  "grid_source": "corrected_contract.grid_layouts",
+  "evaluation_scope": "historical fixed-grid coverage/regression; not held out",
+  "residual_scale": [
+    0.04,
+    0.04,
+    0.05,
+    8.0,
+    0.12
+  ],
+  "worker_limit_s": 3600,
+  "queue_limit_s": 900,
+  "global_limit_s": 6300,
+  "audit_reserve_s": 1800,
+  "storage_reserve_bytes": 8589934592,
+  "rotation": "Rz(atan2(bucket_y-board_y,bucket_x-board_x)) @ diag(1,-1,-1)",
+  "release_behavior": "Same bucket-facing gripper yaw for both policies; controls retain original joints",
+  "fitting": "800 actor-only full-batch Adam steps at .001; 99 unique layouts, equal per-layout weight",
+  "teacher_semantics": "97 historical successful action targets plus two confirmed yaw targets; historical labels do not prove new-yaw success",
+  "selection": "Far grid22 repeat0 and near reference repeat0; each already confirmed 3/3, one teacher per context",
+  "test": "Both checkpoints and all 70 continuous predictions frozen before first grid outcome; no retries or adaptation",
+  "geometry_prior": "Unchanged 19 geometry anchors; prior is not a discrete policy action bank",
+  "control_prior": "Original 17 control prior and original proof/joints",
+  "scope": "Continuous five-coordinate residual imitation with a shared geometry-anchor prior. Both frozen actors use bucket-facing release yaw on the historical fixed 7x5 grid. This is coverage/regression, not unseen-position generalization. No perturbations, PPO, flight search at inference, learned transit, hardware, or policy activation."
+}

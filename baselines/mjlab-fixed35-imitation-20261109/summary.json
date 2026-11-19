@@ -1,0 +1,2141 @@
+{
+  "version": "sircus-fixed35-imitation-v1",
+  "status": "completed",
+  "contract_fingerprint": "9a5de51b320a36d3e498301c8f3b2c228c11ed999032bc7b1d9ef8777f213f6f",
+  "report_sha256": "91640ad07e7b8e396c58d937dcf8a5652a07c3eb5f7ae2ea0bce27f40425a389",
+  "elapsed_s": 1100.4861925309524,
+  "scope": "Continuous five-coordinate residual imitation with a shared geometry-anchor prior. Both frozen actors use bucket-facing release yaw on the historical fixed 7x5 grid. This is coverage/regression, not unseen-position generalization. No perturbations, PPO, flight search at inference, learned transit, hardware, or policy activation.",
+  "protocol": {
+    "substeps": 64,
+    "methods": [
+      "fixed35_bc",
+      "current_bc"
+    ],
+    "test_layouts": 35,
+    "test_requests": 70,
+    "control_requests": 18,
+    "maximum_requests": 88,
+    "base_teacher_count": 97,
+    "correction_teacher_count": 2,
+    "new_teacher_count": 2,
+    "teacher_count": 99,
+    "actor_steps": 800,
+    "critic_steps": 0,
+    "actor_lr": 0.001,
+    "noise": false,
+    "bucket_perturbations": false,
+    "evaluation_scope": "historical fixed-grid coverage/regression; not held out",
+    "rotation": "Rz(atan2(bucket_y-board_y,bucket_x-board_x)) @ diag(1,-1,-1)",
+    "teacher_semantics": "97 historical successful action targets plus two confirmed yaw targets; historical labels do not prove new-yaw success",
+    "geometry_prior": "Unchanged 19 geometry anchors; prior is not a discrete policy action bank"
+  },
+  "counts": {
+    "attempts": 88,
+    "native_releases": 79,
+    "captures": 59,
+    "setup_rejections": 9,
+    "native_misses": 20,
+    "invalid_physics": 1,
+    "direct_captures": 48,
+    "table_assisted_captures": 11,
+    "forbidden_contact_shots": 13
+  },
+  "control_gates": {
+    "pre": {
+      "status": "passed",
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    },
+    "post": {
+      "status": "passed",
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    }
+  },
+  "audit": {
+    "status": "passed",
+    "full_checks_verified": true,
+    "native_checks_verified": true,
+    "proof_sha256": "374eb3ff78b302168622c091aca645283f48d1bee33355a9ac4eec3794e116d6",
+    "report_sha256": "91640ad07e7b8e396c58d937dcf8a5652a07c3eb5f7ae2ea0bce27f40425a389",
+    "contract_fingerprint": "9a5de51b320a36d3e498301c8f3b2c228c11ed999032bc7b1d9ef8777f213f6f",
+    "checks_count": 40692
+  },
+  "fit": {
+    "status": "actor_updated",
+    "actor_steps": 800,
+    "critic_steps": 0,
+    "parent_teacher_count": 97,
+    "new_teacher_count": 2,
+    "before": "af319655875b021635e8e1778b1e10f4ebaba24291160504fb88a4c6a101b10c",
+    "after": "c1d353122aa01b2a27fac65467e60ecf941ae33a551a435954d7ce5a7c1bbd5f",
+    "initial_actor_loss": 0.005324052646756172,
+    "final_actor_loss": 0.0009841405553743243,
+    "critic_before_sha256": "1454b658e3df3072d04c9cd79656a039890730d747a432cacc17a4745086d301",
+    "critic_after_sha256": "1454b658e3df3072d04c9cd79656a039890730d747a432cacc17a4745086d301"
+  },
+  "artifacts": {
+    "current_bc": {
+      "sha256": "688acc7981522c3281dff47edd19edaf46f084f113455e50f14d7e5cabc3b9e9",
+      "weight_sha256": "af319655875b021635e8e1778b1e10f4ebaba24291160504fb88a4c6a101b10c",
+      "samples": 92,
+      "seed": 2026110901
+    },
+    "fixed35_bc": {
+      "sha256": "d17765096854446bc666870478358fd2e6337936cbe3fceb3d9a6cb71e95ad8b",
+      "weight_sha256": "c1d353122aa01b2a27fac65467e60ecf941ae33a551a435954d7ce5a7c1bbd5f",
+      "samples": 99,
+      "seed": 2026110901
+    }
+  },
+  "teacher_corrections": [
+    {
+      "context_id": "corrected-imitation-test-r0-c6-n1",
+      "bucket_xy_m": [
+        1.1070265259583456,
+        -0.53626584251982
+      ],
+      "values": [
+        0.6536612003245014,
+        -0.20341247447399055,
+        0.4498183398237823,
+        30.33068546648235,
+        0.09564961424222355
+      ],
+      "source_study": "yaw",
+      "source_record_id": "yaw-tilt-gap-selected-g22-r0",
+      "source_record_sha256": "1b0ceb5fc143f27af9e98b2459ee24fd46cef4ac58e680e0898eb08d5f0c5ce1",
+      "source_report_sha256": "39847d03be006b64af49da3ab1a6a8cc319883c7b1a8d81f37660e1d67f66a92",
+      "confirmation_captures": 3,
+      "confirmation_requests": 3
+    },
+    {
+      "context_id": "corrected-imitation-test-r1-c2-n0",
+      "bucket_xy_m": [
+        0.4963906433102536,
+        -0.4146911716255921
+      ],
+      "values": [
+        0.6467395590566386,
+        -0.32990174694833996,
+        0.29127499261510703,
+        27.291877704337526,
+        0.07583586488431047
+      ],
+      "source_study": "yaw",
+      "source_record_id": "yaw-tilt-gap-references-near_success_reference-corrected-imitation-test-r1-c2-n0-r0",
+      "source_record_sha256": "1b81175aac2b8f6bf70c3c9c91db82a2432bca59c109ffe86664efc4a90dd2dc",
+      "source_report_sha256": "39847d03be006b64af49da3ab1a6a8cc319883c7b1a8d81f37660e1d67f66a92",
+      "confirmation_captures": 3,
+      "confirmation_requests": 3
+    }
+  ],
+  "test_layouts": [
+    {
+      "id": "fixed35-dev-grid-00-00",
+      "bucket_xy_m": [
+        0.1,
+        -0.65
+      ],
+      "grid_cell": [
+        0,
+        0
+      ],
+      "canonical_id": "dev-grid-00-00",
+      "row": 0,
+      "column": 0
+    },
+    {
+      "id": "fixed35-dev-grid-00-01",
+      "bucket_xy_m": [
+        0.29,
+        -0.65
+      ],
+      "grid_cell": [
+        1,
+        0
+      ],
+      "canonical_id": "dev-grid-00-01",
+      "row": 0,
+      "column": 1
+    },
+    {
+      "id": "fixed35-dev-grid-00-02",
+      "bucket_xy_m": [
+        0.48,
+        -0.65
+      ],
+      "grid_cell": [
+        2,
+        0
+      ],
+      "canonical_id": "dev-grid-00-02",
+      "row": 0,
+      "column": 2
+    },
+    {
+      "id": "fixed35-dev-grid-00-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.65
+      ],
+      "grid_cell": [
+        3,
+        0
+      ],
+      "canonical_id": "dev-grid-00-03",
+      "row": 0,
+      "column": 3
+    },
+    {
+      "id": "fixed35-dev-grid-00-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.65
+      ],
+      "grid_cell": [
+        4,
+        0
+      ],
+      "canonical_id": "dev-grid-00-04",
+      "row": 0,
+      "column": 4
+    },
+    {
+      "id": "fixed35-dev-grid-00-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.65
+      ],
+      "grid_cell": [
+        5,
+        0
+      ],
+      "canonical_id": "dev-grid-00-05",
+      "row": 0,
+      "column": 5
+    },
+    {
+      "id": "fixed35-dev-grid-00-06",
+      "bucket_xy_m": [
+        1.24,
+        -0.65
+      ],
+      "grid_cell": [
+        6,
+        0
+      ],
+      "canonical_id": "dev-grid-00-06",
+      "row": 0,
+      "column": 6
+    },
+    {
+      "id": "fixed35-dev-grid-01-00",
+      "bucket_xy_m": [
+        0.1,
+        -0.42500000000000004
+      ],
+      "grid_cell": [
+        0,
+        1
+      ],
+      "canonical_id": "dev-grid-01-00",
+      "row": 1,
+      "column": 0
+    },
+    {
+      "id": "fixed35-dev-grid-01-01",
+      "bucket_xy_m": [
+        0.29,
+        -0.42500000000000004
+      ],
+      "grid_cell": [
+        1,
+        1
+      ],
+      "canonical_id": "dev-grid-01-01",
+      "row": 1,
+      "column": 1
+    },
+    {
+      "id": "fixed35-dev-grid-01-02",
+      "bucket_xy_m": [
+        0.48,
+        -0.42500000000000004
+      ],
+      "grid_cell": [
+        2,
+        1
+      ],
+      "canonical_id": "dev-grid-01-02",
+      "row": 1,
+      "column": 2
+    },
+    {
+      "id": "fixed35-dev-grid-01-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.42500000000000004
+      ],
+      "grid_cell": [
+        3,
+        1
+      ],
+      "canonical_id": "dev-grid-01-03",
+      "row": 1,
+      "column": 3
+    },
+    {
+      "id": "fixed35-dev-grid-01-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.42500000000000004
+      ],
+      "grid_cell": [
+        4,
+        1
+      ],
+      "canonical_id": "dev-grid-01-04",
+      "row": 1,
+      "column": 4
+    },
+    {
+      "id": "fixed35-dev-grid-01-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.42500000000000004
+      ],
+      "grid_cell": [
+        5,
+        1
+      ],
+      "canonical_id": "dev-grid-01-05",
+      "row": 1,
+      "column": 5
+    },
+    {
+      "id": "fixed35-dev-grid-01-06",
+      "bucket_xy_m": [
+        1.24,
+        -0.42500000000000004
+      ],
+      "grid_cell": [
+        6,
+        1
+      ],
+      "canonical_id": "dev-grid-01-06",
+      "row": 1,
+      "column": 6
+    },
+    {
+      "id": "fixed35-dev-grid-02-00",
+      "bucket_xy_m": [
+        0.1,
+        -0.2
+      ],
+      "grid_cell": [
+        0,
+        2
+      ],
+      "canonical_id": "dev-grid-02-00",
+      "row": 2,
+      "column": 0
+    },
+    {
+      "id": "fixed35-dev-grid-02-01",
+      "bucket_xy_m": [
+        0.29,
+        -0.2
+      ],
+      "grid_cell": [
+        1,
+        2
+      ],
+      "canonical_id": "dev-grid-02-01",
+      "row": 2,
+      "column": 1
+    },
+    {
+      "id": "fixed35-dev-grid-02-02",
+      "bucket_xy_m": [
+        0.48,
+        -0.2
+      ],
+      "grid_cell": [
+        2,
+        2
+      ],
+      "canonical_id": "dev-grid-02-02",
+      "row": 2,
+      "column": 2
+    },
+    {
+      "id": "fixed35-dev-grid-02-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.2
+      ],
+      "grid_cell": [
+        3,
+        2
+      ],
+      "canonical_id": "dev-grid-02-03",
+      "row": 2,
+      "column": 3
+    },
+    {
+      "id": "fixed35-dev-grid-02-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.2
+      ],
+      "grid_cell": [
+        4,
+        2
+      ],
+      "canonical_id": "dev-grid-02-04",
+      "row": 2,
+      "column": 4
+    },
+    {
+      "id": "fixed35-dev-grid-02-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.2
+      ],
+      "grid_cell": [
+        5,
+        2
+      ],
+      "canonical_id": "dev-grid-02-05",
+      "row": 2,
+      "column": 5
+    },
+    {
+      "id": "fixed35-dev-grid-02-06",
+      "bucket_xy_m": [
+        1.24,
+        -0.2
+      ],
+      "grid_cell": [
+        6,
+        2
+      ],
+      "canonical_id": "dev-grid-02-06",
+      "row": 2,
+      "column": 6
+    },
+    {
+      "id": "fixed35-dev-grid-03-00",
+      "bucket_xy_m": [
+        0.1,
+        0.025000000000000022
+      ],
+      "grid_cell": [
+        0,
+        3
+      ],
+      "canonical_id": "dev-grid-03-00",
+      "row": 3,
+      "column": 0
+    },
+    {
+      "id": "fixed35-dev-grid-03-01",
+      "bucket_xy_m": [
+        0.29,
+        0.025000000000000022
+      ],
+      "grid_cell": [
+        1,
+        3
+      ],
+      "canonical_id": "dev-grid-03-01",
+      "row": 3,
+      "column": 1
+    },
+    {
+      "id": "fixed35-dev-grid-03-02",
+      "bucket_xy_m": [
+        0.48,
+        0.025000000000000022
+      ],
+      "grid_cell": [
+        2,
+        3
+      ],
+      "canonical_id": "dev-grid-03-02",
+      "row": 3,
+      "column": 2
+    },
+    {
+      "id": "fixed35-dev-grid-03-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        0.025000000000000022
+      ],
+      "grid_cell": [
+        3,
+        3
+      ],
+      "canonical_id": "dev-grid-03-03",
+      "row": 3,
+      "column": 3
+    },
+    {
+      "id": "fixed35-dev-grid-03-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        0.025000000000000022
+      ],
+      "grid_cell": [
+        4,
+        3
+      ],
+      "canonical_id": "dev-grid-03-04",
+      "row": 3,
+      "column": 4
+    },
+    {
+      "id": "fixed35-dev-grid-03-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        0.025000000000000022
+      ],
+      "grid_cell": [
+        5,
+        3
+      ],
+      "canonical_id": "dev-grid-03-05",
+      "row": 3,
+      "column": 5
+    },
+    {
+      "id": "fixed35-dev-grid-03-06",
+      "bucket_xy_m": [
+        1.24,
+        0.025000000000000022
+      ],
+      "grid_cell": [
+        6,
+        3
+      ],
+      "canonical_id": "dev-grid-03-06",
+      "row": 3,
+      "column": 6
+    },
+    {
+      "id": "fixed35-dev-grid-04-00",
+      "bucket_xy_m": [
+        0.1,
+        0.25
+      ],
+      "grid_cell": [
+        0,
+        4
+      ],
+      "canonical_id": "dev-grid-04-00",
+      "row": 4,
+      "column": 0
+    },
+    {
+      "id": "fixed35-dev-grid-04-01",
+      "bucket_xy_m": [
+        0.29,
+        0.25
+      ],
+      "grid_cell": [
+        1,
+        4
+      ],
+      "canonical_id": "dev-grid-04-01",
+      "row": 4,
+      "column": 1
+    },
+    {
+      "id": "fixed35-dev-grid-04-02",
+      "bucket_xy_m": [
+        0.48,
+        0.25
+      ],
+      "grid_cell": [
+        2,
+        4
+      ],
+      "canonical_id": "dev-grid-04-02",
+      "row": 4,
+      "column": 2
+    },
+    {
+      "id": "fixed35-dev-grid-04-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        0.25
+      ],
+      "grid_cell": [
+        3,
+        4
+      ],
+      "canonical_id": "dev-grid-04-03",
+      "row": 4,
+      "column": 3
+    },
+    {
+      "id": "fixed35-dev-grid-04-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        0.25
+      ],
+      "grid_cell": [
+        4,
+        4
+      ],
+      "canonical_id": "dev-grid-04-04",
+      "row": 4,
+      "column": 4
+    },
+    {
+      "id": "fixed35-dev-grid-04-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        0.25
+      ],
+      "grid_cell": [
+        5,
+        4
+      ],
+      "canonical_id": "dev-grid-04-05",
+      "row": 4,
+      "column": 5
+    },
+    {
+      "id": "fixed35-dev-grid-04-06",
+      "bucket_xy_m": [
+        1.24,
+        0.25
+      ],
+      "grid_cell": [
+        6,
+        4
+      ],
+      "canonical_id": "dev-grid-04-06",
+      "row": 4,
+      "column": 6
+    }
+  ],
+  "test_comparison": [
+    {
+      "method": "fixed35_bc",
+      "counts": {
+        "attempts": 35,
+        "native_releases": 29,
+        "captures": 23,
+        "setup_rejections": 6,
+        "native_misses": 6,
+        "invalid_physics": 1,
+        "direct_captures": 20,
+        "table_assisted_captures": 3,
+        "forbidden_contact_shots": 3
+      },
+      "artifact_sha256": "d17765096854446bc666870478358fd2e6337936cbe3fceb3d9a6cb71e95ad8b"
+    },
+    {
+      "method": "current_bc",
+      "counts": {
+        "attempts": 35,
+        "native_releases": 32,
+        "captures": 24,
+        "setup_rejections": 3,
+        "native_misses": 8,
+        "invalid_physics": 0,
+        "direct_captures": 22,
+        "table_assisted_captures": 2,
+        "forbidden_contact_shots": 4
+      },
+      "artifact_sha256": "688acc7981522c3281dff47edd19edaf46f084f113455e50f14d7e5cabc3b9e9"
+    }
+  ],
+  "test_positions": [
+    {
+      "context_id": "fixed35-dev-grid-00-00",
+      "bucket_xy_m": [
+        0.1,
+        -0.65
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.5468740657987973,
+        -0.23705051643267377,
+        0.31090161005783185,
+        26.499622878713954,
+        0.416935421609521
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-00-00",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-00-01",
+      "bucket_xy_m": [
+        0.29,
+        -0.65
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.5355430976549486,
+        -0.23596366560960258,
+        0.2819665116133253,
+        29.20273678400842,
+        0.35507858169316125
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-00-01",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-00-02",
+      "bucket_xy_m": [
+        0.48,
+        -0.65
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.6089929159432187,
+        -0.40444123988093084,
+        0.2560490638516447,
+        37.173522860981635,
+        0.19467412903860656
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-00-02",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-00-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.65
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.6392298360209729,
+        -0.35206389788087955,
+        0.38417342755059436,
+        32.710948636197735,
+        0.1355471238452734
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-00-03",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-00-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.65
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.6193710177671863,
+        -0.35203992606756984,
+        0.40929183031427785,
+        32.75604496342546,
+        0.1356823672584047
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-00-04",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-00-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.65
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.6463188604128188,
+        -0.19689702377278961,
+        0.4187838674173454,
+        31.74279800192107,
+        0.111307245711659
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-00-05",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-00-06",
+      "bucket_xy_m": [
+        1.24,
+        -0.65
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.6516079524507019,
+        -0.19714915306481517,
+        0.42631619877295707,
+        30.998160244129657,
+        0.18198034261558238
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-00-06",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-01-00",
+      "bucket_xy_m": [
+        0.1,
+        -0.42500000000000004
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.5400572691235307,
+        -0.2802300541984017,
+        0.3376722229635947,
+        32.170632695692454,
+        0.31276685804712046
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-01-00",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-01-01",
+      "bucket_xy_m": [
+        0.29,
+        -0.42500000000000004
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.6267837699743041,
+        -0.3714790323877383,
+        0.27135200612527305,
+        31.288399163397386,
+        0.22797899198930985
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-01-01",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-01-02",
+      "bucket_xy_m": [
+        0.48,
+        -0.42500000000000004
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.6408699457821674,
+        -0.3300289984504842,
+        0.2734425638111334,
+        27.469740059082188,
+        0.09633937566257951
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-01-02",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-01-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.42500000000000004
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.6126039342942995,
+        -0.16494164009312773,
+        0.3308963045262357,
+        22.10438409829687,
+        0.15898305810404256
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-01-03",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-01-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.42500000000000004
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.6275545777522978,
+        -0.23610291803191058,
+        0.40904156388887375,
+        32.78196709103929,
+        0.12492739588656834
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-01-04",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-01-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.42500000000000004
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.6376863386857523,
+        -0.24303316670437813,
+        0.4241492485169848,
+        33.52563220634383,
+        0.13544473158701587
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-01-05",
+      "forbidden_contact_steps": 28
+    },
+    {
+      "context_id": "fixed35-dev-grid-01-06",
+      "bucket_xy_m": [
+        1.24,
+        -0.42500000000000004
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.5979265395841318,
+        0.016159196939541348,
+        0.45939471879074284,
+        26.036104016759726,
+        0.252212878630347
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-01-06",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-02-00",
+      "bucket_xy_m": [
+        0.1,
+        -0.2
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.5380627248925415,
+        -0.24038717762618803,
+        0.3344745731941607,
+        32.669074385792584,
+        0.29693844339172354
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-02-00",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-02-01",
+      "bucket_xy_m": [
+        0.29,
+        -0.2
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.6120527006826345,
+        -0.34377369383658846,
+        0.268341489927674,
+        31.513165187633597,
+        0.2599753412436658
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-02-01",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-02-02",
+      "bucket_xy_m": [
+        0.48,
+        -0.2
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.6391077987028326,
+        -0.2736272032524238,
+        0.2751257706039538,
+        27.679899920957556,
+        0.09250071531270801
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-02-02",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-02-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.2
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.5609338143113647,
+        -0.06233872856365383,
+        0.5095952485804842,
+        18.196486108415762,
+        0.2967016151265851
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-02-03",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-02-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.2
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.5703429270346126,
+        -0.061598661926721344,
+        0.5025429582046502,
+        24.864122366450776,
+        0.15849809836283862
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-02-04",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-02-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.2
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.5978432844453582,
+        -0.023487996181020265,
+        0.45967910613006846,
+        25.879931704601223,
+        0.261051803865591
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": "native_physics_outside_calibrated_domain",
+      "invalid_physics": true,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-02-05",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-02-06",
+      "bucket_xy_m": [
+        1.24,
+        -0.2
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.5860650288310417,
+        -0.003495858212538592,
+        0.4650431273083749,
+        28.858060874618154,
+        0.2445816660016789
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-02-06",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-00",
+      "bucket_xy_m": [
+        0.1,
+        0.025000000000000022
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.43246498100634034,
+        0.0016622626669447905,
+        0.23712479698516423,
+        27.767347840875324,
+        0.11673296700213952
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "fixed_base_clearance_rejected",
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-03-00",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-01",
+      "bucket_xy_m": [
+        0.29,
+        0.025000000000000022
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.45989255586031935,
+        0.014861612823237006,
+        0.27420372634727613,
+        27.53712411161126,
+        0.0857313707215
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-03-01",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-02",
+      "bucket_xy_m": [
+        0.48,
+        0.025000000000000022
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.633303834605321,
+        -0.049429924638676966,
+        0.2745292870139706,
+        27.44276175646559,
+        0.08550195013986803
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-03-02",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        0.025000000000000022
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.6054709401134831,
+        -0.1684666274834409,
+        0.30129183363398715,
+        22.869376105528968,
+        0.14639214329205175
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-03-03",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        0.025000000000000022
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.584163948491332,
+        0.013318633631946623,
+        0.4290051741220303,
+        19.181985593419725,
+        0.23739028471250512
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-03-04",
+      "forbidden_contact_steps": 120
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        0.025000000000000022
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.6006149413640613,
+        0.014842935270299784,
+        0.4218585059454166,
+        21.180324793343676,
+        0.3210600803568491
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-03-05",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-06",
+      "bucket_xy_m": [
+        1.24,
+        0.025000000000000022
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.5902708641387753,
+        0.008205894860179773,
+        0.4540725449079977,
+        28.954220864511917,
+        0.3559963090175911
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "fixed_base_clearance_rejected",
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-03-06",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-04-00",
+      "bucket_xy_m": [
+        0.1,
+        0.25
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.4876674273778446,
+        0.04828221238651957,
+        0.3383883490169345,
+        33.255998596905464,
+        0.2904669848973436
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-04-00",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-04-01",
+      "bucket_xy_m": [
+        0.29,
+        0.25
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.5714968532323987,
+        -0.07859693549849313,
+        0.34014574111946516,
+        32.17811875316521,
+        0.30217815175695245
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-04-01",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-04-02",
+      "bucket_xy_m": [
+        0.48,
+        0.25
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.6131017314321504,
+        0.12275122860909202,
+        0.2740989697327158,
+        27.51717923034471,
+        0.09606336089737313
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-04-02",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-04-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        0.25
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.5841077789435078,
+        -0.03710338341892063,
+        0.3838238560227749,
+        32.74135433028593,
+        0.13560571021613013
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-04-03",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-04-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        0.25
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.6042167183652792,
+        -0.036973523575206384,
+        0.40882393131582884,
+        32.75634274804534,
+        0.13559027685624808
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-04-04",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-04-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        0.25
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.5779876879725271,
+        -0.02354291106373999,
+        0.45996730508748773,
+        26.00561624673131,
+        0.2519264987731159
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-04-05",
+      "forbidden_contact_steps": 45
+    },
+    {
+      "context_id": "fixed35-dev-grid-04-06",
+      "bucket_xy_m": [
+        1.24,
+        0.25
+      ],
+      "method": "fixed35_bc",
+      "values": [
+        0.5776451091875294,
+        -0.02538553221654232,
+        0.4474791604756631,
+        27.04454015285952,
+        0.32511649105457296
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-fixed35_bc-fixed35-dev-grid-04-06",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-00-00",
+      "bucket_xy_m": [
+        0.1,
+        -0.65
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5339046624012481,
+        -0.23117300996578177,
+        0.3069841111810501,
+        26.08788262271784,
+        0.4187685080376257
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-00-00",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-00-01",
+      "bucket_xy_m": [
+        0.29,
+        -0.65
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5351793598908061,
+        -0.23593820733430415,
+        0.2820069076117191,
+        29.23749041011882,
+        0.35286172432252216
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-00-01",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-00-02",
+      "bucket_xy_m": [
+        0.48,
+        -0.65
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6108645832023196,
+        -0.4045222885038059,
+        0.257489660126498,
+        36.7434436180182,
+        0.19179323941802848
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-00-02",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-00-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.65
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6395794517700053,
+        -0.3519525305585856,
+        0.38392138218242616,
+        32.80661709422219,
+        0.1382801076748219
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-00-03",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-00-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.65
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6193642496890989,
+        -0.3522096570987152,
+        0.4092119989875616,
+        32.76166326014174,
+        0.13683034522416218
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-00-04",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-00-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.65
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6424143492297997,
+        -0.19648282875384931,
+        0.4238723631942919,
+        31.639380159586587,
+        0.12255280410759697
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-00-05",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-00-06",
+      "bucket_xy_m": [
+        1.24,
+        -0.65
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6518147568813372,
+        -0.19689737502725813,
+        0.4299812802965787,
+        30.642481533278573,
+        0.18220611818551888
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-00-06",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-01-00",
+      "bucket_xy_m": [
+        0.1,
+        -0.42500000000000004
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5401341944228327,
+        -0.28068220496622026,
+        0.33746521571406396,
+        32.26735434569107,
+        0.31597231234702144
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-01-00",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-01-01",
+      "bucket_xy_m": [
+        0.29,
+        -0.42500000000000004
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6309465180929498,
+        -0.3765590623349647,
+        0.26925764944465574,
+        31.318592024542816,
+        0.22947493318688644
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-01-01",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-01-02",
+      "bucket_xy_m": [
+        0.48,
+        -0.42500000000000004
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6408611304346687,
+        -0.3309854890029077,
+        0.2745852778688143,
+        27.506108322085513,
+        0.09696767638333864
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-01-02",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-01-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.42500000000000004
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6138323952777521,
+        -0.16526751657701705,
+        0.33067961888440806,
+        22.284764308755534,
+        0.15689670731377792
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-01-03",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-01-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.42500000000000004
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6275456492101656,
+        -0.23606943606783798,
+        0.4099643901337753,
+        32.90149048622205,
+        0.12552776617043523
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-01-04",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-01-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.42500000000000004
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6429213065465369,
+        -0.24817303601653476,
+        0.425011106370531,
+        33.66779617586808,
+        0.13574285954283338
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-01-05",
+      "forbidden_contact_steps": 28
+    },
+    {
+      "context_id": "fixed35-dev-grid-01-06",
+      "bucket_xy_m": [
+        1.24,
+        -0.42500000000000004
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5979592483264831,
+        0.016294983071146414,
+        0.45913831559360047,
+        26.127778778591715,
+        0.2521585734588267
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-01-06",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-02-00",
+      "bucket_xy_m": [
+        0.1,
+        -0.2
+      ],
+      "method": "current_bc",
+      "values": [
+        0.540595987457544,
+        -0.2394677699425168,
+        0.3345948402237091,
+        32.422363792920535,
+        0.307512306313147
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-02-00",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-02-01",
+      "bucket_xy_m": [
+        0.29,
+        -0.2
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6121452780958598,
+        -0.34264657934936454,
+        0.2700191642909115,
+        31.646390293168977,
+        0.2570888412978671
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-02-01",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-02-02",
+      "bucket_xy_m": [
+        0.48,
+        -0.2
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6403456999706347,
+        -0.2735220157146365,
+        0.2744928829292632,
+        27.621659987423406,
+        0.09412745636855185
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-02-02",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-02-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        -0.2
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5591205725142644,
+        -0.0625444377683692,
+        0.5095821466070467,
+        18.096248532496396,
+        0.23504636251064462
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-02-03",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-02-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        -0.2
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5631851843716873,
+        -0.06175652144137391,
+        0.4976091239666261,
+        22.330081755597877,
+        0.17157482761651477
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-02-04",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-02-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        -0.2
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5990279187790997,
+        -0.024662355473544357,
+        0.4602331838335254,
+        26.010087037701428,
+        0.25828216580106117
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-02-05",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-02-06",
+      "bucket_xy_m": [
+        1.24,
+        -0.2
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5972809378012257,
+        -0.015246220975644525,
+        0.4722152017627127,
+        27.237402878093004,
+        0.20259604854516874
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-02-06",
+      "forbidden_contact_steps": 27
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-00",
+      "bucket_xy_m": [
+        0.1,
+        0.025000000000000022
+      ],
+      "method": "current_bc",
+      "values": [
+        0.442241262262325,
+        0.011141264817337796,
+        0.2473142741515419,
+        26.06418882164494,
+        0.12930021038893857
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "fixed_base_clearance_rejected",
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-03-00",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-01",
+      "bucket_xy_m": [
+        0.29,
+        0.025000000000000022
+      ],
+      "method": "current_bc",
+      "values": [
+        0.45987639250811296,
+        0.014725297318946399,
+        0.2740447733636925,
+        27.43961192608302,
+        0.08387615215887058
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-03-01",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-02",
+      "bucket_xy_m": [
+        0.48,
+        0.025000000000000022
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6331505990961195,
+        -0.04974026421930236,
+        0.27379131648763877,
+        27.35209184505424,
+        0.07900050974967088
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-03-02",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        0.025000000000000022
+      ],
+      "method": "current_bc",
+      "values": [
+        0.60548801367399,
+        -0.16845315548352482,
+        0.30144578384701326,
+        22.88715488693651,
+        0.14752847100715202
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-03-03",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        0.025000000000000022
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5793206122429684,
+        0.014357257326392897,
+        0.4240021960311493,
+        18.816517955773364,
+        0.23246834380058465
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-03-04",
+      "forbidden_contact_steps": 79
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        0.025000000000000022
+      ],
+      "method": "current_bc",
+      "values": [
+        0.584283129176886,
+        0.014537455605074141,
+        0.42297119453599974,
+        22.55230240129527,
+        0.3017540726528702
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-03-05",
+      "forbidden_contact_steps": 109
+    },
+    {
+      "context_id": "fixed35-dev-grid-03-06",
+      "bucket_xy_m": [
+        1.24,
+        0.025000000000000022
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5921689649421873,
+        0.007441155274754325,
+        0.4502213676553051,
+        30.401357510515172,
+        0.3548602264231911
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "fixed_base_clearance_rejected",
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-03-06",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-04-00",
+      "bucket_xy_m": [
+        0.1,
+        0.25
+      ],
+      "method": "current_bc",
+      "values": [
+        0.4876267910056605,
+        0.047976992770760646,
+        0.3381780118334813,
+        33.28610782524288,
+        0.29164497349728646
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-04-00",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-04-01",
+      "bucket_xy_m": [
+        0.29,
+        0.25
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5718850871603405,
+        -0.07874353166067805,
+        0.34055561490730574,
+        32.24626369917453,
+        0.3025227040187788
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-04-01",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-04-02",
+      "bucket_xy_m": [
+        0.48,
+        0.25
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6128926773736967,
+        0.12251468514659879,
+        0.2737564080169633,
+        27.726683942395994,
+        0.09524858935243377
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-04-02",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-04-03",
+      "bucket_xy_m": [
+        0.6699999999999999,
+        0.25
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5837560174474958,
+        -0.03693221773158261,
+        0.3833045328447023,
+        32.891104878056595,
+        0.13723556739558926
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-04-03",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-04-04",
+      "bucket_xy_m": [
+        0.8599999999999999,
+        0.25
+      ],
+      "method": "current_bc",
+      "values": [
+        0.6041155840588249,
+        -0.03694886538836507,
+        0.4086768767063135,
+        32.797118423429126,
+        0.13622960136718082
+      ],
+      "capture": false,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-04-04",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-04-05",
+      "bucket_xy_m": [
+        1.0499999999999998,
+        0.25
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5781171090699498,
+        -0.023455590477456312,
+        0.46000420236027745,
+        25.993018539532084,
+        0.2528264028510086
+      ],
+      "capture": true,
+      "native_release": true,
+      "invalid": null,
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-04-05",
+      "forbidden_contact_steps": 0
+    },
+    {
+      "context_id": "fixed35-dev-grid-04-06",
+      "bucket_xy_m": [
+        1.24,
+        0.25
+      ],
+      "method": "current_bc",
+      "values": [
+        0.5630638961518069,
+        -0.01962133824309124,
+        0.4652934413869423,
+        25.468211422606952,
+        0.32507641361952994
+      ],
+      "capture": false,
+      "native_release": false,
+      "invalid": "finite_ik_unresolved",
+      "invalid_physics": false,
+      "record_id": "fixed35-imitation-test-current_bc-fixed35-dev-grid-04-06",
+      "forbidden_contact_steps": 0
+    }
+  ],
+  "paired": {
+    "gains": 1,
+    "losses": 2,
+    "shared_captures": 22,
+    "shared_failures": 10,
+    "net_captures": -1,
+    "positions": 35
+  },
+  "interpretation": "Frozen paired comparison on the 35 historical fixed grid positions; both actors use bucket-facing yaw. This is coverage/regression, not held-out generalization. One request per policy per position, all declines count. No perturbations or automatic promotion.",
+  "producer_commit": "3fa71e2f1bc658aa62d8ed56f7bbfaff67093968"
+}
