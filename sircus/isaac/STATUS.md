@@ -1,13 +1,24 @@
-# Current checkpoint
+# Current checkpoint — 2026-11-01 UTC
 
-The latest [randomized perception validation](PERCEPTION_VALIDATION.md) completed
-144 observations. The GPU study has exited; observation workers and the preview
-remain. The older runtime statements below are historical.
+The [bucket-distance catalogue](../../baselines/isaac-distance-catalogue-20261101/README.md)
+completed 2,081 attempts at six distances, including 50 fresh perturbations per
+frozen setting. At 300/400 mm both settings captured 50/50. Farther settings
+captured 37–49/50, but many saved paths suggest intermediate table/other rebounds.
+The original scorer permits these; the separate warning audit does not change
+scores or certify direct paths. No new RL policy was trained.
 
-See [RGB-D perception and completed RL status](PERCEPTION.md). The foundation
-snapshot below is historical: RL now exists, the4070 is stopped by user request,
-and the4090 is replaying a frozen policy with independent CPU perception.
-Recheck actual processes before any deployment.
+After completion, the finite 4090 process had exited and no 4090 compute process
+remained. The existing 4070 process (PID 976650) remained unchanged. The read-only
+preview uses Ubuntu loopback port 18860, forwarded to Mac port 18780. These are
+point-in-time observations: recheck actual processes before future deployment.
+The immutable executed source is `~/sircus-isaac/studies/distance-catalogue-v1`;
+raw evidence remains under `~/sircus-isaac/output/distance-catalogue-20261101T125810Z`.
+No physical dashboard, Viam configuration, hardware or audio service was changed.
+
+Next: table/robot contact instrumentation and a versioned direct-path criterion
+before further learning. Existing perception remains a separate provisional
+pipeline; no perception-driven control was tested here. See [project state](../../docs/PROJECT_STATE.md)
+for intervening learning/IK studies. All runtime statements below are historical.
 
 # Isaac foundation checkpoint — 2026-10-30 Pacific
 

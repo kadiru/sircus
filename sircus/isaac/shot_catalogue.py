@@ -33,8 +33,8 @@ class QualityShot(SettledShot):
         return self.quality.result(score.success)
 
 
-def contact_probe(env):
-    xy = [0.67, -0.50]
+def contact_probe(env, xy=None):
+    xy = [0.67, -0.50] if xy is None else xy
     env.place_bucket(xy)
     b = env.cfg["bucket"]
     top = b["assumed_interior_depth_m"] + b["assumed_bottom_thickness_m"]

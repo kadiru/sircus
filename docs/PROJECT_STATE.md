@@ -1,5 +1,12 @@
 # Project state
 
+## Completed bucket-distance catalogue — November 1, 2026
+
+- [Exact settings and verified evidence](../baselines/isaac-distance-catalogue-20261101/README.md): 2,081 attempts on RTX 4090, including 300 fresh confirmation trials. Frozen settings captured 50/50, 50/50, 44/50, 41/50, 49/50 and 37/50 at 300, 400, 500, 550, 600 and 650 mm respectively. Independent variations: board height/gap ±2 mm, tilt ±0.5°. The 400 mm setting is a prior-result control, not a new broad search.
+- Important qualification: the original capture scorer permits intermediate contacts. A separate sampled-path audit flags low external rebounds in 0/50, 0/50, 7/44, 39/41, 49/49 and 36/37 captured trajectories respectively. These suggest table/other contact; no flag does not certify direct travel. Preserve original scores and historical definitions. Farther high capture rates are not proof of the intended direct board-to-bucket shot.
+- Source snapshot `distance-catalogue-v1`; run `distance-catalogue-20261101T125810Z` completed naturally in 72.4 minutes. All 26 artifact hashes, 37 executed source hashes, the contract fingerprint and all 2,081 raw/compact trial records matched. 75 Isaac tests, four distance-panel DOM tests and full mock/numerical regression passed.
+- Read-only `#distance-catalogue` shows all results, warnings, selected nominal geometry and a validated CSV. The 4070 workload was untouched. No physical/Viam changes or new RL training. Next: instrument table/robot contacts and define a separate versioned direct-path criterion before another learning study. See [method](../sircus/isaac/DISTANCE_CATALOGUE.md).
+
 ## Completed dense fixed-plane catalogue — October 31, 2026
 
 - [Settings and evidence](../baselines/isaac-shot-catalogue-20261031/README.md):495 coarse +84 refined settings at400 mm bucket distance.39 clean captures,89 assisted/marginal captures,354 released misses,97 endpoint rejections. Six frozen settings each received20 nominal and20 perturbed repeats.
