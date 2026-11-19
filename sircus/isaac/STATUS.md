@@ -1,3 +1,19 @@
+# Workspace feasibility completed — November 1, 2026 (local date)
+
+[Verified results](../../baselines/isaac-feasibility-map-20261101/README.md) and
+[protocol](FEASIBILITY_MAP.md): run `feasibility-20261102T012536Z-n32` finished
+6,212 attempts  / 3,043 accepted releases on the 4090. Fifteen selected targets;
+six passed 30/30 fresh perturbations. Target 23 is outside the direct-reach bound
+but captured only 6/30, all non-single-bounce assisted captures. No new RL policy,
+continuous workspace coverage or physical validation is claimed.
+
+All raw/summary records, source/evidence hashes and 80 asset hashes/mtimes matched.
+The job exited 0. The read-only preview serves `/feasibility.html` from the separate
+`feasibility-preview-v1` snapshot on Ubuntu port 18860, forwarded to Mac port 18780. Preview
+PID 2672808 remained active at this checkpoint; 4070 process 2653439 was unchanged.
+These are point-in-time observations, not deployment instructions. No physical,
+Viam or audio changes. Prior sections below are historical process observations.
+
 # Current checkpoint — parallel world completed, 2026-11-01 UTC
 
 Run `parallel-world-20261101T205548Z-n32` used one isolated RTX 4090 PhysX scene

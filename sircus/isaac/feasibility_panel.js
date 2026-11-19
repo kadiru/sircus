@@ -1,0 +1,62 @@
+/* Read-only projection of recorded PhysX evidence. No hardware or training controls. */
+let feasibilityData=null, feasibilitySelection=null, feasibilityAnimation=null;
+const fe=id=>document.getElementById(id);
+const mm=x=>Number.isFinite(x)?(x*1000).toFixed(1):'—';
+const count=(rows,key)=>rows.filter(r=>r[key]).length;
+function stats(c,key){const r=c[key]||[];return c.stages?.[key]||{trials:r.length,captures:count(r,'route_success'),single_bounce:count(r,'single_bounce_success'),clean:r.filter(x=>x.route_quality===2).length,invalid:count(r,'invalid')};}
+function svg(root,tag,attrs={},text=''){const e=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,String(v));e.textContent=text;root.appendChild(e);return e;}
+function row(root,values,tag='td'){const tr=document.createElement('tr');for(const value of values){const td=document.createElement(tag);td.textContent=String(value);tr.appendChild(td);}root.appendChild(tr);}
+function selected(){return feasibilityData?.cells.find(c=>c.id===feasibilitySelection)||feasibilityData?.cells[0];}
+function color(c){const s=stats(c,'confirmations');return s.trials===30&&s.captures===30?'#5bd6b6':s.trials?'#ffbd62':'#7a969e';}
+function example(c,stage){return c[stage+'_example']||(c[stage]||[])[0];}
+function searchFailures(c){
+ const failures={};for(const stage of ['baseline','search','refinement']){
+  const counts=c.stages?.[stage]?.failures;if(counts){for(const [reason,n] of Object.entries(counts))failures[reason]=(failures[reason]||0)+n;}
+  else for(const r of c[stage]||[]){if(r.route_success)continue;const reason=r.invalid||(r.external_contact_steps?'external_contact':'released_miss');failures[reason]=(failures[reason]||0)+1;}
+ }return Object.entries(failures).sort((a,b)=>b[1]-a[1]);
+}
+function renderFeasibility(d){
+ feasibilityData=d;const c=selected();if(!c)return;feasibilitySelection=c.id;
+ const age=(Date.now()-Date.parse(d.timestamp_utc))/1000;fe('status').textContent=`${d.phase} · ${d.attempts.toLocaleString()} attempts · ${d.run}${!['completed','failed'].includes(d.phase)&&age>180?' · progress stale':''}`;
+ fe('metrics').replaceChildren();for(const [value,label] of [[d.cells.length,'bucket targets'],[d.cells.filter(c=>c.winner).length,'settings frozen'],[d.cells.filter(c=>stats(c,'confirmations').captures===30).length,'targets passed 30/30'],[d.cells.filter(c=>c.winner&&d.direct_drop_audit?.find(a=>a.cell_id===c.id)?.beyond_geometric_outer_bound).length,'settings beyond dropper reach bound']]){const box=document.createElement('div');box.className='metric';const strong=document.createElement('strong');strong.textContent=value;box.appendChild(strong);const labelEl=document.createElement('span');labelEl.textContent=label;box.appendChild(labelEl);fe('metrics').appendChild(box);}
+ const m=fe('map');m.replaceChildren();const x=v=>60+(v+.23)*430,y=v=>55+(.375-v)*430;
+ svg(m,'rect',{x:x(-.23),y:y(.375),width:1.8*430,height:1.25*430,rx:8,fill:'#173940',stroke:'#63878b'});
+ for(const [xx,name] of [[0,'10 · dropper'],[d.contract.scene.arms.base_spacing_m,'14 · board']]){svg(m,'circle',{cx:x(xx),cy:y(0),r:19,fill:'#d48f61'});svg(m,'text',{x:x(xx),y:y(0)-30,'text-anchor':'middle',fill:'#f9f3df','font-size':15},name);}
+ for(const cell of d.cells){const [bx,by]=cell.bucket_xy_m;const group=svg(m,'g',{role:'button',tabindex:0,'aria-label':cell.id+' bucket '+mm(bx)+', '+mm(by)+' millimetres'});svg(group,'circle',{cx:x(bx),cy:y(by),r:17,fill:color(cell),stroke:cell.id===c.id?'#fff3cc':'#10262b','stroke-width':cell.id===c.id?4:1});svg(group,'text',{x:x(bx),y:y(by)+4,'text-anchor':'middle',fill:'#10262b','font-size':12,'font-weight':'bold'},String(cell.index+1));const choose=()=>{feasibilitySelection=cell.id;renderFeasibility(d);};group.onclick=choose;group.onkeydown=e=>{if(e.key==='Enter'||e.key===' ')choose();};}
+ if(c.winner){const a=c.winner;svg(m,'line',{x1:x(a.board_x_m),y1:y(a.board_y_m),x2:x(c.bucket_xy_m[0]),y2:y(c.bucket_xy_m[1]),stroke:'#ffc975','stroke-width':2,'stroke-dasharray':'6 5'});svg(m,'circle',{cx:x(a.board_x_m),cy:y(a.board_y_m),r:7,fill:'#fa6f55'});svg(m,'text',{x:x(a.board_x_m)+12,y:y(a.board_y_m)-10,fill:'#ffba9a','font-size':14},'Board / release');}
+ svg(m,'text',{x:65,y:615,fill:'#bed3d4','font-size':13},'X → along the arm bases · −Y toward the viewer · table top Z = 0');
+ fe('choices').replaceChildren();for(const cell of d.cells){const b=document.createElement('button');b.textContent=String(cell.index+1);b.setAttribute('aria-pressed',String(cell.id===c.id));b.onclick=()=>{feasibilitySelection=cell.id;renderFeasibility(d);};fe('choices').appendChild(b);}
+ fe('selectedTitle').textContent=`Target ${c.index+1} · ${mm(c.bucket_xy_m[0])}, ${mm(c.bucket_xy_m[1])} mm`;
+ const table=fe('detail');table.replaceChildren();row(table,['Bucket X / Y',c.bucket_xy_m.map(mm).join(' / ')+' mm']);
+ if(c.winner){const a=c.winner;const distance=Math.hypot(c.bucket_xy_m[0]-a.board_x_m,c.bucket_xy_m[1]-a.board_y_m);for(const values of [['Board X / Y',`${mm(a.board_x_m)} / ${mm(a.board_y_m)} mm`],['Board center height',mm(a.height_m)+' mm'],['Tilt from horizontal',a.tilt_deg.toFixed(2)+'°'],['Vertical drop gap',mm(a.gap_m)+' mm'],['Ball-bottom release Z',mm(a.height_m+a.gap_m)+' mm'],['Ball-center release Z',mm(a.height_m+a.gap_m+d.contract.scene.ball.radius_m)+' mm'],['Board → bucket distance',mm(distance)+' mm']])row(table,values);}else row(table,['Setting',d.phase==='completed'?'No success found in finite search':'Search pending / in progress']);
+ const s=stats(c,'confirmations');fe('outcome').textContent=s.trials?`Fresh perturbations: ${s.captures}/${s.trials} captures; ${s.single_bounce} single-bounce; ${s.clean} clean entry; ${s.invalid} endpoint rejects.${s.wilson95?' 95% Wilson interval: '+s.wilson95.map(x=>(100*x).toFixed(1)+'%').join('–')+'.':''}`:'No fresh confirmation for this target yet.';
+ const audit=d.direct_drop_audit?.find(a=>a.cell_id===c.id);fe('reach').textContent=!audit?'Direct reach audit pending.':audit.beyond_geometric_outer_bound?`Beyond dropper’s conservative ball-center reach bound (${mm(audit.ball_outer_bound_m)} mm horizontal). This follows from modeled link lengths, not an IK search failure.`:`Direct-drop endpoint IK: ${audit.tested_heights.filter(t=>t.solved).length}/${audit.tested_heights.length} tested heights solved. An IK failure alone does not prove unreachable.`;
+ const n=stats(c,'nominal'),old=stats(c,'fixed_xy_ablation');fe('comparison').textContent=n.trials?`Frozen nominal: ${n.captures}/${n.trials}. Same heights/tilt at original board XY: ${old.captures}/${old.trials}. Small paired development check.`:'';
+ const failures=fe('failures');failures.replaceChildren();row(failures,['Search failure / rejection','Attempts'],'th');
+ const labels={endpoint_ik_Arm14:'Board-arm endpoint IK',endpoint_ik_Arm10:'Dropper-arm endpoint IK',settling_correction_ik:'Settling correction IK',endpoints_not_settled:'Pose did not settle',board_bucket_separation:'Board / bucket clearance guard',external_contact:'Detected external contact',released_miss:'Released, but not retained'};
+ const reasons=searchFailures(c);for(const [reason,n] of reasons)row(failures,[labels[reason]||reason,n]);if(!reasons.length)row(failures,['No failed search attempts recorded',0]);
+ fe('summary').replaceChildren();row(fe('summary'),['Stage','Attempts','Captures','Single bounce','Clean','Invalid'],'th');for(const stage of ['baseline','search','refinement','nominal','fixed_xy_ablation','confirmations']){const sum=d.totals?.[stage]||d.cells.map(c=>stats(c,stage)).reduce((a,b)=>Object.fromEntries(['trials','captures','single_bounce','clean','invalid'].map(k=>[k,(a[k]||0)+b[k]])),{});row(fe('summary'),[stage.replaceAll('_',' '),sum.trials,sum.captures,sum.single_bounce,sum.clean,sum.invalid]);}
+ fe('limits').replaceChildren();for(const text of d.limits||[d.contract.scope,d.contract.unknown_rule,d.contract.geometry_status]){const li=document.createElement('li');li.textContent=text;fe('limits').appendChild(li);}
+ fe('verification').textContent=d.verification?`Verified ${d.verification.raw_rows_matched} raw rows, ${d.verification.source_hashes_matched} source hashes and ${d.verification.artifact_hashes_matched} artifact hashes. Contact/isolation probes ${d.probes.filter(p=>p.all_passed).length}/${d.probes.length}; bucket drift ${(d.max_bucket_drift_m*1000).toFixed(6)} mm.`:'Progress report — independent completed-run verification pending.';
+ fe('provenance').textContent=JSON.stringify({contract:d.contract,verification:d.verification},null,2);renderReplay(false);
+}
+function renderReplay(play){
+ if(feasibilityAnimation)cancelAnimationFrame(feasibilityAnimation);
+ const c=selected();if(!c)return;const stage=fe('replayChoice').value, replay=c[stage+'_replay'],r=example(c,stage);
+ for(const id of ['top','side'])fe(id).replaceChildren();
+ const points=replay?.trajectory_m||[];fe('play').disabled=points.length<2;
+ if(!r||!points.length){fe('replayStatus').textContent='No released replay available for this selection.';return;}
+ fe('replayStatus').textContent=`${replay.trial_id} · ${r.route_success?'captured':'not captured'} · ${r.board_contact_episodes} board-contact episodes · ${r.external_contact_steps} external-contact steps`;
+ const a=r,bucket=c.bucket_xy_m,dx=bucket[0]-a.board_x_m,dy=bucket[1]-a.board_y_m,dist=Math.hypot(dx,dy);
+ const top=v=>[35+(v[0]+.23)*240,25+(.375-v[1])*240];
+ const flight=v=>[(v[0]-a.board_x_m)*dx/dist+(v[1]-a.board_y_m)*dy/dist,v[2]];
+ const side=v=>[45+(v[0]+.22)*360,320-v[1]*330];
+ for(const [id,proj] of [['top',top],['side',v=>side(flight(v))]]){const root=fe(id);svg(root,'rect',{x:0,y:0,width:500,height:360,fill:'#173940',rx:8});svg(root,'polyline',{points:points.map(p=>proj(p).join(',')).join(' '),fill:'none',stroke:'#f4b95e','stroke-width':2,opacity:.65});svg(root,'text',{x:16,y:22,fill:'#d4e8e7','font-size':14},id==='top'?'TOP · X / Y':'FLIGHT PLANE · distance / height');}
+ const bt=top([...bucket,0]),bp=top([a.board_x_m,a.board_y_m,0]);svg(fe('top'),'circle',{cx:bt[0],cy:bt[1],r:.1*240,fill:'none',stroke:'#f4b95e','stroke-width':3});svg(fe('top'),'circle',{cx:bp[0],cy:bp[1],r:8,fill:'#60d4cf'});
+ const h=a.height_m,t=Math.tan(a.tilt_deg*Math.PI/180);const line=[side([-.15,h+t*.15]),side([.15,h-t*.15])];svg(fe('side'),'line',{x1:line[0][0],y1:line[0][1],x2:line[1][0],y2:line[1][1],stroke:'#60d4cf','stroke-width':5});const bucketCfg=feasibilityData.contract.scene.bucket,lip=bucketCfg.assumed_bottom_thickness_m+bucketCfg.assumed_interior_depth_m;const outline=[[dist-.1,lip],[dist-.079,0],[dist+.079,0],[dist+.1,lip]].map(side);svg(fe('side'),'polyline',{points:outline.map(p=>p.join(',')).join(' '),fill:'none',stroke:'#f4b95e','stroke-width':4});
+ const dots=[svg(fe('top'),'circle',{r:7,fill:'#ff799f'}),svg(fe('side'),'circle',{r:8,fill:'#ff799f'})];const update=i=>{const p=points[i];for(const [j,v] of [top(p),side(flight(p))].entries()){dots[j].setAttribute('cx',v[0]);dots[j].setAttribute('cy',v[1]);}};update(0);
+ if(play){const start=performance.now();const animate=now=>{const i=Math.min(points.length-1,Math.floor((now-start)/1000/(replay.sample_dt_s*2)));update(i);if(i<points.length-1)feasibilityAnimation=requestAnimationFrame(animate);};feasibilityAnimation=requestAnimationFrame(animate);}
+}
+fe('play').onclick=()=>renderReplay(true);fe('replayChoice').onchange=()=>renderReplay(false);
+async function feasibilityUpdate(){try{const response=await fetch('/feasibility-map.json',{cache:'no-store'});if(!response.ok)throw Error();renderFeasibility(await response.json());}catch(e){fe('status').textContent='Feasibility report unavailable. Any displayed results may be stale.';}}
+setInterval(feasibilityUpdate,20000);feasibilityUpdate();

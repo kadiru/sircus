@@ -162,11 +162,15 @@ class ParallelShots:
                     xyz[:, 0] += b["inner_top_diameter_m"] / 2
             else:
                 xyz = np.tile(
-                    {
-                        "table": [-0.05, -0.65, 0.25],
-                        "floor": [1.8, -0.65, -0.5],
-                        "robot": [0, 0, 0.75],
-                    }[kind],
+                    getattr(
+                        self,
+                        "probe_positions",
+                        {
+                            "table": [-0.05, -0.65, 0.25],
+                            "floor": [1.8, -0.65, -0.5],
+                            "robot": [0, 0, 0.75],
+                        },
+                    )[kind],
                     (self.n, 1),
                 )
             self.set_balls(xyz)

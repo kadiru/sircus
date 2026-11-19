@@ -1,0 +1,59 @@
+{
+  "run": "feasibility-20261102T012536Z-n32",
+  "verification": {
+    "raw_rows_matched": 6212,
+    "source_hashes_matched": 63,
+    "artifact_hashes_matched": 4,
+    "contract_actions_selection_repeats_checked": true
+  },
+  "corruption_checks": {
+    "scene_fingerprint": "rejected",
+    "repeat_seed": "rejected",
+    "frozen_setting": "rejected",
+    "retention": "rejected"
+  },
+  "attempts": 6212,
+  "released": 3043,
+  "endpoint_rejections": 3169,
+  "max_release_settling": {
+    "position_error_mm": 1.9936641441193008,
+    "normal_error_deg": 0.024341520368767113,
+    "joint_speed_rad_s": 9.130050602834672e-05,
+    "position_drift_mm": 0.0009555351425660774,
+    "normal_drift_deg": 0.00021417639832261345,
+    "dropper_position_error_mm": 0.4951097783622406
+  },
+  "legacy_capture_excluded_by_contact_rule": 335,
+  "far_legacy_capture_excluded_by_contact_rule": 119,
+  "report_exporter_sha256": "81167a63979db554e3c148afd45a230eecbfcf01cd4749bde3b67433aee4a0ea",
+  "exported_file_sha256": {
+    "report.json": "c9194bb75f726a7b40b1e764f66881a388e33c3a867201143931be078a2112d4",
+    "settings.csv": "1eeef9f7fcffced1e7c38f5731e11cbc8bf94801d571221b920f013c12f0fcf8",
+    "input-assets-verification.json": "ffcaa0a1aedb6e8e655f83938ffae3fa0ec3a10bc2d3267e647c6e590b86d695"
+  },
+  "runtime_exit_code": 0,
+  "gpu": "RTX 4090",
+  "isaac_sim": "5.1.0",
+  "isaac_lab": "2.3.2",
+  "runtime_state_at_completion": "Finite 4090 job exited; read-only preview remains running. The existing 4070 process remained active. No physical hardware or Viam changes.",
+  "checks": {
+    "isaac_headless_mac": {
+      "run": 111,
+      "passed": 110,
+      "skipped": 1,
+      "skip": "Torch unavailable in Mac lightweight venv"
+    },
+    "ubuntu_farm_cpu": {
+      "run": 5,
+      "passed": 5,
+      "note": "Includes Torch actor update and frozen inference that was skipped on Mac"
+    },
+    "feasibility_panel_dom": {
+      "run": 5,
+      "passed": 5
+    },
+    "gpu_preflight": "Four-cell and 32-cell smoke runs; six attribution/isolation probes passed",
+    "browser": "Completed map, selected exact setting, failure table and recorded replay inspected in Chrome",
+    "full_project_regression": "Physical mocks, numerical simulation and existing JS checks passed at initial implementation checkpoint; final report/UI changes received the listed focused reruns"
+  }
+}
