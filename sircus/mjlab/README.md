@@ -170,3 +170,9 @@ The fresh Isaac counterpart is `isaac_pair.py --headless --device cuda:0 --subst
 ```
 
 `render_replay.py` creates a common native MuJoCo rendering of both engines' recorded ball trajectories at the fixed arm configurations. The video is a physics-trajectory replay; it does not show an Isaac application viewport.
+
+## Table-assisted training follow-up
+
+See [the explicit v3 short-training protocol](TABLE_ASSISTED_TRAINING.md) for the
+review of Isaac feasibility findings, TRAIN-only relabeling, bounded PPO and
+frozen old/new policy comparison. Historical v2 contracts remain unchanged.

@@ -1,0 +1,21 @@
+<section id="tableTraining" class="table-training-panel">
+  <p class="table-training-eyebrow">MJLAB · FIXED 64 SUBSTEPS · TABLE-ASSISTED OBJECTIVE</p>
+  <h2>Learn from the captures we previously rejected</h2>
+  <p data-table-training="status" class="table-training-note" role="status">Waiting for training evidence.</p>
+  <p class="table-training-small">Both direct board-to-bucket and table-assisted captures count after one continuous second inside. The same exact-action IK, setup and release checks remain in force. This is a short imitation → PPO experiment, not a new motion planner.</p>
+  <div class="table-training-cards" data-table-training="progress"></div>
+  <p class="table-training-small" data-table-training="bootstrap"></p>
+  <h3>Same 50 new bucket positions · one decision per model</h3>
+  <p class="table-training-small">Each model is frozen before TEST. Setup rejections remain in the denominator; a released-shot rate is reported separately. No flight search, retries or learning on TEST positions.</p>
+  <div class="table-training-scroll" data-table-training="comparison" aria-label="Frozen policy comparison"></div>
+  <h3>Validation during training</h3>
+  <div class="table-training-scroll" data-table-training="curves" aria-label="Validation learning progress"></div>
+  <details><summary>Inspect each bucket position</summary><div class="table-training-scroll" data-table-training="positions"></div></details>
+  <details><summary>IK review, controls and verification</summary>
+    <p class="table-training-small">The other Isaac chat's feasibility extraction matched 420/420 historical admission decisions. It is not an IK performance fix. mjlab already checks both arms and preserves requested actions. We keep those checks unchanged here; silently projecting or resampling PPO actions would invalidate its recorded sampling probabilities.</p>
+    <p class="table-training-small" data-table-training="controls"></p>
+    <p class="table-training-small" data-table-training="proof"></p>
+    <p class="table-training-small">Privileged simulated geometry; held endpoints and initialized release. No learned pickup, driven transit, perception, physical deployment or full-table coverage claim. The 4070 and Isaac configuration are outside this experiment.</p>
+  </details>
+  <p class="table-training-small" data-table-training="connection">Read-only evidence snapshot; refreshes every 30 seconds.</p>
+</section>

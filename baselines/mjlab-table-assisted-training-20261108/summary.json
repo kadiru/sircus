@@ -1,0 +1,388 @@
+{
+  "version": "sircus-table-assisted-training-published-summary-v1",
+  "study_version": "sircus-table-assisted-training-v1",
+  "status": "completed_and_independently_audited",
+  "producer_commit": "b11e8b9772268d79a14a5bcb0b8d9761789da379",
+  "evidence_kind": "Native MuJoCo Warp held-endpoint simulation, 64 substeps; privileged geometry",
+  "contract_fingerprint": "20f198caec28ff0402e8f7d2f7d2d1de65434b294f964a3ea35cde36bc3a1114",
+  "scoring_version": "sircus-table-assisted-native-capture-v3",
+  "route_version": "sircus-table-assisted-board-route-v3",
+  "reward_version": "sircus-table-assisted-shot-reward-v3",
+  "protocol": {
+    "seed": 20261511,
+    "validation_seed": 20262203,
+    "test_seed": 20262204,
+    "train_layouts": 35,
+    "validation_layouts": 12,
+    "test_layouts": 50,
+    "substeps": 64,
+    "fresh_train_requests": 512,
+    "updates": 16,
+    "validation_requests": 36,
+    "test_requests": 200,
+    "control_requests": 18,
+    "total_requests": 766,
+    "test_attempts_per_method_per_layout": 1,
+    "milestones": [
+      0,
+      256,
+      512
+    ],
+    "selection": "Validation captures, then mean v3 reward, then earliest milestone; freeze before TEST",
+    "selected_new_ppo_samples": 512,
+    "noise": false
+  },
+  "elapsed_s": 4585.596160010027,
+  "bootstrap_summary": {
+    "requests": 7168,
+    "native_releases": 5267,
+    "captures": 3169,
+    "teacher_count": 27,
+    "table_assisted_teachers": 5,
+    "newly_credited_captures": 115,
+    "changed_teacher_count": 16,
+    "successful_layouts": 27,
+    "original_actor_teachers": 22,
+    "original_bc_historical_train_requests": 6144,
+    "new_actor_teacher_count": 27,
+    "actual_table_assisted_actor_teachers": 5
+  },
+  "validation": [
+    {
+      "samples": 0,
+      "validation": {
+        "attempts": 12,
+        "native_releases": 12,
+        "captures": 5,
+        "direct_captures": 5,
+        "table_assisted_captures": 0,
+        "setup_rejections": 0,
+        "native_misses": 7,
+        "forbidden_contact_shots": 3,
+        "clean": 1,
+        "mean_reward": 1.7548392053275117,
+        "invalid": 1
+      }
+    },
+    {
+      "samples": 256,
+      "validation": {
+        "attempts": 12,
+        "native_releases": 12,
+        "captures": 5,
+        "direct_captures": 5,
+        "table_assisted_captures": 0,
+        "setup_rejections": 0,
+        "native_misses": 7,
+        "forbidden_contact_shots": 3,
+        "clean": 0,
+        "mean_reward": 1.720144834386069,
+        "invalid": 1
+      }
+    },
+    {
+      "samples": 512,
+      "validation": {
+        "attempts": 12,
+        "native_releases": 12,
+        "captures": 6,
+        "direct_captures": 6,
+        "table_assisted_captures": 0,
+        "setup_rejections": 0,
+        "native_misses": 6,
+        "forbidden_contact_shots": 2,
+        "clean": 1,
+        "mean_reward": 2.17470304634734,
+        "invalid": 0
+      }
+    }
+  ],
+  "test_comparison": [
+    {
+      "method": "old_bc",
+      "counts": {
+        "attempts": 50,
+        "native_releases": 44,
+        "captures": 9,
+        "direct_captures": 9,
+        "table_assisted_captures": 0,
+        "setup_rejections": 6,
+        "native_misses": 35,
+        "forbidden_contact_shots": 18,
+        "clean": 4,
+        "mean_reward": 0.6763384317224744,
+        "invalid": 6
+      },
+      "artifact_sha256": "1b201dc48101078ed641b614b89115440aa9725cea567fb2327ba71b9679b51d",
+      "samples": 0,
+      "invalid_physics": 0
+    },
+    {
+      "method": "old_ppo",
+      "counts": {
+        "attempts": 50,
+        "native_releases": 45,
+        "captures": 8,
+        "direct_captures": 8,
+        "table_assisted_captures": 0,
+        "setup_rejections": 5,
+        "native_misses": 37,
+        "forbidden_contact_shots": 19,
+        "clean": 3,
+        "mean_reward": 0.611641425737319,
+        "invalid": 5
+      },
+      "artifact_sha256": "d42f683e0fd79dd0ee6e01c042abc9df9d49273622a7d50a1026733dea64dcd0",
+      "samples": 1024,
+      "invalid_physics": 0
+    },
+    {
+      "method": "bc",
+      "counts": {
+        "attempts": 50,
+        "native_releases": 46,
+        "captures": 14,
+        "direct_captures": 8,
+        "table_assisted_captures": 6,
+        "setup_rejections": 4,
+        "native_misses": 32,
+        "forbidden_contact_shots": 14,
+        "clean": 5,
+        "mean_reward": 1.1635582784695986,
+        "invalid": 4
+      },
+      "artifact_sha256": "320d055c3b4cb94ca260c549441068409512a43ef37639c72b8f6895c671f92e",
+      "samples": 0,
+      "invalid_physics": 0
+    },
+    {
+      "method": "ppo",
+      "counts": {
+        "attempts": 50,
+        "native_releases": 46,
+        "captures": 15,
+        "direct_captures": 9,
+        "table_assisted_captures": 6,
+        "setup_rejections": 4,
+        "native_misses": 31,
+        "forbidden_contact_shots": 13,
+        "clean": 8,
+        "mean_reward": 1.2697978596423898,
+        "invalid": 4
+      },
+      "artifact_sha256": "9d3a6f549af8247b84fe39c6d9a2b2785020198145ffb4c205e8644994b8826e",
+      "samples": 512,
+      "invalid_physics": 0
+    }
+  ],
+  "paired_comparison": [
+    {
+      "reference": "old_bc",
+      "comparison": "ppo",
+      "paired_positions": 50,
+      "both_capture": 7,
+      "new_only_capture": 8,
+      "reference_only_capture": 2,
+      "both_fail": 33,
+      "capture_difference_percentage_points": 12.0,
+      "descriptive_paired_bootstrap95_percentage_points": [
+        0.0,
+        24.0
+      ],
+      "bootstrap_seed": 20261109
+    },
+    {
+      "reference": "old_ppo",
+      "comparison": "ppo",
+      "paired_positions": 50,
+      "both_capture": 7,
+      "new_only_capture": 8,
+      "reference_only_capture": 1,
+      "both_fail": 34,
+      "capture_difference_percentage_points": 14.0,
+      "descriptive_paired_bootstrap95_percentage_points": [
+        4.0,
+        26.0
+      ],
+      "bootstrap_seed": 20261110
+    },
+    {
+      "reference": "bc",
+      "comparison": "ppo",
+      "paired_positions": 50,
+      "both_capture": 13,
+      "new_only_capture": 2,
+      "reference_only_capture": 1,
+      "both_fail": 34,
+      "capture_difference_percentage_points": 2.0,
+      "descriptive_paired_bootstrap95_percentage_points": [
+        -4.0,
+        10.0
+      ],
+      "bootstrap_seed": 20261111
+    }
+  ],
+  "uncertainty": {
+    "method": "Paired layout percentile bootstrap of new-PPO minus comparator binary captures",
+    "resamples_per_comparison": 100000,
+    "confidence_level": 0.95,
+    "percentiles": [
+      0.025,
+      0.975
+    ],
+    "unit": "One shared bucket position; all50 units resampled with replacement as pairs",
+    "ordering": "Lexicographically sorted context_id",
+    "generator": "NumPy default_rng/PCG64",
+    "scope": "Posthoc descriptive intervals conditional on this one frozen run and this50-position sample; not training-seed uncertainty, repeated-shot reliability or multiplicity-adjusted hypothesis tests"
+  },
+  "coordinate_coverage": {
+    "historical_coordinates_excluded": 1037,
+    "minimum_declared_separation_m": 0.005,
+    "proposal_box_xy_m": [
+      [
+        0.1,
+        -0.65
+      ],
+      [
+        1.24,
+        0.25
+      ]
+    ],
+    "test_min_xy_m": [
+      0.1084784360488483,
+      -0.6482253034032551
+    ],
+    "test_max_xy_m": [
+      1.2345564334379608,
+      0.24116034150291032
+    ],
+    "test_positions_x_above_1m": 30,
+    "grid_x_edges_m": [
+      0.1,
+      0.26285714285714284,
+      0.4257142857142857,
+      0.5885714285714285,
+      0.7514285714285713,
+      0.9142857142857141,
+      1.0771428571428572,
+      1.24
+    ],
+    "grid_y_edges_m": [
+      -0.65,
+      -0.47000000000000003,
+      -0.29000000000000004,
+      -0.10999999999999999,
+      0.06999999999999995,
+      0.25
+    ],
+    "test_counts_y_rows_x_columns": [
+      [
+        2,
+        0,
+        0,
+        0,
+        1,
+        4,
+        9
+      ],
+      [
+        1,
+        0,
+        1,
+        1,
+        1,
+        0,
+        4
+      ],
+      [
+        1,
+        2,
+        0,
+        1,
+        0,
+        0,
+        8
+      ],
+      [
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        4
+      ],
+      [
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        3
+      ]
+    ],
+    "occupied_cells": 22,
+    "grid_cells": 35,
+    "scope": "Seeded proposals filtered only by frozen historical-coordinate separation; actual sample is not a balanced7x5 grid or uniform coverage certificate"
+  },
+  "selected_new_ppo_failure_breakdown": {
+    "setup_rejections": 4,
+    "setup_reasons": {
+      "finite_ik_unresolved": 2,
+      "fixed_base_clearance_rejected": 2
+    },
+    "released_misses": 31,
+    "misses_with_forbidden_contact": 13,
+    "misses_without_forbidden_contact": 18,
+    "released_misses_with_board_bounce": 31,
+    "released_misses_with_whole_ball_entry": 0,
+    "test_invalid_physics": 0
+  },
+  "table_contact_capture_scope": "The6new-PPO table-assisted labels establish table force intervals greater than0.01N before the terminal; they do not independently establish causal board-to-table-to-bucket ordering or a table rebound.",
+  "selected_new_ppo_table_capture_configuration_ranges": {
+    "bucket_x_mm": [
+      1157.1597456055165,
+      1234.5564334379608
+    ],
+    "bucket_y_mm": [
+      -612.5615835714184,
+      -481.6593012471022
+    ],
+    "board_height_mm": [
+      423.3539970581417,
+      427.61425047511625
+    ],
+    "board_tilt_deg": [
+      31.777681134378543,
+      32.00622763103222
+    ],
+    "release_gap_mm": [
+      140.61762015547828,
+      158.34455143402963
+    ],
+    "board_to_bucket_horizontal_distance_mm": [
+      642.8345659202113,
+      703.343257830583
+    ]
+  },
+  "provenance": {
+    "report_sha256": "4605bcb801351ae91ad16b71a033ceb3866027db621f9d84227f23b1ef257e95",
+    "contract_file_sha256": "04c8e8dfb753cfb594f1db7055f21b2f6ebe35de1ac6ff4ffc01140d16d4e120",
+    "evidence_manifest_sha256": "2273074994968214755d92ff51a7caffd11a0872ab2c22a130d51a095c372714",
+    "rows_sha256": "ddb1ecd67b71951fe5d1152a496c1bbf5b01e4174b38a7f7b8af7b813f4817e3",
+    "independent_audit_sha256": "6e50d87ddb7b2d4b37debbc2a5ac96507ff40bc236223277121acd385b8ec91b",
+    "independent_audit_checks": 823442,
+    "full_checks_verified": true,
+    "test_positions_csv_sha256": "dc0dc812c1a7124d581b341333120feab66024921f0b82795548ff813c74be0b"
+  },
+  "limitations": [
+    "One training seed and one frozen shot per method at each test position; no repeatability or optimization-seed confidence estimate.",
+    "NewBC uses7168 priorTRAIN outcomes and27teachers versus oldBC6144 outcomes and22teachers. NewPPO adds512 native attempts; oldPPO had1024. No equal-exposure or reward-only causal comparison.",
+    "NewPPO15/50 versus newBC14/50 is an uncertain incremental difference; no general algorithm-superiority or deployment claim.",
+    "All four methods use the same v3 scoring on fresh simulations here. Historical published v2 results are not replaced.",
+    "Known geometric priors, exact-action IK and sampled path admission remain separate from learned shot selection. Native shots use held endpoints, not driven pickup/carry.",
+    "No128-step convergence, noise robustness, perception, physical validation, all-table feasibility or all-table success claim.",
+    "Raw native observations, runtime configs, weights and local host settings are excluded from this compact package."
+  ]
+}

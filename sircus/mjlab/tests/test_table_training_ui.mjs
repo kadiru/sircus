@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {VERSION,METHODS,validCounts,comparisonRows,verified} from '../web/table-training.js';
+const counts=()=>({attempts:50,native_releases:40,captures:25,direct_captures:20,table_assisted_captures:5,setup_rejections:10,native_misses:15});
+const report=()=>({version:VERSION,status:'completed',phase:'completed',contract_fingerprint:'a'.repeat(64),test_comparison:METHODS.map(method=>({method,counts:counts()})),control_gates:{pre:{status:'passed'},post:{status:'passed'}},audit:{status:'passed',full_checks_verified:true,contract_fingerprint:'a'.repeat(64),proof_sha256:'b'.repeat(64)}});
+test('all requested shots stay in denominator',()=>{assert.equal(validCounts(counts()),true);const c=counts();c.attempts=40;assert.equal(validCounts(c),false);});
+test('direct and table partition capture',()=>{const c=counts();c.table_assisted_captures=6;assert.equal(validCounts(c),false);});
+test('verified comparison needs bound audit and controls',()=>{const r=report();assert.equal(verified(r),true);r.audit.contract_fingerprint='c'.repeat(64);assert.equal(verified(r),false);r.audit.contract_fingerprint=r.contract_fingerprint;r.control_gates.post.status='failed';assert.equal(verified(r),false);});
+test('partial or duplicate methods cannot become completed',()=>{const r=report();r.test_comparison.pop();assert.equal(verified(r),false);r.test_comparison.push(r.test_comparison[0]);assert.deepEqual(comparisonRows(r),[]);});
+test('panel reads the smaller HTML snapshot without solver or motion',()=>{const source=fs.readFileSync(new URL('../web/table-training.js',import.meta.url),'utf8');assert.equal(source.includes('/api/solve'),false);assert.equal(source.includes("method:'POST'"),false);assert.equal(source.includes('/api/study'),false);assert.equal(source.includes("fetch('/index.html'"),true);assert.equal(source.includes('DOMParser'),true);});
