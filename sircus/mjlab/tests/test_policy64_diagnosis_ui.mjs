@@ -1,0 +1,70 @@
+// Synthetic read-only fixtures, not native measurements or independent proofs.
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const source=readFileSync(new URL('../web/policy64-diagnosis.js',import.meta.url),'utf8');
+const ui=await import('data:text/javascript;charset=utf-8,'+encodeURIComponent(source));
+const parentFP='d30ad91111cb8beb26438f2271357a103daf50d0399ac3646f3b7f163d87f02e',parentAudit='4dc317e0697e426a4708c3c997f8671d97b1f49de6bd4450c56e6487a6e93ac3';
+function fixture(){
+ const pairs=Array.from({length:50},(_,i)=>{const bcCapture=i<20,ppoCapture=i<13||i>=20&&i<25,bcRejected=i>=42&&i<47||i>=48,ppoRejected=i>=13&&i<18||i>=42&&i<48;
+  const side=(method,capture,rejected)=>({record_id:`${method}-${i}`,record_sha256:(method==='bc'?'c':'d').repeat(64),values:method==='bc'?[.5,-.2,.3,30,.4]:[.501,-.201,.29,31,.42],native_release:!rejected,capture,clean:false,outcome:rejected?'rejected':capture?'capture':'miss',invalid:rejected?'finite_ik_unresolved':null,whole_ball_entry:capture,max_retention_s:capture?1:0,rim_band_contact:capture,bucket_contact_before_entry:capture,entry_class:capture?'assisted':'none',geometry_evidence:{reason:rejected?'finite_ik_unresolved':null,checked_branch_pairs:17,best_checked_clearance_m:.006,minimum_required_clearance_m:.005,interpretation:'No admitted solution found within budget; not proof of unreachability.'},first_flight:rejected?null:{available:true,first_crossing:null,cutoff_reason:'contact',forward_error_m:null,lateral_error_m:null,rebound_velocity_m_s:[1.,-.5,.2]}});
+  return {context_id:`test-${i}`,bucket_xy_m:[.2,0],bc:side('bc',bcCapture,bcRejected),ppo:side('ppo',ppoCapture,ppoRejected),delta_values:[.001,-.001,-.01,1,.02],delta_release_height_m:.01,shared_anchor:{same_id:true,same_values:true,same_observation:true}};
+ });
+ const trace=(pair,method)=>({record_id:pair[method].record_id,record_sha256:pair[method].record_sha256,method,context_id:pair.context_id,bucket_xy_m:pair.bucket_xy_m,position_m:method==='bc'?[[.5,-.2,.7],[.2,0,.1]]:[[.501,-.201,.7],[.25,.01,.1]],sample_dt_s:1/60,capture:pair[method].capture,whole_ball_entry:pair[method].capture,max_retention_s:pair[method].capture?1:0,native_cache_sha256:'f'.repeat(64)});
+ const examples=[13,18].map(i=>({context_id:pairs[i].context_id,basis:'original_TEST_now_diagnosis',selection_rule:'All paired losses and gains selected after TEST',projection_reference:{origin_xy_m:[.2,0],direction_from_xy_m:[.5,-.2]},bc_trace:trace(pairs[i],'bc'),ppo_trace:i===13?null:trace(pairs[i],'ppo')}));
+ const audit={version:ui.AUDIT_VERSION,status:'passed',contract_fingerprint:'new-native',full_checks_verified:true,bound_files_verified:true,parent_source_verified:true,checks_count:1,source_sha256:'a'.repeat(64),native_report_sha256:'b'.repeat(64),frozen_analysis_sha256:'c'.repeat(64)};
+ return{version:ui.VERSION,status:'completed',phase:'completed',contract_fingerprint:'new-native',source:{study_version:'sircus-policy64-bc-ppo-v1',contract_fingerprint:parentFP,original_audit_sha256:parentAudit,substeps:64,selected:{samples:1024},audit:{status:'passed',full_checks_verified:true,bound_files_verified:true,source_sha256:parentAudit}},audit,
+ paired_counts:{layouts:50,both_capture:13,bc_only:7,ppo_only:5,neither:25,bc:{requested:50,native:43,captures:20,clean:3,rejected:7,native_misses:23,invalid:0},ppo:{requested:50,native:39,captures:18,clean:4,rejected:11,native_misses:21,invalid:0},transitions:[{bc_outcome:'capture',ppo_outcome:'rejected',count:5},{bc_outcome:'capture',ppo_outcome:'miss',count:2}]},
+ pairs,examples,rejection_reasons:[{method:'ppo',reason:'finite_ik_unresolved',count:5,context_ids:['test-13']}],delta_summary:[{group:'bc_only',layouts:7,mean_delta:[.001,-.001,-.01,1,.02],mean_abs_delta:[.001,.001,.01,1,.02],max_abs_delta:[.002,.002,.02,2,.04]}],actor_shift:{board_height_lower_count:50,release_gap_higher_count:44},
+ optimization_history:{bc_retention_penalty:false,mean_post_update_kl:.3022,mean_post_update_ratio_clip_fraction:.8164,metric_definition:'Final saved likelihood ratios after six epochs; not invalid physical actions.',caveat:'Descriptive, not causal.',updates:[{analytical_kl_mean:.3022,sampled_ratio_clip_fraction:.8164}]},hypotheses:[{statement:'Endpoint association',evidence:'Five lost captures rejected',status:'observed_association'}],
+ counterfactuals:[{context_id:'test-13',basis:'posthoc_geometry_only',intervention:{copied_parameters:['gap']},status:'not_executed',geometry_passed:null,native_release:null,capture:null,new_native_requests:0}],
+ native_study:{version:ui.NATIVE_VERSION,status:'completed',phase:'completed',counts:{attempts:96,native_releases:70},controls:{pre:{status:'passed'},post:{status:'passed'}},variants:[{context_id:'test-13',variant:'swap_gap',counts:{attempts:1,native_releases:1,captures:0,clean:0,rejected:0,invalid_physics:0}}],audit},
+ model_options:{current:'BC/PPO already use a neural network.',recommendation:'Proposed forward ensemble.',wam:'WAM means world-action model.',evaluation:'Future heldouts required.',sources:[{title:'Paper',url:'https://arxiv.org/abs/1805.12114'}]}};
+}
+function dom(){const nodes=new Map(),drawCalls=[],draw=new Proxy({fillText:(...v)=>drawCalls.push(v)},{get:(o,k)=>o[k]??(()=>{})});let doc;const element=tag=>({tagName:tag,ownerDocument:doc,children:[],attrs:{},hidden:false,textContent:'',value:'',width:820,height:320,append(...v){this.children.push(...v);},replaceChildren(...v){this.children=v;},setAttribute(k,v){this.attrs[k]=v;},getContext(){return draw;}});doc={createElement:element};const root=element('section');root.querySelector=selector=>{const key=selector.match(/="([^"]+)"/)[1];if(!nodes.has(key))nodes.set(key,element(key==='flight'?'canvas':'div'));return nodes.get(key);};const get=name=>root.querySelector(`[data-policy64-diagnosis="${name}"]`),rows=name=>get(name).children[0]?.children[1]?.children.map(r=>r.children.map(c=>c.textContent))??[];return{root,get,rows,drawCalls};}
+const flush=()=>new Promise(r=>setImmediate(r));
+test('original source, derived diagnosis and native96 readiness are separate strict gates',()=>{
+ const raw=fixture();assert.equal(ui.diagnosisSourceReady(raw),true);assert.equal(ui.diagnosisReady(raw),true);assert.equal(ui.diagnosisNativeReady(raw),true);
+ for(const corrupt of [r=>r.audit.version='old',r=>r.audit.bound_files_verified='true',r=>r.audit.parent_source_verified=false,r=>r.audit.checks_count=0,r=>r.audit.contract_fingerprint='wrong',r=>r.audit.frozen_analysis_sha256='bad',r=>r.source.audit.source_sha256='a'.repeat(64)]){const r=fixture();corrupt(r);assert.equal(ui.diagnosisReady(r),false);assert.equal(ui.diagnosisNativeReady(r),false);}
+ raw.native_study.status='running';raw.native_study.counts.attempts=12;assert.equal(ui.diagnosisSourceReady(raw),true);assert.equal(ui.diagnosisReady(raw),true);assert.equal(ui.diagnosisNativeReady(raw),false);
+});
+test('render keeps original50 counts and setup/flight losses separate from posthoc96 and model proposals',()=>{
+ const d=dom(),raw=fixture(),before=JSON.stringify(raw);ui.renderPolicy64Diagnosis(d.root,raw);
+ assert.equal(d.rows('counts')[0][3],'20 / 50');assert.equal(d.rows('counts')[1][3],'18 / 50');assert.equal(d.rows('counts')[1][5],'11');assert.equal(d.rows('counts')[1][6],'21');assert.equal(d.rows('transitions')[0][2],'5');assert.equal(d.rows('transitions')[1][2],'2');assert.ok(d.get('result').textContent.includes('BC only 7'));assert.ok(d.get('actor-shift').textContent.includes('50 / 50'));
+ assert.ok(d.get('optimizer').textContent.includes('0.3022 nats'));assert.ok(d.get('optimizer').textContent.includes('81.64%'));assert.ok(d.get('optimizer').textContent.includes('not invalid physical actions'));
+ assert.equal(d.rows('counterfactuals')[0][4],'unknown');assert.equal(d.rows('counterfactuals')[0][6],'unknown');assert.equal(d.rows('counterfactuals')[0][7],'0');assert.ok(d.get('native-status').textContent.includes('96 / 96'));assert.ok(d.get('native-status').textContent.includes('not a new 50-layout'));
+ assert.ok(d.get('model').textContent.includes('no model is trained'));assert.equal(JSON.stringify(raw),before);
+});
+test('all50 pairs can be filtered and geometry/no-crossing observations remain distinct from capture',()=>{
+ const d=dom(),raw=fixture();ui.renderPolicy64Diagnosis(d.root,raw);assert.equal(d.get('pair-select').children.length,50);
+ d.get('pair-filter').value='bc_only';d.get('pair-filter').onchange();assert.equal(d.get('pair-select').children.length,7);assert.equal(d.get('pair-select').value,'test-13');assert.equal(d.rows('pair')[1][2],'rejected');assert.equal(d.rows('pair')[0][5],'yes');assert.ok(d.rows('pair')[0][9].includes('no free-flight rim-plane crossing before contact'));assert.ok(d.get('pair-caption').textContent.includes('1.000 / -0.500 / 0.200 m/s'));
+ assert.equal(ui.diagnosisFlightError({first_flight:{available:false,reason:'no_board_rebound'}}),'unavailable (no_board_rebound)');assert.equal(ui.diagnosisFlightError({first_flight:{available:true,forward_error_m:.01,lateral_error_m:-.02}}),'10.0 / -20.0');assert.equal(ui.diagnosisFlightError({}),'unknown');
+});
+test('paired flights share a bucket-origin axis and rejected/mismatched records never gain invented curves',()=>{
+ const raw=fixture(),example=raw.examples[1],view=ui.diagnosisFlights(raw,example);assert.equal(view.flights.length,2);assert.ok(Math.abs(view.flights[0].points[1][0])<1e-12);
+ const expected=(.25-.2)*view.axis[0]+.01*view.axis[1];assert.ok(Math.abs(view.flights[1].points[1][0]-expected)<1e-12);
+ assert.equal(ui.diagnosisFlights(raw,raw.examples[0]).flights.length,1);const wrong=structuredClone(example);wrong.ppo_trace.record_id='different';assert.equal(ui.diagnosisFlights(raw,wrong).flights.length,1);assert.equal(ui.diagnosisFlights(raw,{...example,projection_reference:{}}),null);
+ const d=dom();ui.renderPolicy64Diagnosis(d.root,raw);assert.ok(d.get('flight-caption').textContent.includes('PPO: rejected, no matching native flight'));assert.ok(d.get('flight-caption').textContent.includes('one fixed bucket-origin projection'));
+});
+test('pending native proof and failed/partial evidence cannot overwrite original source status or claim new results',()=>{
+ const raw=fixture(),d=dom();delete raw.audit;raw.native_study.status='running';raw.native_study.counts.attempts=12;delete raw.native_study.audit;ui.renderPolicy64Diagnosis(d.root,raw);
+ assert.ok(d.get('source').textContent.includes('parent audit and bytes verified'));assert.equal(d.get('result').attrs['data-state'],'unknown');assert.equal(d.get('native-status').attrs['data-state'],'unknown');assert.ok(d.get('native-status').textContent.includes('12 / 96'));assert.equal(d.rows('counts')[1][3],'18 / 50');
+ raw.audit={status:'failed'};ui.renderPolicy64Diagnosis(d.root,raw);assert.equal(d.get('result').attrs['data-state'],'failed');assert.ok(d.get('result').textContent.includes('unverified'));
+});
+test('flight display keeps an observed prefix through terminal events and never alters raw traces',()=>{
+ const trace={position_m:[[0,0,.6],[0,0,.3],[0,0,.15],[0,0,-.21],[3,0,-19],[4,0,.2]],sample_dt_s:.1},before=JSON.stringify(trace);
+ const fall=ui.diagnosisFlightWindow(trace,{capture:false});assert.equal(fall.points.length,4);assert.equal(fall.rawSamples,6);assert.equal(fall.points.at(-1)[2],-.21);assert.ok(fall.cutoff.includes('fall cutoff'));
+ const capture=ui.diagnosisFlightWindow(trace,{capture:true,capture_time_s:.15});assert.equal(capture.points.length,2);assert.ok(capture.cutoff.includes('capture time'));
+ assert.equal(JSON.stringify(trace),before);assert.equal(ui.diagnosisFlightWindow({...trace,position_m:trace.position_m.slice(0,3)},{capture:false}).cutoff,'recorded horizon');
+});
+test('fragment and script preserve old panels, compatibility and read-only boundary',()=>{
+ const html=readFileSync(new URL('../web/policy64-diagnosis.html',import.meta.url),'utf8'),css=readFileSync(new URL('../web/policy64-diagnosis.css',import.meta.url),'utf8');
+ for(const term of ['id="policy64Diagnosis"','<!--POLICY64_DIAGNOSIS_STYLE-->','<!--POLICY64_DIAGNOSIS_SCRIPT-->','Finite IK failure','does not prove a pose unreachable','not a new trial','compatibility guards','original 50 paired TEST'])assert.ok(html.includes(term),term);
+ for(const term of ['/api/solve','/api/control','/api/predict','startTraining','activateCheckpoint','</script'])assert.ok(!source.includes(term));assert.ok(css.includes('overflow-x:auto'));
+});
+test('GET-only5second polling preserves original report keys and marks stale results',async()=>{
+ const d=dom(),scheduled=[],cancelled=[],report={policy64_diagnosis:fixture(),policy64_study:{original:true}},before=JSON.stringify(report);let calls=0;
+ const stop=ui.startPolicy64Diagnosis(d.root,{fetchReport:async()=>{if(++calls===1)return report;throw Error('offline');},schedule:(fn,ms)=>{scheduled.push({fn,ms});return scheduled.length;},cancel:id=>cancelled.push(id)});await flush();assert.equal(scheduled[0].ms,5000);const old=d.rows('counts');await scheduled[0].fn();assert.equal(d.get('result').attrs['data-state'],'unknown');assert.equal(d.get('native-status').attrs['data-state'],'unknown');assert.deepEqual(d.rows('counts'),old);stop();assert.deepEqual(cancelled,[2]);assert.equal(JSON.stringify(report),before);
+ let resolve;const later=[],promise=new Promise(r=>resolve=r),e=dom();const dispose=ui.startPolicy64Diagnosis(e.root,{fetchReport:()=>promise,schedule:(f,m)=>later.push([f,m])});dispose();resolve(report);await flush();assert.equal(later.length,0);
+ const prior=globalThis.fetch,requests=[];try{globalThis.fetch=async(...args)=>{requests.push(args);return{ok:true,json:async()=>report};};const end=ui.startPolicy64Diagnosis(dom().root,{schedule:()=>1,cancel:()=>{}});await flush();end();assert.deepEqual(requests[0],['/api/study',{cache:'no-store'}]);}finally{globalThis.fetch=prior;}
+});

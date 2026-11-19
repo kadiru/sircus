@@ -1,5 +1,50 @@
 # Project state
 
+## Fixed64 PPO versus imitation diagnosis — completed, November 6, 2026
+
+- [Protocol](../sircus/mjlab/POLICY64_DIAGNOSIS.md),
+  [audited results and per-case tables](../baselines/mjlab-policy64-diagnosis-20261106/README.md).
+  No new policy, world model or WAM was trained. Original scores remain BC 20/50,
+  PPO 18/50. Thirteen shared captures, five PPO gains and seven BC losses; five
+  losses became setup rejections and two remained native flight misses.
+- All 96 prespecified diagnostic slots completed in 406.8 worker-seconds:
+  64 actual native releases, 32 rejected slots, zero physics-invalid releases.
+  Independent CPU audit passed 164,270 checks; positive/native-miss controls passed
+  before and after. Aggregate captures include controls and selected interventions,
+  so they are not a new policy-evaluation score.
+- Every admitted BC replay captured (21/21 across seven cases). PPO's two original
+  native misses reproduced 0/6; five historical setup rejects were retained in 15
+  slots without executing placeholder joints or rerunning a larger solver.
+- All five setup-loss cases recovered when only PPO's board height was restored
+  to BC's value, 1/1 fresh capture each under unchanged strict admission. Case 04:
+  PPO lowered H by 8.098 mm; its best checked wrist/table clearance was 3.832 mm
+  versus the required 5 mm (BC 7.065 mm). Raising H alone recovered a clean capture.
+  Cases 13/26 also recovered with a tilt-only replacement; finite original IK failure
+  does not prove the requested geometry physically unreachable.
+- Flight case 07: BC 3/3, PPO 0/3; restoring only the 12.849 mm shorter BC gap captured
+  once. Case 17: BC 3/3, PPO 0/3; single replacements of X, H or gap captured, while
+  H+gap together missed. These one-shot interventions expose coupling/contact
+  sensitivity; they do not establish robust parameter windows.
+- Saved-state CPU analysis: all 50 TEST board heights moved down, gaps increased
+  at 44/50; mean post-update KL was 0.3022 nats and 81.64% of sampled likelihood
+  ratios ended outside [0.8,1.2] after six epochs. This is not the fraction of
+  invalid actions. No explicit BC-retention penalty exists; aggressive global drift
+  is a hypothesis, not a proven hyperparameter cause. TEST shaped reward also fell.
+- The additive read-only `#policy64Diagnosis` panel shows all 50 paired examples,
+  exact requested deltas, strict geometry evidence, recorded common-reference flights,
+  separate post-hoc variants and a proposed uncertainty-aware physics ensemble/WAM
+  comparison. Plot windows explicitly stop at scoring fall/capture events; complete
+  raw recordings remain intact. The original policy panel/solver were preserved.
+- Frozen producer commit `5d025073cbb6105f8404d1ed6f6ae95046354c32`; native package
+  remains the original `f00a29a42cac69221b0896173f9be785f113a8a6`. Full mock/headless
+  regression, 21 focused producer/auditor tests, five publisher checks and eight UI
+  checks passed. The worker exited; the 4070 Isaac workload was left untouched and
+  viewer PID 6671 was not restarted. No hardware access or new 128/noise testing.
+- Next: compare feasibility-aware/BC-regularized shot selection with a compact
+  uncertainty-aware forward dynamics ensemble. The former 50 TEST coordinates are
+  now diagnosis/development positions; any tuned model needs newly frozen future
+  holdouts excluded from all prior training, validation, test and diagnostic layouts.
+
 ## Fixed-64 success bootstrap and policy refinement — completed, November 5, 2026
 
 - [Results, checkpoints and all nominal TEST settings](../baselines/mjlab-policy64-20261105/README.md).
