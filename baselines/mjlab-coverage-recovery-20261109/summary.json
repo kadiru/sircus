@@ -1,0 +1,2694 @@
+{
+  "version": "sircus-coverage-recovery-results-v1",
+  "verification_status": "passed",
+  "source_producer_commit": "522409306b836e39d2108be91c5d57fcf1fd484b",
+  "report_sha256": "6a255223820656059fe16a5de2944ba2593f7ac3603b287f4955979cd4677504",
+  "contract_fingerprint": "f54c341eba5258b427e4e1eb05a1b2e93bf76518d9f94a2fe8cf6bad744f6082",
+  "evidence_manifest_sha256": "809d0aa053d14b7c5d2bca7a558b55c0d68bcb0ac1e6a4d5751d18759c784235",
+  "scope": "Former coverage TEST failures are explicitly development data. Bounded five-coordinate residual search, two fresh confirmations per selected capture, then actor-only imitation from parent BC. Four frozen models share unchanged19 geometry prior on70 new bucket positions at native64/v3. Fixed-base blocked layouts are declared skipped, not learned feasible. No PPO, noise,128, learned transit or policy activation.",
+  "worker_elapsed_s": 5807.502960818005,
+  "counts": {
+    "attempts": 970,
+    "captures": 279,
+    "native_releases": 605,
+    "invalid": 368,
+    "clean": 81,
+    "mean_reward": 0.8785419946729047,
+    "direct_captures": 246,
+    "table_assisted_captures": 33,
+    "setup_rejections": 365,
+    "native_misses": 326,
+    "forbidden_contact_shots": 148,
+    "invalid_physics": 3
+  },
+  "stage_counts": {
+    "controls_pre": {
+      "attempts": 9,
+      "captures": 6,
+      "native_releases": 9,
+      "invalid": 0,
+      "clean": 3,
+      "mean_reward": 2.830224355402141,
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "setup_rejections": 0,
+      "native_misses": 3,
+      "forbidden_contact_shots": 3,
+      "invalid_physics": 0
+    },
+    "search": {
+      "attempts": 624,
+      "captures": 83,
+      "native_releases": 335,
+      "invalid": 289,
+      "clean": 16,
+      "mean_reward": 0.12977377296305606,
+      "direct_captures": 76,
+      "table_assisted_captures": 7,
+      "setup_rejections": 289,
+      "native_misses": 252,
+      "forbidden_contact_shots": 121,
+      "invalid_physics": 0
+    },
+    "repeat": {
+      "attempts": 48,
+      "captures": 48,
+      "native_releases": 48,
+      "invalid": 0,
+      "clean": 18,
+      "mean_reward": 4.319471864249334,
+      "direct_captures": 38,
+      "table_assisted_captures": 10,
+      "setup_rejections": 0,
+      "native_misses": 0,
+      "forbidden_contact_shots": 0,
+      "invalid_physics": 0
+    },
+    "test": {
+      "attempts": 280,
+      "captures": 136,
+      "native_releases": 204,
+      "invalid": 79,
+      "clean": 41,
+      "mean_reward": 1.831886473621828,
+      "direct_captures": 126,
+      "table_assisted_captures": 10,
+      "setup_rejections": 76,
+      "native_misses": 68,
+      "forbidden_contact_shots": 21,
+      "invalid_physics": 3
+    },
+    "controls_post": {
+      "attempts": 9,
+      "captures": 6,
+      "native_releases": 9,
+      "invalid": 0,
+      "clean": 3,
+      "mean_reward": 2.830224356341267,
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "setup_rejections": 0,
+      "native_misses": 3,
+      "forbidden_contact_shots": 3,
+      "invalid_physics": 0
+    }
+  },
+  "search_requests": 624,
+  "search_completed_rounds": 16,
+  "search_partial_round_requests": 0,
+  "search_budget_complete": true,
+  "repeat_requests": 48,
+  "repeat_budget_complete": true,
+  "base_teachers": 68,
+  "confirmed_teachers": 24,
+  "teacher_count": 92,
+  "fit": {
+    "before": "c0ca78294e05de0d454c5b0817b978b7517361b7879ea216572893229b4d0af8",
+    "after": "af319655875b021635e8e1778b1e10f4ebaba24291160504fb88a4c6a101b10c",
+    "actor_steps": 800,
+    "critic_steps": 0,
+    "initial_actor_loss": 0.046362947672605515,
+    "final_actor_loss": 0.0028813646640628576,
+    "initial_critic_loss": 6.171934127807617,
+    "final_critic_loss": 6.171934127807617,
+    "actor_teacher_ids": [
+      "recovery-search-r05-coverage-test-r0-c0-n0",
+      "recovery-search-r05-coverage-test-r0-c0-n1",
+      "recovery-search-r05-coverage-test-r0-c3-n0",
+      "recovery-search-r04-coverage-test-r0-c3-n1",
+      "recovery-search-r06-coverage-test-r0-c4-n0",
+      "recovery-search-r13-coverage-test-r0-c4-n1",
+      "recovery-search-r05-coverage-test-r0-c6-n0",
+      "recovery-search-r05-coverage-test-r1-c0-n0",
+      "recovery-search-r05-coverage-test-r1-c5-n0",
+      "recovery-search-r03-coverage-test-r1-c6-n0",
+      "recovery-search-r02-coverage-test-r1-c6-n1",
+      "recovery-search-r15-coverage-test-r2-c0-n0",
+      "recovery-search-r12-coverage-test-r2-c2-n0",
+      "recovery-search-r01-coverage-test-r2-c3-n0",
+      "recovery-search-r02-coverage-test-r2-c4-n0",
+      "recovery-search-r15-coverage-test-r2-c4-n1",
+      "recovery-search-r02-coverage-test-r2-c6-n0",
+      "recovery-search-r02-coverage-test-r2-c6-n1",
+      "recovery-search-r11-coverage-test-r3-c1-n1",
+      "recovery-search-r02-coverage-test-r3-c4-n1",
+      "recovery-search-r06-coverage-test-r4-c1-n0",
+      "recovery-search-r10-coverage-test-r4-c2-n0",
+      "recovery-search-r01-coverage-test-r4-c3-n1",
+      "recovery-search-r02-coverage-test-r4-c4-n0",
+      "coverage-search-01190",
+      "coverage-search-00981",
+      "coverage-search-01192",
+      "coverage-search-00143",
+      "coverage-search-01194",
+      "coverage-search-00985",
+      "coverage-search-00881",
+      "coverage-search-01198",
+      "coverage-search-00254",
+      "coverage-search-01200",
+      "coverage-search-00259",
+      "coverage-search-00891",
+      "coverage-search-00682",
+      "coverage-search-01103",
+      "coverage-search-00579",
+      "coverage-search-00580",
+      "coverage-search-00581",
+      "coverage-search-01212",
+      "coverage-search-01108",
+      "coverage-search-00479",
+      "coverage-search-00903",
+      "coverage-search-01114",
+      "coverage-search-00905",
+      "coverage-search-00381",
+      "coverage-search-00907",
+      "coverage-search-01118",
+      "coverage-search-01226",
+      "coverage-search-01227",
+      "coverage-search-00493",
+      "coverage-search-01229",
+      "coverage-search-00182",
+      "coverage-search-00183",
+      "coverage-search-01234",
+      "coverage-search-01236",
+      "coverage-search-00712",
+      "coverage-search-01133",
+      "coverage-search-01239",
+      "coverage-search-00406",
+      "coverage-search-01142",
+      "coverage-search-01248",
+      "coverage-search-00724",
+      "coverage-search-00620",
+      "coverage-search-00726",
+      "coverage-search-01253",
+      "coverage-search-00310",
+      "coverage-search-00316",
+      "coverage-search-00947",
+      "coverage-search-00528",
+      "coverage-search-00739",
+      "coverage-search-00847",
+      "coverage-search-00953",
+      "coverage-search-00954",
+      "coverage-search-00010",
+      "coverage-search-00326",
+      "coverage-search-00958",
+      "coverage-search-01169",
+      "coverage-search-00855",
+      "coverage-search-00331",
+      "coverage-search-00439",
+      "coverage-search-00337",
+      "coverage-search-00338",
+      "coverage-search-01074",
+      "coverage-search-01078",
+      "coverage-search-00344",
+      "coverage-search-00870",
+      "coverage-search-00556",
+      "coverage-search-00872",
+      "coverage-search-00768"
+    ],
+    "critic_row_count": 92,
+    "ordering": "Literal teachers sorted by context; all TRAIN rows method/seed/train_index; full-batch, no minibatch sampling",
+    "status": "actor_updated",
+    "critic_before_sha256": "1454b658e3df3072d04c9cd79656a039890730d747a432cacc17a4745086d301",
+    "critic_after_sha256": "1454b658e3df3072d04c9cd79656a039890730d747a432cacc17a4745086d301",
+    "parent_teacher_count": 68,
+    "new_teacher_count": 24
+  },
+  "test_comparison": [
+    {
+      "method": "recovery_bc",
+      "counts": {
+        "attempts": 70,
+        "captures": 37,
+        "native_releases": 54,
+        "invalid": 16,
+        "clean": 14,
+        "mean_reward": 2.0646603815116173,
+        "direct_captures": 34,
+        "table_assisted_captures": 3,
+        "setup_rejections": 16,
+        "native_misses": 17,
+        "forbidden_contact_shots": 7,
+        "invalid_physics": 0
+      },
+      "artifact_sha256": "688acc7981522c3281dff47edd19edaf46f084f113455e50f14d7e5cabc3b9e9"
+    },
+    {
+      "method": "parent_bc",
+      "counts": {
+        "attempts": 70,
+        "captures": 34,
+        "native_releases": 50,
+        "invalid": 22,
+        "clean": 10,
+        "mean_reward": 1.7924364841168487,
+        "direct_captures": 31,
+        "table_assisted_captures": 3,
+        "setup_rejections": 20,
+        "native_misses": 16,
+        "forbidden_contact_shots": 5,
+        "invalid_physics": 2
+      },
+      "artifact_sha256": "bed50ea26a2aeddaf8d76335746d6bf3bf19dfdb952af1f965674f2346553443"
+    },
+    {
+      "method": "parent_ppo",
+      "counts": {
+        "attempts": 70,
+        "captures": 34,
+        "native_releases": 52,
+        "invalid": 19,
+        "clean": 9,
+        "mean_reward": 1.8530569537084975,
+        "direct_captures": 31,
+        "table_assisted_captures": 3,
+        "setup_rejections": 18,
+        "native_misses": 18,
+        "forbidden_contact_shots": 4,
+        "invalid_physics": 1
+      },
+      "artifact_sha256": "dc522d40b8eb72d02f53bcd2b663e82487f9551eda259ad04a3634505d254756"
+    },
+    {
+      "method": "previous_ppo",
+      "counts": {
+        "attempts": 70,
+        "captures": 31,
+        "native_releases": 48,
+        "invalid": 22,
+        "clean": 8,
+        "mean_reward": 1.6173920751503483,
+        "direct_captures": 30,
+        "table_assisted_captures": 1,
+        "setup_rejections": 22,
+        "native_misses": 17,
+        "forbidden_contact_shots": 5,
+        "invalid_physics": 0
+      },
+      "artifact_sha256": "9d3a6f549af8247b84fe39c6d9a2b2785020198145ffb4c205e8644994b8826e"
+    }
+  ],
+  "test_outcome_partition": {
+    "recovery_bc": {
+      "captures": 37,
+      "setup_rejections": 16,
+      "ordinary_flight_misses": 17,
+      "invalid_physics": 0
+    },
+    "parent_bc": {
+      "captures": 34,
+      "setup_rejections": 20,
+      "ordinary_flight_misses": 14,
+      "invalid_physics": 2
+    },
+    "parent_ppo": {
+      "captures": 34,
+      "setup_rejections": 18,
+      "ordinary_flight_misses": 17,
+      "invalid_physics": 1
+    },
+    "previous_ppo": {
+      "captures": 31,
+      "setup_rejections": 22,
+      "ordinary_flight_misses": 17,
+      "invalid_physics": 0
+    }
+  },
+  "invalid_physics_test_cases": [
+    {
+      "method": "parent_bc",
+      "context_id": "recovery-test-r1-c5-n1",
+      "record_id": "recovery-test-parent_bc-recovery-test-r1-c5-n1",
+      "bucket_xy_m": [
+        1.0202910028700365,
+        -0.30974547926721446
+      ],
+      "invalid": "native_physics_outside_calibrated_domain",
+      "reasons": [
+        "through_wall_after_entry"
+      ],
+      "values": [
+        0.5961361838583428,
+        -0.011244870580287667,
+        0.45815270104074174,
+        26.32307805885206,
+        0.2734696936280814
+      ],
+      "paired_recovery_capture": false,
+      "row_sha256": "a4242fb96807621adb4ba5f6335abd7e5f0ac7b192c089d92fab17ba9dfbffb8",
+      "native_cache_sha256": "3b5990794988eb65323d2cbf6f6cb5aa56877280c11da8a8040f159229ce5213",
+      "native_cache_row": 24,
+      "evidence": {
+        "max_bucket_domain_speed_m_s": 3.3802580045293227,
+        "max_nominal_wall_overlap_m": 0.0005004326353684058,
+        "max_nominal_floor_overlap_m": 0.001479492515325545,
+        "max_contact_wall_penetration_m": 0.000500410795211792,
+        "max_contact_floor_penetration_m": 0.0014794953167438507,
+        "calibration_fingerprint": "ab0d2b5b0bcb9122b0ca3e996501d33a6ebe1069e57aebd11d7643a597f55a20"
+      },
+      "disposition": "Counted as a failed attempted shot; not an ordinary flight miss, omitted case, or retry."
+    },
+    {
+      "method": "parent_bc",
+      "context_id": "recovery-test-r2-c5-n1",
+      "record_id": "recovery-test-parent_bc-recovery-test-r2-c5-n1",
+      "bucket_xy_m": [
+        1.0603348602879807,
+        -0.2229556878662045
+      ],
+      "invalid": "native_physics_outside_calibrated_domain",
+      "reasons": [
+        "through_wall_after_entry"
+      ],
+      "values": [
+        0.5919918475517427,
+        -0.025606606354984372,
+        0.45852887862100256,
+        26.247231648310937,
+        0.27005771699799924
+      ],
+      "paired_recovery_capture": false,
+      "row_sha256": "fb4f453d6eee9aedbd71a042d90a189adbb3f5e0478014a9bda2c332e9cc8dfd",
+      "native_cache_sha256": "746ecf5091dfc78958b02e4206fb8e10f01855e639678173a1cce446d10fb9d0",
+      "native_cache_row": 6,
+      "evidence": {
+        "max_bucket_domain_speed_m_s": 3.372247792972972,
+        "max_nominal_wall_overlap_m": 0.0004945477918159163,
+        "max_nominal_floor_overlap_m": 0.0014722393751144397,
+        "max_contact_wall_penetration_m": 0.0004946142435073853,
+        "max_contact_floor_penetration_m": 0.0014722421765327454,
+        "calibration_fingerprint": "ab0d2b5b0bcb9122b0ca3e996501d33a6ebe1069e57aebd11d7643a597f55a20"
+      },
+      "disposition": "Counted as a failed attempted shot; not an ordinary flight miss, omitted case, or retry."
+    },
+    {
+      "method": "parent_ppo",
+      "context_id": "recovery-test-r2-c5-n1",
+      "record_id": "recovery-test-parent_ppo-recovery-test-r2-c5-n1",
+      "bucket_xy_m": [
+        1.0603348602879807,
+        -0.2229556878662045
+      ],
+      "invalid": "native_physics_outside_calibrated_domain",
+      "reasons": [
+        "through_wall_after_entry"
+      ],
+      "values": [
+        0.5939773883693505,
+        -0.025818530735147345,
+        0.45854432514630505,
+        26.09097202614331,
+        0.26474958036528734
+      ],
+      "paired_recovery_capture": false,
+      "row_sha256": "302b54ebe12d5de210c47b235a0ed18d01e267d6f09f970f164e8d2753cdbf08",
+      "native_cache_sha256": "a49b9adf2ecbf6865a8254f398d6a63d38b83bf4ef382608b244855e4aa0037f",
+      "native_cache_row": 6,
+      "evidence": {
+        "max_bucket_domain_speed_m_s": 3.376132794200094,
+        "max_nominal_wall_overlap_m": 0.00048149229483728656,
+        "max_nominal_floor_overlap_m": 0.001501702696084975,
+        "max_contact_wall_penetration_m": 0.00048156827688217163,
+        "max_contact_floor_penetration_m": 0.0015017054975032806,
+        "calibration_fingerprint": "ab0d2b5b0bcb9122b0ca3e996501d33a6ebe1069e57aebd11d7643a597f55a20"
+      },
+      "disposition": "Counted as a failed attempted shot; not an ordinary flight miss, omitted case, or retry."
+    }
+  ],
+  "paired_recovery_vs": {
+    "parent_bc": {
+      "both_capture": 29,
+      "recovery_only": 8,
+      "reference_only": 5,
+      "neither_capture": 28,
+      "gained_positions": [
+        {
+          "context_id": "recovery-test-r0-c2-n0",
+          "bucket_xy_m": [
+            0.5314868021906451,
+            -0.5440163402564865
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r0-c3-n0",
+          "bucket_xy_m": [
+            0.6226100140623767,
+            -0.574494921705466
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r0-c4-n0",
+          "bucket_xy_m": [
+            0.8618085301996086,
+            -0.49292290307843256
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r0-c6-n0",
+          "bucket_xy_m": [
+            1.0986740362025547,
+            -0.5272558168331359
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r1-c0-n1",
+          "bucket_xy_m": [
+            0.2271694055721514,
+            -0.35869007555462773
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r1-c6-n0",
+          "bucket_xy_m": [
+            1.225751037993161,
+            -0.30336415177576587
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r2-c4-n1",
+          "bucket_xy_m": [
+            0.8559965282591584,
+            -0.17921183069170754
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r3-c3-n1",
+          "bucket_xy_m": [
+            0.6059743771782918,
+            -0.09586277059626602
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        }
+      ],
+      "lost_positions": [
+        {
+          "context_id": "recovery-test-r0-c5-n1",
+          "bucket_xy_m": [
+            1.0532821972317188,
+            -0.6192877290708148
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r0-c6-n1",
+          "bucket_xy_m": [
+            1.124874941626022,
+            -0.5931986953664748
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r1-c1-n1",
+          "bucket_xy_m": [
+            0.37808349751740966,
+            -0.43814751388568507
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r2-c4-n0",
+          "bucket_xy_m": [
+            0.8983060633856379,
+            -0.24416666833902845
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r3-c1-n0",
+          "bucket_xy_m": [
+            0.33921258610632277,
+            -0.030948513932831045
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        }
+      ],
+      "gains_where_reference_invalid_physics": [],
+      "losses_where_recovery_invalid_physics": [],
+      "net_capture_change": 3
+    },
+    "parent_ppo": {
+      "both_capture": 28,
+      "recovery_only": 9,
+      "reference_only": 6,
+      "neither_capture": 27,
+      "gained_positions": [
+        {
+          "context_id": "recovery-test-r0-c1-n1",
+          "bucket_xy_m": [
+            0.3894314242952165,
+            -0.5705681549147396
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r0-c2-n0",
+          "bucket_xy_m": [
+            0.5314868021906451,
+            -0.5440163402564865
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r0-c3-n0",
+          "bucket_xy_m": [
+            0.6226100140623767,
+            -0.574494921705466
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r0-c4-n0",
+          "bucket_xy_m": [
+            0.8618085301996086,
+            -0.49292290307843256
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r0-c6-n0",
+          "bucket_xy_m": [
+            1.0986740362025547,
+            -0.5272558168331359
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r1-c0-n1",
+          "bucket_xy_m": [
+            0.2271694055721514,
+            -0.35869007555462773
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r1-c6-n0",
+          "bucket_xy_m": [
+            1.225751037993161,
+            -0.30336415177576587
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r2-c4-n1",
+          "bucket_xy_m": [
+            0.8559965282591584,
+            -0.17921183069170754
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r3-c3-n1",
+          "bucket_xy_m": [
+            0.6059743771782918,
+            -0.09586277059626602
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        }
+      ],
+      "lost_positions": [
+        {
+          "context_id": "recovery-test-r0-c5-n1",
+          "bucket_xy_m": [
+            1.0532821972317188,
+            -0.6192877290708148
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r0-c6-n1",
+          "bucket_xy_m": [
+            1.124874941626022,
+            -0.5931986953664748
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r1-c1-n1",
+          "bucket_xy_m": [
+            0.37808349751740966,
+            -0.43814751388568507
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r1-c5-n1",
+          "bucket_xy_m": [
+            1.0202910028700365,
+            -0.30974547926721446
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r2-c4-n0",
+          "bucket_xy_m": [
+            0.8983060633856379,
+            -0.24416666833902845
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r3-c1-n0",
+          "bucket_xy_m": [
+            0.33921258610632277,
+            -0.030948513932831045
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        }
+      ],
+      "gains_where_reference_invalid_physics": [],
+      "losses_where_recovery_invalid_physics": [],
+      "net_capture_change": 3
+    },
+    "previous_ppo": {
+      "both_capture": 29,
+      "recovery_only": 8,
+      "reference_only": 2,
+      "neither_capture": 31,
+      "gained_positions": [
+        {
+          "context_id": "recovery-test-r0-c4-n0",
+          "bucket_xy_m": [
+            0.8618085301996086,
+            -0.49292290307843256
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r0-c6-n0",
+          "bucket_xy_m": [
+            1.0986740362025547,
+            -0.5272558168331359
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r1-c0-n1",
+          "bucket_xy_m": [
+            0.2271694055721514,
+            -0.35869007555462773
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r1-c6-n0",
+          "bucket_xy_m": [
+            1.225751037993161,
+            -0.30336415177576587
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r2-c0-n1",
+          "bucket_xy_m": [
+            0.23330880679224322,
+            -0.19276611993563514
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r2-c1-n0",
+          "bucket_xy_m": [
+            0.28532710912136616,
+            -0.13886495254227105
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r2-c4-n1",
+          "bucket_xy_m": [
+            0.8559965282591584,
+            -0.17921183069170754
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r2-c5-n0",
+          "bucket_xy_m": [
+            0.9425153920148479,
+            -0.15677795769768843
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        }
+      ],
+      "lost_positions": [
+        {
+          "context_id": "recovery-test-r4-c0-n1",
+          "bucket_xy_m": [
+            0.21709551730798798,
+            0.12811496090851426
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        },
+        {
+          "context_id": "recovery-test-r4-c2-n0",
+          "bucket_xy_m": [
+            0.4587782438148206,
+            0.16030263721720417
+          ],
+          "reference_invalid_physics": false,
+          "recovery_invalid_physics": false
+        }
+      ],
+      "gains_where_reference_invalid_physics": [],
+      "losses_where_recovery_invalid_physics": [],
+      "net_capture_change": 6
+    }
+  },
+  "teacher_recovery": [
+    {
+      "context_id": "coverage-test-r0-c0-n0",
+      "bucket_xy_m": [
+        0.11691240438672604,
+        -0.5966877220134259
+      ],
+      "original_failure": "released_miss",
+      "search_attempts": 16,
+      "search_captures": 5,
+      "search_native_releases": 15,
+      "repeat_attempts": 2,
+      "repeat_captures": 2,
+      "confirmed_teacher": true,
+      "selected_discovery_id": "recovery-search-r05-coverage-test-r0-c0-n0",
+      "selected_recipe": {
+        "discovery_sha256": "c3626228041f64b6bed9d464bacd5edf54cfeccaa41515556102f49441fe9638",
+        "requested_board_xy_m": [
+          0.5148890561330889,
+          -0.2407004896002811
+        ],
+        "bucket_xy_m": [
+          0.11691240438672604,
+          -0.5966877220134259
+        ],
+        "board_to_bucket_horizontal_distance_m": 0.5339591042171827,
+        "requested_board_center_height_above_table_m": 0.34007077017100695,
+        "settled_board_center_height_above_table_m": 0.34007078409194946,
+        "requested_tilt_from_horizontal_deg": 30.636590767142522,
+        "settled_tilt_from_horizontal_deg": 30.636589949080953,
+        "requested_drop_gap_m": 0.3494237039111046,
+        "native_release_center_height_above_table_m": 0.7269944548606873,
+        "requested_release_center_height_above_table_m": 0.7269944740821115,
+        "table_surface_z_m": 0.0,
+        "release_height_source": "Recorded native time-zero ball-center Z minus table surface Z; bound by the independent dense-trace audit.",
+        "gap_definition": "Requested ball-center release Z minus requested board-center Z minus ball radius.",
+        "capture": true,
+        "clean": false,
+        "repeat_captures": 2,
+        "repeat_attempts": 2,
+        "confirmed_teacher": true
+      },
+      "teacher_id": "recovery-search-r05-coverage-test-r0-c0-n0",
+      "teacher_sha256": "c3626228041f64b6bed9d464bacd5edf54cfeccaa41515556102f49441fe9638",
+      "parameter_names": [
+        "board_x_m",
+        "board_y_m",
+        "board_height_m",
+        "tilt_deg",
+        "drop_gap_m"
+      ],
+      "values": [
+        0.5148890561330889,
+        -0.2407004896002811,
+        0.34007077017100695,
+        30.636590767142522,
+        0.3494237039111046
+      ],
+      "clean": false,
+      "table_assisted_capture": false
+    },
+    {
+      "context_id": "coverage-test-r0-c0-n1",
+      "bucket_xy_m": [
+        0.1347833140017459,
+        -0.5656701539097349
+      ],
+      "original_failure": "released_miss",
+      "search_attempts": 16,
+      "search_captures": 8,
+      "search_native_releases": 15,
+      "repeat_attempts": 2,
+      "repeat_captures": 2,
+      "confirmed_teacher": true,
+      "selected_discovery_id": "recovery-search-r05-coverage-test-r0-c0-n1",
+      "selected_recipe": {
+        "discovery_sha256": "b94158267d8d6379e6ec48e664c0ec9e0572a37fa84fd955965694b14a619d17",
+        "requested_board_xy_m": [
+          0.51754652865832,
+          -0.24083806458927706
+        ],
+        "bucket_xy_m": [
+          0.1347833140017459,
+          -0.5656701539097349
+        ],
+        "board_to_bucket_horizontal_distance_m": 0.5020194864211234,
+        "requested_board_center_height_above_table_m": 0.33804096433970177,
+        "settled_board_center_height_above_table_m": 0.33804091811180115,
+        "requested_tilt_from_horizontal_deg": 31.404377967413804,
+        "settled_tilt_from_horizontal_deg": 31.40437891613832,
+        "requested_drop_gap_m": 0.3494237039111046,
+        "native_release_center_height_above_table_m": 0.7249646782875061,
+        "requested_release_center_height_above_table_m": 0.7249646682508064,
+        "table_surface_z_m": 0.0,
+        "release_height_source": "Recorded native time-zero ball-center Z minus table surface Z; bound by the independent dense-trace audit.",
+        "gap_definition": "Requested ball-center release Z minus requested board-center Z minus ball radius.",
+        "capture": true,
+        "clean": true,
+        "repeat_captures": 2,
+        "repeat_attempts": 2,
+        "confirmed_teacher": true
+      },
+      "teacher_id": "recovery-search-r05-coverage-test-r0-c0-n1",
+      "teacher_sha256": "b94158267d8d6379e6ec48e664c0ec9e0572a37fa84fd955965694b14a619d17",
+      "parameter_names": [
+        "board_x_m",
+        "board_y_m",
+        "board_height_m",
+        "tilt_deg",
+        "drop_gap_m"
+      ],
+      "values": [
+        0.51754652865832,
+        -0.24083806458927706,
+        0.33804096433970177,
+        31.404377967413804,
+        0.3494237039111046
+      ],
+      "clean": true,
+      "table_assisted_capture": false
+    },
+    {
+      "context_id": "coverage-test-r0-c3-n0",
+      "bucket_xy_m": [
+        0.6639912022103023,
+        -0.4966496987244469
+      ],
+      "original_failure": "released_miss",
+      "search_attempts": 16,
+      "search_captures": 9,
+      "search_native_releases": 15,
+      "repeat_attempts": 2,
+      "repeat_captures": 2,
+      "confirmed_teacher": true,
+      "selected_discovery_id": "recovery-search-r05-coverage-test-r0-c3-n0",
+      "selected_recipe": {
+        "discovery_sha256": "1af75af341fa0e926c8bcfdd974e238f1ce60814852f1373cd6700fe25592262",
+        "requested_board_xy_m": [
+          0.629802417818837,
+          -0.16689653679462688
+        ],
+        "bucket_xy_m": [
+          0.6639912022103023,
+          -0.4966496987244469
+        ],
+        "board_to_bucket_horizontal_distance_m": 0.3315207697579146,
+        "requested_board_center_height_above_table_m": 0.3401474873136218,
+        "settled_board_center_height_above_table_m": 0.3401474952697754,
+        "requested_tilt_from_horizontal_deg": 22.473032829775125,
+        "settled_tilt_from_horizontal_deg": 22.47301142135961,
+        "requested_drop_gap_m": 0.1931040569516942,
+        "native_release_center_height_above_table_m": 0.5707515478134155,
+        "requested_release_center_height_above_table_m": 0.570751544265316,
+        "table_surface_z_m": 0.0,
+        "release_height_source": "Recorded native time-zero ball-center Z minus table surface Z; bound by the independent dense-trace audit.",
+        "gap_definition": "Requested ball-center release Z minus requested board-center Z minus ball radius.",
+        "capture": true,
+        "clean": false,
+        "repeat_captures": 2,
+        "repeat_attempts": 2,
+        "confirmed_teacher": true
+      },
+      "teacher_id": "recovery-search-r05-coverage-test-r0-c3-n0",
+      "teacher_sha256": "1af75af341fa0e926c8bcfdd974e238f1ce60814852f1373cd6700fe25592262",
+      "parameter_names": [
+        "board_x_m",
+        "board_y_m",
+        "board_height_m",
+        "tilt_deg",
+        "drop_gap_m"
+      ],
+      "values": [
+        0.629802417818837,
+        -0.16689653679462688,
+        0.3401474873136218,
+        22.473032829775125,
+        0.1931040569516942
+      ],
+      "clean": false,
+      "table_assisted_capture": false
+    },
+    {
+      "context_id": "coverage-test-r0-c3-n1",
+      "bucket_xy_m": [
+        0.6323246981596773,
+        -0.5577804139131429
+      ],
+      "original_failure": "released_miss",
+      "search_attempts": 16,
+      "search_captures": 2,
+      "search_native_releases": 11,
+      "repeat_attempts": 2,
+      "repeat_captures": 2,
+      "confirmed_teacher": true,
+      "selected_discovery_id": "recovery-search-r04-coverage-test-r0-c3-n1",
+      "selected_recipe": {
+        "discovery_sha256": "d866564951e5786203c431b84660dfd46f4faaa4b8a0dc4b5fded22be9d32f14",
+        "requested_board_xy_m": [
+          0.6163495083694736,
+          -0.3546802478669145
+        ],
+        "bucket_xy_m": [
+          0.6323246981596773,
+          -0.5577804139131429
+        ],
+        "board_to_bucket_horizontal_distance_m": 0.20372747516434447,
+        "requested_board_center_height_above_table_m": 0.39920082514916644,
+        "settled_board_center_height_above_table_m": 0.3992008566856384,
+        "requested_tilt_from_horizontal_deg": 32.048404487726756,
+        "settled_tilt_from_horizontal_deg": 32.04839869828181,
+        "requested_drop_gap_m": 0.09934103115382659,
+        "native_release_center_height_above_table_m": 0.5360418558120728,
+        "requested_release_center_height_above_table_m": 0.5360418563029931,
+        "table_surface_z_m": 0.0,
+        "release_height_source": "Recorded native time-zero ball-center Z minus table surface Z; bound by the independent dense-trace audit.",
+        "gap_definition": "Requested ball-center release Z minus requested board-center Z minus ball radius.",
+        "capture": true,
+        "clean": false,
+        "repeat_captures": 2,
+        "repeat_attempts": 2,
+        "confirmed_teacher": true
+      },
+      "teacher_id": "recovery-search-r04-coverage-test-r0-c3-n1",
+      "teacher_sha256": "d866564951e5786203c431b84660dfd46f4faaa4b8a0dc4b5fded22be9d32f14",
+      "parameter_names": [
+        "board_x_m",
+        "board_y_m",
+        "board_height_m",
+        "tilt_deg",
+        "drop_gap_m"
+      ],
+      "values": [
+        0.6163495083694736,
+        -0.3546802478669145,
+        0.39920082514916644,
+        32.048404487726756,
+        0.09934103115382659
+      ],
+      "clean": false,
+      "table_assisted_capture": false
+    },
+    {
+      "context_id": "coverage-test-r0-c4-n0",
+      "bucket_xy_m": [
+        0.8525412904806017,
+        -0.5381857817867661
+      ],
+      "original_failure": "released_miss",
+      "search_attempts": 16,
+      "search_captures": 3,
+      "search_native_releases": 15,
+      "repeat_attempts": 2,
+      "repeat_captures": 2,
+      "confirmed_teacher": true,
+      "selected_discovery_id": "recovery-search-r06-coverage-test-r0-c4-n0",
+      "selected_recipe": {
+        "discovery_sha256": "f44c0766ed8e6ffac956bcbba24e244f89dfa7fce7143d514c22b55529f46429",
+        "requested_board_xy_m": [
+          0.6293146943578479,
+          -0.21509512326632066
+        ],
+        "bucket_xy_m": [
+          0.8525412904806017,
+          -0.5381857817867661
+        ],
+        "board_to_bucket_horizontal_distance_m": 0.3927055981772174,
+        "requested_board_center_height_above_table_m": 0.4023659282966991,
+        "settled_board_center_height_above_table_m": 0.40236592292785645,
+        "requested_tilt_from_horizontal_deg": 33.02545849435083,
+        "settled_tilt_from_horizontal_deg": 33.02545701291632,
+        "requested_drop_gap_m": 0.20734103115382657,
+        "native_release_center_height_above_table_m": 0.6472069621086121,
+        "requested_release_center_height_above_table_m": 0.6472069594505256,
+        "table_surface_z_m": 0.0,
+        "release_height_source": "Recorded native time-zero ball-center Z minus table surface Z; bound by the independent dense-trace audit.",
+        "gap_definition": "Requested ball-center release Z minus requested board-center Z minus ball radius.",
+        "capture": true,
+        "clean": false,
+        "repeat_captures": 2,
+        "repeat_attempts": 2,
+        "confirmed_teacher": true
+      },
+      "teacher_id": "recovery-search-r06-coverage-test-r0-c4-n0",
+      "teacher_sha256": "f44c0766ed8e6ffac956bcbba24e244f89dfa7fce7143d514c22b55529f46429",
+      "parameter_names": [
+        "board_x_m",
+        "board_y_m",
+        "board_height_m",
+        "tilt_deg",
+        "drop_gap_m"
+      ],
+      "values": [
+        0.6293146943578479,
+        -0.21509512326632066,
+        0.4023659282966991,
+        33.02545849435083,
+        0.20734103115382657
+      ],
+      "clean": false,
+      "table_assisted_capture": false
+    },
+    {
+      "context_id": "coverage-test-r0-c4-n1",
+      "bucket_xy_m": [
+        0.882726527657182,
+        -0.490426394917517
+      ],
+      "original_failure": "released_miss",
+      "search_attempts": 16,
+      "search_captures": 7,
+      "search_native_releases": 15,
+      "repeat_attempts": 2,
+      "repeat_captures": 2,
+      "confirmed_teacher": true,
+      "selected_discovery_id": "recovery-search-r13-coverage-test-r0-c4-n1",
+      "selected_recipe": {
+        "discovery_sha256": "b277d7f8ebdf3c5cafbe993bf1bdab53b046a733b2dcfd023a62dbd9bce546e0",
+        "requested_board_xy_m": [
+          0.6209642776122367,
+          -0.22492344823318236
+        ],
+        "bucket_xy_m": [
+          0.882726527657182,
+          -0.490426394917517
+        ],
+        "board_to_bucket_horizontal_distance_m": 0.37284217873874875,
+        "requested_board_center_height_above_table_m": 0.4465650379657745,
+        "settled_board_center_height_above_table_m": 0.44656500220298767,
+        "requested_tilt_from_horizontal_deg": 32.94123341063044,
+        "settled_tilt_from_horizontal_deg": 32.941233158720294,
+        "requested_drop_gap_m": 0.1448354088493859,
+        "native_release_center_height_above_table_m": 0.6289004683494568,
+        "requested_release_center_height_above_table_m": 0.6289004468151604,
+        "table_surface_z_m": 0.0,
+        "release_height_source": "Recorded native time-zero ball-center Z minus table surface Z; bound by the independent dense-trace audit.",
+        "gap_definition": "Requested ball-center release Z minus requested board-center Z minus ball radius.",
+        "capture": true,
+        "clean": false,
+        "repeat_captures": 2,
+        "repeat_attempts": 2,
+        "confirmed_teacher": true
+      },
+      "teacher_id": "recovery-search-r13-coverage-test-r0-c4-n1",
+      "teacher_sha256": "b277d7f8ebdf3c5cafbe993bf1bdab53b046a733b2dcfd023a62dbd9bce546e0",
+      "parameter_names": [
+        "board_x_m",
+        "board_y_m",
+        "board_height_m",
+        "tilt_deg",
+        "drop_gap_m"
+      ],
+      "values": [
+        0.6209642776122367,
+        -0.22492344823318236,
+        0.4465650379657745,
+        32.94123341063044,
+        0.1448354088493859
+      ],
+      "clean": false,
+      "table_assisted_capture": false
+    },
+    {
+      "context_id": "coverage-test-r0-c5-n0",
+      "bucket_xy_m": [
+        1.0501063950892464,
+        -0.5022902045255709
+      ],
+      "original_failure": "released_miss",
+      "search_attempts": 16,
+      "search_captures": 0,
+      "search_native_releases": 13,
+      "repeat_attempts": 0,
+      "repeat_captures": 0,
+      "confirmed_teacher": false
+    },
+    {
+      "context_id": "coverage-test-r0-c5-n1",
+      "bucket_xy_m": [
+        1.0097081474275957,
+        -0.5453724727998247
+      ],
+      "original_failure": "released_miss",
+      "search_attempts": 16,
+      "search_captures": 0,
+      "search_native_releases": 14,
+      "repeat_attempts": 0,
+      "repeat_captures": 0,
+      "confirmed_teacher": false
+    },
+    {
+      "context_id": "coverage-test-r0-c6-n0",
+      "bucket_xy_m": [
+        1.221705108638795,
+        -0.6243323735809339
+      ],
+      "original_failure": "released_miss",
+      "search_attempts": 16,
+      "search_captures": 2,
+      "search_native_releases": 11,
+      "repeat_attempts": 2,
+      "repeat_captures": 2,
+      "confirmed_teacher": true,
+      "selected_discovery_id": "recovery-search-r05-coverage-test-r0-c6-n0",
+      "selected_recipe": {
+        "discovery_sha256": "69a134815bb9a6f207e983264d096d82ba0006f038c9d1520a2150e4c6820ab3",
+        "requested_board_xy_m": [
+          0.6536646590697622,
+          -0.1975046976125474
+        ],
+        "bucket_xy_m": [
+          1.221705108638795,
+          -0.6243323735809339
+        ],
+        "board_to_bucket_horizontal_distance_m": 0.7105292515577122,
+        "requested_board_center_height_above_table_m": 0.43045891352102506,
+        "settled_board_center_height_above_table_m": 0.43045884370803833,
+        "requested_tilt_from_horizontal_deg": 30.386137129582753,
+        "settled_tilt_from_horizontal_deg": 30.38612259424931,
+        "requested_drop_gap_m": 0.1713410311538266,
+        "native_release_center_height_above_table_m": 0.6392999291419983,
+        "requested_release_center_height_above_table_m": 0.6392999446748516,
+        "table_surface_z_m": 0.0,
+        "release_height_source": "Recorded native time-zero ball-center Z minus table surface Z; bound by the independent dense-trace audit.",
+        "gap_definition": "Requested ball-center release Z minus requested board-center Z minus ball radius.",
+        "capture": true,
+        "clean": true,
+        "repeat_captures": 2,
+        "repeat_attempts": 2,
+        "confirmed_teacher": true
+      },
+      "teacher_id": "recovery-search-r05-coverage-test-r0-c6-n0",
+      "teacher_sha256": "69a134815bb9a6f207e983264d096d82ba0006f038c9d1520a2150e4c6820ab3",
+      "parameter_names": [
+        "board_x_m",
+        "board_y_m",
+        "board_height_m",
+        "tilt_deg",
+        "drop_gap_m"
+      ],
+      "values": [
+        0.6536646590697622,
+        -0.1975046976125474,
+        0.43045891352102506,
+        30.386137129582753,
+        0.1713410311538266
+      ],
+      "clean": true,
+      "table_assisted_capture": true
+    },
+    {
+      "context_id": "coverage-test-r0-c6-n1",
+      "bucket_xy_m": [
+        1.0864837278429489,
+        -0.4893047104967628
+      ],
+      "original_failure": "released_miss",
+      "search_attempts": 16,
+      "search_captures": 0,
+      "search_native_releases": 13,
+      "repeat_attempts": 0,
+      "repeat_captures": 0,
+      "confirmed_teacher": false
+    },
+    {
+      "context_id": "coverage-test-r1-c0-n0",
+      "bucket_xy_m": [
+        0.24492148249371917,
+        -0.398500131571638
+      ],
+      "original_failure": "released_miss",
+      "search_attempts": 16,
+      "search_captures": 3,
+      "search_native_releases": 11,
+      "repeat_attempts": 2,
+      "repeat_captures": 2,
+      "confirmed_teacher": true,
+      "selected_discovery_id": "recovery-search-r05-coverage-test-r1-c0-n0",
+      "selected_recipe": {
+        "discovery_sha256": "da8445bd6d2d9f16107aeb25a4e4891d03e9a9ae5299cc0fbaf9744a1f248680",
+        "requested_board_xy_m": [
+          0.6337372917430466,
+          -0.37442149340144953
+        ],
+        "bucket_xy_m": [
+          0.24492148249371917,
+          -0.398500131571638
+        ],
+        "board_to_bucket_horizontal_distance_m": 0.3895606683667388,
+        "requested_board_center_height_above_table_m": 0.26802282115670717,
+        "settled_board_center_height_above_table_m": 0.26802289485931396,
+        "requested_tilt_from_horizontal_deg": 30.686858006166126,
+        "settled_tilt_from_horizontal_deg": 30.6868552253735,
+        "requested_drop_gap_m": 0.26555952009868145,
+        "native_release_center_height_above_table_m": 0.571082353591919,
+        "requested_release_center_height_above_table_m": 0.5710823412553886,
+        "table_surface_z_m": 0.0,
+        "release_height_source": "Recorded native time-zero ball-center Z minus table surface Z; bound by the independent dense-trace audit.",
+        "gap_definition": "Requested ball-center release Z minus requested board-center Z minus ball radius.",
+        "capture": true,
+        "clean": false,
+        "repeat_captures": 2,
+        "repeat_attempts": 2,
+        "confirmed_teacher": true
+      },
+      "teacher_id": "recovery-search-r05-coverage-test-r1-c0-n0",
+      "teacher_sha256": "da8445bd6d2d9f16107aeb25a4e4891d03e9a9ae5299cc0fbaf9744a1f248680",
+      "parameter_names": [
+        "board_x_m",
+        "board_y_m",
+        "board_height_m",
+        "tilt_deg",
+        "drop_gap_m"
+      ],
+      "values": [
+        0.6337372917430466,
+        -0.37442149340144953,
+        0.26802282115670717,
+        30.686858006166126,
+        0.26555952009868145
+      ],
+      "clean": false,
+      "table_assisted_capture": false
+    },
+    {
+      "context_id": "coverage-test-r1-c5-n0",
+      "bucket_xy_m": [
+        0.9950331490926309,
+        -0.37794838272378634
+      ],
+      "original_failure": "released_miss",
+      "search_attempts": 16,
+      "search_captures": 3,
+      "search_native_releases": 10,
+      "repeat_attempts": 2,
+      "repeat_captures": 2,
+      "confirmed_teacher": true,
+      "selected_discovery_id": "recovery-search-r05-coverage-test-r1-c5-n0",
+      "selected_recipe": {
+        "discovery_sha256": "95ff4474c93e49a7b42a0e5d22fe093044f729dc38962a348b0ff8d66f7b6e62",
+        "requested_board_xy_m": [
+          0.6484813525884846,
+          -0.24834086847684567
+        ],
+        "bucket_xy_m": [
+          0.9950331490926309,
+          -0.37794838272378634
+        ],
+        "board_to_bucket_horizontal_distance_m": 0.369994939707994,
+        "requested_board_center_height_above_table_m": 0.4029273785423384,
+        "settled_board_center_height_above_table_m": 0.4029274582862854,
+        "requested_tilt_from_horizontal_deg": 33.76357656222308,
+        "settled_tilt_from_horizontal_deg": 33.763578072439365,
+        "requested_drop_gap_m": 0.1713410311538266,
+        "native_release_center_height_above_table_m": 0.6117684245109558,
+        "requested_release_center_height_above_table_m": 0.611768409696165,
+        "table_surface_z_m": 0.0,
+        "release_height_source": "Recorded native time-zero ball-center Z minus table surface Z; bound by the independent dense-trace audit.",
+        "gap_definition": "Requested ball-center release Z minus requested board-center Z minus ball radius.",
+        "capture": true,
+        "clean": false,
+        "repeat_captures": 2,
+        "repeat_attempts": 2,
+        "confirmed_teacher": true
+      },
+      "teacher_id": "recovery-search-r05-coverage-test-r1-c5-n0",
+      "teacher_sha256": "95ff4474c93e49a7b42a0e5d22fe093044f729dc38962a348b0ff8d66f7b6e62",
+      "parameter_names": [
+        "board_x_m",
+        "board_y_m",
+        "board_height_m",
+        "tilt_deg",
+        "drop_gap_m"
+      ],
+      "values": [
+        0.6484813525884846,
+        -0.24834086847684567,
+        0.4029273785423384,
+        33.76357656222308,
+        0.1713410311538266
+      ],
+      "clean": false,
+      "table_assisted_capture": false
+    },
+    {
+      "context_id": "coverage-test-r1-c5-n1",
+      "bucket_xy_m": [
+        1.045847645424405,
+        -0.3629032667731718
+      ],
+      "original_failure": "strict_endpoint_clearance_or_pose_rejected",
+      "search_attempts": 16,
+      "search_captures": 0,
+      "search_native_releases": 9,
+      "repeat_attempts": 0,
+      "repeat_captures": 0,
+      "confirmed_teacher": false
+    },
+    {
+      "context_id": "coverage-test-r1-c6-n0",
+      "bucket_xy_m": [
+        1.158528769391764,
+        -0.41033081955452755
+      ],
+      "original_failure": "released_miss",
+      "search_attempts": 16,
+      "search_captures": 2,
+      "search_native_releases": 11,
+      "repeat_attempts": 2,
+      "repeat_captures": 2,
+      "confirmed_teacher": true,
+      "selected_discovery_id": "recovery-search-r03-coverage-test-r1-c6-n0",
+      "selected_recipe": {
+        "discovery_sha256": "501d86b95457fa0e3a29f2822659040ad78545c6c9c31e61976b5c34d7096b27",
+        "requested_board_xy_m": [
+          0.6079259625566394,
+          0.015383941786014932
+        ],
+        "bucket_xy_m": [
+          1.158528769391764,
+          -0.41033081955452755
+        ],
+        "board_to_bucket_horizontal_distance_m": 0.6959859976450335,
+        "requested_board_center_height_above_table_m": 0.4589233831945368,
+        "settled_board_center_height_above_table_m": 0.4589232802391052,
+        "requested_tilt_from_horizontal_deg": 24.932083388395966,
+        "settled_tilt_from_horizontal_deg": 24.93207130053703,
+        "requested_drop_gap_m": 0.17981883224993983,
+        "native_release_center_height_above_table_m": 0.6762422323226929,
+        "requested_release_center_height_above_table_m": 0.6762422154444766,
+        "table_surface_z_m": 0.0,
+        "release_height_source": "Recorded native time-zero ball-center Z minus table surface Z; bound by the independent dense-trace audit.",
+        "gap_definition": "Requested ball-center release Z minus requested board-center Z minus ball radius.",
+        "capture": true,
+        "clean": true,
+        "repeat_captures": 2,
+        "repeat_attempts": 2,
+        "confirmed_teacher": true
+      },
+      "teacher_id": "recovery-search-r03-coverage-test-r1-c6-n0",
+      "teacher_sha256": "501d86b95457fa0e3a29f2822659040ad78545c6c9c31e61976b5c34d7096b27",
+      "parameter_names": [
+        "board_x_m",
+        "board_y_m",
+        "board_height_m",
+        "tilt_deg",
+        "drop_gap_m"
+      ],
+      "values": [
+        0.6079259625566394,
+        0.015383941786014932,
+        0.4589233831945368,
+        24.932083388395966,
+        0.17981883224993983
+      ],
+      "clean": true,
+      "table_assisted_capture": true
+    },
+    {
+      "context_id": "coverage-test-r1-c6-n1",
+      "bucket_xy_m": [
+        1.1057116142953638,
+        -0.3848467725632004
+      ],
+      "original_failure": "released_miss",
+      "search_attempts": 16,
+      "search_captures": 1,
+      "search_native_releases": 11,
+      "repeat_attempts": 2,
+      "repeat_captures": 2,
+      "confirmed_teacher": true,
+      "selected_discovery_id": "recovery-search-r02-coverage-test-r1-c6-n1",
+      "selected_recipe": {
+        "discovery_sha256": "5a629e7f320a38142c98cb1ef293112d54e04985c05a6031b8db2dd79c736254",
+        "requested_board_xy_m": [
+          0.6115348237999768,
+          0.014336093191297146
+        ],
+        "bucket_xy_m": [
+          1.1057116142953638,
+          -0.3848467725632004
+        ],
+        "board_to_bucket_horizontal_distance_m": 0.6352618834593295,
+        "requested_board_center_height_above_table_m": 0.4606541966577742,
+        "settled_board_center_height_above_table_m": 0.46065402030944824,
+        "requested_tilt_from_horizontal_deg": 25.112573985613643,
+        "settled_tilt_from_horizontal_deg": 25.112558893810746,
+        "requested_drop_gap_m": 0.14381883224993985,
+        "native_release_center_height_above_table_m": 0.6419730186462402,
+        "requested_release_center_height_above_table_m": 0.641973028907714,
+        "table_surface_z_m": 0.0,
+        "release_height_source": "Recorded native time-zero ball-center Z minus table surface Z; bound by the independent dense-trace audit.",
+        "gap_definition": "Requested ball-center release Z minus requested board-center Z minus ball radius.",
+        "capture": true,
+        "clean": true,
+        "repeat_captures": 2,
+        "repeat_attempts": 2,
+        "confirmed_teacher": true
+      },
+      "teacher_id": "recovery-search-r02-coverage-test-r1-c6-n1",
+      "teacher_sha256": "5a629e7f320a38142c98cb1ef293112d54e04985c05a6031b8db2dd79c736254",
+      "parameter_names": [
+        "board_x_m",
+        "board_y_m",
+        "board_height_m",
+        "tilt_deg",
+        "drop_gap_m"
+      ],
+      "values": [
+        0.6115348237999768,
+        0.014336093191297146,
+        0.4606541966577742,
+        25.112573985613643,
+        0.14381883224993985
+      ],
+      "clean": true,
+      "table_assisted_capture": true
+    },
+    {
+      "context_id": "coverage-test-r2-c0-n0",
+      "bucket_xy_m": [
+        0.21767264977528772,
+        -0.13197572538968771
+      ],
+      "original_failure": "released_miss",
+      "search_attempts": 16,
+      "search_captures": 5,
+      "search_native_releases": 13,
+      "repeat_attempts": 2,
+      "repeat_captures": 2,
+      "confirmed_teacher": true,
+      "selected_discovery_id": "recovery-search-r15-coverage-test-r2-c0-n0",
+      "selected_recipe": {
+        "discovery_sha256": "7cfdcb0517aec56e6385d5ee82189e8ef94fdf953c47eb8a852bae2540d278de",
+        "requested_board_xy_m": [
+          0.5858915964968422,
+          -0.3633297332318023
+        ],
+        "bucket_xy_m": [
+          0.21767264977528772,
+          -0.13197572538968771
+        ],
+        "board_to_bucket_horizontal_distance_m": 0.4348676461514931,
+        "requested_board_center_height_above_table_m": 0.2680986523628235,
+        "settled_board_center_height_above_table_m": 0.2680985629558563,
+        "requested_tilt_from_horizontal_deg": 27.519844899807353,
+        "settled_tilt_from_horizontal_deg": 27.519832023419667,
+        "requested_drop_gap_m": 0.3515595200986814,
+        "native_release_center_height_above_table_m": 0.6571581959724426,
+        "requested_release_center_height_above_table_m": 0.6571581724615049,
+        "table_surface_z_m": 0.0,
+        "release_height_source": "Recorded native time-zero ball-center Z minus table surface Z; bound by the independent dense-trace audit.",
+        "gap_definition": "Requested ball-center release Z minus requested board-center Z minus ball radius.",
+        "capture": true,
+        "clean": true,
+        "repeat_captures": 2,
+        "repeat_attempts": 2,
+        "confirmed_teacher": true
+      },
+      "teacher_id": "recovery-search-r15-coverage-test-r2-c0-n0",
+      "teacher_sha256": "7cfdcb0517aec56e6385d5ee82189e8ef94fdf953c47eb8a852bae2540d278de",
+      "parameter_names": [
+        "board_x_m",
+        "board_y_m",
+        "board_height_m",
+        "tilt_deg",
+        "drop_gap_m"
+      ],
+      "values": [
+        0.5858915964968422,
+        -0.3633297332318023,
+        0.2680986523628235,
+        27.519844899807353,
+        0.3515595200986814
+      ],
+      "clean": true,
+      "table_assisted_capture": false
+    },
+    {
+      "context_id": "coverage-test-r2-c2-n0",
+      "bucket_xy_m": [
+        0.5548662337376027,
+        -0.16262634918183794
+      ],
+      "original_failure": "action_bounds_rejected",
+      "search_attempts": 16,
+      "search_captures": 1,
+      "search_native_releases": 3,
+      "repeat_attempts": 2,
+      "repeat_captures": 2,
+      "confirmed_teacher": true,
+      "selected_discovery_id": "recovery-search-r12-coverage-test-r2-c2-n0",
+      "selected_recipe": {
+        "discovery_sha256": "64fa06ab50f219ced2031d3c60f4ab4a02998187b3bf2ffa0527a8eff72c2b97",
+        "requested_board_xy_m": [
+          0.6048980707622157,
+          0.16238555451939712
+        ],
+        "bucket_xy_m": [
+          0.5548662337376027,
+          -0.16262634918183794
+        ],
+        "board_to_bucket_horizontal_distance_m": 0.3288402686161753,
+        "requested_board_center_height_above_table_m": 0.2719546984794263,
+        "settled_board_center_height_above_table_m": 0.2719547152519226,
+        "requested_tilt_from_horizontal_deg": 24.09420404577397,
+        "settled_tilt_from_horizontal_deg": 24.094188038190506,
+        "requested_drop_gap_m": 0.2043651221865184,
+        "native_release_center_height_above_table_m": 0.5138198137283325,
+        "requested_release_center_height_above_table_m": 0.5138198206659448,
+        "table_surface_z_m": 0.0,
+        "release_height_source": "Recorded native time-zero ball-center Z minus table surface Z; bound by the independent dense-trace audit.",
+        "gap_definition": "Requested ball-center release Z minus requested board-center Z minus ball radius.",
+        "capture": true,
+        "clean": false,
+        "repeat_captures": 2,
+        "repeat_attempts": 2,
+        "confirmed_teacher": true
+      },
+      "teacher_id": "recovery-search-r12-coverage-test-r2-c2-n0",
+      "teacher_sha256": "64fa06ab50f219ced2031d3c60f4ab4a02998187b3bf2ffa0527a8eff72c2b97",
+      "parameter_names": [
+        "board_x_m",
+        "board_y_m",
+        "board_height_m",
+        "tilt_deg",
+        "drop_gap_m"
+      ],
+      "values": [
+        0.6048980707622157,
+        0.16238555451939712,
+        0.2719546984794263,
+        24.09420404577397,
+        0.2043651221865184
+      ],
+      "clean": false,
+      "table_assisted_capture": false
+    },
+    {
+      "context_id": "coverage-test-r2-c3-n0",
+      "bucket_xy_m": [
+        0.6050979937603692,
+        -0.12460439248470656
+      ],
+      "original_failure": "released_miss",
+      "search_attempts": 16,
+      "search_captures": 4,
+      "search_native_releases": 13,
+      "repeat_attempts": 2,
+      "repeat_captures": 2,
+      "confirmed_teacher": true,
+      "selected_discovery_id": "recovery-search-r01-coverage-test-r2-c3-n0",
+      "selected_recipe": {
+        "discovery_sha256": "d7bea3403872911f66ec7b91366b5b3a9fc93a634d2e519b93c6531d5d9ffa81",
+        "requested_board_xy_m": [
+          0.663008371746045,
+          -0.2907154853488601
+        ],
+        "bucket_xy_m": [
+          0.6050979937603692,
+          -0.12460439248470656
+        ],
+        "board_to_bucket_horizontal_distance_m": 0.17591619325965216,
+        "requested_board_center_height_above_table_m": 0.2771114198672088,
+        "settled_board_center_height_above_table_m": 0.27711138129234314,
+        "requested_tilt_from_horizontal_deg": 28.41005623266348,
+        "settled_tilt_from_horizontal_deg": 28.410029965158607,
+        "requested_drop_gap_m": 0.14964368516009763,
+        "native_release_center_height_above_table_m": 0.46425509452819824,
+        "requested_release_center_height_above_table_m": 0.4642551050273064,
+        "table_surface_z_m": 0.0,
+        "release_height_source": "Recorded native time-zero ball-center Z minus table surface Z; bound by the independent dense-trace audit.",
+        "gap_definition": "Requested ball-center release Z minus requested board-center Z minus ball radius.",
+        "capture": true,
+        "clean": false,
+        "repeat_captures": 2,
+        "repeat_attempts": 2,
+        "confirmed_teacher": true
+      },
+      "teacher_id": "recovery-search-r01-coverage-test-r2-c3-n0",
+      "teacher_sha256": "d7bea3403872911f66ec7b91366b5b3a9fc93a634d2e519b93c6531d5d9ffa81",
+      "parameter_names": [
+        "board_x_m",
+        "board_y_m",
+        "board_height_m",
+        "tilt_deg",
+        "drop_gap_m"
+      ],
+      "values": [
+        0.663008371746045,
+        -0.2907154853488601,
+        0.2771114198672088,
+        28.41005623266348,
+        0.14964368516009763
+      ],
+      "clean": false,
+      "table_assisted_capture": false
+    },
+    {
+      "context_id": "coverage-test-r2-c3-n1",
+      "bucket_xy_m": [
+        0.6584198172219466,
+        -0.20440784528065192
+      ],
+      "original_failure": "released_miss",
+      "search_attempts": 16,
+      "search_captures": 0,
+      "search_native_releases": 12,
+      "repeat_attempts": 0,
+      "repeat_captures": 0,
+      "confirmed_teacher": false
+    },
+    {
+      "context_id": "coverage-test-r2-c4-n0",
+      "bucket_xy_m": [
+        0.8791812260114146,
+        -0.1464400318929988
+      ],
+      "original_failure": "finite_ik_unresolved",
+      "search_attempts": 16,
+      "search_captures": 4,
+      "search_native_releases": 5,
+      "repeat_attempts": 2,
+      "repeat_captures": 2,
+      "confirmed_teacher": true,
+      "selected_discovery_id": "recovery-search-r02-coverage-test-r2-c4-n0",
+      "selected_recipe": {
+        "discovery_sha256": "c72f5514ad30fd6b070edcb2c40fef23ab3b6e29b5a636aa32cb3ebd035d0b24",
+        "requested_board_xy_m": [
+          0.5732810826526241,
+          -0.03831395743654998
+        ],
+        "bucket_xy_m": [
+          0.8791812260114146,
+          -0.1464400318929988
+        ],
+        "board_to_bucket_horizontal_distance_m": 0.32444744672179204,
+        "requested_board_center_height_above_table_m": 0.42000000000000004,
+        "settled_board_center_height_above_table_m": 0.42000001668930054,
+        "requested_tilt_from_horizontal_deg": 20.0,
+        "settled_tilt_from_horizontal_deg": 19.999970769003543,
+        "requested_drop_gap_m": 0.2000244759519753,
+        "native_release_center_height_above_table_m": 0.6575244665145874,
+        "requested_release_center_height_above_table_m": 0.6575244759519754,
+        "table_surface_z_m": 0.0,
+        "release_height_source": "Recorded native time-zero ball-center Z minus table surface Z; bound by the independent dense-trace audit.",
+        "gap_definition": "Requested ball-center release Z minus requested board-center Z minus ball radius.",
+        "capture": true,
+        "clean": false,
+        "repeat_captures": 2,
+        "repeat_attempts": 2,
+        "confirmed_teacher": true
+      },
+      "teacher_id": "recovery-search-r02-coverage-test-r2-c4-n0",
+      "teacher_sha256": "c72f5514ad30fd6b070edcb2c40fef23ab3b6e29b5a636aa32cb3ebd035d0b24",
+      "parameter_names": [
+        "board_x_m",
+        "board_y_m",
+        "board_height_m",
+        "tilt_deg",
+        "drop_gap_m"
+      ],
+      "values": [
+        0.5732810826526241,
+        -0.03831395743654998,
+        0.42000000000000004,
+        20.0,
+        0.2000244759519753
+      ],
+      "clean": false,
+      "table_assisted_capture": false
+    },
+    {
+      "context_id": "coverage-test-r2-c4-n1",
+      "bucket_xy_m": [
+        0.849208706538879,
+        -0.1509325779920726
+      ],
+      "original_failure": "finite_ik_unresolved",
+      "search_attempts": 16,
+      "search_captures": 3,
+      "search_native_releases": 4,
+      "repeat_attempts": 2,
+      "repeat_captures": 2,
+      "confirmed_teacher": true,
+      "selected_discovery_id": "recovery-search-r15-coverage-test-r2-c4-n1",
+      "selected_recipe": {
+        "discovery_sha256": "25911d7a9dd02cdae7bef950064267df5005020063284d15ad0e9cee25b081ba",
+        "requested_board_xy_m": [
+          0.5679417713615716,
+          -0.05119348869939658
+        ],
+        "bucket_xy_m": [
+          0.849208706538879,
+          -0.1509325779920726
+        ],
+        "board_to_bucket_horizontal_distance_m": 0.2984275033521006,
+        "requested_board_center_height_above_table_m": 0.48500000000000004,
+        "settled_board_center_height_above_table_m": 0.48500001430511475,
+        "requested_tilt_from_horizontal_deg": 22.0,
+        "settled_tilt_from_horizontal_deg": 22.000016407653852,
+        "requested_drop_gap_m": 0.18701818900565437,
+        "native_release_center_height_above_table_m": 0.7095181941986084,
+        "requested_release_center_height_above_table_m": 0.7095181890056544,
+        "table_surface_z_m": 0.0,
+        "release_height_source": "Recorded native time-zero ball-center Z minus table surface Z; bound by the independent dense-trace audit.",
+        "gap_definition": "Requested ball-center release Z minus requested board-center Z minus ball radius.",
+        "capture": true,
+        "clean": false,
+        "repeat_captures": 2,
+        "repeat_attempts": 2,
+        "confirmed_teacher": true
+      },
+      "teacher_id": "recovery-search-r15-coverage-test-r2-c4-n1",
+      "teacher_sha256": "25911d7a9dd02cdae7bef950064267df5005020063284d15ad0e9cee25b081ba",
+      "parameter_names": [
+        "board_x_m",
+        "board_y_m",
+        "board_height_m",
+        "tilt_deg",
+        "drop_gap_m"
+      ],
+      "values": [
+        0.5679417713615716,
+        -0.05119348869939658,
+        0.48500000000000004,
+        22.0,
+        0.18701818900565437
+      ],
+      "clean": false,
+      "table_assisted_capture": false
+    },
+    {
+      "context_id": "coverage-test-r2-c6-n0",
+      "bucket_xy_m": [
+        1.1236487669400947,
+        -0.2688441588850131
+      ],
+      "original_failure": "released_miss",
+      "search_attempts": 16,
+      "search_captures": 1,
+      "search_native_releases": 10,
+      "repeat_attempts": 2,
+      "repeat_captures": 2,
+      "confirmed_teacher": true,
+      "selected_discovery_id": "recovery-search-r02-coverage-test-r2-c6-n0",
+      "selected_recipe": {
+        "discovery_sha256": "2cb7bd586ad19d6929287b6e84b4445b4eb333340290d76836f41cfb55546fd5",
+        "requested_board_xy_m": [
+          0.5829537308359193,
+          -0.006316014750229321
+        ],
+        "bucket_xy_m": [
+          1.1236487669400947,
+          -0.2688441588850131
+        ],
+        "board_to_bucket_horizontal_distance_m": 0.6010591888745646,
+        "requested_board_center_height_above_table_m": 0.4537313742249768,
+        "settled_board_center_height_above_table_m": 0.45373135805130005,
+        "requested_tilt_from_horizontal_deg": 27.191329068000428,
+        "settled_tilt_from_horizontal_deg": 27.19132167165324,
+        "requested_drop_gap_m": 0.14381883224993985,
+        "native_release_center_height_above_table_m": 0.6350501775741577,
+        "requested_release_center_height_above_table_m": 0.6350502064749166,
+        "table_surface_z_m": 0.0,
+        "release_height_source": "Recorded native time-zero ball-center Z minus table surface Z; bound by the independent dense-trace audit.",
+        "gap_definition": "Requested ball-center release Z minus requested board-center Z minus ball radius.",
+        "capture": true,
+        "clean": false,
+        "repeat_captures": 2,
+        "repeat_attempts": 2,
+        "confirmed_teacher": true
+      },
+      "teacher_id": "recovery-search-r02-coverage-test-r2-c6-n0",
+      "teacher_sha256": "2cb7bd586ad19d6929287b6e84b4445b4eb333340290d76836f41cfb55546fd5",
+      "parameter_names": [
+        "board_x_m",
+        "board_y_m",
+        "board_height_m",
+        "tilt_deg",
+        "drop_gap_m"
+      ],
+      "values": [
+        0.5829537308359193,
+        -0.006316014750229321,
+        0.4537313742249768,
+        27.191329068000428,
+        0.14381883224993985
+      ],
+      "clean": false,
+      "table_assisted_capture": true
+    },
+    {
+      "context_id": "coverage-test-r2-c6-n1",
+      "bucket_xy_m": [
+        1.1857693962046718,
+        -0.27353360822501405
+      ],
+      "original_failure": "released_miss",
+      "search_attempts": 16,
+      "search_captures": 1,
+      "search_native_releases": 9,
+      "repeat_attempts": 2,
+      "repeat_captures": 2,
+      "confirmed_teacher": true,
+      "selected_discovery_id": "recovery-search-r02-coverage-test-r2-c6-n1",
+      "selected_recipe": {
+        "discovery_sha256": "9fa8ad956772d2e1c4c126cff84b5cc71b05d71950411dfb7629cb3da00df2a7",
+        "requested_board_xy_m": [
+          0.5844306171057109,
+          0.0010792327326115334
+        ],
+        "bucket_xy_m": [
+          1.1857693962046718,
+          -0.27353360822501405
+        ],
+        "board_to_bucket_horizontal_distance_m": 0.6610752904677705,
+        "requested_board_center_height_above_table_m": 0.45775072406286915,
+        "settled_board_center_height_above_table_m": 0.4577508270740509,
+        "requested_tilt_from_horizontal_deg": 27.882988461447628,
+        "settled_tilt_from_horizontal_deg": 27.882981923673434,
+        "requested_drop_gap_m": 0.14381883224993985,
+        "native_release_center_height_above_table_m": 0.6390695571899414,
+        "requested_release_center_height_above_table_m": 0.639069556312809,
+        "table_surface_z_m": 0.0,
+        "release_height_source": "Recorded native time-zero ball-center Z minus table surface Z; bound by the independent dense-trace audit.",
+        "gap_definition": "Requested ball-center release Z minus requested board-center Z minus ball radius.",
+        "capture": true,
+        "clean": true,
+        "repeat_captures": 2,
+        "repeat_attempts": 2,
+        "confirmed_teacher": true
+      },
+      "teacher_id": "recovery-search-r02-coverage-test-r2-c6-n1",
+      "teacher_sha256": "9fa8ad956772d2e1c4c126cff84b5cc71b05d71950411dfb7629cb3da00df2a7",
+      "parameter_names": [
+        "board_x_m",
+        "board_y_m",
+        "board_height_m",
+        "tilt_deg",
+        "drop_gap_m"
+      ],
+      "values": [
+        0.5844306171057109,
+        0.0010792327326115334,
+        0.45775072406286915,
+        27.882988461447628,
+        0.14381883224993985
+      ],
+      "clean": true,
+      "table_assisted_capture": true
+    },
+    {
+      "context_id": "coverage-test-r3-c1-n1",
+      "bucket_xy_m": [
+        0.4001399709663269,
+        -0.05906231590986932
+      ],
+      "original_failure": "action_bounds_rejected",
+      "search_attempts": 16,
+      "search_captures": 3,
+      "search_native_releases": 3,
+      "repeat_attempts": 2,
+      "repeat_captures": 2,
+      "confirmed_teacher": true,
+      "selected_discovery_id": "recovery-search-r11-coverage-test-r3-c1-n1",
+      "selected_recipe": {
+        "discovery_sha256": "bb72c265f18f148ac6724b78354cde66dcb2c45138ddcfefaaf2d0100f115490",
+        "requested_board_xy_m": [
+          0.64607276706278,
+          -0.011285389068105826
+        ],
+        "bucket_xy_m": [
+          0.4001399709663269,
+          -0.05906231590986932
+        ],
+        "board_to_bucket_horizontal_distance_m": 0.2505305868237705,
+        "requested_board_center_height_above_table_m": 0.27257729487693516,
+        "settled_board_center_height_above_table_m": 0.2725774049758911,
+        "requested_tilt_from_horizontal_deg": 30.300205945765477,
+        "settled_tilt_from_horizontal_deg": 30.30018713214071,
+        "requested_drop_gap_m": 0.15636512218651838,
+        "native_release_center_height_above_table_m": 0.46644240617752075,
+        "requested_release_center_height_above_table_m": 0.4664424170634536,
+        "table_surface_z_m": 0.0,
+        "release_height_source": "Recorded native time-zero ball-center Z minus table surface Z; bound by the independent dense-trace audit.",
+        "gap_definition": "Requested ball-center release Z minus requested board-center Z minus ball radius.",
+        "capture": true,
+        "clean": true,
+        "repeat_captures": 2,
+        "repeat_attempts": 2,
+        "confirmed_teacher": true
+      },
+      "teacher_id": "recovery-search-r11-coverage-test-r3-c1-n1",
+      "teacher_sha256": "bb72c265f18f148ac6724b78354cde66dcb2c45138ddcfefaaf2d0100f115490",
+      "parameter_names": [
+        "board_x_m",
+        "board_y_m",
+        "board_height_m",
+        "tilt_deg",
+        "drop_gap_m"
+      ],
+      "values": [
+        0.64607276706278,
+        -0.011285389068105826,
+        0.27257729487693516,
+        30.300205945765477,
+        0.15636512218651838
+      ],
+      "clean": true,
+      "table_assisted_capture": false
+    },
+    {
+      "context_id": "coverage-test-r3-c4-n0",
+      "bucket_xy_m": [
+        0.8985528173353933,
+        -0.0174447138977758
+      ],
+      "original_failure": "finite_ik_unresolved",
+      "search_attempts": 16,
+      "search_captures": 0,
+      "search_native_releases": 6,
+      "repeat_attempts": 0,
+      "repeat_captures": 0,
+      "confirmed_teacher": false
+    },
+    {
+      "context_id": "coverage-test-r3-c4-n1",
+      "bucket_xy_m": [
+        0.8793270921926928,
+        -0.06456233882504714
+      ],
+      "original_failure": "finite_ik_unresolved",
+      "search_attempts": 16,
+      "search_captures": 1,
+      "search_native_releases": 6,
+      "repeat_attempts": 2,
+      "repeat_captures": 2,
+      "confirmed_teacher": true,
+      "selected_discovery_id": "recovery-search-r02-coverage-test-r3-c4-n1",
+      "selected_recipe": {
+        "discovery_sha256": "8c2ab68379a480621d392b637781b20136f2bdb3d999e119eea542368c77d19f",
+        "requested_board_xy_m": [
+          0.5831048099435755,
+          0.012794696795852038
+        ],
+        "bucket_xy_m": [
+          0.8793270921926928,
+          -0.06456233882504714
+        ],
+        "board_to_bucket_horizontal_distance_m": 0.30615641665810106,
+        "requested_board_center_height_above_table_m": 0.42000000000000004,
+        "settled_board_center_height_above_table_m": 0.41999998688697815,
+        "requested_tilt_from_horizontal_deg": 20.0,
+        "settled_tilt_from_horizontal_deg": 19.99996078391858,
+        "requested_drop_gap_m": 0.2339383634938719,
+        "native_release_center_height_above_table_m": 0.6914383769035339,
+        "requested_release_center_height_above_table_m": 0.6914383634938719,
+        "table_surface_z_m": 0.0,
+        "release_height_source": "Recorded native time-zero ball-center Z minus table surface Z; bound by the independent dense-trace audit.",
+        "gap_definition": "Requested ball-center release Z minus requested board-center Z minus ball radius.",
+        "capture": true,
+        "clean": false,
+        "repeat_captures": 2,
+        "repeat_attempts": 2,
+        "confirmed_teacher": true
+      },
+      "teacher_id": "recovery-search-r02-coverage-test-r3-c4-n1",
+      "teacher_sha256": "8c2ab68379a480621d392b637781b20136f2bdb3d999e119eea542368c77d19f",
+      "parameter_names": [
+        "board_x_m",
+        "board_y_m",
+        "board_height_m",
+        "tilt_deg",
+        "drop_gap_m"
+      ],
+      "values": [
+        0.5831048099435755,
+        0.012794696795852038,
+        0.42000000000000004,
+        20.0,
+        0.2339383634938719
+      ],
+      "clean": false,
+      "table_assisted_capture": false
+    },
+    {
+      "context_id": "coverage-test-r3-c5-n0",
+      "bucket_xy_m": [
+        0.9860198660137951,
+        -0.09448106732057193
+      ],
+      "original_failure": "finite_ik_unresolved",
+      "search_attempts": 16,
+      "search_captures": 0,
+      "search_native_releases": 2,
+      "repeat_attempts": 0,
+      "repeat_captures": 0,
+      "confirmed_teacher": false
+    },
+    {
+      "context_id": "coverage-test-r3-c5-n1",
+      "bucket_xy_m": [
+        0.9419705540254638,
+        -0.03935335552155961
+      ],
+      "original_failure": "strict_endpoint_clearance_or_pose_rejected",
+      "search_attempts": 16,
+      "search_captures": 0,
+      "search_native_releases": 5,
+      "repeat_attempts": 0,
+      "repeat_captures": 0,
+      "confirmed_teacher": false
+    },
+    {
+      "context_id": "coverage-test-r3-c6-n0",
+      "bucket_xy_m": [
+        1.1560658014722076,
+        0.025752865247251733
+      ],
+      "original_failure": "finite_ik_unresolved",
+      "search_attempts": 16,
+      "search_captures": 0,
+      "search_native_releases": 1,
+      "repeat_attempts": 0,
+      "repeat_captures": 0,
+      "confirmed_teacher": false
+    },
+    {
+      "context_id": "coverage-test-r3-c6-n1",
+      "bucket_xy_m": [
+        1.1039914859659552,
+        -0.009966053758834303
+      ],
+      "original_failure": "finite_ik_unresolved",
+      "search_attempts": 16,
+      "search_captures": 0,
+      "search_native_releases": 1,
+      "repeat_attempts": 0,
+      "repeat_captures": 0,
+      "confirmed_teacher": false
+    },
+    {
+      "context_id": "coverage-test-r4-c1-n0",
+      "bucket_xy_m": [
+        0.3730678142082774,
+        0.09604336441953665
+      ],
+      "original_failure": "released_miss",
+      "search_attempts": 16,
+      "search_captures": 7,
+      "search_native_releases": 13,
+      "repeat_attempts": 2,
+      "repeat_captures": 2,
+      "confirmed_teacher": true,
+      "selected_discovery_id": "recovery-search-r06-coverage-test-r4-c1-n0",
+      "selected_recipe": {
+        "discovery_sha256": "5cdf48529eadea4024d33e4b240af79ea7e60b8c51ea45f9c7fd865f4687f7ed",
+        "requested_board_xy_m": [
+          0.6217701763379995,
+          -0.04774225762856679
+        ],
+        "bucket_xy_m": [
+          0.3730678142082774,
+          0.09604336441953665
+        ],
+        "board_to_bucket_horizontal_distance_m": 0.28727542539636675,
+        "requested_board_center_height_above_table_m": 0.2961056459405378,
+        "settled_board_center_height_above_table_m": 0.29610565304756165,
+        "requested_tilt_from_horizontal_deg": 28.432194512187255,
+        "settled_tilt_from_horizontal_deg": 28.43219461422751,
+        "requested_drop_gap_m": 0.1683651221865184,
+        "native_release_center_height_above_table_m": 0.5019707679748535,
+        "requested_release_center_height_above_table_m": 0.5019707681270562,
+        "table_surface_z_m": 0.0,
+        "release_height_source": "Recorded native time-zero ball-center Z minus table surface Z; bound by the independent dense-trace audit.",
+        "gap_definition": "Requested ball-center release Z minus requested board-center Z minus ball radius.",
+        "capture": true,
+        "clean": true,
+        "repeat_captures": 2,
+        "repeat_attempts": 2,
+        "confirmed_teacher": true
+      },
+      "teacher_id": "recovery-search-r06-coverage-test-r4-c1-n0",
+      "teacher_sha256": "5cdf48529eadea4024d33e4b240af79ea7e60b8c51ea45f9c7fd865f4687f7ed",
+      "parameter_names": [
+        "board_x_m",
+        "board_y_m",
+        "board_height_m",
+        "tilt_deg",
+        "drop_gap_m"
+      ],
+      "values": [
+        0.6217701763379995,
+        -0.04774225762856679,
+        0.2961056459405378,
+        28.432194512187255,
+        0.1683651221865184
+      ],
+      "clean": true,
+      "table_assisted_capture": false
+    },
+    {
+      "context_id": "coverage-test-r4-c2-n0",
+      "bucket_xy_m": [
+        0.5434636091139585,
+        0.13995469692125462
+      ],
+      "original_failure": "strict_endpoint_clearance_or_pose_rejected",
+      "search_attempts": 16,
+      "search_captures": 6,
+      "search_native_releases": 7,
+      "repeat_attempts": 2,
+      "repeat_captures": 2,
+      "confirmed_teacher": true,
+      "selected_discovery_id": "recovery-search-r10-coverage-test-r4-c2-n0",
+      "selected_recipe": {
+        "discovery_sha256": "7acb8703e30635969ad1bf5ef3b4b5da1b6b482b4b0c76f0e9f86ba71b76e08a",
+        "requested_board_xy_m": [
+          0.6561886383553217,
+          -0.03968103256147712
+        ],
+        "bucket_xy_m": [
+          0.5434636091139585,
+          0.13995469692125462
+        ],
+        "board_to_bucket_horizontal_distance_m": 0.21207528739638515,
+        "requested_board_center_height_above_table_m": 0.3141482555866242,
+        "settled_board_center_height_above_table_m": 0.31414809823036194,
+        "requested_tilt_from_horizontal_deg": 33.53400506031285,
+        "settled_tilt_from_horizontal_deg": 33.53398837039201,
+        "requested_drop_gap_m": 0.10132652604207272,
+        "native_release_center_height_above_table_m": 0.452974796295166,
+        "requested_release_center_height_above_table_m": 0.45297478162869687,
+        "table_surface_z_m": 0.0,
+        "release_height_source": "Recorded native time-zero ball-center Z minus table surface Z; bound by the independent dense-trace audit.",
+        "gap_definition": "Requested ball-center release Z minus requested board-center Z minus ball radius.",
+        "capture": true,
+        "clean": true,
+        "repeat_captures": 2,
+        "repeat_attempts": 2,
+        "confirmed_teacher": true
+      },
+      "teacher_id": "recovery-search-r10-coverage-test-r4-c2-n0",
+      "teacher_sha256": "7acb8703e30635969ad1bf5ef3b4b5da1b6b482b4b0c76f0e9f86ba71b76e08a",
+      "parameter_names": [
+        "board_x_m",
+        "board_y_m",
+        "board_height_m",
+        "tilt_deg",
+        "drop_gap_m"
+      ],
+      "values": [
+        0.6561886383553217,
+        -0.03968103256147712,
+        0.3141482555866242,
+        33.53400506031285,
+        0.10132652604207272
+      ],
+      "clean": true,
+      "table_assisted_capture": false
+    },
+    {
+      "context_id": "coverage-test-r4-c3-n0",
+      "bucket_xy_m": [
+        0.6212576249221688,
+        0.09552949774282793
+      ],
+      "original_failure": "strict_endpoint_clearance_or_pose_rejected",
+      "search_attempts": 16,
+      "search_captures": 0,
+      "search_native_releases": 2,
+      "repeat_attempts": 0,
+      "repeat_captures": 0,
+      "confirmed_teacher": false
+    },
+    {
+      "context_id": "coverage-test-r4-c3-n1",
+      "bucket_xy_m": [
+        0.6796046664668569,
+        0.08095872514222291
+      ],
+      "original_failure": "finite_ik_unresolved",
+      "search_attempts": 16,
+      "search_captures": 1,
+      "search_native_releases": 7,
+      "repeat_attempts": 2,
+      "repeat_captures": 2,
+      "confirmed_teacher": true,
+      "selected_discovery_id": "recovery-search-r01-coverage-test-r4-c3-n1",
+      "selected_recipe": {
+        "discovery_sha256": "523aa041535b97c226b5a3227a5646a9446345c59983f3c7f16990a5cf664b74",
+        "requested_board_xy_m": [
+          0.5870671756502832,
+          -0.04723142566669339
+        ],
+        "bucket_xy_m": [
+          0.6796046664668569,
+          0.08095872514222291
+        ],
+        "board_to_bucket_horizontal_distance_m": 0.15810092337187714,
+        "requested_board_center_height_above_table_m": 0.40677538011367903,
+        "settled_board_center_height_above_table_m": 0.4067753553390503,
+        "requested_tilt_from_horizontal_deg": 38.20034230939594,
+        "settled_tilt_from_horizontal_deg": 38.20034151398078,
+        "requested_drop_gap_m": 0.11364733609101697,
+        "native_release_center_height_above_table_m": 0.5579227209091187,
+        "requested_release_center_height_above_table_m": 0.557922716204696,
+        "table_surface_z_m": 0.0,
+        "release_height_source": "Recorded native time-zero ball-center Z minus table surface Z; bound by the independent dense-trace audit.",
+        "gap_definition": "Requested ball-center release Z minus requested board-center Z minus ball radius.",
+        "capture": true,
+        "clean": false,
+        "repeat_captures": 2,
+        "repeat_attempts": 2,
+        "confirmed_teacher": true
+      },
+      "teacher_id": "recovery-search-r01-coverage-test-r4-c3-n1",
+      "teacher_sha256": "523aa041535b97c226b5a3227a5646a9446345c59983f3c7f16990a5cf664b74",
+      "parameter_names": [
+        "board_x_m",
+        "board_y_m",
+        "board_height_m",
+        "tilt_deg",
+        "drop_gap_m"
+      ],
+      "values": [
+        0.5870671756502832,
+        -0.04723142566669339,
+        0.40677538011367903,
+        38.20034230939594,
+        0.11364733609101697
+      ],
+      "clean": false,
+      "table_assisted_capture": false
+    },
+    {
+      "context_id": "coverage-test-r4-c4-n0",
+      "bucket_xy_m": [
+        0.8029456098365833,
+        0.14939113701649342
+      ],
+      "original_failure": "finite_ik_unresolved",
+      "search_attempts": 16,
+      "search_captures": 1,
+      "search_native_releases": 9,
+      "repeat_attempts": 2,
+      "repeat_captures": 2,
+      "confirmed_teacher": true,
+      "selected_discovery_id": "recovery-search-r02-coverage-test-r4-c4-n0",
+      "selected_recipe": {
+        "discovery_sha256": "a4de53b54ddae8e3c8514758ab91b722b60df5f875676b5a6797f1b8119a2c67",
+        "requested_board_xy_m": [
+          0.5721258450573536,
+          -0.007980097124814721
+        ],
+        "bucket_xy_m": [
+          0.8029456098365833,
+          0.14939113701649342
+        ],
+        "board_to_bucket_horizontal_distance_m": 0.2793626122943035,
+        "requested_board_center_height_above_table_m": 0.42000000000000004,
+        "settled_board_center_height_above_table_m": 0.41999998688697815,
+        "requested_tilt_from_horizontal_deg": 20.0,
+        "settled_tilt_from_horizontal_deg": 19.999980754083722,
+        "requested_drop_gap_m": 0.23694581403776568,
+        "native_release_center_height_above_table_m": 0.694445788860321,
+        "requested_release_center_height_above_table_m": 0.6944458140377657,
+        "table_surface_z_m": 0.0,
+        "release_height_source": "Recorded native time-zero ball-center Z minus table surface Z; bound by the independent dense-trace audit.",
+        "gap_definition": "Requested ball-center release Z minus requested board-center Z minus ball radius.",
+        "capture": true,
+        "clean": false,
+        "repeat_captures": 2,
+        "repeat_attempts": 2,
+        "confirmed_teacher": true
+      },
+      "teacher_id": "recovery-search-r02-coverage-test-r4-c4-n0",
+      "teacher_sha256": "a4de53b54ddae8e3c8514758ab91b722b60df5f875676b5a6797f1b8119a2c67",
+      "parameter_names": [
+        "board_x_m",
+        "board_y_m",
+        "board_height_m",
+        "tilt_deg",
+        "drop_gap_m"
+      ],
+      "values": [
+        0.5721258450573536,
+        -0.007980097124814721,
+        0.42000000000000004,
+        20.0,
+        0.23694581403776568
+      ],
+      "clean": false,
+      "table_assisted_capture": false
+    },
+    {
+      "context_id": "coverage-test-r4-c4-n1",
+      "bucket_xy_m": [
+        0.8998522443197997,
+        0.09528555220179491
+      ],
+      "original_failure": "finite_ik_unresolved",
+      "search_attempts": 16,
+      "search_captures": 0,
+      "search_native_releases": 5,
+      "repeat_attempts": 0,
+      "repeat_captures": 0,
+      "confirmed_teacher": false
+    },
+    {
+      "context_id": "coverage-test-r4-c5-n0",
+      "bucket_xy_m": [
+        0.9248670536663329,
+        0.10231704238187089
+      ],
+      "original_failure": "finite_ik_unresolved",
+      "search_attempts": 16,
+      "search_captures": 0,
+      "search_native_releases": 3,
+      "repeat_attempts": 0,
+      "repeat_captures": 0,
+      "confirmed_teacher": false
+    },
+    {
+      "context_id": "coverage-test-r4-c5-n1",
+      "bucket_xy_m": [
+        1.0328358483471796,
+        0.17306129762318445
+      ],
+      "original_failure": "finite_ik_unresolved",
+      "search_attempts": 16,
+      "search_captures": 0,
+      "search_native_releases": 5,
+      "repeat_attempts": 0,
+      "repeat_captures": 0,
+      "confirmed_teacher": false
+    },
+    {
+      "context_id": "coverage-test-r4-c6-n0",
+      "bucket_xy_m": [
+        1.2254744157134707,
+        0.15912519680186799
+      ],
+      "original_failure": "finite_ik_unresolved",
+      "search_attempts": 16,
+      "search_captures": 0,
+      "search_native_releases": 2,
+      "repeat_attempts": 0,
+      "repeat_captures": 0,
+      "confirmed_teacher": false
+    }
+  ],
+  "blocked": [
+    {
+      "id": "coverage-test-selected_ppo-seed2026110903-0512-coverage-test-r3-c0-n0",
+      "context_id": "coverage-test-r3-c0-n0",
+      "bucket_xy_m": [
+        0.1297138309533492,
+        -0.07005378641947146
+      ],
+      "reason": "fixed_base_clearance_rejected",
+      "parent_row_sha256": "9e6159a4d35691dc219ca9f7298d0d3eb6eef9187aa53916ff4186f7b1e954c5"
+    },
+    {
+      "id": "coverage-test-selected_ppo-seed2026110903-0512-coverage-test-r3-c0-n1",
+      "context_id": "coverage-test-r3-c0-n1",
+      "bucket_xy_m": [
+        0.12075145227136834,
+        -0.0637745810420216
+      ],
+      "reason": "fixed_base_clearance_rejected",
+      "parent_row_sha256": "a535fca7f7f6913769b887fea36b91064a2cd5bd8da6886acd274529f35d52d7"
+    },
+    {
+      "id": "coverage-test-selected_ppo-seed2026110903-0512-coverage-test-r4-c6-n1",
+      "context_id": "coverage-test-r4-c6-n1",
+      "bucket_xy_m": [
+        1.1877692719743462,
+        0.0872672455029675
+      ],
+      "reason": "fixed_base_clearance_rejected",
+      "parent_row_sha256": "1ac0383aa7328affc61e5f223f157d60643e5de51469e679475ef7a335decdc7"
+    }
+  ],
+  "controls": {
+    "pre": {
+      "status": "passed",
+      "counts": {
+        "attempts": 9,
+        "captures": 6,
+        "native_releases": 9,
+        "invalid": 0,
+        "clean": 3,
+        "mean_reward": 2.830224355402141,
+        "direct_captures": 3,
+        "table_assisted_captures": 3,
+        "setup_rejections": 0,
+        "native_misses": 3,
+        "forbidden_contact_shots": 3,
+        "invalid_physics": 0
+      },
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    },
+    "post": {
+      "status": "passed",
+      "counts": {
+        "attempts": 9,
+        "captures": 6,
+        "native_releases": 9,
+        "invalid": 0,
+        "clean": 3,
+        "mean_reward": 2.830224356341267,
+        "direct_captures": 3,
+        "table_assisted_captures": 3,
+        "setup_rejections": 0,
+        "native_misses": 3,
+        "forbidden_contact_shots": 3,
+        "invalid_physics": 0
+      },
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    }
+  },
+  "budget_reasons": [],
+  "artifacts": {
+    "parent_bc": {
+      "path": "checkpoints/parent_bc.pt",
+      "sha256": "bed50ea26a2aeddaf8d76335746d6bf3bf19dfdb952af1f965674f2346553443",
+      "weight_sha256": "c0ca78294e05de0d454c5b0817b978b7517361b7879ea216572893229b4d0af8",
+      "samples": 0,
+      "seed": 2026110901
+    },
+    "parent_ppo": {
+      "path": "checkpoints/parent_ppo.pt",
+      "sha256": "dc522d40b8eb72d02f53bcd2b663e82487f9551eda259ad04a3634505d254756",
+      "weight_sha256": "979c7a9d4bc2067efbaca980862a5297024e8dacd448cea61ee673d8cf863893",
+      "samples": 512,
+      "seed": 2026110903
+    },
+    "previous_ppo": {
+      "path": "checkpoints/previous_ppo.pt",
+      "sha256": "9d3a6f549af8247b84fe39c6d9a2b2785020198145ffb4c205e8644994b8826e",
+      "weight_sha256": "90c5dcfe6e942bbca34e6a10ed6f6dc8609c06a2da26902a1296049ee2d5d0f1",
+      "samples": 512,
+      "seed": null
+    },
+    "recovery_bc": {
+      "path": "checkpoints/recovery_bc.pt",
+      "sha256": "688acc7981522c3281dff47edd19edaf46f084f113455e50f14d7e5cabc3b9e9",
+      "weight_sha256": "af319655875b021635e8e1778b1e10f4ebaba24291160504fb88a4c6a101b10c",
+      "samples": 92,
+      "seed": 2026110901
+    }
+  },
+  "rejection_reasons": {
+    "recovery_bc": {
+      "finite_ik_unresolved": 11,
+      "fixed_base_clearance_rejected": 2,
+      "strict_endpoint_clearance_or_pose_rejected": 2,
+      "action_bounds_rejected": 1
+    },
+    "parent_bc": {
+      "finite_ik_unresolved": 16,
+      "strict_endpoint_clearance_or_pose_rejected": 2,
+      "fixed_base_clearance_rejected": 2
+    },
+    "parent_ppo": {
+      "finite_ik_unresolved": 16,
+      "fixed_base_clearance_rejected": 2
+    },
+    "previous_ppo": {
+      "finite_ik_unresolved": 20,
+      "fixed_base_clearance_rejected": 2
+    }
+  },
+  "parent": {
+    "report_sha256": "1d9f91dce8aa264120eaefdb532b3dc9b4fc4122b27939de387d8d1e723b0c21",
+    "corrected_audit_sha256": "ac54eeede0a1670e802dac028ef6b0a7a9d6b34f4561e558cc53698a8ec5594a",
+    "original_test_reclassified": "All70 formerTEST positions are now development history;39 selected failures searched and3 fixed-base failures explicitly skipped."
+  },
+  "audit": {
+    "version": "sircus-coverage-recovery-audit-v1",
+    "checks_count": 283251,
+    "full_checks_verified": true,
+    "native_checks_verified": true,
+    "proof_sha256": "e2ba653792b37d302425ba4af6cb22460c3d5b426274b3c1b3cbce270a857a9b",
+    "auditor_sha256": "d1bc276476f014fd14500655ed62e58f68ac1efadfcad8c54f74a6c5305bdd1b",
+    "elapsed_s": 66.70761887001572,
+    "requested_trials": 970,
+    "native_releases": 605,
+    "coordinate_inventory": {
+      "files": 655,
+      "historical_coordinates": 1449,
+      "fresh_test_layouts": 70
+    },
+    "maximum_numeric_error": {
+      "One continuous second unchanged": 0.0,
+      "independent v3 terminal reward": 0.0,
+      "observation after fixed geometry resolution": 0.0,
+      "q10": 1.1799447641180905e-07,
+      "q14": 2.3801803283873824e-07,
+      "Runtime bucket contact planes equal frozen calibration": 0.0,
+      "Compiled floor differs": 0.0,
+      "Compiled rim differs": 1.4131647518844659e-09,
+      "Recorded floor differs": 0.0,
+      "Recorded rim differs": 0.0,
+      "Compiled sphere radius differs": 0.0,
+      "Recorded sphere radius differs": 0.0,
+      "Wall thickness changed": 0.0,
+      "Wall thickness cap changed": 0.0,
+      "Floor thickness cap changed": 0.0,
+      "CPU ball contact parameters changed: solref": 0.0,
+      "Recorded ball contact parameters changed: solref": 0.0,
+      "CPU ball contact parameters changed: solimp": 0.0,
+      "Recorded ball contact parameters changed: solimp": 0.0,
+      "CPU ball contact parameters changed: friction": 0.0,
+      "Recorded ball contact parameters changed: friction": 0.0,
+      "CPU ball contact parameters changed: margin": 0.0,
+      "Recorded ball contact parameters changed: margin": 0.0,
+      "CPU ball contact parameters changed: gap": 0.0,
+      "Recorded ball contact parameters changed: gap": 0.0,
+      "runtime collision planes match calibration": 0.0,
+      "explicit canonical native ticks": 0.0,
+      "reported actual native clock drift": 0.0,
+      "release target bound to drop gap": 0.0,
+      "observed time-zero ball association": 0.0,
+      "dense time-zero release pose": 2.9744135376930103e-08,
+      "native bucket matches requested layout": 5.861409158036679e-08,
+      "reported actual board center error": 0.0,
+      "reported actual board angle error": 2.4910782638054574e-10,
+      "max_retention_s": 0.0,
+      "closest_opening_distance_m": 1.1102230246251565e-16,
+      "peak_bucket_force_before_entry_N": 0.0,
+      "max_speed_m_s": 0.0,
+      "max_bucket_domain_speed_m_s": 0.0,
+      "max_nominal_wall_overlap_m": 0.0,
+      "max_nominal_floor_overlap_m": 0.0,
+      "max_contact_wall_penetration_m": 0.0,
+      "max_contact_floor_penetration_m": 0.0,
+      "reward": 8.881784197001252e-16,
+      "minimum_mouth_clearance_mm": 1.4210854715202004e-14,
+      "first_mouth_passage_time_s": 0.0,
+      "whole_ball_entry_time_s": 0.0,
+      "capture_time_s": 0.0,
+      "Absolute supervisor interval": 0.0,
+      "Actual postqueue worker limit": 0.0,
+      "logstd": 0.0,
+      "actor.0.weight": 0.0,
+      "actor.0.bias": 0.0,
+      "actor.2.weight": 0.0,
+      "actor.2.bias": 0.0,
+      "actor.4.weight": 0.0,
+      "actor.4.bias": 0.0,
+      "critic.0.weight": 0.0,
+      "critic.0.bias": 0.0,
+      "critic.2.weight": 0.0,
+      "critic.2.bias": 0.0,
+      "critic.4.weight": 0.0,
+      "critic.4.bias": 0.0,
+      "Independent initial actor loss": 0.0,
+      "Independent final actor loss": 0.0,
+      "Unchanged critic descriptive loss": 4.171261602792242e-07,
+      "No critic optimizer step": 0.0,
+      "geometry-only nine-feature input": 0.0,
+      "independent actor output": 9.5367431640625e-07,
+      "independent residual": 6.254688702106437e-07,
+      "exact recorded tanh transform": 0.0,
+      "exact recorded command transform": 0.0,
+      "normalized actor request": 6.254688702141131e-07
+    }
+  },
+  "evidence_sha256": {
+    "contract.json": "a2907582a2db50266eaf064cd728501ceaa249754201573796a500ff1ce5eba2",
+    "rows.jsonl": "3fba67b7cbb1a1a8769ef773bab3245233e6704641e2f98a037076a11112985b",
+    "splits.json": "8b6ccc759d0fd9e547c279adffac5000f2d80c2eca1b635938ec12dd79286d3c",
+    "search-plan.json": "55d302eafedc944d2a5b1666df8072d0ec2a4dfb035f63a0a2c88a7f823dedc8",
+    "repeat-plan.json": "6ce6d87b594cd060ffdd16dd8f11f853865786095d000bd3e85617277f37f730",
+    "bootstrap/teachers.json": "308ebb1d7a4a2a0be9718be8906e31d06a404d138390fede5c7bcbc59cf6f075",
+    "bootstrap/recovery-teachers.json": "4cfe7ffd956631a61aec0c0448566cab63c7839ffcf9dc656967756dff2e3a2a",
+    "fit.json": "4c44768659437477fda59a641e07f003c8984bff1a5c48cfb154d3df133b4b9e",
+    "test-plan.json": "362b2df63802d000474014e0c1d90f5ec454495f8bf57e094c0bbb899ce6d5bc"
+  },
+  "limits": [
+    "FormerTEST failures deliberately reused as development; no recovery claim is held-out generalization.",
+    "Fresh70 positions are disjoint from inventoried prior evidence by at least5mm; no guarantee of all-table coverage or undisclosed-history novelty.",
+    "One frozen prediction and nominal attempt per method per TEST layout. No outcome-based test search; setup refusals remain in all70 denominators.",
+    "The recovery actor sees additional development demonstrations; comparisons are not equal-data training experiments.",
+    "Fixed64 held-endpoint privileged-geometry simulation with common19-pose bank. No perception, noise,128-step convergence, learned grasp/transit or hardware validation.",
+    "Two fresh nominal confirmations per new teacher establish only2/2 observed capture, not general reliability. No policy was automatically promoted."
+  ],
+  "invalid_physics_gain_qualification": "Recovery did not capture at either affected bucket position. None of its gained captures versus any comparator overlaps a reference invalid-physics attempt. All70 denominators and original scoring remain unchanged."
+}
