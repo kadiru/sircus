@@ -15,6 +15,14 @@ from isaaclab.app import AppLauncher
 p = argparse.ArgumentParser()
 p.add_argument("--assets", default="/workspace/assets")
 p.add_argument("--output", type=Path, required=True)
+p.add_argument(
+    "--dark-replay",
+    type=Path,
+    help="Replay recorded training actions on the compact film stage",
+)
+p.add_argument(
+    "--resume-filming", type=Path, help="Resume a completed prefix at a camera cut"
+)
 AppLauncher.add_app_launcher_args(p)
 args = p.parse_args()
 if not args.enable_cameras:
@@ -53,10 +61,12 @@ from scipy.spatial.transform import Rotation
 
 
 class RectangularScene(InteractiveScene):
+    grid_origins = staticmethod(origins)
+
     def clone_environments(self, copy_from_source=False):
         # Isaac Lab ordinarily uses a square GridCloner. Supply the actual ordered
         # transforms to Isaac's underlying cloner before Physics replicates the assets.
-        positions = origins()
+        positions = self.grid_origins()
         if len(positions) != self.num_envs:
             raise ValueError("Each of the 35 grid sites needs its own clone")
         Cloner.clone(
@@ -174,6 +184,9 @@ class FilmShots(FeasibilityShots):
         if frame >= length or self.steps - self.first_step != frame * stride:
             return
         eye, target = camera_pose(self.index, frame, self.spec["cells"], self.focus)
+        self.write_rgb(eye, target, stride)
+
+    def write_rgb(self, eye, target, elapsed_steps):
         device = self.sim.device
         self.camera.set_world_poses_from_view(
             torch.as_tensor(eye[None], dtype=torch.float32, device=device),
@@ -182,7 +195,7 @@ class FilmShots(FeasibilityShots):
         # Render at a fixed physics step. Flush RTX's previous camera/physics frame.
         for _ in range(3):
             self.sim.render()
-        self.camera.update(stride * self.dt, force_recompute=True)
+        self.camera.update(elapsed_steps * self.dt, force_recompute=True)
         data = self.camera.data
         pos = data.pos_w[0].cpu().numpy()
         q = data.quat_w_ros[0].cpu().numpy()
@@ -232,7 +245,9 @@ def main():
     cfg = json.loads(Path(__file__).with_name("scene.json").read_text())
     poses = json.loads((Path(args.assets) / "poses.json").read_text())
     spec = specification(cfg, len(SHOTS))
-    atomic(dest / "contract.json", spec)
+    atomic(
+        dest / ("source-contract.json" if args.dark_replay else "contract.json"), spec
+    )
     sim = sim_utils.SimulationContext(
         sim_utils.SimulationCfg(
             dt=cfg["simulation"]["physics_dt_s"],
@@ -251,7 +266,24 @@ def main():
         spec["num_envs"],
         robot_body_filters(args.assets),
     )
-    scene = RectangularScene(scfg)
+    layout = origins
+    scene_type = RectangularScene
+    shots_type = FilmShots
+    if args.dark_replay:
+        import dark_stage
+        from dark_replay import ReplayShots, run_replay
+
+        dark_stage.configure_stage(scfg, cfg)
+        layout = dark_stage.origins
+
+        class CompactScene(RectangularScene):
+            grid_origins = staticmethod(dark_stage.origins)
+
+        class CompactShots(ReplayShots, FilmShots):
+            pass
+
+        scene_type, shots_type = CompactScene, CompactShots
+    scene = scene_type(scfg)
     camera = Camera(
         CameraCfg(
             prim_path="/World/CinemaCamera",
@@ -269,16 +301,21 @@ def main():
         )
     )
     sim.reset()
-    env = FilmShots(
+    env = shots_type(
         sim, scene, camera, None, cfg, poses, args, copy.deepcopy(spec), filters, dest
     )
-    if not np.array_equal(env.origins, origins()):
+    if not np.array_equal(env.origins, layout()):
         raise ValueError("Isaac workcell origins disagree with the 5 by 7 layout")
+    if args.dark_replay:
+        env.foreign_probe_index = 7
     env.exposed_rim_probes()
     # Place the tabletop probe in the gap between four neighboring grid sites.
     env.probe_positions["table"] = [1.313, -0.625, 0.25]
     probes = env.probes()
     atomic(dest / "probes.json", probes)
+    if args.dark_replay:
+        run_replay(env, args.dark_replay, spec)
+        return
     menus = env.qualify_menu(spec["cells"])
     menu_hash = hashlib.sha256((dest / "menu.json").read_bytes()).hexdigest()
     policy = Policy(LOW, HIGH, WARM, LOGSTD).to(sim.device)

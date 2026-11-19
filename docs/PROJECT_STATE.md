@@ -1,5 +1,11 @@
 # Project state
 
+## Compact dark-floor Isaac recording — November 2, 2026
+
+- The [new film](../sircus/isaac/DARK_FARM_FILM.md) shows 35 tables and 70 arms at 2.50 × 2.10 m spacing, with a continuous black floor and 9 mm charcoal seams. Seven close-ups show seven measured board bounces, two qualified captures and three real floor arrivals. Four consecutive attempts at one front-row table use different configurations and include measured joint movement.
+- [Verified replay evidence](../baselines/isaac-dark-farm-20261102/README.md) records 350 previously sampled PPO actions, 162 releases and 28 captures. This camera-directed replay includes repeated source batches. It uses scripted arm transitions, initialization of the ball at release, and the original contact/capture scoring; the historical training results remain identified separately.
+- The one-minute 1080p video, 19-second impact edit, normal station edit and 10× station edit passed decode and checksum checks. Recording resumed at a camera cut from saved joint poses after one neighboring station's transition failed; the reused RGB and shot records were verified byte-for-byte. Local tests passed, including 128 Isaac checks with one Torch-dependent skip on Mac. Videos and raw logs remain outside Git.
+
 ## Completed workspace feasibility map — November 1, 2026
 
 - [Verified settings and evidence](../baselines/isaac-feasibility-map-20261101/README.md): actual articulated Isaac Lab/PhysX search at 32 tabletop targets, with 17 board/release XY candidates and height/gap/tilt variation. Completed 6,212 attempts (3,043 releases; 3,169 endpoint/clearance rejects) in 25.96 minutes on RTX 4090. No new RL policy.
