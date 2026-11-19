@@ -1,0 +1,27 @@
+<!-- Additive saved evidence; no shot or policy controls. -->
+<!--CLEARANCE_DIAGNOSIS_STYLE-->
+<section id="clearanceDiagnosis" class="clearance-diagnosis-panel" hidden>
+  <p class="clearance-diagnosis-eyebrow">PREDICTED CLEARANCE · RECORDED CONTACT · ONE CORRECTION</p>
+  <h2>Why did clearance reject good shots?</h2>
+  <p data-clearance-diagnosis="connection" class="clearance-diagnosis-small" role="status">Waiting for a saved snapshot.</p>
+  <p data-clearance-diagnosis="status" class="clearance-diagnosis-note" role="status"></p>
+  <p class="clearance-diagnosis-small">These previously evaluated layouts are now development cases. A predicted clearance bound is not a measured ball-to-finger distance; a missing native observation stays unknown.</p>
+  <h3>Finger-clearance diagnosis</h3>
+  <p data-clearance-diagnosis="finger-summary" class="clearance-diagnosis-small"></p>
+  <div data-clearance-diagnosis="fingers" class="clearance-diagnosis-scroll" tabindex="0" role="region" aria-label="Predicted finger clearance and native outcomes"></div>
+  <h3>When does the check stop?</h3>
+  <p data-clearance-diagnosis="horizon-summary" class="clearance-diagnosis-small"></p>
+  <div data-clearance-diagnosis="horizons" class="clearance-diagnosis-scroll" tabindex="0" role="region" aria-label="Predicted flight horizon and recorded contact timing"></div>
+  <p class="clearance-diagnosis-small">Times below are relative to rebound. Predicted and observed rebound are distinct origins. Ballistic predictions stop being a model of the free flight after another contact.</p>
+  <h3>One targeted correction</h3>
+  <p data-clearance-diagnosis="correction-description" class="clearance-diagnosis-small"></p>
+  <p data-clearance-diagnosis="correction-status" class="clearance-diagnosis-note" role="status"></p>
+  <p data-clearance-diagnosis="progress" class="clearance-diagnosis-small"></p>
+  <div data-clearance-diagnosis="comparison" class="clearance-diagnosis-scroll" tabindex="0" role="region" aria-label="Verified targeted correction comparison"></div>
+  <p data-clearance-diagnosis="paired" class="clearance-diagnosis-small"></p>
+  <details><summary>Exact trial settings and outcomes</summary><div data-clearance-diagnosis="trials" class="clearance-diagnosis-scroll" tabindex="0" role="region" aria-label="Every requested trial including rejected shots"></div></details>
+  <p data-clearance-diagnosis="recommendation" class="clearance-diagnosis-note"></p>
+  <details><summary>Evidence and limits</summary><p data-clearance-diagnosis="audit" class="clearance-diagnosis-small"></p><p data-clearance-diagnosis="scope" class="clearance-diagnosis-small"></p></details>
+  <p class="clearance-diagnosis-small">Simulation only, fixed 64 substeps, held arm endpoints. No new model training, policy activation, driven-arm transit, noise or physical validation. The existing selector and earlier results remain unchanged.</p>
+</section>
+<!--CLEARANCE_DIAGNOSIS_SCRIPT-->
