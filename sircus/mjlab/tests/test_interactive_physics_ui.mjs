@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { InteractivePhysics, hasNativePreview, physicsViewerResult, physicsProgress, savedPhysicsRecordings } from '../web/interactive-physics.mjs';
+import { InteractivePhysics, hasNativePreview, physicsViewerResult, physicsProgress, savedPhysicsRecordings, clearanceExpansionSummary } from '../web/interactive-physics.mjs';
 const xy = [.6, -.4];
 const preview = () => ({ status: 'feasible', bucket_xy_m: xy, configuration: { board_center_m: [.6, 0, .4], board_normal: [0, 0, 1], board_quaternion_wxyz: [1, 0, 0, 0], release_center_m: [.6, 0, .7], q10: [0, 1], q14: [1, 0], link_positions10: [[0, 0, 0], [.6, 0, .7]], link_positions14: [[1.3, 0, 0], [.6, 0, .4]] }, prediction: { predicted_route: 'table' }, provenance: { native_cache_sha256: 'original' } });
 const response = (data, status = 200) => ({ ok: status >= 200 && status < 300, status, json: async () => data });
@@ -174,5 +174,52 @@ test('saved replay blocks busy runs, clears the live plan, uses recorded poses a
   assert.match(body, /setBucket\(row.result.bucket_xy_m.slice\(\)\)/);
   assert.match(body, /applyResult\(physicsViewerResult\(row.result, row.id\)/);
   assert.match(body, /\$\('speed'\).value = '0.25'/);
+  assert.doesNotMatch(body, /fetch\(|\.plan\(|\.drop\(|POST|requestSolve/);
+});
+
+function clearanceReport() {
+  return { clearance_expansion_study: { status: 'completed', phase: 'completed', total_positions: 50,
+    prepared_positions: 50, completed_releases: 96, planned_releases: 96, audit_status: 'passed',
+    comparison: {
+      methods: {
+        current_planner: { positions: 50, admitted: 47, released: 47, captures: 37, unresolved: 3, flight_misses: 10, robot_contacts: 6 },
+        clearance_expansion: { positions: 50, admitted: 49, released: 49, captures: 41, unresolved: 1, flight_misses: 8, robot_contacts: 4 },
+      },
+      paired: { gained: 6, lost: 2, both: 35, neither: 7, changed_positions: 11 },
+      latency: { current_planner: { median_s: 18, max_s: 29 }, clearance_expansion: { median_s: 22, max_s: 91 } },
+    } } };
+}
+test('clearance comparison retains all requested positions in capture denominator and preserves route-independent counts', () => {
+  const view = clearanceExpansionSummary(clearanceReport());
+  assert.equal(view.total, 50); assert.equal(view.complete, true); assert.equal(view.audit, 'passed');
+  assert.equal(view.methods[0].captures, 37); assert.equal(view.methods[1].unresolved, 1);
+  assert.equal(view.methods[0].positions, 50); assert.equal(view.methods[0].released, 47);
+  assert.equal(view.methods[1].median_s, 22); assert.equal(view.paired.gained, 6); assert.equal(view.paired.lost, 2);
+});
+test('clearance progress never turns missing counts or incomplete runs into zero results or completion', () => {
+  assert.equal(clearanceExpansionSummary({}), null);
+  const missing = clearanceExpansionSummary({ clearance_expansion_study: { status: 'running', prepared_positions: 4, total_positions: 50 } });
+  assert.equal(missing.complete, false); assert.equal(missing.prepared, 4); assert.equal(missing.completed, null);
+  assert.equal(missing.methods[0].captures, null); assert.equal(missing.paired, null);
+  const pending = clearanceReport(); pending.clearance_expansion_study.status = 'running';
+  assert.equal(clearanceExpansionSummary(pending).complete, false);
+});
+test('clearance result rejects impossible totals and inconsistent paired outcomes', () => {
+  for (const invalid of [null, -1, NaN, Infinity, 51, '41']) {
+    const report = clearanceReport(); report.clearance_expansion_study.comparison.methods.clearance_expansion.captures = invalid;
+    assert.equal(clearanceExpansionSummary(report).complete, false);
+  }
+  const badUnresolved = clearanceReport(); badUnresolved.clearance_expansion_study.comparison.methods.current_planner.unresolved = 0;
+  assert.equal(clearanceExpansionSummary(badUnresolved).complete, false);
+  const badPair = clearanceReport(); badPair.clearance_expansion_study.comparison.paired.both = 36;
+  assert.equal(clearanceExpansionSummary(badPair).paired, null);
+});
+test('clearance display stays outside historical panels and only reads saved study measurements', () => {
+  const html = readFileSync(new URL('../web/index.html', import.meta.url), 'utf8');
+  const js = readFileSync(new URL('../web/app.js', import.meta.url), 'utf8');
+  assert.ok(html.indexOf('id="clearanceExpansionStudy"') < html.indexOf('id="historicalStudies"'));
+  const body = js.split('function showClearanceExpansion() {')[1].split('function replaySavedPhysics')[0];
+  assert.match(body, /clearanceExpansionSummary\(report\)/);
+  assert.match(body, /view\.complete/);
   assert.doesNotMatch(body, /fetch\(|\.plan\(|\.drop\(|POST|requestSolve/);
 });

@@ -1,5 +1,12 @@
 # Project state
 
+## Wider search for poor flight clearance — November 16, 2026
+
+- On 50 fresh bucket positions at 64 substeps, conditional wider search captured **42/50**, versus **40/50** for the frozen current planner: two gained captures, none lost. Both found feasible setups at every position.
+- Thirteen positions triggered more search; twelve commands changed, including nine alternate board-arm branches. Robot-contact shots fell from seven to six. One identical invalid-physics result remains counted as failure in each denominator.
+- All 100 test drops, 18 controls and the 40,635-check independent audit completed. Median CPU planning time increased from 33.7 to 39.5 seconds; the wider search's maximum was 383.0 seconds.
+- [Results and reproduction](../baselines/mjlab-clearance-expansion-20261116/README.md) are published in the mjlab UI at `#clearanceExpansionStudy`. No retraining, live-planner promotion, service restart, 4070 workload or Isaac change.
+
 ## Fixed-center tilt and release height — November 15, 2026
 
 - At **(1028.9, −19.0) mm**, the board arm's reach ruled out 25°, 28°,

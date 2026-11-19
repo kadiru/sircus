@@ -47,6 +47,41 @@ export function savedPhysicsRecordings(study) {
       && marker.time >= row.result.trajectory[0].time && marker.time <= row.result.trajectory.at(-1).time),
   }));
 }
+/** Display only reported measurements; incomplete or inconsistent totals stay pending. */
+export function clearanceExpansionSummary(study) {
+  const section = study?.clearance_expansion_study;
+  if (!section || typeof section !== 'object' || Array.isArray(section)) return null;
+  const count = value => Number.isInteger(value) && value >= 0 ? value : null;
+  const seconds = value => Number.isFinite(value) && value >= 0 ? value : null;
+  const total = count(section.total_positions);
+  const labels = { current_planner: 'Current planner', clearance_expansion: 'Wider clearance search' };
+  const methods = Object.entries(labels).map(([id, label]) => {
+    const raw = section.comparison?.methods?.[id] || {};
+    const values = Object.fromEntries(['positions', 'admitted', 'released', 'captures', 'unresolved', 'flight_misses', 'robot_contacts'].map(key => [key, count(raw[key])]));
+    const complete = total > 0 && Object.values(values).every(value => value !== null)
+      && values.positions === total && values.captures <= values.released && values.released <= values.admitted
+      && values.admitted <= total && values.unresolved === total - values.admitted
+      && values.flight_misses <= values.released - values.captures && values.robot_contacts <= values.released;
+    const timing = section.comparison?.latency?.[id] || {};
+    return { id, label, ...values, complete, median_s: seconds(timing.median_s), max_s: seconds(timing.max_s) };
+  });
+  const rawPair = section.comparison?.paired || {};
+  const paired = Object.fromEntries(['gained', 'lost', 'both', 'neither', 'changed_positions'].map(key => [key, count(rawPair[key])]));
+  const pairComplete = ['gained', 'lost', 'both', 'neither'].every(key => paired[key] !== null)
+    && paired.gained + paired.lost + paired.both + paired.neither === total
+    && paired.both + paired.lost === methods[0].captures && paired.both + paired.gained === methods[1].captures;
+  const status = typeof section.status === 'string' ? section.status : 'unknown';
+  return {
+    status, phase: typeof section.phase === 'string' ? section.phase : '', total,
+    prepared: count(section.prepared_positions), completed: count(section.completed_releases), planned: count(section.planned_releases),
+    methods, paired: pairComplete ? paired : null,
+    complete: status === 'completed' && methods.every(row => row.complete),
+    audit: typeof section.audit_status === 'string' ? section.audit_status : null,
+    scope: typeof section.scope === 'string' ? section.scope : '',
+    next: typeof section.next === 'string' ? section.next : '',
+    source: typeof section.source === 'string' ? section.source : '',
+  };
+}
 export class InteractivePhysics {
   constructor({
     fetcher = (...args) => globalThis.fetch(...args),

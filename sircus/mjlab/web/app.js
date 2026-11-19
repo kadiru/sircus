@@ -68,7 +68,7 @@ bucket.castShadow = bucket.receiveShadow = true; bucketGroup.add(bucket);
 const bucketBase = new THREE.Mesh(new THREE.CylinderGeometry(.079, .079, .008, 64), material(0xd39a3e));
 bucketBase.rotation.x = Math.PI / 2; bucketBase.position.z = .004; bucketGroup.add(bucketBase);
 let sceneSpec = {}, report = {}, pending = false, activeRequest = null, currentTrajectory = [], playTime = 0, playing = false, pathLine;
-let physics = null, physicsViewerResult, physicsProgress, savedPhysicsRecordings, physicsSceneActive = false, physicsViewKey = '';
+let physics = null, physicsViewerResult, physicsProgress, savedPhysicsRecordings, clearanceExpansionSummary, physicsSceneActive = false, physicsViewKey = '';
 let savedReplayRows = [], savedReplaySignature = '';
 const physicsSelected = () => $('mode').value === 'physics' && physics?.available === true;
 let methodChosen = false, farmSignature = '', gridStudySignature = '', benchmarkSignature = '';
@@ -1029,6 +1029,7 @@ async function loadStatus() {
     $('fingerprint').textContent = `Scene fingerprint: ${r.scene_fingerprint ?? r.contract_fingerprint ?? r.fingerprint ?? s.fingerprint ?? 'not reported'}`;
     if (ready && !physicsSelected() && $('resultTitle').textContent === 'Waiting for the learning study') { $('resultTitle').textContent = 'Ready to test a bucket position'; $('resultText').textContent = 'Choose a bucket position and optional arm locks, then solve.'; }
     showSavedPhysicsReplays();
+    showClearanceExpansion();
     showPlannerFarm();
     showPlannerGridStudy();
     showSweepRlBenchmark();
@@ -1050,6 +1051,46 @@ function showSavedPhysicsReplays() {
       ? report.interactive_recordings.title : 'Saved first-drop replays';
   }
   syncSolveButtons();
+}
+function showClearanceExpansion() {
+  if (!clearanceExpansionSummary) return;
+  const view = clearanceExpansionSummary(report);
+  $('clearanceExpansionStudy').hidden = !view;
+  if (!view) return;
+  const phases = { preparing: 'Checking candidate poses and paths', waiting_for_4090: 'Waiting for the shared 4090',
+    controls_pre: 'Checking simulator controls', choices_frozen: 'Both planners frozen for testing',
+    test: 'Testing one drop per planner', controls_post: 'Checking final simulator controls',
+    auditing: 'Verifying saved measurements', completed: 'Checking final measurements' };
+  const state = view.status === 'failed' ? 'Comparison interrupted; final results pending'
+    : view.complete ? 'Comparison complete'
+    : phases[view.phase] || 'Comparison in progress; final results pending';
+  $('clearanceExpansionStatus').textContent = state + (view.audit === 'passed' ? ' · independent audit passed' : '');
+  const number = value => value === null ? '—' : String(value);
+  $('clearanceExpansionProgress').textContent = `Prepared positions ${number(view.prepared)} / ${number(view.total)} · Completed releases ${number(view.completed)} / ${number(view.planned)}`;
+  $('clearanceExpansionTable').replaceChildren();
+  if (view.complete) {
+    const table = document.createElement('table'), head = document.createElement('thead'), header = document.createElement('tr'), body = document.createElement('tbody');
+    for (const label of ['Planner', 'First-drop captures', 'Feasible setups', 'Unresolved', 'Released misses', 'Robot contacts']) {
+      const th = document.createElement('th'); th.scope = 'col'; th.textContent = label; header.append(th);
+    }
+    head.append(header);
+    for (const row of view.methods) {
+      const tr = document.createElement('tr');
+      const values = [row.label, `${row.captures} / ${view.total} (${(100 * row.captures / view.total).toFixed(0)}%)`,
+        `${row.admitted} / ${view.total}`, row.unresolved, row.flight_misses, row.robot_contacts];
+      for (const value of values) { const td = document.createElement('td'); td.textContent = String(value); tr.append(td); }
+      body.append(tr);
+    }
+    table.append(head, body); $('clearanceExpansionTable').append(table);
+  }
+  $('clearanceExpansionPaired').textContent = view.complete && view.paired
+    ? `On the same positions, wider search gained ${view.paired.gained} captures and lost ${view.paired.lost}. Both captured at ${view.paired.both}; neither captured at ${view.paired.neither}.`
+    : 'Paired capture results remain pending.';
+  const timed = view.methods.filter(row => row.median_s !== null);
+  $('clearanceExpansionTiming').textContent = timed.length
+    ? 'CPU planning time, median · ' + timed.map(row => `${row.label} ${row.median_s.toFixed(1)} s`).join(' · ') : '';
+  $('clearanceExpansionScope').textContent = view.scope;
+  $('clearanceExpansionNext').textContent = view.next;
 }
 function replaySavedPhysics(row) {
   if (pending || physics?.busy || !row || !physicsViewerResult) return;
@@ -1114,9 +1155,11 @@ async function initializePhysics() {
     const module = await import('/interactive-physics.mjs');
     physicsViewerResult = module.physicsViewerResult; physicsProgress = module.physicsProgress;
     savedPhysicsRecordings = module.savedPhysicsRecordings;
+    clearanceExpansionSummary = module.clearanceExpansionSummary;
     physics = new module.InteractivePhysics({ onChange: updatePhysics });
     await physics.initialize();
     showSavedPhysicsReplays();
+    showClearanceExpansion();
   } catch { /* Historical viewing stays available without this optional API. */ }
 }
 for (const id of ['physicsDrop', 'physicsDropTop']) {

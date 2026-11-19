@@ -1,0 +1,764 @@
+{
+  "version": "sircus-clearance-expansion-published-summary-v1",
+  "evidence_date": "2026-11-17",
+  "status": "completed",
+  "physics_substeps": 64,
+  "seed": 2026112801,
+  "positions": 50,
+  "releases": 100,
+  "controls": {
+    "controls_pre": {
+      "status": "passed",
+      "counts": {
+        "attempts": 9,
+        "captures": 6,
+        "native_releases": 9,
+        "invalid": 0,
+        "clean": 3,
+        "mean_reward": 2.8301988056052676,
+        "direct_captures": 3,
+        "table_assisted_captures": 3,
+        "setup_rejections": 0,
+        "native_misses": 3,
+        "forbidden_contact_shots": 3,
+        "invalid_physics": 0
+      },
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    },
+    "controls_post": {
+      "status": "passed",
+      "counts": {
+        "attempts": 9,
+        "captures": 6,
+        "native_releases": 9,
+        "invalid": 0,
+        "clean": 3,
+        "mean_reward": 2.830224355402141,
+        "direct_captures": 3,
+        "table_assisted_captures": 3,
+        "setup_rejections": 0,
+        "native_misses": 3,
+        "forbidden_contact_shots": 3,
+        "invalid_physics": 0
+      },
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    }
+  },
+  "gpu_lease_s": 269.5797740430571,
+  "comparison": {
+    "methods": {
+      "current_planner": {
+        "attempts": 50,
+        "releases": 50,
+        "setup_rate": 1,
+        "captures": 40,
+        "capture_rate": 0.8,
+        "outcomes": {
+          "table": 10,
+          "direct": 30,
+          "flight_miss": 9,
+          "invalid_physics": 1
+        },
+        "selected_routes": {
+          "direct": 34,
+          "table": 16
+        },
+        "requested_route_captures": 40,
+        "positions": 50,
+        "admitted": 50,
+        "released": 50,
+        "unresolved": 0,
+        "flight_misses": 9,
+        "robot_contacts": 7,
+        "selected_stages": {
+          "base": 49,
+          "fallback": 1,
+          "expansion": 0,
+          "branches": 0,
+          "unresolved": 0
+        }
+      },
+      "clearance_expansion": {
+        "attempts": 50,
+        "releases": 50,
+        "setup_rate": 1,
+        "captures": 42,
+        "capture_rate": 0.84,
+        "outcomes": {
+          "table": 11,
+          "direct": 31,
+          "flight_miss": 7,
+          "invalid_physics": 1
+        },
+        "selected_routes": {
+          "direct": 35,
+          "table": 15
+        },
+        "requested_route_captures": 42,
+        "positions": 50,
+        "admitted": 50,
+        "released": 50,
+        "unresolved": 0,
+        "flight_misses": 7,
+        "robot_contacts": 6,
+        "selected_stages": {
+          "base": 37,
+          "fallback": 1,
+          "expansion": 3,
+          "branches": 9,
+          "unresolved": 0
+        }
+      }
+    },
+    "paired": {
+      "setup": {
+        "both": 50,
+        "current_only": 0,
+        "expanded_only": 0,
+        "neither": 0
+      },
+      "capture": {
+        "both": 40,
+        "current_only": 0,
+        "expanded_only": 2,
+        "neither": 8
+      },
+      "gained": 2,
+      "lost": 0,
+      "both": 40,
+      "neither": 8,
+      "changed_positions": 12
+    },
+    "same_command": {
+      "positions": 38,
+      "capture_disagreements": 0,
+      "outcome_disagreements": 0
+    },
+    "triggered": {
+      "positions": 13,
+      "current_captures": 5,
+      "expanded_captures": 7,
+      "changed_commands": 12
+    },
+    "robot_contact_releases": {
+      "current_planner": 7,
+      "clearance_expansion": 6
+    },
+    "positions": [
+      {
+        "id": "clearance-expansion-test-00",
+        "bucket_xy_m": [
+          0.20315496388343768,
+          -0.5860331168226576
+        ],
+        "expanded": false,
+        "current_outcome": "table",
+        "expanded_outcome": "table",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-01",
+        "bucket_xy_m": [
+          0.2197188073425101,
+          -0.6162461949250222
+        ],
+        "expanded": false,
+        "current_outcome": "table",
+        "expanded_outcome": "table",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-02",
+        "bucket_xy_m": [
+          0.42474121624253114,
+          -0.5634935688981966
+        ],
+        "expanded": false,
+        "current_outcome": "direct",
+        "expanded_outcome": "direct",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-03",
+        "bucket_xy_m": [
+          0.32215663186689725,
+          -0.6025372810273145
+        ],
+        "expanded": false,
+        "current_outcome": "direct",
+        "expanded_outcome": "direct",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-04",
+        "bucket_xy_m": [
+          0.5331473039345105,
+          -0.5362679479812167
+        ],
+        "expanded": false,
+        "current_outcome": "direct",
+        "expanded_outcome": "direct",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-05",
+        "bucket_xy_m": [
+          0.5514846830337634,
+          -0.5941213229918929
+        ],
+        "expanded": false,
+        "current_outcome": "table",
+        "expanded_outcome": "table",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-06",
+        "bucket_xy_m": [
+          0.7350223600581135,
+          -0.5054973758756258
+        ],
+        "expanded": false,
+        "current_outcome": "table",
+        "expanded_outcome": "table",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-07",
+        "bucket_xy_m": [
+          0.7141077512971294,
+          -0.619213127878307
+        ],
+        "expanded": false,
+        "current_outcome": "table",
+        "expanded_outcome": "table",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-08",
+        "bucket_xy_m": [
+          0.9183158684725404,
+          -0.559789414234577
+        ],
+        "expanded": true,
+        "current_outcome": "table",
+        "expanded_outcome": "table",
+        "same_command": false
+      },
+      {
+        "id": "clearance-expansion-test-09",
+        "bucket_xy_m": [
+          0.9509625889578196,
+          -0.5916585028872228
+        ],
+        "expanded": true,
+        "current_outcome": "flight_miss",
+        "expanded_outcome": "table",
+        "same_command": false
+      },
+      {
+        "id": "clearance-expansion-test-10",
+        "bucket_xy_m": [
+          1.1652641529157026,
+          -0.49439679751252863
+        ],
+        "expanded": true,
+        "current_outcome": "table",
+        "expanded_outcome": "table",
+        "same_command": false
+      },
+      {
+        "id": "clearance-expansion-test-11",
+        "bucket_xy_m": [
+          1.089275234687519,
+          -0.5940579768776293
+        ],
+        "expanded": true,
+        "current_outcome": "table",
+        "expanded_outcome": "table",
+        "same_command": false
+      },
+      {
+        "id": "clearance-expansion-test-12",
+        "bucket_xy_m": [
+          0.2131399406715097,
+          -0.3467336825654114
+        ],
+        "expanded": false,
+        "current_outcome": "direct",
+        "expanded_outcome": "direct",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-13",
+        "bucket_xy_m": [
+          0.11752472792263681,
+          -0.25128416650256474
+        ],
+        "expanded": false,
+        "current_outcome": "direct",
+        "expanded_outcome": "direct",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-14",
+        "bucket_xy_m": [
+          0.4181915073774781,
+          -0.2623324152087787
+        ],
+        "expanded": false,
+        "current_outcome": "direct",
+        "expanded_outcome": "direct",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-15",
+        "bucket_xy_m": [
+          0.4555783317740705,
+          -0.3878922532018982
+        ],
+        "expanded": false,
+        "current_outcome": "direct",
+        "expanded_outcome": "direct",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-16",
+        "bucket_xy_m": [
+          0.5999982894621018,
+          -0.2795428450805836
+        ],
+        "expanded": false,
+        "current_outcome": "direct",
+        "expanded_outcome": "direct",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-17",
+        "bucket_xy_m": [
+          0.6344189982103503,
+          -0.3111622782974479
+        ],
+        "expanded": false,
+        "current_outcome": "direct",
+        "expanded_outcome": "direct",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-18",
+        "bucket_xy_m": [
+          0.7185052157298116,
+          -0.29977330595621143
+        ],
+        "expanded": false,
+        "current_outcome": "flight_miss",
+        "expanded_outcome": "flight_miss",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-19",
+        "bucket_xy_m": [
+          0.7341920759260582,
+          -0.24528184551578786
+        ],
+        "expanded": false,
+        "current_outcome": "invalid_physics",
+        "expanded_outcome": "invalid_physics",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-20",
+        "bucket_xy_m": [
+          0.956798720151758,
+          -0.2853014134972916
+        ],
+        "expanded": false,
+        "current_outcome": "direct",
+        "expanded_outcome": "direct",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-21",
+        "bucket_xy_m": [
+          1.0152964984494002,
+          -0.23593204490516206
+        ],
+        "expanded": false,
+        "current_outcome": "direct",
+        "expanded_outcome": "direct",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-22",
+        "bucket_xy_m": [
+          1.1367709532230734,
+          -0.3380998917533107
+        ],
+        "expanded": false,
+        "current_outcome": "table",
+        "expanded_outcome": "table",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-23",
+        "bucket_xy_m": [
+          1.2137757343246818,
+          -0.3452875511087025
+        ],
+        "expanded": true,
+        "current_outcome": "table",
+        "expanded_outcome": "table",
+        "same_command": false
+      },
+      {
+        "id": "clearance-expansion-test-24",
+        "bucket_xy_m": [
+          0.22287620185677154,
+          -0.055986619984077474
+        ],
+        "expanded": false,
+        "current_outcome": "direct",
+        "expanded_outcome": "direct",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-25",
+        "bucket_xy_m": [
+          0.1541651761899498,
+          -0.19340559058640316
+        ],
+        "expanded": false,
+        "current_outcome": "direct",
+        "expanded_outcome": "direct",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-26",
+        "bucket_xy_m": [
+          0.3721508279678003,
+          -0.08654800386940854
+        ],
+        "expanded": false,
+        "current_outcome": "direct",
+        "expanded_outcome": "direct",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-27",
+        "bucket_xy_m": [
+          0.3609211574119472,
+          -0.013638517004496059
+        ],
+        "expanded": false,
+        "current_outcome": "direct",
+        "expanded_outcome": "direct",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-28",
+        "bucket_xy_m": [
+          0.5605332991483283,
+          -0.05670649150226627
+        ],
+        "expanded": false,
+        "current_outcome": "direct",
+        "expanded_outcome": "direct",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-29",
+        "bucket_xy_m": [
+          0.5706304456461653,
+          0.0022627135689526068
+        ],
+        "expanded": false,
+        "current_outcome": "direct",
+        "expanded_outcome": "direct",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-30",
+        "bucket_xy_m": [
+          0.7611831397042992,
+          -0.14007815043691868
+        ],
+        "expanded": false,
+        "current_outcome": "direct",
+        "expanded_outcome": "direct",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-31",
+        "bucket_xy_m": [
+          0.7298348663585221,
+          -0.1636745662377307
+        ],
+        "expanded": false,
+        "current_outcome": "direct",
+        "expanded_outcome": "direct",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-32",
+        "bucket_xy_m": [
+          0.9914875281469228,
+          -0.13335379466885622
+        ],
+        "expanded": true,
+        "current_outcome": "flight_miss",
+        "expanded_outcome": "direct",
+        "same_command": false
+      },
+      {
+        "id": "clearance-expansion-test-33",
+        "bucket_xy_m": [
+          0.8774090231623377,
+          -0.15788941854537636
+        ],
+        "expanded": false,
+        "current_outcome": "direct",
+        "expanded_outcome": "direct",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-34",
+        "bucket_xy_m": [
+          1.1021526051782398,
+          -0.06741830776337741
+        ],
+        "expanded": true,
+        "current_outcome": "flight_miss",
+        "expanded_outcome": "flight_miss",
+        "same_command": false
+      },
+      {
+        "id": "clearance-expansion-test-35",
+        "bucket_xy_m": [
+          1.192156013160577,
+          -0.14167169155061182
+        ],
+        "expanded": true,
+        "current_outcome": "flight_miss",
+        "expanded_outcome": "flight_miss",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-36",
+        "bucket_xy_m": [
+          0.24212019049008776,
+          0.08227286924551579
+        ],
+        "expanded": false,
+        "current_outcome": "direct",
+        "expanded_outcome": "direct",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-37",
+        "bucket_xy_m": [
+          0.1781870419843209,
+          0.22583954325918185
+        ],
+        "expanded": false,
+        "current_outcome": "direct",
+        "expanded_outcome": "direct",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-38",
+        "bucket_xy_m": [
+          0.3633738944602621,
+          0.11766181745458082
+        ],
+        "expanded": false,
+        "current_outcome": "direct",
+        "expanded_outcome": "direct",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-39",
+        "bucket_xy_m": [
+          0.35476458982555165,
+          0.20181930637225193
+        ],
+        "expanded": false,
+        "current_outcome": "direct",
+        "expanded_outcome": "direct",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-40",
+        "bucket_xy_m": [
+          0.5994117481603223,
+          0.09379416718736398
+        ],
+        "expanded": false,
+        "current_outcome": "direct",
+        "expanded_outcome": "direct",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-41",
+        "bucket_xy_m": [
+          0.5592186116069515,
+          0.23421029787404601
+        ],
+        "expanded": false,
+        "current_outcome": "direct",
+        "expanded_outcome": "direct",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-42",
+        "bucket_xy_m": [
+          0.7376493698306364,
+          0.159173284860483
+        ],
+        "expanded": false,
+        "current_outcome": "direct",
+        "expanded_outcome": "direct",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-43",
+        "bucket_xy_m": [
+          0.7943106929907858,
+          0.21488805458867075
+        ],
+        "expanded": false,
+        "current_outcome": "direct",
+        "expanded_outcome": "direct",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-44",
+        "bucket_xy_m": [
+          0.9646152011261636,
+          0.11194214002087735
+        ],
+        "expanded": true,
+        "current_outcome": "flight_miss",
+        "expanded_outcome": "flight_miss",
+        "same_command": false
+      },
+      {
+        "id": "clearance-expansion-test-45",
+        "bucket_xy_m": [
+          0.8839772739220982,
+          0.22101075255074482
+        ],
+        "expanded": true,
+        "current_outcome": "direct",
+        "expanded_outcome": "direct",
+        "same_command": false
+      },
+      {
+        "id": "clearance-expansion-test-46",
+        "bucket_xy_m": [
+          1.1332739713662974,
+          0.17062473156491043
+        ],
+        "expanded": true,
+        "current_outcome": "flight_miss",
+        "expanded_outcome": "flight_miss",
+        "same_command": false
+      },
+      {
+        "id": "clearance-expansion-test-47",
+        "bucket_xy_m": [
+          1.1807374467917875,
+          0.182820301695512
+        ],
+        "expanded": true,
+        "current_outcome": "flight_miss",
+        "expanded_outcome": "flight_miss",
+        "same_command": false
+      },
+      {
+        "id": "clearance-expansion-test-48",
+        "bucket_xy_m": [
+          0.18100920431408352,
+          0.11940719579178516
+        ],
+        "expanded": false,
+        "current_outcome": "direct",
+        "expanded_outcome": "direct",
+        "same_command": true
+      },
+      {
+        "id": "clearance-expansion-test-49",
+        "bucket_xy_m": [
+          1.136542943177946,
+          0.08306041543554599
+        ],
+        "expanded": true,
+        "current_outcome": "flight_miss",
+        "expanded_outcome": "flight_miss",
+        "same_command": false
+      }
+    ],
+    "prepared_candidates": {
+      "base": {
+        "proposals": 305,
+        "admitted": 225
+      },
+      "fallback": {
+        "proposals": 32,
+        "admitted": 3
+      },
+      "expansion": {
+        "proposals": 416,
+        "admitted": 98
+      },
+      "branches": {
+        "proposals": 52,
+        "admitted": 108
+      }
+    },
+    "setup_cpu_worker_wall_time": {
+      "current_planner": {
+        "positions": 50,
+        "median_s": 33.610320772793784,
+        "p90_s": 97.23450936505105,
+        "max_s": 207.44897964323172,
+        "aggregate_s": 2368.2053441352623
+      },
+      "clearance_expansion": {
+        "positions": 50,
+        "median_s": 39.25401967874495,
+        "p90_s": 274.3281579858849,
+        "max_s": 381.74298117118815,
+        "aggregate_s": 4886.546825374462
+      }
+    },
+    "latency": {
+      "current_planner": {
+        "positions": 50,
+        "median_s": 33.745046579046175,
+        "p90_s": 97.28096148197073,
+        "max_s": 207.59793558402453,
+        "aggregate_s": 2372.6926752274157
+      },
+      "clearance_expansion": {
+        "positions": 50,
+        "median_s": 39.469865182531066,
+        "p90_s": 275.1584610459395,
+        "max_s": 382.9858178269351,
+        "aggregate_s": 4904.945414456655
+      }
+    }
+  },
+  "audit": {
+    "status": "passed",
+    "checks_count": 40635,
+    "audit_sha256": "2bf16609f5d3e404235a05431908a5d356509c308b0dbf8fdaa3431e54a14eb1",
+    "report_sha256": "caab4df627a5d03d04f8609a7116c58a9f49dcbec0cf08056af23582b81b577d",
+    "choices_sha256": "54fefc386aacffda9a155226061cd2897b538afb5c7888a3e8e5d6067485ab2e",
+    "plans_sha256": "dddee18f551dc83dc3056100983691836cfe7c61969f309db399d402b0b6d079",
+    "evidence_manifest_sha256": "c793e371be1b594cd3758c41f6109e0f89368bffa77f991b42ebfcd6e085e377"
+  },
+  "scope": "Synthetic endpoint-held evaluation with privileged geometry; frozen candidate model and flight rule. Direct and table-assisted routes count. One identical numerical-invalid result in each method remains in the 50-position denominator."
+}
