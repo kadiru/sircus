@@ -1,0 +1,1008 @@
+{
+  "schema": "sircus-learning-comparison-v1",
+  "timestamp_utc": "2026-11-01T00:50:44.312706+00:00",
+  "source_runs": [
+    "general-rl-20261031T205024Z-n100-seed42",
+    "general-rl-20261031T205020Z-n1000-seed42"
+  ],
+  "contract_fingerprint": "facc14ba4ad8ca543f696452d0ab2e41a245d0b45e97b1ee1b88cc1e8fc7ae7e",
+  "runs": [
+    {
+      "run": "general-rl-20261031T205024Z-n100-seed42",
+      "gpu": "NVIDIA GeForce RTX 4070",
+      "training_layouts": 100,
+      "training_episodes": 4096,
+      "selected_episode": 3072,
+      "elapsed_hours": 2.444557051081388,
+      "checkpoint_sha256": "1a11ee638baf9ce58fc54943925b47796da48081b1257c14ddeba743275e8676",
+      "evaluation": {
+        "validation": {
+          "trials": 128,
+          "unique_layouts": 128,
+          "captures": 83,
+          "success_rate": 0.6484375,
+          "wilson95": [
+            0.5624962244946202,
+            0.725728432973129
+          ],
+          "valid_endpoints": 114,
+          "invalid_endpoints": 14,
+          "mean_reward": 9.790004006515822,
+          "by_distance": {
+            "near": {
+              "trials": 33,
+              "captures": 11
+            },
+            "medium": {
+              "trials": 45,
+              "captures": 42
+            },
+            "far": {
+              "trials": 50,
+              "captures": 30
+            }
+          }
+        },
+        "test": {
+          "trials": 256,
+          "unique_layouts": 256,
+          "captures": 142,
+          "success_rate": 0.5546875,
+          "wilson95": [
+            0.4934427673956734,
+            0.614315189759763
+          ],
+          "valid_endpoints": 230,
+          "invalid_endpoints": 26,
+          "mean_reward": 8.609213493411476,
+          "by_distance": {
+            "near": {
+              "trials": 90,
+              "captures": 19
+            },
+            "medium": {
+              "trials": 79,
+              "captures": 65
+            },
+            "far": {
+              "trials": 87,
+              "captures": 58
+            }
+          }
+        },
+        "test_warm_fixed": {
+          "trials": 256,
+          "unique_layouts": 256,
+          "captures": 126,
+          "success_rate": 0.4921875,
+          "wilson95": [
+            0.4315147730833839,
+            0.5530912330372681
+          ],
+          "valid_endpoints": 207,
+          "invalid_endpoints": 49,
+          "mean_reward": 7.43067627153661,
+          "by_distance": {
+            "near": {
+              "trials": 90,
+              "captures": 59
+            },
+            "medium": {
+              "trials": 79,
+              "captures": 52
+            },
+            "far": {
+              "trials": 87,
+              "captures": 15
+            }
+          }
+        },
+        "test_midpoint": {
+          "trials": 256,
+          "unique_layouts": 256,
+          "captures": 123,
+          "success_rate": 0.48046875,
+          "wilson95": [
+            0.42000768037908615,
+            0.5415073349225438
+          ],
+          "valid_endpoints": 189,
+          "invalid_endpoints": 67,
+          "mean_reward": 7.057825254992074,
+          "by_distance": {
+            "near": {
+              "trials": 90,
+              "captures": 57
+            },
+            "medium": {
+              "trials": 79,
+              "captures": 55
+            },
+            "far": {
+              "trials": 87,
+              "captures": 11
+            }
+          }
+        }
+      },
+      "learning_curve": [
+        {
+          "episodes": 0,
+          "trials": 64,
+          "unique_layouts": 32,
+          "captures": 19,
+          "success_rate": 0.296875,
+          "wilson95": null,
+          "valid_endpoints": 52,
+          "invalid_endpoints": 12,
+          "mean_reward": 4.908285439625715,
+          "by_distance": {
+            "near": {
+              "trials": 16,
+              "captures": 8
+            },
+            "medium": {
+              "trials": 16,
+              "captures": 9
+            },
+            "far": {
+              "trials": 32,
+              "captures": 2
+            }
+          }
+        },
+        {
+          "episodes": 512,
+          "trials": 64,
+          "unique_layouts": 32,
+          "captures": 35,
+          "success_rate": 0.546875,
+          "wilson95": null,
+          "valid_endpoints": 60,
+          "invalid_endpoints": 4,
+          "mean_reward": 8.575825676190743,
+          "by_distance": {
+            "near": {
+              "trials": 16,
+              "captures": 8
+            },
+            "medium": {
+              "trials": 16,
+              "captures": 9
+            },
+            "far": {
+              "trials": 32,
+              "captures": 18
+            }
+          }
+        },
+        {
+          "episodes": 1024,
+          "trials": 64,
+          "unique_layouts": 32,
+          "captures": 38,
+          "success_rate": 0.59375,
+          "wilson95": null,
+          "valid_endpoints": 56,
+          "invalid_endpoints": 8,
+          "mean_reward": 8.96721154588803,
+          "by_distance": {
+            "near": {
+              "trials": 16,
+              "captures": 8
+            },
+            "medium": {
+              "trials": 16,
+              "captures": 10
+            },
+            "far": {
+              "trials": 32,
+              "captures": 20
+            }
+          }
+        },
+        {
+          "episodes": 1536,
+          "trials": 64,
+          "unique_layouts": 32,
+          "captures": 34,
+          "success_rate": 0.53125,
+          "wilson95": null,
+          "valid_endpoints": 60,
+          "invalid_endpoints": 4,
+          "mean_reward": 8.362986161888307,
+          "by_distance": {
+            "near": {
+              "trials": 16,
+              "captures": 12
+            },
+            "medium": {
+              "trials": 16,
+              "captures": 6
+            },
+            "far": {
+              "trials": 32,
+              "captures": 16
+            }
+          }
+        },
+        {
+          "episodes": 2048,
+          "trials": 64,
+          "unique_layouts": 32,
+          "captures": 40,
+          "success_rate": 0.625,
+          "wilson95": null,
+          "valid_endpoints": 62,
+          "invalid_endpoints": 2,
+          "mean_reward": 9.765104314894117,
+          "by_distance": {
+            "near": {
+              "trials": 16,
+              "captures": 6
+            },
+            "medium": {
+              "trials": 16,
+              "captures": 12
+            },
+            "far": {
+              "trials": 32,
+              "captures": 22
+            }
+          }
+        },
+        {
+          "episodes": 2560,
+          "trials": 64,
+          "unique_layouts": 32,
+          "captures": 34,
+          "success_rate": 0.53125,
+          "wilson95": null,
+          "valid_endpoints": 58,
+          "invalid_endpoints": 6,
+          "mean_reward": 8.307148775296703,
+          "by_distance": {
+            "near": {
+              "trials": 16,
+              "captures": 0
+            },
+            "medium": {
+              "trials": 16,
+              "captures": 10
+            },
+            "far": {
+              "trials": 32,
+              "captures": 24
+            }
+          }
+        },
+        {
+          "episodes": 3072,
+          "trials": 64,
+          "unique_layouts": 32,
+          "captures": 41,
+          "success_rate": 0.640625,
+          "wilson95": null,
+          "valid_endpoints": 60,
+          "invalid_endpoints": 4,
+          "mean_reward": 9.881170034109584,
+          "by_distance": {
+            "near": {
+              "trials": 16,
+              "captures": 8
+            },
+            "medium": {
+              "trials": 16,
+              "captures": 16
+            },
+            "far": {
+              "trials": 32,
+              "captures": 17
+            }
+          }
+        },
+        {
+          "episodes": 3584,
+          "trials": 64,
+          "unique_layouts": 32,
+          "captures": 40,
+          "success_rate": 0.625,
+          "wilson95": null,
+          "valid_endpoints": 60,
+          "invalid_endpoints": 4,
+          "mean_reward": 9.613576847069995,
+          "by_distance": {
+            "near": {
+              "trials": 16,
+              "captures": 10
+            },
+            "medium": {
+              "trials": 16,
+              "captures": 16
+            },
+            "far": {
+              "trials": 32,
+              "captures": 14
+            }
+          }
+        },
+        {
+          "episodes": 4096,
+          "trials": 64,
+          "unique_layouts": 32,
+          "captures": 34,
+          "success_rate": 0.53125,
+          "wilson95": null,
+          "valid_endpoints": 60,
+          "invalid_endpoints": 4,
+          "mean_reward": 8.369645928760175,
+          "by_distance": {
+            "near": {
+              "trials": 16,
+              "captures": 12
+            },
+            "medium": {
+              "trials": 16,
+              "captures": 14
+            },
+            "far": {
+              "trials": 32,
+              "captures": 8
+            }
+          }
+        }
+      ],
+      "diagnostics": {
+        "action_min": [
+          16.00049579143524,
+          4.298209547996521,
+          0.12619766414165495
+        ],
+        "action_max": [
+          16.7193001806736,
+          5.163241624832153,
+          0.13284223318099975
+        ],
+        "action_std": [
+          0.18771552910241218,
+          0.21830752269259976,
+          0.001733793417968853
+        ],
+        "action_units": [
+          "degrees",
+          "degrees",
+          "metres"
+        ],
+        "ik_failures_by_arm": {
+          "Arm10": 0,
+          "Arm14": 26
+        },
+        "groups": {
+          "near": {
+            "trials": 90,
+            "unique_layouts": 90,
+            "captures": 19,
+            "success_rate": 0.2111111111111111,
+            "wilson95": [
+              0.1395248384759475,
+              0.3063499121676903
+            ],
+            "valid_endpoints": 78,
+            "invalid_endpoints": 12,
+            "mean_reward": 3.9841384201076417,
+            "by_distance": {
+              "near": {
+                "trials": 90,
+                "captures": 19
+              },
+              "medium": {
+                "trials": 0,
+                "captures": 0
+              },
+              "far": {
+                "trials": 0,
+                "captures": 0
+              }
+            },
+            "mean_action": [
+              16.563456789652506,
+              4.490027685960134,
+              0.13145565527346392
+            ],
+            "failures": {
+              "endpoint_ik": 12,
+              "no_board_bounce": 0,
+              "no_whole_ball_entry": 59,
+              "retention": 0
+            }
+          },
+          "medium": {
+            "trials": 79,
+            "unique_layouts": 79,
+            "captures": 65,
+            "success_rate": 0.8227848101265823,
+            "wilson95": [
+              0.7242360050880349,
+              0.8913967204991099
+            ],
+            "valid_endpoints": 70,
+            "invalid_endpoints": 9,
+            "mean_reward": 12.047804933575428,
+            "by_distance": {
+              "near": {
+                "trials": 0,
+                "captures": 0
+              },
+              "medium": {
+                "trials": 79,
+                "captures": 65
+              },
+              "far": {
+                "trials": 0,
+                "captures": 0
+              }
+            },
+            "mean_action": [
+              16.358377624538882,
+              4.720771863490721,
+              0.1295877180484277
+            ],
+            "failures": {
+              "endpoint_ik": 9,
+              "no_board_bounce": 0,
+              "no_whole_ball_entry": 4,
+              "retention": 1
+            }
+          },
+          "far": {
+            "trials": 87,
+            "unique_layouts": 87,
+            "captures": 58,
+            "success_rate": 0.6666666666666666,
+            "wilson95": [
+              0.5624216326943015,
+              0.7568153688556492
+            ],
+            "valid_endpoints": 82,
+            "invalid_endpoints": 5,
+            "mean_reward": 10.27137479024358,
+            "by_distance": {
+              "near": {
+                "trials": 0,
+                "captures": 0
+              },
+              "medium": {
+                "trials": 0,
+                "captures": 0
+              },
+              "far": {
+                "trials": 87,
+                "captures": 58
+              }
+            },
+            "mean_action": [
+              16.158476990872416,
+              4.949318417187395,
+              0.12771482734502046
+            ],
+            "failures": {
+              "endpoint_ik": 5,
+              "no_board_bounce": 0,
+              "no_whole_ball_entry": 21,
+              "retention": 3
+            }
+          }
+        }
+      },
+      "paired_vs_fixed": {
+        "a_only_capture": 68,
+        "b_only_capture": 52,
+        "both_capture": 74,
+        "both_miss": 62
+      }
+    },
+    {
+      "run": "general-rl-20261031T205020Z-n1000-seed42",
+      "gpu": "NVIDIA GeForce RTX 4090",
+      "training_layouts": 1000,
+      "training_episodes": 4096,
+      "selected_episode": 4096,
+      "elapsed_hours": 2.086389612599176,
+      "checkpoint_sha256": "6f28f639c5ae05a07e26b73c15501338eec4c8edbdbecef881c9dcca8a2e949d",
+      "evaluation": {
+        "validation": {
+          "trials": 128,
+          "unique_layouts": 128,
+          "captures": 56,
+          "success_rate": 0.4375,
+          "wilson95": [
+            0.35462168452480924,
+            0.5240205649624543
+          ],
+          "valid_endpoints": 111,
+          "invalid_endpoints": 17,
+          "mean_reward": 6.919162512363073,
+          "by_distance": {
+            "near": {
+              "trials": 33,
+              "captures": 19
+            },
+            "medium": {
+              "trials": 45,
+              "captures": 24
+            },
+            "far": {
+              "trials": 50,
+              "captures": 13
+            }
+          }
+        },
+        "test": {
+          "trials": 256,
+          "unique_layouts": 256,
+          "captures": 119,
+          "success_rate": 0.46484375,
+          "wilson95": [
+            0.40471621259722707,
+            0.5260108149457068
+          ],
+          "valid_endpoints": 220,
+          "invalid_endpoints": 36,
+          "mean_reward": 7.249300237596371,
+          "by_distance": {
+            "near": {
+              "trials": 90,
+              "captures": 50
+            },
+            "medium": {
+              "trials": 79,
+              "captures": 43
+            },
+            "far": {
+              "trials": 87,
+              "captures": 26
+            }
+          }
+        },
+        "test_warm_fixed": {
+          "trials": 256,
+          "unique_layouts": 256,
+          "captures": 128,
+          "success_rate": 0.5,
+          "wilson95": [
+            0.43920445797238533,
+            0.5607955420276147
+          ],
+          "valid_endpoints": 207,
+          "invalid_endpoints": 49,
+          "mean_reward": 7.531397491508639,
+          "by_distance": {
+            "near": {
+              "trials": 90,
+              "captures": 60
+            },
+            "medium": {
+              "trials": 79,
+              "captures": 52
+            },
+            "far": {
+              "trials": 87,
+              "captures": 16
+            }
+          }
+        },
+        "test_midpoint": {
+          "trials": 256,
+          "unique_layouts": 256,
+          "captures": 123,
+          "success_rate": 0.48046875,
+          "wilson95": [
+            0.42000768037908615,
+            0.5415073349225438
+          ],
+          "valid_endpoints": 189,
+          "invalid_endpoints": 67,
+          "mean_reward": 7.0579394867021135,
+          "by_distance": {
+            "near": {
+              "trials": 90,
+              "captures": 57
+            },
+            "medium": {
+              "trials": 79,
+              "captures": 55
+            },
+            "far": {
+              "trials": 87,
+              "captures": 11
+            }
+          }
+        }
+      },
+      "learning_curve": [
+        {
+          "episodes": 0,
+          "trials": 64,
+          "unique_layouts": 32,
+          "captures": 19,
+          "success_rate": 0.296875,
+          "wilson95": null,
+          "valid_endpoints": 52,
+          "invalid_endpoints": 12,
+          "mean_reward": 4.908285439625715,
+          "by_distance": {
+            "near": {
+              "trials": 16,
+              "captures": 8
+            },
+            "medium": {
+              "trials": 16,
+              "captures": 9
+            },
+            "far": {
+              "trials": 32,
+              "captures": 2
+            }
+          }
+        },
+        {
+          "episodes": 512,
+          "trials": 64,
+          "unique_layouts": 32,
+          "captures": 24,
+          "success_rate": 0.375,
+          "wilson95": null,
+          "valid_endpoints": 52,
+          "invalid_endpoints": 12,
+          "mean_reward": 5.897768052134103,
+          "by_distance": {
+            "near": {
+              "trials": 16,
+              "captures": 16
+            },
+            "medium": {
+              "trials": 16,
+              "captures": 6
+            },
+            "far": {
+              "trials": 32,
+              "captures": 2
+            }
+          }
+        },
+        {
+          "episodes": 1024,
+          "trials": 64,
+          "unique_layouts": 32,
+          "captures": 30,
+          "success_rate": 0.46875,
+          "wilson95": null,
+          "valid_endpoints": 60,
+          "invalid_endpoints": 4,
+          "mean_reward": 7.586118966417306,
+          "by_distance": {
+            "near": {
+              "trials": 16,
+              "captures": 16
+            },
+            "medium": {
+              "trials": 16,
+              "captures": 11
+            },
+            "far": {
+              "trials": 32,
+              "captures": 3
+            }
+          }
+        },
+        {
+          "episodes": 1536,
+          "trials": 64,
+          "unique_layouts": 32,
+          "captures": 20,
+          "success_rate": 0.3125,
+          "wilson95": null,
+          "valid_endpoints": 60,
+          "invalid_endpoints": 4,
+          "mean_reward": 5.581265149968292,
+          "by_distance": {
+            "near": {
+              "trials": 16,
+              "captures": 13
+            },
+            "medium": {
+              "trials": 16,
+              "captures": 6
+            },
+            "far": {
+              "trials": 32,
+              "captures": 1
+            }
+          }
+        },
+        {
+          "episodes": 2048,
+          "trials": 64,
+          "unique_layouts": 32,
+          "captures": 28,
+          "success_rate": 0.4375,
+          "wilson95": null,
+          "valid_endpoints": 58,
+          "invalid_endpoints": 6,
+          "mean_reward": 7.049207407359804,
+          "by_distance": {
+            "near": {
+              "trials": 16,
+              "captures": 14
+            },
+            "medium": {
+              "trials": 16,
+              "captures": 10
+            },
+            "far": {
+              "trials": 32,
+              "captures": 4
+            }
+          }
+        },
+        {
+          "episodes": 2560,
+          "trials": 64,
+          "unique_layouts": 32,
+          "captures": 24,
+          "success_rate": 0.375,
+          "wilson95": null,
+          "valid_endpoints": 60,
+          "invalid_endpoints": 4,
+          "mean_reward": 6.35180577481642,
+          "by_distance": {
+            "near": {
+              "trials": 16,
+              "captures": 16
+            },
+            "medium": {
+              "trials": 16,
+              "captures": 8
+            },
+            "far": {
+              "trials": 32,
+              "captures": 0
+            }
+          }
+        },
+        {
+          "episodes": 3072,
+          "trials": 64,
+          "unique_layouts": 32,
+          "captures": 28,
+          "success_rate": 0.4375,
+          "wilson95": null,
+          "valid_endpoints": 56,
+          "invalid_endpoints": 8,
+          "mean_reward": 6.946407381286896,
+          "by_distance": {
+            "near": {
+              "trials": 16,
+              "captures": 12
+            },
+            "medium": {
+              "trials": 16,
+              "captures": 6
+            },
+            "far": {
+              "trials": 32,
+              "captures": 10
+            }
+          }
+        },
+        {
+          "episodes": 3584,
+          "trials": 64,
+          "unique_layouts": 32,
+          "captures": 31,
+          "success_rate": 0.484375,
+          "wilson95": null,
+          "valid_endpoints": 58,
+          "invalid_endpoints": 6,
+          "mean_reward": 7.670055563071177,
+          "by_distance": {
+            "near": {
+              "trials": 16,
+              "captures": 10
+            },
+            "medium": {
+              "trials": 16,
+              "captures": 6
+            },
+            "far": {
+              "trials": 32,
+              "captures": 15
+            }
+          }
+        },
+        {
+          "episodes": 4096,
+          "trials": 64,
+          "unique_layouts": 32,
+          "captures": 32,
+          "success_rate": 0.5,
+          "wilson95": null,
+          "valid_endpoints": 62,
+          "invalid_endpoints": 2,
+          "mean_reward": 8.097653280600843,
+          "by_distance": {
+            "near": {
+              "trials": 16,
+              "captures": 12
+            },
+            "medium": {
+              "trials": 16,
+              "captures": 6
+            },
+            "far": {
+              "trials": 32,
+              "captures": 14
+            }
+          }
+        }
+      ],
+      "diagnostics": {
+        "action_min": [
+          21.138850450515747,
+          2.6929861307144165,
+          0.1571905720233917
+        ],
+        "action_max": [
+          21.319376438856125,
+          3.2137584686279297,
+          0.15915105640888214
+        ],
+        "action_std": [
+          0.046905259305299915,
+          0.1264476350387352,
+          0.00048343274460263785
+        ],
+        "action_units": [
+          "degrees",
+          "degrees",
+          "metres"
+        ],
+        "ik_failures_by_arm": {
+          "Arm10": 0,
+          "Arm14": 36
+        },
+        "groups": {
+          "near": {
+            "trials": 90,
+            "unique_layouts": 90,
+            "captures": 50,
+            "success_rate": 0.5555555555555556,
+            "wilson95": [
+              0.4527174112548652,
+              0.6538451366982815
+            ],
+            "valid_endpoints": 73,
+            "invalid_endpoints": 17,
+            "mean_reward": 8.26985026720329,
+            "by_distance": {
+              "near": {
+                "trials": 90,
+                "captures": 50
+              },
+              "medium": {
+                "trials": 0,
+                "captures": 0
+              },
+              "far": {
+                "trials": 0,
+                "captures": 0
+              }
+            },
+            "mean_action": [
+              21.280417836705844,
+              2.8560473918914795,
+              0.15863879799842837
+            ],
+            "failures": {
+              "endpoint_ik": 17,
+              "no_board_bounce": 0,
+              "no_whole_ball_entry": 22,
+              "retention": 1
+            }
+          },
+          "medium": {
+            "trials": 79,
+            "unique_layouts": 79,
+            "captures": 43,
+            "success_rate": 0.5443037974683544,
+            "wilson95": [
+              0.4349813769749742,
+              0.6495172324193399
+            ],
+            "valid_endpoints": 71,
+            "invalid_endpoints": 8,
+            "mean_reward": 8.454680531021358,
+            "by_distance": {
+              "near": {
+                "trials": 0,
+                "captures": 0
+              },
+              "medium": {
+                "trials": 79,
+                "captures": 43
+              },
+              "far": {
+                "trials": 0,
+                "captures": 0
+              }
+            },
+            "mean_action": [
+              21.23209512799601,
+              2.9263161556630193,
+              0.1582597762572614
+            ],
+            "failures": {
+              "endpoint_ik": 8,
+              "no_board_bounce": 0,
+              "no_whole_ball_entry": 27,
+              "retention": 1
+            }
+          },
+          "far": {
+            "trials": 87,
+            "unique_layouts": 87,
+            "captures": 26,
+            "success_rate": 0.2988505747126437,
+            "wilson95": [
+              0.2128395289487208,
+              0.4018744346978905
+            ],
+            "valid_endpoints": 76,
+            "invalid_endpoints": 11,
+            "mean_reward": 5.099018101444679,
+            "by_distance": {
+              "near": {
+                "trials": 0,
+                "captures": 0
+              },
+              "medium": {
+                "trials": 0,
+                "captures": 0
+              },
+              "far": {
+                "trials": 87,
+                "captures": 26
+              }
+            },
+            "mean_action": [
+              21.18173351370055,
+              2.9815245702348907,
+              0.15791195454268622
+            ],
+            "failures": {
+              "endpoint_ik": 11,
+              "no_board_bounce": 0,
+              "no_whole_ball_entry": 50,
+              "retention": 0
+            }
+          }
+        }
+      },
+      "paired_vs_fixed": {
+        "a_only_capture": 43,
+        "b_only_capture": 52,
+        "both_capture": 76,
+        "both_miss": 85
+      }
+    }
+  ],
+  "paired_learned": {
+    "a_only_capture": 76,
+    "b_only_capture": 53,
+    "both_capture": 66,
+    "both_miss": 61
+  },
+  "scope": "Frozen privileged-state shots; one seed, different GPUs. No physical or point-cloud policy validation.",
+  "recommendation": "Quasi-perception training deferred: the better policy captures only 55.5% overall and 21.1% of nearby-bucket shots. Improve scene-dependent actions and board IK reliability before adding sensor uncertainty.",
+  "recommendation_status": "Post-study engineering judgment, not a preregistered statistical pass threshold."
+}

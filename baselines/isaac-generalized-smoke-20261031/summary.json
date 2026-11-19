@@ -1,0 +1,304 @@
+{
+  "sircus-isaac": {
+    "run": "general-rl-20261031T204713Z-n16-seed42",
+    "scope": "development-only smoke; not final heldout results",
+    "training_episodes": 16,
+    "evaluation": {
+      "validation": {
+        "trials": 8,
+        "captures": 6,
+        "success_rate": 0.75,
+        "wilson95": [
+          0.40926987910258916,
+          0.9285223111419724
+        ],
+        "valid_endpoints": 7,
+        "invalid_endpoints": 1,
+        "mean_reward": 10.995204085336173,
+        "by_distance": {
+          "near": {
+            "trials": 3,
+            "captures": 3
+          },
+          "medium": {
+            "trials": 2,
+            "captures": 1
+          },
+          "far": {
+            "trials": 3,
+            "captures": 2
+          }
+        }
+      },
+      "test": {
+        "trials": 8,
+        "captures": 5,
+        "success_rate": 0.625,
+        "wilson95": [
+          0.30573785458380187,
+          0.863158240538479
+        ],
+        "valid_endpoints": 8,
+        "invalid_endpoints": 0,
+        "mean_reward": 9.902673985305286,
+        "by_distance": {
+          "near": {
+            "trials": 2,
+            "captures": 2
+          },
+          "medium": {
+            "trials": 3,
+            "captures": 3
+          },
+          "far": {
+            "trials": 3,
+            "captures": 0
+          }
+        }
+      },
+      "test_warm_fixed": {
+        "trials": 8,
+        "captures": 4,
+        "success_rate": 0.5,
+        "wilson95": [
+          0.21521252682444186,
+          0.7847874731755582
+        ],
+        "valid_endpoints": 6,
+        "invalid_endpoints": 2,
+        "mean_reward": 7.277675723759698,
+        "by_distance": {
+          "near": {
+            "trials": 2,
+            "captures": 1
+          },
+          "medium": {
+            "trials": 3,
+            "captures": 3
+          },
+          "far": {
+            "trials": 3,
+            "captures": 0
+          }
+        }
+      },
+      "test_midpoint": {
+        "trials": 8,
+        "captures": 2,
+        "success_rate": 0.25,
+        "wilson95": [
+          0.07147768885802763,
+          0.5907301208974108
+        ],
+        "valid_endpoints": 5,
+        "invalid_endpoints": 3,
+        "mean_reward": 3.5897952422176873,
+        "by_distance": {
+          "near": {
+            "trials": 2,
+            "captures": 1
+          },
+          "medium": {
+            "trials": 3,
+            "captures": 1
+          },
+          "far": {
+            "trials": 3,
+            "captures": 0
+          }
+        }
+      }
+    },
+    "parameter_change_l1": 22.38484764099121,
+    "floor_probes": [
+      {
+        "bucket_xy_m": [
+          0.47,
+          -0.52
+        ],
+        "ball_final_m": [
+          0.4699999988079071,
+          -0.5199999809265137,
+          0.04549997299909592
+        ],
+        "passed": true
+      },
+      {
+        "bucket_xy_m": [
+          0.81,
+          -0.32
+        ],
+        "ball_final_m": [
+          0.8100000023841858,
+          -0.3199999928474426,
+          0.04549997299909592
+        ],
+        "passed": true
+      },
+      {
+        "bucket_xy_m": [
+          0.6,
+          -0.46
+        ],
+        "ball_final_m": [
+          0.6000000238418579,
+          -0.46000000834465027,
+          0.04549997299909592
+        ],
+        "passed": true
+      }
+    ],
+    "repeat_disagreements": 0
+  },
+  "sircus-isaac4070": {
+    "run": "general-rl-20261031T204727Z-n16-seed42",
+    "scope": "development-only smoke; not final heldout results",
+    "training_episodes": 16,
+    "evaluation": {
+      "validation": {
+        "trials": 8,
+        "captures": 6,
+        "success_rate": 0.75,
+        "wilson95": [
+          0.40926987910258916,
+          0.9285223111419724
+        ],
+        "valid_endpoints": 7,
+        "invalid_endpoints": 1,
+        "mean_reward": 10.995204085336173,
+        "by_distance": {
+          "near": {
+            "trials": 3,
+            "captures": 3
+          },
+          "medium": {
+            "trials": 2,
+            "captures": 1
+          },
+          "far": {
+            "trials": 3,
+            "captures": 2
+          }
+        }
+      },
+      "test": {
+        "trials": 8,
+        "captures": 5,
+        "success_rate": 0.625,
+        "wilson95": [
+          0.30573785458380187,
+          0.863158240538479
+        ],
+        "valid_endpoints": 8,
+        "invalid_endpoints": 0,
+        "mean_reward": 9.902673985305286,
+        "by_distance": {
+          "near": {
+            "trials": 2,
+            "captures": 2
+          },
+          "medium": {
+            "trials": 3,
+            "captures": 3
+          },
+          "far": {
+            "trials": 3,
+            "captures": 0
+          }
+        }
+      },
+      "test_warm_fixed": {
+        "trials": 8,
+        "captures": 4,
+        "success_rate": 0.5,
+        "wilson95": [
+          0.21521252682444186,
+          0.7847874731755582
+        ],
+        "valid_endpoints": 6,
+        "invalid_endpoints": 2,
+        "mean_reward": 7.277675723759698,
+        "by_distance": {
+          "near": {
+            "trials": 2,
+            "captures": 1
+          },
+          "medium": {
+            "trials": 3,
+            "captures": 3
+          },
+          "far": {
+            "trials": 3,
+            "captures": 0
+          }
+        }
+      },
+      "test_midpoint": {
+        "trials": 8,
+        "captures": 2,
+        "success_rate": 0.25,
+        "wilson95": [
+          0.07147768885802763,
+          0.5907301208974108
+        ],
+        "valid_endpoints": 5,
+        "invalid_endpoints": 3,
+        "mean_reward": 3.5897952422176873,
+        "by_distance": {
+          "near": {
+            "trials": 2,
+            "captures": 1
+          },
+          "medium": {
+            "trials": 3,
+            "captures": 1
+          },
+          "far": {
+            "trials": 3,
+            "captures": 0
+          }
+        }
+      }
+    },
+    "parameter_change_l1": 22.38484764099121,
+    "floor_probes": [
+      {
+        "bucket_xy_m": [
+          0.47,
+          -0.52
+        ],
+        "ball_final_m": [
+          0.4699999988079071,
+          -0.5199999809265137,
+          0.04549997299909592
+        ],
+        "passed": true
+      },
+      {
+        "bucket_xy_m": [
+          0.81,
+          -0.32
+        ],
+        "ball_final_m": [
+          0.8100000023841858,
+          -0.3199999928474426,
+          0.04549997299909592
+        ],
+        "passed": true
+      },
+      {
+        "bucket_xy_m": [
+          0.6,
+          -0.46
+        ],
+        "ball_final_m": [
+          0.6000000238418579,
+          -0.46000000834465027,
+          0.04549997299909592
+        ],
+        "passed": true
+      }
+    ],
+    "repeat_disagreements": 0
+  }
+}

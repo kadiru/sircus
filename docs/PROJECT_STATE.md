@@ -1,5 +1,21 @@
 # Project state
 
+## Completed privileged study comparison — October 31, 2026
+
+- Both4,096-throw jobs completed; GPUs are idle. [Frozen results and diagnosis](../baselines/isaac-privileged-study-20261031/README.md):100-layout policy142/256 (55.5%);1000-layout policy119/256 (46.5%). Fixed baselines48–50%. Same test layouts/contracts verified; selected checkpoints hashed.
+- The100-layout policy reached82.3% medium and66.7% far, but only21.1% near. All26/36 endpoint IK failures were on the board arm. Small action variation suggests weak conditioning; this does not prove that more scenes hurt learning (one seed/different GPUs).
+- Quasi-perception training remains deferred by post-study engineering judgment. Next: board IK diagnostics and distance-balanced privileged learning, then same-device/multiple-seed confirmation on a fresh final test set. No new training or hardware work started in this comparison.
+- Interface now opens with completed comparison tables, validation curves, distance bars, confidence intervals and failure/action details. Historical sensor frames remain marked stale.
+
+## Privileged cooperative PPO study — October 31, 2026, 20:50 UTC
+
+- [Methodology and reproduction](../sircus/isaac/LEARNING_STUDY.md): centralized scene-conditioned PPO chooses board tilt, bucket-facing heading offset and release gap. Endpoint initialization remains separate from grasping and path learning.
+- Two bounded jobs are **running, not completed**:4090 uses1,000 training layouts (`general-rl-20261031T205020Z-n1000-seed42`);4070 uses100 (`general-rl-20261031T205024Z-n100-seed42`). Each gets4,096 training throws, with128 validation and256 test layouts, frozen evaluation and two fixed-action baselines. Final results are pending. Both GPUs are authorized for Sircus; the unrelated pouring workload remains stopped.
+- Before launch, physical probes caught a static-USD/PhysX bucket mismatch. Contractv3 now moves a kinematic compound bucket through its root state; three floor probes passed on both GPUs. Old v1/v2 generalized diagnostics are invalid for performance claims and preserved separately. Eight repeated development inputs had zero capture disagreements.
+- Corrected16-throw smoke on each GPU gave matching tiny development checks:6/8 validation,5/8 test,4/8 fixed warm action,2/8 midpoint. These verify execution only, not superiority/generalization. Final test pools were untouched.
+- Live preview reads both study progress files. Jobs use separate runtime/output directories, immutable source snapshots, scene locks,6-hour timeout and3GiB free-space floor. No hardware/cloud configuration changed.30 Isaac tests and the full project mock/numerical suite passed.
+- Next gate: review frozen results, failures by distance/reachability and data-volume curve before larger/replicated studies. Quasi-perception training has **not started**. It will crop actual rendered visible depth using privileged padded object volumes, with missing/occluded points preserved and no hidden ground-truth fallback in policy/controller inputs.
+
 ## Randomized RGB-D validation — October 31, 2026
 
 - [Study contract, results and reproduction](../sircus/isaac/PERCEPTION_VALIDATION.md): frozen detector evaluated on 24 nearby board/bucket layouts × six paired lighting/noise conditions. All 144 observations completed; zero exclusions/timeouts. Ground truth and visibility labels remained evaluation-only.
