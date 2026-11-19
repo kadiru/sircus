@@ -163,6 +163,80 @@ export function planningBudgetSummary(study) {
     complete: status === 'completed' && audit === 'passed' && budget > 0 && methods.every(row => row.valid) && pairValid,
     next: typeof section.next === 'string' ? section.next : '', error: typeof section.error === 'string' ? section.error : '' };
 }
+/** Read-only worker comparison. Predictions and partial runs are never capture evidence. */
+export function fastPlanningSummary(study) {
+  const section = study?.fast_planning_study;
+  if (!section || typeof section !== 'object' || Array.isArray(section)) return null;
+  const count = value => Number.isInteger(value) && value >= 0 ? value : null;
+  const seconds = value => Number.isFinite(value) && value >= 0 ? value : null;
+  const stats = (raw = {}) => {
+    raw = raw && typeof raw === 'object' && !Array.isArray(raw) ? raw : {};
+    const mean = seconds(raw.mean_s), median = seconds(raw.median_s), p90 = seconds(raw.p90_s), maximum = seconds(raw.max_s);
+    return { mean_s: mean !== null && (maximum === null || mean <= maximum) ? mean : null, median_s: median,
+      p90_s: p90 !== null && (median === null || p90 >= median) ? p90 : null,
+      max_s: maximum !== null && (median === null || maximum >= median) && (p90 === null || maximum >= p90) ? maximum : null,
+      aggregate_s: seconds(raw.aggregate_s) };
+  };
+  const total = count(section.budgets?.positions), budget = seconds(section.budgets?.planning_s);
+  const comparison = section.comparison || {};
+  const labels = { cold_30: 'Fresh worker · 30s', warm_30: 'Reused worker · 30s', warm_early: 'Reused worker · early return' };
+  const stageLabels = { menu: 'Proposing shots', neural_order: 'Neural ranking', arm_setup_checks: 'Checking arm poses and paths',
+    physics_ranking: 'Predicting ball flight', evidence_publication: 'Recording checked choices', other: 'Other planner work' };
+  const methods = Object.entries(labels).map(([id, label]) => {
+    const raw = comparison.methods?.[id] || {};
+    const values = Object.fromEntries(['attempts', 'releases', 'captures', 'no_candidate', 'deadline_reached',
+      'deadline_with_candidate', 'deadline_no_candidate', 'flight_misses', 'robot_contacts', 'early_return'].map(key => [key, count(raw[key])]));
+    const rateMatches = (value, numerator) => Number.isFinite(value) && total > 0 && numerator !== null
+      && Math.abs(value - numerator / total) < 1e-9;
+    const profile = comparison.profile?.[id] || {};
+    const stages = Object.entries(stageLabels).map(([key, name]) => {
+      const stage = profile.stages?.[key] || {};
+      return { id: key, label: name, aggregate_s: seconds(stage.aggregate_s), mean_s: seconds(stage.mean_s),
+        fraction: Number.isFinite(stage.fraction) && stage.fraction >= 0 && stage.fraction <= 1 ? stage.fraction : null };
+    });
+    const workers = Object.fromEntries(['cold_starts', 'reused_requests', 'restarts'].map(key => [key, count(comparison.workers?.[id]?.[key])]));
+    // Missing optional profiler measurements remain unknown; they cannot fabricate a faster result.
+    const workersValid = Object.values(workers).every(value => value !== null)
+      && workers.cold_starts + workers.reused_requests === total && workers.restarts <= workers.cold_starts;
+    return { id, label, ...values, decision: stats(comparison.latency?.[id]),
+      request: stats(comparison.timing?.[id]?.request), startup: stats(comparison.timing?.[id]?.startup),
+      stages, workers: workersValid ? workers : null,
+      valid: total > 0 && Object.values(values).every(value => value !== null)
+        && values.attempts === total && values.captures <= values.releases && values.releases <= total
+        && values.releases + values.no_candidate === total
+        && values.deadline_with_candidate + values.deadline_no_candidate === values.deadline_reached
+        && values.deadline_with_candidate <= values.releases && values.deadline_no_candidate <= values.no_candidate
+        && values.flight_misses <= values.releases - values.captures && values.robot_contacts <= values.releases
+        && values.early_return <= values.releases && values.early_return + values.deadline_with_candidate <= values.releases
+        && rateMatches(raw.capture_rate, values.captures) && rateMatches(raw.setup_rate, values.releases) };
+  });
+  const paired = Object.entries({ warm_vs_cold: [0, 1], early_vs_warm: [1, 2], early_vs_cold: [0, 2] }).map(([id, [base, alternative]]) => {
+    const raw = comparison.paired?.[id] || {};
+    const values = Object.fromEntries(['both', 'gained', 'lost', 'neither'].map(key => [key, count(raw[key])]));
+    const valid = total > 0 && Object.values(values).every(value => value !== null)
+      && Object.values(values).reduce((sum, value) => sum + value, 0) === total
+      && values.both + values.lost === methods[base].captures && values.both + values.gained === methods[alternative].captures;
+    return { id, base: methods[base].label, alternative: methods[alternative].label, ...(valid ? values : {}), valid };
+  });
+  const progress = section.progress || {};
+  const rawPlanned = count(progress.planned), rawPrepared = count(progress.prepared);
+  const rawReleases = count(progress.completed_releases), rawPlannedReleases = count(progress.planned_releases);
+  const maximum = total === null ? null : total * methods.length;
+  const planned = rawPlanned !== null && (maximum === null || rawPlanned === maximum) ? rawPlanned : null;
+  const prepared = rawPrepared !== null && (maximum === null || rawPrepared <= maximum)
+    && (planned === null || rawPrepared <= planned) ? rawPrepared : null;
+  const releases = rawReleases !== null && (maximum === null || rawReleases <= maximum) ? rawReleases : null;
+  const plannedReleases = rawPlannedReleases !== null && (maximum === null || rawPlannedReleases <= maximum)
+    && (releases === null || rawPlannedReleases >= releases) ? rawPlannedReleases : null;
+  const status = typeof section.status === 'string' ? section.status : 'unknown';
+  const audit = typeof section.audit_status === 'string' ? section.audit_status : null;
+  const accountingValid = methods.every(row => row.valid) && prepared === maximum && planned === maximum
+    && releases === methods.reduce((sum, row) => sum + row.releases, 0) && plannedReleases === releases;
+  return { status, phase: typeof section.phase === 'string' ? section.phase : '', audit, total, budget,
+    prepared, planned, releases, planned_releases: plannedReleases, methods, paired, accounting_valid: accountingValid,
+    complete: status === 'completed' && audit === 'passed' && budget > 0 && accountingValid,
+    next: typeof section.next === 'string' ? section.next : '', error: typeof section.error === 'string' ? section.error : '' };
+}
 export class InteractivePhysics {
   constructor({
     fetcher = (...args) => globalThis.fetch(...args),

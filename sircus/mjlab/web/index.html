@@ -8,6 +8,21 @@
 <p id="savedReplayExplanation" class="fine">Recorded native simulation. Playback runs in your browser.</p><div id="savedReplayMarkers" class="saved-replay-markers" aria-label="Jump to a measured event"></div>
 </section>
 <div class="result" role="status" aria-live="polite"><span class="status-dot" id="resultDot"></span><div><strong id="resultTitle">Waiting for the learning study</strong><p id="resultText">Manual solves unlock after the completed study and frozen-checkpoint evaluation.</p></div></div>
+<section id="fastPlanningStudy" class="results-section fast-planning-section" hidden>
+<p class="eyebrow">REUSE WORKERS · RETURN A CHECKED SHOT EARLIER</p><h2>Can we plan faster without losing captures?</h2>
+<p class="fine">We compare a freshly initialized worker, a reused worker, and a reused worker that returns a good checked shot earlier. The early rule requires at least 5 mm of predicted margin at the arms and bucket rim, plus the table edge for a table bounce. All three use the same frozen learned selector and retain arm-reach and collision checks. Predicted quality is not a measured capture.</p>
+<p id="fastPlanningStatus" class="subtle" role="status"></p><p id="fastPlanningLimit" class="scope-note"></p>
+<div id="fastPlanningProgress" class="fast-planning-progress" aria-label="Planning and native drop progress"></div>
+<div id="fastPlanningTable" class="table-wrap" tabindex="0" role="region" aria-label="Three planning methods, capture rates and timings"></div>
+<p id="fastPlanningResultNote" class="fine"></p><ul id="fastPlanningPaired" class="fine"></ul>
+<details id="fastPlanningProfileDetails" hidden><summary>Where planning time goes</summary>
+<p class="fine">Stage totals add elapsed planner time across requests, including interrupted work. They are not CPU or GPU utilization. Arm checks combine pose and path checks. Worker reuse occurs only after a clean completion; a timed-out or crashed worker is replaced.</p>
+<div id="fastPlanningProfiles" class="table-wrap" tabindex="0" role="region" aria-label="Planning stage totals and worker reuse counts"></div></details>
+<p class="fine">Decision time excludes initialization and return handling. The measured planning request includes worker initialization and evidence verification; it excludes browser/network time and archive bookkeeping. It is not total UI latency and can exceed the decision limit.</p>
+<p class="fine">A deadline may return a fully checked shot. Without one, no ball is released. Native drops use 64 substeps; capture requires a board rebound and one continuous second fully inside the bucket. Direct and table-assisted routes count; robot-assisted outcomes remain separate.</p>
+<p id="fastPlanningNext" class="fine"></p><p id="fastPlanningError" class="fine"></p>
+<p class="scope-note">Read-only comparison: the live Plan shot button is unchanged. Inputs are simulator geometry, not camera perception. The 4070 and Isaac setup are unchanged.</p>
+</section>
 <section id="planningBudgetStudy" class="results-section planning-budget-section" hidden>
 <p class="eyebrow">SAME TIME LIMIT · NEW BUCKET POSITIONS</p><h2>Can good shots be planned within a deadline?</h2>
 <p class="fine">The current planner and the frozen learned selector each plan one shot at every new bucket position. Both receive the same planning time limit and keep the exact arm-reach and collision checks.</p>

@@ -1,5 +1,15 @@
 # Project state
 
+## Planning-speed comparison complete — November 17, 2026
+
+- [Frozen protocol](../sircus/mjlab/FAST_PLANNING_STUDY.md): 50 fresh positions, three versions of the same learned selector: fresh worker, reused worker, and reused worker returning the first fully checked shot with at least 5 mm of predicted arm/rim margin. All retain the 30-second decision limit and existing arm checks.
+- All 150 choices freeze before any native test. Native tests use 64 substeps and one drop at most per method/position, bracketed by 18 matched controls. No training or live default promotion occurs.
+- Validation: 69 Python tests passed in Ubuntu's pinned CPU environment, 49 interface tests passed, and a two-position real-model smoke test confirmed exact original/fresh/reused command equivalence and worker reuse without native drops.
+- The first CPU attempt stopped during CPU preparation (132 plans reported; 133 files saved) when the shared data disk crossed its 8 GiB reserve; no native drops ran. All evidence is preserved. A full retry uses the system disk with unchanged methods and source, so interrupted worker lifetimes are not mixed into final timing results.
+- [Audited results](../sircus/mjlab/FAST_PLANNING_RESULTS.md): all three versions captured **35/50 (70%)**. Fresh/reused/early-return methods produced 39/39/40 checked shots; mean planning requests were **26.47/25.86/22.87 seconds**. Early return saved 13.6% versus fresh workers and 11.6% versus reused workers, with one gained capture and one lost capture; reuse alone preserved the same 35 captures.
+- All **118 test drops + 18 controls** completed at 64 substeps; both control blocks and **143,448 independent audit checks passed**. Native work used 357.474 leased 4090 seconds. No invalid-physics results or robot-assisted captures; two robot-contact misses per method. All positions, including missing setups, remain in the denominator.
+- Arm pose/path checks consume about 99% of decision time; 90th-percentile requests remain about 31.5 seconds. Results are visible in `#fastPlanningStudy`. Next: an explicit interactive trial of early return while retaining the existing method; shorten equivalent wrist paths only in a separately checked change. The live default, service process, 4070 workload and Isaac setup remain unchanged.
+
 ## Planning-budget comparison completed — November 17, 2026
 
 - [Audited results](../sircus/mjlab/PLANNING_BUDGET_RESULTS.md): at the same **100 fresh positions** and **30-second decision limit**, the frozen learned selector captured **75/100**, versus **69/100** for the current planner. Ten gains, four losses; 65 shared captures and 21 shared failures. No retraining occurred.
