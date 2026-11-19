@@ -8,7 +8,7 @@ from pathlib import Path
 
 import numpy as np
 from board_route import FORCE_THRESHOLD_N
-from dark_flight import SHOTS, camera_pose
+from recording_plans import recording_plan
 from dark_stage import FLOOR_Z_M, origins, stage_settings
 from export_cylinder_film import encode_movie, read, require
 from feasibility_contract import dynamic_cell
@@ -170,8 +170,37 @@ def verify_resume(run, result):
     require(sha.hexdigest() == info["frames_sha256"], "Resumed RGB digest disagrees")
 
 
+def validate_station_series(chapters):
+    """Count distinct recorded releases; planned slots and re-used frames do not count."""
+    from station_flight import MIN_FOREGROUND_DROPS
+
+    require(
+        len(chapters) >= MIN_FOREGROUND_DROPS,
+        "Need at least 10 recorded foreground drops",
+    )
+    require(
+        len({c["focus"] for c in chapters}) == 1,
+        "Station series changed its foreground table",
+    )
+    require(
+        len({c["start_frame"] for c in chapters}) == len(chapters),
+        "Duplicate recorded drop",
+    )
+    require(
+        all(
+            c["station"]
+            and c["visible_board_frame"] is not None
+            and c["background_drops_in_view"] >= 2
+            for c in chapters
+        ),
+        "Need measured foreground drops and background activity in every shot",
+    )
+
+
 def verify(run, source):
     result = read(run / "result.json")
+    plan_name = result.get("recording_plan", "dark-tour-v1")
+    shots, camera_pose = recording_plan(plan_name)
     verify_resume(run, result)
     parent, spec = read(source / "result.json"), read(source / "contract.json")
     require(result["version"] == "sircus-dark-farm-replay-v1", "Unknown replay")
@@ -201,12 +230,12 @@ def verify(run, source):
         and read(run / "rim-rays.json")["passed"] == [True] * 35,
         "Probe failure",
     )
-    require(len(result["chapters"]) == len(SHOTS), "Missing directed shots")
+    require(len(result["chapters"]) == len(shots), "Missing directed shots")
     source_rows, source_hash = {}, {}
     chapters, total, attempts, valid, captures = [], 0, 0, 0, 0
     focus_moves = []
     for i, ch in enumerate(result["chapters"]):
-        plan = SHOTS[i]
+        plan = shots[i]
         clip = read(run / f"clip-{i:02}.json")
         require(
             (
@@ -296,6 +325,17 @@ def verify(run, source):
                 spec["scene"]["ball"]["radius_m"],
                 origins()[j],
             )
+            if plan_name == "fixed-station-v1":
+                # The same recorded batch must also show active neighboring tables.
+                focused["background_drops_in_view"] = sum(
+                    not r["invalid"]
+                    and r["board_bounce"]
+                    and inside_frame(
+                        release[0], origins()[k] + r["release_ball_center_m"]
+                    )
+                    for k, r in enumerate(rows)
+                    if k != j
+                )
             if ch.get("station"):
                 excursions = clip["motion"]["max_joint_excursion_deg"]
                 for arm in ("Arm10", "Arm14"):
@@ -326,6 +366,8 @@ def verify(run, source):
         "Frame sequence incomplete",
     )
     actions = [c for c in chapters if c["action_only"]]
+    if plan_name == "fixed-station-v1":
+        validate_station_series(actions)
     require(
         any(
             c["captured"] and c["visible_bucket_entry_frame"] is not None
@@ -347,6 +389,7 @@ def verify(run, source):
     )
     return dict(
         version=result["version"],
+        recording_plan=plan_name,
         scope="Native PhysX replay of previously sampled PPO actions",
         source_fingerprint=parent["fingerprint"],
         source_weights_sha256=parent["final_hash"],
