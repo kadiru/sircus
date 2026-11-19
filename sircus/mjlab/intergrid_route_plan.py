@@ -116,6 +116,13 @@ def collection_proposals(layout, libraries):
     """Interleave an equal menu for both route intents at a TRAIN position."""
     if layout["split"] != "train":
         raise ValueError("Outcome collection is only allowed at TRAIN placements")
+    return collection_geometry(layout, libraries, phase="train")
+
+
+def collection_geometry(layout, libraries, *, phase):
+    """Generate bounded route geometry from frozen sources without observing outcomes."""
+    if phase not in {"train", "test"}:
+        raise ValueError("Expected a declared training or test phase")
     if set(libraries) != set(ROUTES):
         raise ValueError("Expected verified source libraries for both route intents")
     target = np.asarray(layout["bucket_xy_m"], float)
@@ -143,7 +150,7 @@ def collection_proposals(layout, libraries):
                 continue
             proposal = dict(
                 id=f"{layout['id']}-{route}-{number:02d}", context_id=layout["id"],
-                phase="train", role="train", method="intergrid_route_collection",
+                phase=phase, role=phase, method="intergrid_route_collection",
                 intended_route=route, group=group, bucket_xy_m=target.tolist(),
                 values=values, board_heading_offset_deg=heading, board_twist_deg=twist,
                 training_recipe_id=source["id"], training_bucket_xy_m=list(source["bucket_xy_m"]),
