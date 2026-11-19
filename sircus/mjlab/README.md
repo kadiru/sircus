@@ -1,6 +1,15 @@
 # Sircus in mjlab
 
-Latest: [joint height/tilt admission search and native64 drops](../../baselines/mjlab-table-height-tilt-20261108/README.md).
+Latest: [Case 00 tilt/drop-gap results](../../baselines/mjlab-case00-tilt-gap-20261109/README.md).
+70 proposals / 42 admitted / two discovery captures. At board height 460 mm,
+**26° and 32° tilt with 251.819 mm gap each captured 3/3 fresh repeats**;
+both used rim assistance without robot contact. The original 28° setting
+captured 0/3. Independent audit 27,547 checks and all 18 controls passed.
+Full matrix, exact settings and saved native64 replay: `#case00TiltGapStudy`.
+[Frozen protocol](CASE00_TILT_GAP.md). No new training, policy activation,
+128-substep/noise claim, 4070 or Isaac changes.
+
+Earlier: [joint height/tilt admission search and native64 drops](../../baselines/mjlab-table-height-tilt-20261108/README.md).
 Of 120 fixed-grid candidates for cases 00/01/18/26, 58 passed the unchanged
 admission checks. All 58 bounced the board but none entered or captured; 42
 had robot contact. All 18 controls and 36,371 independent checks passed.

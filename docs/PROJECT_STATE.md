@@ -1,5 +1,13 @@
 # Project state
 
+## Completed Case 00 tilt/gap search — November 9, 2026
+
+- [Exact successful settings and evidence](MJLAB_CASE00_TILT_GAP_20261109.md): fixed board center **(597.992, −23.557, 460) mm**, bucket **(1109.540, −221.464) mm**, gap **251.819 mm**; changing tilt to **26° or 32°** produced one discovery capture and **3/3 fresh captures each**. Original 28° baseline remained 0/3. Release-ball center Z is 749.319 mm; horizontal bucket distance 548.496 mm.
+- Both recipes captured with bucket/rim assistance, no table or robot contact; neither was a clean entry. The 32° repeats partially exited after first entry and subsequently completed a continuous second inside. Capture was measured by unchanged v3 scoring, not inferred from collision avoidance or reward.
+- All 70 grid proposals were checked: **42 admitted, 28 declined** (21 finite IK unresolved, 7 strict endpoint clearance/pose). All 42 discovery shots bounced the board; two captured and 40 missed, 19 with robot contact. Declines remain unflown evidence and do not prove impossible poses. Both discovered captures received all three frozen confirmation repeats; no cherry-picking after repeats.
+- Total **97 requested configurations/repeats, 69 native drops**; 18 controls passed (12 captures, 6 expected misses). Independent audit passed **27,547 checks** with no invalid physics. CPU admission 69.9 s; native wall time 258.8 s. Frozen producer `71fb34aa8fd35ebfc1cd0d1ee522ad5181a0234d`; draft PR #100 stacked on #98. [Compact results](../baselines/mjlab-case00-tilt-gap-20261109/README.md) feed `#case00TiltGapStudy`.
+- No new PPO, checkpoint/selector activation, noise or 128-substep experiment. This is repeated success in one previously inspected layout, not generalization or a guaranteed success interval. Next: finer bounded tilt/gap mapping around 26°/32°, then frozen evaluation on new bucket positions. The 4070 and Isaac remain untouched.
+
 ## Completed bouncer-clearance XY search — November 8, 2026
 
 - [Exact configurations and interpretation](MJLAB_BOUNCER_CLEARANCE_20261108.md): 75 frozen XY proposals across cases 00/18/26 produced **9 admitted setups and 66 finite IK declines**. Only ΔX=0 and ΔY=0/+60/+120 mm admitted in each case. Board height, tilt, gap and bucket XY stayed fixed; moving board XY changed heading and horizontal bucket distance. All failed proposals remain evidence; finite IK failure does not prove impossibility.
