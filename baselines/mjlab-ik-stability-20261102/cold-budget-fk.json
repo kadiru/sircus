@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "accepted_endpoint_records": 44,
+  "native_all_gates_passed": true,
+  "native_max_board_error_m": 7.3714821730461975e-09,
+  "native_max_dropper_error_m": 6.941187256960714e-06,
+  "native_max_normal_error_deg": 2.4148365394514667e-06,
+  "independent_fk": {
+    "board_saved_position_m": 5.125396027766235e-16,
+    "board_requested_position_m": 7.371481877560214e-09,
+    "dropper_requested_position_m": 6.941187256870799e-06,
+    "locked_position_m": 0.0
+  },
+  "checks": [
+    {
+      "name": "independent_urdf_fk_and_valid_lock_positions",
+      "passed": true,
+      "detail": {
+        "maxima": {
+          "board_saved_position_m": 5.125396027766235e-16,
+          "board_requested_position_m": 7.371481877560214e-09,
+          "dropper_requested_position_m": 6.941187256870799e-06,
+          "locked_position_m": 0.0
+        },
+        "failures": []
+      }
+    }
+  ],
+  "scope": "Independent NumPy/SciPy URDF FK plus current native MuJoCo limit/pose/collision/collider gates; no ball dynamics, GPU, training or unseen-position claim"
+}

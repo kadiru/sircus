@@ -1,0 +1,619 @@
+{
+  "status": "completed",
+  "phase": "completed",
+  "contract_fingerprint": "b12e2d1a739a0789de45e12f332b1a3c7339fe62c26c8f1c68686a5e15361191",
+  "development_layouts": [
+    {
+      "id": "old-test-08",
+      "original_test_index": 8,
+      "bucket_xy_m": [
+        1.2138862453043828,
+        -0.15628745328163396
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-09",
+      "original_test_index": 9,
+      "bucket_xy_m": [
+        1.1798593677024012,
+        -0.5817071647655893
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-10",
+      "original_test_index": 10,
+      "bucket_xy_m": [
+        1.1155016613275015,
+        -0.17151353841633726
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-12",
+      "original_test_index": 12,
+      "bucket_xy_m": [
+        1.1909716578968224,
+        0.047362857158011584
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-21",
+      "original_test_index": 21,
+      "bucket_xy_m": [
+        0.16275255472120964,
+        -0.6365356466995716
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-23",
+      "original_test_index": 23,
+      "bucket_xy_m": [
+        1.0821769084188266,
+        -0.5174710227733501
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-26",
+      "original_test_index": 26,
+      "bucket_xy_m": [
+        1.1532532351054154,
+        0.21845672365283675
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-35",
+      "original_test_index": 35,
+      "bucket_xy_m": [
+        1.217406544799545,
+        -0.39988567162964045
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-39",
+      "original_test_index": 39,
+      "bucket_xy_m": [
+        1.2199134134696716,
+        0.1802220024389507
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    },
+    {
+      "id": "old-test-41",
+      "original_test_index": 41,
+      "bucket_xy_m": [
+        1.2372435345605606,
+        -0.6134795749084982
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate"
+    }
+  ],
+  "no_training": true,
+  "native_search_attempts": 10240,
+  "confirmation_attempts": 400,
+  "final_confirmation_attempts": 20,
+  "control_attempts": 90,
+  "geometry_proposals": 28580,
+  "cells": [
+    {
+      "id": "old-test-08",
+      "original_test_index": 8,
+      "bucket_xy_m": [
+        1.2138862453043828,
+        -0.15628745328163396
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 1024,
+        "captures": 0,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 1024,
+        "mean_reward": -0.23212370281623357
+      },
+      "observed_assisted_entries": 104,
+      "promotion": null,
+      "unresolved_reason": "No independently final-confirmed route source in this finite study"
+    },
+    {
+      "id": "old-test-09",
+      "original_test_index": 9,
+      "bucket_xy_m": [
+        1.1798593677024012,
+        -0.5817071647655893
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 1024,
+        "captures": 0,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 1024,
+        "mean_reward": -0.17130261926526824
+      },
+      "observed_assisted_entries": 89,
+      "promotion": null,
+      "unresolved_reason": "No independently final-confirmed route source in this finite study"
+    },
+    {
+      "id": "old-test-10",
+      "original_test_index": 10,
+      "bucket_xy_m": [
+        1.1155016613275015,
+        -0.17151353841633726
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 1024,
+        "captures": 209,
+        "clean": 111,
+        "invalid": 0,
+        "board_bounces": 1024,
+        "mean_reward": 0.8764845300288351
+      },
+      "observed_assisted_entries": 18,
+      "promotion": null,
+      "unresolved_reason": "No independently final-confirmed route source in this finite study"
+    },
+    {
+      "id": "old-test-12",
+      "original_test_index": 12,
+      "bucket_xy_m": [
+        1.1909716578968224,
+        0.047362857158011584
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 1024,
+        "captures": 0,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 1024,
+        "mean_reward": -0.29587652978663365
+      },
+      "observed_assisted_entries": 3,
+      "promotion": null,
+      "unresolved_reason": "No independently final-confirmed route source in this finite study"
+    },
+    {
+      "id": "old-test-21",
+      "original_test_index": 21,
+      "bucket_xy_m": [
+        0.16275255472120964,
+        -0.6365356466995716
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 1024,
+        "captures": 405,
+        "clean": 113,
+        "invalid": 0,
+        "board_bounces": 1024,
+        "mean_reward": 1.7940219484026596
+      },
+      "observed_assisted_entries": 5,
+      "promotion": null,
+      "unresolved_reason": "No independently final-confirmed route source in this finite study"
+    },
+    {
+      "id": "old-test-23",
+      "original_test_index": 23,
+      "bucket_xy_m": [
+        1.0821769084188266,
+        -0.5174710227733501
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 1024,
+        "captures": 49,
+        "clean": 8,
+        "invalid": 0,
+        "board_bounces": 1024,
+        "mean_reward": 0.06067486639308867
+      },
+      "observed_assisted_entries": 42,
+      "promotion": null,
+      "unresolved_reason": "No independently final-confirmed route source in this finite study"
+    },
+    {
+      "id": "old-test-26",
+      "original_test_index": 26,
+      "bucket_xy_m": [
+        1.1532532351054154,
+        0.21845672365283675
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 1024,
+        "captures": 176,
+        "clean": 41,
+        "invalid": 0,
+        "board_bounces": 1024,
+        "mean_reward": 0.6651767035963008
+      },
+      "observed_assisted_entries": 8,
+      "promotion": null,
+      "unresolved_reason": "No independently final-confirmed route source in this finite study"
+    },
+    {
+      "id": "old-test-35",
+      "original_test_index": 35,
+      "bucket_xy_m": [
+        1.217406544799545,
+        -0.39988567162964045
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 1024,
+        "captures": 0,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 1024,
+        "mean_reward": -0.17541876019403935
+      },
+      "observed_assisted_entries": 87,
+      "promotion": null,
+      "unresolved_reason": "No independently final-confirmed route source in this finite study"
+    },
+    {
+      "id": "old-test-39",
+      "original_test_index": 39,
+      "bucket_xy_m": [
+        1.2199134134696716,
+        0.1802220024389507
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 1024,
+        "captures": 46,
+        "clean": 5,
+        "invalid": 0,
+        "board_bounces": 1024,
+        "mean_reward": 0.014105250764046867
+      },
+      "observed_assisted_entries": 34,
+      "promotion": null,
+      "unresolved_reason": "No independently final-confirmed route source in this finite study"
+    },
+    {
+      "id": "old-test-41",
+      "original_test_index": 41,
+      "bucket_xy_m": [
+        1.2372435345605606,
+        -0.6134795749084982
+      ],
+      "role": "targeted_development",
+      "reason": "Original finite bank had no endpoint-feasible candidate",
+      "search": {
+        "attempts": 1024,
+        "captures": 0,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 1024,
+        "mean_reward": -0.17435617079555832
+      },
+      "observed_assisted_entries": 88,
+      "promotion": null,
+      "unresolved_reason": "No independently final-confirmed route source in this finite study"
+    }
+  ],
+  "additions": 0,
+  "solver_audit": {
+    "comparison": [
+      {
+        "method": "old",
+        "queries": 16,
+        "accepted": 14,
+        "order_mask_changes": 3,
+        "batch_mask_changes": 2,
+        "max_q_delta_rad": 6.283185307179586,
+        "preserved_known_branches": null
+      },
+      {
+        "method": "stable_matched",
+        "queries": 16,
+        "accepted": 12,
+        "order_mask_changes": 0,
+        "batch_mask_changes": 0,
+        "max_q_delta_rad": 1.7763568394002505e-15,
+        "preserved_known_branches": null
+      },
+      {
+        "method": "stable_free",
+        "queries": 16,
+        "accepted": 12,
+        "order_mask_changes": 0,
+        "batch_mask_changes": 0,
+        "max_q_delta_rad": 0.0,
+        "preserved_known_branches": null
+      },
+      {
+        "method": "stable_seeded",
+        "queries": 16,
+        "accepted": 16,
+        "order_mask_changes": 0,
+        "batch_mask_changes": 0,
+        "max_q_delta_rad": 0.0,
+        "preserved_known_branches": 16
+      }
+    ],
+    "order_batch_invariance": {
+      "passed": true,
+      "tolerance_rad": 1e-09,
+      "variants": "Full batch, reverse order and individual-query batches; raw cache arrays retained"
+    },
+    "known_branch_preservation": {
+      "passed": true,
+      "known_valid_queries": 16,
+      "preserved": 16
+    },
+    "no_training": true
+  },
+  "elapsed_s": 638.2099472989794,
+  "timestamp_utc": "2026-11-02T21:56:18.376148+00:00",
+  "records": 10750,
+  "confirmed_bank_sha256": "52e3c9553b9771831b2aaf4d08b7949ad69361c4e1f2a24a805a42d2c07b433d",
+  "proposal_bank_sha256": "361f61c9f724a5f446383d0ad9c8ea44fb60bb3e64234e6da4e5b9c97891b2ee",
+  "base_templates": 17,
+  "confirmed_templates": 17,
+  "native_search_statistics": {
+    "attempts": 10240,
+    "captures": 885,
+    "clean": 278,
+    "invalid": 0,
+    "board_bounces": 10240,
+    "mean_reward": 0.23613855163271977
+  },
+  "confirmation_statistics": {
+    "attempts": 400,
+    "captures": 110,
+    "clean": 43,
+    "invalid": 34,
+    "board_bounces": 366,
+    "mean_reward": 1.0685680405378968
+  },
+  "final_confirmation_statistics": {
+    "attempts": 20,
+    "captures": 13,
+    "clean": 2,
+    "invalid": 0,
+    "board_bounces": 20,
+    "mean_reward": 2.86419026969299
+  },
+  "control_statistics": {
+    "saved": {
+      "attempts": 18,
+      "captures": 18,
+      "clean": 12,
+      "invalid": 0,
+      "board_bounces": 18,
+      "mean_reward": 4.407613969402189
+    },
+    "legacy_fresh": {
+      "attempts": 18,
+      "captures": 15,
+      "clean": 9,
+      "invalid": 0,
+      "board_bounces": 18,
+      "mean_reward": 3.6333437812503147
+    },
+    "stable_matched": {
+      "attempts": 18,
+      "captures": 12,
+      "clean": 3,
+      "invalid": 6,
+      "board_bounces": 12,
+      "mean_reward": 2.5237194724534886
+    },
+    "stable_free": {
+      "attempts": 18,
+      "captures": 12,
+      "clean": 3,
+      "invalid": 6,
+      "board_bounces": 12,
+      "mean_reward": 2.5237250462247207
+    },
+    "stable_seeded": {
+      "attempts": 18,
+      "captures": 16,
+      "clean": 10,
+      "invalid": 0,
+      "board_bounces": 18,
+      "mean_reward": 4.016660993280822
+    }
+  },
+  "versions": {
+    "mjlab": "1.6.0",
+    "mujoco": "3.11.0",
+    "mujoco-warp": "3.11.0",
+    "torch": "2.7.0",
+    "warp-lang": "1.14.0"
+  },
+  "source_sha256": {
+    "expanded_env.py": "b0e9744d1e82b9e575126e0c6d58e524372b75287713cfdf14d010cb2812df8b",
+    "compare.py": "3df8ca25a182377f28a9babf8743a4bd4789c4ad4b66ac193f180eb4defa8017",
+    "gpu_slot.py": "fcace6029058a9892296507358ee196b9b5296dc4287a07bedc786e3af4cad4a",
+    "prepare_stable_report.py": "b137737a78ce672e5affdec5048f98ff8dfd058a00caa2add13d9fd661031194",
+    "model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+    "learning_solve.py": "836ae6db1172f8a9b43de20dbe0132cd1bc2095fe52cc4f923ebbf739f1c41e5",
+    "bank_policy.py": "0773471ab8327e822b7c6676b02c2beaf1185e90d72a3ab10fddaf8cd1595ae8",
+    "expand_bank.py": "c65110b9afa9c30658b99f0c11ae6e2aefbdf88442fc876dbc8b03e0888a320b",
+    "verify_expansion.py": "541f2a6e8b58dcc6b07cbb94780474b49f5c785fc3012f92e327de97bc5ca8d1",
+    "expanded_study.py": "4a271fe5b1b0d3df20c2c53ce7ef0be87a1d0a681c980708a62df29a6d1bef06",
+    "expand_far.py": "374aa54f7b24c8f6f598f75ed33881050fb06fcc496a6a6466fe20625763e167",
+    "expand_geometry.py": "0b7982c3494b7cb7f799e073e3a7b788cca77617af0e9f509a4b7e273d926739",
+    "verify_expanded.py": "f08de30a4c7c9db94bcd9f483e42f925c69f213c60f37ef9dd57049aedfd618d",
+    "verify_far.py": "bd20cb8410657ae39562581b1a0157f3eaa4a4ba519aa1532bc051c6da1b5611",
+    "learning_env.py": "58d2f58be0e1981a5efd09e872bdea7d8f608e1fa21b5c87986505a20a4a4f8c",
+    "bank_solve.py": "457166a796492f66e29b9a52dd944a57119f180f12c89a6aface4d5d2f1ad001",
+    "prepare_interface.py": "3783ad300b73808fe9424a960b791afe7addbf28e8a4fab9b61be6ffaf1afbe8",
+    "learning_reach.py": "8eea1d565e9faefff0622a9e9a4666eb8d811ac086a8a6711caa8efa3029e9a4",
+    "contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407",
+    "stable_study.py": "c9fe1cc71103e1eda5dbd7f9869627c1b09555dca4242e376b7f239198a19ea9",
+    "isaac_pair.py": "4ab44904a2c966d6a8bf1567d4882a8bcfdf3c1dd3d2ea8d9e1bbeba6093d983",
+    "learning_policy.py": "5c37a248a0a44280f0f82fe3327973299ec6a4bbfccaaae9f750a898180c7792",
+    "interface.py": "00ae4d29643f12ff143c356422384e7daa047889e3790cceb7732325a5b5a6ea",
+    "stable_geometry.py": "2e00b5fc46d1b253b5c85b6823c781a37e26f5819b35586a8cc112b057ebaebf",
+    "prepare_expanded_report.py": "a3fa99cae4b6327658b2471986acac8b5f1b1aa0cc5ced0fb0c0ec0bc37e3ecd",
+    "repeat_diagnostic.py": "2a91c87c2234466dc1528464630f24856b7a3358f3a98862a1d7916ebac563e8",
+    "verify_bank.py": "d8f3e0ce75533dd9aacc5018c2dacef2212de8f9e3d63fa50013e1080566fe9b",
+    "stable_ik.py": "efd52c5e837339662c99c196e1a3cf4b5b260eecb7888258779030c459944e07",
+    "learning_contract.py": "9f2c44b76297f4ef7009c1b0107be983d0511d5654cb68b8e344dd316ed1fda8",
+    "expand_refine.py": "bd55749d6fe0e16a2bf942efcca933a9bf2e579209760eecf89cfe1b6131f60a",
+    "learning_search.py": "7e37412363aa5263f0d71b76fe8b79af003ed81e92706beeb9e0f3706512e40a",
+    "learning_interface.py": "73f9bfcdb95bacfb7bc904853c26b7233a635c566930c1e51040a9473af9a29a",
+    "render_replay.py": "27a562466bc45f5615a95f6c7824ee96bb60e1e51556cedae59bf6982f5a5f50",
+    "expanded_actions.py": "d41817aa7ad4206139925256ab0cdf5288853e621d6b39824c10ad2d309679c3",
+    "learning_study.py": "1d9b358fe11007c7edfbeb607c6f769e9d4dae6e6832768e16cc0df98480f8df",
+    "learning_score.py": "e66b982c0e651c3a9f5855dd03efb87488cc924321aaf9cadb80d51bac2fe814",
+    "bank_geometry.py": "5c0d6775582c5524a323f1e9344c35317e8352e9f1f813f5dd0794c05de743f5",
+    "verify_learning.py": "2ac3124e0a5443d7d572eefe9b73d7711f67a2cdffb9a1198da9fdfac202e874",
+    "verify_combined.py": "c3de2bd00cdff61f5a848ae572a8e3caa3ec5b7ab84465d493d7c907b7b851e2",
+    "run.py": "969db2710378345aad34a6f802e33d6ea62488d75e560b9da5738bc0748c3dee",
+    "bank_study.py": "7699faeff915a772f3e838983ff1c8dec7721f2d55c79a594e185cd9e08e7dcb",
+    "verify_refinement.py": "d979ecd5a29e33fc7351283455ace3ab58bc544efee305a5f77f5b6341af1d53",
+    "learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+    "calibrate.py": "e2da7c22355899f35e7f9f28e8a3ae35001e29cc2e10e7a490c470809bd548fb",
+    "combine_expansions.py": "08bd8381c2feb7f4616c6ab52178c335274601efe8111c0ea5a07327575efe93"
+  },
+  "artifacts_sha256": {
+    "endpoint-batch-0086.npz": "6befafa21acabbc180269ac54d769ccb45b2107a28ab8fd8bbab34182796ef47",
+    "endpoint-batch-0102.npz": "c1c435887d34423c77238a824ba4486edabb790df6eac4d2117beae5fdd9bdee",
+    "endpoint-batch-0019.npz": "a76b5cede2e8517ba11941de723ce9c1999343fea720a19549f0ea403fb39ba3",
+    "endpoint-batch-0052.npz": "8b97cac50c8147e06760d6710dfeb726e61462e5bb08757951580190273569a7",
+    "endpoint-batch-0076.npz": "b99f401b1ca35939febd2021c7accbdbefaf8ca1ac56c7b9b20ca8d83a0f96cb",
+    "endpoint-batch-0039.npz": "7d94d71e36173d29f52611b6f5296d9a42435589aceba40b085972acb0d96f4e",
+    "endpoint-batch-0073.npz": "f2f8591a5e54eb60b3f259238801cf4264e028dad4575aec053bb600cc3b6cf2",
+    "endpoint-batch-0050.npz": "2ba17ea475a7ad1760da02fb05009842b8727f782ddef6da5d04268f766a9b3b",
+    "endpoint-batch-0032.npz": "4c1c5402b38c49599312af8eed9fa3b4e110ba32942fcb7b924538fc571aea31",
+    "endpoint-batch-0036.npz": "003116b80f9c843d49504aeb9dd8ecc166d2dc159e4e45d34d5def9f4f8aef61",
+    "endpoint-batch-0088.npz": "bf4ee90f7ca253e41b20b5c3b82a2d18fb1a2f7d6599e55191c61c927684f034",
+    "endpoint-batch-0069.npz": "11a651b713ddb865edc95ec85adf7e317af1f4886b3ce98fb805a7a1d69f2603",
+    "endpoint-batch-0089.npz": "ee1a318c7c1a4d6fc0cec9f20101d3e53cc243852b30a8812f60d685f7d835c4",
+    "endpoint-batch-0085.npz": "59ee462603ae0be8b6f6a79cb6bb5f95a9bf492eacf36feeb9be0d169cdc5f6a",
+    "endpoint-batch-0025.npz": "9070f6cae571c554aea2bda0c99eb15d1b7c0f653641028fd15f48f641b44ed4",
+    "endpoint-batch-0090.npz": "ea241464dbd8c3ba6c7508b88f530e3a1efe2d7beb05d843592a5262aca16c81",
+    "endpoint-batch-0051.npz": "3d112d1e5bba6b878b495c0acd221aadb46cefc360ffb13f9ef889b32b0d3a78",
+    "endpoint-batch-0079.npz": "c228e2c2d5c31307bff8eeb376f726e088f476d2e9cce3d35e8d95af8060271a",
+    "endpoint-batch-0017.npz": "97d6e26304955c6f41792b14098942d2668b7e4d05fccb52879ece37ebdc96a1",
+    "endpoint-batch-0014.npz": "a883b51fffe1ed7574ee0ec9de9eaa529154d7e03c5084bd19482e8afd05680b",
+    "endpoint-batch-0099.npz": "4be83c69ffb7492121b8227fa785bc71ed01dcd935b07b27253d2d9fcc59e65c",
+    "endpoint-batch-0096.npz": "85f2754fed86d9b118a819ef4060bdfb6fcdfd5c579173a9a0e7847773a39093",
+    "endpoint-batch-0006.npz": "2ad15c1daa67b0f673fa0855a66e1199e6d70173078e2c527309f7a83f4c616d",
+    "endpoint-batch-0101.npz": "b7901c2c20f9c6906a26333d52452884a2db32600272f5b6f17e0fd24da5e6a9",
+    "endpoint-batch-0038.npz": "abadfb00e293178ec5fd7f3166aa5e45c0a2f68c43845f05e3fcc2e159b49bb8",
+    "endpoint-batch-0067.npz": "dcbc62bf75c2bcc4122ab4565a754202b1ead8316769d624828091ba8d3fed12",
+    "endpoint-batch-0042.npz": "3781479bfd5b9ed50610cde7fb7019c24931753aff111ba0a2dd4a583631a531",
+    "endpoint-batch-0098.npz": "b7c7238501fae53f749cac9383e4619c914157965104f4ff4650bcc2a6ce09be",
+    "endpoint-batch-0104.npz": "cb4e4be36c7a2ec25d4543c637d9819d42cea84050efd1aad59e704b657d5400",
+    "endpoint-batch-0074.npz": "b13cfee48439370f05d0645fe5e1d55f6cfadf7384ca4fea2ef7e3be2db9986e",
+    "endpoint-batch-0009.npz": "a883b51fffe1ed7574ee0ec9de9eaa529154d7e03c5084bd19482e8afd05680b",
+    "endpoint-batch-0083.npz": "968ac6a93755090a2ca0fb1152357d019ca5bd1da14ed77a99050f1d2d8c5719",
+    "endpoint-batch-0068.npz": "63ab3f807557a664eb33337b05984c08f1055f9267aef1d45bea319c7f9730e0",
+    "endpoint-batch-0015.npz": "252bb0e08d7beb0dfe805c271efb247b9191f3a9ab6e325bd655647aef29657c",
+    "endpoint-batch-0063.npz": "c8389ab2061b0161a93414e3cb8ba8dd6fa7ad548d14052bcb86fd04ccd11309",
+    "endpoint-batch-0024.npz": "f843ef11da2c9efbf4f74789a116fd9caa3c36d0d49bfd10e7f5c328540d4309",
+    "endpoint-batch-0092.npz": "c88715f9975ea0085d28a50a2342fe2e43ebb71782485c81f2280137a05ea4fd",
+    "endpoint-batch-0000.npz": "3744662d11c4d53f2a1ef411bd2b79a9e673c7f3f7e94b7f0755df1377357d05",
+    "endpoint-batch-0013.npz": "48411fbe70b420430d0c1d388db23bfb6ca3dbaa46e56be6b06931bab0117333",
+    "confirmed-bank.json": "52e3c9553b9771831b2aaf4d08b7949ad69361c4e1f2a24a805a42d2c07b433d",
+    "shots.jsonl": "87936b659b639970595416a9ae8446b24257618c690167de8a90f6853dde7c32",
+    "endpoint-batch-0003.npz": "48411fbe70b420430d0c1d388db23bfb6ca3dbaa46e56be6b06931bab0117333",
+    "endpoint-batch-0084.npz": "47da006cec4b5f6b1ec45d04113aef37314aac581fbd40b57d41e8d39a0f4111",
+    "endpoint-batch-0037.npz": "f38a93ac8e60e3076fb4e74cf0e658882b5b74dae51719239210b42b62c8aa6a",
+    "endpoint-batch-0010.npz": "3744662d11c4d53f2a1ef411bd2b79a9e673c7f3f7e94b7f0755df1377357d05",
+    "endpoint-batch-0034.npz": "92bce378ec01f2316857bd51936de32dd4913bfa9613d8cfd1d3dfd514d3f6f9",
+    "endpoint-batch-0027.npz": "d2f291f706a6df2847de95372d988282aeca4307693c506168fd65b4c84cf276",
+    "endpoint-batch-0077.npz": "5ab4fc67fd63777f0255e9c0eb5f4661d0c56a9905395a2f28cc28694c8f1aee",
+    "endpoint-batch-0011.npz": "2ad15c1daa67b0f673fa0855a66e1199e6d70173078e2c527309f7a83f4c616d",
+    "endpoint-batch-0023.npz": "b54bfb8d561f199d8a41b03147740a4ad7faca0feff5f59d72e606641f7858dc",
+    "endpoint-batch-0018.npz": "f7aaa96291e5666ddbf06c92c36973189cf41dc1f8ecc1cc132b0d8db3e8bdbf",
+    "endpoint-batch-0041.npz": "1bc2ad0a47299b41ae0e32927c2737ba613a84472cfbe7d3f31f7b8861f1dc7e",
+    "endpoint-batch-0095.npz": "f2b674ba25cb4ae902370e9f7e302ace2d6015236b72ecbfee43d96515eb4b5f",
+    "endpoint-batch-0043.npz": "bd3eea851e89c97eb968befa1b0a01e998aa2de96b523cefd62fcf94e59de57f",
+    "endpoint-batch-0033.npz": "59bdde12b91297adc75dbb0231535ed2871d5bb0da55dda2c2350d819cabb77d",
+    "endpoint-batch-0020.npz": "230caec849b320935a4326649a87f34a9fa69b1503fe4a1956d2272a118f58ba",
+    "endpoint-batch-0012.npz": "48411fbe70b420430d0c1d388db23bfb6ca3dbaa46e56be6b06931bab0117333",
+    "endpoint-batch-0021.npz": "eab6631763f39894289318bd1bfafe16165b1ad31323a7d2ab577c9a85e46554",
+    "endpoint-batch-0071.npz": "c6bc604196d9db2615cee03f308a888fa052b3172b0663d90a48b411e2980168",
+    "endpoint-batch-0026.npz": "dfa7c0b4e39baa22c4e459af44496fecf8bf04476b1a3678b50b7b49a1e4a214",
+    "endpoint-batch-0040.npz": "17e507331cb531af710af0274e1fa9a7059e28b48254d1e9265ee343bf20a09f",
+    "endpoint-batch-0056.npz": "51067eee5a82e01bd264f4f9b3a943e01b71cc145d4c4c0e575502906ef21170",
+    "endpoint-batch-0066.npz": "29b40337517d16729df14a3602f39adeed1e0c1bf1c783192107be1f9408faf5",
+    "endpoint-batch-0045.npz": "425715f2b1d7eeffa535b0077d9add7f8143ac9de3859cd9604780eb83b7a3d9",
+    "endpoint-batch-0029.npz": "46969a9c24749826ce8609030872cebbc9a41413bceb2c1b6c5883b72d17bb4b",
+    "endpoint-batch-0070.npz": "af7b46157e7a1a654c77ad8fabc035afdd13a5170f1b84596e439302db28314f",
+    "endpoint-batch-0030.npz": "8546a0342bfb900ecb2fcc63f687bc250b5cfd212e708b4c9ebcec5bf253b954",
+    "endpoint-batch-0093.npz": "7d7336db0112749fe8573b2fb73fc82bd7b9d9bc1cebfef8e01771cf131c0eb5",
+    "audit-queries.json": "d4c8e692aa7383baf425fb229ba58390bcee8dfeb51f3e7fd31476d9109897a6",
+    "endpoint-batch-0100.npz": "d80f75c765d95fdde720553029769d618b4d2114e1238752105143f2a7b3f1a3",
+    "endpoint-batch-0080.npz": "df958c6d40ad1a16f074ffbd1fafc0b98844b34d719a11ac9ea0548194b94f91",
+    "endpoint-batch-0058.npz": "f814e46b720eddc0fa8978caaddd64f7c2d3019687b6109170514fadf77aeac4",
+    "endpoint-batch-0060.npz": "4c70a44ec9952961578ff2c032719c009ee5855e21e61b10a974f3364594d707",
+    "endpoint-batch-0059.npz": "8f4300d79f6b537aaa692842dcde0c584055cbfe58cf7e5d47ab52c3b6763c56",
+    "endpoint-batch-0002.npz": "48411fbe70b420430d0c1d388db23bfb6ca3dbaa46e56be6b06931bab0117333",
+    "endpoint-batch-0078.npz": "5ff2ae97615c537f48e5c89cece06d315114b67ae15418dbcc391ab3bdf4132a",
+    "endpoint-batch-0054.npz": "78927975b4b654ef7908f275897c3f0ec7d93d824042b04da817cc63bb6a3a4b",
+    "solver-audit.npz": "cb2117673bc6dd66d39c2acbfbe1bedde4d3846d907bb2a7a31a73de9b899758",
+    "endpoint-batch-0081.npz": "ccd3dd86f6e08074e2692f39fb4387bbf993e3f4845a594fe3ca56fd9f14bf47",
+    "endpoint-batch-0008.npz": "48411fbe70b420430d0c1d388db23bfb6ca3dbaa46e56be6b06931bab0117333",
+    "endpoint-batch-0057.npz": "d3b62449fdccf5311e91145c7a666a596ed80771391a05651d03f1ca200887a0",
+    "endpoint-batch-0004.npz": "a883b51fffe1ed7574ee0ec9de9eaa529154d7e03c5084bd19482e8afd05680b",
+    "endpoint-batch-0047.npz": "51521748738fa13384f700c1abaae5d909180f13e95b5b0f563b09c6015d18ca",
+    "endpoint-batch-0062.npz": "9899322c6eafa02a196eea49bdb85e9d9a40b794e8890829efd0c88cbebb1f9a",
+    "endpoint-batch-0031.npz": "52e5e046da875c30d04153a19f0c7f977161f4f56be0af8e6f267c0b6e8d498b",
+    "contract.json": "70a2d156db97253353d371e1191ed73c66606145e67e2093268a5a3738134362",
+    "endpoint-batch-0064.npz": "c570d5757f897bcceb9415b8d96b8d79bb6e55cb046dc0ee23bd4ff1509990a4",
+    "endpoint-batch-0053.npz": "efe3dae7e8374d81e708ee3607e4c4934a5e735b611608250f44ed47749dfc44",
+    "endpoint-batch-0075.npz": "6c6d144c75f024025fae91bef17f913060b1c90660f32d7134342a63cfd39039",
+    "endpoint-batch-0091.npz": "ba61abc3f22055b987a2ca824bf307f20baf436d749eec9f22de79e631e6dcd7",
+    "endpoint-batch-0046.npz": "70347225cd3793d166e858c45668b4d1496a60f4bcc2f965474218f6a6ca5e16",
+    "endpoint-batch-0065.npz": "c2cdf0bda93ef2e5eabe8b23c9c804285b01d53b2c931331da27b32e1cf008dd",
+    "endpoint-batch-0103.npz": "1ba8cbaf179c7f0c88d0db8a0a654bf4631f3ec0fa4ff6ec694e4b228cd40170",
+    "endpoint-batch-0087.npz": "78f7dcef1a1d49478b7e8a603e74d61959bf9dbc10ffcd19c08f79c38fe9373e",
+    "endpoint-batch-0044.npz": "f9827bdeb167b4ecaad3c23a2795a73630c45f5d14bd833d1fa9365f7f2b9b9b",
+    "endpoint-batch-0072.npz": "2caec2e077d1a6d6d5171729af83d2401b9f68ff19ca0bef8e1ebb65e97c1c0c",
+    "endpoint-batch-0094.npz": "a1df8a3ba50bbf0819e7f3449d9f33120785d5001954166f3b961821369e319e",
+    "endpoint-batch-0105.npz": "c66a8a39033c85b10f146ac4e50f4b13d925c80ef21c682c60855acf387d3f21",
+    "endpoint-batch-0035.npz": "e2ce63fc61256e2cadf0690aeff4a5a2f728f0bab5ffa315f188dd7efd224b6f",
+    "endpoint-batch-0082.npz": "48e9d3acdf43384f0bfe89226d8ce2fd980d3a35909911f9f2c12bbe398dc96b",
+    "endpoint-batch-0016.npz": "a8ae3f283af2eed578f04b8c100ac5cb5e7212c918b54c48087504bfe4bbb369",
+    "endpoint-batch-0005.npz": "3744662d11c4d53f2a1ef411bd2b79a9e673c7f3f7e94b7f0755df1377357d05",
+    "endpoint-batch-0048.npz": "695db607ed04943c7e76f0b6b0c3ca7a5a6027d99c617ace765774f9076f3f38",
+    "prior-sources.jsonl": "15ae81d98e71482965fee6fcfa12e5a4dd3d8470f604f2c24530a51cfd180d64",
+    "frozen-final-sources.json": "3d49fe865878f069698868713123372508ed204b5666e0ab6a5428f2f331e964",
+    "endpoint-batch-0007.npz": "48411fbe70b420430d0c1d388db23bfb6ca3dbaa46e56be6b06931bab0117333",
+    "endpoint-batch-0097.npz": "da3712897504e21f1cf4ebfa3ea015e6b2b342717506efda073e92a03f8c3e20",
+    "endpoint-batch-0001.npz": "2ad15c1daa67b0f673fa0855a66e1199e6d70173078e2c527309f7a83f4c616d",
+    "endpoint-batch-0049.npz": "3ad5b2187e25efc18c1bf35f622e0acfb96fc2ddbb9814a54808e60df4ed8e73",
+    "endpoint-batch-0055.npz": "3f56551452d5b7c8a18281d9a3e3f077cfd8320214bc5a64b72c213a66a6d26c",
+    "endpoint-batch-0061.npz": "2050c02fa3068aeca38cf0abbf84cef3ce6109d8630548be025b0f576c17ee1f",
+    "endpoint-batch-0028.npz": "7a3397ee094fbe3b4669d1ecff8340e4919cc8e9a493cfccd472f43a1eda06f6",
+    "endpoint-batch-0022.npz": "5fa17ee2cb83bcfedda035b62ff68b9c74b0ec6fdab742360f80c06cfde6e858"
+  }
+}

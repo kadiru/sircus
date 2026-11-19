@@ -1,5 +1,12 @@
 # Sircus in mjlab
 
+The [IK-stability follow-up](../../baselines/mjlab-ik-stability-20261102/README.md)
+fixes query-order dependence and preserves all 16 saved-source branches in its
+audit. A larger 16-start cold budget also recovers 16/16. Another 10,240 native
+throws at the ten remaining positions found direct captures at five, but none
+passed independent final reliability qualification. No additional PPO was run.
+[Stable solver protocol](IK_STABILITY.md).
+
 The [targeted bank expansion](../../baselines/mjlab-expanded-bank-20261102/README.md)
 adds one 9/10-confirmed template after 15,360 search throws, followed by 4,096 PPO
 throws. On 100 fresh positions × 3: learned 188/300 versus uniform 182/300; the small

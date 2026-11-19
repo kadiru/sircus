@@ -1,0 +1,25 @@
+{
+  "verified_at_utc": "2026-11-02T22:08:03.679161+00:00",
+  "display_url": "http://127.0.0.1:18781/#ikStability",
+  "status": "completed",
+  "no_training": true,
+  "audit_passed": true,
+  "audit_checks": 156,
+  "old_display_fields_unchanged": true,
+  "http_server_pid_unchanged": 186578,
+  "http_server_start_ticks_unchanged": "60012405",
+  "native_and_display_watcher_exited": true,
+  "active_policy": "Previous policy remains active; stable solver not silently deployed",
+  "screening": {
+    "captures": 8,
+    "attempts": 10,
+    "status": "passed"
+  },
+  "final_confirmation": {
+    "captures": 13,
+    "attempts": 20,
+    "status": "failed"
+  },
+  "new_confirmed_templates": 0,
+  "screenshot_sha256": "30bad85c767622f3abcdfc288dc36c79dfc6a8697daf9f9d6c22a4f7c6dc8747"
+}
