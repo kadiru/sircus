@@ -1,0 +1,1179 @@
+{
+  "control_gates": {
+    "controls_post": {
+      "negative_control": true,
+      "oracle_agreement": true,
+      "physics_valid": true,
+      "positive_control": true,
+      "status": "passed"
+    },
+    "controls_pre": {
+      "negative_control": true,
+      "oracle_agreement": true,
+      "physics_valid": true,
+      "positive_control": true,
+      "status": "passed"
+    }
+  },
+  "controls": [
+    {
+      "group_id": "positive-control",
+      "phase": "controls_pre",
+      "role": "positive_control",
+      "stats": {
+        "attempts": 3,
+        "captures": 3,
+        "clean": 3,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 0.9999999999999999,
+        "native_releases": 3,
+        "rim_assisted": 0,
+        "whole_entries": 3
+      },
+      "substeps": 64
+    },
+    {
+      "group_id": "positive-control",
+      "phase": "controls_pre",
+      "role": "positive_control",
+      "stats": {
+        "attempts": 3,
+        "captures": 3,
+        "clean": 3,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 1.0,
+        "native_releases": 3,
+        "rim_assisted": 0,
+        "whole_entries": 3
+      },
+      "substeps": 128
+    },
+    {
+      "group_id": "negative-control",
+      "phase": "controls_pre",
+      "role": "negative_control",
+      "stats": {
+        "attempts": 3,
+        "captures": 0,
+        "clean": 0,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 0.0,
+        "native_releases": 3,
+        "rim_assisted": 0,
+        "whole_entries": 0
+      },
+      "substeps": 64
+    },
+    {
+      "group_id": "negative-control",
+      "phase": "controls_pre",
+      "role": "negative_control",
+      "stats": {
+        "attempts": 3,
+        "captures": 0,
+        "clean": 0,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 0.0,
+        "native_releases": 3,
+        "rim_assisted": 0,
+        "whole_entries": 0
+      },
+      "substeps": 128
+    },
+    {
+      "group_id": "positive-control",
+      "phase": "controls_post",
+      "role": "positive_control",
+      "stats": {
+        "attempts": 3,
+        "captures": 3,
+        "clean": 3,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 0.9999999999999999,
+        "native_releases": 3,
+        "rim_assisted": 0,
+        "whole_entries": 3
+      },
+      "substeps": 64
+    },
+    {
+      "group_id": "positive-control",
+      "phase": "controls_post",
+      "role": "positive_control",
+      "stats": {
+        "attempts": 3,
+        "captures": 3,
+        "clean": 3,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 1.0,
+        "native_releases": 3,
+        "rim_assisted": 0,
+        "whole_entries": 3
+      },
+      "substeps": 128
+    },
+    {
+      "group_id": "negative-control",
+      "phase": "controls_post",
+      "role": "negative_control",
+      "stats": {
+        "attempts": 3,
+        "captures": 0,
+        "clean": 0,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 0.0,
+        "native_releases": 3,
+        "rim_assisted": 0,
+        "whole_entries": 0
+      },
+      "substeps": 64
+    },
+    {
+      "group_id": "negative-control",
+      "phase": "controls_post",
+      "role": "negative_control",
+      "stats": {
+        "attempts": 3,
+        "captures": 0,
+        "clean": 0,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 0.0,
+        "native_releases": 3,
+        "rim_assisted": 0,
+        "whole_entries": 0
+      },
+      "substeps": 128
+    }
+  ],
+  "counts": {
+    "attempts": 496,
+    "captures": 17,
+    "clean": 12,
+    "geometry_rejections": 341,
+    "invalid": 341,
+    "max_retention_s": 1.0,
+    "native_releases": 155,
+    "phase_counts": {
+      "coarse": 361,
+      "controls_post": 12,
+      "controls_pre": 12,
+      "refinement": 81,
+      "verification": 30
+    },
+    "rim_assisted": 5,
+    "substep_counts": {
+      "128": 27,
+      "64": 469
+    },
+    "whole_entries": 17
+  },
+  "declared_groups": 449,
+  "executed_groups": 449,
+  "gate": {
+    "controls_post_passed": true,
+    "controls_pre_passed": true,
+    "more_ppo_started": false,
+    "qualified_settings": 0,
+    "status": "failed"
+  },
+  "privacy": "Configured shot parameters, outcome metrics and hashes only; no joints, links, sampled poses, point trajectories, credentials or host paths.",
+  "provenance": {
+    "asset_sha256": {
+      "assets/board_arm.urdf": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340",
+      "assets/dropper.urdf": "3f40e56e46b040fb3339c1235ea85872f46511c45db2d37f7661db94a470bae3",
+      "assets/poses.json": "5847c2793606860a82cc74030c3fe529767318f189c5d48e3d66c0dc7b9f776a",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link1.stl": "4069840361c2693b5b1147da366d5ba8a49ff7ab2c52fed68e07e04e07786e3f",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link2.stl": "0e736a629e6000c3c912f5aaf76937f824f510ac8894db67bd0d7f1d6210fc52",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link3.stl": "f682201345117c4b021fd9db21bd9bef6824886c8324f046b7d5772d7c9fa426",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link4.stl": "7bf4ab507c07a2b26e6a8528decdfe32d71efffdf1dd391406f1ce2f9ff4caa7",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link5.stl": "103955f097086e0f5d46380ff89bc7ef669877bb65def38431a18fc5343e1ba0",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link6.stl": "86b95b77850f38ff1437284705a1c8c616e3da21faef72e4f06751fc741de3b3",
+      "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link_base.stl": "871d501d23e8164440656331ee0e005d859dbdb7fab1c3725bef423adac9cf0e"
+    },
+    "auditor_dependencies_sha256": {
+      "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+      "sircus/mjlab/bank_geometry.py": "5c0d6775582c5524a323f1e9344c35317e8352e9f1f813f5dd0794c05de743f5",
+      "sircus/mjlab/benchmark_contract.py": "720394dafbdde1b56507a0abd6b64f82b29843037bce56e559f671995b62c63c",
+      "sircus/mjlab/benchmark_verify.py": "3c66930551d675db092a2a23e43bdfe0e9587a4f3e739cb10dfd283a95ca961e",
+      "sircus/mjlab/calibrated_benchmark_contract.py": "7d0964249d0f18604d9f17ef9662b5cd7878500e674f30f4f6eb55ae766491be",
+      "sircus/mjlab/calibrated_benchmark_verify.py": "4f7af7da8789311769579ab87096d251e75455d4e146018c388c9a4a3812b5a9",
+      "sircus/mjlab/calibrated_score_oracle.py": "74ff1b43d342a28e7b4af6d3ec757f577aec076ac286535f4c16e053e31a00df",
+      "sircus/mjlab/contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407",
+      "sircus/mjlab/corrected_contract.py": "9800404859a7ae2b2934c26ca448be4a69ae90e481069da72732973b1d907ba2",
+      "sircus/mjlab/corrected_geometry.py": "50a4a353d94cceb1fbb0216a40588c997034a121e554f3f84f530d7d47c470be",
+      "sircus/mjlab/expand_geometry.py": "0b7982c3494b7cb7f799e073e3a7b788cca77617af0e9f509a4b7e273d926739",
+      "sircus/mjlab/expanded_actions.py": "d41817aa7ad4206139925256ab0cdf5288853e621d6b39824c10ad2d309679c3",
+      "sircus/mjlab/interface.py": "d09ba2a6b444bfd461485edc42ad732a2e590b7d7561cb15e0c16798a999263a",
+      "sircus/mjlab/learning_contract.py": "9f2c44b76297f4ef7009c1b0107be983d0511d5654cb68b8e344dd316ed1fda8",
+      "sircus/mjlab/learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+      "sircus/mjlab/learning_reach.py": "8eea1d565e9faefff0622a9e9a4666eb8d811ac086a8a6711caa8efa3029e9a4",
+      "sircus/mjlab/learning_search.py": "7e37412363aa5263f0d71b76fe8b79af003ed81e92706beeb9e0f3706512e40a",
+      "sircus/mjlab/learning_solve.py": "836ae6db1172f8a9b43de20dbe0132cd1bc2095fe52cc4f923ebbf739f1c41e5",
+      "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+      "sircus/mjlab/replay650_verify.py": "7e58a4c186229774690a2ea4409036aaeedc81a454535abbcf8b57b86d7fdef6",
+      "sircus/mjlab/stable_geometry.py": "2e00b5fc46d1b253b5c85b6823c781a37e26f5819b35586a8cc112b057ebaebf",
+      "sircus/mjlab/stable_ik.py": "efd52c5e837339662c99c196e1a3cf4b5b260eecb7888258779030c459944e07",
+      "sircus/mjlab/transit_audit.py": "4400285187eebf3b1c7073a78ab74c94cbead88d52ffc5366e0258d2376f8c96",
+      "sircus/mjlab/verify_capture_calibration.py": "98f905394c0e7f2b082d7b60b51baedd95fd6984b5265f6e7673c56b963f9afe"
+    },
+    "calibration_sha256": {
+      "calibration_sha256": "992d4e191fb678ff85e9e93c9099e311cac19efd47207e104f9887ecc7437358",
+      "score_config_sha256": "3a0b48129c89a0aac5740d3be04bf3c985cde0fd3ede55be4b5ffaf9ae95c4ba",
+      "verification_sha256": "760c187a69245687f6927fe71afb88d777fe8c8e8d56da1a7913361e05f4427d"
+    },
+    "contract_fingerprint": "28baa4e28639d0e7581561bf546a42de2a738ef4fd6a1521230d69887424f28b",
+    "contract_sha256": "377c5e50e23cd70789bb37abc0fda6effb2967d26064df58f5ca692ae9b9a573",
+    "evidence_manifest_sha256": "8c017f84642b7022eb95df59b916146d57c2eae7db290d3ba1ee813b315147ea",
+    "evidence_sha256": {
+      "adaptive-stages.json": "71a82dcb10a4bcdcb12c554c499bf204702ebf567a5db5bc9b1b790fe79fec98",
+      "batches.json": "b48a4b90a126f1ec02ca7348477f0431fb37c457dbcef2bcad593868830ca155",
+      "calibration.json": "992d4e191fb678ff85e9e93c9099e311cac19efd47207e104f9887ecc7437358",
+      "contract.json": "377c5e50e23cd70789bb37abc0fda6effb2967d26064df58f5ca692ae9b9a573",
+      "effective-options.json": "0355fd7e0a4001cd16f438bb6bdbdc64dce107c7f8c9710600883491c2e60760",
+      "final-control-gate.json": "031987e08dcb56afaa84a8d24be508f01464523f22469fdff6a4379f1f93f9c3",
+      "geometry.json": "d125a12c99871eb8ec14b36026c0464e18de18acb70ca4deda33ed9755a82a24",
+      "groups.json": "6b56e21ae0ebf2050947b284b1d351d1b9095ef978142ef5a0316e711e6ca339",
+      "initial-control-gate.json": "031987e08dcb56afaa84a8d24be508f01464523f22469fdff6a4379f1f93f9c3",
+      "initial-geometry.json": "a7359c9546b85bbff10d4c7bcd4746cc91c9ac122fb94b458d468123e16953f0",
+      "initial-groups.json": "f45b4a86a0377e1351727d510c54ad0682867effb8977103bb5d46dafb6c3103",
+      "initial-plan.json": "a1e54f21103b38b07e6206ed7448470bd30ec561c43c6eaaf8532cb6eeaf609a",
+      "native/128/effective-options.json": "39f1b1b5b6c11f43ead8774fb17471ddbef1b0652374397d6f4cd465fd66a3fc",
+      "native/128/native-0001.npz": "12ac95168c2a701a6b30df4862d3aa1f579db69b210964ca6a428436ca977e96",
+      "native/128/native-0018.npz": "1a61eeb6b042f18f75b7c138c2c8393a5f1ce84a06f079eac60315d2d333f477",
+      "native/128/native-0020.npz": "645f84f3940260c77f53ea9e546591664bfe444946e1c3bc07483bcdb5189b30",
+      "native/128/native-compiled-geometry.json": "921a79cc2b3cea32ae2d248c19afc05050a4126cf98c96836cb53512592490e8",
+      "native/64/effective-options.json": "5619448610aaa0d47a4f005a24c6094982d40c1ebd3d2c556b16fc43439e6ab0",
+      "native/64/native-0000.npz": "d9511f77a57e6767f5fa22859afbcf4ded869733f8d94be44f759aaea2ed5a68",
+      "native/64/native-0007.npz": "16fe6bc3f0ecde7a2be8d00cb074852591f2931e8310cc665b588d9985984df1",
+      "native/64/native-0008.npz": "6c5a3b1391948e03387e92d7c4f75f660301b5e6da852e4a32f80dc316ac0074",
+      "native/64/native-0009.npz": "2a12cdbc1784d99339f116e9d7793461014f54c837a62a81a46d63125bdabca2",
+      "native/64/native-0010.npz": "b1d1988a4de24555b4508ed60d94ff8e7cc2173092decf7ef73687dee2a4029c",
+      "native/64/native-0011.npz": "42928f8594e47ee42836785164d4d660062855b6a02a301539e65b08986dcdba",
+      "native/64/native-0012.npz": "54ed12085e1c9b28f8ec66b6a32ca6dcd07d748cd780ed867e048c9cf0312833",
+      "native/64/native-0013.npz": "52dbb56615e9467e153f36ab1f2064cad635e5e32ff860732d673226d2d14d40",
+      "native/64/native-0014.npz": "cfe702a803368f81c48590a66a4699efbfa37f3ae8295ba8fd4ce7fbd20aaff4",
+      "native/64/native-0015.npz": "bc0999cac06c8599ea0540073a1661bcb3bc34805ba6701f336c4a9a069f6ac9",
+      "native/64/native-0016.npz": "19d4056ee5163b09874caeb698450ee53271e0bab326f4e080c72ee7d7cbb175",
+      "native/64/native-0017.npz": "0fb7d5af72bd74a97dfa868059a1da430a15eadcc74b916c08c0d009e784cc3b",
+      "native/64/native-0019.npz": "3306e7187f8b6e8971b0ae48c0afdf88f591f9cf85e46f2673e00740d44e9609",
+      "native/64/native-compiled-geometry.json": "881bb920d4a2f7b0341cce1bec6e8af03bb52d0c2c76ceb23f887545b0d161b5",
+      "records.jsonl": "8859661128968f61cc5df4645004032c3e6d3a7c91f68db74025dfada8830d89",
+      "refinement-groups.json": "f6d2cbd905be641ace894f0059a663465665c7e5dd8d50ece5251d086cb9d227",
+      "refinement-plan.json": "98ccc3a14676f7a260fefc8ab9d0536df29e0f0416de45124ef643deed31fd04",
+      "refinement-selection.json": "95125a86c3ca4f3304d69e814bd4ceb7a0514be825ec6f4b514af025b7922f49",
+      "verification-groups.json": "be32892d3fcdc29887091da50f46a5f347266ded69f994cbd06fc10e4e25837c",
+      "verification-plan.json": "461ec87c7f49d64d306d5ad428617370710f43bfa8e47edfc32719a1964b8b25",
+      "verification-selection.json": "bcbfd140af698ee70167beab90e02253826ba9e3dd74705ba9f0e3c693967993",
+      "verification.json": "760c187a69245687f6927fe71afb88d777fe8c8e8d56da1a7913361e05f4427d"
+    },
+    "executed_source_sha256": {
+      "sircus/isaac/board_route.py": "6409889aed6b0fd6a288eb9494b954ec5c3233ec41fdcf146940fc23276fb2e9",
+      "sircus/isaac/entry_quality.py": "2f3d8b73c871a41afc3c8f333f5df1d54fa8751720855ffff517e729217db9d4",
+      "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+      "sircus/isaac/rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+      "sircus/mjlab/admission.py": "2dbc5776113f8afb0ea74e23d0c3a2542fd0223d94a6818aec8de4865d302d82",
+      "sircus/mjlab/audit_grid_study.py": "35c52ae32a36c272e21d67b8411267533df41dd9cbd8311b57a45dab693c272c",
+      "sircus/mjlab/bank_geometry.py": "5c0d6775582c5524a323f1e9344c35317e8352e9f1f813f5dd0794c05de743f5",
+      "sircus/mjlab/bank_policy.py": "0773471ab8327e822b7c6676b02c2beaf1185e90d72a3ab10fddaf8cd1595ae8",
+      "sircus/mjlab/bank_solve.py": "457166a796492f66e29b9a52dd944a57119f180f12c89a6aface4d5d2f1ad001",
+      "sircus/mjlab/bank_study.py": "7699faeff915a772f3e838983ff1c8dec7721f2d55c79a594e185cd9e08e7dcb",
+      "sircus/mjlab/benchmark_adapter.py": "85e3cee8b2714707772bb871f1a13f0f25bb8ce1f6c207a33c3f4efa946cf3c2",
+      "sircus/mjlab/benchmark_contract.py": "720394dafbdde1b56507a0abd6b64f82b29843037bce56e559f671995b62c63c",
+      "sircus/mjlab/benchmark_policy.py": "35cc605d17b7cdf02fcc1cf73b018bcefb98b172260a3a5ddc6856ac7d3779dc",
+      "sircus/mjlab/benchmark_resources.py": "4a535e1a1d91248d208dd44286c215439924a27e81b62ab7fce71284c94f14ba",
+      "sircus/mjlab/benchmark_run.py": "4c5c10efb2f42d8fa09198aa960796149b74f80915741b83f9463264409fd944",
+      "sircus/mjlab/benchmark_server.py": "211be73a1e0fde6eb61df2024a2dbf936f934a30d9604fa5c360bb29bcf95e6a",
+      "sircus/mjlab/benchmark_smoke.py": "7c7d89f9c8d4425d55a38a7732960cec4bdf8d615c025c273775b0e6bab132a1",
+      "sircus/mjlab/benchmark_study.py": "f097258e6d30d84b4f0b862172cf1a443e404148b74a60e93699e096129bf8ad",
+      "sircus/mjlab/benchmark_verify.py": "3c66930551d675db092a2a23e43bdfe0e9587a4f3e739cb10dfd283a95ca961e",
+      "sircus/mjlab/benchmark_wall_diagnostic.py": "aab5a0f93d79275b06a49af71eec796e0d1321b7d5a5e697e086506f3ecb0a5a",
+      "sircus/mjlab/calibrate.py": "e2da7c22355899f35e7f9f28e8a3ae35001e29cc2e10e7a490c470809bd548fb",
+      "sircus/mjlab/calibrated_adapter.py": "58789fcbb7549a6d7ff0513de3e2878651d1aa72e4022c8b17f269c71e1c35f1",
+      "sircus/mjlab/calibrated_admission.py": "37d43d8503c4e0a9835d8ae8fe6793ee09938bc746f1a513af3e4aa2b6f295a8",
+      "sircus/mjlab/calibrated_benchmark_contract.py": "7d0964249d0f18604d9f17ef9662b5cd7878500e674f30f4f6eb55ae766491be",
+      "sircus/mjlab/calibrated_benchmark_export.py": "e24bf7870fdf711ac58e1a0daf2e49bab5cdc99ddc36998b1e181deee4998893",
+      "sircus/mjlab/calibrated_benchmark_run.py": "cfd92d6dc988167fc2ed055bf7a2770a9f39f293224189c521a1d55bde1454a8",
+      "sircus/mjlab/calibrated_benchmark_server.py": "fbfa7e1c86f8ecb1000c0e1e13a4986f2755e3af9ccb0c9162e8fc12a1f49678",
+      "sircus/mjlab/calibrated_benchmark_smoke.py": "1312bf58912de62c239094fe51d4ee60dacdf795137a4b1951740488a78852a7",
+      "sircus/mjlab/calibrated_benchmark_study.py": "352a5a867fecfe3a6bc53821a61860075807d12c81cdc30e0900ecbc118c9c3e",
+      "sircus/mjlab/calibrated_benchmark_verify.py": "4f7af7da8789311769579ab87096d251e75455d4e146018c388c9a4a3812b5a9",
+      "sircus/mjlab/calibrated_env.py": "928a8a0d8cd3fcabbb541c3fe54a6ead14c8ee17a79016a5dd3e84517f6a963e",
+      "sircus/mjlab/calibrated_native_log.py": "c555bc762116a18da2802321ba40248a7d2bbe7b9590e176853547e8a4c8272c",
+      "sircus/mjlab/calibrated_score.py": "b90fb4886f2297534b81b399620c647952eb2e486217289c65548713977e3539",
+      "sircus/mjlab/calibrated_score_oracle.py": "74ff1b43d342a28e7b4af6d3ec757f577aec076ac286535f4c16e053e31a00df",
+      "sircus/mjlab/capture_calibration.py": "3d508db4b25ee7daef2a862353650645b2479cba645259fa9627c85c6cbb8499",
+      "sircus/mjlab/clean650_contract.py": "0a64a85bd1ac54640e9a34e727947fd03b81685ec630c6492d4ecab508b2e642",
+      "sircus/mjlab/clean650_geometry.py": "4b010d2e566fe99c90f5d87545c4b0e5117b432e07f6469d4d95ad108cb0f061",
+      "sircus/mjlab/clean650_native.py": "af2d1e2cb34a1f55bb49bc2b541155add339ec4c9aea8ac25eca004aef438da1",
+      "sircus/mjlab/clean650_pipeline.py": "688b34ffcd5428d360865dffc0b36a553ae1cc2373ecb66d767b6b398b393360",
+      "sircus/mjlab/clean650_study.py": "62473ee974bc0686aab2185edf3499b1a6a8283659b3dfdb3978eff9a2d0848e",
+      "sircus/mjlab/clean650_verify.py": "1c72d57c0648b7fbb05f7bc3a569c5d63068dded937af4311f9dad6747e55e1e",
+      "sircus/mjlab/combine_expansions.py": "08bd8381c2feb7f4616c6ab52178c335274601efe8111c0ea5a07327575efe93",
+      "sircus/mjlab/compare.py": "3df8ca25a182377f28a9babf8743a4bd4789c4ad4b66ac193f180eb4defa8017",
+      "sircus/mjlab/contact_confirm.py": "c80716c6a0353f5ba637c01d171114aee429b14c11b21f5400ec3dc9792fc1ac",
+      "sircus/mjlab/contact_env.py": "19fbc4f044ca3ab3a1621f68d369290f6952a451686a4db0194a508138caaed8",
+      "sircus/mjlab/contact_model.py": "b2d522d07dd2e3bffa724feb68593b3fef17033b5274587ef9d130e5c40aa24f",
+      "sircus/mjlab/contact_study.py": "fed3be5310ed6fdfd3e7e3631a9a58ab08508c304e929b16558f8c50ee305fd2",
+      "sircus/mjlab/contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407",
+      "sircus/mjlab/corrected_admission.py": "3d42913fc2a9599b0e5063bfc4ee0a03f003b4ba853338e407c8a3d82de3d64a",
+      "sircus/mjlab/corrected_contract.py": "9800404859a7ae2b2934c26ca448be4a69ae90e481069da72732973b1d907ba2",
+      "sircus/mjlab/corrected_geometry.py": "50a4a353d94cceb1fbb0216a40588c997034a121e554f3f84f530d7d47c470be",
+      "sircus/mjlab/corrected_grid.py": "ff312f08a595ff0ff877305cea591ea5d0b7c5f327e5fa9079e526e22d972596",
+      "sircus/mjlab/corrected_pipeline.py": "4b439b08a8988ccba53c4c5e83a5d7e32e2068d9bbf54a140f4237540c930ea9",
+      "sircus/mjlab/corrected_verify.py": "b16796dff78eb23310247492dee7da40d4f6d9cc7a3fc7d9024062d4dfd4e5b4",
+      "sircus/mjlab/curate_replay650.py": "7eb4852f0606d32c5d6d7c96dcb6d974e24e46c71cfdf8fe1e2ff4a5567fb040",
+      "sircus/mjlab/expand_bank.py": "c65110b9afa9c30658b99f0c11ae6e2aefbdf88442fc876dbc8b03e0888a320b",
+      "sircus/mjlab/expand_far.py": "374aa54f7b24c8f6f598f75ed33881050fb06fcc496a6a6466fe20625763e167",
+      "sircus/mjlab/expand_geometry.py": "0b7982c3494b7cb7f799e073e3a7b788cca77617af0e9f509a4b7e273d926739",
+      "sircus/mjlab/expand_refine.py": "bd55749d6fe0e16a2bf942efcca933a9bf2e579209760eecf89cfe1b6131f60a",
+      "sircus/mjlab/expanded_actions.py": "d41817aa7ad4206139925256ab0cdf5288853e621d6b39824c10ad2d309679c3",
+      "sircus/mjlab/expanded_env.py": "b0e9744d1e82b9e575126e0c6d58e524372b75287713cfdf14d010cb2812df8b",
+      "sircus/mjlab/expanded_study.py": "4a271fe5b1b0d3df20c2c53ce7ef0be87a1d0a681c980708a62df29a6d1bef06",
+      "sircus/mjlab/gpu_slot.py": "fcace6029058a9892296507358ee196b9b5296dc4287a07bedc786e3af4cad4a",
+      "sircus/mjlab/gravity_audit.py": "d4d250396c537b4701631d3e170c35fe40534607d57efaca7164edf4d5581339",
+      "sircus/mjlab/grid_diverse_study.py": "8eb5d56b2489d270de16845388318bb2c57f9aba1767bb9935ab4f9af1d1f28c",
+      "sircus/mjlab/grid_study.py": "e358b728cd450fb2cd6f7444bbc8d3f5c3cf968da5412372c5f523bbb12249fe",
+      "sircus/mjlab/grid_study_contract.py": "45b5c46a19d9db5bdead5b336dedd8222496a0fc3cf1f59d263fba745fbb0efe",
+      "sircus/mjlab/grid_study_server.py": "c53a5605229122e047b6e90d2a2e0db45c3d2b7283c4f373500c0ef8f2efbc3a",
+      "sircus/mjlab/interface.py": "d09ba2a6b444bfd461485edc42ad732a2e590b7d7561cb15e0c16798a999263a",
+      "sircus/mjlab/isaac_pair.py": "4ab44904a2c966d6a8bf1567d4882a8bcfdf3c1dd3d2ea8d9e1bbeba6093d983",
+      "sircus/mjlab/learning_contract.py": "9f2c44b76297f4ef7009c1b0107be983d0511d5654cb68b8e344dd316ed1fda8",
+      "sircus/mjlab/learning_env.py": "58d2f58be0e1981a5efd09e872bdea7d8f608e1fa21b5c87986505a20a4a4f8c",
+      "sircus/mjlab/learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+      "sircus/mjlab/learning_interface.py": "73f9bfcdb95bacfb7bc904853c26b7233a635c566930c1e51040a9473af9a29a",
+      "sircus/mjlab/learning_policy.py": "5c37a248a0a44280f0f82fe3327973299ec6a4bbfccaaae9f750a898180c7792",
+      "sircus/mjlab/learning_reach.py": "8eea1d565e9faefff0622a9e9a4666eb8d811ac086a8a6711caa8efa3029e9a4",
+      "sircus/mjlab/learning_score.py": "e66b982c0e651c3a9f5855dd03efb87488cc924321aaf9cadb80d51bac2fe814",
+      "sircus/mjlab/learning_search.py": "7e37412363aa5263f0d71b76fe8b79af003ed81e92706beeb9e0f3706512e40a",
+      "sircus/mjlab/learning_solve.py": "836ae6db1172f8a9b43de20dbe0132cd1bc2095fe52cc4f923ebbf739f1c41e5",
+      "sircus/mjlab/learning_study.py": "1d9b358fe11007c7edfbeb607c6f769e9d4dae6e6832768e16cc0df98480f8df",
+      "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+      "sircus/mjlab/prepare_clean650_report.py": "c4350399cb8ba645af73ac7d0daa0657c17c977f03f8ef3bd3d996cb2fef56f8",
+      "sircus/mjlab/prepare_contact_report.py": "c90afae3b0d8b20ac0646c97427944d45a0d13419188ecba9348fa264b4461c9",
+      "sircus/mjlab/prepare_corrected_report.py": "d91849cad5fa36d7a701d0b8c832953717e33e6d3818bd1b5dc268bb49bd1a3c",
+      "sircus/mjlab/prepare_expanded_report.py": "a3fa99cae4b6327658b2471986acac8b5f1b1aa0cc5ced0fb0c0ec0bc37e3ecd",
+      "sircus/mjlab/prepare_interface.py": "3783ad300b73808fe9424a960b791afe7addbf28e8a4fab9b61be6ffaf1afbe8",
+      "sircus/mjlab/prepare_replay650_report.py": "1afee034e64473d7cf94a4ee87048cec2888a9a038e942f451cbe69684c77e67",
+      "sircus/mjlab/prepare_stable_report.py": "50ebf337210c94c60ecf081f1caf6cd8854f73646737000fcbe8dd1dd8a423c7",
+      "sircus/mjlab/prepare_window_report.py": "3d2fd46a0a12aea3d66d7f78301b9eeea9192f68c7955918a0806d20cfbc2bca",
+      "sircus/mjlab/render_replay.py": "27a562466bc45f5615a95f6c7824ee96bb60e1e51556cedae59bf6982f5a5f50",
+      "sircus/mjlab/repeat_diagnostic.py": "2a91c87c2234466dc1528464630f24856b7a3358f3a98862a1d7916ebac563e8",
+      "sircus/mjlab/replay650_contract.py": "a062e8a0bbff50b4bb41b95f0c742c7c7d8aa8c2db1c00e5c424df8e66eb9dd0",
+      "sircus/mjlab/replay650_geometry.py": "3147779dee45795597a0524301b86671897f843f8502acfedb34bf0bb11f5ea8",
+      "sircus/mjlab/replay650_pipeline.py": "b57d16ad6750303256a7802d707242c8b35dc8d3cef2ab8ab94c921fc34ab572",
+      "sircus/mjlab/replay650_study.py": "9e5a69bd247c5a96c7cafb77fbdbc88d5272682a31193edb91131635df1968c2",
+      "sircus/mjlab/replay650_verify.py": "7e58a4c186229774690a2ea4409036aaeedc81a454535abbcf8b57b86d7fdef6",
+      "sircus/mjlab/requirements.txt": "73b2a5642fb3558bf48da6ce3ee48c8645b9f37f26d28d9580f448928b43aa19",
+      "sircus/mjlab/run.py": "969db2710378345aad34a6f802e33d6ea62488d75e560b9da5738bc0748c3dee",
+      "sircus/mjlab/stable_geometry.py": "2e00b5fc46d1b253b5c85b6823c781a37e26f5819b35586a8cc112b057ebaebf",
+      "sircus/mjlab/stable_ik.py": "efd52c5e837339662c99c196e1a3cf4b5b260eecb7888258779030c459944e07",
+      "sircus/mjlab/stable_study.py": "c9fe1cc71103e1eda5dbd7f9869627c1b09555dca4242e376b7f239198a19ea9",
+      "sircus/mjlab/sweep_contract.py": "2460d8e807f06ad4bfe491491d011a448eaedea57ef4c7e727a1b10a54409a0a",
+      "sircus/mjlab/sweep_interface.py": "eb81a11b696c214055da890cb907ec0f531be43ead9c91e2887ee07c2d73a4c3",
+      "sircus/mjlab/sweep_server.py": "2f5563d8de4167680110c59f08f6160cf8ae41568164f96306ef6aea2bfa437a",
+      "sircus/mjlab/sweep_worker.py": "6150969a6f442e3b899d878671a4daf08cd90c61f0abf96494d418316e0e7a5b",
+      "sircus/mjlab/transit_audit.py": "4400285187eebf3b1c7073a78ab74c94cbead88d52ffc5366e0258d2376f8c96",
+      "sircus/mjlab/transit_detour.py": "700980ef138c281fec2e569d398c54fbfbf2647ac0cc7060e450875e2976e126",
+      "sircus/mjlab/verify_bank.py": "d8f3e0ce75533dd9aacc5018c2dacef2212de8f9e3d63fa50013e1080566fe9b",
+      "sircus/mjlab/verify_capture_calibration.py": "98f905394c0e7f2b082d7b60b51baedd95fd6984b5265f6e7673c56b963f9afe",
+      "sircus/mjlab/verify_combined.py": "c3de2bd00cdff61f5a848ae572a8e3caa3ec5b7ab84465d493d7c907b7b851e2",
+      "sircus/mjlab/verify_contact.py": "17f3b735b98006a9b948444b6262e09de8f6d544b7f0b2228e5bc14ab1d5a182",
+      "sircus/mjlab/verify_contact_confirm.py": "098956227ca8d05bce29ea591b9ade12518d82148526e1787cbfe611fd6a0486",
+      "sircus/mjlab/verify_expanded.py": "f08de30a4c7c9db94bcd9f483e42f925c69f213c60f37ef9dd57049aedfd618d",
+      "sircus/mjlab/verify_expansion.py": "541f2a6e8b58dcc6b07cbb94780474b49f5c785fc3012f92e327de97bc5ca8d1",
+      "sircus/mjlab/verify_far.py": "bd20cb8410657ae39562581b1a0157f3eaa4a4ba519aa1532bc051c6da1b5611",
+      "sircus/mjlab/verify_learning.py": "2ac3124e0a5443d7d572eefe9b73d7711f67a2cdffb9a1198da9fdfac202e874",
+      "sircus/mjlab/verify_refinement.py": "d979ecd5a29e33fc7351283455ace3ab58bc544efee305a5f77f5b6341af1d53",
+      "sircus/mjlab/verify_stable.py": "4cefb89c5cbcc81d1b25e7ace53e9493ce90c19904d7e8c39ca30726ddc1e29c",
+      "sircus/mjlab/window_confirmation.py": "f0023d8da28f433f48dee96fc9aa40e6f1aa19c0340f7a6a5cff34c0de8fdfc2",
+      "sircus/mjlab/window_contract.py": "89c2afb9e4c6665b54e02231d0dc39a4f43b02203ba18586a8526fa9bd22cd75",
+      "sircus/mjlab/window_geometry.py": "27d16ebae82a53a7f9b948cfc0a67bc25618dcd2b11462b6969ac62dbbb779cf",
+      "sircus/mjlab/window_learning.py": "458c90b2d19043463b6f4a9e6abf68166476a92208209ef61e66bc8de5a7fe78",
+      "sircus/mjlab/window_pipeline.py": "e783027066da8823255d3111548d09383bc3f5d86606c85a3f9e02f8e3e41456",
+      "sircus/mjlab/window_study.py": "5af400512287cb85a1ee58b15811fdb1dfe38034f54ba94cc6d8752310832a9d",
+      "sircus/mjlab/window_verify.py": "c1d9c65e7b8a48aed40c30d243aaf55cb9b99df8dc3e2cc2164848b7e68765d4"
+    },
+    "independent_audit_checks": 64075,
+    "independent_audit_sha256": "6fe1511dff8898f1f030b72c7a5537f5e8046c121e6892a73ac0336cbf4d16bc",
+    "independent_audit_version": "sircus-clean650-independent-audit-v1",
+    "independent_auditor_sha256": "1c72d57c0648b7fbb05f7bc3a569c5d63068dded937af4311f9dad6747e55e1e",
+    "report_sha256": "12a5388e3775376cc49269f040f354b79280c8009d06c75f67857c8db08bf9a4"
+  },
+  "scope": "Fixed650mm DEVELOPMENT search and matched nominal engineering verification, using calibrated simulated contacts and held endpoints. Historical results keep their original scene/scoring definitions. No noise qualification, new PPO, held-out generalization, grasp/transit, actuator, perception or physical validation.",
+  "settings": {
+    "coarse_requests": 361,
+    "grid": {
+      "gaps_m": [
+        0.2,
+        0.24,
+        0.28,
+        0.32,
+        0.36,
+        0.4,
+        0.44,
+        0.48,
+        0.52,
+        0.56
+      ],
+      "heights_m": [
+        0.22,
+        0.26,
+        0.3,
+        0.34,
+        0.38,
+        0.42
+      ],
+      "reference": [
+        0.38,
+        28.0,
+        0.3868
+      ],
+      "tilts_deg": [
+        16.0,
+        20.0,
+        24.0,
+        28.0,
+        32.0,
+        36.0
+      ]
+    },
+    "max_drift_350ms_m": 0.005,
+    "max_requests": 496,
+    "minimum_clearance_m": 0.005,
+    "new_ppo": false,
+    "noise_study": false,
+    "nominal_only": true,
+    "refinement_max_requests": 81,
+    "refinement_offsets": {
+      "gap_m": [
+        -0.02,
+        0.0,
+        0.02
+      ],
+      "height_m": [
+        -0.02,
+        0.0,
+        0.02
+      ],
+      "tilt_deg": [
+        -2.0,
+        0.0,
+        2.0
+      ]
+    },
+    "refinement_seeds": 3,
+    "repeats_per_resolution": 3,
+    "substeps": [
+      64,
+      128
+    ],
+    "verification_dedup_decimals": 9,
+    "verification_sources": 5
+  },
+  "status": "completed_independently_audited",
+  "study_id": "clean650-v1",
+  "study_version": "sircus-clean650-height-tilt-gap-v1",
+  "top_settings": [
+    {
+      "closest_opening_distance_m": 0.03211323449011567,
+      "configuration": {
+        "board_height_m": 0.38,
+        "board_xy_m": [
+          0.4708757793012148,
+          -0.2778934014509746
+        ],
+        "bucket_xy_m": [
+          -0.030306598129941298,
+          -0.6917970430784122
+        ],
+        "distance_m": 0.65,
+        "eligible": true,
+        "gap_m": 0.3868,
+        "id": "refine-s00-h1t1g1",
+        "phase": "refinement",
+        "release_center_height_m": 0.8042999999999999,
+        "role": "discovery",
+        "source_record_id": "coarse-64-reference-650-r0",
+        "source_record_sha256": "3ce1239affe90a368526fc35a655e2f77be870ee9766865d448688776c466858",
+        "tilt_deg": 28.0
+      },
+      "group_id": "refine-s00-h1t1g1",
+      "minimum_mouth_clearance_mm": 0.012825880750452767,
+      "record_id": "refinement-64-refine-s00-h1t1g1-r0",
+      "stats": {
+        "attempts": 1,
+        "captures": 1,
+        "clean": 0,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 1.0,
+        "native_releases": 1,
+        "rim_assisted": 1,
+        "whole_entries": 1
+      },
+      "substeps": 64
+    },
+    {
+      "closest_opening_distance_m": 0.03248633544084298,
+      "configuration": {
+        "board_height_m": 0.38,
+        "board_xy_m": [
+          0.4708757793012148,
+          -0.2778934014509746
+        ],
+        "bucket_xy_m": [
+          -0.030306598129941298,
+          -0.6917970430784122
+        ],
+        "distance_m": 0.65,
+        "eligible": true,
+        "gap_m": 0.3868,
+        "id": "reference-650",
+        "phase": "coarse",
+        "release_center_height_m": 0.8042999999999999,
+        "role": "discovery",
+        "source_record_id": "shallow-shot-000024",
+        "source_record_sha256": "ee83b5fde10308f0918947a2d7dd2ef3acaa05abdea11ed7d00a322cd770885a",
+        "tilt_deg": 28.0
+      },
+      "group_id": "reference-650",
+      "minimum_mouth_clearance_mm": 0.01265614142481608,
+      "record_id": "coarse-64-reference-650-r0",
+      "stats": {
+        "attempts": 1,
+        "captures": 1,
+        "clean": 0,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 1.0,
+        "native_releases": 1,
+        "rim_assisted": 1,
+        "whole_entries": 1
+      },
+      "substeps": 64
+    },
+    {
+      "closest_opening_distance_m": 0.13164524610976594,
+      "configuration": {
+        "board_height_m": 0.3,
+        "board_xy_m": [
+          0.4708757793012148,
+          -0.2778934014509746
+        ],
+        "bucket_xy_m": [
+          -0.030306598129941298,
+          -0.6917970430784122
+        ],
+        "distance_m": 0.65,
+        "eligible": true,
+        "gap_m": 0.44,
+        "id": "coarse-0176",
+        "phase": "coarse",
+        "release_center_height_m": 0.7775,
+        "role": "discovery",
+        "source_record_id": "shallow-shot-000024",
+        "source_record_sha256": "ee83b5fde10308f0918947a2d7dd2ef3acaa05abdea11ed7d00a322cd770885a",
+        "tilt_deg": 36.0
+      },
+      "group_id": "coarse-0176",
+      "minimum_mouth_clearance_mm": null,
+      "record_id": "coarse-64-coarse-0176-r0",
+      "stats": {
+        "attempts": 1,
+        "captures": 0,
+        "clean": 0,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 0.0,
+        "native_releases": 1,
+        "rim_assisted": 0,
+        "whole_entries": 0
+      },
+      "substeps": 64
+    },
+    {
+      "closest_opening_distance_m": 0.13164530422415732,
+      "configuration": {
+        "board_height_m": 0.3,
+        "board_xy_m": [
+          0.4708757793012148,
+          -0.2778934014509746
+        ],
+        "bucket_xy_m": [
+          -0.030306598129941298,
+          -0.6917970430784122
+        ],
+        "distance_m": 0.65,
+        "eligible": true,
+        "gap_m": 0.44,
+        "id": "refine-s01-h1t1g1",
+        "phase": "refinement",
+        "release_center_height_m": 0.7775,
+        "role": "discovery",
+        "source_record_id": "coarse-64-coarse-0176-r0",
+        "source_record_sha256": "fdb8babad2d04d5bb448c8be2b9073b0f6ca4461ae60ebd71ddc1033f1f05d37",
+        "tilt_deg": 36.0
+      },
+      "group_id": "refine-s01-h1t1g1",
+      "minimum_mouth_clearance_mm": null,
+      "record_id": "refinement-64-refine-s01-h1t1g1-r0",
+      "stats": {
+        "attempts": 1,
+        "captures": 0,
+        "clean": 0,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 0.0,
+        "native_releases": 1,
+        "rim_assisted": 0,
+        "whole_entries": 0
+      },
+      "substeps": 64
+    },
+    {
+      "closest_opening_distance_m": 0.13167004582773495,
+      "configuration": {
+        "board_height_m": 0.27999999999999997,
+        "board_xy_m": [
+          0.4708757793012148,
+          -0.2778934014509746
+        ],
+        "bucket_xy_m": [
+          -0.030306598129941298,
+          -0.6917970430784122
+        ],
+        "distance_m": 0.65,
+        "eligible": true,
+        "gap_m": 0.46,
+        "id": "refine-s01-h0t1g2",
+        "phase": "refinement",
+        "release_center_height_m": 0.7775,
+        "role": "discovery",
+        "source_record_id": "coarse-64-coarse-0176-r0",
+        "source_record_sha256": "fdb8babad2d04d5bb448c8be2b9073b0f6ca4461ae60ebd71ddc1033f1f05d37",
+        "tilt_deg": 36.0
+      },
+      "group_id": "refine-s01-h0t1g2",
+      "minimum_mouth_clearance_mm": null,
+      "record_id": "refinement-64-refine-s01-h0t1g2-r0",
+      "stats": {
+        "attempts": 1,
+        "captures": 0,
+        "clean": 0,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 0.0,
+        "native_releases": 1,
+        "rim_assisted": 0,
+        "whole_entries": 0
+      },
+      "substeps": 64
+    },
+    {
+      "closest_opening_distance_m": 0.13182500456731752,
+      "configuration": {
+        "board_height_m": 0.42,
+        "board_xy_m": [
+          0.4708757793012148,
+          -0.2778934014509746
+        ],
+        "bucket_xy_m": [
+          -0.030306598129941298,
+          -0.6917970430784122
+        ],
+        "distance_m": 0.65,
+        "eligible": true,
+        "gap_m": 0.2,
+        "id": "coarse-0350",
+        "phase": "coarse",
+        "release_center_height_m": 0.6575,
+        "role": "discovery",
+        "source_record_id": "shallow-shot-000024",
+        "source_record_sha256": "ee83b5fde10308f0918947a2d7dd2ef3acaa05abdea11ed7d00a322cd770885a",
+        "tilt_deg": 36.0
+      },
+      "group_id": "coarse-0350",
+      "minimum_mouth_clearance_mm": null,
+      "record_id": "coarse-64-coarse-0350-r0",
+      "stats": {
+        "attempts": 1,
+        "captures": 0,
+        "clean": 0,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 0.0,
+        "native_releases": 1,
+        "rim_assisted": 0,
+        "whole_entries": 0
+      },
+      "substeps": 64
+    },
+    {
+      "closest_opening_distance_m": 0.13182501042838443,
+      "configuration": {
+        "board_height_m": 0.42,
+        "board_xy_m": [
+          0.4708757793012148,
+          -0.2778934014509746
+        ],
+        "bucket_xy_m": [
+          -0.030306598129941298,
+          -0.6917970430784122
+        ],
+        "distance_m": 0.65,
+        "eligible": true,
+        "gap_m": 0.2,
+        "id": "refine-s02-h1t1g1",
+        "phase": "refinement",
+        "release_center_height_m": 0.6575,
+        "role": "discovery",
+        "source_record_id": "coarse-64-coarse-0350-r0",
+        "source_record_sha256": "9be60e922d7b656697bdceecc3bbd45b3de7bee2ae94a639eb90ba8d67245c7c",
+        "tilt_deg": 36.0
+      },
+      "group_id": "refine-s02-h1t1g1",
+      "minimum_mouth_clearance_mm": null,
+      "record_id": "refinement-64-refine-s02-h1t1g1-r0",
+      "stats": {
+        "attempts": 1,
+        "captures": 0,
+        "clean": 0,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 0.0,
+        "native_releases": 1,
+        "rim_assisted": 0,
+        "whole_entries": 0
+      },
+      "substeps": 64
+    },
+    {
+      "closest_opening_distance_m": 0.13183560301341837,
+      "configuration": {
+        "board_height_m": 0.42,
+        "board_xy_m": [
+          0.4708757793012148,
+          -0.2778934014509746
+        ],
+        "bucket_xy_m": [
+          -0.030306598129941298,
+          -0.6917970430784122
+        ],
+        "distance_m": 0.65,
+        "eligible": true,
+        "gap_m": 0.32,
+        "id": "coarse-0353",
+        "phase": "coarse",
+        "release_center_height_m": 0.7775,
+        "role": "discovery",
+        "source_record_id": "shallow-shot-000024",
+        "source_record_sha256": "ee83b5fde10308f0918947a2d7dd2ef3acaa05abdea11ed7d00a322cd770885a",
+        "tilt_deg": 36.0
+      },
+      "group_id": "coarse-0353",
+      "minimum_mouth_clearance_mm": null,
+      "record_id": "coarse-64-coarse-0353-r0",
+      "stats": {
+        "attempts": 1,
+        "captures": 0,
+        "clean": 0,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 0.0,
+        "native_releases": 1,
+        "rim_assisted": 0,
+        "whole_entries": 0
+      },
+      "substeps": 64
+    },
+    {
+      "closest_opening_distance_m": 0.13185216829498653,
+      "configuration": {
+        "board_height_m": 0.42,
+        "board_xy_m": [
+          0.4708757793012148,
+          -0.2778934014509746
+        ],
+        "bucket_xy_m": [
+          -0.030306598129941298,
+          -0.6917970430784122
+        ],
+        "distance_m": 0.65,
+        "eligible": true,
+        "gap_m": 0.2,
+        "id": "coarse-0340",
+        "phase": "coarse",
+        "release_center_height_m": 0.6575,
+        "role": "discovery",
+        "source_record_id": "shallow-shot-000024",
+        "source_record_sha256": "ee83b5fde10308f0918947a2d7dd2ef3acaa05abdea11ed7d00a322cd770885a",
+        "tilt_deg": 32.0
+      },
+      "group_id": "coarse-0340",
+      "minimum_mouth_clearance_mm": null,
+      "record_id": "coarse-64-coarse-0340-r0",
+      "stats": {
+        "attempts": 1,
+        "captures": 0,
+        "clean": 0,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 0.0,
+        "native_releases": 1,
+        "rim_assisted": 0,
+        "whole_entries": 0
+      },
+      "substeps": 64
+    },
+    {
+      "closest_opening_distance_m": 0.1318599647784012,
+      "configuration": {
+        "board_height_m": 0.44,
+        "board_xy_m": [
+          0.4708757793012148,
+          -0.2778934014509746
+        ],
+        "bucket_xy_m": [
+          -0.030306598129941298,
+          -0.6917970430784122
+        ],
+        "distance_m": 0.65,
+        "eligible": true,
+        "gap_m": 0.2,
+        "id": "refine-s02-h2t2g1",
+        "phase": "refinement",
+        "release_center_height_m": 0.6775,
+        "role": "discovery",
+        "source_record_id": "coarse-64-coarse-0350-r0",
+        "source_record_sha256": "9be60e922d7b656697bdceecc3bbd45b3de7bee2ae94a639eb90ba8d67245c7c",
+        "tilt_deg": 38.0
+      },
+      "group_id": "refine-s02-h2t2g1",
+      "minimum_mouth_clearance_mm": null,
+      "record_id": "refinement-64-refine-s02-h2t2g1-r0",
+      "stats": {
+        "attempts": 1,
+        "captures": 0,
+        "clean": 0,
+        "geometry_rejections": 0,
+        "invalid": 0,
+        "max_retention_s": 0.0,
+        "native_releases": 1,
+        "rim_assisted": 0,
+        "whole_entries": 0
+      },
+      "substeps": 64
+    }
+  ],
+  "verification": [
+    {
+      "by_substeps": {
+        "128": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "geometry_rejections": 0,
+          "invalid": 0,
+          "max_retention_s": 0.0,
+          "native_releases": 3,
+          "rim_assisted": 0,
+          "whole_entries": 0
+        },
+        "64": {
+          "attempts": 3,
+          "captures": 3,
+          "clean": 0,
+          "geometry_rejections": 0,
+          "invalid": 0,
+          "max_retention_s": 1.0,
+          "native_releases": 3,
+          "rim_assisted": 3,
+          "whole_entries": 3
+        }
+      },
+      "configuration": {
+        "board_height_m": 0.38,
+        "board_xy_m": [
+          0.4708757793012148,
+          -0.2778934014509746
+        ],
+        "bucket_xy_m": [
+          -0.030306598129941298,
+          -0.6917970430784122
+        ],
+        "distance_m": 0.65,
+        "eligible": true,
+        "gap_m": 0.3868,
+        "id": "verify-00",
+        "phase": "verification",
+        "release_center_height_m": 0.8042999999999999,
+        "role": "verification",
+        "source_record_id": "refinement-64-refine-s00-h1t1g1-r0",
+        "source_record_sha256": "f61a8a445497c5e71718546e8d1bd7f26f4632e00f559b668346a5a2932edfbb",
+        "tilt_deg": 28.0
+      },
+      "qualification": {
+        "clean_both": false,
+        "max_drift_m": 0.0017337150523056592,
+        "oracle_agreement": true,
+        "physics_valid": true,
+        "qualified": false,
+        "status": "failed"
+      },
+      "sensitivity": {
+        "capture_agreement": 0,
+        "nominal_position_delta_350ms_max_m": 0.0017337150523056592,
+        "paired_attempts": 3
+      }
+    },
+    {
+      "by_substeps": {
+        "128": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "geometry_rejections": 0,
+          "invalid": 0,
+          "max_retention_s": 0.0,
+          "native_releases": 3,
+          "rim_assisted": 0,
+          "whole_entries": 0
+        },
+        "64": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "geometry_rejections": 0,
+          "invalid": 0,
+          "max_retention_s": 0.0,
+          "native_releases": 3,
+          "rim_assisted": 0,
+          "whole_entries": 0
+        }
+      },
+      "configuration": {
+        "board_height_m": 0.3,
+        "board_xy_m": [
+          0.4708757793012148,
+          -0.2778934014509746
+        ],
+        "bucket_xy_m": [
+          -0.030306598129941298,
+          -0.6917970430784122
+        ],
+        "distance_m": 0.65,
+        "eligible": true,
+        "gap_m": 0.44,
+        "id": "verify-01",
+        "phase": "verification",
+        "release_center_height_m": 0.7775,
+        "role": "verification",
+        "source_record_id": "coarse-64-coarse-0176-r0",
+        "source_record_sha256": "fdb8babad2d04d5bb448c8be2b9073b0f6ca4461ae60ebd71ddc1033f1f05d37",
+        "tilt_deg": 36.0
+      },
+      "qualification": {
+        "clean_both": false,
+        "max_drift_m": 0.0012267613424132347,
+        "oracle_agreement": true,
+        "physics_valid": true,
+        "qualified": false,
+        "status": "failed"
+      },
+      "sensitivity": {
+        "capture_agreement": 3,
+        "nominal_position_delta_350ms_max_m": 0.0012267613424132347,
+        "paired_attempts": 3
+      }
+    },
+    {
+      "by_substeps": {
+        "128": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "geometry_rejections": 0,
+          "invalid": 0,
+          "max_retention_s": 0.0,
+          "native_releases": 3,
+          "rim_assisted": 0,
+          "whole_entries": 0
+        },
+        "64": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "geometry_rejections": 0,
+          "invalid": 0,
+          "max_retention_s": 0.0,
+          "native_releases": 3,
+          "rim_assisted": 0,
+          "whole_entries": 0
+        }
+      },
+      "configuration": {
+        "board_height_m": 0.27999999999999997,
+        "board_xy_m": [
+          0.4708757793012148,
+          -0.2778934014509746
+        ],
+        "bucket_xy_m": [
+          -0.030306598129941298,
+          -0.6917970430784122
+        ],
+        "distance_m": 0.65,
+        "eligible": true,
+        "gap_m": 0.46,
+        "id": "verify-02",
+        "phase": "verification",
+        "release_center_height_m": 0.7775,
+        "role": "verification",
+        "source_record_id": "refinement-64-refine-s01-h0t1g2-r0",
+        "source_record_sha256": "a33def2ae94e22802650f93e940527aff3fd8701e4b1eeadf779383642d7f66c",
+        "tilt_deg": 36.0
+      },
+      "qualification": {
+        "clean_both": false,
+        "max_drift_m": 0.0011893982394217597,
+        "oracle_agreement": true,
+        "physics_valid": true,
+        "qualified": false,
+        "status": "failed"
+      },
+      "sensitivity": {
+        "capture_agreement": 3,
+        "nominal_position_delta_350ms_max_m": 0.0011893982394217597,
+        "paired_attempts": 3
+      }
+    },
+    {
+      "by_substeps": {
+        "128": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "geometry_rejections": 0,
+          "invalid": 0,
+          "max_retention_s": 0.0,
+          "native_releases": 3,
+          "rim_assisted": 0,
+          "whole_entries": 0
+        },
+        "64": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "geometry_rejections": 0,
+          "invalid": 0,
+          "max_retention_s": 0.0,
+          "native_releases": 3,
+          "rim_assisted": 0,
+          "whole_entries": 0
+        }
+      },
+      "configuration": {
+        "board_height_m": 0.42,
+        "board_xy_m": [
+          0.4708757793012148,
+          -0.2778934014509746
+        ],
+        "bucket_xy_m": [
+          -0.030306598129941298,
+          -0.6917970430784122
+        ],
+        "distance_m": 0.65,
+        "eligible": true,
+        "gap_m": 0.2,
+        "id": "verify-03",
+        "phase": "verification",
+        "release_center_height_m": 0.6575,
+        "role": "verification",
+        "source_record_id": "coarse-64-coarse-0350-r0",
+        "source_record_sha256": "9be60e922d7b656697bdceecc3bbd45b3de7bee2ae94a639eb90ba8d67245c7c",
+        "tilt_deg": 36.0
+      },
+      "qualification": {
+        "clean_both": false,
+        "max_drift_m": 0.0021953860224841254,
+        "oracle_agreement": true,
+        "physics_valid": true,
+        "qualified": false,
+        "status": "failed"
+      },
+      "sensitivity": {
+        "capture_agreement": 3,
+        "nominal_position_delta_350ms_max_m": 0.0021953860224841254,
+        "paired_attempts": 3
+      }
+    },
+    {
+      "by_substeps": {
+        "128": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "geometry_rejections": 0,
+          "invalid": 0,
+          "max_retention_s": 0.0,
+          "native_releases": 3,
+          "rim_assisted": 0,
+          "whole_entries": 0
+        },
+        "64": {
+          "attempts": 3,
+          "captures": 0,
+          "clean": 0,
+          "geometry_rejections": 0,
+          "invalid": 0,
+          "max_retention_s": 0.0,
+          "native_releases": 3,
+          "rim_assisted": 0,
+          "whole_entries": 0
+        }
+      },
+      "configuration": {
+        "board_height_m": 0.42,
+        "board_xy_m": [
+          0.4708757793012148,
+          -0.2778934014509746
+        ],
+        "bucket_xy_m": [
+          -0.030306598129941298,
+          -0.6917970430784122
+        ],
+        "distance_m": 0.65,
+        "eligible": true,
+        "gap_m": 0.32,
+        "id": "verify-04",
+        "phase": "verification",
+        "release_center_height_m": 0.7775,
+        "role": "verification",
+        "source_record_id": "coarse-64-coarse-0353-r0",
+        "source_record_sha256": "031408f2a1d2b2888336e6c86b043360cfd309bb1f28cbd448d2cc70df8314aa",
+        "tilt_deg": 36.0
+      },
+      "qualification": {
+        "clean_both": false,
+        "max_drift_m": 0.002364097833835997,
+        "oracle_agreement": true,
+        "physics_valid": true,
+        "qualified": false,
+        "status": "failed"
+      },
+      "sensitivity": {
+        "capture_agreement": 3,
+        "nominal_position_delta_350ms_max_m": 0.002364097833835997,
+        "paired_attempts": 3
+      }
+    }
+  ],
+  "version": "sircus-clean650-curation-v1"
+}

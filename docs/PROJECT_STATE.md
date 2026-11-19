@@ -1,5 +1,55 @@
 # Project state
 
+## Clean650 development sweep — November 4, 2026
+
+- [Frozen bounded protocol](../sircus/mjlab/CLEAN650.md):360 H/tilt/gap grid
+  combinations plus the original650 reference, up to81 local refinements,
+  top-five matched64/128 checks and initial/final controls; maximum496 requests.
+- Prior650 shot is timestep-sensitive and remains separate. Clean capture is
+  required before promotion; rim assistance, rejects, misses and pending values
+  are distinct. Noise testing and further PPO are deferred.
+- Completed496 requests:155 native releases and341 endpoint rejections.
+  Discovery442 requests admitted101 native releases:0clean and2rim captures,
+  both the original380mm/28°/386.8mm target. Verification reproduced3/3rim at64
+  and0/3capture at128; no qualified setting. All12clean captures in all-phase
+  totals belong to positive controls, not650mm discovery. Initial/final controls
+  passed; the independent audit passed64,075 checks.
+- [Curated v1 results](../baselines/mjlab-clean650-20261104/README.md) preserve
+  every requested H/tilt/gap and rejection without raw joints or observations.
+- A separately versioned fine follow-up targets H375/380/385mm,
+  tilt27/27.5/28/28.5/29° and gap380/386.8/390/395/400mm, plus the exact reference.
+  Fine refinement uses ±5mm/±0.25°/±2.5mm. Maximum211 requests including matched
+  controls and verification. Completed211/106native;105 rejects,0clean650
+  captures and0qualified settings. All12clean captures again belong to controls.
+  Reference verification stayed3/3rim at64,0/3at128. Both control sets passed;
+  auditv2 passed33,824 checks. [Fine results](../baselines/mjlab-clean650-fine-20261104/README.md).
+- [CPU model reach diagnosis](../baselines/mjlab-clean650-20261104/reach-diagnostic.json):
+  atH380/T28 the required shoulder-to-wrist distance841.528mm is0.109mm below
+  the URDF triangle-inequality upper bound841.637mm. T27.5 requires842.986mm.
+  Extra iterations/continuation do not repair the necessary-bound violation.
+  Raising board height admitted8/9 endpoint-only probes at release center804.3mm.
+- A separate raised-v3 profile therefore tests H400/420/440mm ×T26/27/28° ×
+  G326.8/346.8/366.8mm plus reference;27+1 coarse requests, ±5mm/±0.5°/±2.5mm
+  refinement and matched checks; maximum163. Same fixed XY650 scene and scorer.
+  Completed163/120native,43rejects,0clean650 and0qualified; before/after controls
+  passed and auditv3 passed31,902 checks. [Raised results and comparison](../baselines/mjlab-clean650-raised-20261104/README.md).
+- Across the three profiles:870 total requests/381native, including72controls
+  and90verification requests. Discovery only:708 requests,219native releases,
+  190distinct native targets,8rim captures of the one original setting,0clean.
+  All36all-phase clean captures belong to positive controls. No new recipe
+  qualified at64/128; these finite results do not prove all650mm shots impossible.
+- Further PPO remains deferred. Next bounded work should reconsider the fixed
+  bounce-plane position/action constraints and rank miss trajectories before
+  external/table contact, then prespecify a new scene or search. No guard removal,
+  material refit, noise study, policy activation or lower capture threshold.
+- Strict5mm endpoints and calibrated dense scoring remain unchanged; held endpoints
+  do not validate arm transit or actuator motion. Finite IK failures do not prove
+  the requested poses physically unreachable, nor does this sweep prove650mm impossible.
+- Additive read-only `clean650_study` UI key; existing services,4070 and Isaac
+  configuration are preserved.
+- Draft [PR69](https://github.com/kadiru/sircus/pull/69) remains stacked on PR65;
+  all source and curated results are separate from raw runtime observations.
+
 ## Calibrated 650 mm replay — November 4, 2026
 
 - [Frozen finite protocol](../sircus/mjlab/REPLAY650.md) and

@@ -1,0 +1,131 @@
+{
+  "all_phase_native_releases": 381,
+  "all_phase_requests": 870,
+  "combined_discovery": {
+    "captures": 8,
+    "clean": 0,
+    "distinct_native_settings": 190,
+    "distinct_requested_settings": 649,
+    "native_releases": 219,
+    "requests": 708
+  },
+  "no_clean_qualified": true,
+  "scope": "Fixed650 development searches; discovery-only totals exclude controls and verification. Nominal copies and duplicate settings remain requested attempts. No new PPO/noise/generalization claim.",
+  "studies": [
+    {
+      "all_phase_counts": {
+        "attempts": 496,
+        "captures": 17,
+        "clean": 12,
+        "geometry_rejections": 341,
+        "invalid": 341,
+        "max_retention_s": 1.0,
+        "native_releases": 155,
+        "phase_counts": {
+          "coarse": 361,
+          "controls_post": 12,
+          "controls_pre": 12,
+          "refinement": 81,
+          "verification": 30
+        },
+        "rim_assisted": 5,
+        "substep_counts": {
+          "128": 27,
+          "64": 469
+        },
+        "whole_entries": 17
+      },
+      "contract_fingerprint": "28baa4e28639d0e7581561bf546a42de2a738ef4fd6a1521230d69887424f28b",
+      "discovery": {
+        "captures": 2,
+        "clean": 0,
+        "distinct_native_settings": 98,
+        "distinct_requested_settings": 439,
+        "native_releases": 101,
+        "requests": 442
+      },
+      "independent_audit_checks": 64075,
+      "qualified_settings": 0,
+      "study": "mjlab-clean650-20261104",
+      "summary_sha256": "978e417cb05659602a94472b1f95bcefa53865177e9b73f42ad4eac4a892c93b",
+      "version": "sircus-clean650-height-tilt-gap-v1"
+    },
+    {
+      "all_phase_counts": {
+        "attempts": 211,
+        "captures": 19,
+        "clean": 12,
+        "geometry_rejections": 105,
+        "invalid": 105,
+        "max_retention_s": 1.0,
+        "native_releases": 106,
+        "phase_counts": {
+          "coarse": 76,
+          "controls_post": 12,
+          "controls_pre": 12,
+          "refinement": 81,
+          "verification": 30
+        },
+        "rim_assisted": 7,
+        "substep_counts": {
+          "128": 27,
+          "64": 184
+        },
+        "whole_entries": 19
+      },
+      "contract_fingerprint": "176b1d2662b8805e4e41243885f16b25f97ee9c47e11296ea499af8f8c3a233b",
+      "discovery": {
+        "captures": 4,
+        "clean": 0,
+        "distinct_native_settings": 37,
+        "distinct_requested_settings": 123,
+        "native_releases": 52,
+        "requests": 157
+      },
+      "independent_audit_checks": 33824,
+      "qualified_settings": 0,
+      "study": "mjlab-clean650-fine-20261104",
+      "summary_sha256": "5202d6712d38d4996e6db694d214a3aaff76394dc23190c830fd661d366fb21b",
+      "version": "sircus-clean650-height-tilt-gap-fine-v2"
+    },
+    {
+      "all_phase_counts": {
+        "attempts": 163,
+        "captures": 17,
+        "clean": 12,
+        "geometry_rejections": 43,
+        "invalid": 43,
+        "max_retention_s": 1.0,
+        "native_releases": 120,
+        "phase_counts": {
+          "coarse": 28,
+          "controls_post": 12,
+          "controls_pre": 12,
+          "refinement": 81,
+          "verification": 30
+        },
+        "rim_assisted": 5,
+        "substep_counts": {
+          "128": 27,
+          "64": 136
+        },
+        "whole_entries": 17
+      },
+      "contract_fingerprint": "fe28a1277b7d7e32428dd736346d9336ca274d7a0fe9c0dc11ac61bab6970036",
+      "discovery": {
+        "captures": 2,
+        "clean": 0,
+        "distinct_native_settings": 63,
+        "distinct_requested_settings": 106,
+        "native_releases": 66,
+        "requests": 109
+      },
+      "independent_audit_checks": 31902,
+      "qualified_settings": 0,
+      "study": "mjlab-clean650-raised-20261104",
+      "summary_sha256": "6bb58d9e0ff8e43b510b4fea888b7df09ffbbe71283ccd417bb1d432de7f75e1",
+      "version": "sircus-clean650-height-tilt-gap-raised-v3"
+    }
+  ],
+  "version": "sircus-clean650-three-profile-comparison-v1"
+}
