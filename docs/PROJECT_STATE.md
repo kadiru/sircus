@@ -1,5 +1,16 @@
 # Project state
 
+## Fixed-center tilt and release height — November 15, 2026
+
+- At **(1028.9, −19.0) mm**, the board arm's reach ruled out 25°, 28°,
+  and 31° with the saved board center, heading, and twist.
+- At the original **22.6°** tilt, **200 mm** was the highest tested
+  release gap with valid arm poses and paths. All four drops hit the
+  board arm. The 162.7 mm baseline cleared both arms and fell short.
+- The five drops and 18 controls ran on the 4090 at 64 substeps.
+  The independent CPU audit passed 5,077 checks.
+  [Results and reproduction](MJLAB_CASE33_TILT_SWEEP.md).
+
 ## Alternate joints at the last blocked bucket position — November 15, 2026
 
 - The four original misses at **(1028.9, −19.0) mm** struck the board arm.
