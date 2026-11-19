@@ -6,6 +6,7 @@ Two UFACTORY850 arms learn to bounce a ball from a suction-mounted board into a 
 
 ## Start here
 
+- [Fixed-camera PPO training and action-only editing](sircus/isaac/ACTION_TRAINING_FILM.md) — records every batch of a fresh ten-batch run at the selected angle; keeps setup/drop/outcome while preserving full scoring evidence and explaining parked cells.
 - [User-selected one-minute farm film](sircus/isaac/CHOSEN_FARM_FILM.md) — native silver-gray Isaac orbit, then eight drops at the exact exported front-row camera. [Verified recording evidence](baselines/isaac-chosen-farm-20261102/README.md); replay of selected PPO actions, not a new training benchmark.
 - [Compact dark-floor farm film](sircus/isaac/DARK_FARM_FILM.md) — one-minute native Isaac recording, driven arm transitions, four configurations at one front table, trimmed impacts and a 10× station cut. [Verified replay results](baselines/isaac-dark-farm-20261102/README.md).
 - [35-table Isaac training film and front-row close-ups](sircus/isaac/CYLINDER_FILM.md) — camera flight, 7 × 5 bucket grid, four learned shot parameters, and reproduction commands.

@@ -1,5 +1,13 @@
 # Project state
 
+## Fixed-camera actual training recording — November 2, 2026
+
+- [Training and action-only film](../sircus/isaac/ACTION_TRAINING_FILM.md), [checkpoint and verification](../baselines/isaac-action-training-20261102/README.md): ten fresh 35-slot batches feed five PPO updates, all recorded at the exact selected camera. The edit retains every batch's setup/drop/outcome and removes quiet tails: 23.33 s versus 52.33 s for all captured frames, both native 1080p/30 fps. No camera tracking or outcome-selected replay.
+- Seventeen geometry-supported sites, eighteen parked sites. Of 350 sampled slots, 170 are enabled and 156 release; 30 qualified captures, 28 clean. Foreground: ten board rebounds, two captures, five table outcomes and three measured floor arrivals. All slots, including invalid penalties, remain in the original PPO buffer. This short filming pass is not held-out policy evaluation or evidence of solved workspace coverage.
+- All 350 sampled latent likelihoods were recomputed from their saved policies on CPU (max error 9.54e-7), with five update links and final weights bound. Native contact/rim/isolation, every camera/frame, full-rate foreground scoring, cut timing, video decode and Mac transfer hashes passed; all 88 source hashes match. Local suite: 182 tests with seven Torch skips; six new audit tests passed on Ubuntu CPU.
+- The partial v2 stopped before release eight due to a camera progress tracker at a nearly unchanged pose. V3 records a fresh full run using planned-time RGB sampling and actual measured joints; joint readiness, final release guards and physics scoring are unchanged. No partial v2 footage/outcomes were reused. Scripted transit, initialized balls and privileged inputs remain explicit; there is no learned grasp/path or physical validation.
+- The finite 4090 job exited; the existing 4070 workload and all services were preserved. The first capture queued behind another learning job's shared lock rather than interrupting it. No hardware/Viam/audio work. Previous films and studies retain their original definitions.
+
 ## User-selected farm film completed — November 2, 2026
 
 - [Native one-minute recording](../sircus/isaac/CHOSEN_FARM_FILM.md): 35 tables / 70 articulated arms, selected silver-gray look, 14-second orbit, 2-second approach and 44-second fixed front-row view. The user's original camera JSON is preserved byte-for-byte and every native camera frame checked; no ball-following. [Compact evidence](../baselines/isaac-chosen-farm-20261102/README.md).

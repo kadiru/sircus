@@ -10,7 +10,7 @@ from pathlib import Path
 import numpy as np
 import torch
 from board_route import FORCE_THRESHOLD_N
-from recording_plans import recording_plan
+from recording_plans import recording_plan, setup_capture_progress
 from dark_stage import stage_settings
 from dark_export import inside_frame
 from feasibility_runtime import FeasibilityShots
@@ -90,6 +90,12 @@ class ReplayShots:
                     1 - float(torch.linalg.vector_norm(diff)) / norm
                     if norm > 1e-5
                     else min(1, step / steps)
+                )
+                progress = setup_capture_progress(
+                    step,
+                    steps,
+                    progress,
+                    training=getattr(self, "training_active", False),
                 )
                 k = len(self.frames)
                 if k < len(thresholds) and progress >= thresholds[k]:

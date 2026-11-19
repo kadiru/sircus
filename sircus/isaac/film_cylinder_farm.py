@@ -41,8 +41,31 @@ p.add_argument("--camera-right-m", type=float, default=0.0)
 p.add_argument("--camera-z-m", type=float)
 p.add_argument("--scout-snapshot", action="store_true")
 p.add_argument("--camera-json", type=Path)
+p.add_argument(
+    "--training-camera-json",
+    type=Path,
+    help="Record all new PPO batches at this fixed camera, with driven setup",
+)
+p.add_argument(
+    "--geometry-menu-source",
+    type=Path,
+    help="Completed matching run supplying geometry-only preflight menus",
+)
 AppLauncher.add_app_launcher_args(p)
 args = p.parse_args()
+training_camera = args.training_camera_json is not None
+if training_camera != (args.geometry_menu_source is not None):
+    p.error("--training-camera-json and --geometry-menu-source require each other")
+if training_camera and (
+    args.dark_replay
+    or args.resume_filming
+    or args.camera_json
+    or args.camera_previews
+    or args.preview_only
+    or args.appearance != "silver"
+    or args.recording_plan != "fixed-station-v1"
+):
+    p.error("Training-camera recording requires silver and no replay/preview options")
 if not args.enable_cameras:
     p.error("--enable_cameras is required")
 if args.camera_previews and (not args.dark_replay or args.appearance != "silver"):
@@ -280,11 +303,12 @@ def main():
     poses = json.loads((Path(args.assets) / "poses.json").read_text())
     spec = specification(cfg, len(SHOTS))
     saved_camera = None
-    if args.camera_json is not None:
+    camera_path = args.training_camera_json or args.camera_json
+    if camera_path is not None:
         from saved_camera import load_camera
 
-        saved_camera = load_camera(args.camera_json, spec["fingerprint"])
-        shutil.copyfile(args.camera_json, dest / "selected-camera.json")
+        saved_camera = load_camera(camera_path, spec["fingerprint"])
+        shutil.copyfile(camera_path, dest / "selected-camera.json")
     atomic(
         dest / ("source-contract.json" if args.dark_replay else "contract.json"), spec
     )
@@ -314,7 +338,7 @@ def main():
     layout = origins
     scene_type = RectangularScene
     shots_type = FilmShots
-    if args.dark_replay:
+    if args.dark_replay or training_camera:
         import dark_stage
         from dark_replay import ReplayShots, run_replay
 
@@ -324,7 +348,11 @@ def main():
             from dark_stage import configure_stage, stage_settings
         configure_stage(scfg, cfg)
         layout = dark_stage.origins
-        if args.camera_previews or args.recording_plan == "chosen-farm-v1":
+        if (
+            args.camera_previews
+            or args.recording_plan == "chosen-farm-v1"
+            or training_camera
+        ):
             from camera_options import preview_origins
             from camera_preview import configure_backdrop
 
@@ -334,8 +362,16 @@ def main():
         class CompactScene(RectangularScene):
             grid_origins = staticmethod(layout)
 
-        class CompactShots(ReplayShots, FilmShots):
-            pass
+        if training_camera:
+            from action_training import ActionTrainingShots
+
+            class CompactShots(ActionTrainingShots, FilmShots):
+                pass
+
+        else:
+
+            class CompactShots(ReplayShots, FilmShots):
+                pass
 
         scene_type, shots_type = CompactScene, CompactShots
     scene = scene_type(scfg)
@@ -361,10 +397,14 @@ def main():
     )
     if not np.array_equal(env.origins, layout()):
         raise ValueError("Isaac workcell origins disagree with the 5 by 7 layout")
-    if args.dark_replay:
+    if args.dark_replay or training_camera:
         env.stage_metadata = stage_settings()
         env.saved_camera = saved_camera
-        if args.camera_previews or args.recording_plan == "chosen-farm-v1":
+        if (
+            args.camera_previews
+            or args.recording_plan == "chosen-farm-v1"
+            or training_camera
+        ):
             env.stage_metadata["camera_backdrop"] = preview_backdrop
         if args.preview_only or args.camera_previews:
             from recording_plans import recording_plan
@@ -431,6 +471,11 @@ def main():
     env.probe_positions["table"] = [1.313, -0.625, 0.25]
     probes = env.probes()
     atomic(dest / "probes.json", probes)
+    if training_camera:
+        from action_training import run_training
+
+        run_training(env, spec, args.geometry_menu_source)
+        return
     if args.dark_replay:
         run_replay(env, args.dark_replay, spec)
         return
