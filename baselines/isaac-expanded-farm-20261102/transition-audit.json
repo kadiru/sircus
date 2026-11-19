@@ -1,0 +1,562 @@
+{
+  "schema": "sircus-read-only-driven-transition-audit-v1",
+  "run": "expanded-training-20261102-v2",
+  "source_study": "expanded-farm-20261102-v3",
+  "bindings": {
+    "result_sha256": "ed9eb1a972c22f763f47588889d95166cb292faa8dca853c844b95abd7e00e21",
+    "contract_sha256": "291ca91848bddff8f812b59e790ac565657982a708dd9dcb7c7281136a87544f",
+    "native_menu_sha256": "7f2b6e30e4b815f7c8c1bed57ce552c77bdcdcd1bf3886e0736ad77563181238",
+    "clip_sha256": {
+      "clip-00.json": "35d6a378c0980a9d78bd556d0607ed1ed6904f1bdb2947cd5a4735285c48ea04",
+      "clip-01.json": "4cbf743f27f9eb1e076069175b3ae2367bf5f2dc1bbc78a16e1cdbe033f5eaa6",
+      "clip-02.json": "bdd5afd1c636bdfeefca65b01496ca7569cf3b949f166da71734d5bc07ea3142",
+      "clip-03.json": "a74e7ad043b04170a3c702b5cea42643cc1faaa85f62a8225f95c099003561f2",
+      "clip-04.json": "310848b2cc312535557462cffc887ef2d1ad14f769c3cd82246fb13409e20995",
+      "clip-05.json": "1fe5dbcb445da325baa6e5cd55ba2563754bf8176ef10ae0b5136997da28ce2c",
+      "clip-06.json": "842a4ce9661a71561b5a873f6164ec226be6bbe72ee2b5b48e7884beafc4530d",
+      "clip-07.json": "01226b9af2753d44d8d36a0bf2f941157acd5c0fe14fb4121465947a6ec3524d",
+      "clip-08.json": "da0fa53c1e7dde2ac983be79a307f472c64f13f1ca1eebccc67c0257a19e039f",
+      "clip-09.json": "8a517c3977dc9359aedbb8b233ee9d759d6cd6399791dfc4845751c139924277"
+    },
+    "board_arm_urdf_sha256": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340",
+    "reported_source_sha256": {
+      "dark_replay.py": "21c965180c20605390546bd08d9a4d07ac261f62a67a633be3738f87c7d3466c",
+      "prepare_assets.py": "d7517e4f1f350bd7f48e5c23e48fc4dc4c63882b6b18ce4502bc8c5fd1999d93",
+      "expanded_pose_menu.py": "5bfbb470fbd395126880b77a8ca136768eda7d844d89afd924935bfb506e2ea5",
+      "expanded_pose_native.py": "b5092c3003419c04f569fe4475064a0ea92f907efe5a96cbcbb0872898690d37",
+      "parallel_runtime.py": "33261c6eadbc7d0f4f823caaedb80f8e95f08229da5d545c688043d945b1b25d"
+    }
+  },
+  "FK_native_agreement": {
+    "rows_checked": 350,
+    "max_position_error_mm": 0.002217566816426004,
+    "max_normal_error_deg": 9.412830249960489e-05,
+    "median_position_error_mm": 0.0004638044440509445,
+    "median_normal_error_deg": 2.8940271094894143e-05,
+    "frame": "Table-local Arm14 base @ URDF FK(final recorded q) @ configured mount, compared with final native board center/normal."
+  },
+  "qualified_fit_goal_agreement": {
+    "entries_checked": 133,
+    "max_position_error_mm": 0.0866246285734228,
+    "max_normal_error_deg": 0.006534461450501726
+  },
+  "IK_cache_key_audit": {
+    "menu_entries_checked": 133,
+    "Arm14_bit_identical": 133,
+    "Arm10_bit_identical": 133,
+    "rule": "Offline endpoint_targets matrices compared exactly with dynamic_cell/core prepare formulas."
+  },
+  "release_counts_per_cell": [
+    8,
+    10,
+    10,
+    10,
+    0,
+    10,
+    9,
+    9,
+    10,
+    7,
+    10,
+    4,
+    9,
+    0,
+    10,
+    9,
+    9,
+    10,
+    9,
+    6,
+    4,
+    10,
+    9,
+    10,
+    10,
+    10,
+    10,
+    0,
+    7,
+    0,
+    9,
+    10,
+    9,
+    10,
+    10
+  ],
+  "zero_release_cells": [
+    {
+      "index": 4,
+      "cell_id": "r1c5",
+      "accepted_releases": 0,
+      "qualified_options": 4,
+      "fit_joint_ranges_deg": {
+        "Arm10": [
+          2.412681476307197,
+          11.336467884677415,
+          35.30252267568403,
+          0.0002520309097310045,
+          27.459273795033667,
+          2.4125932654956532
+        ],
+        "Arm14": [
+          182.68571128974077,
+          249.07263895164547,
+          74.42642475770597,
+          182.60670733593227,
+          247.2175873068338,
+          226.80414393699385
+        ]
+      },
+      "Arm14_fits": [
+        {
+          "action_id": "legacy-ring-01-pose-0",
+          "joint_deg": [
+            187.07405614224803,
+            76.18799291675847,
+            -207.701745493463,
+            18.92914506685406,
+            -123.39194445729301,
+            -125.12291250195689
+          ]
+        },
+        {
+          "action_id": "legacy-ring-01-pose-2",
+          "joint_deg": [
+            6.790621213025774,
+            -129.49977143121941,
+            -203.97353178698566,
+            17.64723467005032,
+            123.46833865218721,
+            0.0
+          ]
+        },
+        {
+          "action_id": "legacy-ring-02-pose-0",
+          "joint_deg": [
+            4.388344852507246,
+            -121.07077234061185,
+            -197.5832533632887,
+            17.844897877596527,
+            123.82564284954078,
+            0.0
+          ]
+        },
+        {
+          "action_id": "legacy-ring-02-pose-1",
+          "joint_deg": [
+            184.76014003035485,
+            119.57286752042606,
+            -133.27532073575702,
+            -163.6775622690782,
+            96.94641577080414,
+            -226.80414393699385
+          ]
+        }
+      ]
+    },
+    {
+      "index": 13,
+      "cell_id": "r2c7",
+      "accepted_releases": 0,
+      "qualified_options": 4,
+      "fit_joint_ranges_deg": {
+        "Arm10": [
+          25.107700096807484,
+          33.82865760281071,
+          40.90690739593866,
+          0.00020579163808964762,
+          24.965540953663037,
+          25.107675710498434
+        ],
+        "Arm14": [
+          204.24215905818824,
+          253.68986502458284,
+          94.84465625032557,
+          184.29279303005583,
+          19.684961076186724,
+          226.80414393699385
+        ]
+      },
+      "Arm14_fits": [
+        {
+          "action_id": "expanded-0085",
+          "joint_deg": [
+            16.383708406564867,
+            -131.80953893362775,
+            -214.87290660944367,
+            -4.08583288338939,
+            116.55505938957877,
+            0.0
+          ]
+        },
+        {
+          "action_id": "expanded-0094",
+          "joint_deg": [
+            -0.35840091166178545,
+            -97.46596819063257,
+            -173.25453289360271,
+            -1.672868489088868,
+            116.10866582523096,
+            0.0
+          ]
+        },
+        {
+          "action_id": "expanded-0098",
+          "joint_deg": [
+            -8.499278979654358,
+            -117.07381403635085,
+            -199.81355642797956,
+            -2.409572736753473,
+            117.12905889582571,
+            0.0
+          ]
+        },
+        {
+          "action_id": "expanded-0248",
+          "joint_deg": [
+            195.7428800785339,
+            121.88032609095508,
+            -120.0282503591181,
+            -185.9656615191447,
+            97.44409781963898,
+            -226.80414393699385
+          ]
+        }
+      ]
+    },
+    {
+      "index": 27,
+      "cell_id": "r4c7",
+      "accepted_releases": 0,
+      "qualified_options": 4,
+      "fit_joint_ranges_deg": {
+        "Arm10": [
+          25.107768632702964,
+          22.610986836501063,
+          44.73792764564871,
+          0.00029565339853606406,
+          22.126940811289998,
+          25.10765352435527
+        ],
+        "Arm14": [
+          342.13202926917415,
+          50.53063280154224,
+          105.22098681588572,
+          191.3806284173343,
+          242.07238087487906,
+          72.31131562798174
+        ]
+      },
+      "Arm14_fits": [
+        {
+          "action_id": "expanded-0082",
+          "joint_deg": [
+            177.49656189952225,
+            90.60563053195928,
+            -191.86002265285552,
+            -10.9435691983859,
+            -119.69709930965526,
+            -125.83193780845312
+          ]
+        },
+        {
+          "action_id": "expanded-0090",
+          "joint_deg": [
+            165.552234239769,
+            120.25222331479172,
+            -118.14107369260985,
+            -19.978578369318107,
+            -106.7305199594027,
+            -125.83193780845312
+          ]
+        },
+        {
+          "action_id": "expanded-0092",
+          "joint_deg": [
+            168.39192171595454,
+            105.77604427073511,
+            -138.68431668745714,
+            -14.25942858647688,
+            -97.68104010529883,
+            -125.83193780845312
+          ]
+        },
+        {
+          "action_id": "expanded-0228",
+          "joint_deg": [
+            -164.6354673696519,
+            69.72159051324948,
+            -223.36206050849557,
+            171.40205004801618,
+            122.37528156522379,
+            -53.520622180471385
+          ]
+        }
+      ]
+    },
+    {
+      "index": 29,
+      "cell_id": "r5c2",
+      "accepted_releases": 0,
+      "qualified_options": 4,
+      "fit_joint_ranges_deg": {
+        "Arm10": [
+          27.04112159816018,
+          42.02709730188279,
+          38.0139790550095,
+          0.00016666466035310668,
+          14.656428421899875,
+          27.0410146078831
+        ],
+        "Arm14": [
+          205.84022659208145,
+          143.47640780460162,
+          169.57659623193024,
+          12.875770676961679,
+          221.9155311985129,
+          53.520622180471385
+        ]
+      },
+      "Arm14_fits": [
+        {
+          "action_id": "expanded-0084",
+          "joint_deg": [
+            11.035473101539646,
+            -49.91111926019226,
+            -65.09831849554818,
+            152.2234535677966,
+            -122.94400346894595,
+            0.0
+          ]
+        },
+        {
+          "action_id": "expanded-0087",
+          "joint_deg": [
+            -168.69979154122692,
+            49.09898348745089,
+            -234.6749147274784,
+            162.80428072932324,
+            81.57725051403433,
+            -53.520622180471385
+          ]
+        },
+        {
+          "action_id": "expanded-0097",
+          "joint_deg": [
+            -194.8047534905418,
+            59.42439327999915,
+            -227.9145955367795,
+            152.5167659421673,
+            98.97152772956694,
+            -53.520622180471385
+          ]
+        },
+        {
+          "action_id": "expanded-0098",
+          "joint_deg": [
+            -178.6888124127556,
+            93.56528854440937,
+            -152.91110106205986,
+            149.92851005236156,
+            57.05839821575859,
+            -53.520622180471385
+          ]
+        }
+      ]
+    }
+  ],
+  "representative_final_fit_discrepancies": [
+    {
+      "batch": 1,
+      "index": 4,
+      "cell_id": "r1c5",
+      "action_id": "legacy-ring-02-pose-0",
+      "invalid": "settling_correction_ik",
+      "settled_position_error_mm": 1013.6779463073952,
+      "settled_normal_error_deg": 94.54966097079777,
+      "FK_native_position_error_mm": 0.00042193117908881985,
+      "FK_native_normal_error_deg": 4.7274704230461125e-05,
+      "final_Arm14_joint_deg": [
+        24.73221572990643,
+        -31.08092949739935,
+        -198.35403470510124,
+        17.844562470859067,
+        123.8256059538067,
+        1.94375194289409e-08
+      ],
+      "qualified_fit_Arm14_joint_deg": [
+        4.388344852507246,
+        -121.07077234061185,
+        -197.5832533632887,
+        17.844897877596527,
+        123.82564284954078,
+        0.0
+      ],
+      "raw_Arm14_joint_delta_deg": [
+        20.343870877399183,
+        89.98984284321251,
+        -0.7707813418125445,
+        -0.0003354067374572826,
+        -3.689573408317514e-05,
+        1.94375194289409e-08
+      ],
+      "raw_Arm10_joint_delta_deg": [
+        -0.00039912577352023155,
+        -0.0033602282780754687,
+        0.003470969814408534,
+        -4.7589706497203294e-07,
+        0.0004210638896064664,
+        -4.0292962417508254e-07
+      ]
+    },
+    {
+      "batch": 1,
+      "index": 13,
+      "cell_id": "r2c7",
+      "action_id": "expanded-0098",
+      "invalid": "settling_correction_ik",
+      "settled_position_error_mm": 967.644157760536,
+      "settled_normal_error_deg": 120.33774855197905,
+      "FK_native_position_error_mm": 0.00018286615516387744,
+      "FK_native_normal_error_deg": 1.5603282751949065e-05,
+      "final_Arm14_joint_deg": [
+        68.57097383266934,
+        -22.954797309741302,
+        -200.52655395554223,
+        -2.409683695547917,
+        117.1269662272084,
+        -3.904211130806007e-10
+      ],
+      "qualified_fit_Arm14_joint_deg": [
+        -8.499278979654358,
+        -117.07381403635085,
+        -199.81355642797956,
+        -2.409572736753473,
+        117.12905889582571,
+        0.0
+      ],
+      "raw_Arm14_joint_delta_deg": [
+        77.07025281232369,
+        94.11901672660954,
+        -0.7129975275626504,
+        -0.00011095879444386806,
+        -0.002092668617301581,
+        -3.904211130806007e-10
+      ],
+      "raw_Arm10_joint_delta_deg": [
+        -0.0017446272572361069,
+        -0.0021042109421268366,
+        0.0029197625314610664,
+        -2.9413484383084963e-07,
+        0.0004375025883986656,
+        3.075563208719753e-05
+      ]
+    },
+    {
+      "batch": 9,
+      "index": 27,
+      "cell_id": "r4c7",
+      "action_id": "expanded-0092",
+      "invalid": "settling_correction_ik",
+      "settled_position_error_mm": 1089.0447420891787,
+      "settled_normal_error_deg": 51.7377500644673,
+      "FK_native_position_error_mm": 0.0005778732906835637,
+      "FK_native_normal_error_deg": 5.8263405303676066e-05,
+      "final_Arm14_joint_deg": [
+        -94.21349839213484,
+        106.57422150670115,
+        -138.66249803874524,
+        -14.259439717975335,
+        -97.6815542639655,
+        -125.83112707904087
+      ],
+      "qualified_fit_Arm14_joint_deg": [
+        168.39192171595454,
+        105.77604427073511,
+        -138.68431668745714,
+        -14.25942858647688,
+        -97.68104010529883,
+        -125.83193780845312
+      ],
+      "raw_Arm14_joint_delta_deg": [
+        -262.6054201080894,
+        0.7981772359660326,
+        0.021818648711898633,
+        -1.113149845471626e-05,
+        -0.0005141586666615863,
+        0.0008107294122501726
+      ],
+      "raw_Arm10_joint_delta_deg": [
+        -0.0016705829537935126,
+        0.0004930904355320537,
+        0.003857222327040939,
+        -2.3120339284150143e-07,
+        0.00045447260909178936,
+        -4.4524210873063364e-05
+      ]
+    },
+    {
+      "batch": 0,
+      "index": 29,
+      "cell_id": "r5c2",
+      "action_id": "expanded-0084",
+      "invalid": "settling_correction_ik",
+      "settled_position_error_mm": 892.5483603909568,
+      "settled_normal_error_deg": 12.587503982133644,
+      "FK_native_position_error_mm": 0.0002917653203962563,
+      "FK_native_normal_error_deg": 3.330811622126634e-05,
+      "final_Arm14_joint_deg": [
+        -100.98854061478892,
+        34.25007921567732,
+        -65.65902513287195,
+        152.2236064093738,
+        -122.94515358865704,
+        -0.00384955406354436
+      ],
+      "qualified_fit_Arm14_joint_deg": [
+        11.035473101539646,
+        -49.91111926019226,
+        -65.09831849554818,
+        152.2234535677966,
+        -122.94400346894595,
+        0.0
+      ],
+      "raw_Arm14_joint_delta_deg": [
+        -112.02401371632855,
+        84.16119847586958,
+        -0.5607066373237668,
+        0.00015284157717627883,
+        -0.00115011971108365,
+        -0.00384955406354436
+      ],
+      "raw_Arm10_joint_delta_deg": [
+        0.0193733038042777,
+        0.002962542399678419,
+        -9.2716765866673e-05,
+        -3.767784477447941e-07,
+        -0.00030610703548789833,
+        9.230459234039253e-05
+      ]
+    }
+  ],
+  "findings": [
+    "All350 final joint FK reconstructions agree with native board states; no joint-index/frame/mount mapping error is indicated.",
+    "All133 qualified menu fits solve their intended board geometry; cached endpoint matrices exactly match core prepare.",
+    "The four zero-release workcells contain widely separated raw joint-space branches. Initialized endpoint qualification did not certify driven transitions between them.",
+    "Branch-local families address a demonstrated large-target-jump hazard, but require fresh driven validation.",
+    "Original transition completion accepts foreground plus two visible backgrounds before restoring hold limits; other active sites can remain unready. Final settling guards correctly refuse releases."
+  ],
+  "limitations": [
+    "Read-only existing artifacts; no new simulation, GPU process or hardware command.",
+    "Final poses and fit targets do not establish collision, insufficient drive authority or the exact transient mechanism; no all-cell joint-time/arm-contact/torque trace is present.",
+    "Raw joint discrepancy is final measured q minus stored qualified offline fit, not a logged instantaneous drive target; corrected native fits may differ slightly.",
+    "Native initialized endpoints, scripted joint transitions and learned shot selection remain separate validation boundaries."
+  ],
+  "counts": {
+    "batches": 10,
+    "sampled_slots": 350,
+    "accepted_releases": 277,
+    "qualified_menu_entries": 133,
+    "zero_release_cell_count": 4
+  }
+}

@@ -30,7 +30,10 @@ def read(path):
 
 
 def finite(value, shape, label):
-    array = np.asarray(value, dtype=np.float32)
+    try:
+        array = np.asarray(value, dtype=np.float32)
+    except (TypeError, ValueError) as error:
+        raise ValueError(f"Invalid {label}") from error
     require(array.shape == shape and np.isfinite(array).all(), f"Invalid {label}")
     return array
 
@@ -38,12 +41,26 @@ def finite(value, shape, label):
 def verify_checkpoint_chain(run):
     """Return a bound audit without writing files; all tensors load on the CPU."""
     import torch
-    from cylinder_farm import HIGH, LOGSTD, LOW, WARM, observation
+    from action_training import (
+        task_dispatch,
+        training_formats,
+        load_expanded_training_menu,
+        verify_expanded_binding,
+    )
     from farm_policy import Policy, weight_hash
 
     run = Path(run)
     torch.set_num_threads(2)
     contract, report = read(run / "contract.json"), read(run / "result.json")
+    task, expanded = task_dispatch(contract)
+    formats = training_formats(contract)
+    LOW, HIGH, WARM, LOGSTD, observation = (
+        task.LOW,
+        task.HIGH,
+        task.WARM,
+        task.LOGSTD,
+        task.observation,
+    )
     unsigned = dict(contract)
     fingerprint = unsigned.pop("fingerprint")
     require(
@@ -54,7 +71,7 @@ def verify_checkpoint_chain(run):
         "Checkpoint audit contract fingerprint mismatch",
     )
     require(
-        report.get("schema") == "sircus-action-training-film-v1"
+        report.get("schema") == formats["report_schema"]
         and contract["training_batches"] == 10
         and contract["num_envs"] == report["workcells"] == 35
         and report["articulations"] == 70
@@ -63,6 +80,24 @@ def verify_checkpoint_chain(run):
         and len(report["updates"]) == 5,
         "Incomplete fixed-camera training checkpoint series",
     )
+    extra_audit = {}
+    if expanded:
+        binding = verify_expanded_binding(run, contract, report)
+        menus, menu_audit = load_expanded_training_menu(
+            run / "expanded-menu-qualified.json", contract
+        )
+        require(
+            menu_audit["file_sha256"] == report["menu_sha256"]
+            and menu_audit == report["menu_provenance"],
+            "Expanded checkpoint menu proof mismatch",
+        )
+        extra_audit = dict(
+            task_version=contract["version"],
+            action_dim=formats["action_dim"],
+            camera_source_fingerprint=report["camera_source_fingerprint"],
+            camera_binding_sha256=binding["sha256"],
+            native_menu_sha256=menu_audit["file_sha256"],
+        )
     policy = Policy(LOW, HIGH, WARM, LOGSTD).cpu()
     expected_obs = np.asarray(
         [observation(cell) for cell in contract["cells"]], dtype=np.float32
@@ -111,8 +146,44 @@ def verify_checkpoint_chain(run):
             np.array_equal(observations, expected_obs),
             "Policy observations do not match the contracted scene",
         )
-        latents = finite(clip["latent"], (35, 4), "sampled latents")
+        if expanded:
+            require(
+                clip["schema"] == formats["clip_schema"]
+                and clip["task_version"] == contract["version"]
+                and clip["action_dim"] == formats["action_dim"]
+                and clip["camera_binding_sha256"] == report["camera_binding_sha256"]
+                and saved["task_version"] == contract["version"]
+                and saved["action_dim"] == formats["action_dim"],
+                "Expanded sampling checkpoint/task mismatch",
+            )
+        latents = finite(clip["latent"], (35, formats["action_dim"]), "sampled latents")
         logged = finite(clip["old_logp"], (35,), "stored log probabilities")
+        if expanded:
+            from export_cylinder_film import matches_action
+
+            requested = task.project_actions(contract["cells"], latents, menus)
+            require(
+                clip["release_enabled"] == [True] * 35
+                and len(clip["actions"]) == len(clip["rollout"]) == 35,
+                "Expanded release mask or attempted action count changed",
+            )
+            for cell, expected, action, row in zip(
+                contract["cells"], requested, clip["actions"], clip["rollout"]
+            ):
+                require(
+                    matches_action(action, expected)
+                    and matches_action(row, expected)
+                    and row["cell_id"] == cell["id"]
+                    and np.allclose(
+                        row["bucket_xy_m"], cell["bucket_xy_m"], atol=1e-7, rtol=0
+                    ),
+                    "Expanded checkpoint action or fixed bucket mismatch",
+                )
+                task.validate_action(cell, row)
+                require(
+                    abs(row["distance_m"] - row["radius_m"]) < 2e-7,
+                    "Expanded checkpoint row radius disagrees",
+                )
         with torch.no_grad():
             actual = (
                 policy.distribution(torch.from_numpy(observations))
@@ -153,6 +224,13 @@ def verify_checkpoint_chain(run):
         and saved["menu_sha256"] == menu_hash,
         "Final checkpoint contract mismatch",
     )
+    if expanded:
+        require(
+            saved["task_version"] == contract["version"]
+            and saved["action_dim"] == formats["action_dim"]
+            and saved["camera_binding_sha256"] == report["camera_binding_sha256"],
+            "Expanded final checkpoint task/camera mismatch",
+        )
     policy.load_state_dict(saved["state_dict"], strict=True)
     final_hash = weight_hash(policy)
     require(
@@ -161,7 +239,8 @@ def verify_checkpoint_chain(run):
         "Final policy weights do not complete the update chain",
     )
     return dict(
-        schema=SCHEMA,
+        schema=formats["audit_schema"],
+        **extra_audit,
         source_result_sha256=digest(run / "result.json"),
         source_contract_sha256=digest(run / "contract.json"),
         source_clip_sha256=clips,

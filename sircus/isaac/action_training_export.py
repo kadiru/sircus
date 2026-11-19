@@ -14,6 +14,12 @@ from pathlib import Path
 
 import numpy as np
 from board_route import BoardRoute, FORCE_THRESHOLD_N
+from action_training import (
+    task_dispatch,
+    training_formats,
+    load_expanded_training_menu,
+    verify_expanded_binding,
+)
 from camera_options import preview_origins
 from cylinder_farm import COLS, RADIUS, ROWS, observation, project_actions
 from dark_export import inside_frame
@@ -222,6 +228,25 @@ def terminal_cut(clip, row, audit, origin, padding_s=0.2):
     )
 
 
+def verify_action_geometry(row, action, cell, expanded=False):
+    """The fifth action is measured radial distance, never an implicit menu tie."""
+    expected_radius = action["radius_m"] if expanded else RADIUS
+    require(
+        np.allclose(row["bucket_xy_m"], cell["bucket_xy_m"], atol=1e-7, rtol=0)
+        and abs(row["distance_m"] - expected_radius) < 1e-7,
+        "Bucket or radius changed",
+    )
+    if expanded:
+        measured = np.linalg.norm(
+            np.asarray(row["bucket_xy_m"]) - [row["board_x_m"], row["board_y_m"]]
+        )
+        require(
+            abs(measured - row["radius_m"]) < 1e-7
+            and abs(row["radius_m"] - action["radius_m"]) < 1e-7,
+            "Expanded board XY and radius disagree",
+        )
+
+
 def verify_probes(run, count):
     probes = read(run / "probes.json")
     require(
@@ -237,6 +262,8 @@ def verify_probes(run, count):
 def verify(run):
     run = Path(run)
     report, spec = read(run / "result.json"), read(run / "contract.json")
+    task, expanded = task_dispatch(spec)
+    formats = training_formats(spec)
     fingerprint = spec["fingerprint"]
     require(
         hashlib.sha256(
@@ -249,8 +276,8 @@ def verify(run):
         "Training contract fingerprint mismatch",
     )
     require(
-        report["schema"] == "sircus-action-training-film-v1"
-        and report["filming_protocol"] == "sircus-fixed-camera-on-policy-film-v2",
+        report["schema"] == formats["report_schema"]
+        and report["filming_protocol"] == formats["protocol"],
         "Not a fresh training film",
     )
     require(
@@ -277,7 +304,12 @@ def verify(run):
         and report["physics_dt_s"] == DT,
         "Cadence or resolution mismatch",
     )
-    camera = load_camera(run / "selected-camera.json", fingerprint)
+    binding = verify_expanded_binding(run, spec, report) if expanded else None
+    camera = (
+        binding["camera"]
+        if expanded
+        else load_camera(run / "selected-camera.json", fingerprint)
+    )
     camera_hash = digest(run / "selected-camera.json")
     require(
         camera == report["camera"] and camera_hash == report["selected_camera_sha256"],
@@ -289,7 +321,11 @@ def verify(run):
         report["stage"] == expected_stage, "Selected silver lighting/backdrop changed"
     )
     verify_probes(run, 35)
-    menus, menu_audit = verified_menus(run, cells)
+    menus, menu_audit = (
+        load_expanded_training_menu(run / "expanded-menu-qualified.json", spec)
+        if expanded
+        else verified_menus(run, cells)
+    )
     provenance = read(run / "menu-provenance.json")
     require(
         menu_audit["file_sha256"] == report["menu_sha256"] == provenance["file_sha256"]
@@ -303,11 +339,11 @@ def verify(run):
     )
     current, total = report["initial_hash"], 0
     rows, chapters, checkpoints = [], [], []
-    observations = [observation(c) for c in cells]
+    observations = [task.observation(c) for c in cells]
     for batch in range(BATCHES):
         clip, summary = read(run / f"clip-{batch:02}.json"), report["batches"][batch]
         require(
-            clip["schema"] == "sircus-action-training-clip-v1"
+            clip["schema"] == formats["clip_schema"]
             and clip["filming_protocol"] == report["filming_protocol"]
             and clip["batch"] == batch
             and clip["focus"] == FOCUS
@@ -333,14 +369,25 @@ def verify(run):
         checkpoints.append(
             dict(file=filename, sha256=clip["checkpoint_sha256"], weight_hash=current)
         )
-        latent = finite(clip["latent"], (35, 4), "Incomplete latent samples")
+        if expanded:
+            require(
+                clip["task_version"] == spec["version"]
+                and clip["action_dim"] == formats["action_dim"]
+                and clip["camera_binding_sha256"] == report["camera_binding_sha256"]
+                and clip["camera_source_fingerprint"]
+                == report["camera_source_fingerprint"],
+                "Expanded clip task/camera binding changed",
+            )
+        latent = finite(
+            clip["latent"], (35, formats["action_dim"]), "Incomplete latent samples"
+        )
         finite(clip["old_logp"], (35,), "Incomplete log probabilities")
         finite(clip["rewards"], (35,), "Incomplete reward samples")
         require(
             np.allclose(clip["observation"], observations, atol=1e-7, rtol=0),
             "Policy observations changed",
         )
-        actions = project_actions(cells, latent.astype(np.float32), menus)
+        actions = task.project_actions(cells, latent.astype(np.float32), menus)
         records = clip["rollout"]
         require(
             clip["release_enabled"] == [bool(m) for m in menus]
@@ -361,11 +408,7 @@ def verify(run):
                 and matches_action(row, action),
                 "Sampled/projected action mismatch",
             )
-            require(
-                np.allclose(row["bucket_xy_m"], cell["bucket_xy_m"], atol=1e-7, rtol=0)
-                and abs(row["distance_m"] - RADIUS) < 1e-7,
-                "Bucket or radius changed",
-            )
+            verify_action_geometry(row, action, cell, expanded)
             require(
                 np.isclose(ret, reward(row), atol=1e-6)
                 and np.isclose(ret, row["ppo_reward"], atol=1e-6)
@@ -552,9 +595,21 @@ def verify(run):
         ),
         "No measured setup motion for both arms",
     )
-    checkpoint_audit = verify_checkpoint_audit(run, report, checkpoints)
+    checkpoint_audit = verify_checkpoint_audit(
+        run, report, checkpoints, formats["audit_schema"]
+    )
     return dict(
-        schema="sircus-action-training-export-v1",
+        schema=formats["export_schema"],
+        **(
+            dict(
+                task_version=spec["version"],
+                action_dim=formats["action_dim"],
+                camera_source_fingerprint=report["camera_source_fingerprint"],
+                camera_binding=binding,
+            )
+            if expanded
+            else {}
+        ),
         checkpoint_audit=checkpoint_audit,
         source_fingerprint=fingerprint,
         selected_camera_sha256=camera_hash,
@@ -576,7 +631,12 @@ def verify(run):
     )
 
 
-def verify_checkpoint_audit(run, report, checkpoints):
+def verify_checkpoint_audit(
+    run,
+    report,
+    checkpoints,
+    expected_schema="sircus-action-training-checkpoint-audit-v1",
+):
     """Bind an optional separately executed, CPU-only checkpoint/logp audit."""
     path = run / "checkpoint-audit.json"
     if not path.exists():
@@ -591,7 +651,7 @@ def verify_checkpoint_audit(run, report, checkpoints):
     checkpoints = {c["file"]: c["sha256"] for c in checkpoints}
     checkpoints["policy-final.pt"] = report["final_checkpoint_sha256"]
     require(
-        audit["schema"] == "sircus-action-training-checkpoint-audit-v1"
+        audit["schema"] == expected_schema
         and audit["source_result_sha256"] == digest(run / "result.json")
         and audit["source_contract_sha256"] == digest(run / "contract.json")
         and audit["source_clip_sha256"] == expected
@@ -603,6 +663,16 @@ def verify_checkpoint_audit(run, report, checkpoints):
         audit["sampled_policy_hashes"] == [b["policy_hash"] for b in report["batches"]],
         "CPU checkpoint audit sampling chain disagrees",
     )
+    if expected_schema == "sircus-action-training-checkpoint-audit-v2":
+        require(
+            audit["task_version"] == report["task_version"]
+            and audit["action_dim"] == report["action_dim"] == 5
+            and audit["camera_source_fingerprint"]
+            == report["camera_source_fingerprint"]
+            and audit["camera_binding_sha256"] == report["camera_binding_sha256"]
+            and audit["native_menu_sha256"] == report["menu_sha256"],
+            "CPU expanded task/camera/menu audit mismatch",
+        )
     return dict(verified=True, file=path.name, sha256=digest(path), audit=audit)
 
 

@@ -11,6 +11,15 @@ def setup_capture_progress(step, total_steps, measured_progress, training=False)
     return min(1.0, step / total_steps) if training else measured_progress
 
 
+def transition_group_ready(
+    supported_ready, foreground_ready, background_count, require_all=False
+):
+    """Expanded training waits for every qualified cell; legacy filming keeps its gate."""
+    if require_all:
+        return foreground_ready and all(supported_ready)
+    return foreground_ready and background_count >= 2
+
+
 def recording_plan(name, camera=None):
     if name == "fixed-station-v1":
         from station_flight import SHOTS, camera_pose

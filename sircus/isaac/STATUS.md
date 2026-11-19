@@ -1,3 +1,26 @@
+# Expanded farm: all 35 sites released — November 2, 2026
+
+[Method and reproduction](EXPANDED_FARM_POSES.md),
+[results and evidence](../../baselines/isaac-expanded-farm-20261102/README.md).
+The completed v4 training pass released 350/350 balls, ten at each unchanged
+bucket site, with zero invalid trials. Five PPO updates yielded 111 qualified
+captures, including 59 clean and 101 single-board-bounce captures. The CPU
+checkpoint/likelihood audit passed against the immutable v6 source.
+
+There are 24 native-qualified, branch-local configurations per table, 840 total,
+varying all five action dimensions. Nine sites still selected one projected
+configuration throughout their ten sampled decisions. This is a short training
+result, without held-out evaluation or broad pose/generalization coverage.
+
+The bounded joint-readiness wait can end with 34/35 cells ready; later independent
+measured settling/release guards admitted all 350 drops. This does not certify
+every transit or collision-free motion. The exact selected camera, all 35 bucket
+placements, bases, scoring and provisional measurement status are unchanged.
+Five privileged geometry inputs, scripted transit and initialized ball loading
+remain explicit. Use `--expanded-options-per-cell 24` and recommend `--append 24`
+for local refinement before fresh native qualification. No hardware/Viam/audio
+deployment accompanies this result. Earlier diagnostics remain preserved below.
+
 # Fixed-camera actual training completed — November 2, 2026
 
 [Method and reproduction](ACTION_TRAINING_FILM.md),
