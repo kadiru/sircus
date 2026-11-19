@@ -1,5 +1,11 @@
 # Project state
 
+## Right-front camera choices — November 2, 2026
+
+- [Ten native silver-gray previews](../baselines/isaac-camera-options-20261102/README.md) compare fixed views of the same 35-table scene. Whole source cases `r1c2` and `r1c7` exchange origins so a previously demonstrated case occupies the right-front corner; all targets/objects stay with their source cases. This does not solve the old rightmost target.
+- Native image/readback, source/transfer hashes and frozen-state checks passed; all ten final renders were visually inspected. The selected lighting is preserved and exposed sky is gray. 141 Isaac tests passed with one Torch-dependent skip; gallery layout/navigation checks passed. The finite 4090 job exited; 4070 and existing services were untouched.
+- Camera selection is pending before the [next one-minute orbit and fixed close-up film](../sircus/isaac/CAMERA_OPTIONS.md). These stills add no training updates, rollouts, new performance claims or physical validation.
+
 ## Silver-gray fixed-camera Isaac recording — November 2, 2026
 
 - [Completed recording and evidence](../baselines/isaac-silver-station-20261102/README.md): selected silver-gray tabletops, medium-gray floor, slightly brighter neutral fill and softer shadows. The camera stays fixed for twelve front-row releases with concurrent background drops. All twelve rebounded; three captured, six reached the floor and three missed after bucket/table contact.
