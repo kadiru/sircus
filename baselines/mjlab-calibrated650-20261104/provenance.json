@@ -1,0 +1,26 @@
+{
+  "version": "sircus-calibrated650-publication-provenance-v1",
+  "native_producer_commit": "56a4ec68bc824e83e82c29c8aec00032f02434df",
+  "native_source_archive_sha256": "e4d69b0f80b87db4030550333b941523af6aecae8963f18d1ce5852eafdb9778",
+  "independent_auditor_reader_commit": "0aaa862bdee6187e4814069b6e6e04600f21406e",
+  "independent_auditor_source_archive_sha256": "b657b770c8e28c40bd51c89c676b09013b100805491915da88732ad203be8dba",
+  "audit_version": "sircus-calibrated-650-independent-audit-v2",
+  "audit_checks": 5224,
+  "contract_fingerprint": "8ebbd58394180bbf3540228fd9725608fa0f6fdff2db799036f4f3ce875f348b",
+  "report_sha256": "f174bdf6fd37bfb69b12c9c2fc94e42f8ac706474ef340a9394283c1c3c1e093",
+  "manifest_sha256": "cd05a37cc7d5e65f0e64d60773df2ca0666976da7af8453b6c0d0ce4f2529273",
+  "audit_sha256": "0d3a6a6d31fda6caaba6b8ecc60c0eabffe650532a10ec0d0db1622b5448ef65",
+  "replay_gate": "failed",
+  "conditional_window": "not_run_gate_closed",
+  "tests": {
+    "full_local_mock_headless_suite": "passed",
+    "pinned_ubuntu_pre_execution_cpu_tests": 32,
+    "pinned_ubuntu_revised_audit_export_tests": 31,
+    "read_only_ui_tests": 6
+  },
+  "corrections": [
+    "Initial v1 startup recorded a seven-vs-eight dependency dictionary mismatch before evidence allocation or ball release; corrected exact SciPy1.15.3 identity without changing packages.",
+    "Original checker expected native_dt_s in a contact-only score configuration; auditorv2 independently checks actual fit/verification cadence and all native dense timing. Original producer, raw evidence and failure ledgers preserved."
+  ],
+  "scope": "Simulation-only matched held endpoints. Reader/export changes and revised audit are separate from immutable native execution. No 4070/Isaac service or configuration changes."
+}

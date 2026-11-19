@@ -17,6 +17,49 @@ from .corrected_contract import PHYSICS
 VERSION = "sircus-calibrated-held-endpoint-native-v2"
 
 
+def verified_native_options(sim, substeps):
+    """Read both allocated engines' options; never change their timesteps.
+
+    MuJoCo Warp intentionally floors the native solver tolerance to 1e-6
+    during put_model(). Its scalar arrays also use float32 storage. Record
+    those actual values, rather than claiming the native double options are
+    the values used by Warp.
+    """
+    from .capture_calibration import option_record
+
+    if type(substeps) is not int or substeps not in (64, 128):
+        raise ValueError("Calibrated substeps must be 64 or 128")
+    expected = dict(timestep=1 / (240 * substeps), solver=2, iterations=100,
+                    tolerance=1e-8, cone=0, integrator=3, ccd_iterations=50,
+                    ccd_tolerance=1e-6, disableflags=0, enableflags=0,
+                    gravity=[0.0, 0.0, -9.81])
+    native = option_record(sim.mj_model)
+    warp, opt = {}, sim.wp_model.opt
+    float_fields = {"timestep", "tolerance", "ccd_tolerance", "gravity"}
+    for key, target in expected.items():
+        actual = np.asarray(native[key])
+        if actual.shape != np.asarray(target).shape or not np.array_equal(actual, target):
+            raise ValueError("Native effective option differs: " + key)
+        value = getattr(opt, key)
+        if key in float_fields:
+            value = np.asarray(value.numpy() if hasattr(value, "numpy") else value)
+            wanted = np.asarray(1e-6 if key == "tolerance" else target, dtype=np.float32)
+            # Scalar options may have one or many worlds; all must agree.
+            if key == "gravity":
+                shape_ok = value.ndim in (1, 2) and value.shape[-1] == 3
+            else:
+                shape_ok = value.ndim <= 1
+            if not shape_ok or not value.size or not np.array_equal(value, np.broadcast_to(wanted, value.shape)):
+                raise ValueError("Warp effective option differs: " + key)
+            warp[key] = value.reshape(-1, 3)[0].astype(float).tolist() if key == "gravity" else float(value.flat[0])
+        else:
+            if value != target:
+                raise ValueError("Warp effective option differs: " + key)
+            warp[key] = int(value)
+    return dict(version="sircus-calibrated-native-warp-options-v1", substeps=substeps,
+                native=native, warp=warp)
+
+
 @contextmanager
 def native_reset_scope(sim):
     """Order the Torch reset mask and all Warp work on one native stream."""
@@ -30,13 +73,16 @@ def native_reset_scope(sim):
 
 
 class CalibratedEnvironment(ContactEnvironment):
-    def __init__(self, scene, assets, calibration, n=32, bounds=None):
+    def __init__(self, scene, assets, calibration, n=32, bounds=None, *, substeps=64):
         from .calibrated_score import validate_calibration
         from .capture_calibration import compiled_geometry
 
+        if type(substeps) is not int or substeps not in (64, 128):
+            raise ValueError("Calibrated substeps must be 64 or 128")
         self.calibration = validate_calibration(calibration)
-        super().__init__(scene, assets, n=n, bounds=bounds, substeps=64,
+        super().__init__(scene, assets, n=n, bounds=bounds, substeps=substeps,
                          board_mode=PHYSICS["board_mode"], gravity_mode=PHYSICS["gravity_mode"])
+        self.effective_options = verified_native_options(self.sim, substeps)
         self.compiled_geometry = compiled_geometry(self.sim.mj_model, scene)
         if not np.allclose(self.compiled_geometry["compiled_planes"], self.calibration["compiled_planes"],
                            rtol=0, atol=self.calibration["geometry_epsilon_m"]):

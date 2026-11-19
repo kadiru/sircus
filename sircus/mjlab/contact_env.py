@@ -23,8 +23,8 @@ class ContactEnvironment(ShotEnvironment):
         from .run import sensor_config
         from .learning_ik import ShotIK
         import json
-        if substeps not in (8, 16, 32, 64):
-            raise ValueError("Controlled substeps must be 8,16,32,64")
+        if substeps not in (8, 16, 32, 64, 128):
+            raise ValueError("Controlled substeps must be 8,16,32,64,128")
         if board_mode not in ("articulated", "kinematic") or gravity_mode not in ("legacy", "passive_only"):
             raise ValueError("Unknown contact protocol")
         if torch.cuda.device_count() != 1 or "4090" not in torch.cuda.get_device_name(0):
