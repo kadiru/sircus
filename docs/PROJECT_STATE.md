@@ -1,5 +1,11 @@
 # Project state
 
+## V4 evaluation production wiring and independent checks — November 9, 2026
+
+- The new evaluation-only path now implements strict original/new source separation, original model bindings, a model-only CPU reconstruction before App startup, startup-only native construction, six fixed TEST cohorts and an independent CPU model/startup/guard/scorer audit after App closure. No learning engine or training runner is created. Synthetic hooks cannot certify real native results.
+- A separate watchdog enforces the 600/1,800/600-second phases, 3,000-second absolute limit, 6 GiB floor, exact 210-request cap and zero training/optimizer work. Default execution is off; a future start requires bound operator authorization, archive/input/host checks and a fresh output. PID/start-token/cookie/pidfd checks protect other jobs. New tests cover periodic source membership, inherited evidence protection and cleanup when one helper PID changes ownership.
+- Only mocked components/readouts/processes were exercised. No real model load/inference, App, simulator, training, new shot, simulation-host operation or reader/container restart ran. The old 140 charged / 105 terminal / 35 unresolved assessment, original checkpoint/bank and frozen benchmark stay unchanged. See [production paths, fixed bounds and live-validation limits](../sircus/isaac/V4_PRODUCTION_EVALUATION.md).
+
 ## Saved V4 TEST-only evaluation prepared with mocks — November 9, 2026
 
 - A separate proposal fixes 210 requests on the 70 untouched TEST positions for original seed 22, its frozen bank selector and saved continued V4. All commands come from the original pre-frozen plan, with exact original IDs retained under new wrapper IDs. No TRAIN/validation repeats or old unresolved replacements are permitted; four empty-support declines remain failures.
