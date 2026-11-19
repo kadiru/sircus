@@ -1,0 +1,109 @@
+{
+  "schema": "sircus-candidate-runner-software-verification-v1",
+  "status": "passed",
+  "scope": "Synthetic optimizer/driver/audit tests, with separate unchanged real-parent CPU forward-only compatibility; no real training or native performance measurement.",
+  "source_archive_sha256": "30dedcf5364a001aa0e23f749b9e60fbefcd6b49d07df7ac6727d254767af8e8",
+  "source_snapshot_files": 350,
+  "tested_continuation_sha256": {
+    "sircus/isaac/candidate_continuation_audit.py": "7de64f41943335351385cb0702d284cb17206d1487a41695f4624fcc0a5704dc",
+    "sircus/isaac/candidate_continuation_checkpoint.py": "9cf04ea68f70d1e52a7add44f6907987b5427dd07c1ecf8006907ea6c0332236",
+    "sircus/isaac/candidate_continuation_contract.py": "b10f858f5717fbc2e153eda6317f0a6c9929c511a297bd1bc275658fb46b7104",
+    "sircus/isaac/candidate_continuation_inputs.py": "9f6c28d4cb2f79b1fccff3e93b2c7731bd025561f235a06db0801db72b41feee",
+    "sircus/isaac/candidate_continuation_journal.py": "ea3c6476d683eef879ab1320ec886ee4318b8c1f5e6f0251a8d831a9540431df",
+    "sircus/isaac/candidate_continuation_ledger.py": "3ddffa18dabf4c1152168baefb2ca3094d27cdce4a8246262762928147c31eb9",
+    "sircus/isaac/candidate_continuation_losses.py": "e93ca0e8c078eb2d22370971058d57a7190c2359255ad7d676a1bacfd8bfa571",
+    "sircus/isaac/candidate_continuation_policy.py": "26ca2b72f51bc46f7d69caa45d3043afc057571934e6521a8a324f22db609f1d",
+    "sircus/isaac/candidate_continuation_readiness.py": "36817e7c39eccc5cf13c731a7eff18ea00f09e754358d153f5d25430b3455d16",
+    "sircus/isaac/candidate_continuation_runner.py": "ed5d6a66c9c8dbff62e8789517eca6bb840878f87a0c16470be7e9295797836e",
+    "sircus/isaac/candidate_continuation_updates.py": "9dd919886406df40b23b370e04cf8dffbb5baeaa5803f59e2001bb909beb237b",
+    "sircus/isaac/candidate_continuation_verify.py": "738236437b2cce0fc32f2fadb1d520e38dd9522a42d525a80ed56fb04d3f6eb6",
+    "sircus/isaac/tests/test_candidate_continuation_audit.py": "cda315f6ff5a764108b301cc94079b69ae359719a9e6d621c20f5ca49e3bac1b",
+    "sircus/isaac/tests/test_candidate_continuation_checkpoint.py": "7e899464f5b7f86d09b3f3233aa5fdc9ea0d8e855b96a921e207802acade9ea4",
+    "sircus/isaac/tests/test_candidate_continuation_inputs.py": "fe9873c08793a81dd7d4b70ddee1b47c89538462f9c5c7ce4f151a30231a8a45",
+    "sircus/isaac/tests/test_candidate_continuation_journal.py": "f9556ace3fdc2cb8349cc2e8c7c47c4579a66e9db29fab61565ae9b9069adf31",
+    "sircus/isaac/tests/test_candidate_continuation_ledger.py": "5787f58df9d997b7b561b36f1c646fbe35f79ab23201b7f42d43ae793a518157",
+    "sircus/isaac/tests/test_candidate_continuation_losses.py": "d9f405aa4f01c124fc3b01053918efca0885629558a55a8fe96db6f201fbb8c4",
+    "sircus/isaac/tests/test_candidate_continuation_policy.py": "9a6fd2527332dcb4f7f765b4822c158b061cc19412d04187e057ae8b56f2c61c",
+    "sircus/isaac/tests/test_candidate_continuation_runner.py": "4d2a0b97abd3aa2de2a421fab942d5d17bd4927faf4e00cd7e4ce845c3cd1983",
+    "sircus/isaac/tests/test_candidate_continuation_updates.py": "156ce82201d6ad97ecee6274c1cab40e68e9e5fd3e7d4c3fb8b25d6e34dde972"
+  },
+  "raw_verification_sha256": "7dbe8f7e3db2acf03898287bbd1fc83a5ab0d29a08ba33b2355eba5e22d93161",
+  "unit_test_log_sha256": "fefe3a41381389099f359a918ab9127a13ae4abec8bd4a1d1072e4336918800e",
+  "readiness_sha256": "0a33612244969b278179661545cf727e207aeb31539c6e6a1b856d06ac344035",
+  "input_sha256": "9eeaaa67027fa6068af0f986770e9614ae9676276fcb298a5b01fbce16d19a8e",
+  "supports_and_demonstrations_unchanged": true,
+  "focused_cpu_tests": {
+    "executed": 103,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "process_wall_s": 98.20663484500255,
+    "groups": {
+      "policy": 14,
+      "objectives": 12,
+      "ledger": 18,
+      "input_boundaries": 9,
+      "checkpoint": 12,
+      "updates": 8,
+      "structural_audit": 20,
+      "journal": 6,
+      "driver_integration": 4
+    }
+  },
+  "single_end_to_end_synthetic_case": {
+    "imitation_steps": 240,
+    "imitation_presentations": 30680,
+    "mock_requests": 1400,
+    "mock_releases": 1400,
+    "ppo_updates": 10,
+    "ppo_steps": 40,
+    "fabricated_policy_only": true,
+    "real_parent_loaded": false,
+    "final_checkpoint_save_load": true,
+    "structural_saved_state_audit": "passed"
+  },
+  "real_parent": {
+    "choice_parity": "35/35",
+    "optimizer_steps": 0,
+    "backward_calls": 0,
+    "gradients_created": false,
+    "native_requests": 0,
+    "held_out_shot_files_read": 0,
+    "checkpoint_and_tensors_unchanged": true
+  },
+  "original_files_verified_unchanged": {
+    "experiment.json": "77afe173a07917dd87ce43f37809a9ac6ef99beebd7e8e35f703c0e5cf1e3a26",
+    "split-manifest.json": "f46c690d80bd2079b27c8d3c72267c39acf1cee61fb4625f37994bff92292785",
+    "runs/ppo-seed20261122.audit.json": "cec9cff0a6de59b07dd35de3342ee00bc4106d4801edc0237c570e006aedc1c8",
+    "runs/ppo-seed20261122/checkpoints/milestone-10000.pt": "57d7658e9ed2f72ad09cf4e8523ab497ccbe0708364f1b8ec4a4c5c1aef1fe9f"
+  },
+  "frozen_reader_report_sha256": "ebc1bb130c1e2a4bdac6bf6fc37ace0f61d189fa3d75d8d3c19b3bbf3cd23fbd",
+  "local_project_checks": {
+    "status": "passed",
+    "isaac_cases": 858,
+    "environment_skips": 120,
+    "log_sha256": "2e92b792fe6e2a1ef24e10e43566ce50a83e8d83ab1e1c75c5c6941cc6ed27ed",
+    "scope": "Full project mock/numerical suite; optional Torch cases separately executed by focused CPU suite. Sandbox initially blocked two existing localhost HTTP tests; full suite passed with temporary test-socket permission."
+  },
+  "cpu_verification_wall_s": 100.28500582400011,
+  "cuda_visible_devices": "",
+  "real_parent_optimizer_steps": 0,
+  "new_native_requests": 0,
+  "new_task_ball_releases": 0,
+  "held_out_shot_files_read": 0,
+  "training_authorized": false,
+  "release_authorized": false,
+  "audit_scope": "Independent structural learning/accounting plus actual final saved-state binding, seeded demo order, RNG consumption and objective-term sums.",
+  "limitations": [
+    "No intermediate Adam/gradient numerical replay.",
+    "No sample-to-intermediate-weight recomputation.",
+    "No native physics, IK/path/settling/release guard, full reward or capture-evidence certification.",
+    "No real training, new capture result or final assessment."
+  ],
+  "historical_failures_preserved": [
+    "Ledger v2 update-boundary refinement required updating a v1 partial-batch test expectation; caps and request order unchanged.",
+    "Full project sandbox run blocked two existing temporary localhost socket tests; permission-scoped rerun passed.",
+    "First CPU snapshot caught NumPy scalar types in a fabricated test parent action; converting the fixture to Python floats fixed it without changing production guards."
+  ],
+  "fingerprint": "3cbd862f3ef909891eaf915d6d60d7abe12d8154a1c51241bff6174b1dcf8c03"
+}

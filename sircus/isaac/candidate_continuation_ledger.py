@@ -20,12 +20,13 @@ import random
 import re
 
 
-SCHEMA = "sircus-candidate-continuation-request-ledger-v1"
-PROTOCOL_SCHEMA = "sircus-seed22-continuation-accounting-protocol-v1"
+SCHEMA = "sircus-candidate-continuation-request-ledger-v2"
+PROTOCOL_SCHEMA = "sircus-seed22-continuation-accounting-protocol-v2"
 PARENT_CHECKPOINT_SHA256 = "57d7658e9ed2f72ad09cf4e8523ab497ccbe0708364f1b8ec4a4c5c1aef1fe9f"
 TRAIN_REQUEST_LIMIT = 1750
 TRAIN_RELEASE_LIMIT = 1400
 NATIVE_BATCH_SIZE = 35
+PPO_BUFFER_REQUESTS = 140
 ASSESSMENT_REQUEST_LIMIT = 420
 ASSESSMENT_RELEASE_LIMIT = 420
 CONTINUATION_SEED = 20261125
@@ -63,7 +64,8 @@ def protocol():
             repeat_or_replacement_allowed=False, final_checkpoint_frozen_before_assessment=True),
         maximum_new_task_requests=2170, maximum_new_task_releases=1820,
         native_batch_size=NATIVE_BATCH_SIZE,
-        active_batch_rule="min(35, remaining-phase-requests, remaining-phase-releases)",
+        active_batch_rule="min(35, remaining-phase-requests, remaining-phase-releases, TRAIN-buffer-remaining)",
+        train_buffer_requests=PPO_BUFFER_REQUESTS,
         request_charge="reservation", release_charge="terminal-released-true",
         unresolved_requests_refundable=False, inactive_padding_counts=False,
         inherited_parent_requests=10000, prior_comparison_requests=70,
@@ -318,7 +320,9 @@ class Ledger:
     def _capacity(phase, requests, releases):
         request_cap, release_cap = ((TRAIN_REQUEST_LIMIT, TRAIN_RELEASE_LIMIT) if phase == "train"
             else (ASSESSMENT_REQUEST_LIMIT, ASSESSMENT_RELEASE_LIMIT))
-        return min(NATIVE_BATCH_SIZE, request_cap - requests, release_cap - releases)
+        buffer_remaining = (PPO_BUFFER_REQUESTS - requests % PPO_BUFFER_REQUESTS
+                            if phase == "train" else NATIVE_BATCH_SIZE)
+        return min(NATIVE_BATCH_SIZE, request_cap - requests, release_cap - releases, buffer_remaining)
 
     def _requests(self, phase, start, count, train_order=None):
         result = []

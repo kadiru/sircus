@@ -181,14 +181,16 @@ class ContinuationLedgerTests(unittest.TestCase):
             batch = ledger.next_batch()
             ledger = ledger.reserve_batch(batch).record_batch(terminal(batch))
         self.assertEqual((ledger.summary()["train"]["requested"], ledger.summary()["train"]["released"]), (1400, 1366))
-        for _ in range(10):
+        # Version 2 also ends native batches at each immutable 140-request
+        # PPO buffer boundary. Declines do not buy a retry or a stale spillover.
+        for expected in (34, 34, 34, 34, 4, 34, 34, 34, 34, 4, 34, 34):
             batch = ledger.next_batch()
-            self.assertEqual(len(batch.requests), 34)
+            self.assertEqual(len(batch.requests), expected)
             ledger = ledger.reserve_batch(batch).record_batch(terminal(batch, released=False))
-        self.assertEqual((ledger.summary()["train"]["remaining_requests"], ledger.summary()["train"]["remaining_releases"]), (10, 34))
+        self.assertEqual((ledger.summary()["train"]["remaining_requests"], ledger.summary()["train"]["remaining_releases"]), (2, 34))
         batch = ledger.next_batch()
-        self.assertEqual(len(batch.requests), 10)
-        ledger = ledger.reserve_batch(batch).record_batch(terminal(batch, released=False) + (None,) * 25)
+        self.assertEqual(len(batch.requests), 2)
+        ledger = ledger.reserve_batch(batch).record_batch(terminal(batch, released=False) + (None,) * 33)
         self.assertEqual(ledger.summary()["train"]["requested"], 1750)
         self.assertEqual(ledger.summary()["train"]["request_cap_release_target_shortfall"], 34)
         self.assertIsNone(ledger.next_batch())

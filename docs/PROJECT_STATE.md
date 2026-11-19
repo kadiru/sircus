@@ -1,5 +1,13 @@
 # Project state
 
+## Bounded candidate-learning driver — November 9, 2026, real training off
+
+- [Implementation and limits](../sircus/isaac/CANDIDATE_RUNNER.md), [compact verification](../baselines/isaac-candidate-runner-20261109/README.md): actor-only imitation and categorical PPO loops, fresh Adam/RNG states, strict new checkpoint schema, durable new-only journal, cap-aware TRAIN driver and independent structural/saved-state audit. The driver does not dispatch native shots or assessment.
+- All 103 focused CPU cases passed without skips. A fabricated policy completed all 240 imitation steps / 30,680 presentations, then a mock 1,400-request/release history with 10 PPO updates / 40 steps, final save/load and independent structural/checkpoint/seeded-RNG verification. Separate tests cover all-decline request-cap histories, final partial buffers, nonfinite/stale inputs, interrupted operations, I/O failures and tampering. These are synthetic software checks, not new native performance.
+- Ledger v2 also ends active TRAIN batches at each 140-request buffer boundary, preventing smaller near-release-cap batches from straddling an update. Request/release caps and context order remain unchanged. The updated compact export preserves identical supports and demonstration records; original v1 receipts remain historical under their source bindings.
+- Actual seed-22 CPU forward-only compatibility again matched 35/35 frozen-selector choices with unchanged saved/tensor hashes and no gradients. Zero real-parent optimizer steps, new native requests, held-out evaluation or service/hardware changes. Existing benchmark/checkpoint/bank/reader evidence is preserved.
+- The audit independently replays structural accounting and binds the actual final saved model, but does not replay intermediate Adam arithmetic or certify native guards, trajectories, rewards/captures. Outcome-blind fresh preparation, native integration/supervision and full native scoring/guard audit remain prerequisites before real training and the final assessment.
+
 ## Seed-22 candidate adapter — November 9, 2026, training off
 
 - [Implementation and boundaries](../sircus/isaac/CANDIDATE_ADAPTER.md), [compact CPU evidence](../baselines/isaac-candidate-adapter-20261109/README.md): differentiable fixed-support categorical adapter, exact teacher mapping, pure imitation/KL/PPO losses, immutable request/release ledger and forward-only readiness CLI. No optimizer, training loop, new checkpoint writer or native producer is included.
