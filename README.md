@@ -1,6 +1,6 @@
 # Sircus — Simple Circus
 
-**Current mjlab checkpoint:** [expanded 35-position planner results](baselines/mjlab-grid35-expanded-20261103/README.md): 17 selected recipes, 12 unresolved targets and 6 clearance blockers. Source-matched frozen repeats score 28–30/30 per selected recipe; 16 cohorts are retained from the audited parent and one is new. This is searched simulation evidence, not a trained policy or all-table coverage. Historical policies/results retain their original contracts.
+**Current mjlab checkpoint:** [completed matched sweep/PPO benchmark](baselines/mjlab-sweep-rl-benchmark-20261103/README.md). Frozen formal test scores are sweep **67/216 (31.0%)**, PPO **58/216 (26.9%)**. The 1 µm wall-overlap rule is contact-sensitive, so these labels do not establish an ordinary capture or adaptation winner. The earlier [35-position planner](baselines/mjlab-grid35-expanded-20261103/README.md) retains 17 selected recipes, 12 unresolved targets and 6 clearance blockers; its historical definitions/results remain unchanged.
 
 Two UFACTORY850 arms learn to bounce a ball from a suction-mounted board into a bucket. Arm10 picks/releases; arm14 positions the board. This private repository is the shared source for Mac physical work and Ubuntu simulation work.
 
@@ -9,6 +9,18 @@ The current goal is a simulation showcase with an interactively placed bucket an
 ![Architecture](docs/sircus-architecture.png)
 
 ## Start here
+
+- **Sweep versus RL benchmark:** [matched current-ball protocol](sircus/mjlab/SWEEP_RL_BENCHMARK.md).
+  All six workers completed: 1,024 spent TRAIN requests per method/seed, 6,144 TRAIN
+  + 864 validation + 432 test requests, using the same 17-recipe historical prior.
+  The [checksummed results and six selected artifacts](baselines/mjlab-sweep-rl-benchmark-20261103/README.md)
+  passed the corrected independent audit: 902,252 checks, 7,440 requests / 3,738
+  native releases. Per-worker setup + TRAIN wall averaged 2,097 s for sweep and
+  2,100 s for PPO; lifetime sampled VRAM was 762 MiB for both. These are
+  instrumented implementation costs, not isolated algorithm timings. Strict
+  containment remains under contact-boundary review; calibrate and version the
+  scorer before an ordinary capture/adaptation comparison. Current read-only
+  results: [18789](http://127.0.0.1:18789/#sweepRlBenchmark); earlier services remain separate.
 
 - **35-table planner study:** [expanded sweeps and separately frozen repeats](sircus/mjlab/GRID_STUDY.md).
   Per-table settings, saved versus current qualification, and independent 3 + 30

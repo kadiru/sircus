@@ -271,6 +271,181 @@ export function plannerGridCsv(report) {
   return [header, ...rows].map(row => row.map(csvValue).join(',')).join('\n') + '\n';
 }
 
+// Read-only matched-budget benchmark. Missing observations never become zeros.
+const benchNumber = value => typeof value === 'number' && Number.isFinite(value) && value >= 0 ? value : null;
+const benchInteger = value => Number.isSafeInteger(value) && value >= 0 ? value : null;
+const benchHash = value => typeof value === 'string' && /^[a-f0-9]{64}$/.test(value) ? value : null;
+export function sweepRlStudy(report) {
+  const value = report?.sweep_rl_benchmark;
+  return value && typeof value === 'object' && !Array.isArray(value) ? value : null;
+}
+function benchCounts(value) {
+  if (!value || typeof value !== 'object') return null;
+  const captures = benchInteger(value.captures), attempts = benchInteger(value.attempts);
+  if (captures === null || attempts === null || captures > attempts) return null;
+  const bounded = key => {
+    const count = benchInteger(value[key]);
+    return count !== null && count <= attempts ? count : null;
+  };
+  const clean = bounded('clean');
+  return { captures, attempts, nativeReleases: bounded('native_releases'), invalid: bounded('invalid'),
+    clean: clean !== null && clean <= captures ? clean : null,
+    meanReward: typeof value.mean_reward === 'number' && Number.isFinite(value.mean_reward) ? value.mean_reward : null };
+}
+export function sweepRlResources(value) {
+  const raw = value && typeof value === 'object' ? value : {};
+  return Object.fromEntries(['wall_s', 'cpu_s', 'geometry_s', 'gpu_s', 'peak_rss_mb', 'peak_vram_mb',
+    'torch_allocated_mb', 'torch_reserved_mb', 'setup_s', 'evaluation_wall_s', 'gpu_reservation_s'].map(key => [key, benchNumber(raw[key])]));
+}
+function benchMethods(study) {
+  const values = study?.protocol?.methods;
+  return Array.isArray(values) ? values.filter(row => row && typeof row.id === 'string' && typeof row.label === 'string') : [];
+}
+export function sweepRlPoints(report) {
+  const study = sweepRlStudy(report), methods = benchMethods(study), labels = new Map(methods.map(row => [row.id, row.label]));
+  if (!Array.isArray(study?.curves)) return [];
+  const points = new Map(), conflicts = new Set();
+  for (const raw of study.curves) {
+    if (!raw || !labels.has(raw.method) || benchInteger(raw.seed) === null || benchInteger(raw.samples) === null) continue;
+    const counts = benchCounts(raw.validation);
+    if (!counts) continue;
+    const row = { method: raw.method, label: labels.get(raw.method), seed: raw.seed, samples: raw.samples,
+      split: 'validation', counts, resources: sweepRlResources(raw.resources), artifactSha: benchHash(raw.artifact_sha256) };
+    const key = JSON.stringify([row.method, row.seed, row.samples]);
+    if (conflicts.has(key)) continue;
+    if (points.has(key) && JSON.stringify(points.get(key)) !== JSON.stringify(row)) { points.delete(key); conflicts.add(key); }
+    else points.set(key, row);
+  }
+  return [...points.values()].sort((a, b) => a.samples - b.samples || a.method.localeCompare(b.method) || a.seed - b.seed);
+}
+export function sweepRlCurves(report) {
+  const methods = benchMethods(sweepRlStudy(report)), points = sweepRlPoints(report);
+  return methods.map(method => {
+    const byBudget = new Map();
+    for (const row of points.filter(row => row.method === method.id)) {
+      const rows = byBudget.get(row.samples) ?? []; rows.push(row); byBudget.set(row.samples, rows);
+    }
+    const values = [...byBudget.entries()].sort((a, b) => a[0] - b[0]).map(([samples, rows]) => {
+      const captures = rows.reduce((sum, row) => sum + row.counts.captures, 0), attempts = rows.reduce((sum, row) => sum + row.counts.attempts, 0);
+      const rates = rows.filter(row => row.counts.attempts > 0).map(row => row.counts.captures / row.counts.attempts);
+      const mean = key => rows.every(row => row.resources[key] !== null) ? rows.reduce((sum, row) => sum + row.resources[key], 0) / rows.length : null;
+      const maximum = key => rows.every(row => row.resources[key] !== null) ? Math.max(...rows.map(row => row.resources[key])) : null;
+      const count = key => rows.every(row => row.counts[key] !== null) ? rows.reduce((sum, row) => sum + row.counts[key], 0) : null;
+      return { samples, captures, attempts, rate: attempts ? captures / attempts : null, seeds: rows.length,
+        minRate: rates.length ? Math.min(...rates) : null, maxRate: rates.length ? Math.max(...rates) : null,
+        nativeReleases: count('nativeReleases'), invalid: count('invalid'),
+        wallS: mean('wall_s'), cpuS: mean('cpu_s'), geometryS: mean('geometry_s'), gpuS: mean('gpu_s'), gpuReservationS: mean('gpu_reservation_s'),
+        peakRssMb: maximum('peak_rss_mb'), peakVramMb: maximum('peak_vram_mb'),
+        torchAllocatedMb: maximum('torch_allocated_mb'), torchReservedMb: maximum('torch_reserved_mb') };
+    });
+    return { id: method.id, label: method.label, points: values };
+  });
+}
+export function sweepRlFinalRows(report) {
+  const study = sweepRlStudy(report), labels = new Map(benchMethods(study).map(row => [row.id, row.label]));
+  if (study?.status !== 'completed' || !Array.isArray(study.final_test)) return [];
+  return study.final_test.flatMap(raw => {
+    const counts = benchCounts(raw?.counts), artifactSha = benchHash(raw?.frozen_artifact_sha256);
+    if (!raw || !labels.has(raw.method) || benchInteger(raw.seed) === null || !counts || !artifactSha) return [];
+    const matching = (Array.isArray(study.runs) ? study.runs : []).filter(run => run.method === raw.method && run.seed === raw.seed
+      && run.status === 'completed' && benchHash(run.checkpoint_sha256) === artifactSha);
+    const unique = key => { const values = new Set(matching.map(run => benchInteger(run[key])).filter(value => value !== null)); return values.size === 1 ? [...values][0] : null; };
+    return [{ method: raw.method, label: labels.get(raw.method), seed: raw.seed, counts, artifactSha,
+      selectedSamples: unique('selected_samples'), trainingRequests: unique('train_requests'), queryS: benchNumber(raw.query_s) }];
+  });
+}
+export function sweepRlProgress(report) {
+  const study = sweepRlStudy(report);
+  if (!study) return null;
+  const methods = new Map(benchMethods(study).map(method => [method.id, method.label]));
+  const seeds = new Set((Array.isArray(study.protocol?.seeds) ? study.protocol.seeds : []).filter(seed => benchInteger(seed) !== null));
+  const budget = benchInteger(study.protocol?.sample_budget), declared = methods.size * seeds.size;
+  const declaredRuns = declared > 0 ? declared : null;
+  const declaredRequests = declaredRuns !== null && budget !== null && budget > 0 && Number.isSafeInteger(declaredRuns * budget) ? declaredRuns * budget : null;
+  const workers = new Map(), conflicts = new Set();
+  for (const raw of Array.isArray(study.runs) ? study.runs : []) {
+    if (!raw || !methods.has(raw.method) || !seeds.has(raw.seed)) continue;
+    const key = JSON.stringify([raw.method, raw.seed]);
+    if (conflicts.has(key)) continue;
+    const requested = benchInteger(raw.train_requests), native = benchInteger(raw.train_native_releases);
+    const requests = budget !== null && budget > 0 && requested !== null && requested <= budget ? requested : null;
+    const row = { method: raw.method, label: methods.get(raw.method), seed: raw.seed,
+      status: typeof raw.status === 'string' ? raw.status : 'unknown', requests,
+      nativeReleases: requests !== null && native !== null && native <= requests ? native : null };
+    if (workers.has(key) && JSON.stringify(workers.get(key)) !== JSON.stringify(row)) { workers.delete(key); conflicts.add(key); }
+    else workers.set(key, row);
+  }
+  const rows = [...workers.values()], requestRows = rows.filter(row => row.requests !== null), nativeRows = rows.filter(row => row.nativeReleases !== null);
+  return { declaredRuns, declaredRequests, budget,
+    requests: requestRows.length ? requestRows.reduce((total, row) => total + row.requests, 0) : null,
+    nativeReleases: nativeRows.length ? nativeRows.reduce((total, row) => total + row.nativeReleases, 0) : null,
+    requestCounterRuns: requestRows.length, nativeCounterRuns: nativeRows.length,
+    conflictingRuns: conflicts.size, reportedRunning: rows.filter(row => row.status === 'running') };
+}
+export function sweepRlCompletedWorkers(report) {
+  const study = sweepRlStudy(report), methods = new Map(benchMethods(study).map(method => [method.id, method.label]));
+  const seeds = new Set((Array.isArray(study?.protocol?.seeds) ? study.protocol.seeds : []).filter(seed => benchInteger(seed) !== null));
+  const budget = benchInteger(study?.protocol?.sample_budget);
+  if (budget === null || budget === 0) return [];
+  const workers = new Map(), conflicts = new Set();
+  for (const raw of Array.isArray(study?.runs) ? study.runs : []) {
+    if (!raw || !methods.has(raw.method) || !seeds.has(raw.seed)) continue;
+    const key = JSON.stringify([raw.method, raw.seed]);
+    if (conflicts.has(key)) continue;
+    const requested = benchInteger(raw.train_requests), native = benchInteger(raw.train_native_releases);
+    const requests = requested !== null && requested <= budget ? requested : null;
+    const row = { method: raw.method, label: methods.get(raw.method), seed: raw.seed, status: raw.status,
+      requests, nativeReleases: requests !== null && native !== null && native <= requests ? native : null,
+      resources: sweepRlResources(raw.resources) };
+    if (workers.has(key) && JSON.stringify(workers.get(key)) !== JSON.stringify(row)) { workers.delete(key); conflicts.add(key); }
+    else workers.set(key, row);
+  }
+  return [...workers.values()].filter(row => row.status === 'completed').sort((a, b) => a.method.localeCompare(b.method) || a.seed - b.seed);
+}
+export function sweepRlSummary(report) {
+  const study = sweepRlStudy(report);
+  if (!study) return null;
+  const protocol = study.protocol ?? {}, seeds = Array.isArray(protocol.seeds) ? protocol.seeds.filter(v => benchInteger(v) !== null) : [];
+  const runs = Array.isArray(study.runs) ? study.runs.filter(row => row && typeof row.method === 'string') : [];
+  const prior = protocol.prior && typeof protocol.prior === 'object' ? protocol.prior : {};
+  return { status: typeof study.status === 'string' ? study.status : 'unknown', phase: typeof study.phase === 'string' ? study.phase : '',
+    seedCount: seeds.length, seeds, methodCount: benchMethods(study).length, budget: benchInteger(protocol.sample_budget),
+    milestones: Array.isArray(protocol.milestones) ? protocol.milestones.filter(v => benchInteger(v) !== null) : [],
+    completedRuns: runs.filter(row => row.status === 'completed').length, totalRuns: seeds.length * benchMethods(study).length,
+    curvePoints: sweepRlPoints(report).length, finalRows: sweepRlFinalRows(report).length,
+    scope: typeof protocol.scope === 'string' ? protocol.scope : typeof study.scope === 'string' ? study.scope : '',
+    priorRecipes: benchInteger(prior.recipes), priorReleases: benchInteger(prior.latest_study_native_releases),
+    priorFullCostKnown: prior.full_historical_cost_known === true,
+    priorScope: typeof prior.scope === 'string' ? prior.scope : '',
+    fingerprint: benchHash(study.contract_fingerprint), auditStatus: typeof study.audit?.status === 'string' ? study.audit.status : null };
+}
+export function sweepRlStatusLabel(summary) {
+  if (!summary) return 'Benchmark measurements unavailable';
+  if (summary.status === 'queued' && summary.curvePoints === 0) return 'Awaiting first completed measurements';
+  return `${String(summary.status).replaceAll('_', ' ')}${summary.phase ? ` · ${summary.phase.replaceAll('_', ' ')}` : ''}`;
+}
+export function sweepRlCsv(report) {
+  const study = sweepRlStudy(report);
+  const escape = value => {
+    if (value === null || value === undefined) return '';
+    const text = typeof value === 'string' && /^[=+\-@]/.test(value) ? `'${value}` : String(value);
+    return `"${text.replaceAll('"', '""')}"`;
+  };
+  const columns = ['method', 'seed', 'split', 'training_requests', 'selected_training_requests', 'captures', 'attempts', 'native_releases', 'invalid', 'clean',
+    'capture_rate', 'wall_s_excluding_evaluation', 'cpu_s', 'geometry_s', 'gpu_phase_s', 'peak_rss_mib', 'sampled_peak_vram_mib',
+    'torch_allocated_mib', 'torch_reserved_mib', 'setup_s', 'evaluation_wall_s', 'gpu_reservation_s_including_evaluation', 'query_s', 'artifact_sha256', 'contract_fingerprint'];
+  const values = sweepRlPoints(report).map(row => [row.method, row.seed, row.split, row.samples, null, row.counts.captures,
+    row.counts.attempts, row.counts.nativeReleases, row.counts.invalid, row.counts.clean,
+    row.counts.attempts ? row.counts.captures / row.counts.attempts : null,
+    ...['wall_s', 'cpu_s', 'geometry_s', 'gpu_s', 'peak_rss_mb', 'peak_vram_mb', 'torch_allocated_mb', 'torch_reserved_mb', 'setup_s', 'evaluation_wall_s', 'gpu_reservation_s'].map(key => row.resources[key]),
+    null, row.artifactSha, study?.contract_fingerprint]);
+  for (const row of sweepRlFinalRows(report)) values.push([row.method, row.seed, 'test', row.trainingRequests, row.selectedSamples, row.counts.captures,
+    row.counts.attempts, row.counts.nativeReleases, row.counts.invalid, row.counts.clean,
+    row.counts.attempts ? row.counts.captures / row.counts.attempts : null,
+    ...Array(11).fill(null), row.queryS, row.artifactSha, study?.contract_fingerprint]);
+  return [columns, ...values].map(row => row.map(escape).join(',')).join('\n') + '\n';
+}
+
 /** Read-only study display: these fields never change the active solver route. */
 export function expansionTargetRows(report) {
   const search = report?.expansion_evaluation?.search;

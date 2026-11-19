@@ -1,0 +1,2047 @@
+{
+  "version": "sircus-sweep-rl-benchmark-v1",
+  "contract_fingerprint": "ca781af94c6bb0fd44c8f15b88d72b4784be16dd258294785ac6338c1a4ee541",
+  "protocol": {
+    "methods": [
+      {
+        "id": "sweep",
+        "label": "Guided sweep"
+      },
+      {
+        "id": "ppo",
+        "label": "Residual PPO"
+      }
+    ],
+    "seeds": [
+      20261311,
+      20261312,
+      20261313
+    ],
+    "milestones": [
+      0,
+      256,
+      512,
+      1024
+    ],
+    "sample_budget": 1024,
+    "batch_size": 32,
+    "run_order": [
+      {
+        "method": "sweep",
+        "seed": 20261311
+      },
+      {
+        "method": "ppo",
+        "seed": 20261311
+      },
+      {
+        "method": "ppo",
+        "seed": 20261312
+      },
+      {
+        "method": "sweep",
+        "seed": 20261312
+      },
+      {
+        "method": "sweep",
+        "seed": 20261313
+      },
+      {
+        "method": "ppo",
+        "seed": 20261313
+      }
+    ],
+    "action_names": [
+      "board_x_m",
+      "board_y_m",
+      "board_height_m",
+      "tilt_deg",
+      "gap_m"
+    ],
+    "action_bounds": {
+      "low": [
+        0.3,
+        -0.5,
+        0.12,
+        8.0,
+        0.05
+      ],
+      "high": [
+        1.04,
+        0.35,
+        0.6,
+        60.0,
+        0.65
+      ],
+      "version": "sircus-expanded-shot-actions-v1"
+    },
+    "residual_scale": [
+      0.04,
+      0.04,
+      0.05,
+      8.0,
+      0.12
+    ],
+    "scope": "Warm-started restricted continuous five-parameter shot selection with the current fixed ball. Same 17 historical anchors for both methods. Prescribed held endpoints and sampled common-home/local paths; no grasp, driven motion, impact compliance, perception or physical validation.",
+    "family": "Nearest shared TRAIN teacher, fixed source board XYZ/tilt/gap, query-facing heading; continuous bounded residuals, no global search or candidate-index policy",
+    "anchor_rule": "Nearest source bucket Euclidean XY, tie source ID; fixed before outcomes; no fallback if geometry/path fails",
+    "observations": "9 geometry-only values: bucketXY, source bucketXY, five source action values; fixed normalization",
+    "sweep": "One request per candidate: zero, ten axis offsets, ten seeded space-filling samples, then TRAIN-best latent jitter. Heldout prediction transfers nearest TRAIN context's best normalized residual; no outcome query.",
+    "ppo": {
+      "network": [
+        9,
+        64,
+        64,
+        5
+      ],
+      "critic": [
+        9,
+        64,
+        64,
+        1
+      ],
+      "optimizer": "CPU Adam",
+      "lr": 0.0003,
+      "epochs": 6,
+      "clip": 0.2,
+      "value_weight": 0.5,
+      "entropy_weight": 0.001,
+      "gradient_norm": 1.0,
+      "initial_logstd": -1.5,
+      "logstd_bounds": [
+        -3.0,
+        -0.7
+      ],
+      "episode": "One terminal shot decision; no GAE/bootstrap; actual native reward updates"
+    },
+    "reward": "Unchanged learning_contract.reward: invalid -1, native board/entry/proximity/retention shaping; success remains the independent board-route capture rule",
+    "sample_definition": "Every requested training decision, including bounds/IK/home/path rejects; native releases and CPU proposals reported separately",
+    "evaluation": {
+      "validation_layouts": 12,
+      "test_layouts": 24,
+      "repeats": 3,
+      "perturbations": "One nominal + two paired Gaussian placement jitters per layout; same offsets across methods/seeds/milestones",
+      "selection": "Validation captures, then mean reward, then earliest milestone; test only after selected artifact frozen",
+      "test": "One deterministic base action per layout; no search/retry/adaptation at evaluation",
+      "full_denominator": "All layouts and requested repetitions, including blocked/unresolved/rejected"
+    },
+    "resources": {
+      "wall_s": "Setup + training wall time, excluding validation/test",
+      "cpu_s": "Current worker process CPU time; external nvidia-smi telemetry subprocess CPU excluded",
+      "gpu_s": "Synchronized native pipeline elapsed wall time, not active kernel utilization",
+      "gpu_reservation_s": "Elapsed exclusive 4090 worker reservation including evaluation",
+      "memory": "MiB; lifetime process peaks include evaluation; NVIDIA process VRAM sampled every1s, PyTorch allocator separately",
+      "storage": "Algorithm artifacts separate from audit raw-data storage"
+    },
+    "prior": {
+      "records_sha256": "c4c6da5d05f7a70d34efccf149c70f1b64aee0ae24f6d5f9c3f662dfda5a6f4b",
+      "bundle_manifest_sha256": "f26846e874da0311b78a38923be1ce2a542a5d0a4407d6f39603f39873824951",
+      "recipes": 17,
+      "latest_study_native_releases": 4234,
+      "latest_study_requested_trials": 4243,
+      "full_historical_cost_known": false,
+      "scope": "Shared historical starting information, not 17 free cold-start labels. Latest two studies cost 4234 native releases; predecessor acquisition, contact tuning and human design costs are not fully quantified."
+    }
+  },
+  "status": "completed",
+  "phase": "completed",
+  "curves": [
+    {
+      "method": "sweep",
+      "seed": 20261311,
+      "samples": 0,
+      "validation": {
+        "attempts": 36,
+        "captures": 17,
+        "native_releases": 21,
+        "invalid": 15,
+        "clean": 6,
+        "mean_reward": 1.6360371624578756
+      },
+      "resources": {
+        "wall_s": 0.27757809998001903,
+        "cpu_s": 0.507210029,
+        "geometry_s": 0.0,
+        "gpu_s": 0.0,
+        "setup_s": 0.27757809998001903,
+        "evaluation_wall_s": 339.3752340419451,
+        "gpu_reservation_s": 339.65336051699705,
+        "native_init_s": 2.5766186770051718,
+        "peak_rss_mb": 1564.6875,
+        "peak_vram_mb": 762.0,
+        "torch_allocated_mb": 10.1552734375,
+        "torch_reserved_mb": 24.0,
+        "vram_samples": 74,
+        "vram_sampler_errors": 0
+      },
+      "artifact_sha256": "30a021cce487159aac738cbc9240d3dedebf2885945d5e5a30865d6865bf582b"
+    },
+    {
+      "method": "sweep",
+      "seed": 20261311,
+      "samples": 256,
+      "validation": {
+        "attempts": 36,
+        "captures": 12,
+        "native_releases": 21,
+        "invalid": 15,
+        "clean": 1,
+        "mean_reward": 1.1736295696410393
+      },
+      "resources": {
+        "wall_s": 955.9466938390397,
+        "cpu_s": 1828.7479995029994,
+        "geometry_s": 14.13016087282449,
+        "gpu_s": 299.7874305320438,
+        "setup_s": 0.27757809998001903,
+        "evaluation_wall_s": 423.8152828068705,
+        "gpu_reservation_s": 1379.9790301899193,
+        "native_init_s": 2.5766186770051718,
+        "peak_rss_mb": 1616.03125,
+        "peak_vram_mb": 762.0,
+        "torch_allocated_mb": 10.66796875,
+        "torch_reserved_mb": 24.0,
+        "vram_samples": 1085,
+        "vram_sampler_errors": 0
+      },
+      "artifact_sha256": "79a19934cb6c1f2cb516ca3e8022ef1acacbcfab6822e989501d286c3f34ca06"
+    },
+    {
+      "method": "sweep",
+      "seed": 20261311,
+      "samples": 512,
+      "validation": {
+        "attempts": 36,
+        "captures": 16,
+        "native_releases": 21,
+        "invalid": 15,
+        "clean": 4,
+        "mean_reward": 1.564605810470465
+      },
+      "resources": {
+        "wall_s": 1324.65731529193,
+        "cpu_s": 2241.6211807059994,
+        "geometry_s": 18.886407208861783,
+        "gpu_s": 618.2275273191044,
+        "setup_s": 0.27757809998001903,
+        "evaluation_wall_s": 500.40475569991395,
+        "gpu_reservation_s": 1825.4973361849552,
+        "native_init_s": 2.5766186770051718,
+        "peak_rss_mb": 1616.3828125,
+        "peak_vram_mb": 762.0,
+        "torch_allocated_mb": 10.66796875,
+        "torch_reserved_mb": 24.0,
+        "vram_samples": 1517,
+        "vram_sampler_errors": 0
+      },
+      "artifact_sha256": "81b9a1895c623f17d4f0429aa22446a8e8625755b1b0c70b6ef5a05ec5a3eecd"
+    },
+    {
+      "method": "sweep",
+      "seed": 20261311,
+      "samples": 1024,
+      "validation": {
+        "attempts": 36,
+        "captures": 13,
+        "native_releases": 21,
+        "invalid": 15,
+        "clean": 1,
+        "mean_reward": 1.1464595288205626
+      },
+      "resources": {
+        "wall_s": 2055.9662212651456,
+        "cpu_s": 3063.1128394429993,
+        "geometry_s": 29.460314933676273,
+        "gpu_s": 1236.7457788385218,
+        "setup_s": 0.27757809998001903,
+        "evaluation_wall_s": 580.563201906858,
+        "gpu_reservation_s": 2637.401573681971,
+        "native_init_s": 2.5766186770051718,
+        "peak_rss_mb": 1623.1328125,
+        "peak_vram_mb": 762.0,
+        "torch_allocated_mb": 10.66796875,
+        "torch_reserved_mb": 24.0,
+        "vram_samples": 2306,
+        "vram_sampler_errors": 0
+      },
+      "artifact_sha256": "60fbf2cf199f41762634966c147b54a72f08a32b5e24431fcd3793145057304f"
+    },
+    {
+      "method": "ppo",
+      "seed": 20261311,
+      "samples": 0,
+      "validation": {
+        "attempts": 36,
+        "captures": 16,
+        "native_releases": 21,
+        "invalid": 15,
+        "clean": 6,
+        "mean_reward": 1.5429097542754933
+      },
+      "resources": {
+        "wall_s": 0.7108011189848185,
+        "cpu_s": 0.9483778279999999,
+        "geometry_s": 0.0,
+        "gpu_s": 0.0,
+        "setup_s": 0.7108011189848185,
+        "evaluation_wall_s": 331.83487029606476,
+        "gpu_reservation_s": 332.54722318204585,
+        "native_init_s": 3.0885728599969298,
+        "peak_rss_mb": 1665.64453125,
+        "peak_vram_mb": 762.0,
+        "torch_allocated_mb": 10.1552734375,
+        "torch_reserved_mb": 24.0,
+        "vram_samples": 72,
+        "vram_sampler_errors": 0
+      },
+      "artifact_sha256": "241ffafbb8e384a02cc57fa46c8e38f4f1fc082552a31520ffa07d6a27dd4d74"
+    },
+    {
+      "method": "ppo",
+      "seed": 20261311,
+      "samples": 256,
+      "validation": {
+        "attempts": 36,
+        "captures": 17,
+        "native_releases": 21,
+        "invalid": 15,
+        "clean": 6,
+        "mean_reward": 1.6576340336649174
+      },
+      "resources": {
+        "wall_s": 987.594167475123,
+        "cpu_s": 1865.0909619359995,
+        "geometry_s": 13.610893932403997,
+        "gpu_s": 314.5233310010517,
+        "setup_s": 0.7108011189848185,
+        "evaluation_wall_s": 407.5335900380742,
+        "gpu_reservation_s": 1395.3515323380707,
+        "native_init_s": 3.0885728599969298,
+        "peak_rss_mb": 1729.24609375,
+        "peak_vram_mb": 762.0,
+        "torch_allocated_mb": 10.66796875,
+        "torch_reserved_mb": 24.0,
+        "vram_samples": 1106,
+        "vram_sampler_errors": 0
+      },
+      "artifact_sha256": "65bd48fa001f541874230dc6f4db3a2c931a5f52acdd7744d884495682d69058"
+    },
+    {
+      "method": "ppo",
+      "seed": 20261311,
+      "samples": 512,
+      "validation": {
+        "attempts": 36,
+        "captures": 16,
+        "native_releases": 21,
+        "invalid": 15,
+        "clean": 5,
+        "mean_reward": 1.521556191765339
+      },
+      "resources": {
+        "wall_s": 1375.9945108193206,
+        "cpu_s": 2314.7618210999995,
+        "geometry_s": 18.877574720070697,
+        "gpu_s": 629.9580462179147,
+        "setup_s": 0.7108011189848185,
+        "evaluation_wall_s": 485.67597621504683,
+        "gpu_reservation_s": 1862.114356053993,
+        "native_init_s": 3.0885728599969298,
+        "peak_rss_mb": 1729.24609375,
+        "peak_vram_mb": 762.0,
+        "torch_allocated_mb": 10.66796875,
+        "torch_reserved_mb": 24.0,
+        "vram_samples": 1560,
+        "vram_sampler_errors": 0
+      },
+      "artifact_sha256": "0dcb90d7dccc74dd68cc09f502a932bea866ac410679e78ad1cab4287fc5d22e"
+    },
+    {
+      "method": "ppo",
+      "seed": 20261311,
+      "samples": 1024,
+      "validation": {
+        "attempts": 36,
+        "captures": 13,
+        "native_releases": 19,
+        "invalid": 17,
+        "clean": 6,
+        "mean_reward": 1.1168271520491806
+      },
+      "resources": {
+        "wall_s": 2165.2479993822053,
+        "cpu_s": 3226.326007630999,
+        "geometry_s": 29.368168340064585,
+        "gpu_s": 1259.9897906491533,
+        "setup_s": 0.7108011189848185,
+        "evaluation_wall_s": 577.9067146930611,
+        "gpu_reservation_s": 2744.024328323081,
+        "native_init_s": 3.0885728599969298,
+        "peak_rss_mb": 1730.58984375,
+        "peak_vram_mb": 762.0,
+        "torch_allocated_mb": 10.66796875,
+        "torch_reserved_mb": 24.0,
+        "vram_samples": 2417,
+        "vram_sampler_errors": 0
+      },
+      "artifact_sha256": "4a3b28508daf192427c0b6b0002a173f0f6bdb773443fe2dcbe85d8a80c106f3"
+    },
+    {
+      "method": "ppo",
+      "seed": 20261312,
+      "samples": 0,
+      "validation": {
+        "attempts": 36,
+        "captures": 16,
+        "native_releases": 21,
+        "invalid": 15,
+        "clean": 6,
+        "mean_reward": 1.5517924062426753
+      },
+      "resources": {
+        "wall_s": 0.7222658660029992,
+        "cpu_s": 0.9488758469999999,
+        "geometry_s": 0.0,
+        "gpu_s": 0.0,
+        "setup_s": 0.7222658660029992,
+        "evaluation_wall_s": 316.81233303504996,
+        "gpu_reservation_s": 317.53625779994763,
+        "native_init_s": 2.5968133660499007,
+        "peak_rss_mb": 1665.765625,
+        "peak_vram_mb": 762.0,
+        "torch_allocated_mb": 10.1552734375,
+        "torch_reserved_mb": 24.0,
+        "vram_samples": 74,
+        "vram_sampler_errors": 0
+      },
+      "artifact_sha256": "c4766ab35dd02a29dcb616633a4250c8673c8b337736080b6d863ef244c18d01"
+    },
+    {
+      "method": "ppo",
+      "seed": 20261312,
+      "samples": 256,
+      "validation": {
+        "attempts": 36,
+        "captures": 17,
+        "native_releases": 21,
+        "invalid": 15,
+        "clean": 6,
+        "mean_reward": 1.646608989017444
+      },
+      "resources": {
+        "wall_s": 973.016556465067,
+        "cpu_s": 1844.4604032419995,
+        "geometry_s": 13.504735583555885,
+        "gpu_s": 307.35979167802725,
+        "setup_s": 0.7222658660029992,
+        "evaluation_wall_s": 393.3676281600492,
+        "gpu_reservation_s": 1366.5949565939372,
+        "native_init_s": 2.5968133660499007,
+        "peak_rss_mb": 1730.33203125,
+        "peak_vram_mb": 762.0,
+        "torch_allocated_mb": 10.1552734375,
+        "torch_reserved_mb": 24.0,
+        "vram_samples": 1094,
+        "vram_sampler_errors": 0
+      },
+      "artifact_sha256": "9f9de2ecb4388036c3a25ede9329c83f53adad9832f91f8a244e98c0902fc216"
+    },
+    {
+      "method": "ppo",
+      "seed": 20261312,
+      "samples": 512,
+      "validation": {
+        "attempts": 36,
+        "captures": 17,
+        "native_releases": 21,
+        "invalid": 15,
+        "clean": 6,
+        "mean_reward": 1.6669801978573995
+      },
+      "resources": {
+        "wall_s": 1340.2761979332427,
+        "cpu_s": 2259.9889731949993,
+        "geometry_s": 19.243268463527784,
+        "gpu_s": 615.5223740439396,
+        "setup_s": 0.7222658660029992,
+        "evaluation_wall_s": 469.86321018694434,
+        "gpu_reservation_s": 1810.5677697949577,
+        "native_init_s": 2.5968133660499007,
+        "peak_rss_mb": 1730.33203125,
+        "peak_vram_mb": 762.0,
+        "torch_allocated_mb": 10.1552734375,
+        "torch_reserved_mb": 24.0,
+        "vram_samples": 1526,
+        "vram_sampler_errors": 0
+      },
+      "artifact_sha256": "116700df7abe6b983b389aceb107fce2c0f8e72b60bc94b78fd0540b88b3763e"
+    },
+    {
+      "method": "ppo",
+      "seed": 20261312,
+      "samples": 1024,
+      "validation": {
+        "attempts": 36,
+        "captures": 18,
+        "native_releases": 21,
+        "invalid": 15,
+        "clean": 5,
+        "mean_reward": 1.7477441683432144
+      },
+      "resources": {
+        "wall_s": 2063.342157561332,
+        "cpu_s": 3078.0822553060007,
+        "geometry_s": 29.1984787855763,
+        "gpu_s": 1230.7508120581042,
+        "setup_s": 0.7222658660029992,
+        "evaluation_wall_s": 546.9202069269959,
+        "gpu_reservation_s": 2611.1285350029357,
+        "native_init_s": 2.5968133660499007,
+        "peak_rss_mb": 1730.57421875,
+        "peak_vram_mb": 762.0,
+        "torch_allocated_mb": 10.68994140625,
+        "torch_reserved_mb": 24.0,
+        "vram_samples": 2305,
+        "vram_sampler_errors": 0
+      },
+      "artifact_sha256": "1a12bfd446efc2d6ec2fd4e44c762cec550d6cf17dab14080f4d863ce65b843d"
+    },
+    {
+      "method": "sweep",
+      "seed": 20261312,
+      "samples": 0,
+      "validation": {
+        "attempts": 36,
+        "captures": 16,
+        "native_releases": 21,
+        "invalid": 15,
+        "clean": 6,
+        "mean_reward": 1.5474891910493875
+      },
+      "resources": {
+        "wall_s": 0.2588246340164915,
+        "cpu_s": 0.48152907899999997,
+        "geometry_s": 0.0,
+        "gpu_s": 0.0,
+        "setup_s": 0.2588246340164915,
+        "evaluation_wall_s": 331.1481098619988,
+        "gpu_reservation_s": 331.40768882702105,
+        "native_init_s": 2.6323247079271823,
+        "peak_rss_mb": 1555.07421875,
+        "peak_vram_mb": 762.0,
+        "torch_allocated_mb": 10.1552734375,
+        "torch_reserved_mb": 24.0,
+        "vram_samples": 71,
+        "vram_sampler_errors": 0
+      },
+      "artifact_sha256": "3b9609c64cf715aa0163182e6292d220253c9c9bd350b036240597ccbce22e26"
+    },
+    {
+      "method": "sweep",
+      "seed": 20261312,
+      "samples": 256,
+      "validation": {
+        "attempts": 36,
+        "captures": 12,
+        "native_releases": 21,
+        "invalid": 15,
+        "clean": 1,
+        "mean_reward": 1.1758291713826743
+      },
+      "resources": {
+        "wall_s": 975.2712809619261,
+        "cpu_s": 1855.9146797839999,
+        "geometry_s": 13.779648441704921,
+        "gpu_s": 309.9544405359775,
+        "setup_s": 0.2588246340164915,
+        "evaluation_wall_s": 416.95530625700485,
+        "gpu_reservation_s": 1392.4334914709907,
+        "native_init_s": 2.6323247079271823,
+        "peak_rss_mb": 1618.37890625,
+        "peak_vram_mb": 762.0,
+        "torch_allocated_mb": 10.1552734375,
+        "torch_reserved_mb": 24.0,
+        "vram_samples": 1102,
+        "vram_sampler_errors": 0
+      },
+      "artifact_sha256": "eb6601aaaa152f2ae2276c802320d6fd55345901a8688fe776103239ad471aa1"
+    },
+    {
+      "method": "sweep",
+      "seed": 20261312,
+      "samples": 512,
+      "validation": {
+        "attempts": 36,
+        "captures": 15,
+        "native_releases": 21,
+        "invalid": 15,
+        "clean": 1,
+        "mean_reward": 1.4440164193676719
+      },
+      "resources": {
+        "wall_s": 1358.1767443208955,
+        "cpu_s": 2283.691954954,
+        "geometry_s": 18.65235786663834,
+        "gpu_s": 639.970991795999,
+        "setup_s": 0.2588246340164915,
+        "evaluation_wall_s": 494.9422918710625,
+        "gpu_reservation_s": 1853.5383686729474,
+        "native_init_s": 2.6323247079271823,
+        "peak_rss_mb": 1618.37890625,
+        "peak_vram_mb": 762.0,
+        "torch_allocated_mb": 10.1552734375,
+        "torch_reserved_mb": 24.0,
+        "vram_samples": 1551,
+        "vram_sampler_errors": 0
+      },
+      "artifact_sha256": "1b7a89a552501513cc1ae7341691e5ce7f170deb31340cdd0436183795c433ff"
+    },
+    {
+      "method": "sweep",
+      "seed": 20261312,
+      "samples": 1024,
+      "validation": {
+        "attempts": 36,
+        "captures": 15,
+        "native_releases": 18,
+        "invalid": 18,
+        "clean": 0,
+        "mean_reward": 1.2963848017604838
+      },
+      "resources": {
+        "wall_s": 2168.641521065263,
+        "cpu_s": 3220.102747593,
+        "geometry_s": 28.786065982771106,
+        "gpu_s": 1284.9637375521706,
+        "setup_s": 0.2588246340164915,
+        "evaluation_wall_s": 578.2737596450606,
+        "gpu_reservation_s": 2747.7700638530077,
+        "native_init_s": 2.6323247079271823,
+        "peak_rss_mb": 1618.37890625,
+        "peak_vram_mb": 762.0,
+        "torch_allocated_mb": 10.1552734375,
+        "torch_reserved_mb": 24.0,
+        "vram_samples": 2421,
+        "vram_sampler_errors": 0
+      },
+      "artifact_sha256": "77a54cf21d5e59562b870408eae48309b2b6d3bf71ce296c1aa5a30e0b995923"
+    },
+    {
+      "method": "sweep",
+      "seed": 20261313,
+      "samples": 0,
+      "validation": {
+        "attempts": 36,
+        "captures": 16,
+        "native_releases": 21,
+        "invalid": 15,
+        "clean": 5,
+        "mean_reward": 1.5401738306178008
+      },
+      "resources": {
+        "wall_s": 0.252897558035329,
+        "cpu_s": 0.486487805,
+        "geometry_s": 0.0,
+        "gpu_s": 0.0,
+        "setup_s": 0.252897558035329,
+        "evaluation_wall_s": 329.45069112605415,
+        "gpu_reservation_s": 329.7042294549756,
+        "native_init_s": 2.5961589959915727,
+        "peak_rss_mb": 1563.796875,
+        "peak_vram_mb": 762.0,
+        "torch_allocated_mb": 10.1552734375,
+        "torch_reserved_mb": 24.0,
+        "vram_samples": 74,
+        "vram_sampler_errors": 0
+      },
+      "artifact_sha256": "917e3c00767258febb85ccaa9b051c06acd45729994f940c0f3cafb170e2d1da"
+    },
+    {
+      "method": "sweep",
+      "seed": 20261313,
+      "samples": 256,
+      "validation": {
+        "attempts": 36,
+        "captures": 14,
+        "native_releases": 21,
+        "invalid": 15,
+        "clean": 2,
+        "mean_reward": 1.3632217323890032
+      },
+      "resources": {
+        "wall_s": 946.4155604161788,
+        "cpu_s": 1799.679098989,
+        "geometry_s": 13.788131934823468,
+        "gpu_s": 311.78456315910444,
+        "setup_s": 0.252897558035329,
+        "evaluation_wall_s": 412.86737509199884,
+        "gpu_reservation_s": 1359.4907055459917,
+        "native_init_s": 2.5961589959915727,
+        "peak_rss_mb": 1625.63671875,
+        "peak_vram_mb": 762.0,
+        "torch_allocated_mb": 10.1552734375,
+        "torch_reserved_mb": 24.0,
+        "vram_samples": 1076,
+        "vram_sampler_errors": 0
+      },
+      "artifact_sha256": "c2e2595d99cba33e5a1e5d19fbf08069d8d8676f1fb20f636844cd9a407cfb6b"
+    },
+    {
+      "method": "sweep",
+      "seed": 20261313,
+      "samples": 512,
+      "validation": {
+        "attempts": 36,
+        "captures": 13,
+        "native_releases": 21,
+        "invalid": 15,
+        "clean": 1,
+        "mean_reward": 1.1719579824857282
+      },
+      "resources": {
+        "wall_s": 1317.5465825372376,
+        "cpu_s": 2214.059694451,
+        "geometry_s": 18.504356876714155,
+        "gpu_s": 629.7110083688749,
+        "setup_s": 0.252897558035329,
+        "evaluation_wall_s": 487.14839719003066,
+        "gpu_reservation_s": 1805.117621729034,
+        "native_init_s": 2.5961589959915727,
+        "peak_rss_mb": 1625.63671875,
+        "peak_vram_mb": 762.0,
+        "torch_allocated_mb": 10.1552734375,
+        "torch_reserved_mb": 24.0,
+        "vram_samples": 1510,
+        "vram_sampler_errors": 0
+      },
+      "artifact_sha256": "a589073e01f546cb08913ecb86cca622a5aed9c740ae01c1719d1c8de31b6dd9"
+    },
+    {
+      "method": "sweep",
+      "seed": 20261313,
+      "samples": 1024,
+      "validation": {
+        "attempts": 36,
+        "captures": 11,
+        "native_releases": 18,
+        "invalid": 18,
+        "clean": 1,
+        "mean_reward": 0.8288102718440347
+      },
+      "resources": {
+        "wall_s": 2066.5343175772578,
+        "cpu_s": 3051.7054598419995,
+        "geometry_s": 28.037181574036367,
+        "gpu_s": 1271.8362123878906,
+        "setup_s": 0.252897558035329,
+        "evaluation_wall_s": 561.4325293879956,
+        "gpu_reservation_s": 2628.80647366005,
+        "native_init_s": 2.5961589959915727,
+        "peak_rss_mb": 1625.63671875,
+        "peak_vram_mb": 762.0,
+        "torch_allocated_mb": 10.17724609375,
+        "torch_reserved_mb": 24.0,
+        "vram_samples": 2311,
+        "vram_sampler_errors": 0
+      },
+      "artifact_sha256": "5fc7b3c803d310ddf310ea79ecf0eeb0f4f01646f1180fbb1d150f4d0b2f6fd8"
+    },
+    {
+      "method": "ppo",
+      "seed": 20261313,
+      "samples": 0,
+      "validation": {
+        "attempts": 36,
+        "captures": 16,
+        "native_releases": 21,
+        "invalid": 15,
+        "clean": 6,
+        "mean_reward": 1.5508802260439236
+      },
+      "resources": {
+        "wall_s": 0.7428440400399268,
+        "cpu_s": 0.9733428129999999,
+        "geometry_s": 0.0,
+        "gpu_s": 0.0,
+        "setup_s": 0.7428440400399268,
+        "evaluation_wall_s": 315.39076921599917,
+        "gpu_reservation_s": 316.13524832506664,
+        "native_init_s": 2.634874366922304,
+        "peak_rss_mb": 1665.51953125,
+        "peak_vram_mb": 762.0,
+        "torch_allocated_mb": 10.1552734375,
+        "torch_reserved_mb": 24.0,
+        "vram_samples": 74,
+        "vram_sampler_errors": 0
+      },
+      "artifact_sha256": "556a7600b34ee0f60d2ec47498f9a9c2a67c894f48dc9b651ff6079f8d50b573"
+    },
+    {
+      "method": "ppo",
+      "seed": 20261313,
+      "samples": 256,
+      "validation": {
+        "attempts": 36,
+        "captures": 14,
+        "native_releases": 21,
+        "invalid": 15,
+        "clean": 5,
+        "mean_reward": 1.2795027369586631
+      },
+      "resources": {
+        "wall_s": 961.3899841919774,
+        "cpu_s": 1818.8663251209998,
+        "geometry_s": 13.600691844243556,
+        "gpu_s": 321.98823611205444,
+        "setup_s": 0.7428440400399268,
+        "evaluation_wall_s": 392.2032181409886,
+        "gpu_reservation_s": 1353.8227481590584,
+        "native_init_s": 2.634874366922304,
+        "peak_rss_mb": 1736.0546875,
+        "peak_vram_mb": 762.0,
+        "torch_allocated_mb": 10.1552734375,
+        "torch_reserved_mb": 24.0,
+        "vram_samples": 1083,
+        "vram_sampler_errors": 0
+      },
+      "artifact_sha256": "576bae4c95743e0319d9113ab86a5acace0f3a740fc9a433e6dd4ce18d47ef77"
+    },
+    {
+      "method": "ppo",
+      "seed": 20261313,
+      "samples": 512,
+      "validation": {
+        "attempts": 36,
+        "captures": 14,
+        "native_releases": 21,
+        "invalid": 15,
+        "clean": 4,
+        "mean_reward": 1.3270861960790388
+      },
+      "resources": {
+        "wall_s": 1352.0516054069158,
+        "cpu_s": 2267.682727191999,
+        "geometry_s": 18.652497923234478,
+        "gpu_s": 639.7276951980311,
+        "setup_s": 0.7428440400399268,
+        "evaluation_wall_s": 470.1475584070431,
+        "gpu_reservation_s": 1822.649403340998,
+        "native_init_s": 2.634874366922304,
+        "peak_rss_mb": 1736.0546875,
+        "peak_vram_mb": 762.0,
+        "torch_allocated_mb": 10.1552734375,
+        "torch_reserved_mb": 24.0,
+        "vram_samples": 1540,
+        "vram_sampler_errors": 0
+      },
+      "artifact_sha256": "53952bdbb2a4925657abd4a4f7fd42357e34b86e62fd5b025f0de5bb24998532"
+    },
+    {
+      "method": "ppo",
+      "seed": 20261313,
+      "samples": 1024,
+      "validation": {
+        "attempts": 36,
+        "captures": 15,
+        "native_releases": 21,
+        "invalid": 15,
+        "clean": 4,
+        "mean_reward": 1.4389011311872015
+      },
+      "resources": {
+        "wall_s": 2070.26917398104,
+        "cpu_s": 3066.4392586069985,
+        "geometry_s": 28.69472804130055,
+        "gpu_s": 1267.6782384039834,
+        "setup_s": 0.7428440400399268,
+        "evaluation_wall_s": 548.4634502950357,
+        "gpu_reservation_s": 2619.62397381803,
+        "native_init_s": 2.634874366922304,
+        "peak_rss_mb": 1736.0546875,
+        "peak_vram_mb": 762.0,
+        "torch_allocated_mb": 10.1552734375,
+        "torch_reserved_mb": 24.0,
+        "vram_samples": 2315,
+        "vram_sampler_errors": 0
+      },
+      "artifact_sha256": "4936f8d5d673e33b6e71b12aafda077e7b38f15756110e651492b4a6c6bc8cca"
+    }
+  ],
+  "runs": [
+    {
+      "version": "sircus-sweep-rl-benchmark-v1",
+      "method": "sweep",
+      "seed": 20261311,
+      "status": "completed",
+      "phase": "completed",
+      "contract_fingerprint": "ca781af94c6bb0fd44c8f15b88d72b4784be16dd258294785ac6338c1a4ee541",
+      "train_requests": 1024,
+      "train_native_releases": 464,
+      "updates": 0,
+      "curves": [
+        {
+          "method": "sweep",
+          "seed": 20261311,
+          "samples": 0,
+          "validation": {
+            "attempts": 36,
+            "captures": 17,
+            "native_releases": 21,
+            "invalid": 15,
+            "clean": 6,
+            "mean_reward": 1.6360371624578756
+          },
+          "resources": {
+            "wall_s": 0.27757809998001903,
+            "cpu_s": 0.507210029,
+            "geometry_s": 0.0,
+            "gpu_s": 0.0,
+            "setup_s": 0.27757809998001903,
+            "evaluation_wall_s": 339.3752340419451,
+            "gpu_reservation_s": 339.65336051699705,
+            "native_init_s": 2.5766186770051718,
+            "peak_rss_mb": 1564.6875,
+            "peak_vram_mb": 762.0,
+            "torch_allocated_mb": 10.1552734375,
+            "torch_reserved_mb": 24.0,
+            "vram_samples": 74,
+            "vram_sampler_errors": 0
+          },
+          "artifact_sha256": "30a021cce487159aac738cbc9240d3dedebf2885945d5e5a30865d6865bf582b"
+        },
+        {
+          "method": "sweep",
+          "seed": 20261311,
+          "samples": 256,
+          "validation": {
+            "attempts": 36,
+            "captures": 12,
+            "native_releases": 21,
+            "invalid": 15,
+            "clean": 1,
+            "mean_reward": 1.1736295696410393
+          },
+          "resources": {
+            "wall_s": 955.9466938390397,
+            "cpu_s": 1828.7479995029994,
+            "geometry_s": 14.13016087282449,
+            "gpu_s": 299.7874305320438,
+            "setup_s": 0.27757809998001903,
+            "evaluation_wall_s": 423.8152828068705,
+            "gpu_reservation_s": 1379.9790301899193,
+            "native_init_s": 2.5766186770051718,
+            "peak_rss_mb": 1616.03125,
+            "peak_vram_mb": 762.0,
+            "torch_allocated_mb": 10.66796875,
+            "torch_reserved_mb": 24.0,
+            "vram_samples": 1085,
+            "vram_sampler_errors": 0
+          },
+          "artifact_sha256": "79a19934cb6c1f2cb516ca3e8022ef1acacbcfab6822e989501d286c3f34ca06"
+        },
+        {
+          "method": "sweep",
+          "seed": 20261311,
+          "samples": 512,
+          "validation": {
+            "attempts": 36,
+            "captures": 16,
+            "native_releases": 21,
+            "invalid": 15,
+            "clean": 4,
+            "mean_reward": 1.564605810470465
+          },
+          "resources": {
+            "wall_s": 1324.65731529193,
+            "cpu_s": 2241.6211807059994,
+            "geometry_s": 18.886407208861783,
+            "gpu_s": 618.2275273191044,
+            "setup_s": 0.27757809998001903,
+            "evaluation_wall_s": 500.40475569991395,
+            "gpu_reservation_s": 1825.4973361849552,
+            "native_init_s": 2.5766186770051718,
+            "peak_rss_mb": 1616.3828125,
+            "peak_vram_mb": 762.0,
+            "torch_allocated_mb": 10.66796875,
+            "torch_reserved_mb": 24.0,
+            "vram_samples": 1517,
+            "vram_sampler_errors": 0
+          },
+          "artifact_sha256": "81b9a1895c623f17d4f0429aa22446a8e8625755b1b0c70b6ef5a05ec5a3eecd"
+        },
+        {
+          "method": "sweep",
+          "seed": 20261311,
+          "samples": 1024,
+          "validation": {
+            "attempts": 36,
+            "captures": 13,
+            "native_releases": 21,
+            "invalid": 15,
+            "clean": 1,
+            "mean_reward": 1.1464595288205626
+          },
+          "resources": {
+            "wall_s": 2055.9662212651456,
+            "cpu_s": 3063.1128394429993,
+            "geometry_s": 29.460314933676273,
+            "gpu_s": 1236.7457788385218,
+            "setup_s": 0.27757809998001903,
+            "evaluation_wall_s": 580.563201906858,
+            "gpu_reservation_s": 2637.401573681971,
+            "native_init_s": 2.5766186770051718,
+            "peak_rss_mb": 1623.1328125,
+            "peak_vram_mb": 762.0,
+            "torch_allocated_mb": 10.66796875,
+            "torch_reserved_mb": 24.0,
+            "vram_samples": 2306,
+            "vram_sampler_errors": 0
+          },
+          "artifact_sha256": "60fbf2cf199f41762634966c147b54a72f08a32b5e24431fcd3793145057304f"
+        }
+      ],
+      "resources": {
+        "wall_s": 2055.9662212651456,
+        "cpu_s": 3063.1128394429993,
+        "geometry_s": 29.460314933676273,
+        "gpu_s": 1236.7457788385218,
+        "setup_s": 0.27757809998001903,
+        "evaluation_wall_s": 1050.4345444028731,
+        "gpu_reservation_s": 3107.2742160259513,
+        "native_init_s": 2.5766186770051718,
+        "peak_rss_mb": 1631.66796875,
+        "peak_vram_mb": 762.0,
+        "torch_allocated_mb": 10.66796875,
+        "torch_reserved_mb": 24.0,
+        "vram_samples": 2763,
+        "vram_sampler_errors": 0
+      },
+      "selected_samples": 0,
+      "checkpoint_sha256": "30a021cce487159aac738cbc9240d3dedebf2885945d5e5a30865d6865bf582b",
+      "final_test": {
+        "method": "sweep",
+        "seed": 20261311,
+        "counts": {
+          "attempts": 72,
+          "captures": 24,
+          "native_releases": 36,
+          "invalid": 36,
+          "clean": 3,
+          "mean_reward": 0.9210623833732335
+        },
+        "frozen_artifact_sha256": "30a021cce487159aac738cbc9240d3dedebf2885945d5e5a30865d6865bf582b",
+        "query_s": 0.004119400982744992,
+        "selected_samples": 0,
+        "search_at_inference": false
+      },
+      "scope": "Warm-started restricted continuous five-parameter shot selection with the current fixed ball. Same 17 historical anchors for both methods. Prescribed held endpoints and sampled common-home/local paths; no grasp, driven motion, impact compliance, perception or physical validation.",
+      "updated_at": "2026-11-03T13:45:29.329092+00:00",
+      "queue": null,
+      "train_counts": {
+        "attempts": 1024,
+        "captures": 299,
+        "native_releases": 464,
+        "invalid": 560,
+        "clean": 128,
+        "mean_reward": 0.7411332292982308
+      },
+      "fingerprint": "2fb4b15d28db6b6f65f09e828e2234d35fe8a257c4a261a0d56cf101c1479929"
+    },
+    {
+      "version": "sircus-sweep-rl-benchmark-v1",
+      "method": "ppo",
+      "seed": 20261311,
+      "status": "completed",
+      "phase": "completed",
+      "contract_fingerprint": "ca781af94c6bb0fd44c8f15b88d72b4784be16dd258294785ac6338c1a4ee541",
+      "train_requests": 1024,
+      "train_native_releases": 543,
+      "updates": 32,
+      "curves": [
+        {
+          "method": "ppo",
+          "seed": 20261311,
+          "samples": 0,
+          "validation": {
+            "attempts": 36,
+            "captures": 16,
+            "native_releases": 21,
+            "invalid": 15,
+            "clean": 6,
+            "mean_reward": 1.5429097542754933
+          },
+          "resources": {
+            "wall_s": 0.7108011189848185,
+            "cpu_s": 0.9483778279999999,
+            "geometry_s": 0.0,
+            "gpu_s": 0.0,
+            "setup_s": 0.7108011189848185,
+            "evaluation_wall_s": 331.83487029606476,
+            "gpu_reservation_s": 332.54722318204585,
+            "native_init_s": 3.0885728599969298,
+            "peak_rss_mb": 1665.64453125,
+            "peak_vram_mb": 762.0,
+            "torch_allocated_mb": 10.1552734375,
+            "torch_reserved_mb": 24.0,
+            "vram_samples": 72,
+            "vram_sampler_errors": 0
+          },
+          "artifact_sha256": "241ffafbb8e384a02cc57fa46c8e38f4f1fc082552a31520ffa07d6a27dd4d74"
+        },
+        {
+          "method": "ppo",
+          "seed": 20261311,
+          "samples": 256,
+          "validation": {
+            "attempts": 36,
+            "captures": 17,
+            "native_releases": 21,
+            "invalid": 15,
+            "clean": 6,
+            "mean_reward": 1.6576340336649174
+          },
+          "resources": {
+            "wall_s": 987.594167475123,
+            "cpu_s": 1865.0909619359995,
+            "geometry_s": 13.610893932403997,
+            "gpu_s": 314.5233310010517,
+            "setup_s": 0.7108011189848185,
+            "evaluation_wall_s": 407.5335900380742,
+            "gpu_reservation_s": 1395.3515323380707,
+            "native_init_s": 3.0885728599969298,
+            "peak_rss_mb": 1729.24609375,
+            "peak_vram_mb": 762.0,
+            "torch_allocated_mb": 10.66796875,
+            "torch_reserved_mb": 24.0,
+            "vram_samples": 1106,
+            "vram_sampler_errors": 0
+          },
+          "artifact_sha256": "65bd48fa001f541874230dc6f4db3a2c931a5f52acdd7744d884495682d69058"
+        },
+        {
+          "method": "ppo",
+          "seed": 20261311,
+          "samples": 512,
+          "validation": {
+            "attempts": 36,
+            "captures": 16,
+            "native_releases": 21,
+            "invalid": 15,
+            "clean": 5,
+            "mean_reward": 1.521556191765339
+          },
+          "resources": {
+            "wall_s": 1375.9945108193206,
+            "cpu_s": 2314.7618210999995,
+            "geometry_s": 18.877574720070697,
+            "gpu_s": 629.9580462179147,
+            "setup_s": 0.7108011189848185,
+            "evaluation_wall_s": 485.67597621504683,
+            "gpu_reservation_s": 1862.114356053993,
+            "native_init_s": 3.0885728599969298,
+            "peak_rss_mb": 1729.24609375,
+            "peak_vram_mb": 762.0,
+            "torch_allocated_mb": 10.66796875,
+            "torch_reserved_mb": 24.0,
+            "vram_samples": 1560,
+            "vram_sampler_errors": 0
+          },
+          "artifact_sha256": "0dcb90d7dccc74dd68cc09f502a932bea866ac410679e78ad1cab4287fc5d22e"
+        },
+        {
+          "method": "ppo",
+          "seed": 20261311,
+          "samples": 1024,
+          "validation": {
+            "attempts": 36,
+            "captures": 13,
+            "native_releases": 19,
+            "invalid": 17,
+            "clean": 6,
+            "mean_reward": 1.1168271520491806
+          },
+          "resources": {
+            "wall_s": 2165.2479993822053,
+            "cpu_s": 3226.326007630999,
+            "geometry_s": 29.368168340064585,
+            "gpu_s": 1259.9897906491533,
+            "setup_s": 0.7108011189848185,
+            "evaluation_wall_s": 577.9067146930611,
+            "gpu_reservation_s": 2744.024328323081,
+            "native_init_s": 3.0885728599969298,
+            "peak_rss_mb": 1730.58984375,
+            "peak_vram_mb": 762.0,
+            "torch_allocated_mb": 10.66796875,
+            "torch_reserved_mb": 24.0,
+            "vram_samples": 2417,
+            "vram_sampler_errors": 0
+          },
+          "artifact_sha256": "4a3b28508daf192427c0b6b0002a173f0f6bdb773443fe2dcbe85d8a80c106f3"
+        }
+      ],
+      "resources": {
+        "wall_s": 2165.2479993822053,
+        "cpu_s": 3226.326007630999,
+        "geometry_s": 29.368168340064585,
+        "gpu_s": 1259.9897906491533,
+        "setup_s": 0.7108011189848185,
+        "evaluation_wall_s": 1049.8968417701544,
+        "gpu_reservation_s": 3216.0157911120914,
+        "native_init_s": 3.0885728599969298,
+        "peak_rss_mb": 1739.02734375,
+        "peak_vram_mb": 762.0,
+        "torch_allocated_mb": 10.66796875,
+        "torch_reserved_mb": 24.0,
+        "vram_samples": 2876,
+        "vram_sampler_errors": 0
+      },
+      "selected_samples": 256,
+      "checkpoint_sha256": "65bd48fa001f541874230dc6f4db3a2c931a5f52acdd7744d884495682d69058",
+      "final_test": {
+        "method": "ppo",
+        "seed": 20261311,
+        "counts": {
+          "attempts": 72,
+          "captures": 16,
+          "native_releases": 36,
+          "invalid": 36,
+          "clean": 6,
+          "mean_reward": 0.5428338674756299
+        },
+        "frozen_artifact_sha256": "65bd48fa001f541874230dc6f4db3a2c931a5f52acdd7744d884495682d69058",
+        "query_s": 0.0035366449737921357,
+        "selected_samples": 256,
+        "search_at_inference": false
+      },
+      "scope": "Warm-started restricted continuous five-parameter shot selection with the current fixed ball. Same 17 historical anchors for both methods. Prescribed held endpoints and sampled common-home/local paths; no grasp, driven motion, impact compliance, perception or physical validation.",
+      "updated_at": "2026-11-03T14:39:07.120125+00:00",
+      "queue": null,
+      "train_counts": {
+        "attempts": 1024,
+        "captures": 382,
+        "native_releases": 543,
+        "invalid": 481,
+        "clean": 120,
+        "mean_reward": 1.1680098147507798
+      },
+      "fingerprint": "464f9ed3fa107b6a012601d7c7912574061f9dc49c6f3ed5bece5f5ab1b4a4d5"
+    },
+    {
+      "version": "sircus-sweep-rl-benchmark-v1",
+      "method": "ppo",
+      "seed": 20261312,
+      "status": "completed",
+      "phase": "completed",
+      "contract_fingerprint": "ca781af94c6bb0fd44c8f15b88d72b4784be16dd258294785ac6338c1a4ee541",
+      "train_requests": 1024,
+      "train_native_releases": 545,
+      "updates": 32,
+      "curves": [
+        {
+          "method": "ppo",
+          "seed": 20261312,
+          "samples": 0,
+          "validation": {
+            "attempts": 36,
+            "captures": 16,
+            "native_releases": 21,
+            "invalid": 15,
+            "clean": 6,
+            "mean_reward": 1.5517924062426753
+          },
+          "resources": {
+            "wall_s": 0.7222658660029992,
+            "cpu_s": 0.9488758469999999,
+            "geometry_s": 0.0,
+            "gpu_s": 0.0,
+            "setup_s": 0.7222658660029992,
+            "evaluation_wall_s": 316.81233303504996,
+            "gpu_reservation_s": 317.53625779994763,
+            "native_init_s": 2.5968133660499007,
+            "peak_rss_mb": 1665.765625,
+            "peak_vram_mb": 762.0,
+            "torch_allocated_mb": 10.1552734375,
+            "torch_reserved_mb": 24.0,
+            "vram_samples": 74,
+            "vram_sampler_errors": 0
+          },
+          "artifact_sha256": "c4766ab35dd02a29dcb616633a4250c8673c8b337736080b6d863ef244c18d01"
+        },
+        {
+          "method": "ppo",
+          "seed": 20261312,
+          "samples": 256,
+          "validation": {
+            "attempts": 36,
+            "captures": 17,
+            "native_releases": 21,
+            "invalid": 15,
+            "clean": 6,
+            "mean_reward": 1.646608989017444
+          },
+          "resources": {
+            "wall_s": 973.016556465067,
+            "cpu_s": 1844.4604032419995,
+            "geometry_s": 13.504735583555885,
+            "gpu_s": 307.35979167802725,
+            "setup_s": 0.7222658660029992,
+            "evaluation_wall_s": 393.3676281600492,
+            "gpu_reservation_s": 1366.5949565939372,
+            "native_init_s": 2.5968133660499007,
+            "peak_rss_mb": 1730.33203125,
+            "peak_vram_mb": 762.0,
+            "torch_allocated_mb": 10.1552734375,
+            "torch_reserved_mb": 24.0,
+            "vram_samples": 1094,
+            "vram_sampler_errors": 0
+          },
+          "artifact_sha256": "9f9de2ecb4388036c3a25ede9329c83f53adad9832f91f8a244e98c0902fc216"
+        },
+        {
+          "method": "ppo",
+          "seed": 20261312,
+          "samples": 512,
+          "validation": {
+            "attempts": 36,
+            "captures": 17,
+            "native_releases": 21,
+            "invalid": 15,
+            "clean": 6,
+            "mean_reward": 1.6669801978573995
+          },
+          "resources": {
+            "wall_s": 1340.2761979332427,
+            "cpu_s": 2259.9889731949993,
+            "geometry_s": 19.243268463527784,
+            "gpu_s": 615.5223740439396,
+            "setup_s": 0.7222658660029992,
+            "evaluation_wall_s": 469.86321018694434,
+            "gpu_reservation_s": 1810.5677697949577,
+            "native_init_s": 2.5968133660499007,
+            "peak_rss_mb": 1730.33203125,
+            "peak_vram_mb": 762.0,
+            "torch_allocated_mb": 10.1552734375,
+            "torch_reserved_mb": 24.0,
+            "vram_samples": 1526,
+            "vram_sampler_errors": 0
+          },
+          "artifact_sha256": "116700df7abe6b983b389aceb107fce2c0f8e72b60bc94b78fd0540b88b3763e"
+        },
+        {
+          "method": "ppo",
+          "seed": 20261312,
+          "samples": 1024,
+          "validation": {
+            "attempts": 36,
+            "captures": 18,
+            "native_releases": 21,
+            "invalid": 15,
+            "clean": 5,
+            "mean_reward": 1.7477441683432144
+          },
+          "resources": {
+            "wall_s": 2063.342157561332,
+            "cpu_s": 3078.0822553060007,
+            "geometry_s": 29.1984787855763,
+            "gpu_s": 1230.7508120581042,
+            "setup_s": 0.7222658660029992,
+            "evaluation_wall_s": 546.9202069269959,
+            "gpu_reservation_s": 2611.1285350029357,
+            "native_init_s": 2.5968133660499007,
+            "peak_rss_mb": 1730.57421875,
+            "peak_vram_mb": 762.0,
+            "torch_allocated_mb": 10.68994140625,
+            "torch_reserved_mb": 24.0,
+            "vram_samples": 2305,
+            "vram_sampler_errors": 0
+          },
+          "artifact_sha256": "1a12bfd446efc2d6ec2fd4e44c762cec550d6cf17dab14080f4d863ce65b843d"
+        }
+      ],
+      "resources": {
+        "wall_s": 2063.342157561332,
+        "cpu_s": 3078.0822553060007,
+        "geometry_s": 29.1984787855763,
+        "gpu_s": 1230.7508120581042,
+        "setup_s": 0.7222658660029992,
+        "evaluation_wall_s": 1024.872135401005,
+        "gpu_reservation_s": 3089.081854942953,
+        "native_init_s": 2.5968133660499007,
+        "peak_rss_mb": 1738.32421875,
+        "peak_vram_mb": 762.0,
+        "torch_allocated_mb": 10.68994140625,
+        "torch_reserved_mb": 24.0,
+        "vram_samples": 2769,
+        "vram_sampler_errors": 0
+      },
+      "selected_samples": 1024,
+      "checkpoint_sha256": "1a12bfd446efc2d6ec2fd4e44c762cec550d6cf17dab14080f4d863ce65b843d",
+      "final_test": {
+        "method": "ppo",
+        "seed": 20261312,
+        "counts": {
+          "attempts": 72,
+          "captures": 19,
+          "native_releases": 36,
+          "invalid": 36,
+          "clean": 3,
+          "mean_reward": 0.6515118182545075
+        },
+        "frozen_artifact_sha256": "1a12bfd446efc2d6ec2fd4e44c762cec550d6cf17dab14080f4d863ce65b843d",
+        "query_s": 0.0035207479959353805,
+        "selected_samples": 1024,
+        "search_at_inference": false
+      },
+      "scope": "Warm-started restricted continuous five-parameter shot selection with the current fixed ball. Same 17 historical anchors for both methods. Prescribed held endpoints and sampled common-home/local paths; no grasp, driven motion, impact compliance, perception or physical validation.",
+      "updated_at": "2026-11-03T15:30:39.872782+00:00",
+      "queue": null,
+      "train_counts": {
+        "attempts": 1024,
+        "captures": 399,
+        "native_releases": 545,
+        "invalid": 479,
+        "clean": 132,
+        "mean_reward": 1.2333361240792793
+      },
+      "fingerprint": "713b6772cef8936927988626eb446ba15b4a9c52fff0e8f537a7768ff0938bea"
+    },
+    {
+      "version": "sircus-sweep-rl-benchmark-v1",
+      "method": "sweep",
+      "seed": 20261312,
+      "status": "completed",
+      "phase": "completed",
+      "contract_fingerprint": "ca781af94c6bb0fd44c8f15b88d72b4784be16dd258294785ac6338c1a4ee541",
+      "train_requests": 1024,
+      "train_native_releases": 469,
+      "updates": 0,
+      "curves": [
+        {
+          "method": "sweep",
+          "seed": 20261312,
+          "samples": 0,
+          "validation": {
+            "attempts": 36,
+            "captures": 16,
+            "native_releases": 21,
+            "invalid": 15,
+            "clean": 6,
+            "mean_reward": 1.5474891910493875
+          },
+          "resources": {
+            "wall_s": 0.2588246340164915,
+            "cpu_s": 0.48152907899999997,
+            "geometry_s": 0.0,
+            "gpu_s": 0.0,
+            "setup_s": 0.2588246340164915,
+            "evaluation_wall_s": 331.1481098619988,
+            "gpu_reservation_s": 331.40768882702105,
+            "native_init_s": 2.6323247079271823,
+            "peak_rss_mb": 1555.07421875,
+            "peak_vram_mb": 762.0,
+            "torch_allocated_mb": 10.1552734375,
+            "torch_reserved_mb": 24.0,
+            "vram_samples": 71,
+            "vram_sampler_errors": 0
+          },
+          "artifact_sha256": "3b9609c64cf715aa0163182e6292d220253c9c9bd350b036240597ccbce22e26"
+        },
+        {
+          "method": "sweep",
+          "seed": 20261312,
+          "samples": 256,
+          "validation": {
+            "attempts": 36,
+            "captures": 12,
+            "native_releases": 21,
+            "invalid": 15,
+            "clean": 1,
+            "mean_reward": 1.1758291713826743
+          },
+          "resources": {
+            "wall_s": 975.2712809619261,
+            "cpu_s": 1855.9146797839999,
+            "geometry_s": 13.779648441704921,
+            "gpu_s": 309.9544405359775,
+            "setup_s": 0.2588246340164915,
+            "evaluation_wall_s": 416.95530625700485,
+            "gpu_reservation_s": 1392.4334914709907,
+            "native_init_s": 2.6323247079271823,
+            "peak_rss_mb": 1618.37890625,
+            "peak_vram_mb": 762.0,
+            "torch_allocated_mb": 10.1552734375,
+            "torch_reserved_mb": 24.0,
+            "vram_samples": 1102,
+            "vram_sampler_errors": 0
+          },
+          "artifact_sha256": "eb6601aaaa152f2ae2276c802320d6fd55345901a8688fe776103239ad471aa1"
+        },
+        {
+          "method": "sweep",
+          "seed": 20261312,
+          "samples": 512,
+          "validation": {
+            "attempts": 36,
+            "captures": 15,
+            "native_releases": 21,
+            "invalid": 15,
+            "clean": 1,
+            "mean_reward": 1.4440164193676719
+          },
+          "resources": {
+            "wall_s": 1358.1767443208955,
+            "cpu_s": 2283.691954954,
+            "geometry_s": 18.65235786663834,
+            "gpu_s": 639.970991795999,
+            "setup_s": 0.2588246340164915,
+            "evaluation_wall_s": 494.9422918710625,
+            "gpu_reservation_s": 1853.5383686729474,
+            "native_init_s": 2.6323247079271823,
+            "peak_rss_mb": 1618.37890625,
+            "peak_vram_mb": 762.0,
+            "torch_allocated_mb": 10.1552734375,
+            "torch_reserved_mb": 24.0,
+            "vram_samples": 1551,
+            "vram_sampler_errors": 0
+          },
+          "artifact_sha256": "1b7a89a552501513cc1ae7341691e5ce7f170deb31340cdd0436183795c433ff"
+        },
+        {
+          "method": "sweep",
+          "seed": 20261312,
+          "samples": 1024,
+          "validation": {
+            "attempts": 36,
+            "captures": 15,
+            "native_releases": 18,
+            "invalid": 18,
+            "clean": 0,
+            "mean_reward": 1.2963848017604838
+          },
+          "resources": {
+            "wall_s": 2168.641521065263,
+            "cpu_s": 3220.102747593,
+            "geometry_s": 28.786065982771106,
+            "gpu_s": 1284.9637375521706,
+            "setup_s": 0.2588246340164915,
+            "evaluation_wall_s": 578.2737596450606,
+            "gpu_reservation_s": 2747.7700638530077,
+            "native_init_s": 2.6323247079271823,
+            "peak_rss_mb": 1618.37890625,
+            "peak_vram_mb": 762.0,
+            "torch_allocated_mb": 10.1552734375,
+            "torch_reserved_mb": 24.0,
+            "vram_samples": 2421,
+            "vram_sampler_errors": 0
+          },
+          "artifact_sha256": "77a54cf21d5e59562b870408eae48309b2b6d3bf71ce296c1aa5a30e0b995923"
+        }
+      ],
+      "resources": {
+        "wall_s": 2168.641521065263,
+        "cpu_s": 3220.102747593,
+        "geometry_s": 28.786065982771106,
+        "gpu_s": 1284.9637375521706,
+        "setup_s": 0.2588246340164915,
+        "evaluation_wall_s": 1041.2885001160903,
+        "gpu_reservation_s": 3210.786247018026,
+        "native_init_s": 2.6323247079271823,
+        "peak_rss_mb": 1622.38671875,
+        "peak_vram_mb": 762.0,
+        "torch_allocated_mb": 10.1552734375,
+        "torch_reserved_mb": 24.0,
+        "vram_samples": 2872,
+        "vram_sampler_errors": 0
+      },
+      "selected_samples": 0,
+      "checkpoint_sha256": "3b9609c64cf715aa0163182e6292d220253c9c9bd350b036240597ccbce22e26",
+      "final_test": {
+        "method": "sweep",
+        "seed": 20261312,
+        "counts": {
+          "attempts": 72,
+          "captures": 22,
+          "native_releases": 36,
+          "invalid": 36,
+          "clean": 3,
+          "mean_reward": 0.8317388747455818
+        },
+        "frozen_artifact_sha256": "3b9609c64cf715aa0163182e6292d220253c9c9bd350b036240597ccbce22e26",
+        "query_s": 0.15384368994273245,
+        "selected_samples": 0,
+        "search_at_inference": false
+      },
+      "scope": "Warm-started restricted continuous five-parameter shot selection with the current fixed ball. Same 17 historical anchors for both methods. Prescribed held endpoints and sampled common-home/local paths; no grasp, driven motion, impact compliance, perception or physical validation.",
+      "updated_at": "2026-11-03T16:24:16.302996+00:00",
+      "queue": null,
+      "train_counts": {
+        "attempts": 1024,
+        "captures": 286,
+        "native_releases": 469,
+        "invalid": 555,
+        "clean": 108,
+        "mean_reward": 0.6890327331790101
+      },
+      "fingerprint": "f70e852de0072e5951e20da40db01a504811429bde4ad56c2e93e3c99cda4893"
+    },
+    {
+      "version": "sircus-sweep-rl-benchmark-v1",
+      "method": "sweep",
+      "seed": 20261313,
+      "status": "completed",
+      "phase": "completed",
+      "contract_fingerprint": "ca781af94c6bb0fd44c8f15b88d72b4784be16dd258294785ac6338c1a4ee541",
+      "train_requests": 1024,
+      "train_native_releases": 452,
+      "updates": 0,
+      "curves": [
+        {
+          "method": "sweep",
+          "seed": 20261313,
+          "samples": 0,
+          "validation": {
+            "attempts": 36,
+            "captures": 16,
+            "native_releases": 21,
+            "invalid": 15,
+            "clean": 5,
+            "mean_reward": 1.5401738306178008
+          },
+          "resources": {
+            "wall_s": 0.252897558035329,
+            "cpu_s": 0.486487805,
+            "geometry_s": 0.0,
+            "gpu_s": 0.0,
+            "setup_s": 0.252897558035329,
+            "evaluation_wall_s": 329.45069112605415,
+            "gpu_reservation_s": 329.7042294549756,
+            "native_init_s": 2.5961589959915727,
+            "peak_rss_mb": 1563.796875,
+            "peak_vram_mb": 762.0,
+            "torch_allocated_mb": 10.1552734375,
+            "torch_reserved_mb": 24.0,
+            "vram_samples": 74,
+            "vram_sampler_errors": 0
+          },
+          "artifact_sha256": "917e3c00767258febb85ccaa9b051c06acd45729994f940c0f3cafb170e2d1da"
+        },
+        {
+          "method": "sweep",
+          "seed": 20261313,
+          "samples": 256,
+          "validation": {
+            "attempts": 36,
+            "captures": 14,
+            "native_releases": 21,
+            "invalid": 15,
+            "clean": 2,
+            "mean_reward": 1.3632217323890032
+          },
+          "resources": {
+            "wall_s": 946.4155604161788,
+            "cpu_s": 1799.679098989,
+            "geometry_s": 13.788131934823468,
+            "gpu_s": 311.78456315910444,
+            "setup_s": 0.252897558035329,
+            "evaluation_wall_s": 412.86737509199884,
+            "gpu_reservation_s": 1359.4907055459917,
+            "native_init_s": 2.5961589959915727,
+            "peak_rss_mb": 1625.63671875,
+            "peak_vram_mb": 762.0,
+            "torch_allocated_mb": 10.1552734375,
+            "torch_reserved_mb": 24.0,
+            "vram_samples": 1076,
+            "vram_sampler_errors": 0
+          },
+          "artifact_sha256": "c2e2595d99cba33e5a1e5d19fbf08069d8d8676f1fb20f636844cd9a407cfb6b"
+        },
+        {
+          "method": "sweep",
+          "seed": 20261313,
+          "samples": 512,
+          "validation": {
+            "attempts": 36,
+            "captures": 13,
+            "native_releases": 21,
+            "invalid": 15,
+            "clean": 1,
+            "mean_reward": 1.1719579824857282
+          },
+          "resources": {
+            "wall_s": 1317.5465825372376,
+            "cpu_s": 2214.059694451,
+            "geometry_s": 18.504356876714155,
+            "gpu_s": 629.7110083688749,
+            "setup_s": 0.252897558035329,
+            "evaluation_wall_s": 487.14839719003066,
+            "gpu_reservation_s": 1805.117621729034,
+            "native_init_s": 2.5961589959915727,
+            "peak_rss_mb": 1625.63671875,
+            "peak_vram_mb": 762.0,
+            "torch_allocated_mb": 10.1552734375,
+            "torch_reserved_mb": 24.0,
+            "vram_samples": 1510,
+            "vram_sampler_errors": 0
+          },
+          "artifact_sha256": "a589073e01f546cb08913ecb86cca622a5aed9c740ae01c1719d1c8de31b6dd9"
+        },
+        {
+          "method": "sweep",
+          "seed": 20261313,
+          "samples": 1024,
+          "validation": {
+            "attempts": 36,
+            "captures": 11,
+            "native_releases": 18,
+            "invalid": 18,
+            "clean": 1,
+            "mean_reward": 0.8288102718440347
+          },
+          "resources": {
+            "wall_s": 2066.5343175772578,
+            "cpu_s": 3051.7054598419995,
+            "geometry_s": 28.037181574036367,
+            "gpu_s": 1271.8362123878906,
+            "setup_s": 0.252897558035329,
+            "evaluation_wall_s": 561.4325293879956,
+            "gpu_reservation_s": 2628.80647366005,
+            "native_init_s": 2.5961589959915727,
+            "peak_rss_mb": 1625.63671875,
+            "peak_vram_mb": 762.0,
+            "torch_allocated_mb": 10.17724609375,
+            "torch_reserved_mb": 24.0,
+            "vram_samples": 2311,
+            "vram_sampler_errors": 0
+          },
+          "artifact_sha256": "5fc7b3c803d310ddf310ea79ecf0eeb0f4f01646f1180fbb1d150f4d0b2f6fd8"
+        }
+      ],
+      "resources": {
+        "wall_s": 2066.5343175772578,
+        "cpu_s": 3051.7054598419995,
+        "geometry_s": 28.037181574036367,
+        "gpu_s": 1271.8362123878906,
+        "setup_s": 0.252897558035329,
+        "evaluation_wall_s": 1018.4333009950351,
+        "gpu_reservation_s": 3085.808907120023,
+        "native_init_s": 2.5961589959915727,
+        "peak_rss_mb": 1631.2890625,
+        "peak_vram_mb": 762.0,
+        "torch_allocated_mb": 10.17724609375,
+        "torch_reserved_mb": 24.0,
+        "vram_samples": 2756,
+        "vram_sampler_errors": 0
+      },
+      "selected_samples": 0,
+      "checkpoint_sha256": "917e3c00767258febb85ccaa9b051c06acd45729994f940c0f3cafb170e2d1da",
+      "final_test": {
+        "method": "sweep",
+        "seed": 20261313,
+        "counts": {
+          "attempts": 72,
+          "captures": 21,
+          "native_releases": 36,
+          "invalid": 36,
+          "clean": 3,
+          "mean_reward": 0.7879567040030795
+        },
+        "frozen_artifact_sha256": "917e3c00767258febb85ccaa9b051c06acd45729994f940c0f3cafb170e2d1da",
+        "query_s": 0.004809578065760434,
+        "selected_samples": 0,
+        "search_at_inference": false
+      },
+      "scope": "Warm-started restricted continuous five-parameter shot selection with the current fixed ball. Same 17 historical anchors for both methods. Prescribed held endpoints and sampled common-home/local paths; no grasp, driven motion, impact compliance, perception or physical validation.",
+      "updated_at": "2026-11-03T17:15:46.606066+00:00",
+      "queue": null,
+      "train_counts": {
+        "attempts": 1024,
+        "captures": 292,
+        "native_releases": 452,
+        "invalid": 572,
+        "clean": 111,
+        "mean_reward": 0.683425828839054
+      },
+      "fingerprint": "7339e982306b0e9ab6c068fe210802422ee677e5619098e7a8f27f20c5850897"
+    },
+    {
+      "version": "sircus-sweep-rl-benchmark-v1",
+      "method": "ppo",
+      "seed": 20261313,
+      "status": "completed",
+      "phase": "completed",
+      "contract_fingerprint": "ca781af94c6bb0fd44c8f15b88d72b4784be16dd258294785ac6338c1a4ee541",
+      "train_requests": 1024,
+      "train_native_releases": 553,
+      "updates": 32,
+      "curves": [
+        {
+          "method": "ppo",
+          "seed": 20261313,
+          "samples": 0,
+          "validation": {
+            "attempts": 36,
+            "captures": 16,
+            "native_releases": 21,
+            "invalid": 15,
+            "clean": 6,
+            "mean_reward": 1.5508802260439236
+          },
+          "resources": {
+            "wall_s": 0.7428440400399268,
+            "cpu_s": 0.9733428129999999,
+            "geometry_s": 0.0,
+            "gpu_s": 0.0,
+            "setup_s": 0.7428440400399268,
+            "evaluation_wall_s": 315.39076921599917,
+            "gpu_reservation_s": 316.13524832506664,
+            "native_init_s": 2.634874366922304,
+            "peak_rss_mb": 1665.51953125,
+            "peak_vram_mb": 762.0,
+            "torch_allocated_mb": 10.1552734375,
+            "torch_reserved_mb": 24.0,
+            "vram_samples": 74,
+            "vram_sampler_errors": 0
+          },
+          "artifact_sha256": "556a7600b34ee0f60d2ec47498f9a9c2a67c894f48dc9b651ff6079f8d50b573"
+        },
+        {
+          "method": "ppo",
+          "seed": 20261313,
+          "samples": 256,
+          "validation": {
+            "attempts": 36,
+            "captures": 14,
+            "native_releases": 21,
+            "invalid": 15,
+            "clean": 5,
+            "mean_reward": 1.2795027369586631
+          },
+          "resources": {
+            "wall_s": 961.3899841919774,
+            "cpu_s": 1818.8663251209998,
+            "geometry_s": 13.600691844243556,
+            "gpu_s": 321.98823611205444,
+            "setup_s": 0.7428440400399268,
+            "evaluation_wall_s": 392.2032181409886,
+            "gpu_reservation_s": 1353.8227481590584,
+            "native_init_s": 2.634874366922304,
+            "peak_rss_mb": 1736.0546875,
+            "peak_vram_mb": 762.0,
+            "torch_allocated_mb": 10.1552734375,
+            "torch_reserved_mb": 24.0,
+            "vram_samples": 1083,
+            "vram_sampler_errors": 0
+          },
+          "artifact_sha256": "576bae4c95743e0319d9113ab86a5acace0f3a740fc9a433e6dd4ce18d47ef77"
+        },
+        {
+          "method": "ppo",
+          "seed": 20261313,
+          "samples": 512,
+          "validation": {
+            "attempts": 36,
+            "captures": 14,
+            "native_releases": 21,
+            "invalid": 15,
+            "clean": 4,
+            "mean_reward": 1.3270861960790388
+          },
+          "resources": {
+            "wall_s": 1352.0516054069158,
+            "cpu_s": 2267.682727191999,
+            "geometry_s": 18.652497923234478,
+            "gpu_s": 639.7276951980311,
+            "setup_s": 0.7428440400399268,
+            "evaluation_wall_s": 470.1475584070431,
+            "gpu_reservation_s": 1822.649403340998,
+            "native_init_s": 2.634874366922304,
+            "peak_rss_mb": 1736.0546875,
+            "peak_vram_mb": 762.0,
+            "torch_allocated_mb": 10.1552734375,
+            "torch_reserved_mb": 24.0,
+            "vram_samples": 1540,
+            "vram_sampler_errors": 0
+          },
+          "artifact_sha256": "53952bdbb2a4925657abd4a4f7fd42357e34b86e62fd5b025f0de5bb24998532"
+        },
+        {
+          "method": "ppo",
+          "seed": 20261313,
+          "samples": 1024,
+          "validation": {
+            "attempts": 36,
+            "captures": 15,
+            "native_releases": 21,
+            "invalid": 15,
+            "clean": 4,
+            "mean_reward": 1.4389011311872015
+          },
+          "resources": {
+            "wall_s": 2070.26917398104,
+            "cpu_s": 3066.4392586069985,
+            "geometry_s": 28.69472804130055,
+            "gpu_s": 1267.6782384039834,
+            "setup_s": 0.7428440400399268,
+            "evaluation_wall_s": 548.4634502950357,
+            "gpu_reservation_s": 2619.62397381803,
+            "native_init_s": 2.634874366922304,
+            "peak_rss_mb": 1736.0546875,
+            "peak_vram_mb": 762.0,
+            "torch_allocated_mb": 10.1552734375,
+            "torch_reserved_mb": 24.0,
+            "vram_samples": 2315,
+            "vram_sampler_errors": 0
+          },
+          "artifact_sha256": "4936f8d5d673e33b6e71b12aafda077e7b38f15756110e651492b4a6c6bc8cca"
+        }
+      ],
+      "resources": {
+        "wall_s": 2070.26917398104,
+        "cpu_s": 3066.4392586069985,
+        "geometry_s": 28.69472804130055,
+        "gpu_s": 1267.6782384039834,
+        "setup_s": 0.7428440400399268,
+        "evaluation_wall_s": 1012.2859803650063,
+        "gpu_reservation_s": 3083.449272142956,
+        "native_init_s": 2.634874366922304,
+        "peak_rss_mb": 1737.91015625,
+        "peak_vram_mb": 762.0,
+        "torch_allocated_mb": 10.1552734375,
+        "torch_reserved_mb": 24.0,
+        "vram_samples": 2767,
+        "vram_sampler_errors": 0
+      },
+      "selected_samples": 0,
+      "checkpoint_sha256": "556a7600b34ee0f60d2ec47498f9a9c2a67c894f48dc9b651ff6079f8d50b573",
+      "final_test": {
+        "method": "ppo",
+        "seed": 20261313,
+        "counts": {
+          "attempts": 72,
+          "captures": 23,
+          "native_releases": 36,
+          "invalid": 36,
+          "clean": 3,
+          "mean_reward": 0.8740716907556153
+        },
+        "frozen_artifact_sha256": "556a7600b34ee0f60d2ec47498f9a9c2a67c894f48dc9b651ff6079f8d50b573",
+        "query_s": 0.1862937839468941,
+        "selected_samples": 0,
+        "search_at_inference": false
+      },
+      "scope": "Warm-started restricted continuous five-parameter shot selection with the current fixed ball. Same 17 historical anchors for both methods. Prescribed held endpoints and sampled common-home/local paths; no grasp, driven motion, impact compliance, perception or physical validation.",
+      "updated_at": "2026-11-03T18:07:14.565570+00:00",
+      "queue": null,
+      "train_counts": {
+        "attempts": 1024,
+        "captures": 398,
+        "native_releases": 553,
+        "invalid": 471,
+        "clean": 128,
+        "mean_reward": 1.2306620484014894
+      },
+      "fingerprint": "255f4dccad0bd83d6817a91e9878a7c94dfba0bbe76cf41edb5fd3cfd88e2c93"
+    }
+  ],
+  "final_test": [
+    {
+      "method": "sweep",
+      "seed": 20261311,
+      "counts": {
+        "attempts": 72,
+        "captures": 24,
+        "native_releases": 36,
+        "invalid": 36,
+        "clean": 3,
+        "mean_reward": 0.9210623833732335
+      },
+      "frozen_artifact_sha256": "30a021cce487159aac738cbc9240d3dedebf2885945d5e5a30865d6865bf582b",
+      "query_s": 0.004119400982744992,
+      "selected_samples": 0,
+      "search_at_inference": false
+    },
+    {
+      "method": "ppo",
+      "seed": 20261311,
+      "counts": {
+        "attempts": 72,
+        "captures": 16,
+        "native_releases": 36,
+        "invalid": 36,
+        "clean": 6,
+        "mean_reward": 0.5428338674756299
+      },
+      "frozen_artifact_sha256": "65bd48fa001f541874230dc6f4db3a2c931a5f52acdd7744d884495682d69058",
+      "query_s": 0.0035366449737921357,
+      "selected_samples": 256,
+      "search_at_inference": false
+    },
+    {
+      "method": "ppo",
+      "seed": 20261312,
+      "counts": {
+        "attempts": 72,
+        "captures": 19,
+        "native_releases": 36,
+        "invalid": 36,
+        "clean": 3,
+        "mean_reward": 0.6515118182545075
+      },
+      "frozen_artifact_sha256": "1a12bfd446efc2d6ec2fd4e44c762cec550d6cf17dab14080f4d863ce65b843d",
+      "query_s": 0.0035207479959353805,
+      "selected_samples": 1024,
+      "search_at_inference": false
+    },
+    {
+      "method": "sweep",
+      "seed": 20261312,
+      "counts": {
+        "attempts": 72,
+        "captures": 22,
+        "native_releases": 36,
+        "invalid": 36,
+        "clean": 3,
+        "mean_reward": 0.8317388747455818
+      },
+      "frozen_artifact_sha256": "3b9609c64cf715aa0163182e6292d220253c9c9bd350b036240597ccbce22e26",
+      "query_s": 0.15384368994273245,
+      "selected_samples": 0,
+      "search_at_inference": false
+    },
+    {
+      "method": "sweep",
+      "seed": 20261313,
+      "counts": {
+        "attempts": 72,
+        "captures": 21,
+        "native_releases": 36,
+        "invalid": 36,
+        "clean": 3,
+        "mean_reward": 0.7879567040030795
+      },
+      "frozen_artifact_sha256": "917e3c00767258febb85ccaa9b051c06acd45729994f940c0f3cafb170e2d1da",
+      "query_s": 0.004809578065760434,
+      "selected_samples": 0,
+      "search_at_inference": false
+    },
+    {
+      "method": "ppo",
+      "seed": 20261313,
+      "counts": {
+        "attempts": 72,
+        "captures": 23,
+        "native_releases": 36,
+        "invalid": 36,
+        "clean": 3,
+        "mean_reward": 0.8740716907556153
+      },
+      "frozen_artifact_sha256": "556a7600b34ee0f60d2ec47498f9a9c2a67c894f48dc9b651ff6079f8d50b573",
+      "query_s": 0.1862937839468941,
+      "selected_samples": 0,
+      "search_at_inference": false
+    }
+  ],
+  "scope": "Warm-started restricted continuous five-parameter shot selection with the current fixed ball. Same 17 historical anchors for both methods. Prescribed held endpoints and sampled common-home/local paths; no grasp, driven motion, impact compliance, perception or physical validation.",
+  "updated_at": "2026-11-03T18:07:16.109539+00:00",
+  "fingerprint": "b7b178538275213350de7a2b6af60c7537b7ee4ca4b6c5be0a378d78b58730ab"
+}
