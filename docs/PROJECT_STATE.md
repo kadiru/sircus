@@ -1,5 +1,19 @@
 # Project state
 
+## Table-bounce starting shots — November 13, 2026
+
+- The same frozen table specialist tried the original and expanded shot
+  libraries on 50 fresh positions. Each library received four candidate
+  slots and at most one drop per position. The expansion added 154
+  verified table shots and increased source coverage from 15 to 22
+  positions. [Protocol and results](MJLAB_TABLE_SHOT_LIBRARY.md).
+- Feasible setups rose **23/50 → 25/50** and table captures rose
+  **10/50 → 13/50**. The expansion gained four capture positions and lost
+  one. The paired capture difference was six percentage points on this
+  split. Both control sets passed, and the independent audit passed
+  27,966 checks. The study used the 4090 and left the 4070 and Isaac alone.
+  [Draft PR #129](https://github.com/kadiru/sircus/pull/129).
+
 ## Matched bounce model refit — November 13, 2026
 
 - [Protocol and audited results](MJLAB_ROUTE_REFIT.md): retrained the pooled,
