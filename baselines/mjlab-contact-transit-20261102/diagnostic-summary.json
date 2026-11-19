@@ -1,0 +1,453 @@
+{
+  "status": "completed",
+  "version": "sircus-contact-repeatability-study-v1",
+  "source_id": "stable-shot-0004711",
+  "contract_fingerprint": "192ab00f7789d24c08e4664a10817d4d4efc3d6eb98f213ba59002555a188942",
+  "groups": [
+    {
+      "id": "articulated-legacy-8",
+      "board_mode": "articulated",
+      "gravity_mode": "legacy",
+      "substeps": 8,
+      "attempts": 112,
+      "captures": 81,
+      "family_results": [
+        {
+          "family": "nominal",
+          "attempts": 32,
+          "released": 32,
+          "captures": 32,
+          "clean": 32,
+          "board_bounces": 32,
+          "invalid": 0,
+          "max_integrated_joint_excursion_rad": 7.462501525878906e-05,
+          "peak_joint_velocity_rad_s": 0.143489807844162
+        },
+        {
+          "family": "original_final_development",
+          "attempts": 40,
+          "released": 40,
+          "captures": 26,
+          "clean": 4,
+          "board_bounces": 40,
+          "invalid": 0,
+          "max_integrated_joint_excursion_rad": 9.369850158691406e-05,
+          "peak_joint_velocity_rad_s": 0.17991600930690765
+        },
+        {
+          "family": "fresh_perturbation",
+          "attempts": 40,
+          "released": 40,
+          "captures": 23,
+          "clean": 0,
+          "board_bounces": 40,
+          "invalid": 0,
+          "max_integrated_joint_excursion_rad": 9.489059448242188e-05,
+          "peak_joint_velocity_rad_s": 0.18218648433685303
+        }
+      ],
+      "reset_order": {
+        "max_position_difference_m": 1.532033920288086,
+        "identical_trajectories": 9,
+        "queries": 56,
+        "capture_disagreements": 1
+      }
+    },
+    {
+      "id": "articulated-legacy-16",
+      "board_mode": "articulated",
+      "gravity_mode": "legacy",
+      "substeps": 16,
+      "attempts": 112,
+      "captures": 112,
+      "family_results": [
+        {
+          "family": "nominal",
+          "attempts": 32,
+          "released": 32,
+          "captures": 32,
+          "clean": 0,
+          "board_bounces": 32,
+          "invalid": 0,
+          "max_integrated_joint_excursion_rad": 2.288818359375e-05,
+          "peak_joint_velocity_rad_s": 0.08766599744558334
+        },
+        {
+          "family": "original_final_development",
+          "attempts": 40,
+          "released": 40,
+          "captures": 40,
+          "clean": 8,
+          "board_bounces": 40,
+          "invalid": 0,
+          "max_integrated_joint_excursion_rad": 2.3484230041503906e-05,
+          "peak_joint_velocity_rad_s": 0.09015747159719467
+        },
+        {
+          "family": "fresh_perturbation",
+          "attempts": 40,
+          "released": 40,
+          "captures": 40,
+          "clean": 8,
+          "board_bounces": 40,
+          "invalid": 0,
+          "max_integrated_joint_excursion_rad": 2.3603439331054688e-05,
+          "peak_joint_velocity_rad_s": 0.09045420587062836
+        }
+      ],
+      "reset_order": {
+        "max_position_difference_m": 0.07269853353500366,
+        "identical_trajectories": 3,
+        "queries": 56,
+        "capture_disagreements": 0
+      }
+    },
+    {
+      "id": "articulated-legacy-32",
+      "board_mode": "articulated",
+      "gravity_mode": "legacy",
+      "substeps": 32,
+      "attempts": 112,
+      "captures": 112,
+      "family_results": [
+        {
+          "family": "nominal",
+          "attempts": 32,
+          "released": 32,
+          "captures": 32,
+          "clean": 0,
+          "board_bounces": 32,
+          "invalid": 0,
+          "max_integrated_joint_excursion_rad": 7.271766662597656e-06,
+          "peak_joint_velocity_rad_s": 0.05593905970454216
+        },
+        {
+          "family": "original_final_development",
+          "attempts": 40,
+          "released": 40,
+          "captures": 40,
+          "clean": 0,
+          "board_bounces": 40,
+          "invalid": 0,
+          "max_integrated_joint_excursion_rad": 7.748603820800781e-06,
+          "peak_joint_velocity_rad_s": 0.059646762907505035
+        },
+        {
+          "family": "fresh_perturbation",
+          "attempts": 40,
+          "released": 40,
+          "captures": 40,
+          "clean": 0,
+          "board_bounces": 40,
+          "invalid": 0,
+          "max_integrated_joint_excursion_rad": 7.748603820800781e-06,
+          "peak_joint_velocity_rad_s": 0.059176232665777206
+        }
+      ],
+      "reset_order": {
+        "max_position_difference_m": 0.07109642028808594,
+        "identical_trajectories": 1,
+        "queries": 56,
+        "capture_disagreements": 0
+      }
+    },
+    {
+      "id": "articulated-passive_only-8",
+      "board_mode": "articulated",
+      "gravity_mode": "passive_only",
+      "substeps": 8,
+      "attempts": 112,
+      "captures": 79,
+      "family_results": [
+        {
+          "family": "nominal",
+          "attempts": 32,
+          "released": 32,
+          "captures": 32,
+          "clean": 0,
+          "board_bounces": 32,
+          "invalid": 0,
+          "max_integrated_joint_excursion_rad": 7.033348083496094e-05,
+          "peak_joint_velocity_rad_s": 0.1350710690021515
+        },
+        {
+          "family": "original_final_development",
+          "attempts": 40,
+          "released": 40,
+          "captures": 23,
+          "clean": 8,
+          "board_bounces": 40,
+          "invalid": 0,
+          "max_integrated_joint_excursion_rad": 8.916854858398438e-05,
+          "peak_joint_velocity_rad_s": 0.1712072491645813
+        },
+        {
+          "family": "fresh_perturbation",
+          "attempts": 40,
+          "released": 40,
+          "captures": 24,
+          "clean": 10,
+          "board_bounces": 40,
+          "invalid": 0,
+          "max_integrated_joint_excursion_rad": 9.036064147949219e-05,
+          "peak_joint_velocity_rad_s": 0.173357293009758
+        }
+      ],
+      "reset_order": {
+        "max_position_difference_m": 0.5504913330078125,
+        "identical_trajectories": 14,
+        "queries": 56,
+        "capture_disagreements": 1
+      }
+    },
+    {
+      "id": "articulated-passive_only-16",
+      "board_mode": "articulated",
+      "gravity_mode": "passive_only",
+      "substeps": 16,
+      "attempts": 112,
+      "captures": 112,
+      "family_results": [
+        {
+          "family": "nominal",
+          "attempts": 32,
+          "released": 32,
+          "captures": 32,
+          "clean": 0,
+          "board_bounces": 32,
+          "invalid": 0,
+          "max_integrated_joint_excursion_rad": 2.300739288330078e-05,
+          "peak_joint_velocity_rad_s": 0.0883369892835617
+        },
+        {
+          "family": "original_final_development",
+          "attempts": 40,
+          "released": 40,
+          "captures": 40,
+          "clean": 8,
+          "board_bounces": 40,
+          "invalid": 0,
+          "max_integrated_joint_excursion_rad": 2.3603439331054688e-05,
+          "peak_joint_velocity_rad_s": 0.09071207046508789
+        },
+        {
+          "family": "fresh_perturbation",
+          "attempts": 40,
+          "released": 40,
+          "captures": 40,
+          "clean": 10,
+          "board_bounces": 40,
+          "invalid": 0,
+          "max_integrated_joint_excursion_rad": 2.372264862060547e-05,
+          "peak_joint_velocity_rad_s": 0.09103776514530182
+        }
+      ],
+      "reset_order": {
+        "max_position_difference_m": 0.07280990481376648,
+        "identical_trajectories": 6,
+        "queries": 56,
+        "capture_disagreements": 0
+      }
+    },
+    {
+      "id": "articulated-passive_only-32",
+      "board_mode": "articulated",
+      "gravity_mode": "passive_only",
+      "substeps": 32,
+      "attempts": 112,
+      "captures": 112,
+      "family_results": [
+        {
+          "family": "nominal",
+          "attempts": 32,
+          "released": 32,
+          "captures": 32,
+          "clean": 0,
+          "board_bounces": 32,
+          "invalid": 0,
+          "max_integrated_joint_excursion_rad": 7.3909759521484375e-06,
+          "peak_joint_velocity_rad_s": 0.05638541653752327
+        },
+        {
+          "family": "original_final_development",
+          "attempts": 40,
+          "released": 40,
+          "captures": 40,
+          "clean": 0,
+          "board_bounces": 40,
+          "invalid": 0,
+          "max_integrated_joint_excursion_rad": 7.867813110351562e-06,
+          "peak_joint_velocity_rad_s": 0.06001945957541466
+        },
+        {
+          "family": "fresh_perturbation",
+          "attempts": 40,
+          "released": 40,
+          "captures": 40,
+          "clean": 0,
+          "board_bounces": 40,
+          "invalid": 0,
+          "max_integrated_joint_excursion_rad": 7.748603820800781e-06,
+          "peak_joint_velocity_rad_s": 0.059640947729349136
+        }
+      ],
+      "reset_order": {
+        "max_position_difference_m": 0.07364493608474731,
+        "identical_trajectories": 4,
+        "queries": 56,
+        "capture_disagreements": 0
+      }
+    },
+    {
+      "id": "kinematic-passive_only-8",
+      "board_mode": "kinematic",
+      "gravity_mode": "passive_only",
+      "substeps": 8,
+      "attempts": 112,
+      "captures": 80,
+      "family_results": [
+        {
+          "family": "nominal",
+          "attempts": 32,
+          "released": 32,
+          "captures": 32,
+          "clean": 32,
+          "board_bounces": 32,
+          "invalid": 0,
+          "max_integrated_joint_excursion_rad": 2.8421709430404007e-11,
+          "peak_joint_velocity_rad_s": 5.411191636994772e-07
+        },
+        {
+          "family": "original_final_development",
+          "attempts": 40,
+          "released": 40,
+          "captures": 28,
+          "clean": 4,
+          "board_bounces": 40,
+          "invalid": 0,
+          "max_integrated_joint_excursion_rad": 3.069544618483633e-11,
+          "peak_joint_velocity_rad_s": 1.1762273288695724e-06
+        },
+        {
+          "family": "fresh_perturbation",
+          "attempts": 40,
+          "released": 40,
+          "captures": 20,
+          "clean": 8,
+          "board_bounces": 40,
+          "invalid": 0,
+          "max_integrated_joint_excursion_rad": 3.2741809263825417e-11,
+          "peak_joint_velocity_rad_s": 1.2137513749621576e-06
+        }
+      ],
+      "reset_order": {
+        "max_position_difference_m": 0.31826019287109375,
+        "identical_trajectories": 33,
+        "queries": 56,
+        "capture_disagreements": 0
+      }
+    },
+    {
+      "id": "kinematic-passive_only-16",
+      "board_mode": "kinematic",
+      "gravity_mode": "passive_only",
+      "substeps": 16,
+      "attempts": 112,
+      "captures": 109,
+      "family_results": [
+        {
+          "family": "nominal",
+          "attempts": 32,
+          "released": 32,
+          "captures": 32,
+          "clean": 0,
+          "board_bounces": 32,
+          "invalid": 0,
+          "max_integrated_joint_excursion_rad": 1.3415046851150692e-11,
+          "peak_joint_velocity_rad_s": 4.6894263050489826e-07
+        },
+        {
+          "family": "original_final_development",
+          "attempts": 40,
+          "released": 40,
+          "captures": 37,
+          "clean": 6,
+          "board_bounces": 40,
+          "invalid": 0,
+          "max_integrated_joint_excursion_rad": 1.5006662579253316e-11,
+          "peak_joint_velocity_rad_s": 1.1696740784827853e-06
+        },
+        {
+          "family": "fresh_perturbation",
+          "attempts": 40,
+          "released": 40,
+          "captures": 40,
+          "clean": 4,
+          "board_bounces": 40,
+          "invalid": 0,
+          "max_integrated_joint_excursion_rad": 1.5688783605583012e-11,
+          "peak_joint_velocity_rad_s": 1.206970068778901e-06
+        }
+      ],
+      "reset_order": {
+        "max_position_difference_m": 0.06923341751098633,
+        "identical_trajectories": 37,
+        "queries": 56,
+        "capture_disagreements": 1
+      }
+    },
+    {
+      "id": "kinematic-passive_only-32",
+      "board_mode": "kinematic",
+      "gravity_mode": "passive_only",
+      "substeps": 32,
+      "attempts": 112,
+      "captures": 112,
+      "family_results": [
+        {
+          "family": "nominal",
+          "attempts": 32,
+          "released": 32,
+          "captures": 32,
+          "clean": 0,
+          "board_bounces": 32,
+          "invalid": 0,
+          "max_integrated_joint_excursion_rad": 5.4569682106375694e-12,
+          "peak_joint_velocity_rad_s": 4.008744269867748e-07
+        },
+        {
+          "family": "original_final_development",
+          "attempts": 40,
+          "released": 40,
+          "captures": 40,
+          "clean": 0,
+          "board_bounces": 40,
+          "invalid": 0,
+          "max_integrated_joint_excursion_rad": 6.59383658785373e-12,
+          "peak_joint_velocity_rad_s": 1.1565412023628596e-06
+        },
+        {
+          "family": "fresh_perturbation",
+          "attempts": 40,
+          "released": 40,
+          "captures": 40,
+          "clean": 0,
+          "board_bounces": 40,
+          "invalid": 0,
+          "max_integrated_joint_excursion_rad": 6.59383658785373e-12,
+          "peak_joint_velocity_rad_s": 1.193384832731681e-06
+        }
+      ],
+      "reset_order": {
+        "max_position_difference_m": 0.05243876576423645,
+        "identical_trajectories": 38,
+        "queries": 56,
+        "capture_disagreements": 0
+      }
+    }
+  ],
+  "records": 1008,
+  "scope": "Finite paired development diagnosis, not training, teacher promotion or untouched validation",
+  "elapsed_s": 144.86326250608545,
+  "source_report_sha256": "75a43cf1aadf945265e16544e2fa479cb7ef506ee596e9abbc6c44931cde8cbc"
+}

@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from '/vendor/OrbitControls.js';
+import { contactStudy, contactGroups, contactConfigurations, transitRoutes, routePreview, configurationsCsv } from '/state.mjs';
 import { studyReady, buildRequest, methodLabel, coverageRows, finiteVector, friendlyError, coverageSummary, comparisonRows, learningPoints, inStudiedRegion, BOARD_BODY_SIZE, bankComparisonRows, policyRouteLabel, poseInputValues, bankCoverageRows, bankCoverageStatus, formatMetric, solveButtonState, expansionTargetRows, expansionProgress, expandedComparisonRows, stableIkProgress, stableIkTargets, stableIkAuditRows, stableIkControlRows } from '/state.mjs';
 
 const $ = id => document.getElementById(id);
@@ -64,6 +65,7 @@ bucket.castShadow = bucket.receiveShadow = true; bucketGroup.add(bucket);
 const bucketBase = new THREE.Mesh(new THREE.CylinderGeometry(.079, .079, .008, 64), material(0xd39a3e));
 bucketBase.rotation.x = Math.PI / 2; bucketBase.position.z = .004; bucketGroup.add(bucketBase);
 let sceneSpec = {}, report = {}, pending = false, activeRequest = null, currentTrajectory = [], playTime = 0, playing = false, pathLine;
+let transitFrames = [], transitTime = 0, transitName = "";
 let bucketXY = [.65, -.4];
 const armGroups = [new THREE.Group(), new THREE.Group()]; armGroups.forEach(g => world.add(g));
 function armLinks(points, group, color) {
@@ -100,6 +102,7 @@ function setBucket(xy, updateInputs = true) {
 setBucket(bucketXY); drawArms();
 function clearResult(message) {
   $('sceneOutcome').textContent = message; $('sceneOutcome').className = 'scene-outcome';
+  transitFrames = []; ball.visible = true;
   playing = false; currentTrajectory = []; $('play').disabled = true; $('timeline').disabled = true;
   if (pathLine) { world.remove(pathLine); pathLine.geometry.dispose(); pathLine.material.dispose(); pathLine = null; }
   $('resultTitle').textContent = message;
@@ -344,6 +347,65 @@ function showExpansion() {
   drawChart($('expansionCaptureChart'), points, 'captures');
   drawChart($('expansionRewardChart'), points, 'reward', true);
 }
+function showContactStudy() {
+  const study = contactStudy(report);
+  $('contactRepeatability').hidden = !study;
+  if (!study) return;
+  const shown = value => value === null || value === undefined ? '—' : value;
+  const mm = value => Number.isFinite(value) ? (1000 * value).toFixed(2) : '—';
+  const fraction = row => row.attempts !== null && row.captures !== null ? `${row.captures} / ${row.attempts}` : '—';
+  $('contactStatus').textContent = `${study.version ?? 'Contact study'} · ${study.status ?? 'pending'}`;
+  $('contactConclusion').textContent = study.conclusion ?? 'Investigating numerical repeatability before more training. Previous policy remains active.';
+  const diagnosis = (study.diagnosis ?? []).filter(value => typeof value === 'string');
+  $('contactDiagnosis').replaceChildren(...diagnosis.map(value => { const li = document.createElement('li'); li.textContent = value; return li; }));
+  addMetrics([['Previous perturbed confirmation', '13 / 20'], ['New training updates', 0],
+    ['New native throws', shown(study.total_attempts)], ['Independent audit', study.verification?.status ?? 'Pending']], $('contactSummary'));
+  const groups = contactGroups(report);
+  const cells = row => [
+    row.label ?? row.id, fraction(row), shown(row.clean), shown(row.invalid),
+    Number.isFinite(row.max_joint_excursion_rad) ? `${row.max_joint_excursion_rad.toExponential(2)} rad` : '—',
+  ];
+  const headers = ['Protocol / group', 'Captures / attempts', 'Clean', 'Invalid', 'Max hinge excursion'];
+  const fresh = groups.filter(row => row.stage === 'confirmation' && row.family === 'fresh_perturbation');
+  if (fresh.length) expansionTable($('contactFreshGroups'), headers, fresh.map(cells));
+  else $('contactFreshGroups').textContent = 'Fresh confirmation is pending.';
+  if (groups.length) expansionTable($('contactGroups'), headers, groups.map(cells));
+  else $('contactGroups').textContent = 'Controlled contact comparisons are pending.';
+  const configurations = contactConfigurations(report);
+  $('contactDownload').disabled = !configurations.length;
+  // Keep the page compact; the CSV includes every distinct tested pose.
+  if (configurations.length) expansionTable($('contactConfigurations'), ['Configuration', 'Board X / Y / H (mm)', 'Tilt', 'Gap / release H (mm)', 'Bucket X / Y (mm)', 'Distance (mm)'], configurations.slice(0, 8).map(row => [
+    row.id, row.board_xyz_m.map(mm).join(' / '), `${row.tilt_deg.toFixed(3)}°`,
+    `${mm(row.drop_gap_m)} / ${mm(row.release_center_m[2])}`, row.bucket_xy_m.map(mm).join(' / '),
+    mm(Math.hypot(row.board_xyz_m[0] - row.bucket_xy_m[0], row.board_xyz_m[1] - row.bucket_xy_m[1])),
+  ]));
+  else $('contactConfigurations').textContent = 'Exact tested poses will be listed after capture.';
+  $('contactDownload').onclick = () => {
+    const url = URL.createObjectURL(new Blob([configurationsCsv(report)], { type: 'text/csv;charset=utf-8' }));
+    const link = document.createElement('a'); link.href = url; link.download = 'sircus-contact-configurations.csv'; link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  };
+  const transit = study.transit ?? {}, routes = transitRoutes(report);
+  $('transitScope').textContent = transit.scope ?? 'Transit verification pending; endpoint IK alone does not validate the route.';
+  if (routes.length) expansionTable($('contactTransit'), [`Route · first ${Math.min(5, routes.length)} of ${routes.length}`, 'Geometric audit', 'Samples', 'Clearance lower bound', 'Reason / scope'], routes.slice(0,5).map(row => [
+    row.id, row.accepted === true ? 'Passed' : row.accepted === false ? 'Rejected' : 'Pending', shown(row.path_samples),
+    Number.isFinite(row.min_clearance_mm) ? `${row.min_clearance_mm.toFixed(2)} mm` : '—', row.reason ?? '',
+  ]));
+  else $('contactTransit').textContent = 'No transit path has passed yet.';
+  $('transitPreviews').replaceChildren(...routes.filter(row => routePreview(row).length).map(row => {
+    const button = document.createElement('button'); button.className = 'quiet'; button.textContent = `Preview ${row.id}`;
+    button.onclick = () => {
+      if (pending) return;
+      clearResult('Sampled FK route · geometric audit only');
+      transitFrames = routePreview(row); transitTime = transitFrames[0].time; transitName = row.id;
+      if (Array.isArray(row.bucket_xy_m)) setBucket(row.bucket_xy_m);
+      ball.visible = false;
+      $('sceneOutcome').textContent = `Audited transit ${row.id} · geometric preview`;
+      $('world').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
+    return button;
+  }));
+}
 function showStableIk() {
   const progress = stableIkProgress(report);
   $('ikStability').hidden = !progress;
@@ -423,7 +485,7 @@ function showCoverage() {
   if (evaluation.layouts !== undefined) pairs.push(['Frozen test layouts', evaluation.layouts]);
   if (pairs.length) addMetrics(pairs, $('studySummary'));
   else $('studySummary').textContent = report.summary ?? 'Study metrics will appear when published. Unresolved cells remain visible.';
-  showComparison(); showBankComparison(); showExpansion(); showStableIk();
+  showComparison(); showBankComparison(); showExpansion(); showStableIk(); showContactStudy();
 }
 async function loadStatus() {
   try {
@@ -460,6 +522,18 @@ function animate(now) {
     ball.position.fromArray(a.ball).lerp(new THREE.Vector3(...b.ball), f);
     $('timeline').value = end === start ? 0 : (playTime - start) / (end - start) * 1000;
     $('replayTime').textContent = `${playTime.toFixed(2)} s`; $('play').textContent = playing ? 'Ⅱ Pause' : '▶ Replay';
+  }
+  if (transitFrames.length) {
+    transitTime = Math.min(transitFrames.at(-1).time, transitTime + dt);
+    let i = 0; while (i < transitFrames.length - 1 && transitFrames[i + 1].time <= transitTime) i++;
+    const frame = transitFrames[i];
+    board.position.fromArray(frame.board_center);
+    if (finiteVector(frame.ball_center_m, 3)) { ball.visible = true; ball.position.fromArray(frame.ball_center_m); }
+    const q = frame.board_quaternion_wxyz; board.quaternion.set(q[1], q[2], q[3], q[0]);
+    drawArms(frame);
+    $('geometryLabel').textContent = `Sampled native FK · ${frame.phase ?? transitName} · geometric audit only`;
+    $('replayTime').textContent = `${transitTime.toFixed(2)} s`;
+    if (transitTime >= transitFrames.at(-1).time) { transitFrames = []; ball.visible = true; }
   }
   renderer.render(world, camera);
 }

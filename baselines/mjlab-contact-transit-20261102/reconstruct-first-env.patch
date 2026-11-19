@@ -1,0 +1,15 @@
+--- a/sircus/mjlab/contact_env.py
++++ b/sircus/mjlab/contact_env.py
+@@ -26,2 +26,2 @@
+-        if substeps not in (8, 16, 32, 64):
+-            raise ValueError("Controlled substeps must be 8,16,32,64")
++        if substeps not in (8, 16, 32):
++            raise ValueError("Controlled substeps must be 8,16,32")
+@@ -53,2 +52,0 @@
+-        self.arm_q=self.q10+self.q14
+-        self.arm_v=[int(m.jnt_dofadr[joint(f"Arm{role}/joint{k}")]) for role in (10,14) for k in range(1,7)]
+@@ -157,2 +155,2 @@
+-                excursion=torch.maximum(excursion,(sim.data.qpos[:,self.arm_q]-qt[:,self.arm_q]).abs().amax(1))
+-                peak_joint_velocity=torch.maximum(peak_joint_velocity,sim.data.qvel[:,self.arm_v].abs().amax(1))
++                excursion=torch.maximum(excursion,(sim.data.qpos[:,:self.ball_q]-qt[:,:self.ball_q]).abs().amax(1))
++                peak_joint_velocity=torch.maximum(peak_joint_velocity,sim.data.qvel[:,:self.ball_v].abs().amax(1))
