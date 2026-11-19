@@ -25,6 +25,8 @@ parser.add_argument("--validation-layouts", type=int, default=0)
 parser.add_argument("--validation-seed", type=int, default=20261031)
 parser.add_argument("--shot-catalogue", action="store_true")
 parser.add_argument("--distance-catalogue", action="store_true")
+parser.add_argument("--bucket-grid", action="store_true")
+parser.add_argument("--bucket-grid-smoke", action="store_true")
 parser.add_argument("--catalogue-probe-only", action="store_true")
 parser.add_argument(
     "--catalogue-confirm-source",
@@ -54,6 +56,17 @@ parser.add_argument(
 )
 AppLauncher.add_app_launcher_args(parser)
 args = parser.parse_args()
+if args.bucket_grid_smoke and not args.bucket_grid:
+    parser.error("Grid smoke requires --bucket-grid")
+if args.bucket_grid:
+    if (
+        args.distance_catalogue
+        or args.shot_catalogue
+        or args.catalogue_probe_only
+        or args.catalogue_confirm_source
+    ):
+        parser.error("Bucket grid requires its own run")
+    args.shot_catalogue = True
 if args.distance_catalogue:
     if (
         args.shot_catalogue
@@ -203,6 +216,11 @@ def main():
     table = cfg["table"]
     table_cfg = sim_utils.CuboidCfg(
         size=tuple(table["size_m"]),
+        rigid_props=sim_utils.RigidBodyPropertiesCfg(
+            kinematic_enabled=True, disable_gravity=True
+        )
+        if args.bucket_grid
+        else None,
         collision_props=sim_utils.CollisionPropertiesCfg(),
         visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.23, 0.31, 0.34)),
     )
@@ -210,6 +228,11 @@ def main():
     # A floor below the table catches misses; not a substitute for bucket scoring.
     floor = sim_utils.CuboidCfg(
         size=(4, 4, 0.05),
+        rigid_props=sim_utils.RigidBodyPropertiesCfg(
+            kinematic_enabled=True, disable_gravity=True
+        )
+        if args.bucket_grid
+        else None,
         collision_props=sim_utils.CollisionPropertiesCfg(),
         visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.11, 0.13, 0.17)),
     )
@@ -361,12 +384,24 @@ def main():
     if args.rl_episodes:
         from isaaclab.sensors import ContactSensor, ContactSensorCfg
 
+        filters = ["/World/Arm14/impact_board"] + (
+            ["/World/Bucket"] if args.shot_catalogue else []
+        )
+        if args.bucket_grid:
+            filters += ["/World/Table", "/World/Floor"]
+            filters += sorted(
+                str(p.GetPath())
+                for p in stage.Traverse()
+                if p.HasAPI(UsdPhysics.RigidBodyAPI)
+                and str(p.GetPath()).startswith(("/World/Arm10/", "/World/Arm14/"))
+                and str(p.GetPath()) != "/World/Arm14/impact_board"
+            )
+            sim._sircus_grid_filters = filters
         contact = ContactSensor(
             ContactSensorCfg(
                 prim_path="/World/Ball",
                 update_period=0.0,
-                filter_prim_paths_expr=["/World/Arm14/impact_board"]
-                + (["/World/Bucket"] if args.shot_catalogue else []),
+                filter_prim_paths_expr=filters,
             )
         )
     sim.reset()
@@ -389,7 +424,9 @@ def main():
         run(sim, arms, ball, camera, cfg, poses, args, atomic_json)
         return 0
     if args.shot_catalogue:
-        if args.distance_catalogue:
+        if args.bucket_grid:
+            from bucket_grid import run
+        elif args.distance_catalogue:
             from distance_catalogue import run
         elif args.catalogue_confirm_source:
             from catalogue_confirmation import run

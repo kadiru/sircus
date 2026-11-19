@@ -1,0 +1,10 @@
+bucket_x_mm,bucket_y_mm,distance_mm,status,board_height_mm,tilt_deg,gap_mm,ball_bottom_Z_mm,fresh_trials,route_captures,single_bounce_captures,clean,assisted,historical_captures,invalid,run,fingerprint
+470.0,-400.0,360.56,completed,350.0,24,240.0,590.0,30,30,30,28,2,30,0,bucket-grid-20261101T193317Z,a70d7f581bdbb922b285b08f8ef1e43d1276d84be25a2a80ebd275cac9d854da
+670.0,-400.0,300.0,completed,350.0,24,200.0,550.0,30,30,30,29,1,30,0,bucket-grid-20261101T193317Z,a70d7f581bdbb922b285b08f8ef1e43d1276d84be25a2a80ebd275cac9d854da
+870.0,-400.0,360.56,completed,350.0,24,240.0,590.0,30,30,30,29,1,30,0,bucket-grid-20261101T193317Z,a70d7f581bdbb922b285b08f8ef1e43d1276d84be25a2a80ebd275cac9d854da
+470.0,-550.0,492.44,no_route_setting_found,,,,,,,,,,,,bucket-grid-20261101T193317Z,a70d7f581bdbb922b285b08f8ef1e43d1276d84be25a2a80ebd275cac9d854da
+670.0,-550.0,450.0,completed,350.0,30,240.0,590.0,30,18,18,0,18,18,0,bucket-grid-20261101T193317Z,a70d7f581bdbb922b285b08f8ef1e43d1276d84be25a2a80ebd275cac9d854da
+870.0,-550.0,492.44,completed,450.0,16.5,170.0,620.0,30,6,0,0,6,8,0,bucket-grid-20261101T193317Z,a70d7f581bdbb922b285b08f8ef1e43d1276d84be25a2a80ebd275cac9d854da
+470.0,-700.0,632.46,no_route_setting_found,,,,,,,,,,,,bucket-grid-20261101T193317Z,a70d7f581bdbb922b285b08f8ef1e43d1276d84be25a2a80ebd275cac9d854da
+670.0,-700.0,600.0,no_route_setting_found,,,,,,,,,,,,bucket-grid-20261101T193317Z,a70d7f581bdbb922b285b08f8ef1e43d1276d84be25a2a80ebd275cac9d854da
+870.0,-700.0,632.46,no_route_setting_found,,,,,,,,,,,,bucket-grid-20261101T193317Z,a70d7f581bdbb922b285b08f8ef1e43d1276d84be25a2a80ebd275cac9d854da

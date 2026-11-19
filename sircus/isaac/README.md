@@ -146,3 +146,10 @@ results panel. This is static perception validation, not policy training.
 ## IK and distance diagnostic
 
 [Method and reproduction](IK_DISTANCE_AUDIT.md) and [completed results](../../baselines/isaac-ik-distance-20261031/README.md) cover the offline IK audit and bounded215-shot PhysX sweep. The read-only preview shows these at `#ik-distance`. This does not upgrade the training/physical controller or start another training run.
+
+## Spatial bucket grid
+
+[Grid protocol and RL compute examples](BUCKET_GRID.md) describe the nine-position
+development search, instrumented contact routes, fresh perturbed confirmations
+and next policy-training boundary. New results appear in `#bucket-grid`; prior
+scoring and numerical studies remain separate.

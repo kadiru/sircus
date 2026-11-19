@@ -1,5 +1,13 @@
 # Project state
 
+## Completed spatial bucket grid — November 1, 2026
+
+- [Verified settings and evidence](../baselines/isaac-bucket-grid-20261101/README.md): nine XY targets, 689 attempts in 21.5 minutes on RTX4090. Three near targets (300–361 mm) each passed 30/30 fresh perturbations, all single-board-bounce captures. Center/right middle targets scored 18/30 and 6/30 board-only captures; the latter had no single-bounce captures. No qualifying setting was found for four other cells at 492–632 mm. Finite search failure is not impossibility.
+- H/gap varied ±2 mm and tilt ±0.5° after each selected setting was frozen. These are searched development cells, not held-out generalization or a new RL policy. New additive `sircus-board-route-v1` excludes detected table/floor/robot/other contacts while preserving historical scores. Exactly-one-board-bounce is a separate metric.
+- Five contact probes and two controls passed. The old 400 mm control uses two board contacts; the old 600 mm control measurably hits the table. All 689 raw/compact records, three evidence hashes and 43 source-snapshot hashes matched. Maximum released-trial settling errors: 0.848 mm and 0.104°. Geometry remains measured/provisional as documented.
+- Final data, per-cell settings, confidence intervals and CSV are live at `#bucket-grid`. The finite GPU job exited; 4070 workload, hardware, Viam and audio untouched. Raw observations remain outside Git. See [protocol and published RL compute examples](../sircus/isaac/BUCKET_GRID.md).
+- Next: investigate feasible far shots, then validate a vectorized shot environment before a larger scene-conditioned PPO study with disjoint spatial evaluation. Do not relabel this search as RL or promote an existing policy on this evidence.
+
 ## Completed bucket-distance catalogue — November 1, 2026
 
 - [Exact settings and verified evidence](../baselines/isaac-distance-catalogue-20261101/README.md): 2,081 attempts on RTX 4090, including 300 fresh confirmation trials. Frozen settings captured 50/50, 50/50, 44/50, 41/50, 49/50 and 37/50 at 300, 400, 500, 550, 600 and 650 mm respectively. Independent variations: board height/gap ±2 mm, tilt ±0.5°. The 400 mm setting is a prior-result control, not a new broad search.
