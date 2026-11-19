@@ -159,7 +159,9 @@ class ParallelShots:
             if kind in ("bucket", "rim"):
                 xyz = np.column_stack([self.bucket_xy, np.full(self.n, top + 0.15)])
                 if kind == "rim":
-                    xyz[:, 0] += b["inner_top_diameter_m"] / 2
+                    directions = getattr(self, "rim_probe_directions", (1.0, 0.0))
+                    xyz[:, :2] += np.asarray(directions) * b["inner_top_diameter_m"] / 2
+                    xyz[:, 2] = top + getattr(self, "rim_probe_height_m", 0.15)
             else:
                 xyz = np.tile(
                     getattr(

@@ -1,0 +1,369 @@
+"""Film the live RTX camera while its 35 articulated PhysX shots train a shared PPO policy."""
+
+import argparse
+import copy
+import hashlib
+import json
+import os
+import shutil
+import time
+import traceback
+from pathlib import Path
+
+from isaaclab.app import AppLauncher
+
+p = argparse.ArgumentParser()
+p.add_argument("--assets", default="/workspace/assets")
+p.add_argument("--output", type=Path, required=True)
+AppLauncher.add_app_launcher_args(p)
+args = p.parse_args()
+if not args.enable_cameras:
+    p.error("--enable_cameras is required")
+if shutil.disk_usage(args.output.parent).free < 3 * 1024**3:
+    p.error("Less than 3 GiB free for filming")
+args.output.mkdir(exist_ok=False)
+app = AppLauncher(args).app
+
+import isaaclab.sim as sim_utils
+import numpy as np
+import torch
+from cylinder_farm import (
+    HIGH,
+    LOGSTD,
+    LOW,
+    SEED,
+    WARM,
+    menu_batches,
+    observation,
+    origins,
+    project_actions,
+    specification,
+)
+from farm_contract import reward, statistics
+from farm_flight import SHOTS, camera_pose, choose_front
+from farm_policy import Policy, update, weight_hash
+from feasibility_runtime import FeasibilityShots
+from isaaclab.scene import InteractiveScene
+from isaaclab.sensors import Camera, CameraCfg
+from isaacsim.core.cloner import Cloner
+from parallel_assets import bucket_asset, robot_body_filters, scene_config
+from parallel_runtime import atomic
+from PIL import Image
+from scipy.spatial.transform import Rotation
+
+
+class RectangularScene(InteractiveScene):
+    def clone_environments(self, copy_from_source=False):
+        # Isaac Lab ordinarily uses a square GridCloner. Supply the actual ordered
+        # transforms to Isaac's underlying cloner before Physics replicates the assets.
+        positions = origins()
+        if len(positions) != self.num_envs:
+            raise ValueError("Each of the 35 grid sites needs its own clone")
+        Cloner.clone(
+            self.cloner,
+            source_prim_path=self.env_prim_paths[0],
+            prim_paths=self.env_prim_paths,
+            positions=positions,
+            replicate_physics=True,
+            copy_from_source=copy_from_source,
+            enable_env_ids=True,
+            clone_in_fabric=self.cfg.clone_in_fabric,
+        )
+        self._default_env_origins = torch.as_tensor(positions, device=self.device)
+
+
+class FilmShots(FeasibilityShots):
+    first_step = None
+    index = None
+    first_front = None
+    next_frame = 0
+
+    def exposed_rim_probes(self):
+        """Find a clear diagnostic ray when a parked link overhangs a bucket."""
+        bucket = self.cfg["bucket"]
+        top = bucket["assumed_interior_depth_m"] + bucket["assumed_bottom_thickness_m"]
+        self.rim_probe_height_m = self.cfg["ball"]["radius_m"] + 0.012
+        self.rim_probe_directions = np.zeros((self.n, 2))
+        found = np.zeros(self.n, dtype=bool)
+        evidence = []
+        for angle in [0, 90, 180, 270, 45, 135, 225, 315]:
+            direction = np.array([np.cos(np.deg2rad(angle)), np.sin(np.deg2rad(angle))])
+            xy = self.bucket_xy + direction * bucket["inner_top_diameter_m"] / 2
+            self.set_balls(
+                np.column_stack([xy, np.full(self.n, top + self.rim_probe_height_m)])
+            )
+            first = np.zeros((self.n, 6))
+            for _ in range(48):
+                self.tick()
+                f = self.forces()
+                touched = (first.max(axis=1) <= 0.01) & (f.max(axis=1) > 0.01)
+                first[touched] = f[touched]
+            clear = (first[:, 1] > 0.01) & (
+                first[:, [0, 2, 3, 4, 5]].max(axis=1) <= 0.01
+            )
+            self.rim_probe_directions[clear & ~found] = direction
+            found |= clear
+            evidence.append(dict(azimuth_deg=angle, first_contact_N=first.tolist()))
+            if found.all():
+                break
+        atomic(
+            self.dest / "rim-rays.json",
+            dict(
+                rays=evidence,
+                passed=found.tolist(),
+                directions=self.rim_probe_directions.tolist(),
+                clearance_m=self.rim_probe_height_m,
+            ),
+        )
+        if not found.all():
+            raise RuntimeError(f"No unobstructed rim ray for {np.flatnonzero(~found)}")
+
+    def prepare(self, actions):
+        result = super().prepare(actions)
+        name = SHOTS[self.index][0]
+        valid = [reason is None for reason in result[3]]
+        self.focus = choose_front(
+            valid, name, self.first_front if name == "front-right" else None
+        )
+        if name == "front-left":
+            self.first_front = self.focus
+        return result
+
+    def qualify_menu(self, cells):
+        """Measure commandable actions before the first training throw."""
+        menus = [[] for _ in cells]
+        checks = []
+        for proposals in menu_batches(cells):
+            _, _, _, reasons = super().prepare(proposals)
+            for options, action, reason in zip(menus, proposals, reasons):
+                if reason is None:
+                    options.append(action)
+            checks.append(reasons)
+            atomic(
+                self.dest / "menu-progress.json",
+                dict(batches=len(checks), options_per_cell=[len(m) for m in menus]),
+            )
+        atomic(
+            self.dest / "menu.json",
+            dict(
+                menus=menus,
+                checks=checks,
+                rule="Both endpoints pass IK and measured settling before a ball is released.",
+            ),
+        )
+        if sum(bool(m) for m in menus[:7]) < 2:
+            raise RuntimeError(
+                "Fewer than two front-row sites have a qualified release"
+            )
+        return menus
+
+    def tick(self):
+        super().tick()
+        if self.first_step is not None:
+            self.capture_frame()
+
+    def render(self):
+        # ParallelShots calls this immediately after releasing each batch.
+        if self.record_video and self.first_step is None:
+            self.first_step = self.steps
+            self.capture_frame()
+
+    def capture_frame(self):
+        _, length, stride = SHOTS[self.index]
+        frame = len(self.frames)
+        if frame >= length or self.steps - self.first_step != frame * stride:
+            return
+        eye, target = camera_pose(self.index, frame, self.spec["cells"], self.focus)
+        device = self.sim.device
+        self.camera.set_world_poses_from_view(
+            torch.as_tensor(eye[None], dtype=torch.float32, device=device),
+            torch.as_tensor(target[None], dtype=torch.float32, device=device),
+        )
+        # Render at a fixed physics step. Flush RTX's previous camera/physics frame.
+        for _ in range(3):
+            self.sim.render()
+        self.camera.update(stride * self.dt, force_recompute=True)
+        data = self.camera.data
+        pos = data.pos_w[0].cpu().numpy()
+        q = data.quat_w_ros[0].cpu().numpy()
+        optical = Rotation.from_quat(q[[1, 2, 3, 0]]).as_matrix()[:, 2]
+        expected = (target - eye) / np.linalg.norm(target - eye)
+        if np.linalg.norm(pos - eye) > 0.0002 or optical @ expected < 0.99999:
+            raise RuntimeError("RTX camera readback missed its shot")
+        rgb = data.output["rgb"][0, :, :, :3].cpu().numpy().astype(np.uint8)
+        Image.fromarray(rgb).save(
+            self.frames_path / f"{self.next_frame:05d}.jpg", quality=93
+        )
+        record = dict(
+            frame=self.next_frame,
+            physics_step=self.steps,
+            eye_m=pos.tolist(),
+            target_m=target.tolist(),
+        )
+        if self.focus is not None:
+            record["focus_ball_world_m"] = (
+                self.ball.data.root_pos_w[self.focus].cpu().numpy().tolist()
+            )
+        self.frames.append(record)
+        self.next_frame += 1
+
+    def film(self, index, shots):
+        self.index, self.frames, self.first_step = index, [], None
+        rows, raw = self.shot_batch(shots, record_video=True)
+        # If all episodes terminate early, keep the live physics clock and camera
+        # rolling for the end of the planned shot; terminal scores stay frozen.
+        while len(self.frames) < SHOTS[index][1]:
+            self.tick()
+        self.first_step = None
+        return rows, dict(
+            shot=SHOTS[index][0],
+            focus=self.focus,
+            frames=self.frames,
+            rollout=rows,
+            trajectory_m=raw["trajectory_m"],
+        )
+
+
+def main():
+    started = time.monotonic()
+    dest = args.output
+    torch.set_num_threads(2)
+    torch.manual_seed(SEED)
+    cfg = json.loads(Path(__file__).with_name("scene.json").read_text())
+    poses = json.loads((Path(args.assets) / "poses.json").read_text())
+    spec = specification(cfg, len(SHOTS))
+    atomic(dest / "contract.json", spec)
+    sim = sim_utils.SimulationContext(
+        sim_utils.SimulationCfg(
+            dt=cfg["simulation"]["physics_dt_s"],
+            render_interval=8,
+            device=args.device,
+            physx=sim_utils.PhysxCfg(enable_ccd=False),
+        )
+    )
+    bucket = dest / "bucket.usda"
+    bucket_asset(bucket, cfg["bucket"])
+    scfg, filters = scene_config(
+        cfg,
+        poses,
+        args.assets,
+        bucket,
+        spec["num_envs"],
+        robot_body_filters(args.assets),
+    )
+    scene = RectangularScene(scfg)
+    camera = Camera(
+        CameraCfg(
+            prim_path="/World/CinemaCamera",
+            width=1920,
+            height=1080,
+            update_period=0,
+            update_latest_camera_pose=True,
+            data_types=["rgb"],
+            spawn=sim_utils.PinholeCameraCfg(
+                focal_length=23,
+                horizontal_aperture=36,
+                vertical_aperture=20.25,
+                clipping_range=(0.04, 150),
+            ),
+        )
+    )
+    sim.reset()
+    env = FilmShots(
+        sim, scene, camera, None, cfg, poses, args, copy.deepcopy(spec), filters, dest
+    )
+    if not np.array_equal(env.origins, origins()):
+        raise ValueError("Isaac workcell origins disagree with the 5 by 7 layout")
+    env.exposed_rim_probes()
+    # Place the tabletop probe in the gap between four neighboring grid sites.
+    env.probe_positions["table"] = [1.313, -0.625, 0.25]
+    probes = env.probes()
+    atomic(dest / "probes.json", probes)
+    menus = env.qualify_menu(spec["cells"])
+    menu_hash = hashlib.sha256((dest / "menu.json").read_bytes()).hexdigest()
+    policy = Policy(LOW, HIGH, WARM, LOGSTD).to(sim.device)
+    optimizer = torch.optim.Adam(policy.parameters(), lr=spec["lr"])
+    initial = weight_hash(policy)
+    obs = torch.tensor(
+        [observation(c) for c in spec["cells"]], dtype=torch.float32, device=sim.device
+    )
+    batches, changes, buffer = [], [], []
+    for i, (name, _, stride) in enumerate(SHOTS):
+        before = weight_hash(policy)
+        with torch.no_grad():
+            dist = policy.distribution(obs)
+            latent = dist.sample()
+            logp = dist.log_prob(latent).sum(-1)
+        rows, clip = env.film(
+            i, project_actions(spec["cells"], latent.cpu().numpy(), menus)
+        )
+        returns = torch.tensor([reward(r) for r in rows], device=sim.device)
+        buffer.append((obs, latent, logp, returns))
+        clip.update(
+            policy_hash=before,
+            latent=latent.cpu().tolist(),
+            rewards=returns.cpu().tolist(),
+        )
+        atomic(dest / f"clip-{i:02}.json", clip)
+        focus = clip["focus"]
+        sample = dict(
+            shot=name,
+            start_frame=clip["frames"][0]["frame"],
+            frames=len(clip["frames"]),
+            physics_stride=stride,
+            focus=rows[focus]["cell_id"] if focus is not None else None,
+            focus_bounce=rows[focus]["board_bounce"] if focus is not None else None,
+            focus_capture=rows[focus]["route_success"] if focus is not None else None,
+            policy_hash=before,
+            **statistics(rows),
+        )
+        batches.append(sample)
+        if len(buffer) == spec["batches_per_update"]:
+            changes.append(
+                update(policy, optimizer, *[torch.cat(a) for a in zip(*buffer)], spec)
+            )
+            buffer.clear()
+        atomic(dest / "progress.json", dict(batches=batches, updates=len(changes)))
+        print(json.dumps(sample), flush=True)
+    final = weight_hash(policy)
+    if final == initial or len(changes) != len(SHOTS) // 2:
+        raise RuntimeError("Missing measured PPO updates")
+    torch.save(
+        dict(state_dict=policy.state_dict(), contract=spec, menu_sha256=menu_hash),
+        dest / "cylinder-policy.pt",
+    )
+    atomic(
+        dest / "result.json",
+        dict(
+            version=spec["version"],
+            fingerprint=spec["fingerprint"],
+            menu_sha256=menu_hash,
+            gpu=torch.cuda.get_device_name(),
+            workcells=env.n,
+            articulations=2 * env.n,
+            initial_hash=initial,
+            final_hash=final,
+            updates=changes,
+            batches=batches,
+            frames=env.next_frame,
+            resolution=[1920, 1080],
+            fps=30,
+            physics_dt_s=env.dt,
+            max_bucket_drift_m=env.peak_bucket_drift,
+            contact_probes=[p["kind"] for p in probes],
+            seconds=time.monotonic() - started,
+            source_sha256={
+                p.name: hashlib.sha256(p.read_bytes()).hexdigest()
+                for p in sorted(Path(__file__).parent.glob("*.py"))
+            },
+        ),
+    )
+
+
+try:
+    main()
+except BaseException:
+    atomic(args.output / "failure.json", dict(error=traceback.format_exc()))
+    traceback.print_exc()
+    os._exit(1)
+app.close(skip_cleanup=True)

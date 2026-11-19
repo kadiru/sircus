@@ -6,6 +6,7 @@ Two UFACTORY850 arms learn to bounce a ball from a suction-mounted board into a 
 
 ## Start here
 
+- [35-table Isaac training film and front-row close-ups](sircus/isaac/CYLINDER_FILM.md) — camera flight, 7 × 5 bucket grid, four learned shot parameters, and reproduction commands.
 - **Workspace feasibility:** [32-target board/release-position search](sircus/isaac/FEASIBILITY_MAP.md), with [6,212-attempt results and exact settings](baselines/isaac-feasibility-map-20261101/README.md), direct-reach audit and fresh perturbation tests. Read-only `/feasibility.html` separates searched success from unresolved regions; this is not new RL training.
 - **Native Isaac recording:** [direct application-window capture](sircus/isaac/NATIVE_VIEWPORT.md), showing the live 32-table / 64-arm farm in orthographic, elevated perspective or low close-up views without composite panels.
 - **32-table PPO farm:** [actual training, video and reproduction](sircus/isaac/FARM_PPO.md). A shared neural policy selects board height, drop gap and tilt in 32 simultaneous Isaac Lab workcells. Recorded early/middle/late batches are training data; arm pickup and transit are not learned.
