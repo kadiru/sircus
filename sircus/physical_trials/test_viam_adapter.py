@@ -3,7 +3,9 @@
 Run: sircus/simulation/.venv/bin/python -m unittest discover -s sircus/physical_trials -p test_viam_adapter.py
 """
 import asyncio
+import copy
 from contextlib import ExitStack
+from datetime import datetime, timedelta, timezone
 import json
 from pathlib import Path
 import tempfile
@@ -184,6 +186,141 @@ class AdapterTests(unittest.IsolatedAsyncioTestCase):
         self.assertTrue(adapter._move_active)
         self.assertEqual(adapter._move_token, "undiscovered-panel-move")
         self.assertEqual(log, ["stop:arm"] * 4)
+
+    def vertical_poses(self):
+        start = dict(x=100., y=0., z=200., o_x=0., o_y=0., o_z=-1., theta=0.)
+        return start, dict(start, z=100.)
+
+    async def test_vertical_move_sends_typed_bounds_and_preserves_ownership(self):
+        adapter, _ = self.adapter();calls=[]
+        async def moved(**kw):
+            calls.append(kw)
+            return True
+        adapter.motion.move = moved
+        start, target = self.vertical_poses()
+        result = await adapter.move_pose_linear(target, start)
+        self.assertEqual(len(calls), 1)
+        request = calls[0]
+        self.assertEqual(request['component_name'], 'arm')
+        self.assertEqual(request['destination'].reference_frame, 'world')
+        self.assertEqual(request['destination'].pose.z, 100.)
+        constraint = request['constraints'].linear_constraint[0]
+        self.assertEqual(constraint.line_tolerance_mm, 2.)
+        self.assertEqual(constraint.orientation_tolerance_degs, 1.)
+        self.assertTrue(request['extra']['sircus_operator_operation'])
+        self.assertTrue(result['planner_reported_success'])
+        self.assertFalse(result['physical_path_verified'])
+        self.assertIsNone(adapter._move_task)
+
+    async def test_vertical_move_rejects_bad_endpoints_before_connecting(self):
+        adapter, _ = self.adapter()
+        async def forbidden():
+            raise AssertionError('Invalid parameters must not connect')
+        adapter.connect = forbidden
+        start, target = self.vertical_poses()
+        cases = [(dict(target, x=101), start, 2., 1.), (dict(target, theta=1.), start, 2., 1.),
+                 (start, start, 2., 1.), (dict(target, z=float('nan')), start, 2., 1.),
+                 (target, start, True, 1.), (target, start, 2., 0.),
+                 (dict(target, o_z=0), dict(start, o_z=0), 2., 1.)]
+        for end, beginning, line, orientation in cases:
+            with self.subTest(end=end, line=line, orientation=orientation):
+                with self.assertRaises(ValueError):
+                    await adapter.move_pose_linear(end, beginning, line, orientation)
+
+    async def test_vertical_move_refuses_stale_moving_or_wrong_start_without_actuation(self):
+        adapter, log = self.adapter();calls=[]
+        async def moved(**kw):calls.append(kw);return True
+        adapter.motion.move = moved
+        original = await adapter.snapshot()
+        stale = (datetime.now(timezone.utc) - timedelta(seconds=4)).isoformat()
+        cases=[]
+        for arm in ('arm', 'arm-board'):
+            state=copy.deepcopy(original);state['arms'][arm]['is_moving']=True;cases.append(state)
+        for field, value in [('x',103.), ('theta',2.)]:
+            state=copy.deepcopy(original);state['arms']['arm']['pose'][field]=value;cases.append(state)
+        state=copy.deepcopy(original);state['request_started_at']=stale;cases.append(state)
+        state=copy.deepcopy(original);state['arms']['arm']['pose_frame']='camera';cases.append(state)
+        start, target = self.vertical_poses()
+        for state in cases:
+            async def snapshot():return state
+            adapter.snapshot=snapshot
+            with self.subTest(state=state):
+                with self.assertRaises(RuntimeError):await adapter.move_pose_linear(target,start)
+                self.assertIsNone(adapter._move_task)
+        self.assertEqual(calls, []);self.assertEqual(log, [])
+
+    async def test_rejected_linear_constraint_never_retries_unconstrained(self):
+        adapter, log = self.adapter();calls=[]
+        async def rejected(**kw):
+            calls.append(kw)
+            adapter.robot.token=kw['extra']['sircus_operator_operation']
+            raise RuntimeError('linear constraints unsupported')
+        adapter.motion.move=rejected
+        start,target=self.vertical_poses()
+        with self.assertRaisesRegex(RuntimeError,'unsupported'):
+            await adapter.move_pose_linear(target,start)
+        self.assertEqual(len(calls),1);self.assertIn('constraints',calls[0])
+        self.assertEqual(log.count('cancel:only-panel-move'),1)
+        self.assertFalse(any('board' in entry for entry in log))
+
+    async def test_linear_start_owns_move_slot_and_rejects_slow_readback(self):
+        adapter, log = self.adapter();entered=asyncio.Event();proceed=asyncio.Event();calls=[]
+        state=await adapter.snapshot()
+        async def snapshot():
+            entered.set();await proceed.wait();return state
+        async def moved(**kw):calls.append(kw);return True
+        adapter.snapshot=snapshot;adapter.motion.move=moved
+        start,target=self.vertical_poses()
+        with patch('viam_adapter.LINEAR_START_FRESH_SECONDS', .005):
+            task=asyncio.create_task(adapter.move_pose_linear(target,start))
+            await entered.wait()
+            with self.assertRaisesRegex(RuntimeError,'already running'):
+                await adapter.move_pose(start)
+            await asyncio.sleep(.01);proceed.set()
+            with self.assertRaisesRegex(RuntimeError,'freshness'):
+                await task
+        self.assertEqual(calls,[]);self.assertEqual(log,[]);self.assertIsNone(adapter._move_task)
+
+    async def test_stop_during_linear_start_readback_prevents_late_motion(self):
+        adapter,log=self.adapter();entered=asyncio.Event();calls=[]
+        async def snapshot():
+            entered.set()
+            await asyncio.Event().wait()
+        async def moved(**kw):calls.append(kw);return True
+        adapter.snapshot=snapshot;adapter.motion.move=moved
+        start,target=self.vertical_poses()
+        task=asyncio.create_task(adapter.move_pose_linear(target,start))
+        await entered.wait()
+        stopped=await adapter.stop()
+        await asyncio.gather(task,return_exceptions=True)
+        self.assertTrue(stopped['planner_cancellation_verified'])
+        self.assertEqual(calls,[]);self.assertEqual(log,['stop:arm','stop:arm'])
+
+    async def test_stop_during_linear_motion_cancels_only_owned_dropper_plan(self):
+        adapter, log=self.adapter();start,target=self.vertical_poses()
+        task=asyncio.create_task(adapter.move_pose_linear(target,start))
+        for _ in range(100):
+            if adapter.robot.token:break
+            await asyncio.sleep(.001)
+        self.assertTrue(adapter.robot.token)
+        stopped=await adapter.stop()
+        await asyncio.gather(task,return_exceptions=True)
+        self.assertTrue(stopped['planner_cancellation_verified'])
+        self.assertEqual(log.count('stop:arm'),2)
+        self.assertEqual(log.count('cancel:only-panel-move'),1)
+        self.assertEqual(len(log),3)
+
+    async def test_dry_run_linear_move_records_requested_bounds_without_hardware_claim(self):
+        from sircus.physical_trials.mock_adapter import MockAdapter
+        adapter=MockAdapter();start=copy.deepcopy(adapter.state['arms']['arm']['pose'])
+        target=dict(start,z=start['z']-100.)
+        result=await adapter.move_pose_linear(target,start)
+        self.assertTrue(result['mock']);self.assertFalse(result['physical_path_verified'])
+        self.assertFalse(result['planner_reported_success'])
+        self.assertEqual(adapter.state['arms']['arm']['pose'],target)
+        self.assertEqual(len(adapter.commands),1)
+        self.assertIn('move_pose_linear',adapter.commands[0])
+        with self.assertRaises(RuntimeError):await adapter.move_pose_linear(target,start)
 
     async def test_timestamped_upload_and_sequence_are_checkpointed(self):
         adapter, _ = self.adapter()

@@ -1,5 +1,42 @@
 # Project state
 
+## Authorized four-station physical run — October 30, 2026, 19:06–19:07 UTC
+
+After operator clearance confirmation, the four approved host-local pickup poses
+were imported and verified, and only the idle physical dashboard was restarted.
+One supervised sequence completed Gray → Purple → Pink → Green. Each trial
+passed driver grip, requested constrained vertical descent/lift, recording,
+saved-drop settling and release checks, and was saved locally as completed with
+unknown outcome. Native planning accepted this run; no bucket capture rate,
+continuous path-clearance measurement or audio listening result is inferred.
+The fixed drop target, original loading target and board joint reference were
+preserved. Both arms read stationary afterward; arm14 received no motion command.
+
+Following the separate operator request, one `vacuum-board.Grab` was sent.
+It returned true. `IsHoldingSomething` was initially false, then a later read
+returned true. No retry or release was issued; suction is left enabled. Both arms
+read stationary afterward. Sensor acknowledgment does not measure holding force.
+Host poses, private logs and RGB-D/state trial data remain excluded from Git.
+
+## Per-color taped pickup stations — October 30, 2026
+
+- `codex/macbook-fixed-pickup` builds on audio-loudness checkpoint `f8c0850`.
+  Manual operation adds independent read-only teaching for each color, with a
+  derived world-Z+100mm approach and the existing saved drop pose unchanged.
+- A separate pickup cycle plans to approach, records, opens, requests constrained
+  vertical descent, checks grip, lifts vertically, and uses the existing two-second
+  drop settling/release path. Constraint rejection has no unconstrained fallback.
+- Host calibration, station coordinates and observations remain excluded from
+  Git. Physical route and neighboring-ball clearance are not established by
+  mock tests. The operator is teaching Gray first; no new pickup pose or physical
+  pickup has yet been recorded at this checkpoint.
+- [Station workflow and limits](TAPED_PICKUP_STATIONS.md) distinguish requested
+  endpoint constraints, measured robot readback and operator-confirmed placement.
+- After explicit approval, only the idle physical dashboard was restarted with
+  these controls. Camera/both-arm readback was verified and Gray selected; no
+  robot/tool command or station teaching occurred. Final checks passed 131
+  physical-controller and 37 physical/show UI tests after the full regression.
+
 ## Native audio loudness — October 30, 2026
 
 - `codex/macbook-audio-loudness` builds on four-ball commissioning `81d927b`.

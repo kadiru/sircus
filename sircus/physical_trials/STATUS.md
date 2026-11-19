@@ -1,3 +1,60 @@
+## Authorized four-station physical run — October 30, 2026, 19:06–19:07 UTC
+
+After operator clearance confirmation, the four approved host-local pickup poses
+were imported and verified, and only the idle physical dashboard was restarted.
+One supervised sequence completed Gray → Purple → Pink → Green. Each trial
+passed driver grip, requested constrained vertical descent/lift, recording,
+saved-drop settling and release checks, and was saved locally as completed with
+unknown outcome. Native planning accepted this run; no bucket capture rate,
+continuous path-clearance measurement or audio listening result is inferred.
+The fixed drop target, original loading target and board joint reference were
+preserved. Both arms read stationary afterward; arm14 received no motion command.
+
+Following the separate operator request, one `vacuum-board.Grab` was sent.
+It returned true. `IsHoldingSomething` was initially false, then a later read
+returned true. No retry or release was issued; suction is left enabled. Both arms
+read stationary afterward. Sensor acknowledgment does not measure holding force.
+Host poses, private logs and RGB-D/state trial data remain excluded from Git.
+
+# Taped pickup station checkpoint — October 30, 2026
+
+`codex/macbook-fixed-pickup` adds independent per-color grasp teaching and a
+world-Z+100mm approach. The operator will manually position the gripper and
+teach Gray first; no new physical station pose is saved yet. Existing loading,
+drop, board reference and geometry are preserved. Host calibration was backed up
+privately before station teaching.
+
+The new sequence opens at the approach, requests a constrained vertical descent,
+checks driver grip, lifts vertically, then uses the saved drop pose with the
+existing two-second settle and recording gates. Low/unrecognized starts cannot
+silently take a lateral recovery path. A refused constraint has no unconstrained
+fallback. Read-only teaching, failed grip/recording, moved board, Stop and late
+responses are covered by mocks; physical path acceptance remains untested.
+
+The tested preceding dashboard checkpoint was explicitly launched on loopback
+port8765 for this authorized hardware setup. Read-only verification returned a
+live JPEG and both arms stationary, with no active trial or error. No motion,
+gripper, suction or Stop command was issued during this implementation. The
+already-running Ghost Booth and other simulation services were unchanged.
+Source synchronization alone does not switch the physical dashboard to this code.
+
+After explicit operator approval, the idle dashboard alone was restarted with
+this station implementation. Read-only checks confirmed connection, both arms
+stationary, saved original targets and no newly taught station. Gray was selected
+in the UI without teaching or movement. A live camera JPEG was returned; individual
+preview requests can still transiently fail, so recording freshness remains an
+execution gate rather than assumed readiness. FX remains off, with the dashboard
+volume restored to the operator's requested maximum.
+
+Validation: the full mock/numerical suite passed (467 Python and 114 Node tests)
+before the final station refinements; afterward all 131 physical-controller tests
+(including 27 station cases) and 37 physical/show UI tests passed. Independent
+review covered constrained low-start recovery, mixed-height vertical staging,
+recording loss and Stop confirmation invalidation. No real pickup path has run.
+
+See [station instructions](../../docs/TAPED_PICKUP_STATIONS.md). Private runtime
+evidence remains under the host's ignored `.runtime/pickup-station/` directory.
+
 # Deterministic reliability checkpoint — October 30, 2026
 
 ## Hardware demo preparation — October 30, 2026

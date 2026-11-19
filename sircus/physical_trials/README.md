@@ -35,6 +35,8 @@ Calibration persists in `data/hardware/calibration.json`. Mock calibration and m
 
 ## One-button taught-pose cycle
 
+For a ball resting on a taped pad, use the separate [per-color pickup station workflow](../../docs/TAPED_PICKUP_STATIONS.md). It adds a 100 mm approach, constrained vertical descent/grip/lift and then the existing saved drop routine. The hand-loading cycle below is unchanged.
+
 The **Load → Drop · 2 sec to load** button uses the exact saved loading and drop poses. Confirm that the board/bucket remain fixed and the route is clear, then press it once. It moves to loading, settles, establishes recording, opens, displays a two-second countdown, closes, checks the driver reports an object held, moves to the taught drop pose, holds the intended pose stable for two seconds and validates fresh recording, then releases. It records two seconds afterward. Practice mode defaults on: completed cycles are retained locally as unlabeled (no cloud upload), and the next button press is enabled without an outcome or Save. Turn Practice off for the labeled workflow. Stopped trials can be kept unlabeled with the separate button; faults still require resolution. No automatic repeat.
 
 Closing is automatic when the countdown ends; keep fingers outside the jaws. Stop cancels pending steps and stops only arm 10 without opening a tool or changing suction. Missing/stale recording, moved board, failed grip, motion/readback failure or an unsettled/wrong endpoint abort the cycle.

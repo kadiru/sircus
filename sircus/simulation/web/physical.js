@@ -9,6 +9,7 @@ const poseDirty=new Set();
 let poseCommit=null;
 const poseKeys=['x','y','z','o_x','o_y','o_z','theta'];
 const poseSuffixes=['X','Y','Z','OX','OY','OZ','Theta'];
+const poseMotionActions=['load_drop_cycle','go_loading','go_loading_approach','go_drop','drop','go_pickup_approach','pickup_drop_cycle'];
 let status = null;
 let pending = 0;
 let pendingAction = null;
@@ -85,7 +86,7 @@ function cycleReadiness() {
 function updateControls() {
   controls.forEach(button => {
     const action = button.dataset.physicalAction;
-    button.disabled = !allowed(action) || (action !== 'stop' && (pending > 0 || (poseDirty.size>0&&['load_drop_cycle','go_loading','go_drop','drop'].includes(action))));
+    button.disabled = !allowed(action) || (action !== 'stop' && (pending > 0 || (poseDirty.size>0&&poseMotionActions.includes(action))));
   });
   $('physicalCycle').disabled = !allowed('load_drop_cycle') || pending > 0 || poseDirty.size>0 || !$('physicalCycleConfirm').checked;
   $('physicalCycleConfirm').disabled = pending>0 || !!status?.busy || !status?.connected || !!status?.fault || !!status?.error || commandUncertain || poseDirty.size>0;
@@ -228,7 +229,7 @@ async function refreshCamera() {
 }
 
 async function command(action,extra={}) {
-  if (destroyed || !allowed(action) || (action !== 'stop' && pending > 0) || (action==='stop'&&pendingAction==='stop') || (poseDirty.size>0&&['load_drop_cycle','go_loading','go_drop','drop'].includes(action))) return false;
+  if (destroyed || !allowed(action) || (action !== 'stop' && pending > 0) || (action==='stop'&&pendingAction==='stop') || (poseDirty.size>0&&poseMotionActions.includes(action))) return false;
   let body = {action,...extra,...(action!=='stop'&&Number.isSafeInteger(status?.action_epoch)?{expected_action_epoch:status.action_epoch}:{})};
   try {
     if (action === 'load_drop_cycle') { if(!$('physicalCycleConfirm').checked)throw new Error('Confirm the fixed setup before starting a cycle.'); body.fixed_setup_confirmed = $('physicalCycleConfirm').checked; body.practice_mode = $('physicalPractice').checked; }
@@ -308,6 +309,6 @@ const timers=[setIntervalImpl(refreshStatus,1000),setIntervalImpl(refreshCamera,
 function destroy(){if(destroyed)return;destroyed=true;commandEpoch++;for(const controller of requests)controller.abort();timers.forEach(clearIntervalImpl);if(cameraURL)URL.revokeObjectURL(cameraURL);}
 window.addEventListener('pagehide',destroy,{once:true});
 if(manageTabs&&window.location.hash==='#physical')selectView(true);
-return {selectView,command,refreshStatus,allowed,destroy,get status(){return status;},get busy(){return pending>0||!!status?.busy||commandUncertain||(!status&&lastKnownBusy);}};
+return {selectView,command,refreshStatus,allowed,destroy,get status(){return status;},get hasUnsavedPoseEdits(){return poseDirty.size>0;},get busy(){return pending>0||!!status?.busy||commandUncertain||(!status&&lastKnownBusy);}};
 }
 if(typeof document!=='undefined'&&document.getElementById('physicalPanel')&&!document.documentElement.hasAttribute('data-show-shell'))mountPhysicalPanel();
