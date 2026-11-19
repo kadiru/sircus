@@ -24,6 +24,10 @@ from kinematics import home, sequence
 from learning import train
 
 ROOT = Path(__file__).resolve().parent
+DEMO_AUDIO_FILES = frozenset({
+    'boing.wav', 'cartoon_boing.wav', 'cartoon_spring.wav',
+    'cartoon_squeak.wav', 'drum_roll.wav', 'release.wav',
+})
 PART_ID = '28a499f1-b207-4111-90bb-105fefa5a840'
 MACHINE_ID = '5db5a9df-2e56-4711-9d39-b42cc86e4d79'
 MACHINE_URL = f'https://app.viam.com/machine/{MACHINE_ID}/3d-scene'
@@ -281,6 +285,16 @@ class Handler(BaseHTTPRequestHandler):
                 return self.send({'error': 'unknown endpoint'}, 404)
             except Exception as exc:
                 return self.send({'error': str(exc)[:1500], 'connection': connection(False)}, 503)
+        if path.startswith('/demo-audio/'):
+            # Local, original samples for the explicitly synthetic demo only.
+            # No audio client, credentials, command, or arbitrary file path.
+            filename = path.removeprefix('/demo-audio/')
+            if filename not in DEMO_AUDIO_FILES:
+                return self.send({'error': 'not found'}, 404)
+            sample = ROOT.parent / 'audio' / 'booth' / 'assets' / filename
+            if not sample.is_file():
+                return self.send({'error': 'sample unavailable'}, 404)
+            return self.send(sample.read_bytes(), content_type='audio/wav')
         base = ROOT / 'models' if path.startswith('/models/') else ROOT / 'web'
         relative = path.removeprefix('/models/') if path.startswith('/models/') else path.lstrip('/')
         requested = (base / (relative or 'index.html')).resolve()

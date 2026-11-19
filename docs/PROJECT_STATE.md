@@ -1,5 +1,31 @@
 # Project state
 
+## Simple demo and learning film — October 30, 2026
+
+- `codex/macbook-demo-reel` is stacked on deterministic reliability commit762133b.
+  `/demo.html`, linked from the show desk, plays a fixed four-color routine and a
+  recorded frozen-checkpoint learning sequence. `./start-demo.sh` starts a separate
+  credential-free loopback preview on18772 with physical mode disabled.
+- Fixed nominal preset: four predetermined fresh releases,4/4 numerical captures,
+  no retuning/retries. Each shot resets an empty bucket; multi-ball interaction is
+  not modeled. Browser-local original effects default off, with generic contact
+  voices per color and carrying/settling drums. Stop/mute cancel pending playback.
+- Learning replay uses the original N8/24/64/128 checkpoints and shared held-out
+  layout, retaining all four misses plus a separately labeled successful example.
+  Population mean59.0%→69.4%; default checkpoint33/48. No per-scene optimization
+  during inference. Displayed arm positioning is illustrated endpoint movement;
+  numerical ball traces do not establish valid native paths or physical transfer.
+- Replay reconstruction permits only absolute1e-9 numerical rounding in frozen
+  inference checks, then retains the original recorded action, noisy scene and
+  trajectory exactly. Cross-CPU checks keep hashes/IDs/seeds/outcomes exact.
+- Added an independent downloadable film and source-linked checksum manifests.
+  Existing studies, geometry, scoring definitions, policies and original film
+  remain unchanged. See [demo instructions](DEMO_REEL.md).
+- Full regression passed383 Python and103 Node tests plus standalone Logic guards.
+  Browser verification completed the fixed routine, initialized local audio at
+  zero volume and exercised Stop. Real sound listening/ODD commissioning and real
+  robot validation remain separate; no physical or cloud configuration was changed.
+
 ## Deterministic routine reliability — October 30, 2026
 
 - `codex/macbook-deterministic-reliability` builds on draft four-mode commit
