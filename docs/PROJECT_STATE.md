@@ -1,5 +1,16 @@
 # Project state
 
+## Alternate joints at the last blocked bucket position — November 15, 2026
+
+- The four original misses at **(1028.9, −19.0) mm** struck the board arm.
+  CPU reconstruction identified link 4 in one trace and link 3 in three.
+- With the original board and release targets fixed, **4/16** alternate
+  joint settings cleared both arms. Each missed the bucket. None of the
+  four exact baseline shots captured.
+- The 20 drops and 18 controls ran on the 4090 at 64 substeps. Both
+  control sets and the 7,393-check CPU audit passed.
+  [Experiment and reproduction](MJLAB_FIXED_POSE_JOINT_BRANCHES.md).
+
 ## Drop tests at five previously blocked positions — November 15, 2026
 
 - At 64 substeps, **27 of 43** archived setups captured. All 27 captured
