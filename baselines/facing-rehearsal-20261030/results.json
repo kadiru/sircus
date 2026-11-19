@@ -1,0 +1,992 @@
+{
+  "schema": "sircus-facing-rehearsal-smoke-v1",
+  "created_at_utc": "2026-10-30T16:17:46.807736+00:00",
+  "data_origin": "synthetic",
+  "physically_verified": false,
+  "native_paths_checked": false,
+  "profile_id": "front-negative-y-v1",
+  "checkpoint_id": "7b9a76dddceca22490933f55edcdd82ebc596b2d6539f0d445b3be0f23c1d2e6",
+  "search_budget": 32,
+  "scope": "Three prespecified layouts; fresh noisy rollouts, no refitting or test-based action selection. Small diagnostic; separate from all published learning baselines.",
+  "tilt_convention": "0 degrees horizontal; 90 degrees vertical; horizontal normal aims at bucket center",
+  "rows": [
+    {
+      "case": "front",
+      "mode": "facing_search",
+      "board_center_mm": [
+        600.0,
+        -150.0,
+        350.0
+      ],
+      "bucket_center_xy_mm": [
+        600.0,
+        -400.0
+      ],
+      "planning_seed": 42,
+      "evaluation_seeds": [
+        1001,
+        1002,
+        1003,
+        1004,
+        1005
+      ],
+      "action": {
+        "roll_deg": 0.0,
+        "pitch_deg": -30.0,
+        "u_mm": 0.0,
+        "v_mm": 0.0,
+        "gap_mm": 160.0
+      },
+      "board_rpy_deg": [
+        0.0,
+        -30.0,
+        90.0
+      ],
+      "board_facing": {
+        "contract_version": "sircus-bucket-facing-v1",
+        "heading_deg": -90.0,
+        "tilt_deg": 29.999999999999996,
+        "normal": [
+          -3.0616169978683824e-17,
+          -0.49999999999999994,
+          0.8660254037844387
+        ],
+        "heading_dot": 1.0,
+        "tilt_bounds_deg": [
+          5.0,
+          75.0
+        ],
+        "tilt_definition": "0 horizontal; 90 vertical; upward impact normal",
+        "source": "bounded_tilt_uv_height_search",
+        "native_paths_checked": false,
+        "physically_verified": false
+      },
+      "release_coordinates": {
+        "commanded_release_ball_center_mm": [
+          600.0,
+          -170.0,
+          544.6410161513775
+        ],
+        "nominal_contact_ball_center_mm": [
+          600.0,
+          -170.0,
+          384.6410161513775
+        ],
+        "h_m": 0.15999999999999995,
+        "gap_mm": 160.0,
+        "u_mm": 0.0,
+        "v_mm": 0.0,
+        "coordinate_contract": {
+          "frame": "world; Z upward",
+          "position_units": "mm",
+          "angle_units": "degrees",
+          "mass_units": "kg",
+          "time_units": "s",
+          "height_units": "m",
+          "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+          "uv_definition": "board-local top-face U/V in mm; not world XY",
+          "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+          "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+          "ball_to_tool": {
+            "translation_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation_matrix": [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                0
+              ],
+              [
+                0,
+                0,
+                1
+              ]
+            ],
+            "status": "provisional ball center at simulated gripper TCP; uncalibrated"
+          },
+          "tcp_world_rotation_matrix": [
+            [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              -1.0
+            ]
+          ]
+        }
+      },
+      "inference": "Explicit per-scene tilt/U/V/height numerical search; not frozen learned inference",
+      "planning_success": true,
+      "planning_outcome": "captured",
+      "native_paths_checked": false,
+      "trials": [
+        {
+          "seed": 1001,
+          "success": true,
+          "outcome": "captured"
+        },
+        {
+          "seed": 1002,
+          "success": true,
+          "outcome": "captured"
+        },
+        {
+          "seed": 1003,
+          "success": true,
+          "outcome": "captured"
+        },
+        {
+          "seed": 1004,
+          "success": true,
+          "outcome": "captured"
+        },
+        {
+          "seed": 1005,
+          "success": true,
+          "outcome": "captured"
+        }
+      ],
+      "captures": 5,
+      "trial_count": 5
+    },
+    {
+      "case": "front",
+      "mode": "facing_learned",
+      "board_center_mm": [
+        600.0,
+        -150.0,
+        350.0
+      ],
+      "bucket_center_xy_mm": [
+        600.0,
+        -400.0
+      ],
+      "planning_seed": 42,
+      "evaluation_seeds": [
+        1001,
+        1002,
+        1003,
+        1004,
+        1005
+      ],
+      "action": {
+        "roll_deg": -0.24393095906889073,
+        "pitch_deg": -28.2391279821167,
+        "u_mm": -2.1854324259543034,
+        "v_mm": -2.97245776655312,
+        "gap_mm": 214.97760971362754
+      },
+      "board_rpy_deg": [
+        -0.24393095906889073,
+        -28.2391279821167,
+        90.51553325007973
+      ],
+      "board_facing": {
+        "contract_version": "sircus-bucket-facing-v1",
+        "heading_deg": -90.0,
+        "tilt_deg": 28.240094787161052,
+        "normal": [
+          3.5561831257524545e-17,
+          -0.4731673729751031,
+          0.8809725518719864
+        ],
+        "heading_dot": 1.0,
+        "tilt_bounds_deg": [
+          5.0,
+          75.0
+        ],
+        "tilt_definition": "0 horizontal; 90 vertical; upward impact normal",
+        "source": "frozen_prediction_plus_geometric_heading_constraint",
+        "native_paths_checked": false,
+        "physically_verified": false,
+        "yaw_correction_deg": 0.5155332500797272,
+        "raw_predicted_rpy_deg": [
+          -0.24393095906889073,
+          -28.2391279821167,
+          90.0
+        ],
+        "expected_rotated_release_mm": [
+          602.9896877307868,
+          -170.83118303101602,
+          599.1936176757357
+        ],
+        "release_transform": "Rz(yaw_correction) around board center; board-local U/V and world-Z gap retained",
+        "evaluation_scope": "New constrained policy variant; previous frozen-policy benchmark rates do not apply",
+        "frozen_model_updated": false,
+        "per_scene_search": false,
+        "release_transform_error_mm": 0.0
+      },
+      "release_coordinates": {
+        "commanded_release_ball_center_mm": [
+          602.9896877307868,
+          -170.83118303101602,
+          599.1936176757357
+        ],
+        "nominal_contact_ball_center_mm": [
+          602.9896877307868,
+          -170.83118303101602,
+          384.2160079621081
+        ],
+        "h_m": 0.2149776097136276,
+        "gap_mm": 214.97760971362754,
+        "u_mm": -2.1854324259543034,
+        "v_mm": -2.97245776655312,
+        "coordinate_contract": {
+          "frame": "world; Z upward",
+          "position_units": "mm",
+          "angle_units": "degrees",
+          "mass_units": "kg",
+          "time_units": "s",
+          "height_units": "m",
+          "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+          "uv_definition": "board-local top-face U/V in mm; not world XY",
+          "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+          "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+          "ball_to_tool": {
+            "translation_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation_matrix": [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                0
+              ],
+              [
+                0,
+                0,
+                1
+              ]
+            ],
+            "status": "provisional ball center at simulated gripper TCP; uncalibrated"
+          },
+          "tcp_world_rotation_matrix": [
+            [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              -1.0
+            ]
+          ]
+        }
+      },
+      "inference": "Frozen matrix inference once, then explicit geometric yaw constraint; no per-scene search or retraining",
+      "planning_success": true,
+      "planning_outcome": "captured",
+      "native_paths_checked": false,
+      "trials": [
+        {
+          "seed": 1001,
+          "success": true,
+          "outcome": "captured"
+        },
+        {
+          "seed": 1002,
+          "success": true,
+          "outcome": "captured"
+        },
+        {
+          "seed": 1003,
+          "success": true,
+          "outcome": "captured"
+        },
+        {
+          "seed": 1004,
+          "success": true,
+          "outcome": "captured"
+        },
+        {
+          "seed": 1005,
+          "success": true,
+          "outcome": "captured"
+        }
+      ],
+      "captures": 5,
+      "trial_count": 5
+    },
+    {
+      "case": "left",
+      "mode": "facing_search",
+      "board_center_mm": [
+        590.0,
+        -170.0,
+        360.0
+      ],
+      "bucket_center_xy_mm": [
+        530.0,
+        -430.0
+      ],
+      "planning_seed": 42,
+      "evaluation_seeds": [
+        1001,
+        1002,
+        1003,
+        1004,
+        1005
+      ],
+      "action": {
+        "roll_deg": 0.0,
+        "pitch_deg": -37.999097902452895,
+        "u_mm": -9.522791624870177,
+        "v_mm": -1.6862585688143437,
+        "gap_mm": 179.78158914924742
+      },
+      "board_rpy_deg": [
+        0.0,
+        -37.999097902452895,
+        77.00538320808352
+      ],
+      "board_facing": {
+        "contract_version": "sircus-bucket-facing-v1",
+        "heading_deg": -102.9946167919165,
+        "tilt_deg": 37.999097902452895,
+        "normal": [
+          -0.1384345458103074,
+          -0.5998830318446665,
+          0.7880204468357054
+        ],
+        "heading_dot": 1.0,
+        "tilt_bounds_deg": [
+          5.0,
+          75.0
+        ],
+        "tilt_definition": "0 horizontal; 90 vertical; upward impact normal",
+        "source": "bounded_tilt_uv_height_search",
+        "native_paths_checked": false,
+        "physically_verified": false
+      },
+      "release_coordinates": {
+        "commanded_release_ball_center_mm": [
+          584.4183131890908,
+          -201.68647463073174,
+          565.4397092306664
+        ],
+        "nominal_contact_ball_center_mm": [
+          584.4183131890908,
+          -201.68647463073174,
+          385.65812008141893
+        ],
+        "h_m": 0.17978158914924744,
+        "gap_mm": 179.78158914924742,
+        "u_mm": -9.522791624870177,
+        "v_mm": -1.6862585688143437,
+        "coordinate_contract": {
+          "frame": "world; Z upward",
+          "position_units": "mm",
+          "angle_units": "degrees",
+          "mass_units": "kg",
+          "time_units": "s",
+          "height_units": "m",
+          "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+          "uv_definition": "board-local top-face U/V in mm; not world XY",
+          "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+          "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+          "ball_to_tool": {
+            "translation_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation_matrix": [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                0
+              ],
+              [
+                0,
+                0,
+                1
+              ]
+            ],
+            "status": "provisional ball center at simulated gripper TCP; uncalibrated"
+          },
+          "tcp_world_rotation_matrix": [
+            [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              -1.0
+            ]
+          ]
+        }
+      },
+      "inference": "Explicit per-scene tilt/U/V/height numerical search; not frozen learned inference",
+      "planning_success": true,
+      "planning_outcome": "captured",
+      "native_paths_checked": false,
+      "trials": [
+        {
+          "seed": 1001,
+          "success": true,
+          "outcome": "captured"
+        },
+        {
+          "seed": 1002,
+          "success": true,
+          "outcome": "captured"
+        },
+        {
+          "seed": 1003,
+          "success": true,
+          "outcome": "captured"
+        },
+        {
+          "seed": 1004,
+          "success": true,
+          "outcome": "captured"
+        },
+        {
+          "seed": 1005,
+          "success": true,
+          "outcome": "captured"
+        }
+      ],
+      "captures": 5,
+      "trial_count": 5
+    },
+    {
+      "case": "left",
+      "mode": "facing_learned",
+      "board_center_mm": [
+        590.0,
+        -170.0,
+        360.0
+      ],
+      "bucket_center_xy_mm": [
+        530.0,
+        -430.0
+      ],
+      "planning_seed": 42,
+      "evaluation_seeds": [
+        1001,
+        1002,
+        1003,
+        1004,
+        1005
+      ],
+      "action": {
+        "roll_deg": -7.240123529545762,
+        "pitch_deg": -27.306573050940333,
+        "u_mm": 0.9379362856309257,
+        "v_mm": -0.9937481638344394,
+        "gap_mm": 222.48737854611585
+      },
+      "board_rpy_deg": [
+        -7.240123529545762,
+        -27.306573050940333,
+        92.4842568145931
+      ],
+      "board_facing": {
+        "contract_version": "sircus-bucket-facing-v1",
+        "heading_deg": -102.9946167919165,
+        "tilt_deg": 28.1786098080111,
+        "normal": [
+          -0.10618354201428792,
+          -0.4601286820619137,
+          0.8814798076809622
+        ],
+        "heading_dot": 0.9999999999999999,
+        "tilt_bounds_deg": [
+          5.0,
+          75.0
+        ],
+        "tilt_definition": "0 horizontal; 90 vertical; upward impact normal",
+        "source": "frozen_prediction_plus_geometric_heading_constraint",
+        "native_paths_checked": false,
+        "physically_verified": false,
+        "yaw_correction_deg": 2.484256814593124,
+        "raw_predicted_rpy_deg": [
+          -7.240123529545762,
+          -27.306573050940333,
+          90.0
+        ],
+        "expected_rotated_release_mm": [
+          586.7039224940419,
+          -187.58718318217518,
+          618.2881344135603
+        ],
+        "release_transform": "Rz(yaw_correction) around board center; board-local U/V and world-Z gap retained",
+        "evaluation_scope": "New constrained policy variant; previous frozen-policy benchmark rates do not apply",
+        "frozen_model_updated": false,
+        "per_scene_search": false,
+        "release_transform_error_mm": 1.1368683772161603e-13
+      },
+      "release_coordinates": {
+        "commanded_release_ball_center_mm": [
+          586.7039224940418,
+          -187.58718318217518,
+          618.2881344135603
+        ],
+        "nominal_contact_ball_center_mm": [
+          586.7039224940418,
+          -187.58718318217518,
+          395.8007558674444
+        ],
+        "h_m": 0.22248737854611592,
+        "gap_mm": 222.48737854611585,
+        "u_mm": 0.9379362856309257,
+        "v_mm": -0.9937481638344394,
+        "coordinate_contract": {
+          "frame": "world; Z upward",
+          "position_units": "mm",
+          "angle_units": "degrees",
+          "mass_units": "kg",
+          "time_units": "s",
+          "height_units": "m",
+          "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+          "uv_definition": "board-local top-face U/V in mm; not world XY",
+          "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+          "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+          "ball_to_tool": {
+            "translation_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation_matrix": [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                0
+              ],
+              [
+                0,
+                0,
+                1
+              ]
+            ],
+            "status": "provisional ball center at simulated gripper TCP; uncalibrated"
+          },
+          "tcp_world_rotation_matrix": [
+            [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              -1.0
+            ]
+          ]
+        }
+      },
+      "inference": "Frozen matrix inference once, then explicit geometric yaw constraint; no per-scene search or retraining",
+      "planning_success": true,
+      "planning_outcome": "captured",
+      "native_paths_checked": false,
+      "trials": [
+        {
+          "seed": 1001,
+          "success": true,
+          "outcome": "captured"
+        },
+        {
+          "seed": 1002,
+          "success": true,
+          "outcome": "captured"
+        },
+        {
+          "seed": 1003,
+          "success": true,
+          "outcome": "captured"
+        },
+        {
+          "seed": 1004,
+          "success": true,
+          "outcome": "captured"
+        },
+        {
+          "seed": 1005,
+          "success": true,
+          "outcome": "captured"
+        }
+      ],
+      "captures": 5,
+      "trial_count": 5
+    },
+    {
+      "case": "right_farther",
+      "mode": "facing_search",
+      "board_center_mm": [
+        620.0,
+        -130.0,
+        345.0
+      ],
+      "bucket_center_xy_mm": [
+        700.0,
+        -420.0
+      ],
+      "planning_seed": 42,
+      "evaluation_seeds": [
+        1001,
+        1002,
+        1003,
+        1004,
+        1005
+      ],
+      "action": {
+        "roll_deg": 0.0,
+        "pitch_deg": -37.070155023247494,
+        "u_mm": 63.06564101955068,
+        "v_mm": 17.216620827426652,
+        "gap_mm": 164.21779740501816
+      },
+      "board_rpy_deg": [
+        0.0,
+        -37.070155023247494,
+        105.42216131873869
+      ],
+      "board_facing": {
+        "contract_version": "sircus-bucket-facing-v1",
+        "heading_deg": -74.57783868126133,
+        "tilt_deg": 37.070155023247494,
+        "normal": [
+          0.16029999229491987,
+          -0.5810874720690838,
+          0.7978980274913646
+        ],
+        "heading_dot": 1.0000000000000002,
+        "tilt_bounds_deg": [
+          5.0,
+          75.0
+        ],
+        "tilt_definition": "0 horizontal; 90 vertical; upward impact normal",
+        "source": "bounded_tilt_uv_height_search",
+        "native_paths_checked": false,
+        "physically_verified": false
+      },
+      "release_coordinates": {
+        "commanded_release_ball_center_mm": [
+          596.4337702623579,
+          -109.31383671063168,
+          579.1492107629682
+        ],
+        "nominal_contact_ball_center_mm": [
+          596.4337702623579,
+          -109.31383671063168,
+          414.93141335795013
+        ],
+        "h_m": 0.16421779740501807,
+        "gap_mm": 164.21779740501816,
+        "u_mm": 63.06564101955068,
+        "v_mm": 17.216620827426652,
+        "coordinate_contract": {
+          "frame": "world; Z upward",
+          "position_units": "mm",
+          "angle_units": "degrees",
+          "mass_units": "kg",
+          "time_units": "s",
+          "height_units": "m",
+          "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+          "uv_definition": "board-local top-face U/V in mm; not world XY",
+          "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+          "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+          "ball_to_tool": {
+            "translation_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation_matrix": [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                0
+              ],
+              [
+                0,
+                0,
+                1
+              ]
+            ],
+            "status": "provisional ball center at simulated gripper TCP; uncalibrated"
+          },
+          "tcp_world_rotation_matrix": [
+            [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              -1.0
+            ]
+          ]
+        }
+      },
+      "inference": "Explicit per-scene tilt/U/V/height numerical search; not frozen learned inference",
+      "planning_success": true,
+      "planning_outcome": "captured",
+      "native_paths_checked": false,
+      "trials": [
+        {
+          "seed": 1001,
+          "success": true,
+          "outcome": "captured"
+        },
+        {
+          "seed": 1002,
+          "success": true,
+          "outcome": "captured"
+        },
+        {
+          "seed": 1003,
+          "success": true,
+          "outcome": "captured"
+        },
+        {
+          "seed": 1004,
+          "success": true,
+          "outcome": "captured"
+        },
+        {
+          "seed": 1005,
+          "success": true,
+          "outcome": "captured"
+        }
+      ],
+      "captures": 5,
+      "trial_count": 5
+    },
+    {
+      "case": "right_farther",
+      "mode": "facing_learned",
+      "board_center_mm": [
+        620.0,
+        -130.0,
+        345.0
+      ],
+      "bucket_center_xy_mm": [
+        700.0,
+        -420.0
+      ],
+      "planning_seed": 42,
+      "evaluation_seeds": [
+        1001,
+        1002,
+        1003,
+        1004,
+        1005
+      ],
+      "action": {
+        "roll_deg": 6.800435578251296,
+        "pitch_deg": -24.313350478676668,
+        "u_mm": -10.408629977806221,
+        "v_mm": 7.29871811433091,
+        "gap_mm": 233.62589883657785
+      },
+      "board_rpy_deg": [
+        6.800435578251296,
+        -24.313350478676668,
+        89.26929166650359
+      ],
+      "board_facing": {
+        "contract_version": "sircus-bucket-facing-v1",
+        "heading_deg": -74.57783868126133,
+        "tilt_deg": 25.190725679543082,
+        "normal": [
+          0.11318811044518019,
+          -0.4103069003637781,
+          0.9048959604107637
+        ],
+        "heading_dot": 0.9999999999999999,
+        "tilt_bounds_deg": [
+          5.0,
+          75.0
+        ],
+        "tilt_definition": "0 horizontal; 90 vertical; upward impact normal",
+        "source": "frozen_prediction_plus_geometric_heading_constraint",
+        "native_paths_checked": false,
+        "physically_verified": false,
+        "yaw_correction_deg": -0.7307083334964091,
+        "raw_predicted_rpy_deg": [
+          6.800435578251296,
+          -24.313350478676668,
+          90.0
+        ],
+        "expected_rotated_release_mm": [
+          617.1552397380755,
+          -156.16034749539284,
+          611.323825714284
+        ],
+        "release_transform": "Rz(yaw_correction) around board center; board-local U/V and world-Z gap retained",
+        "evaluation_scope": "New constrained policy variant; previous frozen-policy benchmark rates do not apply",
+        "frozen_model_updated": false,
+        "per_scene_search": false,
+        "release_transform_error_mm": 0.0
+      },
+      "release_coordinates": {
+        "commanded_release_ball_center_mm": [
+          617.1552397380755,
+          -156.16034749539284,
+          611.323825714284
+        ],
+        "nominal_contact_ball_center_mm": [
+          617.1552397380755,
+          -156.16034749539284,
+          377.69792687770615
+        ],
+        "h_m": 0.23362589883657783,
+        "gap_mm": 233.62589883657785,
+        "u_mm": -10.408629977806221,
+        "v_mm": 7.29871811433091,
+        "coordinate_contract": {
+          "frame": "world; Z upward",
+          "position_units": "mm",
+          "angle_units": "degrees",
+          "mass_units": "kg",
+          "time_units": "s",
+          "height_units": "m",
+          "board_rotation": "Rz(yaw) Ry(pitch) Rx(roll)",
+          "uv_definition": "board-local top-face U/V in mm; not world XY",
+          "gap_definition": "world-Z mm above R*[U,V,thickness/2+radius]+board_center",
+          "height_definition": "h_m = (release ball-center world Z - nominal first finite-board-contact ball-center world Z)/1000",
+          "ball_to_tool": {
+            "translation_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation_matrix": [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                0
+              ],
+              [
+                0,
+                0,
+                1
+              ]
+            ],
+            "status": "provisional ball center at simulated gripper TCP; uncalibrated"
+          },
+          "tcp_world_rotation_matrix": [
+            [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              -1.0
+            ]
+          ]
+        }
+      },
+      "inference": "Frozen matrix inference once, then explicit geometric yaw constraint; no per-scene search or retraining",
+      "planning_success": false,
+      "planning_outcome": "no_entry",
+      "native_paths_checked": false,
+      "trials": [
+        {
+          "seed": 1001,
+          "success": false,
+          "outcome": "no_entry"
+        },
+        {
+          "seed": 1002,
+          "success": false,
+          "outcome": "no_entry"
+        },
+        {
+          "seed": 1003,
+          "success": false,
+          "outcome": "no_entry"
+        },
+        {
+          "seed": 1004,
+          "success": false,
+          "outcome": "no_entry"
+        },
+        {
+          "seed": 1005,
+          "success": false,
+          "outcome": "no_entry"
+        }
+      ],
+      "captures": 0,
+      "trial_count": 5
+    }
+  ]
+}

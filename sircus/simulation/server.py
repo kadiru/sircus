@@ -466,14 +466,21 @@ class Handler(BaseHTTPRequestHandler):
     def show_status(self):
         mode = getattr(PHYSICAL, 'mode', 'disabled') if PHYSICAL is not None else 'disabled'
         numerical = self.workflow_ready()
+        operation = OPERATIONS.status() if numerical else {}
         return {'schema': 'sircus.show.v1', 'action_token': SHOW_TOKEN,
+            'numerical_busy': operation.get('busy') is True,
+            'numerical_phase': operation.get('phase'),
             'modes': {
                 'deterministic': {'available': mode in ('dry_run','hardware'), 'mode': mode,
-                    'requires_bucket_detection': False},
+                    'label': 'Manual operation', 'requires_bucket_detection': False},
                 'simulator': {'available': numerical, 'url': '/operations.html?embed=simulator',
                     'hardware_enabled': False},
                 'trained': {'available': numerical, 'url': '/operations.html?embed=trained',
-                    'hardware_enabled': False, 'deployment': 'blocked pending calibration and native paths'}},
+                    'hardware_enabled': False, 'planner': 'facing_learned',
+                    'deployment': 'blocked pending calibration and native paths'},
+                'mock': {'available': numerical, 'url': '/operations.html?embed=mock',
+                    'hardware_enabled': False, 'planner': 'facing_search',
+                    'evidence': 'bounded numerical search and mock choreography; not learned inference'}},
             'audio_show': SHOW_AUDIO.status() if SHOW_AUDIO is not None else None,
             'audio_error': None if SHOW_AUDIO is not None else 'Optional show audio unavailable',
             'scope': 'Deterministic poses do not require vision; trained physical execution remains uncommissioned'}
@@ -549,7 +556,7 @@ def main():
     parser.add_argument('--physical-mode', choices=('disabled','dry_run','hardware'), default='disabled')
     parser.add_argument('--physical-credentials', type=Path, default=ROOT.parent/'perception/.private/sfhack10.json')
     parser.add_argument('--physical-data-root', type=Path, default=None)
-    parser.add_argument('--show', action='store_true', help='Three-mode show UI; offline only; numerical workflow requires a disabled or mock physical adapter')
+    parser.add_argument('--show', action='store_true', help='Four-mode show UI; offline only; numerical workflow requires a disabled or mock physical adapter')
     parser.add_argument('--operations', action='store_true', help='Enable guided simulation and local training; requires offline and physical disabled')
     parser.add_argument('--workflow-profile', choices=('front','historical'), default='front')
     parser.add_argument('--workflow-checkpoint', type=Path, default=None)

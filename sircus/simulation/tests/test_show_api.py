@@ -28,9 +28,17 @@ class ShowAPI(unittest.TestCase):
     def test_status_distinguishes_mock_physical_and_numerical(self):
         r,code=self.request('/api/show/status');self.assertEqual(code,200)
         self.assertEqual(r['modes']['deterministic']['mode'],'disabled');self.assertTrue(r['modes']['simulator']['available'])
+        self.assertEqual(set(r['modes']), {'deterministic','simulator','trained','mock'})
+        self.assertTrue(r['modes']['mock']['available'])
+        self.assertEqual(r['modes']['mock']['planner'], 'facing_search')
+        self.assertEqual(r['modes']['trained']['planner'], 'facing_learned')
+        self.assertFalse(r['numerical_busy'])
+        self.ops.status.return_value['busy']=True
+        self.assertTrue(self.request('/api/show/status')[0]['numerical_busy'])
         with patch.object(server,'PHYSICAL',types.SimpleNamespace(mode='hardware')):
             r,code=self.request('/api/show/status');self.assertTrue(r['modes']['deterministic']['available'])
             self.assertFalse(r['modes']['trained']['available']);self.assertFalse(r['modes']['simulator']['available'])
+            self.assertFalse(r['modes']['mock']['available']);self.assertFalse(r['numerical_busy'])
     def test_host_origin_token_before_actions(self):
         for opts in [{'token':''},{'host':'evil.invalid'},{'origin':'https://evil.invalid'}]:
             self.assertEqual(self.request(payload={'action':'stop_audio_replay'},**opts)[1],403)

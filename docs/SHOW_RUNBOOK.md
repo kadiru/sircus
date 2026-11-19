@@ -1,6 +1,6 @@
 # Sircus show desk
 
-`/show.html` is the three-mode entry point. It combines the existing operator,
+`/show.html` is the four-mode entry point. It combines the existing operator,
 training and optional Ghost Booth clients; it does not create a second physical
 controller or silently deploy a cloud part.
 
@@ -20,13 +20,18 @@ under ignored `.runtime/show/`; do not commit or copy them over host calibration
 The interface marks dry-run evidence explicitly. Mock routines are silent; only
 explicit numerical audio replay uses synthetic contacts.
 
-## Three acts
+## Four acts
 
 | Mode | Implemented behavior | Boundary |
 |---|---|---|
-| Simulator | Move numerical board/bucket, synthetic scan, release preview, fresh trial/replay and local model-training jobs | Synthetic physics and provisional geometry; endpoint IK does not prove a safe arm path |
-| Deterministic | Configure or teach TCP loading/drop targets; one button moves to load, opens if needed, waits 2 seconds, closes, carries to drop, settles for 2 seconds and releases | Real execution requires an explicitly started hardware backend and verified fixed setup; no bucket detector needed |
-| Trained | One frozen scene-conditioned prediction proposes board orientation/U/V/gap; held-out results and numerical replay remain visible | Real bucket perception, verified transforms, native v2 paths and physical transfer remain uncommissioned |
+| Manual operation | Configure or teach TCP loading/drop targets; one button moves to load, opens if needed, waits 2 seconds, closes, carries to drop, settles for 2 seconds and releases | Real execution requires an explicitly started hardware backend and verified fixed setup; no bucket detector needed |
+| Trained operation | Enter or randomize board center, place bucket, then make one frozen scene-conditioned prediction with an explicit geometric heading constraint; acknowledge loading and press Go | Constrained variant is separate from the published 33/48 benchmark; real bucket perception, transforms, native paths and physical transfer remain uncommissioned |
+| Simulation | General numerical scene editor, original fixed-board/frozen planners, local training jobs and published study results | Synthetic physics and provisional geometry; endpoint IK does not prove a safe arm path |
+| Mock simulation | Same placement/load/Go steps as Trained, with bounded numerical tilt/U/V/height search aimed at the bucket | Per-scene search is explicitly not learned inference; no hardware connection and no guaranteed capture |
+
+See [the bucket-facing workflow](BUCKET_FACING_WORKFLOW.md) for the new angle
+convention, randomization and experiment reproduction. Internal API mode key
+`deterministic` remains unchanged for the renamed Manual operation panel.
 
 Practice mode saves each completed cycle locally without requiring a capture/miss
 label. It requires another button press for the next cycle. Stop cancels pending
@@ -90,7 +95,7 @@ listening and cancellation checks.
 
 `./start-show.sh --hardware` is an explicit deployment command, **not a sync step**.
 It uses `SIRCUS_PHYSICAL_DATA_ROOT` or the existing ignored hardware data directory,
-requires backend Viam credentials, and disables both numerical modes. Do not launch
+requires backend Viam credentials, and disables all three numerical modes. Do not launch
 it alongside another dashboard/controller that owns the same arm. First verify
 current runtime ownership, real camera/state, taught targets, fixed board/bucket,
 recording readiness and operator-controlled routes. Existing host calibration must
