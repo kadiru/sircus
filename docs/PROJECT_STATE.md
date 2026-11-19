@@ -1,5 +1,14 @@
 # Project state
 
+## Completed seven-hour-budget coverage training — November 9, 2026
+
+- [Audited results and all 70 paired positions](../baselines/mjlab-coverage-training-20261109/README.md): new imitation **28/70 (40%)**, selected new PPO **28/70 (40%)**; 27 shared captures, one gain, one loss, 41 shared failures. Previous weights scored imitation 28/70 and PPO 31/70 under the same expanded 19-pose prior. No net new-PPO improvement and no policy promotion.
+- All **2,757** requests completed in **235.1 worker minutes**: 1,260 guided TRAIN search, 1,024 PPO (512 per seed), 175 validation, 280 TEST and 18 controls. Search produced 532 captures and 68 successful teacher layouts out of 105 TRAIN. Validation improved 22/35 → 25/35 for the selected 512-request checkpoint, but not on unseen TEST. Both new models have 22 setup declines and 20 released misses; no TEST invalid physics. Twelve invalid physics shots during search/training remain failed attempts.
+- Independent CPU audit passed **857,507 checks**. The original checker stopped on a mixed-unit float32 tolerance; corrected revision `normalized-command-units-v1` preserves normalized tolerance and adds exact saved-action algebra checks. Both original failed proof and frozen producer `1952dd5993f3d3dd0fdb52ea4eff2dbc72d36862` remain unchanged. [Verification provenance and follow-up](MJLAB_COVERAGE_TRAINING7H_20261109.md).
+- UI `#coverageTraining7h` now has audited four-model scores, paired takeaway, validation curves and all 70 position outcomes. One frozen prediction/attempt per position; finite coverage, not all-table success or reliability. Held-endpoint native64/v3 only, not learned grasp/transit/perception. Results published without service restart; 4090 worker finished, 4070 fountain and Isaac left untouched.
+- Next: diagnose 22 setup declines and 20 flight misses, and 37 TRAIN layouts without successful teachers, before another long PPO run. No automatic new experiment or interactive policy activation. Draft PR #102 remains stacked on #100.
+
+
 ## Completed Case 00 tilt/gap search — November 9, 2026
 
 - [Exact successful settings and evidence](MJLAB_CASE00_TILT_GAP_20261109.md): fixed board center **(597.992, −23.557, 460) mm**, bucket **(1109.540, −221.464) mm**, gap **251.819 mm**; changing tilt to **26° or 32°** produced one discovery capture and **3/3 fresh captures each**. Original 28° baseline remained 0/3. Release-ball center Z is 749.319 mm; horizontal bucket distance 548.496 mm.
