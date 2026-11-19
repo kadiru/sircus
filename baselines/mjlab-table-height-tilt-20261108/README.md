@@ -93,6 +93,22 @@ This study does not cover new bucket positions, varying drop gap or board XY,
 alternative board spin, moving-arm execution, noise, timestep convergence,
 perception or physical transfer. The earlier 15/50 policy result remains unchanged.
 
+## Recorded video and contact localization
+
+A **47.63-second replay** is available in the interface at `#heightTiltReplay`:
+three native misses followed by a successful table-assisted reference, at normal
+and quarter speed. It renders saved ball samples and held arm joints using the
+original collision geometry. There are no new physics steps or invented arm
+movements. The successful reference is a control, not a discovery-grid capture.
+
+CPU geometry reconstruction corroborates first robot contacts with the bouncer's
+link 2 (case 00 g23, 0.476 s) and link 3 (case 18 g23, 0.468 s). The original
+force log identifies the robot category; the named links are reconstructed.
+Case 01 g17 avoids robot contact but hits the bucket's exterior below the rim at
+0.596 s. See [video interpretation and reproduction](../../docs/MJLAB_HEIGHT_TILT_REPLAY_20261108.md),
+[contact evidence](video-contact-evidence.json) and [video manifest summary](video-summary.json).
+The MP4 and full per-frame map remain local runtime artifacts, outside Git.
+
 ## Compact evidence
 
 - [summary.json](summary.json): independently audited counts, all 120 cells,
