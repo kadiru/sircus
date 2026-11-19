@@ -1,5 +1,11 @@
 # Project state
 
+## Seed-22 original-versus-broader comparison: CPU preflight passed — November 17, 2026
+
+- [Actual-input verification and limits](../baselines/isaac-seed22-comparison-preflight-20261117/README.md): source `89b0afd` and a new private manifest bind 101 input files, 217 Python source files and 80 asset files. Original seed-22 weights and complete finite Adam state restored on CPU at 10,000 inherited requests / 73 PPO updates / 292 optimizer steps. All 35 original TRAIN predictions matched their saved readouts; maximum normalized error 1.78814e-7, within the existing 5e-6 tolerance.
+- The successful CPU process used 3.074 seconds wall, 2.639 CPU-seconds and 667.5 MiB peak RSS. A preserved first CPU-container attempt failed before Python startup because of its default user; the second used the file owner's UID without changing input or source bytes. Both isolated containers had no GPU/network access and read-only experiment mounts, then were removed. The existing simulator container remained stopped. All input/source hashes matched afterward; prospective native/audit directories remained absent.
+- This task started no simulator, training or new shots and made no native-performance claim. The prepared comparison remains 8,960 TRAIN requests per copy: 31 admitted original locations versus 8,960 distinct broader locations, followed by the same fresh 70 broad + 25 nearby TEST positions for parent and both final models. Four Isaac base-overlap exclusions stay distinct from the two in the mjlab scene. Actual execution remains a separate user decision with fresh ownership/resource/startup checks.
+
 ## Direct seed-22 continuation completed and audited — November 10, 2026
 
 - [Audited results, complete scalar curves and artifact identities](../baselines/isaac-seed22-continuation-20261110/README.md), [fixed protocol](../sircus/isaac/SEED22_CONTINUATION.md): exact original weights and Adam state were continued with the fixed continuous geometry checker, without a bank, imitation, old-shot replay or architecture/reward/physics changes. The original 35 TRAIN positions received fresh stochastic proposals; 35 monitoring and 70 TEST positions were newly fixed before inference.
