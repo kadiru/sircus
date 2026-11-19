@@ -1,3 +1,27 @@
+# Broad shot-learning study completed — November 2, 2026
+
+[Method](FARM_SHOT_LEARNING.md),
+[per-table results and checkpoints](../../baselines/isaac-farm-shot-learning-20261102/README.md).
+The broad CPU bank has 1,607 proposals; 1,236 passed native qualification.
+Nineteen sites captured, four more than the previous short run; all 19 selected
+settings passed 4/4 nominal repeats. This is development search, not inference.
+
+The native v4 study completed 8,960 training attempts and 128 PPO updates. Frozen
+sampled scores improved from 96/560 to 183/560. Greedy selection remains 10/35,
+versus the older policy's 14/35; do not promote it. Same-layout development tests,
+privileged features, initialized endpoints and provisional physics remain explicit.
+All 35 bucket coordinates, original scoring and historical policies are preserved.
+
+Independent audit matched all 97 frozen source hashes, 439 stage/per-cell reports,
+8,960 training likelihoods and 1,190 categorical frozen-evaluation likelihoods.
+Full regression passed, including 266 Isaac tests with ten Mac Torch skips; actual
+Ubuntu policy/transfer CPU tests passed. Read-only results page: port 18785.
+The main GPU job exited. A separate frozen-policy probe never launched: another
+agent held the 4090 lock throughout its 900-second queue wait. That queue exited;
+no probe process remains. Existing services and the 4070 workload were not
+interrupted. Prepared probe configurations and CPU tests are ready, but native
+validation is outstanding. Final Ubuntu storage: approximately 3.8 GiB free.
+
 # Expanded farm: all 35 sites released — November 2, 2026
 
 [Method and reproduction](EXPANDED_FARM_POSES.md),

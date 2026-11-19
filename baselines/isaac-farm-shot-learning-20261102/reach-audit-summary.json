@@ -1,0 +1,2406 @@
+{
+  "version": "sircus-model-reach-energy-diagnostic-v1",
+  "source_spec_sha256": "291ca91848bddff8f812b59e790ac565657982a708dd9dcb7c7281136a87544f",
+  "source_fingerprint": "63362ef37a93881f769b39d1ee7456335f1cc7bf5db04ffa7e548ce9697455bf",
+  "script_sha256": "ff0fedd7d247020d4f819c3257edd64b942c9c1e2bc68ebf9c893b43666443fe",
+  "asset_sha256": {
+    "dropper.urdf": "3f40e56e46b040fb3339c1235ea85872f46511c45db2d37f7661db94a470bae3",
+    "board_arm.urdf": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340",
+    "poses.json": "5847c2793606860a82cc74030c3fe529767318f189c5d48e3d66c0dc7b9f776a"
+  },
+  "domains": {
+    "current": {
+      "height_m": [
+        0.14,
+        0.54
+      ],
+      "gap_m": [
+        0.08,
+        0.56
+      ],
+      "tilt_deg": [
+        12.0,
+        52.0
+      ]
+    },
+    "wider_diagnostic": {
+      "height_m": [
+        0.06,
+        0.85
+      ],
+      "gap_m": [
+        0.02,
+        1.2
+      ],
+      "tilt_deg": [
+        5.0,
+        65.0
+      ]
+    }
+  },
+  "grid": {
+    "xy_step_m": 0.05,
+    "height_step_m": 0.02,
+    "tilt_step_deg": 2,
+    "nested_current_in_wider": true
+  },
+  "rim_plane_ball_center_offset_radii": 0.0,
+  "alternative_plane_offsets_radii": [
+    -1.0,
+    1.0
+  ],
+  "restitution": 0.65,
+  "reach_spheres": {
+    "Arm10": {
+      "pivot_local_m": [
+        0.0,
+        0.0,
+        0.364
+      ],
+      "outer_radius_m": 0.9316370223974114,
+      "terminal_normal_offset_m": 0.08999999999939283,
+      "terminal_perpendicular_offset_m": 3.3058845929745396e-07,
+      "normal_wrist_outer_radius_m": 0.8416373529858707,
+      "scope": "Conservative sum-of-link-origin-length outer bound; not orientation-aware reach or a sufficient IK condition."
+    },
+    "Arm14": {
+      "pivot_local_m": [
+        0.0,
+        0.0,
+        0.364
+      ],
+      "outer_radius_m": 0.9316370223974114,
+      "terminal_normal_offset_m": 0.08999999999939283,
+      "terminal_perpendicular_offset_m": 3.3058845929745396e-07,
+      "normal_wrist_outer_radius_m": 0.8416373529858707,
+      "scope": "Conservative sum-of-link-origin-length outer bound; not orientation-aware reach or a sufficient IK condition."
+    }
+  },
+  "normal_aware_rule": "Remove terminal offset along flange normal before applying proximal link sphere. Dropper normal is downward; board flange normal equals desired board normal. Terminal perpendicular rounding residual expands the proximal sphere.",
+  "opening_scope": "Primary target is ball center at rim height; alternatives cover approach(+radius) and whole-ball-entry(-radius) planes. A plane-center range match does not establish clearance through the full mouth corridor or retention.",
+  "scope": "Frictionless model plus conservative URDF reach spheres and a bounded strict endpoint IK diagnostic. No native ball releases, capture labels, path certification, changed production bounds or impossibility claim.",
+  "schema": "sircus-compact-reach-energy-audit-v1",
+  "raw_original_sha256": "55f3e29ee694d6f5222092c884d95e9bb04648c5015ba2b96971a4ddde873937",
+  "raw_reproduction_sha256": "500d9537c909384e49ebe809361bbace489d29ae77af7a2b1caa37784cd04f83",
+  "numeric_results_reproduced_exactly_except_script_digest": true,
+  "raw_artifacts_retained_outside_git": true,
+  "cells": [
+    {
+      "cell_id": "r1c1",
+      "bucket_xy_m": [
+        -0.1014285714285714,
+        0.25
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 37901,
+        "model_matched_strata": 882,
+        "max_model_range_m": 0.6904766093618581,
+        "max_model_range_minus_required_distance_m": 0.1259940234534379,
+        "strict_ik_checks": []
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 132443,
+        "model_matched_strata": 2024,
+        "max_model_range_m": 0.6907972120605544,
+        "max_model_range_minus_required_distance_m": 0.12785583588111182,
+        "strict_ik_checks": []
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 1377,
+            "max_model_range_m": 0.7211791519593782,
+            "max_model_range_minus_required_distance_m": 0.15697832994031136,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 3229,
+            "max_model_range_m": 0.7235755816641392,
+            "max_model_range_minus_required_distance_m": 0.15916154602914878,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 479,
+            "max_model_range_m": 0.6584712553593328,
+            "max_model_range_minus_required_distance_m": 0.09463226440023553,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 1063,
+            "max_model_range_m": 0.6584712553593328,
+            "max_model_range_minus_required_distance_m": 0.09497717190685417,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r1c2",
+      "bucket_xy_m": [
+        0.15571428571428578,
+        0.25
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 34992,
+        "model_matched_strata": 7365,
+        "max_model_range_m": 0.6813314075297775,
+        "max_model_range_minus_required_distance_m": 0.35776320937136546,
+        "strict_ik_checks": []
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 120158,
+        "model_matched_strata": 18691,
+        "max_model_range_m": 0.6813314075297775,
+        "max_model_range_minus_required_distance_m": 0.35785592121399096,
+        "strict_ik_checks": []
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 8927,
+            "max_model_range_m": 0.7119503904358598,
+            "max_model_range_minus_required_distance_m": 0.38986130733042706,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 22544,
+            "max_model_range_m": 0.7119503904358598,
+            "max_model_range_minus_required_distance_m": 0.38986130733042706,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 5881,
+            "max_model_range_m": 0.6487272126688048,
+            "max_model_range_minus_required_distance_m": 0.3240456270859385,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 15078,
+            "max_model_range_m": 0.6493934896498118,
+            "max_model_range_minus_required_distance_m": 0.32649430149646,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r1c3",
+      "bucket_xy_m": [
+        0.4128571428571429,
+        0.25
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 17620,
+        "model_matched_strata": 4303,
+        "max_model_range_m": 0.6326764315951908,
+        "max_model_range_minus_required_distance_m": 0.2994814773251413,
+        "strict_ik_checks": []
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 59304,
+        "model_matched_strata": 10051,
+        "max_model_range_m": 0.6337784757219757,
+        "max_model_range_minus_required_distance_m": 0.30058352145192613,
+        "strict_ik_checks": []
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 5322,
+            "max_model_range_m": 0.6696258389583936,
+            "max_model_range_minus_required_distance_m": 0.33643088468834403,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 12512,
+            "max_model_range_m": 0.6700030945227158,
+            "max_model_range_minus_required_distance_m": 0.33680814025266625,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 3363,
+            "max_model_range_m": 0.5966293471306741,
+            "max_model_range_minus_required_distance_m": 0.26343439286062453,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 7780,
+            "max_model_range_m": 0.5969362522834085,
+            "max_model_range_minus_required_distance_m": 0.263741298013359,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r1c4",
+      "bucket_xy_m": [
+        0.6700000000000002,
+        0.25
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 8520,
+        "model_matched_strata": 2391,
+        "max_model_range_m": 0.5889145475352016,
+        "max_model_range_minus_required_distance_m": 0.2674724843262929,
+        "strict_ik_checks": []
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 28419,
+        "model_matched_strata": 5321,
+        "max_model_range_m": 0.5897039398331904,
+        "max_model_range_minus_required_distance_m": 0.2682618766242817,
+        "strict_ik_checks": []
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 2850,
+            "max_model_range_m": 0.6252176867768083,
+            "max_model_range_minus_required_distance_m": 0.30377562356789967,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 6433,
+            "max_model_range_m": 0.6252176867768083,
+            "max_model_range_minus_required_distance_m": 0.30377562356789967,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 1868,
+            "max_model_range_m": 0.5524231100841652,
+            "max_model_range_minus_required_distance_m": 0.23098104687525656,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 4114,
+            "max_model_range_m": 0.5525964250635031,
+            "max_model_range_minus_required_distance_m": 0.23115436185459448,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r1c5",
+      "bucket_xy_m": [
+        0.9271428571428573,
+        0.25
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 9618,
+        "model_matched_strata": 2660,
+        "max_model_range_m": 0.5787970210712501,
+        "max_model_range_minus_required_distance_m": 0.21040393740139368,
+        "strict_ik_checks": []
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 32118,
+        "model_matched_strata": 5688,
+        "max_model_range_m": 0.5805013677441418,
+        "max_model_range_minus_required_distance_m": 0.21048558373551646,
+        "strict_ik_checks": []
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 3211,
+            "max_model_range_m": 0.606477013380044,
+            "max_model_range_minus_required_distance_m": 0.245248535861803,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 6950,
+            "max_model_range_m": 0.6093406748548738,
+            "max_model_range_minus_required_distance_m": 0.245248535861803,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 2091,
+            "max_model_range_m": 0.5490181399998418,
+            "max_model_range_minus_required_distance_m": 0.1734220290790835,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 4369,
+            "max_model_range_m": 0.5494200530518824,
+            "max_model_range_minus_required_distance_m": 0.17376209532275932,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r1c6",
+      "bucket_xy_m": [
+        1.1842857142857144,
+        0.25
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 13701,
+        "model_matched_strata": 0,
+        "max_model_range_m": 0.5642052921830694,
+        "max_model_range_minus_required_distance_m": -0.03883451411564298,
+        "strict_ik_checks": [
+          {
+            "action": {
+              "id": "analytic-smallest-deficit",
+              "board_x_m": 0.635,
+              "board_y_m": 0.14,
+              "height_m": 0.26,
+              "gap_m": 0.41584860712994487,
+              "tilt_deg": 24.0,
+              "radius_m": 0.5601917492416034,
+              "azimuth_deg": 191.32426000048153,
+              "azimuth_offset_deg": -22.91320277637601
+            },
+            "predicted_range_m": 0.5213572351259604,
+            "required_distance_m": 0.5601917492416034,
+            "model_required_gap_m": 0.4548653069001919,
+            "available_gap_m": 0.41584860712994487,
+            "model_required_extra_gap_m": 0.03901669977024702,
+            "available_release_ball_center_ceiling_m": 0.7133486071299449,
+            "model_match_error_m": -0.03883451411564298,
+            "rim_plane_offset_radii": 0,
+            "model_center_match": false,
+            "strict_ik_solved": true,
+            "actual_fk_bottom_clearance_m": 0.18445065934335425,
+            "actual_fk_board_center_error_m": 2.2887833992611187e-16,
+            "endpoint_geometry_accepted": true
+          }
+        ]
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 45911,
+        "model_matched_strata": 0,
+        "max_model_range_m": 0.5677748814823615,
+        "max_model_range_minus_required_distance_m": -0.03754042590676465,
+        "strict_ik_checks": [
+          {
+            "action": {
+              "id": "analytic-smallest-deficit",
+              "board_x_m": 0.635,
+              "board_y_m": 0.14,
+              "height_m": 0.24,
+              "gap_m": 0.4358486071299449,
+              "tilt_deg": 23.0,
+              "radius_m": 0.5601917492416034,
+              "azimuth_deg": 191.32426000048153,
+              "azimuth_offset_deg": -22.91320277637601
+            },
+            "predicted_range_m": 0.5226513233348388,
+            "required_distance_m": 0.5601917492416034,
+            "model_required_gap_m": 0.47370764323195336,
+            "available_gap_m": 0.4358486071299449,
+            "model_required_extra_gap_m": 0.03785903610200847,
+            "available_release_ball_center_ceiling_m": 0.7133486071299449,
+            "model_match_error_m": -0.03754042590676465,
+            "rim_plane_offset_radii": 0,
+            "model_center_match": false,
+            "strict_ik_solved": true,
+            "actual_fk_bottom_clearance_m": 0.16729642171491488,
+            "actual_fk_board_center_error_m": 1.9229626863835638e-16,
+            "endpoint_geometry_accepted": true
+          }
+        ]
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.588970340164612,
+            "max_model_range_minus_required_distance_m": -0.0039743162630972995,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5928723241674531,
+            "max_model_range_minus_required_distance_m": -0.0025344492929230134,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5377919345833845,
+            "max_model_range_minus_required_distance_m": -0.07460398056319761,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5409374242780353,
+            "max_model_range_minus_required_distance_m": -0.07426391431952178,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r1c7",
+      "bucket_xy_m": [
+        1.4414285714285717,
+        0.25
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 13319,
+        "model_matched_strata": 0,
+        "max_model_range_m": 0.5615089038182908,
+        "max_model_range_minus_required_distance_m": -0.28904557996343694,
+        "strict_ik_checks": [
+          {
+            "action": {
+              "id": "analytic-smallest-deficit",
+              "board_x_m": 0.635,
+              "board_y_m": 0.09,
+              "height_m": 0.22,
+              "gap_m": 0.46650315039614687,
+              "tilt_deg": 22.0,
+              "radius_m": 0.8221478217549001,
+              "azimuth_deg": 191.22207055352027,
+              "azimuth_offset_deg": -13.181901135331344
+            },
+            "predicted_range_m": 0.5331022417914631,
+            "required_distance_m": 0.8221478217549001,
+            "model_required_gap_m": 0.7617668307714694,
+            "available_gap_m": 0.46650315039614687,
+            "model_required_extra_gap_m": 0.2952636803753226,
+            "available_release_ball_center_ceiling_m": 0.7240031503961468,
+            "model_match_error_m": -0.28904557996343694,
+            "rim_plane_offset_radii": 0,
+            "model_center_match": false,
+            "strict_ik_solved": true,
+            "actual_fk_bottom_clearance_m": 0.15018962631300806,
+            "actual_fk_board_center_error_m": 2.6051984646057447e-12,
+            "endpoint_geometry_accepted": true
+          }
+        ]
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 44760,
+        "model_matched_strata": 0,
+        "max_model_range_m": 0.5615089038182908,
+        "max_model_range_minus_required_distance_m": -0.28891102739606456,
+        "strict_ik_checks": [
+          {
+            "action": {
+              "id": "analytic-smallest-deficit",
+              "board_x_m": 0.635,
+              "board_y_m": 0.09,
+              "height_m": 0.24,
+              "gap_m": 0.44650315039614685,
+              "tilt_deg": 23.0,
+              "radius_m": 0.8221478217549001,
+              "azimuth_deg": 191.22207055352027,
+              "azimuth_offset_deg": -13.181901135331344
+            },
+            "predicted_range_m": 0.5332367943588355,
+            "required_distance_m": 0.8221478217549001,
+            "model_required_gap_m": 0.7418998572372321,
+            "available_gap_m": 0.44650315039614685,
+            "model_required_extra_gap_m": 0.2953967068410852,
+            "available_release_ball_center_ceiling_m": 0.7240031503961468,
+            "model_match_error_m": -0.28891102739606456,
+            "rim_plane_offset_radii": 0,
+            "model_center_match": false,
+            "strict_ik_solved": true,
+            "actual_fk_bottom_clearance_m": 0.1672871830212126,
+            "actual_fk_board_center_error_m": 6.232520791362119e-13,
+            "endpoint_geometry_accepted": true
+          }
+        ]
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5855127438353142,
+            "max_model_range_minus_required_distance_m": -0.25400781734566225,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5855127438353142,
+            "max_model_range_minus_required_distance_m": -0.25256795037548796,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5358775143608024,
+            "max_model_range_minus_required_distance_m": -0.32610823167262437,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5358775143608024,
+            "max_model_range_minus_required_distance_m": -0.32572690124774123,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r2c1",
+      "bucket_xy_m": [
+        -0.12899999999999998,
+        -0.124
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 38790,
+        "model_matched_strata": 915,
+        "max_model_range_m": 0.6951101682033836,
+        "max_model_range_minus_required_distance_m": 0.12501973116683263,
+        "strict_ik_checks": []
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 135646,
+        "model_matched_strata": 2111,
+        "max_model_range_m": 0.6951101682033836,
+        "max_model_range_minus_required_distance_m": 0.12501973116683263,
+        "strict_ik_checks": []
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 1390,
+            "max_model_range_m": 0.7266978222279448,
+            "max_model_range_minus_required_distance_m": 0.1565440803895568,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 3257,
+            "max_model_range_m": 0.7274634347358525,
+            "max_model_range_minus_required_distance_m": 0.1574112996084297,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 482,
+            "max_model_range_m": 0.6612961634108588,
+            "max_model_range_minus_required_distance_m": 0.09127123034923867,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 1086,
+            "max_model_range_m": 0.6612961634108588,
+            "max_model_range_minus_required_distance_m": 0.09127123034923867,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r2c2",
+      "bucket_xy_m": [
+        0.18760714285714292,
+        0.0
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 33530,
+        "model_matched_strata": 9025,
+        "max_model_range_m": 0.6703540795885161,
+        "max_model_range_minus_required_distance_m": 0.36696899182118403,
+        "strict_ik_checks": []
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 114273,
+        "model_matched_strata": 22998,
+        "max_model_range_m": 0.6716108769583331,
+        "max_model_range_minus_required_distance_m": 0.368225789191001,
+        "strict_ik_checks": []
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 10559,
+            "max_model_range_m": 0.7051465975453028,
+            "max_model_range_minus_required_distance_m": 0.40176150977797076,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 26889,
+            "max_model_range_m": 0.708200090488176,
+            "max_model_range_minus_required_distance_m": 0.4048150027208439,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 7461,
+            "max_model_range_m": 0.6340977382657741,
+            "max_model_range_minus_required_distance_m": 0.330712650498442,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 19089,
+            "max_model_range_m": 0.6346152152994455,
+            "max_model_range_minus_required_distance_m": 0.33123012753211345,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r2c3",
+      "bucket_xy_m": [
+        0.4128571428571429,
+        0.0
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 14736,
+        "model_matched_strata": 3432,
+        "max_model_range_m": 0.5336921781552768,
+        "max_model_range_minus_required_distance_m": 0.22186985171711732,
+        "strict_ik_checks": []
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 48111,
+        "model_matched_strata": 7388,
+        "max_model_range_m": 0.5346010670682473,
+        "max_model_range_minus_required_distance_m": 0.2227787406300878,
+        "strict_ik_checks": []
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 4466,
+            "max_model_range_m": 0.5695217241301497,
+            "max_model_range_minus_required_distance_m": 0.2576993976919902,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 9730,
+            "max_model_range_m": 0.5695217241301497,
+            "max_model_range_minus_required_distance_m": 0.2576993976919902,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 2404,
+            "max_model_range_m": 0.4973872280384039,
+            "max_model_range_minus_required_distance_m": 0.18556490160024441,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 5039,
+            "max_model_range_m": 0.49777341176187123,
+            "max_model_range_minus_required_distance_m": 0.18595108532371174,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r2c4",
+      "bucket_xy_m": [
+        0.6700000000000002,
+        0.0
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 1735,
+        "model_matched_strata": 203,
+        "max_model_range_m": 0.42937440595824866,
+        "max_model_range_minus_required_distance_m": 0.11740485616211871,
+        "strict_ik_checks": []
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 6360,
+        "model_matched_strata": 402,
+        "max_model_range_m": 0.42937440595824866,
+        "max_model_range_minus_required_distance_m": 0.11740485616211871,
+        "strict_ik_checks": []
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 289,
+            "max_model_range_m": 0.45587196997954915,
+            "max_model_range_minus_required_distance_m": 0.1439024201834192,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 578,
+            "max_model_range_m": 0.45587196997954915,
+            "max_model_range_minus_required_distance_m": 0.1439024201834192,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 126,
+            "max_model_range_m": 0.40040487783822376,
+            "max_model_range_minus_required_distance_m": 0.08843532804209381,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 247,
+            "max_model_range_m": 0.40040487783822376,
+            "max_model_range_minus_required_distance_m": 0.08843532804209381,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r2c5",
+      "bucket_xy_m": [
+        0.9271428571428573,
+        0.0
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 4788,
+        "model_matched_strata": 2136,
+        "max_model_range_m": 0.554953827231208,
+        "max_model_range_minus_required_distance_m": 0.22741048694748328,
+        "strict_ik_checks": []
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 17098,
+        "model_matched_strata": 4563,
+        "max_model_range_m": 0.554953827231208,
+        "max_model_range_minus_required_distance_m": 0.22754503951485566,
+        "strict_ik_checks": []
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 2442,
+            "max_model_range_m": 0.5783823477868059,
+            "max_model_range_minus_required_distance_m": 0.262448249565258,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 5282,
+            "max_model_range_m": 0.5783823477868059,
+            "max_model_range_minus_required_distance_m": 0.262448249565258,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 1858,
+            "max_model_range_m": 0.5300557203465937,
+            "max_model_range_minus_required_distance_m": 0.19034783523829585,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 3922,
+            "max_model_range_m": 0.5300557203465937,
+            "max_model_range_minus_required_distance_m": 0.190729165663179,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r2c6",
+      "bucket_xy_m": [
+        1.1523928571428572,
+        0.0
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 12915,
+        "model_matched_strata": 135,
+        "max_model_range_m": 0.554953827231208,
+        "max_model_range_minus_required_distance_m": 0.022813931557774003,
+        "strict_ik_checks": [
+          {
+            "action": {
+              "id": "analytic-matched",
+              "board_x_m": 0.635,
+              "board_y_m": -0.01,
+              "height_m": 0.26,
+              "gap_m": 0.4119804874213824,
+              "tilt_deg": 24.0,
+              "radius_m": 0.5174894864849421,
+              "azimuth_deg": 181.10725623422294,
+              "azimuth_offset_deg": -10.604273690859799
+            },
+            "rim_plane_offset_radii": 0.0,
+            "model_match_error_m": 1.1102230246251565e-16,
+            "reach_rank": 1.0162765640819673,
+            "outside_current_bounds": false,
+            "model_center_match": true,
+            "strict_ik_solved": true,
+            "actual_fk_bottom_clearance_m": 0.18911904655431735,
+            "actual_fk_board_center_error_m": 2.3772621578968323e-09,
+            "endpoint_geometry_accepted": true
+          }
+        ]
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 43511,
+        "model_matched_strata": 268,
+        "max_model_range_m": 0.554953827231208,
+        "max_model_range_minus_required_distance_m": 0.022981098562235625,
+        "strict_ik_checks": [
+          {
+            "action": {
+              "id": "analytic-matched",
+              "board_x_m": 0.635,
+              "board_y_m": -0.01,
+              "height_m": 0.26,
+              "gap_m": 0.4119804874213824,
+              "tilt_deg": 24.0,
+              "radius_m": 0.5174894864849421,
+              "azimuth_deg": 181.10725623422294,
+              "azimuth_offset_deg": -10.604273690859799
+            },
+            "rim_plane_offset_radii": 0.0,
+            "model_match_error_m": 1.1102230246251565e-16,
+            "reach_rank": 1.0162765640819673,
+            "outside_current_bounds": false,
+            "model_center_match": true,
+            "strict_ik_solved": true,
+            "actual_fk_bottom_clearance_m": 0.18911904655431735,
+            "actual_fk_board_center_error_m": 2.3772621578968323e-09,
+            "endpoint_geometry_accepted": true
+          }
+        ]
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 665,
+            "max_model_range_m": 0.5783823477868059,
+            "max_model_range_minus_required_distance_m": 0.05797521098990244,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 1410,
+            "max_model_range_m": 0.5783823477868059,
+            "max_model_range_minus_required_distance_m": 0.059381867833158464,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5300557203465937,
+            "max_model_range_minus_required_distance_m": -0.014302806245047539,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5300557203465937,
+            "max_model_range_minus_required_distance_m": -0.01389692030047407,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r2c7",
+      "bucket_xy_m": [
+        1.469,
+        -0.124
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 12990,
+        "model_matched_strata": 0,
+        "max_model_range_m": 0.554953827231208,
+        "max_model_range_minus_required_distance_m": -0.29928677776063684,
+        "strict_ik_checks": [
+          {
+            "action": {
+              "id": "analytic-smallest-deficit",
+              "board_x_m": 0.635,
+              "board_y_m": -0.06,
+              "height_m": 0.22,
+              "gap_m": 0.47061604779111144,
+              "tilt_deg": 22.0,
+              "radius_m": 0.8364520309019521,
+              "azimuth_deg": 175.6118018481717,
+              "azimuth_offset_deg": -2.66769080617172
+            },
+            "predicted_range_m": 0.5371652531413152,
+            "required_distance_m": 0.8364520309019521,
+            "model_required_gap_m": 0.7764748907785527,
+            "available_gap_m": 0.47061604779111144,
+            "model_required_extra_gap_m": 0.30585884298744126,
+            "available_release_ball_center_ceiling_m": 0.7281160477911114,
+            "model_match_error_m": -0.29928677776063684,
+            "rim_plane_offset_radii": 0,
+            "model_center_match": false,
+            "strict_ik_solved": true,
+            "actual_fk_bottom_clearance_m": 0.15954139723606653,
+            "actual_fk_board_center_error_m": 2.964296775167217e-16,
+            "endpoint_geometry_accepted": true
+          }
+        ]
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 43724,
+        "model_matched_strata": 0,
+        "max_model_range_m": 0.5591463121919347,
+        "max_model_range_minus_required_distance_m": -0.2991334760204273,
+        "strict_ik_checks": [
+          {
+            "action": {
+              "id": "analytic-smallest-deficit",
+              "board_x_m": 0.635,
+              "board_y_m": -0.06,
+              "height_m": 0.24,
+              "gap_m": 0.4506160477911114,
+              "tilt_deg": 23.0,
+              "radius_m": 0.8364520309019521,
+              "azimuth_deg": 175.6118018481717,
+              "azimuth_offset_deg": -2.66769080617172
+            },
+            "predicted_range_m": 0.5373185548815248,
+            "required_distance_m": 0.8364520309019521,
+            "model_required_gap_m": 0.7566824036848406,
+            "available_gap_m": 0.4506160477911114,
+            "model_required_extra_gap_m": 0.3060663558937292,
+            "available_release_ball_center_ceiling_m": 0.7281160477911114,
+            "model_match_error_m": -0.2991334760204273,
+            "rim_plane_offset_radii": 0,
+            "model_center_match": false,
+            "strict_ik_solved": true,
+            "actual_fk_bottom_clearance_m": 0.17716284317237427,
+            "actual_fk_board_center_error_m": 4.44122526620957e-12,
+            "endpoint_geometry_accepted": true
+          }
+        ]
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5783823477868059,
+            "max_model_range_minus_required_distance_m": -0.26417848766092344,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5829154066400398,
+            "max_model_range_minus_required_distance_m": -0.26275777103797127,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5300557203465937,
+            "max_model_range_minus_required_distance_m": -0.3363800557425837,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5338261347535784,
+            "max_model_range_minus_required_distance_m": -0.3359845140173233,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r3c1",
+      "bucket_xy_m": [
+        -0.1014285714285714,
+        -0.25
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 38434,
+        "model_matched_strata": 899,
+        "max_model_range_m": 0.6915561543747257,
+        "max_model_range_minus_required_distance_m": 0.12846766371865592,
+        "strict_ik_checks": []
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 134127,
+        "model_matched_strata": 2052,
+        "max_model_range_m": 0.6915561543747257,
+        "max_model_range_minus_required_distance_m": 0.12910361494886458,
+        "strict_ik_checks": []
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 1385,
+            "max_model_range_m": 0.7216051473497109,
+            "max_model_range_minus_required_distance_m": 0.15829483838838376,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 3241,
+            "max_model_range_m": 0.7221542170148355,
+            "max_model_range_minus_required_distance_m": 0.16167741778980926,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 483,
+            "max_model_range_m": 0.6595223731483557,
+            "max_model_range_minus_required_distance_m": 0.09666386713796482,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 1069,
+            "max_model_range_m": 0.6595223731483557,
+            "max_model_range_minus_required_distance_m": 0.09666386713796482,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r3c2",
+      "bucket_xy_m": [
+        0.15571428571428578,
+        -0.25
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 35600,
+        "model_matched_strata": 7278,
+        "max_model_range_m": 0.679916330149106,
+        "max_model_range_minus_required_distance_m": 0.36443599480820266,
+        "strict_ik_checks": []
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 122147,
+        "model_matched_strata": 18608,
+        "max_model_range_m": 0.679916330149106,
+        "max_model_range_minus_required_distance_m": 0.36443599480820266,
+        "strict_ik_checks": []
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 8807,
+            "max_model_range_m": 0.7104937540017617,
+            "max_model_range_minus_required_distance_m": 0.39645024392916806,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 22380,
+            "max_model_range_m": 0.7104937540017617,
+            "max_model_range_minus_required_distance_m": 0.39645024392916806,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 5833,
+            "max_model_range_m": 0.6492304258915963,
+            "max_model_range_minus_required_distance_m": 0.3305430513059414,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 15050,
+            "max_model_range_m": 0.6492304258915963,
+            "max_model_range_minus_required_distance_m": 0.33311545834848444,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r3c3",
+      "bucket_xy_m": [
+        0.4128571428571429,
+        -0.25
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 17846,
+        "model_matched_strata": 4111,
+        "max_model_range_m": 0.6349477472678444,
+        "max_model_range_minus_required_distance_m": 0.3202750958489129,
+        "strict_ik_checks": []
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 60086,
+        "model_matched_strata": 9584,
+        "max_model_range_m": 0.6352926705684707,
+        "max_model_range_minus_required_distance_m": 0.3206200191495392,
+        "strict_ik_checks": []
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 5090,
+            "max_model_range_m": 0.6711494986735111,
+            "max_model_range_minus_required_distance_m": 0.3564768472545796,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 11975,
+            "max_model_range_m": 0.6715470990077512,
+            "max_model_range_minus_required_distance_m": 0.3568744475888197,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 3170,
+            "max_model_range_m": 0.5981488954255015,
+            "max_model_range_minus_required_distance_m": 0.28347624400657,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 7347,
+            "max_model_range_m": 0.5984588025505889,
+            "max_model_range_minus_required_distance_m": 0.2837861511316574,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r3c4",
+      "bucket_xy_m": [
+        0.6700000000000002,
+        -0.25
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 8269,
+        "model_matched_strata": 2008,
+        "max_model_range_m": 0.59056425970331,
+        "max_model_range_minus_required_distance_m": 0.2883639949780784,
+        "strict_ik_checks": []
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 27789,
+        "model_matched_strata": 4573,
+        "max_model_range_m": 0.5913381587270012,
+        "max_model_range_minus_required_distance_m": 0.2891378940017697,
+        "strict_ik_checks": []
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 2490,
+            "max_model_range_m": 0.6268663749910846,
+            "max_model_range_minus_required_distance_m": 0.324666110265853,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 5726,
+            "max_model_range_m": 0.6268663749910846,
+            "max_model_range_minus_required_distance_m": 0.324666110265853,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 1620,
+            "max_model_range_m": 0.5540613455142446,
+            "max_model_range_minus_required_distance_m": 0.25186108078901304,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 3651,
+            "max_model_range_m": 0.5542413064782007,
+            "max_model_range_minus_required_distance_m": 0.25204104175296915,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r3c5",
+      "bucket_xy_m": [
+        0.9271428571428573,
+        -0.25
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 10244,
+        "model_matched_strata": 2908,
+        "max_model_range_m": 0.5787970210712501,
+        "max_model_range_minus_required_distance_m": 0.21002075424578498,
+        "strict_ik_checks": []
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 34353,
+        "model_matched_strata": 6230,
+        "max_model_range_m": 0.5787970210712501,
+        "max_model_range_minus_required_distance_m": 0.21134503497457574,
+        "strict_ik_checks": []
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 3517,
+            "max_model_range_m": 0.606477013380044,
+            "max_model_range_minus_required_distance_m": 0.2429830215444589,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 7657,
+            "max_model_range_m": 0.606477013380044,
+            "max_model_range_minus_required_distance_m": 0.24495850087777832,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 2322,
+            "max_model_range_m": 0.5490181399998418,
+            "max_model_range_minus_required_distance_m": 0.17435573760337547,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 4851,
+            "max_model_range_m": 0.5490181399998418,
+            "max_model_range_minus_required_distance_m": 0.1746712521094414,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r3c6",
+      "bucket_xy_m": [
+        1.1842857142857144,
+        -0.25
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 13710,
+        "model_matched_strata": 0,
+        "max_model_range_m": 0.5642052921830694,
+        "max_model_range_minus_required_distance_m": -0.0373829069692414,
+        "strict_ik_checks": [
+          {
+            "action": {
+              "id": "analytic-smallest-deficit",
+              "board_x_m": 0.635,
+              "board_y_m": -0.11,
+              "height_m": 0.22,
+              "gap_m": 0.46282100822129624,
+              "tilt_deg": 22.0,
+              "radius_m": 0.5668463600644953,
+              "azimuth_deg": 165.7010943462391,
+              "azimuth_offset_deg": 1.9612990545510343
+            },
+            "predicted_range_m": 0.5294634530952539,
+            "required_distance_m": 0.5668463600644953,
+            "model_required_gap_m": 0.5007062821847493,
+            "available_gap_m": 0.46282100822129624,
+            "model_required_extra_gap_m": 0.03788527396345309,
+            "available_release_ball_center_ceiling_m": 0.7203210082212962,
+            "model_match_error_m": -0.0373829069692414,
+            "rim_plane_offset_radii": 0,
+            "model_center_match": false,
+            "strict_ik_solved": true,
+            "actual_fk_bottom_clearance_m": 0.15541018295309245,
+            "actual_fk_board_center_error_m": 1.5011122659325205e-16,
+            "endpoint_geometry_accepted": true
+          }
+        ]
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 45917,
+        "model_matched_strata": 0,
+        "max_model_range_m": 0.5677748814823615,
+        "max_model_range_minus_required_distance_m": -0.03726592231044412,
+        "strict_ik_checks": [
+          {
+            "action": {
+              "id": "analytic-smallest-deficit",
+              "board_x_m": 0.635,
+              "board_y_m": -0.11,
+              "height_m": 0.24,
+              "gap_m": 0.4428210082212962,
+              "tilt_deg": 23.0,
+              "radius_m": 0.5668463600644953,
+              "azimuth_deg": 165.7010943462391,
+              "azimuth_offset_deg": 1.9612990545510343
+            },
+            "predicted_range_m": 0.5295804377540512,
+            "required_distance_m": 0.5668463600644953,
+            "model_required_gap_m": 0.4804391348327104,
+            "available_gap_m": 0.4428210082212962,
+            "model_required_extra_gap_m": 0.03761812661141417,
+            "available_release_ball_center_ceiling_m": 0.7203210082212962,
+            "model_match_error_m": -0.03726592231044412,
+            "rim_plane_offset_radii": 0,
+            "model_center_match": false,
+            "strict_ik_solved": true,
+            "actual_fk_bottom_clearance_m": 0.1725085048456828,
+            "actual_fk_board_center_error_m": 1.857485620694342e-12,
+            "endpoint_geometry_accepted": true
+          }
+        ]
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.588970340164612,
+            "max_model_range_minus_required_distance_m": -0.0024101750144753797,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5928723241674531,
+            "max_model_range_minus_required_distance_m": -0.0024101750144753797,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5377919345833845,
+            "max_model_range_minus_required_distance_m": -0.07441788554734302,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5409374242780353,
+            "max_model_range_minus_required_distance_m": -0.0740500802429781,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r3c7",
+      "bucket_xy_m": [
+        1.4414285714285717,
+        -0.25
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 13328,
+        "model_matched_strata": 0,
+        "max_model_range_m": 0.5615089038182908,
+        "max_model_range_minus_required_distance_m": -0.28974915657367817,
+        "strict_ik_checks": [
+          {
+            "action": {
+              "id": "analytic-smallest-deficit",
+              "board_x_m": 0.635,
+              "board_y_m": -0.11,
+              "height_m": 0.24,
+              "gap_m": 0.4428210082212962,
+              "tilt_deg": 24.0,
+              "radius_m": 0.818490709059258,
+              "azimuth_deg": 170.1513276022575,
+              "azimuth_offset_deg": 1.1548684540069871
+            },
+            "predicted_range_m": 0.5287415524855799,
+            "required_distance_m": 0.818490709059258,
+            "model_required_gap_m": 0.7438198078789323,
+            "available_gap_m": 0.4428210082212962,
+            "model_required_extra_gap_m": 0.3009987996576361,
+            "available_release_ball_center_ceiling_m": 0.7203210082212962,
+            "model_match_error_m": -0.28974915657367817,
+            "rim_plane_offset_radii": 0,
+            "model_center_match": false,
+            "strict_ik_solved": true,
+            "actual_fk_bottom_clearance_m": 0.17245702695891438,
+            "actual_fk_board_center_error_m": 6.072590750591194e-15,
+            "endpoint_geometry_accepted": true
+          }
+        ]
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 44733,
+        "model_matched_strata": 0,
+        "max_model_range_m": 0.5615089038182908,
+        "max_model_range_minus_required_distance_m": -0.28891027130520686,
+        "strict_ik_checks": [
+          {
+            "action": {
+              "id": "analytic-smallest-deficit",
+              "board_x_m": 0.635,
+              "board_y_m": -0.11,
+              "height_m": 0.24,
+              "gap_m": 0.4428210082212962,
+              "tilt_deg": 23.0,
+              "radius_m": 0.818490709059258,
+              "azimuth_deg": 170.1513276022575,
+              "azimuth_offset_deg": 1.1548684540069871
+            },
+            "predicted_range_m": 0.5295804377540512,
+            "required_distance_m": 0.818490709059258,
+            "model_required_gap_m": 0.7381221291706827,
+            "available_gap_m": 0.4428210082212962,
+            "model_required_extra_gap_m": 0.29530112094938643,
+            "available_release_ball_center_ceiling_m": 0.7203210082212962,
+            "model_match_error_m": -0.28891027130520686,
+            "rim_plane_offset_radii": 0,
+            "model_center_match": false,
+            "strict_ik_solved": true,
+            "actual_fk_bottom_clearance_m": 0.17492662689303665,
+            "actual_fk_board_center_error_m": 3.8956806801599406e-16,
+            "endpoint_geometry_accepted": true
+          }
+        ]
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5855127438353142,
+            "max_model_range_minus_required_distance_m": -0.2540545240092381,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5855127438353142,
+            "max_model_range_minus_required_distance_m": -0.2540545240092381,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5358775143608024,
+            "max_model_range_minus_required_distance_m": -0.32606223454210576,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5358775143608024,
+            "max_model_range_minus_required_distance_m": -0.32569442923774083,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r4c1",
+      "bucket_xy_m": [
+        -0.1014285714285714,
+        -0.5
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 37463,
+        "model_matched_strata": 26,
+        "max_model_range_m": 0.6756772536852292,
+        "max_model_range_minus_required_distance_m": 0.02315909257973736,
+        "strict_ik_checks": []
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 129938,
+        "model_matched_strata": 54,
+        "max_model_range_m": 0.6756772536852292,
+        "max_model_range_minus_required_distance_m": 0.02315909257973736,
+        "strict_ik_checks": []
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 126,
+            "max_model_range_m": 0.7077216552712011,
+            "max_model_range_minus_required_distance_m": 0.05142572830092473,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 258,
+            "max_model_range_m": 0.7094162425877005,
+            "max_model_range_minus_required_distance_m": 0.05213604411593786,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.644840576578694,
+            "max_model_range_minus_required_distance_m": -0.006792502624489938,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.644840576578694,
+            "max_model_range_minus_required_distance_m": -0.006792502624489938,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r4c2",
+      "bucket_xy_m": [
+        0.15571428571428578,
+        -0.5
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 35183,
+        "model_matched_strata": 3105,
+        "max_model_range_m": 0.6693362836332379,
+        "max_model_range_minus_required_distance_m": 0.2081825633685656,
+        "strict_ik_checks": []
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 120599,
+        "model_matched_strata": 7223,
+        "max_model_range_m": 0.6693362836332379,
+        "max_model_range_minus_required_distance_m": 0.2081825633685656,
+        "strict_ik_checks": []
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 4119,
+            "max_model_range_m": 0.7023242118853786,
+            "max_model_range_minus_required_distance_m": 0.24094301044214278,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 9595,
+            "max_model_range_m": 0.7023242118853786,
+            "max_model_range_minus_required_distance_m": 0.24094301044214278,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 2140,
+            "max_model_range_m": 0.635567958155453,
+            "max_model_range_minus_required_distance_m": 0.17264270673051224,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 5027,
+            "max_model_range_m": 0.635567958155453,
+            "max_model_range_minus_required_distance_m": 0.17425322810239524,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r4c3",
+      "bucket_xy_m": [
+        0.4128571428571429,
+        -0.5
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 25284,
+        "model_matched_strata": 4085,
+        "max_model_range_m": 0.6353202923853422,
+        "max_model_range_minus_required_distance_m": 0.2864868487637237,
+        "strict_ik_checks": []
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 85344,
+        "model_matched_strata": 9514,
+        "max_model_range_m": 0.6363463565014597,
+        "max_model_range_minus_required_distance_m": 0.2875734265204783,
+        "strict_ik_checks": []
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 5144,
+            "max_model_range_m": 0.6722896391820286,
+            "max_model_range_minus_required_distance_m": 0.32319394357146375,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 12018,
+            "max_model_range_m": 0.6722896391820286,
+            "max_model_range_minus_required_distance_m": 0.32319394357146375,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 3055,
+            "max_model_range_m": 0.5999692614216178,
+            "max_model_range_minus_required_distance_m": 0.25032518141877996,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 7103,
+            "max_model_range_m": 0.5999692614216178,
+            "max_model_range_minus_required_distance_m": 0.2505460188956516,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r4c4",
+      "bucket_xy_m": [
+        0.6700000000000002,
+        -0.5
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 17926,
+        "model_matched_strata": 2851,
+        "max_model_range_m": 0.6143273465951327,
+        "max_model_range_minus_required_distance_m": 0.25220455500314093,
+        "strict_ik_checks": []
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 60289,
+        "model_matched_strata": 6330,
+        "max_model_range_m": 0.6162051868481516,
+        "max_model_range_minus_required_distance_m": 0.25330990938364045,
+        "strict_ik_checks": []
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 3578,
+            "max_model_range_m": 0.6423210269292694,
+            "max_model_range_minus_required_distance_m": 0.2884806290846477,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 8057,
+            "max_model_range_m": 0.6432480631849691,
+            "max_model_range_minus_required_distance_m": 0.2884806290846477,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 2181,
+            "max_model_range_m": 0.585632896289219,
+            "max_model_range_minus_required_distance_m": 0.2159614786000203,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 4764,
+            "max_model_range_m": 0.587363718740228,
+            "max_model_range_minus_required_distance_m": 0.2163052162825428,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r4c5",
+      "bucket_xy_m": [
+        0.9271428571428573,
+        -0.5
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 17127,
+        "model_matched_strata": 1043,
+        "max_model_range_m": 0.5905026587334624,
+        "max_model_range_minus_required_distance_m": 0.0960495171323415,
+        "strict_ik_checks": []
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 56674,
+        "model_matched_strata": 2118,
+        "max_model_range_m": 0.5905026587334624,
+        "max_model_range_minus_required_distance_m": 0.0960495171323415,
+        "strict_ik_checks": []
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 1741,
+            "max_model_range_m": 0.6234157368403053,
+            "max_model_range_minus_required_distance_m": 0.1277584704978365,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 3642,
+            "max_model_range_m": 0.6235278048362723,
+            "max_model_range_minus_required_distance_m": 0.1284923030163979,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 484,
+            "max_model_range_m": 0.5544336290962809,
+            "max_model_range_minus_required_distance_m": 0.06065696804460091,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 975,
+            "max_model_range_m": 0.5554717614392102,
+            "max_model_range_minus_required_distance_m": 0.061377960565781486,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r4c6",
+      "bucket_xy_m": [
+        1.1842857142857144,
+        -0.5
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 15475,
+        "model_matched_strata": 0,
+        "max_model_range_m": 0.5803577267589229,
+        "max_model_range_minus_required_distance_m": -0.12327367671329159,
+        "strict_ik_checks": [
+          {
+            "action": {
+              "id": "analytic-smallest-deficit",
+              "board_x_m": 0.635,
+              "board_y_m": -0.21,
+              "height_m": 0.26,
+              "gap_m": 0.3924094185290419,
+              "tilt_deg": 24.0,
+              "radius_m": 0.6211399165392347,
+              "azimuth_deg": 152.1678105343393,
+              "azimuth_offset_deg": 10.042794185437486
+            },
+            "predicted_range_m": 0.49786623982594314,
+            "required_distance_m": 0.6211399165392347,
+            "model_required_gap_m": 0.5166708948336342,
+            "available_gap_m": 0.3924094185290419,
+            "model_required_extra_gap_m": 0.12426147630459228,
+            "available_release_ball_center_ceiling_m": 0.6899094185290419,
+            "model_match_error_m": -0.12327367671329159,
+            "rim_plane_offset_radii": 0,
+            "model_center_match": false,
+            "strict_ik_solved": true,
+            "actual_fk_bottom_clearance_m": 0.1844210692589848,
+            "actual_fk_board_center_error_m": 2.618455766672135e-16,
+            "endpoint_geometry_accepted": true
+          }
+        ]
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 51669,
+        "model_matched_strata": 0,
+        "max_model_range_m": 0.581326594553496,
+        "max_model_range_minus_required_distance_m": -0.12327367671329159,
+        "strict_ik_checks": [
+          {
+            "action": {
+              "id": "analytic-smallest-deficit",
+              "board_x_m": 0.635,
+              "board_y_m": -0.21,
+              "height_m": 0.26,
+              "gap_m": 0.3924094185290419,
+              "tilt_deg": 24.0,
+              "radius_m": 0.6211399165392347,
+              "azimuth_deg": 152.1678105343393,
+              "azimuth_offset_deg": 10.042794185437486
+            },
+            "predicted_range_m": 0.49786623982594314,
+            "required_distance_m": 0.6211399165392347,
+            "model_required_gap_m": 0.5166708948336342,
+            "available_gap_m": 0.3924094185290419,
+            "model_required_extra_gap_m": 0.12426147630459228,
+            "available_release_ball_center_ceiling_m": 0.6899094185290419,
+            "model_match_error_m": -0.12327367671329159,
+            "rim_plane_offset_radii": 0,
+            "model_center_match": false,
+            "strict_ik_solved": true,
+            "actual_fk_bottom_clearance_m": 0.1844210692589848,
+            "actual_fk_board_center_error_m": 2.618455766672135e-16,
+            "endpoint_geometry_accepted": true
+          }
+        ]
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.6103361229391837,
+            "max_model_range_minus_required_distance_m": -0.09083573199598671,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.6103361229391837,
+            "max_model_range_minus_required_distance_m": -0.09042216577160689,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5490181399998418,
+            "max_model_range_minus_required_distance_m": -0.1585771883460924,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5510998283854328,
+            "max_model_range_minus_required_distance_m": -0.15835202904602363,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r4c7",
+      "bucket_xy_m": [
+        1.4414285714285717,
+        -0.5
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 14461,
+        "model_matched_strata": 0,
+        "max_model_range_m": 0.5721572945284529,
+        "max_model_range_minus_required_distance_m": -0.3588018031852839,
+        "strict_ik_checks": [
+          {
+            "action": {
+              "id": "analytic-smallest-deficit",
+              "board_x_m": 0.635,
+              "board_y_m": -0.16,
+              "height_m": 0.24,
+              "gap_m": 0.4302044864020972,
+              "tilt_deg": 24.0,
+              "radius_m": 0.8751725777332874,
+              "azimuth_deg": 157.13912584890736,
+              "azimuth_offset_deg": 4.5467012867257495
+            },
+            "predicted_range_m": 0.5163707745480035,
+            "required_distance_m": 0.8751725777332874,
+            "model_required_gap_m": 0.8035091771458339,
+            "available_gap_m": 0.4302044864020972,
+            "model_required_extra_gap_m": 0.37330469074373673,
+            "available_release_ball_center_ceiling_m": 0.7077044864020972,
+            "model_match_error_m": -0.3588018031852839,
+            "rim_plane_offset_radii": 0,
+            "model_center_match": false,
+            "strict_ik_solved": true,
+            "actual_fk_bottom_clearance_m": 0.16553581851182572,
+            "actual_fk_board_center_error_m": 1.8651360420697533e-13,
+            "endpoint_geometry_accepted": true
+          }
+        ]
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 48266,
+        "model_matched_strata": 0,
+        "max_model_range_m": 0.5751748912229188,
+        "max_model_range_minus_required_distance_m": -0.3581357879147318,
+        "strict_ik_checks": [
+          {
+            "action": {
+              "id": "analytic-smallest-deficit",
+              "board_x_m": 0.635,
+              "board_y_m": -0.16,
+              "height_m": 0.24,
+              "gap_m": 0.4302044864020972,
+              "tilt_deg": 23.0,
+              "radius_m": 0.8751725777332874,
+              "azimuth_deg": 157.13912584890736,
+              "azimuth_offset_deg": 4.5467012867257495
+            },
+            "predicted_range_m": 0.5170367898185556,
+            "required_distance_m": 0.8751725777332874,
+            "model_required_gap_m": 0.7967473745290822,
+            "available_gap_m": 0.4302044864020972,
+            "model_required_extra_gap_m": 0.366542888126985,
+            "available_release_ball_center_ceiling_m": 0.7077044864020972,
+            "model_match_error_m": -0.3581357879147318,
+            "rim_plane_offset_radii": 0,
+            "model_center_match": false,
+            "strict_ik_solved": true,
+            "actual_fk_bottom_clearance_m": 0.1683102226599629,
+            "actual_fk_board_center_error_m": 4.47545209131181e-16,
+            "endpoint_geometry_accepted": true
+          }
+        ]
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5983348853435848,
+            "max_model_range_minus_required_distance_m": -0.3234508128890341,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.6019470368298787,
+            "max_model_range_minus_required_distance_m": -0.3234508128890341,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5441239827437087,
+            "max_model_range_minus_required_distance_m": -0.39507117131151737,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5467093017010424,
+            "max_model_range_minus_required_distance_m": -0.3941993007519382,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r5c1",
+      "bucket_xy_m": [
+        -0.1014285714285714,
+        -0.75
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 29714,
+        "model_matched_strata": 0,
+        "max_model_range_m": 0.6717705820187062,
+        "max_model_range_minus_required_distance_m": -0.15113683265135025,
+        "strict_ik_checks": []
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 103192,
+        "model_matched_strata": 0,
+        "max_model_range_m": 0.6717705820187062,
+        "max_model_range_minus_required_distance_m": -0.15045991673260695,
+        "strict_ik_checks": []
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.7047912657855826,
+            "max_model_range_minus_required_distance_m": -0.12019386681546851,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.7047912657855826,
+            "max_model_range_minus_required_distance_m": -0.11821368106153607,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.6359935870025898,
+            "max_model_range_minus_required_distance_m": -0.18450866019810563,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.6359935870025898,
+            "max_model_range_minus_required_distance_m": -0.1824780342134955,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r5c2",
+      "bucket_xy_m": [
+        0.15571428571428578,
+        -0.75
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 32354,
+        "model_matched_strata": 18,
+        "max_model_range_m": 0.6621208026700703,
+        "max_model_range_minus_required_distance_m": 0.015623598286789053,
+        "strict_ik_checks": []
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 110295,
+        "model_matched_strata": 33,
+        "max_model_range_m": 0.6636582383618829,
+        "max_model_range_minus_required_distance_m": 0.019302757573621765,
+        "strict_ik_checks": []
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 99,
+            "max_model_range_m": 0.6944315794264047,
+            "max_model_range_minus_required_distance_m": 0.0452050507368561,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 201,
+            "max_model_range_m": 0.6946811803915977,
+            "max_model_range_minus_required_distance_m": 0.0472960655548893,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.6288646046404969,
+            "max_model_range_minus_required_distance_m": -0.01304522418875742,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.6307239592797654,
+            "max_model_range_minus_required_distance_m": -0.010590151248206281,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r5c3",
+      "bucket_xy_m": [
+        0.4128571428571429,
+        -0.75
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 29002,
+        "model_matched_strata": 582,
+        "max_model_range_m": 0.6353202923853422,
+        "max_model_range_minus_required_distance_m": 0.09665841863326097,
+        "strict_ik_checks": []
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 97294,
+        "model_matched_strata": 1167,
+        "max_model_range_m": 0.6363463565014597,
+        "max_model_range_minus_required_distance_m": 0.09665841863326097,
+        "strict_ik_checks": []
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 1016,
+            "max_model_range_m": 0.6713483070814139,
+            "max_model_range_minus_required_distance_m": 0.1250443377797701,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 2029,
+            "max_model_range_m": 0.6713483070814139,
+            "max_model_range_minus_required_distance_m": 0.1250443377797701,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 234,
+            "max_model_range_m": 0.5992860763529515,
+            "max_model_range_minus_required_distance_m": 0.06659557005318156,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 467,
+            "max_model_range_m": 0.5995981652112398,
+            "max_model_range_minus_required_distance_m": 0.06659557005318156,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r5c4",
+      "bucket_xy_m": [
+        0.6700000000000002,
+        -0.75
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 23946,
+        "model_matched_strata": 196,
+        "max_model_range_m": 0.6233906379161268,
+        "max_model_range_minus_required_distance_m": 0.054097666642618336,
+        "strict_ik_checks": []
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 79601,
+        "model_matched_strata": 394,
+        "max_model_range_m": 0.6242428904127997,
+        "max_model_range_minus_required_distance_m": 0.055807446809032046,
+        "strict_ik_checks": []
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 519,
+            "max_model_range_m": 0.6546292572594563,
+            "max_model_range_minus_required_distance_m": 0.08724809285001434,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 1048,
+            "max_model_range_m": 0.6546292572594563,
+            "max_model_range_minus_required_distance_m": 0.08770521462766656,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 36,
+            "max_model_range_m": 0.592144440790113,
+            "max_model_range_minus_required_distance_m": 0.024199500210093372,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 75,
+            "max_model_range_m": 0.592144440790113,
+            "max_model_range_minus_required_distance_m": 0.026084092310958318,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r5c5",
+      "bucket_xy_m": [
+        0.9271428571428573,
+        -0.75
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 19867,
+        "model_matched_strata": 0,
+        "max_model_range_m": 0.591798395692397,
+        "max_model_range_minus_required_distance_m": -0.08248177984202554,
+        "strict_ik_checks": []
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 66028,
+        "model_matched_strata": 0,
+        "max_model_range_m": 0.5925606821168156,
+        "max_model_range_minus_required_distance_m": -0.08248177984202554,
+        "strict_ik_checks": []
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.6280996122470335,
+            "max_model_range_minus_required_distance_m": -0.0492926565564033,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.6280996122470335,
+            "max_model_range_minus_required_distance_m": -0.049150742719396956,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5552869188860237,
+            "max_model_range_minus_required_distance_m": -0.11361547702118135,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5554717614392102,
+            "max_model_range_minus_required_distance_m": -0.11361547702118135,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r5c6",
+      "bucket_xy_m": [
+        1.1842857142857144,
+        -0.75
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 17104,
+        "model_matched_strata": 0,
+        "max_model_range_m": 0.5880194780434114,
+        "max_model_range_minus_required_distance_m": -0.26194726428579446,
+        "strict_ik_checks": [
+          {
+            "action": {
+              "id": "analytic-smallest-deficit",
+              "board_x_m": 0.635,
+              "board_y_m": -0.26,
+              "height_m": 0.26,
+              "gap_m": 0.3688688889759534,
+              "tilt_deg": 24.0,
+              "radius_m": 0.7360806993247191,
+              "azimuth_deg": 138.26488069497017,
+              "azimuth_offset_deg": 9.913525878239085
+            },
+            "predicted_range_m": 0.47413343503892463,
+            "required_distance_m": 0.7360806993247191,
+            "model_required_gap_m": 0.6346910016230464,
+            "available_gap_m": 0.3688688889759534,
+            "model_required_extra_gap_m": 0.265822112647093,
+            "available_release_ball_center_ceiling_m": 0.6663688889759534,
+            "model_match_error_m": -0.26194726428579446,
+            "rim_plane_offset_radii": 0,
+            "model_center_match": false,
+            "strict_ik_solved": true,
+            "actual_fk_bottom_clearance_m": 0.18701938662303919,
+            "actual_fk_board_center_error_m": 2.0014830212433605e-16,
+            "endpoint_geometry_accepted": true
+          }
+        ]
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 56820,
+        "model_matched_strata": 0,
+        "max_model_range_m": 0.5897397780691027,
+        "max_model_range_minus_required_distance_m": -0.26032577931570827,
+        "strict_ik_checks": [
+          {
+            "action": {
+              "id": "analytic-smallest-deficit",
+              "board_x_m": 0.635,
+              "board_y_m": -0.26,
+              "height_m": 0.24,
+              "gap_m": 0.3888688889759534,
+              "tilt_deg": 23.0,
+              "radius_m": 0.7360806993247191,
+              "azimuth_deg": 138.26488069497017,
+              "azimuth_offset_deg": 9.913525878239085
+            },
+            "predicted_range_m": 0.4757549200090108,
+            "required_distance_m": 0.7360806993247191,
+            "model_required_gap_m": 0.6531960683611909,
+            "available_gap_m": 0.3888688889759534,
+            "model_required_extra_gap_m": 0.26432717938523753,
+            "available_release_ball_center_ceiling_m": 0.6663688889759534,
+            "model_match_error_m": -0.26032577931570827,
+            "rim_plane_offset_radii": 0,
+            "model_center_match": false,
+            "strict_ik_solved": true,
+            "actual_fk_bottom_clearance_m": 0.16935484222271546,
+            "actual_fk_board_center_error_m": 8.208164687617015e-14,
+            "endpoint_geometry_accepted": true
+          }
+        ]
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.6192604406273645,
+            "max_model_range_minus_required_distance_m": -0.23023831092029945,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.6211079255787908,
+            "max_model_range_minus_required_distance_m": -0.2278124602544861,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5542610732686252,
+            "max_model_range_minus_required_distance_m": -0.2966915997549299,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5554717614392102,
+            "max_model_range_minus_required_distance_m": -0.29661882085235447,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    },
+    {
+      "cell_id": "r5c7",
+      "bucket_xy_m": [
+        1.4414285714285717,
+        -0.75
+      ],
+      "current": {
+        "evaluated_outer_bound_strata": 13313,
+        "model_matched_strata": 0,
+        "max_model_range_m": 0.5840981494097377,
+        "max_model_range_minus_required_distance_m": -0.4716546032527653,
+        "strict_ik_checks": [
+          {
+            "action": {
+              "id": "analytic-smallest-deficit",
+              "board_x_m": 0.635,
+              "board_y_m": -0.21,
+              "height_m": 0.24,
+              "gap_m": 0.4124094185290419,
+              "tilt_deg": 24.0,
+              "radius_m": 0.970529258093916,
+              "azimuth_deg": 146.19297860601353,
+              "azimuth_offset_deg": 6.310219042180449
+            },
+            "predicted_range_m": 0.4988746548411507,
+            "required_distance_m": 0.970529258093916,
+            "model_required_gap_m": 0.9042891127661185,
+            "available_gap_m": 0.4124094185290419,
+            "model_required_extra_gap_m": 0.49187969423707656,
+            "available_release_ball_center_ceiling_m": 0.6899094185290419,
+            "model_match_error_m": -0.4716546032527653,
+            "rim_plane_offset_radii": 0,
+            "model_center_match": false,
+            "strict_ik_solved": true,
+            "actual_fk_bottom_clearance_m": 0.16458024442656696,
+            "actual_fk_board_center_error_m": 1.7628625274579626e-12,
+            "endpoint_geometry_accepted": true
+          }
+        ]
+      },
+      "wider_diagnostic": {
+        "evaluated_outer_bound_strata": 44101,
+        "model_matched_strata": 0,
+        "max_model_range_m": 0.5840981494097377,
+        "max_model_range_minus_required_distance_m": -0.47122784570511805,
+        "strict_ik_checks": [
+          {
+            "action": {
+              "id": "analytic-smallest-deficit",
+              "board_x_m": 0.635,
+              "board_y_m": -0.21,
+              "height_m": 0.24,
+              "gap_m": 0.4124094185290419,
+              "tilt_deg": 23.0,
+              "radius_m": 0.970529258093916,
+              "azimuth_deg": 146.19297860601353,
+              "azimuth_offset_deg": 6.310219042180449
+            },
+            "predicted_range_m": 0.49930141238879794,
+            "required_distance_m": 0.970529258093916,
+            "model_required_gap_m": 0.8956828905319391,
+            "available_gap_m": 0.4124094185290419,
+            "model_required_extra_gap_m": 0.48327347200289716,
+            "available_release_ball_center_ceiling_m": 0.6899094185290419,
+            "model_match_error_m": -0.47122784570511805,
+            "rim_plane_offset_radii": 0,
+            "model_center_match": false,
+            "strict_ik_solved": true,
+            "actual_fk_bottom_clearance_m": 0.16746412488506782,
+            "actual_fk_board_center_error_m": 2.5395972510939554e-15,
+            "endpoint_geometry_accepted": true
+          }
+        ]
+      },
+      "other_rim_planes": {
+        "-1.0": {
+          "current": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.6133870631724623,
+            "max_model_range_minus_required_distance_m": -0.4368061609317373,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.6133870631724623,
+            "max_model_range_minus_required_distance_m": -0.4368061609317373,
+            "strict_ik_checks": []
+          }
+        },
+        "1.0": {
+          "current": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5524219919596615,
+            "max_model_range_minus_required_distance_m": -0.505447904745354,
+            "strict_ik_checks": []
+          },
+          "wider_diagnostic": {
+            "model_matched_strata": 0,
+            "max_model_range_m": 0.5524219919596615,
+            "max_model_range_minus_required_distance_m": -0.505447904745354,
+            "strict_ik_checks": []
+          }
+        }
+      }
+    }
+  ]
+}

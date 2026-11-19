@@ -1,0 +1,97 @@
+{
+  "schema": "sircus-baseline-file-manifest-v1",
+  "files": {
+    "README.md": {
+      "sha256": "b1489acbc50bcb846a07f50522b3536316b4cd5914b92b0cccca7c0645a07306",
+      "bytes": 11162
+    },
+    "camera-binding.json": {
+      "sha256": "fac63122f45262b4aff83dd78068ebd5c8e9f765315570bf84944068375c01ad",
+      "bytes": 2055
+    },
+    "candidate-checkpoint-audit.json": {
+      "sha256": "c621238abe7c21fe37c6feb9aa46c3fc655e637484dff5157adf3cc67dce41bc",
+      "bytes": 638
+    },
+    "candidate-policy-final.pt": {
+      "sha256": "71c255fbc96f0904f0f2683b01b7d08407b61b8df7efb8c43ddeb0a584d29bff",
+      "bytes": 200701
+    },
+    "candidate-policy-initial.pt": {
+      "sha256": "b41cb9ad1684a44f9497c85ab541fb1c3139c863c6a36dbb2a4a7c7ea5a65f30",
+      "bytes": 68785
+    },
+    "contract.json": {
+      "sha256": "291ca91848bddff8f812b59e790ac565657982a708dd9dcb7c7281136a87544f",
+      "bytes": 13572
+    },
+    "cpu-bank-audit.json": {
+      "sha256": "0c83c2684b6097601971573914ba4f1924aa8dcec4a34d3943dd3768e1e80bfa",
+      "bytes": 89924
+    },
+    "farm-study-contract.json": {
+      "sha256": "c03209d059a2db04ef130fef61a69203eb02799bf7a87354244461635879dea2",
+      "bytes": 2386
+    },
+    "farm-study-result.json": {
+      "sha256": "3040e1a358e3bcfadb30da40494f092f05c5babbe5a9e9696aa0ae727e3b7a4e",
+      "bytes": 364351
+    },
+    "independent-audit.json": {
+      "sha256": "612facdd16d935b37476d4abfa2a5833622fff56fe99d96b50e55b7a3a157d39",
+      "bytes": 4247
+    },
+    "native-qualified-study-bank.json": {
+      "sha256": "ef30ed61c67c459b2f9db9a68e3dd4649cf161f410e3e8ad4d19fd2f2afa35d3",
+      "bytes": 2034605
+    },
+    "parameter-coverage.csv": {
+      "sha256": "7a64c64247668839ac4ef980a5457c0dd19f15c6baa67d54fb93fe76a65dfc8e",
+      "bytes": 16921
+    },
+    "parameter-coverage.json": {
+      "sha256": "e7b6048745c3c3ec5abf8626a143adf4142d1e401cc2d0d85117bf6f06367b3a",
+      "bytes": 58776
+    },
+    "per-table.csv": {
+      "sha256": "ced59e164daf55c905c9166ca3a2d5875ea733fbe1bdc7acb1669594af631f9a",
+      "bytes": 7726
+    },
+    "probes.json": {
+      "sha256": "e23bbea11738453b30d8369da6a2cf9caa17250630bb2c09b127562cc2a89ecc",
+      "bytes": 10323
+    },
+    "reach-audit-summary.json": {
+      "sha256": "a26a142cd85396a1bc0a45a0cf07d8087f8e1ec8ae16025327de71ae1a5de4df",
+      "bytes": 86463
+    },
+    "reach-probe-bank.json": {
+      "sha256": "af98129f0180b51e820cbdf55b293ac4a0b81c703ac9a6f6052e10601a4863f6",
+      "bytes": 149983
+    },
+    "report.html": {
+      "sha256": "12cb257e978e29a6e22207f53a63b24b3169fe52cd22cce152f6af099b1c9515",
+      "bytes": 136076
+    },
+    "rim-rays.json": {
+      "sha256": "98df6ec0211b66ea15dd2480a63efd0f3a29c41a58f502a8d9f55c8461c98878",
+      "bytes": 5817
+    },
+    "selected-camera.json": {
+      "sha256": "a7967c072b8f949318b43a510235d503c81c21e05f433670a0ce92a7af385ede",
+      "bytes": 530
+    },
+    "sweep-proposal-protocol.json": {
+      "sha256": "ea8718f980e7e13d0166787763c1211f860a575f58f3d51ca1a8aaa3ee898bbd",
+      "bytes": 1238
+    },
+    "transfer-probe-status.json": {
+      "sha256": "57771e7a97a8e0726d9101b08042cdd6c34bcc43c495b7022a013b800a330caf",
+      "bytes": 861
+    },
+    "verification.json": {
+      "sha256": "93309dae272189aca18fbef8aa8f6a7b49fb58ae163ae0cdf22ff18d5aaf00b4",
+      "bytes": 3374
+    }
+  }
+}

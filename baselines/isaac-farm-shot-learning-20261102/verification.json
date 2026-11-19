@@ -1,0 +1,67 @@
+{
+  "schema": "sircus-farm-shot-study-verification-v1",
+  "source_commit": "d2a9b70e1fb1ac087f311d1a05ee774b54e82a64",
+  "native_source_snapshot": "studies/farm-shot-study-20261102-v4",
+  "native_source_archive_sha256": "177f2187c33102a0c4405f8f3d4451044e1cc537dfc11c3fe00836763be480ad",
+  "cpu_source_snapshot": "studies/farm-shot-study-20261102-v3",
+  "cpu_source_archive_sha256": "ac7fa347c2577f6678e1e4bb6749618013e8d81d1b28f4b191374b3fb7ec6eb4",
+  "source_python_files_matched_to_frozen_snapshot_and_commit": 97,
+  "run": "output/farm-shot-learning-20261102-v4",
+  "study_fingerprint": "dde5280aedf1f41a441f62f87abfdb9e3d43430c85469d27323f04044d92a35c",
+  "source_fingerprint": "63362ef37a93881f769b39d1ee7456335f1cc7bf5db04ffa7e548ce9697455bf",
+  "result_sha256": "3040e1a358e3bcfadb30da40494f092f05c5babbe5a9e9696aa0ae727e3b7a4e",
+  "native_bank_sha256": "ef30ed61c67c459b2f9db9a68e3dd4649cf161f410e3e8ad4d19fd2f2afa35d3",
+  "original_35_bucket_coordinates_preserved": true,
+  "independent_batch_count": 439,
+  "training_likelihoods_checked": 8960,
+  "frozen_categorical_likelihoods_checked": 1190,
+  "greedy_categorical_choices_checked": 70,
+  "log_probability_max_abs_error": 1.9073486328125e-06,
+  "source_policy_legacy_likelihood_scope": "Historical Gaussian branch did not record latent/log probabilities; its counts/hashes, not independently reconstructed likelihoods, were checked.",
+  "local_tests": {
+    "project_regression_passed": true,
+    "isaac_tests": 266,
+    "expected_torch_skips": 10,
+    "black_task_python_files": 14
+  },
+  "ubuntu_cpu_tests": {
+    "main_policy_tests": 10,
+    "frozen_transfer_audit_tests": 3,
+    "passed": true
+  },
+  "training_throws": 8960,
+  "ppo_updates": 128,
+  "initial_stochastic": {
+    "attempts": 560,
+    "releases": 560,
+    "invalid": 0,
+    "captures": 96,
+    "clean": 16,
+    "single_bounce": 76,
+    "mean_learning_reward": -0.08929888043800985,
+    "mean_historical_reward": -0.11586843475049677
+  },
+  "final_stochastic": {
+    "attempts": 560,
+    "releases": 560,
+    "invalid": 0,
+    "captures": 183,
+    "clean": 35,
+    "single_bounce": 166,
+    "mean_learning_reward": 0.32031718678983767,
+    "mean_historical_reward": 0.2475176927967896
+  },
+  "decision": "Do not promote: stochastic choice improved versus its same-bank initial selector, but greedy capture count remains10/35 versus14/35 historical. Same35development layouts only; no unseen-target generalization.",
+  "native_scope": "Initialized endpoints, unchanged measured settling/240Hz capture/route gates; scripted release, no learned grasp/joint path. No physical, Viam or audio access.",
+  "transfer_probe_status": "Not executed:900s shared scene/GPU lock wait expired,exit1;no output directory or native app started. Other agent workload preserved;no queued task process remains.",
+  "transfer_probe_native_started": false,
+  "final_resource_state": {
+    "rtx4090": "Occupied by another agent's mjlab.corrected_grid job; not interrupted.",
+    "rtx4070": "Existing workload active; not interrupted.",
+    "ubuntu_free_gib_approx": 3.8,
+    "own_main_job": "Exited successfully; no main training continues.",
+    "own_transfer_job": "Exited before launch after shared-lock timeout.",
+    "mac_report": "Read-only127.0.0.1:18785; task-owned service only.",
+    "main_result_mirror": "Finite mirror exited after main completion."
+  }
+}
