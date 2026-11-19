@@ -1,0 +1,24 @@
+{
+  "cells_with_qualified": 33,
+  "contract_sha256": "0dfad47daa7ece33ed731ccb0566b2af34859d481e9455afc84dd4f7814e36a6",
+  "feasibility_sha256": "b352c2c423a5bbcc4f07e8bf971fcbd2285d5c7fe23835a4d99d5fe13de60bed",
+  "ik_protocol": "full_robust_v2",
+  "independently_checked_solved_endpoints": 657,
+  "producer_module_sha256": "4a7ce280ae65f1c08bad711abefab03c5cc949736bc47c8058b2798ac0acb5e4",
+  "producer_provenance_sha256": "d9548c14026d42a573422923fa7c173f8e75a3285197d54e99ef7d8ac48f457c",
+  "qualified": 155,
+  "reasons": {
+    "arm_table_proxy_overlap_Arm14": 31,
+    "board_bucket_proxy_overlap": 189,
+    "endpoint_ik_unresolved_Arm10": 616,
+    "endpoint_ik_unresolved_Arm14": 285,
+    "endpoint_proxy_qualified": 155,
+    "outer_link_length_bound": 16644
+  },
+  "requests": 17920,
+  "result_fingerprint": "f19ea5957f82fe11cbd4de271ce9edc237d0ca21796a5714076d6d553ae08afd",
+  "schema": "sircus-continuous-feasibility-audit-v1",
+  "scope": "All sampled requests, immutable producer/assets, decoded actions, FK residuals, geometric/proxy admission and denominators verified. No IK search rerun, native settling or collision-path certificate.",
+  "spec_fingerprint": "0014228486168eea6fe8323de40a91d9942a7dac1880ab9ea3200814a4cd621a",
+  "status": "passed"
+}

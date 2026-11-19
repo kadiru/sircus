@@ -1,0 +1,6 @@
+{
+  "raw_metadata_sha256": "559346ff4301bc9e7a544408dfc2b239d898017a709e112c653ee5e1eef731e6",
+  "scope": "Original camera binding metadata remains private; every recorded frame/readback was separately verified by the native audit.",
+  "selected_camera_sha256": "a7967c072b8f949318b43a510235d503c81c21e05f433670a0ce92a7af385ede",
+  "source_sha256": "fac63122f45262b4aff83dd78068ebd5c8e9f765315570bf84944068375c01ad"
+}
