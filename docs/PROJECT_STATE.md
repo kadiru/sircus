@@ -1,5 +1,13 @@
 # Project state
 
+## Planning-budget comparison completed — November 17, 2026
+
+- [Audited results](../sircus/mjlab/PLANNING_BUDGET_RESULTS.md): at the same **100 fresh positions** and **30-second decision limit**, the frozen learned selector captured **75/100**, versus **69/100** for the current planner. Ten gains, four losses; 65 shared captures and 21 shared failures. No retraining occurred.
+- Current/learned ready shots: **87/85**; missing checked shots: **13/15**; robot-contact shots: **13/9**. Deadline expirations were **57/51**, including **44/36** with a complete checked shot. One current-planner invalid-physics attempt remains in the denominator.
+- All **172 test drops + 18 controls** completed at 64 substeps; both controls and **87,307 independent audit checks** passed. Native simulation used **383.961 leased GPU seconds**. Median decision time was 30 seconds for both; worker lifecycle medians were 31.25/31.12 seconds, excluding parent evidence verification and archive writes rather than measuring total UI request latency.
+- Results are in `#planningBudgetStudy`. Next: an explicit UI trial of the bounded learned selector while retaining the current planner. This single batch is not proof of all-table superiority, and comparison with the previous study cannot isolate the effect of the limit because its positions differed.
+- The live planner is unchanged. No service restart, automatic promotion, 4070 workload or Isaac setup change accompanied the study. [Protocol and reproduction](../sircus/mjlab/PLANNING_BUDGET_STUDY.md).
+
 ## Learned shot ordering completed — November 17, 2026
 
 - [Audited results](../sircus/mjlab/NEURAL_SHOT_RESULTS.md): the current planner captured **169/200 (84.5%)**, wider search **170/200 (85.0%)**, and the learned selector **173/200 (86.5%)** on the same 200 new bucket positions, one drop per planner at 64 substeps. All three admitted all 200 setups.

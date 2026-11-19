@@ -1,10 +1,14 @@
 """Learning labels must retain exact commands and never turn unrun shots into misses."""
 from copy import deepcopy
+import importlib.util
 import unittest
 
-from sircus.mjlab.neural_shot_study import learning_rows, GPU_CAP_S, STAGE_CAPS
+HAS_TORCH = importlib.util.find_spec("torch") is not None
+if HAS_TORCH:
+    from sircus.mjlab.neural_shot_study import learning_rows, GPU_CAP_S, STAGE_CAPS
 
 
+@unittest.skipUnless(HAS_TORCH, "Existing study runtime imports require PyTorch")
 class LearningEvidenceTests(unittest.TestCase):
     def fixture(self):
         proposals = [dict(id=f"p{i}", values=[.5, -.2, .3, 30., .3], bucket_xy_m=[.8, -.4])

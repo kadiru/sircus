@@ -68,7 +68,7 @@ bucket.castShadow = bucket.receiveShadow = true; bucketGroup.add(bucket);
 const bucketBase = new THREE.Mesh(new THREE.CylinderGeometry(.079, .079, .008, 64), material(0xd39a3e));
 bucketBase.rotation.x = Math.PI / 2; bucketBase.position.z = .004; bucketGroup.add(bucketBase);
 let sceneSpec = {}, report = {}, pending = false, activeRequest = null, currentTrajectory = [], playTime = 0, playing = false, pathLine;
-let physics = null, physicsViewerResult, physicsProgress, savedPhysicsRecordings, clearanceExpansionSummary, neuralShotSummary, physicsSceneActive = false, physicsViewKey = '';
+let physics = null, physicsViewerResult, physicsProgress, savedPhysicsRecordings, clearanceExpansionSummary, neuralShotSummary, planningBudgetSummary, physicsSceneActive = false, physicsViewKey = '';
 let savedReplayRows = [], savedReplaySignature = '';
 const physicsSelected = () => $('mode').value === 'physics' && physics?.available === true;
 let methodChosen = false, farmSignature = '', gridStudySignature = '', benchmarkSignature = '';
@@ -1031,6 +1031,7 @@ async function loadStatus() {
     showSavedPhysicsReplays();
     showClearanceExpansion();
     showNeuralShotStudy();
+    showPlanningBudgetStudy();
     showPlannerFarm();
     showPlannerGridStudy();
     showSweepRlBenchmark();
@@ -1052,6 +1053,58 @@ function showSavedPhysicsReplays() {
       ? report.interactive_recordings.title : 'Saved first-drop replays';
   }
   syncSolveButtons();
+}
+function showPlanningBudgetStudy() {
+  if (!planningBudgetSummary) return;
+  const view = planningBudgetSummary(report);
+  $('planningBudgetStudy').hidden = !view;
+  if (!view) return;
+  const phases = { initialized: 'Comparison initialized', preparing: 'Planning under the shared time limit',
+    preparing_test: 'Planning under the shared time limit', prepared: 'Plans prepared · freezing final choices',
+    choices_frozen: 'Both planners’ choices frozen', waiting_for_4090: 'Waiting for the shared 4090',
+    controls_pre: 'Checking simulator controls before drops', test: 'Testing one drop per planner and position',
+    controls_post: 'Checking final simulator controls', native_completed: 'Drops finished · checking saved measurements',
+    auditing: 'Verifying saved measurements', completed: 'Drops finished · awaiting audited results' };
+  $('planningBudgetStatus').textContent = view.complete ? 'Comparison complete · independent audit passed'
+    : view.status === 'failed' ? 'Comparison interrupted · completed evidence is preserved'
+    : phases[view.phase] || 'Comparison in progress · final results pending';
+  const number = value => value === null ? '—' : String(value);
+  $('planningBudgetLimit').textContent = view.budget === null ? 'Planning time limit not yet reported.'
+    : `${view.budget}-second decision budget per planner and bucket position · ${number(view.total)} fresh positions · at most one drop per planner at each position.`;
+  const cards = [
+    ['Plans prepared', `${number(view.prepared)} / ${number(view.planned)}`, 'Each position needs one independent plan from each planner.'],
+    ['Native drops completed', `${number(view.releases)}${view.planned_releases === null ? '' : ` / ${view.planned_releases} planned`}`, 'Only actual ball releases; missing setups are counted separately.'],
+  ];
+  $('planningBudgetProgress').replaceChildren(...cards.map(([label, value, detail]) => {
+    const card = document.createElement('div'), title = document.createElement('strong'), count = document.createElement('p'), note = document.createElement('p');
+    title.textContent = label; count.textContent = value; note.textContent = detail;
+    card.append(title, count, note); return card;
+  }));
+  $('planningBudgetTable').replaceChildren(); $('planningBudgetPaired').textContent = ''; $('planningBudgetTiming').textContent = '';
+  if (view.complete) {
+    const table = document.createElement('table'), head = document.createElement('thead'), header = document.createElement('tr'), body = document.createElement('tbody');
+    for (const label of ['Planner', 'First-drop captures', 'Shot ready', 'Deadline reached', 'No checked shot', 'Robot contacts', 'Median decision time', '90th-percentile decision time', 'Maximum decision time']) {
+      const th = document.createElement('th'); th.scope = 'col'; th.textContent = label; header.append(th);
+    }
+    head.append(header);
+    const seconds = value => value === null ? '—' : `${value.toFixed(1)} s`;
+    for (const row of view.methods) {
+      const tr = document.createElement('tr');
+      const values = [row.label, `${row.captures} / ${view.total} (${(100 * row.captures / view.total).toFixed(1)}%)`,
+        `${row.releases} / ${view.total}`, row.deadline_reached, row.no_candidate, row.robot_contacts,
+        seconds(row.median_s), seconds(row.p90_s), seconds(row.max_s)];
+      for (const value of values) { const td = document.createElement('td'); td.textContent = String(value); tr.append(td); }
+      body.append(tr);
+    }
+    table.append(head, body); $('planningBudgetTable').append(table);
+    $('planningBudgetPaired').textContent = `The learned selector captured at ${view.paired.gained} positions where the current planner missed, and missed at ${view.paired.lost} positions the current planner captured. Both captured at ${view.paired.both}; neither captured at ${view.paired.neither}.`;
+    const lifecycle = view.methods.filter(row => row.startup_median_s !== null || row.end_to_end_median_s !== null);
+    if (lifecycle.length) $('planningBudgetTiming').textContent = `Measured process timings: ${lifecycle.map(row => `${row.label} — median startup ${seconds(row.startup_median_s)}, median worker lifecycle ${seconds(row.end_to_end_median_s)}`).join('; ')}. Worker lifecycle runs from startup through worker shutdown. It excludes parent evidence verification and archive writes, is not capped at the decision budget, and is not total UI request latency.`;
+  }
+  $('planningBudgetResultNote').textContent = view.complete
+    ? 'Both frozen planners used the same new positions and the same deadline. The 90th percentile means nine out of ten planning decisions finished within that time. Deadline and no-shot counts can overlap.'
+    : 'Final capture and timing results appear after all drops and the independent audit finish. Partial counts do not identify a winning planner.';
+  $('planningBudgetNext').textContent = view.next; $('planningBudgetError').textContent = view.error;
 }
 function showNeuralShotStudy() {
   if (!neuralShotSummary) return;
@@ -1219,11 +1272,13 @@ async function initializePhysics() {
     savedPhysicsRecordings = module.savedPhysicsRecordings;
     clearanceExpansionSummary = module.clearanceExpansionSummary;
     neuralShotSummary = module.neuralShotSummary;
+    planningBudgetSummary = module.planningBudgetSummary;
     physics = new module.InteractivePhysics({ onChange: updatePhysics });
     await physics.initialize();
     showSavedPhysicsReplays();
     showClearanceExpansion();
     showNeuralShotStudy();
+    showPlanningBudgetStudy();
   } catch { /* Historical viewing stays available without this optional API. */ }
 }
 for (const id of ['physicsDrop', 'physicsDropTop']) {
