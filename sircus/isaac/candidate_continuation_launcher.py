@@ -1,11 +1,10 @@
-"""Mock-tested bounds for a single future continuation application start.
+"""Mock-tested bounds for a single explicitly authorized application start.
 
-This module has no simulator, subprocess, GPU query or production runtime
-backend. ``supervise`` accepts only an explicitly mock-only runtime. It tests
-the ownership/accounting contract that a separately reviewed backend must
-implement; passing these tests grants no execution permission. Runtime calls
-must themselves be bounded, and a future backend needs an external hard
-watchdog because this synchronous driver cannot preempt a blocked callback.
+The production runtime lives separately and is selected only by an explicit
+execution call. Mock runtimes remain the default test path. Passing tests or
+constructing a plan grants no execution permission. The production backend
+starts an independent container watchdog because this synchronous supervisor
+cannot preempt a blocked callback by itself.
 
 Receipts are new-only and preserve partial work. An interrupted start is never
 retried. Success here means the mock control flow completed, not that a native
@@ -27,7 +26,7 @@ from candidate_continuation_ledger import (
     TRAIN_REQUEST_LIMIT, canonical_hash,
 )
 
-SCHEMA = "sircus-candidate-continuation-bounded-launch-v1"
+SCHEMA = "sircus-candidate-continuation-bounded-launch-v2"
 GPU_UUID = "GPU-ab1950b0-01dd-0fab-407f-2d17936b27f4"
 CONTAINER = "sircus_isaac_4090"
 WAIT_SECONDS = 7200
@@ -95,7 +94,7 @@ def _bindings(value):
 
 @dataclass(frozen=True)
 class LaunchPlan:
-    """Immutable, hashable mock contract; no executable command or overrides."""
+    """Immutable launch contract; no executable command or permission override."""
 
     output: str
     protected_roots: tuple[str, ...]
@@ -137,7 +136,7 @@ class LaunchPlan:
             max_diagnostic_placements=490, max_diagnostic_physics_steps=1824,
             train_request_limit=TRAIN_REQUEST_LIMIT, train_release_limit=TRAIN_RELEASE_LIMIT,
             assessment_request_limit=ASSESSMENT_REQUEST_LIMIT,
-            mock_only=True, production_backend_implemented=False,
+            mock_only=False, production_backend_implemented=True,
             execution_authorized=False, release_authorized=False)
         result["fingerprint"] = canonical_hash(result)
         return result
@@ -172,7 +171,7 @@ class ChildIdentity:
 
 
 class Runtime(Protocol):
-    """Only mock implementations are accepted by this development driver.
+    """Mock implementations and explicitly authorized production adapters.
 
     Query only the declared 4090. Lock methods operate on the pre-existing shared
     lock without replacing it. ``start_native`` must not restart a container or
@@ -285,8 +284,8 @@ def _gpu_idle(state):
     return not state["compute_pids"]
 
 
-def supervise(plan, runtime):
-    """Exercise one bounded mock launch; all partial evidence remains new-only.
+def supervise(plan, runtime, *, execute=False):
+    """Supervise one bounded start; all partial evidence remains new-only.
 
     Ownership uncertainty retains the injected scene-lock lease for inspection.
     No second start is possible in the same output, including after a failed
@@ -294,8 +293,11 @@ def supervise(plan, runtime):
     for the independent native audit. The final audit phase is CPU-only and its
     externally produced result must still be verified by the independent reader.
     """
-    require(isinstance(plan, LaunchPlan) and getattr(runtime, "mock_only", None) is True,
-            "Only explicit mock-only runtimes are implemented; native execution is unavailable")
+    mock_only = getattr(runtime,"mock_only",None) is True
+    require(isinstance(plan, LaunchPlan) and (mock_only or (execute is True
+        and getattr(runtime,"production_runtime",False) is True
+        and getattr(runtime,"execution_authorized",False) is True)),
+        "Use a mock-only runtime or an explicitly authorized production execution call")
     # Revalidate even a dataclass built by a nonstandard caller.
     LaunchPlan.from_dict(plan.to_dict())
     output = Path(plan.output)
@@ -331,7 +333,7 @@ def supervise(plan, runtime):
     def publish(kind, payload):
         nonlocal sequence
         value = dict(schema=SCHEMA, session=plan.session, seq=sequence, kind=kind,
-                     elapsed_s=clock()-initial, mock_only=True, **payload)
+                     elapsed_s=clock()-initial, mock_only=mock_only, **payload)
         write_new_json(output / f"launch-{sequence:06d}.json", value)
         sequence += 1
 
@@ -383,7 +385,7 @@ def supervise(plan, runtime):
             # Persist even malformed/failed observations before interpreting
             # counters, diagnostics or exit status; never replace a prior one.
             write_new_json(output / f"launch-observation-{observation_sequence:06d}.json",
-                dict(schema=SCHEMA, session=plan.session, mock_only=True,
+                dict(schema=SCHEMA, session=plan.session, mock_only=mock_only,
                      observation=_preserve_invalid(snapshot)))
             observation_sequence += 1
             current = clock()
@@ -445,15 +447,15 @@ def supervise(plan, runtime):
                 safe_to_unlock = True
                 require(next_index == len(PHASES)-1, "Native child exited before all bounded phases")
                 phase_cost[PHASES[phase_index]] = clock()-phase_started
-                result = dict(status="mock_complete_independent_audit_required",
+                result = dict(status=("mock_complete_independent_audit_required" if mock_only else "native_complete_independent_audit_required"),
                     independent_audit_passed=False, model_promoted=False,
                     native_application_starts=1, native_wall_s=clock()-started,
                     queue_wall_s=started-initial, phase_wall_s=phase_cost,
-                    phase_wall_scope="Observed non-overlapping supervisor phase intervals; mock only",
+                    phase_wall_scope="Observed non-overlapping supervisor phase intervals; "+("mock only" if mock_only else "production watchdog separately bounds blocked native work"),
                     diagnostics=diagnostics.summary(), counters=counters, owner=owner.to_dict())
                 publish("complete", result)
                 write_new_json(output / "launch-result.json", dict(schema=SCHEMA,
-                    session=plan.session, mock_only=True, **result))
+                    session=plan.session, mock_only=mock_only, **result))
                 return result
             require(snapshot["exit_code"] is None, "Running child claimed an exit code")
             runtime.sleep(POLL_SECONDS)
@@ -476,9 +478,9 @@ def supervise(plan, runtime):
                     safe_to_unlock = False
         if started is not None and phase_started is not None:
             phase_cost[PHASES[phase_index]] = max(0., last_clock-phase_started)
-        result = dict(schema=SCHEMA, session=plan.session, status="mock_failed",
+        result = dict(schema=SCHEMA, session=plan.session, status="mock_failed" if mock_only else "native_failed_no_retry",
             reason=str(exc) or type(exc).__name__, exception_type=type(exc).__name__,
-            mock_only=True, independent_audit_passed=False, model_promoted=False,
+            mock_only=mock_only, independent_audit_passed=False, model_promoted=False,
             native_application_starts=int(attempted_start), termination=termination,
             termination_error=termination_error,
             scene_lock_retained=lock_held and not safe_to_unlock, phase_wall_s=phase_cost,
