@@ -14,6 +14,8 @@ class MockAdapter:
             'is_moving':False, 'pose_frame':'world', 'pose_component':name} for name in ('arm','arm-board')}}
         self.state['arms']['arm-board']['pose']['x'] = 850.
         self.commands = []
+        self.held = False
+        self.board_move_owned = False
         self.record = {'active':False,'ready':False,'frame_count':0,'error':None}
         self.record_task = None
         self.directory = None
@@ -31,9 +33,11 @@ class MockAdapter:
 
     async def open_gripper(self):
         self.commands.append('open_gripper')
+        self.held = False
 
     async def close_gripper(self):
         self.commands.append('close_gripper')
+        self.held = True
         return {'grabbed':True}
 
     async def move_pose(self, pose):
@@ -56,10 +60,30 @@ class MockAdapter:
         finally:
             self.state['arms']['arm']['is_moving'] = False
 
-    async def stop(self):
+    async def held_ball(self):return self.held
+
+    async def vacuum_holding(self):return True
+
+    async def verify_quiescent(self):
+        if any(row['is_moving'] for row in self.state['arms'].values()):raise RuntimeError('Mock arm moving')
+        return {'method':'mock stationary state'}
+
+    async def move_board_pose(self,pose):
+        self.commands.append({'move_board_pose':dict(pose)})
+        self.board_move_owned=True
+        self.state['arms']['arm-board']['is_moving']=True
+        try:
+            await asyncio.sleep(.5)
+            self.state['arms']['arm-board']['pose']=dict(pose)
+        finally:self.state['arms']['arm-board']['is_moving']=False
+
+    async def stop(self, *, recover_idle=False):
         self.commands.append('stop_dropper_only')
         self.state['arms']['arm']['is_moving'] = False
-        return {'planner_cancellation_verified':True,'gripper_or_vacuum_commanded':False}
+        if self.board_move_owned:self.state['arms']['arm-board']['is_moving']=False
+        return {'planner_cancellation_verified':True,'gripper_or_vacuum_commanded':False,
+                'stopped_components':['arm','arm-board'] if self.board_move_owned else ['arm'],
+                'recovery_evidence':await self.verify_quiescent() if recover_idle else None}
 
     async def start_recording(self, trial_id, trial_dir, metadata):
         self.directory = trial_dir

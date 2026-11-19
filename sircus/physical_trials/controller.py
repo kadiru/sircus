@@ -108,7 +108,10 @@ class Controller:
         self.trial = None
         self.capabilities = {}
         self.recording = {'active': False, 'ready': False}
+        self.round_run = None
+        self._round_audio_sequence = 0
         self._journal_recovery()
+        self._round_recovery()
 
     def _journal_recovery(self):
         paths = sorted((self.root / 'trials').glob('*/trial.json'))
@@ -404,6 +407,7 @@ class Controller:
                     allowed += ['save_trial', 'keep_unlabeled']
             elif fresh and not self.fault:
                 allowed += ['teach_loading', 'teach_drop', 'configure', 'configure_poses']
+                if not self._round_blockers():allowed += ['run_round']
                 if not any(a['is_moving'] for a in self.robot['arms'].values()):
                     allowed += ['open_gripper', 'close_gripper']
                     if self.selected_ball_id is not None:allowed += ['teach_pickup']
@@ -443,6 +447,8 @@ class Controller:
             'calibration': self.calibration, 'calibration_missing': self.calibration_missing(),
             'recording': self.recording, 'trial': self.trial, 'error': self.error,
             'fault': self.fault, 'recovery_verified':self.recovery_verified,
+            'round_run':self.round_run, 'round_blockers':self._round_blockers(),
+            'readback_diagnostics':{'latest':getattr(self.adapter,'readback_diagnostics',{}),'last_failure':getattr(self.adapter,'last_readback_failure',None)},
             'fixed_cycle_missing': self.fixed_cycle_missing(),
             'pickup_station_missing':self.pickup_station_missing(),
             'pickup_station_blockers':self.pickup_station_blockers(),
@@ -478,6 +484,12 @@ class Controller:
                 raise TrialError('Stale action request; refresh state and confirm again')
         if name not in (await self.status())['allowed_actions']:
             raise TrialError('Action unavailable: another action/trial is pending, state is stale, or calibration is missing')
+        if name == 'run_round':
+            if payload.get('confirmed') is not True:raise TrialError('Confirm four balls loaded, empty gripper and both arm routes clear')
+            if payload.get('expected_action_epoch') != self.action_epoch:raise TrialError('Stale round request')
+            if payload.get('round_id') not in ('round-1','round-2'):raise TrialError('Choose Round 1 or Round 2')
+            if type(payload.get('sounds')) is not bool:raise TrialError('Explicit sound selection required')
+            payload = {**payload, '_preset':self._round_presets()[payload['round_id']]}
         if name == 'resume_held_drop':
             if payload.get('trial_id') != self.trial['id'] or payload.get('confirmed') is not True:
                 raise TrialError('Confirm the original held-ball trial and clear transfer route')
@@ -544,6 +556,8 @@ class Controller:
             raise TrialError('Pending planner cancellation was not verified')
         state=await self._snapshot()
         if state['arms']['arm']['is_moving']:raise TrialError('Dropper still reports moving after Stop')
+        if isinstance(result,dict) and 'arm-board' in result.get('stopped_components',[]) and state['arms']['arm-board']['is_moving']:
+            raise TrialError('Board arm still reports moving after Stop')
         return result
 
     def _event(self, command, event, **extra):
@@ -722,7 +736,9 @@ class Controller:
                 raise asyncio.CancelledError()
         try:
             still_current()
-            if name == 'set_ball':
+            if name == 'run_round':
+                await self._run_round(p, still_current)
+            elif name == 'set_ball':
                 self.selected_ball_id = p['ball_id']
                 self.phase = 'idle' if self.connected else 'disconnected'
             elif name == 'teach_pickup':
@@ -881,7 +897,7 @@ class Controller:
             self._audio_cancel()
             self.error = str(exc) if isinstance(exc, TrialError) else f'{name} failed ({type(exc).__name__}); check hardware/connection'
             if name in ('go_loading','go_drop','drop','load_drop_cycle','open_gripper','close_gripper',
-                        'go_pickup_approach','go_loading_approach','pickup_drop_cycle','resume_held_drop'):
+                        'go_pickup_approach','go_loading_approach','pickup_drop_cycle','resume_held_drop','run_round'):
                 try:await self._stop_and_verify()
                 except Exception:
                     self.error += '; dropper stop not confirmed';self.fault=True
@@ -1097,6 +1113,10 @@ class Controller:
                 'Gripper held-object acknowledgment is not visual ball-identity verification.',
                 'Release pose brackets gripper command, not observed ball separation.',
                 'Board constancy is joint readback; bucket placement is operator-confirmed.']}
+        if self.round_run and self.round_run.get('status') == 'running':
+            self.trial['round_run_id']=self.round_run['id']
+            self.trial['round_id']=self.round_run['round_id']
+            self.trial['round_preset_sha256']=self.round_run['preset_sha256']
         if recording_mode == 'operator_log_only':
             self.trial['synchronization_limits'][0] = 'Camera recording disabled by operator; discrete robot-state snapshots only, no visual outcome evidence.'
         self._persist()
@@ -1133,6 +1153,136 @@ class Controller:
         self.phase='pickup_lifting'
         await self._pickup_linear_move(approach,grasp,still_current,'vertical_lift')
         await self._transfer_fixed_drop(config,still_current,'pickup_drop_cycle',practice)
+
+    def _round_recovery(self):
+        paths=sorted((self.root/'round-runs').glob('*/run.json'))
+        if not paths:return
+        try:
+            run=json.loads(paths[-1].read_text())
+            if run['id'] != paths[-1].parent.name:raise ValueError('round journal mismatch')
+            self.round_run=run
+            if run['status']=='running':
+                run.update(status='interrupted',interruption='Dashboard restarted; no automatic resume')
+                self.fault=True
+                self.error='Interrupted round recovered; verify both arms and Stop before further actions'
+                self._round_save()
+        except (OSError,ValueError,KeyError,TypeError):
+            self.fault=True;self.journal_error='Unreadable round journal; review local files before reuse'
+
+    def _round_presets(self):
+        path = self.root / 'round-presets.pending.json'
+        try:
+            data = json.loads(path.read_text())
+            if data.get('schema') != 'sircus-taught-round-presets-v1' or data.get('machine') != 'sfhack10':
+                raise ValueError('wrong preset identity')
+            rounds = data['rounds']
+            for name in ('round-1','round-2'):
+                for component, key in (('arm','dropper_arm'),('arm-board','board_arm')):
+                    row = rounds[name][key]
+                    if row.get('pose_frame') != 'world' or row.get('pose_component') != component:
+                        raise ValueError('wrong pose frame')
+                    pose=row['pose']
+                    if set(pose) != {'x','y','z','o_x','o_y','o_z','theta'} or not pose_matches(pose,pose):
+                        raise ValueError('invalid pose')
+                    for value in pose.values():number(value,'round pose')
+                    if not 0 <= pose['z'] <= 2000:raise ValueError('invalid height')
+                    if len(row['joints']) != 6:raise ValueError('incomplete joints')
+                    for value in row['joints']:number(value,'round joint')
+            return copy.deepcopy(rounds)
+        except (OSError,ValueError,KeyError,TypeError,TrialError):
+            raise TrialError('Two complete local taught round presets are required') from None
+
+    def _round_blockers(self):
+        reasons=[]
+        try:self._round_presets()
+        except TrialError as exc:reasons.append(str(exc))
+        if self.mode == 'hardware' and self.capabilities.get('cameras_enabled') is not False:
+            reasons.append('Launch with cameras disabled for this demo')
+        if not all(hasattr(self.adapter,name) for name in ('move_board_pose','vacuum_holding','held_ball','verify_quiescent')):
+            reasons.append('Round transition capability unavailable')
+        if set(self.calibration.get('pickup_poses',{})) != {'ball-gray','ball-purple','ball-pink','ball-green'}:
+            reasons.append('Teach all four pickup positions first')
+        for ball in ('ball-gray','ball-purple','ball-pink','ball-green'):
+            try:self._pickup_poses(ball)
+            except (TrialError,KeyError,TypeError):reasons.append('Complete taught pickup reference required: '+ball)
+        if not self.calibration.get('loading_pose'):reasons.append('Loading pose is missing')
+        return reasons
+
+    def _round_save(self):
+        write_json(self.root/'round-runs'/self.round_run['id']/'run.json',self.round_run)
+
+    def _round_audio(self, enabled):
+        # Local bounded enqueue only. No readiness or acknowledgement gates robots.
+        if self.audio is None:return
+        try:
+            self._round_audio_sequence += 1
+            self.audio.control({'client_id':self.audio_clock_id,'sequence':self._round_audio_sequence,
+                                'action':'fx','enabled':enabled})
+        except Exception:self.audio_observer_errors += 1
+
+    async def _run_round(self, p, still_current):
+        preset=p['_preset']
+        run_id=datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')+'-'+uuid.uuid4().hex[:8]
+        self.round_run={'id':run_id,'round_id':p['round_id'],'status':'running','position':0,
+            'started_at':utc(),'trials':[],'preset':preset,'sounds_requested':p['sounds'],
+            'preset_sha256':hashlib.sha256(json.dumps(preset,sort_keys=True).encode()).hexdigest(),
+            'recording_mode':'operator_log_only','outcomes':'unknown; completion is not capture'}
+        self._round_save()
+        self._round_audio(False)
+        try:
+            state=await self._snapshot();self._stationary(state);still_current()
+            if await self.adapter.held_ball():raise TrialError('Round start requires an empty dropper gripper')
+            still_current()
+            # Transition only from one of the taught high release poses. A low arm
+            # requires explicit operator recovery; never invent a transit waypoint.
+            poses=self._round_presets()
+            if not any(pose_matches(state['arms']['arm']['pose'],r['dropper_arm']['pose']) for r in poses.values()):
+                raise TrialError('Park the empty dropper at a taught round drop pose before starting')
+            if not any(pose_matches(state['arms']['arm-board']['pose'],r['board_arm']['pose']) for r in poses.values()):
+                raise TrialError('Board must begin at a taught round pose')
+            await self.adapter.verify_quiescent();still_current()
+            if not await self.adapter.vacuum_holding():raise TrialError('Board vacuum holding is not confirmed')
+            still_current()
+            before=copy.deepcopy(state['arms']['arm']['pose'])
+            self.phase='round_board_transition'
+            if not pose_matches(state['arms']['arm-board']['pose'],preset['board_arm']['pose']):
+                await self.adapter.move_board_pose(preset['board_arm']['pose']);still_current()
+            state=await self._settle(board_guard=False);still_current()
+            if not pose_matches(state['arms']['arm']['pose'],before):raise TrialError('Dropper changed during board transition')
+            if not pose_matches(state['arms']['arm-board']['pose'],preset['board_arm']['pose']):raise TrialError('Board did not reach round pose')
+            if max(abs(a-b) for a,b in zip(state['arms']['arm-board']['joints'],preset['board_arm']['joints'])) > BOARD_TOLERANCE_DEG:
+                raise TrialError('Board joint solution differs from taught round')
+            if not await self.adapter.vacuum_holding():raise TrialError('Board vacuum holding is not confirmed')
+            still_current()
+            c=copy.deepcopy(self.calibration)
+            c.update(drop_pose=copy.deepcopy(preset['dropper_arm']['pose']),
+                board_pose=copy.deepcopy(state['arms']['arm-board']['pose']),
+                board_joints=copy.deepcopy(state['arms']['arm-board']['joints']),confirmed=False,
+                frame='world',pose_source='operator_selected_taught_round',configured_at=utc())
+            write_json(self.config_path,c);self.calibration=c
+            self._round_audio(p['sounds'])
+            for index,ball in enumerate(('ball-gray','ball-purple','ball-pink','ball-green'),1):
+                still_current();self.selected_ball_id=ball
+                self.round_run.update(position=index,ball_id=ball);self._round_save()
+                await self._pickup_cycle(still_current,ball,practice=True,recording_mode='operator_log_only')
+                still_current()
+                if self.trial['status']!='completed' or not self.trial['saved']:
+                    raise TrialError('Round trial did not finish')
+                self.round_run['trials'].append({'ball_id':ball,'trial_id':self.trial['id'],
+                    'status':'completed','outcome':None})
+                self._round_save()
+            self.round_run['status']='awaiting_reload' if p['round_id']=='round-1' else 'completed'
+            self.phase='idle'
+        except BaseException:
+            self.round_run['status']='interrupted'
+            self.round_run['interrupted_phase']=self.phase
+            if self.trial and self.trial.get('round_run_id')==run_id:
+                self.round_run['interrupted_trial_id']=self.trial['id']
+            raise
+        finally:
+            self._round_audio(False)
+            self.round_run['finished_at']=utc()
+            self._round_save()
 
     def _resume_held_checks(self):
         t=self.trial

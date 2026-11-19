@@ -7,6 +7,7 @@ Viam credentials remain in a separate owner-only file, never in browser state.
 from __future__ import annotations
 
 import asyncio
+import copy
 from datetime import datetime, timezone
 import gzip
 import hashlib
@@ -137,6 +138,7 @@ class ViamAdapter:
         self.robot = None
         self.motion = None
         self.gripper = None
+        self.vacuum = None
         self.camera = None
         self.arms = {}
         self.capture_control = None
@@ -149,6 +151,9 @@ class ViamAdapter:
         self._rpc_tasks = set()
         self._actuation_tasks = set()
         self._move_task = None
+        self._move_component = "arm"
+        self.readback_diagnostics = {}
+        self.last_readback_failure = None
         self._move_token = None
         self._move_active = False
         self._move_operations = set()
@@ -241,6 +246,8 @@ class ViamAdapter:
             self.arms = {name: Arm.from_robot(robot, name) for name in ("arm", "arm-board")}
             self.camera = Camera.from_robot(robot, "cam") if self.cameras_enabled else None
             self.gripper = Gripper.from_robot(robot, "gripper")
+            if ("component","gripper","vacuum-board") in resources:
+                self.vacuum = Gripper.from_robot(robot,"vacuum-board")
             self.motion = MotionClient.from_robot(robot, "builtin")
             capture_name = self.config.get("capture_control_name")
             data_manager_names = sorted(n for t, s, n in resources if t == "service" and s == "data_manager")
@@ -251,7 +258,7 @@ class ViamAdapter:
                 "transport": "SDK default; WebRTC enabled" if self.transport == "auto" else "direct TLS only",
                 "pose_frame": "world", "pose_component": "arm", "pose_source": "builtin Motion.GetPose",
                 "camera": "cam" if self.cameras_enabled else None, "cameras_enabled":self.cameras_enabled, "arms": ["arm", "arm-board"], "commanded_arm": "arm",
-                "commanded_gripper": "gripper", "board_commands": False,
+                "commanded_gripper": "gripper", "board_commands": "explicit taught-round transition only",
                 "resources": [{"type": t, "subtype": s, "name": n} for t, s, n in sorted(resources)],
                 "data_manager_names": data_manager_names,
                 "capture_control_name": capture_name if self.capture_control else None,
@@ -269,12 +276,25 @@ class ViamAdapter:
         await self.connect()
         started = utc()
 
+        diagnostics = {'started_at':started,'methods':{}}
+        async def measured(name, method, awaitable):
+            begin=time.monotonic()
+            try:
+                result=await self._rpc(awaitable)
+                diagnostics['methods'][name+'.'+method]={'seconds':round(time.monotonic()-begin,3),'status':'ok'}
+                return result
+            except BaseException as exc:
+                diagnostics['methods'][name+'.'+method]={'seconds':round(time.monotonic()-begin,3),'status':type(exc).__name__}
+                self.last_readback_failure={'at':utc(),'resource':name,'method':method,'error_type':type(exc).__name__,'seconds':round(time.monotonic()-begin,3)}
+                raise
+            finally:self.readback_diagnostics=copy.deepcopy(diagnostics)
+
         async def one(name):
             arm = self.arms[name]
             joints, moving, pose = await asyncio.gather(
-                self._rpc(arm.get_joint_positions(timeout=self.rpc_timeout)),
-                self._rpc(arm.is_moving(timeout=self.rpc_timeout)),
-                self._rpc(self.motion.get_pose(name, "world", timeout=self.rpc_timeout)))
+                measured(name,"joints",arm.get_joint_positions(timeout=self.rpc_timeout)),
+                measured(name,"moving",arm.is_moving(timeout=self.rpc_timeout)),
+                measured(name,"pose",self.motion.get_pose(name, "world", timeout=self.rpc_timeout)))
             if pose.reference_frame != "world":
                 raise RuntimeError("Expected world-frame readback from Viam motion service")
             return name, {"pose": {k: float(getattr(pose.pose, k)) for k in POSE_FIELDS},
@@ -340,7 +360,7 @@ class ViamAdapter:
             # every motion operation, or another client's board-arm operation.
             extra = args.get("extra", {})
             component = args.get("component_name", args.get("componentName"))
-            if ("MotionService/Move" in op.method and component == "arm"
+            if ("MotionService/Move" in op.method and component == self._move_component
                     and extra.get("sircus_operator_operation") == self._move_token):
                 self._move_operations.add(op.id)
 
@@ -359,7 +379,7 @@ class ViamAdapter:
         parameters = linear_move_parameters(pose, expected_start, line_tolerance_mm, orientation_tolerance_deg)
         return await self._move_pose(parameters['pose'], linear=parameters)
 
-    async def _move_pose(self, pose, *, linear=None):
+    async def _move_pose(self, pose, *, linear=None, component="arm"):
         epoch=self._actuation_epoch
         await self.connect();self._actuation_current(epoch)
         if self._move_task and not self._move_task.done():
@@ -383,6 +403,7 @@ class ViamAdapter:
             except BaseException:
                 self._move_task = None
                 raise
+        self._move_component = component
         self._move_token = uuid4().hex
         self._move_active = True
         self._move_operations = set()
@@ -392,7 +413,7 @@ class ViamAdapter:
                 self._actuation_current(epoch)
                 options = {'constraints': constraints} if constraints is not None else {}
                 return await self.motion.move(
-                    component_name="arm",destination=PoseInFrame(reference_frame="world",pose=Pose(**pose)),
+                    component_name=component,destination=PoseInFrame(reference_frame="world",pose=Pose(**pose)),
                     extra={"sircus_operator_operation":self._move_token},timeout=45, **options)
             ok=await self._rpc(command(),47,actuation=True)
             if not ok:
@@ -400,7 +421,7 @@ class ViamAdapter:
             self._move_active = False
             self._move_token = None
             self._move_operations.clear()
-            result = {"command": "builtin.Move", "component": "arm", "completed_at": utc()}
+            result = {"command": "builtin.Move", "component": component, "completed_at": utc()}
             if linear is not None:
                 result.update(linear_move_evidence(linear), planner_reported_success=True)
             return result
@@ -415,6 +436,35 @@ class ViamAdapter:
             if self._move_monitor:
                 self._move_monitor.cancel()
             self._move_task = None
+
+    async def vacuum_holding(self):
+        await self.connect()
+        if self.vacuum is None:raise RuntimeError('Board vacuum resource unavailable')
+        report=await self._rpc(self.vacuum.is_holding_something(timeout=self.rpc_timeout))
+        return report.is_holding_something is True
+
+    async def move_board_pose(self, pose):
+        # Same owned planner/cancellation path as the dropper. Never actuate suction.
+        async def monitor():
+            while True:
+                if await self._rpc(self.arms['arm'].is_moving(timeout=self.rpc_timeout)):
+                    raise RuntimeError('Dropper moved during board transition')
+                if not await self.vacuum_holding():raise RuntimeError('Board vacuum holding lost')
+                await asyncio.sleep(.5)
+        await self.connect()
+        guard=asyncio.create_task(monitor())
+        move=asyncio.create_task(self._move_pose(pose,component='arm-board'))
+        try:
+            done,_=await asyncio.wait({guard,move},return_when=asyncio.FIRST_COMPLETED)
+            if guard in done:await guard
+            return await move
+        except BaseException:
+            move.cancel()
+            # Controller Stop verifies cancellation; retain planner token until then.
+            raise
+        finally:
+            guard.cancel()
+            await asyncio.gather(guard,return_exceptions=True)
 
     async def held_ball(self):
         await self.connect()
@@ -449,7 +499,10 @@ class ViamAdapter:
         await self.connect()
         async with self._stop_lock:
             # Do not delay the immediate actuator stop behind operation-list RPCs.
-            first_stop = asyncio.create_task(self._rpc(self.arms["arm"].stop(timeout=self.rpc_timeout)))
+            components = ("arm","arm-board") if self._move_component == "arm-board" else ("arm",)
+            async def stop_components():
+                await asyncio.gather(*(self._rpc(self.arms[name].stop(timeout=self.rpc_timeout)) for name in components))
+            first_stop = asyncio.create_task(stop_components())
             first_stop.add_done_callback(lambda task: None if task.cancelled() else task.exception())
             for owned in list(self._actuation_tasks):
                 if not owned.done():owned.cancel()
@@ -477,7 +530,7 @@ class ViamAdapter:
             except Exception as exc:errors.append(self._safe_error(exc))
             # Reassert after cancelling the planner, which may have been sending
             # a segment concurrently with the first Stop call.
-            try:await self._rpc(self.arms["arm"].stop(timeout=self.rpc_timeout))
+            try:await stop_components()
             except Exception as exc:errors.append(self._safe_error(exc))
             remaining=[]
             try:
@@ -511,7 +564,7 @@ class ViamAdapter:
                     "operation_discovery_ok": discovered, "cancel_errors": errors, "remaining_owned_operations":remaining,
                     "planner_cancellation_verified": verified,"pending_owned_actuator_requests":pending_actuation,
                     "recovery_evidence":recovery_evidence,
-                    "gripper_or_vacuum_commanded": False}
+                    "gripper_or_vacuum_commanded": False,"stopped_components":list(components)}
 
     async def start_recording(self, trial_id, trial_dir, metadata=None):
         if not self.cameras_enabled:raise RuntimeError("Cameras disabled; choose explicit camera-off practice")
