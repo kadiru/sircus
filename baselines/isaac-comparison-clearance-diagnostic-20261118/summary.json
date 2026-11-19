@@ -1,0 +1,307 @@
+{
+  "batches": 539,
+  "clean_entry_clearance_requirement_mm": 1.0,
+  "clean_shutdown": false,
+  "comparison_sha256": "c5673dd94bba36c6493d55731d30647a0748dc9b6fbdaf156a4f5aa1e6d79d4f",
+  "completed_at": "2026-11-18T21:25:59.883307+00:00",
+  "copy_receipt_sha256": "4dee2c4faae055b0f42eb5a509075459ab79b8f2dad49b4519f4e47140616a04",
+  "diagnostic_source_commit": "4acc3b74d8ad5815f8d0e94a11c4f0320f683ed6",
+  "diagnostic_source_sha256": "b7eb03207c956b8428fa7c78ae1e9c6c7e80c9b5d10d27f84cecc8c976e0ea08",
+  "frozen_benchmark_modified": false,
+  "inventory_sha256": "feb925f5bb05a4417ccc76d4e6efa448cbe2160cfccb52b007dbe3ab14311294",
+  "limitations": [
+    "Mac Python/NumPy/SciPy versions differ from original Linux producer; not a full producer-runtime reproduction.",
+    "Float32 subtraction followed by double scoring matches all saved returned fields at the original tolerance in this diagnostic.",
+    "Raw float32 on NumPy 2.5 is a version-confounded control; its historical ShotScore reward residuals are not PPO shaped-reward/update results.",
+    "Policy likelihoods, optimizer updates, release/geometry guards, startup physics, camera/videos and shutdown were not re-audited.",
+    "Original native shutdown and recovery audit remain failed; no model promotion or verified performance publication."
+  ],
+  "manifest_sha256": "7de349d890ca032d2f8802b987350de55ca5314a52fbcfab6fdfc7d6c8109a5b",
+  "measured_cost": {
+    "cpu_system_s": 5.400797,
+    "cpu_user_s": 445.977897,
+    "exit_code": 0,
+    "finished_at": "2026-11-18T21:25:59.883307+00:00",
+    "model_loads": 0,
+    "new_shots": 0,
+    "optimizer_steps": 0,
+    "original_audit_passed": false,
+    "peak_child_rss_bytes": 659734528,
+    "report_sha256": "4339978f0e9804f4d1bcfdd0ded29d58778ac4bed449fe037b45b232957d45d3",
+    "simulator_starts": 0,
+    "source_sha256": "b7eb03207c956b8428fa7c78ae1e9c6c7e80c9b5d10d27f84cecc8c976e0ea08",
+    "started_at": "2026-11-18T21:18:26.018522+00:00",
+    "status": "diagnostic_process_completed",
+    "timeout": false,
+    "wall_limit_s": 3600,
+    "wall_s": 453.86445041699335
+  },
+  "mismatch": {
+    "absolute_difference_mm": 5.895951449019776e-05,
+    "all_paths_consumed_steps": 351,
+    "auditor_float64_mm": -387.38485266941296,
+    "batch": "batch-00123",
+    "field": "minimum_mouth_clearance_mm",
+    "float32_then_float64_mm": -387.38491162892745,
+    "model": "original_usable",
+    "phase": "train",
+    "recorded_mm": -387.38491162892745,
+    "request_id": "train:original_usable:4235:original_usable-04237",
+    "saved_clean": false,
+    "saved_outcome": "miss",
+    "slot": 2
+  },
+  "model_promoted": false,
+  "native_session_id": "4c199e1ede56cdb4fe76d6b7ec782aae",
+  "new_shots": 0,
+  "numerical_files_before_after": {
+    "before_after_verified": true,
+    "bytes": 1402492374,
+    "complete_inventory_verified": false,
+    "files": 1079,
+    "files_fingerprint": "7fec737182fdb2660ad86235506e862dd4902f157d9bb4d9d347c8cb86d8481c",
+    "scope": "Only opened numerical artifacts; excluded media and model bytes are not re-audited here"
+  },
+  "original_audit_passed": false,
+  "overall": {
+    "coordinates": {
+      "components": 40004493,
+      "differing_components": 314449,
+      "maximum_absolute_difference_m": 2.384185791015625e-07,
+      "released_requests_measured": 13917,
+      "requests_with_different_coordinates": 1215,
+      "scope": "All saved steps for paid released cells, including samples after individual score freeze"
+    },
+    "cross_path_field_mismatches": {
+      "auditor_vs_float32_then_float64": {
+        "minimum_mouth_clearance_mm": 1
+      },
+      "auditor_vs_producer": {
+        "minimum_mouth_clearance_mm": 13714,
+        "reward": 4265
+      },
+      "float32_vs_float32_then_float64": {
+        "minimum_mouth_clearance_mm": 13714,
+        "reward": 4265
+      }
+    },
+    "paths": {
+      "auditor_float64": {
+        "capture": 6742,
+        "capture_flips": 0,
+        "clean_captures": 1588,
+        "clean_flips": 0,
+        "incomplete_freeze_rules": 0,
+        "maximum_absolute_residual_by_field": {
+          "minimum_mouth_clearance_mm": 5.895951449019776e-05
+        },
+        "mismatched_fields": {
+          "minimum_mouth_clearance_mm": 1
+        },
+        "miss": 7175,
+        "rejected": 4603,
+        "requests_with_field_mismatch": 1
+      },
+      "producer_float32": {
+        "capture": 6742,
+        "capture_flips": 0,
+        "clean_captures": 1588,
+        "clean_flips": 0,
+        "incomplete_freeze_rules": 0,
+        "maximum_absolute_residual_by_field": {
+          "minimum_mouth_clearance_mm": 0.00016151103397987754,
+          "reward": 8.301908192009932e-07
+        },
+        "mismatched_fields": {
+          "minimum_mouth_clearance_mm": 13714,
+          "reward": 4265
+        },
+        "miss": 7175,
+        "rejected": 4603,
+        "requests_with_field_mismatch": 13785
+      },
+      "producer_float32_then_float64": {
+        "capture": 6742,
+        "capture_flips": 0,
+        "clean_captures": 1588,
+        "clean_flips": 0,
+        "incomplete_freeze_rules": 0,
+        "maximum_absolute_residual_by_field": {},
+        "mismatched_fields": {},
+        "miss": 7175,
+        "rejected": 4603,
+        "requests_with_field_mismatch": 0
+      }
+    },
+    "requests": 18520,
+    "saved": {
+      "capture": 6742,
+      "clean_captures": 1588,
+      "miss": 7175,
+      "rejected": 4603
+    }
+  },
+  "padding_slots_excluded": 345,
+  "paid_requests": 18520,
+  "phase_counts": [
+    {
+      "capture_changes": 0,
+      "captures": 9,
+      "clean_captures": 4,
+      "clean_changes": 0,
+      "misses": 20,
+      "model": "parent",
+      "phase": "monitor",
+      "rejected": 6,
+      "requests": 35
+    },
+    {
+      "capture_changes": 0,
+      "captures": 3340,
+      "clean_captures": 877,
+      "clean_changes": 0,
+      "misses": 3331,
+      "model": "original_usable",
+      "phase": "train",
+      "rejected": 2289,
+      "requests": 8960
+    },
+    {
+      "capture_changes": 0,
+      "captures": 36,
+      "clean_captures": 14,
+      "clean_changes": 0,
+      "misses": 53,
+      "model": "original_usable",
+      "phase": "monitor",
+      "rejected": 51,
+      "requests": 140
+    },
+    {
+      "capture_changes": 0,
+      "captures": 3208,
+      "clean_captures": 660,
+      "clean_changes": 0,
+      "misses": 3587,
+      "model": "broader",
+      "phase": "train",
+      "rejected": 2165,
+      "requests": 8960
+    },
+    {
+      "capture_changes": 0,
+      "captures": 42,
+      "clean_captures": 9,
+      "clean_changes": 0,
+      "misses": 58,
+      "model": "broader",
+      "phase": "monitor",
+      "rejected": 40,
+      "requests": 140
+    },
+    {
+      "capture_changes": 0,
+      "captures": 24,
+      "clean_captures": 8,
+      "clean_changes": 0,
+      "misses": 40,
+      "model": "parent",
+      "phase": "test_broad",
+      "rejected": 6,
+      "requests": 70
+    },
+    {
+      "capture_changes": 0,
+      "captures": 23,
+      "clean_captures": 5,
+      "clean_changes": 0,
+      "misses": 25,
+      "model": "original_usable",
+      "phase": "test_broad",
+      "rejected": 22,
+      "requests": 70
+    },
+    {
+      "capture_changes": 0,
+      "captures": 25,
+      "clean_captures": 3,
+      "clean_changes": 0,
+      "misses": 31,
+      "model": "broader",
+      "phase": "test_broad",
+      "rejected": 14,
+      "requests": 70
+    },
+    {
+      "capture_changes": 0,
+      "captures": 9,
+      "clean_captures": 3,
+      "clean_changes": 0,
+      "misses": 13,
+      "model": "parent",
+      "phase": "test_local",
+      "rejected": 3,
+      "requests": 25
+    },
+    {
+      "capture_changes": 0,
+      "captures": 14,
+      "clean_captures": 3,
+      "clean_changes": 0,
+      "misses": 7,
+      "model": "original_usable",
+      "phase": "test_local",
+      "rejected": 4,
+      "requests": 25
+    },
+    {
+      "capture_changes": 0,
+      "captures": 12,
+      "clean_captures": 2,
+      "clean_changes": 0,
+      "misses": 10,
+      "model": "broader",
+      "phase": "test_local",
+      "rejected": 3,
+      "requests": 25
+    }
+  ],
+  "process_receipt_sha256": "f86acd7f25f55d801e9f4f0cbe56460e0d0424d2cdeae790ae5b2c1f9d512316",
+  "producer_python_files": 217,
+  "producer_source_commit": "300ab5c6d161b51577d37d2a70f7499fc3f782e9",
+  "recovery_audit_passed": false,
+  "report_fingerprint": "79c43f9ad8d0f8e75828401ce98e6146c435018ba556210ff9f1380188660dcd",
+  "report_sha256": "4339978f0e9804f4d1bcfdd0ded29d58778ac4bed449fe037b45b232957d45d3",
+  "runtime": {
+    "cross_platform": true,
+    "cross_version_diagnostic": true,
+    "full_producer_runtime_verified": false,
+    "numpy": "2.5.4",
+    "numpy_matches_producer": false,
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "producer_arithmetic_parity_claimed": false,
+    "python": "3.12.14",
+    "runtime_matches_producer": false,
+    "synthetic": false,
+    "warning": "Cross-version replay: scalar promotion can differ; producer_float32 is not established producer parity"
+  },
+  "schema": "sircus-comparison-clearance-diagnostic-summary-v1",
+  "scipy_version": "1.18.1",
+  "simulator_starts": 0,
+  "status": "diagnostic_only_original_audit_failed",
+  "trace_sha256": "5910b73e3e7c671781e356ebb4910630d91bc5303f5b5fbf0403ea9c5aff176a",
+  "training_updates": 0,
+  "transfer": {
+    "all_sealed_hashes_matched": true,
+    "bytes_hashed": 4330228832,
+    "files_hashed": 25059,
+    "models_loaded": false,
+    "numerical_files_retained": 3004
+  },
+  "unchanged_comparison_tolerance": 1e-07,
+  "validation": {
+    "independent_report_reaggregations": 2,
+    "independent_source_reviews": 1,
+    "synthetic_cases_passed": 24
+  }
+}

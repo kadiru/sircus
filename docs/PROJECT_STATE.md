@@ -1,10 +1,17 @@
 # Project state
 
+## Clearance diagnosis: labels unchanged; full audit still failed — November 18, 2026
+
+- A separate saved-data numerical diagnostic covered all **539 batches / 18,520 paid requests**, excluding 345 padding slots. All three arithmetic paths preserved every catch and clean label: **6,742 catches / 1,588 clean / 7,175 misses / 4,603 rejections**. These combined TRAIN/monitor/TEST totals are not a held-out success rate. [Detailed scope, unchanged final TEST counts and evidence](../baselines/isaac-comparison-clearance-diagnostic-20261118/README.md).
+- The original-style auditor arithmetic differed in only one returned field, clearance on an already-missed TRAIN shot (batch 00123, slot 2): **0.00005895951449 mm**. Float32 coordinate subtraction followed by double-precision scoring matched every saved returned scoring field at the unchanged 1e-7 tolerance. No scoring interval was incomplete. This isolates coordinate-subtraction rounding in the diagnostic; no check or threshold was relaxed.
+- Ubuntu was again below the unchanged 6 GiB floor, so the diagnostic ran on the Mac using its existing Python 3.12.14 / NumPy 2.5.4 / SciPy 1.18.1. It took **453.86 s wall / 629.17 MiB peak child RSS**. All 25,059 sealed evidence files matched their hashes during transfer; 1,079 numerical files were checked before/after calculation and all 217 original Python source files matched the manifest. Twenty-four mocks, independent source review and two report reaggregations passed.
+- **The original full audit and shutdown remain failed.** This does not re-audit models, optimizer updates, release/geometry guards, startup physics or video bindings, and does not prove full original-runtime parity. Verified publication remains gated. No simulator, model loading, retraining, new shots, service restart, cleanup or frozen-benchmark modification occurred.
+
 ## Saved-data recovery audit failed — November 18, 2026
 
 - The one bounded CPU audit exited 1 after 943.763 seconds, with no OOM or forced termination. The unchanged scientific reader failed the saved-versus-reconstructed clearance consistency check for `minimum_mouth_clearance_mm`. No successful certificate, verified performance publication or model promotion followed. [Failure evidence and exact measurements](../baselines/isaac-comparison-recovery-failure-20261118/README.md).
 - All 25,059 sealed files, 101 inputs and 217 original source files still match after failure. The original failed shutdown remains preserved. No retraining, simulator start, new shot or audit retry occurred. The publication pipeline remains gated.
-- Static review suggests a possible live-tensor versus reconstructed-origin precision difference, but the failing trial/values and classification impact have not been established. The next step is a saved-data diagnosis; no tolerance change or result acceptance is justified by that hypothesis.
+- At that point static review suggested a live-tensor versus reconstructed-origin precision difference; the later saved-data diagnosis above identifies the trial/values and label impact. The original failure remains preserved, and no tolerance change or full result acceptance follows from the diagnosis.
 
 ## CPU-only saved-data audit authorized — November 18, 2026
 
