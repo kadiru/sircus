@@ -67,6 +67,10 @@ p.add_argument("--presentation-batches", type=int, default=30)
 p.add_argument("--rl-study-source", type=Path,
                help="Completed native expanded run supplying geometry-only PPO options")
 p.add_argument("--rl-study-camera-json", type=Path)
+p.add_argument("--continuous-source", type=Path)
+p.add_argument("--continuous-camera-json", type=Path)
+p.add_argument("--continuous-batches", type=int, default=64)
+p.add_argument("--continuous-feasibility", type=Path)
 AppLauncher.add_app_launcher_args(p)
 args = p.parse_args()
 from presentation_recording import validate_options
@@ -95,6 +99,25 @@ try:
         appearance=args.appearance,
         incompatible=bool(
             presentation or args.training_camera_json or args.geometry_menu_source
+            or args.expanded_pose_menu or args.expanded_qualify_only
+            or args.expanded_options_per_cell != 4 or args.dark_replay
+            or args.resume_filming or args.camera_json or args.preview_only
+            or args.camera_previews or args.camera_option is not None
+            or args.scout_snapshot or args.camera_right_m != 0
+            or args.camera_z_m is not None
+            or args.recording_plan != "fixed-station-v1"
+            or args.presentation_batches != 30
+        ),
+    )
+except ValueError as error:
+    p.error(str(error))
+from continuous_pilot import validate_options as validate_continuous_options
+try:
+    continuous = validate_continuous_options(
+        args.continuous_source, args.continuous_camera_json, args.continuous_batches,
+        appearance=args.appearance,
+        incompatible=bool(
+            presentation or rl_study or args.training_camera_json or args.geometry_menu_source
             or args.expanded_pose_menu or args.expanded_qualify_only
             or args.expanded_options_per_cell != 4 or args.dark_replay
             or args.resume_filming or args.camera_json or args.preview_only
@@ -367,12 +390,12 @@ def main():
     cfg = json.loads(Path(__file__).with_name("scene.json").read_text())
     poses = json.loads((Path(args.assets) / "poses.json").read_text())
     presentation_bundle = None
-    if presentation or rl_study:
+    if presentation or rl_study or continuous:
         from presentation_recording import load_source
 
         presentation_bundle = load_source(
-            args.rl_study_source if rl_study else args.presentation_source,
-            args.rl_study_camera_json if rl_study else args.presentation_camera_json,
+            args.continuous_source if continuous else (args.rl_study_source if rl_study else args.presentation_source),
+            args.continuous_camera_json if continuous else (args.rl_study_camera_json if rl_study else args.presentation_camera_json),
         )
         spec = copy.deepcopy(presentation_bundle["spec"])
         if spec["scene"] != cfg:
@@ -386,11 +409,11 @@ def main():
     saved_camera = None
     camera_binding = None
     camera_path = (
-        args.rl_study_camera_json or args.presentation_camera_json
+        args.continuous_camera_json or args.rl_study_camera_json or args.presentation_camera_json
         or args.training_camera_json or args.camera_json
     )
     if camera_path is not None:
-        if args.expanded_pose_menu is not None or presentation or rl_study:
+        if args.expanded_pose_menu is not None or presentation or rl_study or continuous:
             from expanded_farm import bind_camera
             from camera_options import preview_origins
 
@@ -403,7 +426,9 @@ def main():
 
             saved_camera = load_camera(camera_path, spec["fingerprint"])
             shutil.copyfile(camera_path, dest / "selected-camera.json")
-    if presentation:
+    if continuous:
+        shutil.copyfile(args.continuous_source / "contract.json", dest / "contract.json")
+    elif presentation:
         shutil.copyfile(args.presentation_source / "contract.json", dest / "contract.json")
     elif rl_study:
         shutil.copyfile(args.rl_study_source / "contract.json", dest / "contract.json")
@@ -437,7 +462,7 @@ def main():
     layout = origins
     scene_type = RectangularScene
     shots_type = FilmShots
-    if args.dark_replay or training_camera or presentation or rl_study:
+    if args.dark_replay or training_camera or presentation or rl_study or continuous:
         import dark_stage
         from dark_replay import ReplayShots, run_replay
 
@@ -453,6 +478,7 @@ def main():
             or training_camera
             or presentation
             or rl_study
+            or continuous
         ):
             from camera_options import preview_origins
             from camera_preview import configure_backdrop
@@ -463,7 +489,13 @@ def main():
         class CompactScene(RectangularScene):
             grid_origins = staticmethod(layout)
 
-        if rl_study:
+        if continuous:
+            from continuous_pilot import ContinuousShots
+
+            class CompactShots(ContinuousShots, FilmShots):
+                pass
+
+        elif rl_study:
             from rl_film_study import RLStudyShots
 
             class CompactShots(RLStudyShots, FilmShots):
@@ -510,7 +542,7 @@ def main():
     )
     if not np.array_equal(env.origins, layout()):
         raise ValueError("Isaac workcell origins disagree with the 5 by 7 layout")
-    if args.dark_replay or training_camera or presentation or rl_study:
+    if args.dark_replay or training_camera or presentation or rl_study or continuous:
         env.stage_metadata = stage_settings()
         env.saved_camera = saved_camera
         if camera_binding is not None:
@@ -521,6 +553,7 @@ def main():
             or training_camera
             or presentation
             or rl_study
+            or continuous
         ):
             env.stage_metadata["camera_backdrop"] = preview_backdrop
         if args.preview_only or args.camera_previews:
@@ -588,6 +621,14 @@ def main():
     env.probe_positions["table"] = [1.313, -0.625, 0.25]
     probes = env.probes()
     atomic(dest / "probes.json", probes)
+    if continuous:
+        from continuous_pilot import run_study
+
+        if args.continuous_feasibility is None:
+            raise ValueError("Continuous pilot requires a completed geometry-only feasibility map")
+
+        run_study(env, presentation_bundle, args.continuous_batches, args.continuous_feasibility)
+        return
     if rl_study:
         from rl_film_study import run_study
 

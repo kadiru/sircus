@@ -1,0 +1,101 @@
+{
+  "auditor_commit": "1cb55b2927f9b2584998dc8b77f83dc99d87484c",
+  "exporter_commit": "d4076510041c65844a197584a6909ef38521c89b",
+  "files": {
+    "README.md": {
+      "bytes": 7574,
+      "sha256": "a9ee1f576aed6341a9c07c000b894fe470775101e38e79f9ad43e59de4dae73f"
+    },
+    "camera-binding.json": {
+      "bytes": 2055,
+      "sha256": "fac63122f45262b4aff83dd78068ebd5c8e9f765315570bf84944068375c01ad"
+    },
+    "checkpoint-audit.json": {
+      "bytes": 59597,
+      "sha256": "2fa25c0dab49cbec5f104c573ece487511dc61d6f0a2582dad2496497e614a37"
+    },
+    "contract.json": {
+      "bytes": 13572,
+      "sha256": "291ca91848bddff8f812b59e790ac565657982a708dd9dcb7c7281136a87544f"
+    },
+    "failure-summary.json": {
+      "bytes": 120728,
+      "sha256": "306641b1ceb625063d8b12aca535ab37f2b91ac8ec43547822546525e43f7cfe"
+    },
+    "feasibility-audit.json": {
+      "bytes": 1202,
+      "sha256": "207f8f92815472a445ed968608280a6b74c4f6791f971a4fb85c52c8a5a6075c"
+    },
+    "film.json": {
+      "bytes": 144741,
+      "sha256": "b68bff58a4c1bf675904846e430e12e88f4c03f5bf9f69d781623d8ed13ef833"
+    },
+    "learning-curve.json": {
+      "bytes": 41106,
+      "sha256": "5a82719c7cc1063d99b1e1fdd516b3d7982e20868ef24edd293fcf86884badc0"
+    },
+    "map-contract.json": {
+      "bytes": 12643,
+      "sha256": "0dfad47daa7ece33ed731ccb0566b2af34859d481e9455afc84dd4f7814e36a6"
+    },
+    "map-summary.json": {
+      "bytes": 22745,
+      "sha256": "68f42d62f2dfc84ba210641caf7b867523c36baf72d6389b6151c987a214aff5"
+    },
+    "native-audit.json": {
+      "bytes": 39126,
+      "sha256": "bbf9cf5e32a6049bce00a6705b3d77fc0d292c74940f31f1516c75b55c48f315"
+    },
+    "native-summary.json": {
+      "bytes": 9754,
+      "sha256": "e27fe9bc555c549e87538ceb2fe4bf7af3c22e02b5b63b401e4c210a0113f68b"
+    },
+    "policy-final.pt": {
+      "bytes": 130473,
+      "sha256": "86087e4c0c836780f4176004490a35e58a7cd315520a7a88866f71ab04133e42"
+    },
+    "policy-initial.pt": {
+      "bytes": 44545,
+      "sha256": "9367dfb52fa330d7c8c5f47ac0ba7b2cc81f23676ede5380bab2cdf18ef87a10"
+    },
+    "predictions.json": {
+      "bytes": 135574,
+      "sha256": "94313f47eaefce5ef7b5c90e564115a4c1ca22f7c2705315b53255f9b4b3b14e"
+    },
+    "probes.json": {
+      "bytes": 10323,
+      "sha256": "e23bbea11738453b30d8369da6a2cf9caa17250630bb2c09b127562cc2a89ecc"
+    },
+    "rim-rays.json": {
+      "bytes": 5817,
+      "sha256": "98df6ec0211b66ea15dd2480a63efd0f3a29c41a58f502a8d9f55c8461c98878"
+    },
+    "selected-camera.json": {
+      "bytes": 530,
+      "sha256": "a7967c072b8f949318b43a510235d503c81c21e05f433670a0ce92a7af385ede"
+    },
+    "settings.csv": {
+      "bytes": 20792,
+      "sha256": "3766e65ea4d8558e30760def127923d631437f7ca89d8bd20f5d0baee56f2dc5"
+    },
+    "study.json": {
+      "bytes": 29919,
+      "sha256": "70345dfaec8b54a1bac5685fadabd3da6ecf9155dd8fef988b965b9a91085882"
+    },
+    "summary.json": {
+      "bytes": 8909,
+      "sha256": "f250cfc834cd38740cb81bad08c9845dd03922aa7f5493f095f40b0fe9cb4b40"
+    }
+  },
+  "full_export_report_sha256": "59b9aba1df81aec711137c3297a308efb9be7a8ebeecf7b4ca9a1c955d0eea7d",
+  "geometry_fingerprint": "63362ef37a93881f769b39d1ee7456335f1cc7bf5db04ffa7e548ce9697455bf",
+  "native_producer_commit": "c0e5dfd5172cce27be76e22797d39af15cf7506a",
+  "native_result_sha256": "cf7e05910a22269330fc3ec89c10ed080ef0c5c67f3528b31c07e1b3735ca614",
+  "outside_git_media": {
+    "action-trials.mp4": "5d6da8886fb4d482a8227bb2a9fce0fcd448e60f1823d73208f4e3abbe9ab5fe",
+    "trials.mp4": "f8375247cefdd09ba13ee0ef449727d64aa24f687672f62f9fc5add3e8252c57"
+  },
+  "schema": "sircus-continuous-baseline-manifest/v1",
+  "scope": "Compact simulation protocols, weights, requested predictions and audited aggregate evidence. Raw observations, native assets, videos, runtime configuration and logs excluded. Manifest excludes its own checksum.",
+  "study_fingerprint": "cda667c71c6a801d03e21dac81365b8d1a2d36be32176e8e14971c194ec2789c"
+}

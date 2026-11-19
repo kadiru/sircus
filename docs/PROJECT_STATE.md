@@ -1,5 +1,16 @@
 # Project state
 
+## Continuous shot feasibility and PPO pilot — November 5, 2026
+
+- [Method](../sircus/isaac/CONTINUOUS_PILOT.md), [models and verified evidence](../baselines/isaac-continuous-pilot-20261105/README.md): 17,920 geometry-only Sobol requests yielded 155 endpoint candidates at 33/35 bucket sites. These are not capture witnesses; two sites remain unresolved. Capsule/path proxies do not certify mesh or self-collision safety.
+- A fresh five-action continuous PPO policy trained on 1,600 native attempts with 16 updates. It chooses bearing, radius, board height, drop gap and tilt, using privileged geometry and a declared starting prior. All 1,214 admission failures stayed in the denominator and optimizer; 386 shots released and 62 qualified captures occurred.
+- Frozen deterministic training-layout captures rose 8→32/200 (4%→16%). Validation and test each stayed 8→8/40 (20%); successful sites rose 3→6 entirely through training sites, leaving 29/35 at 0/8. Clean captures stayed 8→8. The 25/5/5 split is held out from this optimizer, not globally unseen project coordinates; eight identical repeats are not eight new layouts.
+- No training/evaluation capture used a board-to-bucket radius ≥600 mm. Of 324 admitted training misses, 297 first contacted the table, 16 a robot and 11 had no observed external scoring contact. Some had already touched the bucket. Seventeen retained balls with intervening table contact were excluded. Far-target performance and capture generalization are not established.
+- The fixed saved camera and silver-gray stage recorded 20 scheduled geometry/training batches with actual driven setup after explicit canonical episode resets. Full film: 19,929 frames, about 11:04; the setup-dwell edit is about 10:17. All flight frames remain. Six recorded foreground releases missed; some IK motion includes unnecessary winding. Grasping, paths and ball loading are scripted, not learned.
+- Independent audits checked fresh initialization, 66 checkpoints, 84 trials, every optimizer sample, and all admitted native outcomes from 2,733,850 observations. CPU/GPU likelihood error ≤6.68e−6; measured homes matched within 1 mrad. Native producer `c0e5dfd`, auditors `1cb55b2`, exporter `d407651` are separately pinned.
+- The finite 4090 study exited 0 after 61.34 minutes including filming/evaluation. The read-only results viewer is on Mac localhost:18794. The 4070 workload, previous dashboards, completed benchmarks, physical/Viam/audio configuration and historical geometry/scoring remain unchanged. Source is on `codex/macbook-continuous-pilot`, draft PR #71, not merged into main. Next priority: improve feasible continuous proposals and evaluate fresh bucket coordinates before adding a longer run or perception noise.
+
+
 ## Actual native PPO training and video — November 4, 2026
 
 - [Method](../sircus/isaac/NATIVE_RL_FILM.md), [verified evidence/checkpoints](../baselines/isaac-native-rl-film-20261104/README.md): a fresh categorical PPO actor learned among 24 native-qualified local shot configurations at each of 35 known bucket layouts. 4,480 native training attempts, 64 actor/critic updates; separate frozen-policy checks used 280 attempts each at 0/16/32/64 updates, without search or optimizer feedback.

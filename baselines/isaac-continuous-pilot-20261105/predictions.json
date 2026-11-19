@@ -1,0 +1,4202 @@
+[
+  {
+    "id": "r1c1",
+    "split": "test",
+    "bucket_xy_m": [
+      -0.1014285714285714,
+      0.25
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "endpoint_ik_unresolved_Arm14": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "endpoints_not_settled": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.6700000371043128,
+          "board_y_m": -0.1000000168343641,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.8471139886975289,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": -0.4259296565339419,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 335.59602831114836,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.6700000371043128,
+            -0.1000000168343641,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "endpoint_ik_unresolved_Arm14",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.4985547857472502,
+          "board_y_m": -0.17573323573009003,
+          "height_m": 0.3453451283276081,
+          "gap_m": 0.2312284803390503,
+          "radius_m": 0.7356825517117977,
+          "tilt_rad": 0.43306728998571287,
+          "tilt_deg": 24.812927961349487,
+          "bearing_rad": -0.6171233240147687,
+          "bearing_offset_rad": -0.19119366748082678,
+          "bearing_deg": 324.64143809486933,
+          "bearing_offset_deg": -10.954590216279028,
+          "release_ball_bottom_height_m": 0.5765736086666584,
+          "release_ball_center_height_m": 0.6140736086666584,
+          "release_ball_center_m": [
+            0.4985547857472502,
+            -0.17573323573009003,
+            0.6140736086666584
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "endpoints_not_settled",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r1c2",
+    "split": "train",
+    "bucket_xy_m": [
+      0.15571428571428578,
+      0.25
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "endpoint_ik_unresolved_Arm14": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 0,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "external_contact": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.6700000127144834,
+          "board_y_m": -0.10000000865291225,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.6220850545167923,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": -0.5975564529851647,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 325.76253722314243,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.6700000127144834,
+            -0.10000000865291225,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "endpoint_ik_unresolved_Arm14",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.5156255683355626,
+          "board_y_m": -0.13557897303945282,
+          "height_m": 0.3461092392355204,
+          "gap_m": 0.2336352515220642,
+          "radius_m": 0.5274535769224167,
+          "tilt_rad": 0.43295885979804927,
+          "tilt_deg": 24.806715369224552,
+          "bearing_rad": -0.8198151858792297,
+          "bearing_offset_rad": -0.22225873289406506,
+          "bearing_deg": 313.02804986838703,
+          "bearing_offset_deg": -12.734487354755409,
+          "release_ball_bottom_height_m": 0.5797444907575846,
+          "release_ball_center_height_m": 0.6172444907575846,
+          "release_ball_center_m": [
+            0.5156255683355626,
+            -0.13557897303945282,
+            0.6172444907575846
+          ]
+        },
+        "outcome": {
+          "state": "released_no_qualified_capture",
+          "invalid_reason": null,
+          "admitted": true,
+          "captured": false,
+          "clean": false,
+          "board_bounce": true,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 655
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r1c3",
+    "split": "train",
+    "bucket_xy_m": [
+      0.4128571428571429,
+      0.25
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 0,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "released_miss": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 8,
+        "clean": 0,
+        "single_bounce": 8,
+        "invalid": 0,
+        "capture_rate": 1.0,
+        "wilson95": [
+          0.6755924351161198,
+          1.0
+        ],
+        "failures": {
+          "captured": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.6699999997529009,
+          "board_y_m": -0.09999999966367068,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.4343068599700928,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": -0.9371633187251515,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 306.30449712257524,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.6699999997529009,
+            -0.09999999966367068,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "released_no_qualified_capture",
+          "invalid_reason": null,
+          "admitted": true,
+          "captured": false,
+          "clean": false,
+          "board_bounce": true,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.5489801870694673,
+          "board_y_m": -0.10989649826839498,
+          "height_m": 0.3482426907122135,
+          "gap_m": 0.2377850365638733,
+          "radius_m": 0.38477912187576296,
+          "tilt_rad": 0.4322177103890586,
+          "tilt_deg": 24.764250636100773,
+          "bearing_rad": -1.20919836591679,
+          "bearing_offset_rad": -0.2720350471916384,
+          "bearing_deg": 290.7180370388522,
+          "bearing_offset_deg": -15.586460083723058,
+          "release_ball_bottom_height_m": 0.5860277272760868,
+          "release_ball_center_height_m": 0.6235277272760867,
+          "release_ball_center_m": [
+            0.5489801870694673,
+            -0.10989649826839498,
+            0.6235277272760867
+          ]
+        },
+        "outcome": {
+          "state": "captured",
+          "invalid_reason": null,
+          "admitted": true,
+          "captured": true,
+          "clean": false,
+          "board_bounce": true,
+          "whole_ball_entry": true,
+          "max_retention_s": 0.9999999999999977,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r1c4",
+    "split": "validation",
+    "bucket_xy_m": [
+      0.6700000000000002,
+      0.25
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 8,
+        "clean": 8,
+        "single_bounce": 8,
+        "invalid": 0,
+        "capture_rate": 1.0,
+        "wilson95": [
+          0.6755924351161198,
+          1.0
+        ],
+        "failures": {
+          "captured": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 8,
+        "clean": 8,
+        "single_bounce": 8,
+        "invalid": 0,
+        "capture_rate": 1.0,
+        "wilson95": [
+          0.6755924351161198,
+          1.0
+        ],
+        "failures": {
+          "captured": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.67,
+          "board_y_m": -0.09999998331069948,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.3499999833106995,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": -1.570796326794897,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 270.0,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.67,
+            -0.09999998331069948,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "captured",
+          "invalid_reason": null,
+          "admitted": true,
+          "captured": true,
+          "clean": true,
+          "board_bounce": true,
+          "whole_ball_entry": true,
+          "max_retention_s": 0.9999999999999977,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.5677763441610274,
+          "board_y_m": -0.06121818508352772,
+          "height_m": 0.35119391553103924,
+          "gap_m": 0.2423488831520081,
+          "radius_m": 0.32757660865783694,
+          "tilt_rad": 0.43429405017472267,
+          "tilt_deg": 24.883216142654422,
+          "bearing_rad": -1.8881571872000182,
+          "bearing_offset_rad": -0.31736086040512124,
+          "bearing_deg": 251.81656211614603,
+          "bearing_offset_deg": -18.183437883853923,
+          "release_ball_bottom_height_m": 0.5935427986830473,
+          "release_ball_center_height_m": 0.6310427986830472,
+          "release_ball_center_m": [
+            0.5677763441610274,
+            -0.06121818508352772,
+            0.6310427986830472
+          ]
+        },
+        "outcome": {
+          "state": "captured",
+          "invalid_reason": null,
+          "admitted": true,
+          "captured": true,
+          "clean": true,
+          "board_bounce": true,
+          "whole_ball_entry": true,
+          "max_retention_s": 0.9999999999999977,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r1c5",
+    "split": "train",
+    "bucket_xy_m": [
+      0.9271428571428573,
+      0.25
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "settling_correction_ik": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 8,
+        "clean": 0,
+        "single_bounce": 8,
+        "invalid": 0,
+        "capture_rate": 1.0,
+        "wilson95": [
+          0.6755924351161198,
+          1.0
+        ],
+        "failures": {
+          "captured": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.6700000002470992,
+          "board_y_m": -0.09999999966367062,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.4343068599700928,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": -2.204429334864642,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 233.69550287742476,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.6700000002470992,
+            -0.09999999966367062,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "settling_correction_ik",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.6142712345303114,
+          "board_y_m": 0.014271896481706597,
+          "height_m": 0.35134081847965715,
+          "gap_m": 0.2415838885307312,
+          "radius_m": 0.3917351031303406,
+          "tilt_rad": 0.4439086546793702,
+          "tilt_deg": 25.434092402458194,
+          "bearing_rad": -2.4958974347209266,
+          "bearing_offset_rad": -0.29146809985628463,
+          "bearing_deg": 216.99561089296202,
+          "bearing_offset_deg": -16.699891984462745,
+          "release_ball_bottom_height_m": 0.5929247070103884,
+          "release_ball_center_height_m": 0.6304247070103883,
+          "release_ball_center_m": [
+            0.6142712345303114,
+            0.014271896481706597,
+            0.6304247070103883
+          ]
+        },
+        "outcome": {
+          "state": "captured",
+          "invalid_reason": null,
+          "admitted": true,
+          "captured": true,
+          "clean": false,
+          "board_bounce": true,
+          "whole_ball_entry": true,
+          "max_retention_s": 0.9999999999999977,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r1c6",
+    "split": "train",
+    "bucket_xy_m": [
+      1.1842857142857144,
+      0.25
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "board_table_proxy_overlap": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "settling_correction_ik": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.6699999872855167,
+          "board_y_m": -0.1000000086529122,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.6220850545167923,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": -2.5440362006046287,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 214.23746277685754,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.6699999872855167,
+            -0.1000000086529122,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "board_table_proxy_overlap",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.6672601650582553,
+          "board_y_m": 0.06268251376087,
+          "height_m": 0.35059001564979553,
+          "gap_m": 0.23885810613632202,
+          "radius_m": 0.5499120467901231,
+          "tilt_rad": 0.4528384938887311,
+          "tilt_deg": 25.945734500885013,
+          "bearing_rad": -2.794003936101302,
+          "bearing_offset_rad": -0.24996773549667317,
+          "bearing_deg": 199.91536651845567,
+          "bearing_offset_deg": -14.322096258401867,
+          "release_ball_bottom_height_m": 0.5894481217861176,
+          "release_ball_center_height_m": 0.6269481217861176,
+          "release_ball_center_m": [
+            0.6672601650582553,
+            0.06268251376087,
+            0.6269481217861176
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "settling_correction_ik",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r1c7",
+    "split": "train",
+    "bucket_xy_m": [
+      1.4414285714285717,
+      0.25
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "endpoints_not_settled": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "settling_correction_ik": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.6699999628956874,
+          "board_y_m": -0.10000001683436383,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.8471139886975289,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": -2.7156629970558517,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 204.40397168885158,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.6699999628956874,
+            -0.10000001683436383,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "endpoints_not_settled",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.6861394885783904,
+          "board_y_m": 0.09433836738332235,
+          "height_m": 0.35038273967802525,
+          "gap_m": 0.23685967445373535,
+          "radius_m": 0.7711628508567809,
+          "tilt_rad": 0.4588578725336636,
+          "tilt_deg": 26.290619492530823,
+          "bearing_rad": -2.938343026950056,
+          "bearing_offset_rad": -0.22268002989420443,
+          "bearing_deg": 191.64534579406669,
+          "bearing_offset_deg": -12.758625894784918,
+          "release_ball_bottom_height_m": 0.5872424141317606,
+          "release_ball_center_height_m": 0.6247424141317606,
+          "release_ball_center_m": [
+            0.6861394885783904,
+            0.09433836738332235,
+            0.6247424141317606
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "settling_correction_ik",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r2c1",
+    "split": "train",
+    "bucket_xy_m": [
+      -0.12899999999999998,
+      -0.124
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "endpoint_ik_unresolved_Arm14": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 0,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "external_contact": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.6700000609178045,
+          "board_y_m": -0.0999999981701786,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.7993604302406311,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": 0.03002851798645565,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 1.7205073456565898,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.6700000609178045,
+            -0.0999999981701786,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "endpoint_ik_unresolved_Arm14",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.5601485073928131,
+          "board_y_m": -0.16432739461311974,
+          "height_m": 0.3414713483303785,
+          "gap_m": 0.2231145262718201,
+          "radius_m": 0.6903274324536324,
+          "tilt_rad": 0.4448462434276732,
+          "tilt_deg": 25.48781228065491,
+          "bearing_rad": -0.058451055451498334,
+          "bearing_offset_rad": -0.08847957343795398,
+          "bearing_deg": 356.651001214544,
+          "bearing_offset_deg": -5.069506131112587,
+          "release_ball_bottom_height_m": 0.5645858746021986,
+          "release_ball_center_height_m": 0.6020858746021985,
+          "release_ball_center_m": [
+            0.5601485073928131,
+            -0.16432739461311974,
+            0.6020858746021985
+          ]
+        },
+        "outcome": {
+          "state": "released_no_qualified_capture",
+          "invalid_reason": null,
+          "admitted": true,
+          "captured": false,
+          "clean": false,
+          "board_bounce": true,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 575
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r2c2",
+    "split": "test",
+    "bucket_xy_m": [
+      0.18760714285714292,
+      0.0
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "endpoint_ik_unresolved_Arm14": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 0,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "external_contact": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.6699999874691223,
+          "board_y_m": -0.09999999740235006,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.4926488161087036,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": -0.204404757638539,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 348.28847007491726,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.6699999874691223,
+            -0.09999999740235006,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "endpoint_ik_unresolved_Arm14",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.5892072049641475,
+          "board_y_m": -0.144245865665074,
+          "height_m": 0.34236116968095304,
+          "gap_m": 0.2271925139427185,
+          "radius_m": 0.4267194390296936,
+          "tilt_rad": 0.4426426856850928,
+          "tilt_deg": 25.36155772209168,
+          "bearing_rad": -0.3448276074081617,
+          "bearing_offset_rad": -0.14042284976962272,
+          "bearing_deg": 340.24283343591827,
+          "bearing_offset_deg": -8.045636638998985,
+          "release_ball_bottom_height_m": 0.5695536836236715,
+          "release_ball_center_height_m": 0.6070536836236715,
+          "release_ball_center_m": [
+            0.5892072049641475,
+            -0.144245865665074,
+            0.6070536836236715
+          ]
+        },
+        "outcome": {
+          "state": "released_no_qualified_capture",
+          "invalid_reason": null,
+          "admitted": true,
+          "captured": false,
+          "clean": false,
+          "board_bounce": true,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 325
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r2c3",
+    "split": "train",
+    "bucket_xy_m": [
+      0.4128571428571429,
+      0.0
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "endpoint_ik_unresolved_Arm14": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 8,
+        "clean": 0,
+        "single_bounce": 8,
+        "invalid": 0,
+        "capture_rate": 1.0,
+        "wilson95": [
+          0.6755924351161198,
+          1.0
+        ],
+        "failures": {
+          "captured": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.6831384953820465,
+          "board_y_m": -0.10510941487079585,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.28999999761581424,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": -0.3708912888126624,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 338.74949449286675,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.6831384953820465,
+            -0.10510941487079585,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "endpoint_ik_unresolved_Arm14",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.6582318137268186,
+          "board_y_m": -0.14785559576717214,
+          "height_m": 0.34320710487663747,
+          "gap_m": 0.2297863531112671,
+          "radius_m": 0.2864786314964295,
+          "tilt_rad": 0.44282909655842534,
+          "tilt_deg": 25.37223827838898,
+          "bearing_rad": -0.5423076029330515,
+          "bearing_offset_rad": -0.17141631412038905,
+          "bearing_deg": 328.92806315407967,
+          "bearing_offset_deg": -9.82143133878707,
+          "release_ball_bottom_height_m": 0.5729934579879046,
+          "release_ball_center_height_m": 0.6104934579879046,
+          "release_ball_center_m": [
+            0.6582318137268186,
+            -0.14785559576717214,
+            0.6104934579879046
+          ]
+        },
+        "outcome": {
+          "state": "captured",
+          "invalid_reason": null,
+          "admitted": true,
+          "captured": true,
+          "clean": false,
+          "board_bounce": true,
+          "whole_ball_entry": true,
+          "max_retention_s": 0.9999999999999977,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r2c4",
+    "split": "train",
+    "bucket_xy_m": [
+      0.6700000000000002,
+      0.0
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "endpoint_ik_unresolved_Arm10": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "endpoint_ik_unresolved_Arm14": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.6699999999999998,
+          "board_y_m": -0.28999999761581424,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.28999999761581424,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": -1.5707963267948977,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 269.99999999999994,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.6699999999999998,
+            -0.28999999761581424,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "endpoint_ik_unresolved_Arm10",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.5856921658985476,
+          "board_y_m": -0.27412415807784246,
+          "height_m": 0.3503222192823887,
+          "gap_m": 0.24085550785064697,
+          "radius_m": 0.28679585933685303,
+          "tilt_rad": 0.43821712572878857,
+          "tilt_deg": 25.107991814613346,
+          "bearing_rad": -1.869168416904374,
+          "bearing_offset_rad": -0.2983720901094764,
+          "bearing_deg": 252.90453851222986,
+          "bearing_offset_deg": -17.09546148777009,
+          "release_ball_bottom_height_m": 0.5911777271330356,
+          "release_ball_center_height_m": 0.6286777271330356,
+          "release_ball_center_m": [
+            0.5856921658985476,
+            -0.27412415807784246,
+            0.6286777271330356
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "endpoint_ik_unresolved_Arm14",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r2c5",
+    "split": "validation",
+    "bucket_xy_m": [
+      0.9271428571428573,
+      0.0
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "settling_correction_ik": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "board_table_proxy_overlap": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.6568615046179538,
+          "board_y_m": -0.10510941487079578,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.28999999761581424,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": -2.770701364777131,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 201.25050550713323,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.6568615046179538,
+            -0.10510941487079578,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "settling_correction_ik",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.644861532233109,
+          "board_y_m": -0.05283185667215757,
+          "height_m": 0.3476011954247952,
+          "gap_m": 0.23492565870285037,
+          "radius_m": 0.2871827840805054,
+          "tilt_rad": 0.4609975976338662,
+          "tilt_deg": 26.41321671009064,
+          "bearing_rad": -2.956572889472205,
+          "bearing_offset_rad": -0.18587152469507418,
+          "bearing_deg": 190.6008516104438,
+          "bearing_offset_deg": -10.649653896689406,
+          "release_ball_bottom_height_m": 0.5825268541276456,
+          "release_ball_center_height_m": 0.6200268541276456,
+          "release_ball_center_m": [
+            0.644861532233109,
+            -0.05283185667215757,
+            0.6200268541276456
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "board_table_proxy_overlap",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r2c6",
+    "split": "train",
+    "bucket_xy_m": [
+      1.1523928571428572,
+      0.0
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "settling_correction_ik": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "endpoint_ik_unresolved_Arm14": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.6700000125308778,
+          "board_y_m": -0.09999999740235005,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.4926488161087036,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": -2.9371878959512543,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 191.71152992508274,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.6700000125308778,
+            -0.09999999740235005,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "settling_correction_ik",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.7086675639022566,
+          "board_y_m": -0.019523130776902233,
+          "height_m": 0.34726322405040266,
+          "gap_m": 0.2327840256690979,
+          "radius_m": 0.44415457725524904,
+          "tilt_rad": 0.4661841142597685,
+          "tilt_deg": 26.710382223129272,
+          "bearing_rad": -3.097622774547918,
+          "bearing_offset_rad": -0.16043487859666383,
+          "bearing_deg": 182.51928849480018,
+          "bearing_offset_deg": -9.192241430282582,
+          "release_ball_bottom_height_m": 0.5800472497195006,
+          "release_ball_center_height_m": 0.6175472497195006,
+          "release_ball_center_m": [
+            0.7086675639022566,
+            -0.019523130776902233,
+            0.6175472497195006
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "endpoint_ik_unresolved_Arm14",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r2c7",
+    "split": "train",
+    "bucket_xy_m": [
+      1.469,
+      -0.124
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "endpoints_not_settled": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "endpoint_ik_unresolved_Arm10": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.6699999390821956,
+          "board_y_m": -0.09999999817017848,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.7993604302406311,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": 3.1115641356033374,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 178.27949265434341,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.6699999390821956,
+            -0.09999999817017848,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "endpoints_not_settled",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.7468963496276118,
+          "board_y_m": -0.020892341828576397,
+          "height_m": 0.34653049148619175,
+          "gap_m": 0.22883572816848757,
+          "radius_m": 0.7294277695938944,
+          "tilt_rad": 0.47501329950378934,
+          "tilt_deg": 27.216257274150852,
+          "bearing_rad": 2.999763465308091,
+          "bearing_offset_rad": -0.11180067029524654,
+          "bearing_deg": 171.87378609969215,
+          "bearing_offset_deg": -6.405706554651258,
+          "release_ball_bottom_height_m": 0.5753662196546794,
+          "release_ball_center_height_m": 0.6128662196546794,
+          "release_ball_center_m": [
+            0.7468963496276118,
+            -0.020892341828576397,
+            0.6128662196546794
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "endpoint_ik_unresolved_Arm10",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r3c1",
+    "split": "train",
+    "bucket_xy_m": [
+      -0.1014285714285714,
+      -0.25
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "endpoint_ik_unresolved_Arm14": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 0,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "external_contact": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.6700000256890405,
+          "board_y_m": -0.0999999950049088,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.7858766327798367,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": 0.19204801724073006,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 11.003540851749502,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.6700000256890405,
+            -0.0999999950049088,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "endpoint_ik_unresolved_Arm14",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.5715102148668149,
+          "board_y_m": -0.15434477445223102,
+          "height_m": 0.34025213062763215,
+          "gap_m": 0.2204800319671631,
+          "radius_m": 0.6797032678127288,
+          "tilt_rad": 0.4501856733538219,
+          "tilt_deg": 25.79373908042908,
+          "bearing_rad": 0.14119958294791257,
+          "bearing_offset_rad": -0.05084843429281749,
+          "bearing_deg": 8.090140171922778,
+          "bearing_offset_deg": -2.913400679826725,
+          "release_ball_bottom_height_m": 0.5607321625947952,
+          "release_ball_center_height_m": 0.5982321625947952,
+          "release_ball_center_m": [
+            0.5715102148668149,
+            -0.15434477445223102,
+            0.5982321625947952
+          ]
+        },
+        "outcome": {
+          "state": "released_no_qualified_capture",
+          "invalid_reason": null,
+          "admitted": true,
+          "captured": false,
+          "clean": false,
+          "board_bounce": true,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 577
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r3c2",
+    "split": "train",
+    "bucket_xy_m": [
+      0.15571428571428578,
+      -0.25
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "endpoint_ik_unresolved_Arm14": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 0,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "external_contact": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.6699999659129553,
+          "board_y_m": -0.10000000994205471,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.5357142502069474,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": 0.28379410920832787,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 16.26020470831196,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.6699999659129553,
+            -0.10000000994205471,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "endpoint_ik_unresolved_Arm14",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.6045017856619294,
+          "board_y_m": -0.1347107805481115,
+          "height_m": 0.33872561901807785,
+          "gap_m": 0.21977355957031253,
+          "radius_m": 0.46335928201675414,
+          "tilt_rad": 0.4564863691948401,
+          "tilt_deg": 26.15474236011505,
+          "bearing_rad": 0.25145319782812675,
+          "bearing_offset_rad": -0.03234091138020112,
+          "bearing_deg": 14.40720698061982,
+          "bearing_offset_deg": -1.8529977276921383,
+          "release_ball_bottom_height_m": 0.5584991785883904,
+          "release_ball_center_height_m": 0.5959991785883904,
+          "release_ball_center_m": [
+            0.6045017856619294,
+            -0.1347107805481115,
+            0.5959991785883904
+          ]
+        },
+        "outcome": {
+          "state": "released_no_qualified_capture",
+          "invalid_reason": null,
+          "admitted": true,
+          "captured": false,
+          "clean": false,
+          "board_bounce": true,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 691
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r3c3",
+    "split": "test",
+    "bucket_xy_m": [
+      0.4128571428571429,
+      -0.25
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "endpoint_ik_unresolved_Arm14": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "endpoint_ik_unresolved_Arm14": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.6699999985522709,
+          "board_y_m": -0.10000000084450872,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.29769522666931153,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": 0.5280744484263596,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 30.256437163529263,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.6699999985522709,
+            -0.10000000084450872,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "endpoint_ik_unresolved_Arm14",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.6629645568327965,
+          "board_y_m": -0.09920129027504543,
+          "height_m": 0.33639158844947814,
+          "gap_m": 0.21796563625335696,
+          "radius_m": 0.29205131292343145,
+          "tilt_rad": 0.4683803795182703,
+          "tilt_deg": 26.836218953132633,
+          "bearing_rad": 0.5425753693393495,
+          "bearing_offset_rad": 0.014500920912989823,
+          "bearing_deg": 31.087278730896575,
+          "bearing_offset_deg": 0.8308415673673093,
+          "release_ball_bottom_height_m": 0.5543572247028351,
+          "release_ball_center_height_m": 0.5918572247028351,
+          "release_ball_center_m": [
+            0.6629645568327965,
+            -0.09920129027504543,
+            0.5918572247028351
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "endpoint_ik_unresolved_Arm14",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r3c4",
+    "split": "train",
+    "bucket_xy_m": [
+      0.6700000000000002,
+      -0.25
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 8,
+        "clean": 0,
+        "single_bounce": 8,
+        "invalid": 0,
+        "capture_rate": 1.0,
+        "wilson95": [
+          0.6755924351161198,
+          1.0
+        ],
+        "failures": {
+          "captured": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 8,
+        "clean": 0,
+        "single_bounce": 8,
+        "invalid": 0,
+        "capture_rate": 1.0,
+        "wilson95": [
+          0.6755924351161198,
+          1.0
+        ],
+        "failures": {
+          "captured": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.6699999999999999,
+          "board_y_m": 0.03999999761581424,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.28999999761581424,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": 1.5707963267948974,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 90.00000000000006,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.6699999999999999,
+            0.03999999761581424,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "captured",
+          "invalid_reason": null,
+          "admitted": true,
+          "captured": true,
+          "clean": false,
+          "board_bounce": true,
+          "whole_ball_entry": true,
+          "max_retention_s": 0.9999999999999977,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.6340626223487399,
+          "board_y_m": 0.03515903542641574,
+          "height_m": 0.33338626936078075,
+          "gap_m": 0.21418679714202882,
+          "radius_m": 0.2874146318435669,
+          "tilt_rad": 0.4953259781518803,
+          "tilt_deg": 28.380088031291965,
+          "bearing_rad": 1.69616115011442,
+          "bearing_offset_rad": 0.1253648233195226,
+          "bearing_deg": 97.18287527561193,
+          "bearing_offset_deg": 7.182875275611887,
+          "release_ball_bottom_height_m": 0.5475730665028096,
+          "release_ball_center_height_m": 0.5850730665028095,
+          "release_ball_center_m": [
+            0.6340626223487399,
+            0.03515903542641574,
+            0.5850730665028095
+          ]
+        },
+        "outcome": {
+          "state": "captured",
+          "invalid_reason": null,
+          "admitted": true,
+          "captured": true,
+          "clean": false,
+          "board_bounce": true,
+          "whole_ball_entry": true,
+          "max_retention_s": 0.9999999999999977,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r3c5",
+    "split": "train",
+    "bucket_xy_m": [
+      0.9271428571428573,
+      -0.25
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "settling_correction_ik": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "board_table_proxy_overlap": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.6700000014477293,
+          "board_y_m": -0.10000000084450875,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.29769522666931153,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": 2.613518205163434,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 149.74356283647074,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.6700000014477293,
+            -0.10000000084450875,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "settling_correction_ik",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.6714375099121832,
+          "board_y_m": -0.10633680875585635,
+          "height_m": 0.3399117824435234,
+          "gap_m": 0.22161235332489015,
+          "radius_m": 0.29329905748367313,
+          "tilt_rad": 0.4881317085413564,
+          "tilt_deg": 27.967886745929718,
+          "bearing_rad": 2.6297115394293757,
+          "bearing_offset_rad": 0.01619333426594194,
+          "bearing_deg": 150.6713725461538,
+          "bearing_offset_deg": 0.9278097096830501,
+          "release_ball_bottom_height_m": 0.5615241357684135,
+          "release_ball_center_height_m": 0.5990241357684135,
+          "release_ball_center_m": [
+            0.6714375099121832,
+            -0.10633680875585635,
+            0.5990241357684135
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "board_table_proxy_overlap",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r3c6",
+    "split": "validation",
+    "bucket_xy_m": [
+      1.1842857142857144,
+      -0.25
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "settling_correction_ik": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "endpoint_ik_unresolved_Arm10": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.6700000340870448,
+          "board_y_m": -0.1000000099420548,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.5357142502069474,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": 2.8577985443814655,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 163.73979529168807,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.6700000340870448,
+            -0.1000000099420548,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "settling_correction_ik",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.725327549753414,
+          "board_y_m": -0.09437062457214546,
+          "height_m": 0.34317269682884216,
+          "gap_m": 0.2246568036079407,
+          "radius_m": 0.4846267628669739,
+          "tilt_rad": 0.4822675058432995,
+          "tilt_deg": 27.63189268112183,
+          "bearing_rad": 2.814667632011556,
+          "bearing_offset_rad": -0.04313091236990951,
+          "bearing_deg": 161.26857604634364,
+          "bearing_offset_deg": -2.4712192453444106,
+          "release_ball_bottom_height_m": 0.5678295004367828,
+          "release_ball_center_height_m": 0.6053295004367828,
+          "release_ball_center_m": [
+            0.725327549753414,
+            -0.09437062457214546,
+            0.6053295004367828
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "endpoint_ik_unresolved_Arm10",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r3c7",
+    "split": "train",
+    "bucket_xy_m": [
+      1.4414285714285717,
+      -0.25
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "settling_correction_ik": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "endpoint_ik_unresolved_Arm10": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.6699999743109598,
+          "board_y_m": -0.09999999500490878,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.7858766327798367,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": 2.949544636349063,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 168.9964591482505,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.6699999743109598,
+            -0.09999999500490878,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "settling_correction_ik",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.7481522813139684,
+          "board_y_m": -0.06376740737462944,
+          "height_m": 0.34504285879433155,
+          "gap_m": 0.2259291791915894,
+          "radius_m": 0.7178541585803031,
+          "tilt_rad": 0.4803293643525618,
+          "tilt_deg": 27.520845353603363,
+          "bearing_rad": 2.879161154743113,
+          "bearing_offset_rad": -0.07038348160595032,
+          "bearing_deg": 164.9637827047929,
+          "bearing_offset_deg": -4.032676443457615,
+          "release_ball_bottom_height_m": 0.5709720379859209,
+          "release_ball_center_height_m": 0.6084720379859209,
+          "release_ball_center_m": [
+            0.7481522813139684,
+            -0.06376740737462944,
+            0.6084720379859209
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "endpoint_ik_unresolved_Arm10",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r4c1",
+    "split": "train",
+    "bucket_xy_m": [
+      -0.1014285714285714,
+      -0.5
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "endpoint_ik_unresolved_Arm14": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 0,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "external_contact": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.6700000455250409,
+          "board_y_m": -0.0999999763944232,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.868966127038002,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": 0.47835243137865757,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 27.407575437818405,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.6700000455250409,
+            -0.0999999763944232,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "endpoint_ik_unresolved_Arm14",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.5778688445344338,
+          "board_y_m": -0.13495075801122275,
+          "height_m": 0.3388323509693146,
+          "gap_m": 0.2161288380622864,
+          "radius_m": 0.7711717891693115,
+          "tilt_rad": 0.4595841352882797,
+          "tilt_deg": 26.33223128318787,
+          "bearing_rad": 0.49311214103695167,
+          "bearing_offset_rad": 0.014759709658294096,
+          "bearing_deg": 28.253244508077135,
+          "bearing_offset_deg": 0.8456690702587302,
+          "release_ball_bottom_height_m": 0.554961189031601,
+          "release_ball_center_height_m": 0.5924611890316009,
+          "release_ball_center_m": [
+            0.5778688445344338,
+            -0.13495075801122275,
+            0.5924611890316009
+          ]
+        },
+        "outcome": {
+          "state": "released_no_qualified_capture",
+          "invalid_reason": null,
+          "admitted": true,
+          "captured": false,
+          "clean": false,
+          "board_bounce": true,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 627
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r4c2",
+    "split": "train",
+    "bucket_xy_m": [
+      0.15571428571428578,
+      -0.5
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "endpoint_ik_unresolved_Arm14": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 0,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "external_contact": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.6700000118353908,
+          "board_y_m": -0.09999999079469607,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.6515288293361664,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": 0.6610431688506869,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 37.874983651098205,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.6700000118353908,
+            -0.09999999079469607,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "endpoint_ik_unresolved_Arm14",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.5849386477187195,
+          "board_y_m": -0.13119643488583438,
+          "height_m": 0.33701639980077747,
+          "gap_m": 0.21469088077545168,
+          "radius_m": 0.5659060192108154,
+          "tilt_rad": 0.46853101456742785,
+          "tilt_deg": 26.84484970569611,
+          "bearing_rad": 0.7098297049600263,
+          "bearing_offset_rad": 0.04878653610933936,
+          "bearing_deg": 40.67024626722594,
+          "bearing_offset_deg": 2.7952626161277374,
+          "release_ball_bottom_height_m": 0.5517072805762291,
+          "release_ball_center_height_m": 0.5892072805762291,
+          "release_ball_center_m": [
+            0.5849386477187195,
+            -0.13119643488583438,
+            0.5892072805762291
+          ]
+        },
+        "outcome": {
+          "state": "released_no_qualified_capture",
+          "invalid_reason": null,
+          "admitted": true,
+          "captured": false,
+          "clean": false,
+          "board_bounce": true,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 643
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r4c3",
+    "split": "train",
+    "bucket_xy_m": [
+      0.4128571428571429,
+      -0.5
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 0,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "external_contact": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 0,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "external_contact": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.6699999830727033,
+          "board_y_m": -0.10000002633135041,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.47552331089973454,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": 0.9994588469612699,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 57.264773727892404,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.6699999830727033,
+            -0.10000002633135041,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "released_no_qualified_capture",
+          "invalid_reason": null,
+          "admitted": true,
+          "captured": false,
+          "clean": false,
+          "board_bounce": true,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 365
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.6064055527889329,
+          "board_y_m": -0.12071206272687879,
+          "height_m": 0.3350377048552036,
+          "gap_m": 0.21285720825195314,
+          "radius_m": 0.4258172452449799,
+          "tilt_rad": 0.48169746973583294,
+          "tilt_deg": 27.59923201799393,
+          "bearing_rad": 1.0989473646345114,
+          "bearing_offset_rad": 0.09948851767324163,
+          "bearing_deg": 62.96504590058185,
+          "bearing_offset_deg": 5.700272172689446,
+          "release_ball_bottom_height_m": 0.5478949131071568,
+          "release_ball_center_height_m": 0.5853949131071567,
+          "release_ball_center_m": [
+            0.6064055527889329,
+            -0.12071206272687879,
+            0.5853949131071567
+          ]
+        },
+        "outcome": {
+          "state": "released_no_qualified_capture",
+          "invalid_reason": null,
+          "admitted": true,
+          "captured": false,
+          "clean": false,
+          "board_bounce": true,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 292
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r4c4",
+    "split": "test",
+    "bucket_xy_m": [
+      0.6700000000000002,
+      -0.5
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 8,
+        "clean": 0,
+        "single_bounce": 8,
+        "invalid": 0,
+        "capture_rate": 1.0,
+        "wilson95": [
+          0.6755924351161198,
+          1.0
+        ],
+        "failures": {
+          "captured": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 8,
+        "clean": 0,
+        "single_bounce": 8,
+        "invalid": 0,
+        "capture_rate": 1.0,
+        "wilson95": [
+          0.6755924351161198,
+          1.0
+        ],
+        "failures": {
+          "captured": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.67,
+          "board_y_m": -0.10000000119209285,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.39999999880790715,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": 1.570796326794897,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 90.00000000000003,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.67,
+            -0.10000000119209285,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "captured",
+          "invalid_reason": null,
+          "admitted": true,
+          "captured": true,
+          "clean": false,
+          "board_bounce": true,
+          "whole_ball_entry": true,
+          "max_retention_s": 0.9999999999999977,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.6196999484499981,
+          "board_y_m": -0.132219866691619,
+          "height_m": 0.33447400853037834,
+          "gap_m": 0.21223741054534911,
+          "radius_m": 0.3712038815021515,
+          "tilt_rad": 0.49472305304524855,
+          "tilt_deg": 28.345542967319492,
+          "bearing_rad": 1.7067196618731009,
+          "bearing_offset_rad": 0.13592333507820387,
+          "bearing_deg": 97.7878334373236,
+          "bearing_offset_deg": 7.787833437323577,
+          "release_ball_bottom_height_m": 0.5467114190757274,
+          "release_ball_center_height_m": 0.5842114190757274,
+          "release_ball_center_m": [
+            0.6196999484499981,
+            -0.132219866691619,
+            0.5842114190757274
+          ]
+        },
+        "outcome": {
+          "state": "captured",
+          "invalid_reason": null,
+          "admitted": true,
+          "captured": true,
+          "clean": false,
+          "board_bounce": true,
+          "whole_ball_entry": true,
+          "max_retention_s": 0.9999999999999977,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r4c5",
+    "split": "train",
+    "bucket_xy_m": [
+      0.9271428571428573,
+      -0.5
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 0,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "external_contact": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 0,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "external_contact": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.6700000169272968,
+          "board_y_m": -0.10000002633135041,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.47552331089973454,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": 2.1421338066285234,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 122.7352262721076,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.6700000169272968,
+            -0.10000002633135041,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "released_no_qualified_capture",
+          "invalid_reason": null,
+          "admitted": true,
+          "captured": false,
+          "clean": false,
+          "board_bounce": true,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 428
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.6571533649190393,
+          "board_y_m": -0.15906616074531282,
+          "height_m": 0.3372237528860569,
+          "gap_m": 0.21519178867340089,
+          "radius_m": 0.4348910307884216,
+          "tilt_rad": 0.49609596980353593,
+          "tilt_deg": 28.424205303192142,
+          "bearing_rad": 2.240585876100966,
+          "bearing_offset_rad": 0.09845206947244245,
+          "bearing_deg": 128.37611433720733,
+          "bearing_offset_deg": 5.640888065099726,
+          "release_ball_bottom_height_m": 0.5524155415594578,
+          "release_ball_center_height_m": 0.5899155415594578,
+          "release_ball_center_m": [
+            0.6571533649190393,
+            -0.15906616074531282,
+            0.5899155415594578
+          ]
+        },
+        "outcome": {
+          "state": "released_no_qualified_capture",
+          "invalid_reason": null,
+          "admitted": true,
+          "captured": false,
+          "clean": false,
+          "board_bounce": true,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 513
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r4c6",
+    "split": "train",
+    "bucket_xy_m": [
+      1.1842857142857144,
+      -0.5
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "settling_correction_ik": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "endpoint_ik_unresolved_Arm14": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.6699999881646093,
+          "board_y_m": -0.09999999079469618,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.6515288293361664,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": 2.4805494847391065,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 142.12501634890182,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.6699999881646093,
+            -0.09999999079469618,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "settling_correction_ik",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.7035968610288431,
+          "board_y_m": -0.15663822050406823,
+          "height_m": 0.340487625002861,
+          "gap_m": 0.21860802173614502,
+          "radius_m": 0.5907275897264481,
+          "tilt_rad": 0.49201827486165034,
+          "tilt_deg": 28.190570592880253,
+          "bearing_rad": 2.5213258129054186,
+          "bearing_offset_rad": 0.04077632816631205,
+          "bearing_deg": 144.46132785687192,
+          "bearing_offset_deg": 2.3363115079701036,
+          "release_ball_bottom_height_m": 0.559095646739006,
+          "release_ball_center_height_m": 0.596595646739006,
+          "release_ball_center_m": [
+            0.7035968610288431,
+            -0.15663822050406823,
+            0.596595646739006
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "endpoint_ik_unresolved_Arm14",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r4c7",
+    "split": "validation",
+    "bucket_xy_m": [
+      1.4414285714285717,
+      -0.5
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "settling_correction_ik": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "endpoint_ik_unresolved_Arm10": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.6699999544749594,
+          "board_y_m": -0.09999997639442332,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.868966127038002,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": 2.6632402222111358,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 152.5924245621816,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.6699999544749594,
+            -0.09999997639442332,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "settling_correction_ik",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.7252123013712549,
+          "board_y_m": -0.12779428758459227,
+          "height_m": 0.3429066774994135,
+          "gap_m": 0.2209710764884949,
+          "radius_m": 0.8071572571992874,
+          "tilt_rad": 0.4888539037335263,
+          "tilt_deg": 28.009265482425693,
+          "bearing_rad": 2.662322600079919,
+          "bearing_offset_rad": -0.0009176221312166,
+          "bearing_deg": 152.5398486868751,
+          "bearing_offset_deg": -0.052575875306511005,
+          "release_ball_bottom_height_m": 0.5638777539879084,
+          "release_ball_center_height_m": 0.6013777539879084,
+          "release_ball_center_m": [
+            0.7252123013712549,
+            -0.12779428758459227,
+            0.6013777539879084
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "endpoint_ik_unresolved_Arm10",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r5c1",
+    "split": "train",
+    "bucket_xy_m": [
+      -0.1014285714285714,
+      -0.75
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "endpoint_ik_unresolved_Arm14": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 0,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "external_contact": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.6699999857609922,
+          "board_y_m": -0.10000001199768249,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 1.0087626099586486,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": 0.7001779324253192,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 40.117240436166945,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.6699999857609922,
+            -0.10000001199768249,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "endpoint_ik_unresolved_Arm14",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.5767828990899471,
+          "board_y_m": -0.1024762276771658,
+          "height_m": 0.33843243002891543,
+          "gap_m": 0.21314104318618776,
+          "radius_m": 0.9376874929666519,
+          "tilt_rad": 0.4669179919906265,
+          "tilt_deg": 26.752430319786075,
+          "bearing_rad": 0.7622546140768516,
+          "bearing_offset_rad": 0.06207668165153235,
+          "bearing_deg": 43.67397230097694,
+          "bearing_offset_deg": 3.5567318648100006,
+          "release_ball_bottom_height_m": 0.5515734732151032,
+          "release_ball_center_height_m": 0.5890734732151032,
+          "release_ball_center_m": [
+            0.5767828990899471,
+            -0.1024762276771658,
+            0.5890734732151032
+          ]
+        },
+        "outcome": {
+          "state": "released_no_qualified_capture",
+          "invalid_reason": null,
+          "admitted": true,
+          "captured": false,
+          "clean": false,
+          "board_bounce": true,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 622
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r5c2",
+    "split": "train",
+    "bucket_xy_m": [
+      0.15571428571428578,
+      -0.75
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "endpoint_ik_unresolved_Arm14": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 0,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "external_contact": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.6700000356669603,
+          "board_y_m": -0.09999995492092517,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.8288485333323479,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": 0.9014389126423525,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 51.64864518326891,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.6700000356669603,
+            -0.09999995492092517,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "endpoint_ik_unresolved_Arm14",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.558641844206745,
+          "board_y_m": -0.1279671954025703,
+          "height_m": 0.3369465692341328,
+          "gap_m": 0.21182695388793948,
+          "radius_m": 0.7411311809578911,
+          "tilt_rad": 0.4757066576547807,
+          "tilt_deg": 27.25598376989365,
+          "bearing_rad": 0.9959978762255939,
+          "bearing_offset_rad": 0.09455896358324134,
+          "bearing_deg": 57.066474711719884,
+          "bearing_offset_deg": 5.4178295284509765,
+          "release_ball_bottom_height_m": 0.5487735231220723,
+          "release_ball_center_height_m": 0.5862735231220723,
+          "release_ball_center_m": [
+            0.558641844206745,
+            -0.1279671954025703,
+            0.5862735231220723
+          ]
+        },
+        "outcome": {
+          "state": "released_no_qualified_capture",
+          "invalid_reason": null,
+          "admitted": true,
+          "captured": false,
+          "clean": false,
+          "board_bounce": true,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 388
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r5c3",
+    "split": "train",
+    "bucket_xy_m": [
+      0.4128571428571429,
+      -0.75
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 0,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "external_contact": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 0,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "external_contact": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.6699999884867222,
+          "board_y_m": -0.10000002910300798,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.699015311151743,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": 1.1940849978768333,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 68.41603075823042,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.6699999884867222,
+            -0.10000002910300798,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "released_no_qualified_capture",
+          "invalid_reason": null,
+          "admitted": true,
+          "captured": false,
+          "clean": false,
+          "board_bounce": true,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 594
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.5659068290222595,
+          "board_y_m": -0.1475276032323648,
+          "height_m": 0.33578827291727065,
+          "gap_m": 0.21079190731048586,
+          "radius_m": 0.6216085547208786,
+          "tilt_rad": 0.4858723700575065,
+          "tilt_deg": 27.838436186313633,
+          "bearing_rad": 1.3220226844807246,
+          "bearing_offset_rad": 0.12793768660389127,
+          "bearing_deg": 75.7463202413008,
+          "bearing_offset_deg": 7.33028948307038,
+          "release_ball_bottom_height_m": 0.5465801802277566,
+          "release_ball_center_height_m": 0.5840801802277565,
+          "release_ball_center_m": [
+            0.5659068290222595,
+            -0.1475276032323648,
+            0.5840801802277565
+          ]
+        },
+        "outcome": {
+          "state": "released_no_qualified_capture",
+          "invalid_reason": null,
+          "admitted": true,
+          "captured": false,
+          "clean": false,
+          "board_bounce": true,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 629
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r5c4",
+    "split": "train",
+    "bucket_xy_m": [
+      0.6700000000000002,
+      -0.75
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 0,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "external_contact": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 0,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "external_contact": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.67,
+          "board_y_m": -0.10000003337860108,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.6499999666213989,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": 1.5707963267948968,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 90.00000000000001,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.67,
+            -0.10000003337860108,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "released_no_qualified_capture",
+          "invalid_reason": null,
+          "admitted": true,
+          "captured": false,
+          "clean": false,
+          "board_bounce": true,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 572
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.5868498731680208,
+          "board_y_m": -0.17253473304725375,
+          "height_m": 0.33576295226812364,
+          "gap_m": 0.21087467670440674,
+          "radius_m": 0.5834210127592087,
+          "tilt_rad": 0.49415779710387925,
+          "tilt_deg": 28.313156187534336,
+          "bearing_rad": 1.713804936934675,
+          "bearing_offset_rad": 0.14300861013977828,
+          "bearing_deg": 98.1937897950411,
+          "bearing_offset_deg": 8.193789795041086,
+          "release_ball_bottom_height_m": 0.5466376289725303,
+          "release_ball_center_height_m": 0.5841376289725303,
+          "release_ball_center_m": [
+            0.5868498731680208,
+            -0.17253473304725375,
+            0.5841376289725303
+          ]
+        },
+        "outcome": {
+          "state": "released_no_qualified_capture",
+          "invalid_reason": null,
+          "admitted": true,
+          "captured": false,
+          "clean": false,
+          "board_bounce": true,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 643
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r5c5",
+    "split": "test",
+    "bucket_xy_m": [
+      0.9271428571428573,
+      -0.75
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 0,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "external_contact": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 0,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "external_contact": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.670000011513278,
+          "board_y_m": -0.10000002910300798,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.699015311151743,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": 1.94750765571296,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 111.5839692417696,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.670000011513278,
+            -0.10000002910300798,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "released_no_qualified_capture",
+          "invalid_reason": null,
+          "admitted": true,
+          "captured": false,
+          "clean": false,
+          "board_bounce": true,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 594
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.6227215224646447,
+          "board_y_m": -0.19374552810446244,
+          "height_m": 0.33731687858700754,
+          "gap_m": 0.21260553121566772,
+          "radius_m": 0.6341067627072334,
+          "tilt_rad": 0.4971274817936428,
+          "tilt_deg": 28.483306586742405,
+          "bearing_rad": 2.0715410831402137,
+          "bearing_offset_rad": 0.12403342742725387,
+          "bearing_deg": 118.69056115189342,
+          "bearing_offset_deg": 7.106591910123836,
+          "release_ball_bottom_height_m": 0.5499224098026753,
+          "release_ball_center_height_m": 0.5874224098026752,
+          "release_ball_center_m": [
+            0.6227215224646447,
+            -0.19374552810446244,
+            0.5874224098026752
+          ]
+        },
+        "outcome": {
+          "state": "released_no_qualified_capture",
+          "invalid_reason": null,
+          "admitted": true,
+          "captured": false,
+          "clean": false,
+          "board_bounce": true,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 630
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r5c6",
+    "split": "train",
+    "bucket_xy_m": [
+      1.1842857142857144,
+      -0.75
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "endpoint_ik_unresolved_Arm14": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 0,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "external_contact": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.66999996433304,
+          "board_y_m": -0.09999995492092506,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 0.8288485333323479,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": 2.2401537409474406,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 128.3513548167311,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.66999996433304,
+            -0.09999995492092506,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "endpoint_ik_unresolved_Arm14",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.6595006041480929,
+          "board_y_m": -0.19230834386578255,
+          "height_m": 0.3396137781441212,
+          "gap_m": 0.21511554956436157,
+          "radius_m": 0.7657802525162697,
+          "tilt_rad": 0.4961213530576758,
+          "tilt_deg": 28.42565965652466,
+          "bearing_rad": 2.325804539915583,
+          "bearing_offset_rad": 0.08565079896814254,
+          "bearing_deg": 133.25878410952913,
+          "bearing_offset_deg": 4.907429292798033,
+          "release_ball_bottom_height_m": 0.5547293277084828,
+          "release_ball_center_height_m": 0.5922293277084828,
+          "release_ball_center_m": [
+            0.6595006041480929,
+            -0.19230834386578255,
+            0.5922293277084828
+          ]
+        },
+        "outcome": {
+          "state": "released_no_qualified_capture",
+          "invalid_reason": null,
+          "admitted": true,
+          "captured": false,
+          "clean": false,
+          "board_bounce": true,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 621
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  },
+  {
+    "id": "r5c7",
+    "split": "validation",
+    "bucket_xy_m": [
+      1.4414285714285717,
+      -0.75
+    ],
+    "evaluation": [
+      {
+        "update_count": 0,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "settling_correction_ik": 8
+        }
+      },
+      {
+        "update_count": 16,
+        "attempts": 8,
+        "captures": 0,
+        "clean": 0,
+        "single_bounce": 0,
+        "invalid": 8,
+        "capture_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.32440756488388023
+        ],
+        "failures": {
+          "settling_correction_ik": 8
+        }
+      }
+    ],
+    "predictions": [
+      {
+        "update_count": 0,
+        "policy_hash": "9f18282886c7d8deeaa1a6f1b07cf3e79927cbfe9577f4afd5e6116fb89f2625",
+        "source_trial": "trials/eval-0011.json",
+        "requested": {
+          "board_x_m": 0.6700000142390079,
+          "board_y_m": -0.10000001199768271,
+          "height_m": 0.34999999962747097,
+          "gap_m": 0.24000000476837158,
+          "radius_m": 1.0087626099586486,
+          "tilt_rad": 0.506145480997761,
+          "tilt_deg": 28.999999880790714,
+          "bearing_rad": 2.4414147211644743,
+          "bearing_offset_rad": 0.0,
+          "bearing_deg": 139.88275956383308,
+          "bearing_offset_deg": 0.0,
+          "release_ball_bottom_height_m": 0.5900000043958425,
+          "release_ball_center_height_m": 0.6275000043958425,
+          "release_ball_center_m": [
+            0.6700000142390079,
+            -0.10000001199768271,
+            0.6275000043958425
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "settling_correction_ik",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      },
+      {
+        "update_count": 16,
+        "policy_hash": "896ddd0fbb4eeeaa7f6154f22f7a78232368b9f6f5b172068081a26993ca06ed",
+        "source_trial": "trials/eval-0083.json",
+        "requested": {
+          "board_x_m": 0.675350998351807,
+          "board_y_m": -0.1646119431734525,
+          "height_m": 0.341776166036725,
+          "gap_m": 0.21746038675308227,
+          "radius_m": 0.9641338211297988,
+          "tilt_rad": 0.4940624538562598,
+          "tilt_deg": 28.30769342184067,
+          "bearing_rad": 2.48910522149381,
+          "bearing_offset_rad": 0.04769050032933553,
+          "bearing_deg": 142.61522395557128,
+          "bearing_offset_deg": 2.7324643917381883,
+          "release_ball_bottom_height_m": 0.5592365527898073,
+          "release_ball_center_height_m": 0.5967365527898073,
+          "release_ball_center_m": [
+            0.675350998351807,
+            -0.1646119431734525,
+            0.5967365527898073
+          ]
+        },
+        "outcome": {
+          "state": "release_withheld",
+          "invalid_reason": "settling_correction_ik",
+          "admitted": false,
+          "captured": false,
+          "clean": false,
+          "board_bounce": false,
+          "whole_ball_entry": false,
+          "max_retention_s": 0.0,
+          "external_contact_steps": 0
+        },
+        "coordinate_frame": "Table-local metres; board normal follows common world/table axes",
+        "release_provenance": "Requested initialized ball-center pose, not measured gripper/ball localization"
+      }
+    ]
+  }
+]
