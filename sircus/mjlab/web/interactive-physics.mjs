@@ -82,6 +82,41 @@ export function clearanceExpansionSummary(study) {
     source: typeof section.source === 'string' ? section.source : '',
   };
 }
+/** Neural-study progress is evidence-only; final scores require the completed audit. */
+export function neuralShotSummary(study) {
+  const section = study?.neural_shot_study;
+  if (!section || typeof section !== 'object' || Array.isArray(section)) return null;
+  const count = value => Number.isInteger(value) && value >= 0 ? value : null;
+  const seconds = value => Number.isFinite(value) && value >= 0 ? value : null;
+  const splits = Object.entries({ train: 'Training', validation: 'Validation', test: 'Final test' }).map(([id, label]) => {
+    const progress = section.progress?.[id] || {};
+    const positions = count(section.split_positions?.[id]);
+    const prepared = count(progress.prepared_positions);
+    const released = count(progress.completed_releases), planned = count(progress.planned_releases);
+    return { id, label, positions, prepared: prepared !== null && (positions === null || prepared <= positions) ? prepared : null,
+      released, planned: planned !== null && (released === null || planned >= released) ? planned : null,
+      baseline_prepared: count(progress.baseline_prepared_positions), neural_prepared: count(progress.neural_prepared_positions) };
+  });
+  const total = splits.find(row => row.id === 'test').positions;
+  const labels = { current_planner: 'Current planner', clearance_expansion: 'Wider search', neural_selector: 'Learned selector' };
+  const methods = Object.entries(labels).map(([id, label]) => {
+    const raw = section.comparison?.methods?.[id] || {};
+    const values = Object.fromEntries(['positions', 'admitted', 'released', 'captures', 'unresolved', 'robot_contacts'].map(key => [key, count(raw[key])]));
+    const timing = section.comparison?.latency?.[id] || {};
+    const median = seconds(timing.median_s), p90 = seconds(timing.p90_s);
+    return { id, label, ...values, median_s: median, p90_s: p90 !== null && (median === null || p90 >= median) ? p90 : null,
+      valid: total > 0 && Object.values(values).every(value => value !== null) && values.positions === total
+        && values.captures <= values.released && values.released <= values.admitted && values.admitted <= total
+        && values.unresolved === total - values.admitted && values.robot_contacts <= values.released };
+  });
+  const status = typeof section.status === 'string' ? section.status : 'unknown';
+  const audit = typeof section.audit_status === 'string' ? section.audit_status : null;
+  const complete = status === 'completed' && audit === 'passed' && methods.every(row => row.valid);
+  return { status, phase: typeof section.phase === 'string' ? section.phase : '', audit, splits, methods, total, complete,
+    next: typeof section.next === 'string' ? section.next : '',
+    error: typeof section.error === 'string' ? section.error : '',
+    gpu_seconds: seconds(section.gpu_lease_s), gpu_budget_seconds: seconds(section.gpu_cap_s) };
+}
 export class InteractivePhysics {
   constructor({
     fetcher = (...args) => globalThis.fetch(...args),

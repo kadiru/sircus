@@ -1,5 +1,7 @@
 # Sircus — Simple Circus
 
+**Current mjlab result:** [learned shot ordering completed](sircus/mjlab/NEURAL_SHOT_RESULTS.md): on the same 200 unseen bucket positions, the current planner captured **169/200**, wider search **170/200**, and the learned selector **173/200**. The selector gained ten captures and lost six versus the current planner. Median planning fell from 27.6 to 24.8 seconds, but the 90th percentile rose from 67.1 to 168.3 seconds. All 600 test drops and the independent audit completed; the live planner is unchanged. Next: bound planning time and compare on fresh positions before changing the default. The older dated studies below retain their original definitions and results.
+
 **Latest completed search:** [30/35 fixed-grid locations have confirmed recipes](baselines/mjlab-fixed35-six-20261110/README.md). One new recipe passed 3/3 repeats. The [bouncer-only follow-up](baselines/mjlab-fixed35-bouncer-20261110/README.md) preserved 30/30 recipes but captured 0/15 alternatives; its separate V3 audit passed 35,407 checks. Three searchable cells remain unresolved; two other cells overlap fixed robot bases. No new training or UI publication; the policy remains 24/35. [System workflow](docs/MJLAB_FIXED35_BOUNCER_20261110.md).
 
 **Latest mjlab recovery:** [29/35 fixed locations now have confirmed recipes](baselines/mjlab-fixed35-recovery-20261109/README.md).

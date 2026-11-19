@@ -8,6 +8,18 @@
 <p id="savedReplayExplanation" class="fine">Recorded native simulation. Playback runs in your browser.</p><div id="savedReplayMarkers" class="saved-replay-markers" aria-label="Jump to a measured event"></div>
 </section>
 <div class="result" role="status" aria-live="polite"><span class="status-dot" id="resultDot"></span><div><strong id="resultTitle">Waiting for the learning study</strong><p id="resultText">Manual solves unlock after the completed study and frozen-checkpoint evaluation.</p></div></div>
+<section id="neuralShotStudy" class="results-section neural-shot-section" hidden>
+<p class="eyebrow">LEARN FROM SIMULATED SHOTS · TEST ON NEW POSITIONS</p><h2>Can we choose good shots faster?</h2>
+<p class="fine">A small neural network learns from successful and failed shot attempts, then ranks proposed board poses and drop heights. Every selected shot still needs arm-reach and collision checks.</p>
+<p id="neuralShotStatus" class="subtle" role="status"></p>
+<div id="neuralShotProgress" class="neural-shot-progress" aria-label="Training, validation and test progress"></div>
+<p class="fine">Prepared positions have candidate arm poses checked. Completed drops count actual native ball releases, not proposals, declined setups, or requested targets. Validation selects model settings; final test positions are kept separate from training.</p>
+<p id="neuralShotBudget" class="fine"></p>
+<div id="neuralShotTable" class="table-wrap" tabindex="0" role="region" aria-label="First-drop captures, feasible setups, robot contacts and planning time for three planners"></div>
+<p id="neuralShotResultNote" class="scope-note"></p><p id="neuralShotNext" class="fine"></p><p id="neuralShotError" class="fine"></p>
+<p class="fine">Inputs currently come from simulator geometry, not camera perception. Native drops run at 64 substeps with both arms held at the chosen poses. Capture requires a board bounce and one continuous second fully inside the bucket; direct and table-assisted captures count. Unresolved and invalid shots stay in the test denominator.</p>
+<p class="scope-note">This study does not change the live Plan shot button. The 4070 and Isaac workloads remain separate.</p>
+</section>
 <section id="clearanceExpansionStudy" class="results-section clearance-expansion-section" hidden>
 <p class="eyebrow">FRESH BUCKET POSITIONS · ONE DROP PER PLANNER</p><h2>Does a wider search improve the first drop?</h2>
 <p class="fine">The wider search tries more shot settings and board-arm poses when the predicted ball path has poor clearance.</p>
