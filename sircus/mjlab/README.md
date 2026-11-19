@@ -1,5 +1,12 @@
 # Sircus in mjlab
 
+The [corrected-contact spatial map](CORRECTED_GRID.md) completed: 35 DEV layouts,
+460 native search releases, 87 nominal repeats and 580 fresh requests. Seventeen
+settings at 12 positions passed fixed-home paths and the 3/3 plus ≥18/20 gate.
+Both CPU audits passed. This supports preparation of a limited corrected-physics
+selector pilot; existing trainers still need a matching adapter. No new PPO or
+policy switch occurred. [Final evidence and exact settings](../../baselines/mjlab-corrected-grid-20261102/README.md).
+
 The [IK-stability follow-up](../../baselines/mjlab-ik-stability-20261102/README.md)
 fixes query-order dependence and preserves all 16 saved-source branches in its
 audit. A larger 16-start cold budget also recovers 16/16. Another 10,240 native

@@ -293,3 +293,56 @@ export function configurationsCsv(report) {
     ...(finiteVector(row.q10, 6) ? row.q10 : Array(6).fill('')), ...(finiteVector(row.q14, 6) ? row.q14 : Array(6).fill(''))]);
   return [fields, ...rows].map(row => row.map(cell).join(',')).join('\r\n') + '\r\n';
 }
+
+// Corrected-contact DEV grid: read-only and independent of inference readiness.
+export function correctedGridProgress(report) {
+  const value = report?.corrected_grid_evaluation;
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return null;
+  const counts = value.counts ?? {};
+  return { status: value.status ?? 'pending', phase: value.phase ?? 'preparing',
+    // The evidence retains its last queue observation after lock acquisition.
+    queue: value.status === 'waiting' || value.phase === 'waiting_for_4090'
+      ? value.waiting_for_4090 ?? value.queue ?? null : null,
+    cells: correctedGridRows(report),
+    geometryRequests: contactCount(counts.geometry_requests),
+    nativeAttempts: contactCount(counts.native_attempts),
+    nativeReleases: contactCount(counts.native_releases),
+    confirmationAttempts: contactCount(counts.confirmation_attempts),
+    qualified: contactCount(counts.qualified_positions),
+    connected: contactCount(counts.common_home_connected),
+    homeClear: contactCount(counts.home_clear_positions),
+    settings: contactCount(counts.qualified_settings),
+    multipleChoices: contactCount(counts.positions_with_multiple_qualified),
+    audits: value.audits ?? {},
+    stages: value.stage_statistics ?? null,
+    verification: value.verification?.status ?? 'pending',
+    scope: value.scope ?? 'Seeded development grid; no new policy training',
+    reason: value.reason ?? '',
+    fingerprint: value.contract_fingerprint ?? 'pending',
+  };
+}
+export function correctedTrainingReadiness(report) {
+  const progress = correctedGridProgress(report);
+  const pending = {readyToLaunch:false,title:'Training decision pending',text:'Wait for the complete study and both contract-matched audits.'};
+  if (!progress || progress.status !== 'completed') return pending;
+  if (progress.verification !== 'passed' || !['native','supplemental'].every(name => progress.audits[name]?.status === 'passed'))
+    return {...pending,title:'Study finished; audit clearance required'};
+  if (!(progress.qualified > 0)) return {...pending,title:'More feasible settings needed',text:'No position passed the declared path and robustness checks.'};
+  return {readyToLaunch:false,title:'Audited evidence ready for a limited pilot',
+    text:`${progress.settings ?? 'Qualified'} settings at ${progress.qualified}/${progress.cells.length} development positions; ${progress.multipleChoices ?? 'unknown'} positions have multiple qualified choices. Next: deduplicate relative geometry prototypes, adapt and smoke-test the learner with corrected physics and shared-start admission, then compare against uniform feasible selection. Table-wide training and held-out generalization remain unvalidated.`};
+}
+export function correctedGridRows(report) {
+  const value = report?.corrected_grid_evaluation;
+  return (value?.cells ?? []).filter(row => row && typeof row.id === 'string' && finiteVector(row.bucket_xy_m,2)).map(row => {
+    const groups = Array.isArray(row.confirmations) ? row.confirmations : [];
+    const qualified = row.qualification?.qualified === true || groups.some(g => g.qualified === true);
+    const eligible = contactCount(row.geometry?.endpoint_eligible ?? row.geometry?.eligible);
+    const attempts = contactCount(row.search?.attempts), captures = contactCount(row.search?.captures);
+    const motion = row.motion?.connected === true;
+    const homeBlocked = row.home_geometry?.passed === false;
+    const state = qualified ? 'qualified' : captures > 0 ? 'captured' : homeBlocked ? 'home_blocked' : attempts > 0 ? 'missed'
+      : eligible > 0 ? 'endpoint' : eligible === 0 ? 'rejected' : 'pending';
+    return { id:row.id,xy:row.bucket_xy_m,eligible,attempts,captures,qualified,motion,state,
+      reason:row.reason ?? (homeBlocked ? row.home_geometry.category ?? row.home_geometry.reason : null) ?? row.status ?? 'Pending',confirmations:groups };
+  });
+}

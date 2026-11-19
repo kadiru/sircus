@@ -1,0 +1,13 @@
+{
+  "version": "sircus-curated-baseline-checksums-v1",
+  "scope": "Completed synthetic CPU/native spatial development study; both matched audits passed; not policy evaluation",
+  "contract_fingerprint": "8edba8a3349aa8bcb4c06b97f3f61a302684856513b0ac972cf849afd3f4f037",
+  "files": {
+    "README.md": "ce0b37ee8fcc6a938406dfb13ff39c6eb7ac051e83ce7bf7729233e3bcd3f932",
+    "cpu-admission.json": "94dd46d151584a9c2caa1b2feb19a2d791a33097146a8cd75392504ccbdff18c",
+    "base-overlap.json": "feee0873a991820f7e40d006e9974834d55597239312604bdc652c6e962468d2",
+    "base_overlap_probe.py": "5a433bb1b12fe51d9fe77bf900350dbb5e519ed8d81f1189290594cb2e02aa60",
+    "native-results.json": "cfe834d6abd048be7ea713c46c9090bb4af8271175fdf5f5dd877282f8a8d119",
+    "qualified-configurations.csv": "f7c7b994eecc93aaf5ae0627026614ea339d98e3222895a8f5a2cbc8db6303c8"
+  }
+}

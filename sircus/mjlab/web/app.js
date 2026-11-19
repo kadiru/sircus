@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from '/vendor/OrbitControls.js';
 import { contactStudy, contactGroups, contactConfigurations, transitRoutes, routePreview, configurationsCsv } from '/state.mjs';
+import { correctedGridProgress, correctedTrainingReadiness } from '/state.mjs';
 import { studyReady, buildRequest, methodLabel, coverageRows, finiteVector, friendlyError, coverageSummary, comparisonRows, learningPoints, inStudiedRegion, BOARD_BODY_SIZE, bankComparisonRows, policyRouteLabel, poseInputValues, bankCoverageRows, bankCoverageStatus, formatMetric, solveButtonState, expansionTargetRows, expansionProgress, expandedComparisonRows, stableIkProgress, stableIkTargets, stableIkAuditRows, stableIkControlRows } from '/state.mjs';
 
 const $ = id => document.getElementById(id);
@@ -347,6 +348,45 @@ function showExpansion() {
   drawChart($('expansionCaptureChart'), points, 'captures');
   drawChart($('expansionRewardChart'), points, 'reward', true);
 }
+function showCorrectedGrid() {
+  const progress = correctedGridProgress(report);
+  $('correctedGrid').hidden = !progress;
+  if (!progress) return;
+  const shown = value => value === null ? '—' : value;
+  const display = value => String(value).replaceAll('_',' ');
+  $('correctedGridStatus').textContent = `${display(progress.status)} · ${display(progress.phase)}${progress.queue ? ' · Waiting for shared 4090' : ''}`;
+  $('correctedGridScope').textContent = `${progress.scope}. ${progress.reason} Contract: ${progress.fingerprint}`;
+  const readiness = correctedTrainingReadiness(report);
+  $('correctedGridReadinessTitle').textContent = readiness.title;
+  $('correctedGridReadiness').textContent = readiness.text;
+  const auditText = audit => !audit ? 'pending' : `${audit.status}${Number.isInteger(audit.checks) ? ` · ${audit.checks.toLocaleString()} checks` : ''}`;
+  addMetrics([['Declared bucket positions',progress.cells.length],['Geometry requests · including confirmations',shown(progress.geometryRequests)],
+    ['Shot test requests',shown(progress.nativeAttempts)],['Actual native releases',shown(progress.nativeReleases)],['Fresh confirmation requests',shown(progress.confirmationAttempts)],
+    ['Robust qualified positions',progress.qualified === null ? '—' : `${progress.qualified} / ${progress.cells.length}`],
+    ['Qualified settings',shown(progress.settings)],['Positions with multiple qualified choices',shown(progress.multipleChoices)],
+    ['Clear shared-start layouts',shown(progress.homeClear)],['Common-start connected positions',shown(progress.connected)],
+    ['Native evidence audit',auditText(progress.audits.native)],['Admission coverage audit',auditText(progress.audits.supplemental)]],$('correctedGridSummary'));
+  const stages = progress.stages;
+  expansionTable($('correctedGridStages'),['Stage','Shot requests','Native releases','Captures'],stages ? [
+    ['Search',stages.search],['Nominal repeats',stages.nominal],['Fresh perturbations',stages.confirmation]
+  ].map(([name,stage])=>[name,stage.requests,stage.releases,stage.captures]) : []);
+  const canvas = $('correctedGridMap'), ctx = canvas.getContext('2d'), w = canvas.width, h = canvas.height;
+  const px = x => 45 + (x + .23) / 1.8 * (w - 90), py = y => h - 35 - (y + .875) / 1.25 * (h - 60);
+  ctx.clearRect(0,0,w,h);ctx.fillStyle='#edf0e7';ctx.fillRect(0,0,w,h);
+  ctx.strokeStyle='#bdcfc3';ctx.lineWidth=1;ctx.strokeRect(45,25,w-90,h-60);
+  const colors={pending:'#d8dfd7',rejected:'#626e69',home_blocked:'#b9a385',endpoint:'#8bb8ba',missed:'#ec7657',captured:'#d49a31',qualified:'#128b8c'};
+  for (const row of progress.cells) {
+    const x=px(row.xy[0]),y=py(row.xy[1]);ctx.beginPath();ctx.arc(x,y,9,0,Math.PI*2);ctx.fillStyle=colors[row.state];ctx.fill();
+    ctx.fillStyle='#355654';ctx.font='10px sans-serif';ctx.textAlign='center';ctx.fillText(row.id.replace('grid-',''),x,y-14);
+  }
+  for (const [x,label] of [[0,'10'],[1.33731,'14']]) { ctx.fillStyle='#455f60';ctx.fillRect(px(x)-9,py(0)-9,18,18);ctx.font='bold 10px sans-serif';ctx.fillStyle='#fff';ctx.fillText(label,px(x),py(0)+4); }
+  ctx.fillStyle='#607c74';ctx.textAlign='left';ctx.font='11px sans-serif';ctx.fillText('Tabletop map · bucket centers · square markers = arm bases',50,17);
+  const fraction=g=>g && Number.isFinite(g.captures) && Number.isFinite(g.attempts) ? `${g.captures}/${g.attempts}`:'—';
+  expansionTable($('correctedGridCells'),['Position','Bucket X / Y (mm)','Endpoint options','Search captures / requests','Nominal · fresh per source','Status'],progress.cells.map(row=>[
+    row.id,row.xy.map(x=>(1000*x).toFixed(1)).join(' / '),shown(row.eligible),row.attempts===null?'—':row.attempts===0?'No native shot':`${shown(row.captures)} / ${row.attempts}`,
+    row.confirmations.map(g=>`${fraction(g.nominal)} · ${fraction(g.fresh)}`).join('; ')||'—',row.qualified?'Robust and connected':row.reason,
+  ]));
+}
 function showContactStudy() {
   const study = contactStudy(report);
   $('contactRepeatability').hidden = !study;
@@ -485,7 +525,7 @@ function showCoverage() {
   if (evaluation.layouts !== undefined) pairs.push(['Frozen test layouts', evaluation.layouts]);
   if (pairs.length) addMetrics(pairs, $('studySummary'));
   else $('studySummary').textContent = report.summary ?? 'Study metrics will appear when published. Unresolved cells remain visible.';
-  showComparison(); showBankComparison(); showExpansion(); showStableIk(); showContactStudy();
+  showComparison(); showBankComparison(); showExpansion(); showStableIk(); showContactStudy(); showCorrectedGrid();
 }
 async function loadStatus() {
   try {
