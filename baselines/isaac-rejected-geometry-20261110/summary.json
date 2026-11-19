@@ -1,0 +1,253 @@
+{
+  "schema": "sircus-rejected-geometry-summary-v1",
+  "status": "geometry_only_audit_passed",
+  "seed": 20261122,
+  "counts": {
+    "requested": 6344,
+    "unchanged": 348,
+    "adjusted": 4175,
+    "rejected": 1821
+  },
+  "originally_geometry_or_path": {
+    "requested": 5996,
+    "unchanged": 0,
+    "adjusted": 4175,
+    "rejected": 1821
+  },
+  "originally_native_motion_or_settling": {
+    "requested": 348,
+    "unchanged": 348,
+    "adjusted": 0,
+    "rejected": 0
+  },
+  "by_original_reason": {
+    "arm_table_proxy_overlap_Arm14": {
+      "requested": 4,
+      "unchanged": 0,
+      "adjusted": 0,
+      "rejected": 4
+    },
+    "board_bucket_proxy_overlap": {
+      "requested": 27,
+      "unchanged": 0,
+      "adjusted": 7,
+      "rejected": 20
+    },
+    "board_table_proxy_overlap": {
+      "requested": 41,
+      "unchanged": 0,
+      "adjusted": 0,
+      "rejected": 41
+    },
+    "endpoint_ik_unresolved_Arm10": {
+      "requested": 2186,
+      "unchanged": 0,
+      "adjusted": 1727,
+      "rejected": 459
+    },
+    "endpoint_ik_unresolved_Arm14": {
+      "requested": 2479,
+      "unchanged": 0,
+      "adjusted": 1507,
+      "rejected": 972
+    },
+    "endpoints_not_settled": {
+      "requested": 13,
+      "unchanged": 13,
+      "adjusted": 0,
+      "rejected": 0
+    },
+    "outer_link_length_bound": {
+      "requested": 1259,
+      "unchanged": 0,
+      "adjusted": 934,
+      "rejected": 325
+    },
+    "setup_motion_not_quiet": {
+      "requested": 147,
+      "unchanged": 147,
+      "adjusted": 0,
+      "rejected": 0
+    },
+    "setup_transit_incomplete": {
+      "requested": 188,
+      "unchanged": 188,
+      "adjusted": 0,
+      "rejected": 0
+    }
+  },
+  "first_geometry_reasons": {
+    "admitted": 348,
+    "arm_table_proxy_overlap_Arm14": 4,
+    "board_bucket_proxy_overlap": 27,
+    "board_table_proxy_overlap": 41,
+    "endpoint_ik_unresolved_Arm10": 2186,
+    "endpoint_ik_unresolved_Arm14": 2479,
+    "outer_link_length_bound": 1259
+  },
+  "remaining_geometry_reasons": {
+    "arm_table_proxy_overlap_Arm14": 5,
+    "board_bucket_proxy_overlap": 105,
+    "board_table_proxy_overlap": 181,
+    "endpoint_ik_unresolved_Arm10": 445,
+    "endpoint_ik_unresolved_Arm14": 1077,
+    "outer_link_length_bound": 8
+  },
+  "repair_terminations": {
+    "not_attempted": 348,
+    "optimizer_returned": 5996
+  },
+  "solver_outcomes_among_remaining": {
+    "optimizer_function_budget_exhausted": 1738,
+    "optimizer_returned_but_final_geometry_not_admitted": 83
+  },
+  "adjustment_size": {
+    "metric": "L2 of physical-setting deltas divided by each original action span; exact setting inequality defines adjusted",
+    "min": 6.215312065331388e-05,
+    "median": 0.11313441441059296,
+    "p90": 0.17098503396851447,
+    "max": 0.22303119652475775,
+    "absolute_physical_delta": {
+      "bearing_offset_rad": {
+        "median": 0.17876142364751502,
+        "max": 0.6283185276352481
+      },
+      "radius_m": {
+        "median": 0.019693408001315138,
+        "max": 0.09199999999999997
+      },
+      "height_m": {
+        "median": 0.017569741454814103,
+        "max": 0.04599999997816212
+      },
+      "gap_m": {
+        "median": 0.015190180992876834,
+        "max": 0.04799999999999993
+      },
+      "tilt_rad": {
+        "median": 0.030011411416485556,
+        "max": 0.06981317007908483
+      }
+    },
+    "percentile_method": "nearest_rank"
+  },
+  "original_bindings": {
+    "audit_sha256": "cec9cff0a6de59b07dd35de3342ee00bc4106d4801edc0237c570e006aedc1c8",
+    "progress_sha256": "ed015c8219bbb160d72ca0759328c5ec7e48981cc71c33a2052300855ac60ff9",
+    "experiment_sha256": "77afe173a07917dd87ce43f37809a9ac6ef99beebd7e8e35f703c0e5cf1e3a26",
+    "split_manifest_sha256": "f46c690d80bd2079b27c8d3c72267c39acf1cee61fb4625f37994bff92292785",
+    "checkpoint_sha256": "57d7658e9ed2f72ad09cf4e8523ab497ccbe0708364f1b8ec4a4c5c1aef1fe9f",
+    "binding_sha256": "a739902c75a2cd1496c4f85d85bb94378ec1aa6c1e1afd013f0974d9d7dc4457",
+    "contract_sha256": "291ca91848bddff8f812b59e790ac565657982a708dd9dcb7c7281136a87544f"
+  },
+  "original_source": {
+    "commit": "df8de16709852880239b8234869bdc65c6f7e957",
+    "archive_sha256": "6dcaa4199bb2df890579fe2fde245f1a48b33deae5869c70399cce4cf8712905",
+    "geometry_fingerprint": "63362ef37a93881f769b39d1ee7456335f1cc7bf5db04ffa7e548ce9697455bf",
+    "camera_sha256": "a7967c072b8f949318b43a510235d503c81c21e05f433670a0ce92a7af385ede",
+    "scoring_version": "sircus-isaac-fixed-shot-v5+board-route"
+  },
+  "rejected_export_sha256": "9f48315598ff581ca43f85a82ff9feaf579da9b58035f97aa642530f8d10e1ad",
+  "rejected_export_fingerprint": "ded7c9eb70a85bd9fd49f944be27a67c4b5114c0741be4be6dbbb494bf3b53fd",
+  "successful_export_sha256": "6053ff58e026bb288f9a9f18fd6700ee32ba613af771318d006def753e580233",
+  "frozen_layer_sha256": "c6489a44e268610470edd2a4c37bd4cfb1a78c89989883113f76996bd8fbad23",
+  "frozen_geometry_reader_sha256": "a76de94d28e01594fb9d399ee56caf844e6a30fc20bb428f67257a1391b63ab3",
+  "source_sha256": {
+    "continuous_feasibility.py": "4a7ce280ae65f1c08bad711abefab03c5cc949736bc47c8058b2798ac0acb5e4",
+    "expanded_pose_menu.py": "5bfbb470fbd395126880b77a8ca136768eda7d844d89afd924935bfb506e2ea5",
+    "feasibility_contract.py": "90164e35b74f8732aaa374bee89f7c428bbf2c5f040453eeb69bd8c9378d368f",
+    "prepare_assets.py": "d7517e4f1f350bd7f48e5c23e48fc4dc4c63882b6b18ce4502bc8c5fd1999d93",
+    "robust_ik.py": "c3e5ce8673042c2fefbb784e825b34b30bb334a1ea3f9896cf0de0f975c71ee9",
+    "expanded_pose_native.py": "b5092c3003419c04f569fe4475064a0ea92f907efe5a96cbcbb0872898690d37",
+    "joint_feasibility.py": "7fdf85de0d86fbb3bba161fd280d9e2939983e8d81687a42cdf40c5921803b70",
+    "settled_transit.py": "08e37329978f3acbe4476ebaf5513cfa28539985c806daa4a071596d381dd0a7",
+    "shot_benchmark_reach_audit.py": "687d82f42553efe5a03094451da13550ca029d97307f9136167ab5d5a5ec5fc9",
+    "candidate_train_evidence.py": "c82f6469619f787ee452f0e4591d9903490891e6bb6ab46568b0606509479563",
+    "continuous_geometry_layer.py": "c6489a44e268610470edd2a4c37bd4cfb1a78c89989883113f76996bd8fbad23",
+    "continuous_geometry_analysis.py": "dac69494d90831c0b36a0205ea98ce0c48612f008501d2fd3157f0c4203019c3",
+    "continuous_geometry_audit.py": "a76de94d28e01594fb9d399ee56caf844e6a30fc20bb428f67257a1391b63ab3",
+    "rejected_train_evidence.py": "b09ed74098649051853b425c0c7d1066628926872b5c64792cbce46cbdd674c6",
+    "rejected_geometry_analysis.py": "b16588975eaf79be3adc0b9a95d0c293d9358600d748e9cc992d1fc2c8e93154",
+    "rejected_geometry_audit.py": "ab2651c73b1667ba4376200525f6ecb4160a37eb3500b0f6bb8e6e21b72fd02f"
+  },
+  "procedure": {
+    "verified_original_train_packets": 289,
+    "verified_original_train_requests": 10000,
+    "historical_population": "All original rejected paid TRAIN proposals across the training history; not final-policy predictions",
+    "train_positions": 35,
+    "ik_seeds": "Actual measured starts for each original request, both arms",
+    "historical_endpoint_answers_used": false,
+    "candidate_bank_used": false,
+    "model_loaded": false,
+    "held_out_shot_files_read": 0,
+    "repair": {
+      "attempts": 1,
+      "max_nfev": 24,
+      "max_residual_evaluations": 512,
+      "max_normalized_adjustment_per_component": 0.1
+    },
+    "durable_records": 6344,
+    "profile_records_reused": 9
+  },
+  "runtime": {
+    "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1"
+  },
+  "resources": {
+    "geometry_invocation_wall_s": 1400.8777880411362,
+    "completed_geometry_worker_cpu_s": 5508.7241469999935,
+    "coordinator_cpu_s": 27.816570999999996,
+    "workers": 4,
+    "invocations": 2,
+    "scope": "Profile plus full geometry-computation invocation receipts; includes each completed row once. Input loading, resumed-row verification, final report assembly and independent audit are outside this wall/CPU scope."
+  },
+  "independent_audit": {
+    "status": "passed",
+    "fingerprint": "e5181d828b85b858966e79813cccbff32c7592706d53111c43d14d2d010f3c31",
+    "analysis_fingerprint": "b638103444d46f3dbd4c49a56f0acb5e06890ec967a5edd6b63b46c143760d91"
+  },
+  "artifact_sha256": {
+    "analysis.json": "96cb7c9bbbfd85e2d09292ae26d94a5d8db857426e3e058c3f34879ecd1be0a8",
+    "audit.json": "a369503d472fb545d7775f8f5d2185d6292c7e56fe8ab1d53659545078852901",
+    "manifest.json": "7d0c7e0139cf4558d41b6f3bb0e1d94e5b80f376ddc103f292023bb3043ed017"
+  },
+  "invocation_sha256": {
+    "000000.json": "c07369a0bd800814a7e73e41cb2a9859965d5be1d66ff8cd69ea99d40554b8b0",
+    "000001.json": "1c41bc1f987e37cc1e6db971be37521430a85122f83ba520bf76e0e0c68fb4f0"
+  },
+  "durable_row_inventory_sha256": "147af70a7d3ed3936c5ff2047ebb58af89776ab5362d65a2ad7eb9852313bf7d",
+  "protected_original_files_rechecked": 445,
+  "protected_original_files_changed": 0,
+  "validation": {
+    "focused_rejection_cases": 38,
+    "focused_skips": 0,
+    "full_repository": {
+      "isaac_cases": 1400,
+      "isaac_optional_skips": 121,
+      "focused_rejection_cases": 38,
+      "focused_skips": 0,
+      "physical_mock_cases": 34,
+      "simulation_cases": 5,
+      "node_cases": 59,
+      "numerical_scripts": 9,
+      "log_sha256": "0733b8988b235571a73adf791ae8f0b4329744c3800c79bfd22d2393ccf3c0b4"
+    }
+  },
+  "policy_optimizer_updates": 0,
+  "new_native_shots": 0,
+  "simulator_starts": 0,
+  "native_execution_verified": false,
+  "capture_replayed": false,
+  "release_authorized": false,
+  "frozen_benchmark_changed": false,
+  "limits": [
+    "Geometry admission or adjustment is not native movement, release, capture or generalization improvement.",
+    "The 348 original native movement/settling declines remain untested dynamically, including any whose geometry passes.",
+    "A failed finite local repair does not prove a target or every nearby setting impossible.",
+    "Inherited enclosing-volume, capsule and sampled-path checks are proxies rather than full mesh/self-collision certificates.",
+    "No model was loaded, selected, trained or promoted; no frozen benchmark row was rescored or changed."
+  ],
+  "fingerprint": "b7b6faf65b25925a2b0fc71be9c645aba584bf2ef519dfdb1efbfda2329adf38"
+}
