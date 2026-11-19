@@ -1,0 +1,41 @@
+<!-- Additive read-only fragment. Preserve all historical panels and evidence. -->
+<!--PHYSICS_ENSEMBLE_STYLE-->
+<section id="physicsEnsembleStudy" class="physics-ensemble-panel" hidden>
+  <p class="physics-ensemble-eyebrow">STATE-BASED PHYSICS ENSEMBLE · 64 SUBSTEPS · FRESH MATCHED LAYOUTS</p>
+  <h2>Predict the bounce. Check it in native simulation.</h2>
+  <p data-physics-ensemble="connection" class="physics-ensemble-small" role="status">Waiting for a read-only snapshot.</p>
+  <p data-physics-ensemble="status" class="physics-ensemble-status"></p>
+  <p data-physics-ensemble="queue" class="physics-ensemble-small" role="status"></p>
+  <p data-physics-ensemble="scope" class="physics-ensemble-note"></p>
+  <p class="physics-ensemble-small">Five state-based physics networks learn from the existing 1,024 parent TRAIN requests. CPU fitting can finish while native evaluation is waiting for the 4090. Queuing leaves existing workloads, including Isaac, untouched. No new TRAIN shots are collected. This is not a point-cloud model or video world-action model.</p>
+  <h3>Data, model and native progress</h3>
+  <div data-physics-ensemble="progress" class="physics-ensemble-scroll" tabindex="0" role="region" aria-label="Separate model-fit and native study progress"></div>
+  <p data-physics-ensemble="dataset" class="physics-ensemble-small"></p>
+  <p data-physics-ensemble="features" class="physics-ensemble-small"></p>
+  <div data-physics-ensemble="target-support" class="physics-ensemble-scroll" tabindex="0" role="region" aria-label="Observed training target support"></div>
+  <p data-physics-ensemble="artifact" class="physics-ensemble-small"></p>
+  <canvas data-physics-ensemble="loss" width="840" height="240" role="img" aria-label="Observed physics ensemble fitting losses"></canvas>
+  <p data-physics-ensemble="loss-caption" class="physics-ensemble-small"></p>
+  <div data-physics-ensemble="member-losses" class="physics-ensemble-scroll" tabindex="0" role="region" aria-label="Last reported per-member bootstrap and full training losses"></div>
+  <h3>Model prediction accuracy</h3>
+  <div data-physics-ensemble="metrics" class="physics-ensemble-scroll" tabindex="0" role="region" aria-label="Model errors versus observed native simulation targets"></div>
+  <p class="physics-ensemble-small">Prediction error is measured only where its target is observed. Support counts evaluated shots across methods, not independent bucket positions. The requested-capture score is uncalibrated. Modeled native-execution likelihood is not verified feasibility; strict geometry admission stays separate. Ensemble disagreement is not a guaranteed confidence bound. Predicted aperture distance is the closest first-flight 3D distance to the opening, not signed rim-crossing error; reported distance errors are converted back to meters. Rebound velocity uses bucket-forward, lateral and vertical axes.</p>
+  <h3>Same 60 new TEST bucket positions</h3>
+  <p data-physics-ensemble="result" class="physics-ensemble-note" data-state="unknown" role="status">Unverified.</p>
+  <div data-physics-ensemble="comparison" class="physics-ensemble-scroll" tabindex="0" role="region" aria-label="BC PPO and ensemble results with full requested-shot denominators"></div>
+  <div data-physics-ensemble="paired" class="physics-ensemble-scroll" tabindex="0" role="region" aria-label="Paired capture differences on the same positions"></div>
+  <p class="physics-ensemble-small">All 252 VAL/TEST decisions are frozen before any evaluation. The fixed model is not selected or tuned using VAL outcomes. Ensemble selection ranks 16 candidates with the model and screens its top 4 with strict geometry; BC/PPO predict directly. This unequal planning budget is explicit. None searches native ball flights at evaluation.</p>
+  <p class="physics-ensemble-small">Each method gets one nominal TEST request per layout. Setup rejects and flight misses remain in the 60-shot denominator. Capture requires a board bounce, whole-ball entry and one continuous second retained. Rim-assisted captures count; clean is a subset. Controls are not TEST successes.</p>
+  <h3>Per-position predictions and observed outcomes</h3>
+  <label class="physics-ensemble-small">Method <select data-physics-ensemble="method" aria-label="Choose evaluation method"><option value="ensemble">Physics ensemble</option><option value="bc">Saved BC</option><option value="ppo">Saved PPO</option></select></label>
+  <canvas data-physics-ensemble="coverage" width="840" height="340" role="img" aria-label="Actual outcomes at the prescribed test positions"></canvas>
+  <p data-physics-ensemble="coverage-caption" class="physics-ensemble-small"></p>
+  <div data-physics-ensemble="positions" class="physics-ensemble-scroll" tabindex="0" role="region" aria-label="Nominal height tilt gap model predictions and measured outcomes"></div>
+  <h3>Recorded flight · model prediction shown separately when available</h3>
+  <label class="physics-ensemble-small">Actual native trial <select data-physics-ensemble="trace-select" aria-label="Choose a saved native flight"></select></label>
+  <canvas data-physics-ensemble="trace" width="840" height="280" role="img" aria-label="Actual native trajectory with separately labeled supplied model prediction"></canvas>
+  <p data-physics-ensemble="trace-caption" class="physics-ensemble-small"></p>
+  <p data-physics-ensemble="audit" class="physics-ensemble-note"></p>
+  <p class="physics-ensemble-small">Privileged simulator geometry and prescribed held endpoints only. No driven arm transit, grasping, point-cloud perception, physical validation, noise robustness or 128-substep qualification. Earlier policies and historical 128 failures are unchanged. These finite positions are not an all-table guarantee. This read-only panel never trains, starts a solver, activates a policy or changes a service.</p>
+</section>
+<!--PHYSICS_ENSEMBLE_SCRIPT-->

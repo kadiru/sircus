@@ -1,0 +1,338 @@
+{
+  "version": "sircus-physics-ensemble-training-publication-v1",
+  "status": "model_fit_verified_native_comparison_pending",
+  "source_commit": "fa554312b25827315c6eefe56c19c0de42606b0c",
+  "source_archive_sha256": "22a218528ddb576167385a2f5365db9251e48689629aa22f9920ef750623d898",
+  "contract_fingerprint": "90a7d5b7e3d1fb1e738a36a7cf30930116516da0d6d6435c06b98eb97be8c376",
+  "source_checkpoint_sha256": "0f8d00e59d7b9c07056a74b9f05f8a850ec46603b67a6f96489c90e31ebd40b4",
+  "source_dataset_sha256": "49fd509f730c491358ba114b65e36175e1f5e3dc65d7dcbe8c8a8acc725830b7",
+  "training": {
+    "status": "completed",
+    "ensemble_members": 5,
+    "fit_device": "cpu",
+    "fit_steps": 600,
+    "selection_basis": "Prespecified final fixed ensemble; no validation tuning",
+    "curves": [
+      {
+        "member": 0,
+        "step": 0,
+        "train_loss": 5.2609333992004395,
+        "full_train_loss": 5.289430618286133
+      },
+      {
+        "member": 0,
+        "step": 100,
+        "train_loss": 1.5235118865966797,
+        "full_train_loss": 1.4978582859039307
+      },
+      {
+        "member": 0,
+        "step": 200,
+        "train_loss": 0.9344758987426758,
+        "full_train_loss": 0.8934339880943298
+      },
+      {
+        "member": 0,
+        "step": 300,
+        "train_loss": 0.759734034538269,
+        "full_train_loss": 0.7160824537277222
+      },
+      {
+        "member": 0,
+        "step": 400,
+        "train_loss": 0.6296043992042542,
+        "full_train_loss": 0.5915024876594543
+      },
+      {
+        "member": 0,
+        "step": 500,
+        "train_loss": 0.5065009593963623,
+        "full_train_loss": 0.4749583303928375
+      },
+      {
+        "member": 0,
+        "step": 600,
+        "train_loss": 0.4158520996570587,
+        "full_train_loss": 0.38832610845565796
+      },
+      {
+        "member": 1,
+        "step": 0,
+        "train_loss": 5.950395107269287,
+        "full_train_loss": 5.9426469802856445
+      },
+      {
+        "member": 1,
+        "step": 100,
+        "train_loss": 1.7270935773849487,
+        "full_train_loss": 1.7122517824172974
+      },
+      {
+        "member": 1,
+        "step": 200,
+        "train_loss": 0.9874334335327148,
+        "full_train_loss": 0.9588627815246582
+      },
+      {
+        "member": 1,
+        "step": 300,
+        "train_loss": 0.792985737323761,
+        "full_train_loss": 0.7700991630554199
+      },
+      {
+        "member": 1,
+        "step": 400,
+        "train_loss": 0.6693287491798401,
+        "full_train_loss": 0.6575334072113037
+      },
+      {
+        "member": 1,
+        "step": 500,
+        "train_loss": 0.5317772626876831,
+        "full_train_loss": 0.5310302376747131
+      },
+      {
+        "member": 1,
+        "step": 600,
+        "train_loss": 0.4049038589000702,
+        "full_train_loss": 0.4140157103538513
+      },
+      {
+        "member": 2,
+        "step": 0,
+        "train_loss": 5.785069465637207,
+        "full_train_loss": 5.785951137542725
+      },
+      {
+        "member": 2,
+        "step": 100,
+        "train_loss": 1.554877519607544,
+        "full_train_loss": 1.5672552585601807
+      },
+      {
+        "member": 2,
+        "step": 200,
+        "train_loss": 0.9474223256111145,
+        "full_train_loss": 0.9603276252746582
+      },
+      {
+        "member": 2,
+        "step": 300,
+        "train_loss": 0.7148249745368958,
+        "full_train_loss": 0.7266061902046204
+      },
+      {
+        "member": 2,
+        "step": 400,
+        "train_loss": 0.5700586438179016,
+        "full_train_loss": 0.5831186771392822
+      },
+      {
+        "member": 2,
+        "step": 500,
+        "train_loss": 0.4562346041202545,
+        "full_train_loss": 0.46643704175949097
+      },
+      {
+        "member": 2,
+        "step": 600,
+        "train_loss": 0.3776814043521881,
+        "full_train_loss": 0.3873349130153656
+      },
+      {
+        "member": 3,
+        "step": 0,
+        "train_loss": 5.5976080894470215,
+        "full_train_loss": 5.6259636878967285
+      },
+      {
+        "member": 3,
+        "step": 100,
+        "train_loss": 1.5016354322433472,
+        "full_train_loss": 1.508985161781311
+      },
+      {
+        "member": 3,
+        "step": 200,
+        "train_loss": 0.9141532182693481,
+        "full_train_loss": 0.9328124523162842
+      },
+      {
+        "member": 3,
+        "step": 300,
+        "train_loss": 0.7517191767692566,
+        "full_train_loss": 0.7687174677848816
+      },
+      {
+        "member": 3,
+        "step": 400,
+        "train_loss": 0.6382659673690796,
+        "full_train_loss": 0.6516055464744568
+      },
+      {
+        "member": 3,
+        "step": 500,
+        "train_loss": 0.5105100274085999,
+        "full_train_loss": 0.5281489491462708
+      },
+      {
+        "member": 3,
+        "step": 600,
+        "train_loss": 0.40506136417388916,
+        "full_train_loss": 0.4310169219970703
+      },
+      {
+        "member": 4,
+        "step": 0,
+        "train_loss": 6.23672342300415,
+        "full_train_loss": 6.14130973815918
+      },
+      {
+        "member": 4,
+        "step": 100,
+        "train_loss": 1.52386474609375,
+        "full_train_loss": 1.511423110961914
+      },
+      {
+        "member": 4,
+        "step": 200,
+        "train_loss": 0.9708437919616699,
+        "full_train_loss": 0.9462168216705322
+      },
+      {
+        "member": 4,
+        "step": 300,
+        "train_loss": 0.8039185404777527,
+        "full_train_loss": 0.7595324516296387
+      },
+      {
+        "member": 4,
+        "step": 400,
+        "train_loss": 0.6779492497444153,
+        "full_train_loss": 0.6304996013641357
+      },
+      {
+        "member": 4,
+        "step": 500,
+        "train_loss": 0.5472408533096313,
+        "full_train_loss": 0.5108100771903992
+      },
+      {
+        "member": 4,
+        "step": 600,
+        "train_loss": 0.4388389587402344,
+        "full_train_loss": 0.41071203351020813
+      }
+    ],
+    "artifact": {
+      "sha256": "0f8d00e59d7b9c07056a74b9f05f8a850ec46603b67a6f96489c90e31ebd40b4",
+      "version": "sircus-physics-ensemble-model-v1",
+      "dataset_sha256": "155514da21b39ab9c54cb0540ddf19c98137a88965d63b0fa4e2af9808e36ca0",
+      "ensemble_members": 5,
+      "fit_device": "cpu",
+      "fit_steps": 600
+    },
+    "input_features": [
+      "board_x_m",
+      "board_y_m",
+      "board_height_m",
+      "tilt_deg",
+      "gap_m",
+      "bucket_x_m",
+      "bucket_y_m"
+    ],
+    "target_features": [
+      "native_execution",
+      "board_bounce",
+      "whole_ball_entry",
+      "capture",
+      "retention_fraction",
+      "log_first_flight_opening_distance",
+      "rebound_forward_m_s",
+      "rebound_lateral_m_s",
+      "rebound_vertical_m_s"
+    ]
+  },
+  "dataset": {
+    "train_requests": 1024,
+    "train_native_releases": 887,
+    "train_labels": 1024,
+    "train_layouts": 35,
+    "source_version": "sircus-policy64-bc-ppo-v1",
+    "source_contract_fingerprint": "d30ad91111cb8beb26438f2271357a103daf50d0399ac3646f3b7f163d87f02e",
+    "source_report_sha256": "637731856cba291b57a1119b32b56fe97a3c4cbc000d55db4bfb1793c6757cc3",
+    "source_audit_sha256": "4dc317e0697e426a4708c3c997f8671d97b1f49de6bd4450c56e6487a6e93ac3",
+    "excluded_prior_layouts": 169,
+    "target_support": [
+      1024,
+      886,
+      886,
+      886,
+      886,
+      886,
+      886,
+      886,
+      886
+    ],
+    "labels_scope": "Only1024 current parent TRAIN requests; no historical6144, held-out, control or diagnosis labels fitted",
+    "train_split_scope": "Existing35 TRAIN layouts; new24VAL60TEST excluded from all prior layouts"
+  },
+  "protocol": {
+    "substeps": 64,
+    "methods": [
+      "bc",
+      "ppo",
+      "ensemble"
+    ],
+    "historical_current_train_requests": 1024,
+    "new_train_requests": 0,
+    "validation_layouts": 24,
+    "test_layouts": 60,
+    "validation_requests": 72,
+    "test_requests": 180,
+    "control_requests": 12,
+    "maximum_fresh_requests": 264,
+    "noise": false,
+    "no_test_flight_search": true,
+    "fixed_model_no_validation_selection": true,
+    "minimum_split_distance_m": 0.01,
+    "validation_seed": 20261603,
+    "test_seed": 20261604,
+    "model_seeds": [
+      20261611,
+      20261612,
+      20261613,
+      20261614,
+      20261615
+    ],
+    "fit_steps": 600,
+    "fit_lr": 0.001,
+    "fit_device": "cpu",
+    "ensemble_members": 5,
+    "candidates": 16,
+    "maximum_geometry_checks": 4,
+    "selection": "Fixed final ensemble; no validation tuning; all252 evaluation predictions frozen before any evaluation outcomes",
+    "score": "mean(admission_probability*capture_probability) -0.25*std(admission_probability*capture_probability) -0.05*mean(min(aperture_distance_m,2))",
+    "training_scope": "Only1024 authenticated current parent TRAIN rows; all invalid physical targets masked; no historical6144 labels or held-out/control/diagnostic labels",
+    "scope": "Offline BC/PPO-seeded state-based physics ensemble with model-only finite candidate ranking and at most four geometry-only admission checks versus unchanged saved BC/PPO. Fresh nominal held-out layouts;64 substeps only. Extra candidate/geometry inference and unequal historical exposure are disclosed, not an equal-budget architecture ablation. No test flight search, noise,128 convergence, perception,WAM,grasp,driven transit or physical claim."
+  },
+  "training_proof": {
+    "version": "sircus-physics-ensemble-training-preflight-v1",
+    "status": "passed",
+    "scope": "Independent existing TRAIN targets/masks and five-member600-step fit replay only",
+    "full_study_audit": false,
+    "native_evaluation_verified": false,
+    "predictions_verified": false,
+    "checks_count": 126235,
+    "auditor_sha256": "5feab02454843765abe590b843bc85744db58f27496d7b72f4571aecf4577ad1",
+    "cuda_initialized": false
+  },
+  "training_proof_sha256": "c37fd21a5877252b70a5379358cff3e1962aabec0de28a93ab44eb9f4354617d",
+  "native_evaluation_verified": false,
+  "test_results": null,
+  "limits": [
+    "Training loss is not a native capture rate",
+    "Fresh native comparison pending; no model winner claimed",
+    "BC/PPO-seeded, not cold-start or equal-inference-budget"
+  ]
+}

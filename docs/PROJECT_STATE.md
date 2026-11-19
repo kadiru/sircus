@@ -1,5 +1,40 @@
 # Project state
 
+## Learned physics ensemble — completed, November 6, 2026
+
+- [Checkpoint, results and evidence](../baselines/mjlab-physics-ensemble-20261106/README.md),
+  [protocol](../sircus/mjlab/PHYSICS_ENSEMBLE.md). Five forward models fit only the
+  authenticated 1,024 current TRAIN requests. All 264 evaluation/control requests
+  completed: 204 native releases, 60 setup rejects and zero physics-invalid
+  outcomes. Full independent audit passed **897,304 checks**; positive/native-miss
+  controls passed before and after. Acquired native time was 1,028.1 seconds,
+  excluding CPU preparation, queueing and the later audit.
+- On the same 60 TEST layouts: BC **23 captures / 3 clean / 16 rejects**;
+  PPO **26 / 5 / 15**; ensemble **24 / 3 / 11**. The 113 aggregate captures include
+  diagnostic validation and controls, so they are not a TEST success rate.
+  This single nominal cohort does not establish a convincing method winner.
+- All 252 forecasts were frozen before any evaluation; no validation tuning or
+  native-flight search. Ensemble ranks 16 candidates and screens at most four
+  geometry proofs; saved actors output one action. Different historical exposure
+  and extra inference remain explicit, not an equal-budget or cold-start claim.
+- More admission did not solve flight accuracy: all 25 ensemble native misses
+  lacked whole-ball entry. Pooled across 138 native TEST flights, first-flight
+  opening-distance prediction MAE was 65.2 mm. Capture scores and disagreement
+  remain uncalibrated; model agreement is not a reliability guarantee.
+- Training-only (126,235 checks) and planning-only (683,714 checks) summaries remain
+  historical partial-proof snapshots with native verification false. The new
+  completed result binds the separate full audit; those earlier proofs are not
+  relabeled. No old policy, result or scene fingerprint was replaced.
+- Fixed64, privileged geometry and held endpoints only. Existing 128 failures and
+  provisional bucket dimensions remain. No perception, video WAM, grasping,
+  driven-transit, noise or physical validation claim. Isaac, the 4070 and viewer
+  were left untouched; the additive `#physicsEnsembleStudy` panel and interactive
+  solver remain separate.
+- Next: inspect bounded high-score misses and measured rebound/aperture errors
+  before more training. These 60 TEST positions become development data if used
+  for tuning; changed selectors need newly frozen held-out layouts.
+
+
 ## Fixed64 PPO versus imitation diagnosis — completed, November 6, 2026
 
 - [Protocol](../sircus/mjlab/POLICY64_DIAGNOSIS.md),
