@@ -1,0 +1,11 @@
+{
+  "parameter": "drop_gap_m",
+  "parameter_index": 4,
+  "mode": "restore_matched_parent_coordinate",
+  "contexts": [
+    "recovery-test-r0-c5-n1",
+    "recovery-test-r0-c6-n1"
+  ],
+  "diagnosis_sha256": "511e9f82004af0d603628e25adf8fab71284faa8f11de9307b4c8a611d049ab7",
+  "description": "Restore only original recovery-BC drop gap to the matched captured parent-BC gap for the two contact-free flight losses. Their gaps grew approximately30.567mm and37.745mm. Board X/Y, board height and tilt remain exact original recovery values, not values from the earlier height intervention. The absolute ball-release center height changes by the same gap delta. This isolated shot-coordinate hypothesis is tested with matched exact parent/recovery repeats; no flight improvement is presumed."
+}

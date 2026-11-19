@@ -1,0 +1,335 @@
+{
+  "version": "sircus-regression-drop-gap-correction-v1",
+  "status": "completed",
+  "contract_fingerprint": "103355e9de55b139eca5797804b015e53baad5256567330657951caec45b6ea6",
+  "report_sha256": "dc18617048d35a60665974d9733e9efb3d66e5682a55c61ed3139bcbda64fd35",
+  "expected_requests": 36,
+  "elapsed_s": 170.19822788902093,
+  "training": false,
+  "posthoc_development": true,
+  "rule": {
+    "parameter": "drop_gap_m",
+    "parameter_index": 4,
+    "mode": "restore_matched_parent_coordinate",
+    "description": "Restore only original recovery-BC drop gap to the matched captured parent-BC gap for the two contact-free flight losses. Their gaps grew approximately30.567mm and37.745mm. Board X/Y, board height and tilt remain exact original recovery values, not values from the earlier height intervention. The absolute ball-release center height changes by the same gap delta. This isolated shot-coordinate hypothesis is tested with matched exact parent/recovery repeats; no flight improvement is presumed.",
+    "contexts": [
+      "recovery-test-r0-c5-n1",
+      "recovery-test-r0-c6-n1"
+    ],
+    "diagnosis_sha256": "511e9f82004af0d603628e25adf8fab71284faa8f11de9307b4c8a611d049ab7"
+  },
+  "counts": {
+    "attempts": 36,
+    "captures": 24,
+    "native_releases": 36,
+    "setup_rejections": 0,
+    "native_misses": 12,
+    "invalid_physics": 0,
+    "robot_contact_shots": 6
+  },
+  "counts_by_variant": {
+    "parent_exact": {
+      "attempts": 6,
+      "captures": 6,
+      "native_releases": 6,
+      "setup_rejections": 0,
+      "native_misses": 0,
+      "invalid_physics": 0,
+      "robot_contact_shots": 0
+    },
+    "recovery_exact": {
+      "attempts": 6,
+      "captures": 0,
+      "native_releases": 6,
+      "setup_rejections": 0,
+      "native_misses": 6,
+      "invalid_physics": 0,
+      "robot_contact_shots": 0
+    },
+    "corrected": {
+      "attempts": 6,
+      "captures": 6,
+      "native_releases": 6,
+      "setup_rejections": 0,
+      "native_misses": 0,
+      "invalid_physics": 0,
+      "robot_contact_shots": 0
+    }
+  },
+  "cases": [
+    {
+      "context_id": "recovery-test-r0-c5-n1",
+      "bucket_xy_m": [
+        1.0532821972317188,
+        -0.6192877290708148
+      ],
+      "parent_values": [
+        0.6423936910071795,
+        -0.19696818129175686,
+        0.42882192610008596,
+        31.74276726405379,
+        0.10343122140848612
+      ],
+      "recovery_values": [
+        0.6481643483015345,
+        -0.1966980652002992,
+        0.4248992377460701,
+        31.477651850899182,
+        0.13399849772597527
+      ],
+      "corrected_values": [
+        0.6481643483015345,
+        -0.1966980652002992,
+        0.4248992377460701,
+        31.477651850899182,
+        0.10343122140848612
+      ],
+      "variants": {
+        "parent_exact": {
+          "attempts": 3,
+          "captures": 3,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "robot_contact_shots": 0
+        },
+        "recovery_exact": {
+          "attempts": 3,
+          "captures": 0,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 3,
+          "invalid_physics": 0,
+          "robot_contact_shots": 0
+        },
+        "corrected": {
+          "attempts": 3,
+          "captures": 3,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "robot_contact_shots": 0
+        }
+      }
+    },
+    {
+      "context_id": "recovery-test-r0-c6-n1",
+      "bucket_xy_m": [
+        1.124874941626022,
+        -0.5931986953664748
+      ],
+      "parent_values": [
+        0.6511098958504349,
+        -0.19868905327524075,
+        0.4330840858270651,
+        30.835568330652933,
+        0.10993224529525081
+      ],
+      "recovery_values": [
+        0.652624209743943,
+        -0.19822855800548922,
+        0.4432451770935588,
+        30.54564382422724,
+        0.1476775358189461
+      ],
+      "corrected_values": [
+        0.652624209743943,
+        -0.19822855800548922,
+        0.4432451770935588,
+        30.54564382422724,
+        0.10993224529525081
+      ],
+      "variants": {
+        "parent_exact": {
+          "attempts": 3,
+          "captures": 3,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "robot_contact_shots": 0
+        },
+        "recovery_exact": {
+          "attempts": 3,
+          "captures": 0,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 3,
+          "invalid_physics": 0,
+          "robot_contact_shots": 0
+        },
+        "corrected": {
+          "attempts": 3,
+          "captures": 3,
+          "native_releases": 3,
+          "setup_rejections": 0,
+          "native_misses": 0,
+          "invalid_physics": 0,
+          "robot_contact_shots": 0
+        }
+      }
+    }
+  ],
+  "control_gates": {
+    "pre": {
+      "status": "passed",
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    },
+    "post": {
+      "status": "passed",
+      "direct_captures": 3,
+      "table_assisted_captures": 3,
+      "negative_captures": 0
+    }
+  },
+  "audit": {
+    "status": "passed",
+    "full_checks_verified": true,
+    "native_checks_verified": true,
+    "report_sha256": "dc18617048d35a60665974d9733e9efb3d66e5682a55c61ed3139bcbda64fd35",
+    "contract_fingerprint": "103355e9de55b139eca5797804b015e53baad5256567330657951caec45b6ea6",
+    "proof_sha256": "8c11bc5b12371c128df092725fe1f1e0c62c5ad42defadbb80d699e5cbd1c252",
+    "checks_count": 16072
+  },
+  "scope": "Two selected development positions, fixed64, three nominal requests per variant; no new policy score, noise qualification or policy activation.",
+  "first_repeat_realizations": [
+    {
+      "id": "drop-gap-diagnostic-recovery-test-r0-c5-n1-parent_exact-r0",
+      "context_id": "recovery-test-r0-c5-n1",
+      "variant": "parent_exact",
+      "repeat": 0,
+      "native_release": true,
+      "capture": true,
+      "realization_comparison": {
+        "source_record_id": "recovery-test-parent_bc-recovery-test-r0-c5-n1",
+        "q10_equal_to_source": true,
+        "q14_equal_to_source": true,
+        "q10_max_abs_delta_rad": 0.0,
+        "q14_max_abs_delta_rad": 0.0,
+        "board_center_delta_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "board_normal_angle_deg": 0.0
+      }
+    },
+    {
+      "id": "drop-gap-diagnostic-recovery-test-r0-c5-n1-recovery_exact-r0",
+      "context_id": "recovery-test-r0-c5-n1",
+      "variant": "recovery_exact",
+      "repeat": 0,
+      "native_release": true,
+      "capture": false,
+      "realization_comparison": {
+        "source_record_id": "recovery-test-recovery_bc-recovery-test-r0-c5-n1",
+        "q10_equal_to_source": true,
+        "q14_equal_to_source": true,
+        "q10_max_abs_delta_rad": 0.0,
+        "q14_max_abs_delta_rad": 0.0,
+        "board_center_delta_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "board_normal_angle_deg": 0.0
+      }
+    },
+    {
+      "id": "drop-gap-diagnostic-recovery-test-r0-c5-n1-corrected-r0",
+      "context_id": "recovery-test-r0-c5-n1",
+      "variant": "corrected",
+      "repeat": 0,
+      "native_release": true,
+      "capture": true,
+      "realization_comparison": {
+        "source_record_id": "recovery-test-recovery_bc-recovery-test-r0-c5-n1",
+        "q10_equal_to_source": false,
+        "q14_equal_to_source": true,
+        "q10_max_abs_delta_rad": 0.10597882840736172,
+        "q14_max_abs_delta_rad": 0.0,
+        "board_center_delta_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "board_normal_angle_deg": 0.0
+      }
+    },
+    {
+      "id": "drop-gap-diagnostic-recovery-test-r0-c6-n1-parent_exact-r0",
+      "context_id": "recovery-test-r0-c6-n1",
+      "variant": "parent_exact",
+      "repeat": 0,
+      "native_release": true,
+      "capture": true,
+      "realization_comparison": {
+        "source_record_id": "recovery-test-parent_bc-recovery-test-r0-c6-n1",
+        "q10_equal_to_source": true,
+        "q14_equal_to_source": true,
+        "q10_max_abs_delta_rad": 0.0,
+        "q14_max_abs_delta_rad": 0.0,
+        "board_center_delta_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "board_normal_angle_deg": 0.0
+      }
+    },
+    {
+      "id": "drop-gap-diagnostic-recovery-test-r0-c6-n1-recovery_exact-r0",
+      "context_id": "recovery-test-r0-c6-n1",
+      "variant": "recovery_exact",
+      "repeat": 0,
+      "native_release": true,
+      "capture": false,
+      "realization_comparison": {
+        "source_record_id": "recovery-test-recovery_bc-recovery-test-r0-c6-n1",
+        "q10_equal_to_source": true,
+        "q14_equal_to_source": true,
+        "q10_max_abs_delta_rad": 0.0,
+        "q14_max_abs_delta_rad": 0.0,
+        "board_center_delta_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "board_normal_angle_deg": 0.0
+      }
+    },
+    {
+      "id": "drop-gap-diagnostic-recovery-test-r0-c6-n1-corrected-r0",
+      "context_id": "recovery-test-r0-c6-n1",
+      "variant": "corrected",
+      "repeat": 0,
+      "native_release": true,
+      "capture": true,
+      "realization_comparison": {
+        "source_record_id": "recovery-test-recovery_bc-recovery-test-r0-c6-n1",
+        "q10_equal_to_source": false,
+        "q14_equal_to_source": true,
+        "q10_max_abs_delta_rad": 0.17028612906573537,
+        "q14_max_abs_delta_rad": 0.0,
+        "board_center_delta_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "board_normal_angle_deg": 0.0
+      }
+    }
+  ],
+  "historical_source": {
+    "report_sha256": "6a255223820656059fe16a5de2944ba2593f7ac3603b287f4955979cd4677504",
+    "audit_sha256": "e2ba653792b37d302425ba4af6cb22460c3d5b426274b3c1b3cbce270a857a9b",
+    "rows_sha256": "3fba67b7cbb1a1a8769ef773bab3245233e6704641e2f98a037076a11112985b",
+    "contract_fingerprint": "f54c341eba5258b427e4e1eb05a1b2e93bf76518d9f94a2fe8cf6bad744f6082"
+  },
+  "producer_commit": "1e3707058b1e903913a9c93e85a1a9fc41924441",
+  "ui_commit": "335d273d2cb1e26926c482a802fce93ffd9a1ef6"
+}
