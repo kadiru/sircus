@@ -1,5 +1,12 @@
 # Project state
 
+## Continuous-policy geometry direction and preservation check — November 10, 2026
+
+- The user's intended comparison remains search-based sweep versus a neural policy that directly generates continuous shot settings. The later candidate-library V4 continuation is a separate finite-choice hybrid, not a promoted successor to original continuous seed 22. Further V4 evaluation is not the current next action.
+- A separate [continuous geometry layer](../sircus/isaac/CONTINUOUS_GEOMETRY_LAYER.md) preserves an admitted exact proposal or attempts one bounded nearby continuous action/joint adjustment, then requires all unchanged original coupled-arm/FK/clearance/path gates. It uses no per-target library, flight outcome search or model update. Release remains forbidden.
+- Current authorization is to build and test the layer against original successful seed-22 paid TRAIN actions only. No simulator, training, new task shot, reader/container restart or frozen benchmark change is authorized. Historical labels cannot be transferred to repaired actions as new capture results.
+- Completed independent CPU audit: **1,534 unchanged / 0 adjusted / 0 rejected**, including all 485 clean historical actions. Fresh IK used each request's recorded measured starts, with no saved endpoint-answer lookup. Original 289 TRAIN packets / 10,000 requests and final model bytes were freshly verified; no held-out shot was read. Analysis took 77.84 s wall / 225.59 worker CPU-seconds; audit 55.59 s wall. All 38 focused cases passed. The successes cover 21 of 35 TRAIN contexts across the training history, not 1,534 final-model predictions or new captures. [Compact evidence and limits](../baselines/isaac-continuous-geometry-20261110/README.md).
+
 ## V4 evaluation production wiring and independent checks — November 9, 2026
 
 - The new evaluation-only path now implements strict original/new source separation, original model bindings, a model-only CPU reconstruction before App startup, startup-only native construction, six fixed TEST cohorts and an independent CPU model/startup/guard/scorer audit after App closure. No learning engine or training runner is created. Synthetic hooks cannot certify real native results.

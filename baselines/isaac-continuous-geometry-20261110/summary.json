@@ -1,0 +1,126 @@
+{
+  "schema": "sircus-continuous-geometry-retention-summary-v1",
+  "status": "geometry_only_audit_passed",
+  "seed": 20261122,
+  "counts": {
+    "requested": 1534,
+    "unchanged": 1534,
+    "adjusted": 0,
+    "rejected": 0
+  },
+  "clean_counts": {
+    "requested": 485,
+    "unchanged": 485,
+    "adjusted": 0,
+    "rejected": 0
+  },
+  "original_decline_reasons": {},
+  "final_rejection_reasons": {},
+  "historical_population": {
+    "source": "All original successful paid TRAIN actions across the full 10000-request training history; not final-checkpoint predictions",
+    "successful_action_count": 1534,
+    "clean_action_count": 485,
+    "positions_with_successes": 21,
+    "original_train_position_count": 35,
+    "verified_original_train_packets": 289,
+    "verified_original_train_requests": 10000
+  },
+  "procedure": {
+    "ik_seeds": "Each request actual measured six-joint starts for both arms",
+    "fresh_ik": true,
+    "historical_endpoint_answers_used": false,
+    "candidate_bank_used": false,
+    "repair_attempts": 0,
+    "model_loaded": false,
+    "held_out_shot_files_read": 0
+  },
+  "original_bindings": {
+    "audit_sha256": "cec9cff0a6de59b07dd35de3342ee00bc4106d4801edc0237c570e006aedc1c8",
+    "progress_sha256": "ed015c8219bbb160d72ca0759328c5ec7e48981cc71c33a2052300855ac60ff9",
+    "experiment_sha256": "77afe173a07917dd87ce43f37809a9ac6ef99beebd7e8e35f703c0e5cf1e3a26",
+    "split_manifest_sha256": "f46c690d80bd2079b27c8d3c72267c39acf1cee61fb4625f37994bff92292785",
+    "checkpoint_sha256": "57d7658e9ed2f72ad09cf4e8523ab497ccbe0708364f1b8ec4a4c5c1aef1fe9f",
+    "binding_sha256": "a739902c75a2cd1496c4f85d85bb94378ec1aa6c1e1afd013f0974d9d7dc4457",
+    "contract_sha256": "291ca91848bddff8f812b59e790ac565657982a708dd9dcb7c7281136a87544f"
+  },
+  "original_source": {
+    "commit": "df8de16709852880239b8234869bdc65c6f7e957",
+    "archive_sha256": "6dcaa4199bb2df890579fe2fde245f1a48b33deae5869c70399cce4cf8712905",
+    "geometry_fingerprint": "63362ef37a93881f769b39d1ee7456335f1cc7bf5db04ffa7e548ce9697455bf",
+    "camera_sha256": "a7967c072b8f949318b43a510235d503c81c21e05f433670a0ce92a7af385ede",
+    "scoring_version": "sircus-isaac-fixed-shot-v5+board-route"
+  },
+  "train_export_sha256": "6053ff58e026bb288f9a9f18fd6700ee32ba613af771318d006def753e580233",
+  "train_export_fingerprint": "666ee9beb093412d12c2f5cc4a242c7e519969f3b3d1569a4ccea268dd5cdc25",
+  "source_sha256": {
+    "continuous_feasibility.py": "4a7ce280ae65f1c08bad711abefab03c5cc949736bc47c8058b2798ac0acb5e4",
+    "expanded_pose_menu.py": "5bfbb470fbd395126880b77a8ca136768eda7d844d89afd924935bfb506e2ea5",
+    "feasibility_contract.py": "90164e35b74f8732aaa374bee89f7c428bbf2c5f040453eeb69bd8c9378d368f",
+    "prepare_assets.py": "d7517e4f1f350bd7f48e5c23e48fc4dc4c63882b6b18ce4502bc8c5fd1999d93",
+    "robust_ik.py": "c3e5ce8673042c2fefbb784e825b34b30bb334a1ea3f9896cf0de0f975c71ee9",
+    "expanded_pose_native.py": "b5092c3003419c04f569fe4475064a0ea92f907efe5a96cbcbb0872898690d37",
+    "joint_feasibility.py": "7fdf85de0d86fbb3bba161fd280d9e2939983e8d81687a42cdf40c5921803b70",
+    "settled_transit.py": "08e37329978f3acbe4476ebaf5513cfa28539985c806daa4a071596d381dd0a7",
+    "shot_benchmark_reach_audit.py": "687d82f42553efe5a03094451da13550ca029d97307f9136167ab5d5a5ec5fc9",
+    "candidate_train_evidence.py": "c82f6469619f787ee452f0e4591d9903490891e6bb6ab46568b0606509479563",
+    "continuous_geometry_layer.py": "c6489a44e268610470edd2a4c37bd4cfb1a78c89989883113f76996bd8fbad23",
+    "continuous_geometry_analysis.py": "dac69494d90831c0b36a0205ea98ce0c48612f008501d2fd3157f0c4203019c3",
+    "continuous_geometry_audit.py": "a76de94d28e01594fb9d399ee56caf844e6a30fc20bb428f67257a1391b63ab3"
+  },
+  "runtime": {
+    "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1"
+  },
+  "resources": {
+    "analysis_wall_s": 77.8431236660108,
+    "analysis_worker_cpu_s": 225.5866,
+    "analysis_coordinator_cpu_s": 0.845842,
+    "independent_audit_wall_s": 55.58693912497256,
+    "independent_audit_cpu_s": 54.463013
+  },
+  "independent_audit": {
+    "status": "passed",
+    "analysis_fingerprint": "4b4ee04363cd7e2ef3af54bbaf97e19749e97b59bea34d4147fe80557ebbca7c",
+    "audit_fingerprint": "9b744ba06cecb4e66177de5fae3eaa4615f755d7f3965cff1ba6b2aafc3d5066",
+    "protected_input_count": 25
+  },
+  "protected_original_files_rechecked": 245,
+  "protected_original_files_changed": 0,
+  "artifact_sha256": {
+    "analysis.json": "e51f1c19fce7eb5ae43b1b6a20f152427272bbf85477252c445888862d5cd154",
+    "audit.json": "9f686a03e7fb1dace053ac852a1cb0bc0831322d7a1dd180d2aeb4168b301a50",
+    "retention.csv": "c3c44707eb5241633a46ad01dcde9adc8a2c82c5efd5a99cb2ebc2160caa806b",
+    "resources.json": "27e55acbd76cdf8bfe080151a9ef5c596219aefc75f658c9aae4d9b2578ca382"
+  },
+  "validation": {
+    "focused_cpu_cases": 38,
+    "focused_skips": 0,
+    "full_repository": {
+      "command": "scripts/test.sh",
+      "exit_code": 0,
+      "isaac_cases": 1362,
+      "isaac_optional_dependency_skips": 121,
+      "physical_mock_cases": 34,
+      "simulation_cases": 5,
+      "node_cases": 59,
+      "numerical_scripts": 9,
+      "log_sha256": "d314bed85d0ae9b2cc8d15ec788eba4b7ec9e0b3a3ff3c52e5069e1b8017b686"
+    }
+  },
+  "optimizer_updates": 0,
+  "new_native_shots": 0,
+  "simulator_starts": 0,
+  "release_authorized": false,
+  "frozen_benchmark_changed": false,
+  "limits": [
+    "Geometry-only retention of known historical successes, not a new capture rate or generalization result.",
+    "Historical successes cover 21 of 35 TRAIN positions; other contexts and failed proposals are not this test population.",
+    "No repair was needed in the historical population; repair success and bounded failures are exercised with synthetic kinematic chains.",
+    "Original sampled path and capsule checks are proxies, not mesh/self-collision or driven-motion certificates.",
+    "Fresh local CPU solver uses the recorded runtime, which differs from the original producer; no cross-runtime byte equality claim.",
+    "Layer is not connected to a trainer or simulator. Future training must explicitly account for proposals, repairs and declines."
+  ],
+  "fingerprint": "70171e6684914fb9f1d84a12d2372125883a480fb093e5c611d052d62b37ddc9"
+}
