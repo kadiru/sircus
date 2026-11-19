@@ -1,5 +1,12 @@
 # Sircus — Simple Circus
 
+**Latest completed mjlab comparison:** [arm-clearance results](baselines/mjlab-arm-clearance-20261108/README.md)
+and [frozen protocol](sircus/mjlab/ARM_CLEARANCE.md). On 50 new paired bucket
+positions at fixed64, captures fell from **20/50 to 16/50**. Robot-contact trials
+fell from 12/44 releases to 5/32, largely because the gate withheld 12 shots.
+All 112 requested slots and 12 controls passed a 1,461,935-check audit. The
+current interactive selector remains unchanged; the candidate is not promoted.
+
 **Next bounded selector comparison:** [frozen velocity + aperture ranking](sircus/mjlab/CONSISTENT_FLIGHT.md),
 30 fresh bucket positions, four selectors, 132 total requests including controls.
 No new fit or scoring change; queued/native results are separately audited.
