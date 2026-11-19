@@ -1,10 +1,14 @@
 # Choose the farm appearance
 
+The revised `--palette gray` option produces ten gray and blue-gray combinations under softer studio lighting. It uses a 900-intensity neutral dome, a broad 360-intensity key light and two broad fill lights at 180 and 140. Ambient occlusion is disabled for these previews. Tabletops are cool gray, silver gray, cloud blue, slate blue and satin blue. The satin option uses a smoother opaque finish. Floors and surroundings stay neutral gray, and the camera/physics state stays fixed across the ten choices.
+
+Add `--palette gray` to the command below for the revised ten-choice gallery. The completed gray previews and render checksums are in [the gray palette manifest](../../baselines/isaac-gray-previews-20261102/manifest.json). A material choice is pending before the next video.
+
 `look_preview.py` renders 20 material combinations through the native Isaac RTX camera. Each combination has a close view and a full-farm view. All images use the same frozen 35-table/70-arm state, camera poses and lighting. The manifest records the state digest and verifies that physics did not advance while the looks changed. These are appearance previews.
 
 The five columns are cool gray, pale ash, honey oak, walnut and charcoal tabletops. The four rows are mid-gray floor, warm concrete floor, an off-white square with charcoal surroundings, and a cool gray square with off-white surroundings. The square is 22.8 × 22.8 m, centered at (0.67, −0.25) m. It extends at least 3 m beyond every outside tabletop. The three wood materials use seeded procedural grain with explicit texture coordinates on a visual tabletop mesh.
 
-A 250-intensity neutral dome provides fill, while a 1500-intensity distant light with 2° angular size creates visible shadows. Camera shadows and ambient occlusion are enabled. Existing collision geometry and source scene dimensions supply the arrangement.
+The original twenty-choice profile uses a 250-intensity neutral dome and a 1500-intensity distant light with 2° angular size. Camera shadows and ambient occlusion are enabled for that profile. Existing collision geometry and source scene dimensions supply the arrangement.
 
 Use the pinned [Isaac setup](README.md) with this directory as `SIRCUS_ISAAC_SOURCE`. Inside the existing isolated container, run with a fresh output directory.
 
