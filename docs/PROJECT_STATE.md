@@ -1,5 +1,12 @@
 # Project state
 
+## Proposed seed-22 continuation plan — November 8, 2026 (PST), training off
+
+- [Reviewable proposal](../sircus/isaac/CANDIDATE_CONTINUATION_PLAN.md): reuse seed 22's exact actor/critic weights and the fixed 1,814-candidate TRAIN bank, use 20 imitation epochs over 1,534 existing captures at 21/35 contexts, then a separately authorized categorical PPO continuation. The other 14 contexts receive no invented success labels.
+- Proposed caps distinguish 1,400 actual TRAIN releases from 1,750 requested execution slots. New preparation has its own CPU/proposal caps. Final-only assessment is 420 requests: three frozen methods on 35 known TRAIN, 35 new validation and 70 new TEST positions each. All declined positions remain in performance denominators.
+- Source/checkpoint review confirmed tensor-compatible warm start and identified required new fixed-candidate likelihoods, updater and provenance schema. The existing frozen selector cannot be passed a changing mean unmodified; that would incorrectly move its parent candidate's latent. The plan records implementation/audit gates and single-seed, extra-budget limitations.
+- Documentation and read-only analysis only: zero optimizer updates, model inference, candidate generation, native requests or service changes. No training execution is authorized by the plan. Existing benchmark, evidence, checkpoints, bank and interfaces remain unchanged.
+
 ## Frozen seed 22 candidate selector native comparison — November 9, 2026
 
 - [Audited result](../baselines/isaac-candidate-native-20261109/README.md): exactly 70 new TRAIN-only requests, zero optimizer updates. Same 35 positions: original 13 captures / 4 clean / 7 rejections; candidate selector 16 / 5 / 0. Three paired capture gains, zero losses. All 28 preserved actions retained identical observed outcomes; seven choices changed.
