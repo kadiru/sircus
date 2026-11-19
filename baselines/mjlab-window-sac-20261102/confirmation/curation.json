@@ -1,0 +1,6 @@
+{
+  "scope": "Curated synthetic recipe metrics, exact requests and provenance only; raw native arrays and per-shot observations remain on Ubuntu",
+  "original_evidence_location": "~/sircus-mjlab/output/window-confirmation-v1",
+  "parent_contract_fingerprint": "d2df483d1dbe96784107cf610cc97aae4d3b6eebcbbd587eb3579f1f565ff0fb",
+  "original_evidence_manifest_sha256": "b04eec52c58c1169daebd39af474fbe8084a2da54200d9bcafa1bddf02edb887"
+}

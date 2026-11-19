@@ -1,0 +1,246 @@
+{
+  "version": "sircus-train-window-engineering-confirmation-v1",
+  "status": "completed",
+  "contract_fingerprint": "043592904cf365e69bb7efd72b0e35e7714845d4764c7f6541526a1c0d9f2367",
+  "parent_contract_fingerprint": "d2df483d1dbe96784107cf610cc97aae4d3b6eebcbbd587eb3579f1f565ff0fb",
+  "settings": {
+    "seed": 20261204,
+    "nominal": 3,
+    "fresh": 20,
+    "gap_sigma_m": 0.002,
+    "bounds": {
+      "version": "sircus-window-low-board-actions-v1",
+      "low": [
+        0.3,
+        -0.5,
+        0.04,
+        8.0,
+        0.02
+      ],
+      "high": [
+        1.04,
+        0.35,
+        0.56,
+        64.0,
+        0.65
+      ]
+    },
+    "clipping": false,
+    "retries": 0
+  },
+  "physics": {
+    "version": "sircus-articulated-passive-contact-15360hz-v1",
+    "board_mode": "articulated",
+    "gravity_mode": "passive_only",
+    "substeps": 64,
+    "native_dt_s": 6.510416666666667e-05,
+    "scoring_dt_s": 0.004166666666666667,
+    "horizon_s": 4.0,
+    "solref": [
+      0.004,
+      0.15
+    ],
+    "contact_friction": 0.35,
+    "solver": "newton",
+    "solver_iterations": 100,
+    "solver_tolerance": 1e-08,
+    "cone": "pyramidal",
+    "integrator": "implicitfast",
+    "arm_control": "Prescribed joint endpoints reset before each native step; no learned grasp/transit/actuator dynamics",
+    "scorer": "Unchanged board rebound + whole sphere entry + continuous1s retention; external assistance disqualifies route; bucket rim assistance counts"
+  },
+  "scope": "Post-study TRAIN-derived engineering repeats; excluded from original learner comparison and all policy selection; held endpoints only, no path/actuator validation",
+  "effective_native_options": {
+    "timestep_s": 6.510416666666667e-05,
+    "solver": 2,
+    "integrator": 3,
+    "cone": 0,
+    "iterations": 100,
+    "tolerance": 1e-08,
+    "gravity": [
+      0.0,
+      0.0,
+      -9.81
+    ],
+    "substeps": 64,
+    "board_mode": "articulated",
+    "gravity_mode": "passive_only"
+  },
+  "storage": {
+    "free_bytes": 3918929920,
+    "study_bytes": 3492588
+  },
+  "recipes": [
+    {
+      "id": "recipe-00",
+      "context_id": "train-h04-t02",
+      "board_height_m": 0.3973878458850598,
+      "tilt_deg": 36.154791124080255,
+      "observed_low_gap_m": 0.22475,
+      "observed_high_gap_m": 0.22475,
+      "gap_m": 0.22475,
+      "release_center_height_m": 0.6596378458850598,
+      "board_to_bucket_distance_m": 0.47282574126472343,
+      "scope": "Post-study TRAIN-derived engineering repeats; excluded from original learner comparison and all policy selection; held endpoints only, no path/actuator validation",
+      "distance_m": 0.47282574126472343,
+      "nominal": {
+        "attempts": 3,
+        "captures": 3,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 3,
+        "native_releases": 3,
+        "mean_reward": 4.23599247991685
+      },
+      "fresh": {
+        "attempts": 20,
+        "captures": 5,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 20,
+        "native_releases": 20,
+        "mean_reward": 0.9191206074167759
+      },
+      "total": {
+        "attempts": 23,
+        "captures": 8,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 23,
+        "native_releases": 23,
+        "mean_reward": 1.3517560690472206
+      }
+    },
+    {
+      "id": "recipe-01",
+      "context_id": "train-h04-t02",
+      "board_height_m": 0.3973878458850598,
+      "tilt_deg": 36.154791124080255,
+      "observed_low_gap_m": 0.272,
+      "observed_high_gap_m": 0.3704375,
+      "gap_m": 0.32121875,
+      "release_center_height_m": 0.7561065958850598,
+      "board_to_bucket_distance_m": 0.47282574126472343,
+      "scope": "Post-study TRAIN-derived engineering repeats; excluded from original learner comparison and all policy selection; held endpoints only, no path/actuator validation",
+      "distance_m": 0.47282574126472343,
+      "nominal": {
+        "attempts": 3,
+        "captures": 3,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 3,
+        "native_releases": 3,
+        "mean_reward": 4.241817689912705
+      },
+      "fresh": {
+        "attempts": 20,
+        "captures": 20,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 20,
+        "native_releases": 20,
+        "mean_reward": 4.235252138059133
+      },
+      "total": {
+        "attempts": 23,
+        "captures": 23,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 23,
+        "native_releases": 23,
+        "mean_reward": 4.236108514387859
+      }
+    },
+    {
+      "id": "recipe-02",
+      "context_id": "train-h05-t02",
+      "board_height_m": 0.5,
+      "tilt_deg": 36.154791124080255,
+      "observed_low_gap_m": 0.1775,
+      "observed_high_gap_m": 0.1814375,
+      "gap_m": 0.17946875,
+      "release_center_height_m": 0.7169687499999999,
+      "board_to_bucket_distance_m": 0.47282574126472343,
+      "scope": "Post-study TRAIN-derived engineering repeats; excluded from original learner comparison and all policy selection; held endpoints only, no path/actuator validation",
+      "distance_m": 0.47282574126472343,
+      "nominal": {
+        "attempts": 3,
+        "captures": 0,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 3,
+        "native_releases": 3,
+        "mean_reward": -0.1766044716120354
+      },
+      "fresh": {
+        "attempts": 20,
+        "captures": 5,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 20,
+        "native_releases": 20,
+        "mean_reward": 1.0860195372195576
+      },
+      "total": {
+        "attempts": 23,
+        "captures": 5,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 23,
+        "native_releases": 23,
+        "mean_reward": 0.921329449111089
+      }
+    },
+    {
+      "id": "recipe-03",
+      "context_id": "train-h05-t02",
+      "board_height_m": 0.5,
+      "tilt_deg": 36.154791124080255,
+      "observed_low_gap_m": 0.209,
+      "observed_high_gap_m": 0.2680625,
+      "gap_m": 0.23853124999999997,
+      "release_center_height_m": 0.77603125,
+      "board_to_bucket_distance_m": 0.47282574126472343,
+      "scope": "Post-study TRAIN-derived engineering repeats; excluded from original learner comparison and all policy selection; held endpoints only, no path/actuator validation",
+      "distance_m": 0.47282574126472343,
+      "nominal": {
+        "attempts": 3,
+        "captures": 3,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 3,
+        "native_releases": 3,
+        "mean_reward": 4.2177187550982875
+      },
+      "fresh": {
+        "attempts": 20,
+        "captures": 20,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 20,
+        "native_releases": 20,
+        "mean_reward": 4.223853966460896
+      },
+      "total": {
+        "attempts": 23,
+        "captures": 23,
+        "clean": 0,
+        "invalid": 0,
+        "board_bounces": 23,
+        "native_releases": 23,
+        "mean_reward": 4.2230537215005555
+      }
+    }
+  ],
+  "evidence_sha256": {
+    "batches.json": "6edf04925eb21a02ed99adb4418dfee4c449a1a0e35f1785e51efa1ea408be49",
+    "contract.json": "4881bb1171700ddf44c6107900f78da63bd108b9174edf39f18c831e52ae3098",
+    "effective-options.json": "d1f3edd52ae1690b3bd88ce721335ef9efa7adb28ca0598f3c2004b302638a17",
+    "geometry-00.json": "549b6afa9a2b8f99e58e5fd1144e8c995b4f0670ad63c2212ed6a704a92531c3",
+    "geometry-01.json": "08794d86d938b626c126f8df3ab0fc1c0c9eddbe16715aecfde71596c1173116",
+    "native-00.npz": "30af9e58a08769cfb1bbd4679dde9a3bdc6ef4ea04f9d2ef4b42bf88f3530d0e",
+    "native-01.npz": "cd707e2946c035ea323095c5900d09968ddab23076efc69dd1b26129732897a6",
+    "plan.json": "302d2a181de4d913a85fa831614e9c935f297a6d1902813dd0cad4325db799a3",
+    "records.jsonl": "fdf4eee889b9ef3005d6feac4f81a0e10f4542941d08ca64f552355a8622f0f8"
+  }
+}

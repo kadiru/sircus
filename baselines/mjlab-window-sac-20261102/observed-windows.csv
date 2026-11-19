@@ -1,0 +1,27 @@
+context_id,board_height_mm,tilt_deg,distance_mm,observed_low_gap_mm,observed_high_gap_mm,release_center_low_mm,release_center_high_mm,captured_sample_points,lower_tested_nonhit_mm,upper_tested_nonhit_mm,scope
+train-h00-t00,60.0,12.0,472.8257412647234,,,,,0,,,Observed adjacent captured samples only; no continuous interval or repeatability certification
+train-h00-t01,60.0,24.0,472.8257412647234,,,,,0,,,Observed adjacent captured samples only; no continuous interval or repeatability certification
+train-h00-t02,60.0,36.154791124080255,472.8257412647234,,,,,0,,,Observed adjacent captured samples only; no continuous interval or repeatability certification
+train-h00-t03,60.0,52.0,472.8257412647234,,,,,0,,,Observed adjacent captured samples only; no continuous interval or repeatability certification
+train-h01-t00,120.0,12.0,472.8257412647234,,,,,0,,,Observed adjacent captured samples only; no continuous interval or repeatability certification
+train-h01-t01,120.0,24.0,472.8257412647234,,,,,0,,,Observed adjacent captured samples only; no continuous interval or repeatability certification
+train-h01-t02,120.0,36.154791124080255,472.8257412647234,,,,,0,,,Observed adjacent captured samples only; no continuous interval or repeatability certification
+train-h01-t03,120.0,52.0,472.8257412647234,,,,,0,,,Observed adjacent captured samples only; no continuous interval or repeatability certification
+train-h02-t00,200.0,12.0,472.8257412647234,,,,,0,,,Observed adjacent captured samples only; no continuous interval or repeatability certification
+train-h02-t01,200.0,24.0,472.8257412647234,,,,,0,,,Observed adjacent captured samples only; no continuous interval or repeatability certification
+train-h02-t02,200.0,36.154791124080255,472.8257412647234,,,,,0,,,Observed adjacent captured samples only; no continuous interval or repeatability certification
+train-h02-t03,200.0,52.0,472.8257412647234,,,,,0,,,Observed adjacent captured samples only; no continuous interval or repeatability certification
+train-h03-t00,300.0,12.0,472.8257412647234,,,,,0,,,Observed adjacent captured samples only; no continuous interval or repeatability certification
+train-h03-t01,300.0,24.0,472.8257412647234,,,,,0,,,Observed adjacent captured samples only; no continuous interval or repeatability certification
+train-h03-t02,300.0,36.154791124080255,472.8257412647234,,,,,0,,,Observed adjacent captured samples only; no continuous interval or repeatability certification
+train-h03-t03,300.0,52.0,472.8257412647234,,,,,0,,,Observed adjacent captured samples only; no continuous interval or repeatability certification
+train-h04-t00,397.38784588505985,12.0,472.8257412647234,,,,,0,,,Observed adjacent captured samples only; no continuous interval or repeatability certification
+train-h04-t01,397.38784588505985,24.0,472.8257412647234,,,,,0,,,Observed adjacent captured samples only; no continuous interval or repeatability certification
+train-h04-t02,397.38784588505985,36.154791124080255,472.8257412647234,224.75,224.75,659.6378458850598,659.6378458850598,1,209.0,240.5,Observed adjacent captured samples only; no continuous interval or repeatability certification
+train-h04-t02,397.38784588505985,36.154791124080255,472.8257412647234,272.0,370.4375,706.8878458850598,805.3253458850597,11,268.0625,374.375,Observed adjacent captured samples only; no continuous interval or repeatability certification
+train-h04-t03,397.38784588505985,52.0,472.8257412647234,,,,,0,,,Observed adjacent captured samples only; no continuous interval or repeatability certification
+train-h05-t00,500.0,12.0,472.8257412647234,,,,,0,,,Observed adjacent captured samples only; no continuous interval or repeatability certification
+train-h05-t01,500.0,24.0,472.8257412647234,,,,,0,,,Observed adjacent captured samples only; no continuous interval or repeatability certification
+train-h05-t02,500.0,36.154791124080255,472.8257412647234,177.5,181.4375,715.0,718.9375,2,173.5625,185.375,Observed adjacent captured samples only; no continuous interval or repeatability certification
+train-h05-t02,500.0,36.154791124080255,472.8257412647234,209.0,268.0625,746.4999999999999,805.5625,6,205.06249999999997,272.0,Observed adjacent captured samples only; no continuous interval or repeatability certification
+train-h05-t03,500.0,52.0,472.8257412647234,,,,,0,,,Observed adjacent captured samples only; no continuous interval or repeatability certification

@@ -348,6 +348,152 @@ function showExpansion() {
   drawChart($('expansionCaptureChart'), points, 'captures');
   drawChart($('expansionRewardChart'), points, 'reward', true);
 }
+// BEGIN READ-ONLY WINDOW STUDY
+const WINDOW_METHODS = {adaptive_surrogate:'Supervised success model',sac:'Terminal SAC',uniform_bounded:'Uniform bounded gaps'};
+function windowStatistics(value = {}) {
+  const n = Number.isInteger(value.attempts) ? value.attempts : Number.isInteger(value.requests) ? value.requests : null;
+  const k = Number.isInteger(value.captures) ? value.captures : null;
+  const valid = n !== null && k !== null && n >= 0 && k >= 0 && k <= n;
+  return {requests:n,captures:valid?k:null,released:Number.isInteger(value.native_releases)?value.native_releases:null,
+    fraction:valid?`${k} / ${n}`:'—',rate:valid&&n?k/n:null,
+    reward:Number.isFinite(value.mean_learning_reward)?value.mean_learning_reward:Number.isFinite(value.mean_reward)?value.mean_reward:null,
+    clean:Number.isInteger(value.clean)?value.clean:null,invalid:Number.isInteger(value.invalid)?value.invalid:null,
+    interval:Array.isArray(value.descriptive_95pct_wilson)&&value.descriptive_95pct_wilson.length===2&&value.descriptive_95pct_wilson.every(Number.isFinite)?value.descriptive_95pct_wilson:null};
+}
+function windowBoardCoverage(study) {
+  const groups=study.settings?.contexts??{},raw=study.prepared_contexts??[];
+  const prepared=Array.isArray(raw)?raw:Object.values(raw).filter(Array.isArray).flat();
+  const exactLegacy=study.version==='sircus-fixed-bucket-gap-study-v1'&&study.settings?.version==='sircus-fixed-bucket-gap-study-v1';
+  const summarize=rows=>{
+    let resolved=0,unresolved=0,unknown=0;
+    for(const row of rows){
+      const matches=prepared.filter(p=>(p.id??p.context_id)===row.id&&p.board_height_m===row.board_height_m&&p.tilt_deg===row.tilt_deg);
+      const p=matches.length===1?matches[0]:null;
+      let outcome=null;
+      if(p&&p.prepared!==false){
+        if(typeof p.board_admitted==='boolean')outcome=p.board_admitted;
+        else if(exactLegacy&&Object.hasOwn(p,'reason')){
+          if(p.reason===null)outcome=true;else if(typeof p.reason==='string')outcome=false;
+        }
+      }
+      if(outcome===true)resolved++;else if(outcome===false)unresolved++;else unknown++;
+    }
+    return {total:rows.length,resolved,unresolved,unknown};
+  };
+  const rows=['train','validation','test'].map(name=>Array.isArray(groups[name])?groups[name]:[]);
+  return {all:summarize(rows.flat()),train:summarize(rows[0]),validation:summarize(rows[1]),test:summarize(rows[2])};
+}
+function windowConfirmationView(study) {
+  const value=study.window_confirmations;if(!value||typeof value!=='object')return null;
+  if(typeof study.contract_fingerprint!=='string'||!study.contract_fingerprint||value.parent_contract_fingerprint!==study.contract_fingerprint)
+    return {status:'failed',reason:'Window confirmation parent fingerprint does not match this learning study',recipes:[]};
+  return value;
+}
+function windowStudyView(value) {
+  if (!value || typeof value !== 'object') return null;
+  const groups=value.settings?.contexts??{}, identities=[], coordinates=[];
+  const split=['train','validation','test'].map(name=>{
+    const rows=Array.isArray(groups[name])?groups[name]:[];
+    for(const r of rows){identities.push(r.id);coordinates.push(`${r.board_height_m}:${r.tilt_deg}`);}
+    return rows.length;
+  });
+  const disjoint=identities.length>0&&identities.every(v=>typeof v==='string')&&new Set(identities).size===identities.length&&new Set(coordinates).size===coordinates.length;
+  return {raw:value,split,disjoint,boardCoverage:windowBoardCoverage(value),curve:(value.learning_curve??[]).filter(r=>r.method in WINDOW_METHODS&&Number.isFinite(r.milestone))
+    .map(r=>({...r,stats:windowStatistics(r.validation)})),test:Object.entries(value.test??{}).filter(([name])=>name in WINDOW_METHODS)
+    .map(([name,stats])=>({name,stats:windowStatistics(stats)}))};
+}
+function windowTrajectoryView(study, trace) {
+  const board=study.settings?.board_xy_m,bucket=study.settings?.bucket_xy_m;
+  if(!finiteVector(board,2)||!finiteVector(bucket,2)||!Array.isArray(trace?.position_m)||trace.position_m.length<2||!trace.position_m.every(p=>finiteVector(p,3))) return null;
+  const distance=Math.hypot(bucket[0]-board[0],bucket[1]-board[1]);
+  if(distance<1e-9) return null;
+  const axis=[(bucket[0]-board[0])/distance,(bucket[1]-board[1])/distance];
+  return {distance,points:trace.position_m.map(p=>[(p[0]-board[0])*axis[0]+(p[1]-board[1])*axis[1],p[2]]),
+    lateral:Math.max(...trace.position_m.map(p=>Math.abs(-(p[0]-board[0])*axis[1]+(p[1]-board[1])*axis[0])))};
+}
+function windowPlot(canvas, xlow, xhigh, ylow, yhigh, xlabel, ylabel) {
+  const c=canvas.getContext('2d'),w=canvas.width,h=canvas.height;
+  c.clearRect(0,0,w,h);c.fillStyle='#edf0e7';c.fillRect(0,0,w,h);
+  const x=v=>55+(v-xlow)/Math.max(1e-9,xhigh-xlow)*(w-80),y=v=>h-42-(v-ylow)/Math.max(1e-9,yhigh-ylow)*(h-68);
+  c.font='11px sans-serif';c.textAlign='center';
+  for(let i=0;i<=4;i++){
+    const vx=xlow+(xhigh-xlow)*i/4,vy=ylow+(yhigh-ylow)*i/4;
+    c.strokeStyle='#d3ddd0';c.beginPath();c.moveTo(x(vx),y(ylow));c.lineTo(x(vx),y(yhigh));c.stroke();
+    c.beginPath();c.moveTo(x(xlow),y(vy));c.lineTo(x(xhigh),y(vy));c.stroke();
+    c.fillStyle='#6e8180';c.fillText(vx.toFixed(xhigh>10?0:2),x(vx),h-25);c.fillText(vy.toFixed(yhigh>10?0:2),30,y(vy)+4);
+  }
+  c.fillStyle='#496f67';c.fillText(xlabel,w/2,h-7);c.textAlign='left';c.fillText(ylabel,55,15);
+  return {c,x,y};
+}
+function drawWindowCurve(view) {
+  const points=view.curve.filter(r=>r.stats.rate!==null),planned=view.raw.settings?.budgets?.milestones??[504,1008];
+  const low=Math.min(...planned,...points.map(r=>r.milestone)),high=Math.max(...planned,...points.map(r=>r.milestone));
+  const {c,x,y}=windowPlot($('windowLearningChart'),Number.isFinite(low)?low:504,Number.isFinite(high)?high:1008,0,100,'Training shot requests charged to each learner','Validation capture %');
+  for(const [method,color] of [['adaptive_surrogate','#128b8c'],['sac','#ec7657']]){
+    const series=points.filter(r=>r.method===method).sort((a,b)=>a.milestone-b.milestone);
+    c.strokeStyle=color;c.fillStyle=color;c.lineWidth=2;c.beginPath();series.forEach((r,i)=>{if(i)c.lineTo(x(r.milestone),y(100*r.stats.rate));else c.moveTo(x(r.milestone),y(100*r.stats.rate));});c.stroke();
+    for(const row of series){c.beginPath();c.arc(x(row.milestone),y(100*row.stats.rate),4,0,Math.PI*2);c.fill();}
+  }
+  if(!points.length){c.fillStyle='#6e8180';c.fillText('Validation checkpoints pending — no result inferred',80,95);}
+}
+function drawWindowRuns(study) {
+  const canvas=$('windowWindows'),rows=(study.observed_windows??[]).filter(r=>Array.isArray(r.points)),bounds=study.settings?.gap_bounds??[.02,.65];
+  canvas.height=Math.max(180,Math.min(1600,rows.length*24+55));
+  const c=canvas.getContext('2d'),w=canvas.width,x=v=>185+(v-bounds[0])/(bounds[1]-bounds[0])*(w-215);
+  c.clearRect(0,0,w,canvas.height);c.fillStyle='#edf0e7';c.fillRect(0,0,w,canvas.height);c.font='10px sans-serif';c.textAlign='left';
+  rows.forEach((row,i)=>{const y=23+i*24;c.fillStyle='#496f67';c.fillText(row.context_id??'unknown context',10,y+3);
+    c.strokeStyle='#c9d5ca';c.lineWidth=1;c.beginPath();c.moveTo(x(bounds[0]),y);c.lineTo(x(bounds[1]),y);c.stroke();
+    for(const run of row.observed_hit_runs??[]){c.strokeStyle='#78b6a2';c.lineWidth=4;c.beginPath();c.moveTo(x(run.low_observed_gap_m),y);c.lineTo(x(run.high_observed_gap_m),y);c.stroke();}
+    for(const p of row.points){if(!Number.isFinite(p.gap_m))continue;c.fillStyle=p.native_releases===0?'#8a9990':p.captures===p.attempts&&p.attempts>0?'#128b8c':p.captures>0?'#d49a31':'#ec7657';c.beginPath();c.arc(x(p.gap_m),y,3.5,0,Math.PI*2);c.fill();}
+  });
+  c.fillStyle='#496f67';c.fillText(rows.length?`Release gap: ${(1000*bounds[0]).toFixed(0)} to ${(1000*bounds[1]).toFixed(0)} mm · sampled points only`:'Observed training gaps pending',185,canvas.height-12);
+}
+function drawWindowTrace(study,index) {
+  const trace=study.trace_examples?.[index],view=windowTrajectoryView(study,trace),canvas=$('windowTrace');
+  if(!view){const {c}=windowPlot(canvas,0,1,0,1,'Projected distance (m)','Ball-center height above table (m)');c.fillText('Saved native trajectory pending',80,110);$('windowTraceCaption').textContent=`No trajectory is reconstructed from a prediction or ideal flight model. ${(study.trace_warnings??[]).join(' ')}`;return;}
+  const xs=view.points.map(p=>p[0]),zs=view.points.map(p=>p[1]);
+  const {c,x,y}=windowPlot(canvas,Math.min(-.1,...xs),Math.max(view.distance+.15,...xs),Math.min(0,...zs),Math.max(.3,...zs)+.05,'Distance along board → bucket axis (m)','Ball-center height above table (m)');
+  c.strokeStyle='#a47320';c.lineWidth=2;c.beginPath();c.moveTo(x(view.distance-.1),y(.183));c.lineTo(x(view.distance-.079),y(.008));c.lineTo(x(view.distance+.079),y(.008));c.lineTo(x(view.distance+.1),y(.183));c.stroke();
+  c.strokeStyle=trace.route_success?'#128b8c':'#ec7657';c.lineWidth=2;c.beginPath();view.points.forEach((p,i)=>{if(i)c.lineTo(x(p[0]),y(p[1]));else c.moveTo(x(p[0]),y(p[1]));});c.stroke();
+  c.fillStyle='#173c3d';const first=view.points[0];c.beginPath();c.arc(x(first[0]),y(first[1]),4,0,Math.PI*2);c.fill();
+  $('windowTraceCaption').textContent=`${trace.method??'Native example'} · ${trace.role??'role unreported'} · ${trace.context_id??'Context unknown'} · gap ${Number.isFinite(trace.gap_m)?(trace.gap_m*1000).toFixed(1)+' mm':'unknown'} · ${trace.route_success===true?'captured':trace.route_success===false?'missed':'outcome unknown'} · ${view.points.length} saved samples · maximum off-plane displacement ${(1000*view.lateral).toFixed(1)} mm. Projection does not hide lateral error from the scorer. ${trace.selection_scope??''} ${(study.trace_warnings??[]).join(' ')}`;
+}
+function showWindowStudy() {
+  const view=windowStudyView(report.window_study_evaluation);$('windowStudy').hidden=!view;if(!view)return;
+  const study=view.raw,shown=v=>v===null||v===undefined?'—':v,mm=v=>Number.isFinite(v)?(v*1000).toFixed(1):'—';
+  $('windowStatus').textContent=`${study.version??'Gap study'} · ${study.status??'pending'} · ${study.phase??'pending'}`;
+  $('windowScope').textContent=`${study.scope??study.settings?.scope??'Fixed bucket and board XY; held-out height/tilt contexts only.'} ${study.active_policy??'Previous interactive solver remains active.'}`;
+  const coverage=view.boardCoverage,covered=row=>row.total?`${row.resolved} / ${row.total}${row.unknown?' · '+row.unknown+' unknown':''}`:'—';
+  const pairs=[['Train / validation / test contexts',`${view.split.join(' / ')} · ${view.disjoint?'disjoint declared contexts':'split identity not verified'}`],
+    ['Board IK resolved under current budget · all contexts',covered(coverage.all)],
+    ['Board IK resolved · train / validation / test',[coverage.train,coverage.validation,coverage.test].map(covered).join(' · ')],
+    ['Fixed bucket XY (mm)',(study.settings?.bucket_xy_m??[]).map(mm).join(' / ')||'—'],['Fixed board XY (mm)',(study.settings?.board_xy_m??[]).map(mm).join(' / ')||'—'],
+    ['Native evidence audit',study.audit?.status??'pending']];
+  for(const [key,value] of Object.entries(study.counts??{}))if(Number.isFinite(value))pairs.push([key.replaceAll('_',' '),value]);
+  addMetrics(pairs,$('windowSummary'));drawWindowCurve(view);drawWindowRuns(study);
+  const native=stats=>stats.released===null?'unreported':`${stats.released} / ${shown(stats.requests)}`;
+  const reward=stats=>stats.reward===null?'—':stats.reward.toFixed(3);
+  expansionTable($('windowCurve'),['Method','Training requests','Validation captures / requests','Native releases / requests','Mean shaped reward'],view.curve.map(r=>[WINDOW_METHODS[r.method],r.milestone,r.stats.fraction,native(r.stats),reward(r.stats)]));
+  expansionTable($('windowComparison'),['Frozen method','Captures / all requests','Native releases / requests','Clean','Invalid','Mean shaped reward','95% descriptive interval'],view.test.map(r=>[WINDOW_METHODS[r.name],r.stats.fraction,native(r.stats),shown(r.stats.clean),shown(r.stats.invalid),reward(r.stats),r.stats.interval?r.stats.interval.map(v=>(v*100).toFixed(1)+'%').join(' – '):'—']));
+  $('windowUncertainty').textContent='All requests stay in the capture denominator, including geometry rejects. Descriptive binomial intervals do not account for dependence between repeated shots at the same context. This single seeded study does not establish broad state-space coverage or a statistically proven method advantage. The surrogate probability is uncalibrated.';
+  const rows=[];for(const row of study.test_contexts??[])for(const [method,value] of Object.entries(row.methods??{}))if(method in WINDOW_METHODS){const nominal=windowStatistics(value.nominal),fresh=windowStatistics(value.fresh),total=windowStatistics(value.total);rows.push([row.context_id,`${mm(row.board_height_m)} / ${shown(row.tilt_deg)}°`,WINDOW_METHODS[method],mm(value.gap_m),nominal.fraction,fresh.fraction,total.fraction,native(total)]);}
+  expansionTable($('windowTestContexts'),['Test context','Board H mm / tilt','Method','Gap mm','Nominal captures / requests','Fresh captures / requests','All captures / requests','Native / all'],rows);
+  const select=$('windowTraceSelect'),previous=select.value,traces=study.trace_examples??[];
+  select.replaceChildren(...traces.map((trace,i)=>{const option=document.createElement('option');option.value=String(i);option.textContent=`${trace.method??'native'} · ${trace.role??'role unreported'} · ${trace.context_id??'Unknown'} · ${mm(trace.gap_m)} mm · ${trace.route_success?'capture':'miss'}`;return option;}));
+  if(previous!==''&&Number(previous)<traces.length)select.value=previous;select.disabled=!traces.length;select.onchange=()=>drawWindowTrace(study,Number(select.value));drawWindowTrace(study,Number(select.value));
+  const checkpoints=Object.entries(study.selected_checkpoints??{}).map(([name,value])=>`${WINDOW_METHODS[name]??name}: ${value?.milestone??value?.training_requests??'checkpoint pending'} training requests`).join('; ');
+  $('windowAudit').textContent=`Audit: ${study.audit?.status??'pending'}${study.audit?.reason?' · '+study.audit.reason:''}. Contract: ${study.contract_fingerprint??'unreported'}. ${checkpoints}`;
+  const confirmation=windowConfirmationView(study);$('windowConfirmations').hidden=!confirmation;
+  if(confirmation){
+    $('windowConfirmationStatus').textContent=`${confirmation.status??'pending'} · separate repeatability audit: ${confirmation.audit?.status??'pending'}${Number.isInteger(confirmation.audit?.checks_count)?' · '+confirmation.audit.checks_count+' checks':''}${confirmation.reason?' · '+confirmation.reason:''}`;
+    $('windowConfirmationScope').textContent=confirmation.scope??'Gap-only repeatability at frozen TRAIN configurations; no continuous-window or policy-generalization claim.';
+    expansionTable($('windowConfirmationTable'),['Recipe','Board mm / °','Gap / release mm','Distance mm','Nominal','Fresh','Total','Native','Clean'],(confirmation.recipes??[]).map(row=>{
+      const nominal=windowStatistics(row.nominal),fresh=windowStatistics(row.fresh),total=windowStatistics(row.total);
+      return [row.id??'recipe',`${mm(row.board_height_m)} / ${Number.isFinite(row.tilt_deg)?row.tilt_deg.toFixed(2):'—'}°`,`${mm(row.gap_m)} / ${mm(row.release_center_height_m)}`,mm(row.distance_m),nominal.fraction,fresh.fraction,total.fraction,native(total),total.clean===null?'unreported':`${total.clean} / ${shown(total.requests)}`];
+    }));
+  }
+}
+// END READ-ONLY WINDOW STUDY
 function showCorrectedGrid() {
   const progress = correctedGridProgress(report);
   $('correctedGrid').hidden = !progress;
@@ -525,7 +671,7 @@ function showCoverage() {
   if (evaluation.layouts !== undefined) pairs.push(['Frozen test layouts', evaluation.layouts]);
   if (pairs.length) addMetrics(pairs, $('studySummary'));
   else $('studySummary').textContent = report.summary ?? 'Study metrics will appear when published. Unresolved cells remain visible.';
-  showComparison(); showBankComparison(); showExpansion(); showStableIk(); showContactStudy(); showCorrectedGrid();
+  showComparison(); showBankComparison(); showExpansion(); showStableIk(); showContactStudy(); showCorrectedGrid(); showWindowStudy();
 }
 async function loadStatus() {
   try {
