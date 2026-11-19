@@ -53,7 +53,7 @@ test('contact panel is read-only, downloads evidence, and cannot actuate or alte
     assert.ok(html.includes(`id="${id}"`));
   const section = js.slice(js.indexOf('function showContactStudy()'), js.indexOf('function showStableIk()'));
   assert.ok(section.includes('configurationsCsv(report)'));
-  assert.ok(section.includes('if (pending) return;'));
+  assert.ok(section.includes('if (pending || physics?.busy) return;'));
   assert.ok(!section.includes('fetch(')); assert.ok(!section.includes('/api/solve'));
   assert.ok(html.includes('not physical calibration or policy improvement'));
 });

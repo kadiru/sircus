@@ -83,5 +83,5 @@ test('study display is read-only, refreshes with status, and cannot plan or exec
   const refresh = js.split('async function loadStatus() {')[1].split('function showSavedPhysicsReplays')[0];
   assert.match(refresh, /showNeuralShotStudy\(\)/);
   assert.match(html, /Inputs currently come from simulator geometry, not camera perception/);
-  assert.match(html, /This study does not change the live Plan shot button/);
+  assert.match(html, /This earlier study did not change the live planner at the time/);
 });

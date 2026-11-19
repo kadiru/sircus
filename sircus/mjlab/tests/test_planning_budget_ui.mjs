@@ -128,5 +128,5 @@ test('comparison UI is additive and read-only, refreshes on status, and waits fo
   const refresh = js.split('async function loadStatus() {')[1].split('function showSavedPhysicsReplays')[0];
   assert.match(refresh, /showPlanningBudgetStudy\(\)/);
   assert.match(html, /A planning timeout is not a measured flight miss/);
-  assert.match(html, /live Plan shot button is unchanged/);
+  assert.match(html, /This earlier study did not change the live planner at the time/);
 });

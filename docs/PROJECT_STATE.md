@@ -1,5 +1,19 @@
 # Project state
 
+## Live fast-planner comparison interrupted — November 17, 2026
+
+- The ten-position, twenty-attempt comparison stopped after its 3,600-second GPU wait expired. **0/20 requests completed and no native comparison drops ran.** The first fast plan took **16.079 seconds**; the original planner has no measured request in this batch.
+- A fresh read-only check confirmed the runner exited and the unrelated 4090 job remains active. There is no active automatic queue. Timing and capture differences therefore remain unknown; the UI now states this explicitly rather than presenting empty counts as capture results.
+- Keep the saved report, frozen placements and ready service job. Resume the same acceptance command after the 4090 becomes available, inspecting the saved job first. The 4070 and Isaac were untouched. No scoring, planner, training or native evidence changed in this status update.
+
+## Fast planner integration — November 17, 2026
+
+- [Operator flow and limits](../sircus/mjlab/INTERACTIVE_FAST.md): fast checked planning becomes the default only when its published study, model lineage and pinned source inputs verify. The original interactive planner remains an explicitly selectable fallback.
+- Repeated coordinates use fresh request/proof directories while clean CPU workers retain initialized kinematics. Changing bucket or planner invalidates the preview; the backend permits one native drop per preview and rejects stale or duplicate requests.
+- [Acceptance protocol](../sircus/mjlab/INTERACTIVE_FAST_ACCEPTANCE.md): ten new coordinates, four interior/four edge/two near bases, alternate planner order, at most one drop per method/position at 64 substeps. Report complete HTTP planning latency separately from GPU wait/drop; keep no-setup attempts in the denominator. Native comparison is pending.
+- Deployed only the mjlab simulation UI after staging passed. Fast is the default; classic remains selectable. Real-model CPU checks confirmed repeated-coordinate worker reuse with new proofs, and browser checks confirmed drag → plan → both arm previews plus fallback invalidation. The original runtime and launch record are preserved for rollback.
+- Validation: 66 pinned-Ubuntu CPU tests and 433 Node tests passed; GitHub CI passed for the implementation checkpoint. The ten-position native comparison has started and waits cooperatively before drops when another job occupies the 4090. No 4070 or Isaac setup change.
+
 ## Planning-speed comparison complete — November 17, 2026
 
 - [Frozen protocol](../sircus/mjlab/FAST_PLANNING_STUDY.md): 50 fresh positions, three versions of the same learned selector: fresh worker, reused worker, and reused worker returning the first fully checked shot with at least 5 mm of predicted arm/rim margin. All retain the 30-second decision limit and existing arm checks.

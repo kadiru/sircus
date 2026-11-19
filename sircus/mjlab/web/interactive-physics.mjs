@@ -21,7 +21,8 @@ export function physicsProgress(snapshot) {
   const p = snapshot?.progress || {}, parts = [];
   if (Number.isInteger(p.proposed) && p.proposed >= 0) parts.push(`${p.proposed} candidates`);
   if (Number.isFinite(p.wait_s) && p.wait_s >= 0) parts.push(`Waiting ${Math.floor(p.wait_s)} s`);
-  if (Number.isFinite(p.elapsed_s) && p.elapsed_s >= 0) parts.push(`Elapsed ${Math.floor(p.elapsed_s)} s`);
+  const elapsed = snapshot?.planning_elapsed_s ?? p.elapsed_s;
+  if (Number.isFinite(elapsed) && elapsed >= 0) parts.push(`Elapsed ${Math.floor(elapsed)} s`);
   return parts.join(' · ');
 }
 /** Read saved native results without planning, simulation, or reconstructing flight. */
@@ -237,6 +238,54 @@ export function fastPlanningSummary(study) {
     complete: status === 'completed' && audit === 'passed' && budget > 0 && accountingValid,
     next: typeof section.next === 'string' ? section.next : '', error: typeof section.error === 'string' ? section.error : '' };
 }
+/** Live API acceptance is separate from the earlier offline planning comparison. */
+export function interactiveFastAcceptanceSummary(study) {
+  const section = study?.interactive_fast_acceptance;
+  if (!section || section.version !== 'sircus-interactive-fast-acceptance-v1') return null;
+  const count = value => Number.isInteger(value) && value >= 0 ? value : null;
+  const seconds = value => Number.isFinite(value) && value >= 0 ? value : null;
+  const methods = Object.entries({ fast: 'Faster planner', classic: 'Original planner' }).map(([id, label]) => {
+    const raw = section.comparison?.[id] || {};
+    const values = Object.fromEntries(['positions', 'captures', 'releases', 'no_setup', 'failed', 'worker_reused'].map(key => [key, count(raw[key])]));
+    return { id, label, ...values, planning_samples: count(raw.planning?.samples),
+      planning: Object.fromEntries(['mean_s', 'median_s', 'p90_s', 'max_s'].map(key => [key, seconds(raw.planning?.[key])])),
+      backend_request: Object.fromEntries(['mean_s', 'median_s', 'p90_s', 'max_s'].map(key => [key, seconds(raw.backend_request?.[key])])),
+      valid: values.positions > 0 && ['captures', 'releases', 'no_setup', 'failed'].every(key => values[key] !== null)
+        && values.captures <= values.releases && values.releases + values.no_setup + values.failed === values.positions };
+  });
+  const paired = Object.fromEntries(['both', 'gained', 'lost', 'neither'].map(key => [key, count(section.paired?.[key])]));
+  const total = methods[0].positions;
+  const completed = count(section.progress?.completed), planned = count(section.progress?.planned);
+  const accountingValid = methods.every(row => row.valid && row.positions === total)
+    && planned === total * 2 && completed === planned
+    && Object.values(paired).every(value => value !== null)
+    && paired.both + paired.gained + paired.lost + paired.neither === total
+    && paired.both + paired.gained === methods[0].captures && paired.both + paired.lost === methods[1].captures;
+  const complete = section.status === 'completed' && section.audit_status === 'passed' && accountingValid;
+  const active = !complete && Array.isArray(section.positions) ? section.positions.find(row =>
+    ['plan_intent', 'queued', 'planning', 'ready', 'drop_intent', 'running'].includes(row?.state)
+    && methods.some(method => method.id === row.planner)
+    && (typeof row.case === 'string' || Number.isInteger(row.case))
+    && typeof row.message === 'string' && row.message.trim()) : null;
+  const next = active ? `${active.case} · ${methods.find(method => method.id === active.planner).label}: ${active.message.trim()}`
+    : typeof section.next === 'string' ? section.next : '';
+  return { status: section.status, audit: section.audit_status, methods, paired, total, completed, planned,
+    accounting_valid: accountingValid, complete,
+    gpu_wait_expired: section.status === 'failed' && typeof section.error === 'string'
+      && section.error.includes('4090 remains occupied; saved ready plan can resume without replanning'),
+    scope: typeof section.scope === 'string' ? section.scope : '', next,
+    error: typeof section.error === 'string' ? section.error : '' };
+}
+/** Capability-gated choice: older servers keep their exact original request shape. */
+export function physicsPlanners(capabilities) {
+  const labels = { fast: 'Faster planner · ~30 s decision budget', classic: 'Original planner · explicit fallback' };
+  const ids = Array.isArray(capabilities?.planners)
+    ? [...new Set(capabilities.planners.map(row => row?.id).filter(id => Object.hasOwn(labels, id)))] : [];
+  const choices = (ids.length ? ids : ['classic']).map(id => ({ id, label: labels[id] }));
+  const defaultPlanner = ids.includes(capabilities?.default_planner) ? capabilities.default_planner
+    : choices.some(row => row.id === 'classic') ? 'classic' : choices[0].id;
+  return { choices, defaultPlanner, advertised: ids.length > 0 };
+}
 export class InteractivePhysics {
   constructor({
     fetcher = (...args) => globalThis.fetch(...args),
@@ -245,8 +294,14 @@ export class InteractivePhysics {
     cancel = timer => globalThis.clearTimeout(timer),
   } = {}) {
     this.fetcher = fetcher; this.onChange = onChange; this.schedule = schedule; this.cancel = cancel;
-    this.epoch = 0; this.timer = null; this.capabilities = null;
+    this.epoch = 0; this.timer = null; this.capabilities = null; this.planner = 'classic';
     this.snapshot = { state: 'unavailable', message: 'Physics planner unavailable.' };
+  }
+  get plannerOptions() { return physicsPlanners(this.capabilities); }
+  selectPlanner(id) {
+    if (!this.available || this.busy || !this.plannerOptions.choices.some(row => row.id === id)) return false;
+    if (id !== this.planner) { this.planner = id; this.invalidate('Planner changed. Plan a new shot.'); }
+    return true;
   }
   get available() { return this.capabilities?.enabled === true; }
   get busy() { return ['submitting', 'submitting_drop', 'queued', 'planning', 'running'].includes(this.snapshot.state); }
@@ -259,6 +314,7 @@ export class InteractivePhysics {
       const data = await response.json();
       if (data.enabled !== true) return false;
       this.capabilities = data;
+      this.planner = this.plannerOptions.defaultPlanner;
       this.publish({ state: 'idle', message: 'Place the bucket, then plan a shot.' });
       return true;
     } catch { return false; } // An older viewer remains usable without this optional API.
@@ -282,15 +338,17 @@ export class InteractivePhysics {
     if (bounds && ['x', 'y'].some((axis, i) => vector(bounds[axis], 2) && (xy[i] < bounds[axis][0] || xy[i] > bounds[axis][1]))) {
       this.publish({ state: 'failed', message: 'Bucket is outside the physics planner bounds.' }); return false;
     }
-    const epoch = ++this.epoch, target = xy.slice();
+    const epoch = ++this.epoch, target = xy.slice(), planner = this.planner;
+    const payload = { bucket_xy_m: target, ...(this.plannerOptions.advertised ? { planner } : {}) };
     if (this.timer !== null) this.cancel(this.timer);
     this.timer = null;
-    this.publish({ state: 'submitting', bucket_xy_m: target, message: 'Submitting shot plan…' });
+    this.publish({ state: 'submitting', bucket_xy_m: target, planner, message: 'Submitting shot plan…' });
     try {
-      const job = await this.json('/api/interactive-physics/plan', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ bucket_xy_m: target }) });
+      const job = await this.json('/api/interactive-physics/plan', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
       if (epoch !== this.epoch) return false;
       if (typeof job.id !== 'string' || !job.id) throw Error('Planner did not return a job ID.');
-      this.publish({ ...job, state: 'queued', bucket_xy_m: target, message: 'Planning geometry and both arm poses…' });
+      if (job.planner && job.planner !== planner) throw Error('Planner response belongs to another selected planner.');
+      this.publish({ ...job, state: 'queued', bucket_xy_m: target, planner, message: 'Planning geometry and both arm poses…' });
       void this.poll(epoch, job.id, target);
       return true;
     } catch (error) { if (epoch === this.epoch) this.publish({ state: 'failed', message: error.message }); return false; }
@@ -315,6 +373,8 @@ export class InteractivePhysics {
       if (epoch !== this.epoch) return;
       if (job.id !== id || !sameXY(job.bucket_xy_m, xy)) throw Error('Planner response does not match this target.');
       if (!states.has(job.state)) throw Error('Unknown planner state.');
+      if (job.planner && job.planner !== this.planner) throw Error('Planner response belongs to another selected planner.');
+      if (job.preview?.planner && job.preview.planner !== this.planner) throw Error('Preview belongs to another selected planner.');
       if (job.state === 'ready' && (!hasNativePreview(job.preview) || !sameXY(job.preview.bucket_xy_m, xy))) throw Error('Plan has no complete native arm-pose preview.');
       if (job.state === 'completed' && (!job.result || !sameXY(job.result.bucket_xy_m, xy))) throw Error('Drop result does not match this target.');
       this.publish(job);
