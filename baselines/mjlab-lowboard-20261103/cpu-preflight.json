@@ -1,0 +1,1259 @@
+{
+  "version": "sircus-low-board-strict-cpu-preflight-v1",
+  "status": "passed",
+  "scope": "Strict CPU endpoint/FK/clearance preflight only; no ball flight, learning, GPU usage, swept motion, service change or new feasibility guarantee.",
+  "parent_fingerprint": "6d94edc505db7201f603456116303cd14acd9dde26e364ea295b1739c78f8499",
+  "scene_sha256": "08984872d9b68722f41b51f5e0421b061f83eeb7bcc370bcba1e8fee1086d130",
+  "parent_source_files_checked": 91,
+  "asset_sha256": {
+    "assets/board_arm.urdf": "9981178abd0d87db43f7cca9fe26b0a74618aaa75ea10709194bd23acf59a340",
+    "assets/dropper.urdf": "3f40e56e46b040fb3339c1235ea85872f46511c45db2d37f7661db94a470bae3",
+    "assets/poses.json": "5847c2793606860a82cc74030c3fe529767318f189c5d48e3d66c0dc7b9f776a",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link1.stl": "4069840361c2693b5b1147da366d5ba8a49ff7ab2c52fed68e07e04e07786e3f",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link2.stl": "0e736a629e6000c3c912f5aaf76937f824f510ac8894db67bd0d7f1d6210fc52",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link3.stl": "f682201345117c4b021fd9db21bd9bef6824886c8324f046b7d5772d7c9fa426",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link4.stl": "7bf4ab507c07a2b26e6a8528decdfe32d71efffdf1dd391406f1ce2f9ff4caa7",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link5.stl": "103955f097086e0f5d46380ff89bc7ef669877bb65def38431a18fc5343e1ba0",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link6.stl": "86b95b77850f38ff1437284705a1c8c616e3da21faef72e4f06751fc741de3b3",
+    "vendor/xarm_ros2/xarm_description/meshes/uf850/collision/link_base.stl": "871d501d23e8164440656331ee0e005d859dbdb7fab1c3725bef423adac9cf0e"
+  },
+  "packages": {
+    "mjlab": "1.6.0",
+    "mujoco": "3.11.0",
+    "mujoco-warp": "3.11.0",
+    "torch": "2.7.0",
+    "warp-lang": "1.14.0",
+    "numpy": "1.26.4",
+    "scipy": "1.15.3",
+    "ml-dtypes": "0.5.4"
+  },
+  "seed_geometry_sha256": {
+    "recipe-00": "3b5f1d74a98a6af188e3e86f711842cabf2d9e62da4bded6cee479f061136954",
+    "recipe-02": "75ad27a611d83de2f23a30f9b28b4a57c7a4b22d049b1c41b690dd9bfd9408f5",
+    "recipe-03": "48b097675b45c469ef727dbb6bdbd4884dcecf75949c21bb9281e97d4848973a",
+    "recipe-04": "9b9fe4b7d5d428d2ded24ad412d09b1397aa768f9e83ac202e023e13c8f16692",
+    "recipe-08": "8dc5266f7852bf5f1b7f53dbbe8da9d2835943415bb03e48a5133dd711de1e4a",
+    "recipe-09": "17f498a877990ef46cc861a59842a80323e5b5734fb2468c78b050d1f99949da",
+    "recipe-10": "9da6fcc8720676b1c79eb6e1e41278a10fcdc58d4bb3fe671e50fd1ea33c0ec0",
+    "recipe-11": "d20c00c12c805ea41b151642afd5df215e52400dbfe08152b5fca03902394f2f"
+  },
+  "geometry_source_sha256": "bc7276a7104680c32220dfc589cd46793beffab6166d64da0956e4bc2ed8e507",
+  "prior": {
+    "version": "existing-842mm-wrist-sphere-proposal-prior",
+    "board_xy_m": [
+      0.4708757793012148,
+      -0.2778934014509746
+    ],
+    "shoulder_z_m": 0.364,
+    "sphere_radius_m": 0.842,
+    "flange_to_ball_center_m": 0.095,
+    "additional_wrist_prior_offset_m": 0.09,
+    "ball_center_ceiling_m": 0.8193243380486807,
+    "native_ik_ceiling_verified": false,
+    "release_levels_m": [
+      0.8143243380486807,
+      0.8043243380486806,
+      0.7893243380486806,
+      0.7693243380486806,
+      0.7393243380486807
+    ],
+    "headroom_m": [
+      0.005,
+      0.015,
+      0.03,
+      0.05,
+      0.08
+    ],
+    "source": "sircus/mjlab/expand_geometry.py:maximum_gap and outer_geometry_mask",
+    "caveat": "This analytic proposal prior is neither an exact URDF reach envelope nor paired collision-free/native-IK admission."
+  },
+  "checks_count": 1769,
+  "failures": [],
+  "timing_s": {
+    "prepare_136": 18.87944430706557,
+    "controls_24": 1.327318070922047,
+    "development_640": 44.04646762495395,
+    "total": 64.34952792490367
+  },
+  "by_target": [
+    {
+      "distance_id": "corner-d01",
+      "distance_m": 0.65,
+      "requested_contexts": 32,
+      "board_admitted_contexts": 13,
+      "endpoint_requests": 160,
+      "paired_endpoints_admitted": 52,
+      "context_rejection_reasons": {
+        "workspace_prior_reject": 19
+      },
+      "endpoint_rejection_reasons": {
+        "workspace_prior_reject": 95,
+        "strict_clearance_reject": 13
+      },
+      "by_headroom": [
+        {
+          "headroom_m": 0.005,
+          "requests": 32,
+          "admitted": 0
+        },
+        {
+          "headroom_m": 0.015,
+          "requests": 32,
+          "admitted": 13
+        },
+        {
+          "headroom_m": 0.03,
+          "requests": 32,
+          "admitted": 13
+        },
+        {
+          "headroom_m": 0.05,
+          "requests": 32,
+          "admitted": 13
+        },
+        {
+          "headroom_m": 0.08,
+          "requests": 32,
+          "admitted": 13
+        }
+      ]
+    },
+    {
+      "distance_id": "corner-d02",
+      "distance_m": 0.7,
+      "requested_contexts": 32,
+      "board_admitted_contexts": 13,
+      "endpoint_requests": 160,
+      "paired_endpoints_admitted": 52,
+      "context_rejection_reasons": {
+        "workspace_prior_reject": 19
+      },
+      "endpoint_rejection_reasons": {
+        "workspace_prior_reject": 95,
+        "strict_clearance_reject": 13
+      },
+      "by_headroom": [
+        {
+          "headroom_m": 0.005,
+          "requests": 32,
+          "admitted": 0
+        },
+        {
+          "headroom_m": 0.015,
+          "requests": 32,
+          "admitted": 13
+        },
+        {
+          "headroom_m": 0.03,
+          "requests": 32,
+          "admitted": 13
+        },
+        {
+          "headroom_m": 0.05,
+          "requests": 32,
+          "admitted": 13
+        },
+        {
+          "headroom_m": 0.08,
+          "requests": 32,
+          "admitted": 13
+        }
+      ]
+    },
+    {
+      "distance_id": "corner-d03",
+      "distance_m": 0.75,
+      "requested_contexts": 32,
+      "board_admitted_contexts": 13,
+      "endpoint_requests": 160,
+      "paired_endpoints_admitted": 52,
+      "context_rejection_reasons": {
+        "workspace_prior_reject": 19
+      },
+      "endpoint_rejection_reasons": {
+        "workspace_prior_reject": 95,
+        "strict_clearance_reject": 13
+      },
+      "by_headroom": [
+        {
+          "headroom_m": 0.005,
+          "requests": 32,
+          "admitted": 0
+        },
+        {
+          "headroom_m": 0.015,
+          "requests": 32,
+          "admitted": 13
+        },
+        {
+          "headroom_m": 0.03,
+          "requests": 32,
+          "admitted": 13
+        },
+        {
+          "headroom_m": 0.05,
+          "requests": 32,
+          "admitted": 13
+        },
+        {
+          "headroom_m": 0.08,
+          "requests": 32,
+          "admitted": 13
+        }
+      ]
+    },
+    {
+      "distance_id": "corner-d04",
+      "distance_m": 0.77,
+      "requested_contexts": 32,
+      "board_admitted_contexts": 13,
+      "endpoint_requests": 160,
+      "paired_endpoints_admitted": 52,
+      "context_rejection_reasons": {
+        "workspace_prior_reject": 19
+      },
+      "endpoint_rejection_reasons": {
+        "workspace_prior_reject": 95,
+        "strict_clearance_reject": 13
+      },
+      "by_headroom": [
+        {
+          "headroom_m": 0.005,
+          "requests": 32,
+          "admitted": 0
+        },
+        {
+          "headroom_m": 0.015,
+          "requests": 32,
+          "admitted": 13
+        },
+        {
+          "headroom_m": 0.03,
+          "requests": 32,
+          "admitted": 13
+        },
+        {
+          "headroom_m": 0.05,
+          "requests": 32,
+          "admitted": 13
+        },
+        {
+          "headroom_m": 0.08,
+          "requests": 32,
+          "admitted": 13
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "requested_contexts": 136,
+    "development_contexts": 128,
+    "control_contexts": 8,
+    "board_admitted_contexts": 60,
+    "controls_admitted": 24,
+    "development_requests": 640,
+    "development_paired_endpoints_admitted": 208,
+    "rejection_reasons": {
+      "workspace_prior_reject": 380,
+      "strict_clearance_reject": 52
+    },
+    "maximum_native_position_error_m": 8.30415806512388e-9,
+    "maximum_native_rotation_error_rad": 1.1517188928748104e-8,
+    "minimum_pair_clearance_lower_bound_m": 0.0054091592426402935
+  },
+  "raw_evidence_reference": "temporary/low-board-native-cpu-preflight.json",
+  "raw_evidence_sha256": "8c446cd57778de0e5ee3b184b35b6c708b39d8f853a5fe6b16f457899509fc50",
+  "context_admission_table": [
+    {
+      "board_height_m": 0.22,
+      "tilt_deg": 28,
+      "source_anchor_id": "recipe-08",
+      "board_admitted_per_target": false,
+      "reason": "workspace_prior_reject",
+      "requested_gaps_m": [
+        0.5568243380486807,
+        0.5468243380486807,
+        0.5318243380486807,
+        0.5118243380486807,
+        0.4818243380486807
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [],
+      "frozen_board_proof_sha256": {
+        "corner-d01": null,
+        "corner-d02": null,
+        "corner-d03": null,
+        "corner-d04": null
+      }
+    },
+    {
+      "board_height_m": 0.22,
+      "tilt_deg": 32,
+      "source_anchor_id": "recipe-08",
+      "board_admitted_per_target": false,
+      "reason": "workspace_prior_reject",
+      "requested_gaps_m": [
+        0.5568243380486807,
+        0.5468243380486807,
+        0.5318243380486807,
+        0.5118243380486807,
+        0.4818243380486807
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [],
+      "frozen_board_proof_sha256": {
+        "corner-d01": null,
+        "corner-d02": null,
+        "corner-d03": null,
+        "corner-d04": null
+      }
+    },
+    {
+      "board_height_m": 0.22,
+      "tilt_deg": 36,
+      "source_anchor_id": "recipe-08",
+      "board_admitted_per_target": false,
+      "reason": "workspace_prior_reject",
+      "requested_gaps_m": [
+        0.5568243380486807,
+        0.5468243380486807,
+        0.5318243380486807,
+        0.5118243380486807,
+        0.4818243380486807
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [],
+      "frozen_board_proof_sha256": {
+        "corner-d01": null,
+        "corner-d02": null,
+        "corner-d03": null,
+        "corner-d04": null
+      }
+    },
+    {
+      "board_height_m": 0.22,
+      "tilt_deg": 40,
+      "source_anchor_id": "recipe-08",
+      "board_admitted_per_target": false,
+      "reason": "workspace_prior_reject",
+      "requested_gaps_m": [
+        0.5568243380486807,
+        0.5468243380486807,
+        0.5318243380486807,
+        0.5118243380486807,
+        0.4818243380486807
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [],
+      "frozen_board_proof_sha256": {
+        "corner-d01": null,
+        "corner-d02": null,
+        "corner-d03": null,
+        "corner-d04": null
+      }
+    },
+    {
+      "board_height_m": 0.24,
+      "tilt_deg": 28,
+      "source_anchor_id": "recipe-08",
+      "board_admitted_per_target": false,
+      "reason": "workspace_prior_reject",
+      "requested_gaps_m": [
+        0.5368243380486807,
+        0.5268243380486807,
+        0.5118243380486807,
+        0.4918243380486807,
+        0.46182433804868067
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [],
+      "frozen_board_proof_sha256": {
+        "corner-d01": null,
+        "corner-d02": null,
+        "corner-d03": null,
+        "corner-d04": null
+      }
+    },
+    {
+      "board_height_m": 0.24,
+      "tilt_deg": 32,
+      "source_anchor_id": "recipe-08",
+      "board_admitted_per_target": false,
+      "reason": "workspace_prior_reject",
+      "requested_gaps_m": [
+        0.5368243380486807,
+        0.5268243380486807,
+        0.5118243380486807,
+        0.4918243380486807,
+        0.46182433804868067
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [],
+      "frozen_board_proof_sha256": {
+        "corner-d01": null,
+        "corner-d02": null,
+        "corner-d03": null,
+        "corner-d04": null
+      }
+    },
+    {
+      "board_height_m": 0.24,
+      "tilt_deg": 36,
+      "source_anchor_id": "recipe-08",
+      "board_admitted_per_target": false,
+      "reason": "workspace_prior_reject",
+      "requested_gaps_m": [
+        0.5368243380486807,
+        0.5268243380486807,
+        0.5118243380486807,
+        0.4918243380486807,
+        0.46182433804868067
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [],
+      "frozen_board_proof_sha256": {
+        "corner-d01": null,
+        "corner-d02": null,
+        "corner-d03": null,
+        "corner-d04": null
+      }
+    },
+    {
+      "board_height_m": 0.24,
+      "tilt_deg": 40,
+      "source_anchor_id": "recipe-08",
+      "board_admitted_per_target": false,
+      "reason": "workspace_prior_reject",
+      "requested_gaps_m": [
+        0.5368243380486807,
+        0.5268243380486807,
+        0.5118243380486807,
+        0.4918243380486807,
+        0.46182433804868067
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [],
+      "frozen_board_proof_sha256": {
+        "corner-d01": null,
+        "corner-d02": null,
+        "corner-d03": null,
+        "corner-d04": null
+      }
+    },
+    {
+      "board_height_m": 0.26,
+      "tilt_deg": 28,
+      "source_anchor_id": "recipe-08",
+      "board_admitted_per_target": false,
+      "reason": "workspace_prior_reject",
+      "requested_gaps_m": [
+        0.5168243380486807,
+        0.5068243380486807,
+        0.49182433804868064,
+        0.4718243380486807,
+        0.44182433804868065
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [],
+      "frozen_board_proof_sha256": {
+        "corner-d01": null,
+        "corner-d02": null,
+        "corner-d03": null,
+        "corner-d04": null
+      }
+    },
+    {
+      "board_height_m": 0.26,
+      "tilt_deg": 32,
+      "source_anchor_id": "recipe-08",
+      "board_admitted_per_target": false,
+      "reason": "workspace_prior_reject",
+      "requested_gaps_m": [
+        0.5168243380486807,
+        0.5068243380486807,
+        0.49182433804868064,
+        0.4718243380486807,
+        0.44182433804868065
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [],
+      "frozen_board_proof_sha256": {
+        "corner-d01": null,
+        "corner-d02": null,
+        "corner-d03": null,
+        "corner-d04": null
+      }
+    },
+    {
+      "board_height_m": 0.26,
+      "tilt_deg": 36,
+      "source_anchor_id": "recipe-08",
+      "board_admitted_per_target": false,
+      "reason": "workspace_prior_reject",
+      "requested_gaps_m": [
+        0.5168243380486807,
+        0.5068243380486807,
+        0.49182433804868064,
+        0.4718243380486807,
+        0.44182433804868065
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [],
+      "frozen_board_proof_sha256": {
+        "corner-d01": null,
+        "corner-d02": null,
+        "corner-d03": null,
+        "corner-d04": null
+      }
+    },
+    {
+      "board_height_m": 0.26,
+      "tilt_deg": 40,
+      "source_anchor_id": "recipe-08",
+      "board_admitted_per_target": true,
+      "reason": null,
+      "requested_gaps_m": [
+        0.5168243380486807,
+        0.5068243380486807,
+        0.49182433804868064,
+        0.4718243380486807,
+        0.44182433804868065
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "frozen_board_proof_sha256": {
+        "corner-d01": "6db6b5bcfabfc7a7f47fd549b3cbe3bc48e2e84006ddd53129b330fc2ce101d7",
+        "corner-d02": "c32973d8a3d3c01cc8341af9837eb1ac0df32e99473e0cc0df481f01d9fc2d42",
+        "corner-d03": "a656ba85a3ce3e13cf0d5aa4aab48fd46d7f6507cc81f6381ce69c3f6d4a51ce",
+        "corner-d04": "1fd50f462f05917e9d80ef0bd393e95257f3224286f78b1420bf6aa82f80f59b"
+      }
+    },
+    {
+      "board_height_m": 0.28,
+      "tilt_deg": 28,
+      "source_anchor_id": "recipe-08",
+      "board_admitted_per_target": false,
+      "reason": "workspace_prior_reject",
+      "requested_gaps_m": [
+        0.49682433804868065,
+        0.48682433804868064,
+        0.4718243380486806,
+        0.45182433804868066,
+        0.42182433804868064
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [],
+      "frozen_board_proof_sha256": {
+        "corner-d01": null,
+        "corner-d02": null,
+        "corner-d03": null,
+        "corner-d04": null
+      }
+    },
+    {
+      "board_height_m": 0.28,
+      "tilt_deg": 32,
+      "source_anchor_id": "recipe-08",
+      "board_admitted_per_target": false,
+      "reason": "workspace_prior_reject",
+      "requested_gaps_m": [
+        0.49682433804868065,
+        0.48682433804868064,
+        0.4718243380486806,
+        0.45182433804868066,
+        0.42182433804868064
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [],
+      "frozen_board_proof_sha256": {
+        "corner-d01": null,
+        "corner-d02": null,
+        "corner-d03": null,
+        "corner-d04": null
+      }
+    },
+    {
+      "board_height_m": 0.28,
+      "tilt_deg": 36,
+      "source_anchor_id": "recipe-08",
+      "board_admitted_per_target": true,
+      "reason": null,
+      "requested_gaps_m": [
+        0.49682433804868065,
+        0.48682433804868064,
+        0.4718243380486806,
+        0.45182433804868066,
+        0.42182433804868064
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "frozen_board_proof_sha256": {
+        "corner-d01": "0640aa98132a6ae32958f5413a28a3b6033719aad66161b53cc2bb456a043884",
+        "corner-d02": "b951848a5eb101bb7491dd0278b9d55484ba50fa52a8b3222923278064b938f5",
+        "corner-d03": "844d0fc8da3409b90f404d3c41b9f3e9302ceb6d415bbf5ccb47d4414993978f",
+        "corner-d04": "aae2a6a9c0e09f10a74634a4b67e4b1569749331b7ef6f3d5185145120ef3917"
+      }
+    },
+    {
+      "board_height_m": 0.28,
+      "tilt_deg": 40,
+      "source_anchor_id": "recipe-00",
+      "board_admitted_per_target": true,
+      "reason": null,
+      "requested_gaps_m": [
+        0.49682433804868065,
+        0.48682433804868064,
+        0.4718243380486806,
+        0.45182433804868066,
+        0.42182433804868064
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "frozen_board_proof_sha256": {
+        "corner-d01": "cdc2f6a199c40d70524b3bfb524dfbbe1571943c871034d7a904df4e718d2ba8",
+        "corner-d02": "bdc8f6cae55b54bf9898deb6b62cb0cb28702a25e25d2ea1bc88cefabc97e2c3",
+        "corner-d03": "2bd97e822ff570536aed3f0a17754f49bea5dccf94ab7ca185fab7d89d4ce36f",
+        "corner-d04": "ece790913955bceda93c4d0bd8c6e524f9295bd8a59a15f6b776c4394fa10012"
+      }
+    },
+    {
+      "board_height_m": 0.3,
+      "tilt_deg": 28,
+      "source_anchor_id": "recipe-08",
+      "board_admitted_per_target": false,
+      "reason": "workspace_prior_reject",
+      "requested_gaps_m": [
+        0.4768243380486807,
+        0.4668243380486807,
+        0.4518243380486807,
+        0.4318243380486807,
+        0.4018243380486807
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [],
+      "frozen_board_proof_sha256": {
+        "corner-d01": null,
+        "corner-d02": null,
+        "corner-d03": null,
+        "corner-d04": null
+      }
+    },
+    {
+      "board_height_m": 0.3,
+      "tilt_deg": 32,
+      "source_anchor_id": "recipe-08",
+      "board_admitted_per_target": false,
+      "reason": "workspace_prior_reject",
+      "requested_gaps_m": [
+        0.4768243380486807,
+        0.4668243380486807,
+        0.4518243380486807,
+        0.4318243380486807,
+        0.4018243380486807
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [],
+      "frozen_board_proof_sha256": {
+        "corner-d01": null,
+        "corner-d02": null,
+        "corner-d03": null,
+        "corner-d04": null
+      }
+    },
+    {
+      "board_height_m": 0.3,
+      "tilt_deg": 36,
+      "source_anchor_id": "recipe-08",
+      "board_admitted_per_target": true,
+      "reason": null,
+      "requested_gaps_m": [
+        0.4768243380486807,
+        0.4668243380486807,
+        0.4518243380486807,
+        0.4318243380486807,
+        0.4018243380486807
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "frozen_board_proof_sha256": {
+        "corner-d01": "d87cd2ff0c171ddefd8cf0d3808409131797ccea6cf3986e35fef395b6ffa24f",
+        "corner-d02": "d05fde8d8c9519db659a4bd36a77c671c1c22df3dfa3d6ee1d8ee837b982254b",
+        "corner-d03": "4ebc9211262ad2164011c580bd754096f6b198ba6d0c852633eae9a531a403e6",
+        "corner-d04": "063fa27f797877a6cd4b99a033fd50a504b983f93914ee000653558f60b08bac"
+      }
+    },
+    {
+      "board_height_m": 0.3,
+      "tilt_deg": 40,
+      "source_anchor_id": "recipe-00",
+      "board_admitted_per_target": true,
+      "reason": null,
+      "requested_gaps_m": [
+        0.4768243380486807,
+        0.4668243380486807,
+        0.4518243380486807,
+        0.4318243380486807,
+        0.4018243380486807
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "frozen_board_proof_sha256": {
+        "corner-d01": "280f56b3a72d4c2b64977be08a3c60277dc1e038a52326e10ce9de11dea20097",
+        "corner-d02": "dbe4391109073a995e7499702eee3de16f47e1d656f05206a45fb43328bf55e6",
+        "corner-d03": "fe467608d17a74f964b4ebd8da1144bbfd34ddbe82775c29b3c3e38cb8a4d965",
+        "corner-d04": "01c3b8c75f45d85349a30714d3cd76a61ea31ab472c9eb81fff3b802b95b9d29"
+      }
+    },
+    {
+      "board_height_m": 0.32,
+      "tilt_deg": 28,
+      "source_anchor_id": "recipe-08",
+      "board_admitted_per_target": false,
+      "reason": "workspace_prior_reject",
+      "requested_gaps_m": [
+        0.45682433804868067,
+        0.44682433804868066,
+        0.4318243380486807,
+        0.4118243380486807,
+        0.38182433804868066
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [],
+      "frozen_board_proof_sha256": {
+        "corner-d01": null,
+        "corner-d02": null,
+        "corner-d03": null,
+        "corner-d04": null
+      }
+    },
+    {
+      "board_height_m": 0.32,
+      "tilt_deg": 32,
+      "source_anchor_id": "recipe-08",
+      "board_admitted_per_target": false,
+      "reason": "workspace_prior_reject",
+      "requested_gaps_m": [
+        0.45682433804868067,
+        0.44682433804868066,
+        0.4318243380486807,
+        0.4118243380486807,
+        0.38182433804868066
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [],
+      "frozen_board_proof_sha256": {
+        "corner-d01": null,
+        "corner-d02": null,
+        "corner-d03": null,
+        "corner-d04": null
+      }
+    },
+    {
+      "board_height_m": 0.32,
+      "tilt_deg": 36,
+      "source_anchor_id": "recipe-08",
+      "board_admitted_per_target": true,
+      "reason": null,
+      "requested_gaps_m": [
+        0.45682433804868067,
+        0.44682433804868066,
+        0.4318243380486807,
+        0.4118243380486807,
+        0.38182433804868066
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "frozen_board_proof_sha256": {
+        "corner-d01": "cc206f4bd9aa927634624900bc938ff20ed1c34d3b14b648750d4bf9ad456b58",
+        "corner-d02": "c6845526d85d011b1bbff79fc566efb12783fbe63ca8f5f07844a189c85d26f7",
+        "corner-d03": "badfa77eac593e3c3743974d6505622209f500fc733b29a6264e0630e4a119bc",
+        "corner-d04": "6d7cf931bd672ea99816f7ebaa0c3e1f225bbd7db0e6fa4d578f21d5986b1920"
+      }
+    },
+    {
+      "board_height_m": 0.32,
+      "tilt_deg": 40,
+      "source_anchor_id": "recipe-00",
+      "board_admitted_per_target": true,
+      "reason": null,
+      "requested_gaps_m": [
+        0.45682433804868067,
+        0.44682433804868066,
+        0.4318243380486807,
+        0.4118243380486807,
+        0.38182433804868066
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "frozen_board_proof_sha256": {
+        "corner-d01": "6ac0aaf2e51abc11d742652b3c88aec09cd3fb34b667ef5acdf4518ed880d743",
+        "corner-d02": "929f6cda406cff00c6e6fb51e762977182082bff80612ac2cedf5f6af38b1ede",
+        "corner-d03": "4e81b9c4af070c5f0f61eb259394f696954f27721e3b59e0123fafb325b37b6f",
+        "corner-d04": "bbaa0e24b9420111e9bf1e33a8f24d614ec3d862ea2454b3c1f43ab9ebb8b0d9"
+      }
+    },
+    {
+      "board_height_m": 0.34,
+      "tilt_deg": 28,
+      "source_anchor_id": "recipe-08",
+      "board_admitted_per_target": false,
+      "reason": "workspace_prior_reject",
+      "requested_gaps_m": [
+        0.43682433804868065,
+        0.42682433804868064,
+        0.4118243380486807,
+        0.39182433804868066,
+        0.36182433804868064
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [],
+      "frozen_board_proof_sha256": {
+        "corner-d01": null,
+        "corner-d02": null,
+        "corner-d03": null,
+        "corner-d04": null
+      }
+    },
+    {
+      "board_height_m": 0.34,
+      "tilt_deg": 32,
+      "source_anchor_id": "recipe-08",
+      "board_admitted_per_target": true,
+      "reason": null,
+      "requested_gaps_m": [
+        0.43682433804868065,
+        0.42682433804868064,
+        0.4118243380486807,
+        0.39182433804868066,
+        0.36182433804868064
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "frozen_board_proof_sha256": {
+        "corner-d01": "ca1ae890bf169c3f6e1dcdd7114ba4be2350064527879757cee4eccf013e8ad7",
+        "corner-d02": "55ef9de2ee87c63ca113fa04374e66722b8f1e672cc80bc630b4ace7c4f0fc20",
+        "corner-d03": "15fc2ebe1b92d913363a84719b390ca395935502facebd405831876c74b5c599",
+        "corner-d04": "6bf1d76d3a71808fe303de0cc0743f5e5b18a2cd132db6fe612220cdf2087aac"
+      }
+    },
+    {
+      "board_height_m": 0.34,
+      "tilt_deg": 36,
+      "source_anchor_id": "recipe-08",
+      "board_admitted_per_target": true,
+      "reason": null,
+      "requested_gaps_m": [
+        0.43682433804868065,
+        0.42682433804868064,
+        0.4118243380486807,
+        0.39182433804868066,
+        0.36182433804868064
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "frozen_board_proof_sha256": {
+        "corner-d01": "79e7ae42aa446af9fa7bc7e99ee482a9f2a0b07f3bb9fe777de6e35db5ae59fc",
+        "corner-d02": "3e7f55be722b9cce00263e367acaebc0bda5e06f7daedfcf261542666229ad73",
+        "corner-d03": "dbae7d2dbc98f54a899b19da88729d87623dadf1bbeb937be9cc6e1da04f3ffc",
+        "corner-d04": "0aa9ab3ad558d14544d20e80e43fdcd724a0449794291c1cf3d8d9b166126a73"
+      }
+    },
+    {
+      "board_height_m": 0.34,
+      "tilt_deg": 40,
+      "source_anchor_id": "recipe-00",
+      "board_admitted_per_target": true,
+      "reason": null,
+      "requested_gaps_m": [
+        0.43682433804868065,
+        0.42682433804868064,
+        0.4118243380486807,
+        0.39182433804868066,
+        0.36182433804868064
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "frozen_board_proof_sha256": {
+        "corner-d01": "013a411aa531e205124eedec9266a9c6b258a1ac8b9ef4362461d93a6cae9fcf",
+        "corner-d02": "5f66bc63e5eafe37b12d7b1f0e6e5ea7e14ff10858a69166251a1832330d18d0",
+        "corner-d03": "715987a235a447fbe42bb08505aee68d63fbc9c7c427c8f4c36cb2b38314372b",
+        "corner-d04": "f6aee58d00e9801908c84bec096af2691597db30a0b888f342c68f1abc99e2ce"
+      }
+    },
+    {
+      "board_height_m": 0.36,
+      "tilt_deg": 28,
+      "source_anchor_id": "recipe-08",
+      "board_admitted_per_target": false,
+      "reason": "workspace_prior_reject",
+      "requested_gaps_m": [
+        0.4168243380486807,
+        0.4068243380486807,
+        0.39182433804868066,
+        0.3718243380486807,
+        0.3418243380486807
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [],
+      "frozen_board_proof_sha256": {
+        "corner-d01": null,
+        "corner-d02": null,
+        "corner-d03": null,
+        "corner-d04": null
+      }
+    },
+    {
+      "board_height_m": 0.36,
+      "tilt_deg": 32,
+      "source_anchor_id": "recipe-08",
+      "board_admitted_per_target": true,
+      "reason": null,
+      "requested_gaps_m": [
+        0.4168243380486807,
+        0.4068243380486807,
+        0.39182433804868066,
+        0.3718243380486807,
+        0.3418243380486807
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "frozen_board_proof_sha256": {
+        "corner-d01": "906863ce0d883a0861e376e97aa5e55db48b4982ba5b93c0fed461e0d23d03d5",
+        "corner-d02": "1d255191187f7d436f67a3992962658fe620f108827e9c8de7f8ce12ce92cfea",
+        "corner-d03": "2b750ecebdc71ef87e8a7fa32ac10b96fc193e529976e46e2b3e871197d6e7de",
+        "corner-d04": "46fc7c2cea5e57d829bb435974080885ce46fd566515f8a98e3bf6ea3c3af1b6"
+      }
+    },
+    {
+      "board_height_m": 0.36,
+      "tilt_deg": 36,
+      "source_anchor_id": "recipe-00",
+      "board_admitted_per_target": true,
+      "reason": null,
+      "requested_gaps_m": [
+        0.4168243380486807,
+        0.4068243380486807,
+        0.39182433804868066,
+        0.3718243380486807,
+        0.3418243380486807
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "frozen_board_proof_sha256": {
+        "corner-d01": "e6aefaedb46686d54218951c444786a5c9df97c765f63fc6fd2e48d07ebc7c1c",
+        "corner-d02": "7c4496aa51652265714caadf0a54e27e6730a93f667e35c025c6b65eb81f869a",
+        "corner-d03": "6c311eb445ed35a7534e32580e256b6ca34c76316df2f4229e403743c4b0b7b5",
+        "corner-d04": "3ac181164a7d42327b0958063e2c3b5750d4957b3f94b4eeb21e50d34714ce61"
+      }
+    },
+    {
+      "board_height_m": 0.36,
+      "tilt_deg": 40,
+      "source_anchor_id": "recipe-00",
+      "board_admitted_per_target": true,
+      "reason": null,
+      "requested_gaps_m": [
+        0.4168243380486807,
+        0.4068243380486807,
+        0.39182433804868066,
+        0.3718243380486807,
+        0.3418243380486807
+      ],
+      "requested_headrooms_m": [
+        0.005,
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "admitted_headrooms_m": [
+        0.015,
+        0.03,
+        0.05,
+        0.08
+      ],
+      "frozen_board_proof_sha256": {
+        "corner-d01": "af613f0f8166c95fd54136687219574cecec4f96897100ec5e95e33c9439f424",
+        "corner-d02": "6b552a75c0b99c7b3456c1c0e3633fc3c8c67bee4414214593d361eb354139e6",
+        "corner-d03": "65089af926b9afc6c5fb667f1d91a3bf39d9435244fdf7df9ecf0f9dea7d8366",
+        "corner-d04": "b0f3ced5ba2204e6e6c3b958784bfb5c2e0802cfdc8261875976b837dab84c37"
+      }
+    }
+  ],
+  "native_implementation_scope": "Existing immutable parent distance-v1 geometry/native CPU checks were reused unchanged. New low-board orchestration, GPU dynamics and capture outcomes were not tested.",
+  "rejected_highest_release_diagnostic": {
+    "rejected_requests": 52,
+    "ball_center_release_height_m": 0.8143243380486807,
+    "reason": "strict_clearance_reject",
+    "collision_pair": [
+      "Arm10/link4/collision/0",
+      "Arm10/link6/collision/0"
+    ],
+    "failed_branch_minimum_clearance_range_m": [
+      0.002033704057580645,
+      0.0021839801384718107
+    ],
+    "required_clearance_m": 0.005
+  },
+  "privacy_scope": "No joint arrays, raw pose/trajectory samples, camera observations, credentials or host paths are included.",
+  "final_protocol_geometry_alignment": {
+    "status": "passed",
+    "protocol_sha256": "3c020f5e0a32d0466adb6bfbac6e54de28aa38fc8a6ac26df181e888dd5cee11",
+    "development_contexts": 128,
+    "control_contexts": 8,
+    "development_requests": 640,
+    "control_requests": 24,
+    "exact_development_context_geometry_sha256": "128298f2db25f03cf7acc05c76eed7d512d51e97a3743022e9d26dc10f68dd3e",
+    "exact_development_request_geometry_sha256": "f43739c1b54ae825915d0122d294beb8e76676b143851abfe15a27e2631ac20d",
+    "context_geometry_matches": true,
+    "request_geometry_matches": true,
+    "control_geometry_matches": true,
+    "scope": "Private in-memory protocol import using existing immutable parent dependencies, no GPU or file writes. Provisional IDs and order differ; exact source assignment, H/T/gaps, bucket XY and control geometry match."
+  }
+}

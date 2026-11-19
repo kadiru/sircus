@@ -1,0 +1,120 @@
+{
+  "version": "sircus-lowboard-final-curation-v1",
+  "status": "completed_independently_audited",
+  "contract_fingerprint": "2581c867b89056977d7085e3be115da6b5bbe9562b24d816ddb2a1b219bbca74",
+  "parent_contract_fingerprint": "6d94edc505db7201f603456116303cd14acd9dde26e364ea295b1739c78f8499",
+  "scope": "Lower-board/moderate-tilt DEVELOPMENT search at four previously studied far bucket positions; privileged geometry and prescribed endpoints. No new RL, held-out layout performance, continuous success interval, arm transit, actuator or physical validation.",
+  "counts_all_roles": {
+    "requests": 664,
+    "native_releases": 232,
+    "geometry_rejections": 432,
+    "captures": 24,
+    "clean_captures": 0,
+    "rim_assisted_captures": 24,
+    "capture_rate_per_request": 0.03614457831325301,
+    "capture_rate_per_native_release": 0.10344827586206896,
+    "rejection_reasons": {
+      "strict_clearance_reject": 52,
+      "workspace_prior_reject": 380
+    }
+  },
+  "development": {
+    "requests": 640,
+    "native_releases": 208,
+    "geometry_rejections": 432,
+    "captures": 0,
+    "clean_captures": 0,
+    "rim_assisted_captures": 0,
+    "capture_rate_per_request": 0.0,
+    "capture_rate_per_native_release": 0.0,
+    "rejection_reasons": {
+      "strict_clearance_reject": 52,
+      "workspace_prior_reject": 380
+    }
+  },
+  "exact_controls": {
+    "requests": 24,
+    "native_releases": 24,
+    "geometry_rejections": 0,
+    "captures": 24,
+    "clean_captures": 0,
+    "rim_assisted_captures": 24,
+    "capture_rate_per_request": 1.0,
+    "capture_rate_per_native_release": 1.0,
+    "rejection_reasons": {},
+    "source_arrays_preserved": true,
+    "source_seeds": 8,
+    "excluded_from_far_target_search": true
+  },
+  "contexts": 136,
+  "development_contexts": 128,
+  "board_admitted_contexts": 60,
+  "development_board_admitted_contexts": 52,
+  "phases": {
+    "coarse": {
+      "requests": 640,
+      "native_releases": 208,
+      "geometry_rejections": 432,
+      "captures": 0,
+      "clean_captures": 0,
+      "rim_assisted_captures": 0,
+      "capture_rate_per_request": 0.0,
+      "capture_rate_per_native_release": 0.0,
+      "rejection_reasons": {
+        "strict_clearance_reject": 52,
+        "workspace_prior_reject": 380
+      }
+    },
+    "controls": {
+      "requests": 24,
+      "native_releases": 24,
+      "geometry_rejections": 0,
+      "captures": 24,
+      "clean_captures": 0,
+      "rim_assisted_captures": 24,
+      "capture_rate_per_request": 1.0,
+      "capture_rate_per_native_release": 1.0,
+      "rejection_reasons": {}
+    }
+  },
+  "native_tested_substeps": [
+    64
+  ],
+  "declared_substeps": [
+    32,
+    64,
+    128
+  ],
+  "selected_recipes": 0,
+  "paired_repeats": {
+    "paired_repeat_ids": 0,
+    "distinct_geometric_configurations": 0,
+    "declared_repeat_substeps": [
+      32,
+      64,
+      128
+    ],
+    "actual_paired_substeps": [],
+    "same_requests_and_joints": null,
+    "interpretation": "No recipe was selected and no paired repeats were run. Declared32/128 contracts provide no native sensitivity evidence."
+  },
+  "repeatability_by_substeps": {},
+  "qualification_status": "not_run_no_captured_development_recipe",
+  "fine_pair_qualified_recipes": 0,
+  "all_resolution_qualified_recipes": 0,
+  "audit": {
+    "status": "passed",
+    "checks_count": 2435,
+    "records": 664,
+    "independently_rescored_throws": 232,
+    "failures": []
+  },
+  "notes": [
+    "Controls at parent-control are excluded from four-target development tables.",
+    "Board admission, strict paired endpoints, native ball releases and captured balls have separate denominators.",
+    "Historical retained success can include tabletop assistance; strict route capture requires no external assistance.",
+    "No-recipe results provide no32/128native repeatability or timestep-sensitivity evidence.",
+    "Post-hoc best examples do not change recipe selection, outcomes or gates."
+  ],
+  "bucket_height_status": "unresolved: overall height or interior depth"
+}

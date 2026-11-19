@@ -1,0 +1,5 @@
+distance_id,distance_mm,bucket_x_mm,bucket_y_mm,outer_edge_clearance_mm,contexts,board_admitted_contexts,development_requests,native_releases,geometry_rejections,strict_captures,clean_captures,rim_assisted_captures,whole_ball_entries,historical_retained_successes,externally_assisted_native_flights,coarse_requests,refinement_requests,selected_recipes,rejection_reasons
+corner-d01,650.0,-30.3065981299413,-691.7970430784121,83.20295692158783,32,13,160,52,108,0,0,0,0,0,52,160,0,0,"{""strict_clearance_reject"":13,""workspace_prior_reject"":95}"
+corner-d02,700.0,-68.85908870156865,-723.6357847420611,51.36421525793885,32,13,160,52,108,0,0,0,0,0,52,160,0,0,"{""strict_clearance_reject"":13,""workspace_prior_reject"":95}"
+corner-d03,750.0,-107.411579273196,-755.4745264057101,19.52547359428988,32,13,160,52,108,0,0,0,0,0,52,160,0,0,"{""strict_clearance_reject"":13,""workspace_prior_reject"":95}"
+corner-d04,770.0,-122.832575501847,-768.2100230711698,6.789976928830183,32,13,160,52,108,0,0,0,0,0,52,160,0,0,"{""strict_clearance_reject"":13,""workspace_prior_reject"":95}"

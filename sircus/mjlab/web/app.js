@@ -348,6 +348,62 @@ function showExpansion() {
   drawChart($('expansionCaptureChart'), points, 'captures');
   drawChart($('expansionRewardChart'), points, 'reward', true);
 }
+// BEGIN READ-ONLY LOW BOARD STUDY
+function lowBoardStudyView(value) {
+  const view=distanceStudyView(value);return view?{...view,development:view.contexts.filter(r=>r.stage!=='control')}:null;
+}
+function lowBoardAuditReady(study) {
+  const audit=study?.audit;
+  return study?.version==='sircus-low-board-far-development-v1'&&study.status==='completed'&&study.phase==='completed'&&
+    typeof study.contract_fingerprint==='string'&&study.contract_fingerprint.length>0&&audit?.status==='passed'&&audit.contract_fingerprint===study.contract_fingerprint&&
+    audit.full_checks_verified===true&&Number.isInteger(audit.checks_count)&&audit.checks_count>0&&/^[a-f0-9]{64}$/.test(audit.source_sha256??'');
+}
+function lowBoardRepeatCheck(study,recipe) {
+  const unknown=()=>({verified:false,perfect:null,qualified:null,label:'Unverified'});if(!lowBoardAuditReady(study))return unknown();
+  const valid=(s,n)=>s&&s.attempts===n&&Number.isInteger(s.captures)&&0<=s.captures&&s.captures<=n&&Number.isInteger(s.native_releases)&&s.captures<=s.native_releases&&s.native_releases<=n;
+  const rows=['32','64','128'].map(step=>({nominal:recipe.nominal_by_substeps?.[step],fresh:recipe.fresh_by_substeps?.[step],total:recipe.by_substeps?.[step]}));
+  if(!rows.every(r=>valid(r.nominal,3)&&valid(r.fresh,30)&&valid(r.total,33)&&r.total.captures===r.nominal.captures+r.fresh.captures&&r.total.native_releases===r.nominal.native_releases+r.fresh.native_releases))return unknown();
+  const thresholds=rows.every(r=>r.nominal.captures===3&&r.fresh.captures>=27),perfect=rows.every(r=>r.total.captures===33),fine=recipe.sensitivity?.paired_engineering_gate,all=recipe.sensitivity?.all_resolution_repeat_gate;
+  return {verified:true,perfect,qualified:typeof fine==='boolean'&&typeof all==='boolean'&&all===(thresholds&&fine)?all:null,label:perfect?'Perfect 33/33 each':thresholds?'Meets repeat threshold':'Below repeat threshold'};
+}
+function drawLowBoardTrace(study,index) {
+  const trace=study.trace_examples?.[index],view=distanceTrajectoryView(study,trace),canvas=$('lowBoardTrace');
+  if(!view){const {c}=windowPlot(canvas,0,1,0,1,'Distance along this board → bucket axis (m)','Ball-center height above table (m)');c.fillText('No unambiguous saved native trace available',65,110);$('lowBoardTraceCaption').textContent='Only actual saved native positions with their matching bucket are shown; no ideal trajectory is generated.';return;}
+  const boardHeight=distanceConfiguredBoardHeight(study,trace,view),xs=view.points.map(p=>p[0]),zs=view.points.map(p=>p[1]),
+    xlow=Math.min(-.1,...xs),xhigh=Math.max(view.distance+.15,...xs),zlow=Math.min(0,...zs,boardHeight??0),zhigh=Math.max(.3,...zs,boardHeight??0)+.05,
+    {c,x,y}=windowPlot(canvas,xlow,xhigh,zlow,zhigh,'Distance along this board → bucket axis (m)','Ball-center height above table (m)');
+  c.strokeStyle='#81978a';c.fillStyle='#496f67';c.lineWidth=1;c.setLineDash([5,4]);c.textAlign='left';c.beginPath();c.moveTo(x(view.distance),y(zlow));c.lineTo(x(view.distance),y(zhigh));c.stroke();
+  c.fillText(`Bucket center axis (${(view.distance*1000).toFixed(1)} mm)`,Math.min(x(view.distance)+6,canvas.width-190),42);c.beginPath();c.moveTo(x(xlow),y(0));c.lineTo(x(xhigh),y(0));c.stroke();c.fillText('Tabletop reference (z = 0)',x(xlow)+6,y(0)-6);c.setLineDash([]);
+  if(boardHeight!==null){c.fillStyle='#b88a30';c.beginPath();c.arc(x(0),y(boardHeight),4,0,2*Math.PI);c.fill();c.fillText('Configured board center',x(0)+8,y(boardHeight)-7);}
+  c.strokeStyle=trace.route_success===true?'#128b8c':'#ec7657';c.lineWidth=2;c.beginPath();view.points.forEach((p,i)=>{if(i)c.lineTo(x(p[0]),y(p[1]));else c.moveTo(x(p[0]),y(p[1]));});c.stroke();
+  $('lowBoardTraceCaption').textContent=`${trace.record_id??'Native record'} · ${view.distanceId} · ${(view.distance*1000).toFixed(1)} mm · bucket XY ${view.bucket.map(v=>(v*1000).toFixed(1)).join(' / ')} mm · ${trace.substeps??'?'} substeps · ${trace.route_success===true?'capture':trace.route_success===false?'miss':'unknown outcome'} · ${view.points.length} saved samples · max off-plane ${(view.lateral*1000).toFixed(1)} mm. ${boardHeight===null?'Configured board-center height unknown; marker omitted.':'Board marker is configured geometry, not a native observation.'} ${lowBoardAuditReady(study)?'Completed matching full audit.':'Full evidence audit unverified.'} ${trace.selection_scope??''}`;
+}
+function showLowBoardStudy() {
+  const view=lowBoardStudyView(report.lowboard_evaluation);$('lowBoardStudy').hidden=!view;if(!view)return;
+  const study=view.raw,mm=v=>Number.isFinite(v)?(v*1000).toFixed(1):'unknown',ratio=(k,n)=>Number.isInteger(k)&&Number.isInteger(n)&&0<=k&&k<=n?(n?`${k} / ${n}`:'pending'):'unknown',grid=study.settings?.grid??{},reach=study.settings?.reach_limit??{};
+  $('lowBoardStatus').textContent=`${study.version??'Lower-board study'} · ${study.status??'pending'} · ${study.phase??'pending'}${study.error?' · '+study.error:''}${study.reason?' · '+study.reason:''}${study.queue?.reason?' · '+study.queue.reason:''}${Number.isFinite(study.queue?.wait_s)?' · '+Math.floor(study.queue.wait_s/60)+' min queued':''}`;
+  $('lowBoardScope').textContent=`${study.scope??'Finite lower-board development search.'} ${study.active_policy??'Parent studies and active solver routes remain unchanged.'}`;
+  const searchSum=key=>view.development.length&&view.development.every(r=>Number.isInteger(r[key])&&r[key]>=0)?view.development.reduce((n,r)=>n+r[key],0):'unknown',controls=study.counts?.phase_counts?.controls;
+  const metrics=[['Far-target search captures',searchSum('search_captures')],['Far-target native releases (search)',searchSum('search_native_releases')],['Far-target search requests',searchSum('search_attempts')],['Baseline control requests',Number.isInteger(controls)&&controls>=0?controls:'unknown'],
+    ['Declared target positions',view.distances.length],['Loaded development contexts',view.development.length],['Maximum requested-attempt budget',study.max_requests??'unknown'],
+    ['Board-center heights mm',Array.isArray(grid.board_heights_m)?grid.board_heights_m.map(mm).join(' / '):'unknown'],['Board tilt from horizontal °',Array.isArray(grid.tilts_deg)?grid.tilts_deg.join(' / '):'unknown'],
+    ['Requested prior headrooms mm',Array.isArray(grid.release_headroom_m)?grid.release_headroom_m.map(mm).join(' / '):'unknown'],['Prior ball-center ceiling mm',mm(reach.ball_center_height_m)],['Full audit readiness',lowBoardAuditReady(study)?'Verified full audit':'Unverified / pending']];
+  const countLabels={requests:'All-phase requests (includes controls)',native_releases:'All-phase native releases (includes controls)',captures:'All-phase captures (includes controls)',clean:'All-phase clean captures (includes controls)'};
+  for(const [key,value]of Object.entries(study.counts??{}))if(typeof value==='number')metrics.push([countLabels[key]??'All-phase '+key.replaceAll('_',' '),value]);addMetrics(metrics,$('lowBoardSummary'));
+  $('lowBoardCeiling').textContent=`${reach.scope??'Release-ceiling provenance unavailable.'} ${reach.formula??''} Board-height + gap bound: ${mm(reach.board_height_plus_gap_m)} mm. This prior is a search proposal, not a certified native reach limit; full IK and clearance admission remain separate.`;
+  expansionTable($('lowBoardTargets'),['Distance mm / target','Bucket X / Y mm','Board IK/all','Pair/all search','Native/all search','Captures/all search'],view.distances.map(t=>{const s=distanceSearchSummary(view,t);return[`${mm(t.distance_m)} · ${t.id}`,finiteVector(t.bucket_xy_m,2)?t.bucket_xy_m.map(mm).join(' / '):'unknown',`${ratio(s.resolved,s.total)}${s.unknown?' · '+s.unknown+' unknown':''}`,ratio(s.eligible,s.geometry),ratio(s.native,s.requests),ratio(s.captures,s.requests)];}));
+  const maps=$('lowBoardMaps');maps.replaceChildren();for(const target of view.distances){const rows=view.development.filter(r=>r.distance_id===target.id&&Number.isFinite(r.board_height_m)&&Number.isFinite(r.tilt_deg)),box=document.createElement('article'),title=document.createElement('h4'),canvas=document.createElement('canvas');box.className='lowboard-map';title.textContent=`${mm(target.distance_m)} mm · ${target.id}`;canvas.width=260;canvas.height=235;canvas.setAttribute('role','img');canvas.setAttribute('aria-label',`${target.id} lower-board height and tilt captures per search request`);box.append(title,canvas);maps.append(box);drawNeighborhoodMap(canvas,rows);}
+  const checked=view.recipes.map(recipe=>({recipe,check:lowBoardRepeatCheck(study,recipe)})),qualified=checked.filter(r=>r.check.qualified===true);
+  $('lowBoardConclusion').textContent=lowBoardAuditReady(study)?(checked.length?`${qualified.length} / ${checked.length} selected recipes pass the predeclared all-resolution repeat gate. This finite development search does not establish continuous-distance generalization.`:'No captured development setting was selected; repeatability is not established.'):'Recipe qualification awaits a completed exact-version study and a matching strictly passed full audit.';
+  expansionTable($('lowBoardRecipes'),['Recipe / distance mm','Board H mm / tilt °','Gap / ball release mm','Prior headroom mm','32/64/128 check'],checked.map(({recipe:r,check})=>[`${r.id} / ${mm(r.distance_m)}`,`${mm(r.board_height_m)} / ${Number.isFinite(r.tilt_deg)?r.tilt_deg.toFixed(2):'unknown'}°`,`${mm(r.gap_m)} / ${mm(r.release_center_height_m)}`,Number.isFinite(reach.ball_center_height_m)&&Number.isFinite(r.release_center_height_m)?mm(reach.ball_center_height_m-r.release_center_height_m):'unknown',check.label]));
+  const repeated=[];for(const r of view.recipes)for(const step of ['32','64','128']){const all=windowStatistics(r.by_substeps?.[step]);repeated.push([r.id,step,windowStatistics(r.nominal_by_substeps?.[step]).fraction,windowStatistics(r.fresh_by_substeps?.[step]).fraction,all.fraction,all.released===null?'unknown':ratio(all.released,all.requests),all.clean===null?'unknown':ratio(all.clean,all.requests)]);}
+  expansionTable($('lowBoardRepeats'),['Recipe','Substeps','Nominal','Perturbed','Captures/all','Native/all','Clean/all'],repeated);
+  expansionTable($('lowBoardSensitivity'),['Recipe','64↔128 agreement','64↔128 Δ350 ms mm','64↔128 gate','All-resolution gate'],checked.map(({recipe:r,check})=>{const s=r.sensitivity??{};return[r.id,neighborhoodAgreement(s.capture_agreement_64_128,s.paired_attempts),mm(s.nominal_position_delta_350ms_max_m),!lowBoardAuditReady(study)?'Unverified':s.paired_engineering_gate===true?'Passed':s.paired_engineering_gate===false?'Failed':'unknown',check.qualified===true?'Passed':check.qualified===false?'Failed':'Unverified'];}));
+  const select=$('lowBoardTraceSelect'),previous=select.value,traces=study.trace_examples??[];select.replaceChildren();traces.forEach((trace,i)=>{const option=document.createElement('option');option.value=String(i);option.textContent=`${trace.distance_id??'?'} · ${trace.substeps??'?'} steps · ${trace.route_success===true?'capture':trace.route_success===false?'miss':'unknown'}`;select.append(option);});select.disabled=!traces.length;if(traces.length)select.value=String(Math.min(Number(previous)||0,traces.length-1));select.onchange=()=>drawLowBoardTrace(study,Number(select.value)||0);drawLowBoardTrace(study,Number(select.value)||0);
+  $('lowBoardAudit').textContent=`Full audit: ${lowBoardAuditReady(study)?'verified':'unverified'} · reported ${study.audit?.status??'pending'}${Number.isInteger(study.audit?.checks_count)?' · '+study.audit.checks_count+' checks':''}. Contract: ${study.contract_fingerprint??'pending'}. ${study.audit?.verification_reason??''}`;
+}
+// END READ-ONLY LOW BOARD STUDY
+
 // BEGIN READ-ONLY DISTANCE STUDY
 function distanceStudyView(value) {
   if(!value||typeof value!=='object')return null;
@@ -939,7 +995,7 @@ function showCoverage() {
   if (evaluation.layouts !== undefined) pairs.push(['Frozen test layouts', evaluation.layouts]);
   if (pairs.length) addMetrics(pairs, $('studySummary'));
   else $('studySummary').textContent = report.summary ?? 'Study metrics will appear when published. Unresolved cells remain visible.';
-  showComparison(); showBankComparison(); showExpansion(); showStableIk(); showContactStudy(); showCorrectedGrid(); showWindowStudy(); showHeightTiltStudy(); showDistanceStudy();
+  showComparison(); showBankComparison(); showExpansion(); showStableIk(); showContactStudy(); showCorrectedGrid(); showWindowStudy(); showHeightTiltStudy(); showDistanceStudy(); showLowBoardStudy();
 }
 async function loadStatus() {
   try {

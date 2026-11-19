@@ -1,5 +1,36 @@
 # Project state
 
+## Completed lower-board far-target study — November 3, 2026
+
+- [Results and exact settings](../baselines/mjlab-lowboard-20261103/README.md):
+  4090 execution bb68e42 completed in 498 s. All 2,435 independent audit checks
+  passed, including 232 native releases. Four exact 650/700/750/770 mm targets
+  each received 160 requested shots, 52 admitted native drops and 0 captures.
+  The other 24 native releases were baseline controls; all 24 captured.
+- H220–360 mm by 20 and independent 28/32/36/40° tilts, with five absolute release
+  levels near the unchanged outer prior. All 640 requests retained 432 geometry
+  rejects: 380 workspace-prior and 52 strict-clearance. Highest 814.324 mm sample
+  fails dropper links 4/6 self-clearance; 804.324 mm is the highest tested admitted
+  level, not an exact reach maximum or arm-path guarantee.
+- All 208 far flights had zero whole-ball entries. Post-hoc contact diagnostics
+  are saved separately; table was the first external contact category, though
+  bucket-exterior contact can occur before the table.
+- No captured DEV recipe was selected, so no refinement/fresh paired repeats
+  ran. Only 64 substeps have native evidence; no 32/128 reliability claim. This is
+  bounded parameter search, not new RL or global impossibility. Parent results,
+  scene fingerprints, physics/scoring, bucket-height uncertainty and active
+  interactive solver routes remain unchanged.
+- A separate post-hoc CPU diagnostic admitted 36/48 requests at H380/400/420 and
+  tilts 28/30/32°; 24° stayed rejected. This supports a future lower-tilt family,
+  for example H380/T28/G386.824 mm/release 804.324 mm. It has no ball-flight or
+  capture evidence and is excluded from frozen v1 results.
+- `#lowBoardStudy` shows the matching full audit, explicit far-target vs control
+  counts, full H/tilt maps and four actual failure trajectories. Source/evidence
+  `studies/lowboard-v1` /`output/lowboard-v1`, fingerprint 2581c867b8905697… .
+  Workers exited normally; viewer updated without restart or policy activation.
+  No 4070 process commands, Isaac deployment changes, hardware/Viam/audio work.
+  Compact metrics/hashes are in Git; raw arrays/logs/credentials remain local.
+
 ## Completed seeded bucket-distance study — November 3, 2026
 
 - [Exact settings, both rays and evidence](../baselines/mjlab-distance-20261103/README.md):
