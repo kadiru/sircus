@@ -5,6 +5,10 @@ a wrist-attached board, an open tapered bucket, a ball, and an ideal RGB-D camer
 This checkpoint builds and validates a scene. It does **not** train an RL policy,
 validate grasping, or inherit numerical scores from the earlier simulator.
 
+The separate opt-in [fixed-scene RL task](RL_FIXED_SCENE.md) now trains shot
+parameters on this scene. `run.sh start` remains the stationary foundation;
+`run.sh train` explicitly replaces it with a bounded training run.
+
 ## Pinned baseline
 
 - Isaac Lab tag `v2.3.2`, commit `37ddf626871758333d6ed89cf64ad702aef127d0`.

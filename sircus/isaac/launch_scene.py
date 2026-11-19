@@ -21,6 +21,11 @@ parser.add_argument(
 parser.add_argument("--output", default="/workspace/output")
 parser.add_argument("--assets", default="/workspace/assets")
 parser.add_argument("--capture-once", action="store_true")
+parser.add_argument("--rl-episodes", type=int, default=0)
+parser.add_argument("--rl-seed", type=int, default=42)
+parser.add_argument(
+    "--rl-checkpoint", help="Frozen fixed-scene checkpoint evaluation only; no updates"
+)
 parser.add_argument(
     "--verify-physics",
     action="store_true",
@@ -200,6 +205,7 @@ def main():
         RigidObjectCfg(
             prim_path="/World/Ball",
             spawn=sim_utils.SphereCfg(
+                activate_contact_sensors=bool(args.rl_episodes),
                 radius=ball_cfg["radius_m"],
                 rigid_props=sim_utils.RigidBodyPropertiesCfg(),
                 mass_props=sim_utils.MassPropertiesCfg(mass=ball_cfg["mass_kg"]),
@@ -210,6 +216,7 @@ def main():
                     static_friction=ball_cfg["friction"],
                     dynamic_friction=ball_cfg["friction"],
                     restitution=ball_cfg["restitution"],
+                    restitution_combine_mode="max" if args.rl_episodes else "average",
                 ),
                 visual_material=sim_utils.PreviewSurfaceCfg(
                     diffuse_color=(0.9, 0.1, 0.45)
@@ -236,6 +243,17 @@ def main():
             ),
         )
     )
+    contact = None
+    if args.rl_episodes:
+        from isaaclab.sensors import ContactSensor, ContactSensorCfg
+
+        contact = ContactSensor(
+            ContactSensorCfg(
+                prim_path="/World/Ball",
+                update_period=0.0,
+                filter_prim_paths_expr=["/World/Arm14/impact_board"],
+            )
+        )
     sim.reset()
     for arm in arms.values():
         arm.write_joint_state_to_sim(
@@ -250,6 +268,11 @@ def main():
     # Pose buffers are zero-initialized; refresh after changing the camera prim.
     camera.reset()
     print("SIRCUS_SCENE_READY", flush=True)
+    if args.rl_episodes:
+        from fixed_rl import train
+
+        train(sim, arms, ball, camera, contact, cfg, poses, args, atomic_json)
+        return 0
     frame = 0
     captured = False
     max_joint_error = 0.0
