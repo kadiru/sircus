@@ -1,3 +1,5 @@
 # Dated reference results
 
+[Direct seed-22 continuation, November 10, 2026](isaac-seed22-continuation-20261110/README.md): audited native continuation of the original continuous model, 8,960 additional requests under the eight-hour budget. The same 70 new TEST positions produced 26 captures for parent + checker versus 28 for continued + checker, with eight clean each and rejections nine versus 20. Complete scalar curves, scoped costs, checkpoint/audit hashes and native video identities are retained as compact evidence; raw data and runtime configuration remain private.
+
 bucket-20261029 contains the measured/provisional scene and small original bucket verification/training/native-replay records. These are synthetic Mac results for that exact scene, not evidence for a newly changed scene or physical hardware. Selected policy information is contained in the training record. Raw per-trial archives and old rectangular evidence remain in the frozen transfer package, outside Git. Source/scene changes can invalidate a policy; rerun training/evaluation rather than overwriting old results.
