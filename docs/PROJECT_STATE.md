@@ -1,5 +1,12 @@
 # Project state
 
+## Seed-22 candidate adapter — November 9, 2026, training off
+
+- [Implementation and boundaries](../sircus/isaac/CANDIDATE_ADAPTER.md), [compact CPU evidence](../baselines/isaac-candidate-adapter-20261109/README.md): differentiable fixed-support categorical adapter, exact teacher mapping, pure imitation/KL/PPO losses, immutable request/release ledger and forward-only readiness CLI. No optimizer, training loop, new checkpoint writer or native producer is included.
+- All 53 focused CPU tests passed with PyTorch, without skips. The actual saved seed-22 checkpoint reproduced 35/35 frozen-selector choices across all 1,814 qualified TRAIN candidates; all 1,534 historical successful actions (485 clean, 21/35 contexts) mapped exactly. Checkpoint and in-memory weight hashes, global CPU RNG and original experiment/split/audit files stayed unchanged. No gradients were created on the real parent model.
+- Maximum CPU/reference log-probability difference was 9.95e-6; parent-mean difference was 2.38e-7. Stored candidate encodings remain exact; cross-version inverse-math consistency allows only 1e-12 roundoff. No geometry, IK, motion, release or scoring threshold changed.
+- Zero optimizer steps, native requests, releases or held-out shot files read. This measures compatibility, not improved captures. The audited native comparison remains 13/35 versus 16/35 captures. Existing bank, completed benchmark, checkpoints and viewer services remain unchanged; training and physical work remain off.
+
 ## Proposed seed-22 continuation plan — November 8, 2026 (PST), training off
 
 - [Reviewable proposal](../sircus/isaac/CANDIDATE_CONTINUATION_PLAN.md): reuse seed 22's exact actor/critic weights and the fixed 1,814-candidate TRAIN bank, use 20 imitation epochs over 1,534 existing captures at 21/35 contexts, then a separately authorized categorical PPO continuation. The other 14 contexts receive no invented success labels.
