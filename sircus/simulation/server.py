@@ -117,7 +117,10 @@ class PhysicalBridge:
         elif kind == 'camera':
             call, timeout = self.controller.adapter.camera_frame(), 8
         else:
-            call, timeout = self.controller.action(payload), 30
+            # Stop owns bounded planner/readback/cancellation/recording cleanup
+            # (up to 33s). Do not cancel its recovery before those bounds expire.
+            timeout = 40 if payload.get('action') == 'stop' else 30
+            call = self.controller.action(payload)
         future = asyncio.run_coroutine_threadsafe(call, self.loop)
         try:
             result = future.result(timeout)

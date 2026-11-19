@@ -1,3 +1,23 @@
+# Deterministic reliability checkpoint — October 30, 2026
+
+Simulation-only hardening is on `codex/macbook-deterministic-reliability`.
+73 controller/adapter tests pass with mocked I/O; the full repository suite passes
+368 Python tests and 92 Node tests plus standalone Logic guards. No physical arm,
+tool, camera, Viam configuration or real audio service was accessed in this pass.
+
+Stop is independent of audit-write success, checks owned actuator/planner requests
+and stationary readback, and retains faults after interrupted/unverified recovery.
+Readback loss clears held-ball belief. Release checks recording trial identity and
+age since acquisition began. Recording writes cannot cross trial directories;
+unacknowledged native capture start stays explicitly unknown. Calibration edits
+publish only after their save succeeds. The UI rejects old responses, bounds
+requests, requires recovery after uncertain actions and retains unsaved pose edits.
+
+The repeatable no-hardware runner and proposed physical acceptance steps are in
+[the reliability runbook](../../docs/DETERMINISTIC_RELIABILITY.md). A separate mock
+preview is available at loopback port 18771; previous runtimes were preserved. Historical
+deployment notes below do not imply that this new code is deployed on sfhack10.
+
 # Skip redundant loading Open — October 29, 2026
 
 Loading Open is skipped only when the last acknowledged dashboard gripper command was Open. The release Open marks that state for the next practice cycle. Every tool command first invalidates the cache; failure/cancellation cannot leave stale Open state. Startup, Stop and failed robot readback reset it to unknown. State is command-derived, not jaw sensing; external Viam/controller changes are not observed. After using external gripper controls, issue Open once through this panel before relying on the cache. Manual Open always sends the command. Release checks, two-second timing and practice retention remain.
