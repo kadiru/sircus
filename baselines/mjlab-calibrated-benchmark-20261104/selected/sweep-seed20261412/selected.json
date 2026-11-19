@@ -1,0 +1,17 @@
+{
+  "method": "sweep",
+  "seed": 20261412,
+  "selected_samples": 1024,
+  "artifact": {
+    "path": "sweep/milestone-1024.json",
+    "sha256": "b764ef19523a018f3725680919a6b958785a72aed90882acd05c32e0830298f0",
+    "samples": 1024
+  },
+  "validation_key": [
+    23,
+    2.613174819927546,
+    -1024
+  ],
+  "contract_fingerprint": "f96e6c9e0878564ef88c626cc2cbc46cc48a83f803a16300b3d1945d3fd62f11",
+  "frozen_before_test": true
+}

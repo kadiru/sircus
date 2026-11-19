@@ -1,0 +1,62 @@
+{
+  "version": "sircus-calibrated-benchmark-compact-export-v2",
+  "study_version": "sircus-calibrated-sweep-rl-benchmark-v2",
+  "audit_version": "sircus-calibrated-sweep-rl-independent-audit-v2",
+  "evidence_kind": "native_current_ball_v2",
+  "contract_fingerprint": "f96e6c9e0878564ef88c626cc2cbc46cc48a83f803a16300b3d1945d3fd62f11",
+  "report_sha256": "8d59cf3d44d6657aa8cddd5a22270e39f044357c51ebf690ae0ba940ccf44ba7",
+  "audit_sha256": "8df7b8f3b48cfc9c1c41f33f02ea0b68ca828909e2c8774d3cbabc0f1a45f530",
+  "source_manifest_sha256": "970f2b079c5d00491e95b3f58bfd1180e58fd366d116e0ab4e44731073f9ccb4",
+  "exporter_sha256": "e24bf7870fdf711ac58e1a0daf2e49bab5cdc99ddc36998b1e181deee4998893",
+  "selections": [
+    {
+      "method": "ppo",
+      "seed": 20261411,
+      "source_path": "runs/ppo-seed20261411/checkpoints/milestone-1024.pt",
+      "bundle_path": "selected/ppo-seed20261411/milestone-1024.pt",
+      "sha256": "c3d032b1c3480f01919653fc8ddaa3bb27d5aa78b1e2c25a7fbd6428e00c538b",
+      "samples": 1024
+    },
+    {
+      "method": "ppo",
+      "seed": 20261412,
+      "source_path": "runs/ppo-seed20261412/checkpoints/milestone-1024.pt",
+      "bundle_path": "selected/ppo-seed20261412/milestone-1024.pt",
+      "sha256": "704ff7163ce92004e380d98f101181c9888aeaca400017cc560ffff48457116d",
+      "samples": 1024
+    },
+    {
+      "method": "ppo",
+      "seed": 20261413,
+      "source_path": "runs/ppo-seed20261413/checkpoints/milestone-0256.pt",
+      "bundle_path": "selected/ppo-seed20261413/milestone-0256.pt",
+      "sha256": "c0c436e7e8f7f0efc449a1631f028bef6e242cca268d3b5a73f323ff8ebd7e27",
+      "samples": 256
+    },
+    {
+      "method": "sweep",
+      "seed": 20261411,
+      "source_path": "runs/sweep-seed20261411/sweep/milestone-0000.json",
+      "bundle_path": "selected/sweep-seed20261411/milestone-0000.json",
+      "sha256": "27549eafeabaf8cbc841ee1a65bb0f0ebe64bfd54b081c2e6e4e132ac4826afd",
+      "samples": 0
+    },
+    {
+      "method": "sweep",
+      "seed": 20261412,
+      "source_path": "runs/sweep-seed20261412/sweep/milestone-1024.json",
+      "bundle_path": "selected/sweep-seed20261412/milestone-1024.json",
+      "sha256": "b764ef19523a018f3725680919a6b958785a72aed90882acd05c32e0830298f0",
+      "samples": 1024
+    },
+    {
+      "method": "sweep",
+      "seed": 20261413,
+      "source_path": "runs/sweep-seed20261413/sweep/milestone-1024.json",
+      "bundle_path": "selected/sweep-seed20261413/milestone-1024.json",
+      "sha256": "3c1a719c4b7724735af31d15561286b2f17d78889f452016903c8dc23ade74b3",
+      "samples": 1024
+    }
+  ],
+  "scope": "Compact exact metadata/model copies plus derived descriptive CSVs; raw traces remain external and are covered by the original audit."
+}

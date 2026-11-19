@@ -1,0 +1,310 @@
+{
+  "version": "sircus-simulation-admission-geometry-summary-v1",
+  "status": "completed",
+  "simulation_only": true,
+  "scope": "Producer-reported collision/path admission, independently checked saved-proof identities and structure; no independent collision recomputation or ball-flight evaluation",
+  "input_provenance": {
+    "producer_summary_file": "old71-final-summary-v3.json",
+    "producer_summary_sha256": "903310d759cfe33bb413e6e2ebbd9f52207553dd76336708a92470da5e191747",
+    "independent_audit_file": "old71-independent-structure-audit-v1.json",
+    "independent_audit_sha256": "6068d2fe28915e9f1cf8dff7e9d8b531f3d93a6b9e06b9e5914af93b96dc23a2",
+    "canonical_home_file": "home-control-v5.json",
+    "canonical_home_file_sha256": "d480bd6997b3ce6f61187380d609a877a81c1575b7e897efbdc68ef66ffd8899",
+    "canonical_home_record_sha256": "8f89fdb561beeb571ee1975f8677354decb3a8002be3fb95d6e4772bbe2ba62d",
+    "scene_sha256": "9a50295d9908be8634c2df1c0b460ec6011710cf8e14ce33cbc67a75749ff1c8",
+    "producer_source_sha256": {
+      "sircus/mjlab/calibrated_admission.py": "479ab84c794ff9a579774fb0aa280a713ec317cdca069119daa0363e9130092b",
+      "sircus/mjlab/learning_contract.py": "9f2c44b76297f4ef7009c1b0107be983d0511d5654cb68b8e344dd316ed1fda8"
+    },
+    "audit_driver_sha256": "78934b0ef6db28bb8c69c12107be1987c5c23ac5e79c5f12c781a392e0580e86"
+  },
+  "layout_count": 71,
+  "admitted": 69,
+  "hard_rejected": 2,
+  "finite_unresolved": 0,
+  "historical_role_counts": {
+    "train": {
+      "requested": 35,
+      "admitted": 33,
+      "hard_rejected": 2,
+      "finite_unresolved": 0
+    },
+    "validation": {
+      "requested": 12,
+      "admitted": 12,
+      "hard_rejected": 0,
+      "finite_unresolved": 0
+    },
+    "test": {
+      "requested": 24,
+      "admitted": 24,
+      "hard_rejected": 0,
+      "finite_unresolved": 0
+    }
+  },
+  "historical_role_scope": "Development-control coordinates only; not the new benchmark held-out layout pools",
+  "historical_bucket_coordinates_sha256": "84d10cac40463002ddf6fa24964ab72e0dda7712f693d956a6c4264a1b6c2be4",
+  "independent_structure_checks": 505,
+  "independent_structure_audit_scope": "Independent CPU process re-reads raw bytes and checks deterministic source/offset ordering, exact endpoints, reverse edges, sample spacing/clearance claims and original source/home bindings using the frozen versioned pure verification helpers.",
+  "proof_manifest_sha256": "12b04ceaec4f73b158b5c4669542beb26145e8244dc52a0bb0c9ad027874bbf6",
+  "minimum_recorded_sampled_clearance_m": 0.005001099837533274,
+  "canonical_home_coverage": {
+    "layout_count": 128,
+    "eligible": 122,
+    "ineligible": 6,
+    "minimum_recorded_eligible_clearance_m": 0.005481528996837293,
+    "coverage_sha256": "d93a8acb60b13774913aac4d575f55d7033957b278615e6f55c336cdac37f30f"
+  },
+  "fixed_base_rejections": [
+    {
+      "id": "dev-grid-03-00",
+      "bucket_xy_m": [
+        0.1,
+        0.025000000000000022
+      ],
+      "home_passed": false,
+      "hard_reject": true,
+      "reason": "clearance"
+    },
+    {
+      "id": "dev-grid-03-06",
+      "bucket_xy_m": [
+        1.24,
+        0.025000000000000022
+      ],
+      "home_passed": false,
+      "hard_reject": true,
+      "reason": "clearance"
+    }
+  ],
+  "derived_anchors": [
+    {
+      "id": "dev-grid-02-04",
+      "derivation": "height50_tilt-minus8",
+      "anchor_values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.4590650379657745,
+        24.749881784770345,
+        0.1353410311538266
+      ]
+    },
+    {
+      "id": "dev-grid-03-04",
+      "derivation": "height50_tilt-minus8",
+      "anchor_values": [
+        0.5842174887657166,
+        -0.037267498672008514,
+        0.45906500816345214,
+        24.749881784770345,
+        0.1353410311538266
+      ]
+    },
+    {
+      "id": "bench-validation-04",
+      "derivation": "height50_tilt-minus8",
+      "anchor_values": [
+        0.6274269819259644,
+        -0.23581497371196747,
+        0.4590650379657745,
+        24.749881784770345,
+        0.1353410311538266
+      ]
+    },
+    {
+      "id": "bench-test-19",
+      "derivation": "height50_tilt-minus8",
+      "anchor_values": [
+        0.5842174887657166,
+        -0.037267498672008514,
+        0.45906500816345214,
+        24.749881784770345,
+        0.1353410311538266
+      ]
+    }
+  ],
+  "anchor_search": {
+    "version": "sircus-shared-geometry-anchor-search-v1",
+    "max_attempts": 64,
+    "source_order": "nearest original source bucket XY then source ID",
+    "attempt_order": "all nominal sources, then declared offsets per ranked source; truncate total budget",
+    "offsets": [
+      {
+        "id": "height25_tilt-minus4",
+        "values": [
+          0.0,
+          0.0,
+          0.025,
+          -4.0,
+          0.0
+        ]
+      },
+      {
+        "id": "height50_tilt-minus8",
+        "values": [
+          0.0,
+          0.0,
+          0.05,
+          -8.0,
+          0.0
+        ]
+      },
+      {
+        "id": "height-minus25_tilt4",
+        "values": [
+          0.0,
+          0.0,
+          -0.025,
+          4.0,
+          0.0
+        ]
+      },
+      {
+        "id": "height-minus50_tilt8",
+        "values": [
+          0.0,
+          0.0,
+          -0.05,
+          8.0,
+          0.0
+        ]
+      },
+      {
+        "id": "height25_gap-minus60",
+        "values": [
+          0.0,
+          0.0,
+          0.025,
+          0.0,
+          -0.06
+        ]
+      },
+      {
+        "id": "height50_gap-minus120",
+        "values": [
+          0.0,
+          0.0,
+          0.05,
+          0.0,
+          -0.12
+        ]
+      },
+      {
+        "id": "height-minus25_gap60",
+        "values": [
+          0.0,
+          0.0,
+          -0.025,
+          0.0,
+          0.06
+        ]
+      },
+      {
+        "id": "height-minus50_gap120",
+        "values": [
+          0.0,
+          0.0,
+          -0.05,
+          0.0,
+          0.12
+        ]
+      },
+      {
+        "id": "x40",
+        "values": [
+          0.04,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "x-minus40",
+        "values": [
+          -0.04,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "y40",
+        "values": [
+          0.0,
+          0.04,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "y-minus40",
+        "values": [
+          0.0,
+          -0.04,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "x40_height25_tilt-minus4",
+        "values": [
+          0.04,
+          0.0,
+          0.025,
+          -4.0,
+          0.0
+        ]
+      },
+      {
+        "id": "x-minus40_height25_tilt-minus4",
+        "values": [
+          -0.04,
+          0.0,
+          0.025,
+          -4.0,
+          0.0
+        ]
+      },
+      {
+        "id": "y40_height25_tilt-minus4",
+        "values": [
+          0.0,
+          0.04,
+          0.025,
+          -4.0,
+          0.0
+        ]
+      },
+      {
+        "id": "y-minus40_height25_tilt-minus4",
+        "values": [
+          0.0,
+          -0.04,
+          0.025,
+          -4.0,
+          0.0
+        ]
+      }
+    ],
+    "minimum_board_bucket_xy_distance_m": 0.15,
+    "distance_comparison": "strictly_greater",
+    "flight_labels_used": false,
+    "clips_or_projects_action": false
+  },
+  "flight_rollouts": 0,
+  "complete_shot_native_smoke": "Separate shared engineering gate passed; see native-complete-shot-summary.json. No change to historical71 geometry-proof scope.",
+  "new_benchmark_capture_rates": null,
+  "limitations": [
+    "No new collision geometry, IK, trajectory integration or ball-flight rollout was performed.",
+    "Recorded-proof verification uses the frozen helper implementation, not an independently implemented collision oracle.",
+    "Historical71 coordinates are development controls, not fresh held-out benchmark evidence.",
+    "A new canonical simulator initial park is assumed; connectivity from the older colliding park is not claimed.",
+    "Sampled setup paths are not driven actuator/impact-compliance validation.",
+    "Ball/bucket materials and dimensions retain the existing provisional simulation assumptions."
+  ],
+  "fingerprint": "4c903ac945a57924bd03bad90d2d20bd6bcc609fe51fcab8bd414d2f41b35969"
+}

@@ -1,6 +1,71 @@
 # Project state
 
-## Completed matched current-ball sweep/PPO benchmark — November 3, 2026
+## Calibrated benchmark v2 — completed November 4, 2026 UTC
+
+- [Protocol, results and reproduction](../sircus/mjlab/CALIBRATED_BENCHMARK.md),
+  [checksummed evidence and six selected artifacts](../baselines/mjlab-calibrated-benchmark-20261104/README.md),
+  [draft PR62](https://github.com/kadiru/sircus/pull/62), stacked on PR60. No merge
+  or checkpoint activation. Historical v1 and earlier scene results remain
+  unchanged below; their scoring, setup and evaluation cohorts differ.
+- **Frozen TEST: sweep78/216 (36.1%), PPO97/216 (44.9%)**, including setup rejects
+  in every denominator. The8.8 percentage-point PPO advantage is descriptive:
+  three seeds share24 held-out layouts with three paired trials per layout.
+  Per-seed captures are31/22/25 versus28/33/36 out of72; PPO lost the first seed.
+  Clean captures are16 versus26. Both methods still miss more than half of
+  requested shots; this does not establish universal coverage or convergence.
+- Both methods spent3,072 TRAIN requests. Native TRAIN releases were2,036 sweep
+  and2,344 PPO. Full totals:6,144 TRAIN +864 validation +432 TEST =7,440 requests;
+  native releases4,380/704/383 by phase. Ten native TRAIN numerical failures count
+  as failed attempts. All six workers completed; the independent full audit
+  **passed1,204,473 checks** with no failures and exact source/control/artifact
+  bindings. Raw trajectories remain local; the compact bundle references their
+  original manifests rather than bundling raw observations.
+- Validation selected budgets0/1,024/1,024 for sweep and1,024/1,024/256 for PPO
+  (seeds20261411/12/13). Selection uses captures, mean shaped reward, then earliest
+  checkpoint; a capture tie does not imply identical artifacts. Every worker
+  still paid all1,024 TRAIN requests. The third PPO seed's earlier checkpoint
+  beat its final one on validation; TEST never selected or replaced checkpoints.
+- Current-ball simulated contact calibration passed3,444 fit and15,011
+  verification checks. Canonical64, fine128 and reversed64 controls passed the
+  frozen wall3.563906mm/floor2.943836mm contact envelope without refitting. These
+  allowances are separate from2µm geometry precision and are not physical
+  material calibration. Capture requires measured board rebound, downward
+  open-mouth whole-ball entry and one continuous observed second inside;
+  partial exits reset retention, rim assistance counts, external contacts do not.
+- Geometry-only pre-policy resolution plus exact-action admission preserves5mm
+  clearance,>150mm board–bucket distance and serialized forward/reverse paths
+  sampled at≤0.5°. A new canonical simulator park removes the old nominal-pose
+  veto; this is not a proven path from the old park. CPU controls admitted69/71
+  old layouts, retaining two genuine fixed-base/bucket conflicts. Finite IK and
+  requested-action collisions can still reject new actions; no projection or
+  flight-label fallback masks them. Verified-prefix reuse reduces repeated path
+  checks without changing actions or the frozen clearance/sampling limits.
+- Mean setup + TRAIN wall per worker: sweep4,018.9s / PPO4,076.6s; CPU6,257.2 /
+  6,325.0s. Validation + TEST wall1,439.3 /1,070.2s; full GPU reservation5,459.1 /
+  5,147.7s. Lifetime peak RSS means1,878.5 /2,002.6MiB, sampled VRAM1,092 /
+  1,216MiB. Costs include evidence I/O; memory includes simulator/evaluation.
+  Geometry-only source resolution still costs roughly300s per24-layout cohort;
+  actor prediction timing is not end-to-end planning latency.
+- The separate [read-only interface on18791](http://127.0.0.1:18791/#sweepRlBenchmark)
+  verifies both audit dependencies and displays measured curves, admission
+  reasons, resource costs and unsealed final TEST records. Its reader revision
+  has separate provenance from immutable experiment producer C. All prior
+  services, including18790, and the4070 workload were preserved. No physical,
+  Viam, audio, camera or cloud configuration work occurred.
+- [Calibration/setup/native engineering controls](../baselines/mjlab-calibrated-controls-20261103/README.md)
+  are separate:17/17 source captures,50 requests/48 native releases, a discarded
+  actual PPO update and9,167 independent checks. The complete synthetic CPU
+  six-worker/controller/auditor/exporter gate and native reset/constructor
+  regressions also passed. The old71 proof audit checks recorded hashes and
+  structure; it does not recompute every collision sample.
+- This remains current fixed-ball, privileged-geometry five-parameter shot
+  selection with17 shared historical recipes (known4,234 prior native releases,
+  earlier acquisition cost unknown) and held articulated endpoints in mjlab /
+  MuJoCo Warp. No learned grasp/transit/compliance, perception, physical
+  validation or new-ball adaptation claim. Reported175mm bucket-height ambiguity
+  is preserved. Next: a validation-only failure breakdown before another change.
+
+## Historical v1 matched sweep/PPO benchmark — November 3, 2026
 
 - [Frozen design and reproduction](../sircus/mjlab/SWEEP_RL_BENCHMARK.md): guided
   sweep-built library transfer versus continuous residual PPO, using the same 17

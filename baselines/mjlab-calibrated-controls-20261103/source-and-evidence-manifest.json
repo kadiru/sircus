@@ -1,0 +1,449 @@
+{
+  "version": "sircus-calibrated-controls-evidence-manifest-v1",
+  "simulation_only": true,
+  "scope": "Exact compact simulation contact reports and canonical-home/proof metadata; raw native arrays retained separately",
+  "published_exact_metadata": {
+    "capture-calibration-fit-audit-v3.json": {
+      "bytes": 22516,
+      "sha256": "992d4e191fb678ff85e9e93c9099e311cac19efd47207e104f9887ecc7437358"
+    },
+    "capture-calibration-verification-audit-v3.json": {
+      "bytes": 56943,
+      "sha256": "760c187a69245687f6927fe71afb88d777fe8c8e8d56da1a7913361e05f4427d"
+    },
+    "home-control-v5.json": {
+      "bytes": 459971,
+      "sha256": "d480bd6997b3ce6f61187380d609a877a81c1575b7e897efbdc68ef66ffd8899"
+    },
+    "old71-independent-structure-audit-v1.json": {
+      "bytes": 31495,
+      "sha256": "6068d2fe28915e9f1cf8dff7e9d8b531f3d93a6b9e06b9e5914af93b96dc23a2"
+    },
+    "producer-prelaunch-journal.json": {
+      "bytes": 718,
+      "sha256": "8b14feefd220bd73a0d0ff3006a1aa94219eefee8ef3efa480dc5f95c699c8e1"
+    },
+    "native-complete-shot-audit-v2c.json": {
+      "bytes": 584922,
+      "sha256": "758ebd2c5c647d88c948897200e797c6bfcc85e7a4a5990a2838dcedcd606cc7"
+    }
+  },
+  "derived_metadata": {
+    "admission-geometry-summary.json": {
+      "bytes": 8334,
+      "sha256": "bc03fcbe6bbcc2ecd2028c9027a5be6741d7320dafca5d071e2d3c4224abae01",
+      "original_producer_summary_sha256": "903310d759cfe33bb413e6e2ebbd9f52207553dd76336708a92470da5e191747"
+    },
+    "native-complete-shot-summary.json": {
+      "bytes": 8718,
+      "sha256": "f5a43d4223da6241fa3b4c821d67f5960f6c82d3c66c7a58942cd2439a3f3160",
+      "producer_report_sha256": "86194bd80476ed6daacdee9e457aa72c4e57fa19d9d5bd02af6be81d0f493e77",
+      "producer_manifest_sha256": "99a567b9b8353ca3348d29930659bc6320d17eec5427a408fd53ee5feea08e5e",
+      "independent_audit_sha256": "758ebd2c5c647d88c948897200e797c6bfcc85e7a4a5990a2838dcedcd606cc7"
+    }
+  },
+  "score_config_sha256": "3a0b48129c89a0aac5740d3be04bf3c985cde0fd3ede55be4b5ffaf9ae95c4ba",
+  "score_config_fingerprint": "ab0d2b5b0bcb9122b0ca3e996501d33a6ebe1069e57aebd11d7643a597f55a20",
+  "contact_auditor_source_sha256": {
+    "sircus/mjlab/verify_capture_calibration.py": "98f905394c0e7f2b082d7b60b51baedd95fd6984b5265f6e7673c56b963f9afe"
+  },
+  "scorer_source_sha256": {
+    "sircus/mjlab/calibrated_score.py": "b90fb4886f2297534b81b399620c647952eb2e486217289c65548713977e3539",
+    "sircus/mjlab/calibrated_score_oracle.py": "74ff1b43d342a28e7b4af6d3ec757f577aec076ac286535f4c16e053e31a00df"
+  },
+  "source_bindings": {
+    "fit64": {
+      "source_sha256": {
+        "sircus/mjlab/capture_calibration.py": "871cec164b1a8dfa88e5a48c8761a985ac33536b4838489fc13ca5fed870fc2c",
+        "sircus/mjlab/calibrated_native_log.py": "c555bc762116a18da2802321ba40248a7d2bbe7b9590e176853547e8a4c8272c"
+      },
+      "reference_source_sha256": {
+        "sircus/mjlab/contact_env.py": "04655f30a1b216c037573a0b5e177e6209097026f930fc6efc6dfef289abc3da",
+        "sircus/mjlab/contact_model.py": "b2d522d07dd2e3bffa724feb68593b3fef17033b5274587ef9d130e5c40aa24f",
+        "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+        "sircus/mjlab/contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407",
+        "sircus/mjlab/learning_score.py": "e66b982c0e651c3a9f5855dd03efb87488cc924321aaf9cadb80d51bac2fe814",
+        "sircus/mjlab/corrected_geometry.py": "50a4a353d94cceb1fbb0216a40588c997034a121e554f3f84f530d7d47c470be",
+        "sircus/mjlab/stable_geometry.py": "2e00b5fc46d1b253b5c85b6823c781a37e26f5819b35586a8cc112b057ebaebf",
+        "sircus/mjlab/stable_ik.py": "efd52c5e837339662c99c196e1a3cf4b5b260eecb7888258779030c459944e07",
+        "sircus/mjlab/expanded_actions.py": "d41817aa7ad4206139925256ab0cdf5288853e621d6b39824c10ad2d309679c3",
+        "sircus/mjlab/bank_geometry.py": "5c0d6775582c5524a323f1e9344c35317e8352e9f1f813f5dd0794c05de743f5",
+        "sircus/mjlab/bank_study.py": "7699faeff915a772f3e838983ff1c8dec7721f2d55c79a594e185cd9e08e7dcb",
+        "sircus/mjlab/transit_audit.py": "4400285187eebf3b1c7073a78ab74c94cbead88d52ffc5366e0258d2376f8c96",
+        "sircus/mjlab/admission.py": "2dbc5776113f8afb0ea74e23d0c3a2542fd0223d94a6818aec8de4865d302d82",
+        "sircus/mjlab/learning_env.py": "58d2f58be0e1981a5efd09e872bdea7d8f608e1fa21b5c87986505a20a4a4f8c",
+        "sircus/mjlab/learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+        "sircus/mjlab/learning_reach.py": "8eea1d565e9faefff0622a9e9a4666eb8d811ac086a8a6711caa8efa3029e9a4",
+        "sircus/mjlab/learning_contract.py": "9f2c44b76297f4ef7009c1b0107be983d0511d5654cb68b8e344dd316ed1fda8",
+        "sircus/mjlab/run.py": "969db2710378345aad34a6f802e33d6ea62488d75e560b9da5738bc0748c3dee",
+        "sircus/mjlab/corrected_contract.py": "9800404859a7ae2b2934c26ca448be4a69ae90e481069da72732973b1d907ba2",
+        "sircus/mjlab/corrected_admission.py": "3d42913fc2a9599b0e5063bfc4ee0a03f003b4ba853338e407c8a3d82de3d64a",
+        "sircus/mjlab/gpu_slot.py": "fcace6029058a9892296507358ee196b9b5296dc4287a07bedc786e3af4cad4a",
+        "sircus/mjlab/expand_geometry.py": "0b7982c3494b7cb7f799e073e3a7b788cca77617af0e9f509a4b7e273d926739",
+        "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+        "sircus/isaac/rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+        "sircus/isaac/entry_quality.py": "2f3d8b73c871a41afc3c8f333f5df1d54fa8751720855ffff517e729217db9d4",
+        "sircus/isaac/board_route.py": "6409889aed6b0fd6a288eb9494b954ec5c3233ec41fdcf146940fc23276fb2e9",
+        "sircus/mjlab/sweep_worker.py": "6150969a6f442e3b899d878671a4daf08cd90c61f0abf96494d418316e0e7a5b",
+        "sircus/mjlab/sweep_contract.py": "2460d8e807f06ad4bfe491491d011a448eaedea57ef4c7e727a1b10a54409a0a"
+      },
+      "binding_scope": "Supplied prelaunch hash journal, with post-run source-byte verification; caches did not embed producer source hashes"
+    },
+    "verification64-canonical": {
+      "source_sha256": {
+        "sircus/mjlab/capture_calibration.py": "871cec164b1a8dfa88e5a48c8761a985ac33536b4838489fc13ca5fed870fc2c",
+        "sircus/mjlab/calibrated_native_log.py": "c555bc762116a18da2802321ba40248a7d2bbe7b9590e176853547e8a4c8272c"
+      },
+      "reference_source_sha256": {
+        "sircus/mjlab/contact_env.py": "04655f30a1b216c037573a0b5e177e6209097026f930fc6efc6dfef289abc3da",
+        "sircus/mjlab/contact_model.py": "b2d522d07dd2e3bffa724feb68593b3fef17033b5274587ef9d130e5c40aa24f",
+        "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+        "sircus/mjlab/contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407",
+        "sircus/mjlab/learning_score.py": "e66b982c0e651c3a9f5855dd03efb87488cc924321aaf9cadb80d51bac2fe814",
+        "sircus/mjlab/corrected_geometry.py": "50a4a353d94cceb1fbb0216a40588c997034a121e554f3f84f530d7d47c470be",
+        "sircus/mjlab/stable_geometry.py": "2e00b5fc46d1b253b5c85b6823c781a37e26f5819b35586a8cc112b057ebaebf",
+        "sircus/mjlab/stable_ik.py": "efd52c5e837339662c99c196e1a3cf4b5b260eecb7888258779030c459944e07",
+        "sircus/mjlab/expanded_actions.py": "d41817aa7ad4206139925256ab0cdf5288853e621d6b39824c10ad2d309679c3",
+        "sircus/mjlab/bank_geometry.py": "5c0d6775582c5524a323f1e9344c35317e8352e9f1f813f5dd0794c05de743f5",
+        "sircus/mjlab/bank_study.py": "7699faeff915a772f3e838983ff1c8dec7721f2d55c79a594e185cd9e08e7dcb",
+        "sircus/mjlab/transit_audit.py": "4400285187eebf3b1c7073a78ab74c94cbead88d52ffc5366e0258d2376f8c96",
+        "sircus/mjlab/admission.py": "2dbc5776113f8afb0ea74e23d0c3a2542fd0223d94a6818aec8de4865d302d82",
+        "sircus/mjlab/learning_env.py": "58d2f58be0e1981a5efd09e872bdea7d8f608e1fa21b5c87986505a20a4a4f8c",
+        "sircus/mjlab/learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+        "sircus/mjlab/learning_reach.py": "8eea1d565e9faefff0622a9e9a4666eb8d811ac086a8a6711caa8efa3029e9a4",
+        "sircus/mjlab/learning_contract.py": "9f2c44b76297f4ef7009c1b0107be983d0511d5654cb68b8e344dd316ed1fda8",
+        "sircus/mjlab/run.py": "969db2710378345aad34a6f802e33d6ea62488d75e560b9da5738bc0748c3dee",
+        "sircus/mjlab/corrected_contract.py": "9800404859a7ae2b2934c26ca448be4a69ae90e481069da72732973b1d907ba2",
+        "sircus/mjlab/corrected_admission.py": "3d42913fc2a9599b0e5063bfc4ee0a03f003b4ba853338e407c8a3d82de3d64a",
+        "sircus/mjlab/gpu_slot.py": "fcace6029058a9892296507358ee196b9b5296dc4287a07bedc786e3af4cad4a",
+        "sircus/mjlab/expand_geometry.py": "0b7982c3494b7cb7f799e073e3a7b788cca77617af0e9f509a4b7e273d926739",
+        "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+        "sircus/isaac/rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+        "sircus/isaac/entry_quality.py": "2f3d8b73c871a41afc3c8f333f5df1d54fa8751720855ffff517e729217db9d4",
+        "sircus/isaac/board_route.py": "6409889aed6b0fd6a288eb9494b954ec5c3233ec41fdcf146940fc23276fb2e9",
+        "sircus/mjlab/sweep_worker.py": "6150969a6f442e3b899d878671a4daf08cd90c61f0abf96494d418316e0e7a5b",
+        "sircus/mjlab/sweep_contract.py": "2460d8e807f06ad4bfe491491d011a448eaedea57ef4c7e727a1b10a54409a0a"
+      },
+      "binding_scope": "Supplied prelaunch hash journal, with post-run source-byte verification; caches did not embed producer source hashes"
+    },
+    "verification128-canonical": {
+      "source_sha256": {
+        "sircus/mjlab/capture_calibration.py": "871cec164b1a8dfa88e5a48c8761a985ac33536b4838489fc13ca5fed870fc2c",
+        "sircus/mjlab/calibrated_native_log.py": "c555bc762116a18da2802321ba40248a7d2bbe7b9590e176853547e8a4c8272c"
+      },
+      "reference_source_sha256": {
+        "sircus/mjlab/contact_env.py": "04655f30a1b216c037573a0b5e177e6209097026f930fc6efc6dfef289abc3da",
+        "sircus/mjlab/contact_model.py": "b2d522d07dd2e3bffa724feb68593b3fef17033b5274587ef9d130e5c40aa24f",
+        "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+        "sircus/mjlab/contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407",
+        "sircus/mjlab/learning_score.py": "e66b982c0e651c3a9f5855dd03efb87488cc924321aaf9cadb80d51bac2fe814",
+        "sircus/mjlab/corrected_geometry.py": "50a4a353d94cceb1fbb0216a40588c997034a121e554f3f84f530d7d47c470be",
+        "sircus/mjlab/stable_geometry.py": "2e00b5fc46d1b253b5c85b6823c781a37e26f5819b35586a8cc112b057ebaebf",
+        "sircus/mjlab/stable_ik.py": "efd52c5e837339662c99c196e1a3cf4b5b260eecb7888258779030c459944e07",
+        "sircus/mjlab/expanded_actions.py": "d41817aa7ad4206139925256ab0cdf5288853e621d6b39824c10ad2d309679c3",
+        "sircus/mjlab/bank_geometry.py": "5c0d6775582c5524a323f1e9344c35317e8352e9f1f813f5dd0794c05de743f5",
+        "sircus/mjlab/bank_study.py": "7699faeff915a772f3e838983ff1c8dec7721f2d55c79a594e185cd9e08e7dcb",
+        "sircus/mjlab/transit_audit.py": "4400285187eebf3b1c7073a78ab74c94cbead88d52ffc5366e0258d2376f8c96",
+        "sircus/mjlab/admission.py": "2dbc5776113f8afb0ea74e23d0c3a2542fd0223d94a6818aec8de4865d302d82",
+        "sircus/mjlab/learning_env.py": "58d2f58be0e1981a5efd09e872bdea7d8f608e1fa21b5c87986505a20a4a4f8c",
+        "sircus/mjlab/learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+        "sircus/mjlab/learning_reach.py": "8eea1d565e9faefff0622a9e9a4666eb8d811ac086a8a6711caa8efa3029e9a4",
+        "sircus/mjlab/learning_contract.py": "9f2c44b76297f4ef7009c1b0107be983d0511d5654cb68b8e344dd316ed1fda8",
+        "sircus/mjlab/run.py": "969db2710378345aad34a6f802e33d6ea62488d75e560b9da5738bc0748c3dee",
+        "sircus/mjlab/corrected_contract.py": "9800404859a7ae2b2934c26ca448be4a69ae90e481069da72732973b1d907ba2",
+        "sircus/mjlab/corrected_admission.py": "3d42913fc2a9599b0e5063bfc4ee0a03f003b4ba853338e407c8a3d82de3d64a",
+        "sircus/mjlab/gpu_slot.py": "fcace6029058a9892296507358ee196b9b5296dc4287a07bedc786e3af4cad4a",
+        "sircus/mjlab/expand_geometry.py": "0b7982c3494b7cb7f799e073e3a7b788cca77617af0e9f509a4b7e273d926739",
+        "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+        "sircus/isaac/rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+        "sircus/isaac/entry_quality.py": "2f3d8b73c871a41afc3c8f333f5df1d54fa8751720855ffff517e729217db9d4",
+        "sircus/isaac/board_route.py": "6409889aed6b0fd6a288eb9494b954ec5c3233ec41fdcf146940fc23276fb2e9",
+        "sircus/mjlab/sweep_worker.py": "6150969a6f442e3b899d878671a4daf08cd90c61f0abf96494d418316e0e7a5b",
+        "sircus/mjlab/sweep_contract.py": "2460d8e807f06ad4bfe491491d011a448eaedea57ef4c7e727a1b10a54409a0a"
+      },
+      "binding_scope": "Supplied prelaunch hash journal, with post-run source-byte verification; caches did not embed producer source hashes"
+    },
+    "verification64-reversed": {
+      "source_sha256": {
+        "sircus/mjlab/capture_calibration.py": "3d508db4b25ee7daef2a862353650645b2479cba645259fa9627c85c6cbb8499",
+        "sircus/mjlab/calibrated_native_log.py": "c555bc762116a18da2802321ba40248a7d2bbe7b9590e176853547e8a4c8272c"
+      },
+      "reference_source_sha256": {
+        "sircus/mjlab/contact_env.py": "04655f30a1b216c037573a0b5e177e6209097026f930fc6efc6dfef289abc3da",
+        "sircus/mjlab/contact_model.py": "b2d522d07dd2e3bffa724feb68593b3fef17033b5274587ef9d130e5c40aa24f",
+        "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+        "sircus/mjlab/contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407",
+        "sircus/mjlab/learning_score.py": "e66b982c0e651c3a9f5855dd03efb87488cc924321aaf9cadb80d51bac2fe814",
+        "sircus/mjlab/corrected_geometry.py": "50a4a353d94cceb1fbb0216a40588c997034a121e554f3f84f530d7d47c470be",
+        "sircus/mjlab/stable_geometry.py": "2e00b5fc46d1b253b5c85b6823c781a37e26f5819b35586a8cc112b057ebaebf",
+        "sircus/mjlab/stable_ik.py": "efd52c5e837339662c99c196e1a3cf4b5b260eecb7888258779030c459944e07",
+        "sircus/mjlab/expanded_actions.py": "d41817aa7ad4206139925256ab0cdf5288853e621d6b39824c10ad2d309679c3",
+        "sircus/mjlab/bank_geometry.py": "5c0d6775582c5524a323f1e9344c35317e8352e9f1f813f5dd0794c05de743f5",
+        "sircus/mjlab/bank_study.py": "7699faeff915a772f3e838983ff1c8dec7721f2d55c79a594e185cd9e08e7dcb",
+        "sircus/mjlab/transit_audit.py": "4400285187eebf3b1c7073a78ab74c94cbead88d52ffc5366e0258d2376f8c96",
+        "sircus/mjlab/admission.py": "2dbc5776113f8afb0ea74e23d0c3a2542fd0223d94a6818aec8de4865d302d82",
+        "sircus/mjlab/learning_env.py": "58d2f58be0e1981a5efd09e872bdea7d8f608e1fa21b5c87986505a20a4a4f8c",
+        "sircus/mjlab/learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+        "sircus/mjlab/learning_reach.py": "8eea1d565e9faefff0622a9e9a4666eb8d811ac086a8a6711caa8efa3029e9a4",
+        "sircus/mjlab/learning_contract.py": "9f2c44b76297f4ef7009c1b0107be983d0511d5654cb68b8e344dd316ed1fda8",
+        "sircus/mjlab/run.py": "969db2710378345aad34a6f802e33d6ea62488d75e560b9da5738bc0748c3dee",
+        "sircus/mjlab/corrected_contract.py": "9800404859a7ae2b2934c26ca448be4a69ae90e481069da72732973b1d907ba2",
+        "sircus/mjlab/corrected_admission.py": "3d42913fc2a9599b0e5063bfc4ee0a03f003b4ba853338e407c8a3d82de3d64a",
+        "sircus/mjlab/gpu_slot.py": "fcace6029058a9892296507358ee196b9b5296dc4287a07bedc786e3af4cad4a",
+        "sircus/mjlab/expand_geometry.py": "0b7982c3494b7cb7f799e073e3a7b788cca77617af0e9f509a4b7e273d926739",
+        "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+        "sircus/isaac/rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+        "sircus/isaac/entry_quality.py": "2f3d8b73c871a41afc3c8f333f5df1d54fa8751720855ffff517e729217db9d4",
+        "sircus/isaac/board_route.py": "6409889aed6b0fd6a288eb9494b954ec5c3233ec41fdcf146940fc23276fb2e9",
+        "sircus/mjlab/sweep_worker.py": "6150969a6f442e3b899d878671a4daf08cd90c61f0abf96494d418316e0e7a5b",
+        "sircus/mjlab/sweep_contract.py": "2460d8e807f06ad4bfe491491d011a448eaedea57ef4c7e727a1b10a54409a0a"
+      },
+      "binding_scope": "Supplied prelaunch hash journal, with post-run source-byte verification; caches did not embed producer source hashes"
+    },
+    "diagnostic32": {
+      "source_sha256": {
+        "sircus/mjlab/capture_calibration.py": "871cec164b1a8dfa88e5a48c8761a985ac33536b4838489fc13ca5fed870fc2c",
+        "sircus/mjlab/calibrated_native_log.py": "c555bc762116a18da2802321ba40248a7d2bbe7b9590e176853547e8a4c8272c"
+      },
+      "reference_source_sha256": {
+        "sircus/mjlab/contact_env.py": "04655f30a1b216c037573a0b5e177e6209097026f930fc6efc6dfef289abc3da",
+        "sircus/mjlab/contact_model.py": "b2d522d07dd2e3bffa724feb68593b3fef17033b5274587ef9d130e5c40aa24f",
+        "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+        "sircus/mjlab/contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407",
+        "sircus/mjlab/learning_score.py": "e66b982c0e651c3a9f5855dd03efb87488cc924321aaf9cadb80d51bac2fe814",
+        "sircus/mjlab/corrected_geometry.py": "50a4a353d94cceb1fbb0216a40588c997034a121e554f3f84f530d7d47c470be",
+        "sircus/mjlab/stable_geometry.py": "2e00b5fc46d1b253b5c85b6823c781a37e26f5819b35586a8cc112b057ebaebf",
+        "sircus/mjlab/stable_ik.py": "efd52c5e837339662c99c196e1a3cf4b5b260eecb7888258779030c459944e07",
+        "sircus/mjlab/expanded_actions.py": "d41817aa7ad4206139925256ab0cdf5288853e621d6b39824c10ad2d309679c3",
+        "sircus/mjlab/bank_geometry.py": "5c0d6775582c5524a323f1e9344c35317e8352e9f1f813f5dd0794c05de743f5",
+        "sircus/mjlab/bank_study.py": "7699faeff915a772f3e838983ff1c8dec7721f2d55c79a594e185cd9e08e7dcb",
+        "sircus/mjlab/transit_audit.py": "4400285187eebf3b1c7073a78ab74c94cbead88d52ffc5366e0258d2376f8c96",
+        "sircus/mjlab/admission.py": "2dbc5776113f8afb0ea74e23d0c3a2542fd0223d94a6818aec8de4865d302d82",
+        "sircus/mjlab/learning_env.py": "58d2f58be0e1981a5efd09e872bdea7d8f608e1fa21b5c87986505a20a4a4f8c",
+        "sircus/mjlab/learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+        "sircus/mjlab/learning_reach.py": "8eea1d565e9faefff0622a9e9a4666eb8d811ac086a8a6711caa8efa3029e9a4",
+        "sircus/mjlab/learning_contract.py": "9f2c44b76297f4ef7009c1b0107be983d0511d5654cb68b8e344dd316ed1fda8",
+        "sircus/mjlab/run.py": "969db2710378345aad34a6f802e33d6ea62488d75e560b9da5738bc0748c3dee",
+        "sircus/mjlab/corrected_contract.py": "9800404859a7ae2b2934c26ca448be4a69ae90e481069da72732973b1d907ba2",
+        "sircus/mjlab/corrected_admission.py": "3d42913fc2a9599b0e5063bfc4ee0a03f003b4ba853338e407c8a3d82de3d64a",
+        "sircus/mjlab/gpu_slot.py": "fcace6029058a9892296507358ee196b9b5296dc4287a07bedc786e3af4cad4a",
+        "sircus/mjlab/expand_geometry.py": "0b7982c3494b7cb7f799e073e3a7b788cca77617af0e9f509a4b7e273d926739",
+        "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+        "sircus/isaac/rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+        "sircus/isaac/entry_quality.py": "2f3d8b73c871a41afc3c8f333f5df1d54fa8751720855ffff517e729217db9d4",
+        "sircus/isaac/board_route.py": "6409889aed6b0fd6a288eb9494b954ec5c3233ec41fdcf146940fc23276fb2e9",
+        "sircus/mjlab/sweep_worker.py": "6150969a6f442e3b899d878671a4daf08cd90c61f0abf96494d418316e0e7a5b",
+        "sircus/mjlab/sweep_contract.py": "2460d8e807f06ad4bfe491491d011a448eaedea57ef4c7e727a1b10a54409a0a"
+      },
+      "binding_scope": "Supplied prelaunch hash journal, with post-run source-byte verification; caches did not embed producer source hashes"
+    }
+  },
+  "retained_raw_control_inputs": {
+    "fit64": {
+      "file_sha256": {
+        "candidate-score-config.json": "c3d7ec84243489431be8913b086fe3772ea32f68c80e0a23407f7761e1619e04",
+        "compiled-geometry.json": "6b0eca3ca46df822dae18d279a39b2d4ec2305bd597fdcbe76908f4c0b277bd3",
+        "component-summary.json": "946f9f9674f0f4c5e293f0fbbfbeb070e04238d58a43b122282d560415274afb",
+        "fixture-manifest.json": "a153dfaaadba4b29564ffb429e0423c1c9767cb5d2dc239cf20dd3104c66b3b5",
+        "native-components.npz": "6bbd3f5889fe2b69fa3b71991d390dfd01504f3e07578cc4ac8f4ade17ff3b2e"
+      },
+      "fixture_fingerprint": "8a5ccef6ab9af7c6ff9327b61937468105ac1d110b8b87b3d9bcd2b87e1f22cb",
+      "geometry_sha256": "7be78490527126841a8b580731a7d6415ef273358785810809f9d132a53896ca",
+      "substeps": 64,
+      "diagnostic_only": false
+    },
+    "verification64-canonical": {
+      "file_sha256": {
+        "compiled-geometry.json": "6b0eca3ca46df822dae18d279a39b2d4ec2305bd597fdcbe76908f4c0b277bd3",
+        "component-summary.json": "da4ef251ac25b058a37f46029d8c45fee6a8cd5b93f62b9909aa092fb063824c",
+        "fixture-manifest.json": "27b849a1249aa1d8e2110e7d653245e7c91ffb299d55b627f750c092b7f6326d",
+        "native-components.npz": "bd2814cd11cb62fffa10aca44d755ce2cf2993e6c885b958050590fe654a197f"
+      },
+      "fixture_fingerprint": "7fa576504e9b5bf28ca5dea033f77686dcf0c2590cdf45a85da52df40bdb037e",
+      "geometry_sha256": "7be78490527126841a8b580731a7d6415ef273358785810809f9d132a53896ca",
+      "substeps": 64,
+      "diagnostic_only": false
+    },
+    "verification128-canonical": {
+      "file_sha256": {
+        "compiled-geometry.json": "b0ca76b748f4c661f9ba3661fcf75cbb62a291ef50786c815e4adcae42bbf000",
+        "component-summary.json": "953cf595546c94c3a69b6edd7e8f1ddfae21a93d46e8993836036e2366df29f1",
+        "fixture-manifest.json": "a0582ed7e3041f990ff2a775045502f6ec1ee7db5a2a73555478be8fcc55f360",
+        "native-components.npz": "cbf0ce4d2951f976e9cacaa3c1d78f1603f223b9034c019dcbc819e996f736d3"
+      },
+      "fixture_fingerprint": "7fa576504e9b5bf28ca5dea033f77686dcf0c2590cdf45a85da52df40bdb037e",
+      "geometry_sha256": "7be78490527126841a8b580731a7d6415ef273358785810809f9d132a53896ca",
+      "substeps": 128,
+      "diagnostic_only": false
+    },
+    "verification64-reversed": {
+      "file_sha256": {
+        "compiled-geometry.json": "6b0eca3ca46df822dae18d279a39b2d4ec2305bd597fdcbe76908f4c0b277bd3",
+        "component-summary.json": "44996b31722cc02dce482b1918cd82ad4c359de8983d00222c9b5ed7a5e2c700",
+        "fixture-manifest.json": "517bf0990497f6afc0a9f131d3f6ed3c99cdb9611b17b959a2fb5cbd529140da",
+        "native-components.npz": "232cc615debe51521fa19d49248af55006c848115e2b055c386c201329017872"
+      },
+      "fixture_fingerprint": "214c6ae87a859bf258ae9b7516b47f4166d99924d6a2f48af623cf575bfb6369",
+      "geometry_sha256": "7be78490527126841a8b580731a7d6415ef273358785810809f9d132a53896ca",
+      "substeps": 64,
+      "diagnostic_only": false
+    },
+    "diagnostic32": {
+      "file_sha256": {
+        "compiled-geometry.json": "17b765992b73d5a985a4d22703512ba4044ecef5fafa94239bff14b7d8b4c925",
+        "component-summary.json": "c3f1adb0960cb19170bc1547e41b95099d1ce5d76beea6ca5a48dcd8430d48be",
+        "fixture-manifest.json": "4f8835f21cf8fd4f5aca7d64a0611c712c4e16d7fba148b17d69af1bb797bd49",
+        "native-components.npz": "0d7368c5aab21b3d2c1459f8bef975c84cb012dae81f48ce9f8354f2c5a1e9ce"
+      },
+      "fixture_fingerprint": "7fa576504e9b5bf28ca5dea033f77686dcf0c2590cdf45a85da52df40bdb037e",
+      "geometry_sha256": "7be78490527126841a8b580731a7d6415ef273358785810809f9d132a53896ca",
+      "substeps": 32,
+      "diagnostic_only": true
+    }
+  },
+  "admission_producer_and_helper_source_sha256": {
+    "sircus/mjlab/calibrated_admission.py": "479ab84c794ff9a579774fb0aa280a713ec317cdca069119daa0363e9130092b",
+    "sircus/mjlab/learning_contract.py": "9f2c44b76297f4ef7009c1b0107be983d0511d5654cb68b8e344dd316ed1fda8"
+  },
+  "admission_audit_driver_sha256": "78934b0ef6db28bb8c69c12107be1987c5c23ac5e79c5f12c781a392e0580e86",
+  "admission_retained_inputs": {
+    "producer_summary_sha256": "903310d759cfe33bb413e6e2ebbd9f52207553dd76336708a92470da5e191747",
+    "prior_file_sha256": "4249664d7163df92af3c77886224d98519c394ab4457ebc3229957bfb6d3e0f4",
+    "prior_records_sha256": "c4c6da5d05f7a70d34efccf149c70f1b64aee0ae24f6d5f9c3f662dfda5a6f4b",
+    "original_contract_sha256": "9e2e7e5928795d1e7b096a2771c1a44c47a37d659a3a7e6ef9a07626ef7a62c5",
+    "proof_manifest_sha256": "12b04ceaec4f73b158b5c4669542beb26145e8244dc52a0bb0c9ad027874bbf6"
+  },
+  "raw_arrays_included": false,
+  "physical_calibration_included": false,
+  "benchmark_rates_included": false,
+  "native_complete_shot_retained_input_sha256": {
+    "ppo-after.pt": "92b7d2cab391ab1e87fd64eae3b41e1f3193a81a65b46a84de24596ad4b30d19",
+    "report.json": "86194bd80476ed6daacdee9e457aa72c4e57fa19d9d5bd02af6be81d0f493e77",
+    "verification.json": "760c187a69245687f6927fe71afb88d777fe8c8e8d56da1a7913361e05f4427d",
+    "controls.json": "3a63b24469aba8177692417945b98a3fc7153e634e0b5c0a12e4c13ea88f9e91",
+    "deliberate-reject.json": "cd48de6cd86f4ea2c6429d2d1169a8196616e3ac9492e90ca457b64358d1e360",
+    "calibration.json": "992d4e191fb678ff85e9e93c9099e311cac19efd47207e104f9887ecc7437358",
+    "ppo-smoke.json": "20ebc76d290b6c7ad8b1501e68f627e467731cba045a6180528cade720570a47",
+    "setup-home.json": "d480bd6997b3ce6f61187380d609a877a81c1575b7e897efbdc68ef66ffd8899",
+    "ppo-before.pt": "f26469efeb8618a752a299bf932bc0e95dd44cd6d200acbd9bfbd1eeeda0f78a",
+    "ppo-buffer.npz": "0261f40c31142b6777c72e2ab8935f2a85b51b78505948462b7a55e2d445c988",
+    "native/shots.jsonl": "9dac1cfaf329857e28d698779570a0a4d506f259c035217b420390eee7e670bc",
+    "native/native-compiled-geometry.json": "881bb920d4a2f7b0341cce1bec6e8af03bb52d0c2c76ceb23f887545b0d161b5",
+    "native/native-0000.npz": "62b24d356d1ccc49a5494f7d417001a0d7e84e18c31b6354be0db247dcc93224",
+    "native/native-0001.npz": "8250ad707c8e9d3e7a05e426951ed8080d6dee87335188973839e653b0a9d66f",
+    "native/resolutions/c06b26026c4383efdeec0c9e9c4e7a8f1bf351f420894e056ed5d8fd319f0735.json": "345e35a0f42c9f6b64aab7e09354779f192e0940efaa5c7ade62eb4ce1db0f86",
+    "native/resolutions/86f8a2c970cd32d83e0d795eec41733713813ec312e7d51cc221854d4441c02b.json": "16b54b106b87739215e99a7333183c29a3e661f4b68fc0fd872a7d918b2f1942",
+    "native/resolutions/1841f74f26d765e0ef4cd07ab9455e57aa16efb7d2d98e7d39e7ad246c1ff041.json": "b310e4a74abc15a62cb166e1a5b91016c27be7a41e88c659d8a0df434cf6ea4d",
+    "native/resolutions/21216ef2ffdabd2d7d53bfc5fc11168fbde4173dae836fdc6ea4be969563224b.json": "aebe42c681b58649f376e5ea7edcda1030628112902062e10e8ed93430c46f7b",
+    "native/resolutions/edd6f42ba617fc9d1196fb293388a3139cb29e8a01a895000e70004edaefbfd0.json": "5e4e7112e92f5d356a802dd778fa0d3005d1778004f9bef9c1ea5c323458fd80",
+    "native/resolutions/065c6a6717be4fc50c0185c4e4052613e5d63cfcdf3f6eebdc1c3a0b384d6ff4.json": "fa47d1754d074058d4f4688000fb3ca69113cc34ff59691c52d1e8c5abdfbc4d",
+    "native/resolutions/40348338a8dfafe8433a3d111a59238aeb5e0567e3715799d9f174df0c735792.json": "11f6f32c91c7d074dd04d2c6f7df183b853ef75840c8a655d0c8aac2b3f8353b",
+    "native/resolutions/9cd4a5b5e836d048b0f7cef07e64be54fc6f96cb4d2b52536fc248740ecee146.json": "498af7b219479290cbd668d41e6fc72f64ac46bf883c8eecdec0d947e926d3e3",
+    "native/resolutions/9d5bc96506328524367cb73be91251730b904e5e925b65b1f97b7343a8dfc2d4.json": "c498e1033160489874ae95bcc3fb1ccdf4ec826c8eed7e8f1d85428bf32e3f61",
+    "native/resolutions/1fe648e6c229c13b83851d0e2a46bc526c062bd1434d75928347408776449d37.json": "87aa99d87bbf188ce82a1690f0c29bac004876ba3a817e1eb90814f7d15bfee0",
+    "native/resolutions/d8160ca45943f2613a1817829c071be6baacb59e3e898d105241fff44c6431ff.json": "7da1f14bb4201a005eb1e213d7d4fd451ae0ebe2990d5a2df02d58188e5b1ca8",
+    "native/resolutions/c67551197ed182d8852d84a7d3ed1c978ca6427d93253d260a3855af69be0358.json": "cc2824b8755eada427f942727e0a10ee0d6c3f7801e6b072e1249d11ff5df14f",
+    "native/resolutions/18b08ca71ad53d53b4466e2b763796199fe84d896b12048b589efefeb3fea42a.json": "c9d15ae9b25f87c74a436faf843e71369ecad6100c3ba9095ca23e091351afd4",
+    "native/resolutions/5883ac767ed00ae56629b69df53d28dcbb76093b015f386640db29d4ff5e2d5c.json": "a748d1b22a59632e4920111aedbe08b13da388e85025bc552d5c80ad6550ef1d",
+    "native/resolutions/45c18104bf58c8b0bf58def9630159bc06657c16f024788e7150854886dde552.json": "b118d06d63cce7836bccf4a9841623eda1a3b3c068f943f578836f6a3efb1ccd",
+    "native/resolutions/94fbb1a1bce7e77397769161e7e3d149955a0197d9b461eebc4bca198975b256.json": "6c038b491b7c8f4955d73a9719fcb92dc3e309fcd0b8075036d2a3bc3eb7e548",
+    "native/resolutions/8188f67e63a9aad7e5cdf67f85ef2300c6f624dd3c166b503fa15e9eea4ffeb0.json": "859a330cac9d1b0ffa4ab03023e2b044319667ff951fbf58f14262e8cf53dac7",
+    "native/connections/3691bcc4cf70a89f43ccf03ccd41097a1e12b22ee781550a3af7a6380ab45e5f.json": "a7e415348c89ca39cd0c428f462868cb3da5d4f71e2a36687c2954d30e30e8b1",
+    "native/connections/248ff1b2b4bfd7547b805d692c788a5a9a3dece8618aa4829c8781c063e92e3c.json": "3710915a288a21c5817f820de81326e85d0ccd668871c11f6cd35a57c7b64748",
+    "native/connections/6bec661fcc348387cb6303c3707b5c72e08d303e8e27b16eaf9fc2e6b91f6792.json": "f7cf770f1c96a4b4926f84b7da48a3580936a34875b135d05b432f5d727e1931",
+    "native/connections/46cbfa1af63e4e6e3bfb587f5efef82f0d4327ed6e96bcc3aae91b27e1c555e4.json": "a0a59d62e2dd9d0686706eb1de144aa051bfe56d4ada35a312cd26a6db184659",
+    "native/connections/105f17f2b73fb8abd8ee59a3a7fa8c7c705e8eaae02ce8f79b9874cea1e0a6eb.json": "81ab302cc5403a92b62a58b672a218b8dd57f96aac9865840c43585fa30f1110",
+    "native/connections/2add469f8f2ef13f7e78f12ae08be6206932fdaed1eb9b6483efb6dc34c1496f.json": "2fecc442eebcd49130457e7b6a9097564bbd32f726e69d99410683a285e245a9",
+    "native/connections/33419ca48eca462b16fd9e1d259a4e1f4fa5ed5acd4583f107158502d37d9fd4.json": "64d19947cd0b046630ff9293a803fa6f8a67e38d15b9ad3649d7ba5571be4df4",
+    "native/connections/1fa1e021ad638fd4a563918b1692fc9da02d10a1d6478fd1cf0e2aa20e48cf6b.json": "e9fdaee1e97e800241a20d1c6fd1a7c3e6c8155583edcec58cafb4edcf40ff32",
+    "native/connections/efea83d0b93d3ba66d823de8eede12e07c7995b2e54437e79184647fdac26a08.json": "1d2b58a53cf959de6b7de98b7671277ee09e60d1189adbab0dc2f2cecaf8e2dc",
+    "native/connections/ab0293801268c8ad442ecc3074404750877d0ace49f8abd3e0abcc45e90c2ed8.json": "ea015adab19603e0ee63c6c76cc3b6c28df1ede85eee825707786c4bfbcb5673",
+    "native/connections/04f44cbee733a2e133cb0e9648842203d76bc97faceac19fccd137cafdf12840.json": "2076c77ea03496b5755cf80b913c23abbbf82e2a9174e0072b5a70ec4eaade18",
+    "native/connections/dfe46e110c1e6c4f61a5da961c5fe2d34cf0d373abb74073b62734883c2f09d4.json": "7993ab1c62b721c1ddda6cb94f76835118d4beaa39e21c697a7fac96921d8337",
+    "native/connections/7ac9c679d8aa94de664b8d181f7f1879e46382e4a5e53eb0d93b6eb5ea87ce1c.json": "d6a79376fb7429183f27ac8d483572f3f7c584fa0f7959b8fa7e04a7d7dc40fc",
+    "native/connections/9f263944a49c858db0d756c2a1b9ee2f546e676e84216351e5af08b10cd6847a.json": "d890f57184e1de32580d01017455c158ecc2f95ee10c8ed0fb106cde545ab0e5",
+    "native/connections/48e9e768cd48f8b7cf6486f932f1a3b86ef8fe53801d0b480cc2b3dc926f52cd.json": "a8bcb92cd9f446f805257d83d161dc96d909ac568c255bb4f3a3381e4be904d0",
+    "native/connections/629a8679b0fb7ffc43549b9ab52bf03cbbbf22c52b287199a1f54ff6b8ce1544.json": "6414f62c36bd877cc80074347a8d0edd5094364e9e863f1a35db0feadafb2a9b",
+    "native/connections/28c613a733381149b7e040a885fc12d630529cb9f34af2514f305dacd54aa1e7.json": "50a52e924386be0d54ae6d67f2d4e4a89edbb822aaaa35319de637904665bfd7",
+    "native/connections/db0bfbc7162fdc02138f0c85a5389f83b1fa3d5c77f2a03c5172b03f4c4c2d73.json": "0ee10b8983639f81160db3d14100bf0acb17a459fae39b0d3319cdcebf403e94",
+    "native/connections/55ad9494d0130c35f9f67925e418642e3cd05644d1696bc1764de8b73b3d9048.json": "58d8f6db5a6b55786ec1cc8464ee93d38946b0ec32d2c8394c6d217cfc4e728d",
+    "native/connections/e68e42a5b19272248acf0ba81953235e787c701c5e9cabc8acc1a25d6c6838c9.json": "127e89b281a1ddea77336e700f4b4b28ca1724803a45c56c20db88a8d9d018d2",
+    "native/connections/6fad082bc94d3925d4fccb063bae2eb1a12f20224dea40c572f0128e370f6b09.json": "b82fc33cf92fd102b0432d7360c1024562a8a2adbeddad473d9a80c21bb667de",
+    "native/connections/21be46511470677957a12e95df7f3d0097afadf782c4599cc0d496ea7e6a0e80.json": "ff0ebcb48e02c52e74a6c482348b23d9957122ea76597008c54d6ee53ba74813",
+    "native/connections/4e37a14882dce53df8753829c7ce056f20a5afb952be86a9bba8781e81f98f21.json": "b26e2e9c91bf7da44290a5188161711c615876100d676a5f8bbfa7c28981a549",
+    "native/connections/f51792f95488fc4b1a2f5277f1c2733dbc3e25a237c31b7e237b302e8af42dc6.json": "12cb3b00df7528f7a4e365709b9da078a06e1521ee4d6a1211ccd8e5d20b086d",
+    "native/connections/63fdd94fa3f881d948374d32bffef00705a66741f14819d459ea5a23ba74615a.json": "6b475f94a422a76db4fcf03cc007b9191ba6a567bd23e3522962a057edef8a2e",
+    "native/connections/0ec14c55e734f1ebc412c100172f0c7c4a1ecff9f9fd3027d29ea332351f132b.json": "5acd4239839df01136416ac476727e64e4075b7b68bdc00a415926643c412b11",
+    "native/connections/3d303ea289d4958e208406701f9c09950bb6a59fca3d40d45ef5a303caed88a1.json": "19869bc00570de02d77bcc74db87d7ffbf0dca6d7023f4130359d53dffe2c9c8",
+    "native/connections/8aa65c88243bb000aa6b64e28421b23c2364625cea940bd169d68d2ab9954c46.json": "e417c5f3a0816d1777ff05bf4993e4d044c1c917451213d8df2f84cb72a83a9d",
+    "native/connections/2623dfbeced135e658faf5e684ef245ccdd361056673bb7102bb6cc1224982b0.json": "647ae478fbfa02c66291cf87a9e3c14e93b9e885b60a2d69e8fd1e5d540c5dbb",
+    "native/connections/db24eedd96607d00cfd9d8603a0192d4d265c6384a9cb3322267a6ae4562732b.json": "76ad9302fdfe2c42034c25c4b1177bcca93c9baf134f281aefe69ea01813bc80",
+    "native/connections/b080d1fc5b2c4c16d03c215bcdb67c8e2fa6824bcf89c313c889896f187e1ad9.json": "91c6d7503e052d64fdcd536c4250a1915d8a2a78bb3ad3f8cf96cd9359a46f54",
+    "native/connections/fa9e8abc65ea624ff32215540a8963481229c31560cb22953e3257adf2a162f4.json": "a5b90dce44f570abbe7b80cc60e7b86484ebe02f9ef92fa792ea166959706fd4",
+    "native/connections/f782ed691ab47af548e117eecdc4a2c018935449f0be2a6a6ed72bb16ba9bad5.json": "7ba0b0a5aedb50dc10a6c9f189660a44b7f284ae1ab709ecc8e1391af949c418",
+    "native/connections/69b299da50e6077e2d25024bf0dba337ea429898611b04f7620dd7f98e1513ec.json": "7d6d6c8b343fda59031d2813f0fe0f1412e8b47897b8b6b66b1edd60ba42daca",
+    "native/connections/3495b793d40758e97ddd1f19e01620b4e0e283968b8d1ac4e3cc470c9e72177d.json": "53b5a53d2568fae1df8287ea60970f8bacd5ffd1f28ca9c32fed578273f644d0",
+    "native/connections/f42bfe6fbb0977afafaff1e84f062cff288a685a04b9bd77218dd3bef4ce40b5.json": "f1902b214f491bb1b846b7365a5fdc24ec6720c6325322d335ef3b5c8be571f4",
+    "native/connections/b241b76aab334547e3481ad2a94333bd2165b65402797478403bbd7ec1462b40.json": "e375f7883634b489d7fbbee3fe31b02d917a0c2f9c8fc990f56f4816a39e791b",
+    "native/connections/dcd3060b8fdd8782ac119727e4f7093de236825473fb14121cfc7896eba6c1c9.json": "78d7ade51e035547c7cf18916f3e1988a3d14d1c9284cba8f2a3398018c0da3e",
+    "native/connections/1d33ab6e7add39dc247206367cc4d4960009cc4806c2552e8b73aaaef14757f6.json": "ed45f29440cdf25a3dd16f91672662c6dca84cd11c336a821a7baf14dc3a28f6",
+    "native/connections/ff5fe9151505ddac6f6b4155cd41779d1b700cd993fe52ecc9310975602d3837.json": "7a2ccb7b45c1af71e5ca91823b4259728aab76a52e374b29f9cd4641afa92987",
+    "native/connections/b6d831103ab6d48a6f90c4d104c4ceb9b0b4639768f7f4af034cb6d2a464913d.json": "8584167d035ee5ce39c8da5d4f734691bbc08d71a5fd5de663056ce2112c4a54",
+    "native/connections/cf08b01da5a1a8e225aa24eb437acd9c792b3e44e8934c4561a0c42256823f27.json": "f42d813894ca92b08bb5d663e313fd714de8ef2c7d96d836a82ec2ee1c5fd91a",
+    "native/connections/e7e6267c265d959b2c88310f82dfdfd73a9528c91ca35865fbcf2cc056e5a1f3.json": "ca496d18f373e6591ef505409841c794ad898a61ce7581fd05f03326ce41e450",
+    "native/connections/a7d5dc2b50accddcd90567e8a975ff233730ea7c3dd53e3439ea5e4592009057.json": "c9c393b962b181e1dbf31176d3070cf6bc7151aa6ce41af696b69a6b733014e2",
+    "native/connections/644c242d847d3f5c035c9b8306034f8271493c78aa43ae4160ed2b1ddc223c40.json": "d38ca7621f88032ac0543d0a75ced4a89d24cf98a12da21825e18fc63ca8a61b",
+    "native/connections/d944f35030db95f27603fb555c1a2616398315123bf5a598092a642d38ee999c.json": "d0285c14ac4c0824fcd7f45675ef88cf4d2b4687ac567922cef7be32432b943a",
+    "native/connections/06eb475211fdd3415b0428e6a19e10653c806d55beadda0f8b376deb64e810ba.json": "5a9093b41a577c163eff5004a0d0675eb131eaeac3776bf914cd31be166815da",
+    "native/connections/9186839e6d804e77f86ea87d82bfc1c5fdedfa5344c4ba9fb872a4121bfedb8e.json": "67321c67072dc9bde03cfb37882f7154b2a3384bd1690aed90f36f2dbe742987",
+    "native/connections/51259f5a7bf5ed912c8dea63f332250b734809d722d781fa1a0c35492e3553e0.json": "caf1acd5b5376a21df924fa4c8e2e9d4d84de84873d4cb67e1e716f9588a2a88",
+    "native/connections/dd301be998ae7fb79f788d6707b1583ef9c44f7f0048b6da540133b0557e1568.json": "9fae69177d1e28b502689e461f99f8f96dc99eb00f74f86f1c539a0d8396a605"
+  },
+  "native_complete_shot_identity_source_sha256": {
+    "sircus/mjlab/contact_env.py": "04655f30a1b216c037573a0b5e177e6209097026f930fc6efc6dfef289abc3da",
+    "sircus/mjlab/contact_model.py": "b2d522d07dd2e3bffa724feb68593b3fef17033b5274587ef9d130e5c40aa24f",
+    "sircus/mjlab/model.py": "ae1da8f86d73b9d63c6e311769e5afb9fb414ca11cc56787ed6abe403fb47c03",
+    "sircus/mjlab/contract.py": "f10178ab98cc1d20b6ecb91487ced5a4c01c7b0813ce53132d0b75a8cddc0407",
+    "sircus/mjlab/learning_score.py": "e66b982c0e651c3a9f5855dd03efb87488cc924321aaf9cadb80d51bac2fe814",
+    "sircus/mjlab/corrected_geometry.py": "50a4a353d94cceb1fbb0216a40588c997034a121e554f3f84f530d7d47c470be",
+    "sircus/mjlab/stable_geometry.py": "2e00b5fc46d1b253b5c85b6823c781a37e26f5819b35586a8cc112b057ebaebf",
+    "sircus/mjlab/stable_ik.py": "efd52c5e837339662c99c196e1a3cf4b5b260eecb7888258779030c459944e07",
+    "sircus/mjlab/expanded_actions.py": "d41817aa7ad4206139925256ab0cdf5288853e621d6b39824c10ad2d309679c3",
+    "sircus/mjlab/bank_geometry.py": "5c0d6775582c5524a323f1e9344c35317e8352e9f1f813f5dd0794c05de743f5",
+    "sircus/mjlab/bank_study.py": "7699faeff915a772f3e838983ff1c8dec7721f2d55c79a594e185cd9e08e7dcb",
+    "sircus/mjlab/transit_audit.py": "4400285187eebf3b1c7073a78ab74c94cbead88d52ffc5366e0258d2376f8c96",
+    "sircus/mjlab/admission.py": "2dbc5776113f8afb0ea74e23d0c3a2542fd0223d94a6818aec8de4865d302d82",
+    "sircus/mjlab/learning_env.py": "58d2f58be0e1981a5efd09e872bdea7d8f608e1fa21b5c87986505a20a4a4f8c",
+    "sircus/mjlab/learning_ik.py": "e497debe646511a5504f6b9a293d8b23d1fc976691e4f7488912f9242b22b3ac",
+    "sircus/mjlab/learning_reach.py": "8eea1d565e9faefff0622a9e9a4666eb8d811ac086a8a6711caa8efa3029e9a4",
+    "sircus/mjlab/learning_contract.py": "9f2c44b76297f4ef7009c1b0107be983d0511d5654cb68b8e344dd316ed1fda8",
+    "sircus/mjlab/run.py": "969db2710378345aad34a6f802e33d6ea62488d75e560b9da5738bc0748c3dee",
+    "sircus/mjlab/corrected_contract.py": "9800404859a7ae2b2934c26ca448be4a69ae90e481069da72732973b1d907ba2",
+    "sircus/mjlab/corrected_admission.py": "3d42913fc2a9599b0e5063bfc4ee0a03f003b4ba853338e407c8a3d82de3d64a",
+    "sircus/mjlab/gpu_slot.py": "fcace6029058a9892296507358ee196b9b5296dc4287a07bedc786e3af4cad4a",
+    "sircus/mjlab/expand_geometry.py": "0b7982c3494b7cb7f799e073e3a7b788cca77617af0e9f509a4b7e273d926739",
+    "sircus/isaac/geometry.py": "f990a5df0262f3bd240248f7afbc5fd42fd43cc28244068d84aec8485c00311d",
+    "sircus/isaac/rl_contract.py": "077471e80a63eba605db24a8c928c4fd1073636aafae3d9d9d44c59d3f2abcfd",
+    "sircus/isaac/entry_quality.py": "2f3d8b73c871a41afc3c8f333f5df1d54fa8751720855ffff517e729217db9d4",
+    "sircus/isaac/board_route.py": "6409889aed6b0fd6a288eb9494b954ec5c3233ec41fdcf146940fc23276fb2e9",
+    "sircus/mjlab/sweep_worker.py": "6150969a6f442e3b899d878671a4daf08cd90c61f0abf96494d418316e0e7a5b",
+    "sircus/mjlab/sweep_contract.py": "2460d8e807f06ad4bfe491491d011a448eaedea57ef4c7e727a1b10a54409a0a",
+    "sircus/mjlab/calibrated_benchmark_contract.py": "7d0964249d0f18604d9f17ef9662b5cd7878500e674f30f4f6eb55ae766491be",
+    "sircus/mjlab/calibrated_benchmark_run.py": "cfd92d6dc988167fc2ed055bf7a2770a9f39f293224189c521a1d55bde1454a8",
+    "sircus/mjlab/calibrated_benchmark_study.py": "352a5a867fecfe3a6bc53821a61860075807d12c81cdc30e0900ecbc118c9c3e",
+    "sircus/mjlab/calibrated_benchmark_smoke.py": "1312bf58912de62c239094fe51d4ee60dacdf795137a4b1951740488a78852a7",
+    "sircus/mjlab/calibrated_adapter.py": "58789fcbb7549a6d7ff0513de3e2878651d1aa72e4022c8b17f269c71e1c35f1",
+    "sircus/mjlab/calibrated_admission.py": "37d43d8503c4e0a9835d8ae8fe6793ee09938bc746f1a513af3e4aa2b6f295a8",
+    "sircus/mjlab/calibrated_env.py": "04818b0590936a471c5ea48f5cebd110e62975b7a4159d652349b69f53a256a5",
+    "sircus/mjlab/calibrated_score.py": "b90fb4886f2297534b81b399620c647952eb2e486217289c65548713977e3539",
+    "sircus/mjlab/calibrated_score_oracle.py": "74ff1b43d342a28e7b4af6d3ec757f577aec076ac286535f4c16e053e31a00df",
+    "sircus/mjlab/calibrated_native_log.py": "c555bc762116a18da2802321ba40248a7d2bbe7b9590e176853547e8a4c8272c",
+    "sircus/mjlab/capture_calibration.py": "3d508db4b25ee7daef2a862353650645b2479cba645259fa9627c85c6cbb8499",
+    "sircus/mjlab/benchmark_adapter.py": "85e3cee8b2714707772bb871f1a13f0f25bb8ce1f6c207a33c3f4efa946cf3c2",
+    "sircus/mjlab/benchmark_contract.py": "720394dafbdde1b56507a0abd6b64f82b29843037bce56e559f671995b62c63c",
+    "sircus/mjlab/benchmark_policy.py": "35cc605d17b7cdf02fcc1cf73b018bcefb98b172260a3a5ddc6856ac7d3779dc",
+    "sircus/mjlab/benchmark_resources.py": "4a535e1a1d91248d208dd44286c215439924a27e81b62ab7fce71284c94f14ba",
+    "sircus/mjlab/learning_policy.py": "5c37a248a0a44280f0f82fe3327973299ec6a4bbfccaaae9f750a898180c7792"
+  },
+  "fingerprint": "b594ba682487e961f4b0310aee730b2da3e48ea9ddaf51802fa6b0f92affd74b"
+}

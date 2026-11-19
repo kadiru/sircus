@@ -1,0 +1,13 @@
+{
+  "provenance": "Hashes printed and verified before native launch; frozen producer bytes rechecked after runs. Original producer did not emit a prelaunch manifest.",
+  "snapshots": {
+    "capture-controls-v2c": {
+      "sircus/mjlab/capture_calibration.py": "871cec164b1a8dfa88e5a48c8761a985ac33536b4838489fc13ca5fed870fc2c",
+      "sircus/mjlab/calibrated_native_log.py": "c555bc762116a18da2802321ba40248a7d2bbe7b9590e176853547e8a4c8272c"
+    },
+    "capture-controls-v2d": {
+      "sircus/mjlab/capture_calibration.py": "3d508db4b25ee7daef2a862353650645b2479cba645259fa9627c85c6cbb8499",
+      "sircus/mjlab/calibrated_native_log.py": "c555bc762116a18da2802321ba40248a7d2bbe7b9590e176853547e8a4c8272c"
+    }
+  }
+}
