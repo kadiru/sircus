@@ -1,8 +1,10 @@
 'use strict';
 import {FXControls} from '/fx-controls.mjs';
+import {TapTestControls,testView} from '/tap-test.mjs';
 import {BoostControls} from '/boost-controls.mjs';
 const fxControls=new FXControls({request:(path,body)=>act(path,body),clientId:crypto.randomUUID()});
 let fxPending=0;
+const tapControls=new TapTestControls({request:(path,body)=>act(path,body),clientId:'tap-'+crypto.randomUUID()});
 const $=id=>document.getElementById(id);
 const SHOW_INPUT='__four_ball_show__';
 const boostControls=new BoostControls({request:(path,body)=>act(path,body),onChange:paintBoost});
@@ -39,7 +41,7 @@ async function applyProfile(){
   if(JSON.stringify(assignments)!==applied){await act('profile',{action:'apply',assignments});applied=JSON.stringify(assignments);noteDirty();}
 }
 function paintStatus(){
-  boostControls.observe(state);
+  boostControls.observe(state);paintTapTest();
   if(!fxPending)$('fx').checked=state.fx_enabled;
   $('badge').textContent=fxPending?'FX CHANGE PENDING':state.fx_enabled?'FX LIVE':'FX OFF';$('badge').className=state.fx_enabled?'live':'';
   if(document.activeElement!==$('volume'))$('volume').value=Math.round(state.volume*100);$('volval').textContent=Math.round(state.volume*100)+'%';$('mode').value=state.mode;$('meter').style.width=Math.min(100,state.audio_meter_peak*100)+'%';
@@ -56,20 +58,35 @@ function paintBoost(){
   const boost=boostControls.view();$('boost').checked=boost.checked;$('boost').disabled=boost.disabled;
   $('boost-status').textContent=boost.text;$('boost-error').textContent=boost.error;$('boost-error').hidden=!boost.error;
 }
+function paintTapTest(){
+  const v=testView(state);$('tap-status').textContent=v.text;
+  $('tap-start').disabled=!v.canStart||tapControls.pending||!!fxPending;$('tap-seconds').disabled=v.active||tapControls.pending;
+  $('tap-balls').replaceChildren(...v.balls.map(b=>{
+    const card=document.createElement('div');card.className='tap-ball '+b.tone;card.dataset.ball=b.ball_id;
+    const name=document.createElement('strong'),detail=document.createElement('span'),sound=document.createElement('small');
+    name.textContent=b.label;detail.textContent=b.detail;sound.textContent=title(b.sound);card.append(name,detail,sound);return card;
+  }));
+}
+async function changeTapTest(start){
+  const task=start?tapControls.start(Number($('tap-seconds').value)):tapControls.stop();
+  $('tap-start').disabled=true;
+  try{await task;}finally{await refresh();}
+}
+bind('tap-start',()=>changeTapTest(true));bind('tap-stop',()=>changeTapTest(false));
 async function refresh(){
-  if(polling||fxPending||boostControls.localPending)return;polling=true;
-  const sequence=fxControls.sequence,boostSequence=boostControls.sequence;
-  try{const current=await request('status');if(sequence!==fxControls.sequence||boostSequence!==boostControls.sequence)return;state=current;if($('error').textContent.startsWith('Bridge disconnected:'))$('error').textContent='';events=state.events;if(!assignments)setProfile(state.profile);paintStatus();const m=await request('monitor?after='+cursor);cursor=m.seq;for(const e of m.events)lines.push(JSON.stringify(e));lines=lines.slice(-100);$('monitor').textContent=lines.join('\n');$('monitor').scrollTop=$('monitor').scrollHeight;}
-  catch(error){$('badge').textContent='DISCONNECTED';$('fx').checked=false;boostControls.disconnect();for(const b of document.querySelectorAll('[data-play]'))b.disabled=true;fail('Bridge disconnected: '+error.message);}
+  if(polling||fxPending||boostControls.localPending||tapControls.pending)return;polling=true;
+  const sequence=fxControls.sequence,boostSequence=boostControls.sequence,tapSequence=tapControls.sequence;
+  try{const current=await request('status');if(sequence!==fxControls.sequence||boostSequence!==boostControls.sequence||tapSequence!==tapControls.sequence)return;state=current;if($('error').textContent.startsWith('Bridge disconnected:'))$('error').textContent='';events=state.events;if(!assignments)setProfile(state.profile);paintStatus();const m=await request('monitor?after='+cursor);cursor=m.seq;for(const e of m.events)lines.push(JSON.stringify(e));lines=lines.slice(-100);$('monitor').textContent=lines.join('\n');$('monitor').scrollTop=$('monitor').scrollHeight;}
+  catch(error){$('tap-start').disabled=true;$('tap-status').textContent='Connection lost · server timer still bounds the test';$('tap-balls').replaceChildren();$('badge').textContent='DISCONNECTED';$('fx').checked=false;boostControls.disconnect();for(const b of document.querySelectorAll('[data-play]'))b.disabled=true;fail('Bridge disconnected: '+error.message);}
   finally{polling=false;}
 }
 async function changeFX(panic=false){
   const enabled=$('fx').checked;fxPending++;$('badge').textContent='FX CHANGE PENDING';
   if(panic)$('fx').checked=false;
-  try{if(panic)await fxControls.panic();else await fxControls.setFX(enabled);}
+  try{if(tapControls.pending)await tapControls.stop();if(panic)await fxControls.panic();else await fxControls.setFX(enabled);}
   finally{fxPending--;await refresh();}
 }
-bind('fx',()=>changeFX(),'change');bind('panic',()=>changeFX(true));bind('stop',()=>act('stop',{}));
+bind('fx',()=>changeFX(),'change');bind('panic',()=>changeFX(true));bind('stop',async()=>{if(tapControls.pending)await tapControls.stop();await act('stop',{});});
 bind('volume',()=>{$('volval').textContent=$('volume').value+'%';},'input');bind('volume',()=>act('volume',{volume:Number($('volume').value)/100}),'change');
 bind('boost',async()=>{try{await boostControls.setBoost($('boost').checked);}finally{await refresh();}},'change');
 bind('input',async()=>{const value=$('input').value;if(value===SHOW_INPUT)return;await act('input',{id:value===''?null:Number(value)});await refresh();},'change');bind('mode',()=>act('mode',{mode:$('mode').value}),'change');

@@ -58,6 +58,24 @@ No robot control, Viam connection or automatic capture detector is installed.
 ODD MIDI currently provides impact gestures; pickup/flight/outcomes need explicit
 operators, saved traces, or a separately validated event producer.
 
+## Check all four balls before a round
+
+Open **Ghost Booth → Four-ball tap test**, choose the duration (default **15 s**,
+1–120 whole seconds), and click **Start tap test**. It explicitly enables audio
+and listens to the existing four endpoint/channel/note bindings. Tap each ball:
+the cards show connection, accepted tap count, last-tap age and its assigned
+unknown-contact bounce sound. Listen to confirm output; a MIDI count alone does
+not prove audible sound. Disconnected and connected-but-no-tap are separate.
+
+The server mutes when the timer expires, including if this tab closes. **End test
+& mute**, FX off, reconnect, mapping changes and native errors cancel the test.
+Finish the check before starting the dashboard round; round FX is enabled there
+separately. The tester does not connect/disconnect BLE devices: reconnect missing
+balls in macOS Bluetooth MIDI, then explicitly start another test. Existing live
+trial windows are not extended and no synthetic release is fabricated. Incoming
+round events replace test playback; an old timer cannot mute the newer round.
+No arm, tool, camera, Viam configuration or robot controller is accessed.
+
 ## Shared implementation
 
 - `contract.py` and `sources.py`: versioned evidence/clock-aware events; pure

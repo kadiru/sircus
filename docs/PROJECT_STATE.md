@@ -1,5 +1,9 @@
 # Project state
 
+## Audio-only pre-round check — October 30, 2026
+
+Branch `codex/macbook-ball-tap-test` adds the [four-ball tap tester](../sircus/audio/README.md#check-all-four-balls-before-a-round) to Ghost Booth: 15-second default, adjustable 1–120 seconds, measured MIDI counts, connection status and automatic mute. Mock/browser and audio regression checks passed. No physical controller changes; robot routines remain separate. A tap count proves input receipt, not sound or bucket capture.
+
 ## Dashboard round controls — October 30, 2026
 
 Deployment verification: the idle physical dashboard was refreshed to this branch

@@ -48,7 +48,7 @@ class Native:
         except Exception:self.p.terminate()
 
 class Controller:
-    def __init__(self,backend=None,clock=time.monotonic,config=None,profile_path=None):
+    def __init__(self,backend=None,clock=time.monotonic,config=None,profile_path=None,timer_factory=threading.Timer):
         self.clock=clock;self.lock=threading.RLock();self.backend=backend
         self.config=config or json.loads((ROOT/'config.json').read_text())
         self.enabled=False;self.volume=finite(self.config['volume'],0,1);self.mode=self.config['mode'];self.route=self.config['route']
@@ -62,6 +62,7 @@ class Controller:
         self.profiles=Profiles(SOUNDS,profile_path);self.loop_kind=None;self.domain=None;self.terminal=False;self.board_seen=False
         self.retired_trials=set();self.playback_source=None
         self.control_epoch=uuid.uuid4().hex;self.control_clients={}
+        self.tap_test=None;self.tap_timer=None;self.timer_factory=timer_factory
         self.show_router=BallRouter(clock=clock);self.show_configured=False;self.ball_events={};self.transport_trial=None;self.connected_inputs=[];self.selected_inputs=None
     def log(self,kind,**kw):
         self.sequence+=1;r={'seq':self.sequence,'time':time.time(),'kind':kind,**kw};self.monitor.append(r);return r
@@ -84,7 +85,7 @@ class Controller:
                 'connected_ball_count':sum(r['connected'] for r in rows)}
     def status(self):
         with self.lock:
-            return {'show_audio':self.show_readiness(),'control_epoch':self.control_epoch,'fx_enabled':self.enabled,'volume':self.volume,'mode':self.mode,'route':self.route,'audio_ready':self.ready,
+            return {'tap_test':self.tap_test_status(),'show_audio':self.show_readiness(),'control_epoch':self.control_epoch,'fx_enabled':self.enabled,'volume':self.volume,'mode':self.mode,'route':self.route,'audio_ready':self.ready,
                 'boost_db':self.boost_db,'boost_requested_db':self.boost_requested_db,'boost_pending':self.boost_pending,'peak_limiter_ready':self.peak_limiter_ready,
                 'audio_meter_peak':self.meter,'audio_current_peak':self.current_peak,'audio_block_time_ns':self.block_ns,'meter_age_s':None if not self.last_meter else round(self.clock()-self.last_meter,2),
                 'last_midi_age_s':None if not self.last_midi else round(self.clock()-self.last_midi,2),'midi_status':self.midi_status,'inputs':self.inputs,'selected_input':self.selected,'connected':self.connected,
@@ -93,8 +94,81 @@ class Controller:
                 'virtual_output':'Sircus FX','output_channel':16,'logic_commissioning_acknowledged':self.logic_confirmed,'logic_route_verified':False,
                 'profile':self.profiles.state(),'loop_event':self.loop_kind,'domain':self.domain,'playback_source':self.playback_source,
                 'events':[{'key':k,'title':v[0],'description':v[1]} for k,v in EVENTS.items()]}
+    def tap_test_status(self):
+        test=self.tap_test
+        if test and test['active'] and self.clock()>=test['deadline']:
+            self.disable('tap_test_completed')
+        connected={r['ball_id']:r for r in self.show_readiness()['ball_inputs']}
+        balls=[]
+        for ball in self.show_router.config['balls']:
+            hit=(test or {}).get('hits',{}).get(ball['ball_id'],{})
+            balls.append({'ball_id':ball['ball_id'],'label':ball['label'],
+                'sound':ball['sounds']['unknown'],**connected[ball['ball_id']],
+                'taps':hit.get('taps',0),'last_tap_age_s':None if not hit else round(self.clock()-hit['at'],1)})
+        return {'supported':True,'active':bool(test and test['active']),
+            'test_id':test['id'] if test else None,'duration_s':test['duration_s'] if test else 15,
+            'remaining_s':round(max(0,test['deadline']-self.clock()),1) if test and test['active'] else 0,
+            'reason':test.get('reason') if test else None,'balls':balls}
+
+    def finish_tap_test(self,reason):
+        # Caller owns the controller lock. Cancel only the test's voices; an old
+        # timer must never mute a newer robot trial or a replacement test.
+        test=self.tap_test
+        if not test or not test['active']:return
+        test['active']=False;test['reason']=reason
+        if self.tap_timer:self.tap_timer.cancel();self.tap_timer=None
+        self.control_epoch=uuid.uuid4().hex
+        self.send(cmd='stop_trial',trial_id=test['id'])
+        self.log('tap_test_end',test_id=test['id'],reason=reason,
+                 taps={bid:r['taps'] for bid,r in test['hits'].items()})
+
+    def expire_tap_test(self,test_id):
+        with self.lock:
+            test=self.tap_test
+            if test and test['active'] and test['id']==test_id:
+                self.disable('tap_test_completed')
+
+    def control_tap_test(self,d):
+        with self.lock:
+            if d.get('action')=='stop':return self.fx_control('panic',d)
+            if d.get('action')!='start':raise ValueError('tap test action must be start or stop')
+            duration=integer(d.get('duration_s',15),1,120)
+            readiness=self.show_readiness()
+            if not readiness['configured'] or not readiness['selection_matches'] or not readiness['connected_ball_count']:
+                raise ValueError('Four-ball bindings and at least one connected ball are required')
+            if d.get('show_config_digest')!=readiness['config_digest']:
+                raise ValueError('Ball mapping changed; refresh before starting the tap test')
+            if self.route!='native' or not self.ready:raise ValueError('Native audio must be ready')
+            if self.transport or self.clock()<self.armed_until or any(
+                row['released_at'] is not None and 0<=self.clock()-row['released_at']<=self.show_router.config['impact_window_s']
+                for row in self.show_router.trials.values()):
+                raise ValueError('Wait for active audio trial/release windows to finish before testing')
+            result=self.fx_control('fx',{**d,'enabled':True})
+            if result.get('accepted') is False:return result
+            self.stop_playback();self.duplicate_last={}
+            ident='tap-test-'+uuid.uuid4().hex
+            self.tap_test={'id':ident,'active':True,'duration_s':duration,'deadline':self.clock()+duration,'hits':{}}
+            self.log('tap_test_start',test_id=ident,duration_s=duration,source='operator',
+                     provenance='Audio-only pre-round tap check; no release or robot command')
+            self.tap_timer=self.timer_factory(duration,lambda:self.expire_tap_test(ident))
+            self.tap_timer.daemon=True
+            try:self.tap_timer.start()
+            except Exception:self.disable('tap_test_timer_failed');raise
+            return self.status()
+
+    def tap_test_impact(self,ball,velocity):
+        test=self.tap_test;bid=ball['ball_id'];now=self.clock()
+        row=test['hits'].setdefault(bid,{'taps':0,'at':now});row['taps']+=1;row['at']=now
+        ev=AudioEvent(uuid.uuid4().hex,test['id'],'sensor','impact','unknown',now,'host_monotonic_s',
+            'ghost-booth-tap-test','Audio-only tap test, explicit MIDI identity; velocity proxy, surface/outcome unknown',
+            'midi_gesture',intensity=velocity/127,ball_id=bid)
+        played=self.play(ball['sounds']['unknown'],velocity,trial_id=test['id'],ball_id=bid)
+        self.log('tap_test_impact',test_id=test['id'],event=ev.to_dict(),playback_requested=played)
+        return {'accepted':True,'test_id':test['id'],'ball_id':bid,'playback_requested':played}
+
     def disable(self,reason='fx_off'):
         with self.lock:
+            self.finish_tap_test(reason)
             self.control_epoch=uuid.uuid4().hex
             self.enabled=False;self.transport=False;self.loop_kind=None;self.armed_until=0;self.replay_generation+=1;self.playback_source=None
             self.send(cmd='panic');self.log('mute',reason=reason)
@@ -144,6 +218,7 @@ class Controller:
             return self.profiles.state()
     def stop_playback(self):
         with self.lock:
+            if self.tap_test and self.tap_test['active']:self.disable('tap_test_interrupted')
             self.replay_generation+=1;self.playback_source=None;self.stop_transport();self.send(cmd='stop_all');self.armed_until=0
     def stop(self,trial=None):
         with self.lock:
@@ -206,6 +281,7 @@ class Controller:
             return {**self.show_readiness(),'configured_inputs':len(values),'fx_enabled':False}
 
     def audio_ball_event(self,ev):
+        self.finish_tap_test('replaced_by_trial_event')
         kind=ev.event_type;trial=ev.trial_id
         if self.playback_source:return {'accepted':False,'reason':'replay_active'}
         if not self.enabled:return {'accepted':False,'reason':'fx_disabled'}
@@ -240,6 +316,7 @@ class Controller:
 
     def audio_event(self,ev,from_replay=False):
         with self.lock:
+            self.finish_tap_test('replaced_by_trial_event')
             if ev.ball_id is not None:return self.audio_ball_event(ev)
             kind=ev.event_type;trial=ev.trial_id;domain='simulation' if ev.source=='simulation' else 'physical'
             if self.playback_source and not from_replay and kind!='stop':return {'accepted':False,'reason':'replay_active'}
@@ -304,8 +381,17 @@ class Controller:
                 self.duplicate_last={k:v for k,v in self.duplicate_last.items() if not (k[0]==port and k[1]&15==status&15 and k[2][0]==data[0])}
                 return
             if kind!=144:return # CCs and note-offs are monitored, never forwarded
+            testing=bool(self.tap_test and self.tap_test['active'])
+            if testing and self.clock()>=self.tap_test['deadline']:
+                self.disable('tap_test_completed');testing=False
+            test_ball=None
+            if testing:
+                if source!='hardware':return {'accepted':False,'reason':'tap_test_requires_live_midi'}
+                test_ball=next((b for b in self.show_router.config['balls'] if
+                    b['midi_binding']=={'input_id':port,'channel':channel,'note':data[0]} and port in self.connected_inputs),None)
+                if test_ball is None:return {'accepted':False,'reason':'unmapped_test_ball'}
             identity=self.show_router.midi_identity(port,channel,data[0]) if self.show_configured else None
-            if self.show_configured and identity is None:return {'accepted':False,'reason':'unmapped_or_unreleased_ball'}
+            if self.show_configured and identity is None and not testing:return {'accepted':False,'reason':'unmapped_or_unreleased_ball'}
             if (not self.show_configured and (channel!=self.mapping['channel'] or data[0]!=self.mapping['impact_note'])) or data[1]<self.mapping['min_velocity']:return
             key=(port,status,tuple(data));now=self.clock();window=self.mapping['exact_duplicate_ms']/1000
             prev=self.duplicate_last.get(key);self.duplicate_last[key]=now
@@ -313,6 +399,7 @@ class Controller:
                 self.log('suppressed',reason='identical_message_window',window_ms=window*1000);return
             if len(self.duplicate_last)>512:self.duplicate_last={key:now}
             velocity=max(1,min(127,round(127*(data[1]/127)**self.mapping['velocity_gamma'])))
+            if testing:return self.tap_test_impact(test_ball,velocity)
             if self.show_configured:
                 trial,ball_id=identity
                 event=AudioEvent(uuid.uuid4().hex,trial,'sensor','impact','unknown',self.clock(),'host_monotonic_s',
@@ -355,6 +442,7 @@ class Controller:
             elif kind=='watchdog':self.disable('audio_watchdog')
             elif kind=='loop_stopped':self.transport=False;self.loop_kind=None
             elif kind in ('error','native_exit'):
+                self.finish_tap_test(kind)
                 self.control_epoch=uuid.uuid4().hex
                 self.last_error=m.get('message');self.enabled=False;self.transport=False;self.loop_kind=None;self.armed_until=0
                 self.replay_generation+=1
@@ -403,6 +491,7 @@ class Controller:
                     readiness=self.show_readiness()
                     if readiness['config_digest']!=digest or not readiness['selection_matches'] or self.route!='native' or not self.ready:
                         raise ValueError('Show mapping or native audio readiness changed; reapply mappings and explicitly enable again')
+                self.finish_tap_test('replaced_by_fx_control')
                 self.enable(True)
             else:self.disable('audio_panic' if kind=='panic' else 'fx_off')
             return self.status()
@@ -441,6 +530,7 @@ class Controller:
                 self.show_router.configure(self.show_router.config);self.ball_events.clear()
                 self.send(cmd='input',value=value)
             elif kind=='mapping':
+                if self.tap_test and self.tap_test['active']:self.disable('tap_test_mapping_changed')
                 m=dict(self.mapping)
                 for key,value in d.items():
                     if key not in m:raise ValueError('unknown mapping field')
@@ -548,7 +638,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
             except ValueError:return self.reply({'error':'invalid cursor'},400)
             with self.server.c.lock:return self.reply({'events':[r for r in self.server.c.monitor if r['seq']>after],'seq':self.server.c.sequence})
         if path.path=='/api/sounds':return self.reply(MAP)
-        files={'/':('web/index.html','text/html'),'/app.js':('web/app.js','text/javascript'),'/fx-controls.mjs':('integration/fx-controls.mjs','text/javascript'),'/boost-controls.mjs':('web/boost-controls.mjs','text/javascript'),'/style.css':('web/style.css','text/css')}
+        files={'/':('web/index.html','text/html'),'/app.js':('web/app.js','text/javascript'),'/fx-controls.mjs':('integration/fx-controls.mjs','text/javascript'),'/boost-controls.mjs':('web/boost-controls.mjs','text/javascript'),'/tap-test.mjs':('web/tap-test.mjs','text/javascript'),'/style.css':('web/style.css','text/css')}
         for m in MAP:files['/assets/'+m['file']]=('assets/'+m['file'],'audio/wav')
         if path.path not in files:return self.reply({'error':'not found'},404)
         f,mime=files[path.path];b=(ROOT/f).read_bytes();self.send_response(200);self.send_header('Content-Type',mime);self.send_header('Content-Length',str(len(b)));self.send_header('X-Content-Type-Options','nosniff');self.send_header('Content-Security-Policy',"default-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self'; frame-ancestors 'none'");self.end_headers();self.wfile.write(b)
@@ -562,6 +652,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
             if not isinstance(d,dict):raise ValueError('object required')
             c=self.server.c;path=urllib.parse.urlparse(self.path).path
             if path=='/api/event':result=c.event(d)
+            elif path=='/api/tap-test':result=c.control_tap_test(d)
             elif path=='/api/show-config':result=c.configure_show(d)
             elif path=='/api/profile':result=c.edit_profile(d)
             elif path=='/api/preview':result=c.preview(d)
