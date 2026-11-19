@@ -4,10 +4,13 @@ Implementation status, November 9: the [candidate adapter and pure losses / ledg
 passed [53 CPU no-update tests and actual-parent initialization checks](../../baselines/isaac-candidate-adapter-20261109/README.md).
 The subsequent [bounded TRAIN driver](CANDIDATE_RUNNER.md) implements optimizer
 loops, new checkpoints, durable accounting and structural learning/saved-state
-verification, tested on fabricated policies. The checklist below records the
-proposal's original gates. Fresh split/support preparation, actual native
-integration/supervision, full native guard/scoring audit and final assessment
-remain deferred. Real training and new native shots remain off.
+verification, tested on fabricated policies. [Fresh held-out preparation and the
+guard adapter](CANDIDATE_FRESH_GUARDS.md) now freeze 105 new positions and 847
+audited qualified candidates; three empty positions remain included. Native
+dispatch is wired and mock/class-resolution tested without running a simulator.
+The checklist below records the proposal's original gates. Full native
+guard/scoring audit, one-start operational supervision and final assessment
+remain execution gates. Real training and new native shots remain off.
 
 Prepared November 8, 2026 (America/Los_Angeles). **This is a reviewable proposal,
 not a launch authorization or an implemented trainer. No imitation, PPO update,

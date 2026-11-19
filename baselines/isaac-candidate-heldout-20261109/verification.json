@@ -1,0 +1,136 @@
+{
+  "schema": "sircus-candidate-heldout-guard-verification-v1",
+  "status": "passed",
+  "scope": "Actual CPU coordinate/preflight preparation and independent geometry audit; native integration tested with mocks and uninitialized genuine method resolution only.",
+  "bundle_sha256": "45f02dc0d4a3f0ced140730651160584e41128b527ea3ee1e52bf1d3cc834df5",
+  "source_and_inputs_files_verified": 370,
+  "tested_task_source_sha256": {
+    "sircus/isaac/candidate_continuation_native.py": "f3b564529aa0b41408ba2b1967e284c24dc06c887f559acf2c056fdbd8b44add",
+    "sircus/isaac/candidate_fresh_bank.py": "0ef32c7d9d6620679b240d104442d582596cccb6c36d123d81b9a72b61634ac5",
+    "sircus/isaac/candidate_fresh_bank_audit.py": "a88cbde4a632e5b1c27257a21b8d10b50e3aee933032438921410588c66f9049",
+    "sircus/isaac/candidate_fresh_history.py": "4a7d5624d9f3cedfefdc9a86c6dfd294e1726d76d1da74ed6581333f610af819",
+    "sircus/isaac/candidate_fresh_parent.py": "6fcadc3640a2dde3c1c1f944b465ebd4fa6a9dc09d646962e2928ff23a20927e",
+    "sircus/isaac/candidate_fresh_prepare.py": "2f273f2bbade9459fcd37d31c830b0daab5ab3f5402cc10546151fc2e38b632a",
+    "sircus/isaac/candidate_fresh_splits.py": "acde6881190262260efc9a5f0b4d153d5c86ffae5402a38f7b097c133d113fb7",
+    "sircus/isaac/tests/test_candidate_continuation_native.py": "8da114ce0abbe6547bf1b1ab047fed41a1f0a82747fa1c9db6a6a82205c5c6e9",
+    "sircus/isaac/tests/test_candidate_fresh_bank.py": "65fd66dc0ba154184d730499504e75502a48a3ddd37b07dce0a7bc42623cd571",
+    "sircus/isaac/tests/test_candidate_fresh_history.py": "dad78ef5f4b9236304e8ec42b5d9c7c75c6a5bb528e7c0e012ef7820cc8afb0c",
+    "sircus/isaac/tests/test_candidate_fresh_prepare.py": "95d0055cb86ad090d5c061e4b95348d0a128081a3f217624b1895374f319786e",
+    "sircus/isaac/tests/test_candidate_fresh_splits.py": "1c5919ea2356d5fab247130976881f05d0052ce96d6246574798716950a67863"
+  },
+  "source_archive_manifest_sha256": "2e42e41066de7015eda236d4cfb18210bdc7f77db24a6037de28f87a0a5e404d",
+  "private_evidence_archive_sha256": "f09247e8e38196d21b565f1f03134665ff3ef362542803e24c2870384bcf60b9",
+  "raw_operator_verification_sha256": "954bd5e559041ad0a6ac7feb03d059d3f34eacf8c9205c1b40a044f4c1879791",
+  "preparation_summary_sha256": "b7def4c8f86d1156f54ee72efe7081039999e05c241e9e95da5bc7a98104b8dc",
+  "raw_unit_test_log_sha256": "1abd19682373d342f4906c93c9f2a094a0c3390aa8b4b50d1b44b7ff513d267c",
+  "focused_new_cpu_tests": {
+    "executed": 39,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "wall_s": 48.04307458299445
+  },
+  "local_project": {
+    "status": "passed",
+    "isaac_cases": 897,
+    "optional_dependency_skips": 121,
+    "log_sha256": "d61ef88824c1a48fcc687e1843ddbfa9a9dcd07e9a3d51156b61d7189f8f92a4"
+  },
+  "discovery": {
+    "refs_examined": 107,
+    "unique_baseline_json_blobs": 466,
+    "coordinate_source_blobs": 130,
+    "discovered_coordinates": 683,
+    "distinct_excluded_with_all_original140": 788,
+    "outcome_fields_used": false,
+    "history_receipt_sha256": "d50122bf25e6e112c5f22cfe3f44dd74d0212aad07d5fbb2fdc1d50ac7d2c9c7"
+  },
+  "real_parent": {
+    "contexts": 105,
+    "checkpoint_sha256": "57d7658e9ed2f72ad09cf4e8523ab497ccbe0708364f1b8ec4a4c5c1aef1fe9f",
+    "weight_hash_before": "ea9a69ec063e3d71cda2b92f1da64939f644244d4b4dbd70b500be132632e549",
+    "weight_hash_after": "ea9a69ec063e3d71cda2b92f1da64939f644244d4b4dbd70b500be132632e549",
+    "actor_hash_before": "f5f68f96ebb18b16a70fe1c523b94301eb192869a959d006149287969a7953f0",
+    "actor_hash_after": "f5f68f96ebb18b16a70fe1c523b94301eb192869a959d006149287969a7953f0",
+    "global_cpu_rng_unchanged": true,
+    "gradients_created": false,
+    "optimizer_updates": 0,
+    "native_shots": 0
+  },
+  "original_files_verified_unchanged": {
+    "experiment.json": "77afe173a07917dd87ce43f37809a9ac6ef99beebd7e8e35f703c0e5cf1e3a26",
+    "split-manifest.json": "f46c690d80bd2079b27c8d3c72267c39acf1cee61fb4625f37994bff92292785",
+    "runs/ppo-seed20261122.audit.json": "cec9cff0a6de59b07dd35de3342ee00bc4106d4801edc0237c570e006aedc1c8",
+    "runs/ppo-seed20261122/checkpoints/milestone-10000.pt": "57d7658e9ed2f72ad09cf4e8523ab497ccbe0708364f1b8ec4a4c5c1aef1fe9f"
+  },
+  "original_train_bank_artifact_sha256": {
+    "plan.json": "edea789cf2643b18e05ad4dbe7ed3c395458fb89ed410e9073a6c7cc84f17dba",
+    "qualification.json": "9ba70b0d7db79bd1f63a2d4e6aaabea520bf58837e85d53047eaa05e4f47defe",
+    "audit.json": "495931cd89d3b2ec707179f5186b7aea2b960d74628264514e648d07fd5740a3"
+  },
+  "frozen_reader_report_sha256": "ebc1bb130c1e2a4bdac6bf6fc37ace0f61d189fa3d75d8d3c19b3bbf3cd23fbd",
+  "supported_positions": {
+    "validation": 34,
+    "test": 68
+  },
+  "empty_positions": [
+    "fresh-validation-024",
+    "fresh-test-024",
+    "fresh-test-058"
+  ],
+  "cpu_runtime": {
+    "python": "3.10.12",
+    "numpy": "1.26.4",
+    "scipy": "1.15.3",
+    "torch": "2.7.0+cu126",
+    "device": "cpu",
+    "cuda_visible_devices": ""
+  },
+  "cpu_geometry_cost": {
+    "total_wall_s": 146.56771408295026,
+    "total_aggregate_cpu_s": 456.261236313,
+    "geometry": {
+      "status": "qualified",
+      "completed": 8505,
+      "total": 8505,
+      "admitted": 847,
+      "wall_s": 102.76677357900189,
+      "aggregate_cpu_s": 412.347156561,
+      "workers": 4,
+      "monitor_poll_s": 0.05,
+      "cpu_scope": "Parent process plus all running/reaped owned children; no GPU work"
+    },
+    "audit": {
+      "wall_s": 38.777325952018145,
+      "worker_compute_cpu_s": 36.897919432,
+      "aggregate_cpu_s": 38.89108648000001
+    },
+    "parent_lifetime_peak_rss_mib": 984.81640625,
+    "child_max_lifetime_peak_rss_mib": 1047.0234375,
+    "memory_scope": "Linux process high-water RSS; child value is the largest individual child across qualification/audit, not summed or isolated-phase memory; no GPU context."
+  },
+  "cost_scope": "Ubuntu preparation driver includes fresh draws, parent inference, proposal generation, qualification, audit and serialization to summary; excludes Mac Git coordinate discovery, software checks and transfer. Memory high-water scopes are explicit in summary.",
+  "native_adapter": {
+    "implemented": true,
+    "live_environment_initialized": false,
+    "real_method_resolution_checked_without_initialization": true,
+    "reservation_before_dispatch": true,
+    "new_only_dispatch_claim": true,
+    "original_controller_guard_methods_unchanged": true,
+    "actual_full_rate_evidence_audit_pending": true,
+    "physical_validation": false
+  },
+  "optimizer_updates": 0,
+  "new_native_task_shots": 0,
+  "new_diagnostic_probe_flights": 0,
+  "held_out_outcome_files_read": 0,
+  "training_authorized": false,
+  "release_authorized": false,
+  "limitations": [
+    "Finite geometry-admitted candidates are not a dynamics, mesh/self-collision, capture or impossibility certificate.",
+    "Three empty supports stay in the final position denominator; no refill or position replacement.",
+    "New geometry has been seen for preparation; this is geometry-assisted, outcome-held-out evaluation.",
+    "Full native guard/scoring audit, bounded one-start supervision and final assessment remain execution gates."
+  ],
+  "fingerprint": "fa270941fe176105a1e0eaa126f5727b008c20cadab34fa25306c900bada55d6"
+}
