@@ -1,5 +1,12 @@
 # Project state
 
+## Completed repaired-IK balanced pilot — October 31, 2026
+
+- [Results and decision](../baselines/isaac-balanced-pilot-20261031/README.md): all 62 historical IK failures recovered, 78/78 regression cases passed without relaxing acceptance. New opt-in controller uses gravity compensation and measured pose/velocity/drift gates before release.
+- RTX 4090 completed 384 balanced PPO throws on 96 layouts. Validation selected episode 384 (13/18). On 36 fresh paired test layouts: pilot 21/36; existing 100-layout and 1,000-layout policies each 22/36; fixed action 28/36. All 144 test shots passed IK/settling. The pilot lost far-distance competence (3/12 versus its starting policy’s 9/12), despite better validation.
+- Do not promote the pilot or begin another long study. Next: development-only feature/action-conditioning and distance/reward diagnostics, then a targeted correction with larger fresh validation and test sets. One-seed small-sample results do not establish superiority; quasi-perception remains deferred.
+- New read-only `#balanced-pilot` panel shows the completed comparison, validation curve, distance bars, measured settling and limitations. Old results/contracts remain intact. Finite GPU job exited; 4070 untouched. No hardware/Viam/audio changes. 52 Isaac tests, 3 DOM tests and full regression suite passed.
+
 ## Completed IK audit and distance sweep — October 31, 2026
 
 - [Results and limits](../baselines/isaac-ik-distance-20261031/README.md): 78 offline board IK cases; 54/62 historical failures recovered (29 larger budgets, 25 other seeds), eight unresolved. Strict tolerance preserved; 16 valid controls unchanged.
