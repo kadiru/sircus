@@ -1,5 +1,11 @@
 # Project state
 
+## Interactive camera scout — November 2, 2026
+
+- [Camera-only browser window](../sircus/isaac/CAMERA_SCOUT.md) uses original UF850 meshes and a frozen native Isaac snapshot: 35 tables, 70 arms, measured body/object transforms and the selected right-front layout. All 490 arm-mesh matrices match the native export. Browser lighting/material appearance is approximate; final renders remain in Isaac.
+- Orbit, Pan, zoom, numeric coordinates, exact reset, browser autosave and full-precision camera JSON download were verified. 146 Isaac tests passed with one Torch-dependent skip. [Compact verification](../baselines/isaac-camera-scout-20261102/README.md). Raw scene/meshes/screenshots remain outside Git.
+- The finite 4090 export completed. A loopback-only GET server remains running on the Mac at `http://127.0.0.1:18784/` for the user. No simulator/hardware commands are exposed, and no existing services or 4070 workload were changed. Native remote Isaac streaming was not installed or enabled.
+
 ## Right-front camera choices — November 2, 2026
 
 - [Ten native silver-gray previews](../baselines/isaac-camera-options-20261102/README.md) compare fixed views of the same 35-table scene. Whole source cases `r1c2` and `r1c7` exchange origins so a previously demonstrated case occupies the right-front corner; all targets/objects stay with their source cases. This does not solve the old rightmost target.

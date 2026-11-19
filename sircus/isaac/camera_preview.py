@@ -125,4 +125,8 @@ def render_options(env, source):
         scope="Static composition previews using saved articulated poses; no new rollout, training result or physical validation.",
         variants=variants,
     )
+    if getattr(env.args, "scout_snapshot", False):
+        from camera_scout_snapshot import write_snapshot
+
+        manifest["scout_snapshot"] = write_snapshot(env)
     atomic(env.dest / "camera-options.json", manifest)
