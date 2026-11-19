@@ -1,5 +1,13 @@
 # Sircus in mjlab
 
+Completed [fixed-64 success-bootstrap/PPO study](POLICY64.md): historical TRAIN-only
+successes seeded an actor, followed by 1,024 fresh PPO requests and frozen comparison
+at 50 new bucket positions. [Results and checkpoints](../../baselines/mjlab-policy64-20261105/README.md):
+prior 19/50 captures, nearest success 18/50, imitation 20/50, selected PPO 18/50.
+PPO did not improve capture rate. All 1,284 requests passed the independent audit.
+Historical 128 results and compatibility guards remain unchanged; the existing
+interactive solver has not switched to the new checkpoint.
+
 Latest diagnostic: the [bounded 650 mm impact-point study](IMPACT650.md) completed
 189 requests / 146 native releases in 544.3 worker-seconds. Discovery produced five
 rim captures and zero clean; all five selected recipes captured 3/3 at 64 but 0/3 at 128.

@@ -1,5 +1,44 @@
 # Project state
 
+## Fixed-64 success bootstrap and policy refinement — completed, November 5, 2026
+
+- [Results, checkpoints and all nominal TEST settings](../baselines/mjlab-policy64-20261105/README.md).
+  The user selected 64 substeps. All 1,284 fresh requests completed: 1,024 TRAIN,
+  48 validation, 200 TEST and 12 controls; 1,103 actual native releases. Independent
+  CPU audit passed 346,485 checks; fresh positive/native-miss controls passed before
+  and after learning. Native study runtime was 6,625.3 s, excluding input verification
+  and the separate CPU audit, not isolated GPU-kernel time.
+- [Frozen protocol](../sircus/mjlab/POLICY64.md): six historical TRAIN logs supply
+  6,144 requests / 4,380 native / 2,439 captures / 842 clean across 35 layouts.
+  One best successful teacher per 22 contexts fits an imitation actor; all TRAIN
+  outcomes fit the critic. Historical VAL/TEST labels never train it. PPO then ran
+  32 updates from 1,024 new requested shots, with 615 TRAIN captures / 374 clean.
+- Twelve new validation positions at prefixes 0/256/512/1024 scored 6/7/7/7 captures.
+  The final prefix won the reward tie-break (2.3774 versus 2.3389 at 256). Freeze
+  selection and all 200 TEST predictions before observing TEST outcomes.
+- On the same 50 new test positions, requested-shot captures / clean / invalid:
+  prior 19 / 2 / 2; nearest TRAIN success 18 / 3 / 19; imitation 20 / 3 / 7;
+  selected PPO 18 / 4 / 11. **PPO did not improve capture rate.** It gained 5 BC
+  misses but lost 7 BC captures; both captured 13. Its 32 failures were 21 native
+  flight misses and 11 setup rejections (5 finite IK, 4 endpoint pose/clearance,
+  2 fixed-base clearance). Diagnose paired failures before more training.
+- Every rejection remains in the denominator. One nominal decision per test layout,
+  no ball-flight search, retries, noise or outcome fallback at inference. Geometry-only
+  source/IK/setup search is separate. This single-seed warm-start comparison has
+  unequal historical exposure and does not establish all-table reliability or learned
+  joint control, driven transit, grasping, perception or physical transfer.
+- Historical reset/clock source differs from the current native runtime. Its guard
+  stays intact; an explicit reference bridge binds old geometry/assets to the newer
+  audited impact runtime. Frozen producer commit `f00a29a42cac69221b0896173f9be785f113a8a6`;
+  pinned SciPy 1.15.3 and effective native options are audited. Earlier 128 failures
+  and provisional bucket height interpretation remain unchanged.
+- Local headless regression, 37 pinned Ubuntu CPU checks, 7 curator checks and
+  9 UI checks passed. The read-only `#policy64Study` panel shows audited learning
+  curves, comparison, per-position outcomes and actual saved native flights.
+  The existing interactive solver has not switched to the new checkpoint. Display-only
+  labels are a separate revision; frozen producer/evidence bytes were not changed.
+  The worker used only the 4090, then exited; no 4070/Isaac/hardware changes or viewer restart.
+
 ## Impact-point 650 mm study — completed, November 5, 2026
 
 - [Frozen protocol](../sircus/mjlab/IMPACT650.md): three exact XY650 source families
