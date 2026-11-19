@@ -1,5 +1,18 @@
 # Project state
 
+## One-drop route selection — November 14, 2026
+
+- On the same 50 fresh positions, allowing a pre-release choice between
+  direct and table bounce raised captures from **33/50 to 40/50** and
+  feasible setups from **41/50 to 47/50**. Both planners used the same
+  frozen model and had at most one drop per position.
+- There were seven gains and zero losses. Five gains came where only
+  table passed setup, and two came where both routes were feasible and
+  the selector chose table. [Protocol and audited results](MJLAB_ONE_DROP_SELECTOR.md).
+- The 4090 ran 88 test drops and 18 controls. Both control sets passed
+  and the CPU audit passed 34,460 checks. The 4070 and Isaac were left
+  alone. [Draft PR #130](https://github.com/kadiru/sircus/pull/130).
+
 ## Table-bounce starting shots — November 13, 2026
 
 - The same frozen table specialist tried the original and expanded shot
