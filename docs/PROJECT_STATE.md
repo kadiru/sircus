@@ -1,5 +1,41 @@
 # Project state
 
+## Validation-only failure diagnosis — November 4, 2026
+
+- [Method and limits](../sircus/mjlab/VALIDATION_FAILURE_AUDIT.md),
+  [compact source-bound diagnostic evidence](../baselines/mjlab-validation-failures-20261104/README.md),
+  and [separate read-only heatmap/replays](http://127.0.0.1:18792/#validationFailureAudit).
+  The completed benchmark, policies, scorer and raw observations remain frozen.
+  Its report/manifest/audit hashes are unchanged. No new training, native rollout,
+  GPU, hardware, Viam or audio work, and no existing service restart.
+- CPU audit covered all864 validation requests and704 native traces, reproducing
+  original outcomes with the independent oracle. All120 method/cohort/layout
+  cells match the original validation curves; selected216 requests overlap the
+  four milestones and are never counted as additional trials. These data already
+  selected checkpoints and are development diagnosis, not fresh evaluation.
+- Selected validation: sweep70/108 (90 native,18 rejects), PPO74/108 (93 native,
+  15 rejects). Combined failures:33 setup rejects,33 without whole-ball entry,
+  six retentions disqualified by external contact. No selected missing-rebound,
+  invalid-physics or entry-without-retention outcomes. Of33 no-entry misses,
+  29 have an observed short crossing; four remain unknown after intervening
+  contacts. No speed/height/tilt cause is inferred from these observations.
+- Native initial board-centre error max0.000285311mm; normalized normal error
+  max0.000025953°; initial ball-spawn error max0.000041596mm; reported flange
+  error max0.0330524mm. Cached sampled board displacement was0. These verify
+  numerical initial reset/FK, not dynamic settling or physical precision. Full
+  board/joint histories and impact pose/normal were not recorded.
+- The interface provides method/checkpoint selectors,12 observed bucket points,
+  exact counts/rejection reasons and representative miss cards.74 hash-bound
+  native replays and26 explicit unavailable trajectories passed live GET checks;
+  all POST commands return405. Replays hold initial arm geometry and show actual
+  ball samples. Non-clean captures are assisted or marginal, not always rim hits.
+- Two independent reviews reconciled source hashes, cells, selected checkpoints
+  and representative references. Repository mock/headless and focused controls
+  passed. Compact summaries are in Git; dense samples and replay trajectories
+  remain local. Next: validation-only controlled gap/tilt feasibility checks at
+  short-miss layouts, while treating setup conflicts separately, before choosing
+  another learning change and a fresh final test cohort.
+
 ## Calibrated benchmark v2 — completed November 4, 2026 UTC
 
 - [Protocol, results and reproduction](../sircus/mjlab/CALIBRATED_BENCHMARK.md),

@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "diagnostic_report_sha256": "5904953c31553affab867ed462c5d75e7302a8b48b8008fb085b6ab280e6e09c",
+  "recorded_replay_get_checks": 74,
+  "unavailable_replay_404_checks": 26,
+  "post_status": 405,
+  "original_metadata_unchanged": true,
+  "original_sha256": {
+    "report.json": "8d59cf3d44d6657aa8cddd5a22270e39f044357c51ebf690ae0ba940ccf44ba7",
+    "manifest.json": "970f2b079c5d00491e95b3f58bfd1180e58fd366d116e0ab4e44731073f9ccb4",
+    "calibrated-benchmark-v2-audit.json": "8df7b8f3b48cfc9c1c41f33f02ea0b68ca828909e2c8774d3cbabc0f1a45f530"
+  },
+  "scope": "Live read-only API and derived replay checks, no new physics or native arrays read"
+}

@@ -518,6 +518,120 @@ export function sweepRlCsv(report) {
   return [columns, ...values].map(row => row.map(escape).join(',')).join('\n') + '\n';
 }
 
+// Validation-only diagnostics are additive; they never select a checkpoint.
+export const VALIDATION_FAILURE_CATEGORIES = {
+  captured_clean: 'Clean capture', captured_assisted: 'Assisted or marginal capture',
+  setup_rejected: 'Setup rejected · no native release', invalid_physics: 'Outside calibrated physics domain',
+  external_disqualified_retention: 'Retention disqualified by external contact',
+  no_board_bounce: 'No accepted board rebound', entry_not_retained: 'Entry without one-second retention',
+  no_whole_ball_entry: 'No whole-ball entry',
+};
+export const VALIDATION_FAILURE_CHECKPOINTS = ['selected', '0', '256', '512', '1024'];
+const validationFailureVersion = 'sircus-calibrated-validation-failure-audit-v1';
+const validationFailureMethods = new Set(['sweep', 'ppo']);
+const hashMapping = value => value && typeof value === 'object' && !Array.isArray(value)
+  && Object.keys(value).length > 0 && Object.values(value).every(v => benchHash(v));
+export function validationFailureAuditState(report) {
+  const value = report?.validation_failure_audit, benchmark = sweepRlStudy(report);
+  const missing = !value || typeof value !== 'object' || Array.isArray(value);
+  const fail = reason => ({ present: !missing || typeof report?.validation_failure_audit_error === 'string', ready: false, reason, audit: null });
+  if (typeof report?.validation_failure_audit_error === 'string') return fail('Validation audit failed source or evidence verification.');
+  if (missing) return fail('Validation failure audit is not available.');
+  if (value.version !== validationFailureVersion || value.status !== 'passed' || value.synthetic_fixture !== false || !benchHash(value.fingerprint))
+    return fail('Validation evidence is missing a passed native audit.');
+  if (benchmark?.version !== 'sircus-calibrated-sweep-rl-benchmark-v2' || benchmark.status !== 'completed'
+      || benchmark.test_disclosure !== 'verified' || benchmark.audit?.status !== 'passed' || benchmark.audit?.synthetic_fixture !== false)
+    return fail('The source benchmark must have its completed independent native audit.');
+  const source = value.source;
+  if (!source || !['contract_fingerprint', 'report_sha256', 'audit_sha256', 'study_manifest_sha256', 'auditor_sha256'].every(k => benchHash(source[k]))
+      || !hashMapping(source.source_sha256) || !hashMapping(source.auditor_dependencies))
+    return fail('Validation source and audit bindings are incomplete.');
+  if (source.contract_fingerprint !== benchmark.contract_fingerprint) return fail('Validation evidence belongs to a different source contract.');
+  if (!Array.isArray(value.layouts) || value.layouts.length !== 12 || value.layouts.some(row => typeof row?.id !== 'string' || !finiteVector(row.bucket_xy_m, 2))
+      || new Set(value.layouts.map(row => row.id)).size !== value.layouts.length)
+    return fail('Validation bucket layouts are missing or invalid.');
+  return { present: true, ready: true, reason: '', audit: value };
+}
+export function validationFailureShouldScroll(report, hash, alreadyScrolled) {
+  return alreadyScrolled !== true && hash === '#validationFailureAudit' && validationFailureAuditState(report).ready;
+}
+export const validationPoseNumber = value => Number.isFinite(value) ? value.toFixed(6) : 'Unknown';
+function validationCellCounts(cell) {
+  if (!cell || benchInteger(cell.attempts) === null || cell.attempts === 0 || benchInteger(cell.captures) === null
+      || benchInteger(cell.native_releases) === null || cell.captures > cell.native_releases || cell.native_releases > cell.attempts) return null;
+  const categories = Object.keys(VALIDATION_FAILURE_CATEGORIES).map(id => ({ id, label: VALIDATION_FAILURE_CATEGORIES[id], count: benchInteger(cell.categories?.[id]) }));
+  if (categories.some(row => row.count === null) || categories.reduce((sum, row) => sum + row.count, 0) !== cell.attempts
+      || cell.categories.captured_clean + cell.categories.captured_assisted !== cell.captures
+      || cell.categories.setup_rejected !== cell.attempts - cell.native_releases) return null;
+  return { attempts: cell.attempts, captures: cell.captures, nativeReleases: cell.native_releases,
+    setupRejected: cell.categories.setup_rejected, categories, rate: cell.captures / cell.attempts };
+}
+export function validationFailureCells(report, method = 'ppo', checkpoint = 'selected') {
+  const state = validationFailureAuditState(report), milestone = String(checkpoint);
+  if (!state.ready || !validationFailureMethods.has(method) || !VALIDATION_FAILURE_CHECKPOINTS.includes(milestone)) return [];
+  const cells = Array.isArray(state.audit.cells) ? state.audit.cells : [];
+  return state.audit.layouts.map(layout => {
+    const matches = cells.filter(row => row?.id === layout.id && row.method === method && String(row.milestone) === milestone);
+    const cell = matches.length === 1 ? matches[0] : null;
+    const bound = cell && finiteVector(cell.bucket_xy_m, 2) && cell.bucket_xy_m.every((v, i) => v === layout.bucket_xy_m[i]);
+    const counts = bound ? validationCellCounts(cell) : null;
+    const base = { id: layout.id, xy: layout.bucket_xy_m.slice(), method, checkpoint: milestone };
+    if (!counts) return { ...base, status: 'unknown', counts: null, reason: 'Counts or bucket identity are incomplete; no zero is inferred.' };
+    return { ...base, status: counts.nativeReleases === 0 ? 'rejected' : 'observed', counts,
+      missRegions: Object.entries(cell.miss_regions ?? {}).filter(([k, n]) => typeof k === 'string' && benchInteger(n) !== null),
+      rejectionReasons: Object.entries(cell.rejection_reasons ?? {}).filter(([k, n]) => typeof k === 'string' && benchInteger(n) !== null),
+      selectedSamplesBySeed: cell.selected_samples_by_seed ?? {}, poseAudit: cell.pose_audit ?? null,
+      representativeIds: Array.isArray(cell.representative_ids) ? cell.representative_ids : [] };
+  });
+}
+export function validationFailureSummary(report, method = 'ppo', checkpoint = 'selected') {
+  const state = validationFailureAuditState(report), rows = validationFailureCells(report, method, checkpoint);
+  if (!state.ready || !rows.length) return null;
+  const known = rows.filter(row => row.counts), complete = known.length === rows.length;
+  const sum = key => complete ? known.reduce((total, row) => total + row.counts[key], 0) : null;
+  const milestones = state.audit.cohorts?.milestones;
+  const milestoneTotal = Array.isArray(milestones) && milestones.length
+    && milestones.every(row => benchInteger(row.attempts) !== null) ? milestones.reduce((total, row) => total + row.attempts, 0) : null;
+  return { layouts: rows.length, reportedLayouts: known.length, attempts: sum('attempts'), captures: sum('captures'),
+    nativeReleases: sum('nativeReleases'), setupRejected: sum('setupRejected'),
+    primaryRequests: benchInteger(state.audit.cohorts?.selected?.attempts), milestoneRequests: milestoneTotal };
+}
+export function validationFailureReplayPath(id) {
+  return typeof id === 'string' && /^[A-Za-z0-9_-]{1,160}$/.test(id) ? `/api/validation-failures/replay/${id}` : null;
+}
+export function validationFailureRepresentatives(report, method = 'ppo', checkpoint = 'selected') {
+  const state = validationFailureAuditState(report), milestone = String(checkpoint);
+  if (!state.ready || !validationFailureMethods.has(method) || !VALIDATION_FAILURE_CHECKPOINTS.includes(milestone)) return [];
+  const layouts = new Map(state.audit.layouts.map(row => [row.id, row.bucket_xy_m]));
+  return (Array.isArray(state.audit.representatives) ? state.audit.representatives : []).flatMap(raw => {
+    const replayId = raw?.replay_id, path = validationFailureReplayPath(replayId);
+    if (!raw || raw.method !== method || (milestone === 'selected' ? raw.primary_selected !== true : raw.samples !== Number(milestone))
+        || !path || raw.id !== undefined && raw.id !== replayId || !layouts.has(raw.context_id)
+        || !Object.hasOwn(VALIDATION_FAILURE_CATEGORIES, raw.category) || raw.category.startsWith('captured_')
+        || typeof raw.source_row_id !== 'string' || benchInteger(raw.seed) === null || benchInteger(raw.samples) === null) return [];
+    const available = raw.recorded_replay_available === true && raw.category !== 'setup_rejected'
+      && raw.path === `replays/${replayId}.json` && !!benchHash(raw.sha256);
+    return [{ id: replayId, replayId, resultUrl: available ? path : null, sourceRowId: raw.source_row_id,
+      method, seed: raw.seed, samples: raw.samples, contextId: raw.context_id, xy: layouts.get(raw.context_id).slice(),
+      category: raw.category, categoryLabel: VALIDATION_FAILURE_CATEGORIES[raw.category],
+      missRegion: typeof raw.miss_region?.region === 'string' ? raw.miss_region.region : typeof raw.miss_region === 'string' ? raw.miss_region : 'unknown',
+      missRegionReason: typeof raw.miss_region?.reason === 'string' ? raw.miss_region.reason : 'unknown',
+      retentionStatus: typeof raw.retention_status === 'string' ? raw.retention_status : 'unknown',
+      observedEvents: raw.observed_events && typeof raw.observed_events === 'object' ? raw.observed_events : {},
+      poseAudit: raw.pose_audit ?? null, recordedReplayAvailable: available }];
+  });
+}
+export function validationFailureReplayMatches(result, card) {
+  const trajectory = result?.trajectory, config = result?.configuration;
+  return !!card?.recordedReplayAvailable && result?.method === 'validation_recorded_replay'
+    && result.request_id === card.sourceRowId && finiteVector(result.bucket_xy_m, 2)
+    && result.bucket_xy_m.every((v, i) => v === card.xy[i]) && result.success === false
+    && finiteVector(config?.board_center, 3) && finiteVector(config?.board_normal, 3) && finiteVector(config?.release_center, 3)
+    && Array.isArray(trajectory) && trajectory.length > 1 && trajectory[0]?.time === 0
+    && trajectory.every((row, i) => Number.isFinite(row?.time) && row.time >= 0 && finiteVector(row.ball, 3)
+      && (!i || row.time > trajectory[i - 1].time));
+}
+
 /** Read-only study display: these fields never change the active solver route. */
 export function expansionTargetRows(report) {
   const search = report?.expansion_evaluation?.search;

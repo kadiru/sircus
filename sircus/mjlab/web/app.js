@@ -4,6 +4,7 @@ import { contactStudy, contactGroups, contactConfigurations, transitRoutes, rout
 import { correctedGridProgress, correctedTrainingReadiness } from '/state.mjs';
 import { plannerReady, plannerOnly, searchReady, modeReady, plannerFarmRows, plannerGridRows, plannerGridSummary, plannerGridProgress, plannerGridCsv } from '/state.mjs';
 import { sweepRlStudy, sweepRlSummary, sweepRlProgress, sweepRlCompletedWorkers, sweepRlPoints, sweepRlCurves, sweepRlFinalRows, sweepRlFinalAggregate, sweepRlStatusLabel, sweepRlCsv, sweepRlAdmissionRows, sweepRlHistory, historicalPlannerIsPreV2 } from '/state.mjs';
+import { validationFailureAuditState, validationFailureCells, validationFailureSummary, validationFailureRepresentatives, validationFailureReplayMatches, validationFailureShouldScroll, validationPoseNumber } from '/state.mjs';
 import { studyReady, buildRequest, methodLabel, coverageRows, finiteVector, friendlyError, coverageSummary, comparisonRows, learningPoints, inStudiedRegion, BOARD_BODY_SIZE, bankComparisonRows, policyRouteLabel, poseInputValues, bankCoverageRows, bankCoverageStatus, formatMetric, solveButtonState, expansionTargetRows, expansionProgress, expandedComparisonRows, stableIkProgress, stableIkTargets, stableIkAuditRows, stableIkControlRows } from '/state.mjs';
 
 const $ = id => document.getElementById(id);
@@ -69,6 +70,7 @@ const bucketBase = new THREE.Mesh(new THREE.CylinderGeometry(.079, .079, .008, 6
 bucketBase.rotation.x = Math.PI / 2; bucketBase.position.z = .004; bucketGroup.add(bucketBase);
 let sceneSpec = {}, report = {}, pending = false, activeRequest = null, currentTrajectory = [], playTime = 0, playing = false, pathLine;
 let methodChosen = false, farmSignature = '', gridStudySignature = '', benchmarkSignature = '';
+let validationFailureSignature = '', validationSelectedLayout = '', validationReplayGeneration = 0, validationAuditScrolled = false;
 let transitFrames = [], transitTime = 0, transitName = "";
 let bucketXY = [.65, -.4];
 const armGroups = [new THREE.Group(), new THREE.Group()]; armGroups.forEach(g => world.add(g));
@@ -419,6 +421,144 @@ function drawBenchmarkCurve(target, curves, metric) {
   const axis = makeSvg('text', { x: width / 2, y: height - 24, 'text-anchor': 'middle', class: 'axis-label' }); axis.textContent = 'New training shot requests / method / seed'; svg.append(axis);
   target.replaceChildren(svg, legend);
 }
+function validationCellDetail(row) {
+  $('validationFailureCellStatus').textContent = `${row.id} · bucket X ${(row.xy[0] * 1000).toFixed(1)} / Y ${(row.xy[1] * 1000).toFixed(1)} mm`;
+  const c = row.counts;
+  expansionTable($('validationFailureCellCounts'), ['Recorded category', 'Requested shots'], c
+    ? [['All requests', c.attempts], ['Captures', c.captures], ['Native releases', c.nativeReleases], ...c.categories.map(v => [v.label, v.count])]
+    : [['Unknown', 'Missing or inconsistent evidence; no zero inferred']]);
+  $('validationFailureCellDetails').textContent = c
+    ? `Observed crossing regions: ${row.missRegions.map(([id, count]) => `${id}: ${count}`).join('; ') || 'Unknown'}. Setup rejection reasons: ${row.rejectionReasons.map(([id, count]) => `${id}: ${count}`).join('; ') || (c.setupRejected ? 'Unknown' : 'None observed')}. Selected checkpoints by seed: ${Object.entries(row.selectedSamplesBySeed).map(([seed, samples]) => `${seed} → ${samples}`).join('; ') || 'Unknown'}.`
+    : row.reason;
+}
+function drawValidationFailureMap(rows) {
+  const width = 660, height = 360, pad = { l: 58, r: 22, t: 24, b: 46 };
+  const x0 = Math.min(.1, ...rows.map(r => r.xy[0])), x1 = Math.max(1.24, ...rows.map(r => r.xy[0]));
+  const y0 = Math.min(-.65, ...rows.map(r => r.xy[1])), y1 = Math.max(.25, ...rows.map(r => r.xy[1]));
+  const px = x => pad.l + (x - x0) / (x1 - x0) * (width - pad.l - pad.r);
+  const py = y => height - pad.b - (y - y0) / (y1 - y0) * (height - pad.t - pad.b);
+  const svg = makeSvg('svg', { viewBox: `0 0 ${width} ${height}`, role: 'img', 'aria-label': 'Recorded validation bucket positions; keyboard focus each point for counts' });
+  for (let i = 0; i <= 4; i++) {
+    const x = x0 + i * (x1 - x0) / 4, y = y0 + i * (y1 - y0) / 4;
+    svg.append(makeSvg('line', { x1: px(x), y1: pad.t, x2: px(x), y2: height - pad.b, class: 'validation-grid' }));
+    svg.append(makeSvg('line', { x1: pad.l, y1: py(y), x2: width - pad.r, y2: py(y), class: 'validation-grid' }));
+    const xt = makeSvg('text', { x: px(x), y: height - 25, 'text-anchor': 'middle' }); xt.textContent = x.toFixed(2); svg.append(xt);
+    const yt = makeSvg('text', { x: pad.l - 9, y: py(y) + 4, 'text-anchor': 'end' }); yt.textContent = y.toFixed(2); svg.append(yt);
+  }
+  const xl = makeSvg('text', { x: width / 2, y: height - 4, 'text-anchor': 'middle' }); xl.textContent = 'Bucket X · metres'; svg.append(xl);
+  const yl = makeSvg('text', { x: 14, y: height / 2, transform: `rotate(-90 14 ${height / 2})`, 'text-anchor': 'middle' }); yl.textContent = 'Bucket Y · metres'; svg.append(yl);
+  for (const row of rows) {
+    const counts = row.counts, selected = validationSelectedLayout === row.id;
+    const label = counts ? `${counts.captures}/${counts.attempts}` : '?';
+    const description = `${row.id}, X ${row.xy[0].toFixed(3)}, Y ${row.xy[1].toFixed(3)} metres: ${counts ? `${label} captures, ${counts.nativeReleases} native releases, ${counts.setupRejected} setup rejects` : 'counts unknown'}`;
+    const group = makeSvg('g', { tabindex: 0, role: 'button', 'aria-label': description, class: 'validation-target' });
+    const rate = counts?.rate ?? 0, mix = (a, b) => Math.round(a + rate * (b - a));
+    const fill = counts ? `rgb(${mix(230, 18)},${mix(237, 139)},${mix(226, 140)})` : '#a8b0ad';
+    const circle = makeSvg('circle', { cx: px(row.xy[0]), cy: py(row.xy[1]), r: selected ? 18 : 16, fill,
+      stroke: counts?.setupRejected ? '#b55644' : selected ? '#233e3b' : '#72918a', 'stroke-width': selected ? 3 : 1.7 });
+    const text = makeSvg('text', { x: px(row.xy[0]), y: py(row.xy[1]) + 3.5, 'text-anchor': 'middle', class: 'validation-count' }); text.textContent = label;
+    const title = makeSvg('title'); title.textContent = description;
+    group.append(circle, text, title);
+    if (row.status === 'rejected') { const cross = makeSvg('text', { x: px(row.xy[0]) + 20, y: py(row.xy[1]) + 4, class: 'validation-rejected' }); cross.textContent = '×'; group.append(cross); }
+    const select = () => { validationSelectedLayout = row.id; validationCellDetail(row); drawValidationFailureMap(rows); };
+    group.onclick = select; group.onkeydown = event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); select(); } };
+    svg.append(group);
+  }
+  $('validationFailureMap').replaceChildren(svg);
+}
+const validationPoseVector = (value, scale = 1000) => finiteVector(value, 3) ? value.map(v => (v * scale).toFixed(scale === 1 ? 4 : 2)).join(', ') : 'Unknown';
+function showValidationFailureCards(cards, fingerprint) {
+  const target = $('validationFailureCards'); target.replaceChildren();
+  if (!cards.length) { const p = document.createElement('p'); p.className = 'fine'; p.textContent = 'No representative miss was saved for this method/cohort. This is not evidence that every shot captured; inspect the counts above.'; target.append(p); }
+  for (const card of cards) {
+    const article = document.createElement('article'); article.className = 'validation-miss-card';
+    const heading = document.createElement('h4'); heading.textContent = card.categoryLabel;
+    const meta = document.createElement('p'); meta.className = 'fine'; meta.textContent = `${card.contextId} · seed ${card.seed} · checkpoint ${card.samples} · bucket ${(card.xy[0] * 1000).toFixed(1)}, ${(card.xy[1] * 1000).toFixed(1)} mm · observed region: ${card.missRegion} (${card.missRegionReason})`;
+    const events = document.createElement('p'); events.className = 'fine';
+    const observed = card.observedEvents, boardContact = typeof observed.board_contact_observed === 'boolean' ? observed.board_contact_observed ? 'yes' : 'no' : 'unknown';
+    events.textContent = `Board contact observed: ${boardContact}. Accepted rebound sample: ${Number.isFinite(observed.accepted_rebound_sample_time_s) ? `${observed.accepted_rebound_sample_time_s.toFixed(4)} s` : 'not observed'}.${card.category === 'entry_not_retained' ? ` Retention status: ${card.retentionStatus}. Recording horizon reached: ${typeof observed.recording_horizon_reached === 'boolean' ? observed.recording_horizon_reached ? 'yes' : 'no' : 'unknown'}.` : ''}`;
+    const poses = document.createElement('div'); poses.className = 'table-wrap';
+    const p = card.poseAudit ?? {}, requested = p.requested ?? {}, initial = p.native_initial ?? {};
+    expansionTable(poses, ['Initial pose', 'Requested', 'Native initial'], [
+      ['Board center · mm', validationPoseVector(requested.board_center_m), validationPoseVector(initial.board_center_m)],
+      ['Board normal · unit', validationPoseVector(requested.board_normal, 1), validationPoseVector(initial.board_normal, 1)],
+      ['Ball center · mm', validationPoseVector(requested.release_ball_center_m), validationPoseVector(initial.release_ball_center_m)],
+    ]);
+    const errors = document.createElement('p'); errors.className = 'fine';
+    errors.textContent = `Ball p0 error: ${validationPoseNumber(p.errors?.release_position_mm)} mm. Flange error: ${validationPoseNumber(p.errors?.flange_error_mm)} mm. Cached 240 Hz board drift: ${validationPoseNumber(p.sampled_cached_board_drift_mm)} mm. Settled/impact board pose: not recorded.`;
+    const button = document.createElement('button'); button.className = 'quiet'; button.type = 'button';
+    button.textContent = card.recordedReplayAvailable ? 'Replay recorded miss' : card.category === 'setup_rejected' ? 'No native release / trajectory' : 'Recorded replay unavailable';
+    button.dataset.validationReplay = card.recordedReplayAvailable ? 'available' : 'missing';
+    button.disabled = pending || !card.recordedReplayAvailable;
+    if (card.resultUrl) button.onclick = () => viewValidationFailureReplay(card, fingerprint);
+    article.append(heading, meta, events, poses, errors, button); target.append(article);
+  }
+}
+async function viewValidationFailureReplay(card, fingerprint) {
+  if (pending || !card.resultUrl || !validationFailureAuditState(report).ready) return;
+  const generation = ++validationReplayGeneration;
+  try {
+    setPending(true);
+    for (const button of $('validationFailureCards').querySelectorAll('button')) button.disabled = true;
+    $('validationFailureReplayStatus').textContent = 'Loading hash-verified recorded validation data; no simulation is running.';
+    const response = await fetch(card.resultUrl, { method: 'GET', cache: 'no-store' });
+    const data = await response.json();
+    if (generation !== validationReplayGeneration || validationFailureAuditState(report).audit?.fingerprint !== fingerprint) return;
+    if (!response.ok) throw Error(data.error || `HTTP ${response.status}`);
+    const result = data.result ?? data;
+    if (!validationFailureReplayMatches(result, card)) throw Error('Recorded validation replay identity or trajectory is incomplete.');
+    $('boardLock').checked = false; $('dropLock').checked = false;
+    setBucket(card.xy.slice()); clearResult('Loading recorded validation miss');
+    applyResult(result, { recordedPlayback: true });
+    $('sceneOutcome').textContent = `Recorded validation miss · ${card.categoryLabel}`;
+    $('resultTitle').textContent = 'Recorded validation miss · no new simulation';
+    $('resultText').textContent = `${card.contextId}, seed ${card.seed}, checkpoint ${card.samples}. ${card.categoryLabel}. Initial arm geometry and the saved ball trajectory only; no dynamic settled/impact board pose was recorded.`;
+    $('geometryLabel').textContent = 'Recorded initial arm FK · recorded ball trajectory · validation only';
+    $('validationFailureReplayStatus').textContent = `Showing ${card.sourceRowId}. Source audit and saved replay bytes were verified by the read-only server.`;
+    $('world').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } catch (error) {
+    if (generation === validationReplayGeneration) $('validationFailureReplayStatus').textContent = `Replay unavailable: ${friendlyError(error.message)}`;
+  } finally {
+    setPending(false);
+    for (const button of $('validationFailureCards').querySelectorAll('button')) button.disabled = button.dataset.validationReplay !== 'available';
+  }
+}
+function showValidationFailureAudit() {
+  const state = validationFailureAuditState(report), section = $('validationFailureAudit');
+  section.hidden = !state.present && location.hash !== '#validationFailureAudit';
+  if (!state.ready) {
+    validationFailureSignature = ''; validationReplayGeneration++;
+    $('validationFailureStatus').textContent = state.reason;
+    for (const id of ['validationFailureSummary', 'validationFailureMap', 'validationFailureCellCounts', 'validationFailureCards']) $(id).replaceChildren();
+    for (const id of ['validationFailureCohort', 'validationFailureCellStatus', 'validationFailureCellDetails', 'validationFailureReplayStatus']) $(id).textContent = '';
+    $('validationFailureMethod').disabled = true; $('validationFailureCheckpoint').disabled = true;
+    return;
+  }
+  $('validationFailureMethod').disabled = false; $('validationFailureCheckpoint').disabled = false;
+  const method = $('validationFailureMethod').value, checkpoint = $('validationFailureCheckpoint').value;
+  const signature = JSON.stringify([state.audit.fingerprint, method, checkpoint]);
+  if (signature === validationFailureSignature) return;
+  validationFailureSignature = signature; validationReplayGeneration++;
+  const rows = validationFailureCells(report, method, checkpoint), summary = validationFailureSummary(report, method, checkpoint);
+  $('validationFailureStatus').textContent = 'Verified recorded validation audit · read-only · no training or physics jobs';
+  const count = n => n === null || n === undefined ? 'Unknown' : n;
+  addMetrics([['Displayed method/cohort captures', summary?.attempts ? `${summary.captures}/${summary.attempts} · ${(100 * summary.captures / summary.attempts).toFixed(1)}%` : 'Unknown'],
+    ['Native releases / setup rejects', `${count(summary?.nativeReleases)} / ${count(summary?.setupRejected)}`],
+    ['Bucket positions with complete counts', `${summary?.reportedLayouts ?? 0} / ${summary?.layouts ?? 0}`]], $('validationFailureSummary'));
+  $('validationFailureCohort').textContent = `${checkpoint === 'selected' ? 'Primary: selected checkpoint per method/seed.' : `Diagnostic checkpoint: ${checkpoint} training requests.`} Primary selected cohort: ${count(summary?.primaryRequests)} validation requests across both methods. Separate milestone slices: ${count(summary?.milestoneRequests)} requests in total. The selected cohort overlaps those slices; never add them together.`;
+  if (rows.length) {
+    if (!rows.some(row => row.id === validationSelectedLayout)) validationSelectedLayout = rows[0].id;
+    drawValidationFailureMap(rows); validationCellDetail(rows.find(row => row.id === validationSelectedLayout));
+  } else $('validationFailureMap').replaceChildren();
+  showValidationFailureCards(validationFailureRepresentatives(report, method, checkpoint), state.audit.fingerprint);
+  $('validationFailureReplayStatus').textContent = '';
+  if (validationFailureShouldScroll(report, location.hash, validationAuditScrolled)) {
+    validationAuditScrolled = true;
+    section.scrollIntoView({ block: 'start' });
+  }
+}
+$('validationFailureMethod').onchange = showValidationFailureAudit;
+$('validationFailureCheckpoint').onchange = showValidationFailureAudit;
 const benchmarkLegacyNotes = Object.fromEntries(['benchmarkMetricNote', 'benchmarkResourceNote', 'benchmarkQueryNote'].map(id => [id, $(id).textContent]));
 function showSweepRlBenchmark() {
   if (typeof report.sweep_rl_error === 'string') {
@@ -959,8 +1099,9 @@ async function loadStatus() {
     $('plannerGridHeading').textContent = historicalPlanner ? 'Historical shot settings and repeats · pre-v2' : 'Shot settings. Repeated captures.';
     $('historicalStudies').hidden = standalone;
     const benchmarkView = !!sweepRlStudy(r) || typeof r.sweep_rl_error === 'string';
-    document.title = benchmarkView ? 'Sircus · Sweep vs RL benchmark' : standalone ? 'Sircus · Sweep shot planner' : 'Sircus · mjlab learning lab';
-    $('workspaceHeading').textContent = benchmarkView ? 'Sweep versus RL benchmark' : standalone ? 'Sweep shot planner' : 'Place a target. Find a posture.';
+    const validationView = location.hash === '#validationFailureAudit';
+    document.title = validationView ? 'Sircus · Validation failure audit' : benchmarkView ? 'Sircus · Sweep vs RL benchmark' : standalone ? 'Sircus · Sweep shot planner' : 'Sircus · mjlab learning lab';
+    $('workspaceHeading').textContent = validationView ? 'Validation failure audit' : benchmarkView ? 'Sweep versus RL benchmark' : standalone ? 'Sweep shot planner' : 'Place a target. Find a posture.';
     if (!methodChosen && plannerReady(r)) $('mode').value = 'search';
     if (initial) {
       if (s.bucket?.xy) setBucket(s.bucket.xy);
@@ -979,6 +1120,7 @@ async function loadStatus() {
     showPlannerFarm();
     showPlannerGridStudy();
     showSweepRlBenchmark();
+    showValidationFailureAudit();
     if (!standalone) showCoverage();
   } catch (error) { $('studyTitle').textContent = 'Study connection unavailable'; $('studyDetail').textContent = error.message; for (const id of ['solve', 'solveTop']) $(id).disabled = true; }
 }
