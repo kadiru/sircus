@@ -92,6 +92,67 @@ class ComponentTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,"mock input changed"):self.components.initialize(Mock())
         self.assertIsNone(self.components.app);self.assertIsNone(self.components.runner)
 
+    def effort_preflight_fixture(self,caps):
+        # Original verified dropper URDF values; every object here is fake.
+        values=[382.5,382.5,243.525,117.3,38.25,38.25]
+        urdf=self.root/"dropper.urdf"
+        urdf.write_text('<robot>'+''.join(f'<joint name="joint{k+1}"><limit effort="{v}"/></joint>'
+            for k,v in enumerate(values))+'</robot>')
+        inputs=dict(paths=dict(dropper_urdf=urdf,camera=self.root/"camera.json"),
+            manifest=dict(expected_runtime={},source_run="/mock/source"),mapped=lambda raw:Path(raw))
+        fake_torch=types.SimpleNamespace(tensor=Mock(return_value=caps))
+        launcher=Mock(side_effect=RuntimeError("synthetic boundary before app construction"))
+        def arguments(parser):
+            parser.add_argument("--headless",action="store_true")
+            parser.add_argument("--enable_cameras",action="store_true")
+            parser.add_argument("--device")
+        launcher.add_app_launcher_args.side_effect=arguments
+        app_module=types.ModuleType("isaaclab.app");app_module.AppLauncher=launcher
+        return values,inputs,fake_torch,launcher,app_module
+
+    def test_bad_cpu_effort_representation_fails_before_app_scene_or_learning(self):
+        import continuous_policy
+        expected=np.asarray([382.5,382.5,243.525,117.3,38.25,38.25],dtype=np.float32)
+        changed=expected.copy();changed[2]=np.nextafter(changed[2],np.float32(np.inf))
+        for label,caps in (("wrong_dtype_same_values",expected.astype(np.float64)),("one_ulp",changed)):
+            with self.subTest(case=label):
+                values,inputs,fake_torch,launcher,app_module=self.effort_preflight_fixture(caps)
+                scene=Mock();learning=Mock()
+                fake_scene=types.SimpleNamespace(construct_scene=scene,StartupRecorder=Mock())
+                fake_updates=types.SimpleNamespace(LearningEngine=learning)
+                with patch.object(subject,"production_inputs",return_value=inputs), \
+                     patch.object(subject,"verify_dependencies"),patch("presentation_recording.load_source"), \
+                     patch.object(continuous_policy,"torch",fake_torch), \
+                     patch.dict(sys.modules,{"isaaclab":types.ModuleType("isaaclab"),"isaaclab.app":app_module,
+                        "candidate_continuation_scene":fake_scene,"candidate_continuation_updates":fake_updates}):
+                    with self.assertRaisesRegex(ValueError,"effort caps"):
+                        self.components.initialize(Mock())
+                fake_torch.tensor.assert_called_once_with(values,device="cpu")
+                launcher.assert_not_called();launcher.add_app_launcher_args.assert_not_called()
+                scene.assert_not_called();learning.assert_not_called()
+                self.assertIsNone(self.components.app);self.assertIsNone(self.components.runner)
+
+    def test_original_float32_cpu_effort_check_preserves_caps_after_bound_inputs_before_app(self):
+        import continuous_policy
+        caps=np.asarray([382.5,382.5,243.525,117.3,38.25,38.25],dtype=np.float32)
+        before=caps.copy();values,inputs,fake_torch,launcher,app_module=self.effort_preflight_fixture(caps)
+        order=[]
+        fake_torch.tensor.side_effect=lambda *args,**kwargs:order.append("caps") or caps
+        launcher.side_effect=lambda *args,**kwargs:order.append("app") or (_ for _ in ()).throw(
+            RuntimeError("synthetic boundary before app construction"))
+        with patch.object(subject,"production_inputs",side_effect=lambda *args:order.append("inputs") or inputs), \
+             patch.object(subject,"verify_dependencies",side_effect=lambda value:order.append("dependencies")), \
+             patch("presentation_recording.load_source",side_effect=lambda *args:order.append("source")), \
+             patch.object(continuous_policy,"torch",fake_torch), \
+             patch.dict(sys.modules,{"isaaclab":types.ModuleType("isaaclab"),"isaaclab.app":app_module}):
+            with self.assertRaisesRegex(RuntimeError,"synthetic boundary"):
+                self.components.initialize(Mock())
+        self.assertEqual(order,["inputs","dependencies","source","caps","app"])
+        fake_torch.tensor.assert_called_once_with(values,device="cpu")
+        np.testing.assert_array_equal(caps.view(np.uint32),before.view(np.uint32))
+        self.assertEqual(caps.dtype,np.dtype(np.float32))
+        launcher.assert_called_once();self.assertIsNone(self.components.app);self.assertIsNone(self.components.runner)
+
     def test_native_close_is_idempotent_and_abort_never_retries(self):
         self.components.app=Mock()
         self.components.close_native();self.components.close_native()

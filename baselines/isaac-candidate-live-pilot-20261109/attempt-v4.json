@@ -1,0 +1,193 @@
+{
+  "all_prior_attempts_preserved": true,
+  "application_failure_sha256": "e86dc36749c23e6024ca0cf3403192bc142c5d92b3abb8445497ab6e81844faa",
+  "assessment": {
+    "complete": false,
+    "recorded_declines": 9,
+    "recorded_releases": 96,
+    "requested": 140,
+    "terminal": 105,
+    "test_requests": 0,
+    "uncommitted_physical_work": true,
+    "uncommitted_release_count": null,
+    "unresolved": 35
+  },
+  "attempt": "v4",
+  "automatic_retry": false,
+  "compressed_source_archive_sha256": "55e365006cc0c76408adb9057036a3dfd93f7140e79b3bd0db82ecb20333cc3b",
+  "corrected_native_reader": {
+    "component_function_costs": {
+      "learning": {
+        "process_cpu_s": 3.112079463999999,
+        "wall_s": 3.114559506997466
+      },
+      "native_train": {
+        "process_cpu_s": 466.046863611,
+        "wall_s": 278.63498310599243
+      },
+      "startup": {
+        "process_cpu_s": 0.04626546200000803,
+        "wall_s": 0.048715402954258025
+      }
+    },
+    "cost_scope": "CPU reader loop and component function timings exclude imports/input validation; RSS is process-lifetime high-water. Separate from producer phases.",
+    "counts": {
+      "captures": 804,
+      "clean_captures": 225,
+      "rejections": 70,
+      "releases": 1400,
+      "requests": 1470
+    },
+    "full_combined_audit_status": "not_run_incomplete",
+    "held_out_outcomes_read": false,
+    "learning_receipt_sha256": "aa4c49fbc8370723c0356f0389cf2f9b2863e8ddafb066e8d57bc34c3a8fd3bf",
+    "lifetime_peak_rss_mib": 1394.0859375,
+    "native_batches": 43,
+    "native_requests_executed": 0,
+    "native_train_receipt_sha256": "2fa58d3a95502143bfe9304627eeab42ba1b2944852ae9551e5fce68617eb204",
+    "optimizer_steps_executed": 0,
+    "original_failed_summary_sha256": "729241978e2c693f722bbcba174e5c8fa131502609552a3e24ce2ad7f9b6ff3e",
+    "padding_guard_view": {
+      "guard_view_label": "inactive_split",
+      "normalized_unpaid_slots": 35,
+      "paid_rows_unchanged": true,
+      "raw_label": "no_selected_setting",
+      "raw_packets_unchanged": true,
+      "schema": "sircus-native-train-padding-guard-view-v1",
+      "scope": "Strict read-only guard views after byte/reservation/physics joins; no paid result or saved evidence is relabelled."
+    },
+    "reader_loop_process_cpu_s": 469.209463101,
+    "reader_loop_wall_s": 281.80253530998016,
+    "reader_source_commit": "c0bd3d68a4193aef71bf731686bad41a1248aff1",
+    "reader_source_sha256": "ea48c57232bd2382416e878b1cf02d1263a593acea4efda9c78e4b6342311cc3",
+    "scope": "Original producer-container learning/startup readers plus separately identified strict revised native TRAIN padding reader. Original failed component audit remains preserved. Checks cover completed TRAIN only. No assessment outcome or partial assessment evidence is evaluated; the whole v4 attempt remains failed and incomplete.",
+    "startup_audit_receipt_sha256": "294b36b153ffc549eeb5852d8d253c6d80d61ba63b3707c6d4bc7007d5b769ba",
+    "status": "passed_completed_train_only",
+    "summary_sha256": "f2c7339e3ba511a58f78e7de1851a91d2cc651df39bface8f3a43a87555f16bf"
+  },
+  "empty_support_diagnosis": {
+    "cohort": 3,
+    "disabled_slots": 1,
+    "empty_slot_remained_parked": true,
+    "finite_contiguous_samples": 960,
+    "method": "candidate_bank",
+    "normal_packet_and_terminal_receipt_present": false,
+    "old_adapter_expected_decline": "inactive_split",
+    "physics_sha256": "0d6e83b9be3568a4e464e45529effc596495b9a59db18b6af47d75176ebf85ff",
+    "raw_native_decline": "no_selected_setting",
+    "split": "validation"
+  },
+  "failure": "ValueError('Empty bank slot was executed or fabricated a guard decline')",
+  "frozen_benchmark_unchanged": true,
+  "frozen_parent_checkpoint_sha256": "57d7658e9ed2f72ad09cf4e8523ab497ccbe0708364f1b8ec4a4c5c1aef1fe9f",
+  "launch_result_sha256": "5d08a9ecddeeb2dc48c44d5ce3db47a051e1b692ce0418b3bec8452c4c56358b",
+  "learning": {
+    "imitation_presentations": 30680,
+    "imitation_steps": 240,
+    "optimizer_steps": 284,
+    "ppo_samples": 1470,
+    "ppo_steps": 44,
+    "ppo_updates": 11
+  },
+  "manifest_sha256": "16c7c5edca352b192794505d5433643211a7bf16aca0cc631ff6409183340c47",
+  "model_promoted": false,
+  "native_application_starts": 1,
+  "observed_post_failure_4090_compute_owners": 0,
+  "original_posthoc_component_check": {
+    "error": "ValueError('Native rejection first cause changed')",
+    "learning_receipt_sha256": "aa4c49fbc8370723c0356f0389cf2f9b2863e8ddafb066e8d57bc34c3a8fd3bf",
+    "learning_status": "passed",
+    "startup_reader_function_cpu_s": 0.039047069000000434,
+    "startup_reader_function_wall_s": 0.03904778900323436,
+    "startup_reader_scope": "Original startup function only; imports/input validation excluded.",
+    "startup_receipt_sha256": "58aafba67e3ff069760f67b9fb25e5196ed0e6e1870ab64028ec4f98bba9ddd7",
+    "startup_status": "passed",
+    "status": "component_check_failed_full_run_incomplete",
+    "summary_sha256": "729241978e2c693f722bbcba174e5c8fa131502609552a3e24ce2ad7f9b6ff3e",
+    "wall_s": 195.87404960702406
+  },
+  "overall_independent_audit_status": "not_run_incomplete",
+  "padding_diagnosis": {
+    "active_first_cause_label_mismatches": 0,
+    "first_batch": 41,
+    "first_slot": 34,
+    "native_batches": 43,
+    "original_reader_error": "Native rejection first cause changed",
+    "padding_label_mismatches": 35,
+    "paid_rows": 1470,
+    "unpaid_padding_rows": 35
+  },
+  "private_local_checkpoint_backup_verified": true,
+  "producer_resources": {
+    "phases": {
+      "assessment": {
+        "aggregate_cpu_s": 635.4967932199997,
+        "device": {
+          "sampled_whole_device_occupied_mib": 6189.4375,
+          "torch_peak_allocated_mib": 0.27880859375,
+          "torch_peak_reserved_mib": 2.0
+        },
+        "largest_child_lifetime_peak_rss_mib": 2663.24609375,
+        "lifetime_peak_rss_mib": 7346.3125,
+        "wall_s": 296.26172927202424
+      },
+      "imitation": {
+        "aggregate_cpu_s": 47.62427330500001,
+        "device": {
+          "sampled_whole_device_occupied_mib": 6189.4375,
+          "torch_peak_allocated_mib": 0.255859375,
+          "torch_peak_reserved_mib": 2.0
+        },
+        "largest_child_lifetime_peak_rss_mib": 2663.24609375,
+        "lifetime_peak_rss_mib": 6888.28125,
+        "wall_s": 33.1024848530069
+      },
+      "initialization": {
+        "aggregate_cpu_s": 46.923259631,
+        "device": {
+          "sampled_whole_device_occupied_mib": 6189.4375,
+          "torch_peak_allocated_mib": 0.26708984375,
+          "torch_peak_reserved_mib": 2.0
+        },
+        "largest_child_lifetime_peak_rss_mib": 2663.24609375,
+        "lifetime_peak_rss_mib": 6888.28125,
+        "wall_s": 24.561491861997638
+      },
+      "train": {
+        "aggregate_cpu_s": 8282.62628792,
+        "device": {
+          "sampled_whole_device_occupied_mib": 6189.4375,
+          "torch_peak_allocated_mib": 0.27880859375,
+          "torch_peak_reserved_mib": 2.0
+        },
+        "largest_child_lifetime_peak_rss_mib": 2663.24609375,
+        "lifetime_peak_rss_mib": 7226.79296875,
+        "wall_s": 3862.300970033044
+      }
+    },
+    "scope": "Non-overlapping entry-process phase wall and self plus waited/reaped-child CPU deltas; active unreaped child CPU is not yet included. Host-supervisor/watchdog CPU is separate. RSS is lifetime high-water, child RSS is largest individual child, not a summed phase peak. Torch allocation peaks include persistent scene tensors; sampled whole-device occupancy includes renderer/PhysX and foreign overhead, not model-only memory. Null device means no device sample, never zero inferred."
+  },
+  "producer_source_sha256": "a8c6955f25377d5e404e710c5b685b2fc82725e3b1379b86f285fb31f0d358c2",
+  "resource_scope": "Measured stopped-application producer phase costs; no final method comparison. CPU reader costs are separate; RSS is lifetime high-water and device occupancy is not model-only memory.",
+  "resume": false,
+  "saved_checkpoint_bytes": 186571,
+  "saved_final_checkpoint_sha256": "15020a948d295fe5e7258a732145b89aa61fda2c385a0d6966a9e4cc7e81bd41",
+  "scene_lock_released": true,
+  "schema": "sircus-candidate-continuation-launch-attempt-summary-v1",
+  "scope": "Real completed TRAIN and a preserved saved model, followed by incomplete assessment. No final TEST/generalization or model-improvement claim; no native retry, resumed batch, new training or model promotion.",
+  "source_and_inputs_post_failure": "passed_unchanged",
+  "source_commit": "9a49a0db07bf39fc876e37fccef4ef52ad4a76c3",
+  "status": "incomplete_no_retry",
+  "total_charged_new_requests": 1610,
+  "train": {
+    "captures": 804,
+    "clean_captures": 225,
+    "independent_native_audit_status": "revised_strict_reader_passed_completed_train_only",
+    "original_independent_native_audit_status": "failed_padding_label_check_preserved",
+    "rejected": 70,
+    "released": 1400,
+    "requested": 1470,
+    "terminal": 1470,
+    "unresolved": 0
+  }
+}

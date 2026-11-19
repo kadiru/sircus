@@ -16,6 +16,95 @@ const integer=x=>count(x)===null?'unknown':x.toLocaleString('en-US');
 const seconds=x=>number(x)===null||x<0?'unknown':`${fixed(x)} s`;
 const memory=x=>number(x)===null||x<0?'unknown':`${fixed(x,1)} MiB`;
 
+// Optional additive publication. The historical 70-request report stays at the
+// root; this panel never treats its earlier audit as a continuation audit.
+const CONTINUATION_SCHEMA='sircus-candidate-continuation-published-v1';
+const CONTINUATION_METHODS=['parent','candidate_bank','continued'];
+const CONTINUATION_LABELS={parent:'Original seed 22',candidate_bank:'Frozen bank selector',continued:'Continued seed 22'};
+const SPLITS=[['train','TRAIN',35],['validation','Fresh validation',35],['test','Fresh TEST',70]];
+const PHASE_LABELS={initialization:'Initialization',imitation:'Imitation',train:'Native TRAIN',assessment:'Frozen assessment',audit:'Independent audit'};
+
+export function continuationAudited(value){
+  if(value?.schema!==CONTINUATION_SCHEMA||value.status!=='completed_audited'||value.audit?.status!=='passed'||value.audit.all_components_passed!==true||value.audit.synthetic!==false||value.model_promoted!==false)return false;
+  const counters=value.counters??value.progress??{};
+  if(count(counters.train_requests)===null||counters.train_requests>1750||count(counters.train_releases)===null||counters.train_releases>1400||counters.train_releases>counters.train_requests||(counters.train_requests!==1750&&counters.train_releases!==1400)||counters.assessment_requests!==420)return false;
+  let releases=0;
+  for(const method of CONTINUATION_METHODS)for(const [split,,requested] of SPLITS){
+    const row=value.comparison?.methods?.[method]?.[split];
+    if(!row||row.requested!==requested||['released','rejected','captures','clean_captures'].some(key=>count(row[key])===null)||row.released+row.rejected!==requested||row.clean_captures>row.captures||row.captures>row.released)return false;
+    releases+=row.released;
+  }
+  return counters.assessment_releases===releases;
+}
+
+export function continuationStatus(value){
+  if(value?.schema!==CONTINUATION_SCHEMA)return {state:'failed',badge:'Unavailable',title:'Continuation evidence unavailable',detail:'A compatible continuation publication has not been supplied.'};
+  if(continuationAudited(value))return {state:'passed',badge:'Audit passed',title:'Bounded continuation completed',detail:'Learning, native TRAIN, startup and the final 420-request assessment passed the independent audit. The model has not been promoted.'};
+  if(value.status==='completed_audited')return {state:'failed',badge:'Evidence incomplete',title:'Continuation results are not verified',detail:'The supplied audit or final counts are incomplete or inconsistent. Performance results remain hidden.'};
+  if(['failed','incomplete_no_retry'].includes(value.status))return {state:'failed',badge:'Stopped',title:'Continuation stopped; evidence preserved',detail:txt(value.error)||'The bounded application did not complete its required audits. There is no automatic retry or model promotion.'};
+  if(['native_complete','audit_pending'].includes(value.status))return {state:'audit_pending',badge:'Audit pending',title:'Native execution finished; audit pending',detail:'Native completion does not establish a passed audit. Final capture, rejection and cost comparisons remain pending.'};
+  if(value.status==='running')return {state:'running',badge:'Running',title:'Bounded seed-22 continuation in progress',detail:'The existing policy is being continued under fixed limits. Final assessment outcomes remain hidden until all independent audits pass.'};
+  return {state:'failed',badge:'Unavailable',title:'Continuation status unavailable',detail:'An unrecognized execution state cannot establish completion.'};
+}
+
+export function continuationRows(value){
+  const audited=continuationAudited(value),unverified=['failed','incomplete_no_retry'].includes(value?.status)?'not audited':'pending audit';
+  return SPLITS.flatMap(([split,label,requested])=>CONTINUATION_METHODS.map(method=>{
+    const row=value?.comparison?.methods?.[method]?.[split];
+    return [label,CONTINUATION_LABELS[method],...(!audited?Array(4).fill(unverified):[`${row.captures} / ${requested} · ${fixed(100*row.captures/requested,1)}%`,`${row.clean_captures} / ${requested}`,`${row.rejected} / ${requested}`,`${row.released} / ${requested}`])];
+  }));
+}
+
+export function continuationComputeRows(value){
+  const unverified=['failed','incomplete_no_retry'].includes(value?.status)?'not audited':'pending audit';
+  return Object.entries(PHASE_LABELS).map(([phase,label])=>{
+    const row=value?.resources?.phases?.[phase]??{},device=row.device??{};
+    return [label,...(!continuationAudited(value)?Array(7).fill(unverified):[seconds(row.wall_s),seconds(row.aggregate_cpu_s),memory(row.lifetime_peak_rss_mib),memory(row.largest_child_lifetime_peak_rss_mib),memory(device.sampled_whole_device_occupied_mib),memory(device.torch_peak_allocated_mib),memory(device.torch_peak_reserved_mib)])];
+  });
+}
+
+// Failed producer receipts are useful cost evidence, but never a substitute
+// for the separate final-comparison or independently audited compute gates.
+export function continuationStoppedResources(value){
+  const stopped=value?.stopped_resources,record=x=>x!==null&&typeof x==='object'&&!Array.isArray(x)
+    &&[Object.prototype,null].includes(Object.getPrototypeOf(x));
+  if(value?.schema!==CONTINUATION_SCHEMA||!['failed','incomplete_no_retry'].includes(value.status)
+    ||!record(stopped)||typeof stopped.producer_receipt_sha256!=='string'||!/^[a-f0-9]{64}$/i.test(stopped.producer_receipt_sha256)
+    ||typeof stopped.scope!=='string'||!stopped.scope.trim()||!record(stopped.phases)||!Object.keys(stopped.phases).length)return null;
+  if(Object.entries(stopped.phases).some(([phase,row])=>!Object.hasOwn(PHASE_LABELS,phase)||!record(row)
+    ||(row.device!==undefined&&row.device!==null&&!record(row.device))))return null;
+  const phases=Object.entries(PHASE_LABELS).filter(([phase])=>phase!=='audit'||Object.hasOwn(stopped.phases,phase));
+  return {producer_receipt_sha256:stopped.producer_receipt_sha256,scope:stopped.scope,
+    rows:phases.map(([phase,label])=>{
+      const row=stopped.phases[phase]??{},device=row.device??{};
+      return [phase==='assessment'?'Partial frozen assessment':label,seconds(row.wall_s),seconds(row.aggregate_cpu_s),
+        memory(row.lifetime_peak_rss_mib),memory(row.largest_child_lifetime_peak_rss_mib),
+        memory(device.sampled_whole_device_occupied_mib),memory(device.torch_peak_allocated_mib),memory(device.torch_peak_reserved_mib)];
+    })};
+}
+
+export function continuationTrainMonitoring(value){
+  const monitoring=value?.train_monitoring,totals=monitoring?.totals;
+  const valid=row=>row&&['terminal','captures','clean_captures','released','rejected'].every(key=>count(row[key])!==null)
+    &&row.terminal<=1750&&row.released+row.rejected===row.terminal&&row.clean_captures<=row.captures&&row.captures<=row.released;
+  if(value?.schema!==CONTINUATION_SCHEMA||monitoring?.audited!==false||!valid(totals))return null;
+  if(totals.requested!==null&&(count(totals.requested)===null||totals.requested>1750||totals.requested<totals.terminal))return null;
+  if(totals.unresolved!==null&&(count(totals.unresolved)===null||totals.requested===null||totals.unresolved!==totals.requested-totals.terminal))return null;
+  let curve=[];
+  if(Array.isArray(monitoring.curve)&&monitoring.curve.length<=1751){
+    let previous=null;
+    const consistent=monitoring.curve.every(row=>{
+      const accepted=valid(row)&&row.terminal>0&&row.terminal<=totals.terminal
+        &&['captures','clean_captures','released','rejected'].every(key=>row[key]<=totals[key])
+        &&(!previous||(row.terminal>previous.terminal&&['captures','clean_captures','released','rejected'].every(key=>row[key]>=previous[key])));
+      previous=row;return accepted;
+    });
+    if(consistent)curve=monitoring.curve;
+  }
+  const prefix=valid(monitoring.latest_terminal_prefix)&&monitoring.latest_terminal_prefix.terminal<=totals.terminal?monitoring.latest_terminal_prefix:null;
+  return {totals,curve,prefix};
+}
+
 export function methodData(report,key){
   const raw=Array.isArray(report?.methods)?report.methods.find(x=>x.method===key):report?.methods?.[key];
   const value=raw??{};
@@ -104,6 +193,93 @@ function renderCases(report){const node=clear('caseList');if(!resultsAudited(rep
 
 function renderSources(report){const node=clear('sourceIdentity');line(node,'Audit:',txt(report.audit?.status)||'pending');if(report.audit?.sha256)node.appendChild(Object.assign(el('p','Audit SHA256: '+txt(report.audit.sha256)),{className:'hash'}));const source=report.source_binding??{};for(const [label,key] of [['Parent checkpoint SHA256','checkpoint_sha256'],['Candidate bank SHA256','candidate_bank_sha256'],['Frozen comparison plan SHA256','plan_sha256']])if(source[key])node.appendChild(Object.assign(el('p',label+': '+txt(source[key])),{className:'hash'}));const scopes=clear('scopeList');const lines=Array.isArray(report.scope)?report.scope:[txt(report.scope)].filter(Boolean);for(const text of lines)scopes.appendChild(el('li',String(text)));if(!lines.length)scopes.appendChild(el('li','Known TRAIN positions; frozen model weights; no optimizer updates or held-out generalization claim.'));}
 
+function renderTrainMonitoring(value){
+  const node=clear('continuationTrainMonitoring'),monitoring=continuationTrainMonitoring(value);
+  node.className=monitoring?'case-box':'case-box hidden';
+  if(!monitoring)return;
+  const {totals,curve,prefix}=monitoring,rate=n=>totals.terminal?`${integer(n)} / ${integer(totals.terminal)} · ${fixed(100*n/totals.terminal,1)}%`:`${integer(n)} / 0 · rate unavailable`;
+  node.appendChild(el('h3','Exploratory TRAIN monitoring'));
+  node.appendChild(Object.assign(el('p','Unaudited exploration on TRAIN positions. Frozen held-out performance remains gated by all independent audits.'),{className:'scope'}));
+  if(['failed','incomplete_no_retry'].includes(value.status))node.appendChild(el('p','Stopped attempt: these are preserved TRAIN journal counts. The pilot did not complete.'));
+  const wrapper=Object.assign(el('div'),{className:'table-wrap'});
+  wrapper.appendChild(table(['Charged requests','Completed TRAIN requests','Unresolved charged requests','Captures / completed','Clean captures / completed','Released','Rejected'],[[integer(totals.requested),integer(totals.terminal),integer(totals.unresolved),rate(totals.captures),rate(totals.clean_captures),integer(totals.released),integer(totals.rejected)]]));
+  node.appendChild(wrapper);
+  node.appendChild(Object.assign(el('p','Rates divide by completed TRAIN requests, including rejections. Unresolved charged requests remain separate until a terminal outcome is recorded.'),{className:'compute-note'}));
+  if(prefix)line(node,'Latest recorded batch outcomes:',`${integer(prefix.terminal)} requests · ${integer(prefix.captures)} captures · ${integer(prefix.clean_captures)} clean · ${integer(prefix.released)} released · ${integer(prefix.rejected)} rejected.`);
+  if(!curve.length){pending(node,totals.terminal?'Cumulative TRAIN curve unavailable.':'No completed TRAIN requests yet; capture rates are unavailable.');return;}
+  const ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg');
+  svg.setAttribute('viewBox','0 0 620 240');svg.setAttribute('role','img');svg.setAttribute('aria-label','Unaudited cumulative TRAIN capture and clean-capture rates across completed TRAIN requests, including rejections');
+  const add=(name,attrs,text)=>{const n=document.createElementNS(ns,name);for(const [key,v] of Object.entries(attrs))n.setAttribute(key,String(v));if(text!==undefined)n.textContent=String(text);svg.appendChild(n);return n;};
+  const left=50,right=595,top=22,bottom=172,maxX=totals.terminal;
+  for(const percentage of [0,50,100]){const y=bottom-(bottom-top)*percentage/100;add('line',{x1:left,x2:right,y1:y,y2:y,stroke:'#dce4e1'});add('text',{x:left-8,y:y+4,'text-anchor':'end',fill:'#5e7075','font-size':12},percentage+'%');}
+  add('line',{x1:left,x2:left,y1:top,y2:bottom,stroke:'#90a19c'});
+  add('text',{x:left,y:bottom+19,fill:'#5e7075','font-size':12},'0');
+  add('text',{x:right,y:bottom+19,'text-anchor':'end',fill:'#5e7075','font-size':12},integer(maxX));
+  add('text',{x:(left+right)/2,y:225,'text-anchor':'middle',fill:'#5e7075','font-size':13},'Completed TRAIN requests (including rejections)');
+  for(const [key,label,color,dash] of [['captures','Capture','#087e78',''],['clean_captures','Clean capture','#946e29','5 3']]){
+    const points=curve.map(row=>`${left+(right-left)*row.terminal/maxX},${bottom-(bottom-top)*row[key]/row.terminal}`).join(' ');
+    add('polyline',{points,fill:'none',stroke:color,'stroke-width':2.5,'stroke-dasharray':dash});
+    const last=curve[curve.length-1];add('circle',{cx:left+(right-left)*last.terminal/maxX,cy:bottom-(bottom-top)*last[key]/last.terminal,r:3,fill:color});
+    const x=key==='captures'?left:left+150;add('text',{x,y:12,fill:color,'font-size':12},label+(dash?' (dashed)':''));
+  }
+  const chart=Object.assign(el('div'),{className:'chart'});chart.appendChild(svg);node.appendChild(chart);
+}
+
+function renderStoppedResources(value){
+  const node=clear('continuationStoppedResources'),resources=continuationStoppedResources(value);
+  node.className=resources?'case-box':'case-box hidden';
+  if(!resources)return;
+  node.appendChild(el('h3','Stopped-run resource measurements'));
+  node.appendChild(Object.assign(el('p','Producer receipts for an incomplete attempt; full assessment and audit did not finish; not independently remeasured.'),{className:'scope'}));
+  const wrapper=Object.assign(el('div'),{className:'table-wrap'});
+  wrapper.appendChild(table(['Phase','Wall','Aggregate CPU','Lifetime RSS high-water','Largest child RSS high-water','Sampled whole-device occupancy','Torch CUDA allocated peak','Torch CUDA reserved peak'],resources.rows));
+  node.appendChild(wrapper);
+  node.appendChild(Object.assign(el('p',resources.scope),{className:'compute-note'}));
+  node.appendChild(Object.assign(el('p','Producer receipt SHA256: '+resources.producer_receipt_sha256),{className:'hash'}));
+}
+
+export function renderContinuation(value){
+  const section=document.getElementById('continuation'),nav=document.getElementById('continuationNav');
+  if(!section||!nav)return;
+  section.className=value===undefined?'card hidden':'card';nav.className=value===undefined?'hidden':'';
+  for(const id of ['continuationProgress','continuationResults','continuationCompute','continuationEvidence','continuationPaired'])clear(id);
+  renderTrainMonitoring(value);
+  renderStoppedResources(value);
+  if(value===undefined)return;
+  const view=continuationStatus(value),card=document.getElementById('continuationStatus');card.className='status '+view.state;
+  document.getElementById('continuationBadge').textContent=view.badge;document.getElementById('continuationTitle').textContent=view.title;document.getElementById('continuationDetail').textContent=view.detail;
+  const progress=clear('continuationProgress'),counters=value?.counters??value?.progress??{},phase=value?.phase??value?.progress?.phase;
+  line(progress,'Current phase:',PHASE_LABELS[phase]??'unknown');
+  line(progress,'Charged native TRAIN requests:',`${integer(counters.train_requests)} / 1,750 maximum`);
+  line(progress,'Native TRAIN releases:',`${integer(counters.train_releases)} / 1,400 maximum`);
+  line(progress,'Charged frozen-assessment requests:',`${integer(counters.assessment_requests)} / 420 planned`);
+  line(progress,'Frozen-assessment releases:',`${integer(counters.assessment_releases)} / 420 maximum`);
+  if(value?.learning){
+    const learning=value.learning,committed=learning.committed_update_counters??learning;
+    const description=row=>`Imitation steps ${integer(row.imitation_steps)} / 240 maximum · PPO updates ${integer(row.ppo_updates)} / 13 maximum · optimizer steps ${integer(row.optimizer_steps)}.`;
+    line(progress,'Recorded/committed update receipts:',description(committed));
+    if(learning.committed_update_counters)line(progress,'Latest reported counters:',description(learning));
+    if(learning.unreceipted_optimizer_work_possible===true)progress.appendChild(el('p','Additional in-flight optimizer work is unknown. No final checkpoint is committed in these receipts.'));
+  }
+  progress.appendChild(Object.assign(el('p','Charged requests include reservations and rejections; they are not a count of completed releases. TRAIN stops at the first request or release cap. Assessment uses 35 TRAIN + 35 fresh validation + 70 fresh TEST positions per method. One application attempt, no automatic retry; 3-hour application limit and 6 GiB storage floor.'),{className:'compute-note'}));
+  const results=clear('continuationResults');results.appendChild(table(['Split','Method','Captures / requests','Clean / requests','Rejected / requests','Released / requests'],continuationRows(value)));
+  const paired=clear('continuationPaired');
+  if(continuationAudited(value)){
+    for(const control of ['candidate_bank','parent']){
+      const pair=value.comparison.test_pairs?.['continued_minus_'+control];
+      if(pair)line(paired,`Fresh TEST vs ${CONTINUATION_LABELS[control]}:`,`Capture gains ${integer(pair.captured?.gains)}, losses ${integer(pair.captured?.losses)}; clean-capture gains ${integer(pair.clean?.gains)}, losses ${integer(pair.clean?.losses)}.`);
+    }
+    paired.appendChild(Object.assign(el('p','Paired comparisons use the same 70 fresh TEST positions. Position-wise bootstrap intervals describe this grid and one continuation, not uncertainty across independent training seeds. Historical TRAIN references remain separate from these newly measured controls.'),{className:'compute-note'}));
+  }else pending(paired,['failed','incomplete_no_retry'].includes(value?.status)?'No audited final paired comparison is available for this stopped attempt.':'Final paired outcomes remain pending a complete independent audit.');
+  const compute=clear('continuationCompute');compute.appendChild(table(['Phase','Wall','Aggregate CPU','Lifetime RSS high-water','Largest child RSS high-water','Sampled device occupancy','Torch CUDA allocated peak','Torch CUDA reserved peak'],continuationComputeRows(value)));
+  compute.appendChild(Object.assign(el('p',txt(value?.resources?.scope)||'Phase timings are separate. CPU includes the application and waited/reaped children; audit-child cost overlaps the application audit phase. RSS is lifetime high-water, not isolated phase memory. Device occupancy includes PhysX/renderer; Torch peaks are not model-only memory. Missing measurements stay unknown.'),{className:'compute-note'}));
+  const evidence=clear('continuationEvidence');line(evidence,'Continuation audit:',txt(value?.audit?.status)||'not supplied');
+  const finalSha=value?.final_checkpoint_sha256??(value?.final_checkpoint?.status==='saved_audit_pending'?value.final_checkpoint.sha256:undefined);
+  if(finalSha&&value?.learning?.unreceipted_optimizer_work_possible!==true)evidence.appendChild(Object.assign(el('p','Saved final checkpoint SHA256: '+txt(finalSha)),{className:'hash'}));
+  evidence.appendChild(el('p','No automatic model promotion. This is extra-budget continuation of one seed; it is not a new equal-cost three-seed benchmark. The original frozen benchmark and the historical 70-request comparison remain separate.'));
+  evidence.appendChild(el('p','No trial videos are recorded by this continuation protocol. Physics traces support the audits; existing benchmark videos remain in the original frozen interface.'));
+}
+
 export function render(report){
   const view=statusView(report),card=document.getElementById('statusCard');card.className='card status '+view.state;document.getElementById('statusBadge').textContent=view.badge;document.getElementById('statusTitle').textContent=view.title;document.getElementById('statusDetail').textContent=view.detail;
   const completed=METHOD_KEYS.reduce((sum,key)=>sum+(methodData(report,key).requests??0),0);document.getElementById('progress').textContent=`Native requests recorded: ${completed} / 70 · Optimizer updates: 0`;
@@ -111,10 +287,10 @@ export function render(report){
   const compute=clear('computeTable');compute.appendChild(table(['Method','Native wall','Setup + settling','Score phase','Process CPU','Selection'],computeRows(report)));compute.appendChild(el('h3','Memory measurements'));compute.appendChild(table(['Method','Peak process RSS','Sampled device occupancy','Torch CUDA allocated peak','Torch CUDA reserved peak'],memoryRows(report)));compute.appendChild(Object.assign(el('p','Device occupancy is a whole-GPU sample, not a peak or model-only memory. Torch allocations cover Torch tensors and omit most simulator memory.'),{className:'compute-note'}));
   const shared=clear('sharedCompute');if(resultsAudited(report)){const prep=report.preprocessing??report.preparation??{};const init=field(report.compute??{},'initialization_shared_wall_s')??report.initialization_shared_wall_s;line(shared,'Shared native initialization:',seconds(init));line(shared,'Inherited candidate-bank geometry preparation:',seconds(field(prep,'candidate_bank_wall_s','geometry_wall_s')));if(number(prep.candidate_bank_audit_wall_s)!==null)line(shared,'Inherited bank preparation + audit:',seconds(prep.candidate_bank_audit_wall_s));}
   document.getElementById('computeScope').textContent=txt(report.resource_scope)||'Unknown measurements stay unknown. Shared initialization and inherited bank preparation are separate from per-method execution; do not add overlapping intervals. Device occupancy is not model memory.';
-  renderCases(report);renderSources(report);
+  renderCases(report);renderSources(report);renderContinuation(report?.continuation);
 }
 
 export async function loadReport(fetcher=globalThis.fetch){const response=await fetcher('/report.json',{cache:'no-store'});if(!response.ok)throw new Error('Report HTTP '+response.status);const report=await response.json();render(report);return report;}
 let loading=false;
-async function refresh(){if(loading)return;loading=true;try{await loadReport();}catch(error){document.getElementById('statusCard').className='card status failed';document.getElementById('statusBadge').textContent='Unavailable';document.getElementById('statusTitle').textContent='Could not read comparison evidence';document.getElementById('statusDetail').textContent=String(error.message||error);for(const id of ['metrics','rateChart','paired','computeTable','sharedCompute','caseList','caseDetail','sourceIdentity','scopeList','computeScope'])clear(id);document.getElementById('progress').textContent='No current result claim is shown.';}finally{loading=false;}}
+async function refresh(){if(loading)return;loading=true;try{await loadReport();}catch(error){document.getElementById('statusCard').className='card status failed';document.getElementById('statusBadge').textContent='Unavailable';document.getElementById('statusTitle').textContent='Could not read comparison evidence';document.getElementById('statusDetail').textContent=String(error.message||error);for(const id of ['metrics','rateChart','paired','computeTable','sharedCompute','caseList','caseDetail','sourceIdentity','scopeList','computeScope'])clear(id);renderContinuation(undefined);document.getElementById('progress').textContent='No current result claim is shown.';}finally{loading=false;}}
 if(typeof document!=='undefined'){document.getElementById('refresh')?.addEventListener('click',refresh);refresh();setInterval(refresh,10000);}

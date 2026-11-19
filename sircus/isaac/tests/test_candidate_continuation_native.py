@@ -27,6 +27,10 @@ SCENE = dict(simulation=dict(physics_dt_s=1/240), ball=dict(radius_m=.0375),
         assumed_interior_depth_m=.175, assumed_bottom_thickness_m=.008, segments=64))
 METRIC = dict(position_error_mm=0., normal_error_deg=0., joint_speed_rad_s=0.,
     position_drift_mm=0., normal_drift_deg=0., dropper_position_error_mm=0., dropper_drift_mm=0.)
+# Six original dropper URDF effort strings, verified from frozen asset SHA
+# 3f40e56e46b040fb3339c1235ea85872f46511c45db2d37f7661db94a470bae3.
+# Nonbinary entries exercise the original native float32 tensor construction.
+EFFORT_CAPS = (382.5, 382.5, 243.525, 117.3, 38.25, 38.25)
 
 
 class FakeBase:
@@ -109,7 +113,7 @@ class NativeIntegrationTests(unittest.TestCase):
         self.camera=self.root/'camera.json'; self.camera.write_text('{}')
         self.poses=self.root/'poses.json'; self.poses.write_text(json.dumps(dict(dropper_joint_rad=[0.]*6,board_joint_rad=[0.]*6)))
         assets=self.root/'assets'; assets.mkdir()
-        xml='<robot>'+''.join(f'<joint name="joint{i}" type="revolute"><origin xyz="0 0 0" rpy="0 0 0"/><axis xyz="0 0 1"/><limit lower="-6.28" upper="6.28" effort="1"/></joint>' for i in range(1,7))+'</robot>'
+        xml='<robot>'+''.join(f'<joint name="joint{i}" type="revolute"><origin xyz="0 0 0" rpy="0 0 0"/><axis xyz="0 0 1"/><limit lower="-6.28" upper="6.28" effort="{EFFORT_CAPS[i-1]}"/></joint>' for i in range(1,7))+'</robot>'
         self.assets={a:assets/f for a,f in [('Arm10','dropper.urdf'),('Arm14','board_arm.urdf')]}
         for p in self.assets.values(): p.write_text(xml)
         self.cells=[dict(id=f'train-{i:03d}',split='train',bucket_xy_m=[.3+i*.01,-.1]) for i in range(35)]
@@ -129,7 +133,7 @@ class NativeIntegrationTests(unittest.TestCase):
         self.env.n=35;self.env.cfg=copy.deepcopy(SCENE);self.env.spec=dict(fingerprint='a'*64,cells=copy.deepcopy(self.cells))
         self.env.base_cells=copy.deepcopy(self.cells); self.env.dest=self.run;self.env.dt=1/240
         self.env.continuous_links={a:chain(ET.fromstring(p.read_bytes())) for a,p in self.assets.items()}
-        self.env.transit_limits=np.ones(6);self.env.origins=np.zeros((35,3));self.env.steps=0
+        self.env.transit_limits=np.asarray(EFFORT_CAPS,dtype=np.float32);self.env.origins=np.zeros((35,3));self.env.steps=0
         self.env.arms={a:types.SimpleNamespace(data=types.SimpleNamespace(default_joint_pos=np.zeros((35,8)))) for a in self.assets}
         self.env.poses=json.loads(self.poses.read_text())
         self.env.calls=[];self.env.reject_slots={1};self.env.capture=True
@@ -176,6 +180,45 @@ class NativeIntegrationTests(unittest.TestCase):
             parent_checkpoint_path=self.parent,camera_path=self.camera,assets_paths=self.assets,
             poses_path=self.poses,
             frozen_experiment_root=self.root/'frozen')
+
+    def test_original_nonbinary_urdf_caps_accept_only_the_unchanged_float32_representation(self):
+        original=self.env.transit_limits.copy()
+        self.assertEqual(original.dtype,np.dtype(np.float32))
+        self.assertFalse(np.array_equal(original,np.asarray(EFFORT_CAPS,dtype=np.float64)))
+        self.assertIsNone(subject.validate_transit_limits(original,self.assets['Arm10'].read_bytes()))
+        self.producer()
+        self.assertTrue(np.array_equal(self.env.transit_limits,original))
+        self.assertEqual(self.env.calls,[])
+
+    def test_effort_caps_changed_by_one_float32_ulp_fail_before_home(self):
+        original=self.env.transit_limits.copy()
+        changed=original.copy()
+        changed[2]=np.nextafter(changed[2],np.float32(np.inf))
+        self.assertEqual(int(changed[2].view(np.uint32)),int(original[2].view(np.uint32))+1)
+        self.env.transit_limits=changed
+        with self.assertRaisesRegex(ValueError,'effort caps'):
+            subject.validate_transit_limits(changed,self.assets['Arm10'].read_bytes())
+        with self.assertRaisesRegex(ValueError,'effort caps'):self.producer()
+        self.assertEqual(self.env.calls,[])
+
+    def test_effort_cap_wrong_dtype_nonfinite_and_shape_fail_before_home(self):
+        original=self.env.transit_limits.copy()
+        nan=original.copy();nan[2]=np.nan
+        positive_infinity=original.copy();positive_infinity[2]=np.inf
+        negative_infinity=original.copy();negative_infinity[2]=-np.inf
+        cases=dict(float64=original.astype(np.float64),float16=original.astype(np.float16),
+            row_shape=original.reshape(1,6),short_shape=original[:5],nan=nan,
+            positive_infinity=positive_infinity,negative_infinity=negative_infinity)
+        # The float64 case preserves exactly the same numeric float32 values;
+        # its rejection therefore independently checks the required dtype.
+        self.assertTrue(np.array_equal(cases['float64'],original))
+        for label,changed in cases.items():
+            with self.subTest(case=label):
+                self.env.transit_limits=changed
+                with self.assertRaisesRegex(ValueError,'effort caps'):
+                    subject.validate_transit_limits(changed,self.assets['Arm10'].read_bytes())
+                with self.assertRaisesRegex(ValueError,'effort caps'):self.producer()
+                self.assertEqual(self.env.calls,[])
 
     def test_reserved_exact_actions_guarded_call_once_and_original_rewards(self):
         runner,choices=self.reserve();producer=self.producer()
@@ -235,7 +278,7 @@ class NativeIntegrationTests(unittest.TestCase):
                 with self.assertRaisesRegex((ValueError,ET.ParseError),expected[mode]):self.producer()
                 self.parent.write_bytes(b'synthetic parent');self.camera.write_text('{}')
                 if mode=='asset':self.assets['Arm10'].write_bytes(self.assets['Arm14'].read_bytes())
-                self.env.transit_limits=np.ones(6)
+                self.env.transit_limits=np.asarray(EFFORT_CAPS,dtype=np.float32)
                 if mode=='method':del self.env.shot_batch
                 if mode=='home':self.env.arms['Arm10'].data.default_joint_pos[:]=0
                 self.cells=copy.deepcopy(original_cells)

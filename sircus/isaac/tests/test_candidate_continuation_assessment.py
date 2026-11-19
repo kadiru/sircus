@@ -1,5 +1,6 @@
 """Final assessment software checks using fabricated states/models/outcomes."""
 
+import ast
 import copy
 import gzip
 import hashlib
@@ -7,6 +8,7 @@ import json
 from pathlib import Path
 import sys
 import tempfile
+import time
 import types
 import unittest
 from unittest.mock import patch
@@ -19,7 +21,20 @@ import candidate_continuation_assessment_native as native
 from candidate_continuation_ledger import Ledger,Outcome,canonical_hash,ASSESSMENT_COHORTS
 from candidate_continuation_policy import freeze_support
 from continuous_feasibility import decode_action,LOW,HIGH,canonical_hash as geometry_hash
-from continuous_native_audit import expected_empty
+from board_route import BoardRoute
+from entry_quality import EntryQuality
+from rl_contract import ShotScore
+
+
+def original_parallel_shot_batch():
+    """Execute the original method body without importing Torch or an app."""
+    path=Path(__file__).resolve().parents[1]/"parallel_runtime.py"
+    module=ast.parse(path.read_text(),filename=str(path))
+    cls=next(node for node in module.body if isinstance(node,ast.ClassDef) and node.name=="ParallelShots")
+    method=next(node for node in cls.body if isinstance(node,ast.FunctionDef) and node.name=="shot_batch")
+    namespace=dict(np=np,time=time,ShotScore=ShotScore,EntryQuality=EntryQuality,BoardRoute=BoardRoute)
+    exec(compile(ast.Module(body=[method],type_ignores=[]),str(path),"exec"),namespace)
+    return namespace["shot_batch"]
 
 
 def complete_train_ledger():
@@ -201,25 +216,34 @@ class AssessmentTests(AssessmentFixture,unittest.TestCase):
 
 
 class FakeNativeEnv:
-    """Record adapter calls and fabricate declines; never steps any dynamics."""
+    """Original batch boundary with fake setup/physics and real CPU scorers."""
+    shot_batch=original_parallel_shot_batch()
+
     def __init__(self,directory,cells):
         self.dest=directory;self.cfg=dict(simulation=dict(physics_dt_s=1/240),ball=dict(radius_m=.0375),
             bucket=dict(inner_top_diameter_m=.177,inner_bottom_diameter_m=.15,assumed_interior_depth_m=.175,
                 assumed_bottom_thickness_m=.008,segments=64))
         self.base_cells=copy.deepcopy(cells);self.spec={};self.origins=np.zeros((35,3));self.dt=1/240
-        self.calls=[];self.steps=0;self.physics_samples=[];self.fail=False
+        self.calls=[];self.steps=0;self.physics_samples=[];self.fail=False;self.n=35
+        self.placements=[];self.tick_calls=0
     def home(self):self.calls.append("home");return dict(synthetic=True)
-    def shot_batch(self,actions,*,record_video,enabled):
+    def prepare(self,actions):
         self.calls.append("shot")
         assert list((self.dest/"native").glob("*.dispatch.json")),"No durable pre-call claim"
         if self.fail:raise RuntimeError("synthetic interrupted cohort")
+        enabled=self.active_mask
         self.preflight_records=[dict(accepted=False) if use else None for use in enabled]
         self.qualifications=[dict(accepted=False,reason="synthetic_guard_decline" if use else "inactive_split") for use in enabled]
         self.path_reasons=[None]*35;self.path_checks=[None]*35
         self.scoring_normals=np.tile([0.,0.,1.],(35,1));self.transit_history=[];self.correction_history=[];self.release_step=self.steps
-        rows=[dict(action,**expected_empty(self.cfg,cell,self.dt),cell_id=cell["id"],
-            invalid="synthetic_guard_decline" if use else "inactive_split") for action,cell,use in zip(actions,self.base_cells,enabled)]
-        return rows,dict(settling=[[] for _ in range(35)],trajectory_m=[[] for _ in range(35)])
+        invalid=["synthetic_guard_decline" if use else "inactive_split" for use in enabled]
+        return np.tile([.4,-.1,.5],(35,1)),self.scoring_normals,[[dict(synthetic=True)] for _ in range(35)],invalid
+    def set_balls(self,xyz):self.placements.append(np.asarray(xyz).copy())
+    def render(self):pass
+    def assert_buckets_fixed(self):pass
+    def tick(self):
+        self.tick_calls+=1
+        raise AssertionError("All synthetic setup declines must stay parked without physics ticks")
 
 
 class NativeAssessmentAdapterTests(AssessmentFixture,unittest.TestCase):
@@ -255,9 +279,54 @@ class NativeAssessmentAdapterTests(AssessmentFixture,unittest.TestCase):
         self.assertEqual(sum(r["decline_reason"]=="no_qualified_candidate_support" for r in all_results),6)
         self.assertEqual(producer.env.calls,["home","shot"]*12)
         packet=json.loads(gzip.decompress((runner.directory/"native/assessment-000003.json.gz").read_bytes()))
-        self.assertEqual(packet["rows"][24]["native_invalid"],"inactive_split")
+        self.assertEqual(packet["rows"][24]["native_invalid"],"no_selected_setting")
         self.assertEqual(packet["rows"][24]["invalid"],"no_qualified_candidate_support")
         self.assertEqual(packet["enabled"].count(False),1)
+        self.assertEqual(packet["rows"][24]["qualification"],dict(accepted=False,reason="inactive_split"))
+        self.assertIsNone(packet["preflight_records"][24]);self.assertIsNone(packet["rows"][24]["path_proxy"])
+        self.assertIsNone(packet["rows"][24]["path_rejection"]);self.assertIsNone(packet["reward_features"][24])
+        self.assertFalse(packet["rows"][24]["success"]);self.assertFalse(packet["rows"][24]["route_success"])
+        self.assertEqual(packet["rewards"][24],-1.);self.assertEqual(packet["trajectory_m"][24],[])
+        self.assertIsNone(packet["physics"]);self.assertEqual(packet["release_step"],packet["score_end_step"])
+        self.assertEqual(producer.env.tick_calls,0);self.assertEqual(len(producer.env.placements),12)
+        self.assertTrue(all(np.array_equal(xyz,np.tile([.1,-.8,.04],(35,1))) for xyz in producer.env.placements))
+        self.assertEqual(runner.ledger.summary()["assessment"]["requested"],420)
+        self.assertEqual(runner.ledger.summary()["assessment"]["released"],0)
+
+    def test_original_native_boundary_cannot_launder_executed_or_altered_empty_slots(self):
+        original_root=self.root
+        changes=[("wrong raw boundary label",lambda env,rows,i:rows[i].update(invalid="inactive_split")),
+            ("executed row",lambda env,rows,i:rows[i].update(invalid=None)),
+            ("fabricated preflight",lambda env,rows,i:env.preflight_records.__setitem__(i,dict(accepted=False))),
+            ("accepted qualification",lambda env,rows,i:env.qualifications.__setitem__(i,dict(accepted=True))),
+            ("altered inactive qualification",lambda env,rows,i:env.qualifications.__setitem__(i,dict(accepted=False,reason="other"))),
+            ("path check",lambda env,rows,i:env.path_checks.__setitem__(i,dict(accepted=True))),
+            ("path decline",lambda env,rows,i:env.path_reasons.__setitem__(i,"other")),
+            ("success",lambda env,rows,i:rows[i].update(success=True)),
+            ("capture",lambda env,rows,i:rows[i].update(route_success=True)),
+            ("clean",lambda env,rows,i:rows[i].update(route_quality=2))]
+        for index,(label,change) in enumerate(changes):
+            with self.subTest(change=label):
+                self.root=original_root/f"changed-{index}";self.root.mkdir()
+                runner=self.runner();producer=self.producer()
+                for _ in range(3):
+                    earlier=runner.reserve_batch();runner.record_results(self.results(earlier))
+                choices=runner.reserve_batch();empty=next(i for i,c in enumerate(choices) if not c["enabled"])
+                boundary=producer.env.shot_batch
+                def changed(actions,*,record_video,enabled):
+                    rows,raw=boundary(actions,record_video=record_video,enabled=enabled)
+                    change(producer.env,rows,empty)
+                    return rows,raw
+                producer.env.shot_batch=changed
+                with self.assertRaisesRegex(ValueError,"Empty bank slot"):
+                    producer.execute_reserved(runner,choices,expected_journal_head=runner.journal.head)
+                self.assertTrue(runner.failed);self.assertEqual(producer.env.tick_calls,0)
+                self.assertEqual(runner.ledger.summary()["assessment"]["requested"],140)
+                self.assertEqual(runner.ledger.summary()["assessment"]["unresolved"],35)
+                self.assertTrue((runner.directory/"native/assessment-000003.dispatch.json").is_file())
+                self.assertTrue((runner.directory/"native/assessment-000003.failure.json").is_file())
+                with self.assertRaises(ValueError):producer.execute_reserved(runner,choices,expected_journal_head=runner.journal.head)
+        self.root=original_root
 
     def test_interrupted_native_cohort_is_preserved_and_not_retried(self):
         runner=self.runner();producer=self.producer();choices=runner.reserve_batch();producer.env.fail=True

@@ -1,10 +1,33 @@
 # Production runtime and final assessment integration
 
 This completes the source wiring following the
-[native audit / bounded launch contract](CANDIDATE_NATIVE_GATES.md). It is
-**mock-tested production code, not a live-validated run**. This task started no
-simulator, real training, native task/diagnostic shots, GPU or hardware operation.
-The completed benchmark, its checkpoints/bank, and existing readers are unchanged.
+[native audit / bounded launch contract](CANDIDATE_NATIVE_GATES.md). The initial
+implementation was tested with mocks. V1–v3 stopped before task requests; v4
+completed TRAIN and saved its checkpoint, then stopped during assessment. The
+[preserved evidence](../../baselines/isaac-candidate-live-pilot-20261109/README.md)
+distinguishes those attempts from a completed audited pilot. No improved policy
+performance is established. The completed benchmark and its checkpoints/bank
+remain unchanged.
+
+The original native batch labels a disabled row `no_selected_setting`, while its
+preparation qualification stays `inactive_split`. Empty-support assessment
+requests retain their charged semantic decline `no_qualified_candidate_support`.
+The adapter now requires the exact native label and all no-execution invariants;
+the auditor normalizes only its private guard copy after strict raw checks.
+Saved packets, original batch code, release/IK/scoring thresholds and failed
+attempts are never rewritten. Regressions exercise the original batch body with
+fake physics, including all 420 synthetic slots and six empty-support declines.
+
+Unpaid TRAIN padding has the same raw-label distinction. The TRAIN reader
+requires exact padding identities, null request/choice/IK/preflight/path/reward
+fields, inactive qualification, false success flags and an empty trajectory
+before adapting only its copied guard view. The original generic guard and
+scorer still run; active rows and saved packets are unchanged. A corrected
+post-hoc reader has its own recorded source identity, preserves the original
+reader failure, and cannot complete or promote an interrupted assessment. The
+separate `c0bd3d6` CPU reader passed all 43 V4 TRAIN batches: 1,470 requests,
+1,400 releases, 70 rejections, 804 captures and 225 clean captures. This completed
+TRAIN component check is not an assessment or combined audit.
 
 ## Process and ownership boundary
 
@@ -21,11 +44,32 @@ checkpoints, passed audits and mock tests do not grant execution permission.
 The fixed process chain is host supervisor → existing-container
 [independent watchdog](candidate_continuation_watchdog.py) → one
 [application entry](candidate_continuation_entry.py) → separate CPU audit child.
+Host and watchdog imports require only Python's standard library; the learning
+contract repeats the policy's fixed probability-law label, checked for equality
+by tests, without importing NumPy or Torch. The native child still verifies its
+full bound dependency versions before app startup. This bootstrap separation
+does not alter the learning protocol hash or provide a CPU simulation fallback.
 The watchdog has its own process and clock: a blocked native callback cannot
 prevent enforcement. It checks phase order, charged counters, source/storage,
 startup schedule and absolute/phase deadlines using append-only session-bound
 progress receipts. Host polling preserves phase boundaries even when many fast
 imitation receipts arrive between polls.
+
+The watchdog bounds each already-read progress list with a fresh monotonic clock
+sample after the read, then rechecks clock/deadlines after validation. This avoids
+calling a concurrently published receipt "future" against a stale pre-read time.
+Actual receipt timestamps still set phase starts; no tolerance or deadline was
+added. Truly future/reversed stamps, delayed transitions and time spent reading
+or validating beyond a phase/absolute cap still stop the owned application.
+
+Private container receipts remain `0600`. The host reads only the two fixed
+runtime receipts and complete progress metadata through the existing container's
+read-only snapshot action. Each response binds a fresh request nonce, exact
+watchdog-input bytes/fingerprint, session and output; the host rechecks every
+receipt/progress fingerprint, owner join and already-observed history prefix.
+Canonical paths, symlinks and the fixed file allowlist are checked on the read
+side. This path imports no application/model code and cannot start or stop work,
+change permissions or read arbitrary evidence. Direct host reads are not used.
 
 The watchdog uses Linux pidfds and PID/start-token/session/lineage checks to stop
 only its owned child and descendants. It does not signal a process group or a
@@ -33,6 +77,22 @@ reused/foreign PID. Cleanup grace is clipped to the existing deadline. Uncertain
 ownership or cleanup preserves evidence and retains the shared-lock lease rather
 than permitting another launch. The original two-hour queue, three-hour absolute
 application cap, per-phase limits and 6 GiB storage floor remain fixed.
+
+The [pidfd adapter](candidate_continuation_pidfd.py) prefers CPython's bindings.
+For the reviewed 64-bit Linux x86_64 ABI only, a bundled Python missing those
+bindings uses the same kernel pidfd operations through typed libc syscalls
+434/424, verified against the Ubuntu installed headers. Kernel/API errors still
+fail closed; there is no numeric-PID or process-group signalling fallback. All
+existing identity/start/session/ancestry rechecks stay around the pinned fd.
+An explicit capability preflight opens only the checking process, sends signal
+zero and closes the descriptor before subreaper setup or any application start.
+This preflight never authorizes starting or retrying an application.
+
+The first authorized launch stopped before native-child creation because its
+older source required the missing CPython bindings. Its failed-no-retry history
+is preserved in the [launch evidence](../../baselines/isaac-candidate-live-pilot-20261109/README.md).
+The compatibility fix passed 60 mock cases and its self-only capability probe in
+the existing container before the separately authorized v2/v3 attempts.
 
 ## Reviewed inputs and one native application
 
@@ -61,6 +121,11 @@ binding created **after** actual startup control bytes exist; no future startup
 hash or observation is guessed.
 
 The entry validates inputs and source metadata before its sole `AppLauncher`.
+It also checks the original CPU `torch.tensor` representation of the six URDF
+effort limits. Both this preflight and the producer require the exact original
+float32 dtype, shape, finite values and bits; a one-ULP change fails. The actual
+GPU limit construction and controller remain unchanged. This avoids mistaking
+the original float32 representation for changed float64 limit values.
 It compiles only the unchanged film source's definitions and scene-construction
 prefix, ending at its origins-equality gate. It never executes that file's
 top-level app launcher or old training/filming main loop. Original scene,
@@ -133,6 +198,23 @@ continuation, not uncertainty over independent training seeds. Historical 13/16
 TRAIN witnesses are retention references, separate from newly paired controls.
 Every complete/failed report retains `model_promoted=False`.
 
+The separate [read-only final publisher](candidate_continuation_report.py)
+requires external hashes for the closed application, combined audit, host launch
+result and pinned manifest, plus the expected session and producer source. It
+joins all four passed audit components, exact final checkpoint bytes, complete
+request ledgers and the final TRAIN journal before constructing a continuation
+report. It recounts comparison denominators and derives the complete exploratory
+TRAIN curve; it does not load a model, rerun physics or write a file. The host's
+`native_complete_independent_audit_required` status alone cannot establish an
+audit pass.
+
+Its additive update preserves the historical 70-request report root and nested
+prior attempts. It refuses to replace another active session. Stop the finite
+TRAIN-only publisher before atomically publishing the final audited child through
+the existing GET-only reader; no reader restart is needed. Final checkpoints
+remain separate saved artifacts, and this continuation protocol records no new
+trial videos. Existing frozen benchmark videos remain in their original reader.
+
 Entry phase timers separate initialization, imitation, TRAIN, assessment and
 audit. CPU is self plus waited/reaped-child deltas; active unreaped child CPU is
 not included until reaped. Host supervisor/watchdog overhead is separate. RSS is
@@ -147,5 +229,5 @@ remain separate from new work. Unmeasured device values stay null.
 records mock/synthetic checks and source hashes, not model performance. Before
 any actual execution, the source snapshot, manifest, current dependency versions,
 GPU/lock ownership, storage and untouched output must pass their implemented
-checks under a separately authorized invocation. No live validation or launch is
-authorized or implied by this implementation task.
+checks under a separately authorized invocation. Source checks and passed
+component readers grant no permission to retry or resume a closed application.

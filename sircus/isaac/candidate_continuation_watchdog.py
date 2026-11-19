@@ -19,11 +19,14 @@ import time
 
 from candidate_continuation_journal import write_new_json
 from candidate_continuation_ledger import canonical_hash
+from candidate_continuation_pidfd import capability_preflight, pidfd_open, pidfd_send_signal
 from candidate_continuation_launcher import (ChildIdentity, CONTAINER, GPU_UUID,
     NATIVE_SECONDS, PHASES, PHASE_LIMITS, DiagnosticLedger, MIN_FREE_BYTES)
 
 SCHEMA = "sircus-candidate-runtime-watchdog-v1"
 PROGRESS_SCHEMA = "sircus-candidate-runtime-progress-v1"
+SNAPSHOT_SCHEMA = "sircus-candidate-runtime-metadata-snapshot-v1"
+RECEIPT_NAMES = ("runtime-owner.json", "runtime-exit.json")
 COOKIE = "SIRCUS_CONTINUATION_SESSION"
 MAX_PROGRESS = 10000
 TERM_GRACE_S = 30
@@ -77,16 +80,27 @@ class ProgressWriter:
 def read_progress(output, session):
     """Verify complete published records; pending atomic-write files are not read."""
     directory = Path(output)/"runtime-progress"
+    require(not directory.is_symlink(), "Linked runtime progress directory")
     if not directory.exists():
         return []
     require(directory.is_dir() and not directory.is_symlink(), "Linked runtime progress directory")
     paths = sorted(p for p in directory.iterdir() if not p.name.startswith(".pending-"))
     require(len(paths) <= MAX_PROGRESS, "Runtime progress bound exceeded")
-    events, head, previous_time = [], "0"*64, -1.
+    events = []
     for i,path in enumerate(paths):
         require(path.name == f"event-{i:06d}.json" and path.is_file() and not path.is_symlink(),
                 "Runtime progress gap, duplicate or unexpected file")
         event = strict_json(path.read_bytes())
+        events.append(event)
+    return verify_progress(events,session)
+
+
+def verify_progress(events, session):
+    """Recheck the complete chain after read-only container transport."""
+    require(type(events) is list and len(events) <= MAX_PROGRESS,"Runtime progress bound exceeded")
+    head, previous_time = "0"*64, -1.
+    for i,event in enumerate(events):
+        require(type(event) is dict,"Malformed runtime progress event")
         require(set(event) == {"schema","session","seq","previous_sha256","monotonic_s","snapshot","fingerprint"}
             and event["schema"] == PROGRESS_SCHEMA and event["session"] == session
             and type(event["seq"]) is int and event["seq"] == i and event["previous_sha256"] == head
@@ -96,7 +110,6 @@ def read_progress(output, session):
         require(type(stamp) in (int,float) and math.isfinite(stamp) and stamp >= previous_time,
                 "Runtime progress clock moved backwards")
         previous_time, head = stamp, event["fingerprint"]
-        events.append(event)
     return events
 
 
@@ -130,11 +143,12 @@ class LinuxProcessOps:
     def free_bytes(self,path): return shutil.disk_usage(path).free
 
     def prepare(self):
+        # Check the actual pidfd kernel path using only our own process and
+        # signal zero; close its fd before subreaper setup or any app start.
+        self.pidfd_capability = capability_preflight()
         # Adopt orphaned grandchildren so that failed native workers cannot
         # outlive this watchdog merely by losing their immediate parent.
         import ctypes
-        require(hasattr(os,"pidfd_open") and hasattr(signal,"pidfd_send_signal"),
-                "Linux pidfd support is required for production ownership")
         require(ctypes.CDLL(None,use_errno=True).prctl(36,1,0,0,0) == 0,
                 "Owned-child subreaper setup failed")
         offsets = Path("/proc/self/timens_offsets")
@@ -190,7 +204,7 @@ class LinuxProcessOps:
             return "already_exited"
         if not same_process(current,record):
             return "ownership_mismatch"
-        try:descriptor = os.pidfd_open(record["pid"],0)
+        try:descriptor = pidfd_open(record["pid"],0)
         except ProcessLookupError:return "already_exited"
         try:
             # Opening a pidfd pins one process identity. Recheck the start tick
@@ -200,7 +214,7 @@ class LinuxProcessOps:
             owned = self.owned(record["pid"],session)
             if not any(r["pid"] == record["pid"] and r["start_token"] == record["start_token"] for r in owned):
                 return "ownership_mismatch"
-            signal.pidfd_send_signal(descriptor,signum,None,0)
+            pidfd_send_signal(descriptor,signum,None,0)
             return "signalled"
         except ProcessLookupError:
             return "already_exited"
@@ -271,6 +285,85 @@ def validate_payload(payload):
     return payload
 
 
+def _metadata_path(raw, local_path):
+    require(type(raw) is str,"Metadata paths must be canonical strings")
+    relative = PurePosixPath(raw)
+    require(relative.is_absolute() and relative.is_relative_to("/workspace")
+        and ".." not in relative.parts and str(relative) == raw,
+        "Metadata path leaves the canonical existing mount")
+    root,path = Path(local_path("/workspace")),Path(local_path(raw))
+    require(path.is_absolute() and path.is_relative_to(root) and str(path.resolve()) == str(path)
+        and not any(p.is_symlink() for p in (path,*path.parents) if p.is_relative_to(root)),
+        "Linked or noncanonical metadata path")
+    return path
+
+
+def verify_metadata_snapshot(value, *, session, nonce, payload_raw_sha256, payload_fingerprint, output):
+    """Authenticate only the two runtime receipts and complete progress metadata."""
+    require(type(value) is dict and set(value) == {"schema","session","nonce","payload_raw_sha256",
+        "payload_fingerprint","output","receipts","progress","fingerprint"}
+        and value["schema"] == SNAPSHOT_SCHEMA and value["session"] == session and value["nonce"] == nonce
+        and value["payload_raw_sha256"] == payload_raw_sha256 and value["payload_fingerprint"] == payload_fingerprint
+        and value["output"] == output
+        and value["fingerprint"] == canonical_hash({k:v for k,v in value.items() if k != "fingerprint"}),
+        "Runtime metadata snapshot binding/fingerprint changed")
+    receipts = value["receipts"]
+    require(type(receipts) is dict and set(receipts) == set(RECEIPT_NAMES),"Runtime metadata receipt allowlist changed")
+    for name,receipt in receipts.items():
+        if receipt is None:continue
+        require(type(receipt) is dict and receipt.get("schema") == SCHEMA and receipt.get("session") == session
+            and receipt.get("payload_sha256") == payload_fingerprint
+            and receipt.get("fingerprint") == canonical_hash({k:v for k,v in receipt.items() if k != "fingerprint"}),
+            "Runtime receipt session/fingerprint/payload changed")
+        for key in ("owner","native_owner"):
+            owner = receipt.get(key)
+            require(type(owner) is dict and type(owner.get("pid")) is int and owner["pid"] > 1
+                and type(owner.get("start_token")) is str and bool(owner["start_token"])
+                and owner.get("cookie") == session,"Runtime metadata owner identity changed")
+    owner,done = (receipts[name] for name in RECEIPT_NAMES)
+    if done is not None:
+        require(owner is not None and same_process(done["owner"],owner["owner"])
+            and done["native_owner"] == owner["native_owner"] and type(done.get("exit_code")) is int,
+            "Runtime exit is not bound to the exact owned watchdog/native child")
+    verify_progress(value["progress"],session)
+    return value
+
+
+def metadata_snapshot(payload_path, *, expected_payload_sha256, payload_fingerprint, session, nonce, local_path=Path):
+    """Read fixed private metadata through the existing root container route.
+
+    No process inspection, signalling, application import or writable operation.
+    ``local_path`` is a test-only mount mapper; the CLI uses literal /workspace.
+    The path must be the exact new-only watchdog input under its own output.
+    """
+    require(type(session) is str and re.fullmatch(r"[0-9a-f]{32}",session)
+        and type(nonce) is str and re.fullmatch(r"[0-9a-f]{32}",nonce),"Invalid metadata session/nonce")
+    require(all(type(v) is str and re.fullmatch(r"[0-9a-f]{64}",v)
+        for v in (expected_payload_sha256,payload_fingerprint)),"Exact metadata payload digests required")
+    path = _metadata_path(payload_path,local_path)
+    require(path.name == "watchdog-input.json" and path.is_file(),"Only the fixed watchdog input may select metadata")
+    raw = path.read_bytes()
+    require(hashlib.sha256(raw).hexdigest() == expected_payload_sha256,"Raw metadata payload bytes changed")
+    payload = validate_payload(strict_json(raw))
+    require(payload["session"] == session and payload["fingerprint"] == payload_fingerprint
+        and payload_path == str(PurePosixPath(payload["output"])/"watchdog-input.json"),
+        "Metadata target differs from the bound payload/session/output")
+    output = _metadata_path(payload["output"],local_path)
+    require(output.is_dir(),"Bound metadata output is missing")
+    # Read exit before owner: a newly published exit may never be paired with an
+    # earlier missing-owner observation. Progress remains an authenticated prefix.
+    receipts = {}
+    for name in reversed(RECEIPT_NAMES):
+        target = _metadata_path(str(PurePosixPath(payload["output"])/name),local_path)
+        require(not target.exists() or target.is_file(),"Runtime metadata receipt must be a plain file")
+        receipts[name] = strict_json(target.read_bytes()) if target.exists() else None
+    value = signed(dict(schema=SNAPSHOT_SCHEMA,session=session,nonce=nonce,
+        payload_raw_sha256=expected_payload_sha256,payload_fingerprint=payload_fingerprint,
+        output=payload["output"],receipts=receipts,progress=read_progress(output,session)))
+    return verify_metadata_snapshot(value,session=session,nonce=nonce,payload_raw_sha256=expected_payload_sha256,
+        payload_fingerprint=payload_fingerprint,output=payload["output"])
+
+
 def run_guarded(payload, ops=None):
     """One native start under an independent deadline and authenticated IPC."""
     validate_payload(payload)
@@ -320,6 +413,13 @@ def run_guarded(payload, ops=None):
                             "Native source bytes changed during application")
                 last_resource_check = now
             events = read_progress(output,session)
+            # Source checks and the real reader can overlap publication. Bound
+            # this frozen event list by a clock sampled after its read, rather
+            # than misclassifying a newly published receipt against stale time.
+            observed_now = ops.monotonic()
+            require(math.isfinite(observed_now) and observed_now >= last_time, "Watchdog monotonic clock changed")
+            last_time = observed_now
+            require(observed_now <= payload["absolute_deadline"], "Independent absolute native wall limit exceeded")
             for event in events[consumed:]:
                 snapshot = event["snapshot"]
                 require(type(snapshot) is dict and snapshot.get("phase") in PHASES,
@@ -327,7 +427,7 @@ def run_guarded(payload, ops=None):
                 next_phase = PHASES.index(snapshot["phase"])
                 require(next_phase in (phase,phase+1), "Watchdog phase order changed")
                 stamp = event["monotonic_s"]
-                require(start <= stamp <= now and stamp-phase_start <= dict(PHASE_LIMITS)[PHASES[phase]],
+                require(start <= stamp <= observed_now and stamp-phase_start <= dict(PHASE_LIMITS)[PHASES[phase]],
                         "Delayed or future phase receipt cannot extend a deadline")
                 if next_phase != phase:
                     if next_phase == PHASES.index("assessment"):
@@ -356,6 +456,11 @@ def run_guarded(payload, ops=None):
                         "Watchdog saw TRAIN work after checkpoint freeze")
                 counters = {k:snapshot[k] for k in counters}
             consumed = len(events)
+            # Receipt validation time counts toward the same original caps.
+            now = ops.monotonic()
+            require(math.isfinite(now) and now >= last_time, "Watchdog monotonic clock changed")
+            last_time = now
+            require(now <= payload["absolute_deadline"], "Independent absolute native wall limit exceeded")
             require(now-phase_start <= dict(PHASE_LIMITS)[PHASES[phase]], "Independent phase wall limit exceeded")
             code = ops.poll(pid)
             if code is not None:
@@ -407,12 +512,12 @@ def stop_watchdog(value):
     current = inspect_watchdog(value["pid"],value["session"])
     if current is None: return dict(status="ownership_mismatch")
     if current["start_token"] != value["start_token"]: return dict(status="ownership_mismatch")
-    try:descriptor = os.pidfd_open(value["pid"],0)
+    try:descriptor = pidfd_open(value["pid"],0)
     except ProcessLookupError:return dict(status="already_exited")
     try:
         if not same_process(inspect_watchdog(value["pid"],value["session"]),current):
             return dict(status="ownership_mismatch")
-        signal.pidfd_send_signal(descriptor,signal.SIGTERM,None,0)
+        pidfd_send_signal(descriptor,signal.SIGTERM,None,0)
         return dict(status="stop_requested")
     except ProcessLookupError:
         return dict(status="already_exited")
@@ -426,8 +531,17 @@ def main():
     action.add_argument("--execute",type=Path)
     action.add_argument("--inspect",type=int)
     action.add_argument("--stop")
+    action.add_argument("--snapshot")
     parser.add_argument("--session")
+    parser.add_argument("--expected-payload-sha256")
+    parser.add_argument("--payload-fingerprint")
+    parser.add_argument("--nonce")
     args = parser.parse_args()
+    if args.snapshot is not None:
+        require(os.environ.get(COOKIE) == args.session,"Metadata snapshot session cookie missing")
+        print(json.dumps(metadata_snapshot(args.snapshot,expected_payload_sha256=args.expected_payload_sha256,
+            payload_fingerprint=args.payload_fingerprint,session=args.session,nonce=args.nonce),allow_nan=False))
+        return 0
     if args.inspect is not None:
         require(os.environ.get(COOKIE) == args.session,"Watchdog inspection session missing")
         print(json.dumps(inspect_watchdog(args.inspect,args.session))); return 0

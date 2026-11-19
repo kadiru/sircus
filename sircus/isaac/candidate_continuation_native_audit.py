@@ -6,6 +6,7 @@ optimizer, simulator, subprocess or GPU backend is constructed. A native pass
 does not certify learning arithmetic, fresh assessment, or physical execution.
 """
 
+import copy
 import gzip
 from dataclasses import asdict
 import hashlib
@@ -28,6 +29,7 @@ SCHEMA = "sircus-candidate-continuation-native-audit-v1"
 MAX_PACKET_BYTES = 64 * 1024**2
 RESULT_FIELDS = {"request_id", "released", "decline_reason", "source_sha256",
                  "return", "captured", "clean"}
+PADDING_VIEW_SCHEMA = "sircus-native-train-padding-guard-view-v1"
 
 
 def require(value, message):
@@ -83,6 +85,50 @@ def _packet(native, stem):
     require(hashlib.sha256(raw).hexdigest() == receipt["uncompressed_sha256"],
             "Native uncompressed receipt changed")
     return _json(raw), receipt["sha256"]
+
+
+def _padding_guard_view(packet):
+    """Strictly adapt only unpaid native padding in a private guard copy.
+
+    The original ParallelShots boundary emits no_selected_setting after prepare
+    records inactive_split. This reader never changes a paid row or the raw
+    packet passed to the unchanged scorer. Its caller first authenticates bytes,
+    reservation, slot mapping and any saved physics file.
+    """
+    names=("cells","actions","choices","enabled","rows","proposal_ik_seeds",
+           "preflight_records","rewards","reward_features","trajectory_m")
+    require(all(type(packet.get(name)) is list and len(packet[name]) == 35 for name in names),
+            "Native padding requires complete 35-slot evidence")
+    identifiers=packet.get("request_ids")
+    require(type(identifiers) is list and 1 <= len(identifiers) <= 35
+        and all(type(value) is str and value for value in identifiers)
+        and len(set(identifiers)) == len(identifiers),"Native paid request prefix changed")
+    paid=len(identifiers)
+    require(all(type(value) is bool for value in packet["enabled"])
+        and packet["enabled"] == [i < paid for i in range(35)],"Native padding differs from paid prefix")
+    padding=list(range(paid,35))
+    for i in padding:
+        row,cell=packet["rows"][i],packet["cells"][i]
+        require(type(row) is dict and type(cell) is dict and row.get("invalid") == "no_selected_setting"
+            and row.get("cell_id") == cell.get("id") and row.get("split") == cell.get("split") == "inactive"
+            and row.get("request_id") is None and packet["choices"][i] is None
+            and packet["proposal_ik_seeds"][i] is None and packet["preflight_records"][i] is None
+            and type(row.get("qualification")) is dict and row["qualification"].get("accepted") is False
+            and row["qualification"] == dict(accepted=False,reason="inactive_split")
+            and row.get("path_proxy") is None and row.get("path_rejection") is None
+            and packet["rewards"][i] is None and packet["reward_features"][i] is None
+            and row.get("success") is False and row.get("route_success") is False
+            and type(row.get("route_quality")) is int and row["route_quality"] == 0
+            and packet["trajectory_m"][i] == [],
+            "Unpaid native padding was executed, relabelled, scored or omitted")
+    guarded=copy.deepcopy(packet)
+    for i in padding:guarded["rows"][i]["invalid"]="inactive_split"
+    proof=dict(schema=PADDING_VIEW_SCHEMA,paid_requests=paid,unpaid_slots=35-paid,
+        normalized_slots=padding,raw_label="no_selected_setting",guard_view_label="inactive_split",
+        paid_rows_unchanged=guarded["rows"][:paid] == packet["rows"][:paid],
+        scope="Unpaid parked slots only; raw packet, actions, original scoring and paid counts stay unchanged.")
+    require(proof["paid_rows_unchanged"],"Padding adapter changed a paid native row")
+    return guarded,proof
 
 
 def audit_native_train(directory, *, expected_head_sha256, expected_bindings,
@@ -184,8 +230,11 @@ def audit_native_train(directory, *, expected_head_sha256, expected_bindings,
                 require(_digest(_file(native, physics["file"])) == physics["sha256"],
                         "Native physics bytes changed")
                 expected_files.add(physics["file"])
-            guards = verify_guards(packet, scene, packet["cells"], links, packet["proposal_ik_seeds"])
+            raw_fingerprint=canonical_hash(packet)
+            guarded,padding_proof = _padding_guard_view(packet)
+            guards = verify_guards(guarded, scene, packet["cells"], links, packet["proposal_ik_seeds"])
             scored = verify_score(native, packet, scene)
+            require(canonical_hash(packet) == raw_fingerprint,"Native padding audit mutated the raw packet")
             require(len(scored["terminal_results"]) == len(batch.requests), "Scorer omitted reserved requests")
             for row in scored["terminal_results"]:
                 identifier = row["request_id"]
@@ -197,7 +246,8 @@ def audit_native_train(directory, *, expected_head_sha256, expected_bindings,
                         "Invalid native process cost")
                 costs[field] += value
             summaries.append(dict(batch=batch.batch_index, packet_sha256=packet_sha,
-                guards=guards, scores={k:v for k,v in scored.items() if k != "terminal_results"}))
+                guards=guards, scores={k:v for k,v in scored.items() if k != "terminal_results"},
+                padding_guard_view=padding_proof))
         elif kind == "outcomes":
             rows = payload["results"]
             require(type(rows) is list and bool(rows), "Empty native outcome prefix")
@@ -231,6 +281,12 @@ def audit_native_train(directory, *, expected_head_sha256, expected_bindings,
         requests=len(known), releases=released, rejections=len(known)-released,
         captures=captures, clean_captures=clean, batches=summaries, ledger=ledger.summary(),
         native_batch_costs=costs, startup_controls=controls,
+        auditor_source_sha256=_digest(Path(__file__)),
+        padding_guard_view=dict(schema=PADDING_VIEW_SCHEMA,
+            normalized_unpaid_slots=sum(row["padding_guard_view"]["unpaid_slots"] for row in summaries),
+            raw_label="no_selected_setting",guard_view_label="inactive_split",
+            raw_packets_unchanged=True,paid_rows_unchanged=True,
+            scope="Strict read-only guard views after byte/reservation/physics joins; no paid result or saved evidence is relabelled."),
         learning_checkpoint_audit_required=True, assessment_audit_implemented=False,
         startup_schedule_counts_verified=False, model_promoted=False,
         execution_authorized=False, release_authorized=False,

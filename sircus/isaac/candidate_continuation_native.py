@@ -138,6 +138,25 @@ def validate_environment(env, binding):
             "Native arm chains/effort caps must be configured from verified assets")
 
 
+def validate_transit_limits(caps, urdf_bytes):
+    """Check exact original float32 caps without constructing a native scene.
+
+    The caller separately verifies the original URDF byte identity. Actual caps
+    are never cast or modified; the expected values use the original native
+    float32 tensor representation. No tolerance, clipping or controller change.
+    """
+    if hasattr(caps, "detach"):
+        caps = caps.detach().cpu().numpy()
+    caps = np.asarray(caps)
+    model = ET.fromstring(urdf_bytes)
+    expected = np.asarray([float(model.find(f".//joint[@name='joint{i+1}']/limit").get("effort"))
+        for i in range(6)], dtype=np.float32)
+    require(caps.dtype == np.dtype(np.float32) and caps.shape == (6,)
+        and np.isfinite(caps).all() and np.isfinite(expected).all()
+        and np.array_equal(caps, expected),
+        "Native transit effort caps differ from original URDF")
+
+
 def prepare_packet(choices, ledger, cells, supports, prepared_records, original_cells):
     """Pure slot mapping; active actions stay exact and inactive slots stay parked."""
     require(type(ledger) is Ledger and ledger.phase == "train" and ledger.stopped_reason is None
@@ -223,12 +242,7 @@ class GuardedNativeProducer:
         from joint_feasibility import _chains
         chains = {name:chain(ET.fromstring(path.read_bytes())) for name,path in self.assets_paths.items()}
         require(_chains(self.env.continuous_links) == _chains(chains), "Native chains differ from verified asset bytes")
-        caps = self.env.transit_limits
-        if hasattr(caps, "detach"): caps = caps.detach().cpu().numpy()
-        model = ET.fromstring(self.assets_paths["Arm10"].read_bytes())
-        expected_caps = [float(model.find(f".//joint[@name='joint{i+1}']/limit").get("effort")) for i in range(6)]
-        require(np.asarray(caps).shape == (6,) and np.array_equal(np.asarray(caps), expected_caps),
-                "Native transit effort caps differ from original URDF")
+        validate_transit_limits(self.env.transit_limits, self.assets_paths["Arm10"].read_bytes())
         require(b["source_sha256"] == source_fingerprint() and b["guard_source_sha256"] == guard_sources()
             and b["setup_controller"] == setup_protocol(), "Original native guards/controller source changed")
         require(b["support_sha256"] == canonical_hash([s.to_dict() for s in self.supports])

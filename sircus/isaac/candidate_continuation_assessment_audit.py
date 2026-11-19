@@ -203,14 +203,17 @@ def verify_assessment_packet(native_directory, packet, *, scene, cells, links, c
             require(row.get("native_invalid") == row.get("invalid"), "Native guard decline was changed for an enabled request")
         else:
             require(choice["method"] != "parent" and choice["decline_reason"] == row.get("invalid") == "no_qualified_candidate_support"
-                and row.get("native_invalid") == "inactive_split"
+                and row.get("native_invalid") == "no_selected_setting"
                 and row.get("qualification") == dict(accepted=False,reason="inactive_split")
                 and packet["preflight_records"][i] is None and row.get("path_proxy") is None
                 and row.get("path_rejection") is None and row.get("success") is False
                 and row.get("route_success") is False and row.get("route_quality") == 0
                 and packet["rewards"][i] == -1. and packet["reward_features"][i] is None,
                 "Empty-support request was replaced, tried, scored or removed")
-        guarded["rows"][i]["invalid"] = row["native_invalid"]
+        # The native batch preserves no_selected_setting for disabled rows.
+        # Only the private guard view uses prepare()'s first-cause label; the
+        # saved packet/raw mirror and paid semantic decline remain unchanged.
+        guarded["rows"][i]["invalid"] = row["native_invalid"] if choice["enabled"] else "inactive_split"
         # The legacy score wrapper requires TRAIN labels and an active paid
         # prefix. Every assessment slot is paid, including a parked empty bank.
         scored["cells"][i]["split"] = scored["rows"][i]["split"] = "train"

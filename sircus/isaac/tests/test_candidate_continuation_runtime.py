@@ -4,6 +4,7 @@ import copy
 import hashlib
 import io
 import json
+import os
 from pathlib import Path
 import shutil
 import sys
@@ -17,7 +18,8 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 import candidate_continuation_runtime as subject
 from candidate_continuation_launcher import LaunchPlan,MIN_FREE_BYTES,supervise
 from candidate_continuation_ledger import PARENT_CHECKPOINT_SHA256,canonical_hash
-from candidate_continuation_watchdog import ProgressWriter,signed,SCHEMA
+from candidate_continuation_watchdog import ProgressWriter,signed,SCHEMA,metadata_snapshot
+from candidate_continuation_journal import write_new_json
 from test_candidate_continuation_launcher import successful_progress
 
 SOURCE=Path(__file__).resolve().parents[1]
@@ -30,6 +32,7 @@ class FakeHost:
         self.free,self.locked,self.code=MIN_FREE_BYTES+100,False,None
         self.owner=dict(pid=901,start_token="boot:90",cookie=plan.session,ppid=1,sid=901,state="S")
         self.snapshots=successful_progress();self.next_snapshot=0
+        self.in_container=False
     def monotonic(self):return self.t
     def sleep(self,s):self.t+=s
     def free_bytes(self,path):return self.free
@@ -39,24 +42,34 @@ class FakeHost:
         self.started.append(argv)
         rawpath=argv[-1];payload=json.loads((self.workspace/Path(rawpath).relative_to("/workspace")).read_text())
         output=Path(self.plan.output)
-        (output/"runtime-owner.json").write_text(json.dumps(signed(dict(schema=SCHEMA,session=self.plan.session,
+        write_new_json(output/"runtime-owner.json",signed(dict(schema=SCHEMA,session=self.plan.session,
             owner=self.owner,native_owner=dict(self.owner,pid=902),absolute_deadline=payload["absolute_deadline"],
-            payload_sha256=payload["fingerprint"]))))
+            payload_sha256=payload["fingerprint"])))
         self.writer=ProgressWriter(output,self.plan.session,clock=self.monotonic)
         self.writer.publish(self.snapshots[0]);self.next_snapshot=1
         return types.SimpleNamespace(pid=2000,poll=lambda:self.code)
     def exit_receipt(self,code=0):
         self.code=code
         claimed=json.loads((Path(self.plan.output)/"runtime-owner.json").read_text())
-        (Path(self.plan.output)/"runtime-exit.json").write_text(json.dumps(signed(dict(schema=SCHEMA,
+        write_new_json(Path(self.plan.output)/"runtime-exit.json",signed(dict(schema=SCHEMA,
             session=self.plan.session,owner=claimed["owner"],native_owner=claimed["native_owner"],
             payload_sha256=claimed["payload_sha256"],termination="stopped" if code else None,
-            exit_code=code,status="complete_audit_receipts_required" if code==0 else "failed_no_retry"))))
+            exit_code=code,status="complete_audit_receipts_required" if code==0 else "failed_no_retry")))
     def run(self,argv):
         self.calls.append(argv)
+        self.in_container=True
+        try:return self._run(argv)
+        finally:self.in_container=False
+    def _run(self,argv):
         if argv[:2]==["docker","inspect"]:
             return json.dumps([dict(State=dict(Running=True),HostConfig=dict(DeviceRequests=[dict(DeviceIDs=[subject.GPU_UUID])]))])
         if argv[0]=="nvidia-smi":return ""
+        if "--snapshot" in argv:
+            def option(name):return argv[argv.index(name)+1]
+            return json.dumps(metadata_snapshot(option("--snapshot"),
+                expected_payload_sha256=option("--expected-payload-sha256"),
+                payload_fingerprint=option("--payload-fingerprint"),session=option("--session"),nonce=option("--nonce"),
+                local_path=lambda path:self.workspace/Path(path).relative_to("/workspace")))
         if "--inspect" in argv:
             if self.next_snapshot<len(self.snapshots):
                 snapshot=self.snapshots[self.next_snapshot];self.writer.publish(snapshot);self.next_snapshot+=1
@@ -242,6 +255,72 @@ class RuntimeTests(unittest.TestCase):
         # A child terminal message alone is not trusted as an OS exit.
         snapshot=self.ops.snapshots[-1];self.ops.writer.publish(snapshot)
         result=self.runtime.poll(owner);self.assertTrue(result["running"]);self.assertIsNone(result["exit_code"])
+
+    def test_private_0600_receipts_and_progress_are_never_read_by_host(self):
+        original_bytes,original_text=Path.read_bytes,Path.read_text
+        host_reads=[]
+        def private(path):return path.name in ("runtime-owner.json","runtime-exit.json") or path.parent.name=="runtime-progress"
+        def read_bytes(path,*args,**kwargs):
+            if private(path) and not self.ops.in_container:
+                host_reads.append(str(path));raise PermissionError("mock root-owned 0600 metadata")
+            return original_bytes(path,*args,**kwargs)
+        def read_text(path,*args,**kwargs):
+            if private(path) and not self.ops.in_container:
+                host_reads.append(str(path));raise PermissionError("mock root-owned 0600 metadata")
+            return original_text(path,*args,**kwargs)
+        with patch.object(Path,"read_bytes",read_bytes),patch.object(Path,"read_text",read_text):
+            result=supervise(self.plan,self.runtime,execute=True)
+        self.assertEqual(result["status"],"native_complete_independent_audit_required")
+        self.assertEqual(host_reads,[]);self.assertEqual(len(self.ops.started),1)
+        output=Path(self.plan.output)
+        for path in [output/"runtime-owner.json",output/"runtime-exit.json",*(output/"runtime-progress").glob("event-*.json")]:
+            self.assertEqual(path.stat().st_mode & 0o777,0o600)
+        snapshots=[argv for argv in self.ops.calls if "--snapshot" in argv]
+        self.assertTrue(snapshots);self.assertTrue(all("-B" in argv for argv in snapshots))
+        self.assertTrue(all(argv[argv.index("-u")+1]=="0" for argv in snapshots))
+        self.assertFalse(any("chmod" in argv or "chown" in argv for argv in self.ops.calls))
+
+    def test_complete_transported_history_preserves_every_phase_boundary(self):
+        owner=self.start()
+        for snapshot in self.ops.snapshots[1:]:self.ops.writer.publish(snapshot)
+        self.ops.next_snapshot=len(self.ops.snapshots);self.ops.exit_receipt()
+        rows=[self.runtime.poll(owner) for _ in range(5)]
+        self.assertEqual([row["phase"] for row in rows],["initialization","imitation","train","assessment","audit"])
+        self.assertTrue(all(row["running"] for row in rows[:-1]));self.assertFalse(rows[-1]["running"])
+        self.assertEqual(rows[-1]["assessment_requests"],420);self.assertEqual(rows[-1]["exit_code"],0)
+        self.assertEqual(len(self.runtime.progress_fingerprints),len(self.ops.snapshots))
+
+    def test_snapshot_binding_nonce_and_fingerprint_tamper_fail_closed(self):
+        self.start();original=self.ops.run
+        for key,replacement in (("session","2"*32),("nonce","3"*32),("payload_raw_sha256","a"*64),
+                ("payload_fingerprint","b"*64),("output","/workspace/foreign"),("fingerprint","c"*64)):
+            def changed(argv):
+                raw=original(argv)
+                if "--snapshot" not in argv:return raw
+                value=json.loads(raw);value[key]=replacement
+                if key!="fingerprint":value.pop("fingerprint");value=signed(value)
+                return json.dumps(value)
+            self.ops.run=changed
+            with self.subTest(field=key),self.assertRaisesRegex(ValueError,"snapshot binding/fingerprint"):
+                self.runtime._metadata()
+        self.ops.run=original
+
+    def test_even_rehashed_shortened_progress_and_replaced_owner_are_rejected(self):
+        self.start();original=self.ops.run
+        def shortened(argv):
+            value=json.loads(original(argv));value["progress"]=[];value.pop("fingerprint")
+            return json.dumps(signed(value))
+        self.ops.run=shortened
+        with self.assertRaisesRegex(ValueError,"shortened or replaced"):self.runtime._metadata()
+        self.ops.run=original
+        path=Path(self.plan.output)/"runtime-owner.json";value=json.loads(path.read_text())
+        value["owner"]["start_token"]="boot:999";value.pop("fingerprint");path.write_text(json.dumps(signed(value)))
+        with self.assertRaisesRegex(ValueError,"owner receipt changed"):self.runtime._metadata()
+
+    def test_arbitrary_receipt_name_fails_before_any_container_query(self):
+        self.start();before=len(self.ops.calls)
+        with self.assertRaisesRegex(ValueError,"fixed runtime receipts"):self.runtime._receipt("learning/final.pt")
+        self.assertEqual(len(self.ops.calls),before)
 
     def test_host_queries_have_finite_timeouts_and_use_no_shell(self):
         ops=subject.LinuxHostOps()

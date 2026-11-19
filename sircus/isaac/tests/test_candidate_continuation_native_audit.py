@@ -16,6 +16,8 @@ import types
 import unittest
 from unittest.mock import patch
 
+import numpy as np
+
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import candidate_continuation_native_audit as subject
 from candidate_continuation_journal import Journal
@@ -23,6 +25,113 @@ from candidate_continuation_ledger import Ledger, Outcome, SourceBindings, canon
 from candidate_continuation_native import make_binding, prepare_packet, PACKET_SCHEMA
 from candidate_continuation_policy import freeze_support
 from continuous_feasibility import decode_action, LOW, HIGH, canonical_hash as geometry_hash
+from test_candidate_continuation_assessment import original_parallel_shot_batch
+from test_candidate_continuation_native_guards import synthetic_guard_packet
+
+
+def original_boundary_padding_packet(paid):
+    """Original batch body, fake setup/parking, real CPU scoring and guards."""
+    packet,scene,cells,links,seeds=synthetic_guard_packet()
+    enabled=[i<paid for i in range(35)]
+    qualifications=[copy.deepcopy(row["qualification"]) for row in packet["rows"]]
+    for i in range(paid,35):
+        cells[i].update(id=f"inactive-0041-{i:02d}",split="inactive")
+        qualifications[i]=dict(accepted=False,reason="inactive_split")
+        packet["preflight_records"][i]=None
+    releases=np.asarray([row["release_ball_center_m"] for row in packet["rows"]])
+    normals=np.asarray([row["scoring_board_normal"] for row in packet["rows"]])
+    placements=[]
+    def no_tick():raise AssertionError("All synthetic guard declines must remain parked")
+    env=types.SimpleNamespace(n=35,dt=1/240,cfg=scene,spec=dict(cells=cells),
+        prepare=lambda actions:(releases,normals,packet["settling_history"],
+            [q["reason"] for q in qualifications]),
+        set_balls=lambda xyz:placements.append(np.asarray(xyz).copy()),
+        render=lambda:None,assert_buckets_fixed=lambda:None,tick=no_tick)
+    rows,raw=original_parallel_shot_batch()(env,packet["actions"],record_video=False,enabled=enabled)
+    for i,row in enumerate(rows):
+        row.update(split=cells[i]["split"],qualification=qualifications[i],path_rejection=None,
+            path_proxy=copy.deepcopy(packet["rows"][i]["path_proxy"]) if enabled[i] else None,
+            scoring_board_normal=normals[i].tolist())
+    identifiers=[f"request-{i:04d}" for i in range(paid)]
+    packet.update(schema=PACKET_SCHEMA,mode="train",cells=cells,rows=rows,enabled=enabled,
+        request_ids=identifiers,choices=[dict(request_id=identifiers[i],context_id=cells[i]["id"],action=packet["actions"][i])
+            if i<paid else None for i in range(35)],
+        rewards=[-1. if use else None for use in enabled],reward_features=[None]*35,
+        trajectory_m=raw["trajectory_m"],origins_m=np.zeros((35,3)).tolist(),physics=None)
+    return packet,scene,cells,links,seeds,placements
+
+
+class PaddingGuardViewTests(unittest.TestCase):
+    def test_original_34_and_1_paid_boundaries_keep_35_padding_rows_unpaid_and_raw(self):
+        total_padding=0
+        for paid in (34,1):
+            packet,scene,cells,links,seeds,placements=original_boundary_padding_packet(paid)
+            original=copy.deepcopy(packet)
+            # This is the original failing reader call, with the unchanged
+            # generic guard and the actual original batch boundary labels.
+            with patch('robust_ik.solve',side_effect=AssertionError('No solver call')):
+                with self.assertRaisesRegex(ValueError,"first cause changed"):
+                    subject.verify_guards(packet,scene,cells,links,seeds)
+                guarded,proof=subject._padding_guard_view(packet)
+                subject.verify_guards(guarded,scene,cells,links,seeds)
+                scores=subject.verify_score(Path('/unused'),packet,scene)
+            self.assertEqual(scores["requests"],paid);self.assertEqual(scores["rejections"],paid)
+            self.assertEqual(scores["releases"],0);self.assertEqual(len(scores["terminal_results"]),paid)
+            self.assertEqual(proof["normalized_slots"],list(range(paid,35)));total_padding+=proof["unpaid_slots"]
+            self.assertEqual(packet,original);self.assertEqual(guarded["rows"][:paid],packet["rows"][:paid])
+            self.assertEqual(len(placements),1);self.assertTrue(np.array_equal(placements[0],np.tile([.1,-.8,.04],(35,1))))
+            for i in range(paid,35):
+                self.assertEqual(packet["rows"][i]["invalid"],"no_selected_setting")
+                self.assertEqual(guarded["rows"][i]["invalid"],"inactive_split")
+                self.assertIsNone(packet["choices"][i]);self.assertIsNone(packet["proposal_ik_seeds"][i])
+                self.assertIsNone(packet["preflight_records"][i]);self.assertIsNone(packet["rewards"][i])
+                self.assertIsNone(packet["reward_features"][i]);self.assertEqual(packet["trajectory_m"][i],[])
+        self.assertEqual(total_padding,35)
+
+    def test_padding_adapter_rejects_any_executed_or_relabelled_unpaid_evidence(self):
+        packet,*_=original_boundary_padding_packet(34)
+        changes=[("raw label",lambda p:p["rows"][34].update(invalid="inactive_split")),
+            ("executed",lambda p:p["rows"][34].update(invalid=None)),
+            ("request",lambda p:p["rows"][34].update(request_id="unpaid-injected")),
+            ("choice",lambda p:p["choices"].__setitem__(34,{})),
+            ("IK",lambda p:p["proposal_ik_seeds"].__setitem__(34,{})),
+            ("preflight",lambda p:p["preflight_records"].__setitem__(34,{})),
+            ("qualification",lambda p:p["rows"][34].update(qualification=dict(accepted=True,reason="inactive_split"))),
+            ("qualification boolean",lambda p:p["rows"][34].update(qualification=dict(accepted=0,reason="inactive_split"))),
+            ("path",lambda p:p["rows"][34].update(path_proxy={})),
+            ("path reason",lambda p:p["rows"][34].update(path_rejection="other")),
+            ("reward",lambda p:p["rewards"].__setitem__(34,-1.)),
+            ("features",lambda p:p["reward_features"].__setitem__(34,{})),
+            ("success",lambda p:p["rows"][34].update(success=True)),
+            ("capture",lambda p:p["rows"][34].update(route_success=True)),
+            ("quality",lambda p:p["rows"][34].update(route_quality=1)),
+            ("quality boolean",lambda p:p["rows"][34].update(route_quality=False)),
+            ("trajectory",lambda p:p["trajectory_m"].__setitem__(34,[[.1,-.8,.04]])),
+            ("split",lambda p:p["rows"][34].update(split="train"))]
+        for label,change in changes:
+            altered=copy.deepcopy(packet);change(altered);before=copy.deepcopy(altered)
+            with self.subTest(change=label),self.assertRaisesRegex(ValueError,"Unpaid native padding"):
+                subject._padding_guard_view(altered)
+            self.assertEqual(altered,before)
+
+    def test_padding_cannot_be_omitted_enabled_or_inserted_into_paid_request_prefix(self):
+        packet,*_=original_boundary_padding_packet(34)
+        for field in ("cells","actions","choices","enabled","rows","proposal_ik_seeds", "preflight_records","rewards","reward_features","trajectory_m"):
+            changed=copy.deepcopy(packet);changed[field].pop()
+            with self.subTest(field=field),self.assertRaisesRegex(ValueError,"35-slot evidence"):
+                subject._padding_guard_view(changed)
+        for change in (lambda p:p["enabled"].__setitem__(34,True),lambda p:p["request_ids"].append("extra")):
+            changed=copy.deepcopy(packet);change(changed)
+            with self.assertRaisesRegex(ValueError,"paid prefix"):subject._padding_guard_view(changed)
+
+    def test_active_first_cause_mismatch_is_never_normalized(self):
+        packet,scene,cells,links,seeds,_=original_boundary_padding_packet(34)
+        packet["rows"][0]["invalid"]="fabricated_active_reason"
+        guarded,_=subject._padding_guard_view(packet)
+        self.assertEqual(guarded["rows"][0],packet["rows"][0])
+        with patch('robust_ik.solve',side_effect=AssertionError('No solver call')):
+            with self.assertRaisesRegex(ValueError,"first cause changed"):
+                subject.verify_guards(guarded,scene,cells,links,seeds)
 
 
 class NativeEvidenceJoinTests(unittest.TestCase):
@@ -89,7 +198,7 @@ class NativeEvidenceJoinTests(unittest.TestCase):
         self.guards = self.guard.start(); self.scorer = self.score.start(); self.control.start()
         self.addCleanup(self.guard.stop); self.addCleanup(self.score.stop); self.addCleanup(self.control.stop)
 
-    def build_history(self):
+    def build_history(self,*,padded=False):
         self.journal = Journal(self.run/"journal")
         ledger = Ledger.new(tuple(c["id"] for c in self.cells),
             bindings=SourceBindings(train_support_sha256=self.binding["support_sha256"]))
@@ -113,20 +222,36 @@ class NativeEvidenceJoinTests(unittest.TestCase):
                 cells=mapped["cells"], actions=mapped["actions"], choices=mapped["selected"],
                 enabled=mapped["enabled"], request_ids=mapped["request_ids"], proposal_ik_seeds=mapped["ik_seeds"],
                 physics=None, wall_s=1., process_cpu_s=.2)
+            # These are bookkeeping-only outcomes; numeric guard/score calls
+            # stay mocked in this class. The companion class below executes
+            # the original batch method and unchanged numerical verifiers.
+            released=[False]*len(batch.requests)
+            if padded:
+                released=[not (batch.batch_index==0 or batch.batch_index==1 and i<34
+                    or batch.batch_index==41 and i==0) for i in range(len(batch.requests))]
+            packet.update(rows=[dict(action,cell_id=cell["id"],split=cell["split"],
+                invalid=(None if released[i] else "mock_decline") if use else "no_selected_setting",
+                qualification=dict(accepted=False,reason="mock_decline" if use else "inactive_split"),
+                path_proxy=None,path_rejection=None,success=False,route_success=False,route_quality=0)
+                for i,(action,cell,use) in enumerate(zip(packet["actions"],packet["cells"],packet["enabled"]))],
+                preflight_records=[dict(synthetic=True) if use else None for use in packet["enabled"]],
+                rewards=[(-.8 if released[i] else -1.) if use else None for i,use in enumerate(packet["enabled"])],
+                reward_features=[None]*35,trajectory_m=[[] for _ in range(35)])
             packet_sha = self.write_packet(stem, packet)
             claim = dict(reservation_sha256=reservation["fingerprint"], ledger_fingerprint=ledger.to_dict()["fingerprint"],
                 request_ids=mapped["request_ids"], native_binding_fingerprint=self.binding["fingerprint"],
                 status="claimed_before_native_call")
             (self.run/"native"/(stem+".dispatch.json")).write_text(json.dumps(claim))
             results = [dict(row, source_sha256=packet_sha) for row in self.score_packet(None, packet, None)["terminal_results"]]
-            ledger = ledger.record_outcomes(tuple(Outcome(r["request_id"],False,r["decline_reason"],packet_sha) for r in results))
+            ledger = ledger.record_outcomes(tuple(Outcome(r["request_id"],r["released"],r["decline_reason"],packet_sha) for r in results))
             self.journal.append("outcomes", dict(ledger=ledger.to_dict(), results=results))
         self.journal.append("final", dict(ledger=ledger.to_dict()))
 
     @staticmethod
     def score_packet(directory, packet, scene):
-        return dict(terminal_results=[dict(request_id=k, released=False, decline_reason="mock_decline",
-            captured=False, clean=False, **{"return":-1.}) for k in packet["request_ids"]])
+        return dict(terminal_results=[dict(request_id=k,released=packet["rows"][i]["invalid"] is None,
+            decline_reason=packet["rows"][i]["invalid"],captured=False,clean=False,
+            **{"return":packet["rewards"][i]}) for i,k in enumerate(packet["request_ids"])])
 
     def write_packet(self, stem, packet):
         raw = json.dumps(packet, allow_nan=False, separators=(",", ":")).encode()
@@ -163,6 +288,43 @@ class NativeEvidenceJoinTests(unittest.TestCase):
         self.assertTrue(result["synthetic"]); self.assertFalse(result["execution_authorized"])
         self.assertAlmostEqual(result["native_batch_costs"]["wall_s"],50.)
         self.assertEqual(before,{p:hashlib.sha256(p.read_bytes()).hexdigest() for p in before})
+
+    def padded_history(self):
+        original=self.run;self.run=Path(self.temp.name)/"padded-run";self.run.mkdir();(self.run/"native").mkdir()
+        for name in ("probes.json","rim-rays.json"):shutil.copyfile(original/name,self.run/name)
+        self.build_history(padded=True)
+
+    def test_34_then_1_paid_slot_history_preserves_1470_requests_and_35_unpaid_padding_slots(self):
+        self.padded_history()
+        before={p:subject._digest(p) for p in self.run.rglob("*") if p.is_file()}
+        result=self.audit()
+        self.assertEqual((result["requests"],result["releases"],result["rejections"]),(1470,1400,70))
+        self.assertEqual(len(result["batches"]),43)
+        self.assertEqual([b["padding_guard_view"]["paid_requests"] for b in result["batches"][-2:]],[34,1])
+        self.assertEqual([b["padding_guard_view"]["normalized_slots"] for b in result["batches"][-2:]],[[34],list(range(1,35))])
+        self.assertEqual(result["padding_guard_view"]["normalized_unpaid_slots"],35)
+        self.assertEqual(result["auditor_source_sha256"],subject._digest(Path(subject.__file__)))
+        self.assertEqual(before,{p:subject._digest(p) for p in before})
+        for guard_call,score_call in zip(self.guards.call_args_list,self.scorer.call_args_list):
+            guarded,raw=guard_call.args[0],score_call.args[1];paid=len(raw["request_ids"])
+            self.assertEqual(guarded["rows"][:paid],raw["rows"][:paid])
+            for i in range(paid,35):
+                self.assertEqual(guarded["rows"][i]["invalid"],"inactive_split")
+                self.assertEqual(raw["rows"][i]["invalid"],"no_selected_setting")
+
+    def test_rehashed_padding_label_is_rejected_before_numeric_verifiers_for_that_packet(self):
+        self.padded_history();path=self.run/"native/train-000041.json.gz"
+        packet=json.loads(gzip.decompress(path.read_bytes()));packet["rows"][34]["invalid"]="inactive_split"
+        self.write_packet("train-000041",packet)
+        with self.assertRaisesRegex(ValueError,"Unpaid native padding"):self.audit()
+        self.assertEqual(self.guards.call_count,41);self.assertEqual(self.scorer.call_count,41)
+
+    def test_physics_bytes_are_bound_before_any_guard_view_adapter(self):
+        self.change_packet(lambda packet:packet.update(physics=dict(file="train-000000.npz",sha256="0"*64)))
+        (self.run/"native/train-000000.npz").write_bytes(b"synthetic changed physics")
+        with patch.object(subject,"_padding_guard_view",wraps=subject._padding_guard_view) as adapter:
+            with self.assertRaisesRegex(ValueError,"physics bytes changed"):self.audit()
+        adapter.assert_not_called();self.guards.assert_not_called();self.scorer.assert_not_called()
 
     def test_external_journal_head_cannot_be_replaced(self):
         with self.assertRaisesRegex(ValueError,"externally bound"):
