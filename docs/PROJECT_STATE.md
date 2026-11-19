@@ -1,5 +1,11 @@
 # Project state
 
+## Close-up simulation replay — November 1, 2026
+
+- [Orthographic video and reproduction](../sircus/isaac/OVERHEAD_REPLAY.md) uses four selected cells from the existing parallel-world baseline. A fresh bounded 4090 replay passed contact/foreign-cell probes and endpoint settling; all four shots had one board bounce and clean capture with one-second retention. This is visualization of frozen settings, not a new training study.
+- Six synchronized cameras recorded 252 frames each at 120 Hz. The 18.6-second, 1920 × 1280 movie shows four tables at 0.5×, then cell-00 in overhead/front views at 0.25× with measured simulator trails. Arms start at solved poses; pickup and transit are not shown. Numerical baselines and the existing dashboard remain unchanged.
+- The finite GPU job exited. The existing 4070 workload, physical services, Viam and audio were untouched. Video/raw frames are outside Git; compact evidence and reproduction code are published.
+
 ## Completed parallel world — November 1, 2026
 
 - [World, launch and limits](../sircus/isaac/PARALLEL_WORLD.md); [exact settings/evidence](../baselines/isaac-parallel-world-20261101/README.md). One RTX 4090 PhysX world contains 32 tables and 64 articulated UF850 arms. Each table has one board, one ball and one bucket; 32 distinct table-local bucket targets stay fixed throughout all height/gap/tilt trials. Distances span300–632 mm between cells, constant within each cell.
