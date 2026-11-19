@@ -1,5 +1,14 @@
 # Sircus in mjlab
 
+Latest task definition: [table-assisted scoring v3](SCORING_TABLE_ASSISTED.md)
+permits table contact and awards the normal capture bonus after one continuous
+second inside. The old calibrated containment kernel and physics guards are
+unchanged. New scorer/reward modules and a native environment adapter are
+explicit opt-ins; historical experiments, Isaac and active policies are preserved.
+[Saved-shot rescoring completed](../../baselines/mjlab-table-assisted-scoring-20261108/README.md):
+8,037 native trajectories, 4,409 → 4,532 accepted captures (+123), 64,883 checks.
+UI: `#tableAssistedScoring`. No retraining or new native trials.
+
 Latest: [case 01 horizon-only replay](CLEARANCE_HORIZON.md) extends one predicted
 clearance window while keeping the exact shot, joints, forecasts and native64
 scoring unchanged. [Completed results](../../baselines/mjlab-clearance-horizon-20261108/README.md):
