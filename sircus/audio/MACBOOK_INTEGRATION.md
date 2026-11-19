@@ -164,3 +164,46 @@ The show carry default is the original synthesized `drum_roll.wav` (eight snare-
 strokes/second, seamless one-second loop, -15.9 dBFS peak before playback volume).
 Regenerate it with `python3 sircus/audio/booth/src/generate_drum_roll.py`; this does
 not rewrite older WAVs or play audio. Waveform/level tests are not listening tests.
+
+
+## Hardware-demo audio host and readiness checkpoint
+
+The first physical demo uses **Ghost Booth native audio on the MacBook Pro**, the
+same computer as the dashboard. Logic and a Mac Mini connection are not required.
+Set `SIRCUS_AUDIO_URL=http://127.0.0.1:8766` in the backend environment and leave
+`SIRCUS_AUDIO_TOKEN` unset for loopback. These values never belong in browser
+configuration. Starting the service is an operator action; pulling this code
+starts no service, opens no MIDI device and plays nothing.
+
+Pair the ODD balls with the audio-host Mac. Verify each ball separately in the
+Booth Monitor and save its actual endpoint ID, channel and positive NoteOn note
+in the Pink/Purple/Green/Gray slots. No source default binds a physical input.
+Select the ball color before its robot cycle. The saved release event opens that
+ball's measured-impact window; later hits from previous, differently colored
+released balls keep their original trial/ball identity. Impacts are generic
+measured bounce cues, never inferred board/bucket contact or success/failure.
+
+The Booth now reports `sircus.show-readiness.v1` separately from its event/show
+schemas. A configuration ACK returns a SHA-256 digest of the accepted config;
+only a later status can confirm that the native helper selected the matching
+endpoint set. Dashboard status separates native engine availability, matching
+saved mappings, and connected counts/per-ball booleans. HTTP connectivity alone
+means neither four connected balls nor audible playback. Endpoint IDs, names,
+config digests and private host metadata are not forwarded in the dashboard
+readiness status.
+
+On every explicit FX enable, the worker checks fresh status and the client binds
+the enable to the accepted digest. The Booth checks digest, native selection,
+engine and control epoch together under its lock. A restart, another client's
+mapping change, legacy single-input selection, or service loss withdraws stale
+readiness. Reapply the saved mappings explicitly, wait for native input selection,
+then enable FX. Reapplying mutes audio and retires old audio trial associations;
+it never moves an arm. A poll never reapplies mappings or re-enables FX. Partial
+connectivity is displayed truthfully; absent inputs stay silent and never block
+robot motion or Stop.
+
+Silent readiness regressions cover service restart, mapping replacement,
+configuration/enable races, partial input connection, legacy protocol refusal,
+remote-mute ordering and sanitized status. Real BLE endpoint identity, listening,
+reconnection behavior and overlapping physical ball impacts still require
+supervised commissioning. No test result here establishes acoustic verification.

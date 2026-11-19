@@ -600,7 +600,7 @@ class Controller:
                 c=copy.deepcopy(self.calibration)
                 c.update(loading_pose=copy.deepcopy(p['loading_pose']),drop_pose=copy.deepcopy(p['drop_pose']),
                          board_joints=copy.deepcopy(state['arms']['arm-board']['joints']),confirmed=False,
-                         pose_source='operator_configured_tcp_targets',configured_at=utc(),
+                         pose_source='operator_configured_tcp_targets',configured_at=utc(),frame='world',
                          pose_validation='Operator assertion of fixed clear route; not measured calibration or native path validation')
                 write_json(self.config_path,c);self.calibration=c;self.phase='idle'
             elif name in ('teach_loading', 'teach_drop'):

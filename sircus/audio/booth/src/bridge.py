@@ -59,14 +59,29 @@ class Controller:
         self.profiles=Profiles(SOUNDS,profile_path);self.loop_kind=None;self.domain=None;self.terminal=False;self.board_seen=False
         self.retired_trials=set();self.playback_source=None
         self.control_epoch=uuid.uuid4().hex;self.control_clients={}
-        self.show_router=BallRouter(clock=clock);self.show_configured=False;self.ball_events={};self.transport_trial=None;self.connected_inputs=[]
+        self.show_router=BallRouter(clock=clock);self.show_configured=False;self.ball_events={};self.transport_trial=None;self.connected_inputs=[];self.selected_inputs=None
     def log(self,kind,**kw):
         self.sequence+=1;r={'seq':self.sequence,'time':time.time(),'kind':kind,**kw};self.monitor.append(r);return r
     def send(self,**kw):
         if self.backend:self.backend.send(**kw)
+    def show_readiness(self):
+        # Configuration acceptance, native input selection and endpoint connectivity
+        # are separate facts. None of these claims acoustic/BLE commissioning.
+        config=self.show_router.config
+        expected=sorted({b['midi_binding']['input_id'] for b in config['balls'] if b['midi_binding'] is not None})
+        selection_matches=self.show_configured and self.selected_inputs is not None and sorted(self.selected_inputs)==expected
+        rows=[{'ball_id':b['ball_id'],'bound':b['midi_binding'] is not None,
+               'connected':bool(selection_matches and b['midi_binding'] is not None and b['midi_binding']['input_id'] in self.connected_inputs)}
+              for b in config['balls']]
+        digest=hashlib.sha256(json.dumps(config,sort_keys=True,separators=(',',':')).encode()).hexdigest() if self.show_configured else None
+        return {'schema':SHOW_SCHEMA,'readiness_schema':'sircus.show-readiness.v1','multiball_event_routing':True,
+                'native_inputs':'explicit_multi_endpoint','physical_commissioning_verified':False,
+                'configured':self.show_configured,'config_digest':digest,'selection_matches':bool(selection_matches),
+                'ball_inputs':rows,'bound_ball_count':sum(r['bound'] for r in rows),
+                'connected_ball_count':sum(r['connected'] for r in rows)}
     def status(self):
         with self.lock:
-            return {'show_audio':{'schema':SHOW_SCHEMA,'multiball_event_routing':True,'native_inputs':'explicit_multi_endpoint','physical_commissioning_verified':False},'control_epoch':self.control_epoch,'fx_enabled':self.enabled,'volume':self.volume,'mode':self.mode,'route':self.route,'audio_ready':self.ready,
+            return {'show_audio':self.show_readiness(),'control_epoch':self.control_epoch,'fx_enabled':self.enabled,'volume':self.volume,'mode':self.mode,'route':self.route,'audio_ready':self.ready,
                 'audio_meter_peak':self.meter,'audio_current_peak':self.current_peak,'audio_block_time_ns':self.block_ns,'meter_age_s':None if not self.last_meter else round(self.clock()-self.last_meter,2),
                 'last_midi_age_s':None if not self.last_midi else round(self.clock()-self.last_midi,2),'midi_status':self.midi_status,'inputs':self.inputs,'selected_input':self.selected,'connected':self.connected,
                 'transport':self.transport,'trial_id':self.trial,'armed':self.clock()<self.armed_until,'impact_count':self.impact_count,
@@ -181,9 +196,10 @@ class Controller:
             # Validate before muting/changing bindings; new identities never inherit old trials.
             self.show_router.configure(config)
             self.disable('show_mapping_changed');self.ball_events.clear();self.show_configured=True
+            self.connected_inputs=[];self.selected_inputs=None
             values=sorted({ball['midi_binding']['input_id'] for ball in self.show_router.config['balls'] if ball['midi_binding'] is not None})
             self.send(cmd='inputs',values=values)
-            return {'schema':SHOW_SCHEMA,'multiball_event_routing':True,'configured_inputs':len(values),'fx_enabled':False,'physical_commissioning_verified':False}
+            return {**self.show_readiness(),'configured_inputs':len(values),'fx_enabled':False}
 
     def audio_ball_event(self,ev):
         kind=ev.event_type;trial=ev.trial_id
@@ -310,14 +326,18 @@ class Controller:
                 self.meter=m['peak'];self.current_peak=m.get('current_peak',0);self.block_ns=m.get('block_time_ns',0);self.last_meter=self.clock();self.ready=m['audio_ready']
                 if self.enabled and self.route=='native' and not self.ready:self.disable('audio_state_lost')
                 return
-            elif kind=='connection':self.connected=m['connected'];self.connected_inputs=m.get('connected_inputs',[]);self.disable('input_connection_changed')
+            elif kind=='connection':
+                self.connected=m['connected'];self.connected_inputs=m.get('connected_inputs',[])[:4]
+                self.selected_inputs=m.get('selected_inputs')
+                if not isinstance(self.selected_inputs,list) or len(self.selected_inputs)>4:self.selected_inputs=None
+                self.disable('input_connection_changed')
             elif kind=='watchdog':self.disable('audio_watchdog')
             elif kind=='loop_stopped':self.transport=False;self.loop_kind=None
             elif kind in ('error','native_exit'):
                 self.control_epoch=uuid.uuid4().hex
                 self.last_error=m.get('message');self.enabled=False;self.transport=False;self.loop_kind=None;self.armed_until=0
                 self.replay_generation+=1
-                if kind=='native_exit':self.ready=False;self.connected=False
+                if kind=='native_exit':self.ready=False;self.connected=False;self.connected_inputs=[];self.selected_inputs=None
                 else:
                     try:self.send(cmd='panic')
                     except Exception:pass
@@ -339,7 +359,9 @@ class Controller:
                 not all(ch.isascii() and (ch.isalnum() or ch in '-_') for ch in client) or
                 type(sequence) is not int or not 1<=sequence<=2**53-1):
                 raise ValueError('invalid audio control client or sequence')
-            intent=(kind,enabled,epoch)
+            digest=d.get('show_config_digest')
+            if digest is not None and (not isinstance(digest,str) or len(digest)!=64 or any(c not in '0123456789abcdef' for c in digest)):raise ValueError('invalid show configuration digest')
+            intent=(kind,enabled,epoch,digest)
             prior=self.control_clients.get(client)
             if prior and sequence<=prior[0]:
                 if sequence==prior[0] and intent!=prior[1]:raise ValueError('control sequence reused with different intent')
@@ -353,6 +375,10 @@ class Controller:
             if enabled:
                 if not isinstance(epoch,str) or epoch!=self.control_epoch:
                     raise ValueError('stale audio enable; inspect status and explicitly enable again')
+                if digest is not None:
+                    readiness=self.show_readiness()
+                    if readiness['config_digest']!=digest or not readiness['selection_matches'] or self.route!='native' or not self.ready:
+                        raise ValueError('Show mapping or native audio readiness changed; reapply mappings and explicitly enable again')
                 self.enable(True)
             else:self.disable('audio_panic' if kind=='panic' else 'fx_off')
             return self.status()
@@ -370,7 +396,12 @@ class Controller:
             elif kind=='input':
                 value=d.get('id')
                 if value is not None and not any(r['id']==value and r['online'] for r in self.inputs):raise ValueError('choose an online listed hardware MIDI input')
-                self.disable('input_selection');self.selected=value;self.connected=False;self.send(cmd='input',value=value)
+                self.disable('input_selection');self.selected=value;self.connected=False
+                # The legacy single-input picker replaces the native selection. It
+                # cannot leave an apparently valid four-ball mapping behind.
+                self.show_configured=False;self.connected_inputs=[];self.selected_inputs=None
+                self.show_router.configure(self.show_router.config);self.ball_events.clear()
+                self.send(cmd='input',value=value)
             elif kind=='mapping':
                 m=dict(self.mapping)
                 for key,value in d.items():

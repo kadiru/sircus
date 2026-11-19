@@ -1,7 +1,8 @@
 """Loopback dashboard bridge to the isolated, cloud-bound Sircus Viam machine.
 
-The default backend executes commands on Viam. --offline explicitly selects the
-old local simulator; a Viam failure never falls back to local execution.
+The default simulation backend executes commands on Viam. --offline selects
+standalone simulation instead; the separate --physical-mode hardware flag still
+explicitly enables sfhack10. A Viam failure never falls back to local execution.
 """
 import argparse
 import asyncio
@@ -50,6 +51,12 @@ def optional_audio_observer():
         return AudioObserver()
     except Exception:
         return None
+
+
+def acquire_hardware_lease():
+    sys.path.insert(0, str(ROOT.parent))
+    from physical_trials.ownership import acquire_sfhack10_lease
+    return acquire_sfhack10_lease()
 
 STUDY_LOCK = threading.Lock()
 STUDY_MAX_BYTES = 1_000_000
@@ -103,14 +110,63 @@ class PhysicalBridge:
             from physical_trials.mock_adapter import MockAdapter
             adapter = MockAdapter()
         self.loop = asyncio.new_event_loop()
-        self.thread = threading.Thread(target=self.loop.run_forever, daemon=True)
-        self.thread.start()
         self.token = secrets.token_urlsafe(32)
         self.mode = mode
-        self.controller = Controller(adapter, root, mode=mode, audio=AUDIO)
-        self.startup = asyncio.run_coroutine_threadsafe(self.controller.start(), self.loop)
+        self._closed = False
+        # Construct/check the journal before a background thread can connect.
+        # A bad calibration or journal must not leave an orphan SDK loop.
+        try:
+            self.controller = Controller(adapter, root, mode=mode, audio=AUDIO)
+        except BaseException:
+            self.loop.close()
+            raise
+        self.thread = threading.Thread(target=self.loop.run_forever, daemon=True)
+        self.startup = None
+        try:
+            self.thread.start()
+            self.startup = asyncio.run_coroutine_threadsafe(self.controller.start(), self.loop)
+        except BaseException:
+            self.close()
+            raise
+
+    def close(self):
+        """Bounded task/recording/transport cleanup; no actuator Stop or Open.
+
+        Exiting a dashboard is not a verified physical Stop. Operators must stop
+        and verify motion separately before ending a hardware session.
+        """
+        if self._closed:
+            return not self.thread.is_alive()
+        self._closed = True
+        if self.startup is not None:
+            self.startup.cancel()
+        if self.thread.is_alive():
+            async def cleanup():
+                try:
+                    await self.controller.close()
+                finally:
+                    current = asyncio.current_task()
+                    tasks = {task for task in asyncio.all_tasks() if task is not current}
+                    for task in tasks:
+                        task.cancel()
+                    if tasks:
+                        await asyncio.wait(tasks, timeout=1)
+            future = asyncio.run_coroutine_threadsafe(cleanup(), self.loop)
+            try:
+                future.result(timeout=20)
+            except (Exception, FutureTimeout):
+                future.cancel()
+            finally:
+                self.loop.call_soon_threadsafe(self.loop.stop)
+                self.thread.join(timeout=2)
+        if not self.thread.is_alive():
+            self.loop.close()
+            return True
+        return False
 
     def call(self, kind, payload=None):
+        if self._closed:
+            raise RuntimeError('Physical service is closed')
         if kind == 'status':
             # Read cached state outside the SDK loop: a stalled transport must
             # not hide disconnected state, calibration gaps or the Stop button.
@@ -137,10 +193,44 @@ class PhysicalBridge:
 class ViamBridge:
     def __init__(self):
         self.loop = asyncio.new_event_loop()
-        self.thread = threading.Thread(target=self.loop.run_forever, daemon=True)
-        self.thread.start()
         self.robot = None
         self.controller = None
+        self._closed = False
+        self.thread = threading.Thread(target=self.loop.run_forever, daemon=True)
+        try:
+            self.thread.start()
+        except BaseException:
+            self.loop.close()
+            raise
+
+    def close(self):
+        """Close the isolated simulation transport, without actuator commands."""
+        if self._closed:
+            return not self.thread.is_alive()
+        self._closed = True
+        if self.thread.is_alive():
+            async def cleanup():
+                current = asyncio.current_task()
+                tasks = {task for task in asyncio.all_tasks() if task is not current}
+                for task in tasks:
+                    task.cancel()
+                if tasks:
+                    await asyncio.wait(tasks, timeout=1)
+                if self.robot is not None:
+                    await asyncio.wait_for(self.robot.close(), timeout=2)
+                self.robot = self.controller = None
+            future = asyncio.run_coroutine_threadsafe(cleanup(), self.loop)
+            try:
+                future.result(timeout=4)
+            except Exception:
+                future.cancel()
+            finally:
+                self.loop.call_soon_threadsafe(self.loop.stop)
+                self.thread.join(timeout=2)
+        if not self.thread.is_alive():
+            self.loop.close()
+            return True
+        return False
 
     def credentials(self):
         cache = Path.home() / '.viam' / f'cached_cloud_config_{PART_ID}.json'
@@ -199,6 +289,8 @@ class ViamBridge:
             raise
 
     def command(self, payload):
+        if self._closed:
+            raise RuntimeError('Simulation bridge is closed')
         future = asyncio.run_coroutine_threadsafe(self.invoke(payload), self.loop)
         try:
             return future.result(timeout=32)
@@ -569,7 +661,7 @@ def main():
     global OFFLINE, BRIDGE, PHYSICAL, AUDIO, SHOW_ENABLED, SHOW_AUDIO, OPERATIONS, TRAINING_JOBS, STUDY_RESULTS_PATH
     parser = argparse.ArgumentParser()
     parser.add_argument('--port', type=int, default=8765)
-    parser.add_argument('--offline', action='store_true', help='Explicitly use standalone physics; no Viam commands')
+    parser.add_argument('--offline', action='store_true', help='Use standalone physics instead of the Viam simulation bridge; sfhack10 remains separately controlled by --physical-mode')
     parser.add_argument('--physical-mode', choices=('disabled','dry_run','hardware'), default='disabled')
     parser.add_argument('--physical-credentials', type=Path, default=ROOT.parent/'perception/.private/sfhack10.json')
     parser.add_argument('--physical-data-root', type=Path, default=None)
@@ -583,48 +675,74 @@ def main():
     args = parser.parse_args()
     if args.operations and (not args.offline or args.physical_mode != 'disabled'):
         parser.error('--operations requires --offline --physical-mode disabled')
-    # Audio remains optional and separate from Viam credentials/control loops.
-    sys.path.insert(0, str(ROOT.parent.parent))
-    AUDIO = optional_audio_observer()
     if args.show and not args.offline:
         parser.error('--show requires --offline; cloud simulation is a separate runtime')
-    SHOW_ENABLED = args.show
-    OFFLINE = args.offline
-    if args.show and AUDIO is not None:
-        try:
-            from sircus.audio.show import ShowAudio
-            SHOW_AUDIO = ShowAudio(AUDIO, config_path=args.show_data_root/'show-audio.json')
-        except Exception:
-            SHOW_AUDIO = None  # Optional audio cannot prevent robot controls starting.
-    if not OFFLINE: BRIDGE = ViamBridge()
-    if args.physical_mode != 'disabled':
-        data_root = args.physical_data_root or ROOT.parent/'physical_trials/data'/args.physical_mode
-        PHYSICAL = PhysicalBridge(args.physical_mode,args.physical_credentials,data_root)
-    if args.operations or (args.show and args.physical_mode in ('disabled', 'dry_run')):
-        sys.path.insert(0, str(ROOT.parent.parent))
-        from sircus.operations.service import GuidedOperations
-        from sircus.operations.training import TrainingJobs
-        OPERATIONS = GuidedOperations(data_root=args.workflow_data_root/'trials',
-                                      profile=args.workflow_profile, checkpoint_path=args.workflow_checkpoint)
-        TRAINING_JOBS = TrainingJobs(data_root=args.workflow_data_root/'training', profile=args.workflow_profile)
-        STUDY_RESULTS_PATH = args.study_results
-    print(f'Sircus dashboard: http://127.0.0.1:{args.port} ({"OFFLINE simulation" if OFFLINE else "Viam two-arm simulation bridge"})', flush=True)
+    # Reserve the loopback port before any SDK/audio client or journal is created.
+    # A second launch on a busy port must have no connection or mutation effects.
     httpd = ThreadingHTTPServer(('127.0.0.1', args.port), Handler)
+    hardware_lease = None
+    cleanup = []
+    physical_closed = True
     try:
-        if args.operations or (args.show and args.physical_mode != 'hardware'):
-            # SIGTERM normally bypasses Python finally. Rehearsal/training owns
-            # numerical children, so route its shutdown through the cleanup below.
-            # Legacy and physical server signal behavior is deliberately unchanged.
-            def terminate_operations(_signum, _frame):
+        if args.physical_mode == 'hardware':
+            # Shared across this user's checkouts and ports. Remote/older clients
+            # remain an explicit operator ownership check, not a lock guarantee.
+            hardware_lease = acquire_hardware_lease()
+        sys.path.insert(0, str(ROOT.parent.parent))
+        AUDIO = optional_audio_observer()
+        if AUDIO is not None:
+            cleanup.append(AUDIO)
+        SHOW_ENABLED = args.show
+        OFFLINE = args.offline
+        if args.show and AUDIO is not None:
+            try:
+                from sircus.audio.show import ShowAudio
+                SHOW_AUDIO = ShowAudio(AUDIO, config_path=args.show_data_root/'show-audio.json')
+                cleanup.append(SHOW_AUDIO)
+            except Exception:
+                SHOW_AUDIO = None  # Optional audio never blocks robot startup.
+        if not OFFLINE:
+            BRIDGE = ViamBridge()
+            cleanup.append(BRIDGE)
+        if args.physical_mode != 'disabled':
+            data_root = args.physical_data_root or ROOT.parent/'physical_trials/data'/args.physical_mode
+            PHYSICAL = PhysicalBridge(args.physical_mode,args.physical_credentials,data_root)
+            cleanup.append(PHYSICAL)
+        if args.operations or (args.show and args.physical_mode in ('disabled', 'dry_run')):
+            from sircus.operations.service import GuidedOperations
+            from sircus.operations.training import TrainingJobs
+            OPERATIONS = GuidedOperations(data_root=args.workflow_data_root/'trials',
+                                          profile=args.workflow_profile, checkpoint_path=args.workflow_checkpoint)
+            cleanup.append(OPERATIONS)
+            TRAINING_JOBS = TrainingJobs(data_root=args.workflow_data_root/'training', profile=args.workflow_profile)
+            cleanup.append(TRAINING_JOBS)
+            STUDY_RESULTS_PATH = args.study_results
+        print(f'Sircus dashboard: http://127.0.0.1:{args.port} ({"OFFLINE simulation" if OFFLINE else "Viam two-arm simulation bridge"})', flush=True)
+        if args.operations or args.show or args.physical_mode == 'hardware':
+            # Cleanup only closes owned tasks/recording/transport. No tool or arm
+            # command is added to shutdown; use the operator Stop before exiting.
+            def terminate_dashboard(_signum, _frame):
                 raise SystemExit(0)
-            signal.signal(signal.SIGTERM, terminate_operations)
+            signal.signal(signal.SIGTERM, terminate_dashboard)
         httpd.serve_forever()
     finally:
         httpd.server_close()
-        if OPERATIONS is not None: OPERATIONS.close()
-        if TRAINING_JOBS is not None: TRAINING_JOBS.close()
-        if SHOW_AUDIO is not None: SHOW_AUDIO.close()
-        if AUDIO is not None: AUDIO.close()
+        for resource in reversed(cleanup):
+            try:
+                closed = resource.close()
+                if resource is PHYSICAL and closed is False:
+                    physical_closed = False
+            except Exception:
+                if resource is PHYSICAL:
+                    physical_closed = False
+                print('Dashboard cleanup incomplete; inspect local session before relaunch.', file=sys.stderr)
+        if hardware_lease is not None and physical_closed:
+            hardware_lease.close()
+        elif hardware_lease is not None:
+            # The fixed OS descriptor stays open until process exit if an owned
+            # loop could still execute. Never invite a second local controller.
+            print('Hardware lease retained until process exit: SDK loop cleanup unconfirmed.', file=sys.stderr)
+
 
 
 if __name__ == '__main__':
