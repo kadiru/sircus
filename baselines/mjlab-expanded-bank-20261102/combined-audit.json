@@ -1,0 +1,729 @@
+{
+  "version": "sircus-combined-evidence-audit-v1",
+  "passed": true,
+  "checks": [
+    {
+      "name": "combination_contract_fingerprint",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "combined_bank_fingerprint",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "original_bank_fingerprint",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "original_prefix_unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "bank_parent",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "completed_combination_has_zero_new_native_trials",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "two_children_required",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "qualification_unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "twelve_development_targets",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "development_provenance",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "far_identity_and_completion",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "refinement_identity_and_completion",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "refinement_16_actual_qualified_source",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "exact_confirmed_winners_and_provenance",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "addition_counts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "action_bounds",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "distinct_effort_without_prior_double_count",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "child_effort_exact",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "complete_cell_ids",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "old-test-08_distinct_search_counts",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 2048,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 2048,
+          "mean_reward": -0.2309292979715949
+        },
+        "expected": {
+          "attempts": 2048,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 2048,
+          "mean_reward": -0.2309292979715949
+        }
+      }
+    },
+    {
+      "name": "old-test-08_fresh_confirmation_counts",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 0,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 0,
+          "mean_reward": 0.0
+        },
+        "expected": {
+          "attempts": 0,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 0,
+          "mean_reward": 0.0
+        }
+      }
+    },
+    {
+      "name": "old-test-08_promotion_report",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "old-test-09_distinct_search_counts",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 2048,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 2048,
+          "mean_reward": -0.1149824146687975
+        },
+        "expected": {
+          "attempts": 2048,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 2048,
+          "mean_reward": -0.1149824146687975
+        }
+      }
+    },
+    {
+      "name": "old-test-09_fresh_confirmation_counts",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 0,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 0,
+          "mean_reward": 0.0
+        },
+        "expected": {
+          "attempts": 0,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 0,
+          "mean_reward": 0.0
+        }
+      }
+    },
+    {
+      "name": "old-test-09_promotion_report",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "old-test-10_distinct_search_counts",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 512,
+          "captures": 4,
+          "clean": 1,
+          "invalid": 0,
+          "board_bounces": 512,
+          "mean_reward": -0.2051813330323841
+        },
+        "expected": {
+          "attempts": 512,
+          "captures": 4,
+          "clean": 1,
+          "invalid": 0,
+          "board_bounces": 512,
+          "mean_reward": -0.2051813330323841
+        }
+      }
+    },
+    {
+      "name": "old-test-10_fresh_confirmation_counts",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 40,
+          "captures": 1,
+          "clean": 0,
+          "invalid": 28,
+          "board_bounces": 12,
+          "mean_reward": -0.6608281028753629
+        },
+        "expected": {
+          "attempts": 40,
+          "captures": 1,
+          "clean": 0,
+          "invalid": 28,
+          "board_bounces": 12,
+          "mean_reward": -0.6608281028753629
+        }
+      }
+    },
+    {
+      "name": "old-test-10_promotion_report",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "old-test-12_distinct_search_counts",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 2048,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 2048,
+          "mean_reward": -0.2931446204891384
+        },
+        "expected": {
+          "attempts": 2048,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 2048,
+          "mean_reward": -0.2931446204891384
+        }
+      }
+    },
+    {
+      "name": "old-test-12_fresh_confirmation_counts",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 0,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 0,
+          "mean_reward": 0.0
+        },
+        "expected": {
+          "attempts": 0,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 0,
+          "mean_reward": 0.0
+        }
+      }
+    },
+    {
+      "name": "old-test-12_promotion_report",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "old-test-19_distinct_search_counts",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 512,
+          "captures": 96,
+          "clean": 25,
+          "invalid": 0,
+          "board_bounces": 512,
+          "mean_reward": 0.8263177277025235
+        },
+        "expected": {
+          "attempts": 512,
+          "captures": 96,
+          "clean": 25,
+          "invalid": 0,
+          "board_bounces": 512,
+          "mean_reward": 0.8263177277025235
+        }
+      }
+    },
+    {
+      "name": "old-test-19_fresh_confirmation_counts",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 200,
+          "captures": 74,
+          "clean": 28,
+          "invalid": 7,
+          "board_bounces": 193,
+          "mean_reward": 1.659971714668456
+        },
+        "expected": {
+          "attempts": 200,
+          "captures": 74,
+          "clean": 28,
+          "invalid": 7,
+          "board_bounces": 193,
+          "mean_reward": 1.659971714668456
+        }
+      }
+    },
+    {
+      "name": "old-test-19_promotion_report",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "old-test-21_distinct_search_counts",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 512,
+          "captures": 123,
+          "clean": 40,
+          "invalid": 0,
+          "board_bounces": 512,
+          "mean_reward": 1.0699246690971824
+        },
+        "expected": {
+          "attempts": 512,
+          "captures": 123,
+          "clean": 40,
+          "invalid": 0,
+          "board_bounces": 512,
+          "mean_reward": 1.0699246690971824
+        }
+      }
+    },
+    {
+      "name": "old-test-21_fresh_confirmation_counts",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 200,
+          "captures": 84,
+          "clean": 22,
+          "invalid": 5,
+          "board_bounces": 195,
+          "mean_reward": 1.9640191935728917
+        },
+        "expected": {
+          "attempts": 200,
+          "captures": 84,
+          "clean": 22,
+          "invalid": 5,
+          "board_bounces": 195,
+          "mean_reward": 1.9640191935728917
+        }
+      }
+    },
+    {
+      "name": "old-test-21_promotion_report",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "old-test-23_distinct_search_counts",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 2048,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 2048,
+          "mean_reward": -0.10856149227836823
+        },
+        "expected": {
+          "attempts": 2048,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 2048,
+          "mean_reward": -0.10856149227836823
+        }
+      }
+    },
+    {
+      "name": "old-test-23_fresh_confirmation_counts",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 0,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 0,
+          "mean_reward": 0.0
+        },
+        "expected": {
+          "attempts": 0,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 0,
+          "mean_reward": 0.0
+        }
+      }
+    },
+    {
+      "name": "old-test-23_promotion_report",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "old-test-26_distinct_search_counts",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 512,
+          "captures": 4,
+          "clean": 1,
+          "invalid": 0,
+          "board_bounces": 512,
+          "mean_reward": -0.2600716641497075
+        },
+        "expected": {
+          "attempts": 512,
+          "captures": 4,
+          "clean": 1,
+          "invalid": 0,
+          "board_bounces": 512,
+          "mean_reward": -0.2600716641497075
+        }
+      }
+    },
+    {
+      "name": "old-test-26_fresh_confirmation_counts",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 40,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 11,
+          "board_bounces": 29,
+          "mean_reward": -0.4711475888703789
+        },
+        "expected": {
+          "attempts": 40,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 11,
+          "board_bounces": 29,
+          "mean_reward": -0.4711475888703789
+        }
+      }
+    },
+    {
+      "name": "old-test-26_promotion_report",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "old-test-35_distinct_search_counts",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 2048,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 2048,
+          "mean_reward": -0.11061992696575368
+        },
+        "expected": {
+          "attempts": 2048,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 2048,
+          "mean_reward": -0.11061992696575368
+        }
+      }
+    },
+    {
+      "name": "old-test-35_fresh_confirmation_counts",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 0,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 0,
+          "mean_reward": 0.0
+        },
+        "expected": {
+          "attempts": 0,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 0,
+          "mean_reward": 0.0
+        }
+      }
+    },
+    {
+      "name": "old-test-35_promotion_report",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "old-test-39_distinct_search_counts",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 512,
+          "captures": 3,
+          "clean": 1,
+          "invalid": 0,
+          "board_bounces": 512,
+          "mean_reward": -0.22454201124709008
+        },
+        "expected": {
+          "attempts": 512,
+          "captures": 3,
+          "clean": 1,
+          "invalid": 0,
+          "board_bounces": 512,
+          "mean_reward": -0.22454201124709008
+        }
+      }
+    },
+    {
+      "name": "old-test-39_fresh_confirmation_counts",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 30,
+          "captures": 1,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 30,
+          "mean_reward": -0.04649928494280252
+        },
+        "expected": {
+          "attempts": 30,
+          "captures": 1,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 30,
+          "mean_reward": -0.04649928494280252
+        }
+      }
+    },
+    {
+      "name": "old-test-39_promotion_report",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "old-test-41_distinct_search_counts",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 2048,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 2048,
+          "mean_reward": -0.13280025685723568
+        },
+        "expected": {
+          "attempts": 2048,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 2048,
+          "mean_reward": -0.13280025685723568
+        }
+      }
+    },
+    {
+      "name": "old-test-41_fresh_confirmation_counts",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 0,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 0,
+          "mean_reward": 0.0
+        },
+        "expected": {
+          "attempts": 0,
+          "captures": 0,
+          "clean": 0,
+          "invalid": 0,
+          "board_bounces": 0,
+          "mean_reward": 0.0
+        }
+      }
+    },
+    {
+      "name": "old-test-41_promotion_report",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "old-test-48_distinct_search_counts",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 512,
+          "captures": 117,
+          "clean": 44,
+          "invalid": 0,
+          "board_bounces": 512,
+          "mean_reward": 0.9011906950241807
+        },
+        "expected": {
+          "attempts": 512,
+          "captures": 117,
+          "clean": 44,
+          "invalid": 0,
+          "board_bounces": 512,
+          "mean_reward": 0.9011906950241807
+        }
+      }
+    },
+    {
+      "name": "old-test-48_fresh_confirmation_counts",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "attempts": 200,
+          "captures": 102,
+          "clean": 46,
+          "invalid": 10,
+          "board_bounces": 190,
+          "mean_reward": 2.1917597078239783
+        },
+        "expected": {
+          "attempts": 200,
+          "captures": 102,
+          "clean": 46,
+          "invalid": 10,
+          "board_bounces": 190,
+          "mean_reward": 2.1917597078239783
+        }
+      }
+    },
+    {
+      "name": "old-test-48_promotion_report",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "far_independent_child_audit",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "refinement_independent_child_audit",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "expanded_bank_file_hash",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "bank_alias",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "immutable_join_source_hashes",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "child_audits": {
+    "far": {
+      "passed": true,
+      "checks": 80
+    },
+    "refinement": {
+      "passed": true,
+      "checks": 41
+    }
+  },
+  "warnings": [
+    "Joining banks creates zero native trials; shared prior effort is counted once.",
+    "All twelve formerly unresolved positions are development, not held-out tests.",
+    "A source's 8/10 development confirmation is not a policy generalization claim."
+  ]
+}

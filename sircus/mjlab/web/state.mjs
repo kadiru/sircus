@@ -113,3 +113,67 @@ export function solveButtonState(report, pending) {
     mainLabel: pending ? 'Solving and simulating… ' : 'Find drop-bounce posture ',
     topLabel: pending ? 'Solving…' : 'Find posture ↗' };
 }
+
+/** Read-only study display: these fields never change the active solver route. */
+export function expansionTargetRows(report) {
+  const search = report?.expansion_evaluation?.search;
+  const rows = search?.cells?.length ? search.cells : (search?.development_layouts ?? []);
+  if (!Array.isArray(rows)) return [];
+  return rows.map(row => ({
+    id: String(row.id ?? 'Unidentified target'), xy: row.bucket_xy_m ?? row.bucket_xy,
+    captures: Number(row.search?.captures) || 0, attempts: Number(row.search?.attempts) || 0,
+    retainedSources: Number(row.retained_source_captures) || 0,
+    promoted: !!row.promotion, phase: row.promotion?.development_phase ?? '',
+    sourceId: row.promotion?.source_trial_id ?? '',
+    confirmationCaptures: Number(row.promotion?.confirmation?.captures) || 0,
+    confirmationAttempts: Number(row.promotion?.confirmation?.attempts) || 0,
+    unresolvedReason: row.unresolved_reason || 'No independently confirmed template yet',
+  })).filter(row => finiteVector(row.xy, 2));
+}
+export function expansionProgress(report) {
+  const value = report?.expansion_evaluation;
+  if (!value || typeof value !== 'object') return null;
+  const search = value.search, training = value.training, plan = training?.study_plan ?? {};
+  const targets = expansionTargetRows(report);
+  const queue = training?.gpu_queue ?? search?.waiting_for_4090;
+  return {
+    status: String(value.status ?? 'not_started').replaceAll('_', ' '),
+    searchPhase: search?.phase ?? 'Not started', trainingPhase: training?.phase ?? 'Waiting for a qualified expanded bank',
+    activePolicy: 'Previous bank remains active; expanded model not deployed',
+    targetCount: targets.length, promoted: targets.filter(row => row.promoted).length,
+    nativeSearchAttempts: Number(search?.effort?.native_search_attempts_total) ||
+      (Number(search?.native_search_attempts) || 0) + (Number(search?.prior_native_search_attempts) || 0),
+    confirmationAttempts: Number(search?.effort?.native_confirmation_attempts_total) ||
+      (Number(search?.confirmation_attempts) || 0) + (Number(search?.prior_confirmation_attempts) || 0),
+    geometryProposals: Number.isFinite(search?.geometry_proposals) ? search.geometry_proposals : null,
+    trainAttempts: Number(training?.train_episodes) || 0,
+    nativeTrainReleases: Number(training?.native_train_releases) || 0,
+    updates: Number(training?.updates) || 0, updateBudget: Number(plan.ppo_updates) || null,
+    trainLayouts: Number(plan.train_layouts) || null, validationLayouts: Number(plan.validation_layouts) || null,
+    testLayouts: Number(plan.test_layouts) || null, testRepeats: Number(plan.test_repeats) || null,
+    eligibleContexts: training?.train_sampling?.eligible_contexts ?? null,
+    excludedContexts: training?.train_sampling?.excluded_contexts ?? null,
+    geometry: training?.geometry_progress ?? null,
+    queued: queue?.status === 'waiting_for_4090', waitSeconds: Number(queue?.wait_s) || 0,
+    training,
+  };
+}
+export function expandedComparisonRows(report) {
+  const study = report?.expansion_evaluation?.training;
+  if (study?.status !== 'completed') return [];
+  const comparison = study.frozen_evaluation?.comparison ?? {};
+  const labels = { old_uniform: 'Old bank · uniform', old_learned: 'Old bank · learned',
+    expanded_uniform: 'Expanded bank · uniform', expanded_learned: 'Expanded bank · learned',
+    old_uniform_expanded_bounds: 'Old bank · uniform / wider bounds',
+    old_uniform_new_bounds: 'Old bank · uniform / wider bounds' };
+  return Object.entries(labels).filter(([key]) => comparison[key]).map(([key, label]) => {
+    const row = comparison[key];
+    return { key, label, attempts: Number(row.attempts) || 0, captures: Number(row.captures) || 0, clean: Number(row.clean) || 0,
+      invalid: Number(row.invalid) || 0, layouts: Number(row.layouts) || 0, repeats: Number(row.repeats) || 0,
+      eligibleAttempts: Number(row.eligible_attempts) || 0,
+      conditionalCaptureRate: Number.isFinite(row.conditional_capture_rate) ? row.conditional_capture_rate : null,
+      positionsWithCapture: Number(row.positions_with_capture) || 0,
+      unresolvedPositions: Number(row.unresolved_positions) || 0,
+      meanReward: Number.isFinite(row.mean_reward) ? row.mean_reward : null };
+  });
+}
