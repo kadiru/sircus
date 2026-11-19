@@ -307,6 +307,7 @@ class NativeEngine:
         self.deps = dependencies or ProductionDependencies(manifest, experiment, env.sim.device)
         self.synthetic = bool(self.deps.synthetic)
         self.models, self.trial_index, self.used_proposals, self.used_examples = {}, 0, set(), set()
+        self.sampling_checkpoints = {}
         self.dispatched, self.learning_examples = set(), {}
         self.originals = copy.deepcopy(env.spec["cells"])
         require(env.n == len(self.originals) == SLOTS, "Expected the original 35 native slots")
@@ -339,6 +340,17 @@ class NativeEngine:
     def propose(self, name, cells, deterministic):
         self._guard()
         require(type(deterministic) is bool and 1 <= len(cells) <= SLOTS, "Invalid proposal cohort")
+        # Persist every distinct learned state before sampling. Milestone-only
+        # saves cannot support independent likelihood checks for intervening
+        # TRAIN batches. These evidence snapshots perform no learning.
+        state = self.state(name)
+        key = (name, state["updates"])
+        if key not in self.sampling_checkpoints:
+            self.sampling_checkpoints[key] = self.checkpoint(name, f"sampling-{state['updates']:05d}")
+        sampling_checkpoint = self.sampling_checkpoints[key]
+        require(all(sampling_checkpoint["state"][field] == state[field] for field in
+                    ("model_id", "weight_hash", "optimizer_hash", "optimizer_steps", "updates", "attempts")),
+                "Sampling state changed without a recorded PPO update")
         observations = self.deps.observations(cells)
         result = self.deps.sample(self.models[name]["handle"], cells, deterministic)
         rows = []
@@ -353,7 +365,7 @@ class NativeEngine:
                     "Malformed policy proposal")
             rows.append(row)
         return dict(model_id=name, deterministic=deterministic, cells_sha256=_hash(cells), rows=rows,
-                    weight_hash=self.state(name)["weight_hash"])
+                    weight_hash=self.state(name)["weight_hash"], checkpoint=copy.deepcopy(sampling_checkpoint))
 
     def execute(self, cells, proposal, film=False):
         self._guard()
@@ -389,6 +401,8 @@ class NativeEngine:
         self.trial_index += 1
         native_dir = self.output / "comparison-native"
         _mkdir(native_dir)
+        physics_dir = self.output / "native"
+        _mkdir(physics_dir)
         original_tick = env.tick
         def tick():
             self._guard()
@@ -418,9 +432,18 @@ class NativeEngine:
             env.assert_buckets_fixed()
             features = self.deps.features(env, native_cells, rows)
             returns = [self.deps.reward(row, feature) for row, feature in zip(rows, features)]
+            # The original recorder owns image creation. Bind and sync its
+            # prescheduled images before the terminal receipt claims them.
+            for frame in env.frames:
+                image = physics_dir / "frames" / f"{frame['frame']:05d}.jpg"
+                require(image.is_file() and not image.is_symlink()
+                        and _file_hash(image) == frame["jpeg_sha256"], "Native frame bytes changed")
+                with image.open("rb") as stream:
+                    os.fsync(stream.fileno())
+                _sync_parent(image)
             physics = None
             if env.physics_samples:
-                target = native_dir / (label + ".npz")
+                target = physics_dir / (label + ".npz")
                 require(not target.exists(), "Native trace overwrite")
                 self.deps.save_physics(target, env.physics_samples)
                 with target.open("rb") as stream:
@@ -437,6 +460,7 @@ class NativeEngine:
                     clean=bool(captured and row["route_quality"] == 2),
                     rejection_reason=str(invalid) if invalid else None, reward=float(value)))
             packet = dict(schema="sircus-location-comparison-native-trial-v1", synthetic=self.synthetic,
+                evidence_root="native",
                 comparison_fingerprint=self.plan["fingerprint"], cells=native_cells, enabled=enabled,
                 proposal=proposal, raw_rows=rows, actions=actions, reward_features=features, rewards=returns,
                 normalized_results=selected, home=env.home_readback, physics=physics,
@@ -464,13 +488,14 @@ class NativeEngine:
                          geometry_nested_in_episode=True,
                          resources_before=resource_before, resources_after=self.deps.resource_sample())
             return dict(rows=selected, evidence=dict(file=str(target.relative_to(self.output)),
-                        sha256=_file_hash(target), physics=physics, synthetic=self.synthetic), costs=costs)
+                        sha256=_file_hash(target), physics=physics, evidence_root="native",
+                        synthetic=self.synthetic), costs=costs)
         except BaseException as error:
             self.failed = True
             # Preserve any observed partial native trace; no failed request is
             # unmarked or eligible for another dispatch.
             if getattr(env, "physics_samples", None):
-                partial = native_dir / (label + "-incomplete.npz")
+                partial = physics_dir / (label + "-incomplete.npz")
                 if not partial.exists():
                     self.deps.save_physics(partial, env.physics_samples)
                     with partial.open("rb") as stream:

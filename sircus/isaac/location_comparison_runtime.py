@@ -148,6 +148,7 @@ class ComparisonRunner:
         self._emit("reserve", dict(batch_id=batch_id, model=name, phase=phase,
             milestone=milestone, cells=cells, deterministic=deterministic, film=film,
             reservation_id=reservation["index"]))
+        self._guard()  # publish the charged reservation before a possibly blocked proposal
         before = _state(self.engine.state(name))
         began = self.clock()
         packet = self.engine.propose(name, cells, deterministic)

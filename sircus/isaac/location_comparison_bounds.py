@@ -56,13 +56,14 @@ class Bounds:
     No restore, refund, retry or resume API is provided.
     """
 
-    def __init__(self, plan, clock=time.monotonic, resources=None):
+    def __init__(self, plan, clock=time.monotonic, resources=None, *, started_monotonic=None):
         self.fingerprint, self.assessment_cap = _limits(plan)
         if not callable(clock) or not callable(resources):
             raise ValueError("Explicit clock and resource observations required")
         self.clock, self.resources = clock, resources
-        start = clock()
-        if not _number(start) or start < 0:
+        now = clock()
+        start = now if started_monotonic is None else started_monotonic
+        if not _number(now) or not _number(start) or not 0 <= start <= now:
             raise ValueError("Invalid initial monotonic clock")
         self.started = self.last_time = float(start)
         self.phase = "shared"

@@ -1,0 +1,79 @@
+{
+  "base_commit": "33da889d7678607eb94d60d77ef789cceb7e86ac",
+  "evidence": "synthetic_software_checks_only",
+  "execution": {
+    "actual_machine_preflight_performed": false,
+    "execution_authorized": false,
+    "native_shot_requests": 0,
+    "real_policy_loads": 0,
+    "real_training_jobs": 0,
+    "simulator_starts": 0
+  },
+  "limits": [
+    "No actual-host/native readiness proof",
+    "No model performance improvement measured",
+    "No bitwise CUDA Adam replay",
+    "No continuous collision-free path certificate",
+    "No physical validation"
+  ],
+  "next": "Bind actual launch inputs and verify CPU-only preflight before separately authorized execution",
+  "prepared_comparison_fingerprint": "440cbcca29612820d3b36005010edd90fd4f8172646bd8ea95e57f154775f4e6",
+  "preservation": {
+    "changed_pinned_helpers": [],
+    "original_benchmark_changed": false,
+    "parent_checkpoint_changed": false,
+    "pinned_original_helpers_checked": 17,
+    "prepared_coordinates_changed": false
+  },
+  "schema": "sircus-location-comparison-production-mock-receipt-v1",
+  "source_sha256": {
+    "location_comparison_bounds.py": "bef70d2371a6cc869b6defc32354a2d20bb1d3b2dc6cfd1a245bcbfbeec5e023",
+    "location_comparison_native.py": "2ae29e4767f65e0e81c36c8f086789588aff2985648406444ed320fbb31a1bce",
+    "location_comparison_production.py": "2b9ae9a3ca563c6b3953fc94bc515fe55de54a057a677e473ca08218ff7b2bd1",
+    "location_comparison_runtime.py": "31fb244cb2e86022b3fd9899bed63abb3b5b1c74788fcda166ac8770460cf93d",
+    "location_comparison_verify.py": "0e196852b48070d423d4db61b894b93b36edc655bc5f92c77adbf6b3815eccdd",
+    "location_comparison_watchdog.py": "bfb84ea143e60d078e27d3bce8ff7966180cd3b034cc3438895d24d5b18f7a59"
+  },
+  "synthetic_full_comparison": {
+    "broad_test_positions_per_model": 70,
+    "evidence_status": "synthetic_verified",
+    "fake_checkpoint_files": 144,
+    "local_test_positions_per_model": 25,
+    "logical_requests": 18520,
+    "simulated_update_calls_per_copy": 64,
+    "terminal_batches": 539,
+    "total_update_artifacts": 128,
+    "train_requests_per_copy": 8960
+  },
+  "validation": {
+    "focused_elapsed_s": 74.172,
+    "focused_skips": 0,
+    "focused_status": "passed",
+    "focused_tests": 142,
+    "full_verifier_tests": 16,
+    "independent_review": "completed; findings fixed",
+    "native_bridge_tests": 14,
+    "private_log_sha256": {
+      "focused": "daee0441814ebfa359e8d7065a8bc10ac7fdc2e60fe345381c787900f7e0f17a",
+      "node": "193a5a865a7796bfc86d26929a16a8d65ed616b4d0c5133ea3854743d26592fa",
+      "numerical": "f1e62ed13d10b77f11687b714affe877ec1d303d0012e969c6df0c477b0620e5",
+      "tests": "da4565d6bec625915ccfda93d40d6733c81400e26731a7342b518869813450e3"
+    },
+    "process_watchdog_tests": 31,
+    "production_entry_tests": 22,
+    "repository_regressions": {
+      "diff_whitespace": "passed",
+      "initial_sandbox_only_errors": 2,
+      "isaac_discovered_cases": 1654,
+      "isaac_optional_dependency_skips": 121,
+      "javascript_cases": 59,
+      "loopback_rerun_cases": 4,
+      "loopback_rerun_status": "passed",
+      "numerical_scripts": 9,
+      "physical_mock_cases": 34,
+      "simulation_mock_cases": 5,
+      "status": "passed_after_loopback_permission_rerun",
+      "tracked_and_staged_file_checks": "passed"
+    }
+  }
+}
