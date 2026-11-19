@@ -12,6 +12,7 @@ node --test sircus/simulation/tests/test_study_panel.mjs sircus/isaac/tests/test
 node --test sircus/mjlab/tests/test_neighborhood_ui.mjs
 node --test sircus/mjlab/tests/test_distance_ui.mjs
 node --test sircus/mjlab/tests/test_lowboard_ui.mjs
+node --test sircus/mjlab/tests/test_shallow_ui.mjs
 cd sircus/two-arm
 for test in check_bucket_physics.py check_physics.py check_bucket_native.py check_training_data.py check_guard.py check_capture_scoring.py check_orientation_height.py check_scene_study.py check_published_study.py; do
  "$TEST_PYTHON" "$test"

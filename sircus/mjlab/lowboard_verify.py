@@ -196,13 +196,13 @@ def audit_options(a, study, report, rows):
         except (KeyError, ValueError, TypeError, RuntimeError): passed = False
         a.check("actual_allocated_native_warp_options_" + step, passed)
 
-def audit_rows(a, spec, prepared, rows, recipes, repeat_plan, repeat_geometry):
+def audit_rows(a, spec, prepared, rows, recipes, repeat_plan, repeat_geometry, *, record_prefix="lowboard-shot-"):
     contexts = {r["id"]: r for r in prepared}
     selected = {r["id"]: r for r in recipes}
     repeat_lookup = {r["repeat_id"]: (r, g)
         for r, g in zip(repeat_geometry["requests"], repeat_geometry["rows"])}
     a.check("unique_sequential_request_ids", [r["id"] for r in rows]
-        == [f"lowboard-shot-{i:06d}" for i in range(len(rows))])
+        == [f"{record_prefix}{i:06d}" for i in range(len(rows))])
     a.check("frozen_repeat_geometry_request_identity", repeat_geometry["requests"] == repeat_plan
         and len(repeat_lookup) == len(repeat_plan) == len(repeat_geometry["rows"]))
     bad, release_bad, reward_bad = [], [], []

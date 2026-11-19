@@ -1,0 +1,5 @@
+record_id,distance_mm,board_height_mm,tilt_deg,gap_mm,release_center_height_mm,native_release,board_bounce,whole_ball_entry,max_retention_s,strict_capture,closest_opening_distance_mm,external_contact_steps
+shallow-shot-000024,650.0,380.0,28.0,386.79999999999995,804.3,True,True,True,0.5124999999999994,False,32.51852392944839,0
+shallow-shot-000025,700.0,380.0,28.0,386.79999999999995,804.3,True,True,False,0.0,False,141.8947850920213,194
+shallow-shot-000026,750.0,380.0,28.0,386.79999999999995,804.3,True,True,False,0.0,False,136.84808885076887,405
+shallow-shot-000027,770.0,380.0,28.0,386.79999999999995,804.3,True,True,False,0.0,False,150.99512225592764,442

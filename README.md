@@ -10,6 +10,12 @@ none captured. All 24 parent controls reproduced. The 2,435-check independent au
 passed. Its read-only `#lowBoardStudy` shows failures and geometry limits; no
 successful recipe or fresh-repeat evidence was invented.
 
+The [completed exact shallow-board candidate](baselines/mjlab-shallow-20261103/README.md)
+H380 mm /28° /gap386.8 mm missed all four far discovery shots; all24 controls
+reproduced and359 audit checks passed. At650 mm the ball fully entered, but strict
+retention reached only 0.5125 s. Saved wall-boundary resets make replay under the
+existing parallel calibrated contract the next priority before more search or RL. Prior results remain separate.
+
 Two UFACTORY850 arms learn to bounce a ball from a suction-mounted board into a bucket. Arm10 picks/releases; arm14 positions the board. This private repository is the shared source for Mac physical work and Ubuntu simulation work.
 
 The current goal is a simulation showcase with an interactively placed bucket and optional constraints on either arm. [The mjlab/Isaac comparison](baselines/mjlab-comparison-20261102/README.md) establishes the second engine's two-arm geometry and shared scoring.

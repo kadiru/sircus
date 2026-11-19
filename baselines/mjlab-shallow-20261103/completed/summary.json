@@ -1,0 +1,153 @@
+{
+  "version": "sircus-shallow-board-candidate-v1",
+  "status": "completed",
+  "phase": "completed",
+  "contract_fingerprint": "c4e59119e71f724b1e1941ae080e40c8aa001d954356715188895803fcd41a84",
+  "elapsed_s": 85.90193976089358,
+  "candidate": {
+    "board_height_m": 0.38,
+    "tilt_deg": 28.0,
+    "gap_m": 0.3868,
+    "release_center_height_m": 0.8042999999999999,
+    "ball_radius_m": 0.0375,
+    "release_headroom_m": 0.015024338048680752,
+    "gap_definition": "Vertical clearance from released ball bottom to board-center height",
+    "input_precision": "Exact 386.8 mm user input; not the earlier 386.824338 mm CPU proposal"
+  },
+  "counts": {
+    "requests": 28,
+    "native_releases": 28,
+    "captures": 24,
+    "clean": 0,
+    "geometry_rejections": 0,
+    "phase_counts": {
+      "controls": 24,
+      "coarse": 4
+    },
+    "substep_counts": {
+      "64": 28
+    }
+  },
+  "discovery_requests": 4,
+  "discovery_native_releases": 4,
+  "discovery_strict_captures": 0,
+  "discovery_whole_entries": 1,
+  "controls": {
+    "requests": 24,
+    "captures": 24
+  },
+  "selected_recipes": [],
+  "native_tested_substeps": [
+    64
+  ],
+  "audit": {
+    "status": "passed",
+    "checks_count": 359,
+    "independently_rescored_throws": 28,
+    "full_checks_verified": true,
+    "source_sha256": "3210d5d4725deea6c5ef963730e02f82785d94d85ab45e49d07e8813099c1bd4"
+  },
+  "discovery_shots": [
+    {
+      "id": "shallow-shot-000024",
+      "distance_id": "corner-d01",
+      "distance_m": 0.65,
+      "gap_m": 0.3868,
+      "substeps": 64,
+      "native_release": true,
+      "invalid": null,
+      "eligible": true,
+      "board_bounce": true,
+      "whole_ball_entry": true,
+      "max_retention_s": 0.5124999999999994,
+      "route_success": false,
+      "route_quality": 0,
+      "closest_opening_distance_m": 0.032518523929448394,
+      "external_contact_steps": 0,
+      "minimum_clearance_lower_bound_m": 0.005969445772255888,
+      "board_height_m": 0.38,
+      "tilt_deg": 28.0,
+      "release_center_height_m": 0.8042999999999999,
+      "bucket_xy_m": [
+        -0.030306598129941298,
+        -0.6917970430784122
+      ]
+    },
+    {
+      "id": "shallow-shot-000025",
+      "distance_id": "corner-d02",
+      "distance_m": 0.7,
+      "gap_m": 0.3868,
+      "substeps": 64,
+      "native_release": true,
+      "invalid": null,
+      "eligible": true,
+      "board_bounce": true,
+      "whole_ball_entry": false,
+      "max_retention_s": 0.0,
+      "route_success": false,
+      "route_quality": 0,
+      "closest_opening_distance_m": 0.1418947850920213,
+      "external_contact_steps": 194,
+      "minimum_clearance_lower_bound_m": 0.005969445772255888,
+      "board_height_m": 0.38,
+      "tilt_deg": 28.0,
+      "release_center_height_m": 0.8042999999999999,
+      "bucket_xy_m": [
+        -0.06885908870156865,
+        -0.7236357847420611
+      ]
+    },
+    {
+      "id": "shallow-shot-000026",
+      "distance_id": "corner-d03",
+      "distance_m": 0.75,
+      "gap_m": 0.3868,
+      "substeps": 64,
+      "native_release": true,
+      "invalid": null,
+      "eligible": true,
+      "board_bounce": true,
+      "whole_ball_entry": false,
+      "max_retention_s": 0.0,
+      "route_success": false,
+      "route_quality": 0,
+      "closest_opening_distance_m": 0.13684808885076888,
+      "external_contact_steps": 405,
+      "minimum_clearance_lower_bound_m": 0.005969445772255888,
+      "board_height_m": 0.38,
+      "tilt_deg": 28.0,
+      "release_center_height_m": 0.8042999999999999,
+      "bucket_xy_m": [
+        -0.107411579273196,
+        -0.7554745264057101
+      ]
+    },
+    {
+      "id": "shallow-shot-000027",
+      "distance_id": "corner-d04",
+      "distance_m": 0.77,
+      "gap_m": 0.3868,
+      "substeps": 64,
+      "native_release": true,
+      "invalid": null,
+      "eligible": true,
+      "board_bounce": true,
+      "whole_ball_entry": false,
+      "max_retention_s": 0.0,
+      "route_success": false,
+      "route_quality": 0,
+      "closest_opening_distance_m": 0.15099512225592765,
+      "external_contact_steps": 442,
+      "minimum_clearance_lower_bound_m": 0.005969445772255888,
+      "board_height_m": 0.38,
+      "tilt_deg": 28.0,
+      "release_center_height_m": 0.8042999999999999,
+      "bucket_xy_m": [
+        -0.12283257550184701,
+        -0.7682100230711698
+      ]
+    }
+  ],
+  "scope": "Four single DEVELOPMENT discoveries; no successful setting selected, no repeats or fine-timestep evidence. One shot per target cannot estimate reliability or prove impossibility."
+}

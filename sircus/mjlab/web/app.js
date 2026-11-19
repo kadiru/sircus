@@ -348,6 +348,59 @@ function showExpansion() {
   drawChart($('expansionCaptureChart'), points, 'captures');
   drawChart($('expansionRewardChart'), points, 'reward', true);
 }
+// BEGIN READ-ONLY SHALLOW BOARD STUDY
+function shallowStudyView(value) { return lowBoardStudyView(value); }
+function shallowAuditReady(study) {
+  const audit=study?.audit;return study?.version==='sircus-shallow-board-candidate-v1'&&study.status==='completed'&&study.phase==='completed'&&
+    typeof study.contract_fingerprint==='string'&&study.contract_fingerprint.length>0&&audit?.status==='passed'&&audit.contract_fingerprint===study.contract_fingerprint&&
+    audit.full_checks_verified===true&&Number.isInteger(audit.checks_count)&&audit.checks_count>0&&/^[a-f0-9]{64}$/.test(audit.source_sha256??'');
+}
+function shallowRepeatCheck(study,recipe) {
+  const unknown=()=>({verified:false,perfect:null,qualified:null,label:'Unverified'});if(!shallowAuditReady(study))return unknown();
+  const valid=(s,n)=>s&&s.attempts===n&&Number.isInteger(s.captures)&&0<=s.captures&&s.captures<=n&&Number.isInteger(s.native_releases)&&s.captures<=s.native_releases&&s.native_releases<=n;
+  const rows=['32','64','128'].map(step=>({nominal:recipe.nominal_by_substeps?.[step],fresh:recipe.fresh_by_substeps?.[step],total:recipe.by_substeps?.[step]}));
+  if(!rows.every(r=>valid(r.nominal,3)&&valid(r.fresh,30)&&valid(r.total,33)&&r.total.captures===r.nominal.captures+r.fresh.captures&&r.total.native_releases===r.nominal.native_releases+r.fresh.native_releases))return unknown();
+  const threshold=rows.every(r=>r.nominal.captures===3&&r.fresh.captures>=27),perfect=rows.every(r=>r.total.captures===33),fine=recipe.sensitivity?.paired_engineering_gate,all=recipe.sensitivity?.all_resolution_repeat_gate;
+  return {verified:true,perfect,qualified:typeof fine==='boolean'&&typeof all==='boolean'&&all===(threshold&&fine)?all:null,label:perfect?'Perfect 33/33 each':threshold?'Meets repeat threshold':'Below repeat threshold'};
+}
+function shallowSearchCounts(rows) {
+  const sum=key=>rows.length&&rows.every(r=>Number.isInteger(r[key])&&r[key]>=0)?rows.reduce((n,r)=>n+r[key],0):null;
+  const captures=sum('search_captures'),clean=sum('clean');return {requests:sum('search_attempts'),native:sum('search_native_releases'),captures,clean,
+    assisted:Number.isInteger(captures)&&Number.isInteger(clean)&&clean<=captures?captures-clean:null};
+}
+function drawShallowTrace(study,index) {
+  const trace=study.trace_examples?.[index],view=distanceTrajectoryView(study,trace),canvas=$('shallowTrace');
+  if(!view){const {c}=windowPlot(canvas,0,1,0,1,'Distance along this board → bucket axis (m)','Ball-center height above table (m)');c.fillText('No unambiguous saved native trace available',65,110);$('shallowTraceCaption').textContent='Only actual saved native positions with their own bucket association are shown; no ideal flight is generated.';return;}
+  const h=distanceConfiguredBoardHeight(study,trace,view),xs=view.points.map(p=>p[0]),zs=view.points.map(p=>p[1]),xl=Math.min(-.1,...xs),xh=Math.max(view.distance+.15,...xs),zl=Math.min(0,...zs,h??0),zh=Math.max(.3,...zs,h??0)+.05,
+    {c,x,y}=windowPlot(canvas,xl,xh,zl,zh,'Distance along this board → bucket axis (m)','Ball-center height above table (m)');
+  c.strokeStyle='#81978a';c.fillStyle='#496f67';c.lineWidth=1;c.setLineDash([5,4]);c.textAlign='left';c.beginPath();c.moveTo(x(view.distance),y(zl));c.lineTo(x(view.distance),y(zh));c.stroke();c.fillText(`Bucket center axis (${(view.distance*1000).toFixed(1)} mm)`,Math.min(x(view.distance)+6,canvas.width-190),42);
+  c.beginPath();c.moveTo(x(xl),y(0));c.lineTo(x(xh),y(0));c.stroke();c.fillText('Tabletop reference (z = 0)',x(xl)+6,y(0)-6);c.setLineDash([]);
+  if(h!==null){c.fillStyle='#b88a30';c.beginPath();c.arc(x(0),y(h),4,0,2*Math.PI);c.fill();c.fillText('Configured board center',x(0)+8,y(h)-7);}
+  c.strokeStyle=trace.route_success===true?'#128b8c':'#ec7657';c.lineWidth=2;c.beginPath();view.points.forEach((p,i)=>{if(i)c.lineTo(x(p[0]),y(p[1]));else c.moveTo(x(p[0]),y(p[1]));});c.stroke();
+  $('shallowTraceCaption').textContent=`${trace.record_id??'Native record'} · ${view.distanceId} · ${(view.distance*1000).toFixed(1)} mm · bucket XY ${view.bucket.map(v=>(v*1000).toFixed(1)).join(' / ')} mm · ${trace.substeps??'?'} substeps · ${trace.route_success===true?'capture':trace.route_success===false?'miss':'unknown outcome'} · ${view.points.length} saved samples · max off-plane ${(view.lateral*1000).toFixed(1)} mm. ${h===null?'Configured board-center height unknown; marker omitted.':'Board marker is configured geometry, not a native observation.'} ${shallowAuditReady(study)?'Completed matching full audit.':'Full evidence audit unverified.'} ${trace.selection_scope??''}`;
+}
+function showShallowStudy() {
+  const view=shallowStudyView(report.shallow_evaluation);$('shallowBoardStudy').hidden=!view;if(!view)return;
+  const study=view.raw,candidate=study.settings?.candidate??{},mm=(v,d=1)=>Number.isFinite(v)?(v*1000).toFixed(d):'unknown',shown=v=>v===null||v===undefined?'unknown':v,
+    ratio=(k,n)=>Number.isInteger(k)&&Number.isInteger(n)&&0<=k&&k<=n?(n?`${k} / ${n}`:'pending'):'unknown',counts=shallowSearchCounts(view.development),controls=study.counts?.phase_counts?.controls;
+  $('shallowStatus').textContent=`${study.version??'Exact candidate'} · ${study.status??'pending'} · ${study.phase??'pending'}${study.error?' · '+study.error:''}${study.reason?' · '+study.reason:''}${study.queue?.reason?' · '+study.queue.reason:''}${Number.isFinite(study.queue?.wait_s)?' · '+Math.floor(study.queue.wait_s/60)+' min queued':''}`;
+  $('shallowScope').textContent=`${study.scope??'Exact-candidate feasibility and engineering repeatability.'} ${study.active_policy??'Parent studies and active solver routes remain unchanged.'}`;
+  $('shallowCandidate').textContent=`Exact requested board-center H ${mm(candidate.board_height_m,3)} mm · tilt ${Number.isFinite(candidate.tilt_deg)?candidate.tilt_deg.toFixed(3):'unknown'}° · gap ${mm(candidate.gap_m,3)} mm · released ball-center H ${mm(candidate.release_center_height_m,3)} mm · ball radius ${mm(candidate.ball_radius_m,3)} mm · prior headroom ${mm(candidate.release_headroom_m,3)} mm. ${candidate.gap_definition??''} ${candidate.input_precision??''} Admission and native outcomes are reported separately.`;
+  const metrics=[['Discovery requests',shown(counts.requests)],['Discovery native releases',shown(counts.native)],['Discovery strict captures',shown(counts.captures)],['Discovery clean captures',shown(counts.clean)],['Discovery assisted/marginal captures',shown(counts.assisted)],
+    ['Baseline control requests',Number.isInteger(controls)&&controls>=0?controls:'unknown'],['Declared target positions',view.distances.length],['Maximum requested-attempt budget',study.max_requests??'unknown'],['Full audit readiness',shallowAuditReady(study)?'Verified full audit':'Unverified / pending']];
+  for(const [key,value]of Object.entries(study.counts??{}))if(typeof value==='number')metrics.push([`All-phase ${key.replaceAll('_',' ')} (includes controls/repeats)`,value]);addMetrics(metrics,$('shallowSummary'));
+  expansionTable($('shallowTargets'),['Distance mm / target','Bucket X / Y mm','Pair/all discovery','Native/all','Captures/all','Clean/all','Assisted/marginal/all'],view.distances.map(t=>{const s=distanceSearchSummary(view,t),q=shallowSearchCounts(view.development.filter(r=>r.distance_id===t.id));return[`${mm(t.distance_m)} · ${t.id}`,finiteVector(t.bucket_xy_m,2)?t.bucket_xy_m.map(v=>mm(v)).join(' / '):'unknown',ratio(s.eligible,s.geometry),ratio(q.native,q.requests),ratio(q.captures,q.requests),ratio(q.clean,q.requests),ratio(q.assisted,q.requests)];}));
+  const checked=view.recipes.map(recipe=>({recipe,check:shallowRepeatCheck(study,recipe)})),qualified=checked.filter(r=>r.check.qualified===true);
+  $('shallowConclusion').textContent=!shallowAuditReady(study)?'Feasibility and repeatability qualification await a completed exact-version study and a matching strictly passed full audit.':!checked.length?'No captured discovery setting was selected; repeatability is not established.':`${qualified.length} / ${checked.length} selected discovery captures pass the all-resolution repeat gate. Repeats reuse paired requested perturbations; they are not independent new bucket layouts.`;
+  expansionTable($('shallowRecipes'),['Recipe / distance mm','Board H mm / tilt °','Gap / ball release mm','32/64/128 check'],checked.map(({recipe:r,check})=>[`${r.id} / ${mm(r.distance_m)}`,`${mm(r.board_height_m,3)} / ${Number.isFinite(r.tilt_deg)?r.tilt_deg.toFixed(3):'unknown'}°`,`${mm(r.gap_m,3)} / ${mm(r.release_center_height_m,3)}`,check.label]));
+  const repeated=[];for(const r of view.recipes)for(const step of ['32','64','128']){const all=windowStatistics(r.by_substeps?.[step]),assisted=Number.isInteger(all.captures)&&Number.isInteger(all.clean)&&all.clean<=all.captures?all.captures-all.clean:null;repeated.push([r.id,step,windowStatistics(r.nominal_by_substeps?.[step]).fraction,windowStatistics(r.fresh_by_substeps?.[step]).fraction,all.fraction,ratio(all.released,all.requests),ratio(all.clean,all.requests),ratio(assisted,all.requests)]);}
+  expansionTable($('shallowRepeats'),['Recipe','Substeps','Nominal','Perturbed','Captures/all','Native/all','Clean/all','Assisted/marginal/all'],repeated);
+  expansionTable($('shallowSensitivity'),['Recipe','64↔128 agreement','64↔128 Δ350 ms mm','64↔128 gate','All-resolution gate'],checked.map(({recipe:r,check})=>{const s=r.sensitivity??{};return[r.id,neighborhoodAgreement(s.capture_agreement_64_128,s.paired_attempts),mm(s.nominal_position_delta_350ms_max_m),!shallowAuditReady(study)?'Unverified':s.paired_engineering_gate===true?'Passed':s.paired_engineering_gate===false?'Failed':'unknown',check.qualified===true?'Passed':check.qualified===false?'Failed':'Unverified'];}));
+  const select=$('shallowTraceSelect'),previous=select.value,traces=study.trace_examples??[];select.replaceChildren();traces.forEach((trace,i)=>{const option=document.createElement('option');option.value=String(i);option.textContent=`${trace.distance_id??'?'} · ${trace.substeps??'?'} steps · ${trace.route_success===true?'capture':trace.route_success===false?'miss':'unknown'}`;select.append(option);});select.disabled=!traces.length;if(traces.length)select.value=String(Math.min(Number(previous)||0,traces.length-1));select.onchange=()=>drawShallowTrace(study,Number(select.value)||0);drawShallowTrace(study,Number(select.value)||0);
+  $('shallowAudit').textContent=`Full audit: ${shallowAuditReady(study)?'verified':'unverified'} · reported ${study.audit?.status??'pending'}${Number.isInteger(study.audit?.checks_count)?' · '+study.audit.checks_count+' checks':''}. Contract: ${study.contract_fingerprint??'pending'}. ${study.audit?.verification_reason??''}`;
+}
+// END READ-ONLY SHALLOW BOARD STUDY
+
 // BEGIN READ-ONLY LOW BOARD STUDY
 function lowBoardStudyView(value) {
   const view=distanceStudyView(value);return view?{...view,development:view.contexts.filter(r=>r.stage!=='control')}:null;
@@ -995,7 +1048,7 @@ function showCoverage() {
   if (evaluation.layouts !== undefined) pairs.push(['Frozen test layouts', evaluation.layouts]);
   if (pairs.length) addMetrics(pairs, $('studySummary'));
   else $('studySummary').textContent = report.summary ?? 'Study metrics will appear when published. Unresolved cells remain visible.';
-  showComparison(); showBankComparison(); showExpansion(); showStableIk(); showContactStudy(); showCorrectedGrid(); showWindowStudy(); showHeightTiltStudy(); showDistanceStudy(); showLowBoardStudy();
+  showComparison(); showBankComparison(); showExpansion(); showStableIk(); showContactStudy(); showCorrectedGrid(); showWindowStudy(); showHeightTiltStudy(); showDistanceStudy(); showLowBoardStudy(); showShallowStudy();
 }
 async function loadStatus() {
   try {
