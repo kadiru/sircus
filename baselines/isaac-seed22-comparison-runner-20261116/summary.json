@@ -1,0 +1,47 @@
+{
+  "actual_learning_steps": 0,
+  "actual_native_requests": 0,
+  "audit_file_sha256": "77387805989712d2debdedec1ac8d4f2ea764039363b5e6389f17cf771a847b8",
+  "audit_fingerprint": "d74f27bd528e6a12732e58681d259591504a654c21468ab9ee09a1788a72b5a3",
+  "frozen_benchmark_modified": false,
+  "hardware_accessed": false,
+  "logical_completed": 18520,
+  "logical_final_test_requests": 285,
+  "logical_monitor_requests": 315,
+  "logical_requests": 18520,
+  "logical_train_requests_per_group": 8960,
+  "logical_updates_per_group": 64,
+  "mode": "synthetic",
+  "native_physics_verified": false,
+  "native_process_watchdog_launched": false,
+  "not_performance_evidence": "Fabricated catches and clocks are deliberately omitted; they test accounting only.",
+  "plan_fingerprint": "440cbcca29612820d3b36005010edd90fd4f8172646bd8ea95e57f154775f4e6",
+  "real_policy_loaded": false,
+  "remaining_native_boundary": [
+    "New actual-input/source manifest and owned startup entry",
+    "Identity-bound OS watchdog for blocked native calls",
+    "Full independent checkpoint/model/geometry/physics verifier hookup"
+  ],
+  "schema": "sircus-location-comparison-runner-mock-summary-v1",
+  "simulator_started": false,
+  "source_sha256": {
+    "location_comparison_audit.py": "04e604d3f26470414f1b06dc7485664770cd41443ac94afce3f9ebf622224690",
+    "location_comparison_bounds.py": "36768c27f1d5af0fc49a32de797fa6e3e3f8c179deea7d09396c79b28fa6ff62",
+    "location_comparison_mock.py": "15abbfd07dfa5867472a4fbb9acfba4969d2565ea8313b2a3df72202af54be20",
+    "location_comparison_native.py": "c1469e67117c0704f392d16185345085634a9b0a8bf7b6076869a71187a13a18",
+    "location_comparison_runtime.py": "c8e8c7c396c855602a6150c8a8f30d79bc13e837160e0bfabf71c1ea62608217"
+  },
+  "status": "synthetic_verified",
+  "terminal_batches": 539,
+  "tests_by_area": {
+    "bounds": 13,
+    "independent_accounting_audit": 18,
+    "native_bridge_fake_dependencies": 12,
+    "preparation": 18,
+    "runner": 10
+  },
+  "tests_passed": 71,
+  "trace_events": 1764,
+  "trace_file_sha256": "b61023016770bbf135e30cc3d17823ebfec489f0747ebee977869ede94b94b40",
+  "trace_head": "db721e9eb6ecfd283916e918f616f70ca8fa2b5e7558dab75be71e8a0050062d"
+}
